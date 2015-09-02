@@ -49,17 +49,14 @@ noUiSlider.create(testHtmlElement, {
         min: 0,
         max: 10
     },
-	mode: 'steps',
-	density: 3,
-	filter: function(){return 1},
-	format: wNumb({
-		decimals: 2,
-		prefix: '$'
-	}),
     pips: {
-        mode: 'range',
+        mode: 'steps',
         density: 3,
-    	values: [50, 552, 4651, 4952, 5000, 7080, 9000]
+        filter: function () { return 1 },
+        format: wNumb({
+            decimals: 2,
+            prefix: '$'
+        }),
     }
 });
 

@@ -1,6 +1,6 @@
 // Type definitions for Selenium WebDriverJS 2.44.0
 // Project: https://code.google.com/p/selenium/
-// Definitions by: Bill Armstrong <https://github.com/BillArmstrong>
+// Definitions by: Bill Armstrong <https://github.com/BillArmstrong>, Yuki Kokubun <https://github.com/Kuniwak>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module chrome {
@@ -726,7 +726,7 @@ declare module webdriver {
                 UNKNOWN_COMMAND: string;
                 UNKNOWN_ERROR: string;
                 UNSUPPORTED_OPERATION: string;
-            }
+            };
 
             //endregion
 
@@ -1407,28 +1407,39 @@ declare module webdriver {
             static isImplementation(object: any): boolean;
         }
 
+        interface IFulfilledCallback<T> {
+          (value: T|IThenable<T>|Thenable<T>|void): void;
+        }
+
+        interface IRejectedCallback {
+          (reason: any): void;
+        }
+
         /**
          * Represents the eventual value of a completed operation. Each promise may be
-         * in one of three states: pending, resolved, or rejected. Each promise starts
+         * in one of three states: pending, fulfilled, or rejected. Each promise starts
          * in the pending state and may make a single transition to either a
-         * fulfilled or failed state.
+         * fulfilled or rejected state, at which point the promise is considered
+         * resolved.
          *
-         * <p/>This class is based on the Promise/A proposal from CommonJS. Additional
-         * functions are provided for API compatibility with Dojo Deferred objects.
-         *
-         * @see http://wiki.commonjs.org/wiki/Promises/A
+         * @implements {promise.Thenable<T>}
+         * @template T
+         * @see http://promises-aplus.github.io/promises-spec/
          */
         class Promise<T> implements IThenable<T> {
-
-            //region Constructors
-
             /**
-            * @constructor
-            * @see http://wiki.commonjs.org/wiki/Promises/A
+             * @param {function(
+             *           function((T|IThenable<T>|Thenable)=),
+             *           function(*=))} resolver
+             *     Function that is invoked immediately to begin computation of this
+             *     promise's value. The function should accept a pair of callback functions,
+             *     one for fulfilling the promise and another for rejecting it.
+             * @param {promise.ControlFlow=} opt_flow The control flow
+             *     this instance was created under. Defaults to the currently active flow.
+             * @constructor
             */
-            constructor();
-
-            //endregion
+            constructor(resolver: (onFulfilled: IFulfilledCallback<T>, onRejected: IRejectedCallback)=>void, opt_flow?: ControlFlow);
+            constructor(); // For angular-protractor/angular-protractor-tests.ts
 
             //region Methods
 
@@ -1582,7 +1593,7 @@ declare module webdriver {
                 PENDING: number;
                 REJECTED: number;
                 RESOLVED: number;
-            }
+            };
 
             //region Properties
 
@@ -1636,58 +1647,34 @@ declare module webdriver {
          * the ordered scheduled, starting each task only once those before it have
          * completed.
          *
-         * <p>Each task scheduled within this flow may return a
+         * Each task scheduled within this flow may return a
          * {@link webdriver.promise.Promise} to indicate it is an asynchronous
          * operation. The ControlFlow will wait for such promises to be resolved before
          * marking the task as completed.
          *
-         * <p>Tasks and each callback registered on a {@link webdriver.promise.Deferred}
+         * Tasks and each callback registered on a {@link webdriver.promise.Promise}
          * will be run in their own ControlFlow frame.  Any tasks scheduled within a
-         * frame will have priority over previously scheduled tasks. Furthermore, if
-         * any of the tasks in the frame fails, the remainder of the tasks in that frame
-         * will be discarded and the failure will be propagated to the user through the
+         * frame will take priority over previously scheduled tasks. Furthermore, if any
+         * of the tasks in the frame fail, the remainder of the tasks in that frame will
+         * be discarded and the failure will be propagated to the user through the
          * callback/task's promised result.
          *
-         * <p>Each time a ControlFlow empties its task queue, it will fire an
-         * {@link webdriver.promise.ControlFlow.EventType.IDLE} event. Conversely,
+         * Each time a ControlFlow empties its task queue, it will fire an
+         * {@link webdriver.promise.ControlFlow.EventType.IDLE IDLE} event. Conversely,
          * whenever the flow terminates due to an unhandled error, it will remove all
          * remaining tasks in its queue and fire an
-         * {@link webdriver.promise.ControlFlow.EventType.UNCAUGHT_EXCEPTION} event. If
-         * there are no listeners registered with the flow, the error will be
-         * rethrown to the global error handler.
+         * {@link webdriver.promise.ControlFlow.EventType.UNCAUGHT_EXCEPTION
+         * UNCAUGHT_EXCEPTION} event. If there are no listeners registered with the
+         * flow, the error will be rethrown to the global error handler.
          *
-         * @extends {webdriver.EventEmitter}
+         * @extends {EventEmitter}
+         * @final
          */
         class ControlFlow extends EventEmitter {
-
-            //region Constructors
-
             /**
-             * @param {webdriver.promise.ControlFlow.Timer=} opt_timer The timer object
-             *     to use. Should only be set for testing.
              * @constructor
              */
-            constructor(opt_timer?: IControlFlowTimer);
-
-            //endregion
-
-            //region Properties
-
-            /**
-             * The timer used by this instance.
-             * @type {webdriver.promise.ControlFlow.Timer}
-             */
-            timer: IControlFlowTimer;
-
-            //endregion
-
-            //region Static Properties
-
-            /**
-             * The default timer object, which uses the global timer functions.
-             * @type {webdriver.promise.ControlFlow.Timer}
-             */
-            static defaultTimer: IControlFlowTimer;
+            constructor();
 
             /**
              * Events that may be emitted by an {@link webdriver.promise.ControlFlow}.
@@ -1713,15 +1700,12 @@ declare module webdriver {
             };
 
             /**
-             * How often, in milliseconds, the event loop should run.
-             * @type {number}
-             * @const
+             * Returns a string representation of this control flow, which is its current
+             * {@link #getSchedule() schedule}, sans task stack traces.
+             * @return {string} The string representation of this contorl flow.
+             * @override
              */
-            static EVENT_LOOP_FREQUENCY: number;
-
-            //endregion
-
-            //region Methods
+            toString(): string;
 
             /**
              * Resets this instance, clearing its queue and removing all event listeners.
@@ -1729,44 +1713,32 @@ declare module webdriver {
             reset(): void;
 
             /**
-             * Returns a summary of the recent task activity for this instance. This
-             * includes the most recently completed task, as well as any parent tasks. In
-             * the returned summary, the task at index N is considered a sub-task of the
-             * task at index N+1.
-             * @return {!Array.<string>} A summary of this instance's recent task
-             *     activity.
+             * Generates an annotated string describing the internal state of this control
+             * flow, including the currently executing as well as pending tasks. If
+             * {@code opt_includeStackTraces === true}, the string will include the
+             * stack trace from when each task was scheduled.
+             * @param {string=} opt_includeStackTraces Whether to include the stack traces
+             *     from when each task was scheduled. Defaults to false.
+             * @return {string} String representation of this flow's internal state.
              */
-            getHistory(): string[];
-
-            /** Clears this instance's task history. */
-            clearHistory(): void;
-
-            /**
-             * Appends a summary of this instance's recent task history to the given
-             * error's stack trace. This function will also ensure the error's stack trace
-             * is in canonical form.
-             * @param {!(Error|goog.testing.JsUnitException)} e The error to annotate.
-             * @return {!(Error|goog.testing.JsUnitException)} The annotated error.
-             */
-            annotateError(e: any): any;
-
-            /**
-             * @return {string} The scheduled tasks still pending with this instance.
-             */
-            getSchedule(): string;
+            getSchedule(opt_includeStackTraces?: boolean): string;
 
             /**
              * Schedules a task for execution. If there is nothing currently in the
-             * queue, the task will be executed in the next turn of the event loop.
+             * queue, the task will be executed in the next turn of the event loop. If
+             * the task function is a generator, the task will be executed using
+             * {@link webdriver.promise.consume}.
              *
-             * @param {!Function} fn The function to call to start the task. If the
-             *     function returns a {@link webdriver.promise.Promise}, this instance
-             *     will wait for it to be resolved before starting the next task.
+             * @param {function(): (T|promise.Promise<T>)} fn The function to
+             *     call to start the task. If the function returns a
+             *     {@link webdriver.promise.Promise}, this instance will wait for it to be
+             *     resolved before starting the next task.
              * @param {string=} opt_description A description of the task.
-             * @return {!webdriver.promise.Promise} A promise that will be resolved with
-             *     the result of the action.
+             * @return {!promise.Promise<T>} A promise that will be resolved
+             *     with the result of the action.
+             * @template T
              */
-            execute<T>(fn: Function, opt_description?: string): Promise<T>;
+            execute<T>(fn: ()=>(T|Promise<T>), opt_description?: string): Promise<T>;
 
             /**
              * Inserts a {@code setTimeout} into the command queue. This is equivalent to
@@ -1783,38 +1755,39 @@ declare module webdriver {
              * Schedules a task that shall wait for a condition to hold. Each condition
              * function may return any value, but it will always be evaluated as a boolean.
              *
-             * <p>Condition functions may schedule sub-tasks with this instance, however,
+             * Condition functions may schedule sub-tasks with this instance, however,
              * their execution time will be factored into whether a wait has timed out.
              *
-             * <p>In the event a condition returns a Promise, the polling loop will wait for
+             * In the event a condition returns a Promise, the polling loop will wait for
              * it to be resolved before evaluating whether the condition has been satisfied.
              * The resolution time for a promise is factored into whether a wait has timed
              * out.
              *
-             * <p>If the condition function throws, or returns a rejected promise, the
+             * If the condition function throws, or returns a rejected promise, the
              * wait task will fail.
              *
-             * @param {!Function} condition The condition function to poll.
-             * @param {number} timeout How long to wait, in milliseconds, for the condition
-             *     to hold before timing out.
+             * If the condition is defined as a promise, the flow will wait for it to
+             * settle. If the timeout expires before the promise settles, the promise
+             * returned by this function will be rejected.
+             *
+             * If this function is invoked with `timeout === 0`, or the timeout is omitted,
+             * the flow will wait indefinitely for the condition to be satisfied.
+             *
+             * @param {(!promise.Promise<T>|function())} condition The condition to poll,
+             *     or a promise to wait on.
+             * @param {number=} opt_timeout How long to wait, in milliseconds, for the
+             *     condition to hold before timing out. If omitted, the flow will wait
+             *     indefinitely.
              * @param {string=} opt_message An optional error message to include if the
              *     wait times out; defaults to the empty string.
-             * @return {!webdriver.promise.Promise} A promise that will be resolved when the
-             *     condition has been satisified. The promise shall be rejected if the wait
-             *     times out waiting for the condition.
+             * @return {!promise.Promise<T>} A promise that will be fulfilled
+             *     when the condition has been satisified. The promise shall be rejected if
+             *     the wait times out waiting for the condition.
+             * @throws {TypeError} If condition is not a function or promise or if timeout
+             *     is not a number >= 0.
+             * @template T
              */
-            wait(condition: Function, timeout: number, opt_message?: string): Promise<void>;
-
-            /**
-             * Schedules a task that will wait for another promise to resolve.  The resolved
-             * promise's value will be returned as the task result.
-             * @param {!webdriver.promise.Promise} promise The promise to wait on.
-             * @return {!webdriver.promise.Promise} A promise that will resolve when the
-             *     task has completed.
-             */
-            await<T>(promise: Promise<T>): Promise<T>;
-
-            //endregion
+            wait<T>(condition: Promise<T>|Function, opt_timeout?: number, opt_message?: string): Promise<T>;
         }
     }
 
@@ -1961,11 +1934,7 @@ declare module webdriver {
          *     The frame identifier.
          * @return {!until.Condition.<boolean>} A new condition.
          */
-        function ableToSwitchToFrame(frame: number): Condition<boolean>;
-        function ableToSwitchToFrame(frame: IWebElement): Condition<boolean>;
-        function ableToSwitchToFrame(frame: Locator): Condition<boolean>;
-        function ableToSwitchToFrame(frame: (webdriver: WebDriver) => IWebElement): Condition<boolean>;
-        function ableToSwitchToFrame(frame: any): Condition<boolean>;
+        function ableToSwitchToFrame(frame: number|WebElement|Locator|By.Hash|((webdriver: WebDriver)=>WebElement)): Condition<boolean>;
 
         /**
          * Creates a condition that waits for an alert to be opened. Upon success, the
@@ -1982,7 +1951,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#isEnabled
          */
-        function elementIsDisabled(element: IWebElement): Condition<boolean>;
+        function elementIsDisabled(element: WebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element to be enabled.
@@ -1991,7 +1960,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#isEnabled
          */
-        function elementIsEnabled(element: IWebElement): Condition<boolean>;
+        function elementIsEnabled(element: WebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element to be deselected.
@@ -2000,7 +1969,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#isSelected
          */
-        function elementIsNotSelected(element: IWebElement): Condition<boolean>;
+        function elementIsNotSelected(element: WebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element to be in the DOM,
@@ -2010,7 +1979,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#isDisplayed
          */
-        function elementIsNotVisible(element: IWebElement): Condition<boolean>;
+        function elementIsNotVisible(element: WebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element to be selected.
@@ -2018,7 +1987,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#isSelected
          */
-        function elementIsSelected(element: IWebElement): Condition<boolean>;
+        function elementIsSelected(element: WebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element to become visible.
@@ -2027,7 +1996,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#isDisplayed
          */
-        function elementIsVisible(element: IWebElement): Condition<boolean>;
+        function elementIsVisible(element: WebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will loop until an element is
@@ -2037,8 +2006,7 @@ declare module webdriver {
          *     to use.
          * @return {!until.Condition.<!webdriver.WebElement>} The new condition.
          */
-        function elementLocated(locator: Locator): Condition<IWebElement>;
-        function elementLocated(locator: any): Condition<IWebElement>;
+        function elementLocated(locator: Locator|By.Hash|Function): Condition<WebElement>;
 
         /**
          * Creates a condition that will wait for the given element's
@@ -2050,7 +2018,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#getText
          */
-        function elementTextContains(element: IWebElement, substr: string): Condition<boolean>;
+        function elementTextContains(element: WebElement, substr: string): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element's
@@ -2062,7 +2030,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#getText
          */
-        function elementTextIs(element: IWebElement, text: string): Condition<boolean>;
+        function elementTextIs(element: WebElement, text: string): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element's
@@ -2074,7 +2042,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#getText
          */
-        function elementTextMatches(element: IWebElement, regex: RegExp): Condition<boolean>;
+        function elementTextMatches(element: WebElement, regex: RegExp): Condition<boolean>;
 
         /**
          * Creates a condition that will loop until at least one element is
@@ -2085,8 +2053,7 @@ declare module webdriver {
          * @return {!until.Condition.<!Array.<!webdriver.WebElement>>} The new
          *     condition.
          */
-        function elementsLocated(locator: Locator): Condition<IWebElement[]>;
-        function elementsLocated(locator: any): Condition<IWebElement[]>;
+        function elementsLocated(locator: Locator|By.Hash|Function): Condition<WebElement[]>;
 
         /**
          * Creates a condition that will wait for the given element to become stale. An
@@ -2096,7 +2063,7 @@ declare module webdriver {
          * @param {!webdriver.WebElement} element The element that should become stale.
          * @return {!until.Condition.<boolean>} The new condition.
          */
-        function stalenessOf(element: IWebElement): Condition<boolean>;
+        function stalenessOf(element: WebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the current page's title to contain
@@ -2148,7 +2115,7 @@ declare module webdriver {
         RIGHT: number;
     }
 
-    var Button: IButton
+    var Button: IButton;
 
     /**
      * Representations of pressable keys that aren't text.  These are stored in
@@ -2286,7 +2253,7 @@ declare module webdriver {
          *     Defaults to (0, 0).
          * @return {!webdriver.ActionSequence} A self reference.
          */
-        mouseMove(location: IWebElement, opt_offset?: ILocation): ActionSequence;
+        mouseMove(location: WebElement, opt_offset?: ILocation): ActionSequence;
         mouseMove(location: ILocation): ActionSequence;
 
         /**
@@ -2311,7 +2278,7 @@ declare module webdriver {
          *     first argument.
          * @return {!webdriver.ActionSequence} A self reference.
          */
-        mouseDown(opt_elementOrButton?: IWebElement, opt_button?: number): ActionSequence;
+        mouseDown(opt_elementOrButton?: WebElement, opt_button?: number): ActionSequence;
         mouseDown(opt_elementOrButton?: number): ActionSequence;
 
         /**
@@ -2334,7 +2301,7 @@ declare module webdriver {
          *     first argument.
          * @return {!webdriver.ActionSequence} A self reference.
          */
-        mouseUp(opt_elementOrButton?: IWebElement, opt_button?: number): ActionSequence;
+        mouseUp(opt_elementOrButton?: WebElement, opt_button?: number): ActionSequence;
         mouseUp(opt_elementOrButton?: number): ActionSequence;
 
         /**
@@ -2346,8 +2313,8 @@ declare module webdriver {
          *     location to drag to, either as another WebElement or an offset in pixels.
          * @return {!webdriver.ActionSequence} A self reference.
          */
-        dragAndDrop(element: IWebElement, location: IWebElement): ActionSequence;
-        dragAndDrop(element: IWebElement, location: ILocation): ActionSequence;
+        dragAndDrop(element: WebElement, location: WebElement): ActionSequence;
+        dragAndDrop(element: WebElement, location: ILocation): ActionSequence;
 
         /**
          * Clicks a mouse button.
@@ -2365,7 +2332,7 @@ declare module webdriver {
          *     first argument.
          * @return {!webdriver.ActionSequence} A self reference.
          */
-        click(opt_elementOrButton?: IWebElement, opt_button?: number): ActionSequence;
+        click(opt_elementOrButton?: WebElement, opt_button?: number): ActionSequence;
         click(opt_elementOrButton?: number): ActionSequence;
 
         /**
@@ -2387,7 +2354,7 @@ declare module webdriver {
          *     first argument.
          * @return {!webdriver.ActionSequence} A self reference.
          */
-        doubleClick(opt_elementOrButton?: IWebElement, opt_button?: number): ActionSequence;
+        doubleClick(opt_elementOrButton?: WebElement, opt_button?: number): ActionSequence;
         doubleClick(opt_elementOrButton?: number): ActionSequence;
 
         /**
@@ -2424,6 +2391,143 @@ declare module webdriver {
 
         //endregion
     }
+
+
+    /**
+     * Class for defining sequences of user touch interactions. Each sequence
+     * will not be executed until {@link #perform} is called.
+     *
+     * Example:
+     *
+     *     new webdriver.TouchSequence(driver).
+     *         tapAndHold({x: 0, y: 0}).
+     *         move({x: 3, y: 4}).
+     *         release({x: 10, y: 10}).
+     *         perform();
+     */
+    class TouchSequence {
+      /*
+       * @param {!webdriver.WebDriver} driver The driver instance to use.
+       * @constructor
+       */
+      constructor(driver: WebDriver);
+
+
+      /**
+       * Executes this action sequence.
+       * @return {!webdriver.promise.Promise} A promise that will be resolved once
+       *     this sequence has completed.
+       */
+      perform(): webdriver.promise.Promise<void>;
+
+
+      /**
+       * Taps an element.
+       *
+       * @param {!webdriver.WebElement} elem The element to tap.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      tap(elem: WebElement): TouchSequence;
+
+
+      /**
+       * Double taps an element.
+       *
+       * @param {!webdriver.WebElement} elem The element to double tap.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      doubleTap(elem: WebElement): TouchSequence;
+
+
+      /**
+       * Long press on an element.
+       *
+       * @param {!webdriver.WebElement} elem The element to long press.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      longPress(elem: WebElement): TouchSequence;
+
+
+      /**
+       * Touch down at the given location.
+       *
+       * @param {{ x: number, y: number }} location The location to touch down at.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      tapAndHold(location: ILocation): TouchSequence;
+
+
+      /**
+       * Move a held {@linkplain #tapAndHold touch} to the specified location.
+       *
+       * @param {{x: number, y: number}} location The location to move to.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      move(location: ILocation): TouchSequence;
+
+
+      /**
+       * Release a held {@linkplain #tapAndHold touch} at the specified location.
+       *
+       * @param {{x: number, y: number}} location The location to release at.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      release(location: ILocation): TouchSequence;
+
+
+      /**
+       * Scrolls the touch screen by the given offset.
+       *
+       * @param {{x: number, y: number}} offset The offset to scroll to.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      scroll(offset: IOffset): TouchSequence;
+
+
+      /**
+       * Scrolls the touch screen, starting on `elem` and moving by the specified
+       * offset.
+       *
+       * @param {!webdriver.WebElement} elem The element where scroll starts.
+       * @param {{x: number, y: number}} offset The offset to scroll to.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      scrollFromElement(elem: WebElement, offset: IOffset): TouchSequence;
+
+
+      /**
+       * Flick, starting anywhere on the screen, at speed xspeed and yspeed.
+       *
+       * @param {{xspeed: number, yspeed: number}} speed The speed to flick in each
+       direction, in pixels per second.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      flick(speed: ISpeed): TouchSequence;
+
+
+      /**
+       * Flick starting at elem and moving by x and y at specified speed.
+       *
+       * @param {!webdriver.WebElement} elem The element where flick starts.
+       * @param {{x: number, y: number}} offset The offset to flick to.
+       * @param {number} speed The speed to flick at in pixels per second.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      flickElement(elem: WebElement, offset: IOffset, speed: number): TouchSequence;
+    }
+
+
+    interface IOffset {
+      x: number;
+      y: number;
+    }
+
+
+    interface ISpeed {
+      xspeed: number;
+      yspeed: number;
+    }
+
 
     /**
      * Represents a modal dialog such as {@code alert}, {@code confirm}, or
@@ -2536,7 +2640,7 @@ declare module webdriver {
         HTMLUNIT: string;
     }
 
-    var Browser: IBrowser
+    var Browser: IBrowser;
 
     interface ProxyConfig {
         proxyType: string;
@@ -3232,6 +3336,7 @@ declare module webdriver {
         //endregion
     }
 
+
     /**
      * Interface for navigating back and forth in the browser history.
      */
@@ -3251,29 +3356,29 @@ declare module webdriver {
         /**
          * Schedules a command to navigate to a new URL.
          * @param {string} url The URL to navigate to.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when the
-         *     URL has been loaded.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the URL has been loaded.
          */
         to(url: string): webdriver.promise.Promise<void>;
 
         /**
          * Schedules a command to move backwards in the browser history.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when the
-         *     navigation event has completed.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the navigation event has completed.
          */
         back(): webdriver.promise.Promise<void>;
 
         /**
          * Schedules a command to move forwards in the browser history.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when the
-         *     navigation event has completed.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the navigation event has completed.
          */
         forward(): webdriver.promise.Promise<void>;
 
         /**
          * Schedules a command to refresh the current page.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when the
-         *     navigation event has completed.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the navigation event has completed.
          */
         refresh(): webdriver.promise.Promise<void>;
 
@@ -3627,6 +3732,41 @@ declare module webdriver {
     }
 
     /**
+     * Used with {@link webdriver.WebElement#sendKeys WebElement#sendKeys} on file
+     * input elements ({@code <input type="file">}) to detect when the entered key
+     * sequence defines the path to a file.
+     *
+     * By default, {@linkplain webdriver.WebElement WebElement's} will enter all
+     * key sequences exactly as entered. You may set a
+     * {@linkplain webdriver.WebDriver#setFileDetector file detector} on the parent
+     * WebDriver instance to define custom behavior for handling file elements. Of
+     * particular note is the {@link selenium-webdriver/remote.FileDetector}, which
+     * should be used when running against a remote
+     * [Selenium Server](http://docs.seleniumhq.org/download/).
+     */
+    class FileDetector {
+      /** @constructor */
+      constructor();
+
+      /**
+       * Handles the file specified by the given path, preparing it for use with
+       * the current browser. If the path does not refer to a valid file, it will
+       * be returned unchanged, otherwisee a path suitable for use with the current
+       * browser will be returned.
+       *
+       * This default implementation is a no-op. Subtypes may override this
+       * function for custom tailored file handling.
+       *
+       * @param {!webdriver.WebDriver} driver The driver for the current browser.
+       * @param {string} path The path to process.
+       * @return {!webdriver.promise.Promise<string>} A promise for the processed
+       *     file path.
+       * @package
+       */
+      handleFile(driver: webdriver.WebDriver, path: string): webdriver.promise.Promise<string>;
+    }
+
+    /**
      * Creates a new WebDriver client, which provides control over a browser.
      *
      * Every WebDriver command returns a {@code webdriver.promise.Promise} that
@@ -3721,23 +3861,35 @@ declare module webdriver {
          */
         schedule<T>(command: Command, description: string): webdriver.promise.Promise<T>;
 
+
         /**
-         * @return {!webdriver.promise.Promise} A promise for this client's session.
+         * Sets the {@linkplain webdriver.FileDetector file detector} that should be
+         * used with this instance.
+         * @param {webdriver.FileDetector} detector The detector to use or {@code null}.
+         */
+        setFileDetector(detector: FileDetector): void;
+
+
+        /**
+         * @return {!webdriver.promise.Promise.<!webdriver.Session>} A promise for this
+         *     client's session.
          */
         getSession(): webdriver.promise.Promise<Session>;
 
+
         /**
-         * @return {!webdriver.promise.Promise} A promise that will resolve with the
-         *     this instance's capabilities.
+         * @return {!webdriver.promise.Promise.<!webdriver.Capabilities>} A promise
+         *     that will resolve with the this instance's capabilities.
          */
         getCapabilities(): webdriver.promise.Promise<Capabilities>;
+
 
         /**
          * Schedules a command to quit the current session. After calling quit, this
          * instance will be invalidated and may no longer be used to issue commands
          * against the browser.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when
-         *     the command has completed.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the command has completed.
          */
         quit(): webdriver.promise.Promise<void>;
 
@@ -3755,6 +3907,22 @@ declare module webdriver {
          * @return {!webdriver.ActionSequence} A new action sequence for this instance.
          */
         actions(): ActionSequence;
+
+
+        /**
+         * Creates a new touch sequence using this driver. The sequence will not be
+         * scheduled for execution until {@link webdriver.TouchSequence#perform} is
+         * called. Example:
+         *
+         *     driver.touchActions().
+         *         tap(element1).
+         *         doubleTap(element2).
+         *         perform();
+         *
+         * @return {!webdriver.TouchSequence} A new touch sequence for this instance.
+         */
+        touchActions(): TouchSequence;
+
 
         /**
          * Schedules a command to execute JavaScript in the context of the currently
@@ -3778,20 +3946,20 @@ declare module webdriver {
          * If the script has a return value (i.e. if the script contains a return
          * statement), then the following steps will be taken for resolving this
          * functions return value:
-         * <ul>
-         * <li>For a HTML element, the value will resolve to a
-         *     {@code webdriver.WebElement}</li>
-         * <li>Null and undefined return values will resolve to null</li>
-         * <li>Booleans, numbers, and strings will resolve as is</li>
-         * <li>Functions will resolve to their string representation</li>
-         * <li>For arrays and objects, each member item will be converted according to
-         *     the rules above</li>
-         * </ul>
+         *
+         * - For a HTML element, the value will resolve to a
+         *     {@link webdriver.WebElement}
+         * - Null and undefined return values will resolve to null</li>
+         * - Booleans, numbers, and strings will resolve as is</li>
+         * - Functions will resolve to their string representation</li>
+         * - For arrays and objects, each member item will be converted according to
+         *     the rules above
          *
          * @param {!(string|Function)} script The script to execute.
          * @param {...*} var_args The arguments to pass to the script.
-         * @return {!webdriver.promise.Promise} A promise that will resolve to the
+         * @return {!webdriver.promise.Promise.<T>} A promise that will resolve to the
          *    scripts return value.
+         * @template T
          */
         executeScript<T>(script: string, ...var_args: any[]): webdriver.promise.Promise<T>;
         executeScript<T>(script: Function, ...var_args: any[]): webdriver.promise.Promise<T>;
@@ -3809,128 +3977,150 @@ declare module webdriver {
          * Arrays and objects may also be used as script arguments as long as each item
          * adheres to the types previously mentioned.
          *
-         * Unlike executing synchronous JavaScript with
-         * {@code webdriver.WebDriver.prototype.executeScript}, scripts executed with
-         * this function must explicitly signal they are finished by invoking the
-         * provided callback. This callback will always be injected into the
-         * executed function as the last argument, and thus may be referenced with
-         * {@code arguments[arguments.length - 1]}. The following steps will be taken
-         * for resolving this functions return value against the first argument to the
-         * script's callback function:
-         * <ul>
-         * <li>For a HTML element, the value will resolve to a
-         *     {@code webdriver.WebElement}</li>
-         * <li>Null and undefined return values will resolve to null</li>
-         * <li>Booleans, numbers, and strings will resolve as is</li>
-         * <li>Functions will resolve to their string representation</li>
-         * <li>For arrays and objects, each member item will be converted according to
-         *     the rules above</li>
-         * </ul>
+         * Unlike executing synchronous JavaScript with {@link #executeScript},
+         * scripts executed with this function must explicitly signal they are finished
+         * by invoking the provided callback. This callback will always be injected
+         * into the executed function as the last argument, and thus may be referenced
+         * with {@code arguments[arguments.length - 1]}. The following steps will be
+         * taken for resolving this functions return value against the first argument
+         * to the script's callback function:
          *
-         * Example #1: Performing a sleep that is synchronized with the currently
+         * - For a HTML element, the value will resolve to a
+         *     {@link webdriver.WebElement}
+         * - Null and undefined return values will resolve to null
+         * - Booleans, numbers, and strings will resolve as is
+         * - Functions will resolve to their string representation
+         * - For arrays and objects, each member item will be converted according to
+         *     the rules above
+         *
+         * __Example #1:__ Performing a sleep that is synchronized with the currently
          * selected window:
-         * <code><pre>
-         * var start = new Date().getTime();
-         * driver.executeAsyncScript(
-         *     'window.setTimeout(arguments[arguments.length - 1], 500);').
-         *     then(function() {
-         *       console.log('Elapsed time: ' + (new Date().getTime() - start) + ' ms');
-         *     });
-         * </pre></code>
          *
-         * Example #2: Synchronizing a test with an AJAX application:
-         * <code><pre>
-         * var button = driver.findElement(By.id('compose-button'));
-         * button.click();
-         * driver.executeAsyncScript(
-         *     'var callback = arguments[arguments.length - 1];' +
-         *     'mailClient.getComposeWindowWidget().onload(callback);');
-         * driver.switchTo().frame('composeWidget');
-         * driver.findElement(By.id('to')).sendKEys('dog@example.com');
-         * </pre></code>
+         *     var start = new Date().getTime();
+         *     driver.executeAsyncScript(
+         *         'window.setTimeout(arguments[arguments.length - 1], 500);').
+         *         then(function() {
+         *           console.log(
+         *               'Elapsed time: ' + (new Date().getTime() - start) + ' ms');
+         *         });
          *
-         * Example #3: Injecting a XMLHttpRequest and waiting for the result. In this
-         * example, the inject script is specified with a function literal. When using
-         * this format, the function is converted to a string for injection, so it
+         * __Example #2:__ Synchronizing a test with an AJAX application:
+         *
+         *     var button = driver.findElement(By.id('compose-button'));
+         *     button.click();
+         *     driver.executeAsyncScript(
+         *         'var callback = arguments[arguments.length - 1];' +
+         *         'mailClient.getComposeWindowWidget().onload(callback);');
+         *     driver.switchTo().frame('composeWidget');
+         *     driver.findElement(By.id('to')).sendKeys('dog@example.com');
+         *
+         * __Example #3:__ Injecting a XMLHttpRequest and waiting for the result. In
+         * this example, the inject script is specified with a function literal. When
+         * using this format, the function is converted to a string for injection, so it
          * should not reference any symbols not defined in the scope of the page under
          * test.
-         * <code><pre>
-         * driver.executeAsyncScript(function() {
-         *   var callback = arguments[arguments.length - 1];
-         *   var xhr = new XMLHttpRequest();
-         *   xhr.open("GET", "/resource/data.json", true);
-         *   xhr.onreadystatechange = function() {
-         *     if (xhr.readyState == 4) {
-         *       callback(xhr.resposneText);
-         *     }
-         *   }
-         *   xhr.send('');
-         * }).then(function(str) {
-         *   console.log(JSON.parse(str)['food']);
-         * });
-         * </pre></code>
+         *
+         *     driver.executeAsyncScript(function() {
+         *       var callback = arguments[arguments.length - 1];
+         *       var xhr = new XMLHttpRequest();
+         *       xhr.open("GET", "/resource/data.json", true);
+         *       xhr.onreadystatechange = function() {
+         *         if (xhr.readyState == 4) {
+         *           callback(xhr.responseText);
+         *         }
+         *       }
+         *       xhr.send('');
+         *     }).then(function(str) {
+         *       console.log(JSON.parse(str)['food']);
+         *     });
          *
          * @param {!(string|Function)} script The script to execute.
          * @param {...*} var_args The arguments to pass to the script.
-         * @return {!webdriver.promise.Promise} A promise that will resolve to the
+         * @return {!webdriver.promise.Promise.<T>} A promise that will resolve to the
          *    scripts return value.
+         * @template T
          */
-        executeAsyncScript<T>(script: string, ...var_args: any[]): webdriver.promise.Promise<T>;
-        executeAsyncScript<T>(script: Function, ...var_args: any[]): webdriver.promise.Promise<T>;
+        executeAsyncScript<T>(script: string|Function, ...var_args: any[]): webdriver.promise.Promise<T>;
 
         /**
          * Schedules a command to execute a custom function.
-         * @param {!Function} fn The function to execute.
+         * @param {function(...): (T|webdriver.promise.Promise.<T>)} fn The function to
+         *     execute.
          * @param {Object=} opt_scope The object in whose scope to execute the function.
          * @param {...*} var_args Any arguments to pass to the function.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     function's result.
+         * @return {!webdriver.promise.Promise.<T>} A promise that will be resolved'
+         *     with the function's result.
+         * @template T
          */
-        call<T>(fn: Function, opt_scope?: any, ...var_args: any[]): webdriver.promise.Promise<T>;
+        call<T>(fn: (...var_args: any[])=>(T|webdriver.promise.Promise<T>), opt_scope?: any, ...var_args: any[]): webdriver.promise.Promise<T>;
 
         /**
-         * Schedules a command to wait for a condition to hold, as defined by some
-         * user supplied function. If any errors occur while evaluating the wait, they
-         * will be allowed to propagate.
+         * Schedules a command to wait for a condition to hold. The condition may be
+         * specified by a {@link webdriver.until.Condition}, as a custom function, or
+         * as a {@link webdriver.promise.Promise}.
          *
-         * <p>In the event a condition returns a {@link webdriver.promise.Promise}, the
+         * For a {@link webdriver.until.Condition} or function, the wait will repeatedly
+         * evaluate the condition until it returns a truthy value. If any errors occur
+         * while evaluating the condition, they will be allowed to propagate. In the
+         * event a condition returns a {@link webdriver.promise.Promise promise}, the
          * polling loop will wait for it to be resolved and use the resolved value for
-         * evaluating whether the condition has been satisfied. The resolution time for
+         * whether the condition has been satisified. Note the resolution time for
          * a promise is factored into whether a wait has timed out.
          *
-         * @param {!(webdriver.until.Condition.<T>|
-         *           function(!webdriver.WebDriver): T)} condition Either a condition
-         *     object, or a function to evaluate as a condition.
-         * @param {number} timeout How long to wait for the condition to be true.
+         * *Example:* waiting up to 10 seconds for an element to be present and visible
+         * on the page.
+         *
+         *     var button = driver.wait(until.elementLocated(By.id('foo'), 10000);
+         *     button.click();
+         *
+         * This function may also be used to block the command flow on the resolution
+         * of a {@link webdriver.promise.Promise promise}. When given a promise, the
+         * command will simply wait for its resolution before completing. A timeout may
+         * be provided to fail the command if the promise does not resolve before the
+         * timeout expires.
+         *
+         * *Example:* Suppose you have a function, `startTestServer`, that returns a
+         * promise for when a server is ready for requests. You can block a `WebDriver`
+         * client on this promise with:
+         *
+         *     var started = startTestServer();
+         *     driver.wait(started, 5 * 1000, 'Server should start within 5 seconds');
+         *     driver.get(getServerUrl());
+         *
+         * @param {!(webdriver.promise.Promise<T>|
+         *           webdriver.until.Condition<T>|
+         *           function(!webdriver.WebDriver): T)} condition The condition to
+         *     wait on, defined as a promise, condition object, or  a function to
+         *     evaluate as a condition.
+         * @param {number=} opt_timeout How long to wait for the condition to be true.
          * @param {string=} opt_message An optional message to use if the wait times
          *     out.
-         * @return {!webdriver.promise.Promise.<T>} A promise that will be fulfilled
+         * @return {!webdriver.promise.Promise<T>} A promise that will be fulfilled
          *     with the first truthy value returned by the condition function, or
          *     rejected if the condition times out.
          * @template T
          */
-        wait<T>(condition: webdriver.until.Condition<T>, timeout: number, opt_message?: string): webdriver.promise.Promise<T>;
-        wait<T>(condition: (webdriver: WebDriver) => any, timeout: number, opt_message?: string): webdriver.promise.Promise<T>;
+        wait<T>(condition: webdriver.promise.Promise<T>|webdriver.until.Condition<T>|((driver: WebDriver)=>T), timeout?: number, opt_message?: string): webdriver.promise.Promise<T>;
 
         /**
          * Schedules a command to make the driver sleep for the given amount of time.
          * @param {number} ms The amount of time, in milliseconds, to sleep.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when the
-         *     sleep has finished.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the sleep has finished.
          */
         sleep(ms: number): webdriver.promise.Promise<void>;
 
         /**
          * Schedules a command to retrieve they current window handle.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     current window handle.
+         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         *     resolved with the current window handle.
          */
         getWindowHandle(): webdriver.promise.Promise<string>;
 
         /**
          * Schedules a command to retrieve the current list of available window handles.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with an
-         *     array of window handles.
+         * @return {!webdriver.promise.Promise.<!Array.<string>>} A promise that will
+         *     be resolved with an array of window handles.
          */
         getAllWindowHandles(): webdriver.promise.Promise<string[]>;
 
@@ -3939,59 +4129,73 @@ declare module webdriver {
          * returned is a representation of the underlying DOM: do not expect it to be
          * formatted or escaped in the same way as the response sent from the web
          * server.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     current page source.
+         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         *     resolved with the current page source.
          */
         getPageSource(): webdriver.promise.Promise<string>;
 
         /**
          * Schedules a command to close the current window.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when
-         *     this command has completed.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when this command has completed.
          */
         close(): webdriver.promise.Promise<void>;
 
         /**
          * Schedules a command to navigate to the given URL.
          * @param {string} url The fully qualified URL to open.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when the
-         *     document has finished loading.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the document has finished loading.
          */
         get(url: string): webdriver.promise.Promise<void>;
 
         /**
          * Schedules a command to retrieve the URL of the current page.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     current URL.
+         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         *     resolved with the current URL.
          */
         getCurrentUrl(): webdriver.promise.Promise<string>;
 
         /**
          * Schedules a command to retrieve the current page's title.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     current page's title.
+         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         *     resolved with the current page's title.
          */
         getTitle(): webdriver.promise.Promise<string>;
 
         /**
          * Schedule a command to find an element on the page. If the element cannot be
-         * found, a {@code bot.ErrorCode.NO_SUCH_ELEMENT} result will be returned
+         * found, a {@link bot.ErrorCode.NO_SUCH_ELEMENT} result will be returned
          * by the driver. Unlike other commands, this error cannot be suppressed. In
          * other words, scheduling a command to find an element doubles as an assert
          * that the element is present on the page. To test whether an element is
-         * present on the page, use {@code #isElementPresent} instead.
+         * present on the page, use {@link #isElementPresent} instead.
          *
-         * <p>The search criteria for find an element may either be a
-         * {@code webdriver.Locator} object, or a simple JSON object whose sole key
-         * is one of the accepted locator strategies, as defined by
-         * {@code webdriver.Locator.Strategy}. For example, the following two statements
+         * The search criteria for an element may be defined using one of the
+         * factories in the {@link webdriver.By} namespace, or as a short-hand
+         * {@link webdriver.By.Hash} object. For example, the following two statements
          * are equivalent:
-         * <code><pre>
-         * var e1 = driver.findElement(By.id('foo'));
-         * var e2 = driver.findElement({id:'foo'});
-         * </pre></code>
          *
-         * <p>When running in the browser, a WebDriver cannot manipulate DOM elements
+         *     var e1 = driver.findElement(By.id('foo'));
+         *     var e2 = driver.findElement({id:'foo'});
+         *
+         * You may also provide a custom locator function, which takes as input
+         * this WebDriver instance and returns a {@link webdriver.WebElement}, or a
+         * promise that will resolve to a WebElement. For example, to find the first
+         * visible link on a page, you could write:
+         *
+         *     var link = driver.findElement(firstVisibleLink);
+         *
+         *     function firstVisibleLink(driver) {
+         *       var links = driver.findElements(By.tagName('a'));
+         *       return webdriver.promise.filter(links, function(link) {
+         *         return links.isDisplayed();
+         *       }).then(function(visibleLinks) {
+         *         return visibleLinks[0];
+         *       });
+         *     }
+         *
+         * When running in the browser, a WebDriver cannot manipulate DOM elements
          * directly; it may do so only through a {@link webdriver.WebElement} reference.
          * This function may be used to generate a WebElement from a DOM element. A
          * reference to the DOM element will be stored in a known location and this
@@ -4000,48 +4204,38 @@ declare module webdriver {
          * one this instance is currently focused on), a
          * {@link bot.ErrorCode.NO_SUCH_ELEMENT} error will be returned.
          *
-         * @param {!(webdriver.Locator|Object.<string>|Element)} locatorOrElement The
-         *     locator strategy to use when searching for the element, or the actual
-         *     DOM element to be located by the server.
-         * @param {...} var_args Arguments to pass to {@code #executeScript} if using a
-         *     JavaScript locator.  Otherwise ignored.
+         * @param {!(webdriver.Locator|webdriver.By.Hash|Element|Function)} locator The
+         *     locator to use.
          * @return {!webdriver.WebElement} A WebElement that can be used to issue
          *     commands against the located element. If the element is not found, the
          *     element will be invalidated and all scheduled commands aborted.
          */
-        findElement(locatorOrElement: Locator, ...var_args: any[]): WebElementPromise;
-        findElement(locatorOrElement: any, ...var_args: any[]): WebElementPromise;
+        findElement(locatorOrElement: Locator|By.Hash|WebElement|Function): WebElementPromise;
 
         /**
          * Schedules a command to test if an element is present on the page.
          *
-         * <p>If given a DOM element, this function will check if it belongs to the
+         * If given a DOM element, this function will check if it belongs to the
          * document the driver is currently focused on. Otherwise, the function will
          * test if at least one element can be found with the given search criteria.
          *
-         * @param {!(webdriver.Locator|Object.<string>|Element)} locatorOrElement The
-         *     locator strategy to use when searching for the element, or the actual
+         * @param {!(webdriver.Locator|webdriver.By.Hash|Element|
+         *           Function)} locatorOrElement The locator to use, or the actual
          *     DOM element to be located by the server.
-         * @param {...} var_args Arguments to pass to {@code #executeScript} if using a
-         *     JavaScript locator.  Otherwise ignored.
-         * @return {!webdriver.promise.Promise} A promise that will resolve to whether
-         *     the element is present on the page.
+         * @return {!webdriver.promise.Promise.<boolean>} A promise that will resolve
+         *     with whether the element is present on the page.
          */
-        isElementPresent(locatorOrElement: Locator, ...var_args: any[]): webdriver.promise.Promise<boolean>;
-        isElementPresent(locatorOrElement: any, ...var_args: any[]): webdriver.promise.Promise<boolean>;
+        isElementPresent(locatorOrElement: Locator|By.Hash|WebElement|Function): webdriver.promise.Promise<boolean>;
 
         /**
          * Schedule a command to search for multiple elements on the page.
          *
-         * @param {webdriver.Locator|Object.<string>} locator The locator
+         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The locator
          *     strategy to use when searching for the element.
-         * @param {...} var_args Arguments to pass to {@code #executeScript} if using a
-         *     JavaScript locator.  Otherwise ignored.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved to an
-         *     array of the located {@link webdriver.WebElement}s.
+         * @return {!webdriver.promise.Promise.<!Array.<!webdriver.WebElement>>} A
+         *     promise that will resolve to an array of WebElements.
          */
-        findElements(locator: Locator, ...var_args: any[]): webdriver.promise.Promise<WebElement[]>;
-        findElements(locator: any, ...var_args: any[]): webdriver.promise.Promise<WebElement[]>;
+        findElements(locator: Locator|By.Hash|Function): webdriver.promise.Promise<WebElement[]>;
 
         /**
          * Schedule a command to take a screenshot. The driver makes a best effort to
@@ -4053,8 +4247,8 @@ declare module webdriver {
          *   <li>The screenshot of the entire display containing the browser
          * </ol>
          *
-         * @return {!webdriver.promise.Promise} A promise that will be resolved to the
-         *     screenshot as a base-64 encoded PNG.
+         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         *     resolved to the screenshot as a base-64 encoded PNG.
          */
         takeScreenshot(): webdriver.promise.Promise<string>;
 
@@ -4084,6 +4278,26 @@ declare module webdriver {
     }
 
     /**
+     * Defines an object that can be asynchronously serialized to its WebDriver
+     * wire representation.
+     *
+     * @constructor
+     * @template T
+     */
+    interface Serializable<T> {
+        /**
+         * Returns either this instance's serialized represention, if immediately
+         * available, or a promise for its serialized representation. This function is
+         * conceptually equivalent to objects that have a {@code toJSON()} property,
+         * except the serialize() result may be a promise or an object containing a
+         * promise (which are not directly JSON friendly).
+         *
+         * @return {!(T|IThenable.<!T>)} This instance's serialized wire format.
+         */
+        serialize(): T|webdriver.promise.IThenable<T>;
+    }
+
+    /**
      * Represents a DOM element. WebElements can be found by searching from the
      * document root using a {@code webdriver.WebDriver} instance, or by searching
      * under another {@code webdriver.WebElement}:
@@ -4106,370 +4320,8 @@ declare module webdriver {
      *   });
      * </code></pre>
      */
-
     interface IWebElement {
         //region Methods
-
-        /**
-         * Schedules a command to click on this element.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when
-         *     the click command has completed.
-         */
-        click(): webdriver.promise.Promise<void>;
-
-        /**
-         * Schedules a command to type a sequence on the DOM element represented by this
-         * instance.
-         * <p/>
-         * Modifier keys (SHIFT, CONTROL, ALT, META) are stateful; once a modifier is
-         * processed in the keysequence, that key state is toggled until one of the
-         * following occurs:
-         * <ul>
-         * <li>The modifier key is encountered again in the sequence. At this point the
-         * state of the key is toggled (along with the appropriate keyup/down events).
-         * </li>
-         * <li>The {@code webdriver.Key.NULL} key is encountered in the sequence. When
-         * this key is encountered, all modifier keys current in the down state are
-         * released (with accompanying keyup events). The NULL key can be used to
-         * simulate common keyboard shortcuts:
-         * <code>
-         *     element.sendKeys("text was",
-         *                      webdriver.Key.CONTROL, "a", webdriver.Key.NULL,
-         *                      "now text is");
-         *     // Alternatively:
-         *     element.sendKeys("text was",
-         *                      webdriver.Key.chord(webdriver.Key.CONTROL, "a"),
-         *                      "now text is");
-         * </code></li>
-         * <li>The end of the keysequence is encountered. When there are no more keys
-         * to type, all depressed modifier keys are released (with accompanying keyup
-         * events).
-         * </li>
-         * </ul>
-         * <strong>Note:</strong> On browsers where native keyboard events are not yet
-         * supported (e.g. Firefox on OS X), key events will be synthesized. Special
-         * punctionation keys will be synthesized according to a standard QWERTY en-us
-         * keyboard layout.
-         *
-         * @param {...string} var_args The sequence of keys to
-         *     type. All arguments will be joined into a single sequence (var_args is
-         *     permitted for convenience).
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when all
-         *     keys have been typed.
-         */
-        sendKeys(...var_args: string[]): webdriver.promise.Promise<void>;
-
-        /**
-         * Schedules a command to query for the tag/node name of this element.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     element's tag name.
-         */
-        getTagName(): webdriver.promise.Promise<string>;
-
-        /**
-         * Schedules a command to query for the computed style of the element
-         * represented by this instance. If the element inherits the named style from
-         * its parent, the parent will be queried for its value.  Where possible, color
-         * values will be converted to their hex representation (e.g. #00ff00 instead of
-         * rgb(0, 255, 0)).
-         * <p/>
-         * <em>Warning:</em> the value returned will be as the browser interprets it, so
-         * it may be tricky to form a proper assertion.
-         *
-         * @param {string} cssStyleProperty The name of the CSS style property to look
-         *     up.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     requested CSS value.
-         */
-        getCssValue(cssStyleProperty: string): webdriver.promise.Promise<string>;
-
-        /**
-         * Schedules a command to query for the value of the given attribute of the
-         * element. Will return the current value even if it has been modified after the
-         * page has been loaded. More exactly, this method will return the value of the
-         * given attribute, unless that attribute is not present, in which case the
-         * value of the property with the same name is returned. If neither value is
-         * set, null is returned. The "style" attribute is converted as best can be to a
-         * text representation with a trailing semi-colon. The following are deemed to
-         * be "boolean" attributes and will be returned as thus:
-         *
-         * <p>async, autofocus, autoplay, checked, compact, complete, controls, declare,
-         * defaultchecked, defaultselected, defer, disabled, draggable, ended,
-         * formnovalidate, hidden, indeterminate, iscontenteditable, ismap, itemscope,
-         * loop, multiple, muted, nohref, noresize, noshade, novalidate, nowrap, open,
-         * paused, pubdate, readonly, required, reversed, scoped, seamless, seeking,
-         * selected, spellcheck, truespeed, willvalidate
-         *
-         * <p>Finally, the following commonly mis-capitalized attribute/property names
-         * are evaluated as expected:
-         * <ul>
-         *   <li>"class"
-         *   <li>"readonly"
-         * </ul>
-         * @param {string} attributeName The name of the attribute to query.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     attribute's value.
-         */
-        getAttribute(attributeName: string): webdriver.promise.Promise<string>;
-
-        /**
-         * Get the visible (i.e. not hidden by CSS) innerText of this element, including
-         * sub-elements, without any leading or trailing whitespace.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     element's visible text.
-         */
-        getText(): webdriver.promise.Promise<string>;
-
-        /**
-         * Schedules a command to compute the size of this element's bounding box, in
-         * pixels.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     element's size as a {@code {width:number, height:number}} object.
-         */
-        getSize(): webdriver.promise.Promise<ISize>;
-
-        /**
-         * Schedules a command to compute the location of this element in page space.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved to the
-         *     element's location as a {@code {x:number, y:number}} object.
-         */
-        getLocation(): webdriver.promise.Promise<ILocation>;
-
-        /**
-         * Schedules a command to query whether the DOM element represented by this
-         * instance is enabled, as dicted by the {@code disabled} attribute.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with
-         *     whether this element is currently enabled.
-         */
-        isEnabled(): webdriver.promise.Promise<boolean>;
-
-        /**
-         * Schedules a command to query whether this element is selected.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with
-         *     whether this element is currently selected.
-         */
-        isSelected(): webdriver.promise.Promise<boolean>;
-
-        /**
-         * Schedules a command to submit the form containing this element (or this
-         * element if it is a FORM element). This command is a no-op if the element is
-         * not contained in a form.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when
-         *     the form has been submitted.
-         */
-        submit(): webdriver.promise.Promise<void>;
-
-        /**
-         * Schedules a command to clear the {@code value} of this element. This command
-         * has no effect if the underlying DOM element is neither a text INPUT element
-         * nor a TEXTAREA element.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when
-         *     the element has been cleared.
-         */
-        clear(): webdriver.promise.Promise<void>;
-
-        /**
-         * Schedules a command to test whether this element is currently displayed.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with
-         *     whether this element is currently visible on the page.
-         */
-        isDisplayed(): webdriver.promise.Promise<boolean>;
-
-        /**
-         * Schedules a command to retrieve the outer HTML of this element.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with
-         *     the element's outer HTML.
-         */
-        getOuterHtml(): webdriver.promise.Promise<string>;
-
-        /**
-         * @return {!webdriver.promise.Promise.<webdriver.WebElement.Id>} A promise
-         *     that resolves to this element's JSON representation as defined by the
-         *     WebDriver wire protocol.
-         * @see http://code.google.com/p/selenium/wiki/JsonWireProtocol
-         */
-        getId(): webdriver.promise.Promise<IWebElementId>
-
-        /**
-         * Schedules a command to retrieve the inner HTML of this element.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     element's inner HTML.
-         */
-        getInnerHtml(): webdriver.promise.Promise<string>;
-
-        //endregion
-    }
-
-    interface IWebElementFinders {
-        /**
-         * Schedule a command to find a descendant of this element. If the element
-         * cannot be found, a {@code bot.ErrorCode.NO_SUCH_ELEMENT} result will
-         * be returned by the driver. Unlike other commands, this error cannot be
-         * suppressed. In other words, scheduling a command to find an element doubles
-         * as an assert that the element is present on the page. To test whether an
-         * element is present on the page, use {@code #isElementPresent} instead.
-         *
-         * <p>The search criteria for an element may be defined using one of the
-         * factories in the {@link webdriver.By} namespace, or as a short-hand
-         * {@link webdriver.By.Hash} object. For example, the following two statements
-         * are equivalent:
-         * <code><pre>
-         * var e1 = element.findElement(By.id('foo'));
-         * var e2 = element.findElement({id:'foo'});
-         * </pre></code>
-         *
-         * <p>You may also provide a custom locator function, which takes as input
-         * this WebDriver instance and returns a {@link webdriver.WebElement}, or a
-         * promise that will resolve to a WebElement. For example, to find the first
-         * visible link on a page, you could write:
-         * <code><pre>
-         * var link = element.findElement(firstVisibleLink);
-         *
-         * function firstVisibleLink(element) {
-         *   var links = element.findElements(By.tagName('a'));
-         *   return webdriver.promise.filter(links, function(link) {
-         *     return links.isDisplayed();
-         *   }).then(function(visibleLinks) {
-         *     return visibleLinks[0];
-         *   });
-         * }
-         * </pre></code>
-         *
-         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
-         *     locator strategy to use when searching for the element.
-         * @return {!webdriver.WebElement} A WebElement that can be used to issue
-         *     commands against the located element. If the element is not found, the
-         *     element will be invalidated and all scheduled commands aborted.
-         */
-        findElement(locator: Locator): WebElementPromise;
-        findElement(locator: any): WebElementPromise;
-
-        /**
-         * Schedules a command to test if there is at least one descendant of this
-         * element that matches the given search criteria.
-         *
-         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
-         *     locator strategy to use when searching for the element.
-         * @return {!webdriver.promise.Promise.<boolean>} A promise that will be
-         *     resolved with whether an element could be located on the page.
-         */
-        isElementPresent(locator: Locator): webdriver.promise.Promise<boolean>;
-        isElementPresent(locator: any): webdriver.promise.Promise<boolean>;
-
-        /**
-         * Schedules a command to find all of the descendants of this element that
-         * match the given search criteria.
-         *
-         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
-         *     locator strategy to use when searching for the elements.
-         * @return {!webdriver.promise.Promise.<!Array.<!webdriver.WebElement>>} A
-         *     promise that will resolve to an array of WebElements.
-         */
-        findElements(locator: Locator): webdriver.promise.Promise<WebElement[]>;
-        findElements(locator: any): webdriver.promise.Promise<WebElement[]>;
-    }
-
-    class WebElement implements IWebElement, IWebElementFinders {
-        //region Constructors
-
-        /**
-         * @param {!webdriver.WebDriver} driver The parent WebDriver instance for this
-         *     element.
-         * @param {!(webdriver.promise.Promise.<webdriver.WebElement.Id>|
-         *           webdriver.WebElement.Id)} id The server-assigned opaque ID for the
-         *     underlying DOM element.
-         * @constructor
-         */
-        constructor(driver: WebDriver, id: webdriver.promise.Promise<IWebElementId>);
-        constructor(driver: WebDriver, id: IWebElementId);
-
-        //endregion
-
-        //region Static Properties
-
-        /**
-         * The property key used in the wire protocol to indicate that a JSON object
-         * contains the ID of a WebElement.
-         * @type {string}
-         * @const
-         */
-        static ELEMENT_KEY: string;
-
-        //endregion
-
-        //region Methods
-
-        /**
-         * @return {!webdriver.WebDriver} The parent driver for this instance.
-         */
-        getDriver(): WebDriver;
-
-        /**
-         * Schedule a command to find a descendant of this element. If the element
-         * cannot be found, a {@code bot.ErrorCode.NO_SUCH_ELEMENT} result will
-         * be returned by the driver. Unlike other commands, this error cannot be
-         * suppressed. In other words, scheduling a command to find an element doubles
-         * as an assert that the element is present on the page. To test whether an
-         * element is present on the page, use {@code #isElementPresent} instead.
-         *
-         * <p>The search criteria for an element may be defined using one of the
-         * factories in the {@link webdriver.By} namespace, or as a short-hand
-         * {@link webdriver.By.Hash} object. For example, the following two statements
-         * are equivalent:
-         * <code><pre>
-         * var e1 = element.findElement(By.id('foo'));
-         * var e2 = element.findElement({id:'foo'});
-         * </pre></code>
-         *
-         * <p>You may also provide a custom locator function, which takes as input
-         * this WebDriver instance and returns a {@link webdriver.WebElement}, or a
-         * promise that will resolve to a WebElement. For example, to find the first
-         * visible link on a page, you could write:
-         * <code><pre>
-         * var link = element.findElement(firstVisibleLink);
-         *
-         * function firstVisibleLink(element) {
-         *   var links = element.findElements(By.tagName('a'));
-         *   return webdriver.promise.filter(links, function(link) {
-         *     return links.isDisplayed();
-         *   }).then(function(visibleLinks) {
-         *     return visibleLinks[0];
-         *   });
-         * }
-         * </pre></code>
-         *
-         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
-         *     locator strategy to use when searching for the element.
-         * @return {!webdriver.WebElement} A WebElement that can be used to issue
-         *     commands against the located element. If the element is not found, the
-         *     element will be invalidated and all scheduled commands aborted.
-         */
-        findElement(locator: Locator): WebElementPromise;
-        findElement(locator: any): WebElementPromise;
-
-        /**
-         * Schedules a command to test if there is at least one descendant of this
-         * element that matches the given search criteria.
-         *
-         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
-         *     locator strategy to use when searching for the element.
-         * @return {!webdriver.promise.Promise.<boolean>} A promise that will be
-         *     resolved with whether an element could be located on the page.
-         */
-        isElementPresent(locator: Locator): webdriver.promise.Promise<boolean>;
-        isElementPresent(locator: any): webdriver.promise.Promise<boolean>;
-
-        /**
-         * Schedules a command to find all of the descendants of this element that
-         * match the given search criteria.
-         *
-         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
-         *     locator strategy to use when searching for the elements.
-         * @return {!webdriver.promise.Promise.<!Array.<!webdriver.WebElement>>} A
-         *     promise that will resolve to an array of WebElements.
-         */
-        findElements(locator: Locator): webdriver.promise.Promise<WebElement[]>;
-        findElements(locator: any): webdriver.promise.Promise<WebElement[]>;
 
         /**
          * Schedules a command to click on this element.
@@ -4659,8 +4511,427 @@ declare module webdriver {
         getInnerHtml(): webdriver.promise.Promise<string>;
 
         //endregion
+    }
 
-        //region Static Methods
+    interface IWebElementFinders {
+        /**
+         * Schedule a command to find a descendant of this element. If the element
+         * cannot be found, a {@code bot.ErrorCode.NO_SUCH_ELEMENT} result will
+         * be returned by the driver. Unlike other commands, this error cannot be
+         * suppressed. In other words, scheduling a command to find an element doubles
+         * as an assert that the element is present on the page. To test whether an
+         * element is present on the page, use {@code #isElementPresent} instead.
+         *
+         * <p>The search criteria for an element may be defined using one of the
+         * factories in the {@link webdriver.By} namespace, or as a short-hand
+         * {@link webdriver.By.Hash} object. For example, the following two statements
+         * are equivalent:
+         * <code><pre>
+         * var e1 = element.findElement(By.id('foo'));
+         * var e2 = element.findElement({id:'foo'});
+         * </pre></code>
+         *
+         * <p>You may also provide a custom locator function, which takes as input
+         * this WebDriver instance and returns a {@link webdriver.WebElement}, or a
+         * promise that will resolve to a WebElement. For example, to find the first
+         * visible link on a page, you could write:
+         * <code><pre>
+         * var link = element.findElement(firstVisibleLink);
+         *
+         * function firstVisibleLink(element) {
+         *   var links = element.findElements(By.tagName('a'));
+         *   return webdriver.promise.filter(links, function(link) {
+         *     return links.isDisplayed();
+         *   }).then(function(visibleLinks) {
+         *     return visibleLinks[0];
+         *   });
+         * }
+         * </pre></code>
+         *
+         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
+         *     locator strategy to use when searching for the element.
+         * @return {!webdriver.WebElement} A WebElement that can be used to issue
+         *     commands against the located element. If the element is not found, the
+         *     element will be invalidated and all scheduled commands aborted.
+         */
+        findElement(locator: Locator|By.Hash|Function): WebElementPromise;
+
+        /**
+         * Schedules a command to test if there is at least one descendant of this
+         * element that matches the given search criteria.
+         *
+         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
+         *     locator strategy to use when searching for the element.
+         * @return {!webdriver.promise.Promise.<boolean>} A promise that will be
+         *     resolved with whether an element could be located on the page.
+         */
+        isElementPresent(locator: Locator|By.Hash|Function): webdriver.promise.Promise<boolean>;
+
+        /**
+         * Schedules a command to find all of the descendants of this element that
+         * match the given search criteria.
+         *
+         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
+         *     locator strategy to use when searching for the elements.
+         * @return {!webdriver.promise.Promise.<!Array.<!webdriver.WebElement>>} A
+         *     promise that will resolve to an array of WebElements.
+         */
+        findElements(locator: Locator|By.Hash|Function): webdriver.promise.Promise<WebElement[]>;
+    }
+
+
+    /**
+     * Defines an object that can be asynchronously serialized to its WebDriver
+     * wire representation.
+     *
+     * @constructor
+     * @template T
+     */
+    interface Serializable<T> {
+        /**
+         * Returns either this instance's serialized represention, if immediately
+         * available, or a promise for its serialized representation. This function is
+         * conceptually equivalent to objects that have a {@code toJSON()} property,
+         * except the serialize() result may be a promise or an object containing a
+         * promise (which are not directly JSON friendly).
+         *
+         * @return {!(T|IThenable.<!T>)} This instance's serialized wire format.
+         */
+        serialize(): T|webdriver.promise.IThenable<T>;
+    }
+
+
+    /**
+     * Represents a DOM element. WebElements can be found by searching from the
+     * document root using a {@link webdriver.WebDriver} instance, or by searching
+     * under another WebElement:
+     *
+     *     driver.get('http://www.google.com');
+     *     var searchForm = driver.findElement(By.tagName('form'));
+     *     var searchBox = searchForm.findElement(By.name('q'));
+     *     searchBox.sendKeys('webdriver');
+     *
+     * The WebElement is implemented as a promise for compatibility with the promise
+     * API. It will always resolve itself when its internal state has been fully
+     * resolved and commands may be issued against the element. This can be used to
+     * catch errors when an element cannot be located on the page:
+     *
+     *     driver.findElement(By.id('not-there')).then(function(element) {
+     *       alert('Found an element that was not expected to be there!');
+     *     }, function(error) {
+     *       alert('The element was not found, as expected');
+     *     });
+     *
+     * @extends {webdriver.Serializable.<webdriver.WebElement.Id>}
+     */
+    class WebElement implements Serializable<IWebElementId> {
+        /**
+         * @param {!webdriver.WebDriver} driver The parent WebDriver instance for this
+         *     element.
+         * @param {!(webdriver.promise.Promise.<webdriver.WebElement.Id>|
+         *           webdriver.WebElement.Id)} id The server-assigned opaque ID for the
+         *     underlying DOM element.
+         * @constructor
+         */
+        constructor(driver: WebDriver, id: webdriver.promise.Promise<IWebElementId>|IWebElementId);
+
+        /**
+         * Wire protocol definition of a WebElement ID.
+         * @typedef {{ELEMENT: string}}
+         * @see https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol
+         */
+        static Id: IWebElementId;
+
+        /**
+         * The property key used in the wire protocol to indicate that a JSON object
+         * contains the ID of a WebElement.
+         * @type {string}
+         * @const
+         */
+        static ELEMENT_KEY: string;
+
+
+        /**
+         * @return {!webdriver.WebDriver} The parent driver for this instance.
+         */
+        getDriver(): WebDriver;
+
+        /**
+         * Schedule a command to find a descendant of this element. If the element
+         * cannot be found, a {@link bot.ErrorCode.NO_SUCH_ELEMENT} result will
+         * be returned by the driver. Unlike other commands, this error cannot be
+         * suppressed. In other words, scheduling a command to find an element doubles
+         * as an assert that the element is present on the page. To test whether an
+         * element is present on the page, use {@link #isElementPresent} instead.
+         *
+         * The search criteria for an element may be defined using one of the
+         * factories in the {@link webdriver.By} namespace, or as a short-hand
+         * {@link webdriver.By.Hash} object. For example, the following two statements
+         * are equivalent:
+         *
+         *     var e1 = element.findElement(By.id('foo'));
+         *     var e2 = element.findElement({id:'foo'});
+         *
+         * You may also provide a custom locator function, which takes as input
+         * this WebDriver instance and returns a {@link webdriver.WebElement}, or a
+         * promise that will resolve to a WebElement. For example, to find the first
+         * visible link on a page, you could write:
+         *
+         *     var link = element.findElement(firstVisibleLink);
+         *
+         *     function firstVisibleLink(element) {
+         *       var links = element.findElements(By.tagName('a'));
+         *       return webdriver.promise.filter(links, function(link) {
+         *         return links.isDisplayed();
+         *       }).then(function(visibleLinks) {
+         *         return visibleLinks[0];
+         *       });
+         *     }
+         *
+         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
+         *     locator strategy to use when searching for the element.
+         * @return {!webdriver.WebElement} A WebElement that can be used to issue
+         *     commands against the located element. If the element is not found, the
+         *     element will be invalidated and all scheduled commands aborted.
+         */
+        findElement(locator: Locator|By.Hash|Function): WebElementPromise;
+
+        /**
+         * Schedules a command to test if there is at least one descendant of this
+         * element that matches the given search criteria.
+         *
+         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
+         *     locator strategy to use when searching for the element.
+         * @return {!webdriver.promise.Promise.<boolean>} A promise that will be
+         *     resolved with whether an element could be located on the page.
+         */
+        isElementPresent(locator: Locator|By.Hash|Function): webdriver.promise.Promise<boolean>;
+
+        /**
+         * Schedules a command to find all of the descendants of this element that
+         * match the given search criteria.
+         *
+         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
+         *     locator strategy to use when searching for the elements.
+         * @return {!webdriver.promise.Promise.<!Array.<!webdriver.WebElement>>} A
+         *     promise that will resolve to an array of WebElements.
+         */
+        findElements(locator: Locator|By.Hash|Function): webdriver.promise.Promise<WebElement[]>;
+
+        /**
+         * Schedules a command to click on this element.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the click command has completed.
+         */
+        click(): webdriver.promise.Promise<void>;
+
+        /**
+         * Schedules a command to type a sequence on the DOM element represented by this
+         * instance.
+         *
+         * Modifier keys (SHIFT, CONTROL, ALT, META) are stateful; once a modifier is
+         * processed in the keysequence, that key state is toggled until one of the
+         * following occurs:
+         *
+         * - The modifier key is encountered again in the sequence. At this point the
+         *   state of the key is toggled (along with the appropriate keyup/down events).
+         * - The {@link webdriver.Key.NULL} key is encountered in the sequence. When
+         *   this key is encountered, all modifier keys current in the down state are
+         *   released (with accompanying keyup events). The NULL key can be used to
+         *   simulate common keyboard shortcuts:
+         *
+         *         element.sendKeys("text was",
+         *                          webdriver.Key.CONTROL, "a", webdriver.Key.NULL,
+         *                          "now text is");
+         *         // Alternatively:
+         *         element.sendKeys("text was",
+         *                          webdriver.Key.chord(webdriver.Key.CONTROL, "a"),
+         *                          "now text is");
+         *
+         * - The end of the keysequence is encountered. When there are no more keys
+         *   to type, all depressed modifier keys are released (with accompanying keyup
+         *   events).
+         *
+         * If this element is a file input ({@code <input type="file">}), the
+         * specified key sequence should specify the path to the file to attach to
+         * the element. This is analgous to the user clicking "Browse..." and entering
+         * the path into the file select dialog.
+         *
+         *     var form = driver.findElement(By.css('form'));
+         *     var element = form.findElement(By.css('input[type=file]'));
+         *     element.sendKeys('/path/to/file.txt');
+         *     form.submit();
+         *
+         * For uploads to function correctly, the entered path must reference a file
+         * on the _browser's_ machine, not the local machine running this script. When
+         * running against a remote Selenium server, a {@link webdriver.FileDetector}
+         * may be used to transparently copy files to the remote machine before
+         * attempting to upload them in the browser.
+         *
+         * __Note:__ On browsers where native keyboard events are not supported
+         * (e.g. Firefox on OS X), key events will be synthesized. Special
+         * punctionation keys will be synthesized according to a standard QWERTY en-us
+         * keyboard layout.
+         *
+         * @param {...(string|!webdriver.promise.Promise<string>)} var_args The sequence
+         *     of keys to type. All arguments will be joined into a single sequence.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when all keys have been typed.
+         */
+        sendKeys(...var_args: Array<string|webdriver.promise.Promise<string>>): webdriver.promise.Promise<void>;
+
+        /**
+         * Schedules a command to query for the tag/node name of this element.
+         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         *     resolved with the element's tag name.
+         */
+        getTagName(): webdriver.promise.Promise<string>;
+
+        /**
+         * Schedules a command to query for the computed style of the element
+         * represented by this instance. If the element inherits the named style from
+         * its parent, the parent will be queried for its value.  Where possible, color
+         * values will be converted to their hex representation (e.g. #00ff00 instead of
+         * rgb(0, 255, 0)).
+         *
+         * _Warning:_ the value returned will be as the browser interprets it, so
+         * it may be tricky to form a proper assertion.
+         *
+         * @param {string} cssStyleProperty The name of the CSS style property to look
+         *     up.
+         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         *     resolved with the requested CSS value.
+         */
+        getCssValue(cssStyleProperty: string): webdriver.promise.Promise<string>;
+
+        /**
+         * Schedules a command to query for the value of the given attribute of the
+         * element. Will return the current value, even if it has been modified after
+         * the page has been loaded. More exactly, this method will return the value of
+         * the given attribute, unless that attribute is not present, in which case the
+         * value of the property with the same name is returned. If neither value is
+         * set, null is returned (for example, the "value" property of a textarea
+         * element). The "style" attribute is converted as best can be to a
+         * text representation with a trailing semi-colon. The following are deemed to
+         * be "boolean" attributes and will return either "true" or null:
+         *
+         * async, autofocus, autoplay, checked, compact, complete, controls, declare,
+         * defaultchecked, defaultselected, defer, disabled, draggable, ended,
+         * formnovalidate, hidden, indeterminate, iscontenteditable, ismap, itemscope,
+         * loop, multiple, muted, nohref, noresize, noshade, novalidate, nowrap, open,
+         * paused, pubdate, readonly, required, reversed, scoped, seamless, seeking,
+         * selected, spellcheck, truespeed, willvalidate
+         *
+         * Finally, the following commonly mis-capitalized attribute/property names
+         * are evaluated as expected:
+         *
+         * - "class"
+         * - "readonly"
+         *
+         * @param {string} attributeName The name of the attribute to query.
+         * @return {!webdriver.promise.Promise.<?string>} A promise that will be
+         *     resolved with the attribute's value. The returned value will always be
+         *     either a string or null.
+         */
+        getAttribute(attributeName: string): webdriver.promise.Promise<string>;
+
+        /**
+         * Get the visible (i.e. not hidden by CSS) innerText of this element, including
+         * sub-elements, without any leading or trailing whitespace.
+         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         *     resolved with the element's visible text.
+         */
+        getText(): webdriver.promise.Promise<string>;
+
+        /**
+         * Schedules a command to compute the size of this element's bounding box, in
+         * pixels.
+         * @return {!webdriver.promise.Promise.<{width: number, height: number}>} A
+         *     promise that will be resolved with the element's size as a
+         *     {@code {width:number, height:number}} object.
+         */
+        getSize(): webdriver.promise.Promise<ISize>;
+
+        /**
+         * Schedules a command to compute the location of this element in page space.
+         * @return {!webdriver.promise.Promise.<{x: number, y: number}>} A promise that
+         *     will be resolved to the element's location as a
+         *     {@code {x:number, y:number}} object.
+         */
+        getLocation(): webdriver.promise.Promise<ILocation>;
+
+        /**
+         * Schedules a command to query whether the DOM element represented by this
+         * instance is enabled, as dicted by the {@code disabled} attribute.
+         * @return {!webdriver.promise.Promise.<boolean>} A promise that will be
+         *     resolved with whether this element is currently enabled.
+         */
+        isEnabled(): webdriver.promise.Promise<boolean>;
+
+        /**
+         * Schedules a command to query whether this element is selected.
+         * @return {!webdriver.promise.Promise.<boolean>} A promise that will be
+         *     resolved with whether this element is currently selected.
+         */
+        isSelected(): webdriver.promise.Promise<boolean>;
+
+        /**
+         * Schedules a command to submit the form containing this element (or this
+         * element if it is a FORM element). This command is a no-op if the element is
+         * not contained in a form.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the form has been submitted.
+         */
+        submit(): webdriver.promise.Promise<void>;
+
+        /**
+         * Schedules a command to clear the {@code value} of this element. This command
+         * has no effect if the underlying DOM element is neither a text INPUT element
+         * nor a TEXTAREA element.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the element has been cleared.
+         */
+        clear(): webdriver.promise.Promise<void>;
+
+        /**
+         * Schedules a command to test whether this element is currently displayed.
+         * @return {!webdriver.promise.Promise.<boolean>} A promise that will be
+         *     resolved with whether this element is currently visible on the page.
+         */
+        isDisplayed(): webdriver.promise.Promise<boolean>;
+
+        /**
+         * Schedules a command to retrieve the outer HTML of this element.
+         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         *     resolved with the element's outer HTML.
+         */
+        getOuterHtml(): webdriver.promise.Promise<string>;
+
+        /**
+         * @return {!webdriver.promise.Promise.<webdriver.WebElement.Id>} A promise
+         *     that resolves to this element's JSON representation as defined by the
+         *     WebDriver wire protocol.
+         * @see http://code.google.com/p/selenium/wiki/JsonWireProtocol
+         */
+        getId(): webdriver.promise.Promise<IWebElementId>;
+
+        /**
+         * Returns the raw ID string ID for this element.
+         * @return {!webdriver.promise.Promise<string>} A promise that resolves to this
+         *     element's raw ID as a string value.
+         * @package
+         */
+        getRawId(): webdriver.promise.Promise<string>;
+
+        /** @override */
+        serialize(): webdriver.promise.Promise<IWebElementId>;
+
+        /**
+         * Schedules a command to retrieve the inner HTML of this element.
+         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
+         *     element's inner HTML.
+         */
+        getInnerHtml(): webdriver.promise.Promise<string>;
 
         /**
          * Compares to WebElements for equality.
@@ -4670,8 +4941,6 @@ declare module webdriver {
          *     whether the two WebElements are equal.
          */
         static equals(a: WebElement, b: WebElement): webdriver.promise.Promise<boolean>;
-
-        //endregion
     }
 
     /**
@@ -4808,26 +5077,174 @@ declare module webdriver {
         thenFinally<R>(callback: () => any): webdriver.promise.Promise<R>;
     }
 
-    interface ILocatorStrategy {
-        className(value: string): Locator;
-        css(value: string): Locator;
-        id(value: string): Locator;
-        js(script: any, ...var_args: any[]): (WebDriver: webdriver.WebDriver) => webdriver.promise.Promise<any>;
-        linkText(value: string): Locator;
-        name(value: string): Locator;
-        partialLinkText(value: string): Locator;
-        tagName(value: string): Locator;
-        xpath(value: string): Locator;
-    }
+    module By {
+        /**
+         * Locates elements that have a specific class name. The returned locator
+         * is equivalent to searching for elements with the CSS selector ".clazz".
+         *
+         * @param {string} className The class name to search for.
+         * @return {!webdriver.Locator} The new locator.
+         * @see http://www.w3.org/TR/2011/WD-html5-20110525/elements.html#classes
+         * @see http://www.w3.org/TR/CSS2/selector.html#class-html
+         */
+        function className(value: string): Locator;
 
-    var By: ILocatorStrategy;
+        /**
+         * Locates elements using a CSS selector. For browsers that do not support
+         * CSS selectors, WebDriver implementations may return an
+         * {@linkplain bot.Error.State.INVALID_SELECTOR invalid selector} error. An
+         * implementation may, however, emulate the CSS selector API.
+         *
+         * @param {string} selector The CSS selector to use.
+         * @return {!webdriver.Locator} The new locator.
+         * @see http://www.w3.org/TR/CSS2/selector.html
+         */
+        function css(value: string): Locator;
+
+        /**
+         * Locates an element by its ID.
+         *
+         * @param {string} id The ID to search for.
+         * @return {!webdriver.Locator} The new locator.
+         */
+        function id(value: string): Locator;
+
+        /**
+         * Locates link elements whose {@linkplain webdriver.WebElement#getText visible
+         * text} matches the given string.
+         *
+         * @param {string} text The link text to search for.
+         * @return {!webdriver.Locator} The new locator.
+         */
+        function linkText(value: string): Locator;
+
+        /**
+         * Locates an elements by evaluating a
+         * {@linkplain webdriver.WebDriver#executeScript JavaScript expression}.
+         * The result of this expression must be an element or list of elements.
+         *
+         * @param {!(string|Function)} script The script to execute.
+         * @param {...*} var_args The arguments to pass to the script.
+         * @return {function(!webdriver.WebDriver): !webdriver.promise.Promise} A new,
+         *     JavaScript-based locator function.
+         */
+        function js(script: any, ...var_args: any[]): (WebDriver: webdriver.WebDriver) => webdriver.promise.Promise<any>;
+
+        /**
+         * Locates elements whose {@code name} attribute has the given value.
+         *
+         * @param {string} name The name attribute to search for.
+         * @return {!webdriver.Locator} The new locator.
+         */
+        function name(value: string): Locator;
+
+        /**
+         * Locates link elements whose {@linkplain webdriver.WebElement#getText visible
+         * text} contains the given substring.
+         *
+         * @param {string} text The substring to check for in a link's visible text.
+         * @return {!webdriver.Locator} The new locator.
+         */
+        function partialLinkText(value: string): Locator;
+
+        /**
+         * Locates elements with a given tag name. The returned locator is
+         * equivalent to using the
+         * [getElementsByTagName](https://developer.mozilla.org/en-US/docs/Web/API/Element.getElementsByTagName)
+         * DOM function.
+         *
+         * @param {string} text The substring to check for in a link's visible text.
+         * @return {!webdriver.Locator} The new locator.
+         * @see http://www.w3.org/TR/REC-DOM-Level-1/level-one-core.html
+         */
+        function tagName(value: string): Locator;
+
+        /**
+         * Locates elements matching a XPath selector. Care should be taken when
+         * using an XPath selector with a {@link webdriver.WebElement} as WebDriver
+         * will respect the context in the specified in the selector. For example,
+         * given the selector {@code "//div"}, WebDriver will search from the
+         * document root regardless of whether the locator was used with a
+         * WebElement.
+         *
+         * @param {string} xpath The XPath selector to use.
+         * @return {!webdriver.Locator} The new locator.
+         * @see http://www.w3.org/TR/xpath/
+         */
+        function xpath(value: string): Locator;
+
+        /**
+         * Short-hand expressions for the primary element locator strategies.
+         * For example the following two statements are equivalent:
+         *
+         *     var e1 = driver.findElement(webdriver.By.id('foo'));
+         *     var e2 = driver.findElement({id: 'foo'});
+         *
+         * Care should be taken when using JavaScript minifiers (such as the
+         * Closure compiler), as locator hashes will always be parsed using
+         * the un-obfuscated properties listed.
+         *
+         * @typedef {(
+         *     {className: string}|
+         *     {css: string}|
+         *     {id: string}|
+         *     {js: string}|
+         *     {linkText: string}|
+         *     {name: string}|
+         *     {partialLinkText: string}|
+         *     {tagName: string}|
+         *     {xpath: string})}
+         */
+        type Hash = {className: string}|
+            {css: string}|
+            {id: string}|
+            {js: string}|
+            {linkText: string}|
+            {name: string}|
+            {partialLinkText: string}|
+            {tagName: string}|
+            {xpath: string};
+    }
 
     /**
      * An element locator.
      */
-    interface Locator {
+    class Locator {
+        /**
+         * An element locator.
+         * @param {string} using The type of strategy to use for this locator.
+         * @param {string} value The search target of this locator.
+         * @constructor
+         */
+        constructor(using: string, value: string);
 
-        //region Properties
+
+        /**
+         * Maps {@link webdriver.By.Hash} keys to the appropriate factory function.
+         * @type {!Object.<string, function(string): !(Function|webdriver.Locator)>}
+         * @const
+         */
+        static Strategy: {
+            className: typeof webdriver.By.className;
+            css: typeof webdriver.By.css;
+            id: typeof webdriver.By.id;
+            js: typeof webdriver.By.js;
+            linkText: typeof webdriver.By.linkText;
+            name: typeof webdriver.By.name;
+            partialLinkText: typeof webdriver.By.partialLinkText;
+            tagName: typeof webdriver.By.tagName;
+            xpath: typeof webdriver.By.xpath;
+        };
+
+        /**
+         * Verifies that a {@code value} is a valid locator to use for searching for
+         * elements on the page.
+         *
+         * @param {*} value The value to check is a valid locator.
+         * @return {!(webdriver.Locator|Function)} A valid locator object or function.
+         * @throws {TypeError} If the given value is an invalid locator.
+         */
+        static checkLocator(value: any): Locator | Function;
 
         /**
          * The search strategy to use when searching for an element.
@@ -4841,14 +5258,8 @@ declare module webdriver {
          */
         value: string;
 
-        //endregion
-
-        //region Methods
-
         /** @return {string} String representation of this locator. */
         toString(): string;
-
-        //endregion
     }
 
     /**

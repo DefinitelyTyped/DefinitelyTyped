@@ -369,6 +369,7 @@ declare module Vega {
     properties?: PropertySets;
     key?: string;
     delay?: ValueRef;
+    scales?: Scale[];
   }
 
   export module Mark {

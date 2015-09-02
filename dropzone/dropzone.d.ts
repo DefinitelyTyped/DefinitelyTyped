@@ -33,7 +33,7 @@ interface DropzoneOptions {
 	resize?: ( file?: any ) => any;
 	init?: () => void;
 	acceptedFiles?: string;
-	accept?: ( file: DropzoneFile, doneCallback: ( ...args ) => void ) => void;
+	accept?: ( file: DropzoneFile, doneCallback: ( ...args: any[] ) => void ) => void;
 	autoProcessQueue?: boolean;
 	previewTemplate?: string;
 	forceFallback?: boolean;
@@ -67,9 +67,9 @@ declare class Dropzone {
 	disable(): void;
 	destroy(): Dropzone;
 
-	on( eventName, callback: ( ...args ) => any );
+	on( eventName: string, callback: ( ...args: any[] ) => any ): void;
 
-	off( eventName ): void;
+	off( eventName: string ): void;
 
 	addFile( file: DropzoneFile ): void;
 
@@ -99,24 +99,24 @@ declare class Dropzone {
 	getFilesWithStatus( status: string ): DropzoneFile[];
 	enqueueFile( file: DropzoneFile ): void;
 	enqueueFiles( file: DropzoneFile[] ): void;
-	createThumbnail( file: DropzoneFile, callback?: (...any) => {}): any;
-	createThumbnailFromUrl( file: DropzoneFile, url: string, callback?: ( ...any ) => any ): any;
+	createThumbnail( file: DropzoneFile, callback?: (...any: any[]) => {}): any;
+	createThumbnailFromUrl( file: DropzoneFile, url: string, callback?: ( ...any: any[] ) => any ): any;
 
-	emit( eventName: string, file: DropzoneFile, str?: string );
-	emit( eventName: "thumbnail", file: DropzoneFile, path: string );
-	emit( eventName: "addedfile", file: DropzoneFile );
-	emit( eventName: "removedfile", file: DropzoneFile );
-	emit( eventName: "processing", file: DropzoneFile );
-	emit( eventName: "canceled", file: DropzoneFile );
-	emit( eventName: "complete", file: DropzoneFile );
+	emit( eventName: string, file: DropzoneFile, str?: string ): void;
+	emit( eventName: "thumbnail", file: DropzoneFile, path: string ): void;
+	emit( eventName: "addedfile", file: DropzoneFile ): void;
+	emit( eventName: "removedfile", file: DropzoneFile ): void;
+	emit( eventName: "processing", file: DropzoneFile ): void;
+	emit( eventName: "canceled", file: DropzoneFile ): void;
+	emit( eventName: "complete", file: DropzoneFile ): void;
 
-	emit( eventName: string, e: Event );
-	emit( eventName: "drop", e: Event );
-	emit( eventName: "dragstart", e: Event );
-	emit( eventName: "dragend", e: Event );
-	emit( eventName: "dragenter", e: Event );
-	emit( eventName: "dragover", e: Event );
-	emit( eventName: "dragleave", e: Event );
+	emit( eventName: string, e: Event ): void;
+	emit( eventName: "drop", e: Event ): void;
+	emit( eventName: "dragstart", e: Event ): void;
+	emit( eventName: "dragend", e: Event ): void;
+	emit( eventName: "dragenter", e: Event ): void;
+	emit( eventName: "dragover", e: Event ): void;
+	emit( eventName: "dragleave", e: Event ): void;
 }
 
 interface JQuery {
