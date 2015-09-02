@@ -1737,9 +1737,6 @@ class Mage {
     }
 }
 
-result = <string>_.uniqueId('contact_');
-result = <string>_.uniqueId();
-
 /*********
 * String
 *********/
@@ -1941,6 +1938,11 @@ result = <number>(_.methodOf<number>(TestMethodOfObject, 1, 2))('a[0]');
 result = <number>(_.methodOf<number>(TestMethodOfObject, 1, 2))(['a', '0']);
 result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())('a[0]');
 result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())(['a', '0']);
+
+// _.uniqueId
+result = <string>_.uniqueId();
+result = <string>_.uniqueId('');
+result = <string>_('').uniqueId();
 
 result = <string>_.VERSION;
 result = <_.Support>_.support;
