@@ -118,7 +118,7 @@ declare module olx {
     interface ImageWMSOptions extends BaseWMSOptions {
 
         /** experimental Optional function to load an image given a URL. */
-        imageLoadFunction?: any;
+        imageLoadFunction?: ol.ImageLoadFunctionType;
 
         /** Ratio. 1 means image requests are the size of the map viewport, 2 means twice the width and height of the map viewport, and so on. Must be 1 or higher. Default is 1.5. */
         ratio?: number;
@@ -139,7 +139,7 @@ declare module olx {
         maxZoom?: number;
 
         /** experimental Optional function to load a tile given a URL. */
-        tileLoadFunction?: any; //todo
+        tileLoadFunction?: ol.TileLoadFunctionType;
 
         /** WMS service urls. Use this instead of url when the WMS supports multiple urls for GetMap requests. */
         urls?: Array<string>;
@@ -354,7 +354,7 @@ declare module olx {
         *  a {number} view resolution and an {ol.Coordinate} as arguments, and returns the {number} 
         *  resolution at the passed coordinate.
         */
-        getPointResolution?: any;
+        getPointResolution?: (resolution: number, coordinate: ol.Coordinate) => number;
     }
 
     module animation {
@@ -950,6 +950,10 @@ declare module olx {
  * A high-performance, feature-packed library for all your mapping needs.
  */
 declare module ol {
+
+    interface TileLoadFunctionType{ (image: ol.Image, url: string): void }
+    
+    interface ImageLoadFunctionType{ (image: ol.Image, url: string): void }
 
     /**
      * An attribution for a layer source.
