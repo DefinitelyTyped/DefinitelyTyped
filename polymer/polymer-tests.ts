@@ -56,3 +56,27 @@ document.registerElement('my-element', MyElement);
 // Equivalent:
 var el1 = new MyElement();
 var el2 = document.createElement('my-element');
+
+// ES6 class syntax
+
+// implicit implementation
+class MyElement2 {
+  is: string;
+
+  registered() {
+    this.is = "my-element2";
+  }
+}
+
+Polymer(MyElement2);
+
+// explicit implementation
+class MyElement3 implements polymer.Base {
+  is: string;
+
+  registered() {
+    this.is = "my-element3";
+  }
+}
+
+Polymer(MyElement3);
