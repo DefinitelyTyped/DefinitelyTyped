@@ -18,14 +18,14 @@ declare module angular.dialog {
 		 * @returns {boolean} Indicating whether it exists or not.
 		 */
 		isOpen(id: string): boolean;
-		close(id: string, value: any);
-		closeAll(value: any);
-		getOpenDialogs();
+		close(id: string, value?: any): void;
+		closeAll(value?: any): void;
+		getOpenDialogs(): string[];
 	}
 
 	interface IDialogOpenResult {
 		id: string;
-		close: Function;
+		close: (value?: string) => void;
 		closePromise: IPromise<void>;
 	}
 
@@ -47,7 +47,7 @@ declare module angular.dialog {
 		 * @param value Any value passed to this function will be attached to the object which resolves on the close promise for this dialog. 
 		 * For dialogs opened with the openConfirm() method the value is used as the reject reason.
 		 */
-		closeThisDialog(value: any): void;
+		closeThisDialog(value?: any): void;
 	}
 
 	interface IDialogOptions {
