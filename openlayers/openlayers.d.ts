@@ -103,13 +103,13 @@ declare module olx {
         hidpi?: boolean;
 
         /** experimental The type of the remote WMS server: mapserver, geoserver or qgis. Only needed if hidpi is true. Default is undefined. */
-        serverType?: any;
+        serverType?: ol.source.wms.ServerType;
 
         /** WMS service URL. */
         url?: string;
 
         /** Logo. */
-        logo?: any;
+        logo?: olx.LogoOptions;
 
         /** experimental Projection. */
         projection?: ol.proj.ProjectionLike;
