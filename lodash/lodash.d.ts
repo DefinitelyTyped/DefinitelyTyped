@@ -8055,11 +8055,32 @@ declare module _ {
     //_.identity
     interface LoDashStatic {
         /**
-        * This method returns the first argument provided to it.
-        * @param value Any value.
-        * @return value.
-        **/
+         * This method returns the first argument provided to it.
+         * @param value Any value.
+         * @return Returns value.
+         */
         identity<T>(value?: T): T;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.identity
+         */
+        identity(): T;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.identity
+         */
+        identity(): T[];
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.identity
+         */
+        identity(): T;
     }
 
     //_.method
