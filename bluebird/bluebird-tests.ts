@@ -528,6 +528,15 @@ fooArrProm = fooArrProm.filter<Foo>((item: Foo) => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+fooArrProm = fooArrProm.each<Foo>((item: Foo, index: number, arrayLength: number) => {
+	return value;
+});
+fooArrProm = fooArrProm.each<Foo>((item: Foo) => {
+	return;
+});
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 
 fooProm = Promise.try(() => {
 	return foo;
@@ -902,6 +911,78 @@ fooArrProm = Promise.filter(fooArr, (item: Foo, index: number, arrayLength: numb
 });
 fooArrProm = Promise.filter(fooArr, (item: Foo, index: number, arrayLength: number) => {
 	return boolThen;
+});
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// each()
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// fooThenArrThen
+
+fooArrProm = Promise.each(fooThenArrThen, (item: Foo) => {
+	return;
+});
+fooArrProm = Promise.each(fooThenArrThen, (item: Foo) => {
+	return value;
+});
+fooArrProm = Promise.each(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
+	return;
+});
+fooArrProm = Promise.each(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
+	return value;
+});
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// fooArrThen
+
+fooArrProm = Promise.each(fooArrThen, (item: Foo) => {
+	return;
+});
+fooArrProm = Promise.each(fooArrThen, (item: Foo) => {
+	return value;
+});
+fooArrProm = Promise.each(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
+	return;
+});
+fooArrProm = Promise.each(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
+	return value;
+});
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// fooThenArr
+
+fooArrProm = Promise.each(fooThenArr, (item: Foo) => {
+	return;
+});
+fooArrProm = Promise.each(fooThenArr, (item: Foo) => {
+	return value;
+});
+fooArrProm = Promise.each(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
+	return;
+});
+fooArrProm = Promise.each(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
+	return value;
+});
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// fooArr
+
+fooArrProm = Promise.each(fooArr, (item: Foo) => {
+	return;
+});
+fooArrProm = Promise.each(fooArr, (item: Foo) => {
+	return value;
+});
+fooArrProm = Promise.each(fooArr, (item: Foo, index: number, arrayLength: number) => {
+	return;
+});
+fooArrProm = Promise.each(fooArr, (item: Foo, index: number, arrayLength: number) => {
+	return value;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
