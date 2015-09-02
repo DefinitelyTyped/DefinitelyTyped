@@ -6415,6 +6415,24 @@ declare module _ {
         isNumber(): boolean;
     }
 
+    //_.isObject
+    interface LoDashStatic {
+        /**
+         * Checks if value is the language type of Object. (e.g. arrays, functions, objects, regexes, new Number(0),
+         * and new String(''))
+         * @param value The value to check.
+         * @return Returns true if value is an object, else false.
+         **/
+        isObject(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * see _.isObject
+         */
+        isObject(): boolean;
+    }
+
     //_.isPlainObject
     interface LoDashStatic {
         /**
@@ -7213,17 +7231,6 @@ declare module _ {
         eq(other?: any,
            callback?: EqCustomizer,
            thisArg?: any): boolean;
-    }
-
-    //_.isObject
-    interface LoDashStatic {
-        /**
-        * Checks if value is the language type of Object. (e.g. arrays, functions, objects, regexes,
-        * new Number(0), and new String(''))
-        * @param value The value to check.
-        * @return True if the value is an object, else false.
-        **/
-        isObject(value?: any): boolean;
     }
 
     //_.keys

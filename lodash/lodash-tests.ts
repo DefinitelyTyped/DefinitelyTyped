@@ -1284,6 +1284,12 @@ result = <boolean>_(1).isNumber();
 result = <boolean>_<any>([]).isNumber();
 result = <boolean>_({}).isNumber();
 
+// _.isObject
+result = <boolean>_.isObject(any);
+result = <boolean>_(1).isObject();
+result = <boolean>_<any>([]).isObject();
+result = <boolean>_({}).isObject();
+
 // _.isPlainObject
 result = <boolean>_.isPlainObject(any);
 result = <boolean>_(1).isPlainObject();
@@ -1521,10 +1527,6 @@ result = <boolean>_.isEqual(testEqArray, testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_(testEqArray).isEqual(testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_.eq(testEqArray, testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_(testEqArray).eq(testEqOtherArray, testEqCustomizerFn);
-
-result = <boolean>_.isObject({});
-result = <boolean>_.isObject([1, 2, 3]);
-result = <boolean>_.isObject(1);
 
 class Stooge {
     constructor(
