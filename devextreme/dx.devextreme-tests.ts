@@ -120,7 +120,7 @@ module Tests.ui {
                         $('<div/>').dxAutocomplete({
                             items: ["Bern", "Lyon", "Lander"],
                             value: options.value,
-                            onValueChange: function (e:{ value: string }) {
+                            onValueChanged: function (e:{ value: string }) {
                                 options.setValue(e.value);
                             }
                         }).appendTo(container);
