@@ -2404,7 +2404,7 @@ declare module uiGrid {
              * Enable column resizing on an individual column
              * Defaults to GridOptions.enableColumnResizing
              */
-            enableColumnResizing: boolean;
+            enableColumnResizing?: boolean;
         }
         /**
          * Column Resizing Grid Options

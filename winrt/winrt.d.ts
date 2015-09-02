@@ -1541,7 +1541,24 @@ declare module Windows {
                 device,
                 printTaskSettings,
                 cameraSettings,
-                webAuthenticationBrokerContinuation
+                restrictedLaunch,
+                appointmentsProvider,
+                contact,
+                lockScreenCall,
+                voiceCommand,
+                lockScreen,
+                pickerReturned,
+                walletAction,
+                pickFileContinuation,
+                pickSaveFileContinuation,
+                pickFolderContinuation,
+                webAuthenticationBrokerContinuation,
+                webAccountProvider,
+                componentUI,
+                protocolForResults,
+                toastNotification,
+                print3DWorkflow,
+                dialReceiver
             }
             export interface IActivatedEventArgs {
                 kind: Windows.ApplicationModel.Activation.ActivationKind;
