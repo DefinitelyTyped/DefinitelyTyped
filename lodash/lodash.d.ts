@@ -6230,6 +6230,23 @@ declare module _ {
         isDate(): boolean;
     }
 
+    //_.isElement
+    interface LoDashStatic {
+        /**
+         * Checks if value is a DOM element.
+         * @param value The value to check.
+         * @return Returns true if value is a DOM element, else false.
+         */
+        isElement(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isElement
+         */
+        isElement(): boolean;
+    }
+
     //_.isEmpty
     interface LoDashStatic {
         /**
@@ -7095,16 +7112,6 @@ declare module _ {
         * @return The created inverted object.
         **/
         invert(object: any): any;
-    }
-
-    //_.isElement
-    interface LoDashStatic {
-        /**
-        * Checks if value is a DOM element.
-        * @param value The value to check.
-        * @return True if the value is a DOM element, else false.
-        **/
-        isElement(value?: any): boolean;
     }
 
     //_.isEqual
