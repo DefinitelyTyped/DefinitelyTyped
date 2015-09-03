@@ -937,6 +937,24 @@ declare module chrome.devtools.panels {
 }
 
 /**
+ * Use the chrome.documentScan API to discover and retrieve images from attached paper document scanners.
+ */
+declare module chrome.documentScan {
+
+    interface ScanOptions {
+        mimeTypes?: string[];
+        maxImages?: number;
+    }
+
+    interface ScanResult {
+        dataUrls: string[];
+        mimeType: string;
+    }
+
+    export function scan(options: ScanOptions, callback: (result: ScanResult) => void): void;
+}
+
+/**
  * Use the chrome.downloads API to programmatically initiate, monitor, manipulate, and search for downloads.
  */
 declare module chrome.downloads {
