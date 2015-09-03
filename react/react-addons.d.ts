@@ -48,6 +48,7 @@ declare module "react/addons" {
 
     type HTMLFactory = DOMFactory<HTMLAttributes>;
     type SVGFactory = DOMFactory<SVGAttributes>;
+    type SVGElementFactory = DOMFactory<SVGElementAttributes>;
 
     //
     // React Nodes
@@ -135,6 +136,7 @@ declare module "react/addons" {
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
         forceUpdate(): void;
+        render(): JSX.Element;
         props: P;
         state: S;
         context: {};
@@ -213,6 +215,8 @@ declare module "react/addons" {
 
     interface ComponentSpec<P, S> extends Mixin<P, S> {
         render(): ReactElement<any>;
+
+        [propertyName: string]: any;
     }
 
     //
@@ -392,10 +396,14 @@ declare module "react/addons" {
         zIndex?: number;
         zoom?: number;
 
+        fontSize?: number | string;
+
         // SVG-related properties
         fillOpacity?: number;
         strokeOpacity?: number;
         strokeWidth?: number;
+
+        [propertyName: string]: string | number | boolean;
     }
 
     interface HTMLAttributes extends DOMAttributes {
@@ -518,6 +526,11 @@ declare module "react/addons" {
         itemScope?: boolean;
         itemType?: string;
         unselectable?: boolean;
+    }
+
+    interface SVGElementAttributes extends HTMLAttributes {
+        viewBox?: string;
+        preserveAspectRatio?: string;
     }
 
     interface SVGAttributes extends DOMAttributes {
@@ -690,6 +703,7 @@ declare module "react/addons" {
         wbr: HTMLFactory;
 
         // SVG
+        svg: SVGElementFactory;
         circle: SVGFactory;
         defs: SVGFactory;
         ellipse: SVGFactory;
@@ -704,7 +718,6 @@ declare module "react/addons" {
         radialGradient: SVGFactory;
         rect: SVGFactory;
         stop: SVGFactory;
-        svg: SVGFactory;
         text: SVGFactory;
         tspan: SVGFactory;
     }
@@ -752,6 +765,34 @@ declare module "react/addons" {
         forEach(children: ReactNode, fn: (child: ReactChild, index: number) => any): void;
         count(children: ReactNode): number;
         only(children: ReactNode): ReactChild;
+    }
+
+    //
+    // Browser Interfaces
+    // https://github.com/nikeee/2048-typescript/blob/master/2048/js/touch.d.ts
+    // ----------------------------------------------------------------------
+
+    interface AbstractView {
+        styleMedia: StyleMedia;
+        document: Document;
+    }
+
+    interface Touch {
+        identifier: number;
+        target: EventTarget;
+        screenX: number;
+        screenY: number;
+        clientX: number;
+        clientY: number;
+        pageX: number;
+        pageY: number;
+    }
+
+    interface TouchList {
+        [index: number]: Touch;
+        length: number;
+        item(index: number): Touch;
+        identifiedTouch(identifier: number): Touch;
     }
 
     //
@@ -1022,33 +1063,5 @@ declare module "react/addons" {
         getRenderOutput(): ReactElement<any>;
         render(element: ReactElement<any>, context?: any): void;
         unmount(): void;
-    }
-
-    //
-    // Browser Interfaces
-    // https://github.com/nikeee/2048-typescript/blob/master/2048/js/touch.d.ts
-    // ----------------------------------------------------------------------
-
-    interface AbstractView {
-        styleMedia: StyleMedia;
-        document: Document;
-    }
-
-    interface Touch {
-        identifier: number;
-        target: EventTarget;
-        screenX: number;
-        screenY: number;
-        clientX: number;
-        clientY: number;
-        pageX: number;
-        pageY: number;
-    }
-
-    interface TouchList {
-        [index: number]: Touch;
-        length: number;
-        item(index: number): Touch;
-        identifiedTouch(identifier: number): Touch;
     }
 }
