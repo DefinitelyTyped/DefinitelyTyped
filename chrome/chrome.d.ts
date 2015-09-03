@@ -1102,7 +1102,7 @@ declare module chrome.downloads {
 /**
  * Use the chrome.enterprise.platformKeys API to generate hardware-backed keys and to install certificates for these
  * keys. The certificates will be managed by the platform and can be used for TLS authentication, network access or by
- * other extension through chrome.platformKeys. 
+ * other extension through chrome.platformKeys.
  */
 declare module chrome.enterprise.platformKeys {
 
@@ -1244,6 +1244,299 @@ declare module chrome.fileBrowserHandler {
     export function selectFile(selectionParams: SelectionParams, callback: (result: SelectionResult) => void): void;
 
     var onExecute: FileBrowserHandlerExecuteEvent;
+}
+
+/**
+ * Use the chrome.fileSystemProvider API to create file systems, that can be accessible from the file manager on Chrome OS.
+ */
+declare module chrome.fileSystemProvider {
+
+    interface EntryMetadata {
+        isDirectory: boolean;
+        name: string;
+        size: number;
+        modificationTime: Date;
+        mimeType?: string;
+        thumbnail?: string;
+    }
+
+    interface FileSystemInfo {
+        fileSystemId: string;
+        displayName: string;
+        writable: boolean;
+        openedFilesLimit: number;
+        openedFiles: File[];
+        supportsNotifyTag?: boolean;
+        watchers: Watcher[];
+    }
+
+    interface GetActionsRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+        entryPath: string;
+    }
+
+    interface Action {
+        id: string;
+        title?: string;
+    }
+
+    interface ExecuteActionRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+        entryPath: string;
+        actionId: string;
+    }
+
+    interface File {
+        openRequestId: number;
+        filePath: string;
+        mode: string;
+    }
+
+    interface Watcher {
+        entryPath: string;
+        recursive: boolean;
+        lastTag?: string;
+    }
+
+    interface MountOptions {
+        fileSystemId: string;
+        displayName: string;
+        writable?: boolean;
+        openedFilesLimit?: number;
+        supportsNotifyTag?: boolean;
+    }
+
+    interface UnmoutOptions {
+        fileSystemId: string;
+    }
+
+    interface NotifyOptions {
+        fileSystemId: string;
+        observedPath: string;
+        recursive: boolean;
+        changeType: string;
+        changes?: EntryChange[];
+        tag?: string;
+    }
+
+    interface EntryChange {
+        entryPath: string;
+        changeType: string;
+    }
+
+    // events
+
+    interface UnmountedRequestedEvent extends events.Event {
+        addListener(callback: (options: UnmountedRequestedOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
+    }
+
+    interface UnmountedRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+    }
+
+    interface GetMetadataRequestedEvent extends events.Event {
+        addListener(callback: (options: GetMetadataRequestedOptions, successCallback: (metadata: EntryMetadata) => void, errorCallback: (error: string) => void) => void): void;
+    }
+
+    interface GetMetadataRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+        entryPath: string;
+        thumbnail: boolean;
+    }
+
+    interface ReadDirectoryRequestedEvent extends events.Event {
+        addListener(callback: (options: ReadDirectoryRequestedOptions, successCallback: (entries: EntryMetadata[], hasMore: boolean) => void, errorCallback: (error: string) => void) => void): void;
+    }
+
+    interface ReadDirectoryRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+        directoryPath: string;
+    }
+
+    interface OpenFileRequestedEvent extends events.Event {
+        addListener(callback: (options: OpenFileRequestedOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
+    }
+
+    interface OpenFileRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+        filePath: string;
+        mode: string;
+    }
+
+    interface CloseFileRequestedEvent extends events.Event {
+        addListener(callback: (options: CloseFileRequestedOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
+    }
+
+    interface CloseFileRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+        openRequestId: number;
+    }
+
+    interface ReadFileRequestedEvent extends events.Event {
+        addListener(callback: (options: ReadFileRequestedOptions, successCallback: (data: ArrayBuffer, hasMore: boolean) => void, errorCallback: (error: string) => void) => void): void;
+    }
+
+    interface ReadFileRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+        openRequestId: number;
+        offset: number;
+        length: number;
+    }
+
+    interface CreateDirectoryRequestedEvent extends events.Event {
+        addListener(callback: (options: CreateDirectoryRequestedOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
+    }
+
+    interface CreateDirectoryRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+        directoryPath: string;
+        recursive: boolean;
+    }
+
+    interface DeleteEntryRequestedEvent extends events.Event {
+        addListener(callback: (options: DeleteEntryRequestedOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
+    }
+
+    interface DeleteEntryRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+        entryPath: string;
+        recursive: boolean;
+    }
+
+    interface CreateFileRequestedEvent extends events.Event {
+        addListener(callback: (options: CreateFileRequestedOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
+    }
+
+    interface CreateFileRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+        filePath: string;
+    }
+
+    interface CopyEntryRequestedEvent extends events.Event {
+        addListener(callback: (options: CopyEntryRequestedOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
+    }
+
+    interface CopyEntryRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+        sourcePath: string;
+        targetPath: string;
+    }
+
+    interface MoveEntryRequestedEvent extends events.Event {
+        addListener(callback: (options: MoveEntryRequestedOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
+    }
+
+    interface MoveEntryRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+        sourcePath: string;
+        targetPath: string;
+    }
+
+    interface TruncateRequestedEvent extends events.Event {
+        addListener(callback: (options: TruncateRequestedOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
+    }
+
+    interface TruncateRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+        filePath: string;
+        length: number;
+    }
+
+    interface WriteFileRequestedEvent extends events.Event {
+        addListener(callback: (options: WriteFileRequestedOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
+    }
+
+    interface WriteFileRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+        openRequestId: number;
+        offset: number;
+        data: ArrayBuffer;
+    }
+
+    interface AbortRequestedEvent extends events.Event {
+        addListener(callback: (options: AbortRequestedOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
+    }
+
+    interface AbortRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+        operationRequestId: number;
+    }
+
+    interface ConfigureRequestedEvent extends events.Event {
+        addListener(callback: (options: ConfigureRequestedOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
+    }
+
+    interface ConfigureRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+    }
+
+    interface MountRequestedEvent extends events.Event {
+        addListener(callback: (successCallback: Function, errorCallback: (error: string) => void) => void): void;
+    }
+
+    interface AddWatcherRequestedEvent extends events.Event {
+        addListener(callback: (options: AddWatcherRequestedOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
+    }
+
+    interface AddWatcherRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+        entryPath: string;
+        recursive: boolean;
+    }
+
+    interface RemoveWatcherRequestedEvent extends events.Event {
+        addListener(callback: (options: RemoveWatcherRequestedOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
+    }
+
+    interface RemoveWatcherRequestedOptions {
+        fileSystemId: string;
+        requestId: number;
+        entryPath: string;
+        recursive: boolean;
+    }
+
+    export function mount(options: MountOptions, callback?: Function): void;
+    export function unmount(options: UnmoutOptions, callback?: Function): void;
+    export function getAll(callback: (fileSystems: FileSystemInfo[]) => void): void;
+    export function get(fileSystemId: string, callback: (fileSystem: FileSystemInfo) => void): void;
+    export function notify(options: NotifyOptions, callback?: Function): void;
+
+    var onUnmountRequested: UnmountedRequestedEvent;
+    var onGetMetadataRequested: GetMetadataRequestedEvent;
+    var onReadDirectoryRequested: ReadDirectoryRequestedEvent;
+    var onOpenFileRequested: OpenFileRequestedEvent;
+    var onCloseFileRequested: CloseFileRequestedEvent;
+    var onReadFileRequested: ReadFileRequestedEvent;
+    var onCreateDirectoryRequested: CreateDirectoryRequestedEvent;
+    var onDeleteEntryRequested: DeleteEntryRequestedEvent;
+    var onCreateFileRequested: CreateFileRequestedEvent;
+    var onCopyEntryRequested: CopyEntryRequestedEvent;
+    var onMoveEntryRequested: MoveEntryRequestedEvent;
+    var onTruncateRequested: TruncateRequestedEvent;
+    var onWriteFileRequested: WriteFileRequestedEvent;
+    var onAbortRequested: AbortRequestedEvent;
+    var onConfigureRequested: ConfigureRequestedEvent;
+    var onMountRequested: MountRequestedEvent;
+    var onAddWatcherRequested: AddWatcherRequestedEvent;
+    var onRemoveWatcherRequested: RemoveWatcherRequestedEvent;
 }
 
 /**
