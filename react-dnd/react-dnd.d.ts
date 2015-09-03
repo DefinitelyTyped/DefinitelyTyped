@@ -5,8 +5,8 @@
 
 ///<reference path='../react/react.d.ts' />
 
-declare module __ReactDnd {
-    import React = __React;
+declare module "react-dnd" {
+    import * as React from "react";
 
     // Decorated React Components
     // ----------------------------------------------------------------------
@@ -157,11 +157,9 @@ declare module __ReactDnd {
     interface Backend {}
 }
 
-declare module "react-dnd" {
-    export = __ReactDnd;
-}
-
 declare module "react-dnd/modules/backends/HTML5" {
+    import * as __ReactDnd from "react-dnd";
+
     enum _NativeTypes { FILE, URL, TEXT }
     class HTML5Backend implements __ReactDnd.Backend {
         static getEmptyImage(): any; // Image
@@ -172,6 +170,8 @@ declare module "react-dnd/modules/backends/HTML5" {
 }
 
 declare module "react-dnd/modules/backends/Test" {
+    import * as __ReactDnd from "react-dnd";
+
     class TestBackend {
         setup(): void;
         teardown(): void;

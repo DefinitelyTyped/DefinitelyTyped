@@ -1,5 +1,8 @@
 /// <reference path="./react-swf.d.ts"/>
 /// <reference path="../react/react.d.ts"/>
+
+import ReactSWF = require('react-swf');
+
 var version = ReactSWF.getFPVersion();
 var isFPVersionSupported = ReactSWF.isFPVersionSupported('5');
 var reactSWF = new ReactSWF();

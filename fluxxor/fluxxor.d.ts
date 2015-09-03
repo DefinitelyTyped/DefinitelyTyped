@@ -6,7 +6,9 @@
 ///<reference path='../react/react.d.ts' />
 ///<reference path='../eventemitter3/eventemitter3.d.ts' />
 
-declare module Fluxxor {
+declare module 'fluxxor' {
+    import * as __React from 'react';
+    
     class Dispatcher {
         constructor(stores: any);
         addStore(name: string, store: Store): void;
@@ -63,8 +65,4 @@ declare module Fluxxor {
     function StoreWatchMixin<StoreState>(...storeNames: string[]): StoreWatchMixin<StoreState>;
     function createStore(spec: StoreSpec): StoreClass;
     var version: string;
-}
-
-declare module 'fluxxor' {
-    export = Fluxxor;
 }

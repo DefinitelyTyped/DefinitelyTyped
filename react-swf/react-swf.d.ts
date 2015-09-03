@@ -7,10 +7,8 @@
 
 
 declare module "react-swf" {
-    export = ReactSWF;
-}
-declare var ReactSWF: typeof rswf.ReactSWF
-declare module rswf {
+    import * as __React from "react";
+
     interface State {
 
     }
@@ -112,7 +110,7 @@ declare module rswf {
         */
         flashvars?: Object | string
     }
-    export class ReactSWF extends __React.Component<Props, State>{
+    class ReactSWF extends __React.Component<Props, State>{
         render(): __React.DOMElement<any>
         /**
         * Returns the Flash Player object DOM node.
@@ -134,4 +132,5 @@ declare module rswf {
         static isFPVersionSupported(versionString: string): boolean
     }
 
+    export = ReactSWF;
 }
