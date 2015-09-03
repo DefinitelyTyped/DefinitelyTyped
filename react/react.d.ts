@@ -795,7 +795,7 @@ declare module "react" {
         identifiedTouch(identifier: number): Touch;
     }
 
-    module JSX {
+    namespace JSX {
 
         interface Element extends ReactElement<any> { }
         interface ElementClass extends Component<any, any> {
