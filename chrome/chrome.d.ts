@@ -2262,6 +2262,45 @@ declare module chrome.permissions {
 }
 
 /**
+ * Use the chrome.platformKeys API to access client certificates managed by the platform. If the user or policy grants
+ * the permission, an extension can use such a certficate in its custom authentication protocol. E.g. this allows usage
+ * of platform managed certificates in third party VPNs (see chrome.vpnProvider).
+ */
+declare module chrome.platformKeys {
+
+    interface Match {
+        certificate: ArrayBuffer;
+        keyAlgorithm: KeyAlgorithm;
+    }
+
+    interface CertificatesSelectionDetails {
+        request: CertificatesSelectionRequestDetails;
+        clientCerts?: ArrayBuffer[];
+        interactive: boolean;
+    }
+
+    interface CertificatesSelectionRequestDetails {
+        certificateTypes: string[];
+        certificateAuthorities: ArrayBuffer[];
+    }
+
+    interface TLSServerCertificateVerificationDetails {
+        serverCertificateChain: ArrayBuffer[];
+        hostname: string;
+    }
+
+    interface TLSServerCertificateVerificationResult {
+        trusted: boolean;
+        debug_errors: string[];
+    }
+
+    export function selectClientCertificates(details: CertificatesSelectionDetails, callback: (matches: Match[]) => void): void;
+    export function getKeyPair(certificate: ArrayBuffer, parameters: Object, callback: (publicKey: CryptoKey, privateKey?: CryptoKey) => void): void;
+    export function subtleCrypto(): void;
+    export function verifyTLSServerCertificate(details: TLSServerCertificateVerificationDetails, callback: (result: TLSServerCertificateVerificationResult) => void): void;
+}
+
+/**
  * Use the chrome.power API to override the system's power management features.
  */
 declare module chrome.power {
