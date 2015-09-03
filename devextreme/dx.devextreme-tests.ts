@@ -2,12 +2,12 @@
 
 module Tests.ui {
     var dataGridOptions: DevExpress.ui.dxDataGridOptions = {
-         activeStateEnabled: true,
-         allowColumnReordering: true,
-         allowColumnResizing: true,
-         onCellClick: function () { },
-         cellHintEnabled: true,
-         columnAutoWidth: true,
+        activeStateEnabled: true,
+        allowColumnReordering: true,
+        allowColumnResizing: true,
+        onCellClick: function() { },
+        cellHintEnabled: true,
+        columnAutoWidth: true,
         columnChooser: {
             emptyPanelText: "Nothing is here",
             enabled: true,
@@ -53,7 +53,7 @@ module Tests.ui {
                 name: "test-column-name",
                 showEditorAlways: true,
                 showInColumnChooser: true,
-                showWhenGrouped:true,
+                showWhenGrouped: true,
                 sortIndex: 1,
                 sortOrder: "desc",
                 trueText: "TRUE",
@@ -62,7 +62,7 @@ module Tests.ui {
                 width: "100%"
             }
         ],
-        customizeColumns: function (columns) {
+        customizeColumns: function(columns) {
             var i: number;
             for (i = 0; i < columns.length; i++) {
                 if (columns[i].dataField.indexOf('Date') > 0) {
@@ -79,16 +79,16 @@ module Tests.ui {
                         valueExpr: 'CustomerID',
                         displayExpr: 'ContactName'
                     }
-                        }
+                }
                 if (columns[i].dataField === 'EmployeeID') {
                     columns[i].lookup = {
                         dataSource: { store: [], sort: 'LastName' },
                         valueExpr: 'EmployeeID',
-                        displayExpr: function (data: any) {
+                        displayExpr: function(data: any) {
                             return data.LastName + ' ' + data.FirstName;
                         }
                     }
-                        }
+                }
                 if (columns[i].dataField === 'ShipVia') {
                     columns[i].lookup = {
                         dataSource: [
@@ -99,13 +99,13 @@ module Tests.ui {
                         valueExpr: 'ShipperID',
                         displayExpr: 'CompanyName'
                     }
-                        }
+                }
                 if (columns[i].dataField === 'ShipCity') {
-                    columns[i].editCellTemplate = function (container: JQuery, options: { value: string; setValue: Function }) {
+                    columns[i].editCellTemplate = function(container: JQuery, options: { value: string; setValue: Function }) {
                         $('<div/>').dxAutocomplete({
                             dataSource: ["Bern", "Lyon", "Lander"],
                             value: options.value,
-                            onValueChanged: function () {
+                            onValueChanged: function() {
                                 options.setValue("test-value");
                             }
                         }).appendTo(container);
@@ -227,10 +227,10 @@ module Tests.viz {
             { valueField: 's8' }
         ],
         title: 'Long Chart\'s Title',
-        onPointClick: function (arg: any) {
+        onPointClick: function(arg: any) {
             arg.target.isSelected() ? arg.target.clearSelection() : arg.target.select();
         },
-        onSeriesClick: function (arg: any) {
+        onSeriesClick: function(arg: any) {
             arg.target.isVisible() ? arg.target.hide() : arg.target.show();
         }
     };
@@ -298,8 +298,8 @@ module Tests.data {
         pageSize: 25,
         paginate: true,
 
-        map: function (item) { return item; },
-        postProcess: function (data) { return data; },
+        map: function(item) { return item; },
+        postProcess: function(data) { return data; },
         searchExpr: "expr",
         searchOperation: "contains",
         searchValue: "somevalue",
@@ -313,7 +313,7 @@ module Tests.data {
     });
 
     new DevExpress.data.CustomStore(<DevExpress.data.CustomStoreOptions>{
-        load: function () {
+        load: function() {
             return $.Deferred().promise();
         }
     });
