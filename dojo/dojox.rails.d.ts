@@ -20,3 +20,8 @@ declare module dojox {
         live(selector: any, evtName: any, fn: any): void;
     }
 }
+
+declare module "dojox/rails" {
+    var exp: dojox.rails
+    export=exp;
+}

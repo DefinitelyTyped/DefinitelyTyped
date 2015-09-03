@@ -1,15 +1,33 @@
 ﻿/// <reference path="highcharts.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
 
+Highcharts.setOptions({
+    global: {
+        useUTC: false
+    }
+});
 
-var animate: HighchartsBoolOrAnimation;
-animate = true;
-animate = { duration: 200, easing: "linear" };
+Highcharts.setOptions({
+    lang: {
+        months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        weekdays: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
+    }
+});
 
 
-var gradient: HighchartsColorOrGradient;
-gradient = {
-    linearGradient: { x0: 0, y0: 0, x1: 500, y1: 500 },
+var animate: HighchartsAnimation = {
+    duration: 200,
+    easing: "linear"
+};
+
+
+var gradient: HighchartsGradient = {
+    linearGradient: {
+        x1: 0,
+        y1: 0,
+        x2: 500,
+        y2: 500
+    },
     stops: [
         [0, 'rgb(255, 255, 255)'],
         [1, 'rgb(200, 200, 255)']
@@ -18,21 +36,27 @@ gradient = {
 
 var color = "#fcfcff";
 
-var backgound: HighchartsColorOrGradient;
-
-backgound = gradient;
-backgound = color;
-
 var chart1 = new Highcharts.Chart({
     chart: {
         renderTo: "container"
     },
     xAxis: [{
     }],
-    series: [{
-        data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+    series: [<HighchartsLineChartSeriesOptions>{
+        data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+        type: "line",
+        allowPointSelect: true
     }]
 });
+
+
+chart1.addSeries<HighchartsBarChartSeriesOptions>({
+    enableMouseTracking: true,
+    data: [1, 2, 3, 4, 5]
+});
+
+
+console.log((<HighchartsLineChartSeriesOptions>chart1.series[0].options).dashStyle);
 
 var chart2 = new Highcharts.Chart({
     chart: {
@@ -63,7 +87,7 @@ var chart2 = new Highcharts.Chart({
     legend: {
         enabled: false
     },
-    series: [{
+    series: [<HighchartsScatterChartSeriesOptions>{
         data: [
             [550, 870], [738, 362], [719, 711], [547, 665], [595, 197], [332, 144],
             [581, 555], [196, 862], [6, 837], [400, 924], [888, 148], [785, 730],
@@ -88,9 +112,7 @@ var chart2 = new Highcharts.Chart({
 });
 
 chart1.exportChart(null, {
-    chart: {
-        backgroundColor: '#FFFFFF'
-    }
+    backgroundColor: '#FFFFFF'
 });
 
 
@@ -105,15 +127,11 @@ var highChartSettings: HighchartsOptions = {
     },
     xAxis: [{
     }],
-    series: [{
+    series: [<HighchartsPieChartSeriesOptions>{
         data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
     }]
 };
 
-var container = $("#container").highcharts(highChartSettings, function (chart) {
+var container = $("#container").highcharts(highChartSettings, (chart) => {
     chart.series[0].setVisible(true, true);
 });
-
-var options = Highcharts.getOptions();
-
-var options2 = Highcharts.setOptions(options);

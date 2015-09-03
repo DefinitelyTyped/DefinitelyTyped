@@ -1902,3 +1902,79 @@ declare module doh {
 
 }
 
+declare module "doh/_nodeRunner" {
+    var exp: doh._nodeRunner
+    export=exp;
+}
+declare module "doh/_parseURLargs" {
+    var exp: doh._parseURLargs
+    export=exp;
+}
+declare module "doh/_rhinoRunner" {
+    var exp: doh._rhinoRunner
+    export=exp;
+}
+declare module "doh/_browserRunner" {
+    var exp: doh._browserRunner
+    export=exp;
+}
+declare module "doh/_browserRunner._testTypes" {
+    var exp: doh._browserRunner._testTypes
+    export=exp;
+}
+declare module "doh/_browserRunner._groups" {
+    var exp: doh._browserRunner._groups
+    export=exp;
+}
+declare module "doh/_browserRunner.robot" {
+    var exp: doh._browserRunner.robot
+    export=exp;
+}
+declare module "doh/robot" {
+    var exp: doh.robot
+    export=exp;
+}
+declare module "doh/robot._runsemaphore" {
+    var exp: doh.robot._runsemaphore
+    export=exp;
+}
+declare module "doh/main" {
+    var exp: doh.main
+    export=exp;
+}
+declare module "doh/main._groups" {
+    var exp: doh.main._groups
+    export=exp;
+}
+declare module "doh/main._testTypes" {
+    var exp: doh.main._testTypes
+    export=exp;
+}
+declare module "doh/main.robot" {
+    var exp: doh.main.robot
+    export=exp;
+}
+declare module "doh/runner" {
+    var exp: doh.runner
+    export=exp;
+}
+declare module "doh/runner._groups" {
+    var exp: doh.runner._groups
+    export=exp;
+}
+declare module "doh/runner._testTypes" {
+    var exp: doh.runner._testTypes
+    export=exp;
+}
+declare module "doh/runner.robot" {
+    var exp: doh.runner.robot
+    export=exp;
+}
+declare module "doh/plugins/android-webdriver-robot" {
+    var exp: doh.plugins.android_webdriver_robot
+    export=exp;
+}
+declare module "doh/plugins/remoteRobot" {
+    var exp: doh.plugins.remoteRobot
+    export=exp;
+}

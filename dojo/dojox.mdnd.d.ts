@@ -997,3 +997,48 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/mdnd/AutoScroll" {
+    var exp: dojox.mdnd.AutoScroll
+    export=exp;
+}
+declare module "dojox/mdnd/DropIndicator" {
+    var exp: dojox.mdnd.DropIndicator
+    export=exp;
+}
+declare module "dojox/mdnd/AreaManager" {
+    var exp: dojox.mdnd.AreaManager
+    export=exp;
+}
+declare module "dojox/mdnd/LazyManager" {
+    var exp: dojox.mdnd.LazyManager
+    export=exp;
+}
+declare module "dojox/mdnd/Moveable" {
+    var exp: dojox.mdnd.Moveable
+    export=exp;
+}
+declare module "dojox/mdnd/PureSource" {
+    var exp: dojox.mdnd.PureSource
+    export=exp;
+}
+declare module "dojox/mdnd/adapter/DndFromDojo" {
+    var exp: dojox.mdnd.adapter.DndFromDojo
+    export=exp;
+}
+declare module "dojox/mdnd/adapter/DndToDojo" {
+    var exp: dojox.mdnd.adapter.DndToDojo
+    export=exp;
+}
+declare module "dojox/mdnd/dropMode/DefaultDropMode" {
+    var exp: dojox.mdnd.dropMode.DefaultDropMode
+    export=exp;
+}
+declare module "dojox/mdnd/dropMode/OverDropMode" {
+    var exp: dojox.mdnd.dropMode.OverDropMode
+    export=exp;
+}
+declare module "dojox/mdnd/dropMode/VerticalDropMode" {
+    var exp: dojox.mdnd.dropMode.VerticalDropMode
+    export=exp;
+}

@@ -16,9 +16,9 @@ var interactable = interact(button);
 interactable.draggable();
 interactable.draggable(true);
 interactable.draggable({
-    onstart: (event: InteractEvent) => {},
-    onmove : (event: InteractEvent) => {},
-    onend  : (event: InteractEvent) => {}
+    onstart: (event: Interact.InteractEvent) => {},
+    onmove : (event: Interact.InteractEvent) => {},
+    onend  : (event: Interact.InteractEvent) => {}
 });
 interactable.dropzone();
 interactable.dropzone(true);
@@ -45,7 +45,7 @@ interactable.inertia({
 });
 interactable.inertia(true);
 interactable.actionChecker();
-interactable.actionChecker((event: MouseEvent, defaultAction: string, interactable2: Interactable) => defaultAction);
+interactable.actionChecker((event: MouseEvent, defaultAction: string, interactable2: Interact.Interactable) => defaultAction);
 var rect: ClientRect = interactable.getRect();
 interactable.rectChecker();
 interactable.styleCursor();

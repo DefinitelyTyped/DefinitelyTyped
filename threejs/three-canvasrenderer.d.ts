@@ -29,7 +29,6 @@ declare module THREE {
         constructor(parameters?: CanvasRendererParameters);
 
         domElement: HTMLCanvasElement;
-        devicePixelRatio: number;
         autoClear: boolean;
         sortObjects: boolean;
         sortElements: boolean;
@@ -37,6 +36,8 @@ declare module THREE {
 
         supportsVertexTextures(): void;
         setFaceCulling(): void;
+        getPixelRatio(): number;
+        setPixelRatio(value: number): void;
         setSize(width: number, height: number, updateStyle?: boolean): void;
         setViewport(x: number, y: number, width: number, height: number): void;
         setScissor(): void;

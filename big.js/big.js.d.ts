@@ -42,6 +42,9 @@ declare module BigJsLibrary {
         (value: string): BigJS;
         /** A decimal value.  */
         (value: BigJS): BigJS;
+		
+		/** A decimal value.  */
+        (): BigJS;
     }
 
     /** BigJS instance methods */

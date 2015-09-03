@@ -18,8 +18,9 @@ declare module "bunyan" {
         child(obj:Object, simple?:boolean):Logger;
         reopenFileStreams():void;
 
-        level(value:any /* number | string */):void;
-        levels(name:any /* number | string */, value:any /* number | string */):void;
+        level():string|number;
+        level(value: number | string):void;
+        levels(name: number | string, value: number | string):void;
 
         trace(error:Error, format?:any, ...params:any[]):void;
         trace(buffer:Buffer, format?:any, ...params:any[]):void;
@@ -50,7 +51,7 @@ declare module "bunyan" {
     interface LoggerOptions {
         name: string;
         streams?: Stream[];
-        level?: string;
+        level?: string | number;
         stream?: WritableStream;
         serializers?: Serializers;
         src?: boolean;
@@ -62,9 +63,9 @@ declare module "bunyan" {
 
     interface Stream {
         type?: string;
-        level?: any; // number | string
+        level?: number | string;
         path?: string;
-        stream?: WritableStream;
+        stream?: WritableStream | Stream;
         closeOnExit?: boolean;
     }
 
@@ -77,7 +78,7 @@ declare module "bunyan" {
     export var ERROR:number;
     export var FATAL:number;
 
-    export function resolveLevel(value:any /* number | string */):number;
+    export function resolveLevel(value: number | string):number;
 
     export function createLogger(options:LoggerOptions):Logger;
 

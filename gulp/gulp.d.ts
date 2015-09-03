@@ -29,6 +29,13 @@ declare module gulp {
         buffer?: boolean;
 
         /**
+         * The base path of a glob.
+         *
+         * Default is everything before a glob starts.
+         */
+        base?: string;
+
+        /**
          * The current working directory in which to search.
          * Defaults to process.cwd().
          */
@@ -240,41 +247,17 @@ declare module gulp {
          * Watch files and do something when a file changes. This always returns an EventEmitter that emits change events.
          *
          * @param glob a single glob or array of globs that indicate which files to watch for changes.
-         * @param tasks names of task(s) to run when a file changes, added with gulp.task()
-         */
-        watch(glob:string, tasks:string[]): EventEmitter;
-        watch(glob:string[], tasks:string[]): EventEmitter;
-
-        /**
-         * Watch files and do something when a file changes. This always returns an EventEmitter that emits change events.
-         *
-         * @param glob a single glob or array of globs that indicate which files to watch for changes.
          * @param opt options, that are passed to the gaze library.
-         * @param tasks names of task(s) to run when a file changes, added with gulp.task()
+         * @param fn a callback or array of callbacks to be called on each change, or names of task(s) to run when a file changes, added with gulp.task().
          */
-        watch(glob:string, opt:IWatchOptions, tasks:string[]): EventEmitter;
-        watch(glob:string[], opt:IWatchOptions, tasks:string[]): EventEmitter;
-
-        /**
-         * Watch files and do something when a file changes. This always returns an EventEmitter that emits change events.
-         *
-         * @param glob a single glob or array of globs that indicate which files to watch for changes.
-         * @param fn a callback or array of callbacks to be called on each change.
-         */
-        watch(glob:string, fn:IWatchCallback): EventEmitter;
-        watch(glob:string[], fn:IWatchCallback): EventEmitter;
-        watch(glob:string, fn:IWatchCallback[]): EventEmitter;
-        watch(glob:string[], fn:IWatchCallback[]): EventEmitter;
-
-        /**
-         * Watch files and do something when a file changes. This always returns an EventEmitter that emits change events.
-         *
-         * @param glob a single glob or array of globs that indicate which files to watch for changes.
-         * @param opt options, that are passed to the gaze library.
-         * @param fn a callback or array of callbacks to be called on each change.
-         */
-        watch(glob:string, opt:IWatchOptions, fn:IWatchCallback): EventEmitter;
-        watch(glob:string, opt:IWatchOptions, fn:IWatchCallback[]): EventEmitter;
+        watch(glob:string, fn:(IWatchCallback|string)): EventEmitter;
+        watch(glob:string, fn:(IWatchCallback|string)[]): EventEmitter;
+        watch(glob:string, opt:IWatchOptions, fn:(IWatchCallback|string)): EventEmitter;
+        watch(glob:string, opt:IWatchOptions, fn:(IWatchCallback|string)[]): EventEmitter;
+        watch(glob:string[], fn:(IWatchCallback|string)): EventEmitter;
+        watch(glob:string[], fn:(IWatchCallback|string)[]): EventEmitter;
+        watch(glob:string[], opt:IWatchOptions, fn:(IWatchCallback|string)): EventEmitter;
+        watch(glob:string[], opt:IWatchOptions, fn:(IWatchCallback|string)[]): EventEmitter;
     }
 }
 

@@ -1032,7 +1032,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -1820,4 +1820,81 @@ declare module dojox {
 
     }
 
+}
+
+declare module "dojox/sketch" {
+    var exp: dojox.sketch
+    export=exp;
+}
+declare module "dojox/sketch/_Plugin" {
+    var exp: dojox.sketch._Plugin
+    export=exp;
+}
+declare module "dojox/sketch/Slider" {
+    var exp: dojox.sketch.Slider
+    export=exp;
+}
+declare module "dojox/sketch/UndoStack" {
+    var exp: dojox.sketch.UndoStack
+    export=exp;
+}
+declare module "dojox/sketch/Toolbar" {
+    var exp: dojox.sketch.Toolbar
+    export=exp;
+}
+declare module "dojox/sketch/Anchor" {
+    var exp: dojox.sketch.Anchor
+    export=exp;
+}
+declare module "dojox/sketch/Annotation" {
+    var exp: dojox.sketch.Annotation
+    export=exp;
+}
+declare module "dojox/sketch/Annotation.Modes" {
+    var exp: dojox.sketch.Annotation.Modes
+    export=exp;
+}
+declare module "dojox/sketch/DoubleArrowAnnotation" {
+    var exp: dojox.sketch.DoubleArrowAnnotation
+    export=exp;
+}
+declare module "dojox/sketch/DoubleArrowAnnotation.control" {
+    var exp: dojox.sketch.DoubleArrowAnnotation.control
+    export=exp;
+}
+declare module "dojox/sketch/DoubleArrowAnnotation.start" {
+    var exp: dojox.sketch.DoubleArrowAnnotation.start
+    export=exp;
+}
+declare module "dojox/sketch/DoubleArrowAnnotation.textPosition" {
+    var exp: dojox.sketch.DoubleArrowAnnotation.textPosition
+    export=exp;
+}
+declare module "dojox/sketch/DoubleArrowAnnotation.transform" {
+    var exp: dojox.sketch.DoubleArrowAnnotation.transform
+    export=exp;
+}
+declare module "dojox/sketch/DoubleArrowAnnotation.end" {
+    var exp: dojox.sketch.DoubleArrowAnnotation.end
+    export=exp;
+}
+declare module "dojox/sketch/Figure" {
+    var exp: dojox.sketch.Figure
+    export=exp;
+}
+declare module "dojox/sketch/PreexistingAnnotation" {
+    var exp: dojox.sketch.PreexistingAnnotation
+    export=exp;
+}
+declare module "dojox/sketch/LeadAnnotation" {
+    var exp: dojox.sketch.LeadAnnotation
+    export=exp;
+}
+declare module "dojox/sketch/SingleArrowAnnotation" {
+    var exp: dojox.sketch.SingleArrowAnnotation
+    export=exp;
+}
+declare module "dojox/sketch/UnderlineAnnotation" {
+    var exp: dojox.sketch.UnderlineAnnotation
+    export=exp;
 }

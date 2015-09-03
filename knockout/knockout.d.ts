@@ -1,4 +1,4 @@
-// Type definitions for Knockout v3.2.0-beta
+﻿// Type definitions for Knockout v3.2.0
 // Project: http://knockoutjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Igor Oleinikov <https://github.com/Igorbek/>, Clément Bourgeois <https://github.com/moonpyk/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -118,8 +118,11 @@ interface KnockoutBindingContext {
     $parents: any[];
     $root: any;
     $data: any;
+    $rawData: any | KnockoutObservable<any>;
     $index?: KnockoutObservable<number>;
     $parentContext?: KnockoutBindingContext;
+    $component: any;
+    $componentTemplateNodes: Node[];
 
     extend(properties: any): any;
     createChildContext(dataItemOrAccessor: any, dataItemAlias?: any, extendCallback?: Function): any;
@@ -132,8 +135,8 @@ interface KnockoutAllBindingsAccessor {
 }
 
 interface KnockoutBindingHandler {
-    init? (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext): void;
-    update? (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext): void;
+    init?: (element: any, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) => void | { controlsDescendantBindings: boolean; };
+    update?: (element: any, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) => void;
     options?: any;
     preprocess?: (value: string, name: string, addBindingCallback?: (name: string, value: string) => void) => string;
 }
@@ -245,9 +248,9 @@ interface KnockoutUtils {
 
         removeDisposeCallback(node: Element, callback: Function): void;
 
-        cleanNode(node: Element): Element;
+        cleanNode(node: Node): Element;
 
-        removeNode(node: Element): void;
+        removeNode(node: Node): void;
     };
 
     //////////////////////////////////
@@ -278,8 +281,6 @@ interface KnockoutUtils {
 
     extend(target: Object, source: Object): Object;
 
-    emptyDomNode(domNode: HTMLElement): void;
-
     moveCleanedNodesToContainerElement(nodes: any[]): HTMLElement;
 
     cloneNodes(nodesArray: any[], shouldCleanNodes: boolean): any[];
@@ -294,7 +295,7 @@ interface KnockoutUtils {
 
     stringTokenize(str: string, delimiter: string): string[];
 
-    stringStartsWith(str: string, startsWith: string): string;
+    stringStartsWith(str: string, startsWith: string): boolean;
 
     domNodeIsContainedBy(node: any, containedByNode: any): boolean;
 
@@ -306,7 +307,7 @@ interface KnockoutUtils {
 
     triggerEvent(element: any, eventType: any): void;
 
-    unwrapObservable<T>(value: KnockoutObservable<T>): T;
+    unwrapObservable<T>(value: KnockoutObservable<T> | T): T;
 
     peekObservable<T>(value: KnockoutObservable<T>): T;
 
@@ -343,6 +344,7 @@ interface KnockoutArrayChange<T> {
     status: string;
     value: T;
     index: number;
+    moved?: number;
 }
 
 //////////////////////////////////
@@ -442,7 +444,7 @@ interface KnockoutStatic {
     cleanNode(node: Element): Element;
     renderTemplate(template: Function, viewModel: any, options?: any, target?: any, renderMode?: any): any;
     renderTemplate(template: string, viewModel: any, options?: any, target?: any, renderMode?: any): any;
-	unwrap(value: any): any;
+	unwrap<T>(value: KnockoutObservable<T> | T): T;
 
 	computedContext: KnockoutComputedContext;
 
@@ -557,94 +559,88 @@ interface KnockoutBindingProvider {
 	getBindingAccessors?(node: Node, bindingContext: KnockoutBindingContext): { [key: string]: string; };
 }
 
-interface KnockoutComponents {
-    // overloads for register method:
-    register(componentName: string, config: KnockoutComponentRegister): void;
-    register(componentName: string, config: KnockoutComponentRegisterStringTemplate): void;
-    register(componentName: string, config: KnockoutComponentRegisterFnViewModel): void;
-    register(componentName: string, config: KnockoutComponentRegisterStringTemplateFnViewModel): void;
-    register(componentName: string, config: KnockoutComponentRegisterAMD): void;
-    register(componentName: string, config: {}): void;
-
-	isRegistered(componentName: string): boolean;
-	unregister(componentName: string): void;
-	get(componentName: string, callback: (definition: KnockoutComponentDefinition) => void): void;
-	clearCachedDefinition(componentName: string): void
-	defaultLoader: KnockoutComponentLoader;
-	loaders: KnockoutComponentLoader[];
-	getComponentNameForNode(node: Node): string;
-}
-
-/* interfaces for register overloads*/
-
-interface KnockoutComponentRegister {
-    template: KnockoutComponentTemplate;
-    viewModel?: KnockoutComponentConfigViewModel;
-}
-
-interface KnockoutComponentRegisterAMD {
-    // load self-describing module using AMD module name
-    require: string;
-}
-
-interface KnockoutComponentRegisterFnViewModel {
-    template: KnockoutComponentTemplate;
-    viewModel?: (params: any) => any;
-}
-
-interface KnockoutComponentRegisterStringTemplate {
-    template: string;
-    viewModel?: KnockoutComponentConfigViewModel;
-}
-
-interface KnockoutComponentRegisterStringTemplateFnViewModel {
-    template: string;
-    viewModel?: (params: any) => any;
-}
-
-interface KnockoutComponentConfigViewModel {
-    instance?: any;
-    createViewModel? (params?: any, componentInfo?: KnockoutComponentInfo): any;
-    require?: string;
-}
-
-interface KnockoutComponentTemplate {
-    // specify element id (string) or a node
-    element?: any;
-    // AMD module load
-    require?: string;
-}
-
-interface KnockoutComponentInfo {
-    element: any;
-}
-/* end register overloads */
-interface KnockoutComponentDefinition {
-	template: Node[];
-	createViewModel?(params: any, options: { element: Node; }): any;
-}
-
-interface KnockoutComponentLoader {
-	getConfig? (componentName: string, callback: (result: KnockoutComponentConfig) => void): void;
-	loadComponent? (componentName: string, config: KnockoutComponentConfig, callback: (result: KnockoutComponentDefinition) => void): void;
-	loadTemplate? (componentName: string, templateConfig: any, callback: (result: Node[]) => void): void;
-	loadViewModel? (componentName: string, viewModelConfig: any, callback: (result: any) => void): void;
-	suppressLoaderExceptions?: boolean;
-}
-
-interface KnockoutComponentConfig {
-	template: any;
-	createViewModel?: any;
-}
-
 interface KnockoutComputedContext {
 	getDependenciesCount(): number;
 	isInitial: () => boolean;
 	isSleeping: boolean;
 }
 
-declare module "knockout" {
-	export = ko;
+//
+// refactored types into a namespace to reduce global pollution 
+// and used Union Types to simplify overloads (requires TypeScript 1.4)
+//
+declare module KnockoutComponentTypes {
+
+    interface Config {
+        viewModel?: ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
+        template: string | Node[]| DocumentFragment | TemplateElement | AMDModule;
+        synchronous?: boolean;
+    }
+
+    interface ComponentConfig {
+        template: any;
+        createViewModel?: any;
+    }
+
+    interface EmptyConfig {
+    }
+
+    // common AMD type
+    interface AMDModule {
+        require: string;
+    }
+
+    // viewmodel types
+    interface ViewModelFunction {
+        (params?: any): any;
+    }
+
+    interface ViewModelSharedInstance {
+        instance: any;
+    }
+
+    interface ViewModelFactoryFunction {
+        createViewModel: (params?: any, componentInfo?: ComponentInfo) => any;
+    }
+
+    interface ComponentInfo {
+        element: Node;
+        templateNodes: Node[];
+    }
+
+    interface TemplateElement {
+        element: string | Node;
+    }
+
+    interface Loader {
+        getConfig? (componentName: string, callback: (result: ComponentConfig) => void): void;
+        loadComponent? (componentName: string, config: ComponentConfig, callback: (result: Definition) => void): void;
+        loadTemplate? (componentName: string, templateConfig: any, callback: (result: Node[]) => void): void;
+        loadViewModel? (componentName: string, viewModelConfig: any, callback: (result: any) => void): void;
+        suppressLoaderExceptions?: boolean;
+    }
+
+    interface Definition {
+        template: Node[];
+        createViewModel? (params: any, options: { element: Node; }): any;
+    }
+}
+
+interface KnockoutComponents {
+    // overloads for register method:
+    register(componentName: string, config: KnockoutComponentTypes.Config | KnockoutComponentTypes.EmptyConfig): void;
+
+    isRegistered(componentName: string): boolean;
+    unregister(componentName: string): void;
+    get(componentName: string, callback: (definition: KnockoutComponentTypes.Definition) => void): void;
+    clearCachedDefinition(componentName: string): void
+    defaultLoader: KnockoutComponentTypes.Loader;
+    loaders: KnockoutComponentTypes.Loader[];
+    getComponentNameForNode(node: Node): string;
 }
 
 declare var ko: KnockoutStatic;
+
+declare module "knockout" {
+	export = ko;
+}

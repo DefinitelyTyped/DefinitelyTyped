@@ -26,7 +26,7 @@ interface Mixpanel
 
     unregister(propertyName:string):void;
 
-    identify(id:string):void;
+    identify(id?:string):void;
 
     get_distinct_id():string;
 

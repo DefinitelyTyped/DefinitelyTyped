@@ -150,6 +150,13 @@ declare module Selectize {
          */
         selectOnTab?: boolean;
 
+        /**
+         * An array of plugins to use
+         *
+         * Default: null
+         */
+        plugins?: string[];
+
         // Data / Searching
         // ------------------------------------------------------------------------------------------------------------
 
@@ -160,7 +167,7 @@ declare module Selectize {
          *
          * Default: []
          */
-        options?: T[];
+        options?: U[];
 
         /**
          * The <option> attribute from which to read JSON data about the option.
@@ -269,8 +276,11 @@ declare module Selectize {
 
         /**
          * Invoked when the value of the control changes.
+         *
+         * If single select, value is of type T.
+         * If multi select, value is of type T[].
          */
-        onChange?(value: T): any;
+        onChange?(value: any): any;
 
         /**
          * Invoked when an item is selected.
@@ -320,7 +330,7 @@ declare module Selectize {
         /**
          * Invoked when new options have been loaded and added to the control (via the "load" option or "load" API method).
          */
-        onLoad?(data: U): any;
+        onLoad?(data: U[]): any;
 
         // Rendering
         // ------------------------------------------------------------------------------------------------------------
@@ -526,7 +536,7 @@ declare module Selectize {
         getValue(): any;
 
         /**
-         * Resets the selected items to the given value.
+         * Resets the selected items to the given value(s).
          */
         setValue(value: T): void;
         setValue(value: T[]): void;
