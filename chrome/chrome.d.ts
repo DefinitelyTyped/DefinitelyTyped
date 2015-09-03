@@ -3164,6 +3164,22 @@ declare module chrome.vpnProvider {
 }
 
 /**
+ * Use the chrome.wallpaper API to change the ChromeOS wallpaper.
+ */
+declare module chrome.wallpaper {
+
+    interface WallpaperDetails {
+        data?: any;
+        url?: string;
+        layout: string;
+        filename: string;
+        thumbnail?: boolean;
+    }
+
+    export function setWallpaper(details: WallpaperDetails, callback: (thumbnail: any) => void): void;
+}
+
+/**
  * Use the chrome.webNavigation API to receive notifications about the status of navigation requests in-flight.
  */
 declare module chrome.webNavigation {
