@@ -42,7 +42,7 @@ declare module BowserModule {
         /** Grade X browser */
         x: boolean;
         name: string;
-        version: string;
+        version: string|number;
         osversion: string|number;
     }
 
