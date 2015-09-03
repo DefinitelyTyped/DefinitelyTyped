@@ -1100,6 +1100,24 @@ declare module chrome.downloads {
 }
 
 /**
+ * Use the chrome.enterprise.platformKeys API to generate hardware-backed keys and to install certificates for these
+ * keys. The certificates will be managed by the platform and can be used for TLS authentication, network access or by
+ * other extension through chrome.platformKeys. 
+ */
+declare module chrome.enterprise.platformKeys {
+
+    interface Token {
+        id: string;
+        subtleCrypto: SubtleCrypto;
+    }
+
+    export function getTokens(callback: (tokens: Token[]) => void): void;
+    export function getCertificates(tokenId: string, callback: (certificates: ArrayBuffer[]) => void): void;
+    export function importCertificate(tokenId: string, certificate: ArrayBuffer, callback?: Function): void;
+    export function removeCertificate(tokenId: string, certificate: ArrayBuffer, callback?: Function): void;
+}
+
+/**
  * The chrome.events namespace contains common types used by APIs dispatching events
  * to notify you when something interesting happens.
  */
