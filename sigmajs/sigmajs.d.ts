@@ -3,7 +3,6 @@
 // Definitions by: Qinfeng Chen <https://github.com/qinfchen>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
 declare module SigmaJs{
     interface Animation {
         camera(camera: Camera, target: { [index: string]: any }, options: { [index: string]: any }): number;
@@ -16,8 +15,15 @@ declare module SigmaJs{
         graphPosition(x: number, y:number): {x: number; y: number};
         ratio: number;
         readPrefix: string;
+        settings(setting: string) : any;
         x: number;
         y: number;
+    }
+
+    interface Canvas {
+        edges: {[renderType: string]: (edge: Edge, source: Node, target: Node, ...a:any[]) => void};
+        labels: {[renderType: string]: (node: Node, ...a:any[]) => void};
+        nodes: {[renderType: string]: (node: Node, ...a:any[]) => void};
     }
 
     interface Classes {
@@ -31,11 +37,16 @@ declare module SigmaJs{
         (key: string): string;
     }
 
+    interface CustomShapes {
+        init(sigma: Sigma): void;
+    }
+
     interface DragNodes {
         (sigma: Sigma, renderer: Renderer): DragNodes;
     }
 
     interface Edge {
+        [key : string] : any;
         color?: string;
         id: string;
         size?: number;
@@ -71,15 +82,31 @@ declare module SigmaJs{
         nodes(ids: string[]): Node[];
     }
 
+    interface GraphData {
+        edges: Edge[];
+        nodes: Node[];
+    }
+
+    interface Image {
+        clip?: number;
+        scale?: number;
+        url?: string;
+        x?: number;
+        y?: number;
+    }
+
     interface Miscellaneous {
         animation: Animation;
     }
 
     interface Node {
+        [key : string] : any;
         color?: string;
         id: string;
+        image?: any;
         label?: string;
         size?: number;
+        type?: string;
         x?: number;
         y?: number;
     }
@@ -94,17 +121,21 @@ declare module SigmaJs{
     }
 
     interface Renderer {
-        container: Element;
+        container: HTMLElement;
         refresh(): Sigma;
         render(): Sigma;
         resize(): Sigma;
-        settings(settings: { [index: string]: any }): void;
+        settings(settings: Settings): void;
     }
 
     interface RendererConfigs{
         container?: Element;
         id?: string;
         type?: string;
+    }
+
+    interface ShapeLibrary {
+        enumerate(): any;
     }
 
     interface Sigma {
@@ -119,6 +150,7 @@ declare module SigmaJs{
         refresh(): void;
         renderers: Renderer[];
         settings(key: string): any;
+        settings(settings: Settings): void;
 
         // forceAtlas2 layout
         configForceAtlas2(configs: { [key: string]: any }): void;
@@ -131,7 +163,7 @@ declare module SigmaJs{
 
     interface SigmaConfigs {
         container?: Element;
-        graph?: Graph;
+        graph?: GraphData;
         id?: string;
         renderers?: Renderer[];
         settings?: { [index: string]: any };
@@ -142,10 +174,12 @@ declare module SigmaJs{
         new(container: string): Sigma;
         new(container: Element): Sigma;
         new(configuration: SigmaConfigs): Sigma;
+        canvas: Canvas;
         classes:Classes;
         misc: Miscellaneous;
         parsers: Parsers;
         plugins: Plugins;
+        svg: SVG;
     }
 
     interface Settings {
@@ -165,10 +199,11 @@ declare module SigmaJs{
         minArrowSize?: number;
         font?: string;
         fontStyle?: string;
+        labelAlignment?: string;
         labelColor?: string;
         labelSize?: string;
         labelSizeRatio?: string;
-        labelThreshold?: string;
+        labelThreshold?: number;
         webglOversamplingRatio?: number;
 
         // hovered node customizations
@@ -235,7 +270,7 @@ declare module SigmaJs{
 
         // Global settings
         autoResize?: boolean;
-        autoRescale?: boolean;
+        autoRescale?: any;
         enableCamera?: boolean;
         enableHovering?: boolean;
         enableEdgeHovering?: boolean;
@@ -250,6 +285,19 @@ declare module SigmaJs{
         // Animation settings
         animationsTime?: number;
     }
+
+    interface SVG {
+        edges: {[renderType: string]: SVGObject<SigmaJs.Edge>};
+        labels: {[renderType: string]: SVGObject<SigmaJs.Node>};
+        nodes: {[renderType: string]: SVGObject<SigmaJs.Node>};
+    }
+
+    interface SVGObject<T> {
+        create: (object: T, ...a:any[]) => Element;
+        update: (object: T, ...a:any[]) => void;
+    }
 }
 
 declare var sigma: SigmaJs.SigmaFactory;
+declare var CustomShapes: SigmaJs.CustomShapes;
+declare var ShapeLibrary: SigmaJs.CustomShapes;

@@ -53,10 +53,11 @@ declare module "yargs" {
 			usage(message: string, options?: { [key: string]: Options }): Argv;
 			usage(options?: { [key: string]: Options }): Argv;
 
+			command(command: string, description: string): Argv;
+
 			example(command: string, description: string): Argv;
 
-			check(func: (argv: { [key: string]: any }, aliases: { [alias: string]: string }) => boolean): Argv;
-			check(func: (argv: { [key: string]: any }, aliases: { [alias: string]: string }) => string): Argv;
+			check(func: (argv: any, aliases: { [alias: string]: string }) => any): Argv;
 
 			boolean(key: string): Argv;
 			boolean(keys: string[]): Argv;
@@ -74,7 +75,7 @@ declare module "yargs" {
 			help(): string;
 			help(option: string, description?: string): Argv;
 
-			version(version: string, option: string, description?: string): Argv;
+			version(version: string, option?: string, description?: string): Argv;
 
 			showHelpOnFail(enable: boolean, message?: string): Argv;
 

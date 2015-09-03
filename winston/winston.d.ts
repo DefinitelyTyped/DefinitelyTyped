@@ -17,7 +17,7 @@ declare module "winston" {
   export var defaultLogger: LoggerInstance;
 
   export var exitOnError: boolean;
-
+  export var level: string;
 
   export function log(level: string, msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
   export function log(level: string, msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
@@ -98,6 +98,11 @@ declare module "winston" {
      * @type {(boolean|(err: Error) => void)}
      */
     exitOnError?: any;
+
+    // TODO: Need to make instances specific,
+    //       and need to get options for each instance.
+    //       Unfortunately, the documentation is unhelpful.
+    [optionName: string]: any;
   }
 
   export interface TransportStatic {
@@ -141,6 +146,11 @@ declare module "winston" {
     raw?: boolean;
     name?: string;
     handleExceptions?: boolean;
+
+    // TODO: Need to make instances specific,
+    //       and need to get options for each instance.
+    //       Unfortunately, the documentation is unhelpful.
+    [optionName: string]: any;
   }
 
   export interface QueryOptions {

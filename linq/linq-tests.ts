@@ -30,7 +30,7 @@ describe("Linq.js tests", function () {
     it("Grouping Methods", function () {
         expect(Enumerable.From(["a","aa","aaa","a","a","aaa"])
             .GroupBy((item:string) => item.length)
-            .Select((g: linq.Grouping) => { return { key: g.Key(), count: g.Count() }; })
+            .Select((g: linq.Grouping<string>) => { return { key: g.Key(), count: g.Count() }; })
             .OrderBy(g => g.key)
             .Select(g => g.key+":"+g.count)
             .ToString(",")).toBe("1:3,2:1,3:2");

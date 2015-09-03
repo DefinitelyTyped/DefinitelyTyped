@@ -1172,7 +1172,7 @@ declare module Slick {
 		public updateCell(row: number, cell: number): void;
 		public updateRow(row: number): void;
 		public getViewport(viewportTop?: number, viewportLeft?: number): Viewport;
-		public getRenderedRange(viewportTop: number, viewportLeft: number): Viewport;
+		public getRenderedRange(viewportTop?: number, viewportLeft?: number): Viewport;
 		public resizeCanvas(): void;
 		public updateRowCount(): void;
 		public scrollRowIntoView(row: number, doPaging: boolean): void;
@@ -1500,8 +1500,9 @@ declare module Slick {
 			public fastSort(field: string, ascending: boolean): void;
 			public fastSort(field: Function, ascending: boolean): void;		// todo: typeof(field), should be the same callback as Array.sort
 			public reSort(): void;
+			public setGrouping(groupingInfos: GroupingOptions<T>[]): void;
 			public setGrouping(groupingInfo: GroupingOptions<T>): void;
-			public getGrouping(): GroupingOptions<T>;
+			public getGrouping(): GroupingOptions<T>[];
 
 			/**
 			* @deprecated
@@ -1556,7 +1557,7 @@ declare module Slick {
 
 			public getLength(): number;
 			public getItem(index: number): T;
-			public getItemMetadata(): void;
+			public getItemMetadata(index?: number): void;
 
 			public onRowCountChanged: Slick.Event<OnRowCountChangedEventData>;
 			public onRowsChanged: Slick.Event<OnRowsChangedEventData>;

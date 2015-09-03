@@ -148,3 +148,32 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/math" {
+    var exp: dojox.math
+    export=exp;
+}
+declare module "dojox/math/BigInteger" {
+    var exp: dojox.math.BigInteger
+    export=exp;
+}
+declare module "dojox/math/BigInteger-ext" {
+    var exp: dojox.math.BigInteger_ext
+    export=exp;
+}
+declare module "dojox/math/round" {
+    var exp: dojox.math.round
+    export=exp;
+}
+declare module "dojox/math/random/prng4" {
+    var exp: dojox.math.random.prng4
+    export=exp;
+}
+declare module "dojox/math/random/Simple" {
+    var exp: dojox.math.random.Simple
+    export=exp;
+}
+declare module "dojox/math/random/Secure" {
+    var exp: dojox.math.random.Secure
+    export=exp;
+}

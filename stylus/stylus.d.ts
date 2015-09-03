@@ -43,6 +43,7 @@ declare module Stylus {
          * Expose middleware.
          */
         middleware(dir: string): Middleware;
+        middleware(options: any): Middleware;
 
         /**
          * Convert the given `css` to `stylus` source.

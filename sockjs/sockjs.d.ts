@@ -36,7 +36,7 @@ interface SockJS extends EventTarget {
 
 declare var SockJS: {
     prototype: SockJS;
-    new (url: string, _reserved: any, options?: {
+    new (url: string, _reserved?: any, options?: {
         debug?: boolean;
         devel?: boolean;
         protocols_whitelist?: string[];

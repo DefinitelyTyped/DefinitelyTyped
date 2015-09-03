@@ -57,3 +57,16 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/secure/DOM" {
+    var exp: dojox.secure.DOM
+    export=exp;
+}
+declare module "dojox/secure/sandbox" {
+    var exp: dojox.secure.sandbox
+    export=exp;
+}
+declare module "dojox/secure/capability" {
+    var exp: dojox.secure.capability
+    export=exp;
+}

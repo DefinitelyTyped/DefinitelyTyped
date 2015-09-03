@@ -218,7 +218,7 @@ declare module Bloodhound
     /**
     * A compare function used to sort matched datums for a given query.
     */
-    sorter?: (a: T, b: T) => T[];
+    sorter?: (a: T, b: T) => number;
     /**
     *An array of datums or a function that returns an array of datums.
     */
@@ -352,7 +352,7 @@ declare module Bloodhound
 }
 
 declare class Bloodhound<T> {
-  constructor(options: Bloodhound.BloodhoundOptions<T>)
+  constructor(options: Bloodhound.BloodhoundOptions<T>);
   /**
   * wraps the suggestion engine in an adapter that is compatible with the typeahead jQuery plugin
   */

@@ -5,15 +5,15 @@ if (navigator.requestMIDIAccess !== undefined) {
     navigator.requestMIDIAccess().then(onSuccessCallback, onErrorCallback);
 }
 
-var onSuccessCallback = (item: Midi.MIDIAccess)=>{
+var onSuccessCallback = (item: WebMidi.MIDIAccess)=>{
     this._midiPort = item;
 
-    item.onconnect = (event: Midi.MIDIConnectionEvent)=>{
+    item.onconnect = (event: WebMidi.MIDIConnectionEvent)=>{
         console.log("onconnect");
         console.log(event);
     };
 
-    item.ondisconnect = (event: Midi.MIDIConnectionEvent)=>{
+    item.ondisconnect = (event: WebMidi.MIDIConnectionEvent)=>{
         console.log("ondisconnect");
         console.log(event);
     };
@@ -56,7 +56,7 @@ var onSuccessCallback = (item: Midi.MIDIAccess)=>{
     }
 
     for(var cnt = 0; cnt < this._inputs.length; cnt++){
-        this._inputs[cnt].onmidimessage = (event: Midi.MIDIMessageEvent)=>{
+        this._inputs[cnt].onmidimessage = (event: WebMidi.MIDIMessageEvent)=>{
             this.onMidiMessage(event.data);
         };
     }
