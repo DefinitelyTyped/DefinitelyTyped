@@ -680,7 +680,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -2024,7 +2024,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -3004,7 +3004,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Performs a view transition.
              * Given a transition destination, this method performs a view
@@ -3792,7 +3792,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -5215,7 +5215,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -6005,7 +6005,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -6754,7 +6754,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -7469,7 +7469,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -8296,7 +8296,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -9143,7 +9143,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -10200,7 +10200,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Restore the value to the last value passed to onChange
              * 
@@ -10932,7 +10932,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -11715,7 +11715,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -12585,7 +12585,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -13331,7 +13331,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -14144,7 +14144,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -15057,7 +15057,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -16039,7 +16039,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -16934,7 +16934,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Restore the value to the last value passed to onChange
              * 
@@ -17805,7 +17805,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -18510,7 +18510,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -19252,7 +19252,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -20005,7 +20005,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -20798,7 +20798,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -21657,7 +21657,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -22704,7 +22704,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Performs a view transition.
              * Given a transition destination, this method performs a view
@@ -23517,7 +23517,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -24476,7 +24476,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Performs a view transition.
              * Given a transition destination, this method performs a view
@@ -25698,7 +25698,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Performs a view transition.
              * Given a transition destination, this method performs a view
@@ -26437,7 +26437,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -27103,7 +27103,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -27782,7 +27782,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -28460,7 +28460,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -29134,7 +29134,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -29876,7 +29876,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -30557,7 +30557,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -31323,7 +31323,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -32060,7 +32060,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -32742,7 +32742,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -33559,7 +33559,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -34472,7 +34472,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -35569,7 +35569,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -36688,7 +36688,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -37896,7 +37896,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -38936,7 +38936,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Restore the value to the last value passed to onChange
              * 
@@ -39718,7 +39718,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -40524,7 +40524,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Restore the value to the last value passed to onChange
              * 
@@ -41289,7 +41289,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -42093,7 +42093,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -43201,7 +43201,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -44000,7 +44000,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -44863,7 +44863,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -45657,7 +45657,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -46893,7 +46893,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -47775,7 +47775,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -48758,7 +48758,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Performs a view transition.
              * Given a transition destination, this method performs a view
@@ -49658,7 +49658,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Restore the value to the last value passed to onChange
              * 
@@ -50535,7 +50535,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Restore the value to the last value passed to onChange
              * 
@@ -51309,7 +51309,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -52303,7 +52303,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Performs a view transition.
              * Given a transition destination, this method performs a view
@@ -52992,7 +52992,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -54173,7 +54173,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -55030,7 +55030,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -55944,7 +55944,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -56737,7 +56737,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -57602,7 +57602,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -58306,7 +58306,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -59168,7 +59168,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -60715,4 +60715,597 @@ declare module dojox {
         }
 
     }
+}
+
+declare module "dojox/mobile" {
+    var exp: dojox.mobile
+    export=exp;
+}
+declare module "dojox/mobile/_ContentPaneMixin" {
+    var exp: dojox.mobile._ContentPaneMixin
+    export=exp;
+}
+declare module "dojox/mobile/_DataMixin" {
+    var exp: dojox.mobile._DataMixin
+    export=exp;
+}
+declare module "dojox/mobile/_ComboBoxMenu" {
+    var exp: dojox.mobile._ComboBoxMenu
+    export=exp;
+}
+declare module "dojox/mobile/_DatePickerMixin" {
+    var exp: dojox.mobile._DatePickerMixin
+    export=exp;
+}
+declare module "dojox/mobile/_ExecScriptMixin" {
+    var exp: dojox.mobile._ExecScriptMixin
+    export=exp;
+}
+declare module "dojox/mobile/_DataListMixin" {
+    var exp: dojox.mobile._DataListMixin
+    export=exp;
+}
+declare module "dojox/mobile/_EditableIconMixin" {
+    var exp: dojox.mobile._EditableIconMixin
+    export=exp;
+}
+declare module "dojox/mobile/_EditableListMixin" {
+    var exp: dojox.mobile._EditableListMixin
+    export=exp;
+}
+declare module "dojox/mobile/_ListTouchMixin" {
+    var exp: dojox.mobile._ListTouchMixin
+    export=exp;
+}
+declare module "dojox/mobile/_IconItemPane" {
+    var exp: dojox.mobile._IconItemPane
+    export=exp;
+}
+declare module "dojox/mobile/_StoreListMixin" {
+    var exp: dojox.mobile._StoreListMixin
+    export=exp;
+}
+declare module "dojox/mobile/_StoreMixin" {
+    var exp: dojox.mobile._StoreMixin
+    export=exp;
+}
+declare module "dojox/mobile/_TimePickerMixin" {
+    var exp: dojox.mobile._TimePickerMixin
+    export=exp;
+}
+declare module "dojox/mobile/_ItemBase" {
+    var exp: dojox.mobile._ItemBase
+    export=exp;
+}
+declare module "dojox/mobile/Badge" {
+    var exp: dojox.mobile.Badge
+    export=exp;
+}
+declare module "dojox/mobile/_ScrollableMixin" {
+    var exp: dojox.mobile._ScrollableMixin
+    export=exp;
+}
+declare module "dojox/mobile/_PickerBase" {
+    var exp: dojox.mobile._PickerBase
+    export=exp;
+}
+declare module "dojox/mobile/Audio" {
+    var exp: dojox.mobile.Audio
+    export=exp;
+}
+declare module "dojox/mobile/Accordion" {
+    var exp: dojox.mobile.Accordion
+    export=exp;
+}
+declare module "dojox/mobile/Accordion.ChildWidgetProperties" {
+    var exp: dojox.mobile.Accordion.ChildWidgetProperties
+    export=exp;
+}
+declare module "dojox/mobile/Button" {
+    var exp: dojox.mobile.Button
+    export=exp;
+}
+declare module "dojox/mobile/CarouselItem" {
+    var exp: dojox.mobile.CarouselItem
+    export=exp;
+}
+declare module "dojox/mobile/Carousel" {
+    var exp: dojox.mobile.Carousel
+    export=exp;
+}
+declare module "dojox/mobile/Carousel.ChildSwapViewProperties" {
+    var exp: dojox.mobile.Carousel.ChildSwapViewProperties
+    export=exp;
+}
+declare module "dojox/mobile/CheckBox" {
+    var exp: dojox.mobile.CheckBox
+    export=exp;
+}
+declare module "dojox/mobile/Container" {
+    var exp: dojox.mobile.Container
+    export=exp;
+}
+declare module "dojox/mobile/ComboBox" {
+    var exp: dojox.mobile.ComboBox
+    export=exp;
+}
+declare module "dojox/mobile/ContentPane" {
+    var exp: dojox.mobile.ContentPane
+    export=exp;
+}
+declare module "dojox/mobile/DataCarousel" {
+    var exp: dojox.mobile.DataCarousel
+    export=exp;
+}
+declare module "dojox/mobile/FilteredListMixin" {
+    var exp: dojox.mobile.FilteredListMixin
+    export=exp;
+}
+declare module "dojox/mobile/EdgeToEdgeList" {
+    var exp: dojox.mobile.EdgeToEdgeList
+    export=exp;
+}
+declare module "dojox/mobile/EdgeToEdgeCategory" {
+    var exp: dojox.mobile.EdgeToEdgeCategory
+    export=exp;
+}
+declare module "dojox/mobile/EdgeToEdgeStoreList" {
+    var exp: dojox.mobile.EdgeToEdgeStoreList
+    export=exp;
+}
+declare module "dojox/mobile/EdgeToEdgeDataList" {
+    var exp: dojox.mobile.EdgeToEdgeDataList
+    export=exp;
+}
+declare module "dojox/mobile/ExpandingTextArea" {
+    var exp: dojox.mobile.ExpandingTextArea
+    export=exp;
+}
+declare module "dojox/mobile/FixedSplitterPane" {
+    var exp: dojox.mobile.FixedSplitterPane
+    export=exp;
+}
+declare module "dojox/mobile/Icon" {
+    var exp: dojox.mobile.Icon
+    export=exp;
+}
+declare module "dojox/mobile/FixedSplitter" {
+    var exp: dojox.mobile.FixedSplitter
+    export=exp;
+}
+declare module "dojox/mobile/FormLayout" {
+    var exp: dojox.mobile.FormLayout
+    export=exp;
+}
+declare module "dojox/mobile/GridLayout" {
+    var exp: dojox.mobile.GridLayout
+    export=exp;
+}
+declare module "dojox/mobile/IconMenu" {
+    var exp: dojox.mobile.IconMenu
+    export=exp;
+}
+declare module "dojox/mobile/IconMenuItem" {
+    var exp: dojox.mobile.IconMenuItem
+    export=exp;
+}
+declare module "dojox/mobile/IconContainer" {
+    var exp: dojox.mobile.IconContainer
+    export=exp;
+}
+declare module "dojox/mobile/Heading" {
+    var exp: dojox.mobile.Heading
+    export=exp;
+}
+declare module "dojox/mobile/LongListMixin" {
+    var exp: dojox.mobile.LongListMixin
+    export=exp;
+}
+declare module "dojox/mobile/IconItem" {
+    var exp: dojox.mobile.IconItem
+    export=exp;
+}
+declare module "dojox/mobile/ListItem" {
+    var exp: dojox.mobile.ListItem
+    export=exp;
+}
+declare module "dojox/mobile/ListItem.ChildWidgetProperties" {
+    var exp: dojox.mobile.ListItem.ChildWidgetProperties
+    export=exp;
+}
+declare module "dojox/mobile/Pane" {
+    var exp: dojox.mobile.Pane
+    export=exp;
+}
+declare module "dojox/mobile/Opener" {
+    var exp: dojox.mobile.Opener
+    export=exp;
+}
+declare module "dojox/mobile/Overlay" {
+    var exp: dojox.mobile.Overlay
+    export=exp;
+}
+declare module "dojox/mobile/PageIndicator" {
+    var exp: dojox.mobile.PageIndicator
+    export=exp;
+}
+declare module "dojox/mobile/ProgressBar" {
+    var exp: dojox.mobile.ProgressBar
+    export=exp;
+}
+declare module "dojox/mobile/ProgressIndicator" {
+    var exp: dojox.mobile.ProgressIndicator
+    export=exp;
+}
+declare module "dojox/mobile/RoundRectCategory" {
+    var exp: dojox.mobile.RoundRectCategory
+    export=exp;
+}
+declare module "dojox/mobile/RoundRect" {
+    var exp: dojox.mobile.RoundRect
+    export=exp;
+}
+declare module "dojox/mobile/RadioButton" {
+    var exp: dojox.mobile.RadioButton
+    export=exp;
+}
+declare module "dojox/mobile/RoundRectList" {
+    var exp: dojox.mobile.RoundRectList
+    export=exp;
+}
+declare module "dojox/mobile/ScreenSizeAware" {
+    var exp: dojox.mobile.ScreenSizeAware
+    export=exp;
+}
+declare module "dojox/mobile/RoundRectDataList" {
+    var exp: dojox.mobile.RoundRectDataList
+    export=exp;
+}
+declare module "dojox/mobile/RoundRectStoreList" {
+    var exp: dojox.mobile.RoundRectStoreList
+    export=exp;
+}
+declare module "dojox/mobile/ScrollablePane" {
+    var exp: dojox.mobile.ScrollablePane
+    export=exp;
+}
+declare module "dojox/mobile/Rating" {
+    var exp: dojox.mobile.Rating
+    export=exp;
+}
+declare module "dojox/mobile/Slider" {
+    var exp: dojox.mobile.Slider
+    export=exp;
+}
+declare module "dojox/mobile/SimpleDialog" {
+    var exp: dojox.mobile.SimpleDialog
+    export=exp;
+}
+declare module "dojox/mobile/SearchBox" {
+    var exp: dojox.mobile.SearchBox
+    export=exp;
+}
+declare module "dojox/mobile/ScrollableView" {
+    var exp: dojox.mobile.ScrollableView
+    export=exp;
+}
+declare module "dojox/mobile/SpinWheel" {
+    var exp: dojox.mobile.SpinWheel
+    export=exp;
+}
+declare module "dojox/mobile/SpinWheelDatePicker" {
+    var exp: dojox.mobile.SpinWheelDatePicker
+    export=exp;
+}
+declare module "dojox/mobile/SpinWheelTimePicker" {
+    var exp: dojox.mobile.SpinWheelTimePicker
+    export=exp;
+}
+declare module "dojox/mobile/Switch" {
+    var exp: dojox.mobile.Switch
+    export=exp;
+}
+declare module "dojox/mobile/SpinWheelSlot" {
+    var exp: dojox.mobile.SpinWheelSlot
+    export=exp;
+}
+declare module "dojox/mobile/StoreCarousel" {
+    var exp: dojox.mobile.StoreCarousel
+    export=exp;
+}
+declare module "dojox/mobile/TabBar" {
+    var exp: dojox.mobile.TabBar
+    export=exp;
+}
+declare module "dojox/mobile/SwapView" {
+    var exp: dojox.mobile.SwapView
+    export=exp;
+}
+declare module "dojox/mobile/TextArea" {
+    var exp: dojox.mobile.TextArea
+    export=exp;
+}
+declare module "dojox/mobile/ToggleButton" {
+    var exp: dojox.mobile.ToggleButton
+    export=exp;
+}
+declare module "dojox/mobile/TransitionEvent" {
+    var exp: dojox.mobile.TransitionEvent
+    export=exp;
+}
+declare module "dojox/mobile/Tooltip" {
+    var exp: dojox.mobile.Tooltip
+    export=exp;
+}
+declare module "dojox/mobile/TextBox" {
+    var exp: dojox.mobile.TextBox
+    export=exp;
+}
+declare module "dojox/mobile/ToolBarButton" {
+    var exp: dojox.mobile.ToolBarButton
+    export=exp;
+}
+declare module "dojox/mobile/TabBarButton" {
+    var exp: dojox.mobile.TabBarButton
+    export=exp;
+}
+declare module "dojox/mobile/ValuePicker" {
+    var exp: dojox.mobile.ValuePicker
+    export=exp;
+}
+declare module "dojox/mobile/ValuePickerSlot" {
+    var exp: dojox.mobile.ValuePickerSlot
+    export=exp;
+}
+declare module "dojox/mobile/ValuePickerDatePicker" {
+    var exp: dojox.mobile.ValuePickerDatePicker
+    export=exp;
+}
+declare module "dojox/mobile/ViewController" {
+    var exp: dojox.mobile.ViewController
+    export=exp;
+}
+declare module "dojox/mobile/TreeView" {
+    var exp: dojox.mobile.TreeView
+    export=exp;
+}
+declare module "dojox/mobile/Video" {
+    var exp: dojox.mobile.Video
+    export=exp;
+}
+declare module "dojox/mobile/ValuePickerTimePicker" {
+    var exp: dojox.mobile.ValuePickerTimePicker
+    export=exp;
+}
+declare module "dojox/mobile/View" {
+    var exp: dojox.mobile.View
+    export=exp;
+}
+declare module "dojox/mobile/DatePicker" {
+    var exp: dojox.mobile.DatePicker
+    export=exp;
+}
+declare module "dojox/mobile/pageTurningUtils" {
+    var exp: dojox.mobile.pageTurningUtils
+    export=exp;
+}
+declare module "dojox/mobile/scrollable" {
+    var exp: dojox.mobile.scrollable
+    export=exp;
+}
+declare module "dojox/mobile/TimePicker" {
+    var exp: dojox.mobile.TimePicker
+    export=exp;
+}
+declare module "dojox/mobile/_base" {
+    var exp: dojox.mobile._base
+    export=exp;
+}
+declare module "dojox/mobile/_compat" {
+    var exp: dojox.mobile._compat
+    export=exp;
+}
+declare module "dojox/mobile/_css3" {
+    var exp: dojox.mobile._css3
+    export=exp;
+}
+declare module "dojox/mobile/_PickerChooser" {
+    var exp: dojox.mobile._PickerChooser
+    export=exp;
+}
+declare module "dojox/mobile/_maskUtils" {
+    var exp: dojox.mobile._maskUtils
+    export=exp;
+}
+declare module "dojox/mobile/bookmarkable" {
+    var exp: dojox.mobile.bookmarkable
+    export=exp;
+}
+declare module "dojox/mobile/common" {
+    var exp: dojox.mobile.common
+    export=exp;
+}
+declare module "dojox/mobile/compat" {
+    var exp: dojox.mobile.compat
+    export=exp;
+}
+declare module "dojox/mobile/i18n" {
+    var exp: dojox.mobile.i18n
+    export=exp;
+}
+declare module "dojox/mobile/i18n.I18NProperties" {
+    var exp: dojox.mobile.i18n.I18NProperties
+    export=exp;
+}
+declare module "dojox/mobile/mobile-all" {
+    var exp: dojox.mobile.mobile_all
+    export=exp;
+}
+declare module "dojox/mobile/sniff" {
+    var exp: dojox.mobile.sniff
+    export=exp;
+}
+declare module "dojox/mobile/transition" {
+    var exp: dojox.mobile.transition
+    export=exp;
+}
+declare module "dojox/mobile/uacss" {
+    var exp: dojox.mobile.uacss
+    export=exp;
+}
+declare module "dojox/mobile/viewRegistry" {
+    var exp: dojox.mobile.viewRegistry
+    export=exp;
+}
+declare module "dojox/mobile/viewRegistry.hash" {
+    var exp: dojox.mobile.viewRegistry.hash
+    export=exp;
+}
+declare module "dojox/mobile/bidi/common" {
+    var exp: dojox.mobile.bidi.common
+    export=exp;
+}
+declare module "dojox/mobile/bidi/common.MARK" {
+    var exp: dojox.mobile.bidi.common.MARK
+    export=exp;
+}
+declare module "dojox/mobile/bidi/_ComboBoxMenu" {
+    var exp: dojox.mobile.bidi._ComboBoxMenu
+    export=exp;
+}
+declare module "dojox/mobile/bidi/_ItemBase" {
+    var exp: dojox.mobile.bidi._ItemBase
+    export=exp;
+}
+declare module "dojox/mobile/bidi/_StoreListMixin" {
+    var exp: dojox.mobile.bidi._StoreListMixin
+    export=exp;
+}
+declare module "dojox/mobile/bidi/Accordion" {
+    var exp: dojox.mobile.bidi.Accordion
+    export=exp;
+}
+declare module "dojox/mobile/bidi/Badge" {
+    var exp: dojox.mobile.bidi.Badge
+    export=exp;
+}
+declare module "dojox/mobile/bidi/Button" {
+    var exp: dojox.mobile.bidi.Button
+    export=exp;
+}
+declare module "dojox/mobile/bidi/Carousel" {
+    var exp: dojox.mobile.bidi.Carousel
+    export=exp;
+}
+declare module "dojox/mobile/bidi/Heading" {
+    var exp: dojox.mobile.bidi.Heading
+    export=exp;
+}
+declare module "dojox/mobile/bidi/IconMenu" {
+    var exp: dojox.mobile.bidi.IconMenu
+    export=exp;
+}
+declare module "dojox/mobile/bidi/IconItem" {
+    var exp: dojox.mobile.bidi.IconItem
+    export=exp;
+}
+declare module "dojox/mobile/bidi/CarouselItem" {
+    var exp: dojox.mobile.bidi.CarouselItem
+    export=exp;
+}
+declare module "dojox/mobile/bidi/ListItem" {
+    var exp: dojox.mobile.bidi.ListItem
+    export=exp;
+}
+declare module "dojox/mobile/bidi/RoundRectCategory" {
+    var exp: dojox.mobile.bidi.RoundRectCategory
+    export=exp;
+}
+declare module "dojox/mobile/bidi/TabBar" {
+    var exp: dojox.mobile.bidi.TabBar
+    export=exp;
+}
+declare module "dojox/mobile/bidi/SwapView" {
+    var exp: dojox.mobile.bidi.SwapView
+    export=exp;
+}
+declare module "dojox/mobile/bidi/Switch" {
+    var exp: dojox.mobile.bidi.Switch
+    export=exp;
+}
+declare module "dojox/mobile/bidi/SpinWheelSlot" {
+    var exp: dojox.mobile.bidi.SpinWheelSlot
+    export=exp;
+}
+declare module "dojox/mobile/bidi/TextBox" {
+    var exp: dojox.mobile.bidi.TextBox
+    export=exp;
+}
+declare module "dojox/mobile/bidi/TabBarButton" {
+    var exp: dojox.mobile.bidi.TabBarButton
+    export=exp;
+}
+declare module "dojox/mobile/bidi/ToolBarButton" {
+    var exp: dojox.mobile.bidi.ToolBarButton
+    export=exp;
+}
+declare module "dojox/mobile/bidi/Tooltip" {
+    var exp: dojox.mobile.bidi.Tooltip
+    export=exp;
+}
+declare module "dojox/mobile/bidi/ValuePickerSlot" {
+    var exp: dojox.mobile.bidi.ValuePickerSlot
+    export=exp;
+}
+declare module "dojox/mobile/bidi/TreeView" {
+    var exp: dojox.mobile.bidi.TreeView
+    export=exp;
+}
+declare module "dojox/mobile/dh/ContentTypeMap" {
+    var exp: dojox.mobile.dh.ContentTypeMap
+    export=exp;
+}
+declare module "dojox/mobile/dh/ContentTypeMap.map" {
+    var exp: dojox.mobile.dh.ContentTypeMap.map
+    export=exp;
+}
+declare module "dojox/mobile/dh/PatternFileTypeMap" {
+    var exp: dojox.mobile.dh.PatternFileTypeMap
+    export=exp;
+}
+declare module "dojox/mobile/dh/PatternFileTypeMap.map" {
+    var exp: dojox.mobile.dh.PatternFileTypeMap.map
+    export=exp;
+}
+declare module "dojox/mobile/dh/SuffixFileTypeMap" {
+    var exp: dojox.mobile.dh.SuffixFileTypeMap
+    export=exp;
+}
+declare module "dojox/mobile/dh/SuffixFileTypeMap.map" {
+    var exp: dojox.mobile.dh.SuffixFileTypeMap.map
+    export=exp;
+}
+declare module "dojox/mobile/dh/DataHandler" {
+    var exp: dojox.mobile.dh.DataHandler
+    export=exp;
+}
+declare module "dojox/mobile/dh/HtmlContentHandler" {
+    var exp: dojox.mobile.dh.HtmlContentHandler
+    export=exp;
+}
+declare module "dojox/mobile/dh/HtmlScriptContentHandler" {
+    var exp: dojox.mobile.dh.HtmlScriptContentHandler
+    export=exp;
+}
+declare module "dojox/mobile/dh/JsonContentHandler" {
+    var exp: dojox.mobile.dh.JsonContentHandler
+    export=exp;
+}
+declare module "dojox/mobile/dh/StringDataSource" {
+    var exp: dojox.mobile.dh.StringDataSource
+    export=exp;
+}
+declare module "dojox/mobile/dh/UrlDataSource" {
+    var exp: dojox.mobile.dh.UrlDataSource
+    export=exp;
 }

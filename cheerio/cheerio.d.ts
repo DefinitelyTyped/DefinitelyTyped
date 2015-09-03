@@ -44,6 +44,7 @@ interface Cheerio {
     // Traversing
 
     find(selector: string): Cheerio;
+    find(element: Cheerio): Cheerio;
 
     parent(selector?: string): Cheerio;
     parents(selector?: string): Cheerio;
@@ -72,6 +73,8 @@ interface Cheerio {
     siblings(selector?: string): Cheerio;
 
     children(selector?: string): Cheerio;
+
+    contents(): Cheerio;
 
     each(func: (index: number, element: CheerioElement) => any): Cheerio;
     map(func: (index: number, element: CheerioElement) => any): Cheerio;

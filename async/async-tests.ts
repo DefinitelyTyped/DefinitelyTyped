@@ -67,6 +67,17 @@ async.series([
 ],
 function (err, results) { });
 
+async.series<string>([
+    function (callback) {
+        callback(null, 'one');
+    },
+    function (callback) {
+        callback(null, 'two');
+    },
+],
+function (err, results) { });
+
+
 async.series({
     one: function (callback) {
         setTimeout(function () {
@@ -80,6 +91,32 @@ async.series({
     },
 },
 function (err, results) { });
+
+async.series<number>({
+    one: function (callback) {
+        setTimeout(function () {
+            callback(null, 1);
+        }, 200);
+    },
+    two: function (callback) {
+        setTimeout(function () {
+            callback(null, 2);
+        }, 100);
+    },
+},
+function (err, results) { });
+
+async.times(5, function(n, next) {
+    next(null, n)
+}, function(err, results) {
+    console.log(results)
+})
+
+async.timesSeries(5, function(n, next) {
+    next(null, n)
+}, function(err, results) {
+    console.log(results)
+})
 
 async.parallel([
     function (callback) {
@@ -95,8 +132,36 @@ async.parallel([
 ],
 function (err, results) { });
 
+async.parallel<string>([
+    function (callback) {
+        setTimeout(function () {
+            callback(null, 'one');
+        }, 200);
+    },
+    function (callback) {
+        setTimeout(function () {
+            callback(null, 'two');
+        }, 100);
+    },
+],
+function (err, results) { });
+
 
 async.parallel({
+    one: function (callback) {
+        setTimeout(function () {
+            callback(null, 1);
+        }, 200);
+    },
+    two: function (callback) {
+        setTimeout(function () {
+            callback(null, 2);
+        }, 100);
+    },
+},
+function (err, results) { });
+
+async.parallel<number>({
     one: function (callback) {
         setTimeout(function () {
             callback(null, 1);
@@ -136,7 +201,7 @@ async.waterfall([
 ], function (err, result) { });
 
 
-var q = async.queue(function (task: any, callback) {
+var q = async.queue<any>(function (task: any, callback) {
     console.log('hello ' + task.name);
     callback();
 }, 2);
@@ -189,29 +254,29 @@ q.resume();
 q.kill();
 
 // tests for strongly typed tasks
-var q2 = async.queue(function (task: string, callback) {
+var q2 = async.queue<string>(function (task: string, callback) {
     console.log('Task: ' + task);
     callback();
 }, 1);
 
 q2.push('task1');
 
-q2.push('task2', function (error, results: string[]) {
-    console.log('Finished tasks: ' + results.join(', '));
+q2.push('task2', function (error) {
+    console.log('Finished tasks');
 });
 
-q2.push(['task3', 'task4', 'task5'], function (error, results: string[]) {
-    console.log('Finished tasks: ' + results.join(', '));
+q2.push(['task3', 'task4', 'task5'], function (error) {
+    console.log('Finished tasks');
 });
 
 q2.unshift('task1');
 
-q2.unshift('task2', function (error, results: string[]) {
-    console.log('Finished tasks: ' + results.join(', '));
+q2.unshift('task2', function (error) {
+    console.log('Finished tasks');
 });
 
-q2.unshift(['task3', 'task4', 'task5'], function (error, results: string[]) {
-    console.log('Finished tasks: ' + results.join(', '));
+q2.unshift(['task3', 'task4', 'task5'], function (error) {
+    console.log('Finished tasks');
 });
 
 var filename = '';

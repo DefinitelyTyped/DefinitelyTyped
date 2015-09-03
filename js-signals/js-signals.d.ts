@@ -3,12 +3,22 @@
 // Definitions by: Diullei Gomes <https://github.com/diullei>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+declare var signals: SignalWrapper;
+
+declare module "signals" {
+	export = signals;
+}
+
+interface SignalWrapper {
+    Signal: Signal
+}
+
 interface SignalBinding {
     active: boolean;
     context: any;
     params: any;
-    detach();
-    execute(paramsArr);
+    detach(): Function;
+    execute(paramsArr?:any[]): any;
     getListener(): Function;
     getSignal(): Signal;
     isBound(): boolean;
@@ -16,6 +26,15 @@ interface SignalBinding {
 }
 
 interface Signal {
+    /**
+     * Custom event broadcaster
+     * <br />- inspired by Robert Penner's AS3 Signals.
+     * @name Signal
+     * @author Miller Medeiros
+     * @constructor
+     */
+    new(): Signal;
+
     /**
      * If Signal is active and should broadcast events.
      */
@@ -48,24 +67,24 @@ interface Signal {
      * @param listenercontext Context on which listener will be executed (object that should represent the `this` variable inside listener function).
      * @param priority The priority level of the event listener. Listeners with higher priority will be executed before listeners with lower priority. Listeners with same priority level will be executed at the same order as they were added. (default = 0)
      */
-    addOnce(listener: Function, listenerContext, priority): SignalBinding;
+    addOnce(listener: Function, listenerContext?: any, priority?: Number): SignalBinding;
 
     /**
      * Dispatch/Broadcast Signal to all listeners added to the queue.
      *
      * @param params Parameters that should be passed to each handler.
      */
-    dispatch(...params: any[]);
+    dispatch(...params: any[]): void;
 
     /**
      * Remove all bindings from signal and destroy any reference to external objects (destroy Signal object).
      */
-    dispose();
+    dispose(): void;
 
     /**
      * Forget memorized arguments.
      */
-    forget();
+    forget(): void;
 
     /**
      * Returns a number of listeners attached to the Signal.
@@ -75,7 +94,7 @@ interface Signal {
     /**
      * Stop propagation of the event, blocking the dispatch to next listeners on the queue.
      */
-    halt();
+    halt(): void;
 
     /**
      * Check if listener was attached to Signal.
@@ -87,5 +106,5 @@ interface Signal {
      */
     remove(listener: Function, context?: any): Function;
 
-    removeAll();
+    removeAll(): void;
 }

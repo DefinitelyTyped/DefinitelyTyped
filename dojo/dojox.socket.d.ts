@@ -50,3 +50,12 @@ declare module dojox {
         interface Reconnect{(socket: any, options: any): void}
     }
 }
+
+declare module "dojox/socket" {
+    var exp: dojox.socket
+    export=exp;
+}
+declare module "dojox/socket/Reconnect" {
+    var exp: dojox.socket.Reconnect
+    export=exp;
+}

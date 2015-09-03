@@ -68,6 +68,13 @@ declare var Buffer: {
 *                   INTERFACES                  *
 *                                               *
 ************************************************/
+interface ErrnoException extends Error {
+    errno?: number;
+    code?: string;
+    path?: string;
+    syscall?: string;
+    stack?: string;
+}
 
 interface EventEmitter {
     addListener(event: string, listener: Function);
@@ -203,8 +210,8 @@ interface Buffer {
 declare module "querystring" {
     export function stringify(obj: any, sep?: string, eq?: string): string;
     export function parse(str: string, sep?: string, eq?: string, options?: { maxKeys?: number; }): any;
-    export function escape(): any;
-    export function unescape(): any;
+    export function escape(str: string): string;
+    export function unescape(str: string): string;
 }
 
 declare module "events" {
@@ -730,9 +737,9 @@ declare module "fs" {
     export function fchmodSync(fd: string, mode: string): void;
     export function lchmod(path: string, mode: string, callback?: Function): void;
     export function lchmodSync(path: string, mode: string): void;
-    export function stat(path: string, callback?: (err: Error, stats: Stats) =>any): Stats;
-    export function lstat(path: string, callback?: (err: Error, stats: Stats) =>any): Stats;
-    export function fstat(fd: string, callback?: (err: Error, stats: Stats) =>any): Stats;
+    export function stat(path: string, callback?: (err: ErrnoException, stats: Stats) =>any): Stats;
+    export function lstat(path: string, callback?: (err: ErrnoException, stats: Stats) =>any): Stats;
+    export function fstat(fd: string, callback?: (err: ErrnoException, stats: Stats) =>any): Stats;
     export function statSync(path: string): Stats;
     export function lstatSync(path: string): Stats;
     export function fstatSync(fd: string): Stats;
@@ -740,9 +747,9 @@ declare module "fs" {
     export function linkSync(srcpath: string, dstpath: string): void;
     export function symlink(srcpath: string, dstpath: string, type?: string, callback?: Function): void;
     export function symlinkSync(srcpath: string, dstpath: string, type?: string): void;
-    export function readlink(path: string, callback?: (err: Error, linkString: string) =>any): void;
-    export function realpath(path: string, callback?: (err: Error, resolvedPath: string) =>any): void;
-    export function realpath(path: string, cache: string, callback: (err: Error, resolvedPath: string) =>any): void;
+    export function readlink(path: string, callback?: (err: ErrnoException, linkString: string) =>any): void;
+    export function realpath(path: string, callback?: (err: ErrnoException, resolvedPath: string) =>any): void;
+    export function realpath(path: string, cache: string, callback: (err: ErrnoException, resolvedPath: string) =>any): void;
     export function realpathSync(path: string, cache?: string): void;
     export function unlink(path: string, callback?: Function): void;
     export function unlinkSync(path: string): void;
@@ -750,11 +757,11 @@ declare module "fs" {
     export function rmdirSync(path: string): void;
     export function mkdir(path: string, mode?: string, callback?: Function): void;
     export function mkdirSync(path: string, mode?: string): void;
-    export function readdir(path: string, callback?: (err: Error, files: string[]) => void): void;
+    export function readdir(path: string, callback?: (err: ErrnoException, files: string[]) => void): void;
     export function readdirSync(path: string): string[];
     export function close(fd: string, callback?: Function): void;
     export function closeSync(fd: string): void;
-    export function open(path: string, flags: string, mode?: string, callback?: (err: Error, fd: string) =>any): void;
+    export function open(path: string, flags: string, mode?: string, callback?: (err: ErrnoException, fd: string) =>any): void;
     export function openSync(path: string, flags: string, mode?: string): void;
     export function utimes(path: string, atime: number, mtime: number, callback?: Function): void;
     export function utimesSync(path: string, atime: number, mtime: number): void;
@@ -766,8 +773,8 @@ declare module "fs" {
     export function writeSync(fd: string, buffer: Buffer, offset: number, length: number, position: number): void;
     export function read(fd: string, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: Error, bytesRead: number, buffer: Buffer) => void): void;
     export function readSync(fd: string, buffer: Buffer, offset: number, length: number, position: number): any[];
-    export function readFile(filename: string, encoding: string, callback: (err: Error, data: string) => void ): void;
-    export function readFile(filename: string, callback: (err: Error, data: Buffer) => void ): void;
+    export function readFile(filename: string, encoding: string, callback: (err: ErrnoException, data: string) => void ): void;
+    export function readFile(filename: string, callback: (err: ErrnoException, data: Buffer) => void ): void;
     export function readFileSync(filename: string): Buffer;
     export function readFileSync(filename: string, encoding: string): string;
     export function writeFile(filename: string, data: any, callback?: (err) => void): void;

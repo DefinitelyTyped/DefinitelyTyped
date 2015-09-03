@@ -5,6 +5,16 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
+/**
+ * Interface for pjax:popstate event.
+ */
+interface PjaxPopStateEventObject extends JQueryEventObject {
+    /**
+     * Navigation direction. Could be "back" or "forward".
+     */
+    direction: string
+}
+
 interface PjaxSettings extends JQueryAjaxSettings {
     /**
      * A jQuery selector indicates where to stick the response body. E.g., $(container).html(xhr.responseBody).
@@ -22,6 +32,32 @@ interface PjaxSettings extends JQueryAjaxSettings {
      * Whether to replaceState the URL. Defaults to false.
      */
     replace?: boolean;
+    
+    /**
+     * How many requests to cache. Defaults to 20.
+     */
+    maxCacheLength?: number;
+
+    /**
+     * A string or function returning the current pjax version
+     */
+    version?: string | (() => string);
+
+    /**
+     * Vertical position to scroll to after navigation.
+     * To avoid changing scroll position, pass false.
+     */
+    scrollTo?: number | boolean;
+
+    /**
+     * Eventually the relatedTarget value for pjax events.
+     */
+    target?: EventTarget;
+
+    /**
+     * CSS selector for the fragment to extract from ajax response.
+     */
+    fragment?: string;
 }
 
 interface JQuery {

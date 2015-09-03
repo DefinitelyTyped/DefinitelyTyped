@@ -3,28 +3,4 @@
 // Definitions by: Kevin Barabash <https://github.com/kevinb7>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface TouchEvent extends UIEvent {
-    touches: TouchList;
-    targetTouches: TouchList;
-    changedTouches: TouchList;
-    altKey: boolean;
-    metaKey: boolean;
-    ctrlKey: boolean;
-    shiftKey: boolean;
-}
-
-interface TouchList {
-    length: number;
-    item: (index: number) => Touch;
-}
-
-interface Touch {
-    identifier: number;
-    target: EventTarget;
-    screenX: number;
-    screenY: number;
-    clientX: number;
-    clientY: number;
-    pageX: number;
-    pageY: number;
-}
+// DEPRECATED: use TypeScript 1.5.3

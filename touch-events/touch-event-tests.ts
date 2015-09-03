@@ -16,6 +16,7 @@ flag = touchEvent.shiftKey;
 
 var len:number = list.length;
 touch = list.item(0);
+touch == list[0];
 
 var x: number;
 var y: number;

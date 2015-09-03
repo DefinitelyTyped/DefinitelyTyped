@@ -114,6 +114,16 @@ interface ToastrOptions {
 	**/
 	newestOnTop?: boolean;
 
+    /**
+     * Rather than having identical toasts stack, set the preventDuplicates property to true. Duplicates are matched to the previous toast based on their message content.
+     */
+    preventDuplicates?: boolean;
+
+    /**
+     * Visually indicates how long before a toast expires.
+     */
+    progressBar?: boolean;
+    
 	/**
 	* Function to execute on toast click
 	*/
@@ -187,3 +197,6 @@ interface Toastr {
 }
 
 declare var toastr: Toastr;
+declare module "toastr" {
+	export = toastr;
+}
