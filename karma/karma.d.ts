@@ -49,7 +49,7 @@ declare module 'karma' {
         }
 
         interface DeprecatedServer {
-            start(options?: Config, callback?: ServerCallback): void;
+            start(options?: any, callback?: ServerCallback): void;
         }
 
         interface Runner {
