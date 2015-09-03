@@ -2034,6 +2034,7 @@ declare module "sequelize" {
              */
             logging? : boolean | Function;
 
+            transaction?: Transaction;
         }
 
         /**
@@ -2085,6 +2086,9 @@ declare module "sequelize" {
              */
             logging? : boolean | Function;
 
+            silent? : boolean;
+
+            returning? : boolean;
         }
 
         /**
@@ -4878,4 +4882,3 @@ declare module "sequelize" {
     export = sequelize;
 
 }
-
