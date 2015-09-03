@@ -6,13 +6,11 @@ function test_defaultUI() {
             src: "path/to/image.jpg",
             w: 100,
             h: 200,
-            specialProperty: true
         },
         {
             src: "path/to/image2.jpg",
             w: 1000,
             h: 2000,
-            specialProperty: false
         }
     ];
 
