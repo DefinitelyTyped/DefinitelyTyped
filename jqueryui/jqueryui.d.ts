@@ -341,7 +341,7 @@ declare module JQueryUI {
 
     interface DialogOptions extends DialogEvents {
         autoOpen?: boolean;
-        buttons?: { [buttonText: string]: () => void } | ButtonOptions[];
+        buttons?: { [buttonText: string]: (event?: Event) => void } | ButtonOptions[];
         closeOnEscape?: boolean;
         closeText?: string;
         dialogClass?: string;

@@ -98,5 +98,4 @@ declare module loglevel {
 	export function noConflict():any;
 }
 
-declare
-var log:typeof loglevel;
+declare var log:typeof loglevel;

@@ -215,6 +215,8 @@ declare module __React {
 
     interface ComponentSpec<P, S> extends Mixin<P, S> {
         render(): ReactElement<any>;
+
+        [propertyName: string]: any;
     }
 
     //
@@ -394,10 +396,14 @@ declare module __React {
         zIndex?: number;
         zoom?: number;
 
+        fontSize?: number | string;
+
         // SVG-related properties
         fillOpacity?: number;
         strokeOpacity?: number;
         strokeWidth?: number;
+
+        [propertyName: string]: string | number | boolean;
     }
 
     interface HTMLAttributes extends DOMAttributes {
@@ -755,8 +761,8 @@ declare module __React {
     // ----------------------------------------------------------------------
 
     interface ReactChildren {
-        map<T>(children: ReactNode, fn: (child: ReactChild) => T): { [key:string]: T };
-        forEach(children: ReactNode, fn: (child: ReactChild) => any): void;
+        map<T>(children: ReactNode, fn: (child: ReactChild, index: number) => T): { [key:string]: T };
+        forEach(children: ReactNode, fn: (child: ReactChild, index: number) => any): void;
         count(children: ReactNode): number;
         only(children: ReactNode): ReactChild;
     }

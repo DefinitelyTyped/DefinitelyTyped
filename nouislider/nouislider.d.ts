@@ -5,12 +5,10 @@
 /// <reference path="../wnumb/wnumb.d.ts"/>
 
 declare module noUiSlider {
-    interface Static {
-        /**
-         * To create a slider, call noUiSlider.create() with an element and your options.
-         */
-        create(target: HTMLElement, options: Options): void;
-    }
+    /**
+     * To create a slider, call noUiSlider.create() with an element and your options.
+     */
+    function create(target: HTMLElement, options: Options): void;
 
     interface Options {
         /**
@@ -76,24 +74,29 @@ declare module noUiSlider {
          */
         format?: Object | ((...args:any[]) => any);
 
+        /**
+         * Allows you to generate points along the slider.
+         */
+        pips?: PipsOptions;
     }
 
     interface PipsOptions {
         /**
-         * The range mode uses the slider range to determine where the pips should be. A pip is generated for every percentage specified.
+         * The 'range' mode uses the slider range to determine where the pips should be. A pip is generated for every percentage specified.
          *
-         * Like range, the steps mode uses the slider range. In steps mode, a pip is generated for every step.
-         * The filter option can be used to filter the generated pips.
+         * The 'steps', like 'range', uses the slider range. In steps mode, a pip is generated for every step.
+         * The 'filter' option can be used to filter the generated pips from the 'steps' options'
          * The filter function must return 0 (no value), 1 (large value) or 2 (small value).
          *
-         * In positions mode, pips are generated at percentage-based positions on the slider. Optionally, the stepped option can be set to true to match the pips to the slider steps.
+         * In 'positions' mode, pips are generated at percentage-based positions on the slider.
+         * Optionally, the stepped option can be set to true to match the pips to the slider steps.
          *
-         * The count mode can be used to generate a fixed number of pips. As with positions mode, the stepped option can be used.
+         * The 'count' mode can be used to generate a fixed number of pips. As with positions mode, the stepped option can be used.
          *
-         * The values mode is similar to positions, but it accepts values instead of percentages. The stepped option can be used for this mode.
+         * The 'values' mode is similar to positions, but it accepts values instead of percentages. The stepped option can be used for this mode.
          *
          */
-        mode: string;
+        mode: string; // "range" | "steps" | "positions" | "count" | "values"
         /**
          * Range Mode: percentage for range mode
          * Step Mode: step number for steps
@@ -105,7 +108,7 @@ declare module noUiSlider {
          * Step Mode: The filter option can be used to filter the generated pips.
          * The filter function must return 0 (no value), 1 (large value) or 2 (small value).
          */
-        filter?: (...args:any[]) => number;
+        filter?: (...args: any[]) => PipFilterResult;
         /**
          * format for step mode
          * see noUiSlider format
@@ -121,6 +124,12 @@ declare module noUiSlider {
          * stepped option for positions, values and count mode
          */
         stepped?: boolean;
+    }
+
+    const enum PipFilterResult {
+        NoValue,
+        LargeValue,
+        SmallValue,
     }
 
     interface Callback {
@@ -165,6 +174,3 @@ declare module noUiSlider {
         noUiSlider: noUiSlider
     }
 }
-
-declare var noUiSlider: noUiSlider.Static;
-
