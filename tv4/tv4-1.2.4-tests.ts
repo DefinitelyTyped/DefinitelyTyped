@@ -1,4 +1,4 @@
-///<reference path="tv4.d.ts" />
+///<reference path="tv4-1.2.4.d.ts" />
 
 var str:string;
 var strArr:string[];
