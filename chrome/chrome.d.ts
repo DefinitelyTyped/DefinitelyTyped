@@ -11,6 +11,26 @@ interface Window {
 }
 
 /**
+ * Use the chrome.accessibilityFeatures API to manage Chrome's accessibility features. This API relies on
+ * the {@link https://developer.chrome.com/apps/types#ChromeSetting|ChromeSetting prototype of the type API} for getting
+ * and setting individual accessibility features. In order to get feature states the extension must
+ * request accessibilityFeatures.read permission. For modifying feature state, the extension needs
+ * accessibilityFeatures.modify permission. Note that accessibilityFeatures.modify does not imply
+ * accessibilityFeatures.read permission.
+ */
+declare module chrome.accessibilityFeatures {
+
+    export const spokenFeedback: types.ChromeSetting;
+    export const largeCursor: types.ChromeSetting;
+    export const stickyKeys: types.ChromeSetting;
+    export const highContrast: types.ChromeSetting;
+    export const screenMagnifier: types.ChromeSetting;
+    export const autoclick: types.ChromeSetting;
+    export const virtualKeyboard: types.ChromeSetting;
+    export const animationPolicy: types.ChromeSetting;
+}
+
+/**
  * Use the chrome.alarms API to schedule code to run periodically or at a specified time in the future.
  */
 declare module chrome.alarms {
@@ -2696,10 +2716,6 @@ declare module chrome.types {
     }
 
     interface ChromeSetting {
-        details: {
-            scope?: string;
-            callback?: Function;
-        };
         set(details: ChromeSettingSetDetails, callback?: Function): void;
         get(details: ChromeSettingGetDetails, callback?: (details: ChromeSettingDetailsResult) => void): void;
         clear(details: ChromeSettingClearDetails, callback?: Function): void;
