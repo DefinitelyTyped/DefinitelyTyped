@@ -3116,6 +3116,54 @@ declare module chrome.types {
 }
 
 /**
+ * Use the chrome.vpnProvider API to implement a VPN client.
+ */
+declare module chrome.vpnProvider {
+
+    interface SetParameters {
+        address: string;
+        broadcastAddress?: string;
+        mtu?: string;
+        exclusionList: string[];
+        inclusionList: string[];
+        domainSearch?: string[];
+        dnsServers: string[];
+    }
+
+    interface PlataformMessageEvent extends events.Event {
+        addListener(callback: (id: string, message: string, error: string) => void): void;
+    }
+
+    interface PacketReceivedEvent extends events.Event {
+        addListener(callback: (data: ArrayBuffer) => void): void;
+    }
+
+    interface ConfigRemovedEvent extends events.Event {
+        addListener(callback: (id: string) => void): void;
+    }
+
+    interface ConfigCreatedEvent extends events.Event {
+        addListener(callback: (id: string, name: string, data: Object) => void): void;
+    }
+
+    interface UIEventEvent extends events.Event {
+        addListener(callback: (event: string, id?: string) => void): void;
+    }
+
+    export function createConfig(name: string, callback: (id: string) => void): void;
+    export function destroyConfig(id: string, callback?: Function): void;
+    export function setParameters(parameters: SetParameters, callback: Function): void;
+    export function sendPacket(data: ArrayBuffer, callback?: Function): void;
+    export function notifyConnectionStateChanged(state: string, callback?: Function): void;
+
+    var onPlatformMessage: PlataformMessageEvent;
+    var onPacketReceived: PacketReceivedEvent;
+    var onConfigRemoved: ConfigRemovedEvent;
+    var onConfigCreated: ConfigCreatedEvent;
+    var onUIEvent: UIEventEvent;
+}
+
+/**
  * Use the chrome.webNavigation API to receive notifications about the status of navigation requests in-flight.
  */
 declare module chrome.webNavigation {
