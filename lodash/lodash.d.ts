@@ -7135,12 +7135,20 @@ declare module _ {
     //_.has
     interface LoDashStatic {
         /**
-        * Checks if path is a direct property.
-        * @param object The object to query.
-        * @param path The path to check.
-        * @return True if path is a direct property, else False.
-        **/
-        has(object: any, path: string|string[]): boolean;
+         * Checks if path is a direct property.
+         *
+         * @param object The object to query.
+         * @param path The path to check.
+         * @return Returns true if path is a direct property, else false.
+         */
+        has(object: any, path: string|number|boolean|Array<string|number|boolean>): boolean;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.has
+         */
+        has(path: string|number|boolean|Array<string|number|boolean>): boolean;
     }
 
     //_.invert
