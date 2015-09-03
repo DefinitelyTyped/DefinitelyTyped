@@ -1869,7 +1869,7 @@ declare module DevExpress.ui {
     /** A container widget used to arrange inner elements. */
     export class dxBox extends CollectionWidget {
         constructor(element: JQuery, options?: dxBoxOptions);
-        constructor(element: Element, options?: dxBoxOptions);    
+        constructor(element: Element, options?: dxBoxOptions);
     }
     export interface dxResponsiveBoxOptions extends CollectionWidgetOptions {
         /** Specifies the collection of rows for the grid used to position layout elements. */
@@ -3041,7 +3041,7 @@ declare module DevExpress.ui {
         lookup?: {
             /** Specifies whether or not a user can nullify values of a lookup column. */
             allowClearing?: boolean;
-            /** 
+            /**
              * Specifies the data source providing data for a lookup column.
              */
             dataSource?: any;
@@ -3076,6 +3076,9 @@ declare module DevExpress.ui {
         showInColumnChooser?: boolean;
         /** Specifies the identifier of the column. */
         name?: string;
+        // NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+        text?: string;
+        value?: any;
     }
     export interface dxDataGridOptions extends WidgetOptions {
         /** Specifies whether the outer borders of the grid are visible or not. */
@@ -3171,7 +3174,7 @@ declare module DevExpress.ui {
                 cancel?: string;
             }
         };
-        /** 
+        /**
          * An array of grid columns.
          */
         columns?: dxDataGridColumn[];
@@ -3271,7 +3274,7 @@ declare module DevExpress.ui {
             autoExpandAll?: boolean;
             /** Specifies the message displayed in a group row when the corresponding group is continued from the previous page. */
             groupContinuedMessage?: string;
-            /** 
+            /**
              * Specifies the message displayed in a group row when the corresponding group continues on the next page.
              */
             groupContinuesMessage?: string;
@@ -3653,7 +3656,7 @@ declare module DevExpress.ui {
         removeRow(rowIndex: number): void;
         /** Saves changes made in a grid. */
         saveEditData(): void;
-        /** 
+        /**
          * Searches grid records by a search string.
          */
         searchByText(text: string): void;
@@ -5385,7 +5388,7 @@ declare module DevExpress.viz.charts {
         /** Specifies whether a single series or multiple series can be selected in the chart. */
         seriesSelectionMode?: string;
         /** Specifies how the chart must behave when series point labels overlap. */
-        resolveLabelOverlapping?: string; 
+        resolveLabelOverlapping?: string;
     }
     export interface Legend extends AdvancedLegend {
         /** Specifies whether the legend is located outside or inside the chart's plot. */
@@ -5580,7 +5583,7 @@ declare module DevExpress.viz.charts {
         onLegendClick?: any;
         legendClick?: any;
         /** Specifies how the chart must behave when series point labels overlap. */
-        resolveLabelOverlapping?: string; 
+        resolveLabelOverlapping?: string;
     }
     /** A circular chart widget for HTML JS applications. */
     export class dxPieChart extends BaseChart {
@@ -5952,7 +5955,7 @@ declare module DevExpress.viz.rangeSelector {
         behavior?: {
             /** Indicates whether or not you can swap sliders. */
             allowSlidersSwap?: boolean;
-            /** 
+            /**
 Indicates whether or not animation is enabled.
  */
             animationEnabled?: boolean;
@@ -6067,7 +6070,7 @@ Indicates whether or not animation is enabled.
             maxRange?: any;
             /** Specifies the number of minor ticks between neighboring major ticks. */
             minorTickCount?: number;
-            /** 
+            /**
 Specifies an interval between minor ticks.
  */
             minorTickInterval?: any;
