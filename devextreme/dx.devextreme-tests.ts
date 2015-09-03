@@ -2,12 +2,12 @@
 
 module Tests.ui {
     var dataGridOptions: DevExpress.ui.dxDataGridOptions = {
-        activeStateEnabled: true,
-        allowColumnReordering: true,
-        allowColumnResizing: true,
-        onCellClick: function () { },
-        cellHintEnabled: true,
-        columnAutoWidth: true,
+         activeStateEnabled: true,
+         allowColumnReordering: true,
+         allowColumnResizing: true,
+         onCellClick: function () { },
+         cellHintEnabled: true,
+         columnAutoWidth: true,
         columnChooser: {
             emptyPanelText: "Nothing is here",
             enabled: true,
@@ -17,66 +17,51 @@ module Tests.ui {
         },
         columns: [
             {
-                text: '5 columns with custom css class', value: [
-                    { dataField: 'Processed', dataType: 'boolean', allowSorting: false },
-                    { dataField: 'CustomerID', cssClass: 'customCssClass' },
-                    'OrderDate',
-                    { dataField: 'Freight', validationRules: [{ type: "range", min: 1, max: 100 }] },
-                    { dataField: 'ShipName', validationRules: [{ type: 'required' }] },
-                    'ShipCity']
-            },
-            {
-                text: 'with show editor always', value: [
-                    { dataField: 'Processed', dataType: 'boolean', allowSorting: false, showEditorAlways: true },
-                    { dataField: 'OrderDate', dataType: 'date', showEditorAlways: true },
-                    { dataField: 'CustomerID', showEditorAlways: true },
-                    { dataField: 'Freight', showEditorAlways: true },
-                    { dataField: 'ShipName', showEditorAlways: true }]
-            },
-            {
-                text: 'custom template/edit/header template', value: [
-                    'CustomerID',
-                    'OrderDate',
-                    'Freight',
-                    {
-                        dataField: 'ShipVia',
-                        editCellTemplate: function (container: JQuery, options: { value: number }) {
-                            container.addClass('dx-editor-cell');
-                            container.append($('<div />').dxSelectBox({
-                                value: options.value,
-                                dataSource: [
-                                    { ShipperID: 1, CompanyName: 'Speedy Express' },
-                                    { ShipperID: 2, CompanyName: 'United Package' },
-                                    { ShipperID: 3, CompanyName: 'Federal Shipping' }
-                                ],
-                                valueExpr: 'ShipperID',
-                                displayExpr: 'CompanyName'
-                            }));
-                        },
-                        cellTemplate: function (container: JQuery, options: { value: number }) {
-                            container.text(String(options.value));
-                        },
-                        headerCellTemplate: function (container: JQuery, options: { headerCaption: string }) {
-                            container.append($('<div/>').css({ border: '1px solid red' }).text(options.headerCaption));
-                        }
-                    },
-                    'ShipName',
-                    'ShipCity']
-            },
-            { text: 'none', value: '' },
-            {
-                text: 'custom template/header hogan template', value: [
-                    'CustomerID',
-                    'OrderDate',
-                    'Freight',
-                    {
-                        dataField: 'ShipVia',
-                        cellTemplate: '#hoganColumnTemplate',
-                        headerCellTemplate: $('#hoganHeaderColumnTemplate')
-                    },
-                    'ShipName',
-                    'ShipCity']
-            }],
+                alignment: "center",
+                allowFixing: true,
+                allowEditing: true,
+                allowFiltering: true,
+                allowGrouping: true,
+                allowHiding: true,
+                allowReordering: true,
+                allowResizing: true,
+                allowSearch: true,
+                allowSorting: true,
+                autoExpandGroup: true,
+                calculateCellValue: function(rowData: Object) { return "test-value"; },
+                calculateFilterExpression: function(filterValue: any, selectedFilterOperation: string) { return []; },
+                caption: "Test column",
+                cellTemplate: function(container: JQuery, options: Object) { $("<span>Template</span>").appendTo(container); },
+                cssClass: "test-ccs-class-name",
+                customizeText: function(cellInfo: { value: any, valueText: string; }) { return "New text" },
+                dataField: "Test",
+                dataType: "string",
+                encodeHtml: true,
+                falseText: "FALSE",
+                filterOperations: ["contains", "notcontains"],
+                filterType: "exclude",
+                filterValue: "Test-filter-value",
+                fixed: true,
+                fixedPosition: "right",
+                groupIndex: 0,
+                lookup: {
+                    allowClearing: true,
+                    dataSource: ["first", "second"],
+                    displayExpr: "this",
+                    valueExpr: "this"
+                },
+                name: "test-column-name",
+                showEditorAlways: true,
+                showInColumnChooser: true,
+                showWhenGrouped:true,
+                sortIndex: 1,
+                sortOrder: "desc",
+                trueText: "TRUE",
+                visible: true,
+                visibleIndex: 0,
+                width: "100%"
+            }
+        ],
         customizeColumns: function (columns) {
             var i: number;
             for (i = 0; i < columns.length; i++) {
@@ -118,10 +103,10 @@ module Tests.ui {
                 if (columns[i].dataField === 'ShipCity') {
                     columns[i].editCellTemplate = function (container: JQuery, options: { value: string; setValue: Function }) {
                         $('<div/>').dxAutocomplete({
-                            items: ["Bern", "Lyon", "Lander"],
+                            dataSource: ["Bern", "Lyon", "Lander"],
                             value: options.value,
-                            onValueChange: function (e:{ value: string }) {
-                                options.setValue(e.value);
+                            onValueChanged: function () {
+                                options.setValue("test-value");
                             }
                         }).appendTo(container);
                     }
