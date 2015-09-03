@@ -124,6 +124,8 @@ moment().isoWeek();
 moment().isoWeek(45);
 moment().isoWeeks();
 moment().isoWeeks(45);
+moment().dayOfYear();
+moment().dayOfYear(45);
 
 var getMilliseconds: number = moment().milliseconds();
 var getSeconds: number = moment().seconds();
@@ -186,12 +188,24 @@ moment(1318874398806).valueOf();
 moment(1318874398806).unix();
 moment([2000]).isLeapYear();
 moment().zone();
+moment().utcOffset();
 moment("2012-2", "YYYY-MM").daysInMonth();
 moment([2011, 2, 12]).isDST();
 
 moment.isMoment();
 moment.isMoment(new Date());
 moment.isMoment(moment());
+
+moment.isDate(new Date());
+moment.isDate(/regexp/);
+
+moment.isDuration();
+moment.isDuration(new Date());
+moment.isDuration(moment.duration());
+
+moment().isBetween(moment(), moment());
+moment().isBetween(new Date(), new Date());
+moment().isBetween([1,1,2000], [1,1,2001], "year");
 
 moment.localeData('fr');
 moment(1316116057189).fromNow();
@@ -221,6 +235,8 @@ moment.duration(500).seconds();
 moment.duration(500).asSeconds();
 moment.duration().minutes();
 moment.duration().asMinutes();
+moment.duration().toISOString();
+moment.duration().toJSON();
 
 var adur = moment.duration(3, 'd');
 var bdur = moment.duration(2, 'd');
@@ -300,7 +316,7 @@ moment.locale('en', {
 });
 
 moment.locale('en', {
-    months : function (momentToFormat: Moment, format: string) {
+    months : function (momentToFormat: moment.Moment, format: string) {
         // momentToFormat is the moment currently being formatted
         // format is the formatting string
         if (/^MMMM/.test(format)) { // if the format starts with 'MMMM'
@@ -319,7 +335,7 @@ moment.locale('en', {
 });
 
 moment.locale('en', {
-    monthsShort : function (momentToFormat: Moment, format: string) {
+    monthsShort : function (momentToFormat: moment.Moment, format: string) {
         if (/^MMMM/.test(format)) {
             return this.nominative[momentToFormat.month()];
         } else {
@@ -335,7 +351,7 @@ moment.locale('en', {
 });
 
 moment.locale('en', {
-    weekdays : function (momentToFormat: Moment) {
+    weekdays : function (momentToFormat: moment.Moment) {
         return this.weekdays[momentToFormat.day()];
     }
 });
@@ -345,7 +361,7 @@ moment.locale('en', {
 });
 
 moment.locale('en', {
-    weekdaysShort : function (momentToFormat: Moment) {
+    weekdaysShort : function (momentToFormat: moment.Moment) {
         return this.weekdaysShort[momentToFormat.day()];
     }
 });
@@ -355,7 +371,7 @@ moment.locale('en', {
 });
 
 moment.locale('en', {
-    weekdaysMin : function (momentToFormat: Moment) {
+    weekdaysMin : function (momentToFormat: moment.Moment) {
         return this.weekdaysMin[momentToFormat.day()];
     }
 });
@@ -443,3 +459,5 @@ moment.locale('en', {
 });
 
 console.log(moment.version);
+
+moment.defaultFormat = 'YYYY-MM-DD HH:mm';

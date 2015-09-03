@@ -5,10 +5,10 @@
 
 () => {
     // ------- variable definitions that does not exist in the original code. These are for typescript.
-    var geometry: THREE.Geometry;
     // -------
 
     if (!Detector.webgl) Detector.addGetWebGLMessage();
+
     var container, stats;
 
     var camera, scene, renderer, objects;
@@ -55,20 +55,20 @@
 
         materials.push(new THREE.MeshLambertMaterial({ map: texture, transparent: true }));
         materials.push(new THREE.MeshLambertMaterial({ color: 0xdddddd, shading: THREE.FlatShading }));
-        materials.push(new THREE.MeshPhongMaterial({ ambient: 0x030303, color: 0xdddddd, specular: 0x009900, shininess: 30, shading: THREE.FlatShading }));
+        materials.push(new THREE.MeshPhongMaterial({ color: 0xdddddd, specular: 0x009900, shininess: 30, shading: THREE.FlatShading }));
         materials.push(new THREE.MeshNormalMaterial());
         materials.push(new THREE.MeshBasicMaterial({ color: 0xffaa00, transparent: true, blending: THREE.AdditiveBlending }));
         //materials.push( new THREE.MeshBasicMaterial( { color: 0xff0000, blending: THREE.SubtractiveBlending } ) );
 
         materials.push(new THREE.MeshLambertMaterial({ color: 0xdddddd, shading: THREE.SmoothShading }));
-        materials.push(new THREE.MeshPhongMaterial({ ambient: 0x030303, color: 0xdddddd, specular: 0x009900, shininess: 30, shading: THREE.SmoothShading, map: texture, transparent: true }));
+        materials.push(new THREE.MeshPhongMaterial({ color: 0xdddddd, specular: 0x009900, shininess: 30, shading: THREE.SmoothShading, map: texture, transparent: true }));
         materials.push(new THREE.MeshNormalMaterial({ shading: THREE.SmoothShading }));
         materials.push(new THREE.MeshBasicMaterial({ color: 0xffaa00, wireframe: true }));
 
         materials.push(new THREE.MeshDepthMaterial());
 
-        materials.push(new THREE.MeshLambertMaterial({ color: 0x666666, emissive: 0xff0000, ambient: 0x000000, shading: THREE.SmoothShading }));
-        materials.push(new THREE.MeshPhongMaterial({ color: 0x000000, specular: 0x666666, emissive: 0xff0000, ambient: 0x000000, shininess: 10, shading: THREE.SmoothShading, opacity: 0.9, transparent: true }));
+        materials.push(new THREE.MeshLambertMaterial({ color: 0x666666, emissive: 0xff0000, shading: THREE.SmoothShading }));
+        materials.push(new THREE.MeshPhongMaterial({ color: 0x000000, specular: 0x666666, emissive: 0xff0000, shininess: 10, shading: THREE.SmoothShading, opacity: 0.9, transparent: true }));
 
         materials.push(new THREE.MeshBasicMaterial({ map: texture, transparent: true }));
 
@@ -85,11 +85,14 @@
 
         }
 
+        // isn't used.
+        // geometry_pieces.materials = materials;
+
         materials.push(new THREE.MeshFaceMaterial(materials));
 
         objects = [];
 
-        var sphere, material;
+        var sphere, geometry: THREE.Geometry, material;
 
         for (var i = 0, l = materials.length; i < l; i++) {
 
@@ -136,8 +139,8 @@
         //
 
         renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
-
         container.appendChild(renderer.domElement);
 
         //

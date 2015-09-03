@@ -79,10 +79,11 @@ declare var Buffer: {
 ************************************************/
 declare module NodeJS {
     export interface ErrnoException extends Error {
-        errno?: any;
+        errno?: number;
         code?: string;
         path?: string;
         syscall?: string;
+        stack?: string;
     }
 
     export interface EventEmitter {
@@ -250,8 +251,8 @@ declare module "buffer" {
 declare module "querystring" {
     export function stringify(obj: any, sep?: string, eq?: string): string;
     export function parse(str: string, sep?: string, eq?: string, options?: { maxKeys?: number; }): any;
-    export function escape(): any;
-    export function unescape(): any;
+    export function escape(str: string): string;
+    export function unescape(str: string): string;
 }
 
 declare module "events" {
@@ -465,7 +466,7 @@ declare module "zlib" {
 }
 
 declare module "os" {
-    export function tmpDir(): string;
+    export function tmpdir(): string;
     export function hostname(): string;
     export function type(): string;
     export function platform(): string;
@@ -569,7 +570,7 @@ declare module "readline" {
     import stream = require("stream");
 
     export interface ReadLine extends events.EventEmitter {
-        setPrompt(prompt: string, length: number): void;
+        setPrompt(prompt: string): void;
         prompt(preserveCursor?: boolean): void;
         question(query: string, callback: Function): void;
         pause(): void;
@@ -767,13 +768,13 @@ declare module "dgram" {
         port: number;
         size: number;
     }
-    
+
     interface AddressInfo {
-        address: string; 
-        family: string; 
-        port: number; 
+        address: string;
+        family: string;
+        port: number;
     }
-    
+
     export function createSocket(type: string, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     interface Socket extends events.EventEmitter {
@@ -1088,12 +1089,12 @@ declare module "crypto" {
         setAutoPadding(auto_padding: boolean): void;
     }
     export function createSign(algorithm: string): Signer;
-    interface Signer {
+    interface Signer extends NodeJS.WritableStream {
         update(data: any): void;
         sign(private_key: string, output_format: string): string;
     }
     export function createVerify(algorith: string): Verify;
-    interface Verify {
+    interface Verify extends NodeJS.WritableStream {
         update(data: any): void;
         verify(object: string, signature: string, signature_format?: string): boolean;
     }

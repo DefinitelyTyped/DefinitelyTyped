@@ -2,19 +2,16 @@
 /// <reference path="sugarpak.d.ts" />
 
 function tests() {
-    // TypeScript alias
-    var DateJS: IDateJSStatic = <any>Date;
-
-	// What date is next thursday?
-	DateJS.today().next().thursday();
+    // What date is next thursday?
+	Date.today().next().thursday();
 
 	// Add 3 days to Today
-	DateJS.today().add(3).days();
+	Date.today().add(3).days();
 
 	// Is today Friday?
-	DateJS.today().is().friday();
+	Date.today().is().friday();
 
-    var is = DateJS.today().is();
+    var is = Date.today().is();
 
 	// Number fun
 	(3).days().ago();
@@ -24,22 +21,22 @@ function tests() {
 	n.months().fromNow();
 
 	// Set to 8:30 AM on the 15th day of the month
-	DateJS.today().set(<any>{ day: 15, hour: 8, minute: 30 });
+	Date.today().set(<any>{ day: 15, hour: 8, minute: 30 });
 
-    DateJS.today().is().january();
-    DateJS.today().is().november();
-    DateJS.today().add(1).day().is().saturday();
+    Date.today().is().january();
+    Date.today().is().november();
+    Date.today().add(1).day().is().saturday();
 
 	// Convert text into Date
-	DateJS.parse('today');
-	DateJS.parse('t + 5 d'); // today + 5 days
-	DateJS.parse('next thursday');
-	DateJS.parse('February 20th 1973');
-	DateJS.parse('Thu, 1 July 2004 22:30:00');
+	Date.parse('today');
+	Date.parse('t + 5 d'); // today + 5 days
+	Date.parse('next thursday');
+	Date.parse('February 20th 1973');
+	Date.parse('Thu, 1 July 2004 22:30:00');
 
-    var future: IDateJS = DateJS.today().add(2).months();
-    var someDate: IDateJS = DateJS.today().next().april().add(2).days();
+    var future: IDateJS = Date.today().add(2).months();
+    var someDate: IDateJS = Date.today().next().april().add(2).days();
     someDate.same().week(future); // true|false;
     someDate.same().day(); // true|false;
-    DateJS.today().toObject().day;
+    Date.today().toObject().day;
 }

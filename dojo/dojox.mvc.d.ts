@@ -676,7 +676,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -2076,7 +2076,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -2737,7 +2737,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -3389,7 +3389,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -4274,7 +4274,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -4984,7 +4984,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -6196,7 +6196,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -6963,7 +6963,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -8572,7 +8572,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -9344,7 +9344,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -9996,7 +9996,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -10657,7 +10657,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -11714,7 +11714,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -12577,7 +12577,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -13339,7 +13339,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -14040,7 +14040,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -14907,7 +14907,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -16209,7 +16209,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -17091,7 +17091,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -17741,7 +17741,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -18847,7 +18847,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -19661,7 +19661,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -20423,7 +20423,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -21124,7 +21124,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -21502,4 +21502,301 @@ declare module dojox {
         }
 
     }
+}
+
+declare module "dojox/mvc" {
+    var exp: dojox.mvc
+    export=exp;
+}
+declare module "dojox/mvc/_atBindingMixin" {
+    var exp: dojox.mvc._atBindingMixin
+    export=exp;
+}
+declare module "dojox/mvc/_atBindingMixin.mixin" {
+    var exp: dojox.mvc._atBindingMixin.mixin
+    export=exp;
+}
+declare module "dojox/mvc/_InlineTemplateMixin" {
+    var exp: dojox.mvc._InlineTemplateMixin
+    export=exp;
+}
+declare module "dojox/mvc/_DataBindingMixin" {
+    var exp: dojox.mvc._DataBindingMixin
+    export=exp;
+}
+declare module "dojox/mvc/_Controller" {
+    var exp: dojox.mvc._Controller
+    export=exp;
+}
+declare module "dojox/mvc/_Container" {
+    var exp: dojox.mvc._Container
+    export=exp;
+}
+declare module "dojox/mvc/EditModelRefController" {
+    var exp: dojox.mvc.EditModelRefController
+    export=exp;
+}
+declare module "dojox/mvc/EditStoreRefListController" {
+    var exp: dojox.mvc.EditStoreRefListController
+    export=exp;
+}
+declare module "dojox/mvc/EditStoreRefController" {
+    var exp: dojox.mvc.EditStoreRefController
+    export=exp;
+}
+declare module "dojox/mvc/ListController" {
+    var exp: dojox.mvc.ListController
+    export=exp;
+}
+declare module "dojox/mvc/Element" {
+    var exp: dojox.mvc.Element
+    export=exp;
+}
+declare module "dojox/mvc/ModelRefController" {
+    var exp: dojox.mvc.ModelRefController
+    export=exp;
+}
+declare module "dojox/mvc/Group" {
+    var exp: dojox.mvc.Group
+    export=exp;
+}
+declare module "dojox/mvc/Generate" {
+    var exp: dojox.mvc.Generate
+    export=exp;
+}
+declare module "dojox/mvc/Output" {
+    var exp: dojox.mvc.Output
+    export=exp;
+}
+declare module "dojox/mvc/StatefulModel" {
+    var exp: dojox.mvc.StatefulModel
+    export=exp;
+}
+declare module "dojox/mvc/StatefulModel.getPlainValueOptions" {
+    var exp: dojox.mvc.StatefulModel.getPlainValueOptions
+    export=exp;
+}
+declare module "dojox/mvc/StatefulModel.getStatefulOptions" {
+    var exp: dojox.mvc.StatefulModel.getStatefulOptions
+    export=exp;
+}
+declare module "dojox/mvc/Repeat" {
+    var exp: dojox.mvc.Repeat
+    export=exp;
+}
+declare module "dojox/mvc/StoreRefController" {
+    var exp: dojox.mvc.StoreRefController
+    export=exp;
+}
+declare module "dojox/mvc/StatefulSeries" {
+    var exp: dojox.mvc.StatefulSeries
+    export=exp;
+}
+declare module "dojox/mvc/Templated" {
+    var exp: dojox.mvc.Templated
+    export=exp;
+}
+declare module "dojox/mvc/WidgetList" {
+    var exp: dojox.mvc.WidgetList
+    export=exp;
+}
+declare module "dojox/mvc/atBindingExtension" {
+    var exp: dojox.mvc.atBindingExtension
+    export=exp;
+}
+declare module "dojox/mvc/at" {
+    var exp: dojox.mvc.at
+    export=exp;
+}
+declare module "dojox/mvc/at.handle" {
+    var exp: dojox.mvc.at.handle
+    export=exp;
+}
+declare module "dojox/mvc/equals" {
+    var exp: dojox.mvc.equals
+    export=exp;
+}
+declare module "dojox/mvc/getPlainValue" {
+    var exp: dojox.mvc.getPlainValue
+    export=exp;
+}
+declare module "dojox/mvc/getStateful" {
+    var exp: dojox.mvc.getStateful
+    export=exp;
+}
+declare module "dojox/mvc/resolve" {
+    var exp: dojox.mvc.resolve
+    export=exp;
+}
+declare module "dojox/mvc/StatefulArray" {
+    var exp: dojox.mvc.StatefulArray
+    export=exp;
+}
+declare module "dojox/mvc/StatefulArray._meta" {
+    var exp: dojox.mvc.StatefulArray._meta
+    export=exp;
+}
+declare module "dojox/mvc/sync" {
+    var exp: dojox.mvc.sync
+    export=exp;
+}
+declare module "dojox/mvc/_base" {
+    var exp: dojox.mvc._base
+    export=exp;
+}
+declare module "dojox/mvc/_base._InlineTemplateMixin" {
+    var exp: dojox.mvc._base._InlineTemplateMixin
+    export=exp;
+}
+declare module "dojox/mvc/_base._Controller" {
+    var exp: dojox.mvc._base._Controller
+    export=exp;
+}
+declare module "dojox/mvc/_base._DataBindingMixin" {
+    var exp: dojox.mvc._base._DataBindingMixin
+    export=exp;
+}
+declare module "dojox/mvc/_base.EditStoreRefController" {
+    var exp: dojox.mvc._base.EditStoreRefController
+    export=exp;
+}
+declare module "dojox/mvc/_base._Container" {
+    var exp: dojox.mvc._base._Container
+    export=exp;
+}
+declare module "dojox/mvc/_base.EditModelRefController" {
+    var exp: dojox.mvc._base.EditModelRefController
+    export=exp;
+}
+declare module "dojox/mvc/_base.EditStoreRefListController" {
+    var exp: dojox.mvc._base.EditStoreRefListController
+    export=exp;
+}
+declare module "dojox/mvc/_base.Element" {
+    var exp: dojox.mvc._base.Element
+    export=exp;
+}
+declare module "dojox/mvc/_base.Generate" {
+    var exp: dojox.mvc._base.Generate
+    export=exp;
+}
+declare module "dojox/mvc/_base.ListController" {
+    var exp: dojox.mvc._base.ListController
+    export=exp;
+}
+declare module "dojox/mvc/_base.ModelRefController" {
+    var exp: dojox.mvc._base.ModelRefController
+    export=exp;
+}
+declare module "dojox/mvc/_base.Group" {
+    var exp: dojox.mvc._base.Group
+    export=exp;
+}
+declare module "dojox/mvc/_base.StatefulSeries" {
+    var exp: dojox.mvc._base.StatefulSeries
+    export=exp;
+}
+declare module "dojox/mvc/_base.Output" {
+    var exp: dojox.mvc._base.Output
+    export=exp;
+}
+declare module "dojox/mvc/_base.StoreRefController" {
+    var exp: dojox.mvc._base.StoreRefController
+    export=exp;
+}
+declare module "dojox/mvc/_base.Repeat" {
+    var exp: dojox.mvc._base.Repeat
+    export=exp;
+}
+declare module "dojox/mvc/_base.StatefulModel" {
+    var exp: dojox.mvc._base.StatefulModel
+    export=exp;
+}
+declare module "dojox/mvc/_base.Templated" {
+    var exp: dojox.mvc._base.Templated
+    export=exp;
+}
+declare module "dojox/mvc/_base.WidgetList" {
+    var exp: dojox.mvc._base.WidgetList
+    export=exp;
+}
+declare module "dojox/mvc/Bind" {
+    var exp: dojox.mvc.Bind
+    export=exp;
+}
+declare module "dojox/mvc/Bind._DataBindingMixin" {
+    var exp: dojox.mvc.Bind._DataBindingMixin
+    export=exp;
+}
+declare module "dojox/mvc/Bind._Controller" {
+    var exp: dojox.mvc.Bind._Controller
+    export=exp;
+}
+declare module "dojox/mvc/Bind._InlineTemplateMixin" {
+    var exp: dojox.mvc.Bind._InlineTemplateMixin
+    export=exp;
+}
+declare module "dojox/mvc/Bind.EditModelRefController" {
+    var exp: dojox.mvc.Bind.EditModelRefController
+    export=exp;
+}
+declare module "dojox/mvc/Bind.EditStoreRefController" {
+    var exp: dojox.mvc.Bind.EditStoreRefController
+    export=exp;
+}
+declare module "dojox/mvc/Bind._Container" {
+    var exp: dojox.mvc.Bind._Container
+    export=exp;
+}
+declare module "dojox/mvc/Bind.EditStoreRefListController" {
+    var exp: dojox.mvc.Bind.EditStoreRefListController
+    export=exp;
+}
+declare module "dojox/mvc/Bind.Element" {
+    var exp: dojox.mvc.Bind.Element
+    export=exp;
+}
+declare module "dojox/mvc/Bind.ListController" {
+    var exp: dojox.mvc.Bind.ListController
+    export=exp;
+}
+declare module "dojox/mvc/Bind.ModelRefController" {
+    var exp: dojox.mvc.Bind.ModelRefController
+    export=exp;
+}
+declare module "dojox/mvc/Bind.Generate" {
+    var exp: dojox.mvc.Bind.Generate
+    export=exp;
+}
+declare module "dojox/mvc/Bind.StatefulSeries" {
+    var exp: dojox.mvc.Bind.StatefulSeries
+    export=exp;
+}
+declare module "dojox/mvc/Bind.Group" {
+    var exp: dojox.mvc.Bind.Group
+    export=exp;
+}
+declare module "dojox/mvc/Bind.StatefulModel" {
+    var exp: dojox.mvc.Bind.StatefulModel
+    export=exp;
+}
+declare module "dojox/mvc/Bind.Output" {
+    var exp: dojox.mvc.Bind.Output
+    export=exp;
+}
+declare module "dojox/mvc/Bind.Repeat" {
+    var exp: dojox.mvc.Bind.Repeat
+    export=exp;
+}
+declare module "dojox/mvc/Bind.StoreRefController" {
+    var exp: dojox.mvc.Bind.StoreRefController
+    export=exp;
+}
+declare module "dojox/mvc/Bind.WidgetList" {
+    var exp: dojox.mvc.Bind.WidgetList
+    export=exp;
+}
+declare module "dojox/mvc/Bind.Templated" {
+    var exp: dojox.mvc.Bind.Templated
+    export=exp;
 }

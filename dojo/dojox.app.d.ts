@@ -2298,7 +2298,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -2381,4 +2381,97 @@ declare module dojox {
         }
 
     }
+}
+
+declare module "dojox/app/main" {
+    var exp: dojox.app.main
+    export=exp;
+}
+declare module "dojox/app/Controller" {
+    var exp: dojox.app.Controller
+    export=exp;
+}
+declare module "dojox/app/ViewBase" {
+    var exp: dojox.app.ViewBase
+    export=exp;
+}
+declare module "dojox/app/View" {
+    var exp: dojox.app.View
+    export=exp;
+}
+declare module "dojox/app/controllers/BorderLayout" {
+    var exp: dojox.app.controllers.BorderLayout
+    export=exp;
+}
+declare module "dojox/app/controllers/History" {
+    var exp: dojox.app.controllers.History
+    export=exp;
+}
+declare module "dojox/app/controllers/HistoryHash" {
+    var exp: dojox.app.controllers.HistoryHash
+    export=exp;
+}
+declare module "dojox/app/controllers/Layout" {
+    var exp: dojox.app.controllers.Layout
+    export=exp;
+}
+declare module "dojox/app/controllers/LayoutBase" {
+    var exp: dojox.app.controllers.LayoutBase
+    export=exp;
+}
+declare module "dojox/app/controllers/Load" {
+    var exp: dojox.app.controllers.Load
+    export=exp;
+}
+declare module "dojox/app/controllers/Transition" {
+    var exp: dojox.app.controllers.Transition
+    export=exp;
+}
+declare module "dojox/app/module/env" {
+    var exp: dojox.app.module.env
+    export=exp;
+}
+declare module "dojox/app/module/lifecycle" {
+    var exp: dojox.app.module.lifecycle
+    export=exp;
+}
+declare module "dojox/app/utils/mvcModel" {
+    var exp: dojox.app.utils.mvcModel
+    export=exp;
+}
+declare module "dojox/app/utils/nls" {
+    var exp: dojox.app.utils.nls
+    export=exp;
+}
+declare module "dojox/app/utils/model" {
+    var exp: dojox.app.utils.model
+    export=exp;
+}
+declare module "dojox/app/utils/simpleModel" {
+    var exp: dojox.app.utils.simpleModel
+    export=exp;
+}
+declare module "dojox/app/utils/config" {
+    var exp: dojox.app.utils.config
+    export=exp;
+}
+declare module "dojox/app/utils/constraints" {
+    var exp: dojox.app.utils.constraints
+    export=exp;
+}
+declare module "dojox/app/utils/layout" {
+    var exp: dojox.app.utils.layout
+    export=exp;
+}
+declare module "dojox/app/utils/hash" {
+    var exp: dojox.app.utils.hash
+    export=exp;
+}
+declare module "dojox/app/widgets/_ScrollableMixin" {
+    var exp: dojox.app.widgets._ScrollableMixin
+    export=exp;
+}
+declare module "dojox/app/widgets/Container" {
+    var exp: dojox.app.widgets.Container
+    export=exp;
 }

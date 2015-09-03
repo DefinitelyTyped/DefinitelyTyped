@@ -1,11 +1,11 @@
-// Type definitions for Angular UI Bootstrap 0.11.0
+// Type definitions for Angular UI Bootstrap 0.13.3
 // Project: https://github.com/angular-ui/bootstrap
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module ng.ui.bootstrap {
+declare module angular.ui.bootstrap {
 
     interface IAccordionConfig {
         /**
@@ -36,42 +36,63 @@ declare module ng.ui.bootstrap {
          *
          * @default 'dd'
          */
-        dayFormat?: string;
+        formatDay?: string;
 
         /**
          * Format of month in year.
          *
          * @default 'MMM'
          */
-        monthFormat?: string;
+        formatMonth?: string;
 
         /**
          * Format of year in year range.
          *
          * @default 'yyyy'
          */
-        yearFormat?: string;
+        formatYear?: string;
 
         /**
          * Format of day in week header.
          *
          * @default 'EEE'
          */
-        dayHeaderFormat?: string;
+        formatDayHeader?: string;
 
         /**
          * Format of title when selecting day.
          *
          * @default 'MMM yyyy'
          */
-        dayTitleFormat?: string;
+        formatDayTitle?: string;
 
         /**
          * Format of title when selecting month.
          *
          * @default 'yyyy'
          */
-        monthTitleFormat?: string;
+        formatMonthTitle?: string;
+
+        /**
+         * Current mode of the datepicker (day|month|year). Can be used to initialize datepicker to specific mode.
+         *
+         * @default 'day'
+         */
+        datepickerMode?: string;
+
+        /**
+         * Set a lower limit for mode.
+         *
+         * @default 'day'
+         */
+        minMode?: string;
+
+        /**
+         * Set an upper limit for mode.
+         *
+         * @default 'year'
+         */
+        maxMode?: string;
 
         /**
          * Whether to display week numbers.
@@ -107,6 +128,13 @@ declare module ng.ui.bootstrap {
          * @default null
          */
         maxDate?: any;
+
+        /**
+         * An option to disable or enable shortcut's event propagation
+         *
+         * @default false
+         */
+        shortcutPropagation?: boolean;
     }
 
     interface IDatepickerPopupConfig {
@@ -115,7 +143,30 @@ declare module ng.ui.bootstrap {
          *
          * @default 'yyyy-MM-dd'
          */
-        dateFormat?: string;
+        datepickerPopup?: string;
+
+        /**
+         * Allows overriding of default template of the popup.
+         *
+         * @default 'template/datepicker/popup.html'
+         */
+        datepickerPopupTemplateUrl?: string;
+
+        /**
+         * Allows overriding of default template of the datepicker used in popup.
+         *
+         * @default 'template/datepicker/popup.html'
+         */
+        datepickerTemplateUrl?: string;
+
+        /**
+         * Allows overriding of the default format for html5 date inputs.
+         */
+        html5Types?: {
+            date?: string;
+            'datetime-local'?: string;
+            month?: string;
+        };
 
         /**
          * The text to display for the current day button.
@@ -123,13 +174,6 @@ declare module ng.ui.bootstrap {
          * @default 'Today'
          */
         currentText?: string;
-
-        /**
-         * The text to display for the toggling week numbers button.
-         *
-         * @default 'Weeks'
-         */
-        toggleWeeksText?: string;
 
         /**
          * The text to display for the clear button.
@@ -165,8 +209,22 @@ declare module ng.ui.bootstrap {
          * @default true
          */
         showButtonBar?: boolean;
+
+        /**
+         * Whether to focus the datepicker popup upon opening.
+         *
+         * @default true
+         */
+        onOpenFocus?: boolean;
     }
 
+
+    interface IModalProvider {
+        /**
+         * Default options all modals will use.
+         */
+        options: IModalSettings;
+    }
 
     interface IModalService {
         /**
@@ -178,47 +236,52 @@ declare module ng.ui.bootstrap {
 
     interface IModalServiceInstance {
         /**
-         * a method that can be used to close a modal, passing a result
+         * A method that can be used to close a modal, passing a result. If `preventDefault` is called on the `modal.closing` event then the modal will remain open.
          */
         close(result?: any): void;
 
         /**
-         * a method that can be used to dismiss a modal, passing a reason
+         * A method that can be used to dismiss a modal, passing a reason. If `preventDefault` is called on the `modal.closing` event then the modal will remain open.
          */
         dismiss(reason?: any): void;
 
         /**
-         * a promise that is resolved when a modal is closed and rejected when a modal is dismissed
+         * A promise that is resolved when a modal is closed and rejected when a modal is dismissed.
          */
-        result: ng.IPromise<any>;
+        result: angular.IPromise<any>;
 
         /**
-         * a promise that is resolved when a modal gets opened after downloading content's template and resolving all variables
+         * A promise that is resolved when a modal gets opened after downloading content's template and resolving all variables.
          */
-        opened: ng.IPromise<any>;
+        opened: angular.IPromise<any>;
+
+        /**
+         * A promise that is resolved when a modal is rendered.
+         */
+        rendered: angular.IPromise<any>;
     }
 
-    interface IModalScope extends ng.IScope {
+    interface IModalScope extends angular.IScope {
         /**
-         * Those methods make it easy to close a modal window without a need to create a dedicated controller
+         * Dismiss the dialog without assigning a value to the promise output. If `preventDefault` is called on the `modal.closing` event then the modal will remain open.
+         *
+         * @returns true if the modal was closed; otherwise false
          */
+        $dismiss(reason?: any): boolean;
 
         /**
-         * Dismiss the dialog without assigning a value to the promise output
+         * Close the dialog resolving the promise to the given value. If `preventDefault` is called on the `modal.closing` event then the modal will remain open.
+         *
+         * @returns true if the modal was closed; otherwise false
          */
-        $dismiss(reason?: any): void;
-
-        /**
-         * Close the dialog resolving the promise to the given value
-         */
-        $close(result?: any): void;
+        $close(result?: any): boolean;
     }
 
     interface IModalSettings {
         /**
          * a path to a template representing modal's content
          */
-        templateUrl?: string;
+        templateUrl?: string | (() => string);
 
         /**
          * inline template representing the modal's content
@@ -229,7 +292,7 @@ declare module ng.ui.bootstrap {
          * a scope instance to be used for the modal's content (actually the $modal service is going to create a child scope of a provided scope).
          * Defaults to `$rootScope`.
          */
-        scope?: IModalScope;
+        scope?: angular.IScope|IModalScope;
 
         /**
          * a controller for a modal instance - it can initialize scope used by modal.
@@ -238,9 +301,29 @@ declare module ng.ui.bootstrap {
         controller?: any;
 
         /**
+         *  an alternative to the controller-as syntax, matching the API of directive definitions.
+         *  Requires the controller option to be provided as well
+         */
+        controllerAs?: string;
+
+        /**
+         * When used with controllerAs and set to true, it will bind the controller properties onto the $scope directly.
+         *
+         * @default false
+         */
+        bindToController?: boolean;
+
+        /**
          * members that will be resolved and passed to the controller as locals; it is equivalent of the `resolve` property for AngularJS routes
          */
         resolve?: any;
+
+        /**
+         * Set to false to disable animations on new modal/backdrop. Does not toggle animations for modals/backdrops that are already displayed.
+         *
+         * @default true
+         */
+        animation?: boolean;
 
         /**
          * controls the presence of a backdrop
@@ -251,12 +334,19 @@ declare module ng.ui.bootstrap {
          *
          * @default true
          */
-        backdrop?: any;
+        backdrop?: boolean | string;
 
         /**
-         * indicates whether the dialog should be closable by hitting the ESC key, defaults to true
+         * indicates whether the dialog should be closable by hitting the ESC key
+         *
+         * @default true
          */
         keyboard?: boolean;
+
+        /**
+         * additional CSS class(es) to be added to a modal backdrop template
+         */
+        backdropClass?: string;
 
         /**
          * additional CSS class(es) to be added to a modal window template
@@ -264,7 +354,7 @@ declare module ng.ui.bootstrap {
         windowClass?: string;
 
         /**
-         * optional size of modal window. Allowed values: 'sm' (small) or 'lg' (large). Requires Bootstrap 3.1.0 or later
+         * Optional suffix of modal window class. The value used is appended to the `modal-` class, i.e. a value of `sm` gives `modal-sm`.
          */
         size?: string;
 
@@ -272,6 +362,13 @@ declare module ng.ui.bootstrap {
          * a path to a template overriding modal's window template
          */
         windowTemplateUrl?: string;
+
+        /**
+         * The  class added to the body element when the modal is opened.
+         *
+         * @default 'model-open'
+         */
+        openedClass?: string;
     }
 
     interface IModalStackService {
@@ -309,11 +406,6 @@ declare module ng.ui.bootstrap {
 
     interface IPaginationConfig {
         /**
-         * Current page number. First page is 1.
-         */
-        page?: number;
-
-        /**
          * Total number of items in all pages.
          */
         totalItems?: number;
@@ -345,13 +437,6 @@ declare module ng.ui.bootstrap {
          * @default true
          */
         rotate?: boolean;
-
-        /**
-         * An optional expression called when a page is selected having the page number as argument.
-         *
-         * @default null
-         */
-        onSelectPage?(page: number): void;
 
         /**
          * Whether to display Previous / Next buttons.
@@ -394,6 +479,13 @@ declare module ng.ui.bootstrap {
          * @default 'Last'
          */
         lastText?: string;
+
+        /**
+         * Override the template for the component with a custom provided template.
+         *
+         * @default  'template/pagination/pagination.html'
+         */
+        templateUrl?: string;
     }
 
     interface IPagerConfig {
@@ -405,35 +497,11 @@ declare module ng.ui.bootstrap {
         align?: boolean;
 
         /**
-         * Current page number. First page is 1.
-         */
-        page?: number;
-
-        /**
-         * Total number of items in all pages.
-         */
-        totalItems?: number;
-
-        /**
          * Maximum number of items per page. A value less than one indicates all items on one page.
          *
          * @default 10
          */
         itemsPerPage?: number;
-
-        /**
-         * An optional expression assigned the total number of pages to display.
-         *
-         * @default angular.noop
-         */
-        numPages?: number;
-
-        /**
-         * An optional expression called when a page is selected having the page number as argument.
-         *
-         * @default null
-         */
-        onSelectPage?(page: number): void;
 
         /**
          * Text for Previous button.
@@ -509,6 +577,13 @@ declare module ng.ui.bootstrap {
          * @default: null
          */
         stateOff?: string;
+
+        /**
+         * An array of strings defining titles for all icons.
+         *
+         * @default: ["one", "two", "three", "four", "five"]
+         */
+        titles?: Array<string>;
     }
 
 
@@ -554,6 +629,20 @@ declare module ng.ui.bootstrap {
          * @default true
          */
         mousewheel?: boolean;
+
+        /**
+         * Whether the user can use up/down arrowkeys inside the hours & minutes input to increase or decrease it's values.
+         *
+         * @default true
+         */
+        arrowkeys?: boolean;
+
+        /**
+         * Shows spinner arrows above and below the inputs.
+         *
+         * @default true
+         */
+        showSpinners?: boolean;
     }
 
 
@@ -566,7 +655,7 @@ declare module ng.ui.bootstrap {
         placement?: string;
 
         /**
-         * Should it fade in and out?
+         * Should the modal fade in and out?
          *
          * @default true
          */
@@ -584,7 +673,21 @@ declare module ng.ui.bootstrap {
          *
          * @default false
          */
-        appendtoBody?: boolean;
+        appendToBody?: boolean;
+
+        /**
+         * What should trigger a show of the tooltip? Supports a space separated list of event names.
+         *
+         * @default 'mouseenter' for tooltip, 'click' for popover
+         */
+        trigger?: string;
+
+        /**
+         * Should an expression on the scope be used to load the content?
+         *
+         * @default false
+         */
+        useContentExp?: boolean;
     }
 
     interface ITooltipProvider {
@@ -600,6 +703,9 @@ declare module ng.ui.bootstrap {
     }
 
 
+    /**
+     * WARNING: $transition is now deprecated. Use $animate from ngAnimate instead.
+     */
     interface ITransitionService {
         /**
          * The browser specific animation event name.
@@ -623,7 +729,7 @@ declare module ng.ui.bootstrap {
          *
          * @return A promise that is resolved when the transition finishes.
          */
-        (element: ng.IAugmentedJQuery, trigger: any, options?: ITransitionServiceOptions): ng.IPromise<ng.IAugmentedJQuery>;
+        (element: angular.IAugmentedJQuery, trigger: any, options?: ITransitionServiceOptions): angular.IPromise<angular.IAugmentedJQuery>;
     }
 
     interface ITransitionServiceOptions {

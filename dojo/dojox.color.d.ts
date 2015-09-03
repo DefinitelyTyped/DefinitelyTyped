@@ -350,3 +350,32 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/color" {
+    var exp: dojox.color
+    export=exp;
+}
+declare module "dojox/color/MeanColorModel" {
+    var exp: dojox.color.MeanColorModel
+    export=exp;
+}
+declare module "dojox/color/NeutralColorModel" {
+    var exp: dojox.color.NeutralColorModel
+    export=exp;
+}
+declare module "dojox/color/SimpleColorModel" {
+    var exp: dojox.color.SimpleColorModel
+    export=exp;
+}
+declare module "dojox/color/Palette" {
+    var exp: dojox.color.Palette
+    export=exp;
+}
+declare module "dojox/color/Palette.generators" {
+    var exp: dojox.color.Palette.generators
+    export=exp;
+}
+declare module "dojox/color/api/ColorModel" {
+    var exp: dojox.color.api.ColorModel
+    export=exp;
+}

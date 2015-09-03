@@ -56,7 +56,7 @@
 
         var chunkSize = 21845;
 
-        var indices = new Uint16Array( triangles * 3 );
+        var indices = new Uint16Array(triangles * 3);
 
         for (var i = 0; i < indices.length; i++) {
 
@@ -64,9 +64,9 @@
 
         }
 
-        var positions = new Float32Array( triangles * 3 * 3 );
-        var normals = new Float32Array( triangles * 3 * 3 );
-        var colors = new Float32Array( triangles * 3 * 3 );
+        var positions = new Float32Array(triangles * 3 * 3);
+        var normals = new Float32Array(triangles * 3 * 3);
+        var colors = new Float32Array(triangles * 3 * 3);
 
         var color = new THREE.Color();
 
@@ -162,10 +162,10 @@
 
         }
 
-        geometry.addAttribute( 'index', new THREE.BufferAttribute( indices, 1 ) );
-        geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-        geometry.addAttribute( 'normal', new THREE.BufferAttribute( normals, 3 ) );
-        geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
+        geometry.addAttribute('index', new THREE.BufferAttribute(indices, 1));
+        geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.addAttribute('normal', new THREE.BufferAttribute(normals, 3));
+        geometry.addAttribute('color', new THREE.BufferAttribute(colors, 3));
 
         var offsets = triangles / chunkSize;
 
@@ -184,7 +184,7 @@
         geometry.computeBoundingSphere();
 
         var material = new THREE.MeshPhongMaterial({
-            color: 0xaaaaaa, ambient: 0xaaaaaa, specular: 0xffffff, shininess: 250,
+            color: 0xaaaaaa, specular: 0xffffff, shininess: 250,
             side: THREE.DoubleSide, vertexColors: THREE.VertexColors
         });
 
@@ -194,7 +194,8 @@
         //
 
         renderer = new THREE.WebGLRenderer({ antialias: false });
-        renderer.setClearColor(scene.fog.color, 1);
+        renderer.setClearColor(scene.fog.color);
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
 
         renderer.gammaInput = true;
