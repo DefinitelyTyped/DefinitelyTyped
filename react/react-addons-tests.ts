@@ -57,9 +57,10 @@ var ClassicComponent: React.ClassicComponentClass<Props> =
                 seconds: this.props.foo
             };
         },
-        reset: () => {
-            this.replaceState(this.getInitialState());
-        },
+        // NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+        // reset: () => {
+        //     this.replaceState(this.getInitialState());
+        // },
         render: () => {
             return React.DOM.div(null,
                 React.DOM.input({
@@ -71,32 +72,32 @@ var ClassicComponent: React.ClassicComponentClass<Props> =
 
 class ModernComponent extends React.Component<Props, State>
     implements React.ChildContextProvider<ChildContext> {
-    
+
     static propTypes: React.ValidationMap<Props> = {
         foo: React.PropTypes.number
     }
-    
+
     static contextTypes: React.ValidationMap<Context> = {
         someValue: React.PropTypes.string
     }
-    
+
     static childContextTypes: React.ValidationMap<ChildContext> = {
         someOtherValue: React.PropTypes.string
     }
-    
+
     context: Context;
-    
+
     getChildContext() {
         return {
             someOtherValue: 'foo'
         }
     }
-    
+
     state = {
         inputValue: this.context.someValue,
         seconds: this.props.foo
     }
-    
+
     reset() {
         this.setState({
             inputValue: this.context.someValue,
@@ -105,7 +106,7 @@ class ModernComponent extends React.Component<Props, State>
     }
 
     private _input: React.HTMLComponent;
-    
+
     render() {
         return React.DOM.div(null,
             React.DOM.input({

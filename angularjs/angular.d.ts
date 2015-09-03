@@ -1452,6 +1452,14 @@ declare module angular {
         interceptors: any[];
         useApplyAsync(): boolean;
         useApplyAsync(value: boolean): IHttpProvider;
+
+        /**
+         *
+         * @param {boolean=} value If true, `$http` will return a normal promise without the `success` and `error` methods.
+         * @returns {boolean|Object} If a value is specified, returns the $httpProvider for chaining.
+         *    otherwise, returns the current configured value.
+         */
+        useLegacyPromiseExtensions(value:boolean) : boolean | IHttpProvider;
     }
 
     ///////////////////////////////////////////////////////////////////////////

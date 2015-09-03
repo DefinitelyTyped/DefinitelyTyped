@@ -6,11 +6,11 @@
 /// <reference path="../highcharts/highcharts.d.ts" />
 
 interface HighChartsNGConfig {
-    options: HighchartsChartOptions;
+    options: HighchartsOptions;
     //The below properties are watched separately for changes.
 
     //Series object (optional) - a list of series using normal highcharts series options.
-    series?: number[]|[number, number][]| HighchartsDataPoint[];
+    series?: number[]|[number, number][]| HighchartsDataPoint[] | {data:number[];}[];
     //Title configuration (optional)
     title?: {
         text?: string;
