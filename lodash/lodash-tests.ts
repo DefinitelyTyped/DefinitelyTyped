@@ -1495,7 +1495,15 @@ result = <number>_({ 'a': [{ 'b': { 'c': 3 } }] }).get<number>(['a', '0', 'b', '
 result = <string>_({ 'a': [{ 'b': { 'c': 3 } }] }).get<string>('a.b.c', 'default');
 // → 'default'
 
-result = <boolean>_.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
+// _.has
+result = <boolean>_.has({}, '');
+result = <boolean>_.has({}, 42);
+result = <boolean>_.has({}, true);
+result = <boolean>_.has({}, ['', 42, true]);
+result = <boolean>_({}).has('');
+result = <boolean>_({}).has(42);
+result = <boolean>_({}).has(true);
+result = <boolean>_({}).has(['', 42, true]);
 
 interface FirstSecond {
     first: string;
