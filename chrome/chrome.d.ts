@@ -330,9 +330,9 @@ declare module chrome.browsingData {
  */
 declare module chrome.commands {
     interface Command {
-      name?: string;
-      description?: string;
-      shortcut?: string;
+        name?: string;
+        description?: string;
+        shortcut?: string;
     }
 
     interface CommandEvent extends chrome.events.Event {
@@ -1200,7 +1200,7 @@ declare module chrome.extension {
 /**
  * The chrome.extensionTypes API contains type declarations for Chrome extensions.
  */
- declare module chrome.extensionTypes {
+declare module chrome.extensionTypes {
 
     interface ImageDetails {
         format?: string;
@@ -1214,7 +1214,7 @@ declare module chrome.extension {
         matchAboutBlank?: boolean;
         runAt?: string;
     }
- }
+}
 
 /**
  * Use the chrome.fileBrowserHandler API to extend the Chrome OS file browser. For example, you can use
@@ -2135,7 +2135,7 @@ declare module chrome.notifications {
 /**
  * The omnibox API allows you to register a keyword with Google Chrome's address bar, which is also known as the omnibox.
  */
-  declare module chrome.omnibox {
+declare module chrome.omnibox {
     interface SuggestResult {
         content: string;
         description: string;
@@ -2613,7 +2613,7 @@ declare module chrome.storage {
         set(items: Object, callback?: Function): void;
         remove(keys: string | string[], callback?: Function): void;
         get(callback: (items: Object) => void): void;
-        get(keys: string | string[] | Object, callback: (items: Object) => void): void;
+        get(keys: Object | string | string[], callback: (items: Object) => void): void;
         get(callback: (items: Object) => void): void;
     }
 
