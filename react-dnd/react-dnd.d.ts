@@ -158,10 +158,10 @@ declare module "react-dnd" {
 }
 
 declare module "react-dnd/modules/backends/HTML5" {
-    import * as __ReactDnd from "react-dnd";
+    import * as ReactDnd from "react-dnd";
 
     enum _NativeTypes { FILE, URL, TEXT }
-    class HTML5Backend implements __ReactDnd.Backend {
+    class HTML5Backend implements ReactDnd.Backend {
         static getEmptyImage(): any; // Image
         static NativeTypes: _NativeTypes;
     }
@@ -170,16 +170,16 @@ declare module "react-dnd/modules/backends/HTML5" {
 }
 
 declare module "react-dnd/modules/backends/Test" {
-    import * as __ReactDnd from "react-dnd";
+    import * as ReactDnd from "react-dnd";
 
     class TestBackend {
         setup(): void;
         teardown(): void;
         connectDragSource(): void;
         connectDropTarget(): void;
-        simulateBeginDrag(sourceIds: __ReactDnd.Identifier[], options?: {}): void;
+        simulateBeginDrag(sourceIds: ReactDnd.Identifier[], options?: {}): void;
         simulatePublishDragSource(): void;
-        simulateHover(targetIds: __ReactDnd.Identifier[], options?: {}): void;
+        simulateHover(targetIds: ReactDnd.Identifier[], options?: {}): void;
         simulateDrop(): void;
         simulateEndDrag(): void;
     }
