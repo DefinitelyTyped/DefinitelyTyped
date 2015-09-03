@@ -340,7 +340,7 @@ var onlyChild = React.Children.only([null, [[["Hallo"], true]], false]);
 interface TimerState {
     secondsElapsed: number;
 }
-class Timer extends React.Component<{}, TimerState> {
+class Timer extends React.Component<React.Props<Timer>, TimerState> {
     state = {
         secondsElapsed: 0
     }
