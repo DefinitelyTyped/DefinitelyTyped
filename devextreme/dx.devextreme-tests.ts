@@ -105,13 +105,8 @@ module Tests.ui {
                         $('<div/>').dxAutocomplete({
                             dataSource: ["Bern", "Lyon", "Lander"],
                             value: options.value,
-<<<<<<< HEAD
                             onValueChanged: function () {
                                 options.setValue("test-value");
-=======
-                            onValueChanged: function (e:{ value: string }) {
-                                options.setValue(e.value);
->>>>>>> upstream/master
                             }
                         }).appendTo(container);
                     }
