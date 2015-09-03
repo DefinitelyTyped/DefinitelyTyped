@@ -2043,6 +2043,30 @@ declare module chrome.management {
 }
 
 /**
+ * Use the networking.config API to authenticate to captive portals.
+ */
+declare module chrome.networking.config {
+
+    interface NetworkInfo {
+        Type: string;
+        GUID?: string;
+        HexSSID?: string;
+        SSID?: string;
+        BSSID?: string;
+        Security?: string;
+    }
+
+    interface CaptivePortalDetectedEvent extends events.Event {
+        addListener(callback: (networkInfo: NetworkInfo) => void): void;
+    }
+
+    export function setNetworkFilter(networks: NetworkInfo, callback: Function): void;
+    export function finishAuthentication(GUID: string, result: string, callback?: Function): void;
+
+    var onCaptivePortalDetected: CaptivePortalDetectedEvent;
+}
+
+/**
  * Use the chrome.notifications API to create rich notifications using templates and show these
  * notifications to users in the system tray.
  */
