@@ -2823,12 +2823,12 @@ declare module uiGrid {
              * returns all selected rows as gridRows
              * @returns {Array<IGridRow>} The selected rows
              */
-            getSelectedGridRows(): Array<IGridRow>;
+            getSelectedGridRows(): Array<uiGrid.IGridRow>;
             /**
              * Gets selected rows as entities
              * @returns {Array<any>} Selected row entities
              */
-            getSelectedRows(): Array<IGridRow>;
+            getSelectedRows(): Array<any>;
             /**
              * Selects all rows.  Does nothing if multiselect = false
              * @param {ng.IAngularEvent} event object if raised from event
