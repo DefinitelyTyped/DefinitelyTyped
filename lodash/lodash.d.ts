@@ -6196,6 +6196,23 @@ declare module _ {
         isArray(): boolean;
     }
 
+    //_.isBoolean
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a boolean primitive or object.
+         * @param value The value to check.
+         * @return Returns true if value is correctly classified, else false.
+         **/
+        isBoolean(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isBoolean
+         */
+        isBoolean(): boolean;
+    }
+
     //_.isDate
     interface LoDashStatic {
         /**
@@ -6211,6 +6228,23 @@ declare module _ {
          * @see _.isDate
          */
         isDate(): boolean;
+    }
+
+    //_.isElement
+    interface LoDashStatic {
+        /**
+         * Checks if value is a DOM element.
+         * @param value The value to check.
+         * @return Returns true if value is a DOM element, else false.
+         */
+        isElement(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isElement
+         */
+        isElement(): boolean;
     }
 
     //_.isEmpty
@@ -6346,6 +6380,23 @@ declare module _ {
         isNative(): boolean;
     }
 
+    //_.isNull
+    interface LoDashStatic {
+        /**
+         * Checks if value is null.
+         * @param value The value to check.
+         * @return Returns true if value is null, else false.
+         **/
+        isNull(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * see _.isNull
+         */
+        isNull(): boolean;
+    }
+
     //_.isNumber
     interface LoDashStatic {
         /**
@@ -6362,6 +6413,45 @@ declare module _ {
          * see _.isNumber
          */
         isNumber(): boolean;
+    }
+
+    //_.isObject
+    interface LoDashStatic {
+        /**
+         * Checks if value is the language type of Object. (e.g. arrays, functions, objects, regexes, new Number(0),
+         * and new String(''))
+         * @param value The value to check.
+         * @return Returns true if value is an object, else false.
+         **/
+        isObject(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * see _.isObject
+         */
+        isObject(): boolean;
+    }
+
+    //_.isPlainObject
+    interface LoDashStatic {
+        /**
+         * Checks if value is a plain object, that is, an object created by the Object constructor or one with a
+         * [[Prototype]] of null.
+         *
+         * Note: This method assumes objects created by the Object constructor have no inherited enumerable properties.
+         *
+         * @param value The value to check.
+         * @return Returns true if value is a plain object, else false.
+         */
+        isPlainObject(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * see _.isPlainObject
+         */
+        isPlainObject(): boolean;
     }
 
     //_.isRegExp
@@ -7063,26 +7153,6 @@ declare module _ {
         invert(object: any): any;
     }
 
-    //_.isBoolean
-    interface LoDashStatic {
-        /**
-        * Checks if value is a boolean value.
-        * @param value The value to check.
-        * @return True if the value is a boolean value, else false.
-        **/
-        isBoolean(value?: any): boolean;
-    }
-
-    //_.isElement
-    interface LoDashStatic {
-        /**
-        * Checks if value is a DOM element.
-        * @param value The value to check.
-        * @return True if the value is a DOM element, else false.
-        **/
-        isElement(value?: any): boolean;
-    }
-
     //_.isEqual
     interface EqCustomizer {
         (value: any, other: any, indexOrKey?: number|string): boolean;
@@ -7161,37 +7231,6 @@ declare module _ {
         eq(other?: any,
            callback?: EqCustomizer,
            thisArg?: any): boolean;
-    }
-
-    //_.isNull
-    interface LoDashStatic {
-        /**
-        * Checks if value is null.
-        * @param value The value to check.
-        * @return True if the value is null, else false.
-        **/
-        isNull(value?: any): boolean;
-    }
-
-    //_.isObject
-    interface LoDashStatic {
-        /**
-        * Checks if value is the language type of Object. (e.g. arrays, functions, objects, regexes,
-        * new Number(0), and new String(''))
-        * @param value The value to check.
-        * @return True if the value is an object, else false.
-        **/
-        isObject(value?: any): boolean;
-    }
-
-    //_.isPlainObject
-    interface LoDashStatic {
-        /**
-        * Checks if value is an object created by the Object constructor.
-        * @param value The value to check.
-        * @return True if value is a plain object, else false.
-        **/
-        isPlainObject(value?: any): boolean;
     }
 
     //_.keys
@@ -7583,8 +7622,16 @@ declare module _ {
         camelCase(): string;
     }
 
+    //_.capitalize
     interface LoDashStatic {
-        capitalize(str?: string): string;
+        capitalize(string?: string): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.capitalize
+         */
+        capitalize(): string;
     }
 
     //_.deburr
@@ -7828,6 +7875,50 @@ declare module _ {
         startsWith(target?: string, position?: number): boolean;
     }
 
+    //_.template
+    interface TemplateExecutor {
+        (data?: Object): string;
+        source: string;
+    }
+
+    interface LoDashStatic {
+        /**
+         * Creates a compiled template function that can interpolate data properties in "interpolate" delimiters,
+         * HTML-escape interpolated data properties in "escape" delimiters, and execute JavaScript in "evaluate"
+         * delimiters. Data properties may be accessed as free variables in the template. If a setting object is
+         * provided it takes precedence over _.templateSettings values.
+         *
+         * Note: In the development build _.template utilizes
+         * [sourceURLs](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl) for easier
+         * debugging.
+         *
+         * For more information on precompiling templates see
+         * [lodash's custom builds documentation](https://lodash.com/custom-builds).
+         *
+         * For more information on Chrome extension sandboxes see
+         * [Chrome's extensions documentation](https://developer.chrome.com/extensions/sandboxingEval).
+         *
+         * @param string The template string.
+         * @param options The options object.
+         * @param options.escape The HTML "escape" delimiter.
+         * @param options.evaluate The "evaluate" delimiter.
+         * @param options.imports An object to import into the template as free variables.
+         * @param options.interpolate The "interpolate" delimiter.
+         * @param options.variable The data object variable name.
+         * @return Returns the compiled template function.
+         */
+        template(
+            string: string,
+            options?: TemplateSettings): TemplateExecutor;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.template
+         */
+        template(options?: TemplateSettings): TemplateExecutor;
+    }
+
     //_.trim
     interface LoDashStatic {
         /**
@@ -7971,11 +8062,32 @@ declare module _ {
     //_.identity
     interface LoDashStatic {
         /**
-        * This method returns the first argument provided to it.
-        * @param value Any value.
-        * @return value.
-        **/
+         * This method returns the first argument provided to it.
+         * @param value Any value.
+         * @return Returns value.
+         */
         identity<T>(value?: T): T;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.identity
+         */
+        identity(): T;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.identity
+         */
+        identity(): T[];
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.identity
+         */
+        identity(): T;
     }
 
     //_.method
@@ -8192,73 +8304,59 @@ declare module _ {
         runInContext(context: any): typeof _;
     }
 
-    //_.template
-    interface LoDashStatic {
-        /**
-        * A micro-templating method that handles arbitrary delimiters, preserves whitespace, and
-        * correctly escapes quotes within interpolated code.
-        *
-        * Note: In the development build, _.template utilizes sourceURLs for easier debugging. See
-        * http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl
-        *
-        * For more information on precompiling templates see:
-        * http://lodash.com/#custom-builds
-        *
-        * For more information on Chrome extension sandboxes see:
-        * http://developer.chrome.com/stable/extensions/sandboxingEval.html
-        * @param text The template text.
-        * @param data The data object used to populate the text.
-        * @param options The options object.
-        * @param options.escape The "escape" delimiter.
-        * @param options.evaluate The "evaluate" delimiter.
-        * @param options.import An object to import into the template as local variables.
-        * @param options.interpolate The "interpolate" delimiter.
-        * @param sourceURL The sourceURL of the template's compiled source.
-        * @param variable The data object variable name.
-        * @return Returns the compiled Lo-Dash HTML template or a TemplateExecutor if no data is passed.
-        **/
-        template(
-            text: string): TemplateExecutor;
-
-        /**
-        * @see _.template
-        **/
-        template(
-            text: string,
-            data: any,
-            options?: TemplateSettings,
-            sourceURL?: string,
-            variable?: string): any /* string or TemplateExecutor*/;
-    }
-
-    interface TemplateExecutor {
-        (...data: any[]): string;
-        source: string;
-    }
-
     //_.times
     interface LoDashStatic {
         /**
-        * Executes the callback n times, returning an array of the results of each callback execution.
-        * The callback is bound to thisArg and invoked with one argument; (index).
-        * @param n The number of times to execute the callback.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        **/
+         * Invokes the iteratee function n times, returning an array of the results of each invocation. The iteratee is
+         * bound to thisArg and invoked with one argument; (index).
+         *
+         * @param n The number of times to invoke iteratee.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns the array of results.
+         */
         times<TResult>(
             n: number,
-            callback: (num: number) => TResult,
-            context?: any): TResult[];
+            iteratee: (num: number) => TResult,
+            thisArg?: any
+        ): TResult[];
+
+        /**
+         * @see _.times
+         */
+        times(n: number): number[];
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.times
+         */
+        times<TResult>(
+            iteratee: (num: number) => TResult,
+            thisArgs?: any
+        ): LoDashArrayWrapper<TResult>;
+
+        /**
+         * @see _.times
+         */
+        times(): LoDashArrayWrapper<number>;
     }
 
     //_.uniqueId
     interface LoDashStatic {
         /**
-        * Generates a unique ID. If prefix is provided the ID will be appended to it.
-        * @param prefix The value to prefix the ID with.
-        * @return Returns the unique ID.
-        **/
+         * Generates a unique ID. If prefix is provided the ID is appended to it.
+         * @param prefix The value to prefix the ID with.
+         * @return Returns the unique ID.
+         */
         uniqueId(prefix?: string): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.uniqueId
+         */
+        uniqueId(): string;
     }
 
     //_.constant

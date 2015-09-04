@@ -1207,11 +1207,23 @@ result = <boolean>_(1).isArray();
 result = <boolean>_<any>([]).isArray();
 result = <boolean>_({}).isArray();
 
+// _.isBoolean
+result = <boolean>_.isBoolean(any);
+result = <boolean>_(1).isBoolean();
+result = <boolean>_<any>([]).isBoolean();
+result = <boolean>_({}).isBoolean();
+
 // _.isDate
 result = <boolean>_.isDate(any);
 result = <boolean>_(42).isDate();
 result = <boolean>_<any>([]).isDate();
 result = <boolean>_({}).isDate();
+
+// _.isElement
+result = <boolean>_.isElement(any);
+result = <boolean>_(42).isElement();
+result = <boolean>_<any>([]).isElement();
+result = <boolean>_({}).isElement();
 
 // _.isEmpty
 result = <boolean>_.isEmpty([1, 2, 3]);
@@ -1260,11 +1272,29 @@ result = <boolean>_(undefined).isNaN();
 result = <boolean>_.isNative(Array.prototype.push);
 result = <boolean>_(Array.prototype.push).isNative();
 
+// _.isNull
+result = <boolean>_.isNull(any);
+result = <boolean>_(1).isNull();
+result = <boolean>_<any>([]).isNull();
+result = <boolean>_({}).isNull();
+
 // _.isNumber
 result = <boolean>_.isNumber(any);
 result = <boolean>_(1).isNumber();
 result = <boolean>_<any>([]).isNumber();
 result = <boolean>_({}).isNumber();
+
+// _.isObject
+result = <boolean>_.isObject(any);
+result = <boolean>_(1).isObject();
+result = <boolean>_<any>([]).isObject();
+result = <boolean>_({}).isObject();
+
+// _.isPlainObject
+result = <boolean>_.isPlainObject(any);
+result = <boolean>_(1).isPlainObject();
+result = <boolean>_<any>([]).isPlainObject();
+result = <boolean>_({}).isPlainObject();
 
 // _.isRegExp
 result = <boolean>_.isRegExp(any);
@@ -1473,10 +1503,6 @@ interface FirstSecond {
 }
 result = <FirstSecond>_.invert({ 'first': 'moe', 'second': 'larry' });
 
-result = <boolean>_.isBoolean(null);
-
-result = <boolean>_.isElement(document.body);
-
 // _.isEqual (alias: _.eq)
 result = <boolean>_.isEqual(1, 1);
 result = <boolean>_(1).isEqual(1);
@@ -1502,23 +1528,12 @@ result = <boolean>_(testEqArray).isEqual(testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_.eq(testEqArray, testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_(testEqArray).eq(testEqOtherArray, testEqCustomizerFn);
 
-result = <boolean>_.isNull(null);
-result = <boolean>_.isNull(undefined);
-
-result = <boolean>_.isObject({});
-result = <boolean>_.isObject([1, 2, 3]);
-result = <boolean>_.isObject(1);
-
 class Stooge {
     constructor(
         public name: string,
         public age: number
         ) { }
 }
-
-result = <boolean>_.isPlainObject(new Stooge('moe', 40));
-result = <boolean>_.isPlainObject([1, 2, 3]);
-result = <boolean>_.isPlainObject({ 'name': 'moe', 'age': 40 });
 
 result = <string[]>_.keys({ 'one': 1, 'two': 2, 'three': 3 });
 result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keys().value();
@@ -1637,8 +1652,6 @@ var testAttempFn: TestAttemptFn;
 result = <TResult|Error>_.attempt<TResult>(testAttempFn);
 result = <TResult|Error>_(testAttempFn).attempt<TResult>();
 
-result = <{ name: string }>_.identity({ 'name': 'moe' });
-
 _.mixin({
     'capitalize': function (string) {
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -1714,21 +1727,6 @@ result = <number[]>_(10).range().value();
 result = <number[]>_(1).range(11).value();
 result = <number[]>_(0).range(30, 5).value();
 
-result = <_.TemplateExecutor>_.template('hello <%= name %>');
-result = <string>_.template('<b><%- value %></b>', { 'value': '<script>' });
-
-var listTemplate = '<% _.forEach(people, function(name) { %><li><%- name %></li><% }); %>';
-result = <string>_.template(listTemplate, { 'people': ['moe', 'larry'] });
-result = <string>_.template('hello ${ name }', { 'name': 'curly' });
-result = <string>_.template('<% print("hello " + name); %>!', { 'name': 'larry' });
-
-var listTemplate = '<% $.each(people, function(name) { %><li><%- name %></li><% }); %>';
-result = <string>_.template(listTemplate, { 'people': ['moe', 'larry'] }, { 'imports': { '$': jQuery } });
-result = <_.TemplateExecutor>_.template('hello <%= name %>', null, /*sourceURL:*/ '/basic/greeting.jst');
-
-result = <_.TemplateExecutor>_.template('hi <%= data.name %>!', null, { 'variable': 'data' });
-result = <string>(<_.TemplateExecutor>result).source;
-
 class Mage {
     public castSpell(n: number) {
         return n;
@@ -1739,14 +1737,6 @@ class Mage {
     }
 }
 
-var mage = new Mage();
-result = _.times(3, <() => number>_.partial(_.random, 1, 6));
-result = _.times(3, function (n: number) { mage.castSpell(n); });
-result = _.times(3, function (n: number) { this.cast(n); }, mage);
-
-result = <string>_.uniqueId('contact_');
-result = <string>_.uniqueId();
-
 /*********
 * String
 *********/
@@ -1755,7 +1745,9 @@ result = <string>_.uniqueId();
 result = <string>_.camelCase('Foo Bar');
 result = <string>_('Foo Bar').camelCase();
 
+// _.capitalize
 result = <string>_.capitalize('fred');
+result = <string>_('fred').capitalize();
 
 // _.deburr
 result = <string>_.deburr('déjà vu');
@@ -1827,6 +1819,27 @@ result = <boolean>_.startsWith('abc', 'a', 1);
 result = <boolean>_('abc').startsWith('a');
 result = <boolean>_('abc').startsWith('a', 1);
 
+// _.template
+interface TestTemplateOptions {
+    escape?: RegExp;
+    evaluate?: RegExp;
+    imports?: _.Dictionary<any>;
+    interpolate?: RegExp;
+    variable?: string;
+}
+interface TestTemplateExecutor {
+    (obj?: Object): string;
+    source: string;
+}
+{
+    let testTemplateOptions: TestTemplateOptions
+    let result: TestTemplateExecutor;
+    result = _.template('');
+    result = _.template('', testTemplateOptions);
+    result = _('').template();
+    result = _('').template(testTemplateOptions);
+}
+
 // _.trim
 result = <string>_.trim();
 result = <string>_.trim('  abc  ');
@@ -1886,6 +1899,22 @@ result = <() => boolean>_(true).constant<boolean>();
 result = <() => any[]>_(['a']).constant<any[]>();
 result = <() => {}>_({}).constant<{}>();
 
+// _.identity
+{
+    let testIdentityValue: TResult;
+    let result: TResult;
+    result = _.identity<TResult>(testIdentityValue);
+    result = _(testIdentityValue).identity();
+}
+{
+    let result: number;
+    result = _(42).identity();
+}
+{
+    let result: boolean[];
+    result = _<boolean>([]).identity();
+}
+
 // _.method
 class TestMethod {
     a = {
@@ -1910,6 +1939,26 @@ result = <number>(_.methodOf<number>(TestMethodOfObject, 1, 2))(['a', '0']);
 result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())('a[0]');
 result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())(['a', '0']);
 
+// _.uniqueId
+result = <string>_.uniqueId();
+result = <string>_.uniqueId('');
+result = <string>_('').uniqueId();
+
 result = <string>_.VERSION;
 result = <_.Support>_.support;
 result = <_.TemplateSettings>_.templateSettings;
+
+// _.times
+{
+    let result: number[];
+    result = _.times(42);
+    result = _(42).times().value();
+}
+{
+    let testTimesFn: (num: number) => TResult;
+    let result: TResult[];
+    result = _.times(42, testTimesFn);
+    result = _.times(42, testTimesFn, any);
+    result = _(42).times(testTimesFn).value();
+    result = _(42).times(testTimesFn, any).value();
+}

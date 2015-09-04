@@ -492,16 +492,18 @@ declare module PIXI {
     //renderers
 
     export interface RendererOptions {
-
         view?: HTMLCanvasElement;
         transparent?: boolean
         antialias?: boolean;
         resolution?: number;
-        clearBeforeRendering?: boolean;
         preserveDrawingBuffer?: boolean;
         forceFXAA?: boolean;
         roundPixels?: boolean;
 
+        autoResize?: boolean;
+        backgroundColor?: number;
+        blendModes?: { [s: string]: any; };
+        clearBeforeRender?: boolean;
     }
     export class SystemRenderer extends EventEmitter {
 
