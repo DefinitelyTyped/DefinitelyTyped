@@ -3,7 +3,8 @@
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path='../react/react.d.ts' />
+///<reference path='react.d.ts' />
+///<reference path='react-addons-global.d.ts' />
 
 declare module "react/addons" {
   export * from "react";
