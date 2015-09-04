@@ -10,10 +10,9 @@ declare module "oboe" {
 
 	function oboe(url: string): oboe.Oboe;
 	function oboe(options: oboe.Options): oboe.Oboe;
-	function oboe(stream: stream.Readable) : oboe.Oboe;
+	function oboe(stream: stream.Readable): oboe.Oboe;
 
 	module oboe {
-
 		var drop: {};
 
 		interface Oboe {
@@ -22,6 +21,7 @@ declare module "oboe" {
 			fail(callback: (result: FailReason) => void): Oboe;
 
 			node(pattern: string, callback: CallbackSignature): Oboe;
+			node(patterns: PatternMap): Oboe;
 
 			on(event: string, pattern: string, callback: CallbackSignature): Oboe;
 			on(eventPattern: string, callback: CallbackSignature): Oboe;
@@ -33,14 +33,14 @@ declare module "oboe" {
 			removeListener(event: string, pattern: string, callback: CallbackSignature): Oboe;
 
 			start(callback: (status: number, headers: Object) => void): Oboe;
-			
+
 			abort():void;
 
 			source: string;
 		}
 
 		interface CallbackSignature {
-            (node: any, pathOrHeaders: any, ancestors: Object[]): any;
+			(node: any, pathOrHeaders: any, ancestors: Object[]): any;
 		}
 
 		interface Options {
@@ -58,8 +58,11 @@ declare module "oboe" {
 			body?: string;
 			jsonBody?: Object;
 		}
+
+		interface PatternMap {
+			[pattern: string]: CallbackSignature
+		}
 	}
 
 	export = oboe;
 }
-
