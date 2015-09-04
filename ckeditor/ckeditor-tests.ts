@@ -161,7 +161,7 @@ function test_dom_element() {
 }
 
 function test_dom_event() {
-    var event = new CKEDITOR.dom.event(new Event());
+    var event = new CKEDITOR.dom.event(new Event(""));
     alert(event.getKey());
     alert(event.getKeystroke() == 65);
     alert(event.getKeystroke() == CKEDITOR.CTRL + 65);
@@ -251,4 +251,52 @@ function test_dom_window() {
     var size = win.getViewPaneSize();
     alert(size.width);
     alert(size.height);
+}
+
+function test_adding_dialog_by_path() {
+    CKEDITOR.dialog.add( 'abbrDialog', this.path + 'dialogs/abbr.js' );
+}
+
+function test_adding_dialog_by_definition() {
+    CKEDITOR.dialog.add( 'abbrDialog', function ( editor: CKEDITOR.editor ) {
+        return {
+            title: 'Abbreviation Properties',
+            minWidth: 400,
+            minHeight: 200,
+
+            contents: [
+                {
+                    id: 'tab-basic',
+                    label: 'Basic Settings',
+                    elements: <any[]>[]
+                },
+                {
+                    id: 'tab-adv',
+                    label: 'Advanced Settings',
+                    elements: []
+                }
+            ]
+        };
+    });
+}
+
+function test_adding_plugin() {
+    CKEDITOR.plugins.add( 'abbr', {
+        init: function( editor: CKEDITOR.editor ) {
+            // empty logic
+        }
+    });
+}
+
+function test_adding_widget() {
+    function wrapper(editor: CKEDITOR.editor) {
+            editor.widgets.add("widgetty", {
+            button: "Activate widgetty",
+            template: "<imaginary-element>",
+            dialog: "widgetty",
+            init: function() {
+                // no logic
+            }
+        });
+    }
 }

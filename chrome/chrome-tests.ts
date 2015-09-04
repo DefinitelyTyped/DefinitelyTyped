@@ -60,10 +60,6 @@ function bookmarksExample() {
                         resizable: false,
                         height: 140,
                         modal: true,
-                        overlay: {
-                            backgroundColor: '#000',
-                            opacity: 0.5
-                        },
                         buttons: {
                             'Yes, Delete It!': function () {
                                 chrome.bookmarks.remove(String(bookmarkNode.id));
@@ -152,4 +148,100 @@ function printPage() {
         var action_url = "javascript:window.print();";
         chrome.tabs.update(tab.id, { url: action_url });
     });
+}
+
+// https://developer.chrome.com/extensions/examples/extensions/catblock/background.js
+function catBlock () {
+    var loldogs: string[];
+    chrome.webRequest.onBeforeRequest.addListener(
+        function(info) {
+            console.log("Cat intercepted: " + info.url);
+            // Redirect the lolcal request to a random loldog URL.
+            var i = Math.round(Math.random() * loldogs.length);
+            return {redirectUrl: loldogs[i]};
+        },
+        // filters
+        {
+            urls: [
+                "https://i.chzbgr.com/*"
+            ],
+            types: ["image"]
+        },
+        // extraInfoSpec
+        ["blocking"]);
+}
+
+// contrived settings example
+function proxySettings() {
+    chrome.proxy.settings.get({ incognito: false }, (details) => {
+        var val = details.value;
+        var level: string = details.levelOfControl;
+        var incognito: boolean = details.incognitoSpecific;
+    });
+
+    // bare minimum set call
+    chrome.proxy.settings.set({ value: 'something' });
+
+    // add a scope and callback
+    chrome.proxy.settings.set({
+        value: 'something',
+        scope: 'regular'
+    }, () => {});
+
+    chrome.proxy.settings.clear({});
+
+    // clear with a scope set
+    chrome.proxy.settings.clear({ scope: 'regular' });
+}
+
+// https://developer.chrome.com/extensions/examples/api/contentSettings/popup.js
+function contentSettings() {
+  var incognito;
+  var url;
+
+  function settingChanged() {
+    var type = this.id;
+    var setting = this.value;
+    var pattern = /^file:/.test(url) ? url : url.replace(/\/[^\/]*?$/, '/*');
+    console.log(type+' setting for '+pattern+': '+setting);
+    // HACK: [type] is not recognised by the docserver's sample crawler, so
+    // mention an explicit
+    // type: chrome.contentSettings.cookies.set - See http://crbug.com/299634
+    chrome.contentSettings[type].set({
+          'primaryPattern': pattern,
+          'setting': setting,
+          'scope': (incognito ? 'incognito_session_only' : 'regular')
+        });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    chrome.tabs.query({active: true, currentWindow: true, url: ['http://*/*', 'https://*/*'] }, function(tabs) {
+      var current = tabs[0];
+      incognito = current.incognito;
+      url = current.url;
+      var types = ['cookies', 'images', 'javascript', 'location', 'plugins',
+                   'popups', 'notifications', 'fullscreen', 'mouselock',
+                   'microphone', 'camera', 'unsandboxedPlugins',
+                   'automaticDownloads'];
+      types.forEach(function(type) {
+        // HACK: [type] is not recognised by the docserver's sample crawler, so
+        // mention an explicit
+        // type: chrome.contentSettings.cookies.get - See http://crbug.com/299634
+        chrome.contentSettings[type] && chrome.contentSettings[type].get({
+              'primaryUrl': url,
+              'incognito': incognito
+            },
+            function(details) {
+              var input = <HTMLInputElement>document.getElementById(type);
+              input.disabled = false;
+              input.value = details.setting;
+            });
+      });
+    });
+
+    var selects = document.querySelectorAll('select');
+    for (var i = 0; i < selects.length; i++) {
+      selects[i].addEventListener('change', settingChanged);
+    }
+  });
 }

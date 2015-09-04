@@ -1,4 +1,4 @@
-﻿// Type definitions for jsPlumb 1.3.16 jQuery adapter.
+﻿// Type definitions for jsPlumb 1.3.16 jQuery adapter
 // Project: http://jsplumb.org
 // Definitions by: Steve Shearn <https://github.com/shearnie/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -19,23 +19,26 @@ interface jsPlumbInstance {
 	addEndpoint(ep: string): any;
 	removeClass(el: any, clazz: string): void;
 	hasClass(el: any, clazz: string): void;
-    draggable(el: string, options?: DragOptions): jsPlumbInstance;
-    draggable(ids: string[], options?: DragOptions): jsPlumbInstance;
-    connect(connection: ConnectParams, referenceParams?: ConnectParams): Connection;
-	makeSource(el: string, options: SourceOptions): void;
-	makeTarget(el: string, options: TargetOptions): void;
-	repaintEverything(): void;
-	detachEveryConnection(): void;
+    	draggable(el: string, options?: DragOptions): jsPlumbInstance;
+    	draggable(ids: string[], options?: DragOptions): jsPlumbInstance;
+    	connect(connection: ConnectParams, referenceParams?: ConnectParams): Connection;
+    	makeSource(el: string, options: SourceOptions): void;
+    	makeTarget(el: string, options: TargetOptions): void;
+    	repaintEverything(): void;
+    	detachEveryConnection(): void;
 	detachAllConnections(el: string): void;
-    removeAllEndpoints(el: string, recurse?: boolean): jsPlumbInstance;
-    removeAllEndpoints(el: Element, recurse?: boolean): jsPlumbInstance;
-	select(params: SelectParams): Connections;
-    getConnections(options?: any, flat?: any): any[];
-    deleteEndpoint(uuid: string, doNotRepaintAfterwards?: boolean): jsPlumbInstance;
-    deleteEndpoint(endpoint: Endpoint, doNotRepaintAfterwards?: boolean): jsPlumbInstance;
-    repaint(el: string): jsPlumbInstance;
-    repaint(el: Element): jsPlumbInstance;
-
+    	removeAllEndpoints(el: string, recurse?: boolean): jsPlumbInstance;
+    	removeAllEndpoints(el: Element, recurse?: boolean): jsPlumbInstance;
+    	select(params: SelectParams): Connections;
+    	getConnections(options?: any, flat?: any): any[];
+    	deleteEndpoint(uuid: string, doNotRepaintAfterwards?: boolean): jsPlumbInstance;
+    	deleteEndpoint(endpoint: Endpoint, doNotRepaintAfterwards?: boolean): jsPlumbInstance;
+    	repaint(el: string): jsPlumbInstance;
+    	repaint(el: Element): jsPlumbInstance;
+    	getInstance(): jsPlumbInstance;
+	getInstance(defaults: Defaults): jsPlumbInstance;
+	getInstanceIndex(): number;
+	
     SVG: string;
     CANVAS: string;
     VML: string;

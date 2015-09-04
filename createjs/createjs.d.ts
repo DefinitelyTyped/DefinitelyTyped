@@ -1,5 +1,5 @@
-// Type definitions for EaselJS 0.7.1, TweenJS 0.5.1, SoundJS 0.5.2, PreloadJS 0.4.1
-// Project: http://www.createjs.com/#!/EaselJS
+// Type definitions for CreateJS
+// Project: http://www.createjs.com/
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>, Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 

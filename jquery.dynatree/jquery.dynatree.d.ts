@@ -1,6 +1,6 @@
 // Type definitions for jquery.dynatree 1.2.5
 // Project: http://code.google.com/p/dynatree/
-// Definitions by: https://github.com/fdecampredon
+// Definitions by: François de Campredon <https://github.com/fdecampredon>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -41,7 +41,7 @@ interface DynaTree {
     selectKey(key: string, flag: string): DynaTreeNode;
     serializeArray(stopOnParents: boolean): any[];
     toDict(includeRoot?: boolean): any;
-    visit(fn: (node: DynaTreeNode) =>boolean, includeRoot: boolean): void;
+    visit(fn: (node: DynaTreeNode) =>boolean, includeRoot?: boolean): void;
 }
 
 
@@ -54,7 +54,7 @@ interface DynaTreeNode {
     appendAjax(ajaxOptions: JQueryAjaxSettings): void;
     countChildren(): number;
     deactivate(): void;
-    expand(flag: string): void;
+    expand(flag: boolean): void;
     focus(): void;
     getChildren(): DynaTreeNode[];
     getEventTargetType(event: Event): string;
@@ -83,11 +83,11 @@ interface DynaTreeNode {
     removeChildren(): void;
     render(useEffects: boolean, includeInvisible: boolean): void;
     resetLazy(): void;
-    scheduleAction(mode: string, ms: number);
-    select(flag: string): void;
+    scheduleAction(mode: string, ms: number): void;
+    select(flag: boolean): void;
     setLazyNodeStatus(status: number): void;
     setTitle(title: string): void;
-    sortChildren(cmp?: (a: DynaTreeNode, b: DynaTreeNode) =>number, deep?: boolean);
+    sortChildren(cmp?: (a: DynaTreeNode, b: DynaTreeNode) =>number, deep?: boolean): void;
     toDict(recursive: boolean, callback?: (node: any) =>any): any;
     toggleExpand(): void;
     toggleSelect(): void;

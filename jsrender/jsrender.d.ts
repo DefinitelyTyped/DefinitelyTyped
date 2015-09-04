@@ -1,6 +1,6 @@
 // Type definitions for JsRender
 // Project: http://www.jsviews.com/#jsrender
-// Definitions by: https://github.com/zakki
+// Definitions by: Kensuke Matsuzaki <https://github.com/zakki>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>

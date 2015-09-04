@@ -1,4 +1,4 @@
-// Type Definitions for File System API
+// Type definitions for File System API
 // Project: http://www.w3.org/TR/file-system-api/
 // Definitions by: Kon <http://phyzkit.net/> 
 // Definitions: https://github.com/borisyankov/DefinitelyTyped 
@@ -197,7 +197,7 @@ interface Entry {
      * @param successCallback A callback that is called to return the parent Entry.
      * @param errorCallback A callback that is called when errors happen.
      */
-    getParent(successCallback:EntryCallback, errorCallback?:ErrorCallback):void;
+    getParent(successCallback:DirectoryEntryCallback, errorCallback?:ErrorCallback):void;
 }
 
 /**
@@ -223,7 +223,7 @@ interface DirectoryEntry extends Entry {
      * @param successCallback A callback that is called to return the File selected or created.
      * @param errorCallback A callback that is called when errors happen.
      */
-    getFile(path:string, options?:Flags, successCallback?:EntryCallback, errorCallback?:ErrorCallback):void;
+    getFile(path:string, options?:Flags, successCallback?:FileEntryCallback, errorCallback?:ErrorCallback):void;
     
     /**
      * Creates or looks up a directory.
@@ -240,7 +240,7 @@ interface DirectoryEntry extends Entry {
      * @param errorCallback A callback that is called when errors happen.
      * 
      */
-    getDirectory(path:string, options?:Flags, successCallback?:EntryCallback, errorCallback?:ErrorCallback):void;
+    getDirectory(path:string, options?:Flags, successCallback?:DirectoryEntryCallback, errorCallback?:ErrorCallback):void;
     
     /**
      * Deletes a directory and all of its contents, if any. In the event of an error [e.g. trying to delete a directory that contains a file that cannot be removed], some of the contents of the directory may be deleted. It is an error to attempt to delete the root directory of a filesystem.
@@ -305,6 +305,26 @@ interface EntryCallback {
      * @param entry
      */
     (entry:Entry):void;
+}
+
+/**
+ * This interface is the callback used to look up FileEntry objects.
+ */
+interface FileEntryCallback {
+    /**
+     * @param entry
+     */
+    (entry:FileEntry):void;
+}
+
+/**
+ * This interface is the callback used to look up DirectoryEntry objects.
+ */
+interface DirectoryEntryCallback {
+    /**
+     * @param entry
+     */
+    (entry:DirectoryEntry):void;
 }
 
 /**

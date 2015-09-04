@@ -1,4 +1,4 @@
-// Type definitions for Stats.js r11
+// Type definitions for Stats.js r12
 // Project: http://github.com/mrdoob/stats.js
 // Definitions by: Gregory Dalton <https://github.com/gregolai>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

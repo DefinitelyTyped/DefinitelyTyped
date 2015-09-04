@@ -48,7 +48,7 @@
         var s = 250;
 
         var cube = new THREE.BoxGeometry(s, s, s);
-        var material = new THREE.MeshPhongMaterial({ ambient: 0x333333, color: 0xffffff, specular: 0xffffff, shininess: 50 });
+        var material = new THREE.MeshPhongMaterial({ color: 0xffffff, specular: 0xffffff, shininess: 50 });
 
 
         for (var i = 0; i < 3000; i++) {
@@ -116,7 +116,7 @@
             lensFlare.add(textureFlare3, 70, 1.0, THREE.AdditiveBlending);
 
             lensFlare.customUpdateCallback = lensFlareUpdateCallback;
-            lensFlare.position = light.position;
+            lensFlare.position.copy(light.position);
 
             scene.add(lensFlare);
 
@@ -125,9 +125,9 @@
         // renderer
 
         renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setClearColor(scene.fog.color);
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setClearColor(scene.fog.color, 1);
-
         container.appendChild(renderer.domElement);
 
         //

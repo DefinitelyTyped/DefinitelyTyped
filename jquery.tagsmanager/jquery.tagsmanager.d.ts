@@ -1,6 +1,6 @@
 // Type definitions for jQuery Tags Manager
 // Project: http://welldonethings.com/tags/manager
-// Definitions by: https://github.com/vbortone
+// Definitions by: Vincent Bortone <https://github.com/vbortone>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>

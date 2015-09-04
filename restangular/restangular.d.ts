@@ -6,6 +6,13 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
+// Support AMD require (copying angular.d.ts approach)
+// allows for import {IRequestConfig} from 'restangular' ES6 approach
+declare module 'restangular' {
+    export = restangular;
+}
+
+
 
 declare module restangular {
 
@@ -15,7 +22,7 @@ declare module restangular {
     $object: T;
 }
 
-  interface ICollectionPromise<T> extends ng.IPromise<T> {
+  interface ICollectionPromise<T> extends ng.IPromise<T[]> {
     push(object: any): ICollectionPromise<T>;
     call(methodName: string, params?: any): ICollectionPromise<T>;
     get(fieldName: string): ICollectionPromise<T>;
@@ -83,7 +90,7 @@ declare module restangular {
     addRestangularMethod(name: string, operation: string, path?: string, params?: any, headers?: any, elem?: any): IPromise<any>;
   }
 
-  interface IService extends ICustom {
+  interface IService extends ICustom, IProvider {
     one(route: string, id?: number): IElement;
     one(route: string, id?: string): IElement;
     oneUrl(route: string, url: string): IElement;
@@ -93,33 +100,48 @@ declare module restangular {
     withConfig(configurer: (RestangularProvider: IProvider) => any): IService;
     restangularizeElement(parent: any, element: any, route: string, collection?: any, reqParams?: any): IElement;
     restangularizeCollection(parent: any, element: any, route: string): ICollection;
+    service(route: string, parent?: any): IService;
     stripRestangular(element: any): any;
+    extendModel(route: string, extender: (model: IElement) => any): void;
   }
 
   interface IElement extends IService {
     get(queryParams?: any, headers?: any): IPromise<any>;
+    get<T>(queryParams?: any, headers?: any): IPromise<T>;
     getList(subElement?: any, queryParams?: any, headers?: any): ICollectionPromise<any>;
+    getList<T>(subElement?: any, queryParams?: any, headers?: any): ICollectionPromise<T>;
     put(queryParams?: any, headers?: any): IPromise<any>;
     post(subElement: any, elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
+    post<T>(subElement: any, elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
     post(elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
+    post<T>(elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
     remove(queryParams?: any, headers?: any): IPromise<any>;
     head(queryParams?: any, headers?: any): IPromise<any>;
     trace(queryParams?: any, headers?: any): IPromise<any>;
     options(queryParams?: any, headers?: any): IPromise<any>;
     patch(queryParams?: any, headers?: any): IPromise<any>;
+    clone(): IElement;
+    plain(): any;
+    plain<T>(): T;
     withHttpConfig(httpConfig: IRequestConfig): IElement;
+    save(queryParams?: any, headers?: any): IPromise<any>;
     getRestangularUrl(): string;
   }
 
-  interface ICollection extends IService {
+  interface ICollection extends IService, Array<any> {
     getList(queryParams?: any, headers?: any): ICollectionPromise<any>;
+    getList<T>(queryParams?: any, headers?: any): ICollectionPromise<T>;
     post(elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
+    post<T>(elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
     head(queryParams?: any, headers?: any): IPromise<any>;
     trace(queryParams?: any, headers?: any): IPromise<any>;
     options(queryParams?: any, headers?: any): IPromise<any>;
     patch(queryParams?: any, headers?: any): IPromise<any>;
     putElement(idx: any, params: any, headers: any): IPromise<any>;
     withHttpConfig(httpConfig: IRequestConfig): ICollection;
+    clone(): ICollection;
+    plain(): any;
+    plain<T>(): T[];
     getRestangularUrl(): string;
   }
 }

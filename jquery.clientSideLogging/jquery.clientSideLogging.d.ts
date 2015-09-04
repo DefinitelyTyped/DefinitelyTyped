@@ -1,4 +1,4 @@
-// Type definitions for jquery.clientSideLogging.
+// Type definitions for jquery.clientSideLogging
 // Project: https://github.com/remybach/jQuery.clientSideLogging
 // Definitions by: Diullei Gomes <https://github.com/diullei>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
