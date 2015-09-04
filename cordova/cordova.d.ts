@@ -1,10 +1,10 @@
-// Type definitions for Apache Cordova.
+// Type definitions for Apache Cordova
 // Project: http://cordova.apache.org
-// Definitions by: Microsoft Open Technologies, Inc. <http://msopentech.com>
+// Definitions by: Microsoft Open Technologies Inc. <http://msopentech.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// 
+//
 // Copyright (c) Microsoft Open Technologies, Inc.
-// Licensed under the MIT license. 
+// Licensed under the MIT license.
 
 /// <reference path="plugins/BatteryStatus.d.ts"/>
 /// <reference path="plugins/Camera.d.ts"/>
@@ -22,6 +22,7 @@
 /// <reference path="plugins/NetworkInformation.d.ts"/>
 /// <reference path="plugins/Push.d.ts"/>
 /// <reference path="plugins/Splashscreen.d.ts"/>
+/// <reference path="plugins/StatusBar.d.ts"/>
 /// <reference path="plugins/Vibration.d.ts"/>
 /// <reference path="plugins/WebSQL.d.ts"/>
 
@@ -42,6 +43,41 @@ interface Cordova {
     define(moduleName: string, factory: (require: any, exports: any, module: any) => any): void;
     /** Access a Cordova module by name. */
     require(moduleName: string): any;
+    /** Namespace for Cordova plugin functionality */
+    plugins:CordovaPlugins;
+}
+
+interface CordovaPlugins {}
+
+interface Document {
+    addEventListener(type: "deviceready", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "pause", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "resume", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "backbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "menubutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "searchbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "startcallbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "endcallbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "volumedownbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "volumeupbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+
+    removeEventListener(type: "deviceready", listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: "pause", listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: "resume", listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: "backbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: "menubutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: "searchbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: "startcallbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: "endcallbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: "volumedownbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: "volumeupbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+
+    addEventListener(type: string, listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: string, listener: (ev: Event) => any, useCapture?: boolean): void;
+}
+
+interface Window {
+  cordova:Cordova;
 }
 
 // cordova/argscheck module

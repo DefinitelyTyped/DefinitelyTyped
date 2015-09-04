@@ -161,7 +161,7 @@ interface CheckboxRadioOptions {
 }
 
 interface CheckboxRadioEvents {
-    createp?: JQueryMobileEvent;
+    create?: JQueryMobileEvent;
 }
 
 interface SelectMenuOptions {
@@ -184,7 +184,11 @@ interface SelectMenuEvents {
 }
 
 interface ListViewOptions {
+    autodividers?: boolean;
+    autodividersSelector?: (jq?: JQuery) => string;
     countTheme?: string;
+    defaults?: boolean;
+    disabled?: boolean;
     dividerTheme?: string;
     filter?: boolean;
     filterCallback?: Function;
@@ -335,16 +339,24 @@ interface JQueryMobilePath {
 }
 
 interface ParsedPath {
+    authority: string;
+    directory: string;
+    domain: string;
+    doubleSlash: string;
+    filename: string;
     hash: string;
     host: string;
     hostname: string;
     href: string;
+    hrefNoHash: string;
+    hrefNoSearch: string;
+    password: string;
     pathname: string;
     port: string;
     protocol: string;
     search: string;
+    username: string;
 }
-
 
 interface JQueryMobile extends JQueryMobileOptions {
 

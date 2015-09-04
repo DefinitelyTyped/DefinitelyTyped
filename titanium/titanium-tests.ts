@@ -26,7 +26,7 @@ function test_window() {
 }
 
 function test_tableview() {
-	var data = [];
+	var data : Ti.UI.View[] = [];
 	for (var i = 0; i < 10; i++) {
 		var row = Ti.UI.createTableViewRow();
 		var label = Ti.UI.createLabel({
@@ -73,12 +73,12 @@ function test_network() {
 	var url = "http://www.appcelerator.com";
 	var client = Ti.Network.createHTTPClient({
 		// function called when the response data is available
-		onload : function(e) {
+		onload : function(e: SuccessResponse) {
 			alert(this.responseText);
 		},
 		// function called when an error occurs, including a timeout
-		onerror : function(e) {
-			alert(e.rror);
+		onerror : function(e: FailureResponse) {
+			alert(e.error);
 		},
 		timeout : 5000  // in milliseconds
 	});

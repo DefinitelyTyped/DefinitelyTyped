@@ -1,7 +1,7 @@
 // Type definitions for KoLite 1.1
 // Project: https://github.com/CodeSeven/kolite
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
-// Definitions https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts" />
@@ -63,13 +63,13 @@ interface KoliteAsyncCommand extends KoliteCommand {
 }
 
 interface KoLiteCommandOptions {
-    execute?: any;
+    execute(...args: any[]): any;
     canExecute?: (isExecuting: boolean) => any;
 }
 
 interface KnockoutStatic {
     command(options: KoLiteCommandOptions): KoliteCommand;
-    asyncCommand(optons: KoLiteCommandOptions): KoliteAsyncCommand;
+    asyncCommand(options: KoLiteCommandOptions): KoliteAsyncCommand;
 }
 
 interface KnockoutUtils {

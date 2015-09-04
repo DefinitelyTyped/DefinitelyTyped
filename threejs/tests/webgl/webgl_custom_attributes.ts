@@ -35,7 +35,7 @@
 
             amplitude: { type: "f", value: 1.0 },
             color: { type: "c", value: new THREE.Color(0xff2200) },
-            texture: { type: "t", value: THREE.ImageUtils.loadTexture("textures/water.jpg") }
+            texture: { type: "t", value: THREE.ImageUtils.loadTexture("textures/water.jpg") },
 
         };
 
@@ -70,7 +70,8 @@
         scene.add(sphere);
 
         renderer = new THREE.WebGLRenderer();
-        renderer.setClearColor(0x050505, 1);
+        renderer.setClearColor(0x050505);
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(WIDTH, HEIGHT);
 
         var container = document.getElementById('container');

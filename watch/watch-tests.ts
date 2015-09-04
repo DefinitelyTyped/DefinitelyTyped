@@ -24,6 +24,7 @@ watch.watchTree(str, (f: any, curr: fs.Stats, prev: fs.Stats) => {
 watch.watchTree(str, opts, (f: any, curr: fs.Stats, prev: fs.Stats) => {
 
 });
+watch.unwatchTree(str);
 watch.createMonitor(str, (monitor: watch.Monitor) => {
 
 });

@@ -46,9 +46,9 @@ str = cookie.path;
 str = cookie.toString();
 
 var jar: request.CookieJar;
-jar.add(cookie);
-cookie = jar.get(req);
-str = jar.cookieString(req);
+jar.setCookie(cookie, uri);
+str = jar.getCookieString(uri);
+var cookies: request.Cookie[] = jar.getCookies(uri);
 
 var aws: request.AWSOptions;
 str = aws.secret;
@@ -69,7 +69,7 @@ var options: request.Options = {
 
 	},
 	jar: value,
-	form: value,
+	form: obj,
 	oauth: value,
 	aws: aws,
 	qs: obj,
@@ -114,7 +114,8 @@ req = req.oauth(oauth);
 req = req.jar(jar);
 write = req.pipe(write);
 write = req.pipe(write, value);
-req.write();
+req.pipe(req);
+req.write(value);
 req.end(str);
 req.end(buffer);
 req.pause();
@@ -196,3 +197,10 @@ r.post(str);
 r(options);
 r.get(options);
 r.post(options);
+
+request
+.get('http://example.com/example.png')
+.on('response', function(response: any) {
+	// check response
+})
+.pipe(request.put('http://another.com/another.png'));

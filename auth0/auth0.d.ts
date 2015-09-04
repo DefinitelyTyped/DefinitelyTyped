@@ -1,5 +1,5 @@
 ﻿// Type definitions for Auth0.js
-// Project: Auth0.com
+// Project: http://auth0.com
 // Definitions by: Robert McLaws <https://github.com/advancedrei>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -9,13 +9,9 @@ interface Window {
     token: string;
 }
 
-interface Location {
-    origin: string;
-}
-
 /** This is the interface for the main Auth0 client. */
 interface Auth0Static {
-    
+
     new(options: Auth0ClientOptions): Auth0Static;
     changePassword(options: any, callback?: Function): void;
     decodeJwt(jwt: string): any;
@@ -37,10 +33,10 @@ interface Auth0Static {
 interface Auth0ClientOptions {
     clientID: string;
     callbackURL: string;
-    callbackOnLoactionHash?: boolean;
+    callbackOnLocationHash?: boolean;
     domain: string;
     forceJSONP?: boolean;
-} 
+}
 
 /** Represents a normalized UserProfile. */
 interface Auth0UserProfile {
@@ -128,6 +124,6 @@ interface Auth0DelegationToken {
 
 declare var Auth0: Auth0Static;
 
-declare module "Auth0" {
+declare module "auth0" {
     export = Auth0
 }

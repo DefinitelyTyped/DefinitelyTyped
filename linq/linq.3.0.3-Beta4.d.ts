@@ -1,6 +1,6 @@
-// Type definitions for linq.js, ver 3.0.3-Beta4
+// Type definitions for linq.js v3.0.3-Beta4
 // Project: http://linqjs.codeplex.com/
-// Definitions by: neuecc (http://www.codeplex.com/site/users/view/neuecc)
+// Definitions by: neuecc <http://www.codeplex.com/site/users/view/neuecc>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module linqjs {
@@ -33,7 +33,7 @@ declare module linqjs {
         rangeDown(start: number, count: number, step?: number): Enumerable;
         rangeTo(start: number, to: number, step?: number): Enumerable;
         repeat(element: any, count?: number): Enumerable;
-        repeatWithFinalize(initializer: () => any, finalizer: (element) => void ): Enumerable;
+        repeatWithFinalize(initializer: () => any, finalizer: (element: any) => void ): Enumerable;
         generate(func: () => any, count?: number): Enumerable;
         toInfinity(start?: number, step?: number): Enumerable;
         toNegativeInfinity(start?: number, step?: number): Enumerable;
@@ -42,7 +42,7 @@ declare module linqjs {
     }
 
     interface Enumerable {
-        constructor (getEnumerator: () => IEnumerator);
+        constructor(getEnumerator: () => IEnumerator): Enumerable;
         getEnumerator(): IEnumerator;
 
         // Extension Methods

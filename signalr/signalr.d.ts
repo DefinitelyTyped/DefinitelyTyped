@@ -1,7 +1,6 @@
 // Type definitions for SignalR 1.0
 // Project: http://www.asp.net/signalr
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Modified by: T. Michael Keesey <https://github.com/keesey/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, T. Michael Keesey <https://github.com/keesey/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -38,6 +37,7 @@ interface SignalR {
     messageId: string;
     url: string;
     qs: any;
+    state: number;
 
     (url: string, queryString?: any, logging?: boolean): SignalR;
     hubConnection(url?: string): SignalR;
@@ -108,5 +108,5 @@ interface ConnectionSettings {
 interface JQueryStatic {
     signalR: SignalR;
     connection: SignalR;
-    hubConnection(url?: string, queryString?: any, logging?: boolean): HubConnection;
+    hubConnection(url?: string, options?: HubConnectionSettings): HubConnection;
 }

@@ -45,7 +45,7 @@
         var mapB = THREE.ImageUtils.loadTexture("textures/sprite1.png");
         mapC = THREE.ImageUtils.loadTexture("textures/sprite2.png");
 
-        group = new THREE.Object3D();
+        group = new THREE.Group();
 
         var materialC = new THREE.SpriteMaterial({ map: mapC, color: 0xffffff, fog: true });
         var materialB = new THREE.SpriteMaterial({ map: mapB, color: 0xffffff, fog: true });
@@ -84,6 +84,7 @@
         // renderer
 
         renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.autoClear = false; // To allow render overlay on top of sprited sphere
 

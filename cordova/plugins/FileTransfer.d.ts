@@ -14,7 +14,7 @@
  */
 interface FileTransfer {
     /** Called with a ProgressEvent whenever a new chunk of data is transferred.  */
-    onprogress: Function;
+    onprogress: (event: ProgressEvent) => void;
     /**
      * Sends a file to a server.
      * @param fileURL           Filesystem URL representing the file on the device. For backwards compatibility,
@@ -53,8 +53,8 @@ interface FileTransfer {
         target: string,
         successCallback: (fileEntry: FileEntry) => void,
         errorCallback: (error: FileTransferError) => void,
-        options?: FileDownloadOptions,
-        trustAllHosts?: boolean): void;
+        trustAllHosts?: boolean,
+        options?: FileDownloadOptions): void;
     /**
      * Aborts an in-progress transfer. The onerror callback is passed a FileTransferError object
      * which has an error code of FileTransferError.ABORT_ERR.
@@ -84,6 +84,8 @@ interface FileUploadOptions {
     fileKey?: string;
     /** The file name to use when saving the file on the server. Defaults to image.jpg. */
     fileName?: string;
+    /** The HTTP method to use - either `PUT` or `POST`. Defaults to `POST`. */
+    httpMethod?: string;
     /** The mime type of the data to upload. Defaults to image/jpeg. */
     mimeType?: string;
     /** A set of optional key/value pairs to pass in the HTTP request. */
@@ -96,8 +98,8 @@ interface FileUploadOptions {
 
 /** Optional parameters for download method. */
 interface FileDownloadOptions {
-    /** A map of header name/header values. Use an array to specify more than one value. */
-    headers?: Object[];
+    /** A map of header name/header values. */
+    headers?: {};
 }
 
 /** A FileTransferError object is passed to an error callback when an error occurs. */
@@ -108,6 +110,7 @@ interface FileTransferError {
      *     FileTransferError.INVALID_URL_ERR
      *     FileTransferError.CONNECTION_ERR
      *     FileTransferError.ABORT_ERR
+     *     FileTransferError.NOT_MODIFIED_ERR
      */
     code: number;
     /** URL to the source. */
@@ -116,14 +119,18 @@ interface FileTransferError {
     target: string;
     /** HTTP status code. This attribute is only available when a response code is received from the HTTP connection. */
     http_status: number;
-    body: any;
+    /* Response body. This attribute is only available when a response is received from the HTTP connection. */
+    body: string;
+    /* Exception that is thrown by native code */
+    exception: any;
 }
 
 declare var FileTransferError: {
     /** Constructor for FileTransferError object */
-    new (code?: number, source?: string, target?: string, status?: number, body?: any): FileTransferError;
+    new (code?: number, source?: string, target?: string, status?: number, body?: any, exception?: any): FileTransferError;
     FILE_NOT_FOUND_ERR: number;
     INVALID_URL_ERR: number;
     CONNECTION_ERR: number;
     ABORT_ERR: number;
+    NOT_MODIFIED_ERR: number;
 }

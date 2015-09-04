@@ -1,7 +1,6 @@
-// Type definitions for jQuery UI DateTimePicker 0.3 Addon
-//
+// Type definitions for jQuery UI DateTimePicker 0.3
 // Project: http://trentrichardson.com/examples/timepicker/
-// Definitions by: https://github.com/dougajmcdonald
+// Definitions by: dougajmcdonald <https://github.com/dougajmcdonald>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>

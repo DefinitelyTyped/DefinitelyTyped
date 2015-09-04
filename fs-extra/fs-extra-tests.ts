@@ -58,9 +58,13 @@ fs.createFile(file, errorCallback);
 fs.createFileSync(file);
 
 fs.mkdirs(dir, errorCallback);
+fs.mkdirs(dir, {}, errorCallback);
 fs.mkdirsSync(dir);
+fs.mkdirsSync(dir, {});
 fs.mkdirp(dir, errorCallback);
+fs.mkdirp(dir, {}, errorCallback);
 fs.mkdirpSync(dir);
+fs.mkdirpSync(dir, {});
 
 fs.outputFile(file, data, errorCallback);
 fs.outputFileSync(file, data);
@@ -145,9 +149,9 @@ fs.readdir(path, (err: Error, files: string[]) => {
 strArr = fs.readdirSync(path);
 fs.close(fd, errorCallback);
 fs.closeSync(fd);
-fs.open(path, flags, modeStr, (err: Error, fd: number) => [
-
-]);
+fs.open(path, flags, modeStr, (err: Error, fd: number) => {
+    
+});
 num = fs.openSync(path, flags, modeStr);
 fs.utimes(path, atime, mtime, errorCallback);
 fs.utimesSync(path, atime, mtime);

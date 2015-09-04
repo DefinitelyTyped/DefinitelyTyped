@@ -37,33 +37,33 @@ function BaseClassExtensions_Error_Tests() {
         // Verify the required parameters were defined.
         if (input === undefined) {
             // Throw a standard exception type.
-            var err = (<MicrosoftAjaxBaseTypeExtensions.Error>Error).argumentNull("input", "A parameter was undefined.");
+            var err = Error.argumentNull("input", "A parameter was undefined.");
             throw err;
         }
         else if (min === undefined) {
-            var err = (<MicrosoftAjaxBaseTypeExtensions.Error>Error).argumentNull("min", "A parameter was undefined.");
+            var err = Error.argumentNull("min", "A parameter was undefined.");
             throw err;
         }
         else if (max === undefined) {
-            var err = (<MicrosoftAjaxBaseTypeExtensions.Error>Error).argumentNull("max", "A parameter was undefined.");
+            var err = Error.argumentNull("max", "A parameter was undefined.");
             throw err;
         }
         else if (min >= max) {
-            var err = (<MicrosoftAjaxBaseTypeExtensions.Error>Error).invalidOperation("The min parameter must be smaller than max parameter.");
+            var err = Error.invalidOperation("The min parameter must be smaller than max parameter.");
             throw err;
         }
         else if (isNaN(input)) {
             var msg = "A number was not entered.  ";
-            msg += (<MicrosoftAjaxBaseTypeExtensions.String>String).format("Please enter a number between {0} and {1}.", min, max);
+            msg += String.format("Please enter a number between {0} and {1}.", min, max);
 
-            var err = (<MicrosoftAjaxBaseTypeExtensions.Error>Error).create(msg);
+            var err = Error.create(msg);
             throw err;
         }
         else if (input < min || input > max) {
             msg = "The number entered was outside the acceptable range.  ";
-            msg += (<MicrosoftAjaxBaseTypeExtensions.String>String).format("Please enter a number between {0} and {1}.", min, max);
+            msg += String.format("Please enter a number between {0} and {1}.", min, max);
 
-            var err = (<MicrosoftAjaxBaseTypeExtensions.Error>Error).create(msg);
+            var err = Error.create(msg);
 
             throw err;
         }
@@ -82,12 +82,12 @@ function BaseClassExtensions_Error_Tests() {
 
 function BaseClassExtensions_String_Tests() {
 
-    (<MicrosoftAjaxBaseTypeExtensions.String>String).format("Please enter a number between {0} and {1}.", 1, 2);
-    (<MicrosoftAjaxBaseTypeExtensions.String>String).endsWith("test");
-    (<MicrosoftAjaxBaseTypeExtensions.String>String).localeFormat("Please enter a number between {0} and {1}", 1, 2);
-    (<MicrosoftAjaxBaseTypeExtensions.String>String).trim();
-    (<MicrosoftAjaxBaseTypeExtensions.String>String).trimEnd();
-    (<MicrosoftAjaxBaseTypeExtensions.String>String).trimStart();
+    String.format("Please enter a number between {0} and {1}.", 1, 2);
+    "test".endsWith("test");
+    String.localeFormat("Please enter a number between {0} and {1}", 1, 2);
+    "test".trim();
+    "test".trimEnd();
+    "test".trimStart();
 }
 
 function BaseClassExtensions_Function_Tests() {
@@ -95,22 +95,22 @@ function BaseClassExtensions_Function_Tests() {
     /** Sample code from http://msdn.microsoft.com/en-us/library/dd409287(v=vs.100).aspx */
     var createDelegateTest = function () {
         var context = "";
-        var method: MicrosoftAjaxBaseTypeExtensions.Function;
-        var a = (<MicrosoftAjaxBaseTypeExtensions.Function>Function).createCallback(method, context);
+        var method: Function;
+        var a = Function.createCallback(method, context);
     }
 
     /** Sample code from http://msdn.microsoft.com/en-us/library/dd393582(v=vs.100).aspx */
     var createDelegateTest = function () {
         var instance = this;
-        var method: MicrosoftAjaxBaseTypeExtensions.Function;
-        var a = (<MicrosoftAjaxBaseTypeExtensions.Function>Function).createDelegate(instance, method);
+        var method: Function;
+        var a = Function.createDelegate(instance, method);
     }
 
     /** Sample code from http://msdn.microsoft.com/en-us/library/dd393712(v=vs.100).aspx */
     var validateParametersTest = function () {
         var arguments = ['test1', 'test2'];
         var insert = function Array$insert(array: any[], index: number, item: any) {
-            var e = (<MicrosoftAjaxBaseTypeExtensions.Function>Function).validateParameters(arguments, [
+            var e = Function.validateParameters(arguments, [
                 { name: "array", type: Array, elementMayBeNull: true },
                 { name: "index", mayBeNull: true },
                 { name: "item", mayBeNull: true }
@@ -122,20 +122,20 @@ function BaseClassExtensions_Function_Tests() {
 
 function BaseClassExtensions_Array_Tests() {
 
-    var arrayVar = Array<string>("one", "two", "three");
+    var arrayVar =["one", "two", "three"];
 
-    arrayVar.add(["one"], {});
-    arrayVar.addRange({}, ["one", "two", "three"]);
-    arrayVar.clear();
-    arrayVar.clone();
-    arrayVar.contains({});
-    arrayVar.dequeue();
-    arrayVar.enqueue({});
-    arrayVar.insert([1, 2, 3], 1, {});
-    arrayVar.isArray({});
-    arrayVar.parse("1, 2, 3, 4, 5");
-    arrayVar.remove([1, 2, 3], 2);
-    arrayVar.removeAt([1, 2, 3], 1);
+    Array.add(arrayVar, "four");
+    Array.addRange(arrayVar, ["one", "two", "three"]);
+    Array.clear(arrayVar);
+    Array.clone(arrayVar);
+    Array.contains(arrayVar, "zero");
+    Array.dequeue(arrayVar);
+    Array.enqueue(arrayVar, "zero");
+    Array.insert([1, 2, 3], 1, {});
+    Array.isArray({});
+    Array.parse("1, 2, 3, 4, 5");
+    Array.remove([1, 2, 3], 2);
+    Array.removeAt([1, 2, 3], 1);
 
 }
 
@@ -144,13 +144,12 @@ function BaseClassExtensions_Date_Tests() {
     var date = new Date(2014, 5, 25);
     date.format("g");
     date.localeFormat("g");
-    date.parseLocale("2014/05/25");
-    date.parseInvariant("2014/05/25");
+    Date.parseLocale("2014/05/25");
+    Date.parseInvariant("2014/05/25");
 }
 
 function BaseClassExtensions_Boolean_Tests() {
-
-    (<MicrosoftAjaxBaseTypeExtensions.Boolean>Boolean).parse("false");
+    Boolean.parse("false");
 }
 
 function BaseClassExtensions_Number_Tests() {
@@ -159,8 +158,8 @@ function BaseClassExtensions_Number_Tests() {
 
     x.format("d");
     x.localeFormat("c");
-    x.parseInvariant("1");
-    x.parseLocale("1");
+    Number.parseInvariant("1");
+    Number.parseLocale("1");
 }
 
 function Sys_Application_Tests() {
@@ -374,7 +373,7 @@ function Sys_UI_Control_Tests() {
 
 function Sy_UI_Point_Tests() {
 
-    var elementRef: Sys.UI.DomElement;
+    var elementRef: HTMLElement;
     var result: string;
     // Get the location of the element
     var elementLoc = Sys.UI.DomElement.getLocation(elementRef);
@@ -417,7 +416,7 @@ function Sys_UI_DomElement_Tests() {
     // Add CSS class
     Sys.UI.DomElement.addCssClass($get("Button1"), "redBackgroundColor");
 
-    var elementRef: Sys.UI.DomElement = $get("Label1");
+    var elementRef = $get("Label1");
     var elementBounds = Sys.UI.DomElement.getBounds(elementRef);
     var toggleCssClassMethod = () => {};
     var removeCssClassMethod = () => {};
@@ -611,7 +610,7 @@ function Sys_Services_Profile_Service_Group_Tests() {
 function Sys_Net_NetworkRequestEventArgs_Tests() {
 
     var value = new Sys.Net.WebRequest();
-    var netWorkEventArgs = new Sys.Net.NetWorkRequestEventArgs(value);
+    var netWorkEventArgs = new Sys.Net.NetworkRequestEventArgs(value);
     var webRequest = netWorkEventArgs.get_webRequest();
 }
 
@@ -660,7 +659,7 @@ function Sys_WebForms_PageRequestManager_Tests() {
     }
     var pageLoadingRequestHandler = (sender: any, args: Sys.WebForms.PageLoadingEventArgs) => {
         var dataItems: any = args.get_dataItems();
-        var panelsDeleted: HTMLDivElement[] = args.get_panelsDeleted();
+        var panelsDeleted: HTMLDivElement[] = args.get_panelsDeleting();
         var panelsUpdating = args.get_panelsUpdating();
         var empty: Sys.EventArgs = args.Empty;
     }
@@ -832,7 +831,7 @@ function CreatingCustomNonVisualClientComponentsTests() {
 
         _startTimer: function () {
             // save timer cookie for removal later
-            this._timer = window.setInterval((<MicrosoftAjaxBaseTypeExtensions.Function>Function).createDelegate(this, this._timerCallback), this._interval);
+            this._timer = window.setInterval(Function.createDelegate(this, this._timerCallback), this._interval);
         },
 
         _stopTimer: function () {

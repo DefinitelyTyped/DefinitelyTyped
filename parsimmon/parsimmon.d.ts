@@ -1,5 +1,5 @@
-// Type definitions for Parsimmon 0.4.0
-// Project: https://github.com/jayferd/parsimmon
+// Type definitions for Parsimmon 0.5.0
+// Project: https://github.com/jneen/parsimmon
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -14,11 +14,18 @@ declare module 'parsimmon' {
 			value: T;
 		}
 
+		export interface Result<T> {
+			status: boolean;
+			value?: T;
+			expected?: string;
+			index?: number;
+		}
+
 		export interface Parser<T> {
 			/*
 			 parse the string
 			 */
-			parse(input: string): T;
+			parse(input: string): Result<T>;
 			/*
 			 returns a new parser which tries parser, and if it fails uses otherParser.
 			 */

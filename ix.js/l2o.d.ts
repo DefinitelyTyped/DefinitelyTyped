@@ -54,8 +54,10 @@ declare module Ix {
 		some(predicate?: EnumerablePredicate<T>, thisArg?: any): boolean; // alias
 
 		average(selector?: EnumerableFunc<T, number>): number;
-		max(selector?: EnumerableFunc<T, number>): number;
-		min(selector?: EnumerableFunc<T, number>): number;
+		max(): T;
+	        max<TResult>(selector: EnumerableFunc<T, TResult>): TResult;
+	        min(): T;
+	        min<TResult>(selector: EnumerableFunc<T, TResult>): TResult;
 		sum(selector?: EnumerableFunc<T, number>): number;
 
 		concat<T>(...sources: Enumerable<T>[]): Enumerable<T>;
@@ -248,4 +250,8 @@ declare module Ix {
 	}
 
 	var Enumerable: EnumerableStatic;
+}
+
+declare module "l2o" {
+	export = Ix;
 }

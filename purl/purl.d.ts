@@ -1,9 +1,13 @@
-﻿// Type definitions for Purl 2.3.1
+// Type definitions for Purl 2.3.1
 // Project: https://github.com/allmarkedup/purl
 // Definitions by: Daniel Ferreira Monteiro Alves <https://github.com/danfma>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module purl {
+
+    interface ParameterMap {
+        [parameterName: string]: string;
+    }
 
     export interface Url {
 
@@ -15,6 +19,7 @@ declare module purl {
         /** 
          * The .param() method is used to return the values of querystring parameters. 
          */
+        param(): ParameterMap;
         param(parameterName: string): string;
 
         /**
@@ -27,6 +32,7 @@ declare module purl {
         /**
          * Gets a parameter from the fragment segment
          */
+        fparam(): ParameterMap;
         fparam(parameterName: string): string;
 
         /**

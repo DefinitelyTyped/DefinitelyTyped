@@ -47,11 +47,13 @@ client.bitcount(str, numCallback);
 client.bitcount(str, num, num, numCallback);
 client.set(str, str, strCallback);
 client.get(str, strCallback);
-client.exists(str, str, numCallback);
+client.exists(str, numCallback);
 
 client.publish(str, value);
 client.subscribe(str);
+
 client.on(str, messageHandler);
+client.once(str, messageHandler);
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
@@ -60,3 +62,5 @@ client.get(args);
 client.get(args, resCallback);
 client.set(args);
 client.set(args, resCallback);
+
+client.incr(str, resCallback);

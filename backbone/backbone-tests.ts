@@ -113,9 +113,12 @@ class EmployeeCollection extends Backbone.Collection<Employee> {
 class Book extends Backbone.Model {
     title: string;
     author: string;
+    published: boolean;
 }
 
 class Library extends Backbone.Collection<Book> {
+    // This model definition is here only to test type compatibility of the model, but it
+    // is not necessary in working code as it is automatically inferred through generics.
     model: typeof Book;
 }
 
@@ -123,23 +126,31 @@ class Books extends Backbone.Collection<Book> { }
 
 function test_collection() {
 
-    var books = new Library();
+    var books = new Books();
 
-    books.each(book => {
-        book.get("title");
-    });
+    var book1: Book = new Book({ title: "Title 1", author: "Mike" });
+    books.add(book1);
 
-    var titles = books.map(book => {
-        return book.get("title");
-    });
+    // Objects can be added to collection by casting to model type.
+    // Compiler will check if object properties are valid for the cast.
+    // This gives better type checking than declaring an `any` overload.
+    books.add(<Book>{ title: "Title 2", author: "Mikey" });
 
-    var publishedBooks = books.filter(book => {
-        return book.get("published") === true;
-    });
+    var model: Book = book1.collection.first();
+    if (model !== book1) {
+        throw new Error("Error");
+    }
 
-    var alphabetical = books.sortBy((book: Book): number => {
-        return null;
-    });
+    books.each(book =>
+        book.get("title"));
+
+    var titles = books.map(book =>
+        book.get("title"));
+
+    var publishedBooks = books.filter(book =>
+        book.get("published") === true);
+
+    var alphabetical = books.sortBy((book: Book): number => null);
 }
 
 //////////
