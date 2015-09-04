@@ -5,64 +5,66 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "oboe" {
-	import stream = require('stream');
-
-	function oboe(url: string): oboe.Oboe;
-	function oboe(options: oboe.Options): oboe.Oboe;
-	function oboe(stream: stream.Readable): oboe.Oboe;
-
-	module oboe {
-		var drop: {};
-
-		interface Oboe {
-			done(callback: (result: any) => void): Oboe;
-
-			fail(callback: (result: FailReason) => void): Oboe;
-
-			node(pattern: string, callback: CallbackSignature): Oboe;
-			node(patterns: PatternMap): Oboe;
-
-			on(event: string, pattern: string, callback: CallbackSignature): Oboe;
-			on(eventPattern: string, callback: CallbackSignature): Oboe;
-
-			path(pattern: string, callback: CallbackSignature): Oboe;
-			path(listeners: any): Oboe;
-
-			removeListener(eventPattern: string, callback: CallbackSignature): Oboe;
-			removeListener(event: string, pattern: string, callback: CallbackSignature): Oboe;
-
-			start(callback: (status: number, headers: Object) => void): Oboe;
-
-			abort():void;
-
-			source: string;
-		}
-
-		interface CallbackSignature {
-			(node: any, pathOrHeaders: any, ancestors: Object[]): any;
-		}
-
-		interface Options {
-			url: string;
-			method?: string;
-			headers?: Object;
-			body?: any;
-			cached?: boolean;
-			withCredentials?: boolean;
-		}
-
-		interface FailReason {
-			thrown?: Error;
-			statusCode?: number;
-			body?: string;
-			jsonBody?: Object;
-		}
-
-		interface PatternMap {
-			[pattern: string]: CallbackSignature
-		}
+declare module oboe {
+	interface OboeFunction extends Function {
+		drop: Object;
+		(url: string): oboe.Oboe;
+		(options: oboe.Options): oboe.Oboe;
+		(stream: NodeJS.ReadableStream): oboe.Oboe;
 	}
 
+	interface Oboe {
+		done(callback: (result: any) => void): Oboe;
+
+		fail(callback: (result: FailReason) => void): Oboe;
+
+		node(pattern: string, callback: CallbackSignature): Oboe;
+		node(patterns: PatternMap): Oboe;
+
+		on(event: string, pattern: string, callback: CallbackSignature): Oboe;
+		on(eventPattern: string, callback: CallbackSignature): Oboe;
+
+		path(pattern: string, callback: CallbackSignature): Oboe;
+		path(listeners: any): Oboe;
+
+		removeListener(eventPattern: string, callback: CallbackSignature): Oboe;
+		removeListener(event: string, pattern: string, callback: CallbackSignature): Oboe;
+
+		start(callback: (status: number, headers: Object) => void): Oboe;
+
+		abort():void;
+
+		source: string;
+	}
+
+	interface CallbackSignature {
+          (node: any, pathOrHeaders: any, ancestors: Object[]): any;
+	}
+
+	interface Options {
+		url: string;
+		method?: string;
+		headers?: Object;
+		body?: any;
+		cached?: boolean;
+		withCredentials?: boolean;
+	}
+
+	interface FailReason {
+		thrown?: Error;
+		statusCode?: number;
+		body?: string;
+		jsonBody?: Object;
+	}
+
+	interface PatternMap {
+	  [pattern: string]: CallbackSignature
+	}
+}
+
+declare var oboe: oboe.OboeFunction;
+
+declare module "oboe" {
+	var oboe: oboe.OboeFunction;
 	export = oboe;
 }
