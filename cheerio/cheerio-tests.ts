@@ -1,6 +1,6 @@
 /// <reference path="cheerio.d.ts" />
 
-import cheerio from 'cheerio';
+import * as cheerio from 'cheerio';
 
 /*
  * LOADING
