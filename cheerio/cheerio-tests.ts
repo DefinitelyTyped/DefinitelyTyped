@@ -29,7 +29,7 @@ $ = cheerio.load(html, {
     normalizeWhitespace: true,
     xmlMode: true,
     decodeEntities: true,
-    lowercaseTags: true,
+    lowerCaseTags: true,
     lowerCaseAttributeNames: true,
     recognizeCDATA: true,
     recognizeSelfClosing: true
