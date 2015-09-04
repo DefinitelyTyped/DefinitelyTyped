@@ -29,6 +29,7 @@ interface TV4 {
 	validateResult(data:any, schema:any):TV4SingleResult;
 	validateMultiple(data:any, schema:any):TV4MultiResult;
 
+	addSchema(schema: {id: string;}):boolean;
 	addSchema(uri:string, schema:any):boolean;
 	getSchema(uri:string):any;
 	normSchema(schema:any, baseUri:string):any;
