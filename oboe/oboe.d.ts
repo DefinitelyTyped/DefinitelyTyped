@@ -65,6 +65,5 @@ declare module oboe {
 declare var oboe: oboe.OboeFunction;
 
 declare module "oboe" {
-	var oboe: oboe.OboeFunction;
 	export = oboe;
 }
