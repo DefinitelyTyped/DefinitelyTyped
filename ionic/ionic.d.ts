@@ -5,7 +5,133 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
+declare var ionic: ionic.IBase;
+
+
 declare module ionic {
+
+    interface IBase {
+        Platform: IPlatform;
+        DomUtil: IDomUtil;
+        EventController: IEventController;
+        Utils: IUtils;
+    }
+
+    interface IPlatform {
+        ready(callback: () => void): void;
+        setGrade(string): void;
+        device(): {any}; //TODO lookup window.device schema
+        isWebView(): boolean;
+        isIPad(): boolean;
+        isIOS(): boolean;
+        isAndroid(): boolean;
+        isWindowsPhone(): boolean;
+        platform(): string;
+        version(): number;
+        exitApp(): void;
+        showStatusBar(boolean): void;
+        fullScreen(showFullScreen:boolean, showStatusBar:boolean) : void;
+        isReady: boolean;
+    }
+
+    /**
+     * DOCS http://ionicframework.com/docs/api/utility/ionic.DomUtil/
+     */
+    interface IDomUtil
+    {
+        requestAnimationFrame(callback: () => void): void;
+        animationFrameThrottle(callback: () => void): void;
+        getPositionInParent(element: Element): void;
+        ready(callback: () => void): void;
+        getTextBounds(textNode: Element): {
+            left: number;
+            right: number;
+            top: number;
+            bottom: number;
+            width: number;
+            height: number;
+        };
+
+        getChildIndex(element: Element, type: string): number;
+        getParentWithClass(element: Element, className: string): Element
+        getParentOrSelfWithClass(element: Element, className: string): Element;
+        rectContains(x: number, y: number, x1: number, y1: number, x2: number, y2: number): boolean;
+        blurAll(): Element;
+    }
+
+    interface IEventController
+    {
+        trigger(eventType: string, data: Object, bubbles?: boolean, cancelable?: boolean): void;
+        on(type: string, callback: () => void, element: Element): void;
+        off(type: string, callback: () => void, element: Element): void;
+
+        onGesture(eventType: string, callback: () => void, element: Element): void;
+        onGesture(eventType: "hold", callback: () => void, element: Element): void;
+        onGesture(eventType: "tap", callback: () => void, element: Element): void;
+        onGesture(eventType: "doubletap", callback: () => void, element: Element): void;
+        onGesture(eventType: "drag", callback: () => void, element: Element): void;
+        onGesture(eventType: "dragstart", callback: () => void, element: Element): void;
+        onGesture(eventType: "dragend", callback: () => void, element: Element): void;
+        onGesture(eventType: "dragup", callback: () => void, element: Element): void;
+        onGesture(eventType: "dragdown", callback: () => void, element: Element): void;
+        onGesture(eventType: "dragleft", callback: () => void, element: Element): void;
+        onGesture(eventType: "dragright", callback: () => void, element: Element): void;
+        onGesture(eventType: "swipe", callback: () => void, element: Element): void;
+        onGesture(eventType: "swipeup", callback: () => void, element: Element): void;
+        onGesture(eventType: "swipedown", callback: () => void, element: Element): void;
+        onGesture(eventType: "swipeleft", callback: () => void, element: Element): void;
+        onGesture(eventType: "swiperight", callback: () => void, element: Element): void;
+        onGesture(eventType: "transform", callback: () => void, element: Element): void;
+        onGesture(eventType: "transformstart", callback: () => void, element: Element): void;
+        onGesture(eventType: "transformend", callback: () => void, element: Element): void;
+        onGesture(eventType: "rotate", callback: () => void, element: Element): void;
+        onGesture(eventType: "pinch", callback: () => void, element: Element): void;
+        onGesture(eventType: "pinchin", callback: () => void, element: Element): void;
+        onGesture(eventType: "pinchout", callback: () => void, element: Element): void;
+        onGesture(eventType: "touch", callback: () => void, element: Element): void;
+        onGesture(eventType: "release", callback: () => void, element: Element): void;
+
+        offGesture(eventType: string, callback: () => void, element: Element): void;
+        offGesture(eventType: "hold", callback: () => void, element: Element): void;
+        offGesture(eventType: "tap", callback: () => void, element: Element): void;
+        offGesture(eventType: "doubletap", callback: () => void, element: Element): void;
+        offGesture(eventType: "drag", callback: () => void, element: Element): void;
+        offGesture(eventType: "dragstart", callback: () => void, element: Element): void;
+        offGesture(eventType: "dragend", callback: () => void, element: Element): void;
+        offGesture(eventType: "dragup", callback: () => void, element: Element): void;
+        offGesture(eventType: "dragdown", callback: () => void, element: Element): void;
+        offGesture(eventType: "dragleft", callback: () => void, element: Element): void;
+        offGesture(eventType: "dragright", callback: () => void, element: Element): void;
+        offGesture(eventType: "swipe", callback: () => void, element: Element): void;
+        offGesture(eventType: "swipeup", callback: () => void, element: Element): void;
+        offGesture(eventType: "swipedown", callback: () => void, element: Element): void;
+        offGesture(eventType: "swipeleft", callback: () => void, element: Element): void;
+        offGesture(eventType: "swiperight", callback: () => void, element: Element): void;
+        offGesture(eventType: "transform", callback: () => void, element: Element): void;
+        offGesture(eventType: "transformstart", callback: () => void, element: Element): void;
+        offGesture(eventType: "transformend", callback: () => void, element: Element): void;
+        offGesture(eventType: "rotate", callback: () => void, element: Element): void;
+        offGesture(eventType: "pinch", callback: () => void, element: Element): void;
+        offGesture(eventType: "pinchin", callback: () => void, element: Element): void;
+        offGesture(eventType: "pinchout", callback: () => void, element: Element): void;
+        offGesture(eventType: "touch", callback: () => void, element: Element): void;
+        offGesture(eventType: "release", callback: () => void, element: Element): void;
+    }
+
+    interface IUtils
+    {
+        arrayMove(arr: any[], old_index: number, new_index: number): any[];
+        proxy(func: Function, context: any): () => any;
+        debounce(func: Function, wait: number, immediate: boolean): () => any;
+        throttle(func: Function, wait: number, options?: any): () => any;
+        inherit(protoProps: any, staticProps: any): any;
+        extend(obj: any): any;
+        nextUid(): string;
+        disconnectScope(scope: any): void;
+        reconnectScope(scope: any): void;
+        isScopeDisconnected(scope: any): boolean;
+    }
+
     module actionSheet {
         interface IonicActionSheetService {
             show(options: IonicActionSheetOptions): ()=>void;
@@ -205,7 +331,7 @@ declare module ionic {
             scrollBy(left: number, top: number, shouldAnimate?: boolean): void;
             zoomTo(level: number, animate?: boolean, originLeft?: number, originTop?: number): void;
             zoomBy(factor: number, animate?: boolean, originLeft?: number, originTop?: number): void;
-            getScrollPosition(): {left: number, top: number};
+            getScrollPosition(): {left: number; top: number};
             anchorScroll(shouldAnimate?: boolean): void;
             freezeScroll(shouldFreeze?: boolean): boolean;
             freezeAllScrolls(shouldFreeze?: boolean): boolean;
