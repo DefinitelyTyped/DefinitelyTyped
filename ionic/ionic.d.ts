@@ -19,8 +19,8 @@ declare module ionic {
 
     interface IPlatform {
         ready(callback: () => void): void;
-        setGrade(string): void;
-        device(): {any}; //TODO lookup window.device schema
+        setGrade(grade: string): void;
+        device(): {uuid: string}; //TODO lookup window.device schema
         isWebView(): boolean;
         isIPad(): boolean;
         isIOS(): boolean;
@@ -29,7 +29,7 @@ declare module ionic {
         platform(): string;
         version(): number;
         exitApp(): void;
-        showStatusBar(boolean): void;
+        showStatusBar(shouldShow: boolean): void;
         fullScreen(showFullScreen:boolean, showStatusBar:boolean) : void;
         isReady: boolean;
     }
