@@ -5005,11 +5005,24 @@ declare module chrome.pageAction {
 ////////////////////
 // Page Capture
 ////////////////////
+/**
+ * Use the chrome.pageCapture API to save a tab as MHTML. 
+ * Permissions:  "pageCapture"   
+ * @since Chrome 18.
+ */
 declare module chrome.pageCapture {
 	interface SaveDetails {
+		/** The id of the tab to save as MHTML. */
 		tabId: number;
 	}
 
+	/**
+	 * Saves the content of the tab with given id as MHTML. 
+	 * @param callback Called when the MHTML has been generated. 
+	 * The callback parameter should be a function that looks like this:
+	 * function(binary mhtmlData) {...};
+	 * Parameter mhtmlData: The MHTML data as a Blob.  
+	 */    
 	export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData: any) => void): void;
 }
 
