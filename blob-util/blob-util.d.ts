@@ -1,5 +1,5 @@
 // Type definitions for blob-util 1.1.2
-// Project:http://nolanlawson.github.io/blob-util/
+// Project: http://nolanlawson.github.io/blob-util/
 // Definitions by: James Spencer <https://github.com/jfspencer/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
