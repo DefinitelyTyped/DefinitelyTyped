@@ -3,6 +3,8 @@
 // Definitions by: Bill Sears <https://github.com/MrBigDog2U/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../bluebird/bluebird.d.ts" />
+
 interface PouchError {
 	status: number;
 	error: string;
@@ -66,6 +68,7 @@ interface PouchApi {
 	get(id: string, opts: PouchGetOptions, callback: (err: PouchError, res: PouchGetResponse) => void): void;
 	get(id: string, callback: (err: PouchError, res: PouchGetResponse) => void): void;
 	allDocs(opts: PouchAllDocsOptions, callback: (err: PouchError, res: PouchAllDocsResponse) => void): void;
+	allDocs(opts: PouchAllDocsOptions): Promise<any>;
 	allDocs(callback: (err: PouchError, res: PouchAllDocsResponse) => void): void;
 }
 
@@ -96,6 +99,8 @@ interface PouchApi {
 	//
 	put(doc: any, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
 	put(doc: any, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
+	put(doc: any, opts?: PouchUpdateOptions): Promise<{ok: boolean; id: string; rev: string}>;
+	put(doc: {}): Promise<{ok: boolean; id: string; rev: string}>;
 	//
 	// remove == delete
 	//
@@ -210,17 +215,19 @@ interface PouchOptions {
 }
 
 interface PouchDB extends PouchApi {
-    new (name: string, opts: PouchOptions, callback: (err: PouchError, res: PouchDB) => void): PouchDB;
-    new (name: string, callback: (err: PouchError, res: PouchDB) => void): PouchDB;
-    new (name: string): PouchDB;
+	new (name: string, opts: PouchOptions, callback: (err: PouchError, res: PouchDB) => void): PouchDB;
+	new (name: string, callback: (err: PouchError, res: PouchDB) => void): PouchDB;
+	new (name: string, opts?: PouchOptions): PouchDB;
+
 	destroy(name: string, callback: (err: PouchError) => void): void;
+	destroy(name: string): Promise<{ok:boolean}>;
 }
 
 declare var PouchDB: PouchDB;
 
 // Support AMD require
 declare module 'pouchdb' {
-  export = PouchDB;
+	export = PouchDB;
 }
 
 //
