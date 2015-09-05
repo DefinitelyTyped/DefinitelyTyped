@@ -349,6 +349,7 @@ declare module React {
         onInput?: FormEventHandler;
         onSubmit?: FormEventHandler;
         onClick?: MouseEventHandler;
+        onContextMenu?: MouseEventHandler;
         onDoubleClick?: MouseEventHandler;
         onDrag?: DragEventHandler;
         onDragEnd?: DragEventHandler;
