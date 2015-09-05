@@ -5196,6 +5196,96 @@ declare module chrome.power {
 }
 
 ////////////////////
+// Printer Provider
+////////////////////
+/**
+ * The chrome.printerProvider API exposes events used by print manager to query printers controlled by extensions, to query their capabilities and to submit print jobs to these printers. 
+ * Permissions:  "printerProvider"   
+ * @since Chrome 44.
+ */
+declare module chrome.printerProvider {
+	interface PrinterInfo {
+		/** Unique printer ID. */
+		id: string;
+		/** Printer's human readable name. */
+		name: string;
+		/** Optional. Printer's human readable description. */
+		description?: string;
+	}
+	
+	interface PrinterCapabilities {
+		/** Device capabilities in CDD format. */
+		capabilities: any;
+	}
+	
+	interface PrintJob {
+		/** ID of the printer which should handle the job. */
+		printerId: string;
+		/** The print job title. */
+		title: string;
+		/** Print ticket in  CJT format. */
+		ticket: Object;
+		/** The document content type. Supported formats are "application/pdf" and "image/pwg-raster". */
+		contentType: string;
+		/** Blob containing the document data to print. Format must match |contentType|. */
+		document: Blob;
+	}
+	
+	interface PrinterRequestedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(function resultCallback) {...};
+		 * Parameter resultCallback: Callback to return printer list. Every listener must call callback exactly once.  
+		 */
+		addListener(callback: (resultCallback: (printerInfo: PrinterInfo[]) => void) => void): void;
+	}
+	
+	interface PrinterInfoRequestedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function( usb.Device device, function resultCallback) {...};
+		 * Parameter device: The USB device.
+		 * Parameter resultCallback: Callback to return printer info. The receiving listener must call callback exactly once. If the parameter to this callback is undefined that indicates that the application has determined that the device is not supported.   
+		 */
+		addListener(callback: (device: any, resultCallback: (printerInfo?: PrinterInfo) => void) => void): void;
+	}
+	
+	interface CapabilityRequestedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(string printerId, function resultCallback) {...};
+		 * Parameter printerId: Unique ID of the printer whose capabilities are requested. 
+		 * Parameter resultCallback: Callback to return device capabilities in CDD format. The receiving listener must call callback exectly once.  
+		 */
+		addListener(callback: (printerId: string, resultCallback: (capabilities: PrinterCapabilities) => void) => void): void;
+	}
+	
+	interface PrintRequestedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(object printJob, function resultCallback) {...};
+		 * Parameter printJob: The printing request parameters. 
+		 * Parameter resultCallback: Callback that should be called when the printing request is completed.
+		 * Parameter result (for resultCallback):   OK: Operation completed successfully. FAILED: General failure. INVALID_TICKET: Print ticket is invalid. For example, ticket is inconsistent with capabilities or extension is not able to handle all settings from the ticket. INVALID_DATA: Document is invalid. For example, data may be corrupted or the format is incompatible with the extension. 
+		 */
+		addListener(callback: (printJob: PrintJob, resultCallback: (result: string) => void) => void): void;
+	}
+	
+	/** Event fired when print manager requests printers provided by extensions. */
+	export var onGetPrintersRequested: PrinterRequestedEvent;
+	/**
+	 * Event fired when print manager requests information about a USB device that may be a printer. 
+	 * Note: An application should not rely on this event being fired more than once per device. If a connected device is supported it should be returned in the onGetPrintersRequested event.
+	 * @since Chrome 45.
+	 */
+	export var onGetUsbPrinterInfoRequested: PrinterInfoRequestedEvent;
+	/** Event fired when print manager requests printer capabilities. */
+	export var onGetCapabilityRequested: CapabilityRequestedEvent;
+	/** Event fired when print manager requests printing. */
+	export var onPrintRequested: PrintRequestedEvent;
+}
+
+////////////////////
 // Privacy
 ////////////////////
 declare module chrome.privacy {
