@@ -8,9 +8,9 @@
 declare module oboe {
 	interface OboeFunction extends Function {
 		drop: Object;
-		(url: string): oboe.Oboe;
-		(options: oboe.Options): oboe.Oboe;
-		(stream: NodeJS.ReadableStream): oboe.Oboe;
+		(url: string): Oboe;
+		(options: Options): Oboe;
+		(stream: NodeJS.ReadableStream): Oboe;
 	}
 
 	interface Oboe {
