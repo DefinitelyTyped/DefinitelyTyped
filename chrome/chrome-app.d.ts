@@ -152,6 +152,13 @@ declare module chrome.app.window {
         id: string;
         innerBounds: Bounds;
         outerBounds: Bounds;
+
+        onBoundsChanged: BoundsChangedEvent;
+        onClosed: ClosedEvent;
+        onFullscreened: FullscreenedEvent;
+        onMaximized: MaximizedEvent;
+        onMinimized: MinimizedEvent;
+        onRestored: RestoredEvent;
     }
 
     export function create(url: string, options: CreateWindowOptions, callback: (createdWindow: AppWindow) => void): void;
@@ -183,13 +190,6 @@ declare module chrome.app.window {
     interface RestoredEvent extends events.Event {
         addListener(callback: Function): void;
     }
-
-    export const onBoundsChanged: BoundsChangedEvent;
-    export const onClosed: ClosedEvent;
-    export const onFullscreened: FullscreenedEvent;
-    export const onMaximized: MaximizedEvent;
-    export const onMinimized: MinimizedEvent;
-    export const onRestored: RestoredEvent;
 }
 
 /**
@@ -473,7 +473,7 @@ declare module chrome.fileSystem {
     }
 
     export function getDisplayPath(entry: Entry, callback: (displayPath: string) => void): void;
-    export function getWritableEntry(entry: Entry, callback: (displayPath: string) => void): void;
+    export function getWritableEntry(entry: Entry, callback: (entry: Entry) => void): void;
     export function isWritableEntry(entry: Entry, callback: (isWritable: boolean) => void): void;
     export function chooseEntry(options: ChooseEntryOptions, callback: (entry: Entry, fileEntries: FileEntry[]) => void): void;
     export function chooseEntry(callback: (entry: Entry, fileEntries: FileEntry[]) => void): void;
@@ -895,33 +895,33 @@ declare module chrome.sockets.tcp {
         bytesSent?: number;
     }
 
-    interface ReceiveInfo {
+    interface ReceiveEventArgs {
         socketId: number;
         data: ArrayBuffer;
     }
 
-    interface ReceiveErrorInfo {
+    interface ReceiveErrorEventArgs {
         socketId: number;
         resultCode: number;
     }
 
     interface ReceiveEvent extends events.Event {
-        addListener(callback: (info: ReceiveInfo) => void): void;
+        addListener(callback: (info: ReceiveEventArgs) => void): void;
     }
 
     interface ReceiveErrorEvent extends events.Event {
-        addListener(callback: (info: ReceiveErrorInfo) => void): void;
+        addListener(callback: (info: ReceiveErrorEventArgs) => void): void;
     }
 
     export function create(properties: SocketProperties, callback: (createInfo: CreateInfo) => void): void;
     export function create(callback: (createInfo: CreateInfo) => void): void;
     export function update(socketId: number, properties: SocketProperties, callback?: Function): void;
-    export function setPaused(socketId: number, paused: boolean, callback: Function): void;
+    export function setPaused(socketId: number, paused: boolean, callback?: Function): void;
     export function setKeepAlive(socketId: number, enable: boolean, delay: number, callback: (result: number) => void): void;
     export function setKeepAlive(socketId: number, enable: boolean, callback: (result: number) => void): void;
     export function setNoDelay(socketId: number, noDelay: boolean, callback: (result: number) => void): void;
     export function connect(socketId: number, peerAddress: string, peerPort: number, callback: (result: number) => void): void;
-    export function disconnect(socketId: number, callback: Function): void;
+    export function disconnect(socketId: number, callback?: Function): void;
     export function secure(socketId: number, options: TlsOptions, callback: (result: number) => void): void;
     export function secure(socketId: number, callback: (result: number) => void): void;
     export function send(socketId: number, data: ArrayBuffer, callback: (sendInfo: SendInfo) => void): void;
@@ -958,31 +958,31 @@ declare module chrome.sockets.tcpServer {
         socketId: number;
     }
 
-    interface ConnectionAcceptedInfo {
+    interface AcceptEventArgs {
         socketId: number;
         clientSocketId: number;
     }
 
-    interface ConnectionAcceptedErrorInfo {
+    interface AcceptErrorEventArgs {
         socketId: number;
         resultCode: number;
     }
 
     interface AcceptEvent extends events.Event {
-        addListener(callback: (info: ConnectionAcceptedInfo) => void): void;
+        addListener(callback: (info: AcceptEventArgs) => void): void;
     }
 
     interface AcceptErrorEvent extends events.Event {
-        addListener(callback: (info: ConnectionAcceptedErrorInfo) => void): void;
+        addListener(callback: (info: AcceptErrorEventArgs) => void): void;
     }
 
     export function create(properties: SocketProperties, callback: (createInfo: CreateInfo) => void): void;
     export function create(callback: (createInfo: CreateInfo) => void): void;
     export function update(socketId: number, properties: SocketProperties, callback?: Function): void;
-    export function setPaused(socketId: number, paused: boolean, callback: Function): void;
+    export function setPaused(socketId: number, paused: boolean, callback?: Function): void;
     export function listen(socketId: number, address: string, port: number, backlog: number, callback: (result: number) => void): void;
     export function listen(socketId: number, address: string, port: number, callback: (result: number) => void): void;
-    export function disconnect(socketId: number, callback: Function): void;
+    export function disconnect(socketId: number, callback?: Function): void;
     export function close(socketId: number, callback?: Function): void;
     export function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
     export function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
@@ -1022,30 +1022,30 @@ declare module chrome.sockets.udp {
         bytesSent?: number;
     }
 
-    interface ReceiveInfo {
+    interface ReceiveEventArgs {
         socketId: number;
         data: ArrayBuffer;
         remoteAddress: string;
         remotePort: number;
     }
 
-    interface ReceiveErrorInfo {
+    interface ReceiveErrorEventArgs {
         socketId: number;
         resultCode: number;
     }
 
     interface ReceiveEvent extends events.Event {
-        addListener(callback: (info: ReceiveInfo) => void): void;
+        addListener(callback: (info: ReceiveEventArgs) => void): void;
     }
 
     interface ReceiveErrorEvent extends events.Event {
-        addListener(callback: (info: ReceiveErrorInfo) => void): void;
+        addListener(callback: (info: ReceiveErrorEventArgs) => void): void;
     }
 
     export function create(properties: SocketProperties, callback: (createInfo: CreateInfo) => void): void;
     export function create(callback: (createInfo: CreateInfo) => void): void;
     export function update(socketId: number, properties: SocketProperties, callback?: Function): void;
-    export function setPaused(socketId: number, paused: boolean, callback: Function): void;
+    export function setPaused(socketId: number, paused: boolean, callback?: Function): void;
     export function bind(socketId: number, address: string, port: number, callback: (result: number) => void): void;
     export function send(socketId: number, data: ArrayBuffer, address: string, port: number, callback: (sendInfo: SendInfo) => void): void;
     export function close(socketId: number, callback?: Function): void;
