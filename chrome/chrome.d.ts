@@ -2332,6 +2332,10 @@ declare module chrome.printerProvider {
         addListener(callback: (resultCallback: (printerInfo: PrinterInfo[]) => void) => void): void;
     }
 
+    interface OnGetUsbPrinterInfoRequestedEvent extends events.Event {
+        addListener(callback: (device: usb.Device, resultCallback: (printerInfo?: PrinterInfo) => void) => void): void;
+    }
+
     interface OnGetCapabilityRequestedEvent extends events.Event {
         addListener(callback: (printerId: string, resultCallback: (capabilities: Object) => void) => void): void;
     }
@@ -2341,6 +2345,7 @@ declare module chrome.printerProvider {
     }
 
     var onGetPrintersRequested: OnGetPrintersRequestedEvent;
+    var onGetUsbPrinterInfoRequested: OnGetUsbPrinterInfoRequestedEvent;
     var onGetCapabilityRequested: OnGetCapabilityRequestedEvent;
     var onPrintRequested: OnPrintRequestedEvent;
 }
