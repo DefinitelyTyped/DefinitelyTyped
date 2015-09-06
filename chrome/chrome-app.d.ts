@@ -16,7 +16,7 @@ declare module chrome.app.runtime {
         embedderId: string;
         data?: any;
         allow: (url: string) => void;
-        deny: Function;
+        deny: () => void;
     }
 
     interface FileItem {
@@ -42,7 +42,7 @@ declare module chrome.app.runtime {
     }
 
     interface RestartedEvent extends events.Event {
-        addListener(callback: Function): void;
+        addListener(callback: () => void): void;
     }
 
     export const onEmbedRequested: EmbededRequestedEvent;
@@ -124,22 +124,22 @@ declare module chrome.app.window {
     }
 
     interface AppWindow {
-        focus: Function;
-        fullscreen: Function;
+        focus: () => void;
+        fullscreen: () => void;
         isFullscreen: () => boolean;
-        minimize: Function;
+        minimize: () => void;
         isMinimized: () => boolean;
-        maximize: Function;
+        maximize: () => void;
         isMaximized: () => boolean;
-        restore: Function;
+        restore: () => void;
         /** @deprecated since Chrome 43. Use outerBounds. */
         moveTo: (left: number, top: number) => void;
         /** @deprecated since Chrome 43. Use outerBounds. */
         resizeTo: (width: number, height: number) => void;
-        drawAttention: Function;
-        close: Function;
+        drawAttention: () => void;
+        close: () => void;
         show: (focused?: boolean) => void;
-        hide: Function;
+        hide: () => void;
         /** @deprecated  since Chrome 36. Use innerBounds or outerBounds. */
         getBounds: () => ContentBounds;
         /** @deprecated  since Chrome 36. Use innerBounds or outerBounds. */
@@ -168,27 +168,27 @@ declare module chrome.app.window {
     export function canSetVisibleOnAllWorkspaces(): boolean;
 
     interface BoundsChangedEvent extends events.Event {
-        addListener(callback: Function): void;
+        addListener(callback: () => void): void;
     }
 
     interface ClosedEvent extends events.Event {
-        addListener(callback: Function): void;
+        addListener(callback: () => void): void;
     }
 
     interface FullscreenedEvent extends events.Event {
-        addListener(callback: Function): void;
+        addListener(callback: () => void): void;
     }
 
     interface MaximizedEvent extends events.Event {
-        addListener(callback: Function): void;
+        addListener(callback: () => void): void;
     }
 
     interface MinimizedEvent extends events.Event {
-        addListener(callback: Function): void;
+        addListener(callback: () => void): void;
     }
 
     interface RestoredEvent extends events.Event {
-        addListener(callback: Function): void;
+        addListener(callback: () => void): void;
     }
 }
 
@@ -240,8 +240,8 @@ declare module chrome.bluetooth {
     export function getAdapterState(callback: (adapterInfo: AdapterState) => void): void;
     export function getDevice(deviceAddress: string, callback: (deviceInfo: Device) => void): void;
     export function getDevices(callback: (deviceInfos: Device[]) => void): void;
-    export function startDiscovery(callback: Function): void;
-    export function stopDiscovery(callback: Function): void;
+    export function startDiscovery(callback: () => void): void;
+    export function stopDiscovery(callback: () => void): void;
 
     export const onAdapterStateChanged: AdapterStateChangedEvent;
     export const onDeviceAdded: DeviceAddedEvent;
@@ -305,9 +305,9 @@ declare module chrome.bluetoothLowEnergy {
         addListener(callback: (descriptor: Descriptor) => void): void;
     }
 
-    export function connect(deviceAddress: string, properties: ConnectOptions, callback: Function): void;
-    export function connect(deviceAddress: string, callback: Function): void;
-    export function disconnect(deviceAddress: string, callback?: Function): void;
+    export function connect(deviceAddress: string, properties: ConnectOptions, callback: () => void): void;
+    export function connect(deviceAddress: string, callback: () => void): void;
+    export function disconnect(deviceAddress: string, callback?: () => void): void;
     export function getService(serviceId: string, callback: (result: Service) => void): void;
     export function getServices(deviceAddress: string, callback: (result: Service[]) => void): void;
     export function getCharacteristic(characteristicId: string, callback: (result: Characteristic) => void): void;
@@ -316,12 +316,12 @@ declare module chrome.bluetoothLowEnergy {
     export function getDescriptor(descriptorId: string, callback: (result: Descriptor) => void): void;
     export function getDescriptors(characteristicId: string, callback: (result: Descriptor[]) => void): void;
     export function readCharacteristicValue(characteristicId: string, callback: (result: Characteristic) => void): void;
-    export function writeCharacteristicValue(characteristicId: string, value: ArrayBuffer, callback: Function): void;
-    export function startCharacteristicNotifications(characteristicId: string, properties: NotificationSessionProperty, callback: Function): void;
-    export function startCharacteristicNotifications(characteristicId: string, callback: Function): void;
-    export function stopCharacteristicNotifications(characteristicId: string, callback?: Function): void;
+    export function writeCharacteristicValue(characteristicId: string, value: ArrayBuffer, callback: () => void): void;
+    export function startCharacteristicNotifications(characteristicId: string, properties: NotificationSessionProperty, callback: () => void): void;
+    export function startCharacteristicNotifications(characteristicId: string, callback: () => void): void;
+    export function stopCharacteristicNotifications(characteristicId: string, callback?: () => void): void;
     export function readDescriptorValue(descriptorId: string, callback: (result: Descriptor) => void): void;
-    export function writeDescriptorValue(descriptorId: string, value: ArrayBuffer, callback: Function): void;
+    export function writeDescriptorValue(descriptorId: string, value: ArrayBuffer, callback: () => void): void;
 
     export const onServiceAdded: ServiceAddedEvent;
     export const onServiceChanged: ServiceChangedEvent;
@@ -402,15 +402,15 @@ declare module chrome.bluetoothSocket {
 
     export function create(properties: SocketProperties, callback: (createInfo: CreateInfo) => void): void;
     export function create(callback: (createInfo: CreateInfo) => void): void;
-    export function update(socketId: number, properties: SocketProperties, callback?: Function): void;
-    export function setPaused(socketId: number, paused: boolean, callback?: Function): void;
-    export function listenUsingRfcomm(socketId: number, uuid: string, options: ListenOptions, callback: Function): void;
-    export function listenUsingRfcomm(socketId: number, uuid: string, callback: Function): void;
-    export function listenUsingL2cap(socketId: number, uuid: string, options: ListenOptions, callback: Function): void;
-    export function listenUsingL2cap(socketId: number, uuid: string, callback: Function): void;
-    export function connect(socketId: number, address: string, uuid: string, callback: Function): void;
-    export function disconnect(socketId: number, callback?: Function): void;
-    export function close(socketId: number, callback?: Function): void;
+    export function update(socketId: number, properties: SocketProperties, callback?: () => void): void;
+    export function setPaused(socketId: number, paused: boolean, callback?: () => void): void;
+    export function listenUsingRfcomm(socketId: number, uuid: string, options: ListenOptions, callback: () => void): void;
+    export function listenUsingRfcomm(socketId: number, uuid: string, callback: () => void): void;
+    export function listenUsingL2cap(socketId: number, uuid: string, options: ListenOptions, callback: () => void): void;
+    export function listenUsingL2cap(socketId: number, uuid: string, callback: () => void): void;
+    export function connect(socketId: number, address: string, uuid: string, callback: () => void): void;
+    export function disconnect(socketId: number, callback?: () => void): void;
+    export function close(socketId: number, callback?: () => void): void;
     export function send(socketId: number, data: ArrayBuffer, callback?: (bytesSent: number) => void): void;
     export function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
     export function getSockets(callback: (sockets: SocketInfo[]) => void): void;
@@ -430,7 +430,7 @@ declare module chrome.browser {
         url: string;
     }
 
-    export function openTab(options: TabOpenOptions, callback?: Function): void;
+    export function openTab(options: TabOpenOptions, callback?: () => void): void;
 }
 
 /**
@@ -545,11 +545,11 @@ declare module chrome.hid {
     export function getUserSelectedDevices(options: GetUserSelectedDevicesOptions, callback: (devices: HidDeviceInfo[]) => void): void;
     export function getUserSelectedDevices(callback: (devices: HidDeviceInfo[]) => void): void;
     export function connect(deviceId: number, callback: (connectionId: number) => void): void;
-    export function disconnect(connectionId: number, callback: Function): void;
+    export function disconnect(connectionId: number, callback: () => void): void;
     export function receive(connectionId: number, callback: (reportId: number, data: ArrayBuffer) => void): void;
-    export function send(connectionId: number, reportId: number, data: ArrayBuffer, callback: Function): void;
+    export function send(connectionId: number, reportId: number, data: ArrayBuffer, callback: () => void): void;
     export function receiveFeatureReport(connectionId: number, reportId: number, callback: (data: ArrayBuffer) => void): void;
-    export function sendFeatureReport(connectionId: number, reportId: number, data: ArrayBuffer, callback: Function): void;
+    export function sendFeatureReport(connectionId: number, reportId: number, data: ArrayBuffer, callback: () => void): void;
 
     export const onDeviceAdded: DeviceAddedEvent;
     export const onDeviceRemoved: DeviceRemovedEvent;
@@ -639,7 +639,7 @@ declare module chrome.mediaGalleries {
     export function getMediaFileSystems(details: GetMediaFileSystemsDetails, callback: (mediaFileSystems: FileSystem[]) => void): void;
     export function getMediaFileSystems(callback: (mediaFileSystems: FileSystem[]) => void): void;
     export function addUserSelectedFolder(callback: (mediaFileSystems: FileSystem[], selectedFileSystemName: string) => void): void;
-    export function dropPermissionForMediaFileSystem(galleryId: string, callback?: Function): void;
+    export function dropPermissionForMediaFileSystem(galleryId: string, callback?: () => void): void;
     export function startMediaScan(): void;
     export function cancelMediaScan(): void;
     export function addScanResults(callback: (mediaFileSystems: FileSystem[]) => void): void;
@@ -673,7 +673,7 @@ declare module chrome.mdns {
     }
 
     export const MAX_SERVICE_INSTANCES_PER_EVENT: number;
-    export function forceDiscovery(callback: Function): void;
+    export function forceDiscovery(callback: () => void): void;
 
     export const onServiceList: ServiceListEvent;
 }
@@ -757,7 +757,7 @@ declare module chrome.serial {
     export function connect(path: string, options: ConnectionOptions, callback: (connectionInfo: ConnectionInfo) => void): void;
     export function update(connectionId: number, options: ConnectionOptions, callback: (result: boolean) => void): void;
     export function disconnect(connectionId: number, callback: (result: boolean) => void): void;
-    export function setPaused(connectionId: number, paused: boolean, callback: Function): void;
+    export function setPaused(connectionId: number, paused: boolean, callback: () => void): void;
     export function getInfo(connectionId: number, callback: (connectionInfo: ConnectionInfo) => void): void;
     export function getConnections(callback: (connectionInfos: ConnectionInfo[]) => void): void;
     export function send(connectionId: number, data: ArrayBuffer, callback: (sendInfo: SendInfo) => void): void;
@@ -915,17 +915,17 @@ declare module chrome.sockets.tcp {
 
     export function create(properties: SocketProperties, callback: (createInfo: CreateInfo) => void): void;
     export function create(callback: (createInfo: CreateInfo) => void): void;
-    export function update(socketId: number, properties: SocketProperties, callback?: Function): void;
-    export function setPaused(socketId: number, paused: boolean, callback?: Function): void;
+    export function update(socketId: number, properties: SocketProperties, callback?: () => void): void;
+    export function setPaused(socketId: number, paused: boolean, callback?: () => void): void;
     export function setKeepAlive(socketId: number, enable: boolean, delay: number, callback: (result: number) => void): void;
     export function setKeepAlive(socketId: number, enable: boolean, callback: (result: number) => void): void;
     export function setNoDelay(socketId: number, noDelay: boolean, callback: (result: number) => void): void;
     export function connect(socketId: number, peerAddress: string, peerPort: number, callback: (result: number) => void): void;
-    export function disconnect(socketId: number, callback?: Function): void;
+    export function disconnect(socketId: number, callback?: () => void): void;
     export function secure(socketId: number, options: TlsOptions, callback: (result: number) => void): void;
     export function secure(socketId: number, callback: (result: number) => void): void;
     export function send(socketId: number, data: ArrayBuffer, callback: (sendInfo: SendInfo) => void): void;
-    export function close(socketId: number, callback?: Function): void;
+    export function close(socketId: number, callback?: () => void): void;
     export function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
     export function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
 
@@ -978,12 +978,12 @@ declare module chrome.sockets.tcpServer {
 
     export function create(properties: SocketProperties, callback: (createInfo: CreateInfo) => void): void;
     export function create(callback: (createInfo: CreateInfo) => void): void;
-    export function update(socketId: number, properties: SocketProperties, callback?: Function): void;
-    export function setPaused(socketId: number, paused: boolean, callback?: Function): void;
+    export function update(socketId: number, properties: SocketProperties, callback?: () => void): void;
+    export function setPaused(socketId: number, paused: boolean, callback?: () => void): void;
     export function listen(socketId: number, address: string, port: number, backlog: number, callback: (result: number) => void): void;
     export function listen(socketId: number, address: string, port: number, callback: (result: number) => void): void;
-    export function disconnect(socketId: number, callback?: Function): void;
-    export function close(socketId: number, callback?: Function): void;
+    export function disconnect(socketId: number, callback?: () => void): void;
+    export function close(socketId: number, callback?: () => void): void;
     export function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
     export function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
 
@@ -1044,11 +1044,11 @@ declare module chrome.sockets.udp {
 
     export function create(properties: SocketProperties, callback: (createInfo: CreateInfo) => void): void;
     export function create(callback: (createInfo: CreateInfo) => void): void;
-    export function update(socketId: number, properties: SocketProperties, callback?: Function): void;
-    export function setPaused(socketId: number, paused: boolean, callback?: Function): void;
+    export function update(socketId: number, properties: SocketProperties, callback?: () => void): void;
+    export function setPaused(socketId: number, paused: boolean, callback?: () => void): void;
     export function bind(socketId: number, address: string, port: number, callback: (result: number) => void): void;
     export function send(socketId: number, data: ArrayBuffer, address: string, port: number, callback: (sendInfo: SendInfo) => void): void;
-    export function close(socketId: number, callback?: Function): void;
+    export function close(socketId: number, callback?: () => void): void;
     export function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
     export function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
     export function joinGroup(socketId: number, address: string, callback: (result: number) => void): void;
@@ -1101,7 +1101,7 @@ declare module chrome.syncFileSystem {
     }
 
     export function requestFileSystem(callback: (fileSystem: FileSystem) => void): void;
-    export function setConflictResolutionPolicy(policy: string, callback?: Function): void;
+    export function setConflictResolutionPolicy(policy: string, callback?: () => void): void;
     export function getConflictResolutionPolicy(callback: (policy: string) => void): void;
     export function getUsageAndQuota(fileSystem: FileSystem, callback: (info: UsageAndQuotaInfo) => void): void;
     export function getFileStatus(entry: FileEntry, callback: (status: string) => void): void;
@@ -1155,11 +1155,11 @@ declare module chrome.system.display {
     }
 
     interface DisplayChangedEvent extends events.Event {
-        addListener(callback: Function): void;
+        addListener(callback: () => void): void;
     }
 
     export function getInfo(callback: (displayInfo: DisplayInfo[]) => void): void;
-    export function setDisplayProperties(id: string, info: DisplayProperties, callback: Function): void;
+    export function setDisplayProperties(id: string, info: DisplayProperties, callback: () => void): void;
 
     export const onDisplayChanged: DisplayChangedEvent;
 }
