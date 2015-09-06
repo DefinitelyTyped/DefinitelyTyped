@@ -1090,3 +1090,7 @@ declare module CodeMirror {
         to?: Position;
     }
 }
+
+declare module "codemirror" {
+    export = CodeMirror;
+}
