@@ -65,7 +65,7 @@ declare module chrome.alarms {
     export function get(callback: (alarm: Alarm) => void): void;
     export function get(name: string, callback: (alarm: Alarm) => void): void;
 
-    var onAlarm: AlarmEvent;
+    export const onAlarm: AlarmEvent;
 }
 
 /**
@@ -179,13 +179,13 @@ declare module chrome.bookmarks {
     export function getSubTree(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
     export function removeTree(id: string, callback?: Function): void;
 
-    var onRemoved: BookmarkRemovedEvent;
-    var onImportEnded: BookmarkImportEndedEvent;
-    var onImportBegan: BookmarkImportBeganEvent;
-    var onChanged: BookmarkChangedEvent;
-    var onMoved: BookmarkMovedEvent;
-    var onCreated: BookmarkCreatedEvent;
-    var onChildrenReordered: BookmarkChildrenReordered;
+    export const onRemoved: BookmarkRemovedEvent;
+    export const onImportEnded: BookmarkImportEndedEvent;
+    export const onImportBegan: BookmarkImportBeganEvent;
+    export const onChanged: BookmarkChangedEvent;
+    export const onMoved: BookmarkMovedEvent;
+    export const onCreated: BookmarkCreatedEvent;
+    export const onChildrenReordered: BookmarkChildrenReordered;
 }
 
 /**
@@ -262,7 +262,7 @@ declare module chrome.browserAction {
     export function getPopup(details: TabDetails, callback: (result: string) => void): void;
     export function setIcon(details: TabIconDetails, callback?: Function): void;
 
-    var onClicked: BrowserClickedEvent;
+    export const onClicked: BrowserClickedEvent;
 }
 
 /**
@@ -341,7 +341,7 @@ declare module chrome.commands {
 
     export function getAll(callback: (commands: Command[]) => void): void;
 
-    var onCommand: CommandEvent;
+    export const onCommand: CommandEvent;
 }
 
 /**
@@ -449,7 +449,7 @@ declare module chrome.contextMenus {
 
     export const ACTION_MENU_TOP_LEVEL_LIMIT: number;
 
-    var onClicked: MenuClickedEvent;
+    export const onClicked: MenuClickedEvent;
 }
 
 /**
@@ -518,7 +518,7 @@ declare module chrome.cookies {
     export function remove(details: Details, callback?: (details?: Details) => void): void;
     export function get(details: Details, callback: (cookie?: Cookie) => void): void;
 
-    var onChanged: CookieChangedEvent;
+    export const onChanged: CookieChangedEvent;
 }
 
 /**
@@ -559,8 +559,8 @@ declare module "chrome.debugger" {
     export function sendCommand(target: Debuggee, method: string, commandParams?: Object, callback?: (result?: Object) => void): void;
     export function getTargets(callback: (result: TargetInfo[]) => void): void;
 
-    var onDetach: DebuggerDetachedEvent;
-    var onEvent: DebuggerEventEvent;
+    export const onDetach: DebuggerDetachedEvent;
+    export const onEvent: DebuggerEventEvent;
 }
 
 /**
@@ -601,7 +601,7 @@ declare module chrome.declarativeContent {
     interface PageChangedEvent extends events.Event {
     }
 
-    var onPageChanged: PageChangedEvent;
+    export const onPageChanged: PageChangedEvent;
 }
 
 /**
@@ -758,8 +758,8 @@ declare module chrome.declarativeWebRequest {
         addListener(callback: (result: MessageDetails) => void): void;
     }
 
-    var onRequest: RequestedEvent;
-    var onMessage: MessageEvent;
+    export const onRequest: RequestedEvent;
+    export const onMessage: MessageEvent;
 }
 
 /**
@@ -818,8 +818,8 @@ declare module chrome.devtools.inspectedWindow {
     export function eval(expression: string, options?: EvalOptions, callback?: (result: Object, exceptionInfo: ExceptionInfo) => void): void;
     export function getResources(callback: (resources: Resource[]) => void): void;
 
-    var onResourceAdded: ResourceAddedEvent;
-    var onResourceContentCommitted: ResourceContentCommittedEvent;
+    export const onResourceAdded: ResourceAddedEvent;
+    export const onResourceContentCommitted: ResourceContentCommittedEvent;
 }
 
 /**
@@ -841,8 +841,8 @@ declare module chrome.devtools.network {
 
     export function getHAR(callback: (harLog: Object) => void): void;
 
-    var onRequestFinished: RequestFinishedEvent;
-    var onNavigated: NavigatedEvent;
+    export const onRequestFinished: RequestFinishedEvent;
+    export const onNavigated: NavigatedEvent;
 }
 
 /**
@@ -1094,9 +1094,9 @@ declare module chrome.downloads {
     export function drag(downloadId: number): void;
     export function setShelfEnabled(enabled: boolean): void;
 
-    var onChanged: DownloadChangedEvent;
-    var onCreated: DownloadCreatedEvent;
-    var onErased: DownloadErasedEvent;
+    export const onChanged: DownloadChangedEvent;
+    export const onCreated: DownloadCreatedEvent;
+    export const onErased: DownloadErasedEvent;
 }
 
 /**
@@ -1243,7 +1243,7 @@ declare module chrome.fileBrowserHandler {
 
     export function selectFile(selectionParams: SelectionParams, callback: (result: SelectionResult) => void): void;
 
-    var onExecute: FileBrowserHandlerExecuteEvent;
+    export const onExecute: FileBrowserHandlerExecuteEvent;
 }
 
 /**
@@ -1519,24 +1519,24 @@ declare module chrome.fileSystemProvider {
     export function get(fileSystemId: string, callback: (fileSystem: FileSystemInfo) => void): void;
     export function notify(options: NotifyOptions, callback?: Function): void;
 
-    var onUnmountRequested: UnmountedRequestedEvent;
-    var onGetMetadataRequested: GetMetadataRequestedEvent;
-    var onReadDirectoryRequested: ReadDirectoryRequestedEvent;
-    var onOpenFileRequested: OpenFileRequestedEvent;
-    var onCloseFileRequested: CloseFileRequestedEvent;
-    var onReadFileRequested: ReadFileRequestedEvent;
-    var onCreateDirectoryRequested: CreateDirectoryRequestedEvent;
-    var onDeleteEntryRequested: DeleteEntryRequestedEvent;
-    var onCreateFileRequested: CreateFileRequestedEvent;
-    var onCopyEntryRequested: CopyEntryRequestedEvent;
-    var onMoveEntryRequested: MoveEntryRequestedEvent;
-    var onTruncateRequested: TruncateRequestedEvent;
-    var onWriteFileRequested: WriteFileRequestedEvent;
-    var onAbortRequested: AbortRequestedEvent;
-    var onConfigureRequested: ConfigureRequestedEvent;
-    var onMountRequested: MountRequestedEvent;
-    var onAddWatcherRequested: AddWatcherRequestedEvent;
-    var onRemoveWatcherRequested: RemoveWatcherRequestedEvent;
+    export const onUnmountRequested: UnmountedRequestedEvent;
+    export const onGetMetadataRequested: GetMetadataRequestedEvent;
+    export const onReadDirectoryRequested: ReadDirectoryRequestedEvent;
+    export const onOpenFileRequested: OpenFileRequestedEvent;
+    export const onCloseFileRequested: CloseFileRequestedEvent;
+    export const onReadFileRequested: ReadFileRequestedEvent;
+    export const onCreateDirectoryRequested: CreateDirectoryRequestedEvent;
+    export const onDeleteEntryRequested: DeleteEntryRequestedEvent;
+    export const onCreateFileRequested: CreateFileRequestedEvent;
+    export const onCopyEntryRequested: CopyEntryRequestedEvent;
+    export const onMoveEntryRequested: MoveEntryRequestedEvent;
+    export const onTruncateRequested: TruncateRequestedEvent;
+    export const onWriteFileRequested: WriteFileRequestedEvent;
+    export const onAbortRequested: AbortRequestedEvent;
+    export const onConfigureRequested: ConfigureRequestedEvent;
+    export const onMountRequested: MountRequestedEvent;
+    export const onAddWatcherRequested: AddWatcherRequestedEvent;
+    export const onRemoveWatcherRequested: RemoveWatcherRequestedEvent;
 }
 
 /**
@@ -1614,10 +1614,10 @@ declare module chrome.fontSettings {
     export function getFontList(callback: (results: FontName[]) => void): void;
     export function clearDefaultFixedFontSize(details?: Object, callback?: Function): void;
 
-    var onDefaultFixedFontSizeChanged: DefaultFixedFontSizeChangedEvent;
-    var onDefaultFontSizeChanged: DefaultFontSizeChangedEvent;
-    var onMinimumFontSizeChanged: MinimumFontSizeChangedEvent;
-    var onFontChanged: FontChangedEvent;
+    export const onDefaultFixedFontSizeChanged: DefaultFixedFontSizeChangedEvent;
+    export const onDefaultFontSizeChanged: DefaultFontSizeChangedEvent;
+    export const onMinimumFontSizeChanged: MinimumFontSizeChangedEvent;
+    export const onFontChanged: FontChangedEvent;
 }
 
 /**
@@ -1663,9 +1663,9 @@ declare module chrome.gcm {
     export function unregister(callback: Function): void;
     export function send(message: SendMessage, callback: (messageId: string) => void): void;
 
-    var onMessage: MessageEvent;
-    var onMessagesDeleted: MessagesDeletedEvent;
-    var onSendError: SendErrorEvent;
+    export const onMessage: MessageEvent;
+    export const onMessagesDeleted: MessagesDeletedEvent;
+    export const onSendError: SendErrorEvent;
 }
 
 /**
@@ -1727,8 +1727,8 @@ declare module chrome.history {
     export function getVisits(details: Url, callback: (results: VisitItem[]) => void): void;
     export function deleteUrl(details: Url, callback?: Function): void;
 
-    var onVisited: HistoryVisitedEvent;
-    var onVisitRemoved: HistoryVisitRemovedEvent;
+    export const onVisited: HistoryVisitedEvent;
+    export const onVisitRemoved: HistoryVisitRemovedEvent;
 }
 
 /**
@@ -1780,7 +1780,7 @@ declare module chrome.identity {
     export function launchWebAuthFlow(details: WebAuthFlowOptions, callback: (responseUrl: string) => void): void;
     export function getRedirectURL(path?: string): void;
 
-    var onSignInChanged: SignInChangedEvent;
+    export const onSignInChanged: SignInChangedEvent;
 }
 
 /**
@@ -1795,7 +1795,7 @@ declare module chrome.idle {
     export function queryState(detectionIntervalInSeconds: number, callback: (newState: string) => void): void;
     export function setDetectionInterval(intervalInSeconds: number): void;
 
-    var onStateChanged: IdleStateChangedEvent;
+    export const onStateChanged: IdleStateChangedEvent;
 }
 
 /**
@@ -1958,16 +1958,16 @@ declare module chrome.input.ime {
     export function deleteSurroundingText(parameters: SurroundingTextParameters, callback: Function): void;
     export function keyEventHandled(requestId: string, response: boolean): void;
 
-    var onBlur: BlurEvent;
-    var onCandidateClicked: CandidateClickedEvent;
-    var onKeyEvent: KeyEventEvent;
-    var onDeactivated: DeactivatedEvent;
-    var onInputContextUpdate: InputContextUpdateEvent;
-    var onActivate: ActivateEvent;
-    var onFocus: FocusEvent;
-    var onMenuItemActivated: MenuItemActivatedEvent;
-    var onSurroundingTextChanged: SurroundingTextChangedEvent;
-    var onReset: ResetEvent;
+    export const onBlur: BlurEvent;
+    export const onCandidateClicked: CandidateClickedEvent;
+    export const onKeyEvent: KeyEventEvent;
+    export const onDeactivated: DeactivatedEvent;
+    export const onInputContextUpdate: InputContextUpdateEvent;
+    export const onActivate: ActivateEvent;
+    export const onFocus: FocusEvent;
+    export const onMenuItemActivated: MenuItemActivatedEvent;
+    export const onSurroundingTextChanged: SurroundingTextChangedEvent;
+    export const onReset: ResetEvent;
 }
 
 /**
@@ -2036,10 +2036,10 @@ declare module chrome.management {
     export function createAppShortcut(id: string, launchType: string, callback?: Function): void;
     export function generateAppForLink(url: string, title: string, callback?: (result: ExtensionInfo) => void): void;
 
-    var onDisabled: ManagementDisabledEvent;
-    var onUninstalled: ManagementUninstalledEvent;
-    var onInstalled: ManagementInstalledEvent;
-    var onEnabled: ManagementEnabledEvent;
+    export const onDisabled: ManagementDisabledEvent;
+    export const onUninstalled: ManagementUninstalledEvent;
+    export const onInstalled: ManagementInstalledEvent;
+    export const onEnabled: ManagementEnabledEvent;
 }
 
 /**
@@ -2063,7 +2063,7 @@ declare module chrome.networking.config {
     export function setNetworkFilter(networks: NetworkInfo, callback: Function): void;
     export function finishAuthentication(GUID: string, result: string, callback?: Function): void;
 
-    var onCaptivePortalDetected: CaptivePortalDetectedEvent;
+    export const onCaptivePortalDetected: CaptivePortalDetectedEvent;
 }
 
 /**
@@ -2125,11 +2125,11 @@ declare module chrome.notifications {
     export function getAll(callback: (notifications: Object) => void): void;
     export function getPermissionLevel(callback: (level: string) => void): void;
 
-    var onClosed: OnClosedEvent;
-    var onClicked: OnClickedEvent;
-    var onButtonClicked: OnButtonClicked;
-    var onPermissionLevelChanged: OnPermissionLevelChangedEvent;
-    var onShowSettings: OnShowSettingsEvent;
+    export const onClosed: OnClosedEvent;
+    export const onClicked: OnClickedEvent;
+    export const onButtonClicked: OnButtonClicked;
+    export const onPermissionLevelChanged: OnPermissionLevelChangedEvent;
+    export const onShowSettings: OnShowSettingsEvent;
 }
 
 /**
@@ -2163,10 +2163,10 @@ declare module chrome.omnibox {
 
     export function setDefaultSuggestion(suggestion: Suggestion): void;
 
-    var onInputEntered: OmniboxInputEnteredEvent;
-    var onInputChanged: OmniboxInputChangedEvent;
-    var onInputStarted: OmniboxInputStartedEvent;
-    var onInputCancelled: OmniboxInputCancelledEvent;
+    export const onInputEntered: OmniboxInputEnteredEvent;
+    export const onInputChanged: OmniboxInputChangedEvent;
+    export const onInputStarted: OmniboxInputStartedEvent;
+    export const onInputCancelled: OmniboxInputCancelledEvent;
 }
 
 /**
@@ -2220,7 +2220,7 @@ declare module chrome.pageAction {
     export function getPopup(details: GetDetails, callback: (result: string) => void): void;
     export function setIcon(details: IconDetails, callback?: Function): void;
 
-    var onClicked: PageActionClickedEvent;
+    export const onClicked: PageActionClickedEvent;
 }
 
 /**
@@ -2257,8 +2257,8 @@ declare module chrome.permissions {
     export function request(permissions: Permissions, callback?: (granted: boolean) => void): void;
     export function remove(permissions: Permissions, callback?: (removed: boolean) => void): void;
 
-    var onRemoved: PermissionsRemovedEvent;
-    var onAdded: PermissionsAddedEvent;
+    export const onRemoved: PermissionsRemovedEvent;
+    export const onAdded: PermissionsAddedEvent;
 }
 
 /**
@@ -2344,10 +2344,10 @@ declare module chrome.printerProvider {
         addListener(callback: (printJob: PrintJob, resultCallback: (result: string) => void) => void): void;
     }
 
-    var onGetPrintersRequested: OnGetPrintersRequestedEvent;
-    var onGetUsbPrinterInfoRequested: OnGetUsbPrinterInfoRequestedEvent;
-    var onGetCapabilityRequested: OnGetCapabilityRequestedEvent;
-    var onPrintRequested: OnPrintRequestedEvent;
+    export const onGetPrintersRequested: OnGetPrintersRequestedEvent;
+    export const onGetUsbPrinterInfoRequested: OnGetUsbPrinterInfoRequestedEvent;
+    export const onGetCapabilityRequested: OnGetCapabilityRequestedEvent;
+    export const onPrintRequested: OnPrintRequestedEvent;
 }
 
 /**
@@ -2433,7 +2433,7 @@ declare module chrome.proxy {
 
     export const settings: types.ChromeSetting;
 
-    var onProxyError: ProxyErrorEvent;
+    export const onProxyError: ProxyErrorEvent;
 }
 
 /**
@@ -2559,16 +2559,16 @@ declare module chrome.runtime {
     export function setUninstallUrl(url: string): void;
     export function openOptionsPage(callback: Function): void;
 
-    var onConnect: ExtensionConnectEvent;
-    var onConnectExternal: ExtensionConnectExternalEvent;
-    var onSuspend: RuntimeSuspendEvent;
-    var onStartup: RuntimeStartupEvent;
-    var onInstalled: RuntimeInstalledEvent;
-    var onSuspendCanceled: RuntimeSuspendCanceledEvent;
-    var onMessage: ExtensionMessageEvent;
-    var onMessageExternal: ExtensionMessageExternalEvent;
-    var onRestartRequired: RuntimeRestartRequiredEvent;
-    var onUpdateAvailable: RuntimeUpdateAvailableEvent;
+    export const onConnect: ExtensionConnectEvent;
+    export const onConnectExternal: ExtensionConnectExternalEvent;
+    export const onSuspend: RuntimeSuspendEvent;
+    export const onStartup: RuntimeStartupEvent;
+    export const onInstalled: RuntimeInstalledEvent;
+    export const onSuspendCanceled: RuntimeSuspendCanceledEvent;
+    export const onMessage: ExtensionMessageEvent;
+    export const onMessageExternal: ExtensionMessageExternalEvent;
+    export const onRestartRequired: RuntimeRestartRequiredEvent;
+    export const onUpdateAvailable: RuntimeUpdateAvailableEvent;
 }
 
 /**
@@ -2603,7 +2603,7 @@ declare module chrome.sessions {
 
     export const MAX_SESSION_RESULTS: number;
 
-    var onChanged: ChangedEvent;
+    export const onChanged: ChangedEvent;
 }
 
 /**
@@ -2647,7 +2647,7 @@ declare module chrome.storage {
     export const sync: Sync;
     export const managed: StorageArea;
 
-    var onChanged: StorageChangedEvent;
+    export const onChanged: StorageChangedEvent;
 }
 
 /**
@@ -2720,8 +2720,8 @@ declare module chrome.system.storage {
     export function ejectDevice(id: string, callback: (result: string) => void): void;
     export function getAvailableCapacity(id: string, callback: (info: StorageDeviceCapacityInformation) => void): void;
 
-    var onAttached: DeviceAttachedEvent;
-    var onDetached: DeviceDetachedEvent;
+    export const onAttached: DeviceAttachedEvent;
+    export const onDetached: DeviceDetachedEvent;
 }
 
 /**
@@ -2749,7 +2749,7 @@ declare module chrome.tabCapture {
     export function capture(options: CaptureOptions, callback: (stream: MediaStream) => void): void;
     export function getCapturedTabs(callback: (result: CaptureInfo[]) => void): void;
 
-    var onStatusChanged: StatusChangedEvent;
+    export const onStatusChanged: StatusChangedEvent;
 }
 
 /**
@@ -2979,16 +2979,16 @@ declare module chrome.tabs {
     export function getZoomSettings(callback: (zoomSettings: ZoomSettings) => void): void;
     export function getZoomSettings(tabId: number, callback: (zoomSettings: ZoomSettings) => void): void;
 
-    var onHighlighted: TabHighlightedEvent;
-    var onRemoved: TabRemovedEvent;
-    var onUpdated: TabUpdatedEvent;
-    var onAttached: TabAttachedEvent;
-    var onMoved: TabMovedEvent;
-    var onDetached: TabDetachedEvent;
-    var onCreated: TabCreatedEvent;
-    var onActivated: TabActivatedEvent;
-    var onReplaced: TabReplacedEvent;
-    var onZoomChange: TabZoomChangedEvent;
+    export const onHighlighted: TabHighlightedEvent;
+    export const onRemoved: TabRemovedEvent;
+    export const onUpdated: TabUpdatedEvent;
+    export const onAttached: TabAttachedEvent;
+    export const onMoved: TabMovedEvent;
+    export const onDetached: TabDetachedEvent;
+    export const onCreated: TabCreatedEvent;
+    export const onActivated: TabActivatedEvent;
+    export const onReplaced: TabReplacedEvent;
+    export const onZoomChange: TabZoomChangedEvent;
 }
 
 /**
@@ -3078,10 +3078,10 @@ declare module chrome.ttsEngine {
         addListener(callback: Function);
     }
 
-    var onSpeak: TtsEngineSpeakEvent;
-    var onStop: TtsEngineStopEvent;
-    var onPause: TtsEnginePauseEvent;
-    var onResume: TtsEngineResumeEvent;
+    export const onSpeak: TtsEngineSpeakEvent;
+    export const onStop: TtsEngineStopEvent;
+    export const onPause: TtsEnginePauseEvent;
+    export const onResume: TtsEngineResumeEvent;
 }
 
 /**
@@ -3263,8 +3263,8 @@ declare module chrome.usb {
     export function isochronousTransfer(handle: ConnectionHandle, transferInfo: IsochronousTransferInfo, callback: (info: TransferResultInfo) => void): void;
     export function resetDevice(handle: ConnectionHandle, callback: (success: boolean) => void): void;
 
-    var onDeviceAdded: DeviceAddedEvent;
-    var onDeviceRemoved: DeviceRemovedEvent;
+    export const onDeviceAdded: DeviceAddedEvent;
+    export const onDeviceRemoved: DeviceRemovedEvent;
 }
 
 /**
@@ -3308,11 +3308,11 @@ declare module chrome.vpnProvider {
     export function sendPacket(data: ArrayBuffer, callback?: Function): void;
     export function notifyConnectionStateChanged(state: string, callback?: Function): void;
 
-    var onPlatformMessage: PlataformMessageEvent;
-    var onPacketReceived: PacketReceivedEvent;
-    var onConfigRemoved: ConfigRemovedEvent;
-    var onConfigCreated: ConfigCreatedEvent;
-    var onUIEvent: UIEventEvent;
+    export const onPlatformMessage: PlataformMessageEvent;
+    export const onPacketReceived: PacketReceivedEvent;
+    export const onConfigRemoved: ConfigRemovedEvent;
+    export const onConfigCreated: ConfigCreatedEvent;
+    export const onUIEvent: UIEventEvent;
 }
 
 /**
@@ -3450,15 +3450,15 @@ declare module chrome.webNavigation {
     export function getFrame(details: GetFrameDetails, callback: (details?: GetFrameResultDetails) => void): void;
     export function getAllFrames(details: GetAllFrameDetails, callback: (details?: GetAllFrameResultDetails[]) => void): void;
 
-    var onReferenceFragmentUpdated: WebNavigationReferenceFragmentUpdatedEvent;
-    var onCompleted: WebNavigationCompletedEvent;
-    var onHistoryStateUpdated: WebNavigationHistoryStateUpdatedEvent;
-    var onCreatedNavigationTarget: WebNavigationCreatedNavigationTargetEvent;
-    var onTabReplaced: WebNavigationTabReplacedEvent;
-    var onBeforeNavigate: WebNavigationBeforeNavigateEvent;
-    var onCommitted: WebNavigationCommittedEvent;
-    var onDOMContentLoaded: WebNavigationDomContentLoadedEvent;
-    var onErrorOccurred: WebNavigationErrorOccurredEvent;
+    export const onReferenceFragmentUpdated: WebNavigationReferenceFragmentUpdatedEvent;
+    export const onCompleted: WebNavigationCompletedEvent;
+    export const onHistoryStateUpdated: WebNavigationHistoryStateUpdatedEvent;
+    export const onCreatedNavigationTarget: WebNavigationCreatedNavigationTargetEvent;
+    export const onTabReplaced: WebNavigationTabReplacedEvent;
+    export const onBeforeNavigate: WebNavigationBeforeNavigateEvent;
+    export const onCommitted: WebNavigationCommittedEvent;
+    export const onDOMContentLoaded: WebNavigationDomContentLoadedEvent;
+    export const onErrorOccurred: WebNavigationErrorOccurredEvent;
 }
 
 /**
@@ -3632,15 +3632,15 @@ declare module chrome.webRequest {
 
     export function handlerBehaviorChanged(callback?: Function): void;
 
-    var onCompleted: WebRequestCompletedEvent;
-    var onHeadersReceived: WebRequestHeadersReceivedEvent;
-    var onBeforeRedirect: WebRequestBeforeRedirectEvent;
-    var onAuthRequired: WebRequestAuthRequiredEvent;
-    var onBeforeSendHeaders: WebRequestBeforeSendHeadersEvent;
-    var onErrorOccurred: WebRequestErrorOccurredEvent;
-    var onResponseStarted: WebRequestResponseStartedEvent;
-    var onSendHeaders: WebRequestSendHeadersEvent;
-    var onBeforeRequest: WebRequestBeforeRequestEvent;
+    export const onCompleted: WebRequestCompletedEvent;
+    export const onHeadersReceived: WebRequestHeadersReceivedEvent;
+    export const onBeforeRedirect: WebRequestBeforeRedirectEvent;
+    export const onAuthRequired: WebRequestAuthRequiredEvent;
+    export const onBeforeSendHeaders: WebRequestBeforeSendHeadersEvent;
+    export const onErrorOccurred: WebRequestErrorOccurredEvent;
+    export const onResponseStarted: WebRequestResponseStartedEvent;
+    export const onSendHeaders: WebRequestSendHeadersEvent;
+    export const onBeforeRequest: WebRequestBeforeRequestEvent;
 }
 
 /**
@@ -3658,8 +3658,8 @@ declare module chrome.webstore {
 
     export function install(url?: string, successCallback?: Function, failureCallback?: (error: string, errorCode?: string) => void): void;
 
-    var onInstallStageChanged: InstallStateChangedEvent;
-    var onDownloadProgress: DownloadProgressEvent;
+    export const onInstallStageChanged: InstallStateChangedEvent;
+    export const onDownloadProgress: DownloadProgressEvent;
 }
 
 /**
@@ -3737,7 +3737,7 @@ declare module chrome.windows {
     export function getLastFocused(callback: (window: Window) => void): void;
     export function getLastFocused(getInfo: GetInfo, callback: (window: Window) => void): void;
 
-    var onRemoved: WindowRemovedEvent;
-    var onCreated: WindowCreatedEvent;
-    var onFocusChanged: WindowFocusChangedEvent;
+    export const onRemoved: WindowRemovedEvent;
+    export const onCreated: WindowCreatedEvent;
+    export const onFocusChanged: WindowFocusChangedEvent;
 }

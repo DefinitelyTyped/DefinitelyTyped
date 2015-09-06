@@ -45,9 +45,9 @@ declare module chrome.app.runtime {
         addListener(callback: Function): void;
     }
 
-    var onEmbedRequested: EmbededRequestedEvent;
-    var onLaunched: LaunchedEvent;
-    var onRestarted: RestartedEvent;
+    export const onEmbedRequested: EmbededRequestedEvent;
+    export const onLaunched: LaunchedEvent;
+    export const onRestarted: RestartedEvent;
 }
 
 /**
@@ -184,12 +184,12 @@ declare module chrome.app.window {
         addListener(callback: Function): void;
     }
 
-    var onBoundsChanged: BoundsChangedEvent;
-    var onClosed: ClosedEvent;
-    var onFullscreened: FullscreenedEvent;
-    var onMaximized: MaximizedEvent;
-    var onMinimized: MinimizedEvent;
-    var onRestored: RestoredEvent;
+    export const onBoundsChanged: BoundsChangedEvent;
+    export const onClosed: ClosedEvent;
+    export const onFullscreened: FullscreenedEvent;
+    export const onMaximized: MaximizedEvent;
+    export const onMinimized: MinimizedEvent;
+    export const onRestored: RestoredEvent;
 }
 
 /**
@@ -243,10 +243,10 @@ declare module chrome.bluetooth {
     export function startDiscovery(callback: Function): void;
     export function stopDiscovery(callback: Function): void;
 
-    var onAdapterStateChanged: AdapterStateChangedEvent;
-    var onDeviceAdded: DeviceAddedEvent;
-    var onDeviceChanged: DeviceChangedEvent;
-    var onDeviceRemoved: DeviceRemovedEvent;
+    export const onAdapterStateChanged: AdapterStateChangedEvent;
+    export const onDeviceAdded: DeviceAddedEvent;
+    export const onDeviceChanged: DeviceChangedEvent;
+    export const onDeviceRemoved: DeviceRemovedEvent;
 }
 
 /**
@@ -323,11 +323,11 @@ declare module chrome.bluetoothLowEnergy {
     export function readDescriptorValue(descriptorId: string, callback: (result: Descriptor) => void): void;
     export function writeDescriptorValue(descriptorId: string, value: ArrayBuffer, callback: Function);
 
-    var onServiceAdded: ServiceAddedEvent;
-    var onServiceChanged: ServiceChangedEvent;
-    var onServiceRemoved: ServiceRemovedEvent;
-    var onCharacteristicValueChanged: CharacteristicValueChangedEvent;
-    var onDescriptorValueChanged: DescriptorValueChangedEvent;
+    export const onServiceAdded: ServiceAddedEvent;
+    export const onServiceChanged: ServiceChangedEvent;
+    export const onServiceRemoved: ServiceRemovedEvent;
+    export const onCharacteristicValueChanged: CharacteristicValueChangedEvent;
+    export const onDescriptorValueChanged: DescriptorValueChangedEvent;
 }
 
 /**
@@ -415,10 +415,10 @@ declare module chrome.bluetoothSocket {
     export function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
     export function getSockets(callback: (sockets: SocketInfo[]) => void): void;
 
-    var onAccept: AcceptEvent;
-    var onAcceptError: AcceptErrorEvent;
-    var onReceive: ReceivedEvent;
-    var onReceiveError: ReceiveErrorEvent;
+    export const onAccept: AcceptEvent;
+    export const onAcceptError: AcceptErrorEvent;
+    export const onReceive: ReceivedEvent;
+    export const onReceiveError: ReceiveErrorEvent;
 }
 
 /**
@@ -483,7 +483,7 @@ declare module chrome.fileSystem {
     export function requestFileSystem(options: RequestFileSystemOptions, callback: (fileSystem: FileSystem) => void): void;
     export function getVolumeList(callback: (volumes: Volume[]) => void): void;
 
-    var onVolumeListChanged: VolumeListChangedEvent;
+    export const onVolumeListChanged: VolumeListChangedEvent;
 }
 
 /**
@@ -551,8 +551,8 @@ declare module chrome.hid {
     export function receiveFeatureReport(connectionId: number, reportId: number, callback: (data: ArrayBuffer) => void): void;
     export function sendFeatureReport(connectionId: number, reportId: number, data: ArrayBuffer, callback: Function): void;
 
-    var onDeviceAdded: DeviceAddedEvent;
-    var onDeviceRemoved: DeviceRemovedEvent;
+    export const onDeviceAdded: DeviceAddedEvent;
+    export const onDeviceRemoved: DeviceRemovedEvent;
 }
 
 /**
@@ -652,8 +652,8 @@ declare module chrome.mediaGalleries {
     export function getAllGalleryWatch(callback: (galleryIds: string[]) => void): void;
     export function removeAllGalleryWatch(): void;
 
-    var onGalleryChanged: GalleryChangedEvent;
-    var onScanProgress: ScanProgressEvent;
+    export const onGalleryChanged: GalleryChangedEvent;
+    export const onScanProgress: ScanProgressEvent;
 }
 
 /**
@@ -675,7 +675,7 @@ declare module chrome.mdns {
     export const MAX_SERVICE_INSTANCES_PER_EVENT: number;
     export function forceDiscovery(callback: Function): void;
 
-    var onServiceList: ServiceListEvent;
+    export const onServiceList: ServiceListEvent;
 }
 
 /**
@@ -767,8 +767,8 @@ declare module chrome.serial {
     export function setBreak(connectionId: number, callback: (result: boolean) => void): void;
     export function clearBreak(connectionId: number, callback: (result: boolean) => void): void;
 
-    var onReceive: ReceiveEvent;
-    var onReceiveError: ReceiveErrorEvent;
+    export const onReceive: ReceiveEvent;
+    export const onReceiveError: ReceiveErrorEvent;
 }
 
 /**
@@ -929,8 +929,8 @@ declare module chrome.sockets.tcp {
     export function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
     export function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
 
-    var onReceive: ReceiveEvent;
-    var onReceiveError: ReceiveErrorEvent;
+    export const onReceive: ReceiveEvent;
+    export const onReceiveError: ReceiveErrorEvent;
 }
 
 /**
@@ -987,8 +987,8 @@ declare module chrome.sockets.tcpServer {
     export function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
     export function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
 
-    var onAccept: AcceptEvent;
-    var onAcceptError: AcceptErrorEvent;
+    export const onAccept: AcceptEvent;
+    export const onAcceptError: AcceptErrorEvent;
 }
 
 /**
@@ -1058,8 +1058,8 @@ declare module chrome.sockets.udp {
     export function getJoinedGroups(socketId: number, callback: (groups: string[]) => void): void;
     export function setBroadcast(socketId: number, enabled: boolean, callback: (result: number) => void): void;
 
-    var onReceive: ReceiveEvent;
-    var onReceiveError: ReceiveErrorEvent;
+    export const onReceive: ReceiveEvent;
+    export const onReceiveError: ReceiveErrorEvent;
 }
 
 /**
@@ -1108,8 +1108,8 @@ declare module chrome.syncFileSystem {
     export function getFileStatuses(fileEntries: FileEntry[], callback: (status: FileStatusInfo[]) => void): void;
     export function getServiceStatus(callback: (status: string) => void): void;
 
-    var onServiceStatusChanged: ServiceStatusChangedEvent;
-    var onFileStatusChanged: FileStatusChangedEvent;
+    export const onServiceStatusChanged: ServiceStatusChangedEvent;
+    export const onFileStatusChanged: FileStatusChangedEvent;
 }
 
 /**
@@ -1161,7 +1161,7 @@ declare module chrome.system.display {
     export function getInfo(callback: (displayInfo: DisplayInfo[]) => void): void;
     export function setDisplayProperties(id: string, info: DisplayProperties, callback: Function): void;
 
-    var onDisplayChanged: DisplayChangedEvent;
+    export const onDisplayChanged: DisplayChangedEvent;
 }
 
 /**
