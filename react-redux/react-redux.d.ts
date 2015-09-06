@@ -21,7 +21,7 @@ declare module ReactRedux {
         mapDispatchToProps?: Object | MapDispatchToPropsFunc,
         mergeProps?: MergePropsFunc,
         options?: ConnectOptions
-    );
+    ): void;
 
     // Provider
     class Provider extends __React.Component<any, any>
