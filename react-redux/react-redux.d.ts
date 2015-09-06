@@ -1,4 +1,4 @@
-// Type definitions for rackt/react-redux v2.1.0
+// Type definitions for react-redux v2.1.0
 // Project: https://github.com/rackt/react-redux
 // Definitions by: Jamie Winder <https://github.com/jamiewinder/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
