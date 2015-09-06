@@ -321,7 +321,7 @@ declare module chrome.bluetoothLowEnergy {
     export function startCharacteristicNotifications(characteristicId: string, callback: Function): void;
     export function stopCharacteristicNotifications(characteristicId: string, callback?: Function): void;
     export function readDescriptorValue(descriptorId: string, callback: (result: Descriptor) => void): void;
-    export function writeDescriptorValue(descriptorId: string, value: ArrayBuffer, callback: Function);
+    export function writeDescriptorValue(descriptorId: string, value: ArrayBuffer, callback: Function): void;
 
     export const onServiceAdded: ServiceAddedEvent;
     export const onServiceChanged: ServiceChangedEvent;
@@ -639,7 +639,7 @@ declare module chrome.mediaGalleries {
     export function getMediaFileSystems(details: GetMediaFileSystemsDetails, callback: (mediaFileSystems: FileSystem[]) => void): void;
     export function getMediaFileSystems(callback: (mediaFileSystems: FileSystem[]) => void): void;
     export function addUserSelectedFolder(callback: (mediaFileSystems: FileSystem[], selectedFileSystemName: string) => void): void;
-    export function dropPermissionForMediaFileSystem(galleryId: string, callback?: Function)
+    export function dropPermissionForMediaFileSystem(galleryId: string, callback?: Function): void;
     export function startMediaScan(): void;
     export function cancelMediaScan(): void;
     export function addScanResults(callback: (mediaFileSystems: FileSystem[]) => void): void;

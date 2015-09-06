@@ -2630,7 +2630,7 @@ declare module chrome.sessions {
     }
 
     interface ChangedEvent extends events.Event {
-        addListener(callback: Function);
+        addListener(callback: Function): void;
     }
 
     export function getRecentlyClosed(callback: (sessions: Session[]) => void): void;
@@ -3149,11 +3149,11 @@ declare module chrome.ttsEngine {
     }
 
     interface TtsEnginePauseEvent extends events.Event {
-        addListener(callback: Function);
+        addListener(callback: Function): void;
     }
 
     interface TtsEngineResumeEvent extends events.Event {
-        addListener(callback: Function);
+        addListener(callback: Function): void;
     }
 
     export const onSpeak: TtsEngineSpeakEvent;
