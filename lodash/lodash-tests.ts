@@ -1652,12 +1652,6 @@ var testAttempFn: TestAttemptFn;
 result = <TResult|Error>_.attempt<TResult>(testAttempFn);
 result = <TResult|Error>_(testAttempFn).attempt<TResult>();
 
-_.mixin({
-    'capitalize': function (string) {
-        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-    }
-});
-
 var lodash = <typeof _>_.noConflict();
 
 result = <number>_.random(0, 5);
@@ -1938,6 +1932,21 @@ result = <number>(_.methodOf<number>(TestMethodOfObject, 1, 2))('a[0]');
 result = <number>(_.methodOf<number>(TestMethodOfObject, 1, 2))(['a', '0']);
 result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())('a[0]');
 result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())(['a', '0']);
+
+// _.mixin
+{
+    let testMixinSource: _.Dictionary<Function>;
+    let testMixinOptions: {chain?: boolean;}
+    let result: TResult;
+    result = _.mixin<TResult, Object>({}, testMixinSource);
+    result = _.mixin<TResult, Object>({}, testMixinSource, testMixinOptions);
+    result = _.mixin<TResult>(testMixinSource);
+    result = _.mixin<TResult>(testMixinSource, testMixinOptions);
+    result = _({}).mixin<TResult>(testMixinSource).value();
+    result = _({}).mixin<TResult>(testMixinSource, testMixinOptions).value();
+    result = _(testMixinSource).mixin<TResult>().value();
+    result = _(testMixinSource).mixin<TResult>(testMixinOptions).value();
+}
 
 // _.uniqueId
 result = <string>_.uniqueId();
