@@ -1,6 +1,6 @@
 // Type definitions for Chrome extension development
 // Project: http://developer.chrome.com/extensions/
-// Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>
+// Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, João Correia <https://github.com/joaope>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path='../webrtc/MediaStream.d.ts'/>
@@ -186,6 +186,11 @@ declare module chrome.bookmarks {
     export const onMoved: BookmarkMovedEvent;
     export const onCreated: BookmarkCreatedEvent;
     export const onChildrenReordered: BookmarkChildrenReordered;
+
+    /** @deprecated since Chrome 38. Bookmark write operations are no longer limited by Chrome. */
+    export const MAX_WRITE_OPERATIONS_PER_HOUR: number;
+    /** @deprecated since Chrome 38. Bookmark write operations are no longer limited by Chrome. */
+    export const MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
 }
 
 /**
@@ -787,6 +792,8 @@ declare module chrome.devtools.inspectedWindow {
         userAgent?: string;
         ignoreCache?: boolean;
         injectedScript?: boolean;
+        /** @deprecated since Chrome 41. Please avoid using this parameter, it will be removed soon. */
+        preprocessorScript?: string;
     }
 
     interface EvalOptions {
@@ -1189,12 +1196,33 @@ declare module chrome.extension {
     export const inIncognitoContext: boolean;
     export const lastError: LastError;
 
+    interface RequestEvent extends events.Event {
+        addListener(callback: (request: any, sender: runtime.MessageSender, sendResponse: Function) => void): void;
+        addListener(callback: (sender: runtime.MessageSender, sendResponse: Function) => void): void;
+    }
+
+    interface RequestExternalEvent extends events.Event {
+        addListener(callback: (request: any, sender: runtime.MessageSender, sendResponse: Function) => void): void;
+        addListener(callback: (sender: runtime.MessageSender, sendResponse: Function) => void): void;
+    }
+
+    /** @deprecated since Chrome 33. Please use runtime.sendMessage. */
+    export function sendRequest(extensionId: string, request: any, responseCallback?: (response: any) => void): void;
+    /** @deprecated since Chrome 33. Please use runtime.sendMessage. */
+    export function sendRequest(request: any, responseCallback?: (response: any) => void): void;
+    /** @deprecated since Chrome 33. Please use extension.getViews {type: "tab"}. */
+    export function getExtensionTabs(windowId?: number): Window[];
     export function getBackgroundPage(): Window;
     export function getURL(path: string): string;
     export function setUpdateUrlData(data: string): void;
     export function getViews(fetchProperties?: FetchProperties): Window[];
     export function isAllowedFileSchemeAccess(callback: (isAllowedAccess: boolean) => void): void;
     export function isAllowedIncognitoAccess(callback: (isAllowedAccess: boolean) => void): void;
+
+    /** @deprecated since Chrome 33. Please use runtime.onMessage. */
+    export const onRequest: RequestEvent;
+    /** @deprecated since Chrome 33. Please use runtime.onMessageExternal. */
+    export const onRequestExternal: RequestExternalEvent;
 }
 
 /**
@@ -1997,6 +2025,8 @@ declare module chrome.management {
         shortName: string;
         launchType?: string;
         availableLaunchTypes?: string[];
+        /** @deprecated since Chrome 33. Please use management.ExtensionInfo.type. */
+        isApp: boolean;
     }
 
     interface IconInfo {
@@ -2210,6 +2240,8 @@ declare module chrome.pageAction {
         tabId: number;
         imageData?: ImageDataType | ImageDataDictionary;
         path?: string | ImagePathDictionary;
+        /** @deprecated This argument is ignored. */
+        iconIndex?: number;
     }
 
     export function hide(tabId: number): void;
@@ -2543,6 +2575,10 @@ declare module chrome.runtime {
         addListener(callback: (details: UpdateAvailableDetails) => void): void;
     }
 
+    interface BrowserUpdateAvailableEvent extends events.Event {
+        addListener(callback: Function): void;
+    }
+
     export function connect(extensionId?: string, connectInfo?: ConnectInfo): Port;
     export function connectNative(application: string): Port;
     export function getBackgroundPage(callback: (backgroundPage?: Window) => void): void;
@@ -2569,6 +2605,8 @@ declare module chrome.runtime {
     export const onMessageExternal: ExtensionMessageExternalEvent;
     export const onRestartRequired: RuntimeRestartRequiredEvent;
     export const onUpdateAvailable: RuntimeUpdateAvailableEvent;
+    /** @deprecated since Chrome 33. Please use runtime.onRestartRequired. */
+    export const onBrowserUpdateAvailable: BrowserUpdateAvailableEvent;
 }
 
 /**
@@ -2637,6 +2675,8 @@ declare module chrome.storage {
         MAX_ITEMS: number;
         MAX_WRITE_OPERATIONS_PER_HOUR: number;
         MAX_WRITE_OPERATIONS_PER_MINUTE: number;
+        /** @deprecated since Chrome 40. The storage.sync API no longer has a sustained write operation quota. */
+        MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number
     }
 
     interface StorageChangedEvent extends chrome.events.Event {
@@ -2779,6 +2819,8 @@ declare module chrome.tabs {
         width: number;
         height: number;
         sessionId: number;
+        /** @deprecated since Chrome 33. Please use tabs.Tab.highlighted. */
+        selected: boolean;
     }
 
     interface ZoomSettings {
@@ -2804,6 +2846,8 @@ declare module chrome.tabs {
         pinned?: boolean;
         windowId?: number;
         active?: boolean;
+        /** @deprecated since Chrome 33. Please use active. */
+        selected?: boolean;
     }
 
     interface MoveProperties {
@@ -2818,6 +2862,8 @@ declare module chrome.tabs {
         highlighted?: boolean;
         active?: boolean;
         muted?: boolean;
+        /** @deprecated since Chrome 33. Please use highlighted. */
+        selected?: boolean;
     }
 
     interface CaptureVisibleTabOptions {
@@ -2947,6 +2993,22 @@ declare module chrome.tabs {
         addListener(callback: (ZoomChangeInfo: ZoomChangeInfo) => void): void;
     }
 
+    interface SelectionInfo {
+        windowId: number;
+    }
+
+    interface TabSelectionChangedEvent extends events.Event {
+        addListener(callback: (tabId: number, selectInfo: SelectionInfo) => void): void;
+    }
+
+    interface TabActiveChangedEvent extends events.Event {
+        addListener(callback: (tabId: number, selectInfo: SelectionInfo) => void): void;
+    }
+
+    interface TabHighlightChangedEvent extends events.Event {
+        addListener(callback: (tabId: number, selectInfo: TabHighlightInfo) => void): void;
+    }
+
     export function executeScript(details: InjectDetails, callback?: (result: any[]) => void): void;
     export function executeScript(tabId: number, details: InjectDetails, callback?: (result: any[]) => void): void;
     export function get(tabId: number, callback: (tab: Tab) => void): void;
@@ -2978,6 +3040,16 @@ declare module chrome.tabs {
     export function setZoomSettings(tabId: number, zoomSettings: ZoomSettings, callback?: Function): void;
     export function getZoomSettings(callback: (zoomSettings: ZoomSettings) => void): void;
     export function getZoomSettings(tabId: number, callback: (zoomSettings: ZoomSettings) => void): void;
+    /** @deprecated since Chrome 33. Please use runtime.sendMessage. */
+    export function sendRequest(tabId: number, request: any, responseCallback?: (response: any) => void): void;
+    /** @deprecated since Chrome 33. Please use tabs.query {active: true}. */
+    export function getSelected(windowId: number, callback: (tab: Tab) => void): void;
+    /** @deprecated since Chrome 33. Please use tabs.query {active: true}. */
+    export function getSelected(callback: (tab: Tab) => void): void;
+    /** @deprecated since Chrome 33. Please use tabs.query {windowId: windowId}. */
+    export function getAllInWindow(windowId: number, callback: (tabs: Tab[]) => void): void;
+    /** @deprecated since Chrome 33. Please use tabs.query {windowId: windowId}. */
+    export function getAllInWindow(callback: (tabs: Tab[]) => void): void;
 
     export const onHighlighted: TabHighlightedEvent;
     export const onRemoved: TabRemovedEvent;
@@ -2989,6 +3061,12 @@ declare module chrome.tabs {
     export const onActivated: TabActivatedEvent;
     export const onReplaced: TabReplacedEvent;
     export const onZoomChange: TabZoomChangedEvent;
+    /** @deprecated since Chrome 33. Please use tabs.onActivated. */
+    export const onSelectionChanged: TabSelectionChangedEvent;
+    /** @deprecated since Chrome 33. Please use tabs.onActivated. */
+    export const onActiveChanged: TabActiveChangedEvent;
+    /** @deprecated since Chrome 33. Please use tabs.onHighlighted. */
+    export const onHighlightChanged: TabHighlightChangedEvent;
 }
 
 /**
