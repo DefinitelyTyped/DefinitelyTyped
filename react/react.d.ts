@@ -126,6 +126,9 @@ declare module __React {
     var PropTypes: ReactPropTypes;
     var Children: ReactChildren;
 
+    // Hook for JSX spread syntax
+    var __spread: any;
+
     //
     // Component API
     // ----------------------------------------------------------------------
