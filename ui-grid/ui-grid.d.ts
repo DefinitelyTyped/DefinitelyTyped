@@ -445,7 +445,7 @@ declare module uiGrid {
          * @param {IColumnDef} colDef to make visible
          * @returns {ng.IPromise<any>} a promise that is resolved after any scrolling is finished
          */
-        scrollTo(rowEntity: IGridRow, colDef: IColumnDef): ng.IPromise<any>;
+        scrollTo(rowEntity?: any, colDef?: IColumnDef): ng.IPromise<any>;
         /**
          * Scrolls the grid to make a certain row and column combo visible,
          * in the case that it is not completely visible on the screen already.
