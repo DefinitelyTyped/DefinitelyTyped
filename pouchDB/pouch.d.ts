@@ -3,6 +3,8 @@
 // Definitions by: Bill Sears <https://github.com/MrBigDog2U/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../bluebird/bluebird.d.ts" />
+
 interface PouchError {
 	status: number;
 	error: string;
@@ -13,16 +15,61 @@ interface PouchApi {
 	type(): string;
 	id(): string;
 	close(callback: () => void): void;
+
+	info(callback: (err: PouchError, res: PouchInfoResponse) => void): void;
+	info(): Promise<any>;
+
+	get(id: string, opts: PouchGetOptions, callback: (err: PouchError, res: PouchGetResponse) => void): void;
+	get(id: string, callback: (err: PouchError, res: PouchGetResponse) => void): void;
+	get(id: string): Promise<any>;
+
+	allDocs(opts: PouchAllDocsOptions, callback: (err: PouchError, res: PouchAllDocsResponse) => void): void;
+	allDocs(opts: PouchAllDocsOptions): Promise<any>;
+	allDocs(callback: (err: PouchError, res: PouchAllDocsResponse) => void): void;
+
+	bulkDocs(req: PouchBulkDocsRequest, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse[]) => void): void;
+	bulkDocs(req: PouchBulkDocsRequest, callback: (err: PouchError, res: PouchUpdateResponse[]) => void): void;
+
+	bulkDocs(req: PouchBulkDocsRequest, opts: PouchUpdateOptions): Promise<any>;
+	bulkDocs(req: PouchBulkDocsRequest): Promise<any>;
+
+	post(doc: any, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
+	post(doc: any, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
+
+	put(doc: any, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
+	put(doc: any, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
+	put(doc: any, opts?: PouchUpdateOptions): Promise<{ok: boolean; id: string; rev: string}>;
+	put(doc: {}): Promise<{ok: boolean; id: string; rev: string}>;
+
+	remove(doc: any, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
+	remove(doc: any, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
+	remove(doc: {}, opts?: PouchUpdateOptions) : Promise<{}>;
+	remove(docId: string, docRev: string,  opts: PouchUpdateOptions): Promise<{}>;
+
+	query(fun: string, opts: PouchQueryOptions): Promise<any>;
+	query(fun: string): Promise<any>;
+	query(fun: PouchFilter, opts: PouchQueryOptions): Promise<any>;
+	query(fun: PouchFilter): Promise<any>;
+
+	changes(opts: PouchChangesOptions, callback: (err: PouchError, res: PouchChanges) => void): PouchCancellable;
+	changes(callback: (err: PouchError, res: PouchChanges) => void): PouchCancellable;
+
+	revsDiff(req: any, opts: PouchRevsDiffOptions, callback: (missing: any) => void): void;
+	revsDiff(req: any, callback: (missing: any) => void): void;
+	replicate: PouchReplicate;
+
+	getAttachment(id: string, opts: PouchAttachmentOptions, callback: (err: PouchError, res: any) => void): void;
+	getAttachment(id: string, callback: (err: PouchError, res: any) => void): void;
+	putAttachment(id: string, rev: string, doc: any, type: string, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
+	removeAttachment(id: string, rev: string, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
+
+	upsert(doc:String, callback: (existingDoc?: {}) => {}): Promise<any>;
 }
 
 interface PouchInfoResponse {
 	db_name: string;
 	doc_count: number;
 	update_seq: string;
-}
-
-interface PouchApi {
-	info(callback: (err: PouchError, res: PouchInfoResponse) => void): void;
 }
 
 interface PouchGetOptions {
@@ -59,16 +106,6 @@ interface PouchAllDocsResponse {
 	rows: PouchAllDocsItem[];
 }
 
-interface PouchApi {
-	//
-	// get == select by id
-	//
-	get(id: string, opts: PouchGetOptions, callback: (err: PouchError, res: PouchGetResponse) => void): void;
-	get(id: string, callback: (err: PouchError, res: PouchGetResponse) => void): void;
-	allDocs(opts: PouchAllDocsOptions, callback: (err: PouchError, res: PouchAllDocsResponse) => void): void;
-	allDocs(callback: (err: PouchError, res: PouchAllDocsResponse) => void): void;
-}
-
 interface PouchBulkDocsRequest {
 	docs: any[];
 }
@@ -83,26 +120,6 @@ interface PouchUpdateResponse {
 	rev: string;
 }
 
-interface PouchApi {
-	bulkDocs(req: PouchBulkDocsRequest, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse[]) => void): void;
-	bulkDocs(req: PouchBulkDocsRequest, callback: (err: PouchError, res: PouchUpdateResponse[]) => void): void;
-	//
-	// post == insert (doc does not contain an _id)
-	//
-	post(doc: any, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
-	post(doc: any, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
-	//
-	// put == update (doc DOES contain an _id)
-	//
-	put(doc: any, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
-	put(doc: any, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
-	//
-	// remove == delete
-	//
-	remove(doc: any, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
-	remove(doc: any, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
-}
-
 interface PouchFilter {
 	map: (doc: any) => void;
 	reduce?: (key: string, value: any) => any;
@@ -113,6 +130,7 @@ interface PouchQueryOptions {
 	include_docs?: boolean;
 	error?: (err: PouchError) => void;
 	descending?: boolean;
+	stale?: boolean;
 	reduce?: boolean;
 }
 
@@ -120,25 +138,8 @@ interface PouchQueryResponse {
 	rows: any[];
 }
 
-interface PouchApi {
-	//
-	// query == select by other criteria
-	//
-	query(fun: string, opts: PouchQueryOptions, callback: (err: PouchError, res: PouchQueryResponse) => void): void;
-	query(fun: string, callback: (err: PouchError, res: PouchQueryResponse) => void): void;
-	query(fun: PouchFilter, opts: PouchQueryOptions, callback: (err: PouchError, res: PouchQueryResponse) => void): void;
-	query(fun: PouchFilter, callback: (err: PouchError, res: PouchQueryResponse) => void): void;
-}
-
 interface PouchAttachmentOptions {
 	decode?: boolean;
-}
-
-interface PouchApi {
-	getAttachment(id: string, opts: PouchAttachmentOptions, callback: (err: PouchError, res: any) => void): void;
-	getAttachment(id: string, callback: (err: PouchError, res: any) => void): void;
-	putAttachment(id: string, rev: string, doc: any, type: string, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
-	removeAttachment(id: string, rev: string, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
 }
 
 interface PouchCancellable {
@@ -168,11 +169,6 @@ interface PouchChanges {
 	results: PouchChange[];
 }
 
-interface PouchApi {
-	changes(opts: PouchChangesOptions, callback: (err: PouchError, res: PouchChanges) => void): PouchCancellable;
-	changes(callback: (err: PouchError, res: PouchChanges) => void): PouchCancellable;
-}
-
 interface PouchRevsDiffOptions {
 }
 
@@ -198,29 +194,28 @@ interface PouchReplicate {
 	to(dbName: string, callback: (err: PouchError, res: PouchReplicateResponse) => void): PouchCancellable;
 }
 
-interface PouchApi {
-	revsDiff(req: any, opts: PouchRevsDiffOptions, callback: (missing: any) => void): void;
-	revsDiff(req: any, callback: (missing: any) => void): void;
-	replicate: PouchReplicate;
-}
-
 interface PouchOptions {
 	name?: string;
 	adapter?: string;
 }
 
 interface PouchDB extends PouchApi {
-    new (name: string, opts: PouchOptions, callback: (err: PouchError, res: PouchDB) => void): PouchDB;
-    new (name: string, callback: (err: PouchError, res: PouchDB) => void): PouchDB;
-    new (name: string): PouchDB;
+	new (name: string, opts: PouchOptions, callback: (err: PouchError, res: PouchDB) => void): PouchDB;
+	new (name: string, callback: (err: PouchError, res: PouchDB) => void): PouchDB;
+	new (name: string, opts?: PouchOptions): PouchDB;
+
 	destroy(name: string, callback: (err: PouchError) => void): void;
+	destroy(name: string): Promise<{ok:boolean}>;
+
+	setMaxListeners(setNumber: number):void;
+	debug(shouldDebug:boolean):void;
 }
 
 declare var PouchDB: PouchDB;
 
 // Support AMD require
 declare module 'pouchdb' {
-  export = PouchDB;
+	export = PouchDB;
 }
 
 //
