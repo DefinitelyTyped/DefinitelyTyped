@@ -67,14 +67,8 @@ declare module ReactRouter {
     interface RedirectClass extends React.ComponentClass<RedirectProp> {}
 
     // Route
-    interface RouteProp {
-        name?: string;
-        path?: string;
-        handler?: React.ComponentClass<any>;
-        ignoreScrollBehavior?: boolean;
-    }
-    interface Route extends React.ReactElement<RouteProp> {}
-    interface RouteClass extends React.ComponentClass<RouteProp> {}
+    interface Route extends React.ReactElement<any> {}
+    interface RouteClass extends React.ComponentClass<any> {}
 
     var DefaultRoute: DefaultRouteClass;
     var NotFoundRoute: NotFoundRouteClass;
@@ -174,7 +168,8 @@ declare module ReactRouter {
 
     function create(options: RouterCreateOption): Router;
     function run(routes: Route, callback: RouterRunCallback): Router;
-    function run(routes: Route, location: LocationBase | string, callback: RouterRunCallback): Router;
+    function run(routes: Route, location: LocationBase, callback: RouterRunCallback): Router;
+    function run(routes: Route, location: string, callback: RouterRunCallback): Router;
 
 
     //
@@ -198,7 +193,9 @@ declare module ReactRouter {
     interface HashLocation extends Location, LocationListener { }
     interface HistoryLocation extends Location, LocationListener { }
     interface RefreshLocation extends Location { }
-    interface StaticLocation extends LocationBase { }
+    interface StaticLocation extends LocationBase {
+        new(path: string): StaticLocation
+    }
     interface TestLocation extends Location, LocationListener { }
 
     var HashLocation: HashLocation;
@@ -307,7 +304,7 @@ declare module __React {
   // for Route
   function createElement(
     type: ReactRouter.RouteClass,
-    props: ReactRouter.RouteProp,
+    props: any,
     ...children: __React.ReactNode[]): ReactRouter.Route;
 
   // for RouteHandler
@@ -345,7 +342,7 @@ declare module "react/addons" {
   // for Route
   function createElement(
     type: ReactRouter.RouteClass,
-    props: ReactRouter.RouteProp,
+    props: any,
     ...children: __React.ReactNode[]): ReactRouter.Route;
 
   // for RouteHandler
