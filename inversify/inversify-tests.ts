@@ -1,5 +1,7 @@
 /// <reference path="inversify.d.ts" />
 
+import { inversify } from "inversify";
+
 interface FooInterface {
   name : string;
   greet() : string;
