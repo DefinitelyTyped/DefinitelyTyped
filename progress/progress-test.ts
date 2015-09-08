@@ -1,4 +1,4 @@
-/// <reference path="node-progress.d.ts"/>
+/// <reference path="progress.d.ts"/>
 
 var ProgressBar = require('progress');
 
