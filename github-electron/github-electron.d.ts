@@ -1212,7 +1212,7 @@ declare module GitHubElectron {
 		/**
 		 * Sets the image associated with this tray icon.
 		 */
-		setImage(image: NativeImage): void;
+		setImage(image: NativeImage|string): void;
 		/**
 		 * Sets the image associated with this tray icon when pressed.
 		 */
