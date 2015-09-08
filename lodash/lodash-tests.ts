@@ -443,8 +443,19 @@ result = <number[]>_([1, 2]).zipWith<number>([1, 2], [1, 2], [1, 2], [1, 2], [1,
  * Collection *
  **************/
 
-result = <string[]>_.at(['a', 'b', 'c', 'd', 'e'], [0, 2, 4]);
-result = <string[]>_.at(['moe', 'larry', 'curly'], 0, 2);
+// _.at
+{
+    let testAtArray: TResult[];
+    let testAtList: _.List<TResult>;
+    let testAtDictionary: _.Dictionary<TResult>;
+    let result: TResult[];
+    result = _.at<TResult>(testAtArray, 0, '1', [2], ['3'], [4, '5']);
+    result = _.at<TResult>(testAtList, 0, '1', [2], ['3'], [4, '5']);
+    result = _.at<TResult>(testAtDictionary, 0, '1', [2], ['3'], [4, '5']);
+    result = _(testAtArray).at(0, '1', [2], ['3'], [4, '5']).value();
+    result = _(testAtList).at<TResult>(0, '1', [2], ['3'], [4, '5']).value();
+    result = _(testAtDictionary).at<TResult>(0, '1', [2], ['3'], [4, '5']).value();
+}
 
 result = <boolean>_.contains([1, 2, 3], 1);
 result = <boolean>_.contains([1, 2, 3], 1, 2);
