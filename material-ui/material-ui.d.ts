@@ -1,5 +1,9 @@
-///<reference path='../react/react.d.ts' />
+// Type definitions for material-ui
+// Project: http://material-ui.com/
+// Definitions by: nojaf
+// Definitions: https://github.com/borisyankov/DefinitelyTyped/material-ui/
 
+///<reference path='../react/react.d.ts' />
 declare module MaterialUI {
   import React = __React;
 
