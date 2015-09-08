@@ -8209,12 +8209,54 @@ declare module _ {
     }
 
     //_.mixin
+    interface MixinOptions {
+        chain?: boolean;
+    }
+
     interface LoDashStatic {
         /**
-        * Adds function properties of a source object to the lodash function and chainable wrapper.
-        * @param object The object of function properties to add to lodash.
-        **/
-        mixin(object?: Dictionary<(value: any) => any>): void;
+         * Adds all own enumerable function properties of a source object to the destination object. If object is a
+         * function then methods are added to its prototype as well.
+         *
+         * Note: Use _.runInContext to create a pristine lodash function to avoid conflicts caused by modifying
+         * the original.
+         *
+         * @param object The destination object.
+         * @param source The object of functions to add.
+         * @param options The options object.
+         * @param options.chain Specify whether the functions added are chainable.
+         * @return Returns object.
+         */
+        mixin<TResult, TObject>(
+            object: TObject,
+            source: Dictionary<Function>,
+            options?: MixinOptions
+        ): TResult;
+
+        /**
+         * @see _.mixin
+         */
+        mixin<TResult>(
+            source: Dictionary<Function>,
+            options?: MixinOptions
+        ): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.mixin
+         */
+        mixin<TResult>(
+            source: Dictionary<Function>,
+            options?: MixinOptions
+        ): LoDashObjectWrapper<TResult>;
+
+        /**
+         * @see _.mixin
+         */
+        mixin<TResult>(
+            options?: MixinOptions
+        ): LoDashObjectWrapper<TResult>;
     }
 
     //_.noConflict
