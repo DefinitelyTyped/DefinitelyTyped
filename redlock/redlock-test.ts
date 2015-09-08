@@ -86,7 +86,7 @@ module LockTest {
 	{
 		let lock: Lock;
 		let callback: NodeifyCallback<void>;
-		let result: void;
+		let result: Promise<void>;
 		result = lock.unlock();
 		result = lock.unlock(callback);
 	}
