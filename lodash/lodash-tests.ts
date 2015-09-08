@@ -1938,41 +1938,51 @@ module TestMapKeys {
     result = _(dictionary).mapKeys<TResult, {}>({}).value();
 }
 
-var mergeNames = {
-    'stooges': [
-        { 'name': 'moe' },
-        { 'name': 'larry' }
-    ]
-};
+// _.merge
+module TestMerge {
+    let customizer: (value: any, srcValue: any, key?: string, object?: {}, source?: {}) => any;
+    let result: TResult;
 
-var mergeAges = {
-    'stooges': [
-        { 'age': 40 },
-        { 'age': 50 }
-    ]
-};
+    result = _.merge<{}, {}, TResult>({}, {});
+    result = _.merge<{}, {}, TResult>({}, {}, customizer);
+    result = _.merge<{}, {}, TResult>({}, {}, customizer, any);
 
-result = <NameAge>_.merge(mergeNames, mergeAges);
+    result = _.merge<{}, {}, {}, TResult>({}, {}, {});
+    result = _.merge<{}, {}, {}, TResult>({}, {}, {}, customizer);
+    result = _.merge<{}, {}, {}, TResult>({}, {}, {}, customizer, any);
 
-var mergeFood = {
-    'fruits': ['apple'],
-    'vegetables': ['beet']
-};
+    result = _.merge<{}, {}, {}, {}, TResult>({}, {}, {}, {});
+    result = _.merge<{}, {}, {}, {}, TResult>({}, {}, {}, {}, customizer);
+    result = _.merge<{}, {}, {}, {}, TResult>({}, {}, {}, {}, customizer, any);
 
-var mergeOtherFood: { [index: string]: string[] } = {
-    'fruits': ['banana'],
-    'vegetables': ['carrot']
-};
+    result = _.merge<{}, {}, {}, {}, {}, TResult>({}, {}, {}, {}, {});
+    result = _.merge<{}, {}, {}, {}, {}, TResult>({}, {}, {}, {}, {}, customizer);
+    result = _.merge<{}, {}, {}, {}, {}, TResult>({}, {}, {}, {}, {}, customizer, any);
 
-interface FruitVeg {
-    [index: string]: string[];
-    fruits: string[];
-    vegetables: string[]
-};
+    result = _.merge<{}, TResult>({}, {}, {}, {}, {}, {});
+    result = _.merge<{}, TResult>({}, {}, {}, {}, {}, {}, customizer);
+    result = _.merge<{}, TResult>({}, {}, {}, {}, {}, {}, customizer, any);
 
-result = <FruitVeg[]>_.merge(<FruitVeg>mergeFood, <FruitVeg>mergeOtherFood, function (a: any, b: any) {
-    return _.isArray(a) ? a.concat(b) : undefined;
-});
+    result = _({}).merge<{}, TResult>({}).value();
+    result = _({}).merge<{}, TResult>({}, customizer).value();
+    result = _({}).merge<{}, TResult>({}, customizer, any).value();
+
+    result = _({}).merge<{}, {}, TResult>({}, {}).value();
+    result = _({}).merge<{}, {}, TResult>({}, {}, customizer).value();
+    result = _({}).merge<{}, {}, TResult>({}, {}, customizer, any).value();
+
+    result = _({}).merge<{}, {}, {}, TResult>({}, {}, {}).value();
+    result = _({}).merge<{}, {}, {}, TResult>({}, {}, {}, customizer).value();
+    result = _({}).merge<{}, {}, {}, TResult>({}, {}, {}, customizer, any).value();
+
+    result = _({}).merge<{}, {}, {}, {}, TResult>({}, {}, {}, {}).value();
+    result = _({}).merge<{}, {}, {}, {}, TResult>({}, {}, {}, {}, customizer).value();
+    result = _({}).merge<{}, {}, {}, {}, TResult>({}, {}, {}, {}, customizer, any).value();
+
+    result = _({}).merge<TResult>({}, {}, {}, {}, {}).value();
+    result = _({}).merge<TResult>({}, {}, {}, {}, {}, customizer).value();
+    result = _({}).merge<TResult>({}, {}, {}, {}, {}, customizer, any).value();
+}
 
 interface HasName {
     name: string;
