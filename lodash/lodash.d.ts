@@ -694,9 +694,9 @@ declare module _ {
         takeWhile<T>(
             array: (Array<T>|List<T>),
             predicate?: ListIterator<T, boolean>,
-            thisArg?: any 
+            thisArg?: any
         ): T[];
-        
+
         /**
          * Takes the first items from an array or list based on a predicate
          * @param array The array or list of items on which the result set will be based
@@ -706,7 +706,7 @@ declare module _ {
             array: (Array<T>|List<T>),
             pluckValue: string
         ): any[];
-        
+
         /**
          * Takes the first items from an array or list based on a predicate
          * @param array The array or list of items on which the result set will be based
@@ -1502,7 +1502,7 @@ declare module _ {
         **/
         union<T>(...arrays: List<T>[]): T[];
     }
-    
+
     interface LoDashArrayWrapper<T> {
         /**
         * @see _.union
@@ -2550,13 +2550,13 @@ declare module _ {
         /**
         * Iterates over elements of a collection, returning an array of all elements the
         * identity function returns truey for.
-        * 
+        *
         * @param collection The collection to iterate over.
         * @return Returns a new array of elements that passed the callback check.
         **/
         filter<T>(
             collection: (Array<T>|List<T>)): T[];
-            
+
         /**
         * Iterates over elements of a collection, returning an array of all elements the
         * callback returns truey for. The callback is bound to thisArg and invoked with three
@@ -2719,7 +2719,7 @@ declare module _ {
         * @see _.filter
         **/
         filter(): LoDashArrayWrapper<T>;
-            
+
         /**
         * @see _.filter
         **/
@@ -5132,7 +5132,7 @@ declare module _ {
         sortBy<W, T>(
             collection: List<T>,
             whereValue: W): T[];
-            
+
         /**
          * Sorts by all the given arguments, using either ListIterator, pluckValue, or whereValue foramts
          * @param args The rules by which to sort
@@ -5162,7 +5162,7 @@ declare module _ {
         * @param whereValue _.where style callback
         **/
         sortBy<W>(whereValue: W): LoDashArrayWrapper<T>;
-        
+
         /**
          * Sorts by all the given arguments, using either ListIterator, pluckValue, or whereValue foramts
          * @param args The rules by which to sort
