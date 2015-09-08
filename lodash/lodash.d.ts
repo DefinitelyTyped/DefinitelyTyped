@@ -7499,58 +7499,125 @@ declare module _ {
     }
 
     //_.merge
+    interface MergeCustomizer {
+        (value: any, srcValue: any, key?: string, object?: Object, source?: Object): any;
+    }
+
     interface LoDashStatic {
         /**
-        * Recursively merges own enumerable properties of the source object(s), that don't resolve
-        * to undefined into the destination object. Subsequent sources will overwrite property
-        * assignments of previous sources. If a callback is provided it will be executed to produce
-        * the merged values of the destination and source properties. If the callback returns undefined
-        * merging will be handled by the method instead. The callback is bound to thisArg and invoked
-        * with two arguments; (objectValue, sourceValue).
-        * @param object The destination object.
-        * @param s1-8 The source object(s)
-        * @param callback The function to customize merging properties.
-        * @param thisArg The this binding of callback.
-        * @return The destination object.
-        **/
-        merge<P, T, S1, Value, Result>(
-            object: T,
-            s1: S1,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
+         * Recursively merges own enumerable properties of the source object(s), that don’t resolve to undefined into
+         * the destination object. Subsequent sources overwrite property assignments of previous sources. If customizer
+         * is provided it’s invoked to produce the merged values of the destination and source properties. If
+         * customizer returns undefined merging is handled by the method instead. The customizer is bound to thisArg
+         * and invoked with five arguments: (objectValue, sourceValue, key, object, source).
+         *
+         * @param object The destination object.
+         * @param source The source objects.
+         * @param customizer The function to customize assigned values.
+         * @param thisArg The this binding of customizer.
+         * @return Returns object.
+         */
+        merge<TObject, TSource, TResult>(
+            object: TObject,
+            source: TSource,
+            customizer?: MergeCustomizer,
+            thisArg?: any
+        ): TResult;
 
         /**
-        * @see _.merge
-        **/
-        merge<P, T, S1, S2, Value, Result>(
-            object: T,
-            s1: S1,
-            s2: S2,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
+         * @see _.merge
+         */
+        merge<TObject, TSource1, TSource2, TResult>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            customizer?: MergeCustomizer,
+            thisArg?: any
+        ): TResult;
 
         /**
-        * @see _.merge
-        **/
-        merge<P, T, S1, S2, S3, Value, Result>(
-            object: T,
-            s1: S1,
-            s2: S2,
-            s3: S3,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
+         * @see _.merge
+         */
+        merge<TObject, TSource1, TSource2, TSource3, TResult>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer?: MergeCustomizer,
+            thisArg?: any
+        ): TResult;
 
         /**
-        * @see _.merge
-        **/
-        merge<P, T, S1, S2, S3, S4, Value, Result>(
-            object: T,
-            s1: S1,
-            s2: S2,
-            s3: S3,
-            s4: S4,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
+         * @see _.merge
+         */
+        merge<TObject, TSource1, TSource2, TSource3, TSource4, TResult>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer?: MergeCustomizer,
+            thisArg?: any
+        ): TResult;
+
+        /**
+         * @see _.merge
+         */
+        merge<TObject, TResult>(
+            object: TObject,
+            ...otherArgs: any[]
+        ): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.merge
+         */
+        merge<TSource, TResult>(
+            source: TSource,
+            customizer?: MergeCustomizer,
+            thisArg?: any
+        ): LoDashObjectWrapper<TResult>;
+
+        /**
+         * @see _.merge
+         */
+        merge<TSource1, TSource2, TResult>(
+            source1: TSource1,
+            source2: TSource2,
+            customizer?: MergeCustomizer,
+            thisArg?: any
+        ): LoDashObjectWrapper<TResult>;
+
+        /**
+         * @see _.merge
+         */
+        merge<TSource1, TSource2, TSource3, TResult>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer?: MergeCustomizer,
+            thisArg?: any
+        ): LoDashObjectWrapper<TResult>;
+
+        /**
+         * @see _.merge
+         */
+        merge<TSource1, TSource2, TSource3, TSource4, TResult>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer?: MergeCustomizer,
+            thisArg?: any
+        ): LoDashObjectWrapper<TResult>;
+
+        /**
+         * @see _.merge
+         */
+        merge<TResult>(
+            ...otherArgs: any[]
+        ): LoDashObjectWrapper<TResult>;
     }
 
     //_.omit
