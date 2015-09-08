@@ -88,6 +88,65 @@ declare module olx {
         targetSize?: number;
     }
 
+    interface BaseWMSOptions {
+    
+        /** Attributions. */
+        attributions?: Array<ol.Attribution>;
+
+        /** WMS request parameters. At least a LAYERS param is required. STYLES is '' by default. VERSION is 1.3.0 by default. WIDTH, HEIGHT, BBOX and CRS (SRS for WMS version < 1.3.0) will be set dynamically. */
+        params?: any;
+
+        /** The crossOrigin attribute for loaded images. Note that you must provide a crossOrigin value if you are using the WebGL renderer or if you want to access pixel data with the Canvas renderer. See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail. */
+        crossOrigin?: string;
+
+        /** experimental Use the ol.Map#pixelRatio value when requesting the image from the remote server. Default is true. */
+        hidpi?: boolean;
+
+        /** experimental The type of the remote WMS server: mapserver, geoserver or qgis. Only needed if hidpi is true. Default is undefined. */
+        serverType?: ol.source.wms.ServerType;
+
+        /** WMS service URL. */
+        url?: string;
+
+        /** Logo. */
+        logo?: olx.LogoOptions;
+
+        /** experimental Projection. */
+        projection?: ol.proj.ProjectionLike;
+    }
+
+    interface ImageWMSOptions extends BaseWMSOptions {
+
+        /** experimental Optional function to load an image given a URL. */
+        imageLoadFunction?: ol.ImageLoadFunctionType;
+
+        /** Ratio. 1 means image requests are the size of the map viewport, 2 means twice the width and height of the map viewport, and so on. Must be 1 or higher. Default is 1.5. */
+        ratio?: number;
+
+        /** Resolutions. If specified, requests will be made for these resolutions only. */
+        resolutions?: Array<number>;
+    }
+
+    interface TileWMSOptions {
+
+        /** The size in pixels of the gutter around image tiles to ignore. By setting this property to a non-zero value, images will be requested that are wider and taller than the tile size by a value of 2 x gutter. Defaults to zero. Using a non-zero value allows artifacts of rendering at tile edges to be ignored. If you control the WMS service it is recommended to address "artifacts at tile edges" issues by properly configuring the WMS service. For example, MapServer has a tile_map_edge_buffer configuration parameter for this. See http://mapserver.org/output/tile_mode.html. */
+        gutter?: number;
+
+        /** Tile grid. Base this on the resolutions, tilesize and extent supported by the server. If this is not defined, a default grid will be used: if there is a projection extent, the grid will be based on that; if not, a grid based on a global extent with origin at 0,0 will be used. */
+        tileGrid?: ol.tilegrid.TileGrid;
+
+        /** experimental Maximum zoom. */
+        maxZoom?: number;
+
+        /** experimental Optional function to load a tile given a URL. */
+        tileLoadFunction?: ol.TileLoadFunctionType;
+
+        /** WMS service urls. Use this instead of url when the WMS supports multiple urls for GetMap requests. */
+        urls?: Array<string>;
+
+        /** experimental Whether to wrap the world horizontally. When set to false, only one world will be rendered. When true, tiles will be requested for one world only, but they will be wrapped horizontally to render multiple worlds. The default is true. */
+        wrapX?: boolean;
+    }
     /**
      * Object literal with config options for the map logo.
      */
@@ -101,6 +160,7 @@ declare module olx {
        * Image src for the logo
        */
       src: string;
+
     }
 
     interface MapOptions {
@@ -256,6 +316,45 @@ declare module olx {
          * 
          */
         rotation: number;
+    }
+
+    interface Projection {
+        /**
+         * The SRS identifier code, e.g. EPSG:4326.
+         */
+        code: string;
+
+        /**
+        * Units. Required unless a proj4 projection is defined for code.
+        */
+        units?: ol.proj.Units;
+
+        /**
+        * The validity extent for the SRS.
+        */
+        extent?: Array<number>;
+
+        /**
+        * The axis orientation as specified in Proj4. The default is enu.
+        */
+        axisOrientation?: string;
+
+        /**
+        * Whether the projection is valid for the whole globe. Default is false.
+        */
+        global?: boolean;
+
+        /**
+        * experimental The world extent for the SRS.
+        */
+        worldExtent?: ol.Extent;
+
+        /**
+        *  experimental Function to determine resolution at a point. The function is called with 
+        *  a {number} view resolution and an {ol.Coordinate} as arguments, and returns the {number} 
+        *  resolution at the passed coordinate.
+        */
+        getPointResolution?: (resolution: number, coordinate: ol.Coordinate) => number;
     }
 
     module animation {
@@ -851,6 +950,10 @@ declare module olx {
  * A high-performance, feature-packed library for all your mapping needs.
  */
 declare module ol {
+
+    interface TileLoadFunctionType{ (image: ol.Image, url: string): void }
+    
+    interface ImageLoadFunctionType{ (image: ol.Image, url: string): void }
 
     /**
      * An attribution for a layer source.
@@ -2271,7 +2374,7 @@ declare module ol {
         * @param number Input between 0 and 1
         * @returns Output between 0 and 1
         */
-        function inAndOut (t: number): number;
+        function inAndOut(t: number): number;
 
         /**
         * Maintain a constant speed over time.
@@ -3193,7 +3296,8 @@ declare module ol {
          */
         function transformExtent(extent: Extent, source: ProjectionLike, destination: ProjectionLike): Extent;
 
-        interface Projection {
+        class Projection {
+            constructor(options: olx.Projection)
         }
     }
 
@@ -3238,6 +3342,7 @@ declare module ol {
         }
 
         class ImageWMS {
+            constructor(options: olx.ImageWMSOptions);
         }
 
         class MapQuest {
@@ -3278,6 +3383,7 @@ declare module ol {
         }
 
         class TileWMS {
+            constructor(options: olx.TileWMSOptions);
         }
 
         class Vector {
