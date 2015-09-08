@@ -1,7 +1,7 @@
 // Type definitions for material-ui
 // Project: http://material-ui.com/
-// Definitions by: nojaf 
-// Definitions: https://github.com/borisyankov/DefinitelyTyped/material-ui/
+// Definitions by: nojaf <https://github.com/nojaf>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path='../react/react.d.ts' />
 declare module MaterialUI {
