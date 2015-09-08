@@ -66,56 +66,8 @@ declare module ionic {
         off(type: string, callback: () => void, element: Element): void;
 
         onGesture(eventType: string, callback: () => void, element: Element): void;
-        onGesture(eventType: "hold", callback: () => void, element: Element): void;
-        onGesture(eventType: "tap", callback: () => void, element: Element): void;
-        onGesture(eventType: "doubletap", callback: () => void, element: Element): void;
-        onGesture(eventType: "drag", callback: () => void, element: Element): void;
-        onGesture(eventType: "dragstart", callback: () => void, element: Element): void;
-        onGesture(eventType: "dragend", callback: () => void, element: Element): void;
-        onGesture(eventType: "dragup", callback: () => void, element: Element): void;
-        onGesture(eventType: "dragdown", callback: () => void, element: Element): void;
-        onGesture(eventType: "dragleft", callback: () => void, element: Element): void;
-        onGesture(eventType: "dragright", callback: () => void, element: Element): void;
-        onGesture(eventType: "swipe", callback: () => void, element: Element): void;
-        onGesture(eventType: "swipeup", callback: () => void, element: Element): void;
-        onGesture(eventType: "swipedown", callback: () => void, element: Element): void;
-        onGesture(eventType: "swipeleft", callback: () => void, element: Element): void;
-        onGesture(eventType: "swiperight", callback: () => void, element: Element): void;
-        onGesture(eventType: "transform", callback: () => void, element: Element): void;
-        onGesture(eventType: "transformstart", callback: () => void, element: Element): void;
-        onGesture(eventType: "transformend", callback: () => void, element: Element): void;
-        onGesture(eventType: "rotate", callback: () => void, element: Element): void;
-        onGesture(eventType: "pinch", callback: () => void, element: Element): void;
-        onGesture(eventType: "pinchin", callback: () => void, element: Element): void;
-        onGesture(eventType: "pinchout", callback: () => void, element: Element): void;
-        onGesture(eventType: "touch", callback: () => void, element: Element): void;
-        onGesture(eventType: "release", callback: () => void, element: Element): void;
 
         offGesture(eventType: string, callback: () => void, element: Element): void;
-        offGesture(eventType: "hold", callback: () => void, element: Element): void;
-        offGesture(eventType: "tap", callback: () => void, element: Element): void;
-        offGesture(eventType: "doubletap", callback: () => void, element: Element): void;
-        offGesture(eventType: "drag", callback: () => void, element: Element): void;
-        offGesture(eventType: "dragstart", callback: () => void, element: Element): void;
-        offGesture(eventType: "dragend", callback: () => void, element: Element): void;
-        offGesture(eventType: "dragup", callback: () => void, element: Element): void;
-        offGesture(eventType: "dragdown", callback: () => void, element: Element): void;
-        offGesture(eventType: "dragleft", callback: () => void, element: Element): void;
-        offGesture(eventType: "dragright", callback: () => void, element: Element): void;
-        offGesture(eventType: "swipe", callback: () => void, element: Element): void;
-        offGesture(eventType: "swipeup", callback: () => void, element: Element): void;
-        offGesture(eventType: "swipedown", callback: () => void, element: Element): void;
-        offGesture(eventType: "swipeleft", callback: () => void, element: Element): void;
-        offGesture(eventType: "swiperight", callback: () => void, element: Element): void;
-        offGesture(eventType: "transform", callback: () => void, element: Element): void;
-        offGesture(eventType: "transformstart", callback: () => void, element: Element): void;
-        offGesture(eventType: "transformend", callback: () => void, element: Element): void;
-        offGesture(eventType: "rotate", callback: () => void, element: Element): void;
-        offGesture(eventType: "pinch", callback: () => void, element: Element): void;
-        offGesture(eventType: "pinchin", callback: () => void, element: Element): void;
-        offGesture(eventType: "pinchout", callback: () => void, element: Element): void;
-        offGesture(eventType: "touch", callback: () => void, element: Element): void;
-        offGesture(eventType: "release", callback: () => void, element: Element): void;
     }
 
     interface IUtils
