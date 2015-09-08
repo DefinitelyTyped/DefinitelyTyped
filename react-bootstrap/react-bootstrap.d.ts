@@ -25,6 +25,7 @@ declare module "react-bootstrap" {
         navDropdown?: boolean;
         componentClass?: string;
         href?: string;
+        onClick?: Function; // Add more specific type 
         target?: string;
         type?: string;
     }
@@ -77,8 +78,8 @@ declare module "react-bootstrap" {
         key?: any; // TODO: Add more specific type
         navItem?: boolean;
         noCaret?: boolean;
-        onClick?: Function; 
-        onSelect?: Function;
+        onClick?: Function;  // TODO: Add more specifc type 
+        onSelect?: Function; // TODO: Add more specific type 
         pullRight?: boolean;
         title?: any; // TODO: Add more specific type
     }
@@ -99,8 +100,8 @@ declare module "react-bootstrap" {
         dropup?: boolean;
         href?: string;
         id?: string; 
-        onClick?: Function; 
-        onSelect?: Function;
+        onClick?: Function;  // TODO: Add more specific type 
+        onSelect?: Function; // TODO: Add more specific type 
         pullRight?: boolean;
         target?: string;
         title?: any; // TODO: Add more specific type
@@ -141,8 +142,8 @@ declare module "react-bootstrap" {
         footer?: any; // TODO: Add more specific type
         header?: any; // TODO: Add more specific type
         id?: string;
-        onSelect?: Function;
-        onClick?: Function;
+        onSelect?: Function; // TODO: Add more specific type 
+        onClick?: Function; // TODO: Add more specific type 
     }
     interface Panel extends React.ReactElement<PanelProps> { }
     interface PanelClass extends React.ComponentClass<PanelProps> { }
@@ -161,7 +162,7 @@ declare module "react-bootstrap" {
         footer?: any; // TODO: Add more specific type
         header?: any; // TODO: Add more specific type
         id?: string;
-        onSelect?: Function;
+        onSelect?: Function; // TODO: Add more specific type 
     }
     interface Accordion extends React.ReactElement<AccordionProps> { }
     interface AccordionClass extends  React.ComponentClass<AccordionProps> { }
@@ -690,8 +691,9 @@ declare module "react-bootstrap" {
         eventKey?: any;
         header?: any; // TODO: Add more specific type
         href?: string;
+        key?: any; // TODO: Add more specific type 
         listItem?: boolean;
-        onClick?: Function;
+        onClick?: Function; // TODO: Add more specific type 
         target?: string;
     }
     interface ListGroupItem extends React.ReactElement<ListGroupItemProps> { }
@@ -799,7 +801,10 @@ declare module "react-bootstrap" {
         ref?: string;
         readOnly?: boolean;
         type?: string;
-        onChange?: Function;
+        onChange?: Function; // TODO: Add more specific type 
+        onKeyDown?: Function; // TODO: Add more specific type 
+        onKeyUp?: Function; // TODO: Add more specific type 
+        onKeyPress?: Function; // TODO: Add more specific type 
         value?: any; // TODO: Add more specific type
         wrapperClassName?: string; 
     }
@@ -826,7 +831,7 @@ declare module "react-bootstrap" {
         label?: any; // TODO: Add more specific type 
         labelClassName?: string;
         multiple?: boolean;
-        onClick?: Function;
+        onClick?: Function; // TODO: Add more specific type 
         type?: string;
         value?: any; // TODO: Add more specific type
         wrapperClassName?: string; 
