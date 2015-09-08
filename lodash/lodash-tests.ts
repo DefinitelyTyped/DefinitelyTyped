@@ -1529,18 +1529,18 @@ result = <_.LoDashArrayWrapper<string>>_(_).methods();
 
 // _.get
 result = <number>_.get<number>({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c');
-// → 3
-result = <number>_.get<number>({ 'a': [{ 'b': { 'c': 3 } }] }, ['a', '0', 'b', 'c']);
-// → 3
-result = <string>_.get<string>({ 'a': [{ 'b': { 'c': 3 } }] }, 'a.b.c', 'default');
-// → 'default'
 
-result = <number>_({ 'a': [{ 'b': { 'c': 3 } }] }).get<number>('a[0].b.c');
-// → 3
-result = <number>_({ 'a': [{ 'b': { 'c': 3 } }] }).get<number>(['a', '0', 'b', 'c']);
-// → 3
-result = <string>_({ 'a': [{ 'b': { 'c': 3 } }] }).get<string>('a.b.c', 'default');
-// → 'default'
+{
+    let result: TResult;
+    result = _.get<TResult>({}, '');
+    result = _.get<TResult>({}, 42);
+    result = _.get<TResult>({}, true);
+    result = _.get<TResult>({}, ['', 42, true]);
+    result = _({}).get<TResult>('');
+    result = _({}).get<TResult>(42);
+    result = _({}).get<TResult>(true);
+    result = _({}).get<TResult>(['', 42, true]);
+}
 
 // _.has
 result = <boolean>_.has({}, '');
