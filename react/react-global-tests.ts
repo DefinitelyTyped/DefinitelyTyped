@@ -1,7 +1,4 @@
-/// <reference path="react.d.ts" />
-import React = require("react/addons");
-
-import TestUtils = React.addons.TestUtils;
+/// <reference path="react-global.d.ts" />
 
 interface Props extends React.Props<MyComponent> {
     hello: string;
@@ -43,25 +40,24 @@ var container: Element;
 
 var ClassicComponent: React.ClassicComponentClass<Props> =
     React.createClass<Props, State>({
-        getDefaultProps: () => {
+        getDefaultProps() {
             return <Props>{
                 hello: undefined,
                 world: "peace",
                 foo: undefined,
-                bar: undefined
+                bar: undefined,
             };
         },
-        getInitialState: () => {
+        getInitialState() {
             return {
                 inputValue: this.context.someValue,
                 seconds: this.props.foo
             };
         },
-        // NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
-        // reset: () => {
-        //     this.replaceState(this.getInitialState());
-        // },
-        render: () => {
+        reset() {
+            this.replaceState(this.getInitialState());
+        },
+        render() {
             return React.DOM.div(null,
                 React.DOM.input({
                     ref: input => this._input = input,
@@ -72,32 +68,32 @@ var ClassicComponent: React.ClassicComponentClass<Props> =
 
 class ModernComponent extends React.Component<Props, State>
     implements React.ChildContextProvider<ChildContext> {
-
+    
     static propTypes: React.ValidationMap<Props> = {
         foo: React.PropTypes.number
     }
-
+    
     static contextTypes: React.ValidationMap<Context> = {
         someValue: React.PropTypes.string
     }
-
+    
     static childContextTypes: React.ValidationMap<ChildContext> = {
         someOtherValue: React.PropTypes.string
     }
-
+    
     context: Context;
-
+    
     getChildContext() {
         return {
             someOtherValue: 'foo'
         }
     }
-
+    
     state = {
         inputValue: this.context.someValue,
         seconds: this.props.foo
     }
-
+    
     reset() {
         this.setState({
             inputValue: this.context.someValue,
@@ -106,7 +102,7 @@ class ModernComponent extends React.Component<Props, State>
     }
 
     private _input: React.HTMLComponent;
-
+    
     render() {
         return React.DOM.div(null,
             React.DOM.input({
@@ -243,6 +239,7 @@ React.DOM.svg({ viewBox: "0 0 48 48" },
       height: 4
     }));
 
+
 //
 // React.PropTypes
 // --------------------------------------------------------------------------
@@ -342,7 +339,7 @@ var onlyChild = React.Children.only([null, [[["Hallo"], true]], false]);
 interface TimerState {
     secondsElapsed: number;
 }
-class Timer extends React.Component<React.Props<Timer>, TimerState> {
+class Timer extends React.Component<{}, TimerState> {
     state = {
         secondsElapsed: 0
     }
@@ -368,46 +365,3 @@ class Timer extends React.Component<React.Props<Timer>, TimerState> {
 }
 React.render(React.createElement(Timer), container);
 
-//
-// React.addons
-// --------------------------------------------------------------------------
-
-var cx = React.addons.classSet;
-var className: string = cx({ a: true, b: false, c: true });
-className = cx("a", null, "b");
-
-React.addons.createFragment({
-    a: React.DOM.div(),
-    b: ["a", false, React.createElement("span")]
-});
-
-//
-// React.addons (Transitions)
-// --------------------------------------------------------------------------
-
-React.createFactory(React.addons.TransitionGroup)({ component: "div" });
-React.createFactory(React.addons.CSSTransitionGroup)({
-    component: React.createClass({
-        render: (): React.ReactElement<any> => null
-    }),
-    childFactory: (c) => c,
-    transitionName: "transition",
-    transitionAppear: false,
-    transitionEnter: true,
-    transitionLeave: true
-});
-
-//
-// React.addons.TestUtils
-// --------------------------------------------------------------------------
-
-var node: Element;
-TestUtils.Simulate.click(node);
-TestUtils.Simulate.change(node);
-TestUtils.Simulate.keyDown(node, { key: "Enter" });
-
-var renderer: React.ShallowRenderer =
-    TestUtils.createRenderer();
-renderer.render(React.createElement(Timer));
-var output: React.ReactElement<React.Props<Timer>> =
-    renderer.getRenderOutput();
