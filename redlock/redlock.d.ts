@@ -18,7 +18,7 @@ declare module RedlockTypes {
 		value: any;
 		expiration: number;
 
-		unlock(callback?: NodeifyCallback<void>): void;
+		unlock(callback?: NodeifyCallback<void>): Promise<void>;
 
 		extend(ttl: number, callback?: NodeifyCallback<Lock>): Promise<Lock>;
 	}
