@@ -24,7 +24,7 @@ interface HighChartsNGConfig {
         currentMin?: number;
         currentMax?: number;
         title?: { text?: string }
-    },
+    };
     //Whether to use HighStocks instead of HighCharts (optional). Defaults to false.
     useHighStocks?: boolean;
     //size (optional) if left out the chart will default to size of the div or something sensible.
