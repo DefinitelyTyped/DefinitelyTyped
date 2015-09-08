@@ -1,5 +1,5 @@
 // Copyright (c) Microsoft Open Technologies, Inc.
-// Licensed under the MIT license. 
+// Licensed under the MIT license.
 
 /// <reference path="cordova.d.ts"/>
 
@@ -203,7 +203,7 @@ file.abort();
 // InAppBrowser plugin
 //----------------------------------------------------------------------
 
-// signature of window.open() added by InAppBrowser plugin 
+// signature of window.open() added by InAppBrowser plugin
 // is similar to native window.open signature, so the compiler can's
 // select proper overload, but we cast result to InAppBrowser manually.
 var iab = <InAppBrowser>window.open('google.com', '_self');
@@ -307,3 +307,18 @@ db.transaction(
 navigator.notification.vibrate(100);
 navigator.notification.vibrateWithPattern([100, 200, 200, 150, 50], 3);
 setTimeout(navigator.notification.cancelVibration, 1000);
+
+// AppVersion plugin
+//----------------------------------------------------------------------
+cordova.getAppVersion.getAppName().then(function(appName){
+    var name:string = appName;
+});
+cordova.getAppVersion.getPackageName().then(function(packageName){
+    var name:string = packageName;
+});
+cordova.getAppVersion.getVersionCode().then(function(version){
+    var name:string = version;
+});
+cordova.getAppVersion.getVersionNumber().then(function(versionNum){
+    var name:string = versionNum;
+});
