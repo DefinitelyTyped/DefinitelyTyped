@@ -7494,36 +7494,50 @@ declare module _ {
         pairs(): LoDashArrayWrapper<any[]>;
     }
 
-    //_.picks
+    //_.pick
     interface LoDashStatic {
         /**
-        * Creates a shallow clone of object composed of the specified properties. Property names may be
-        * specified as individual arguments or as arrays of property names. If a callback is provided
-        * it will be executed for each property of object picking the properties the callback returns
-        * truey for. The callback is bound to thisArg and invoked with three arguments; (value, key,
-        * object).
-        * @param object Object to strip unwanted key/value pairs.
-        * @param keys Property names to pick
-        * @return An object composed of the picked properties.
-        **/
-        pick<Picked, T>(
+         * Creates an object composed of the picked object properties. Property names may be specified as individual
+         * arguments or as arrays of property names. If predicate is provided it’s invoked for each property of object
+         * picking the properties predicate returns truthy for. The predicate is bound to thisArg and invoked with
+         * three arguments: (value, key, object).
+         *
+         * @param object The source object.
+         * @param predicate The function invoked per iteration or property names to pick, specified as individual
+         * property names or arrays of property names.
+         * @param thisArg The this binding of predicate.
+         * @return An object composed of the picked properties.
+         */
+        pick<TResult extends Object, T extends Object>(
             object: T,
-            ...keys: string[]): Picked;
+            predicate: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): TResult;
 
         /**
-        * @see _.pick
-        **/
-        pick<Picked, T>(
+         * @see _.pick
+         */
+        pick<TResult extends Object, T extends Object>(
             object: T,
-            keys: string[]): Picked;
+            ...predicate: Array<string|number|boolean|Array<string|number|boolean>>
+        ): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.pick
+         */
+        pick<TResult extends Object>(
+            predicate: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): LoDashObjectWrapper<TResult>;
 
         /**
-        * @see _.pick
-        **/
-        pick<Picked, T>(
-            object: T,
-            callback: ObjectIterator<any, boolean>,
-            thisArg?: any): Picked;
+         * @see _.pick
+         */
+        pick<TResult extends Object>(
+            ...predicate: Array<string|number|boolean|Array<string|number|boolean>>
+        ): LoDashObjectWrapper<TResult>;
     }
 
     //_.set
