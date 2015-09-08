@@ -35,7 +35,7 @@ declare module DevExpress {
             brokenRules: any[];
             validators: IValidator[];
         }
-        export interface GroupConfig extends EventsMixin<GroupConfig>  {
+        export interface GroupConfig extends EventsMixin<GroupConfig> {
             group: any;
             validators: IValidator[];
             validate(): ValidationGroupValidationResult;
@@ -56,7 +56,7 @@ declare module DevExpress {
         /** Validates the rules that are defined within the dxValidator objects that are registered for the specified ViewModel. */
         export function validateModel(model: Object): ValidationGroupValidationResult;
         /** Registers all the dxValidator objects by which the fields of the specified ViewModel are extended. */
-        export function registerModelForValidation(model: Object) : void;
+        export function registerModelForValidation(model: Object): void;
     }
     export var hardwareBackButton: JQueryCallback;
     /** Processes the hardware back button click. */
@@ -1789,7 +1789,7 @@ declare module DevExpress.ui {
         interval?: number;
         /** Specifies the maximum zoom level of a calendar, which is used to pick the date. */
         maxZoomLevel?: string;
-    /** Specifies the minimal zoom level of a calendar, which is used to pick the date. */
+        /** Specifies the minimal zoom level of a calendar, which is used to pick the date. */
         minZoomLevel?: string;
         /** Specifies the type of date/time picker. */
         pickerType?: string;
@@ -4335,16 +4335,16 @@ declare module DevExpress.viz.core {
         }) => void;
         /** A handler for the incidentOccurred event. */
         onIncidentOccurred?: (
-            component: BaseWidget,
-            element: Element,
-            target: {
-                id: string;
-                type: string;
-                args: any;
-                text: string;
-                widget: string;
-                version: string;
-            }
+        component: BaseWidget,
+        element: Element,
+        target: {
+            id: string;
+            type: string;
+            args: any;
+            text: string;
+            widget: string;
+            version: string;
+        }
         ) => void;
         /** Notifies a widget that it is embedded into an HTML page that uses a path modifier. */
         pathModified?: boolean;
@@ -4659,59 +4659,59 @@ declare module DevExpress.viz.charts {
         };
     }
     export interface CommonPointOptions {
-            /** Specifies border options for points in the line and area series. */
+        /** Specifies border options for points in the line and area series. */
+        border?: viz.core.Border;
+        /** Specifies the points color. */
+        color?: string;
+        /** Specifies what series points to highlight when a point is hovered over. */
+        hoverMode?: string;
+        /** An object defining configuration options for a hovered point. */
+        hoverStyle?: {
+            /** An object defining the border options for a hovered point. */
             border?: viz.core.Border;
-            /** Specifies the points color. */
+            /** Sets a color for a point when it is hovered over. */
             color?: string;
-            /** Specifies what series points to highlight when a point is hovered over. */
-            hoverMode?: string;
-            /** An object defining configuration options for a hovered point. */
-            hoverStyle?: {
-                /** An object defining the border options for a hovered point. */
-                border?: viz.core.Border;
-                /** Sets a color for a point when it is hovered over. */
-                color?: string;
-                /** Specifies the diameter of a hovered point in the series that represents data points as symbols (not as bars for instance). */
-                size?: number;
-            };
-            /** Specifies what series points to highlight when a point is selected. */
-            selectionMode?: string;
-            /** An object defining configuration options for a selected point. */
-            selectionStyle?: {
-                /** An object defining the border options for a selected point. */
-                border?: viz.core.Border;
-                /** <p>Sets a color for a point when it is selected.</p> */
-                color?: string;
-                /** Specifies the diameter of a selected point in the series that represents data points as symbols (not as bars for instance). */
-                size?: number;
-            };
-            /** Specifies the point diameter in pixels for those series that represent data points as symbols (not as bars for instance). */
+            /** Specifies the diameter of a hovered point in the series that represents data points as symbols (not as bars for instance). */
             size?: number;
-            /** Specifies a symbol for presenting points of the line and area series. */
-            symbol?: string;
-            visible?: boolean;
+        };
+        /** Specifies what series points to highlight when a point is selected. */
+        selectionMode?: string;
+        /** An object defining configuration options for a selected point. */
+        selectionStyle?: {
+            /** An object defining the border options for a selected point. */
+            border?: viz.core.Border;
+            /** <p>Sets a color for a point when it is selected.</p> */
+            color?: string;
+            /** Specifies the diameter of a selected point in the series that represents data points as symbols (not as bars for instance). */
+            size?: number;
+        };
+        /** Specifies the point diameter in pixels for those series that represent data points as symbols (not as bars for instance). */
+        size?: number;
+        /** Specifies a symbol for presenting points of the line and area series. */
+        symbol?: string;
+        visible?: boolean;
     }
     export interface ChartCommonPointOptions extends CommonPointOptions {
-            /** An object specifying the parameters of an image that is used as a point marker. */
-            image?: {
-                /** Specifies the height of an image that is used as a point marker. */
-                height?: any;
-                /** Specifies a URL leading to the image to be used as a point marker. */
-                url?: any;
-                /** Specifies the width of an image that is used as a point marker. */
-                width?: any;
-            };
+        /** An object specifying the parameters of an image that is used as a point marker. */
+        image?: {
+            /** Specifies the height of an image that is used as a point marker. */
+            height?: any;
+            /** Specifies a URL leading to the image to be used as a point marker. */
+            url?: any;
+            /** Specifies the width of an image that is used as a point marker. */
+            width?: any;
+        };
     }
     export interface PolarCommonPointOptions extends CommonPointOptions {
-            /** An object specifying the parameters of an image that is used as a point marker. */
-            image?: {
-                /** Specifies the height of an image that is used as a point marker. */
-                height?: number;
-                /** Specifies a URL leading to the image to be used as a point marker. */
-                url?: string;
-                /** Specifies the width of an image that is used as a point marker. */
-                width?: number;
-            };
+        /** An object specifying the parameters of an image that is used as a point marker. */
+        image?: {
+            /** Specifies the height of an image that is used as a point marker. */
+            height?: number;
+            /** Specifies a URL leading to the image to be used as a point marker. */
+            url?: string;
+            /** Specifies the width of an image that is used as a point marker. */
+            width?: number;
+        };
     }
     /** An object that defines configuration options for chart series. */
     export interface CommonSeriesConfig extends BaseCommonSeriesConfig {
@@ -5094,17 +5094,17 @@ declare module DevExpress.viz.charts {
         text?: string;
     }
     export interface AxisLabel {
-          /** Specifies the text for a hint that appears when a user hovers the mouse pointer over a label on the value axis. */
+        /** Specifies the text for a hint that appears when a user hovers the mouse pointer over a label on the value axis. */
         customizeHint?: (argument: { value: any; valueText: string }) => string;
-          /** Specifies a callback function that returns the text to be displayed in value axis labels. */
+        /** Specifies a callback function that returns the text to be displayed in value axis labels. */
         customizeText?: (argument: { value: any; valueText: string }) => string;
-          /** Specifies a format for the text displayed by axis labels. */
+        /** Specifies a format for the text displayed by axis labels. */
         format?: string;
-          /** Specifies a precision for the formatted value displayed in the axis labels. */
+        /** Specifies a precision for the formatted value displayed in the axis labels. */
         precision?: number;
     }
-    export interface ChartAxisLabel extends ChartCommonAxisLabel, AxisLabel {}
-    export interface PolarAxisLabel extends PolarCommonAxisLabel, AxisLabel {}
+    export interface ChartAxisLabel extends ChartCommonAxisLabel, AxisLabel { }
+    export interface PolarAxisLabel extends PolarCommonAxisLabel, AxisLabel { }
     export interface AxisTitle extends CommonAxisTitle {
         /** Specifies the text for the value axis title. */
         text?: string;
@@ -5120,7 +5120,7 @@ declare module DevExpress.viz.charts {
         value?: any;
     }
     export interface PolarConstantLine extends PolarCommonConstantLineStyle {
-    /** An object defining constant line label options. */
+        /** An object defining constant line label options. */
         label?: PolarConstantLineLabel;
         /** Specifies a value to be displayed by a constant line. */
         value?: any;
@@ -5173,7 +5173,7 @@ declare module DevExpress.viz.charts {
         /** Specifies the elements that will be highlighted when the argument axis is hovered over. */
         hoverMode?: string;
     }
-    export interface ChartArgumentAxis extends ChartAxis, ArgumentAxis {}
+    export interface ChartArgumentAxis extends ChartAxis, ArgumentAxis { }
     export interface PolarArgumentAxis extends PolarAxis, ArgumentAxis {
         /** Specifies a start angle for the argument axis in degrees. */
         startAngle?: number;
@@ -5189,7 +5189,7 @@ declare module DevExpress.viz.charts {
         showZero?: boolean;
         /** Specifies the desired type of axis values. */
         valueType?: string;
-        }
+    }
     export interface ChartValueAxis extends ChartAxis, ValueAxis {
         /** Specifies the spacing, in pixels, between multiple value axes in a chart. */
         multipleAxesSpacing?: number;
