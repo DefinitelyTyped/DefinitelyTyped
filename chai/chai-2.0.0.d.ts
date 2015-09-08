@@ -1,12 +1,9 @@
-// Type definitions for chai 3.2.0
+// Type definitions for chai 2.0.0
 // Project: http://chaijs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao/>,
 //                 Bart van der Schoor <https://github.com/Bartvds>,
-//                 Andrew Brown <https://github.com/AGBrown>,
-//                 Olivier Chevet <https://github.com/olivr70>
+//                 Andrew Brown <https://github.com/AGBrown>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-
-// <reference path="../assertion-error/assertion-error.d.ts"/>
 
 declare module Chai {
 
@@ -19,11 +16,9 @@ declare module Chai {
         use(fn: (chai: any, utils: any) => void): any;
         assert: AssertStatic;
         config: Config;
-        AssertionError: AssertionError;
     }
 
     export interface ExpectStatic extends AssertionStatic {
-        fail(actual?: any, expected?: any, message?: string, operator?: string): void;
     }
 
     export interface AssertStatic extends Assert {
@@ -54,20 +49,15 @@ declare module Chai {
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
         not: Assertion;
         deep: Deep;
-        any: KeyFilter;
-        all: KeyFilter;
         a: TypeComparison;
         an: TypeComparison;
         include: Include;
-        includes: Include;
         contain: Include;
-        contains: Include;
         ok: Assertion;
         true: Assertion;
         false: Assertion;
         null: Assertion;
         undefined: Assertion;
-        NaN: Assertion;
         exist: Assertion;
         empty: Assertion;
         arguments: Assertion;
@@ -80,35 +70,20 @@ declare module Chai {
         property: Property;
         ownProperty: OwnProperty;
         haveOwnProperty: OwnProperty;
-        ownPropertyDescriptor: OwnPropertyDescriptor;
-        haveOwnPropertyDescriptor: OwnPropertyDescriptor;
         length: Length;
         lengthOf: Length;
-        match: Match;
-        matches: Match;
+        match(regexp: RegExp|string, message?: string): Assertion;
         string(string: string, message?: string): Assertion;
         keys: Keys;
         key(string: string): Assertion;
         throw: Throw;
         throws: Throw;
         Throw: Throw;
-        respondTo: RespondTo;
-        respondsTo: RespondTo;
+        respondTo(method: string, message?: string): Assertion;
         itself: Assertion;
-        satisfy: Satisfy;
-        satisfies: Satisfy;
+        satisfy(matcher: Function, message?: string): Assertion;
         closeTo(expected: number, delta: number, message?: string): Assertion;
         members: Members;
-        increase: PropertyChange;
-        increases: PropertyChange;
-        decrease: PropertyChange;
-        decreases: PropertyChange;
-        change: PropertyChange;
-        changes: PropertyChange;
-        extensible: Assertion;
-        sealed: Assertion;
-        frozen: Assertion;
-
     }
 
     interface LanguageChains {
@@ -159,11 +134,6 @@ declare module Chai {
         equal: Equal;
         include: Include;
         property: Property;
-        members: Members;
-    }
-
-    interface KeyFilter {
-        keys: Keys;
     }
 
     interface Equal {
@@ -178,11 +148,6 @@ declare module Chai {
         (name: string, message?: string): Assertion;
     }
 
-    interface OwnPropertyDescriptor {
-        (name: string, descriptor: PropertyDescriptor, message?: string): Assertion;
-        (name: string, message?: string): Assertion;
-    }
-
     interface Length extends LanguageChains, NumericComparison {
         (length: number, message?: string): Assertion;
     }
@@ -193,18 +158,11 @@ declare module Chai {
         (value: number, message?: string): Assertion;
         keys: Keys;
         members: Members;
-        any: KeyFilter;
-        all: KeyFilter;
-    }
-
-    interface Match {
-        (regexp: RegExp|string, message?: string): Assertion;
     }
 
     interface Keys {
         (...keys: string[]): Assertion;
         (keys: any[]): Assertion;
-        (keys: Object): Assertion;
     }
 
     interface Throw {
@@ -217,20 +175,8 @@ declare module Chai {
         (constructor: Function, expected?: RegExp, message?: string): Assertion;
     }
 
-    interface RespondTo {
-        (method: string, message?: string): Assertion;
-    }
-
-    interface Satisfy {
-        (matcher: Function, message?: string): Assertion;
-    }
-
     interface Members {
         (set: any[], message?: string): Assertion;
-    }
-
-    interface PropertyChange {
-        (object: Object, prop: string, msg?: string): Assertion;
     }
 
     export interface Assert {
@@ -243,9 +189,7 @@ declare module Chai {
         fail(actual?: any, expected?: any, msg?: string, operator?: string): void;
 
         ok(val: any, msg?: string): void;
-        isOk(val: any, msg?: string): void;
         notOk(val: any, msg?: string): void;
-        isNotOk(val: any, msg?: string): void;
 
         equal(act: any, exp: any, msg?: string): void;
         notEqual(act: any, exp: any, msg?: string): void;
@@ -264,12 +208,6 @@ declare module Chai {
 
         isUndefined(val: any, msg?: string): void;
         isDefined(val: any, msg?: string): void;
-
-        isNaN(val: any, msg?: string): void;
-        isNotNaN(val: any, msg?: string): void;
-
-        isAbove(val: number, abv: number, msg?: string): void;
-        isBelow(val: number, blw: number, msg?: string): void;
 
         isFunction(val: any, msg?: string): void;
         isNotFunction(val: any, msg?: string): void;
@@ -341,27 +279,9 @@ declare module Chai {
         closeTo(act: number, exp: number, delta: number, msg?: string): void;
 
         sameMembers(set1: any[], set2: any[], msg?: string): void;
-        sameDeepMembers(set1: any[], set2: any[], msg?: string): void;
-        includeMembers(superset: any[], subset: any[], msg?: string): void;
+        includeMembers(set1: any[], set2: any[], msg?: string): void;
 
         ifError(val: any, msg?: string): void;
-
-        isExtensible(obj: {}, msg?: string): void;
-        extensible(obj: {}, msg?: string): void;
-        isNotExtensible(obj: {}, msg?: string): void;
-        notExtensible(obj: {}, msg?: string): void;
-
-        isSealed(obj: {}, msg?: string): void;
-        sealed(obj: {}, msg?: string): void;
-        isNotSealed(obj: {}, msg?: string): void;
-        notSealed(obj: {}, msg?: string): void;
-
-        isFrozen(obj: Object, msg?: string): void;
-        frozen(obj: Object, msg?: string): void;
-        isNotFrozen(obj: Object, msg?: string): void;
-        notFrozen(obj: Object, msg?: string): void;
-
-
     }
 
     export interface Config {
