@@ -43,6 +43,8 @@ app.on('ready', () => {
 
 	// and load the index.html of the app.
 	mainWindow.loadUrl(`file://${__dirname}/index.html`);
+	mainWindow.loadUrl('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
+	mainWindow.webContents.loadUrl('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
 
 	mainWindow.openDevTools()
 	var opened: boolean = mainWindow.isDevToolsOpened()
