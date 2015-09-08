@@ -41,238 +41,237 @@ declare module React {
         // Development tools
         export import Perf = ReactPerf;
         export import TestUtils = ReactTestUtils;
-    }
 
-    //
-    // React.addons (Transitions)
-    // ----------------------------------------------------------------------
+        //
+        // React.addons (Transitions)
+        // ----------------------------------------------------------------------
 
-    interface TransitionGroupProps {
-        component?: ReactType;
-        childFactory?: (child: ReactElement<any>) => ReactElement<any>;
-    }
+        interface TransitionGroupProps {
+            component?: ReactType;
+            childFactory?: (child: ReactElement<any>) => ReactElement<any>;
+        }
 
-    interface CSSTransitionGroupProps extends TransitionGroupProps {
-        transitionName: string;
-        transitionAppear?: boolean;
-        transitionEnter?: boolean;
-        transitionLeave?: boolean;
-    }
+        interface CSSTransitionGroupProps extends TransitionGroupProps {
+            transitionName: string;
+            transitionAppear?: boolean;
+            transitionEnter?: boolean;
+            transitionLeave?: boolean;
+        }
 
-    type CSSTransitionGroup = ComponentClass<CSSTransitionGroupProps>;
-    type TransitionGroup = ComponentClass<TransitionGroupProps>;
+        type CSSTransitionGroup = ComponentClass<CSSTransitionGroupProps>;
+        type TransitionGroup = ComponentClass<TransitionGroupProps>;
 
-    //
-    // React.addons (Mixins)
-    // ----------------------------------------------------------------------
+        //
+        // React.addons (Mixins)
+        // ----------------------------------------------------------------------
 
-    interface ReactLink<T> {
-        value: T;
-        requestChange(newValue: T): void;
-    }
+        interface ReactLink<T> {
+            value: T;
+            requestChange(newValue: T): void;
+        }
 
-    interface LinkedStateMixin extends Mixin<any, any> {
-        linkState<T>(key: string): ReactLink<T>;
-    }
+        interface LinkedStateMixin extends Mixin<any, any> {
+            linkState<T>(key: string): ReactLink<T>;
+        }
 
-    interface PureRenderMixin extends Mixin<any, any> {
-    }
+        interface PureRenderMixin extends Mixin<any, any> {
+        }
 
-    //
-    // Reat.addons.update
-    // ----------------------------------------------------------------------
+        //
+        // Reat.addons.update
+        // ----------------------------------------------------------------------
 
-    interface UpdateSpec {
-        $set?: any;
-        $merge?: {};
-        $apply?(value: any): any;
-        // [key: string]: UpdateSpec;
-    }
+        interface UpdateSpec {
+            $set?: any;
+            $merge?: {};
+            $apply?(value: any): any;
+            // [key: string]: UpdateSpec;
+        }
 
-    interface UpdateArraySpec extends UpdateSpec {
-        $push?: any[];
-        $unshift?: any[];
-        $splice?: any[][];
-    }
+        interface UpdateArraySpec extends UpdateSpec {
+            $push?: any[];
+            $unshift?: any[];
+            $splice?: any[][];
+        }
 
-    //
-    // React.addons.Perf
-    // ----------------------------------------------------------------------
+        //
+        // React.addons.Perf
+        // ----------------------------------------------------------------------
 
-    interface ComponentPerfContext {
-        current: string;
-        owner: string;
-    }
+        interface ComponentPerfContext {
+            current: string;
+            owner: string;
+        }
 
-    interface NumericPerfContext {
-        [key: string]: number;
-    }
+        interface NumericPerfContext {
+            [key: string]: number;
+        }
 
-    interface Measurements {
-        exclusive: NumericPerfContext;
-        inclusive: NumericPerfContext;
-        render: NumericPerfContext;
-        counts: NumericPerfContext;
-        writes: NumericPerfContext;
-        displayNames: {
-            [key: string]: ComponentPerfContext;
-        };
-        totalTime: number;
-    }
+        interface Measurements {
+            exclusive: NumericPerfContext;
+            inclusive: NumericPerfContext;
+            render: NumericPerfContext;
+            counts: NumericPerfContext;
+            writes: NumericPerfContext;
+            displayNames: {
+                [key: string]: ComponentPerfContext;
+            };
+            totalTime: number;
+        }
 
-    module ReactPerf {
-        export function start(): void;
-        export function stop(): void;
-        export function printInclusive(measurements: Measurements[]): void;
-        export function printExclusive(measurements: Measurements[]): void;
-        export function printWasted(measurements: Measurements[]): void;
-        export function printDOM(measurements: Measurements[]): void;
-        export function getLastMeasurements(): Measurements[];
-    }
+        module ReactPerf {
+            export function start(): void;
+            export function stop(): void;
+            export function printInclusive(measurements: Measurements[]): void;
+            export function printExclusive(measurements: Measurements[]): void;
+            export function printWasted(measurements: Measurements[]): void;
+            export function printDOM(measurements: Measurements[]): void;
+            export function getLastMeasurements(): Measurements[];
+        }
 
-    //
-    // React.addons.TestUtils
-    // ----------------------------------------------------------------------
+        //
+        // React.addons.TestUtils
+        // ----------------------------------------------------------------------
 
-    interface MockedComponentClass {
-        new(): any;
-    }
+        interface MockedComponentClass {
+            new(): any;
+        }
 
-    module ReactTestUtils {
-        export import Simulate = ReactSimulate;
+        module ReactTestUtils {
+            export import Simulate = ReactSimulate;
 
-        export function renderIntoDocument<P>(
-            element: ReactElement<P>): Component<P, any>;
-        export function renderIntoDocument<C extends Component<any, any>>(
-            element: ReactElement<any>): C;
+            export function renderIntoDocument<P>(
+                element: ReactElement<P>): Component<P, any>;
+            export function renderIntoDocument<C extends Component<any, any>>(
+                element: ReactElement<any>): C;
 
-        export function mockComponent(
-            mocked: MockedComponentClass, mockTagName?: string): typeof ReactTestUtils;
+            export function mockComponent(
+                mocked: MockedComponentClass, mockTagName?: string): typeof ReactTestUtils;
 
-        export function isElementOfType(
-            element: ReactElement<any>, type: ReactType): boolean;
-        export function isTextComponent(instance: Component<any, any>): boolean;
-        export function isDOMComponent(instance: Component<any, any>): boolean;
-        export function isCompositeComponent(instance: Component<any, any>): boolean;
-        export function isCompositeComponentWithType(
-            instance: Component<any, any>,
-            type: ComponentClass<any>): boolean;
+            export function isElementOfType(
+                element: ReactElement<any>, type: ReactType): boolean;
+            export function isTextComponent(instance: Component<any, any>): boolean;
+            export function isDOMComponent(instance: Component<any, any>): boolean;
+            export function isCompositeComponent(instance: Component<any, any>): boolean;
+            export function isCompositeComponentWithType(
+                instance: Component<any, any>,
+                type: ComponentClass<any>): boolean;
 
-        export function findAllInRenderedTree(
-            tree: Component<any, any>,
-            fn: (i: Component<any, any>) => boolean): Component<any, any>;
+            export function findAllInRenderedTree(
+                tree: Component<any, any>,
+                fn: (i: Component<any, any>) => boolean): Component<any, any>;
 
-        export function scryRenderedDOMComponentsWithClass(
-            tree: Component<any, any>,
-            className: string): DOMComponent<any>[];
-        export function findRenderedDOMComponentWithClass(
-            tree: Component<any, any>,
-            className: string): DOMComponent<any>;
+            export function scryRenderedDOMComponentsWithClass(
+                tree: Component<any, any>,
+                className: string): DOMComponent<any>[];
+            export function findRenderedDOMComponentWithClass(
+                tree: Component<any, any>,
+                className: string): DOMComponent<any>;
 
-        export function scryRenderedDOMComponentsWithTag(
-            tree: Component<any, any>,
-            tagName: string): DOMComponent<any>[];
-        export function findRenderedDOMComponentWithTag(
-            tree: Component<any, any>,
-            tagName: string): DOMComponent<any>;
+            export function scryRenderedDOMComponentsWithTag(
+                tree: Component<any, any>,
+                tagName: string): DOMComponent<any>[];
+            export function findRenderedDOMComponentWithTag(
+                tree: Component<any, any>,
+                tagName: string): DOMComponent<any>;
 
-        export function scryRenderedComponentsWithType<P>(
-            tree: Component<any, any>,
-            type: ComponentClass<P>): Component<P, {}>[];
-        export function scryRenderedComponentsWithType<C extends Component<any, any>>(
-            tree: Component<any, any>,
-            type: ComponentClass<any>): C[];
+            export function scryRenderedComponentsWithType<P>(
+                tree: Component<any, any>,
+                type: ComponentClass<P>): Component<P, {}>[];
+            export function scryRenderedComponentsWithType<C extends Component<any, any>>(
+                tree: Component<any, any>,
+                type: ComponentClass<any>): C[];
 
-        export function findRenderedComponentWithType<P>(
-            tree: Component<any, any>,
-            type: ComponentClass<P>): Component<P, {}>;
-        export function findRenderedComponentWithType<C extends Component<any, any>>(
-            tree: Component<any, any>,
-            type: ComponentClass<any>): C;
+            export function findRenderedComponentWithType<P>(
+                tree: Component<any, any>,
+                type: ComponentClass<P>): Component<P, {}>;
+            export function findRenderedComponentWithType<C extends Component<any, any>>(
+                tree: Component<any, any>,
+                type: ComponentClass<any>): C;
 
-        export function createRenderer(): ShallowRenderer;
-    }
+            export function createRenderer(): ShallowRenderer;
+        }
 
-    interface SyntheticEventData {
-        altKey?: boolean;
-        button?: number;
-        buttons?: number;
-        clientX?: number;
-        clientY?: number;
-        changedTouches?: TouchList;
-        charCode?: boolean;
-        clipboardData?: DataTransfer;
-        ctrlKey?: boolean;
-        deltaMode?: number;
-        deltaX?: number;
-        deltaY?: number;
-        deltaZ?: number;
-        detail?: number;
-        getModifierState?(key: string): boolean;
-        key?: string;
-        keyCode?: number;
-        locale?: string;
-        location?: number;
-        metaKey?: boolean;
-        pageX?: number;
-        pageY?: number;
-        relatedTarget?: EventTarget;
-        repeat?: boolean;
-        screenX?: number;
-        screenY?: number;
-        shiftKey?: boolean;
-        targetTouches?: TouchList;
-        touches?: TouchList;
-        view?: AbstractView;
-        which?: number;
-    }
+        interface SyntheticEventData {
+            altKey?: boolean;
+            button?: number;
+            buttons?: number;
+            clientX?: number;
+            clientY?: number;
+            changedTouches?: TouchList;
+            charCode?: boolean;
+            clipboardData?: DataTransfer;
+            ctrlKey?: boolean;
+            deltaMode?: number;
+            deltaX?: number;
+            deltaY?: number;
+            deltaZ?: number;
+            detail?: number;
+            getModifierState?(key: string): boolean;
+            key?: string;
+            keyCode?: number;
+            locale?: string;
+            location?: number;
+            metaKey?: boolean;
+            pageX?: number;
+            pageY?: number;
+            relatedTarget?: EventTarget;
+            repeat?: boolean;
+            screenX?: number;
+            screenY?: number;
+            shiftKey?: boolean;
+            targetTouches?: TouchList;
+            touches?: TouchList;
+            view?: AbstractView;
+            which?: number;
+        }
 
-    interface EventSimulator {
-        (element: Element, eventData?: SyntheticEventData): void;
-        (component: Component<any, any>, eventData?: SyntheticEventData): void;
-    }
+        interface EventSimulator {
+            (element: Element, eventData?: SyntheticEventData): void;
+            (component: Component<any, any>, eventData?: SyntheticEventData): void;
+        }
 
-    module ReactSimulate {
-        export var blur: EventSimulator;
-        export var change: EventSimulator;
-        export var click: EventSimulator;
-        export var cut: EventSimulator;
-        export var doubleClick: EventSimulator;
-        export var drag: EventSimulator;
-        export var dragEnd: EventSimulator;
-        export var dragEnter: EventSimulator;
-        export var dragExit: EventSimulator;
-        export var dragLeave: EventSimulator;
-        export var dragOver: EventSimulator;
-        export var dragStart: EventSimulator;
-        export var drop: EventSimulator;
-        export var focus: EventSimulator;
-        export var input: EventSimulator;
-        export var keyDown: EventSimulator;
-        export var keyPress: EventSimulator;
-        export var keyUp: EventSimulator;
-        export var mouseDown: EventSimulator;
-        export var mouseEnter: EventSimulator;
-        export var mouseLeave: EventSimulator;
-        export var mouseMove: EventSimulator;
-        export var mouseOut: EventSimulator;
-        export var mouseOver: EventSimulator;
-        export var mouseUp: EventSimulator;
-        export var paste: EventSimulator;
-        export var scroll: EventSimulator;
-        export var submit: EventSimulator;
-        export var touchCancel: EventSimulator;
-        export var touchEnd: EventSimulator;
-        export var touchMove: EventSimulator;
-        export var touchStart: EventSimulator;
-        export var wheel: EventSimulator;
-    }
+        module ReactSimulate {
+            export var blur: EventSimulator;
+            export var change: EventSimulator;
+            export var click: EventSimulator;
+            export var cut: EventSimulator;
+            export var doubleClick: EventSimulator;
+            export var drag: EventSimulator;
+            export var dragEnd: EventSimulator;
+            export var dragEnter: EventSimulator;
+            export var dragExit: EventSimulator;
+            export var dragLeave: EventSimulator;
+            export var dragOver: EventSimulator;
+            export var dragStart: EventSimulator;
+            export var drop: EventSimulator;
+            export var focus: EventSimulator;
+            export var input: EventSimulator;
+            export var keyDown: EventSimulator;
+            export var keyPress: EventSimulator;
+            export var keyUp: EventSimulator;
+            export var mouseDown: EventSimulator;
+            export var mouseEnter: EventSimulator;
+            export var mouseLeave: EventSimulator;
+            export var mouseMove: EventSimulator;
+            export var mouseOut: EventSimulator;
+            export var mouseOver: EventSimulator;
+            export var mouseUp: EventSimulator;
+            export var paste: EventSimulator;
+            export var scroll: EventSimulator;
+            export var submit: EventSimulator;
+            export var touchCancel: EventSimulator;
+            export var touchEnd: EventSimulator;
+            export var touchMove: EventSimulator;
+            export var touchStart: EventSimulator;
+            export var wheel: EventSimulator;
+        }
 
-    class ShallowRenderer {
-        getRenderOutput<E extends ReactElement<any>>(): E;
-        getRenderOutput(): ReactElement<any>;
-        render(element: ReactElement<any>, context?: any): void;
-        unmount(): void;
+        class ShallowRenderer {
+            getRenderOutput<E extends ReactElement<any>>(): E;
+            getRenderOutput(): ReactElement<any>;
+            render(element: ReactElement<any>, context?: any): void;
+            unmount(): void;
+        }
     }
 }
-

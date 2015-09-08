@@ -4,10 +4,9 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path='../react/react.d.ts' />
-///<reference path='../react/react-addons.d.ts' />
 
-declare module ReactRouter {
-    import React = __React;
+declare module "react-router" {
+    import * as React from "react";
 
     //
     // Transition
@@ -274,11 +273,9 @@ declare module ReactRouter {
     }
 }
 
-declare module "react-router" {
-    export = ReactRouter;
-}
-
-declare module __React {
+declare module "react" {
+  import * as __React from "react";
+  import * as ReactRouter from "react-router";
 
   // for DefaultRoute
   function createElement(
@@ -318,6 +315,9 @@ declare module __React {
 }
 
 declare module "react/addons" {
+  import * as __React from "react";
+  import * as ReactRouter from "react-router";
+
   // for DefaultRoute
   function createElement(
     type: ReactRouter.DefaultRouteClass,

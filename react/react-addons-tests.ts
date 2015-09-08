@@ -43,25 +43,25 @@ var container: Element;
 
 var ClassicComponent: React.ClassicComponentClass<Props> =
     React.createClass<Props, State>({
-        getDefaultProps: () => {
+        getDefaultProps() {
             return <Props>{
                 hello: undefined,
                 world: "peace",
                 foo: undefined,
-                bar: undefined
+                bar: undefined,
             };
         },
-        getInitialState: () => {
+        getInitialState() {
             return {
                 inputValue: this.context.someValue,
                 seconds: this.props.foo
             };
         },
         // NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
-        // reset: () => {
+        // reset() {
         //     this.replaceState(this.getInitialState());
         // },
-        render: () => {
+        render() {
             return React.DOM.div(null,
                 React.DOM.input({
                     ref: input => this._input = input,
@@ -207,7 +207,7 @@ myComponent.reset();
 // --------------------------------------------------------------------------
 
 var children: any[] = ["Hello world", [null], React.DOM.span(null)];
-var divStyle = { // CSSProperties
+var divStyle: React.CSSProperties = { // CSSProperties
     flex: "1 1 main-size",
     backgroundImage: "url('hello.png')"
 };
@@ -242,6 +242,7 @@ React.DOM.svg({ viewBox: "0 0 48 48" },
       width: 28,
       height: 4
     }));
+
 
 //
 // React.PropTypes
@@ -406,7 +407,7 @@ TestUtils.Simulate.click(node);
 TestUtils.Simulate.change(node);
 TestUtils.Simulate.keyDown(node, { key: "Enter" });
 
-var renderer: React.ShallowRenderer =
+var renderer: React.addons.ShallowRenderer =
     TestUtils.createRenderer();
 renderer.render(React.createElement(Timer));
 var output: React.ReactElement<React.Props<Timer>> =
