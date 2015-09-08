@@ -409,6 +409,7 @@ app.on('ready', () => {
 	]);
 	appIcon.setToolTip('This is my application.');
 	appIcon.setContextMenu(contextMenu);
+	appIcon.setImage('/path/to/new/icon');
 });
 
 // clipboard
