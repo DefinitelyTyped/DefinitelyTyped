@@ -2000,9 +2000,65 @@ declare module _ {
         zipWith<TResult>(...args: any[]): LoDashArrayWrapper<TResult>;
     }
 
-    /* *************
-     * Collections *
-     ************* */
+    /*********
+     * Chain *
+     *********/
+
+    //_.thru
+    interface LoDashStatic {
+        /**
+         * This method is like _.tap except that it returns the result of interceptor.
+         * @param value The value to provide to interceptor.
+         * @param interceptor The function to invoke.
+         * @param thisArg The this binding of interceptor.
+         * @return Returns the result of interceptor.
+         */
+        thru<T, TResult>(
+            value: T,
+            interceptor: (value: T) => TResult,
+            thisArg?: any): TResult;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.thru
+         */
+        thru<TResult extends number>(
+            interceptor: (value: T) => TResult,
+            thisArg?: any): LoDashWrapper<TResult>;
+
+        /**
+         * @see _.thru
+         */
+        thru<TResult extends string>(
+            interceptor: (value: T) => TResult,
+            thisArg?: any): LoDashWrapper<TResult>;
+
+        /**
+         * @see _.thru
+         */
+        thru<TResult extends boolean>(
+            interceptor: (value: T) => TResult,
+            thisArg?: any): LoDashWrapper<TResult>;
+
+        /**
+         * @see _.thru
+         */
+        thru<TResult extends Object>(
+            interceptor: (value: T) => TResult,
+            thisArg?: any): LoDashObjectWrapper<TResult>;
+
+        /**
+         * @see _.thru
+         */
+        thru<TResult>(
+            interceptor: (value: T) => TResult[],
+            thisArg?: any): LoDashArrayWrapper<TResult>;
+    }
+
+    /**************
+     * Collection *
+     **************/
 
     //_.at
     interface LoDashStatic {
