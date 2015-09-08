@@ -1527,9 +1527,9 @@ declare module Slick {
 			public expandGroup(...varArgs: string[]): void;
 			public getGroups(): Group<T, any>[];
 			public getIdxById(id: string): number;
-			public getRowById(): T;
+			public getRowById(id: string): number;
 			public getItemById(id: any): T;
-			public getItemByIdx(): T;
+			public getItemByIdx(idx: number): T;
 			public mapRowsToIds(rowArray: T[]): string[];
 			public setRefreshHints(hints: RefreshHints): void;
 			public setFilterArgs(args: any): void;
@@ -1543,7 +1543,7 @@ declare module Slick {
 
 			public getLength(): number;
 			public getItem(index: number): T;
-			public getItemMetadata(index?: number): void;
+			public getItemMetadata(index?: number): TotalsRowMetadata<T>;
 
 			public onRowCountChanged: Slick.Event<OnRowCountChangedEventData>;
 			public onRowsChanged: Slick.Event<OnRowsChangedEventData>;
