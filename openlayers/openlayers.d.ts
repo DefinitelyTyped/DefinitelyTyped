@@ -22,23 +22,23 @@ declare module olx {
     interface FrameState {
 
         /**
-         * 
+         *
          */
         pixelRatio: number;
 
         /**
-         * 
+         *
          */
         time: number;
 
         /**
-         * 
+         *
          */
         viewState: olx.ViewState;
     }
 
     interface FeatureOverlayOptions {
-        
+
         /**
          * Features
          */
@@ -89,7 +89,7 @@ declare module olx {
     }
 
     interface BaseWMSOptions {
-    
+
         /** Attributions. */
         attributions?: Array<ol.Attribution>;
 
@@ -141,8 +141,14 @@ declare module olx {
         /** experimental Optional function to load a tile given a URL. */
         tileLoadFunction?: ol.TileLoadFunctionType;
 
+        /** WMS service URL. */
+        url?: string;
+
         /** WMS service urls. Use this instead of url when the WMS supports multiple urls for GetMap requests. */
         urls?: Array<string>;
+
+        /** experimental The type of the remote WMS server. Currently only used when hidpi is true. Default is undefined. */
+        serverType?: ol.source.wms.ServerType;
 
         /** experimental Whether to wrap the world horizontally. When set to false, only one world will be rendered. When true, tiles will be requested for one world only, but they will be wrapped horizontally to render multiple worlds. The default is true. */
         wrapX?: boolean;
@@ -298,22 +304,22 @@ declare module olx {
     interface ViewState {
 
         /**
-         * 
+         *
          */
         center: ol.Coordinate;
 
         /**
-         * 
+         *
          */
         projection: ol.proj.Projection;
 
         /**
-         * 
+         *
          */
         resolution: number;
 
         /**
-         * 
+         *
          */
         rotation: number;
     }
@@ -350,8 +356,8 @@ declare module olx {
         worldExtent?: ol.Extent;
 
         /**
-        *  experimental Function to determine resolution at a point. The function is called with 
-        *  a {number} view resolution and an {ol.Coordinate} as arguments, and returns the {number} 
+        *  experimental Function to determine resolution at a point. The function is called with
+        *  a {number} view resolution and an {ol.Coordinate} as arguments, and returns the {number}
         *  resolution at the passed coordinate.
         */
         getPointResolution?: (resolution: number, coordinate: ol.Coordinate) => number;
@@ -360,7 +366,7 @@ declare module olx {
     module animation {
 
         interface BounceOptions {
-            
+
             /**
              * The resolution to start the bounce from, typically map.getView().getResolution().
              */
@@ -383,7 +389,7 @@ declare module olx {
         }
 
         interface PanOptions {
-            
+
             /**
              * The resolution to start the bounce from, typically map.getView().getResolution().
              */
@@ -406,7 +412,7 @@ declare module olx {
         }
 
         interface RotateOptions {
-            
+
             /**
              * The rotation value (in radians) to begin rotating from, typically map.getView().getRotation(). If undefined then 0 is assumed.
              */
@@ -434,7 +440,7 @@ declare module olx {
         }
 
         interface ZoomOptions {
-            
+
             /**
              * The resolution to begin zooming from, typically map.getView().getResolution().
              */
@@ -482,14 +488,14 @@ declare module olx {
              */
             //TODO: Replace with olx.control.RotateOptions
             rotateOptions?: any;
-            
+
             /**
              * Zoom. Default is true
              */
             zoom?: boolean;
 
             /**
-             * 
+             *
              */
             //TODO: Replace with olx.control.ZoomOptions
             zoomOptions?: any;
@@ -828,7 +834,7 @@ declare module olx {
              * Tile sizes. The length of this array needs to match the length of the resolutions array.
              */
             tileSizes?: Array<number | ol.Size>;
-            
+
             /**
              * Number of tile columns that cover the grid's extent for each zoom level. Only required when used with a source that has wrapX set to true, and only when the grid's origin differs from the one of the projection's extent. The array length has to match the length of the resolutions array, i.e. each resolution will have a matching entry here.
              */
@@ -952,7 +958,7 @@ declare module olx {
 declare module ol {
 
     interface TileLoadFunctionType{ (image: ol.Image, url: string): void }
-    
+
     interface ImageLoadFunctionType{ (image: ol.Image, url: string): void }
 
     /**
@@ -965,13 +971,13 @@ declare module ol {
          */
         constructor(options: olx.AttributionOptions);
 
-        /** 
-         * Get the attribution markup. 
+        /**
+         * Get the attribution markup.
          * @returns The attribution HTML.
          */
         getHTML(): string;
     }
-    
+
     /**
      * An expanded version of standard JS Array, adding convenience methods for manipulation. Add and remove changes to the Collection trigger a Collection event. Note that this does not cover changes to the objects within the Collection; they trigger events on the appropriate object, not on the Collection as a whole.
      */
@@ -1028,7 +1034,7 @@ declare module ol {
          */
         item(index: number): T;
 
-        /** 
+        /**
          * Remove the last element of the collection and return it. Return undefined if the collection is empty.
          * @returns Element
          */
@@ -1055,7 +1061,7 @@ declare module ol {
          */
         removeAt(index: number): T;
 
-        /** 
+        /**
          * Set the element at the provided index.
          * @param index Index.
          * @param elem Element.
@@ -1087,7 +1093,7 @@ declare module ol {
 
         /**
          * Rotation around the device z-axis (in radians).
-         * @returns The euler angle in radians of the device from the standard Z axis. 
+         * @returns The euler angle in radians of the device from the standard Z axis.
          */
         getAlpha(): number;
 
@@ -1099,7 +1105,7 @@ declare module ol {
 
         /**
          * Rotation around the device y-axis (in radians).
-         * @returns The euler angle in radians of the device from the planar Y axis. 
+         * @returns The euler angle in radians of the device from the planar Y axis.
          */
         getGamma(): number;
 
@@ -1117,11 +1123,11 @@ declare module ol {
 
         /**
          * Enable or disable tracking of device orientation events.
-         * @param tracking The status of tracking changes to alpha, beta and gamma. If true, changes are tracked and reported immediately. 
+         * @param tracking The status of tracking changes to alpha, beta and gamma. If true, changes are tracked and reported immediately.
          */
         setTracking(tracking: boolean): void;
     }
-    
+
     /**
      * Events emitted by ol.interaction.DragBox instances are instances of this type.
      */
@@ -1248,7 +1254,7 @@ declare module ol {
 
         /**
          * Get the map associated with the overlay.
-         * @returns The map with which this feature overlay is associated. 
+         * @returns The map with which this feature overlay is associated.
          */
         getMap(): ol.Map;
 
@@ -1320,19 +1326,19 @@ declare module ol {
 
         /**
          * Get a geometry of the position accuracy.
-         * @returns A geometry of the position accuracy. 
+         * @returns A geometry of the position accuracy.
          */
         getAccuracyGeometry(): ol.geom.Geometry;
 
         /**
          * Get the altitude associated with the position.
-         * @returns The altitude of the position in meters above mean sea level. 
+         * @returns The altitude of the position in meters above mean sea level.
          */
         getAltitude(): number;
 
         /**
          * Get the altitude accuracy of the position.
-         * @returns The accuracy of the altitude measurement in meters. 
+         * @returns The accuracy of the altitude measurement in meters.
          */
         getAltitudeAccuracy(): number;
 
@@ -1350,7 +1356,7 @@ declare module ol {
 
         /**
          * Get the projection associated with the position.
-         * @returns The projection the position is reported in. 
+         * @returns The projection the position is reported in.
          */
         getProjection(): ol.proj.Projection;
 
@@ -1362,7 +1368,7 @@ declare module ol {
 
         /**
          * Determine if the device location is being tracked.
-         * @returns The device location is being tracked. 
+         * @returns The device location is being tracked.
          */
         getTracking(): boolean;
 
@@ -1401,33 +1407,33 @@ declare module ol {
          */
         constructor(options?: olx.GraticuleOptions);
 
-        /** 
-         * Get the map associated with this graticule. 
+        /**
+         * Get the map associated with this graticule.
          * @returns The map.
          */
         getMap(): Map;
 
-        /** 
-         * Get the list of meridians. Meridians are lines of equal longitude. 
+        /**
+         * Get the list of meridians. Meridians are lines of equal longitude.
          * @returns The meridians.
          */
         getMeridians(): Array<ol.geom.LineString>;
 
-        /** 
-         * Get the list of parallels. Pallels are lines of equal latitude. 
+        /**
+         * Get the list of parallels. Pallels are lines of equal latitude.
          * @returns The parallels.
          */
         getParallels(): Array<ol.geom.LineString>;
-    
-        /** 
-         * Set the map for this graticule.The graticule will be rendered on the provided map. 
+
+        /**
+         * Set the map for this graticule.The graticule will be rendered on the provided map.
          * @param map Map
          */
         setMap(map: Map): void;
     }
-    
+
     /**
-     * 
+     *
      */
     class Image extends ol.ImageBase {
 
@@ -1454,13 +1460,13 @@ declare module ol {
     }
 
     /**
-     * 
+     *
      */
     class ImageBase {
     }
 
     /**
-     * 
+     *
      */
     class ImageTile extends ol.Tile {
 
@@ -1549,7 +1555,7 @@ declare module ol {
          * @param ref Value to use as this when executing callback.
          * @param layerFilter Layer filter function. The filter function will receive one argument, the layer-candidate and it should return a boolean value. Only layers which are visible and for which this function returns true will be tested for features. By default, all visible layers will be tested. Feature overlays will always be tested.
          * @param ref2 Value to use as this when executing layerFilter.
-         * @returns Callback result, i.e. the return value of last callback execution, or the first truthy callback return value. 
+         * @returns Callback result, i.e. the return value of last callback execution, or the first truthy callback return value.
          */
         forEachFeatureAtPixel(pixel: ol.Pixel, callback: (feature: ol.Feature, layer: ol.layer.Layer) => any, ref?: any, layerFilter?: (layerCandidate: ol.layer.Layer) => boolean, ref2?: any): void;
 
@@ -1560,7 +1566,7 @@ declare module ol {
          * @param ref Value to use as this when executing callback.
          * @param layerFilter Layer filter function. The filter function will receive one argument, the layer-candidate and it should return a boolean value. Only layers which are visible and for which this function returns true will be tested for features. By default, all visible layers will be tested. Feature overlays will always be tested.
          * @param ref2 Value to use as this when executing layerFilter.
-         * @returns Callback result, i.e. the return value of last callback execution, or the first truthy callback return value. 
+         * @returns Callback result, i.e. the return value of last callback execution, or the first truthy callback return value.
          */
         forEachLayerAtPixel(pixel: ol.Pixel, callback: (layer: ol.layer.Layer) => any, ref?: any, layerFilter?: (layerCandidate: ol.layer.Layer) => boolean, ref2?: any): void;
 
@@ -1573,7 +1579,7 @@ declare module ol {
         /**
          * Get the coordinate for a given pixel. This returns a coordinate in the map view projection.
          * @param pixel Pixel position in the map viewport.
-         * @returns The coordinate for the pixel position. 
+         * @returns The coordinate for the pixel position.
          */
         getCoordinateFromPixel(pixel: ol.Pixel): ol.Coordinate;
 
@@ -1599,7 +1605,7 @@ declare module ol {
 
         /**
          * Get the layergroup associated with this map.
-         * @returns A layer group containing the layers in this map. 
+         * @returns A layer group containing the layers in this map.
          */
         getLayerGroup(): ol.layer.Group;
 
@@ -1624,13 +1630,13 @@ declare module ol {
 
         /**
          * Get the size of this map.
-         * @returns The size in pixels of the map in the DOM. 
+         * @returns The size in pixels of the map in the DOM.
          */
         getSize(): ol.Size;
 
         /**
          * Get the target in which this map is rendered. Note that this returns what is entered as an option or in setTarget: if that was an element, it returns an element; if a string, it returns that.
-         * @returns The Element or id of the Element that the map is rendered in. 
+         * @returns The Element or id of the Element that the map is rendered in.
          */
         getTarget(): Element | string;
 
@@ -1640,8 +1646,8 @@ declare module ol {
          */
         getTargetElement(): Element;
 
-        /** 
-         * Get the view associated with this map. A view manages properties such as center and resolution. 
+        /**
+         * Get the view associated with this map. A view manages properties such as center and resolution.
          * @returns The view that controls this map.
          */
         getView(): View;
@@ -1664,21 +1670,21 @@ declare module ol {
         /**
          * Remove the given control from the map.
          * @param Control.
-         * @returns The removed control (or undefined if the control was not found). 
+         * @returns The removed control (or undefined if the control was not found).
          */
         removeControl(control: ol.control.Control): ol.control.Control;
 
         /**
          * Remove the given interaction from the map.
          * @param interaction Interaction to remove.
-         * @returns The removed interaction (or undefined if the interaction was not found). 
+         * @returns The removed interaction (or undefined if the interaction was not found).
          */
         removeInteraction(interaction: ol.interaction.Interaction): ol.interaction.Interaction;
 
         /**
          * Removes the given layer from the map.
          * @param Layer.
-         * @returns The removed layer (or undefined if the layer was not found). 
+         * @returns The removed layer (or undefined if the layer was not found).
          */
         removeLayer(layer: ol.layer.Base): ol.layer.Base;
 
@@ -1723,18 +1729,18 @@ declare module ol {
          */
         setTarget(target: string): void;
 
-        /** 
-         * Set the view for this map. 
+        /**
+         * Set the view for this map.
          * @param view The view that controls this map.
          */
         setView(view: View): void;
 
-        /** 
-         * Force a recalculation of the map viewport size. This should be called when third-party code changes the size of the map viewport. 
+        /**
+         * Force a recalculation of the map viewport size. This should be called when third-party code changes the size of the map viewport.
          * */
         updateSize(): void;
     }
-   
+
     /**
      * Events emitted as map browser events are instances of this type. See ol.Map for which events trigger a map browser event.
      */
@@ -1749,7 +1755,7 @@ declare module ol {
          * Indicates if the map is currently being dragged. Only set for POINTERDRAG and POINTERMOVE events. Default is false.
          */
         dragging: boolean;
-        
+
         /**
          * The frame state at the time of the event
          */
@@ -1765,12 +1771,12 @@ declare module ol {
          */
         originalEvent: Event;
 
-        /** 
+        /**
          * The pixel of the original browser event.
          */
         pixel: Pixel;
 
-        
+
         // Methods
 
         /**
@@ -1818,13 +1824,13 @@ declare module ol {
          */
         get(key: string): any;
 
-        /** 
+        /**
          * Get a list of object property names.
          * @returns List of property names.
          */
         getKeys(): Array<string>;
 
-        /** 
+        /**
          * Get an object of all property names and values.
          * @returns Object.
          */
@@ -1835,14 +1841,14 @@ declare module ol {
          */
         getRevision(): number;
 
-        /** 
+        /**
          * Sets a value.
          * @param key Key name.
          * @param value Value.
          */
         set(key: string, value: any): void;
 
-        /** 
+        /**
          * Sets a collection of key-value pairs. Note that this changes any existing properties and adds new ones (it does not remove any existing properties).
          * @param Values.
          */
@@ -2013,7 +2019,7 @@ declare module ol {
          */
         setPositioning(positioning: ol.OverlayPositioning): void;
     }
-    
+
     /**
      * Events emitted by ol.interaction.Select instances are instances of this type.
      */
@@ -2192,7 +2198,7 @@ declare module ol {
          */
         setZoom(zoom: number): void;
     }
-    
+
     // NAMESPACES
 
     /**
@@ -2205,7 +2211,7 @@ declare module ol {
          * @param options Bounce options.
          */
         function bounce(options: olx.animation.BounceOptions): ol.PreRenderFunction;
-        
+
         /**
          * Generate an animated transition while updating the view center.
          * @param options Pan options.
@@ -2263,7 +2269,7 @@ declare module ol {
          * @returns Control.s
          */
         function defaults(options?: olx.control.DefaultsOptions): ol.Collection<ol.control.Control>;
-        
+
         /**
          * Units for the scale line. Supported values are 'degrees', 'imperial', 'nautical', 'metric', 'us'.
          */
@@ -2306,7 +2312,7 @@ declare module ol {
          * Add delta to coordinate. coordinate is modified in place and returned by the function.
          * @param coordinate Coordinate
          * @param delta Delta
-         * @returns The input coordinate adjusted by the given delta. 
+         * @returns The input coordinate adjusted by the given delta.
          */
         function add(coordinate: ol.Coordinate, delta: ol.Coordinate): ol.Coordinate;
 
@@ -2337,7 +2343,7 @@ declare module ol {
         /**
          * Format a geographic coordinate with the hemisphere, degrees, minutes, and seconds.
          * @param coordinate COordinate
-         * @returns Hemisphere, degrees, minutes and seconds. 
+         * @returns Hemisphere, degrees, minutes and seconds.
          */
         function toStringHDMS(coordinate?: ol.Coordinate): string;
 
@@ -2444,7 +2450,7 @@ declare module ol {
          * @param extent Extent
          * @param x X coordinate
          * @param y Y coordinate
-         * @returns The x, y values are contained in the extent. 
+         * @returns The x, y values are contained in the extent.
          */
         function containsXY(extent: ol.Extent, x: number, y: number): boolean;
 
@@ -2581,7 +2587,7 @@ declare module ol {
          * Feature format for reading and writing data in the GeoJSON format.
          */
         class GeoJSON extends ol.format.JSONFeature {
-            
+
             /**
              * @constructor
              * @param Options
@@ -2595,7 +2601,7 @@ declare module ol {
              * @returns Feature
              */
             readFeature(source: Document | Node | JSON | string, options?: olx.format.ReadOptions): ol.Feature;
-    
+
             /**
              * Read all features from a GeoJSON source. Works with both Feature and FeatureCollection sources.
              * @param source Source
@@ -2727,7 +2733,7 @@ declare module ol {
     }
 
     module geom {
-        
+
         // Type definitions
         interface GeometryLayout extends String { }
         interface GeometryType extends String { }
@@ -2901,7 +2907,7 @@ declare module ol {
 
             /**
              * Return the minimum resolution of the layer.
-             * @returns The minimum resolution of the layer. 
+             * @returns The minimum resolution of the layer.
              */
             getMinResolution(): number;
 
@@ -3074,7 +3080,7 @@ declare module ol {
         class Layer extends ol.layer.Base {
 
             /**
-             * @constructor 
+             * @constructor
              * @param options Layer options
              */
             constructor(options?: olx.layer.LayerOptions);
@@ -3091,7 +3097,7 @@ declare module ol {
              */
             setSource(source: ol.source.Source): void;
         }
-        
+
         /**
          * For layer sources that provide pre-rendered, tiled images in grids that are organized by zoom levels for specific resolutions. Note that any property set in the options is set as a ol.Object property on the layer object; for example, setting title: 'My Title' in the options means that title is observable, and has get/set accessors.
          */
@@ -3620,7 +3626,7 @@ declare module ol {
              */
             getTileSize(z: number): number | ol.Size;
         }
-        
+
         /**
          * Set the grid pattern for sources accessing WMTS tiled-image servers.
          */
@@ -3646,7 +3652,7 @@ declare module ol {
              */
             getMatrixIds(): Array<string>;
         }
-        
+
         /**
          * Set the grid pattern for sources accessing Zoomify tiled-image servers.
          */
@@ -3678,7 +3684,7 @@ declare module ol {
              */
             constructor(canvas: HTMLCanvasElement, gl: WebGLRenderingContext);
 
-            /** 
+            /**
             Get the WebGL rendering context
              @returns The rendering context.
             */
@@ -3701,55 +3707,55 @@ declare module ol {
 
     // Type definitions
 
-    /** 
-     * A function returning the canvas element ({HTMLCanvasElement}) used by the source as an image. The arguments passed to the function are: ol.Extent the image extent, {number} the image resolution, {number} the device pixel ratio, ol.Size the image size, and ol.proj.Projection the image projection. The canvas returned by this function is cached by the source. The this keyword inside the function references the ol.source.ImageCanvas. 
+    /**
+     * A function returning the canvas element ({HTMLCanvasElement}) used by the source as an image. The arguments passed to the function are: ol.Extent the image extent, {number} the image resolution, {number} the device pixel ratio, ol.Size the image size, and ol.proj.Projection the image projection. The canvas returned by this function is cached by the source. The this keyword inside the function references the ol.source.ImageCanvas.
      */
     function CanvasFunctionType(extent: Extent, resolution: number, pixelRatio: number, size: Size, projection: proj.Projection): HTMLCanvasElement;
 
-    /** 
-     * A color represented as a short array [red, green, blue, alpha]. red, green, and blue should be integers in the range 0..255 inclusive. alpha should be a float in the range 0..1 inclusive. 
+    /**
+     * A color represented as a short array [red, green, blue, alpha]. red, green, and blue should be integers in the range 0..255 inclusive. alpha should be a float in the range 0..1 inclusive.
      */
     interface Color extends Array<number> { }
-    
+
     /**
-     * An array of numbers representing an xy coordinate. Example: [16, 48]. 
+     * An array of numbers representing an xy coordinate. Example: [16, 48].
      */
     interface Coordinate extends Array<number> { }
 
-    /** 
-     * An array of numbers representing an extent: [minx, miny, maxx, maxy]. 
+    /**
+     * An array of numbers representing an extent: [minx, miny, maxx, maxy].
      */
     interface Extent extends Array<number> { }
 
-    /** 
-     * Overlay position: 'bottom-left', 'bottom-center', 'bottom-right', 'center-left', 'center-center', 'center-right', 'top-left', 'top-center', 'top-right' 
+    /**
+     * Overlay position: 'bottom-left', 'bottom-center', 'bottom-right', 'center-left', 'center-center', 'center-right', 'top-left', 'top-center', 'top-right'
      */
     interface OverlayPositioning extends String { }
 
     /**
-     * An array with two elements, representing a pixel. The first element is the x-coordinate, the second the y-coordinate of the pixel. 
+     * An array with two elements, representing a pixel. The first element is the x-coordinate, the second the y-coordinate of the pixel.
      */
     interface Pixel extends Array<number> { }
 
-    /** 
-     * Available renderers: 'canvas', 'dom' or 'webgl'. 
+    /**
+     * Available renderers: 'canvas', 'dom' or 'webgl'.
      */
     interface RendererType extends String { }
-    
-    /** 
-     * An array of numbers representing a size: [width, height]. 
+
+    /**
+     * An array of numbers representing a size: [width, height].
      */
     interface Size extends Array<number> { }
 
-    /** 
-     * An array of three numbers representing the location of a tile in a tile grid. The order is z, x, and y. z is the zoom level. 
+    /**
+     * An array of three numbers representing the location of a tile in a tile grid. The order is z, x, and y. z is the zoom level.
      */
     interface TileCoord extends Array<number> { }
 
-    // Functions 
+    // Functions
 
-    /** 
-     * A function that takes a ol.Coordinate and transforms it into a {string}. 
+    /**
+     * A function that takes a ol.Coordinate and transforms it into a {string}.
      */
     interface CoordinateFormatType { (coordinate?: Coordinate): string; }
 
