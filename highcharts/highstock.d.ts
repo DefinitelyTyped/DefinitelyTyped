@@ -14,7 +14,7 @@ interface HighstockNavigatorOptions {
     baseSeries?: string | number;
     enabled?: boolean;
     handles?: {
-        backgoundColor?: string;
+        backgroundColor?: string;
         borderColor?: string;
     };
     height?: number;

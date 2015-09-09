@@ -769,13 +769,7 @@ function test_autocomplete() {
             $("#project-icon").attr("src", "images/" + ui.item.icon);
             return false;
         }
-    })
-    .data("autocomplete")._renderItem = (ul, item) => {
-        return $("<li>")
-            .data("item.autocomplete", item)
-            .append("<a>" + item.label + "<br>" + item.desc + "</a>")
-            .appendTo(ul);
-    };
+    });
 
     $("#developer").autocomplete({
         source: (request, response) => {
@@ -1425,12 +1419,13 @@ function test_dialog() {
         height: 300,
         width: 350,
         modal: true,
-        buttons: {},
-        Cancel: function () {
-            $(this).dialog("close");
-        },
-        close: function () {
-		    var $el = $(this).dialog("destroy");
+        buttons: {
+            Cancel: function () {
+                $(this).dialog("close");
+            },
+            close: function () {
+                var $el = $(this).dialog("destroy");
+            }
         }
     });
     $("#dialog-message").dialog({
@@ -1581,7 +1576,7 @@ function test_spinner() {
         min: 5,
         max: 2500,
         step: 25,
-        start: 1000,
+        start: function () { return; },
         numberFormat: "C"
     });
     $("#spinner").spinner({
@@ -1595,8 +1590,8 @@ function test_spinner() {
     });
     $("#lat, #lng").spinner({
         step: .001,
-        change: 123,
-        stop: 321
+        change() { },
+        stop() { },
     });
     $("#spinner").spinner({
         spin: function (event, ui) {
@@ -1647,11 +1642,11 @@ function test_tabs() {
     });
     $("#tabs").tabs({
         beforeLoad: function (event, ui) {
-            ui.jqXHR.error(function () {
+            ui.jqXHR.error = function () {
                 ui.panel.html(
                     "Couldn't load this tab. We'll try to fix this as soon as possible. " +
                     "If this wouldn't be a demo.");
-            });
+            };
         }
     });
     $("#tabs").tabs({
@@ -1764,7 +1759,6 @@ function test_effects() {
         of: $("#parent"),
         my: $("#my_horizontal").val() + " " + $("#my_vertical").val(),
         at: $("#at_horizontal").val() + " " + $("#at_vertical").val(),
-        offset: $("#offset").val(),
         collision: $("#collision_horizontal").val() + " " + $("#collision_vertical").val()
     });
     $("#toggle").toggle({ effect: "scale", direction: "horizontal" });

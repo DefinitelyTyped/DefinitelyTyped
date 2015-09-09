@@ -244,16 +244,70 @@ foo.then((x) => {
 
 // $q signature tests
 module TestQ {
-    var $q: ng.IQService;
-    var promise1: ng.IPromise<any>;
-    var promise2: ng.IPromise<any>;
+    interface TResult {
+        a: number;
+        b: string;
+        c: boolean;
+    }
+    var tResult: TResult;
+    var promiseTResult: angular.IPromise<TResult>;
+
+    var $q: angular.IQService;
+    var promiseAny: angular.IPromise<any>;
+
+    // $q constructor
+    {
+        let result: angular.IPromise<TResult>;
+        result = new $q<TResult>((resolve: (value: TResult) => any) => {});
+        result = new $q<TResult>((resolve: (value: TResult) => any, reject: (value: any) => any) => {});
+        result = $q<TResult>((resolve: (value: TResult) => any) => {});
+        result = $q<TResult>((resolve: (value: TResult) => any, reject: (value: any) => any) => {});
+    }
 
     // $q.all
-    $q.all([promise1, promise2]).then((results: any[]) => {});
-    $q.all<number>([promise1, promise2]).then((results: number[]) => {});
-    $q.all({a: promise1, b: promise2}).then((results: {[id: string]: any;}) => {});
-    $q.all<{a: number; b: string;}>({a: promise1, b: promise2}).then((results: {a: number; b: string;}) => {});
+    {
+        let result: angular.IPromise<any[]>;
+        result = $q.all([promiseAny, promiseAny]);
+    }
+    {
+        let result: angular.IPromise<TResult[]>;
+        result = $q.all<TResult>([promiseAny, promiseAny]);
+    }
+    {
+        let result: angular.IPromise<{[id: string]: any;}>;
+        result = $q.all({a: promiseAny, b: promiseAny});
+    }
+    {
+        let result: angular.IPromise<{a: number; b: string;}>;
+        result = $q.all<{a: number; b: string;}>({a: promiseAny, b: promiseAny});
+    }
+
+
+    // $q.defer
+    {
+        let result: angular.IDeferred<TResult>;
+        result = $q.defer<TResult>();
+    }
+
+    // $q.reject
+    {
+        let result: angular.IPromise<any>;
+        result = $q.reject();
+        result = $q.reject('');
+    }
+
+    // $q.when
+    {
+        let result: angular.IPromise<void>;
+        result = $q.when();
+    }
+    {
+        let result: angular.IPromise<TResult>;
+        result = $q.when<TResult>(tResult);
+        result = $q.when<TResult>(promiseTResult);
+    }
 }
+
 
 var httpFoo: ng.IHttpPromise<number>;
 httpFoo.then((x) => {
@@ -273,6 +327,48 @@ httpFoo.success((data, status, headers, config) => {
 });
 
 
+// Deferred signature tests
+module TestDeferred {
+    var any: any;
+
+    interface TResult {
+        a: number;
+        b: string;
+        c: boolean;
+    }
+    var tResult: TResult;
+
+    var deferred: angular.IDeferred<TResult>;
+
+    // deferred.resolve
+    {
+        let result: void;
+        result = <void>deferred.resolve();
+        result = <void>deferred.resolve(tResult);
+    }
+
+    // deferred.reject
+    {
+        let result: void;
+        result = deferred.reject();
+        result = deferred.reject(any);
+    }
+
+    // deferred.notify
+    {
+        let result: void;
+        result = deferred.notify();
+        result = deferred.notify(any);
+    }
+
+    // deferred.promise
+    {
+        let result: angular.IPromise<TResult>;
+        result = deferred.promise;
+    }
+}
+
+
 // Promise signature tests
 module TestPromise {
     var result: any;
@@ -283,34 +379,48 @@ module TestPromise {
         b: string;
         c: boolean;
     }
+    interface TOther {
+        d: number;
+        e: string;
+        f: boolean;
+    }
 
+    var tresult: TResult;
+    var tresultPromise: ng.IPromise<TResult>;
+    
+    var tother: TOther;
+    var totherPromise: ng.IPromise<TOther>;
+    
     var promise: angular.IPromise<TResult>;
-    interface IPromiseSuccessCallback<T, U> {
-        (promiseValue: T): angular.IHttpPromise<U>|angular.IPromise<U>|U|angular.IPromise<void>;
-    }
-    var successCallbackAnyFn: IPromiseSuccessCallback<TResult, any>;
-    var successCallbackTResultFn: IPromiseSuccessCallback<TResult, TResult>;
-    interface IPromiseErrorCallback<T> {
-        (error: any): angular.IHttpPromise<T>|angular.IPromise<T>|T;
-    }
-    var errorCallbackAnyFn: IPromiseErrorCallback<any>;
-    var errorCallbackTResultFn: IPromiseErrorCallback<TResult>;
 
     // promise.then
-    result = <angular.IPromise<any>>promise.then(successCallbackAnyFn);
-    result = <angular.IPromise<any>>promise.then(successCallbackAnyFn, (any) => any);
-    result = <angular.IPromise<any>>promise.then(successCallbackAnyFn, (any) => any, (any) => any);
-    result = <angular.IPromise<TResult>>promise.then<TResult>(successCallbackTResultFn);
-    result = <angular.IPromise<TResult>>promise.then<TResult>(successCallbackTResultFn, (any) => any);
-    result = <angular.IPromise<TResult>>promise.then<TResult>(successCallbackTResultFn, (any) => any, (any) => any);
-
+    result = <angular.IPromise<any>>promise.then((result) => any);
+    result = <angular.IPromise<any>>promise.then((result) => any, (any) => any);
+    result = <angular.IPromise<any>>promise.then((result) => any, (any) => any, (any) => any);
+    
+    result = <angular.IPromise<TResult>>promise.then((result) => result);
+    result = <angular.IPromise<TResult>>promise.then((result) => result, (any) => any);
+    result = <angular.IPromise<TResult>>promise.then((result) => result, (any) => any, (any) => any);
+    result = <angular.IPromise<TResult>>promise.then((result) => tresultPromise);
+    result = <angular.IPromise<TResult>>promise.then((result) => tresultPromise, (any) => any);
+    result = <angular.IPromise<TResult>>promise.then((result) => tresultPromise, (any) => any, (any) => any);
+    
+    result = <angular.IPromise<TOther>>promise.then((result) => tother);
+    result = <angular.IPromise<TOther>>promise.then((result) => tother, (any) => any);
+    result = <angular.IPromise<TOther>>promise.then((result) => tother, (any) => any, (any) => any);
+    result = <angular.IPromise<TOther>>promise.then((result) => totherPromise);
+    result = <angular.IPromise<TOther>>promise.then((result) => totherPromise, (any) => any);
+    result = <angular.IPromise<TOther>>promise.then((result) => totherPromise, (any) => any, (any) => any);
+    
     // promise.catch
-    result = <angular.IPromise<any>>promise.catch(errorCallbackAnyFn);
-    result = <angular.IPromise<TResult>>promise.catch<TResult>(errorCallbackTResultFn);
+    result = <angular.IPromise<any>>promise.catch((err) => any);
+    result = <angular.IPromise<TResult>>promise.catch((err) => tresult);
+    result = <angular.IPromise<TOther>>promise.catch((err) => tother);
 
     // promise.finally
-    result = <angular.IPromise<any>>promise.finally(() => any);
-    result = <angular.IPromise<TResult>>promise.finally<TResult>(() => any);
+    result = <angular.IPromise<TResult>>promise.finally(() => any);
+    result = <angular.IPromise<TResult>>promise.finally(() => tresult);
+    result = <angular.IPromise<TResult>>promise.finally(() => tother);
 }
 
 
@@ -328,6 +438,45 @@ var element = angular.element("div.myApp");
 var scope: ng.IScope = element.scope();
 var isolateScope: ng.IScope = element.isolateScope();
 
+
+// $timeout signature tests
+module TestTimeout {
+    interface TResult {
+        a: number;
+        b: string;
+        c: boolean;
+    }
+    var fnTResult: (...args: any[]) => TResult;
+    var promiseAny: angular.IPromise<any>;
+    var $timeout: angular.ITimeoutService;
+
+    // $timeout
+    {
+        let result: angular.IPromise<any>;
+        result = $timeout();
+    }
+    {
+        let result: angular.IPromise<void>;
+        result = $timeout(1);
+        result = $timeout(1, true);
+    }
+    {
+        let result: angular.IPromise<TResult>;
+        result = $timeout(fnTResult);
+        result = $timeout(fnTResult, 1);
+        result = $timeout(fnTResult, 1, true);
+        result = $timeout(fnTResult, 1, true, 1);
+        result = $timeout(fnTResult, 1, true, 1, '');
+        result = $timeout(fnTResult, 1, true, 1, '', true);
+    }
+
+    // $timeout.cancel
+    {
+        let result: boolean;
+        result = $timeout.cancel();
+        result = $timeout.cancel(promiseAny);
+    }
+}
 
 
 function test_IAttributes(attributes: ng.IAttributes){

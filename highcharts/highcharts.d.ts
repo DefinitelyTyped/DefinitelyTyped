@@ -13,6 +13,7 @@ interface HighchartsPosition {
 }
 
 interface HighchartsDateTimeFormats {
+    millisecond?: string; // '%H:%M:%S.%L'
     second?: string; // '%H:%M:%S'
     minute?: string; // '%H:%M'
     hour?: string; // '%H:%M'
@@ -248,7 +249,7 @@ interface HighchartsCSSObject {
     fontWeight?: string;
     left?: string;
     opacity?: number;
-    padding?: string;
+    padding?: string | number;
     position?: string;
     top?: string;
 }
@@ -1168,7 +1169,7 @@ interface HighchartsOptions {
     title?: HighchartsTitleOptions;
     tooltip?: HighchartsTooltipOptions;
     xAxis?: HighchartsAxisOptions;
-    yAxis?: HighchartsAxisOptions;
+    yAxis?: HighchartsAxisOptions|HighchartsAxisOptions[];
 }
 
 interface HighchartsGlobalOptions extends HighchartsOptions {
