@@ -174,10 +174,13 @@ interface PouchRevsDiffOptions {
 }
 
 interface PouchReplicateOptions {
-	continuous?: boolean;
-	onChange?: (any) => void;
-	filter?: any;			// Can be either string or PouchFilter
-	complete?: (err: PouchError, res: PouchChanges) => void;
+	live?:boolean;
+	retry?:boolean;
+	doc_ids?:string[];
+	filter?: string|PouchFilter;
+	since?:number|string;
+	batch_size?:number;
+	batches_limit?:number;
 }
 
 interface PouchReplicateResponse {
@@ -189,8 +192,10 @@ interface PouchReplicateResponse {
 }
 
 interface PouchReplicate {
+	from(url: string|PouchDB, opts: PouchReplicateOptions): Promise<any>;
 	from(url: string, opts: PouchReplicateOptions, callback: (err: PouchError, res: PouchReplicateResponse) => void): PouchCancellable;
 	from(url: string, callback: (err: PouchError, res: PouchReplicateResponse) => void): PouchCancellable;
+	to(url: string|PouchDB, opts: PouchReplicateOptions): Promise<any>;
 	to(dbName: string, opts: PouchReplicateOptions, callback: (err: PouchError, res: PouchReplicateResponse) => void): PouchCancellable;
 	to(dbName: string, callback: (err: PouchError, res: PouchReplicateResponse) => void): PouchCancellable;
 }
