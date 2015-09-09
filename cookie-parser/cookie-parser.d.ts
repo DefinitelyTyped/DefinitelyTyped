@@ -8,5 +8,6 @@
 declare module "cookie-parser" {
     import express = require('express');
     function e(secret?: string, options?: any): express.RequestHandler;
+    namespace e{}
     export = e;
 }
