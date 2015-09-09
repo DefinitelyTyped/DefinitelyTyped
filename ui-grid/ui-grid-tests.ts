@@ -100,7 +100,7 @@ gridApi.core.queueGridRefresh()
 gridApi.core.queueRefresh();
 gridApi.core.registerColumnsProcessor(colProcessor, 100);
 
-var rowEntityToScrollTo = {anObject: "inGridOptionsData"};
+var rowEntityToScrollTo = {anObject: 'inGridOptionsData'};
 var columnDefToScrollTo: uiGrid.IColumnDef;
 gridInstance.scrollTo();
 gridInstance.scrollTo(rowEntityToScrollTo);
