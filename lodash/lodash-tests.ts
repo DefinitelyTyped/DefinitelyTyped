@@ -91,6 +91,12 @@ var result: any;
 
 var any: any;
 
+interface TResult {
+    a: number;
+    b: string;
+    c: boolean;
+}
+
 // _.MapCache
 var testMapCache: _.MapCache;
 result = <(key: string) => boolean>testMapCache.delete;
@@ -123,6 +129,7 @@ result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_(<{ [index: string]: stri
 
 //Wrapped array shortcut methods
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).concat(5, 6);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).concat([5, 6]);
 result = <string>_([1, 2, 3, 4]).join(',');
 result = <number>_([1, 2, 3, 4]).pop();
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).push(5, 6, 7);
@@ -303,13 +310,6 @@ result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_([['moe', 30], ['larry', 40]
 result = <number[]>_.pull([1, 2, 3, 1, 2, 3], 2, 3);
 result = <number[]>_.pullAt([1, 2, 3, 1, 2, 3], 2, 3);
 
-result = <number[]>_.range(10);
-result = <number[]>_.range(1, 11);
-result = <number[]>_.range(0, 30, 5);
-result = <number[]>_.range(0, -10, -1);
-result = <number[]>_.range(1, 4, 0);
-result = <number[]>_.range(0);
-
 result = <number[]>_.remove([1, 2, 3, 4, 5, 6], function (num: number) { return num % 2 == 0; });
 result = <IFoodOrganic[]>_.remove(foodsOrganic, 'organic');
 result = <IFoodType[]>_.remove(foodsType, { 'type': 'vegetable' });
@@ -387,12 +387,75 @@ result = <any[][]>_.unzip(['moe', 'larry'], [30, 40], [true, false]);
 result = <any[][]>_(['moe', 'larry']).zip([30, 40], [true, false]).value();
 result = <any[][]>_(['moe', 'larry']).unzip([30, 40], [true, false]).value();
 
-// /* *************
-//  * Collections *
-//  ************* */
+// _.zipWith
+interface TestZipWithFn {
+    (a1: number, a2: number): number;
+}
+var testZipWithFn: TestZipWithFn;
+result = <number[]>_.zipWith<number>([1, 2]);
+result = <number[]>_.zipWith<number>([1, 2], testZipWithFn);
+result = <number[]>_.zipWith<number>([1, 2], testZipWithFn, any);
+result = <number[]>_.zipWith<number>([1, 2], [1, 2], testZipWithFn, any);
+result = <number[]>_.zipWith<number>([1, 2], [1, 2], [1, 2], [1, 2], [1, 2], [1, 2], testZipWithFn, any);
+result = <number[]>_([1, 2]).zipWith<number>().value();
+result = <number[]>_([1, 2]).zipWith<number>(testZipWithFn).value();
+result = <number[]>_([1, 2]).zipWith<number>(testZipWithFn, any).value();
+result = <number[]>_([1, 2]).zipWith<number>([1, 2], testZipWithFn, any).value();
+result = <number[]>_([1, 2]).zipWith<number>([1, 2], [1, 2], [1, 2], [1, 2], [1, 2], testZipWithFn, any).value();
 
-result = <string[]>_.at(['a', 'b', 'c', 'd', 'e'], [0, 2, 4]);
-result = <string[]>_.at(['moe', 'larry', 'curly'], 0, 2);
+/*********
+ * Chain *
+ *********/
+
+// _.thru
+{
+    let result: number;
+    result = _.thru<number, number>(1, (value: number) => value);
+    result = _.thru<number, number>(1, (value: number) => value, any);
+}
+{
+    let result: _.LoDashWrapper<number>;
+    result = _(1).thru<number>((value: number) => value);
+    result = _(1).thru<number>((value: number) => value, any);
+}
+{
+    let result: _.LoDashWrapper<string>;
+    result = _('').thru<string>((value: string) => value);
+    result = _('').thru<string>((value: string) => value, any);
+}
+{
+    let result: _.LoDashWrapper<boolean>;
+    result = _(true).thru<boolean>((value: boolean) => value);
+    result = _(true).thru<boolean>((value: boolean) => value, any);
+}
+{
+    let result: _.LoDashObjectWrapper<any>;
+    result = _({}).thru<Object>((value: Object) => value);
+    result = _({}).thru<Object>((value: Object) => value, any);
+}
+{
+    let result: _.LoDashArrayWrapper<number>;
+    result = _([1, 2, 3]).thru<number>((value: number[]) => value);
+    result = _([1, 2, 3]).thru<number>((value: number[]) => value, any);
+}
+
+/**************
+ * Collection *
+ **************/
+
+// _.at
+{
+    let testAtArray: TResult[];
+    let testAtList: _.List<TResult>;
+    let testAtDictionary: _.Dictionary<TResult>;
+    let result: TResult[];
+    result = _.at<TResult>(testAtArray, 0, '1', [2], ['3'], [4, '5']);
+    result = _.at<TResult>(testAtList, 0, '1', [2], ['3'], [4, '5']);
+    result = _.at<TResult>(testAtDictionary, 0, '1', [2], ['3'], [4, '5']);
+    result = _(testAtArray).at(0, '1', [2], ['3'], [4, '5']).value();
+    result = _(testAtList).at<TResult>(0, '1', [2], ['3'], [4, '5']).value();
+    result = _(testAtDictionary).at<TResult>(0, '1', [2], ['3'], [4, '5']).value();
+}
 
 result = <boolean>_.contains([1, 2, 3], 1);
 result = <boolean>_.contains([1, 2, 3], 1, 2);
@@ -630,6 +693,35 @@ result = <number>_(stoogesAgesDict).sum('age');
 
 result = <string[]>_.pluck(stoogesAges, 'name');
 result = <string[]>_(stoogesAges).pluck('name').value();
+result = <string[]>_.pluck(stoogesAges, ['name']);
+
+// _.partition
+result = <string[][]>_.partition<string>('abcd', (n) => n < 'c');
+result = <string[][]>_.partition<string>(['a', 'b', 'c', 'd'], (n) => n < 'c');
+result = <number[][]>_.partition<number>([1, 2, 3, 4], (n) => n < 3);
+result = <number[][]>_.partition<number>({0: 1, 1: 2, 2: 3, 3: 4, length: 4}, (n) => n < 3);
+result = <number[][]>_.partition<number>({a: 1, b: 2, c: 3, d: 4}, (n) => n < 3);
+result = <{a: number}[][]>_.partition<{a: number}, {a: number}>([{a: 1}, {a: 2}], {a: 2});
+result = <{a: number}[][]>_.partition<{a: number}, {a: number}>({0: {a: 1}, 1: {a: 2}, length: 2}, {a: 2});
+result = <{a: number}[][]>_.partition<{a: number}, {a: number}>({0: {a: 1}, 1: {a: 2}}, {a: 2});
+result = <{a: number}[][]>_.partition<{a: number}>([{a: 1}, {a: 2}], 'a');
+result = <{a: number}[][]>_.partition<{a: number}>([{a: 1}, {a: 2}], 'a', 2);
+result = <{a: number}[][]>_.partition<{a: number}>({0: {a: 1}, 1: {a: 2}, length: 2}, 'a');
+result = <{a: number}[][]>_.partition<{a: number}>({0: {a: 1}, 1: {a: 2}, length: 2}, 'a', 2);
+result = <{a: number}[][]>_.partition<{a: number}>({0: {a: 1}, 1: {a: 2}}, 'a');
+result = <{a: number}[][]>_.partition<{a: number}>({0: {a: 1}, 1: {a: 2}}, 'a', 2);
+result = <string[][]>_('abcd').partition((n) => n < 'c').value();
+result = <string[][]>_(['a', 'b', 'c', 'd']).partition((n) => n < 'c').value();
+result = <number[][]>_([1, 2, 3, 4]).partition((n) => n < 3).value();
+result = <number[][]>_({0: 1, 1: 2, 2: 3, 3: 4, length: 4}).partition<number>((n) => n < 3).value();
+result = <number[][]>_({a: 1, b: 2, c: 3, d: 4}).partition<number>((n) => n < 3).value();
+result = <{a: number}[][]>_([{a: 1}, {a: 2}]).partition<{a: number}>({a: 2}).value();
+result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}, length: 2}).partition<{a: number}, {a: number}>({a: 2}).value();
+result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}, {a: number}>({a: 2}).value();
+result = <{a: number}[][]>_([{a: 1}, {a: 2}]).partition('a').value();
+result = <{a: number}[][]>_([{a: 1}, {a: 2}]).partition('a', 2).value();
+result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}>('a').value();
+result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}>('a', 2).value();
 
 interface ABC {
     [index: string]: number;
@@ -1054,6 +1146,90 @@ helloWrap2();
  * Lang *
  ********/
 
+// _.clone
+interface TestCloneCustomizerFn {
+    (value: any): any;
+}
+var testCloneCustomizerFn: TestCloneCustomizerFn;
+{
+    let result: number;
+    result = _.clone<number>(42);
+    result = _.clone<number>(42, false);
+    result = _.clone<number>(42, false, testCloneCustomizerFn);
+    result = _.clone<number>(42, false, testCloneCustomizerFn, any);
+    result = _.clone<number>(42, testCloneCustomizerFn);
+    result = _.clone<number>(42, testCloneCustomizerFn, any);
+    result = _(42).clone();
+    result = _(42).clone(false);
+    result = _(42).clone(false, testCloneCustomizerFn);
+    result = _(42).clone(false, testCloneCustomizerFn, any);
+    result = _(42).clone(testCloneCustomizerFn);
+    result = _(42).clone(testCloneCustomizerFn, any);
+}
+{
+    let result: string[];
+    result = _.clone<string[]>([]);
+    result = _.clone<string[]>([], false);
+    result = _.clone<string[]>([], false, testCloneCustomizerFn);
+    result = _.clone<string[]>([], false, testCloneCustomizerFn, any);
+    result = _.clone<string[]>([], testCloneCustomizerFn);
+    result = _.clone<string[]>([], testCloneCustomizerFn, any);
+    result = _<string>([]).clone();
+    result = _<string>([]).clone(false);
+    result = _<string>([]).clone(false, testCloneCustomizerFn);
+    result = _<string>([]).clone(false, testCloneCustomizerFn, any);
+    result = _<string>([]).clone(testCloneCustomizerFn);
+    result = _<string>([]).clone(testCloneCustomizerFn, any);
+}
+{
+    let result: {a: {b: number;}};
+    result = _.clone<{a: {b: number;}}>({a: {b: 2}});
+    result = _.clone<{a: {b: number;}}>({a: {b: 2}}, false);
+    result = _.clone<{a: {b: number;}}>({a: {b: 2}}, false, testCloneCustomizerFn);
+    result = _.clone<{a: {b: number;}}>({a: {b: 2}}, false, testCloneCustomizerFn, any);
+    result = _.clone<{a: {b: number;}}>({a: {b: 2}}, testCloneCustomizerFn);
+    result = _.clone<{a: {b: number;}}>({a: {b: 2}}, testCloneCustomizerFn, any);
+    result = _({a: {b: 2}}).clone();
+    result = _({a: {b: 2}}).clone(false);
+    result = _({a: {b: 2}}).clone(false, testCloneCustomizerFn);
+    result = _({a: {b: 2}}).clone(false, testCloneCustomizerFn, any);
+    result = _({a: {b: 2}}).clone(testCloneCustomizerFn);
+    result = _({a: {b: 2}}).clone(testCloneCustomizerFn, any);
+}
+
+// _.cloneDeep
+interface TestCloneDeepCustomizerFn {
+    (value: any): any;
+}
+var testCloneDeepCustomizerFn: TestCloneDeepCustomizerFn;
+{
+    let result: number;
+    result = _.cloneDeep<number>(42);
+    result = _.cloneDeep<number>(42, testCloneDeepCustomizerFn);
+    result = _.cloneDeep<number>(42, testCloneDeepCustomizerFn, any);
+    result = _(42).cloneDeep();
+    result = _(42).cloneDeep(testCloneDeepCustomizerFn);
+    result = _(42).cloneDeep(testCloneDeepCustomizerFn, any);
+}
+{
+    let result: string[];
+    result = _.cloneDeep<string[]>([]);
+    result = _.cloneDeep<string[]>([], testCloneDeepCustomizerFn);
+    result = _.cloneDeep<string[]>([], testCloneDeepCustomizerFn, any);
+    result = _<string>([]).cloneDeep();
+    result = _<string>([]).cloneDeep(testCloneDeepCustomizerFn);
+    result = _<string>([]).cloneDeep(testCloneDeepCustomizerFn, any);
+}
+{
+    let result: {a: {b: number;}};
+    result = _.cloneDeep<{a: {b: number;}}>({a: {b: 2}});
+    result = _.cloneDeep<{a: {b: number;}}>({a: {b: 2}}, testCloneDeepCustomizerFn);
+    result = _.cloneDeep<{a: {b: number;}}>({a: {b: 2}}, testCloneDeepCustomizerFn, any);
+    result = _({a: {b: 2}}).cloneDeep();
+    result = _({a: {b: 2}}).cloneDeep(testCloneDeepCustomizerFn);
+    result = _({a: {b: 2}}).cloneDeep(testCloneDeepCustomizerFn, any);
+}
+
 // _.gt
 result = <boolean>_.gt(1, 2);
 result = <boolean>_(1).gt(2);
@@ -1066,6 +1242,36 @@ result = <boolean>_(1).gte(2);
 result = <boolean>_([]).gte(2);
 result = <boolean>_({}).gte(2);
 
+// _.isArguments
+result = <boolean>_.isArguments(any);
+result = <boolean>_(1).isArguments();
+result = <boolean>_<any>([]).isArguments();
+result = <boolean>_({}).isArguments();
+
+// _.isArray
+result = <boolean>_.isArray(any);
+result = <boolean>_(1).isArray();
+result = <boolean>_<any>([]).isArray();
+result = <boolean>_({}).isArray();
+
+// _.isBoolean
+result = <boolean>_.isBoolean(any);
+result = <boolean>_(1).isBoolean();
+result = <boolean>_<any>([]).isBoolean();
+result = <boolean>_({}).isBoolean();
+
+// _.isDate
+result = <boolean>_.isDate(any);
+result = <boolean>_(42).isDate();
+result = <boolean>_<any>([]).isDate();
+result = <boolean>_({}).isDate();
+
+// _.isElement
+result = <boolean>_.isElement(any);
+result = <boolean>_(42).isElement();
+result = <boolean>_<any>([]).isElement();
+result = <boolean>_({}).isElement();
+
 // _.isEmpty
 result = <boolean>_.isEmpty([1, 2, 3]);
 result = <boolean>_.isEmpty({});
@@ -1073,6 +1279,24 @@ result = <boolean>_.isEmpty('');
 result = <boolean>_([1, 2, 3]).isEmpty();
 result = <boolean>_({}).isEmpty();
 result = <boolean>_('').isEmpty();
+
+// _.isError
+result = <boolean>_.isError(any);
+result = <boolean>_(1).isError();
+result = <boolean>_<any>([]).isError();
+result = <boolean>_({}).isError();
+
+// _.isFinite
+result = <boolean>_.isFinite(any);
+result = <boolean>_(1).isFinite();
+result = <boolean>_<any>([]).isFinite();
+result = <boolean>_({}).isFinite();
+
+// _.isFunction
+result = <boolean>_.isFunction(any);
+result = <boolean>_(1).isFunction();
+result = <boolean>_<any>([]).isFunction();
+result = <boolean>_({}).isFunction();
 
 // _.isMatch
 var testIsMatchCustiomizerFn: (value: any, other: any, indexOrKey: number|string) => boolean;
@@ -1083,9 +1307,63 @@ result = <boolean>_({}).isMatch({});
 result = <boolean>_({}).isMatch({}, testIsMatchCustiomizerFn);
 result = <boolean>_({}).isMatch({}, testIsMatchCustiomizerFn, {});
 
+// _.isNaN
+result = <boolean>_.isNaN(NaN);
+result = <boolean>_.isNaN(new Number(NaN));
+result = <boolean>_.isNaN(undefined);
+result = <boolean>_(NaN).isNaN();
+result = <boolean>_(new Number(NaN)).isNaN();
+result = <boolean>_(undefined).isNaN();
+
 // _.isNative
 result = <boolean>_.isNative(Array.prototype.push);
 result = <boolean>_(Array.prototype.push).isNative();
+
+// _.isNull
+result = <boolean>_.isNull(any);
+result = <boolean>_(1).isNull();
+result = <boolean>_<any>([]).isNull();
+result = <boolean>_({}).isNull();
+
+// _.isNumber
+result = <boolean>_.isNumber(any);
+result = <boolean>_(1).isNumber();
+result = <boolean>_<any>([]).isNumber();
+result = <boolean>_({}).isNumber();
+
+// _.isObject
+result = <boolean>_.isObject(any);
+result = <boolean>_(1).isObject();
+result = <boolean>_<any>([]).isObject();
+result = <boolean>_({}).isObject();
+
+// _.isPlainObject
+result = <boolean>_.isPlainObject(any);
+result = <boolean>_(1).isPlainObject();
+result = <boolean>_<any>([]).isPlainObject();
+result = <boolean>_({}).isPlainObject();
+
+// _.isRegExp
+result = <boolean>_.isRegExp(any);
+result = <boolean>_(1).isRegExp();
+result = <boolean>_<any>([]).isRegExp();
+result = <boolean>_({}).isRegExp();
+
+// _.isString
+result = <boolean>_.isString(any);
+result = <boolean>_(1).isString();
+result = <boolean>_<any>([]).isString();
+result = <boolean>_({}).isString();
+
+// _.isTypedArray
+result = <boolean>_.isTypedArray([]);
+result = <boolean>_([]).isTypedArray();
+
+// _.isUndefined
+result = <boolean>_.isUndefined(any);
+result = <boolean>_(1).isUndefined();
+result = <boolean>_<any>([]).isUndefined();
+result = <boolean>_({}).isUndefined();
 
 // _.lt
 result = <boolean>_.lt(1, 2);
@@ -1177,17 +1455,6 @@ result = <{}>_(testCreateProto).create(testCreateProps).value();
 result = <TestCreateProto>_(testCreateProto).create<TestCreateProto>().value();
 result = <TestCreateTResult>_(testCreateProto).create<TestCreateTResult>(testCreateProps).value();
 
-result = <IStoogesAge[]>_.clone(stoogesAges);
-result = <IStoogesAge[]>_.clone(stoogesAges, true);
-result = <any>_.clone(stoogesAges, true, function (value) {
-    return _.isElement(value) ? value.cloneNode(false) : undefined;
-});
-
-result = <IStoogesAge[]>_.cloneDeep(stoogesAges);
-result = <IStoogesAge[]>_.cloneDeep(stoogesAges, function (value) {
-    return _.isElement(value) ? value.cloneNode(false) : undefined;
-});
-
 interface Food {
     name: string;
     type: string;
@@ -1262,37 +1529,34 @@ result = <_.LoDashArrayWrapper<string>>_(_).methods();
 
 // _.get
 result = <number>_.get<number>({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c');
-// → 3
-result = <number>_.get<number>({ 'a': [{ 'b': { 'c': 3 } }] }, ['a', '0', 'b', 'c']);
-// → 3
-result = <string>_.get<string>({ 'a': [{ 'b': { 'c': 3 } }] }, 'a.b.c', 'default');
-// → 'default'
 
-result = <number>_({ 'a': [{ 'b': { 'c': 3 } }] }).get<number>('a[0].b.c');
-// → 3
-result = <number>_({ 'a': [{ 'b': { 'c': 3 } }] }).get<number>(['a', '0', 'b', 'c']);
-// → 3
-result = <string>_({ 'a': [{ 'b': { 'c': 3 } }] }).get<string>('a.b.c', 'default');
-// → 'default'
+{
+    let result: TResult;
+    result = _.get<TResult>({}, '');
+    result = _.get<TResult>({}, 42);
+    result = _.get<TResult>({}, true);
+    result = _.get<TResult>({}, ['', 42, true]);
+    result = _({}).get<TResult>('');
+    result = _({}).get<TResult>(42);
+    result = _({}).get<TResult>(true);
+    result = _({}).get<TResult>(['', 42, true]);
+}
 
-result = <boolean>_.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
+// _.has
+result = <boolean>_.has({}, '');
+result = <boolean>_.has({}, 42);
+result = <boolean>_.has({}, true);
+result = <boolean>_.has({}, ['', 42, true]);
+result = <boolean>_({}).has('');
+result = <boolean>_({}).has(42);
+result = <boolean>_({}).has(true);
+result = <boolean>_({}).has(['', 42, true]);
 
 interface FirstSecond {
     first: string;
     second: string;
 }
 result = <FirstSecond>_.invert({ 'first': 'moe', 'second': 'larry' });
-
-(function (...args: any[]) { return <boolean>_.isArguments(arguments); })(1, 2, 3);
-
-(function () { return <boolean>_.isArray(arguments); })();
-result = <boolean>_.isArray([1, 2, 3]);
-
-result = <boolean>_.isBoolean(null);
-
-result = <boolean>_.isDate(new Date());
-
-result = <boolean>_.isElement(document.body);
 
 // _.isEqual (alias: _.eq)
 result = <boolean>_.isEqual(1, 1);
@@ -1319,43 +1583,12 @@ result = <boolean>_(testEqArray).isEqual(testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_.eq(testEqArray, testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_(testEqArray).eq(testEqOtherArray, testEqCustomizerFn);
 
-result = <boolean>_.isFinite(-101);
-result = <boolean>_.isFinite('10');
-result = <boolean>_.isFinite(true);
-result = <boolean>_.isFinite('');
-result = <boolean>_.isFinite(Infinity);
-
-result = <boolean>_.isFunction(_);
-
-result = <boolean>_.isNaN(NaN);
-result = <boolean>_.isNaN(new Number(NaN));
-result = <boolean>_.isNaN(undefined);
-
-result = <boolean>_.isNull(null);
-result = <boolean>_.isNull(undefined);
-
-result = <boolean>_.isNumber(8.4 * 5);
-
-result = <boolean>_.isObject({});
-result = <boolean>_.isObject([1, 2, 3]);
-result = <boolean>_.isObject(1);
-
 class Stooge {
     constructor(
         public name: string,
         public age: number
         ) { }
 }
-
-result = <boolean>_.isPlainObject(new Stooge('moe', 40));
-result = <boolean>_.isPlainObject([1, 2, 3]);
-result = <boolean>_.isPlainObject({ 'name': 'moe', 'age': 40 });
-
-result = <boolean>_.isRegExp(/moe/);
-
-result = <boolean>_.isString('moe');
-
-result = <boolean>_.isUndefined(void 0);
 
 result = <string[]>_.keys({ 'one': 1, 'two': 2, 'three': 3 });
 result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keys().value();
@@ -1416,11 +1649,20 @@ result = <HasName>_({ 'name': 'moe', 'age': 40 }).omit(function (value) {
 result = <any[][]>_.pairs({ 'moe': 30, 'larry': 40 });
 result = <any[][]>_({ 'moe': 30, 'larry': 40 }).pairs().value();
 
-result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, 'name');
-result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, ['name']);
-result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, function (value, key) {
-    return key.charAt(0) != '_';
-});
+// _.pick
+interface TestPickFn {
+    (element: any, key: string, collection: any): boolean;
+}
+{
+    let testPickFn: TestPickFn;
+    let result: TResult;
+    result = _.pick<TResult, Object>({}, 0, '1', true, [2], ['3'], [true], [4, '5', true]);
+    result = _.pick<TResult, Object>({}, testPickFn);
+    result = _.pick<TResult, Object>({}, testPickFn, any);
+    result = _({}).pick<TResult>(0, '1', true, [2], ['3'], [true], [4, '5', true]).value();
+    result = _({}).pick<TResult>(testPickFn).value();
+    result = _({}).pick<TResult>(testPickFn, any).value();
+}
 
 // _.set
 result = <{ a: { b: { c: number; }}[]}>_.set({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c', 4);
@@ -1463,16 +1705,16 @@ result = <number[]>_(new TestValueIn()).valuesIn<number>().value();
 // → [1, 2, 3]
 
 /**********
-* Utilities *
+* Utility *
 ***********/
 
-result = <{ name: string }>_.identity({ 'name': 'moe' });
-
-_.mixin({
-    'capitalize': function (string) {
-        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-    }
-});
+// _.attempt
+interface TestAttemptFn {
+    (): TResult;
+}
+var testAttempFn: TestAttemptFn;
+result = <TResult|Error>_.attempt<TResult>(testAttempFn);
+result = <TResult|Error>_(testAttempFn).attempt<TResult>();
 
 var lodash = <typeof _>_.noConflict();
 
@@ -1495,6 +1737,10 @@ result = <void>_(any).noop(true, 'a', 1);
 
 var object = {
     'cheese': 'crumpets',
+    'one': 1,
+    'nested': {
+        'two': 2
+    },
     'stuff': function () {
         return 'nonsense';
     }
@@ -1502,9 +1748,23 @@ var object = {
 
 result = <string>_.result(object, 'cheese');
 result = <string>_.result(object, 'stuff');
+result = _.result<number>(object, 'one');
+result = _.result<number>(object, ['nested', 'two'] );
 
 var tempObject = {};
 result = <typeof _>_.runInContext(tempObject);
+
+// _.property
+interface TestPropertyObject {
+    a: {
+        b: number;
+    }
+}
+var testPropertyObject: TestPropertyObject;
+result = <number>_.property<TestPropertyObject, number>('a.b')(testPropertyObject);
+result = <number>_.property<TestPropertyObject, number>(['a', 'b'])(testPropertyObject);
+result = <number>(_('a.b').property<TestPropertyObject, number>().value())(testPropertyObject);
+result = <number>(_(['a', 'b']).property<TestPropertyObject, number>().value())(testPropertyObject);
 
 // _.propertyOf
 interface TestPropertyOfObject {
@@ -1517,20 +1777,13 @@ result = <(path: string|string[]) => any>_.propertyOf({});
 result = <(path: string|string[]) => any>_.propertyOf<TestPropertyOfObject>(testPropertyOfObject);
 result = <(path: string|string[]) => any>_({}).propertyOf().value();
 
-result = <_.TemplateExecutor>_.template('hello <%= name %>');
-result = <string>_.template('<b><%- value %></b>', { 'value': '<script>' });
-
-var listTemplate = '<% _.forEach(people, function(name) { %><li><%- name %></li><% }); %>';
-result = <string>_.template(listTemplate, { 'people': ['moe', 'larry'] });
-result = <string>_.template('hello ${ name }', { 'name': 'curly' });
-result = <string>_.template('<% print("hello " + name); %>!', { 'name': 'larry' });
-
-var listTemplate = '<% $.each(people, function(name) { %><li><%- name %></li><% }); %>';
-result = <string>_.template(listTemplate, { 'people': ['moe', 'larry'] }, { 'imports': { '$': jQuery } });
-result = <_.TemplateExecutor>_.template('hello <%= name %>', null, /*sourceURL:*/ '/basic/greeting.jst');
-
-result = <_.TemplateExecutor>_.template('hi <%= data.name %>!', null, { 'variable': 'data' });
-result = <string>(<_.TemplateExecutor>result).source;
+// _.range
+result = <number[]>_.range(10);
+result = <number[]>_.range(1, 11);
+result = <number[]>_.range(0, 30, 5);
+result = <number[]>_(10).range().value();
+result = <number[]>_(1).range(11).value();
+result = <number[]>_(0).range(30, 5).value();
 
 class Mage {
     public castSpell(n: number) {
@@ -1542,22 +1795,27 @@ class Mage {
     }
 }
 
-var mage = new Mage();
-result = _.times(3, <() => number>_.partial(_.random, 1, 6));
-result = _.times(3, function (n: number) { mage.castSpell(n); });
-result = _.times(3, function (n: number) { this.cast(n); }, mage);
-
-result = <string>_.uniqueId('contact_');
-result = <string>_.uniqueId();
-
 /*********
 * String
 *********/
 
+// _.camelCase
 result = <string>_.camelCase('Foo Bar');
+result = <string>_('Foo Bar').camelCase();
+
+// _.capitalize
 result = <string>_.capitalize('fred');
+result = <string>_('fred').capitalize();
+
+// _.deburr
 result = <string>_.deburr('déjà vu');
+result = <string>_('déjà vu').deburr();
+
+// _.endsWith
 result = <boolean>_.endsWith('abc', 'c');
+result = <boolean>_.endsWith('abc', 'c', 1);
+result = <boolean>_('abc').endsWith('c');
+result = <boolean>_('abc').endsWith('c', 1);
 
 // _.escape
 result = <string>_.escape('fred, barney, & pebbles');
@@ -1567,14 +1825,33 @@ result = <string>_('fred, barney, & pebbles').escape();
 result = <string>_.escapeRegExp('[lodash](https://lodash.com/)');
 result = <string>_('[lodash](https://lodash.com/)').escapeRegExp();
 
+// _.kebabCase
 result = <string>_.kebabCase('Foo Bar');
+result = <string>_('Foo Bar').kebabCase();
+
+// _.pad
+result = <string>_.pad('abd');
 result = <string>_.pad('abc', 8);
 result = <string>_.pad('abc', 8, '_-');
+result = <string>_('abc').pad();
+result = <string>_('abc').pad(8);
+result = <string>_('abc').pad(8, '_-');
+
+// _.padLeft
+result = <string>_.padLeft('abc');
 result = <string>_.padLeft('abc', 6);
 result = <string>_.padLeft('abc', 6, '_-');
+result = <string>_('abc').padLeft();
+result = <string>_('abc').padLeft(6);
+result = <string>_('abc').padLeft(6, '_-');
+
+// _.padRight
+result = <string>_.padRight('abc');
 result = <string>_.padRight('abc', 6);
 result = <string>_.padRight('abc', 6, '_-');
-result = <string>_.repeat('*', 3);
+result = <string>_('abc').padRight();
+result = <string>_('abc').padRight(6);
+result = <string>_('abc').padRight(6, '_-');
 
 // _.parseInt
 result = <number>_.parseInt('08');
@@ -1582,9 +1859,44 @@ result = <number>_.parseInt('08', 10);
 result = <number>_('08').parseInt();
 result = <number>_('08').parseInt(10);
 
+// _.repeat
+result = <string>_.repeat('*', 3);
+result = <string>_('*').repeat(3);
+
+// _.snakeCase
 result = <string>_.snakeCase('Foo Bar');
+result = <string>_('Foo Bar').snakeCase();
+
+// _.startCase
 result = <string>_.startCase('--foo-bar');
+result = <string>_('--foo-bar').startCase();
+
+// _.startsWith
 result = <boolean>_.startsWith('abc', 'a');
+result = <boolean>_.startsWith('abc', 'a', 1);
+result = <boolean>_('abc').startsWith('a');
+result = <boolean>_('abc').startsWith('a', 1);
+
+// _.template
+interface TestTemplateOptions {
+    escape?: RegExp;
+    evaluate?: RegExp;
+    imports?: _.Dictionary<any>;
+    interpolate?: RegExp;
+    variable?: string;
+}
+interface TestTemplateExecutor {
+    (obj?: Object): string;
+    source: string;
+}
+{
+    let testTemplateOptions: TestTemplateOptions
+    let result: TestTemplateExecutor;
+    result = _.template('');
+    result = _.template('', testTemplateOptions);
+    result = _('').template();
+    result = _('').template(testTemplateOptions);
+}
 
 // _.trim
 result = <string>_.trim();
@@ -1607,18 +1919,27 @@ result = <string>_.trimRight('-_-abc-_-', '_-');
 result = <string>_('-_-abc-_-').trimRight();
 result = <string>_('-_-abc-_-').trimRight('_-');
 
+// _.trunc
 result = <string>_.trunc('hi-diddly-ho there, neighborino');
 result = <string>_.trunc('hi-diddly-ho there, neighborino', 24);
 result = <string>_.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': ' ' });
 result = <string>_.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': /,? +/ });
 result = <string>_.trunc('hi-diddly-ho there, neighborino', { 'omission': ' […]' });
+result = <string>_('hi-diddly-ho there, neighborino').trunc();
+result = <string>_('hi-diddly-ho there, neighborino').trunc(24);
+result = <string>_('hi-diddly-ho there, neighborino').trunc({ 'length': 24, 'separator': ' ' });
+result = <string>_('hi-diddly-ho there, neighborino').trunc({ 'length': 24, 'separator': /,? +/ });
+result = <string>_('hi-diddly-ho there, neighborino').trunc({ 'omission': ' […]' });
 
 // _.unescape
 result = <string>_.unescape('fred, barney, &amp; pebbles');
 result = <string>_('fred, barney, &amp; pebbles').unescape();
 
+// _.words
 result = <string[]>_.words('fred, barney, & pebbles');
 result = <string[]>_.words('fred, barney, & pebbles', /[^, ]+/g);
+result = <string[]>_('fred, barney, & pebbles').words();
+result = <string[]>_('fred, barney, & pebbles').words(/[^, ]+/g);
 
 /**********
 * Utilities *
@@ -1635,6 +1956,22 @@ result = <() => string>_('a').constant<string>();
 result = <() => boolean>_(true).constant<boolean>();
 result = <() => any[]>_(['a']).constant<any[]>();
 result = <() => {}>_({}).constant<{}>();
+
+// _.identity
+{
+    let testIdentityValue: TResult;
+    let result: TResult;
+    result = _.identity<TResult>(testIdentityValue);
+    result = _(testIdentityValue).identity();
+}
+{
+    let result: number;
+    result = _(42).identity();
+}
+{
+    let result: boolean[];
+    result = _<boolean>([]).identity();
+}
 
 // _.method
 class TestMethod {
@@ -1660,6 +1997,41 @@ result = <number>(_.methodOf<number>(TestMethodOfObject, 1, 2))(['a', '0']);
 result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())('a[0]');
 result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())(['a', '0']);
 
+// _.mixin
+{
+    let testMixinSource: _.Dictionary<Function>;
+    let testMixinOptions: {chain?: boolean;}
+    let result: TResult;
+    result = _.mixin<TResult, Object>({}, testMixinSource);
+    result = _.mixin<TResult, Object>({}, testMixinSource, testMixinOptions);
+    result = _.mixin<TResult>(testMixinSource);
+    result = _.mixin<TResult>(testMixinSource, testMixinOptions);
+    result = _({}).mixin<TResult>(testMixinSource).value();
+    result = _({}).mixin<TResult>(testMixinSource, testMixinOptions).value();
+    result = _(testMixinSource).mixin<TResult>().value();
+    result = _(testMixinSource).mixin<TResult>(testMixinOptions).value();
+}
+
+// _.uniqueId
+result = <string>_.uniqueId();
+result = <string>_.uniqueId('');
+result = <string>_('').uniqueId();
+
 result = <string>_.VERSION;
 result = <_.Support>_.support;
 result = <_.TemplateSettings>_.templateSettings;
+
+// _.times
+{
+    let result: number[];
+    result = _.times(42);
+    result = _(42).times().value();
+}
+{
+    let testTimesFn: (num: number) => TResult;
+    let result: TResult[];
+    result = _.times(42, testTimesFn);
+    result = _.times(42, testTimesFn, any);
+    result = _(42).times(testTimesFn).value();
+    result = _(42).times(testTimesFn, any).value();
+}

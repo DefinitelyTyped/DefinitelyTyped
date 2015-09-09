@@ -729,23 +729,8 @@ declare module Slick {
 		* @param options Additional options.  See Grid Options for a list of options that can be included.
 		**/
 		constructor(
-			container: string,
-			data: T[],
-			columns: Column<T>[],
-			options: GridOptions<T>);
-		constructor(
-			container: HTMLElement,
-			data: T[],
-			columns: Column<T>[],
-			options: GridOptions<T>);
-		constructor(
-			container: string,
-			data: DataProvider<T>,
-			columns: Column<T>[],
-			options: GridOptions<T>);
-		constructor(
-			container: HTMLElement,
-			data: DataProvider<T>,
+			container: string|HTMLElement|JQuery,
+			data: T[]|DataProvider<T>,
 			columns: Column<T>[],
 			options: GridOptions<T>);
 
@@ -1169,6 +1154,7 @@ declare module Slick {
 		public invalidate(): void;
 		public invalidateRow(row: number): void;
 		public invalidateRows(rows: number[]): void;
+		public invalidateAllRows(): void;
 		public updateCell(row: number, cell: number): void;
 		public updateRow(row: number): void;
 		public getViewport(viewportTop?: number, viewportLeft?: number): Viewport;
@@ -1707,7 +1693,7 @@ declare module Slick {
 
 	export class Plugin<T extends Slick.SlickData> {
 
-		constructor(options: PluginOptions);
+		constructor(options?: PluginOptions);
 		public init(grid: Grid<T>): void;
 		public destroy(): void;
 	}
