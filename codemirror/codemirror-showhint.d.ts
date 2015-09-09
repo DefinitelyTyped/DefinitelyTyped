@@ -3,6 +3,8 @@
 // Definitions by: jacqt <https://github.com/jacqt>, basarat <https://github.com/basarat>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+// See docs https://codemirror.net/doc/manual.html#addon_show-hint
+
 declare module CodeMirror {
     var commands : any;
 
@@ -30,7 +32,7 @@ declare module CodeMirror {
         from?: Position;
         /** Called if a completion is picked. If provided *you* are responsible for applying the completion */
         hint?: (cm: any, data: Hints, cur: Hint) => void;
-        render?: (element: HTMLLIElement, self: any, data: Hints) => void;
+        render?: (element: HTMLLIElement, data: Hints, cur: Hint) => void;
         to?: Position;
     }
 
