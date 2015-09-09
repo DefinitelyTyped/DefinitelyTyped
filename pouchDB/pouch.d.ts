@@ -51,8 +51,10 @@ interface PouchApi {
 	query(fun: PouchFilter, opts: PouchQueryOptions): Promise<any>;
 	query(fun: PouchFilter): Promise<any>;
 
+	changes(opts: PouchChangesOptions): PouchCancellable;
 	changes(opts: PouchChangesOptions, callback: (err: PouchError, res: PouchChanges) => void): PouchCancellable;
 	changes(callback: (err: PouchError, res: PouchChanges) => void): PouchCancellable;
+
 
 	revsDiff(req: any, opts: PouchRevsDiffOptions, callback: (missing: any) => void): void;
 	revsDiff(req: any, callback: (missing: any) => void): void;
@@ -147,15 +149,14 @@ interface PouchCancellable {
 }
 
 interface PouchChangesOptions {
-	onChange: (change: PouchChange) => void;
-	complete?: (err: PouchError, res: PouchChanges) => void;
-	seq?: number;
-	since?: number;
+	since?: number|string;
 	descending?: boolean;
 	filter?: PouchFilter;
 	continuous?: boolean;
 	include_docs?: boolean;
 	conflicts?: boolean;
+	live?:boolean;
+	returnDocs?:boolean;
 }
 
 interface PouchChange {
