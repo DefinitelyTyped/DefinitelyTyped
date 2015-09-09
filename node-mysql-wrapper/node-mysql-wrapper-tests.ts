@@ -189,7 +189,7 @@ db.ready(() => {
 
 });
 
-server.on('uncaughtException', function(err) {
+server.on('uncaughtException', function(err:any) {
     console.log(err);
 })
 
