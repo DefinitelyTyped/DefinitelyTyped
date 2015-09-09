@@ -24,6 +24,8 @@ declare module "serve-favicon" {
         */
         maxAge?: number;
     }): express.RequestHandler;
+    
+    namespace serveFavicon{}
 
     export = serveFavicon;
 }
