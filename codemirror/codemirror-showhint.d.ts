@@ -1,6 +1,6 @@
 // Type definitions for CodeMirror
 // Project: https://github.com/marijnh/CodeMirror
-// Definitions by: jacqt <https://github.com/jacqt>
+// Definitions by: jacqt <https://github.com/jacqt>, basarat <https://github.com/basarat>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module CodeMirror {
@@ -12,7 +12,7 @@ declare module CodeMirror {
     and return a {list, from, to} object, where list is an array of strings or objects (the completions), and
     from and to give the start and end of the token that is being completed as {line, ch} objects. An optional
     selectedHint property (an integer) can be added to the completion object to control the initially selected hint. */
-    function showHint (cm: CodeMirror.Doc, hinter?: (doc : CodeMirror.Doc) => Hints, options?: IShowHintOptions) : void;
+    function showHint (cm: CodeMirror.Doc, hinter?: (doc : CodeMirror.Doc) => Hints, options?: ShowHintOptions) : void;
 
 
     interface Hints {
@@ -28,7 +28,9 @@ declare module CodeMirror {
         className?: string;
         displayText?: string;
         from?: Position;
-        render?: (element: any, self: any, data: any) => void;
+        /** Called if a completion is picked. If provided *you* are responsible for applying the completion */
+        hint?: (cm: any, data: Hints, cur: Hint) => void;
+        render?: (element: HTMLLIElement, self: any, data: Hints) => void;
         to?: Position;
     }
 
@@ -41,10 +43,10 @@ declare module CodeMirror {
     /** Extend CodeMirror.Doc with a state object, so that the Doc.state.completionActive property is reachable*/
     interface Doc {
         state: any;
-        showHint: (options: IShowHintOptions) => void;
+        showHint: (options: ShowHintOptions) => void;
     }
 
-    interface IShowHintOptions {
+    interface ShowHintOptions {
         completeSingle: boolean;
         hint: (doc : CodeMirror.Doc) => Hints;
     }
@@ -59,4 +61,13 @@ declare module CodeMirror {
         pick(): void;
         data: any;
     }
+    
+    interface EditorConfiguration {
+        showHint?: boolean;
+        hintOptions?: ShowHintOptions;
+    }
+}
+
+declare module "codemirror/addon/hint/show-hint" {
+    export = CodeMirror;
 }
