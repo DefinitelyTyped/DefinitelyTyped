@@ -1693,7 +1693,7 @@ declare module angular {
         interface IInjectorService {
             annotate(fn: Function): string[];
             annotate(inlineAnnotatedFunction: any[]): string[];
-            get<T>(name: string): T;
+            get<T>(name: string, caller?: string): T;
             has(name: string): boolean;
             instantiate<T>(typeConstructor: Function, locals?: any): T;
             invoke(inlineAnnotatedFunction: any[]): any;
