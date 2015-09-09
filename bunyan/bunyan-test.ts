@@ -57,7 +57,7 @@ var log = bunyan.createLogger(options);
 log.addSerializers(bunyan.stdSerializers);
 var child = log.child({name: 'child'});
 child.reopenFileStreams();
-log.addStream({path: '/dev/null', name: 'stream1'});
+log.addStream({path: '/dev/null'});
 child.level(bunyan.DEBUG);
 child.level('debug');
 child.levels(0, bunyan.ERROR);

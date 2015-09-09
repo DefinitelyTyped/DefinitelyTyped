@@ -70,7 +70,7 @@ function sample2() {
   //
   // Rendering canvas #2
   //
-  var canvas2 = new fabric.Canvas('c2', { backgroundColor: "#000", renderOnAddition: false }),
+  var canvas2 = new fabric.Canvas('c2', { backgroundColor: "#000", renderOnAddRemove: false }),
     results2 = document.getElementById('results-c2');
 
   startTimer();
@@ -84,7 +84,7 @@ function sample2() {
     canvas2.add(dot);
   }
   canvas2.renderAll(); // Note, calling renderAll() is important in this case
-  results2.innerHTML = 'Rendering 1000 elements using canvas.renderOnAddition = false in ' + stopTimer() + 'ms';
+  results2.innerHTML = 'Rendering 1000 elements using canvas.renderOnAddRemove = false in ' + stopTimer() + 'ms';
 }
 
 function sample3() {
