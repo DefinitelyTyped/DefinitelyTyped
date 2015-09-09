@@ -575,7 +575,7 @@ declare module "node-mysql-wrapper" {
         save(criteriaRawJsObject: any): Promise<any>; //without callback
         save(criteriaRawJsObject: any, callback?: (_result: any) => any): Promise<any>;
 
-        remove(id: number | string); // ID without callback
+        remove(id: number | string): Promise<DeleteAnswer>; // ID without callback
         remove(criteriaRawObject: any): Promise<DeleteAnswer>; // criteria obj without callback
         remove(criteriaOrID: any | number | string, callback?: (_result: DeleteAnswer) => any): Promise<DeleteAnswer>;
 
