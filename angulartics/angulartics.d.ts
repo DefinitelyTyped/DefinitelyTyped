@@ -33,6 +33,16 @@ declare module Angulartics {
         registerSetUsername(callback: (username: string) => any): void
         registerSetUserProperties(callback: (userProperties: any) => any): void
         registerSetSuperProperties(callback: (superProperties: any) => any): void
+        
+        settings: { 
+            pageTracking: { 
+                autoTrackingVirtualPages: boolean,
+                autoTrackingFirstPage: boolean,
+                basePath: string,
+                autoBasePath: boolean
+            },
+            developerMode: boolean
+        }
     }
 }
 
