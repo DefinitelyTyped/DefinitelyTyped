@@ -48,7 +48,11 @@ declare module gapi.auth {
         /**
          * The auth scope or scopes to authorize. Auth scopes for individual APIs can be found in their documentation.
          */
-        scope?: any
+        scope?: any;
+        /**
+         * The user to sign in as. -1 to toggle a multi-account chooser, 0 to default to the user's current account, and 1 to automatically sign in if the user is signed into Google Plus.
+         */
+        authuser?: number;
     }, callback: (token: GoogleApiOAuth2TokenObject) => any): void;
     /**
      * Initializes the authorization feature. Call this when the client loads to prevent popup blockers from blocking the auth window on gapi.auth.authorize calls.
