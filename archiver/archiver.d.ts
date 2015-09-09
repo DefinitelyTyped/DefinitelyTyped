@@ -1,5 +1,7 @@
+/// <reference path="../node/node.d.ts" />
+
 declare module "archiver" {
-    import * as FS from 'fs';
+    import FS = require('fs');
     
     interface nameInterface {
         name?: string;
