@@ -1062,6 +1062,7 @@ declare module "fs" {
         atime: Date;
         mtime: Date;
         ctime: Date;
+        birthtime: Date;
     }
 
     interface FSWatcher extends events.EventEmitter {
