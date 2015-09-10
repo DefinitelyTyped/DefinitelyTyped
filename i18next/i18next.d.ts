@@ -19,6 +19,12 @@ interface IResourceStoreKey {
 
 interface I18nTranslateOptions extends I18nextOptions {
     defaultValue?: any; // normally a string
+    // NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+    toAdd?: any;
+    child?: any;
+    sprintf?: any;
+    count?: any;
+    context?: any;
 }
 
 interface I18nextOptions {
@@ -66,6 +72,9 @@ interface I18nextOptions {
     cookieName?: string;                    // Default value: 'i18next'
 
     postProcess?: string;                   // Default value: undefined
+
+    // NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+    replace?: any;
 }
 
 interface I18nextStatic {

@@ -16,7 +16,7 @@ var billFaces = <string[]>[];
 var personGroupId = "uuid.v4()";
 var personGroupId2 = "uuid.v4()";
 var billPersonId: string;
- 
+
 describe('Project Oxford Face API Test', function () {
     afterEach(function() {
         // delay after each test to prevent throttling
@@ -82,7 +82,7 @@ describe('Project Oxford Face API Test', function () {
             });
         });
     });
-    
+
     describe('#similar()', function () {
         it('detects similar faces', function (done) {
             var detects = <any>[];
@@ -148,7 +148,7 @@ describe('Project Oxford Face API Test', function () {
             });
         });
     });
-    
+
     describe('#PersonGroup', function () {
         before(function(done) {
             this.timeout(5000);
@@ -199,7 +199,7 @@ describe('Project Oxford Face API Test', function () {
                 done();
             });
         });
-        
+
         it('updates a PersonGroup', function (done) {
             client.face.personGroup.update(personGroupId, 'po-node-test-group2', 'test-data2').then(function (response) {
                 assert.ok(true, "void response expected");;
@@ -364,7 +364,7 @@ describe('Project Oxford Vision API Test', function () {
     before(function() {
         // ensure the output directory exists
         if(!fs.existsSync('./test/output')){
-            fs.mkdirSync('./test/output', 0766);
+            fs.mkdirSync('./test/output', parseInt("0766", 8));
         }
     });
 
@@ -417,7 +417,7 @@ describe('Project Oxford Vision API Test', function () {
             done();
         });
     });
-    
+
     it('creates a thumbnail for a local image', function (done) {
         this.timeout(10000);
         client.vision.thumbnail({
@@ -449,7 +449,7 @@ describe('Project Oxford Vision API Test', function () {
             done();
         });
     });
-    
+
     it('runs OCR on a local image', function (done) {
         this.timeout(10000);
         client.vision.ocr({
