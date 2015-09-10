@@ -1,1 +1,1 @@
---experimentalDecorators --target ES5
+--experimentalDecorators --noImplicitAny --target ES5
