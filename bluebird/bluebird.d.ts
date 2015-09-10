@@ -1,4 +1,4 @@
-// Type definitions for bluebird 2.0.0
+// Type definitions for bluebird 1.0.0
 // Project: https://github.com/petkaantonov/bluebird
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -74,6 +74,9 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 
 	lastly<U>(handler: () => Promise.Thenable<U>): Promise<R>;
 	lastly<U>(handler: () => U): Promise<R>;
+
+	disposer<U>(handler: (resource: R, promise: Promise.Inspection<U>) => Promise.Thenable<void>): Promise.Disposer<R>;
+	disposer<U>(handler: (resource: R, promise: Promise.Inspection<U>) => void): Promise.Disposer<R>;
 
 	/**
 	 * Create a promise that follows this promise, but is bound to the given `thisArg` value. A bound promise will call its handlers with the bound value set to `this`. Additionally promises derived from a bound promise will also be bound promises with the same `thisArg` binding as the original promise.
@@ -714,7 +717,21 @@ declare module Promise {
 		 */
 		reason(): any;
 	}
-
+	
+	/**
+	 * This is not the full interface of a Disposer since you will not need to use
+	 * any of it. It has one method signature so that the TypeScript compiler will actually
+	 * perform compile-time checks (any object satisfies an empty interface)
+	 */
+	export interface Disposer<R> {
+		isDisposer(): boolean;
+	}
+	
+	/**
+	 * In conjunction with .disposer(), using will make sure that no matter what, the specified disposer will be called when appropriate.
+	 * The disposer is necessary because there is no standard interface in node for disposing resources.
+	 */	export function using<R, U>(disposer: Disposer<R>, handler: (resource: R) => Promise<U>): Promise<U>;
+		
 	/**
 	 * Changes how bluebird schedules calls a-synchronously.
 	 *
