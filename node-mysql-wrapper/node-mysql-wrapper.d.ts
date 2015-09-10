@@ -1,5 +1,5 @@
 // Type definitions for node-mysql-wrapper
-// Project: https://github.com/kataras/node-mysql-wrapper
+// Project: https://github.com/nodets/node-mysql-wrapper
 // Definitions by: Makis Maropoulos <https://github.com/kataras>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -12,10 +12,41 @@ declare module "node-mysql-wrapper" {
     import {EventEmitter} from 'events';
 
     var EQUAL_TO_PROPERTY_SYMBOL: string;
+    var TABLE_RULES_PROPERTY: string;
+
+    type DeleteAnswer = {
+        affectedRows: number;
+        table: string;
+    };
+
+    type RawRules = {
+        table: string,
+        begin: string,
+        orderBy: string,
+        orderByDesc: string,
+        groupBy: string,
+        limit: number, // limit = limitStart  =0 and limitEnd = limit.
+        limitStart: number,
+        limitEnd: number,
+        end: string
+
+    };
+
+    type TableToSearchPart = { tableName: string, propertyName: string };
 
     interface Map<T> {
         [index: string]: T;
     }
+
+    interface IQuery<T> {
+        _table: Table<T>;
+        execute(rawCriteria: any, callback?: (_results: any) => any): Promise<any>;
+    }
+
+    interface IQueryConstructor<T> {
+        new (_table: Table<T>): IQuery<T>;
+    }
+
 
     class Helper {
         /** 
@@ -61,9 +92,7 @@ declare module "node-mysql-wrapper" {
          * @return {string}
          */
         static toRowProperty(objectKey: string): string;
-        
     
-        
         /**
          * Iterate object's keys and return their values to the callback.
          * @param {Map<T>} map the object.
@@ -80,17 +109,38 @@ declare module "node-mysql-wrapper" {
         * @returnType {U}
         * @return {U}
         */
+
         static forEachKey<T, U>(map: Map<T>, callback: (key: string) => U): U;
+        
+        /**
+         * Checks if anything is a function.
+         * @param {functionToCheck} the object or function to pass
+         * @return boolean
+         */
+        static isFunction(functionToCheck: any): boolean;
+        
+        /**
+         * Checks if an object has 'tableRules' property.
+         * @param {obj} the object to pass
+         * @return boolean
+         */
+        static hasRules(obj: any): boolean;
     }
 
-    interface ICriteria {
+
+    interface ICriteriaParts {
         rawCriteriaObject: any;
-        tables: string[];
+        tables: TableToSearchPart[];
         noDatabaseProperties: string[];
         whereClause: string;
+
+        selectFromClause<T>(_table: Table<T>): string;
+
     }
 
-    class Criteria implements ICriteria {
+
+
+    class CriteriaParts implements ICriteriaParts {
         
         /**
          * The raw format of the criteria eg: {yearsOld:22}.
@@ -100,7 +150,7 @@ declare module "node-mysql-wrapper" {
         /**
          * Which tables to search after the find method of the proto table finish.
          */
-        tables: string[];
+        tables: TableToSearchPart[];
         
         /**
          * The properties of the criteria which don't belong to the database's table.
@@ -112,10 +162,12 @@ declare module "node-mysql-wrapper" {
          */
         whereClause: string;
 
-        constructor(rawCriteriaObject: any, tables: string[], noDatabaseProperties: string[], whereClause: string);
+        constructor(rawCriteriaObject: any, tables: TableToSearchPart[], noDatabaseProperties: string[], whereClause: string);
+
+        selectFromClause<T>(_table: Table<T>): string;
     }
 
-    class CriteriaBuilder<T> {
+    class CriteriaDivider<T> {
         private _table;
         constructor(table: Table<T>);
         
@@ -125,69 +177,130 @@ declare module "node-mysql-wrapper" {
          * @returnType {Criteria}
          * @return {Criteria}
          */
-        build(rawCriteriaObject: any): Criteria;
+        build(rawCriteriaObject: any): CriteriaParts;
     }
 
     class SelectQueryRules {
-        orderByClause: string;
-        groupByClause: string;
-        limitClause: string;
-
-
+        private lastPropertyClauseName: string;
+        manuallyEndClause: string;
+        manuallyBeginClause: string;
+        exceptColumns: string[];
+        orderByColumn: string;
+        orderByDescColumn: string;
+        groupByColumn: string;
+        limitStart: number;
+        limitEnd: number;
+        public tableName: string; //auto den benei oute sto last, oute sto from.
         static build(): SelectQueryRules;
-        static build(parentRule?: SelectQueryRules): SelectQueryRules;
+        private last(propertyClauseName);
+        except(...columns: string[]): SelectQueryRules;
+        
+        /**
+         * Same as .except(...columns)
+         */
+        exclude(...columns: string[]): SelectQueryRules;
 
         orderBy(columnKey: string, descending?: boolean): SelectQueryRules;
-
         groupBy(columnKey: string): SelectQueryRules;
-
         limit(limitRowsOrStart: number, limitEnd?: number): SelectQueryRules;
-
+        appendToBegin(manualAfterWhereString: string): SelectQueryRules;
+        appendToEnd(manualAfterWhereString: string): SelectQueryRules;
+        append(appendToCurrent: string): SelectQueryRules;
         clearOrderBy(): SelectQueryRules;
-
         clearGroupBy(): SelectQueryRules;
-
         clearLimit(): SelectQueryRules;
-
+        clearEndClause(): SelectQueryRules;
+        clearBeginClause(): SelectQueryRules;
         clear(): SelectQueryRules;
-
         from(parentRule: SelectQueryRules): SelectQueryRules;
-
+        isEmpty(): boolean;
         toString(): string;
+        toRawObject(): RawRules;
+        static toString(rules: SelectQueryRules): string;
+        static toRawObject(rules: SelectQueryRules): RawRules;
+        static fromRawObject(obj: RawRules): SelectQueryRules;
     }
 
-    class SelectQuery<T> {
+    class CriteriaBuilder<T>{
 
-        private _rules: SelectQueryRules;
-        private _table: Table<T>;
-        private _criteriaRawJsObject: any;
-        private _callback: (_results: T[]) => any;
-        private callback: (resolve?: (thenableOrResult?: T | Promise.Thenable<T>) => void, reject?: (error?: any) => void) => void;
+        private rawCriteria: any;
+        private primaryTable: Table<T>;
+        private parentBuilder: CriteriaBuilder<any>;
 
-        constructor(table: Table<T>, criteriaRawJsObject: any, callback?: (_results: T[]) => any);
+        constructor(primaryTable: Table<T>); //to arxiko apo to Table.ts 9a benei
+        constructor(primaryTable: Table<T>, tableName: string, parentBuilder: CriteriaBuilder<any>);// auta 9a benoun apo to parent select query.
+        constructor(primaryTable: Table<T>, tablePropertyName?: string, parentBuilder?: CriteriaBuilder<any>);
 
-        orderBy(columnKey: string, descending?: boolean): SelectQuery<T>;
+        except(...columns: string[]): CriteriaBuilder<T>;
+        
+        /**
+	    * Same as .except(...columns)
+	    */
+        exclude(...columns: string[]): CriteriaBuilder<T>;
 
-        groupBy(columnKey: string): SelectQuery<T>;
+        where(key: string, value: any): CriteriaBuilder<T>;
 
-        limit(limitRowsOrStart: number, limitEnd?: number): SelectQuery<T>;
+        private createRulesIfNotExists(): void;
+
+        orderBy(column: string, desceding?: boolean): CriteriaBuilder<T>;
+
+        limit(start: number, end?: number): CriteriaBuilder<T>;
+
+        join(realTableName: string, foreignColumnName: string): CriteriaBuilder<T>;
+
+        joinAs(tableNameProperty: string, realTableName: string, foreignColumnName: string): CriteriaBuilder<T>;
+
+        at(tableNameProperty: string): CriteriaBuilder<T>;
+
+        parent(): CriteriaBuilder<T>;
+
+        original(): CriteriaBuilder<T>;
+        
+        /**
+         * Auto kanei kuklous mexri na paei sto primary table kai ekei na epistrepsei to sunoliko raw criteria gia execute i kati allo.
+         */
+        build(): any;
+
+        static from<T>(table: Table<T>): CriteriaBuilder<T>
+
+    }
+
+    class SelectQuery<T> implements IQuery<T> { // T for Table's result type.
+       
+        _table: Table<T>
+        constructor(_table: Table<T>);
+
+        private parseQueryResult(result: any, criteria: ICriteriaParts): Promise<any>;
 
         /**
-        * Executes the select and returns the Promise.
-        */
-        promise(): Promise<T[]>;
-        
+         * Executes the select and returns the Promise.
+         */
+        promise(rawCriteria: any, callback?: (_results: T[]) => any): Promise<T[]>;
+
         /**
          * Exactly the same thing as promise().
          * Executes the select and returns the Promise.
-         */
-        execute(): Promise<T[]>;
-
-        then(onFulfill: (value: any[]) => any|Promise.Thenable<any>): Promise<any>;
-        then<U>(onFulfill: (value: T[]) => U|Promise.Thenable<U>, onReject: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
-        then<U>(onFulfill: (value: T[]) => U|Promise.Thenable<U>, onReject?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
-
+        */
+        execute(rawCriteria: any, callback?: (_results: T[]) => any): Promise<T[]>;
     }
+
+    class SaveQuery<T> implements IQuery<T> {
+
+        _table: Table<T>
+        constructor(_table: Table<T>);
+
+        execute(criteriaRawJsObject: any, callback?: (_result: T | any) => any): Promise<T | any>;
+    }
+
+    class DeleteQuery<T> implements IQuery<T>{
+
+        _table: Table<T>
+        constructor(_table: Table<T>);
+
+        execute(criteriaOrID: any | number | string, callback?: (_result: DeleteAnswer) => any): Promise<DeleteAnswer>;
+    }
+
+
 
     class Connection extends EventEmitter {
         
@@ -325,14 +438,17 @@ declare module "node-mysql-wrapper" {
     }
 
     class Table<T> {
-        private _name;
-        private _connection;
-        private _columns;
-        private _primaryKey;
-        private _criteriaBuilder;
-        private _rules;
+        private _name: string;
+        private _connection: Connection;
+        private _columns: string[];
+        private _primaryKey: string;
+        private _criteriaDivider: CriteriaDivider<T>;
+        private _rules: SelectQueryRules;
+        private _selectQuery: SelectQuery<T>
+        private _saveQuery: SaveQuery<T>;
+        private _deleteQuery: DeleteQuery<T>;
         constructor(tableName: string, connection: Connection);
-        
+
         /**
          * An array of all columns' names inside this table.
          */
@@ -355,8 +471,22 @@ declare module "node-mysql-wrapper" {
         
         /**
          * Set of the query rules that will be applied after the 'where clause' on each select query executed by this table. 
+         * @return {SelectQueryRules}
          */
         rules: SelectQueryRules;
+        
+        /**
+         * Returns this table's criteria divider class.
+         * @return {CriteriaDivider}
+         */
+        criteriaDivider: CriteriaDivider<T>;
+        
+        /**
+         * Returns new Criteria Builder each time.
+         * Helps you  to make criteria raw js objects ready to use in find,remove and save methods.
+         * @return {CriteriaBuilder}
+         */
+        criteria: CriteriaBuilder<T>;
         
         /**
         * Adds or turn on an event listener/watcher on a table for a 'database event'.
@@ -424,48 +554,31 @@ declare module "node-mysql-wrapper" {
          * @return {number | string}
          */
         getPrimaryKeyValue(jsObject: any): number | string;
-
-        parseQueryResult(result: any, criteria: ICriteria): Promise<any>;
         
         /**
          * 
          */
-        find(criteriaRawJsObject: any): SelectQuery<T>; // only criteria 
-        find(criteriaRawJsObject: any, callback: ((_results: T[]) => any)): SelectQuery<T>; // criteria and callback
-        find(criteriaRawJsObject: any, callback?: (_results: T[]) => any): SelectQuery<T>;
+        find(criteriaRawJsObject: any): Promise<T[]>; // only criteria 
+        find(criteriaRawJsObject: any, callback: ((_results: T[]) => any)): Promise<T[]>; // criteria and callback
+        find(criteriaRawJsObject: any, callback?: (_results: T[]) => any): Promise<T[]>;
+
+        findSingle(criteriaRawJsObject: any, callback?: (_result: T) => any): Promise<T>;
 
         findById(id: number|string): Promise<T>; // without callback
         findById(id: number | string, callback?: (result: T) => any): Promise<T>;
 
-        findAll(): SelectQuery<T>; // without callback
-        findAll(callback?: (_results: T[]) => any): SelectQuery<T>;
+        findAll(): Promise<T[]>; // only criteria and promise
+        findAll(tableRules: RawRules): Promise<T[]> // only rules and promise
+        findAll(tableRules?: RawRules, callback?: (_results: T[]) => any): Promise<T[]>;
+
 
         save(criteriaRawJsObject: any): Promise<any>; //without callback
         save(criteriaRawJsObject: any, callback?: (_result: any) => any): Promise<any>;
 
-        safeRemove(id: number | string): Promise<{
-            affectedRows: number;
-            table: string;
-        }>; //withoutcallback
-        safeRemove(id: number | string, callback?: (_result: {
-            affectedRows: number;
-            table: string;
-        }) => any): Promise<{
-            affectedRows: number;
-            table: string;
-        }>;
+        remove(id: number | string): Promise<DeleteAnswer>; // ID without callback
+        remove(criteriaRawObject: any): Promise<DeleteAnswer>; // criteria obj without callback
+        remove(criteriaOrID: any | number | string, callback?: (_result: DeleteAnswer) => any): Promise<DeleteAnswer>;
 
-        remove(criteriaRawObject: any): Promise<{
-            affectedRows: number;
-            table: string;
-        }>; // without callback
-        remove(criteriaRawJsObject: any, callback?: (_result: {
-            affectedRows: number;
-            table: string;
-        }) => any): Promise<{
-            affectedRows: number;
-            table: string;
-        }>;
     }
 
     class Wrapper {
