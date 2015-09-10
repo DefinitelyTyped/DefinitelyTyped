@@ -2823,12 +2823,12 @@ declare module uiGrid {
              * returns all selected rows as gridRows
              * @returns {Array<IGridRow>} The selected rows
              */
-            getSelectedGridRows(): Array<uiGrid.IGridRow>;
+            getSelectedGridRows(): Array<any>;
             /**
              * Gets selected rows as entities
              * @returns {Array<any>} Selected row entities
              */
-            getSelectedRows(): Array<uiGrid.IGridRow>;
+            getSelectedRows(): Array<any>;
             /**
              * Selects all rows.  Does nothing if multiselect = false
              * @param {ng.IAngularEvent} event object if raised from event
@@ -2844,7 +2844,7 @@ declare module uiGrid {
              * @param {any} rowEntity gridOptions.data[] array value
              * @param {ng.IAngularEvent} event object if raised from event
              */
-            selectRow(rowEntity: uiGrid.IGridRow, event?: ng.IAngularEvent): void;
+            selectRow(rowEntity: any, event?: ng.IAngularEvent): void;
             /**
              * Select the specified row by visible index
              * (i.e. if you specify row 0 you'll get the first visible row selected).
@@ -2871,13 +2871,13 @@ declare module uiGrid {
              * @param {any} rowEntity gridOptions.data[] array value
              * @param {ng.IAngularEvent} event object if raised from event
              */
-            toggleRowSelection(rowEntity: uiGrid.IGridRow, event?: ng.IAngularEvent): void;
+            toggleRowSelection(rowEntity: any, event?: ng.IAngularEvent): void;
             /**
              * UnSelect the data row
              * @param {any} rowEntity gridOptions.data[] array value
              * @param {ng.IAngularEvent} event object if raised from event
              */
-            unSelectRow(rowEntity: uiGrid.IGridRow, event?: ng.IAngularEvent): void;
+            unSelectRow(rowEntity: any, event?: ng.IAngularEvent): void;
 
             // Events
             on: {
