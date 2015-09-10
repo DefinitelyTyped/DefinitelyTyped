@@ -175,25 +175,22 @@ declare module NodeJS {
 
     export interface ReadableStream extends EventEmitter {
         readable: boolean;
-        read(size?: number): string|Buffer;
+        read(size?: number): any;
         setEncoding(encoding: string): void;
         pause(): void;
         resume(): void;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends WritableStream>(destination?: T): void;
-        unshift(chunk: string): void;
-        unshift(chunk: Buffer): void;
+        unshift(chunk: any): void;
         wrap(oldStream: ReadableStream): ReadableStream;
     }
 
     export interface WritableStream extends EventEmitter {
         writable: boolean;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
+        write(chunk: any, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
         end(): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
+        end(chunk: any, cb?: Function): void;
         end(str: string, encoding?: string, cb?: Function): void;
     }
 
@@ -1671,14 +1668,13 @@ declare module "stream" {
         readable: boolean;
         constructor(opts?: ReadableOptions);
         _read(size: number): void;
-        read(size?: number): string|Buffer;
+        read(size?: number): any;
         setEncoding(encoding: string): void;
         pause(): void;
         resume(): void;
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
-        unshift(chunk: string): void;
-        unshift(chunk: Buffer): void;
+        unshift(chunk: any): void;
         wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
         push(chunk: any, encoding?: string): boolean;
     }
@@ -1686,6 +1682,7 @@ declare module "stream" {
     export interface WritableOptions {
         highWaterMark?: number;
         decodeStrings?: boolean;
+        objectMode?: boolean;
     }
 
     export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
@@ -1693,12 +1690,10 @@ declare module "stream" {
         constructor(opts?: WritableOptions);
         _write(data: Buffer, encoding: string, callback: Function): void;
         _write(data: string, encoding: string, callback: Function): void;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
+        write(chunk: any, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
         end(): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
+        end(chunk: any, cb?: Function): void;
         end(str: string, encoding?: string, cb?: Function): void;
     }
 
