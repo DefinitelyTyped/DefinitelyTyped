@@ -1,4 +1,4 @@
-// Type definitions for node-jsfl-runner
+// Type definitions for node-jsfl-runner v0.2.4
 // Project: https://www.npmjs.com/package/node-jsfl-runner
 // Definitions by: Michael Randolph <https://github.com/mrand01>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -28,8 +28,9 @@ declare module "node-jsfl-runner" {
   
   /**
    * Runs a JSFL file
+   * @param flashLocation Path to Flash executable
    * @param fileName Path to JSFL file to run
    * @param callback Callback
    */
-  function runJSFL(fileName: string, callback: (err: NodeJS.ErrnoException) => void): void;
+  function runJSFL(flashLocation:string, fileName: string, callback: (err: NodeJS.ErrnoException) => void): void;
 }
