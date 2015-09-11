@@ -86,7 +86,7 @@ declare module JQueryUI {
         disabled?: boolean;
         icons?: any;
         label?: string;
-        text?: string;
+        text?: string|boolean;
         click?: (event?: Event) => void;
     }
 
