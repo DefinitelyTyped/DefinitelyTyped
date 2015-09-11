@@ -1,6 +1,6 @@
 +/// <reference path="./darkroomjs.d.ts" />
 +// test from https://github.com/MattKetmo/darkroomjs
-+new Darkroom('#target', {
++var darkroom = new Darkroom('#target', {
 +    // Canvas initialization size
 +    minWidth: 100,
 +    minHeight: 100,
