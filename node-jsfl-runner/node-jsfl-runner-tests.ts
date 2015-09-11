@@ -8,11 +8,13 @@ let myJSFL: jsfl.JSFL = {
   }
 }
 
+let flashLocation: string = '';
+
 jsfl.createJSFL(myJSFL, 'fileName.jsfl', ['Hello!'], (err: NodeJS.ErrnoException) => {
 
 });
 
-jsfl.runJSFL('fileName.jsfl', (err: NodeJS.ErrnoException) => {
+jsfl.runJSFL(flashLocation, 'fileName.jsfl', (err: NodeJS.ErrnoException) => {
 
 });
 

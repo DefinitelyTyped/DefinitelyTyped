@@ -1,5 +1,5 @@
 /// <reference path="codemirror.d.ts" />
-/// <reference path="showhint.d.ts" />
+/// <reference path="codemirror-showhint.d.ts" />
 var doc = new CodeMirror.Doc('text');
 var pos = new CodeMirror.Pos(2, 3);
 CodeMirror.showHint(doc);
