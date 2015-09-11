@@ -2,11 +2,11 @@
 // Project: https://github.com/MattKetmo/darkroomjs
 // Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-declare class Darkroom {
-    constructor(element: string | HTMLImageElement, options?: Options);
+declare class DarkRoom {
+    constructor(element: string | HTMLImageElement, options?: Options)
     plugins: {
-      crop:any;
-      save:any;
+        crop: any;
+        save: any;
     }
 }
 interface Options {
@@ -27,7 +27,7 @@ interface Plugins {
     /**
     * Save plugin options. if passed 'false' - disable plugin
     */
-    save?: SavePluginOptions | boolean;
+    save?: SavePluginOptions | boolean
 }
 interface CropPluginOptions {
     minHeight?: number;
@@ -38,8 +38,8 @@ interface CropPluginOptions {
 interface SavePluginOptions {
 
 }
-//declare var Darkroom: typeof DarkRoom;
-/*declare module 'darkroom'{
-  var darkRoom: DarkRoom;
-  export = darkRoom;
-}*/
+declare var Darkroom: typeof DarkRoom;
+declare module 'darkroom'{
+
+  export = Darkroom;
+}
