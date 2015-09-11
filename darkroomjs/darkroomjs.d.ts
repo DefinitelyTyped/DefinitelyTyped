@@ -10,12 +10,12 @@ declare class Darkroom {
     }
 }
 interface Options {
-    minWidth?: number,
-    minHeight?: number,
-    maxWidth?: number,
-    maxHeight?: number,
-    plugins?: Plugins,
-    initialize?: () => void,
+    minWidth?: number;
+    minHeight?: number;
+    maxWidth?: number;
+    maxHeight?: number;
+    plugins?: Plugins;
+    initialize?: () => void;
     backgroundColor?: string;
     ratio?: number;
 }
@@ -27,12 +27,12 @@ interface Plugins {
     /**
     * Save plugin options. if passed 'false' - disable plugin
     */
-    save?: SavePluginOptions | boolean
+    save?: SavePluginOptions | boolean;
 }
 interface CropPluginOptions {
-    minHeight?: number,
-    minWidth?: number,
-    ratio?: number,
+    minHeight?: number;
+    minWidth?: number;
+    ratio?: number;
     quickCropKey?: number;
 }
 interface SavePluginOptions {
