@@ -2,7 +2,7 @@
 +// Project: https://github.com/MattKetmo/darkroomjs
 +// Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
 +// Definitions: https://github.com/borisyankov/DefinitelyTyped
-+interface DarkRoom {
++declare class DarkRoom {
 +    new (element: string | HTMLImageElement, options?: Options);
 +    plugins: {
 +      crop:any;
