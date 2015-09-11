@@ -1,19 +1,25 @@
 /// <reference path="ui-grid.d.ts" />
 /// <reference path="../angularjs/angular.d.ts" />
 
-var columnDef: uiGrid.IColumnDef;
+interface MyEntity {
+    name: string;
+    age: number;
+}
+
+var columnDef: uiGrid.IColumnDef<MyEntity>;
 columnDef.aggregationHideLabel = true;
 columnDef.aggregationHideLabel = false;
 columnDef.aggregationType = 1;
 columnDef.aggregationType = function () { return 1; };
 columnDef.cellClass = 'test';
-columnDef.cellClass = function (gridRow: uiGrid.IGridRow, gridCol: uiGrid.IGridColumn, index: number) {
+columnDef.cellClass = (gridRow, gridCol, index) => {
+    //types of gridRow, gridCol, and index are flowed in correctly
     return 'pizza';
 };
 columnDef.cellFilter = 'date';
 columnDef.cellTemplate = '<div blah="something">hello</div>';
 columnDef.cellTooltip = 'blah';
-columnDef.cellTooltip = function (gridRow: uiGrid.IGridRow, gridCol: uiGrid.IGridColumn) {
+columnDef.cellTooltip = function (gridRow: uiGrid.IGridRow<MyEntity>, gridCol: uiGrid.IGridColumn<MyEntity>) {
     return 'blah';
 };
 columnDef.displayName = 'Jumper';
@@ -38,15 +44,16 @@ columnDef.filter = {
 columnDef.filterCellFiltered = false;
 columnDef.filterHeaderTemplate = '<div blah="test"></div>';
 columnDef.filters = [columnDef.filter];
-columnDef.footerCellClass =
-    (gridRow: uiGrid.IGridRow, rowRenderIndex: number, gridCol: uiGrid.IGridColumn, colRenderIndex: number) => {
+columnDef.footerCellClass = (gridRow, rowRenderIndex, gridCol, colRenderIndex) => {
+        //types for gridRow, rowRenderIndex, gridCol, and colRenderIndex flow in properly
         return 'blah';
     };
 columnDef.footerCellClass = 'theClass';
 columnDef.footerCellFilter = 'currency:$';
 columnDef.footerCellTemplate = '<div class="yoshi"></div>';
 columnDef.headerCellClass =
-    (gridRow: uiGrid.IGridRow, rowRenderIndex: number, gridCol: uiGrid.IGridColumn, colRenderIndex: number) => {
+    (gridRow, rowRenderIndex, gridCol, colRenderIndex) => {
+        //types for gridRow, rowRenderIndex, gridCol, and colRenderIndex flow in properly
         return 'blah';
     };
 columnDef.headerCellClass = 'classy';
@@ -54,7 +61,8 @@ columnDef.headerCellFilter = 'currency:$';
 columnDef.headerCellTemplate = '<div class="yoshi"></div>';
 columnDef.headerTooltip = false;
 columnDef.headerTooltip = 'The Tooltip';
-columnDef.headerTooltip = (col: uiGrid.IGridColumn) => {
+columnDef.headerTooltip = (col) => {
+    //type of col flows in properly
     return 'tooly';
 };
 columnDef.maxWidth = 200;
@@ -87,10 +95,10 @@ columnDef.width = 100;
 columnDef.width = '*';
 
 
-var gridApi: uiGrid.IGridApi;
-var gridInstance: uiGrid.IGridInstance;
+var gridApi: uiGrid.IGridApi<MyEntity>;
+var gridInstance: uiGrid.IGridInstance<MyEntity>;
 var menuItem: uiGrid.IMenuItem;
-var colProcessor: uiGrid.IColumnProcessor;
+var colProcessor: uiGrid.IColumnProcessor<MyEntity>;
 
 gridApi.core.clearAllFilters(true);
 gridApi.core.addToGridMenu(gridInstance, [menuItem]);
@@ -100,3 +108,11 @@ gridApi.core.queueGridRefresh()
 gridApi.core.queueRefresh();
 gridApi.core.registerColumnsProcessor(colProcessor, 100);
 
+var gridOptions: uiGrid.IGridOptions<MyEntity> = {
+    data: [{name: 'Bob', age: 100}],
+    onRegisterApi: (api) => {
+        api.selection.on.rowSelectionChanged(null, (row) => {
+            console.log(row.entity.name);
+        })
+    }
+}
