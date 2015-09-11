@@ -74,27 +74,27 @@ declare module JQueryTooltipster {
 		 * @param origin
 		 * @param content
 		 */
-		functionInit?: (origin, content) => void;
+		functionInit?: (origin: JQuery, content: string) => void;
 
 		/**
 		 * Create a custom function to be fired before the tooltip opens. This function may prevent or hold off the opening.
 		 * @param origin
 		 * @param continueTooltip
 		 */
-		functionBefore?: (origin, continueTooltip) => void;
+		functionBefore?: (origin: JQuery, continueTooltip: () => void) => void;
 
 		/**
 		 * Create a custom function to be fired when the tooltip and its contents have been added to the DOM.
 		 * @param origin
 		 * @param tooltip
 		 */
-		functionReady?: (origin, tooltip) => void;
+		functionReady?: (origin: JQuery, tooltip: JQuery) => void;
 
 		/**
 		 * Create a custom function to be fired once the tooltip has been closed and removed from the DOM.
 		 * @param origin
 		 */
-		functionAfter?: (origin) => void;
+		functionAfter?: (origin: JQuery) => void;
 
 		/**
 		 * If true, the tooltip will close if its origin is clicked. This option only applies when 'trigger' is 'hover' and 'autoClose' is false. Default: false
@@ -228,7 +228,7 @@ declare module JQueryTooltipster {
 		 * @param value 
 		 * @returns {} 
 		 */
-		content(value: string);
+		content(value: string): JQuery;
 
 		/**
 		 * Shows the tooltip.
