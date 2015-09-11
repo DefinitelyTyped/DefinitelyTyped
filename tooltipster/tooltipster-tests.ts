@@ -1,7 +1,7 @@
 /// <reference path="tooltipster.d.ts" />
 
 $(function() {
-	const tooltips = <JQueryTooltipster.ITooltipsterInstance[]>$("#tooltip").tooltipster({
+	var tooltips = <JQueryTooltipster.ITooltipsterInstance[]>$("#tooltip").tooltipster({
 		content: "hi friend!",
 		delay: 300,
 		functionAfter: (origin) => {
