@@ -135,7 +135,7 @@ declare namespace __React {
         constructor(props?: P, context?: any);
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
-        forceUpdate(): void;
+        forceUpdate(callBack?: () => any): void;
         render(): JSX.Element;
         props: P;
         state: S;
@@ -932,7 +932,7 @@ declare module "react/addons" {
         constructor(props?: P, context?: any);
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
-        forceUpdate(): void;
+        forceUpdate(callBack?: () => any): void;
         render(): JSX.Element;
         props: P;
         state: S;
