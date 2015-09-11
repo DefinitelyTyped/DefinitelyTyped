@@ -86,7 +86,8 @@ declare module JQueryUI {
         disabled?: boolean;
         icons?: any;
         label?: string;
-        text?: boolean;
+        text?: string|boolean;
+        click?: (event?: Event) => void;
     }
 
     interface Button extends Widget, ButtonOptions {
