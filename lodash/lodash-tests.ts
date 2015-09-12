@@ -1665,8 +1665,15 @@ interface TestPickFn {
 }
 
 // _.set
-result = <{ a: { b: { c: number; }}[]}>_.set({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c', 4);
-result = <{ a: { b: { c: number; }}[]}>_({ 'a': [{ 'b': { 'c': 3 } }] }).set('a[0].b.c', 4).value();
+{
+    let testSetObject: TResult;
+    let testSetPath: {toSting(): string};
+    let result: TResult;
+    result = _.set(testSetObject, testSetPath, any);
+    result = _.set(testSetObject, [testSetPath], any);
+    result = _(testSetObject).set(testSetPath, any).value();
+    result = _(testSetObject).set([testSetPath], any).value();
+}
 
 result = <number[]>_.transform([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], function (r: number[], num: number) {
     num *= num;
