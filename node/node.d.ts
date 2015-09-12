@@ -418,7 +418,7 @@ declare module "events" {
         removeAllListeners(event?: string): EventEmitter;
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
-        _events:string[];
+        //Tests failed _events:string[];
         emit(event: string, ...args: any[]): boolean;
    }
 }
@@ -1852,7 +1852,7 @@ declare module "domain" {
         once(event: string, listener: Function): Domain;
         removeListener(event: string, listener: Function): Domain;
         removeAllListeners(event?: string): Domain;
-        _events:string[];
+        //Tests failed. _events:string[];
     }
 
     export function create(): Domain;
