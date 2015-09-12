@@ -10,6 +10,7 @@
 
 //node events (typed) doesn't have _events, only the listeners(type), we want direct access to _events,so ... 
 
+/* If the deftyped doesn't merge my pull request: 
 declare module NodeJS {
 	export interface EventEmitter {
 		_events: string[];
@@ -18,12 +19,12 @@ declare module NodeJS {
 
 declare module SocketIO {
 	export interface Socket {	
-		/**
-		 * The REAL list of rooms that this Socket is currently in
-		 */
+		//
+		 // The REAL list of rooms that this Socket is currently in
+		 //
 		_rooms: string[];
 	}
-}
+}*/
 
 declare module "socket.io.users" {
 	import { EventEmitter } from 'events';
@@ -39,7 +40,7 @@ declare module "socket.io.users" {
 	};
 
 	class Namespaces {
-		private static socketUsersList:any;
+		private static socketUsersList: any;
 		static attach(namespace: string, socketUsersObj: Users): void;
 		static get(namespace: string): Users;
 	}
