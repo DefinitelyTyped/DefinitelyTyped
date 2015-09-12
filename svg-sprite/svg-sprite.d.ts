@@ -212,7 +212,106 @@ declare module "svg-sprite" {
         }
 
         interface Mode {
+            css?: CssAndViewSpecificModeConfig|boolean;
+            view?: CssAndViewSpecificModeConfig|boolean;
+            defs?: DefsAndSymbolSpecificModeConfig|boolean;
+            symbol?: DefsAndSymbolSpecificModeConfig|boolean;
+            stack?: ModeConfig|boolean;
+            [customConfigName: string]: ModeConfig;
+        }
 
+        interface ModeConfig {
+            /**
+             * Base directory for sprite and CSS file output. If not absolute, the path will be resolved using the main output directory (see global dest option).
+             * @default "<mode>"
+             */
+            dest?: string;
+            /**
+             * Used for prefixing the [shape ID](#shape-ids) during CSS selector construction. If the value is empty,
+             * no prefix will be used. The prefix may contain the placeholder "%s" (e.g. ".svg %s-svg"),
+             * which will then get replaced by the shape ID. Please be aware that "%" is a special character
+             * in this context and that you'll have to escape it by another percent sign ("%%") in case you want
+             * to output it to your stylesheets (e.g. for a [Sass placeholder selector](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#placeholder_selectors_)).
+             * @default ".svg-%s"
+             */
+            prefix?: string;
+            /**
+             * A non-empty string value will trigger the creation of additional CSS rules specifying the dimensions of each shape in the sprite.
+             * The string will be used as suffix to mode.<mode>.prefix during CSS selector construction and may contain the placeholder "%s",
+             * which will get replaced by the value of mode.<mode>.prefix.
+             * A boolean TRUE will cause the dimensions to be included directly into each shape's CSS rule (only available for «css» and «view» sprites).
+             * @default "-dims"
+             */
+            dimensions?: string|boolean;
+            /**
+             * SVG sprite path and file name, relative to the mode.<mode>.dest directory.
+             * You may omit the file extension, in which case it will be set to ".svg" automatically.
+             * @default "svg/sprite.<mode>.svg"
+             */
+            sprite?: string;
+            /**
+             * Add a content based hash to the name of the sprite file so that clients reliably reload the sprite
+             * when it's content changes («cache busting»). Defaults to false except for «css» and «view» sprites.
+             * @default true∣false
+             */
+            bust?: boolean;
+            /**
+             * Collection of [stylesheet rendering configurations](#rendering-configurations).
+             * The keys are used as file extensions as well as file return keys. At present,
+             * there are default templates for the file extensions css ([CSS](http://www.w3.org/Style/CSS/)),
+             * scss ([Sass](http://sass-lang.com/)), less ([Less](http://lesscss.org/)) and styl ([Stylus](http://learnboost.github.io/stylus/)),
+             * which all reside in the directory tmpl/css. Example: {css: true, scss: {dest: '_sprite.scss'}}
+             * @default {}
+             */
+            render?: { [key: string]: RenderingConfiguration };
+            /**
+             * Enabling this will trigger the creation of an HTML document demoing the usage of the sprite. Please see below for details on [rendering configurations](#rendering-configurations).
+             * @default false
+             */
+            example?: RenderingConfiguration;
+        }
+
+        interface RenderingConfiguration {
+            /**
+             * HTML document Mustache template
+             * @default "tmpl/<mode>/sprite.html"
+             */
+            template?: string;
+            /**
+             * HTML document destination
+             * @default "sprite.<mode>.html"
+             */
+            dest?: string;
+        }
+
+        interface CssAndViewSpecificModeConfig extends ModeConfig {
+            /**
+             * The arrangement of the shapes within the sprite. Might be "vertical", "horizontal", "diagonal" or "packed"
+             * (with the latter being the most compact type). It depends on your project which layout is best for you.
+             * @default "packed"
+             */
+            layout?: string;
+            /**
+             * If given and not empty, this will be the selector name of a CSS rule commonly specifying the background-image
+             * and background-repeat properties for all the shapes in the sprite (thus saving some bytes by not unnecessarily repeating them for each shape)
+             */
+            common?: string;
+            /**
+             * If given and not empty, a mixin with this name will be added to supporting output formats (e.g. Sass, LESS, Stylus),
+             * specifying the background-image and background-repeat properties for all the shapes in the sprite.
+             * You may use it for creating custom CSS within @media rules. The mixin acts much like the common rule.
+             * In fact, you can even combine the two - if both are enabled, the common rule will use the mixin internally.
+             */
+            mixin?: string;
+        }
+
+        interface DefsAndSymbolSpecificModeConfig extends ModeConfig {
+            /**
+             * If you want to embed the sprite into your HTML source, you will want to set this to true
+             * in order to prevent the creation of SVG namespace declarations and to set some other attributes for effectively hiding the library sprite.
+             * @default false
+             */
+            inline?: boolean;
         }
 
         interface CompileCallback {
