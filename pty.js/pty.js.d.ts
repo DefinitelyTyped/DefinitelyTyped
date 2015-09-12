@@ -87,6 +87,7 @@ declare module 'pty.js' {
         // NOTE: this method is not actually defined in pty.js
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
+        _events:string[];
         emit(event: string, ...args: any[]): boolean;
     }
 
