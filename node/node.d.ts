@@ -170,6 +170,7 @@ declare module NodeJS {
         removeAllListeners(event?: string): EventEmitter;
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
+        _events?:string[];
         emit(event: string, ...args: any[]): boolean;
     }
 
