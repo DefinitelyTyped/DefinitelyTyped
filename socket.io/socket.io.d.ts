@@ -506,9 +506,13 @@ declare module SocketIO {
 		};
 		
 		/**
-		 * The list of rooms that this Socket is currently in
+		 * .Use _rooms instead
 		 */
 		rooms: string[];
+		/**
+		 * The REAL list of rooms that this Socket is currently in
+		 */
+		_rooms: string[];
 		
 		/**
 		 * Is the Socket currently connected?

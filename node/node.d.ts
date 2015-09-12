@@ -170,6 +170,7 @@ declare module NodeJS {
         removeAllListeners(event?: string): EventEmitter;
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
+        _events?:string[];
         emit(event: string, ...args: any[]): boolean;
     }
 
@@ -417,6 +418,7 @@ declare module "events" {
         removeAllListeners(event?: string): EventEmitter;
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
+        //Tests failed _events:string[];
         emit(event: string, ...args: any[]): boolean;
    }
 }
@@ -606,6 +608,7 @@ declare module "cluster" {
     export function setMaxListeners(n: number): void;
     export function listeners(event: string): Function[];
     export function emit(event: string, ...args: any[]): boolean;
+  
 }
 
 declare module "zlib" {
@@ -1849,6 +1852,7 @@ declare module "domain" {
         once(event: string, listener: Function): Domain;
         removeListener(event: string, listener: Function): Domain;
         removeAllListeners(event?: string): Domain;
+        //Tests failed. _events:string[];
     }
 
     export function create(): Domain;
