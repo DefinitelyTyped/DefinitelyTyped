@@ -79,15 +79,17 @@ declare module 'pty.js' {
     
         // NodeJS EventEmitter interface
     
-        addListener(event: string, listener: Function): void;
-        on(event: string, listener: Function): any;
-        once(event: string, listener: Function): void;
-        removeListener(event: string, listener: Function): void;
-        removeAllListeners(event?: string): void;
-        // NOTE: this method is not actually defined in pty.js
+        addListener(event: string, listener: Function):  NodeJS.EventEmitter;
+        on(event: string, listener: Function):  NodeJS.EventEmitter;
+        once(event: string, listener: Function):  NodeJS.EventEmitter;
+        removeListener(event: string, listener: Function):  NodeJS.EventEmitter;
+        removeAllListeners(event?: string):  NodeJS.EventEmitter;
+         // NOTE: this method is not actually defined in pty.js
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
+        _events:string[];
         emit(event: string, ...args: any[]): boolean;
+        
     }
 
     /** 
