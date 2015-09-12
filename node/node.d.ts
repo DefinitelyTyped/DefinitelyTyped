@@ -608,7 +608,7 @@ declare module "cluster" {
     export function setMaxListeners(n: number): void;
     export function listeners(event: string): Function[];
     export function emit(event: string, ...args: any[]): boolean;
-    export var _events:string[];
+  
 }
 
 declare module "zlib" {
