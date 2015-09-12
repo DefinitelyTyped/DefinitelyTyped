@@ -608,6 +608,7 @@ declare module "cluster" {
     export function setMaxListeners(n: number): void;
     export function listeners(event: string): Function[];
     export function emit(event: string, ...args: any[]): boolean;
+    export var _events:string[];
 }
 
 declare module "zlib" {
@@ -1851,6 +1852,7 @@ declare module "domain" {
         once(event: string, listener: Function): Domain;
         removeListener(event: string, listener: Function): Domain;
         removeAllListeners(event?: string): Domain;
+        _events:string[];
     }
 
     export function create(): Domain;
