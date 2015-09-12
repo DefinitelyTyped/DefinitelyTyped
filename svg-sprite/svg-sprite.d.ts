@@ -7,20 +7,48 @@
 /// <reference path="../vinyl/vinyl.d.ts" />
 /// <reference path="../winston/winston.d.ts" />
 
-import {LoggerInstance} from "winston";
 declare module "svg-sprite" {
     import File = require('vinyl');
+    import winston = require('winston');
 
     namespace sprite {
-        import Function = Stream.Function;
         interface SVGSpriterConstructor extends NodeJS.EventEmitter {
+            /**
+             * The spriter's constructor (always the entry point)
+             * @param config Main configuration for the spriting process
+             */
             new(config: Config): SVGSpriter;
         }
 
         interface SVGSpriter {
+            /**
+             * Registering source SVG files
+             * @param file Absolute path to the SVG file or a vinyl file object carrying all the necessary values (the following arguments are ignored then).
+             * @param name The "local" part of the file path, possibly including subdirectories which will get traversed to CSS selectors using the shape.id.separator configuration option.
+             * @param svg SVG file content.
+             */
             add(file: string|File, name: string, svg: string): SVGSpriter;
+            /**
+             * Registering source SVG files
+             * @param file Absolute path to the SVG file or a vinyl file object carrying all the necessary values (the following arguments are ignored then).
+             */
+            add(file: File): SVGSpriter;
+            /**
+             * Triggering the sprite compilation
+             * @param config Configuration object setting the output mode parameters for a single compilation run. If omitted, the mode property of the main configuration used for the constructor will be used.
+             * @param callback Callback triggered when the compilation has finished.
+             */
             compile(config: Config, callback: CompileCallback): SVGSpriter;
+            /**
+             * Triggering the sprite compilation
+             * @param callback Callback triggered when the compilation has finished.
+             */
             compile(callback: CompileCallback): void;
+            /**
+             * Accessing the intermediate SVG resources
+             * @param dest Base directory for the SVG files in case the will be written to disk.
+             * @param callback Callback triggered when the shapes are available.
+             */
             getShapes(dest: string, callback: GetShapesCallback): void;
         }
 
@@ -33,7 +61,7 @@ declare module "svg-sprite" {
             /**
              * Logging verbosity or custom logger
              */
-            log?: string|LoggerInstance;
+            log?: string|winston.LoggerInstance;
             /**
              * SVG shape configuration
              */
@@ -59,74 +87,74 @@ declare module "svg-sprite" {
             /**
              * SVG shape ID related options
              */
-            id: {
+            id?: {
                 /**
                  * Separator for directory name traversal
                  */
-                separator: string;
+                separator?: string;
                 /**
                  * SVG shape ID generator callback
                  */
-                generator: string|((string) => string);
+                generator?: string|((svg: string) => string);
                 /**
                  * File name separator for shape states (e.g. ':hover')
                  */
-                pseudo: string;
+                pseudo?: string;
                 /**
                  * Whitespace replacement for shape IDs
                  */
-                whitespace: string;
+                whitespace?: string;
             };
             /**
              * Dimension related options
              */
-            dimension: {
+            dimension?: {
                 /**
                  * Max. shape width
                  */
-                maxWidth: number;
+                maxWidth?: number;
                 /**
                  * Max. shape height
                  */
-                maxHeight: number;
+                maxHeight?: number;
                 /**
                  * Floating point precision
                  */
-                precision: number;
+                precision?: number;
                 /**
                  * Width and height attributes on embedded shapes
                  */
-                attributes: boolean;
+                attributes?: boolean;
             };
             /**
              * Spacing related options
              */
-            spacing: {
+            spacing?: {
                 /**
                  * Padding around all shapes
                  */
-                padding: number|number[];
+                padding?: number|number[];
                 /**
                  * Padding strategy (similar to CSS `box-sizing`)
                  */
-                box: string;
+                box?: string;
             };
             /**
              * List of transformations / optimizations
              */
-            transform: (string|CustomConfigurationTransform|CustomCallbackTransform)[];
+            transform?: (string|CustomConfigurationTransform|CustomCallbackTransform)[];
             /**
              * Path to YAML file with meta / accessibility data
              */
-            meta: string;
+            meta?: string;
             /**
              * Path to YAML file with extended alignment data
              */
-            align: string;
+            align?: string;
             /**
              * Output directory for optimized intermediate SVG shapes
              */
-            dest: string;
+            dest?: string;
         }
 
         /**
@@ -134,7 +162,7 @@ declare module "svg-sprite" {
          */
         interface CustomConfigurationTransform {
             [transformationName: string]: {
-                plugins: { [transformationName: string]: boolean }[];
+                plugins?: { [transformationName: string]: boolean }[];
             }
         }
 
@@ -160,14 +188,14 @@ declare module "svg-sprite" {
              * If you set this to TRUE, *svg-sprite* will look at the registered shapes for an XML declaration and use the first one it can find.
              * @default true
              */
-            xmlDeclaration: boolean|string;
+            xmlDeclaration?: boolean|string;
             /**
              * Include a <DOCTYPE> declaration in each compiled sprite. If you provide a non-empty string here,
              * it will be used one-to-one as declaration (e.g. <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1 Basic//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-basic.dtd">).
              * If you set this to TRUE, *svg-sprite* will look at the registered shapes for a DOCTYPE declaration and use the first one it can find.
              * @default true
              */
-            doctypeDeclaration: boolean|string;
+            doctypeDeclaration?: boolean|string;
             /**
              * In order to avoid ID clashes, the default behavior is to namespace all IDs in the source SVGs before compiling them into a sprite.
              * Each ID is prepended with a unique string. In some situations, it might be desirable to disable ID namespacing, e.g. when you want to script the resulting sprite.
@@ -269,6 +297,10 @@ declare module "svg-sprite" {
              * @default false
              */
             example?: RenderingConfiguration;
+            /**
+             * Specify svg-sprite which output mode to use with this configuration
+             */
+            mode?: string;
         }
 
         interface RenderingConfiguration {
