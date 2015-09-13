@@ -39,7 +39,7 @@ interface SavePluginOptions {
 
 }
 declare var Darkroom: typeof DarkRoom;
-declare module 'darkroom'{
+declare module 'darkroomjs'{
 
   export = Darkroom;
 }
