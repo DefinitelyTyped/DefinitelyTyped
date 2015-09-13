@@ -76,3 +76,17 @@ var connection: sql.Connection = new sql.Connection(config, function (err: any) 
         });
     }
 });
+
+function test_table() {
+    var table = new sql.Table('#temp_table');
+
+    table.create = true;
+
+    table.columns.add('name', sql.VarChar(sql.MAX), { nullable: false });
+    table.columns.add('type', sql.Int, { nullable: false });
+    table.columns.add('amount', sql.Decimal(7, 2), { nullable: false });
+
+    table.rows.add('name', 42, 3.50);
+    table.rows.add('name2', 7, 3.14);
+}
+
