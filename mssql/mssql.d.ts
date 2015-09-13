@@ -39,14 +39,34 @@ declare module "mssql" {
     export var Geometry: any;
 
     export interface options {
+
+    export var MAX: number;
+    export var fix: boolean;
+    export var Promise: any;
+
+    export var map: { js: any, sql: any }[];
+    export var DRIVERS: string[];
+
+    export var ISOLATION_LEVEL: {
+        READ_UNCOMMITTED: number
+        READ_COMMITTED: number
+        REPEATABLE_READ: number
+        SERIALIZABLE: number
+        SNAPSHOT: number
+    }
+
+    export interface IOptions {
         encrypt: boolean;
     }
 
-    export interface pool {
+
+    export interface IPool {
         min: number;
         max: number;
         idleTimeoutMillis: number;
     }
+
+    export var pool: IPool;
 
     export interface config {
         driver?: string;
@@ -59,9 +79,8 @@ declare module "mssql" {
         connectionTimeout?: number;
         requestTimeout?: number;
         stream?: boolean;
-        options?: options;
-        pool?: pool;
-
+        options?: IOptions;
+        pool?: IPool;
     }
 
     export class Connection {
