@@ -117,20 +117,22 @@ declare module "mssql" {
 
     export class Request {
         public constructor(connection?: Connection);
-        public pipe(stream: any): void;
-        execute(procedure: string): Promise<recordSet>;
-        execute(procedure: string, callback: (err?: any, recordsets?: any, returnValue?: any) => void): void;
-        input(name: string, value: any): void;
-        input(name: string, type: any, value: any): void;
-        output(name: string, type: any, value?: any): void;
-        query(command: string): Promise<void>;
-        query(command: string, callback: (err?: any, recordset?: any) => void): void;
-        batch(batch: string): Promise<recordSet>;
-        batch(batch: string, callback: (err?: any, recordset?: any) => void): void;
-        bulk(table: Table): Promise<void>;
-        bulk(table: Table, callback: (err: any, rowCount: any) => void): void;
-        cancel(): void;
-        parameters: any;
+        public constructor(transaction: Transaction);
+        public constructor(preparedStatement: PreparedStatement);
+        public execute(procedure: string): Promise<recordSet>;
+        public execute(procedure: string, callback: (err?: any, recordsets?: any, returnValue?: any) => void): void;
+        public input(name: string, value: any): void;
+        public input(name: string, type: any, value: any): void;
+        public output(name: string, type: any, value?: any): void;
+        public pipe(stream: NodeJS.WritableStream): void;
+        public query(command: string): Promise<void>;
+        public query(command: string, callback: (err?: any, recordset?: any) => void): void;
+        public batch(batch: string): Promise<recordSet>;
+        public batch(batch: string, callback: (err?: any, recordset?: any) => void): void;
+        public bulk(table: Table): Promise<void>;
+        public bulk(table: Table, callback: (err: any, rowCount: any) => void): void;
+        public cancel(): void;
+        public parameters: any;
     }
 
     export class Transaction {
