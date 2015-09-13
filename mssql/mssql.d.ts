@@ -93,7 +93,13 @@ declare module "mssql" {
     export var fix: boolean;
     export var Promise: any;
 
-    export var map: { js: any, sql: any }[];
+
+    interface IMap extends Array<{js: any, sql: any }> {
+        register(jstype: any, sql: any): void;
+    }
+
+    export var map: IMap;
+
     export var DRIVERS: string[];
 
     type recordSet = any;
