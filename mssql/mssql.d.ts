@@ -3,6 +3,8 @@
 // Definitions by: COLSA Corporation <http://www.colsa.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../es6-promise/es6-promise.d.ts" />
+
 declare module "mssql" {
 
     export var Date: any;
@@ -47,12 +49,15 @@ declare module "mssql" {
     export var map: { js: any, sql: any }[];
     export var DRIVERS: string[];
 
+    type recordSet = any;
+    type IIsolationLevel = number;
+
     export var ISOLATION_LEVEL: {
-        READ_UNCOMMITTED: number
-        READ_COMMITTED: number
-        REPEATABLE_READ: number
-        SERIALIZABLE: number
-        SNAPSHOT: number
+        READ_UNCOMMITTED: IIsolationLevel
+        READ_COMMITTED: IIsolationLevel
+        REPEATABLE_READ: IIsolationLevel
+        SERIALIZABLE: IIsolationLevel
+        SNAPSHOT: IIsolationLevel
     }
 
     export interface IOptions {
@@ -87,9 +92,11 @@ declare module "mssql" {
 
         public constructor(config: config, callback?: (err?: any) => void);
 
-        public connect(callback?: (err?: any) => void): void;
+        public connect(): Promise<void>;
+        public connect(callback: (err: any) => void): void;
 
-        public close(): void;
+        public close(): Promise<void>;
+        public close(callback: (err: any) => void): void;
     }
 
     class columns {
@@ -110,32 +117,41 @@ declare module "mssql" {
 
     export class Request {
         public constructor(connection?: Connection);
-        public execute(procedure: string, callback?: (err?: any, recordsets?: any, returnValue?: any) => void): void;
-        public input(name: string, value: any): void;
-        public input(name: string, type: any, value: any): void;
-        public output(name: string, type: any, value?: any): void;
         public pipe(stream: any): void;
-        public query(command: string, callback?: (err?: any, recordset?: any) => void): void;
-        public batch(batch: string, callback?: (err?: any, recordset?: any) => void): void;
-        public bulk(table: Table, callback?: (err?: any, rowCount?: any) => void): void;
-        public cancel(): void;
-        public parameters: any;
+        execute(procedure: string): Promise<recordSet>;
+        execute(procedure: string, callback: (err?: any, recordsets?: any, returnValue?: any) => void): void;
+        input(name: string, value: any): void;
+        input(name: string, type: any, value: any): void;
+        output(name: string, type: any, value?: any): void;
+        query(command: string): Promise<void>;
+        query(command: string, callback: (err?: any, recordset?: any) => void): void;
+        batch(batch: string): Promise<recordSet>;
+        batch(batch: string, callback: (err?: any, recordset?: any) => void): void;
+        bulk(table: Table): Promise<void>;
+        bulk(table: Table, callback: (err: any, rowCount: any) => void): void;
+        cancel(): void;
+        parameters: any;
     }
 
     export class Transaction {
-        public constructor(connection?: Connection);
-        public begin(isolationLevel?: any, callback?: (err?: any) => void): void;
-        public begin(callback?: (err?: any) => void): void;
-        public commit(callback?: (err?: any) => void): void;
-        public rollback(callback?: (err?: any) => void): void;
+        public constructor(connection: Connection);
+        public begin(isolationLevel?: IIsolationLevel): Promise<void>;
+        public begin(isolationLevel?: IIsolationLevel, callback?: (err?: any) => void): void;
+        public commit(): Promise<void>;
+        public commit(callback: (err?: any) => void): void;
+        public rollback(): Promise<void>;
+        public rollback(callback: (err?: any) => void): void;
     }
 
     export class PreparedStatement {
         public constructor(connection?: Connection);
         public input(name: string, type: any): void;
         public output(name: string, type: any): void;
-        public prepare(statement: string, callback?: (err?: any) => void): void;
-        public execute(values: any, callback?: (err?: any) => void): void;
-        public unprepare(callback?: (err?: any) => void): void;
+        public prepare(statement?: string): Promise<void>;
+        public prepare(statement?: string, callback?: (err?: any) => void): void;
+        public execute(values: Object): Promise<recordSet>;
+        public execute(values: Object, callback: (err: any, recordSet: recordSet) => void): void;
+        public unprepare(): Promise<void>;
+        public unprepare(callback: (err?: any) => void): void;
     }
 }
