@@ -3,6 +3,7 @@
 // Definitions by: COLSA Corporation <http://www.colsa.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../node/node.d.ts" />
 /// <reference path="../es6-promise/es6-promise.d.ts" />
 
 declare module "mssql" {
@@ -41,6 +42,8 @@ declare module "mssql" {
     export var Geometry: any;
 
     export interface options {
+    import events = require('events'); 
+
 
     export var MAX: number;
     export var fix: boolean;
@@ -88,7 +91,7 @@ declare module "mssql" {
         pool?: IPool;
     }
 
-    export class Connection {
+    export class Connection extends events.EventEmitter {
 
         public constructor(config: config, callback?: (err?: any) => void);
 
@@ -115,7 +118,7 @@ declare module "mssql" {
 
     }
 
-    export class Request {
+    export class Request extends events.EventEmitter {
         public constructor(connection?: Connection);
         public constructor(transaction: Transaction);
         public constructor(preparedStatement: PreparedStatement);
@@ -135,7 +138,7 @@ declare module "mssql" {
         public parameters: any;
     }
 
-    export class Transaction {
+    export class Transaction extends events.EventEmitter {
         public constructor(connection: Connection);
         public begin(isolationLevel?: IIsolationLevel): Promise<void>;
         public begin(isolationLevel?: IIsolationLevel, callback?: (err?: any) => void): void;
@@ -145,7 +148,7 @@ declare module "mssql" {
         public rollback(callback: (err?: any) => void): void;
     }
 
-    export class PreparedStatement {
+    export class PreparedStatement extends events.EventEmitter {
         public constructor(connection?: Connection);
         public input(name: string, type: any): void;
         public output(name: string, type: any): void;
