@@ -2,12 +2,19 @@
 // Project: https://github.com/MattKetmo/darkroomjs
 // Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+/// <reference path="../fabricjs/fabricjs.d.ts"/>
+
 declare class DarkRoom {
     constructor(element: string | HTMLImageElement, options?: Options)
     plugins: {
         crop: any;
         save: any;
     }
+    sourceImage: fabric.IImage;
+    /**
+    * add event listener for fabric events
+    */
+    addEventListener: (eventName: string, callBack:()=>any)=>any
 }
 interface Options {
     minWidth?: number;
@@ -15,6 +22,9 @@ interface Options {
     maxWidth?: number;
     maxHeight?: number;
     plugins?: Plugins;
+    /**
+    * Post initialize callback
+    */
     initialize?: () => void;
     backgroundColor?: string;
     ratio?: number;
@@ -36,10 +46,10 @@ interface CropPluginOptions {
     quickCropKey?: number;
 }
 interface SavePluginOptions {
-
+    callback?: () => any
 }
 declare var Darkroom: typeof DarkRoom;
-declare module 'darkroomjs'{
+declare module 'darkroomjs' {
 
-  export = Darkroom;
+    export = Darkroom;
 }
