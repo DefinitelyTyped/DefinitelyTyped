@@ -1,4 +1,4 @@
-// Type definitions for RequireJS 2.1.8
+// Type definitions for RequireJS 2.1.20
 // Project: http://requirejs.org/
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -87,6 +87,10 @@ interface RequireConfig {
 	// Path mappings for module names not found directly under
 	// baseUrl.
 	paths?: { [key: string]: any; };
+
+	// Allows configuring multiple module IDs to be found in
+	// another script.
+	bundles?: { [key: string]: any; };
 
 	// Dictionary of Shim's.
 	// does not cover case of key->string[]
@@ -182,6 +186,20 @@ interface RequireConfig {
 	**/
 	scriptType?: string;
 
+	/**
+	* If set to true, skips the data-main attribute scanning done
+	* to start module loading. Useful if RequireJS is embedded in
+	* a utility library that may interact with other RequireJS
+	* library on the page, and the embedded version should not do
+	* data-main loading.
+	**/
+	skipDataMain?: boolean;
+
+	/**
+	* Allow extending requirejs to support Subresource Integrity
+	* (SRI).
+	**/
+	onNodeCreated?: (node: HTMLScriptElement, config: RequireConfig, moduleName: string, url: string) => void;
 }
 
 // todo: not sure what to do with this guy
