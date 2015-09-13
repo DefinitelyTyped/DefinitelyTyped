@@ -9,38 +9,85 @@
 declare module "mssql" {
     import events = require('events'); 
 
-    export var Date: any;
-    export var DateTime: any;
-    export var DateTime2: any;
-    export var DateTimeOffset: any;
-    export var SmallDateTime: any;
-    export var Time: any;
-    export var Char: any;
-    export var VarChar: any;
-    export var NChar: any;
-    export var NVarChar: any;
-    export var Text: any;
-    export var NText: any;
-    export var Xml: any;
-    export var TinyInt: any;
-    export var SmallInt: any;
-    export var Int: any;
-    export var BigInt: any;
-    export var Decimal: any;
-    export var Float: any;
-    export var Real: any;
-    export var SmallMoney: any;
-    export var Money: any;
-    export var Numeric: any;
-    export var Bit: any;
-    export var Binary: any;
-    export var VarBinary: any;
-    export var TVP: any;
-    export var UniqueIdentifier: any;
-    export var Image: any;
-    export var UDT: any;
-    export var Geography: any;
-    export var Geometry: any;
+    type sqlTypeWithNoParams       = { type: sqlTypeFactoryWithNoParams }
+    type sqlTypeWithLength         = { type: sqlTypeFactoryWithLength, length: number }
+    type sqlTypeWithScale          = { type: sqlTypeFactoryWithScale, scale: number }
+    type sqlTypeWithPrecisionScale = { type: sqlTypeFactoryWithPrecisionScale, precision: number, scale: number }
+    type sqlTypeWithTvpType        = { type: sqlTypeFactoryWithTvpType, tvpType: any }
+
+    type sqlTypeFactoryWithNoParams       = ()                                   => sqlTypeWithNoParams;
+    type sqlTypeFactoryWithLength         = (length?: number)                    => sqlTypeWithLength;
+    type sqlTypeFactoryWithScale          = (scale?: number)                     => sqlTypeWithScale;
+    type sqlTypeFactoryWithPrecisionScale = (precision?: number, scale?: number) => sqlTypeWithPrecisionScale;
+    type sqlTypeFactoryWithTvpType        = (tvpType: any)                       => sqlTypeWithTvpType;
+
+    export var VarChar:          sqlTypeFactoryWithLength;
+    export var NVarChar:         sqlTypeFactoryWithLength;
+    export var Text:             sqlTypeFactoryWithNoParams;
+    export var Int:              sqlTypeFactoryWithNoParams;
+    export var BigInt:           sqlTypeFactoryWithNoParams;
+    export var TinyInt:          sqlTypeFactoryWithNoParams;
+    export var SmallInt:         sqlTypeFactoryWithNoParams;
+    export var Bit:              sqlTypeFactoryWithNoParams;
+    export var Float:            sqlTypeFactoryWithNoParams;
+    export var Numeric:          sqlTypeFactoryWithPrecisionScale;
+    export var Decimal:          sqlTypeFactoryWithPrecisionScale;
+    export var Real:             sqlTypeFactoryWithNoParams;
+    export var Date:             sqlTypeFactoryWithNoParams;
+    export var DateTime:         sqlTypeFactoryWithNoParams;
+    export var DateTime2:        sqlTypeFactoryWithScale;
+    export var DateTimeOffset:   sqlTypeFactoryWithScale;
+    export var SmallDateTime:    sqlTypeFactoryWithNoParams;
+    export var Time:             sqlTypeFactoryWithScale;
+    export var UniqueIdentifier: sqlTypeFactoryWithNoParams;
+    export var SmallMoney:       sqlTypeFactoryWithNoParams;
+    export var Money:            sqlTypeFactoryWithNoParams;
+    export var Binary:           sqlTypeFactoryWithNoParams;
+    export var VarBinary:        sqlTypeFactoryWithLength;
+    export var Image:            sqlTypeFactoryWithNoParams;
+    export var Xml:              sqlTypeFactoryWithNoParams;
+    export var Char:             sqlTypeFactoryWithLength;
+    export var NChar:            sqlTypeFactoryWithLength;
+    export var NText:            sqlTypeFactoryWithNoParams;
+    export var TVP:              sqlTypeFactoryWithTvpType;
+    export var UDT:              sqlTypeFactoryWithNoParams;
+    export var Geography:        sqlTypeFactoryWithNoParams;
+    export var Geometry:         sqlTypeFactoryWithNoParams;
+
+    export var TYPES: {
+        VarChar:          sqlTypeFactoryWithLength;
+        NVarChar:         sqlTypeFactoryWithLength;
+        Text:             sqlTypeFactoryWithNoParams;
+        Int:              sqlTypeFactoryWithNoParams;
+        BigInt:           sqlTypeFactoryWithNoParams;
+        TinyInt:          sqlTypeFactoryWithNoParams;
+        SmallInt:         sqlTypeFactoryWithNoParams;
+        Bit:              sqlTypeFactoryWithNoParams;
+        Float:            sqlTypeFactoryWithNoParams;
+        Numeric:          sqlTypeFactoryWithPrecisionScale;
+        Decimal:          sqlTypeFactoryWithPrecisionScale;
+        Real:             sqlTypeFactoryWithNoParams;
+        Date:             sqlTypeFactoryWithNoParams;
+        DateTime:         sqlTypeFactoryWithNoParams;
+        DateTime2:        sqlTypeFactoryWithScale;
+        DateTimeOffset:   sqlTypeFactoryWithScale;
+        SmallDateTime:    sqlTypeFactoryWithNoParams;
+        Time:             sqlTypeFactoryWithScale;
+        UniqueIdentifier: sqlTypeFactoryWithNoParams;
+        SmallMoney:       sqlTypeFactoryWithNoParams;
+        Money:            sqlTypeFactoryWithNoParams;
+        Binary:           sqlTypeFactoryWithNoParams;
+        VarBinary:        sqlTypeFactoryWithLength;
+        Image:            sqlTypeFactoryWithNoParams;
+        Xml:              sqlTypeFactoryWithNoParams;
+        Char:             sqlTypeFactoryWithLength;
+        NChar:            sqlTypeFactoryWithLength;
+        NText:            sqlTypeFactoryWithNoParams;
+        TVP:              sqlTypeFactoryWithTvpType;
+        UDT:              sqlTypeFactoryWithNoParams;
+        Geography:        sqlTypeFactoryWithNoParams;
+        Geometry:         sqlTypeFactoryWithNoParams;
+    };
 
     export var MAX: number;
     export var fix: boolean;
