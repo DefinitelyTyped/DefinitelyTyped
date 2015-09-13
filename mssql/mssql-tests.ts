@@ -71,7 +71,7 @@ var connection: sql.Connection = new sql.Connection(config, function (err: any) 
                 console.error('Error happened calling Query: ' + err.name + " " + err.message);
             }
             else {
-                console.info(requestStoredProcedureWithOutput.parameters.output.value);
+                console.info(requestStoredProcedureWithOutput.parameters['output'].value);
             }
         });
     }
