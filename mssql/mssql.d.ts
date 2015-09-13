@@ -7,6 +7,7 @@
 /// <reference path="../es6-promise/es6-promise.d.ts" />
 
 declare module "mssql" {
+    import events = require('events'); 
 
     export var Date: any;
     export var DateTime: any;
@@ -15,22 +16,22 @@ declare module "mssql" {
     export var SmallDateTime: any;
     export var Time: any;
     export var Char: any;
-    export var VarChar:any;
+    export var VarChar: any;
     export var NChar: any;
     export var NVarChar: any;
-    export var Text:any;
-    export var NText:any;
+    export var Text: any;
+    export var NText: any;
     export var Xml: any;
-    export var TinyInt:any;
-    export var SmallInt:any;
+    export var TinyInt: any;
+    export var SmallInt: any;
     export var Int: any;
-    export var BigInt:any;
-    export var Decimal:any;
-    export var Float:any;
-    export var Real:any;
-    export var SmallMoney:any;
-    export var Money:any;
-    export var Numeric:any;
+    export var BigInt: any;
+    export var Decimal: any;
+    export var Float: any;
+    export var Real: any;
+    export var SmallMoney: any;
+    export var Money: any;
+    export var Numeric: any;
     export var Bit: any;
     export var Binary: any;
     export var VarBinary: any;
@@ -40,10 +41,6 @@ declare module "mssql" {
     export var UDT: any;
     export var Geography: any;
     export var Geometry: any;
-
-    export interface options {
-    import events = require('events'); 
-
 
     export var MAX: number;
     export var fix: boolean;
@@ -92,12 +89,9 @@ declare module "mssql" {
     }
 
     export class Connection extends events.EventEmitter {
-
         public constructor(config: config, callback?: (err?: any) => void);
-
         public connect(): Promise<void>;
         public connect(callback: (err: any) => void): void;
-
         public close(): Promise<void>;
         public close(callback: (err: any) => void): void;
     }
@@ -115,7 +109,6 @@ declare module "mssql" {
         public columns: columns;
         public rows: rows;
         public constructor(tableName: string);
-
     }
 
     export class Request extends events.EventEmitter {
@@ -139,7 +132,7 @@ declare module "mssql" {
     }
 
     export class Transaction extends events.EventEmitter {
-        public constructor(connection: Connection);
+        public constructor(connection?: Connection);
         public begin(isolationLevel?: IIsolationLevel): Promise<void>;
         public begin(isolationLevel?: IIsolationLevel, callback?: (err?: any) => void): void;
         public commit(): Promise<void>;
