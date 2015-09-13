@@ -501,6 +501,9 @@ declare module Slick {
 		* Width of the column in pixels. (May often be overridden by things like minWidth, maxWidth, forceFitColumns, etc.)
 		**/
 		width?: number;
+		
+		/** Called by Editors */
+		validator?: (input: any) => ValidateResults;
 	}
 
 	export interface EditorFactory {
@@ -1384,6 +1387,11 @@ declare module Slick {
 			column: Column<T>;
 			container: HTMLElement;
 			grid: Grid<T>;
+			gridPosition: CellPosition;
+			position: CellPosition;
+			item: Slick.SlickData;
+			commitChanges: () => void;
+			cancelChanges: () => void;
 		}
 
 		export class Editor<T extends Slick.SlickData> {
@@ -1530,10 +1538,11 @@ declare module Slick {
 			public expandGroup(...varArgs: string[]): void;
 			public getGroups(): Group<T, any>[];
 			public getIdxById(id: string): number;
-			public getRowById(): T;
+			public getRowById(id: string): number;
 			public getItemById(id: any): T;
 			public getItemByIdx(): T;
-			public mapRowsToIds(rowArray: T[]): string[];
+			public mapRowsToIds(rowArray: number[]): string[];
+			public mapIdsToRows(idArray: string[]): number[];
 			public setRefreshHints(hints: RefreshHints): void;
 			public setFilterArgs(args: any): void;
 			public refresh(): void;
