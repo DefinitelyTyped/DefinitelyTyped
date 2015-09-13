@@ -113,3 +113,16 @@ function test_promise_returns() {
     request.query('SELECT 1').then((recordset) => { });
     request.execute('procedure_name').then((recordset) => { });
 }
+
+
+function test_request_constructor() {
+    // Request can be constructed with a connection, preparedStatment, transaction or no arguments
+    var connection: sql.Connection = new sql.Connection(config);
+    var preparedStatment = new sql.PreparedStatement(connection);
+    var transaction = new sql.Transaction(connection);
+    
+    var request1 = new sql.Request(connection);
+    var request2 = new sql.Request(preparedStatment);
+    var request3 = new sql.Request(transaction);
+    var request4 = new sql.Request();
+}
