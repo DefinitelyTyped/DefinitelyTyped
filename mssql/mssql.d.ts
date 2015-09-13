@@ -143,6 +143,13 @@ declare module "mssql" {
         public close(callback: (err: any) => void): void;
     }
 
+    export class ConnectionError implements Error {
+        constructor(message: string, code?: any)
+        public name: string;
+        public message: string;
+        public code: string;
+    }
+
     class columns {
         public add(name: string, type: any, options: any): void;
     }
@@ -178,6 +185,13 @@ declare module "mssql" {
         public parameters: any;
     }
 
+    export class RequestError implements Error {
+        constructor(message: string, code?: any)
+        public name: string;
+        public message: string;
+        public code: string;
+    }
+
     export class Transaction extends events.EventEmitter {
         public constructor(connection?: Connection);
         public begin(isolationLevel?: IIsolationLevel): Promise<void>;
@@ -186,6 +200,13 @@ declare module "mssql" {
         public commit(callback: (err?: any) => void): void;
         public rollback(): Promise<void>;
         public rollback(callback: (err?: any) => void): void;
+    }
+
+    export class TransactionError implements Error {
+        constructor(message: string, code?: any)
+        public name: string;
+        public message: string;
+        public code: string;
     }
 
     export class PreparedStatement extends events.EventEmitter {
@@ -198,5 +219,12 @@ declare module "mssql" {
         public execute(values: Object, callback: (err: any, recordSet: recordSet) => void): void;
         public unprepare(): Promise<void>;
         public unprepare(callback: (err?: any) => void): void;
+    }
+
+    export class PreparedStatementError implements Error {
+        constructor(message: string, code?: any)
+        public name: string;
+        public message: string;
+        public code: string;
     }
 }
