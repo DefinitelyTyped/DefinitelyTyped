@@ -90,3 +90,26 @@ function test_table() {
     table.rows.add('name2', 7, 3.14);
 }
 
+
+function test_promise_returns() {
+    // Methods return a promises if the callback is omitted.
+    var connection: sql.Connection = new sql.Connection(config);
+    connection.connect().then(() => { });
+    connection.close().then(() => { });
+
+    var preparedStatment = new sql.PreparedStatement(connection);
+    preparedStatment.prepare("SELECT @myValue").then(() => { });
+    preparedStatment.execute({ myValue: 1 }).then((recordSet) => { });
+    preparedStatment.unprepare().then(() => { });
+
+    var transaction = new sql.Transaction(connection);
+    transaction.begin().then(() => { });
+    transaction.commit().then(() => { });
+    transaction.rollback().then(() => { });
+
+    var request = new sql.Request();
+    request.batch('create procedure #temporary as select * from table').then((recordset) => { });
+    request.bulk(new sql.Table("table_name")).then(() => { });
+    request.query('SELECT 1').then((recordset) => { });
+    request.execute('procedure_name').then((recordset) => { });
+}
