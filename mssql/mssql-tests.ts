@@ -126,3 +126,19 @@ function test_request_constructor() {
     var request3 = new sql.Request(transaction);
     var request4 = new sql.Request();
 }
+
+function test_classes_extend_eventemitter() {
+    var connection: sql.Connection = new sql.Connection(config);
+    var transaction = new sql.Transaction();
+    var request = new sql.Request();
+    var preparedStatment = new sql.PreparedStatement();
+
+    connection.on('connect', () => { });
+    transaction.on('begin', () => { });
+    transaction.on('commit', () => { });
+    transaction.on('rollback', () => { });
+    request.on('done', () => { });
+    request.on('error', () => { });
+
+    preparedStatment.on('error', () => { })
+}
