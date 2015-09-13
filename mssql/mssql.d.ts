@@ -142,6 +142,9 @@ declare module "mssql" {
     }
 
     export class Connection extends events.EventEmitter {
+        public connected: boolean;
+        public connecting: boolean;
+        public driver: string;
         public constructor(config: config, callback?: (err?: any) => void);
         public connect(): Promise<void>;
         public connect(callback: (err: any) => void): void;
@@ -171,7 +174,28 @@ declare module "mssql" {
         public constructor(tableName: string);
     }
 
+    interface IRequestParameters {
+        [name: string]: {
+            name: string;
+            type: any;
+            io: number;
+            value: any;
+            length: number;
+            scale: number;
+            precision: number;
+            tvpType: any;
+        }
+    }
+
     export class Request extends events.EventEmitter {
+        public connection: Connection;
+        public transaction: Transaction;
+        public pstatement: PreparedStatement;
+        public parameters: IRequestParameters;
+        public verbose: boolean;
+        public multiple: boolean;
+        public canceled: boolean;
+        public stream: any;
         public constructor(connection?: Connection);
         public constructor(transaction: Transaction);
         public constructor(preparedStatement: PreparedStatement);
@@ -188,7 +212,6 @@ declare module "mssql" {
         public bulk(table: Table): Promise<void>;
         public bulk(table: Table, callback: (err: any, rowCount: any) => void): void;
         public cancel(): void;
-        public parameters: any;
     }
 
     export class RequestError implements Error {
@@ -199,6 +222,8 @@ declare module "mssql" {
     }
 
     export class Transaction extends events.EventEmitter {
+        public connection: Connection;
+        public isolationLevel: IIsolationLevel;
         public constructor(connection?: Connection);
         public begin(isolationLevel?: IIsolationLevel): Promise<void>;
         public begin(isolationLevel?: IIsolationLevel, callback?: (err?: any) => void): void;
@@ -216,6 +241,13 @@ declare module "mssql" {
     }
 
     export class PreparedStatement extends events.EventEmitter {
+        public connection: Connection;
+        public transaction: Transaction;
+        public prepared: boolean;
+        public statement: string;
+        public parameters: IRequestParameters;
+        public multiple: boolean;
+        public stream: any;
         public constructor(connection?: Connection);
         public input(name: string, type: any): void;
         public output(name: string, type: any): void;
