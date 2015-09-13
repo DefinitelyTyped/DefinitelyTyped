@@ -78,7 +78,7 @@ declare module "mssql" {
     }
 
     class rows {
-        public add(row: any): void;
+        public add(...row: any[]): void;
     }
 
     export class Table {
