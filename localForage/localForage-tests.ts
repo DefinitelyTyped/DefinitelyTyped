@@ -8,51 +8,18 @@ interface IOtherType {
   value : number;
 }
 
-// IPromise typing check.
-
-var voidPromise      : lf.IPromise<void>,
-    typePromise      : lf.IPromise<IType>,
-    otherTypePromise : lf.IPromise<IOtherType>;
-
-voidPromise = typePromise.then((value : IType) => {});
-voidPromise = typePromise.then((value : IType) => {}, (reason : any) => {});
-
-typePromise = typePromise.then((value : IType) => { return value; });
-
-otherTypePromise = typePromise
-    .then(function(value : IType) { var otherValue : IOtherType; return otherValue; });
-
-otherTypePromise = typePromise
-    .then(function(value : IType) { var otherValue : IOtherType; return otherValue; }, (reason : any) => {});
-
-voidPromise = typePromise.catch((reason : any) => {});
-
-otherTypePromise = typePromise.catch((reason : any) => { var otherValue : IOtherType; return otherValue; });
-
-// IOptions typing check.
-
 var num                 : number,
     str                 : string,
     val                 : IType,
-    numberPromise       : lf.IPromise<number>,
-    stringPromise       : lf.IPromise<string>,
-    stringArrayPromise  : lf.IPromise<Array<string>>,
+    numberPromise       : Promise<number>,
+    stringPromise       : Promise<string>,
+    stringArrayPromise  : Promise<Array<string>>,
+    voidPromise         : Promise<void>,
+    typePromise         : Promise<IType>,
+    otherTypePromise    : Promise<IOtherType>,
     LocalForage         : lf.ILocalForage<IType>,
     localForageInstance : lf.ILocalForageInstance<IType>,
     options             : lf.IOptions;
-
-options = { driver : LocalForage.INDEXEDDB };
-options = { driver : [LocalForage.LOCALSTORAGE, LocalForage.WEBSQL, LocalForage.INDEXEDDB ]};
-
-options = { name : 'LOCAL_FORAGE' };
-
-options = { version : '1.0.0' };
-
-options = { size : 16777216 };
-
-options = { storeName : 'TEST' };
-
-options = { description : 'Declarations testing.' };
 
 // ILocalForage typing check.
 
