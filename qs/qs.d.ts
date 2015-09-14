@@ -26,8 +26,8 @@ declare module QueryString {
         strictNullHandling?: boolean;
     }
 
-    export function stringify(obj: any, options?: IStringifyOptions): string;
-    export function parse(str: string, options?: IParseOptions): any;
+    function stringify(obj: any, options?: IStringifyOptions): string;
+    function parse(str: string, options?: IParseOptions): any;
 }
 
 declare module "qs" {
