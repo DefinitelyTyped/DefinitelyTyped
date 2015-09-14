@@ -2,7 +2,9 @@
 
 import config = require('config');
 
-var value: string = config.get("");
+var value1: string = config.get<string>("");
+var value2: any = config.get("");
+
 var has: boolean = config.has("");
 
 // util tests:
