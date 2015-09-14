@@ -77,15 +77,15 @@
 <h2 id="content"  class="ui header">Content</h2>
 <h3 id="header"  class="ui header">Header</h3>
 <p>The typing must have a header with the following format:</p>
-<pre><code><span class="hljs-comment">// Type definitions for [LIBRARY NAME]</span>
-<span class="hljs-comment">// Project: [LIBRARY URL]</span>
-<span class="hljs-comment">// Definitions by: [AUTHOR NAME] &lt;[AUTHOR URL]&gt;</span>
-<span class="hljs-comment">// Definitions: https://github.com/borisyankov/DefinitelyTyped</span>
+<pre><code>/<span class="hljs-regexp">/ Type definitions for [LIBRARY NAME]
+/</span><span class="hljs-regexp">/ Project: [LIBRARY URL]
+/</span><span class="hljs-regexp">/ Definitions by: [AUTHOR NAME] &lt;[AUTHOR URL]&gt;
+/</span><span class="hljs-regexp">/ Definitions: https:/</span><span class="hljs-regexp">/github.com/borisyankov</span><span class="hljs-regexp">/DefinitelyTyped</span>
 </code></pre><p>If the version of the library is known then add it as a semver to the label.</p>
-<pre><code>// Type definitions for <span class="hljs-keyword">Backbone </span>v0.<span class="hljs-number">9</span>.<span class="hljs-number">10</span>
-// Project: http://<span class="hljs-keyword">backbonejs.org/
-</span>// Definitions <span class="hljs-keyword">by: </span><span class="hljs-keyword">Boris </span>Yankov &lt;https://github.com/<span class="hljs-keyword">borisyankov/&gt;
-</span>// Definitions: https://github.com/<span class="hljs-keyword">borisyankov/DefinitelyTyped</span>
+<pre><code>/<span class="hljs-regexp">/ Type definitions for Backbone v0.9.10
+/</span><span class="hljs-regexp">/ Project: http:/</span><span class="hljs-regexp">/backbonejs.org/</span>
+/<span class="hljs-regexp">/ Definitions by: Boris Yankov &lt;https:/</span><span class="hljs-regexp">/github.com/borisyankov</span><span class="hljs-regexp">/&gt;
+/</span><span class="hljs-regexp">/ Definitions: https:/</span><span class="hljs-regexp">/github.com/borisyankov</span><span class="hljs-regexp">/DefinitelyTyped</span>
 </code></pre><h3 id="namespacing"  class="ui header">Namespacing</h3>
 <div class="ui list"><div class="ui item">Be careful to use a module to avoid conflicts to your internal interfaces and the interfaces from another typings. See <a href="/guides/best-practices.html">best practices</a> and <a href="https://typescript.codeplex.com/wikipage?title=Writing%20Definition%20%28.d.ts%29%20Files">the TypeScript wiki</a> for some tips.</div>
 </div><blockquote>
@@ -133,7 +133,9 @@
 <div class="ui item">It is discouraged to reformat existing code (as it breaks git attribution).</div>
 <div class="ui item">When preparing a Pull Request please check git diff (locally or on github) for unnecessary changes.</div>
 <div class="ui item">Regard the typing folder in your project as external resource and exclude it from your linter/formatter workflow, just like any library file.</div>
-</div><h2 id="contributors-link"  class="ui header">Contributors link</h2>
+</div><h2 id="private-apis"  class="ui header">Private APIs</h2>
+<p>We do not support exposing <em>undocumented</em> internal implementation details of libraries in <code>.d.ts</code> files. We follow this more strictly for <em>popular</em> libraries with good documentation e.g. jquery, angular, node etc.</p>
+<h2 id="contributors-link"  class="ui header">Contributors link</h2>
 <p><a href="https://github.com/borisyankov/DefinitelyTyped/blob/master/CONTRIBUTORS.md">CONTRIBUTORS.md</a> will update automatically.</p>
 <h3 id="note"  class="ui header">Note</h3>
 <p>Keep in mind the repos is a community project with a wide range on quality in contributions and moderation; so there may be the occasional rule violation or historical artifact.</p>
