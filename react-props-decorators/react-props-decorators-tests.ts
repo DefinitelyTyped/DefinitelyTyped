@@ -1,7 +1,7 @@
 /// <reference path="react-props-decorators.d.ts" />
 /// <reference path="../react/react.d.ts" />
 
-import React from 'react';
+import * as React from 'react';
 import { propTypes, defaultProps } from 'react-props-decorators';
 
 @propTypes({
@@ -12,6 +12,6 @@ import { propTypes, defaultProps } from 'react-props-decorators';
     foo: "defaultString",
     bar: 100
 })
-class Baz extends React.Component {
+class Baz extends React.Component<any, any> {
     /* ... */
 }
