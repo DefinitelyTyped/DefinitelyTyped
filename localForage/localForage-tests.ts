@@ -1,13 +1,6 @@
 ﻿/// <reference path="localForage.d.ts" />
 
-declare var localForage: lf.ILocalForage<string>;
-declare var callback: lf.ICallback<string>;
-declare var iterateCallback: lf.IIterateCallback<string>;
-declare var errorCallback: lf.IErrorCallback;
-declare var keyCallback: lf.IKeyCallback;
-declare var keysCallback: lf.IKeysCallback;
-declare var numberCallback: lf.INumberCallback;
-declare var promise: lf.IPromise<string>;
+import * as localForage from "localforage";
 
 () => {
     localForage.clear((err: any) => {
@@ -40,9 +33,12 @@ declare var promise: lf.IPromise<string>;
         var newStr: string = str
     });
 
-    localForage.getItem("key").then((err: any, str: string) => {
-        var newError: any = err;
-        var newStr: string = str
+    localForage.getItem<string>("key").then((value) => {        
+        var newStr: string = value
+    });
+
+    localForage.getItem<number>("keyNumber").then((value) => {        
+        var newValue: number = value
     });
   
     localForage.setItem("key", "value",(err: any, str: string) => {
@@ -50,19 +46,20 @@ declare var promise: lf.IPromise<string>;
         var newStr: string = str
     });
 
-    localForage.setItem("key", "value").then((err: any, str: string) => {
-        var newError: any = err;
-        var newStr: string = str;
+    localForage.setItem("key", "value").then((value) => {
+        var v: string = value;
+    });
+
+    localForage.setItem("keyNumber", 1337).then((value) => {
+        var v: number = value;
     });
   
     localForage.removeItem("key",(err: any) => {
         var newError: any = err;
     });
-
-    localForage.removeItem("key").then((err: any, str: string) => {
-        var newError: any = err;
-        var newStr: string = str
-    });
-  
-    promise.then(callback);
+    
+    localForage.removeItem("key")
+        .then( () => {
+            
+        });
 }
