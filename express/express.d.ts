@@ -809,6 +809,11 @@ declare module "express" {
             (req: Request, res: Response, next: Function, param: any): any;
         }
 
+        interface IApplicationGetter extends IRouterMatcher<Application>
+        {
+            (name: string): any; // Getter
+        }
+
         interface Application extends IRouter<Application>, Express.Application {
             /**
              * Initialize the server.
@@ -870,11 +875,7 @@ declare module "express" {
              * @param val
              */
             set(setting: string, val: any): Application;
-            get: {
-                (name: string): any; // Getter
-                (name: string, ...handlers: RequestHandler[]): Application;
-                (name: RegExp, ...handlers: RequestHandler[]): Application;
-            };
+            get: IApplicationGetter;
 
             /**
              * Return the app's absolute pathname
