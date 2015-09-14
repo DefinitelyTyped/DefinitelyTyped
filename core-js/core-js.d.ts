@@ -1,4 +1,4 @@
-﻿// Type definitions for core-js v0.9.7
+﻿// Type definitions for core-js v1.1.4
 // Project: https://github.com/zloirock/core-js/
 // Definitions by: Ron Buckton <http://github.com/rbuckton>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -854,7 +854,7 @@ declare module Reflect {
 
 // #############################################################################################
 // ECMAScript 7
-// Modules: es7.array.includes, es7.string.at, es7.string.lpad, es7.string.rpad,
+// Modules: es7.array.includes, es7.string.at, es7.string.padLeft, es7.string.padRight,
 //          es7.object.to-array, es7.object.get-own-property-descriptors, es7.regexp.escape,
 //          es7.map.to-json, and es7.set.to-json
 // #############################################################################################
@@ -865,8 +865,8 @@ interface Array<T> {
 
 interface String {
     at(index: number): string;
-    lpad(length: number, fillStr?: string): string;
-    rpad(length: number, fillStr?: string): string;
+    padLeft(length: number, fillStr?: string): string;
+    padRight(length: number, fillStr?: string): string;
 }
 
 interface ObjectConstructor {
@@ -1367,8 +1367,8 @@ declare module core {
         raw(template: TemplateStringsArray, ...substitutions: any[]): string;
         startsWith(text: string, searchString: string, position?: number): boolean;
         at(text: string, index: number): string;
-        lpad(text: string, length: number, fillStr?: string): string;
-        rpad(text: string, length: number, fillStr?: string): string;
+        padLeft(text: string, length: number, fillStr?: string): string;
+        padRight(text: string, length: number, fillStr?: string): string;
         escapeHTML(text: string): string;
         unescapeHTML(text: string): string;
     };
@@ -2063,9 +2063,13 @@ declare module "core-js/fn/string/includes" {
     var includes: typeof core.String.includes;
     export = includes;
 }
-declare module "core-js/fn/string/lpad" {
-    var lpad: typeof core.String.lpad;
-    export = lpad;
+declare module "core-js/fn/string/pad-left" {
+    var padLeft: typeof core.String.padLeft;
+    export = padLeft;
+}
+declare module "core-js/fn/string/pad-right" {
+    var padRight: typeof core.String.padRight;
+    export = padRight;
 }
 declare module "core-js/fn/string/raw" {
     var raw: typeof core.String.raw;
@@ -2074,10 +2078,6 @@ declare module "core-js/fn/string/raw" {
 declare module "core-js/fn/string/repeat" {
     var repeat: typeof core.String.repeat;
     export = repeat;
-}
-declare module "core-js/fn/string/rpad" {
-    var rpad: typeof core.String.rpad;
-    export = rpad;
 }
 declare module "core-js/fn/string/starts-with" {
     var startsWith: typeof core.String.startsWith;
@@ -2842,9 +2842,13 @@ declare module "core-js/libary/fn/string/includes" {
     var includes: typeof core.String.includes;
     export = includes;
 }
-declare module "core-js/libary/fn/string/lpad" {
-    var lpad: typeof core.String.lpad;
-    export = lpad;
+declare module "core-js/libary/fn/string/pad-left" {
+    var padLeft: typeof core.String.padLeft;
+    export = padLeft;
+}
+declare module "core-js/libary/fn/string/pad-right" {
+    var padRight: typeof core.String.padRight;
+    export = padRight;
 }
 declare module "core-js/libary/fn/string/raw" {
     var raw: typeof core.String.raw;
@@ -2853,10 +2857,6 @@ declare module "core-js/libary/fn/string/raw" {
 declare module "core-js/libary/fn/string/repeat" {
     var repeat: typeof core.String.repeat;
     export = repeat;
-}
-declare module "core-js/libary/fn/string/rpad" {
-    var rpad: typeof core.String.rpad;
-    export = rpad;
 }
 declare module "core-js/libary/fn/string/starts-with" {
     var startsWith: typeof core.String.startsWith;
