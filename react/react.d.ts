@@ -134,7 +134,7 @@ declare namespace __React {
     class Component<P, S> implements ComponentLifecycle<P, S> {
         constructor(props?: P, context?: any);
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
-        setState(state: S, callback?: () => any): void;
+        setState(state: any, callback?: () => any): void;
         forceUpdate(): void;
         render(): JSX.Element;
         props: P;
