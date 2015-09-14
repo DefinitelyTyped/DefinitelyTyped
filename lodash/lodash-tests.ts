@@ -175,17 +175,26 @@ result = <_.LoDashArrayWrapper<any>>_([0, 1, false, 2, '', 3]).compact();
 result = <number[]>_.difference([1, 2, 3, 4, 5], [5, 2, 10]);
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4, 5]).difference([5, 2, 10]);
 
+// _.drop
+{
+    let testDropArray: TResult[];
+    let testDropList: _.List<TResult>;
+    let result: TResult[];
+    result = _.drop<TResult>(testDropArray);
+    result = _.drop<TResult>(testDropArray, 42);
+    result = _.drop<TResult>(testDropList);
+    result = _.drop<TResult>(testDropList, 42);
+    result = _(testDropArray).drop().value();
+    result = _(testDropArray).drop(42).value();
+    result = _(testDropList).drop<TResult>().value();
+    result = _(testDropList).drop<TResult>(42).value();
+}
+
 result = <number[]>_.rest([1, 2, 3]);
 result = <number[]>_.rest([1, 2, 3], 2);
 result = <number[]>_.rest([1, 2, 3], (num) => num < 3)
 result = <IFoodOrganic[]>_.rest(foodsOrganic, 'test');
 result = <IFoodType[]>_.rest(foodsType, { 'type': 'value' });
-
-result = <number[]>_.drop([1, 2, 3]);
-result = <number[]>_.drop([1, 2, 3], 2);
-result = <number[]>_.drop([1, 2, 3], (num) => num < 3)
-result = <IFoodOrganic[]>_.drop(foodsOrganic, 'test');
-result = <IFoodType[]>_.drop(foodsType, { 'type': 'value' });
 
 result = <number[]>_.tail([1, 2, 3])
 result = <number[]>_.tail([1, 2, 3], 2)
