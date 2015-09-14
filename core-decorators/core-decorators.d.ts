@@ -1,4 +1,4 @@
-// Type definitions for core-decorators.js
+// Type definitions for core-decorators.js v0.1.5
 // Project: https://github.com/jayphelps/core-decorators.js
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
