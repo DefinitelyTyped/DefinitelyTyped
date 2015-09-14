@@ -6,7 +6,9 @@
 /// <reference path="../es6-promise/es6-promise.d.ts" />
 
 declare module lf {
+
     interface ILocalForage {
+        default: ILocalForageStatic;
         /**
          * Removes every key from the database, returning it to a blank slate.
          */
@@ -45,6 +47,27 @@ declare module lf {
         removeItem(key: string): Promise<void>;
     }
 
+    interface ILocalForageStatic {
+        INDEXEDDB: string;
+        LOCALSTORAGE: string;
+        WEBSQL: string;
+
+        config(options?: ILocalForageConfig): boolean;
+        createInstance(options?: ILocalForageConfig): ILocalForage;
+        defineDriver(driverObject?: any): void;
+        setDriver(driver: string): void;
+        supports(driverName: string): boolean;
+    }
+
+    interface ILocalForageConfig {
+        description?: string;
+        driver?: string;
+        name?: string;
+        size?: number;
+        storeName?: string;
+        version?: number;
+    }
+
     interface ICallback<T> {
         (err: any, value: T): void
     }
@@ -67,10 +90,10 @@ declare module lf {
 
     interface INumberCallback {
         (err: any, numberOfKeys: number): void
-    } 
+    }
 }
 
-declare module 'localforage' {
-	var tmp: lf.ILocalForage;
-	export = tmp;
+declare module "localforage" {
+    var tmp: lf.ILocalForage;
+    export = tmp;
 }
