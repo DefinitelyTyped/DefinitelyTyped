@@ -3,20 +3,22 @@
 // Definitions by: yuichi david pichsenmeister <https://github.com/3x14159265>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../es6-promise/es6-promise.d.ts" />
+
 declare module lf {
-    interface ILocalForage<T> {
+    interface ILocalForage {
         /**
          * Removes every key from the database, returning it to a blank slate.
          */
-        clear(callback: IErrorCallback): void
+        clear(callback: IErrorCallback): void;
         /**
          * Iterate over all value/key pairs in datastore.
          */
-        iterate(iterateCallback: IIterateCallback<T>): void
+        iterate<T>(iterateCallback: IIterateCallback<T>): void;
         /**
          * Get the name of a key based on its ID.
          */
-        key(keyIndex: number, callback: IKeyCallback): void
+        key(keyIndex: number, callback: IKeyCallback): void;
         /**
          * Get the list of all keys in the datastore.
          */
@@ -24,23 +26,23 @@ declare module lf {
         /**
          * Gets the number of keys in the offline store (i.e. its “length”).
          */
-        length(callback: INumberCallback): void
+        length(callback: INumberCallback): void;
         /**
          * Gets an item from the storage library and supplies the result to a callback.
          * If the key does not exist, getItem() will return null.
          */
-        getItem(key: string, callback: ICallback<T>): void
-        getItem(key: string): IPromise<T>
+        getItem<T>(key: string, callback: ICallback<T>): void;
+        getItem<T>(key: string): Promise<T>;
         /**
          * Saves data to an offline store.
          */
-        setItem(key: string, value: T, callback: ICallback<T>): void
-        setItem(key: string, value: T): IPromise<T>
+        setItem<T>(key: string, value: T, callback: ICallback<T>): void;
+        setItem<T>(key: string, value: T): Promise<T>;
         /**
          * Removes the value of a key from the offline store.
          */
-        removeItem(key: string, callback: IErrorCallback): void
-        removeItem(key: string): IPromise<T>
+        removeItem(key: string, callback: IErrorCallback): void;
+        removeItem(key: string): Promise<void>;
     }
 
     interface ICallback<T> {
@@ -65,9 +67,10 @@ declare module lf {
 
     interface INumberCallback {
         (err: any, numberOfKeys: number): void
-    }
+    } 
+}
 
-    interface IPromise<T> {
-        then(callback: ICallback<T>): void
-    }
+declare module 'localforage' {
+	var tmp: lf.ILocalForage;
+	export = tmp;
 }
