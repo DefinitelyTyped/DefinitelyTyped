@@ -290,7 +290,18 @@ result = <number[]>_.initial([1, 2, 3], function (num) {
 result = <IFoodOrganic[]>_.initial(foodsOrganic, 'organic');
 result = <IFoodType[]>_.initial(foodsType, { 'type': 'vegetable' });
 
-result = <number[]>_.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]);
+// _.intersection
+{
+    let testIntersectionArray: TResult[];
+    let testIntersectionList: _.List<TResult>;
+    let result: TResult[];
+    result = _.intersection<TResult>(testIntersectionArray, testIntersectionList);
+    result = _.intersection<TResult>(testIntersectionList, testIntersectionArray, testIntersectionList);
+    result = _(testIntersectionArray).intersection<TResult>(testIntersectionArray).value();
+    result = _(testIntersectionArray).intersection<TResult>(testIntersectionList, testIntersectionArray).value();
+    result = _(testIntersectionList).intersection<TResult>(testIntersectionArray).value();
+    result = _(testIntersectionList).intersection<TResult>(testIntersectionList, testIntersectionArray).value();
+}
 
 result = <number>_.last([1, 2, 3]);
 result = <number>_([1, 2, 3]).last();
