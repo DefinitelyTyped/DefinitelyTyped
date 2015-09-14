@@ -282,13 +282,16 @@ result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2, 3);
 result = <number>_.indexOf([1, 1, 2, 2, 3, 3], 2, true);
 
-result = <number[]>_.initial([1, 2, 3]);
-result = <number[]>_.initial([1, 2, 3], 2);
-result = <number[]>_.initial([1, 2, 3], function (num) {
-    return num > 1;
-});
-result = <IFoodOrganic[]>_.initial(foodsOrganic, 'organic');
-result = <IFoodType[]>_.initial(foodsType, { 'type': 'vegetable' });
+//_.initial
+{
+    let testInitalArray: TResult[];
+    let testInitalList: _.List<TResult>;
+    let result: TResult[];
+    result = _.initial<TResult>(testInitalArray);
+    result = _.initial<TResult>(testInitalList);
+    result = _(testInitalArray).initial().value();
+    result = _(testInitalList).initial<TResult>().value();
+}
 
 result = <number[]>_.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]);
 
