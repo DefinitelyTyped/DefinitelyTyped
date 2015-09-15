@@ -43,7 +43,7 @@ var lineString: ol.geom.LineString;
 var loadingstrategy: ol.LoadingStrategy;
 var multiLineString: ol.geom.MultiLineString;
 var multiPoint: ol.geom.MultiPoint;
-var multiPolygon: ol.geome.MultiPolygon;
+var multiPolygon: ol.geom.MultiPolygon;
 var point: ol.geom.Point;
 var polygon: ol.geom.Polygon;
 var simpleGeometry: ol.geom.SimpleGeometry;
@@ -214,7 +214,7 @@ multiPoint = multiPoint.clone();
 coordinatesArray = multiPoint.getCoordinates();
 point = multiPoint.getPoint(numberValue);
 pointsArray = multiPoint.getPoints();
-geometryType = multiPoint.getGeometryType();
+geometryType = multiPoint.getType();
 booleanValue = multiPoint.intersectsExtent(extent);
 voidValue = multiPoint.setCoordinates(coordinatesArray);
 voidValue = multiPoint.setCoordinates(coordinatesArray, geometryLayout);
@@ -258,7 +258,7 @@ voidValue = point.setCoordinates(coordinate, geometryLayout);
 //
 // ol.geom.Polygon
 //
-var localSphere: ol.sphere;
+var localSphere: ol.Sphere;
 var linearRingsArray: Array<ol.geom.LinearRing>;
 
 polygon = new ol.geom.Polygon(coordinatesArrayDim2);
@@ -283,7 +283,7 @@ booleanValue = polygon.intersectsExtent(extent);
 simpleGeometry.applyTransform(transformFn);
 coordinate = simpleGeometry.getFirstCoordinate();
 coordinate = simpleGeometry.getLastCoordinate();
-geometryLayout = simpleGeometry.getGeometryLayout();
+geometryLayout = simpleGeometry.getLayout();
 voidValue = simpleGeometry.translate(numberValue, numberValue);
 
 //
