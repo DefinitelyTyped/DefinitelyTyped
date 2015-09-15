@@ -24,14 +24,14 @@ const action: ReduxActions.Action = incrementAction(42);
 
 let state: number;
 
-const actionHandler = ReduxActions.handleAction(
+const actionHandler = ReduxActions.handleAction<number>(
     'INCREMENT',
     (state: number, action: ReduxActions.Action) => state + 1
 );
 state = actionHandler(0, { type: 'INCREMENT' });
 
 
-const actionHandlerWithReduceMap = ReduxActions.handleAction(
+const actionHandlerWithReduceMap = ReduxActions.handleAction<number>(
     'INCREMENT_BY', {
         next(state: number, action: ReduxActions.Action) {
             return state + action.payload;
