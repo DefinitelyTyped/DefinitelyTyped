@@ -1,6 +1,6 @@
 // Type definitions for React-DOM v0.14.0-rc
 // Project: https://www.npmjs.com/package/react-dom
-// Definitions by: Stefan-Bieliauskas
+// Definitions by: Stefan-Bieliauskas <http://www.conts.de>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="./../react/react.d.ts" />
