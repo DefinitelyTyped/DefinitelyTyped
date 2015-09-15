@@ -16,8 +16,11 @@ var featureLoader: ol.FeatureLoader;
 var easingFunction: (t: number) => number;
 
 // Type variables for OpenLayers
+var circle: ol.geom.Circle;
 var color: ol.Color;
 var coordinate: ol.Coordinate;
+var coordinatesArray: Array<ol.Coordinate>;
+var coordinatesArrayDim2: Array<Array<ol.Coordinate>>;
 var extent: ol.Extent;
 var boundingCoordinates: Array<ol.Coordinate>;
 var size: ol.Size;
@@ -27,14 +30,28 @@ var feature: ol.Feature;
 var featureArray: Array<ol.Feature>;
 var graticule: ol.Graticule
 var geometry: ol.geom.Geometry;
+var geometriesArray: Array<ol.geom.Geometry>;
 var feature: ol.Feature;
 var featureArray: Array<ol.Feature>;
 var featureFormat: ol.format.Feature;
 var geometry: ol.geom.Geometry;
+var geometryCollection: ol.geom.GeometryCollection;
+var geometryLayout: ol.geom.GeometryLayout;
+var geometryType: ol.geom.GeometryType;
+var linearRing: ol.geom.LinearRing;
+var lineString: ol.geom.LineString;
 var loadingstrategy: ol.LoadingStrategy;
+var multiLineString: ol.geom.MultiLineString;
+var multiPoint: ol.geom.MultiPoint;
+var multiPolygon: ol.geome.MultiPolygon;
+var point: ol.geom.Point;
+var polygon: ol.geom.Polygon;
+var simpleGeometry: ol.geom.SimpleGeometry;
 var tilegrid: ol.tilegrid.TileGrid;
 var vector: ol.source.Vector;
 var projection: ol.proj.Projection;
+var projectionLike: ol.proj.ProjectionLike;
+var transformFn: ol.TransformFunction;
 
 //
 // ol.Attribution
@@ -105,14 +122,169 @@ loadingstrategy = ol.loadingstrategy.tile(tilegrid);
 
 //
 //
+// ol.geom.Circle
+//
+booleanValue = circle.intersectsExtent(extent);
+circle = circle.transform(projectionLike, projectionLike);
+
+//
+//
 // ol.geom.Geometry
 //
-
 var geometryResult: ol.geom.Geometry;
 coordinate = geometryResult.getClosestPoint(coordinate);
 geometryResult.getClosestPoint(coordinate, coordinate);
 extent = geometryResult.getExtent();
 geometryResult.getExtent(extent);
+
+//
+//
+// ol.geom.GeometryCollection
+//
+geometryCollection = new ol.geom.GeometryCollection(geometriesArray)
+geometryCollection = new ol.geom.GeometryCollection();
+voidValue = geometryCollection.applyTransform(transformFn);
+geometryCollection = geometryCollection.clone();
+geometriesArray = geometryCollection.getGeometries();
+geometryType = geometryCollection.getType();
+booleanValue = geometryCollection.intersectsExtent(extent);
+voidValue = geometryCollection.setGeometries(geometriesArray);
+
+//
+//
+// ol.geom.LinearRing
+//
+linearRing = new ol.geom.LinearRing(coordinatesArray);
+linearRing = new ol.geom.LinearRing(coordinatesArray, geometryLayout);
+linearRing = linearRing.clone();
+numberValue = linearRing.getArea();
+coordinatesArray = linearRing.getCoordinates();
+geometryType = linearRing.getType();
+voidValue = linearRing.setCoordinates(coordinatesArray);
+voidValue = linearRing.setCoordinates(coordinatesArray, geometryLayout);
+
+//
+//
+// ol.geom.LineString
+//
+lineString = new ol.geom.LineString(coordinatesArray);
+lineString = new ol.geom.LineString(coordinatesArray, geometryLayout);
+voidValue = lineString.appendCoordinate(coordinate);
+lineString = lineString.clone();
+coordinate = lineString.getCoordinateAtM(numberValue);
+coordinate = lineString.getCoordinateAtM(numberValue, booleanValue);
+coordinatesArray = lineString.getCoordinates();
+numberValue = lineString.getLength();
+geometryType = lineString.getType();
+booleanValue = lineString.intersectsExtent(extent);
+voidValue = lineString.setCoordinates(coordinatesArray);
+voidValue = lineString.setCoordinates(coordinatesArray, geometryLayout);
+
+//
+//
+// ol.geom.MultiLineString
+//
+var lineStringsArray: Array<ol.geom.LineString>;
+
+multiLineString = new ol.geom.MultiLineString(coordinatesArrayDim2);
+multiLineString = new ol.geom.MultiLineString(coordinatesArrayDim2, geometryLayout);
+voidValue = multiLineString.appendLineString(lineString);
+multiLineString = multiLineString.clone();
+coordinate = multiLineString.getCoordinateAtM(numberValue);
+coordinate = multiLineString.getCoordinateAtM(numberValue, booleanValue);
+coordinate = multiLineString.getCoordinateAtM(numberValue, booleanValue, booleanValue);
+coordinatesArrayDim2 = multiLineString.getCoordinates();
+lineString = multiLineString.getLineString(numberValue);
+lineStringsArray = multiLineString.getLineStrings();
+geometryType = multiLineString.getType();
+booleanValue = multiLineString.intersectsExtent(extent);
+voidValue = multiLineString.setCoordinates(coordinatesArrayDim2);
+voidValue = multiLineString.setCoordinates(coordinatesArrayDim2, geometryLayout);
+
+//
+//
+// ol.geom.MultiPoint
+//
+var pointsArray: Array<ol.geom.Point>;
+
+multiPoint = new ol.geom.MultiPoint(coordinatesArray);
+multiPoint = new ol.geom.MultiPoint(coordinatesArray, geometryLayout);
+voidValue = multiPoint.appendPoint(point);
+multiPoint = multiPoint.clone();
+coordinatesArray = multiPoint.getCoordinates();
+point = multiPoint.getPoint(numberValue);
+pointsArray = multiPoint.getPoints();
+geometryType = multiPoint.getGeometryType();
+booleanValue = multiPoint.intersectsExtent(extent);
+voidValue = multiPoint.setCoordinates(coordinatesArray);
+voidValue = multiPoint.setCoordinates(coordinatesArray, geometryLayout);
+
+//
+//
+// ol.geom.MultiPolygon
+//
+var coordinatesArrayDim3: Array<Array<Array<ol.Coordinate>>>;
+var polygonsArray: Array<ol.geom.Polygon>;
+
+multiPolygon = new ol.geom.MultiPolygon(coordinatesArrayDim3);
+multiPolygon = new ol.geom.MultiPolygon(coordinatesArrayDim3, geometryLayout);
+voidValue = multiPolygon.appendPolygon(polygon);
+multiPolygon = multiPolygon.clone();
+numberValue = multiPolygon.getArea();
+coordinatesArrayDim3 = multiPolygon.getCoordinates();
+coordinatesArrayDim3 = multiPolygon.getCoordinates(booleanValue);
+multiPoint = multiPolygon.getInteriorPoints();
+polygon = multiPolygon.getPolygon(numberValue);
+polygonsArray = multiPolygon.getPolygons();
+geometryType = multiPolygon.getType();
+booleanValue = multiPolygon.intersectsExtent(extent);
+voidValue = multiPolygon.setCoordinates(coordinatesArrayDim3);
+voidValue = multiPolygon.setCoordinates(coordinatesArrayDim3, geometryLayout);
+
+//
+//
+// ol.geom.Point
+//
+point = new ol.geom.Point(coordinate);
+point = new ol.geom.Point(coordinate, geometryLayout);
+point = point.clone();
+coordinate = point.getCoordinates();
+geometryType = point.getType();
+booleanValue = point.intersectsExtent(extent);
+voidValue = point.setCoordinates(coordinate);
+voidValue = point.setCoordinates(coordinate, geometryLayout);
+
+//
+//
+// ol.geom.Polygon
+//
+var localSphere: ol.sphere;
+var linearRingsArray: Array<ol.geom.LinearRing>;
+
+polygon = new ol.geom.Polygon(coordinatesArrayDim2);
+polygon = new ol.geom.Polygon(coordinatesArrayDim2, geometryLayout);
+polygon = ol.geom.Polygon.circular(localSphere, coordinate, numberValue);
+polygon = ol.geom.Polygon.circular(localSphere, coordinate, numberValue, numberValue);
+voidValue = polygon.appendLinearRing(linearRing);
+polygon = polygon.clone();
+numberValue = polygon.getArea();
+coordinatesArrayDim2 = polygon.getCoordinates();
+coordinatesArrayDim2 = polygon.getCoordinates(booleanValue);
+point = polygon.getInteriorPoint();
+linearRing = polygon.getLinearRing(numberValue);
+linearRingsArray = polygon.getLinearRings();
+geometryType = polygon.getType();
+booleanValue = polygon.intersectsExtent(extent);
+
+//
+//
+// ol.geom.SimpleGeometry
+//
+simpleGeometry.applyTransform(transformFn);
+coordinate = simpleGeometry.getFirstCoordinate();
+coordinate = simpleGeometry.getLastCoordinate();
+geometryLayout = simpleGeometry.getGeometryLayout();
+voidValue = simpleGeometry.translate(numberValue, numberValue);
 
 //
 // ol.source
