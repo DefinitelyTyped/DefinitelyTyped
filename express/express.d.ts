@@ -412,6 +412,10 @@ declare module "express" {
             originalUrl: string;
 
             url: string;
+            
+            baseUrl: string;
+            
+            app: Application;
         }
 
         interface MediaType {
