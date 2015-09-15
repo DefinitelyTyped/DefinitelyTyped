@@ -22,11 +22,13 @@ const action: ReduxActions.Action = incrementAction(42);
     amount => ({ remote: true })
 );
 
+let state: number;
+
 const actionHandler = ReduxActions.handleAction(
     'INCREMENT',
     (state: number, action: ReduxActions.Action) => state + 1
 );
-actionHandler(0, { type: 'INCREMENT' });
+state = actionHandler(0, { type: 'INCREMENT' });
 
 
 const actionHandlerWithReduceMap = ReduxActions.handleAction(
@@ -37,18 +39,18 @@ const actionHandlerWithReduceMap = ReduxActions.handleAction(
         throw(state: number) { return state }
     }
 );
-actionHandlerWithReduceMap(0, { type: 'INCREMENT' });
+state = actionHandlerWithReduceMap(0, { type: 'INCREMENT' });
 
 const actionsHandler = ReduxActions.handleActions<number>({
     'INCREMENT': (state: number, action: ReduxActions.Action) => state + 1,
     'DECREMENT': (state: number, action: ReduxActions.Action) => state - 1
 });
-actionsHandler(0, { type: 'INCREMENT' });
+state = actionsHandler(0, { type: 'INCREMENT' });
 
 const actionsHandlerWithInitialState = ReduxActions.handleActions<number>({
     'INCREMENT': (state: number, action: ReduxActions.Action) => state + 1,
     'DECREMENT': (state: number, action: ReduxActions.Action) => state - 1
 }, 0);
-actionsHandlerWithInitialState(0, { type: 'INCREMENT' });
+state = actionsHandlerWithInitialState(0, { type: 'INCREMENT' });
 
 
