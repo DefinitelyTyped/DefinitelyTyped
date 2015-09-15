@@ -1,4 +1,4 @@
-/// <reference path="node-config.d.ts" />
+/// <reference path="config.d.ts" />
 
 import config = require('config');
 
