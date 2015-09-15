@@ -10,20 +10,20 @@ declare class Request {
 	method: string;
 	url: string;
 	headers: Headers;
-	context: RequestContext;
+	context: string|RequestContext;
 	referrer: string;
-	mode: RequestMode;
-	credentials: RequestCredentials;
-	cache: RequestCache;
+	mode: string|RequestMode;
+	credentials: string|RequestCredentials;
+	cache: string|RequestCache;
 }
 
 interface RequestInit {
 	method?: string;
 	headers?: HeaderInit|{ [index: string]: string };
 	body?: BodyInit;
-	mode?: RequestMode;
-	credentials?: RequestCredentials;
-	cache?: RequestCache;
+	mode?: string|RequestMode;
+	credentials?: string|RequestCredentials;
+	cache?: string|RequestCache;
 }
 
 declare enum RequestContext {
@@ -58,7 +58,7 @@ declare class Response extends Body {
 	constructor(body?: BodyInit, init?: ResponseInit);
 	error(): Response;
 	redirect(url: string, status: number): Response;
-	type: ResponseType;
+	type: string|ResponseType;
 	url: string;
 	status: number;
 	ok: boolean;

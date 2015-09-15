@@ -6,7 +6,10 @@ function test_fetchUrlWithOptions() {
 	headers.append("Content-Type", "application/json");
 	var requestOptions: RequestInit = {
 		method: "POST",
-		headers: headers
+		headers: headers,
+		mode: 'same-origin',
+		credentials: 'omit',
+		cache: 'default'
 	};
 	handlePromise(window.fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions));
 }
@@ -27,6 +30,9 @@ function test_fetchUrl() {
 
 function handlePromise(promise: Promise<Response>) {
 	promise.then((response) => {
+		if (response.type === 'basis') {
+			// for test only
+		}
 		return response.text();
 	}).then((text) => {
 		console.log(text);
