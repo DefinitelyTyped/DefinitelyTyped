@@ -1,3 +1,6 @@
+// Type definitions for React-DOM v0.14.0-rc
+// Project: https://www.npmjs.com/package/react-dom
+
 /// <reference path="./../react/react.d.ts" />
 
 declare class __ReactDom {
