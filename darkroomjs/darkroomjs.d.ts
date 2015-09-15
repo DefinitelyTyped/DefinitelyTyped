@@ -37,7 +37,10 @@ interface Plugins {
     /**
     * Save plugin options. if passed 'false' - disable plugin
     */
-    save?: SavePluginOptions | boolean
+    save?: SavePluginOptions | boolean;
+
+
+    history?: HistoryPluginOptions | boolean;
 }
 interface CropPluginOptions {
     minHeight?: number;
@@ -47,6 +50,9 @@ interface CropPluginOptions {
 }
 interface SavePluginOptions {
     callback?: () => any
+}
+interface HistoryPluginOptions{
+
 }
 declare var Darkroom: typeof DarkRoom;
 declare module 'darkroomjs' {
