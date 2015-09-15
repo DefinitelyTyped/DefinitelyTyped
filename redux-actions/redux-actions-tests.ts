@@ -16,7 +16,7 @@ const incrementAction: (...args: any[]) => ReduxActions.Action = ReduxActions.cr
 );
 const action: ReduxActions.Action = incrementAction(42);
 
-    const incrementByAction: (...args: any[]) => ReduxActions.Action = ReduxActions.createAction<number>(
+const incrementByAction: (...args: any[]) => ReduxActions.Action = ReduxActions.createAction<number>(
     'INCREMENT_BY',
     (amount: number) => amount,
     amount => ({ remote: true })
@@ -29,7 +29,6 @@ const actionHandler = ReduxActions.handleAction<number>(
     (state: number, action: ReduxActions.Action) => state + 1
 );
 state = actionHandler(0, { type: 'INCREMENT' });
-
 
 const actionHandlerWithReduceMap = ReduxActions.handleAction<number>(
     'INCREMENT_BY', {
@@ -52,5 +51,6 @@ const actionsHandlerWithInitialState = ReduxActions.handleActions<number>({
     'DECREMENT': (state: number, action: ReduxActions.Action) => state - 1
 }, 0);
 state = actionsHandlerWithInitialState(0, { type: 'INCREMENT' });
+
 
 
