@@ -7,8 +7,7 @@
 
 declare module lf {
 
-    interface ILocalForage {
-        default: ILocalForageStatic;
+    interface ILocalForage extends ILocalForageStatic {
         /**
          * Removes every key from the database, returning it to a blank slate.
          */
@@ -52,9 +51,18 @@ declare module lf {
         LOCALSTORAGE: string;
         WEBSQL: string;
 
+        /**
+         * Set and persist localForage options. This must be called before any other calls to localForage are made, but can be called after localForage is loaded. 
+         * If you set any config values with this method they will persist after driver changes, so you can call config() then setDriver()
+         * @param {ILocalForageConfig} options?
+         */
         config(options?: ILocalForageConfig): boolean;
         createInstance(options?: ILocalForageConfig): ILocalForage;
         defineDriver(driverObject?: any): void;
+        /**
+         * Force usage of a particular driver or drivers, if available.
+         * @param {string} driver
+         */
         setDriver(driver: string): void;
         supports(driverName: string): boolean;
     }
@@ -94,6 +102,6 @@ declare module lf {
 }
 
 declare module "localforage" {
-    var tmp: lf.ILocalForage;
-    export = tmp;
+    var localforage: lf.ILocalForage;
+    export default localforage;
 }

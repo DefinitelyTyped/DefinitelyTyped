@@ -1,6 +1,6 @@
 ﻿/// <reference path="localForage.d.ts" />
 
-import * as localForage from "localforage";
+import {default as localForage} from "localforage";
 
 () => {
     localForage.clear((err: any) => {
@@ -63,13 +63,13 @@ import * as localForage from "localforage";
             
         });
 
-    var config = localForage.default.config({
+    var config = localForage.config({
         name: "testyo",
-        driver: localForage.default.LOCALSTORAGE
+        driver: localForage.LOCALSTORAGE
     });
     
-    var store = localForage.default.createInstance({
+    var store = localForage.createInstance({
         name: "da instance",
-        driver: localForage.default.LOCALSTORAGE
+        driver: localForage.LOCALSTORAGE
     });
 }
