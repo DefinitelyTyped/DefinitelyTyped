@@ -258,7 +258,6 @@ declare module _ {
         push(...items: T[]): LoDashArrayWrapper<T>;
         reverse(): LoDashArrayWrapper<T>;
         shift(): T;
-        slice(start: number, end?: number): LoDashArrayWrapper<T>;
         sort(compareFn?: (a: T, b: T) => number): LoDashArrayWrapper<T>;
         splice(start: number): LoDashArrayWrapper<T>;
         splice(start: number, deleteCount: number, ...items: any[]): LoDashArrayWrapper<T>;
@@ -1415,6 +1414,33 @@ declare module _ {
         tail<W, T>(
             array: List<T>,
             whereValue: W): T[];
+    }
+
+    //_.slice
+    interface LoDashStatic {
+        /**
+         * Creates a slice of array from start up to, but not including, end.
+         *
+         * @param array The array to slice.
+         * @param start The start position.
+         * @param end The end position.
+         * @return Returns the slice of array.
+         */
+        slice<T>(
+            array: T[],
+            start?: number,
+            end?: number
+        ): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.slice
+         */
+        slice(
+            start?: number,
+            end?: number
+        ): LoDashArrayWrapper<T>;
     }
 
     //_.sortedIndex
