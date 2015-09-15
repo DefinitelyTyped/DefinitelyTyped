@@ -859,6 +859,11 @@ declare module Reflect {
 //          es7.map.to-json, and es7.set.to-json
 // #############################################################################################
 
+interface ArrayLike<T> {
+    length: number;
+    [n: number]: T;
+}
+
 interface Array<T> {
     includes(value: T, fromIndex?: number): boolean;
 }
