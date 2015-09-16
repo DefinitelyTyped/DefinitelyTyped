@@ -439,6 +439,20 @@ result = <number[]>_([1, 2]).zipWith<number>([1, 2], [1, 2], [1, 2], [1, 2], [1,
     result = _([1, 2, 3]).thru<number>((value: number[]) => value, any);
 }
 
+// _.prototype.commit
+{
+    let result: _.LoDashWrapper<number>;
+    result = _(42).commit();
+}
+{
+    let result: _.LoDashArrayWrapper<any>;
+    result = _<any>([]).commit();
+}
+{
+    let result: _.LoDashObjectWrapper<any>;
+    result = _({}).commit();
+}
+
 /**************
  * Collection *
  **************/
@@ -1552,11 +1566,14 @@ result = <boolean>_({}).has(42);
 result = <boolean>_({}).has(true);
 result = <boolean>_({}).has(['', 42, true]);
 
-interface FirstSecond {
-    first: string;
-    second: string;
+// _.invert
+{
+    let result: TResult;
+    result = _.invert<Object, TResult>({});
+    result = _.invert<Object, TResult>({}, true);
+    result = _({}).invert<TResult>().value();
+    result = _({}).invert<TResult>(true).value();
 }
-result = <FirstSecond>_.invert({ 'first': 'moe', 'second': 'larry' });
 
 // _.isEqual (alias: _.eq)
 result = <boolean>_.isEqual(1, 1);
@@ -1664,9 +1681,27 @@ interface TestPickFn {
     result = _({}).pick<TResult>(testPickFn, any).value();
 }
 
+// _.result
+{
+    let testResultPath: number|string|boolean|Array<number|string|boolean>;
+    let testResultDefaultValue: TResult;
+    let result: TResult;
+    result = _.result<{}, TResult>({}, testResultPath);
+    result = _.result<{}, TResult>({}, testResultPath, testResultDefaultValue);
+    result = _({}).result<TResult>(testResultPath);
+    result = _({}).result<TResult>(testResultPath, testResultDefaultValue);
+}
+
 // _.set
-result = <{ a: { b: { c: number; }}[]}>_.set({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c', 4);
-result = <{ a: { b: { c: number; }}[]}>_({ 'a': [{ 'b': { 'c': 3 } }] }).set('a[0].b.c', 4).value();
+{
+    let testSetObject: TResult;
+    let testSetPath: {toSting(): string};
+    let result: TResult;
+    result = _.set(testSetObject, testSetPath, any);
+    result = _.set(testSetObject, [testSetPath], any);
+    result = _(testSetObject).set(testSetPath, any).value();
+    result = _(testSetObject).set([testSetPath], any).value();
+}
 
 result = <number[]>_.transform([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], function (r: number[], num: number) {
     num *= num;
@@ -1716,8 +1751,6 @@ var testAttempFn: TestAttemptFn;
 result = <TResult|Error>_.attempt<TResult>(testAttempFn);
 result = <TResult|Error>_(testAttempFn).attempt<TResult>();
 
-var lodash = <typeof _>_.noConflict();
-
 result = <number>_.random(0, 5);
 result = <number>_.random(5);
 result = <number>_.random(5, true);
@@ -1734,22 +1767,6 @@ result = <void>_([1]).noop(true, 'a', 1);
 result = <void>_<string>([]).noop(true, 'a', 1);
 result = <void>_({}).noop(true, 'a', 1);
 result = <void>_(any).noop(true, 'a', 1);
-
-var object = {
-    'cheese': 'crumpets',
-    'one': 1,
-    'nested': {
-        'two': 2
-    },
-    'stuff': function () {
-        return 'nonsense';
-    }
-};
-
-result = <string>_.result(object, 'cheese');
-result = <string>_.result(object, 'stuff');
-result = _.result<number>(object, 'one');
-result = _.result<number>(object, ['nested', 'two'] );
 
 var tempObject = {};
 result = <typeof _>_.runInContext(tempObject);
@@ -1941,9 +1958,32 @@ result = <string[]>_.words('fred, barney, & pebbles', /[^, ]+/g);
 result = <string[]>_('fred, barney, & pebbles').words();
 result = <string[]>_('fred, barney, & pebbles').words(/[^, ]+/g);
 
-/**********
-* Utilities *
-***********/
+/***********
+ * Utility *
+ ***********/
+
+// _.callback
+{
+    let result: (...args: any[]) => TResult;
+    result = _.callback<TResult>(Function);
+    result = _.callback<TResult>(Function, any);
+    result = _(Function).callback<TResult>().value();
+    result = _(Function).callback<TResult>(any).value();
+}
+{
+    let result: (object: any) => TResult;
+    result = _.callback<TResult>('');
+    result = _.callback<TResult>('', any);
+    result = _('').callback<TResult>().value();
+    result = _('').callback<TResult>(any).value();
+}
+{
+    let result: (object: any) => boolean;
+    result = _.callback({});
+    result = _.callback({}, any);
+    result = _({}).callback().value();
+    result = _({}).callback(any).value();
+}
 
 // _.constant
 result = <() => number>_.constant<number>(1);
@@ -1971,6 +2011,29 @@ result = <() => {}>_({}).constant<{}>();
 {
     let result: boolean[];
     result = _<boolean>([]).identity();
+}
+
+// _.iteratee
+{
+    let result: (...args: any[]) => TResult;
+    result = _.iteratee<TResult>(Function);
+    result = _.iteratee<TResult>(Function, any);
+    result = _(Function).iteratee<TResult>().value();
+    result = _(Function).iteratee<TResult>(any).value();
+}
+{
+    let result: (object: any) => TResult;
+    result = _.iteratee<TResult>('');
+    result = _.iteratee<TResult>('', any);
+    result = _('').iteratee<TResult>().value();
+    result = _('').iteratee<TResult>(any).value();
+}
+{
+    let result: (object: any) => boolean;
+    result = _.iteratee({});
+    result = _.iteratee({}, any);
+    result = _({}).iteratee().value();
+    result = _({}).iteratee(any).value();
 }
 
 // _.method
@@ -2010,6 +2073,15 @@ result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())(['a', '0
     result = _({}).mixin<TResult>(testMixinSource, testMixinOptions).value();
     result = _(testMixinSource).mixin<TResult>().value();
     result = _(testMixinSource).mixin<TResult>(testMixinOptions).value();
+}
+
+// _.noConflict
+{
+    let result: typeof _;
+    result = _.noConflict();
+    result = _(42).noConflict();
+    result = _<any>([]).noConflict();
+    result = _({}).noConflict();
 }
 
 // _.uniqueId
