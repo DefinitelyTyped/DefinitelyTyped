@@ -9,6 +9,11 @@
 *                                               *
 ************************************************/
 
+interface Error {
+    stack?: string;
+}
+
+
 // compat for TypeScript 1.5.3
 // if you use with --target es3 or --target es5 and use below definitions,
 // use the lib.es6.d.ts that is bundled with TypeScript 1.5.3.
