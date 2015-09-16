@@ -2056,6 +2056,16 @@ declare module _ {
             thisArg?: any): LoDashArrayWrapper<TResult>;
     }
 
+    // _.prototype.commit
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * Executes the chained sequence and returns the wrapped result.
+         *
+         * @return Returns the new lodash wrapper instance.
+         */
+        commit(): TWrapper;
+    }
+
     /**************
      * Collection *
      **************/
