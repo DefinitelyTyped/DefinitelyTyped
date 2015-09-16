@@ -1200,7 +1200,7 @@ declare module Xrm
                 /**
                  * Set a Process as the active process.
                  *
-                 * @param   {string}    processId           the Id of the process to make the active process.
+                 * @param   {string}    processId           The Id of the process to make the active process.
                  * @param   {function}  callbackFunction    (Optional) a function to call when the operation is complete.
                  */
                 setActiveProcess( processId: string, callbackFunction?: ProcessCallbackDelegate ): void;
@@ -1236,19 +1236,23 @@ declare module Xrm
                  * Use this method to asynchronously retrieve the enabled business process flows that the user can switch to for an
                  * entity.
                  *
-                 * @param   {Function} callbackFunction                                 The callback function must accept a parameter
-                 *                                                                      that contains an object with dictionary
-                 *                                                                      properties where the name of the property is the
-                 *                                                                      Id of the business process flow and the value of
-                 *                                                                      the property is the name of the business process
-                 *                                                                      flow.
-                 *                                                                      
-                 *                                                                      The enabled processes are filtered according to
-                 *                                                                      the user’s privileges. The list of enabled
-                 *                                                                      processes is the same ones a user can see in the
-                 *                                                                      UI if they want to change the process manually.
-                 */
+                 * @param   {Function} callbackFunction The callback function must accept a parameter that contains an object with 
+                 *                                      dictionary properties where the name of the property is the Id of the
+                 *                                      business process flow and the value of the property is the name of the
+                 *                                      business process flow.
+                 *                                      
+                 *                                      The enabled processes are filtered according to the user’s privileges. The
+                 *                                      list of enabled processes is the same ones a user can see in the UI if they
+                 *                                      want to change the process manually.
+                 */                                     
                 getEnabledProcesses( callbackFunction: ( enabledProcesses: ProcessDictionary ) => void ): void;
+
+                /**
+                 * Use this method to get the currently selected stage.
+                 *
+                 * @return  The currently selected stage.
+                 */
+                getSelectedStage(): Stage;
 
                 /**
                  * Use this to add a function as an event handler for the OnStageChange event so that it will be called when the
@@ -1257,8 +1261,34 @@ declare module Xrm
                  * @param   {ContextSensitiveHandler}   handler The function will be added to the bottom of the event handler
                  *                                              pipeline. The execution context is automatically set to be the first
                  *                                              parameter passed to the event handler.
+                 * 
+                 *                                              Use a reference to a named function rather than an
+                 *                                              anonymous function if you may later want to remove the
+                 *                                              event handler.
                  */
                 addOnStageChange( handler: ContextSensitiveHandler ): void;
+
+                /**
+                 * Use this to remove a function as an event handler for the OnStageChange event.
+                 *
+                 * @param   {ContextSensitiveHandler}   handler If an anonymous function is set using the addOnStageChange method it
+                 *                                              cannot be removed using this method.
+                 */
+                removeOnStageChange( handler: ContextSensitiveHandler ): void;
+
+                /**
+                 * Use this to add a function as an event handler for the OnStageSelected event so that it will be called
+                 * when a business process flow stage is selected.
+                 *
+                 * @param   {ContextSensitiveHandler}   handler The function will be added to the bottom of the event
+                 *                                              handler pipeline. The execution context is automatically
+                 *                                              set to be the first parameter passed to the event handler.
+                 * 
+                 *                                              Use a reference to a named function rather than an
+                 *                                              anonymous function if you may later want to remove the
+                 *                                              event handler.
+                 */
+                addOnStageSelected( handler: ContextSensitiveHandler ): void;
 
                 /**
                  * Use this to remove a function as an event handler for the OnStageChange event.
