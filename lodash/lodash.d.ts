@@ -1052,22 +1052,40 @@ declare module _ {
     //_.pull
     interface LoDashStatic {
         /**
-        * Removes all provided values from the given array using strict equality for comparisons,
-        * i.e. ===.
-        * @param array The array to modify.
-        * @param values The values to remove.
-        * @return array.
-        **/
+         * Removes all provided values from array using SameValueZero for equality comparisons.
+         *
+         * Note: Unlike _.without, this method mutates array.
+         *
+         * @param array The array to modify.
+         * @param values The values to remove.
+         * @return Returns array.
+         */
         pull<T>(
-            array: Array<T>,
-            ...values: T[]): T[];
+            array: T[],
+            ...values: T[]
+        ): T[];
 
         /**
-        * @see _.pull
-        **/
+         * @see _.pull
+         */
         pull<T>(
             array: List<T>,
-            ...values: T[]): T[];
+            ...values: T[]
+        ): List<T>;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.pull
+         */
+        pull(...values: T[]): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.pull
+         */
+        pull<TValue>(...values: TValue[]): LoDashObjectWrapper<List<TValue>>;
     }
 
     //_.pullAt
