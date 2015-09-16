@@ -1552,11 +1552,14 @@ result = <boolean>_({}).has(42);
 result = <boolean>_({}).has(true);
 result = <boolean>_({}).has(['', 42, true]);
 
-interface FirstSecond {
-    first: string;
-    second: string;
+// _.invert
+{
+    let result: TResult;
+    result = _.invert<Object, TResult>({});
+    result = _.invert<Object, TResult>({}, true);
+    result = _({}).invert<TResult>().value();
+    result = _({}).invert<TResult>(true).value();
 }
-result = <FirstSecond>_.invert({ 'first': 'moe', 'second': 'larry' });
 
 // _.isEqual (alias: _.eq)
 result = <boolean>_.isEqual(1, 1);
