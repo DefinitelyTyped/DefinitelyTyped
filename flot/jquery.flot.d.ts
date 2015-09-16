@@ -92,6 +92,8 @@ declare module jquery.flot {
     interface axisOptions {
         show?: boolean;            // null or true/false
         position?: string;      // "bottom" or "top" or "left" or "right"
+        mode?: string;          // null or "time"
+        timezone?: string;      // null, "browser" or timezone (only makes sense for mode: "time")
 
         color?: any;            // null or color spec
         tickColor?: any;        // null or color spec
@@ -117,6 +119,12 @@ declare module jquery.flot {
         tickLength?: number;
 
         alignTicksWithAxis?: number;
+
+        // options useful if mode is "time":
+        timeformat?: string;    // null or format string
+        monthNames?: string[];  // null or array of size 12 of strings
+        dayNames?: string[];    // null or array of size 7 of strings
+        twelveHourClock?: boolean;
     }
 
     interface seriesTypeBase {
