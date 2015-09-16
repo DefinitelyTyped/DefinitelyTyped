@@ -7591,23 +7591,28 @@ declare module _ {
     //_.set
     interface LoDashStatic {
         /**
-         * Sets the property value of path on object. If a portion of path does not exist it is created.
+         * Sets the property value of path on object. If a portion of path does not exist it’s created.
+         *
          * @param object The object to augment.
          * @param path The path of the property to set.
          * @param value The value to set.
          * @return Returns object.
-         **/
-        set<T>(object: T,
-            path: string|string[],
-            value: any): T;
+         */
+        set<T>(
+            object: T,
+            path: StringRepresentable|StringRepresentable[],
+            value: any
+        ): T;
     }
 
     interface LoDashObjectWrapper<T> {
         /**
          * @see _.set
-         **/
-        set(path: string|string[],
-            value: any): LoDashObjectWrapper<T>;
+         */
+        set(
+            path: StringRepresentable|StringRepresentable[],
+            value: any
+        ): LoDashObjectWrapper<T>;
     }
 
     //_.transform
@@ -8546,6 +8551,10 @@ declare module _ {
 
     interface Dictionary<T> {
         [index: string]: T;
+    }
+
+    interface StringRepresentable {
+        toString(): string;
     }
 }
 
