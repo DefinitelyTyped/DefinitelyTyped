@@ -7190,11 +7190,21 @@ declare module _ {
     //_.invert
     interface LoDashStatic {
         /**
-        * Creates an object composed of the inverted keys and values of the given object.
-        * @param object The object to invert.
-        * @return The created inverted object.
-        **/
-        invert(object: any): any;
+         * Creates an object composed of the inverted keys and values of object. If object contains duplicate values,
+         * subsequent values overwrite property assignments of previous values unless multiValue is true.
+         *
+         * @param object The object to invert.
+         * @param multiValue Allow multiple values per key.
+         * @return Returns the new inverted object.
+         */
+        invert<T extends {}, TResult extends {}>(object: T, multiValue?: boolean): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.invert
+         */
+        invert<TResult extends {}>(multiValue?: boolean): LoDashObjectWrapper<TResult>;
     }
 
     //_.isEqual
