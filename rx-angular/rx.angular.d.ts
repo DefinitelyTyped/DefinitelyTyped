@@ -12,6 +12,16 @@ declare module Rx {
     interface IObservable<T> {
         safeApply($scope: ng.IScope, callback: (data: any) => void): Rx.Observable<any>;
     }
+    
+    export interface ScopeScheduler extends IScheduler {
+        constructor(scope: ng.IScope);
+    }
+
+    export interface ScopeSchedulerStatic extends SchedulerStatic {
+        new ($scope: angular.IScope): ScopeScheduler;
+    }
+
+    export var ScopeScheduler: ScopeSchedulerStatic;
 }
 
 declare module rx.angular {
