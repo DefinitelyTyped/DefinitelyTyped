@@ -7560,6 +7560,34 @@ declare module _ {
         ): LoDashObjectWrapper<TResult>;
     }
 
+    //_.result
+    interface LoDashStatic {
+        /**
+         * This method is like _.get except that if the resolved value is a function it’s invoked with the this binding
+         * of its parent object and its result is returned.
+         *
+         * @param object The object to query.
+         * @param path The path of the property to resolve.
+         * @param defaultValue The value returned if the resolved value is undefined.
+         * @return Returns the resolved value.
+         */
+        result<TObject, TResult>(
+            object: TObject,
+            path: number|string|boolean|Array<number|string|boolean>,
+            defaultValue?: TResult
+        ): TResult;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.result
+         */
+        result<TResult>(
+            path: number|string|boolean|Array<number|string|boolean>,
+            defaultValue?: TResult
+        ): TResult;
+    }
+
     //_.set
     interface LoDashStatic {
         /**
@@ -8397,21 +8425,6 @@ declare module _ {
         * @return A random number between `min` and `max`.
         **/
         random(min: number, max: number, floating?: boolean): number;
-    }
-
-    //_.result
-    interface LoDashStatic {
-        /**
-        * Resolves the value of property on object. If property is a function it will be invoked with
-        * the this binding of object and its result returned, else the property value is returned. If
-        * object is false then undefined is returned.
-        * @param object The object to query.
-        * @param path The path of the property to resolve.
-        * @param defaultValue The value returned if the resolved value is undefined.
-        * @return The resolved value.
-        **/
-
-        result<T>(object: any, path: string|string[], defaultValue?: T): T;
     }
 
     //_.runInContext

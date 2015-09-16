@@ -1681,6 +1681,17 @@ interface TestPickFn {
     result = _({}).pick<TResult>(testPickFn, any).value();
 }
 
+// _.result
+{
+    let testResultPath: number|string|boolean|Array<number|string|boolean>;
+    let testResultDefaultValue: TResult;
+    let result: TResult;
+    result = _.result<{}, TResult>({}, testResultPath);
+    result = _.result<{}, TResult>({}, testResultPath, testResultDefaultValue);
+    result = _({}).result<TResult>(testResultPath);
+    result = _({}).result<TResult>(testResultPath, testResultDefaultValue);
+}
+
 // _.set
 result = <{ a: { b: { c: number; }}[]}>_.set({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c', 4);
 result = <{ a: { b: { c: number; }}[]}>_({ 'a': [{ 'b': { 'c': 3 } }] }).set('a[0].b.c', 4).value();
@@ -1751,22 +1762,6 @@ result = <void>_([1]).noop(true, 'a', 1);
 result = <void>_<string>([]).noop(true, 'a', 1);
 result = <void>_({}).noop(true, 'a', 1);
 result = <void>_(any).noop(true, 'a', 1);
-
-var object = {
-    'cheese': 'crumpets',
-    'one': 1,
-    'nested': {
-        'two': 2
-    },
-    'stuff': function () {
-        return 'nonsense';
-    }
-};
-
-result = <string>_.result(object, 'cheese');
-result = <string>_.result(object, 'stuff');
-result = _.result<number>(object, 'one');
-result = _.result<number>(object, ['nested', 'two'] );
 
 var tempObject = {};
 result = <typeof _>_.runInContext(tempObject);
