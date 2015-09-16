@@ -329,6 +329,11 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	filter<U>(filterer: (item: U, index: number, arrayLength: number) => boolean, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
 	/**
+	 * Same as calling ``Promise.each(thisPromise, iterator)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
+	 */
+	each<R, U>(iterator: (item: R, index: number, arrayLength: number) => U | Promise.Thenable<U>): Promise<R[]>;
+
+	/**
 	 * Start the chain of promises with `Promise.try`. Any synchronous exceptions will be turned into rejections on the returned promise.
 	 *
 	 * Note about second argument: if it's specifically a true array, its values become respective arguments for the function call. Otherwise it is passed as is as the first argument for the function call.
@@ -607,6 +612,18 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	// array with values
 	static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>, option?: Promise.ConcurrencyOption): Promise<R[]>;
 	static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => boolean, option?: Promise.ConcurrencyOption): Promise<R[]>;
+
+	/**
+	 * Iterate over an array, or a promise of an array, which contains promises (or a mix of promises and values) with the given iterator function with the signature (item, index, value) where item is the resolved value of a respective promise in the input array. Iteration happens in serially. If any promise in the input array is rejected the returned promise is rejected as well.
+	 *
+	 * Resolves to the original array unmodified, this method is meant to be used for side effects. If the iterator function returns a promise or a thenable, the result for the promise is awaited for before continuing with next iteration.
+	 */
+	// promise of array with promises of value
+	static each<R, U>(values: Promise.Thenable<Promise.Thenable<R>[]>, iterator: (item: R, index: number, arrayLength: number) => U | Promise.Thenable<U>): Promise<R[]>;
+	// array with promises of value
+	static each<R, U>(values: Promise.Thenable<R>[], iterator: (item: R, index: number, arrayLength: number) => U | Promise.Thenable<U>): Promise<R[]>;
+	// array with values OR promise of array with values
+	static each<R, U>(values: R[] | Promise.Thenable<R[]>, iterator: (item: R, index: number, arrayLength: number) => U | Promise.Thenable<U>): Promise<R[]>;
 }
 
 declare module Promise {
