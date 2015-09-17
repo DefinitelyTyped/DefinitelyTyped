@@ -3,9 +3,9 @@
 // Definitions by: Lars Klein <https://github.com/lhk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare function mina(a:number, A:number, b:number, B:number, get:Function, set:Function, easing?:Function):Object;
+declare function mina(a:number, A:number, b:number, B:number, get:Function, set:Function, easing?:(num:number)=>number):mina.AnimationDescriptor;
 declare module mina {
-    export interface Mina {
+    export interface MinaAnimation {
         id: string;
         duration: Function;
         easing: Function;
@@ -13,6 +13,28 @@ declare module mina {
         status: Function;
         stop: Function;
     }
+    export interface AnimationDescriptor{
+		id: string;
+        start: number;
+        end: number;
+        b: number;
+        s: number;
+        dur: number;
+        spd: number;
+        get(): number;
+        set(slave: number): number;
+        easing(input: number): number;
+        status(): number;
+        status(newStatus: number): void;
+        speed(): number;
+        speed(newSpeed: number): void;
+        duration(): number;
+        duration(newDuration: number): void;
+        stop(): void;
+        pause(): void;
+        resume(): void;
+        update(): void;
+	}
 
 	export function backin(n:number):number;
 	export function backout(n:number):number;
@@ -21,12 +43,12 @@ declare module mina {
 	export function easeinout(n:number):number;
 	export function easeout(n:number):number;
 	export function elastic(n:number):number;
-	export function getById(id:string):Object;
+	export function getById(id:string):AnimationDescriptor;
 	export function linear(n:number):number;
 	export function time():number;
 }
 
-declare function Snap(width:number,height:number):Snap.Paper;
+declare function Snap(width:number|string,height:number|string):Snap.Paper;
 declare function Snap(query:string):Snap.Paper;
 declare function Snap(DOM:SVGElement):Snap.Paper;
 
@@ -51,13 +73,11 @@ declare module Snap {
 	export function selectAll(query:string):any;
 	export function snapTo(values:Array<number>,value:number,tolerance?:number):number;
 	
-	export function animate(from:number,to:number,setter:Function,duration:number,easing:Function,callback:Function):mina.Mina;
-	export function animate(from:Array<number>,to:number,setter:Function,duration:number,easing:Function,callback:Function):mina.Mina;
-	export function animate(from:number,to:Array<number>,setter:Function,duration:number,easing:Function,callback:Function):mina.Mina;
-	export function animate(from:Array<number>,to:Array<number>,setter:Function,duration:number,easing:Function,callback:Function):mina.Mina;
-	export function animation(attr:Object,duration:number,easing?:Function,callback?:Function):Object;
+	export function animate(from:number|number[],to:number|number[],updater:(n:number)=>void,duration:number,easing?:(num:number)=>number,callback?:()=>void):mina.MinaAnimation;
+	export function animation(attr:Object,duration:number,easing?:(num:number)=>number,callback?:()=>void):Snap.Animation;
 	
-	export function color(clr:string):Object;export function getRGB(color:string):Object;
+	export function color(clr:string):RGBHSB;
+	export function getRGB(color:string):RGB;
 	export function hsb(h:number,s:number,b:number):HSB;
 	export function hsl(h:number,s:number,l:number):HSL;
 	export function rgb(r:number,g:number,b:number):RGB;
@@ -88,6 +108,19 @@ declare module Snap {
 		s:number;
 		b:number;
 	}
+	
+	export interface RGBHSB{
+		r:number;
+		g:number;
+		b:number;
+		hex:string;
+		error:boolean;
+		h:number;
+		s:number;
+		v:number;
+		l:number;
+	}
+	
 	export interface HSL{
 		h:number;
 		s:number;
@@ -111,33 +144,48 @@ declare module Snap {
 		y2:number;
 		y:number;
 	}
+	
+	export interface TransformationDescriptor {
+        string: string;
+        globalMatrix: Snap.Matrix;
+        localMatrix: Snap.Matrix;
+        diffMatrix: Snap.Matrix;
+        global: string;
+        local: string;
+        toString(): string;
+    }
+	export interface Animation{
+		attr:{[attr:string]:string|number|boolean|any};
+		duration:number;
+		easing?:(num:number)=>number;
+		callback?:()=>void;
+	}
 
 	export interface Element {
-		add():void;
+		add(el:Snap.Element):Snap.Element;
 		addClass(value:string):Snap.Element;
 		after(el:Snap.Element):Snap.Element;
-		animate(attrs:Object,duration:number,easing?:Function,callback?:Function):Snap.Element;
+		animate(attrs:{[attr:string]:string|number|boolean|any},duration:number,easing?:(num: number)=> number,callback?:()=>void):Snap.Element;
 		animate(animation:any):Snap.Element;
 		append(el:Snap.Element):Snap.Element;
 		appendTo(el:Snap.Element):Snap.Element;
-		asPX(attr:string,value?:string):Snap.Element;
-		attr(params:Object):Snap.Element;
+		asPX(attr:string,value?:string):number;            //TODO: check what is really returned
+		attr(params:{[attr:string]:string|number|boolean|any}):Snap.Element;
 		attr(param:string):string;
 		before(el:Snap.Element):Snap.Element;
 		clone():Snap.Element;
 		data(key:string,value?:any):any;
 		getBBox():BBox;
-		getPointAtLength(length:number):Object;
+		getPointAtLength(length:number):{x:number, y:number, alpha:number};
 		getSubpath(from:number,to:number):string;
 		getTotalLength():number;
 		hasClass(value:string):boolean;
-		id:string;		
-		inAnim():Object;
+		inAnim(): { anim: Animation; mina: mina.AnimationDescriptor; curStatus: number; status: (n?: number) => number; stop: () => void }[];
 		innerSVG():string;
 		insertAfter(el:Snap.Element):Snap.Element;
 		insertBefore(el:Snap.Element):Snap.Element;
 		marker(x:number,y:number,width:number,height:number,refX:number,refY:number):Snap.Element;
-		node:Element;
+		node:HTMLElement;
 		outerSVG():string;
 		parent():Snap.Element;
 		pattern(x:any,y:any,width:any,height:any):Snap.Element;
@@ -155,70 +203,95 @@ declare module Snap {
 		toPattern(x:string,y:string,width:string,height:string):Object;
 		toString():string;
 		toggleClass(value:string,flag:boolean):Snap.Element;
-		transform(tstr:string):any;
+		transform(tstr:string):Snap.Element;
+		transform(): TransformationDescriptor;
 		type:string;
 		use():Object;
 		
-		click(handler:Function):Snap.Element;
-		unclick(handler:Function):Snap.Element;
-		dblclick(handler:Function):Snap.Element;
-		undblclick(handler:Function):Snap.Element;
-		mousedown(handler:Function):Snap.Element;
-		unmousedown(handler:Function):Snap.Element;
-		mousemove(handler:Function):Snap.Element;
-		unmousemove(handler:Function):Snap.Element;
-		mouseout(handler:Function):Snap.Element;
-		unmouseout(handler:Function):Snap.Element;
-		mouseover(handler:Function):Snap.Element;
-		unmouseover(handler:Function):Snap.Element;
-		mouseup(handler:Function):Snap.Element;
-		unmouseup(handler:Function):Snap.Element;
-		touchstart(handler:Function):Snap.Element;
-		untouchstart(handler:Function):Snap.Element;
-		touchmove(handler:Function):Snap.Element;
-		untouchmove(handler:Function):Snap.Element;
-		touchend(handler:Function):Snap.Element;
-		untouchend(handler:Function):Snap.Element;
-		touchcancel(handler:Function):Snap.Element;
-		untouchcancel(handler:Function):Snap.Element;
-		hover(f_in:Function,f_out:Function,icontext?:Object,ocontext?:Object):Snap.Element;
-        unhover(f_in: Function, f_out: Function): Snap.Element;
-        drag(): void;
-		drag(onmove:Function,onstart:Function,onend:Function,mcontext?:Object,scontext?:Object,econtext?:Object):Snap.Element;
-		undrag():Snap.Element;
+		
+        click(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
+        dblclick(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
+        mousedown(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
+        mousemove(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
+        mouseout(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
+        mouseover(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
+        mouseup(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
+        touchstart(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
+        touchmove(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
+        touchend(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
+        touchcancel(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
+        
+        unclick(handler?: (event: MouseEvent) => void): Snap.Element;
+        undblclick(handler: (event: MouseEvent) => void): Snap.Element;
+        unmousedown(handler: (event: MouseEvent) => void): Snap.Element;
+        unmousemove(handler: (event: MouseEvent) => void): Snap.Element;
+        unmouseout(handler: (event: MouseEvent) => void): Snap.Element;
+        unmouseover(handler: (event: MouseEvent) => void): Snap.Element;
+        unmouseup(handler: (event: MouseEvent) => void): Snap.Element;
+        untouchstart(handler: (event: MouseEvent) => void): Snap.Element;
+        untouchmove(handler: (event: MouseEvent) => void): Snap.Element;
+        untouchend(handler: (event: MouseEvent) => void): Snap.Element;
+        untouchcancel(handler: (event: MouseEvent) => void): Snap.Element;
+
+        hover(hoverInHandler: (event: MouseEvent) => void, hoverOutHandler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
+        hover(hoverInHandler: (event: MouseEvent) => void, hoverOutHandler: (event: MouseEvent) => void, inThisArg?: any, outThisArg?: any): Snap.Element;
+        unhover(hoverInHandler: (event: MouseEvent) => void, hoverOutHandler: (event: MouseEvent) => void): Snap.Element;
+		
+		drag():Snap.Element;
+        drag(onMove:  (dx: number, dy: number, event: MouseEvent) => void,
+             onStart: (x: number, y: number, event: MouseEvent) => void,
+             onEnd:   (event: MouseEvent) => void,
+             moveThisArg?: any,
+             startThisArg?: any,
+             endThisArg?: any): Snap.Element;
+
+        undrag(onMove:  (dx: number, dy: number, event: MouseEvent) => void,
+               onStart: (x: number, y: number, event: MouseEvent) => void,
+               onEnd:   (event: MouseEvent) => void): Snap.Element;
 	}
 	
 	export interface Fragment {
 		//TODO: The documentation says that selectAll returns a set, but the getting started guide
 		// uses .attr on the returned object. That's not supported by a set
 		select(query:string):Snap.Element;
-		selectAll(query:string):Snap.Set;
-		selectAll():Snap.Set;
+		selectAll(query ?:string):Snap.Set;
 	}
 	
+	
 	export interface Matrix {
-		add(a:number,b:number,c:number,d:number,e:number,f:number):void;
-		add(matrix:Matrix):void;
+		add(a:number,b:number,c:number,d:number,e:number,f:number):Matrix;
+		add(matrix:Matrix):Matrix;
 		clone():Matrix;
 		determinant():number;
 		invert():Matrix;
-		rotate(a:number,x:number,y:number):void;
-		scale(x:number,y?:number,cx?:number,cy?:number):void;
-		split():Object;
+		rotate(a:number,x?:number,y?:number):Matrix;
+		scale(x:number,y?:number,cx?:number,cy?:number):Matrix;
+		split():ExplicitTransform;
 		toTransformString():string;	
-		translate(x:number,y:number):void;
+		translate(x:number,y:number):Matrix;
 		x(x:number,y:number):number;
 		y(x:number,y:number):number;
 	
 	}
 	
+	interface ExplicitTransform {
+        dx: number;
+        dy: number;
+        scalex: number;
+        scaley: number;
+        shear: number;
+        rotate: number;
+        isSimple: boolean;
+    }
+	
 	interface Paper extends Snap.Element {
 
 	clear():void;
 	el(name:string, attr:Object):Snap.Element;
+	filter(filstr:string):Snap.Element;
 	gradient(gradient:string):any;
 	g(varargs?:any):any;
-	group(el?:any,...els:any[]):any;
+	group(...els:any[]):any;
 	mask(varargs:any):Object;
 	ptrn(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
 	svg(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
@@ -234,13 +307,14 @@ declare module Snap {
 	polygon(varargs:any[]):Snap.Element;
 	polyline(varargs:any[]):Snap.Element;
 	rect(x:number,y:number,width:number,height:number,rx?:number,ry?:number):Snap.Element;
-	text(x:number,y:number,text:string):Snap.Element;
-	text(x:number,y:number,text:Array<string>):Snap.Element;
+	text(x:number,y:number,text:string|number):Snap.Element;
+	text(x:number,y:number,text:Array<string|number>):Snap.Element;
 	}
 
 	export interface Set {
-		animate(attrs:Object,duration:number,easing?:Function,callback?:Function):Snap.Element;
-        attr(params: Object): Snap.Element;
+		animate(attrs:{[attr:string]:string|number|boolean|any},duration:number,easing?:(num:number)=>number,callback?:()=>void):Snap.Element;
+        animate(...params:Array<{attrs:any,duration:number,easing:(num:number)=>number,callback?:()=>void}>):Snap.Element;
+		attr(params: {[attr:string]:string|number|boolean|any}): Snap.Element;
         attr(param: string): string;
         bind(attr: string, callback: Function): Snap.Set;
 		bind(attr:string,element:Snap.Element):Snap.Set;
@@ -263,28 +337,41 @@ declare module Snap {
 		invert(amount:number):string;
 		saturate(amount:number):string;
 		sepia(amount:number):string;
-		shadow(dx:number,dy:number,blur?:number,color?:string,opacity?:number):string;
+		shadow(dx: number, dy: number, blur: number, color: string, opacity: number): string;
+        shadow(dx: number, dy: number, color: string, opacity: number): string;
+        shadow(dx: number, dy: number, opacity: number): string;	
 	}
 	
 	interface Path {
-		bezierBBox(...args:number[]):Object;
-		bezierBBox(bez:Array<number>):Object;
+		bezierBBox(...args:number[]):BBox;
+		bezierBBox(bez:Array<number>):BBox;
 		findDotsAtSegment(p1x:number,p1y:number,c1x:number,
 		                  c1y:number,c2x:number,c2y:number,
 		                  p2x:number,p2y:number,t:number):Object;
-		getBBox(path:string):Object;
+		getBBox(path:string):BBox;
 		getPointAtLength(path:string,length:number):Object;
 		getSubpath(path:string,from:number,to:number):string;
 		getTotalLength(path:string):number;
-		intersection(path1:string,path2:string):Array<any>;
-		isBBoxIntersect(bbox1:string,bbox2:string):boolean
+		intersection(path1:string,path2:string):Array<IntersectionDot>;
+		isBBoxIntersect(bbox1:BBox,bbox2:BBox):boolean
 		isPointInside(path:string,x:number,y:number):boolean;
-		isPointInsideBBox(bbox:string,x:string,y:string):boolean;
+		isPointInsideBBox(bbox:BBox,x:number,y:number):boolean;
 		map(path:string,matrix:Snap.Matrix):string;
 		map(path:string,matrix:Object):string;
 		toAbsolute(path:string):Array<any>;
 		toCubic(pathString:string):Array<any>;
 		toCubic(pathString:Array<string>):Array<any>;
 		toRelative(path:string):Array<any>;
+	}
+	
+	interface IntersectionDot{
+		x:number,
+		y:number,
+		t1:number,
+		t2:number,
+		segment1:number,
+		segment2:number,
+		bez1:Array<number>,
+		bez2:Array<number>
 	}
 }
