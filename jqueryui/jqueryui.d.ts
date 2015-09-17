@@ -342,7 +342,7 @@ declare module JQueryUI {
 
     interface DialogOptions extends DialogEvents {
         autoOpen?: boolean;
-        buttons?: { [buttonText: string]: (event?: Event) => void } | ButtonOptions[];
+        buttons?: { [buttonText: string]: (event?: Event) => void } | DialogButtonOptions[];
         closeOnEscape?: boolean;
         closeText?: string;
         dialogClass?: string;
@@ -364,6 +364,14 @@ declare module JQueryUI {
         zIndex?: number;
 
         close?: DialogEvent;
+    }
+
+    interface DialogButtonOptions {
+        icons?: any;
+        showText?: string | boolean;
+        text?: string;
+        click?: (eventObject: JQueryEventObject) => any;
+        [attr: string]: any; // attributes for the <button> element
     }
 
     interface DialogShowHideOptions {
