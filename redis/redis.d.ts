@@ -16,25 +16,25 @@ declare module "redis" {
 
     export var debug_mode:boolean;
 
-    interface MessageHandler {
-        (channel:string, message:any): void;
+    export interface MessageHandler<M> {
+        (channel:string, message:M): void;
     }
 
-    interface CommandT<R> { //This is a placeholder to be used eventually, to not have to define each command twice, or four times if all caps versions are to be implemented.
+    export interface CommandT<R> { //This is a placeholder to be used eventually, to not have to define each command twice, or four times if all caps versions are to be implemented.
         (args:any[], callback?:ResCallbackT<R>): void;
         (...args:any[]): void;
     }
 
-    interface ResCallbackT<R> {
+    export interface ResCallbackT<R> {
         (err:Error, res:R): void;
     }
 
-    interface ServerInfo {
+    export interface ServerInfo {
         redis_version: string;
         versions: number[];
     }
 
-    interface ClientOpts {
+    export interface ClientOpts {
         parser?: string;
         return_buffers?: boolean;
         detect_buffers?: boolean;
@@ -51,7 +51,7 @@ declare module "redis" {
         command_queue_low_water?: number;
     }
 
-    interface RedisClient extends NodeJS.EventEmitter {
+    export interface RedisClient extends NodeJS.EventEmitter {
         // event: connect
         // event: error
         // event: message
@@ -362,7 +362,7 @@ declare module "redis" {
         quit(...args:any[]): boolean;
     }
 
-    interface Multi {
+    export interface Multi {
         exec(callback?:ResCallbackT<any[]>): boolean;
 
         get(args:any[], callback?:ResCallbackT<string>): Multi;
