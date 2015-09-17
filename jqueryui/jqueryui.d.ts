@@ -9,7 +9,7 @@
 declare module JQueryUI {
     // Accordion //////////////////////////////////////////////////
 
-    interface AccordionOptions {
+    interface AccordionOptions extends AccordionEvents {
         active?: any; // boolean or number
         animate?: any; // boolean, number, string or object
         collapsible?: boolean;
@@ -37,7 +37,7 @@ declare module JQueryUI {
         create?: AccordionEvent;
     }
 
-    interface Accordion extends Widget, AccordionOptions, AccordionEvents {
+    interface Accordion extends Widget, AccordionOptions {
     }
 
 
@@ -517,9 +517,10 @@ declare module JQueryUI {
 
     // Progressbar //////////////////////////////////////////////////
 
-    interface ProgressbarOptions {
+    interface ProgressbarOptions extends ProgressbarEvents {
         disabled?: boolean;
         value?: number | boolean;
+        max?: number;
     }
 
     interface ProgressbarUIParams {
@@ -535,7 +536,7 @@ declare module JQueryUI {
         create?: ProgressbarEvent;
     }
 
-    interface Progressbar extends Widget, ProgressbarOptions, ProgressbarEvents {
+    interface Progressbar extends Widget, ProgressbarOptions {
     }
 
 
@@ -793,7 +794,7 @@ declare module JQueryUI {
 
     // Tooltip //////////////////////////////////////////////////
 
-    interface TooltipOptions {
+    interface TooltipOptions extends TooltipEvents {
         content?: any; // () or string
         disabled?: boolean;
         hide?: any; // boolean, number, string or object
@@ -816,7 +817,7 @@ declare module JQueryUI {
         open?: TooltipEvent;
     }
 
-    interface Tooltip extends Widget, TooltipOptions, TooltipEvents {
+    interface Tooltip extends Widget, TooltipOptions {
     }
 
 
