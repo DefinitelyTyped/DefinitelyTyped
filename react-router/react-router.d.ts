@@ -4,7 +4,6 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path='../react/react.d.ts' />
-///<reference path='../react/react-addons.d.ts' />
 
 declare module ReactRouter {
     import React = __React;
@@ -114,13 +113,12 @@ declare module ReactRouter {
     // Components
     // ----------------------------------------------------------------------
     // Link
-    interface LinkProp {
+    interface LinkProp extends React.HTMLAttributes {
         activeClassName?: string;
         activeStyle?: {};
         to: string;
         params?: {};
         query?: {};
-        onClick?: Function;
     }
     interface Link extends React.ReactElement<LinkProp>, Navigation, State {
         handleClick(event: any): void;

@@ -249,7 +249,7 @@ interface HighchartsCSSObject {
     fontWeight?: string;
     left?: string;
     opacity?: number;
-    padding?: string;
+    padding?: string | number;
     position?: string;
     top?: string;
 }

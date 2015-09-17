@@ -1,6 +1,6 @@
 /// <reference path="cheerio.d.ts" />
 
-import cheerio from 'cheerio';
+import * as cheerio from 'cheerio';
 
 /*
  * LOADING
@@ -29,7 +29,7 @@ $ = cheerio.load(html, {
     normalizeWhitespace: true,
     xmlMode: true,
     decodeEntities: true,
-    lowercaseTags: true,
+    lowerCaseTags: true,
     lowerCaseAttributeNames: true,
     recognizeCDATA: true,
     recognizeSelfClosing: true
