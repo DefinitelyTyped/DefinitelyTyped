@@ -413,3 +413,9 @@ polyline.addLatLng(latLngObjectLiteral);
 var popup: L.Popup = L.popup();
 popup.setLatLng(latLngLiteral);
 popup.setLatLng(latLngObjectLiteral);
+
+var zoomCtrl = L.control.zoom({
+    position: "topleft",
+    zoomInText: '+',
+    zoomOutText: '-'
+});
