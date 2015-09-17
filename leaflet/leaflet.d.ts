@@ -382,7 +382,7 @@ declare module L {
         onRemove(map: Map): void;
     }
 
-    module Control {
+    namespace Control {
         export interface ZoomStatic extends ClassStatic {
             /**
               * Creates a zoom control.
@@ -478,7 +478,7 @@ declare module L {
         function (options?: ControlOptions): Control;
     }
 
-    module control {
+    namespace control {
 
         /**
           * Creates a zoom control.
@@ -503,7 +503,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface ControlOptions {
 
@@ -517,9 +517,9 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
-    module CRS {
+    namespace CRS {
 
         /**
           * The most common CRS for online maps, used by almost all free and commercial
@@ -549,7 +549,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Creates a div icon instance with the given options.
@@ -568,7 +568,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface DivIconOptions {
 
@@ -602,7 +602,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface DomEvent {
 
@@ -663,9 +663,9 @@ declare module L {
     export var DomEvent: DomEvent;
 }
 
-declare module L {
+declare namespace L {
 
-    module DomUtil {
+    namespace DomUtil {
 
         /**
           * Returns an element with the given id if a string was passed, or just returns
@@ -766,7 +766,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Creates a Draggable object for moving the given element when you start dragging
@@ -816,7 +816,7 @@ declare module L {
 
 
 
-declare module L {
+declare namespace L {
 
     /**
       * Create a layer group, optionally given an initial set of layers.
@@ -894,7 +894,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface FitBoundsOptions extends ZoomPanOptions {
 
@@ -931,7 +931,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Creates a GeoJSON layer. Optionally accepts an object in GeoJSON format
@@ -994,7 +994,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
     export interface GeoJSONOptions {
         /**
           * Function that will be used for creating layers for GeoJSON points (if not
@@ -1031,7 +1031,7 @@ declare module L {
 
 
 
-declare module L {
+declare namespace L {
 
     /**
       * Creates an icon instance with the given options.
@@ -1058,7 +1058,7 @@ declare module L {
     export interface Icon {
     }
 
-    module Icon {
+    namespace Icon {
         /**
           * L.Icon.Default extends L.Icon and is the blue icon Leaflet uses
           * for markers by default.
@@ -1068,7 +1068,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface IconOptions {
 
@@ -1133,7 +1133,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface IControl {
 
@@ -1153,7 +1153,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface ICRS {
 
@@ -1205,7 +1205,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface IEventPowered<T> {
 
@@ -1285,7 +1285,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface IHandler {
 
@@ -1310,7 +1310,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface ILayer {
 
@@ -1329,8 +1329,8 @@ declare module L {
     }
 }
 
-declare module L {
-    module Mixin {
+declare namespace L {
+    namespace Mixin {
         export interface LeafletMixinEvents extends IEventPowered<LeafletMixinEvents> {
         }
 
@@ -1338,7 +1338,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates an image overlay object given the URL of the image and the geographical
@@ -1398,7 +1398,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface ImageOverlayOptions {
 
@@ -1409,7 +1409,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface IProjection {
 
@@ -1425,7 +1425,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
     * A constant that represents the Leaflet version in use.
@@ -1439,7 +1439,7 @@ declare module L {
     export function noConflict(): typeof L;
 }
 
-declare module L {
+declare namespace L {
     /**
       * Creates an object representing a geographical point with the given latitude
       * and longitude.
@@ -1524,7 +1524,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Creates a LatLngBounds object by defining south-west and north-east corners
@@ -1650,7 +1650,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Create a layer group, optionally given an initial set of layers.
@@ -1736,7 +1736,7 @@ declare module L {
 }
 
 
-declare module L {
+declare namespace L {
 
     export interface LayersOptions {
 
@@ -1766,7 +1766,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletErrorEvent extends LeafletEvent {
 
@@ -1782,7 +1782,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletEvent {
 
@@ -1798,7 +1798,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletGeoJSONEvent extends LeafletEvent {
 
@@ -1824,7 +1824,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletLayerEvent extends LeafletEvent {
 
@@ -1835,7 +1835,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletLocationEvent extends LeafletEvent {
 
@@ -1883,7 +1883,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletMouseEvent extends LeafletEvent {
 
@@ -1911,7 +1911,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletPopupEvent extends LeafletEvent {
 
@@ -1922,7 +1922,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletDragEndEvent extends LeafletEvent {
 
@@ -1933,7 +1933,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletResizeEvent extends LeafletEvent {
 
@@ -1949,7 +1949,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletTileEvent extends LeafletEvent {
 
@@ -1965,9 +1965,9 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
-    module LineUtil {
+    namespace LineUtil {
 
         /**
           * Dramatically reduces the number of points in a polyline while retaining
@@ -1999,7 +1999,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LocateOptions {
 
@@ -2052,7 +2052,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a map object given a div element and optionally an
@@ -2442,7 +2442,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface MapOptions {
 
@@ -2682,7 +2682,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface MapPanes {
 
@@ -2723,7 +2723,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a Marker object given a geographical point and optionally
@@ -2873,7 +2873,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface MarkerOptions {
 
@@ -2953,7 +2953,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a multi-polyline object given an array of latlngs arrays (one
@@ -2996,7 +2996,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a multi-polyline object given an array of arrays of geographical
@@ -3037,7 +3037,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface PanOptions {
 
@@ -3073,7 +3073,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface Path extends ILayer, IEventPowered<Path> {
 
@@ -3171,7 +3171,7 @@ declare module L {
         off(eventMap?: any, context?: any): Path;
     }
 
-    module Path {
+    namespace Path {
         /**
           * True if SVG is used for vector rendering (true for most modern browsers).
           */
@@ -3201,7 +3201,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface PathOptions {
 
@@ -3297,7 +3297,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Creates a Point object with the given x and y coordinates. If optional round
@@ -3373,7 +3373,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a polygon object given an array of geographical points and
@@ -3401,7 +3401,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a polyline object given an array of geographical points and
@@ -3453,7 +3453,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface PolylineOptions extends PathOptions {
 
@@ -3474,9 +3474,9 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
-    module PolyUtil {
+    namespace PolyUtil {
 
         /**
           * Clips the polygon geometry defined by the given points by rectangular bounds.
@@ -3488,7 +3488,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a Popup object given an optional options object that describes
@@ -3567,7 +3567,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface PopupOptions {
 
@@ -3665,7 +3665,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface PosAnimationStatic extends ClassStatic {
         /**
@@ -3702,9 +3702,9 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
-    module Projection {
+    namespace Projection {
 
         /**
           * Spherical Mercator projection — the most common projection for online maps,
@@ -3730,7 +3730,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a rectangle object with the given geographical bounds and
@@ -3756,7 +3756,7 @@ declare module L {
 }
 
 
-declare module L {
+declare namespace L {
 
     export interface ScaleOptions {
 
@@ -3794,7 +3794,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface TileLayerStatic extends ClassStatic {
         /**
@@ -3894,7 +3894,7 @@ declare module L {
         off(eventMap?: any, context?: any): TileLayer;
     }
 
-    module TileLayer {
+    namespace TileLayer {
         export interface WMS extends TileLayer {
             /**
               * Merges an object with the new parameters and re-requests tiles on the current
@@ -3942,7 +3942,7 @@ declare module L {
     export var tileLayer: TileLayerFactory;
 }
 
-declare module L {
+declare namespace L {
 
     export interface TileLayerOptions {
 
@@ -4089,7 +4089,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
     export interface TransformationStatic extends ClassStatic {
         /**
           * Creates a transformation object with the given coefficients.
@@ -4113,9 +4113,9 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
-    module Util {
+    namespace Util {
 
         /**
           * Merges the properties of the src object (or multiple objects) into dest object
@@ -4197,7 +4197,7 @@ declare module L {
 }
 
 
-declare module L {
+declare namespace L {
 
     export interface WMSOptions {
 
@@ -4238,7 +4238,7 @@ declare module L {
 }
 
 
-declare module L {
+declare namespace L {
 
     export interface ZoomOptions {
         /**
@@ -4250,7 +4250,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface ZoomPanOptions {
 
