@@ -1,427 +1,1254 @@
 /// <reference path="sequelize.d.ts" />
 
-import Sequelize = require('sequelize');
+import Sequelize = require("sequelize");
 
-var opts: Sequelize.Options;
-var defOpts: Sequelize.DefineOptions = {
-  indexes: [{
-    fields: [""],
-    type: "",
-    method: ""
-  }]
-};
-var attrOpts: Sequelize.AttributeOptions;
-var defIndexOpts: Sequelize.DefineIndexOptions;
-var indexOpts: Sequelize.IndexOptions;
-var dropOpts: Sequelize.DropOptions;
-var transOpts: Sequelize.TransactionOptions;
-var syncOpts: Sequelize.SyncOptions;
-var assocOpts: Sequelize.AssociationOptions;
-var schemaOpts: Sequelize.SchemaOptions;
-var findOpts: Sequelize.FindOptions
-var findCrOpts: Sequelize.FindOrCreateOptions;
-var queryOpts: Sequelize.QueryOptions;
-var buildOpts: Sequelize.BuildOptions;
-var copyOpts: Sequelize.CopyOptions;
-var bulkCrOpts: Sequelize.BulkCreateOptions;
-var destroyOpts: Sequelize.DestroyOptions;
-var destroyInstOpts: Sequelize.DestroyInstanceOptions;
-var updateOpts: Sequelize.UpdateOptions;
-var saveOpts: Sequelize.SaveOptions;
-var valOpts: Sequelize.ValidateOptions;
-var incrOpts: Sequelize.IncrementOptions;
+//
+//  Fixtures
+// ~~~~~~~~~~
+//
 
-var promiseMe: Sequelize.Promise;
-var emitMe: Sequelize.EventEmitter;
+interface AnyAttributes { };
+interface AnyInstance extends Sequelize.Instance<AnyInstance, AnyAttributes> { };
 
-var sequelize = new Sequelize("", "");
-sequelize = new Sequelize("", opts);
-sequelize = new Sequelize("", "", "");
-sequelize = new Sequelize("", "", opts);
-sequelize = new Sequelize("", "", "", opts);
+var s         = new Sequelize( '' );
+var sequelize = s;
+var DataTypes = Sequelize;
+var User      = s.define<AnyInstance, AnyAttributes>( 'user', {} );
+var user      = User.build();
+var Task      = s.define<AnyInstance, AnyAttributes>( 'task', {} );
+var Group     = s.define<AnyInstance, AnyAttributes>( 'group', {} );
+var Comment   = s.define<AnyInstance, AnyAttributes>( 'comment', {} );
+var Post      = s.define<AnyInstance, AnyAttributes>( 'post', {} );
+var t : Sequelize.Transaction = null;
+s.transaction().then( ( a ) => t = a );
 
-interface modelPojo {
-  name: string;
+//
+//  Generics
+// ~~~~~~~~~~
+//
+
+interface GUserAttributes {
+    id? : number;
+    username? : string;
 }
 
-interface modelInst extends Sequelize.Instance<modelInst, modelPojo>, modelPojo {
-    
+interface GUserInstance extends Sequelize.Instance<GUserInstance, GUserAttributes> {}
+var GUser = s.define<GUserInstance, GUserAttributes>( 'user', { id: Sequelize.INTEGER, username : Sequelize.STRING });
+GUser.create({ id : 1, username : 'one' }).then( ( guser ) => guser.save() );
+
+var schema : Sequelize.DefineAttributes = {
+    key : { type : Sequelize.STRING, primaryKey : true },
+    value : Sequelize.STRING
 };
 
-var myModelInst: modelInst;
-var myModelPojo: modelPojo;
+s.define('user', schema);
 
-sequelize.define<modelInst, modelPojo>("MyTable", attrOpts, defOpts);
-var model: Sequelize.Model<modelInst, modelPojo> = sequelize.model<modelInst, modelPojo>("MyTable");
-model = sequelize.import<modelInst, modelPojo>("");
-emitMe = sequelize.authenticate();
-sequelize.cast({}, "");
-sequelize.col("myCol");
-sequelize.models.MyTable;
-emitMe = sequelize.drop(dropOpts);
-emitMe = sequelize.createSchema("schema");
-emitMe = sequelize.dropAllSchemas();
-emitMe = sequelize.dropSchema("dbo");
-emitMe = sequelize.fn("upper", sequelize.col("username"));
-sequelize.literal("");
-sequelize.literal(1234);
-sequelize.and("", 1234);
-sequelize.or("", 123);
-sequelize.where("", "");
-sequelize.where("", sequelize.and("", ""));
-promiseMe= sequelize.transaction(transOpts);
-promiseMe = sequelize.transaction(transOpts, function (t:Sequelize.Transaction): boolean { return true; });
-emitMe = sequelize.query<modelInst, modelPojo>("", model).complete(function (err, result) { });
-emitMe = sequelize.query("");
-var dialect: string = sequelize.getDialect();
-emitMe = sequelize.showAllSchemas();
-emitMe = sequelize.sync(syncOpts);
+interface GTaskAttributes {
+    revision? : number;
+    name? : string;
+}
+interface GTaskInstance extends Sequelize.Instance<GTaskInstance, GTaskAttributes> {
+  upRevision(): void;
+}
+var GTask = s.define<GTaskInstance, GTaskAttributes>( 'task', { revision : Sequelize.INTEGER, name : Sequelize.STRING });
 
-model.addHook("", "", function () { });
-model.addHook("", function () { });
-model.beforeValidate("", function () { });
-model.afterValidate("", function () { });
-model.beforeCreate("", function () { });
-model.afterCreate("", function () { });
-model.beforeDestroy("", function () { });
-model.afterDestroy("", function () { });
-model.beforeUpdate("", function () { });
-model.afterUpdate("", function () { });
-model.beforeBulkCreate("", function () { });
-model.afterBulkCreate("", function () { });
-model.beforeBulkDestroy("", function () { });
-model.afterBulkDestroy("", function () { });
-model.beforeBulkUpdate("", function () { });
-model.afterBulkUpdate("", function () { });
+GUser.hasMany(GTask);
+
+GTask.create({ revision: 1, name: 'test' }).then( (gtask) => gtask.upRevision() );
 
 
-model.hasOne<modelInst, modelPojo>(model);
-model.hasOne<modelInst, modelPojo>(model, assocOpts);
-model.belongsTo<modelInst, modelPojo>(model);
-model.belongsTo<modelInst, modelPojo>(model, assocOpts);
-model.hasMany<modelInst, modelPojo>(model);
-model.hasMany<modelInst, modelPojo>(model, assocOpts);
-model.belongsToMany<modelInst, modelPojo>(model);
-model.belongsToMany<modelInst, modelPojo>(model, assocOpts);
+//
+//  Associations
+// ~~~~~~~~~~~~~~
+//
+//  https://github.com/sequelize/sequelize/tree/v3.4.1/test/integration/associations
+//
 
-promiseMe = model.sync();
-promiseMe = model.drop(dropOpts);
-model.schema("", schemaOpts);
-model.getTableName();
-model = model.scope({});
-model = model.scope("");
-model = model.scope([]);
-model = model.scope(null);
+User.hasOne( Task );
+User.hasOne( Task, { foreignKey : 'primaryGroupId', as : 'primaryUsers' } );
+User.hasOne( Task, { foreignKey : 'userCoolIdTag' } );
+User.hasOne( Task, { foreignKey : 'userId', keyType : Sequelize.STRING, constraints : false } );
+Task.hasOne( User, { foreignKey : { name : 'taskId', field : 'task_id' } } );
+User.hasOne( Task, { foreignKey : { name : 'uid', allowNull : false } } );
+User.hasOne( Task, { onDelete : 'cascade' } );
+User.hasOne( Task, { onUpdate : 'cascade' } );
+User.hasOne( Task, { onDelete : 'cascade', hooks : true } );
+User.hasOne( Task, { foreignKey : { allowNull : false } } );
+User.hasOne( Task, { foreignKeyConstraint : true } );
 
-model.find().then(function () { }, function () { });
-model.find().then(function () { });
-model.find().then(null, function () { });
-model.find().then(function (result: modelInst) { });
-model.find().then<modelInst>(function (result: modelInst): Sequelize.PromiseT<modelInst> { return model.find(1) });
-model.find().then<modelInst, any>(function (result: modelInst): Sequelize.PromiseT<modelInst> { return model.find(1) }, function (): Sequelize.PromiseT<any> { return model.find(1) });
+User.belongsTo( Task );
+User.belongsTo( Task, { foreignKey : 'primaryGroupId', as : 'primaryUsers' } );
+Task.belongsTo( User, { foreignKey : 'user_id' } );
+Task.belongsTo( User, { foreignKey : 'user_name', targetKey : 'username' } );
+User.belongsTo( User, { foreignKey : 'userId', keyType : Sequelize.STRING, constraints : false } );
+User.belongsTo( Post, { foreignKey : { name : 'AccountId', field : 'account_id' } } );
+Task.belongsTo( User, { foreignKey : { allowNull : false, name : 'uid' } } );
+Task.belongsTo( User, { constraints : false } );
+Task.belongsTo( User, { onDelete : 'cascade' } );
+Task.belongsTo( User, { onUpdate : 'restrict' } );
+User.belongsTo( User, {
+    as : 'parentBlocks',
+    foreignKey : 'child',
+    foreignKeyConstraint : true
+} );
 
-model.find().catch(function () { });
-model.find().catch(function (result: modelInst) { });
-model.find().catch(function (result: modelInst): Sequelize.Promise { return model.find(1) });
+User.hasMany( User );
+User.hasMany( User, { foreignKey : 'primaryGroupId', as : 'primaryUsers' } );
+User.hasMany( Task, { foreignKey : 'userId' } );
+User.hasMany( Task, { foreignKey : 'userId', as : 'activeTasks', scope : { active : true } } );
+User.hasMany( Task, { foreignKey : 'userId', keyType : Sequelize.STRING, constraints : false } );
+User.hasMany( Task, { foreignKey : { name : 'uid', allowNull : false } } );
+User.hasMany( Task, { foreignKey : { allowNull : true } } );
+User.hasMany( Task, { as : 'Children' } );
+User.hasMany( Task, { as : { singular : 'task', plural : 'taskz' } } );
+User.hasMany( Task, { constraints : false } );
+User.hasMany( Task, { onDelete : 'cascade' } );
+User.hasMany( Task, { onUpdate : 'cascade' } );
+Post.hasMany( Task, { foreignKey : 'commentable_id', scope : { commentable : 'post' } } );
+User.hasMany( User, {
+    as : 'childBlocks',
+    foreignKey : 'parent',
+    foreignKeyConstraint : true
+} );
 
-model.find().spread(function () { }, function () { });
-model.find().spread(function () { });
-model.find().spread(null, function () { });
-model.find().spread(function (result: modelInst) { });
-model.find().spread(function (result1: modelInst, result2: any) { });
-model.find().spread(null, function (result1: any, result2: boolean) { });
-model.find().spread(function (result: modelInst): Sequelize.Promise { return model.find(1) });
-model.find().spread<modelInst>(function (result: modelInst): Sequelize.PromiseT<modelInst> { return model.find(1) });
-model.find().spread<modelInst>(function (result: modelInst) { }, function (): Sequelize.PromiseT<modelInst> { return model.find(1) });
-model.find().spread<modelInst, any>(function (result: modelInst): Sequelize.PromiseT<modelInst> { return model.find(1) }, function (): Sequelize.PromiseT<any> { return model.find(1) });
+User.belongsToMany( Task, { through : 'UserTasks' } );
+User.belongsToMany( User, { through : Task } );
+User.belongsToMany( Group, { as : 'groups', through : Task, foreignKey : 'id_user' } );
+User.belongsToMany( Task, { as : 'activeTasks', through : Task, scope : { active : true } } );
+User.belongsToMany( Task, { as : 'startedTasks', through : { model : Task, scope : { started : true } } } );
+User.belongsToMany( Group, { through : 'group_members', foreignKey : 'group_id', otherKey : 'member_id' } );
+User.belongsToMany( User, { as : 'Participants', through : User } );
+User.belongsToMany( Group, { through : 'user_places', foreignKey : 'user_id' } );
+User.belongsToMany( Group, {
+    through : 'user_projects',
+    as : 'Projects',
+    foreignKey : {
+        field : 'user_id',
+        name : 'userId'
+    },
+    otherKey : {
+        field : 'project_id',
+        name : 'projectId'
+    }
+} );
+User.belongsToMany( Task, { onDelete : 'RESTRICT', through : 'tasksusers' } );
+User.belongsToMany( Task, { constraints : false, through : 'tasksusers' } );
+User.belongsToMany( Task, { foreignKey : { name : 'user_id', defaultValue : 42 }, through : 'UserProjects' } );
+User.belongsToMany( Post, { through : User } );
+Post.belongsToMany( User, { as : 'categories', through : User, scope : { type : 'category' } } );
+Post.belongsToMany( User, { as : 'tags', through : User, scope : { type : 'tag' } } );
+Post.belongsToMany( User, {
+    through : {
+        model : User,
+        unique : false,
+        scope : {
+            taggable : 'post'
+        }
+    },
+    foreignKey : 'taggable_id',
+    constraints : false
+} );
+Post.belongsToMany( Post, { through : { model : Post, unique : false }, foreignKey : 'tag_id' } );
+Post.belongsToMany( Post, { as : 'Parents', through : 'Family', foreignKey : 'ChildId', otherKey : 'PersonId' } );
 
-promiseMe = model.findAll(findOpts, queryOpts);
-promiseMe = model.findAll(findOpts);
-promiseMe = model.findAll();
-promiseMe = model.find(findOpts, queryOpts);
-promiseMe = model.find(findOpts);
-promiseMe = model.find(1, queryOpts);
-promiseMe = model.find(1);
-promiseMe = model.find();
-promiseMe = model.aggregate<number>("", "", findOpts);
-promiseMe = model.count();
-promiseMe = model.count(findOpts);
-promiseMe = model.findAndCountAll(findOpts, queryOpts);
-promiseMe = model.findAndCountAll(findOpts);
-promiseMe = model.findAndCountAll();
-promiseMe = model.max<number>("", findOpts);
-promiseMe = model.max<number>("");
-promiseMe = model.min<number>("", findOpts);
-promiseMe = model.min<number>("");
-promiseMe = model.sum("", findOpts);
-promiseMe = model.sum("");
-myModelInst = model.build(myModelPojo, buildOpts);
-myModelInst = model.build(myModelPojo);
-promiseMe = model.create(myModelPojo, copyOpts);
-promiseMe = model.create(myModelPojo);
-promiseMe = model.findOrInitialize({}, myModelPojo, queryOpts);
-promiseMe = model.findOrInitialize({}, myModelPojo);
-promiseMe = model.findOrInitialize({});
-promiseMe = model.findOrCreate({}, myModelPojo, findCrOpts);
-promiseMe = model.findOrCreate({}, myModelPojo);
-promiseMe = model.findOrCreate({});
-promiseMe = model.bulkCreate([myModelPojo], bulkCrOpts);
-promiseMe = model.bulkCreate([myModelPojo]);
-promiseMe = model.destroy({}, destroyOpts);
-promiseMe = model.destroy({});
-promiseMe = model.destroy();
-promiseMe = model.update(myModelPojo, {}, updateOpts);
-promiseMe = model.update(myModelPojo, {});
-promiseMe = model.describe();
-model.dataset;
-//var isDefined: boolean = sequelize.isDefined("");
+//
+//  DataTypes
+// ~~~~~~~~~~~
+//
+//  https://github.com/sequelize/sequelize/blob/v3.4.1/test/unit/sql/data-types.test.js
+//
 
-model.find().spread(function (arg1: string, arg2: number) {
-  return model.find();
-});
+Sequelize.STRING;
+Sequelize.STRING( 1234 );
+Sequelize.STRING( { length : 1234 } );
+Sequelize.STRING( 1234 ).BINARY;
+Sequelize.STRING.BINARY;
+Sequelize.TEXT;
+Sequelize.TEXT( 'tiny' );
+Sequelize.TEXT( { length : 'tiny' } );
+Sequelize.TEXT( 'medium' );
+Sequelize.TEXT( 'long' );
+Sequelize.CHAR;
+Sequelize.CHAR( 12 );
+Sequelize.CHAR( { length : 12 } );
+Sequelize.CHAR( 12 ).BINARY;
+Sequelize.CHAR.BINARY;
+Sequelize.BOOLEAN;
+Sequelize.DATE;
+Sequelize.UUID;
+Sequelize.UUIDV1;
+Sequelize.UUIDV4;
+Sequelize.NOW;
+Sequelize.INTEGER;
+Sequelize.INTEGER.UNSIGNED;
+Sequelize.INTEGER.UNSIGNED.ZEROFILL;
+Sequelize.INTEGER( 11 );
+Sequelize.INTEGER( { length : 11 } );
+Sequelize.INTEGER( 11 ).UNSIGNED;
+Sequelize.INTEGER( 11 ).UNSIGNED.ZEROFILL;
+Sequelize.INTEGER( 11 ).ZEROFILL;
+Sequelize.INTEGER( 11 ).ZEROFILL.UNSIGNED;
+Sequelize.BIGINT;
+Sequelize.BIGINT.UNSIGNED;
+Sequelize.BIGINT.UNSIGNED.ZEROFILL;
+Sequelize.BIGINT( 11 );
+Sequelize.BIGINT( { length : 11 } );
+Sequelize.BIGINT( 11 ).UNSIGNED;
+Sequelize.BIGINT( 11 ).UNSIGNED.ZEROFILL;
+Sequelize.BIGINT( 11 ).ZEROFILL;
+Sequelize.BIGINT( 11 ).ZEROFILL.UNSIGNED;
+Sequelize.REAL.UNSIGNED;
+Sequelize.REAL( 11 );
+Sequelize.REAL( { length : 11 } );
+Sequelize.REAL( 11 ).UNSIGNED;
+Sequelize.REAL( 11 ).UNSIGNED.ZEROFILL;
+Sequelize.REAL( 11 ).ZEROFILL;
+Sequelize.REAL( 11 ).ZEROFILL.UNSIGNED;
+Sequelize.REAL( 11, 12 );
+Sequelize.REAL( 11, 12 ).UNSIGNED;
+Sequelize.REAL( { length : 11, decimals : 12 } ).UNSIGNED;
+Sequelize.REAL( 11, 12 ).UNSIGNED.ZEROFILL;
+Sequelize.REAL( 11, 12 ).ZEROFILL;
+Sequelize.REAL( 11, 12 ).ZEROFILL.UNSIGNED;
+Sequelize.DOUBLE;
+Sequelize.DOUBLE.UNSIGNED;
+Sequelize.DOUBLE( 11 );
+Sequelize.DOUBLE( 11 ).UNSIGNED;
+Sequelize.DOUBLE( { length : 11 } ).UNSIGNED;
+Sequelize.DOUBLE( 11 ).UNSIGNED.ZEROFILL;
+Sequelize.DOUBLE( 11 ).ZEROFILL;
+Sequelize.DOUBLE( 11 ).ZEROFILL.UNSIGNED;
+Sequelize.DOUBLE( 11, 12 );
+Sequelize.DOUBLE( 11, 12 ).UNSIGNED;
+Sequelize.DOUBLE( 11, 12 ).UNSIGNED.ZEROFILL;
+Sequelize.DOUBLE( 11, 12 ).ZEROFILL;
+Sequelize.DOUBLE( 11, 12 ).ZEROFILL.UNSIGNED;
+Sequelize.FLOAT;
+Sequelize.FLOAT.UNSIGNED;
+Sequelize.FLOAT( 11 );
+Sequelize.FLOAT( 11 ).UNSIGNED;
+Sequelize.FLOAT( 11 ).UNSIGNED.ZEROFILL;
+Sequelize.FLOAT( 11 ).ZEROFILL;
+Sequelize.FLOAT( { length : 11 } ).ZEROFILL;
+Sequelize.FLOAT( 11 ).ZEROFILL.UNSIGNED;
+Sequelize.FLOAT( 11, 12 );
+Sequelize.FLOAT( 11, 12 ).UNSIGNED;
+Sequelize.FLOAT( { length : 11, decimals : 12 } ).UNSIGNED;
+Sequelize.FLOAT( 11, 12 ).UNSIGNED.ZEROFILL;
+Sequelize.FLOAT( 11, 12 ).ZEROFILL;
+Sequelize.FLOAT( 11, 12 ).ZEROFILL.UNSIGNED;
+Sequelize.NUMERIC;
+Sequelize.NUMERIC( 15, 5 );
+Sequelize.DECIMAL;
+Sequelize.DECIMAL( 10, 2 );
+Sequelize.DECIMAL( { precision : 10, scale : 2 } );
+Sequelize.DECIMAL( 10 );
+Sequelize.DECIMAL( { precision : 10 } );
+Sequelize.ENUM( 'value 1', 'value 2' );
+Sequelize.BLOB;
+Sequelize.BLOB( 'tiny' );
+Sequelize.BLOB( 'medium' );
+Sequelize.BLOB( { length : 'medium' } );
+Sequelize.BLOB( 'long' );
+Sequelize.ARRAY( Sequelize.STRING );
+Sequelize.ARRAY( Sequelize.STRING( 100 ) );
+Sequelize.ARRAY( Sequelize.INTEGER );
+Sequelize.ARRAY( Sequelize.HSTORE );
+Sequelize.ARRAY( Sequelize.ARRAY( Sequelize.STRING ) );
+Sequelize.ARRAY( Sequelize.TEXT );
+Sequelize.ARRAY( Sequelize.DATE );
+Sequelize.ARRAY( Sequelize.BOOLEAN );
+Sequelize.ARRAY( Sequelize.DECIMAL );
+Sequelize.ARRAY( Sequelize.DECIMAL( 6 ) );
+Sequelize.ARRAY( Sequelize.DECIMAL( 6, 4 ) );
+Sequelize.ARRAY( Sequelize.DOUBLE );
+Sequelize.ARRAY( Sequelize.REAL );
+Sequelize.ARRAY( Sequelize.JSON );
+Sequelize.ARRAY( Sequelize.JSONB );
+Sequelize.GEOMETRY;
+Sequelize.GEOMETRY( 'POINT' );
+Sequelize.GEOMETRY( 'LINESTRING' );
+Sequelize.GEOMETRY( 'POLYGON' );
+Sequelize.GEOMETRY( 'POINT', 4326 );
 
-var isBool: boolean;
-var strArr: Array<string>;
+//
+//  Deferrable
+// ~~~~~~~~~~~~
+//
+//  https://github.com/sequelize/sequelize/blob/v3.4.1/test/integration/sequelize/deferrable.test.js
+//
 
-isBool = myModelInst.isNewRecord;
-model = myModelInst.Model;
-sequelize = myModelInst.sequelize;
-isBool = myModelInst.isDeleted;
-myModelPojo = myModelInst.values;
-isBool = myModelInst.isDirty;
-myModelPojo = myModelInst.primaryKeyValues;
-myModelInst.getDataValue("");
-myModelInst.setDataValue("", "");
-myModelInst.setDataValue("", 123);
-myModelInst.get("");
-myModelInst.set("", "");
-myModelInst.set("", 123);
-isBool = myModelInst.changed("");
-strArr = myModelInst.changed();
-myModelInst.previous("");
-promiseMe = myModelInst.save(["", ""], saveOpts);
-promiseMe = myModelInst.save(["", ""]);
-promiseMe = myModelInst.reload();
-promiseMe = myModelInst.reload(findOpts);
-promiseMe = myModelInst.validate(valOpts);
-promiseMe = myModelInst.validate();
-promiseMe = myModelInst.updateAttributes(myModelPojo, saveOpts);
-promiseMe = myModelInst.destroy(destroyInstOpts);
-promiseMe = myModelInst.destroy();
-promiseMe = myModelInst.increment({}, incrOpts);
-promiseMe = myModelInst.increment({});
-promiseMe = myModelInst.decrement({}, incrOpts);
-isBool = myModelInst.equal(myModelInst);
-isBool = myModelInst.equalsOneOf([myModelInst]);
-myModelPojo = myModelInst.toJSON();
+Sequelize.Deferrable.NOT;
+Sequelize.Deferrable.INITIALLY_IMMEDIATE;
+Sequelize.Deferrable.INITIALLY_DEFERRED;
+Sequelize.Deferrable.SET_DEFERRED;
+Sequelize.Deferrable.SET_DEFERRED( ['taskTableName_user_id_fkey'] );
+Sequelize.Deferrable.SET_IMMEDIATE;
+Sequelize.Deferrable.SET_IMMEDIATE( ['taskTableName_user_id_fkey'] );
 
+//
+//  Errors
+// ~~~~~~~~
+//
+//  https://github.com/sequelize/sequelize/blob/v3.4.1/test/integration/error.test.js
+//
 
-// data types test
-var types:any = Sequelize.STRING;
-types = Sequelize.STRING(12);
-types = Sequelize.STRING(12, true);
-types = Sequelize.STRING.BINARY;
-types = Sequelize.STRING(12).BINARY;
-types = Sequelize.STRING.BINARY(12);
-types = Sequelize.STRING({length:12, binary:true});
-types = Sequelize.STRING({length:12}).BINARY;
+Sequelize.Error;
+Sequelize.ValidationError;
+s.Error;
+s.ValidationError;
+new s.ValidationError( 'Validation Error', [
+    new s.ValidationErrorItem( '<field name> cannot be null', 'notNull Violation', '<field name>', null )
+    , new s.ValidationErrorItem( '<field name> cannot be an array or an object', 'string violation',
+        '<field name>', null )
+] );
+new s.Error();
+new s.ValidationError();
+new s.ValidationErrorItem( 'invalid', 'type', 'first_name', null );
+new s.ValidationErrorItem( 'invalid', 'type', 'last_name', null );
+new s.DatabaseError( new Error( 'original database error message' ) );
+new s.ConnectionError( new Error( 'original connection error message' ) );
+new s.ConnectionRefusedError( new Error( 'original connection error message' ) );
+new s.AccessDeniedError( new Error( 'original connection error message' ) );
+new s.HostNotFoundError( new Error( 'original connection error message' ) );
+new s.HostNotReachableError( new Error( 'original connection error message' ) );
+new s.InvalidConnectionError( new Error( 'original connection error message' ) );
+new s.ConnectionTimedOutError( new Error( 'original connection error message' ) );
 
-types = Sequelize.CHAR;
-types = Sequelize.CHAR(12);
-types = Sequelize.CHAR(12, true);
-types = Sequelize.CHAR.BINARY;
-types = Sequelize.CHAR(12).BINARY;
-types = Sequelize.CHAR.BINARY(12);
-types = Sequelize.CHAR({length:12, binary:true});
-types = Sequelize.CHAR({length:12}).BINARY;
+//
+//  Hooks
+// ~~~~~~~
+//
+//  https://github.com/sequelize/sequelize/blob/v3.4.1/test/integration/hooks.test.js
+//
 
-types = Sequelize.TEXT;
-types = Sequelize.TEXT('tiny');
-types = Sequelize.TEXT({length:'tiny'});
+User.addHook( 'afterCreate', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function ) { next(); } );
+User.addHook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function) { next(); } );
+s.addHook( 'beforeInit', function( config : Object, options : Object ) { } );
+User.hook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function) { next(); } );
+User.hook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function ) { next(); } );
 
-types = Sequelize.NUMBER;
-var numberOptions = {length:12, zerofill:true, decimals:1, precision:1, scale:1, unsigned:true};
-types = Sequelize.NUMBER(numberOptions);
+User.removeHook( 'afterCreate', 'myHook' );
 
-types = Sequelize.INTEGER;
-types = Sequelize.INTEGER.ZEROFILL;
-types = Sequelize.INTEGER.UNSIGNED;
-types = Sequelize.INTEGER.ZEROFILL.UNSIGNED;
-types = Sequelize.INTEGER.UNSIGNED.ZEROFILL;
-types = Sequelize.INTEGER(12);
-types = Sequelize.INTEGER(12).ZEROFILL;
-types = Sequelize.INTEGER(12).UNSIGNED;
-types = Sequelize.INTEGER(12).ZEROFILL.UNSIGNED;
-types = Sequelize.INTEGER(12).UNSIGNED.ZEROFILL;
-types = Sequelize.INTEGER(numberOptions);
-types = Sequelize.INTEGER(numberOptions).ZEROFILL;
-types = Sequelize.INTEGER(numberOptions).UNSIGNED;
-types = Sequelize.INTEGER(numberOptions).ZEROFILL.UNSIGNED;
-types = Sequelize.INTEGER(numberOptions).UNSIGNED.ZEROFILL;
+User.hasHook( 'afterCreate' );
+User.hasHooks( 'afterCreate' );
 
-types = Sequelize.BIGINT;
-types = Sequelize.BIGINT.ZEROFILL;
-types = Sequelize.BIGINT.UNSIGNED;
-types = Sequelize.BIGINT.ZEROFILL.UNSIGNED;
-types = Sequelize.BIGINT.UNSIGNED.ZEROFILL;
-types = Sequelize.BIGINT(12);
-types = Sequelize.BIGINT(12).ZEROFILL;
-types = Sequelize.BIGINT(12).UNSIGNED;
-types = Sequelize.BIGINT(12).ZEROFILL.UNSIGNED;
-types = Sequelize.BIGINT(12).UNSIGNED.ZEROFILL;
-types = Sequelize.BIGINT(numberOptions);
-types = Sequelize.BIGINT(numberOptions).ZEROFILL;
-types = Sequelize.BIGINT(numberOptions).UNSIGNED;
-types = Sequelize.BIGINT(numberOptions).ZEROFILL.UNSIGNED;
-types = Sequelize.BIGINT(numberOptions).UNSIGNED.ZEROFILL;
+User.beforeValidate( function( user, options ) { user.isNewRecord; } );
+User.beforeValidate( 'myHook', function( user, options ) { user.isNewRecord; } );
 
-types = Sequelize.FLOAT;
-types = Sequelize.FLOAT.ZEROFILL;
-types = Sequelize.FLOAT.UNSIGNED;
-types = Sequelize.FLOAT.ZEROFILL.UNSIGNED;
-types = Sequelize.FLOAT.UNSIGNED.ZEROFILL;
-types = Sequelize.FLOAT(12);
-types = Sequelize.FLOAT(12).ZEROFILL;
-types = Sequelize.FLOAT(12).UNSIGNED;
-types = Sequelize.FLOAT(12).ZEROFILL.UNSIGNED;
-types = Sequelize.FLOAT(12).UNSIGNED.ZEROFILL;
-types = Sequelize.FLOAT(12,12);
-types = Sequelize.FLOAT(12,12).ZEROFILL;
-types = Sequelize.FLOAT(12,12).UNSIGNED;
-types = Sequelize.FLOAT(12,12).ZEROFILL.UNSIGNED;
-types = Sequelize.FLOAT(12,12).UNSIGNED.ZEROFILL;
-types = Sequelize.FLOAT(numberOptions);
-types = Sequelize.FLOAT(numberOptions).ZEROFILL;
-types = Sequelize.FLOAT(numberOptions).UNSIGNED;
-types = Sequelize.FLOAT(numberOptions).ZEROFILL.UNSIGNED;
-types = Sequelize.FLOAT(numberOptions).UNSIGNED.ZEROFILL;
+User.afterValidate( function( user, options ) { user.isNewRecord; } );
+User.afterValidate( 'myHook', function( user, options ) { user.isNewRecord; } );
 
-types = Sequelize.DOUBLE;
-types = Sequelize.DOUBLE.ZEROFILL;
-types = Sequelize.DOUBLE.UNSIGNED;
-types = Sequelize.DOUBLE.ZEROFILL.UNSIGNED;
-types = Sequelize.DOUBLE.UNSIGNED.ZEROFILL;
-types = Sequelize.DOUBLE(12);
-types = Sequelize.DOUBLE(12).ZEROFILL;
-types = Sequelize.DOUBLE(12).UNSIGNED;
-types = Sequelize.DOUBLE(12).ZEROFILL.UNSIGNED;
-types = Sequelize.DOUBLE(12).UNSIGNED.ZEROFILL;
-types = Sequelize.DOUBLE(12,12);
-types = Sequelize.DOUBLE(12,12).ZEROFILL;
-types = Sequelize.DOUBLE(12,12).UNSIGNED;
-types = Sequelize.DOUBLE(12,12).ZEROFILL.UNSIGNED;
-types = Sequelize.DOUBLE(12,12).UNSIGNED.ZEROFILL;
-types = Sequelize.DOUBLE(numberOptions);
-types = Sequelize.DOUBLE(numberOptions).ZEROFILL;
-types = Sequelize.DOUBLE(numberOptions).UNSIGNED;
-types = Sequelize.DOUBLE(numberOptions).ZEROFILL.UNSIGNED;
-types = Sequelize.DOUBLE(numberOptions).UNSIGNED.ZEROFILL;
+User.beforeCreate( function( user, options ) { user.isNewRecord; } );
+User.beforeCreate( function( user, options, fn ) {fn();} );
+User.beforeCreate( 'myHook', function( user, options ) { user.isNewRecord; } );
 
-types = Sequelize.TIME;
-types = Sequelize.DATE;
-types = Sequelize.DATEONLY;
-types = Sequelize.BOOLEAN;
-types = Sequelize.NOW;
+User.afterCreate( function( user, options ) { user.isNewRecord; } );
+User.afterCreate( function( user, options, fn ) {fn();} );
+User.afterCreate( 'myHook', function( user, options ) { user.isNewRecord; } );
 
-types = Sequelize.BLOB;
-types = Sequelize.BLOB('tiny');
-types = Sequelize.BLOB({length:'tiny'});
+User.beforeDestroy( function( user, options ) {throw new Error( 'Whoops!' );} );
+User.beforeDestroy( function( user, options, fn ) {fn();} );
+User.beforeDestroy( 'myHook', function( user, options ) {throw new Error( 'Whoops!' );} );
+User.beforeDelete( function( user, options ) {throw new Error( 'Whoops!' );} );
+User.beforeDelete( 'myHook', function( user, options ) {throw new Error( 'Whoops!' );} );
 
-types = Sequelize.DECIMAL;
-types = Sequelize.DECIMAL.ZEROFILL;
-types = Sequelize.DECIMAL.UNSIGNED;
-types = Sequelize.DECIMAL.ZEROFILL.UNSIGNED;
-types = Sequelize.DECIMAL.UNSIGNED.ZEROFILL;
-types = Sequelize.DECIMAL(12,12);
-types = Sequelize.DECIMAL(12,12).ZEROFILL;
-types = Sequelize.DECIMAL(12,12).UNSIGNED;
-types = Sequelize.DECIMAL(12,12).ZEROFILL.UNSIGNED;
-types = Sequelize.DECIMAL(12,12).UNSIGNED.ZEROFILL;
-types = Sequelize.DECIMAL(numberOptions);
-types = Sequelize.DECIMAL(numberOptions).ZEROFILL;
-types = Sequelize.DECIMAL(numberOptions).UNSIGNED;
-types = Sequelize.DECIMAL(numberOptions).ZEROFILL.UNSIGNED;
-types = Sequelize.DECIMAL(numberOptions).UNSIGNED.ZEROFILL;
+User.afterDestroy( function( user, options ) {throw new Error( 'Whoops!' );} );
+User.afterDestroy( 'myHook', function( user, options ) {throw new Error( 'Whoops!' );} );
+User.afterDestroy( function( user, options, fn ) {fn();} );
+User.afterDelete( function( user, options ) {throw new Error( 'Whoops!' );} );
+User.afterDelete( 'myHook', function( user, options ) {throw new Error( 'Whoops!' );} );
 
-types = Sequelize.NUMERIC;
-types = Sequelize.NUMERIC.ZEROFILL;
-types = Sequelize.NUMERIC.UNSIGNED;
-types = Sequelize.NUMERIC.ZEROFILL.UNSIGNED;
-types = Sequelize.NUMERIC.UNSIGNED.ZEROFILL;
-types = Sequelize.NUMERIC(12,12);
-types = Sequelize.NUMERIC(12,12).ZEROFILL;
-types = Sequelize.NUMERIC(12,12).UNSIGNED;
-types = Sequelize.NUMERIC(12,12).ZEROFILL.UNSIGNED;
-types = Sequelize.NUMERIC(12,12).UNSIGNED.ZEROFILL;
-types = Sequelize.NUMERIC(numberOptions);
-types = Sequelize.NUMERIC(numberOptions).ZEROFILL;
-types = Sequelize.NUMERIC(numberOptions).UNSIGNED;
-types = Sequelize.NUMERIC(numberOptions).ZEROFILL.UNSIGNED;
-types = Sequelize.NUMERIC(numberOptions).UNSIGNED.ZEROFILL;
+User.beforeUpdate( function( user, options ) {throw new Error( 'Whoops!' ); } );
+User.beforeUpdate( 'myHook', function( user, options ) {throw new Error( 'Whoops!' ); } );
 
-types = Sequelize.UUID;
-types = Sequelize.UUIDV1;
-types = Sequelize.UUIDV4;
-types = Sequelize.HSTORE;
-types = Sequelize.JSON;
-types = Sequelize.JSONB;
-types = Sequelize.VIRTUAL;
+User.afterUpdate( function( user, options ) {throw new Error( 'Whoops!' );} );
+User.afterUpdate( 'myHook', function( user, options ) {throw new Error( 'Whoops!' );} );
 
-types = Sequelize.ARRAY(Sequelize.INTEGER(12));
-types = Sequelize.ARRAY({type: Sequelize.BLOB});
-var obj = {};
-var isbool:boolean = types.is(obj, obj);
+User.beforeBulkCreate( function( daos, options ) { throw new Error( 'Whoops!' );} );
+User.beforeBulkCreate( 'myHook', function( daos, options ) { throw new Error( 'Whoops!' );} );
+User.beforeBulkCreate( function( daos, options, fn ) {fn();} );
 
-types = Sequelize.NONE;
-types = Sequelize.ENUM("one", "two", 'three');
+User.afterBulkCreate( function( daos, options ) {throw new Error( 'Whoops!' ); } );
+User.afterBulkCreate( 'myHook', function( daos, options ) {throw new Error( 'Whoops!' ); } );
+User.afterBulkCreate( function( daos, options, fn ) {fn();} );
 
-types = Sequelize.RANGE(Sequelize.INTEGER(12));
-types = Sequelize.RANGE({subtype: Sequelize.BLOB});
+User.beforeBulkDestroy( function( options ) {throw new Error( 'Whoops!' );} );
+User.beforeBulkDestroy( function( options, fn ) {fn();} );
+User.beforeBulkDestroy( 'myHook', function( options, fn ) {fn();} );
+User.beforeBulkDelete( 'myHook', function( options, fn ) {fn();} );
 
-types = Sequelize.REAL;
-types = Sequelize.REAL.ZEROFILL;
-types = Sequelize.REAL.UNSIGNED;
-types = Sequelize.REAL.ZEROFILL.UNSIGNED;
-types = Sequelize.REAL.UNSIGNED.ZEROFILL;
-types = Sequelize.REAL(12,12);
-types = Sequelize.REAL(12,12).ZEROFILL;
-types = Sequelize.REAL(12,12).UNSIGNED;
-types = Sequelize.REAL(12,12).ZEROFILL.UNSIGNED;
-types = Sequelize.REAL(12,12).UNSIGNED.ZEROFILL;
-types = Sequelize.REAL(numberOptions);
-types = Sequelize.REAL(numberOptions).ZEROFILL;
-types = Sequelize.REAL(numberOptions).UNSIGNED;
-types = Sequelize.REAL(numberOptions).ZEROFILL.UNSIGNED;
-types = Sequelize.REAL(numberOptions).UNSIGNED.ZEROFILL;
+User.afterBulkDestroy( function( options ) {throw new Error( 'Whoops!' );} );
+User.afterBulkDestroy( function( options, fn ) {fn();} );
+User.afterBulkDestroy( 'myHook', function( options, fn ) {fn();} );
+User.afterBulkDelete( 'myHook', function( options, fn ) {fn();} );
 
-types = Sequelize.DOUBLE;
-types = Sequelize.DOUBLE.ZEROFILL;
-types = Sequelize.DOUBLE.UNSIGNED;
-types = Sequelize.DOUBLE.ZEROFILL.UNSIGNED;
-types = Sequelize.DOUBLE.UNSIGNED.ZEROFILL;
-types = Sequelize.DOUBLE(12,12);
-types = Sequelize.DOUBLE(12,12).ZEROFILL;
-types = Sequelize.DOUBLE(12,12).UNSIGNED;
-types = Sequelize.DOUBLE(12,12).ZEROFILL.UNSIGNED;
-types = Sequelize.DOUBLE(12,12).UNSIGNED.ZEROFILL;
-types = Sequelize.DOUBLE(numberOptions);
-types = Sequelize.DOUBLE(numberOptions).ZEROFILL;
-types = Sequelize.DOUBLE(numberOptions).UNSIGNED;
-types = Sequelize.DOUBLE(numberOptions).ZEROFILL.UNSIGNED;
-types = Sequelize.DOUBLE(numberOptions).UNSIGNED.ZEROFILL;
+User.beforeBulkUpdate( function( options ) {throw new Error( 'Whoops!' );} );
+User.beforeBulkUpdate( 'myHook', function( options ) {throw new Error( 'Whoops!' );} );
 
-types = Sequelize["DOUBLE PRECISION"];
-types = Sequelize["DOUBLE PRECISION"].ZEROFILL;
-types = Sequelize["DOUBLE PRECISION"].UNSIGNED;
-types = Sequelize["DOUBLE PRECISION"].ZEROFILL.UNSIGNED;
-types = Sequelize["DOUBLE PRECISION"].UNSIGNED.ZEROFILL;
-types = Sequelize["DOUBLE PRECISION"](12,12);
-types = Sequelize["DOUBLE PRECISION"](12,12).ZEROFILL;
-types = Sequelize["DOUBLE PRECISION"](12,12).UNSIGNED;
-types = Sequelize["DOUBLE PRECISION"](12,12).ZEROFILL.UNSIGNED;
-types = Sequelize["DOUBLE PRECISION"](12,12).UNSIGNED.ZEROFILL;
-types = Sequelize["DOUBLE PRECISION"](numberOptions);
-types = Sequelize["DOUBLE PRECISION"](numberOptions).ZEROFILL;
-types = Sequelize["DOUBLE PRECISION"](numberOptions).UNSIGNED;
-types = Sequelize["DOUBLE PRECISION"](numberOptions).ZEROFILL.UNSIGNED;
-types = Sequelize["DOUBLE PRECISION"](numberOptions).UNSIGNED.ZEROFILL;
+User.afterBulkUpdate( function( options ) {throw new Error( 'Whoops!' );} );
+User.afterBulkUpdate( 'myHook', function( options ) {throw new Error( 'Whoops!' );} );
+
+User.beforeFind( function( options ) {} );
+User.beforeFind( 'myHook', function( options ) {} );
+
+User.beforeFindAfterExpandIncludeAll( function( options ) {} );
+User.beforeFindAfterExpandIncludeAll( 'myHook', function( options ) {} );
+
+User.beforeFindAfterOptions( function( options ) {} );
+User.beforeFindAfterOptions( 'myHook', function( options ) {} );
+
+User.afterFind( function( user ) {} );
+User.afterFind( 'myHook', function( user ) {} );
+
+s.beforeDefine( function( attributes, options ) {} );
+s.beforeDefine( 'myHook', function( attributes, options ) {} );
+
+s.afterDefine( function( model ) {} );
+s.afterDefine( 'myHook', function( model ) {} );
+
+s.beforeInit( function( config, options ) {} );
+s.beforeInit( 'myHook', function( attributes, options ) {} );
+
+s.afterInit( function( model ) {} );
+s.afterInit( 'myHook', function( model ) {} );
+
+s.define( 'User', {}, {
+    hooks : {
+        beforeValidate : function( user, options, fn ) {fn();},
+        afterValidate : function( user, options, fn ) {fn();},
+        beforeCreate : function( user, options, fn ) {fn();},
+        afterCreate : function( user, options, fn ) {fn();},
+        beforeDestroy : function( user, options, fn ) {fn();},
+        afterDestroy : function( user, options, fn ) {fn();},
+        beforeDelete : function( user, options, fn ) {fn();},
+        afterDelete : function( user, options, fn ) {fn();},
+        beforeUpdate : function( user, options, fn ) {fn();},
+        afterUpdate : function( user, options, fn ) {fn();}
+    }
+} );
+
+//
+//  Instance
+// ~~~~~~~~~~
+//
+//  https://github.com/sequelize/sequelize/blob/v3.4.1/test/integration/instance.test.js
+//  https://github.com/sequelize/sequelize/blob/v3.4.1/test/integration/instance/update.test.js
+//  https://github.com/sequelize/sequelize/blob/v3.4.1/test/integration/instance/values.test.js
+//
+
+user.isNewRecord = true;
+
+user.Model.build( { a : 'b' } );
+
+user.sequelize.close();
+
+user.where();
+
+user.getDataValue( '' );
+
+user.setDataValue( '', '' );
+user.setDataValue( '', {} );
+
+user.get( 'aNumber', { plain : true, clone : true } );
+user.get();
+
+user.set( 'email', 'B' );
+user.set( { name : 'B', bio : 'B' } ).save().then( ( p ) => p );
+user.set( 'birthdate', new Date() );
+user.set( { id : 1, t : 'c', q : [{ id : 1, n : 'a' }, { id : 2, n : 'Beta' }], u : { id : 1, f : 'b', l : 'd' } } );
+user.setAttributes( { a : 3 } );
+user.setAttributes( { id : 1, a : 'n', c : [{ id : 1 }, { id : 2, f : 'e' }], x : { id : 1, f : 'h', l : 'd' } } );
+
+user.changed( 'name' );
+user.changed();
+
+user.previous( 'name' );
+
+user.save().then( ( p ) => p );
+user.save( { fields : ['a'] } ).then( ( p ) => p );
+user.save( { transaction : t } );
+
+user.reload();
+user.reload( { attributes : ['bNumber'] } );
+user.reload( { transaction : t } );
+
+user.validate();
+
+user.update( { bNumber : 2 }, { where : { id : 1 } } );
+user.update( { username : 'userman' }, { silent : true } );
+user.update( { username : 'yolo' }, { logging : function() { } } );
+user.update( { username : 'bar' }, { where : { username : 'foo' }, transaction : t } ).then( ( p ) => p );
+user.updateAttributes( { a : 3 } ).then( ( p ) => p );
+user.updateAttributes( { a : 3 }, { fields : ['secretValue'], logging : function(  ) {} } );
+
+user.destroy().then( ( p ) => p );
+user.destroy( { logging : function(  ) {} } );
+user.destroy( { transaction : t } ).then( ( p ) => p );
+
+user.restore();
+
+user.increment( 'number', { by : 2 } ).then( ( p ) => p );
+user.increment( ['aNumber'], { by : 2, where : { bNumber : 1 } } ).then( ( p ) => p );
+user.increment( ['aNumber'], { by : 2 } ).then( ( p ) => p );
+user.increment( 'aNumber' ).then( ( p ) => p );
+user.increment( { 'aNumber' : 1, 'bNumber' : 2 } ).then( ( p ) => p );
+user.increment( 'number', { by : 2, transaction : t } ).then( ( p ) => p );
+
+user.decrement( 'aNumber', { by : 2 } ).then( ( p ) => p );
+user.decrement( ['aNumber'], { by : 2 } ).then( ( p ) => p );
+user.decrement( 'aNumber' ).then( ( p ) => p );
+user.decrement( { 'aNumber' : 1, 'bNumber' : 2 } ).then( ( p ) => p );
+user.decrement( 'number', { by : 2, transaction : t } ).then( ( p ) => p );
+
+user.equals( user );
+
+user.equalsOneOf( [user, user] );
+
+user.toJSON();
+
+//
+//  Model
+// ~~~~~~~
+//
+//  https://github.com/sequelize/sequelize/blob/v3.4.1/test/integration/model.test.js
+//
+
+User.removeAttribute( 'id' );
+
+User.sync( { force : true } ).then( function() { } );
+User.sync( { force : true, logging : function() { } } );
+
+User.drop();
+
+User.schema( 'special' );
+User.schema( 'special' ).create( { age : 3 }, { logging : function(  ) {} } );
+
+User.getTableName();
+
+User.scope( 'lowAccess' ).count();
+User.scope( { where : { parent_id : 2 } } );
+
+User.findAll();
+User.findAll( { where : { data : { employment : null } } } );
+User.findAll( { where : { aNumber : { gte : 10 } } } ).then( ( u ) => u[0].isNewRecord );
+User.findAll( { where : [s.or( { u : 'b' }, { u : ';' } ), s.and( { id : [1, 2] } )], include : [{ model : User }] } );
+User.findAll( {
+    where : [s.or( { a : 'b' }, { c : 'd' } ), s.and( { id : [1, 2, 3] },
+        s.or( { deletedAt : null }, { deletedAt : { gt : new Date( 0 ) } } ) )]
+} );
+User.findAll( { paranoid : false, where : [' IS NOT NULL '], include : [{ model : User }] } );
+User.findAll( { transaction : t } );
+User.findAll( { where : { data : { name : { last : 's' }, employment : { $ne : 'a' } } }, order : [['id', 'ASC']] } );
+User.findAll( { where : { username : ['boo', 'boo2'] } } );
+User.findAll( { where : { username : { like : '%2' } } } );
+User.findAll( { where : { theDate : { '..' : ['2013-01-02', '2013-01-11'] } } } );
+User.findAll( { where : { intVal : { '!..' : [8, 10] } } } );
+User.findAll( { where : { theDate : { between : ['2013-01-02', '2013-01-11'] } } } );
+User.findAll( { where : { theDate : { between : ['2013-01-02', '2013-01-11'] }, intVal : 10 } } );
+User.findAll( { where : { theDate : { between : ['2012-12-10', '2013-01-02'] } } } );
+User.findAll( { where : { theDate : { nbetween : ['2013-01-04', '2013-01-20'] } } } );
+User.findAll( { order : [s.col( 'name' )] } );
+User.findAll( { order : [['theDate', 'DESC']] } );
+User.findAll( { include : [User], order : [[User, User, 'numYears', 'c']] } );
+User.findAll( { include : [{ model : User, include : [User, { model : User, as : 'residents' }] }] } );
+User.findAll( { order : [[User, { model : User, as : 'residents' }, 'lastName', 'c']] } );
+User.findAll( { include : [User], order : [[User, 'name', 'c']] } );
+User.findAll( { include : [{ all : 'HasMany', attributes : ['name'] }] } );
+User.findAll( { include : [{ all : true }, { model : User, attributes : ['id'] }] } );
+User.findAll( { include : [{ all : 'BelongsTo' }] } );
+User.findAll( { include : [{ all : true }] } );
+User.findAll( { where : { username : 'barfooz' }, raw : true } );
+User.findAll( { where : { name : 'worker' }, include : [{ model : User, as : 'ToDos' }] } );
+User.findAll( { where : { user_id : 1 }, attributes : ['a', 'b'], include : [{ model : User, attributes : ['c'] }] } );
+User.findAll( { order : s.literal( 'email =' ) } );
+User.findAll( { order : [s.literal( 'email = ' + s.escape( 'test@sequelizejs.com' ) )] } );
+User.findAll( { order : [['id', ';DELETE YOLO INJECTIONS']] } );
+User.findAll( { include : [User], order : [[User, 'id', ';DELETE YOLO INJECTIONS']] } );
+User.findAll( { include : [User], order : [['id', 'ASC NULLS LAST'], [User, 'id', 'DESC NULLS FIRST']] } );
+User.findAll( { include : [{ model : User, where : { title : 'DoDat' }, include : [{ model : User }] }] } );
+
+User.findById( 'a string' );
+
+User.findOne( { where : { username : 'foo' } } );
+User.findOne( { where : { id : 1 }, attributes : ['id', ['username', 'name']] } );
+User.findOne( { where : { id : 1 }, attributes : ['id'] } );
+User.findOne( { where : { username : 'foo' }, logging : function(  ) { } } );
+User.findOne( { limit : 10 } );
+User.findOne( { include : [1] } );
+User.findOne( { where : { title : 'homework' }, include : [User] } );
+User.findOne( { where : { name : 'environment' }, include : [{ model : User, as : 'PrivateDomain' }] } );
+User.findOne( { where : { username : 'foo' }, transaction : t } ).then( ( p ) => p );
+User.findOne( { include : [User] } );
+User.findOne( { include : [{ model : User, as : 'Work' }] } );
+User.findOne( { where : { name : 'worker' }, include : [{ model : User, as : 'ToDo' }] } );
+User.findOne( { include : [{ model : User, as : 'ToDo' }, { model : User, as : 'DoTo' }] } );
+User.findOne( { where : { name : 'worker' }, include : [User] } );
+User.findOne( { where : { name : 'Boris' }, include : [User, { model : User, as : 'Photos' }] } );
+User.findOne( { where : { username : 'someone' }, include : [User] } );
+User.findOne( { where : { username : 'barfooz' }, raw : true } );
+/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+User.findOne( { updatedAt : { ne : null } } );
+ */
+User.find( { where : { intVal : { gt : 5 } } } );
+User.find( { where : { intVal : { lte : 5 } } } );
+
+User.count();
+User.count( { transaction : t } );
+User.count().then( function( c ) { c.toFixed() } );
+User.count( { where : ["username LIKE '%us%'"] } );
+User.count( { include : [{ model : User, required : false }] } );
+User.count( { distinct : true, include : [{ model : User, required : false }] } );
+User.count( { attributes : ['data'], group : ['data'] } );
+User.count( { where : { access_level : { gt : 5 } } } );
+
+User.findAndCountAll( { offset : 5, limit : 1, include : [User, { model : User, as : 'a' }] } );
+
+User.max( 'age', { transaction : t } );
+User.max( 'age' );
+User.max( 'age', { logging : function(  ) { } } );
+
+User.min( 'age', { transaction : t } );
+User.min( 'age' );
+User.min( 'age', { logging : function(  ) { } } );
+
+User.sum( 'order' );
+User.sum( 'age', { where : { 'gender' : 'male' } } );
+User.sum( 'age', { logging : function(  ) { } } );
+
+User.build( { username : 'John Wayne' } ).save();
+User.build();
+User.build( { id : 1, T : [{ n : 'a' }, { id : 2 }], A : { id : 1, n : 'a', c : 'a' } }, { include : [User, Task] } );
+User.build( { id : 1, }, { include : [{ model : User, as : 'followers' }, { model : Task, as : 'categories' }] } );
+
+User.create();
+User.create( { createdAt : 1, updatedAt : 2 }, { silent : true } );
+User.create( {}, { returning : true } );
+User.create( { intVal : s.literal( 'CAST(1-2 AS' ) } );
+User.create( { secretValue : s.fn( 'upper', 'sequelize' ) } );
+User.create( { myvals : [1, 2, 3, 4], mystr : ['One', 'Two', 'Three', 'Four'] } );
+User.create( { name : 'Fluffy Bunny', smth : 'else' }, { logging : function(  ) {} } );
+User.create( {}, { fields : [] } );
+User.create( { name : 'Yolo Bear', email : 'yolo@bear.com' }, { fields : ['name'] } );
+User.create( { title : 'Chair', User : { first_name : 'Mick', last_name : 'Broadstone' } }, { include : [User] } );
+User.create( { title : 'Chair', creator : { first_name : 'Matt', last_name : 'Hansen' } }, { include : [User] } );
+User.create( { id : 1, title : 'e', Tags : [{ id : 1, name : 'c' }, { id : 2, name : 'd' }] }, { include : [User] } );
+User.create( { id : 'My own ID!' } ).then( ( i ) => i.isNewRecord );
+
+User.findOrInitialize( { where : { username : 'foo' } } ).then( ( p ) => p );
+User.findOrInitialize( { where : { username : 'foo' }, transaction : t } );
+User.findOrInitialize( { where : { username : 'foo' }, defaults : { foo : 'asd' }, transaction : t } );
+
+User.findOrCreate( { where : { a : 'b' }, defaults : { json : { a : { b : 'c' }, d : [1, 2, 3] } } } );
+User.findOrCreate( { where : { a : 'b' }, defaults : { json : 'a', data : 'b' } } );
+/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+User.findOrCreate( { where : { a : 'b' }, transaction : t, lock : t.LOCK.UPDATE } );
+ */
+User.findOrCreate( { where : { a : 'b' }, logging : function(  ) { } } );
+User.findOrCreate( { where : { username : 'Username' }, defaults : { data : 'some data' }, transaction : t } );
+User.findOrCreate( { where : { objectId : 'asdasdasd' }, defaults : { username : 'gottlieb' } } );
+User.findOrCreate( { where : { id : undefined }, defaults : { name : Math.random().toString() } } );
+User.findOrCreate( { where : { email : 'unique.email.@d.com', companyId : Math.floor( Math.random() * 5 ) } } );
+User.findOrCreate( { where : { objectId : 1 }, defaults : { bool : false } } );
+User.findOrCreate( { where : 'c', defaults : {} } );
+
+User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) } );
+
+User.bulkCreate( [{ aNumber : 10 }, { aNumber : 12 }] ).then( ( i ) => i[0].isNewRecord );
+User.bulkCreate( [{ username : 'bar' }, { username : 'bar' }, { username : 'bar' }] );
+User.bulkCreate( [{}, {}], { validate : true, individualHooks : true } );
+User.bulkCreate( [{ style : 'ipa' }], { logging : function() { } } );
+User.bulkCreate( [{ a : 'b', c : 'd', e : 'f' }, { a : 'b', c : 'd', e : 'f' }], { fields : ['a', 'b'] } );
+User.bulkCreate( [{ name : 'foo', code : '123' }, { code : 'c' }, { name : 'bar', code : '1' }], { validate : true } );
+User.bulkCreate( [{ name : 'foo', code : '123' }, { code : '1234' }], { fields : ['code'], validate : true } );
+User.bulkCreate( [{ name : 'a', c : 'b' }, { name : 'e', c : 'f' }], { fields : ['e', 'f'], ignoreDuplicates : true } );
+
+User.truncate();
+
+User.destroy( { where : { client_id : 13 } } ).then( ( a ) => a.toFixed() );
+User.destroy( { force : true } );
+User.destroy( { where : {}, transaction : t } );
+User.destroy( { where : { access_level : { lt : 5 } } } );
+User.destroy( { truncate : true } );
+User.destroy( { where : {} } );
+
+User.restore( { where : { secretValue : '42' } } );
+
+User.update( { username : 'ruben' }, { where : {} } );
+User.update( { username : 'ruben' }, { where : { access_level : { lt : 5 } } } );
+User.update( { username : 'ruben' }, { where : { username : 'dan' } } );
+User.update( { username : 'bar' }, { where : { username : 'foo' }, transaction : t } );
+User.update( { username : 'Bill', secretValue : '43' }, { where : { secretValue : '42' }, fields : ['username'] } );
+User.update( { username : s.cast( '1', 'char' ) }, { where : { username : 'John' } } );
+User.update( { username : s.fn( 'upper', s.col( 'username' ) ) }, { where : { username : 'John' } } );
+User.update( { username : 'Bill' }, { where : { secretValue : '42' }, returning : true } );
+User.update( { secretValue : '43' }, { where : { username : 'Peter' }, limit : 1 } );
+User.update( { name : Math.random().toString() }, { where : { id : '1' } } );
+User.update( { a : { b : 10, c : 'd' } }, { where : { username : 'Jan' }, sideEffects : false } );
+User.update( { geometry : { type : 'Point', coordinates : [49.807222, -86.984722] } }, {
+    where : {
+        u : {
+            u : 'u',
+            geometry : { type : 'Point', coordinates : [49.807222, -86.984722] }
+        }
+    }
+} );
+User.update( {
+    geometry : {
+        type : 'Polygon',
+        coordinates : [[[100.0, 0.0], [102.0, 0.0], [102.0, 1.0], [100.0, 1.0], [100.0, 0.0]]]
+    }
+}, {
+    where : {
+        username : {
+            username : 'username',
+            geometry : { type : 'Point', coordinates : [49.807222, -86.984722] }
+        }
+    }
+} );
+
+User.unscoped().find( { where : { username : 'bob' } } );
+User.unscoped().count();
+
+//
+//  Query Interface
+// ~~~~~~~~~~~~~~~~~
+//
+//  https://github.com/sequelize/sequelize/blob/v3.4.1/test/integration/query-interface.test.js
+//
+
+var queryInterface = s.getQueryInterface();
+
+queryInterface.dropAllTables();
+queryInterface.showAllTables( { logging : function() { } } );
+queryInterface.createTable( 'table', { name : Sequelize.STRING }, { logging : function() { } } );
+queryInterface.createTable( 'skipme', { name : Sequelize.STRING } );
+/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+queryInterface.dropAllTables( { skip : ['skipme'] } );
+ */
+queryInterface.dropTable( 'Group', { logging : function() { } } );
+queryInterface.addIndex( 'Group', ['username', 'isAdmin'], { logging : function() { } } );
+queryInterface.showIndex( 'Group', { logging : function() { } } );
+queryInterface.removeIndex( 'Group', ['username', 'isAdmin'], { logging : function() { } } );
+queryInterface.showIndex( 'Group' );
+/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+queryInterface.createTable( 'table', { name : { type : Sequelize.STRING } }, { schema : 'schema' } );
+ */
+queryInterface.addIndex( { schema : 'a', tableName : 'c' }, ['d', 'e'], { logging : function() {} }, 'schema_table' );
+queryInterface.showIndex( { schema : 'schema', tableName : 'table' }, { logging : function() {} } );
+queryInterface.addIndex( 'Group', ['from'] );
+queryInterface.describeTable( '_Users', { logging : function() {} } );
+queryInterface.createTable( 's', { table_id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
+/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+queryInterface.insert( null, 'TableWithPK', {}, { raw : true, returning : true, plain : true } );
+ */
+queryInterface.createTable( 'SomeTable', { someEnum : Sequelize.ENUM( 'value1', 'value2', 'value3' ) } );
+queryInterface.createTable( 'SomeTable', { someEnum : { type : Sequelize.ENUM, values : ['b1', 'b2', 'b3'] } } );
+queryInterface.createTable( 't', { someEnum : { type : Sequelize.ENUM, values : ['c1', 'c2', 'c3'], field : 'd' } } );
+/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+queryInterface.createTable( 'User', { name : { type : Sequelize.STRING } }, { schema : 'hero' } );
+queryInterface.rawSelect( 'User', { schema : 'hero', logging : function() {} }, 'name' );
+ */
+queryInterface.renameColumn( '_Users', 'username', 'pseudo', { logging : function() {} } );
+queryInterface.renameColumn( { schema : 'archive', tableName : 'Users' }, 'username', 'pseudo' );
+queryInterface.renameColumn( '_Users', 'username', 'pseudo' );
+queryInterface.createTable( { tableName : 'y', schema : 'a' },
+    { id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true }, currency : Sequelize.INTEGER } );
+queryInterface.changeColumn( { tableName : 'a', schema : 'b' }, 'c', { type : Sequelize.FLOAT },
+    { logging : () => s } );
+queryInterface.createTable( 'users', { id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
+queryInterface.createTable( 'level', { id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
+queryInterface.addColumn( 'users', 'someEnum', Sequelize.ENUM( 'value1', 'value2', 'value3' ) );
+queryInterface.addColumn( 'users', 'so', { type : Sequelize.ENUM, values : ['value1', 'value2', 'value3'] } );
+queryInterface.createTable( 'hosts', {
+    id : {
+        type : Sequelize.INTEGER,
+        primaryKey : true,
+        autoIncrement : true
+    },
+    admin : {
+        type : Sequelize.INTEGER,
+        references : {
+            model : User,
+            key : 'id'
+        }
+    },
+    operator : {
+        type : Sequelize.INTEGER,
+        references : {
+            model : User,
+            key : 'id'
+        },
+        onUpdate : 'cascade'
+    },
+    owner : {
+        type : Sequelize.INTEGER,
+        references : {
+            model : User,
+            key : 'id'
+        },
+        onUpdate : 'cascade',
+        onDelete : 'set null'
+    }
+} );
+
+//
+//  Query Types
+// ~~~~~~~~~~~~~
+//
+
+s.getDialect();
+s.validate();
+s.authenticate();
+s.isDefined( '' );
+s.model( 'pp' );
+s.query( '', { raw : true } );
+s.query( '' );
+s.query( '' ).then( function( res ) {} );
+s.query( '' ).spread( function(  ) {}, function( b ) {} );
+s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { raw : true, replacements : [1, 2] } );
+s.query( '', { raw : true, nest : false } );
+s.query( 'select ? as foo, ? as bar', { type : this.sequelize.QueryTypes.SELECT, replacements : [1, 2] } );
+s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { type : s.QueryTypes.SELECT } );
+s.query( 'select :one as foo, :two as bar', { raw : true, replacements : { one : 1, two : 2 } } );
+s.transaction().then( function( t ) { s.set( { foo : 'bar' }, { transaction : t } ) } );
+s.define( 'foo', { bar : Sequelize.STRING }, { collate : 'utf8_bin' } );
+s.define( 'Foto', { name : Sequelize.STRING }, { tableName : 'photos' } );
+s.databaseVersion().then( function( version ) { } );
+
+//
+//  Sequelize
+// ~~~~~~~~~~~
+//
+
+new Sequelize( 'db', 'user', 'pw', { logging : false } );
+new Sequelize( 'db', 'user', 'pass', {
+    dialect : '',
+    port : 99999,
+    pool : {}
+} );
+new Sequelize( '' ).query( '', { type : s.QueryTypes.FOREIGNKEYS, logging : function() {} } );
+new Sequelize( 'sqlite://test.sqlite' );
+new Sequelize( 'wat', 'trololo', 'wow', { port : 99999 } );
+new Sequelize( 'localhost', 'wtf', 'lol', { port : 99999 } );
+new Sequelize( 'sequelize', null, null, {
+    replication : {
+        read : {
+            host : 'localhost',
+            username : 'omg',
+            password : 'lol'
+        }
+    }
+} );
+
+s.model( 'Project' );
+s.define( 'Project', {
+    name : Sequelize.STRING
+} );
+
+var s         = new Sequelize( '' );
+var testModel = s.define( 'User', {
+    username : Sequelize.STRING,
+    secretValue : Sequelize.STRING,
+    data : Sequelize.STRING,
+    intVal : Sequelize.INTEGER,
+    theDate : Sequelize.DATE,
+    aBool : Sequelize.BOOLEAN
+} );
+var testModel = s.define( 'FrozenUser', {}, { freezeTableName : true } );
+s.define( 'UserWithClassAndInstanceMethods', {}, {
+    classMethods : { doSmth : function() { return 1; } },
+    instanceMethods : { makeItSo : function() { return 2; } }
+} );
+s.define( 'UserCol', {
+    id : {
+        type : Sequelize.STRING,
+        defaultValue : 'User',
+        primaryKey : true
+    }
+} );
+s.define( 'UserWithTwoAutoIncrements', {
+    userid : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true },
+    userscore : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true }
+} );
+s.define( 'Foo', {
+    field : Sequelize.INTEGER
+}, {
+    validate : {
+        field : function() {}
+    }
+} );
+var UserTable = s.define( 'UserCol', {
+    aNumber : Sequelize.INTEGER,
+    createdAt : {
+        type : Sequelize.DATE,
+        defaultValue : new Date()
+    },
+    updatedAt : {
+        type : Sequelize.DATE,
+        defaultValue : new Date()
+    }
+}, { timestamps : true } );
+
+s.define( 'UserCol', {
+    aNumber : Sequelize.INTEGER
+}, {
+    timestamps : true,
+    updatedAt : 'updatedOn',
+    createdAt : 'dateCreated',
+    deletedAt : 'deletedAtThisTime',
+    paranoid : true
+} );
+s.define( 'UpdatingUser', {
+    name : Sequelize.STRING
+}, {
+    timestamps : true,
+    updatedAt : false,
+    createdAt : false,
+    deletedAt : 'deletedAtThisTime',
+    paranoid : true
+} );
+s.define( 'TaskBuild', {
+    title : {
+        type : Sequelize.STRING( 50 ),
+        allowNull : false,
+        defaultValue : ''
+    }
+}, {
+    setterMethods : {
+        title : function() { }
+    }
+} );
+s.define( 'UserCol', {
+    aNumber : Sequelize.INTEGER
+}, {
+    paranoid : true,
+    underscored : true
+} );
+
+s.define( 'UserWithUniqueUsername', {
+    username : { type : Sequelize.STRING, unique : { name : 'user_and_email', msg : 'User and email must be unique' } },
+    email : { type : Sequelize.STRING, unique : 'user_and_email' }
+} );
+/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+s.define( 'UserWithUniqueUsername', {
+    user_id : { type : Sequelize.INTEGER },
+    email : { type : Sequelize.STRING }
+}, {
+    indexes : [
+        {
+            name : 'user_and_email_index',
+            msg : 'User and email must be unique',
+            unique : true,
+            method : 'BTREE',
+            fields : ['user_id', { attribute : 'email', collate : 'en_US', order : 'DESC', length : 5 }]
+        }]
+} );
+ */
+s.define( 'TaskBuild', {
+    title : { type : Sequelize.STRING, defaultValue : 'a task!' },
+    foo : { type : Sequelize.INTEGER, defaultValue : 2 },
+    bar : { type : Sequelize.DATE },
+    foobar : { type : Sequelize.TEXT, defaultValue : 'asd' },
+    flag : { type : Sequelize.BOOLEAN, defaultValue : false }
+} );
+s.define( 'ProductWithSettersAndGetters1', {
+    price : {
+        type : Sequelize.INTEGER,
+        get : function() {
+            return 'answer = ' + this.getDataValue( 'price' );
+        },
+        set : function( v ) {
+            return this.setDataValue( 'price', v + 42 );
+        }
+    }
+} );
+s.define( 'ProductWithSettersAndGetters2', {
+    priceInCents : Sequelize.INTEGER
+}, {
+    setterMethods : {
+        price : function( value ) {
+            this.dataValues.priceInCents = value * 100;
+        }
+    },
+    getterMethods : {
+        price : function() {
+            return '$' + (this.getDataValue( 'priceInCents' ) / 100);
+        },
+
+        priceInCents : function() {
+            return this.dataValues.priceInCents;
+        }
+    }
+} );
+
+s.define( 'post', {
+    title : Sequelize.STRING,
+    authorId : { type : Sequelize.INTEGER, references : testModel, referencesKey : 'id' }
+} );
+s.define( 'post', {
+    title : Sequelize.STRING,
+    authorId : { type : Sequelize.INTEGER, references : { model : testModel, key : 'id' } }
+} );
+
+s.define( 'User', {
+    username : Sequelize.STRING,
+    geometry : Sequelize.GEOMETRY( 'POINT' )
+} );
+
+s.define( 'ScopeMe', {
+    username : Sequelize.STRING,
+    email : Sequelize.STRING,
+    access_level : Sequelize.INTEGER,
+    other_value : Sequelize.INTEGER,
+    parent_id : Sequelize.INTEGER
+}, {
+    defaultScope : {
+        where : {
+            access_level : {
+                gte : 5
+            }
+        }
+    },
+    scopes : {
+        isTony : {
+            where : {
+                username : 'tony'
+            }
+        },
+    }
+} );
+s.define( 'company', {
+    active : Sequelize.BOOLEAN
+}, {
+    defaultScope : {
+        where : { active : true }
+    },
+    scopes : {
+        notActive : {
+            where : {
+                active : false
+            }
+        },
+        reversed : {
+            order : [['id', 'DESC']]
+        }
+    }
+} );
+s.define( 'profile', {
+    active : Sequelize.BOOLEAN
+}, {
+    defaultScope : {
+        where : { active : true }
+    },
+    scopes : {
+        notActive : {
+            where : {
+                active : false
+            }
+        },
+    }
+} );
+
+s.define( 'ScopeMe', {
+    username : Sequelize.STRING,
+    email : Sequelize.STRING,
+    access_level : Sequelize.INTEGER,
+    other_value : Sequelize.INTEGER
+}, {
+    defaultScope : {
+        where : {
+            access_level : {
+                gte : 5
+            }
+        }
+    },
+    scopes : {
+        lowAccess : {
+            where : {
+                access_level : {
+                    lte : 5
+                }
+            }
+        },
+        withOrder : {
+            order : 'username'
+        }
+    }
+} );
+
+s.define( 'ScopeMe', {
+    username : Sequelize.STRING,
+    email : Sequelize.STRING,
+    access_level : Sequelize.INTEGER,
+    other_value : Sequelize.INTEGER
+}, {
+    defaultScope : {
+        where : {
+            access_level : {
+                gte : 5
+            }
+        }
+    },
+    scopes : {
+        lowAccess : {
+            where : {
+                access_level : {
+                    lte : 5
+                }
+            }
+        }
+    }
+} );
+
+s.define( 'user', {
+    id : {
+        type : Sequelize.INTEGER,
+        allowNull : false,
+        primaryKey : true,
+        autoIncrement : true,
+        field : 'userId'
+    },
+    name : {
+        type : Sequelize.STRING,
+        field : 'full_name'
+    },
+    taskCount : {
+        type : Sequelize.INTEGER,
+        field : 'task_count',
+        defaultValue : 0,
+        allowNull : false
+    }
+}, {
+    tableName : 'users',
+    timestamps : false
+} );
+s.define( 'task', {
+    id : {
+        type : Sequelize.INTEGER,
+        allowNull : false,
+        primaryKey : true,
+        autoIncrement : true,
+        field : 'taskId'
+    },
+    title : {
+        type : Sequelize.STRING,
+        field : 'name'
+    }
+}, {
+    tableName : 'tasks',
+    timestamps : false
+} );
+s.define( 'comment', {
+    id : {
+        type : Sequelize.INTEGER,
+        allowNull : false,
+        primaryKey : true,
+        autoIncrement : true,
+        field : 'commentId'
+    },
+    text : {
+        type : Sequelize.STRING,
+        field : 'comment_text'
+    },
+    notes : {
+        type : Sequelize.STRING,
+        field : 'notes'
+    }
+}, {
+    tableName : 'comments',
+    timestamps : false
+} );
+s.define( 'test', {
+    id : {
+        type : Sequelize.INTEGER,
+        field : 'test_id',
+        autoIncrement : true,
+        primaryKey : true,
+        validate : {
+            min : 1
+        }
+    },
+    title : {
+        allowNull : false,
+        type : Sequelize.STRING( 255 ),
+        field : 'test_title'
+    }
+}, {
+    timestamps : true,
+    underscored : true,
+    freezeTableName : true
+} );
+
+s.define( 'User', {
+    deletedAt : {
+        type : Sequelize.DATE,
+        field : 'deleted_at'
+    }
+}, {
+    timestamps : true,
+    paranoid : true
+} );
+
+//
+//  Transaction
+// ~~~~~~~~~~~~~
+//
+//  https://github.com/sequelize/sequelize/blob/v3.4.1/test/integration/transaction.test.js
+//
+
+s.transaction().then( function( t ) {
+
+    t.commit();
+    t.rollback();
+
+    User.find( {
+        where : {
+            username : 'John'
+        },
+        include : [User],
+        lock : t.LOCK.UPDATE,
+        transaction : t
+    } );
+    User.find( {
+        where : {
+            username : 'John'
+        },
+        include : [User],
+        lock : {
+            level : t.LOCK.UPDATE,
+            of : User
+        },
+        transaction : t
+    } );
+    User.update( {
+        active : true
+    }, {
+        where : {
+            active : false
+        },
+        transaction : t
+    } );
+    User.find( {
+        where : {
+            username : 'jan'
+        },
+        lock : t.LOCK.NO_KEY_UPDATE,
+        transaction : t
+    } );
+    User.find( {
+        where : {
+            username : 'jan'
+        },
+        lock : t.LOCK.KEY_SHARE,
+        transaction : t
+    } );
+
+} );
+
+s.transaction( function() {
+    return Promise.resolve();
+} );
+s.transaction( { isolationLevel : 'SERIALIZABLE' }, function( t ) { return Promise.resolve(); } );
+s.transaction( { isolationLevel : s.Transaction.ISOLATION_LEVELS.SERIALIZABLE }, (t) => Promise.resolve() );
+s.transaction( { isolationLevel : s.Transaction.ISOLATION_LEVELS.READ_COMMITTED }, (t) => Promise.resolve() );

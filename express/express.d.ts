@@ -40,6 +40,7 @@ declare module "express" {
             delete(...handler: RequestHandler[]): IRoute;
             patch(...handler: RequestHandler[]): IRoute;
             options(...handler: RequestHandler[]): IRoute;
+            head(...handler: RequestHandler[]): IRoute;
         }
 
         interface IRouterMatcher<T> {
@@ -97,6 +98,7 @@ declare module "express" {
             delete: IRouterMatcher<T>;
             patch: IRouterMatcher<T>;
             options: IRouterMatcher<T>;
+            head: IRouterMatcher<T>;
 
             route(path: string): IRoute;
 
@@ -104,6 +106,8 @@ declare module "express" {
             use(handler: ErrorRequestHandler): T;
             use(path: string, ...handler: RequestHandler[]): T;
             use(path: string, handler: ErrorRequestHandler): T;
+            use(path: string[], ...handler: RequestHandler[]): T;
+            use(path: string[], handler: ErrorRequestHandler[]): T;
         }
 
         export function Router(options?: any): Router;
@@ -408,6 +412,10 @@ declare module "express" {
             originalUrl: string;
 
             url: string;
+            
+            baseUrl: string;
+            
+            app: Application;
         }
 
         interface MediaType {

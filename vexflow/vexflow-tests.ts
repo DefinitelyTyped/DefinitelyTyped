@@ -32,7 +32,7 @@ var gracenote = new Vex.Flow.GraceNote({keys: ["e/5"], duration: "16", slash: tr
 notes1[2].addModifier(0, new Vex.Flow.GraceNoteGroup([gracenote], true).beamNotes());
 
 // Color the chord
-notes1[3].setStyle({fillStyle: "blue", strokeStyle: "blue", stemStyle: "blue"});
+notes1[3].setStyle({fillStyle: "blue", strokeStyle: "blue"});
 
 // Create a voice in 4/4 and add notes
 var voice1 = new Vex.Flow.Voice({

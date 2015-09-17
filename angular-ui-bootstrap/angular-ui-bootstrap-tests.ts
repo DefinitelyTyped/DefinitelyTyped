@@ -135,7 +135,7 @@ testApp.config((
         popupDelay: 1000,
         appendToBody: true,
         trigger: 'mouseenter hover',
-        useContentExp: true
+        useContentExp: true,
     });
     $tooltipProvider.setTriggers({
         'customOpenTrigger': 'customCloseTrigger'

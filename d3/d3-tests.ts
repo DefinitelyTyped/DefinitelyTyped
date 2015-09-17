@@ -922,7 +922,7 @@ module forcedBasedLabelPlacemant {
 
     var nodes: Node[] = [];
     var labelAnchors: LabelAnchor[] = [];
-    var labelAnchorLinks: { source: number; target: number }[] = [];
+    var labelAnchorLinks: { source: number; target: number; weight: number }[] = [];
     var links: typeof labelAnchorLinks = [];
 
     for (var i = 0; i < 30; i++) {

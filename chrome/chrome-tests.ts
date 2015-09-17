@@ -60,10 +60,6 @@ function bookmarksExample() {
                         resizable: false,
                         height: 140,
                         modal: true,
-                        overlay: {
-                            backgroundColor: '#000',
-                            opacity: 0.5
-                        },
                         buttons: {
                             'Yes, Delete It!': function () {
                                 chrome.bookmarks.remove(String(bookmarkNode.id));
