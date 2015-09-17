@@ -241,7 +241,7 @@ interface JQueryCallback {
      * @param context A reference to the context in which the callbacks in the list should be fired.
      * @param arguments An argument, or array of arguments, to pass to the callbacks in the list.
      */
-    fireWith(context?: any, args: any[]): JQueryCallback;
+    fireWith(context?: any, args?: any[]): JQueryCallback;
 
     /**
      * Determine whether a supplied callback is in a list
