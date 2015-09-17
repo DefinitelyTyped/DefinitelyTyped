@@ -387,10 +387,48 @@ declare module L {
             /**
               * Creates a zoom control.
               */
-            new(options?: ZoomOptions): Zoom;
+            new (options?: ZoomOptions): Zoom;
         }
 
         export interface Zoom extends L.Control {
+        }
+
+        export interface ZoomOptions {
+            /**
+              * The position of the control (one of the map corners).
+              * Can be 'topleft', 'topright', 'bottomleft', or 'bottomright'.
+              *
+              * Default value: 'topright'.
+              */
+            position?: string; // 'topleft' | 'topright' | 'bottomleft' | 'bottomright'
+
+            /**
+             * The text set on the zoom in button.
+             *
+             * Default value: '+'
+             */
+            zoomInText?: string;
+
+            /**
+             * The text set on the zoom out button.
+             *
+             * Default value: '-'
+             */
+            zoomOutText?: string;
+
+            /**
+             * The title set on the zoom in button.
+             *
+             * Default value: 'Zoom in'
+             */
+            zoomInTitle?: string;
+
+            /**
+             * The title set on the zoom out button.
+             *
+             * Default value: 'Zoom out'
+             */
+            zoomOutTitle?: string;
         }
 
         export interface AttributionStatic extends ClassStatic {
@@ -483,7 +521,7 @@ declare module L {
         /**
           * Creates a zoom control.
           */
-        export function zoom(options?: ZoomOptions): L.Control.Zoom;
+        export function zoom(options?: Control.ZoomOptions): L.Control.Zoom;
 
         /**
           * Creates an attribution control.
@@ -891,43 +929,6 @@ declare namespace L {
         clearAllEventListeners(): FeatureGroup<T>;
         on(eventMap: any, context?: any): FeatureGroup<T>;
         off(eventMap?: any, context?: any): FeatureGroup<T>;
-    }
-}
-
-declare namespace L {
-
-    export interface FitBoundsOptions extends ZoomPanOptions {
-
-        /**
-          * Sets the amount of padding in the top left corner of a map container that
-          * shouldn't be accounted for when setting the view to fit bounds. Useful if
-          * you have some control overlays on the map like a sidebar and you don't
-          * want them to obscure objects you're zooming to.
-          *
-          * Default value: [0, 0].
-          */
-        paddingTopLeft?: Point;
-
-        /**
-          * The same for bottom right corner of the map.
-          *
-          * Default value: [0, 0].
-          */
-        paddingBottomRight?: Point;
-
-        /**
-          * Equivalent of setting both top left and bottom right padding to the same value.
-          *
-          * Default value: [0, 0].
-          */
-        padding?: Point;
-
-        /**
-          * The maximum possible zoom to use.
-          *
-          * Default value: null
-          */
-        maxZoom?: number;
     }
 }
 
@@ -2058,13 +2059,13 @@ declare namespace L {
       * Instantiates a map object given a div element and optionally an
       * object literal with map options described below.
       */
-    function map(id: HTMLElement, options?: MapOptions): Map;
+    function map(id: HTMLElement, options?: Map.MapOptions): Map;
 
     /**
       * Instantiates a map object given a div element id and optionally an
       * object literal with map options described below.
       */
-    function map(id: string, options?: MapOptions): Map;
+    function map(id: string, options?: Map.MapOptions): Map;
 
 
     export interface MapStatic extends ClassStatic {
@@ -2074,7 +2075,7 @@ declare namespace L {
           *
           * @constructor
           */
-        new(id: HTMLElement, options?: MapOptions): Map;
+        new(id: HTMLElement, options?: Map.MapOptions): Map;
 
         /**
           * Instantiates a map object given a div element id and optionally an
@@ -2082,7 +2083,7 @@ declare namespace L {
           *
           * @constructor
           */
-        new(id: string, options?: MapOptions): Map;
+        new(id: string, options?: Map.MapOptions): Map;
     }
     export var Map: MapStatic;
 
@@ -2093,40 +2094,40 @@ declare namespace L {
           * Sets the view of the map (geographical center and zoom) with the given
           * animation options.
           */
-        setView(center: LatLngExpression, zoom?: number, options?: ZoomPanOptions): Map;
+        setView(center: LatLngExpression, zoom?: number, options?: Map.ZoomPanOptions): Map;
 
         /**
           * Sets the zoom of the map.
           */
-        setZoom(zoom: number, options?: ZoomOptions): Map;
+        setZoom(zoom: number, options?: Map.ZoomPanOptions): Map;
 
         /**
           * Increases the zoom of the map by delta (1 by default).
           */
-        zoomIn(delta?: number, options?: ZoomOptions): Map;
+        zoomIn(delta?: number, options?: Map.ZoomPanOptions): Map;
 
         /**
           * Decreases the zoom of the map by delta (1 by default).
           */
-        zoomOut(delta?: number, options?: ZoomOptions): Map;
+        zoomOut(delta?: number, options?: Map.ZoomPanOptions): Map;
 
         /**
           * Zooms the map while keeping a specified point on the map stationary
           * (e.g. used internally for scroll zoom and double-click zoom).
           */
-        setZoomAround(latlng: LatLngExpression, zoom: number, options?: ZoomOptions): Map;
+        setZoomAround(latlng: LatLngExpression, zoom: number, options?: Map.ZoomPanOptions): Map;
 
         /**
           * Sets a map view that contains the given geographical bounds with the maximum
           * zoom level possible.
           */
-        fitBounds(bounds: LatLngBounds, options?: FitBoundsOptions): Map;
+        fitBounds(bounds: LatLngBounds, options?: Map.FitBoundsOptions): Map;
 
         /**
           * Sets a map view that mostly contains the whole world with the maximum zoom
           * level possible.
           */
-        fitWorld(options?: FitBoundsOptions): Map;
+        fitWorld(options?: Map.FitBoundsOptions): Map;
 
         /**
           * Pans the map to a given center. Makes an animated pan if new center is not more
@@ -2150,7 +2151,7 @@ declare namespace L {
           * after you've changed the map size dynamically, also animating pan by default.
           * If options.pan is false, panning will not occur.
           */
-        invalidateSize(options: ZoomPanOptions): Map;
+        invalidateSize(options: Map.ZoomPanOptions): Map;
 
         /**
           * Checks if the map container size changed and updates the map if so — call it
@@ -2162,7 +2163,7 @@ declare namespace L {
           * Restricts the map view to the given bounds (see map maxBounds option),
           * passing the given animation options through to `setView`, if required.
           */
-        setMaxBounds(bounds: LatLngBounds, options?: ZoomPanOptions): Map;
+        setMaxBounds(bounds: LatLngBounds, options?: Map.ZoomPanOptions): Map;
 
         /**
           * Tries to locate the user using Geolocation API, firing locationfound event
@@ -2422,7 +2423,7 @@ declare namespace L {
         /**
           * Map state options
           */
-        options: MapOptions;
+        options: Map.MapOptions;
 
         ////////////////
         ////////////////
@@ -2442,7 +2443,7 @@ declare namespace L {
     }
 }
 
-declare namespace L {
+declare namespace L.Map {
 
     export interface MapOptions {
 
@@ -2679,6 +2680,79 @@ declare namespace L {
          * Default value: true.
          */
         bounceAtZoomLimits?: boolean;
+    }
+
+    export interface ZoomOptions {
+        /**
+          * If not specified, zoom animation will happen if the zoom origin is inside the current view.
+          * If true, the map will attempt animating zoom disregarding where zoom origin is.
+          * Setting false will make it always reset the view completely without animation.
+          */
+        animate?: boolean;
+    }
+
+    export interface ZoomPanOptions {
+
+        /**
+          * If true, the map view will be completely reset (without any animations).
+          *
+          * Default value: false.
+          */
+        reset?: boolean;
+
+        /**
+          * Sets the options for the panning (without the zoom change) if it occurs.
+          */
+        pan?: PanOptions;
+
+        /**
+          * Sets the options for the zoom change if it occurs.
+          */
+        zoom?: ZoomOptions;
+
+        /**
+          * An equivalent of passing animate to both zoom and pan options (see below).
+          */
+        animate?: boolean;
+
+        /**
+         * If true, it will delay moveend event so that it doesn't happen many times in a row.
+         */
+        debounceMoveend?: boolean;
+    }
+
+    export interface FitBoundsOptions extends ZoomPanOptions {
+
+        /**
+          * Sets the amount of padding in the top left corner of a map container that
+          * shouldn't be accounted for when setting the view to fit bounds. Useful if
+          * you have some control overlays on the map like a sidebar and you don't
+          * want them to obscure objects you're zooming to.
+          *
+          * Default value: [0, 0].
+          */
+        paddingTopLeft?: Point;
+
+        /**
+          * The same for bottom right corner of the map.
+          *
+          * Default value: [0, 0].
+          */
+        paddingBottomRight?: Point;
+
+        /**
+          * Equivalent of setting both top left and bottom right padding to the same value.
+          *
+          * Default value: [0, 0].
+          */
+        padding?: Point;
+
+        /**
+          * The maximum possible zoom to use.
+          *
+          * Default value: null
+          */
+        maxZoom?: number;
     }
 }
 
@@ -4234,52 +4308,6 @@ declare namespace L {
           */
         version?: string;
 
-    }
-}
-
-
-declare namespace L {
-
-    export interface ZoomOptions {
-        /**
-          * If not specified, zoom animation will happen if the zoom origin is inside the current view.
-          * If true, the map will attempt animating zoom disregarding where zoom origin is.
-          * Setting false will make it always reset the view completely without animation.
-          */
-        animate?: boolean;
-    }
-}
-
-declare namespace L {
-
-    export interface ZoomPanOptions {
-
-        /**
-          * If true, the map view will be completely reset (without any animations).
-          *
-          * Default value: false.
-          */
-        reset?: boolean;
-
-        /**
-          * Sets the options for the panning (without the zoom change) if it occurs.
-          */
-        pan?: PanOptions;
-
-        /**
-          * Sets the options for the zoom change if it occurs.
-          */
-        zoom?: ZoomOptions;
-
-        /**
-          * An equivalent of passing animate to both zoom and pan options (see below).
-          */
-        animate?: boolean;
-
-        /**
-         * If true, it will delay moveend event so that it doesn't happen many times in a row.
-         */
-        debounceMoveend?: boolean;
     }
 }
 
