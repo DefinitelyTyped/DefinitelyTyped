@@ -4241,12 +4241,40 @@ declare module L {
 declare module L {
 
     export interface ZoomOptions {
+    	/**
+    	 * The position of the control (one of the map corners).
+    	 *
+    	 * Default value: 'topleft'
+    	 */
+        position?: String;
+
         /**
-          * If not specified, zoom animation will happen if the zoom origin is inside the current view.
-          * If true, the map will attempt animating zoom disregarding where zoom origin is.
-          * Setting false will make it always reset the view completely without animation.
-          */
-        animate?: boolean;
+         * The text set on the zoom in button.
+         * 
+         * Default value: '+'
+         */
+        zoomInText?: String;
+
+        /**
+         * The text set on the zoom out button.
+         * 
+         * Default value: '-'
+         */
+        zoomOutText?: String;
+
+        /**
+         * The title set on the zoom in button.
+         * 
+         * Default value: 'Zoom in'
+         */
+        zoomInTitle?: String;
+
+        /**
+         * The title set on the zoom out button.
+         * 
+         * Default value: '+'
+         */
+        zoomOutTitle?: String;
     }
 }
 
