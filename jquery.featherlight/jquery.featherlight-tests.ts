@@ -7,12 +7,12 @@
 var defaultOptions = {
 	namespace: 'featherlight',
 	targetAttr: 'data-featherlight',
-	variant: null,
+	variant: null as string,
 	resetCss: false,
-	background: null,
+	background: null as string,
 	openTrigger: 'click',
 	closeTrigger: 'click',
-	filter: null,
+	filter: null as string,
 	root: 'body',
 	openSpeed: 250,
 	closeSpeed: 250,
@@ -21,7 +21,7 @@ var defaultOptions = {
 	closeIcon: '&#10005;',
 	loading: '',
 	persist: false,
-	otherClose: null,
+	otherClose: null as string,
 	beforeOpen: $.noop,
 	beforeContent: $.noop,
 	beforeClose: $.noop,
@@ -30,7 +30,7 @@ var defaultOptions = {
 	afterClose: $.noop,
 	onKeyUp: $.noop,
 	onResize: $.noop,
-	type: null,
+	type: null as string,
 	contentFilters: ['jquery', 'image', 'html', 'ajax', 'iframe', 'text']
 };
 
@@ -53,14 +53,14 @@ var changedOptions = {
 	loading: 'foo',
 	persist: 'shared',
 	otherClose: 'foo',
-	beforeOpen: (e) => false,
-	beforeContent: (e) => false,
-	beforeClose: (e) => false,
-	afterOpen: (e) => false,
-	afterContent: (e) => false,
-	afterClose: (e) => false,
-	onKeyUp: (e) => false,
-	onResize: (e) => false,
+	beforeOpen: (e: JQueryEventObject) => false,
+	beforeContent: (e: JQueryEventObject) => false,
+	beforeClose: (e: JQueryEventObject) => false,
+	afterOpen: (e: JQueryEventObject) => false,
+	afterContent: (e: JQueryEventObject) => false,
+	afterClose: (e: JQueryEventObject) => false,
+	onKeyUp: (e: JQueryEventObject) => false,
+	onResize: (e: JQueryEventObject) => false,
 	type: 'text'
 };
 
@@ -144,7 +144,7 @@ new $.featherlight($('<span>Foo!</span>'), changedOptions).close();
 // Note: Unfortunately $.featherlight.contentFilters.feed = .. doesn't seem to work
 $.featherlight.contentFilters['feed'] = {
 	regex: /^feed:/,
-	process: function(url) { return $('Loading...'); }
+	process: function(url: string) { return $('Loading...'); }
 };
 
 // Close the currently open fl
@@ -166,4 +166,4 @@ fl.open();
 fl.namespace = 'foo';
 
 // .. and add a special event handler
-fl.afterClose = (e) => false;
+fl.afterClose = (e: JQueryEventObject) => false;

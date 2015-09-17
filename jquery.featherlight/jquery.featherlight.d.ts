@@ -43,10 +43,8 @@ declare module JQueryFeatherlight {
 
 	interface ContentFilter {
 		regex?: RegExp;
-		test?(data: JQuery): boolean;
-		test?(data: string): boolean;
-		process?(data: JQuery): JQuery | JQueryPromise<JQuery>;
-		process?(data: string): JQuery | JQueryPromise<JQuery>;
+		test?(data: JQuery | string): boolean;
+		process?(data: JQuery | string): JQuery | JQueryPromise<JQuery>;
 	}
 
 	interface ContentFilters {
