@@ -36,6 +36,6 @@
   },
   "devDependencies": {
     "definition-tester": "0.2.0",
-    "typescript": "1.5.3"
+    "typescript": "1.6.2"
   }
 }

@@ -158,7 +158,9 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
 
     private stateServiceTest() {
         this.$state.go("myState");
+        this.$state.go(this.$state.current);
         this.$state.transitionTo("myState");
+        this.$state.transitionTo(this.$state.current);
         if (this.$state.includes("myState") === true) {
           //
         }
