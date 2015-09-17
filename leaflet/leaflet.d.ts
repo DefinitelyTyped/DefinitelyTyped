@@ -4272,7 +4272,7 @@ declare module L {
         /**
          * The title set on the zoom out button.
          * 
-         * Default value: '+'
+         * Default value: 'Zoom out'
          */
         zoomOutTitle?: String;
     }
