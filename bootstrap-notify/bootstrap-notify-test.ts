@@ -2,6 +2,7 @@
 /// <reference path="../jquery/jquery.d.ts" />
     
 //Test for bootstrap-notify v3.1.3
+//Copied example directly from Bootstrap-notify site
 	
 $.notify({
 	// options
