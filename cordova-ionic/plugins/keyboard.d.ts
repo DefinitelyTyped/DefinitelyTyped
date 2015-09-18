@@ -17,6 +17,14 @@ declare module Ionic {
      * Close the keyboard if it is open.
      */
     close(): void;
+    
+    /**
+     * Force keyboard to be shown on Android.
+     * This typically helps if autofocus on a text element does not pop up the keyboard automatically
+     * 
+     * Supported Platforms: Android, Blackberry 10
+     */
+    show(): void;
 
     /**
      * Disable native scrolling, useful if you are using JavaScript to scroll

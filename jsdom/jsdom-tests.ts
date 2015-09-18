@@ -1,3 +1,5 @@
+/// <reference path="./jsdom.d.ts" />
+
 import jsdom = require("jsdom");
 
 jsdom.defaultDocumentFeatures.FetchExternalResources = ["img"];
@@ -47,5 +49,4 @@ jsdom.env({
     }
 });
 
-var window: Window = jsdom.jsdom("<div>foobar</div>").parentWindow;
 var document: Document = jsdom.jsdom("<html></html>");

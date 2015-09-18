@@ -10,7 +10,10 @@ var d = new Drop({
     constrainToWindow: true,
     constrainToScrollParent: true,
     classes: "",
-    tetherOptions: {}
+    tetherOptions: {},
+    remove: true,
+    target: yellowBox,
+    content: greenBox
 });
 
 d.open();
@@ -19,10 +22,17 @@ d.remove();
 d.toggle();
 d.position();
 d.destroy();
+d.element.appendChild(document.createElement("div"));
+d.tether.position();
 
-d.on("open", () => null);
-d.on("close", () => null);
-d.once("close", () => null);
-d.off("close", () => null);
+d.on("open", () => false);
+d.on("close", () => false);
+d.once("close", () => false);
+d.off("close", () => false);
 d.off("open");
+
+var e = new Drop({
+    target: yellowBox,
+    content: () => greenBox
+});
 

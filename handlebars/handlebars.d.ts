@@ -1,12 +1,67 @@
-// Type definitions for Handlebars 1.0
+// Type definitions for Handlebars v3.0.3
 // Project: http://handlebarsjs.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-// Use either HandlebarsStatic or HandlebarsRuntimeStatic
-declare var Handlebars: HandlebarsStatic;
-//declare var Handlebars: HandlebarsRuntimeStatic;
+declare module Handlebars {
+    export function registerHelper(name: string, fn: Function, inverse?: boolean): void;
+    export function registerPartial(name: string, str: any): void;
+    export function K(): void;
+    export function createFrame(object: any): any;
+    export function Exception(message: string): void;
+    export function log(level: number, obj: any): void;
+    export function parse(input: string): hbs.AST.Program;
+    export function compile(input: any, options?: any): HandlebarsTemplateDelegate;
+
+    export var SafeString: typeof hbs.SafeString;
+    export var Utils: typeof hbs.Utils;
+    export var logger: Logger;
+    export var templates: HandlebarsTemplates;
+    export var helpers: any;
+
+    export module AST {
+        export var helpers: hbs.AST.helpers;
+    }
+
+    interface ICompiler {
+        accept(node: hbs.AST.Node): void;
+        Program(program: hbs.AST.Program): void;
+        BlockStatement(block: hbs.AST.BlockStatement): void;
+        PartialStatement(partial: hbs.AST.PartialStatement): void;
+        MustacheStatement(mustache: hbs.AST.MustacheStatement): void;
+        ContentStatement(content: hbs.AST.ContentStatement): void;
+        CommentStatement(comment?: hbs.AST.CommentStatement): void;
+        SubExpression(sexpr: hbs.AST.SubExpression): void;
+        PathExpression(path: hbs.AST.PathExpression): void;
+        StringLiteral(str: hbs.AST.StringLiteral): void;
+        NumberLiteral(num: hbs.AST.NumberLiteral): void;
+        BooleanLiteral(bool: hbs.AST.BooleanLiteral): void;
+        UndefinedLiteral(): void;
+        NullLiteral(): void;
+        Hash(hash: hbs.AST.Hash): void;
+    }
+
+    export class Visitor implements ICompiler {
+        accept(node: hbs.AST.Node): void;
+        acceptKey(node: hbs.AST.Node, name: string): void;
+        acceptArray(arr: hbs.AST.Expression[]): void;
+        Program(program: hbs.AST.Program): void;
+        BlockStatement(block: hbs.AST.BlockStatement): void;
+        PartialStatement(partial: hbs.AST.PartialStatement): void;
+        MustacheStatement(mustache: hbs.AST.MustacheStatement): void;
+        ContentStatement(content: hbs.AST.ContentStatement): void;
+        CommentStatement(comment?: hbs.AST.CommentStatement): void;
+        SubExpression(sexpr: hbs.AST.SubExpression): void;
+        PathExpression(path: hbs.AST.PathExpression): void;
+        StringLiteral(str: hbs.AST.StringLiteral): void;
+        NumberLiteral(num: hbs.AST.NumberLiteral): void;
+        BooleanLiteral(bool: hbs.AST.BooleanLiteral): void;
+        UndefinedLiteral(): void;
+        NullLiteral(): void;
+        Hash(hash: hbs.AST.Hash): void;
+    }
+}
 
 /**
 * Implement this interface on your MVW/MVVM/MVC views such as Backbone.View
@@ -19,32 +74,8 @@ interface HandlebarsTemplateDelegate {
     (context: any, options?: any): string;
 }
 
-interface HandlebarsCommon {
-    registerHelper(name: string, fn: Function, inverse?: boolean): void;
-    registerPartial(name: string, str: any): void;
-    K(): void;
-    createFrame(object: any): any;
-
-    Exception(message: string): void;
-    SafeString: typeof hbs.SafeString;
-    Utils: typeof hbs.Utils;
-
-    logger: Logger;
-    log(level: number, obj: any): void;
-}
-
-interface HandlebarsStatic extends HandlebarsCommon {
-    parse(input: string): hbs.AST.ProgramNode;
-    compile(input: any, options?: any): HandlebarsTemplateDelegate;
-}
-
 interface HandlebarsTemplates {
     [index: string]: HandlebarsTemplateDelegate;
-}
-
-interface HandlebarsRuntimeStatic extends HandlebarsCommon {
-    // Handlebars.templates is the default template namespace in precompiler.
-    templates: HandlebarsTemplates;
 }
 
 declare module hbs {
@@ -72,109 +103,119 @@ interface Logger {
 
 declare module hbs {
     module AST {
-        interface IStripInfo {
-            left?: boolean;
-            right?: boolean;
-            inlineStandalone?: boolean;
-        }
-
-        class NodeBase {
-            firstColumn: number;
-            firstLine: number;
-            lastColumn: number;
-            lastLine: number;
+        interface Node {
             type: string;
+            loc: SourceLocation;
         }
 
-        class ProgramNode extends NodeBase {
-            statements: NodeBase[];
+        interface SourceLocation {
+            source: string;
+            start: Position;
+            end: Position;
         }
 
-        class IdNode extends NodeBase {
-            original: string;
-            parts: string[];
-            string: string;
-            depth: number;
-            idName: string;
-            isSimple: boolean;
-            stringModeValue: string;
+        interface Position {
+            line: number;
+            column: number;
         }
 
-        class HashNode extends NodeBase {
-            pairs: {0: string;
-                    1: NodeBase}[];
+        interface Program extends Node {
+            body: Statement[];
+            blockParams: string[];
         }
 
-        class SexprNode extends NodeBase {
-            hash: HashNode;
-            id: NodeBase;
-            params: NodeBase[];
-            isHelper: boolean;
-            eligibleHelper: boolean;
-        }
+        interface Statement extends Node {}
 
-        class MustacheNode extends NodeBase {
-            strip: IStripInfo;
+        interface MustacheStatement extends Statement {
+            path: PathExpression | Literal;
+            params: Expression[];
+            hash: Hash;
             escaped: boolean;
-            sexpr: SexprNode;
-
+            strip: StripFlags;
         }
 
-        class BlockNode extends NodeBase {
-            mustache: MustacheNode;
-            program: ProgramNode;
-            inverse: ProgramNode;
-            strip: IStripInfo;
-            isInverse: boolean;
+        interface BlockStatement extends Statement {
+            path: PathExpression;
+            params: Expression[];
+            hash: Hash;
+            program: Program;
+            inverse: Program;
+            openStrip: StripFlags;
+            inverseStrip: StripFlags;
+            closeStrip: StripFlags;
         }
 
-        class PartialNameNode extends NodeBase {
-            name: string;
+        interface PartialStatement extends Statement {
+            name: PathExpression | SubExpression;
+            params: Expression[];
+            hash: Hash;
+            indent: string;
+            strip: StripFlags;
         }
 
-        class PartialNode extends NodeBase {
-            partialName: PartialNameNode;
-            context: NodeBase;
-            hash: HashNode;
-            strip: IStripInfo;
+        interface ContentStatement extends Statement {
+            value: string;
+            original: StripFlags;
         }
 
-        class RawBlockNode extends NodeBase {
-            mustache: MustacheNode;
-            program: ProgramNode;
+        interface CommentStatement extends Statement {
+            value: string;
+            strip: StripFlags;
         }
 
-        class ContentNode extends NodeBase {
+        interface Expression extends Node {}
+
+        interface SubExpression extends Expression {
+            path: PathExpression;
+            params: Expression[];
+            hash: Hash;
+        }
+
+        interface PathExpression extends Expression {
+            data: boolean;
+            depth: number;
+            parts: string[];
             original: string;
-            string: string;
         }
 
-        class DataNode extends NodeBase {
-            id: IdNode;
-            stringModeValue: string;
-            idName: string;
-        }
-
-        class StringNode extends NodeBase {
+        interface Literal extends Expression {}
+        interface StringLiteral extends Literal {
+            value: string;
             original: string;
-            string: string;
-            stringModeValue: string;
         }
 
-        class NumberNode extends NodeBase {
-            original: string;
-            number: string;
-            stringModeValue: number;
+        interface BooleanLiteral extends Literal {
+            value: boolean;
+            original: boolean;
         }
 
-        class BooleanNode extends NodeBase {
-            bool: string;
-            stringModeValue: boolean;
+        interface NumberLiteral extends Literal {
+            value: number;
+            original: number;
         }
 
-        class CommentNode extends NodeBase {
-            comment: string;
-            strip: IStripInfo;
+        interface UndefinedLiteral extends Literal {}
+
+        interface NullLiteral extends Literal {}
+
+        interface Hash extends Node {
+            pairs: HashPair[];
+        }
+
+        interface HashPair extends Node {
+            key: string;
+            value: Expression;
+        }
+
+        interface StripFlags {
+            open: boolean;
+            close: boolean;
+        }
+
+        interface helpers {
+            helperExpression(node: Node): boolean;
+            scopeId(path: PathExpression): boolean;
+            simpleId(path: PathExpression): boolean;
         }
     }
 }

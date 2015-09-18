@@ -8,6 +8,8 @@ var num: number;
 var metadata: any;
 var obj: any = {};
 
+winston.level = 'debug';
+
 var queryOptions: winston.QueryOptions;
 var transportOptions: winston.TransportOptions;
 var loggerOptions: winston.LoggerOptions = {
@@ -163,25 +165,46 @@ var logger: winston.LoggerInstance = new (winston.Logger)({
     new (winston.transports.Console)({
       level: str,
       silent: bool,
+      json: bool,
       colorize: bool,
       timestamp: bool,
+      showLevel: bool,
+      label: str,
+      logstash: bool,
+      debugStdout: bool,
+      depth: num,
     }),
     new (winston.transports.DailyRotateFile)({
       level: str,
       silent: bool,
+      json: bool,
       colorize: bool,
       maxsize: num,
       maxFiles: num,
+      maxRetries: num,
       prettyPrint: bool,
       timestamp: bool,
       filename: str,
       dirname: str,
-      datePattern: str
+      datePattern: str,
+      eol: str,
+      stream: writeableStream,
     }),
     new (winston.transports.File)({
       level: str,
       silent: bool,
+      json: bool,
+      colorize: bool,
+      prettyPrint: bool,
       timestamp: bool,
+      showLevel: bool,
+      logstash: bool,
+      rotationFormat: bool,
+      depth: num,
+      zippedArchive: bool,
+      eol: str,
+      tailable: bool,
+      maxRetries: num,
       filename: str,
       maxsize: num,
       maxFiles: num,
@@ -193,7 +216,7 @@ var logger: winston.LoggerInstance = new (winston.Logger)({
       port: num,
       path: str,
       auth: { username: str, password: str },
-      ssl: {},
+      ssl: bool,
     }),
     new (winston.transports.Loggly)({
       level: str,
@@ -204,6 +227,10 @@ var logger: winston.LoggerInstance = new (winston.Logger)({
     }),
     new (winston.transports.Memory)({
       level: str,
+      json: bool,
+      colorize: bool,
+      showLevel: bool,
+      depth: num,
       timestamp: bool,
       label: str,
     }),
@@ -215,7 +242,7 @@ var logger: winston.LoggerInstance = new (winston.Logger)({
       method: str,
       path: str,
       auth: { username: str, password: str },
-      ssl: {},
+      ssl: {ca: {}},
     }),
   ]
 });

@@ -1,17 +1,18 @@
 /// <reference path="node.d.ts" />
-
-import assert = require("assert");
-import fs = require("fs");
-import events = require("events");
-import zlib = require("zlib");
-import url = require('url');
-import util = require("util");
-import crypto = require("crypto");
-import http = require("http");
-import net = require("net");
-import dgram = require("dgram");
-import querystring = require('querystring');
-import path = require("path");
+import * as assert from "assert";
+import * as fs from "fs";
+import * as events from "events";
+import * as zlib from "zlib";
+import * as url from "url";
+import * as util from "util";
+import * as crypto from "crypto";
+import * as tls from "tls";
+import * as http from "http";
+import * as net from "net";
+import * as dgram from "dgram";
+import * as querystring from "querystring";
+import * as path from "path";
+import * as readline from "readline";
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -33,6 +34,8 @@ assert.doesNotThrow(() => {
 fs.writeFile("thebible.txt",
     "Do unto others as you would have them do unto you.",
     assert.ifError);
+    
+fs.write(1234, "test");
 
 fs.writeFile("Harry Potter",
     "\"You be wizzing, Harry,\" jived Dumbledore.",
@@ -68,6 +71,25 @@ fs.readFile('testfile', (err, data) => {
     }
 });
 
+
+///////////////////////////////////////////////////////
+/// Buffer tests : https://nodejs.org/api/buffer.html
+///////////////////////////////////////////////////////
+
+function bufferTests() {
+    var utf8Buffer = new Buffer('test');
+    var base64Buffer = new Buffer('','base64');
+    var octets: Uint8Array = null;
+    var octetBuffer = new Buffer(octets);
+    console.log(Buffer.isBuffer(octetBuffer));
+    console.log(Buffer.isEncoding('utf8'));
+    console.log(Buffer.byteLength('xyz123'));
+    console.log(Buffer.byteLength('xyz123', 'ascii'));
+    var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
+    var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
+}
+
+
 ////////////////////////////////////////////////////
 /// Url tests : http://nodejs.org/api/url.html
 ////////////////////////////////////////////////////
@@ -76,9 +98,9 @@ url.format(url.parse('http://www.example.com/xyz'));
 
 // https://google.com/search?q=you're%20a%20lizard%2C%20gary
 url.format({
-    protocol: 'https', 
-    host: "google.com", 
-    pathname: 'search', 
+    protocol: 'https',
+    host: "google.com",
+    pathname: 'search',
     query: { q: "you're a lizard, gary" }
 });
 
@@ -144,6 +166,16 @@ function crypto_cipher_decipher_buffer_test() {
 }
 
 ////////////////////////////////////////////////////
+/// TLS tests : http://nodejs.org/api/tls.html
+////////////////////////////////////////////////////
+
+var ctx: tls.SecureContext = tls.createSecureContext({
+    key: "NOT REALLY A KEY",
+    cert: "SOME CERTIFICATE",
+});
+var blah = ctx.context;
+
+////////////////////////////////////////////////////
 
 // Make sure .listen() and .close() retuern a Server instance
 http.createServer().listen(0).close().address();
@@ -162,14 +194,14 @@ module http_tests {
     var code = 100;
     var codeMessage = http.STATUS_CODES['400'];
     var codeMessage = http.STATUS_CODES[400];
-	
+
 	var agent: http.Agent = new http.Agent({
 		keepAlive: true,
 		keepAliveMsecs: 10000,
 		maxSockets: Infinity,
 		maxFreeSockets: 256
 	});
-	
+
 	var agent: http.Agent = http.globalAgent;
 }
 
@@ -192,7 +224,7 @@ var escaped: string = querystring.escape(original);
 console.log(escaped);
 // http%3A%2F%2Fexample.com%2Fproduct%2Fabcde.html
 var unescaped: string = querystring.unescape(escaped);
-console.log(unescaped); 
+console.log(unescaped);
 // http://example.com/product/abcde.html
 
 ////////////////////////////////////////////////////
@@ -333,3 +365,20 @@ module path_tests {
 // returns
 //    '/home/user/dir/file.txt'
 }
+
+////////////////////////////////////////////////////
+///ReadLine tests : https://nodejs.org/api/readline.html
+////////////////////////////////////////////////////
+
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+rl.setPrompt("$>");
+rl.prompt();
+rl.prompt(true);
+
+rl.question("do you like typescript?", function(answer: string) {
+  rl.close();
+});

@@ -122,10 +122,19 @@ declare module chrome.app.window {
         id: string;
         innerBounds: Bounds;
         outerBounds: Bounds;
+        onBoundsChanged: WindowEvent;
+        onClosed: WindowEvent;
+        onFullscreened: WindowEvent;
+        onMaximized: WindowEvent;
+        onMinimized: WindowEvent;
+        onRestored: WindowEvent;
     }
 
     export function create(url: string, options?: CreateWindowOptions, callback?: (created_window: AppWindow) => void): void;
     export function current(): AppWindow;
+    export function get(id: string): AppWindow;
+    export function getAll(): AppWindow[];
+    export function canSetVisibleOnAllWorkspaces(): boolean;
 
     interface WindowEvent {
         addListener(callback: () => void): void;

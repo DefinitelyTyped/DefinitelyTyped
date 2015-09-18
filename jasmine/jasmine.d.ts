@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 2.1
+// Type definitions for Jasmine 2.2
 // Project: http://jasmine.github.io/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -18,7 +18,7 @@ declare function xit(expectation: string, assertion?: () => void, timeout?: numb
 declare function xit(expectation: string, assertion?: (done: () => void) => void, timeout?: number): void;
 
 /** If you call the function pending anywhere in the spec body, no matter the expectations, the spec will be marked pending. */
-declare function pending(): void;
+declare function pending(reason?: string): void;
 
 declare function beforeEach(action: () => void, timeout?: number): void;
 declare function beforeEach(action: (done: () => void) => void, timeout?: number): void;
@@ -46,19 +46,37 @@ declare module jasmine {
     var clock: () => Clock;
 
     function any(aclass: any): Any;
+    function anything(): Any;
+    function arrayContaining(sample: any[]): ArrayContaining;
     function objectContaining(sample: any): ObjectContaining;
     function createSpy(name: string, originalFn?: Function): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
     function createSpyObj<T>(baseName: string, methodNames: any[]): T;
     function pp(value: any): string;
     function getEnv(): Env;
-    function addMatchers(matchers: any): Any;
+    function addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
+    function addMatchers(matchers: CustomMatcherFactories): void;
+    function stringMatching(str: string): Any;
+    function stringMatching(str: RegExp): Any;
 
     interface Any {
 
         new (expectedClass: any): any;
 
         jasmineMatches(other: any): boolean;
+        jasmineToString(): string;
+    }
+
+    // taken from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
+    interface ArrayLike<T> {
+        length: number;
+        [n: number]: T;
+    }
+
+    interface ArrayContaining {
+        new (sample: any[]): any;
+
+        asymmetricMatch(other: any): boolean;
         jasmineToString(): string;
     }
 
@@ -89,6 +107,35 @@ declare module jasmine {
         uninstall(): void;
         /** Calls to any registered callback are triggered when the clock is ticked forward via the jasmine.clock().tick function, which takes a number of milliseconds. */
         tick(ms: number): void;
+        mockDate(date?: Date): void;
+    }
+
+    interface CustomEqualityTester {
+        (first: any, second: any): boolean;
+    }
+
+    interface CustomMatcher {
+        compare<T>(actual: T, expected: T): CustomMatcherResult;
+        compare(actual: any, expected: any): CustomMatcherResult;
+    }
+
+    interface CustomMatcherFactory {
+        (util: MatchersUtil, customEqualityTesters: Array<CustomEqualityTester>): CustomMatcher;
+    }
+
+    interface CustomMatcherFactories {
+        [index: string]: CustomMatcherFactory;
+    }
+
+    interface CustomMatcherResult {
+        pass: boolean;
+        message: string;
+    }
+
+    interface MatchersUtil {
+        equals(a: any, b: any, customTesters?: Array<CustomEqualityTester>): boolean;
+        contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: Array<CustomEqualityTester>): boolean;
+        buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: Array<any>): string;
     }
 
     interface Env {
@@ -122,7 +169,8 @@ declare module jasmine {
         compareObjects_(a: any, b: any, mismatchKeys: string[], mismatchValues: string[]): boolean;
         equals_(a: any, b: any, mismatchKeys: string[], mismatchValues: string[]): boolean;
         contains_(haystack: any, needle: any): boolean;
-        addEqualityTester(equalityTester: (a: any, b: any, env: Env, mismatchKeys: string[], mismatchValues: string[]) => boolean): void;
+        addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
+        addMatchers(matchers: CustomMatcherFactories): void;
         specFilter(spec: Spec): boolean;
     }
 
@@ -231,25 +279,25 @@ declare module jasmine {
         isNot?: boolean;
         message(): any;
 
-        toBe(expected: any): boolean;
-        toEqual(expected: any): boolean;
-        toMatch(expected: any): boolean;
-        toBeDefined(): boolean;
-        toBeUndefined(): boolean;
-        toBeNull(): boolean;
+        toBe(expected: any, expectationFailOutput?: any): boolean;
+        toEqual(expected: any, expectationFailOutput?: any): boolean;
+        toMatch(expected: any, expectationFailOutput?: any): boolean;
+        toBeDefined(expectationFailOutput?: any): boolean;
+        toBeUndefined(expectationFailOutput?: any): boolean;
+        toBeNull(expectationFailOutput?: any): boolean;
         toBeNaN(): boolean;
-        toBeTruthy(): boolean;
-        toBeFalsy(): boolean;
+        toBeTruthy(expectationFailOutput?: any): boolean;
+        toBeFalsy(expectationFailOutput?: any): boolean;
         toHaveBeenCalled(): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
-        toContain(expected: any): boolean;
-        toBeLessThan(expected: any): boolean;
-        toBeGreaterThan(expected: any): boolean;
-        toBeCloseTo(expected: any, precision: any): boolean;
+        toContain(expected: any, expectationFailOutput?: any): boolean;
+        toBeLessThan(expected: any, expectationFailOutput?: any): boolean;
+        toBeGreaterThan(expected: any, expectationFailOutput?: any): boolean;
+        toBeCloseTo(expected: any, precision: any, expectationFailOutput?: any): boolean;
         toContainHtml(expected: string): boolean;
         toContainText(expected: string): boolean;
         toThrow(expected?: any): boolean;
-        toThrowError(expected?: any): boolean;
+        toThrowError(expected?: any, message?: string): boolean;
         not: Matchers;
 
         Any: Any;
@@ -320,7 +368,7 @@ declare module jasmine {
         waitsFor(latchFunction: SpecFunction, timeoutMessage?: string, timeout?: number): Spec;
         fail(e?: any): void;
         getMatchersClass_(): Matchers;
-        addMatchers(matchersPrototype: any): void;
+        addMatchers(matchersPrototype: CustomMatcherFactories): void;
         finishCallback(): void;
         finish(onComplete?: () => void): void;
         after(doAfter: SpecFunction): void;
@@ -394,13 +442,20 @@ declare module jasmine {
         /** By chaining the spy with calls.allArgs(), will return the arguments to all calls **/
         allArgs(): any[];
         /** By chaining the spy with calls.all(), will return the context (the this) and arguments passed all calls **/
-        all(): any;
+        all(): CallInfo[];
         /** By chaining the spy with calls.mostRecent(), will return the context (the this) and arguments for the most recent call **/
-        mostRecent(): any;
+        mostRecent(): CallInfo;
         /** By chaining the spy with calls.first(), will return the context (the this) and arguments for the first call **/
-        first(): any;
+        first(): CallInfo;
         /** By chaining the spy with calls.reset(), will clears all tracking for a spy **/
         reset(): void;
+    }
+
+    interface CallInfo {
+        /** The context (the this) for the call */
+        object: any;
+        /** All arguments passed to the call */
+        args: any[];
     }
 
     interface Util {

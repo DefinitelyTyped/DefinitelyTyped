@@ -45,6 +45,9 @@ declare module "nock" {
 			merge(path: string, data?: Object): Scope;
 			merge(path: string, regex?: RegExp): Scope;
 
+			query(params: any): Scope;
+			query(acceptAnyParams: boolean): Scope;
+
 			intercept(path: string, verb: string, body?: string, options?: any): Scope;
 			intercept(path: string, verb: string, body?: Object, options?: any): Scope;
 			intercept(path: string, verb: string, body?: RegExp, options?: any): Scope;
@@ -53,9 +56,10 @@ declare module "nock" {
 			reply(responseCode: number, body?: Object, headers?: Object): Scope;
 			reply(responseCode: number, callback: (uri: string, body: string) => string, headers?: Object): Scope;
 			replyWithFile(responseCode: number, fileName: string): Scope;
+			replyWithError(errorMessage: string): Scope;
 
 			defaultReplyHeaders(headers: Object): Scope;
-			
+
 			matchHeader(name: string, value: string): Scope;
 			matchHeader(name: string, regex: RegExp): Scope;
 			matchHeader(name: string, fn: (value: string) => boolean): Scope;

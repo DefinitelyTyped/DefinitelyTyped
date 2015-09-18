@@ -265,7 +265,9 @@ function test_user_acl_roles() {
     role.getRoles().add(role);
     role.save();
 
-    Parse.User.logOut();
+    Parse.User.logOut().then(function (data) {
+      // logged out
+    });
 }
 
 function test_facebook_util() {
