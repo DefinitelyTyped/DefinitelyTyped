@@ -1,10 +1,10 @@
 ﻿// Type definitions for Gridstack
 // Project: http://troolee.github.io/gridstack.js/
-// Definitions by: Pascal Senn  <https://github.com/PascalSenn/>
+// Definitions by: Pascal Senn <https://github.com/PascalSenn/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 var options = <IGridstackOptions> {
-    float: true;
+    float: true
 };
 var gridstack:GridStack = $(document).gridstack(options);
 
