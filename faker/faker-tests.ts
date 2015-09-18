@@ -1,12 +1,13 @@
 /// <reference path="faker.d.ts" />
 
-import faker = require('faker');
-
 let resultStr: string;
 let resultBool: boolean;
 let resultNum: number;
 let resultStrArr: string[];
 let resultDate: Date;
+
+import faker = require('faker');
+faker.locale = 'en';
 
 resultStr = faker.address.zipCode();
 resultStr = faker.address.zipCode('###');
@@ -167,3 +168,6 @@ resultStr = faker.random.objectElement();
 resultStr = faker.random.objectElement({foo: 'bar', field: 'foo'});
 resultStr = faker.random.uuid();
 resultBool = faker.random.boolean();
+
+import fakerEn = require('faker/locale/en');
+resultStr = faker.name.firstName();
