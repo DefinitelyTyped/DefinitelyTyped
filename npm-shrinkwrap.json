@@ -8,9 +8,9 @@
       "resolved": "https://registry.npmjs.org/definition-tester/-/definition-tester-0.2.0.tgz",
       "dependencies": {
         "bluebird": {
-          "version": "2.9.34",
+          "version": "2.10.0",
           "from": "bluebird@>=2.5.3 <3.0.0",
-          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-2.9.34.tgz"
+          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-2.10.0.tgz"
         },
         "definition-header": {
           "version": "0.1.0",
@@ -23,9 +23,9 @@
               "resolved": "https://registry.npmjs.org/joi/-/joi-4.9.0.tgz",
               "dependencies": {
                 "hoek": {
-                  "version": "2.14.0",
+                  "version": "2.16.2",
                   "from": "hoek@>=2.2.0 <3.0.0",
-                  "resolved": "https://registry.npmjs.org/hoek/-/hoek-2.14.0.tgz"
+                  "resolved": "https://registry.npmjs.org/hoek/-/hoek-2.16.2.tgz"
                 },
                 "topo": {
                   "version": "1.0.3",
@@ -33,9 +33,9 @@
                   "resolved": "https://registry.npmjs.org/topo/-/topo-1.0.3.tgz"
                 },
                 "isemail": {
-                  "version": "1.1.1",
+                  "version": "1.2.0",
                   "from": "isemail@>=1.0.0 <2.0.0",
-                  "resolved": "https://registry.npmjs.org/isemail/-/isemail-1.1.1.tgz"
+                  "resolved": "https://registry.npmjs.org/isemail/-/isemail-1.2.0.tgz"
                 },
                 "moment": {
                   "version": "2.10.6",
@@ -305,9 +305,9 @@
       }
     },
     "typescript": {
-      "version": "1.6.0-beta",
-      "from": "typescript@1.6.0-beta",
-      "resolved": "https://registry.npmjs.org/typescript/-/typescript-1.6.0-beta.tgz"
+      "version": "1.6.2",
+      "from": "typescript@1.6.2",
+      "resolved": "https://registry.npmjs.org/typescript/-/typescript-1.6.2.tgz"
     }
   }
 }
