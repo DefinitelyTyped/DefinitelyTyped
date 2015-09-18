@@ -456,7 +456,28 @@ result = <{ x: number; }[]>_([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }]).unique('x').v
     result = _(testUnzipWithList).unzipWith<number, TResult>(testUnzipWithIterator, any).value();
 }
 
-result = <number[]>_.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
+// _.without
+{
+    let testWithoutArray: number[];
+    let testWithoutList: _.List<number>;
+    let result: number[];
+    result = _.without<number>(testWithoutArray);
+    result = _.without<number>(testWithoutArray, 1);
+    result = _.without<number>(testWithoutArray, 1, 2);
+    result = _.without<number>(testWithoutArray, 1, 2, 3);
+    result = _.without<number>(testWithoutList);
+    result = _.without<number>(testWithoutList, 1);
+    result = _.without<number>(testWithoutList, 1, 2);
+    result = _.without<number>(testWithoutList, 1, 2, 3);
+    result = _(testWithoutArray).without().value();
+    result = _(testWithoutArray).without(1).value();
+    result = _(testWithoutArray).without(1, 2).value();
+    result = _(testWithoutArray).without(1, 2, 3).value();
+    result = _(testWithoutList).without<number>().value();
+    result = _(testWithoutList).without<number>(1).value();
+    result = _(testWithoutList).without<number>(1, 2).value();
+    result = _(testWithoutList).without<number>(1, 2, 3).value();
+}
 
 // _.xor
 var testXorArray: number[];
