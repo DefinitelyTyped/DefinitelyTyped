@@ -3,7 +3,7 @@
 // Definitions by: Julio Casal <https://github.com/julioct>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../Q/Q.d.ts" />
+/// <reference path="../q/Q.d.ts" />
 
 declare module MsPortalTestFx {
 
