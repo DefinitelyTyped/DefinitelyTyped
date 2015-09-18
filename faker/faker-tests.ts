@@ -2,155 +2,168 @@
 
 import faker = require('faker');
 
-faker.address.zipCode();
-faker.address.zipCode('###');
-faker.address.city();
-faker.address.city(0);
-faker.address.cityPrefix();
-faker.address.citySuffix();
-faker.address.streetName();
-faker.address.streetAddress();
-faker.address.streetAddress(false);;
-faker.address.streetSuffix();
-faker.address.streetPrefix();
-faker.address.secondaryAddress();
-faker.address.county();
-faker.address.country();
-faker.address.countryCode();
-faker.address.state();
-faker.address.state(false);
-faker.address.stateAbbr();
-faker.address.latitude();
-faker.address.longitude();
+let resultStr: string;
+let resultBool: boolean;
+let resultNum: number;
+let resultStrArr: string[];
+let resultDate: Date;
 
-faker.commerce.color();
-faker.commerce.department();
-faker.commerce.productName();
-faker.commerce.price();
-faker.commerce.price(0, 0, 0, '#');
-faker.commerce.productAdjective();
-faker.commerce.productMaterial();
-faker.commerce.product();
+resultStr = faker.address.zipCode();
+resultStr = faker.address.zipCode('###');
+resultStr = faker.address.city();
+resultStr = faker.address.city(0);
+resultStr = faker.address.cityPrefix();
+resultStr = faker.address.citySuffix();
+resultStr = faker.address.streetName();
+resultStr = faker.address.streetAddress();
+resultStr = faker.address.streetAddress(false);;
+resultStr = faker.address.streetSuffix();
+resultStr = faker.address.streetPrefix();
+resultStr = faker.address.secondaryAddress();
+resultStr = faker.address.county();
+resultStr = faker.address.country();
+resultStr = faker.address.countryCode();
+resultStr = faker.address.state();
+resultStr = faker.address.state(false);
+resultStr = faker.address.stateAbbr();
+resultStr = faker.address.latitude();
+resultStr = faker.address.longitude();
 
-faker.company.suffixes();
-faker.company.companyName();
-faker.company.companyName(0);
-faker.company.companySuffix();
-faker.company.catchPhrase();
-faker.company.bs();
-faker.company.catchPhraseAdjective();
-faker.company.catchPhraseDescriptor();
-faker.company.catchPhraseNoun();
-faker.company.bsAdjective();
-faker.company.bsBuzz();
-faker.company.bsNoun();
+resultStr = faker.commerce.color();
+resultStr = faker.commerce.department();
+resultStr = faker.commerce.productName();
+resultStr = faker.commerce.price();
+resultStr = faker.commerce.price(0, 0, 0, '#');
+resultStr = faker.commerce.productAdjective();
+resultStr = faker.commerce.productMaterial();
+resultStr = faker.commerce.product();
 
-faker.date.past();
-faker.date.future();
-faker.date.between('foo', 'bar');
-faker.date.between(new Date(), new Date());
-faker.date.recent();
-faker.date.recent(100);
-faker.date.month();
-faker.date.month({
+resultStrArr = faker.company.suffixes();
+resultStr = faker.company.companyName();
+resultStr = faker.company.companyName(0);
+resultStr = faker.company.companySuffix();
+resultStr = faker.company.catchPhrase();
+resultStr = faker.company.bs();
+resultStr = faker.company.catchPhraseAdjective();
+resultStr = faker.company.catchPhraseDescriptor();
+resultStr = faker.company.catchPhraseNoun();
+resultStr = faker.company.bsAdjective();
+resultStr = faker.company.bsBuzz();
+resultStr = faker.company.bsNoun();
+
+resultDate = faker.date.past();
+resultDate = faker.date.future();
+resultDate = faker.date.between('foo', 'bar');
+resultDate = faker.date.between(new Date(), new Date());
+resultDate = faker.date.recent();
+resultDate = faker.date.recent(100);
+resultStr = faker.date.month();
+resultStr = faker.date.month({
 	abbr: true,
 	context: true
 });
-faker.date.weekday();
-faker.date.weekday({
+resultStr = faker.date.weekday();
+resultStr = faker.date.weekday({
 	abbr: true,
 	context: true
 });
 
-faker.finance.account();
-faker.finance.account(0);
-faker.finance.accountName();
-faker.finance.mask();
-faker.finance.mask(0, false, false);
-faker.finance.amount();
-faker.finance.amount(0, 0, 0, '#');
-faker.finance.transactionType();
-faker.finance.currencyCode();
-faker.finance.currencyName();
-faker.finance.currencySymbol();
+resultStr = faker.finance.account();
+resultStr = faker.finance.account(0);
+resultStr = faker.finance.accountName();
+resultStr = faker.finance.mask();
+resultStr = faker.finance.mask(0, false, false);
+resultStr = faker.finance.amount();
+resultStr = faker.finance.amount(0, 0, 0, '#');
+resultStr = faker.finance.transactionType();
+resultStr = faker.finance.currencyCode();
+resultStr = faker.finance.currencyName();
+resultStr = faker.finance.currencySymbol();
 
-faker.hacker.abbreviation();
-faker.hacker.adjective();
-faker.hacker.noun();
-faker.hacker.verb();
-faker.hacker.ingverb();
-faker.hacker.phrase();
+resultStr = faker.hacker.abbreviation();
+resultStr = faker.hacker.adjective();
+resultStr = faker.hacker.noun();
+resultStr = faker.hacker.verb();
+resultStr = faker.hacker.ingverb();
+resultStr = faker.hacker.phrase();
 
-faker.helpers.randomize();
-faker.helpers.randomize([1,2,3,4]);
-faker.helpers.randomize(['foo', 'bar', 'quux']);
-faker.helpers.slugify('foo bar quux');
-faker.helpers.replaceSymbolWithNumber('foo# bar#');
-faker.helpers.replaceSymbols('foo# bar? quux#');
-faker.helpers.shuffle(['foo', 'bar', 'quux']);
-faker.helpers.mustache('{{foo}}{{bar}}', {foo: 'x', bar: 'y'});
-faker.helpers.createCard();
-faker.helpers.contextualCard();
-faker.helpers.userCard();
+resultStr = faker.helpers.randomize();
+resultNum = faker.helpers.randomize([1,2,3,4]);
+resultStr = faker.helpers.randomize(['foo', 'bar', 'quux']);
+resultStr = faker.helpers.slugify('foo bar quux');
+resultStr = faker.helpers.replaceSymbolWithNumber('foo# bar#');
+resultStr = faker.helpers.replaceSymbols('foo# bar? quux#');
+resultStrArr = faker.helpers.shuffle(['foo', 'bar', 'quux']);
+resultStr = faker.helpers.mustache('{{foo}}{{bar}}', {foo: 'x', bar: 'y'});
 
-faker.internet.avatar();
-faker.internet.email();
-faker.internet.email('foo', 'bar', 'quux');
-faker.internet.protocol();
-faker.internet.url();
-faker.internet.domainName();
-faker.internet.domainSuffix();
-faker.internet.domainWord();
-faker.internet.ip();
-faker.internet.userAgent();
-faker.internet.color();
-faker.internet.color(0, 0, 0);
-faker.internet.mac();
-faker.internet.password();
-faker.internet.password(0, false, '#', 'foo');
+const card = faker.helpers.createCard();
+resultStr = card.name;
+resultStr = card.address.streetA;
+const contextualCard = faker.helpers.contextualCard();
+resultStr = contextualCard.name;
+resultStr = contextualCard.address.suite;
+const userCard = faker.helpers.userCard();
+resultStr = userCard.name;
+resultStr = userCard.address.suite;
 
-faker.lorem.words();
-faker.lorem.words(0);
-faker.lorem.sentence();
-faker.lorem.sentence(0, 0);
-faker.lorem.sentences();
-faker.lorem.sentences(0);
-faker.lorem.paragraph();
-faker.lorem.paragraph(0);
-faker.lorem.paragraphs();
-faker.lorem.paragraphs(0, '');
+resultStr = faker.internet.avatar();
+resultStr = faker.internet.email();
+resultStr = faker.internet.email('foo', 'bar', 'quux');
+resultStr = faker.internet.protocol();
+resultStr = faker.internet.url();
+resultStr = faker.internet.domainName();
+resultStr = faker.internet.domainSuffix();
+resultStr = faker.internet.domainWord();
+resultStr = faker.internet.ip();
+resultStr = faker.internet.userAgent();
+resultStr = faker.internet.color();
+resultStr = faker.internet.color(0, 0, 0);
+resultStr = faker.internet.mac();
+resultStr = faker.internet.password();
+resultStr = faker.internet.password(0, false, '#', 'foo');
 
-faker.name.firstName();
-faker.name.firstName(0);
-faker.name.lastName();
-faker.name.lastName(0);
-faker.name.findName();
-faker.name.findName('', '', 0);
-faker.name.jobTitle();
-faker.name.prefix();
-faker.name.suffix();
-faker.name.title();
-faker.name.jobDescriptor();
-faker.name.jobArea();
-faker.name.jobType();
+resultStrArr = faker.lorem.words();
+resultStrArr = faker.lorem.words(0);
+resultStr = faker.lorem.sentence();
+resultStr = faker.lorem.sentence(0, 0);
+resultStr = faker.lorem.sentences();
+resultStr = faker.lorem.sentences(0);
+resultStr = faker.lorem.paragraph();
+resultStr = faker.lorem.paragraph(0);
+resultStr = faker.lorem.paragraphs();
+resultStr = faker.lorem.paragraphs(0, '');
 
-faker.phone.phoneNumber();
-faker.phone.phoneNumber('#');
-faker.phone.phoneNumberFormat();
+resultStr = faker.name.firstName();
+resultStr = faker.name.firstName(0);
+resultStr = faker.name.lastName();
+resultStr = faker.name.lastName(0);
+resultStr = faker.name.findName();
+resultStr = faker.name.findName('', '', 0);
+resultStr = faker.name.jobTitle();
+resultStr = faker.name.prefix();
+resultStr = faker.name.suffix();
+resultStr = faker.name.title();
+resultStr = faker.name.jobDescriptor();
+resultStr = faker.name.jobArea();
+resultStr = faker.name.jobType();
+
+resultStr = faker.phone.phoneNumber();
+resultStr = faker.phone.phoneNumber('#');
+resultStr = faker.phone.phoneNumberFormat();
 // https://github.com/Marak/faker.js/blob/master/lib/phone_number.js#L9-L13
-faker.phone.phoneNumberFormat(0);
-faker.phone.phoneFormats();
+resultStr = faker.phone.phoneNumberFormat(0);
+resultStr = faker.phone.phoneFormats();
 
-faker.random.number();
-faker.random.number(0);
-faker.random.number({
+resultNum = faker.random.number();
+resultNum = faker.random.number(0);
+resultNum = faker.random.number({
 	min: 0,
 	max: 0,
 	precision: 0
 });
-faker.random.arrayElement();
-faker.random.arrayElement(['foo', 'bar', 'quux'])
-faker.random.objectElement();
-faker.random.objectElement({foo: 'bar', field: 'foo'});
-faker.random.uuid();
-faker.random.boolean();
+resultStr = faker.random.arrayElement();
+resultStr = faker.random.arrayElement(['foo', 'bar', 'quux'])
+resultStr = faker.random.objectElement();
+resultStr = faker.random.objectElement({foo: 'bar', field: 'foo'});
+resultStr = faker.random.uuid();
+resultBool = faker.random.boolean();
