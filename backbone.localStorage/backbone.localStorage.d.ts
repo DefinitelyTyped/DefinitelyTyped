@@ -18,7 +18,7 @@ declare module Backbone {
 
         constructor(name: string, serializer?: Serializer);
 
-        save();
+        save(): void;
 
         // Add a model, giving it a (hopefully)-unique GUID, if it doesn't already
         // have an id of it's own.
@@ -43,7 +43,7 @@ declare module Backbone {
 
         _storageSize(): number;
 
-        _itemName(id): string;
+        _itemName(id: any): string;
     }
 }
 
