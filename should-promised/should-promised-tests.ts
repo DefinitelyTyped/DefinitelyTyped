@@ -7,9 +7,9 @@ var promise: Promise<number> = new Promise<number>(function (resolve, reject) {}
 promise.should.be.Promise;
 (10).should.not.be.a.Promise;
 
-promise.should.be.fulfilled;
+promise.should.be.fulfilled();
 
-promise.should.be.rejected;
+promise.should.be.rejected();
 
 promise.should.be.rejectedWith(Error);
 promise.should.be.rejectedWith('boom');
