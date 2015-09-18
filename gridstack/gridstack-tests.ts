@@ -1,4 +1,8 @@
-﻿// Type definitions for Gridstack
+﻿/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="gridstack.d.ts" />
+
+
+// Type definitions for Gridstack
 // Project: http://troolee.github.io/gridstack.js/
 // Definitions by: Pascal Senn <https://github.com/PascalSenn/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
