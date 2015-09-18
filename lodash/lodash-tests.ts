@@ -172,8 +172,28 @@ result = <_.LoDashArrayWrapper<number[]>>_([1, 2, 3, 4]).chunk(2);
 result = <any[]>_.compact([0, 1, false, 2, '', 3]);
 result = <_.LoDashArrayWrapper<any>>_([0, 1, false, 2, '', 3]).compact();
 
-result = <number[]>_.difference([1, 2, 3, 4, 5], [5, 2, 10]);
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4, 5]).difference([5, 2, 10]);
+// _.difference
+{
+    let testDifferenceArray: TResult[];
+    let testDifferenceList: _.List<TResult>;
+    let result: TResult[];
+    result = _.difference<TResult>(testDifferenceArray);
+    result = _.difference<TResult>(testDifferenceArray, testDifferenceArray);
+    result = _.difference<TResult>(testDifferenceArray, testDifferenceList, testDifferenceArray);
+    result = _.difference<TResult>(testDifferenceArray, testDifferenceArray, testDifferenceList, testDifferenceArray);
+    result = _.difference<TResult>(testDifferenceList);
+    result = _.difference<TResult>(testDifferenceList, testDifferenceList);
+    result = _.difference<TResult>(testDifferenceList, testDifferenceArray, testDifferenceList);
+    result = _.difference<TResult>(testDifferenceList, testDifferenceList, testDifferenceArray, testDifferenceList);
+    result = _(testDifferenceArray).difference().value();
+    result = _(testDifferenceArray).difference(testDifferenceArray).value();
+    result = _(testDifferenceArray).difference(testDifferenceList, testDifferenceArray).value();
+    result = _(testDifferenceArray).difference(testDifferenceArray, testDifferenceList, testDifferenceArray).value();
+    result = _(testDifferenceList).difference<TResult>().value();
+    result = _(testDifferenceList).difference<TResult>(testDifferenceList).value();
+    result = _(testDifferenceList).difference<TResult>(testDifferenceArray, testDifferenceList).value();
+    result = _(testDifferenceList).difference<TResult>(testDifferenceList, testDifferenceArray, testDifferenceList).value();
+}
 
 result = <number[]>_.rest([1, 2, 3]);
 result = <number[]>_.rest([1, 2, 3], 2);
