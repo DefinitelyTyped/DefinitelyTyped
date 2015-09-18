@@ -1831,21 +1831,30 @@ declare module _ {
     //_.without
     interface LoDashStatic {
         /**
-        * Creates an array excluding all provided values using strict equality for comparisons, i.e. ===.
-        * @param array The array to filter.
-        * @param values The value(s) to exclude.
-        * @return A new array of filtered values.
-        **/
+         * Creates an array excluding all provided values using SameValueZero for equality comparisons.
+         *
+         * @param array The array to filter.
+         * @param values The values to exclude.
+         * @return Returns the new array of filtered values.
+         */
         without<T>(
-            array: Array<T>,
-            ...values: T[]): T[];
+            array: T[]|List<T>,
+            ...values: T[]
+        ): T[];
+    }
 
+    interface LoDashArrayWrapper<T> {
         /**
-        * @see _.without
-        **/
-        without<T>(
-            array: List<T>,
-            ...values: T[]): T[];
+         * @see _.without
+         */
+        without(...values: T[]): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.without
+         */
+        without<TValue>(...values: TValue[]): LoDashArrayWrapper<TValue>;
     }
 
     //_.xor
