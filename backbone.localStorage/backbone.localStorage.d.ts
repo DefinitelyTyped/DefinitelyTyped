@@ -1,12 +1,11 @@
 
-
 declare module Backbone {
     interface Serializer {
         serialize(item: any): any;
         deserialize(data: any): any;
     }
 
-    declare class LocalStorage {
+    class LocalStorage {
         name: string;
         serializer: Serializer;
         records: string[];
@@ -39,8 +38,8 @@ declare module Backbone {
         _storageSize(): number;
 
         _itemName(id): string;
-    };
+    }
 }
 
-export Store = Backbone.LocalStorage;
+import Store = Backbone.LocalStorage;
 
