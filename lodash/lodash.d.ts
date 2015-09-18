@@ -1104,24 +1104,36 @@ declare module _ {
             ...values: T[]): T[];
     }
 
+    //_.pullAt
     interface LoDashStatic {
         /**
-         * Removes all provided values from the given array using strict equality for comparisons,
-         * i.e. ===.
+         * Removes elements from array corresponding to the given indexes and returns an array of the removed elements.
+         * Indexes may be specified as an array of indexes or as individual arguments.
+         *
+         * Note: Unlike _.at, this method mutates array.
+         *
          * @param array The array to modify.
-         * @param values The values to remove.
-         * @return array.
-         **/
-        pullAt(
-            array: Array<any>,
-            ...values: any[]): any[];
+         * @param indexes The indexes of elements to remove, specified as individual indexes or arrays of indexes.
+         * @return Returns the new array of removed elements.
+         */
+        pullAt<T>(
+            array: T[]|List<T>,
+            ...indexes: (number|number[])[]
+        ): T[];
+    }
 
+    interface LoDashArrayWrapper<T> {
         /**
-         * @see _.pull
-         **/
-        pullAt(
-            array: List<any>,
-            ...values: any[]): any[];
+         * @see _.pullAt
+         */
+        pullAt(...indexes: (number|number[])[]): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.pullAt
+         */
+        pullAt<TValue>(...indexes: (number|number[])[]): LoDashArrayWrapper<TValue>;
     }
 
     //_.remove
