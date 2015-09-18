@@ -6,7 +6,6 @@
 declare module moment {
 
     interface MomentInput {
-
         /** Year */
         years?: number;
         /** Year */
@@ -57,11 +56,9 @@ declare module moment {
         millisecond?: number;
         /** Millisecond */
         ms?: number;
-
     }
 
     interface Duration {
-
         humanize(withSuffix?: boolean): string;
 
         as(units: string): number;
@@ -97,11 +94,9 @@ declare module moment {
 
         toISOString(): string;
         toJSON(): string;
-
     }
 
     interface Moment {
-
         format(format: string): string;
         format(): string;
 
@@ -180,6 +175,7 @@ declare module moment {
 
         calendar(): string;
         calendar(start: Moment): string;
+        calendar(start: Moment, formats: MomentCalendar): string;
 
         clone(): Moment;
 
@@ -299,18 +295,17 @@ declare module moment {
 
         get(unit: string): number;
         set(unit: string, value: number): Moment;
-
     }
 
+    type formatFunction = () => string;
+
     interface MomentCalendar {
-
-      lastDay: any;
-      sameDay: any;
-      nextDay: any;
-      lastWeek: any;
-      nextWeek: any;
-      sameElse: any;
-
+      lastDay?: string | formatFunction;
+      sameDay?: string | formatFunction;
+      nextDay?: string | formatFunction;
+      lastWeek?: string | formatFunction;
+      nextWeek?: string | formatFunction;
+      sameElse?: string | formatFunction;
     }
 
     interface BaseMomentLanguage {
@@ -337,7 +332,6 @@ declare module moment {
     }
 
     interface MomentLongDateFormat {
-
       L: string;
       LL: string;
       LLL: string;
@@ -348,11 +342,9 @@ declare module moment {
       lll?: string;
       llll?: string;
       lt?: string;
-
     }
 
     interface MomentRelativeTime {
-
       future: any;
       past: any;
       s: any;
@@ -366,11 +358,9 @@ declare module moment {
       MM: any;
       y: any;
       yy: any;
-
     }
 
     interface MomentStatic {
-
         version: string;
         fn: Moment;
 
@@ -468,7 +458,6 @@ declare module moment {
         ISO_8601(): void;
 
         defaultFormat: string;
-
     }
 
 }
