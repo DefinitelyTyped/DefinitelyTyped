@@ -1837,6 +1837,22 @@ declare module L {
 
 declare module L {
 
+    export interface LeafletLayersControlEvent extends LeafletEvent {
+
+        /**
+          * The layer that was added or removed.
+          */
+        layer: ILayer;
+
+        /**
+          * The name of the layer that was added or removed.
+          */
+        name: string;
+    }
+}
+
+declare module L {
+
     export interface LeafletLocationEvent extends LeafletEvent {
 
         /**
