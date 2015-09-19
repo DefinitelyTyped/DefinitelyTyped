@@ -490,6 +490,10 @@ declare module uiGrid {
          */
         footerHeight?: number;
         /**
+         * returns or sets grid height in pixels
+         */
+        gridHeight?: number;
+        /**
          * set to true when Grid is scrolling horizontally. Set to false via debounced method
          */
         isScrollingHorizontally?: boolean;
