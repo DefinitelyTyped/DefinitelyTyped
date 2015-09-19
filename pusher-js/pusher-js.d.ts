@@ -18,6 +18,14 @@ declare module "pusher-js" {
             allChannels(): Channel[];
             bind(eventName: string, callback: Function): Pusher;
             bind_all(callback: Function): Pusher;
+            disconnect(): void;
+            key: string;
+            config: Config; //TODO: add GlobalConfig typings
+            channels: any; //TODO: Type this
+            global_emitter: EventsDispatcher;
+            sessionId: number;
+            timeline: any; //TODO: Type this
+            connection: ConnectionManager;
         }
 
         interface Config {
@@ -103,15 +111,117 @@ declare module "pusher-js" {
             headers?: { [key: string]: any };
         }
 
-        interface Channel {
-            bind(eventName: string, callback: Function, context?: any): Channel;
-            bind_all(callback: Function): Channel;
-            unbind(eventName?: string, callback?: Function, context?: any): Channel;
-            unbind_all(eventName?: string, callback?: Function): Channel;
-            trigger(eventName: string, data?: any): any;
+        interface GenericEventsDispatcher<Self extends EventsDispatcher> extends EventsDispatcher {
+            bind(eventName: string, callback: Function, context?: any): Self;
+            bind_all(callback: Function): Self;
+            unbind(eventName?: string, callback?: Function, context?: any): Self;
+            unbind_all(eventName?: string, callback?: Function): Self;
+            emit(eventName: string, data?: any): Self;
+        }
+
+        interface Channel extends GenericEventsDispatcher<Channel> {
+            /** Triggers an event */
+            trigger(eventName: string, data?: any): boolean;
             pusher: Pusher;
             name: string;
             subscribed: boolean;
+            /**
+             * Authenticates the connection as a member of the channel.
+             * @param  {String} socketId
+             * @param  {Function} callback
+             */
+            authorize(socketId: string, callback: (data: any) => void): void;
+        }
+
+        interface EventsDispatcher {
+            bind(eventName: string, callback: Function, context?: any): EventsDispatcher;
+            bind_all(callback: Function): EventsDispatcher;
+            unbind(eventName?: string, callback?: Function, context?: any): EventsDispatcher;
+            unbind_all(eventName?: string, callback?: Function): EventsDispatcher;
+            emit(eventName: string, data?: any): EventsDispatcher;
+        }
+
+        interface ConnectionManager extends GenericEventsDispatcher<ConnectionManager> {
+            key: string;
+            options: any; //TODO: Timeline.js
+            state: string;
+            connection: any; //TODO: Type this
+            encrypted: boolean;
+            timeline: any; //TODO: Type this
+            connectionCallbacks: {
+                message: (message: string) => void;
+                ping: () => void;
+                activity: () => void;
+                error: (error: any) => void;
+                closed: () => void;
+            };
+            errorCallbacks: {
+                ssl_only: () => void;
+                refused: () => void;
+                backoff: () => void;
+                retry: () => void;
+            };
+            handshakeCallbacks: {
+                ssl_only: () => void;
+                refused: () => void;
+                backoff: () => void;
+                retry: () => void;
+                connected: (handshake: any) => void; //TODO: Type this
+            };
+            /**
+             * Establishes a connection to Pusher.
+             *
+             * Does nothing when connection is already established. See top-level doc
+             * to find events emitted on connection attempts.
+             */
+            connect(): void;
+            /**
+             * Sends raw data.
+             * @param {String} data
+             */
+            send(data: string): boolean;
+            /** Sends an event.
+             *
+             * @param {String} name
+             * @param {String} data
+             * @param {String} [channel]
+             * @returns {Boolean} whether message was sent or not
+             */
+            send_event(name: string, data: string, channel: string): boolean;
+            /** Closes the connection. */
+            disconnect(): void;
+            isEncrypted(): boolean;
+        }
+
+        interface PresenceChannel<T> extends Channel {
+            members: Members<T>;
+        }
+
+        interface Members<T> {
+            /**
+             * Returns member's info for given id.
+             *
+             * Resulting object containts two fields - id and info.
+             *
+             * @param {Number} id
+             * @return {Object} member's info or null
+             */
+            get(id: number): T;
+            /**
+             * Calls back for each member in unspecified order.
+             *
+             * @param  {Function} callback
+             */
+            each(callback: (member: any) => void): void;
+            members: { [id: number]: UserInfo<T> };
+            count: number;
+            myID: number;
+            me: UserInfo<T>;
+        }
+
+        interface UserInfo<T> {
+            id: number;
+            info: T;
         }
     }
 
@@ -119,4 +229,3 @@ declare module "pusher-js" {
 
     export = pusher;
 }
-
