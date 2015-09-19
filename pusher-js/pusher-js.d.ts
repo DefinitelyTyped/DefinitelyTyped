@@ -6,17 +6,21 @@
 declare module "pusher-js" {
 
     namespace pusher {
-        interface PusherConstructor {
-            (apiKey: string, config?: Config): Pusher;
-        	//TODO
+        interface PusherStatic {
+            new(apiKey: string, config?: Config): Pusher;
         }
 
         interface Pusher {
-
+            subscribe(name: string): Channel;
+            subscribeAll(): void;
+            unsubscribe(name: string): void;
+            channel(name: string): Channel;
+            allChannels(): Channel[];
+            bind(eventName: string, callback: Function): Pusher;
+            bind_all(callback: Function): Pusher;
         }
 
         interface Config {
-
             /**
              * Forces the connection to use encrypted transports.
              */
@@ -95,12 +99,23 @@ declare module "pusher-js" {
         }
 
         interface AuthConfig {
-            params: { [key: string]: any };
-            headers: { [key: string]: any };
+            params?: { [key: string]: any };
+            headers?: { [key: string]: any };
+        }
+
+        interface Channel {
+            bind(eventName: string, callback: Function, context?: any): Channel;
+            bind_all(callback: Function): Channel;
+            unbind(eventName?: string, callback?: Function, context?: any): Channel;
+            unbind_all(eventName?: string, callback?: Function): Channel;
+            trigger(eventName: string, data?: any): any;
+            pusher: Pusher;
+            name: string;
+            subscribed: boolean;
         }
     }
 
-    var pusher: pusher.PusherConstructor;
+    var pusher: pusher.PusherStatic;
 
     export = pusher;
 }
