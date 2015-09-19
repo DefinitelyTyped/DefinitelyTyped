@@ -1,4 +1,4 @@
-// Type definitions for vuejs 0.11.0
+// Type definitions for vuejs 0.12.14
 // Project: https://github.com/yyx990803/vue
 // Definitions by: odangosan <https://github.com/odangosan>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -47,6 +47,7 @@ declare module vuejs {
      * http://vuejs.org/api/options.html#Assets
      */
     directives: {};
+    elementDirectives: {};
     filters: {};
     components: {};
     partials: {};
@@ -69,6 +70,7 @@ declare module vuejs {
     $options: {};
     $parent: Vue;
     $root: Vue;
+    $children: Array<Vue>;
     $: {};
     $$: {};
 
@@ -79,7 +81,7 @@ declare module vuejs {
     /**
      * Data
      */
-    $watch(expression: string, callback: ValueCallback, deep?: boolean, immediate?: boolean): void;
+    $watch(expression: string, callback: ValueCallback, deep?: boolean, immediate?: boolean, sync?: boolean): void;
     $get(expression: string): any;
     $set(keypath: string, value: any): void;
     $add(keypath: string, value: any): void;
@@ -102,10 +104,10 @@ declare module vuejs {
      * DOM
      */
     $appendTo(element: any, callback?: Function): Vue;// element or selector
-    $prependTo(element: any, callback?: Function): Vue;// element or selector
     $before(element: any, callback?: Function): Vue;// element or selector
     $after(element: any, callback?: Function): Vue;// element or selector
     $remove(callback?: Function): Vue;
+    $nextTick(callback?: Function): Vue;
 
     /**
      * Lifecycle
@@ -121,6 +123,7 @@ declare module vuejs {
      */
     static config: VueConfig;
     static extend(options: {}): typeof Vue;
+    static nextTick(callback: VueCallback): void;
     static directive(id: string, definition?: {}): void;
     static directive(id: string, definition?: VueCallback): void;
     static filter(id: string, definition?: FilterCallback): void;
@@ -129,10 +132,9 @@ declare module vuejs {
     static transition(id: string, definition?: {}): void;
     static partial(id: string, definition?: string): void;
     static partial(id: string, definition?: HTMLElement): void;
-    static nextTick(callback: VueCallback): void;
-    static require(module: string): void;
     static use(plugin: {}, ...args: any[]): Vue;
     static use(plugin: VueCallback, ...args: any[]): Vue;
+    static util: any; // need to read source code for details
 
     /**
      * exports members.
