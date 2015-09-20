@@ -2042,6 +2042,46 @@ declare module _ {
         commit(): TWrapper;
     }
 
+    //_.prototype.plant
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * Creates a clone of the chained sequence planting value as the wrapped value.
+         * @param value The value to plant as the wrapped value.
+         * @return Returns the new lodash wrapper instance.
+         */
+        plant(value: number): LoDashWrapper<number>;
+
+        /**
+         * @see _.plant
+         */
+        plant(value: string): LoDashStringWrapper;
+
+        /**
+         * @see _.plant
+         */
+        plant(value: boolean): LoDashWrapper<boolean>;
+
+        /**
+         * @see _.plant
+         */
+        plant(value: number[]): LoDashNumberArrayWrapper;
+
+        /**
+         * @see _.plant
+         */
+        plant<T>(value: T[]): LoDashArrayWrapper<T>;
+
+        /**
+         * @see _.plant
+         */
+        plant<T extends {}>(value: T): LoDashObjectWrapper<T>;
+
+        /**
+         * @see _.plant
+         */
+        plant(value: any): LoDashWrapper<any>;
+    }
+
     /**************
      * Collection *
      **************/

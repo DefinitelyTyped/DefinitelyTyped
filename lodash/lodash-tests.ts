@@ -546,6 +546,32 @@ result = <number[]>_([1, 2]).zipWith<number>([1, 2], [1, 2], [1, 2], [1, 2], [1,
     result = _({}).commit();
 }
 
+// _.prototype.plant
+{
+    let result: _.LoDashWrapper<number>;
+    result = _(any).plant(42);
+}
+{
+    let result: _.LoDashStringWrapper;
+    result = _(any).plant('');
+}
+{
+    let result: _.LoDashWrapper<boolean>;
+    result = _(any).plant(true);
+}
+{
+    let result: _.LoDashNumberArrayWrapper;
+    result = _(any).plant([42]);
+}
+{
+    let result: _.LoDashArrayWrapper<any>;
+    result = _(any).plant<any>([]);
+}
+{
+    let result: _.LoDashObjectWrapper<{}>;
+    result = _(any).plant<{}>({});
+}
+
 /**************
  * Collection *
  **************/
