@@ -62,7 +62,7 @@ declare module 'request' {
 			uri?: string;
 			callback?: (error: any, response: http.IncomingMessage, body: any) => void;
 			jar?: any; // CookieJar
-			formData: any; // Object
+			formData?: any; // Object
 			form?: any; // Object or string
 			auth?: AuthOptions;
 			oauth?: OAuthOptions;
