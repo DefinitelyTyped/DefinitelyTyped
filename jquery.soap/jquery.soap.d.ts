@@ -3,7 +3,7 @@
 // Definitions by: Roland Greim <https://github.com/tigerxy>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped/
 
-/// <reference path="jquery/jquery.d.ts"/>
+/// <reference path="../jquery/jquery.d.ts"/>
 
 declare module JQuerySOAP {
     interface SOAPEnvelope {
