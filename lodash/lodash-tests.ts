@@ -319,6 +319,29 @@ result = <number>_([1, 2, 3]).last();
 result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2, 3);
 
+// _.pullAt
+{
+    let testPullAtArray: TResult[];
+    let testPullAtList: _.List<TResult>;
+    let result: TResult[];
+    result = _.pullAt<TResult>(testPullAtArray);
+    result = _.pullAt<TResult>(testPullAtArray, 1);
+    result = _.pullAt<TResult>(testPullAtArray, [2, 3], 1);
+    result = _.pullAt<TResult>(testPullAtArray, 4, [2, 3], 1);
+    result = _.pullAt<TResult>(testPullAtList);
+    result = _.pullAt<TResult>(testPullAtList, 1);
+    result = _.pullAt<TResult>(testPullAtList, [2, 3], 1);
+    result = _.pullAt<TResult>(testPullAtList, 4, [2, 3], 1);
+    result = _(testPullAtArray).pullAt().value();
+    result = _(testPullAtArray).pullAt(1).value();
+    result = _(testPullAtArray).pullAt([2, 3], 1).value();
+    result = _(testPullAtArray).pullAt(4, [2, 3], 1).value();
+    result = _(testPullAtList).pullAt<TResult>().value();
+    result = _(testPullAtList).pullAt<TResult>(1).value();
+    result = _(testPullAtList).pullAt<TResult>([2, 3], 1).value();
+    result = _(testPullAtList).pullAt<TResult>(4, [2, 3], 1).value();
+}
+
 result = <_.Dictionary<any>>_.zipObject(['moe', 'larry'], [30, 40]);
 result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_(['moe', 'larry']).zipObject([30, 40]);
 result = <_.Dictionary<any>>_.object(['moe', 'larry'], [30, 40]);
@@ -329,7 +352,6 @@ result = <_.Dictionary<any>>_.object([['moe', 30], ['larry', 40]]);
 result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_([['moe', 30], ['larry', 40]]).object();
 
 result = <number[]>_.pull([1, 2, 3, 1, 2, 3], 2, 3);
-result = <number[]>_.pullAt([1, 2, 3, 1, 2, 3], 2, 3);
 
 result = <number[]>_.remove([1, 2, 3, 4, 5, 6], function (num: number) { return num % 2 == 0; });
 result = <IFoodOrganic[]>_.remove(foodsOrganic, 'organic');
