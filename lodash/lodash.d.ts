@@ -988,17 +988,27 @@ declare module _ {
     //_.intersection
     interface LoDashStatic {
         /**
-        * Creates an array of unique values present in all provided arrays using strict
-        * equality for comparisons, i.e. ===.
-        * @param arrays The arrays to inspect.
-        * @return Returns an array of composite values.
-        **/
-        intersection<T>(...arrays: Array<T>[]): T[];
+         * Creates an array of unique values that are included in all of the provided arrays using SameValueZero for
+         * equality comparisons.
+         *
+         * @param arrays The arrays to inspect.
+         * @return Returns the new array of shared values.
+         */
+        intersection<T>(...arrays: (T[]|List<T>)[]): T[];
+    }
 
+    interface LoDashArrayWrapper<T> {
         /**
-        * @see _.intersection
-        **/
-        intersection<T>(...arrays: List<T>[]): T[];
+         * @see _.intersection
+         */
+        intersection<TResult>(...arrays: (TResult[]|List<TResult>)[]): LoDashArrayWrapper<TResult>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.intersection
+         */
+        intersection<TResult>(...arrays: (TResult[]|List<TResult>)[]): LoDashArrayWrapper<TResult>;
     }
 
     //_.last
