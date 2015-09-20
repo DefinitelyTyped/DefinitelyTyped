@@ -24,7 +24,6 @@ declare module "material-ui" {
     export import ClearFix = __MaterialUI.ClearFix; // require('material-ui/lib/clearfix');
     export import DatePicker = __MaterialUI.DatePicker.DatePicker; // require('material-ui/lib/date-picker/date-picker');
     export import DatePickerDialog = __MaterialUI.DatePicker.DatePickerDialog; // require('material-ui/lib/date-picker/date-picker-dialog');
-    export import DialogAction = __MaterialUI.DialogAction; // type definition
     export import Dialog = __MaterialUI.Dialog // require('material-ui/lib/dialog');
     export import DropDownIcon = __MaterialUI.DropDownIcon; // require('material-ui/lib/drop-down-icon');
     export import DropDownMenu = __MaterialUI.DropDownMenu; // require('material-ui/lib/drop-down-menu');
@@ -83,11 +82,16 @@ declare module "material-ui" {
     export import ToolbarTitle = __MaterialUI.Toolbar.ToolbarTitle; // require('material-ui/lib/toolbar/toolbar-title');
     export import Tooltip = __MaterialUI.Tooltip; // require('material-ui/lib/tooltip');
     export import Utils = __MaterialUI.Utils; // require('material-ui/lib/utils/');
+
+    // export type definitions
+    export import TouchTapEvent = __MaterialUI.TouchTapEvent;
+    export import TouchTapEventHandler = __MaterialUI.TouchTapEventHandler;
+    export import DialogAction = __MaterialUI.DialogAction;
 }
 
 declare namespace __MaterialUI {
     import React = __React;
-    
+
     // ReactLink is from "react/addons"
     interface ReactLink<T> {
         value: T;
@@ -634,12 +638,32 @@ declare namespace __MaterialUI {
     export class RefreshIndicator extends React.Component<RefreshIndicatorProp, any> {
     }
 
-    export interface Ripples {
+    namespace Ripples {
+        interface CircleRippleProp extends React.Props<CircleRipple> {
+            ref?: string | ((component: CircleRipple) => any);
+
+        }
+        export class CircleRipple extends React.Component<CircleRippleProp, any> {
+        }
+
+        interface FocusRippleProp extends React.Props<FocusRipple> {
+            ref?: string | ((component: FocusRipple) => any);
+
+        }
+        export class FocusRipple extends React.Component<FocusRippleProp, any> {
+        }
+
+        interface TouchRippleProp extends React.Props<TouchRipple> {
+            ref?: string | ((component: TouchRipple) => any);
+
+        }
+        export class TouchRipple extends React.Component<TouchRippleProp, any> {
+        }
     }
 
     interface SelectFieldProp extends React.Props<SelectField> {
         ref?: string | ((component: SelectField) => any);
-        
+
         // passed to TextField
         errorStyle?: React.CSSProperties;
         errorText?: string;
@@ -707,12 +731,14 @@ declare namespace __MaterialUI {
     }
 
     export namespace Styles {
-        interface AutoPrefixProp extends React.Props<AutoPrefix> {
-            ref?: string | ((component: AutoPrefix) => any);
+        interface AutoPrefix {
+            all(styles: any): any;
+            set(style: any, key: string, value: string | number): void;
+            single(key: string): string;
+            singleHyphened(key: string): string;
+        }
+        export var AutoPrefix: AutoPrefix;
 
-        }
-        export class AutoPrefix extends React.Component<AutoPrefixProp, any> {
-        }
         interface Spacing {
             iconSize?: number;
 
@@ -887,14 +913,15 @@ declare namespace __MaterialUI {
             setComponentThemes(overrides: Theme): void;
         }
 
-        interface TransitionsProp extends React.Props<Transitions> {
-            ref?: string | ((component: Transitions) => any);
-
+        interface Transitions {
+            easeOut(duration?: string, property?: string | string[], delay?: string, easeFunction?: string): string;
+            create(duration?: string, property?: string, delay?: string, easeFunction?: string): string;
+            easeOutFunction: string;
+            easeInOutFunction: string;
         }
-        export class Transitions extends React.Component<TransitionsProp, any> {
-        }
+        export var Transitions: Transitions;
 
-        export class Typography {
+        class TypographyClass {
             textFullBlack:string;
             textDarkBlack: string;
             textLightBlack: string;
@@ -910,6 +937,7 @@ declare namespace __MaterialUI {
 
             fontStyleButtonFontSize: number;
         }
+        export var Typography: TypographyClass;
     }
 
     interface SnackbarProp extends React.Props<Snackbar> {
@@ -1112,6 +1140,7 @@ declare namespace __MaterialUI {
             contrastRatio(background: string, foreground: string): string;
             contrastRatioLevel(background: string, foreground: string): any;
         }
+        export var ColorManipulator: ColorManipulator;
 
         interface CssEvent {
             transitionEndEventName(): string;
@@ -1119,6 +1148,7 @@ declare namespace __MaterialUI {
             onTransitionEnd(el: Element, callback: (e: Event) => any): void;
             onAnimationEnd(el: Element, callback: (e: Event) => any): void;
         }
+        export var CssEvent: CssEvent;
 
         interface Dom {
             isDescendant(parent: Element, child: Element): boolean;
@@ -1131,6 +1161,7 @@ declare namespace __MaterialUI {
             forceRedraw(el: Element): void;
             withoutTransition(el: Element, callback: () => any): void;
         }
+        export var Dom: Dom;
 
         interface Events {
             once(el: Element, type: string, callback: (e: Event) => any): void;
@@ -1138,6 +1169,7 @@ declare namespace __MaterialUI {
             off(el: Element, type: string, callback: (e: Event) => any): void;
             isKeyboard(e: Event): boolean;
         }
+        export var Events: Events;
 
         function Extend<T, S1>(base: T, override: S1): (T & S1);
 
@@ -1147,6 +1179,19 @@ declare namespace __MaterialUI {
             push<T>(array: T[], obj: T): T[];
             shift<T>(array: T[]): T[];
         }
+        export var ImmutabilityHelper: ImmutabilityHelper;
+
+        interface KeyCode {
+            DOWN: number;
+            ESC: number;
+            ENTER: number;
+            LEFT: number;
+            RIGHT: number;
+            SPACE: number;
+            TAB: number;
+            UP: number;
+        }
+        var KeyCode: KeyCode;
 
         interface KeyLine {
             Desktop: {
@@ -1158,14 +1203,17 @@ declare namespace __MaterialUI {
 
             getIncrementalDim(dim: number): number;
         }
+        export var KeyLine: KeyLine;
 
         interface UniqueId {
             generate(): string;
         }
+        export var UniqueId: UniqueId;
 
         interface Styles {
             mergeAndPrefix(base: {}, ...args: {}[]): any;
         }
+        export var Styles: Styles;
     }
 
     // New menus available only through requiring directly to the end file
@@ -1404,8 +1452,9 @@ declare module 'material-ui/lib/refresh-indicator' {
 }
 
 declare module 'material-ui/lib/ripples/' {
-    var Ripples: __MaterialUI.Ripples;
-    export = Ripples;
+    export import CircleRipple = __MaterialUI.Ripples.CircleRipple;
+    export import FocusRipple = __MaterialUI.Ripples.FocusRipple;
+    export import TouchRipple = __MaterialUI.Ripples.TouchRipple;
 }
 
 declare module 'material-ui/lib/select-field' {
@@ -1434,8 +1483,8 @@ declare module 'material-ui/lib/svg-icons/navigation/chevron-right' {
 
 declare module 'material-ui/lib/styles/' {
     export import AutoPrefix = __MaterialUI.Styles.AutoPrefix; // require('material-ui/lib/styles/auto-prefix');
-    export import Colors = require('material-ui/lib/styles/colors');
-    export import Spacing = __MaterialUI.Styles.Spacing; // require('material-ui/lib/styles/spacing');
+    export import Colors = __MaterialUI.Styles.Colors; // require('material-ui/lib/styles/colors');
+    export import Spacing = require('material-ui/lib/styles/spacing');
     export import ThemeManager = __MaterialUI.Styles.ThemeManager; // require('material-ui/lib/styles/theme-manager');
     export import Transitions = __MaterialUI.Styles.Transitions; // require('material-ui/lib/styles/transitions');
     export import Typography = __MaterialUI.Styles.Typography; // require('material-ui/lib/styles/typography');
@@ -1459,7 +1508,7 @@ declare module 'material-ui/lib/styles/transitions' {
 }
 
 declare module 'material-ui/lib/styles/typography' {
-    export = new __MaterialUI.Styles.Typography();
+    export = __MaterialUI.Styles.Typography;
 }
 
 declare module 'material-ui/lib/snackbar' {
@@ -1545,30 +1594,26 @@ declare module 'material-ui/lib/utils/' {
     export import Events = __MaterialUI.Utils.Events; // require('material-ui/lib/utils/events');
     export import Extend = __MaterialUI.Utils.Extend; // require('material-ui/lib/utils/extend');
     export import ImmutabilityHelper = __MaterialUI.Utils.ImmutabilityHelper; // require('material-ui/lib/utils/immutability-helper');
-    export import KeyCode = require('material-ui/lib/utils/key-code');
+    export import KeyCode = __MaterialUI.Utils.KeyCode; // require('material-ui/lib/utils/key-code');
     export import KeyLine = __MaterialUI.Utils.KeyLine; // require('material-ui/lib/utils/key-line');
     export import UniqueId = __MaterialUI.Utils.UniqueId; // require('material-ui/lib/utils/unique-id');
     export import Styles = __MaterialUI.Utils.Styles; // require('material-ui/lib/utils/styles');
 }
 
 declare module 'material-ui/lib/utils/color-manipulator' {
-    let ColorManipulator: __MaterialUI.Utils.ColorManipulator;
-    export = ColorManipulator;
+    export = __MaterialUI.Utils.ColorManipulator;
 }
 
 declare module 'material-ui/lib/utils/css-event' {
-    let CssEvent: __MaterialUI.Utils.CssEvent;
-    export = CssEvent;
+    export = __MaterialUI.Utils.CssEvent;
 }
 
 declare module 'material-ui/lib/utils/dom' {
-    let Dom: __MaterialUI.Utils.Dom;
-    export = Dom;
+    export = __MaterialUI.Utils.Dom;
 }
 
 declare module 'material-ui/lib/utils/events' {
-    let Events: __MaterialUI.Utils.Events;
-    export = Events;
+    export = __MaterialUI.Utils.Events;
 }
 
 declare module 'material-ui/lib/utils/extend' {
@@ -1576,338 +1621,332 @@ declare module 'material-ui/lib/utils/extend' {
 }
 
 declare module 'material-ui/lib/utils/immutability-helper' {
-    let ImmutabilityHelper: __MaterialUI.Utils.ImmutabilityHelper;
-    export = ImmutabilityHelper;
+    export = __MaterialUI.Utils.ImmutabilityHelper;
 }
 
 declare module 'material-ui/lib/utils/key-code' {
-    export = {
-        DOWN: 40,
-        ESC: 27,
-        ENTER: 13,
-        LEFT: 37,
-        RIGHT: 39,
-        SPACE: 32,
-        TAB: 9,
-        UP: 38,
-    }
+    export = __MaterialUI.Utils.KeyCode;
 }
 
 declare module 'material-ui/lib/utils/key-line' {
-    let KeyLine: __MaterialUI.Utils.KeyLine;
-    export = KeyLine;
+    export = __MaterialUI.Utils.KeyLine;
 }
 
 declare module 'material-ui/lib/utils/unique-id' {
-    let UniqueId: __MaterialUI.Utils.UniqueId;
-    export = UniqueId;
+    export = __MaterialUI.Utils.UniqueId;
 }
 
 declare module 'material-ui/lib/utils/styles' {
-    let Styles: __MaterialUI.Utils.Styles;
-    export = Styles;
+    export = __MaterialUI.Utils.Styles;
 }
 
 declare module "material-ui/lib/menus/icon-menu" {
-  export = __MaterialUI.Menus.IconMenu;
+    export = __MaterialUI.Menus.IconMenu;
 }
 
 declare module "material-ui/lib/menus/menu" {
-  export = __MaterialUI.Menus.Menu;
+    export = __MaterialUI.Menus.Menu;
 }
 
 declare module "material-ui/lib/menus/menu-item" {
-  export = __MaterialUI.Menus.MenuItem;
+    export = __MaterialUI.Menus.MenuItem;
 }
 
 declare module "material-ui/lib/menus/menu-divider" {
-  export = __MaterialUI.Menus.MenuDivider;
+    export = __MaterialUI.Menus.MenuDivider;
 }
 
 declare module "material-ui/lib/styles/colors" {
-    export var red50: string;
-    export var red100: string;
-    export var red200: string;
-    export var red300: string;
-    export var red400: string;
-    export var red500: string;
-    export var red600: string;
-    export var red700: string;
-    export var red800: string;
-    export var red900: string;
-    export var redA100: string;
-    export var redA200: string;
-    export var redA400: string;
-    export var redA700: string;
+    export = __MaterialUI.Styles.Colors;
+}
 
-    export var pink50: string;
-    export var pink100: string;
-    export var pink200: string;
-    export var pink300: string;
-    export var pink400: string;
-    export var pink500: string;
-    export var pink600: string;
-    export var pink700: string;
-    export var pink800: string;
-    export var pink900: string;
-    export var pinkA100: string;
-    export var pinkA200: string;
-    export var pinkA400: string;
-    export var pinkA700: string;
+declare namespace __MaterialUI.Styles {
+    interface Colors {
+        red50: string;
+        red100: string;
+        red200: string;
+        red300: string;
+        red400: string;
+        red500: string;
+        red600: string;
+        red700: string;
+        red800: string;
+        red900: string;
+        redA100: string;
+        redA200: string;
+        redA400: string;
+        redA700: string;
 
-    export var purple50: string;
-    export var purple100: string;
-    export var purple200: string;
-    export var purple300: string;
-    export var purple400: string;
-    export var purple500: string;
-    export var purple600: string;
-    export var purple700: string;
-    export var purple800: string;
-    export var purple900: string;
-    export var purpleA100: string;
-    export var purpleA200: string;
-    export var purpleA400: string;
-    export var purpleA700: string;
+        pink50: string;
+        pink100: string;
+        pink200: string;
+        pink300: string;
+        pink400: string;
+        pink500: string;
+        pink600: string;
+        pink700: string;
+        pink800: string;
+        pink900: string;
+        pinkA100: string;
+        pinkA200: string;
+        pinkA400: string;
+        pinkA700: string;
 
-    export var deepPurple50: string;
-    export var deepPurple100: string;
-    export var deepPurple200: string;
-    export var deepPurple300: string;
-    export var deepPurple400: string;
-    export var deepPurple500: string;
-    export var deepPurple600: string;
-    export var deepPurple700: string;
-    export var deepPurple800: string;
-    export var deepPurple900: string;
-    export var deepPurpleA100: string;
-    export var deepPurpleA200: string;
-    export var deepPurpleA400: string;
-    export var deepPurpleA700: string;
+        purple50: string;
+        purple100: string;
+        purple200: string;
+        purple300: string;
+        purple400: string;
+        purple500: string;
+        purple600: string;
+        purple700: string;
+        purple800: string;
+        purple900: string;
+        purpleA100: string;
+        purpleA200: string;
+        purpleA400: string;
+        purpleA700: string;
 
-    export var indigo50: string;
-    export var indigo100: string;
-    export var indigo200: string;
-    export var indigo300: string;
-    export var indigo400: string;
-    export var indigo500: string;
-    export var indigo600: string;
-    export var indigo700: string;
-    export var indigo800: string;
-    export var indigo900: string;
-    export var indigoA100: string;
-    export var indigoA200: string;
-    export var indigoA400: string;
-    export var indigoA700: string;
+        deepPurple50: string;
+        deepPurple100: string;
+        deepPurple200: string;
+        deepPurple300: string;
+        deepPurple400: string;
+        deepPurple500: string;
+        deepPurple600: string;
+        deepPurple700: string;
+        deepPurple800: string;
+        deepPurple900: string;
+        deepPurpleA100: string;
+        deepPurpleA200: string;
+        deepPurpleA400: string;
+        deepPurpleA700: string;
 
-    export var blue50: string;
-    export var blue100: string;
-    export var blue200: string;
-    export var blue300: string;
-    export var blue400: string;
-    export var blue500: string;
-    export var blue600: string;
-    export var blue700: string;
-    export var blue800: string;
-    export var blue900: string;
-    export var blueA100: string;
-    export var blueA200: string;
-    export var blueA400: string;
-    export var blueA700: string;
+        indigo50: string;
+        indigo100: string;
+        indigo200: string;
+        indigo300: string;
+        indigo400: string;
+        indigo500: string;
+        indigo600: string;
+        indigo700: string;
+        indigo800: string;
+        indigo900: string;
+        indigoA100: string;
+        indigoA200: string;
+        indigoA400: string;
+        indigoA700: string;
 
-    export var lightBlue50: string;
-    export var lightBlue100: string;
-    export var lightBlue200: string;
-    export var lightBlue300: string;
-    export var lightBlue400: string;
-    export var lightBlue500: string;
-    export var lightBlue600: string;
-    export var lightBlue700: string;
-    export var lightBlue800: string;
-    export var lightBlue900: string;
-    export var lightBlueA100: string;
-    export var lightBlueA200: string;
-    export var lightBlueA400: string;
-    export var lightBlueA700: string;
+        blue50: string;
+        blue100: string;
+        blue200: string;
+        blue300: string;
+        blue400: string;
+        blue500: string;
+        blue600: string;
+        blue700: string;
+        blue800: string;
+        blue900: string;
+        blueA100: string;
+        blueA200: string;
+        blueA400: string;
+        blueA700: string;
 
-    export var cyan50: string;
-    export var cyan100: string;
-    export var cyan200: string;
-    export var cyan300: string;
-    export var cyan400: string;
-    export var cyan500: string;
-    export var cyan600: string;
-    export var cyan700: string;
-    export var cyan800: string;
-    export var cyan900: string;
-    export var cyanA100: string;
-    export var cyanA200: string;
-    export var cyanA400: string;
-    export var cyanA700: string;
+        lightBlue50: string;
+        lightBlue100: string;
+        lightBlue200: string;
+        lightBlue300: string;
+        lightBlue400: string;
+        lightBlue500: string;
+        lightBlue600: string;
+        lightBlue700: string;
+        lightBlue800: string;
+        lightBlue900: string;
+        lightBlueA100: string;
+        lightBlueA200: string;
+        lightBlueA400: string;
+        lightBlueA700: string;
 
-    export var teal50: string;
-    export var teal100: string;
-    export var teal200: string;
-    export var teal300: string;
-    export var teal400: string;
-    export var teal500: string;
-    export var teal600: string;
-    export var teal700: string;
-    export var teal800: string;
-    export var teal900: string;
-    export var tealA100: string;
-    export var tealA200: string;
-    export var tealA400: string;
-    export var tealA700: string;
+        cyan50: string;
+        cyan100: string;
+        cyan200: string;
+        cyan300: string;
+        cyan400: string;
+        cyan500: string;
+        cyan600: string;
+        cyan700: string;
+        cyan800: string;
+        cyan900: string;
+        cyanA100: string;
+        cyanA200: string;
+        cyanA400: string;
+        cyanA700: string;
 
-    export var green50: string;
-    export var green100: string;
-    export var green200: string;
-    export var green300: string;
-    export var green400: string;
-    export var green500: string;
-    export var green600: string;
-    export var green700: string;
-    export var green800: string;
-    export var green900: string;
-    export var greenA100: string;
-    export var greenA200: string;
-    export var greenA400: string;
-    export var greenA700: string;
+        teal50: string;
+        teal100: string;
+        teal200: string;
+        teal300: string;
+        teal400: string;
+        teal500: string;
+        teal600: string;
+        teal700: string;
+        teal800: string;
+        teal900: string;
+        tealA100: string;
+        tealA200: string;
+        tealA400: string;
+        tealA700: string;
 
-    export var lightGreen50: string;
-    export var lightGreen100: string;
-    export var lightGreen200: string;
-    export var lightGreen300: string;
-    export var lightGreen400: string;
-    export var lightGreen500: string;
-    export var lightGreen600: string;
-    export var lightGreen700: string;
-    export var lightGreen800: string;
-    export var lightGreen900: string;
-    export var lightGreenA100: string;
-    export var lightGreenA200: string;
-    export var lightGreenA400: string;
-    export var lightGreenA700: string;
+        green50: string;
+        green100: string;
+        green200: string;
+        green300: string;
+        green400: string;
+        green500: string;
+        green600: string;
+        green700: string;
+        green800: string;
+        green900: string;
+        greenA100: string;
+        greenA200: string;
+        greenA400: string;
+        greenA700: string;
 
-    export var lime50: string;
-    export var lime100: string;
-    export var lime200: string;
-    export var lime300: string;
-    export var lime400: string;
-    export var lime500: string;
-    export var lime600: string;
-    export var lime700: string;
-    export var lime800: string;
-    export var lime900: string;
-    export var limeA100: string;
-    export var limeA200: string;
-    export var limeA400: string;
-    export var limeA700: string;
+        lightGreen50: string;
+        lightGreen100: string;
+        lightGreen200: string;
+        lightGreen300: string;
+        lightGreen400: string;
+        lightGreen500: string;
+        lightGreen600: string;
+        lightGreen700: string;
+        lightGreen800: string;
+        lightGreen900: string;
+        lightGreenA100: string;
+        lightGreenA200: string;
+        lightGreenA400: string;
+        lightGreenA700: string;
 
-    export var yellow50: string;
-    export var yellow100: string;
-    export var yellow200: string;
-    export var yellow300: string;
-    export var yellow400: string;
-    export var yellow500: string;
-    export var yellow600: string;
-    export var yellow700: string;
-    export var yellow800: string;
-    export var yellow900: string;
-    export var yellowA100: string;
-    export var yellowA200: string;
-    export var yellowA400: string;
-    export var yellowA700: string;
+        lime50: string;
+        lime100: string;
+        lime200: string;
+        lime300: string;
+        lime400: string;
+        lime500: string;
+        lime600: string;
+        lime700: string;
+        lime800: string;
+        lime900: string;
+        limeA100: string;
+        limeA200: string;
+        limeA400: string;
+        limeA700: string;
 
-    export var amber50: string;
-    export var amber100: string;
-    export var amber200: string;
-    export var amber300: string;
-    export var amber400: string;
-    export var amber500: string;
-    export var amber600: string;
-    export var amber700: string;
-    export var amber800: string;
-    export var amber900: string;
-    export var amberA100: string;
-    export var amberA200: string;
-    export var amberA400: string;
-    export var amberA700: string;
+        yellow50: string;
+        yellow100: string;
+        yellow200: string;
+        yellow300: string;
+        yellow400: string;
+        yellow500: string;
+        yellow600: string;
+        yellow700: string;
+        yellow800: string;
+        yellow900: string;
+        yellowA100: string;
+        yellowA200: string;
+        yellowA400: string;
+        yellowA700: string;
 
-    export var orange50: string;
-    export var orange100: string;
-    export var orange200: string;
-    export var orange300: string;
-    export var orange400: string;
-    export var orange500: string;
-    export var orange600: string;
-    export var orange700: string;
-    export var orange800: string;
-    export var orange900: string;
-    export var orangeA100: string;
-    export var orangeA200: string;
-    export var orangeA400: string;
-    export var orangeA700: string;
+        amber50: string;
+        amber100: string;
+        amber200: string;
+        amber300: string;
+        amber400: string;
+        amber500: string;
+        amber600: string;
+        amber700: string;
+        amber800: string;
+        amber900: string;
+        amberA100: string;
+        amberA200: string;
+        amberA400: string;
+        amberA700: string;
 
-    export var deepOrange50: string;
-    export var deepOrange100: string;
-    export var deepOrange200: string;
-    export var deepOrange300: string;
-    export var deepOrange400: string;
-    export var deepOrange500: string;
-    export var deepOrange600: string;
-    export var deepOrange700: string;
-    export var deepOrange800: string;
-    export var deepOrange900: string;
-    export var deepOrangeA100: string;
-    export var deepOrangeA200: string;
-    export var deepOrangeA400: string;
-    export var deepOrangeA700: string;
+        orange50: string;
+        orange100: string;
+        orange200: string;
+        orange300: string;
+        orange400: string;
+        orange500: string;
+        orange600: string;
+        orange700: string;
+        orange800: string;
+        orange900: string;
+        orangeA100: string;
+        orangeA200: string;
+        orangeA400: string;
+        orangeA700: string;
 
-    export var brown50: string;
-    export var brown100: string;
-    export var brown200: string;
-    export var brown300: string;
-    export var brown400: string;
-    export var brown500: string;
-    export var brown600: string;
-    export var brown700: string;
-    export var brown800: string;
-    export var brown900: string;
+        deepOrange50: string;
+        deepOrange100: string;
+        deepOrange200: string;
+        deepOrange300: string;
+        deepOrange400: string;
+        deepOrange500: string;
+        deepOrange600: string;
+        deepOrange700: string;
+        deepOrange800: string;
+        deepOrange900: string;
+        deepOrangeA100: string;
+        deepOrangeA200: string;
+        deepOrangeA400: string;
+        deepOrangeA700: string;
 
-    export var blueGrey50: string;
-    export var blueGrey100: string;
-    export var blueGrey200: string;
-    export var blueGrey300: string;
-    export var blueGrey400: string;
-    export var blueGrey500: string;
-    export var blueGrey600: string;
-    export var blueGrey700: string;
-    export var blueGrey800: string;
-    export var blueGrey900: string;
+        brown50: string;
+        brown100: string;
+        brown200: string;
+        brown300: string;
+        brown400: string;
+        brown500: string;
+        brown600: string;
+        brown700: string;
+        brown800: string;
+        brown900: string;
 
-    export var grey50: string;
-    export var grey100: string;
-    export var grey200: string;
-    export var grey300: string;
-    export var grey400: string;
-    export var grey500: string;
-    export var grey600: string;
-    export var grey700: string;
-    export var grey800: string;
-    export var grey900: string;
+        blueGrey50: string;
+        blueGrey100: string;
+        blueGrey200: string;
+        blueGrey300: string;
+        blueGrey400: string;
+        blueGrey500: string;
+        blueGrey600: string;
+        blueGrey700: string;
+        blueGrey800: string;
+        blueGrey900: string;
 
-    export var black: string;
-    export var white: string;
+        grey50: string;
+        grey100: string;
+        grey200: string;
+        grey300: string;
+        grey400: string;
+        grey500: string;
+        grey600: string;
+        grey700: string;
+        grey800: string;
+        grey900: string;
 
-    export var transparent: string;
-    export var fullBlack: string;
-    export var darkBlack: string;
-    export var lightBlack: string;
-    export var minBlack: string;
-    export var faintBlack: string;
-    export var fullWhite: string;
-    export var darkWhite: string;
-    export var lightWhite: string;
+        black: string;
+        white: string;
+
+        transparent: string;
+        fullBlack: string;
+        darkBlack: string;
+        lightBlack: string;
+        minBlack: string;
+        faintBlack: string;
+        fullWhite: string;
+        darkWhite: string;
+        lightWhite: string;
+    }
+    export var Colors: Colors;
 }
