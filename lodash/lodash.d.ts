@@ -963,92 +963,26 @@ declare module _ {
     //_.initial
     interface LoDashStatic {
         /**
-        * Gets all but the last element or last n elements of an array. If a callback is provided
-        * elements at the end of the array are excluded from the result as long as the callback
-        * returns truey. The callback is bound to thisArg and invoked with three arguments;
-        * (value, index, array).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will
-        * return the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return
-        * true for elements that have the properties of the given object, else false.
-        * @param array The array to query.
-        * @param n Leaves this many elements behind, optional.
-        * @return Returns everything but the last `n` elements of `array`.
-        **/
-        initial<T>(
-            array: Array<T>): T[];
+         * Gets all but the last element of array.
+         *
+         * @param array The array to query.
+         * @return Returns the slice of array.
+         */
+        initial<T>(array: T[]|List<T>): T[];
+    }
 
+    interface LoDashArrayWrapper<T> {
         /**
-        * @see _.initial
-        **/
-        initial<T>(
-            array: List<T>): T[];
+         * @see _.initial
+         */
+        initial(): LoDashArrayWrapper<T>;
+    }
 
+    interface LoDashObjectWrapper<T> {
         /**
-        * @see _.initial
-        * @param n The number of elements to exclude.
-        **/
-        initial<T>(
-            array: Array<T>,
-            n: number): T[];
-
-        /**
-        * @see _.initial
-        * @param n The number of elements to exclude.
-        **/
-        initial<T>(
-            array: List<T>,
-            n: number): T[];
-
-        /**
-        * @see _.initial
-        * @param callback The function called per element
-        **/
-        initial<T>(
-            array: Array<T>,
-            callback: ListIterator<T, boolean>): T[];
-
-        /**
-        * @see _.initial
-        * @param callback The function called per element
-        **/
-        initial<T>(
-            array: List<T>,
-            callback: ListIterator<T, boolean>): T[];
-
-        /**
-        * @see _.initial
-        * @param pluckValue _.pluck style callback
-        **/
-        initial<T>(
-            array: Array<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.initial
-        * @param pluckValue _.pluck style callback
-        **/
-        initial<T>(
-            array: List<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.initial
-        * @param whereValue _.where style callback
-        **/
-        initial<W, T>(
-            array: Array<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.initial
-        * @param whereValue _.where style callback
-        **/
-        initial<W, T>(
-            array: List<T>,
-            whereValue: W): T[];
+         * @see _.initial
+         */
+        initial<TResult>(): LoDashArrayWrapper<TResult>;
     }
 
     //_.intersection
