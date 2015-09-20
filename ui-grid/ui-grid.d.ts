@@ -1182,14 +1182,14 @@ declare module uiGrid {
         }
 
         export interface IRowColConstructor {
-            new (row: IGridRow, col: IGridColumn): IRowCol;
+            new (row: uiGrid.IGridRow, col: IGridColumn): IRowCol;
         }
 
         /**
          * A row and column pair that represents the intersection of these two entities
          */
         export interface IRowCol {
-            row: IGridRow;
+            row: uiGrid.IGridRow;
             col: IGridColumn;
             /**
              * Gets the intersection of where the row and column meet
@@ -1282,7 +1282,7 @@ declare module uiGrid {
                reader.readAsText( files[0] );
            }
              */
-            editFileChooserCallback?: (gridRow: IGridRow, gridCol: IGridColumn, files: FileList) => void;
+            editFileChooserCallback?: (gridRow: uiGrid.IGridRow, gridCol: IGridColumn, files: FileList) => void;
             /**
              * A bindable string value that is used when binding to edit controls instead of colDef.field
              * For example if you have a complex property on an object like:
@@ -1558,7 +1558,7 @@ declare module uiGrid {
              * @param {any} value The cell value
              * @returns {any} Formatted value
              */
-            exporterFieldCallback?: (grid: IGridInstance, row: IGridRow, col: IGridColumn, value: any) => any;
+            exporterFieldCallback?: (grid: IGridInstance, row: uiGrid.IGridRow, col: IGridColumn, value: any) => any;
             /**
              * A function to apply to the header displayNames before exporting. Useful for internationalisation,
              * for example if you were using angular-translate you'd set this to $translate.instant.
@@ -2844,7 +2844,7 @@ declare module uiGrid {
              * @param {any} rowEntity gridOptions.data[] array value
              * @param {ng.IAngularEvent} event object if raised from event
              */
-            selectRow(rowEntity: IGridRow, event?: ng.IAngularEvent): void;
+            selectRow(rowEntity: any, event?: ng.IAngularEvent): void;
             /**
              * Select the specified row by visible index
              * (i.e. if you specify row 0 you'll get the first visible row selected).
@@ -2871,13 +2871,13 @@ declare module uiGrid {
              * @param {any} rowEntity gridOptions.data[] array value
              * @param {ng.IAngularEvent} event object if raised from event
              */
-            toggleRowSelection(rowEntity: IGridRow, event?: ng.IAngularEvent): void;
+            toggleRowSelection(rowEntity: any, event?: ng.IAngularEvent): void;
             /**
              * UnSelect the data row
              * @param {any} rowEntity gridOptions.data[] array value
              * @param {ng.IAngularEvent} event object if raised from event
              */
-            unSelectRow(rowEntity: IGridRow, event?: ng.IAngularEvent): void;
+            unSelectRow(rowEntity: any, event?: ng.IAngularEvent): void;
 
             // Events
             on: {
@@ -2903,7 +2903,7 @@ declare module uiGrid {
              * @param {IGridRow} row The selected rows
              * @param {ng.IAngularEvent} event object if raised from event
              */
-            (row: IGridRow, event?: ng.IAngularEvent): void;
+            (row: uiGrid.IGridRow, event?: ng.IAngularEvent): void;
         }
 
         export interface rowSelectionChangedBatchHandler {
@@ -2912,7 +2912,7 @@ declare module uiGrid {
              * @param {IGridRow} row The selected rows
              * @param {ng.IAngularEvent} event object if raised from event
              */
-            (row: Array<IGridRow>, event?: ng.IAngularEvent): void;
+            (row: Array<uiGrid.IGridRow>, event?: ng.IAngularEvent): void;
         }
     }
 
