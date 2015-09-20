@@ -397,6 +397,32 @@ declare module _ {
             ...others: List<T>[]): LoDashArrayWrapper<T>;
     }
 
+    //_.drop
+    interface LoDashStatic {
+        /**
+         * Creates a slice of array with n elements dropped from the beginning.
+         *
+         * @param array The array to query.
+         * @param n The number of elements to drop.
+         * @return Returns the slice of array.
+         */
+        drop<T>(array: T[]|List<T>, n?: number): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.drop
+         */
+        drop(n?: number): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.drop
+         */
+        drop<TResult>(n?: number): LoDashArrayWrapper<TResult>;
+    }
+
     //_.findIndex
     interface LoDashStatic {
         /**
@@ -1277,74 +1303,6 @@ declare module _ {
         * @see _.rest
         **/
         rest<W, T>(
-            array: List<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<T>(array: Array<T>): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<T>(array: List<T>): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<T>(
-            array: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<T>(
-            array: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<T>(
-            array: Array<T>,
-            n: number): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<T>(
-            array: List<T>,
-            n: number): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<T>(
-            array: Array<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<T>(
-            array: List<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<W, T>(
-            array: Array<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<W, T>(
             array: List<T>,
             whereValue: W): T[];
 
