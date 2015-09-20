@@ -339,6 +339,34 @@ result = <number>_([1, 2, 3]).last();
 result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2, 3);
 
+// _.pull
+{
+    let testPullArray: TResult[];
+    let testPullValue: TResult;
+    let result: TResult[];
+    result = _.pull<TResult>(testPullArray);
+    result = _.pull<TResult>(testPullArray, testPullValue);
+    result = _.pull<TResult>(testPullArray, testPullValue, testPullValue);
+    result = _.pull<TResult>(testPullArray, testPullValue, testPullValue, testPullValue);
+    result = _(testPullArray).pull().value();
+    result = _(testPullArray).pull(testPullValue).value();
+    result = _(testPullArray).pull(testPullValue, testPullValue).value();
+    result = _(testPullArray).pull(testPullValue, testPullValue, testPullValue).value();
+}
+{
+    let testPullList: _.List<TResult>;
+    let testPullValue: TResult;
+    let result: _.List<TResult>;
+    result = _.pull<TResult>(testPullList);
+    result = _.pull<TResult>(testPullList, testPullValue);
+    result = _.pull<TResult>(testPullList, testPullValue, testPullValue);
+    result = _.pull<TResult>(testPullList, testPullValue, testPullValue, testPullValue);
+    result = _(testPullList).pull<TResult>().value();
+    result = _(testPullList).pull<TResult>(testPullValue).value();
+    result = _(testPullList).pull<TResult>(testPullValue, testPullValue).value();
+    result = _(testPullList).pull<TResult>(testPullValue, testPullValue, testPullValue).value();
+}
+
 // _.pullAt
 {
     let testPullAtArray: TResult[];
@@ -370,8 +398,6 @@ result = <_.Dictionary<any>>_.zipObject([['moe', 30], ['larry', 40]]);
 result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_([['moe', 30], ['larry', 40]]).zipObject();
 result = <_.Dictionary<any>>_.object([['moe', 30], ['larry', 40]]);
 result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_([['moe', 30], ['larry', 40]]).object();
-
-result = <number[]>_.pull([1, 2, 3, 1, 2, 3], 2, 3);
 
 result = <number[]>_.remove([1, 2, 3, 4, 5, 6], function (num: number) { return num % 2 == 0; });
 result = <IFoodOrganic[]>_.remove(foodsOrganic, 'organic');
