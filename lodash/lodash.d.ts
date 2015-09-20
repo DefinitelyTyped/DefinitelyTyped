@@ -8568,11 +8568,19 @@ declare module _ {
     //_.runInContext
     interface LoDashStatic {
         /**
-        * Create a new lodash function using the given context object.
-        * @param context The context object
-        * @returns The lodash function.
-        **/
-        runInContext(context: any): typeof _;
+         * Create a new pristine lodash function using the given context object.
+         *
+         * @param context The context object.
+         * @return Returns a new lodash function.
+         */
+        runInContext(context?: Object): typeof _;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.runInContext
+         */
+        runInContext(): typeof _;
     }
 
     //_.times

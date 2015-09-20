@@ -1887,9 +1887,6 @@ result = <void>_<string>([]).noop(true, 'a', 1);
 result = <void>_({}).noop(true, 'a', 1);
 result = <void>_(any).noop(true, 'a', 1);
 
-var tempObject = {};
-result = <typeof _>_.runInContext(tempObject);
-
 // _.property
 interface TestPropertyObject {
     a: {
@@ -2201,6 +2198,14 @@ result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())(['a', '0
     result = _(42).noConflict();
     result = _<any>([]).noConflict();
     result = _({}).noConflict();
+}
+
+// _.runInContext
+{
+    let result: typeof _;
+    result = _.runInContext();
+    result = _.runInContext({});
+    result = _({}).runInContext();
 }
 
 // _.uniqueId
