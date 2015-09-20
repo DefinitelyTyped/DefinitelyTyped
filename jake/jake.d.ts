@@ -122,6 +122,11 @@ declare module jake{
 		 * stop execution on error, default true
 		 */
 		breakOnError?:boolean;
+		
+		/**
+		* 
+		*/
+		windowsVerbatimArguments?: boolean
 	}
 	export function exec(cmds:string[], callback?:()=>void, opts?:ExecOptions):void;
 
