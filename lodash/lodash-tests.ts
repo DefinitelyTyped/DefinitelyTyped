@@ -135,8 +135,6 @@ result = <number>_([1, 2, 3, 4]).pop();
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).push(5, 6, 7);
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).reverse();
 result = <number>_([1, 2, 3, 4]).shift();
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).slice(1, 2);
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).slice(2);
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).sort((a, b) => 1);
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).splice(1);
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).splice(1, 2, 5, 6);
@@ -337,6 +335,18 @@ result = <number[]>_.remove([1, 2, 3, 4, 5, 6], function (num: number) { return 
 result = <IFoodOrganic[]>_.remove(foodsOrganic, 'organic');
 result = <IFoodType[]>_.remove(foodsType, { 'type': 'vegetable' });
 var typedResult: IFoodType[] = _.remove([ <IFoodType>{ name: 'apple' }, <IFoodType>{ name: 'orange' }], <IFoodType>{ name: 'orange' });
+
+// _.slice
+{
+    let testSliceArray: TResult[];
+    let result: TResult[];
+    result = _.slice(testSliceArray);
+    result = _.slice(testSliceArray, 42);
+    result = _.slice(testSliceArray, 42, 42);
+    result = _(testSliceArray).slice().value();
+    result = _(testSliceArray).slice(42).value();
+    result = _(testSliceArray).slice(42, 42).value();
+}
 
 result = <number>_.sortedIndex([20, 30, 50], 40);
 result = <number>_.sortedIndex([{ 'x': 20 }, { 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
