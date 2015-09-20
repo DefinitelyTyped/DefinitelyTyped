@@ -888,7 +888,7 @@ interface HighchartsPieChart {
     borderColor?: string;
     borderWidth?: number;
     center?: string[];
-    colors?: string;
+    colors?: string[];
     cursor?: string;
     dataLabels?: HighchartsDataLabels;
     depth?: number;
