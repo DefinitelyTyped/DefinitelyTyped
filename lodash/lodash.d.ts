@@ -366,34 +366,31 @@ declare module _ {
     //_.difference
     interface LoDashStatic {
         /**
-        * Creates an array excluding all values of the provided arrays using strict equality for comparisons
-        * , i.e. ===.
-        * @param array The array to process
-        * @param others The arrays of values to exclude.
-        * @return Returns a new array of filtered values.
-        **/
+         * Creates an array of unique array values not included in the other provided arrays using SameValueZero for
+         * equality comparisons.
+         *
+         * @param array The array to inspect.
+         * @param values The arrays of values to exclude.
+         * @return Returns the new array of filtered values.
+         */
         difference<T>(
-            array?: Array<T>,
-            ...others: Array<T>[]): T[];
-        /**
-        * @see _.difference
-        **/
-        difference<T>(
-            array?: List<T>,
-            ...others: List<T>[]): T[];
+            array: T[]|List<T>,
+            ...values: (T[]|List<T>)[]
+        ): T[];
     }
 
     interface LoDashArrayWrapper<T> {
         /**
-        * @see _.difference
-        **/
-        difference(
-            ...others: Array<T>[]): LoDashArrayWrapper<T>;
+         * @see _.difference
+         */
+        difference(...values: (T[]|List<T>)[]): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
         /**
-        * @see _.difference
-        **/
-        difference(
-            ...others: List<T>[]): LoDashArrayWrapper<T>;
+         * @see _.difference
+         */
+        difference<TValue>(...values: (TValue[]|List<TValue>)[]): LoDashArrayWrapper<TValue>;
     }
 
     //_.drop
