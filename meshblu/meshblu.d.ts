@@ -27,15 +27,6 @@ declare module Meshblu {
 	interface Connection {
 		
 		/**
-		 * 
-		 * @param uuid
-		 * @param fn The callback to be called. It should take one parameter, err,
-		 * 	which will be null if there was no problem, and one parameter, publicKey,
-		 * 	of type NodeRSA.
-		 */
-		getPublicKey(uuid: string, fn:(err: Error, publicKey: any) => void): void;
-		
-		/**
 		 * Authenticate with Meshblu.
 		 * @returns This Connection.
 		 */
@@ -165,6 +156,15 @@ declare module Meshblu {
 		 * @param fn The callback to be called. It should take one parameter, result.
 		 */
 		revokeToken(data: ConnectionOptions, fn:(result: Device) => void): void
+		
+		/**
+		 * 
+		 * @param uuid
+		 * @param fn The callback to be called. It should take one parameter, err,
+		 * 	which will be null if there was no problem, and one parameter, publicKey,
+		 * 	of type NodeRSA.
+		 */
+		getPublicKey(uuid: string, fn:(err: Error, publicKey: any) => void): void;
 		
 		/*
 		 * Lack of documentation about these api functions.
