@@ -22,16 +22,19 @@ declare module angular.cookies {
     */
     interface ICookiesOptions {
         /**
-        *  The cookie will be available only for this path and its sub-paths. By default, this would be the URL that appears in your base tag.
+        * The cookie will be available only for this path and its sub-paths. 
+        * By default, this would be the URL that appears in your base tag.
         */
         path?: string;
         /**
-        * The cookie will be available only for this domain and its sub-domains. 
-        * For obvious security reasons the user agent will not accept the cookie if the current domain is not a sub domain or equals to the requested domain.
+        * The cookie will be available only for this domain and its sub-domains.
+        * For obvious security reasons the user agent will not accept the cookie if the 
+        * current domain is not a sub domain or equals to the requested domain.
         */
         domain?: string;
         /**
-        * String of the form "Wdy, DD Mon YYYY HH:MM:SS GMT" or a Date object indicating the exact date/time this cookie will expire.
+        * String of the form "Wdy, DD Mon YYYY HH:MM:SS GMT" or a Date object
+        * indicating the exact date/time this cookie will expire.
         */
         expires?: string|Date;
         /**
