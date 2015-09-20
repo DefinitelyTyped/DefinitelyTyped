@@ -428,6 +428,21 @@ result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function
     return this.wordToNumber[word];
 }, sortedIndexDict);
 
+// _.takeRight
+{
+    let testTakeRightArray: TResult[];
+    let testTakeRightList: _.List<TResult>;
+    let result: TResult[];
+    result = _.takeRight<TResult>(testTakeRightArray);
+    result = _.takeRight<TResult>(testTakeRightArray, 42);
+    result = _.takeRight<TResult>(testTakeRightList);
+    result = _.takeRight<TResult>(testTakeRightList, 42);
+    result = _(testTakeRightArray).takeRight().value();
+    result = _(testTakeRightArray).takeRight(42).value();
+    result = _(testTakeRightList).takeRight<TResult>().value();
+    result = _(testTakeRightList).takeRight<TResult>(42).value();
+}
+
 result = <number[]>_.union([1, 2, 3], [101, 2, 1, 10], [2, 1]);
 
 result = <number[]>_([1, 2, 3]).union([101, 2, 1, 10], [2, 1]).value();
