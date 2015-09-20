@@ -386,6 +386,24 @@ result = <string[]>_(['A', 'b', 'C', 'a', 'B', 'c']).unique(function (letter) {
 result = <number[]>_([1, 2.5, 3, 1.5, 2, 3.5]).unique(function (num) { return this.floor(num); }, Math).value();
 result = <{ x: number; }[]>_([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }]).unique('x').value();
 
+// _.unzipWith
+{
+    let testUnzipWithArray: (number[]|_.List<number>)[];
+    let testUnzipWithList: _.List<number[]|_.List<number>>;
+    let testUnzipWithIterator: {(prev: TResult, curr: number, index?: number, list?: number[]): TResult};
+    let result: TResult[];
+    result = _.unzipWith<number, TResult>(testUnzipWithArray);
+    result = _.unzipWith<number, TResult>(testUnzipWithArray, testUnzipWithIterator);
+    result = _.unzipWith<number, TResult>(testUnzipWithArray, testUnzipWithIterator, any);
+    result = _.unzipWith<number, TResult>(testUnzipWithList);
+    result = _.unzipWith<number, TResult>(testUnzipWithList, testUnzipWithIterator);
+    result = _.unzipWith<number, TResult>(testUnzipWithList, testUnzipWithIterator, any);
+    result = _(testUnzipWithArray).unzipWith<number, TResult>(testUnzipWithIterator).value();
+    result = _(testUnzipWithArray).unzipWith<number, TResult>(testUnzipWithIterator, any).value();
+    result = _(testUnzipWithList).unzipWith<number, TResult>(testUnzipWithIterator).value();
+    result = _(testUnzipWithList).unzipWith<number, TResult>(testUnzipWithIterator, any).value();
+}
+
 result = <number[]>_.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
 
 // _.xor

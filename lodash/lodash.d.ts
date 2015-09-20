@@ -1754,6 +1754,45 @@ declare module _ {
             whereValue: W): LoDashArrayWrapper<T>;
     }
 
+    //_.unzipWith
+    interface LoDashStatic {
+        /**
+         * This method is like _.unzip except that it accepts an iteratee to specify how regrouped values should be
+         * combined. The iteratee is bound to thisArg and invoked with four arguments: (accumulator, value, index,
+         * group).
+         *
+         * @param array The array of grouped elements to process.
+         * @param iteratee The function to combine regrouped values.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns the new array of regrouped elements.
+         */
+        unzipWith<TArray, TResult>(
+            array: List<List<TArray>>,
+            iteratee?: MemoIterator<TArray, TResult>,
+            thisArg?: any
+        ): TResult[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.unzipWith
+         */
+        unzipWith<TArr, TResult>(
+            iteratee?: MemoIterator<TArr, TResult>,
+            thisArg?: any
+        ): LoDashArrayWrapper<TResult>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.unzipWith
+         */
+        unzipWith<TArr, TResult>(
+            iteratee?: MemoIterator<TArr, TResult>,
+            thisArg?: any
+        ): LoDashArrayWrapper<TResult>;
+    }
+
     //_.without
     interface LoDashStatic {
         /**
@@ -8546,10 +8585,10 @@ declare module _ {
     }
 
     interface MemoVoidIterator<T, TResult> {
-        (prev: TResult, curr: T, indexOrKey: any, list?: T[]): void;
+        (prev: TResult, curr: T, indexOrKey?: any, list?: T[]): void;
     }
     interface MemoIterator<T, TResult> {
-        (prev: TResult, curr: T, indexOrKey: any, list?: T[]): TResult;
+        (prev: TResult, curr: T, indexOrKey?: any, list?: T[]): TResult;
     }
     /*
     interface MemoListIterator<T, TResult> {
