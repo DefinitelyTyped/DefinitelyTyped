@@ -302,7 +302,18 @@ result = <number>_.indexOf([1, 1, 2, 2, 3, 3], 2, true);
     result = _(testInitalList).initial<TResult>().value();
 }
 
-result = <number[]>_.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]);
+// _.intersection
+{
+    let testIntersectionArray: TResult[];
+    let testIntersectionList: _.List<TResult>;
+    let result: TResult[];
+    result = _.intersection<TResult>(testIntersectionArray, testIntersectionList);
+    result = _.intersection<TResult>(testIntersectionList, testIntersectionArray, testIntersectionList);
+    result = _(testIntersectionArray).intersection<TResult>(testIntersectionArray).value();
+    result = _(testIntersectionArray).intersection<TResult>(testIntersectionList, testIntersectionArray).value();
+    result = _(testIntersectionList).intersection<TResult>(testIntersectionArray).value();
+    result = _(testIntersectionList).intersection<TResult>(testIntersectionList, testIntersectionArray).value();
+}
 
 result = <number>_.last([1, 2, 3]);
 result = <number>_([1, 2, 3]).last();
