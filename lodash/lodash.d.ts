@@ -419,6 +419,35 @@ declare module _ {
         drop<TResult>(n?: number): LoDashArrayWrapper<TResult>;
     }
 
+    //_.dropRight
+    interface LoDashStatic {
+        /**
+         * Creates a slice of array with n elements dropped from the end.
+         *
+         * @param array The array to query.
+         * @param n The number of elements to drop.
+         * @return Returns the slice of array.
+         */
+        dropRight<T>(
+            array: List<T>,
+            n?: number
+        ): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.dropRight
+         */
+        dropRight(n?: number): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.dropRight
+         */
+        dropRight<TResult>(n?: number): LoDashArrayWrapper<TResult>;
+    }
+
     //_.findIndex
     interface LoDashStatic {
         /**

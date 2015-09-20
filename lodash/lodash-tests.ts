@@ -208,6 +208,21 @@ result = <_.LoDashArrayWrapper<any>>_([0, 1, false, 2, '', 3]).compact();
     result = _(testDropList).drop<TResult>(42).value();
 }
 
+// _.dropRight
+module TestDropRight {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let result: TResult[];
+    result = _.dropRight<TResult>(array);
+    result = _.dropRight<TResult>(array, 42);
+    result = _.dropRight<TResult>(list);
+    result = _.dropRight<TResult>(list, 42);
+    result = _(array).dropRight().value();
+    result = _(array).dropRight(42).value();
+    result = _(list).dropRight<TResult>().value();
+    result = _(list).dropRight<TResult>(42).value();
+}
+
 result = <number[]>_.rest([1, 2, 3]);
 result = <number[]>_.rest([1, 2, 3], 2);
 result = <number[]>_.rest([1, 2, 3], (num) => num < 3)
