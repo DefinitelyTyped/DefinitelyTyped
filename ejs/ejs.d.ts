@@ -5,7 +5,7 @@
 
 
 declare module "ejs" {
-    module Ejs {
+    namespace Ejs {
         type Data = { [name: string]: any };
         type Dependencies = string[];
         var cache: Cache;
@@ -60,7 +60,7 @@ declare module "ejs" {
         function shallowCopy<T1>(to: T1, fro: any): T1;
         interface Cache {
             _data: { [name: string]: any };
-            set(key: string, val: any);
+            set(key: string, val: any): any;
             get(key: string): any;
         }
         var cache: Cache;
