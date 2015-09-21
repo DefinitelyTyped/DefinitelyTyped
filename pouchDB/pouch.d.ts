@@ -128,12 +128,27 @@ interface PouchFilter {
 }
 
 interface PouchQueryOptions {
+	fun?:{map:Function, reduce:Function} | Function | string;
+	reduce?:Function | string;
 	complete?: any;
 	include_docs?: boolean;
-	error?: (err: PouchError) => void;
+	conflicts?: boolean; //DEPENDS ON include_docs === true
+	attachments?:boolean; //DEPENDS ON include_docs === true
+	binary?: boolean; //DEPENDS ON attachments === true
+	inclusive_end: boolean;
+	limit: number;
+	skip: number;
 	descending?: boolean;
-	stale?: boolean;
-	reduce?: boolean;
+	starkey?: any;
+	endkey?: any;
+	key?: any; //DO NOT INCLUDE START/END KEYS IF USING THIS
+	keys: [any]; //DO NOT INCLUDE START/END KEYS IF USING THIS
+	group: boolean;
+	group_level: number;
+	stale?: string;
+	error?: (err: PouchError) => void;
+
+
 }
 
 interface PouchQueryResponse {
