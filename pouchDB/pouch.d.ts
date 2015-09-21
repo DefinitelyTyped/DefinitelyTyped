@@ -135,16 +135,16 @@ interface PouchQueryOptions {
 	conflicts?: boolean; //DEPENDS ON include_docs === true
 	attachments?:boolean; //DEPENDS ON include_docs === true
 	binary?: boolean; //DEPENDS ON attachments === true
-	inclusive_end: boolean;
-	limit: number;
-	skip: number;
+	inclusive_end?: boolean;
+	limit?: number;
+	skip?: number;
 	descending?: boolean;
-	starkey?: any;
+	startkey?: any;
 	endkey?: any;
 	key?: any; //DO NOT INCLUDE START/END KEYS IF USING THIS
-	keys: [any]; //DO NOT INCLUDE START/END KEYS IF USING THIS
-	group: boolean;
-	group_level: number;
+	keys?: [any]; //DO NOT INCLUDE START/END KEYS IF USING THIS
+	group?: boolean;
+	group_level?: number;
 	stale?: string;
 	error?: (err: PouchError) => void;
 
