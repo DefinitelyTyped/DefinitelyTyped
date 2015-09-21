@@ -53,13 +53,12 @@ declare function Snap(query:string):Snap.Paper;
 declare function Snap(DOM:SVGElement):Snap.Paper;
 
 declare module Snap {
-
 	export var filter:Filter;
 	export var path:Path;
-	
+
 	export function Matrix(a:number,b:number,c:number,d:number,e:number,f:number):Matrix;
 	export function Matrix(svgMatrix:SVGMatrix):Matrix;
-	
+
 	export function ajax(url:string,postData:string,callback:Function,scope?:Object):XMLHttpRequest;
 	export function ajax(url:string,postData:Object,callback:Function,scope?:Object):XMLHttpRequest;
 	export function ajax(url:string,callback:Function,scope?:Object):XMLHttpRequest;
@@ -72,10 +71,10 @@ declare module Snap {
 	export function select(query:string):Snap.Element;
 	export function selectAll(query:string):any;
 	export function snapTo(values:Array<number>,value:number,tolerance?:number):number;
-	
+
 	export function animate(from:number|number[],to:number|number[],updater:(n:number)=>void,duration:number,easing?:(num:number)=>number,callback?:()=>void):mina.MinaAnimation;
 	export function animation(attr:Object,duration:number,easing?:(num:number)=>number,callback?:()=>void):Snap.Animation;
-	
+
 	export function color(clr:string):RGBHSB;
 	export function getRGB(color:string):RGB;
 	export function hsb(h:number,s:number,b:number):HSB;
@@ -89,26 +88,26 @@ declare module Snap {
 	export function angle(x1:number,y1:number,x2:number,y2:number,x3?:number,y3?:number):number;
 	export function rad(deg:number):number;
 	export function deg(rad:number):number;
-	
+
 	export function parse(svg:string):Fragment;
 	export function parsePathString(pathString:string):Array<any>;
 	export function parsePathString(pathString:Array<string>):Array<any>;
 	export function parseTransformString(TString:string):Array<any>;
 	export function parseTransformString(TString:Array<string>):Array<any>;
-	
+
 	export interface RGB{
 		r:number;
 		g:number;
 		b:number;
 		hex:string;
 	}
-	
+
 	export interface HSB{
 		h:number;
 		s:number;
 		b:number;
 	}
-	
+
 	export interface RGBHSB{
 		r:number;
 		g:number;
@@ -120,13 +119,13 @@ declare module Snap {
 		v:number;
 		l:number;
 	}
-	
+
 	export interface HSL{
 		h:number;
 		s:number;
 		l:number;
 	}
-	
+
 	export interface BBox{
 		cx:number;
 		cy:number;
@@ -144,7 +143,7 @@ declare module Snap {
 		y2:number;
 		y:number;
 	}
-	
+
 	export interface TransformationDescriptor {
         string: string;
         globalMatrix: Snap.Matrix;
@@ -154,6 +153,7 @@ declare module Snap {
         local: string;
         toString(): string;
     }
+
 	export interface Animation{
 		attr:{[attr:string]:string|number|boolean|any};
 		duration:number;
@@ -207,8 +207,7 @@ declare module Snap {
 		transform(): TransformationDescriptor;
 		type:string;
 		use():Object;
-		
-		
+
         click(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
         dblclick(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
         mousedown(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
@@ -220,7 +219,7 @@ declare module Snap {
         touchmove(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
         touchend(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
         touchcancel(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
-        
+
         unclick(handler?: (event: MouseEvent) => void): Snap.Element;
         undblclick(handler: (event: MouseEvent) => void): Snap.Element;
         unmousedown(handler: (event: MouseEvent) => void): Snap.Element;
@@ -236,7 +235,7 @@ declare module Snap {
         hover(hoverInHandler: (event: MouseEvent) => void, hoverOutHandler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
         hover(hoverInHandler: (event: MouseEvent) => void, hoverOutHandler: (event: MouseEvent) => void, inThisArg?: any, outThisArg?: any): Snap.Element;
         unhover(hoverInHandler: (event: MouseEvent) => void, hoverOutHandler: (event: MouseEvent) => void): Snap.Element;
-		
+
 		drag():Snap.Element;
         drag(onMove:  (dx: number, dy: number, x: number, y: number, event: MouseEvent) => void,
              onStart: (x: number, y: number, event: MouseEvent) => void,
@@ -249,15 +248,14 @@ declare module Snap {
                onStart: (x: number, y: number, event: MouseEvent) => void,
                onEnd:   (event: MouseEvent) => void): Snap.Element;
 	}
-	
+
 	export interface Fragment {
 		//TODO: The documentation says that selectAll returns a set, but the getting started guide
 		// uses .attr on the returned object. That's not supported by a set
 		select(query:string):Snap.Element;
 		selectAll(query ?:string):Snap.Set;
 	}
-	
-	
+
 	export interface Matrix {
 		add(a:number,b:number,c:number,d:number,e:number,f:number):Matrix;
 		add(matrix:Matrix):Matrix;
@@ -267,13 +265,13 @@ declare module Snap {
 		rotate(a:number,x?:number,y?:number):Matrix;
 		scale(x:number,y?:number,cx?:number,cy?:number):Matrix;
 		split():ExplicitTransform;
-		toTransformString():string;	
+		toTransformString():string;
 		translate(x:number,y:number):Matrix;
 		x(x:number,y:number):number;
 		y(x:number,y:number):number;
-	
+
 	}
-	
+
 	interface ExplicitTransform {
         dx: number;
         dy: number;
@@ -283,32 +281,31 @@ declare module Snap {
         rotate: number;
         isSimple: boolean;
     }
-	
-	interface Paper extends Snap.Element {
 
-	clear():void;
-	el(name:string, attr:Object):Snap.Element;
-	filter(filstr:string):Snap.Element;
-	gradient(gradient:string):any;
-	g(varargs?:any):any;
-	group(...els:any[]):any;
-	mask(varargs:any):Object;
-	ptrn(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
-	svg(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
-	toString():string;
-	use(id?:string):Object;
-	use(id?:Snap.Element):Object;
-	
-	circle(x:number,y:number,r:number):Snap.Element;
-	ellipse(x:number,y:number,rx:number,ry:number):Snap.Element;
-	image(src:string,x:number,y:number,width:number,height:number):Snap.Element;
-	line(x1:number,y1:number,x2:number,y2:number):Snap.Element;
-	path(pathString?:string):Snap.Element;
-	polygon(varargs:any[]):Snap.Element;
-	polyline(varargs:any[]):Snap.Element;
-	rect(x:number,y:number,width:number,height:number,rx?:number,ry?:number):Snap.Element;
-	text(x:number,y:number,text:string|number):Snap.Element;
-	text(x:number,y:number,text:Array<string|number>):Snap.Element;
+	interface Paper extends Snap.Element {
+		clear():void;
+		el(name:string, attr:Object):Snap.Element;
+		filter(filstr:string):Snap.Element;
+		gradient(gradient:string):any;
+		g(varargs?:any):any;
+		group(...els:any[]):any;
+		mask(varargs:any):Object;
+		ptrn(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
+		svg(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
+		toString():string;
+		use(id?:string):Object;
+		use(id?:Snap.Element):Object;
+
+		circle(x:number,y:number,r:number):Snap.Element;
+		ellipse(x:number,y:number,rx:number,ry:number):Snap.Element;
+		image(src:string,x:number,y:number,width:number,height:number):Snap.Element;
+		line(x1:number,y1:number,x2:number,y2:number):Snap.Element;
+		path(pathString?:string):Snap.Element;
+		polygon(varargs:any[]):Snap.Element;
+		polyline(varargs:any[]):Snap.Element;
+		rect(x:number,y:number,width:number,height:number,rx?:number,ry?:number):Snap.Element;
+		text(x:number,y:number,text:string|number):Snap.Element;
+		text(x:number,y:number,text:Array<string|number>):Snap.Element;
 	}
 
 	export interface Set {
@@ -327,7 +324,7 @@ declare module Snap {
 		push(els:Snap.Element[]):Snap.Element;
 		splice(index:number,count:number,insertion?:Object[]):Snap.Element[];
 	}
-	
+
 	interface Filter {
 		blur(x:number,y?:number):string;
 		brightness(amount:number):string;
@@ -339,9 +336,9 @@ declare module Snap {
 		sepia(amount:number):string;
 		shadow(dx: number, dy: number, blur: number, color: string, opacity: number): string;
         shadow(dx: number, dy: number, color: string, opacity: number): string;
-        shadow(dx: number, dy: number, opacity: number): string;	
+        shadow(dx: number, dy: number, opacity: number): string;
 	}
-	
+
 	interface Path {
 		bezierBBox(...args:number[]):BBox;
 		bezierBBox(bez:Array<number>):BBox;
@@ -363,7 +360,7 @@ declare module Snap {
 		toCubic(pathString:Array<string>):Array<any>;
 		toRelative(path:string):Array<any>;
 	}
-	
+
 	interface IntersectionDot{
 		x:number,
 		y:number,
