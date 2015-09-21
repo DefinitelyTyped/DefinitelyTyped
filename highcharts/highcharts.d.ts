@@ -217,8 +217,11 @@ interface HighchartsChartOptions {
     marginLeft?: number;
     marginRight?: number;
     marginTop?: number;
-    plotBackGroundColor?: string | HighchartsGradient;
-    plotBackGroundImage?: string;
+    panKey?: string;
+    panning?: number;
+    pinchType?: string;
+    plotBackgroundColor?: string | HighchartsGradient;
+    plotBackgroundImage?: string;
     plotBorderColor?: string;
     plotBorderWidth?: number;
     plotShadow?: boolean | HighchartsShadow;
@@ -229,6 +232,7 @@ interface HighchartsChartOptions {
     selectionMarkerFill?: string;
     shadow?: boolean | HighchartsShadow;
     showAxes?: boolean;
+    spacing?: number[];
     spacingBottom?: number;
     spacingLeft?: number;
     spacingRight?: number;
@@ -352,6 +356,11 @@ interface HighchartsLegendNavigationOptions {
     style?: HighchartsCSSObject;
 }
 
+interface HighchartsLegendTitleOptions {
+    style?: HighchartsCSSObject;
+    text?: string;
+}
+
 interface HighchartsLegendOptions {
     align?: string;
     backgroundColor?: string | HighchartsGradient;
@@ -360,6 +369,7 @@ interface HighchartsLegendOptions {
     borderWidth?: number;
     enabled?: boolean;
     floating?: boolean;
+    itemDistance?: number;
     itemHiddenStyle?: HighchartsCSSObject;
     itemHoverStyle?: HighchartsCSSObject;
     itemMarginBottom?: number;
@@ -368,19 +378,21 @@ interface HighchartsLegendOptions {
     itemWidth?: number;
     labelFormatter?: () => string;
     layout?: string;
-    lineHeight?: string;
+    lineHeight?: number;
     margin?: number;
     maxHeight?: number;
     navigation?: HighchartsLegendNavigationOptions;
     padding?: number;
     reversed?: boolean;
     rtl?: boolean;
-    verticalAlign?: string;
     shadow?: boolean | HighchartsShadow;
     style?: HighchartsCSSObject;
+    symbolHeight?: number;
     symbolPadding?: number;
     symbolWidth?: number;
+    title?: HighchartsLegendTitleOptions;
     useHTML?: boolean;
+    verticalAlign?: string;
     width?: number;
     x?: number;
     y?: number;
