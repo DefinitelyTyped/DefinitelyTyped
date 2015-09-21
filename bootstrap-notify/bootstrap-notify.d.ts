@@ -1,6 +1,8 @@
 // Type definitions for bootstrap-notify v3.1.3
 // Project: http://bootstrap-notify.remabledesigns.com/
-// Definitions by: Robert McIntosh <https://github.com/mouse0270>, Robert Voica <https://github.com/robert-voica>
+// Definitions by: 	Blake Niemyjski <https://github.com/niemyjski/>, 
+//					Robert McIntosh <https://github.com/mouse0270>, 
+//					Robert Voica <https://github.com/robert-voica>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
@@ -9,14 +11,14 @@
 
 interface JQueryStatic {
 	/* tslint:enable: interface-name */
-    notify(message: string): INotifyReturn;
-	notify(opts: INotifyOptions, settings?: INotifySettings): INotifyReturn;
-	notifyDefaults(settings: INotifySettings): void;
+    notify(message: string): NotifyReturn;
+	notify(opts: NotifyOptions, settings?: NotifySettings): NotifyReturn;
+	notifyDefaults(settings: NotifySettings): void;
 	notifyClose(): void;
 	notifyClose(command: string): void;
 }
 
-interface INotifyOptions {
+interface NotifyOptions {
 	message: string;
 	title?: string;
 	icon?: string;
@@ -24,7 +26,7 @@ interface INotifyOptions {
 	target?: string;
 }
 
-interface INotifySettings {
+interface NotifySettings {
 	element?: string;
 	position?: string;
 	type?: string;
@@ -55,7 +57,7 @@ interface INotifySettings {
 	template?: string;
 }
 
-interface INotifyReturn {
+interface NotifyReturn {
 	$ele: JQueryStatic;
 	close: () => void;
 	update: (command: string, update: any) => void;
