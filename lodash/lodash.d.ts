@@ -1165,155 +1165,28 @@ declare module _ {
     //_.rest
     interface LoDashStatic {
         /**
-        * The opposite of _.initial this method gets all but the first element or first n elements of
-        * an array. If a callback function is provided elements at the beginning of the array are excluded
-        * from the result as long as the callback returns truey. The callback is bound to thisArg and
-        * invoked with three arguments; (value, index, array).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will return
-        * the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return true
-        * for elements that have the properties of the given object, else false.
-        * @param array The array to query.
-        * @param {(Function|Object|number|string)} [callback=1] The function called per element or the number
-        * of elements to exclude. If a property name or object is provided it will be used to create a
-        * ".pluck" or ".where" style callback, respectively.
-        * @param {*} [thisArg] The this binding of callback.
-        * @return Returns a slice of array.
-        **/
-        rest<T>(array: Array<T>): T[];
-
-        /**
-        * @see _.rest
-        **/
+         * Gets all but the first element of array.
+         *
+         * @alias _.tail
+         *
+         * @param array The array to query.
+         * @return Returns the slice of array.
+         */
         rest<T>(array: List<T>): T[];
+    }
 
+    interface LoDashArrayWrapper<T> {
         /**
-        * @see _.rest
-        **/
-        rest<T>(
-            array: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
+         * @see _.rest
+         */
+        rest(): LoDashArrayWrapper<T>;
+    }
 
+    interface LoDashObjectWrapper<T> {
         /**
-        * @see _.rest
-        **/
-        rest<T>(
-            array: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.rest
-        **/
-        rest<T>(
-            array: Array<T>,
-            n: number): T[];
-
-        /**
-        * @see _.rest
-        **/
-        rest<T>(
-            array: List<T>,
-            n: number): T[];
-
-        /**
-        * @see _.rest
-        **/
-        rest<T>(
-            array: Array<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.rest
-        **/
-        rest<T>(
-            array: List<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.rest
-        **/
-        rest<W, T>(
-            array: Array<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.rest
-        **/
-        rest<W, T>(
-            array: List<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<T>(array: Array<T>): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<T>(array: List<T>): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<T>(
-            array: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<T>(
-            array: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<T>(
-            array: Array<T>,
-            n: number): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<T>(
-            array: List<T>,
-            n: number): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<T>(
-            array: Array<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<T>(
-            array: List<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<W, T>(
-            array: Array<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<W, T>(
-            array: List<T>,
-            whereValue: W): T[];
+         * @see _.rest
+         */
+        rest<TResult>(): LoDashArrayWrapper<TResult>;
     }
 
     //_.slice
@@ -1411,6 +1284,28 @@ declare module _ {
             array: List<T>,
             value: T,
             whereValue: W): number;
+    }
+
+    //_.tail
+    interface LoDashStatic {
+        /**
+         * @see _.rest
+         */
+        tail<T>(array: List<T>): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.rest
+         */
+        tail(): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.rest
+         */
+        tail<TResult>(): LoDashArrayWrapper<TResult>;
     }
 
     //_.take
