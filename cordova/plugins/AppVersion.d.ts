@@ -12,10 +12,6 @@
  * Although the object is in the global scope, it is not available until after the deviceready event.
  */
 
-interface cordova {
-    getAppVersion: IGetAppVersion;
-}
-
 interface IGetAppVersion {
     getAppName() : Promise<string>;
     getPackageName() : Promise<string>;
@@ -23,5 +19,3 @@ interface IGetAppVersion {
     getVersionNumber() : Promise<string>;
 
 }
-
-declare var getAppVersion: IGetAppVersion;
