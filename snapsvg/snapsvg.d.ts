@@ -1,4 +1,4 @@
-// Type definitions for Snap-SVG 0.3
+// Type definitions for Snap-SVG 0.4.1
 // Project: https://github.com/adobe-webplatform/Snap.svg
 // Definitions by: Lars Klein <https://github.com/lhk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -238,7 +238,7 @@ declare module Snap {
         unhover(hoverInHandler: (event: MouseEvent) => void, hoverOutHandler: (event: MouseEvent) => void): Snap.Element;
 		
 		drag():Snap.Element;
-        drag(onMove:  (dx: number, dy: number, event: MouseEvent) => void,
+        drag(onMove:  (dx: number, dy: number, x: number, y: number, event: MouseEvent) => void,
              onStart: (x: number, y: number, event: MouseEvent) => void,
              onEnd:   (event: MouseEvent) => void,
              moveThisArg?: any,
