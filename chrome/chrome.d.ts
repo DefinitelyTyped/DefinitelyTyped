@@ -4,6 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path='../webrtc/MediaStream.d.ts'/>
+/// <reference path='../filesystem/filesystem.d.ts' />
 
 ////////////////////
 // Global object
@@ -4577,7 +4578,7 @@ declare module chrome.management {
 	 */
 	export function generateAppForLink(url: string, title: string, callback?: (result: ExtensionInfo) => void): void;
 
-	/** Fired when an app or extension has been disabled. */    
+	/** Fired when an app or extension has been disabled. */
 	var onDisabled: ManagementDisabledEvent;
 	/** Fired when an app or extension has been uninstalled. */
 	var onUninstalled: ManagementUninstalledEvent;
@@ -4611,7 +4612,7 @@ declare module chrome.networking.config {
 		/** Optional. Identifier indicating the security type of the network. Valid values are None, WEP-PSK, WPA-PSK and WPA-EAP. */
 		Security?: string;
 	}
-	
+
 	interface CaptivePorttalDetectedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
@@ -4784,7 +4785,7 @@ declare module chrome.notifications {
 	 * The callback is required before Chrome 42.
 	 * If you specify the callback parameter, it should be a function that looks like this:
 	 * function(string notificationId) {...}; 
-	 */    
+	 */
 	export function create(notificationId: string, options: NotificationOptions, callback?: (notificationId: string) => void): void;
 	/**
 	 * Creates and displays a notification. 
@@ -4795,7 +4796,7 @@ declare module chrome.notifications {
 	 * The callback is required before Chrome 42.
 	 * If you specify the callback parameter, it should be a function that looks like this:
 	 * function(string notificationId) {...}; 
-	 */    
+	 */
 	export function create(options: NotificationOptions, callback?: (notificationId: string) => void): void;
 	/**
 	 * Updates an existing notification. 
@@ -4894,10 +4895,10 @@ declare module chrome.omnibox {
 	/**
 	 * Sets the description and styling for the default suggestion. The default suggestion is the text that is displayed in the first suggestion row underneath the URL bar. 
 	 * @param suggestion A partial SuggestResult object, without the 'content' parameter. 
-	 */    
+	 */
 	export function setDefaultSuggestion(suggestion: Suggestion): void;
 
-	/** User has accepted what is typed into the omnibox. */    
+	/** User has accepted what is typed into the omnibox. */
 	var onInputEntered: OmniboxInputEnteredEvent;
 	/** User has changed what is typed into the omnibox. */
 	var onInputChanged: OmniboxInputChangedEvent;
@@ -4971,7 +4972,7 @@ declare module chrome.pageAction {
 	/**
 	 * Shows the page action. The page action is shown whenever the tab is selected. 
 	 * @param tabId The id of the tab for which you want to modify the page action. 
-	 */    
+	 */
 	export function show(tabId: number): void;
 	/** Sets the title of the page action. This is displayed in a tooltip over the page action. */
 	export function setTitle(details: TitleDetails): void;
@@ -4998,7 +4999,7 @@ declare module chrome.pageAction {
 	 */
 	export function setIcon(details: IconDetails, callback?: () => void): void;
 
-	/** Fired when a page action icon is clicked. This event will not fire if the page action has a popup. */    
+	/** Fired when a page action icon is clicked. This event will not fire if the page action has a popup. */
 	var onClicked: PageActionClickedEvent;
 }
 
@@ -5022,7 +5023,7 @@ declare module chrome.pageCapture {
 	 * The callback parameter should be a function that looks like this:
 	 * function(binary mhtmlData) {...};
 	 * Parameter mhtmlData: The MHTML data as a Blob.  
-	 */    
+	 */
 	export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData: any) => void): void;
 }
 
@@ -5094,7 +5095,7 @@ declare module chrome.permissions {
 	 */
 	export function remove(permissions: Permissions, callback?: (removed: boolean) => void): void;
 
-	/** Fired when access to permissions has been removed from the extension. */    
+	/** Fired when access to permissions has been removed from the extension. */
 	var onRemoved: PermissionsRemovedEvent;
 	/** Fired when the extension acquires new permissions. */
 	var onAdded: PermissionsAddedEvent;
@@ -5116,14 +5117,14 @@ declare module chrome.platformKeys {
 		/** The  KeyAlgorithm of the certified key. This contains algorithm parameters that are inherent to the key of the certificate (e.g. the key length). Other parameters like the hash function used by the sign function are not included. */
 		keyAlgorithm: KeyAlgorithm;
 	}
-	
+
 	interface ClientCertificateSelectRequestDetails {
 		/** This field is a list of the types of certificates requested, sorted in order of the server's preference. Only certificates of a type contained in this list will be retrieved. If certificateTypes is the empty list, however, certificates of any type will be returned. */
 		certificateTypes: string[];
 		/** List of distinguished names of certificate authorities allowed by the server. Each entry must be a DER-encoded X.509 DistinguishedName. */
 		certificateAuthorities: ArrayBuffer[];
 	}
-	
+
 	interface ClientCertificateSelectDetails {
 		/** Only certificates that match this request will be returned. */
 		request: ClientCertificateSelectRequestDetails;
@@ -5133,16 +5134,16 @@ declare module chrome.platformKeys {
 		 */
 		clientCerts?: ArrayBuffer[];
 		/** If true, the filtered list is presented to the user to manually select a certificate and thereby granting the extension access to the certificate(s) and key(s). Only the selected certificate(s) will be returned. If is false, the list is reduced to all certificates that the extension has been granted access to (automatically or manually). */
-		interactive: boolean;		
+		interactive: boolean;
 	}
-	
+
 	interface ServerCertificateVerificationDetails {
 		/** Each chain entry must be the DER encoding of a X.509 certificate, the first entry must be the server certificate and each entry must certify the entry preceding it. */
 		serverCertificateChain: ArrayBuffer[];
 		/** The hostname of the server to verify the certificate for, e.g. the server that presented the serverCertificateChain. */
 		hostname: string;
 	}
-	
+
 	interface ServerCertificateVerificationResult {
 		/** The result of the trust verification: true if trust for the given verification details could be established and false if trust is rejected for any reason. */
 		trusted: boolean;
@@ -5177,7 +5178,7 @@ declare module chrome.platformKeys {
 	 * @param callback The callback parameter should be a function that looks like this: 
 	 * function(object result) {...}; 
 	 */
-	export function verifyTLSServerCertificate(details: ServerCertificateVerificationDetails, callback: (result: ServerCertificateVerificationResult) => void): void;	
+	export function verifyTLSServerCertificate(details: ServerCertificateVerificationDetails, callback: (result: ServerCertificateVerificationResult) => void): void;
 }
 
 ////////////////////
@@ -5296,11 +5297,18 @@ declare module chrome.proxy {
 ////////////////////
 // Runtime
 ////////////////////
+/**
+ * Use the chrome.runtime API to retrieve the background page, return details about the manifest, and listen for and respond to events in the app or extension lifecycle. You can also use this API to convert the relative path of URLs to fully-qualified URLs. 
+ * @since Chrome 22
+ */
 declare module chrome.runtime {
+    /** This will be defined during an API method callback if there was an error */
 	var lastError: LastError;
+    /** The ID of the extension/app. */
 	var id: string;
 
 	interface LastError {
+        /** Optional. Details about the error which occurred.  */
 		message?: string;
 	}
 
@@ -5309,42 +5317,103 @@ declare module chrome.runtime {
 	}
 
 	interface InstalledDetails {
+		/**
+		 * The reason that this event is being dispatched. 
+		 * One of: "install", "update", "chrome_update", or "shared_module_update" 
+		 */
 		reason: string;
+		/**
+		 * Optional.
+		 * Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'. 
+		 */
 		previousVersion?: string;
+		/**
+		 * Optional.
+		 * Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'. 
+		 * @since Chrome 29.
+		 */
+		id?: string;
 	}
 
 	interface MessageOptions {
+        /** Whether the TLS channel ID will be passed into onMessageExternal for processes that are listening for the connection event. */
 		includeTlsChannelId?: boolean;
 	}
 
+    /**
+     * An object containing information about the script context that sent a message or request.
+     * @since Chrome 26.
+     */
 	interface MessageSender {
+        /** The ID of the extension or app that opened the connection, if any. */
 		id?: string;
+        /** The tabs.Tab which opened the connection, if any. This property will only be present when the connection was opened from a tab (including content scripts), and only if the receiver is an extension, not an app. */
 		tab?: chrome.tabs.Tab;
+        /**
+         * The frame that opened the connection. 0 for top-level frames, positive for child frames. This will only be set when tab is set. 
+         * @since Chrome 41.
+         */
 		frameId?: number;
+        /**
+         * The URL of the page or frame that opened the connection. If the sender is in an iframe, it will be iframe's URL not the URL of the page which hosts it. 
+         * @since Chrome 28.
+         */
 		url?: string;
+        /**
+         * The TLS channel ID of the page or frame that opened the connection, if requested by the extension or app, and if available. 
+         * @since Chrome 32.
+         */
 		tlsChannelId?: string;
 	}
 
+    /**
+     * An object containing information about the current platform.
+     * @since Chrome 36.
+     */
 	interface PlatformInfo {
+        /** 
+         * The operating system chrome is running on.
+         * One of: "mac", "win", "android", "cros", "linux", or "openbsd" 
+         */
 		os: string;
+        /**
+         * The machine's processor architecture. 
+         * One of: "arm", "x86-32", or "x86-64" 
+         */
 		arch: string;
+        /**
+         * The native client architecture. This may be different from arch on some platforms. 
+         * One of: "arm", "x86-32", or "x86-64" 
+         */
 		nacl_arch: string;
 	}
 
+    /**
+     * An object which allows two way communication with other pages.
+     * @since Chrome 26.
+     */
 	interface Port {
 		postMessage: (message: Object) => void;
 		disconnect: () => void;
+        /**
+         * Optional.
+         * This property will only be present on ports passed to onConnect/onConnectExternal listeners. 
+         */
 		sender?: MessageSender;
+        /** An object which allows the addition and removal of listeners for a Chrome event. */
 		onDisconnect: chrome.events.Event;
+        /** An object which allows the addition and removal of listeners for a Chrome event. */
 		onMessage: PortMessageEvent;
 		name: string;
 	}
 
 	interface UpdateAvailableDetails {
+		/** The version number of the available update. */
 		version: string;
 	}
 
 	interface UpdateCheckDetails {
+        /** The version of the available update. */
 		version: string;
 	}
 
@@ -5353,10 +5422,11 @@ declare module chrome.runtime {
 	}
 
 	interface ExtensionMessageEvent extends chrome.events.Event {
-		addListener(callback: (message: any, sender: MessageSender, sendResponse: Function) => void): void;
-	}
-
-	interface ExtensionMessageExternalEvent extends chrome.events.Event {
+		/**
+		 * @param callback
+		 * Optional parameter message: The message sent by the calling script. 
+		 * Parameter sendResponse: Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object. If you have more than one onMessage listener in the same document, then only one may send a response. This function becomes invalid when the event listener returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this will keep the message channel open to the other end until sendResponse is called). 
+		 */
 		addListener(callback: (message: any, sender: MessageSender, sendResponse: Function) => void): void;
 	}
 
@@ -5364,66 +5434,190 @@ declare module chrome.runtime {
 		addListener(callback: (port: Port) => void): void;
 	}
 
-	interface ExtensionConnectExternalEvent extends chrome.events.Event {
-		addListener(callback: (port: Port) => void): void;
-	}
-
-	interface RuntimeSuspendEvent extends chrome.events.Event {
-		addListener(callback: Function): void;
-	}
-
-	interface RuntimeStartupEvent extends chrome.events.Event {
-		addListener(callback: Function): void;
-	}
-
 	interface RuntimeInstalledEvent extends chrome.events.Event {
 		addListener(callback: (details: InstalledDetails) => void): void;
 	}
-
-	interface RuntimeSuspendCanceledEvent extends chrome.events.Event {
-		addListener(callback: Function): void;
-	}
-	interface RuntimeMessageEvent extends chrome.events.Event {
-		addListener(callback: Function): void;
+	
+	interface RuntimeEvent extends chrome.events.Event {
+		addListener(callback: () => void): void;
 	}
 
 	interface RuntimeRestartRequiredEvent extends chrome.events.Event {
+		/**
+		 * @param callback
+		 * Parameter reason: The reason that the event is being dispatched. One of: "app_update", "os_update", or "periodic" 
+		 */
 		addListener(callback: (reason: string) => void): void;
 	}
 
 	interface RuntimeUpdateAvailableEvent extends chrome.events.Event {
+		/**
+		 * @param callback 
+		 * Parameter details: The manifest details of the available update. 
+		 */
 		addListener(callback: (details: UpdateAvailableDetails) => void): void;
 	}
 
+    /**
+     * Attempts to connect to connect listeners within an extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes, inter-app/extension communication, and web messaging. Note that this does not connect to any listeners in a content script. Extensions may connect to content scripts embedded in tabs via tabs.connect. 
+     * @since Chrome 26.
+     */
 	export function connect(connectInfo?: ConnectInfo): Port;
+	/**
+     * Attempts to connect to connect listeners within an extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes, inter-app/extension communication, and web messaging. Note that this does not connect to any listeners in a content script. Extensions may connect to content scripts embedded in tabs via tabs.connect. 
+     * @since Chrome 26.
+     * @param extensionId Optional.
+     * The ID of the extension or app to connect to. If omitted, a connection will be attempted with your own extension. Required if sending messages from a web page for web messaging. 
+     */
 	export function connect(extensionId: string, connectInfo?: ConnectInfo): Port;
+    /**
+     * Connects to a native application in the host machine. 
+     * @since Chrome 28.
+     * @param application The name of the registered application to connect to. 
+     */
 	export function connectNative(application: string): Port;
+    /** Retrieves the JavaScript 'window' object for the background page running inside the current extension/app. If the background page is an event page, the system will ensure it is loaded before calling the callback. If there is no background page, an error is set. */
 	export function getBackgroundPage(callback: (backgroundPage?: Window) => void): void;
+    /**
+     * Returns details about the app or extension from the manifest. The object returned is a serialization of the full manifest file. 
+     * @returns The manifest details.
+     */
 	export function getManifest(): Object;
-	export function getPackageDirectoryEntry(callback: (directoryEntry: any) => void): void;
+    /**
+     * Returns a DirectoryEntry for the package directory. 
+     * @since Chrome 29.
+     */
+	export function getPackageDirectoryEntry(callback: (directoryEntry: DirectoryEntry) => void): void;
+    /**
+     * Returns information about the current platform. 
+     * @since Chrome 29.
+     * @param callback Called with results  
+     */
 	export function getPlatformInfo(callback: (platformInfo: PlatformInfo) => void): void;
+    /**
+     * Converts a relative path within an app/extension install directory to a fully-qualified URL. 
+     * @param path A path to a resource within an app/extension expressed relative to its install directory. 
+     */
 	export function getURL(path: string): string;
+    /**
+     * Reloads the app or extension. 
+     * @since Chrome 25.
+     */
 	export function reload(): void;
+    /**
+     * Requests an update check for this app/extension. 
+     * @since Chrome 25.
+     * @param callback
+     * Parameter status: Result of the update check. One of: "throttled", "no_update", or "update_available" 
+     * Optional parameter details: If an update is available, this contains more information about the available update. 
+     */
 	export function requestUpdateCheck(callback: (status: string, details?: UpdateCheckDetails) => void): void;
+    /**
+     * Restart the ChromeOS device when the app runs in kiosk mode. Otherwise, it's no-op. 
+     * @since Chrome 32.
+     */
 	export function restart(): void;
+	/**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage. 
+     * @since Chrome 26.
+     * @param responseCallback Optional
+     * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message. 
+     */
 	export function sendMessage(message: any, responseCallback?: (response: any) => void): void;
+	/**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage. 
+     * @since Chrome 32.
+     * @param responseCallback Optional
+     * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message. 
+     */
 	export function sendMessage(message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
+	/**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage. 
+     * @since Chrome 26.
+     * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
+     * @param responseCallback Optional
+     * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message. 
+     */
 	export function sendMessage(extensionId: string, message: any, responseCallback?: (response: any) => void): void;
+    /**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage. 
+     * @since Chrome 32.
+     * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
+     * @param responseCallback Optional
+     * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message. 
+     */
 	export function sendMessage(extensionId: string, message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
-	export function sendNativeMessage(application: string, message: any, responseCallback?: (response: any) => void): void;
-	export function setUninstallUrl(url: string): void;
+    /**
+     * Send a single message to a native application. 
+     * @since Chrome 28.
+     * @param application The of the native messaging host.
+     * @param message The message that will be passed to the native messaging host. 
+     * @param responseCallback Optional.
+     * Parameter response: The response message sent by the native messaging host. If an error occurs while connecting to the native messaging host, the callback will be called with no arguments and runtime.lastError will be set to the error message. 
+     */
+	export function sendNativeMessage(application: string, message: Object, responseCallback?: (response: any) => void): void;
+    /**
+     * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics, and implement surveys. Maximum 255 characters. 
+     * @since Chrome 41.
+     * @param url Since Chrome 34.
+     * URL to be opened after the extension is uninstalled. This URL must have an http: or https: scheme. Set an empty string to not open a new tab upon uninstallation. 
+     * @param callback Called when the uninstall URL is set. If the given URL is invalid, runtime.lastError will be set. 
+     */
+	export function setUninstallUrl(url: string, callback?: () => void): void;
+    /**
+     * Open your Extension's options page, if possible.
+     * The precise behavior may depend on your manifest's options_ui or options_page key, or what Chrome happens to support at the time. For example, the page may be opened in a new tab, within chrome://extensions, within an App, or it may just focus an open options page. It will never cause the caller page to reload.
+     * If your Extension does not declare an options page, or Chrome failed to create one for some other reason, the callback will set lastError.
+     * @since Chrome 42.
+     */
+    export function openOptionsPage(callback?: () => void): void;
 
+	/**
+	 * Fired when a connection is made from either an extension process or a content script. 
+	 * @since Chrome 26.
+	 */
 	var onConnect: ExtensionConnectEvent;
-	var onConnectExternal: ExtensionConnectExternalEvent;
-	var onSuspend: RuntimeSuspendEvent;
-	var onStartup: RuntimeStartupEvent;
+	/**
+	 * Fired when a connection is made from another extension. 
+	 * @since Chrome 26.
+	 */
+	var onConnectExternal: RuntimeEvent;
+	/** Sent to the event page just before it is unloaded. This gives the extension opportunity to do some clean up. Note that since the page is unloading, any asynchronous operations started while handling this event are not guaranteed to complete. If more activity for the event page occurs before it gets unloaded the onSuspendCanceled event will be sent and the page won't be unloaded. */
+	var onSuspend: RuntimeEvent;
+	/**
+	 * Fired when a profile that has this extension installed first starts up. This event is not fired when an incognito profile is started, even if this extension is operating in 'split' incognito mode. 
+	 * @since Chrome 23.
+	 */
+	var onStartup: RuntimeEvent;
+	/** Fired when the extension is first installed, when the extension is updated to a new version, and when Chrome is updated to a new version. */
 	var onInstalled: RuntimeInstalledEvent;
-	var onSuspendCanceled: RuntimeSuspendCanceledEvent;
+	/** Sent after onSuspend to indicate that the app won't be unloaded after all. */
+	var onSuspendCanceled: RuntimeEvent;
+	/**
+	 * Fired when a message is sent from either an extension process or a content script. 
+	 * @since Chrome 26.
+	 */
 	var onMessage: ExtensionMessageEvent;
-	var onMessageExternal: ExtensionMessageExternalEvent;
+	/**
+	 * Fired when a message is sent from another extension/app. Cannot be used in a content script. 
+	 * @since Chrome 26.
+	 */
+	var onMessageExternal: ExtensionMessageEvent;
+	/**
+	 * Fired when an app or the device that it runs on needs to be restarted. The app should close all its windows at its earliest convenient time to let the restart to happen. If the app does nothing, a restart will be enforced after a 24-hour grace period has passed. Currently, this event is only fired for Chrome OS kiosk apps. 
+	 * @since Chrome 29.
+	 */
 	var onRestartRequired: RuntimeRestartRequiredEvent;
+	/**
+	 * Fired when an update is available, but isn't installed immediately because the app is currently running. If you do nothing, the update will be installed the next time the background page gets unloaded, if you want it to be installed sooner you can explicitly call chrome.runtime.reload(). If your extension is using a persistent background page, the background page of course never gets unloaded, so unless you call chrome.runtime.reload() manually in response to this event the update will not get installed until the next time chrome itself restarts. If no handlers are listening for this event, and your extension has a persistent background page, it behaves as if chrome.runtime.reload() is called in response to this event. 
+	 * @since Chrome 25.
+	 */
 	var onUpdateAvailable: RuntimeUpdateAvailableEvent;
-
+	/**
+	 * @deprecated since Chrome 33. Please use chrome.runtime.onRestartRequired.
+	 * Fired when a Chrome update is available, but isn't installed immediately because a browser restart is required. 
+	 */
+	var onBrowserUpdateAvailable: RuntimeEvent;
 }
 
 ////////////////////
