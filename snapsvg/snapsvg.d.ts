@@ -1,6 +1,6 @@
 // Type definitions for Snap-SVG 0.4.1
 // Project: https://github.com/adobe-webplatform/Snap.svg
-// Definitions by: Lars Klein <https://github.com/lhk>
+// Definitions by: Lars Klein <https://github.com/lhk>, Mattanja Kern <https://github.com/mattanja>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare function mina(a:number, A:number, b:number, B:number, get:Function, set:Function, easing?:(num:number)=>number):mina.AnimationDescriptor;
@@ -13,7 +13,8 @@ declare module mina {
         status: Function;
         stop: Function;
     }
-    export interface AnimationDescriptor{
+
+    export interface AnimationDescriptor {
 		id: string;
         start: number;
         end: number;
@@ -88,6 +89,16 @@ declare module Snap {
 	export function angle(x1:number,y1:number,x2:number,y2:number,x3?:number,y3?:number):number;
 	export function rad(deg:number):number;
 	export function deg(rad:number):number;
+	export function sin(angle: number): number;
+	export function cos(angle: number): number;
+	export function tan(angle: number): number;
+	export function asin(angle: number): number;
+	export function acos(angle: number): number;
+	export function atan(angle: number): number;
+	export function atan2(angle: number): number;
+
+	export function len(x1: number, y1: number, x2: number, y2: number): number;
+	export function len2(x1: number, y1: number, x2: number, y2: number): number;
 
 	export function parse(svg:string):Fragment;
 	export function parsePathString(pathString:string):Array<any>;
@@ -95,20 +106,22 @@ declare module Snap {
 	export function parseTransformString(TString:string):Array<any>;
 	export function parseTransformString(TString:Array<string>):Array<any>;
 
-	export interface RGB{
+	export function closest(x: number, y: number, X: number, Y: number): boolean;
+
+	export interface RGB {
 		r:number;
 		g:number;
 		b:number;
 		hex:string;
 	}
 
-	export interface HSB{
+	export interface HSB {
 		h:number;
 		s:number;
 		b:number;
 	}
 
-	export interface RGBHSB{
+	export interface RGBHSB {
 		r:number;
 		g:number;
 		b:number;
@@ -120,13 +133,13 @@ declare module Snap {
 		l:number;
 	}
 
-	export interface HSL{
+	export interface HSL {
 		h:number;
 		s:number;
 		l:number;
 	}
 
-	export interface BBox{
+	export interface BBox {
 		cx:number;
 		cy:number;
 		h:number;
@@ -154,7 +167,7 @@ declare module Snap {
         toString(): string;
     }
 
-	export interface Animation{
+	export interface Animation {
 		attr:{[attr:string]:string|number|boolean|any};
 		duration:number;
 		easing?:(num:number)=>number;
@@ -165,16 +178,19 @@ declare module Snap {
 		add(el:Snap.Element):Snap.Element;
 		addClass(value:string):Snap.Element;
 		after(el:Snap.Element):Snap.Element;
-		animate(attrs:{[attr:string]:string|number|boolean|any},duration:number,easing?:(num: number)=> number,callback?:()=>void):Snap.Element;
+		align(el: Snap.Element, way: string):Snap.Element;
 		animate(animation:any):Snap.Element;
+		animate(attrs:{[attr:string]:string|number|boolean|any},duration:number,easing?:(num: number)=> number,callback?:()=>void):Snap.Element;
 		append(el:Snap.Element):Snap.Element;
 		appendTo(el:Snap.Element):Snap.Element;
 		asPX(attr:string,value?:string):number;            //TODO: check what is really returned
-		attr(params:{[attr:string]:string|number|boolean|any}):Snap.Element;
 		attr(param:string):string;
+		attr(params:{[attr:string]:string|number|boolean|any}):Snap.Element;
 		before(el:Snap.Element):Snap.Element;
+		children(): Snap.Element[];
 		clone():Snap.Element;
 		data(key:string,value?:any):any;
+		getAlign(el: Snap.Element, way: string): string;
 		getBBox():BBox;
 		getPointAtLength(length:number):{x:number, y:number, alpha:number};
 		getSubpath(from:number,to:number):string;
@@ -195,18 +211,19 @@ declare module Snap {
 		removeClass(value:string):Snap.Element;
 		removeData(key?:string):Snap.Element;
 		select(query:string):Snap.Element;
-        selectAll(query: string): Snap.Set;
-        selectAll(): Snap.Set;
 		stop():Snap.Element;
 		toDefs():Snap.Element;
+		toJSON(): any;
+		toggleClass(value:string,flag:boolean):Snap.Element;
 		toPattern(x:number,y:number,width:number,height:number):Object;
 		toPattern(x:string,y:string,width:string,height:string):Object;
 		toString():string;
-		toggleClass(value:string,flag:boolean):Snap.Element;
-		transform(tstr:string):Snap.Element;
 		transform(): TransformationDescriptor;
+		transform(tstr:string):Snap.Element;
 		type:string;
 		use():Object;
+        selectAll(): Snap.Set;
+        selectAll(query: string): Snap.Set;
 
         click(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
         dblclick(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
@@ -292,6 +309,7 @@ declare module Snap {
 		mask(varargs:any):Object;
 		ptrn(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
 		svg(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
+		toDataUrl(): string;
 		toString():string;
 		use(id?:string):Object;
 		use(id?:Snap.Element):Object;
