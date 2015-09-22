@@ -69,7 +69,7 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
         let ThemeManager = new mui.Styles.ThemeManager();
         ThemeManager.setTheme(ThemeManager.types.LIGHT);
         ThemeManager.setTheme(ThemeManager.types.DARK);
-        let muiTheme: __MaterialUI.Styles.CustomTheme = ThemeManager.getCurrentTheme();
+        let muiTheme = ThemeManager.getCurrentTheme();
         ThemeManager.setComponentThemes({
             toggle: {
                 thumbOnColor: "#00bcd4",
