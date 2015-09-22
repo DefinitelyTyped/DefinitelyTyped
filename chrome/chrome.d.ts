@@ -6107,6 +6107,26 @@ declare module chrome.system.cpu {
 }
 
 ////////////////////
+// System Memory
+////////////////////
+/**
+ * The chrome.system.memory API. 
+ * Permissions:  "system.memory"   
+ * @since Chrome 32.
+ */
+declare module chrome.system.memory {
+	interface MemoryInfo {
+		/** The total amount of physical memory capacity, in bytes. */
+		capacity: number;
+		/** The amount of available capacity, in bytes. */
+		availableCapacity: number;
+	}
+	
+	/** Get physical memory information. */
+	export function getInfo(callback: (info: MemoryInfo) => void): void;
+}
+
+////////////////////
 // TabCapture
 ////////////////////
 declare module chrome.tabCapture {
