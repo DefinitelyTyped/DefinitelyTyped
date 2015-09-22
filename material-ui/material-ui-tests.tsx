@@ -8,7 +8,7 @@
 //      a. Find "var element;" and change to "let element: React.ReactElement<any>;".
 //      b. Replace "this.linkState(" with "this.linkState<string>(".
 //      c. Add generic type help for the Component Property to the remaining errors on
-//         React.createElement, for example, add "<__MaterialUI.DialogProp>".
+//         React.createElement, for example, add "<__MaterialUI.DialogProps>".
 
 ///<reference path='../react/react.d.ts' />
 ///<reference path='material-ui.d.ts' />
@@ -92,7 +92,7 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
             iconStyle={{
                 fill: '#FF4081'
             }}/>
-        element = React.createElement<__MaterialUI.CheckboxProp>(Checkbox, {
+        element = React.createElement<__MaterialUI.CheckboxProps>(Checkbox, {
             id: "checkboxId1", name: "checkboxName1", value: "checkboxValue1", label: "went for a run today", style: {
                 width: '50%',
                 margin: '0 auto'
