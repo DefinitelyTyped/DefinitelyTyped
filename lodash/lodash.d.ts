@@ -258,7 +258,6 @@ declare module _ {
         push(...items: T[]): LoDashArrayWrapper<T>;
         reverse(): LoDashArrayWrapper<T>;
         shift(): T;
-        slice(start: number, end?: number): LoDashArrayWrapper<T>;
         sort(compareFn?: (a: T, b: T) => number): LoDashArrayWrapper<T>;
         splice(start: number): LoDashArrayWrapper<T>;
         splice(start: number, deleteCount: number, ...items: any[]): LoDashArrayWrapper<T>;
@@ -367,34 +366,57 @@ declare module _ {
     //_.difference
     interface LoDashStatic {
         /**
-        * Creates an array excluding all values of the provided arrays using strict equality for comparisons
-        * , i.e. ===.
-        * @param array The array to process
-        * @param others The arrays of values to exclude.
-        * @return Returns a new array of filtered values.
-        **/
+         * Creates an array of unique array values not included in the other provided arrays using SameValueZero for
+         * equality comparisons.
+         *
+         * @param array The array to inspect.
+         * @param values The arrays of values to exclude.
+         * @return Returns the new array of filtered values.
+         */
         difference<T>(
-            array?: Array<T>,
-            ...others: Array<T>[]): T[];
-        /**
-        * @see _.difference
-        **/
-        difference<T>(
-            array?: List<T>,
-            ...others: List<T>[]): T[];
+            array: T[]|List<T>,
+            ...values: (T[]|List<T>)[]
+        ): T[];
     }
 
     interface LoDashArrayWrapper<T> {
         /**
-        * @see _.difference
-        **/
-        difference(
-            ...others: Array<T>[]): LoDashArrayWrapper<T>;
+         * @see _.difference
+         */
+        difference(...values: (T[]|List<T>)[]): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
         /**
-        * @see _.difference
-        **/
-        difference(
-            ...others: List<T>[]): LoDashArrayWrapper<T>;
+         * @see _.difference
+         */
+        difference<TValue>(...values: (TValue[]|List<TValue>)[]): LoDashArrayWrapper<TValue>;
+    }
+
+    //_.drop
+    interface LoDashStatic {
+        /**
+         * Creates a slice of array with n elements dropped from the beginning.
+         *
+         * @param array The array to query.
+         * @param n The number of elements to drop.
+         * @return Returns the slice of array.
+         */
+        drop<T>(array: T[]|List<T>, n?: number): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.drop
+         */
+        drop(n?: number): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.drop
+         */
+        drop<TResult>(n?: number): LoDashArrayWrapper<TResult>;
     }
 
     //_.findIndex
@@ -937,108 +959,52 @@ declare module _ {
     //_.initial
     interface LoDashStatic {
         /**
-        * Gets all but the last element or last n elements of an array. If a callback is provided
-        * elements at the end of the array are excluded from the result as long as the callback
-        * returns truey. The callback is bound to thisArg and invoked with three arguments;
-        * (value, index, array).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will
-        * return the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return
-        * true for elements that have the properties of the given object, else false.
-        * @param array The array to query.
-        * @param n Leaves this many elements behind, optional.
-        * @return Returns everything but the last `n` elements of `array`.
-        **/
-        initial<T>(
-            array: Array<T>): T[];
+         * Gets all but the last element of array.
+         *
+         * @param array The array to query.
+         * @return Returns the slice of array.
+         */
+        initial<T>(array: T[]|List<T>): T[];
+    }
 
+    interface LoDashArrayWrapper<T> {
         /**
-        * @see _.initial
-        **/
-        initial<T>(
-            array: List<T>): T[];
+         * @see _.initial
+         */
+        initial(): LoDashArrayWrapper<T>;
+    }
 
+    interface LoDashObjectWrapper<T> {
         /**
-        * @see _.initial
-        * @param n The number of elements to exclude.
-        **/
-        initial<T>(
-            array: Array<T>,
-            n: number): T[];
-
-        /**
-        * @see _.initial
-        * @param n The number of elements to exclude.
-        **/
-        initial<T>(
-            array: List<T>,
-            n: number): T[];
-
-        /**
-        * @see _.initial
-        * @param callback The function called per element
-        **/
-        initial<T>(
-            array: Array<T>,
-            callback: ListIterator<T, boolean>): T[];
-
-        /**
-        * @see _.initial
-        * @param callback The function called per element
-        **/
-        initial<T>(
-            array: List<T>,
-            callback: ListIterator<T, boolean>): T[];
-
-        /**
-        * @see _.initial
-        * @param pluckValue _.pluck style callback
-        **/
-        initial<T>(
-            array: Array<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.initial
-        * @param pluckValue _.pluck style callback
-        **/
-        initial<T>(
-            array: List<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.initial
-        * @param whereValue _.where style callback
-        **/
-        initial<W, T>(
-            array: Array<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.initial
-        * @param whereValue _.where style callback
-        **/
-        initial<W, T>(
-            array: List<T>,
-            whereValue: W): T[];
+         * @see _.initial
+         */
+        initial<TResult>(): LoDashArrayWrapper<TResult>;
     }
 
     //_.intersection
     interface LoDashStatic {
         /**
-        * Creates an array of unique values present in all provided arrays using strict
-        * equality for comparisons, i.e. ===.
-        * @param arrays The arrays to inspect.
-        * @return Returns an array of composite values.
-        **/
-        intersection<T>(...arrays: Array<T>[]): T[];
+         * Creates an array of unique values that are included in all of the provided arrays using SameValueZero for
+         * equality comparisons.
+         *
+         * @param arrays The arrays to inspect.
+         * @return Returns the new array of shared values.
+         */
+        intersection<T>(...arrays: (T[]|List<T>)[]): T[];
+    }
 
+    interface LoDashArrayWrapper<T> {
         /**
-        * @see _.intersection
-        **/
-        intersection<T>(...arrays: List<T>[]): T[];
+         * @see _.intersection
+         */
+        intersection<TResult>(...arrays: (TResult[]|List<TResult>)[]): LoDashArrayWrapper<TResult>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.intersection
+         */
+        intersection<TResult>(...arrays: (TResult[]|List<TResult>)[]): LoDashArrayWrapper<TResult>;
     }
 
     //_.last
@@ -1086,42 +1052,72 @@ declare module _ {
     //_.pull
     interface LoDashStatic {
         /**
-        * Removes all provided values from the given array using strict equality for comparisons,
-        * i.e. ===.
-        * @param array The array to modify.
-        * @param values The values to remove.
-        * @return array.
-        **/
-        pull<T>(
-            array: Array<T>,
-            ...values: T[]): T[];
-
-        /**
-        * @see _.pull
-        **/
-        pull<T>(
-            array: List<T>,
-            ...values: T[]): T[];
-    }
-
-    interface LoDashStatic {
-        /**
-         * Removes all provided values from the given array using strict equality for comparisons,
-         * i.e. ===.
+         * Removes all provided values from array using SameValueZero for equality comparisons.
+         *
+         * Note: Unlike _.without, this method mutates array.
+         *
          * @param array The array to modify.
          * @param values The values to remove.
-         * @return array.
-         **/
-        pullAt(
-            array: Array<any>,
-            ...values: any[]): any[];
+         * @return Returns array.
+         */
+        pull<T>(
+            array: T[],
+            ...values: T[]
+        ): T[];
 
         /**
          * @see _.pull
-         **/
-        pullAt(
-            array: List<any>,
-            ...values: any[]): any[];
+         */
+        pull<T>(
+            array: List<T>,
+            ...values: T[]
+        ): List<T>;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.pull
+         */
+        pull(...values: T[]): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.pull
+         */
+        pull<TValue>(...values: TValue[]): LoDashObjectWrapper<List<TValue>>;
+    }
+
+    //_.pullAt
+    interface LoDashStatic {
+        /**
+         * Removes elements from array corresponding to the given indexes and returns an array of the removed elements.
+         * Indexes may be specified as an array of indexes or as individual arguments.
+         *
+         * Note: Unlike _.at, this method mutates array.
+         *
+         * @param array The array to modify.
+         * @param indexes The indexes of elements to remove, specified as individual indexes or arrays of indexes.
+         * @return Returns the new array of removed elements.
+         */
+        pullAt<T>(
+            array: T[]|List<T>,
+            ...indexes: (number|number[])[]
+        ): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.pullAt
+         */
+        pullAt(...indexes: (number|number[])[]): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.pullAt
+         */
+        pullAt<TValue>(...indexes: (number|number[])[]): LoDashArrayWrapper<TValue>;
     }
 
     //_.remove
@@ -1283,74 +1279,6 @@ declare module _ {
         /**
         * @see _.rest
         **/
-        drop<T>(array: Array<T>): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<T>(array: List<T>): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<T>(
-            array: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<T>(
-            array: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<T>(
-            array: Array<T>,
-            n: number): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<T>(
-            array: List<T>,
-            n: number): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<T>(
-            array: Array<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<T>(
-            array: List<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<W, T>(
-            array: Array<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.rest
-        **/
-        drop<W, T>(
-            array: List<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.rest
-        **/
         tail<T>(array: Array<T>): T[];
 
         /**
@@ -1415,6 +1343,33 @@ declare module _ {
         tail<W, T>(
             array: List<T>,
             whereValue: W): T[];
+    }
+
+    //_.slice
+    interface LoDashStatic {
+        /**
+         * Creates a slice of array from start up to, but not including, end.
+         *
+         * @param array The array to slice.
+         * @param start The start position.
+         * @param end The end position.
+         * @return Returns the slice of array.
+         */
+        slice<T>(
+            array: T[],
+            start?: number,
+            end?: number
+        ): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.slice
+         */
+        slice(
+            start?: number,
+            end?: number
+        ): LoDashArrayWrapper<T>;
     }
 
     //_.sortedIndex
@@ -1485,6 +1440,35 @@ declare module _ {
             array: List<T>,
             value: T,
             whereValue: W): number;
+    }
+
+    //_.takeRight
+    interface LoDashStatic {
+        /**
+         * Creates a slice of array with n elements taken from the end.
+         *
+         * @param array The array to query.
+         * @param n The number of elements to take.
+         * @return Returns the slice of array.
+         */
+        takeRight<T>(
+            array: T[]|List<T>,
+            n?: number
+        ): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.takeRight
+         */
+        takeRight(n?: number): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.takeRight
+         */
+        takeRight<TResult>(n?: number): LoDashArrayWrapper<TResult>;
     }
 
     //_.union
@@ -1852,24 +1836,72 @@ declare module _ {
             whereValue: W): LoDashArrayWrapper<T>;
     }
 
+    //_.unzipWith
+    interface LoDashStatic {
+        /**
+         * This method is like _.unzip except that it accepts an iteratee to specify how regrouped values should be
+         * combined. The iteratee is bound to thisArg and invoked with four arguments: (accumulator, value, index,
+         * group).
+         *
+         * @param array The array of grouped elements to process.
+         * @param iteratee The function to combine regrouped values.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns the new array of regrouped elements.
+         */
+        unzipWith<TArray, TResult>(
+            array: List<List<TArray>>,
+            iteratee?: MemoIterator<TArray, TResult>,
+            thisArg?: any
+        ): TResult[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.unzipWith
+         */
+        unzipWith<TArr, TResult>(
+            iteratee?: MemoIterator<TArr, TResult>,
+            thisArg?: any
+        ): LoDashArrayWrapper<TResult>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.unzipWith
+         */
+        unzipWith<TArr, TResult>(
+            iteratee?: MemoIterator<TArr, TResult>,
+            thisArg?: any
+        ): LoDashArrayWrapper<TResult>;
+    }
+
     //_.without
     interface LoDashStatic {
         /**
-        * Creates an array excluding all provided values using strict equality for comparisons, i.e. ===.
-        * @param array The array to filter.
-        * @param values The value(s) to exclude.
-        * @return A new array of filtered values.
-        **/
+         * Creates an array excluding all provided values using SameValueZero for equality comparisons.
+         *
+         * @param array The array to filter.
+         * @param values The values to exclude.
+         * @return Returns the new array of filtered values.
+         */
         without<T>(
-            array: Array<T>,
-            ...values: T[]): T[];
+            array: T[]|List<T>,
+            ...values: T[]
+        ): T[];
+    }
 
+    interface LoDashArrayWrapper<T> {
         /**
-        * @see _.without
-        **/
-        without<T>(
-            array: List<T>,
-            ...values: T[]): T[];
+         * @see _.without
+         */
+        without(...values: T[]): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.without
+         */
+        without<TValue>(...values: TValue[]): LoDashArrayWrapper<TValue>;
     }
 
     //_.xor
@@ -2064,6 +2096,46 @@ declare module _ {
          * @return Returns the new lodash wrapper instance.
          */
         commit(): TWrapper;
+    }
+
+    //_.prototype.plant
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * Creates a clone of the chained sequence planting value as the wrapped value.
+         * @param value The value to plant as the wrapped value.
+         * @return Returns the new lodash wrapper instance.
+         */
+        plant(value: number): LoDashWrapper<number>;
+
+        /**
+         * @see _.plant
+         */
+        plant(value: string): LoDashStringWrapper;
+
+        /**
+         * @see _.plant
+         */
+        plant(value: boolean): LoDashWrapper<boolean>;
+
+        /**
+         * @see _.plant
+         */
+        plant(value: number[]): LoDashNumberArrayWrapper;
+
+        /**
+         * @see _.plant
+         */
+        plant<T>(value: T[]): LoDashArrayWrapper<T>;
+
+        /**
+         * @see _.plant
+         */
+        plant<T extends {}>(value: T): LoDashObjectWrapper<T>;
+
+        /**
+         * @see _.plant
+         */
+        plant(value: any): LoDashWrapper<any>;
     }
 
     /**************
@@ -8552,11 +8624,19 @@ declare module _ {
     //_.runInContext
     interface LoDashStatic {
         /**
-        * Create a new lodash function using the given context object.
-        * @param context The context object
-        * @returns The lodash function.
-        **/
-        runInContext(context: any): typeof _;
+         * Create a new pristine lodash function using the given context object.
+         *
+         * @param context The context object.
+         * @return Returns a new lodash function.
+         */
+        runInContext(context?: Object): typeof _;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.runInContext
+         */
+        runInContext(): typeof _;
     }
 
     //_.times
@@ -8644,10 +8724,10 @@ declare module _ {
     }
 
     interface MemoVoidIterator<T, TResult> {
-        (prev: TResult, curr: T, indexOrKey: any, list?: T[]): void;
+        (prev: TResult, curr: T, indexOrKey?: any, list?: T[]): void;
     }
     interface MemoIterator<T, TResult> {
-        (prev: TResult, curr: T, indexOrKey: any, list?: T[]): TResult;
+        (prev: TResult, curr: T, indexOrKey?: any, list?: T[]): TResult;
     }
     /*
     interface MemoListIterator<T, TResult> {
