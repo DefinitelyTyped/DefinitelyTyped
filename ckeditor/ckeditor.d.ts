@@ -572,6 +572,7 @@ declare module CKEDITOR {
         colorButton_colors?: string;
         startupFocus?: boolean;
         on?: any;
+        extraPlugins?: string;
     }
 
 
