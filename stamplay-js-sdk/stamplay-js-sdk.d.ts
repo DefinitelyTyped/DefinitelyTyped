@@ -1,0 +1,40 @@
+// Type definitions for stamplay-js-sdk 1.2.9
+// Project: https://github.com/Stamplay/stamplay-js-sdk and https://stamplay.com/docs/jssdk#api-ref-model
+// Definitions by: Riderman de Sousa Barbosa <https://github.com/ridermansb/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="..\promises-a-plus\promises-a-plus.d.ts"/>
+
+declare module Stamplay {
+
+  export interface IStamplayModel {
+    signup({}) : PromisesAPlus.Thenable<any>
+    new() : IStamplayModel
+    get(property : string)
+    set(property : string, value: any)
+    unset(property : string)
+    fetch(id : any)
+    destroy() : PromisesAPlus.Thenable<any>
+    save({}?) : PromisesAPlus.Thenable<any>
+  }
+
+  export interface IStamplayAction {
+      new() : IStamplayModel
+      upVote() : PromisesAPlus.Thenable<any>
+  }
+
+  export interface IStamplayUser {
+      Model : IStamplayModel
+  }
+
+  export interface StamplayStatic {
+      User() : IStamplayUser
+      Cobject(collection : string) : void
+  }
+}
+
+declare var Stamplay: Stamplay.StamplayStatic;
+
+declare module "Stamplay" {
+    export = Stamplay;
+}
