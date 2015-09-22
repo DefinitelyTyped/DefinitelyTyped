@@ -1,15 +1,3 @@
-// This tests React components, so it is most natural to write the test as a .TSX file,
-// however the DefinitelyTyped test runner only accepts .TS files.  To convert:
-//  1. Save in Visual Studio or otherwise use TSC to save as a "material-ui-tests.js" file.
-//  2. Copy the "material-ui-tests.tsx" file to "material-ui-tests.ts".
-//  3. Copy the body of "MaterialUiTests.prototype.render = function ()" in "material-ui-tsets.js"
-//     and replace the body of render() in "material-ui-tests.ts".
-//  4. Correct some missing information:
-//      a. Find "var element;" and change to "let element: React.ReactElement<any>;".
-//      b. Replace "this.linkState(" with "this.linkState<string>(".
-//      c. Add generic type help for the Component Property to the remaining errors on
-//         React.createElement, for example, add "<__MaterialUI.DialogProps>".
-
 ///<reference path='../react/react.d.ts' />
 ///<reference path='material-ui.d.ts' />
 
