@@ -51,7 +51,10 @@ class TestComponent2 extends React.Component<{ test: string },{}> {
     }
 }
 {
-    let c4Factory = React.createFactory(reactiveComponent(TestComponent2));
+    // Does not work properly in typescript 1.6.2 without cast :'(
+    // Argument of type 'typeof TestComponent2 | void' is not assignable to parameter of type 'ComponentClass<{ test: string; }>'.
+    // Type 'void' is not assignable to type 'ComponentClass<{ test: string; }>'.
+    let c4Factory = React.createFactory(<React.ClassicComponentClass<{test:string}>><any> reactiveComponent(TestComponent2));
     React.render(c4Factory({
         test: "hello" 
     }) , null);

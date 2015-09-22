@@ -11,6 +11,6 @@ declare module "mobservable-react" {
      */
     export function reactiveComponent<P>(clazz: React.ClassicComponentClass<P>): React.ClassicComponentClass<P>;
     export function reactiveComponent<P>(clazz: React.ComponentClass<P>): React.ComponentClass<P>;
-    export function reactiveComponent<P>(clazz: React.ComponentClass<P>): void; // for decorator
+    export function reactiveComponent<TFunction extends React.ComponentClass<any>>(target: TFunction): TFunction | void; // decorator signature
     export function reactiveComponent<P>(renderFunction: (props: P) => React.ReactElement<any>): React.ClassicComponentClass<P>;
 }
