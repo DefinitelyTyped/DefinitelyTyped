@@ -999,12 +999,6 @@ declare module uiGrid {
              */
             rowsVisibleChanged: (scope: ng.IScope, handler: rowsVisibleChangedHandler) => void;
             /**
-             * is raised after the sort criteria on one or more columns has changed
-             * @param {ng.IScope} scope Grid scope
-             * @param {rowsVisibleChangedHandler} handler callback
-             */
-            sortChanged: (scope: ng.IScope, handler: sortChangedHandler) => void;
-            /**
              * is raised when scroll begins. Is throttled, so won't be raised too frequently
              * @param {ng.IScope} scope Grid scope
              * @param {scrollBeginHandler} handler callback
@@ -1074,15 +1068,6 @@ declare module uiGrid {
         (scrollEvent: JQueryMouseEventObject): void;
     }
 
-    export interface sortChangedHandler {
-        /**
-         * Sort change event callback
-         * @param {IGridInstance} grid instance
-         * @param {IGridColumn} array of gridColumns that have sorting on them, sorted in priority order
-         */
-        (grid: IGridInstance, columns: IGridColumn[]): void;
-    }
-
     export module cellNav {
         /**
          * Column Definitions for cellNav feature, these are available to be set using the ui-grid
@@ -1143,7 +1128,6 @@ declare module uiGrid {
              * Brings the specified row and column into view, and sets focus to that cell
              * @param {any} rowEntity gridOptions.data[] array instance to make visible and set focus
              * @param {IColumnDef} colDef Column definition to make visible and set focus
-             * @returns {ng.IPromise<any>} a promise that is resolved after any scrolling is finished
              */
             scrollToFocus(rowEntity: any, colDef: IColumnDef): ng.IPromise<any>;
 
