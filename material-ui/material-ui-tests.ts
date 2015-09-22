@@ -137,7 +137,7 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
         ];
         element = React.createElement(Dialog, {"title": "Dialog With Custom Actions", "actions": customActions, "modal": false, "autoDetectWindowHeight": true, "autoScrollBodyContent": true}, "The actions in this window were passed in as an array of react objects.");
         // "http://material-ui.com/#/components/dropdown-menu"
-        var menuItems = [
+        var menuItems: __MaterialUI.Menu.MenuItemRequest[] = [
             { payload: '1', text: 'Never' },
             { payload: '2', text: 'Every Night' },
             { payload: '3', text: 'Weeknights' },
@@ -192,7 +192,7 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
         element = React.createElement(TextField, {"hintText": "Disabled Hint Text", "disabled": true});
         element = React.createElement(TextField, {"hintText": "Disabled Hint Text", "disabled": true, "defaultValue": "Disabled With Value"});
         //Select Fields
-        var arbitraryArrayMenuItems = [
+        var arbitraryArrayMenuItems: __MaterialUI.Menu.MenuItemRequest[] = [
             {
                 id: 0,
                 name: "zero",
