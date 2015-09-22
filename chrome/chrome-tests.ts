@@ -245,3 +245,12 @@ function contentSettings() {
     }
   });
 }
+
+// https://developer.chrome.com/extensions/runtime#method-openOptionsPage
+function testOptionsPage() {
+  chrome.runtime.openOptionsPage();
+  chrome.runtime.openOptionsPage(function() {
+    // Do a thing ...
+  });
+}
+

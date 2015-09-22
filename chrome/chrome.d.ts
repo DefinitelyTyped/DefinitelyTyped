@@ -1649,6 +1649,7 @@ declare module chrome.runtime {
     export function getPackageDirectoryEntry(callback: (directoryEntry: any) => void): void;
     export function getPlatformInfo(callback: (platformInfo: PlatformInfo) => void): void;
     export function getURL(path: string): string;
+    export function openOptionsPage(callback?: () => void): void;
     export function reload(): void;
     export function requestUpdateCheck(callback: (status: string, details?: UpdateCheckDetails) => void): void;
     export function restart(): void;
