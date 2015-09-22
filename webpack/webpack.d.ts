@@ -6,8 +6,21 @@
 declare module "webpack" {
     namespace webpack {
         interface Configuration {
+            entry?: string|Entry;
+            output?: Output;
             module?: Module;
-            plugins?: Plugin[];
+            plugins?: (Plugin|Function)[];
+        }
+
+        interface Entry {
+            [name: string]: string|string[];
+        }
+
+        interface Output {
+            path?: string;
+            filename?: string;
+            chunkFilename?: string;
+            publicPath?: string;
         }
 
         interface Module {
@@ -43,11 +56,32 @@ declare module "webpack" {
 
         interface Webpack {
             ResolverPlugin: ResolverPluginStatic;
+            optimize: Optimize;
+        }
+
+        interface Optimize {
+            CommonsChunkPlugin: CommonsChunkPluginStatic;
+        }
+
+        interface CommonsChunkPlugin {
+        }
+
+        interface CommonsChunkPluginStatic {
+            new(chunkName: string, filenames?: string|string[]): CommonsChunkPlugin;
+        }
+
+        interface UglifyJsPlugin {
+
+        }
+
+        interface DedupePlugin {
+
         }
     }
 
     var webpack: webpack.Webpack;
 
     export default webpack;
+    //export = webpack;
 }
 
