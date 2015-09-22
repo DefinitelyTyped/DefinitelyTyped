@@ -19,6 +19,7 @@ declare module Backbone {
 
     interface NavigateOptions {
         trigger?: boolean;
+        replace?: boolean;
     }
 
     interface RouterOptions {
