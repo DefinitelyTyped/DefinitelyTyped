@@ -5987,7 +5987,7 @@ declare module chrome.storage {
 		addListener(callback: (changes: Object, areaName: string) => void): void;
 	}
 
-	/** Items in the local storage area are local to each machine. */    
+	/** Items in the local storage area are local to each machine. */
 	var local: LocalStorageArea;
 	/** Items in the sync storage area are synced using Chrome Sync. */
 	var sync: SyncStorageArea;
@@ -5997,7 +5997,7 @@ declare module chrome.storage {
 	 */
 	var managed: StorageArea;
 
-	/** Fired when one or more items change. */    
+	/** Fired when one or more items change. */
 	var onChanged: StorageChangedEvent;
 }
 
@@ -6080,12 +6080,12 @@ declare module chrome.system.cpu {
 		/** The total cumulative time for this processor. This value is equal to user + kernel + idle. */
 		total: number;
 	}
-	
+
 	interface ProcessorInfo {
 		/** Cumulative usage info for this logical processor. */
 		usage: ProcessorUsage;
 	}
-	
+
 	interface CpuInfo {
 		/** The number of logical processors. */
 		numOfProcessors: number;
@@ -6124,6 +6124,66 @@ declare module chrome.system.memory {
 	
 	/** Get physical memory information. */
 	export function getInfo(callback: (info: MemoryInfo) => void): void;
+}
+
+////////////////////
+// System Storage
+////////////////////
+/**
+ * Use the chrome.system.storage API to query storage device information and be notified when a removable storage device is attached and detached. 
+ * Permissions:  "system.storage"   
+ * @since Chrome 30.
+ */
+declare module chrome.system.storage {
+	interface StorageUnitInfo {
+		/** The transient ID that uniquely identifies the storage device. This ID will be persistent within the same run of a single application. It will not be a persistent identifier between different runs of an application, or between different applications. */
+		id: string;
+		/** The name of the storage unit. */
+		name: string;
+		/** 
+		 * The media type of the storage unit.
+		 * fixed: The storage has fixed media, e.g. hard disk or SSD. 
+		 * removable: The storage is removable, e.g. USB flash drive. 
+		 * unknown: The storage type is unknown. 
+		 */
+		type: string;
+		/** The total amount of the storage space, in bytes. */
+		capacity: number;
+	}
+
+	interface StorageCapacityInfo {
+		/** A copied |id| of getAvailableCapacity function parameter |id|. */
+		id: string;
+		/** The available capacity of the storage device, in bytes. */
+		availableCapacity: number;
+	}
+
+	interface SystemStorageAttachedEvent extends chrome.events.Event {
+		addListener(callback: (info: StorageUnitInfo) => void): void;
+	}
+
+	interface SystemStorageDetachedEvent extends chrome.events.Event {
+		addListener(callback: (id: string) => void): void;
+	}
+	
+	/** Get the storage information from the system. The argument passed to the callback is an array of StorageUnitInfo objects. */
+	export function getInfo(callback: (info: StorageUnitInfo[]) => void): void;
+	/**
+	 * Ejects a removable storage device. 
+	 * @param callback
+	 * Parameter result: success: The ejection command is successful -- the application can prompt the user to remove the device; in_use: The device is in use by another application. The ejection did not succeed; the user should not remove the device until the other application is done with the device; no_such_device: There is no such device known. failure: The ejection command failed. 
+	 */
+	export function ejectDevice(id: string, callback: (result: string) => void): void;
+	/**
+	 * Get the available capacity of a specified |id| storage device. The |id| is the transient device ID from StorageUnitInfo. 
+	 * @since Dev channel only.
+	 */
+	export function getAvailableCapacity(id: string, callback: (info: StorageCapacityInfo) => void): void;
+	
+	/** Fired when a new removable storage is attached to the system. */
+	export var onAttached: SystemStorageAttachedEvent;
+	/** Fired when a removable storage is detached from the system. */
+	export var onDetached: SystemStorageDetachedEvent;
 }
 
 ////////////////////
