@@ -934,18 +934,77 @@ function NgModelControllerTyping() {
     };
 }
 
-function ngFilterTyping() {
-    var $filter:  angular.IFilterService;
-    var items: string[];
+var $filter:  angular.IFilterService;
+
+function testFilter() {
     
-    $filter("name")(items, "test");
-    $filter("name")(items, {name: "test"});
-    $filter("name")(items, (val, index, array) => {
+    var items: string[];
+    $filter("filter")(items, "test");
+    $filter("filter")(items, {name: "test"});
+    $filter("filter")(items, (val, index, array) => {
         return array;
     });
-    $filter("name")(items, (val, index, array) => {
+    $filter("filter")(items, (val, index, array) => {
         return array;
     }, (actual, expected) => {
         return actual == expected;
     });
+}
+
+function testCurrency() {
+    $filter("currency")(126);
+    $filter("currency")(126, "$", 2);
+}
+
+function testNumber() {
+    $filter("number")(167);
+    $filter("number")(167, 2);
+}
+
+function testDate() {
+    $filter("date")(new Date());
+    $filter("date")(new Date(), 'yyyyMMdd');
+    $filter("date")(new Date(), 'yyyyMMdd', '+0430');
+}
+
+function testJson() {
+    var json: string = $filter("json")({test:true}, 2);
+}
+
+function testLowercase() {
+    var lower: string = $filter("lowercase")('test');
+}
+
+function testUppercase() {
+    var lower: string = $filter("uppercase")('test');
+}
+
+function testLimitTo() {
+    var limitTo = $filter("limitTo");
+    var filtered: number[] = $filter("limitTo")([1,2,3], 5);
+    filtered = $filter("limitTo")([1,2,3], 5, 2);
+    
+    var filteredString: string = $filter("limitTo")("124", 4);
+    filteredString = $filter("limitTo")(124, 4);
+}
+
+function testOrderBy() {
+    var filtered: number[] = $filter("orderBy")([1,2,3], "test");
+    filtered = $filter("orderBy")([1,2,3], "test", true);
+    filtered = $filter("orderBy")([1,2,3], ['prop1', 'prop2']);
+    filtered = $filter("orderBy")([1,2,3], (val: number) => 1);
+    var filtered2: string[] = $filter("orderBy")(["1","2","3"], (val: string) => 1);
+    filtered2 = $filter("orderBy")(["1","2","3"], [
+        (val: string) => 1,
+        (val: string) => 2
+    ]);
+}
+
+interface MyCustomFilter {
+    (value: string): string;
+}
+    
+function testCustomFilter() {
+    var filterCustom = $filter<MyCustomFilter>('custom');
+    var filtered: string = filterCustom("test");
 }
