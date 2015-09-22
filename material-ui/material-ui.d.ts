@@ -72,10 +72,10 @@ declare module "material-ui" {
     export import TableHeaderColumn = __MaterialUI.Table.TableHeaderColumn; // require('material-ui/lib/table/table-header-column');
     export import TableRow = __MaterialUI.Table.TableRow; // require('material-ui/lib/table/table-row');
     export import TableRowColumn = __MaterialUI.Table.TableRowColumn; // require('material-ui/lib/table/table-row-column');
-    export import TextField = __MaterialUI.TextField; // require('material-ui/lib/text-field');
     export import Theme = __MaterialUI.Theme; // require('material-ui/lib/theme');
-    export import TimePicker = __MaterialUI.TimePicker; // require('material-ui/lib/time-picker');
     export import Toggle = __MaterialUI.Toggle; // require('material-ui/lib/toggle');
+    export import TimePicker = __MaterialUI.TimePicker; // require('material-ui/lib/time-picker');
+    export import TextField = __MaterialUI.TextField; // require('material-ui/lib/text-field');
     export import Toolbar = __MaterialUI.Toolbar.Toolbar; // require('material-ui/lib/toolbar/toolbar');
     export import ToolbarGroup = __MaterialUI.Toolbar.ToolbarGroup; // require('material-ui/lib/toolbar/toolbar-group');
     export import ToolbarSeparator = __MaterialUI.Toolbar.ToolbarSeparator; // require('material-ui/lib/toolbar/toolbar-separator');
@@ -84,9 +84,9 @@ declare module "material-ui" {
     export import Utils = __MaterialUI.Utils; // require('material-ui/lib/utils/');
 
     // export type definitions
-    export import DialogAction = __MaterialUI.DialogAction;
     export import TouchTapEvent = __MaterialUI.TouchTapEvent;
     export import TouchTapEventHandler = __MaterialUI.TouchTapEventHandler;
+    export import DialogAction = __MaterialUI.DialogAction;
 }
 
 declare namespace __MaterialUI {
@@ -130,7 +130,6 @@ declare namespace __MaterialUI {
     }
 
     interface AppCanvasProp extends React.Props<AppCanvas> {
-    
     }
     export class AppCanvas extends React.Component<AppCanvasProp, {}> {
     }
@@ -164,7 +163,7 @@ declare namespace __MaterialUI {
             onExpandedChange?: (isExpanded: boolean) => void;
             style?: React.CSSProperties;
         }
-        export class Card extends React.Component<CardProp, any> {
+        export class Card extends React.Component<CardProp, {}> {
         }
 
         interface CardActionsProp extends React.Props<CardActions> {
@@ -319,11 +318,13 @@ declare namespace __MaterialUI {
             maxDate?: Date;
             minDate?: Date;
             mode?: string;
-            onDismiss?: Function;
-            //TODO: typeof e?
+            onDismiss?: () => void;
+            
+            // e is always null
             onChange?: (e: any, d: Date) => void;
+
             onFocus?: React.FocusEventHandler;
-            onShow?: Function;
+            onShow?: () => void;
             onTouchTap?: React.TouchEventHandler;
             shouldDisableDate?: (day: Date) => boolean;
             showYearSelector?: boolean;
@@ -338,9 +339,9 @@ declare namespace __MaterialUI {
             maxDate?: Date;
             minDate?: Date;
             onAccept?: (d: Date) => void;
-            onClickAway?: Function;
-            onDismiss?: Function;
-            onShow?: Function;
+            onClickAway?: () => void;
+            onDismiss?: () => void;
+            onShow?: () => void;
             shouldDisableDate?: (day: Date) => boolean;
             showYearSelector?: boolean;
         }
@@ -369,9 +370,9 @@ declare namespace __MaterialUI {
         repositionOnUpdate?: boolean;
         title?: React.ReactNode;
 
-        onClickAway?: Function;
-        onDismiss?: Function;
-        onShow?: Function;
+        onClickAway?: () => void;
+        onDismiss?: () => void;
+        onShow?: () => void;
     }
     export class Dialog extends React.Component<DialogProp, {}> {
         dismiss(): void;
@@ -379,12 +380,13 @@ declare namespace __MaterialUI {
     }
 
     interface DropDownIconProp extends React.Props<DropDownIcon> {
-        onChange?: Menu.ChangeHandler;
-        menuItems: Menu.MenuItemProp[];
+        menuItems: Menu.MenuItemRequest[];
         closeOnMenuItemTouchTap?: boolean;
         iconStyle?: React.CSSProperties;
         iconClassName?: string;
         iconLigature?: string;
+
+        onChange?: Menu.ItemTapEventHandler;
     }
     export class DropDownIcon extends React.Component<DropDownIconProp, {}> {
     }
@@ -393,7 +395,7 @@ declare namespace __MaterialUI {
         displayMember?: string;
         valueMember?: string;
         autoWidth?: boolean;
-        menuItems: Menu.MenuItemProp[];
+        menuItems: Menu.MenuItemRequest[];
         menuItemStyle?: React.CSSProperties;
         selectedIndex?: number;
         underlineStyle?: React.CSSProperties;
@@ -404,7 +406,7 @@ declare namespace __MaterialUI {
         valueLink?: ReactLink<any>;
         value?: number;
 
-        onChange?: Menu.ChangeHandler;
+        onChange?: Menu.ItemTapEventHandler;
     }
     export class DropDownMenu extends React.Component<DropDownMenuProp, {}> {
     }
@@ -501,10 +503,10 @@ declare namespace __MaterialUI {
         disableSwipeToOpen?: boolean;
         docked?: boolean;
         header?: React.ReactElement<any>;
-        menuItems: Menu.MenuItemProp[];
-        onChange?: Menu.ChangeHandler;
-        onNavOpen?: Function;
-        onNavClose?: Function;
+        menuItems: Menu.MenuItemRequest[];
+        onChange?: Menu.ItemTapEventHandler;
+        onNavOpen?: () => void;
+        onNavClose?: () => void;
         openRight?: Boolean;
         selectedIndex?: number;
         menuItemClassName?: string;
@@ -565,17 +567,41 @@ declare namespace __MaterialUI {
         }
     }
 
+    // Old menu implementation.  Being replaced by new "menus".
     namespace Menu {
-        interface ChangeHandler {
-            (e: TouchTapEvent, key: number, payload: MenuItemProp): void;
+        interface ItemTapEventHandler {
+            (e: TouchTapEvent, index: number, menuItem: MenuItemRequest): void;
         }
+
+        // almost extends MenuItemProp, but certain required items are generated in Menu and not passed here.
+        interface MenuItemRequest extends React.Props<MenuItem> {
+            // use value from MenuItem.Types.*
+            type?: string;
+
+            text?: string;
+            data?: string;
+            payload?: string;
+            icon?: React.ReactElement<any>;
+            attribute?: string;
+            number?: string;
+            toggle?: boolean;
+            onTouchTap?: TouchTapEventHandler;
+            isDisabled?: boolean;
+
+            // for MenuItems.Types.NESTED
+            items?: MenuItemRequest[];
+
+            // for custom text or payloads
+            [propertyName: string]: any;
+        }
+
         interface MenuProp extends React.Props<Menu> {
             index: number;
             text?: string;
-            menuItems: MenuItemProp[];
+            menuItems: MenuItemRequest[];
             zDepth?: number;
             active?: boolean;
-            onItemTap?: ChangeHandler;
+            onItemTap?: ItemTapEventHandler;
             menuItemStyle?: React.CSSProperties;
         }
         export class Menu extends React.Component<MenuProp, {}> {
@@ -583,6 +609,7 @@ declare namespace __MaterialUI {
 
         interface MenuItemProp extends React.Props<MenuItem> {
             index: number;
+            icon?: React.ReactElement<any>;
             iconClassName?: string;
             iconRightClassName?: string;
             iconStyle?: React.CSSProperties;
@@ -597,6 +624,7 @@ declare namespace __MaterialUI {
             active?: boolean;
         }
         export class MenuItem extends React.Component<MenuItemProp, {}> {
+            static Types: { LINK: string, SUBHEADER: string, NESTED: string, }
         }
     }
 
@@ -645,7 +673,7 @@ declare namespace __MaterialUI {
         style?: React.CSSProperties;
         value?: string;
         
-        onChane: (e: React.FormEvent, selected: string) => void;
+        onCheck?: (e: React.FormEvent, selected: string) => void;
     }
     export class RadioButton extends React.Component<RadioButtonProp, {}> {
     }
@@ -730,7 +758,7 @@ declare namespace __MaterialUI {
         displayMember?: string;
         valueMember?: string;
         autoWidth?: boolean;
-        menuItems: Array<{ text: string, payload: string } | {}>;
+        menuItems: Menu.MenuItemRequest[];
         menuItemStyle?: React.CSSProperties;
         selectedIndex?: number;
         underlineStyle?: React.CSSProperties;
@@ -741,7 +769,7 @@ declare namespace __MaterialUI {
         valueLink?: ReactLink<any>;
         value?: number;
 
-        onChange?: (e: TouchTapEvent, selectedIndex: number, menuItem: any) => void;
+        onChange?: Menu.ItemTapEventHandler;
         onEnterKeyDown?: React.KeyboardEventHandler;
 
         // own properties
@@ -1013,8 +1041,8 @@ declare namespace __MaterialUI {
         action?: string;
         autoHideDuration?: number;
         onActionTouchTap?: React.TouchEventHandler;
-        onShow?: Function;
-        onDismiss?: Function;
+        onShow?: () => void;
+        onDismiss?: () => void;
         openOnMount?: boolean;
     }
     export class Snackbar extends React.Component<SnackbarProp, {}> {
@@ -1024,10 +1052,13 @@ declare namespace __MaterialUI {
         interface TabProp extends React.Props<Tab> {
             label?: string;
             value?: string;
-            
-            handleTouchTap?: React.TouchEventHandler;
             selected?: boolean;
             width?: string;
+            
+            // Called by Tabs component
+            onActive?: (tab: Tab) => void;
+
+            onTouchTap?: (value: string, e: TouchTapEvent, tab: Tab) => void;
         }
         export class Tab extends React.Component<TabProp, {}> {
         }
@@ -1041,7 +1072,6 @@ declare namespace __MaterialUI {
             tabWidth?: number;
             value?: string | number;
 
-            onActive?: (tab: Tab) => void;
             onChange?: (value: string | number, e: React.FormEvent, tab: Tab) => void;
         }
         export class Tabs extends React.Component<TabsProp, {}> {
@@ -1162,8 +1192,11 @@ declare namespace __MaterialUI {
         defaultTime?: Date;
         format?: string;
         pedantic?: boolean;
-        onShow?: Function;
-        onDismiss?: Function;
+        onFocus?: React.FocusEventHandler;
+        onTouchTap?: TouchTapEventHandler;
+        onChange?: (e: any, time: Date) => void;
+        onShow?: () => void;
+        onDismiss?: () => void;
     }
     export class TimePicker extends React.Component<TimePickerProp, {}> {
     }
@@ -1288,8 +1321,8 @@ declare namespace __MaterialUI {
         interface ImmutabilityHelper {
             merge(base: any, ...args: any[]): any;
             mergeItem(obj: any, key: any, newValueObject: any): any;
-            push(array: any[], obj: any): any;
-            shift(array: any[]): any;
+            push(array: any[], obj: any): any[];
+            shift(array: any[]): any[];
         }
         export var ImmutabilityHelper: ImmutabilityHelper;
 
@@ -1360,7 +1393,7 @@ declare namespace __MaterialUI {
             width?: string | number;
             zDepth?: number;
         }
-        export class Menu extends React.Component<MenuProp, any>{
+        export class Menu extends React.Component<MenuProp, {}>{
         }
 
         interface MenuItemProp extends React.Props<MenuItem> {
@@ -1372,21 +1405,21 @@ declare namespace __MaterialUI {
             leftIcon?: React.ReactElement<any>;
             primaryText?: string | React.ReactElement<any>;
             rightIcon?: React.ReactElement<any>;
-            secondaryText?: string | React.ReactElement<any>;
+            secondaryText?: React.ReactNode;
             value?: string;
 
             onEscKeyDown?: React.KeyboardEventHandler;
             onItemTouchTap?: (e: TouchTapEvent, item: React.ReactElement<any>) => void;
             onChange?: (e: React.FormEvent, value: string) => void;
         }
-        export class MenuItem extends React.Component<MenuItemProp, any>{
+        export class MenuItem extends React.Component<MenuItemProp, {}>{
         }
 
         interface MenuDividerProp extends React.Props<MenuDivider> {
             inset?: boolean;
             style?: React.CSSProperties;
         }
-        export class MenuDivider extends React.Component<MenuDividerProp, any>{
+        export class MenuDivider extends React.Component<MenuDividerProp, {}>{
         }
     }
 }    // __MaterialUI
