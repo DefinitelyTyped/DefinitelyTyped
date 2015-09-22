@@ -5288,8 +5288,15 @@ declare module chrome.printerProvider {
 ////////////////////
 // Privacy
 ////////////////////
+/**
+ * Use the chrome.privacy API to control usage of the features in Chrome that can affect a user's privacy. This API relies on the ChromeSetting prototype of the type API for getting and setting Chrome's configuration. 
+ * Permissions:  "privacy"   
+ * The Chrome Privacy Whitepaper gives background detail regarding the features which this API can control. 
+ * @since Chrome 18.
+ */
 declare module chrome.privacy {
 	interface Services {
+		/** since Chrome 20. */
 		spellingServiceEnabled: chrome.types.ChromeSetting;
 		searchSuggestEnabled: chrome.types.ChromeSetting;
 		instantEnabled: chrome.types.ChromeSetting;
@@ -5297,21 +5304,35 @@ declare module chrome.privacy {
 		safeBrowsingEnabled: chrome.types.ChromeSetting;
 		autofillEnabled: chrome.types.ChromeSetting;
 		translationServiceEnabled: chrome.types.ChromeSetting;
+		/** @since Chrome 38. */
+		passwordSavingEnabled: chrome.types.ChromeSetting;
+		/** @since Chrome 42. */
+		hotwordSearchEnabled: chrome.types.ChromeSetting;
+		/** @since Chrome 42. */
+		safeBrowsingExtendedReportingEnabled: chrome.types.ChromeSetting;
 	}
 
 	interface Network {
 		networkPredictionEnabled: chrome.types.ChromeSetting;
+		/** @since Chrome 42. */
+		webRTCMultipleRoutesEnabled: chrome.types.ChromeSetting;
+		/** @since Chrome 47. Warning: this is the current Dev channel. */
+		webRTCNonProxiedUdpEnabled: chrome.types.ChromeSetting;
 	}
 
 	interface Websites {
 		thirdPartyCookiesAllowed: chrome.types.ChromeSetting;
 		referrersEnabled: chrome.types.ChromeSetting;
 		hyperlinkAuditingEnabled: chrome.types.ChromeSetting;
+		/** @since Chrome 21. */
 		protectedContentEnabled: chrome.types.ChromeSetting;
 	}
 
+	/** Settings that enable or disable features that require third-party network services provided by Google and your default search provider. */    
 	var services: Services;
+	/** Settings that influence Chrome's handling of network connections in general. */
 	var network: Network;
+	/** Settings that determine what information Chrome makes available to websites. */
 	var websites: Websites;
 }
 
@@ -5924,9 +5945,13 @@ declare module chrome.types {
 	}
 
 	interface ChromeSettingGetDetails {
+		/** Optional. Whether to return the value that applies to the incognito session (default false). */
 		incognito?: boolean;
 	}
 
+	/**
+	 * @param details Details of the currently effective value. 
+	 */    
 	type DetailsCallback = (details: ChromeSettingGetResultDetails) => void;
 
 	interface ChromeSettingGetResultDetails {
@@ -5939,12 +5964,14 @@ declare module chrome.types {
 		addListener(callback: DetailsCallback): void;
 	}
 
+	/** An interface that allows access to a Chrome browser setting. See accessibilityFeatures for an example. */    
 	interface ChromeSetting {
-		details: {
-			scope?: string;
-			callback?: Function;
-		};
+		
 		set(details: ChromeSettingSetDetails, callback?: Function): void;
+		/**
+		 * Gets the value of a setting. 
+		 * @param details Which setting to consider. 
+		 */
 		get(details: ChromeSettingGetDetails, callback?: DetailsCallback): void;
 		clear(details: ChromeSettingClearDetails, callback?: Function): void;
 		onChange: ChromeSettingChangedEvent;
