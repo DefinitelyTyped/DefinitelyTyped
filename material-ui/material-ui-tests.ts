@@ -8,7 +8,7 @@
 //      a. Find "var element;" and change to "let element: React.ReactElement<any>;".
 //      b. Replace "this.linkState(" with "this.linkState<string>(".
 //      c. Add generic type help for the Component Property to the remaining errors on
-//         React.createElement, for example, add "<__MaterialUI.DialogProp>".
+//         React.createElement, for example, add "<__MaterialUI.DialogProps>".
 
 ///<reference path='../react/react.d.ts' />
 ///<reference path='material-ui.d.ts' />
@@ -129,7 +129,7 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
             { text: 'Cancel' },
             { text: 'Submit', onTouchTap: this.touchTapEventHandler, ref: 'submit' }
         ];
-        element = React.createElement<__MaterialUI.DialogProp>(Dialog, {"title": "Dialog With Standard Actions", "actions": standardActions, "actionFocus": "submit", "modal": true}, "The actions in this window are created from the json that's passed in.");
+        element = React.createElement<__MaterialUI.DialogProps>(Dialog, {"title": "Dialog With Standard Actions", "actions": standardActions, "actionFocus": "submit", "modal": true}, "The actions in this window are created from the json that's passed in.");
         //Custom Actions
         var customActions = [
             React.createElement(FlatButton, {"label": "Cancel", "secondary": true, "onTouchTap": this.touchTapEventHandler}),
@@ -170,7 +170,7 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
         // "http://material-ui.com/#/components/switches"
         element = React.createElement(Checkbox, {"name": "checkboxName2", "value": "checkboxValue2", "label": "fed the dog", "defaultChecked": true});
         element = React.createElement(Checkbox, {"name": "checkboxName3", "value": "checkboxValue3", "label": "built a house on the moon", "disabled": true});
-        element = React.createElement<__MaterialUI.CheckboxProp>(Checkbox, {"name": "checkboxName4", "value": "checkboxValue4", "checkedIcon": React.createElement(ToggleStar, null), "unCheckedIcon": React.createElement(ToggleStarBorder, null), "label": "custom icon"});
+        element = React.createElement<__MaterialUI.CheckboxProps>(Checkbox, {"name": "checkboxName4", "value": "checkboxValue4", "checkedIcon": React.createElement(ToggleStar, null), "unCheckedIcon": React.createElement(ToggleStarBorder, null), "label": "custom icon"});
         element = React.createElement(RadioButtonGroup, {"name": "shipSpeed", "defaultSelected": "not_light"}, React.createElement(RadioButton, {"value": "light", "label": "prepare for light speed", "style": { marginBottom: 16 }}), ";", React.createElement(RadioButton, {"value": "not_light", "label": "light speed too slow", "style": { marginBottom: 16 }}), ";", React.createElement(RadioButton, {"value": "ludicrous", "label": "go to ludicrous speed", "style": { marginBottom: 16 }, "disabled": true}));
         element = React.createElement(Toggle, {"name": "toggleName1", "value": "toggleValue1", "label": "activate thrusters"});
         element = React.createElement(Toggle, {"name": "toggleName2", "value": "toggleValue2", "label": "auto-pilot", "defaultToggled": true});
