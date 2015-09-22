@@ -17,7 +17,7 @@
     "url": "https://github.com/borisyankov/DefinitelyTyped/issues"
   },
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 0.12.0"
   },
   "scripts": {
     "test": "./node_modules/.bin/dt --changes",
@@ -35,7 +35,7 @@
   "dependencies": {
   },
   "devDependencies": {
-    "definition-tester": "0.2.0",
+    "definition-tester": "0.3.0",
     "typescript": "1.6.2"
   }
 }
