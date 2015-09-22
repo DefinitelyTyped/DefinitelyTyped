@@ -5213,12 +5213,12 @@ declare module chrome.printerProvider {
 		/** Optional. Printer's human readable description. */
 		description?: string;
 	}
-	
+
 	interface PrinterCapabilities {
 		/** Device capabilities in CDD format. */
 		capabilities: any;
 	}
-	
+
 	interface PrintJob {
 		/** ID of the printer which should handle the job. */
 		printerId: string;
@@ -5231,7 +5231,7 @@ declare module chrome.printerProvider {
 		/** Blob containing the document data to print. Format must match |contentType|. */
 		document: Blob;
 	}
-	
+
 	interface PrinterRequestedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
@@ -5240,7 +5240,7 @@ declare module chrome.printerProvider {
 		 */
 		addListener(callback: (resultCallback: (printerInfo: PrinterInfo[]) => void) => void): void;
 	}
-	
+
 	interface PrinterInfoRequestedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
@@ -5250,7 +5250,7 @@ declare module chrome.printerProvider {
 		 */
 		addListener(callback: (device: any, resultCallback: (printerInfo?: PrinterInfo) => void) => void): void;
 	}
-	
+
 	interface CapabilityRequestedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
@@ -5260,7 +5260,7 @@ declare module chrome.printerProvider {
 		 */
 		addListener(callback: (printerId: string, resultCallback: (capabilities: PrinterCapabilities) => void) => void): void;
 	}
-	
+
 	interface PrintRequestedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
@@ -5329,7 +5329,7 @@ declare module chrome.privacy {
 		protectedContentEnabled: chrome.types.ChromeSetting;
 	}
 
-	/** Settings that enable or disable features that require third-party network services provided by Google and your default search provider. */    
+	/** Settings that enable or disable features that require third-party network services provided by Google and your default search provider. */
 	var services: Services;
 	/** Settings that influence Chrome's handling of network connections in general. */
 	var network: Network;
@@ -5563,7 +5563,7 @@ declare module chrome.runtime {
 	interface RuntimeInstalledEvent extends chrome.events.Event {
 		addListener(callback: (details: InstalledDetails) => void): void;
 	}
-	
+
 	interface RuntimeEvent extends chrome.events.Event {
 		addListener(callback: () => void): void;
 	}
@@ -5772,6 +5772,89 @@ declare module chrome.scriptBadge {
 	export function setPopup(details: SetPopupDetails): void;
 
 	var onClicked: ScriptBadgeClickedEvent;
+}
+
+////////////////////
+// Sessions
+////////////////////
+/**
+ * Use the chrome.sessions API to query and restore tabs and windows from a browsing session. 
+ * Permissions:  "sessions"   
+ * @since Chrome 37.
+ */
+declare module chrome.sessions {
+	interface Filter {
+		/**
+		 * Optional.
+		 * The maximum number of entries to be fetched in the requested list. Omit this parameter to fetch the maximum number of entries (sessions.MAX_SESSION_RESULTS). 
+		 */
+		maxResults?: number;
+	}
+	
+	interface Session {
+		/** The time when the window or tab was closed or modified, represented in milliseconds since the epoch. */
+		lastModified: number;
+		/**
+		 * Optional.
+		 * The tabs.Tab, if this entry describes a tab. Either this or sessions.Session.window will be set. 
+		 */
+		tab?: tabs.Tab;
+		/**
+		 * Optional.
+		 * The windows.Window, if this entry describes a window. Either this or sessions.Session.tab will be set. 
+		 */
+		window?: windows.Window;
+	}
+	
+	interface Device {
+		/** The name of the foreign device. */
+		deviceName: string;
+		/** A list of open window sessions for the foreign device, sorted from most recently to least recently modified session. */
+		sessions: Session[];
+	}
+	
+	interface SessionChangedEvent extends chrome.events.Event {
+		addListener(callback: () => void): void;
+	}
+	
+	/** The maximum number of sessions.Session that will be included in a requested list. */
+	export var MAX_SESSION_RESULTS: number;
+	
+	/**
+	 * Gets the list of recently closed tabs and/or windows. 
+	 * @param callback 
+	 * Parameter sessions: The list of closed entries in reverse order that they were closed (the most recently closed tab or window will be at index 0). The entries may contain either tabs or windows. 
+	 */
+	export function getRecentlyClosed(filter: Filter, callback: (sessions: Session[]) => void): void;
+	/**
+	 * Gets the list of recently closed tabs and/or windows. 
+	 * @param callback 
+	 * Parameter sessions: The list of closed entries in reverse order that they were closed (the most recently closed tab or window will be at index 0). The entries may contain either tabs or windows. 
+	 */
+	export function getRecentlyClosed(callback: (sessions: Session[]) => void): void;
+	/**
+	 * Retrieves all devices with synced sessions. 
+	 * @param callback 
+	 * Parameter devices: The list of sessions.Device objects for each synced session, sorted in order from device with most recently modified session to device with least recently modified session. tabs.Tab objects are sorted by recency in the windows.Window of the sessions.Session objects. 
+	 */
+	export function getDevices(filter: Filter, callback: (devices: Device[]) => void): void;
+	/**
+	 * Retrieves all devices with synced sessions. 
+	 * @param callback 
+	 * Parameter devices: The list of sessions.Device objects for each synced session, sorted in order from device with most recently modified session to device with least recently modified session. tabs.Tab objects are sorted by recency in the windows.Window of the sessions.Session objects. 
+	 */
+	export function getDevices(callback: (devices: Device[]) => void): void;
+	/**
+	 * Reopens a windows.Window or tabs.Tab, with an optional callback to run when the entry has been restored. 
+	 * @param sessionId Optional.
+	 * The windows.Window.sessionId, or tabs.Tab.sessionId to restore. If this parameter is not specified, the most recently closed session is restored. 
+	 * @param callback Optional.
+	 * Parameter restoredSession: A sessions.Session containing the restored windows.Window or tabs.Tab object. 
+	 */
+	export function restore(sessionId?: string, callback?: (restoredSession: Session) => void): void;
+	
+	/** Fired when recently closed tabs and/or windows are changed. This event does not monitor synced sessions changes. */
+	export var onChanged: SessionChangedEvent;
 }
 
 ////////////////////
@@ -6183,7 +6266,7 @@ declare module chrome.types {
 
 	/**
 	 * @param details Details of the currently effective value. 
-	 */    
+	 */
 	type DetailsCallback = (details: ChromeSettingGetResultDetails) => void;
 
 	interface ChromeSettingGetResultDetails {
@@ -6196,9 +6279,9 @@ declare module chrome.types {
 		addListener(callback: DetailsCallback): void;
 	}
 
-	/** An interface that allows access to a Chrome browser setting. See accessibilityFeatures for an example. */    
+	/** An interface that allows access to a Chrome browser setting. See accessibilityFeatures for an example. */
 	interface ChromeSetting {
-		
+
 		set(details: ChromeSettingSetDetails, callback?: Function): void;
 		/**
 		 * Gets the value of a setting. 
