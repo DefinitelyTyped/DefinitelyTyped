@@ -8,12 +8,23 @@ declare module CometD {
     var onListenerException: (exception: any, subscriptionHandle: any, isListener: boolean, message: string) => void;
 
     function init(options: ConfigurationOptions): void;
+    
+    function configure(config: ConfigurationOptions): void;
 
     function addListener(channel: string, listener: (message: any) => void): void;
     function removeListener(listener: (message: any) => void): void;
 
+    function clearListeners(): void;
+
+    function clearSubscriptions(): void;
+    
+    function handshake(handshake_params: any): void;
+
     function publish(channel: string, message: any): void;
 
+    
+    function disconnect(): void;
+    
     interface ConfigurationOptions {
         url: string;
         logLevel?: string;
