@@ -129,7 +129,7 @@ declare namespace __MaterialUI {
     export class AppBar extends React.Component<AppBarProp, {}>{
     }
 
-    interface AppCanvasProp extends React.Prop<AppCanvas> {
+    interface AppCanvasProp extends React.Props<AppCanvas> {
     
     }
     export class AppCanvas extends React.Component<AppCanvasProp, {}> {
@@ -321,7 +321,7 @@ declare namespace __MaterialUI {
             mode?: string;
             onDismiss?: Function;
             //TODO: typeof e?
-            onChange?: (e: any, d: Date): void;
+            onChange?: (e: any, d: Date) => void;
             onFocus?: React.FocusEventHandler;
             onShow?: Function;
             onTouchTap?: React.TouchEventHandler;
@@ -454,8 +454,6 @@ declare namespace __MaterialUI {
         secondary?: boolean;
         rippleColor?: string;
         style?: React.CSSProperties;
-
-        onKeyboardFocus?: (e: React.KeyboardEvent, isKeyboardFocused: boolean) => void;
     }
     export class FlatButton extends React.Component<FlatButtonProp, {}> {
     }
@@ -593,8 +591,8 @@ declare namespace __MaterialUI {
             number?: string;
             data?: string;
             toggle?: boolean;
-            onTouchTap?: (e: React.MouseEvent, key: number): void;
-            onToggle?: (e: React.MouseEvent, key: number, toggled: boolean): void;
+            onTouchTap?: (e: React.MouseEvent, key: number) => void;
+            onToggle?: (e: React.MouseEvent, key: number, toggled: boolean) => void;
             selected?: boolean;
             active?: boolean;
         }
@@ -752,7 +750,6 @@ declare namespace __MaterialUI {
         type?: string;
         rows?: number;
         inputStyle?: React.CSSProperties;
-        autoWidth?: boolean;
     }
     export class SelectField extends React.Component<SelectFieldProp, {}> {
     }
@@ -1098,7 +1095,7 @@ declare namespace __MaterialUI {
             adjustForCheckbox?: boolean;
             displaySelectAll?: boolean;
             enableSelectAll?: boolean;
-            onSelectAll?: (event: React.MouseEvent) => void;;
+            onSelectAll?: (event: React.MouseEvent) => void;
             selectAllSelected?: boolean;
         }
         export class TableHeader extends React.Component<TableHeaderProp, {}> {
@@ -1106,7 +1103,7 @@ declare namespace __MaterialUI {
 
         interface TableHeaderColumnProp extends React.Props<TableHeaderColumn> {
             columnNumber?: number;
-            onClick?:  (e: React.MouseEvent, column: number): void;;
+            onClick?:  (e: React.MouseEvent, column: number) => void;
             tooltip?: string;
             tooltipStyle?: React.CSSProperties;
         }
@@ -1116,12 +1113,12 @@ declare namespace __MaterialUI {
         interface TableRowProp extends React.Props<TableRow> {
             displayBorder?: boolean;
             hoverable?: boolean;
-            onCellClick?: (e: React.MouseEvent, row: number, column: number): void;
-            onCellHover?: (e: React.MouseEvent, row: number, column: number): void;
-            onCellHoverExit?: (e: React.MouseEvent, row: number, column: number): void;
-            onRowClick?: (e: React.MouseEvent, row: number): void;
-            onRowHover?: (e: React.MouseEvent, row: number): void;
-            onRowHoverExit?: (e: React.MouseEvent, row: number): void;
+            onCellClick?: (e: React.MouseEvent, row: number, column: number) => void;
+            onCellHover?: (e: React.MouseEvent, row: number, column: number) => void;
+            onCellHoverExit?: (e: React.MouseEvent, row: number, column: number) => void;
+            onRowClick?: (e: React.MouseEvent, row: number) => void;
+            onRowHover?: (e: React.MouseEvent, row: number) => void;
+            onRowHoverExit?: (e: React.MouseEvent, row: number) => void;
             rowNumber?: number;
             selectable?: boolean;
             selected?: boolean;
@@ -1133,8 +1130,8 @@ declare namespace __MaterialUI {
         interface TableRowColumnProp extends React.Props<TableRowColumn> {
             columnNumber?: number;
             hoverable?: boolean;
-            onHover?: (e: React.MouseEvent, column: number): void;;
-            onHoverExit?: (e: React.MouseEvent, column: number): void;;
+            onHover?: (e: React.MouseEvent, column: number) => void;
+            onHoverExit?: (e: React.MouseEvent, column: number) => void;
         }
         export class TableRowColumn extends React.Component<TableRowColumnProp, {}> {
         }
@@ -1290,7 +1287,7 @@ declare namespace __MaterialUI {
 
         interface ImmutabilityHelper {
             merge(base: any, ...args: any[]): any;
-            mergeItem(obj: any, key: any, newValueObject: any: any;
+            mergeItem(obj: any, key: any, newValueObject: any): any;
             push(array: any[], obj: any): any;
             shift(array: any[]): any;
         }
