@@ -1,4 +1,4 @@
-// Type Definitions for File API: Writer
+// Type definitions for File API: Writer
 // Project: http://www.w3.org/TR/file-writer-api/
 // Definitions by: Kon <http://phyzkit.net/> 
 // Definitions: https://github.com/borisyankov/DefinitelyTyped 
@@ -89,7 +89,7 @@ interface FileSaver extends EventTarget {
     onwriteend:Function;
 }
 
-var FileSaver: {
+declare var FileSaver: {
     /**
      * When the FileSaver constructor is called, the user agent must return a new FileSaver object with readyState set to INIT.
      * This constructor must be visible when the script's global object is either a Window object or an object implementing the WorkerUtils interface.

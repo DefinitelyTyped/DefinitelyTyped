@@ -1,89 +1,63 @@
-// Type definitions for Nodemailer
-// Nodemailer is an easy to use module to send e-mails with Node.JS (using SMTP or sendmail or Amazon SES) and is unicode friendly .
+// Type definitions for Nodemailer 1.3.2
 // Project: https://github.com/andris9/Nodemailer
-// Definitions by: Vincent Bortone <https://github.com/vbortone/>
+// Definitions by: Rogier Schouten <https://github.com/rogierschouten/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-class Transport {
-	static transports: {
-		SMTP: Transport;
-		SES: Transport;
-		SENDMAIL: Transport;
-		STUB: Transport;
-	};
+/// <reference path="../node/node.d.ts" />
+/// <reference path="./nodemailer-types.d.ts" />
+/// <reference path="../nodemailer-direct-transport/nodemailer-direct-transport.d.ts" />
+/// <reference path="../nodemailer-smtp-transport/nodemailer-smtp-transport.d.ts" />
 
-	constructor(type: string, options?: any);
-	options: Object;
-	transportType: string;
-	sendMailWithTransport(emailMessage: MailComposer, callback?: (err: Error) => any): any;
-	useDKIM(dkim: DKIMOptions);
-	close(callback?: (err: Error) => any);
-	sendMail(message: MailComposer, callback?: (err: Error) => any): any;
-	send_mail(message:MailComposer, callback?: (err: Error) => any): any;
-}
+declare module "nodemailer" {
 
-interface NodeMailerAttachment {
-	fileName: string;
-	filePath?: string;
-	contents?: any;
-	contentType?: string;
-	cid?: string;
-}
+	import directTransport = require("nodemailer-direct-transport");
+	import smtpTransport = require("nodemailer-smtp-transport");
 
-interface MailComposer {	
-	from: string; // sender info
-	to: string;   // Comma separated list of recipients
-	subject: string; // Subject of the message
-	headers?: {};
-	text?: string;  // plaintext body
-	html?: string;  // HTML body
-	attachments?: NodeMailerAttachment[];  // An array of attachments
-	forceEmbeddedImages?: bool;
-}
+	export type Transport = nodemailer.Transport;
+	export type SendMailOptions = nodemailer.SendMailOptions;
+	export type SentMessageInfo = nodemailer.SentMessageInfo;
 
-interface DKIMOptions{
-	domainName: string; // signing domain
-	keySelector: string; // selector name (in this case there's a dkim._domainkey.do-not-trust.node.ee TXT record set up)
-	privateKey: any;
-}
+	/**
+	 * Transporter plugin
+	 */
+	export interface Plugin {
+		(mail: SendMailOptions, callback?: (error: Error, info: SentMessageInfo) => void): void;
+	}
 
-class XOAuthGenerator {
-	constructor(options: XOAuthGeneratorOptions);
-	generate(callback: () => any): string;
-}
+	/**
+	 * This is what you use to send mail
+	 */
+	export interface Transporter {
+		/**
+		 * Send a mail
+		 */
+		sendMail(mail: SendMailOptions, callback?: (error: Error, info: SentMessageInfo) => void): void;
 
-interface XOAuthGeneratorOptions {
-	user: string;
-	consumerKey: string; // optional
-	consumerSecret: string; // optional
-	token: string;
-	tokenSecret: string;
-}
+		/**
+		 * Attach a plugin. 'compile' and 'stream' plugins can be attached with use(plugin) method
+		 *
+		 * @param step is a string, either 'compile' or 'stream' thatd defines when the plugin should be hooked
+		 * @param pluginFunc is a function that takes two arguments: the mail object and a callback function
+		 */
+		use(step: string, plugin: Plugin): void;
 
-interface XOAuth2Options {
-	user: string;
-	clientId: string;
-	clientSecret: string;
-	refreshToken: string;
-}
 
-interface NodemailerTransportOptions {
-	service?: string;
-	auth?: {
-		user?: string;
-		pass?: string;
-		XOAuthToken?: XOAuthGenerator;
-		XOAuth2?: XOAuth2Options;
-	};
-	debug?: bool;
-	AWSAccessKeyID?: string;
-	AWSSecretKey: string;
-	ServiceUrl: string;
-}
+		/**
+		 * Close all connections
+		 */
+		close?(): void;
+	}
 
-interface Nodemailer {
-	createTransport(type: string): Transport;
-	createTransport(type: string, options: NodemailerTransportOptions): Transport;
-	createTransport(type: string, path: string): Transport;
-	createXOAuthGenerator(options: XOAuthGeneratorOptions): XOAuthGenerator;
+	/**
+	 * Create a direct transporter
+	 */
+	export function createTransport(options?: directTransport.DirectOptions): Transporter;
+	/**
+	 * Create an SMTP transporter
+	 */
+	export function createTransport(options?: smtpTransport.SmtpOptions): Transporter;
+	/**
+	 * Create a transporter from a given implementation
+	 */
+	export function createTransport(transport: Transport): Transporter;
 }

@@ -1,6 +1,6 @@
-// Type definitions for EaselJS 0.6
+// Type definitions for EaselJS 0.8.0
 // Project: http://www.createjs.com/#!/EaselJS
-// Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>
+// Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /*
@@ -10,21 +10,186 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+// Library documentation : http://www.createjs.com/Docs/EaselJS/modules/EaselJS.html
 
+/// <reference path="../createjs-lib/createjs-lib.d.ts" />
 /// <reference path="../tweenjs/tweenjs.d.ts" />
 
-// rename the native MouseEvent, to avoid conflit with createjs's MouseEvent
+// rename the native MouseEvent, to avoid conflict with createjs's MouseEvent
 interface NativeMouseEvent extends MouseEvent {
 
 }
 
-module createjs {
-    // :: base classes :: //
+declare module createjs {
+    export class AlphaMapFilter extends Filter {
+        constructor(alphaMap: HTMLImageElement | HTMLCanvasElement);
 
-    export class DisplayObject {
+        // properties
+        alphaMap: HTMLImageElement | HTMLCanvasElement;
+
+        // methods
+        clone(): AlphaMapFilter;
+    }
+
+    export class AlphaMaskFilter extends Filter {
+        constructor(mask: HTMLImageElement | HTMLCanvasElement);
+
+        // properties
+        mask: HTMLImageElement | HTMLCanvasElement;
+
+        // methods
+        clone(): AlphaMaskFilter;
+    }
+
+
+    export class Bitmap extends DisplayObject {
+        constructor(imageOrUrl: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | string);
+
+        // properties
+        image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement;
+        sourceRect: Rectangle;
+
+        // methods
+        clone(): Bitmap;
+    }
+    
+
+    export class BitmapText extends DisplayObject {
+        constructor(text?:string, spriteSheet?:SpriteSheet);
+
+        static maxPoolSize: number;
+
+        // properties
+        letterSpacing: number;
+        lineHeight: number;
+        spaceWidth: number;
+        spriteSheet: SpriteSheet;
+        text: string;
+    }
+    
+    export class BlurFilter extends Filter {
+        constructor(blurX?: number, blurY?: number, quality?: number);
+
+        // properties
+        blurX: number;
+        blurY: number;
+        quality: number;
+
+        // methods
+        clone(): BlurFilter;
+    }
+
+    export class ButtonHelper {
+        constructor(target: Sprite, outLabel?: string, overLabel?: string, downLabel?: string, play?: boolean, hitArea?: DisplayObject, hitLabel?: string);
+        constructor(target: MovieClip, outLabel?: string, overLabel?: string, downLabel?: string, play?: boolean, hitArea?: DisplayObject, hitLabel?: string);
+
+        // properties
+        downLabel: string | number;
+        outLabel: string | number;
+        overLabel: string | number;
+        play: boolean;
+        target: MovieClip | Sprite;
+        enabled: boolean;
+
+        // methods
+        /**
+         * @deprecated - use the 'enabled' property instead
+         */
+        setEnabled(value: boolean): void;
+        /**
+         * @deprecated - use the 'enabled' property instead
+         */
+        getEnabled(): boolean;
+        toString(): string;
+    }
+
+    export class ColorFilter extends Filter {
+        constructor(redMultiplier?: number, greenMultiplier?: number, blueMultiplier?: number, alphaMultiplier?: number, redOffset?: number, greenOffset?: number, blueOffset?: number, alphaOffset?: number);
+
+        // properties
+        alphaMultiplier: number;
+        alphaOffset: number;
+        blueMultiplier: number;
+        blueOffset: number;
+        greenMultiplier: number;
+        greenOffset: number;
+        redMultiplier: number;
+        redOffset: number;
+        
+        // methods
+        clone(): ColorFilter;
+    }
+
+    export class ColorMatrix {
+        constructor(brightness?: number, contrast?: number, saturation?: number, hue?: number);
+
+        // methods
+        adjustBrightness(value: number): ColorMatrix;
+        adjustColor(brightness: number, contrast: number, saturation: number, hue: number): ColorMatrix;
+        adjustContrast(value: number): ColorMatrix;
+        adjustHue(value: number): ColorMatrix;
+        adjustSaturation(value: number): ColorMatrix;
+        clone(): ColorMatrix;
+        concat(...matrix: number[]): ColorMatrix;
+        concat(matrix: ColorMatrix): ColorMatrix;
+        copy(...matrix: number[]): ColorMatrix;
+        copy(matrix: ColorMatrix): ColorMatrix;
+        reset(): ColorMatrix;
+        setColor( brightness: number, contrast: number, saturation: number, hue: number ): ColorMatrix;
+        toArray(): number[];
+        toString(): string;
+    }
+    
+    export class ColorMatrixFilter extends Filter {
+        constructor(matrix: number[] | ColorMatrix);
+
+        // properties
+        matrix: number[] | ColorMatrix;
+
+        // methods
+        clone(): ColorMatrixFilter;
+    }
+    
+
+    export class Container extends DisplayObject {
+        constructor();
+
+        // properties
+        children: DisplayObject[];
+        mouseChildren: boolean;
+        numChildren: number;
+        tickChildren: boolean;
+
+        // methods
+        addChild(...child: DisplayObject[]): DisplayObject;
+        addChildAt(child: DisplayObject, index: number): DisplayObject; // add this for the common case
+        addChildAt(...childOrIndex: any[]): DisplayObject; // actually (...child: DisplayObject[], index: number)
+        clone(recursive?: boolean): Container;
+        contains(child: DisplayObject): boolean;
+        getChildAt(index: number): DisplayObject;
+        getChildByName(name: string): DisplayObject;
+        getChildIndex(child: DisplayObject): number;
+        /**
+         * @deprecated - use numChildren property instead.
+         */
+        getNumChildren(): number;
+        getObjectsUnderPoint(x: number, y: number, mode: number): DisplayObject[];
+        getObjectUnderPoint(x: number, y: number, mode: number): DisplayObject;
+        removeAllChildren(): void;
+        removeChild(...child: DisplayObject[]): boolean;
+        removeChildAt(...index: number[]): boolean;
+        setChildIndex(child: DisplayObject, index: number): void;
+        sortChildren(sortFunction: (a: DisplayObject, b: DisplayObject) => number): void;
+        swapChildren(child1: DisplayObject, child2: DisplayObject): void;
+        swapChildrenAt(index1: number, index2: number): void;
+    }
+    
+    export class DisplayObject extends EventDispatcher {
+        constructor();
+
         // properties
         alpha: number;
-        cacheCanvas: HTMLCanvasElement;
+        cacheCanvas: HTMLCanvasElement | Object;
         cacheID: number;
         compositeOperation: string;
         cursor: string;
@@ -32,9 +197,9 @@ module createjs {
         hitArea: DisplayObject;
         id: number;
         mask: Shape;
-        mouseEnabled: bool;
+        mouseEnabled: boolean;
         name: string;
-        parent: DisplayObject;
+        parent: Container;
         regX: number;
         regY: number;
         rotation: number;
@@ -43,285 +208,104 @@ module createjs {
         shadow: Shadow;
         skewX: number;
         skewY: number;
-        snapToPixel: bool;
-        static suppressCrossDomainErrors: bool;
-        visible: bool;
+        snapToPixel: boolean;
+        stage: Stage;
+        static suppressCrossDomainErrors: boolean;
+        tickEnabled: boolean;
+        transformMatrix: Matrix2D;
+        visible: boolean;
         x: number;
         y: number;
 
         // methods
         cache(x: number, y: number, width: number, height: number, scale?: number): void;
         clone(): DisplayObject;
-        draw(ctx: CanvasRenderingContext2D, ignoreCache?: bool): void;
+        draw(ctx: CanvasRenderingContext2D, ignoreCache?: boolean): boolean;
+        getBounds(): Rectangle;
         getCacheDataURL(): string;
-        getChildByName(name: string): DisplayObject;
-        getConcatenatedMatrix(mtx: Matrix2D): Matrix2D;
-        getMatrix(matrix: Matrix2D): Matrix2D;
+        getConcatenatedDisplayProps(props?: DisplayProps): DisplayProps;
+        getConcatenatedMatrix(mtx?: Matrix2D): Matrix2D;
+        getMatrix(matrix?: Matrix2D): Matrix2D;
+        /**
+         * @deprecated
+         */
         getStage(): Stage;
-        globalToLocal(x: number, y: number): Point;
-        hitTest(x: number, y: number): bool;
-        isVisible(): bool;
-        localToGlobal(x: number, y: number): Point;
-        localToLocal(x: number, y: number, target: DisplayObject): Point;
+        getTransformedBounds(): Rectangle;
+        globalToLocal(x: number, y: number, pt?: Point | Object): Point;
+        hitTest(x: number, y: number): boolean;
+        isVisible(): boolean;
+        localToGlobal(x: number, y: number, pt?: Point | Object): Point;
+        localToLocal(x: number, y: number, target: DisplayObject, pt?: Point | Object): Point;
         set(props: Object): DisplayObject;
-        setTransform(x: number, y: number, scaleX: number, scaleY: number, rotation: number, skewX: number, skewY: number, regX: number, regY: number): DisplayObject;
-        setupContext(ctx: CanvasRenderingContext2D): void;
-        toString(): string;
+        setBounds(x: number, y: number, width: number, height: number): void;
+        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): DisplayObject;
         uncache(): void;
-        updateCache(compositeOperation: string): void;
-
-        // events
-        click: (event: MouseEvent) => any;
-        dblClick: (event: MouseEvent) => any;
-        mouseout: (event: MouseEvent) => any;
-        mouseover: (event: MouseEvent) => any;
-        mousedown: (event: MouseEvent) => any;
-        tick: () => any;
-
-        // EventDispatcher mixins
-        addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
-        addEventListener(type: string, listener: (eventObj: Object) => void): Function;
-        addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): Object;
-        addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): Object;
-        removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
-        removeEventListener(type: string, listener: (eventObj: Object) => void): void;
-        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): void;
-        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): void;
-        removeAllEventListeners(type: string): void;
-        dispatchEvent(eventObj: string, target: Object): bool;
-        dispatchEvent(eventObj: Object, target: Object): bool;
-        hasEventListener(type: string): bool;
+        updateCache(compositeOperation?: string): void;
+        updateContext(ctx: CanvasRenderingContext2D): void;
     }
 
+    export class DisplayProps {
+        constructor(visible?: number, alpha?: number, shadow?: number, compositeOperation?: number, matrix?: number);
 
-    export class Filter {
-        constructor ();
-        applyFilter(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, targetCtx?: CanvasRenderingContext2D, targetX?: number, targetY?: number): bool;
-        clone(): Filter;
-        getBounds(): Rectangle;
-        toString(): string;
-    }
-
-
-    // :: The rest :: //
-
-    export class AlphaMapFilter extends Filter {
         // properties
-        alphaMap: any;    //Image or HTMLCanvasElement
+        alpha: number;
+        compositeOperation: string;
+        matrix: Matrix2D;
+        shadow: Shadow;
+        visible: boolean;
 
         // methods
-        constructor (alphaMap: HTMLImageElement);
-        constructor (alphaMap: HTMLCanvasElement);
-        clone(): AlphaMapFilter;
-    }
-
-
-    export class AlphaMaskFilter extends Filter {
-        // properties
-        mask: any;    // HTMLImageElement or HTMLCanvasElement
-
-        // methods
-        constructor (mask: HTMLImageElement);
-        constructor (mask: HTMLCanvasElement);
-        clone(): AlphaMaskFilter;
-    }
-
-
-    export class Bitmap extends DisplayObject {
-        // properties
-        image: any;  // HTMLImageElement or HTMLCanvasElement or HTMLVideoElement
-        snapToPixel: bool;
-        sourceRect: Rectangle;
-
-        // methods
-        constructor (imageOrUrl: HTMLImageElement);
-        constructor (imageOrUrl: HTMLCanvasElement);
-        constructor (imageOrUrl: HTMLVideoElement);
-        constructor (imageOrUrl: string);
-
-        clone(): Bitmap;
-        updateCache(): void;
-    }
-
-
-    export class BitmapAnimation extends DisplayObject {
-        // properties
-        currentAnimation: string;
-        currentAnimationFrame: number;
-        currentFrame: number;
-        offset: number;
-        paused: bool;
-        snapToPixel: bool;
-        spriteSheet: SpriteSheet;
-
-        // methods
-        constructor (spriteSheet: SpriteSheet);
-        advance(): void;
-        cache(): void;
-        clone(): BitmapAnimation;
-        getBounds(): Rectangle;
-        gotoAndPlay(frameOrAnimation: string): void;
-        gotoAndPlay(frameOrAnimation: number): void;
-        play(): void;
-        stop(): void;
-        updateCache(): void;
-
-        // events
-        onAnimationEnd: (event: Object) => any;
-    }
-
-    export class ButtonHelper {
-        // properties
-        target: Object;
-        overLabel: string;
-        outLabel: string;
-        downLabel: string;
-        play: bool;
-
-        // methods
-        constructor(target: MovieClip, outLabel: string, overLabel: string, downLabel: string, play: bool, hitArea: DisplayObject, hitLabel: string);
-        constructor(target: BitmapAnimation, outLabel: string, overLabel: string, downLabel: string, play: bool, hitArea: DisplayObject, hitLabel: string);
-        setEnabled(value: bool);
-        toString(): string;
-    }
-
-    export class BoxBlurFilter extends Filter {
-        // properties
-        blurX: number;
-        blurY: number;
-        quality: number;
-
-        // methods
-        constructor (blurX: number, blurY: number, quality: number);
-        clone(): BoxBlurFilter;
-    }
-
-
-    export class ColorFilter extends Filter {
-        // properties
-        alphaOffset: number;
-        blueMultiplier: number;
-        blueOffset: number;
-        greenMultiplier: number;
-        greenOffset: number;
-        redMultiplier: number;
-        redOffset: number;
-
-        // methods
-        constructor (redMultiplier?: number, greenMultiplier?: number, blueMultiplier?: number, alphaMultiplier?: number, redOffset?: number, greenOffset?: number, blueOffset?: number, alphaOffset?: number);
-        clone(): ColorFilter;
-    }
-
-
-    export class ColorMatrix {
-        // properties
-        DELTA_INDEX: number[];
-        IDENTITY_MATRIX: number[];
-        LENGTH: number;
-
-        // methods
-        constructor (brightness: number, contrast: number, saturation: number, hue: number);
-        adjustBrightness(value: number): ColorMatrix;
-        adjustColor(brightness: number, contrast: number, saturation: number, hue: number): ColorMatrix;
-        adjustContrast(value: number): ColorMatrix;
-        adjustHue(value: number): ColorMatrix;
-        adjustSaturation(value: number): ColorMatrix;
-        clone(): ColorMatrix;
-        concat(matrix: ColorMatrix[]): ColorMatrix;
-        copyMatrix(matrix: ColorMatrix[]): ColorMatrix;
-        reset(): ColorMatrix;
-        toArray(): number[];
-    }
-
-
-    export class ColorMatrixFilter extends Filter {
-        // methods
-        constructor (matrix: number[]);
-        clone(): ColorMatrixFilter;
-    }
-
-
-    export class Command {
-        // methods
-        constructor (f, params, path);
-        exec(scope: any): void;
-    }
-
-
-    export class Container extends DisplayObject {
-        // properties
-        children: DisplayObject[];
-
-        // methods
-        addChild(...child: DisplayObject[]): DisplayObject;
-        addChildAt(...childOrIndex: any[]): DisplayObject; // actually (...child: DisplayObject[], index: number)
-        clone(recursive?: bool): Container;
-        contains(child: DisplayObject): bool;
-        getChildAt(index: number): DisplayObject;
-        getChildIndex(child: DisplayObject): number;
-        getNumChildren(): number;
-        getObjectsUnderPoint(x, number, y: number): DisplayObject[];
-        getObjectUnderPoint(x: number, y: number): DisplayObject;
-        hitTest(x: number, y: number): bool;
-        removeAllChildren(): void;
-        removeChild(...child: DisplayObject[]): bool;
-        removeChildAt(...index: number[]): bool;
-        setChildIndex(child: DisplayObject, index: number): void;
-        sortChildren(sortFunction: (a: DisplayObject, b: DisplayObject) => number): void;
-        swapChildren(child1: DisplayObject, child2: DisplayObject): void;
-        swapChildrenAt(index1: number, index2: number): void;
+        append(visible: boolean, alpha: number, shadow: Shadow, compositeOperation: string, matrix?: Matrix2D): DisplayProps;
+        clone(): DisplayProps;
+        identity(): DisplayProps;
+        prepend(visible: boolean, alpha: number, shadow: Shadow, compositeOperation: string, matrix?: Matrix2D): DisplayProps;
+        setValues(visible?: boolean, alpha?: number, shadow?: number, compositeOperation?: number, matrix?: number): DisplayProps;
     }
 
 
     export class DOMElement extends DisplayObject {
+        constructor(htmlElement: HTMLElement);
+
         // properties
         htmlElement: HTMLElement;
-
+        
         // methods
-        constructor (htmlElement: HTMLElement);
-        clone(): DOMElement;
+        clone(): DisplayObject; // throw error
+        set(props: Object): DOMElement;
+        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): DOMElement;
     }
 
 
     export class EaselJS {
         // properties
-        version: string;
-        buildDate: string;
+        static buildDate: string;
+        static version: string;
     }
 
-
-    export class EventDispatcher {
-        // properties
+    export class Filter {
+        constructor();
 
         // methods
-        static initialize(target: Object): void;
-
-        addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
-        addEventListener(type: string, listener: (eventObj: Object) => void): Function;
-        addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): Object;
-        addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): Object;
-        removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
-        removeEventListener(type: string, listener: (eventObj: Object) => void): void;
-        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): void;
-        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): void;
-        removeAllEventListeners(type: string): void;
-        dispatchEvent(eventObj: string, target: Object): bool;
-        dispatchEvent(eventObj: Object, target: Object): bool;
-        hasEventListener(type: string): bool;
+        applyFilter(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, targetCtx?: CanvasRenderingContext2D, targetX?: number, targetY?: number): boolean;
+        clone(): Filter;
+        getBounds(): Rectangle;
         toString(): string;
     }
 
-
     export class Graphics {
+        constructor();
+
         // properties
-        BASE_64: Object;
-        curveTo(cpx: number, cpy: number, x: number, y: number): Graphics;    // same as quadraticCurveTo()
-        drawRect(x: number, y: number, width: number, height: number): Graphics;   // same as rect()
-        STROKE_CAPS_MAP: string[];
-        STROKE_JOINTS_MAP: string[];
+        static BASE_64: Object;
+        static beginCmd: Graphics.BeginPath;
+        command: Object;
+        instructions: Object[]; // array of graphics command objects (Graphics.Fill, etc)
+        static STROKE_CAPS_MAP: string[];
+        static STROKE_JOINTS_MAP: string[];
 
         // methods
-        arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: bool): Graphics;
+        append(command: Object, clean?: boolean): Graphics;
+        arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: boolean): Graphics;
         arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): Graphics;
         beginBitmapFill(image: Object, repetition?: string, matrix?: Matrix2D): Graphics;
         beginBitmapStroke(image: Object, repetition?: string): Graphics;
@@ -335,160 +319,403 @@ module createjs {
         clear(): Graphics;
         clone(): Graphics;
         closePath(): Graphics;
+        curveTo(cpx: number, cpy: number, x: number, y: number): Graphics;
         decodePath(str: string): Graphics;
         draw(ctx: CanvasRenderingContext2D): void;
         drawAsPath(ctx: CanvasRenderingContext2D): void;
         drawCircle(x: number, y: number, radius: number): Graphics;
-        drawEllipse(x: number, y: number, width: number, height: number): Graphics;
+        drawEllipse(x: number, y: number, w: number, h: number): Graphics;
         drawPolyStar(x: number, y: number, radius: number, sides: number, pointSize: number, angle: number): Graphics;
-        drawRoundRect(x: number, y: number, width: number, height: number, radius: number): Graphics;
-        drawRoundRectComplex(x: number, y: number, width: number, height: number, radiusTL: number, radiusTR: number, radiusBR: number, radisBL: number): Graphics;
+        drawRect(x: number, y: number, w: number, h: number): Graphics;
+        drawRoundRect(x: number, y: number, w: number, h: number, radius: number): Graphics;
+        drawRoundRectComplex(x: number, y: number, w: number, h: number, radiusTL: number, radiusTR: number, radiusBR: number, radisBL: number): Graphics;
         endFill(): Graphics;
         endStroke(): Graphics;
-        isEmpty(): bool;
         static getHSL(hue: number, saturation: number, lightness: number, alpha?: number): string;
-        static getRGB(red: number, green: number, blue: number, alpha?: number): string;
+        /**
+         * @deprecated - use the instructions property instead
+         */
+        getInstructions(): Object[];
+        static getRGB(r: number, g: number, b: number, alpha?: number): string;
+        inject(callback: (data: any) => any,  data: any): Graphics; // deprecated
+        isEmpty(): boolean;
         lineTo(x: number, y: number): Graphics;
         moveTo(x: number, y: number): Graphics;
         quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): Graphics;
-        rect(x: number, y: number, width: number, height: number): Graphics;
-        setStrokeStyle(thickness: number, caps?: string, joints?: string, miter?: number, ignoreScale?: bool): Graphics;  // caps and joints can be a string or number
-        setStrokeStyle(thickness: number, caps?: number, joints?: string, miter?: number, ignoreScale?: bool): Graphics;
-        setStrokeStyle(thickness: number, caps?: string, joints?: number, miter?: number, ignoreScale?: bool): Graphics;
-        setStrokeStyle(thickness: number, caps?: number, joints?: number, miter?: number, ignoreScale?: bool): Graphics;
+        rect(x: number, y: number, w: number, h: number): Graphics;
+        setStrokeStyle(thickness: number, caps?: string | number, joints?: string | number, miterLimit?: number, ignoreScale?: boolean): Graphics;
+        store(): Graphics;
         toString(): string;
+        unstore(): Graphics;
+
+
+        // tiny API - short forms of methods above
+        a(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: boolean): Graphics;
+        at(x1: number, y1: number, x2: number, y2: number, radius: number): Graphics;
+        bf(image: Object, repetition?: string, matrix?: Matrix2D): Graphics;
+        bs(image: Object, repetition?: string): Graphics;
+        f(color: string): Graphics;
+        lf(colors: string[], ratios: number[], x0: number, y0: number, x1: number, y1: number): Graphics;
+        ls(colors: string[], ratios: number[], x0: number, y0: number, x1: number, y1: number): Graphics;
+        rf(colors: string[], ratios: number[], x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): Graphics;
+        rs(colors: string[], ratios: number[], x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): Graphics;
+        s(color: string): Graphics;
+        bt(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): Graphics;
+        c(): Graphics;
+        cp(): Graphics;
+        p(str: string): Graphics;
+        dc(x: number, y: number, radius: number): Graphics;
+        de(x: number, y: number, w: number, h: number): Graphics;
+        dp(x: number, y: number, radius: number, sides: number, pointSize: number, angle: number): Graphics;
+        dr(x: number, y: number, w: number, h: number): Graphics;
+        rr(x: number, y: number, w: number, h: number, radius: number): Graphics;
+        rc(x: number, y: number, w: number, h: number, radiusTL: number, radiusTR: number, radiusBR: number, radisBL: number): Graphics;
+        ef(): Graphics;
+        es(): Graphics;
+        lt(x: number, y: number): Graphics;
+        mt(x: number, y: number): Graphics;
+        qt(cpx: number, cpy: number, x: number, y: number): Graphics;
+        r(x: number, y: number, w: number, h: number): Graphics;
+        ss(thickness: number, caps?: string | number, joints?: string | number, miterLimit?: number, ignoreScale?: boolean): Graphics;
     }
 
 
-    export class Log {
-        // properties
-        static NONE: number;
-        static ERROR: number;
-        static WARNING: number;
-        static TRACE: number;
-        static ALL: number;
-        static level: number;
+    module Graphics
+        {
+        export class Arc
+            {
+            constructor(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: number);
 
-        // methods
-        static out(message: string, details: string, level: number);
-        static addKeys(keys: Object);
-        static log(message: string, details: string, level: number);
-    }
+            // properties
+            anticlockwise: number;
+            endAngle: number;
+            radius: number;
+            startAngle: number;
+            x: number;
+            y: number;
+            }
+
+        export class ArcTo
+            {
+            constructor(x1: number, y1: number, x2: number, y2: number, radius: number);
+
+            // properties
+            x1: number;
+            y1: number;
+            x2: number;
+            y2: number;
+            radius: number;
+            }
+
+        export class BeginPath
+            {
+
+            }
+
+        export class BezierCurveTo
+            {
+            constructor(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number);
+
+            // properties
+            cp1x: number;
+            cp1y: number;
+            cp2x: number;
+            cp2y: number;
+            x: number;
+            y: number;
+            }
+
+        export class Circle
+            {
+            constructor(x: number, y: number, radius: number);
+
+            // properties
+            x: number;
+            y: number;
+            radius: number;
+            }
+
+        export class ClosePath
+            {
+
+            }
+
+        export class Fill
+            {
+            constructor(style: Object, matrix?: Matrix2D);
+
+            // properties
+            style: Object;
+            matrix: Matrix2D;
+
+            // methods
+            bitmap(image: HTMLImageElement, repetition?: string): Fill;
+            linearGradient(colors: number[], ratios: number[], x0: number, y0: number, x1: number, y1: number): Fill;
+            radialGradient(colors: number[], ratios: number[], x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): Fill;
+            }
+
+        export class LineTo
+            {
+            constructor(x: number, y: number);
+
+            // properties
+            x: number;
+            y: number;
+            }
+
+        export class MoveTo
+            {
+            constructor(x: number, y: number);
+
+            x: number;
+            y: number;
+            }
+
+        export class PolyStar
+            {
+            constructor(x: number, y: number, radius: number, sides: number, pointSize: number, angle: number);
+
+            // properties
+            angle: number;
+            pointSize: number;
+            radius: number;
+            sides: number;
+            x: number;
+            y: number;
+            }
+
+        export class QuadraticCurveTo
+            {
+            constructor(cpx: number, cpy: number, x: number, y: number);
+
+            // properties
+            cpx: number;
+            cpy: number;
+            x: number;
+            y: number;
+            }
+
+        export class Rect
+            {
+            constructor(x: number, y: number, w: number, h: number);
+
+            // properties
+            x: number;
+            y: number;
+            w: number;
+            h: number;
+            }
+
+        export class RoundRect
+            {
+            constructor(x: number, y: number, w: number, h: number, radiusTL: number, radiusTR: number, radiusBR: number, radiusBL: number);
+
+            // properties
+            x: number;
+            y: number;
+            w: number;
+            h: number;
+            radiusTL: number;
+            radiusTR: number;
+            radiusBR: number;
+            radiusBL: number;
+            }
+
+        export class Stroke
+            {
+            constructor(style: Object, ignoreScale: boolean);
+
+            // properties
+            style: Object;
+            ignoreScale: boolean;
+
+            // methods
+            bitmap(image: HTMLImageElement, repetition?: string): Stroke;
+            linearGradient(colors: number[], ratios: number[], x0: number, y0: number, x1: number, y1: number): Stroke;
+            radialGradient(colors: number[], ratios: number[], x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): Stroke;
+            }
+
+        export class StrokeStyle
+            {
+            constructor(width: number, caps: string, joints: number, miterLimit: number);
+
+            // properties
+            caps: string;
+            joints: string;
+            miterLimit: number;
+            width: number;
+            }
+        }
+
+
 
     export class Matrix2D {
+        constructor(a?: number, b?: number, c?: number, d?: number, tx?: number, ty?: number);
+
         // properties
         a: number;
-        alpha: number;
-        atx: number;
         b: number;
         c: number;
-        compositeOperation: string;
         d: number;
         static DEG_TO_RAD: number;
         static identity: Matrix2D;
-        shadow: Shadow;
+        tx: number;
         ty: number;
 
         // methods
-        constructor (a: number, b: number, c: number, d: number, tx: number, ty: number);
         append(a: number, b: number, c: number, d: number, tx: number, ty: number): Matrix2D;
         appendMatrix(matrix: Matrix2D): Matrix2D;
-        appendProperties(a: number, b: number, c: number, d: number, tx: number, ty: number, alpha: number, shadow: Shadow, compositeOperation: string): Matrix2D;
         appendTransform(x: number, y: number, scaleX: number, scaleY: number, rotation: number, skewX: number, skewY: number, regX?: number, regY?: number): Matrix2D;
         clone(): Matrix2D;
+        copy(matrix: Matrix2D): Matrix2D;
+        decompose(): {x: number; y: number; scaleX: number; scaleY: number; rotation: number; skewX: number; skewY: number};
         decompose(target: Object): Matrix2D;
+        equals(matrix: Matrix2D): boolean;
         identity(): Matrix2D;
         invert(): Matrix2D;
-        isIdentity(): bool;
+        isIdentity(): boolean;
         prepend(a: number, b: number, c: number, d: number, tx: number, ty: number): Matrix2D;
         prependMatrix(matrix: Matrix2D): Matrix2D;
-        prependProperties(alpha: number, shadow: Shadow, compositeOperation: string): Matrix2D;
         prependTransform(x: number, y: number, scaleX: number, scaleY: number, rotation: number, skewX: number, skewY: number, regX?: number, regY?: number): Matrix2D;
         rotate(angle: number): Matrix2D;
         scale(x: number, y: number): Matrix2D;
+        setValues(a?: number, b?: number, c?: number, d?: number, tx?: number, ty?: number): Matrix2D;
         skew(skewX: number, skewY: number): Matrix2D;
         toString(): string;
+        transformPoint(x: number, y: number, pt?: Point | Object): Point;
         translate(x: number, y: number): Matrix2D;
     }
 
 
-    export class MouseEvent {
-
+    export class MouseEvent extends Event {
+        constructor(type: string, bubbles: boolean, cancelable: boolean, stageX: number, stageY: number, nativeEvent: NativeMouseEvent, pointerID: number, primary: boolean, rawX: number, rawY: number);
+        
         // properties
+        isTouch: boolean;
+        localX: number;
+        localY: number;
         nativeEvent: NativeMouseEvent;
         pointerID: number;
-        primaryPointer: bool;
+        primary: boolean;
         rawX: number;
         rawY: number;
         stageX: number;
         stageY: number;
-        target: DisplayObject;
-        type: string;
-
+        
         // methods
-        constructor (type: string, stageX: number, stageY: number, target: DisplayObject, nativeEvent: NativeMouseEvent, pointerID: number, primary: bool, rawX: number, rawY: number);
         clone(): MouseEvent;
+        
+        // EventDispatcher mixins
+        addEventListener(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): Function;
+        addEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): Function;
+        addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): Object;
+        addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): Object;
+        dispatchEvent(eventObj: Object | string | Event, target?: Object): boolean;
+        hasEventListener(type: string): boolean;
+        off(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): void;
+        off(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): void;
+        off(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): void;
+        off(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): void;
+        off(type: string, listener: Function, useCapture?: boolean): void; // It is necessary for "arguments.callee"
+        on(type: string, listener: (eventObj: Object) => boolean, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
+        on(type: string, listener: (eventObj: Object) => void, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
+        on(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Object;
+        on(type: string, listener: { handleEvent: (eventObj: Object) => void; }, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Object;
+        removeAllEventListeners(type?: string): void;
+        removeEventListener(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): void;
+        removeEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): void;
+        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): void;
+        removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): void;
+        removeEventListener(type: string, listener: Function, useCapture?: boolean): void; // It is necessary for "arguments.callee"
         toString(): string;
-
-        // events
-        onMouseMove: (event: MouseEvent) => any;
-        onMouseUp: (event: MouseEvent) => any;
+        willTrigger(type: string): boolean;
     }
 
 
     export class MovieClip extends Container {
+        constructor(mode?: string, startPosition?: number, loop?: boolean, labels?: Object);
+
         // properties
-        actionsEnabled: bool;
-        autoReset: bool;
+        actionsEnabled: boolean;
+        autoReset: boolean;
+        static buildDate: string;
         currentFrame: number;
+        currentLabel: string;
+        frameBounds: Rectangle[];
+        framerate: number;
         static INDEPENDENT: string;
-        loop: bool;
+        labels: Object[];
+        loop: boolean;
         mode: string;
-        paused: bool;
+        paused: boolean;
         static SINGLE_FRAME: string;
         startPosition: number;
         static SYNCHED: string;
-        timeline: Timeline; //HERE requires tweenJS
+        timeline: Timeline;
+        static version: string;
 
         // methods
-        constructor (mode: string, startPosition: number, loop: bool, labels: Object);
-        clone(recursive?: bool): MovieClip;
-        gotoAndPlay(positionOrLabel: string): void;
-        gotoAndPlay(positionOrLabel: number): void;
-        gotoAndStop(positionOrLabel: string): void;
-        gotoAndStop(positionOrLabel: number): void;
+        advance(time?: number): void;
+        clone(): MovieClip; // not supported
+        /**
+         * @deprecated - use 'currentLabel' property instead
+         */
+        getCurrentLabel(): string;  // deprecated
+        /**
+         * @deprecated - use 'labels' property instead
+         */
+        getLabels(): Object[];
+        gotoAndPlay(positionOrLabel: string | number): void;
+        gotoAndStop(positionOrLabel: string | number): void;
         play(): void;
         stop(): void;
     }
-
-
+    
+    export class MovieClipPlugin {
+        // methods
+        tween(tween: Tween, prop: string, value: string | number | boolean, startValues: any[], endValues: any[], ratio: number, wait: Object, end: Object): void;
+    }
+    
     export class Point {
+        constructor(x?: number, y?: number);
+
         // properties
         x: number;
         y: number;
 
         // methods
-        constructor (x: number, y: number);
         clone(): Point;
+        copy(point: Point): Point;
+        setValues(x?: number, y?: number): Point;
         toString(): string;
     }
 
-
     export class Rectangle {
+        constructor(x?: number, y?: number, width?: number, height?: number);
+
         // properties
+        height: number;
+        width: number;
         x: number;
         y: number;
-        width: number;
-        height: number;
 
         // methods
-        constructor (x: number, y: number, width: number, height: number);
         clone(): Rectangle;
+        contains(x: number, y: number, width?: number, height?: number): boolean;
+        copy(rectangle: Rectangle): Rectangle;
+        extend(x: number, y: number, width?: number, height?: number): Rectangle;
+        intersection(rect: Rectangle): Rectangle;
+        intersects(rect: Rectangle): boolean;
+        isEmpty(): boolean;
+        setValues(x?: number, y?: number, width?: number, height?: number): Rectangle;
         toString(): string;
+        union(rect: Rectangle): Rectangle;
     }
 
 
     export class Shadow {
+        constructor(color: string, offsetX: number, offsetY: number, blur: number);
+
         // properties
         blur: number;
         color: string;
@@ -497,174 +724,293 @@ module createjs {
         offsetY: number;
 
         // methods
-        constructor (color: string, offsetX: number, offsetY: number, blur: number);
         clone(): Shadow;
         toString(): string;
     }
 
 
     export class Shape extends DisplayObject {
+        constructor(graphics?: Graphics);
+
         // properties
         graphics: Graphics;
 
         // methods
-        constructor (graphics?: Graphics);
-        clone(recursive?: bool): Shape;
+        clone(recursive?: boolean): Shape;
+        set(props: Object): Shape;
+        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): Shape;
     }
 
 
-    // what is returned from .getAnimation()
+    export class Sprite extends DisplayObject {
+        constructor(spriteSheet: SpriteSheet, frameOrAnimation?: string | number);
+
+        // properties
+        currentAnimation: string;
+        currentAnimationFrame: number;
+        currentFrame: number;
+        framerate: number;
+        /**
+         * @deprecated
+         */
+        offset: number;
+        paused: boolean;
+        spriteSheet: SpriteSheet;
+        
+        // methods
+        advance(time?: number): void;
+        clone(): Sprite;
+        getBounds(): Rectangle;
+        gotoAndPlay(frameOrAnimation: string | number): void;
+        gotoAndStop(frameOrAnimation: string | number): void;
+        play(): void;
+        set(props: Object): Sprite;
+        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): Sprite;
+        stop(): void;
+        
+    }
+
+    export class SpriteContainer extends Container
+        {
+        constructor(spriteSheet?: SpriteSheet);
+
+        spriteSheet: SpriteSheet;
+        }
+
+    // what is returned from SpriteSheet.getAnimation(string)
     interface SpriteSheetAnimation {
         frames: number[];
-        frequency: number;
+        speed: number;
         name: string;
         next: string;
     }
 
-    export class SpriteSheet {
-        // properties
-        complete: bool;
+    // what is returned from SpriteSheet.getFrame(number)
+    interface SpriteSheetFrame {
+        image: HTMLImageElement;
+        rect: Rectangle;
+    }
 
+    export class SpriteSheet extends EventDispatcher {
+        constructor(data: Object);
+
+        // properties
+        animations: string[];
+        complete: boolean;
+        framerate: number;
+        
         // methods
-        constructor (data: Object);
         clone(): SpriteSheet;
         getAnimation(name: string): SpriteSheetAnimation;
+        /**
+         * @deprecated - use the 'animations' property instead
+         */
         getAnimations(): string[];
-        getFrame(frameIndex: number): Object;
-        getFrameBounds(frameIndex: number);
+        getFrame(frameIndex: number): SpriteSheetFrame;
+        getFrameBounds(frameIndex: number, rectangle?: Rectangle): Rectangle;
         getNumFrames(animation: string): number;
-        toString(): string;
-
-        // events
-        onComplete: () => any;
     }
 
 
-    export class SpriteSheetBuilder {
+    export class SpriteSheetBuilder extends EventDispatcher {
+        constructor();
+
         // properties
-        defaultScale: number;
-        maxWidth: number;
         maxHeight: number;
+        maxWidth: number;
         padding: number;
         progress: number;
+        scale: number;
         spriteSheet: SpriteSheet;
         timeSlice: number;
 
         // methods
-        addFrame(source: DisplayObject, sourceRect?: Rectangle, scale?: number, setupFunction?: () => any, setupParams?: any[], setupScope?: Object): any; //HERE returns number or null
-        addMovieClip(source: MovieClip, sourceRect?: Rectangle, scale?: number): void;
-        build(): void;
+        addAnimation(name: string, frames: number[], next?: string, frequency?: number): void;
+        addFrame(source: DisplayObject, sourceRect?: Rectangle, scale?: number, setupFunction?: () => any, setupData?: Object): number;
+        addMovieClip(source: MovieClip, sourceRect?: Rectangle, scale?: number, setupFunction?: () => any, setupData?: Object, labelFunction?: () => any): void;
+        build(): SpriteSheet;
         buildAsync(timeSlice?: number): void;
-        clone(): SpriteSheetBuilder;
+        clone(): void; // throw error
         stopAsync(): void;
-        toString(): string;
-
-        // events
-        complete: (event: Object) => any;
-        onProgress: (event: Object) => any;
     }
-
 
     export class SpriteSheetUtils {
-        static addFlippedFrames(spriteSheet: SpriteSheet, horizontal?: bool, vertical?: bool, both?: bool): void;
-        static extractFrame(spriteSheet: SpriteSheet, frame: number): HTMLImageElement;
-        static extractFrame(spriteSheet: SpriteSheet, animationName: string): HTMLImageElement;
-        static flip(spriteSheet: HTMLImageElement, flipData: Object): void;
-        static mergeAlpha(rgbImage: HTMLImageElement, alphaImage: HTMLImageElement, canvas?: HTMLCanvasElement): HTMLCanvasElement;
+        /**
+         * @deprecated
+         */
+        static addFlippedFrames(spriteSheet: SpriteSheet, horizontal?: boolean, vertical?: boolean, both?: boolean): void; // deprecated
+        static extractFrame(spriteSheet: SpriteSheet, frameOrAnimation: number | string): HTMLImageElement;
+        /**
+         * @deprecated
+         */
+        static mergeAlpha(rgbImage: HTMLImageElement, alphaImage: HTMLImageElement, canvas?: HTMLCanvasElement): HTMLCanvasElement; // deprecated
     }
 
+    export class SpriteStage extends Stage
+        {
+        constructor(canvas: HTMLCanvasElement | string, preserveDrawingBuffer?: boolean, antialias?: boolean);
 
-    export class Stage extends Container {
         // properties
-        autoClear: bool;
-        canvas: HTMLCanvasElement;
-        mouseInBounds: bool;
-        mouseX: number;
-        mouseY: number;
-        snapToPixelEnabled: bool;
-        tickOnUpdate: bool;
-
-        new (): Stage;
-        new (canvas: HTMLElement): Stage;
+        static INDICES_PER_BOX: number;
+        isWebGL: boolean;
+        static MAX_BOXES_POINTS_INCREMENT: number;
+        static MAX_INDEX_SIZE: number;
+        static NUM_VERTEX_PROPERTIES: number;
+        static NUM_VERTEX_PROPERTIES_PER_BOX: number;
+        static POINTS_PER_BOX: number;
 
         // methods
-        constructor (canvas: HTMLCanvasElement);
-        clone(): Stage;
-        enableMouseOver(frequency: number): void;
-        enableDOMEvents(enable: bool): void;
-        toDataURL(backgroundColor: string, mimeType: string): string;
-        update(): void;
-        clear(): void;
-        handleEvent(evt: Object): void;
+        clearImageTexture(image: Object): void;
+        updateViewport(width: number, height: number): void;
+        }
 
-        // events
-        stagemousemove: (event: MouseEvent) => any;
-        stagemouseup: (event: MouseEvent) => any;
+    export class Stage extends Container {
+        constructor(canvas: HTMLCanvasElement | string | Object);
+
+        // properties
+        autoClear: boolean;
+        canvas: HTMLCanvasElement | Object;
+        drawRect: Rectangle;
+        handleEvent: Function;
+        mouseInBounds: boolean;
+        mouseMoveOutside: boolean;
+        mouseX: number;
+        mouseY: number;
+        nextStage: Stage;
+        /**
+         * @deprecated
+         */
+        preventSelection: boolean;
+        snapToPixelEnabled: boolean;  // deprecated
+        tickOnUpdate: boolean;
+        
+        // methods
+        clear(): void;
+        clone(): Stage;
+        enableDOMEvents(enable?: boolean): void;
+        enableMouseOver(frequency?: number): void;
+        tick(props?: Object): void;
+        toDataURL(backgroundColor: string, mimeType: string): string;
+        update(...arg: any[]): void;
+        
     }
 
 
     export class Text extends DisplayObject {
+        constructor(text?: string, font?: string, color?: string);
+
         // properties
         color: string;
         font: string;
         lineHeight: number;
         lineWidth: number;
         maxWidth: number;
-        outline: bool;
+        outline: number;
         text: string;
         textAlign: string;
         textBaseline: string;
 
         // methods
-        constructor (text?: string, font?: string, color?: string);
         clone(): Text;
         getMeasuredHeight(): number;
         getMeasuredLineHeight(): number;
         getMeasuredWidth(): number;
+        getMetrics(): Object;
+        set(props: Object): Text;
+        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): Text;
     }
-
 
     export class Ticker {
         // properties
-        static useRAF: bool;
+        static framerate: number;
+        static interval: number;
+        static maxDelta: number;
+        static paused: boolean;
+        static RAF: string;
+        static RAF_SYNCHED: string;
+        static TIMEOUT: string;
+        static timingMode: string;
+        /**
+         * @deprecated
+         */
+        static useRAF: boolean;
 
         // methods
-        static addListener(o: Object, pauseable?: bool): void;
+        static getEventTime(runTime?: boolean): number;
+        /**
+         * @deprecated - use the 'framerate' property instead
+         */
         static getFPS(): number;
+        /**
+         * @deprecated - use the 'interval' property instead
+         */
         static getInterval(): number;
         static getMeasuredFPS(ticks?: number): number;
-        static getPaused(): bool;
-        static getTicks(pauseable?: bool): number;
-        static getTime(pauseable: bool): number;
+        static getMeasuredTickTime(ticks?: number): number;
+        /**
+         * @deprecated - use the 'paused' property instead
+         */
+        static getPaused(): boolean;
+        static getTicks(pauseable?: boolean): number;
+        static getTime(runTime?: boolean): number;
         static init(): void;
-        static removeAllListeners(): void;
-        static removeListener(o: Object): void;
+        static reset(): void;
+        /**
+         * @deprecated - use the 'framerate' property instead
+         */
         static setFPS(value: number): void;
+        /**
+         * @deprecated - use the 'interval' property instead
+         */
         static setInterval(interval: number): void;
-        static setPaused(value: bool): void;
+        /**
+         * @deprecated - use the 'paused' property instead
+         */
+        static setPaused(value: boolean): void;
 
         // EventDispatcher mixins
-        static addEventListener(type: string, listener: (eventObj: Object) => bool): Function;
-        static addEventListener(type: string, listener: (eventObj: Object) => void): Function;
-        static addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): Object;
-        static addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): Object;
-        static removeEventListener(type: string, listener: (eventObj: Object) => bool): void;
-        static removeEventListener(type: string, listener: (eventObj: Object) => void): void;
-        static removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => bool; }): void;
-        static removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }): void;
-
-        // events
-        tick: (timeElapsed: number) => any;
+        static addEventListener(type: string, listener: Stage, useCapture?: boolean): Stage;
+        static addEventListener(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): Function;
+        static addEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): Function;
+        static addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): Object;
+        static addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): Object;
+        static dispatchEvent(eventObj: Object | string | Event, target?: Object): boolean;
+        static hasEventListener(type: string): boolean;
+        static off(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): void;
+        static off(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): void;
+        static off(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): void;
+        static off(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): void;
+        static off(type: string, listener: Function, useCapture?: boolean): void; // It is necessary for "arguments.callee"
+        static on(type: string, listener: (eventObj: Object) => boolean, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
+        static on(type: string, listener: (eventObj: Object) => void, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Function;
+        static on(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Object;
+        static on(type: string, listener: { handleEvent: (eventObj: Object) => void; }, scope?: Object, once?: boolean, data?: any, useCapture?: boolean): Object;
+        static removeAllEventListeners(type?: string): void;
+        static removeEventListener(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): void;
+        static removeEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): void;
+        static removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): void;
+        static removeEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): void;
+        static removeEventListener(type: string, listener: Function, useCapture?: boolean): void; // It is necessary for "arguments.callee"
+        static toString(): string;
+        static willTrigger(type: string): boolean;
     }
 
+    export class TickerEvent {
+        // properties
+        target: Object;
+        type: string;
+        paused: boolean;
+        delta: number;
+        time: number;
+        runTime: number;
+    }
 
     export class Touch {
         // methods
         static disable(stage: Stage): void;
-        static enable(stage: Stage, singleTouch?: bool, allowDefault?: bool): bool;
-        static isSupported(): bool;
+        static enable(stage: Stage, singleTouch?: boolean, allowDefault?: boolean): boolean;
+        static isSupported(): boolean;
     }
-
 
     export class UID {
         // methods

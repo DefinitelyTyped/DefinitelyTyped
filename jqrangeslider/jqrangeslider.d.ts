@@ -1,6 +1,6 @@
 // Type definitions for jQRangeSlider 4.2.8
 // Project: http://ghusse.github.com/jQRangeSlider
-// Definitions by: Dániel Tar https://github.com/qcz
+// Definitions by: Dániel Tar <https://github.com/qcz>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
@@ -34,7 +34,7 @@ interface JQRangeSliderDateSteps {
 interface JQRangeSliderOptions {
     wheelMode?: string; // function of the wheel, "zoom", "scroll" or null
     wheelSpeed?: number; // speed of the wheel scrolling
-    arrows?: bool; // hide the arrows or not
+    arrows?: boolean; // hide the arrows or not
     valueLabels?: string; // when to show value labels: "show" (always), "hide" (never) and "change" (only if slider changed)
     durationIn?: number; // fade in length when displaying value labels (only when valueLabels = "change")
     durationOut?: number; // fade out length when displaying value labels (only when valueLabels = "change")
@@ -57,18 +57,18 @@ interface JQDateRangeSliderOptions extends JQRangeSliderOptions {
 }
 
 interface JQuery {
-    rangeSlider(options?: JQNumericRangeSliderOptions): JQuery;
     rangeSlider(method: string): any;
     rangeSlider(method: string, value: number): JQuery;
     rangeSlider(method: string, min: number, max: number): JQuery;
+    rangeSlider(options?: JQNumericRangeSliderOptions): JQuery;
 
-    editRangeSlider(options?: JQNumericRangeSliderOptions): JQuery;
     editRangeSlider(method: string): any;
     editRangeSlider(method: string, value: number): JQuery;
-    editRangeSlider(method: string, min: number, max: number): JQuery;
+    editRangeSlider(method: string, min: number, max: number): JQuery
+	editRangeSlider(options?: JQNumericRangeSliderOptions): JQuery;
 
-    dateRangeSlider(options?: JQRangeSliderOptions): JQuery;
     dateRangeSlider(method: string): any;
     dateRangeSlider(method: string, value: Date): JQuery;
-    dateRangeSlider(method: string, min: Date, max: Date): JQuery;
+    dateRangeSlider(method: string, min: Date, max: Date): JQuery
+	dateRangeSlider(options?: JQDateRangeSliderOptions): JQuery;
 }

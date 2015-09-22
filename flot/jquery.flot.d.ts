@@ -6,7 +6,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-module jquery.flot {
+declare module jquery.flot {
     interface plotOptions {
         colors?: any[];
         series?: seriesOptions;
@@ -16,7 +16,7 @@ module jquery.flot {
         xaxes?: axisOptions[];
         yaxes?: axisOptions[];
         grid?: gridOptions;
-        interfaction?: interaction;
+        interaction?: interaction;
         hooks?: hooks;
     }
 
@@ -38,20 +38,20 @@ module jquery.flot {
     }
 
     interface gridOptions {
-        show?: bool;
-        aboveData?: bool;
+        show?: boolean;
+        aboveData?: boolean;
         color?: any;                // color
         backgroundColor?: any;      //color/gradient or null
         margin?: any;                // number or margin object
         labelMargin?: number;
         axisMargin?: number;
         markings?: any;             //array of markings or (fn: axes -> array of markings)
-        borderWidth: number;
+        borderWidth?: any;          // number or width object
         borderColor?: any;          // color or null
         minBorderMargin?: number;       // or null
-        clickable?: bool;
-        hoverable?: bool;
-        autoHighlight?: bool;
+        clickable?: boolean;
+        hoverable?: boolean;
+        autoHighlight?: boolean;
         mouseActiveRadius?: number;
         tickColor?: any;
         markingsColor?: any;
@@ -59,7 +59,7 @@ module jquery.flot {
     }
 
     interface legendOptions {
-        show?: bool;
+        show?: boolean;
         labelFormatter?: (label: string, series: any) => string; //  null or (fn: string, series object -> string)
         labelBoxBorderColor?: any;   //color
         noColumns?: number;
@@ -72,15 +72,15 @@ module jquery.flot {
     }
 
     interface seriesOptions {
-        color?: number;
+        color?: any;            // color or number
         label?: string;
         lines?: linesOptions;
         bars?: barsOptions;
         points?: pointsOptions;
         xaxis?: number;
         yaxis?: number;
-        clickable?: bool;
-        hoverable?: bool;
+        clickable?: boolean;
+        hoverable?: boolean;
         shadowSize?: number;
         highlightColor?: any;
     }
@@ -90,7 +90,7 @@ module jquery.flot {
     }
 
     interface axisOptions {
-        show?: bool;            // null or true/false
+        show?: boolean;            // null or true/false
         position?: string;      // "bottom" or "top" or "left" or "right"
 
         color?: any;            // null or color spec
@@ -107,12 +107,12 @@ module jquery.flot {
         ticks?: any;                                    // null or number or ticks array or (fn: axis -> ticks array)
         tickSize?: any;                                 // number or array
         minTickSize?: any;                              // number or array
-        tickFormatter?: (t: number) => string;                            // (fn: number, object -> string) or string
+        tickFormatter?: (t: number, a?: axis) => string;                            // (fn: number, object -> string) or string
         tickDecimals?: number;
 
         labelWidth?: number;
         labelHeight?: number;
-        reserveSpace?: bool;
+        reserveSpace?: boolean;
 
         tickLength?: number;
 
@@ -120,20 +120,20 @@ module jquery.flot {
     }
 
     interface seriesTypeBase {
-        show?: bool;
+        show?: boolean;
         lineWidth?: number;
         fill?: any;              //boolean or number
         fillColor?: any;         //null or color/gradient
     }
 
     interface linesOptions extends seriesTypeBase {
-        steps?: bool;
+        steps?: boolean;
     }
 
     interface barsOptions extends seriesTypeBase {
         barWidth?: number;
         align?: string;
-        horizontal?: bool;
+        horizontal?: boolean;
     }
 
     interface pointsOptions extends seriesTypeBase {
@@ -161,16 +161,21 @@ module jquery.flot {
     }
 
     interface datapointFormat {
-        x?: bool;
-        y?: bool;
-        number: bool;
-        required: bool;
+        x?: boolean;
+        y?: boolean;
+        number: boolean;
+        required: boolean;
         defaultValue?: number;
     }
 
     interface point {
         x: number;
         y: number;
+    }
+
+    interface offset {
+        left: number;
+        top: number;
     }
 
     interface canvasPoint {
@@ -188,34 +193,49 @@ module jquery.flot {
     }
 
     interface axis extends axisOptions {
-        p2c(point):canvasPoint;
-        c2p(canvasPoint):point;
+        options: axisOptions;
+        p2c(point: point):canvasPoint;
+        c2p(canvasPoint: canvasPoint):point;
+    }
+
+    interface plugin {
+        init(options: plotOptions): any;
+        options?: any;
+        name?: string;
+        version?: string;
     }
 
     interface plot {
-        highlight(series: dataSeries, datapoint: item);
-        unhightlight();
-        unhighlight(series: dataSeries, datapoint: item);
-        setData(data: any);
-        setupGrid();
-        draw();
-        triggerRedrawOverlay();
-        width();
-        height();
-        offset();
-        pointOffset(point: point);
-        resize();
-        shutdown();
+        highlight(series: dataSeries, datapoint: item): void;
+        unhighlight(): void;
+        unhighlight(series: dataSeries, datapoint: item): void;
+        setData(data: any): void;
+        setupGrid(): void;
+        draw(): void;
+        triggerRedrawOverlay(): void;
+        width(): number;
+        height(): number;
+        offset(): JQueryCoordinates;
+        pointOffset(point: point): offset;
+        resize(): void;
+        shutdown(): void;
         getData(): dataSeries[];
         getAxes(): axes;
+        getXAxes(): axis[];
+        getYAxes(): axis[];
         getPlaceholder(): JQuery;
         getCanvas(): HTMLCanvasElement;
         getPlotOffset(): canvasPoint;
         getOptions(): plotOptions;
     }
+
+    interface plotStatic {
+        (placeholder: JQuery, data: dataSeries[], options?: plotOptions): plot;
+        (placeholder: JQuery, data: any[], options?: plotOptions): plot;
+        plugins: plugin[];
+    }
 }
 
 interface JQueryStatic {
-    plot(placeholder: JQuery, data: jquery.flot.dataSeries[], options?: jquery.flot.plotOptions): jquery.flot.plot;
-    plot(placeholder: JQuery, data: any[], options?: jquery.flot.plotOptions): jquery.flot.plot;
+    plot: jquery.flot.plotStatic;
 }

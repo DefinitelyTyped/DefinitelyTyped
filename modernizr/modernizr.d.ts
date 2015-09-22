@@ -1,81 +1,116 @@
 // Type definitions for Modernizr 2.6.2
 // Project: http://modernizr.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-interface AudioBool {
-    ogg: bool;
-    mp3: bool;
-    wav: bool;
-    m4a: bool;
+interface Audioboolean {
+    ogg: boolean;
+    mp3: boolean;
+    wav: boolean;
+    m4a: boolean;
 }
 
-interface VideoBool {
-    ogg: bool;
-    h264: bool;
-    webm: bool;
+interface Videoboolean {
+    ogg: boolean;
+    h264: boolean;
+    webm: boolean;
+}
+
+interface Inputboolean {
+    autocomplete: boolean;
+    autofocus: boolean;
+    list: boolean;
+    placeholder: boolean;
+    max: boolean;
+    min: boolean;
+    multiple: boolean;
+    pattern: boolean;
+    required: boolean;
+    step: boolean;
+}
+
+interface InputTypesboolean {
+    search: boolean;
+    tel: boolean;
+    url: boolean;
+    email: boolean;
+    datetime: boolean;
+    date: boolean;
+    month: boolean;
+    week: boolean;
+    time: boolean;
+    datetimelocal: boolean;
+    number: boolean;
+    range: boolean;
+    color: boolean;
 }
 
 interface ModernizrStatic {
-    fontface: bool;
-    backgroundsize: bool;
-    borderimage: bool;
-    borderradius: bool;
-    boxshadow: bool;
-    flexbox: bool;
-    hsla: bool;
-    multiplebgs: bool;
-    opacity: bool;
-    rgba: bool;
-    textshadow: bool;
-    cssanimations: bool;
-    csscolumns: bool;
-    generatedcontent: bool;
-    cssgradients: bool;
-    cssreflections: bool;
-    csstransforms: bool;
-    csstransforms3d: bool;
-    csstransitions: bool;
-    applicationcache: bool;
-    canvas: bool;
-    canvastext: bool;
-    draganddrop: bool;
-    hashchange: bool;
-    history: bool;
-    audio: AudioBool;
-    video: VideoBool;
-    indexeddb: bool;
-    localstorage: bool;
-    postmessage: bool;
-    sessionstorage: bool;
-    websockets: bool;
-    websqldatabase: bool;
-    webworkers: bool;
-    geolocation: bool;
-    inlinesvg: bool;
-    smil: bool;
-    svg: bool;
-    svgclippaths: bool;
-    touch: bool;
-    webgl: bool;
+    autofocus: boolean;
+    fontface: boolean;
+    backgroundsize: boolean;
+    borderimage: boolean;
+    borderradius: boolean;
+    boxshadow: boolean;
+    flexbox: boolean;
+    hsla: boolean;
+    multiplebgs: boolean;
+    opacity: boolean;
+    rgba: boolean;
+    textshadow: boolean;
+    cssanimations: boolean;
+    csscolumns: boolean;
+    generatedcontent: boolean;
+    cssgradients: boolean;
+    cssreflections: boolean;
+    csstransforms: boolean;
+    csstransforms3d: boolean;
+    csstransitions: boolean;
+    applicationcache: boolean;
+    canvas: boolean;
+    canvastext: boolean;
+    draganddrop: boolean;
+    hashchange: boolean;
+    history: boolean;
+    audio: Audioboolean;
+    video: Videoboolean;
+    indexeddb: boolean;
+    input: Inputboolean;
+    inputtypes: InputTypesboolean;
+    localstorage: boolean;
+    postmessage: boolean;
+    sessionstorage: boolean;
+    websockets: boolean;
+    websqldatabase: boolean;
+    webworkers: boolean;
+    geolocation: boolean;
+    inlinesvg: boolean;
+    smil: boolean;
+    svg: boolean;
+    svgclippaths: boolean;
+    touch: boolean;
+    webgl: boolean;
 
-    prefixed(): bool;
-    prefixed(property: string): bool;
-    prefixed(property: string, obj: any, element?: any): bool;
+    load(resources: any[]): void;
+    load(resourceObject: any): void;
+    load(resourceString: string): void;
 
-    mq(mediaQuery: string): bool;
+    prefixed(property: string): any;
+    prefixed(property: string, obj: any, element?: any): any;
 
-    addTest(feature: string, test: () => any);
-    addTest(feature: string, test: bool);
-    addTest(feature: any);
+    mq(mediaQuery: string): boolean;
 
-    testStyles(rule: string, callback: (element, rule) => bool, nodes?: number, testnames?: string[]): bool;
-    testProp(property: string): bool;
-    testAllProps(property: string, prefix?: string): bool;
-    testAllProps(property: string, obj: any, element: any): bool;
+    addTest(feature: string, test: () => any): void;
+    addTest(feature: string, test: boolean): void;
+    addTest(feature: any): void;
 
-    hasEvent(eventName: string, element?: any): bool;
+    testStyles(rule: string, callback: (element: HTMLDivElement, rule: string) => void, nodes?: number, testnames?: string[]): boolean;
+    testProp(property: string): boolean;
+    testAllProps(property: string, prefix?: string): boolean;
+    testAllProps(property: string, obj: any, element: any): boolean;
+
+    hasEvent(eventName: string, element?: any): boolean;
 }
 
 declare var Modernizr: ModernizrStatic;

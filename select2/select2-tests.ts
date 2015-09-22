@@ -56,6 +56,28 @@ $("#e6").select2({
     ajax: {
         url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
         dataType: 'jsonp',
+        cache: false,
+        data: function (term, page) {
+            return {
+                q: term,
+                page_limit: 10,
+                apikey: "ju6z9mjyajq2djue3gbvv26t"
+            };
+        },
+        results: function (data, page) {
+            return { results: data.movies };
+        }
+    },
+    formatResult: movieFormatResult,
+    formatSelection: movieFormatSelection,
+    dropdownCssClass: "bigdrop"
+});
+$("#e6").select2({
+    placeholder: "Search for a movie",
+    minimumInputLength: 1,
+    ajax: {
+        url: () => { return "http://api.rottentomatoes.com/api/public/v1.0/movies.json"; },
+        dataType: 'jsonp',
         data: function (term, page) {
             return {
                 q: term,
@@ -123,15 +145,16 @@ $("#e11_2").select2({
     data: [{ id: 0, text: 'story' }, { id: 1, text: 'bug' }, { id: 2, text: 'task' }]
 });
 function log(e) {
-    var e = $("<li>" + e + "</li>");
-    $("#events_11").append(e);
-    e.animate({ opacity: 1 }, 10000, 'linear', function () { e.animate({ opacity: 0 }, 2000, 'linear', function () { e.remove(); }); });
+    var item = $("<li>" + e + "</li>");
+    $("#events_11").append(item);
+    item.animate({ opacity: 1 }, 10000, 'linear', function () { item.animate({ opacity: 0 }, 2000, 'linear', function () { item.remove(); }); });
 }
 $("#e11")
-        .on("change", function (e) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
+		// TS 0.9.5: correct overload not resolved https://typescript.codeplex.com/discussions/472172
+		.on("change", function (e: Select2JQueryEventObject) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
         .on("open", function () { log("open"); });
 $("#e11_2")
-        .on("change", function (e) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
+		.on("change", function (e: Select2JQueryEventObject) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
         .on("open", function () { log("open"); });
 $("#e12").select2({ tags: ["red", "green", "blue"] });
 $("#e20").select2({
@@ -162,3 +185,15 @@ $("#e17_2").select2({
 });
 $("#e18,#e18_2").select2();
 alert("Selected value is: " + $("#e8").select2("val")); $("#e8").select2("val", { id: "CA", text: "Califoria" });
+
+$("#e8").select2("val");
+$("#e8").select2("val", "CA");
+$("#e8").select2("data");
+$("#e8").select2("data", { id: "CA", text: "Califoria" });
+$("#e8").select2("destroy");
+$("#e8").select2("open");
+$("#e8").select2("enable", false);
+$("#e8").select2("readonly", false);
+$("#e8").select2('container');
+$("#e8").select2('onSortStart');
+$("#e8").select2('onSortEnd');

@@ -1,17 +1,17 @@
 /// <reference path="breeze.d.ts" />
 
-import breeze = module(Breeze);
-import core = module(BreezeCore);
+import core = breeze.core;
+import config = breeze.config;
 
 function test_dataType() {
     var typ = breeze.DataType.DateTime;
     var nm = typ.getName();
-    var isNumber = typ.isNumeric;
     var dv = typ.defaultValue;
     var symbs = breeze.DataType.getSymbols();
-    var x = typ.parentEnum === <BreezeCore.IEnum> breeze.DataType;
+    var x = typ.parentEnum === <breeze.core.IEnum> breeze.DataType;
     var isFalse = breeze.DataType.contains(breeze.DataType.Double);
     var dt = breeze.DataType.fromName("Decimal");
+
 }
 
 function test_dataProperty() {
@@ -22,17 +22,18 @@ function test_dataProperty() {
         maxLength: 20
     });
     var personEntityType: breeze.EntityType;
-    personEntityType.addProperty(lastNameProp);   
+    personEntityType.addProperty(lastNameProp);
 }
 
 function test_dataService() {
     var ds = new breeze.DataService({
-        serviceName: "api/NorthwindIBModel",
+        serviceName: "breeze/NorthwindIBModel",
         hasServerMetadata: true
     });
     var em = new breeze.EntityManager({
         dataService: ds
     });
+
 }
 
 function test_entityAspect() {
@@ -43,9 +44,9 @@ function test_entityAspect() {
     var orderDateErrors = order.entityAspect.getValidationErrors("OrderDate");
     var orderDateProperty = order.entityType.getProperty("OrderDate");
     var orderDateErrors = order.entityAspect.getValidationErrors(orderDateProperty);
-    order.entityAspect.loadNavigationProperty("Orders").then(function (data) {
+    order.entityAspect.loadNavigationProperty("Orders").then(function (data: breeze.QueryResult) {
         var orders = data.results;
-    }).fail(function (exception) { });
+    }).catch(function (exception) { });
     order.entityAspect.rejectChanges();
     order.entityAspect.setDeleted();
     order.entityAspect.setModified();
@@ -68,7 +69,7 @@ function test_entityAspect() {
         var errorsAdded = validationChangeArgs.added;
         var errorsCleared = validationChangeArgs.removed;
     });
-    
+
 }
 
 function test_entityKey() {
@@ -89,7 +90,7 @@ function test_entityKey() {
 function test_metadataStore() {
     var ms = new breeze.MetadataStore();
     var entityManager = new breeze.EntityManager({
-        serviceName: "api/NorthwindIBModel",
+        serviceName: "breeze/NorthwindIBModel",
         metadataStore: ms
     });
     var em1: breeze.EntityManager;
@@ -100,13 +101,13 @@ function test_metadataStore() {
     var newMetadataStore = new breeze.MetadataStore();
     newMetadataStore.importMetadata(metadataFromStorage);
     var ms = new breeze.MetadataStore();
-    ms.fetchMetadata("api/NorthwindIBModel")
+    ms.fetchMetadata("breeze/NorthwindIBModel")
         .then(function (rawMetadata) { })
-        .fail(function (exception) { });
+        .catch(function (exception) { });
     var odType = em1.metadataStore.getEntityType("OrderDetail");
     var badType = em1.metadataStore.getEntityType("Foo", false);
     var allTypes = em1.metadataStore.getEntityTypes();
-    if (!em1.metadataStore.hasMetadataFor("api/NorthwindIBModel")) { }
+    if (!em1.metadataStore.hasMetadataFor("breeze/NorthwindIBModel")) { }
     var metadataAsString = ms.exportMetadata();
     window.localStorage.setItem("metadata", metadataAsString);
     var metadataFromStorage = window.localStorage.getItem("metadata");
@@ -124,13 +125,14 @@ function test_metadataStore() {
 }
 
 function test_entityManager() {
-    var entityManager = new breeze.EntityManager("api/NorthwindIBModel");
-    var entityManager = new breeze.EntityManager({ serviceName: "api/NorthwindIBModel" });
+    var entityManager = new breeze.EntityManager("breeze/NorthwindIBModel");
+    var em1 = new breeze.EntityManager({ serviceName: "breeze/NorthwindIBModel" });
     var metadataStore = new breeze.MetadataStore();
     var entityManager = new breeze.EntityManager({
-        serviceName: "api/NorthwindIBModel",
+        serviceName: "breeze/NorthwindIBModel",
         metadataStore: metadataStore
     });
+
     return new breeze.QueryOptions({
         mergeStrategy: null,
         fetchStrategy: this.fetchStrategy
@@ -145,13 +147,17 @@ function test_entityManager() {
         validateOnQuery: false
     });
     var entityManager = new breeze.EntityManager({
-        serviceName: "api/NorthwindIBModel",
+        serviceName: "breeze/NorthwindIBModel",
         queryOptions: queryOptions,
         validationOptions: validationOptions
     });
     var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
     var cust1 = custType.createEntity();
     em1.addEntity(cust1);
+
+    var cust2 = em1.createEntity("Customer", { companyName: "foo" });
+    var cust3 = em1.createEntity("foo", { xxx: 3 }, breeze.EntityState.Added);
+
     em1.attachEntity(cust1, breeze.EntityState.Added);
     em1.clear();
     var em2 = em1.createEmptyCopy();
@@ -160,14 +166,14 @@ function test_entityManager() {
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders");
     em.executeQuery(query)
-      .then(function (data) {
+      .then(function (data: breeze.QueryResult) {
           var orders = data.results;
-      }).fail(function (err) {
+      }).catch(function (err) {
       });
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders");
     em.executeQuery(query,
-       function (data) {
+       function (data: breeze.QueryResult) {
            var orders = data.results;
        },
        function (err) {
@@ -175,9 +181,9 @@ function test_entityManager() {
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders").using(em);
     query.execute()
-      .then(function (data) {
+      .then(function (data: breeze.QueryResult) {
           var orders = data.results;
-      }).fail(function (err) {
+      }).catch(function (err) {
       });
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders");
@@ -185,9 +191,9 @@ function test_entityManager() {
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders").using(breeze.FetchStrategy.FromLocalCache);
     em.executeQuery(query)
-      .then(function (data) {
+      .then(function (data: breeze.QueryResult) {
           var orders = data.results;
-      }).fail(function (err) {
+      }).catch(function (err) {
       });
     var bundle = em1.exportEntities();
     window.localStorage.setItem("myEntityManager", bundle);
@@ -200,12 +206,12 @@ function test_entityManager() {
     var entitiesToExport: breeze.Entity[];
     var bundle = em1.exportEntities(entitiesToExport);
     em2.importEntities(bundle, { mergeStrategy: breeze.MergeStrategy.PreserveChanges });
-    var em1 = new breeze.EntityManager("api/NorthwindIBModel");
+    var em1 = new breeze.EntityManager("breeze/NorthwindIBModel");
     em1.fetchMetadata()
        .then(function () {
            var metadataStore = em1.metadataStore;
        })
-       .fail(function (exception) {
+       .catch(function (exception) {
        });
     var employeeType = em1.metadataStore.getEntityType("Employee");
     var employeeKey = new breeze.EntityKey(<breeze.EntityType> employeeType, 1);
@@ -216,8 +222,8 @@ function test_entityManager() {
     var custumer = custType.createEntity();
     var customerId = em.generateTempKeyValue(custumer);
     em1.saveChanges()
-        .then(function (data) {
-            var sameCust1 = data.results[0];
+        .then(function (data: breeze.SaveResult) {
+            var sameCust1 = data.entities[0];
         });
     var changedEntities = em1.getChanges();
     var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
@@ -239,7 +245,8 @@ function test_entityManager() {
     if (em1.hasChanges(custType)) { }
     var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
     var orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
-    if (em1.hasChanges([custType, orderType])) { }
+    if (em1.hasChanges([custType, orderType])) { };
+
     var bundle = em1.exportEntities();
     window.localStorage.setItem("myEntityManager", bundle);
     var bundleFromStorage = window.localStorage.getItem("myEntityManager");
@@ -250,37 +257,37 @@ function test_entityManager() {
         metadataStore: em1.metadataStore
     });
     em2.importEntities(bundle);
-    var bundle = em1.exportEntities();
-    em2.importEntities(bundle, { mergeStrategy: breeze.MergeStrategy.PreserveChanges });
-    em.saveChanges().then(function (saveResult) {
+    var bundle2 = em1.exportEntities(null, { asString: true, includeMetadata: true });
+    em2.importEntities(bundle2, { mergeStrategy: breeze.MergeStrategy.PreserveChanges });
+    em.saveChanges().then(function (saveResult: breeze.SaveResult) {
         var savedEntities = saveResult.entities;
         var keyMappings = saveResult.keyMappings;
-    }).fail(function (e) {
+    }).catch(function (e) {
     });
     var saveOptions = new breeze.SaveOptions({ allowConcurrentSaves: true });
     var entitiesToSave: breeze.Entity[];
-    em.saveChanges(entitiesToSave, saveOptions).then(function (saveResult) {
+    em.saveChanges(entitiesToSave, saveOptions).then(function (saveResult: breeze.SaveResult) {
         var savedEntities = saveResult.entities;
         var keyMappings = saveResult.keyMappings;
-    }).fail(function (e) {
+    }).catch(function (e) {
     });
     em.saveChanges(entitiesToSave, null,
-        function (saveResult) {
+        function (saveResult: breeze.SaveResult) {
             var savedEntities = saveResult.entities;
             var keyMappings = saveResult.keyMappings;
         }, function (e) { }
     );
     em1.setProperties({
-        serviceName: "api/foo",
+        serviceName: "breeze/foo",
     });
-    var em = new breeze.EntityManager({ serviceName: "api/NorthwindIBModel" });
+    var em = new breeze.EntityManager({ serviceName: "breeze/NorthwindIBModel" });
     em.entityChanged.subscribe(function (changeArgs) {
         var action = changeArgs.entityAction;
         var entity = changeArgs.entity;
     });
-    var em = new breeze.EntityManager({ serviceName: "api/NorthwindIBModel" });
+    var em = new breeze.EntityManager({ serviceName: "breeze/NorthwindIBModel" });
     em.hasChangesChanged.subscribe(function (args) {
-        var hasChangesChanged = args.hasChanges;
+        var hasChanges = args.hasChanges;
         var entityManager = args.entityManager;
     });
 }
@@ -294,21 +301,21 @@ function test_entityQuery() {
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders").using(em);
     query.execute()
-        .then(function (data) { })
-        .fail(function (err) { });
+        .then(function (data: breeze.QueryResult) { })
+        .catch(function (err) { });
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders").using(em);
     query.execute(
-       function (data) {
+       function (data: breeze.QueryResult) {
            var orders = data.results;
        },
        function (err) { });
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders");
     em.executeQuery(query)
-      .then(function (data) {
+      .then(function (data: breeze.QueryResult) {
           var orders = data.results;
-      }).fail(function (err) {
+      }).catch(function (err) {
       });
     var query = new breeze.EntityQuery("Orders").using(em);
     var orders = query.executeLocally();
@@ -377,6 +384,8 @@ function test_entityQuery() {
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders")
         .using(breeze.FetchStrategy.FromLocalCache);
+    var adapter = new breeze.JsonResultsAdapter({ name: "foo", visitNode: function (x) { return x; } });
+    var q2 = query.using(adapter);
     var query = new breeze.EntityQuery("Customers")
         .where("CompanyName", "startsWith", "C");
     var query = new breeze.EntityQuery("Customers")
@@ -393,6 +402,14 @@ function test_entityQuery() {
         .where("toLower(CompanyName)", "startsWith", "c");
     var query = new breeze.EntityQuery("Customers")
         .where("toUpper(substring(CompanyName, 1, 2))", breeze.FilterQueryOp.Equals, "OM");
+    var q2 = query.toType("foo").orderBy("foo2");
+
+    var pred = new breeze.Predicate('items', 'any', 'serialNumber', 'contains', '12345');
+    var pred = new breeze.Predicate('items', breeze.FilterQueryOp.Any, 'serialNumber', breeze.FilterQueryOp.Contains, '12345');
+    var pred = breeze.Predicate.create('items', 'any', 'serialNumber', 'contains', '12345');
+    var pred = breeze.Predicate.create('items', breeze.FilterQueryOp.Any, 'serialNumber', breeze.FilterQueryOp.Contains, '12345');
+
+    var json = query.toJSON();
 }
 
 function test_entityState() {
@@ -417,27 +434,29 @@ function test_entityState() {
     return es === breeze.EntityState.Unchanged;
     var es = anEntity.entityAspect.entityState;
     return es.isUnchangedOrModified();
-    
+
     return es === breeze.EntityState.Unchanged || es === breeze.EntityState.Modified;
 }
 
 function test_entityType() {
     var myMetadataStore: breeze.MetadataStore;
     var myEntityType: breeze.EntityType;
-    var dataProperty1, dataProperty2, navigationProperty1: breeze.DataProperty;
+    var dataProperty1: breeze.DataProperty, dataProperty2: breeze.DataProperty, navigationProperty1: breeze.DataProperty;
     var em1: breeze.EntityManager;
+    /* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
     var entityManager = new breeze.EntityType({
         metadataStore: myMetadataStore,
-        serviceName: "api/NorthwindIBModel",
+        serviceName: "breeze/NorthwindIBModel",
         name: "person",
         namespace: "myAppNamespace"
     });
+     */
     myEntityType.addProperty(dataProperty1);
     myEntityType.addProperty(dataProperty2);
     myEntityType.addProperty(navigationProperty1);
     var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
     var countryProp = custType.getProperty("Country");
-    var valFn = function (v) {
+    var valFn = function (v: string) {
         if (v == null) return true;
         return (v.substring(0,2) === "US");
     };
@@ -516,16 +535,19 @@ function test_entityType() {
 //    DayOfWeek.getSymbols().length === 7;
 //    DayOfWeek.Friday.toString() === "Friday";
 //}
+interface CustomEntityManager extends breeze.EntityManager {
+    customTag: string;
+}
 
 function test_event() {
-    var myEntityManager: breeze.EntityManager;
-    var myEntity, person: breeze.Entity;
+    var myEntityManager: CustomEntityManager;
+    var myEntity: breeze.Entity, person: breeze.Entity;
     var salaryEvent = new core.Event("salaryEvent", person);
     core.Event.enable("propertyChanged", myEntityManager, false);
     core.Event.enable("propertyChanged", myEntityManager, true);
     core.Event.enable("propertyChanged", myEntity.entityAspect, false);
     core.Event.enable("propertyChanged", myEntity.entityAspect, <Function> null);
-    core.Event.enable("validationErrorsChanged", myEntityManager, function (em) {
+    core.Event.enable("validationErrorsChanged", myEntityManager, function (em: CustomEntityManager) {
         return em.customTag === "blue";
     });
     core.Event.isEnabled("propertyChanged", myEntityManager);
@@ -678,8 +700,16 @@ function test_validationOptions() {
     var newOptions = validationOptions.using({ validateOnQuery: true, validateOnSave: false });
 }
 
+interface NumericRange{
+    max: number;
+	min: number;
+}
+
+interface NumericRangeValidatorFunctionContext extends breeze.ValidatorFunctionContext, NumericRange {
+}
+
 function test_validator() {
-    var valFn = function (v) {
+    var valFn = function (v: any) {
         if (v == null) return true;
         return ( v.substr(0,2)=== "US");
     };
@@ -691,11 +721,11 @@ function test_validator() {
     var custType = <breeze.EntityType> metadataStore.getEntityType("Customer");
     var countryProp = custType.getProperty("Country");
     countryProp.validators.push(countryValidator);
-    function isValidZipCode(value) {
+    function isValidZipCode(value: string) {
         var re = /^\d{5}([\-]\d{4})?$/;
         return (re.test(value));
     }
-    var valFn = function (v) {
+    var valFn = function (v: any) {
         if (v.getProperty("Country") === "USA") {
             var postalCode = v.getProperty("PostalCode");
             return isValidZipCode(postalCode);
@@ -707,8 +737,8 @@ function test_validator() {
     var em1: breeze.EntityManager;
     var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
     custType.validators.push(zipCodeValidator);
-    var numericRangeValidator = function (context) {
-        var valFn = function (v, ctx) {
+    var numericRangeValidator = function (context: NumericRange) {
+        var valFn = function (v: any, ctx: NumericRangeValidatorFunctionContext) {
             if (v == null) return true;
             if (typeof (v) !== "number") return false;
             if (ctx.min != null && v < ctx.min) return false;
@@ -728,38 +758,41 @@ function test_validator() {
     var orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
     var freightProperty = orderType.getProperty("Freight");
     regionProperty.validators.push(breeze.Validator.byte());
-    var orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
+    orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
     var orderDateProperty = orderType.getProperty("OrderDate");
     orderDateProperty.validators.push(breeze.Validator.date());
+    /* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
     var v0 = breeze.Validator.maxLength({ maxLength: 5, displayName: "City" });
     v0.validate("adasdfasdf");
     var errMessage = v0.getMessage();
-    var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
+     */
+    custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
     var customerIdProperty = custType.getProperty("CustomerID");
     customerIdProperty.validators.push(breeze.Validator.guid());
-    var orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
-    var freightProperty = orderType.getProperty("Freight");
+    orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
+    freightProperty = orderType.getProperty("Freight");
     freightProperty.validators.push(breeze.Validator.int16());
-    var orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
-    var freightProperty = orderType.getProperty("Freight");
+    orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
+    freightProperty = orderType.getProperty("Freight");
     freightProperty.validators.push(breeze.Validator.int32());
-    var orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
-    var freightProperty = orderType.getProperty("Freight");
+    orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
+    freightProperty = orderType.getProperty("Freight");
     freightProperty.validators.push(breeze.Validator.int64());
-    var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
+    custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
     var regionProperty = custType.getProperty("Region");
     regionProperty.validators.push(breeze.Validator.maxLength({ maxLength: 5 }));
-    var orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
-    var freightProperty = orderType.getProperty("Freight");
+    orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
+    freightProperty = orderType.getProperty("Freight");
     freightProperty.validators.push(breeze.Validator.number());
-    var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
-    var regionProperty = custType.getProperty("Region");
+    custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
+    regionProperty = custType.getProperty("Region");
     regionProperty.validators.push(breeze.Validator.required());
-    var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
-    var regionProperty = custType.getProperty("Region");
+    custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
+    regionProperty = custType.getProperty("Region");
     regionProperty.validators.push(breeze.Validator.string());
-    var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
-    var regionProperty = custType.getProperty("Region");
+    custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
+     regionProperty = custType.getProperty("Region");
+    /* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
     regionProperty.validators.push(breeze.Validator.stringLength({ minLength: 2, maxLength: 5 }));
     var validator = breeze.Validator.maxLength({ maxLength: 5, displayName: "City" });
     var result = validator.validate("asdf");
@@ -768,20 +801,96 @@ function test_validator() {
     var errMsg = result.errorMessage;
     var context = result.context;
     var sameValidator = result.validator;
-    var valFn = function (v) {
+     */
+    var valFn = function (v: any) {
         if (v == null) return true;
-        return (v.substr(0,2) ===  "US");
+        return (v.substr(0,2) === "US");
     };
     var countryValidator = new breeze.Validator("countryIsUS", valFn, { displayName: "Country" });
     breeze.Validator.messageTemplates["countryIsUS"] = "'%displayName%' must start with 'US'";
+
+    breeze.Validator.register(countryValidator);
+    breeze.Validator.registerFactory(() => countryValidator, "country");
+
+    var urlValidator = breeze.Validator.url({ messageTemplate: 'u got that wrong' });
 }
 
 function test_demo() {
 
-    var manager = new breeze.EntityManager('api/northwind');
+    var manager = new breeze.EntityManager('breeze/northwind');
 
     var query = new breeze.EntityQuery()
         .from("Employees");
 
-    manager.executeQuery(query).then(function (data) { });
+    manager.executeQuery(query).then(function (data: breeze.QueryResult) { });
+}
+
+function test_corefns() {
+    var o1: Object;
+    var kvfn = function (p: any) { return p; }
+    core.objectForEach(o1, kvfn);
+
+    var o2: Object;
+    var o3: Object;
+    o3 = core.extend(o1, o2);
+
+    var f1: Function;
+    var f2: Function;
+    f1 = core.propEq("name", "Joe");
+    f1 = core.pluck("name");
+
+    var a1: any[];
+    var a2: any[];
+    var a3: any[];
+    var b: boolean;
+    var n: number;
+
+    var f3 = function (e1: any, e2: any) { return e1 == e2; };
+    var f4 = function (e1: any) { return false; };
+    b = core.arrayEquals(a1, a2, f3);
+    b = core.arrayFirst(a1, f4);
+    n = core.arrayIndexOf(a1, f4);
+    b = core.arrayRemoveItem(a1, "whatever", false);
+    a3 = core.arrayZip(a1, a2, f3);
+
+    var f5 = function () { return false; };
+    o1 = core.requireLib("libc,stdio", "Library not found");
+    o1 = core.using(o2, "something", "x", f5);
+    f2 = core.memoize(f4);
+    var s: string;
+    s = core.getUuid();
+    n = core.durationToSeconds(s);
+
+    b = core.isDate(s);
+    b = core.isGuid(s);
+    b = core.isDuration(s);
+    b = core.isFunction(s);
+    b = core.isEmpty(s);
+    b = core.isNumeric(s);
+
+    b = core.stringStartsWith(s, "pre");
+    b = core.stringEndsWith(s, "suf");
+    s = core.formatString("My %1 is full of %2", "hovercraft", "eels");
+
+}
+
+function test_config() {
+    var s: string;
+    s = config.ajax;
+    s = config.dataService;
+    var o: Object;
+    o = config.functionRegistry;
+    o = config.getAdapter("myInterfaceName", "myAdapterName");
+    o = config.getAdapterInstance("myInterfaceName", "myAdapterName");
+    config.initializeAdapterInstance("myInterfaceName", "myAdapterName", true);
+    config.initializeAdapterInstances({ x: 3, y: "not" });
+    s = config.interfaceInitialized.type;
+    o = config.interfaceRegistry;
+    o = config.objectRegistry;
+    var f1: Function;
+    config.registerAdapter("myAdapterName", f1);
+    config.registerFunction(f1, "myFunction");
+    config.registerType(f1, "myCtor");
+    s = config.stringifyPad;
+    o = config.typeRegistry;
 }

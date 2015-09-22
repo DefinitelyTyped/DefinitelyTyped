@@ -1,7 +1,7 @@
 // https://github.com/mde/jake
 /// <reference path="jake.d.ts" />
 
-import path = module("path");
+import path = require("path");
 
 desc('This is the default task.');
 task('default', function (params) {
@@ -9,7 +9,7 @@ task('default', function (params) {
 });
 
 desc('This task has prerequisites.');
-task('hasPrereqs', ['foo', 'bar', 'baz'], function (params) {
+task('hasPrereqs', ['foo', 'bar', 'baz'], function () {
   console.log('Ran some prereqs first.');
 });
 

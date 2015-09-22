@@ -1,15 +1,15 @@
 // Type definitions for Zynga Viewporter v2.1
 // Project: https://github.com/zynga/viewporter
-// Definitions by: Boris Yankov https://github.com/borisyankov
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface Viewporter {
-    preventPageScroll: bool;
-    forceDetection: bool;
-    ACTIVE: bool;
-    READY: bool;
+    preventPageScroll: boolean;
+    forceDetection: boolean;
+    ACTIVE: boolean;
+    READY: boolean;
 
-    isLandscape(): bool;
+    isLandscape(): boolean;
     ready(callback: EventListener): void;
     change(callback: EventListener): void;
     refresh(): void;

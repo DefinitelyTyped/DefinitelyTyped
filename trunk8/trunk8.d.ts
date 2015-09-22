@@ -25,7 +25,7 @@ interface Trunk8Options {
     (Default: true) When true, the title attribute of the targeted HTML element will be set to the original, untruncated string. Valid values include true and false.
     @param {bool} tooltip
     */
-    tooltip?: bool;
+    tooltip?: boolean;
     /**
     (Default: 'auto') The width, in characters, of the desired text. When set to 'auto', trunk8 will maximize the amount of text without spilling over.
     @param {string} width

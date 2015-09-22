@@ -1,20 +1,21 @@
-// Type definitions for jquery.dynatree 1.2
+// Type definitions for jquery.dynatree 1.2.5
 // Project: http://code.google.com/p/dynatree/
-// Definitions by: https://github.com/fdecampredon
+// Definitions by: François de Campredon <https://github.com/fdecampredon>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="../jqueryui/jqueryui.d.ts"/>
+
+declare module JQueryUI {
+    interface UI {
+        dynatree: DynatreeNamespace
+    }
+}
 
 interface JQuery {
     dynatree(options?: DynatreeOptions): DynaTree;
     dynatree(option?: string, ...rest: any[]): any;
-}
-
-interface JQueryStatic {
-    ui: {
-        dynatree: DynatreeNamespace;
-    };
 }
 
 interface DynaTree {
@@ -22,25 +23,25 @@ interface DynaTree {
     count(): number;
     enable(): void;
     disable(): void;
-    enableUpdate(enable: bool): void;
+    enableUpdate(enable: boolean): void;
     getActiveNode(): DynaTreeNode;
     getNodeByKey(key: string): DynaTreeNode;
     getPersistData(): any;
     getRoot(): DynaTreeNode;
-    getSelectedNodes(stopOnParents: bool): DynaTreeNode[];
+    getSelectedNodes(stopOnParents: boolean): DynaTreeNode[];
     initialize(): void;
-    isInitializing(): bool;
-    isReloading(): bool;
-    isUserEvent(): bool;
+    isInitializing(): boolean;
+    isReloading(): boolean;
+    isUserEvent(): boolean;
     loadKeyPath(keyPath: string, callback: (node: DynaTreeNode, status: string) =>void ): void;
-    reactivate(setFocus: bool): void;
+    reactivate(setFocus: boolean): void;
     redraw(): void;
     reload(): void;
     renderInvisibleNodes(): void;
     selectKey(key: string, flag: string): DynaTreeNode;
-    serializeArray(stopOnParents: bool): any[];
-    toDict(): any;
-    visit(fn: (node: DynaTreeNode) =>bool, includeRoot: bool): void;
+    serializeArray(stopOnParents: boolean): any[];
+    toDict(includeRoot?: boolean): any;
+    visit(fn: (node: DynaTreeNode) =>boolean, includeRoot?: boolean): void;
 }
 
 
@@ -53,7 +54,7 @@ interface DynaTreeNode {
     appendAjax(ajaxOptions: JQueryAjaxSettings): void;
     countChildren(): number;
     deactivate(): void;
-    expand(flag: string): void;
+    expand(flag: boolean): void;
     focus(): void;
     getChildren(): DynaTreeNode[];
     getEventTargetType(event: Event): string;
@@ -61,36 +62,37 @@ interface DynaTreeNode {
     getNextSibling(): DynaTreeNode;
     getParent(): DynaTreeNode;
     getPrevSibling(): DynaTreeNode;
-    hasChildren(): bool;
-    isActive(): bool;
-    isChildOf(otherNode: DynaTreeNode): bool;
-    isDescendantOf(otherNode: DynaTreeNode): bool;
-    isExpanded(): bool;
-    isFirstSibling(): bool;
-    isFocused(): bool;
-    isLastSibling(): bool;
-    isLazy(): bool;
-    isLoading(): bool;
-    isSelected(): bool;
-    isStatusNode(): bool;
-    isVisible(): bool;
-    makeVisible(): bool;
-    move(targetNode: DynaTreeNode, mode: string): bool;
-    reload(force: bool): void;
+    hasChildren(): boolean;
+    isActive(): boolean;
+    isChildOf(otherNode: DynaTreeNode): boolean;
+    isDescendantOf(otherNode: DynaTreeNode): boolean;
+    isExpanded(): boolean;
+    isFirstSibling(): boolean;
+    isFocused(): boolean;
+    isLastSibling(): boolean;
+    isLazy(): boolean;
+    isLoading(): boolean;
+    isSelected(): boolean;
+    isStatusNode(): boolean;
+    isVisible(): boolean;
+    makeVisible(): boolean;
+    move(targetNode: DynaTreeNode, mode: string): boolean;
+    reload(force: boolean): void;
+    reloadChildren(callback?: (node: DynaTreeNode, isOk: boolean) => any): void;
     remove(): void;
     removeChildren(): void;
-    render(useEffects: bool, includeInvisible: bool): void;
+    render(useEffects: boolean, includeInvisible: boolean): void;
     resetLazy(): void;
-    scheduleAction(mode: string, ms: number);
-    select(flag: string): void;
+    scheduleAction(mode: string, ms: number): void;
+    select(flag: boolean): void;
     setLazyNodeStatus(status: number): void;
     setTitle(title: string): void;
-    sortChildren(cmp?: (a: DynaTreeNode, b: DynaTreeNode) =>number, deep?: bool);
-    toDict(recursive: bool, callback?: (node: any) =>any): any;
+    sortChildren(cmp?: (a: DynaTreeNode, b: DynaTreeNode) =>number, deep?: boolean): void;
+    toDict(recursive: boolean, callback?: (node: any) =>any): any;
     toggleExpand(): void;
     toggleSelect(): void;
-    visit(fn: (node: DynaTreeNode) =>bool, includeSelf: bool): void;
-    visitParents(fn: (node: DynaTreeNode) =>bool, includeSelf: bool): void;
+    visit(fn: (node: DynaTreeNode) =>boolean, includeSelf: boolean): void;
+    visitParents(fn: (node: DynaTreeNode) =>boolean, includeSelf: boolean): void;
 }
 
 interface DynatreeOptions {
@@ -100,18 +102,18 @@ interface DynatreeOptions {
     children?: DynaTreeDataModel[]; // Init tree structure from this object array.
     initId?: string; // Init tree structure from a <ul> element with this ID.
     initAjax?: JQueryAjaxSettings; // Ajax options used to initialize the tree strucuture.
-    autoFocus?: bool; // Set focus to first child, when expanding or lazy-loading.
-    keyboard?: bool; // Support keyboard navigation.
-    persist?: bool; // Persist expand-status to a cookie
-    autoCollapse?: bool; // Automatically collapse all siblings, when a node is expanded.
+    autoFocus?: boolean; // Set focus to first child, when expanding or lazy-loading.
+    keyboard?: boolean; // Support keyboard navigation.
+    persist?: boolean; // Persist expand-status to a cookie
+    autoCollapse?: boolean; // Automatically collapse all siblings, when a node is expanded.
     clickFolderMode?: number; // 1:activate, 2:expand, 3:activate and expand
-    activeVisible?: bool; // Make sure, active nodes are visible (expanded).
-    checkbox?: bool; // Show checkboxes.
+    activeVisible?: boolean; // Make sure, active nodes are visible (expanded).
+    checkbox?: boolean; // Show checkboxes.
     selectMode?: number; // 1:single, 2:multi, 3:multi-hier
     fx?: any; // Animations, e.g. null or { height: "toggle", duration: 200 }
-    noLink?: bool; // Use <span> instead of <a> tags for all nodes
+    noLink?: boolean; // Use <span> instead of <a> tags for all nodes
     debugLevel?: number; // 0:quiet, 1:normal, 2:debug
-    generateIds?: bool; // Generate id attributes like <span id='dynatree-id-KEY'>
+    generateIds?: boolean; // Generate id attributes like <span id='dynatree-id-KEY'>
     idPrefix?: string; // Used to generate node id's like <span id="dynatree-id-<key>">.
     keyPathSeparator?: string; // Used by node.getKeyPath() and tree.loadKeyPath().
     cookieId?: string; // Choose a more unique name, to allow multiple trees.
@@ -127,12 +129,12 @@ interface DynatreeOptions {
 
 
     // Low level event handlers: onEvent(dtnode, event): return false, to stop default processing
-    onClick?: (dtnode: DynaTreeNode, event: Event) =>bool; // null: generate focus, expand, activate, select events.
-    onDblClick?: (dtnode: DynaTreeNode, event: Event) =>bool; // (No default actions.)
-    onKeydown?: (dtnode: DynaTreeNode, event: Event) =>bool; // null: generate keyboard navigation (focus, expand, activate).
-    onKeypress?: (dtnode: DynaTreeNode, event: Event) =>bool; // (No default actions.)
-    onFocus?: (dtnode: DynaTreeNode, event: Event) =>bool; // null: set focus to node.
-    onBlur?: (dtnode: DynaTreeNode, event: Event) =>bool; // null: remove focus from node.
+    onClick?: (dtnode: DynaTreeNode, event: Event) =>boolean; // null: generate focus, expand, activate, select events.
+    onDblClick?: (dtnode: DynaTreeNode, event: Event) =>boolean; // (No default actions.)
+    onKeydown?: (dtnode: DynaTreeNode, event: Event) =>boolean; // null: generate keyboard navigation (focus, expand, activate).
+    onKeypress?: (dtnode: DynaTreeNode, event: Event) =>boolean; // (No default actions.)
+    onFocus?: (dtnode: DynaTreeNode, event: Event) =>boolean; // null: set focus to node.
+    onBlur?: (dtnode: DynaTreeNode, event: Event) =>boolean; // null: remove focus from node.
 
     // Pre-event handlers onQueryEvent(flag, dtnode): return false, to stop processing
     onQueryActivate?: (flag: string, dtnode: DynaTreeNode) =>void; // Callback(flag, dtnode) before a node is (de)activated.
@@ -140,7 +142,7 @@ interface DynatreeOptions {
     onQueryExpand?: (flag: string, dtnode: DynaTreeNode) =>void;// Callback(flag, dtnode) before a node is expanded/collpsed.
 
     // High level event handlers
-    onPostInit?: (isReloading: bool, isError: bool) =>void;// Callback(isReloading, isError) when tree was (re)loaded.
+    onPostInit?: (isReloading: boolean, isError: boolean) =>void;// Callback(isReloading, isError) when tree was (re)loaded.
     onActivate?: (dtnode: DynaTreeNode) =>void; // Callback(dtnode) when a node is activated.
     onDeactivate?: (dtnode: DynaTreeNode) =>void; // Callback(dtnode) when a node is deactivated.
     onSelect?: (flag: string, dtnode: DynaTreeNode) =>void; // Callback(flag, dtnode) when a node is (de)selected.
@@ -155,19 +157,19 @@ interface DynatreeOptions {
 interface DynaTreeDataModel {
     title: string; // (required) Displayed name of the node (html is allowed here)
     key?: string; // May be used with activate(), select(), find(), ...
-    isFolder?: bool; // Use a folder icon. Also the node is expandable but not selectable.
-    isLazy?: bool; // Call onLazyRead(), when the node is expanded for the first time to allow for delayed creation of children.
+    isFolder?: boolean; // Use a folder icon. Also the node is expandable but not selectable.
+    isLazy?: boolean; // Call onLazyRead(), when the node is expanded for the first time to allow for delayed creation of children.
     tooltip?: string; // Show this popup text.
     href?: string; // Added to the generated <a> tag.
     icon?: string; // Use a custom image (filename relative to tree.options.imagePath). 'null' for default icon, 'false' for no icon.
     addClass?: string; // Class name added to the node's span tag.
-    noLink?: bool; // Use <span> instead of <a> tag for this node
-    activate?: bool; // Initial active status.
-    focus?: bool; // Initial focused status.
-    expand?: bool; // Initial expanded status.
-    select?: bool; // Initial selected status.
-    hideCheckbox?: bool; // Suppress checkbox display for this node.
-    unselectable?: bool; // Prevent selection.
+    noLink?: boolean; // Use <span> instead of <a> tag for this node
+    activate?: boolean; // Initial active status.
+    focus?: boolean; // Initial focused status.
+    expand?: boolean; // Initial expanded status.
+    select?: boolean; // Initial selected status.
+    hideCheckbox?: boolean; // Suppress checkbox display for this node.
+    unselectable?: boolean; // Prevent selection.
     // The following attributes are only valid if passed to some functions:
     children?: DynaTreeDataModel[]; // Array of child nodes.
     // NOTE: we can also add custom attributes here.
@@ -176,8 +178,8 @@ interface DynaTreeDataModel {
 
 interface DynaTreeDNDOptions {
     autoExpandMS?: number; // Expand nodes after n milliseconds of hovering.
-    preventVoidMoves?: bool; // Prevent dropping nodes 'before self', etc. 
-
+    preventVoidMoves?: boolean; // Prevent dropping nodes 'before self', etc. 
+    revert: boolean; // true: slide helper back to source if drop is rejected
 
     // Make tree nodes draggable:
     onDragStart?: (sourceNode: any) =>void; // Callback(sourceNode), return true, to enable dnd
@@ -201,7 +203,7 @@ interface DynaTreeStringsOptions {
 
 interface DynaTreeAjaxOptions {
 
-    cache?: bool; // false: Append random '_' argument to the request url to prevent caching.
+    cache?: boolean; // false: Append random '_' argument to the request url to prevent caching.
     timeout?: number; // >0: Make sure we get an ajax error for invalid URLs
     dataType?: string; // Expect json format and pass json object to callbacks.
 }

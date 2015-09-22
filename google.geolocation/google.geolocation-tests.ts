@@ -2,7 +2,7 @@
 /// <reference path="google.geolocation.d.ts" />
 
 //determine if the handset has client side geo location capabilities
-var isInit: bool = geo_position_js.init();
+var isInit: boolean = geo_position_js.init();
 if(isInit){
    geo_position_js.getCurrentPosition(success_callback, error_callback);
 } else {

@@ -1,6 +1,6 @@
-// Type definitions for jQuery.timeago.js 1.0.2
+﻿// Type definitions for jQuery.timeago.js 1.0.2
 // Project: http://timeago.yarp.com/
-// Definitions by: Fran�ois Guillot <http://fguillot.developpez.com/>
+// Definitions by: François Guillot <http://fguillot.developpez.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -8,7 +8,7 @@
 
 interface TimeagoSetings {
     refreshMillis?: number;
-    allowFuture?: bool;
+    allowFuture?: boolean;
     strings?: {
         prefixAgo?: string;
         prefixFromNow?: string;
@@ -45,8 +45,8 @@ interface TimeagoStatic {
     parse(iso8601: string): Date;
     datetime(element: Element): Date;
     datetime(element: JQuery): Date;
-    isTime(element: Element): bool;
-    isTime(element: JQuery): bool;
+    isTime(element: Element): boolean;
+    isTime(element: JQuery): boolean;
 }
 
 interface Timeago {

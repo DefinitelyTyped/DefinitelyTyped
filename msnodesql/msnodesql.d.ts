@@ -1,44 +1,75 @@
-// Type definitions for msnodesql 0.2
+// Type definitions for msnodesql 0.2.1
 // Project: https://github.com/WindowsAzure/node-sqlserver
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
 ///<reference path='../node/node.d.ts' />
 
 declare module "msnodesql" {
-    export function open(connectionString: string, callback: Function): Connection;
+    import events = require('events');
+
+    export function open(connectionString: string, callback?: OpenCallback): Connection;
 
     export function query(connectionString: string, query: string): StreamEvents;
-    export function query(connectionString: string, query: string, callback: Callback): StreamEvents;
-    export function query(connectionString: string, query: string, params, callback: Callback): StreamEvents;
+    export function query(connectionString: string, query: string, callback: QueryCallback<any>): StreamEvents;
+    export function query(connectionString: string, query: string, params: any[]): StreamEvents;
+    export function query(connectionString: string, query: string, params: any[], callback: QueryCallback<any>): StreamEvents;
+
+    export function query<T>(connectionString: string, query: string, callback: QueryCallback<T>): StreamEvents;
+    export function query<T>(connectionString: string, query: string, params: any[], callback: QueryCallback<T>): StreamEvents;
 
     export function queryRaw(connectionString: string, query: string): StreamEvents;
-    export function queryRaw(connectionString: string, query: string, callback: Callback): StreamEvents;
-    export function queryRaw(connectionString: string, query: string, params, callback: Callback): StreamEvents;
+    export function queryRaw(connectionString: string, query: string, callback: QueryRawCallback): StreamEvents;
+    export function queryRaw(connectionString: string, query: string, params: any[]): StreamEvents;
+    export function queryRaw(connectionString: string, query: string, params: any[], callback: QueryRawCallback): StreamEvents;
 
-    interface Callback {
-        (err: Error, results: any[]): void;
+    interface OpenCallback {
+        (err?: Error, connection?: Connection): void;
     }
 
-    interface Errback {
+    interface QueryCallback<T> {
+        (err?: Error, results?: T[], more?: boolean): void;
+    }
+
+    interface QueryRawCallback {
+        (err?: Error, results?: QueryRawResult, more?: boolean): void;
+    }
+
+    interface QueryRawResult {
+        meta: QueryRawColumn[];
+        rows: any[][];
+    }
+
+    interface QueryRawColumn {
+        name?: string;
+    }
+
+    interface ErrorCallback {
         (err: Error): void;
     }
 
     interface Connection {
-        queryRaw(connectionString: string, query: string): StreamEvents;
-        queryRaw(connectionString: string, query: string, callback: Callback): StreamEvents;
-        queryRaw(connectionString: string, query: string, params, callback: Callback): StreamEvents;
+        query(query: string): StreamEvents;
+        query(query: string, callback: QueryCallback<any>): StreamEvents;
+        query(query: string, params: any[]): StreamEvents;
+        query(query: string, params: any[], callback: QueryCallback<any>): StreamEvents;
 
-        query(connectionString: string, query: string): StreamEvents;
-        query(connectionString: string, query: string, callback: Callback): StreamEvents;
-        query(connectionString: string, query: string, params, callback: Callback): StreamEvents;
+        query<T>(query: string, callback: QueryCallback<T>): StreamEvents;
+        query<T>(query: string, params: any[], callback: QueryCallback<T>): StreamEvents;
 
-        beginTransaction(callback?: Errback);
-        commit(callback?: Errback);
-        rollback(callback?: Errback);
-        close(callback?: Errback);
+        queryRaw(query: string): StreamEvents;
+        queryRaw(query: string, callback: QueryRawCallback): StreamEvents;
+        queryRaw(query: string, params: any[]): StreamEvents;
+        queryRaw(query: string, params: any[], callback: QueryRawCallback): StreamEvents;
+
+        beginTransaction(callback?: ErrorCallback);
+        commit(callback?: ErrorCallback);
+        rollback(callback?: ErrorCallback);
+
+        close(callback?: ErrorCallback);
+        close(immediately: boolean, callback?: ErrorCallback);
     }
 
-    interface StreamEvents extends EventEmitter { }
+    interface StreamEvents extends events.EventEmitter {}
 }

@@ -27,10 +27,10 @@ interface PouchApi {
 
 interface PouchGetOptions {
 	rev?: string;
-	revs?: bool;
-	revs_info?: bool;
-	conflicts?: bool;
-	attachments?: bool;
+	revs?: boolean;
+	revs_info?: boolean;
+	conflicts?: boolean;
+	attachments?: boolean;
 }
 
 interface PouchGetResponse {
@@ -42,9 +42,9 @@ interface PouchGetResponse {
 interface PouchAllDocsOptions {
 	startkey?: string;
 	endKey?: string;
-	descending?: bool;
-	include_docs?: bool;
-	conflicts?: bool;
+	descending?: boolean;
+	include_docs?: boolean;
+	conflicts?: boolean;
 }
 
 interface PouchAllDocsItem {
@@ -74,11 +74,11 @@ interface PouchBulkDocsRequest {
 }
 
 interface PouchUpdateOptions {
-	new_edits?: bool;
+	new_edits?: boolean;
 }
 
 interface PouchUpdateResponse {
-	ok: bool;
+	ok: boolean;
 	id: string;
 	rev: string;
 }
@@ -110,10 +110,10 @@ interface PouchFilter {
 
 interface PouchQueryOptions {
 	complete?: any;
-	include_docs?: bool;
+	include_docs?: boolean;
 	error?: (err: PouchError) => void;
-	descending?: bool;
-	reduce?: bool;
+	descending?: boolean;
+	reduce?: boolean;
 }
 
 interface PouchQueryResponse {
@@ -131,7 +131,7 @@ interface PouchApi {
 }
 
 interface PouchAttachmentOptions {
-	decode?: bool;
+	decode?: boolean;
 }
 
 interface PouchApi {
@@ -150,11 +150,11 @@ interface PouchChangesOptions {
 	complete?: (err: PouchError, res: PouchChanges) => void;
 	seq?: number;
 	since?: number;
-	descending?: bool;
+	descending?: boolean;
 	filter?: PouchFilter;
-	continuous?: bool;
-	include_docs?: bool;
-	conflicts?: bool;
+	continuous?: boolean;
+	include_docs?: boolean;
+	conflicts?: boolean;
 }
 
 interface PouchChange {
@@ -177,14 +177,14 @@ interface PouchRevsDiffOptions {
 }
 
 interface PouchReplicateOptions {
-	continuous?: bool;
+	continuous?: boolean;
 	onChange?: (any) => void;
 	filter?: any;			// Can be either string or PouchFilter
 	complete?: (err: PouchError, res: PouchChanges) => void;
 }
 
 interface PouchReplicateResponse {
-	ok: bool;
+	ok: boolean;
 	start_time: Date;
 	end_time: Date;
 	docs_read: number;
@@ -209,13 +209,20 @@ interface PouchOptions {
 	adapter?: string;
 }
 
-interface Pouch extends PouchApi {
-	(name: string, opts: PouchOptions, callback: (err: PouchError, res: Pouch) => void ): Pouch;
-	(name: string, callback: (err: PouchError, res: Pouch) => void ): Pouch;
+interface PouchDB extends PouchApi {
+    new (name: string, opts: PouchOptions, callback: (err: PouchError, res: PouchDB) => void): PouchDB;
+    new (name: string, callback: (err: PouchError, res: PouchDB) => void): PouchDB;
+    new (name: string): PouchDB;
 	destroy(name: string, callback: (err: PouchError) => void): void;
 }
 
-var Pouch: Pouch;
+declare var PouchDB: PouchDB;
+
+// Support AMD require
+declare module 'pouchdb' {
+  export = PouchDB;
+}
+
 //
 // emit is the function that the PouchFilter.map function should call in order to add a particular item to
 // a filter view.

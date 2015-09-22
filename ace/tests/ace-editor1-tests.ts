@@ -1,6 +1,7 @@
 /// <reference path="../ace.d.ts" />
 
-exports = {
+var assert: any;
+var exports = {
 
     setUp: function(next) {
         this.session1 = new AceAjax.EditSession(["abc", "def"]);

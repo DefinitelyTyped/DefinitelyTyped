@@ -1,3 +1,7 @@
+// Type definitions for TeeChart 1.3
+// Project: http://www.steema.com
+// Definitions by: Steema Software <https://steema.com/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 /**
  * TeeChart(tm) for TypeScript
  *
@@ -18,7 +22,7 @@
  */
 
 
-module Tee {
+declare module Tee {
 
   interface IPoint {
     x: number;
@@ -31,22 +35,22 @@ module Tee {
     width: number;
     height: number;
 
-    contains(point: IPoint): bool;
+    contains(point: IPoint): boolean;
   }
 
   interface ITool {
-    active: bool;
+    active: boolean;
     chart: IChart;
 
-    mousedown(event): bool;
-    mousemove(event): bool;
-    clicked(p:IPoint): bool;
+    mousedown(event): boolean;
+    mousemove(event): boolean;
+    clicked(p:IPoint): boolean;
     draw(): void;
   }
 
   interface IGradient {
     chart: IChart;
-    visible: bool;
+    visible: boolean;
 
     colors: string[];
     direction: string;
@@ -56,7 +60,7 @@ module Tee {
 
   interface IShadow {
     chart: IChart;
-    visible: bool;
+    visible: boolean;
     blur:number;
     color: string;
     width:number;
@@ -90,7 +94,7 @@ module Tee {
   interface IImage {
     url: string;
     chart: IChart;
-    visible: bool;
+    visible: boolean;
   }
 
   interface IFormat {
@@ -123,27 +127,27 @@ module Tee {
     margins: IMargins;
     items: IAnnotation[];
     bounds: IRectangle;
-    visible: bool;
-    transparent: bool;
+    visible: boolean;
+    transparent: boolean;
     text: string;
     format: IFormat;
 
     add(text: string): IAnnotation;
     resize(): void;
-    clicked(point: IPoint): bool;
+    clicked(point: IPoint): boolean;
     draw(): void;
   }
 
   interface IPanel {
     format: IFormat;
-    transparent: bool;
+    transparent: boolean;
     margins: IMargins;
   }
 
   interface ITitle extends IAnnotation {
-    expand: bool;
+    expand: boolean;
     padding: number;
-    transparent: bool;
+    transparent: boolean;
   }
 
   interface IPalette {
@@ -154,7 +158,7 @@ module Tee {
 
   interface IArrow extends IFormat {
     length: number;
-    underline: bool;
+    underline: boolean;
   }
 
   interface IMarks extends IAnnotation {
@@ -164,7 +168,7 @@ module Tee {
     style: string;
 
     drawEvery: number;
-    visible: bool;
+    visible: boolean;
   }
 
   interface ISeriesData {
@@ -177,18 +181,18 @@ module Tee {
     cursor: string;
   }
 
-  interface ISeries {
+  interface ISeriesNoBounds {
     data: ISeriesData;
     marks: IMarks;
 
-    yMandatory: bool;
+    yMandatory: boolean;
     horizAxis: string;
     vertAxis: string;
 
     format: IFormat;
     hover: IFormat;
 
-    visible: bool;
+    visible: boolean;
 
     cursor: ICursor;
     over: number;
@@ -196,7 +200,7 @@ module Tee {
     palette: IPalette;
     colorEach: string;
 
-    useAxes: bool;
+    useAxes: boolean;
     decimals: number;
 
     title: string;
@@ -208,9 +212,7 @@ module Tee {
 
     valueText(index: number): string;
 
-    associatedToAxis(axis: IAxis): bool;
-
-    bounds(rectangle: IRectangle): void;
+    associatedToAxis(axis: IAxis): boolean;
 
     calc(index: number, position: IPoint): void;
 
@@ -224,9 +226,11 @@ module Tee {
 
     count(): number;
 
-    addRandom(count: number, range?: number, x?: bool): ISeries;
+    addRandom(count: number, range?: number, x?: boolean): ISeries;
+  }
 
-
+  interface ISeries extends ISeriesNoBounds {
+    bounds(rectangle: IRectangle): void;
   }
 
   interface IAxisLabels {
@@ -235,9 +239,9 @@ module Tee {
     decimals: number;
     padding: number;
     separation: number; // %
-    visible: bool;
+    visible: boolean;
     rotation: number;
-    alternate: bool;
+    alternate: boolean;
     maxWidth: number;
 
     labelStyle: string;
@@ -251,14 +255,14 @@ module Tee {
   interface IGrid {
     chart: IChart;
     format: IFormat;
-    visible: bool;
-    lineDash: bool;
+    visible: boolean;
+    lineDash: boolean;
   }
 
   interface ITicks {
     chart: IChart;
     stroke: IStroke;
-    visible: bool;
+    visible: boolean;
     length: number;
   }
 
@@ -268,21 +272,21 @@ module Tee {
 
   interface IAxisTitle extends IAnnotation {
     padding: number;
-    transparent: bool;
+    transparent: boolean;
   }
 
   interface IAxis {
     chart: IChart;
-    visible: bool;
-    inverted: bool;
+    visible: boolean;
+    inverted: boolean;
 
-    horizontal: bool;  // readonly
-    otherSize: bool; // readonly
+    horizontal: boolean;  // readonly
+    otherSize: boolean; // readonly
     bounds: IRectangle;  // readonly?
 
     position: number;
     format: IFormat;
-    custom: bool; // readonly
+    custom: boolean; // readonly
 
     grid: IGrid;
     labels: IAxisLabels;
@@ -292,11 +296,11 @@ module Tee {
 
     title: IAxisTitle;
 
-    automatic: bool;
+    automatic: boolean;
     minimum: number;
     maximum: number;
     increment: number;
-    log: bool;
+    log: boolean;
 
     startPos: number;
     endPos: number;
@@ -313,14 +317,14 @@ module Tee {
     fromPos(position: number): number;
     fromSize(size: number): number;
     
-    hasAnySeries(): bool;
+    hasAnySeries(): boolean;
     scroll(delta: number): void;
     setMinMax(minimum: number, maximum: number): void;
   }
 
   interface IAxes {
     chart: IChart;
-    visible: bool;
+    visible: boolean;
 
     left: IAxis;
     top: IAxis;
@@ -329,7 +333,7 @@ module Tee {
 
     items: IAxis[];
 
-    add(horizontal: bool, otherSide: bool): IAxis;
+    add(horizontal: boolean, otherSide: boolean): IAxis;
     //each(f: function): void;
   }
 
@@ -339,25 +343,25 @@ module Tee {
     width: number;
     height: number;
     padding: number;
-    visible: bool;
+    visible: boolean;
   }
 
   interface ILegend {
     chart: IChart;
 
-    transparent: bool;
+    transparent: boolean;
 
     format: IFormat;
     title: IAnnotation;
 
     bounds: IRectangle;
     position: string;
-    visible: bool;
-    inverted: bool;
+    visible: boolean;
+    inverted: boolean;
     padding: number;
     align: number;
 
-    fontColor: bool;
+    fontColor: boolean;
 
     dividing: IStroke;
     over: number;
@@ -372,15 +376,15 @@ module Tee {
     availRows(): number;
     itemsCount(): number;
     totalWidth(): number;
-    showValues(): bool;
+    showValues(): boolean;
     itemText(series: ISeries, index: number): string;
-    isVertical(): bool;
+    isVertical(): boolean;
   }
 
   interface IScroll {
     chart: IChart;
-    active: bool;
-    enabled: bool;
+    active: boolean;
+    enabled: boolean;
     direction: string;
     mouseButton: number;
 
@@ -391,8 +395,8 @@ module Tee {
     chart: IChart;
     items: ISeries[];
 
-    anyUsesAxes(): bool;
-    clicked(position: IPoint): bool;
+    anyUsesAxes(): boolean;
+    clicked(position: IPoint): boolean;
     //each(f: function): void;
     firstVisible(): ISeries;
 
@@ -407,12 +411,12 @@ module Tee {
 
   interface IWall {
     format: IFormat;
-    visible: bool;
+    visible: boolean;
     bounds: IRectangle;
   }
 
   interface IWalls {
-    visible: bool;
+    visible: boolean;
     left: IWall;
     right: IWall;
     bottom: IWall;
@@ -421,9 +425,9 @@ module Tee {
 
   interface IZoom {
     chart: IChart;
-    active: bool;
+    active: boolean;
     direction: string;
-    enabled: bool;
+    enabled: boolean;
     mouseButton: number;
     format: IFormat;
 
@@ -439,7 +443,7 @@ module Tee {
 
   interface ICustomBar extends ISeries {
     sideMargins: number;
-    useOrigin: bool;
+    useOrigin: boolean;
     origin: number;
 
     offset: number;
@@ -452,8 +456,8 @@ module Tee {
   interface ISeriesPointer {
     chart: IChart;
     format: IFormat;
-    visible: bool;
-    colorEach: bool;
+    visible: boolean;
+    colorEach: boolean;
     style: string;
     width: number;
     height: number;
@@ -463,7 +467,7 @@ module Tee {
     pointer: ISeriesPointer;
 
     stacked: string;
-    stairs: bool;
+    stairs: boolean;
   }
 
   interface ILine extends ICustomSeries {
@@ -475,7 +479,7 @@ module Tee {
   }
 
   interface IArea extends ISeries {
-    useOrigin: bool;
+    useOrigin: boolean;
     origin: number;
   }
 
@@ -483,9 +487,9 @@ module Tee {
     donut: number;
     rotation: number;
     sort: string;
-    orderAscending: bool;
+    orderAscending: boolean;
     explode: number[];
-    concentric: bool;
+    concentric: boolean;
 
     calcPos(angle: number, position: IPoint): void;
   }
@@ -504,7 +508,7 @@ module Tee {
     end: number[];
   }
 
-  interface IGantt extends ISeries {
+  interface IGantt extends ISeriesNoBounds {
     data: IGanttData;
     dateFormat: string;
     colorEach: string;
@@ -539,7 +543,7 @@ module Tee {
     direction: string;
     size: IPoint;
 
-    followMouse: bool;
+    followMouse: boolean;
     dragging: number;
 
     format: IFormat;
@@ -549,14 +553,14 @@ module Tee {
 
     render: string;
 
-    over(point: IPoint): bool;
+    over(point: IPoint): boolean;
     setRender(render: string): void;
   }
 
   interface IToolTip extends IAnnotation {
     animated: number;
-    autoHide: bool;
-    autoRedraw: bool;
+    autoHide: boolean;
+    autoRedraw: boolean;
     currentSeries: ISeries;
     currentIndex: number;
     delay: number;
@@ -565,12 +569,12 @@ module Tee {
     refresh(series: ISeries, index: number): void;
   }
 
-  declare class Point implements IPoint {
+  class Point implements IPoint {
     public x:number;
     public y:number;
   }
 
-  declare class Chart implements IChart {
+  class Chart implements IChart {
     //public aspect: IAspect;
 
     public axes: IAxes;
@@ -600,79 +604,79 @@ module Tee {
 
   // SERIES
 
-  declare var Line: {
+  var Line: {
     prototype: ILine;
     new(values?:number[]): ILine;
   }
 
-  declare var PointXY: {
+  var PointXY: {
     prototype: ICustomSeries;
     new(values?:number[]): ICustomSeries;
   }
 
-  declare var Area: {
+  var Area: {
     prototype: IArea;
     new(values?:number[]): IArea;
   }
 
-  declare var HorizArea: {
+  var HorizArea: {
     prototype: IArea;
     new(values?:number[]): IArea;
   }
 
-  declare var Bar: {
+  var Bar: {
     prototype: ICustomBar;
     new(values?:number[]): ICustomBar;
   }
 
-  declare var HorizBar: {
+  var HorizBar: {
     prototype: ICustomBar;
     new(values?:number[]): ICustomBar;
   }
 
-  declare var Pie: {
+  var Pie: {
     prototype: IPie;
     new(values?:number[]): IPie;
   }
 
-  declare var Donut: {
+  var Donut: {
     prototype: IPie;
     new(values?:number[]): IPie;
   }
 
-  declare var Bubble: {
+  var Bubble: {
     prototype: IBubble;
     new(values?:number[]): IBubble;
   }
 
-  declare var Gantt: {
+  var Gantt: {
     prototype: IGantt;
     new(values?:number[]): IGantt;
   }
 
-  declare var Volume: {
+  var Volume: {
     prototype: ICustomBar;
     new(values?:number[]): ICustomBar;
   }
 
-  declare var Candle: {
+  var Candle: {
     prototype: ICandle;
     new(values?:number[]): ICandle;
   }
 
   // TOOLS
 
-  declare var CursorTool: {
+  var CursorTool: {
     prototype: ICursorTool;
     new(chart?: Chart): ICursorTool;
   }
 
-  declare var DragTool: {
+  var DragTool: {
     prototype: IDragTool;
     new(chart?: Chart): IDragTool;
   }
 
-  declare var ToolTip: {
+  var ToolTip: {
     prototype: IToolTip;
     new(chart?: Chart): IToolTip;
   }

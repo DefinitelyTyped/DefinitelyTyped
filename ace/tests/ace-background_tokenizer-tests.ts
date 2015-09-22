@@ -1,5 +1,7 @@
 /// <reference path="../ace.d.ts" />
 
+var assert: any;
+
 function forceTokenize(session) {
     for (var i = 0, l = session.getLength(); i < l; i++)
         session.getTokens(i)
@@ -11,7 +13,7 @@ function testStates(session, states) {
     assert.ok(l == states.length)
 }
 
-exports = {
+var exports = {
 
     "test background tokenizer update on session change": function() {
         var doc = new AceAjax.EditSession([

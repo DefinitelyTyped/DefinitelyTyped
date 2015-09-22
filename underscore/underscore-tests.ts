@@ -1,31 +1,42 @@
 /// <reference path="underscore.d.ts" />
 
-declare var $;
+declare var $: any;
 
-_.each([1, 2, 3], (num) => alert(num));
-_.each({ one: 1, two: 2, three: 3 }, (num, key) => alert(num));
+_.each([1, 2, 3], (num) => alert(num.toString()));
+_.each({ one: 1, two: 2, three: 3 }, (value, key) => alert(value.toString()));
 
 _.map([1, 2, 3], (num) => num * 3);
-_.map({ one: 1, two: 2, three: 3 }, (num, key) => num * 3);
+_.map({ one: 1, two: 2, three: 3 }, (value, key) => value * 3);
 
-var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);
+//var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);	// https://typescript.codeplex.com/workitem/1960
+var sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num, 0);
+sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num); // memo is optional #issue 5 github
+sum = _.reduce<string, number>({'a':'1', 'b':'2', 'c':'3'}, (memo, numstr) => memo + (+numstr));
 
 var list = [[0, 1], [2, 3], [4, 5]];
-
-var flat = _.reduceRight(list, (a, b) => a.concat(b), []);
+//var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
+var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
 var even = _.find([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
+var firstCapitalLetter = _.find({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
+
 var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
+
+var capitalLetters = _.filter({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
 
 var listOfPlays = [{ title: "Cymbeline", author: "Shakespeare", year: 1611 }, { title: "The Tempest", author: "Shakespeare", year: 1611 }, { title: "Other", author: "Not Shakespeare", year: 2012 }];
 _.where(listOfPlays, { author: "Shakespeare", year: 1611 });
 
 var odds = _.reject([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
-_.all([true, 1, null, 'yes'], _.identity);
+_.every([true, 1, null, 'yes'], _.identity);
 
 _.any([null, 0, 'yes', false]);
+
+_.some([1, 2, 3, 4], l => l % 3 === 0);
+
+_.some({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
 
 _.contains([1, 2, 3], 3);
 
@@ -35,22 +46,44 @@ var stooges = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'cu
 _.pluck(stooges, 'name');
 
 _.max(stooges, (stooge) => stooge.age);
+_.min(stooges, (stooge) => stooge.age);
 
 var numbers = [10, 5, 100, 2, 1000];
+_.max(numbers);
 _.min(numbers);
 
 _.sortBy([1, 2, 3, 4, 5, 6], (num) => Math.sin(num));
 
-_.groupBy([1.3, 2.1, 2.4], (num) => Math.floor(num));
+
+_([1.3, 2.1, 2.4]).groupBy((e) => Math.floor(e));
+_.groupBy([1.3, 2.1, 2.4], (num) => Math.floor(num).toString());
 _.groupBy(['one', 'two', 'three'], 'length');
 
-_.countBy([1, 2, 3, 4, 5], (num) => num % 2 == 0 ? 'even' : 'odd');
+_.indexBy(stooges, 'age')['40'].age;
+_(stooges).indexBy('age')['40'].name;
+_(stooges)
+	.chain()
+	.indexBy('age')
+	.value()['40'].age;
+
+_.countBy([1, 2, 3, 4, 5], (num) => (num % 2 == 0) ? 'even' : 'odd');
 
 _.shuffle([1, 2, 3, 4, 5, 6]);
 
-// (function(){ return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
+(function (a, b, c, d) { return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
 
 _.size({ one: 1, two: 2, three: 3 });
+
+_.partition<number>([0, 1, 2, 3, 4, 5], (num) => {return num % 2 == 0 });
+
+interface Family {
+	name: string;
+	relation: string;
+}
+var isUncleMoe = _.matches<Family, boolean>({ name: 'moe', relation: 'uncle' });
+_.filter([{ name: 'larry', relation: 'father' }, { name: 'moe', relation: 'uncle' }], isUncleMoe);
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -59,16 +92,21 @@ _.initial([5, 4, 3, 2, 1]);
 _.last([5, 4, 3, 2, 1]);
 _.rest([5, 4, 3, 2, 1]);
 _.compact([0, 1, false, 2, '', 3]);
-_.flatten([1, [2], [3, <any>[[4]]]]);
-_.flatten([1, [2], [3, <any>[[4]]]], true);
+
+_.flatten([1, 2, 3, 4]);
+_.flatten([1, [2]]);
+
+// typescript doesn't like the elements being different
+_.flatten([1, [2], [3, [[4]]]]);
+_.flatten([1, [2], [3, [[4]]]], true);
 _.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
 _.union([1, 2, 3], [101, 2, 1, 10], [2, 1]);
 _.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]);
 _.difference([1, 2, 3, 4, 5], [5, 2, 10]);
 _.uniq([1, 2, 1, 3, 1, 4]);
 _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]);
-_.object(['moe', 'larry', 'curly'], [30, 40, 50]);
-_.object([['moe', <any>30], ['larry', <any>40], ['curly', <any>50]]);
+var r = _.object(['moe', 'larry', 'curly'], [30, 40, 50]);
+_.object([['moe', 30], ['larry', 40], ['curly', 50]]);
 _.indexOf([1, 2, 3], 2);
 _.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
 _.sortedIndex([10, 20, 30, 40, 50], 35);
@@ -80,20 +118,22 @@ _.range(0);
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-var func = function (greeting?) { return greeting + ': ' + this.name };
-func = _.bind(func, { name: 'moe' }, 'hi');
-func();
+var func = function (greeting) { return greeting + ': ' + this.name };
+// need a second var otherwise typescript thinks func signature is the above func type,
+// instead of the newly returned _bind => func type.
+var func2 = _.bind(func, { name: 'moe' }, 'hi');
+func2();
 
 var buttonView = {
-    label: 'underscore',
-    onClick: function () { alert('clicked: ' + this.label); },
-    onHover: function () { console.log('hovering: ' + this.label); }
+	label: 'underscore',
+	onClick: function () { alert('clicked: ' + this.label); },
+	onHover: function () { console.log('hovering: ' + this.label); }
 };
 _.bindAll(buttonView);
 $('#underscore_button').bind('click', buttonView.onClick);
 
 var fibonacci = _.memoize(function (n) {
-    return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
+	return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
 });
 
 var log = _.bind(console.log, console);
@@ -101,27 +141,28 @@ _.delay(log, 1000, 'logged later');
 
 _.defer(function () { alert('deferred'); });
 
-var updatePosition = () => alert('updating position...');
+var updatePosition = (param:string) => alert('updating position... Param: ' + param);
 var throttled = _.throttle(updatePosition, 100);
 $(window).scroll(throttled);
 
-var calculateLayout = () => alert('calculating layout...');
+var calculateLayout = (param:string) => alert('calculating layout... Param: ' + param);
 var lazyLayout = _.debounce(calculateLayout, 300);
 $(window).resize(lazyLayout);
 
-var createApplication = () => alert('creating application...');
+var createApplication = (param:string) => alert('creating application... Param: ' + param);
 var initialize = _.once(createApplication);
-initialize();
-initialize();
+initialize("me");
+initialize("me");
 
 var notes: any[];
 var render = () => alert("rendering...");
 var renderNotes = _.after(notes.length, render);
 _.each(notes, (note) => note.asyncSave({ success: renderNotes }));
 
-var hello = function (name?) { return "hello: " + name; };
-hello = _.wrap(hello, (func) => { return "before, " + func("moe") + ", after"; });
-hello();
+var hello = function (name) { return "hello: " + name; };
+// can't use the same "hello" var otherwise typescript fails
+var hello2 = _.wrap(hello, (func) => { return "before, " + func("moe") + ", after"; });
+hello2();
 
 var greet = function (name) { return "hi: " + name; };
 var exclaim = function (statement) { return statement + "!"; };
@@ -136,19 +177,35 @@ _.pairs({ one: 1, two: 2, three: 3 });
 _.invert({ Moe: "Moses", Larry: "Louis", Curly: "Jerome" });
 _.functions(_);
 _.extend({ name: 'moe' }, { age: 50 });
+_.extendOwn({ name: 'moe'}, { age: 50 });
+_.assign({ name: 'moe'}, { age: 50 });
 _.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
-_.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'userid');
+_.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name');
+_.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
+_.omit({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']);
+
+_.mapObject({ a: 1, b: 2 }, val => val * 2) === _.mapObject({ a: 2, b: 4 }, _.identity);
+_.mapObject({ a: 1, b: 2 }, (val, key, o) => o[key] * 2) === _.mapObject({ a: 2, b: 4}, _.identity);
+_.mapObject({ x: "string 1", y: "string 2" }, 'length') === _.mapObject({ x: "string 1", y: "string 2"}, _.property('length'));
 
 var iceCream = { flavor: "chocolate" };
 _.defaults(iceCream, { flavor: "vanilla", sprinkles: "lots" });
 
 _.clone({ name: 'moe' });
+_.clone(['i', 'am', 'an', 'object!']);
+
+_([1, 2, 3, 4])
+	.chain()
+	.filter((num) => { return num % 2 == 0; })
+	.tap(alert)
+	.map((num) => { return num * num; })
+	.value();
 
 _.chain([1, 2, 3, 200])
-    .filter(function (num) { return num % 2 == 0; })
-    .tap(alert)
-    .map(function (num) { return num * num })
-    .value();
+	.filter((num) => { return num % 2 == 0; })
+	.tap(alert)
+	.map((num) => { return num * num; })
+	.value();
 
 _.has({ a: 1, b: 2, c: 3 }, "b");
 
@@ -167,6 +224,8 @@ _.isArray([1, 2, 3]);
 
 _.isObject({});
 _.isObject(1);
+
+_.property('name')(moe);
 
 
 // (() => { return _.isArguments(arguments); })(1, 2, 3);
@@ -199,22 +258,28 @@ _.isUndefined((<any>window).missingVariable);
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
+var UncleMoe = { name: 'moe' };
+_.constant(UncleMoe)();
+
+typeof _.now() === "number";
+
 var underscore = _.noConflict();
 
 var moe2 = { name: 'moe' };
 moe2 === _.identity(moe);
 
 var genie;
-_(3).times(function(n){ genie.grantWishNumber(n); });
+var r2 = _.times(3, (n) => { return n * n });
+_(3).times(function (n) { genie.grantWishNumber(n); });
 
 _.random(0, 100);
 
 _.mixin({
-    capitalize: function (string) {
-        return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase();
-    }
+	capitalize: function (string) {
+		return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase();
+	}
 });
-_("fabio").capitalize();
+(<any>_("fabio")).capitalize();
 
 _.uniqueId('contact_');
 
@@ -228,22 +293,63 @@ _.result(object, 'stuff');
 var compiled = _.template("hello: <%= name %>");
 compiled({ name: 'moe' });
 var list2 = "<% _.each(people, function(name) { %> <li><%= name %></li> <% }); %>";
-_.template(list2, { people: ['moe', 'curly', 'larry'] });
+_.template(list2)({ people: ['moe', 'curly', 'larry'] });
 var template = _.template("<b><%- value %></b>");
 template({ value: '<script>' });
 var compiled2 = _.template("<% print('Hello ' + epithet); %>");
 compiled2({ epithet: "stooge" });
+var oldTemplateSettings = _.templateSettings;
 _.templateSettings = {
-    interpolate: /\{\{(.+?)\}\}/g
+	interpolate: /\{\{(.+?)\}\}/g
 };
 var template2 = _.template("Hello {{ name }}!");
 template2({ name: "Mustache" });
-_.template("Using 'with': <%= data.answer %>", { answer: 'no' }, { variable: 'data' });
+_.template("Using 'with': <%= data.answer %>", oldTemplateSettings)({ variable: 'data' });
 
-// fix: http://stackoverflow.com/questions/14585324/how-to-use-underscore-lib-from-definitelytyped-with-typescript
-// fix: https://github.com/borisyankov/DefinitelyTyped/issues/225
-declare var _: UnderscoreStatic;
 
-_.countBy([1,2,3], function(item) {
-    return item%2;
+_(['test', 'test']).pick(['test2', 'test2']);
+
+//////////////// Chain Tests
+function chain_tests() {
+	// https://typescript.codeplex.com/workitem/1960
+	var numArray = _.chain([1, 2, 3, 4, 5, 6, 7, 8])
+		.filter(num => num % 2 == 0)
+		.map(num => num * num)
+		.value();
+
+	var strArray = _([1, 2, 3, 4])
+		.chain()
+		.filter(num => num % 2 == 0)
+		.tap(alert)
+		.map(num => "string" + num)
+		.value();
+
+	var n = _.chain([1, 2, 3, 200])
+		.filter(num => num % 2 == 0)
+		.tap(alert)
+		.map(num => num * num)
+		.max()
+		.value();
+
+	var hoverOverValueShouldBeNumberNotAny = _([1, 2, 3]).chain()
+		.map(num => [num, num + 1])
+		.flatten()
+		.find(num => num % 2 == 0)
+		.value();
+		
+	var firstVal: number = _.chain([1, 2, 3])
+		.first()
+		.value();
+}
+
+var obj: { [k: string] : number } = {
+       'test' : 5,
+       'another' : 8,
+       'third' : 10
+    },
+    empty = {};
+
+_.chain(obj).map(function (value, key) {
+    empty[key] = value;
+    console.log("vk", value, key);
 });

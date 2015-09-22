@@ -1,6 +1,7 @@
 /// <reference path="../ace.d.ts" />
 
-exports = {
+var assert: any;
+var exports = {
     "test: screen2text the column should be rounded to the next character edge": function () {
         var el = document.createElement("div");
 

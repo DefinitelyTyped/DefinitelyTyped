@@ -1,6 +1,6 @@
 // Type definitions for glDatePicker 2.0
 // Project: http://glad.github.com/glDatePicker/
-// Definitions by: Dániel Tar https://github.com/qcz
+// Definitions by: Dániel Tar <https://github.com/qcz>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
@@ -12,14 +12,14 @@ interface GlDatePickerOffset {
 
 interface GlDatePickerDate {
     date: Date;
-    repeatMonth?: bool;
-    repeatYear?: bool;
+    repeatMonth?: boolean;
+    repeatYear?: boolean;
 }
 
 interface GlDatePickerDateRange {
     from: Date;
     to?: Date;
-    repeatYear?: bool;
+    repeatYear?: boolean;
 }
 
 interface GlDatePickerSpecialDate extends GlDatePickerDate {
@@ -32,10 +32,10 @@ interface GlDatePickerOptions {
     zIndex?: number;
     borderSize?: number;
     calendarOffset?: GlDatePickerOffset;
-    showAlways?: bool;
-    hideOnClick?: bool;
-    allowMonthSelect?: bool;
-    allowYearSelect?: bool;
+    showAlways?: boolean;
+    hideOnClick?: boolean;
+    allowMonthSelect?: boolean;
+    allowYearSelect?: boolean;
     todayDate?: Date;
     selectedDate?: Date;
     prevArrow?: string;
@@ -64,6 +64,6 @@ interface GlDatePicker {
 }
 
 interface JQuery {
-    glDatePicker(options?: GlDatePickerOptions): JQuery;
-    glDatePicker(ret: bool): GlDatePicker;
+	glDatePicker(ret: boolean): GlDatePicker;
+	glDatePicker(options?: GlDatePickerOptions): JQuery;
 }

@@ -1,10 +1,9 @@
 // Type definitions for YouTube
 // Project: https://developers.google.com/youtube/
-// Definitions by: Daz Wilkin <https://github.com/DazWilkin/>
-// Updated by: Ian Obermiller <http://ianobermiller.com>
+// Definitions by: Daz Wilkin <https://github.com/DazWilkin/>, Ian Obermiller <http://ianobermiller.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-module YT {
+declare module YT {
     interface EventArgs {
         target: Player;
         data: any;
@@ -39,11 +38,11 @@ module YT {
 		iv_load_policy?: number;
 		list?: string;
 		listType?: ListType;
-		loop?;
+		loop?: number;
 		modestbranding?: number;
-		origin?;
+		origin?: string;
         playerpiid?: string;
-		playlist?;
+		playlist?: string[];
 		rel?: number;
         showinfo?: number;
 		start?: number;
@@ -72,29 +71,36 @@ module YT {
         suggestedQuality?: string;
     }
 
+    export interface VideoData
+    {
+        video_id: string;
+        author: string;
+        title: string;
+    }
+
     export class Player {
         // Constructor
         constructor(id: string, playerOptions: PlayerOptions);
 
         // Queueing functions
         loadVideoById(videoId: string, startSeconds?: number, suggestedQuality?: string): void;
-        loadVideoById(VideoByIdParams): void;
+        loadVideoById(VideoByIdParams: Object): void;
         cueVideoById(videoId: string, startSeconds?: number, suggestedQuality?: string): void;
-        cueVideoById(VideoByIdParams): void;
+        cueVideoById(VideoByIdParams: Object): void;
 
         loadVideoByUrl(mediaContentUrl: string, startSeconds?: number, suggestedQuality?: string): void;
-        loadVideoByUrl(VideoByUrlParams): void;
+        loadVideoByUrl(VideoByUrlParams: Object): void;
         cueVideoByUrl(mediaContentUrl: string, startSeconds?: number, suggestedQuality?: string): void;
-        cueVideoByUrl(VideoByUrlParams): void;
+        cueVideoByUrl(VideoByUrlParams: Object): void;
 
         // Properties
-        size;
-        
+        size: any;
+
         // Playing
         playVideo(): void;
         pauseVideo(): void;
         stopVideo(): void;
-        seekTo(seconds:number, allowSeekAhead:bool): void;
+        seekTo(seconds:number, allowSeekAhead:boolean): void;
         clearVideo(): void;
 
         // Playlist
@@ -105,7 +111,7 @@ module YT {
         // Volume
         mute(): void;
         unMute(): void;
-        isMuted(): bool;
+        isMuted(): boolean;
         setVolume(volume: number): void;
         getVolume(): number;
 
@@ -116,10 +122,10 @@ module YT {
         getPlaybackRate(): number;
         setPlaybackRate(suggestedRate:number): void;
         getAvailablePlaybackRates(): number[];
-        
+
         // Behavior
-        setLoop(loopPlaylists: bool): void;
-        setShuffle(shufflePlaylist: bool): void;
+        setLoop(loopPlaylists: boolean): void;
+        setShuffle(shufflePlaylist: boolean): void;
 
         // Status
         getVideoLoadedFraction(): number;
@@ -133,20 +139,22 @@ module YT {
         getDuration(): number;
         getVideoUrl(): string;
         getVideoEmbedCode(): string;
+        getVideoData(): VideoData;
 
         // Playlist
         getPlaylist(): any[];
         getPlaylistIndex(): number;
-        
+
         // Event Listener
-        addEventListener(event: string, listener: string): void;
+        addEventListener(event: string, handler: EventHandler): void;
     }
 
     export enum PlayerState {
+        UNSTARTED,
         BUFFERING,
         CUED,
         ENDED,
         PAUSED,
         PLAYING
-    };
+    }
 }

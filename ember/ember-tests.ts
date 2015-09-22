@@ -1,185 +1,210 @@
 /// <reference path="ember.d.ts" />
-/// <reference path="../handlebars/handlebars.d.ts" />
+/// <reference path="../handlebars/handlebars-1.0.0.d.ts" />
 
-var App;
 
-App = Em.Application.create();
+var App : any;
 
-App.president = Ember.Object.create({
-    name: "Barack Obama"
+App = Em.Application.create<Em.Application>();
+
+App.president = Em.Object.create({
+    name: 'Barack Obama'
 });
-App.country = Ember.Object.create({
+App.country = Em.Object.create({
     presidentNameBinding: 'MyApp.president.name'
 });
 App.country.get('presidentName');
-
-App.president = Ember.Object.create({
-    firstName: "Barack",
-    lastName: "Obama",
-    fullName: () => {
+App.president = Em.Object.create({
+    firstName: 'Barack',
+    lastName: 'Obama',
+    fullName: function () {
         return this.get('firstName') + ' ' + this.get('lastName');
     }.property()
 });
 App.president.get('fullName');
 
-var Person = Ember.Object.extend({
-    say: (thing) => {
+declare class MyPerson extends Em.Object {
+    static createMan(): MyPerson;
+}
+
+var Person1 = Em.Object.extend<typeof MyPerson>({
+    say: (thing: string) => {
         alert(thing);
     }
 });
-var tom = Person.create({
-    name: "Tom Dale",
-    helloWorld: () => {
-        this.say("Hi my name is " + this.get('name'));
+
+declare class MyPerson2 extends Em.Object {
+    helloWorld(): void;
+}
+var tom = Person1.create<MyPerson2>({
+    name: 'Tom Dale',
+    helloWorld: function() {
+        this.say('Hi my name is ' + this.get('name'));
     }
 });
 tom.helloWorld();
 
-Person.reopen({ isPerson: true });
-Person.create().get('isPerson');
+Person1.reopen({ isPerson: true });
+Person1.create<Em.Object>().get('isPerson');
 
-Person.reopenClass({
+Person1.reopenClass({
     createMan: () => {
-        return Person.create({ isMan: true })
+        return Person1.create({ isMan: true });
     }
 });
-Person.createMan().get('isMan');
+// ReSharper disable once DuplicatingLocalDeclaration
+declare var Person1: typeof MyPerson;
+Person1.createMan().get('isMan');
 
-var person = Person.create({
-    firstName: "Yehuda",
-    lastName: "Katz"
+var person = Person1.create<Em.Object>({
+    firstName: 'Yehuda',
+    lastName: 'Katz'
 });
-person.addObserver('fullName', () => { });
-person.set('firstName', "Brohuda");
+person.addObserver('fullName', null, () => { });
+person.set('firstName', 'Brohuda');
 
-App.todosController = Ember.Object.create({
+App.todosController = Em.Object.create({
     todos: [
-        Ember.Object.create({ isDone: false })
+        Em.Object.create({ isDone: false })
     ],
-    remaining: () => {
+    remaining: (function() {
         var todos = this.get('todos');
         return todos.filterProperty('isDone', false).get('length');
-    }.property('todos.@each.isDone')
+    }).property('todos.@each.isDone')
 });
 
 var todos = App.todosController.get('todos');
 var todo = todos.objectAt(0);
 todo.set('isDone', true);
 App.todosController.get('remaining');
-todo = Ember.Object.create({ isDone: false });
+todo = Em.Object.create({ isDone: false });
 todos.pushObject(todo);
 App.todosController.get('remaining');
 
-App.wife = Ember.Object.create({
+App.wife = Em.Object.create({
     householdIncome: 80000
 });
-App.husband = Ember.Object.create({
+App.husband = Em.Object.create({
     householdIncomeBinding: 'App.wife.householdIncome'
 });
 App.husband.get('householdIncome');
 App.husband.set('householdIncome', 90000);
 App.wife.get('householdIncome');
 
-App.user = Ember.Object.create({
-    fullName: "Kara Gates"
+App.user = Em.Object.create({
+    fullName: 'Kara Gates'
 });
-App.userView = Ember.View.create({
-    userNameBinding: Ember.Binding.oneWay('App.user.fullName')
+App.userView = Em.View.create({
+    userNameBinding: Em.Binding.oneWay('App.user.fullName')
 });
-App.user.set('fullName', "Krang Gates");
-App.userView.set('userName', "Truckasaurus Gates");
+App.user.set('fullName', 'Krang Gates');
+App.userView.set('userName', 'Truckasaurus Gates');
 App.user.get('fullName');
 
-App = Ember.Application.create({
+App = Em.Application.create({
     rootElement: '#sidebar'
 });
 
-var view = Ember.View.create({
+var view = Em.View.create<Em.View>({
     templateName: 'say-hello',
-    name: "Bob"
+    name: 'Bob'
 });
 view.appendTo('#container');
 view.append();
 view.remove();
 
-App.AlertView = Ember.View.extend({
-    priority: "p4",
+App.AlertView = Em.View.extend({
+    priority: 'p4',
     isUrgent: true
 });
 
-App.ListingView = Ember.View.extend({
+App.ListingView = Em.View.extend({
     templateName: 'listing',
-    edit: (event) => {
+    edit: (event: any) => {
         event.view.set('isEditing', true);
     }
 });
 
-App.userController = Ember.Object.create({
-    content: Ember.Object.create({
-        firstName: "Albert",
-        lastName: "Hofmann",
+App.userController = Em.Object.create({
+    content: Em.Object.create({
+        firstName: 'Albert',
+        lastName: 'Hofmann',
         posts: 25,
-        hobbies: "Riding bicycles"
+        hobbies: 'Riding bicycles'
     })
 });
 
-Handlebars.registerHelper('highlight', (property, options) => {
-    var value = Ember.Handlebars.getPath(this, property, options);
+Handlebars.registerHelper('highlight', function(property: string, options: any) {
+    var value = Em.Handlebars.get(this, property, options);
     return new Handlebars.SafeString('<span class="highlight">' + value + '</span>');
 });
 
-App.MyText = Ember.TextField.extend({
+App.MyText = Em.TextField.extend({
     formBlurredBinding: 'App.adminController.formBlurred',
-    change: (evt) => {
+    change: function() {
         this.set('formBlurred', true);
     }
 });
 
-var textArea = Ember.TextArea.create({
+var textArea = Em.TextArea.create({
     valueBinding: 'TestObject.value'
 });
 
-App.ClickableView = Ember.View.extend({
-    click: (evt) => {
-        alert("ClickableView was clicked!");
+App.ClickableView = Em.View.extend({
+    click: () => {
+        alert('ClickableView was clicked!');
     }
 });
 
-var container = Ember.ContainerView.create();
+var container = Em.ContainerView.create<Em.ContainerView>();
 container.append();
 var coolView = App.CoolView.create(),
     childViews = container.get('childViews');
 childViews.pushObject(coolView);
 
-Person = Ember.Object.extend({
-    sayHello: () => {
-        console.log("Hello from " + this.get('name'));
+var Person2 = Em.Object.extend<typeof Em.Object>({
+    sayHello: function() {
+        console.log('Hello from ' + this.get('name'));
     }
 });
 var people = [
-  Person.create({ name: "Juan" }),
-  Person.create({ name: "Charles" }),
-  Person.create({ name: "Majd" })
-]
+    Person2.create({ name: 'Juan' }),
+    Person2.create({ name: 'Charles' }),
+    Person2.create({ name: 'Majd' })
+];
 people.invoke('sayHello');
 
-var arr = [Ember.Object.create(), Ember.Object.create()];
+var arr = [Em.Object.create(), Em.Object.create()];
 arr.setEach('name', 'unknown');
 arr.getEach('name');
 
-Person = Ember.Object.extend({
+var Person3 = Em.Object.extend<typeof Em.Object>({
     name: null,
     isHappy: false
 });
 var people2 = [
-    Person.create({ name: 'Yehuda', isHappy: true }),
-    Person.create({ name: 'Majd', isHappy: false })
+    Person3.create({ name: 'Yehuda', isHappy: true }),
+    Person3.create({ name: 'Majd', isHappy: false })
 ];
-people2.every((person, index, self) => {
-    if (person.get('isHappy')) { return true; }
+people2.every((person: Em.Object) => {
+    return !!person.get('isHappy');
 });
-people2.some((person, index, self) => {
-    if (person.get('isHappy')) { return true; }
+people2.some((person: Em.Object) => {
+    return !!person.get('isHappy');
 });
 people2.everyProperty('isHappy', true);
 people2.someProperty('isHappy', true);
+
+// Examples taken from http://emberjs.com/api/classes/Ember.RSVP.Promise.html
+var promise = new Ember.RSVP.Promise(function(resolve: Function, reject: Function) {
+  // on success
+  resolve('ok!');
+
+  // on failure
+  reject('no-k!');
+});
+
+promise.then(function(value: any) {
+  // on fulfillment
+}, function(reason: any) {
+  // on rejection
+});

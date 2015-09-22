@@ -1,11 +1,7 @@
 // Type definitions for PhoneGap 2.3
 // Project: http://phonegap.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Dick van den Brink <https://github.com/DickvdBrink>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-
-interface EventTarget {
-    result: any;
-}
 
 interface GeolocationError {
     code: number;
@@ -47,14 +43,14 @@ interface CameraOptions {
     quality?: number;
     destinationType?: number;
     sourceType?: number;
-    allowEdit?: bool;
+    allowEdit?: boolean;
     encodingType?: number;
     targetWidth?: number;
     targetHeight?: number;
     mediaType?: number;
-    correctOrientation?: bool;
-    saveToPhotoAlbum?: bool;
-    popoverOptions?: number;
+    correctOrientation?: boolean;
+    saveToPhotoAlbum?: boolean;
+    popoverOptions?: CameraPopoverOptions;
 }
 
 interface CameraPictureSourceTypeObject {
@@ -125,9 +121,9 @@ interface CaptureError {
 }
 
 interface Capture {
-    captureAudio(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureAudioOptions);
-    captureImage(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureImageOptions);
-    captureVideo(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureImageOptions);
+    captureAudio(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureAudioOptions): void;
+    captureImage(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureImageOptions): void;
+    captureVideo(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureImageOptions): void;
 }
 
 interface Connection {
@@ -157,6 +153,11 @@ interface CompassError {
     code: number;
 }
 
+declare var CompassError: {
+    COMPASS_INTERNAL_ERR: number;
+    COMPASS_NOT_SUPPORTED: number;
+}
+
 interface Compass {
     getCurrentHeading(compassSuccess: (heading: CompassHeading) => void , compassError: (error: CompassError) => void , compassOptions?: CompassOptions): void;
     watchHeading(compassSuccess: (heading: CompassHeading) => void , compassError: (error: CompassError) => void , compassOptions?: CompassOptions): void;
@@ -168,7 +169,7 @@ interface Connection {
 }
 
 interface ContactAddress {
-    pref: bool;
+    pref: boolean;
     type: string;
     formatted: string;
     streetAddress: string;
@@ -181,10 +182,10 @@ interface ContactAddress {
 interface ContactField {
     type: string;
     value: string;
-    pref: bool;
+    pref: boolean;
 }
 declare var ContactField: {
-    new(type: string, calue: string, perf: bool): ContactField;
+    new(type: string, calue: string, perf: boolean): ContactField;
 }
 
 interface Contact {
@@ -203,14 +204,14 @@ interface Contact {
     categories: ContactField[];
     urls: ContactField[];
 
-    save(onSuccess?: (contacts: Contacts) => any, onError?: (contactError: ContactError) => any);
-    remove(onSuccess?: (contacts: Contacts) => any, onError?: (contactError: ContactError) => any);
-    clone(): Contact; 
+    save(onSuccess?: (contacts: Contacts) => void, onError?: (contactError: ContactError) => void): void;
+    remove(onSuccess?: (contacts: Contacts) => void, onError?: (contactError: ContactError) => void): void;
+    clone(): Contact;
 }
 
 interface ContactFindOptions {
     filter?: string;
-    multiple?: bool;
+    multiple?: boolean;
 }
 declare var ContactFindOptions : {
     new(): ContactFindOptions;
@@ -229,7 +230,7 @@ declare var ContactName: {
 }
 
 interface ContactOrganization {
-    pref: bool;
+    pref: boolean;
     type: string;
     name: string;
     department: string;
@@ -240,12 +241,23 @@ interface ContactError {
     code: number;
 }
 
+declare var ContactError: {
+    UNKNOWN_ERROR: number;
+    INVALID_ARGUMENT_ERROR: number;
+    TIMEOUT_ERROR: number;
+    PENDING_OPERATION_ERROR: number;
+    IO_ERROR: number;
+    NOT_SUPPORTED_ERROR: number;
+    PERMISSION_DENIED_ERROR: number;
+}
+
 interface Contacts {
     create(properties?: any): Contact;
     find(contactFields: string[], contactSuccess: (contacts: Contact[]) => void , contactError: (error: ContactError) => void , contactFindOptions?: ContactFindOptions): void;
 }
 
 interface Device {
+    available: boolean;
     name: string;
     cordova: string;
     platform: string;
@@ -277,10 +289,10 @@ interface FileWriter {
     onerror: Function;
     onwriteend: Function;
 
-    abort();
-    seek();
-    truncate();
-    write();
+    abort(): void;
+    seek(arg: number): void;
+    truncate(arg: number): void;
+    write(arg: any): void;
 }
 
 interface FileSystem {
@@ -292,35 +304,35 @@ declare var DirectoryEntry: {
 }
 
 interface FileSystemEntry {
-    isFile: bool;
-    isDirectory: bool;
+    isFile: boolean;
+    isDirectory: boolean;
     name: string;
     fullPath: string;
     filesystem: FileSystem;
 
-    getMetadata(onSuccess?: (arg) => any, onError?: (arg) => any);
-    setMetadata(onSuccess?: (arg) => any, onError?: (arg) => any, options?);
-    toURL();
-    remove(onSuccess?: (arg) => any, onError?: (arg) => any);
-    getParent(onSuccess?: (arg) => any, onError?: (arg) => any);
+    getMetadata(onSuccess?: (arg: Metadata) => void, onError?: (arg: FileError) => void): void;
+    setMetadata(onSuccess?: (arg: Metadata) => void, onError?: (arg: FileError) => void, options?: any): void;
+    toURL(): string;
+    remove(onSuccess?: () => void, onError?: (arg: FileError) => void): void;
+    getParent(onSuccess?: (arg: DirectoryEntry) => void, onError?: (arg: FileError) => void): void;
 }
 
 interface FileEntry extends FileSystemEntry {
-    moveTo(parentEntry: DirectoryEntry, file: string, onSuccess: (arg) => any, onError: (arg) => any);
-    copyTo(parentEntry: DirectoryEntry, file: string, onSuccess: (arg) => any, onError: (arg) => any);
-    createWriter(onSuccess?: (arg) => any, onError?: (arg) => any);
-    file(onSuccess?: (arg) => any, onError?: (arg) => any);
+    moveTo(parentEntry: DirectoryEntry, file: string, onSuccess: (arg: DirectoryEntry) => void, onError: (arg: FileError) => void): void;
+    copyTo(parentEntry: DirectoryEntry, file: string, onSuccess: (arg: DirectoryEntry) => void, onError: (arg: FileError) => void): void;
+    createWriter(onSuccess?: (arg: FileWriter) => void, onError?: (arg: FileError) => void): void;
+    file(onSuccess?: (arg: File) => void, onError?: (arg: FileError) => void): void;
 }
 
 interface DirectoryEntry extends FileSystemEntry {
-    createReader();
-    getDirectory();
-    getFile();
-    removeRecursively();
+    createReader(): DirectoryReader;
+    getDirectory(path: string, options: Flags, successCallback: (result: DirectoryEntry) => void, errorCallback: (error: FileError) => void): void;
+    getFile(path: string, options: Flags, successCallback: (result: FileEntry) => void, errorCallback: (error: FileError) => void): void;
+    removeRecursively(successCallback: () => void, errorCallback: (error: FileError) => void): void;
 }
 
 interface DirectoryReader {
-    readEntries(successCallback: (entries: FileSystemEntry) => void , errorCallback: (error: FileError) => void );
+    readEntries(successCallback: (entries: FileSystemEntry) => void, errorCallback: (error: FileError) => void): void;
 }
 
 interface FileTransfer {
@@ -340,7 +352,7 @@ interface FileUploadOptions {
     fileName?: string;
     mimeType?: string;
     params?: any;
-    chunkedMode?: bool;
+    chunkedMode?: boolean;
     headers?: any;
 }
 declare var FileUploadOptions: {
@@ -353,7 +365,10 @@ interface FileUploadResult {
     response: string;
 }
 
-// TODO Flags
+interface Flags {
+    create: boolean;
+    exclusive?: boolean;
+}
 
 /*
 interface LocalFileSystem {
@@ -363,6 +378,7 @@ interface LocalFileSystem {
 
 interface LocalFileSystem {
     PERSISTENT: number;
+    TEMPORARY: number;
 }
 declare var LocalFileSystem: LocalFileSystem;
 
@@ -373,6 +389,20 @@ interface Metadata {
 interface FileError {
     code: number;
 }
+declare var FileError: {
+    NOT_FOUND_ERR: number;
+    SECURITY_ERR: number;
+    ABORT_ERR: number;
+    NOT_READABLE_ERR: number;
+    ENCODING_ERR: number;
+    NO_MODIFICATION_ALLOWED_ERR: number;
+    INVALID_STATE_ERR: number;
+    SYNTAX_ERR: number;
+    INVALID_MODIFICATION_ERR: number;
+    QUOTA_EXCEEDED_ERR: number;
+    TYPE_MISMATCH_ERR: number;
+    PATH_EXISTS_ERR: number;
+}
 
 interface FileTransferError {
     code: number;
@@ -380,9 +410,15 @@ interface FileTransferError {
     target: string;
     http_status: number;
 }
+declare var FileTransferError: {
+    FILE_NOT_FOUND_ERR: number;
+    INVALID_URL_ERR: number;
+    CONNECTION_ERR: number;
+    ABORT_ERR: number;
+}
 
 interface GeolocationOptions {
-    enableHighAccuracy?: bool;
+    enableHighAccuracy?: boolean;
     timeout?: number;
     maximumAge?: number;
 }
@@ -392,32 +428,90 @@ interface GlobalizationError {
     message: string;
 }
 
+declare var GlobalizationError: {
+    UNKNOWN_ERROR: number;
+    FORMATTING_ERROR: number;
+    PARSING_ERROR: number;
+    PATTERN_ERROR: number;
+}
+
+interface GlobalizationDate {
+    year: number;
+    month: number;
+    day: number;
+    hour: number;
+    minute: number;
+    second: number;
+    millisecond: number;
+}
+
+interface GlobalizationDateOptions {
+    formatLength?: string;
+    selector?: string;
+}
+
+interface GlobalizationDatePattern {
+    pattern: string;
+    timezone: string;
+    utc_offset: number;
+    dst_offset: number;
+}
+
+interface GlobalizationDateNameOptions {
+    type?: string;
+    item?: string;
+}
+
+interface GlobalizationNumberOptions {
+    type?: string;
+}
+
+interface GlobalizationNumberPattern {
+    pattern: string;
+    symbol: string;
+    fraction: number;
+    rounding: number;
+    positive: string;
+    negative: string;
+    decimal: string;
+    grouping: string;
+}
+
+interface GlobalizationCurrencyPattern {
+    pattern: string;
+    code: string;
+    fraction: number;
+    rounding: number;
+    decimal: string;
+    grouping: string;
+}
+
 interface Globalization {
-    getPreferredLanguage(successCB, errorCB): void;
-    getLocaleName(successCB, errorCB): void;
-    dateToString(date, successCB, errorCB, options): void;
-    stringToDate(dateString, successCB, errorCB, options): void;
-    getDatePattern(successCB, errorCB, options): void;
-    getDateNames(successCB, errorCB, options): void;
-    isDayLightSavingsTime(date, successCB, errorCB): void;
-    getFirstDayOfWeek(successCB, errorCB): void;
-    numberToString(number, successCB, errorCB, options): void;
-    stringToNumber(string, successCB, errorCB, options): void;
-    getNumberPattern(successCB, errorCB, options): void;
-    getCurrencyPattern(currencyCode, successCB, errorCB): void;
+    getPreferredLanguage(successCallback: (properties: {value: string}) => void, errorCallback: (error: GlobalizationError) => void): void;
+    getLocaleName(successCallback: (properties: {value: string}) => void, errorCallback: (error: GlobalizationError) => void): void;
+    dateToString(date: Date, successCallback: (properties: {value: string}) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationDateOptions): void;
+    stringToDate(dateString: string, successCallback: (properties: GlobalizationDate) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationDateOptions): void;
+    getDatePattern(successCallback: (properties: GlobalizationDatePattern) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationDateOptions): void;
+    getDateNames(successCallback: (properties: {value: string[]}) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationDateNameOptions): void;
+    isDayLightSavingsTime(date: Date, successCallback: (properties: {dst: boolean}) => void, errorCallback: (error: GlobalizationError) => void): void;
+    getFirstDayOfWeek(successCallback: (properties: {value: number}) => void, errorCallback: (error: GlobalizationError) => void): void;
+    numberToString(number: number, successCallback: (properties: {value: string}) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationNumberOptions): void;
+    stringToNumber(string: string, successCallback: (properties: {value: number}) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationNumberOptions): void;
+    getNumberPattern(successCallback: (parameters: GlobalizationNumberPattern) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationNumberOptions): void;
+    getCurrencyPattern(currencyCode: string, successCallback: (parameters: GlobalizationCurrencyPattern) => void, errorCallback: (error: GlobalizationError) => void): void;
 }
 
 /*
 interface InAppBrowser {
     addEventListener(eventname: string, callback): void;
     removeEventListener(eventname: string, callback): void;
-    open(url?: string, target?: string, features?: string, replace?: bool): Window;
+    open(url?: string, target?: string, features?: string, replace?: boolean): Window;
     close(): void;
 }
 */
 
 interface Media {
-    new (src: string, mediaSuccess: Function, mediaError?: (mediaError: MediaError) => any, mediaStatus?: Function);
+    new (src: string, mediaSuccess: Function, mediaError?: (mediaError: MediaError) => any, mediaStatus?: Function): Media;
     getCurrentPosition(mediaSuccess: Function, mediaError?: (mediaError: MediaError) => any): void;
     getDuration(): any;
     play(): void;
@@ -429,12 +523,13 @@ interface Media {
     stop(): void;
 }
 declare var Media: {
-    new(src: string, onSuccess: (arg) => any, onError: (arg) => any): Media;
+    new(src: string, onSuccess: (arg: any) => any, onError: (error: any) => any): Media;
 }
 
 interface Notification {
     alert(message: string, alertCallback: Function, title?: string, buttonName?: string): void;
     confirm(message: string, confirmCallback: Function, title?: string, buttonLabels?: string): void;
+	confirm(message: string, confirmCallback: Function, title?: string, buttonLabels?: string[]): void;
     beep(times: number): void;
     vibrate(milliseconds: number): void;
 }
@@ -445,8 +540,8 @@ interface Splashscreen {
 }
 
 interface Database {
-    transaction(populateDB?: (tx: SQLTransaction) => any, errorCB?: (err) => any, successCB?: () => any);
-    changeVersion(var1: string, var2: string);
+    transaction(populateDB?: (tx: SQLTransaction) => any, errorCB?: (err: any) => any, successCB?: () => any): void;
+    changeVersion(var1: string, var2: string): void;
 }
 
 interface SQLResultSetRowList {
@@ -479,6 +574,36 @@ interface LocalStorage {
     clear;
 }
 */
+
+interface StatusBar {
+    isVisible: boolean;
+
+    overlaysWebView(doOverlay: boolean): void;
+    styleDefault(): void;
+    styleLightContent(): void;
+    styleBlackTranslucent(): void;
+    styleBlackOpaque(): void;
+    backgroundColorByName(colorname: string): void;
+    backgroundColorByHexString(hexString: string): void;
+    hide(): void;
+    show(): void;
+}
+declare var StatusBar: StatusBar;
+
+interface Keyboard {
+    automaticScrollToTopOnHiding: boolean;
+    isVisible: boolean;
+
+    onshow: Function;
+    onhide: Function;
+    onshowing: Function;
+    onhiding: Function;
+
+    disableScrollingInShrinkView(disable: boolean): void;
+    hideFormAccessoryBar(hide: boolean): void;
+    shrinkView(shrink: boolean): void;
+}
+declare var Keyboard: Keyboard;
 
 interface /*PhoneGapNavigator extends*/ Navigator {
     accelerometer: Accelerometer;

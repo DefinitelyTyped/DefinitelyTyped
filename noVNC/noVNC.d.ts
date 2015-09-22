@@ -9,16 +9,16 @@ interface NvPoint {
 }
 
 interface NvFeatures {
-	xpath: bool;
-	air: bool;
-	query: bool;
+	xpath: boolean;
+	air: boolean;
+	query: boolean;
 }
 
 interface NvEngine {
-	presto: bool;
-	trident: bool;
-	webkit: bool;
-	gecko: bool;
+	presto: boolean;
+	trident: boolean;
+	webkit: boolean;
+	gecko: boolean;
 }
 
 interface NvFlash {
@@ -67,14 +67,14 @@ interface NvRenderAction {
 interface NvRFBDefaults {
 	target?: HTMLCanvasElement;
 	focusContainer?: HTMLElement;
-	encrypt?: bool;
-	true_color?: bool;
-	local_cursor?: bool;
-	shared?: bool;
-	view_only?: bool;
+	encrypt?: boolean;
+	true_color?: boolean;
+	local_cursor?: boolean;
+	shared?: boolean;
+	view_only?: boolean;
 	connectTimeout?: number;
 	disconnectTimeout?: number;
-	viewportDrag?: bool;
+	viewportDrag?: boolean;
 	check_rate?: number;
 	fbu_req_rate?: number;
 	repeaterID?: string;
@@ -87,7 +87,7 @@ interface NvRFBDefaults {
 	onFBResize?: (rfb: RFB, width: number, height: number) => void;
 }
 
-class RFB {
+declare class RFB {
 	constructor(defaults);
 	set_local_cursor(cursor): void;
 	get_display(): Display;
@@ -97,9 +97,9 @@ class RFB {
 	disconnect(): void;
 	sendPassword(passwd: string): void;
 	sendCtrlAltDel(): void;
-	sendKey(code: number, down: bool): void;
+	sendKey(code: number, down: boolean): void;
 	clipboardPasteFrom(text: string): void;
-	testMode(override_send: (arr: Array) => bool, data_mode: string): void;
+	testMode(override_send: (arr: any[]) => boolean, data_mode: string): void;
 }
 
 interface Display {

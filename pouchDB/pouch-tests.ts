@@ -1,15 +1,15 @@
 /// <reference path="pouch.d.ts" />
 
-declare var $: any;
-
-function alert(thing: any) {
-	$('body').append('<div>' + thing + '</div>');
+window.alert = function (thing?: string) {    
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(thing));
+    document.getElementsByTagName('body')[0].appendChild(div);
 }
 
-var pouch: Pouch;
+var pouch: PouchDB;
 
 function pouchTests() {
-	Pouch('idb://testdb', function (err: PouchError, res: Pouch) {
+    new PouchDB('testdb', function (err: PouchError, res: PouchDB) {
 		if (err) {
 			alert('Error ' + err.status + ' occurred ' + err.error + ' - ' + err.reason);
 		}
@@ -130,7 +130,7 @@ function deleteDb() {
 	alert('deleteDb');
 	if (pouch) {
 		pouch = null;
-		Pouch.destroy('idb://testdb', function (err: PouchError) {
+		PouchDB.destroy('testdb', function (err: PouchError) {
 			if (err) {
 				alert('Error ' + err.status + ' occurred ' + err.error + ' - ' + err.reason);
 			}

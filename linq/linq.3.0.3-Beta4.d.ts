@@ -1,11 +1,12 @@
-// Type definitions for linq.js, ver 3.0.3-Beta4
+// Type definitions for linq.js v3.0.3-Beta4
 // Project: http://linqjs.codeplex.com/
-// Definitions by: neuecc (http://www.codeplex.com/site/users/view/neuecc)
+// Definitions by: neuecc <http://www.codeplex.com/site/users/view/neuecc>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module linqjs {
     interface IEnumerator {
         current(): any;
-        moveNext(): bool;
+        moveNext(): boolean;
         dispose(): void;
     }
 
@@ -13,7 +14,7 @@ declare module linqjs {
         Utils: {
             createLambda(expression: any): (...params: any[]) => any;
             createEnumerable(getEnumerator: () => IEnumerator): Enumerable;
-            createEnumerator(initialize: () => void , tryGetNext: () => bool, dispose: () => void ): IEnumerator;
+            createEnumerator(initialize: () => void , tryGetNext: () => boolean, dispose: () => void ): IEnumerator;
             extendTo(type: any): void;
         };
         choice(...params: any[]): Enumerable;
@@ -32,7 +33,7 @@ declare module linqjs {
         rangeDown(start: number, count: number, step?: number): Enumerable;
         rangeTo(start: number, to: number, step?: number): Enumerable;
         repeat(element: any, count?: number): Enumerable;
-        repeatWithFinalize(initializer: () => any, finalizer: (element) => void ): Enumerable;
+        repeatWithFinalize(initializer: () => any, finalizer: (element: any) => void ): Enumerable;
         generate(func: () => any, count?: number): Enumerable;
         toInfinity(start?: number, step?: number): Enumerable;
         toNegativeInfinity(start?: number, step?: number): Enumerable;
@@ -41,7 +42,7 @@ declare module linqjs {
     }
 
     interface Enumerable {
-        constructor (getEnumerator: () => IEnumerator);
+        constructor(getEnumerator: () => IEnumerator): Enumerable;
         getEnumerator(): IEnumerator;
 
         // Extension Methods
@@ -55,7 +56,7 @@ declare module linqjs {
         selectMany(collectionSelector: (element: any, index: number) => any[], resultSelector?: (outer: any, inner: any) => any): Enumerable;
         selectMany(collectionSelector: (element: any, index: number) => Enumerable, resultSelector?: (outer: any, inner: any) => any): Enumerable;
         selectMany(collectionSelector: (element: any, index: number) => { length: number;[x: number]: any; }, resultSelector?: (outer: any, inner: any) => any): Enumerable;
-        where(predicate: (element: any, index: number) => bool): Enumerable;
+        where(predicate: (element: any, index: number) => boolean): Enumerable;
         choose(selector: (element: any, index: number) => any): Enumerable;
         ofType(type: any): Enumerable;
         zip(second: any[], resultSelector: (first: any, second: any, index: number) => any): Enumerable;
@@ -68,9 +69,9 @@ declare module linqjs {
         merge(...params: any[]): Enumerable; // last one is selector
         join(inner: Enumerable, outerKeySelector: (outer: any) =>any, innerKeySelector: (inner: any) =>any, resultSelector: (outer: any, inner: any) => any, compareSelector?: (obj: any) => any): Enumerable;
         groupJoin(inner: Enumerable, outerKeySelector: (outer: any) =>any, innerKeySelector: (inner: any) =>any, resultSelector: (outer: any, inner: any) => any, compareSelector?: (obj: any) => any): Enumerable;
-        all(predicate: (element: any) => bool): bool;
-        any(predicate?: (element: any) => bool): bool;
-        isEmpty(): bool;
+        all(predicate: (element: any) => boolean): boolean;
+        any(predicate?: (element: any) => boolean): boolean;
+        isEmpty(): boolean;
         concat(...sequences: any[]): Enumerable;
         insert(index: number, second: any[]): Enumerable;
         insert(index: number, second: Enumerable): Enumerable;
@@ -106,7 +107,7 @@ declare module linqjs {
         aggregate(func: (prev: any, current: any) => any): any;
         aggregate(seed: any, func: (prev: any, current: any) => any, resultSelector?: (last: any) => any): any;
         average(selector?: (element: any) => any): number;
-        count(predicate?: (element: any, index: number) => bool): number;
+        count(predicate?: (element: any, index: number) => boolean): number;
         max(selector?: (element: any) => any): number;
         min(selector?: (element: any) => any): number;
         maxBy(keySelector: (element: any) => any): any;
@@ -114,22 +115,22 @@ declare module linqjs {
         sum(selector?: (element: any) => any): number;
         elementAt(index: number): any;
         elementAtOrDefault(index: number, defaultValue?: any): any;
-        first(predicate?: (element: any, index: number) => bool): any;
-        firstOrDefault(predicate?: (element: any, index: number) => bool, defaultValue?: any): any;
-        last(predicate?: (element: any, index: number) => bool): any;
-        lastOrDefault(predicate?: (element: any, index: number) => bool, defaultValue?: any): any;
-        single(predicate?: (element: any, index: number) => bool): any;
-        singleOrDefault(predicate?: (element: any, index: number) => bool, defaultValue?: any): any;
+        first(predicate?: (element: any, index: number) => boolean): any;
+        firstOrDefault(predicate?: (element: any, index: number) => boolean, defaultValue?: any): any;
+        last(predicate?: (element: any, index: number) => boolean): any;
+        lastOrDefault(predicate?: (element: any, index: number) => boolean, defaultValue?: any): any;
+        single(predicate?: (element: any, index: number) => boolean): any;
+        singleOrDefault(predicate?: (element: any, index: number) => boolean, defaultValue?: any): any;
         skip(count: number): Enumerable;
-        skipWhile(predicate: (element: any, index: number) => bool): Enumerable;
+        skipWhile(predicate: (element: any, index: number) => boolean): Enumerable;
         take(count: number): Enumerable;
-        takeWhile(predicate: (element: any, index: number) => bool): Enumerable;
+        takeWhile(predicate: (element: any, index: number) => boolean): Enumerable;
         takeExceptLast(count?: number): Enumerable;
         takeFromLast(count: number): Enumerable;
         indexOf(item: any): number;
-        indexOf(predicate: (element: any, index: number) => bool): number;
+        indexOf(predicate: (element: any, index: number) => boolean): number;
         lastIndexOf(item: any): number;
-        lastIndexOf(predicate: (element: any, index: number) => bool): number;
+        lastIndexOf(predicate: (element: any, index: number) => boolean): number;
         asEnumerable(): Enumerable;
         toArray(): any[];
         toLookup(keySelector: (element: any) => any, elementSelector?: (element: any) => any, compareSelector?: (element: any) => any): Lookup;
@@ -141,9 +142,9 @@ declare module linqjs {
         toJSONString(replacer: any[], space: any): string;
         toJoinedString(separator?: string, selector?: (element: any, index: number) => any): string;
         doAction(action: (element: any, index: number) => void ): Enumerable;
-        doAction(action: (element: any, index: number) => bool): Enumerable;
+        doAction(action: (element: any, index: number) => boolean): Enumerable;
         forEach(action: (element: any, index: number) => void ): void;
-        forEach(action: (element: any, index: number) => bool): void;
+        forEach(action: (element: any, index: number) => boolean): void;
         write(separator?: string, selector?: (element: any) => any): void;
         writeLine(selector?: (element: any) => any): void;
         force(): void;
@@ -159,7 +160,7 @@ declare module linqjs {
     }
 
     interface OrderedEnumerable extends Enumerable {
-        createOrderedEnumerable(keySelector: (element: any) => any, descending: bool): OrderedEnumerable;
+        createOrderedEnumerable(keySelector: (element: any) => any, descending: boolean): OrderedEnumerable;
         thenBy(keySelector: (element: any) => any): OrderedEnumerable;
         thenByDescending(keySelector: (element: any) => any): OrderedEnumerable;
     }
@@ -171,8 +172,8 @@ declare module linqjs {
     interface Dictionary {
         add(key: any, value: any): void;
         get(key: any): any;
-        set(key: any, value: any): bool;
-        contains(key: any): bool;
+        set(key: any, value: any): boolean;
+        contains(key: any): boolean;
         clear(): void;
         remove(key: any): void;
         count(): number;
@@ -182,7 +183,7 @@ declare module linqjs {
     interface Lookup {
         count(): number;
         get(key: any): Enumerable;
-        contains(key: any): bool;
+        contains(key: any): boolean;
         toEnumerable(): Enumerable; // Enumerable<Groping>
     }
 

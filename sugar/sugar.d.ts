@@ -1,4 +1,8 @@
-﻿/* 
+﻿// Type definitions for Sugar 1.3.9
+// Project: http://sugarjs.com/
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+/*
 sugar-1.3.9.d.ts may be freely distributed under the MIT license.
 
 Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/sugar.d.ts
@@ -23,10 +27,6 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR 
 OTHER DEALINGS IN THE SOFTWARE.
 */
-
-interface SuggarExcludeFunction {
-	(el: any, i?: number, array?: any[]): bool;	
-}
 
 interface String {
 
@@ -81,12 +81,11 @@ interface String {
 	*   'jumpy'.at(-1)              -> 'y'
 	*   'lucky charms'.at(2,4,6,8) -> ['u','k','y',c']
 	***/
-	at(index: number, loop?: bool): string;
+	at(index: number, loop?: boolean): string;
 
 	/**
 	* @see at
-	* @limitation Typescript does not allow for arguments
-	*             after a variable argument list.
+	* @limitation Typescript does not allow for arguments after a variable argument list.
 	**/
 	at(...indicies: number[]): string[];
 
@@ -101,7 +100,7 @@ interface String {
 	*   'moz-border-radius'.camelize()      -> 'MozBorderRadius'
 	*   'moz-border-radius'.camelize(false) -> 'mozBorderRadius'
 	**/
-	camelize(first?: bool): string;
+	camelize(first?: boolean): string;
 
 	/**
 	* Capitalizes the first character in the string.
@@ -116,7 +115,7 @@ interface String {
 	*   'hello kitty'.capitalize(true) -> 'Hello Kitty'
 	*
 	**/
-	capitalize(all: bool): string;
+	capitalize(all?: boolean): string;
 
 	/**
 	* Runs callback [fn] against each character in the string.
@@ -190,12 +189,12 @@ interface String {
 	*     // Called twice: "u", "y"
 	*   });
 	**/
-	each(search: string, fn?: (m: string) => void ): string[];
+	each(search: string, fn?: (m: string) => void): string[];
 
 	/**
 	* @see each
 	**/
-	each(search: RegExp, fn?: (m: string) => void ): string[];
+	each(search: RegExp, fn?: (m: string) => void): string[];
 
 	/**
 	* @see each
@@ -225,22 +224,22 @@ interface String {
 	*   'jumpy'.endsWith('MPY')        -> false
 	*   'jumpy'.endsWith('MPY', false) -> true
 	**/
-	endsWith(find: string, pos?: number, case_?: bool): bool;
+	endsWith(find: string, pos?: number, case_?: boolean): boolean;
 
 	/**
 	* @see endsWith
 	**/
-	endsWith(find: string, case_?: bool): bool;
+	endsWith(find: string, case_?: boolean): boolean;
 
 	/**
 	* @see endsWith
 	**/
-	endsWith(find: RegExp, pos?: number, case_?: bool): bool;
+	endsWith(find: RegExp, pos?: number, case_?: boolean): boolean;
 
 	/**
 	* @see endsWith
 	**/
-	endsWith(find: RegExp, case_?: bool): bool;
+	endsWith(find: RegExp, case_?: boolean): boolean;
 
 	/**
 	* Converts HTML characters to their entity equivalents.
@@ -270,7 +269,7 @@ interface String {
 	*   'http://foo.com/"bar"'.escapeURL()     -> 'http://foo.com/%22bar%22'
 	*   'http://foo.com/"bar"'.escapeURL(true) -> 'http%3A%2F%2Ffoo.com%2F%22bar%22'
 	**/
-	escapeURL(param?: bool): string;
+	escapeURL(param?: boolean): string;
 
 	/**
 	* Returns the first [n] characters of the string.
@@ -326,12 +325,12 @@ interface String {
 	*   'broken'.has(/[a-n]/) -> true
 	*   'broken'.has(/[s-z]/) -> false
 	**/
-	has(find: string): bool;
+	has(find: string): boolean;
 
 	/**
 	* @see has
 	**/
-	has(find: RegExp): bool;
+	has(find: RegExp): boolean;
 
 	/**
 	* Returns true if the string contains any characters in Arabic.
@@ -343,79 +342,79 @@ interface String {
 	*   '??????'.hasKatakana() -> true
 	*   "l'année".hasLatin()         -> true
 	**/
-	hasArabic(): bool;
+	hasArabic(): boolean;
 
 	/**
 	* Returns true if the string contains any characters in Cyrillic.
 	* @returns True if the string contains Cyrillic.
 	**/
-	hasCyrillic(): bool;
+	hasCyrillic(): boolean;
 
 	/**
 	* Returns true if the string contains any characters in Greek.
 	* @returns True if the string contains Greek.
 	**/
-	hasGreek(): bool;
+	hasGreek(): boolean;
 
 	/**
 	* Returns true if the string contains any characters in Hangul.
 	* @returns True if the string contains Hangul.
 	**/
-	hasHangul(): bool;
+	hasHangul(): boolean;
 
 	/**
 	* Returns true if the string contains any characters in Han.
 	* @returns True if the string contains Han.
 	**/
-	hasHan(): bool;
+	hasHan(): boolean;
 
 	/**
 	* Returns true if the string contains any characters in Kanji.
 	* @returns True if the string contains Kanji.
 	**/
-	hasKanji(): bool;
+	hasKanji(): boolean;
 
 	/**
 	* Returns true if the string contains any characters in Hebrew.
 	* @returns True if the string contains Hebrew.
 	**/
-	hasHebrew(): bool;
+	hasHebrew(): boolean;
 
 	/**
 	* Returns true if the string contains any characters in Hiragana.
 	* @returns True if the string contains Hiragana.
 	**/
-	hasHiragana(): bool;
+	hasHiragana(): boolean;
 
 	/**
 	* Returns true if the string contains any characters in Kana.
 	* @returns True if the string contains Kana.
 	**/
-	hasKana(): bool;
+	hasKana(): boolean;
 
 	/**
 	* Returns true if the string contains any characters in Katakana.
 	* @returns True if the string contains Katakana.
 	**/
-	hasKatakana(): bool;
+	hasKatakana(): boolean;
 
 	/**
 	* Returns true if the string contains any characters in Latin.
 	* @returns True if the string contains Latin.
 	**/
-	hasLatin(): bool;
+	hasLatin(): boolean;
 
 	/**
 	* Returns true if the string contains any characters in Thai.
 	* @returns True if the string contains Thai.
 	**/
-	hasThai(): bool;
+	hasThai(): boolean;
 
 	/**
 	* Returns true if the string contains any characters in Devanagari.
 	* @returns True if the string contains Devanagari.
 	**/
-	hasDevanagari(): bool;
+	hasDevanagari(): boolean;
 
 	/**
 	* Converts katakana into hiragana.
@@ -427,7 +426,7 @@ interface String {
 	*   '????'.hiragana()       -> '????'
 	*   '????'.hiragana(false)  -> '????'
 	**/
-	hiragana(all?: bool): string;
+	hiragana(all?: boolean): string;
 
 	/**
 	* Creates a human readable string.
@@ -448,7 +447,7 @@ interface String {
 	*   '   '.isBlank()   -> true
 	*   'noway'.isBlank() -> false
 	**/
-	isBlank(): bool;
+	isBlank(): boolean;
 
 	/**
 	* Returns true if the string contains only characters in Arabic. Whitespace is ignored.
@@ -460,79 +459,79 @@ interface String {
 	*   '??????'.isKatakana() -> false
 	*   "l'année".isLatin()         -> true
 	**/
-	isArabic(): bool;
+	isArabic(): boolean;
 
 	/**
 	* Returns true if the string contains only characters in Cyrillic. Whitespace is ignored.
 	* @returns True if the string containsly only characters in Cyrillic.
 	**/
-	isCyrillic(): bool;
+	isCyrillic(): boolean;
 
 	/**
 	* Returns true if the string contains only characters in Greek. Whitespace is ignored.
 	* @returns True if the string containsly only characters in Greek.
 	**/
-	isGreek(): bool;
+	isGreek(): boolean;
 
 	/**
 	* Returns true if the string contains only characters in Hangul. Whitespace is ignored.
 	* @returns True if the string containsly only characters in Hangul.
 	**/
-	isHangul(): bool;
+	isHangul(): boolean;
 
 	/**
 	* Returns true if the string contains only characters in Han. Whitespace is ignored.
 	* @returns True if the string containsly only characters in Han.
 	**/
-	isHan(): bool;
+	isHan(): boolean;
 
 	/**
 	* Returns true if the string contains only characters in Kanji. Whitespace is ignored.
 	* @returns True if the string containsly only characters in Kanji.
 	**/
-	isKanji(): bool;
+	isKanji(): boolean;
 
 	/**
 	* Returns true if the string contains only characters in Hebrew. Whitespace is ignored.
 	* @returns True if the string containsly only characters in Hebrew.
 	**/
-	isHebrew(): bool;
+	isHebrew(): boolean;
 
 	/**
 	* Returns true if the string contains only characters in Hiragana. Whitespace is ignored.
 	* @returns True if the string containsly only characters in Hiragana.
 	**/
-	isHiragana(): bool;
+	isHiragana(): boolean;
 
 	/**
 	* Returns true if the string contains only characters in Kana. Whitespace is ignored.
 	* @returns True if the string containsly only characters in Kana.
 	**/
-	isKana(): bool;
+	isKana(): boolean;
 
 	/**
 	* Returns true if the string contains only characters in Katakana. Whitespace is ignored.
 	* @returns True if the string containsly only characters in Katakana.
 	**/
-	isKatakana(): bool;
+	isKatakana(): boolean;
 
 	/**
 	* Returns true if the string contains only characters in Latin. Whitespace is ignored.
 	* @returns True if the string containsly only characters in Latin.
 	**/
-	isLatin(): bool;
+	isLatin(): boolean;
 
 	/**
 	* Returns true if the string contains only characters in Thai. Whitespace is ignored.
 	* @returns True if the string containsly only characters in Thai.
 	**/
-	isThai(): bool;
+	isThai(): boolean;
 
 	/**
 	* Returns true if the string contains only characters in Devanagari. Whitespace is ignored.
 	* @returns True if the string containsly only characters in Devanagari.
 	**/
-	isDevanagari(): bool;
+	isDevanagari(): boolean;
 
 	/**
 	* Converts hiragana into katakana.
@@ -655,23 +654,12 @@ interface String {
 
 	/**
 	* Removes all HTML tags and their contents from the string
+	* @param tags Remove these HTML tags.
 	* @returns String with HTML tags removed.
 	* @extra Tags to remove may be enumerated in the parameters, otherwise will remove all.
 	* @example
 	*   '<p>just <b>some</b> text</p>'.removeTags()    -> ''
 	*   '<p>just <b>some</b> text</p>'.removeTags('b') -> '<p>just text</p>'
-	**/
-	removeTags(): string;
-
-	/**
-	* @see removeTags
-	* @param tag Remove only this HTML tag.
-	**/
-	removeTags(tag: string): string;
-
-	/**
-	* @see removeTags
-	* @param tags Remove these HTML tags.
 	**/
 	removeTags(...tags: string[]): string;
 
@@ -739,43 +727,31 @@ interface String {
 	*   'hello'.startsWith('HELL')        -> false
 	*   'hello'.startsWith('HELL', false) -> true
 	**/
-	startsWith(find: string, pos?: number, case_?: bool): bool;
+	startsWith(find: string, pos?: number, case_?: boolean): boolean;
 
 	/**
 	* @see startsWith
 	**/
-	startsWith(find: string, case_?: bool): bool;
+	startsWith(find: string, case_?: boolean): boolean;
 
 	/**
 	* @see startsWith
 	**/
-	startsWith(find: RegExp, pos?: number, case_?: bool): bool;
+	startsWith(find: RegExp, pos?: number, case_?: boolean): boolean;
 
 	/**
 	* @see startsWith
 	**/
-	startsWith(find: RegExp, case_?: bool): bool;
+	startsWith(find: RegExp, case_?: boolean): boolean;
 
 	/**
 	* Strips all HTML tags from the string.
-	
+	* @param tags HTML tags to strip from the string.
 	* @returns Returns the string with all HTML removed.
 	* @extra Tags to strip may be enumerated in the parameters, otherwise will strip all.
 	* @example
 	*   '<p>just <b>some</b> text</p>'.stripTags()    -> 'just some text'
 	*   '<p>just <b>some</b> text</p>'.stripTags('p') -> 'just <b>some</b> text'
-	**/
-	stripTags(): string;
-
-	/**
-	* @see stripTags
-	* @param tags HTML tag to strip from the string.
-	**/
-	stripTags(tag: string): string;
-
-	/**
-	* @see stripTags
-	* @param tags HTML tags to strip from the string.
 	**/
 	stripTags(...tags: string[]): string;
 
@@ -829,6 +805,7 @@ interface String {
 	*   '   wasabi   '.trimLeft()  -> 'wasabi   '
 	*   '   wasabi   '.trimRight() -> '   wasabi'
 	**/
+	// Trim is already available on lib.d.ts interface definition.
 	//trim(): string;
 
 	/**
@@ -861,7 +838,7 @@ interface String {
 	*   'just sittin on the dock of the bay'.truncate(20, true, 'middle') -> 'just sitt...of the bay'
 	*   'just sittin on the dock of the bay'.truncate(20, true, 'left')   -> '...the dock of the bay'
 	**/
-	truncate(length: number, split?: bool, from?: string, ellipsis?: string): string;
+	truncate(length: number, split?: boolean, from?: string, ellipsis?: string): string;
 
 	/**
 	* Converts hyphens and camel casing to underscores.
@@ -891,7 +868,7 @@ interface String {
 	*   'http%3A%2F%2Ffoo.com%2Fthe%20bar'.unescapeURL()     -> 'http://foo.com/the bar'
 	*   'http%3A%2F%2Ffoo.com%2Fthe%20bar'.unescapeURL(true) -> 'http%3A%2F%2Ffoo.com%2Fthe bar'
 	**/
-	unescapeURL(partial?: bool): string;
+	unescapeURL(partial?: boolean): string;
 
 	/**
 	* Runs callback [fn] against each word in the string.
@@ -929,6 +906,7 @@ interface String {
 	zenkaku(...modes: string[]): string;
 }
 
+// Todo: fix when TypeScript supports adding static functions to native types.
 interface NumberStatic {
 
 	/**
@@ -980,7 +958,7 @@ interface Number {
 	* @see bytes
 	* @limit If false upper limit for units is 'exa'.
 	**/
-	bytes(precision?: number, limit?: bool): string;
+	bytes(precision?: number, limit?: boolean): string;
 
 	/**
 	* Shortcut for %Math.ceil% that also allows a <precision>.
@@ -1087,7 +1065,7 @@ interface Number {
 	*   (6).isEven()  -> true
 	*   (17).isEven() -> false
 	**/
-	isEven(): bool;
+	isEven(): boolean;
 
 	/**
 	* Returns true if the number has no trailing decimal.
@@ -1096,10 +1074,11 @@ interface Number {
 	*   (420).isInteger() -> true
 	*   (4.5).isInteger() -> false
 	**/
-	isInteger(): bool;
+	isInteger(): boolean;
 
 	/**
 	* Returns true if the number is a multiple of <num>.
+	* @param num Number to check for multiple of.
 	* @returns True if the number is a multiple of <num>.
 	* @example
 	*   (6).isMultipleOf(2)  -> true
@@ -1107,7 +1086,7 @@ interface Number {
 	*   (32).isMultipleOf(4) -> true
 	*   (34).isMultipleOf(4) -> false
 	**/
-	isMultipleOf(num: number): bool;
+	isMultipleOf(num: number): boolean;
 
 	/**
 	* Returns true if the number is odd.
@@ -1116,7 +1095,7 @@ interface Number {
 	*   (3).isOdd()  -> true
 	*   (18).isOdd() -> false
 	**/
-	isOdd(): bool;
+	isOdd(): boolean;
 
 	/**
 	* Returns the logarithm of the number with base <base>,
@@ -1211,7 +1190,7 @@ interface Number {
 	* @see metric
 	* @limit If false the upper limit for the metric units will be 'exa'.
 	**/
-	metric(precision?: number, limit?: bool): string;
+	metric(precision?: number, limit?: boolean): string;
 
 	/**
 	* Returns an ordinalized (English) string, i.e. "1st", "2nd", etc.
@@ -1236,7 +1215,7 @@ interface Number {
 	*   (-5).pad(4)       -> '-0005'
 	*   (82).pad(3, true) -> '+082'
 	**/
-	pad(place?: number, sign?: bool, base?: number): string;
+	pad(place?: number, sign?: boolean, base?: number): string;
 
 	/**
 	* Shortcut for %Math.round% that also allows a [precision].
@@ -1984,12 +1963,13 @@ interface Number {
 	upto(num: number, fn?: Function, step?: number): number[];
 }
 
-interface Array {
+// Todo: Fix when TypeScript supports static members on native types.
+interface ArrayStatic {
 
-	/***
+	/**
 	* Alternate array constructor.
-	* @method Array.create(<obj1>, <obj2>, ...)
-	* @returns Array
+	* @param args Elements to create the array from.
+	* @returns Array containing the elements in <args>.
 	* @extra This method will create a single array by calling %concat%
 	*        on all arguments passed. In addition to ensuring that an unknown
 	*        variable is in a single, flat array (the standard constructor will
@@ -1997,35 +1977,35 @@ interface Array {
 	*        shorthand to convert a function's arguments object into a standard
 	*        array.
 	* @example
-	*
 	*   Array.create('one', true, 3)   -> ['one', true, 3]
 	*   Array.create(['one', true, 3]) -> ['one', true, 3]
-	+   Array.create(function(n) {
+	*   Array.create(function(n) {
 	*     return arguments;
 	*   }('howdy', 'doody'));
-	*
-	***/
-	create(...args: any[]): any[];
+	**/
+	create<T>(...args: T[]): T[];
 
-	/***
+	/**
 	* Returns true if <obj> is an Array.
-	* @method Array.isArray(<obj>)
-	* @returns Boolean
+	* @param obj Object to check if it is an Array.
+	* @returns True if <obj> is of type Array.
 	* @extra This method is provided for browsers that don't support it internally.
 	* @example
-	*
 	*   Array.isArray(3)        -> false
 	*   Array.isArray(true)     -> false
 	*   Array.isArray('wasabi') -> false
 	*   Array.isArray([1,2,3])  -> true
-	*
-	***/
-	isArray(obj: any): bool;
+	**/
+	isArray(obj: any): boolean;
+}
 
-	/***
+interface Array<T> {
+
+	/**
 	* Adds <el> to the array.
-	* @method add(<el>, [index])
-	* @returns Array
+	* @param el Elements to add to the array.
+	* @param index Specifies the index where to insert/add <el> into the array, default = Array.length
+	* @returns Array containing the added <el> elements at position <index>.
 	* @extra If [index] is specified, it will add at [index], otherwise
 	*        adds to the end of the array. %add% behaves like %concat%
 	*        in that if <el> is an array it will be joined, not inserted.
@@ -2033,102 +2013,108 @@ interface Array {
 	*        non-destructive alias. Also, %insert% is provided as an
 	*        alias that reads better when using an index.
 	* @example
-	*
 	*   [1,2,3,4].add(5)       -> [1,2,3,4,5]
 	*   [1,2,3,4].add([5,6,7]) -> [1,2,3,4,5,6,7]
 	*   [1,2,3,4].insert(8, 1) -> [1,8,2,3,4]
-	*
-	***/
-	add(el: any, index?: number): any[];
-	add(el: any[], index?: number): any[];
-	insert(el: any, index?: number): any[];
-	insert(el: any[], index?: number): any[];
+	**/
+	add(el: T, index?: number): T[];
+
+	/**
+	* @see add
+	**/
+	add(el: T[], index?: number): T[];
+
+	/**
+	* @see add
+	**/
+	insert(el: T, index?: number): T[];
+
+	/**
+	* @see add
+	**/
+	insert(el: T[], index?: number): T[];
 
 	/***
 	* Gets the element(s) at a given index.
-	* @method at(<index>, [loop] = true)
-	* @returns Mixed
-	* @extra When [loop] is true, overshooting the end of the array (or the beginning) will begin counting from the other end. As an alternate syntax, passing multiple indexes will get the elements at those indexes.
+	* @param index Element's index to retrieve.
+	* @param loop Continue counting if the index overshoots the Array.length
+	* @returns The element at <index>.
+	* @extra When [loop] is true, overshooting the end of the array (or the beginning)
+	*        will begin counting from the other end. As an alternate syntax, passing
+	*        multiple indexes will get the elements at those indexes.
 	* @example
-	*
 	*   [1,2,3].at(0)        -> 1
 	*   [1,2,3].at(2)        -> 3
 	*   [1,2,3].at(4)        -> 2
 	*   [1,2,3].at(4, false) -> null
 	*   [1,2,3].at(-1)       -> 3
 	*   [1,2,3].at(0,1)      -> [1,2]
-	*
-	***/
-	at(index: number, loop?: bool): any;
-	at(start: number, stop: number): any[];
+	**/
+	at(index: number, loop?: boolean): T;
 
-	/***
+	/**
+	* @see at
+	* @param start Start index.
+	* @param end End index.
+	* @return Elements between <start> and <end>
+	**/
+	at(start: number, stop: number): T[];
+
+	/**
 	* Averages all values in the array.
-	* @method average([map])
-	* @returns Number
+	* @param map Maps each element to a number.
+	* @returns The average of the entire array.
 	* @extra [map] may be a function mapping the value to be averaged or
 	*        a string acting as a shortcut.
 	* @example
-	*
 	*   [1,2,3].average()                           -> 2
-	+   [{age:35},{age:11},{age:11}].average(function(n) {
+	*   [{age:35},{age:11},{age:11}].average(function(n) {
 	*     return n.age;
 	*   });                                         -> 19
 	*   [{age:35},{age:11},{age:11}].average('age') -> 19
-	*
-	***/
-	average(map?: (n: number) => number): number;
+	**/
+	average(map?: (e: T) => number): number;
 
-	/***
+	/**
 	* Clones the array.
-	* @method clone()
-	* @returns Array
+	* @returns Cloned array.
 	* @example
-	*
 	*   [1,2,3].clone() -> [1,2,3]
-	*
-	***/
-	clone(): any[];
+	**/
+	clone(): T[];
 
-	/***
+	/**
 	* Removes all instances of %undefined%, %null%, and %NaN% from the array.
-	* @method compact([all] = false)
-	* @returns Array
+	* @param all Remove false elements, default = false.
+	* @returns The same array with the special values removed.
 	* @extra If [all] is %true%, all "falsy" elements will be removed. This includes empty strings, 0, and false.
 	* @example
-	*
 	*   [1,null,2,undefined,3].compact() -> [1,2,3]
 	*   [1,'',2,false,3].compact()       -> [1,'',2,false,3]
 	*   [1,'',2,false,3].compact(true)   -> [1,2,3]
-	*
-	***/
-	compact(all?: bool): any[];
+	**/
+	compact(all?: boolean): T[];
 
-	/***
+	/**
 	* Counts all elements in the array that match <f>.
-	* @method count(<f>)
-	* @returns Number
+	* @param f object to match against in the array.
+	* @returns Number of elements in the array that match <f>.
 	* @extra <f> will match a string, number, array, object, or alternately test against a function or regex. This method implements @array_matching.
 	* @example
-	*
 	*   [1,2,3,1].count(1)       -> 2
 	*   ['a','b','c'].count(/b/) -> 1
-	+   [{a:1},{b:2}].count(function(n) {
+	*   [{a:1},{b:2}].count(function(n) {
 	*     return n['a'] > 1;
 	*   });                      -> 0
-	*
-	***/
-	count(f: number): number;
-	count(f: string): number;
-	count(f: any[]): number;
-	count(f: Object): number;
-	count(f: (n: any) => any): number;
-	count(f: RegExp): number;
+	**/
+	count(f: T): number;
 
-	/***
+	/**
 	* Runs <fn> against each element in the array. Enhanced version of %Array#forEach%.
-	* @method each(<fn>, [index] = 0, [loop] = false)
-	* @returns Array
+	* @param fn Callback function for applied to each element in the array.
+	* @param index Starting index, default = 0.
+	* @param loop Continue from the beginning if the end of the array is reached, default = false.
+	* @returns Original array.
 	* @extra Parameters passed to <fn> are identical to %forEach%,
 	*        ie. the first parameter is the current element, second
 	*        parameter is the current index, and third parameter is
@@ -2139,134 +2125,147 @@ interface Array {
 	*        is true, it will then start over from the beginning of the
 	*        array and continue until it reaches [index] - 1.
 	* @example
-	*
 	*   [1,2,3,4].each(function(n) {
 	*     // Called 4 times: 1, 2, 3, 4
 	*   });
 	*   [1,2,3,4].each(function(n) {
 	*     // Called 4 times: 3, 4, 1, 2
 	*   }, 2, true);
-	*
-	***/
-	each(fn: (el: any, i?: number, array?: any[]) => bool,
+	**/
+	each(
+		fn: (element: T, index?: number, array?: T[]) => any,
 		index?: number,
-		loop?: bool): any[];
+		loop?: boolean): T[];
 
-	/***
+	/**
 	* Returns true if all elements in the array match <f>.
-	* @method every(<f>, [scope])
+	* @param f Match all elements to this.
+	* @param scope [this] object.
 	* @returns Boolean
 	* @extra [scope] is the %this% object. %all% is provided an alias.
 	*        In addition to providing this method for browsers that don't
 	*        support it natively, this method also implements @array_matching.
 	* @example
-	*
-	+   ['a','a','a'].every(function(n) {
+	*   ['a','a','a'].every(function(n) {
 	*     return n == 'a';
 	*   });
 	*   ['a','a','a'].every('a')   -> true
 	*   [{a:2},{a:2}].every({a:2}) -> true
-	***/
-	every(f: number, scope?: any): bool;
-	every(f: string, scope?: any): bool;
-	every(f: Object, scope?: any): bool;
-	every(f: (el: any, i?: number, array?: any[]) => bool, scope?: any): bool;
-	all(f: number, scope?: any): bool;
-	all(f: string, scope?: any): bool;
-	all(f: Object, scope?: any): bool;
-	all(f: (el: any, i?: number, array?: any[]) => bool, scope?: any): bool;
+	**/
+	every(f: T, scope?: any): boolean;
 
-	/***
+	/**
+	* @see every
+	* @note Already defined in lib.d.ts.
+	**/
+	//every(f: (element: T, index: number, array: T[]) => boolean, scope?: any): boolean;
+
+	/**
+	* @see every
+	**/
+	all(f: T, scope?: any): boolean;
+
+	/**
+	* @see every
+	**/
+	all(f: (element: T, index: number, array: T[]) => boolean, scope?: any): boolean;
+
+	/**
 	* Removes any element in the array that matches [f1], [f2], etc.
-	* @method exclude([f1], [f2], ...)
-	* @returns Array
+	* @param f Elements to find in the array and remove.
+	* @returns A copy of the original array with all instances of <f> removed.
 	* @extra This is a non-destructive alias for %remove%. It will not change the original array. This method implements @array_matching.
 	* @example
-	*
 	*   [1,2,3].exclude(3)         -> [1,2]
 	*   ['a','b','c'].exclude(/b/) -> ['a','c']
 	*   [{a:1},{b:2}].exclude(function(n) {
 	*     return n['a'] == 1;
 	*   });                       -> [{b:2}]
-	*
-	***/
-	exclude(...f: number[]): number[];
-	exclude(...f: string[]): string[];
-	exclude(...f: RegExp[]): string[];
-	exclude(...f: Object[]): Object[];
-	exclude(...f: SuggarExcludeFunction[]): any[];
+	**/
+	exclude(...f: T[]): T[];
 
-	/***
+	/**
+	* @see exclude
+	**/
+	exclude(f: (element: T, index: number, array: T[]) => boolean): T[];
+
+	/**
 	* Returns any elements in the array that match <f>.
-	* @method filter(<f>, [scope])
-	* @returns Array
+	* @param f Find these elements in the array.
+	* @param scope %this% object while filtering.
+	* @returns Array containing th items <f> found in the array.
 	* @extra [scope] is the %this% object. In addition to providing this
 	*        method for browsers that don't support it natively, this method
 	*        also implements @array_matching.
 	* @example
-	*
 	*   [1,2,3].filter(function(n) {
 	*     return n > 1;
 	*   });
 	*   [1,2,2,4].filter(2) -> 2
-	*
-	***/
-	filter(f: number, scope?: any): number[];
-	filter(f: string, scope?: any): string[];
-	filter(f: RegExp, scope?: any): String[];
-	filter(f: Object, scope?: any): Object[];
-	filter(f: (el: any, i?: number, array?: any[]) => bool, scope?: any): any[];
+	**/
+	filter(f: T, scope?: any): T[];
 
-	/***
+	/**
+	* @see filter
+	* @note Already defined in lib.d.ts.
+	**/
+	//filter(f: (element: T, index: number, array: T[]) => boolean, scope?: any): T[];
+
+	/**
 	* Returns the first element that matches <f>.
-	* @method find(<f>, [index] = 0, [loop] = false)
-	* @returns Mixed
+	* @param f Elements to match against.
+	* @param index Index to start searching from, default = 0.
+	* @param loop Loop around the end of the array, default = false.
+	* @returns First element matching <f>.
 	* @extra <f> will match a string, number, array, object, or alternately
 	*        test against a function or regex. Starts at [index], and will
 	*        continue once from index = 0 if [loop] is true. This method
 	*        implements @array_matching.
 	* @example
-	*
 	*   [{a:1,b:2},{a:1,b:3},{a:1,b:4}].find(function(n) {
 	*     return n['a'] == 1;
 	*   });                                     -> {a:1,b:3}
 	*   ['cuba','japan','canada'].find(/^c/, 2) -> 'canada'
-	*
-	***/
-	find(f: number, index?: number, loop?: bool): number;
-	find(f: string, index?: number, loop?: bool): string;
-	find(f: RegExp, index?: number, loop?: bool): string;
-	find(f: Object, index?: number, loop?: bool): Object;
-	find(f: (el: any, i?: number, array?: any[]) => bool, index?: number, loop?: bool): any;
+	**/
+	find(f: T, index?: number, loop?: boolean): T;
 
-	/***
+	/**
+	* @see find
+	**/
+	find(f: (element: T, index: number, array: T[]) => boolean, index?: number, loop?: boolean): T;
+
+	/**
 	* Returns all elements that match <f>.
-	* @method findAll(<f>, [index] = 0, [loop] = false)
-	* @returns Array
+	* @param f Element to match against.
+	* @param index Index to start searching from, default = 0.
+	* @param loop Loop around the end of the array, default = false.
+	* @returns Elements matching <f>.
 	* @extra <f> will match a string, number, array, object, or alternately
 	*        test against a function or regex. Starts at [index], and will
 	*        continue once from index = 0 if [loop] is true. This method
 	*        implements @array_matching.
 	* @example
-	*
 	*   [{a:1,b:2},{a:1,b:3},{a:2,b:4}].findAll(function(n) {
 	*     return n['a'] == 1;
 	*   });                                        -> [{a:1,b:3},{a:1,b:4}]
 	*   ['cuba','japan','canada'].findAll(/^c/)    -> 'cuba','canada'
 	*   ['cuba','japan','canada'].findAll(/^c/, 2) -> 'canada'
-	*
-	***/
-	findAll(f: number, index?: number, loop?: bool): number[];
-	findAll(f: string, index?: number, loop?: bool): string[];
-	findAll(f: RegExp, index?: number, loop?: bool): string[];
-	findAll(f: Object, index?: number, loop?: bool): Object[];
-	findAll(f: (el: any, i?: number, array?: any[]) => bool, index?: number, loop?: bool): any[];
+	**/
+	findAll(f: T, index?: number, loop?: boolean): T[];
 
-	/***
+	/**
+	* @see findAll
+	**/
+	findAll(f: (element: T, index: number, array: T[]) => boolean, index?: number, loop?: boolean): T[];
+
+	/**
 	* Returns the index of the first element that matches <f>
 	*        or -1 if not found.
 	* @method findIndex(<f>, [startIndex] = 0, [loop] = false)
-	* @returns Number
+	* @param f Element to match against.
+	* @param startIndex Index to start searching from, default = 0.
+	* @param loop Loop around the end of th array, default = false.
+	* @returns Index at which <f> is found.
 	* @extra This method has a few notable differences to native %indexOf%.
 	*        Although <f> will similarly match a primitive such as a string
 	*        or number, it will also match deep objects and arrays that are
@@ -2277,239 +2276,249 @@ interface Array {
 	*        and will continue once from index = 0 if [loop] is true.
 	*        This method implements @array_matching.
 	* @example
-	*
 	*   [1,2,3,4].findIndex(3);  -> 2
 	*   [1,2,3,4].findIndex(function(n) {
 	*     return n % 2 == 0;
 	*   }); -> 1
 	*   ['one','two','three'].findIndex(/th/); -> 2
-	*
-	***/
-	findIndex(f: number, startIndex?: number, loop?: bool): number;
-	findIndex(f: any, startIndex?: number, loop?: bool): number;
-	findIndex(f: RegExp, startIndex?: number, loop?: bool): number;
-	findIndex(f: (el: any, i?: number, array?: any[]) => bool, startIndex?: number, loop?: bool): number;
+	**/
+	findIndex(f: T, startIndex?: number, loop?: boolean): number;
 
-	/***
+	/**
+	* @see findIndex
+	**/
+	findIndex(f: (element: T, index: number, array: T[]) => boolean, startIndex?: number, loop?: boolean): number;
+
+	/**
 	* Returns the first element(s) in the array.
-	* @method first([num] = 1)
-	* @returns Mixed
+	* @param num Retrieve this many elements in the array, default = 1.
+	* @returns <num> first elements in the array.
 	* @extra When <num> is passed, returns the first <num> elements in the array.
+	* @note If <num> is omitted then the return type is the element itself, not an array of the element,
+	*       For example 1 instead of [1], however if <num> is present the result is always wrapped in an
+	*       array like first(1) -> [1], not 1.
 	* @example
-	*
 	*   [1,2,3].first()        -> 1
 	*   [1,2,3].first(2)       -> [1,2]
-	*
-	***/
-	first(num?: number): any[];
+	**/
+	first(): T;
 
-	/***
+	/**
+	* @see first
+	**/
+	first(num: number): T[];
+
+	/**
 	* Returns a flattened, one-dimensional copy of the array.
-	* @method flatten([limit] = Infinity)
-	* @returns Array
+	* @param limit Limit the flattening to this depth, default = Infinity.
+	* @returns Flattened array.
 	* @extra You can optionally specify a [limit], which will only flatten
 	*        that depth.
 	* @example
-	*
 	*   [[1], 2, [3]].flatten()      -> [1,2,3]
 	*   [['a'],[],'b','c'].flatten() -> ['a','b','c']
-	*
-	***/
-	flatten(limit?: number): any[];
+	**/
+	flatten(limit?: number): T[];
 
-	/***
+	/**
 	* Iterates over the array, calling [fn] on each loop.
-	* @method forEach([fn], [scope])
+	* @param fn Callback function for each element in the array.
+	* @param scope Scope during [fn] callbacks, default = this.
 	* @returns Nothing
 	* @extra This method is only provided for those browsers that do not support
 	*        it natively. [scope] becomes the %this% object.
 	* @example
-	*
 	*   ['a','b','c'].forEach(function(a) {
 	*     // Called 3 times: 'a','b','c'
 	*   });
-	*
-	***/
-	forEach(fn: (el: any, i?: number, array?: any[]) => any, scope?: any): void;
+	* @note Already defined in lib.d.ts.
+	**/
+	//forEach(fn: (element: T, index: number, array: T[]) => void, scope?: any): void;
 
-	/***
+	/**
 	* Returns a slice of the array from <index>.
-	* @method from(<index>)
-	* @returns Array
+	* @param index Index to start the slice from.
+	* @returns Subarray starting from [index] to the end of the original array.
 	* @example
-	*
 	*   [1,2,3].from(1)  -> [2,3]
 	*   [1,2,3].from(2)  -> [3]
-	*
-	***/
-	from(index: number): any[];
+	**/
+	from(index: number): T[];
 
-	/***
+	/**
 	* Groups the array by <map>.
-	* @method groupBy(<map>, [fn])
-	* @returns Object
+	* @param map Property on the elements in the array.
+	* @param fn Optional callback for each group, default = No callback.
+	* @returns 
 	* @extra Will return an object with keys equal to the grouped values.
 	*        <map> may be a mapping function, or a string acting as a shortcut.
 	*        Optionally calls [fn] for each group.
 	* @example
-	*
 	*   ['fee','fi','fum'].groupBy('length') -> { 2: ['fi'], 3: ['fee','fum'] }
-	+   [{age:35,name:'ken'},{age:15,name:'bob'}].groupBy(function(n) {
+	*   [{age:35,name:'ken'},{age:15,name:'bob'}].groupBy(function(n) {
 	*     return n.age;
 	*   });                                  -> { 35: [{age:35,name:'ken'}], 15: [{age:15,name:'bob'}] }
-	*
-	***/
-	groupBy(map: string, fn?: (n: any) => void ): Object;
-	groupBy(fn: (n: any) => void ): Object;
+	**/
+	groupBy<U>(map: string, fn?: (key: string, items: T[]) => void): { [key: string]: T };
 
-	/***
+	/**
+	* @see groupBy
+	* @param map Callback function for each element, returns the key for the group the element should be in.
+	**/
+	groupBy<U>(map: (element: T) => U, fn?: (key: string, items: T[]) => void): { [key: string]: T[] };
+
+	/**
 	* Groups the array into <num> arrays.
-	* @method inGroups(<num>, [padding])
-	* @returns Array
+	* @param num The number of sub-arrays to create.
+	* @param padding Padding element if the groups do not make whole amounts.
+	* @returns Array with <num> sub-arrays.
 	* @extra [padding] specifies a value with which to pad the last array
 	*        so that they are all equal length.
 	* @example
-	*
 	*   [1,2,3,4,5,6,7].inGroups(3)         -> [ [1,2,3], [4,5,6], [7] ]
 	*   [1,2,3,4,5,6,7].inGroups(3, 'none') -> [ [1,2,3], [4,5,6], [7,'none','none'] ]
-	*
-	***/
-	inGroups(num: number, padding?: any): any[][];
+	* @note removed because of TSC bug https://typescript.codeplex.com/workitem/1143?FocusElement=CommentTextBox
+	**/
+	//inGroups(num: number, padding?: T): T[][];
 
-	/***
+	/**
 	* Groups the array into arrays of <num> elements each.
-	* @method inGroupsOf(<num>, [padding] = null)
-	* @returns Array
+	* @param num The number of elements to put into each sub-array.
+	* @param padding Padding element if the groups do not make whole amounts.
+	* @returns Array with sub-arrays each containing <num> elements.
 	* @extra [padding] specifies a value with which to pad the last array so that they are all equal length.
 	* @example
-	*
 	*   [1,2,3,4,5,6,7].inGroupsOf(4)         -> [ [1,2,3,4], [5,6,7] ]
 	*   [1,2,3,4,5,6,7].inGroupsOf(4, 'none') -> [ [1,2,3,4], [5,6,7,'none'] ]
-	*
-	***/
-	inGroupsOf(num: number, padding?: any): any[][];
+	* @note removed because of TSC bug https://typescript.codeplex.com/workitem/1143?FocusElement=CommentTextBox
+	**/
+	//inGroupsOf(num: number, padding?: T): T[][];
 
-	/***
-	* Adds <el> to the array.
-	* @method include(<el>, [index])
-	* @returns Array
+	/**
+	* Adds <element> to the array.
+	* @param element Element to add to the array.
+	* @param index , default = Array.length.
+	* @returns Array with <element> included at [index].
 	* @extra This is a non-destructive alias for %add%. It will not change
 	*        the original array.
 	* @example
-	*
 	*   [1,2,3,4].include(5)       -> [1,2,3,4,5]
 	*   [1,2,3,4].include(8, 1)    -> [1,8,2,3,4]
 	*   [1,2,3,4].include([5,6,7]) -> [1,2,3,4,5,6,7]
-	*
-	***/
-	include(el: any, index?: number): any[];
+	**/
+	include(element: T, index?: number): T[];
 
-	/***
+	/**
+	* @see include
+	* @param elements Elements to include into the array at [index].
+	**/
+	include(elements: T[], index?: number): T[];
+
+	/**
 	* Searches the array and returns the first index where <search> occurs, or -1 if the element is not found.
 	* @method indexOf(<search>, [fromIndex])
-	* @returns Number
+	* @param search Element to search for in the array.
+	* @param fromIndex Index to start searching from, default = 0.
+	* @returns Index of <search> or -1 if <search> is not found.
 	* @extra [fromIndex] is the index from which to begin the search.
 	*        This method performs a simple strict equality comparison on <search>.
 	*        It does not support enhanced functionality such as searching
 	*        the contents against a regex, callback, or deep comparison of objects.
 	*        For such functionality, use the %findIndex% method instead.
 	* @example
-	*
 	*   [1,2,3].indexOf(3)           -> 1
 	*   [1,2,3].indexOf(7)           -> -1
-	*
-	***/
-	indexOf(search: any, fromIndex?: number): number;
+	* @note Already defined in lib.d.ts.
+	**/
+	//indexOf(search: T, fromIndex?: number): number;
 
-	/***
+	/**
 	* Returns an array containing the elements all arrays have in common.
-	* @method intersect([a1], [a2], ...)
-	* @returns Array
+	* @param args Elements to intersect with.
+	* @returns An array containing the intersecting elements.
 	* @extra This method will also correctly operate on arrays of objects.
 	* @example
-	*
 	*   [1,3,5].intersect([5,7,9])   -> [5]
 	*   ['a','b'].intersect('b','c') -> ['b']
-	*
-	***/
-	intersect(...args: number[]): number[];
-	intersect(...args: string[]): string[];
-	intersect(...args: Object[]): Object[];
-	intersect(...args: any[]): any[];
+	**/
+	intersect(...args: T[]): T[];
 
 	/***
 	* Returns true if the array is empty.
-	* @method isEmpty()
-	* @returns Boolean
+	* @returns True if the array is empty, otherwise false.
 	* @extra This is true if the array has a length of zero, or contains
 	*        only %undefined%, %null%, or %NaN%.
 	* @example
-	*
 	*   [].isEmpty()               -> true
 	*   [null,undefined].isEmpty() -> true
-	*
 	***/
-	isEmpty(): bool;
+	isEmpty(): boolean;
 
-	/***
+	/**
 	* Returns the last element(s) in the array.
 	* @method last([num] = 1)
-	* @returns Mixed
+	* @returns The last element in the array, if [num] is present then it returns an array of the last [num] elements.
 	* @extra When <num> is passed, returns the last <num> elements in the array.
 	* @example
-	*
 	*   [1,2,3].last()        -> 3
 	*   [1,2,3].last(2)       -> [2,3]
-	*
-	***/
-	last(): any;
-	last(num: number): any[];
+	**/
+	last(): T;
 
-	/***
+	/**
+	* @see last
+	* @param num The number of elements to return.
+	**/
+	last(num: number): T[];
+
+	/**
 	* Searches the array and returns the last index where <search> occurs,
-	*        or -1 if the element is not found.
-	* @method lastIndexOf(<search>, [fromIndex])
-	* @returns Number
+	* or -1 if the element is not found.
+	* @param search The element to search for.
+	* @param fromIndex Start the search from this index, default = Array.length.
+	* @returns The last index of <search> or -1 if <search> is not found.
 	* @extra [fromIndex] is the index from which to begin the search.
 	*        This method performs a simple strict equality comparison on <search>.
 	* @example
-	*
 	*   [1,2,1].lastIndexOf(1)                 -> 2
 	*   [1,2,1].lastIndexOf(7)                 -> -1
-	*
-	***/
+	**/
 	lastIndexOf(search: any, fromIndex?: number): number;
 
-	/***
+	/**
 	* Returns the elements in the array with the least
 	*        commonly occuring value.
 	* @method least([map])
+	* @param map Property on elements in the array.
 	* @returns Array
 	* @extra [map] may be a function mapping the value to be checked or a
 	*        string acting as a shortcut.
 	* @example
-	*
 	*   [3,2,2].least()                   -> [3]
 	*   ['fe','fo','fum'].least('length') -> ['fum']
 	*   [{age:35,name:'ken'},{age:12,name:'bob'},{age:12,name:'ted'}].least(function(n) {
 	*     return n.age;
 	*   });                               -> [{age:35,name:'ken'}]
-	*
-	***/
-	least(map: string): any[];
-	least(map: (n: any) => any): any[];
+	**/
+	least(map: string): T[];
 
-	/***
+	/**
+	* @see least
+	* @param map Callback to retrieve the 'least' property to compare elements against.
+	**/
+	least<U>(map: (n: T) => U): T[];
+
+	/**
 	* Maps the array to another array containing the values that
 	*        are the result of calling <map> on each element.
-	* @method map(<map>, [scope])
-	* @returns Array
+	* @param map Property on each element in the array or callback function.
+	* @param scope This pointer in <map> callback.
+	* @returns Mapped array.
 	* @extra [scope] is the %this% object. In addition to providing this method
 	*        for browsers that don't support it natively, this enhanced method
 	*        also directly accepts a string, which is a shortcut for a function
 	*        that gets that property (or invokes a function) on each element.
 	* @example
-	*
 	*   [1,2,3].map(function(n) {
 	*     return n * 3;
 	*   });                                  -> [3,6,9]
@@ -2517,108 +2526,143 @@ interface Array {
 	*     return n.length;
 	*   });                                  -> [3,3,5]
 	*   ['one','two','three'].map('length')  -> [3,3,5]
-	***/
-	map(map: string, scope?: any): any[];
-	map(map: (n: any) => any, scope?: any): any[];
+	**/
+	map<U>(map: string, scope?: any): U[];
 
-	/***
+	/**
+	* @see map
+	* @param map Callback function to map each element in the array.
+	**/
+	map<U>(map: (n: T) => U, scope?: any): U[];
+
+	/**
 	* Returns the element in the array with the greatest value.
 	* @method max([map], [all] = false)
-	* @returns Mixed
+	* @param map Property on each element in the array or callback function.
+	* @returns Maximum element in the array.
 	* @extra [map] may be a function mapping the value to be checked or a string
 	*        acting as a shortcut. If [all] is true, will return all max values
 	*        in an array.
 	* @example
-	*
 	*   [1,2,3].max()                          -> 3
 	*   ['fee','fo','fum'].max('length')       -> 'fee'
 	*   ['fee','fo','fum'].max('length', true) -> ['fee']
-	+   [{a:3,a:2}].max(function(n) {
+	*   [{a:3,a:2}].max(function(n) {
 	*     return n['a'];
 	*   });                              -> {a:3}
-	*
-	***/
-	max(map: string): any;
-	max(map: (n: any) => any): any;
+	**/
+	max(map?: string): T;
+
+	/**
+	* @see max
+	* @param If true return all max values in the array, default = false.
+	* @return All max values in the array.
+	**/
+	max(map: string, all: boolean): T[];
+
+	/**
+	* @see max
+	* @param map Callback function to determine the max value of each element in the array.
+	**/
+	max<U>(map: (n: T) => U): T;
+
+	/**
+	* @see max
+	**/
+	max<U>(map: (n: T) => U, all: boolean): T[];
 
 	/***
 	* Returns the element in the array with the lowest value.
-	* @method min([map], [all] = false)
-	* @returns Mixed
+	* @param map Property on each element in the array or callback.
+	* @returns Minimum element in the array.
 	* @extra [map] may be a function mapping the value to be checked or a string acting as a shortcut. If [all] is true, will return all min values in an array.
 	* @example
-	*
 	*   [1,2,3].min()                          -> 1
 	*   ['fee','fo','fum'].min('length')       -> 'fo'
 	*   ['fee','fo','fum'].min('length', true) -> ['fo']
-	+   ['fee','fo','fum'].min(function(n) {
+	*   ['fee','fo','fum'].min(function(n) {
 	*     return n.length;
 	*   });                              -> ['fo']
-	+   [{a:3,a:2}].min(function(n) {
+	*   [{a:3,a:2}].min(function(n) {
 	*     return n['a'];
 	*   });                              -> [{a:2}]
-	*
-	***/
-	min(map: string): any;
-	min(map: (n: any) => any): any;
+	**/
+	min(map?: string): T;
 
-	/***
-	* Returns the elements in the array with the most
-	*        commonly occuring value.
-	* @method most([map])
-	* @returns Array
+	/**
+	* @see min If true return all min values in the array, default = false.
+	* @param all
+	**/
+	min(map: string, all: boolean): T[];
+
+	/**
+	* @see min
+	* @param map Callback function to determine the min value of each element in the array.
+	**/
+	min<U>(map: (n: T) => U): T;
+
+	/**
+	* @see min
+	**/
+	min<U>(map: (n: T) => U, all: boolean): T[];
+
+	/**
+	* Returns the elements in the array with the most commonly occuring value.
+	* @param map Property on each element in the array or 
+	* @returns Array of elements that have the most common property.
 	* @extra [map] may be a function mapping the value to be checked or a string
 	*              acting as a shortcut.
 	* @example
-	*
 	*   [3,2,2].most()                   -> [2]
 	*   ['fe','fo','fum'].most('length') -> ['fe','fo']
-	+   [{age:35,name:'ken'},{age:12,name:'bob'},{age:12,name:'ted'}].most(function(n) {
+	*   [{age:35,name:'ken'},{age:12,name:'bob'},{age:12,name:'ted'}].most(function(n) {
 	*     return n.age;
 	*   });                              -> [{age:12,name:'bob'},{age:12,name:'ted'}]
-	*
-	***/
-	most(map: string): any[];
-	most(map: (n: any) => any): any[];
+	**/
+	most(map?: string): T[];
 
-	/***
+	/**
+	* @see most
+	* @param map Callback function to determine the element that contains the most commonly occuring value.
+	**/
+	most<U>(map: (n: T) => U): T[];
+
+	/**
 	* Returns true if none of the elements in the array match <f>.
-	* @method none(<f>)
-	* @returns Boolean
+	* @param f Value to see if it exists in the array.
+	* @returns True if none of the values match <f>, false if one or more match <f>.
 	* @extra <f> will match a string, number, array, object, or alternately test
 	*        against a function or regex. This method implements @array_matching.
 	* @example
 	*
 	*   [1,2,3].none(5)         -> true
 	*   ['a','b','c'].none(/b/) -> false
-	+   [{a:1},{b:2}].none(function(n) {
+	*   [{a:1},{b:2}].none(function(n) {
 	*     return n['a'] > 1;
 	*   });                     -> true
-	*
-	***/
-	none(f: number): bool;
-	none(f: string): bool;
-	none(f: RegExp): bool;
-	none(f: Object): bool;
-	none(f: any[]): bool;
-	none(f: (n: any) => bool): bool;
+	**/
+	none(f: T): boolean;
+
+	/**
+	* @see none
+	* @param f Callback function to determine if none of the elements in the array contain a certain value.
+	**/
+	none(f: (n: T) => boolean): boolean;
 
 	/***
 	* Returns a copy of the array with the elements randomized.
-	* @method randomize()
-	* @returns Array
+	* @returns Copy of the array with the elements in a random order.
 	* @extra Uses Fisher-Yates algorithm.
 	* @example
-	*
 	*   [1,2,3,4].randomize()  -> [?,?,?,?]
-	*
 	***/
-	randomize(): any[];
+	randomize(): T[];
 
-	/***
+	/**
 	* Reduces the array to a single result.
-	* @method reduce(<fn>, [init])
-	* @returns Mixed
+	* @param fn Reduce function callback.
+	* @param init First argument to the callback if present.
+	* @returns Reduced value of the entire array.
 	* @extra If [init] is passed as a starting value, that value will be passed
 	*        as the first argument to the callback. The second argument will be
 	*        the first element in the array. From that point, the result of the
@@ -2632,95 +2676,93 @@ interface Array {
 	*        of the previous callback as the first argument of the next. This
 	*        method is only provided for those browsers that do not support it
 	*        natively.
-	*
 	* @example
-	*
 	*   [1,2,3,4].reduce(function(a, b) {
 	*     return a - b;
 	*   });
 	*   [1,2,3,4].reduce(function(a, b) {
 	*     return a - b;
 	*   }, 100);
-	*
-	***/
-	reduce(fn: (a: any, b: any) => any, init: any): any;
+	**/
+	reduce(fn: (a: T, b: T) => T, init: T): T;
 
-	/***
-	* Identical to %Array#reduce%,
-	*        but operates on the elements in reverse order.
-	* @method reduceRight([fn], [init])
-	* @returns Mixed
+	/**
+	* Identical to %Array#reduce%, but operates on the elements in reverse order.
+	* @param fn Reduce function callback.
+	* @param init First argument to the callback if present.
+	* @returns Reduced right value of the entire array.
 	* @extra This method is only provided for those browsers that do not support
 	*        it natively.
 	* @example
-	*
 	*   [1,2,3,4].reduceRight(function(a, b) {
 	*     return a - b;
 	*   });
-	*
-	***/
-	reduceRight(fn: (a: any, b: any) => any, init: any): any;
+	**/
+	reduceRight(fn: (a: T, b: T) => T, init: T): T;
 
-	/***
+	/**
 	* Removes any element in the array that matches [f1], [f2], etc.
-	* @method remove([f1], [f2], ...)
-	* @returns Array
+	* @param args Elements that should be removed from the array.
+	* @returns The array with <args> elements removed.
 	* @extra Will match a string, number, array, object, or alternately test
 	*        against a function or regex. This method will change the array!
 	*        Use %exclude% for a non-destructive alias. This method implements
 	*        @array_matching.
 	* @example
-	*
 	*   [1,2,3].remove(3)         -> [1,2]
 	*   ['a','b','c'].remove(/b/) -> ['a','c']
-	+   [{a:1},{b:2}].remove(function(n) {
+	*   [{a:1},{b:2}].remove(function(n) {
 	*     return n['a'] == 1;
 	*   });                       -> [{b:2}]
-	*
-	***/
-	remove(...args: number[]): number[];
-	remove(...args: string[]): string[];
-	remove(...args: Object[]): Object[];
-	remove(...args: any[]): any[];
-	remove(fn: (n: any) => bool): any[];
+	**/
+	remove(...args: T[]): T[];
 
-	/***
+	/**
+	* @see remove
+	* @param fn Callback function to check if elements should be removed.
+	**/
+	remove(fn: (n: T) => boolean): T[];
+
+	/**
 	* Removes element at <start>. If [end] is specified, removes the range
 	*        between <start> and [end]. This method will change the array!
 	*        If you don't intend the array to be changed use %clone% first.
-	* @method removeAt(<start>, [end])
-	* @returns Array
+	* @param start Starting index.
+	* @param end Stop index, default = Array.length.
+	* @returns Subarray with elements <start> to [end] removed.
 	* @example
-	*
 	*   ['a','b','c'].removeAt(0) -> ['b','c']
 	*   [1,2,3,4].removeAt(1, 3)  -> [1]
-	*
-	***/
-	removeAt(start: number, end?: number): any[];
+	**/
+	removeAt(start: number, end?: number): T[];
 
-	/***
+	/**
 	* Returns a random element from the array.
-	* @method sample([num])
-	* @returns Mixed
+	* @returns Single random element in the array.
 	* @extra If [num] is passed, will return [num] samples from the array.
 	* @example
-	*
 	*   [1,2,3,4,5].sample()  -> // Random element
 	*   [1,2,3,4,5].sample(3) -> // Array of 3 random elements
-	*
-	***/
-	sample(): any;
-	sample(num: number): any[];
+	**/
+	sample(): T;
+
+	/**
+	* @see sample
+	* @param num Grab this many random elements in the array.
+	* @return <num> random elements in the array.
+	**/
+	sample(num: number): T[];
 
 	/***
 	* Returns true if any element in the array matches <f>.
 	* @method some(<f>, [scope])
-	* @returns Boolean
+	* @param f Element to match or callback function.
+	* @param scope this object in the callback.
+	* @returns Returns true if any element in the array matchs <f>.
 	* @extra [scope] is the %this% object. %any% is provided as an alias.
 	*        In addition to providing this method for browsers that don't
 	*        support it natively, this method also implements @array_matching.
 	* @example
-	*
 	*   ['a','b','c'].some(function(n) {
 	*     return n == 'a';
 	*   });
@@ -2729,16 +2771,19 @@ interface Array {
 	*   });
 	*   ['a','b','c'].some('a')   -> true
 	*   [{a:2},{b:5}].some({a:2}) -> true
-	***/
-	some(f: number, scope?: any): bool;
-	some(f: string, scope?: any): bool;
-	some(f: any, scope?: any): bool;
-	some(f: (n: any) => bool, scope?: any): bool;
+	**/
+	some(f: T, scope?: any): boolean;
 
-	/***
+	/**
+	* @see some
+	**/
+	some(f: (n: T) => boolean, scope?: any): boolean;
+
+	/**
 	* Sorts the array by <map>.
-	* @method sortBy(<map>, [desc] = false)
-	* @returns Array
+	* @param map Property on each element in the array or map callback function.
+	* @param desc True to sort the array in descending order, default = false.
+	* @returns Sorted array.
 	* @extra <map> may be a function, a string acting as a shortcut, or blank
 	*        (direct comparison of array values). [desc] will sort the array in
 	*        descending order. When the field being sorted on is a string, the
@@ -2746,102 +2791,119 @@ interface Array {
 	*        that is optimized for major Western languages, but can be customized.
 	*        For more information see @array_sorting.
 	* @example
-	*
 	*   ['world','a','new'].sortBy('length')       -> ['a','new','world']
 	*   ['world','a','new'].sortBy('length', true) -> ['world','new','a']
 	*   [{age:72},{age:13},{age:18}].sortBy(function(n) {
 	*     return n.age;
 	*   });                                        -> [{age:13},{age:18},{age:72}]
-	*
-	***/
-	sortBy(map: string, desc?: bool): any[];
-	sortBy(fn: (n: any) => any, desc?: bool): any[];
+	**/
+	sortBy(map: string, desc?: boolean): T[];
 
-	/***
+	/**
+	* @see sortBy
+	**/
+	sortBy<U>(fn: (n: T) => U, desc?: boolean): T[];
+
+	/**
 	* Subtracts from the array all elements in [a1], [a2], etc.
-	* @method subtract([a1], [a2], ...)
-	* @returns Array
+	* @param args Elements to remove from the array.
+	* @returns Array with <args> removed.
 	* @extra This method will also correctly operate on arrays of objects.
 	* @example
-	*
 	*   [1,3,5].subtract([5,7,9])   -> [1,3]
 	*   [1,3,5].subtract([3],[5])   -> [1]
 	*   ['a','b'].subtract('b','c') -> ['a']
-	*
-	***/
-	subtract(...args: any[]): any[];
+	**/
+	subtract(...args: T[]): T[];
+	
+	/**
+	* @see subtract
+	**/
+	subtract(args: T[]): T[];
 
-	/***
-	* @method sum([map])
-	* @returns Number
+	/**
 	* Sums all values in the array.
+	* @param map Property on each element in the array or callback function to sum up the elements.
+	* @returns The sum of all elements in the array.
 	* @extra [map] may be a function mapping the value to be summed or a string
 	*        acting as a shortcut.
 	* @example
-	*
 	*   [1,2,2].sum()                           -> 5
 	*   [{age:35},{age:12},{age:12}].sum(function(n) {
 	*     return n.age;
 	*   });                                     -> 59
 	*   [{age:35},{age:12},{age:12}].sum('age') -> 59
-	*
-	***/
+	**/
 	sum(map: string): number;
-	sum(fn: (n: any) => number): number;
 
-	/***
+    /**
+    * @see sum
+    **/
+	sum(): number;
+
+	/**
+	* @see sum
+	**/
+	sum(map: (n: T) => number): number;
+
+	/**
 	* Returns a slice of the array up to <index>.
-	* @method to(<index>)
-	* @returns Array
+	* @param index Slick the array up to this index.
+	* @returns Slice of the array from 0 to <index>.
 	* @example
-	*
 	*   [1,2,3].to(1)  -> [1]
 	*   [1,2,3].to(2)  -> [1,2]
-	*
-	***/
+	**/
 	to(index: number): any[];
 
-	/***
-	* Returns an array containing all elements in all arrays with
-	*        duplicates removed.
+	/**
+	* Returns an array containing all elements in all arrays with duplicates removed.
 	* @method union([a1], [a2], ...)
-	* @returns Array
+	* @param array 
+	* @returns Union between the original array and <array>.
 	* @extra This method will also correctly operate on arrays of objects.
 	* @example
-	*
 	*   [1,3,5].union([5,7,9])     -> [1,3,5,7,9]
 	*   ['a','b'].union(['b','c']) -> ['a','b','c']
-	*
-	***/
-	union(array: any[]): any[];
-	union(...args: any[]): any[];
+	**/
+	union(array: T[]): T[];
 
-	/***
+	/**
+	* @see union
+	* @param args Elements to create a union with.
+	* @return Union between the original array and <args>
+	**/
+	union(...args: T[]): T[];
+
+	/**
 	* Removes all duplicate elements in the array.
-	* @method unique([map] = null)
-	* @returns Array
+	* @param map Property on each element in the array or callback function to pick a property on the element.
+	* @returns Array with only unique elements.
 	* @extra [map] may be a function mapping the value to be uniqued on or a
 	*        string acting as a shortcut. This is most commonly used when you
 	*        have a key that ensures the object's uniqueness, and don't need to
 	*        check all fields. This method will also correctly operate on arrays
 	*        of objects.
 	* @example
-	*
 	*   [1,2,2,3].unique()                 -> [1,2,3]
 	*   [{foo:'bar'},{foo:'bar'}].unique() -> [{foo:'bar'}]
-	+   [{foo:'bar'},{foo:'bar'}].unique(function(obj){
+	*   [{foo:'bar'},{foo:'bar'}].unique(function(obj){
 	*     return obj.foo;
 	*   }); -> [{foo:'bar'}]
 	*   [{foo:'bar'},{foo:'bar'}].unique('foo') -> [{foo:'bar'}]
-	*
-	***/
-	unique(map?: string): any[];
-	unique(fn?: (obj: any) => any): any[];
+	**/
+	unique(map?: string): T[];
 
-	/***
+	/**
+	* @see unique
+	* @param fn Callback to pluck the property to check for uniqueness.
+	**/
+	unique<U>(fn: (obj: T) => U): T[];
+
+	/**
 	* Merges multiple arrays together.
-	* @method zip([arr1], [arr2], ...)
-	* @returns Array
+	* @param arrays Arrays to zip together.
+	* @returns Zipped arrays.
 	* @extra This method "zips up" smaller arrays into one large whose elements
 	*        are "all elements at index 0", "all elements at index 1", etc.
 	*        Useful when you have associated data that is split over separated
@@ -2849,54 +2911,50 @@ interface Array {
 	*        array, they will be discarded. If they have fewer elements, the
 	*        missing elements will filled with %null%.
 	* @example
-	*
 	*   [1,2,3].zip([4,5,6])                                       -> [[1,2], [3,4], [5,6]]
 	*   ['Martin','John'].zip(['Luther','F.'], ['King','Kennedy']) -> [['Martin','Luther','King'], ['John','F.','Kennedy']]
-	*
-	***/
-	zip(...arrays: any[]): any[][];
+	* @note removed because of TSC bug https://typescript.codeplex.com/workitem/1143?FocusElement=CommentTextBox
+	**/
+	//zip(...arrays: T[]): T[][];
 }
 
-interface Object {
+interface ObjectStatic {
 
-	/***
-	* Creates a new object, equivalent to %new Object()% or %{}%,
-	*        but with extended methods.
-	* @method Object.extended(<obj> = {})
-	* @returns Extended object
+	/**
+	* Creates a new object, equivalent to %new Object()% or %{}%, but with extended methods.
+	* @param obj , default = {}.
+	* @returns Extended object.
 	* @extra See extended objects for more.
 	* @example
-	*
 	*   Object.extended()
 	*   Object.extended({ happy:true, pappy:false }).keys() -> ['happy','pappy']
 	*   Object.extended({ happy:true, pappy:false }).values() -> [true, false]
-	*
-	***/
-	extended(obj?: Object): Object;
+	**/
+	extended(obj?: any): any;
 
-	/***
+	/**
 	* Converts the query string of a URL into an object.
 	* @method Object.fromQueryString(<str>, [deep] = true)
-	* @returns Object
+	* @param str Query string to convert into an object.
+	* @param deep If false the conversion will only accept shallow params, default = true.
+	* @returns Object generated from the <str>.
 	* @extra If [deep] is %false%, conversion will only accept shallow params (ie. no object or arrays with %[]% syntax) as these are not universally supported.
 	* @example
-	*
 	*   Object.fromQueryString('foo=bar&broken=wear') -> { foo: 'bar', broken: 'wear' }
 	*   Object.fromQueryString('foo[]=1&foo[]=2')     -> { foo: [1,2] }
-	*
-	***/
-	fromQueryString(str: string, deep?: bool): Object;
-
-	/***
+	**/
+	fromQueryString<T extends {}>(str: string, deep?: boolean): T;
+	
+	/**
 	* Returns true if <obj> is an object of that type.
 	* @method Object.is[Type](<obj>)
-	* @returns Boolean
+	* @param obj Object to check if it is of type [Type].
+	* @returns True if <obj> is of type [Type].
 	* @extra %isObject% will return false on anything that is not an object
 	*        literal, including instances of inherited classes. Note also
 	*        that %isNaN% will ONLY return true if the object IS %NaN%.
 	*        It does not mean the same as browser native %isNaN%, which returns
 	*        true for anything that is "not a number".
-	*
 	* @set
 	*   isArray
 	*   isObject
@@ -2907,33 +2965,53 @@ interface Object {
 	*   isNumber
 	*   isString
 	*   isRegExp
-	*
 	* @example
-	*
 	*   Object.isArray([1,2,3])            -> true
 	*   Object.isDate(3)                   -> false
 	*   Object.isRegExp(/wasabi/)          -> true
 	*   Object.isObject({ broken:'wear' }) -> true
-	*
-	***/
-	isArray(): bool;
-	isArray(obj: any): bool;
-	isObject(): bool;
-	isObject(obj: any): bool;
-	isBoolean(): bool;
-	isBoolean(obj: any): bool;
-	isDate(): bool;
-	isDate(obj: any): bool;
-	isFunction(): bool;
-	isFunction(obj: any): bool;
-	isNaN(): bool;
-	isNaN(obj: any): bool;
-	isNumber(): bool;
-	isNumber(obj: any): bool;
-	isString(): bool;
-	isString(obj: any): bool;
-	isRegExp(): bool;
-	isRegExp(obj: any): bool;
+	**/
+	isArray(obj: any): boolean;
+
+	/**
+	* @see isArray
+	**/
+	isObject(obj: any): boolean;
+
+	/**
+	* @see isArray
+	**/
+	isBoolean(obj: any): boolean;
+
+	/**
+	* @see isArray
+	**/
+	isDate(obj: any): boolean;
+
+	/**
+	* @see isArray
+	**/
+	isFunction(obj: any): boolean;
+
+	/**
+	* @see isArray
+	**/
+	isNaN(obj: any): boolean;
+
+	/**
+	* @see isArray
+	**/
+	isNumber(obj: any): boolean;
+
+	/**
+	* @see isArray
+	**/
+	isString(obj: any): boolean;
+
+	/**
+	* @see isArray
+	**/
+	isRegExp(obj: any): boolean;
 
 	/**
 	* Converts the object into a query string. Accepts deep nested objects and arrays.
@@ -2944,22 +3022,22 @@ interface Object {
 	**/
 	toQueryString(obj: any, namespace?: string): string;
 
-	/***
+	/**
 	* Creates a clone (copy) of <obj>.
 	* @method clone(<obj> = {}, [deep] = false)
-	* @returns Cloned object
+	* @param obj Object to clone.
+	* @param deep If true then deep clone, default = false.
+	* @returns Cloned object.
 	* @extra Default is a shallow clone, unless [deep] is true. %clone%
 	*        is available as an instance method on extended objects.
 	* @example
-	*
 	*   Object.clone({foo:'bar'})            -> { foo: 'bar' }
 	*   Object.clone()                       -> {}
 	*   Object.extended({foo:'bar'}).clone() -> { foo: 'bar' }
-	*
-	***/
-	clone(obj?: Object, deep?: bool): Object;
+	**/
+	clone<T extends {}>(obj?: T, deep?: boolean): T;
 
-	/***
+	/**
 	* Enumerable methods in the Array package are also available to
 	*        the Object class. They will perform their normal operations for
 	*        every property in <obj>.
@@ -2968,7 +3046,6 @@ interface Object {
 	* @extra In cases where a callback is used, instead of %element, index%,
 	*        the callback will instead be passed %key, value%. Enumerable methods
 	*        are also available to extended objects as instance methods.
-	*
 	* @set
 	*   each
 	*   map
@@ -2986,146 +3063,209 @@ interface Object {
 	*   max
 	*   least
 	*   most
-	*
 	* @example
-	*
 	*   Object.any({foo:'bar'}, 'bar')            -> true
 	*   Object.extended({foo:'bar'}).any('bar')   -> true
 	*   Object.isEmpty({})                        -> true
 	*   Object.map({ fred: { age: 52 } }, 'age'); -> { fred: 52 }
-	*
-	***/
-	map(map: string): Object;
-	map(obj: Object, map: string): Object;
-	map(map: (key: string, value: any) => any): Object;
-	map(obj: Object, map: (key: string, value: any) => any): Object;
+	**/
+	map<T, U>(obj: T, map: string): U;
 
-	any(map: string): bool;
-	any(obj: Object, map: string): bool;
-	any(map: (key: string, value: any) => bool): bool;
-	any(obj: Object, map: (key: string, value: any) => bool): bool;
+	/**
+	* @see map
+	**/
+	map<T, U>(obj: T, map: (key: string, value: any) => any): U;
 
-	all(map: string): bool;
-	all(obj: Object, map: string): bool;
-	all(map: (key: string, value: any) => bool): bool;
-	all(obj: Object, map: (key: string, value: any) => bool): bool;
+	/**
+	* @see map
+	**/
+	any(obj: any, map: string): boolean;
 
-	none(map: string): bool;
-	none(obj: Object, map: string): bool;
-	none(map: (key: string, value: any) => bool): bool;
-	none(obj: Object, map: (key: string, value: any) => bool): bool;
+	/**
+	* @see map
+	**/
+	any(obj: any, map: (key: string, value: any) => boolean): boolean;
 
-	count(map: string): number;
-	count(obj: Object, map: string): number;
-	count(map: (key: string, value: any) => bool): number;
-	count(obj: Object, map: (key: string, value: any) => bool): number;
+	/**
+	* @see map
+	**/
+	all(obj: any, map: string): boolean;
 
-	find(map: string): any;
-	find(obj: Object, map: string): any;
-	find(map: (key: string, value: any) => bool): any;
-	find(obj: Object, map: (key: string, value: any) => bool): any;
+	/**
+	* @see map
+	**/
+	all(obj: any, map: (key: string, value: any) => boolean): boolean;
 
-	findAll(map: string): any[];
-	findAll(obj: Object, map: string): any[];
-	findAll(map: (key: string, value: any) => bool): any[];
-	findAll(obj: Object, map: (key: string, value: any) => bool): any[];
+	/**
+	* @see map
+	**/
+	none(obj: any, map: string): boolean;
 
-	reduce(map: string, init?: any): any;
-	reduce(obj: Object, map: string, init?: any): any;
-	reduce(map: (key: string, value: any) => any, init?: any): any;
-	reduce(obj: Object, map: (key: string, value: any) => any, init?: any): any;
+	/**
+	* @see map
+	**/
+	none(obj: any, map: (key: string, value: any) => boolean): boolean;
 
-	isEmpty(): bool;
-	isEmpty(obj: Object): bool;
+	/**
+	* @see map
+	**/
+	count(obj: any, map: string): number;
 
-	sum(map: string): number;
-	sum(obj: Object, map: string): number;
-	sum(map: (key: string, value: any) => number): number;
-	sum(obj: Object, map: (key: string, value: any) => number): number;
+	/**
+	* @see map
+	**/
+	count(obj: any, map: (key: string, value: any) => boolean): number;
 
-	average(map: string): number;
-	average(obj: Object, map: string): number;
-	average(map: (key: string, value: any) => number): number;
-	average(obj: Object, map: (key: string, value: any) => number): number;
+	/**
+	* @see map
+	**/
+	find(obj: any, map: string): any;
 
-	min(map: string): Object;
-	min(obj: Object, map: string): Object;
-	min(map: (key: string, value: any) => any): Object;
-	min(obj: Object, map: (key: string, value: any) => any): Object;
+	/**
+	* @see map
+	**/
+	find(obj: any, map: (key: string, value: any) => boolean): any;
 
-	max(map: string): Object;
-	max(obj: Object, map: string): Object;
-	max(map: (key: string, value: any) => any): Object;
-	max(obj: Object, map: (key: string, value: any) => any): Object;
+	/**
+	* @see map
+	**/
+	findAll(obj: any, map: string): any[];
 
-	least(map: string): Object;
-	least(obj: Object, map: string): Object;
-	least(map: (key: string, value: any) => any): Object;
-	least(obj: Object, map: (key: string, value: any) => any): Object;
+	/**
+	* @see map
+	**/
+	findAll(obj: any, map: (key: string, value: any) => boolean): any[];
 
-	most(map: string): Object;
-	most(obj: Object, map: string): Object;
-	most(map: (key: string, value: any) => any): Object;
-	most(obj: Object, map: (key: string, value: any) => any): Object;
+	/**
+	* @see map
+	**/
+	reduce(obj: any, map: string, init?: any): any;
 
-	/***
+	/**
+	* @see map
+	**/
+	reduce(obj: any, map: (key: string, value: any) => any, init?: any): any;
+
+	/**
+	* @see map
+	**/
+	isEmpty(obj: any): boolean;
+
+	/**
+	* @see map
+	**/
+	sum(obj: any, map: string): number;
+
+	/**
+	* @see map
+	**/
+	sum(obj: any, map: (key: string, value: any) => number): number;
+
+	/**
+	* @see map
+	**/
+	average(obj: any, map: string): number;
+
+	/**
+	* @see map
+	**/
+	average(obj: any, map: (key: string, value: any) => number): number;
+
+	/**
+	* @see map
+	**/
+	min(obj: any, map: string): any;
+
+	/**
+	* @see map
+	**/
+	min(obj: any, map: (key: string, value: any) => any): any;
+
+	/**
+	* @see map
+	**/
+	max(obj: any, map: string): any;
+
+	/**
+	* @see map
+	**/
+	max(obj: any, map: (key: string, value: any) => any): any;
+
+	/**
+	* @see map
+	**/
+	least(obj: any, map: string): any;
+
+	/**
+	* @see map
+	**/
+	least(obj: any, map: (key: string, value: any) => any): any;
+
+	/**
+	* @see map
+	**/
+	most(obj: any, map: string): any;
+
+	/**
+	* @see map
+	**/
+	most(obj: any, map: (key: string, value: any) => any): any;
+
+	/**
 	* Returns true if <a> and <b> are equal.
-	* @method equal(<a>, <b>)
-	* @returns Boolean
+	* @param a First object to compare.
+	* @param b Second object to compare.
+	* @returns True if the objects are equal, otherwise false.
 	* @extra %equal% in Sugar is "egal", meaning the values are equal
 	*        if they are "not observably distinguishable". Note that on
 	*        extended objects the name is %equals% for readability.
 	* @example
-	*
 	*   Object.equal({a:2}, {a:2}) -> true
 	*   Object.equal({a:2}, {a:3}) -> false
 	*   Object.extended({a:2}).equals({a:3}) -> false
-	*
-	***/
-	equal(a: Object, b: Object): bool;
+	**/
+	equal(a: any, b: any): boolean;
 
-	/***
+	/**
 	* Checks if <obj> has <key> using hasOwnProperty from Object.prototype.
-	* @method has(<obj>, <key>)
-	* @returns Boolean
+	* @param obj Object to check for the property <key>.
+	* @param key Property to check to see if it exists on <obj>.
+	* @returns True if <key> exists on <obj>, otherwise false.
 	* @extra This method is considered safer than %Object#hasOwnProperty% when
 	*        using objects as hashes. See 
 	*        http://www.devthought.com/2012/01/18/an-object-is-not-a-hash/ 
 	*        for more.
 	* @example
-	*
 	*   Object.has({ foo: 'bar' }, 'foo') -> true
 	*   Object.has({ foo: 'bar' }, 'baz') -> false
 	*   Object.has({ hasOwnProperty: true }, 'foo') -> false
-	*
-	***/
-	has(key: string): bool;
-	has(obj: Object, key: string): bool;
+	**/
+	has(obj: any, key: string): boolean;
 
-	/***
-	* Returns an array containing the keys in <obj>. Optionally calls
-	*        [fn] for each key.
-	* @method keys(<obj>, [fn])
-	* @returns Array
+	/**
+	* Returns an array containing the keys in <obj>. Optionally calls [fn] for each key.
+	* @param obj Retreive all keys/properties from this object.
+	* @param fn Optional callback for each key/value pair.
+	* @returns Array of each property on <obj>.
 	* @extra This method is provided for browsers that don't support it natively,
 	*        and additionally is enhanced to accept the callback [fn]. Returned
 	*        keys are in no particular order. %keys% is available as an instance
 	*        method on extended objects.
 	* @example
-	*
 	*   Object.keys({ broken: 'wear' }) -> ['broken']
 	*   Object.keys({ broken: 'wear' }, function(key, value) {
 	*     // Called once for each key.
 	*   });
 	*   Object.extended({ broken: 'wear' }).keys() -> ['broken']
-	*
-	***/
-	keys(): string[];
-	keys(obj: Object, fn?: (key: string, value: any) => void ): string[];
+	**/
+	keys(obj: any, fn?: (key: string, value: any) => void ): string[];
 
-	/***
+	/**
 	* Merges all the properties of <source> into <target>.
-	* @method merge(<target>, <source>, [deep] = false, [resolve] = true)
+	* @param target
+	* @param source
+	* @param deep If true then deep merge, default = false.
+	* @param resolve If false then properties of source are used in the merge, default = true.
 	* @returns Merged object
 	* @extra Merges are shallow unless [deep] is %true%. Properties of <source>
 	*        will win in the case of conflicts, unless [resolve] is %false%.
@@ -3136,17 +3276,20 @@ interface Object {
 	*        together, etc. %merge% is available as an instance method on
 	*        extended objects.
 	* @example
-	*
 	*   Object.merge({a:1},{b:2}) -> { a:1, b:2 }
 	*   Object.merge({a:1},{a:2}, false, false) -> { a:1 }
 	+   Object.merge({a:1},{a:2}, false, function(key, a, b) {
 	*     return a + b;
 	*   }); -> { a:3 }
 	*   Object.extended({a:1}).merge({b:2}) -> { a:1, b:2 }
-	*
-	***/
-	merge(target: Object, source: Object, deep?: bool, resolve?: bool): Object;
-	merge(target: Object, source: Object, deep?: bool, resolve?: (key: string, targetVal: any, sourceVal: any) => any): Object;
+	**/
+	merge(target: any, source: any, deep?: boolean, resolve?: boolean): any;
+
+	/**
+	* @see merge
+	* @param resolve Callback to resolve conflicts in the merge.
+	**/
+	merge(target: any, source: any, deep?: boolean, resolve?: (key: string, targetVal: any, sourceVal: any) => any): any;
 
 	/**
 	* Builds a new object containing all values except those specified in find.
@@ -3175,67 +3318,61 @@ interface Object {
 	select(obj: any, ...find: any[]): any;
 
 
-	/***
+	/**
 	* Returns the number of properties in <obj>.
-	* @method size(<obj>)
-	* @returns Number
+	* @param obj Object to determine the number of properties on.
+	* @returns The number of properties on <obj>.
 	* @extra %size% is available as an instance method on extended objects.
 	* @example
-	*
 	*   Object.size({ foo: 'bar' }) -> 1
-	*
-	***/
-	size(): number;
+	**/
 	size(obj: Object): number;
 
-	/***
+	/**
 	* Runs <fn> and returns <obj>.
-	* @method tap(<obj>, <fn>)
-	* @returns Object
+	* @param obj Object to tap.
+	* @param fn Function to tap on <obj>.
+	* @returns <obj>
 	* @extra  A string can also be used as a shortcut to a method. This method
 	*         is used to run an intermediary function in the middle of method
 	*         chaining. As a standalone method on the Object class it doesn't
 	*         have too much use. The power of %tap% comes when using extended
 	*         objects or modifying the Object prototype with Object.extend().
 	* @example
-	*
 	*   Object.extend();
 	*   [2,4,6].map(Math.exp).tap(function(arr) {
 	*     arr.pop()
 	*   });
 	*   [2,4,6].map(Math.exp).tap('pop').map(Math.round); ->  [7,55]
-	*
-	***/
-	tap(fn: string): Object;
-	tap(fn: (...args: any[]) => any): Object;
-	tap(obj: Object, fn: string): Object;
-	tap(obj: Object, fn: (...args: any[]) => any): Object;
+	**/
+	tap(obj: any, fn: string): any;
 
-	/***
-	* Returns an array containing the values in <obj>.
-	*        Optionally calls [fn] for each value.
-	* @method values(<obj>, [fn])
+	/**
+	* @see tap
+	**/
+	tap(obj: any, fn: (...args: any[]) => any): any;
+
+	/**
+	* Returns an array containing the values in <obj>.  Optionally calls [fn] for each value.
+	* @param obj Object to retrieve all values from.
+	* @param fn Optional callback for each value on <obj>.
 	* @returns Array
 	* @extra Returned values are in no particular order. %values% is available
 	*        as an instance method on extended objects.
 	* @example
-	*
 	*   Object.values({ broken: 'wear' }) -> ['wear']
 	*   Object.values({ broken: 'wear' }, function(value) {
 	*     // Called once for each value.
 	*   });
 	*   Object.extended({ broken: 'wear' }).values() -> ['wear']
-	*
-	***/
-	values(): any[];
-	values(fn: (value: any) => any): any[];
-	values(obj: Object): any[];
-	values(obj: Object, fn: (value: any) => any): any[];
+	**/
+	values(obj: any, fn?: (value: any) => any): any[];
 
-	/***
+	/**
 	* Watches a property of <obj> and runs <fn> when it changes.
-	* @method watch(<obj>, <prop>, <fn>)
-	* @returns Nothing
+	* @param obj Object to watch.
+	* @param prop Property to watch on <obj>
+	* @param fn Callback function when <prop> changes on <obj>.
 	* @extra <fn> is passed three arguments: the property <prop>, the old value,
 	*        and the new value. The return value of [fn] will be set as the new
 	*        value. This method is useful for things such as validating or cleaning
@@ -3253,34 +3390,482 @@ interface Object {
 	*     // Will be run when the property 'foo' is set on the object.
 	*   });
 	*
-	***/
-	watch(prop: string, fn: (prop: string, oldVal: any, newVal: any) => any): void;
-	watch(obj: Object, prop: string, fn: (prop: string, oldVal: any, newVal: any) => any): void;
+	**/
+	watch(obj: any, prop: string, fn: (prop?: string, oldVal?: any, newVal?: any) => any): void;
+}
+
+interface Object {
+
+	/**
+	* Creates a new object, equivalent to %new Object()% or %{}%, but with extended methods.
+	* @returns Extended object.
+	* @extra See extended objects for more.
+	* @example
+	*   Object.extended()
+	*   Object.extended({ happy:true, pappy:false }).keys() -> ['happy','pappy']
+	*   Object.extended({ happy:true, pappy:false }).values() -> [true, false]
+	**/
+	extended(): Object;
+
+	/**
+	* Returns true if <obj> is an object of that type.
+	* @method Object.is[Type](<obj>)
+	* @returns True if <obj> is of type [Type].
+	* @extra %isObject% will return false on anything that is not an object
+	*        literal, including instances of inherited classes. Note also
+	*        that %isNaN% will ONLY return true if the object IS %NaN%.
+	*        It does not mean the same as browser native %isNaN%, which returns
+	*        true for anything that is "not a number".
+	* @set
+	*   isArray
+	*   isObject
+	*   isBoolean
+	*   isDate
+	*   isFunction
+	*   isNaN
+	*   isNumber
+	*   isString
+	*   isRegExp
+	* @example
+	*   Object.isArray([1,2,3])            -> true
+	*   Object.isDate(3)                   -> false
+	*   Object.isRegExp(/wasabi/)          -> true
+	*   Object.isObject({ broken:'wear' }) -> true
+	**/
+	isArray(): boolean;
+
+	/**
+	* @see isArray
+	**/
+	isObject(): boolean;
+
+	/**
+	* @see isArray
+	**/
+	isBoolean(): boolean;
+
+	/**
+	* @see isArray
+	**/
+	isDate(): boolean;
+
+	/**
+	* @see isArray
+	**/
+	isFunction(): boolean;
+
+	/**
+	* @see isArray
+	**/
+	isNaN(): boolean;
+
+	/**
+	* @see isArray
+	**/
+	isNumber(): boolean;
+
+	/**
+	* @see isArray
+	**/
+	isString(): boolean;
+
+	/**
+	* @see isArray
+	**/
+	isRegExp(): boolean;
+
+	/**
+	* Converts the object into a query string. Accepts deep nested objects and arrays.
+	* If namespace is passed, it will be prefixed to all param names.
+	* @param obj Object to convert to a query string.
+	* @param namespace Namespace to prefix properties with in the query string.
+	* @return A query string generated from `obj` and `namespace`.
+	**/
+	toQueryString(namespace?: string): string;
+
+	/**
+	* Creates a clone (copy) of <obj>.
+	* @param deep If true then deep clone, default = false.
+	* @returns Cloned object.
+	* @extra Default is a shallow clone, unless [deep] is true. %clone%
+	*        is available as an instance method on extended objects.
+	* @example
+	*   Object.clone({foo:'bar'})            -> { foo: 'bar' }
+	*   Object.clone()                       -> {}
+	*   Object.extended({foo:'bar'}).clone() -> { foo: 'bar' }
+	**/
+	clone(deep?: boolean): any;
+
+	/**
+	* Enumerable methods in the Array package are also available to
+	*        the Object class. They will perform their normal operations for
+	*        every property in <obj>.
+	* @method [enumerable](<obj>)
+	* @returns Boolean
+	* @extra In cases where a callback is used, instead of %element, index%,
+	*        the callback will instead be passed %key, value%. Enumerable methods
+	*        are also available to extended objects as instance methods.
+	* @set
+	*   each
+	*   map
+	*   any
+	*   all
+	*   none
+	*   count
+	*   find
+	*   findAll
+	*   reduce
+	*   isEmpty
+	*   sum
+	*   average
+	*   min
+	*   max
+	*   least
+	*   most
+	* @example
+	*   Object.any({foo:'bar'}, 'bar')            -> true
+	*   Object.extended({foo:'bar'}).any('bar')   -> true
+	*   Object.isEmpty({})                        -> true
+	*   Object.map({ fred: { age: 52 } }, 'age'); -> { fred: 52 }
+	**/
+	map<U>(map: string): U;
+
+	/**
+	* @see map
+	**/
+	map<U>(map: (key: string, value: any) => any): U;
+
+	/**
+	* @see map
+	**/
+	any(map: string): boolean;
+
+	/**
+	* @see map
+	**/
+	any(map: (key: string, value: any) => boolean): boolean;
+
+	/**
+	* @see map
+	**/
+	all(map: string): boolean;
+
+	/**
+	* @see map
+	**/
+	all(map: (key: string, value: any) => boolean): boolean;
+
+	/**
+	* @see map
+	**/
+	none(map: string): boolean;
+
+	/**
+	* @see map
+	**/
+	none(map: (key: string, value: any) => boolean): boolean;
+
+	/**
+	* @see map
+	**/
+	count(map: string): number;
+
+	/**
+	* @see map
+	**/
+	count(map: (key: string, value: any) => boolean): number;
+
+	/**
+	* @see map
+	**/
+	find(map: string): any;
+
+	/**
+	* @see map
+	**/
+	find(map: (key: string, value: any) => boolean): any;
+
+	/**
+	* @see map
+	**/
+	findAll(map: string): any[];
+
+	/**
+	* @see map
+	**/
+	findAll(map: (key: string, value: any) => boolean): any[];
+
+	/**
+	* @see map
+	**/
+	reduce(map: string, init?: any): any;
+
+	/**
+	* @see map
+	**/
+	reduce(map: (key: string, value: any) => any, init?: any): any;
+
+	/**
+	* @see map
+	**/
+	isEmpty(): boolean;
+
+	/**
+	* @see map
+	**/
+	sum(map: string): number;
+
+	/**
+	* @see map
+	**/
+	sum(map: (key: string, value: any) => number): number;
+
+	/**
+	* @see map
+	**/
+	average(map: string): number;
+
+	/**
+	* @see map
+	**/
+	average(map: (key: string, value: any) => number): number;
+
+	/**
+	* @see map
+	**/
+	min(map: string): any;
+
+	/**
+	* @see map
+	**/
+	min(map: (key: string, value: any) => any): any;
+
+	/**
+	* @see map
+	**/
+	max(map: string): any;
+
+	/**
+	* @see map
+	**/
+	max(map: (key: string, value: any) => any): any;
+
+	/**
+	* @see map
+	**/
+	least(map: string): any;
+
+	/**
+	* @see map
+	**/
+	least(map: (key: string, value: any) => any): any;
+
+	/**
+	* @see map
+	**/
+	most(map: string): any;
+
+	/**
+	* @see map
+	**/
+	most(map: (key: string, value: any) => any): any;
+
+	/**
+	* Returns true if <a> and <b> are equal.
+	* @param b Compare to this object
+	* @returns True if the objects are equal, otherwise false.
+	* @extra %equal% in Sugar is "egal", meaning the values are equal
+	*        if they are "not observably distinguishable". Note that on
+	*        extended objects the name is %equals% for readability.
+	* @example
+	*   Object.equal({a:2}, {a:2}) -> true
+	*   Object.equal({a:2}, {a:3}) -> false
+	*   Object.extended({a:2}).equals({a:3}) -> false
+	**/
+	equal(b: any): boolean;
+
+	/**
+	* Checks if <obj> has <key> using hasOwnProperty from Object.prototype.
+	* @param key Property to check to see if it exists on <obj>.
+	* @returns True if <key> exists on <obj>, otherwise false.
+	* @extra This method is considered safer than %Object#hasOwnProperty% when
+	*        using objects as hashes. See 
+	*        http://www.devthought.com/2012/01/18/an-object-is-not-a-hash/ 
+	*        for more.
+	* @example
+	*   Object.has({ foo: 'bar' }, 'foo') -> true
+	*   Object.has({ foo: 'bar' }, 'baz') -> false
+	*   Object.has({ hasOwnProperty: true }, 'foo') -> false
+	**/
+	has(key: string): boolean;
+
+	/**
+	* Returns an array containing the keys in <obj>. Optionally calls [fn] for each key.
+	* @param fn Optional callback for each key/value pair.
+	* @returns Array of each property on <obj>.
+	* @extra This method is provided for browsers that don't support it natively,
+	*        and additionally is enhanced to accept the callback [fn]. Returned
+	*        keys are in no particular order. %keys% is available as an instance
+	*        method on extended objects.
+	* @example
+	*   Object.keys({ broken: 'wear' }) -> ['broken']
+	*   Object.keys({ broken: 'wear' }, function(key, value) {
+	*     // Called once for each key.
+	*   });
+	*   Object.extended({ broken: 'wear' }).keys() -> ['broken']
+	**/
+	keys(fn?: (key: string, value: any) => void ): string[];
+
+	/**
+	* Merges all the properties of <source> into <target>.
+	* @param source
+	* @param deep If true then deep merge, default = false.
+	* @param resolve If false then properties of source are used in the merge, default = true.
+	* @returns Merged object
+	* @extra Merges are shallow unless [deep] is %true%. Properties of <source>
+	*        will win in the case of conflicts, unless [resolve] is %false%.
+	*        [resolve] can also be a function that resolves the conflict.
+	*        In this case it will be passed 3 arguments, %key%, %targetVal%,
+	*        and %sourceVal%, with the context set to <source>. This will allow
+	*        you to solve conflict any way you want, ie. adding two numbers
+	*        together, etc. %merge% is available as an instance method on
+	*        extended objects.
+	* @example
+	*   Object.merge({a:1},{b:2}) -> { a:1, b:2 }
+	*   Object.merge({a:1},{a:2}, false, false) -> { a:1 }
+	+   Object.merge({a:1},{a:2}, false, function(key, a, b) {
+	*     return a + b;
+	*   }); -> { a:3 }
+	*   Object.extended({a:1}).merge({b:2}) -> { a:1, b:2 }
+	**/
+	merge(source: any, deep?: boolean, resolve?: boolean): any;
+
+	/**
+	* @see merge
+	* @param resolve Callback to resolve conflicts in the merge.
+	**/
+	merge(source: any, deep?: boolean, resolve?: (key: string, targetVal: any, sourceVal: any) => any): any;
+
+	/**
+	* Builds a new object containing all values except those specified in find.
+	* When find is a string, that single key will be rejected. It can also be a regex,
+	* rejecting any key that matches, or an object which will match if the key also
+	* exists in that object, effectively "subtracting" that object. Multiple selections
+	* may also be passed as an array or directly as enumerated arguments. reject is
+	* available as an instance method on extended objects.
+	* @param find The property (string), properties (object) or RegExp to remove from `obj`.
+	* @return Modified `obj` with `find` properties removed.
+	**/
+	reject(...find: any[]): any;
+
+	/**
+	* Builds a new object containing the values specified in find. When find is a string,
+	* that single key will be selected. It can also be a regex, selecting any key that
+	* matches, or an object which will match if the key also exists in that object,
+	* effectively doing an "intersect" operation on that object. Multiple selections
+	* may also be passed as an array or directly as enumerated arguments. select is
+	* available as an instance method on extended objects.
+	* @param find The property (string), properties (object) or RegExp to keep on `obj`.
+	* @return Modified `obj` with only the `find` properties remaining.
+	**/
+	select(...find: any[]): any;
+
+
+	/**
+	* Returns the number of properties in <obj>.
+	* @returns The number of properties on <obj>.
+	* @extra %size% is available as an instance method on extended objects.
+	* @example
+	*   Object.size({ foo: 'bar' }) -> 1
+	**/
+	size(): number;
+
+	/**
+	* Runs <fn> and returns <obj>.
+	* @param fn Function to tap on <obj>.
+	* @returns <obj>
+	* @extra  A string can also be used as a shortcut to a method. This method
+	*         is used to run an intermediary function in the middle of method
+	*         chaining. As a standalone method on the Object class it doesn't
+	*         have too much use. The power of %tap% comes when using extended
+	*         objects or modifying the Object prototype with Object.extend().
+	* @example
+	*   Object.extend();
+	*   [2,4,6].map(Math.exp).tap(function(arr) {
+	*     arr.pop()
+	*   });
+	*   [2,4,6].map(Math.exp).tap('pop').map(Math.round); ->  [7,55]
+	**/
+	tap(fn: string): any;
+
+	/**
+	* @see tap
+	**/
+	tap(fn: (...args: any[]) => any): any;
+
+	/**
+	* Returns an array containing the values in <obj>.  Optionally calls [fn] for each value.
+	* @param fn Optional callback for each value on <obj>.
+	* @returns Array
+	* @extra Returned values are in no particular order. %values% is available
+	*        as an instance method on extended objects.
+	* @example
+	*   Object.values({ broken: 'wear' }) -> ['wear']
+	*   Object.values({ broken: 'wear' }, function(value) {
+	*     // Called once for each value.
+	*   });
+	*   Object.extended({ broken: 'wear' }).values() -> ['wear']
+	**/
+	values(fn?: (value: any) => any): any[];
+
+	/**
+	* Watches a property of <obj> and runs <fn> when it changes.
+	* @param obj Object to watch.
+	* @param prop Property to watch on <obj>
+	* @param fn Callback function when <prop> changes on <obj>.
+	* @extra <fn> is passed three arguments: the property <prop>, the old value,
+	*        and the new value. The return value of [fn] will be set as the new
+	*        value. This method is useful for things such as validating or cleaning
+	*        the value when it is set. Warning: this method WILL NOT work in
+	*        browsers that don't support %Object.defineProperty%. This notably
+	*        includes IE 8 and below, and Opera. This is the only method in Sugar
+	*        that is not fully compatible with all browsers. %watch% is available
+	*        as an instance method on extended objects.
+	* @example
+	*
+	*   Object.watch({ foo: 'bar' }, 'foo', function(prop, oldVal, newVal) {
+	*     // Will be run when the property 'foo' is set on the object.
+	*   });
+	*   Object.extended().watch({ foo: 'bar' }, 'foo', function(prop, oldVal, newVal) {
+	*     // Will be run when the property 'foo' is set on the object.
+	*   });
+	*
+	**/
+	watch(prop: string, fn: (prop?: string, oldVal?: any, newVal?: any) => any): void;
 }
 
 interface Function {
 
-	/***
+	/**
 	* Creates a function that will execute after [num] calls.
-	* @method after([num] = 1)
-	* @returns Function
+	* @param num Execute the function after this many calls, default = 1.
+	* @returns Function that can only execute after it has been called <num> times.
 	* @extra %after% is useful for running a final callback after a series of
 	*        asynchronous operations, when the order in which the operations will
 	*        complete is unknown.
 	* @example
-	*
 	*   var fn = (function() {
 	*     // Will be executed once only
 	*   }).after(3); fn(); fn(); fn();
-	*
-	***/
+	**/
 	after(num?: number): Function;
 
-	/***
+	/**
 	* Binds <scope> as the %this% object for the function when it is called.
 	*        Also allows currying an unlimited number of parameters.
-	* @method bind(<scope>, [arg1], ...)
-	* @returns Function
+	* @param scope this object during the function call.
+	* @param args Curried parameters.
+	* @returns Function with bound 'this' and curried parameters.
 	* @extra "currying" means setting parameters ([arg1], [arg2], etc.) ahead of
 	*         time so that they are passed when the function is called later.
 	*         If you pass additional parameters when the function is actually
@@ -3288,8 +3873,7 @@ interface Function {
 	*         parameters. This method is provided for browsers that don't support
 	*         it internally.
 	* @example
-	*
-	+   (function() {
+	*   (function() {
 	*     return this;
 	*   }).bind('woof')(); -> returns 'woof'; function is bound with 'woof' as the this object.
 	*   (function(a) {
@@ -3298,64 +3882,56 @@ interface Function {
 	*   (function(a, b) {
 	*     return a + b;
 	*   }).bind(1, 2)(3);  -> returns 5; function is bound with 1 as the this object, 2 curied as the first parameter and 3 passed as the second when calling the function
-	*
-	***/
-	bind(scope?: Object, ...args: any[]): Function;
+	**/
+	bind(scope?: any, ...args: any[]): Function;
 
-	/***
+	/**
 	* Cancels a delayed function scheduled to be run.
-	* @method cancel()
 	* @returns Function
 	* @extra %delay%, %lazy%, %throttle%, and %debounce% can all set delays.
 	* @example
-	*
 	*   (function() {
 	*     alert('hay'); // Never called
 	*   }).delay(500).cancel();
-	*
-	***/
+	**/
 	cancel(): Function;
 
-	/***
-	* Creates a "debounced" function that postpones its execution until
-	*        after <ms> milliseconds have passed.
-	* @method debounce(<ms>)
-	* @returns Function
+	/**
+	* Creates a "debounced" function that postpones its execution until after <ms> milliseconds have passed.
+	* @param ms Number of milliseconds to debounce the function.
+	* @returns Deboucned function by ms <ms>.
 	* @extra This method is useful to execute a function after things have
 	*        "settled down". A good example of this is when a user tabs quickly
 	*        through form fields, execution of a heavy operation should happen
 	*        after a few milliseconds when they have "settled" on a field.
 	* @example
-	*
 	*   var fn = (function(arg1) {
 	*     // called once 50ms later
 	*   }).debounce(50); fn() fn() fn();
-	*
-	***/
+	**/
 	debounce(ms: number): Function;
 
-	/***
+	/**
 	* Executes the function after <ms> milliseconds.
-	* @method delay([ms] = 0, [arg1], ...)
-	* @returns Function
+	* @param ms Milliseconds to delay execution, default = 0.
+	* @param args Additional arguments.
+	* @returns Reference to itself.
 	* @extra Returns a reference to itself. %delay% is also a way to execute
 	*        non-blocking operations that will wait until the CPU is free.
 	*        Delayed functions can be canceled using the %cancel% method.
 	*        Can also curry arguments passed in after <ms>.
 	* @example
-	*
 	*   (function(arg1) {
 	*     // called 1s later
 	*   }).delay(1000, 'arg1');
-	*
-	***/
+	**/
 	delay(ms?: number, ...args: any[]): Function;
 
-	/***
+	/**
 	* Returns a new version of the function which when called will have
 	*        some of its arguments pre-emptively filled in, also known as "currying".
-	* @method fill(<arg1>, <arg2>, ...)
-	* @returns Function
+	* @param args Pre-filled arguments.
+	* @returns Function with pre-filled arguments.
 	* @extra Arguments passed to a "filled" function are generally appended to
 	*        the curried arguments. However, if %undefined% is passed as any of
 	*        the arguments to %fill%, it will be replaced, when the "filled"
@@ -3363,19 +3939,18 @@ interface Function {
 	*        they occur toward the end of an argument list (the example
 	*        demonstrates this much more clearly).
 	* @example
-	*
 	*   var delayOneSecond = setTimeout.fill(undefined, 1000);
 	*   delayOneSecond(function() {
 	*     // Will be executed 1s later
 	*   });
-	*
-	***/
+	**/
 	fill(...args: any[]): Function;
 
-	/***
-	* Creates a lazy function that, when called repeatedly, will queue
-	*        execution and wait [ms] milliseconds to execute again.
+	/**
+	* Creates a lazy function that, when called repeatedly, will queue execution and wait [ms] milliseconds to execute again.
 	* @method lazy([ms] = 1, [limit] = Infinity)
+	* @param ms Wait this long between successive calls, default = 1.
+	* @param limit Maximum number of times the function can execute, default = Infinity.
 	* @returns Function
 	* @extra Lazy functions will always execute as many times as they are called
 	*        up to [limit], after which point subsequent calls will be ignored
@@ -3385,7 +3960,6 @@ interface Function {
 	*        in a non-blocking manner. Calling %cancel% on a lazy function will
 	*       clear the entire queue. Note that [ms] can also be a fraction.
 	* @example
-	*
 	*   (function() {
 	*     // Executes immediately.
 	*   }).lazy()();
@@ -3395,31 +3969,26 @@ interface Function {
 	*   (100).times(function() {
 	*     // Executes 50 times, with each execution 20ms later than the last.
 	*   }.lazy(20, 50));
-	*
-	***/
+	**/
 	lazy(ms?: number, limit?: number): Function;
 
-	/***
+	/**
 	* Creates a function that will execute only once and store the result.
-	* @method once()
 	* @returns Function
 	* @extra %once% is useful for creating functions that will cache the result of
 	*        an expensive operation and use it on subsequent calls. Also it can be
 	*        useful for creating initialization functions that only need to be run
 	*        once.
 	* @example
-	*
 	*   var fn = (function() {
 	*     // Will be executed once only
 	*   }).once(); fn(); fn(); fn();
-	*
-	***/
+	**/
 	once(): Function;
 
-	/***
-	* Creates a "throttled" version of the function that will only be
-	*        executed once per <ms> milliseconds.
-	* @method throttle(<ms>)
+	/**
+	* Creates a "throttled" version of the function that will only be executed once per <ms> milliseconds.
+	* @param ms Execute only once in this time span.
 	* @returns Function
 	* @extra This is functionally equivalent to calling %lazy% with a [limit]
 	*        of %1%. %throttle% is appropriate when you want to make sure a
@@ -3427,77 +3996,67 @@ interface Function {
 	*        Compare this to %lazy%, which will queue rapid calls and execute
 	*        them later.
 	* @example
-	*
 	*   (3).times(function() {
 	*     // called only once. will wait 50ms until it responds again
 	*   }.throttle(50));
-	*
-	***/
+	**/
 	throttle(ms: number): Function;
+}
+
+interface RegExpStatic {
+
+	/**
+	* Escapes all RegExp tokens in a string.
+	* @param str Escape RegExp tokens in this string.
+	* @returns Escaped RegExp tokens in <str>.
+	* @example
+	*   RegExp.escape('really?')      -> 'really\?'
+	*   RegExp.escape('yes.')         -> 'yes\.'
+	*   RegExp.escape('(not really)') -> '\(not really\)'
+	**/
+	escape(str: string): string;
 }
 
 interface RegExp {
 
-	/***
-	* Escapes all RegExp tokens in a string.
-	* @method RegExp.escape(<str> = '')
-	* @returns String
-	* @example
-	*
-	*   RegExp.escape('really?')      -> 'really\?'
-	*   RegExp.escape('yes.')         -> 'yes\.'
-	*   RegExp.escape('(not really)') -> '\(not really\)'
-	*
-	***/
-	escape(str: string): string;
-
-	/***
+	/**
 	* Adds <flag> to the regex.
-	* @method addFlag(<flag>)
-	* @returns RegExp
+	* @param flag RegExp flag to add.
+	* @returns RegExp with <flag> added.
 	* @example
-	*
 	*   /texty/.addFlag('g') -> now has global flag set
-	*
-	***/
+	**/
 	addFlag(flag: string): RegExp;
 
-	/***
+	/**
 	* Returns the flags of the regex as a string.
-	* @method getFlags()
-	* @returns String
+	* @returns RegExp flags.
 	* @example
-	*
 	*   /texty/gim.getFlags('testy') -> 'gim'
-	*
-	***/
+	**/
 	getFlags(): string;
 
-	/***
+	/**
 	* Removes <flag> from the regex.
-	* @method removeFlag(<flag>)
-	* @returns RegExp
+	* @param flag RegExp flag to remove.
+	* @returns RegExp with flag <flag> removed.
 	* @example
-	*
 	*   /texty/g.removeFlag('g') -> now has global flag removed
-	*
-	***/
+	**/
 	removeFlag(flag: string): RegExp;
 
-	/***
+	/**
 	* Sets the flags on a regex and retuns a copy.
-	* @method setFlags(<flags>)
-	* @returns RegExp
+	* @param flags Set the RegExp to have these flags.
+	* @returns Copy of RegExp with <flags>.
 	* @example
-	*
 	*   /texty/.setFlags('gim') -> now has global, ignoreCase, and multiline set
-	*
-	***/
+	**/
 	setFlags(flags: string): RegExp;
 }
 
 interface Locale {
-	plural: bool;
+	plural: boolean;
 	months: string;
 	weekdays: string;
 	units: string;
@@ -3521,20 +4080,23 @@ interface Locale {
 	timeParse: string[];
 }
 
-interface Date {
+interface DateStatic {
 
-	/***
+	/**
 	* Adds a locale <set> to the locales understood by Sugar.
 	* @method Date.addLocale(<code>, <set>)
+	* @param code Locale code.
+	* @param set Locale definition.
 	* @returns Locale
 	* @extra For more see @date_format.
-	***/
+	**/
 	addLocale(code: string, set: Locale): Locale;
 
-	/***
+	/**
 	* Alternate Date constructor which understands many different text formats,
 	*        a timestamp, or another date.
 	* @method Date.create(<d>, [locale] = currentLocale)
+	* @param locale Locale to create the date in, default = currentLocale.
 	* @returns Date
 	* @extra If no argument is given, date is assumed to be now. %Date.create% additionally
 	*        can accept enumerated parameters as with the standard date constructor. [locale]
@@ -3543,9 +4105,7 @@ interface Date {
 	*        through the %utc% object. For more see @date_format.
 	* @set
 	*   Date.utc.create
-	*
 	* @example
-	*
 	*   Date.create('July')          -> July of this year
 	*   Date.create('1776')          -> 1776
 	*   Date.create('today')         -> today
@@ -3556,15 +4116,28 @@ interface Date {
 	*   Date.create(1776, 6, 4)      -> July 4, 1776
 	*   Date.create('1776?07?04?', 'ja') -> July 4, 1776
 	*   Date.utc.create('July 4, 1776', 'en')  -> July 4, 1776
-	*
-	***/
+	**/
 	create(locale?: string): Date;
+
+	/**
+	* @see create
+	* @param d Human readable date to convert to a Date object.
+	**/
 	create(d: string, locale?: string): Date;
+
+	/**
+	* @see create
+	* @param year Year YYYY
+	* @param month Month MM
+	* @param day Day DD
+	**/
 	create(year: number, month: number, day: number, locale?: string): Date;
 
-	/***
+	/**
 	* Alternate form of %Date.create% with any ambiguity assumed to be the future.
 	* @method Date.future(<d>, [locale] = currentLocale)
+	* @param d Future human redable date to convert to a Date object.
+	* @param locale Locale to create the date in, default = currentLocale.
 	* @returns Date
 	* @extra For example %"Sunday"% can be either "the Sunday coming up" or "the Sunday last"
 	*        depending on context. Note that dates explicitly in the past ("last Sunday") will
@@ -3572,39 +4145,37 @@ interface Date {
 	*       -based dates can be created through the %utc% object. For more, see @date_format.
 	* @set
 	*   Date.utc.future
-	*
 	* @example
-	*
 	*   Date.future('July')          -> July of this year or next depending on the current month
 	*   Date.future('Wednesday')     -> This wednesday or next depending on the current weekday
-	*
-	***/
+	**/
 	future(d: string, locale?: string): Date;
 
-	/***
+	/**
 	* Gets the locale for the given code, or the current locale.
 	* @method Date.getLocale([code] = current)
+	* @param code Locale code to retrieve.
 	* @returns Locale
 	* @extra The resulting locale object can be manipulated to provide more control over date localizations.
 	*        For more about locales, see @date_format.
-	***/
+	**/
 	getLocale(code?: string): Locale;
 
-	/***
+	/**
 	* Returns the number of milliseconds since January 1st, 1970 00:00:00 (UTC time).
 	* @method Date.now()
 	* @returns String
 	* @extra Provided for browsers that do not support this method.
 	* @example
-	*
 	*   Date.now() -> ex. 1311938296231
-	*
-	***/
+	**/
 	now(): string;
 
-	/***
+	/**
 	* Alternate form of %Date.create% with any ambiguity assumed to be the past.
 	* @method Date.past(<d>, [locale] = currentLocale)
+	* @param d Past human readable date to convert to a Date object.
+	* @param locale , default = currentLocale.
 	* @returns Date
 	* @extra For example %"Sunday"% can be either "the Sunday coming up" or "the Sunday last" depending
 	*        on context. Note that dates explicitly in the future ("next Sunday") will remain in the future.
@@ -3613,42 +4184,51 @@ interface Date {
 	* @set
 	*   Date.utc.past
 	* @example
-	*
 	*   Date.past('July')          -> July of this year or last depending on the current month
 	*   Date.past('Wednesday')     -> This wednesday or last depending on the current weekday
-	*
-	***/
+	**/
 	past(d: string, local?: string): Date;
 
-	/***
+	/**
 	* Creates a new date range.
 	* @method Date.range([start], [end])
+	* @param start Beginning date.
+	* @param end Ending date.
 	* @returns DateRange
 	* @extra If either [start] or [end] are null, they will default to the current date.
-	***/
+	**/
 	range(start: Date, end: Date): DateRange;
 
-	/***
+	/**
 	* Sets the current locale to be used with dates.
 	* @method Date.setLocale(<code>)
+	* @param code Locale code.
 	* @returns Locale
 	* @extra Sugar has support for 13 locales that are available through the
-	&        "Date Locales" package. In addition you can define a new locale with
+	*        "Date Locales" package. In addition you can define a new locale with
 	*         %Date.addLocale%. For more see @date_format.
-	*
-	***/
+	**/
 	setLocale(code: string): Locale;
+}
 
-	/***
-	* Adds <num> of the unit to the date. If [reset] is true, all lower
-	*        units will be reset.
+interface DateFields {
+	year?: number;
+	month?: number;
+	day?: number;
+}
+
+interface Date {
+
+	/**
+	* Adds <num> of the unit to the date. If [reset] is true, all lower units will be reset.
 	* @method add[Units](<num>, [reset] = false)
+	* @param num Add this many [Units] to the date.
+	* @param reset If true lower units will be reset.
 	* @returns Date
 	* @extra Note that "months" is ambiguous as a unit of time. If the target
 	*        date falls on a day that does not exist (ie. August 31 -> February 31),
 	*        the date will be shifted to the last day of the month. Don't use
 	*        %addMonths% if you need precision.
-	*
 	* @set
 	*   addMilliseconds
 	*   addSeconds
@@ -3658,26 +4238,53 @@ interface Date {
 	*   addWeeks
 	*   addMonths
 	*   addYears
-	*
 	* @example
-	*
 	*   Date.create().addMilliseconds(5) -> current time + 5 milliseconds
 	*   Date.create().addDays(5)         -> current time + 5 days
 	*   Date.create().addYears(5)        -> current time + 5 years
-	*
-	***/
-	addMilliseconds(num: number, reset?: bool): Date;
-	addSeconds(num: number, reset?: bool): Date;
-	addMinutes(num: number, reset?: bool): Date;
-	addHours(num: number, reset?: bool): Date;
-	addDays(num: number, reset?: bool): Date;
-	addWeeks(num: number, reset?: bool): Date;
-	addMonths(num: number, reset?: bool): Date;
-	addYears(num: number, reset?: bool): Date;
+	**/
+	addMilliseconds(num: number, reset?: boolean): Date;
 
-	/***
+	/**
+	* @see addMilliseconds
+	**/
+	addSeconds(num: number, reset?: boolean): Date;
+
+	/**
+	* @see addMilliseconds
+	**/
+	addMinutes(num: number, reset?: boolean): Date;
+
+	/**
+	* @see addMilliseconds
+	**/
+	addHours(num: number, reset?: boolean): Date;
+
+	/**
+	* @see addMilliseconds
+	**/
+	addDays(num: number, reset?: boolean): Date;
+
+	/**
+	* @see addMilliseconds
+	**/
+	addWeeks(num: number, reset?: boolean): Date;
+
+	/**
+	* @see addMilliseconds
+	**/
+	addMonths(num: number, reset?: boolean): Date;
+	
+	/**
+	* @see addMilliseconds
+	**/
+	addYears(num: number, reset?: boolean): Date;
+
+	/**
 	* Sets the date forward.
 	* @method advance(<set>, [reset] = false)
+	* @param set Human readable amount of time to advance the date.
+	* @param reset If true resets the lower date fields to zero.
 	* @returns Date
 	* @extra This method can accept multiple formats including an object, a string
 	*        in the format %3 days%, a single number as milliseconds, or enumerated
@@ -3685,90 +4292,93 @@ interface Date {
 	*        units more specific than those passed will be reset. For more see
 	*        @date_format.
 	* @example
-	*
 	*   new Date().advance({ year: 2 }) -> 2 years in the future
 	*   new Date().advance('2 days')    -> 2 days in the future
 	*   new Date().advance(0, 2, 3)     -> 2 months 3 days in the future
 	*   new Date().advance(86400000)    -> 1 day in the future
-	*
-	***/
-	advance(set: string, reset?: bool): Date;
-	advance(year: number, month: number, day: number, reset?: bool): Date;
-	advance(milliseconds: number, reset?: bool): Date;
-	advance(set: Object, reset?: bool): Date;
+	**/
+	advance(set: string, reset?: boolean): Date;
 
-	/***
+	/**
+	* @see advance
+	* @param year YYYY to advance.
+	* @param month MM to advance.
+	* @param day DD to advance.
+	**/
+	advance(year: number, month: number, day: number, reset?: boolean): Date;
+
+	/**
+	* @see advance
+	* @param milliseconds Milliseconds to advance the date.
+	**/
+	advance(milliseconds: number, reset?: boolean): Date;
+
+	/**
+	* @see advance
+	* @param set Advance the year/month/day of the date from a single object.
+	**/
+	advance(set: DateFields, reset?: boolean): Date;
+
+	/**
 	* Sets the date to the beginning of the appropriate unit.
 	* @method beginningOf[Unit]()
 	* @returns Date
-	*
 	* @set
 	*   beginningOfDay
 	*   beginningOfWeek
 	*   beginningOfMonth
 	*   beginningOfYear
-	*
 	* @example
-	*
 	*   Date.create().beginningOfDay()   -> the beginning of today (resets the time)
 	*   Date.create().beginningOfWeek()  -> the beginning of the week
 	*   Date.create().beginningOfMonth() -> the beginning of the month
 	*   Date.create().beginningOfYear()  -> the beginning of the year
-	*
-	***/
+	**/
 	beginningOfDay(): Date;
 	beginningOfWeek(): Date;
 	beginningOfMonth(): Date;
 	beginningOfYear(): Date;
 
-	/***
+	/**
 	* Clones the date.
 	* @method clone()
 	* @returns Date
 	* @example
-	*
 	*   Date.create().clone() -> Copy of now
-	*
-	***/
+	**/
 	clone(): Date;
 
-	/***
+	/**
 	* Returns the number of days in the date's month.
 	* @method daysInMonth()
 	* @returns Number
 	* @example
-	*
 	*   Date.create('May').daysInMonth()            -> 31
 	*   Date.create('February, 2000').daysInMonth() -> 29
-	*
-	***/
+	**/
 	daysInMonth(): number;
 
-	/***
+	/**
 	* Sets the date to the end of the appropriate unit.
 	* @method endOf[Unit]()
 	* @returns Date
-	*
 	* @set
 	*   endOfDay
 	*   endOfWeek
 	*   endOfMonth
 	*   endOfYear
-	*
 	* @example
-	*
 	*   Date.create().endOfDay()   -> the end of today (sets the time to 23:59:59.999)
 	*   Date.create().endOfWeek()  -> the end of the week
 	*   Date.create().endOfMonth() -> the end of the month
 	*   Date.create().endOfYear()  -> the end of the year
-	*
-	***/
+	**/
 	endOfDay(): Date;
 	endOfWeek(): Date;
 	endOfMonth(): Date;
 	endOfYear(): Date;
 
-	/***
+	/**
 	* Formats and outputs the date.
 	* @method format(<format>, [locale] = currentLocale)
 	* @returns String
@@ -3778,14 +4388,11 @@ interface Date {
 	*        If <format> is not specified the %long% format is assumed. [locale]
 	*        specifies a locale code to use (if not specified the current locale 
 	*        is used). See @date_format for more details.
-	*
 	* @set
 	*   short
 	*   long
 	*   full
-	*
 	* @example
-	*
 	*   Date.create().format()                                   -> ex. July 4, 2003
 	*   Date.create().format('{Weekday} {d} {Month}, {yyyy}')    -> ex. Monday July 4, 2003
 	*   Date.create().format('{hh}:{mm}')                        -> ex. 15:57
@@ -3795,57 +4402,48 @@ interface Date {
 	*   Date.create('yesterday').format(function(value,unit,ms,loc) {
 	*     // value = 1, unit = 3, ms = -86400000, loc = [current locale object]
 	*   });                                                      -> ex. 1 day ago
-	*
-	***/
+	**/
 	format(format: string, locale?: string): string;
-	short(): string;
-	long(): string;
-	full(): string;
+    	short(locale?: string): string;
+    	long(locale?: string): string;
+    	full(locale?: string): string;
 
-	/***
+	/**
 	* Returns a string representation of the offset from UTC time. If [iso]
 	*        is true the offset will be in ISO8601 format.
 	* @method getUTCOffset([iso])
 	* @returns String
 	* @example
-	*
 	*   new Date().getUTCOffset()     -> "+0900"
 	*   new Date().getUTCOffset(true) -> "+09:00"
-	*
-	***/
-	getUTCOffset(iso?: bool): string;
+	**/
+	getUTCOffset(iso?: boolean): string;
 
-	/***
+	/**
 	* Gets the date's week (of the year).
 	* @returns The date's week of the year as defined by the ISO-8601 standard.
 	* @extra If %utc% is set on the date, the week will be according to UTC time.
-	*
 	* @example
-	*
 	*   new Date().getWeek()    -> today's week of the year
-	*
-	***/
+	**/
 	getISOWeek(): number;
 
-	/***
+	/**
 	* Alias for %getDay%.
 	* @method getWeekday()
 	* @returns Number
 	* @set
 	*   getUTCWeekday
-	*
 	* @example
-	*
 	*   Date.create().getWeekday();    -> (ex.) 3
 	*   Date.create().getUTCWeekday();    -> (ex.) 3
-	*
-	***/
+	**/
 	getWeekday(): number;
 	getUTCWeekday(): number;
 	//getDay(): number;
 	//getUTCDay(): number;
 
-	/***
+	/**
 	* Returns true if the date is <d>.
 	* @method is(<d>, [margin] = 0)
 	* @returns Boolean
@@ -3855,7 +4453,6 @@ interface Date {
 	*        implied in <d>. [margin] allows an extra margin of error in
 	*        milliseconds.  For more, see @date_format.
 	* @example
-	*
 	*   Date.create().is('July')               -> true or false?
 	*   Date.create().is('1776')               -> false
 	*   Date.create().is('today')              -> true
@@ -3863,13 +4460,12 @@ interface Date {
 	*   Date.create().is('July 4, 1776')       -> false
 	*   Date.create().is(-6106093200000)       -> false
 	*   Date.create().is(new Date(1776, 6, 4)) -> false
-	*
-	***/
-	is(d: string, margin?: number): bool;
-	is(milliseconds: number, margin?: number): bool;
-	is(d: Date, margin?: number): bool;
+	**/
+	is(d: string, margin?: number): boolean;
+	is(milliseconds: number, margin?: number): boolean;
+	is(d: Date, margin?: number): boolean;
 
-	/***
+	/**
 	* Returns true if the date is after the <d>.
 	* @method isAfter(<d>, [margin] = 0)
 	* @returns Boolean
@@ -3877,16 +4473,14 @@ interface Date {
 	*        a date object, timestamp, or text format. If not specified, <d> is
 	*        assumed to be now. See @date_format for more.
 	* @example
-	*
 	*   new Date().isAfter('tomorrow')  -> false
 	*   new Date().isAfter('yesterday') -> true
-	*
-	***/
-	isAfter(d: string, margin?: number): bool;
-	isAfter(milliseconds: number, margin?: number): bool;
-	isAfter(d: Date, margin?: number): bool;
+	**/
+	isAfter(d: string, margin?: number): boolean;
+	isAfter(milliseconds: number, margin?: number): boolean;
+	isAfter(d: Date, margin?: number): boolean;
 
-	/***
+	/**
 	* Returns true if the date is before <d>.
 	* @method isBefore(<d>, [margin] = 0)
 	* @returns Boolean
@@ -3894,16 +4488,14 @@ interface Date {
 	*        a date object, timestamp, or text format. If not specified, <d> is
 	*        assumed to be now. See @date_format for more.
 	* @example
-	*
 	*   new Date().isBefore('tomorrow')  -> true
 	*   new Date().isBefore('yesterday') -> false
-	*
-	***/
-	isBefore(d: string, margin?: number): bool;
-	isBefore(milliseconds: number, margin?: number): bool;
-	isBefore(d: Date, margin?: number): bool;
+	**/
+	isBefore(d: string, margin?: number): boolean;
+	isBefore(milliseconds: number, margin?: number): boolean;
+	isBefore(d: Date, margin?: number): boolean;
 
-	/***
+	/**
 	* Returns true if the date falls between <d1> and <d2>.
 	* @method isBetween(<d1>, <d2>, [margin] = 0)
 	* @returns Boolean
@@ -3911,22 +4503,19 @@ interface Date {
 	*        will accept a date object, timestamp, or text format. If not specified,
 	*        they are assumed to be now. See @date_format for more.
 	* @example
-	*
 	*   new Date().isBetween('yesterday', 'tomorrow')    -> true
 	*   new Date().isBetween('last year', '2 years ago') -> false
-	*
-	***/
-	isBefore(start: string, end: string, margin?: number): bool;
-	isBefore(start: number, end: string, margin?: number): bool;
-	isBefore(start: Date, end: Date, margin?: number): bool;
+	**/
+	isBefore(start: string, end: string, margin?: number): boolean;
+	isBefore(start: number, end: string, margin?: number): boolean;
+	isBefore(start: Date, end: Date, margin?: number): boolean;
 
-	/***
+	/**
 	* Returns true if the date falls on that day.
 	* @method is[Day]()
 	* @returns Boolean
 	* @extra Also available: %isYesterday%, %isToday%, %isTomorrow%, %isWeekday%,
 	*        and %isWeekend%.
-	*
 	* @set
 	*   isToday
 	*   isYesterday
@@ -3940,152 +4529,127 @@ interface Date {
 	*   isThursday
 	*   isFriday
 	*   isSaturday
-	*
 	* @example
-	*
 	*   Date.create('tomorrow').isToday() -> false
 	*   Date.create('thursday').isTomorrow() -> ?
 	*   Date.create('yesterday').isWednesday() -> ?
 	*   Date.create('today').isWeekend() -> ?
-	*
-	***/
-	isToday(): bool;
-	isYesterday(): bool;
-	isTomorrow(): bool;
-	isWeekday(): bool;
-	isWeekend(): bool;
-	isSunday(): bool;
-	isMonday(): bool;
-	isTuesday(): bool;
-	isWednesday(): bool;
-	isThursday(): bool;
-	isFriday(): bool;
-	isSaturday(): bool;
+	**/
+	isToday(): boolean;
+	isYesterday(): boolean;
+	isTomorrow(): boolean;
+	isWeekday(): boolean;
+	isWeekend(): boolean;
+	isSunday(): boolean;
+	isMonday(): boolean;
+	isTuesday(): boolean;
+	isWednesday(): boolean;
+	isThursday(): boolean;
+	isFriday(): boolean;
+	isSaturday(): boolean;
 
-	/***
+	/**
 	* Returns true if the date is in the future.
 	* @method isFuture()
 	* @returns Boolean
 	* @example
-	*
 	*   Date.create('next week').isFuture() -> true
 	*   Date.create('last week').isFuture() -> false
-	*
-	***/
-	isFuture(): bool;
+	**/
+	isFuture(): boolean;
 
-	/***
+	/**
 	* Returns true if the date is last week/month/year.
 	* @method isLast[Unit]()
 	* @returns Boolean
-	*
 	* @set
 	*   isLastWeek
 	*   isLastMonth
 	*   isLastYear
-	*
 	* @example
-	*
 	*   Date.create('yesterday').isLastWeek()  -> true or false?
 	*   Date.create('yesterday').isLastMonth() -> probably not...
 	*   Date.create('yesterday').isLastYear()  -> even less likely...
-	*
-	***/
-	isLastWeek(): bool;
-	isLastMonth(): bool;
-	isLastYear(): bool;
+	**/
+	isLastWeek(): boolean;
+	isLastMonth(): boolean;
+	isLastYear(): boolean;
 
-	/***
+	/**
 	* Returns true if the date is a leap year.
 	* @method isLeapYear()
 	* @returns Boolean
 	* @example
-	*
 	*   Date.create('2000').isLeapYear() -> true
-	*
-	***/
-	isLeapYear(): bool;
+	**/
+	isLeapYear(): boolean;
 
-	/***
+	/**
 	* Returns true if the date is next week/month/year.
 	* @method isNext[Unit]()
 	* @returns Boolean
-	*
 	* @set
 	*   isNextWeek
 	*   isNextMonth
 	*   isNextYear
-	*
 	* @example
-	*
 	*   Date.create('tomorrow').isNextWeek()  -> true or false?
 	*   Date.create('tomorrow').isNextMonth() -> probably not...
 	*   Date.create('tomorrow').isNextYear()  -> even less likely...
-	*
-	***/
-	isNextWeek(): bool;
-	isNextMonth(): bool;
-	isNextYear(): bool;
+	**/
+	isNextWeek(): boolean;
+	isNextMonth(): boolean;
+	isNextYear(): boolean;
 
-	/***
+	/**
 	* Returns true if the date is in the past.
 	* @method isPast()
 	* @returns Boolean
 	* @example
-	*
 	*   Date.create('last week').isPast() -> true
 	*   Date.create('next week').isPast() -> false
-	*
-	***/
-	isPast(): bool;
+	**/
+	isPast(): boolean;
 
-	/***
+	/**
 	* Returns true if the date is this week/month/year.
 	* @method isThis[Unit]()
 	* @returns Boolean
-	*
 	* @set
 	*   isThisWeek
 	*   isThisMonth
 	*   isThisYear
-	*
 	* @example
-	*
 	*   Date.create('tomorrow').isThisWeek()  -> true or false?
 	*   Date.create('tomorrow').isThisMonth() -> probably...
 	*   Date.create('tomorrow').isThisYear()  -> signs point to yes...
-	*
-	***/
-	isThisWeek(): bool;
-	isThisMonth(): bool;
-	isThisYear(): bool;
+	**/
+	isThisWeek(): boolean;
+	isThisMonth(): boolean;
+	isThisYear(): boolean;
 
-	/***
+	/**
 	* Returns true if the date has no timezone offset.
 	* @method isUTC()
 	* @returns Boolean
 	* @extra This will also return true for a date that has had %toUTC% called on it. This is intended to help approximate shifting timezones which is not possible in client-side Javascript. Note that the native method %getTimezoneOffset% will always report the same thing, even if %isUTC% becomes true.
 	* @example
-	*
 	*   new Date().isUTC()         -> true or false?
 	*   new Date().toUTC().isUTC() -> true
-	*
-	***/
-	isUTC(): bool;
+	**/
+	isUTC(): boolean;
 
-	/***
+	/**
 	* Returns true if the date is valid.
 	* @method isValid()
 	* @returns Boolean
 	* @example
-	*
 	*   new Date().isValid()         -> true
 	*   new Date('flexor').isValid() -> false
-	*
-	***/
-	isValid(): bool;
+	**/
+	isValid(): boolean;
 
-	/***
+	/**
 	* @method iso()
 	* @method toISOString()
 	* @returns String
@@ -4093,14 +4657,12 @@ interface Date {
 	* @extra This will always format as UTC time. Provided for browsers that do not
 	*        support this method.
 	* @example
-	*
 	*   Date.create().toISOString() -> ex. 2011-07-05 12:24:55.528Z
-	*
-	***/
+	**/
 	iso(): string;
 	//toISOString(): string;
 
-	/***
+	/**
 	* Returns a relative date string offset to the current time.
 	* @method relative([fn], [locale] = currentLocale)
 	* @returns String
@@ -4110,32 +4672,28 @@ interface Date {
 	*        alternate syntax, [locale] can also be passed as the first (and only)
 	*        parameter. For more, see @date_format.
 	* @example
-	*
 	*   Date.create('90 seconds ago').relative() -> 1 minute ago
 	*   Date.create('January').relative()        -> ex. 5 months ago
 	*   Date.create('January').relative('ja')    -> 3???
 	*   Date.create('120 minutes ago').relative(function(val,unit,ms,loc) {
 	*     // value = 2, unit = 3, ms = -7200, loc = [current locale object]
 	*   });                                      -> ex. 5 months ago
-	*
-	***/
+	**/
 	relative(locale: string): string;
 	relative(fn?: (value: number, unit: string, ms: number, loc: Locale) => string, locale?: string): string;
 
-	/***
+	/**
 	* Resets the unit passed and all smaller units. Default is "hours",
 	*        effectively resetting the time.
 	* @method reset([unit] = 'hours')
 	* @returns Date
 	* @example
-	*
 	*   Date.create().reset('day')   -> Beginning of today
 	*   Date.create().reset('month') -> 1st of the month
-	*
-	***/
+	**/
 	reset(unit?: string): Date;
 
-	/***
+	/**
 	* Sets the date back.
 	* @method rewind(<set>, [reset] = false)
 	* @returns Date
@@ -4144,17 +4702,15 @@ interface Date {
 	*        constructor). If [reset] is %true%, any units more specific than
 	*        those passed will be reset. For more see @date_format.
 	* @example
-	*
 	*   new Date().rewind({ year: 2 }) -> 2 years in the past
 	*   new Date().rewind(0, 2, 3)     -> 2 months 3 days in the past
 	*   new Date().rewind(86400000)    -> 1 day in the past
-	*
-	***/
-	rewind(ms: number, reset?: bool): Date;
-	rewind(year: number, month: number, day: number, reset?: bool): Date;
-	//rewind(d: Object, reset?: bool): Date; // Do not like this, is not typesafe
+	**/
+	rewind(ms: number, reset?: boolean): Date;
+	rewind(year: number, month: number, day: number, reset?: boolean): Date;
+	rewind(d: DateFields, reset?: boolean): Date;
 
-	/***
+	/**
 	* Sets the date object.
 	* @method set(<set>, [reset] = false)
 	* @returns Date
@@ -4162,43 +4718,34 @@ interface Date {
 	*        timestamp, an object, or enumerated parameters (as with the Date
 	*        constructor). If [reset] is %true%, any units more specific than those
 	*        passed will be reset.
-	*
 	* @example
-	*
 	*   new Date().set({ year: 2011, month: 11, day: 31 }) -> December 31, 2011
 	*   new Date().set(2011, 11, 31)                       -> December 31, 2011
 	*   new Date().set(86400000)                           -> 1 day after Jan 1, 1970
 	*   new Date().set({ year: 2004, month: 6 }, true)     -> June 1, 2004, 00:00:00.000
-	*
-	***/
-	set (ms: number): Date;
-	set (year: number, month: number, day: number): Date;
-	//set(d: Object, reset?: bool): Date; // Do not like this, is not typesafe
+	**/
+	set(ms: number): Date;
+	set(year: number, month: number, day: number): Date;
+	set(d: DateFields, reset?: boolean): Date;
 
-
-	/***
+	/**
 	* Sets the week (of the year).
 	* @example
-	*
 	*   d = new Date(); d.setWeek(15); d; -> 15th week of the year
-	*
-	***/
+	**/
 	setISOWeek(week: number): void;
 
-	/***
+	/**
 	* Sets the weekday of the date.
 	* @method setWeekday()
 	* @returns Nothing
-	*
 	* @example
-	*
 	*   d = new Date(); d.setWeekday(1); d; -> Monday of this week
 	*   d = new Date(); d.setWeekday(6); d; -> Saturday of this week
-	*
-	***/
+	**/
 	setWeekday(day: number): void;
 
-	/***
+	/**
 	* Returns a JSON representation of the date.
 	* @method toJSON()
 	* @returns String
@@ -4206,17 +4753,14 @@ interface Date {
 	*        the date in UTC time. Provided for browsers that do not support this
 	*        method.
 	* @example
-	*
 	*   Date.create().toJSON() -> ex. 2011-07-05 12:24:55.528Z
-	*
-	***/
+	**/
 	toJSON(): string;
 
-	/***
+	/**
 	* Returns the time ago in the appropriate unit.
 	* @method [units]Ago()
 	* @returns Number
-	*
 	* @set
 	*   millisecondsAgo
 	*   secondsAgo
@@ -4226,14 +4770,11 @@ interface Date {
 	*   weeksAgo
 	*   monthsAgo
 	*   yearsAgo
-	*
 	* @example
-	*
 	*   Date.create('last year').millisecondsAgo() -> 3,600,000
 	*   Date.create('last year').daysAgo()         -> 7
 	*   Date.create('last year').yearsAgo()        -> 15
-	*
-	***/
+	**/
 	millisecondsAgo(): number;
 	secondsAgo(): number;
 	minutesAgo(): number;
@@ -4243,11 +4784,10 @@ interface Date {
 	monthsAgo(): number;
 	yearsAgo(): number;
 
-	/***
+	/**
 	* Returns the time from now in the appropriate unit.
 	* @method [units]FromNow()
 	* @returns Number
-	*
 	* @set
 	*   millisecondsFromNow
 	*   secondsFromNow
@@ -4257,14 +4797,11 @@ interface Date {
 	*   weeksFromNow
 	*   monthsFromNow
 	*   yearsFromNow
-	*
 	* @example
-	*
 	*   Date.create('next year').millisecondsFromNow() -> 3,600,000
 	*   Date.create('next year').daysFromNow()         -> 7
 	*   Date.create('next year').yearsFromNow()        -> 15
-	*
-	***/
+	**/
 	millisecondsFromNow(): number;
 	secondsFromNow(): number;
 	minutesFromNow(): number;
@@ -4274,7 +4811,7 @@ interface Date {
 	monthsFromNow(): number;
 	yearsFromNow(): number;
 
-	/***
+	/**
 	* Returns the time since [d] in the appropriate unit.
 	* @method [units]Since([d], [locale] = currentLocale)
 	* @returns Number
@@ -4283,7 +4820,6 @@ interface Date {
 	*        the locale that the date is in. %[unit]Ago% is provided as an alias to
 	*        make this more readable when [d] is assumed to be the current date.
 	*        For more see @date_format.
-	*
 	* @set
 	*   millisecondsSince
 	*   secondsSince
@@ -4293,15 +4829,12 @@ interface Date {
 	*   weeksSince
 	*   monthsSince
 	*   yearsSince
-	*
 	* @example
-	*
 	*   Date.create().millisecondsSince('1 hour ago') -> 3,600,000
 	*   Date.create().daysSince('1 week ago')         -> 7
 	*   Date.create().yearsSince('15 years ago')      -> 15
 	*   Date.create('15 years ago').yearsAgo()        -> 15
-	*
-	***/
+	**/
 	millisecondsSince(date?: Date, locale?: string): number;
 	millisecondsSince(date: string, locale?: string): number;
 	secondsSince(date?: Date, locale?: string): number;
@@ -4319,7 +4852,7 @@ interface Date {
 	yearsSince(date?: Date, locale?: string): number;
 	yearsSince(date: string, locale?: string): number;
 
-	/***
+	/**
 	* Returns the time until [d] in the appropriate unit.
 	* @method [units]Until([d], [locale] = currentLocale)
 	* @returns Number
@@ -4328,7 +4861,6 @@ interface Date {
 	*        the locale that the date is in. %[unit]FromNow% is provided as an
 	*        alias to make this more readable when [d] is assumed to be the current
 	*        date. For more see @date_format.
-	*
 	* @set
 	*   millisecondsUntil
 	*   secondsUntil
@@ -4338,15 +4870,12 @@ interface Date {
 	*   weeksUntil
 	*   monthsUntil
 	*   yearsUntil
-	*
 	* @example
-	*
 	*   Date.create().millisecondsUntil('1 hour from now') -> 3,600,000
 	*   Date.create().daysUntil('1 week from now')         -> 7
 	*   Date.create().yearsUntil('15 years from now')      -> 15
 	*   Date.create('15 years from now').yearsFromNow()    -> 15
-	*
-	***/
+	**/
 	millisecondsUntil(date?: Date, locale?: string): number;
 	millisecondsUntil(date: string, locale?: string): number;
 	secondsUntil(date?: Date, locale?: string): number;
@@ -4364,62 +4893,58 @@ interface Date {
 	yearsUntil(date?: Date, locale?: string): number;
 	yearsUntil(date: string, locale?: string): number;
 
-	/***
+	/**
 	* Sets the internal utc flag for the date. When on, UTC-based methods
 	*        will be called internally.
 	* @method utc([on] = true)
 	* @returns Date
 	* @extra For more see @date_format.
 	* @example
-	*
 	*   new Date().utc(true)
 	*   new Date().utc(false)
-	*
-	***/
-	utc(on?: bool): Date;
+	**/
+	utc(on?: boolean): Date;
 }
 
-/***
+/**
 * @package DateRange
 * @dependency date
 * @description Date Ranges define a range of time. They can enumerate over specific points
 *              within that range, and be manipulated and compared.
-*
-***/
+**/
 interface DateRange {
 	start: Date;
 	end: Date;
 
-	/***
+	/**
 	* Returns true if <d> is contained inside the DateRange.
 	*        <d> may be a date or another DateRange.
-	* @method contains(<d>)
-	* @returns Boolean
+	* @param d Date to check if it is contained within this DateRange.
+	* @returns True if <d> is contained within the DateRange, false otherwise.
 	* @example
-	*
 	*   Date.range('2003', '2005').contains(Date.create('2004')) -> true
-	*
-	***/
-	contains(d: Date): bool;
-	contains(d: DateRange): bool;
+	**/
+	contains(d: Date): boolean;
 
-	/***
+	/**
+	* @see contains
+	**/
+	contains(d: DateRange): boolean;
+
+	/**
 	* Return the duration of the DateRange in milliseconds.
-	* @method duration()
-	* @returns Number
+	* @returns Duration of the DateRange in milliseconds.
 	* @example
-	*
 	*   Date.range('2003', '2005').duration() -> 94694400000
-	*
-	***/
+	**/
 	duration(): number;
 
-	/***
+	/**
 	* Increments through the date range for each [unit], calling [fn] if it is passed.
 	*        Returns an array of each increment visited.
 	* @method each[Unit]([fn])
-	* @returns Date
-	*
+	* @param fn Callback function for each date in the requested increments.
+	* @returns Array of Dates for each increment.
 	* @set
 	*   eachMillisecond
 	*   eachSecond
@@ -4429,27 +4954,54 @@ interface DateRange {
 	*   eachWeek
 	*   eachMonth
 	*   eachYear
-	*
 	* @example
-	*
 	*   Date.range('2003-01', '2003-02').eachMonth()     -> [...]
 	*   Date.range('2003-01-15', '2003-01-16').eachDay() -> [...]
-	*
-	***/
-	eachMillisecond(fn?: (d: Date) => void ): Date[];
-	eachSecond(fn?: (d: Date) => void ): Date[];
-	eachMinute(fn?: (d: Date) => void ): Date[];
-	eachHour(fn?: (d: Date) => void ): Date[];
-	eachDay(fn?: (d: Date) => void ): Date[];
-	eachWeek(fn?: (d: Date) => void ): Date[];
-	eachMonth(fn?: (d: Date) => void ): Date[];
-	eachYear(fn?: (d: Date) => void ): Date[];
+	**/
+	eachMillisecond(fn?: (d: Date) => void): Date[];
 
-	/***
+	/**
+	* @see eachMillisecond
+	**/
+	eachSecond(fn?: (d: Date) => void): Date[];
+
+	/**
+	* @see eachMillisecond
+	**/
+	eachMinute(fn?: (d: Date) => void): Date[];
+
+	/**
+	* @see eachMillisecond
+	**/
+	eachHour(fn?: (d: Date) => void): Date[];
+
+	/**
+	* @see eachMillisecond
+	**/
+	eachDay(fn?: (d: Date) => void): Date[];
+
+	/**
+	* @see eachMillisecond
+	**/
+	eachWeek(fn?: (d: Date) => void): Date[];
+
+	/**
+	* @see eachMillisecond
+	**/
+	eachMonth(fn?: (d: Date) => void): Date[];
+
+	/**
+	* @see eachMillisecond
+	**/
+	eachYear(fn?: (d: Date) => void): Date[];
+
+	/**
 	* Iterates through the DateRange for every <increment>,
 	*        calling [fn] if it is passed. Returns an array of each increment visited.
 	* @method every(<increment>, [fn])
-	* @returns Array
+	* @param ms Time span to increment by.
+	* @param fn Callback for each incremented date.
+	* @returns An array of each incremented date visited.
 	* @extra When <increment> is a number, increments will be to the exact millisecond.
 	*        <increment> can also be a string in the format %{number} {unit}s%, in which
 	*        case it will increment in the unit specified. Note that a discrepancy exists
@@ -4457,59 +5009,52 @@ interface DateRange {
 	*        through the actual months by passing %"2 months"% is usually preferable in
 	*        this case.
 	* @example
-	*
 	*   Date.range('2003-01', '2003-03').every("2 months") -> [...]
-	*
-	***/
+	**/
 	every(ms: number, fn?: (d: Date) => void ): Date[];
+
+	/**
+	* @see every
+	* @param increment Time span to increment by.
+	**/
 	every(increment: string, fn?: (d: Date) => void ): Date[];
 
-	/***
+	/**
 	* Returns a new DateRange with the latest starting point as its start, and the
 	*        earliest ending point as its end. If the two ranges do not intersect this will
 	*        effectively produce an invalid range.
-	* @method intersect(<range>)
+	* @param range DateRange to intersect with.
 	* @returns DateRange
 	* @example
-	*
 	*   Date.range('2003-01', '2005-01').intersect(Date.range('2004-01', '2006-01')) -> Jan 1, 2004..Jan 1, 2005
-	*
-	***/
+	**/
 	intersect(range: DateRange): DateRange;
 
-	/***
+	/**
 	* Returns true if the DateRange is valid, false otherwise.
-	* @method isValid()
-	* @returns Boolean
+	* @returns True if the date range is valid, false otherwise.
 	* @example
-	*
 	*   Date.range('2003', '2005').isValid() -> true
 	*   Date.range('2005', '2003').isValid() -> false
-	*
-	***/
-	isValid(): bool;
+	**/
+	isValid(): boolean;
 
-	/***
+	/**
 	* Returns a string representation of the DateRange.
-	* @method toString()
-	* @returns String
+	* @returns String representation of the DateRange.
 	* @example
-	*
 	*   Date.range('2003', '2005').toString() -> January 1, 2003..January 1, 2005
-	*
-	***/
+	**/
 	toString(): string;
 
-	/***
+	/**
 	* Returns a new DateRange with the earliest starting point as its start,
 	*        and the latest ending point as its end. If the two ranges do not intersect
 	*        this will effectively remove the "gap" between them.
-	* @method union(<range>)
+	* @param range DateRange to create a union with.
 	* @returns DateRange
 	* @example
-	*
 	*   Date.range('2003=01', '2005-01').union(Date.range('2004-01', '2006-01')) -> Jan 1, 2003..Jan 1, 2006
-	*
-	***/
+	**/
 	union(range: DateRange): DateRange;
 }

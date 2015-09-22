@@ -6,7 +6,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-interface FancyboxOptions {
+interface FancyboxOptions extends FancyboxCallback {
     padding?: any; // number or []
     margin?: any; // number or []
     width?: any; // number or []
@@ -15,33 +15,33 @@ interface FancyboxOptions {
     minHeight?: number;
     maxWidth?: number;
     maxHeight?: number;
-    autoSize?: bool;
-    autoHeight?: bool;
-    autoWidth?: bool;
-    autoResize?: bool;
-    autoCenter?: bool;
-    fitToView?: bool;
-    aspectRatio?: bool;
+    autoSize?: boolean;
+    autoHeight?: boolean;
+    autoWidth?: boolean;
+    autoResize?: boolean;
+    autoCenter?: boolean;
+    fitToView?: boolean;
+    aspectRatio?: boolean;
     topRatio?: number;
     leftRatio?: number;
     scrolling?: string;
     wrapCSS?: string;
-    arrows?: bool;
-    closeBtn?: bool;
-    closeClick?: bool;
-    nextClick?: bool;
-    mouseWheel?: bool;
-    autoPlay?: bool;
+    arrows?: boolean;
+    closeBtn?: boolean;
+    closeClick?: boolean;
+    nextClick?: boolean;
+    mouseWheel?: boolean;
+    autoPlay?: boolean;
     playSpeed?: number;
     preload?: number;
-    modal?: bool;
-    loop?: bool;
+    modal?: boolean;
+    loop?: boolean;
     ajax?: any;
     iframe?: any;
     swf?: any;
     keys?: any;
     direction?: any;
-    scrollOutside?: bool;
+    scrollOutside?: boolean;
     index?: number;
     type?: string;
     href?: string;
@@ -64,8 +64,8 @@ interface FancyboxOptions {
     nextEasing?: string;
     prevEasing?: string;
 
-    openOpacity?: bool;
-    closeOpacity?: bool;
+    openOpacity?: boolean;
+    closeOpacity?: boolean;
 
     openMethod?: string;
     closeMethod?: string;
@@ -78,7 +78,7 @@ interface FancyboxOptions {
 interface FancyboxMethods {
     open(group?: any[], options?: FancyboxOptions);
     cancel();
-    close(force?: bool);
+    close(force?: boolean);
     play();
     next();
     prev();
@@ -96,16 +96,16 @@ interface FancyboxMethods {
 }
 
 interface FancyboxCallback {
-    onCancel;
-    beforeLoad;
-    afterLoad;
-    beforeShow;
-    afterShow;
-    beforeClose;
-    afterClose;
-    onUpdate;
-    onPlayStart;
-    onPlayEnd;
+    onCancel?: Function;
+    beforeLoad?: Function;
+    afterLoad?: Function;
+    beforeShow?: Function;
+    afterShow?: Function;
+    beforeClose?: Function;
+    afterClose?: Function;
+    onUpdate?: Function;
+    onPlayStart?: Function;
+    onPlayEnd?: Function;
 }
 
 interface FancyboxThumbnailHelperOptions {

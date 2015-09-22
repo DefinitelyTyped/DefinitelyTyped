@@ -1,9 +1,10 @@
-//Project Google Feed Apis 
+// Type definitions for Google Feed Apis
 // Project: https://developers.google.com/feed/
-// Definitions by: https://github.com/RodneyJT
+// Definitions by: RodneyJT <https://github.com/RodneyJT>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module google.feeds {
-    export class feed {
+    export class Feed {
         constructor();
         constructor(url: string);
         findFeeds(query?: string, callback?: (result: findResult) => void ): void;
@@ -66,7 +67,7 @@ interface MediaContent {
     fileSize: number;
     type: string;
     medium: string;
-    isDefault: bool;
+    isDefault: boolean;
     expression: string;
     bitrate: number;
     framerate: number;

@@ -1,8 +1,9 @@
 // Type definitions for KeyboardJS
-// A JavaScript library for binding keyboard combos without the pain of key codes and key combo conflicts.
 // Project: https://github.com/RobertWHurst/KeyboardJS
 // Definitions by: Vincent Bortone <https://github.com/vbortone/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+// A JavaScript library for binding keyboard combos without the pain of key codes and key combo conflicts.
 
 interface KeyboardJSSubBinding {
 	clear(): void;
@@ -40,7 +41,7 @@ interface KeyboardJSStatic {
 		code(keyName: string): any;
 	};
 	combo: {
-		active(keyCombo: string): bool;
+		active(keyCombo: string): boolean;
 		parse(keyCombo: any): any[];
 		stringify(keyComboArray: any): string;
 	};

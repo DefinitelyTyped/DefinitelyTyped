@@ -1,7 +1,7 @@
 // Type definitions for KoLite 1.1
 // Project: https://github.com/CodeSeven/kolite
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
-// Definitions https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts" />
@@ -34,15 +34,15 @@ interface KnockoutBindingHandlers {
 
 interface JQuery {
     activity: KoLiteActivity;
-    activityEx(isLoading: bool): JQuery;
+    activityEx(isLoading: boolean): JQuery;
 }
 
 
 // DirtyFlag /////////////////////////////////////////////
 
 interface DirtyFlag {
-    isDirty: KnockoutComputed;
-    new (objectToTrack: any, isInitiallyDirty?: bool, hashFunction?: () => any);
+    isDirty: KnockoutComputed<boolean>;
+    new (objectToTrack: any, isInitiallyDirty?: boolean, hashFunction?: () => any);
     reset(): void;
 }
 
@@ -54,18 +54,22 @@ interface KnockoutStatic {
 // Command /////////////////////////////////////////////
 
 interface KoliteCommand {
-    canExecute: KnockoutComputed;
+    canExecute: KnockoutComputed<boolean>;
     execute(...args: any[]): any;
 }
 
+interface KoliteAsyncCommand extends KoliteCommand {
+    isExecuting: KnockoutObservable<boolean>;
+}
+
 interface KoLiteCommandOptions {
-    execute?: any;
-    canExecute?: (isExecuting: bool) => any;
+    execute(...args: any[]): any;
+    canExecute?: (isExecuting: boolean) => any;
 }
 
 interface KnockoutStatic {
     command(options: KoLiteCommandOptions): KoliteCommand;
-    asyncCommand(optons: KoLiteCommandOptions): KoliteCommand;
+    asyncCommand(options: KoLiteCommandOptions): KoliteAsyncCommand;
 }
 
 interface KnockoutUtils {

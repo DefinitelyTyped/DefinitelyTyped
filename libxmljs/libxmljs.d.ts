@@ -85,7 +85,7 @@ declare module "libxmljs" {
     }
  
     export class SaxParser {
-        parseString(source:string):bool;
+        parseString(source:string):boolean;
         addListener(event: string, listener: Function);
         on(event: string, listener: Function): any;
         once(event: string, listener: Function): void;
@@ -98,7 +98,7 @@ declare module "libxmljs" {
  
  
     export class SaxPushParser {
-        push(source:string):bool;
+        push(source:string):boolean;
         addListener(event: string, listener: Function);
         on(event: string, listener: Function): any;
         once(event: string, listener: Function): void;

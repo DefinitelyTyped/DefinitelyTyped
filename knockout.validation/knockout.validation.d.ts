@@ -6,18 +6,18 @@
 /// <reference path="../knockout/knockout.d.ts" />
 
 interface KnockoutValidationGroupingOptions {
-    deep?: bool;
-    observable?: bool;
+    deep?: boolean;
+    observable?: boolean;
 }
 
 interface KnockoutValidationConfiguration {
-    registerExtenders?: bool;
-    messagesOnModified?: bool;
+    registerExtenders?: boolean;
+    messagesOnModified?: boolean;
     messageTemplate?: string;
-    insertMessages?: bool;
-    parseInputAttributes?: bool;
-    writeInputAttributes?: bool;
-    decorateElement?: bool;
+    insertMessages?: boolean;
+    parseInputAttributes?: boolean;
+    writeInputAttributes?: boolean;
+    decorateElement?: boolean;
     errorClass?: string;
     errorElementClass?: string;
     errorMessageClass?: string;
@@ -25,38 +25,42 @@ interface KnockoutValidationConfiguration {
 }
 
 interface KnockoutValidationUtils {
-    isArray(o: any): bool;
-    isObject(o: any): bool;
+    isArray(o: any): boolean;
+    isObject(o: any): boolean;
     values(o: any): any[];
     getValue(o: any): any;
-    hasAttribute(node: Element, attr: string): bool;
-    isValidatable(o: any): bool;
+    hasAttribute(node: Element, attr: string): boolean;
+    isValidatable(o: any): boolean;
     insertAfter(node: Element, newNode: Element): void;
     newId(): number;
     getConfigOptions(element: Element): KnockoutValidationConfiguration;
     setDomData(node: Element, data: KnockoutValidationConfiguration): void;
     getDomData(node: Element): KnockoutValidationConfiguration;
     contextFor(node: Element): KnockoutValidationConfiguration;
-    isEmptyVal(val: any): bool;
+    isEmptyVal(val: any): boolean;
 }
 
 interface KnockoutValidationAsyncCallbackArgs {
-    isValid: bool;
+    isValid: boolean;
     message: string;
 }
 
 interface KnockoutValidationAsyncCallback {
-    (result: bool): void;
+    (result: boolean): void;
     (result: KnockoutValidationAsyncCallbackArgs): void;
 }
 
-interface KnockoutValidationRuleDefinition {
+interface KnockoutValidationRuleBase
+{
     message: string;
-    validator(value: any, params: any): bool;
 }
 
-interface KnockoutValidationAsyncRuleDefinition extends KnockoutValidationRuleDefinition {
-    async: bool;
+interface KnockoutValidationRuleDefinition extends KnockoutValidationRuleBase {
+    validator(value: any, params: any): boolean;
+}
+
+interface KnockoutValidationAsyncRuleDefinition extends KnockoutValidationRuleBase {
+    async: boolean;
     validator(value: any, params: any, callback: KnockoutValidationAsyncCallback): void;
 }
 
@@ -87,39 +91,35 @@ interface KnockoutValidationRule {
     rule: string;
     params: any;
     message?: string;
-    condition?: () => bool;
+    condition?: () => boolean;
 }
 
 interface KnockoutValidationErrors {
     (): string[];
     showAllMessages(): void;
-    showAllMessages(show: bool): void;
+    showAllMessages(show: boolean): void;
 }
 
 interface KnockoutValidationGroup {
     errors?: KnockoutValidationErrors;
-    isValid?: () => bool;
-    isAnyMessageShown?: () => bool;
+    isValid?: () => boolean;
+    isAnyMessageShown?: () => boolean;
 }
 
 interface KnockoutValidationStatic {
-    init(options?: KnockoutValidationConfiguration, force?: bool): void;
-    configure(options: KnockoutValidationConfiguration): void;
+    init(options?: KnockoutValidationConfiguration, force?: boolean): void;
     reset(): void;
 
-    group(obj: any, options?: any): () => string[];
+    group(obj: any, options?: any): KnockoutValidationErrors;
 
     formatMessage(message: string, params: string): string;
 
-    addRule(observable: KnockoutObservableAny, rule: KnockoutValidationRule): KnockoutObservableAny;
-    addRule(observable: KnockoutObservableString, rule: KnockoutValidationRule): KnockoutObservableString;
-    addRule(observable: KnockoutObservableNumber, rule: KnockoutValidationRule): KnockoutObservableNumber;
-    addRule(observable: KnockoutObservableBool, rule: KnockoutValidationRule): KnockoutObservableBool;
-    addRule(observable: KnockoutObservableDate, rule: KnockoutValidationRule): KnockoutObservableDate;
-    addAnonymousRule(observable: KnockoutObservableBase, ruleObj: KnockoutValidationAnonymousRuleDefinition): void;
+    addRule<T>(observable: KnockoutObservable<T>, rule: KnockoutValidationRule): KnockoutObservable<T>;
+
+    addAnonymousRule(observable: KnockoutObservable<any>, ruleObj: KnockoutValidationAnonymousRuleDefinition): void;
 
     insertValidationMessage(element: Element): Element;
-    parseInputValidationAttributes(element: Element, valueAccessor: () => KnockoutObservableBase): void;
+    parseInputValidationAttributes(element: Element, valueAccessor: () => KnockoutObservable<any>): void;
 
     rules: KnockoutValidationRuleDefinitions;
 
@@ -128,18 +128,27 @@ interface KnockoutValidationStatic {
     utils: KnockoutValidationUtils;
 
     localize(msgTranslations: any): void;
-    validateObservable(observable: KnockoutObservableBase): bool;
+    validateObservable(observable: KnockoutObservable<any>): boolean;
 }
 
 interface KnockoutStatic {
     validation: KnockoutValidationStatic;
-    validatedObservable(initialValue: any): KnockoutObservableBase;
+    validatedObservable<T>(initialValue?: T): KnockoutObservable<T>;
     applyBindingsWithValidation(viewModel: any, rootNode?: any, options?: KnockoutValidationConfiguration): void;
 }
 
-interface KnockoutSubscribableFunctions {
-    isValid: KnockoutComputed;
-    isValidating: KnockoutObservableBool;
-    rules: KnockoutObservableArray;
+interface KnockoutSubscribableFunctions<T> {
+    isValid: KnockoutComputed<boolean>;
+    isValidating: KnockoutObservable<boolean>;
+    rules: KnockoutObservableArray<KnockoutValidationRule>;
+    isModified: KnockoutObservable<boolean>;
+    error: KnockoutComputed<string>;
+    setError(error: string): void;
+    clearError(): void;
 }
 
+declare module "knockout.validation" {
+	export = validation;
+}
+
+declare var validation: KnockoutValidationStatic 

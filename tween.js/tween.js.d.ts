@@ -1,30 +1,32 @@
-// Type definitions for tween.js r7
+// Type definitions for tween.js r12
 // Project: https://github.com/sole/tween.js/
-// Definitions by: https://github.com/sunetos
+// Definitions by: sunetos <https://github.com/sunetos>, jzarnikov <https://github.com/jzarnikov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-module TWEEN {
+declare module TWEEN {
   export var REVISION: string;
   export function getAll(): Tween[];
   export function removeAll(): void;
   export function add(tween:Tween): void;
   export function remove(tween:Tween): void;
-  export function update(time:number): bool;
-
+  export function update(time?:number): boolean;
+  
   export class Tween {
     constructor(object?:any);
     to(properties:any, duration:number): Tween;
     start(time?:number): Tween;
     stop(): Tween;
     delay(amount:number): Tween;
-    easing(easing): Tween;
-    interpolation(interpolation:Function): Tween;
+    easing(easing: (k: number) => number): Tween;
+    interpolation(interpolation: (v:number[], k:number) => number): Tween;
     chain(...tweens:Tween[]): Tween;
-    onStart(callback:Function): Tween;
-    onUpdate(callback:Function): Tween;
-    onComplete(callback:Function): Tween;
-    update(time:number): bool;
-  };
+    onStart(callback: (object?: any) => void): Tween;
+    onUpdate(callback: (object?: any) => void): Tween;
+    onComplete(callback: (object?: any) => void): Tween;
+    update(time: number): boolean;
+    repeat(times: number): Tween;
+    yoyo(enable: boolean): Tween;
+  }
   export var Easing: TweenEasing;
   export var Interpolation: TweenInterpolation;
 }
