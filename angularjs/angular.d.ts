@@ -782,7 +782,17 @@ declare module angular {
          *
          * @param name Name of the filter function to retrieve
          */
-        (name: string): IFilterFunc;
+        (name: string): Function;
+
+        (name: 'filter'): IFilterFunc;
+        (name: 'currency'): (amount: number, symbol?: string, fractionSize?: number) => string;
+        (name: 'number'): (amount: number, fractionSize?: number) => string;
+        (name: 'date'): (date: Date | number | string, format?: string, timezone?: string) => string;
+        (name: 'json'): (object: {}, spacing?: number) => string;
+        (name: 'lowercase'): (input: string) => string;
+        (name: 'uppercase'): (input: string) => string;
+        (name: 'limitTo'): <T>(input: T[] | string | number, limit: string | number, begin?: string | number) => T[] | string;
+        (name: 'orderBy'): <T>(array: T[], expression?: Function | string | (Function | string)[], reverse?: boolean) => T[];
     }
     
     interface IFilterFunc {

@@ -938,14 +938,47 @@ function ngFilterTyping() {
     var $filter:  angular.IFilterService;
     var items: string[];
     
-    $filter("name")(items, "test");
-    $filter("name")(items, {name: "test"});
-    $filter("name")(items, (val, index, array) => {
-        return array;
-    });
-    $filter("name")(items, (val, index, array) => {
-        return array;
-    }, (actual, expected) => {
-        return actual == expected;
-    });
+    // filter
+    $filter("filter")(items, "test");
+    $filter("filter")(items, {name: "test"});
+    $filter("filter")(items, (val, index, array) => array);
+    $filter("filter")(items, (val, index, array) => array, (actual, expected) => actual == expected);
+
+    // currency
+    $filter("currency")(12.99);
+    $filter("currency")(12.99, '£');
+    $filter("currency")(12.99, '£', 2);
+
+    // number
+    $filter("number")(12.99);
+    $filter("number")(12.999, 3);
+
+    // date
+    $filter("date")(new Date());
+    $filter("date")(0);
+    $filter("date")("1988-01-20");
+    $filter("date")("1988-01-20", "mediumDate");
+    $filter("date")("1988-01-20", "mediumDate", "+0430");
+
+    // json
+    $filter("json")({ x: 7 });
+    $filter("json")({ x: 7 }, 2);
+
+    // lowercase
+    $filter("lowercase")("HELLO");
+
+    // uppercase
+    $filter("uppercase")("hello");
+
+    // limitTo
+    $filter("limitTo")([1, 2, 3, 4], 2);
+    $filter("limitTo")([1, 2, 3, 4], 2, 1);
+
+    // orderBy
+    $filter("orderBy")(['d', 'c', 'b', 'a'], '+');
+    $filter("orderBy")(['d', 'c', 'b', 'a'], (x: string, y: string) => x.charCodeAt(0) - y.charCodeAt(0));
+
+    // custom
+    $filter("myCustomFilter")({ anything: 'could' }, (go: any) => 'here');
+
 }
