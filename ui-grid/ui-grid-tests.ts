@@ -116,11 +116,17 @@ var gridOptions: uiGrid.IGridOptions<MyEntity> = {
         })
     }
 }
-var rowEntityToScrollTo = {anObject: 'inGridOptionsData'};
-var columnDefToScrollTo: uiGrid.IColumnDef;
-gridInstance.scrollTo();
-gridInstance.scrollTo(rowEntityToScrollTo);
-gridInstance.scrollTo(rowEntityToScrollTo, columnDefToScrollTo);
+interface AnotherEntity {
+    anObject: string
+}
+var anotherGridInstance: uiGrid.IGridInstance<AnotherEntity>;
+var rowEntityToScrollTo = {
+    anObject: 'inGridOptionsData'
+};
+var columnDefToScrollTo: uiGrid.IColumnDef<AnotherEntity>;
+anotherGridInstance.scrollTo();
+anotherGridInstance.scrollTo(rowEntityToScrollTo);
+anotherGridInstance.scrollTo(rowEntityToScrollTo, columnDefToScrollTo);
 
 var selectedRowEntities: Array<any> = gridApi.selection.getSelectedRows();
-var selectedGridRows: Array<uiGrid.IGridRow> = gridApi.selection.getSelectedGridRows();
+var selectedGridRows: Array<uiGrid.IGridRow<MyEntity>> = gridApi.selection.getSelectedGridRows();
