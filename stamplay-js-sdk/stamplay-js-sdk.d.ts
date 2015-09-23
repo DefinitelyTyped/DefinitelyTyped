@@ -16,20 +16,18 @@ declare module Stamplay {
     fetch(id : any) : PromisesAPlus.Thenable<any>
     destroy() : PromisesAPlus.Thenable<any>
     save({}?) : PromisesAPlus.Thenable<any>
+    upVote() : PromisesAPlus.Thenable<any>
   }
 
-  export interface IStamplayAction {
-      new() : IStamplayModel
-      upVote() : PromisesAPlus.Thenable<any>
-  }
-
-  export interface IStamplayUser {
+  export interface IStamplayObject  {
       Model : IStamplayModel
+      Collection : any
+
   }
 
   export interface StamplayStatic {
-      User() : IStamplayUser
-      Cobject(collection : string) : void
+      User() : IStamplayObject
+      Cobject(object : string) : IStamplayObject
   }
 }
 
