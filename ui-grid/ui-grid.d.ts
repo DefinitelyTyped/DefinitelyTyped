@@ -1,6 +1,6 @@
 // Type definitions for ui-grid
 // Project: http://www.ui-grid.info/
-// Definitions by: Ben Tesser <https://github.com/btesser>
+// Definitions by: Ben Tesser <https://github.com/btesser>, Joe Skeen <http://github.com/joeskeen>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // These are very definitely preliminary. Please feel free to improve.
@@ -289,7 +289,7 @@ declare module uiGrid {
          * @param {Array<any>} newRawData The new grid data
          * @return {ng.IPromise<any>} Promise which resolves when the rows have been created or removed
          */
-        modifyRows(newRawData: Array<any>): ng.IPromise<any>;
+        modifyRows(newRawData: Array<TEntity>): ng.IPromise<any>;
         /**
          * Notify the grid that a data or config change has occurred,
          * where that change isn't something the grid was otherwise noticing.  This
@@ -860,7 +860,7 @@ declare module uiGrid {
          * TODO: if a filter is active then we can't just set it to visible?
          * @param {any} rowEntity gridOptions.data[] array instance
          */
-        clearRowInvisible(rowEntity: any): void;
+        clearRowInvisible(rowEntity: TEntity): void;
         /**
          * Returns all visible rows
          * @param {IGridInstance} grid the grid you want to get visible rows from
@@ -931,7 +931,7 @@ declare module uiGrid {
          * @param {IColumnDef} colDef to make visible
          * @returns {ng.IPromise<any>} a promise that is resolved after any scrolling is finished
          */
-        scrollTo(entity: any, colDef: IColumnDef<TEntity>): void; /*A row entity can be anything?*/
+        scrollTo(entity: TEntity, colDef: IColumnDef<TEntity>): void; /*A row entity can be anything?*/
         /**
          * Scrolls the grid to make a certain row and column combo visible,
          * in the case that it is not completely visible on the screen already.
@@ -1129,7 +1129,7 @@ declare module uiGrid {
              * @param {any} rowEntity gridOptions.data[] array instance to make visible and set focus
              * @param {IColumnDef} colDef Column definition to make visible and set focus
              */
-            scrollToFocus(rowEntity: any, colDef: IColumnDef): ng.IPromise<any>;
+            scrollToFocus(rowEntity: TEntity, colDef: IColumnDef): ng.IPromise<any>;
 
             // Events
             on: {
@@ -1390,7 +1390,7 @@ declare module uiGrid {
              * @param {any} newValue New Value
              * @param {any} oldValue Old Value
              */
-            (rowEntity: any, colDef: IColumnDef<TEntity>, newValue: any, oldValue: any): void;
+            (rowEntity: TEntity, colDef: IColumnDef<TEntity>, newValue: any, oldValue: any): void;
         }
 
         /**
@@ -1401,7 +1401,7 @@ declare module uiGrid {
          *     keystrokes on some complex editors
          */
         export interface beginCellEditHandler<TEntity> {
-            (rowEntity: any, colDef: IColumnDef<TEntity>, triggerEvent: JQueryEventObject): void;
+            (rowEntity: TEntity, colDef: IColumnDef<TEntity>, triggerEvent: JQueryEventObject): void;
         }
 
         /**
@@ -1410,7 +1410,7 @@ declare module uiGrid {
          * @param {IColumnDef} colDef The column that was edited
          */
         export interface cancelCellEditHandler<TEntity> {
-            (rowEntity: any, colDef: IColumnDef<TEntity>): void;
+            (rowEntity: TEntity, colDef: IColumnDef<TEntity>): void;
         }
 
         /**
@@ -1480,7 +1480,7 @@ declare module uiGrid {
              * Toggle a specific row
              * @param {any} rowEntity The data entity for the row you want to expand
              */
-            toggleRowExpansion(rowEntity: any): void;
+            toggleRowExpansion(rowEntity: TEntity): void;
 
             // Events
             on: {
@@ -1528,7 +1528,7 @@ declare module uiGrid {
              * @default null
              * @returns {ng.IPromise<Array<any>>} A promise to load all data from server
              */
-            exporterAllDataFn?: () => ng.IPromise<Array<any>>;
+            exporterAllDataFn?: () => ng.IPromise<Array<TEntity>>;
             /**
              * @deprecated
              * DEPRECATED - exporterAllDataFn used to be called this, but it wasn't a promise,
@@ -1536,7 +1536,7 @@ declare module uiGrid {
              * use exporterAllDataFn instead.
              * @returns {ng.IPromise<Array<any>>} A promise to load all data from server
              */
-            exporterAllDataPromise?: () => ng.IPromise<Array<any>>;
+            exporterAllDataPromise?: () => ng.IPromise<Array<TEntity>>;
             /**
              * The character to use as column separator link
              * Defaults to ','
@@ -1973,7 +1973,7 @@ declare module uiGrid {
              * @param {IGridInstance} grid The grid we're importing into, may be useful in some way
              * @param {Array<any>} newObjects An array of new objects that you should add to your data
              */
-            importerDataAddCallback?: (grid: IGridInstance<TEntity>, newObjects: Array<any>) => void;
+            importerDataAddCallback?: (grid: IGridInstance<TEntity>, newObjects: Array<TEntity>) => void;
             /**
              * A callback function that provides custom error handling,
              * rather than the standard grid behaviour of an alert box and a console message.
@@ -2010,7 +2010,7 @@ declare module uiGrid {
              * @returns {any} The modified object
              * @default angular.identity
              */
-            importerObjectCallback?: (grid: IGridInstance<TEntity>, newObject: any) => any;
+            importerObjectCallback?: (grid: IGridInstance<TEntity>, newObject: TEntity) => TEntity;
             /**
              * A callback function that will process headers using custom
              * logic.  Set this callback function if the headers that your user will provide in their
@@ -2488,7 +2488,7 @@ declare module uiGrid {
              * and clearing the error flag and the dirty flag
              * @param {Array<any>} dataRows the data entities for which the gridRows should be set clean
              */
-            setRowsClean(dataRows: Array<any>): void;
+            setRowsClean(dataRows: Array<TEntity>): void;
             /**
              * Sets each of the rows passed in dataRows to be dirty,
              * Note that if you have only just inserted the rows into your data,
@@ -2496,7 +2496,7 @@ declare module uiGrid {
              * wrapped with $interval or $timeout.
              * @param {Array<any>} dataRows the data entities for which the gridRows should be set dirty
              */
-            setRowsDirty(dataRows: Array<any>): void;
+            setRowsDirty(dataRows: Array<TEntity>): void;
             /**
              * Sets the promise associated with the row save, mandatory that the saveRow event handler calls this method
              * somewhere before returning
@@ -2519,16 +2519,16 @@ declare module uiGrid {
                  * @param {ng.IScope} scope The grid scope
                  * @param {saveRowHandler} handler Callback
                  */
-                saveRow: (scope: ng.IScope, handler: saveRowHandler) => void;
+                saveRow: (scope: ng.IScope, handler: saveRowHandler<TEntity>) => void;
             }
         }
 
-        export interface saveRowHandler {
+        export interface saveRowHandler<TEntity> {
             /**
              * Callback method for save row
              * @param {any} rowEntity The options.data element that was edited
              */
-            (rowEntity: Array<any>): void;
+            (rowEntity: Array<TEntity>): void;
         }
     }
 
@@ -2827,12 +2827,12 @@ declare module uiGrid {
              * returns all selected rows as gridRows
              * @returns {Array<IGridRow>} The selected rows
              */
-            getSelectedGridRows(): Array<uiGrid.IGridRow>;
+            getSelectedGridRows(): Array<uiGrid.IGridRow<TEntity>>;
             /**
              * Gets selected rows as entities
              * @returns {Array<any>} Selected row entities
              */
-            getSelectedRows(): Array<any>;
+            getSelectedRows(): Array<TEntity>;
             /**
              * Selects all rows.  Does nothing if multiselect = false
              * @param {ng.IAngularEvent} event object if raised from event
