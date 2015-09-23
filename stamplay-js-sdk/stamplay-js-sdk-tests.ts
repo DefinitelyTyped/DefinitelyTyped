@@ -2,8 +2,8 @@
 
 var userFn = Stamplay.User();
 var user = new userFn.Model;
-var colTags = new Stamplay.Cobject('tag');
-var tags = colTags.Collection;
+var colTags = Stamplay.Cobject('tag');
+var tags = new colTags.Collection();
 
 // Signing up
 var registrationData = {
@@ -21,8 +21,8 @@ user.signup(registrationData).then(function(){
 
 
 // Action
-var colFoo = new Stamplay.Cobject('foo');
-var fooMod = colFoo.Model;
+var colFoo = Stamplay.Cobject('foo');
+var fooMod = new colFoo.Model();
 fooMod.fetch(5).then(
   function(){
     return fooMod.upVote()
