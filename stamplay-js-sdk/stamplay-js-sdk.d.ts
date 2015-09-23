@@ -10,10 +10,10 @@ declare module Stamplay {
   export interface IStamplayModel {
     signup({}) : PromisesAPlus.Thenable<any>
     new() : IStamplayModel
-    get(property : string)
-    set(property : string, value: any)
-    unset(property : string)
-    fetch(id : any)
+    get(property : string) : any
+    set(property : string, value: any) : void
+    unset(property : string) : void
+    fetch(id : any) : PromisesAPlus.Thenable<any>
     destroy() : PromisesAPlus.Thenable<any>
     save({}?) : PromisesAPlus.Thenable<any>
   }
