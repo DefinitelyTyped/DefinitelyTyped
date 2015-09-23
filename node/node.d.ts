@@ -1772,6 +1772,7 @@ declare module "util" {
     export function isDate(object: any): boolean;
     export function isError(object: any): boolean;
     export function inherits(constructor: any, superConstructor: any): void;
+    export function debuglog(key:string): (msg:string,...param: any[])=>void;
 }
 
 declare module "assert" {
