@@ -68,9 +68,8 @@ const targetEl = document.getElementById('root');
 React.render((
     <Provider store={store}>
         {() => <App />}
-</Provider>
+    </Provider>
 ), targetEl);
-
 
 //
 // API
