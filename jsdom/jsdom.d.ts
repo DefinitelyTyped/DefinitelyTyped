@@ -4,6 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path='../node/node.d.ts' />
+/// <reference path='../jquery/jquery.d.ts' />
 
 declare module "jsdom" {
 
@@ -68,7 +69,7 @@ declare module "jsdom" {
 	export function nodeLocation(node: Node): any;
 	export function reconfigureWindow(window: Window, newProps: WindowProperties): void;
 	
-	export function jQueryify(window: Window, jqueryUrl: string, callback: (window, jquery) => any): void;
+	export function jQueryify(window: Window, jqueryUrl: string, callback: (window: Window, jquery: JQuery) => any): void;
 	
 	export var debugMode: boolean;
 	
@@ -103,7 +104,7 @@ declare module "jsdom" {
 		 * Allowed: ["script", "img", "css", "frame", "iframe", "link"] or false
 		 * Default for jsdom.env: false
 		 */
-		FetchExternalResources?: string | boolean;
+		FetchExternalResources?: string[] | boolean;
 
 		/**
 		 * Enables/disables JavaScript execution
@@ -111,7 +112,7 @@ declare module "jsdom" {
 		 * Allowed: ["script"] or false, 
 		 * Default for jsdom.env: false
 		 */
-		ProcessExternalResources?: string | boolean;
+		ProcessExternalResources?: string[] | boolean;
 
 		/**
 		 * Filters resource downloading and processing to disallow those matching the given regular expression
