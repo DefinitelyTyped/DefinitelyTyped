@@ -527,162 +527,31 @@ declare module _ {
     //_.first
     interface LoDashStatic {
         /**
-        * Gets the first element or first n elements of an array. If a callback is provided
-        * elements at the beginning of the array are returned as long as the callback returns
-        * truey. The callback is bound to thisArg and invoked with three arguments; (value,
-        * index, array).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback
-        * will return the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return ]
-        * true for elements that have the properties of the given object, else false.
-        * @param array Retrieves the first element of this array.
-        * @return Returns the first element of `array`.
-        **/
-        first<T>(array?: Array<T>): T;
+         * Gets the first element of array.
+         *
+         * @alias _.head
+         *
+         * @param array The array to query.
+         * @return Returns the first element of array.
+         */
+        first<T>(array: List<T>): T;
+    }
 
+    interface LoDashArrayWrapper<T> {
         /**
-        * @see _.first
-        **/
-        first<T>(array?: List<T>): T;
+         * @see _.first
+         */
+        first(): T;
+    }
 
+    interface LoDashObjectWrapper<T> {
         /**
-        * @see _.first
-        * @param n The number of elements to return.
-        **/
-        first<T>(
-            array: Array<T>,
-            n: number): T[];
+         * @see _.first
+         */
+        first<TResult>(): TResult;
+    }
 
-        /**
-        * @see _.first
-        * @param n The number of elements to return.
-        **/
-        first<T>(
-            array: List<T>,
-            n: number): T[];
-
-        /**
-        * @see _.first
-        * @param callback The function called per element.
-        * @param [thisArg] The this binding of callback.
-        **/
-        first<T>(
-            array: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.first
-        * @param callback The function called per element.
-        * @param [thisArg] The this binding of callback.
-        **/
-        first<T>(
-            array: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.first
-        * @param pluckValue "_.pluck" style callback value
-        **/
-        first<T>(
-            array: Array<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.first
-        * @param pluckValue "_.pluck" style callback value
-        **/
-        first<T>(
-            array: List<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.first
-        * @param whereValue "_.where" style callback value
-        **/
-        first<W, T>(
-            array: Array<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.first
-        * @param whereValue "_.where" style callback value
-        **/
-        first<W, T>(
-            array: List<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.first
-        **/
-        head<T>(array: Array<T>): T;
-
-        /**
-        * @see _.first
-        **/
-        head<T>(array: List<T>): T;
-
-        /**
-        * @see _.first
-        **/
-        head<T>(
-            array: Array<T>,
-            n: number): T[];
-
-        /**
-        * @see _.first
-        **/
-        head<T>(
-            array: List<T>,
-            n: number): T[];
-
-        /**
-        * @see _.first
-        **/
-        head<T>(
-            array: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.first
-        **/
-        head<T>(
-            array: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.first
-        **/
-        head<T>(
-            array: Array<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.first
-        **/
-        head<T>(
-            array: List<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.first
-        **/
-        head<W, T>(
-            array: Array<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.first
-        **/
-        head<W, T>(
-            array: List<T>,
-            whereValue: W): T[];
-
+    interface LoDashStatic {
         /**
         * @see _.first
         **/
@@ -741,70 +610,6 @@ declare module _ {
     }
 
     interface LoDashArrayWrapper<T> {
-        /**
-        * @see _.first
-        **/
-        first(): T;
-
-        /**
-        * @see _.first
-        * @param n The number of elements to return.
-        **/
-        first(n: number): LoDashArrayWrapper<T>;
-
-        /**
-        * @see _.first
-        * @param callback The function called per element.
-        * @param [thisArg] The this binding of callback.
-        **/
-        first(
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): LoDashArrayWrapper<T>;
-
-        /**
-        * @see _.first
-        * @param pluckValue "_.pluck" style callback value
-        **/
-        first(pluckValue: string): LoDashArrayWrapper<T>;
-
-        /**
-        * @see _.first
-        * @param whereValue "_.where" style callback value
-        **/
-        first<W>(whereValue: W): LoDashArrayWrapper<T>;
-
-        /**
-        * @see _.first
-        **/
-        head(): T;
-
-        /**
-        * @see _.first
-        * @param n The number of elements to return.
-        **/
-        head(n: number): LoDashArrayWrapper<T>;
-
-        /**
-        * @see _.first
-        * @param callback The function called per element.
-        * @param [thisArg] The this binding of callback.
-        **/
-        head(
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): LoDashArrayWrapper<T>;
-
-        /**
-        * @see _.first
-        * @param pluckValue "_.pluck" style callback value
-        **/
-        head(pluckValue: string): LoDashArrayWrapper<T>;
-
-        /**
-        * @see _.first
-        * @param whereValue "_.where" style callback value
-        **/
-        head<W>(whereValue: W): LoDashArrayWrapper<T>;
-
         /**
         * @see _.first
         **/
@@ -895,6 +700,28 @@ declare module _ {
          * @see _.flattenDeep
          */
         flattenDeep<T>(): LoDashArrayWrapper<any>;
+    }
+
+    //_.head
+    interface LoDashStatic {
+        /**
+         * @see _.first
+         */
+        head<T>(array: List<T>): T;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.first
+         */
+        head(): T;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.first
+         */
+        head<TResult>(): TResult;
     }
 
     //_.indexOf
