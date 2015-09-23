@@ -99,7 +99,7 @@ function test_gif_rendering() {
     var WIDTH = 64;
     var HEIGHT = 28;
 
-    var img = document.getElementById('animation');
+    var img = <HTMLCanvasElement>document.getElementById('animation');
     var ctx = <CanvasRenderingContext2D>document.createElement('canvas').getContext("2d");
     var canvas = <HTMLCanvasElement>document.getElementById('canvas-uncle');
 
