@@ -73,6 +73,9 @@ declare module "jsdom" {
 	
 	export var debugMode: boolean;
 	
+	export interface DocumentWithParentWindow extends Document {
+		parentWindow: Window;
+	}
 
 	/**
 	 * The jsdom.jsdom method does less things automatically; it takes in only HTML source, and does not let you to
@@ -85,7 +88,7 @@ declare module "jsdom" {
 	 *					equivalent to what a browser will give if you open up an empty .html file.
 	 * @param options	see the explanation of the config object above.
 	 */
-	export function jsdom(markup: string, config?: Config): Document;
+	export function jsdom(markup: string, config?: Config): DocumentWithParentWindow;
 
 	/**
 	 * Before creating any documents, you can modify the defaults for all future documents:
