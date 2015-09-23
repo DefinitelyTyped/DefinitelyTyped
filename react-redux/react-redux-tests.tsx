@@ -111,18 +111,23 @@ React.render(
 Router.run(routes, Router.HistoryLocation, (Handler, routerState) => { // note "routerState" here
     React.render(
         <Provider store={store}>
-            {() => <Handler routerState={routerState} />} // note "routerState" here: important to pass it down
+            {/*
+             //TODO: error TS2339: Property 'routerState' does not exist on type 'RouteProp'.
+             {() => <Handler routerState={routerState} />} // note "routerState" here: important to pass it down
+            */}
         </Provider>,
         document.getElementById('root')
     );
 });
 
-React.render(
-    <Provider store={store}>
-        {() => <Router history={history}>...</Router>}
-    </Provider>,
-    targetEl
-);
+//TODO: for React Router 1.0
+//TODO: error TS2604: JSX element type 'Router' does not have any construct or call signatures.
+//React.render(
+//    <Provider store={store}>
+//        {() => <Router history={history}>...</Router>}
+//    </Provider>,
+//    targetEl
+//);
 
 // Inject just dispatch and don't listen to store
 
