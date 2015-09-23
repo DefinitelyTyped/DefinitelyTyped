@@ -382,15 +382,53 @@ declare module L {
         onRemove(map: Map): void;
     }
 
-    module Control {
+    namespace Control {
         export interface ZoomStatic extends ClassStatic {
             /**
               * Creates a zoom control.
               */
-            new(options?: ZoomOptions): Zoom;
+            new (options?: ZoomOptions): Zoom;
         }
 
         export interface Zoom extends L.Control {
+        }
+
+        export interface ZoomOptions {
+            /**
+              * The position of the control (one of the map corners).
+              * Can be 'topleft', 'topright', 'bottomleft', or 'bottomright'.
+              *
+              * Default value: 'topright'.
+              */
+            position?: string; // 'topleft' | 'topright' | 'bottomleft' | 'bottomright'
+
+            /**
+             * The text set on the zoom in button.
+             *
+             * Default value: '+'
+             */
+            zoomInText?: string;
+
+            /**
+             * The text set on the zoom out button.
+             *
+             * Default value: '-'
+             */
+            zoomOutText?: string;
+
+            /**
+             * The title set on the zoom in button.
+             *
+             * Default value: 'Zoom in'
+             */
+            zoomInTitle?: string;
+
+            /**
+             * The title set on the zoom out button.
+             *
+             * Default value: 'Zoom out'
+             */
+            zoomOutTitle?: string;
         }
 
         export interface AttributionStatic extends ClassStatic {
@@ -478,12 +516,12 @@ declare module L {
         function (options?: ControlOptions): Control;
     }
 
-    module control {
+    namespace control {
 
         /**
           * Creates a zoom control.
           */
-        export function zoom(options?: ZoomOptions): L.Control.Zoom;
+        export function zoom(options?: Control.ZoomOptions): L.Control.Zoom;
 
         /**
           * Creates an attribution control.
@@ -503,7 +541,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface ControlOptions {
 
@@ -517,9 +555,9 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
-    module CRS {
+    namespace CRS {
 
         /**
           * The most common CRS for online maps, used by almost all free and commercial
@@ -549,7 +587,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Creates a div icon instance with the given options.
@@ -568,7 +606,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface DivIconOptions {
 
@@ -602,7 +640,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface DomEvent {
 
@@ -663,9 +701,9 @@ declare module L {
     export var DomEvent: DomEvent;
 }
 
-declare module L {
+declare namespace L {
 
-    module DomUtil {
+    namespace DomUtil {
 
         /**
           * Returns an element with the given id if a string was passed, or just returns
@@ -766,7 +804,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Creates a Draggable object for moving the given element when you start dragging
@@ -816,7 +854,7 @@ declare module L {
 
 
 
-declare module L {
+declare namespace L {
 
     /**
       * Create a layer group, optionally given an initial set of layers.
@@ -894,44 +932,7 @@ declare module L {
     }
 }
 
-declare module L {
-
-    export interface FitBoundsOptions extends ZoomPanOptions {
-
-        /**
-          * Sets the amount of padding in the top left corner of a map container that
-          * shouldn't be accounted for when setting the view to fit bounds. Useful if
-          * you have some control overlays on the map like a sidebar and you don't
-          * want them to obscure objects you're zooming to.
-          *
-          * Default value: [0, 0].
-          */
-        paddingTopLeft?: Point;
-
-        /**
-          * The same for bottom right corner of the map.
-          *
-          * Default value: [0, 0].
-          */
-        paddingBottomRight?: Point;
-
-        /**
-          * Equivalent of setting both top left and bottom right padding to the same value.
-          *
-          * Default value: [0, 0].
-          */
-        padding?: Point;
-
-        /**
-          * The maximum possible zoom to use.
-          *
-          * Default value: null
-          */
-        maxZoom?: number;
-    }
-}
-
-declare module L {
+declare namespace L {
 
     /**
       * Creates a GeoJSON layer. Optionally accepts an object in GeoJSON format
@@ -994,7 +995,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
     export interface GeoJSONOptions {
         /**
           * Function that will be used for creating layers for GeoJSON points (if not
@@ -1031,7 +1032,7 @@ declare module L {
 
 
 
-declare module L {
+declare namespace L {
 
     /**
       * Creates an icon instance with the given options.
@@ -1058,7 +1059,7 @@ declare module L {
     export interface Icon {
     }
 
-    module Icon {
+    namespace Icon {
         /**
           * L.Icon.Default extends L.Icon and is the blue icon Leaflet uses
           * for markers by default.
@@ -1068,7 +1069,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface IconOptions {
 
@@ -1133,7 +1134,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface IControl {
 
@@ -1153,7 +1154,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface ICRS {
 
@@ -1205,7 +1206,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface IEventPowered<T> {
 
@@ -1285,7 +1286,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface IHandler {
 
@@ -1310,7 +1311,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface ILayer {
 
@@ -1329,8 +1330,8 @@ declare module L {
     }
 }
 
-declare module L {
-    module Mixin {
+declare namespace L {
+    namespace Mixin {
         export interface LeafletMixinEvents extends IEventPowered<LeafletMixinEvents> {
         }
 
@@ -1338,7 +1339,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates an image overlay object given the URL of the image and the geographical
@@ -1398,7 +1399,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface ImageOverlayOptions {
 
@@ -1409,7 +1410,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface IProjection {
 
@@ -1425,7 +1426,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
     * A constant that represents the Leaflet version in use.
@@ -1439,7 +1440,7 @@ declare module L {
     export function noConflict(): typeof L;
 }
 
-declare module L {
+declare namespace L {
     /**
       * Creates an object representing a geographical point with the given latitude
       * and longitude.
@@ -1524,7 +1525,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Creates a LatLngBounds object by defining south-west and north-east corners
@@ -1650,7 +1651,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Create a layer group, optionally given an initial set of layers.
@@ -1736,7 +1737,7 @@ declare module L {
 }
 
 
-declare module L {
+declare namespace L {
 
     export interface LayersOptions {
 
@@ -1766,7 +1767,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletErrorEvent extends LeafletEvent {
 
@@ -1782,7 +1783,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletEvent {
 
@@ -1798,7 +1799,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletGeoJSONEvent extends LeafletEvent {
 
@@ -1824,7 +1825,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletLayerEvent extends LeafletEvent {
 
@@ -1835,7 +1836,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletLocationEvent extends LeafletEvent {
 
@@ -1883,7 +1884,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletMouseEvent extends LeafletEvent {
 
@@ -1911,7 +1912,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletPopupEvent extends LeafletEvent {
 
@@ -1922,7 +1923,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletDragEndEvent extends LeafletEvent {
 
@@ -1933,7 +1934,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletResizeEvent extends LeafletEvent {
 
@@ -1949,7 +1950,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletTileEvent extends LeafletEvent {
 
@@ -1965,9 +1966,9 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
-    module LineUtil {
+    namespace LineUtil {
 
         /**
           * Dramatically reduces the number of points in a polyline while retaining
@@ -1999,7 +2000,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LocateOptions {
 
@@ -2052,19 +2053,19 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a map object given a div element and optionally an
       * object literal with map options described below.
       */
-    function map(id: HTMLElement, options?: MapOptions): Map;
+    function map(id: HTMLElement, options?: Map.MapOptions): Map;
 
     /**
       * Instantiates a map object given a div element id and optionally an
       * object literal with map options described below.
       */
-    function map(id: string, options?: MapOptions): Map;
+    function map(id: string, options?: Map.MapOptions): Map;
 
 
     export interface MapStatic extends ClassStatic {
@@ -2074,7 +2075,7 @@ declare module L {
           *
           * @constructor
           */
-        new(id: HTMLElement, options?: MapOptions): Map;
+        new(id: HTMLElement, options?: Map.MapOptions): Map;
 
         /**
           * Instantiates a map object given a div element id and optionally an
@@ -2082,7 +2083,7 @@ declare module L {
           *
           * @constructor
           */
-        new(id: string, options?: MapOptions): Map;
+        new(id: string, options?: Map.MapOptions): Map;
     }
     export var Map: MapStatic;
 
@@ -2093,40 +2094,40 @@ declare module L {
           * Sets the view of the map (geographical center and zoom) with the given
           * animation options.
           */
-        setView(center: LatLngExpression, zoom?: number, options?: ZoomPanOptions): Map;
+        setView(center: LatLngExpression, zoom?: number, options?: Map.ZoomPanOptions): Map;
 
         /**
           * Sets the zoom of the map.
           */
-        setZoom(zoom: number, options?: ZoomOptions): Map;
+        setZoom(zoom: number, options?: Map.ZoomPanOptions): Map;
 
         /**
           * Increases the zoom of the map by delta (1 by default).
           */
-        zoomIn(delta?: number, options?: ZoomOptions): Map;
+        zoomIn(delta?: number, options?: Map.ZoomPanOptions): Map;
 
         /**
           * Decreases the zoom of the map by delta (1 by default).
           */
-        zoomOut(delta?: number, options?: ZoomOptions): Map;
+        zoomOut(delta?: number, options?: Map.ZoomPanOptions): Map;
 
         /**
           * Zooms the map while keeping a specified point on the map stationary
           * (e.g. used internally for scroll zoom and double-click zoom).
           */
-        setZoomAround(latlng: LatLngExpression, zoom: number, options?: ZoomOptions): Map;
+        setZoomAround(latlng: LatLngExpression, zoom: number, options?: Map.ZoomPanOptions): Map;
 
         /**
           * Sets a map view that contains the given geographical bounds with the maximum
           * zoom level possible.
           */
-        fitBounds(bounds: LatLngBounds, options?: FitBoundsOptions): Map;
+        fitBounds(bounds: LatLngBounds, options?: Map.FitBoundsOptions): Map;
 
         /**
           * Sets a map view that mostly contains the whole world with the maximum zoom
           * level possible.
           */
-        fitWorld(options?: FitBoundsOptions): Map;
+        fitWorld(options?: Map.FitBoundsOptions): Map;
 
         /**
           * Pans the map to a given center. Makes an animated pan if new center is not more
@@ -2150,7 +2151,7 @@ declare module L {
           * after you've changed the map size dynamically, also animating pan by default.
           * If options.pan is false, panning will not occur.
           */
-        invalidateSize(options: ZoomPanOptions): Map;
+        invalidateSize(options: Map.ZoomPanOptions): Map;
 
         /**
           * Checks if the map container size changed and updates the map if so — call it
@@ -2162,7 +2163,7 @@ declare module L {
           * Restricts the map view to the given bounds (see map maxBounds option),
           * passing the given animation options through to `setView`, if required.
           */
-        setMaxBounds(bounds: LatLngBounds, options?: ZoomPanOptions): Map;
+        setMaxBounds(bounds: LatLngBounds, options?: Map.ZoomPanOptions): Map;
 
         /**
           * Tries to locate the user using Geolocation API, firing locationfound event
@@ -2422,7 +2423,7 @@ declare module L {
         /**
           * Map state options
           */
-        options: MapOptions;
+        options: Map.MapOptions;
 
         ////////////////
         ////////////////
@@ -2442,7 +2443,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L.Map {
 
     export interface MapOptions {
 
@@ -2680,9 +2681,82 @@ declare module L {
          */
         bounceAtZoomLimits?: boolean;
     }
+
+    export interface ZoomOptions {
+        /**
+          * If not specified, zoom animation will happen if the zoom origin is inside the current view.
+          * If true, the map will attempt animating zoom disregarding where zoom origin is.
+          * Setting false will make it always reset the view completely without animation.
+          */
+        animate?: boolean;
+    }
+
+    export interface ZoomPanOptions {
+
+        /**
+          * If true, the map view will be completely reset (without any animations).
+          *
+          * Default value: false.
+          */
+        reset?: boolean;
+
+        /**
+          * Sets the options for the panning (without the zoom change) if it occurs.
+          */
+        pan?: PanOptions;
+
+        /**
+          * Sets the options for the zoom change if it occurs.
+          */
+        zoom?: ZoomOptions;
+
+        /**
+          * An equivalent of passing animate to both zoom and pan options (see below).
+          */
+        animate?: boolean;
+
+        /**
+         * If true, it will delay moveend event so that it doesn't happen many times in a row.
+         */
+        debounceMoveend?: boolean;
+    }
+
+    export interface FitBoundsOptions extends ZoomPanOptions {
+
+        /**
+          * Sets the amount of padding in the top left corner of a map container that
+          * shouldn't be accounted for when setting the view to fit bounds. Useful if
+          * you have some control overlays on the map like a sidebar and you don't
+          * want them to obscure objects you're zooming to.
+          *
+          * Default value: [0, 0].
+          */
+        paddingTopLeft?: Point;
+
+        /**
+          * The same for bottom right corner of the map.
+          *
+          * Default value: [0, 0].
+          */
+        paddingBottomRight?: Point;
+
+        /**
+          * Equivalent of setting both top left and bottom right padding to the same value.
+          *
+          * Default value: [0, 0].
+          */
+        padding?: Point;
+
+        /**
+          * The maximum possible zoom to use.
+          *
+          * Default value: null
+          */
+        maxZoom?: number;
+    }
 }
 
-declare module L {
+declare namespace L {
 
     export interface MapPanes {
 
@@ -2723,7 +2797,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a Marker object given a geographical point and optionally
@@ -2873,7 +2947,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface MarkerOptions {
 
@@ -2953,7 +3027,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a multi-polyline object given an array of latlngs arrays (one
@@ -2996,7 +3070,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a multi-polyline object given an array of arrays of geographical
@@ -3037,7 +3111,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface PanOptions {
 
@@ -3073,7 +3147,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface Path extends ILayer, IEventPowered<Path> {
 
@@ -3171,7 +3245,7 @@ declare module L {
         off(eventMap?: any, context?: any): Path;
     }
 
-    module Path {
+    namespace Path {
         /**
           * True if SVG is used for vector rendering (true for most modern browsers).
           */
@@ -3201,7 +3275,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface PathOptions {
 
@@ -3297,7 +3371,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Creates a Point object with the given x and y coordinates. If optional round
@@ -3373,7 +3447,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a polygon object given an array of geographical points and
@@ -3401,7 +3475,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a polyline object given an array of geographical points and
@@ -3453,7 +3527,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface PolylineOptions extends PathOptions {
 
@@ -3474,9 +3548,9 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
-    module PolyUtil {
+    namespace PolyUtil {
 
         /**
           * Clips the polygon geometry defined by the given points by rectangular bounds.
@@ -3488,7 +3562,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a Popup object given an optional options object that describes
@@ -3567,7 +3641,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface PopupOptions {
 
@@ -3665,7 +3739,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface PosAnimationStatic extends ClassStatic {
         /**
@@ -3702,9 +3776,9 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
-    module Projection {
+    namespace Projection {
 
         /**
           * Spherical Mercator projection — the most common projection for online maps,
@@ -3730,7 +3804,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a rectangle object with the given geographical bounds and
@@ -3756,7 +3830,7 @@ declare module L {
 }
 
 
-declare module L {
+declare namespace L {
 
     export interface ScaleOptions {
 
@@ -3794,7 +3868,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface TileLayerStatic extends ClassStatic {
         /**
@@ -3894,7 +3968,7 @@ declare module L {
         off(eventMap?: any, context?: any): TileLayer;
     }
 
-    module TileLayer {
+    namespace TileLayer {
         export interface WMS extends TileLayer {
             /**
               * Merges an object with the new parameters and re-requests tiles on the current
@@ -3942,7 +4016,7 @@ declare module L {
     export var tileLayer: TileLayerFactory;
 }
 
-declare module L {
+declare namespace L {
 
     export interface TileLayerOptions {
 
@@ -4089,7 +4163,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
     export interface TransformationStatic extends ClassStatic {
         /**
           * Creates a transformation object with the given coefficients.
@@ -4113,9 +4187,9 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
-    module Util {
+    namespace Util {
 
         /**
           * Merges the properties of the src object (or multiple objects) into dest object
@@ -4197,7 +4271,7 @@ declare module L {
 }
 
 
-declare module L {
+declare namespace L {
 
     export interface WMSOptions {
 
@@ -4234,52 +4308,6 @@ declare module L {
           */
         version?: string;
 
-    }
-}
-
-
-declare module L {
-
-    export interface ZoomOptions {
-        /**
-          * If not specified, zoom animation will happen if the zoom origin is inside the current view.
-          * If true, the map will attempt animating zoom disregarding where zoom origin is.
-          * Setting false will make it always reset the view completely without animation.
-          */
-        animate?: boolean;
-    }
-}
-
-declare module L {
-
-    export interface ZoomPanOptions {
-
-        /**
-          * If true, the map view will be completely reset (without any animations).
-          *
-          * Default value: false.
-          */
-        reset?: boolean;
-
-        /**
-          * Sets the options for the panning (without the zoom change) if it occurs.
-          */
-        pan?: PanOptions;
-
-        /**
-          * Sets the options for the zoom change if it occurs.
-          */
-        zoom?: ZoomOptions;
-
-        /**
-          * An equivalent of passing animate to both zoom and pan options (see below).
-          */
-        animate?: boolean;
-
-        /**
-         * If true, it will delay moveend event so that it doesn't happen many times in a row.
-         */
-        debounceMoveend?: boolean;
     }
 }
 

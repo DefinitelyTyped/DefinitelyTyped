@@ -1438,6 +1438,7 @@ function test_dialog() {
     });
     $(".selector").dialog({ autoOpen: false });
     $(".selector").dialog({ buttons: { Ok: function () { $(this).dialog("close"); } } });
+    $(".selector").dialog({ buttons: [ { text: "Ok", click: function () { $(this).dialog("close"); } } ] } );
     $(".selector").dialog({ closeOnEscape: false });
     $(".selector").dialog({ closeText: "hide" });
     $(".selector").dialog({ dialogClass: "alert" });

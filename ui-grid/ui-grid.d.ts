@@ -441,11 +441,11 @@ declare module uiGrid {
         /**
          * Scroll the grid such that the specified
          * row and column is in view
-         * @param {any} rowEntity gridOptions.data[] array instance to make visible
+         * @param {any} rowEntity gridOptions.data[] array element to make visible
          * @param {IColumnDef} colDef to make visible
          * @returns {ng.IPromise<any>} a promise that is resolved after any scrolling is finished
          */
-        scrollTo(rowEntity: IGridRow<TEntity>, colDef: IColumnDef<TEntity>): ng.IPromise<any>;
+        scrollTo(rowEntity?: TEntity, colDef?: IColumnDef<TEntity>): ng.IPromise<any>;
         /**
          * Scrolls the grid to make a certain row and column combo visible,
          * in the case that it is not completely visible on the screen already.
@@ -489,6 +489,10 @@ declare module uiGrid {
          * returns the total footer height gridFooter + columnFooter
          */
         footerHeight?: number;
+        /**
+         * returns or sets grid height in pixels
+         */
+        gridHeight?: number;
         /**
          * set to true when Grid is scrolling horizontally. Set to false via debounced method
          */
@@ -2823,7 +2827,7 @@ declare module uiGrid {
              * returns all selected rows as gridRows
              * @returns {Array<IGridRow>} The selected rows
              */
-            getSelectedGridRows(): Array<any>;
+            getSelectedGridRows(): Array<uiGrid.IGridRow>;
             /**
              * Gets selected rows as entities
              * @returns {Array<any>} Selected row entities
