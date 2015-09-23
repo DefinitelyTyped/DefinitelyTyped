@@ -1,3 +1,8 @@
+// Type definitions for meteorjs for node-mysql-wrapper which helps in development.
+// Project: https://github.com/nodets/node-mysql-wrapper
+// Definitions by: Makis Maropoulos <https://github.com/kataras>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 declare module Mongo {
 	var Collection: CollectionStatic;
 	interface CollectionStatic {
@@ -38,8 +43,8 @@ declare module Mongo {
 			transform?: Function;
 		}): T;
 		insert(doc: T, callback?: Function): string;
-		rawCollection(); /** TODO: add return value **/
-		rawDatabase(); /** TODO: add return value **/
+		rawCollection():any;
+		rawDatabase():any;
 		remove(selector: any, callback?: Function): void;
 		update(selector: any, modifier: any, options?: {
 			multi?: boolean;
@@ -76,5 +81,4 @@ declare module Mongo {
 declare module Meteor {
     var isServer: boolean;
     var isClient: boolean;
-    var bindEnvironment: Function;
 }
