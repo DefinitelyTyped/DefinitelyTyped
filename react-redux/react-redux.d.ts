@@ -1,4 +1,4 @@
-// Type definitions for react-redux
+// Type definitions for react-redux 2.1.2
 // Project: https://github.com/rackt/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
