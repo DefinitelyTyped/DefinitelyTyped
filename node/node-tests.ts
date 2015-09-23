@@ -14,6 +14,8 @@ import * as querystring from "querystring";
 import * as path from "path";
 import * as readline from "readline";
 
+import assert from "assert";
+
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
 assert.deepEqual({ x: { y: 3 } }, { x: { y: 3 } }, "DEEP WENT DERP");
