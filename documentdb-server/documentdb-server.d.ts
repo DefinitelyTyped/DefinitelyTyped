@@ -1,7 +1,7 @@
 ﻿// Type definitions for DocumentDB server side JavaScript SDK
 // Project: http://dl.windowsazure.com/documentDB/jsserverdocs
-// Definitions by: François Nguyen <https://github.com/lith-light-g/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped/documentdb-server
+// Definitions by: François Nguyen <https://github.com/lith-light-g>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /** The Context object provides access to all operations that can be performed on DocumentDB data, as well as access to the request and response objects. */
 interface IContext {
@@ -444,9 +444,6 @@ interface IRequest {
 	 * @param value the value of the header
 	 */
     setValue(key: string, value: string): void;
-
-    appendBody(value: string): void;
-    appendBody(value: Object): void;
 }
 	
 /**
