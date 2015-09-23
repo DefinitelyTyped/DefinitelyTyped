@@ -573,6 +573,9 @@ declare module CKEDITOR {
         startupFocus?: boolean;
         on?: any;
         extraPlugins?: string;
+        height?: string | number;
+        toolbarLocation?: string;
+        readOnly?: boolean;
     }
 
 
