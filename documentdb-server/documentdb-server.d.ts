@@ -508,7 +508,7 @@ interface IQueryParam {
     /** Name to use in the query */
     name: string;
     /** Value of the parameter */
-    value: string;
+    value: any;
 }
 
 /** List of error codes returned by database operations in the RequestCallback and FeedCallback. See the corresponding error message for more details. */
