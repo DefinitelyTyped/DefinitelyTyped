@@ -6,7 +6,7 @@ interface MyEntity {
     age: number;
 }
 
-var columnDef: uiGrid.IColumnDef<MyEntity>;
+var columnDef: uiGrid.IColumnDefOf<MyEntity>;
 columnDef.aggregationHideLabel = true;
 columnDef.aggregationHideLabel = false;
 columnDef.aggregationType = 1;
@@ -19,7 +19,7 @@ columnDef.cellClass = (gridRow, gridCol, index) => {
 columnDef.cellFilter = 'date';
 columnDef.cellTemplate = '<div blah="something">hello</div>';
 columnDef.cellTooltip = 'blah';
-columnDef.cellTooltip = function (gridRow: uiGrid.IGridRow<MyEntity>, gridCol: uiGrid.IGridColumn<MyEntity>) {
+columnDef.cellTooltip = function (gridRow: uiGrid.IGridRow, gridCol: uiGrid.IGridColumn) {
     return 'blah';
 };
 columnDef.displayName = 'Jumper';
@@ -96,7 +96,7 @@ columnDef.width = '*';
 
 
 var gridApi: uiGrid.IGridApi<MyEntity>;
-var gridInstance: uiGrid.IGridInstance<MyEntity>;
+var gridInstance: uiGrid.IGridInstanceOf<MyEntity>;
 var menuItem: uiGrid.IMenuItem;
 var colProcessor: uiGrid.IColumnProcessor<MyEntity>;
 
@@ -108,7 +108,7 @@ gridApi.core.queueGridRefresh()
 gridApi.core.queueRefresh();
 gridApi.core.registerColumnsProcessor(colProcessor, 100);
 
-var gridOptions: uiGrid.IGridOptions<MyEntity> = {
+var gridOptions: uiGrid.IGridOptionsOf<MyEntity> = {
     data: [{name: 'Bob', age: 100}],
     onRegisterApi: (api) => {
         api.selection.on.rowSelectionChanged(null, (row) => {
@@ -119,14 +119,14 @@ var gridOptions: uiGrid.IGridOptions<MyEntity> = {
 interface AnotherEntity {
     anObject: string
 }
-var anotherGridInstance: uiGrid.IGridInstance<AnotherEntity>;
+var anotherGridInstance: uiGrid.IGridInstance;
 var rowEntityToScrollTo = {
     anObject: 'inGridOptionsData'
 };
-var columnDefToScrollTo: uiGrid.IColumnDef<AnotherEntity>;
+var columnDefToScrollTo: uiGrid.IColumnDef;
 anotherGridInstance.scrollTo();
 anotherGridInstance.scrollTo(rowEntityToScrollTo);
 anotherGridInstance.scrollTo(rowEntityToScrollTo, columnDefToScrollTo);
 
 var selectedRowEntities: Array<any> = gridApi.selection.getSelectedRows();
-var selectedGridRows: Array<uiGrid.IGridRow<MyEntity>> = gridApi.selection.getSelectedGridRows();
+var selectedGridRows: Array<uiGrid.IGridRow> = gridApi.selection.getSelectedGridRows();
