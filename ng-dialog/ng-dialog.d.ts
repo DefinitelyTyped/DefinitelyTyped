@@ -26,14 +26,19 @@ declare module angular.dialog {
 	interface IDialogOpenResult {
 		id: string;
 		close: (value?: string) => void;
-		closePromise: IPromise<void>;
+		closePromise: IPromise<IDialogClosePromise>;
+	}
+
+	interface IDialogClosePromise {
+		id: string;
+		value: any;
 	}
 
 	interface IDialogProvider extends angular.IServiceProvider {
 		/**
 		 * Default options for the dialogs.
-		 * @param defaultOptions 
-		 * @returns {} 
+		 * @param defaultOptions
+		 * @returns {}
 		 */
 		setDefaults(defaultOptions: IDialogOptions): void;
 	}
@@ -44,7 +49,7 @@ declare module angular.dialog {
 	interface IDialogScope extends angular.IScope {
 		/**
 		 * This allows you to close dialog straight from handler in a popup element.
-		 * @param value Any value passed to this function will be attached to the object which resolves on the close promise for this dialog. 
+		 * @param value Any value passed to this function will be attached to the object which resolves on the close promise for this dialog.
 		 * For dialogs opened with the openConfirm() method the value is used as the reject reason.
 		 */
 		closeThisDialog(value?: any): void;
