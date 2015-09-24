@@ -1,4 +1,4 @@
-// Type definitions for three.js r71
+﻿// Type definitions for three.js r71
 // Project: http://mrdoob.github.com/three.js/
 // Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped  
@@ -8,22 +8,186 @@ interface WebGLRenderingContext {}
 declare module THREE {
     export var REVISION: string;
 
-    // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent.button
-    export enum MOUSE {LEFT, MIDDLE, RIGHT}
+    const enum MOUSE {
+        LEFT = 0,
+        MIDDLE = 1,
+        RIGHT = 2,
+    }
 
     // GL STATE CONSTANTS
-    export enum CullFace { }
+    const enum CullFace {
+        None = 0,
+        Back = 1,
+        Front = 2,
+        FrontBack = 3,
+    }
+
+
+    const enum FrontFaceDirection {
+        CW = 0,
+        CCW = 1,
+    }
+
+    // Shadowing Type
+    const enum ShadowMapType {
+        Basic = 0,
+        PCF = 1,
+        PCFSoft = 2,
+    }
+
+    // MATERIAL CONSTANTS
+
+    // side
+    const enum Side {
+        Front = 0,
+        Back = 1,
+        Double = 2,
+    }
+
+    // shading
+    const enum Shading {
+        None = 0,
+        Flat = 1,
+        Smooth = 2,
+    }
+
+    // colors
+    const enum Colors {
+        None = 0,
+        Face = 1,
+        Vertex = 2,
+    }
+
+    // blending modes
+    const enum Blending {
+        None = 0,
+        Normal = 1,
+        Additive = 2,
+        Subtractive = 3,
+        Multiply = 4,
+        Custom = 5,
+    }
+
+    // custom blending equations
+    // (numbers start from 100 not to clash with other
+    //  mappings to OpenGL constants defined in Texture.js)
+    const enum BlendingEquation {
+        Add = 100,
+        Subtract = 101,
+        ReverseSubtract = 102,
+    }
+
+    // custom blending destination factors
+    const enum BlendingDstFactor {
+        Zero = 200,
+        One = 201,
+        SrcColor = 202,
+        OneMinusSrcColor = 203,
+        SrcAlpha = 204,
+        OneMinusSrcAlpha = 205,
+        DstAlpha = 206,
+        OneMinusDstAlpha = 207,
+    }
+
+    // custom blending src factors
+    const enum BlendingSrcFactor {
+        //Zero = 200,
+        //One = 201,
+        //SrcAlpha = 204,
+        //OneMinusSrcAlpha = 205,
+        //DstAlpha = 206,
+        //OneMinusDstAlpha = 207,
+        DstColor = 208,
+        OneMinusDstColor = 209,
+        SrcAlphaSaturate = 210,
+    }
+
+    // TEXTURE CONSTANTS
+    // Operations
+    const enum Combine {
+        Multiply = 0,
+        Mix = 1,
+        Add = 2,
+    }
+
+    // Mapping modes 
+    interface Mapping {e
+        new (): { };
+    }
+    var UVMapping: Mapping;
+    var CubeReflectionMapping: Mapping;
+    var CubeRefractionMapping: Mapping;
+    var SphericalReflectionMapping: Mapping;
+    var SphericalRefractionMapping: Mapping;
+
+    // Wrapping modes
+    const enum Wrapping {
+        Repeat = 1000,
+        ClampToEdge = 1001,
+        MirroredRepeat = 1002,
+    }
+
+    // Filters
+    const enum TextureFilter {
+        Nearest = 1003,
+        NearestMipMapNearest = 1004,
+        NearestMipMapLinear = 1005,
+        Linear = 1006,
+        LinearMipMapNearest = 1007,
+        LinearMipMapLinear = 1008,
+    }
+
+    // Data types
+    const enum TextureDataType {
+        UnsignedByte = 1009,
+        Byte = 1010,
+        Short = 1011,
+        UnsignedShort = 1012,
+        Int = 1013,
+        UnsignedInt = 1014,
+        Float = 1015,
+    }
+
+    // Pixel types
+    const enum PixelType {
+        UnsignedShort4444 = 1016,
+        UnsignedShort5551 = 1017,
+        UnsignedShort565 = 1018,
+    }
+
+    // Pixel formats
+    const enum PixelFormat {
+        Alpha = 1019,
+        RGB = 1020,
+        RGBA = 1021,
+        Luminance = 1022,
+        LuminanceAlpha = 1023,
+    }
+
+    // Compressed texture formats
+    const enum CompressedPixelFormat {
+        RGB_S3TC_DXT1 = 2001,
+        RGBA_S3TC_DXT1 = 2002,
+        RGBA_S3TC_DXT3 = 2003,
+        RGBA_S3TC_DXT5 = 2004,
+    }
+
+    // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent.button
+    // export enum MOUSE {LEFT, MIDDLE, RIGHT}
+
+    // GL STATE CONSTANTS
+    // export enum CullFace { }
     export var CullFaceNone: CullFace;
     export var CullFaceBack: CullFace;
     export var CullFaceFront: CullFace;
     export var CullFaceFrontBack: CullFace;
 
-    export enum FrontFaceDirection { }
+    // export enum FrontFaceDirection { }
     export var FrontFaceDirectionCW: FrontFaceDirection;
     export var FrontFaceDirectionCCW: FrontFaceDirection;
 
     // Shadowing Type
-    export enum ShadowMapType { }
+    // export enum ShadowMapType { }
     export var BasicShadowMap: ShadowMapType;
     export var PCFShadowMap: ShadowMapType;
     export var PCFSoftShadowMap: ShadowMapType;
@@ -31,25 +195,25 @@ declare module THREE {
     // MATERIAL CONSTANTS
 
     // side
-    export enum Side { }
+    // export enum Side { }
     export var FrontSide: Side;
     export var BackSide: Side;
     export var DoubleSide: Side;
 
     // shading
-    export enum Shading { }
+    // export enum Shading { }
     export var NoShading: Shading;
     export var FlatShading: Shading;
     export var SmoothShading: Shading;
 
     // colors
-    export enum Colors { }
+    // export enum Colors { }
     export var NoColors: Colors;
     export var FaceColors: Colors;
     export var VertexColors: Colors;
 
     // blending modes
-    export enum Blending { }
+    // export enum Blending { }
     export var NoBlending: Blending;
     export var NormalBlending: Blending;
     export var AdditiveBlending: Blending;
@@ -60,7 +224,7 @@ declare module THREE {
     // custom blending equations
     // (numbers start from 100 not to clash with other
     //  mappings to OpenGL constants defined in Texture.js)
-    export enum BlendingEquation { }
+    // export enum BlendingEquation { }
     export var AddEquation: BlendingEquation;
     export var SubtractEquation: BlendingEquation;
     export var ReverseSubtractEquation: BlendingEquation;
@@ -68,7 +232,7 @@ declare module THREE {
     export var MaxEquation: BlendingEquation;
 
     // custom blending destination factors
-    export enum BlendingDstFactor { }
+    // export enum BlendingDstFactor { }
     export var ZeroFactor: BlendingDstFactor;
     export var OneFactor: BlendingDstFactor;
     export var SrcColorFactor: BlendingDstFactor;
@@ -79,20 +243,25 @@ declare module THREE {
     export var OneMinusDstAlphaFactor: BlendingDstFactor;
 
    // custom blending src factors
-    export enum BlendingSrcFactor { }
+    // export enum BlendingSrcFactor { }
     export var DstColorFactor: BlendingSrcFactor;
     export var OneMinusDstColorFactor: BlendingSrcFactor;
     export var SrcAlphaSaturateFactor: BlendingSrcFactor;
 
     // TEXTURE CONSTANTS
     // Operations
-    export enum Combine { }
+    // export enum Combine { }
     export var MultiplyOperation: Combine;
     export var MixOperation: Combine;
     export var AddOperation: Combine;
 
     // Mapping modes
-    export enum Mapping { }
+    // export enum Mapping { }
+    // These are functions, not enums
+    export interface Mapping {
+        new (): {};
+    }
+
     export var UVMapping: Mapping;
     export var CubeReflectionMapping: Mapping;
     export var CubeRefractionMapping: Mapping;
@@ -101,13 +270,13 @@ declare module THREE {
     export var SphericalReflectionMapping: Mapping;
 
     // Wrapping modes
-    export enum Wrapping { }
+    // export enum Wrapping { }
     export var RepeatWrapping: Wrapping;
     export var ClampToEdgeWrapping: Wrapping;
     export var MirroredRepeatWrapping: Wrapping;
 
     // Filters
-    export enum TextureFilter { }
+    // export enum TextureFilter { }
     export var NearestFilter: TextureFilter;
     export var NearestMipMapNearestFilter: TextureFilter;
     export var NearestMipMapLinearFilter: TextureFilter;
@@ -116,7 +285,7 @@ declare module THREE {
     export var LinearMipMapLinearFilter: TextureFilter;
 
     // Data types
-    export enum TextureDataType { }
+    // export enum TextureDataType { }
     export var UnsignedByteType: TextureDataType;
     export var ByteType: TextureDataType;
     export var ShortType: TextureDataType;
@@ -127,13 +296,13 @@ declare module THREE {
     export var HalfFloatType: TextureDataType;
 
     // Pixel types
-    export enum PixelType { }
+    // export enum PixelType { }
     export var UnsignedShort4444Type: PixelType;
     export var UnsignedShort5551Type: PixelType;
     export var UnsignedShort565Type: PixelType;
 
     // Pixel formats
-    export enum PixelFormat { }
+    // export enum PixelFormat { }
     export var AlphaFormat: PixelFormat;
     export var RGBFormat: PixelFormat;
     export var RGBAFormat: PixelFormat;
@@ -143,7 +312,7 @@ declare module THREE {
 
     // Compressed texture formats
     // DDS / ST3C Compressed texture formats
-    export enum CompressedPixelFormat { }
+    // export enum CompressedPixelFormat { }
     export var RGB_S3TC_DXT1_Format: CompressedPixelFormat;
     export var RGBA_S3TC_DXT1_Format: CompressedPixelFormat;
     export var RGBA_S3TC_DXT3_Format: CompressedPixelFormat;
@@ -5290,18 +5459,20 @@ declare module THREE {
         updateMatrixWorld(force?: boolean): void;
     }
 
-    export enum PathActions {
-        MOVE_TO,
-        LINE_TO,
-        QUADRATIC_CURVE_TO, // Bezier quadratic curve
-        BEZIER_CURVE_TO,     // Bezier cubic curve
-        CSPLINE_THRU,        // Catmull-rom spline
-        ARC,                // Circle
-        ELLIPSE,
+    export type PathAct = string;           // these are strings not enums
+
+    export interface PathActions {
+        MOVE_TO: PathAct;
+        LINE_TO: PathAct;
+        QUADRATIC_CURVE_TO: PathAct; // Bezier quadratic curve
+        BEZIER_CURVE_TO: PathAct;     // Bezier cubic curve
+        CSPLINE_THRU: PathAct;        // Catmull-rom spline
+        ARC: PathAct;                // Circle
+        ELLIPSE: PathAct;
     }
 
     export interface PathAction {
-        action: PathActions;
+        action: PathAct;
         args: any;
     }
 
