@@ -8,61 +8,105 @@
 declare module 'joi' {
 
 	export interface ValidationOptions {
-		// when true, stops validation on the first error, otherwise returns all the errors found. Defaults to true.
+		/**
+		 * when true, stops validation on the first error, otherwise returns all the errors found. Defaults to true.
+		 */
 		abortEarly?: boolean;
-		// when true, attempts to cast values to the required types (e.g. a string to a number). Defaults to true.
+		/**
+		 * when true, attempts to cast values to the required types (e.g. a string to a number). Defaults to true.
+		 */
 		convert?: boolean;
-		// when true, allows object to contain unknown keys which are ignored. Defaults to false.
+		/**
+		 * when true, allows object to contain unknown keys which are ignored. Defaults to false.
+		 */
 		allowUnknown?: boolean;
-		// when true, ignores unknown keys with a function value. Defaults to false.
+		/**
+		 * when true, ignores unknown keys with a function value. Defaults to false.
+		 */
 		skipFunctions?: boolean;
-		// when true, unknown keys are deleted (only when value is an object). Defaults to false.
+		/**
+		 * when true, unknown keys are deleted (only when value is an object). Defaults to false.
+		 */
 		stripUnknown?: boolean;
-		// overrides individual error messages. Defaults to no override ({}).
+		/**
+		 * overrides individual error messages. Defaults to no override ({}).
+		 */
 		language?: Object;
-		// sets the default presence requirements. Supported modes: 'optional', 'required', and 'forbidden'. Defaults to 'optional'.
+		/**
+		 * sets the default presence requirements. Supported modes: 'optional', 'required', and 'forbidden'. Defaults to 'optional'.
+		 */
 		presence?: string;
-		// provides an external data set to be used in references
+		/**
+		 * provides an external data set to be used in references
+		 */
 		context?: Object;
 	}
 
 	export interface RenameOptions {
-		// if true, does not delete the old key name, keeping both the new and old keys in place. Defaults to false.
+		/**
+		 * if true, does not delete the old key name, keeping both the new and old keys in place. Defaults to false.
+		 */
 		alias?: boolean;
-		// if true, allows renaming multiple keys to the same destination where the last rename wins. Defaults to false.
+		/**
+		 * if true, allows renaming multiple keys to the same destination where the last rename wins. Defaults to false.
+		 */
 		multiple?: boolean;
-		// if true, allows renaming a key over an existing key. Defaults to false.
+		/**
+		 * if true, allows renaming a key over an existing key. Defaults to false.
+		 */
 		override?: boolean;
+		/**
+		 * if true, skip renaming of a key if it's undefined. Defaults to false.
+		 */
+		ignoreUndefined?: boolean;
 	}
 
 	export interface EmailOptions {
-		// Numerical threshold at which an email address is considered invalid
+		/**
+		 * Numerical threshold at which an email address is considered invalid
+		 */
 		errorLevel?: number | boolean;
-		// Specifies a list of acceptable TLDs.
+		/**
+		 * Specifies a list of acceptable TLDs.
+		 */
 		tldWhitelist?: string[] | Object;
-		// Number of atoms required for the domain. Be careful since some domains, such as io, directly allow email.
+		/**
+		 * Number of atoms required for the domain. Be careful since some domains, such as io, directly allow email.
+		 */
 		minDomainAtoms?: number;
 	}
 
 	export interface IpOptions {
-		// One or more IP address versions to validate against. Valid values: ipv4, ipv6, ipvfuture
+		/**
+		 * One or more IP address versions to validate against. Valid values: ipv4, ipv6, ipvfuture
+		 */
 		version ?: string | string[];
-		// Used to determine if a CIDR is allowed or not. Valid values: optional, required, forbidden
+		/**
+		 * Used to determine if a CIDR is allowed or not. Valid values: optional, required, forbidden
+		 */
 		cidr?: string;
 	}
 
 	export interface UriOptions {
-		// Specifies one or more acceptable Schemes, should only include the scheme name.
-		// Can be an Array or String (strings are automatically escaped for use in a Regular Expression).
+		/**
+		 * Specifies one or more acceptable Schemes, should only include the scheme name.
+		 * Can be an Array or String (strings are automatically escaped for use in a Regular Expression).
+		 */
 		scheme ?: string | RegExp | Array<string | RegExp>;
 	}
 
 	export interface WhenOptions {
-		// the required condition joi type.
+		/**
+		 * the required condition joi type.
+		 */
 		is: Schema;
-		// the alternative schema type if the condition is true. Required if otherwise is missing.
+		/**
+		 * the alternative schema type if the condition is true. Required if otherwise is missing.
+		 */
 		then?: Schema;
-		// the alternative schema type if the condition is false. Required if then is missing
+		/**
+		 * the alternative schema type if the condition is false. Required if then is missing
+		 */
 		otherwise?: Schema;
 	}
 

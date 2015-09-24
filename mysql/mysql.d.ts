@@ -15,6 +15,7 @@ declare module "mysql" {
 	function escape(value: any): string;
 	function format(sql: string): string;
 	function format(sql: string, values: Array<any>): string;
+	function format(sql: string, values: any): string;
 
 	interface IMySql {
 		createConnection(connectionUri: string): IConnection;
@@ -24,6 +25,7 @@ declare module "mysql" {
 		escape(value: any): string;
 		format(sql: string): string;
 		format(sql: string, values: Array<any>): string;
+		format(sql: string, values: any): string;
 	}
 
     interface IConnectionStatic {
@@ -69,6 +71,7 @@ declare module "mysql" {
 
         format(sql: string): string;
         format(sql: string, values: Array<any>): string;
+        format(sql: string, values: any): string;
 
         on(ev: string, callback: (...args: any[]) => void): IConnection;
         on(ev: 'error', callback: (err: IError) => void): IConnection;

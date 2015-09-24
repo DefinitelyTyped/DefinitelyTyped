@@ -302,7 +302,7 @@ interface SwipeRecognizerStatic
   new( options?:any ):SwipeRecognizer;
 }
 
-interface SwipeRecognizer
+interface SwipeRecognizer extends AttrRecognizer
 {
 }
 

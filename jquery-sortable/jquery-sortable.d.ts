@@ -88,17 +88,16 @@ declare module JQuerySortable {
 	}
 
 	interface Options extends GroupOptions, ContainerOptions {
+		group?: string;
 	}
 }
 
-
 interface JQuery {
-	sortable(options?: JQuerySortable.Options): JQuery;
-
 	sortable(methodName: 'enable'): JQuery;
 	sortable(methodName: 'disable'): JQuery;
 	sortable(methodName: 'refresh'): JQuery;
 	sortable(methodName: 'destroy'): JQuery;
 	sortable(methodName: 'serialize'): JQuery;
 	sortable(methodName: string): JQuery;
+	sortable(options?: JQuerySortable.Options): JQuery;
 }

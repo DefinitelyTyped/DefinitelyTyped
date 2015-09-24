@@ -41,24 +41,24 @@ var container: Element;
 
 var ClassicComponent: React.ClassicComponentClass<Props> =
     React.createClass<Props, State>({
-        getDefaultProps: () => {
+        getDefaultProps() {
             return <Props>{
                 hello: undefined,
                 world: "peace",
                 foo: undefined,
-                bar: undefined
+                bar: undefined,
             };
         },
-        getInitialState: () => {
+        getInitialState() {
             return {
                 inputValue: this.context.someValue,
                 seconds: this.props.foo
             };
         },
-        reset: () => {
+        reset() {
             this.replaceState(this.getInitialState());
         },
-        render: () => {
+        render() {
             return React.DOM.div(null,
                 React.DOM.input({
                     ref: input => this._input = input,
@@ -204,7 +204,7 @@ myComponent.reset();
 // --------------------------------------------------------------------------
 
 var children: any[] = ["Hello world", [null], React.DOM.span(null)];
-var divStyle = { // CSSProperties
+var divStyle: React.CSSProperties = { // CSSProperties
     flex: "1 1 main-size",
     backgroundImage: "url('hello.png')"
 };
