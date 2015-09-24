@@ -12,7 +12,7 @@ interface IteratorResult<T> {
 
 interface IterableShim<T> {
     /**
-      * Shim for an ES6 iterable. Not intended for direct use by user code. 
+      * Shim for an ES6 iterable. Not intended for direct use by user code.
       */
     "_es6-shim iterator_"(): Iterator<T>;
 }
@@ -39,7 +39,7 @@ interface StringConstructor {
 
     /**
       * String.raw is intended for use as a tag function of a Tagged Template String. When called
-      * as such the first argument will be a well formed template call site object and the rest 
+      * as such the first argument will be a well formed template call site object and the rest
       * parameter will contain the substitution values.
       * @param template A well-formed template string call site representation.
       * @param substitutions A set of substitution values.
@@ -49,40 +49,40 @@ interface StringConstructor {
 
 interface String {
     /**
-      * Returns a nonnegative integer Number less than 1114112 (0x110000) that is the code point 
-      * value of the UTF-16 encoded code point starting at the string element at position pos in 
-      * the String resulting from converting this object to a String. 
-      * If there is no element at that position, the result is undefined. 
+      * Returns a nonnegative integer Number less than 1114112 (0x110000) that is the code point
+      * value of the UTF-16 encoded code point starting at the string element at position pos in
+      * the String resulting from converting this object to a String.
+      * If there is no element at that position, the result is undefined.
       * If a valid UTF-16 surrogate pair does not begin at pos, the result is the code unit at pos.
       */
     codePointAt(pos: number): number;
 
     /**
-      * Returns true if searchString appears as a substring of the result of converting this 
-      * object to a String, at one or more positions that are 
+      * Returns true if searchString appears as a substring of the result of converting this
+      * object to a String, at one or more positions that are
       * greater than or equal to position; otherwise, returns false.
-      * @param searchString search string 
+      * @param searchString search string
       * @param position If position is undefined, 0 is assumed, so as to search all of the String.
       */
     includes(searchString: string, position?: number): boolean;
 
     /**
-      * Returns true if the sequence of elements of searchString converted to a String is the 
-      * same as the corresponding elements of this object (converted to a String) starting at 
+      * Returns true if the sequence of elements of searchString converted to a String is the
+      * same as the corresponding elements of this object (converted to a String) starting at
       * endPosition – length(this). Otherwise returns false.
       */
     endsWith(searchString: string, endPosition?: number): boolean;
 
     /**
-      * Returns a String value that is made from count copies appended together. If count is 0, 
+      * Returns a String value that is made from count copies appended together. If count is 0,
       * T is the empty String is returned.
       * @param count number of copies to append
       */
     repeat(count: number): string;
 
     /**
-      * Returns true if the sequence of elements of searchString converted to a String is the 
-      * same as the corresponding elements of this object (converted to a String) starting at 
+      * Returns true if the sequence of elements of searchString converted to a String is the
+      * same as the corresponding elements of this object (converted to a String) starting at
       * position. Otherwise returns false.
       */
     startsWith(searchString: string, position?: number): boolean;
@@ -130,17 +130,12 @@ interface String {
     sub(): string;
 
     /** Returns a <sup> HTML element */
-    sup(): string;    
+    sup(): string;
 
     /**
-      * Shim for an ES6 iterable. Not intended for direct use by user code. 
+      * Shim for an ES6 iterable. Not intended for direct use by user code.
       */
     "_es6-shim iterator_"(): IterableIteratorShim<string>;
-}
-
-interface ArrayLike<T> {
-    length: number;
-    [n: number]: T;
 }
 
 interface ArrayConstructor {
@@ -180,24 +175,24 @@ interface ArrayConstructor {
 }
 
 interface Array<T> {
-    /** 
-      * Returns the value of the first element in the array where predicate is true, and undefined 
+    /**
+      * Returns the value of the first element in the array where predicate is true, and undefined
       * otherwise.
-      * @param predicate find calls predicate once for each element of the array, in ascending 
-      * order, until it finds one where predicate returns true. If such an element is found, find 
+      * @param predicate find calls predicate once for each element of the array, in ascending
+      * order, until it finds one where predicate returns true. If such an element is found, find
       * immediately returns that element value. Otherwise, find returns undefined.
-      * @param thisArg If provided, it will be used as the this value for each invocation of 
+      * @param thisArg If provided, it will be used as the this value for each invocation of
       * predicate. If it is not provided, undefined is used instead.
       */
     find(predicate: (value: T, index: number, obj: Array<T>) => boolean, thisArg?: any): T;
 
-    /** 
-      * Returns the index of the first element in the array where predicate is true, and undefined 
+    /**
+      * Returns the index of the first element in the array where predicate is true, and undefined
       * otherwise.
-      * @param predicate find calls predicate once for each element of the array, in ascending 
-      * order, until it finds one where predicate returns true. If such an element is found, find 
+      * @param predicate find calls predicate once for each element of the array, in ascending
+      * order, until it finds one where predicate returns true. If such an element is found, find
       * immediately returns that element value. Otherwise, find returns undefined.
-      * @param thisArg If provided, it will be used as the this value for each invocation of 
+      * @param thisArg If provided, it will be used as the this value for each invocation of
       * predicate. If it is not provided, undefined is used instead.
       */
     findIndex(predicate: (value: T) => boolean, thisArg?: any): number;
@@ -205,41 +200,41 @@ interface Array<T> {
     /**
       * Returns the this object after filling the section identified by start and end with value
       * @param value value to fill array section with
-      * @param start index to start filling the array at. If start is negative, it is treated as 
-      * length+start where length is the length of the array. 
-      * @param end index to stop filling the array at. If end is negative, it is treated as 
+      * @param start index to start filling the array at. If start is negative, it is treated as
+      * length+start where length is the length of the array.
+      * @param end index to stop filling the array at. If end is negative, it is treated as
       * length+end.
       */
     fill(value: T, start?: number, end?: number): T[];
 
-    /** 
+    /**
       * Returns the this object after copying a section of the array identified by start and end
       * to the same array starting at position target
-      * @param target If target is negative, it is treated as length+target where length is the 
-      * length of the array. 
-      * @param start If start is negative, it is treated as length+start. If end is negative, it 
+      * @param target If target is negative, it is treated as length+target where length is the
+      * length of the array.
+      * @param start If start is negative, it is treated as length+start. If end is negative, it
       * is treated as length+end.
-      * @param end If not specified, length of the this object is used as its default value. 
+      * @param end If not specified, length of the this object is used as its default value.
       */
     copyWithin(target: number, start: number, end?: number): T[];
 
-    /** 
+    /**
       * Returns an array of key, value pairs for every entry in the array
       */
     entries(): IterableIteratorShim<[number, T]>;
 
-    /** 
+    /**
       * Returns an list of keys in the array
       */
     keys(): IterableIteratorShim<number>;
 
-    /** 
+    /**
       * Returns an list of values in the array
       */
     values(): IterableIteratorShim<T>;
 
     /**
-      * Shim for an ES6 iterable. Not intended for direct use by user code. 
+      * Shim for an ES6 iterable. Not intended for direct use by user code.
       */
     "_es6-shim iterator_"(): IterableIteratorShim<T>;
 }
@@ -247,14 +242,14 @@ interface Array<T> {
 interface NumberConstructor {
     /**
       * The value of Number.EPSILON is the difference between 1 and the smallest value greater than 1
-      * that is representable as a Number value, which is approximately: 
+      * that is representable as a Number value, which is approximately:
       * 2.2204460492503130808472633361816 x 10‍−‍16.
       */
     EPSILON: number;
 
     /**
       * Returns true if passed value is finite.
-      * Unlike the global isFininte, Number.isFinite doesn't forcibly convert the parameter to a 
+      * Unlike the global isFininte, Number.isFinite doesn't forcibly convert the parameter to a
       * number. Only finite values of the type number, result in true.
       * @param number A numeric value.
       */
@@ -267,7 +262,7 @@ interface NumberConstructor {
     isInteger(number: number): boolean;
 
     /**
-      * Returns a Boolean value that indicates whether a value is the reserved value NaN (not a 
+      * Returns a Boolean value that indicates whether a value is the reserved value NaN (not a
       * number). Unlike the global isNaN(), Number.isNaN() doesn't forcefully convert the parameter
       * to a number. Only values of the type number, that are also NaN, result in true.
       * @param number A numeric value.
@@ -280,30 +275,30 @@ interface NumberConstructor {
       */
     isSafeInteger(number: number): boolean;
 
-    /** 
-      * The value of the largest integer n such that n and n + 1 are both exactly representable as 
-      * a Number value. 
+    /**
+      * The value of the largest integer n such that n and n + 1 are both exactly representable as
+      * a Number value.
       * The value of Number.MIN_SAFE_INTEGER is 9007199254740991 2^53 − 1.
       */
     MAX_SAFE_INTEGER: number;
 
-    /** 
-      * The value of the smallest integer n such that n and n − 1 are both exactly representable as 
-      * a Number value. 
+    /**
+      * The value of the smallest integer n such that n and n − 1 are both exactly representable as
+      * a Number value.
       * The value of Number.MIN_SAFE_INTEGER is −9007199254740991 (−(2^53 − 1)).
       */
     MIN_SAFE_INTEGER: number;
 
     /**
-      * Converts a string to a floating-point number. 
-      * @param string A string that contains a floating-point number. 
+      * Converts a string to a floating-point number.
+      * @param string A string that contains a floating-point number.
       */
     parseFloat(string: string): number;
 
     /**
       * Converts A string to an integer.
       * @param s A string to convert into a number.
-      * @param radix A value between 2 and 36 that specifies the base of the number in numString. 
+      * @param radix A value between 2 and 36 that specifies the base of the number in numString.
       * If this argument is not supplied, strings with a prefix of '0x' are considered hexadecimal.
       * All other strings are considered decimal.
       */
@@ -312,7 +307,7 @@ interface NumberConstructor {
 
 interface ObjectConstructor {
     /**
-      * Copy the values of all of the enumerable own properties from one or more source objects to a 
+      * Copy the values of all of the enumerable own properties from one or more source objects to a
       * target object. Returns the target object.
       * @param target The target object to copy to.
       * @param sources One or more source objects to copy properties from.
@@ -390,7 +385,7 @@ interface Math {
     log1p(x: number): number;
 
     /**
-      * Returns the result of (e^x - 1) of x (e raised to the power of x, where e is the base of 
+      * Returns the result of (e^x - 1) of x (e raised to the power of x, where e is the base of
       * the natural logarithms).
       * @param x A numeric expression.
       */
@@ -497,21 +492,21 @@ interface Promise<T> {
 }
 
 interface PromiseConstructor {
-    /** 
-      * A reference to the prototype. 
+    /**
+      * A reference to the prototype.
       */
     prototype: Promise<any>;
 
     /**
      * Creates a new Promise.
-     * @param executor A callback used to initialize the promise. This callback is passed two arguments: 
-     * a resolve callback used resolve the promise with a value or the result of another promise, 
+     * @param executor A callback used to initialize the promise. This callback is passed two arguments:
+     * a resolve callback used resolve the promise with a value or the result of another promise,
      * and a reject callback used to reject the promise with a provided reason or error.
      */
     new <T>(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): Promise<T>;
 
     /**
-     * Creates a Promise that is resolved with an array of results when all of the provided Promises 
+     * Creates a Promise that is resolved with an array of results when all of the provided Promises
      * resolve, or rejected when any Promise is rejected.
      * @param values An array of Promises.
      * @returns A new Promise.
@@ -519,7 +514,7 @@ interface PromiseConstructor {
     all<T>(values: IterableShim<T | PromiseLike<T>>): Promise<T[]>;
 
     /**
-     * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved 
+     * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved
      * or rejected.
      * @param values An array of Promises.
      * @returns A new Promise.

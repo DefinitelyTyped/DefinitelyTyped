@@ -1,4 +1,4 @@
-// Type definitions for chocolatechip v4.0.2
+// Type definitions for chocolatechip v4.0.4
 // Project: https://github.com/chocolatechipui/ChocolateChipJS
 // Definitions by: Robert Biggs <http://chocolatechip-ui.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -176,7 +176,8 @@ interface ChocolateChipStatic {
    * @param response The response from a Promise.
    * @result
    */
-   json(reponse: Response): JSON;
+  json(reponse: Response): JSON;
+
   /**
    * This method will defer the execution of a function until the call stack is clear.
    *
@@ -198,7 +199,7 @@ interface ChocolateChipStatic {
    * This method makes sure a method always returns an array. If no values are available to return, it returns and empty array. This is to make sure that methods that expect a chainable array will not throw and exception.
    *
    * @param result The result of a method to test if it can be returned in an array.
-   * @return An array hold the results of a method, otherwise an empty array.
+   * @return An array holding the results of a method, otherwise an empty array.
    */
   returnResult(result: HTMLElement[]): any[];
 
@@ -455,7 +456,7 @@ interface ChocolateChipStatic {
    * @data any You can receive any type: string, number, array, object, etc.
    * @return any
    */
-  subscribe(topic: string, callback: (topic: string, data: any) => boolean): boolean;
+  subscribe(topic: string, callback: (topic: string, data: any) => any): boolean;
 
   /**
    * Unsubscribe from a topic. Pass this the topic you wish to unsubscribe from. The subscription will be terminated immediately.
@@ -836,12 +837,12 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
   hasAttr(attributeName: string): ChocolateChipElementArray;
 
   /**
-   * Get the value of an attribute for the first element in the set of matched elements.
+   * Test whether an attribute exists on the first element in the set of matched elements. The value returned is a boolean.
    *
    * @param attributeName The name of the attribute to get.
-   * @return string
+   * @return boolean
    */
-  prop(attributeName: string): string;
+  prop(propertyName: string): boolean;
 
   /**
    * Set an property for the set of matched elements.
@@ -850,7 +851,15 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @param value A string indicating the value to set the property to.
    * @return HTMLElement[]
    */
-  prop(propertyName: string, value: string): ChocolateChipElementArray;
+  prop(propertyName: string, value: any | boolean): ChocolateChipElementArray;
+  
+  /**
+   * Remove an element property.
+   * 
+   * @param property The property to remove.
+   * @return HTMLElement[]
+   */
+   removeProp(property: string): ChocolateChipElementArray;
 
   /**
    * Adds the specified class(es) to each of the set of matched elements.
