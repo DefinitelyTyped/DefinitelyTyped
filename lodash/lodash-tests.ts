@@ -275,14 +275,10 @@ module TestFirst {
     result = _(list).first<TResult>();
 }
 
-result = <number[]>_.take([1, 2, 3]);
-result = <number[]>_.take([1, 2, 3], 2);
 result = <number[]>_.takeWhile([1, 2, 3], (num) => num < 3);
 result = <boolean[]>_.takeWhile(foodsOrganic, 'organic');
 result = <IFoodType[]>_.takeWhile(foodsType, { 'type': 'fruit' });
 
-result = <number[]>_([1, 2, 3]).take().value();
-result = <number[]>_([1, 2, 3]).take(2).value();
 result = <number[]>_([1, 2, 3]).takeWhile(function (num) {
     return num < 3;
 }).value();
@@ -439,6 +435,21 @@ result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function
 result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word: string) {
     return this.wordToNumber[word];
 }, sortedIndexDict);
+
+// _.take
+module TestTake {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let result: TResult[];
+    result = _.take<TResult>(array);
+    result = _.take<TResult>(array, 42);
+    result = _.take<TResult>(list);
+    result = _.take<TResult>(list, 42);
+    result = _(array).take().value();
+    result = _(array).take(42).value();
+    result = _(list).take<TResult>().value();
+    result = _(list).take<TResult>(42).value();
+}
 
 // _.takeRight
 {

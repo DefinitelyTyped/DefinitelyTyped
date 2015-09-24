@@ -588,30 +588,6 @@ declare module _ {
 
     interface LoDashStatic {
         /**
-        * @see _.first
-        **/
-        take<T>(array: Array<T>): T[];
-
-        /**
-        * @see _.first
-        **/
-        take<T>(array: List<T>): T[];
-
-        /**
-        * @see _.first
-        **/
-        take<T>(
-            array: Array<T>,
-            n: number): T[];
-
-        /**
-        * @see _.first
-        **/
-        take<T>(
-            array: List<T>,
-            n: number): T[];
-
-        /**
          * Takes the first items from an array or list based on a predicate
          * @param array The array or list of items on which the result set will be based
          * @param predicate A predicate function to determine whether a value will be taken. Optional; defaults to identity.
@@ -645,17 +621,6 @@ declare module _ {
     }
 
     interface LoDashArrayWrapper<T> {
-        /**
-        * @see _.first
-        **/
-        take(): LoDashArrayWrapper<T>;
-
-        /**
-        * @see _.first
-        * @param n The number of elements to return.
-        **/
-        take(n: number): LoDashArrayWrapper<T>;
-
         /**
         * Takes the first items based on a predicate
         * @param predicate The function called per element.
@@ -1302,6 +1267,35 @@ declare module _ {
             array: List<T>,
             value: T,
             whereValue: W): number;
+    }
+
+    //_.take
+    interface LoDashStatic {
+        /**
+         * Creates a slice of array with n elements taken from the beginning.
+         *
+         * @param array The array to query.
+         * @param n The number of elements to take.
+         * @return Returns the slice of array.
+         */
+        take<T>(
+            array: List<T>,
+            n?: number
+        ): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.take
+         */
+        take(n?: number): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.take
+         */
+        take<TResult>(n?: number): LoDashArrayWrapper<TResult>;
     }
 
     //_.takeRight
