@@ -22,14 +22,14 @@ declare module 'gulp-task-listing' {
 	 * subtask, as well as filter out tasks you don't want to see in the output.
 	 */
 	interface GulpTaskListing {
-		(cb): void;
+		(cb: Function): void;
 		/**
 		 * Allows for custom filtering of Gulp tasks in the listing
 		 * 
 		 * @param subTaskFilter a RegExp or Function returning whether the given task is a subtask
 		 * @param excludeFilter a RegExp or Function returning whether the given task should be excluded from the listing
 		 */
-		withFilters(subTaskFilter: RegExp | FilterFunction, excludeFilter?: RegExp | FilterFunction): (cb) => void;
+		withFilters(subTaskFilter: RegExp | FilterFunction, excludeFilter?: RegExp | FilterFunction): (cb: Function) => void;
 	}
 	
 	type FilterFunction = (task: string) => boolean;
