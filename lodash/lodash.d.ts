@@ -762,60 +762,40 @@ declare module _ {
     //_.indexOf
     interface LoDashStatic {
         /**
-        * Gets the index at which the first occurrence of value is found using strict equality
-        * for comparisons, i.e. ===. If the array is already sorted providing true for fromIndex
-        * will run a faster binary search.
-        * @param array The array to search.
-        * @param value The value to search for.
-        * @param fromIndex The index to search from.
-        * @return The index of `value` within `array`.
-        **/
-        indexOf<T>(
-            array: Array<T>,
-            value: T): number;
-
-        /**
-        * @see _.indexOf
-        **/
-        indexOf<T>(
-            array: List<T>,
-            value: T): number;
-
-        /**
-        * @see _.indexOf
-        * @param fromIndex The index to search from
-        **/
-        indexOf<T>(
-            array: Array<T>,
-            value: T,
-            fromIndex: number): number;
-
-        /**
-        * @see _.indexOf
-        * @param fromIndex The index to search from
-        **/
+         * Gets the index at which the first occurrence of value is found in array using SameValueZero for equality
+         * comparisons. If fromIndex is negative, it’s used as the offset from the end of array. If array is sorted
+         * providing true for fromIndex performs a faster binary search.
+         *
+         * @param array The array to search.
+         * @param value The value to search for.
+         * @param fromIndex The index to search from or true to perform a binary search on a sorted array.
+         * @return The index to search from or true to perform a binary search on a sorted array.
+         */
         indexOf<T>(
             array: List<T>,
             value: T,
-            fromIndex: number): number;
+            fromIndex?: boolean|number
+        ): number;
+    }
 
+    interface LoDashArrayWrapper<T> {
         /**
-        * @see _.indexOf
-        * @param isSorted True to perform a binary search on a sorted array.
-        **/
-        indexOf<T>(
-            array: Array<T>,
+         * @see _.indexOf
+         */
+        indexOf(
             value: T,
-            isSorted: boolean): number;
+            fromIndex?: boolean|number
+        ): number;
+    }
 
+    interface LoDashObjectWrapper<T> {
         /**
-        * @see _.indexOf
-        * @param isSorted True to perform a binary search on a sorted array.
-        **/
-        indexOf<T>(
-            array: List<T>,
-            value: T,
-            isSorted: boolean): number;
+         * @see _.indexOf
+         */
+        indexOf<TValue>(
+            value: TValue,
+            fromIndex?: boolean|number
+        ): number;
     }
 
     //_.initial
