@@ -1,6 +1,6 @@
 // Type definitions for FabricJS v1.5.0
 // Project: http://fabricjs.com/
-// Definitions by: Oliver Klemencic <https://github.com/oklemencic/>, Joseph Livecchi <https://github.com/joewashear007/>
+// Definitions by: Oliver Klemencic <https://github.com/oklemencic/>, Joseph Livecchi <https://github.com/joewashear007/>, Michael Randolph <https://github.com/mrand01/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /* tslint:disable:no-unused-variable */
@@ -41,7 +41,7 @@ declare module fabric {
    * @param {Function} callback
    * @param {Function} [reviver] Method for further parsing of SVG elements, called after each fabric object created.
    */
-  function loadSVGFromString(string: string, callback: (results: IObject[], options: any) => void, reviver?: Function);
+  function loadSVGFromString(string: string, callback: (results: IObject[], options: any) => void, reviver?: Function): void;
   /**
    * Takes url corresponding to an SVG document, and parses it into a set of fabric objects.
    * Note that SVG is fetched via XMLHttpRequest, so it needs to conform to SOP (Same Origin Policy)
@@ -49,14 +49,14 @@ declare module fabric {
    * @param {Function} callback
    * @param {Function} [reviver] Method for further parsing of SVG elements, called after each fabric object created.
    */
-  function loadSVGFromURL(url: string, callback: (results: IObject[], options: any) => void, reviver?: Function);
+  function loadSVGFromURL(url: string, callback: (results: IObject[], options: any) => void, reviver?: Function): void;
   /**
    * Returns CSS rules for a given SVG document
    * @param {SVGDocument} doc SVG document to parse
    */
   function getCSSRules(doc: SVGElement): any;
 
-  function parseElements(elements: any[], callback: Function, options: any, reviver?: Function);
+  function parseElements(elements: any[], callback: Function, options: any, reviver?: Function): void;
   /**
    * Parses "points" attribute, returning an array of values
    * @param {String} points points attribute string
@@ -99,7 +99,7 @@ declare module fabric {
    * @param {Function} callback Callback to call when parsing is finished; It's being passed an array of elements (parsed from a document).
    * @param {Function} [reviver] Method for further parsing of SVG elements, called after each fabric object created.
    */
-  function parseSVGDocument(doc: SVGElement, callback: (results: IObject[], options: any) => void, reviver?: Function);
+  function parseSVGDocument(doc: SVGElement, callback: (results: IObject[], options: any) => void, reviver?: Function): void;
   /**
    * Parses "transform" attribute, returning an array of values
    * @param {String} attributeValue String containing attribute value
@@ -111,11 +111,11 @@ declare module fabric {
   /**
    * Wrapper around `console.log` (when available) 
    */
-  function log(...values: any[]);
+  function log(...values: any[]): void;
   /**
    * Wrapper around `console.warn` (when available) 
    */
-  function warn(...values: any[]);
+  function warn(...values: any[]): void;
 
   ////////////////////////////////////////////////////
   // Classes
@@ -438,7 +438,7 @@ declare module fabric {
     /**
      * Sets source of this color (where source is an array representation; ex: [200, 200, 100, 1]) 
      */
-    setSource(source: number[]);
+    setSource(source: number[]): void;
 
     /**
      * Returns color represenation in RGB format ex: rgb(0-255,0-255,0-255) 
@@ -474,7 +474,7 @@ declare module fabric {
      * Sets value of alpha channel for this color
      * @param {Number} alpha Alpha value 0-1
      */
-    setAlpha(alpha: number);
+    setAlpha(alpha: number): void;
 
     /**
      * Transforms color to its grayscale representation 
@@ -627,17 +627,17 @@ declare module fabric {
     /**
      * Appends a point to intersection 
      */
-    appendPoint(point: IPoint);
+    appendPoint(point: IPoint): void;
     /**
      * Appends points to intersection 
      */
-    appendPoints(points: IPoint[]);
+    appendPoints(points: IPoint[]): void;
   }
   interface IIntersectionStatic {
     /**
      * Intersection class
      */
-    new (status?: string);
+    new (status?: string): void;
     /**
      * Checks if polygon intersects another polygon 
      */
@@ -1313,7 +1313,7 @@ declare module fabric {
     /**
      * Callback; invoked right before object is about to be scaled/rotated
      */
-    onBeforeScaleRotate(target: IObject);
+    onBeforeScaleRotate(target: IObject): void;
 
     // Functions from object straighten mixin
     // --------------------------------------------------------------------------------------------------------------------------------
@@ -1839,12 +1839,12 @@ declare module fabric {
     filters: IBaseFilter[];
   }
   interface IImage extends IObject, IImageOptions {
-    initialize(element?: string|HTMLImageElement, options?: IImageOptions);
+    initialize(element?: string|HTMLImageElement, options?: IImageOptions): void;
     /**
      * Applies filters assigned to this image (from "filters" array)
      * @param {Function} callback Callback is invoked when all filters have been applied and new image is generated
      */
-    applyFilters(callback: Function);
+    applyFilters(callback: Function): void;
     /**
      * Returns a clone of an instance
      * @param {Function} callback Callback is invoked with a clone as a first argument
@@ -1871,7 +1871,7 @@ declare module fabric {
      * @return {String} Source of an image
      */
     getSrc(): string;
-    render(ctx: CanvasRenderingContext2D, noTransform: boolean);
+    render(ctx: CanvasRenderingContext2D, noTransform: boolean): void;
 
     /**
      * Sets image element for this instance to a specified one.
@@ -2539,7 +2539,7 @@ declare module fabric {
      * Sets object's properties from options
      * @param {Object} [options] Options object
      */
-    setOptions(options: any);
+    setOptions(options: any): void;
     /**
      * Sets sourcePath of an object
      * @param {String} value Value to set sourcePath to
@@ -2850,7 +2850,7 @@ declare module fabric {
   }
 
   interface IPathGroup extends IObject {
-    initialize(paths: IPath[], options?: IObjectOptions);
+    initialize(paths: IPath[], options?: IObjectOptions): void;
     /**
      * Returns number representation of object's complexity
      * @return {Number} complexity
@@ -2865,7 +2865,7 @@ declare module fabric {
      * Renders this group on a specified context
      * @param {CanvasRenderingContext2D} ctx Context to render this instance on
      */
-    render(ctx: CanvasRenderingContext2D);
+    render(ctx: CanvasRenderingContext2D): void;
     /**
      * Returns dataless object representation of this path group
      * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
@@ -2993,7 +2993,7 @@ declare module fabric {
     minY?: number;
   }
   interface IPolyline extends IObject, IPolylineOptions {
-    initialize(points: IPoint[], options?: IPolylineOptions);
+    initialize(points: IPoint[], options?: IPolylineOptions): void;
     /**
      * Returns complexity of an instance
      * @return {Number} complexity of this instance
@@ -3158,7 +3158,7 @@ declare module fabric {
      * Renders text instance on a specified context
      * @param {CanvasRenderingContext2D} ctx Context to render on
      */
-    render(ctx: CanvasRenderingContext2D, noTransform: boolean);
+    render(ctx: CanvasRenderingContext2D, noTransform: boolean): void;
     /**
      * Returns object representation of an instance
      * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
@@ -3347,7 +3347,7 @@ declare module fabric {
      * Returns true if object has no styling
      */
     isEmptyStyles(): boolean;
-    render(ctx: CanvasRenderingContext2D, noTransform: boolean);
+    render(ctx: CanvasRenderingContext2D, noTransform: boolean): void;
     /**
      * Returns object representation of an instance
      * @method toObject
@@ -4149,37 +4149,41 @@ declare module fabric {
     requestAnimFrame(callback: Function): void;
   }
 
+  interface IUtilAminEaseFunction {
+    (t: number, b: number, c: number, d: number): number;
+  }
+
   interface IUtilAnimEase {
-    easeInBack(): Function;
-    easeInBounce(): Function;
-    easeInCirc(): Function;
-    easeInCubic(): Function;
-    easeInElastic(): Function;
-    easeInExpo(): Function;
-    easeInOutBack(): Function;
-    easeInOutBounce(): Function;
-    easeInOutCirc(): Function;
-    easeInOutCubic(): Function;
-    easeInOutElastic(): Function;
-    easeInOutExpo(): Function;
-    easeInOutQuad(): Function;
-    easeInOutQuart(): Function;
-    easeInOutQuint(): Function;
-    easeInOutSine(): Function;
-    easeInQuad(): Function;
-    easeInQuart(): Function;
-    easeInQuint(): Function;
-    easeInSine(): Function;
-    easeOutBack(): Function;
-    easeOutBounce(): Function;
-    easeOutCirc(): Function;
-    easeOutCubic(): Function;
-    easeOutElastic(): Function;
-    easeOutExpo(): Function;
-    easeOutQuad(): Function;
-    easeOutQuart(): Function;
-    easeOutQuint(): Function;
-    easeOutSine(): Function;
+    easeInBack: IUtilAminEaseFunction;
+    easeInBounce: IUtilAminEaseFunction;
+    easeInCirc: IUtilAminEaseFunction;
+    easeInCubic: IUtilAminEaseFunction;
+    easeInElastic: IUtilAminEaseFunction;
+    easeInExpo: IUtilAminEaseFunction;
+    easeInOutBack: IUtilAminEaseFunction;
+    easeInOutBounce: IUtilAminEaseFunction;
+    easeInOutCirc: IUtilAminEaseFunction;
+    easeInOutCubic: IUtilAminEaseFunction;
+    easeInOutElastic: IUtilAminEaseFunction;
+    easeInOutExpo: IUtilAminEaseFunction;
+    easeInOutQuad: IUtilAminEaseFunction;
+    easeInOutQuart: IUtilAminEaseFunction;
+    easeInOutQuint: IUtilAminEaseFunction;
+    easeInOutSine: IUtilAminEaseFunction;
+    easeInQuad: IUtilAminEaseFunction;
+    easeInQuart: IUtilAminEaseFunction;
+    easeInQuint: IUtilAminEaseFunction;
+    easeInSine: IUtilAminEaseFunction;
+    easeOutBack: IUtilAminEaseFunction;
+    easeOutBounce: IUtilAminEaseFunction;
+    easeOutCirc: IUtilAminEaseFunction;
+    easeOutCubic: IUtilAminEaseFunction;
+    easeOutElastic: IUtilAminEaseFunction;
+    easeOutExpo: IUtilAminEaseFunction;
+    easeOutQuad: IUtilAminEaseFunction;
+    easeOutQuart: IUtilAminEaseFunction;
+    easeOutQuint: IUtilAminEaseFunction;
+    easeOutSine: IUtilAminEaseFunction;
   }
 
   interface IUtilArc {
@@ -4360,13 +4364,13 @@ declare module fabric {
      * @param {Object} [properties] Properties shared by all instances of this class
      *                  (be careful modifying objects defined here as this would affect all instances)
      */
-    createClass(parent: Function, properties?: any);
+    createClass(parent: Function, properties?: any): void;
     /**
      * Helper for creation of "classes".
      * @param {Object} [properties] Properties shared by all instances of this class
      *                  (be careful modifying objects defined here as this would affect all instances)
      */
-    createClass(properties?: any);
+    createClass(properties?: any): void;
 
   }
 

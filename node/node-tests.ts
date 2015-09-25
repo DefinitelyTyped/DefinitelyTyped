@@ -34,6 +34,8 @@ assert.doesNotThrow(() => {
 fs.writeFile("thebible.txt",
     "Do unto others as you would have them do unto you.",
     assert.ifError);
+    
+fs.write(1234, "test");
 
 fs.writeFile("Harry Potter",
     "\"You be wizzing, Harry,\" jived Dumbledore.",

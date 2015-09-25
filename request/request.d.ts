@@ -67,7 +67,7 @@ declare module 'request' {
 			oauth?: OAuthOptions;
 			aws?: AWSOptions;
 			hawk ?: HawkOptions;
-			qs?: Object;
+			qs?: any;
 			json?: any;
 			multipart?: RequestPart[];
 			agentOptions?: any;
@@ -141,6 +141,7 @@ declare module 'request' {
 			pass?: string;
 			password?: string;
 			sendImmediately?: boolean;
+			bearer?: string;
 		}
 
 		export interface OAuthOptions {

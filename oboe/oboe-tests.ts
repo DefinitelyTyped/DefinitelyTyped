@@ -32,3 +32,18 @@ oboe('/content')
 			console.error('no such content');
 		}
 	});
+
+oboe('friends.json')
+	.node('friend', function (parsedJson) {
+		console.log('friend parsed', parsedJson);
+	});
+
+oboe('friends.json')
+	.node({
+		'friend': function (parsedJson) {
+			console.log('friend parsed', parsedJson);
+		},
+		'!': function (parsedJson) {
+			console.log('root parsed', parsedJson);
+		}
+	});

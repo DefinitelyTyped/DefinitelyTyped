@@ -1,7 +1,7 @@
 /// <reference path="./gulp-sass.d.ts"/>
 /// <reference path="../gulp/gulp.d.ts"/>
 import gulp = require("gulp");
-import sass = require("gulp-sass");
+import * as sass from "gulp-sass"; 
 
 gulp.task('sass', function () {
     gulp.src('./scss/*.scss')
