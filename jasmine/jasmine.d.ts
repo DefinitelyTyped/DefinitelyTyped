@@ -11,11 +11,11 @@ declare function fdescribe(description: string, specDefinitions: () => void): vo
 declare function xdescribe(description: string, specDefinitions: () => void): void;
 
 declare function it(expectation: string, assertion?: () => void, timeout?: number): void;
-declare function it(expectation: string, assertion?: (done: () => void) => void, timeout?: number): void;
+declare function it(expectation: string, assertion?: (done: (success?: boolean) => void) => void, timeout?: number): void;
 declare function fit(expectation: string, assertion?: () => void, timeout?: number): void;
-declare function fit(expectation: string, assertion?: (done: () => void) => void, timeout?: number): void;
+declare function fit(expectation: string, assertion?: (done: (success?: boolean) => void) => void, timeout?: number): void;
 declare function xit(expectation: string, assertion?: () => void, timeout?: number): void;
-declare function xit(expectation: string, assertion?: (done: () => void) => void, timeout?: number): void;
+declare function xit(expectation: string, assertion?: (done: (success?: boolean) => void) => void, timeout?: number): void;
 
 /** If you call the function pending anywhere in the spec body, no matter the expectations, the spec will be marked pending. */
 declare function pending(reason?: string): void;
