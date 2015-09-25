@@ -28,3 +28,41 @@ var chart = new Chartist.Line('.ct-chart', {
   },
   low: 0
 });
+
+new Chartist.Line('.ct-chart', {
+  labels: ['1', '2', '3', '4', '5', '6'],
+  series: [
+    {
+      name: 'Fibonacci sequence',
+      data: [1, 2, 3, 5, 8, 13]
+    },
+    {
+      name: 'Golden section',
+      data: [1, 1.618, 2.618, 4.236, 6.854, 11.09]
+    }
+  ]
+});
+
+
+
+var data = {
+  series: [5, 3, 4]
+};
+
+var sum = function(a: number, b: number) { return a + b };
+
+new Chartist.Pie('.ct-chart', data, {
+  labelInterpolationFnc: function(value: number) {
+    return Math.round(value / data.series.reduce(sum) * 100) + '%';
+  }
+});
+
+new Chartist.Pie('.ct-chart', {
+  series: [20, 10, 30, 40]
+}, {
+  donut: true,
+  donutWidth: 60,
+  startAngle: 270,
+  total: 200,
+  showLabel: false
+});
