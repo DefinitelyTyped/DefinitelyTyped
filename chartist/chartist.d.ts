@@ -10,6 +10,7 @@ declare module Chartist {
     Line: IChartistLineChart;
 
     Svg: any;
+    noop: Function;
   }
 
   interface IResponsiveOptionTuple<T extends IChartOptions> extends Array<string | T> {
@@ -185,8 +186,8 @@ declare module Chartist {
     showLabel?: boolean;
     showGrid?: boolean;
     labelInterpolationFnc?: Function;
-    scaleMinSpace: number;
-    onlyInteger: boolean;
+    scaleMinSpace?: number;
+    onlyInteger?: boolean;
   }
 
   interface IBarChartClasses {
@@ -241,7 +242,6 @@ declare module Chartist {
   interface ILineChartYAxis extends ILineChartAxis {
     scaleMinSpace?: number;
     onlyInteger?: boolean;
-
   }
 
   // TODO: Finish documenting all of the defaults
