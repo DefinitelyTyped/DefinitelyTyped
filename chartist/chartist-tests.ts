@@ -135,8 +135,8 @@ new Chartist.Bar('.ct-chart', {
   // Default mobile configuration
   stackBars: true,
   axisX: {
-    labelInterpolationFnc: function(value) {
-      return value.split(/\s+/).map(function(word) {
+    labelInterpolationFnc: function(value: string) {
+      return value.split(/\s+/).map(function(word: string) {
         return word[0];
       }).join('');
     }
