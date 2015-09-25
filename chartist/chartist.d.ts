@@ -5,14 +5,38 @@
 
 declare module Chartist {
   interface ChartistStatic {
-    Pie(target: any, data: any, options?: IPieChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<IPieChartOptions>>): any;
-    Bar(target: any, data: any, options?: IBarChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<IBarChartOptions>>): any;
-    Line(target: any, data: any, options?: ILineChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<ILineChartOptions>>): any;
+    Pie: IChartistPieChart;
+    Bar: IChartistBarChart;
+    Line: IChartistLineChart;
   }
 
   interface IResponsiveOptionTuple<T extends IChartOptions> extends Array<string | T> {
     0: string;
     1: T;
+  }
+
+  interface IChartistBase<T extends IChartOptions> {
+    container: any;
+    data: any;
+    defaultOptions: T;
+    options: T;
+    responsiveOptions: Array<IResponsiveOptionTuple<T>>;
+    eventEmitter: any;
+    supportsForeignObject: boolean;
+    supportsAnimations: boolean;
+    resizeListener: any;
+  }
+
+  interface IChartistPieChart extends IChartistBase<IPieChartOptions> {
+    new (target: any, data: any, options?: IPieChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<IPieChartOptions>>): IChartistPieChart;
+  }
+
+  interface IChartistLineChart extends IChartistBase<ILineChartOptions> {
+    new (target: any, data: any, options?: ILineChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<ILineChartOptions>>): IChartistLineChart;
+  }
+
+  interface IChartistBarChart extends IChartistBase<IBarChartOptions> {
+    new (target: any, data: any, options?: IBarChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<IBarChartOptions>>): IChartistBarChart;
   }
 
   interface IChartOptions {
