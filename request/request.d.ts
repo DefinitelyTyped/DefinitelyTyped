@@ -141,6 +141,7 @@ declare module 'request' {
 			pass?: string;
 			password?: string;
 			sendImmediately?: boolean;
+			bearer?: string;
 		}
 
 		export interface OAuthOptions {
