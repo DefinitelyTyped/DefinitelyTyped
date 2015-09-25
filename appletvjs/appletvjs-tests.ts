@@ -85,13 +85,27 @@ function test_MediaItem() {
 	mediaItem.resumeTime = 0;
 	mediaItem.subtitle = "Subtitle";
 	
-	mediaItem.loadAssetID = function (url, callback) {
+	var loadAssetIDCallback = function (assetID: string, error: string) {
 		//do something
 	};
-	mediaItem.loadCertificate = function (url, callback) {
+	
+	mediaItem.loadAssetID = function (url: string, loadAssetIDCallback: (assetID: string, error: string) => void) {
 		//do something
 	};
-	mediaItem.loadKey = function (url, callback) {
+	
+	var loadCertificateCallback = function (certificate: string, error: string) {
+		//do something
+	};
+	
+	mediaItem.loadCertificate = function (url: string, loadCertificateCallback: (certificate: string, error: string) => void) {
+		//do something
+	};
+	
+	var loadKeyCallback = function (key: string, renewalDate: string, error: string) {
+		//do something
+	};
+	
+	mediaItem.loadKey = function (url: string, loadKeyCallback: (key: string, renewalDate: string, error: string) => void) {
 		//do something
 	};
 }

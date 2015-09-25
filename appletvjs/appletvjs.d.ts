@@ -1,5 +1,5 @@
 // Type definitions for AppleTVJS
-// Reference: https://developer.apple.com/library/prerelease/tvos/documentation/TVMLJS/Reference/TVJSFrameworkReference/index.html
+// Project: https://developer.apple.com/library/prerelease/tvos/documentation/TVMLJS/Reference/TVJSFrameworkReference/index.html
 // Definitions by: Adam Valverde <https://github.com/brainded>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -179,13 +179,13 @@ declare module AppleTVJS {
 		resumeTime: number;
 
 		/** A callback function used to load the asset identifier for an item. */
-		loadAssetID: (url, callback) => void;
+		loadAssetID: (url: string, callback: (assetID: string, error: string) => void) => void;
 
 		/** A callback function used to load the security certificate for an item. */
-		loadCertificate: (url, callback) => void;
+		loadCertificate: (url: string, callback: (certificate: string, error: string) => void) => void;
 
 		/** A callback function used to load the security key for an item. */
-		loadKey: (url, callback) => void;
+		loadKey: (url: string, requestData: any, callback: (key: string, renewalDate: string, error: string) => void) => void;
 	}
 
 	interface MenuBarDocument {
