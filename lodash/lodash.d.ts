@@ -2172,6 +2172,107 @@ declare module _ {
         at<TResult>(...props: Array<number|string|Array<number|string>>): LoDashArrayWrapper<TResult>;
     }
 
+    //_.collect
+    interface LoDashStatic {
+        /**
+         * @see _.map
+         */
+        collect<T, TResult>(
+            collection: List<T>,
+            iteratee?: ListIterator<T, TResult>,
+            thisArg?: any
+        ): TResult[];
+
+        /**
+         * @see _.map
+         */
+        collect<T extends {}, TResult>(
+            collection: Dictionary<T>,
+            iteratee?: DictionaryIterator<T, TResult>,
+            thisArg?: any
+        ): TResult[];
+
+        /**
+         * @see _.map
+         */
+        collect<T, TResult>(
+            collection: List<T>,
+            iteratee?: string
+        ): TResult[];
+
+        /**
+         * @see _.map
+         */
+        collect<T, TResult>(
+            collection: Dictionary<T>,
+            iteratee?: string
+        ): TResult[];
+
+        /**
+         * @see _.map
+         */
+        collect<T, TObject extends {}>(
+            collection: List<T>,
+            iteratee?: TObject
+        ): boolean[];
+
+        /**
+         * @see _.map
+         */
+        collect<T, TObject extends {}>(
+            collection: Dictionary<T>,
+            iteratee?: TObject
+        ): boolean[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.map
+         */
+        collect<TResult>(
+            iteratee?: ListIterator<T, TResult>,
+            thisArg?: any
+        ): LoDashArrayWrapper<TResult>;
+
+        /**
+         * @see _.map
+         */
+        collect<TResult>(
+            iteratee?: string
+        ): LoDashArrayWrapper<TResult>;
+
+        /**
+         * @see _.map
+         */
+        collect<TObject extends {}>(
+            iteratee?: TObject
+        ): LoDashArrayWrapper<boolean>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.map
+         */
+        collect<TValue, TResult>(
+            iteratee?: ListIterator<TValue, TResult>|DictionaryIterator<TValue, TResult>,
+            thisArg?: any
+        ): LoDashArrayWrapper<TResult>;
+
+        /**
+         * @see _.map
+         */
+        collect<TValue, TResult>(
+            iteratee?: string
+        ): LoDashArrayWrapper<TResult>;
+
+        /**
+         * @see _.map
+         */
+        collect<TObject extends {}>(
+            iteratee?: TObject
+        ): LoDashArrayWrapper<boolean>;
+    }
+
     //_.contains
     interface LoDashStatic {
         /**
@@ -3632,143 +3733,127 @@ declare module _ {
     //_.map
     interface LoDashStatic {
         /**
-        * Creates an array of values by running each element in the collection through the callback.
-        * The callback is bound to thisArg and invoked with three arguments; (value, index|key,
-        * collection).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will return
-        * the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return true
-        * for elements that have the properties of the given object, else false.
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param theArg The this binding of callback.
-        * @return The mapped array result.
-        **/
-        map<T, TResult>(
-            collection: Array<T>,
-            callback: ListIterator<T, TResult>,
-            thisArg?: any): TResult[];
-
-        /**
-        * @see _.map
-        **/
+         * Creates an array of values by running each element in collection through iteratee. The iteratee is bound to
+         * thisArg and invoked with three arguments: (value, index|key, collection).
+         *
+         * If a property name is provided for iteratee the created _.property style callback returns the property value
+         * of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for iteratee the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * Many lodash methods are guarded to work as iteratees for methods like _.every, _.filter, _.map, _.mapValues,
+         * _.reject, and _.some.
+         *
+         * The guarded methods are:
+         * ary, callback, chunk, clone, create, curry, curryRight, drop, dropRight, every, fill, flatten, invert, max,
+         * min, parseInt, slice, sortBy, take, takeRight, template, trim, trimLeft, trimRight, trunc, random, range,
+         * sample, some, sum, uniq, and words
+         *
+         * @alias _.collect
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns the new mapped array.
+         */
         map<T, TResult>(
             collection: List<T>,
-            callback: ListIterator<T, TResult>,
-            thisArg?: any): TResult[];
+            iteratee?: ListIterator<T, TResult>,
+            thisArg?: any
+        ): TResult[];
 
         /**
-        * @see _.map
-        * @param object The object to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg `this` object in `iterator`, optional.
-        * @return The mapped object result.
-        **/
+         * @see _.map
+         */
         map<T extends {}, TResult>(
-            object: Dictionary<T>,
-            callback: DictionaryIterator<T, TResult>,
-            thisArg?: any): TResult[];
+            collection: Dictionary<T>,
+            iteratee?: DictionaryIterator<T, TResult>,
+            thisArg?: any
+        ): TResult[];
 
         /**
-        * @see _.map
-        * @param pluckValue _.pluck style callback
-        **/
-        map<T, TResult>(
-            collection: Array<T>,
-            pluckValue: string): TResult[];
-
-        /**
-        * @see _.map
-        * @param pluckValue _.pluck style callback
-        **/
+         * @see _.map
+         */
         map<T, TResult>(
             collection: List<T>,
-            pluckValue: string): TResult[];
+            iteratee?: string
+        ): TResult[];
 
         /**
-        * @see _.map
-        **/
-        collect<T, TResult>(
-            collection: Array<T>,
-            callback: ListIterator<T, TResult>,
-            thisArg?: any): TResult[];
+         * @see _.map
+         */
+        map<T, TResult>(
+            collection: Dictionary<T>,
+            iteratee?: string
+        ): TResult[];
 
         /**
-        * @see _.map
-        **/
-        collect<T, TResult>(
+         * @see _.map
+         */
+        map<T, TObject extends {}>(
             collection: List<T>,
-            callback: ListIterator<T, TResult>,
-            thisArg?: any): TResult[];
+            iteratee?: TObject
+        ): boolean[];
 
         /**
-        * @see _.map
-        **/
-        collect<T extends {}, TResult>(
-            object: Dictionary<T>,
-            callback: DictionaryIterator<T, TResult>,
-            thisArg?: any): TResult[];
-
-        /**
-        * @see _.map
-        **/
-        collect<T, TResult>(
-            collection: Array<T>,
-            pluckValue: string): TResult[];
-
-        /**
-        * @see _.map
-        **/
-        collect<T, TResult>(
-            collection: List<T>,
-            pluckValue: string): TResult[];
+         * @see _.map
+         */
+        map<T, TObject extends {}>(
+            collection: Dictionary<T>,
+            iteratee?: TObject
+        ): boolean[];
     }
 
     interface LoDashArrayWrapper<T> {
         /**
-        * @see _.map
-        **/
+         * @see _.map
+         */
         map<TResult>(
-            callback: ListIterator<T, TResult>,
-            thisArg?: any): LoDashArrayWrapper<TResult>;
+            iteratee?: ListIterator<T, TResult>,
+            thisArg?: any
+        ): LoDashArrayWrapper<TResult>;
 
         /**
-        * @see _.map
-        * @param pluckValue _.pluck style callback
-        **/
+         * @see _.map
+         */
         map<TResult>(
-            pluckValue: string): LoDashArrayWrapper<TResult>;
+            iteratee?: string
+        ): LoDashArrayWrapper<TResult>;
 
         /**
-        * @see _.map
-        **/
-        collect<TResult>(
-            callback: ListIterator<T, TResult>,
-            thisArg?: any): LoDashArrayWrapper<TResult>;
-
-        /**
-        * @see _.map
-        **/
-        collect<TResult>(
-            pluckValue: string): LoDashArrayWrapper<TResult>;
+         * @see _.map
+         */
+        map<TObject extends {}>(
+            iteratee?: TObject
+        ): LoDashArrayWrapper<boolean>;
     }
 
     interface LoDashObjectWrapper<T> {
         /**
-        * @see _.map
-        **/
-        map<T extends {}, TResult>(
-            callback: ObjectIterator<T, TResult>,
-            thisArg?: any): LoDashArrayWrapper<TResult>;
+         * @see _.map
+         */
+        map<TValue, TResult>(
+            iteratee?: ListIterator<TValue, TResult>|DictionaryIterator<TValue, TResult>,
+            thisArg?: any
+        ): LoDashArrayWrapper<TResult>;
 
         /**
-        * @see _.map
-        **/
-        collect<T extends {}, TResult>(
-            callback: ObjectIterator<T, TResult>,
-            thisArg?: any): LoDashArrayWrapper<TResult>;
+         * @see _.map
+         */
+        map<TValue, TResult>(
+            iteratee?: string
+        ): LoDashArrayWrapper<TResult>;
+
+        /**
+         * @see _.map
+         */
+        map<TObject extends {}>(
+            iteratee?: TObject
+        ): LoDashArrayWrapper<boolean>;
     }
 
     //_.ceil
@@ -8712,7 +8797,7 @@ declare module _ {
     }
 
     interface ListIterator<T, TResult> {
-        (value: T, index: number, collection: T[]): TResult;
+        (value: T, index: number, collection: List<T>): TResult;
     }
 
     interface DictionaryIterator<T, TResult> {

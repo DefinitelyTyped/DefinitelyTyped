@@ -652,6 +652,51 @@ result = <number[]>_([1, 2]).zipWith<number>([1, 2], [1, 2], [1, 2], [1, 2], [1,
     result = _(testAtDictionary).at<TResult>(0, '1', [2], ['3'], [4, '5']).value();
 }
 
+// _.collect
+module TestCollect {
+    let array: number[];
+    let list: _.List<number>;
+    let dictionary: _.Dictionary<number>;
+    let listIterator: {(value: number, index: number, collection: _.List<number>): TResult};
+    let dictionaryIterator: {(value: number, key: string, collection: _.Dictionary<number>): TResult};
+    {
+        let result: TResult[];
+        result = _.collect<number, TResult>(array);
+        result = _.collect<number, TResult>(array, listIterator);
+        result = _.collect<number, TResult>(array, listIterator, any);
+        result = _.collect<number, TResult>(array, '');
+        result = _.collect<number, TResult>(list);
+        result = _.collect<number, TResult>(list, listIterator);
+        result = _.collect<number, TResult>(list, listIterator, any);
+        result = _.collect<number, TResult>(list, '');
+        result = _.collect<number, TResult>(dictionary);
+        result = _.collect<number, TResult>(dictionary, dictionaryIterator);
+        result = _.collect<number, TResult>(dictionary, dictionaryIterator, any);
+        result = _.collect<number, TResult>(dictionary, '');
+        result = _<number>(array).collect<TResult>().value();
+        result = _<number>(array).collect<TResult>(listIterator).value();
+        result = _<number>(array).collect<TResult>(listIterator, any).value();
+        result = _<number>(array).collect<TResult>('').value();
+        result = _(list).collect<number, TResult>().value();
+        result = _(list).collect<number, TResult>(listIterator).value();
+        result = _(list).collect<number, TResult>(listIterator, any).value();
+        result = _(list).collect<number, TResult>('').value();
+        result = _(dictionary).collect<number, TResult>().value();
+        result = _(dictionary).collect<number, TResult>(dictionaryIterator).value();
+        result = _(dictionary).collect<number, TResult>(dictionaryIterator, any).value();
+        result = _(dictionary).collect<number, TResult>('').value();
+    }
+    {
+        let result: boolean[];
+        result = _.collect<number, {}>(array, {});
+        result = _.collect<number, {}>(list, {});
+        result = _.collect<number, {}>(dictionary, {});
+        result = _<number>(array).collect<{}>({}).value();
+        result = _(list).collect<{}>({}).value();
+        result = _(dictionary).collect<{}>({}).value();
+    }
+}
+
 result = <boolean>_.contains([1, 2, 3], 1);
 result = <boolean>_.contains([1, 2, 3], 1, 2);
 result = <boolean>_.contains({ 'moe': 30, 'larry': 40, 'curly': 67 }, 40);
@@ -797,21 +842,60 @@ result = <_.Dictionary<IKey>>_.indexBy(keys, function (key) { this.fromCharCode(
 result = <number[][]>_.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
 result = <string[][]>_.invoke([123, 456], String.prototype.split, '');
 
-result = <number[]>_.map([1, 2, 3], function (num) { return num * 3; });
-result = <number[]>_.map({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { return num * 3; });
-result = <IStoogesAge[]>_.map(stoogesAges, 'name');
+// _.map
+module TestMap {
+    let array: number[];
+    let list: _.List<number>;
+    let dictionary: _.Dictionary<number>;
 
-result = <number[]>_([1, 2, 3]).map(function (num) { return num * 3; }).value();
-result = <number[]>_({ 'one': 1, 'two': 2, 'three': 3 }).map(function (num: number) { return num * 3; }).value();
-result = <IStoogesAge[]>_(stoogesAges).map('name').value();
+    let listIterator: (value: number, index: number, collection: _.List<number>) => TResult;
+    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => TResult;
 
-result = <number[]>_.collect([1, 2, 3], function (num) { return num * 3; });
-result = <number[]>_.collect({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { return num * 3; });
-result = <IStoogesAge[]>_.collect(stoogesAges, 'name');
+    {
+        let result: TResult[];
 
-result = <number[]>_([1, 2, 3]).collect(function (num) { return num * 3; }).value();
-result = <number[]>_({ 'one': 1, 'two': 2, 'three': 3 }).collect(function (num: number) { return num * 3; }).value();
-result = <IStoogesAge[]>_(stoogesAges).collect('name').value();
+        result = _.map<number, TResult>(array);
+        result = _.map<number, TResult>(array, listIterator);
+        result = _.map<number, TResult>(array, listIterator, any);
+        result = _.map<number, TResult>(array, '');
+
+        result = _.map<number, TResult>(list);
+        result = _.map<number, TResult>(list, listIterator);
+        result = _.map<number, TResult>(list, listIterator, any);
+        result = _.map<number, TResult>(list, '');
+
+        result = _.map<number, TResult>(dictionary);
+        result = _.map<number, TResult>(dictionary, dictionaryIterator);
+        result = _.map<number, TResult>(dictionary, dictionaryIterator, any);
+        result = _.map<number, TResult>(dictionary, '');
+
+        result = _<number>(array).map<TResult>().value();
+        result = _<number>(array).map<TResult>(listIterator).value();
+        result = _<number>(array).map<TResult>(listIterator, any).value();
+        result = _<number>(array).map<TResult>('').value();
+
+        result = _(list).map<number, TResult>().value();
+        result = _(list).map<number, TResult>(listIterator).value();
+        result = _(list).map<number, TResult>(listIterator, any).value();
+        result = _(list).map<number, TResult>('').value();
+
+        result = _(dictionary).map<number, TResult>().value();
+        result = _(dictionary).map<number, TResult>(dictionaryIterator).value();
+        result = _(dictionary).map<number, TResult>(dictionaryIterator, any).value();
+        result = _(dictionary).map<number, TResult>('').value();
+    }
+    {
+        let result: boolean[];
+
+        result = _.map<number, {}>(array, {});
+        result = _.map<number, {}>(list, {});
+        result = _.map<number, {}>(dictionary, {});
+
+        result = _<number>(array).map<{}>({}).value();
+        result = _(list).map<{}>({}).value();
+        result = _(dictionary).map<{}>({}).value();
+    }
+}
 
 // _.ceil
 result = <number>_.ceil(4.006);
