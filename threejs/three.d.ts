@@ -1,7 +1,7 @@
 ﻿// Type definitions for three.js r71
 // Project: http://mrdoob.github.com/three.js/
 // Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped  
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface WebGLRenderingContext {}
 
@@ -110,8 +110,8 @@ declare module THREE {
         Add = 2,
     }
 
-    // Mapping modes 
-    interface Mapping {e
+    // Mapping modes
+    interface Mapping {
         new (): { };
     }
     var UVMapping: Mapping;
@@ -755,21 +755,21 @@ declare module THREE {
      *
      * # Example
      *     var Car = function () {
-     *     
+     *
      *         EventDispatcher.call( this );
      *         this.start = function () {
-     *     
+     *
      *             this.dispatchEvent( { type: 'start', message: 'vroom vroom!' } );
-     *     
+     *
      *         };
-     *     
+     *
      *     };
      *
      *     var car = new Car();
      *     car.addEventListener( 'start', function ( event ) {
-     *     
+     *
      *         alert( event.message );
-     *     
+     *
      *     } );
      *     car.start();
      *
@@ -1391,7 +1391,7 @@ declare module THREE {
         getObjectByName(name: string): Object3D;
 
         getObjectByProperty( name: string, value: string ): Object3D;
-        
+
         getWorldPosition(optionalTarget?: Vector3): Vector3;
         getWorldQuaternion(optionalTarget?: Quaternion): Quaternion;
         getWorldRotation(optionalTarget?: Euler): Euler;
@@ -1913,16 +1913,16 @@ declare module THREE {
         add(regex:string, loader:Loader):void;
         get(file: string):Loader;
     }
-    
+
     export class BinaryTextureLoader {
         constructor();
-        
+
         load(url: string, onLoad: (dataTexture: DataTexture) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
     }
 
     export class BufferGeometryLoader {
         constructor(manager?: LoadingManager);
-        
+
         manager: LoadingManager;
         load(url: string, onLoad: (bufferGeometry: BufferGeometry) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
         setCrossOrigin(crossOrigin: string): void;
@@ -2060,10 +2060,10 @@ declare module THREE {
      */
     export class TextureLoader {
         constructor(manager?: LoadingManager);
-        
+
         manager: LoadingManager;
         crossOrigin: string;
-        
+
         /**
          * Begin loading from url
          *
@@ -3482,8 +3482,8 @@ declare module THREE {
          */
         multiplyQuaternions(a: Quaternion, b: Quaternion): Quaternion;
 
-        /** 
-          * Deprecated. Use Vector3.applyQuaternion instead 
+        /**
+          * Deprecated. Use Vector3.applyQuaternion instead
           */
         multiplyVector3(vector: Vector3): Vector3;
         slerp(qb: Quaternion, t: number): Quaternion;
@@ -4414,7 +4414,7 @@ declare module THREE {
         normalizeSkinWeights(): void;
         updateMatrixWorld(force?: boolean): void;
         clone(object?: SkinnedMesh): SkinnedMesh;
-        
+
         skeleton: Skeleton;
     }
 
@@ -5088,13 +5088,13 @@ declare module THREE {
             data: ImageData,
             width: number,
             height: number,
-            format: PixelFormat,
-            type: TextureDataType,
-            mapping: Mapping,
-            wrapS: Wrapping,
-            wrapT: Wrapping,
-            magFilter: TextureFilter,
-            minFilter: TextureFilter,
+            format?: PixelFormat,
+            type?: TextureDataType,
+            mapping?: Mapping,
+            wrapS?: Wrapping,
+            wrapT?: Wrapping,
+            magFilter?: TextureFilter,
+            minFilter?: TextureFilter,
             anisotropy?: number
         );
 
@@ -5841,8 +5841,8 @@ declare module THREE {
             heightScale: number;
         };
     }
-    
-    
+
+
     export class TubeGeometry extends Geometry {
         constructor(path: Path, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean, taper?: (u: number) => number);
 
@@ -5861,7 +5861,7 @@ declare module THREE {
         static NoTaper(u?: number): number;
         static SinusoidalTaper(u: number): number;
         static FrenetFrames(path: Path, segments: number, closed: boolean): void;
-        
+
     }
 
     // Extras / Helpers /////////////////////////////////////////////////////////////////////
