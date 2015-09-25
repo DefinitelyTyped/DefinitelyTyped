@@ -16,7 +16,7 @@ declare module ionic {
             cancelText?: string;
             destructiveText?: string;
             cancel?: ()=>any;
-            buttonClicked?: ()=>any;
+            buttonClicked?: (index: any)=>any;
             destructiveButtonClicked?: ()=>any;
             cancelOnStateChange?: boolean;
             cssClass?: string;

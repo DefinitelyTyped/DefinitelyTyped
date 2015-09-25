@@ -1,7 +1,10 @@
+/// <reference path="./rsmq-worker.d.ts" />
 
 import RSMQWorker = require('rsmq-worker');
 
-var worker = new RSMQWorker("my-queue");
+var worker: RSMQWorker.Client;
+
+worker = new RSMQWorker("my-queue");
 worker.changeInterval(1);
 worker.changeInterval([0, 1, 5, 10]);
 
@@ -18,4 +21,3 @@ worker.send('message2', 1, (e: Error, id:string) => {
 worker.send('message3', () => {});
 
 worker.stop();
-

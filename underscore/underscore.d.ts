@@ -1237,6 +1237,20 @@ interface UnderscoreStatic {
 		...sources: any[]): any;
 
 	/**
+	* Like extend, but only copies own properties over to the destination object. (alias: assign)
+	*/
+	extendOwn(
+		destination: any,
+		...source: any[]): any;
+		
+	/**
+	* Like extend, but only copies own properties over to the destination object. (alias: extendOwn)
+	*/
+	assign(
+		destination: any,
+		...source: any[]): any;
+
+	/**
 	* Return a copy of the object, filtered to only have values for the whitelisted keys
 	* (or array of valid keys).
 	* @param object Object to strip unwanted key/value pairs.
@@ -1600,13 +1614,6 @@ interface UnderscoreStatic {
 	**/
 	chain<T>(obj: T[]): _Chain<T>;
 	chain<T extends {}>(obj: T): _Chain<T>;
-
-	/**
-	* Extracts the value of a wrapped object.
-	* @param obj Wrapped object to extract the value from.
-	* @return Value of `obj`.
-	**/
-	value<T, TResult>(obj: T): TResult;
 }
 
 interface Underscore<T> {
@@ -2449,7 +2456,8 @@ interface Underscore<T> {
 
 	/**
 	* Wrapped type `any`.
-	* @see _.value
+	* Extracts the value of a wrapped object.
+	* @return Value of the wrapped object.
 	**/
 	value<TResult>(): TResult;
 }

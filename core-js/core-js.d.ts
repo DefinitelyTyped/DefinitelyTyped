@@ -22,13 +22,13 @@ declare type PropertyKey = string | number | symbol;
 
 // #############################################################################################
 // ECMAScript 6: Object & Function
-// Modules: es6.object.assign, es6.object.is, es6.object.set-prototype-of, 
+// Modules: es6.object.assign, es6.object.is, es6.object.set-prototype-of,
 //          es6.object.to-string, es6.function.name and es6.function.has-instance.
 // #############################################################################################
- 
+
 interface ObjectConstructor {
     /**
-      * Copy the values of all of the enumerable own properties from one or more source objects to a 
+      * Copy the values of all of the enumerable own properties from one or more source objects to a
       * target object. Returns the target object.
       * @param target The target object to copy to.
       * @param sources One or more source objects to copy properties from.
@@ -57,10 +57,10 @@ interface Function {
       */
     name: string;
 
-    /** 
-      * Determines if a constructor object recognizes an object as one of the 
+    /**
+      * Determines if a constructor object recognizes an object as one of the
       * constructor’s instances.
-      * @param value The object to test. 
+      * @param value The object to test.
       */
     [Symbol.hasInstance](value: any): boolean;
 }
@@ -71,30 +71,25 @@ interface Function {
 //          and es6.array.find-index
 // #############################################################################################
 
-interface ArrayLike<T> {
-    length: number;
-    [n: number]: T;
-}
-
 interface Array<T> {
-    /** 
-      * Returns the value of the first element in the array where predicate is true, and undefined 
+    /**
+      * Returns the value of the first element in the array where predicate is true, and undefined
       * otherwise.
-      * @param predicate find calls predicate once for each element of the array, in ascending 
-      * order, until it finds one where predicate returns true. If such an element is found, find 
+      * @param predicate find calls predicate once for each element of the array, in ascending
+      * order, until it finds one where predicate returns true. If such an element is found, find
       * immediately returns that element value. Otherwise, find returns undefined.
-      * @param thisArg If provided, it will be used as the this value for each invocation of 
+      * @param thisArg If provided, it will be used as the this value for each invocation of
       * predicate. If it is not provided, undefined is used instead.
       */
     find(predicate: (value: T, index: number, obj: Array<T>) => boolean, thisArg?: any): T;
 
-    /** 
-      * Returns the index of the first element in the array where predicate is true, and undefined 
+    /**
+      * Returns the index of the first element in the array where predicate is true, and undefined
       * otherwise.
-      * @param predicate find calls predicate once for each element of the array, in ascending 
-      * order, until it finds one where predicate returns true. If such an element is found, find 
+      * @param predicate find calls predicate once for each element of the array, in ascending
+      * order, until it finds one where predicate returns true. If such an element is found, find
       * immediately returns that element value. Otherwise, find returns undefined.
-      * @param thisArg If provided, it will be used as the this value for each invocation of 
+      * @param thisArg If provided, it will be used as the this value for each invocation of
       * predicate. If it is not provided, undefined is used instead.
       */
     findIndex(predicate: (value: T) => boolean, thisArg?: any): number;
@@ -102,21 +97,21 @@ interface Array<T> {
     /**
       * Returns the this object after filling the section identified by start and end with value
       * @param value value to fill array section with
-      * @param start index to start filling the array at. If start is negative, it is treated as 
-      * length+start where length is the length of the array. 
-      * @param end index to stop filling the array at. If end is negative, it is treated as 
+      * @param start index to start filling the array at. If start is negative, it is treated as
+      * length+start where length is the length of the array.
+      * @param end index to stop filling the array at. If end is negative, it is treated as
       * length+end.
       */
     fill(value: T, start?: number, end?: number): T[];
 
-    /** 
+    /**
       * Returns the this object after copying a section of the array identified by start and end
       * to the same array starting at position target
-      * @param target If target is negative, it is treated as length+target where length is the 
-      * length of the array. 
-      * @param start If start is negative, it is treated as length+start. If end is negative, it 
+      * @param target If target is negative, it is treated as length+target where length is the
+      * length of the array.
+      * @param start If start is negative, it is treated as length+start. If end is negative, it
       * is treated as length+end.
-      * @param end If not specified, length of the this object is used as its default value. 
+      * @param end If not specified, length of the this object is used as its default value.
       */
     copyWithin(target: number, start: number, end?: number): T[];
 
@@ -161,47 +156,47 @@ interface ArrayConstructor {
 
 // #############################################################################################
 // ECMAScript 6: String & RegExp
-// Modules: es6.string.from-code-point, es6.string.raw, es6.string.code-point-at, 
-//          es6.string.ends-with, es6.string.includes, es6.string.repeat, 
+// Modules: es6.string.from-code-point, es6.string.raw, es6.string.code-point-at,
+//          es6.string.ends-with, es6.string.includes, es6.string.repeat,
 //          es6.string.starts-with, and es6.regexp
 // #############################################################################################
 
 interface String {
     /**
-      * Returns a nonnegative integer Number less than 1114112 (0x110000) that is the code point 
-      * value of the UTF-16 encoded code point starting at the string element at position pos in 
-      * the String resulting from converting this object to a String. 
-      * If there is no element at that position, the result is undefined. 
+      * Returns a nonnegative integer Number less than 1114112 (0x110000) that is the code point
+      * value of the UTF-16 encoded code point starting at the string element at position pos in
+      * the String resulting from converting this object to a String.
+      * If there is no element at that position, the result is undefined.
       * If a valid UTF-16 surrogate pair does not begin at pos, the result is the code unit at pos.
       */
     codePointAt(pos: number): number;
 
     /**
-      * Returns true if searchString appears as a substring of the result of converting this 
-      * object to a String, at one or more positions that are 
+      * Returns true if searchString appears as a substring of the result of converting this
+      * object to a String, at one or more positions that are
       * greater than or equal to position; otherwise, returns false.
-      * @param searchString search string 
+      * @param searchString search string
       * @param position If position is undefined, 0 is assumed, so as to search all of the String.
       */
     includes(searchString: string, position?: number): boolean;
 
     /**
-      * Returns true if the sequence of elements of searchString converted to a String is the 
-      * same as the corresponding elements of this object (converted to a String) starting at 
+      * Returns true if the sequence of elements of searchString converted to a String is the
+      * same as the corresponding elements of this object (converted to a String) starting at
       * endPosition – length(this). Otherwise returns false.
       */
     endsWith(searchString: string, endPosition?: number): boolean;
 
     /**
-      * Returns a String value that is made from count copies appended together. If count is 0, 
+      * Returns a String value that is made from count copies appended together. If count is 0,
       * T is the empty String is returned.
       * @param count number of copies to append
       */
     repeat(count: number): string;
 
     /**
-      * Returns true if the sequence of elements of searchString converted to a String is the 
-      * same as the corresponding elements of this object (converted to a String) starting at 
+      * Returns true if the sequence of elements of searchString converted to a String is the
+      * same as the corresponding elements of this object (converted to a String) starting at
       * position. Otherwise returns false.
       */
     startsWith(searchString: string, position?: number): boolean;
@@ -216,7 +211,7 @@ interface StringConstructor {
 
     /**
       * String.raw is intended for use as a tag function of a Tagged Template String. When called
-      * as such the first argument will be a well formed template call site object and the rest 
+      * as such the first argument will be a well formed template call site object and the rest
       * parameter will contain the substitution values.
       * @param template A well-formed template string call site representation.
       * @param substitutions A set of substitution values.
@@ -248,14 +243,14 @@ interface RegExp {
 interface NumberConstructor {
     /**
       * The value of Number.EPSILON is the difference between 1 and the smallest value greater than 1
-      * that is representable as a Number value, which is approximately: 
+      * that is representable as a Number value, which is approximately:
       * 2.2204460492503130808472633361816 x 10‍−‍16.
       */
     EPSILON: number;
 
     /**
       * Returns true if passed value is finite.
-      * Unlike the global isFininte, Number.isFinite doesn't forcibly convert the parameter to a 
+      * Unlike the global isFininte, Number.isFinite doesn't forcibly convert the parameter to a
       * number. Only finite values of the type number, result in true.
       * @param number A numeric value.
       */
@@ -268,7 +263,7 @@ interface NumberConstructor {
     isInteger(number: number): boolean;
 
     /**
-      * Returns a Boolean value that indicates whether a value is the reserved value NaN (not a 
+      * Returns a Boolean value that indicates whether a value is the reserved value NaN (not a
       * number). Unlike the global isNaN(), Number.isNaN() doesn't forcefully convert the parameter
       * to a number. Only values of the type number, that are also NaN, result in true.
       * @param number A numeric value.
@@ -281,30 +276,30 @@ interface NumberConstructor {
       */
     isSafeInteger(number: number): boolean;
 
-    /** 
-      * The value of the largest integer n such that n and n + 1 are both exactly representable as 
-      * a Number value. 
+    /**
+      * The value of the largest integer n such that n and n + 1 are both exactly representable as
+      * a Number value.
       * The value of Number.MIN_SAFE_INTEGER is 9007199254740991 2^53 − 1.
       */
     MAX_SAFE_INTEGER: number;
 
-    /** 
-      * The value of the smallest integer n such that n and n − 1 are both exactly representable as 
-      * a Number value. 
+    /**
+      * The value of the smallest integer n such that n and n − 1 are both exactly representable as
+      * a Number value.
       * The value of Number.MIN_SAFE_INTEGER is −9007199254740991 (−(2^53 − 1)).
       */
     MIN_SAFE_INTEGER: number;
 
     /**
-      * Converts a string to a floating-point number. 
-      * @param string A string that contains a floating-point number. 
+      * Converts a string to a floating-point number.
+      * @param string A string that contains a floating-point number.
       */
     parseFloat(string: string): number;
 
     /**
       * Converts A string to an integer.
       * @param s A string to convert into a number.
-      * @param radix A value between 2 and 36 that specifies the base of the number in numString. 
+      * @param radix A value between 2 and 36 that specifies the base of the number in numString.
       * If this argument is not supplied, strings with a prefix of '0x' are considered hexadecimal.
       * All other strings are considered decimal.
       */
@@ -350,7 +345,7 @@ interface Math {
     log1p(x: number): number;
 
     /**
-      * Returns the result of (e^x - 1) of x (e raised to the power of x, where e is the base of 
+      * Returns the result of (e^x - 1) of x (e raised to the power of x, where e is the base of
       * the natural logarithms).
       * @param x A numeric expression.
       */
@@ -436,8 +431,8 @@ interface Symbol {
 }
 
 interface SymbolConstructor {
-    /** 
-      * A reference to the prototype. 
+    /**
+      * A reference to the prototype.
       */
     prototype: Symbol;
 
@@ -448,14 +443,14 @@ interface SymbolConstructor {
     (description?: string|number): symbol;
 
     /**
-      * Returns a Symbol object from the global symbol registry matching the given key if found. 
+      * Returns a Symbol object from the global symbol registry matching the given key if found.
       * Otherwise, returns a new symbol with this key.
       * @param key key to search for.
       */
     for(key: string): symbol;
 
     /**
-      * Returns a key from the global symbol registry matching the given Symbol if found. 
+      * Returns a key from the global symbol registry matching the given Symbol if found.
       * Otherwise, returns a undefined.
       * @param sym Symbol to find the key for.
       */
@@ -463,72 +458,72 @@ interface SymbolConstructor {
 
     // Well-known Symbols
 
-    /** 
-      * A method that determines if a constructor object recognizes an object as one of the 
-      * constructor’s instances. Called by the semantics of the instanceof operator. 
+    /**
+      * A method that determines if a constructor object recognizes an object as one of the
+      * constructor’s instances. Called by the semantics of the instanceof operator.
       */
     hasInstance: symbol;
 
-    /** 
+    /**
       * A Boolean value that if true indicates that an object should flatten to its array elements
       * by Array.prototype.concat.
       */
     isConcatSpreadable: symbol;
 
-    /** 
-      * A method that returns the default iterator for an object. Called by the semantics of the 
+    /**
+      * A method that returns the default iterator for an object. Called by the semantics of the
       * for-of statement.
       */
     iterator: symbol;
 
     /**
-      * A regular expression method that matches the regular expression against a string. Called 
-      * by the String.prototype.match method. 
+      * A regular expression method that matches the regular expression against a string. Called
+      * by the String.prototype.match method.
       */
     match: symbol;
 
-    /** 
-      * A regular expression method that replaces matched substrings of a string. Called by the 
+    /**
+      * A regular expression method that replaces matched substrings of a string. Called by the
       * String.prototype.replace method.
       */
     replace: symbol;
 
     /**
-      * A regular expression method that returns the index within a string that matches the 
+      * A regular expression method that returns the index within a string that matches the
       * regular expression. Called by the String.prototype.search method.
       */
     search: symbol;
 
-    /** 
-      * A function valued property that is the constructor function that is used to create 
+    /**
+      * A function valued property that is the constructor function that is used to create
       * derived objects.
       */
     species: symbol;
 
     /**
-      * A regular expression method that splits a string at the indices that match the regular 
+      * A regular expression method that splits a string at the indices that match the regular
       * expression. Called by the String.prototype.split method.
       */
     split: symbol;
 
-    /** 
+    /**
       * A method that converts an object to a corresponding primitive value.Called by the ToPrimitive
       * abstract operation.
       */
     toPrimitive: symbol;
 
-    /** 
+    /**
       * A String value that is used in the creation of the default string description of an object.
       * Called by the built-in method Object.prototype.toString.
       */
     toStringTag: symbol;
 
-    /** 
-      * An Object whose own property names are property names that are excluded from the with 
+    /**
+      * An Object whose own property names are property names that are excluded from the with
       * environment bindings of the associated objects.
       */
     unscopables: symbol;
-    
+
     /**
       * Non-standard. Use simple mode for core-js symbols. See https://github.com/zloirock/core-js/#caveats-when-using-symbol-polyfill
       */
@@ -544,12 +539,12 @@ declare var Symbol: SymbolConstructor;
 
 interface Object {
     /**
-      * Determines whether an object has a property with the specified name. 
+      * Determines whether an object has a property with the specified name.
       * @param v A property name.
       */
     hasOwnProperty(v: PropertyKey): boolean;
 
-    /** 
+    /**
       * Determines whether a specified property is enumerable.
       * @param v A property name.
       */
@@ -564,17 +559,17 @@ interface ObjectConstructor {
     getOwnPropertySymbols(o: any): symbol[];
 
     /**
-      * Gets the own property descriptor of the specified object. 
-      * An own property descriptor is one that is defined directly on the object and is not 
-      * inherited from the object's prototype. 
+      * Gets the own property descriptor of the specified object.
+      * An own property descriptor is one that is defined directly on the object and is not
+      * inherited from the object's prototype.
       * @param o Object that contains the property.
       * @param p Name of the property.
     */
     getOwnPropertyDescriptor(o: any, propertyKey: PropertyKey): PropertyDescriptor;
 
     /**
-      * Adds a property to an object, or modifies attributes of an existing property. 
-      * @param o Object on which to add or modify the property. This can be a native JavaScript 
+      * Adds a property to an object, or modifies attributes of an existing property.
+      * @param o Object on which to add or modify the property. This can be a native JavaScript
       * object (that is, a user-defined object or a built in object) or a DOM object.
       * @param p The property name.
       * @param attributes Descriptor for the property. It can be for a data property or an accessor
@@ -693,17 +688,17 @@ interface Array<T> {
     /** Iterator */
     [Symbol.iterator](): IterableIterator<T>;
 
-    /** 
+    /**
       * Returns an array of key, value pairs for every entry in the array
       */
     entries(): IterableIterator<[number, T]>;
 
-    /** 
+    /**
       * Returns an list of keys in the array
       */
     keys(): IterableIterator<number>;
 
-    /** 
+    /**
       * Returns an list of values in the array
       */
     values(): IterableIterator<T>;
@@ -776,21 +771,21 @@ interface Promise<T> {
 }
 
 interface PromiseConstructor {
-    /** 
-      * A reference to the prototype. 
+    /**
+      * A reference to the prototype.
       */
     prototype: Promise<any>;
 
     /**
      * Creates a new Promise.
-     * @param executor A callback used to initialize the promise. This callback is passed two arguments: 
-     * a resolve callback used resolve the promise with a value or the result of another promise, 
+     * @param executor A callback used to initialize the promise. This callback is passed two arguments:
+     * a resolve callback used resolve the promise with a value or the result of another promise,
      * and a reject callback used to reject the promise with a provided reason or error.
      */
     new <T>(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): Promise<T>;
 
     /**
-     * Creates a Promise that is resolved with an array of results when all of the provided Promises 
+     * Creates a Promise that is resolved with an array of results when all of the provided Promises
      * resolve, or rejected when any Promise is rejected.
      * @param values An array of Promises.
      * @returns A new Promise.
@@ -798,7 +793,7 @@ interface PromiseConstructor {
     all<T>(values: Iterable<T | PromiseLike<T>>): Promise<T[]>;
 
     /**
-     * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved 
+     * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved
      * or rejected.
      * @param values An array of Promises.
      * @returns A new Promise.
@@ -859,7 +854,7 @@ declare module Reflect {
 
 // #############################################################################################
 // ECMAScript 7
-// Modules: es7.array.includes, es7.string.at, es7.string.lpad, es7.string.rpad, 
+// Modules: es7.array.includes, es7.string.at, es7.string.lpad, es7.string.rpad,
 //          es7.object.to-array, es7.object.get-own-property-descriptors, es7.regexp.escape,
 //          es7.map.to-json, and es7.set.to-json
 // #############################################################################################
@@ -918,14 +913,14 @@ interface ArrayConstructor {
       */
     join<T>(array: ArrayLike<T>, separator?: string): string;
     /**
-      * Reverses the elements in an Array. 
+      * Reverses the elements in an Array.
       */
     reverse<T>(array: ArrayLike<T>): T[];
     /**
       * Removes the first element from an array and returns it.
       */
     shift<T>(array: ArrayLike<T>): T;
-    /** 
+    /**
       * Returns a section of an array.
       * @param start The beginning of the specified portion of the array.
       * @param end The end of the specified portion of the array.
@@ -988,21 +983,21 @@ interface ArrayConstructor {
 
     /**
       * Performs the specified action for each element in an array.
-      * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the array. 
+      * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the array.
       * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
       */
     forEach<T>(array: ArrayLike<T>, callbackfn: (value: T, index: number, array: T[]) => void, thisArg?: any): void;
 
     /**
       * Calls a defined callback function on each element of an array, and returns an array that contains the results.
-      * @param callbackfn A function that accepts up to three arguments. The map method calls the callbackfn function one time for each element in the array. 
+      * @param callbackfn A function that accepts up to three arguments. The map method calls the callbackfn function one time for each element in the array.
       * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
       */
     map<T, U>(array: ArrayLike<T>, callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[];
 
     /**
-      * Returns the elements of an array that meet the condition specified in a callback function. 
-      * @param callbackfn A function that accepts up to three arguments. The filter method calls the callbackfn function one time for each element in the array. 
+      * Returns the elements of an array that meet the condition specified in a callback function.
+      * @param callbackfn A function that accepts up to three arguments. The filter method calls the callbackfn function one time for each element in the array.
       * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
       */
     filter<T>(array: ArrayLike<T>, callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): T[];
@@ -1021,53 +1016,53 @@ interface ArrayConstructor {
       */
     reduce<T>(array: ArrayLike<T>, callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
 
-    /** 
+    /**
       * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
-      * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array. 
+      * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.
       * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
       */
     reduceRight<T, U>(array: ArrayLike<T>, callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
 
-    /** 
+    /**
       * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
-      * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array. 
+      * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.
       * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
       */
     reduceRight<T>(array: ArrayLike<T>, callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
 
-    /** 
+    /**
       * Returns an array of key, value pairs for every entry in the array
       */
     entries<T>(array: ArrayLike<T>): IterableIterator<[number, T]>;
 
-    /** 
+    /**
       * Returns an list of keys in the array
       */
     keys<T>(array: ArrayLike<T>): IterableIterator<number>;
 
-    /** 
+    /**
       * Returns an list of values in the array
       */
     values<T>(array: ArrayLike<T>): IterableIterator<T>;
 
-    /** 
-      * Returns the value of the first element in the array where predicate is true, and undefined 
+    /**
+      * Returns the value of the first element in the array where predicate is true, and undefined
       * otherwise.
-      * @param predicate find calls predicate once for each element of the array, in ascending 
-      * order, until it finds one where predicate returns true. If such an element is found, find 
+      * @param predicate find calls predicate once for each element of the array, in ascending
+      * order, until it finds one where predicate returns true. If such an element is found, find
       * immediately returns that element value. Otherwise, find returns undefined.
-      * @param thisArg If provided, it will be used as the this value for each invocation of 
+      * @param thisArg If provided, it will be used as the this value for each invocation of
       * predicate. If it is not provided, undefined is used instead.
       */
     find<T>(array: ArrayLike<T>, predicate: (value: T, index: number, obj: Array<T>) => boolean, thisArg?: any): T;
 
-    /** 
-      * Returns the index of the first element in the array where predicate is true, and undefined 
+    /**
+      * Returns the index of the first element in the array where predicate is true, and undefined
       * otherwise.
-      * @param predicate find calls predicate once for each element of the array, in ascending 
-      * order, until it finds one where predicate returns true. If such an element is found, find 
+      * @param predicate find calls predicate once for each element of the array, in ascending
+      * order, until it finds one where predicate returns true. If such an element is found, find
       * immediately returns that element value. Otherwise, find returns undefined.
-      * @param thisArg If provided, it will be used as the this value for each invocation of 
+      * @param thisArg If provided, it will be used as the this value for each invocation of
       * predicate. If it is not provided, undefined is used instead.
       */
     findIndex<T>(array: ArrayLike<T>, predicate: (value: T) => boolean, thisArg?: any): number;
@@ -1075,21 +1070,21 @@ interface ArrayConstructor {
     /**
       * Returns the this object after filling the section identified by start and end with value
       * @param value value to fill array section with
-      * @param start index to start filling the array at. If start is negative, it is treated as 
-      * length+start where length is the length of the array. 
-      * @param end index to stop filling the array at. If end is negative, it is treated as 
+      * @param start index to start filling the array at. If start is negative, it is treated as
+      * length+start where length is the length of the array.
+      * @param end index to stop filling the array at. If end is negative, it is treated as
       * length+end.
       */
     fill<T>(array: ArrayLike<T>, value: T, start?: number, end?: number): T[];
 
-    /** 
+    /**
       * Returns the this object after copying a section of the array identified by start and end
       * to the same array starting at position target
-      * @param target If target is negative, it is treated as length+target where length is the 
-      * length of the array. 
-      * @param start If start is negative, it is treated as length+start. If end is negative, it 
+      * @param target If target is negative, it is treated as length+target where length is the
+      * length of the array.
+      * @param start If start is negative, it is treated as length+start. If end is negative, it
       * is treated as length+end.
-      * @param end If not specified, length of the this object is used as its default value. 
+      * @param end If not specified, length of the this object is used as its default value.
       */
     copyWithin<T>(array: ArrayLike<T>, target: number, start: number, end?: number): T[];
 
@@ -1113,7 +1108,7 @@ interface ObjectConstructor {
       * Non-standard.
       */
     classof(value: any): string;
-    
+
     /**
       * Non-standard.
       */
@@ -1477,13 +1472,13 @@ declare module core {
 }
 
 declare module "core-js" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/shim" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/core" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/core/$for" {
     import $for = core.$for;
@@ -2149,10 +2144,10 @@ declare module "core-js/fn/symbol/unscopables" {
     export = unscopables;
 }
 declare module "core-js/es5" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/es6" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/es6/array" {
     var Array: typeof core.Array;
@@ -2211,7 +2206,7 @@ declare module "core-js/es6/weak-set" {
     export = WeakSet;
 }
 declare module "core-js/es7" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/es7/array" {
     var Array: typeof core.Array;
@@ -2238,32 +2233,32 @@ declare module "core-js/es7/string" {
     export = String;
 }
 declare module "core-js/js" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/js/array" {
     var Array: typeof core.Array;
     export = Array;
 }
 declare module "core-js/web" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/web/dom" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/web/immediate" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/web/timers" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/libary" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/libary/shim" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/libary/core" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/libary/core/$for" {
     import $for = core.$for;
@@ -2928,10 +2923,10 @@ declare module "core-js/libary/fn/symbol/unscopables" {
     export = unscopables;
 }
 declare module "core-js/libary/es5" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/libary/es6" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/libary/es6/array" {
     var Array: typeof core.Array;
@@ -2990,7 +2985,7 @@ declare module "core-js/libary/es6/weak-set" {
     export = WeakSet;
 }
 declare module "core-js/libary/es7" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/libary/es7/array" {
     var Array: typeof core.Array;
@@ -3017,21 +3012,21 @@ declare module "core-js/libary/es7/string" {
     export = String;
 }
 declare module "core-js/libary/js" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/libary/js/array" {
     var Array: typeof core.Array;
     export = Array;
 }
 declare module "core-js/libary/web" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/libary/web/dom" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/libary/web/immediate" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/libary/web/timers" {
-    export = core; 
+    export = core;
 }
