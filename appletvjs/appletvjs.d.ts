@@ -6,6 +6,7 @@
 declare var App: AppleTVJS.App;
 declare var Device: AppleTVJS.Device;
 declare var navigationDocument: AppleTVJS.NavigationDocument;
+declare var Settings: AppleTVJS.Settings;
 
 declare function evaluateScripts(scripts: string[], complete: (success: boolean) => void): void;
 
@@ -13,34 +14,34 @@ declare module AppleTVJS {
 	interface App {
 
 		/**
-		* The onError attribute is used to handle any errors sent from the device.
-		* This attribute must be set to a function that accepts an “options” argument.
-		* For example App.onError = function (options) {}.
-		*/
+		 * The onError attribute is used to handle any errors sent from the device.
+		 * This attribute must be set to a function that accepts an “options” argument.
+		 * For example App.onError = function (options) {}.
+		 * */
 		onError: (options: any) => void;
 
 		/**
-		* The onExit attribute is used to complete any actions that need to be cleaned
-		* up when the app has been exited. This attribute must be set to a function that
-		* accepts an “options” argument. For example App.onExit = function (options) {}.
-		*/
+		 * The onExit attribute is used to complete any actions that need to be cleaned
+		 * up when the app has been exited. This attribute must be set to a function that
+		 * accepts an “options” argument. For example App.onExit = function (options) {}.
+		 * */
 		onExit: (options: any) => void;
 
 		/**
-		* The onLaunch attribute is used to start any required actions when the app
-		* launches. This attribute must be set to a function that accepts an “options”
-		* argument. For example App.onLaunch = function (options) {}.
-		*/
+		 * The onLaunch attribute is used to start any required actions when the app
+		 * launches. This attribute must be set to a function that accepts an “options”
+		 * argument. For example App.onLaunch = function (options) {}.
+		 * */
 		onLaunch: (options: any) => void;
 
 		/**
-		* This function reloads the initial JavaScript file without quitting the app.
-		* The optional reloadData parameter provides developers with a way to capture
-		* and restart the app in it’s current state. If the reloadData parameter is not
-		* present, the app is restarted in its initial state. This attribute must be set
-		* to a function that accepts an “options” argument.
-		* For example App.onError = function (options) {}.
-		*/
+		 * This function reloads the initial JavaScript file without quitting the app.
+		 * The optional reloadData parameter provides developers with a way to capture
+		 * and restart the app in it’s current state. If the reloadData parameter is not
+		 * present, the app is restarted in its initial state. This attribute must be set
+		 * to a function that accepts an “options” argument.
+		 * For example App.onError = function (options) {}.
+		 * */
 		reload(options?: any, reloadData?: any): void;
 	}
 
@@ -65,10 +66,11 @@ declare module AppleTVJS {
 	}
 
 	interface FeatureElement extends Element {
+		/** Gets a feature for a given element. */
 		getFeature(feature: string): any;
 	}
 
-	interface Highlight {
+	class Highlight {
 		/** The name of the highlight. */
 		name: string;
 
@@ -85,7 +87,7 @@ declare module AppleTVJS {
 		imageURL: string;
 	}
 
-	interface HighlightGroup {
+	class HighlightGroup {
 		/** The name of the highlight group. */
 		name: string;
 
@@ -93,8 +95,11 @@ declare module AppleTVJS {
 		hightlights: Highlight[];
 	}
 
-	interface Interstitial {
+	class Interstitial {
+		/** The starttime of the interstitial. */
 		starttime: number;
+		
+		/** The duration of the interstitial. */
 		duration: number;
 	}
 
@@ -103,23 +108,38 @@ declare module AppleTVJS {
 		text: string;
 
 		/**
-		* A callback function that is called when the text inside
-		* of searchField or textField element changes.
-		*/
+		 * A callback function that is called when the text inside
+		 * of searchField or textField element changes.
+		 * */
 		onTextChange: () => void;
 	}
 
-	interface MediaItem {
-		/** Creates a new MediaItem object from the information stored in the URL location. */
-		new(type: string, url?: string): MediaItem;
+	class MediaItem {
+		/** 
+		 * Creates a new MediaItem object from the information stored in the URL location. 
+		 * @type: Valid values are: audio, video. Defaults to video.
+		 * @url: The URL pointing to the media item information.
+		 * */
+		constructor(type: string, url?: string);
 
-		/** The domain that the rating applies to. */
+		/** 
+		 * The domain that the rating applies to. 
+		 * There are three valid values for this property: movie, music, and tvshow.
+		 * */
 		contentRatingDomain: string;
 
-		/** The rating for a video item. */
+		/** 
+		 * The rating for a video item. 
+		 * The rating is a value from 0-1000. This value corresponds to a specific rating 
+		 * used by different countries. For example, a rating value can represent a PG-13 
+		 * rating in the United State and a MA15+ in Australia.
+		 * */
 		contentRatingRanking: number;
 
-		/** A value indicating whether the item has explicit lyrics. */
+		/** 
+		 * A value indicating whether the item has explicit lyrics. 
+		 * This property is ignored if the MediaItem object type is video.
+		 * */
 		isExplicit: boolean;
 
 		/** The URL path to the artwork that accompanies the media item. */
@@ -134,7 +154,10 @@ declare module AppleTVJS {
 		/** The title of the media item. */
 		title: string;
 
-		/** The type of media item. */
+		/** 
+		 * The type of media item. 
+		 * The valid values for this attribute are audio and video.
+		 * */
 		type: string;
 
 		/** The URL path to the media item. */
@@ -146,7 +169,13 @@ declare module AppleTVJS {
 		/** An array of interstitial objects. */
 		interstitials: Interstitial[];
 
-		/** The number, in seconds, that a media item starts playing at. */
+		/** 
+		 * The number, in seconds, that a media item starts playing at. 
+		 * Use this to begin playing a MediaItem object at a time other than 
+		 * at the beginning of the object. If this property contains anything 
+		 * other than 0, the player displays “Resume” instead of 
+		 * “Play from beginning” on playback.
+		 * */
 		resumeTime: number;
 
 		/** A callback function used to load the asset identifier for an item. */
@@ -161,80 +190,77 @@ declare module AppleTVJS {
 
 	interface MenuBarDocument {
 		/**
-		* Retrieves the document associated with the specified menu item.
-		*/
+		 * Retrieves the document associated with the specified menu item.
+		 * */
 		getDocument(menuItem: Element): Document;
 
 		/**
-		* Associates a document with a menu item.
-		*/
-		setDocument(document: Document, menuItem: any): void;
+		 * Associates a document with a menu item.
+		 * */
+		setDocument(document: Document, menuItem: Element): void;
 
 		/**
-		* Sets the focus in a menu bar to the specified menu item.
-		*/
-		setSelectedItem(menuItem: any): void;
+		 * Sets the focus in a menu bar to the specified menu item.
+		 * */
+		setSelectedItem(menuItem: Element): void;
 	}
 
 	interface NavigationDocument {
 		/**
-		* Inserts a new document directly before a document currently on the stack.
-		*/
+		 * Inserts a new document directly before a document currently on the stack.
+		 * */
 		insertBeforeDocument(document: Document, beforeDocument?: Document): void;
 
 		/**
-		* This function searches the stack for the first instance of the document
-		* contained in the beforeDocument parameter and inserts the document contained
-		* in the document parameter on top of it.
-		*/
+		 * This function searches the stack for the first instance of the document
+		 * contained in the beforeDocument parameter and inserts the document contained
+		 * in the document parameter on top of it.
+		 * */
 		pushDocument(document: Document): void;
 
 		/**
-		* Replaces a document on the stack with a new document.
-		*/
+		 * Replaces a document on the stack with a new document.
+		 * */
 		replaceDocument(document: Document, beforeDocument?: Document): void;
 
 		/** Dismisses the document displayed in modal view. */
 		dismissModal(): void;
 
 		/**
-		* Displays the passed document on top of the current document.
-		*/
+		 * Displays the passed document on top of the current document.
+		 * */
 		presentModal(document: Document): void;
 
 		/** The documents currently on the stack. */
 		documents: Document[];
 
 		/**
-		* Removes all documents currently on the stack.
-		*/
+		 * Removes all documents currently on the stack.
+		 * */
 		clear(): void;
 
 		/**
-		* Removes the top most document from the stack.
-		*/
+		 * Removes the top most document from the stack.
+		 * */
 		popDocument(): void;
 
 		/**
-		* Removes all of the documents on the stack that are above the passed document.
-		*/
+		 * Removes all of the documents on the stack that are above the passed document.
+		 * */
 		popToDocument(document: Document): void;
 
 		/**
-		* Removes all documents from the stack except for the bottom most document.
-		*/
+		 * Removes all documents from the stack except for the bottom most document.
+		 * */
 		popToRootDocument(): void;
 
 		/**
-		* Removes the specified document from the stack.
-		*/
+		 * Removes the specified document from the stack.
+		 * */
 		removeDocument(document: Document): void;
 	}
 
-	interface Player {
-		/** Creates a new player object. */
-		new(): Player;
-
+	class Player {
 		/** The annotations for a video created by placing a DOM document over the video. */
 		overlayDocument: Document;
 
@@ -251,16 +277,16 @@ declare module AppleTVJS {
 		play(): void;
 
 		/**
-		* The current state of the player.
-		*
-		* This property can contain the following valid values:
-		* begin
-		* end
-		* loading
-		* playing
-		* paused
-		* scanning
-		*/
+		 * The current state of the player.
+		 *
+		 * This property can contain the following valid values:
+		 * begin
+		 * end
+		 * loading
+		 * playing
+		 * paused
+		 * scanning
+		 * */
 		playbackState: string;
 
 		/** Sets the playback point to a specified time. */
@@ -282,26 +308,26 @@ declare module AppleTVJS {
 		previousMediaItem: MediaItem;
 
 		/**
-		* An event notifying the listener that the player is about to change media items.
-		*
-		* Valid values are:
-		* errorDidOccur
-		* fastForwardedToEndOfMediaItem
-		* mannuallyChanged
-		* newPlaylist
-		* playerInvalidated
-		* playedToEndOfMediaItem
-		*/
+		 * An event notifying the listener that the player is about to change media items.
+		 *
+		 * Valid values are:
+		 * errorDidOccur
+		 * fastForwardedToEndOfMediaItem
+		 * mannuallyChanged
+		 * newPlaylist
+		 * playerInvalidated
+		 * playedToEndOfMediaItem
+		 * */
 		mediaItemDidChange: (reason: string) => void;
 
 		/**
-		* An event that indicates if a seek to time request was accomplished.
-		*
-		* The values for this attribute can be one of the following:
-		* true — The seek performed as requested.
-		* false or null— The seek was not performed.
-		* An integer value — The seek will be performed to the stated value and not the initial requested value.
-		*/
+		 * An event that indicates if a seek to time request was accomplished.
+		 *
+		 * The values for this attribute can be one of the following:
+		 * true — The seek performed as requested.
+		 * false or null— The seek was not performed.
+		 * An integer value — The seek will be performed to the stated value and not the initial requested value.
+		 * */
 		requestSeekToTime: (result?: any) => void;
 
 		/** An event that indicates a state change request has occurred. */
@@ -323,12 +349,21 @@ declare module AppleTVJS {
 		timedMetadata: () => void;
 	}
 
-	interface Playlist extends Array<MediaItem> {
-		/** Creates a new playlist object. */
-		new(): Playlist;
-
+	class Playlist {
 		/** Returns the MediaItem located in the indicated array index. */
 		item(index: number): MediaItem;
+		
+		/** The number of items in the playlist. */
+		length: number;
+		
+		/** Removes a media item from the end of a playlist. */
+		pop(): MediaItem;
+		
+		/** Adds a media item to the end of a playlist. */
+		push(object: MediaItem): void;
+		
+		/** Deletes the indicated array elements and replaces them with the specified elements. */
+		splice(index: number, howManu: number, object: MediaItem): MediaItem[];
 	}
 
 	interface Restrictions {
@@ -364,7 +399,7 @@ declare module AppleTVJS {
 		onRestrictionsChange: () => void;
 	}
 
-	interface TVError {
+	class TVError {
 		/** The error code. */
 		code: string;
 
@@ -372,33 +407,33 @@ declare module AppleTVJS {
 		description: string;
 
 		/**
-		* A string containing the error domain.
-		*
-		* The predefined error domains:
-		* NSPOSIXErrorDomain - POSIX/BSD errors
-		* NSOSStatusErrorDomain - OS X/Carbon errors
-		* NSMachErrorDomain - Mach errors
-		*/
+		 * A string containing the error domain.
+		 *
+		 * The predefined error domains:
+		 * NSPOSIXErrorDomain - POSIX/BSD errors
+		 * NSOSStatusErrorDomain - OS X/Carbon errors
+		 * NSMachErrorDomain - Mach errors
+		 * */
 		domain: string;
 
 		/**
-		* The user info dictionary.
-		*
-		* These keys may exist in the user info dictionary:
-		* NSLocalizedDesciptionKey
-		* NSFilePathErrorKey
-		* NSStringEncodingErrorKey
-		* NSUnderlyingErrorKey
-		* NSURLErrorKey
-		* NSLocalizedFailureReasonErrorKey
-		* NSLocalizedRecoverySuggestionErrorKey
-		* NSLocalizedRecoveryOptionsErrorKey
-		* NSRecoveryAttempterErrorKey
-		* NSHelpAnchorErrorKey
-		* NSURLErrorFailingURLErrorKey
-		* NSURLErrorFailingURLStringErrorKey
-		* NSURLErrorFailingURLPeerTrustErrorKey
-		*/
+		 * The user info dictionary.
+		 *
+		 * These keys may exist in the user info dictionary:
+		 * NSLocalizedDesciptionKey
+		 * NSFilePathErrorKey
+		 * NSStringEncodingErrorKey
+		 * NSUnderlyingErrorKey
+		 * NSURLErrorKey
+		 * NSLocalizedFailureReasonErrorKey
+		 * NSLocalizedRecoverySuggestionErrorKey
+		 * NSLocalizedRecoveryOptionsErrorKey
+		 * NSRecoveryAttempterErrorKey
+		 * NSHelpAnchorErrorKey
+		 * NSURLErrorFailingURLErrorKey
+		 * NSURLErrorFailingURLStringErrorKey
+		 * NSURLErrorFailingURLPeerTrustErrorKey
+		 * */
 		userInfo: any;
 	}
 }
