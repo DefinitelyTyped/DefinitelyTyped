@@ -8,6 +8,8 @@ declare module Chartist {
     Pie: IChartistPieChart;
     Bar: IChartistBarChart;
     Line: IChartistLineChart;
+
+    Svg: any;
   }
 
   interface IResponsiveOptionTuple<T extends IChartOptions> extends Array<string | T> {
@@ -21,10 +23,27 @@ declare module Chartist {
     defaultOptions: T;
     options: T;
     responsiveOptions: Array<IResponsiveOptionTuple<T>>;
+
+    // this most likely doesn't need to be exposed to the user
     eventEmitter: any;
+
     supportsForeignObject: boolean;
     supportsAnimations: boolean;
     resizeListener: any;
+
+    update(data: any, options?: T, override?: boolean): void;
+    detatch(): void;
+    on(event: string, handler: Function): IChartistBase<T>;
+
+    /**
+     * Use this function to un-register event handlers. If the handler function parameter is omitted all handlers for the given event will be un-registered.
+     *
+     * @method off
+     * @param event {string} Name of the event for which a handler should be removed
+     * @param handler {Function} The handler function that that was previously used to register a new event handler. This handler will be removed from the event handler list. If this parameter is omitted then all event handlers for the given event are removed from the list.
+     * @returns {IChartistBase<T>}
+     */
+    off(event: string, handler?: Function): IChartistBase<T>;
   }
 
   interface IChartistPieChart extends IChartistBase<IPieChartOptions> {
