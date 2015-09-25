@@ -58,7 +58,7 @@ interface StripeCardData {
     address_zip?: string;
     address_country?: string;
     funding?: string;
-
+    cardType(number:string):string;
     createToken(data: StripeTokenData, responseHandler: (status: number, response: StripeTokenResponse) => void): void;
 }
 
