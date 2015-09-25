@@ -145,6 +145,9 @@ result = <_.LoDashWrapper<string>>_('test').tap(function (value) { console.log(v
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).tap(function (array) { console.log(array); });
 result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).tap(function (array) { console.log(array); });
 
+result = <string>_.thru([1, 2, 3, 4], function (array) { return array.join(); });
+result = <_.LoDashWrapper<string>>_('test').thru(function (value) { return value; });
+
 result = <string>_('test').toString();
 result = <string>_([1, 2, 3]).toString();
 result = <string>_({ 'key1': 'test1', 'key2': 'test2' }).toString();

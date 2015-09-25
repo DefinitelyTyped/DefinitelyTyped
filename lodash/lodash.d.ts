@@ -312,6 +312,28 @@ declare module _ {
         tap(interceptor: (value: T) => void): TWrapper;
     }
 
+    //_.thru
+    interface LoDashStatic {
+        /**
+        * This method is like `_.tap` except that it returns the result of `interceptor`.
+        *
+        * @param {*} value The value to provide to `interceptor`.
+        * @param {Function} interceptor The function to invoke.
+        * @param {*} [thisArg] The `this` binding of `interceptor`.
+        * @returns {*} Returns the result of `interceptor`.
+        */
+        thru<T, TResult>(
+            value: T,
+            interceptor: (value: T) => TResult): TResult;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+        * @see _.thru
+        **/
+        thru<TResult>(interceptor: (value: T) => TResult): LoDashWrapper<TResult>;
+    }
+
     /*********
     * Arrays *
     **********/
