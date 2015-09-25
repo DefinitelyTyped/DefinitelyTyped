@@ -1723,6 +1723,9 @@ declare module angular {
         leave(element: JQuery, done?: Function): void;
         move(element: JQuery, parent: JQuery, after: JQuery, done?: Function): void;
         removeClass(element: JQuery, className: string, done?: Function): void;
+        enabled(element?: JQuery): boolean;
+        enabled(element: JQuery, value: boolean): void;
+        enabled(value: boolean): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
