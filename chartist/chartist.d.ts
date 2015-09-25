@@ -19,7 +19,7 @@ declare module Chartist {
 
   interface IChartistBase<T extends IChartOptions> {
     container: any;
-    data: any;
+    data: Object;
     defaultOptions: T;
     options: T;
     responsiveOptions: Array<IResponsiveOptionTuple<T>>;
@@ -31,8 +31,16 @@ declare module Chartist {
     supportsAnimations: boolean;
     resizeListener: any;
 
-    update(data: any, options?: T, override?: boolean): void;
+    update(data: Object, options?: T, override?: boolean): void;
     detatch(): void;
+
+    /**
+     * Use this function to register event handlers. The handler callbacks are synchronous and will run in the main thread rather than the event loop.
+     *
+     * @method on
+     * @param event {string} Name of the event. Check the examples for supported events.
+     * @param handler {Function} The handler function that will be called when an event with the given name was emitted. This function will receive a data argument which contains event data. See the example for more details.
+     */
     on(event: string, handler: Function): IChartistBase<T>;
 
     /**
@@ -41,21 +49,20 @@ declare module Chartist {
      * @method off
      * @param event {string} Name of the event for which a handler should be removed
      * @param handler {Function} The handler function that that was previously used to register a new event handler. This handler will be removed from the event handler list. If this parameter is omitted then all event handlers for the given event are removed from the list.
-     * @returns {IChartistBase<T>}
      */
     off(event: string, handler?: Function): IChartistBase<T>;
   }
 
   interface IChartistPieChart extends IChartistBase<IPieChartOptions> {
-    new (target: any, data: any, options?: IPieChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<IPieChartOptions>>): IChartistPieChart;
+    new (target: any, data: Object, options?: IPieChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<IPieChartOptions>>): IChartistPieChart;
   }
 
   interface IChartistLineChart extends IChartistBase<ILineChartOptions> {
-    new (target: any, data: any, options?: ILineChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<ILineChartOptions>>): IChartistLineChart;
+    new (target: any, data: Object, options?: ILineChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<ILineChartOptions>>): IChartistLineChart;
   }
 
   interface IChartistBarChart extends IChartistBase<IBarChartOptions> {
-    new (target: any, data: any, options?: IBarChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<IBarChartOptions>>): IChartistBarChart;
+    new (target: any, data: Object, options?: IBarChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<IBarChartOptions>>): IChartistBarChart;
   }
 
   interface IChartOptions {
