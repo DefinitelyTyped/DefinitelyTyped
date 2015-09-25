@@ -38,16 +38,35 @@ declare module MsPortalTestFx {
             static partialLinkText(value: string): Locator;
             static tagName(value: string): Locator;
             static xpath(value: string): Locator;
+            static text(value: string): Locator;
             static chained(...values: Locator[]): Locator;
             static content(...values: Locator[]): Locator;
         }
     }
 
     export module ActionBars {
-        export class ActionBar extends MsPortalTestFx.PortalElement {
+        export class ActionBarButton extends PortalElement {
+            constructor(parentLocator?: Locators.Locator, baseLocator?: Locators.Locator);
+            click(): Q.Promise<void>;
+        }
+
+        export class CreateActionBar extends PortalElement {
+            public createButton: ActionBarButton;
+
             constructor(parentLocator?: Locators.Locator);
-            clickCreate(): Q.Promise<void>;
-            clickDelete(): Q.Promise<void>;
+        }
+
+        export class DeleteActionBar extends PortalElement {
+            public deleteButton: ActionBarButton;
+            public cancelButton: ActionBarButton;
+
+            constructor(parentLocator?: Locators.Locator);
+        }
+
+        export class PickerActionBar extends PortalElement {
+            public selectButton: ActionBarButton;
+
+            constructor(parentLocator?: Locators.Locator);
         }
     }
 
@@ -60,7 +79,7 @@ declare module MsPortalTestFx {
         }
 
         export class CreateBlade extends Blade {
-            public actionBar: ActionBars.ActionBar;
+            public actionBar: ActionBars.CreateActionBar;
         }
 
         export class BrowseResourceBlade extends Blade {
@@ -70,8 +89,11 @@ declare module MsPortalTestFx {
         }
 
         export class PickerBlade extends Blade {
-            constructor(title: string);
             pickItem(item: string): Q.Promise<void>;
+        }
+
+        export class SpecPickerBlade extends Blade {
+            pickSpec(specCode: string): Q.Promise<void>;
         }
     }
 
@@ -135,6 +157,9 @@ declare module MsPortalTestFx {
             public resourceGroupProperty: PartProperty;
 
             constructor(parentLocator?: Locators.Locator);
+        }
+
+        class PricingTierPart extends Part {
         }
 
         export class Tile extends MsPortalTestFx.PortalElement {
@@ -201,6 +226,7 @@ declare module MsPortalTestFx {
         getAttribute(locator: Locators.Locator, attributeName: string, timeout?: number): Q.Promise<string>;
         waitForElementNotVisible(locator: Locators.Locator, timeout?: number): Q.Promise<boolean>;
         waitUntilElementContainsAttribute(locator: Locators.Locator, attributeName: string, attributeValue: string, timeout?: number): Q.Promise<any>;
+        waitUntilElementDoesNotContainAttribute(locator: Locators.Locator, attributeName: string, attributeValue: string, timeout?: number): Q.Promise<any>;
         waitForElementLocated(locator: Locators.Locator, timeout?: number): Q.Promise<any>;
         takeScreenshot(filePrefix?: string): Q.Promise<string>;
         goHome(timeout?: number): Q.Promise<void>;
