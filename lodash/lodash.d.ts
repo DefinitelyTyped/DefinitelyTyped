@@ -7690,64 +7690,93 @@ declare module _ {
     //_.transform
     interface LoDashStatic {
         /**
-        * An alternative to _.reduce this method transforms object to a new accumulator object which is
-        * the result of running each of its elements through a callback, with each callback execution
-        * potentially mutating the accumulator object. The callback is bound to thisArg and invoked with
-        * four arguments; (accumulator, value, key, object). Callbacks may exit iteration early by
-        * explicitly returning false.
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param accumulator The custom accumulator value.
-        * @param thisArg The this binding of callback.
-        * @return The accumulated value.
-        **/
-        transform<T, Acc>(
-            collection: Array<T>,
-            callback: MemoVoidIterator<T, Acc>,
-            accumulator: Acc,
-            thisArg?: any): Acc;
+         * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
+         * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
+         * the accumulator object. The iteratee is bound to thisArg and invoked with four arguments: (accumulator,
+         * value, key, object). Iteratee functions may exit iteration early by explicitly returning false.
+         *
+         * @param object The object to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param accumulator The custom accumulator value.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns the accumulated value.
+         */
+        transform<T, TResult>(
+            object: T[],
+            iteratee?: MemoVoidArrayIterator<T, TResult[]>,
+            accumulator?: TResult[],
+            thisArg?: any
+        ): TResult[];
 
         /**
-        * @see _.transform
-        **/
-        transform<T, Acc>(
-            collection: List<T>,
-            callback: MemoVoidIterator<T, Acc>,
-            accumulator: Acc,
-            thisArg?: any): Acc;
+         * @see _.transform
+         */
+        transform<T, TResult>(
+            object: T[],
+            iteratee?: MemoVoidArrayIterator<T, Dictionary<TResult>>,
+            accumulator?: Dictionary<TResult>,
+            thisArg?: any
+        ): Dictionary<TResult>;
 
         /**
-        * @see _.transform
-        **/
-        transform<T, Acc>(
-            collection: Dictionary<T>,
-            callback: MemoVoidIterator<T, Acc>,
-            accumulator: Acc,
-            thisArg?: any): Acc;
+         * @see _.transform
+         */
+        transform<T, TResult>(
+            object: Dictionary<T>,
+            iteratee?: MemoVoidDictionaryIterator<T, Dictionary<TResult>>,
+            accumulator?: Dictionary<TResult>,
+            thisArg?: any
+        ): Dictionary<TResult>;
 
         /**
-        * @see _.transform
-        **/
-        transform<T, Acc>(
-            collection: Array<T>,
-            callback?: MemoVoidIterator<T, Acc>,
-            thisArg?: any): Acc;
+         * @see _.transform
+         */
+        transform<T, TResult>(
+            object: Dictionary<T>,
+            iteratee?: MemoVoidDictionaryIterator<T, TResult[]>,
+            accumulator?: TResult[],
+            thisArg?: any
+        ): TResult[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.transform
+         */
+        transform<TResult>(
+            iteratee?: MemoVoidArrayIterator<T, TResult[]>,
+            accumulator?: TResult[],
+            thisArg?: any
+        ): LoDashArrayWrapper<TResult>;
 
         /**
-        * @see _.transform
-        **/
-        transform<T, Acc>(
-            collection: List<T>,
-            callback?: MemoVoidIterator<T, Acc>,
-            thisArg?: any): Acc;
+         * @see _.transform
+         */
+        transform<TResult>(
+            iteratee?: MemoVoidArrayIterator<T, Dictionary<TResult>>,
+            accumulator?: Dictionary<TResult>,
+            thisArg?: any
+        ): LoDashObjectWrapper<Dictionary<TResult>>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.transform
+         */
+        transform<T, TResult>(
+            iteratee?: MemoVoidDictionaryIterator<T, Dictionary<TResult>>,
+            accumulator?: Dictionary<TResult>,
+            thisArg?: any
+        ): LoDashObjectWrapper<Dictionary<TResult>>;
 
         /**
-        * @see _.transform
-        **/
-        transform<T, Acc>(
-            collection: Dictionary<T>,
-            callback?: MemoVoidIterator<T, Acc>,
-            thisArg?: any): Acc;
+         * @see _.transform
+         */
+        transform<T, TResult>(
+            iteratee?: MemoVoidDictionaryIterator<T, TResult[]>,
+            accumulator?: TResult[],
+            thisArg?: any
+        ): LoDashArrayWrapper<TResult>;
     }
 
     //_.values
@@ -8729,14 +8758,13 @@ declare module _ {
     interface MemoIterator<T, TResult> {
         (prev: TResult, curr: T, indexOrKey?: any, list?: T[]): TResult;
     }
-    /*
-    interface MemoListIterator<T, TResult> {
-        (prev: TResult, curr: T, index: number, list?: T[]): TResult;
+
+    interface MemoVoidArrayIterator<T, TResult> {
+        (acc: TResult, curr: T, index?: number, arr?: T[]): void;
     }
-    interface MemoObjectIterator<T, TResult> {
-        (prev: TResult, curr: T, index: string, object?: Dictionary<T>): TResult;
+    interface MemoVoidDictionaryIterator<T, TResult> {
+        (acc: TResult, curr: T, key?: string, dict?: Dictionary<T>): void;
     }
-    */
 
     //interface Collection<T> {}
 
