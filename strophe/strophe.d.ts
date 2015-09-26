@@ -49,6 +49,11 @@ declare function $iq(attrs?: any): Strophe.Builder;
  */
 declare function $pres(attrs?: any): Strophe.Builder;
 
+// Support AMD require
+declare module 'Strophe' {
+    export = Strophe;
+}
+
 declare module Strophe {
     /** Constant: VERSION
      *  The version of the Strophe library. Unreleased builds will have
