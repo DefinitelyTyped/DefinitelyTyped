@@ -21,6 +21,7 @@ interface StripeCheckoutOptions {
     name?: string;
     description?: string;
     amount?: number;
+    local?: string;
     currency?: string;
     panelLabel?: string;
     zipCode?: boolean;
