@@ -6189,22 +6189,57 @@ declare module chrome.system.storage {
 ////////////////////
 // TabCapture
 ////////////////////
+/**
+ * Use the chrome.tabCapture API to interact with tab media streams. 
+ * Permissions:  "tabCapture"   
+ * @since Chrome 31.
+ */
 declare module chrome.tabCapture {
 	interface CaptureInfo {
+		/** The id of the tab whose status changed. */
 		tabId: number;
+		/**
+		 * The new capture status of the tab. 
+		 * One of: "pending", "active", "stopped", or "error"
+		 */
 		status: string;
+		/** Whether an element in the tab being captured is in fullscreen mode. */
 		fullscreen: boolean;
 	}
 
 	interface CaptureOptions {
+		/** Optional. */
 		audio?: boolean;
+		/** Optional. */
 		video?: boolean;
-		audioConstraints?: MediaTrackConstraints;
-		videoConstraints?: MediaTrackConstraints;
+		/** Optional. */
+		audioConstraints?: MediaStreamConstraints;
+		/** Optional. */
+		videoConstraints?: MediaStreamConstraints;
+	}
+	
+	interface CaptureStatusChangedEvent extends chrome.events.Event {
+		/**
+		 * @param callback
+		 * Parameter info: CaptureInfo with new capture status for the tab. 
+		 */
+		addListener(callback: (info: CaptureInfo) => void): void;
 	}
 
+	/**
+	 * Captures the visible area of the currently active tab. Capture can only be started on the currently active tab after the extension has been invoked. Capture is maintained across page navigations within the tab, and stops when the tab is closed, or the media stream is closed by the extension. 
+	 * @param options Configures the returned media stream.  
+	 * @param callback Callback with either the tab capture stream or null. 
+	 */    
 	export function capture(options: CaptureOptions, callback: (stream: MediaStream) => void): void;
+	/**
+	 * Returns a list of tabs that have requested capture or are being captured, i.e. status != stopped and status != error. This allows extensions to inform the user that there is an existing tab capture that would prevent a new tab capture from succeeding (or to prevent redundant requests for the same tab). 
+	 * @param callback Callback invoked with CaptureInfo[] for captured tabs. 
+	 */
 	export function getCapturedTabs(callback: (result: CaptureInfo[]) => void): void;
+	
+	/** Event fired when the capture status of a tab changes. This allows extension authors to keep track of the capture status of tabs to keep UI elements like page actions in sync. */
+	var onStatusChanged: CaptureStatusChangedEvent;
 }
 
 ////////////////////
