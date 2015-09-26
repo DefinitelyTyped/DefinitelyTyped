@@ -220,6 +220,7 @@ declare module ionic {
             show($event?: any): ng.IPromise<any>;
             hide(): ng.IPromise<any>;
             isShown(): boolean;
+            remove():void;
         }
         interface IonicPopoverOptions {
             scope?: any;
