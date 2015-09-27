@@ -6645,12 +6645,12 @@ declare module chrome.tabs {
 		/** The ID of the window the active tab changed inside of. */
 		windowId: number;
 	}
-	
+
 	interface TabWindowInfo {
 		/** The ID of the window of where the tab is located. */
 		windowId: number;
 	}
-	
+
 	interface ZoomChangeInfo {
 		tabId: number;
 		oldZoomFactor: number;
@@ -6706,7 +6706,7 @@ declare module chrome.tabs {
 	interface TabSelectedEvent extends chrome.events.Event {
 		addListener(callback: (tabId: number, selectInfo: TabWindowInfo) => void): void;
 	}
-	
+
 	interface TabZoomChangeEvent extends chrome.events.Event {
 		addListener(callback: (ZoomChangeInfo: ZoomChangeInfo) => void): void;
 	}
@@ -6970,7 +6970,7 @@ declare module chrome.tabs {
 	/**
 	 * Fired when the highlighted or selected tabs in a window changes. 
 	 * @since Chrome 18.
-	 */    
+	 */
 	var onHighlighted: TabHighlightedEvent;
 	/** Fired when a tab is closed. */
 	var onRemoved: TabRemovedEvent;
@@ -7035,7 +7035,7 @@ declare module chrome.topSites {
 		title: string;
 	}
 
-	/** Gets a list of top sites. */    
+	/** Gets a list of top sites. */
 	export function get(callback: (data: MostVisitedURL[]) => void): void;
 }
 
@@ -7061,7 +7061,7 @@ declare module chrome.tts {
 		type: string;
 	}
 
-	/** A description of a voice available for speech synthesis. */    
+	/** A description of a voice available for speech synthesis. */
 	interface TtsVoice {
 		/** Optional. The language that this voice supports, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
 		lang?: string;
@@ -7123,7 +7123,7 @@ declare module chrome.tts {
 		desiredEventTypes?: string[];
 	}
 
-	/** Checks whether the engine is currently speaking. On Mac OS X, the result is true whenever the system speech engine is speaking, even if the speech wasn't initiated by Chrome. */    
+	/** Checks whether the engine is currently speaking. On Mac OS X, the result is true whenever the system speech engine is speaking, even if the speech wasn't initiated by Chrome. */
 	export function isSpeaking(callback?: (speaking: boolean) => void): void;
 	/** Stops any current speech and flushes the queue of any pending utterances. In addition, if speech was paused, it will now be un-paused for the next call to speak. */
 	export function stop(): void;
@@ -7194,7 +7194,7 @@ declare module chrome.ttsEngine {
 		addListener(callback: (utterance: string, options: SpeakOptions, sendTtsEvent: (event: chrome.tts.TtsEvent) => void) => void): void;
 	}
 
-	/** Called when the user makes a call to tts.speak() and one of the voices from this extension's manifest is the first to match the options object. */    
+	/** Called when the user makes a call to tts.speak() and one of the voices from this extension's manifest is the first to match the options object. */
 	var onSpeak: TtsEngineSpeakEvent;
 	/** Fired when a call is made to tts.stop and this extension may be in the middle of speaking. If an extension receives a call to onStop and speech is already stopped, it should do nothing (not raise an error). If speech is in the paused state, this should cancel the paused state. */
 	var onStop: chrome.events.Event;
@@ -7334,7 +7334,7 @@ declare module chrome.vpnProvider {
 		/** A list of IPs for the DNS servers. */
 		dnsServer: string[];
 	}
-	
+
 	interface VpnPlatformMessageEvent extends chrome.events.Event {
 		/**
 		 * @param callback
@@ -7347,7 +7347,7 @@ declare module chrome.vpnProvider {
 		 */
 		addListener(callback: (id: string, message: string, error: string) => void): void;
 	}
-	
+
 	interface VpnPacketReceptionEvent extends chrome.events.Event {
 		/**
 		 * @param callback
@@ -7355,7 +7355,7 @@ declare module chrome.vpnProvider {
 		 */
 		addListener(callback: (data: ArrayBuffer) => void): void;
 	}
-	
+
 	interface VpnConfigRemovalEvent extends chrome.events.Event {
 		/**
 		 * @param callback
@@ -7363,7 +7363,7 @@ declare module chrome.vpnProvider {
 		 */
 		addListener(callback: (id: string) => void): void;
 	}
-	
+
 	interface VpnConfigCreationEvent extends chrome.events.Event {
 		/**
 		 * @param callback
@@ -7373,7 +7373,7 @@ declare module chrome.vpnProvider {
 		 */
 		addListener(callback: (id: string, name: string, data: Object) => void): void;
 	}
-	
+
 	interface VpnUiEvent extends chrome.events.Event {
 		/**
 		 * @param callback
@@ -7429,6 +7429,40 @@ declare module chrome.vpnProvider {
 	var onConfigCreated: VpnConfigCreationEvent;
 	/** Triggered when there is a UI event for the extension. UI events are signals from the platform that indicate to the app that a UI dialog needs to be shown to the user. */
 	var onUIEvent: VpnUiEvent;
+}
+
+////////////////////
+// Wallpaper
+////////////////////
+/**
+ * Use the chrome.wallpaper API to change the ChromeOS wallpaper. 
+ * Permissions:  "wallpaper"
+ * Important: This API works only on Chrome OS.    
+ * @since Chrome 43.
+ */
+declare module chrome.wallpaper {
+	interface WallpaperDetails {
+		/** Optional. The jpeg or png encoded wallpaper image. */
+		data?: any;
+		/** Optional. The URL of the wallpaper to be set. */
+		url?: string;
+		/**
+		 * The supported wallpaper layouts. 
+		 * One of: "STRETCH", "CENTER", or "CENTER_CROPPED" 
+		 */
+		layout: string;
+		/** The file name of the saved wallpaper. */
+		filename: string;
+		/** Optional. True if a 128x60 thumbnail should be generated. */
+		thumbnail?: boolean;
+	}
+
+	/**
+	 * Sets wallpaper to the image at url or wallpaperData with the specified layout 
+	 * @param callback
+	 * Optional parameter thumbnail: The jpeg encoded wallpaper thumbnail. It is generated by resizing the wallpaper to 128x60. 
+	 */
+	export function setWallpaper(details: WallpaperDetails, callback: (thumbnail: any) => void): void;
 }
 
 ////////////////////
