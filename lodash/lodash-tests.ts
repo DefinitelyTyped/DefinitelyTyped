@@ -2028,17 +2028,71 @@ interface TestPickFn {
     result = _(testSetObject).set([testSetPath], any).value();
 }
 
-result = <number[]>_.transform([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], function (r: number[], num: number) {
-    num *= num;
-    if (num % 2) {
-        return r.push(num) < 3;
-    }
-});
-// → [1, 9, 25]
+// _.transform
+module TestTransform {
+    let array: number[];
+    let dictionary: _.Dictionary<number>;
 
-result = <{ a: number; b: number; c: number; }>_.transform(<{ [index: string]: number; }>{ 'a': 1, 'b': 2, 'c': 3 }, function (r: any, num: number, key: string) {
-    r[key] = num * 3;
-});
+    {
+        let iterator: (acc: TResult[], curr: number, index?: number, arr?: number[]) => void;
+        let accumulator: TResult[];
+        let result: TResult[];
+
+        result = _.transform<number, TResult>(array);
+        result = _.transform<number, TResult>(array, iterator);
+        result = _.transform<number, TResult>(array, iterator, accumulator);
+        result = _.transform<number, TResult>(array, iterator, accumulator, any);
+
+        result = _<number>(array).transform<TResult>().value();
+        result = _<number>(array).transform<TResult>(iterator).value();
+        result = _<number>(array).transform<TResult>(iterator, accumulator).value();
+        result = _<number>(array).transform<TResult>(iterator, accumulator, any).value();
+    }
+
+    {
+        let iterator: (acc: _.Dictionary<TResult>, curr: number, index?: number, arr?: number[]) => void;
+        let accumulator: _.Dictionary<TResult>;
+        let result: _.Dictionary<TResult>;
+
+        result = _.transform<number, TResult>(array, iterator);
+        result = _.transform<number, TResult>(array, iterator, accumulator);
+        result = _.transform<number, TResult>(array, iterator, accumulator, any);
+
+        result = _<number>(array).transform<TResult>(iterator).value();
+        result = _<number>(array).transform<TResult>(iterator, accumulator).value();
+        result = _<number>(array).transform<TResult>(iterator, accumulator, any).value();
+    }
+
+    {
+        let iterator: (acc: _.Dictionary<TResult>, curr: number, key?: string, dict?: _.Dictionary<number>) => void;
+        let accumulator: _.Dictionary<TResult>;
+        let result: _.Dictionary<TResult>;
+
+        result = _.transform<number, TResult>(dictionary);
+        result = _.transform<number, TResult>(dictionary, iterator);
+        result = _.transform<number, TResult>(dictionary, iterator, accumulator);
+        result = _.transform<number, TResult>(dictionary, iterator, accumulator, any);
+
+        result = _(dictionary).transform<number, TResult>().value();
+        result = _(dictionary).transform<number, TResult>(iterator).value();
+        result = _(dictionary).transform<number, TResult>(iterator, accumulator).value();
+        result = _(dictionary).transform<number, TResult>(iterator, accumulator, any).value();
+    }
+
+    {
+        let iterator: (acc: TResult[], curr: number, key?: string, dict?: _.Dictionary<number>) => void;
+        let accumulator: TResult[];
+        let result: TResult[];
+
+        result = _.transform<number, TResult>(dictionary, iterator);
+        result = _.transform<number, TResult>(dictionary, iterator, accumulator);
+        result = _.transform<number, TResult>(dictionary, iterator, accumulator, any);
+
+        result = _(dictionary).transform<number, TResult>(iterator).value();
+        result = _(dictionary).transform<number, TResult>(iterator, accumulator).value();
+        result = _(dictionary).transform<number, TResult>(iterator, accumulator, any).value();
+    }
+}
 
 // _.values
 class TestValues {
