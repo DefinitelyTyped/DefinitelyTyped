@@ -53,10 +53,10 @@ declare module __ReactDnd {
         backend: Backend
     ): (componentClass: React.ComponentClass<P>) => ContextComponentClass<P>;
 
-    // TODO: Add exported function for DragLayer.
-    // The React DnD docs say that this is an advanced feature that is only
-    // necessary when performing custom rendering or when using a custom
-    // backend.
+    export function DragLayer<P>(
+        collect: (monitor: DragLayerMonitor) => Object,
+        options?: DndOptions<P>
+    ): (componentClass: React.ComponentClass<P>) => DndComponentClass<P>;
 
     // Shared
     // ----------------------------------------------------------------------
@@ -147,6 +147,20 @@ declare module __ReactDnd {
     }
 
     type ConnectDropTarget = <P>(elementOrNode: React.ReactElement<P>) => React.ReactElement<P>;
+
+    /// DragLayerMonitor
+    // ----------------------------------------------------------------------
+
+    class DragLayerMonitor {
+        isDragging(): boolean;
+        getItemType(): Identifier;
+        getItem(): Object;
+        getInitialClientOffset(): ClientOffset;
+        getInitialSourceClientOffset(): ClientOffset;
+        getClientOffset(): ClientOffset;
+        getDifferenceFromInitialOffset(): ClientOffset;
+        getSourceClientOffset(): ClientOffset;
+    }
 
     /// Backend
     /// ---------------------------------------------------------------------
