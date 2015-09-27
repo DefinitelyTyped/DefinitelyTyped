@@ -28,6 +28,17 @@ function test_fetchUrl() {
 	handlePromise(window.fetch("http://www.andlabs.net/html5/uCOR.php"));
 }
 
+function test_fetchUrlWithRequestObject() {
+	var requestOptions: RequestInit = {
+		method: "POST",
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	};
+	var request: Request = new Request("http://www.andlabs.net/html5/uCOR.php", requestOptions);
+	handlePromise(window.fetch(request));
+}
+
 function handlePromise(promise: Promise<Response>) {
 	promise.then((response) => {
 		if (response.type === 'basis') {

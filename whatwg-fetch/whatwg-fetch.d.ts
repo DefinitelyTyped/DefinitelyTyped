@@ -80,5 +80,5 @@ declare type BodyInit = Blob|FormData|string;
 declare type RequestInfo = Request|string;
 
 interface Window {
-	fetch(url: string, init?: RequestInit): Promise<Response>;
+	fetch(url: string|Request, init?: RequestInit): Promise<Response>;
 }
