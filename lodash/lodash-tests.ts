@@ -257,37 +257,16 @@ result = <number>_.findLastIndex(['apple', 'banana', 'beet'], function (f: strin
 result = <number>_.findLastIndex(['apple', 'banana', 'beet'], 'apple');
 result = <number>_.findLastIndex([{ food: 'apple' }, { food: 'banana' }, { food: 'beet' }], { food: 'apple' });
 
-result = <number>_.first([1, 2, 3]);
-result = <number[]>_.first([1, 2, 3], 2);
-result = <number[]>_.first([1, 2, 3], function (num) {
-    return num < 3;
-});
-result = <IFoodOrganic[]>_.first(foodsOrganic, 'organic');
-result = <IFoodType[]>_.first(foodsType, { 'type': 'fruit' });
-
-result = <number>_([1, 2, 3]).first();
-result = <number[]>_([1, 2, 3]).first(2).value();
-result = <number[]>_([1, 2, 3]).first(function (num) {
-    return num < 3;
-}).value();
-result = <IFoodOrganic[]>_(foodsOrganic).first('organic').value();
-result = <IFoodType[]>_(foodsType).first({ 'type': 'fruit' }).value();
-
-result = <number>_.head([1, 2, 3]);
-result = <number[]>_.head([1, 2, 3], 2);
-result = <number[]>_.head([1, 2, 3], function (num) {
-    return num < 3;
-});
-result = <IFoodOrganic[]>_.head(foodsOrganic, 'organic');
-result = <IFoodType[]>_.head(foodsType, { 'type': 'fruit' });
-
-result = <number>_([1, 2, 3]).head();
-result = <number[]>_([1, 2, 3]).head(2).value();
-result = <number[]>_([1, 2, 3]).head(function (num) {
-    return num < 3;
-}).value();
-result = <IFoodOrganic[]>_(foodsOrganic).head('organic').value();
-result = <IFoodType[]>_(foodsType).head({ 'type': 'fruit' }).value();
+// _.first
+module TestFirst {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let result: TResult;
+    result = _.first<TResult>(array);
+    result = _.first<TResult>(list);
+    result = _(array).first();
+    result = _(list).first<TResult>();
+}
 
 result = <number[]>_.take([1, 2, 3]);
 result = <number[]>_.take([1, 2, 3], 2);
@@ -319,6 +298,17 @@ result = <_.LoDashArrayWrapper<number|Array<Array<number>>>>_([1, [2], [3, [[4]]
 result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten(true);
 
 result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flattenDeep();
+
+// _.head
+module TestHead {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let result: TResult;
+    result = _.head<TResult>(array);
+    result = _.head<TResult>(list);
+    result = _(array).head();
+    result = _(list).head<TResult>();
+}
 
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2, 3);
