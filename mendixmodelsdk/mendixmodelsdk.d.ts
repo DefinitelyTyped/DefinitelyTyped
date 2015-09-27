@@ -1,6 +1,6 @@
 // Type definitions for mendixmodelsdk v0.0.1
 // Project: http://www.mendix.com
-// Definitions by: Mendix
+// Definitions by: Mendix <https://github.com/mendix>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /*
@@ -12715,3 +12715,4 @@ declare var module: {
     parent: any;
     children: any[];
 };
+
