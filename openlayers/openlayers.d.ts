@@ -2733,12 +2733,41 @@ declare module ol {
     }
 
     module geom {
-
+        
         // Type definitions
         interface GeometryLayout extends String { }
         interface GeometryType extends String { }
+        
+        /**
+         * Abstract base class; only used for creating subclasses; do not instantiate
+         * in apps, as cannot be rendered.
+         */
+        class Circle extends ol.geom.SimpleGeometry {
 
-        class Circle {
+            /**
+            * Test if the geometry and the passed extent intersect.
+            * @param extent Extent
+            * @returns true if the geometry and the extent intersect. 
+            */
+            intersectsExtent(extent: ol.Extent): boolean;
+
+            /**
+             * Transform each coordinate of the circle from one coordinate reference system
+             * to another. The geometry is modified in place.
+             * If you do not want the geometry modified in place, first clone() it and
+             * then use this function on the clone.
+             *
+             * Internally a circle is currently represented by two points: the center of
+             * the circle `[cx, cy]`, and the point to the right of the circle
+             * `[cx + r, cy]`. This `transform` function just transforms these two points.
+             * So the resulting geometry is also a circle, and that circle does not
+             * correspond to the shape that would be obtained by transforming every point
+             * of the original circle.
+             * @param source The current projection.  Can be a string identifier or a {@link ol.proj.Projection} object.
+             * @param destination The desired projection.  Can be a string identifier or a {@link ol.proj.Projection} object.
+             * @returns This geometry.  Note that original geometry is  modified in place.
+             */
+            transform(source: ol.proj.ProjectionLike, destination: ol.proj.ProjectionLike): ol.geom.Circle;
         }
 
         /**
@@ -2762,35 +2791,590 @@ declare module ol {
             getExtent(extent?: ol.Extent): ol.Extent;
         }
 
-        class GeometryCollection {
+        /**
+        * An array of ol.geom.Geometry objects.
+        */
+        class GeometryCollection extends ol.geom.Geometry {
+
+            /**
+             * constructor
+             * @param geometries Geometries.
+             */
+            constructor(geometries?: Array<ol.geom.Geometry>);
+
+            /**
+             * Apply a transform function to each coordinate of the geometry. The geometry is modified in place.
+             * If you do not want the geometry modified in place, first clone() it and then use this function on the clone.
+             * @param transformFn TransformFunction
+             */
+            applyTransform(transformFn: ol.TransformFunction): void;
+
+            /**
+             * Make a complete copy of the geometry.
+             * @returns Clone.
+             */
+            clone(): ol.geom.GeometryCollection;
+
+            /**
+             * Return the geometries that make up this geometry collection.
+             * @returns Geometries.
+             */
+            getGeometries(): Array<Geometry>;
+
+            /**
+             * Get the type of this geometry.
+             * @returns Geometry type
+             */
+            getType(): ol.geom.GeometryType;
+
+            /**
+             * Test if the geometry and the passed extent intersect.
+             * @param extent Extent
+             * @returns true if the geometry and the extent intersect. 
+             */
+            intersectsExtent(extent: ol.Extent): boolean;
+
+            /**
+             * Set the geometries that make up this geometry collection.
+             * @param geometries Geometries.
+             */
+            setGeometries(geometries: Array<ol.geom.Geometry>): void;
+
         }
 
-        class LinearRing {
+        /**
+        * Linear ring geometry. Only used as part of polygon; cannot be rendered
+        * on its own.
+        */
+        class LinearRing extends SimpleGeometry {
+
+            /**
+             * constructor
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            constructor(coordinates: Array<ol.Coordinate>, layout?: ol.geom.GeometryLayout);
+
+            /**
+             * Make a complete copy of the geometry.
+             * @returns Clone.
+             */
+            clone(): ol.geom.LinearRing;
+
+            /**
+             * Return the area of the linear ring on projected plane.
+             * @returns Area (on projected plane).
+             */
+            getArea(): number;
+            
+            /**
+             * Return the coordinates of the linear ring.
+             * @returns Coordinates.
+             */
+            getCoordinates(): Array<ol.Coordinate>;
+
+            /**
+             * Get the type of this geometry.
+             * @returns Geometry type
+             */
+            getType(): ol.geom.GeometryType;
+
+            /**
+            * @Set the coordinates of the linear ring
+            * @param coordinates Coordinates.
+            * @param layout Layout.
+            */
+            setCoordinates(coordinates: Array<ol.Coordinate>, layout?: any): void;
+
         }
 
-        class LineString {
-            new(): LineString;
+        /**
+        * Linestring geometry.
+        */
+        class LineString extends ol.geom.SimpleGeometry {
+
+            /**
+             * constructor
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            constructor(coordinates: Array<ol.Coordinate>, layout?: ol.geom.GeometryLayout);
+
+            /**
+             * Append the passed coordinate to the coordinates of the linestring.
+             * @param coordinate Coordinate.
+             */
+            appendCoordinate(coordinate: ol.Coordinate): void;
+
+            /**
+             * Make a complete copy of the geometry.
+             * @returns Clone.
+             */
+            clone(): ol.geom.LineString;
+
+            /**
+             * Returns the coordinate at `m` using linear interpolation, or `null` if no
+             * such coordinate exists.
+             *
+             * `extrapolate` controls extrapolation beyond the range of Ms in the
+             * MultiLineString. If `extrapolate` is `true` then Ms less than the first
+             * M will return the first coordinate and Ms greater than the last M will
+             * return the last coordinate.
+             *
+             * @param m M.
+             * @param extrapolate Extrapolate. Default is `false`.
+             * @returns Coordinate.
+             */
+            getCoordinateAtM(m: number, extrapolate?: boolean): ol.Coordinate;
+
+            /**
+             * Return the coordinates of the linestring.
+             * @returns Coordinates.
+             */
+            getCoordinates(): Array<ol.Coordinate>;
+
+            /**
+             * Return the length of the linestring on projected plane.
+             * @returns Length (on projected plane).
+             */
+            getLength(): number;
+
+            /**
+             * Get the type of this geometry.
+             * @returns Geometry type
+             */
+            getType(): ol.geom.GeometryType;
+
+            /**
+             * Test if the geometry and the passed extent intersect.
+             * @param extent Extent
+             * @returns true if the geometry and the extent intersect. 
+             */
+            intersectsExtent(extent: ol.Extent): boolean;
+
+            /**
+             * Set the coordinates of the linestring.
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            setCoordinates(coordinates: Array<ol.Coordinate>, layout?: ol.geom.GeometryLayout) : void;
         }
 
-        class MultiLineString {
+        /**
+        * Multi-linestring geometry.
+        */
+        class MultiLineString extends ol.geom.SimpleGeometry {
+
+            /**
+             * constructor
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            constructor(coordinates: Array<Array<ol.Coordinate>>, layout?: ol.geom.GeometryLayout);
+
+            /**
+             * Append the passed linestring to the multilinestring.
+             * @param lineString LineString.
+             */
+            appendLineString(lineString: ol.geom.LineString): void;
+
+            /**
+             * Make a complete copy of the geometry.
+             * @returns Clone.
+             */
+            clone(): ol.geom.MultiLineString;
+
+            /**
+             * Returns the coordinate at `m` using linear interpolation, or `null` if no
+             * such coordinate exists.
+             *
+             * `extrapolate` controls extrapolation beyond the range of Ms in the
+             * MultiLineString. If `extrapolate` is `true` then Ms less than the first
+             * M will return the first coordinate and Ms greater than the last M will
+             * return the last coordinate.
+             *
+             * `interpolate` controls interpolation between consecutive LineStrings
+             * within the MultiLineString. If `interpolate` is `true` the coordinates
+             * will be linearly interpolated between the last coordinate of one LineString
+             * and the first coordinate of the next LineString.  If `interpolate` is
+             * `false` then the function will return `null` for Ms falling between
+             * LineStrings.
+             *
+             * @param m M.
+             * @param extrapolate Extrapolate. Default is `false`.
+             * @param interpolate Interpolate. Default is `false`.
+             * @returns Coordinate.
+             */
+            getCoordinateAtM(m: number, extrapolate?: boolean, interpolate?: boolean): ol.Coordinate;
+
+            /**
+             * Return the coordinates of the multilinestring.
+             * @returns Coordinates.
+             */
+            getCoordinates(): Array<Array<ol.Coordinate>>;
+
+            /**
+             * Return the linestring at the specified index.
+             * @param index Index.
+             * @returns LineString.
+             */
+            getLineString(index: number): ol.geom.LineString;
+
+            /**
+             * Return the linestrings of this multilinestring.
+             * @returns LineStrings.
+             */
+            getLineStrings(): Array<ol.geom.LineString>;
+
+            /**
+             * Get the type of this geometry.
+             * @returns Geometry type
+             */
+            getType(): ol.geom.GeometryType;
+
+            /**
+             * Test if the geometry and the passed extent intersect.
+             * @param extent Extent
+             * @returns true if the geometry and the extent intersect. 
+             */
+            intersectsExtent(extent: ol.Extent): boolean;
+
+            /**
+             * Set the coordinates of the multilinestring.
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            setCoordinates(coordinates: Array<Array<ol.Coordinate>>, layout?: ol.geom.GeometryLayout): void;
         }
 
-        class MultiPoint {
+        /**
+        * Multi-point geometry.
+        */
+        class MultiPoint extends ol.geom.SimpleGeometry {
+
+            /**
+             * constructor
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            constructor(coordinates: Array<ol.Coordinate>, layout?: ol.geom.GeometryLayout);
+
+            /**
+             * Append the passed point to this multipoint.
+             * @param {ol.geom.Point} point Point.
+             */
+            appendPoint(point: ol.geom.Point): void;
+
+            /**
+             * Make a complete copy of the geometry.
+             * @returns Clone.
+             */
+            clone(): ol.geom.MultiPoint;
+
+            /**
+             * Return the coordinates of the multipoint.
+             * @returns Coordinates.
+             */
+            getCoordinates(): Array<ol.Coordinate>;
+
+            /**
+             * Return the point at the specified index.
+             * @param index Index.
+             * @returns Point.
+             */
+            getPoint(index: number): ol.geom.Point;
+
+            /**
+             * Return the points of this multipoint.
+             * @returns Points.
+             */
+            getPoints(): Array<ol.geom.Point>;
+
+            /**
+             * Get the type of this geometry.
+             * @returns Geometry type
+             */
+            getType(): ol.geom.GeometryType;
+
+            /**
+             * Test if the geometry and the passed extent intersect.
+             * @param extent Extent
+             * @returns true if the geometry and the extent intersect. 
+             */
+            intersectsExtent(extent: ol.Extent): boolean;
+
+            /**
+             * Set the coordinates of the multipoint.
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            setCoordinates(coordinates: Array<ol.Coordinate>, layout?: ol.geom.GeometryLayout): void;
+        }
+        
+        /**
+         * Multi-polygon geometry.
+         */
+        class MultiPolygon extends ol.geom.SimpleGeometry {
+            
+            /**
+             * constructor
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            constructor(coordinates: Array<Array<Array<ol.Coordinate>>>, layout?: ol.geom.GeometryLayout);
+            
+            /**
+             * Append the passed polygon to this multipolygon.
+             * @param polygon Polygon.
+             */
+            appendPolygon(polygon: ol.geom.Polygon): void;
+            
+            /**
+             * Make a complete copy of the geometry.
+             * @returns Clone.
+             */
+            clone(): ol.geom.MultiPolygon;
+            
+            /**
+             * Return the area of the multipolygon on projected plane.
+             * @returns Area (on projected plane).
+             */
+            getArea(): number;
+            
+            /**
+             * Get the coordinate array for this geometry.  This array has the structure
+             * of a GeoJSON coordinate array for multi-polygons.
+             *
+             * @param right Orient coordinates according to the right-hand
+             *     rule (counter-clockwise for exterior and clockwise for interior rings).
+             *     If `false`, coordinates will be oriented according to the left-hand rule
+             *     (clockwise for exterior and counter-clockwise for interior rings).
+             *     By default, coordinate orientation will depend on how the geometry was
+             *     constructed.
+             * @returns Coordinates.
+             */
+            getCoordinates(right?: boolean): Array<Array<Array<ol.Coordinate>>>;
+            
+            /**
+             * Return the interior points as {@link ol.geom.MultiPoint multipoint}.
+             * @returns Interior points.
+             */
+            getInteriorPoints(): ol.geom.MultiPoint;
+            
+            /**
+             * Return the polygon at the specified index.
+             * @param index Index.
+             * @returns  Polygon.
+             */
+            getPolygon(index: number): ol.geom.Polygon;
+            
+            /**
+             * Return the polygons of this multipolygon.
+             * @returns Polygons.
+             */
+            getPolygons(): Array<ol.geom.Polygon>;
+            
+            /**
+             * Get the type of this geometry.
+             * @returns Geometry type
+             */
+            getType(): ol.geom.GeometryType;
+            
+            /**
+             * Test if the geometry and the passed extent intersect.
+             * @param extent Extent
+             * @returns true if the geometry and the extent intersect. 
+             */
+            intersectsExtent(extent: ol.Extent): boolean;
+
+            /**
+             * Set the coordinates of the multipolygon.
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            setCoordinates(coordinates: Array<Array<Array<ol.Coordinate>>>, layout?: ol.geom.GeometryLayout): void;
         }
 
-        class MultiPolygon {
-        }
-
+        /**
+        * Point geometry.
+        */
         class Point extends SimpleGeometry {
-          constructor(coordinates: ol.Coordinate, layout?: geom.GeometryLayout);
-          getCoordinates(): ol.Coordinate;
-          setCoordinates(coordinates: ol.Coordinate, opt?: geom.GeometryLayout): void;
+
+            /**
+             * constructor
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            constructor(coordinates: ol.Coordinate, layout?: ol.geom.GeometryLayout);
+
+            /**
+             * Make a complete copy of the geometry.
+             * @returns Clone.
+             */
+            clone(): ol.geom.Point;
+
+            /**
+             * Return the coordinate of the point.
+             * @returns Coordinates.
+             */
+            getCoordinates(): ol.Coordinate;
+
+            /**
+             * Get the type of this geometry.
+             * @returns Geometry type
+             */
+            getType(): ol.geom.GeometryType;
+
+            /**
+             * Test if the geometry and the passed extent intersect.
+             * @param extent Extent
+             * @returns true if the geometry and the extent intersect. 
+             */
+            intersectsExtent(extent: ol.Extent): boolean;
+
+            /**
+             * Set the coordinate of the point.
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            setCoordinates(coordinates: ol.Coordinate, layout?: ol.geom.GeometryLayout): void;
         }
 
-        class Polygon {
-        }
+        /**
+        * Polygon geometry.
+        */
+        class Polygon extends SimpleGeometry {
 
-        class SimpleGeometry extends Geometry {
+            /**
+             * constructor
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            constructor(coordinates: Array<Array<ol.Coordinate>>, layout?: ol.geom.GeometryLayout);
+
+            /**
+             * Create an approximation of a circle on the surface of a sphere.
+             * @param sphere The sphere.
+             * @param center Center (`[lon, lat]` in degrees).
+             * @param radius The great-circle distance from the center to the polygon vertices.
+             * @param n Optional number of vertices for the resulting polygon. Default is `32`.
+             * @returns The "circular" polygon.
+             */
+            static circular(sphere: ol.Sphere, center: ol.Coordinate, radius: number, n?: number): ol.geom.Polygon;
+
+            /**
+             * Append the passed linear ring to this polygon.
+             * @param linearRing Linear ring.
+             */
+            appendLinearRing(linearRing: ol.geom.LinearRing): void;
+
+            /**
+             * Make a complete copy of the geometry.
+             * @returns Clone.
+             */
+            clone(): ol.geom.Polygon;
+
+            /**
+             * Return the area of the polygon on projected plane.
+             * @returns Area (on projected plane).
+             */
+            getArea(): number;
+
+            /**
+             * Get the coordinate array for this geometry.  This array has the structure
+             * of a GeoJSON coordinate array for polygons.
+             *
+             * @param right Orient coordinates according to the right-hand
+             *     rule (counter-clockwise for exterior and clockwise for interior rings).
+             *     If `false`, coordinates will be oriented according to the left-hand rule
+             *     (clockwise for exterior and counter-clockwise for interior rings).
+             *     By default, coordinate orientation will depend on how the geometry was
+             *     constructed.
+             * @returns Coordinates.
+             */
+            getCoordinates(right?: boolean): Array<Array<ol.Coordinate>>;
+
+            /**
+             * Return an interior point of the polygon.
+             * @returns Interior point.
+             */
+            getInteriorPoint(): ol.geom.Point;
+
+            /**
+             * Return the Nth linear ring of the polygon geometry. Return `null` if the
+             * given index is out of range.
+             * The exterior linear ring is available at index `0` and the interior rings
+             * at index `1` and beyond.
+             *
+             * @param index Index.
+             * @returns Linear ring.
+             */
+            getLinearRing(index: number): ol.geom.LinearRing;
+
+            /**
+             * Return the linear rings of the polygon.
+             * @returns Linear rings.
+             */
+            getLinearRings(): Array<ol.geom.LinearRing>;
+
+            /**
+             * Get the type of this geometry.
+             * @returns Geometry type
+             */
+            getType(): ol.geom.GeometryType;
+
+            /**
+             * Test if the geometry and the passed extent intersect.
+             * @param extent Extent
+             * @returns true if the geometry and the extent intersect. 
+             */
+            intersectsExtent(extent: ol.Extent): boolean;
+
+            /**
+             * Set the coordinates of the polygon.
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            setCoordinates(coordinates: Array<Array<ol.Coordinate>>, layout?: ol.geom.GeometryLayout): void;
+        }
+        /**
+         * Abstract base class; only used for creating subclasses; do not instantiate
+         * in apps, as cannot be rendered.
+         */
+        class SimpleGeometry extends ol.geom.Geometry {
+
+            /**
+             * Apply a transform function to each coordinate of the geometry. The geometry is modified in place.
+             * If you do not want the geometry modified in place, first clone() it and then use this function on the clone.
+             * @param transformFn TransformFunction
+             */
+            applyTransform(transformFn: ol.TransformFunction): void;
+
+            /**
+             * Return the first coordinate of the geometry.
+             * @returns First coordinate.
+             */
+            getFirstCoordinate(): ol.Coordinate;
+
+            /**
+             * Return the last coordinate of the geometry.
+             * @returns Last point.
+             */
+            getLastCoordinate(): ol.Coordinate;
+
+            /**
+             * Return the {@link ol.geom.GeometryLayout layout} of the geometry.
+             * @returns Layout.
+             */
+            getLayout(): ol.geom.GeometryLayout;
+
+            /** 
+            * Translate the geometry. This modifies the geometry coordinates in place. 
+            * If instead you want a new geometry, first clone() this geometry.
+            * @param deltaX Delta X
+            * @param deltaY Delta Y
+            */
+            translate(deltaX: number, deltaY: number): void;
         }
     }
 
