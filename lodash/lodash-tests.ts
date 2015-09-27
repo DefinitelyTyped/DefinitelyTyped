@@ -155,17 +155,24 @@ result = <number[]>_([1, 2, 3]).run();
 result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).toJSON();
 result = <_.Dictionary<number>>_({ a: 1, b: 2}).mapValues(function(num: number) { return num * 2; }).valueOf();
 
-// /*************
-//  * Arrays *
-//  *************/
-result = <any[][]>_.chunk([1, '2', '3', false]);
-result = <_.LoDashArrayWrapper<any[]>>_([1, '2', '3', false]).chunk();
-result = <any[][]>_.chunk([1, '2', '3', false], 2);
-result = <_.LoDashArrayWrapper<any[]>>_([1, '2', '3', false]).chunk(2);
-result = <number[][]>_.chunk([1, 2, 3, 4]);
-result = <_.LoDashArrayWrapper<number[]>>_([1, 2, 3, 4]).chunk();
-result = <number[][]>_.chunk([1, 2, 3, 4], 2);
-result = <_.LoDashArrayWrapper<number[]>>_([1, 2, 3, 4]).chunk(2);
+/*********
+ * Array *
+ *********/
+
+// _.chunk
+module TestChunk {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let result: TResult[][];
+    result = _.chunk<TResult>(array);
+    result = _.chunk<TResult>(array, 42);
+    result = _.chunk<TResult>(list);
+    result = _.chunk<TResult>(list, 42);
+    result = _(array).chunk().value();
+    result = _(array).chunk(42).value();
+    result = _(list).chunk<TResult>().value();
+    result = _(list).chunk<TResult>(42).value();
+}
 
 result = <any[]>_.compact([0, 1, false, 2, '', 3]);
 result = <_.LoDashArrayWrapper<any>>_([0, 1, false, 2, '', 3]).compact();
