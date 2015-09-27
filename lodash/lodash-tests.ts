@@ -2412,6 +2412,23 @@ result = <() => {}>_({}).constant<{}>();
     result = _({}).iteratee(any).value();
 }
 
+// _.matches
+module TestMatches {
+    let source: TResult;
+
+    {
+        let result: (value: any) => boolean;
+        result = _.matches<TResult>(source);
+        result = _(source).matches().value();
+    }
+
+    {
+        let result: (value: TResult) => boolean;
+        result = _.matches<TResult, TResult>(source);
+        result = _(source).matches<TResult>().value();
+    }
+}
+
 // _.method
 class TestMethod {
     a = {
