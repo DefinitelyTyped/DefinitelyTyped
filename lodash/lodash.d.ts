@@ -7350,6 +7350,97 @@ declare module _ {
         keysIn(): LoDashArrayWrapper<string>
     }
 
+    //_.mapKeys
+    interface LoDashStatic {
+        /**
+         * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
+         * by running each own enumerable property of object through iteratee.
+         *
+         * @param object The object to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns the new mapped object.
+         */
+        mapKeys<T, TKey>(
+            object: List<T>,
+            iteratee?: ListIterator<T, TKey>,
+            thisArg?: any
+        ): Dictionary<T>;
+
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys<T, TKey>(
+            object: Dictionary<T>,
+            iteratee?: DictionaryIterator<T, TKey>,
+            thisArg?: any
+        ): Dictionary<T>;
+
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys<T, TObject extends {}>(
+            object: List<T>|Dictionary<T>,
+            iteratee?: TObject
+        ): Dictionary<T>;
+
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys<T>(
+            object: List<T>|Dictionary<T>,
+            iteratee?: string
+        ): Dictionary<T>;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys<TKey>(
+            iteratee?: ListIterator<T, TKey>,
+            thisArg?: any
+        ): LoDashObjectWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys<TObject extends {}>(
+            iteratee?: TObject
+        ): LoDashObjectWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys(
+            iteratee?: string
+        ): LoDashObjectWrapper<Dictionary<T>>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys<TResult, TKey>(
+            iteratee?: ListIterator<TResult, TKey>|DictionaryIterator<TResult, TKey>,
+            thisArg?: any
+        ): LoDashObjectWrapper<Dictionary<TResult>>;
+
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys<TResult, TObject extends {}>(
+            iteratee?: TObject
+        ): LoDashObjectWrapper<Dictionary<TResult>>;
+
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys<TResult>(
+            iteratee?: string
+        ): LoDashObjectWrapper<Dictionary<TResult>>;
+    }
+
     //_.mapValues
     interface LoDashStatic {
         /**

@@ -1890,6 +1890,54 @@ result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keys().value();
 result = <string[]>_.keysIn({ 'one': 1, 'two': 2, 'three': 3 });
 result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keysIn().value();
 
+// _.mapKeys
+module TestMapKeys {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
+
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => string;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => string;
+
+    let result: _.Dictionary<TResult>;
+
+    result = _.mapKeys<TResult, string>(array);
+    result = _.mapKeys<TResult, string>(array, listIterator);
+    result = _.mapKeys<TResult, string>(array, listIterator, any);
+    result = _.mapKeys<TResult>(array, '');
+    result = _.mapKeys<TResult, {}>(array, {});
+
+    result = _.mapKeys<TResult, string>(list);
+    result = _.mapKeys<TResult, string>(list, listIterator);
+    result = _.mapKeys<TResult, string>(list, listIterator, any);
+    result = _.mapKeys<TResult>(list, '');
+    result = _.mapKeys<TResult, {}>(list, {});
+
+    result = _.mapKeys<TResult, string>(dictionary);
+    result = _.mapKeys<TResult, string>(dictionary, dictionaryIterator);
+    result = _.mapKeys<TResult, string>(dictionary, dictionaryIterator, any);
+    result = _.mapKeys<TResult>(dictionary, '');
+    result = _.mapKeys<TResult, {}>(dictionary, {});
+
+    result = _(array).mapKeys<string>().value();
+    result = _(array).mapKeys<string>(listIterator).value();
+    result = _(array).mapKeys<string>(listIterator, any).value();
+    result = _(array).mapKeys('').value();
+    result = _(array).mapKeys<{}>({}).value();
+
+    result = _(list).mapKeys<TResult, string>().value();
+    result = _(list).mapKeys<TResult, string>(listIterator).value();
+    result = _(list).mapKeys<TResult, string>(listIterator, any).value();
+    result = _(list).mapKeys<TResult>('').value();
+    result = _(list).mapKeys<TResult, {}>({}).value();
+
+    result = _(dictionary).mapKeys<TResult, string>().value();
+    result = _(dictionary).mapKeys<TResult, string>(dictionaryIterator).value();
+    result = _(dictionary).mapKeys<TResult, string>(dictionaryIterator, any).value();
+    result = _(dictionary).mapKeys<TResult>('').value();
+    result = _(dictionary).mapKeys<TResult, {}>({}).value();
+}
+
 var mergeNames = {
     'stooges': [
         { 'name': 'moe' },
