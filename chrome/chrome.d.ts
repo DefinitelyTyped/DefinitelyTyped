@@ -7506,7 +7506,7 @@ declare module chrome.webNavigation {
 		/** The ID of the frame. 0 indicates that this is the main frame; a positive value indicates the ID of a subframe. */
 		frameId: number;
 	}
-	
+
 	interface WebNavigationCallbackDetails {
 		/** The ID of the tab in which the navigation is about to occur. */
 		tabId: number;
@@ -7517,12 +7517,12 @@ declare module chrome.webNavigation {
 	interface WebNavigationUrlCallbackDetails extends WebNavigationCallbackDetails {
 		url: string;
 	}
-	
+
 	interface WebNavigationReplacementCallbackDetails extends WebNavigationCallbackDetails {
 		/** The ID of the tab that was replaced. */
 		replacedTabId: number;
 	}
-	
+
 	interface WebNavigationFramedCallbackDetails extends WebNavigationUrlCallbackDetails {
 		/** 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique for a given tab and process. */
 		frameId: number;
@@ -7532,12 +7532,12 @@ declare module chrome.webNavigation {
 		 */
 		processId: number;
 	}
-	
+
 	interface WebNavigationFramedErrorCallbackDetails extends WebNavigationFramedCallbackDetails {
 		/** The error description. */
 		error: string;
 	}
-	
+
 	interface WebNavigationSourceCallbackDetails extends WebNavigationUrlCallbackDetails {
 		/** The ID of the tab in which the navigation is triggered. */
 		sourceTabId: number;
@@ -7549,7 +7549,7 @@ declare module chrome.webNavigation {
 		/** The ID of the frame with sourceTabId in which the navigation is triggered. 0 indicates the main frame. */
 		sourceFrameId: number;
 	}
-	
+
 	interface WebNavigationParentedCallbackDetails extends WebNavigationFramedCallbackDetails {
 		/**
 		 * ID of frame that wraps the frame. Set to -1 of no parent frame exists. 
@@ -7557,7 +7557,7 @@ declare module chrome.webNavigation {
 		 */
 		parentFrameId: number;
 	}
-	
+
 	interface WebNavigationTransitionCallbackDetails extends WebNavigationFramedCallbackDetails {
 		/**
 		 * Cause of the navigation. 
@@ -7570,21 +7570,21 @@ declare module chrome.webNavigation {
 		 */
 		transitionQualifiers: string[];
 	}
-	
+
 	interface WebNavigationEvent extends chrome.events.Event {
 		/** Conditions that the URL being navigated to must satisfy. The 'schemes' and 'ports' fields of UrlFilter are ignored for this event. */
 		url: chrome.events.UrlFilter[];
-		addListener(callback: (details: WebNavigationCallbackDetails) => void): void;		
+		addListener(callback: (details: WebNavigationCallbackDetails) => void): void;
 	}
-	
+
 	interface WebNavigationFramedEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationFramedCallbackDetails) => void): void;		
+		addListener(callback: (details: WebNavigationFramedCallbackDetails) => void): void;
 	}
-	
+
 	interface WebNavigationFramedErrorEvent extends WebNavigationFramedEvent {
-		addListener(callback: (details: WebNavigationFramedErrorCallbackDetails) => void): void;		
+		addListener(callback: (details: WebNavigationFramedErrorCallbackDetails) => void): void;
 	}
-	
+
 	interface WebNavigationSourceEvent extends WebNavigationEvent {
 		addListener(callback: (details: WebNavigationSourceCallbackDetails) => void): void;
 	}
@@ -7596,7 +7596,7 @@ declare module chrome.webNavigation {
 	interface WebNavigationTransitionalEvent extends WebNavigationEvent {
 		addListener(callback: (details: WebNavigationTransitionCallbackDetails) => void): void;
 	}
-	
+
 	interface WebNavigationReplacementEvent extends WebNavigationEvent {
 		addListener(callback: (details: WebNavigationReplacementCallbackDetails) => void): void;
 	}
@@ -7616,7 +7616,7 @@ declare module chrome.webNavigation {
 	 */
 	export function getAllFrames(details: GetAllFrameDetails, callback: (details?: GetAllFrameResultDetails[]) => void): void;
 
-	/** Fired when the reference fragment of a frame was updated. All future events for that frame will use the updated URL. */    
+	/** Fired when the reference fragment of a frame was updated. All future events for that frame will use the updated URL. */
 	var onReferenceFragmentUpdated: WebNavigationTransitionalEvent;
 	/** Fired when a document, including the resources it refers to, is completely loaded and initialized. */
 	var onCompleted: WebNavigationFramedEvent;
@@ -7656,14 +7656,14 @@ declare module chrome.webRequest {
 		password: string;
 	}
 
-	/** An HTTP Header, represented as an object containing a key and either a value or a binaryValue. */    
+	/** An HTTP Header, represented as an object containing a key and either a value or a binaryValue. */
 	interface HttpHeader {
 		name: string;
 		value?: string;
 		binaryValue?: ArrayBuffer;
 	}
 
-	/** Returns value for event handlers that have the 'blocking' extraInfoSpec applied. Allows the event handler to modify network requests. */    
+	/** Returns value for event handlers that have the 'blocking' extraInfoSpec applied. Allows the event handler to modify network requests. */
 	interface BlockingResponse {
 		/** Optional. If true, the request is cancelled. Used in onBeforeRequest, this prevents the request from being sent. */
 		cancel?: boolean;
@@ -7686,7 +7686,7 @@ declare module chrome.webRequest {
 		requestHeaders?: HttpHeader[];
 	}
 
-	/** An object describing filters to apply to webRequest events. */    
+	/** An object describing filters to apply to webRequest events. */
 	interface RequestFilter {
 		/** Optional. */
 		tabId?: number;
@@ -7704,14 +7704,14 @@ declare module chrome.webRequest {
 	/**
 	 * Contains data uploaded in a URL request.
 	 * @since Chrome 23.
-	 */    
+	 */
 	interface UploadData {
 		/** Optional. An ArrayBuffer with a copy of the data. */
 		bytes?: ArrayBuffer;
 		/** Optional. A string with the file's path and name. */
 		file?: string;
 	}
-	
+
 	interface WebRequestBody {
 		/** Optional. Errors when obtaining request body data. */
 		error?: string;
@@ -7726,12 +7726,12 @@ declare module chrome.webRequest {
 		 */
 		raw?: UploadData[];
 	}
-	
+
 	interface WebAuthChallenger {
 		host: string;
 		port: number;
 	}
-	
+
 	interface ResourceRequest {
 		/** The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request. */
 		requestId: string;
@@ -7749,18 +7749,18 @@ declare module chrome.webRequest {
 		/** The time when this signal is triggered, in milliseconds since the epoch. */
 		timeStamp: number;
 	}
-	
+
 	interface WebRequestDetails extends ResourceRequest {
 		url: string;
 		/** Standard HTTP method. */
-		method: string;		
+		method: string;
 	}
-	
+
 	interface WebRequestHeadersDetails extends WebRequestDetails {
 		/** Optional. The HTTP request headers that are going to be sent out with this request. */
 		requestHeaders?: HttpHeader[];
 	}
-	
+
 	interface WebRequestBodyDetails extends WebRequestDetails {
 		/**
 		 * Contains the HTTP request body data. Only provided if extraInfoSpec contains 'requestBody'. 
@@ -7768,10 +7768,10 @@ declare module chrome.webRequest {
 		 */
 		requestBody: WebRequestBody;
 	}
-	
+
 	interface WebRequestFullDetails extends WebRequestHeadersDetails, WebRequestBodyDetails {
 	}
-	
+
 	interface WebResponseDetails extends ResourceRequest {
 		/** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line). */
 		statusLine: string;
@@ -7781,12 +7781,12 @@ declare module chrome.webRequest {
 		 */
 		statusCode: number;
 	}
-	
+
 	interface WebResponseHeadersDetails extends WebResponseDetails {
 		/** Optional. The HTTP response headers that have been received with this response. */
 		responseHeaders?: HttpHeader[];
 	}
-	
+
 	interface WebResponseCacheDetails extends WebResponseHeadersDetails {
 		/**
 		 * Optional.
@@ -7796,12 +7796,12 @@ declare module chrome.webRequest {
 		/** Indicates if this response was fetched from disk cache. */
 		fromCache: boolean;
 	}
-	
+
 	interface WebRedirectionResponseDetails extends WebResponseCacheDetails {
 		/** The new URL. */
 		redirectUrl: string;
 	}
-	
+
 	interface WebAuthenticationChallengeDetails extends WebResponseHeadersDetails {
 		/** The authentication scheme, e.g. Basic or Digest. */
 		schema: string;
@@ -7812,36 +7812,36 @@ declare module chrome.webRequest {
 		/** True for Proxy-Authenticate, false for WWW-Authenticate. */
 		isProxy: boolean;
 	}
-	
+
 	interface WebResponseErrorDetails extends WebResponseCacheDetails {
 		/** The error description. This string is not guaranteed to remain backwards compatible between releases. You must not parse and act based upon its content. */
 		error: string;
 	}
-	
+
 	interface WebRequestBodyEvent extends chrome.events.Event {
 		addListener(callback: (details: WebRequestBodyDetails) => void): void;
 	}
-	
+
 	interface WebRequestHeadersEvent extends chrome.events.Event {
 		addListener(callback: (details: WebRequestHeadersDetails) => void): void;
 	}
-	
+
 	interface WebResponseHeadersEvent extends chrome.events.Event {
 		addListener(callback: (details: WebResponseHeadersDetails) => void): void;
 	}
-	
+
 	interface WebResponseCacheEvent extends WebResponseHeadersEvent {
 		addListener(callback: (details: WebResponseCacheDetails) => void): void;
 	}
-	
+
 	interface WebRedirectionResponseEvent extends WebResponseCacheEvent {
 		addListener(callback: (details: WebRedirectionResponseDetails) => void): void;
 	}
-	
+
 	interface WebAuthenticationChallengeEvent extends WebResponseHeadersEvent {
 		addListener(callback: (details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void): void;
 	}
-	
+
 	interface WebResponseErrorEvent extends WebResponseCacheEvent {
 		addListener(callback: (details: WebResponseErrorDetails) => void): void;
 	}
@@ -7849,10 +7849,10 @@ declare module chrome.webRequest {
 	/**
 	 * The maximum number of times that handlerBehaviorChanged can be called per 10 minute sustained interval. handlerBehaviorChanged is an expensive function call that shouldn't be called often. 
 	 * @since Chrome 23.
-	 */    
+	 */
 	var MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES: number;
 
-	/** Needs to be called when the behavior of the webRequest handlers has changed to prevent incorrect handling due to caching. This function call is expensive. Don't call it often. */    
+	/** Needs to be called when the behavior of the webRequest handlers has changed to prevent incorrect handling due to caching. This function call is expensive. Don't call it often. */
 	export function handlerBehaviorChanged(callback?: Function): void;
 	
 	/** Fired when a request is about to occur. */
@@ -7958,7 +7958,7 @@ declare module chrome.webstore {
 	 * * * "launchInProgress": A launch of the same extension is in progress.  
 	 */
 	export function install(failureCallback?: (error: string, errorCode?: string) => void): void;
-	
+
 	interface InstallationStageEvent extends chrome.events.Event {
 		/**
 		 * @param callback
@@ -7967,7 +7967,7 @@ declare module chrome.webstore {
 		 */
 		addListener(callback: (stage: string) => void): void;
 	}
-	
+
 	interface DownloadProgressEvent extends chrome.events.Event {
 		/**
 		 * @param callback
@@ -7991,75 +7991,237 @@ declare module chrome.webstore {
 ////////////////////
 // Windows
 ////////////////////
+/**
+ * Use the chrome.windows API to interact with browser windows. You can use this API to create, modify, and rearrange windows in the browser.
+ * Permissions: The chrome.windows API can be used without declaring any permission. However, the "tabs" permission is required in order to populate the url, title, and favIconUrl properties of Tab objects.   
+ * @since Chrome 5.
+ */
 declare module chrome.windows {
 	interface Window {
+		/** Array of tabs.Tab objects representing the current tabs in the window. */
 		tabs?: chrome.tabs.Tab[];
-		top: number;
-		height: number;
-		width: number;
+		/** Optional. The offset of the window from the top edge of the screen in pixels. Under some circumstances a Window may not be assigned top property, for example when querying closed windows from the sessions API. */
+		top?: number;
+		/** Optional. The height of the window, including the frame, in pixels. Under some circumstances a Window may not be assigned height property, for example when querying closed windows from the sessions API. */
+		height?: number;
+		/** Optional. The width of the window, including the frame, in pixels. Under some circumstances a Window may not be assigned width property, for example when querying closed windows from the sessions API. */
+		width?: number;
+		/**
+		 * The state of this browser window. 
+		 * One of: "normal", "minimized", "maximized", "fullscreen", or "docked" 
+		 * @since Chrome 17.
+		 */
 		state: string;
+		/** Whether the window is currently the focused window. */
 		focused: boolean;
+		/**
+		 * Whether the window is set to be always on top. 
+		 * @since Chrome 19.
+		 */
 		alwaysOnTop: boolean;
+		/** Whether the window is incognito. */
 		incognito: boolean;
+		/**
+		 * The type of browser window this is. 
+		 * One of: "normal", "popup", "panel", "app", or "devtools" 
+		 */
 		type: string;
+		/** Optional. The ID of the window. Window IDs are unique within a browser session. Under some circumstances a Window may not be assigned an ID, for example when querying windows using the sessions API, in which case a session ID may be present. */
 		id: number;
-		left: number;
+		/** Optional. The offset of the window from the left edge of the screen in pixels. Under some circumstances a Window may not be assigned left property, for example when querying closed windows from the sessions API. */
+		left?: number;
+		/**
+		 * The session ID used to uniquely identify a Window obtained from the sessions API. 
+		 * @since Chrome 31.
+		 */
+		sessionId?: string;
 	}
 
 	interface GetInfo {
+		/**
+		 * Optional.
+		 * If true, the windows.Window object will have a tabs property that contains a list of the tabs.Tab objects. The Tab objects only contain the url, title and favIconUrl properties if the extension's manifest file includes the "tabs" permission. 
+		 */
 		populate?: boolean;
+		/**
+		 * If set, the windows.Window returned will be filtered based on its type. If unset the default filter is set to ['app', 'normal', 'panel', 'popup'], with 'app' and 'panel' window types limited to the extension's own windows. 
+		 * Each one of: "normal", "popup", "panel", "app", or "devtools" 
+		 * @since Chrome 46. Warning: this is the current Beta channel.
+		 */
+		windowTypes?: string[];
 	}
 
 	interface CreateData {
+		/**
+		 * Optional. The id of the tab for which you want to adopt to the new window. 
+		 * @since Chrome 10.
+		 */
 		tabId?: number;
-		url?: string;
+		/**
+		 * Optional.
+		 * A URL or array of URLs to open as tabs in the window. Fully-qualified URLs must include a scheme (i.e. 'http://www.google.com', not 'www.google.com'). Relative URLs will be relative to the current page within the extension. Defaults to the New Tab Page. 
+		 */
+		url?: string | string[];
+		/**
+		 * Optional.
+		 * The number of pixels to position the new window from the top edge of the screen. If not specified, the new window is offset naturally from the last focused window. This value is ignored for panels. 
+		 */
 		top?: number;
+		/**
+		 * Optional.
+		 * The height in pixels of the new window, including the frame. If not specified defaults to a natural height. 
+		 */
 		height?: number;
+		/**
+		 * Optional.
+		 * The width in pixels of the new window, including the frame. If not specified defaults to a natural width. 
+		 */
 		width?: number;
+		/**
+		 * Optional. If true, opens an active window. If false, opens an inactive window. 
+		 * @since Chrome 12.
+		 */
 		focused?: boolean;
+		/** Optional. Whether the new window should be an incognito window. */
 		incognito?: boolean;
+		/**
+		 * Optional. Specifies what type of browser window to create. The 'panel' and 'detached_panel' types create a popup unless the '--enable-panels' flag is set. 
+		 * One of: "normal", "popup", "panel", or "detached_panel" 
+		 */
 		type?: string;
+		/**
+		 * Optional.
+		 * The number of pixels to position the new window from the left edge of the screen. If not specified, the new window is offset naturally from the last focused window. This value is ignored for panels. 
+		 */
 		left?: number;
+		/**
+		 * Optional. The initial state of the window. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with 'left', 'top', 'width' or 'height'. 
+		 * One of: "normal", "minimized", "maximized", "fullscreen", or "docked" 
+		 * @since Chrome 44.
+		 */
+		state?: string;
 	}
 
 	interface UpdateInfo {
+		/** Optional. The offset from the top edge of the screen to move the window to in pixels. This value is ignored for panels. */
 		top?: number;
+		/**
+		 * Optional. If true, causes the window to be displayed in a manner that draws the user's attention to the window, without changing the focused window. The effect lasts until the user changes focus to the window. This option has no effect if the window already has focus. Set to false to cancel a previous draw attention request. 
+		 * @since Chrome 14.
+		 */
 		drawAttention?: boolean;
+		/** Optional. The height to resize the window to in pixels. This value is ignored for panels. */
 		height?: number;
+		/** Optional. The width to resize the window to in pixels. This value is ignored for panels. */
 		width?: number;
+		/**
+		 * Optional. The new state of the window. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with 'left', 'top', 'width' or 'height'. 
+		 * One of: "normal", "minimized", "maximized", "fullscreen", or "docked" 
+		 * @since Chrome 17.
+		 */
 		state?: string;
+		/**
+		 * Optional. If true, brings the window to the front. If false, brings the next window in the z-order to the front. 
+		 * @since Chrome 8.
+		 */
 		focused?: boolean;
+		/** Optional. The offset from the left edge of the screen to move the window to in pixels. This value is ignored for panels. */
 		left?: number;
 	}
-
-	interface WindowRemovedEvent extends chrome.events.Event {
-		addListener(callback: (windowId: number) => void): void;
+	
+	interface WindowEventFilter {
+		/**
+		 * Conditions that the window's type being created must satisfy. By default it will satisfy ['app', 'normal', 'panel', 'popup'], with 'app' and 'panel' window types limited to the extension's own windows. 
+		 * Each one of: "normal", "popup", "panel", "app", or "devtools" 
+		 */
+		windowTypes: string[];
 	}
 
-	interface WindowCreatedEvent extends chrome.events.Event {
-		addListener(callback: (window: Window) => void): void;
+	interface WindowIdEvent extends chrome.events.Event {
+		/**
+		 * @param callback
+		 * Parameter windowId: The id of the window associated with this event.
+		 */
+		addListener(callback: (windowId: number, filters?: WindowEventFilter) => void): void;
 	}
 
-	interface WindowFocusChangedEvent extends chrome.events.Event {
-		addListener(callback: (windowId: number) => void): void;
-	}
+	interface WindowReferenceEvent extends chrome.events.Event {
+		/**
+		 * @param callback
+		 * Parameter window: The window object associated with this event.
+		 */
+		addListener(callback: (window: Window, filters?: WindowEventFilter) => void): void;
+	}	
 
+	/**
+	 * The windowId value that represents the current window. 
+	 * @since Chrome 18.
+	 */
 	var WINDOW_ID_CURRENT: number;
+	/**
+	 * The windowId value that represents the absence of a chrome browser window. 
+	 * @since Chrome 6.
+	 */
 	var WINDOW_ID_NONE: number;
-
+	
+	/** Gets details about a window. */
 	export function get(windowId: number, callback: (window: chrome.windows.Window) => void): void;
+	/** 
+	 * Gets details about a window. 
+	 * @since Chrome 18.
+	 */
 	export function get(windowId: number, getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
+	/**
+	 * Gets the current window. 
+	 */
 	export function getCurrent(callback: (window: chrome.windows.Window) => void): void;
+	/**
+	 * Gets the current window. 
+	 * @since Chrome 18.
+	 */
 	export function getCurrent(getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
-	export function create(createData?: CreateData, callback?: (window: chrome.windows.Window) => void): void;
+	/**
+	 * Creates (opens) a new browser with any optional sizing, position or default URL provided. 
+	 * @param callback
+	 * Optional parameter window: Contains details about the created window. 
+	 */
+	export function create(callback?: (window?: chrome.windows.Window) => void): void;
+	/**
+	 * Creates (opens) a new browser with any optional sizing, position or default URL provided.
+	 * @param callback
+	 * Optional parameter window: Contains details about the created window. 
+	 */
+	export function create(createData: CreateData, callback?: (window?: chrome.windows.Window) => void): void;
+	/**
+	 * Gets all windows.
+	 */
 	export function getAll(callback: (windows: chrome.windows.Window[]) => void): void;
+	/**
+	 * Gets all windows.
+	 * @since Chrome 18.
+	 */
 	export function getAll(getInfo: GetInfo, callback: (windows: chrome.windows.Window[]) => void): void;
+	/** Updates the properties of a window. Specify only the properties that you want to change; unspecified properties will be left unchanged. */
 	export function update(windowId: number, updateInfo: UpdateInfo, callback?: (window: chrome.windows.Window) => void): void;
+	/** Removes (closes) a window, and all the tabs inside it. */
 	export function remove(windowId: number, callback?: Function): void;
+	/**
+	 * Gets the window that was most recently focused — typically the window 'on top'. 
+	 */
 	export function getLastFocused(callback: (window: chrome.windows.Window) => void): void;
+	/**
+	 * Gets the window that was most recently focused — typically the window 'on top'. 
+	 * @since Chrome 18.
+	 */
 	export function getLastFocused(getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
 
-	var onRemoved: WindowRemovedEvent;
-	var onCreated: WindowCreatedEvent;
-	var onFocusChanged: WindowFocusChangedEvent;
+	/** Fired when a window is removed (closed). */    
+	var onRemoved: WindowIdEvent;
+	/** Fired when a window is created. */
+	var onCreated: WindowReferenceEvent;
+	/** 
+	 * Fired when the currently focused window changes. Will be chrome.windows.WINDOW_ID_NONE if all chrome windows have lost focus. 
+	 * Note: On some Linux window managers, WINDOW_ID_NONE will always be sent immediately preceding a switch from one chrome window to another. 
+	 */
+	var onFocusChanged: WindowIdEvent;
 }
