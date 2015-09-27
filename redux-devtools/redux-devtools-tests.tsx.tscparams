@@ -1,0 +1,1 @@
+--target es5 --noImplicitAny --experimentalDecorators --jsx react

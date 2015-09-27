@@ -240,9 +240,14 @@ declare module angular.ui {
         href(state: string, params?: {}, options?: IHrefOptions): string;
         get(state: string): IState;
         get(): IState[];
+        /** A reference to the state's config object. However you passed it in. Useful for accessing custom data. */
         current: IState;
+        /** A param object, e.g. {sectionId: section.id)}, that you'd like to test against the current active state. */
         params: IStateParamsService;
         reload(): void;
+        
+        /** Currently pending transition. A promise that'll resolve or reject. */
+        transition: ng.IPromise<{}>;
         
         $current: IResolvedState;
     }
