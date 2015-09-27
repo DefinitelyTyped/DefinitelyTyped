@@ -3,7 +3,7 @@
 
 import watchify = require('watchify');
 import browserify = require('browserify');
-//import fromArgs = require('watchify/bin/args');
+import fromArgs = require('watchify/bin/args');
 
 var b = browserify({ cache: {}, packageCache: {} });
 var w = watchify(b);
@@ -20,3 +20,5 @@ w.on('update', function (ids: any) {});
 w.on('bytes', function (bytes: any) {});
 w.on('time', function (time: any) {});
 w.on('log', function (msg: any) {});
+
+b = fromArgs({});
