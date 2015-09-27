@@ -7571,34 +7571,37 @@ declare module chrome.webNavigation {
 		transitionQualifiers: string[];
 	}
 
-	interface WebNavigationEvent extends chrome.events.Event {
+	interface WebNavigationEventFilter {
 		/** Conditions that the URL being navigated to must satisfy. The 'schemes' and 'ports' fields of UrlFilter are ignored for this event. */
 		url: chrome.events.UrlFilter[];
-		addListener(callback: (details: WebNavigationCallbackDetails) => void): void;
+	}
+
+	interface WebNavigationEvent extends chrome.events.Event {
+		addListener(callback: (details: WebNavigationCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
 	}
 
 	interface WebNavigationFramedEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationFramedCallbackDetails) => void): void;
+		addListener(callback: (details: WebNavigationFramedCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
 	}
 
 	interface WebNavigationFramedErrorEvent extends WebNavigationFramedEvent {
-		addListener(callback: (details: WebNavigationFramedErrorCallbackDetails) => void): void;
+		addListener(callback: (details: WebNavigationFramedErrorCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
 	}
 
 	interface WebNavigationSourceEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationSourceCallbackDetails) => void): void;
+		addListener(callback: (details: WebNavigationSourceCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
 	}
 
 	interface WebNavigationParentedEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationParentedCallbackDetails) => void): void;
+		addListener(callback: (details: WebNavigationParentedCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
 	}
 
 	interface WebNavigationTransitionalEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationTransitionCallbackDetails) => void): void;
+		addListener(callback: (details: WebNavigationTransitionCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
 	}
 
 	interface WebNavigationReplacementEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationReplacementCallbackDetails) => void): void;
+		addListener(callback: (details: WebNavigationReplacementCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
 	}
 
 	/**
@@ -8128,7 +8131,7 @@ declare module chrome.windows {
 		/** Optional. The offset from the left edge of the screen to move the window to in pixels. This value is ignored for panels. */
 		left?: number;
 	}
-	
+
 	interface WindowEventFilter {
 		/**
 		 * Conditions that the window's type being created must satisfy. By default it will satisfy ['app', 'normal', 'panel', 'popup'], with 'app' and 'panel' window types limited to the extension's own windows. 
@@ -8215,7 +8218,7 @@ declare module chrome.windows {
 	 */
 	export function getLastFocused(getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
 
-	/** Fired when a window is removed (closed). */    
+	/** Fired when a window is removed (closed). */
 	var onRemoved: WindowIdEvent;
 	/** Fired when a window is created. */
 	var onCreated: WindowReferenceEvent;
