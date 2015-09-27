@@ -659,7 +659,7 @@ interface HighchartsBarChart {
     };
     pointInterval?: number;
     pointPadding?: number;
-    pointPlacement?: string; // null, "on", "between"
+    pointPlacement?: string | number; // null, "on", "between"
     pointRange?: number;
     pointStart?: number;
     pointWidth?: number;
@@ -864,7 +864,7 @@ interface HighchartsLineChart {
         events: HighchartsPointEvents;
     };
     pointInterval?: number;
-    pointPlacement?: string; // null, "on", "between"
+    pointPlacement?: string | number; // null, "on", "between"
     pointStart?: number;
     selected?: boolean;
     shadow?: boolean | HighchartsShadow;
@@ -888,25 +888,29 @@ interface HighchartsPieChart {
     borderColor?: string;
     borderWidth?: number;
     center?: string[];
-    color?: string;
+    colors?: string[];
     cursor?: string;
     dataLabels?: HighchartsDataLabels;
+    depth?: number;
     enableMouseTracking?: boolean;
+    endAngle?: number;
     events?: HighchartsPlotEvents;
+    getExtremesFromAll?: boolean;
     id?: string;
     ignoreHiddenPoint?: boolean;
     innerSize?: number | string;
     lineWidth?: number;
     marker?: HighchartsMarker;
+    minSize?: number;
     point?: {
         events: HighchartsPointEvents;
     };
-    pointPlacement?: string; // null, "on", "between"
     selected?: boolean;
     shadow?: boolean | HighchartsShadow;
     showInLegend?: boolean;
     size?: number | string;
     slicedOffset?: number;
+    startAngle?: number;
     states?: {
         hover: HighchartsAreaStates;
     };
@@ -942,7 +946,7 @@ interface HighchartsScatterChart {
         events: HighchartsPointEvents;
     };
     pointInterval?: number;
-    pointPlacement?: string; // null, "on", "between"
+    pointPlacement?: string | number; // null, "on", "between"
     pointStart?: number;
     selected?: boolean;
     shadow?: boolean | HighchartsShadow;
@@ -993,7 +997,7 @@ interface HighchartsSeriesChart {
         events: HighchartsPointEvents;
     };
     pointInterval?: number;
-    pointPlacement?: string; // null, "on", "between"
+    pointPlacement?: string | number; // null, "on", "between"
     pointStart?: number;
     selected?: boolean;
     shadow?: boolean | HighchartsShadow;
