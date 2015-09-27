@@ -7159,7 +7159,7 @@ declare module SP {
             /** Y coordinate of the dialog box. */
             y?: number;
             /** The dialog will be maximized when shown. */
-            showMaximized?: number;
+            showMaximized?: boolean;
             /** url of the page which is shown in the modal dialog. You should use either html or url attribute, but not both. */
             url?: string;
             /** specifies if close button should be shown on the dialog */
@@ -7191,7 +7191,7 @@ declare module SP {
             /** Y coordinate of the dialog box. */
             y: number;
             /** The dialog will be maximized when shown. */
-            showMaximized: number;
+            showMaximized: boolean;
             /** url of the page which is shown in the modal dialog. You should use either html or url attribute, but not both. */
             url: string;
             /** specifies if close button should be shown on the dialog */
