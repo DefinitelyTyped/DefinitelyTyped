@@ -313,31 +313,37 @@ declare module _ {
     }
 
     /*********
-    * Arrays *
-    **********/
+     * Array *
+     *********/
 
     //_.chunk
     interface LoDashStatic {
         /**
-        * Creates an array of elements split into groups the length of size. If collection can't be
-        * split evenly, the final chunk will be the remaining elements.
-        * @param array The array to process.
-        * @param size The length of each chunk.
-        * @return Returns the new array containing chunks.
-        **/
-        chunk<T>(array: Array<T>, size?: number): T[][];
-
-        /**
-        * @see _.chunk
-        **/
-        chunk<T>(array: List<T>, size?: number): T[][];
+         * Creates an array of elements split into groups the length of size. If collection can’t be split evenly, the
+         * final chunk will be the remaining elements.
+         *
+         * @param array The array to process.
+         * @param size The length of each chunk.
+         * @return Returns the new array containing chunks.
+         */
+        chunk<T>(
+            array: List<T>,
+            size?: number
+        ): T[][];
     }
 
     interface LoDashArrayWrapper<T> {
         /**
-        * @see _.chunk
-        **/
+         * @see _.chunk
+         */
         chunk(size?: number): LoDashArrayWrapper<T[]>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.chunk
+         */
+        chunk<TResult>(size?: number): LoDashArrayWrapper<TResult[]>;
     }
 
     //_.compact
