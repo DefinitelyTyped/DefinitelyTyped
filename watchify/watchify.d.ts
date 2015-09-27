@@ -8,6 +8,17 @@
 declare module "watchify" {
 	import Browserify = require('browserify');
 
+	interface Browserify {
+		(): BrowserifyObject;
+		(files:string[]): BrowserifyObject;
+		(opts:{
+			entries?: string[];
+			noParse?: string[];
+            cache: any;
+            packageCache: any;
+        }): BrowserifyObject;
+	}
+
 	namespace watchify {
 		var args: WatchifyArgs;
 
