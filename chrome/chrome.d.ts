@@ -7157,26 +7157,57 @@ declare module chrome.tts {
 ////////////////////
 // Text to Speech Engine
 ////////////////////
+/**
+ * Use the chrome.ttsEngine API to implement a text-to-speech(TTS) engine using an extension. If your extension registers using this API, it will receive events containing an utterance to be spoken and other parameters when any extension or Chrome App uses the tts API to generate speech. Your extension can then use any available web technology to synthesize and output the speech, and send events back to the calling function to report the status. 
+ * Permissions:  "ttsEngine"   
+ * @since Chrome 14.
+ */
 declare module chrome.ttsEngine {
 	interface SpeakOptions {
+		/** Optional. The language to be used for synthesis, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
 		lang?: string;
+		/** Optional. The name of the voice to use for synthesis. */
 		voiceName?: string;
+		/**
+		 * Optional. Gender of voice for synthesized speech. 
+		 * One of: "male", or "female"
+		 */
 		gender?: string;
+		/** Optional. Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
 		volume?: number;
+		/**
+		 * Optional.
+		 * Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. This value is guaranteed to be between 0.1 and 10.0, inclusive. When a voice does not support this full range of rates, don't return an error. Instead, clip the rate to the range the voice supports. 
+		 */
 		rate?: number;
+		/** Optional. Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to this voice's default pitch. */
 		pitch?: number;
 	}
 
 	interface TtsEngineSpeakEvent extends chrome.events.Event {
+		/**
+		 * @param callback
+		 * Parameter utterance: The text to speak, specified as either plain text or an SSML document. If your engine does not support SSML, you should strip out all XML markup and synthesize only the underlying text content. The value of this parameter is guaranteed to be no more than 32,768 characters. If this engine does not support speaking that many characters at a time, the utterance should be split into smaller chunks and queued internally without returning an error. 
+		 * Parameter options: Options specified to the tts.speak() method. 
+		 * Parameter sendTtsEvent: Call this function with events that occur in the process of speaking the utterance. 
+		 */
 		addListener(callback: (utterance: string, options: SpeakOptions, sendTtsEvent: (event: chrome.tts.TtsEvent) => void) => void): void;
 	}
 
-	interface TtsEngineStopEvent extends chrome.events.Event {
-		addListener(callback: Function): void;
-	}
-
+	/** Called when the user makes a call to tts.speak() and one of the voices from this extension's manifest is the first to match the options object. */    
 	var onSpeak: TtsEngineSpeakEvent;
-	var onStop: TtsEngineStopEvent;
+	/** Fired when a call is made to tts.stop and this extension may be in the middle of speaking. If an extension receives a call to onStop and speech is already stopped, it should do nothing (not raise an error). If speech is in the paused state, this should cancel the paused state. */
+	var onStop: chrome.events.Event;
+	/**
+	 * Optional: if an engine supports the pause event, it should pause the current utterance being spoken, if any, until it receives a resume event or stop event. Note that a stop event should also clear the paused state. 
+	 * @since Chrome 29.
+	 */
+	var onPause: chrome.events.Event;
+	/**
+	 * Optional: if an engine supports the pause event, it should also support the resume event, to continue speaking the current utterance, if any. Note that a stop event should also clear the paused state. 
+	 * @since Chrome 29.
+	 */
+	var onResume: chrome.events.Event;
 }
 
 ////////////////////
