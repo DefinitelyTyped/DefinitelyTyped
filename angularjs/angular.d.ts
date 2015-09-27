@@ -1713,18 +1713,6 @@ declare module angular {
         inheritedData(key?: string): any;
     }
 
-    ///////////////////////////////////////////////////////////////////////
-    // AnimateService
-    // see http://docs.angularjs.org/api/ng.$animate
-    ///////////////////////////////////////////////////////////////////////
-    interface IAnimateService {
-        addClass(element: JQuery, className: string, done?: Function): IPromise<any>;
-        enter(element: JQuery, parent: JQuery, after: JQuery, done?: Function): void;
-        leave(element: JQuery, done?: Function): void;
-        move(element: JQuery, parent: JQuery, after: JQuery, done?: Function): void;
-        removeClass(element: JQuery, className: string, done?: Function): void;
-    }
-
     ///////////////////////////////////////////////////////////////////////////
     // AUTO module (angular.js)
     ///////////////////////////////////////////////////////////////////////////

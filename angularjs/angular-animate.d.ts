@@ -26,7 +26,7 @@ declare module angular.animate {
      * AnimateService
      * see http://docs.angularjs.org/api/ngAnimate/service/$animate
      */
-    interface IAnimateService extends angular.IAnimateService {
+    interface IAnimateService {
         /**
         * Globally enables / disables animations.
         *
