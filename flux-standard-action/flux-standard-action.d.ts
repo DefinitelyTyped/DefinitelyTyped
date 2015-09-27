@@ -14,16 +14,18 @@ declare module "flux-standard-action" {
         error?: boolean;
     }
 
+    // Usage: var action: Action<sring> & AnyMeta;
     export interface AnyMeta {
         meta: any
     }
 
+    // Usage: var action: Action<sring> & TypedMeta<string>;
     export interface TypedMeta<T> {
         meta: T
     }
 
-    export function isFSA(action: Action<any>): boolean;
+    export function isFSA(action: any): boolean;
 
-    export function isError(action: Action<any>): boolean;
+    export function isError(action: any): boolean;
 }
 
