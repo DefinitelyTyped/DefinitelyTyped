@@ -525,11 +525,58 @@ declare module AngularFormly {
 		validateOptions?: Function;
 	}
 
-	interface IFormlyConfig {
+    interface IFormlyConfig {
+		/**
+		* There are a few extra things you can use to configure angular-formly
+		* http://docs.angular-formly.com/docs/formlyconfig#extras
+		*/
+        extras: IFormlyConfigExtras;
 		setType(typeOptions: ITypeOptions): void;
 		setWrapper(wrapperOptions: IWrapperOptions): void;
+    }
 
-	}
+    interface IFormlyConfigExtras {
+		/**
+		*     Allows you to globally disable the ngModelAttrsManipulator which does a lot of magical things.I don't know why you'd want to disable it! But, all the power in the world to you! 
+		*/	
+        disableNgModelAttrsManipulator: boolean;
+		/**
+		* Allows you to set the default instance for all of your types and wrappers which will be used to check your fields.See Tips for more info on apiCheck
+		*/
+        apiCheckInstance: any;
+		/**
+		* This allows you to disable using ng- for maxlength.It is enabled by default because of this. I highly recommend you leave this off...
+		*/
+        ngModelAttrsManipulatorPreferUnbound: boolean;
+		/**
+		* Chrome broke autocomplete= "off"(on purpose!).This will apply this hack to all of your forms.You can use removeChromeAutoComplete on the formly- form options property for a specific form.
+		*/
+        removeChromeAutoComplete: boolean;
+		/**
+		 * Defaults to 'ng-if'. Allows you to control the directive used to hide fields.Common value for this might be ng- show.It will be passed !field.hide.You can also specify this on a form- by - form basis using the hide- directive attribute.
+		 */
+        defaultHideDirective: string;
+		/**
+		 * Allows you to control when errorExistsAndShouldBeVisible is set on the Field Configuration Object. 
+		 * Normally, this will default to being true if the field is invalid and $touched (or $dirty for angular 1.2), however, this allows you to override that behavior by simply assigning this to a 
+		 * Formly Expression which is evaluated like an expressionProperty (though it is synchronous and does not accept promises).
+		 */
+        errorExistsAndShouldBeVisibleExpression: string;
+		/**
+		 * You can override the field ID generation by specifying a function that is passed: (options, model, scope).Note: Remember to check options.id to make sure you don't override an ID that has been specified.
+		 */
+        getFieldId: (options, model, scope) => any;
+		/**
+		 * Allows you to modify/ convert the fields before angular- formly handles them or validates them.
+		 * So you can now have your own custom field configuration and then simply use this function to modify 
+		 * them into something that angular- formly recognizes, or you can dynamically add/remove/modify fields.
+		 */
+        fieldTransform: (fields, model, formOptions, form) => any;
+		/**
+		 * Forces all validators to be placed on the $validators api regardless of whether it's a string or function. See #369 for more info. Recommended to turn this on.
+		 */
+        explicitAsync: boolean;
+    }
 
 	interface ITemplateScopeOptions {
 		formControl: ng.IFormController | ng.IFormController[];
