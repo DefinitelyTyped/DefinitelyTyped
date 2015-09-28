@@ -333,7 +333,7 @@ declare namespace __React {
     interface Props<T> {
         children?: ReactNode;
         key?: string | number;
-        ref?: string | ((component: T) => any);
+        ref?: string | ((component: Component<any, any>) => any);
     }
 
     interface DOMAttributesBase<T> extends Props<T> {
@@ -1136,7 +1136,7 @@ declare module "react/addons" {
     interface Props<T> {
         children?: ReactNode;
         key?: string | number;
-        ref?: string | ((component: T) => any);
+        ref?: string | ((component: Component<any, any>) => any);
     }
 
     interface DOMAttributesBase<T> extends Props<T> {
