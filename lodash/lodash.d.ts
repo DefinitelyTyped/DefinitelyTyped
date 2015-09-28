@@ -6951,33 +6951,70 @@ declare module _ {
     //_.findKey
     interface LoDashStatic {
         /**
-        * This method is like _.findIndex except that it returns the key of the first element that
-        * passes the callback check, instead of the element itself.
-        * @param object The object to search.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return The key of the found element, else undefined.
-        **/
-        findKey(
-            object: any,
-            callback: (value: any) => boolean,
-            thisArg?: any): string;
+         * This method is like _.find except that it returns the key of the first element predicate returns truthy for
+         * instead of the element itself.
+         *
+         * If a property name is provided for predicate the created _.property style callback returns the property
+         * value of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for predicate the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * @param object The object to search.
+         * @param predicate The function invoked per iteration.
+         * @param thisArg The this binding of predicate.
+         * @return Returns the key of the matched element, else undefined.
+         */
+        findKey<TObject>(
+            object: TObject,
+            predicate?: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): string;
 
         /**
-        * @see _.findKey
-        * @param pluckValue _.pluck style callback
-        **/
-        findKey(
-            object: any,
-            pluckValue: string): string;
+         * @see _.findKey
+         */
+        findKey<TObject>(
+            object: TObject,
+            predicate?: string,
+            thisArg?: any
+        ): string;
 
         /**
-        * @see _.findKey
-        * @param whereValue _.where style callback
-        **/
-        findKey<W extends Dictionary<any>, T>(
-            object: T,
-            whereValue: W): string;
+         * @see _.findKey
+         */
+        findKey<TWhere extends Dictionary<any>, TObject>(
+            object: TObject,
+            predicate?: TWhere
+        ): string;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.findKey
+         */
+        findKey(
+            predicate?: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): string;
+
+        /**
+         * @see _.findKey
+         */
+        findKey(
+            predicate?: string,
+            thisArg?: any
+        ): string;
+
+        /**
+         * @see _.findKey
+         */
+        findKey<TWhere extends Dictionary<any>>(
+            predicate?: TWhere
+        ): string;
     }
 
     //_.findLastKey
@@ -8787,7 +8824,7 @@ declare module _ {
     }
 
     interface ObjectIterator<T, TResult> {
-        (element: T, key: string, collection: any): TResult;
+        (element: T, key?: string, collection?: any): TResult;
     }
 
     interface MemoVoidIterator<T, TResult> {
