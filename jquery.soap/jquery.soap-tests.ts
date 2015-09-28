@@ -9,13 +9,13 @@ $.soap({
         msg: 'Hi!'
     },
 
-    success: function (soapResponse) {
+    success: function(soapResponse) {
         // do stuff with soapResponse
         // if you want to have the response as JSON use soapResponse.toJSON();
         // or soapResponse.toString() to get XML string
         // or soapResponse.toXML() to get XML DOM
     },
-    error: function (SOAPResponse) {
+    error: function(SOAPResponse) {
         // show error
     }
 });
@@ -77,7 +77,7 @@ $.soap({
 })
 
 $.soap({
-    
+
 }).done(function(data, textStatus, jqXHR) {
     // do stuff on success here...
 }).fail(function(jqXHR, textStatus, errorThrown) {
@@ -88,7 +88,7 @@ $.soap({
     url: 'http://my.server.com/soapservices/',
     namespaceQualifier: 'myns',
     namespaceURL: 'urn://service.my.server.com',
-    error: function (soapResponse) {
+    error: function(soapResponse) {
         // show error
     }
 });
@@ -99,7 +99,7 @@ $.soap({
         name: 'Remy Blom',
         msg: 'Hi!'
     },
-    success: function (soapResponse) {
+    success: function(soapResponse) {
         // do stuff with soapResponse
     }
 });
@@ -107,7 +107,7 @@ $.soap({
 $.soap({
     method: 'doSomethingElse',
     data: {},
-    success: function (soapResponse) {
+    success: function(soapResponse) {
         // do stuff with soapResponse
     }
 });
@@ -119,10 +119,10 @@ $.soap({
         name: 'Remy Blom',
         msg: 'Hi!'
     },
-    success: function (soapResponse) {
+    success: function(soapResponse) {
         // do stuff with soapResponse
     },
-    error: function (soapResponse) {
+    error: function(soapResponse) {
         alert('that other server might be down...')
     }
 });
@@ -174,10 +174,10 @@ $.soap({
 var xml =
     ['<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope/">',
         '<soap:Body>',
-            '<requestNode>',
-            '</requestNode>',
+        '<requestNode>',
+        '</requestNode>',
         '</soap:Body>',
-    '</soap:Envelope>'];
+        '</soap:Envelope>'];
 
 $.soap({
     data: xml.join('')
@@ -260,7 +260,7 @@ $.soap({
 
 $.soap({
     SOAPHeader: {
-        test: [1,2,3]
+        test: [1, 2, 3]
     }
 })
 
