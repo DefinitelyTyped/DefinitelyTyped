@@ -27,10 +27,3 @@ var uid21: number[] = nodeUuid.v1(options, padding, offset);
 var uid22: number[] = nodeUuid.v2(options, padding, offset);
 var uid23: number[] = nodeUuid.v3(options, padding, offset);
 var uid24: number[] = nodeUuid.v4(options, padding, offset);
-
-var buffer: Buffer;
-
-var uid31: Buffer = nodeUuid.v1(options, buffer, offset);
-var uid32: Buffer = nodeUuid.v2(options, buffer, offset);
-var uid33: Buffer = nodeUuid.v3(options, buffer, offset);
-var uid34: Buffer = nodeUuid.v4(options, buffer, offset);
