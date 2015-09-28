@@ -794,7 +794,7 @@ declare module angular {
     }
     
     interface IFilterPredicateFunc<T> {
-        (value: T, index: number, array: T[]): T[];
+        (value: T, index: number, array: T[]): boolean;
     }
     
     interface IFilterComparatorFunc<T> {
