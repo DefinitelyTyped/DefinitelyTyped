@@ -941,10 +941,10 @@ function ngFilterTyping() {
     $filter("name")(items, "test");
     $filter("name")(items, {name: "test"});
     $filter("name")(items, (val, index, array) => {
-        return array;
+        return true;
     });
     $filter("name")(items, (val, index, array) => {
-        return array;
+        return true;
     }, (actual, expected) => {
         return actual == expected;
     });
