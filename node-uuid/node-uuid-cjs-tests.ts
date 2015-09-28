@@ -1,4 +1,4 @@
-/// <reference path="node-uuid.d.ts" />
+/// <reference path="node-uuid-cjs.d.ts" />
 
 import nodeUuid = require('node-uuid');
 
