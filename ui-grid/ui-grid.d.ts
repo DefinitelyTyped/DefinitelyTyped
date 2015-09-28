@@ -466,7 +466,8 @@ declare module uiGrid {
          *        reset any existing sorting and sort by this column only
          * @returns {ng.IPromise<IGridColumn>} A resolved promise that supplies the column.
          */
-        sortColumn(column: IGridColumnOf<TEntity>, direction?: string, add?: boolean): ng.IPromise<IGridColumnOf<TEntity>>;
+        sortColumn(column: IGridColumnOf<TEntity>, direction?: string, add?: boolean)
+            : ng.IPromise<IGridColumnOf<TEntity>>;
         /**
          * flags all render containers to update their canvas height
          */
@@ -521,17 +522,19 @@ declare module uiGrid {
         (row: IGridRowOf<TEntity>, gridOptions: IGridOptionsOf<TEntity>): void;
     }
     export interface IRowProcessor<TEntity> {
-        (renderedRowsToProcess: Array<IGridRowOf<TEntity>>, columns: Array<IGridColumnOf<TEntity>>): Array<IGridRowOf<TEntity>>;
+        (renderedRowsToProcess: Array<IGridRowOf<TEntity>>, columns: Array<IGridColumnOf<TEntity>>)
+            : Array<IGridRowOf<TEntity>>;
     }
     export interface IColumnProcessor<TEntity> {
-        (renderedColumnsToProcess: Array<IGridColumnOf<TEntity>>, rows: Array<IGridRowOf<TEntity>>): Array<IGridColumnOf<TEntity>>;
+        (renderedColumnsToProcess: Array<IGridColumnOf<TEntity>>, rows: Array<IGridRowOf<TEntity>>)
+            : Array<IGridColumnOf<TEntity>>;
     }
     export type IGridOptions = IGridOptionsOf<any>;
     export interface IGridOptionsOf<TEntity> extends cellNav.IGridOptions, edit.IGridOptions, expandable.IGridOptions,
-        exporter.IGridOptions<TEntity>, grouping.IGridOptions, importer.IGridOptions<TEntity>, infiniteScroll.IGridOptions,
-        moveColumns.IGridOptions, pagination.IGridOptions, pinning.IGridOptions, resizeColumns.IGridOptions,
-        rowEdit.IGridOptions, saveState.IGridOptions, selection.IGridOptions, treeBase.IGridOptions<TEntity>,
-        treeView.IGridOptions {
+        exporter.IGridOptions<TEntity>, grouping.IGridOptions, importer.IGridOptions<TEntity>, 
+        infiniteScroll.IGridOptions, moveColumns.IGridOptions, pagination.IGridOptions, pinning.IGridOptions,
+        resizeColumns.IGridOptions, rowEdit.IGridOptions, saveState.IGridOptions, selection.IGridOptions, 
+        treeBase.IGridOptions<TEntity>, treeView.IGridOptions {
         /**
          * Default time in milliseconds to throttle aggregation calcuations, defaults to 500ms
          */
@@ -1288,7 +1291,9 @@ declare module uiGrid {
                reader.readAsText( files[0] );
            }
              */
-            editFileChooserCallback?: (gridRow: uiGrid.IGridRowOf<TEntity>, gridCol: IGridColumnOf<TEntity>, files: FileList) => void;
+            editFileChooserCallback?: (gridRow: uiGrid.IGridRowOf<TEntity>, 
+                                       gridCol: IGridColumnOf<TEntity>, 
+                                       files: FileList) => void;
             /**
              * A bindable string value that is used when binding to edit controls instead of colDef.field
              * For example if you have a complex property on an object like:
@@ -1564,7 +1569,10 @@ declare module uiGrid {
              * @param {any} value The cell value
              * @returns {any} Formatted value
              */
-            exporterFieldCallback?: (grid: IGridInstanceOf<TEntity>, row: uiGrid.IGridRowOf<TEntity>, col: IGridColumnOf<TEntity>, value: any) => any;
+            exporterFieldCallback?: (grid: IGridInstanceOf<TEntity>, 
+                                     row: uiGrid.IGridRowOf<TEntity>, 
+                                     col: IGridColumnOf<TEntity>, 
+                                     value: any) => any;
             /**
              * A function to apply to the header displayNames before exporting. Useful for internationalisation,
              * for example if you were using angular-translate you'd set this to $translate.instant.
@@ -2008,7 +2016,8 @@ declare module uiGrid {
              * This callback can be used to change the decoded value back into a code.
              * Defaults to angular.identity.
              * @param {IGridInstance} grid The grid
-             * @param {TEntity} newObject The new object as importer has created it.  Modify it and return modified version
+             * @param {TEntity} newObject The new object as importer has created it.  Modify it and return modified 
+             * version
              * @returns {TEntity} The modified object
              * @default angular.identity
              */
@@ -3146,7 +3155,8 @@ declare module uiGrid {
         export interface rowCollapsedHandler<TEntity> {
             /**
              * Row Collapsed callback
-             * @param {IGridRow} row The row that was collapsed.  You can also retrieve the grid from this row with row.grid
+             * @param {IGridRow} row The row that was collapsed.  You can also retrieve the grid from this row with 
+             * row.grid
              */
             (row: IGridRowOf<TEntity>): void;
         }
@@ -3154,7 +3164,8 @@ declare module uiGrid {
         export interface rowExpandedHandler<TEntity> {
             /**
              * Row Expanded callback
-             * @param {IGridRow} row The row that was expanded.  You can also retrieve the grid from this row with row.grid
+             * @param {IGridRow} row The row that was expanded.  You can also retrieve the grid from this row with 
+             * row.grid
              */
             (row: IGridRowOf<TEntity>): void;
         }
@@ -3354,7 +3365,8 @@ declare module uiGrid {
         new(entity: TEntity, index: number, reference: IGridInstanceOf<TEntity>): IGridRowOf<TEntity>;
     }
     export type IGridRow = IGridRowOf<any>;
-    export interface IGridRowOf<TEntity> extends cellNav.IGridRow, edit.IGridRow, exporter.IGridRow, selection.IGridRow {
+    export interface IGridRowOf<TEntity> extends cellNav.IGridRow, edit.IGridRow, exporter.IGridRow, 
+        selection.IGridRow {
         /** A reference to an item in gridOptions.data[] */
         entity: TEntity;
         /** A reference back to the grid */
@@ -3532,8 +3544,9 @@ declare module uiGrid {
      * gridOptions.columnDefs array
      */
     export type IColumnDef = IColumnDefOf<any>;
-    export interface IColumnDefOf<TEntity> extends cellNav.IColumnDef, edit.IColumnDef<TEntity>, exporter.IColumnDef, grouping.IColumnDef,
-        moveColumns.IColumnDef, pinning.IColumnDef, resizeColumns.IColumnDef, treeBase.IColumnDef<TEntity> {
+    export interface IColumnDefOf<TEntity> extends cellNav.IColumnDef, edit.IColumnDef<TEntity>, exporter.IColumnDef,
+        grouping.IColumnDef, moveColumns.IColumnDef, pinning.IColumnDef, resizeColumns.IColumnDef, 
+        treeBase.IColumnDef<TEntity> {
         /**
          * defaults to false
          * if set to true hides the label text in the aggregation footer, so only the value is displayed.
@@ -3725,7 +3738,8 @@ declare module uiGrid {
         (gridCol: IGridColumnOf<TEntity>): string;
     }
     export interface IHeaderFooterCellClassGetter<TEntity> {
-        (gridRow: IGridRowOf<TEntity>, rowRenderIndex: number, gridCol: IGridColumnOf<TEntity>, colRenderIndex: number): string;
+        (gridRow: IGridRowOf<TEntity>, rowRenderIndex: number, gridCol: IGridColumnOf<TEntity>, colRenderIndex: number)
+            : string;
     }
     export interface IMenuItem {
         /** controls the title that is displayed in the menu */
