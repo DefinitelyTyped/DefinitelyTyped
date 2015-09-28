@@ -283,7 +283,7 @@ declare module "browser-sync" {
         target?: string;
         middleware?: MiddlewareHandler;
         ws: boolean;
-        reqHeaders: (config) => Hash<any>;
+        reqHeaders: (config: any) => Hash<any>;
         proxyRes: (res: http.ServerResponse, req: http.ServerRequest, next: Function) => any;
     }
 
