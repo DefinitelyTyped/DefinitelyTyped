@@ -387,31 +387,31 @@ module TestPromise {
 
     var tresult: TResult;
     var tresultPromise: ng.IPromise<TResult>;
-    
+
     var tother: TOther;
     var totherPromise: ng.IPromise<TOther>;
-    
+
     var promise: angular.IPromise<TResult>;
 
     // promise.then
     result = <angular.IPromise<any>>promise.then((result) => any);
     result = <angular.IPromise<any>>promise.then((result) => any, (any) => any);
     result = <angular.IPromise<any>>promise.then((result) => any, (any) => any, (any) => any);
-    
+
     result = <angular.IPromise<TResult>>promise.then((result) => result);
     result = <angular.IPromise<TResult>>promise.then((result) => result, (any) => any);
     result = <angular.IPromise<TResult>>promise.then((result) => result, (any) => any, (any) => any);
     result = <angular.IPromise<TResult>>promise.then((result) => tresultPromise);
     result = <angular.IPromise<TResult>>promise.then((result) => tresultPromise, (any) => any);
     result = <angular.IPromise<TResult>>promise.then((result) => tresultPromise, (any) => any, (any) => any);
-    
+
     result = <angular.IPromise<TOther>>promise.then((result) => tother);
     result = <angular.IPromise<TOther>>promise.then((result) => tother, (any) => any);
     result = <angular.IPromise<TOther>>promise.then((result) => tother, (any) => any, (any) => any);
     result = <angular.IPromise<TOther>>promise.then((result) => totherPromise);
     result = <angular.IPromise<TOther>>promise.then((result) => totherPromise, (any) => any);
     result = <angular.IPromise<TOther>>promise.then((result) => totherPromise, (any) => any, (any) => any);
-    
+
     // promise.catch
     result = <angular.IPromise<any>>promise.catch((err) => any);
     result = <angular.IPromise<TResult>>promise.catch((err) => tresult);
@@ -937,7 +937,7 @@ function NgModelControllerTyping() {
 var $filter:  angular.IFilterService;
 
 function testFilter() {
-    
+
     var items: string[];
     $filter("filter")(items, "test");
     $filter("filter")(items, {name: "test"});
@@ -983,7 +983,7 @@ function testLimitTo() {
     var limitTo = $filter("limitTo");
     var filtered: number[] = $filter("limitTo")([1,2,3], 5);
     filtered = $filter("limitTo")([1,2,3], 5, 2);
-    
+
     var filteredString: string = $filter("limitTo")("124", 4);
     filteredString = $filter("limitTo")(124, 4);
 }
@@ -1000,10 +1000,22 @@ function testOrderBy() {
     ]);
 }
 
+function testDynamicFilter() {
+    // Test with separate variables
+    var dateFilter = $filter("date");
+    var myDate = new Date();
+    dateFilter(myDate , "EEE, MMM d");
+
+    // Test with dynamic name
+    var filterName = 'date';
+    var dynDateFilter = $filter<ng.IFilterDate>(filterName);
+    dynDateFilter(new Date());
+}
+
 interface MyCustomFilter {
     (value: string): string;
 }
-    
+
 function testCustomFilter() {
     var filterCustom = $filter<MyCustomFilter>('custom');
     var filtered: string = filterCustom("test");
