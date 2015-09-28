@@ -371,6 +371,9 @@ declare namespace __React {
         onTouchStart?: TouchEventHandler;
         onScroll?: UIEventHandler;
         onWheel?: WheelEventHandler;
+        
+        className?: string;
+        id?: string;
 
         dangerouslySetInnerHTML?: {
             __html: string;
@@ -426,7 +429,6 @@ declare namespace __React {
         charSet?: string;
         checked?: boolean;
         classID?: string;
-        className?: string;
         cols?: number;
         colSpan?: number;
         content?: string;
@@ -461,7 +463,6 @@ declare namespace __React {
         htmlFor?: string;
         httpEquiv?: string;
         icon?: string;
-        id?: string;
         label?: string;
         lang?: string;
         list?: string;
@@ -1174,6 +1175,9 @@ declare module "react/addons" {
         onScroll?: UIEventHandler;
         onWheel?: WheelEventHandler;
 
+        className?: string;
+        id?: string;
+
         dangerouslySetInnerHTML?: {
             __html: string;
         };
@@ -1228,7 +1232,6 @@ declare module "react/addons" {
         charSet?: string;
         checked?: boolean;
         classID?: string;
-        className?: string;
         cols?: number;
         colSpan?: number;
         content?: string;
@@ -1263,7 +1266,6 @@ declare module "react/addons" {
         htmlFor?: string;
         httpEquiv?: string;
         icon?: string;
-        id?: string;
         label?: string;
         lang?: string;
         list?: string;
