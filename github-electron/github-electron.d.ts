@@ -400,7 +400,10 @@ declare module GitHubElectron {
 		/**
 		 * Same with webContents.loadUrl(url).
 		 */
-		loadUrl(url: string): void;
+		loadUrl(url: string, options?: {
+			httpReferrer?: string;
+			userAgent?: string;
+		}): void;
 		/**
 		 * Same with webContents.reload.
 		 */
@@ -537,7 +540,10 @@ declare module GitHubElectron {
 		 * Loads the url in the window.
 		 * @param url Must contain the protocol prefix (e.g., the http:// or file://).
 		 */
-		loadUrl(url: string): void;
+		loadUrl(url: string, options?: {
+			httpReferrer?: string;
+			userAgent?: string;
+		}): void;
 		/**
 		 * @returns The URL of current web page.
 		 */
@@ -1212,7 +1218,7 @@ declare module GitHubElectron {
 		/**
 		 * Sets the image associated with this tray icon.
 		 */
-		setImage(image: NativeImage): void;
+		setImage(image: NativeImage|string): void;
 		/**
 		 * Sets the image associated with this tray icon when pressed.
 		 */

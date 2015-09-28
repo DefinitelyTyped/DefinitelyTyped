@@ -933,3 +933,19 @@ function NgModelControllerTyping() {
             });
     };
 }
+
+function ngFilterTyping() {
+    var $filter:  angular.IFilterService;
+    var items: string[];
+    
+    $filter("name")(items, "test");
+    $filter("name")(items, {name: "test"});
+    $filter("name")(items, (val, index, array) => {
+        return array;
+    });
+    $filter("name")(items, (val, index, array) => {
+        return array;
+    }, (actual, expected) => {
+        return actual == expected;
+    });
+}

@@ -228,8 +228,11 @@ declare module angular.ui {
          * @param options Options object.
          */
         go(to: string, params?: {}, options?: IStateOptions): angular.IPromise<any>;
+        go(to: IState, params?: {}, options?: IStateOptions): angular.IPromise<any>;
         transitionTo(state: string, params?: {}, updateLocation?: boolean): void;
+        transitionTo(state: IState, params?: {}, updateLocation?: boolean): void;
         transitionTo(state: string, params?: {}, options?: IStateOptions): void;
+        transitionTo(state: IState, params?: {}, options?: IStateOptions): void;
         includes(state: string, params?: {}): boolean;
         is(state:string, params?: {}): boolean;
         is(state: IState, params?: {}): boolean;
@@ -237,9 +240,14 @@ declare module angular.ui {
         href(state: string, params?: {}, options?: IHrefOptions): string;
         get(state: string): IState;
         get(): IState[];
+        /** A reference to the state's config object. However you passed it in. Useful for accessing custom data. */
         current: IState;
+        /** A param object, e.g. {sectionId: section.id)}, that you'd like to test against the current active state. */
         params: IStateParamsService;
         reload(): void;
+        
+        /** Currently pending transition. A promise that'll resolve or reject. */
+        transition: ng.IPromise<{}>;
         
         $current: IResolvedState;
     }
