@@ -203,7 +203,7 @@ $.soap({
 })
 
 $.soap({
-    enableLoggin: true
+    enableLogging: true
 })
 
 $.soap({
