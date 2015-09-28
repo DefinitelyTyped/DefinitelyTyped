@@ -1,4 +1,4 @@
-/// <reference path="phonegap-ua-push.d.ts" />
+/// <reference path="urbanairship-cordova.d.ts" />
 
 //#region Basic Example taken from http://docs.urbanairship.com/platform/phonegap.html#actions
 
