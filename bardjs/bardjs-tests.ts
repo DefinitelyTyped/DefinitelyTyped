@@ -232,7 +232,7 @@ module bardTests {
                 _default: $q.when([])
             });
 
-            controller = $controller('MyController');
+            controller = $controller<MyController>('MyController');
             $rootScope.$apply();
         });
     }
@@ -264,7 +264,7 @@ module bardTests {
                 _default: $q.when([])
             });
 
-            controller = $controller('MyController');
+            controller = $controller<MyController>('MyController');
             $rootScope.$apply();
         });
 

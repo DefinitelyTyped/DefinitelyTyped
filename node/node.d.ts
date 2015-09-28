@@ -193,8 +193,7 @@ declare module NodeJS {
 
     export interface WritableStream extends EventEmitter {
         writable: boolean;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
+        write(buffer: Buffer|string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
         end(): void;
         end(buffer: Buffer, cb?: Function): void;
@@ -1772,6 +1771,7 @@ declare module "util" {
     export function isDate(object: any): boolean;
     export function isError(object: any): boolean;
     export function inherits(constructor: any, superConstructor: any): void;
+    export function debuglog(key:string): (msg:string,...param: any[])=>void;
 }
 
 declare module "assert" {
