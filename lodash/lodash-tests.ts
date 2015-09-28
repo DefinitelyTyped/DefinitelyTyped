@@ -1766,9 +1766,31 @@ var TestDefaultsDeepSource = {'user': {'name': 'fred', 'age': 36}};
 result = <DefaultsDeepResult>_.defaultsDeep(TestDefaultsDeepObject, TestDefaultsDeepSource);
 result = <DefaultsDeepResult>_(TestDefaultsDeepObject).defaultsDeep<DefaultsDeepResult>(TestDefaultsDeepSource).value();
 
-result = <string>_.findKey({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, function (num) {
-    return num % 2 == 0;
-});
+// _.findKey
+module TestFindKey {
+    let predicateFn: (value: any, key?: string, object?: {}) => boolean;
+    let result: string;
+
+    result = _.findKey<{a: string;}>({a: ''});
+
+    result = _.findKey<{a: string;}>({a: ''}, predicateFn);
+    result = _.findKey<{a: string;}>({a: ''}, predicateFn, any);
+
+    result = _.findKey<{a: string;}>({a: ''}, '');
+    result = _.findKey<{a: string;}>({a: ''}, '', any);
+
+    result = _.findKey<{a: number;}, {a: string;}>({a: ''}, {a: 42});
+
+    result = _<{a: string;}>({a: ''}).findKey();
+
+    result = _<{a: string;}>({a: ''}).findKey(predicateFn);
+    result = _<{a: string;}>({a: ''}).findKey(predicateFn, any);
+
+    result = _<{a: string;}>({a: ''}).findKey('');
+    result = _<{a: string;}>({a: ''}).findKey('', any);
+
+    result = _<{a: string;}>({a: ''}).findKey<{a: number;}>({a: 42});
+}
 
 result = <string>_.findLastKey({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, function (num) {
     return num % 2 == 1;
