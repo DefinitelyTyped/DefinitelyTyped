@@ -572,6 +572,7 @@ declare namespace __React {
         stroke?: string;
         strokeDasharray?: string;
         strokeLinecap?: string;
+        strokeMiterlimit?: string;
         strokeOpacity?: number | string;
         strokeWidth?: number | string;
         textAnchor?: string;
@@ -1373,6 +1374,7 @@ declare module "react/addons" {
         stroke?: string;
         strokeDasharray?: string;
         strokeLinecap?: string;
+        strokeMiterlimit?: string;
         strokeOpacity?: number | string;
         strokeWidth?: number | string;
         textAnchor?: string;

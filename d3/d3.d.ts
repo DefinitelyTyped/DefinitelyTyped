@@ -1802,6 +1802,10 @@ declare module d3 {
         export module format {
             export function multi(formats: Array<[string, (d: Date) => boolean|number]>): Format;
             export function utc(specifier: string): Format;
+            module utc {
+                export function multi(formats: Array<[string, (d: Date) => boolean|number]>): Format;
+            }
+
             export var iso: Format;
         }
 

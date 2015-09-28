@@ -34,6 +34,7 @@ function TestPortal() {
     var bladePromise = testFx.portal.openResourceBlade(resourceId, summaryBlade.title, 20000)
     var stringPromise = testFx.portal.takeScreenshot("TestPortal");
     var stringArrayPromise = testFx.portal.getBrowserLogs(testFx.LogLevel.All);
+    anyPromise = testFx.portal.waitUntilElementDoesNotContainAttribute(testFx.Locators.By.className('part'), 'class', 'invalid');
 }
 
 function TestBlades() {
@@ -41,14 +42,16 @@ function TestBlades() {
     blade.clickCommand('Delete');
 
     var createBlade = new testFx.Blades.CreateBlade(bladeTitle);
-    voidPromise = createBlade.actionBar.clickCreate();
-    voidPromise = createBlade.actionBar.clickDelete();
+    voidPromise = createBlade.actionBar.createButton.click();
 
     var browseBlade = new testFx.Blades.BrowseResourceBlade(bladeTitle);
     voidPromise = browseBlade.selectResource(resourceName);
 
     var pickerBlade = new testFx.Blades.PickerBlade(bladeTitle);
     pickerBlade.pickItem('abc');
+
+    var specPickerBlade = new testFx.Blades.SpecPickerBlade(bladeTitle);
+    specPickerBlade.pickSpec('S2');
 }
 
 function TestParts() {
@@ -60,6 +63,9 @@ function TestParts() {
 
     var resourceSummary = new testFx.Parts.ResourceSummaryPart(summaryBlade.getLocator());
     var count = resourceSummary.properties.length;
+
+    var pricingTier = new testFx.Parts.PricingTierPart(summaryBlade.getLocator());
+    voidPromise = pricingTier.click();
 }
 
 function TestControls() {
@@ -75,7 +81,13 @@ function TestControls() {
 }
 
 function TestActionBars() {
-    var bar = new testFx.ActionBars.ActionBar(summaryBlade.getLocator());
-    voidPromise = bar.clickCreate();
-    voidPromise = bar.clickDelete();
+    var createBar = new testFx.ActionBars.CreateActionBar(summaryBlade.getLocator());
+    voidPromise = createBar.createButton.click();
+    
+    var deleteBar = new testFx.ActionBars.DeleteActionBar(summaryBlade.getLocator());
+    voidPromise = deleteBar.deleteButton.click();
+    voidPromise = deleteBar.cancelButton.click();
+
+    var pickerBar = new testFx.ActionBars.PickerActionBar(summaryBlade.getLocator());
+    voidPromise = pickerBar.selectButton.click();
 }

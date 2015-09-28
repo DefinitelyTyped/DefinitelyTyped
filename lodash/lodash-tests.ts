@@ -155,17 +155,24 @@ result = <number[]>_([1, 2, 3]).run();
 result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).toJSON();
 result = <_.Dictionary<number>>_({ a: 1, b: 2}).mapValues(function(num: number) { return num * 2; }).valueOf();
 
-// /*************
-//  * Arrays *
-//  *************/
-result = <any[][]>_.chunk([1, '2', '3', false]);
-result = <_.LoDashArrayWrapper<any[]>>_([1, '2', '3', false]).chunk();
-result = <any[][]>_.chunk([1, '2', '3', false], 2);
-result = <_.LoDashArrayWrapper<any[]>>_([1, '2', '3', false]).chunk(2);
-result = <number[][]>_.chunk([1, 2, 3, 4]);
-result = <_.LoDashArrayWrapper<number[]>>_([1, 2, 3, 4]).chunk();
-result = <number[][]>_.chunk([1, 2, 3, 4], 2);
-result = <_.LoDashArrayWrapper<number[]>>_([1, 2, 3, 4]).chunk(2);
+/*********
+ * Array *
+ *********/
+
+// _.chunk
+module TestChunk {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let result: TResult[][];
+    result = _.chunk<TResult>(array);
+    result = _.chunk<TResult>(array, 42);
+    result = _.chunk<TResult>(list);
+    result = _.chunk<TResult>(list, 42);
+    result = _(array).chunk().value();
+    result = _(array).chunk(42).value();
+    result = _(list).chunk<TResult>().value();
+    result = _(list).chunk<TResult>(42).value();
+}
 
 result = <any[]>_.compact([0, 1, false, 2, '', 3]);
 result = <_.LoDashArrayWrapper<any>>_([0, 1, false, 2, '', 3]).compact();
@@ -208,6 +215,21 @@ result = <_.LoDashArrayWrapper<any>>_([0, 1, false, 2, '', 3]).compact();
     result = _(testDropList).drop<TResult>(42).value();
 }
 
+// _.dropRight
+module TestDropRight {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let result: TResult[];
+    result = _.dropRight<TResult>(array);
+    result = _.dropRight<TResult>(array, 42);
+    result = _.dropRight<TResult>(list);
+    result = _.dropRight<TResult>(list, 42);
+    result = _(array).dropRight().value();
+    result = _(array).dropRight(42).value();
+    result = _(list).dropRight<TResult>().value();
+    result = _(list).dropRight<TResult>(42).value();
+}
+
 result = <number[]>_.rest([1, 2, 3]);
 result = <number[]>_.rest([1, 2, 3], 2);
 result = <number[]>_.rest([1, 2, 3], (num) => num < 3)
@@ -242,37 +264,16 @@ result = <number>_.findLastIndex(['apple', 'banana', 'beet'], function (f: strin
 result = <number>_.findLastIndex(['apple', 'banana', 'beet'], 'apple');
 result = <number>_.findLastIndex([{ food: 'apple' }, { food: 'banana' }, { food: 'beet' }], { food: 'apple' });
 
-result = <number>_.first([1, 2, 3]);
-result = <number[]>_.first([1, 2, 3], 2);
-result = <number[]>_.first([1, 2, 3], function (num) {
-    return num < 3;
-});
-result = <IFoodOrganic[]>_.first(foodsOrganic, 'organic');
-result = <IFoodType[]>_.first(foodsType, { 'type': 'fruit' });
-
-result = <number>_([1, 2, 3]).first();
-result = <number[]>_([1, 2, 3]).first(2).value();
-result = <number[]>_([1, 2, 3]).first(function (num) {
-    return num < 3;
-}).value();
-result = <IFoodOrganic[]>_(foodsOrganic).first('organic').value();
-result = <IFoodType[]>_(foodsType).first({ 'type': 'fruit' }).value();
-
-result = <number>_.head([1, 2, 3]);
-result = <number[]>_.head([1, 2, 3], 2);
-result = <number[]>_.head([1, 2, 3], function (num) {
-    return num < 3;
-});
-result = <IFoodOrganic[]>_.head(foodsOrganic, 'organic');
-result = <IFoodType[]>_.head(foodsType, { 'type': 'fruit' });
-
-result = <number>_([1, 2, 3]).head();
-result = <number[]>_([1, 2, 3]).head(2).value();
-result = <number[]>_([1, 2, 3]).head(function (num) {
-    return num < 3;
-}).value();
-result = <IFoodOrganic[]>_(foodsOrganic).head('organic').value();
-result = <IFoodType[]>_(foodsType).head({ 'type': 'fruit' }).value();
+// _.first
+module TestFirst {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let result: TResult;
+    result = _.first<TResult>(array);
+    result = _.first<TResult>(list);
+    result = _(array).first();
+    result = _(list).first<TResult>();
+}
 
 result = <number[]>_.take([1, 2, 3]);
 result = <number[]>_.take([1, 2, 3], 2);
@@ -304,6 +305,17 @@ result = <_.LoDashArrayWrapper<number|Array<Array<number>>>>_([1, [2], [3, [[4]]
 result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten(true);
 
 result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flattenDeep();
+
+// _.head
+module TestHead {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let result: TResult;
+    result = _.head<TResult>(array);
+    result = _.head<TResult>(list);
+    result = _(array).head();
+    result = _(list).head<TResult>();
+}
 
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2, 3);
@@ -652,6 +664,51 @@ result = <number[]>_([1, 2]).zipWith<number>([1, 2], [1, 2], [1, 2], [1, 2], [1,
     result = _(testAtDictionary).at<TResult>(0, '1', [2], ['3'], [4, '5']).value();
 }
 
+// _.collect
+module TestCollect {
+    let array: number[];
+    let list: _.List<number>;
+    let dictionary: _.Dictionary<number>;
+    let listIterator: {(value: number, index: number, collection: _.List<number>): TResult};
+    let dictionaryIterator: {(value: number, key: string, collection: _.Dictionary<number>): TResult};
+    {
+        let result: TResult[];
+        result = _.collect<number, TResult>(array);
+        result = _.collect<number, TResult>(array, listIterator);
+        result = _.collect<number, TResult>(array, listIterator, any);
+        result = _.collect<number, TResult>(array, '');
+        result = _.collect<number, TResult>(list);
+        result = _.collect<number, TResult>(list, listIterator);
+        result = _.collect<number, TResult>(list, listIterator, any);
+        result = _.collect<number, TResult>(list, '');
+        result = _.collect<number, TResult>(dictionary);
+        result = _.collect<number, TResult>(dictionary, dictionaryIterator);
+        result = _.collect<number, TResult>(dictionary, dictionaryIterator, any);
+        result = _.collect<number, TResult>(dictionary, '');
+        result = _<number>(array).collect<TResult>().value();
+        result = _<number>(array).collect<TResult>(listIterator).value();
+        result = _<number>(array).collect<TResult>(listIterator, any).value();
+        result = _<number>(array).collect<TResult>('').value();
+        result = _(list).collect<number, TResult>().value();
+        result = _(list).collect<number, TResult>(listIterator).value();
+        result = _(list).collect<number, TResult>(listIterator, any).value();
+        result = _(list).collect<number, TResult>('').value();
+        result = _(dictionary).collect<number, TResult>().value();
+        result = _(dictionary).collect<number, TResult>(dictionaryIterator).value();
+        result = _(dictionary).collect<number, TResult>(dictionaryIterator, any).value();
+        result = _(dictionary).collect<number, TResult>('').value();
+    }
+    {
+        let result: boolean[];
+        result = _.collect<number, {}>(array, {});
+        result = _.collect<number, {}>(list, {});
+        result = _.collect<number, {}>(dictionary, {});
+        result = _<number>(array).collect<{}>({}).value();
+        result = _(list).collect<{}>({}).value();
+        result = _(dictionary).collect<{}>({}).value();
+    }
+}
+
 result = <boolean>_.contains([1, 2, 3], 1);
 result = <boolean>_.contains([1, 2, 3], 1, 2);
 result = <boolean>_.contains({ 'moe': 30, 'larry': 40, 'curly': 67 }, 40);
@@ -797,21 +854,60 @@ result = <_.Dictionary<IKey>>_.indexBy(keys, function (key) { this.fromCharCode(
 result = <number[][]>_.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
 result = <string[][]>_.invoke([123, 456], String.prototype.split, '');
 
-result = <number[]>_.map([1, 2, 3], function (num) { return num * 3; });
-result = <number[]>_.map({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { return num * 3; });
-result = <IStoogesAge[]>_.map(stoogesAges, 'name');
+// _.map
+module TestMap {
+    let array: number[];
+    let list: _.List<number>;
+    let dictionary: _.Dictionary<number>;
 
-result = <number[]>_([1, 2, 3]).map(function (num) { return num * 3; }).value();
-result = <number[]>_({ 'one': 1, 'two': 2, 'three': 3 }).map(function (num: number) { return num * 3; }).value();
-result = <IStoogesAge[]>_(stoogesAges).map('name').value();
+    let listIterator: (value: number, index: number, collection: _.List<number>) => TResult;
+    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => TResult;
 
-result = <number[]>_.collect([1, 2, 3], function (num) { return num * 3; });
-result = <number[]>_.collect({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { return num * 3; });
-result = <IStoogesAge[]>_.collect(stoogesAges, 'name');
+    {
+        let result: TResult[];
 
-result = <number[]>_([1, 2, 3]).collect(function (num) { return num * 3; }).value();
-result = <number[]>_({ 'one': 1, 'two': 2, 'three': 3 }).collect(function (num: number) { return num * 3; }).value();
-result = <IStoogesAge[]>_(stoogesAges).collect('name').value();
+        result = _.map<number, TResult>(array);
+        result = _.map<number, TResult>(array, listIterator);
+        result = _.map<number, TResult>(array, listIterator, any);
+        result = _.map<number, TResult>(array, '');
+
+        result = _.map<number, TResult>(list);
+        result = _.map<number, TResult>(list, listIterator);
+        result = _.map<number, TResult>(list, listIterator, any);
+        result = _.map<number, TResult>(list, '');
+
+        result = _.map<number, TResult>(dictionary);
+        result = _.map<number, TResult>(dictionary, dictionaryIterator);
+        result = _.map<number, TResult>(dictionary, dictionaryIterator, any);
+        result = _.map<number, TResult>(dictionary, '');
+
+        result = _<number>(array).map<TResult>().value();
+        result = _<number>(array).map<TResult>(listIterator).value();
+        result = _<number>(array).map<TResult>(listIterator, any).value();
+        result = _<number>(array).map<TResult>('').value();
+
+        result = _(list).map<number, TResult>().value();
+        result = _(list).map<number, TResult>(listIterator).value();
+        result = _(list).map<number, TResult>(listIterator, any).value();
+        result = _(list).map<number, TResult>('').value();
+
+        result = _(dictionary).map<number, TResult>().value();
+        result = _(dictionary).map<number, TResult>(dictionaryIterator).value();
+        result = _(dictionary).map<number, TResult>(dictionaryIterator, any).value();
+        result = _(dictionary).map<number, TResult>('').value();
+    }
+    {
+        let result: boolean[];
+
+        result = _.map<number, {}>(array, {});
+        result = _.map<number, {}>(list, {});
+        result = _.map<number, {}>(dictionary, {});
+
+        result = _<number>(array).map<{}>({}).value();
+        result = _(list).map<{}>({}).value();
+        result = _(dictionary).map<{}>({}).value();
+    }
+}
 
 // _.ceil
 result = <number>_.ceil(4.006);
@@ -1794,6 +1890,54 @@ result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keys().value();
 result = <string[]>_.keysIn({ 'one': 1, 'two': 2, 'three': 3 });
 result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keysIn().value();
 
+// _.mapKeys
+module TestMapKeys {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
+
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => string;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => string;
+
+    let result: _.Dictionary<TResult>;
+
+    result = _.mapKeys<TResult, string>(array);
+    result = _.mapKeys<TResult, string>(array, listIterator);
+    result = _.mapKeys<TResult, string>(array, listIterator, any);
+    result = _.mapKeys<TResult>(array, '');
+    result = _.mapKeys<TResult, {}>(array, {});
+
+    result = _.mapKeys<TResult, string>(list);
+    result = _.mapKeys<TResult, string>(list, listIterator);
+    result = _.mapKeys<TResult, string>(list, listIterator, any);
+    result = _.mapKeys<TResult>(list, '');
+    result = _.mapKeys<TResult, {}>(list, {});
+
+    result = _.mapKeys<TResult, string>(dictionary);
+    result = _.mapKeys<TResult, string>(dictionary, dictionaryIterator);
+    result = _.mapKeys<TResult, string>(dictionary, dictionaryIterator, any);
+    result = _.mapKeys<TResult>(dictionary, '');
+    result = _.mapKeys<TResult, {}>(dictionary, {});
+
+    result = _(array).mapKeys<string>().value();
+    result = _(array).mapKeys<string>(listIterator).value();
+    result = _(array).mapKeys<string>(listIterator, any).value();
+    result = _(array).mapKeys('').value();
+    result = _(array).mapKeys<{}>({}).value();
+
+    result = _(list).mapKeys<TResult, string>().value();
+    result = _(list).mapKeys<TResult, string>(listIterator).value();
+    result = _(list).mapKeys<TResult, string>(listIterator, any).value();
+    result = _(list).mapKeys<TResult>('').value();
+    result = _(list).mapKeys<TResult, {}>({}).value();
+
+    result = _(dictionary).mapKeys<TResult, string>().value();
+    result = _(dictionary).mapKeys<TResult, string>(dictionaryIterator).value();
+    result = _(dictionary).mapKeys<TResult, string>(dictionaryIterator, any).value();
+    result = _(dictionary).mapKeys<TResult>('').value();
+    result = _(dictionary).mapKeys<TResult, {}>({}).value();
+}
+
 var mergeNames = {
     'stooges': [
         { 'name': 'moe' },
@@ -1884,17 +2028,71 @@ interface TestPickFn {
     result = _(testSetObject).set([testSetPath], any).value();
 }
 
-result = <number[]>_.transform([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], function (r: number[], num: number) {
-    num *= num;
-    if (num % 2) {
-        return r.push(num) < 3;
-    }
-});
-// → [1, 9, 25]
+// _.transform
+module TestTransform {
+    let array: number[];
+    let dictionary: _.Dictionary<number>;
 
-result = <{ a: number; b: number; c: number; }>_.transform(<{ [index: string]: number; }>{ 'a': 1, 'b': 2, 'c': 3 }, function (r: any, num: number, key: string) {
-    r[key] = num * 3;
-});
+    {
+        let iterator: (acc: TResult[], curr: number, index?: number, arr?: number[]) => void;
+        let accumulator: TResult[];
+        let result: TResult[];
+
+        result = _.transform<number, TResult>(array);
+        result = _.transform<number, TResult>(array, iterator);
+        result = _.transform<number, TResult>(array, iterator, accumulator);
+        result = _.transform<number, TResult>(array, iterator, accumulator, any);
+
+        result = _<number>(array).transform<TResult>().value();
+        result = _<number>(array).transform<TResult>(iterator).value();
+        result = _<number>(array).transform<TResult>(iterator, accumulator).value();
+        result = _<number>(array).transform<TResult>(iterator, accumulator, any).value();
+    }
+
+    {
+        let iterator: (acc: _.Dictionary<TResult>, curr: number, index?: number, arr?: number[]) => void;
+        let accumulator: _.Dictionary<TResult>;
+        let result: _.Dictionary<TResult>;
+
+        result = _.transform<number, TResult>(array, iterator);
+        result = _.transform<number, TResult>(array, iterator, accumulator);
+        result = _.transform<number, TResult>(array, iterator, accumulator, any);
+
+        result = _<number>(array).transform<TResult>(iterator).value();
+        result = _<number>(array).transform<TResult>(iterator, accumulator).value();
+        result = _<number>(array).transform<TResult>(iterator, accumulator, any).value();
+    }
+
+    {
+        let iterator: (acc: _.Dictionary<TResult>, curr: number, key?: string, dict?: _.Dictionary<number>) => void;
+        let accumulator: _.Dictionary<TResult>;
+        let result: _.Dictionary<TResult>;
+
+        result = _.transform<number, TResult>(dictionary);
+        result = _.transform<number, TResult>(dictionary, iterator);
+        result = _.transform<number, TResult>(dictionary, iterator, accumulator);
+        result = _.transform<number, TResult>(dictionary, iterator, accumulator, any);
+
+        result = _(dictionary).transform<number, TResult>().value();
+        result = _(dictionary).transform<number, TResult>(iterator).value();
+        result = _(dictionary).transform<number, TResult>(iterator, accumulator).value();
+        result = _(dictionary).transform<number, TResult>(iterator, accumulator, any).value();
+    }
+
+    {
+        let iterator: (acc: TResult[], curr: number, key?: string, dict?: _.Dictionary<number>) => void;
+        let accumulator: TResult[];
+        let result: TResult[];
+
+        result = _.transform<number, TResult>(dictionary, iterator);
+        result = _.transform<number, TResult>(dictionary, iterator, accumulator);
+        result = _.transform<number, TResult>(dictionary, iterator, accumulator, any);
+
+        result = _(dictionary).transform<number, TResult>(iterator).value();
+        result = _(dictionary).transform<number, TResult>(iterator, accumulator).value();
+        result = _(dictionary).transform<number, TResult>(iterator, accumulator, any).value();
+    }
+}
 
 // _.values
 class TestValues {

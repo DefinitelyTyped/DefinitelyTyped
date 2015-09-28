@@ -232,7 +232,7 @@ declare module uiGrid {
         getOnlyDataColumns(): Array<IGridColumnOf<TEntity>>;
         /**
          * returns the GridRow that contains the rowEntity
-         * @param {any} rowEntity the gridOptionms.data array element instance
+         * @param {TEntity} rowEntity the gridOptionms.data array element instance
          * @param {Array<IGridRow>} rows The rows to look in.  if not provided then it looks in grid.rows
          */
         getRow(rowEntity: TEntity, rows?: Array<IGridRowOf<TEntity>>): IGridRowOf<TEntity>;
@@ -442,7 +442,7 @@ declare module uiGrid {
         /**
          * Scroll the grid such that the specified
          * row and column is in view
-         * @param {any} rowEntity gridOptions.data[] array element to make visible
+         * @param {TEntity} rowEntity gridOptions.data[] array element to make visible
          * @param {IColumnDef} colDef to make visible
          * @returns {ng.IPromise<any>} a promise that is resolved after any scrolling is finished
          */
@@ -811,10 +811,10 @@ declare module uiGrid {
         /**
          * By default, rows are compared using object equality.  This option can be overridden
          * to compare on any data item property or function
-         * @param {IGridRow} entityA First Data Item to compare
-         * @param {IGridRow} entityB Second Data Item to compare
+         * @param {TEntity} entityA First Data Item to compare
+         * @param {TEntity} entityB Second Data Item to compare
          */
-        rowEquality?(entityA: IGridRowOf<TEntity>, entityB: IGridRowOf<TEntity>): boolean;
+        rowEquality?(entityA: TEntity, entityB: TEntity): boolean;
         /**
          * This function is used to get and, if necessary, set the value uniquely identifying this row
          * (i.e. if an identity is not present it will set one).
@@ -860,7 +860,7 @@ declare module uiGrid {
          * If the row is currently invisible then sets it to visible and calls
          * both grid refresh and emits the rowsVisibleChanged event
          * TODO: if a filter is active then we can't just set it to visible?
-         * @param {any} rowEntity gridOptions.data[] array instance
+         * @param {TEntity} rowEntity gridOptions.data[] array instance
          */
         clearRowInvisible(rowEntity: TEntity): void;
         /**
@@ -929,7 +929,7 @@ declare module uiGrid {
         /**
          * Scroll the grid such that the specified
          * row and column is in view
-         * @param {any} entity gridOptions.data[] array instance to make visible
+         * @param {TEntity} entity gridOptions.data[] array instance to make visible
          * @param {IColumnDef} colDef to make visible
          * @returns {ng.IPromise<any>} a promise that is resolved after any scrolling is finished
          */
@@ -1128,7 +1128,7 @@ declare module uiGrid {
             rowColSelectIndex(rowCol: IRowCol<TEntity>): number;
             /**
              * Brings the specified row and column into view, and sets focus to that cell
-             * @param {any} rowEntity gridOptions.data[] array instance to make visible and set focus
+             * @param {TEntity} rowEntity gridOptions.data[] array instance to make visible and set focus
              * @param {IColumnDef} colDef Column definition to make visible and set focus
              */
             scrollToFocus(rowEntity: TEntity, colDef: IColumnDef): ng.IPromise<any>;
@@ -1387,7 +1387,7 @@ declare module uiGrid {
         export interface afterCellEditHandler<TEntity> {
             /**
              * raised when cell editing is complete
-             * @param {any} rowEntity the options.data element that was edited
+             * @param {TEntity} rowEntity the options.data element that was edited
              * @param {IColumnDef} colDef The column that was edited
              * @param {any} newValue New Value
              * @param {any} oldValue Old Value
@@ -1397,7 +1397,7 @@ declare module uiGrid {
 
         /**
          * raised when cell editing starts on a cell
-         * @param {any} rowEntity the options.data element that was edited
+         * @param {TEntity} rowEntity the options.data element that was edited
          * @param {IColumnDef} colDef The column that was edited
          * @param {JQueryEventObject} triggerEvent the event that triggered the edit. Useful to prevent losing
          *     keystrokes on some complex editors
@@ -1408,7 +1408,7 @@ declare module uiGrid {
 
         /**
          * raised when cell editing is cancelled on a cell
-         * @param {any} rowEntity the options.data element that was edited
+         * @param {TEntity} rowEntity the options.data element that was edited
          * @param {IColumnDef} colDef The column that was edited
          */
         export interface cancelCellEditHandler<TEntity> {
@@ -1480,7 +1480,7 @@ declare module uiGrid {
             toggleAllRows(): void;
             /**
              * Toggle a specific row
-             * @param {any} rowEntity The data entity for the row you want to expand
+             * @param {TEntity} rowEntity The data entity for the row you want to expand
              */
             toggleRowExpansion(rowEntity: TEntity): void;
 
@@ -2008,8 +2008,8 @@ declare module uiGrid {
              * This callback can be used to change the decoded value back into a code.
              * Defaults to angular.identity.
              * @param {IGridInstance} grid The grid
-             * @param {any} newObject The new object as importer has created it.  Modify it and return modified version
-             * @returns {any} The modified object
+             * @param {TEntity} newObject The new object as importer has created it.  Modify it and return modified version
+             * @returns {TEntity} The modified object
              * @default angular.identity
              */
             importerObjectCallback?: (grid: IGridInstanceOf<TEntity>, newObject: TEntity) => TEntity;
@@ -2528,9 +2528,9 @@ declare module uiGrid {
         export interface saveRowHandler<TEntity> {
             /**
              * Callback method for save row
-             * @param {any} rowEntity The options.data element that was edited
+             * @param {TEntity} rowEntity The options.data element that was edited
              */
-            (rowEntity: Array<TEntity>): void;
+            (rowEntity: TEntity): void;
         }
     }
 
