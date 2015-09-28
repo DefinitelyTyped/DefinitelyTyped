@@ -51,7 +51,8 @@ function test_defaultUI() {
             return el.tagName === 'A';
         },
         mainScrollEndFriction: 0.35,
-        panEndFriction: 0.35
+        panEndFriction: 0.35,
+        modal: true
     };
 
     var photoSwipe: PhotoSwipe<PhotoSwipeUI_Default.Options>;

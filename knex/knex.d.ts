@@ -326,8 +326,8 @@ declare module "knex" {
       timestamp(columnName: string): ColumnBuilder;
       timestamps(): ColumnBuilder;
       binary(columnName: string): ColumnBuilder;
-      enum(columnName: string): ColumnBuilder;
-      enu(columnName: string): ColumnBuilder;
+      enum(columnName: string, values: Value[]): ColumnBuilder;
+      enu(columnName: string, values: Value[]): ColumnBuilder;
       json(columnName: string): ColumnBuilder;
       uuid(columnName: string): ColumnBuilder;
       comment(val: string): TableBuilder;

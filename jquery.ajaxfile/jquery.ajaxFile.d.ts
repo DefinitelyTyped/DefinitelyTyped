@@ -1,4 +1,4 @@
-// Type definitions for jquery.ajaxfile v0.1.0
+// Type definitions for jquery.ajaxfile v0.2.0
 // Project: https://github.com/fpellet/jquery.ajaxFile
 // Definitions by: Florent PELLET <https://github.com/fpellet/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -35,27 +35,28 @@ declare namespace JQueryAjaxFile {
 		isSuccess: boolean;
 	}
 
-	interface IAjaxFileResult {
+	interface IAjaxFileResult<T> {
 		error?: any;
 		data?: any;
 		status?: IResponseStatus;
 	}
 
-	interface IAjaxFileResultCallback {
-		(result: IAjaxFileResult): void;
+	interface IAjaxFileResultCallback<T> {
+		(result: IAjaxFileResult<T>): void;
 	}
 
-	interface IAjaxFilePromise {
-		then(success: IAjaxFileResultCallback, error?: IAjaxFileResultCallback): IAjaxFilePromise;
-		done(success: IAjaxFileResultCallback): IAjaxFilePromise;
-		fail(error: IAjaxFileResultCallback): IAjaxFilePromise;
-		always(error: IAjaxFileResultCallback): IAjaxFilePromise;
+	interface IAjaxFilePromise<T> {
+		then(success: IAjaxFileResultCallback<T>, error?: IAjaxFileResultCallback<T>): IAjaxFilePromise<T>;
+		done(success: IAjaxFileResultCallback<T>): IAjaxFilePromise<T>;
+		fail(error: IAjaxFileResultCallback<T>): IAjaxFilePromise<T>;
+		always(error: IAjaxFileResultCallback<T>): IAjaxFilePromise<T>;
 
 		abord(): void;
 	}
 
 	interface IAjaxFileStatic {
-		send(option: IOption): IAjaxFilePromise;
+		DataType: typeof DataType;
+		send<T>(option: IOption): IAjaxFilePromise<T>;
 	}
 	
 	interface IJQueryXHR {
@@ -97,7 +98,7 @@ declare namespace JQueryAjaxFile {
     }
 
     interface IAjaxFileJQueryExtension {
-        ajaxWithFile(jqueryOption: IJQueryOption): JQueryDeferred<any>;
+        ajaxWithFile<T>(jqueryOption: IJQueryOption): JQueryDeferred<T>;
     }
 }
 
