@@ -56,7 +56,7 @@ declare module JQuerySOAP {
         beforeSend?: (SOAPEnvelope: SOAPEnvelope) => void;
         context?: any;
         data?: Object;
-        envAttributes?: Object;
+        envAttributes?: any;
         elementName?: string;
         enableLogging?: boolean;
         error?: (SOAPResponse: SOAPResponse) => void;
