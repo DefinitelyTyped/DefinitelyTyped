@@ -95,7 +95,7 @@ columnDef.width = 100;
 columnDef.width = '*';
 
 
-var gridApi: uiGrid.IGridApi<IMyEntity>;
+var gridApi: uiGrid.IGridApiOf<IMyEntity>;
 var gridInstance: uiGrid.IGridInstanceOf<IMyEntity>;
 var menuItem: uiGrid.IMenuItem;
 var colProcessor: uiGrid.IColumnProcessor<IMyEntity>;
@@ -128,5 +128,5 @@ anotherGridInstance.scrollTo();
 anotherGridInstance.scrollTo(rowEntityToScrollTo);
 anotherGridInstance.scrollTo(rowEntityToScrollTo, columnDefToScrollTo);
 
-var selectedRowEntities: Array<any> = gridApi.selection.getSelectedRows();
+var selectedRowEntities: Array<IMyEntity> = gridApi.selection.getSelectedRows();
 var selectedGridRows: Array<uiGrid.IGridRow> = gridApi.selection.getSelectedGridRows();

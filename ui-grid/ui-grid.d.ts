@@ -287,7 +287,7 @@ declare module uiGrid {
          *
          * Rows are identified using the hashKey if configured.  If not configured, then rows
          * are identified using the gridOptions.rowEquality function
-         * @param {Array<any>} newRawData The new grid data
+         * @param {Array<TEntity>} newRawData The new grid data
          * @return {ng.IPromise<any>} Promise which resolves when the rows have been created or removed
          */
         modifyRows(newRawData: Array<TEntity>): ng.IPromise<any>;
@@ -742,7 +742,7 @@ declare module uiGrid {
          * if needed
          * @param {IGridApi} gridApi
          */
-        onRegisterApi?: (gridApi: IGridApi<TEntity>) => void;
+        onRegisterApi?: (gridApi: IGridApiOf<TEntity>) => void;
         /**
          * The height of the row in pixels, defaults to 30
          * @default 30
@@ -1038,7 +1038,7 @@ declare module uiGrid {
          * Filter changed event callback
          * @param {IGridApi} gridApi grid api
          */
-        (gridApi: IGridApi<TEntity>): void;
+        (gridApi: IGridApiOf<TEntity>): void;
     }
 
     export interface rowsRenderedHandler<TEntity> {
@@ -1046,7 +1046,7 @@ declare module uiGrid {
          * Rows rendered event callback
          * @param {IGridApi} gridApi Grid api object
          */
-        (gridApi: IGridApi<TEntity>): void;
+        (gridApi: IGridApiOf<TEntity>): void;
     }
 
     export interface rowsVisibleChangedHandler<TEntity> {
@@ -1054,7 +1054,7 @@ declare module uiGrid {
          * Rows visible changed event callback
          * @param {IGridApi} gridApi grid api object
          */
-        (gridApi: IGridApi<TEntity>): void;
+        (gridApi: IGridApiOf<TEntity>): void;
     }
 
     export interface scrollBeginHandler {
@@ -1533,7 +1533,7 @@ declare module uiGrid {
              * This promise is needed when exporting all rows, and the data need to be provided by server side.
              * Default is null
              * @default null
-             * @returns {ng.IPromise<Array<any>>} A promise to load all data from server
+             * @returns {ng.IPromise<Array<TEntity>>} A promise to load all data from server
              */
             exporterAllDataFn?: () => ng.IPromise<Array<TEntity>>;
             /**
@@ -1541,7 +1541,7 @@ declare module uiGrid {
              * DEPRECATED - exporterAllDataFn used to be called this, but it wasn't a promise,
              * it was a function that returned a promise. Deprecated, but supported for backward compatibility,
              * use exporterAllDataFn instead.
-             * @returns {ng.IPromise<Array<any>>} A promise to load all data from server
+             * @returns {ng.IPromise<Array<TEntity>>} A promise to load all data from server
              */
             exporterAllDataPromise?: () => ng.IPromise<Array<TEntity>>;
             /**
@@ -1981,7 +1981,7 @@ declare module uiGrid {
              * The grid generally doesn't add rows to the source data array,
              * it is tidier to handle this through a user callback.
              * @param {IGridInstance} grid The grid we're importing into, may be useful in some way
-             * @param {Array<any>} newObjects An array of new objects that you should add to your data
+             * @param {Array<TEntity>} newObjects An array of new objects that you should add to your data
              */
             importerDataAddCallback?: (grid: IGridInstanceOf<TEntity>, newObjects: Array<TEntity>) => void;
             /**
@@ -2497,7 +2497,7 @@ declare module uiGrid {
              * Sets each of the rows passed in dataRows to be clean,
              * removing them from the dirty cache and the error cache,
              * and clearing the error flag and the dirty flag
-             * @param {Array<any>} dataRows the data entities for which the gridRows should be set clean
+             * @param {Array<TEntity>} dataRows the data entities for which the gridRows should be set clean
              */
             setRowsClean(dataRows: Array<TEntity>): void;
             /**
@@ -2505,7 +2505,7 @@ declare module uiGrid {
              * Note that if you have only just inserted the rows into your data,
              * you will need to wait for a $digest cycle before the gridRows are present.  As a result, this is often
              * wrapped with $interval or $timeout.
-             * @param {Array<any>} dataRows the data entities for which the gridRows should be set dirty
+             * @param {Array<TEntity>} dataRows the data entities for which the gridRows should be set dirty
              */
             setRowsDirty(dataRows: Array<TEntity>): void;
             /**
@@ -2841,7 +2841,7 @@ declare module uiGrid {
             getSelectedGridRows(): Array<uiGrid.IGridRowOf<TEntity>>;
             /**
              * Gets selected rows as entities
-             * @returns {Array<any>} Selected row entities
+             * @returns {Array<TEntity>} Selected row entities
              */
             getSelectedRows(): Array<TEntity>;
             /**
@@ -3218,9 +3218,10 @@ declare module uiGrid {
     // Tree View
 
     export interface IGridApiConstructor<TEntity> {
-        new (grid: IGridInstanceOf<TEntity>): IGridApi<TEntity>;
+        new (grid: IGridInstanceOf<TEntity>): IGridApiOf<TEntity>;
     }
-    export interface IGridApi<TEntity> {
+    export type IGridApi = IGridApiOf<any>;
+    export interface IGridApiOf<TEntity> {
         /**
          * Registers a new event for the given feature. The event will get a .raise and .on prepended to it
          *
