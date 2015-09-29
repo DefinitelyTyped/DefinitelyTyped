@@ -1728,6 +1728,7 @@ declare module ng {
     templateUrl?: string,
     template?: string,
     directives?: Array<Type | any | any[]>,
+    pipes?: Array<Type | any | any[]>,
     encapsulation?: ViewEncapsulation,
     styles?: string[],
     styleUrls?: string[],
@@ -1738,6 +1739,7 @@ declare module ng {
     templateUrl?: string,
     template?: string,
     directives?: Array<Type | any | any[]>,
+    pipes?: Array<Type | any | any[]>,
     encapsulation?: ViewEncapsulation,
     styles?: string[],
     styleUrls?: string[],
@@ -7574,6 +7576,7 @@ declare module ngWorker {
     templateUrl?: string,
     template?: string,
     directives?: Array<Type | any | any[]>,
+    pipes?: Array<Type | any | any[]>,
     encapsulation?: ViewEncapsulation,
     styles?: string[],
     styleUrls?: string[],
@@ -7584,6 +7587,7 @@ declare module ngWorker {
     templateUrl?: string,
     template?: string,
     directives?: Array<Type | any | any[]>,
+    pipes?: Array<Type | any | any[]>,
     encapsulation?: ViewEncapsulation,
     styles?: string[],
     styleUrls?: string[],
@@ -12210,5 +12214,3 @@ declare module ngUi {
 declare module "angular2/web_worker/ui" {
   export = ngUi;
 }
-
-
