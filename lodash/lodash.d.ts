@@ -872,18 +872,26 @@ declare module _ {
     //_.last
     interface LoDashStatic {
         /**
-        * Gets the last element of an array.
-        * @param array The array to query.
-        * @return Returns the last element of array.
-        **/
-        last<T>(array: Array<T>): T;
+         * Gets the last element of array.
+         *
+         * @param array The array to query.
+         * @return Returns the last element of array.
+         */
+        last<T>(array: List<T>): T;
     }
 
     interface LoDashArrayWrapper<T> {
         /**
          * @see _.last
-         **/
+         */
         last(): T;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.last
+         */
+        last<T>(): T;
     }
 
     //_.lastIndexOf
