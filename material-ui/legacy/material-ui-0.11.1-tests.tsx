@@ -1,5 +1,5 @@
-///<reference path='../react/react.d.ts' />
-///<reference path='material-ui.d.ts' />
+///<reference path='../../react/react.d.ts' />
+///<reference path='material-ui-0.11.1.d.ts' />
 
 import * as React from "react/addons";
 import mui = require("material-ui");
