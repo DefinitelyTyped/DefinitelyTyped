@@ -14,7 +14,7 @@ declare module commangular {
 		/**
 		 * Mock dispatch function for testing commands.
 		 */
-		dispatch( ec: ICommandCall, callback: Function );
+		dispatch( ec: ICommandCall, callback: Function ): void;
 	}
 	
 	interface ICommandCall {
@@ -69,5 +69,5 @@ declare module commangular {
 * @param callback The function that will be called upon the completion of the command
 * 		function should expecte an ICommandInfo paramter.
 */
-declare function dispatch( ec: commangular.ICommandCall, callback: Function );	
+declare function dispatch( ec: commangular.ICommandCall, callback: Function ): void;	
 
