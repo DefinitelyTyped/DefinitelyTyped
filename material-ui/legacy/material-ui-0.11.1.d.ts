@@ -3,7 +3,7 @@
 // Definitions by: Nathan Brown <https://github.com/ngbrown>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path='../react/react.d.ts' />
+///<reference path='../../react/react.d.ts' />
 
 declare module "material-ui" {
     // The reason for exporting the namespace types (__MaterialUI.*) is to also export the type for casting variable.
@@ -319,7 +319,7 @@ declare namespace __MaterialUI {
             minDate?: Date;
             mode?: string;
             onDismiss?: () => void;
-            
+
             // e is always null
             onChange?: (e: any, d: Date) => void;
 
@@ -672,7 +672,7 @@ declare namespace __MaterialUI {
         labelPosition?: string;
         style?: React.CSSProperties;
         value?: string;
-        
+
         onCheck?: (e: React.FormEvent, selected: string) => void;
     }
     export class RadioButton extends React.Component<RadioButtonProps, {}> {
@@ -1054,7 +1054,7 @@ declare namespace __MaterialUI {
             value?: string;
             selected?: boolean;
             width?: string;
-            
+
             // Called by Tabs component
             onActive?: (tab: Tab) => void;
 
