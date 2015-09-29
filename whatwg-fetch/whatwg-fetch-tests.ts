@@ -41,7 +41,7 @@ function test_fetchUrlWithRequestObject() {
 
 function handlePromise(promise: Promise<Response>) {
 	promise.then((response) => {
-		if (response.type === 'basis') {
+		if (response.type === 'basic') {
 			// for test only
 		}
 		return response.text();
