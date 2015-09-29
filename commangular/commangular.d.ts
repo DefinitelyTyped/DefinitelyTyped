@@ -73,7 +73,7 @@ declare module commangular {
 		/**
 		 * TBD
 		 */
-		resolver( commandName: string, resolverFunction ) : void; 
+		resolver( commandName: string, resolverFunction : Function ) : void; 
 		
 		/**
 		 * Clears all commands and aspects registered with commangular.
