@@ -104,7 +104,7 @@ declare module "sequelize" {
          * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
          *    // getRole...
          *    // setRole...
-         *    createRole: BelongsToAssociationCreateMixin<UserAttributes>;
+         *    createRole: BelongsToAssociationCreateMixin<RoleAttributes>;
          * }
          * ```
          *
