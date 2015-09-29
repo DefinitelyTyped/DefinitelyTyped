@@ -148,6 +148,11 @@ map.closePopup();
 map.addControl(L.control.attribution({position: 'bottomright'}));
 map.removeControl(L.control.attribution({ position: 'bottomright' }));
 
+L.control.layers({'Base': layer}).addTo(map);
+map.on('baseLayerChange', function(e: L.LeafletLayersControlEvent) { 
+  alert(e.name); 
+});
+
 map.latLngToLayerPoint(map.layerPointToLatLng(L.point(0, 0)));
 map.latLngToContainerPoint(map.containerPointToLatLng(L.point(0, 0)));
 map.containerPointToLayerPoint(L.point(0, 0));

@@ -204,6 +204,35 @@ interface JQueryFileInputOptions {
     contentType?: string;
 
     cache?: boolean;
+    timeout?: number;
+    
+    active?: Function;
+    progress?: Function;
+    send?: Function;
+
+    // Other callbacks:
+    submit?: Function;
+    done?: Function;
+    fail?: Function;
+    always?: Function;
+    progressall?: Function;
+    start?: Function;
+    stop?: Function;
+    change?: Function;
+    paste?: Function;
+    drop?: Function;
+    dragover?: Function;
+    chunksend?: Function;
+    chunkdone?: Function;
+    chunkfail?: Function;
+    chunkalways?: Function;
+
+    // Others 
+    url?: string;
+    files?: any;
+
+    // Cross-site XMLHttpRequest file uploads
+    xhrFields?: any;
 
 }
 
@@ -213,7 +242,9 @@ interface JQueryFileUpload extends JQuery  {
 
 interface JQuery {
     // Interface to the main method of jQuery File Upload
-    fileupload(settings: JQueryFileInputOptions): JQueryFileUpload;
+    fileupload(settings: JQueryFileInputOptions | string): JQueryFileUpload;
+    fileupload(action:string,  settings: JQueryFileInputOptions | string): JQueryFileUpload;
+    fileupload(action: string, message:string, settings: JQueryFileInputOptions | string): JQueryFileUpload;
 }
 
 interface JQuerySupport {

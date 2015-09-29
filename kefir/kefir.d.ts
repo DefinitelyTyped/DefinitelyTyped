@@ -4,9 +4,9 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
 
 declare module "kefir" {
+	
 	export interface Observable<T, S> {
 		// Subscribe / add side effects
 		onValue(callback: (value: T) => void): void;
@@ -19,7 +19,7 @@ declare module "kefir" {
 		offAny(callback: (event: Event<T | S>) => void): void;
 		log(name?: string): void;
 		offLog(name?: string): void;
-		toPromise(PromiseConstructor?: typeof Promise): Promise<T>;
+		toPromise(PromiseConstructor?: any): any;
 	}
 	
 	export interface Stream<T, S> extends Observable<T, S> {
@@ -163,7 +163,7 @@ declare module "kefir" {
 	// Create a property
 	export function constant<T>(value: T): Property<T, void>;
 	export function constantError<T>(error: T): Property<void, T>;
-	export function fromPromise<T, S>(promise: Promise<T>): Property<T, S>;
+	export function fromPromise<T, S>(promise: any): Property<T, S>;
 	
 	// Combine observables
 	export function combine<T, S, U>(obss: Observable<T, S>[], passiveObss: Observable<T, S>[], combinator?: (...values: T[]) => U): Observable<U, S>;

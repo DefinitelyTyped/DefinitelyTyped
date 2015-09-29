@@ -6,12 +6,14 @@ import { applyMiddleware, createStore } from 'redux'
 let logger = createLogger();
 
 let loggerWithOpts = createLogger({
+  actionTransformer: actn => actn,
   collapsed: true,
-  level: 'warn',
-  logger: console.log,
-  timestamp: false,
-  transformer: state => state,
-  predicate: (getState, action) => true
+  duration: true,
+  level: 'error',
+  logger: console,
+  predicate: (getState, action) => true,
+  timestamp: true,
+  transformer: state => state
 });
 
 let createStoreWithMiddleware = applyMiddleware(
