@@ -1,4 +1,4 @@
-// Type definitions for markitup/1.x
+// Type definitions for markitup 1.x
 // Project: https://github.com/markitup/1.x
 // Definitions by: drillbits <https://github.com/drillbits>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
