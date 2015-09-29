@@ -7,7 +7,7 @@
 
 declare var Hammer:HammerStatic;
 
-declare module "Hammer" {
+declare module "hammerjs" {
     export = Hammer;
 }
 
