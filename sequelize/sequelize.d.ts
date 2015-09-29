@@ -20,6 +20,110 @@ declare module "sequelize" {
         //  https://github.com/sequelize/sequelize/tree/v3.4.1/lib/associations
         //
 
+
+        /**
+         * The options for the get mixin of the BelongsTo association.
+         * @see BelongsToAssociationGetMixin
+         */
+        interface BelongsToAssociationGetMixinOptions {
+          /**
+           * Apply a scope on the related model, or remove its default scope by passing false.
+           */
+            scope: string | boolean;
+        }
+
+        /**
+         * The get association mixin applied to models with BelongsTo.
+         * An example of usage is as follows:
+         *
+         * ```js
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttrib>, UserAttrib {
+         *    getRole: Sequelize.BelongsToAssociationGetMixin<RoleInstance>;
+         *    // setRole...
+         *    // createRole...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to/
+         * @see Instance
+         */
+        interface BelongsToAssociationGetMixin<TInstance> {
+          /**
+           * Get the associated instance.
+           * @param options The obtions to use when getting the association.
+           */
+          (options?: BelongsToAssociationGetMixinOptions): Promise<TInstance>
+        }
+
+        /**
+         * The options for the set mixin of the BelongsTo association.
+         * @see BelongsToAssociationSetMixin
+         */
+        interface BelongsToAssociationSetMixinOptions {
+          /**
+           * Skip saving this after setting the foreign key if false.
+           */
+            save: boolean;
+        }
+
+        /**
+         * The set association mixin applied to models with BelongsTo.
+         * An example of usage is as follows:
+         *
+         * ```js
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRole...
+         *    setRole: BelongsToAssociationSetMixin<RoleInstance, RoleId>;
+         *    // createRole...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to/
+         * @see Instance
+         */
+        interface BelongsToAssociationSetMixin<TInstance, TInstancePrimaryKey> {
+          /**
+           * Get the associated instance.
+           * @param newAssociation An instance or the primary key of an instance to associate with this. Pass null or undefined to remove the association.
+           * @param options The obtions to use when setting the association.
+           */
+          (newAssociation: TInstance | TInstancePrimaryKey, options?: BelongsToAssociationSetMixinOptions): Promise<void>
+        }
+
+        /**
+         * The options for the create mixin of the BelongsTo association.
+         * @see BelongsToAssociationCreateMixin
+         */
+        interface BelongsToAssociationCreateMixinOptions extends CreateOptions, BelongsToAssociationSetMixinOptions {}
+
+        /**
+         * The create association mixin applied to models with BelongsTo.
+         * An example of usage is as follows:
+         *
+         * ```js
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRole...
+         *    // setRole...
+         *    createRole: BelongsToAssociationCreateMixin<UserAttributes>;
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to/
+         * @see Instance
+         */
+        interface BelongsToAssociationCreateMixin<TAttributes> {
+          /**
+           * Create a new instance of the associated model and associate it with this.
+           * @param values The values used to create the association.
+           * @param options The options passed to `target.create` and `setAssociation`.
+           */
+          (values?: TAttributes, options?: BelongsToAssociationCreateMixinOptions): Promise<void>
+        }
+
+        // TODO: HasOne Associations
+        // TODO: HasMany Associations
+        // TODO: BelongsToMany Associations
+
         /**
          * Foreign Key Options
          *
