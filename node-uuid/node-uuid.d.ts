@@ -56,7 +56,8 @@ interface UUID {
     unparse(buffer: Buffer, offset?: number): string
 }
 
+declare var uuid: UUID;
+
 declare module "node-uuid" {
-    var uuid: UUID;
     export = uuid;
 }

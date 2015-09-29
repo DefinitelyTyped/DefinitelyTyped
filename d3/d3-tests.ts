@@ -139,7 +139,7 @@ function groupedBarChart() {
             .style("text-anchor", "end")
             .text("Population");
 
-        var state = svg.selectAll(".state") 
+        var state = svg.selectAll(".state")
             .data(data)
           .enter().append("g")
             .attr("class", "g")
@@ -672,8 +672,8 @@ function dragMultiples() {
 
     function dragmove(d: { x: number; y: number }) {
         d3.select(this)
-            .attr("cx", d.x = Math.max(radius, Math.min(width - radius, (<any> d3.event).x)))
-            .attr("cy", d.y = Math.max(radius, Math.min(height - radius, (<any> d3.event).y)));
+            .attr("cx", d.x = Math.max(radius, Math.min(width - radius, (<d3.DragEvent> d3.event).x)))
+            .attr("cy", d.y = Math.max(radius, Math.min(height - radius, (<d3.DragEvent> d3.event).y)));
     }
 }
 
@@ -873,7 +873,7 @@ function populationPyramid() {
         // Allow the arrow keys to change the displayed year.
         window.focus();
         d3.select(window).on("keydown", function () {
-            switch (d3.event.keyCode) {
+            switch ((<KeyboardEvent> d3.event).keyCode) {
                 case 37: year = Math.max(year0, year - 10); break;
                 case 39: year = Math.min(year1, year + 10); break;
             }
@@ -922,7 +922,7 @@ module forcedBasedLabelPlacemant {
 
     var nodes: Node[] = [];
     var labelAnchors: LabelAnchor[] = [];
-    var labelAnchorLinks: { source: number; target: number }[] = [];
+    var labelAnchorLinks: { source: number; target: number; weight: number }[] = [];
     var links: typeof labelAnchorLinks = [];
 
     for (var i = 0; i < 30; i++) {
@@ -1167,7 +1167,7 @@ function azimuthalEquidistant() {
         .translate([width / 2, height / 2])
         .clipAngle(180 - 1e-3)
         .precision(.1);
-    
+
     var path = d3.geo.path()
         .projection(projection);
 
@@ -1209,7 +1209,7 @@ function azimuthalEquidistant() {
 
     d3.select(self.frameElement).style("height", height + "px");
 }
- 
+
 //Example from http://bl.ocks.org/mbostock/4060366
 function voronoiTesselation() {
     var width = 960,
@@ -1237,7 +1237,7 @@ function voronoiTesselation() {
         .attr("r", 2);
 
     redraw();
-    
+
     function redraw() {
         path = path.data(voronoi(vertices).map(function (d) { return "M" + d.join("L") + "Z"; } ), String);
         path.exit().remove();
@@ -1254,7 +1254,7 @@ function forceDirectedVoronoi() {
         simulate = true,
         zoomToAdd = true,
         color = d3.scale.quantize<string>().domain([10000, 7250]).range(["#dadaeb","#bcbddc","#9e9ac8","#807dba","#6a51a3","#54278f","#3f007d"])
- 
+
     var numVertices = (w*h) / 3000;
     var vertices = d3.range(numVertices).map(function(i) {
         var angle = radius * (i+10);
@@ -1266,15 +1266,15 @@ function forceDirectedVoronoi() {
     var prevEventScale = 1;
     var zoom = d3.behavior.zoom().on("zoom", function(d,i) {
         if (zoomToAdd){
-          if ((<any> d3.event).scale > prevEventScale) {
-                var angle = radius * vertices.length;
-                vertices.push({x: angle*Math.cos(angle)+(w/2), y: angle*Math.sin(angle)+(h/2)})
-            } else if (vertices.length > 2 && (<any> d3.event).scale != prevEventScale) {
-                vertices.pop();
-            }
-            force.nodes(vertices).start()
+          if ((<d3.ZoomEvent> d3.event).scale > prevEventScale) {
+            var angle = radius * vertices.length;
+            vertices.push({x: angle*Math.cos(angle)+(w/2), y: angle*Math.sin(angle)+(h/2)})
+          } else if (vertices.length > 2 && (<d3.ZoomEvent> d3.event).scale != prevEventScale) {
+            vertices.pop();
+          }
+        force.nodes(vertices).start()
         } else {
-            if ((<any> d3.event).scale > prevEventScale) {
+            if ((<d3.ZoomEvent> d3.event).scale > prevEventScale) {
                 radius+= .01
             } else {
                 radius -= .01
@@ -1285,18 +1285,18 @@ function forceDirectedVoronoi() {
             });
             force.nodes(vertices).start()
         }
-        prevEventScale = (<any> d3.event).scale;
+        prevEventScale = (<d3.ZoomEvent> d3.event).scale;
     });
- 
+
     d3.select(window)
         .on("keydown", function() {
             // shift
-            if(d3.event.keyCode == 16) {
+            if((<KeyboardEvent> d3.event).keyCode == 16) {
                 zoomToAdd = false
             }
-     
+
             // s
-            if(d3.event.keyCode == 83) {
+            if((<KeyboardEvent> d3.event).keyCode == 83) {
                 simulate = !simulate
                 if(simulate) {
                     force.start()
@@ -1308,38 +1308,38 @@ function forceDirectedVoronoi() {
         .on("keyup", function() {
             zoomToAdd = true
         })
- 
+
     var svg = d3.select("#chart")
         .append("svg")
         .attr("width", w)
         .attr("height", h)
         .call(zoom)
- 
+
     var force = d3.layout.force()
         .charge(-300)
         .size([w, h])
         .on("tick", update);
- 
+
     force.nodes(vertices).start();
- 
+
     var circle = <d3.selection.Update<any>> svg.selectAll("circle");
     var path = <d3.selection.Update<any>> svg.selectAll("path");
     var link = <d3.selection.Update<any>> svg.selectAll("line");
- 
+
     function update() {
         path = path.data(d3_geom_voronoi(vertices));
         path.enter().append("path")
             // drag node by dragging cell
             .call(d3.behavior.drag()
               .on("drag", function(d, i) {
-                vertices[i] = {x: vertices[i].x + (<any> d3.event).dx, y: vertices[i].y + (<any> d3.event).dy}
+                vertices[i] = {x: vertices[i].x + (<d3.DragEvent> d3.event).dx, y: vertices[i].y + (<d3.DragEvent> d3.event).dy}
               })
             )
             .style("fill", function(d, i) { return color(0) })
         path.attr("d", function(d) { return "M" + d.join("L") + "Z"; })
             .transition().duration(150).style("fill", function(d, i) { return color(d3.geom.polygon(d).area()) })
         path.exit().remove();
- 
+
         circle = circle.data(vertices)
         circle.enter().append("circle")
               .attr("r", 0)
@@ -1347,16 +1347,16 @@ function forceDirectedVoronoi() {
         circle.attr("cx", function(d) { return d.x; })
               .attr("cy", function(d) { return d.y; });
         circle.exit().transition().attr("r", 0).remove();
- 
+
         link = link.data(d3_geom_voronoi.links(vertices))
         link.enter().append("line")
         link.attr("x1", function(d) { return d.source.x; })
             .attr("y1", function(d) { return d.source.y; })
             .attr("x2", function(d) { return d.target.x; })
             .attr("y2", function(d) { return d.target.y; })
- 
+
         link.exit().remove()
- 
+
         if(!simulate) force.stop()
     }
 }
@@ -1521,7 +1521,7 @@ module hierarchicalEdgeBundling {
         .value(function (d) { return d.size; } );
 
     var bundle = d3.layout.bundle<Result>();
-    
+
     var line = d3.svg.line.radial<Result>()
         .interpolate("bundle")
         .tension(.85)
@@ -1851,7 +1851,7 @@ function chordDiagram() {
         [8010, 16145, 8090, 8045],
         [1013, 990, 940, 6907]
     ];
-    
+
     var chord = d3.layout.chord()
         .padding(.05)
         .sortSubgroups(d3.descending)
@@ -2031,7 +2031,7 @@ function irisParallel() {
         }
 
         function drag(d: string) {
-            x.range()[i] = (<any> d3.event).x;
+            x.range()[i] = (<d3.DragEvent> d3.event).x;
             traits.sort(function (a, b) { return x(a) - x(b); } );
             g.attr("transform", function (d) { return "translate(" + x(d) + ")"; } );
             foreground.attr("d", path);
@@ -2085,14 +2085,14 @@ function healthAndWealth() {
     // The x & y axes.
     var xAxis = d3.svg.axis().orient("bottom").scale(xScale).ticks(12, d3.format(",d")),
         yAxis = d3.svg.axis().scale(yScale).orient("left");
-    
+
     // Create the SVG container and set the origin.
     var svg = d3.select("#chart").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    
+
     // Add the x-axis.
     svg.append("g")
         .attr("class", "x axis")
@@ -2152,7 +2152,7 @@ function healthAndWealth() {
 
         // Add an overlay for the year label.
         var box = (<SVGTextElement>label.node()).getBBox();
-        
+
         var overlay = svg.append("rect")
             .attr("class", "overlay")
             .attr("x", box.x)
@@ -2669,18 +2669,33 @@ function multiTest() {
 function testD3Events () {
     d3.select('svg')
         .on('click', () => {
-            var coords = [d3.event.pageX, d3.event.pageY];
-            console.log("clicked", d3.event.target, "at " + coords);
+            let e = <MouseEvent>d3.event;
+            var coords = [e.pageX, e.pageY];
+            console.log("clicked", e.target, "at " + coords);
         })
         .on('keypress', () => {
-            if (d3.event.shiftKey) {
-                console.log('shift + ' + d3.event.which);
+            let e = <KeyboardEvent>d3.event;
+            if (e.shiftKey) {
+                console.log('shift + ' + e.which);
             }
         });
 }
 
 function testD3MutlieTimeFormat() {
     var format = d3.time.format.multi([
+        [".%L", function(d) { return d.getMilliseconds(); }],
+        [":%S", function(d) { return d.getSeconds(); }],
+        ["%I:%M", function(d) { return d.getMinutes(); }],
+        ["%I %p", function(d) { return d.getHours(); }],
+        ["%a %d", function(d) { return d.getDay() && d.getDate() != 1; }],
+        ["%b %d", function(d) { return d.getDate() != 1; }],
+        ["%B", function(d) { return d.getMonth(); }],
+        ["%Y", function() { return true; }]
+    ]);
+}
+
+function testMultiUtcFormat() {
+    var format = d3.time.format.utc.multi([
         [".%L", function(d) { return d.getMilliseconds(); }],
         [":%S", function(d) { return d.getSeconds(); }],
         ["%I:%M", function(d) { return d.getMinutes(); }],

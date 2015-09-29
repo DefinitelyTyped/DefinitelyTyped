@@ -45,7 +45,7 @@ declare module angular.growl {
         /**
          * Pre-defined server error interceptor.
          */
-        serverMessagesInterceptor: (string|Function)[];
+        serverMessagesInterceptor: (string|IHttpInterceptorFactory)[];
 
         /**
          * Set default TTL settings.

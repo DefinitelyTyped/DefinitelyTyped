@@ -1,4 +1,4 @@
-// Type definitions for Velocity 0.0.22
+// Type definitions for Velocity 1.2.2
 // Project: http://velocityjs.org/
 // Definitions by: Greg Smith <https://github.com/smrq/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -6,14 +6,13 @@
 /// <reference path="../jquery/jquery.d.ts" />
 
 interface JQuery {
-	velocity(options: {properties: Object; options: jquery.velocity.VelocityOptions}): JQuery;
-	velocity(properties: Object, options: jquery.velocity.VelocityOptions): JQuery;
-	velocity(properties: Object, duration?: number, easing?: string, complete?: jquery.velocity.ElementCallback): JQuery;
-	velocity(properties: Object, duration?: number, easing?: number[], complete?: jquery.velocity.ElementCallback): JQuery;
-	velocity(properties: Object, duration?: number, complete?: jquery.velocity.ElementCallback): JQuery;
-	velocity(properties: Object, easing?: string, complete?: jquery.velocity.ElementCallback): JQuery;
-	velocity(properties: Object, easing?: number[], complete?: jquery.velocity.ElementCallback): JQuery;
-	velocity(properties: Object, complete?: jquery.velocity.ElementCallback): JQuery;
+	velocity(name: string, options: jquery.velocity.RegisteredEffectOptions): JQuery;
+	velocity(options: {properties: jquery.velocity.Properties; options: jquery.velocity.Options}): JQuery;
+	velocity(properties: jquery.velocity.Properties, options: jquery.velocity.Options): JQuery;
+	velocity(properties: jquery.velocity.Properties, duration: number, easing: jquery.velocity.Easing, complete?: jquery.velocity.ElementCallback): JQuery;
+	velocity(properties: jquery.velocity.Properties, duration: number, complete?: jquery.velocity.ElementCallback): JQuery;
+	velocity(properties: jquery.velocity.Properties, easing: jquery.velocity.Easing, complete?: jquery.velocity.ElementCallback): JQuery;
+	velocity(properties: jquery.velocity.Properties, complete?: jquery.velocity.ElementCallback): JQuery;
 }
 
 interface JQueryStatic {
@@ -21,42 +20,80 @@ interface JQueryStatic {
 }
 
 declare module jquery.velocity {
-	interface ElementCallback {
-		(elements: NodeListOf<HTMLElement>): void;
+	type Properties = Object;
+	type Easing = string|number[];
+	type ElementCallback = (elements: NodeListOf<HTMLElement>) => void;
+	type ProgressCallback = (elements: NodeListOf<HTMLElement>, percentComplete: number, timeRemaining: number, timeStart: number) => void;
+	type EffectCall =
+		[Properties] |
+		[Properties, number] |
+		[Properties, EffectCallOptions] |
+		[Properties, number, EffectCallOptions];
+
+	interface EffectCallOptions {
+		delay?: any;
+		easing?: any;
 	}
 
-	interface ProgressCallback {
-		(elements: NodeListOf<HTMLElement>, percentComplete: number, timeRemaining: number, timeStart: number): void;
+	interface CommonOptions {
+		duration?: string|number;
+		begin?: ElementCallback;
+		complete?: ElementCallback;
+		display?: string|boolean;
+		delay?: number|boolean;
+		mobileHA?: boolean;
+		_cacheValues?: boolean;
+		container?: JQuery;
+		axis?: string;
+		offset?: number;
+	}
+
+	interface Options extends CommonOptions {
+		queue?: string|boolean;
+		easing?: Easing;
+		progress?: ProgressCallback;
+		loop?: number|boolean;
+	}
+
+	interface RegisterEffectOptions {
+		defaultDuration?: number;
+		calls: EffectCall[];
+		reset?: Object;
+	}
+
+	interface RegisteredEffectOptions extends CommonOptions {
+		stagger?: number;
+		drag?: boolean;
+		backwards?: boolean;
+	}
+
+	interface SequenceCall {
+		e: HTMLElement|JQuery;
+		p: Properties;
+		o: SequenceOptions;
+	}
+
+	interface SequenceOptions extends Options {
+		sequenceQueue?: boolean;
 	}
 
 	interface VelocityStatic {
 		Sequences: any;
-		animate(options: {elements: NodeListOf<HTMLElement>; properties: Object; options: VelocityOptions}): void;
-		animate(elements: NodeListOf<HTMLElement>, properties: Object, options: VelocityOptions): void;
-		animate(element: HTMLElement, properties: Object, options: VelocityOptions): void;
-		/** 
-        	 * Get a hook value. Hooks are the subvalues of multi-value CSS properties.
-        	 * It features the same API as $.css().
-        	 */
-        	hook(element: HTMLElement|JQuery, cssKey: string): string;
-        	/** 
-        	 * Set a hook value. Hooks are the subvalues of multi-value CSS properties.
-        	 * It features the same API as $.css().
-        	 */
-        	hook(element: HTMLElement|JQuery, cssKey: string, cssValue: string): void;
-	}
+		animate(options: {elements: NodeListOf<HTMLElement>; properties: Properties; options: Options}): any;
+		animate(elements: HTMLElement|NodeListOf<HTMLElement>, properties: Properties, options: Options): any;
+		RegisterEffect(name: string, options: RegisterEffectOptions): VelocityStatic;
+		RunSequence(sequence: SequenceCall[]): VelocityStatic;
 
-	interface VelocityOptions {
-		queue?: any;
-		duration?: any;
-		easing?: any;
-		begin?: ElementCallback;
-		complete?: ElementCallback;
-		progress?: ProgressCallback;
-		display?: any;
-		loop?: any;
-		delay?: any;
-		mobileHA?: boolean;
-		_cacheValues?: boolean;
+		/**
+		 * Get a hook value. Hooks are the subvalues of multi-value CSS properties.
+		 * It features the same API as $.css().
+		 */
+		hook(element: HTMLElement|JQuery, cssKey: string): string;
+
+		/**
+		 * Set a hook value. Hooks are the subvalues of multi-value CSS properties.
+		 * It features the same API as $.css().
+		 */
+		hook(element: HTMLElement|JQuery, cssKey: string, cssValue: string): void;
 	}
 }

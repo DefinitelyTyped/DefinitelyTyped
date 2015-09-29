@@ -12,6 +12,10 @@ interface VideoJSOptions {
 	height?: number;
 	defaultVolume?: number;
 	children?: Object;
+	controls?: boolean;
+	src?: string;
+	autoplay?: boolean;
+	preload?: string;
 }
 
 interface VideoJSSource {
