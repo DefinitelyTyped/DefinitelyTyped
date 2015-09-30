@@ -457,54 +457,95 @@ declare module _ {
     //_.findIndex
     interface LoDashStatic {
         /**
-        * This method is like _.find except that it returns the index of the first element that passes
-        * the callback check, instead of the element itself.
-        * @param array The array to search.
-        * @param {(Function|Object|string)} callback The function called per iteration. If a property name or object is provided it will be
-        * used to create a ".pluck" or ".where" style callback, respectively.
-        * @param thisArg The this binding of callback.
-        * @return Returns the index of the found element, else -1.
-        **/
-        findIndex<T>(
-            array: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): number;
-
-        /**
-        * @see _.findIndex
-        **/
-        findIndex<T>(
-            array: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): number;
-
-        /**
-        * @see _.findIndex
-        **/
-        findIndex<T>(
-            array: Array<T>,
-            pluckValue: string): number;
-
-        /**
-        * @see _.findIndex
-        **/
+         * This method is like _.find except that it returns the index of the first element predicate returns truthy
+         * for instead of the element itself.
+         *
+         * If a property name is provided for predicate the created _.property style callback returns the property
+         * value of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for predicate the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * @param array The array to search.
+         * @param predicate The function invoked per iteration.
+         * @param thisArg The this binding of predicate.
+         * @return Returns the index of the found element, else -1.
+         */
         findIndex<T>(
             array: List<T>,
-            pluckValue: string): number;
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): number;
 
         /**
-        * @see _.findIndex
-        **/
-        findIndex<W, T>(
-            array: Array<T>,
-            whereDictionary: W): number;
+         * @see _.findIndex
+         */
+        findIndex<T>(
+            array: List<T>,
+            predicate?: string,
+            thisArg?: any
+        ): number;
 
         /**
-        * @see _.findIndex
-        **/
+         * @see _.findIndex
+         */
         findIndex<W, T>(
             array: List<T>,
-            whereDictionary: W): number;
+            predicate?: W
+        ): number;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.findIndex
+         */
+        findIndex(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.findIndex
+         */
+        findIndex(
+            predicate?: string,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.findIndex
+         */
+        findIndex<W>(
+            predicate?: W
+        ): number;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.findIndex
+         */
+        findIndex<TResult>(
+            predicate?: ListIterator<TResult, boolean>,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.findIndex
+         */
+        findIndex(
+            predicate?: string,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.findIndex
+         */
+        findIndex<W>(
+            predicate?: W
+        ): number;
     }
 
     //_.findLastIndex
