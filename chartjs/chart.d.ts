@@ -55,6 +55,7 @@ interface ChartSettings {
     maintainAspectRatio: boolean;
     showTooltips: boolean;
     tooltipEvents: string[];
+    customTooltips?: boolean | ((tooltip: any) => any);
     tooltipFillColor: string;
     tooltipFontFamily: string;
     tooltipFontSize: number;
@@ -76,9 +77,61 @@ interface ChartSettings {
 }
 
 interface ChartOptions {
+    animation?: boolean;
+    animationSteps?: number;
+    animationEasing?: string;
+    showScale?: boolean;
+    scaleOverride?: boolean;
+    scaleSteps?: number;
+    scaleStepWidth?: number;
+    scaleStartValue?: number;
+    scaleLineColor?: string;
+    scaleLineWidth?: number;
+    scaleShowLabels?: boolean;
+    scaleLabel?: string;
+    scaleIntegersOnly?: boolean;
+    scaleBeginAtZero?: boolean;
+    scaleFontFamily?: string;
+    scaleFontSize?: number;
+    scaleFontStyle?: string;
+    scaleFontColor?: string;
+    responsive?: boolean;
+    maintainAspectRatio?: boolean;
+    showTooltips?: boolean;
+    customTooltips?: boolean | ((tooltip: any) => any);
+    tooltipEvents?: string[];
+    tooltipFillColor?: string;
+    tooltipFontFamily?: string;
+    tooltipFontSize?: number;
+    tooltipFontStyle?: string;
+    tooltipFontColor?: string;
+    tooltipTitleFontFamily?: string;
+    tooltipTitleFontSize?: number;
+    tooltipTitleFontStyle?: string;
+    tooltipTitleFontColor?: string;
+    tooltipYPadding?: number;
+    tooltipXPadding?: number;
+    tooltipCaretSize?: number;
+    tooltipCornerRadius?: number;
+    tooltipXOffset?: number;
+    tooltipTemplate?: string;
+    multiTooltipTemplate?: string;
+    onAnimationProgress?: () => void;
+    onAnimationComplete?: () => void;
     scaleShowGridLines?: boolean;
     scaleGridLineColor?: string;
     scaleGridLineWidth?: number;
+    scaleShowHorizontalLines?: boolean;
+    scaleShowVerticalLines?: boolean;
+    bezierCurve?: boolean;
+    bezierCurveTension?: number;
+    pointDot?: boolean;
+    pointDotRadius?: number;
+    pointDotStrokeWidth?: number;
+    pointHitDetectionRadius?: number;
+    datasetStroke?: boolean;
+    datasetStrokeWidth?: number;
+    datasetFill?: boolean;
     legendTemplate?: string;
 }
 
@@ -115,77 +168,50 @@ interface CircularInstance extends ChartInstance {
     update: () => void;
     addData: (valuesArray: CircularChartData, index?: number) => void;
     removeData: (index: number) => void;
-    segments: Array<CircularChartData>;
 }
 
 interface LineChartOptions extends ChartOptions {
-    bezierCurve?: boolean;
-    bezierCurveTension?: number;
-    pointDot?: boolean;
-    pointDotRadius?: number;
-    pointDotStrokeWidth?: number;
-    pointHitDetectionRadius?: number;
-    datasetStroke?: boolean;
-    datasetStrokeWidth?: number;
-    datasetFill?: boolean;
+
 }
 
 interface BarChartOptions extends ChartOptions {
-    scaleBeginAtZero?: boolean;
     barShowStroke?: boolean;
     barStrokeWidth?: number;
     barValueSpacing?: number;
     barDatasetSpacing?: number;
 }
 
-interface RadarChartOptions {
+interface RadarChartOptions extends ChartOptions {
     scaleShowLine?: boolean;
     angleShowLineOut?: boolean;
-    scaleShowLabels?: boolean;
-    scaleBeginAtZero?: boolean;
     angleLineColor?: string;
     angleLineWidth?: number;
     pointLabelFontFamily?: string;
     pointLabelFontStyle?: string;
     pointLabelFontSize?: number;
     pointLabelFontColor?: string;
-    pointDot?: boolean;
-    pointDotRadius?: number;
-    pointDotStrokeWidth?: number;
-    pointHitDetectionRadius?: number;
-    datasetStroke?: boolean;
-    datasetStrokeWidth?: number;
-    datasetFill?: boolean;
-    legendTemplate?: string;
 }
 
-interface PolarAreaChartOptions {
+interface PolarAreaChartOptions extends ChartOptions {
     scaleShowLabelBackdrop?: boolean;
     scaleBackdropColor?: string;
-    scaleBeginAtZero?: boolean;
     scaleBackdropPaddingY?: number;
     scaleBackdropPaddingX?: number;
     scaleShowLine?: boolean;
     segmentShowStroke?: boolean;
     segmentStrokeColor?: string;
     segmentStrokeWidth?: number;
-    animationSteps?: number;
-    animationEasing?: string;
     animateRotate?: boolean;
     animateScale?: boolean;
-    legendTemplate?: string;
 }
 
-interface PieChartOptions {
+interface PieChartOptions extends ChartOptions {
     segmentShowStroke?: boolean;
     segmentStrokeColor?: string;
     segmentStrokeWidth?: number;
     percentageInnerCutout?: number;
-    animationSteps?: number;
-    animationEasing?: string;
     animateRotate?: boolean;
     animateScale?: boolean;
-    legendTemplate?: string;
 }
 
 interface Chart {
