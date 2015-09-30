@@ -26,16 +26,16 @@ declare namespace ReactRouter {
 
     type RedirectFunction = (state: H.LocationState, pathname: H.Pathname | H.Path, query?: H.Query) => void
 
-    interface RouteComponentProps {
+    interface RouteComponentProps<P, R> {
         history?: History
         location?: Location
-        params?: Params
+        params?: P
         route?: PlainRoute
-        routeParams?: Params
+        routeParams?: R
         routes?: PlainRoute[]
     }
 
-    type RouteComponent = React.ComponentClass<RouteComponentProps>
+    type RouteComponent = React.ComponentClass<Object>
 
     type RouteConfig = RouteObject[]
 

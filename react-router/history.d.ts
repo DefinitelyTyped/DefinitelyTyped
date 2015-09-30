@@ -63,10 +63,9 @@ declare namespace HistoryModule {
 
     type TransitionHook = (location: Location, callback: Function) => any
 
-	// Global usage, without modules, needs the small trick, because lib.d.ts
-	// already has `history` and `History` global definitions:
-	// var history_: HistoryModule.Module = window['History'];
-	// history_.createHistory();
+    // Global usage, without modules, needs the small trick, because lib.d.ts
+    // already has `history` and `History` global definitions:
+    // var createHistory = ((window as any).History as HistoryModule.Module).createHistory;
     interface Module {
         createHistory: CreateHistory
         createHashHistory: CreateHistory
