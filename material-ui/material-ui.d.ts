@@ -1051,12 +1051,13 @@ declare namespace __MaterialUI {
 
         export function ThemeDecorator(muiTheme: Styles.MuiTheme): <P>(Component: React.ComponentClass<P>) => React.ComponentClass<P>;
 
-        export class ThemeManager {
+        interface ThemeManager {
             getMuiTheme(rawTheme: RawTheme): MuiTheme;
             modifyRawThemeSpacing(muiTheme: MuiTheme, newSpacing: Spacing): MuiTheme;
             modifyRawThemePalette(muiTheme: MuiTheme, newPaletteKeys: ThemePalette): MuiTheme;
             modifyRawThemeFontFamily(muiTheme: MuiTheme, newFontFamily: string): MuiTheme;
         }
+        export var ThemeManager: ThemeManager;
 
         interface Transitions {
             easeOut(duration?: string, property?: string | string[], delay?: string, easeFunction?: string): string;

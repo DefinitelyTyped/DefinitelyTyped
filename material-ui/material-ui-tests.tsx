@@ -54,7 +54,7 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
     render() {
 
         // "http://material-ui.com/#/customization/themes"
-        let ThemeManager = new mui.Styles.ThemeManager();
+        let ThemeManager = mui.Styles.ThemeManager;
         let muiTheme: mui.Styles.MuiTheme = ThemeManager.getMuiTheme({
             palette: {
                 accent1Color: Colors.cyan100
