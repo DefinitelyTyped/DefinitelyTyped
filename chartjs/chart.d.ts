@@ -77,9 +77,61 @@ interface ChartSettings {
 }
 
 interface ChartOptions {
+    animation?: boolean;
+    animationSteps?: number;
+    animationEasing?: string;
+    showScale?: boolean;
+    scaleOverride?: boolean;
+    scaleSteps?: number;
+    scaleStepWidth?: number;
+    scaleStartValue?: number;
+    scaleLineColor?: string;
+    scaleLineWidth?: number;
+    scaleShowLabels?: boolean;
+    scaleLabel?: string;
+    scaleIntegersOnly?: boolean;
+    scaleBeginAtZero?: boolean;
+    scaleFontFamily?: string;
+    scaleFontSize?: number;
+    scaleFontStyle?: string;
+    scaleFontColor?: string;
+    responsive?: boolean;
+    maintainAspectRatio?: boolean;
+    showTooltips?: boolean;
+    customTooltips?: (tooltip: boolean | Object) => void;
+    tooltipEvents?: string[];
+    tooltipFillColor?: string;
+    tooltipFontFamily?: string;
+    tooltipFontSize?: number;
+    tooltipFontStyle?: string;
+    tooltipFontColor?: string;
+    tooltipTitleFontFamily?: string;
+    tooltipTitleFontSize?: number;
+    tooltipTitleFontStyle?: string;
+    tooltipTitleFontColor?: string;
+    tooltipYPadding?: number;
+    tooltipXPadding?: number;
+    tooltipCaretSize?: number;
+    tooltipCornerRadius?: number;
+    tooltipXOffset?: number;
+    tooltipTemplate?: string;
+    multiTooltipTemplate?: string;
+    onAnimationProgress?: () => void;
+    onAnimationComplete?: () => void;
     scaleShowGridLines?: boolean;
     scaleGridLineColor?: string;
     scaleGridLineWidth?: number;
+    scaleShowHorizontalLines?: boolean;
+    scaleShowVerticalLines?: boolean;
+    bezierCurve?: boolean;
+    bezierCurveTension?: number;
+    pointDot?: boolean;
+    pointDotRadius?: number;
+    pointDotStrokeWidth?: number;
+    pointHitDetectionRadius?: number;
+    datasetStroke?: boolean;
+    datasetStrokeWidth?: number;
+    datasetFill?: boolean;
     legendTemplate?: string;
 }
 
