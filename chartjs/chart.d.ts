@@ -55,6 +55,7 @@ interface ChartSettings {
     maintainAspectRatio: boolean;
     showTooltips: boolean;
     tooltipEvents: string[];
+    customTooltips: boolean | ((tooltip: any) => any);
     tooltipFillColor: string;
     tooltipFontFamily: string;
     tooltipFontSize: number;
