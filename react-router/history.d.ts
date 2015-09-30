@@ -12,13 +12,12 @@ declare namespace HistoryModule {
 
     type BeforeUnloadHook = () => string
 
-    type CreateHistory = (options: HistoryOptions) => History
+    type CreateHistory = (options?: HistoryOptions) => History
 
     type CreateHistoryEnhancer = (createHistory: CreateHistory) => CreateHistory
 
-    interface History {
-        listenBefore: (hook: TransitionHook) => Function
-        listen: (listener: LocationListener) => Function
+    interface HistoryBase {
+        listenBefore(hook: TransitionHook): Function
         transitionTo(location: Location): void
         pushState(state: LocationState, path: Path): void
         replaceState(state: LocationState, path: Path): void
@@ -29,6 +28,10 @@ declare namespace HistoryModule {
         createKey(): LocationKey
         createPath(path: Path): Path
         createHref(path: Path): Href
+    }
+
+    interface History {
+        listen(listener: LocationListener): Function
     }
 
     type HistoryOptions = Object
@@ -54,32 +57,51 @@ declare namespace HistoryModule {
 
     type Pathname = string
 
-    type QueryString = string
-
     type Query = Object
 
+    type QueryString = string
+
     type TransitionHook = (location: Location, callback: Function) => any
+
+	// Global usage, without modules, needs the small trick, because lib.d.ts
+	// already has `history` and `History` global definitions:
+	// var history_: HistoryModule.Module = window['History'];
+	// history_.createHistory();
+    interface Module {
+        createHistory: CreateHistory
+        createHashHistory: CreateHistory
+        createMemoryHistory: CreateHistory
+        createLocation(): Location
+        useBasename(enhancer: CreateHistoryEnhancer): CreateHistory
+        useBeforeUnload(enhancer: CreateHistoryEnhancer): CreateHistory
+        useQueries(enhancer: CreateHistoryEnhancer): CreateHistory
+        actions: {
+            PUSH: string
+            REPLACE: string
+            POP: string
+        }
+    }
 
 }
 
 
 declare module "history/lib/createBrowserHistory" {
 
-    export default function createBrowserHistory(): HistoryModule.History
+    export default function createBrowserHistory(options?: HistoryModule.HistoryOptions): HistoryModule.History
 
 }
 
 
 declare module "history/lib/createHashHistory" {
 
-    export default function createHashHistory(): HistoryModule.History
+    export default function createHashHistory(options?: HistoryModule.HistoryOptions): HistoryModule.History
 
 }
 
 
 declare module "history/lib/createMemoryHistory" {
 
-    export default function createMemoryHistory(): HistoryModule.History
+    export default function createMemoryHistory(options?: HistoryModule.HistoryOptions): HistoryModule.History
 
 }
 
