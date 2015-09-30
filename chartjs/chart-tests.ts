@@ -25,6 +25,7 @@ Chart.defaults.global = {
     responsive: false,
     maintainAspectRatio: true,
     showTooltips: true,
+    customTooltips: false,
     tooltipEvents: ["mousemove", "touchstart", "touchmove"],
     tooltipFillColor: "rgba(0,0,0,0.8)",
     tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
