@@ -171,73 +171,47 @@ interface CircularInstance extends ChartInstance {
 }
 
 interface LineChartOptions extends ChartOptions {
-    bezierCurve?: boolean;
-    bezierCurveTension?: number;
-    pointDot?: boolean;
-    pointDotRadius?: number;
-    pointDotStrokeWidth?: number;
-    pointHitDetectionRadius?: number;
-    datasetStroke?: boolean;
-    datasetStrokeWidth?: number;
-    datasetFill?: boolean;
+
 }
 
 interface BarChartOptions extends ChartOptions {
-    scaleBeginAtZero?: boolean;
     barShowStroke?: boolean;
     barStrokeWidth?: number;
     barValueSpacing?: number;
     barDatasetSpacing?: number;
 }
 
-interface RadarChartOptions {
+interface RadarChartOptions extends ChartOptions {
     scaleShowLine?: boolean;
     angleShowLineOut?: boolean;
-    scaleShowLabels?: boolean;
-    scaleBeginAtZero?: boolean;
     angleLineColor?: string;
     angleLineWidth?: number;
     pointLabelFontFamily?: string;
     pointLabelFontStyle?: string;
     pointLabelFontSize?: number;
     pointLabelFontColor?: string;
-    pointDot?: boolean;
-    pointDotRadius?: number;
-    pointDotStrokeWidth?: number;
-    pointHitDetectionRadius?: number;
-    datasetStroke?: boolean;
-    datasetStrokeWidth?: number;
-    datasetFill?: boolean;
-    legendTemplate?: string;
 }
 
-interface PolarAreaChartOptions {
+interface PolarAreaChartOptions extends ChartOptions {
     scaleShowLabelBackdrop?: boolean;
     scaleBackdropColor?: string;
-    scaleBeginAtZero?: boolean;
     scaleBackdropPaddingY?: number;
     scaleBackdropPaddingX?: number;
     scaleShowLine?: boolean;
     segmentShowStroke?: boolean;
     segmentStrokeColor?: string;
     segmentStrokeWidth?: number;
-    animationSteps?: number;
-    animationEasing?: string;
     animateRotate?: boolean;
     animateScale?: boolean;
-    legendTemplate?: string;
 }
 
-interface PieChartOptions {
+interface PieChartOptions extends ChartOptions {
     segmentShowStroke?: boolean;
     segmentStrokeColor?: string;
     segmentStrokeWidth?: number;
     percentageInnerCutout?: number;
-    animationSteps?: number;
-    animationEasing?: string;
     animateRotate?: boolean;
     animateScale?: boolean;
-    legendTemplate?: string;
 }
 
 interface Chart {
