@@ -2313,6 +2313,12 @@ declare module uiGrid {
                  * @param {paginationChangedHandler} handler Callback
                  */
                 paginationChanged: (scope: ng.IScope, handler: paginationChangedHandler) => void;
+                /**
+                 * This event fires when the sort columns changes
+                 * @param {ng.IScope} scope The grid scope
+                 * @param {sortChangedHandler} handler Callback
+                 */
+                sortChanged: (scope: angular.IScope, handle: sortChangedHandler) => void;
             }
         }
 
@@ -2323,6 +2329,15 @@ declare module uiGrid {
          */
         export interface paginationChangedHandler {
             (newPage: number, pageSize: number): void;
+        }
+
+        export interface sortChangedHandler {
+            /**
+             * The callback for sortChanged
+             * @param {uiGrid.IGridInstance} grid the grid instance
+             * @param {Array<uiGrid.IGridColumn>} sortColumns sorting columns
+             */
+            (grid: uiGrid.IGridInstance, sortColumns: Array<uiGrid.IGridColumn>): void;
         }
     }
 
