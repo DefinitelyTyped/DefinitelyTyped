@@ -63,11 +63,11 @@ declare module "react-router" {
 
     var IndexRoute: __React.ComponentClass<ReactRouter.IndexRouteProps>;
 
-    var RedirectRoute: __React.ComponentClass<ReactRouter.RedirectRouteProps>;
+    var Redirect: __React.ComponentClass<ReactRouter.RedirectRouteProps>;
 
     var Link: __React.ComponentClass<ReactRouter.LinkProps>;
 
-    export { Router, Route, IndexRoute, RedirectRoute, Link };
+    export { Router, Route, IndexRoute, Redirect, Link };
 
     export default Router;
 
