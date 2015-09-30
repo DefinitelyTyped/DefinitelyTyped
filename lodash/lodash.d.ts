@@ -349,24 +349,27 @@ declare module _ {
     //_.compact
     interface LoDashStatic {
         /**
-        * Returns a copy of the array with all falsy values removed. In JavaScript, false, null, 0, "",
-        * undefined and NaN are all falsy.
-        * @param array Array to compact.
-        * @return (Array) Returns a new array of filtered values.
-        **/
-        compact<T>(array?: Array<T>): T[];
-
-        /**
-        * @see _.compact
-        **/
+         * Creates an array with all falsey values removed. The values false, null, 0, "", undefined, and NaN are
+         * falsey.
+         *
+         * @param array The array to compact.
+         * @return (Array) Returns the new array of filtered values.
+         */
         compact<T>(array?: List<T>): T[];
     }
 
     interface LoDashArrayWrapper<T> {
         /**
-        * @see _.compact
-        **/
+         * @see _.compact
+         */
         compact(): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.compact
+         */
+        compact<TResult>(): LoDashArrayWrapper<TResult>;
     }
 
     //_.difference
