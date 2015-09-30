@@ -72,7 +72,7 @@ declare module "history/lib/createBrowserHistory" {
 
 declare module "history/lib/createHashHistory" {
 
-    export default function createHashHistory(): HistoryModule.History
+    export default function createHashHistory(options?:{queryKey:string|boolean}): HistoryModule.History
 
 }
 
@@ -125,29 +125,6 @@ declare module "history/lib/actions" {
         REPLACE,
         POP
     }
-
-}
-
-
-declare module "history" {
-
-    export { default as createHistory } from "history/lib/createBrowserHistory"
-
-    export { default as createHashHistory } from "history/lib/createHashHistory"
-
-    export { default as createMemoryHistory } from "history/lib/createMemoryHistory"
-
-    export { default as createLocation } from "history/lib/createLocation"
-
-    export { default as useBasename } from "history/lib/useBasename"
-
-    export { default as useBeforeUnload } from "history/lib/useBeforeUnload"
-
-    export { default as useQueries } from "history/lib/useQueries"
-
-    import * as Actions from "history/lib/actions"
-
-    export { Actions }
 
 }
 
