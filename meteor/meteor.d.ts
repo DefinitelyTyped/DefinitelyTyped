@@ -576,7 +576,7 @@ declare module Mongo {
 
 	var ObjectID: ObjectIDStatic;
 	interface ObjectIDStatic {
-		new(hexString: string): ObjectID;
+		new(hexString?: string): ObjectID;
 	}
 	interface ObjectID {
 	}
