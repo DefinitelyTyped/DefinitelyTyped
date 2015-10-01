@@ -58,6 +58,9 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
         let muiTheme: mui.Styles.MuiTheme = ThemeManager.getMuiTheme({
             palette: {
                 accent1Color: Colors.cyan100
+            },
+            spacing: {
+                
             }
         });
 
