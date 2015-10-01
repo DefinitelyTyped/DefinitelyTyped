@@ -16,6 +16,8 @@ declare namespace ReactRouter {
 
     type Component = React.ReactType
 
+    type Components = { [key: string]: Component }
+
     type EnterHook = (nextState: RouterState, replaceState: RedirectFunction, callback?: Function) => any
 
     type LeaveHook = () => any
@@ -47,24 +49,6 @@ declare namespace ReactRouter {
 
     type StringifyQuery = (queryObject: H.Query) => H.QueryString
 
-
-    interface History extends H.HistoryBase {
-        pushState(state: H.LocationState, pathname: H.Pathname | H.Path, query?: H.Query): void
-        replaceState(state: H.LocationState, pathname: H.Pathname | H.Path, query?: H.Query): void
-        createPath(path: H.Path, query?: H.Query): H.Path
-        createHref(path: H.Path, query?: H.Query): H.Href
-        isActive(pathname: H.Pathname, query: H.Query): boolean
-        registerRouteHook(route: PlainRoute, hook: H.LocationListener): void
-        unregisterRouteHook(route: PlainRoute, hook: H.LocationListener): void
-        listen(listener: RouterListener): Function
-        match(location: H.Location, callback: (error: any, nextState: RouterState, nextLocation: H.Location) => void): void
-        routes: PlainRoute[]
-        parseQueryString?: ParseQueryString
-        stringifyQuery?: StringifyQuery
-    }
-
-    type RouterListener = (error: Error, nextState: RouterState) => void
-
     interface RouterState {
         location: Location
         routes: RouteConfig
@@ -72,12 +56,18 @@ declare namespace ReactRouter {
         components: Component[]
     }
 
-
     type RouteType = Route | IndexRoute | PlainRoute | Redirect
 
     type RouteTypes = RouteType | RouteType[]
 
-    type Components = { [key: string]: Component }
+
+    interface HistoryBase extends H.History {
+        routes: PlainRoute[]
+        parseQueryString?: ParseQueryString
+        stringifyQuery?: StringifyQuery
+    }
+
+    type History = HistoryBase & H.HistoryQueries & HistoryRoutes
 
 
     interface RouterProps {
@@ -179,9 +169,21 @@ declare namespace ReactRouter {
     const History: React.Mixin<any, any>
 
 
-    function useRoutes(enhancer: H.CreateHistoryEnhancer): H.CreateHistory
+    type RouterListener = (error: Error, nextState: RouterState) => void
+
+    interface HistoryRoutes {
+        isActive(pathname: H.Pathname, query: H.Query): boolean
+        registerRouteHook(route: PlainRoute, hook: H.LocationListener): void
+        unregisterRouteHook(route: PlainRoute, hook: H.LocationListener): void
+        listen(listener: RouterListener): Function
+        match(location: H.Location, callback: (error: any, nextState: RouterState, nextLocation: H.Location) => void): void
+    }
+
+    function useRoutes<T>(createHistory: HistoryModule.CreateHistory<T>): HistoryModule.CreateHistory<T & HistoryRoutes>
+
 
     function createRoutes(routes: RouteTypes): PlainRoute[]
+
 
     interface MatchArgs {
         routes?:  RouteTypes
@@ -345,6 +347,8 @@ declare module "react-router" {
 
     import RouteContext from "react-router/lib/RouteContext"
 
+    import useRoutes from "react-router/lib/useRoutes"
+
     import { createRoutes } from "react-router/lib/RouteUtils"
 
     import RoutingContext from "react-router/lib/RoutingContext"
@@ -362,6 +366,7 @@ declare module "react-router" {
         History,
         Lifecycle,
         RouteContext,
+        useRoutes,
         createRoutes,
         RoutingContext,
         PropTypes,
