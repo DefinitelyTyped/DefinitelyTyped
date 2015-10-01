@@ -8,7 +8,8 @@ declare type Callback = () => void;
 interface ISatnavOptions {
     html5?: boolean,
     force?: boolean,
-    poll?: number
+    poll?: number,
+    matchAll?: boolean
 }
 
 interface INavigationOptions {
