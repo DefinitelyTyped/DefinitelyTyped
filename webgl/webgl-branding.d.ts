@@ -3,6 +3,9 @@
 // Definitions by: Shane S. Anderson <https://github.com/ander-nz/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped/webgl
 
+// This file adds 'branding' to the WebGL types to ensure that accidental assignments aren't made.
+// For example, var program: WebGLProgram = gl.createShader(...);
+
 // WebGL types
 interface WebGLObject { __WebGLObject: void; }
 interface WebGLBuffer { __WebGLBuffer: void; }
