@@ -1,6 +1,6 @@
 // Type definitions for jade
 // Project: https://github.com/jadejs/jade
-// Definitions by: Panu Horsmalahti <panu.horsmalahti@iki.fi>
+// Definitions by: Panu Horsmalahti <https://github.com/panuhorsmalahti>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module 'jade' {
