@@ -8567,14 +8567,14 @@ declare module _ {
          *
          * @return Returns the lodash function.
          */
-        noConflict(): typeof _;
+        noConflict(): LoDashStatic;
     }
 
     interface LoDashWrapperBase<T, TWrapper> {
         /**
          * @see _.noConflict
          */
-        noConflict(): typeof _;
+        noConflict(): LoDashStatic;
     }
 
     //_.noop
@@ -8696,14 +8696,14 @@ declare module _ {
          * @param context The context object.
          * @return Returns a new lodash function.
          */
-        runInContext(context?: Object): typeof _;
+        runInContext(context?: Object): LoDashStatic;
     }
 
     interface LoDashObjectWrapper<T> {
         /**
          * @see _.runInContext
          */
-        runInContext(): typeof _;
+        runInContext(): LoDashStatic;
     }
 
     //_.times
