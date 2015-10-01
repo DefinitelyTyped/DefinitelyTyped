@@ -125,7 +125,7 @@ declare module _ {
          * @param value The value to cache.
          * @return Returns the cache object.
          */
-        set(key: string, value: any): _.Dictionary<any>;
+        set(key: string, value: any): Dictionary<any>;
     }
 
     /**
@@ -1821,12 +1821,12 @@ declare module _ {
         /**
         * @see _.zip
         **/
-        zip(...arrays: any[][]): _.LoDashArrayWrapper<any[][]>;
+        zip(...arrays: any[][]): LoDashArrayWrapper<any[][]>;
 
         /**
         * @see _.zip
         **/
-        unzip(...arrays: any[]): _.LoDashArrayWrapper<any[][]>;
+        unzip(...arrays: any[]): LoDashArrayWrapper<any[][]>;
     }
 
     //_.zipObject
@@ -1865,12 +1865,12 @@ declare module _ {
         /**
         * @see _.zipObject
         **/
-        zipObject(values?: List<any>): _.LoDashObjectWrapper<Dictionary<any>>;
+        zipObject(values?: List<any>): LoDashObjectWrapper<Dictionary<any>>;
 
         /**
         * @see _.zipObject
         **/
-        object(values?: List<any>): _.LoDashObjectWrapper<Dictionary<any>>;
+        object(values?: List<any>): LoDashObjectWrapper<Dictionary<any>>;
     }
 
     //_.zipWith
@@ -3435,19 +3435,19 @@ declare module _ {
         **/
         groupBy(
             callback: ListIterator<T, any>,
-            thisArg?: any): _.LoDashObjectWrapper<_.Dictionary<T[]>>;
+            thisArg?: any): LoDashObjectWrapper<Dictionary<T[]>>;
 
         /**
         * @see _.groupBy
         **/
         groupBy(
-            pluckValue: string): _.LoDashObjectWrapper<_.Dictionary<T[]>>;
+            pluckValue: string): LoDashObjectWrapper<Dictionary<T[]>>;
 
         /**
         * @see _.groupBy
         **/
         groupBy<W>(
-            whereValue: W): _.LoDashObjectWrapper<_.Dictionary<T[]>>;
+            whereValue: W): LoDashObjectWrapper<Dictionary<T[]>>;
     }
 
     interface LoDashObjectWrapper<T> {
@@ -3456,19 +3456,19 @@ declare module _ {
         **/
         groupBy<TValue>(
             callback: ListIterator<TValue, any>,
-            thisArg?: any): _.LoDashObjectWrapper<_.Dictionary<TValue[]>>;
+            thisArg?: any): LoDashObjectWrapper<Dictionary<TValue[]>>;
 
         /**
         * @see _.groupBy
         **/
         groupBy<TValue>(
-            pluckValue: string): _.LoDashObjectWrapper<_.Dictionary<TValue[]>>;
+            pluckValue: string): LoDashObjectWrapper<Dictionary<TValue[]>>;
 
         /**
         * @see _.groupBy
         **/
         groupBy<W, TValue>(
-            whereValue: W): _.LoDashObjectWrapper<_.Dictionary<TValue[]>>;
+            whereValue: W): LoDashObjectWrapper<Dictionary<TValue[]>>;
     }
 
     //_.indexBy
@@ -7042,7 +7042,7 @@ declare module _ {
         **/
         forIn<T extends {}>(
             callback: ObjectIterator<T, void>,
-            thisArg?: any): _.LoDashObjectWrapper<T>;
+            thisArg?: any): LoDashObjectWrapper<T>;
     }
 
     //_.forInRight
@@ -7075,7 +7075,7 @@ declare module _ {
         **/
         forInRight<T extends {}>(
             callback: ObjectIterator<T, void>,
-            thisArg?: any): _.LoDashObjectWrapper<T>;
+            thisArg?: any): LoDashObjectWrapper<T>;
     }
 
     //_.forOwn
@@ -7109,7 +7109,7 @@ declare module _ {
         **/
         forOwn<T extends {}>(
             callback: ObjectIterator<T, void>,
-            thisArg?: any): _.LoDashObjectWrapper<T>;
+            thisArg?: any): LoDashObjectWrapper<T>;
     }
 
     //_.forOwnRight
@@ -7141,7 +7141,7 @@ declare module _ {
         **/
         forOwnRight<T extends {}>(
             callback: ObjectIterator<T, void>,
-            thisArg?: any): _.LoDashObjectWrapper<T>;
+            thisArg?: any): LoDashObjectWrapper<T>;
     }
 
     //_.functions
@@ -7164,12 +7164,12 @@ declare module _ {
         /**
         * @see _.functions
         **/
-        functions(): _.LoDashArrayWrapper<string>;
+        functions(): LoDashArrayWrapper<string>;
 
         /**
         * @see _.functions
         **/
-        methods(): _.LoDashArrayWrapper<string>;
+        methods(): LoDashArrayWrapper<string>;
     }
 
     //_.get
