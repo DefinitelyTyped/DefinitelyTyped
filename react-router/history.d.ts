@@ -12,12 +12,13 @@ declare namespace HistoryModule {
 
     type BeforeUnloadHook = () => string
 
-    type CreateHistory = (options?: HistoryOptions) => History
+    type CreateHistory<T> = (options?: HistoryOptions) => T
 
-    type CreateHistoryEnhancer = (createHistory: CreateHistory) => CreateHistory
+    type CreateHistoryEnhancer<T, E> = (createHistory: CreateHistory<T>) => CreateHistory<T & E>
 
-    interface HistoryBase {
+    interface History {
         listenBefore(hook: TransitionHook): Function
+        listen(listener: LocationListener): Function
         transitionTo(location: Location): void
         pushState(state: LocationState, path: Path): void
         replaceState(state: LocationState, path: Path): void
@@ -28,10 +29,6 @@ declare namespace HistoryModule {
         createKey(): LocationKey
         createPath(path: Path): Path
         createHref(path: Path): Href
-    }
-
-    interface History {
-        listen(listener: LocationListener): Function
     }
 
     type HistoryOptions = Object
@@ -63,17 +60,30 @@ declare namespace HistoryModule {
 
     type TransitionHook = (location: Location, callback: Function) => any
 
+
+    interface HistoryBeforeUnload {
+        listenBeforeUnload(hook: () => string | boolean): Function
+    }
+
+    interface HistoryQueries {
+        pushState(state: LocationState, pathname: Pathname | Path, query?: Query): void
+        replaceState(state: LocationState, pathname: Pathname | Path, query?: Query): void
+        createPath(path: Path, query?: Query): Path
+        createHref(path: Path, query?: Query): Href
+    }
+
+
     // Global usage, without modules, needs the small trick, because lib.d.ts
     // already has `history` and `History` global definitions:
     // var createHistory = ((window as any).History as HistoryModule.Module).createHistory;
     interface Module {
-        createHistory: CreateHistory
-        createHashHistory: CreateHistory
-        createMemoryHistory: CreateHistory
+        createHistory: CreateHistory<History>
+        createHashHistory: CreateHistory<History>
+        createMemoryHistory: CreateHistory<History>
         createLocation(): Location
-        useBasename(enhancer: CreateHistoryEnhancer): CreateHistory
-        useBeforeUnload(enhancer: CreateHistoryEnhancer): CreateHistory
-        useQueries(enhancer: CreateHistoryEnhancer): CreateHistory
+        useBasename<T>(createHistory: CreateHistory<T>): CreateHistory<T>
+        useBeforeUnload<T>(createHistory: CreateHistory<T>): CreateHistory<T & HistoryBeforeUnload>
+        useQueries<T>(createHistory: CreateHistory<T>): CreateHistory<T & HistoryQueries>
         actions: {
             PUSH: string
             REPLACE: string
@@ -114,21 +124,21 @@ declare module "history/lib/createLocation" {
 
 declare module "history/lib/useBasename" {
 
-    export default function useBasename(enhancer: HistoryModule.CreateHistoryEnhancer): HistoryModule.CreateHistory
+    export default function useBasename<T>(createHistory: HistoryModule.CreateHistory<T>): HistoryModule.CreateHistory<T>
 
 }
 
 
 declare module "history/lib/useBeforeUnload" {
 
-    export default function useBeforeUnload(enhancer: HistoryModule.CreateHistoryEnhancer): HistoryModule.CreateHistory
+    export default function useBeforeUnload<T>(createHistory: HistoryModule.CreateHistory<T>): HistoryModule.CreateHistory<T & HistoryModule.HistoryBeforeUnload>
 
 }
 
 
 declare module "history/lib/useQueries" {
 
-    export default function useQueries(enhancer: HistoryModule.CreateHistoryEnhancer): HistoryModule.CreateHistory
+    export default function useQueries<T>(createHistory: HistoryModule.CreateHistory<T>): HistoryModule.CreateHistory<T & HistoryModule.HistoryQueries>
 
 }
 
