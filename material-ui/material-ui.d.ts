@@ -844,16 +844,17 @@ declare namespace __MaterialUI {
             desktopToolbarHeight?: number;
         }
         interface ThemePalette {
-            primary1Color?: string,
-            primary2Color?: string,
-            primary3Color?: string,
-            accent1Color?: string,
-            accent2Color?: string,
-            accent3Color?: string,
-            textColor?: string,
-            canvasColor?: string,
-            borderColor?: string,
-            disabledColor?: string
+            primary1Color?: string;
+            primary2Color?: string;
+            primary3Color?: string;
+            accent1Color?: string;
+            accent2Color?: string;
+            accent3Color?: string;
+            textColor?: string;
+            canvasColor?: string;
+            borderColor?: string;
+            disabledColor?: string;
+            alternateTextColor?: string;
         }
         interface MuiTheme {
             rawTheme: RawTheme;
@@ -1044,7 +1045,7 @@ declare namespace __MaterialUI {
         }
 
         interface RawTheme {
-            spacing?: Spacing;
+            spacing: Spacing;
             fontFamily?: string;
             palette: ThemePalette;
         }
