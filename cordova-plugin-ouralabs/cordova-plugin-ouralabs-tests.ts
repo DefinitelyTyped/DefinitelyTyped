@@ -19,6 +19,10 @@ OuralabsPlugin.setAttributes("a", "b", "c");
 OuralabsPlugin.setAttributes("a", "b", "c", () => {});
 OuralabsPlugin.setAttributes("a", "b", "c", () => {}, (error: string) => {});
 
+OuralabsPlugin.setLogToBrowserConsole(true);
+
+OuralabsPlugin.setHookBrowserConsole(true);
+
 OuralabsPlugin.logTrace("a", "b");
 OuralabsPlugin.logTrace("a", "b", { "whoa": "yep" });
 OuralabsPlugin.logTrace("a", "b", { "whoa": "yep" }, () => {});
