@@ -41,6 +41,7 @@ declare module angular {
 
     interface IAngularBootstrapConfig {
         strictDi?: boolean;
+        debugInfoEnabled?: boolean;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -56,132 +57,11 @@ declare module angular {
          * @param element DOM element which is the root of angular application.
          * @param modules An array of modules to load into the application.
          *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
+         *     function that will be invoked by the injector as a config block.
          * @param config an object for defining configuration options for the application. The following keys are supported:
          *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
          */
-        bootstrap(element: string, modules?: string, config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: string, modules?: Function, config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: string, modules?: string[], config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: JQuery, modules?: string, config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: JQuery, modules?: Function, config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: JQuery, modules?: string[], config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: Element, modules?: string, config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: Element, modules?: Function, config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: Element, modules?: string[], config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: Document, modules?: string, config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: Document, modules?: Function, config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: Document, modules?: string[], config?: IAngularBootstrapConfig): auto.IInjectorService;
+        bootstrap(element: string|Element|JQuery, modules?: (string|Function|any[])[], config?: IAngularBootstrapConfig): auto.IInjectorService;
 
         /**
          * Creates a deep copy of source, which should be an object or an array.
@@ -674,7 +554,7 @@ declare module angular {
          */
         $odd: boolean;
 
-	}
+    }
 
     interface IAngularEvent {
         /**
@@ -784,19 +664,19 @@ declare module angular {
          */
         (name: string): IFilterFunc;
     }
-    
+
     interface IFilterFunc {
         <T>(array: T[], expression: string | IFilterPatternObject | IFilterPredicateFunc<T>, comparator?: IFilterComparatorFunc<T>|boolean): T[];
     }
-    
+
     interface IFilterPatternObject {
         [name: string]: string;
     }
-    
+
     interface IFilterPredicateFunc<T> {
         (value: T, index: number, array: T[]): T[];
     }
-    
+
     interface IFilterComparatorFunc<T> {
         (actual: T, expected: T): boolean;
     }
