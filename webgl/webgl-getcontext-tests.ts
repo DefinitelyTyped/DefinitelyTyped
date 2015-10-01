@@ -24,6 +24,6 @@ gl2 = canvas.getContext("webgl2");
 gl2 = canvas.getContext("webgl2", { antialias: true });
 gl2 = canvas.getContext("webgl2", { antialias: true, preferLowPowerToHighPerformance: true });
 
-// Brand WebGL2RenderingContext to ensure type-checking.
+// Brand WebGL2RenderingContext to ensure type-checking within this test.
 // This is because webgl-getcontext.d.ts only defines it as an empty stub interface
 interface WebGL2RenderingContext { __WebGL2RenderingContext: void; }

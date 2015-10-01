@@ -3,6 +3,9 @@
 // Definitions by: Shane S. Anderson <https://github.com/ander-nz/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped/webgl
 
+// These definitions update the getContext() overloads to support context attributes and "webgl" without "experimental-" prefix.
+// It also adds overloads for "webgl2" and "experimental-webgl2", but it only defines a stub interface for WebGL2RenderingContext.
+
 interface HTMLCanvasElement {
   // https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext
   getContext(contextId: "2d", attributes?: CanvasContextAttributes): CanvasRenderingContext2D;
