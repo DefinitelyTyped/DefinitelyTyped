@@ -3,8 +3,6 @@
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare var _: _.LoDashStatic;
-
 declare module _ {
     interface LoDashStatic {
         /**
@@ -8822,5 +8820,6 @@ declare module _ {
 }
 
 declare module "lodash" {
+    var _: _.LoDashStatic;
     export = _;
 }
