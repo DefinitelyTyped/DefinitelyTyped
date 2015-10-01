@@ -3,7 +3,7 @@
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module _ {
+declare module LoDash {
     interface LoDashStatic {
         /**
         * Creates a lodash object which wraps the given value to enable intuitive method chaining.
@@ -8820,6 +8820,6 @@ declare module _ {
 }
 
 declare module "lodash" {
-    var _: _.LoDashStatic;
+    var _: LoDash.LoDashStatic;
     export = _;
 }

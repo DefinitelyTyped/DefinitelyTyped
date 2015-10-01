@@ -4,4 +4,5 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="lodash-module.d.ts" />
+import _ = LoDash;
 declare var _: _.LoDashStatic;
