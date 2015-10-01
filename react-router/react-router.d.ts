@@ -280,9 +280,7 @@ declare module "react-router/lib/RouteUtils" {
 
     export function createRoutesFromReactChildren(children: E | E[], parentRoute: ReactRouter.PlainRoute): ReactRouter.PlainRoute[]
 
-    import createRoutes = ReactRouter.createRoutes
-
-    export { createRoutes }
+    export import createRoutes = ReactRouter.createRoutes
 
 }
 
