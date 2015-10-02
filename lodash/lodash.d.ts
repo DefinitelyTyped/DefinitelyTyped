@@ -6965,6 +6965,16 @@ declare module _ {
 
         /**
         * @see _.findKey
+        * @param callback The function called per iteration.
+        **/
+
+        findKey<T>(
+            object: Dictionary<T>,
+            callback: DictionaryIterator<T,boolean>,
+            thisArg?: any): string;
+
+        /**
+        * @see _.findKey
         * @param pluckValue _.pluck style callback
         **/
         findKey(
