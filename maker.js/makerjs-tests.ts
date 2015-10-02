@@ -116,6 +116,15 @@ function test() {
 		new makerjs.paths.Chord(paths.arc);
 		new makerjs.paths.Parallel(paths.line, 4, [1,1]);
 		
+		//paths.line.layer = "0";
+		
+		var x: MakerJs.IPathLine = { 
+			type: "line", 
+			origin: [9,9], 
+			end: [8,8], 
+			layer: "4"
+		};
+		
 		return paths;
 	}
 	
