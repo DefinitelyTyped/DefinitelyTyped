@@ -343,11 +343,13 @@ declare module moment {
       LLL: string;
       LLLL: string;
       LT: string;
+      LTS: string;
       l?: string;
       ll?: string;
       lll?: string;
       llll?: string;
       lt?: string;
+      lts?: string;
 
     }
 
