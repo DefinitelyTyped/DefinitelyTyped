@@ -17,7 +17,7 @@ declare module Axios {
      * This is only applicable for request methods 'PUT', 'POST', and 'PATCH'
      * The last function in the array must return a string or an ArrayBuffer
      */
-    transformRequest?: <U>(data:T) => U;
+    transformRequest?: (<U>(data:T) => U)|[<U>(data:T) => U];
 
     /**
      * change the response data to be made before it is passed to then/catch
