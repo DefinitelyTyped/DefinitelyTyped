@@ -246,6 +246,7 @@ declare module moment {
 
         from(f: Moment|string|number|Date|number[], suffix?: boolean): string;
         to(f: Moment|string|number|Date|number[], suffix?: boolean): string;
+        toNow(withoutPrefix?: boolean): string;
 
         diff(b: Moment): number;
         diff(b: Moment, unitOfTime: string): number;
