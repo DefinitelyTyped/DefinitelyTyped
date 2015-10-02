@@ -2143,5 +2143,5 @@ declare module GLM.quat {
 }
 
 declare module "gl-matrix" {
-    export import exported = GLM;
+    export = GLM;
 }
