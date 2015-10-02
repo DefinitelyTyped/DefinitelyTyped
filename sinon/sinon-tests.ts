@@ -76,6 +76,18 @@ function testEight() {
     sinon.match.typeOf("object").and(sinon.match.has("pages"));
 }
 
+function testNine() {
+	var callback = sinon.stub().returns(42);
+	callback({ x: 5, y: 5 });
+	callback.calledWithMatch({ x: 5 });
+	callback.alwaysCalledWithMatch({ y: 5 });
+	callback.neverCalledWithMatch({ x: 6 });
+	callback.notCalledWithMatch({ x: 6 });
+	sinon.assert.calledWithMatch(callback, { x: 5 });
+	sinon.assert.alwaysCalledWithMatch(callback, { y: 5 });
+	sinon.assert.neverCalledWithMatch(callback, { x: 6 });
+}
+
 function testSandbox() {
     var sandbox = sinon.sandbox.create();
     if (sandbox.spy().called) {
@@ -96,3 +108,10 @@ testFive();
 testSix();
 testSeven();
 testEight();
+testNine();
+
+var clock: Sinon.SinonFakeTimers = sinon.useFakeTimers();
+clock.setSystemTime(1000);
+clock.setSystemTime(new Date());
+
+

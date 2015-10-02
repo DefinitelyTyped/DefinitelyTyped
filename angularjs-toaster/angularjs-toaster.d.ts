@@ -16,7 +16,7 @@ declare module ngtoaster {
     error(params: IPopParams): void
     error(title?:string, body?:string, timeout?:number, bodyOutputType?:string, clickHandler?:EventListener,
         toasterId?:number): void
-    into(params: IPopParams): void
+    info(params: IPopParams): void
     info(title?:string, body?:string, timeout?:number, bodyOutputType?:string, clickHandler?:EventListener,
         toasterId?:number): void
     wait(params: IPopParams): void

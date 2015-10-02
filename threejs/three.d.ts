@@ -1,9 +1,7 @@
-// Type definitions for three.js r70
+// Type definitions for three.js r71
 // Project: http://mrdoob.github.com/three.js/
 // Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped  
-
-///<reference path="../webaudioapi/waa.d.ts"/>
 
 interface WebGLRenderingContext {}
 
@@ -11,10 +9,7 @@ declare module THREE {
     export var REVISION: string;
 
     // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent.button
-    export enum MOUSE { }
-    export var LEFT: MOUSE;
-    export var MIDDLE: MOUSE;
-    export var RIGHT: MOUSE;
+    export enum MOUSE {LEFT, MIDDLE, RIGHT}
 
     // GL STATE CONSTANTS
     export enum CullFace { }
@@ -129,6 +124,7 @@ declare module THREE {
     export var IntType: TextureDataType;
     export var UnsignedIntType: TextureDataType;
     export var FloatType: TextureDataType;
+    export var HalfFloatType: TextureDataType;
 
     // Pixel types
     export enum PixelType { }
@@ -158,6 +154,12 @@ declare module THREE {
     export var RGB_PVRTC_2BPPV1_Format: CompressedPixelFormat;
     export var RGBA_PVRTC_4BPPV1_Format: CompressedPixelFormat;
     export var RGBA_PVRTC_2BPPV1_Format: CompressedPixelFormat;
+
+    // log handlers
+    export function warn(message?: any, ...optionalParams: any[]): void;
+    export function error(message?: any, ...optionalParams: any[]): void;
+    export function log(message?: any, ...optionalParams: any[]): void;
+
 
     // Cameras ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -364,7 +366,7 @@ declare module THREE {
         length: number;
 
         copyAt(index1: number, attribute: BufferAttribute, index2: number): void;
-        set(value: number): BufferAttribute;
+        set(value: number, offset?: number): BufferAttribute;
         setX(index: number, x: number): BufferAttribute;
         setY(index: number, y: number): BufferAttribute;
         setZ(index: number, z: number): BufferAttribute;
@@ -456,8 +458,7 @@ declare module THREE {
          */
         applyMatrix(matrix: Matrix4): void;
 
-        // this method is currently empty.
-        center(): void;
+        center(): Vector3;
 
         fromGeometry( geometry: Geometry, settings?: any ): BufferGeometry;
 
@@ -488,7 +489,7 @@ declare module THREE {
          */
         computeTangents(): void;
 
-        computeOffsets(indexBufferSize: number): void;
+        computeOffsets(size: number): void;
         merge(geometry: BufferGeometry, offset: number): BufferGeometry;
         normalizeNormals(): void;
         reorderBuffers(indexBuffer: number, indexMap: number[], vertexCount: number): void;
@@ -567,6 +568,17 @@ declare module THREE {
          * Get the seconds passed since the last call to this method.
          */
         getDelta(): number;
+    }
+
+    export class DynamicBufferAttribute extends BufferAttribute{
+        constructor(array: any, itemSize: number);
+
+        updateRange: {
+            offset: number;
+            count: number;
+        }
+
+        clone(): DynamicBufferAttribute;
     }
 
     /**
@@ -1065,6 +1077,8 @@ declare module THREE {
          */
         frustumCulled: boolean;
 
+        renderOrder: number;
+
         /**
          * An object that can be used to store custom data about the Object3d. It should not hold references to functions as these will not be cloned.
          */
@@ -1193,23 +1207,21 @@ declare module THREE {
         remove(object: Object3D): void;
 
         /* deprecated */
-        getChildByName( name: string, recursive?: boolean ): Object3D;
+        getChildByName( name: string ): Object3D;
 
         /**
          * Searches through the object's children and returns the first with a matching id, optionally recursive.
          * @param id  Unique number of the object instance
-         * @param recursive  Boolean whether to search through the children's children. Default is false.
          */
-        getObjectById(id: string, recursive: boolean): Object3D;
+        getObjectById(id: string): Object3D;
 
         /**
          * Searches through the object's children and returns the first with a matching name, optionally recursive.
          * @param name  String to match to the children's Object3d.name property.
-         * @param recursive  Boolean whether to search through the children's children. Default is false.
          */
-        getObjectByName(name: string, recursive?: boolean): Object3D;
+        getObjectByName(name: string): Object3D;
 
-        getObjectByProperty( name: string, value: string, recursive?: boolean ): Object3D;
+        getObjectByProperty( name: string, value: string ): Object3D;
         
         getWorldPosition(optionalTarget?: Vector3): Vector3;
         getWorldQuaternion(optionalTarget?: Quaternion): Quaternion;
@@ -1521,7 +1533,7 @@ declare module THREE {
      * scene.add( light );
      */
     export class PointLight extends Light {
-        constructor(hex?: number, intensity?: number, distance?: number);
+        constructor(hex?: number, intensity?: number, distance?: number, decay?: number);
 
         /*
          * Light's intensity.
@@ -1534,6 +1546,8 @@ declare module THREE {
          * Default — 0.0.
          */
         distance: number;
+
+        decay: number;
 
         clone(): PointLight;
     }
@@ -1554,7 +1568,7 @@ declare module THREE {
      * scene.add( spotLight );
      */
     export class SpotLight extends Light {
-        constructor(hex?: number, intensity?: number, distance?: number, angle?: number, exponent?: number);
+        constructor(hex?: number, intensity?: number, distance?: number, angle?: number, exponent?: number, decay?: number);
 
         /**
          * Spotlight focus points at target.position.
@@ -1585,6 +1599,8 @@ declare module THREE {
          * Default — 10.0.
          */
         exponent: number;
+
+        decay: number;
 
         /**
          * If set to true light will cast dynamic shadows. Warning: This is expensive and requires tweaking to get shadows looking right.
@@ -1744,9 +1760,7 @@ declare module THREE {
         parse(json: any): BufferGeometry;
     }
 
-    export class Cache{
-        constructor();
-
+    export interface Cache{
         files: any[];
 
         add(key: string, file: any): void;
@@ -1754,6 +1768,7 @@ declare module THREE {
         remove(key: string): void;
         clear(): void;
     }
+    export var Cache:Cache;
 
     export class CompressedTextureLoader{
         constructor();
@@ -1856,14 +1871,18 @@ declare module THREE {
         constructor(manager?: LoadingManager);
 
         manager: LoadingManager;
-        crossOrigin: string;
+        texturePass: string;
 
-        load(url: string, onLoad: (object: Object3D) => void): void;
+        load(url: string, onLoad?: (object: Object3D) => void): void;
+        setTexturePath( value: string ): void;
         setCrossOrigin(crossOrigin: string): void;
-        parse<T extends Object3D>(json: any): T;
+        parse<T extends Object3D>(json: any, onLoad?: (object: Object3D) => void): T;
         parseGeometries(json: any): any[]; // Array of BufferGeometry or Geometry or Geometry2.
-        parseMaterials(json: any): Material[]; // Array of Classes that inherits from Matrial.
+        parseMaterials(json: any, textures: Texture[]): Material[]; // Array of Classes that inherits from Matrial.
+        parseImages( json: any, onLoad: () => void ): any[];
+        parseTextures( json: any, images: any ): Texture[];
         parseObject<T extends Object3D>(data: any, geometries: any[], materials: Material[]): T;
+
     }
 
     /**
@@ -1976,6 +1995,10 @@ declare module THREE {
          */
         blendEquation: BlendingEquation;
 
+        blendSrcAlpha: number;
+        blendDstAlpha: number;
+        blendEquationAlpha: number;
+
         /**
          * Whether to have depth test enabled when rendering this material. Default is true.
          */
@@ -1986,6 +2009,8 @@ declare module THREE {
          * When drawing 2D overlays it can be useful to disable the depth writing in order to layer several things together without creating z-index artifacts.
          */
         depthWrite: boolean;
+
+        colorWrite: boolean;
 
         /**
          * Whether to use polygon offset. Default is false. This corresponds to the POLYGON_OFFSET_FILL WebGL feature.
@@ -2026,6 +2051,7 @@ declare module THREE {
         setValues(values: Object): void;
         toJSON(): any;
         clone(material?:Material): Material;
+        update(): void;
         dispose(): void;
 
         // EventDispatcher mixins
@@ -2156,7 +2182,6 @@ declare module THREE {
 
     export interface MeshLambertMaterialParameters extends MaterialParameters{
         color?: number;
-        ambient?: number;
         emissive?: number;
         wrapAround?: boolean;
         wrapRGB?: Vector3;
@@ -2183,7 +2208,6 @@ declare module THREE {
     export class MeshLambertMaterial extends Material {
         constructor(parameters?: MeshLambertMaterialParameters);
         color: Color;
-        ambient: Color;
         emissive: Color;
         wrapAround: boolean;
         wrapRGB: Vector3;
@@ -2210,16 +2234,41 @@ declare module THREE {
     }
 
     export interface MeshNormalMaterialParameters extends MaterialParameters{
+        /** Line color in hexadecimal. Default is 0xffffff. */
+        color?: number;
+        /** Sets the texture map. Default is null  */
+        map?: Texture;
+        /** Set light map. Default is null. */
+        lightMap?: Texture;
+        /** Set specular map. Default is null. */
+        specularMap?: Texture;
+        /** Set alpha map. Default is null. */
+        alphaMap?: Texture;
+        /** Set env map. Default is null. */
+        envMap?: Texture;
+        /** Define whether the material color is affected by global fog settings. Default is false. */
+        fog?: boolean;
+        /** How the triangles of a curved surface are rendered. Default is THREE.SmoothShading. */
         shading?: Shading;
+        /** Render geometry as wireframe. Default is false (i.e. render as smooth shaded). */
         wireframe?: boolean;
+        /** Controls wireframe thickness. Default is 1. */
         wireframeLinewidth?: number;
+        /** Define appearance of line ends. Default is 'round'. */
+        wireframeLinecap?: string;
+        /** Define appearance of line joints. Default is 'round'. */
+        wireframeLinejoin?: string;
+        /** Define how the vertices gets colored. Default is THREE.NoColors. */
+        vertexColors?: Colors;
+        /** Define whether the material uses skinning. Default is false. */
+        skinning?: boolean;
+        /** Define whether the material uses morphTargets. Default is false. */
         morphTargets?: boolean;
     }
 
     export class MeshNormalMaterial extends Material {
         constructor(parameters?: MeshNormalMaterialParameters);
 
-        shading: Shading;
         wireframe: boolean;
         wireframeLinewidth: number;
         morphTargets: boolean;
@@ -2227,36 +2276,52 @@ declare module THREE {
         clone(): MeshNormalMaterial;
     }
 
-    export interface MeshPhongMaterialParameters extends MaterialParameters{
-        color?: number; // diffuse
-        ambient?: number;
+    export interface MeshPhongMaterialParameters extends MaterialParameters {
+        /** geometry color in hexadecimal. Default is 0xffffff. */
+        color?: number;
+        /** Sets the texture map. Default is null */
+        map?: Texture;
+        /** Set light map. Default is null */
+        lightMap?: Texture;
+        /** Set specular map. Default is null */
+        specularMap?: Texture;
+        /** Set alpha map. Default is null */
+        alphaMap?: Texture;
+        /** Set env map. Default is null */
+        envMap?: Texture;
+        /** Define whether the material color is affected by global fog settings. Default is true */
+        fog?: boolean;
+        /** Define shading type. Default is THREE.SmoothShading */
+        shading?: Shading;
+        /** render geometry as wireframe. Default is false */
+        wireframe?: string;
+        /** Line thickness. Default is 1. */
+        wireframeLinewidth?: number;
+        /** Define appearance of line ends. Default is 'round' */
+        wireframeLinecap?: string;
+        /** Define appearance of line joints. Default is 'round'. */
+        wireframeLinejoin?: string;
+        /** Define how the vertices gets colored. Default is THREE.NoColors. */
+        vertexColors?: Colors;
+        /** Define whether the material uses skinning. Default is false. */
+        skinning?: boolean;
+
+        /** Define whether the material uses morphTargets. Default is false. */
+        morphTargets?: boolean;
+
         emissive?: number;
         specular?: number;
         shininess?: number;
         metal?: boolean;
         wrapAround?: boolean;
         wrapRGB?: Vector3;
-        map?: Texture;
-        lightMap?: Texture;
         bumpMap?: Texture;
         bumpScale?: number;
         normalMap?: Texture;
         normalScale?: Vector2;
-        specularMap?: Texture;
-        alphaMap?: Texture;
-        envMap?: Texture;
         combine?: Combine;
         reflectivity?: number;
         refractionRatio?: number;
-        fog?: boolean;
-        shading?: Shading;
-        wireframe?: boolean;
-        wireframeLinewidth?: number;
-        wireframeLinecap?: string;
-        wireframeLinejoin?: string;
-        vertexColors?: Colors;
-        skinning?: boolean;
-        morphTargets?: boolean;
         morphNormals?: boolean;
     }
 
@@ -2264,7 +2329,6 @@ declare module THREE {
         constructor(parameters?: MeshPhongMaterialParameters);
 
         color: Color; // diffuse
-        ambient: Color;
         emissive: Color;
         specular: Color;
         shininess: number;
@@ -2531,13 +2595,13 @@ declare module THREE {
          * Copies given color making conversion from gamma to linear space.
          * @param color Color to copy.
          */
-        copyGammaToLinear(color: Color): Color;
+        copyGammaToLinear(color: Color, gammaFactor?: number): Color;
 
         /**
          * Copies given color making conversion from linear to gamma space.
          * @param color Color to copy.
          */
-        copyLinearToGamma(color: Color): Color;
+        copyLinearToGamma(color: Color, gammaFactor?: number): Color;
 
         /**
          * Converts this color from gamma to linear space.
@@ -2577,7 +2641,7 @@ declare module THREE {
         lerp(color: Color, alpha: number): Color;
         equals(color: Color): boolean;
         fromArray(rgb: number[]): Color;
-        toArray(): number[];
+        toArray(array?: number[], offset?: number): number[];
 
         /**
          * Clones this color.
@@ -2751,7 +2815,7 @@ declare module THREE {
         reorder(newOrder: string): Euler;
         equals(euler: Euler): boolean;
         fromArray(xyzo: any[]): Euler;
-        toArray(): any[];
+        toArray(array?: number[], offset?: number): number[];
         toVector3(optionalResult?: Vector3): Vector3;
         onChange: () => void;
 
@@ -2860,6 +2924,8 @@ declare module THREE {
         radToDeg(radians: number): number;
 
         isPowerOfTwo(value: number): boolean;
+
+        nextPowerOfTwo(value: number): number;
     }
 
     /**
@@ -3558,8 +3624,8 @@ declare module THREE {
         /**
          * Sets this vector to a + b.
          */
-        addVectors(a: Vector2, b: Vector2): Vector2;
         addScalar(s: number): Vector2;
+        addVectors(a: Vector2, b: Vector2): Vector2;
 
         /**
          * Subtracts v from this vector.
@@ -3635,6 +3701,9 @@ declare module THREE {
         setLength(l: number): Vector2;
 
         lerp(v: Vector2, alpha: number): Vector2;
+
+        lerpVectors(v1: Vector2, v2: Vector2, alpha: number): Vector2;
+
         /**
          * Checks for strict equality of this vector and v.
          */
@@ -3717,6 +3786,8 @@ declare module THREE {
          */
         sub(a: Vector3): Vector3;
 
+        subScalar( s: number ): Vector3;
+
         /**
          * Sets this vector to a - b.
          */
@@ -3789,6 +3860,8 @@ declare module THREE {
          */
         setLength(l: number): Vector3;
         lerp(v: Vector3, alpha: number): Vector3;
+
+        lerpVectors(v1: Vector3, v2: Vector3, alpha: number): Vector3;
 
         /**
          * Sets this vector to cross product of itself and v.
@@ -3896,6 +3969,8 @@ declare module THREE {
          */
         sub(v: Vector4): Vector4;
 
+        subScalar(s: number): Vector4;
+
         /**
          * Sets this vector to a - b.
          */
@@ -3969,6 +4044,8 @@ declare module THREE {
          */
         lerp(v: Vector4, alpha: number): Vector4;
 
+        lerpVectors(v1: Vector4, v2: Vector4, alpha: number): Vector4;
+
         /**
          * Checks for strict equality of this vector and v.
          */
@@ -3989,7 +4066,7 @@ declare module THREE {
     // Objects //////////////////////////////////////////////////////////////////////////////////
 
     export class Bone extends Object3D {
-        constructor(belongsToSkin: SkinnedMesh);
+        constructor(skin: SkinnedMesh);
 
         skin: SkinnedMesh;
     }
@@ -4291,6 +4368,8 @@ declare module THREE {
          */
         sortObjects: boolean;
 
+        gammaFactor: number;
+
         /**
          * Default is false.
          */
@@ -4480,7 +4559,7 @@ declare module THREE {
         uploadTexture(texture: Texture): void;
         setTexture(texture: Texture, slot: number): void;
         setRenderTarget(renderTarget: RenderTarget): void;
-
+        readRenderTargetPixels( renderTarget: RenderTarget, x: number, y: number, width: number, height: number, buffer: any ): void;
     }
 
     export interface RenderTarget {
@@ -4539,6 +4618,7 @@ declare module THREE {
     export interface ShaderChunk {
         [name: string]: string;
 
+        common: string;
         alphamap_fragment: string;
         alphamap_pars_fragment: string;
         alphatest_fragment: string;
@@ -4613,6 +4693,7 @@ declare module THREE {
         normal: Shader;
         normalmap: Shader;
         cube: Shader;
+        equirect: Shader;
         depthRGBA: Shader;
     };
 
@@ -4654,6 +4735,40 @@ declare module THREE {
     export class WebGLShader{
         constructor(gl: any, type: string, string: string);
     }
+
+    interface WebGLStateInstance{
+        new ( gl: any, paramThreeToGL: Function ): void;
+        initAttributes(): void;
+        enableAttribute(attribute: string): void;
+        disableUnusedAttributes(): void;
+        setBlending( blending: number, blendEquation: number, blendSrc: number, blendDst: number, blendEquationAlpha: number, blendSrcAlpha: number, blendDstAlpha: number ): void;
+        setDepthTest( depthTest: number ): void;
+        setDepthWrite( depthWrite: number ): void;
+        setColorWrite( colorWrite: number ): void;
+        setDoubleSided( doubleSided: number ): void;
+        setFlipSided( flipSided: number ): void;
+        setLineWidth( width: number ): void;
+        setPolygonOffset(polygonoffset: number, factor: number, units: number): void;
+        reset(): void;
+    }
+    interface WebGLStateStatic{
+        ( gl: any, paramThreeToGL: Function ): WebGLStateInstance;
+    }
+    export var WebGLState: WebGLStateStatic;
+
+
+    interface WebGLTexturesInstance{
+        new (webgglcontext: any): WebGLTexturesInstance;
+
+        get(texture: Texture): any; // it will return result of gl.createTexture().
+        create(texture: Texture): any; // it will return result of gl.createTexture().
+        delete(texture: Texture): void;
+    }
+    interface WebGLTexturesStatic{
+        (webgglcontext: any): WebGLTexturesInstance;
+    }
+    export var WebGLTextures: WebGLTexturesStatic;
+
 
     // Renderers / WebGL / Plugins /////////////////////////////////////////////////////////////////////
     export interface RendererPlugin {
@@ -4821,29 +4936,7 @@ declare module THREE {
 
     export class Texture {
         constructor(
-            image: any, // HTMLImageElement or HTMLCanvasElement ( or HTMLVideoElement)
-            mapping?: Mapping,
-            wrapS?: Wrapping,
-            wrapT?: Wrapping,
-            magFilter?: TextureFilter,
-            minFilter?: TextureFilter,
-            format?: PixelFormat,
-            type?: TextureDataType,
-            anisotropy?: number
-            );
-        constructor(
-            image: HTMLCanvasElement,
-            mapping?: Mapping,
-            wrapS?: Wrapping,
-            wrapT?: Wrapping,
-            magFilter?: TextureFilter,
-            minFilter?: TextureFilter,
-            format?: PixelFormat,
-            type?: TextureDataType,
-            anisotropy?: number
-            );
-        constructor(
-            image: HTMLImageElement,
+            image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
             mapping?: Mapping,
             wrapS?: Wrapping,
             wrapT?: Wrapping,
@@ -4857,6 +4950,7 @@ declare module THREE {
         id: number;
         uuid: string;
         name: string;
+        sourceFile: string;
         image: any; // HTMLImageElement or ImageData ;
         mipmaps: ImageData[];
         mapping: Mapping;
@@ -4992,14 +5086,13 @@ declare module THREE {
         isPlaying: boolean;
         loop: boolean;
         weight: number;
-        keyTypes: string[];
         interpolationType: number;
 
         play(startTime?: number, weight?: number): void;
         stop(): void;
         reset(): void;
         resetBlendWeights(): void;
-        update(deltaTimeMS: number): void;
+        update(delta: number): void;
         getNextKeyWith(type: string, h: number, key: number): KeyFrame;
         getPrevKeyWith(type: string, h: number, key: number): KeyFrame;
     }
@@ -5022,7 +5115,7 @@ declare module THREE {
         constructor(data: any);
 
         root: Mesh;
-        data: Object;
+        data: AnimationData;
         hierarchy: KeyFrames[];
         currentTime: number;
         timeScale: number;
@@ -5051,7 +5144,7 @@ declare module THREE {
 
         play(): void;
         pause(): void;
-        update(deltaTimeMS: number): void;
+        update(delta: number): void;
     }
 
     // Extras / Audio /////////////////////////////////////////////////////////////////////
@@ -5063,11 +5156,18 @@ declare module THREE {
         source: AudioBufferSourceNode;
         gain: GainNode;
         panner: PannerNode;
+        autoplay: boolean;
+        startTime: number;
+        isPlaying: boolean;
 
         load(file: string): Audio;
+        play(): void;
+        pause(): void;
+        stop(): void;
         setLoop(value: boolean): void;
         setRefDistance(value: number): void;
         setRolloffFactor(value: number): void;
+        setVolume(value: number): void;
         updateMatrixWorld(force?: boolean): void;
     }
 
@@ -5611,7 +5711,7 @@ declare module THREE {
     }
 
     export class BoundingBoxHelper extends Mesh {
-        constructor(object: Object3D, hex?: number);
+        constructor(object?: Object3D, hex?: number);
 
         object: Object3D;
         box: Box3;
@@ -5646,7 +5746,7 @@ declare module THREE {
     }
 
     export class EdgesHelper extends Line {
-        constructor(object: Object3D, hex?: number);
+        constructor(object: Object3D, hex?: number, thresholdAngle?: number);
 
     }
 
@@ -5669,7 +5769,7 @@ declare module THREE {
         setColors(colorCenterLine: number, colorGrid: number): void;
     }
     export class HemisphereLightHelper extends Object3D {
-        constructor(light: Light, sphereSize: number, arrowLength: number, domeSize: number);
+        constructor(light: Light, sphereSize: number);
 
         light: Light;
         colors: Color[];

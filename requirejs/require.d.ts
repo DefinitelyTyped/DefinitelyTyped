@@ -29,6 +29,15 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
+declare module 'module' {
+	var mod: {
+		config: () => any;
+		id: string;
+		uri: string;
+	}
+	export = mod;
+}
+
 interface RequireError extends Error {
 
 	/**
@@ -157,8 +166,8 @@ interface RequireConfig {
 
 	/**
 	* Extra query string arguments appended to URLs that RequireJS
-	* uses to fetch resources.  Most useful to cachce bust when
-	* the browser or server is not configured correcty.
+	* uses to fetch resources.  Most useful to cache bust when
+	* the browser or server is not configured correctly.
 	*
 	* @example
 	* urlArgs: "bust= + (new Date()).getTime()
@@ -342,7 +351,7 @@ interface RequireDefine {
 	*	callback return module definition
 	**/
 	(name: string, ready: Function): void;
-	
+
 	/**
 	* Used to allow a clear indicator that a global define function (as needed for script src browser loading) conforms
 	* to the AMD API, any global define function SHOULD have a property called "amd" whose value is an object.

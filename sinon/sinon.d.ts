@@ -1,4 +1,4 @@
-// Type definitions for Sinon 1.8.1
+// Type definitions for Sinon 1.16.0
 // Project: http://sinonjs.org/
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -15,9 +15,9 @@ declare module Sinon {
         calledOn(obj: any): boolean;
         calledWith(...args: any[]): boolean;
         calledWithExactly(...args: any[]): boolean;
-        calledWithMatch(...args: SinonMatcher[]): boolean;
+        calledWithMatch(...args: any[]): boolean;
         notCalledWith(...args: any[]): boolean;
-        notCalledWithMatch(...args: SinonMatcher[]): boolean;
+        notCalledWithMatch(...args: any[]): boolean;
         returned(value: any): boolean;
         threw(): boolean;
         threw(type: string): boolean;
@@ -64,9 +64,9 @@ declare module Sinon {
         alwaysCalledOn(obj: any): boolean;
         alwaysCalledWith(...args: any[]): boolean;
         alwaysCalledWithExactly(...args: any[]): boolean;
-        alwaysCalledWithMatch(...args: SinonMatcher[]): boolean;
+        alwaysCalledWithMatch(...args: any[]): boolean;
         neverCalledWith(...args: any[]): boolean;
-        neverCalledWithMatch(...args: SinonMatcher[]): boolean;
+        neverCalledWithMatch(...args: any[]): boolean;
         alwaysThrew(): boolean;
         alwaysThrew(type: string): boolean;
         alwaysThrew(obj: any): boolean;
@@ -181,7 +181,20 @@ declare module Sinon {
         Date(year: number, month: number, day: number, hour: number, minute: number, second: number): Date;
         Date(year: number, month: number, day: number, hour: number, minute: number, second: number, ms: number): Date;
         restore(): void;
-    }
+
+		/**
+		 * Simulate the user changing the system clock while your program is running. It changes the 'now' timestamp
+		 * without affecting timers, intervals or immediates.
+		 * @param now The new 'now' in unix milliseconds
+		 */
+		setSystemTime(now: number): void;
+		/**
+		 * Simulate the user changing the system clock while your program is running. It changes the 'now' timestamp
+		 * without affecting timers, intervals or immediates.
+		 * @param now The new 'now' as a JavaScript Date
+		 */
+		setSystemTime(date: Date): void;
+	}
 
     interface SinonFakeTimersStatic {
         (): SinonFakeTimers;
@@ -307,9 +320,9 @@ declare module Sinon {
         neverCalledWith(spy: SinonSpy, ...args: any[]): void;
         calledWithExactly(spy: SinonSpy, ...args: any[]): void;
         alwaysCalledWithExactly(spy: SinonSpy, ...args: any[]): void;
-        calledWithMatch(spy: SinonSpy, ...args: SinonMatcher[]): void;
-        alwaysCalledWithMatch(spy: SinonSpy, ...args: SinonMatcher[]): void;
-        neverCalledWithMatch(spy: SinonSpy, ...args: SinonMatcher[]): void;
+        calledWithMatch(spy: SinonSpy, ...args: any[]): void;
+        alwaysCalledWithMatch(spy: SinonSpy, ...args: any[]): void;
+        neverCalledWithMatch(spy: SinonSpy, ...args: any[]): void;
         threw(spy: SinonSpy): void;
         threw(spy: SinonSpy, exception: string): void;
         threw(spy: SinonSpy, exception: any): void;

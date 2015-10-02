@@ -106,6 +106,10 @@ interface JQueryAjaxSettings {
      */
     jsonpCallback?: any;
     /**
+     * The HTTP method to use for the request (e.g. "POST", "GET", "PUT"). (version added: 1.9.0)
+     */
+    method?: string;
+    /**
      * A mime type to override the XHR mime type. (version added: 1.5.1)
      */
     mimeType?: string;
@@ -181,6 +185,10 @@ interface JQueryXHR extends XMLHttpRequest, JQueryPromise<any> {
      * Property containing the parsed response if the response Content-Type is json
      */
     responseJSON?: any;
+    /**
+     * A function to be called if the request fails.
+     */
+    error(xhr: JQueryXHR, textStatus: string, errorThrown: string): void;
 }
 
 /**
@@ -233,7 +241,7 @@ interface JQueryCallback {
      * @param context A reference to the context in which the callbacks in the list should be fired.
      * @param arguments An argument, or array of arguments, to pass to the callbacks in the list.
      */
-    fireWith(context?: any, ...args: any[]): JQueryCallback;
+    fireWith(context?: any, args?: any[]): JQueryCallback;
 
     /**
      * Determine whether a supplied callback is in a list
@@ -387,7 +395,7 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param context Context passed to the progressCallbacks as the this object.
      * @param args Optional arguments that are passed to the progressCallbacks.
      */
-    notifyWith(context: any, value?: any, ...args: any[]): JQueryDeferred<T>;
+    notifyWith(context: any, value?: any[]): JQueryDeferred<T>;
 
     /**
      * Reject a Deferred object and call any failCallbacks with the given args.
@@ -401,7 +409,7 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param context Context passed to the failCallbacks as the this object.
      * @param args An optional array of arguments that are passed to the failCallbacks.
      */
-    rejectWith(context: any, value?: any, ...args: any[]): JQueryDeferred<T>;
+    rejectWith(context: any, value?: any[]): JQueryDeferred<T>;
 
     /**
      * Resolve a Deferred object and call any doneCallbacks with the given args.
@@ -417,7 +425,7 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param context Context passed to the doneCallbacks as the this object.
      * @param args An optional array of arguments that are passed to the doneCallbacks.
      */
-    resolveWith(context: any, value?: T, ...args: any[]): JQueryDeferred<T>;
+    resolveWith(context: any, value?: T[]): JQueryDeferred<T>;
 
     /**
      * Return a Deferred's Promise object.
@@ -1538,17 +1546,17 @@ interface JQuery {
      */
     data(key: string, value: any): JQuery;
     /**
-     * Store arbitrary data associated with the matched elements.
-     *
-     * @param obj An object of key-value pairs of data to update.
-     */
-    data(obj: { [key: string]: any; }): JQuery;
-    /**
      * Return the value at the named data store for the first element in the jQuery collection, as set by data(name, value) or by an HTML5 data-* attribute.
      *
      * @param key Name of the data stored.
      */
     data(key: string): any;
+    /**
+     * Store arbitrary data associated with the matched elements.
+     *
+     * @param obj An object of key-value pairs of data to update.
+     */
+    data(obj: { [key: string]: any; }): JQuery;
     /**
      * Return the value at the named data store for the first element in the jQuery collection, as set by data(name, value) or by an HTML5 data-* attribute.
      */
@@ -1991,6 +1999,10 @@ interface JQuery {
     focus(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
+     * Trigger the "focusin" event on an element.
+     */
+    focusin(): JQuery;
+    /**
      * Bind an event handler to the "focusin" JavaScript event
      *
      * @param handler A function to execute each time the event is triggered.
@@ -2004,6 +2016,10 @@ interface JQuery {
      */
     focusin(eventData: Object, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "focusout" event on an element.
+     */
+    focusout(): JQuery;
     /**
      * Bind an event handler to the "focusout" JavaScript event
      *
@@ -2454,6 +2470,14 @@ interface JQuery {
      * @param extraParameters An array of additional parameters to pass along to the event handler.
      */
     triggerHandler(eventType: string, ...extraParameters: any[]): Object;
+
+    /**
+     * Execute all handlers attached to an element for an event.
+     * 
+     * @param event A jQuery.Event object.
+     * @param extraParameters An array of additional parameters to pass along to the event handler.
+     */
+    triggerHandler(event: JQueryEventObject, ...extraParameters: any[]): Object;
 
     /**
      * Remove a previously-attached event handler from the elements.

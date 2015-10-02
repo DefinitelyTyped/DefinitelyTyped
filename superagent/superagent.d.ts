@@ -26,6 +26,7 @@ declare module "superagent" {
       put(url: string, callback?: CallbackHandler): Req;
       head(url: string, callback?: CallbackHandler): Req;
       del(url: string, callback?: CallbackHandler): Req;
+      delete(url: string, callback?: CallbackHandler): Req;
       options(url: string, callback?: CallbackHandler): Req;
       trace(url: string, callback?: CallbackHandler): Req;
       copy(url: string, callback?: CallbackHandler): Req;
@@ -96,6 +97,7 @@ declare module "superagent" {
       redirects(n: number): Req;
       send(data: string): Req;
       send(data: Object): Req;
+      send(): Req;
       set(field: string, val: string): Req;
       set(field: Object): Req;
       timeout(ms: number): Req;

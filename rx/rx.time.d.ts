@@ -13,7 +13,12 @@ declare module Rx {
 		delayWithSelector(subscriptionDelay: number, delayDurationSelector: (item: T) => number): Observable<T>;
 
 		timeoutWithSelector<TTimeout>(firstTimeout: Observable<TTimeout>, timeoutdurationSelector?: (item: T) => Observable<TTimeout>, other?: Observable<T>): Observable<T>;
-		throttleWithSelector<TTimeout>(throttleDurationSelector: (item: T) => Observable<TTimeout>): Observable<T>;
+
+		debounceWithSelector<TTimeout>(debounceDurationSelector: (item: T) => Observable<TTimeout>): Observable<T>;
+		/**
+		* @deprecated use #debounceWithSelector instead.
+		*/
+		throttleWithSelector<TTimeout>(debounceDurationSelector: (item: T) => Observable<TTimeout>): Observable<T>;
 
 		skipLastWithTime(duration: number, scheduler?: IScheduler): Observable<T>;
 		takeLastWithTime(duration: number, timerScheduler?: IScheduler, loopScheduler?: IScheduler): Observable<T>;
