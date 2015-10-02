@@ -40,10 +40,7 @@ declare module "optimist" {
 
         parse(args: string[]): Optimist;
 
-        argv: {
-            _: string[],
-            [key: string]: any
-        };
+        argv: any;
     }
     var t: Optimist;
 
