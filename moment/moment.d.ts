@@ -224,7 +224,7 @@ declare module moment {
         diff(b: Moment): number;
         diff(b: Moment, unitOfTime: string): number;
         diff(b: Moment, unitOfTime: string, round: boolean): number;
-        
+
         toArray(): number[];
         toDate(): Date;
         toISOString(): string;
@@ -318,7 +318,7 @@ declare module moment {
 
     }
 
-    interface BaseMomentLanguage { 
+    interface BaseMomentLanguage {
         months ?: any;
         monthsShort ?: any;
         weekdays ?: any;
@@ -348,11 +348,13 @@ declare module moment {
       LLL: string;
       LLLL: string;
       LT: string;
+      LTS: string;
       l?: string;
       ll?: string;
       lll?: string;
       llll?: string;
       lt?: string;
+      lts?: string;
 
     }
 
