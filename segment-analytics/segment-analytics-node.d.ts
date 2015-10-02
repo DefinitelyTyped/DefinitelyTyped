@@ -3,8 +3,6 @@
 // Definitions by: Andrew Fong <https://github.com/fongandrew>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
-
 declare module SegmentAnalytics {
 
   interface Integrations {
