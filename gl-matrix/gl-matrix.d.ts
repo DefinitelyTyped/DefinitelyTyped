@@ -1,6 +1,6 @@
 // Type definitions for gl-matrix 2.2.2
 // Project: https://github.com/toji/gl-matrix
-// Definitions by: Tat <https://github.com/tatchx>
+// Definitions by: Tat <https://github.com/tatchx>, Shane S. Anderson <https://github.com/ander-nz>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="gl-matrix-module.d.ts" />

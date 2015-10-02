@@ -1,25 +1,24 @@
 // Type definitions for gl-matrix 2.2.2
 // Project: https://github.com/toji/gl-matrix
-// Definitions by: Tat <https://github.com/tatchx>
+// Definitions by: Tat <https://github.com/tatchx>, Shane S. Anderson <https://github.com/ander-nz>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module GLM {
-    interface IArray
-    {
+    interface IArray {
         /**
          * Must be indexable like an array
          */
         [index: number]: number;
-    } 
+    }
 }
 
 // Common
 declare module GLM.glMatrix {
     /**
-    * Convert Degree To Radian
-    * 
-    * @param a Angle in Degrees
-    */  
+     * Convert Degree To Radian
+     * 
+     * @param a Angle in Degrees
+     */  
     export function toRadian(a: number): number;  
 }
 
