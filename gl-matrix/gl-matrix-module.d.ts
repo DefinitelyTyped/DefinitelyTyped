@@ -14,7 +14,7 @@ declare module GLM {
 }
 
 // Common
-declare module glMatrix {
+declare module GLM.glMatrix {
     /**
     * Convert Degree To Radian
     * 
@@ -24,7 +24,7 @@ declare module glMatrix {
 }
 
 // vec2
-declare module vec2 {
+declare module GLM.vec2 {
     /**
      * Creates a new, empty vec2
      *
@@ -402,7 +402,7 @@ declare module vec2 {
 }
 
 // vec3
-declare module vec3 {
+declare module GLM.vec3 {
     
     /**
      * Creates a new, empty vec3
@@ -811,7 +811,7 @@ declare module vec3 {
 }
 
 // vec4 
-declare module vec4 {
+declare module GLM.vec4 {
     
     /**
      * Creates a new, empty vec4
@@ -1162,7 +1162,7 @@ declare module vec4 {
 }
 
 // mat2
-declare module mat2 {
+declare module GLM.mat2 {
     
     /**
      * Creates a new identity mat2
@@ -1298,7 +1298,7 @@ declare module mat2 {
 }
 
 // mat2d
-declare module mat2d {
+declare module GLM.mat2d {
     
     /**
      * Creates a new identity mat2d
@@ -1417,7 +1417,7 @@ declare module mat2d {
 }
 
 // mat3
-declare module mat3 {
+declare module GLM.mat3 {
     
     /**
      * Creates a new identity mat3
@@ -1592,7 +1592,7 @@ declare module mat3 {
 }
 
 // mat4
-declare module mat4 {
+declare module GLM.mat4 {
     
     /**
      * Creates a new identity mat4
@@ -1842,7 +1842,7 @@ declare module mat4 {
 }
 
 // quat
-declare module quat {
+declare module GLM.quat {
     
     /**
      * Creates a new identity quat
@@ -2141,4 +2141,8 @@ declare module quat {
      * @returns out
      */
     export function calculateW(out: GLM.IArray, a: GLM.IArray): GLM.IArray;
+}
+
+declare module "gl-matrix" {
+    export import exported = GLM;
 }
