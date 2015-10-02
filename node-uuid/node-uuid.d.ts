@@ -23,7 +23,7 @@ interface UUIDOptions {
      * (Number | Date) Time in milliseconds since unix Epoch.
      * Default: The current time is used.
      */
-    msecs?: any
+    msecs?: number|Date
 
     /**
      * (Number between 0-9999) additional time, in 100-nanosecond units. Ignored if msecs is unspecified.
@@ -56,7 +56,8 @@ interface UUID {
     unparse(buffer: Buffer, offset?: number): string
 }
 
+declare var uuid: UUID;
+
 declare module "node-uuid" {
-    var uuid: UUID;
     export = uuid;
 }

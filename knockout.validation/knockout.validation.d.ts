@@ -17,7 +17,7 @@ interface KnockoutValidationConfiguration {
     insertMessages?: boolean;
     parseInputAttributes?: boolean;
     writeInputAttributes?: boolean;
-    decorateElement?: boolean;
+    decorateInputElement?: boolean;
     errorClass?: string;
     errorElementClass?: string;
     errorMessageClass?: string;

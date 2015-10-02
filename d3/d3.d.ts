@@ -1,3279 +1,2011 @@
 // Type definitions for d3JS
 // Project: http://d3js.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module D3 {
-    export interface Selectors {
-        /**
-        * Select an element from the current document
-        */
-        select: {
-            /**
-            * Returns the empty selection
-            */
-            (): _Selection<any>;
-            /**
-            * Selects the first element that matches the specified selector string
-            *
-            * @param selector Selection String to match
-            */
-            (selector: string): _Selection<any>;
-            /**
-            * Selects the specified node
-            *
-            * @param element Node element to select
-            */
-            (element: EventTarget): _Selection<any>;
-        };
+declare module d3 {
+    /**
+     * The current version of D3.js.
+     */
+    export var version: string;
+
+    /**
+     * Find the first element that matches the given selector string.
+     */
+    export function select(selector: string): Selection<any>;
+
+    /**
+     * Create a selection from the given node reference.
+     */
+    export function select(node: EventTarget): Selection<any>;
+
+    /**
+     * Find all elements that match the given selector string.
+     */
+    export function selectAll(selector: string): Selection<any>;
+
+    /**
+     * Create a selection from the given list of nodes.
+     */
+    export function selectAll(nodes: EventTarget[]): Selection<any>;
+
+    /**
+     * Returns the root selection (as if by d3.select(document.documentElement)). This function may be used for 'instanceof' tests, and extending its prototype will add properties to all selections.
+     */
+    export function selection(): Selection<any>;
+
+    module selection {
+        export var prototype: Selection<any>;
 
         /**
-        * Select multiple elements from the current document
-        */
-        selectAll: {
-            /**
-            * Selects all elements that match the specified selector
-            *
-            * @param selector Selection String to match
-            */
-            (selector: string): _Selection<any>;
-            /**
-            * Selects the specified array of elements
-            *
-            * @param elements Array of node elements to select
-            */
-            (elements: EventTarget[]): _Selection<any>;
-        };
-    }
-
-    export interface D3Event extends Event{
-        dx: number;
-        dy: number;
-        clientX: number;
-        clientY: number;
-        translate: number[];
-        scale: number;
-        sourceEvent: D3Event;
-        x: number;
-        y: number;
-        keyCode: number;
-        altKey?: boolean;
-        ctrlKey?: boolean;
-        metaKey?: boolean;
-        shiftKey?: boolean;
-        type: string;
-    }
-
-    export interface Base extends Selectors {
-        /**
-        * Create a behavior
-        */
-        behavior: Behavior.Behavior;
-        /**
-        * Access the current user event for interaction
-        */
-        event: D3Event;
-
-        /**
-        * Compare two values for sorting.
-        * Returns -1 if a is less than b, or 1 if a is greater than b, or 0
-        *
-        * @param a First value
-        * @param b Second value
-        */
-        ascending<T>(a: T, b: T): number;
-        /**
-        * Compare two values for sorting.
-        * Returns -1 if a is greater than b, or 1 if a is less than b, or 0
-        *
-        * @param a First value
-        * @param b Second value
-        */
-        descending<T>(a: T, b: T): number;
-        /**
-        * Find the minimum value in an array
-        *
-        * @param arr Array to search
-        * @param map Accsessor function
-        */
-        min<T, U>(arr: T[], map: (v?: T, i?: number) => U): U;
-        /**
-        * Find the minimum value in an array
-        *
-        * @param arr Array to search
-        */
-        min<T>(arr: T[]): T;
-        /**
-        * Find the maximum value in an array
-        *
-        * @param arr Array to search
-        * @param map Accsessor function
-        */
-        max<T, U>(arr: T[], map: (v?: T, i?: number) => U): U;
-        /**
-        * Find the maximum value in an array
-        *
-        * @param arr Array to search
-        */
-        max<T>(arr: T[]): T;
-        /**
-        * Find the minimum and maximum value in an array
-        *
-        * @param arr Array to search
-        * @param map Accsessor function
-        */
-        extent<T, U>(arr: T[], map: (v: T) => U): U[];
-        /**
-        * Find the minimum and maximum value in an array
-        *
-        * @param arr Array to search
-        */
-        extent<T>(arr: T[]): T[];
-        /**
-        * Compute the sum of an array of numbers
-        *
-        * @param arr Array to search
-        * @param map Accsessor function
-        */
-        sum<T>(arr: T[], map: (v: T) => number): number;
-        /**
-        * Compute the sum of an array of numbers
-        *
-        * @param arr Array to search
-        */
-        sum(arr: number[]): number;
-        /**
-        * Compute the arithmetic mean of an array of numbers
-        *
-        * @param arr Array to search
-        * @param map Accsessor function
-        */
-        mean<T>(arr: T[], map: (v: T) => number): number;
-        /**
-        * Compute the arithmetic mean of an array of numbers
-        *
-        * @param arr Array to search
-        */
-        mean(arr: number[]): number;
-        /**
-        * Compute the median of an array of numbers (the 0.5-quantile).
-        *
-        * @param arr Array to search
-        * @param map Accsessor function
-        */
-        median<T>(arr: T[], map: (v: T) => number): number;
-        /**
-        * Compute the median of an array of numbers (the 0.5-quantile).
-        *
-        * @param arr Array to search
-        */
-        median(arr: number[]): number;
-        /**
-        * Compute a quantile for a sorted array of numbers.
-        *
-        * @param arr Array to search
-        * @param p The quantile to return
-        */
-        quantile: (arr: number[], p: number) => number;
-        /**
-        * Locate the insertion point for x in array to maintain sorted order
-        *
-        * @param arr Array to search
-        * @param x Value to search for insertion point
-        * @param low Minimum value of array subset
-        * @param hihg Maximum value of array subset
-        */
-        bisect<T>(arr: T[], x: T, low?: number, high?: number): number;
-        /**
-        * Locate the insertion point for x in array to maintain sorted order
-        *
-        * @param arr Array to search
-        * @param x Value to serch for insertion point
-        * @param low Minimum value of array subset
-        * @param high Maximum value of array subset
-        */
-        bisectLeft<T>(arr: T[], x: T, low?: number, high?: number): number;
-        /**
-        * Locate the insertion point for x in array to maintain sorted order
-        *
-        * @param arr Array to search
-        * @param x Value to serch for insertion point
-        * @param low Minimum value of array subset
-        * @param high Maximum value of array subset
-        */
-        bisectRight<T>(arr: T[], x: T, low?: number, high?: number): number;
-        /**
-        * Bisect using an accessor.
-        *
-        * @param accessor Accessor function
-        */
-        bisector(accessor: (data: any, index: number) => any): any;
-        /**
-        * Randomize the order of an array.
-        *
-        * @param arr Array to randomize
-        */
-        shuffle<T>(arr: T[]): T[];
-        /**
-        * Reorder an array of elements according to an array of indexes
-        *
-        * @param arr Array to reorder
-        * @param indexes Array containing the order the elements should be returned in
-        */
-        permute(arr: any[], indexes: any[]): any[];
-        /**
-        * Transpose a variable number of arrays.
-        *
-        * @param arrs Arrays to transpose
-        */
-        zip(...arrs: any[]): any[];
-        /**
-        * Parse the given 2D affine transform string, as defined by SVG's transform attribute.
-        *
-        * @param definition 2D affine transform string
-        */
-        transform(definition: string): any;
-        /**
-        * Transpose an array of arrays.
-        *
-        * @param matrix Two dimensional array to transpose
-        */
-        transpose(matrix: any[]): any[];
-        /**
-        * Creates an array containing tuples of adjacent pairs
-        *
-        * @param arr An array containing entries to pair
-        * @returns any[][] An array of 2-element tuples for each pair
-        */
-        pairs(arr: any[]): any[][];
-        /**
-        * List the keys of an associative array.
-        *
-        * @param map Array of objects to get the key values from
-        */
-        keys(map: any): string[];
-        /**
-        * List the values of an associative array.
-        *
-        * @param map Array of objects to get the values from
-        */
-        values(map: any): any[];
-        /**
-        * List the key-value entries of an associative array.
-        *
-        * @param map Array of objects to get the key-value pairs from
-        */
-        entries(map: any): any[];
-        /**
-        * merge multiple arrays into one array
-        *
-        * @param map Arrays to merge
-        */
-        merge(...map: any[]): any[];
-        /**
-        * Generate a range of numeric values.
-        */
-        range: {
-            /**
-            * Generate a range of numeric values from 0.
-            *
-            * @param stop Value to generate the range to
-            * @param step Step between each value
-            */
-            (stop: number, step?: number): number[];
-            /**
-            * Generate a range of numeric values.
-            *
-            * @param start Value to start
-            * @param stop Value to generate the range to
-            * @param step Step between each value
-            */
-            (start: number, stop?: number, step?: number): number[];
-        };
-        /**
-        * Create new nest operator
-        */
-        nest(): Nest;
-        /**
-        * Request a resource using XMLHttpRequest.
-        */
-        xhr: {
-            /**
-            * Creates an asynchronous request for specified url
-            *
-            * @param url Url to request
-            * @param callback Function to invoke when resource is loaded or the request fails
-            */
-            (url: string, callback?: (xhr: XMLHttpRequest) => void ): Xhr;
-            /**
-            * Creates an asynchronous request for specified url
-            *
-            * @param url Url to request
-            * @param mime MIME type to request
-            * @param callback Function to invoke when resource is loaded or the request fails
-            */
-            (url: string, mime: string, callback?: (xhr: XMLHttpRequest) => void ): Xhr;
-        };
-        /**
-        * Request a text file
-        */
-        text: {
-            /**
-            * Request a text file
-            *
-            * @param url Url to request
-            * @param callback Function to invoke when resource is loaded or the request fails
-            */
-            (url: string, callback?: (response: string) => void ): Xhr;
-            /**
-            * Request a text file
-            *
-            * @param url Url to request
-            * @param mime MIME type to request
-            * @param callback Function to invoke when resource is loaded or the request fails
-            */
-            (url: string, mime: string, callback?: (response: string) => void ): Xhr;
-        };
-        /**
-        * Request a JSON blob
-        *
-        * @param url Url to request
-        * @param callback Function to invoke when resource is loaded or the request fails
-        */
-        json: (url: string, callback?: (error: any, data: any) => void ) => Xhr;
-        /**
-        * Request an HTML document fragment.
-        */
-        xml: {
-            /**
-            * Request an HTML document fragment.
-            *
-            * @param url Url to request
-            * @param callback Function to invoke when resource is loaded or the request fails
-            */
-            (url: string, callback?: (response: Document) => void ): Xhr;
-            /**
-            * Request an HTML document fragment.
-            *
-            * @param url Url to request
-            * @param mime MIME type to request
-            * @param callback Function to invoke when resource is loaded or the request fails
-            */
-            (url: string, mime: string, callback?: (response: Document) => void ): Xhr;
-        };
-        /**
-        * Request an XML document fragment.
-        *
-        * @param url Url to request
-        * @param callback Function to invoke when resource is loaded or the request fails
-        */
-        html: (url: string, callback?: (response: DocumentFragment) => void ) => Xhr;
-        /**
-        * Request a comma-separated values (CSV) file.
-        */
-        csv: Dsv;
-
-        /**
-        * Request an arbitrary char-separated values file parser, like semicolon or what ever
-        */
-        dsv: Dsv; 
-        
-        /**
-        * Request a tab-separated values (TSV) file
-        */
-        tsv: Dsv;
-        /**
-        * Time Functions
-        */
-        time: Time.Time;
-        /**
-        * Scales
-        */
-        scale: Scale.ScaleBase;
-        /*
-        * Interpolate two values
-        */
-        interpolate: Transition.BaseInterpolate;
-        /*
-        * Interpolate two numbers
-        */
-        interpolateNumber: Transition.BaseInterpolate;
-        /*
-        * Interpolate two integers
-        */
-        interpolateRound: Transition.BaseInterpolate;
-        /*
-        * Interpolate two strings
-        */
-        interpolateString: Transition.BaseInterpolate;
-        /*
-        * Interpolate two RGB colors
-        */
-        interpolateRgb: Transition.BaseInterpolate;
-        /*
-        * Interpolate two HSL colors
-        */
-        interpolateHsl: Transition.BaseInterpolate;
-        /*
-        * Interpolate two HCL colors
-        */
-        interpolateHcl: Transition.BaseInterpolate;
-        /*
-        * Interpolate two L*a*b* colors
-        */
-        interpolateLab: Transition.BaseInterpolate;
-        /*
-        * Interpolate two arrays of values
-        */
-        interpolateArray: Transition.BaseInterpolate;
-        /*
-        * Interpolate two arbitary objects
-        */
-        interpolateObject: Transition.BaseInterpolate;
-        /*
-        * Interpolate two 2D matrix transforms
-        */
-        interpolateTransform: Transition.BaseInterpolate;
-        /*
-        * The array of built-in interpolator factories
-        */
-        interpolators: Transition.InterpolateFactory[];
-        /**
-        * Layouts
-        */
-        layout: Layout.Layout;
-        /**
-        * Svg's
-        */
-        svg: Svg.Svg;
-        /**
-        * Random number generators
-        */
-        random: Random;
-        /**
-        * Create a function to format a number as a string
-        *
-        * @param specifier The format specifier to use
-        */
-        format(specifier: string): (value: number) => string;
-        /**
-        * Returns the SI prefix for the specified value at the specified precision
-        */
-        formatPrefix(value: number, precision?: number): MetricPrefix;
-        /**
-        * The version of the d3 library
-        */
-        version: string;
-        /**
-        * Returns the root selection
-        */
-        selection(): _Selection<any>;
-        ns: {
-            /**
-            * The map of registered namespace prefixes
-            */
-            prefix: {
-                svg: string;
-                xhtml: string;
-                xlink: string;
-                xml: string;
-                xmlns: string;
-            };
-            /**
-            * Qualifies the specified name
-            */
-            qualify(name: string): { space: string; local: string; };
-        };
-        /**
-        * Returns a built-in easing function of the specified type
-        */
-        ease: (type: string, ...arrs: any[]) => D3.Transition.Transition;
-        /**
-        * Constructs a new RGB color.
-        */
-        rgb: {
-            /**
-            * Constructs a new RGB color with the specified r, g and b channel values
-            */
-            (r: number, g: number, b: number): D3.Color.RGBColor;
-            /**
-            * Constructs a new RGB color by parsing the specified color string
-            */
-            (color: string): D3.Color.RGBColor;
-        };
-        /**
-        * Constructs a new HCL color.
-        */
-        hcl: {
-            /**
-            * Constructs a new HCL color.
-            */
-            (h: number, c: number, l: number): Color.HCLColor;
-            /**
-            * Constructs a new HCL color by parsing the specified color string
-            */
-            (color: string): Color.HCLColor;
-        };
-        /**
-        * Constructs a new HSL color.
-        */
-        hsl: {
-            /**
-            * Constructs a new HSL color with the specified hue h, saturation s and lightness l
-            */
-            (h: number, s: number, l: number): Color.HSLColor;
-            /**
-            * Constructs a new HSL color by parsing the specified color string
-            */
-            (color: string): Color.HSLColor;
-        };
-        /**
-        * Constructs a new RGB color.
-        */
-        lab: {
-            /**
-            * Constructs a new LAB color.
-            */
-            (l: number, a: number, b: number): Color.LABColor;
-            /**
-            * Constructs a new LAB color by parsing the specified color string
-            */
-            (color: string): Color.LABColor;
-        };
-        geo: Geo.Geo;
-        geom: Geom.Geom;
-        /**
-        * gets the mouse position relative to a specified container.
-        */
-        mouse(container: any): number[];
-        /**
-        * gets the touch positions relative to a specified container.
-        */
-        touches(container: any): number[][];
-
-        /**
-        * If the specified value is a function, returns the specified value.
-        * Otherwise, returns a function that returns the specified value.
-        */
-        functor<R,T>(value: (p : R) => T): (p : R) => T;
-        functor<T>(value: T): (p : any) => T;
-
-        map: {
-            (): Map<any>;
-            <T>(object: {[key: string]: T; }): Map<T>;
-            <T>(map: Map<T>): Map<T>;
-            <T>(array: T[]): Map<T>;
-            <T>(array: T[], keyFn: (object: T, index?: number) => string): Map<T>;
-        };
-        set: {
-            (): Set<any>;
-            <T>(array: T[]): Set<T>;
-        };
-        dispatch(...types: string[]): Dispatch;
-        rebind(target: any, source: any, ...names: any[]): any;
-        requote(str: string): string;
-        timer: {
-            (funct: () => boolean, delay?: number, mark?: number): void;
-            flush(): void;
+         * Selections are grouped into arrays of nodes, with the parent tracked in the 'parentNode' property.
+         */
+        interface Group extends Array<EventTarget> {
+            parentNode: EventTarget;
         }
-        transition(): Transition.Transition;
 
-        round(x: number, n: number): number;
-    }
-
-    export interface Dispatch {
-        [event: string]: any;
-        on: {
-            (type: string): any;
-            (type: string, listener: any): any;
-        }
-    }
-
-    export interface MetricPrefix {
-        /**
-        * the scale function, for converting numbers to the appropriate prefixed scale.
-        */
-        scale: (d: number) => number;
-        /**
-        * the prefix symbol
-        */
-        symbol: string;
-    }
-
-    export interface Xhr {
-        /**
-        * Get or set request header
-        */
-        header: {
+        interface Update<Datum> {
             /**
-            * Get the value of specified request header
-            *
-            * @param name Name of header to get the value for
-            */
-            (name: string): string;
-            /**
-            * Set the value of specified request header
-            *
-            * @param name Name of header to set the value for
-            * @param value Value to set the header to
-            */
-            (name: string, value: string): Xhr;
-        };
-        /**
-        * Get or set MIME Type
-        */
-        mimeType: {
-            /**
-            * Get the current MIME Type
-            */
-            (): string;
-            /**
-            * Set the MIME Type for the request
-            *
-            * @param type The MIME type for the request
-            */
-            (type: string): Xhr;
-        };
-        /*
-        * Get or Set the function used to map the response to the associated data value
-        */
-        response: {
-            /**
-            * Get function used to map the response to the associated data value
-            */
-            (): (xhr: XMLHttpRequest) => any;
-            /**
-            * Set function used to map the response to the associated data value
-            *
-            * @param value The function used to map the response to a data value
-            */
-            (value: (xhr: XMLHttpRequest) => any): Xhr;
-        };
-        /**
-        * Issue the request using the GET method
-        *
-        * @param callback Function to invoke on completion of request
-        */
-        get(callback?: (xhr: XMLHttpRequest) => void ): Xhr;
-        /**
-        * Issue the request using the POST method
-        */
-        post: {
-            /**
-            * Issue the request using the POST method
-            *
-            * @param callback Function to invoke on completion of request
-            */
-            (callback?: (xhr: XMLHttpRequest) => void ): Xhr;
-            /**
-            * Issue the request using the POST method
-            *
-            * @param data Data to post back in the request
-            * @param callback Function to invoke on completion of request
-            */
-            (data: any, callback?: (xhr: XMLHttpRequest) => void ): Xhr;
-        };
-        /**
-        * Issues this request using the specified method
-        */
-        send: {
-            /**
-            * Issues this request using the specified method
-            *
-            * @param method Method to use to make the request
-            * @param callback Function to invoke on completion of request
-            */
-            (method: string, callback?: (xhr: XMLHttpRequest) => void ): Xhr;
-            /**
-            * Issues this request using the specified method
-            *
-            * @param method Method to use to make the request
-            * @param data Data to post back in the request
-            * @param callback Function to invoke on completion of request
-            */
-            (method: string, data: any, callback?: (xhr: XMLHttpRequest) => void ): Xhr;
-        };
-        /**
-        * Aborts this request, if it is currently in-flight
-        */
-        abort(): Xhr;
-        /**
-        * Registers a listener to receive events
-        *
-        * @param type Enent name to attach the listener to
-        * @param listener Function to attach to event
-        */
-        on: (type: string, listener: (data: any, index?: number) => any) => Xhr;
-    }
-
-    export interface Dsv {
-        /**
-        * Request a delimited values file
-        *
-        * @param url Url to request
-        * @param callback Function to invoke when resource is loaded or the request fails
-        */
-        (url: string, callback?: (error: any, response: any[]) => void ): Xhr;
-        /**
-        * Arbitrary Delimiters:
-        * Constructs a new parser for the given delimiter and mime type. For example, to parse values separated by "|", the vertical bar character, use:
-        * var dsv = d3.dsv("|", "text/plain");
-        *
-        * returns the new parser
-        *
-        * @param separator seperator character
-        * @param contentType 
-        */
-        (separator: string, contentType:string): (url: string, callback?: (error: any, response: any[]) => void )=> Xhr;
-        /**
-        * Parse a delimited string into objects using the header row.
-        *
-        * @param string delimited formatted string to parse
-        * @param accessor to modify properties of each row
-        */
-        parse(string: string, accessor?: (row: any, index?: number) => any): any[];
-        /**
-        * Parse a delimited string into tuples, ignoring the header row.
-        *
-        * @param string delimited formatted string to parse
-        */
-        parseRows(string: string, accessor: (row: any[], index: number) => any): any;
-        /**
-        * Format an array of tuples into a delimited string.
-        *
-        * @param rows Array to convert to a delimited string
-        */
-        format(rows: any[]): string;
-    }
-
-    export interface _Selection<T> extends Selectors, Array<any> {
-        attr: {
-            (name: string): string;
-            (name: string, value: any): _Selection<T>;
-            (name: string, valueFunction: (data: T, index: number) => any): _Selection<T>;
-            (attrValueMap: Object): _Selection<T>;
-        };
-
-        classed: {
-            (name: string): boolean;
-            (name: string, value: any): _Selection<T>;
-            (name: string, valueFunction: (data: T, index: number) => any): _Selection<T>;
-            (classValueMap: Object): _Selection<T>;
-        };
-
-        style: {
-            (name: string): string;
-            (name: string, value: any, priority?: string): _Selection<T>;
-            (name: string, valueFunction: (data: T, index: number) => any, priority?: string): _Selection<T>;
-            (styleValueMap: Object): _Selection<T>;
-        };
-
-        property: {
-            (name: string): void;
-            (name: string, value: any): _Selection<T>;
-            (name: string, valueFunction: (data: T, index: number) => any): _Selection<T>;
-            (propertyValueMap: Object): _Selection<T>;
-        };
-
-        text: {
-            (): string;
-            (value: any): _Selection<T>;
-            (valueFunction: (data: T, index: number) => any): _Selection<T>;
-        };
-
-        html: {
-            (): string;
-            (value: any): _Selection<T>;
-            (valueFunction: (data: T, index: number) => any): _Selection<T>;
-        };
-
-        append: (name: string) => _Selection<T>;
-        insert: (name: string, before: string) => _Selection<T>;
-        remove: () => _Selection<T>;
-        empty: () => boolean;
-
-        data: {
-            <U>(values: (data: T, index?: number) => U[], key?: (data: U, index?: number) => any): _UpdateSelection<U>;
-            <U>(values: U[], key?: (data: U, index?: number) => any): _UpdateSelection<U>;
-            (): T[];
-        };
-
-        datum: {
-            /**
-             * Sets the element's bound data to the return value of the specified function evaluated
-             * for each selected element.
-             * Unlike the D3.Selection.data method, this method does not compute a join (and thus
-             * does not compute enter and exit selections).
-             * @param values The function to be evaluated for each selected element, being passed the
-             * previous datum d and the current index i, with the this context as the current DOM
-             * element. The function is then used to set each element's data. A null value will
-             * delete the bound data. This operator has no effect on the index.
+             * Retrieve a grouped selection.
              */
-            <U>(values: (data: U, index: number) => any): _UpdateSelection<U>;
+            [index: number]: Group;
+
             /**
-             * Sets the element's bound data to the specified value on all selected elements.
-             * Unlike the D3.Selection.data method, this method does not compute a join (and thus
-             * does not compute enter and exit selections).
-             * @param values The same data to be given to all elements.
+             * The number of groups in this selection.
              */
-            <U>(values: U): _UpdateSelection<U>;
+            length: number;
+
             /**
-             * Returns the bound datum for the first non-null element in the selection.
-             * This is generally useful only if you know the selection contains exactly one element.
+             * Retrieve the value of the given attribute for the first node in the selection.
+             *
+             * @param name The attribute name to query. May be prefixed (see d3.ns.prefix).
              */
-            (): T;
-        };
-
-        filter: {
-            (filter: (data: T, index: number) => boolean, thisArg?: any): _UpdateSelection<T>;
-            (filter: string): _UpdateSelection<T>;
-        };
-
-        call(callback: (selection: _Selection<T>, ...args: any[]) => void, ...args: any[]): _Selection<T>;
-        each(eachFunction: (data: T, index: number) => any): _Selection<T>;
-        on: {
-            (type: string): (data: any, index: number) => any;
-            (type: string, listener: (data: any, index: number) => any, capture?: boolean): _Selection<T>;
-        };
-
-        /**
-        * Returns the total number of elements in the current selection.
-        */
-        size(): number;
-
-        /**
-        * Starts a transition for the current selection. Transitions behave much like selections,
-        * except operators animate smoothly over time rather than applying instantaneously.
-        */
-        transition(): Transition.Transition;
-
-        /**
-        * Sorts the elements in the current selection according to the specified comparator
-        * function.
-        *
-        * @param comparator a comparison function, which will be passed two data elements a and b
-        * to compare, and should return either a negative, positive, or zero value to indicate
-        * their relative order.
-        */
-        sort(comparator?: (a: T, b: T) => number): _Selection<T>;
-
-        /**
-        * Re-inserts elements into the document such that the document order matches the selection
-        * order. This is equivalent to calling sort() if the data is already sorted, but much
-        * faster.
-        */
-        order: () => _Selection<T>;
-
-        /**
-        * Returns the first non-null element in the current selection. If the selection is empty,
-        * returns null.
-        */
-        node: <E extends Element>() => E;
-    }
-
-    export interface Selection extends _Selection<any> { }
-
-    export interface _EnterSelection<T> {
-        append: (name: string) => _Selection<T>;
-        insert: (name: string, before?: string) => _Selection<T>;
-        select: (selector: string) => _Selection<T>;
-        empty: () => boolean;
-        node: () => Element;
-        call: (callback: (selection: _EnterSelection<T>) => void) => _EnterSelection<T>;
-        size: () => number;
-    }
-
-    export interface EnterSelection extends _EnterSelection<any> { }
-
-    export interface _UpdateSelection<T> extends _Selection<T> {
-        enter: () => _EnterSelection<T>;
-        update: () => _Selection<T>;
-        exit: () => _Selection<T>;
-    }
-
-    export interface UpdateSelection extends _UpdateSelection<any> { }
-
-    export interface NestKeyValue {
-        key: string;
-        values: any;
-    }
-
-    export interface Nest {
-        key(keyFunction: (data: any, index: number) => string): Nest;
-        sortKeys(comparator: (d1: any, d2: any) => number): Nest;
-        sortValues(comparator: (d1: any, d2: any) => number): Nest;
-        rollup(rollupFunction: (data: any, index: number) => any): Nest;
-        map(values: any[], mapType?: any): any;
-        entries(values: any[]): NestKeyValue[];
-    }
-
-    export interface MapKeyValue<T> {
-        key: string;
-        value: T;
-    }
-
-    export interface Map<T> {
-        has(key: string): boolean;
-        get(key: string): T;
-        set(key: string, value: T): T;
-        remove(key: string): boolean;
-        keys(): string[];
-        values(): T[];
-        entries(): MapKeyValue<T>[];
-        forEach(func: (key: string, value: T) => void ): void;
-        empty(): boolean;
-        size(): number;
-    }
-
-    export interface Set<T> {
-        has(value: T): boolean;
-        add(value: T): T;
-        remove(value: T): boolean;
-        values(): string[];
-        forEach(func: (value: string) => void ): void;
-        empty(): boolean;
-        size(): number;
-    }
-
-    export interface Random {
-        /**
-        * Returns a function for generating random numbers with a normal distribution
-        *
-        * @param mean The expected value of the generated pseudorandom numbers
-        * @param deviation The given standard deviation
-        */
-        normal(mean?: number, deviation?: number): () => number;
-        /**
-        * Returns a function for generating random numbers with a log-normal distribution
-        *
-        * @param mean The expected value of the generated pseudorandom numbers
-        * @param deviation The given standard deviation
-        */
-        logNormal(mean?: number, deviation?: number): () => number;
-        /**
-        * Returns a function for generating random numbers with an Irwin-Hall distribution
-        *
-        * @param count The number of independent variables
-        */
-        irwinHall(count: number): () => number;
-    }
-
-    // Transitions
-    export module Transition {
-        export interface Transition {
-            duration: {
-                (duration: number): Transition;
-                (duration: (data: any, index: number) => any): Transition;
-            };
-            delay: {
-                (delay: number): Transition;
-                (delay: (data: any, index: number) => any): Transition;
-            };
-            attr: {
-                (name: string): string;
-                (name: string, value: any): Transition;
-                (name: string, valueFunction: (data: any, index: number) => any): Transition;
-                (attrValueMap : any): Transition;
-            };
-            style: {
-                (name: string): string;
-                (name: string, value: any, priority?: string): Transition;
-                (name: string, valueFunction: (data: any, index: number) => any, priority?: string): Transition;
-            };
-            call(callback: (transition: Transition, ...args: any[]) => void, ...args: any[]): Transition;
-            /**
-            * Select an element from the current document
-            */
-            select: {
-                /**
-                * Selects the first element that matches the specified selector string
-                *
-                * @param selector Selection String to match
-                */
-                (selector: string): Transition;
-                /**
-                * Selects the specified node
-                *
-                * @param element Node element to select
-                */
-                (element: EventTarget): Transition;
-            };
+            attr(name: string): string;
 
             /**
-            * Select multiple elements from the current document
-            */
-            selectAll: {
-                /**
-                * Selects all elements that match the specified selector
-                *
-                * @param selector Selection String to match
-                */
-                (selector: string): Transition;
-                /**
-                * Selects the specified array of elements
-                *
-                * @param elements Array of node elements to select
-                */
-                (elements: EventTarget[]): Transition;
-            }
-            each: {
-                /**
-                 * Immediately invokes the specified function for each element in the current
-                 * transition, passing in the current datum and index, with the this context
-                 * of the current DOM element. Similar to D3.Selection.each.
-                 *
-                 * @param eachFunction The function to be invoked for each element in the
-                 * current transition, passing in the current datum and index, with the this
-                 * context of the current DOM element.
-                 */
-                (eachFunction: (data: any, index: number) => any): Transition;
-                /**
-                 * Adds a listener for transition events, supporting "start", "end" and
-                 * "interrupt" events. The listener will be invoked for each individual
-                 * element in the transition.
-                 *
-                 * @param type Type of transition event. Supported values are "start", "end"
-                 * and "interrupt".
-                 * @param listener The listener to be invoked for each individual element in
-                 * the transition.
-                 */
-                (type: string, listener: (data: any, index: number) => any): Transition;
-            }
-            transition: () => Transition;
-            ease: (value: string, ...arrs: any[]) => Transition;
-            attrTween(name: string, tween: (d: any, i: number, a: any) => BaseInterpolate): Transition;
-            styleTween(name: string, tween: (d: any, i: number, a: any) => BaseInterpolate, priority?: string): Transition;
-            text: {
-                (text: string): Transition;
-                (text: (d: any, i: number) => string): Transition;
-            }
-            tween(name: string, factory: InterpolateFactory): Transition;
-            filter: {
-                (selector: string): Transition;
-                (selector: (data: any, index: number) => boolean): Transition;
-            };
-            remove(): Transition;
-        }
-
-        export interface InterpolateFactory {
-            (a?: any, b?: any): BaseInterpolate;
-        }
-
-        export interface BaseInterpolate {
-            (a: any, b?: any): any;
-        }
-
-        export interface Interpolate {
-            (t: any): any;
-        }
-    }
-
-    //Time
-    export module Time {
-        export interface Time {
-            second: Interval;
-            minute: Interval;
-            hour: Interval;
-            day: Interval;
-            week: Interval;
-            sunday: Interval;
-            monday: Interval;
-            tuesday: Interval;
-            wednesday: Interval;
-            thursday: Interval;
-            friday: Interval;
-            saturday: Interval;
-            month: Interval;
-            year: Interval;
-
-            seconds: Range;
-            minutes: Range;
-            hours: Range;
-            days: Range;
-            weeks: Range;
-            months: Range;
-            years: Range;
-
-            sundays: Range;
-            mondays: Range;
-            tuesdays: Range;
-            wednesdays: Range;
-            thursdays: Range;
-            fridays: Range;
-            saturdays: Range;
-            format: {
-                /**
-                 * Constructs a new local time formatter using the given specifier.
-                 */
-                (specifier: string): TimeFormat;
-                /**
-                 * Returns a new multi-resolution time format given the specified array of predicated formats.
-                 */
-                multi: (formats: any[][]) => TimeFormat;
-
-                utc: {
-                    /**
-                     * Constructs a new local time formatter using the given specifier.
-                     */
-                    (specifier: string): TimeFormat;
-                    /**
-                     * Returns a new multi-resolution UTC time format given the specified array of predicated formats.
-                     */
-                    multi: (formats: any[][]) => TimeFormat;
-                };
-
-                /**
-                 * The full ISO 8601 UTC time format: "%Y-%m-%dT%H:%M:%S.%LZ".
-                 */
-                iso: TimeFormat;
-            };
-
-            scale: {
-                /**
-                * Constructs a new time scale with the default domain and range;
-                * the ticks and tick format are configured for local time.
-                */
-                (): Scale.TimeScale;
-                /**
-                * Constructs a new time scale with the default domain and range;
-                * the ticks and tick format are configured for UTC time.
-                */
-                utc(): Scale.TimeScale;
-            };
-        }
-
-        export interface Range {
-            (start: Date, end: Date, step?: number): Date[];
-        }
-
-        export interface Interval {
-            (date: Date): Date;
-            floor: (date: Date) => Date;
-            round: (date: Date) => Date;
-            ceil: (date: Date) => Date;
-            range: Range;
-            offset: (date: Date, step: number) => Date;
-            utc?: Interval;
-        }
-
-        export interface TimeFormat {
-            (date: Date): string;
-            parse: (string: string) => Date;
-        }
-    }
-
-    // Layout
-    export module Layout {
-        export interface Layout {
-            /**
-            * Creates a new Stack layout
-            */
-            stack(): StackLayout;
-            /**
-            * Creates a new pie layout
-            */
-            pie(): PieLayout;
-            /**
-            * Creates a new force layout
-            */
-            force(): ForceLayout;
-            /**
-            * Creates a new tree layout
-            */
-            tree(): TreeLayout;
-            bundle(): BundleLayout;
-            chord(): ChordLayout;
-            cluster(): ClusterLayout;
-            hierarchy(): HierarchyLayout;
-            histogram(): HistogramLayout;
-            pack(): PackLayout;
-            partition(): PartitionLayout;
-            treemap(): TreeMapLayout;
-        }
-
-        export interface StackLayout {
-            <T>(layers: T[], index?: number): T[];
-            values(accessor?: (d: any) => any): StackLayout;
-            offset(offset: string): StackLayout;
-            x(accessor: (d: any, i: number) => any): StackLayout;
-            y(accessor: (d: any, i: number) => any): StackLayout;
-            out(setter: (d: any, y0: number, y: number) => void): StackLayout;
-        }
-
-        export interface TreeLayout {
-            /**
-            * Gets or sets the sort order of sibling nodes for the layout using the specified comparator function
-            */
-            sort: {
-                /**
-                * Gets the sort order function of sibling nodes for the layout
-                */
-                (): (d1: any, d2: any) => number;
-                /**
-                * Sets the sort order of sibling nodes for the layout using the specified comparator function
-                */
-                (comparator: (d1: any, d2: any) => number): TreeLayout;
-            };
-            /**
-            * Gets or sets the specified children accessor function
-            */
-            children: {
-                /**
-                * Gets the children accessor function
-                */
-                (): (d: any) => any;
-                /**
-                * Sets the specified children accessor function
-                */
-                (children: (d: any) => any): TreeLayout;
-            };
-            /**
-            * Runs the tree layout
-            */
-            nodes(root: GraphNode): GraphNode[];
-            /**
-            * Given the specified array of nodes, such as those returned by nodes, returns an array of objects representing the links from parent to child for each node
-            */
-            links(nodes: GraphNode[]): GraphLink[];
-            /**
-            * If separation is specified, uses the specified function to compute separation between neighboring nodes. If separation is not specified, returns the current separation function
-            */
-            separation: {
-                /**
-                * Gets the current separation function
-                */
-                (): (a: GraphNode, b: GraphNode) => number;
-                /**
-                * Sets the specified function to compute separation between neighboring nodes
-                */
-                (separation: (a: GraphNode, b: GraphNode) => number): TreeLayout;
-            };
-            /**
-            * Gets or sets the available layout size
-            */
-            size: {
-                /**
-                * Gets the available layout size
-                */
-                (): number[];
-                /**
-                * Sets the available layout size
-                */
-                (size: number[]): TreeLayout;
-            };
-            /**
-            * Gets or sets the available node size
-            */
-            nodeSize: {
-                /**
-                * Gets the available node size
-                */
-                (): number[];
-                /**
-                * Sets the available node size
-                */
-                (size: number[]): TreeLayout;
-            };
-        }
-
-        export interface PieLayout {
-            (values: any[], index?: number): ArcDescriptor[];
-            value: {
-                (): (d: any, index: number) => number;
-                (accessor: (d: any, index: number) => number): PieLayout;
-            };
-            sort: {
-                (): (d1: any, d2: any) => number;
-                (comparator: (d1: any, d2: any) => number): PieLayout;
-            };
-            startAngle: {
-                (): number;
-                (angle: number): PieLayout;
-                (angle: () => number): PieLayout;
-                (angle: (d : any) => number): PieLayout;
-                (angle: (d : any, i: number) => number): PieLayout;
-            };
-            endAngle: {
-                (): number;
-                (angle: number): PieLayout;
-                (angle: () => number): PieLayout;
-                (angle: (d : any) => number): PieLayout
-                (angle: (d : any, i: number) => number): PieLayout;
-            };
-            padAngle: {
-                (): number;
-                (angle: number): PieLayout;
-                (angle: () => number): PieLayout;
-                (angle: (d : any) => number): PieLayout
-                (angle: (d : any, i: number) => number): PieLayout;
-            };
-        }
-
-        export interface ArcDescriptor {
-            value: any;
-            data: any;
-            startAngle: number;
-            endAngle: number;
-            index: number;
-        }
-
-        export interface GraphNode  {
-            id?: number;
-            index?: number;
-            name?: string;
-            px?: number;
-            py?: number;
-            size?: number;
-            weight?: number;
-            x?: number;
-            y?: number;
-            subindex?: number;
-            startAngle?: number;
-            endAngle?: number;
-            value?: number;
-            fixed?: boolean;
-            children?: GraphNode[];
-            _children?: GraphNode[];
-            parent?: GraphNode;
-            depth?: number;
-        }
-
-        export interface GraphLink {
-            source: GraphNode;
-            target: GraphNode;
-        }
-
-        export interface GraphNodeForce {
-            index?: number;
-            x?: number;
-            y?: number;
-            px?: number;
-            py?: number;
-            fixed?: boolean;
-            weight?: number;
-        }
-
-        export interface GraphLinkForce {
-            source: GraphNodeForce;
-            target: GraphNodeForce;
-        }
-
-        export interface ForceLayout {
-            (): ForceLayout;
-            size: {
-                (): number[];
-                (mysize: number[]): ForceLayout;
-            };
-            linkDistance: {
-                (): number;
-                (number:number): ForceLayout;
-                (accessor: (d: any, index: number) => number): ForceLayout;
-            };
-            linkStrength:
-            {
-                (): number;
-                (number:number): ForceLayout;
-                (accessor: (d: any, index: number) => number): ForceLayout;
-            };
-            friction:
-            {
-                (): number;
-                (number:number): ForceLayout;
-                (accessor: (d: any, index: number) => number): ForceLayout;
-            };
-            alpha: {
-                (): number;
-                (number:number): ForceLayout;
-                (accessor: (d: any, index: number) => number): ForceLayout;
-            };
-            charge: {
-                (): number;
-                (number:number): ForceLayout;
-                (accessor: (d: any, index: number) => number): ForceLayout;
-            };
-            /**
-             * If distance is specified, sets the maximum distance over which 
-             * charge forces are applied. If distance is not specified, returns 
-             * the current maximum charge distance, which defaults to infinity. 
-             * Specifying a finite charge distance improves the performance of 
-             * the force layout and produces a more localized layout; 
-             * distance-limited charge forces are especially useful in 
-             * conjunction with custom gravity.
+             * For all nodes, set the attribute to the specified constant value. Use null to remove.
+             *
+             * @param name The attribute name, optionally prefixed.
+             * @param value The attribute value to use. Note that this is coerced to a string automatically.
              */
-            chargeDistance: {
-                (): number;
-                (distance: number): ForceLayout;
-                (accessor: (d: any, index: number) => number): ForceLayout;
-            };
-            theta: {
-                (): number;
-                (number:number): ForceLayout;
-                (accessor: (d: any, index: number) => number): ForceLayout;
-            };
+            attr(name: string, value: Primitive): Update<Datum>;
 
-            gravity: {
-                (): number;
-                (number:number): ForceLayout;
-                (accessor: (d: any, index: number) => number): ForceLayout;
-            };
+            /**
+             * Derive an attribute value for each node in the selection based on bound data.
+             *
+             * @param name The attribute name, optionally prefixed.
+             * @param value The function of the datum (the bound data item), index (the position in the subgrouping), and outer index (overall position in nested selections) which computes the attribute value. If the function returns null, the attribute is removed.
+             */
+            attr(name: string, value: (datum: Datum, index: number, outerIndex: number) => Primitive): Update<Datum>;
 
-            links: {
-                (): GraphLinkForce[];
-                (arLinks: GraphLinkForce[]): ForceLayout;
+            /**
+             * Set multiple properties at once using an Object. D3 iterates over all enumerable properties and either sets or computes the attribute's value based on the corresponding entry in the Object.
+             *
+             * @param obj A key-value mapping corresponding to attributes and values. If the value is a simple string or number, it is taken as a constant. Otherwise, it is a function that derives the attribute value.
+             */
+            attr(obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) }): Update<Datum>;
 
-            };
-            nodes:
-            {
-                (): GraphNodeForce[];
-                (arNodes: GraphNodeForce[]): ForceLayout;
+            /**
+             * Returns true if the first node in this selection has the given class list. If multiple classes are specified (i.e., "foo bar"), then returns true only if all classes match.
+             *
+             * @param name The class list to query.
+             */
+            classed(name: string): boolean;
 
-            };
-            start(): ForceLayout;
-            resume(): ForceLayout;
-            stop(): ForceLayout;
-            tick(): ForceLayout;
-            on(type: string, listener: () => void ): ForceLayout;
-            drag(): ForceLayout;
-        }
+            /**
+             * Adds (or removes) the given class list.
+             *
+             * @param name The class list to toggle. Spaces separate class names: "foo bar" is a list of two classes.
+             * @param value If true, add the classes. If false, remove them.
+             */
+            classed(name: string, value: boolean): Update<Datum>;
 
-        export interface BundleLayout{
-            (links: GraphLink[]): GraphNode[][];
-        }
+            /**
+             * Determine if the given class list should be toggled for each node in the selection.
+             *
+             * @param name The class list. Spaces separate multiple class names.
+             * @param value The function to run for each node. Should return true to add the class to the node, or false to remove it.
+             */
+            classed(name: string, value: (datum: Datum, index: number, outerIndex: number) => boolean): Update<Datum>;
 
-        export interface ChordLayout {
-            matrix: {
-                (): number[][];
-                (matrix: number[][]): ChordLayout;
-            }
-            padding: {
-                (): number;
-                (padding: number): ChordLayout;
-            }
-            sortGroups: {
-                (): (a: number, b: number) => number;
-                (comparator: (a: number, b: number) => number): ChordLayout;
-            }
-            sortSubgroups: {
-                (): (a: number, b: number) => number;
-                (comparator: (a: number, b: number) => number): ChordLayout;
-            }
-            sortChords: {
-                (): (a: number, b: number) => number;
-                (comparator: (a: number, b: number) => number): ChordLayout;
-            }
-            chords(): GraphLink[];
-            groups(): ArcDescriptor[];
-        }
+            /**
+             * Set or derive classes for multiple class lists at once.
+             *
+             * @param obj An Object mapping class lists to values that are either plain booleans or functions that return booleans.
+             */
+            classed(obj: { [key: string]: boolean | ((datum: Datum, index: number, outerIndex: number) => boolean) }): Update<Datum>;
 
-        export interface ClusterLayout{
-            sort: {
-                (): (a: GraphNode, b: GraphNode) => number;
-                (comparator: (a: GraphNode, b: GraphNode) => number): ClusterLayout;
-            }
-            children: {
-                (): (d: any, i?: number) => GraphNode[];
-                (children: (d: any, i?: number) => GraphNode[]): ClusterLayout;
-            }
-            nodes(root: GraphNode): GraphNode[];
-            links(nodes: GraphNode[]): GraphLink[];
-            separation: {
-                (): (a: GraphNode, b: GraphNode) => number;
-                (separation: (a: GraphNode, b: GraphNode) => number): ClusterLayout;
-            }
-            size: {
-                (): number[];
-                (size: number[]): ClusterLayout;
-            }
-            value: {
-                (): (node: GraphNode) => number;
-                (value: (node: GraphNode) => number): ClusterLayout;
-            }
-        }
+            /**
+             * Retrieve the computed style value for the first node in the selection.
+             * @param name The CSS property name to query
+             */
+            style(name: string): string;
 
-        export interface HierarchyLayout {
-            sort: {
-                (): (a: GraphNode, b: GraphNode) => number;
-                (comparator: (a: GraphNode, b: GraphNode) => number): HierarchyLayout;
-            }
-            children: {
-                (): (d: any, i?: number) => GraphNode[];
-                (children: (d: any, i?: number) => GraphNode[]): HierarchyLayout;
-            }
-            nodes(root: GraphNode): GraphNode[];
-            links(nodes: GraphNode[]): GraphLink[];
-            value: {
-                (): (node: GraphNode) => number;
-                (value: (node: GraphNode) => number): HierarchyLayout;
-            }
-            reValue(root: GraphNode): HierarchyLayout;
-        }
+            /**
+             * Set a style property for all nodes in the selection.
+             * @param name the CSS property name
+             * @param value the property value
+             * @param priority if specified, either null or the string "important" (no exclamation mark)
+             */
+            style(name: string, value: Primitive, priority?: string): Update<Datum>;
 
-        export interface Bin extends Array<any> {
-            x: number;
-            dx: number;
-            y: number;
-        }
+            /**
+             * Derive a property value for each node in the selection.
+             * @param name the CSS property name
+             * @param value the function to derive the value
+             * @param priority if specified, either null or the string "important" (no exclamation mark)
+             */
+            style(name: string, value: (datum: Datum, index: number, outerIndex: number) => Primitive, priority?: string): Update<Datum>;
 
-        export interface HistogramLayout {
-            (values: any[], index?: number): Bin[];
-            value: {
-                (): (value: any) => any;
-                (accessor: (value: any) => any): HistogramLayout
-            }
-            range: {
-                (): (value: any, index: number) => number[];
-                (range: (value: any, index: number) => number[]): HistogramLayout;
-                (range: number[]): HistogramLayout;
-            }
-            bins: {
-                (): (range: any[], index: number) => number[];
-                (bins: (range: any[], index: number) => number[]): HistogramLayout;
-                (bins: number): HistogramLayout;
-                (bins: number[]): HistogramLayout;
-            }
-            frequency: {
-                (): boolean;
-                (frequency: boolean): HistogramLayout;
-            }
-        }
+            /**
+             * Set a large number of CSS properties from an object.
+             *
+             * @param obj an Object whose keys correspond to CSS property names and values are either constants or functions that derive property values
+             * @param priority if specified, either null or the string "important" (no exclamation mark)
+             */
+            style(obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) }, priority?: string): Update<Datum>;
 
-        export interface PackLayout {
-            sort: {
-                (): (a: GraphNode, b: GraphNode) => number;
-                (comparator: (a: GraphNode, b: GraphNode) => number): PackLayout;
-            }
-            children: {
-                (): (d: any, i?: number) => GraphNode[];
-                (children: (d: any, i?: number) => GraphNode[]): PackLayout;
-            }
-            nodes(root: GraphNode): GraphNode[];
-            links(nodes: GraphNode[]): GraphLink[];
-            value: {
-                (): (node: GraphNode) => number;
-                (value: (node: GraphNode) => number): PackLayout;
-            }
-            size: {
-                (): number[];
-                (size: number[]): PackLayout;
-            }
-            padding: {
-                (): number;
-                (padding: number): PackLayout;
-            }
-        }
+            /**
+             * Retrieve an arbitrary node property such as the 'checked' property of checkboxes, or the 'value' of text boxes.
+             *
+             * @param name the node's property to retrieve
+             */
+            property(name: string): any;
 
-        export interface PartitionLayout {
-            sort: {
-                (): (a: GraphNode, b: GraphNode) => number;
-                (comparator: (a: GraphNode, b: GraphNode) => number): PackLayout;
-            }
-            children: {
-                (): (d: any, i?: number) => GraphNode[];
-                (children: (d: any, i?: number) => GraphNode[]): PackLayout;
-            }
-            nodes(root: GraphNode): GraphNode[];
-            links(nodes: GraphNode[]): GraphLink[];
-            value: {
-                (): (node: GraphNode) => number;
-                (value: (node: GraphNode) => number): PackLayout;
-            }
-            size: {
-                (): number[];
-                (size: number[]): PackLayout;
-            }
-        }
+            /**
+             * For each node, set the property value. Internally, this sets the node property directly (e.g., node[name] = value), so take care not to mutate special properties like __proto__.
+             *
+             * @param name the property name
+             * @param value the property value
+             */
+            property(name: string, value: any): Update<Datum>;
 
-        export interface TreeMapLayout {
-            sort: {
-                (): (a: GraphNode, b: GraphNode) => number;
-                (comparator: (a: GraphNode, b: GraphNode) => number): TreeMapLayout;
-            }
-            children: {
-                (): (d: any, i?: number) => GraphNode[];
-                (children: (d: any, i?: number) => GraphNode[]): TreeMapLayout;
-            }
-            nodes(root: GraphNode): GraphNode[];
-            links(nodes: GraphNode[]): GraphLink[];
-            value: {
-                (): (node: GraphNode) => number;
-                (value: (node: GraphNode) => number): TreeMapLayout;
-            }
-            size: {
-                (): number[];
-                (size: number[]): TreeMapLayout;
-            }
-            padding: {
-                (): number;
-                (padding: number): TreeMapLayout;
-            }
-            round: {
-                (): boolean;
-                (round: boolean): TreeMapLayout;
-            }
-            sticky: {
-                (): boolean;
-                (sticky: boolean): TreeMapLayout;
-            }
-            mode: {
-                (): string;
-                (mode: string): TreeMapLayout;
-            }
-        }
-    }
+            /**
+             * For each node, derive the property value. Internally, this sets the node property directly (e.g., node[name] = value), so take care not to mutate special properties like __proto__.
+             *
+             * @param name the property name
+             * @param value the function used to derive the property's value
+             */
+            property(name: string, value: (datum: Datum, index: number, outerIndex: number) => any): Update<Datum>;
 
-    // Color
-    export module Color {
-        export interface Color {
             /**
-            * increase lightness by some exponential factor (gamma)
-            */
-            brighter(k?: number): Color;
-            /**
-            * decrease lightness by some exponential factor (gamma)
-            */
-            darker(k?: number): Color;
-            /**
-            * convert the color to a string.
-            */
-            toString(): string;
-        }
+             * Set multiple node properties. Caveats apply: take care not to mutate special properties like __proto__.
+             *
+             * @param obj an Object whose keys correspond to node properties and values are either constants or functions that will compute a value.
+             */
+            property(obj: { [key: string]: any | ((datum: Datum, index: number, outerIndex: number) => any) }): Update<Datum>;
 
-        export interface RGBColor extends Color{
             /**
-            * the red color channel.
-            */
-            r: number;
-            /**
-            * the green color channel.
-            */
-            g: number;
-            /**
-            * the blue color channel.
-            */
-            b: number;
-            /**
-            * convert from RGB to HSL.
-            */
-            hsl(): HSLColor;
-        }
+             * Retrieve the textContent of the first node in the selection.
+             */
+            text(): string;
 
-        export interface HSLColor extends Color{
             /**
-            * hue
-            */
-            h: number;
-            /**
-            * saturation
-            */
-            s: number;
-            /**
-            * lightness
-            */
-            l: number;
-            /**
-            * convert from HSL to RGB.
-            */
-            rgb(): RGBColor;
-        }
+             * Set the textContent of each node in the selection.
+             * @param value the text to use for all nodes
+             */
+            text(value: Primitive): Update<Datum>;
 
-        export interface LABColor extends Color{
             /**
-            * lightness
-            */
-            l: number;
-            /**
-            * a-dimension
-            */
-            a: number;
-            /**
-            * b-dimension
-            */
-            b: number;
-            /**
-            * convert from LAB to RGB.
-            */
-            rgb(): RGBColor;
-        }
+             * Compute the textContent of each node in the selection.
+             * @param value the function which will compute the text
+             */
+            text(value: (datum: Datum, index: number, outerIndex: number) => Primitive): Update<Datum>;
 
-        export interface HCLColor extends Color{
             /**
-            * hue
-            */
-            h: number;
-            /**
-            * chroma
-            */
-            c: number;
-            /**
-            * luminance
-            */
-            l: number;
-            /**
-            * convert from HCL to RGB.
-            */
-            rgb(): RGBColor;
-        }
-    }
+             * Retrieve the HTML content of the first node in the selection. Uses 'innerHTML' internally and will not work with SVG or other elements without a polyfill.
+             */
+            html(): string;
 
-    // SVG
-    export module Svg {
-        export interface Svg {
             /**
-            * Create a new symbol generator
-            */
-            symbol(): Symbol;
-            /**
-            * Create a new axis generator
-            */
-            axis(): Axis;
-            /**
-            * Create a new arc generator
-            */
-            arc(): Arc;
-            /**
-            * Create a new line generator
-            */
-            line: {
-                (): Line;
-                radial(): LineRadial;
-            }
-            /**
-            * Create a new area generator
-            */
-            area: {
-                (): Area;
-                radial(): AreaRadial;
-            }
-            /**
-            * Create a new brush generator
-            */
-            brush(): Brush;
-            /**
-            * Create a new chord generator
-            */
-            chord(): Chord;
-            /**
-            * Create a new diagonal generator
-            */
-            diagonal: {
-                (): Diagonal;
-                radial(): Diagonal;
-            }
-            /**
-            * The array of supported symbol types.
-            */
-            symbolTypes: string[];
-        }
+             * Set the HTML content of every node in the selection. Uses 'innerHTML' internally and thus will not work with SVG or other elements without a polyfill.
+             * @param value the HTML content to use.
+             */
+            html(value: string): Selection<Datum>;
 
-        export interface Symbol {
-            type: (symbolType: string | ((datum: any, index: number) => string)) => Symbol;
-            size: (size: number | ((datum: any, index: number) => number)) => Symbol;
-            (datum?: any, index?: number): string;
-        }
+            /**
+             * Compute the HTML content for each node in the selection. Uses 'innerHTML' internally and thus will not work with SVG or other elements without a polyfill.
+             * @param value the function to compute HTML content
+             */
+            html(value: (datum: Datum, index: number, outerIndex: number) => string): Selection<Datum>;
 
-        export interface Brush {
             /**
-            * Draws or redraws this brush into the specified selection of elements
-            */
-            (selection: _Selection<any>): void;
+             * Appends a new child to each node in the selection. This child will inherit the parent's data (if available). Returns a fresh selection consisting of the newly-appended children.
+             *
+             * @param name the element name to append. May be prefixed (see d3.ns.prefix).
+             */
+            append(name: string): Selection<Datum>;
+
             /**
-            * Gets or sets the x-scale associated with the brush
-            */
-            x: {
-                /**
-                * Gets  the x-scale associated with the brush
-                */
-                (): D3.Scale.Scale;
-                /**
-                * Sets the x-scale associated with the brush
-                *
-                * @param accessor The new Scale
-                */
-                (scale: D3.Scale.Scale): Brush;
-            };
+             * Appends a new child to each node in the selection by computing a new node. This child will inherit the parent's data (if available). Returns a fresh selection consisting of the newly-appended children.
+             *
+             * @param name the function to compute a new element
+             */
+            append(name: (datum: Datum, index: number, outerIndex: number) => EventTarget): Update<Datum>;
+
             /**
-            * Gets or sets the x-scale associated with the brush
-            */
-            y: {
-                /**
-                * Gets  the x-scale associated with the brush
-                */
-                (): D3.Scale.Scale;
-                /**
-                * Sets the x-scale associated with the brush
-                *
-                * @param accessor The new Scale
-                */
-                (scale: D3.Scale.Scale): Brush;
-            };
+             * Inserts a new child to each node in the selection. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
+             * @param name the element name to append. May be prefixed (see d3.ns.prefix).
+             * @param before the selector to determine position (e.g., ":first-child")
+             */
+            insert(name: string, before: string): Update<Datum>;
+
             /**
-            * Gets or sets the current brush extent
-            */
-            extent: {
-                /**
-                * Gets the current brush extent
-                */
-                (): any[];
-                /**
-                * Sets the current brush extent
-                */
-                (values: any[]): Brush;
-            };
+             * Inserts a new child to each node in the selection. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
+             * @param name the element name to append. May be prefixed (see d3.ns.prefix).
+             * @param before a function to determine the node to use as the next sibling
+             */
+            insert(name: string, before: (datum: Datum, index: number, outerIndex: number) => EventTarget): Update<Datum>;
+
             /**
-            * Clears the extent, making the brush extent empty.
-            */
-            clear(): Brush;
+             * Inserts a new child to the end of each node in the selection by computing a new node. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
+             * @param name the function to compute a new child
+             * @param before the selector to determine position (e.g., ":first-child")
+             */
+            insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before: string): Update<Datum>;
+
             /**
-            * Returns true if and only if the brush extent is empty
-            */
+             * Inserts a new child to the end of each node in the selection by computing a new node. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
+             * @param name the function to compute a new child
+             * @param before a function to determine the node to use as the next sibling
+             */
+            insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before: (datum: Datum, index: number, outerIndex: number) => EventTarget): Update<Datum>;
+
+            /**
+             * Removes the elements from the DOM. They are in a detached state and may be re-added (though there is currently no dedicated API for doing so).
+             */
+            remove(): Update<Datum>;
+
+            /**
+             * Retrieves the data bound to the first group in this selection.
+             */
+            data(): Datum[];
+
+            /**
+             * Binds data to this selection.
+             * @param data the array of data to bind to this selection
+             * @param key the optional function to determine the unique key for each piece of data. When unspecified, uses the index of the element.
+             */
+            data<NewDatum>(data: NewDatum[], key?: (datum: NewDatum, index: number, outerIndex: number) => string): Update<NewDatum>;
+
+            /**
+             * Derives data to bind to this selection.
+             * @param data the function to derive data. Must return an array.
+             * @param key the optional function to determine the unique key for each data item. When unspecified, uses the index of the element.
+             */
+            data<NewDatum>(data: (datum: Datum, index: number, outerIndex: number) => NewDatum[], key?: (datum: NewDatum, index: number, outerIndex: number) => string): Update<NewDatum>;
+
+            /**
+             * Filters the selection, returning only those nodes that match the given CSS selector.
+             * @param selector the CSS selector
+             */
+            filter(selector: string): Update<Datum>;
+
+            /**
+             * Filters the selection, returning only those nodes for which the given function returned true.
+             * @param selector the filter function
+             */
+            filter(selector: (datum: Datum, index: number, outerIndex: number) => boolean): Update<Datum>;
+
+            /**
+             * Return the data item bound to the first element in the selection.
+             */
+            datum(): Datum;
+
+            /**
+             * Set the data item for each node in the selection.
+             * @param value the constant element to use for each node
+             */
+            datum<NewDatum>(value: NewDatum): Update<NewDatum>;
+
+            /**
+             * Derive the data item for each node in the selection. Useful for situations such as the HTML5 'dataset' attribute.
+             * @param value the function to compute data for each node
+             */
+            datum<NewDatum>(value: (datum: Datum, index: number, outerIndex: number) => NewDatum): Update<NewDatum>;
+
+            /**
+             * Reorders nodes in the selection based on the given comparator. Nodes are re-inserted into the document once sorted.
+             * @param comparator the comparison function, which defaults to d3.ascending
+             */
+            sort(comparator?: (a: Datum, b: Datum) => number): Update<Datum>;
+
+            /**
+             * Reorders nodes in the document to match the selection order. More efficient than calling sort() if the selection is already ordered.
+             */
+            order(): Update<Datum>;
+
+            /**
+             * Returns the listener (if any) for the given event.
+             * @param type the type of event to load the listener for. May have a namespace (e.g., ".foo") at the end.
+             */
+            on(type: string): (datum: Datum, index: number, outerIndex: number) => any;
+
+            /**
+             * Adds a listener for the specified event. If one was already registered, it is removed before the new listener is added. The return value of the listener function is ignored.
+             * @param type the of event to listen to. May have a namespace (e.g., ".foo") at the end.
+             * @param listener an event listener function, or null to unregister
+             * @param capture sets the DOM useCapture flag
+             */
+            on(type: string, listener: (datum: Datum, index: number, outerIndex: number) => any, capture?: boolean): Update<Datum>;
+
+            /**
+             * Begins a new transition. Interrupts any active transitions of the same name.
+             * @param name the transition name (defaults to "")
+             */
+            transition(name?: string): Transition<Datum>;
+
+            /**
+             * Interrupts the active transition of the provided name. Does not cancel scheduled transitions.
+             * @param name the transition name (defaults to "")
+             */
+            interrupt(name?: string): Update<Datum>;
+
+            /**
+             * Creates a subselection by finding the first descendent matching the selector string. Bound data is inherited.
+             * @param selector the CSS selector to match against
+             */
+            select(selector: string): Update<Datum>;
+
+            /**
+             * Creates a subselection by using a function to find descendent elements. Bound data is inherited.
+             * @param selector the function to find matching descendants
+             */
+            select(selector: (datum: Datum, index: number, outerIndex: number) => EventTarget): Update<Datum>;
+
+            /**
+             * Creates a subselection by finding all descendents that match the given selector. Bound data is not inherited.
+             * @param selector the CSS selector to match against
+             */
+            selectAll(selector: string): Update<Datum>;
+
+            /**
+             * Creates a subselection by using a function to find descendent elements. Bound data is not inherited.
+             * @param selector the function to find matching descendents
+             */
+            selectAll(selector: (datum: Datum, index: number, outerIndex: number) => Array<EventTarget> | NodeList): Update<any>;
+
+            /**
+             * Invoke the given function for each element in the selection. The return value of the function is ignored.
+             * @param func the function to invoke
+             */
+            each(func: (datum: Datum, index: number, outerIndex: number) => any): Update<Datum>;
+
+            /**
+             * Call a function on the selection. sel.call(foo) is equivalent to foo(sel).
+             * @param func the function to call on the selection
+             * @param args any optional args
+             */
+            call(func: (sel: Update<Datum>, ...args: any[]) => any, ...args: any[]): Update<Datum>;
+
+            /**
+             * Returns true if the current selection is empty.
+             */
             empty(): boolean;
+
             /**
-            * Gets or sets the listener for the specified event type
-            */
-            on: {
-                /**
-                * Gets the listener for the specified event type
-                */
-                (type: string): (data: any, index: number) => any;
-                /**
-                * Sets the listener for the specified event type
-                */
-                (type: string, listener: (data: any, index: number) => any, capture?: boolean): Brush;
-            };
+             * Returns the first non-null element in the selection, or null otherwise.
+             */
+            node(): Node;
+
+            /**
+             * Returns the total number of elements in the selection.
+             */
+            size(): number;
+
+            /**
+             * Returns the placeholder nodes for each data element for which no corresponding DOM element was found.
+             */
+            enter(): Enter<Datum>;
+
+            /**
+             * Returns a selection for those DOM nodes for which no new data element was found.
+             */
+            exit(): Selection<Datum>;
         }
 
-        export interface Axis {
-            (selection: _Selection<any>): void;
-            (transition: Transition.Transition): void;
+        interface Enter<Datum> {
+            append(name: string): Selection<Datum>;
+            append(name: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
 
-            scale: {
-                (): any;
-                (scale: any): Axis;
-            };
+            insert(name: string, before?: string): Selection<Datum>;
+            insert(name: string, before: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
+            insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before?: string): Selection<Datum>;
+            insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
 
-            orient: {
-                (): string;
-                (orientation: string): Axis;
-            };
-
-            ticks: {
-                (): any[];
-                (...arguments: any[]): Axis;
-            };
-
-            tickPadding: {
-                (): number;
-                (padding: number): Axis;
-            };
-
-            tickValues: {
-                (): any[];
-                (values: any[]): Axis;
-            };
-            tickSubdivide(count: number): Axis;
-            tickSize: {
-                (): number;
-                (inner: number, outer?: number): Axis;
-            }
-            innerTickSize: {
-                (): number;
-                (value: number): Axis;
-            }
-            outerTickSize: {
-                (): number;
-                (value: number): Axis;
-            }
-            tickFormat(formatter: (value: any, index?: number) => string): Axis;
-            nice(count?: number): Axis;
-        }
-
-        export interface Arc {
-           /**
-           * Returns the path data string
-           *
-           * @param data Array of data elements
-           * @param index Optional index
-           */
-           (data: any, index?: number): string;
-           innerRadius: {
-                (): (data: any, index?: number) => number;
-                (radius: number): Arc;
-                (radius: () => number): Arc;
-                (radius: (data: any) => number): Arc;
-                (radius: (data: any, index: number) => number): Arc;
-            };
-            outerRadius: {
-                (): (data: any, index?: number) => number;
-                (radius: number): Arc;
-                (radius: () => number): Arc;
-                (radius: (data: any) => number): Arc;
-                (radius: (data: any, index: number) => number): Arc;
-            };
-            startAngle: {
-                (): (data: any, index?: number) => number;
-                (angle: number): Arc;
-                (angle: () => number): Arc;
-                (angle: (data: any) => number): Arc;
-                (angle: (data: any, index: number) => number): Arc;
-            };
-            endAngle: {
-                (): (data: any, index?: number) => number;
-                (angle: number): Arc;
-                (angle: () => number): Arc;
-                (angle: (data: any) => number): Arc;
-                (angle: (data: any, index: number) => number): Arc;
-            };
-            centroid(data: any, index?: number): number[];
-        }
-
-        export interface Line {
-            /**
-            * Returns the path data string
-            *
-            * @param data Array of data elements
-            * @param index Optional index
-            */
-            (data: any[], index?: number): string;
-            /**
-            * Get or set the x-coordinate accessor.
-            */
-            x: {
-                /**
-                * Get the x-coordinate accessor.
-                */
-                (): (data: any, index ?: number) => number;
-                /**
-                * Set the x-coordinate accessor.
-                *
-                * @param accessor The new accessor function
-                */
-                (accessor: (data: any) => number): Line;
-                (accessor: (data: any, index: number) => number): Line;
-                /**
-                * Set the  x-coordinate to a constant.
-                *
-                * @param cnst The new constant value.
-                */
-                (cnst: number): Line;
-            };
-            /**
-            * Get or set the y-coordinate accessor.
-            */
-            y: {
-                /**
-                * Get the y-coordinate accessor.
-                */
-                (): (data: any, index ?: number) => number;
-                /**
-                * Set the y-coordinate accessor.
-                *
-                * @param accessor The new accessor function
-                */
-                (accessor: (data: any) => number): Line;
-                (accessor: (data: any, index: number) => number): Line;
-                /**
-                * Set the  y-coordinate to a constant.
-                *
-                * @param cnst The new constant value.
-                */
-                (cnst: number): Line;
-            };
-            /**
-            * Get or set the interpolation mode.
-            */
-            interpolate: {
-                /**
-                * Get the interpolation accessor.
-                */
-                (): string | ((points: number[][]) => string);
-                /**
-                * Set the interpolation accessor.
-                *
-                * @param interpolate The interpolation mode
-                */
-                (interpolate: string | ((points: number[][]) => string)): Line;
-            };
-            /**
-            * Get or set the cardinal spline tension.
-            */
-            tension: {
-                /**
-                * Get the cardinal spline accessor.
-                */
-                (): number;
-                /**
-                * Set the cardinal spline accessor.
-                *
-                * @param tension The Cardinal spline interpolation tension
-                */
-                (tension: number): Line;
-            };
-            /**
-            * Control whether the line is defined at a given point.
-            */
-            defined: {
-                /**
-                * Get the accessor function that controls where the line is defined.
-                */
-                (): (data: any, index?: number) => boolean;
-                /**
-                * Set the accessor function that controls where the area is defined.
-                *
-                * @param defined The new accessor function
-                */
-                (defined: (data: any, index?: number) => boolean): Line;
-            };
-        }
-
-        export interface LineRadial {
-            /**
-            * Returns the path data string
-            *
-            * @param data Array of data elements
-            * @param index Optional index
-            */
-            (data: any[], index?: number): string;
-            /**
-            * Get or set the x-coordinate accessor.
-            */
-            x: {
-                /**
-                * Get the x-coordinate accessor.
-                */
-                (): (data: any, index ?: number) => number;
-                /**
-                * Set the x-coordinate accessor.
-                *
-                * @param accessor The new accessor function
-                */
-                (accessor: (data: any) => number): LineRadial;
-                (accessor: (data: any, index: number) => number): LineRadial;
-
-                /**
-                * Set the  x-coordinate to a constant.
-                *
-                * @param cnst The new constant value.
-                */
-                (cnst: number): LineRadial;
-            };
-            /**
-            * Get or set the y-coordinate accessor.
-            */
-            y: {
-                /**
-                * Get the y-coordinate accessor.
-                */
-                (): (data: any, index ?: number) => number;
-                /**
-                * Set the y-coordinate accessor.
-                *
-                * @param accessor The new accessor function
-                */
-                (accessor: (data: any) => number): LineRadial;
-                (accessor: (data: any, index: number) => number): LineRadial;
-                /**
-                * Set the  y-coordinate to a constant.
-                *
-                * @param cnst The new constant value.
-                */
-                (cnst: number): LineRadial;
-            };
-            /**
-            * Get or set the interpolation mode.
-            */
-            interpolate: {
-                /**
-                * Get the interpolation accessor.
-                */
-                (): string;
-                /**
-                * Set the interpolation accessor.
-                *
-                * @param interpolate The interpolation mode
-                */
-                (interpolate: string): LineRadial;
-            };
-            /**
-            * Get or set the cardinal spline tension.
-            */
-            tension: {
-                /**
-                * Get the cardinal spline accessor.
-                */
-                (): number;
-                /**
-                * Set the cardinal spline accessor.
-                *
-                * @param tension The Cardinal spline interpolation tension
-                */
-                (tension: number): LineRadial;
-            };
-            /**
-            * Control whether the line is defined at a given point.
-            */
-            defined: {
-                /**
-                * Get the accessor function that controls where the line is defined.
-                */
-                (): (data: any) => any;
-                /**
-                * Set the accessor function that controls where the area is defined.
-                *
-                * @param defined The new accessor function
-                */
-                (defined: (data: any) => any): LineRadial;
-            };
-            radius: {
-                (): (d: any, i?: number) => number;
-                (radius: number): LineRadial;
-                (radius: (d: any) => number): LineRadial;
-                (radius: (d: any, i: number) => number): LineRadial;
-            }
-            angle: {
-                (): (d: any, i?: any) => number;
-                (angle: number): LineRadial;
-                (angle: (d: any) => number): LineRadial;
-                (angle: (d: any, i: any) => number): LineRadial;
-            }
-        }
-
-        export interface Area {
-            /**
-            * Generate a piecewise linear area, as in an area chart.
-            */
-            (data: any[], index?: number): string;
-            /**
-            * Get or set the x-coordinate accessor.
-            */
-            x: {
-                /**
-                * Get the x-coordinate accessor.
-                */
-                (): (data: any, index ?: number) => number;
-                /**
-                * Set the x-coordinate accessor.
-                *
-                * @param accessor The new accessor function
-                */
-                (accessor: (data: any) => number): Area;
-                (accessor: (data: any, index: number) => number): Area;
-                /**
-                * Set the  x-coordinate to a constant.
-                *
-                * @param cnst The new constant value.
-                */
-                (cnst: number): Area;
-            };
-            /**
-            * Get or set the x0-coordinate (baseline) accessor.
-            */
-            x0: {
-                /**
-                * Get the  x0-coordinate (baseline) accessor.
-                */
-                (): (data: any, index ?: number) => number;
-                /**
-                * Set the  x0-coordinate (baseline) accessor.
-                *
-                * @param accessor The new accessor function
-                */
-                (accessor: (data: any) => number): Area;
-                (accessor: (data: any, index: number) => number): Area;
-                /**
-                * Set the  x0-coordinate (baseline) to a constant.
-                *
-                * @param cnst The new constant value.
-                */
-                (cnst: number): Area;
-            };
-            /**
-            * Get or set the x1-coordinate (topline) accessor.
-            */
-            x1: {
-                /**
-                * Get the  x1-coordinate (topline) accessor.
-                */
-                (): (data: any, index ?: number) => number;
-                /**
-                * Set the  x1-coordinate (topline) accessor.
-                *
-                * @param accessor The new accessor function
-                */
-                (accessor: (data: any) => number): Area;
-                (accessor: (data: any, index: number) => number): Area;
-                /**
-                * Set the  x1-coordinate (topline) to a constant.
-                *
-                * @param cnst The new constant value.
-                */
-                (cnst: number): Area;
-            };
-            /**
-            * Get or set the y-coordinate accessor.
-            */
-            y: {
-                /**
-                * Get the y-coordinate accessor.
-                */
-                (): (data: any, index ?: number) => number;
-                /**
-                * Set the y-coordinate accessor.
-                *
-                * @param accessor The new accessor function
-                */
-                (accessor: (data: any) => number): Area;
-                (accessor: (data: any, index: number) => number): Area;
-                /**
-                * Set the y-coordinate to a constant.
-                *
-                * @param cnst The constant value
-                */
-                (cnst: number): Area;
-            };
-            /**
-            * Get or set the y0-coordinate (baseline) accessor.
-            */
-            y0: {
-                /**
-                * Get the y0-coordinate (baseline) accessor.
-                */
-                (): (data: any, index ?: number) => number;
-                /**
-                * Set the y0-coordinate (baseline) accessor.
-                *
-                * @param accessor The new accessor function
-                */
-                (accessor: (data: any) => number): Area;
-                (accessor: (data: any, index: number) => number): Area;
-                /**
-                * Set the y0-coordinate (baseline) to a constant.
-                *
-                * @param cnst The constant value
-                */
-                (cnst: number): Area;
-            };
-            /**
-            * Get or set the y1-coordinate (topline) accessor.
-            */
-            y1: {
-                /**
-                * Get the y1-coordinate (topline) accessor.
-                */
-                (): (data: any, index ?: number) => number;
-                /**
-                * Set the y1-coordinate (topline) accessor.
-                *
-                * @param accessor The new accessor function
-                */
-                (accessor: (data: any) => number): Area;
-                (accessor: (data: any, index: number) => number): Area;
-                /**
-                * Set the y1-coordinate (baseline) to a constant.
-                *
-                * @param cnst The constant value
-                */
-                (cnst: number): Area;
-            };
-            /**
-            * Get or set the interpolation mode.
-            */
-            interpolate: {
-                /**
-                * Get the interpolation accessor.
-                */
-                (): string | ((points: number[][]) => string);
-                /**
-                * Set the interpolation accessor.
-                *
-                * @param interpolate The interpolation mode
-                */
-                (interpolate: string | ((points: number[][]) => string)): Area;
-            };
-            /**
-            * Get or set the cardinal spline tension.
-            */
-            tension: {
-                /**
-                * Get the cardinal spline accessor.
-                */
-                (): number;
-                /**
-                * Set the cardinal spline accessor.
-                *
-                * @param tension The Cardinal spline interpolation tension
-                */
-                (tension: number): Area;
-            };
-            /**
-            * Control whether the area is defined at a given point.
-            */
-            defined: {
-                /**
-                * Get the accessor function that controls where the area is defined.
-                */
-                (): (data: any, index?: number) => any;
-                /**
-                * Set the accessor function that controls where the area is defined.
-                *
-                * @param defined The new accessor function
-                */
-                (defined: (data: any, index?: number) => any): Area;
-            };
-        }
-
-        export interface AreaRadial {
-            /**
-            * Generate a piecewise linear area, as in an area chart.
-            */
-            (data: any[], index?: number): string;
-            /**
-            * Get or set the x-coordinate accessor.
-            */
-            x: {
-                /**
-                * Get the x-coordinate accessor.
-                */
-                (): (data: any, index ?: number) => number;
-                /**
-                * Set the x-coordinate accessor.
-                *
-                * @param accessor The new accessor function
-                */
-                (accessor: (data: any) => number): AreaRadial;
-                (accessor: (data: any, index: number) => number): AreaRadial;
-                /**
-                * Set the  x-coordinate to a constant.
-                *
-                * @param cnst The new constant value.
-                */
-                (cnst: number): AreaRadial;
-            };
-            /**
-            * Get or set the x0-coordinate (baseline) accessor.
-            */
-            x0: {
-                /**
-                * Get the  x0-coordinate (baseline) accessor.
-                */
-                (): (data: any, index ?: number) => number;
-                /**
-                * Set the  x0-coordinate (baseline) accessor.
-                *
-                * @param accessor The new accessor function
-                */
-                (accessor: (data: any) => number): AreaRadial;
-                (accessor: (data: any, index: number) => number): AreaRadial;
-                /**
-                * Set the  x0-coordinate to a constant.
-                *
-                * @param cnst The new constant value.
-                */
-                (cnst: number): AreaRadial;
-            };
-            /**
-            * Get or set the x1-coordinate (topline) accessor.
-            */
-            x1: {
-                /**
-                * Get the  x1-coordinate (topline) accessor.
-                */
-                (): (data: any, index ?: number) => number;
-                /**
-                * Set the  x1-coordinate (topline) accessor.
-                *
-                * @param accessor The new accessor function
-                */
-                (accessor: (data: any) => number): AreaRadial;
-                (accessor: (data: any, index: number) => number): AreaRadial;
-                /**
-                * Set the  x1-coordinate to a constant.
-                *
-                * @param cnst The new constant value.
-                */
-                (cnst: number): AreaRadial;
-            };
-            /**
-            * Get or set the y-coordinate accessor.
-            */
-            y: {
-                /**
-                * Get the y-coordinate accessor.
-                */
-                (): (data: any, index ?: number) => number;
-                /**
-                * Set the y-coordinate accessor.
-                *
-                * @param accessor The new accessor function
-                */
-                (accessor: (data: any) => number): AreaRadial;
-                (accessor: (data: any, index: number) => number): AreaRadial;
-                /**
-                * Set the y-coordinate to a constant.
-                *
-                * @param cnst The new constant value.
-                */
-                (cnst: number): AreaRadial;
-            };
-            /**
-            * Get or set the y0-coordinate (baseline) accessor.
-            */
-            y0: {
-                /**
-                * Get the y0-coordinate (baseline) accessor.
-                */
-                (): (data: any, index ?: number) => number;
-                /**
-                * Set the y0-coordinate (baseline) accessor.
-                *
-                * @param accessor The new accessor function
-                */
-                (accessor: (data: any) => number): AreaRadial;
-                (accessor: (data: any, index: number) => number): AreaRadial;
-                /**
-                * Set the  y0-coordinate to a constant.
-                *
-                * @param cnst The new constant value.
-                */
-                (cnst: number): AreaRadial;
-            };
-            /**
-            * Get or set the y1-coordinate (topline) accessor.
-            */
-            y1: {
-                /**
-                * Get the y1-coordinate (topline) accessor.
-                */
-                (): (data: any, index ?: number) => number;
-                /**
-                * Set the y1-coordinate (topline) accessor.
-                *
-                * @param accessor The new accessor function
-                */
-                (accessor: (data: any) => number): AreaRadial;
-                (accessor: (data: any, index: number) => number): AreaRadial;
-                /**
-                * Set the  y1-coordinate to a constant.
-                *
-                * @param cnst The new constant value.
-                */
-                (cnst: number): AreaRadial;
-            };
-            /**
-            * Get or set the interpolation mode.
-            */
-            interpolate: {
-                /**
-                * Get the interpolation accessor.
-                */
-                (): string;
-                /**
-                * Set the interpolation accessor.
-                *
-                * @param interpolate The interpolation mode
-                */
-                (interpolate: string): AreaRadial;
-            };
-            /**
-            * Get or set the cardinal spline tension.
-            */
-            tension: {
-                /**
-                * Get the cardinal spline accessor.
-                */
-                (): number;
-                /**
-                * Set the cardinal spline accessor.
-                *
-                * @param tension The Cardinal spline interpolation tension
-                */
-                (tension: number): AreaRadial;
-            };
-            /**
-            * Control whether the area is defined at a given point.
-            */
-            defined: {
-                /**
-                * Get the accessor function that controls where the area is defined.
-                */
-                (): (data: any) => any;
-                /**
-                * Set the accessor function that controls where the area is defined.
-                *
-                * @param defined The new accessor function
-                */
-                (defined: (data: any) => any): AreaRadial;
-            };
-            radius: {
-                (): number;
-                (radius: number): AreaRadial;
-                (radius: () => number): AreaRadial;
-                (radius: (data: any) => number): AreaRadial;
-                (radius: (data: any, index: number) => number): AreaRadial;
-            };
-            innerRadius: {
-                (): number;
-                (radius: number): AreaRadial;
-                (radius: () => number): AreaRadial;
-                (radius: (data: any) => number): AreaRadial;
-                (radius: (data: any, index: number) => number): AreaRadial;
-            };
-            outerRadius: {
-                (): number;
-                (radius: number): AreaRadial;
-                (radius: () => number): AreaRadial;
-                (radius: (data: any) => number): AreaRadial;
-                (radius: (data: any, index: number) => number): AreaRadial;
-            };
-            angle: {
-                (): number;
-                (angle: number): AreaRadial;
-                (angle: () => number): AreaRadial;
-                (angle: (data: any) => number): AreaRadial;
-                (angle: (data: any, index: number) => number): AreaRadial;
-            };
-            startAngle: {
-                (): number;
-                (angle: number): AreaRadial;
-                (angle: () => number): AreaRadial;
-                (angle: (data: any) => number): AreaRadial;
-                (angle: (data: any, index: number) => number): AreaRadial;
-            };
-            endAngle: {
-                (): number;
-                (angle: number): AreaRadial;
-                (angle: () => number): AreaRadial;
-                (angle: (data: any) => number): AreaRadial;
-                (angle: (data: any, index: number) => number): AreaRadial;
-            };
-        }
-
-        export interface Chord {
-            (datum: any, index?: number): string;
-            radius: {
-                (): number;
-                (radius: number): Chord;
-                (radius: () => number): Chord;
-            };
-            startAngle: {
-                (): number;
-                (angle: number): Chord;
-                (angle: () => number): Chord;
-            };
-            endAngle: {
-                (): number;
-                (angle: number): Chord;
-                (angle: () => number): Chord;
-            };
-            source: {
-                (): any;
-                (angle: any): Chord;
-                (angle: (d: any, i?: number) => any): Chord;
-            };
-            target: {
-                (): any;
-                (angle: any): Chord;
-                (angle: (d: any, i?: number) => any): Chord;
-            };
-        }
-
-        export interface Diagonal {
-            (datum: any, index?: number): string;
-            projection: {
-                (): (datum: any, index?: number) => number[];
-                (proj: (datum: any) => number[]): Diagonal;
-                (proj: (datum: any, index: number) => number[]): Diagonal;
-            };
-            source: {
-                (): (datum: any, index?: number) => any;
-                (src: (datum: any) => any): Diagonal;
-                (src: (datum: any, index: number) => any): Diagonal;
-                (src: any): Diagonal;
-            };
-            target: {
-                (): (datum: any, index?: number) => any;
-                (target: (d: any) => any): Diagonal;
-                (target: (d: any, i: number) => any): Diagonal;
-                (target: any): Diagonal;
-            };
+            select(name: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
+            call(func: (selection: Enter<Datum>, ...args: any[]) => any, ...args: any[]): Enter<Datum>;
         }
     }
 
-    // Scales
-    export module Scale {
-        export interface ScaleBase {
-            /**
-            * Construct a linear quantitative scale.
-            */
-            linear(): LinearScale;
-            /*
-            * Construct an ordinal scale.
-            */
-            ordinal(): OrdinalScale;
-            /**
-            * Construct a linear quantitative scale with a discrete output range.
-            */
-            quantize(): QuantizeScale;
-            /*
-            * Construct an ordinal scale with ten categorical colors.
-            */
-            category10(): OrdinalScale;
-            /*
-            * Construct an ordinal scale with twenty categorical colors
-            */
-            category20(): OrdinalScale;
-            /*
-            * Construct an ordinal scale with twenty categorical colors
-            */
-            category20b(): OrdinalScale;
-            /*
-            * Construct an ordinal scale with twenty categorical colors
-            */
-            category20c(): OrdinalScale;
-            /*
-            * Construct a linear identity scale.
-            */
-            identity(): IdentityScale;
-            /*
-            * Construct a quantitative scale with an logarithmic transform.
-            */
-            log(): LogScale;
-            /*
-            * Construct a quantitative scale with an exponential transform.
-            */
-            pow(): PowScale;
-            /*
-            * Construct a quantitative scale mapping to quantiles.
-            */
-            quantile(): QuantileScale;
-            /*
-            * Construct a quantitative scale with a square root transform.
-            */
-            sqrt(): SqrtScale;
-            /*
-            * Construct a threshold scale with a discrete output range.
-            */
-            threshold(): ThresholdScale;
+    /**
+     * Administrivia: JavaScript primitive types, or "things that toString() predictably".
+     */
+    export type Primitive = number | string | boolean;
+
+    /**
+     * Administrivia: anything with a valueOf(): number method is comparable, so we allow it in numeric operations
+     */
+    interface Numeric {
+        valueOf(): number;
+    }
+
+    /**
+     * A grouped array of nodes.
+     * @param Datum the data bound to this selection.
+     */
+    interface Selection<Datum> {
+        /**
+         * Retrieve a grouped selection.
+         */
+        [index: number]: selection.Group;
+
+        /**
+         * The number of groups in this selection.
+         */
+        length: number;
+
+        /**
+         * Retrieve the value of the given attribute for the first node in the selection.
+         *
+         * @param name The attribute name to query. May be prefixed (see d3.ns.prefix).
+         */
+        attr(name: string): string;
+
+        /**
+         * For all nodes, set the attribute to the specified constant value. Use null to remove.
+         *
+         * @param name The attribute name, optionally prefixed.
+         * @param value The attribute value to use. Note that this is coerced to a string automatically.
+         */
+        attr(name: string, value: Primitive): Selection<Datum>;
+
+        /**
+         * Derive an attribute value for each node in the selection based on bound data.
+         *
+         * @param name The attribute name, optionally prefixed.
+         * @param value The function of the datum (the bound data item), index (the position in the subgrouping), and outer index (overall position in nested selections) which computes the attribute value. If the function returns null, the attribute is removed.
+         */
+        attr(name: string, value: (datum: Datum, index: number, outerIndex: number) => Primitive): Selection<Datum>;
+
+        /**
+         * Set multiple properties at once using an Object. D3 iterates over all enumerable properties and either sets or computes the attribute's value based on the corresponding entry in the Object.
+         *
+         * @param obj A key-value mapping corresponding to attributes and values. If the value is a simple string or number, it is taken as a constant. Otherwise, it is a function that derives the attribute value.
+         */
+        attr(obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) }): Selection<Datum>;
+
+        /**
+         * Returns true if the first node in this selection has the given class list. If multiple classes are specified (i.e., "foo bar"), then returns true only if all classes match.
+         *
+         * @param name The class list to query.
+         */
+        classed(name: string): boolean;
+
+        /**
+         * Adds (or removes) the given class list.
+         *
+         * @param name The class list to toggle. Spaces separate class names: "foo bar" is a list of two classes.
+         * @param value If true, add the classes. If false, remove them.
+         */
+        classed(name: string, value: boolean): Selection<Datum>;
+
+        /**
+         * Determine if the given class list should be toggled for each node in the selection.
+         *
+         * @param name The class list. Spaces separate multiple class names.
+         * @param value The function to run for each node. Should return true to add the class to the node, or false to remove it.
+         */
+        classed(name: string, value: (datum: Datum, index: number, outerIndex: number) => boolean): Selection<Datum>;
+
+        /**
+         * Set or derive classes for multiple class lists at once.
+         *
+         * @param obj An Object mapping class lists to values that are either plain booleans or functions that return booleans.
+         */
+        classed(obj: { [key: string]: boolean | ((datum: Datum, index: number, outerIndex: number) => boolean) }): Selection<Datum>;
+
+        /**
+         * Retrieve the computed style value for the first node in the selection.
+         * @param name The CSS property name to query
+         */
+        style(name: string): string;
+
+        /**
+         * Set a style property for all nodes in the selection.
+         * @param name the CSS property name
+         * @param value the property value
+         * @param priority if specified, either null or the string "important" (no exclamation mark)
+         */
+        style(name: string, value: Primitive, priority?: string): Selection<Datum>;
+
+        /**
+         * Derive a property value for each node in the selection.
+         * @param name the CSS property name
+         * @param value the function to derive the value
+         * @param priority if specified, either null or the string "important" (no exclamation mark)
+         */
+        style(name: string, value: (datum: Datum, index: number, outerIndex: number) => Primitive, priority?: string): Selection<Datum>;
+
+        /**
+         * Set a large number of CSS properties from an object.
+         *
+         * @param obj an Object whose keys correspond to CSS property names and values are either constants or functions that derive property values
+         * @param priority if specified, either null or the string "important" (no exclamation mark)
+         */
+        style(obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) }, priority?: string): Selection<Datum>;
+
+        /**
+         * Retrieve an arbitrary node property such as the 'checked' property of checkboxes, or the 'value' of text boxes.
+         *
+         * @param name the node's property to retrieve
+         */
+        property(name: string): any;
+
+        /**
+         * For each node, set the property value. Internally, this sets the node property directly (e.g., node[name] = value), so take care not to mutate special properties like __proto__.
+         *
+         * @param name the property name
+         * @param value the property value
+         */
+        property(name: string, value: any): Selection<Datum>;
+
+        /**
+         * For each node, derive the property value. Internally, this sets the node property directly (e.g., node[name] = value), so take care not to mutate special properties like __proto__.
+         *
+         * @param name the property name
+         * @param value the function used to derive the property's value
+         */
+        property(name: string, value: (datum: Datum, index: number, outerIndex: number) => any): Selection<Datum>;
+
+        /**
+         * Set multiple node properties. Caveats apply: take care not to mutate special properties like __proto__.
+         *
+         * @param obj an Object whose keys correspond to node properties and values are either constants or functions that will compute a value.
+         */
+        property(obj: { [key: string]: any | ((datum: Datum, index: number, innerInder: number) => any) }): Selection<Datum>;
+
+        /**
+         * Retrieve the textContent of the first node in the selection.
+         */
+        text(): string;
+
+        /**
+         * Set the textContent of each node in the selection.
+         * @param value the text to use for all nodes
+         */
+        text(value: Primitive): Selection<Datum>;
+
+        /**
+         * Compute the textContent of each node in the selection.
+         * @param value the function which will compute the text
+         */
+        text(value: (datum: Datum, index: number, outerIndex: number) => Primitive): Selection<Datum>;
+
+        /**
+         * Retrieve the HTML content of the first node in the selection. Uses 'innerHTML' internally and will not work with SVG or other elements without a polyfill.
+         */
+        html(): string;
+
+        /**
+         * Set the HTML content of every node in the selection. Uses 'innerHTML' internally and thus will not work with SVG or other elements without a polyfill.
+         * @param value the HTML content to use.
+         */
+        html(value: string): Selection<Datum>;
+
+        /**
+         * Compute the HTML content for each node in the selection. Uses 'innerHTML' internally and thus will not work with SVG or other elements without a polyfill.
+         * @param value the function to compute HTML content
+         */
+        html(value: (datum: Datum, index: number, outerIndex: number) => string): Selection<Datum>;
+
+        /**
+         * Appends a new child to each node in the selection. This child will inherit the parent's data (if available). Returns a fresh selection consisting of the newly-appended children.
+         *
+         * @param name the element name to append. May be prefixed (see d3.ns.prefix).
+         */
+        append(name: string): Selection<Datum>;
+
+        /**
+         * Appends a new child to each node in the selection by computing a new node. This child will inherit the parent's data (if available). Returns a fresh selection consisting of the newly-appended children.
+         *
+         * @param name the function to compute a new element
+         */
+        append(name: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
+
+        /**
+         * Inserts a new child to each node in the selection. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
+         * @param name the element name to append. May be prefixed (see d3.ns.prefix).
+         * @param before the selector to determine position (e.g., ":first-child")
+         */
+        insert(name: string, before: string): Selection<Datum>;
+
+        /**
+         * Inserts a new child to each node in the selection. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
+         * @param name the element name to append. May be prefixed (see d3.ns.prefix).
+         * @param before a function to determine the node to use as the next sibling
+         */
+        insert(name: string, before: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
+
+        /**
+         * Inserts a new child to the end of each node in the selection by computing a new node. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
+         * @param name the function to compute a new child
+         * @param before the selector to determine position (e.g., ":first-child")
+         */
+        insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before: string): Selection<Datum>;
+
+        /**
+         * Inserts a new child to the end of each node in the selection by computing a new node. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
+         * @param name the function to compute a new child
+         * @param before a function to determine the node to use as the next sibling
+         */
+        insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
+
+        /**
+         * Removes the elements from the DOM. They are in a detached state and may be re-added (though there is currently no dedicated API for doing so).
+         */
+        remove(): Selection<Datum>;
+
+        /**
+         * Retrieves the data bound to the first group in this selection.
+         */
+        data(): Datum[];
+
+        /**
+         * Binds data to this selection.
+         * @param data the array of data to bind to this selection
+         * @param key the optional function to determine the unique key for each piece of data. When unspecified, uses the index of the element.
+         */
+        data<NewDatum>(data: NewDatum[], key?: (datum: NewDatum, index: number, outerIndex: number) => string): selection.Update<NewDatum>;
+
+        /**
+         * Derives data to bind to this selection.
+         * @param data the function to derive data. Must return an array.
+         * @param key the optional function to determine the unique key for each data item. When unspecified, uses the index of the element.
+         */
+        data<NewDatum>(data: (datum: Datum, index: number, outerIndex: number) => NewDatum[], key?: (datum: NewDatum, index: number, outerIndex: number) => string): selection.Update<NewDatum>;
+
+        /**
+         * Filters the selection, returning only those nodes that match the given CSS selector.
+         * @param selector the CSS selector
+         */
+        filter(selector: string): Selection<Datum>;
+
+        /**
+         * Filters the selection, returning only those nodes for which the given function returned true.
+         * @param selector the filter function
+         */
+        filter(selector: (datum: Datum, index: number, outerIndex: number) => boolean): Selection<Datum>;
+
+        /**
+         * Return the data item bound to the first element in the selection.
+         */
+        datum(): Datum;
+
+        /**
+         * Derive the data item for each node in the selection. Useful for situations such as the HTML5 'dataset' attribute.
+         * @param value the function to compute data for each node
+         */
+        datum<NewDatum>(value: (datum: Datum, index: number, outerIndex: number) => NewDatum): Selection<NewDatum>;
+
+        /**
+         * Set the data item for each node in the selection.
+         * @param value the constant element to use for each node
+         */
+        datum<NewDatum>(value: NewDatum): Selection<NewDatum>;
+
+        /**
+         * Reorders nodes in the selection based on the given comparator. Nodes are re-inserted into the document once sorted.
+         * @param comparator the comparison function, which defaults to d3.ascending
+         */
+        sort(comparator?: (a: Datum, b: Datum) => number): Selection<Datum>;
+
+        /**
+         * Reorders nodes in the document to match the selection order. More efficient than calling sort() if the selection is already ordered.
+         */
+        order(): Selection<Datum>;
+
+        /**
+         * Returns the listener (if any) for the given event.
+         * @param type the type of event to load the listener for. May have a namespace (e.g., ".foo") at the end.
+         */
+        on(type: string): (datum: Datum, index: number, outerIndex: number) => any;
+
+        /**
+         * Adds a listener for the specified event. If one was already registered, it is removed before the new listener is added. The return value of the listener function is ignored.
+         * @param type the of event to listen to. May have a namespace (e.g., ".foo") at the end.
+         * @param listener an event listener function, or null to unregister
+         * @param capture sets the DOM useCapture flag
+         */
+        on(type: string, listener: (datum: Datum, index: number, outerIndex: number) => any, capture?: boolean): Selection<Datum>;
+
+        /**
+         * Begins a new transition. Interrupts any active transitions of the same name.
+         * @param name the transition name (defaults to "")
+         */
+        transition(name?: string): Transition<Datum>;
+
+        /**
+         * Interrupts the active transition of the provided name. Does not cancel scheduled transitions.
+         * @param name the transition name (defaults to "")
+         */
+        interrupt(name?: string): Selection<Datum>;
+
+        /**
+         * Creates a subselection by finding the first descendent matching the selector string. Bound data is inherited.
+         * @param selector the CSS selector to match against
+         */
+        select(selector: string): Selection<Datum>;
+
+        /**
+         * Creates a subselection by using a function to find descendent elements. Bound data is inherited.
+         * @param selector the function to find matching descendants
+         */
+        select(selector: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
+
+        /**
+         * Creates a subselection by finding all descendents that match the given selector. Bound data is not inherited.
+         * @param selector the CSS selector to match against
+         */
+        selectAll(selector: string): Selection<any>;
+
+        /**
+         * Creates a subselection by finding all descendants that match the given selector. Bound data is not inherited.
+         *
+         * Use this overload when data-binding a subselection (that is, sel.selectAll('.foo').data(d => ...)). The type will carry over.
+         */
+        selectAll<T>(selector: string): Selection<T>;
+
+        /**
+         * Creates a subselection by using a function to find descendent elements. Bound data is not inherited.
+         * @param selector the function to find matching descendents
+         */
+        selectAll(selector: (datum: Datum, index: number, outerIndex: number) => Array<EventTarget> | NodeList): Selection<any>;
+
+        /**
+         * Creates a subselection by using a function to find descendent elements. Bound data is not inherited.
+         *
+         * Use this overload when data-binding a subselection (that is, sel.selectAll('.foo').data(d => ...)). The type will carry over.
+         * @param selector the function to find matching descendents
+         */
+        selectAll<T>(selector: (datum: Datum, index: number, outerIndex: number) => Array<EventTarget> | NodeList): Selection<T>;
+
+        /**
+         * Invoke the given function for each element in the selection. The return value of the function is ignored.
+         * @param func the function to invoke
+         */
+        each(func: (datum: Datum, index: number, outerIndex: number) => any): Selection<Datum>;
+
+        /**
+         * Call a function on the selection. sel.call(foo) is equivalent to foo(sel).
+         * @param func the function to call on the selection
+         * @param args any optional args
+         */
+        call(func: (sel: Selection<Datum>, ...args: any[]) => any, ...args: any[]): Selection<Datum>;
+
+        /**
+         * Returns true if the current selection is empty.
+         */
+        empty(): boolean;
+
+        /**
+         * Returns the first non-null element in the selection, or null otherwise.
+         */
+        node(): EventTarget;
+
+        /**
+         * Returns the total number of elements in the selection.
+         */
+        size(): number;
+    }
+
+    export function transition(): Transition<any>;
+    module transition {
+        export var prototype: Transition<any>;
+    }
+
+    interface Transition<Datum> {
+
+        transition(): Transition<Datum>;
+
+        delay(): number;
+        delay(delay: number): Transition<Datum>;
+        delay(delay: (datum: Datum, index: number, outerIndex: number) => number): Transition<Datum>;
+
+        duration(): number;
+        duration(duration: number): Transition<Datum>;
+        duration(duration: (datum: Datum, index: number, outerIndex: number) => number): Transition<Datum>;
+
+        ease(): (t: number) => number;
+        ease(value: string, ...args: any[]): Transition<Datum>;
+        ease(value: (t: number) => number): Transition<Datum>;
+
+        attr(name: string, value: Primitive): Transition<Datum>;
+        attr(name: string, value: (datum: Datum, index: number, outerIndex: number) => Primitive): Transition<Datum>;
+        attr(obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) }): Transition<Datum>;
+
+        attrTween(name: string, tween: (datum: Datum, index: number, attr: string) => (t: number) => Primitive): Transition<Datum>;
+
+        style(name: string, value: Primitive, priority?: string): Transition<Datum>;
+        style(name: string, value: (datum: Datum, index: number, outerIndex: number) => Primitive, priority?: string): Transition<Datum>;
+        style(obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) }, priority?: string): Transition<Datum>;
+
+        styleTween(name: string, tween: (datum: Datum, index: number, attr: string) => (t: number) => Primitive, priority?: string): Transition<Datum>;
+
+        text(value: Primitive): Transition<Datum>;
+        text(value: (datum: Datum, index: number, outerIndex: number) => Primitive): Transition<Datum>;
+
+        tween(name: string, factory: () => (t: number) => any): Transition<Datum>;
+
+        remove(): Transition<Datum>;
+
+        select(selector: string): Transition<Datum>;
+        select(selector: (d: Datum, i: number) => EventTarget): Transition<Datum>;
+
+        selectAll(selector: string): Transition<any>;
+        selectAll(selector: (d: Datum, i: number) => EventTarget[]): Transition<any>;
+
+        filter(selector: string): Transition<Datum>;
+        filter(selector: (d: Datum, i: number) => boolean): Transition<Datum>;
+
+        each(type: string, listener: (d: Datum, i: number) => any): Transition<Datum>;
+        each(listener: (d: Datum, i: number) => any): Transition<Datum>;
+
+        call(func: (transition: Transition<Datum>, ...args: any[]) => any, ...args: any[]): Transition<Datum>;
+
+        empty(): boolean;
+        node(): EventTarget;
+        size(): number;
+    }
+
+    export function ease(type: 'linear'): (t: number) => number;
+    export function ease(type: 'linear-in'): (t: number) => number;
+    export function ease(type: 'linear-out'): (t: number) => number;
+    export function ease(type: 'linear-in-out'): (t: number) => number;
+    export function ease(type: 'linear-out-in'): (t: number) => number;
+
+    export function ease(type: 'poly', k: number): (t: number) => number;
+    export function ease(type: 'poly-in', k: number): (t: number) => number;
+    export function ease(type: 'poly-out', k: number): (t: number) => number;
+    export function ease(type: 'poly-in-out', k: number): (t: number) => number;
+    export function ease(type: 'poly-out-in', k: number): (t: number) => number;
+
+    export function ease(type: 'quad'): (t: number) => number;
+    export function ease(type: 'quad-in'): (t: number) => number;
+    export function ease(type: 'quad-out'): (t: number) => number;
+    export function ease(type: 'quad-in-out'): (t: number) => number;
+    export function ease(type: 'quad-out-in'): (t: number) => number;
+
+    export function ease(type: 'cubic'): (t: number) => number;
+    export function ease(type: 'cubic-in'): (t: number) => number;
+    export function ease(type: 'cubic-out'): (t: number) => number;
+    export function ease(type: 'cubic-in-out'): (t: number) => number;
+    export function ease(type: 'cubic-out-in'): (t: number) => number;
+
+    export function ease(type: 'sin'): (t: number) => number;
+    export function ease(type: 'sin-in'): (t: number) => number;
+    export function ease(type: 'sin-out'): (t: number) => number;
+    export function ease(type: 'sin-in-out'): (t: number) => number;
+    export function ease(type: 'sin-out-in'): (t: number) => number;
+
+    export function ease(type: 'circle'): (t: number) => number;
+    export function ease(type: 'circle-in'): (t: number) => number;
+    export function ease(type: 'circle-out'): (t: number) => number;
+    export function ease(type: 'circle-in-out'): (t: number) => number;
+    export function ease(type: 'circle-out-in'): (t: number) => number;
+
+    export function ease(type: 'elastic', a?: number, b?: number): (t: number) => number;
+    export function ease(type: 'elastic-in', a?: number, b?: number): (t: number) => number;
+    export function ease(type: 'elastic-out', a?: number, b?: number): (t: number) => number;
+    export function ease(type: 'elastic-in-out', a?: number, b?: number): (t: number) => number;
+    export function ease(type: 'elastic-out-in', a?: number, b?: number): (t: number) => number;
+
+    export function ease(type: 'back', s: number): (t: number) => number;
+    export function ease(type: 'back-in', s: number): (t: number) => number;
+    export function ease(type: 'back-out', s: number): (t: number) => number;
+    export function ease(type: 'back-in-out', s: number): (t: number) => number;
+    export function ease(type: 'back-out-in', s: number): (t: number) => number;
+
+    export function ease(type: 'bounce'): (t: number) => number;
+    export function ease(type: 'bounce-in'): (t: number) => number;
+    export function ease(type: 'bounce-out'): (t: number) => number;
+    export function ease(type: 'bounce-in-out'): (t: number) => number;
+    export function ease(type: 'bounce-out-in'): (t: number) => number;
+
+    export function ease(type: string, ...args: any[]): (t: number) => number;
+
+    export function timer(func: () => any, delay?: number, time?: number): void;
+
+    module timer {
+        export function flush(): void;
+    }
+
+	 interface BaseEvent {
+		 type: string;
+		 sourceEvent?: Event;
+	 }
+
+	 /**
+	  * Define a D3-specific ZoomEvent per https://github.com/mbostock/d3/wiki/Zoom-Behavior#event
+	  */
+	 interface ZoomEvent extends BaseEvent {
+		 scale: number;
+		 translate: [number, number];
+	 }
+
+	 /**
+	  * Define a D3-specific DragEvent per https://github.com/mbostock/d3/wiki/Drag-Behavior#on
+	  */
+	 interface DragEvent extends BaseEvent {
+		 x: number;
+		 y: number;
+		 dx: number;
+		 dy: number;
+	 }
+
+    /**
+     * The current event's value. Use this variable in a handler registered with `selection.on`.
+     */
+    export var event: Event | BaseEvent;
+
+    /**
+     * Returns the x and y coordinates of the mouse relative to the provided container element, using d3.event for the mouse's position on the page.
+     * @param container the container element (e.g. an SVG <g> element)
+     */
+    export function mouse(container: EventTarget): [number, number];
+
+    /**
+     * Given a container element and a touch identifier, determine the x and y coordinates of the touch.
+     * @param container the container element (e.g., an SVG <svg> element)
+     * @param identifier the given touch identifier
+     */
+    export function touch(container: EventTarget, identifer: number): [number, number];
+
+    /**
+     * Given a container element, a list of touches, and a touch identifier, determine the x and y coordinates of the touch.
+     * @param container the container element (e.g., an SVG <svg> element)
+     * @param identifier the given touch identifier
+     */
+    export function touch(container: EventTarget, touches: TouchList, identifer: number): [number, number];
+
+    /**
+     * Given a container element and an optional list of touches, return the position of every touch relative to the container.
+     * @param container the container element
+     * @param touches an optional list of touches (defaults to d3.event.touches)
+     */
+    export function touches(container: EventTarget, touches?: TouchList): Array<[number, number]>;
+
+    // NB. this is limited to primitive values due to D3's use of the <, >, and >= operators. Results get weird for object instances.
+    /**
+     * Compares two primitive values for sorting (in ascending order).
+     */
+    export function ascending(a: Primitive, b: Primitive): number;
+
+    /**
+     * Compares two primitive values for sorting (in ascending order).
+     */
+    export function descending(a: Primitive, b: Primitive): number;
+
+    /**
+     * Return the minimum value in the array using natural order.
+     */
+    export function min(array: number[]): number;
+
+    /**
+     * Return the minimum value in the array using natural order.
+     */
+    export function min(array: string[]): string;
+
+    /**
+     * Return the minimum value in the array using natural order.
+     */
+    export function min<T extends Numeric>(array: T[]): T;
+
+    /**
+     * Return the minimum value in the array using natural order.
+     */
+    export function min<T>(array: T[], accessor: (datum: T, index: number) => number): number;
+
+    /**
+     * Return the minimum value in the array using natural order.
+     */
+    export function min<T>(array: T[], accessor: (datum: T, index: number) => string): string;
+
+    /**
+     * Return the minimum value in the array using natural order.
+     */
+    export function min<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number) => U): U;
+
+    /**
+     * Return the maximum value in the array of numbers using natural order.
+     */
+    export function max(array: number[]): number;
+
+    /**
+     * Return the maximum value in the array of strings using natural order.
+     */
+    export function max(array: string[]): string;
+
+    /**
+     * Return the maximum value in the array of numbers using natural order.
+     */
+    export function max<T extends Numeric>(array: T[]): T;
+
+    /**
+     * Return the maximum value in the array using natural order and a projection function to map values to numbers.
+     */
+    export function max<T>(array: T[], accessor: (datum: T, index: number) => number): number;
+
+    /**
+     * Return the maximum value in the array using natural order and a projection function to map values to strings.
+     */
+    export function max<T>(array: T[], accessor: (datum: T, index: number) => string): string;
+
+    /**
+     * Return the maximum value in the array using natural order and a projection function to map values to easily-sorted values.
+     */
+    export function max<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number) => U): U;
+
+    /**
+     * Return the min and max simultaneously.
+     */
+    export function extent(array: number[]): [number, number];
+
+    /**
+     * Return the min and max simultaneously.
+     */
+    export function extent(array: string[]): [string, string];
+
+    /**
+     * Return the min and max simultaneously.
+     */
+    export function extent<T extends Numeric>(array: T[]): [T, T];
+
+    /**
+     * Return the min and max simultaneously.
+     */
+    export function extent<T extends Numeric>(array: Array<T | Primitive>): [T | Primitive, T | Primitive];
+
+    /**
+     * Return the min and max simultaneously.
+     */
+    export function extent<T>(array: T[], accessor: (datum: T, index: number) => number): [number, number];
+
+    /**
+     * Return the min and max simultaneously.
+     */
+    export function extent<T>(array: T[], accessor: (datum: T, index: number) => string): [string, string];
+
+    /**
+     * Return the min and max simultaneously.
+     */
+    export function extent<T, U extends Numeric>(array: U[], accessor: (datum: T, index: number) => U): [U | Primitive, U | Primitive];
+
+    /**
+     * Compute the sum of an array of numbers.
+     */
+    export function sum(array: number[]): number;
+
+    /**
+     * Compute the sum of an array, using the given accessor to convert values to numbers.
+     */
+    export function sum<T>(array: T[], accessor: (datum: T, index: number) => number): number;
+
+    export function mean(array: number[]): number;
+    export function mean<T>(array: T[], accessor: (datum: T, index: number) => number): number;
+
+    export function quantile(array: number[], p: number): number;
+
+    export function variance(array: number[]): number;
+    export function variance<T>(array: T[], accessor: (datum: T, index: number) => number): number;
+
+    export function deviation(array: number[]): number;
+    export function deviation<T>(array: T[], accessor: (datum: T, index: number) => number): number;
+
+    export function bisectLeft(array: number[], x: number, lo?: number, hi?: number): number;
+    export function bisectLeft(array: string[], x: string, lo?: number, hi?: number): number;
+
+    export var bisect: typeof bisectRight;
+
+    export function bisectRight<T>(array: T[], x: T, lo?: number, hi?: number): number;
+
+    export function bisector<T, U>(accessor: (x: T) => U): {
+        left: (array: T[], x: U, lo?: number, hi?: number) => number;
+        right: (array: T[], x: U, lo?: number, hi?: number) => number;
+    }
+
+    export function bisector<T, U>(comparator: (a: T, b: U) => number): {
+        left: (array: T[], x: U, lo?: number, hi?: number) => number;
+        right: (array: T[], x: U, lo?: number, hi?: number) => number;
+    }
+
+    export function shuffle<T>(array: T[], lo?: number, hi?: number): T[];
+
+    /**
+     * Returns the enumerable property names of the specified object.
+     * @param object a JavaScript object
+     */
+    export function keys(object: Object): string[];
+
+    /**
+     * Returns an array containing the property values of the specified object.
+     */
+    export function values<T>(object: { [key: string]: T }): T[];
+    /**
+     * Returns an array containing the property values of the specified object.
+     */
+    export function values<T>(object: { [key: number]: T }): T[];
+    /**
+     * Returns an array containing the property values of the specified object.
+     */
+    export function values(object: Object): any[];
+
+    /**
+     * Returns an array of key-value pairs containing the property values of the specified object.
+     */
+    export function entries<T>(object: { [key: string]: T }): { key: string; value: T }[];
+
+    /**
+     * Returns an array of key-value pairs containing the property values of the specified object.
+     */
+    export function entries<T>(object: { [key: number]: T }): { key: string; value: T }[];
+
+    /**
+     * Returns an array of key-value pairs containing the property values of the specified object.
+     */
+    export function entries(object: Object): { key: string; value: any }[];
+
+    /**
+     * A shim for ES6 maps. The implementation uses a JavaScript object internally, and thus keys are limited to strings.
+     */
+    interface Map<T> {
+        /**
+         * Does the map contain the given key?
+         */
+        has(key: string): boolean;
+
+        /**
+         * Retrieve the value for the given key. Returns undefined if there is no value stored.
+         */
+        get(key: string): T;
+
+        /**
+         * Set the value for the given key. Returns the new value.
+         */
+        set(key: string, value: T): T;
+
+        /**
+         * Remove the value for the given key. Returns true if there was a value and false otherwise.
+         */
+        remove(key: string): boolean;
+
+        /**
+         * Returns an array of all keys in arbitrary order.
+         */
+        keys(): string[];
+
+        /**
+         * Returns an array of all values in arbitrary order.
+         */
+        values(): T[];
+
+        /**
+         * Returns an array of key-value objects in arbitrary order.
+         */
+        entries(): { key: string; value: T }[];
+
+        /**
+         * Calls the function for each key and value pair in the map. The 'this' context is the map itself.
+         */
+        forEach(func: (key: string, value: T) => any): void;
+
+        /**
+         * Is this map empty?
+         */
+        empty(): boolean;
+
+        /**
+         * Returns the number of elements stored in the map.
+         */
+        size(): number;
+    }
+
+    /**
+     * Constructs an initially empty map.
+     */
+    export function map<T>(): Map<T>;
+
+    /**
+     * Construct a new map by copying keys and values from the given one.
+     */
+    export function map<T>(object: Map<T>): Map<T>;
+
+    /**
+     * Construct a new map by copying enumerable properties and values from the given object.
+     */
+    export function map<T>(object: { [key: string]: T }): Map<T>;
+
+    /**
+     * Construct a new map by copying enumerable properties and values from the given object.
+     */
+    export function map<T>(object: { [key: number]: T }): Map<T>;
+
+    /**
+     * Construct a new map by copying elements from the array. The key function is used to identify each object.
+     */
+    export function map<T>(array: T[], key: (datum: T, index: number) => string): Map<T>;
+
+    /**
+     * Construct a new map by copying enumerable properties and values from the given object.
+     */
+    export function map(object: Object): Map<any>;
+
+    /**
+     * A shim for ES6 sets. Is only able to store strings.
+     */
+    interface Set {
+        /**
+         * Is the given string stored in this set?
+         */
+        has(value: string): boolean;
+
+        /**
+         * Add the string to this set. Returns the value.
+         */
+        add(value: string): string;
+
+        /**
+         * Remove the given value from the set. Returns true if it was stored, and false otherwise.
+         */
+        remove(value: string): boolean;
+
+        /**
+         * Returns an array of the strings stored in this set.
+         */
+        values(): string[];
+
+        /**
+         * Calls a given function for each value in the set. The return value of the function is ignored. The this context of the function is the set itself.
+         */
+        forEach(func: (value: string) => any): void;
+
+        /**
+         * Is this set empty?
+         */
+        empty(): boolean;
+
+        /**
+         * Returns the number of values stored in this set.
+         */
+        size(): number;
+    }
+
+    /**
+     * Creates an initially-empty set.
+     */
+    export function set(): Set;
+
+    /**
+     * Initializes a set from the given array of strings.
+     */
+    export function set(array: string[]): Set;
+
+    /**
+     * Merges the specified arrays into a single array.
+     */
+    export function merge<T>(arrays: T[][]): T[];
+
+    /**
+     * Generates a 0-based numeric sequence. The output range does not include 'stop'.
+     */
+    export function range(stop: number): number[];
+
+    /**
+     * Generates a numeric sequence starting from the given start and stop values. 'step' defaults to 1. The output range does not include 'stop'.
+     */
+    export function range(start: number, stop: number, step?: number): number[];
+
+    /**
+     * Given the specified array, return an array corresponding to the list of indices in 'keys'.
+     */
+    export function permute<T>(array: { [key: number]: T }, keys: number[]): T[];
+
+    /**
+     * Given the specified object, return an array corresponding to the list of property names in 'keys'.
+     */
+    export function permute<T>(object: { [key: string]: T }, keys: string[]): T[];
+
+    // TODO construct n-tuples from n input arrays
+    export function zip<T>(...arrays: T[][]): T[][];
+
+    export function transpose<T>(matrix: T[][]): T[][];
+
+    /**
+     * For each adjacent pair of elements in the specified array, returns a new array of tuples of elements i and i - 1.
+     * Returns the empty array if the input array has fewer than two elements.
+     */
+    export function pairs<T>(array: T[]): Array<[T, T]>;
+
+    interface Nest<T> {
+        key(func: (datum: T) => string): Nest<T>;
+        sortKeys(comparator: (a: string, b: string) => number): Nest<T>;
+        sortValues(comparator: (a: T, b: T) => number): Nest<T>;
+        rollup<U>(func: (values: T[]) => U): Nest<T>;
+        map(array: T[]): { [key: string]: any };
+        map(array: T[], mapType: typeof d3.map): Map<any>;
+        entries(array: T[]): { key: string; values: any }[];
+    }
+
+    export function nest<T>(): Nest<T>;
+
+    export module random {
+        export function normal(mean?: number, deviation?: number): () => number;
+        export function logNormal(mean?: number, deviation?: number): () => number;
+        export function bates(count: number): () => number;
+        export function irwinHall(count: number): () => number;
+    }
+
+    interface Transform {
+        rotate: number;
+        translate: [number, number];
+        skew: number;
+        scale: [number, number];
+        toString(): string;
+    }
+
+    export function transform(transform: string): Transform;
+
+    export function format(specifier: string): (n: number) => string;
+
+    interface FormatPrefix {
+        symbol: string;
+        scale(n: number): number;
+    }
+
+    export function formatPrefix(value: number, precision?: number): FormatPrefix;
+
+    export function round(x: number, n?: number): number;
+
+    export function requote(string: string): string;
+
+    export var rgb: {
+        new (r: number, g: number, b: number): Rgb;
+        new (color: string): Rgb;
+
+        (r: number, g: number, b: number): Rgb;
+        (color: string): Rgb;
+    };
+
+    interface Rgb extends Color {
+        r: number;
+        g: number;
+        b: number;
+
+        brighter(k?: number): Rgb;
+        darker(k?: number): Rgb;
+
+        hsl(): Hsl;
+
+        toString(): string;
+    }
+
+    export var hsl: {
+        new (h: number, s: number, l: number): Hsl;
+        new (color: string): Hsl;
+
+        (h: number, s: number, l: number): Hsl;
+        (color: string): Hsl;
+    };
+
+    interface Hsl extends Color {
+        h: number;
+        s: number;
+        l: number;
+
+        brighter(k?: number): Hsl;
+        darker(k?: number): Hsl;
+
+        rgb(): Rgb;
+
+        toString(): string;
+    }
+
+    export var hcl: {
+        new (h: number, c: number, l: number): Hcl;
+        new (color: string): Hcl;
+
+        (h: number, c: number, l: number): Hcl;
+        (color: string): Hcl;
+    };
+
+    interface Hcl extends Color {
+        h: number;
+        c: number;
+        l: number;
+
+        brighter(k?: number): Hcl;
+        darker(k?: number): Hcl;
+    }
+
+    export var lab: {
+        new (l: number, a: number, b: number): Lab;
+        new (color: string): Lab;
+
+        (l: number, a: number, b: number): Lab;
+        (color: string): Lab;
+    }
+
+    interface Lab extends Color {
+        l: number;
+        a: number;
+        b: number;
+
+        brighter(k?: number): Lab;
+        darker(k?: number): Lab;
+
+        rgb(): Rgb;
+        toString(): string;
+    }
+
+    export var color: {
+        (): Color;
+        new (): Color;
+    };
+
+    interface Color {
+        rgb(): Rgb;
+    }
+
+    export module ns {
+        interface Qualified {
+            space: string;
+            local: string;
         }
 
-        export interface GenericScale<S> {
-            (value: any): any;
-            domain: {
-                (values: any[]): S;
-                (): any[];
-            };
-            range: {
-                (values: any[]): S;
-                (): any[];
-            };
-            invertExtent?(y: any): any[];
-            copy(): S;
+        export var prefix: { [key: string]: string };
+        export function qualify(name: string): Qualified | string;
+    }
+
+    export function functor<T extends Function>(value: T): T;
+    export function functor<T>(value: T): () => T;
+
+    export function rebind(target: {}, source: {}, ...names: string[]): any;
+
+    export function dispatch(...names: string[]): Dispatch;
+
+    interface Dispatch {
+        on(type: string): (...args: any[]) => void;
+        on(type: string, listener: (...args: any[]) => any): Dispatch;
+        [event: string]: (...args: any[]) => void;
+    }
+
+    export module scale {
+        export function identity(): Identity;
+
+        interface Identity {
+            (n: number): number;
+            invert(n: number): number;
+
+            domain(): number[];
+            domain(numbers: number[]): Identity;
+
+            range(): number[];
+            range(numbers: number[]): Identity;
+
+            ticks(count?: number): number[];
+
+            tickFormat(count?: number, format?: string): (n: number) => string;
+
+            copy(): Identity;
         }
 
-        export interface Scale extends GenericScale<Scale> { }
+        export function linear(): Linear<number, number>;
+        export function linear<Output>(): Linear<Output, Output>;
+        export function linear<Range, Output>(): Linear<Range, Output>;
 
-        export interface GenericQuantitativeScale<S> extends GenericScale<S> {
-            /**
-            * Get the range value corresponding to a given domain value.
-            *
-            * @param value Domain Value
-            */
-            (value: number): number;
-            /**
-            * Get the domain value corresponding to a given range value.
-            *
-            * @param value Range Value
-            */
-            invert(value: number): number;
-            /**
-            * Set the scale's output range, and enable rounding.
-            *
-            * @param value The output range.
-            */
-            rangeRound: (values: any[]) => S;
-            /**
-            * get or set the scale's output interpolator.
-            */
-            interpolate: {
-                (): D3.Transition.Interpolate;
-                (factory: D3.Transition.Interpolate): S;
-            };
-            /**
-            * enable or disable clamping of the output range.
-            *
-            * @param clamp Enable or disable
-            */
-            clamp: {
-                (): boolean;
-                (clamp: boolean): S;
-            }
-            /**
-            * extend the scale domain to nice round numbers.
-            *
-            * @param count Optional number of ticks to exactly fit the domain
-            */
-            nice(count?: number): S;
-            /**
-            * get representative values from the input domain.
-            *
-            * @param count Aproximate representative values to return.
-            */
-            ticks(count: number): any[];
-            /**
-            * get a formatter for displaying tick values
-            *
-            * @param count Aproximate representative values to return
-            */
-            tickFormat(count: number, format?: string): (n: number) => string;
+        interface Linear<Range, Output> {
+            (x: number): Output;
+            invert(y: number): number;
+
+            domain(): number[];
+            domain(numbers: number[]): Linear<Range, Output>;
+
+            range(): Range[];
+            range(values: Range[]): Linear<Range, Output>;
+
+            rangeRound(values: number[]): Linear<number, number>;
+
+            interpolate(): (a: Range, b: Range) => (t: number) => Output;
+            interpolate(factory: (a: Range, b: Range) => (t: number) => Output): Linear<Range, Output>;
+
+            clamp(): boolean;
+            clamp(clamp: boolean): Linear<Range, Output>;
+
+            nice(count?: number): Linear<Range, Output>;
+
+            ticks(count?: number): number[];
+
+            tickFormat(count?: number, format?: string): (n: number) => string;
+
+            copy(): Linear<Range, Output>;
         }
 
-        export interface QuantitativeScale extends GenericQuantitativeScale<QuantitativeScale> { }
+        export function sqrt(): Pow<number, number>;
+        export function sqrt<Output>(): Pow<Output, Output>;
+        export function sqrt<Range, Output>(): Pow<Range, Output>;
 
-        export interface LinearScale extends GenericQuantitativeScale<LinearScale> { }
+        export function pow(): Pow<number, number>;
+        export function pow<Output>(): Pow<Output, Output>;
+        export function pow<Range, Output>(): Pow<Range, Output>;
 
-        export interface IdentityScale extends GenericScale<IdentityScale> {
-            /**
-            * Get the range value corresponding to a given domain value.
-            *
-            * @param value Domain Value
-            */
-            (value: number): number;
-            /**
-            * Get the domain value corresponding to a given range value.
-            *
-            * @param value Range Value
-            */
-            invert(value: number): number;
-            /**
-            * get representative values from the input domain.
-            *
-            * @param count Aproximate representative values to return.
-            */
-            ticks(count: number): any[];
-            /**
-            * get a formatter for displaying tick values
-            *
-            * @param count Aproximate representative values to return
-            */
-            tickFormat(count: number): (n: number) => string;
+        interface Pow<Range, Output> {
+            (x: number): Output;
+
+            invert(y: number): number;
+
+            domain(): number[];
+            domain(numbers: number[]): Pow<Range, Output>;
+
+            range(): Range[];
+            range(values: Range[]): Pow<Range, Output>;
+
+            rangeRound(values: number[]): Pow<number, number>;
+
+            exponent(): number;
+            exponent(k: number): Pow<Range, Output>;
+
+            interpolate(): (a: Range, b: Range) => (t: number) => Output;
+            interpolate(factory: (a: Range, b: Range) => (t: number) => Output): Pow<Range, Output>;
+
+            clamp(): boolean;
+            clamp(clamp: boolean): Pow<Range, Output>;
+
+            nice(m?: number): Pow<Range, Output>;
+
+            ticks(count?: number): number[];
+
+            tickFormat(count?: number, format?: string): (n: number) => string;
+
+            copy(): Pow<Range, Output>;
         }
 
-        export interface SqrtScale extends GenericQuantitativeScale<SqrtScale> { }
+        export function log(): Log<number, number>;
+        export function log<Output>(): Log<Output, Output>;
+        export function log<Range, Output>(): Log<Range, Output>;
 
-        export interface PowScale extends GenericQuantitativeScale<PowScale> { }
+        interface Log<Range, Output> {
+            (x: number): Output;
 
-        export interface LogScale extends GenericQuantitativeScale<LogScale> { }
+            invert(y: number): number;
 
-        export interface OrdinalScale extends GenericScale<OrdinalScale> {
-            rangePoints(interval: any[], padding?: number): OrdinalScale;
-            rangeBands(interval: any[], padding?: number, outerPadding?: number): OrdinalScale;
-            rangeRoundBands(interval: any[], padding?: number, outerPadding?: number): OrdinalScale;
+            domain(): number[];
+            domain(numbers: number[]): Log<Range, Output>;
+
+            range(): Range[];
+            range(values: Range[]): Log<Range, Output>;
+
+            rangeRound(values: number[]): Log<number, number>;
+
+            base(): number;
+            base(base: number): Log<Range, Output>;
+
+            interpolate(): (a: Range, b: Range) => (t: number) => Output;
+            interpolate(factory: (a: Range, b: Range) => (t: number) => Output): Log<Range, Output>;
+
+            clamp(): boolean;
+            clamp(clamp: boolean): Log<Range, Output>;
+
+            nice(): Log<Range, Output>;
+
+            ticks(): number[];
+
+            tickFormat(count?: number, format?: string): (t: number) => string;
+
+            copy(): Log<Range, Output>;
+        }
+
+        export function quantize<T>(): Quantize<T>;
+
+        interface Quantize<T> {
+            (x: number): T;
+
+            invertExtent(y: T): [number, number];
+
+            domain(): number[];
+            domain(numbers: number[]): Quantize<T>;
+
+            range(): T[];
+            range(values: T[]): Quantize<T>;
+
+            copy(): Quantize<T>;
+        }
+
+        export function quantile<T>(): Quantile<T>;
+
+        interface Quantile<T> {
+            (x: number): T;
+
+            invertExtent(y: T): [number, number];
+
+            domain(): number[];
+            domain(numbers: number[]): Quantile<T>;
+
+            range(): T[];
+            range(values: T[]): Quantile<T>;
+
+            quantiles(): number[];
+
+            copy(): Quantile<T>;
+        }
+
+        export function threshold<Range>(): Threshold<number, Range>;
+        export function threshold<Domain, Range>(): Threshold<Domain, Range>;
+
+        interface Threshold<Domain, Range> {
+            (x: number): Range;
+
+            invertExtent(y: Range): [Domain, Domain];
+
+            domain(): Domain[];
+            domain(domain: Domain[]): Threshold<Domain, Range>;
+
+            range(): Range[];
+            range(values: Range[]): Threshold<Domain, Range>;
+
+            copy(): Threshold<Domain, Range>;
+        }
+
+        export function ordinal<Range>(): Ordinal<string, Range>;
+        export function ordinal<Domain extends { toString(): string }, Range>(): Ordinal<Domain, Range>;
+        export function category10(): Ordinal<string, string>;
+        export function category10<Domain extends { toString(): string }>(): Ordinal<Domain, string>;
+        export function category20(): Ordinal<string, string>;
+        export function category20<Domain extends { toString(): string }>(): Ordinal<Domain, string>;
+        export function category20b(): Ordinal<string, string>;
+        export function category20b<Domain extends { toString(): string }>(): Ordinal<Domain, string>;
+        export function category20c(): Ordinal<string,string>;
+        export function category20c<Domain extends { toString(): string }>(): Ordinal<Domain, string>;
+
+        interface Ordinal<Domain extends { toString(): string }, Range> {
+            (x: Domain): Range;
+
+            domain(): Domain[];
+            domain(values: Domain[]): Ordinal<Domain, Range>;
+
+            range(): Range[];
+            range(values: Range[]): Ordinal<Domain, Range>;
+
+            rangePoints(interval: [number, number], padding?: number): Ordinal<Domain, number>;
+            rangeRoundPoints(interval: [number, number], padding?: number): Ordinal<Domain, number>;
+
+            rangeBands(interval: [number, number], padding?: number, outerPadding?: number): Ordinal<Domain, number>;
+            rangeRoundBands(interval: [number, number], padding?: number, outerPadding?: number): Ordinal<Domain, number>;
+
             rangeBand(): number;
-            rangeExtent(): any[];
-        }
+            rangeExtent(): [number, number];
 
-        export interface QuantizeScale extends GenericScale<QuantizeScale> { }
-
-        export interface ThresholdScale extends GenericScale<ThresholdScale> { }
-
-        export interface QuantileScale extends GenericScale<QuantileScale> {
-            quantiles(): any[];
-        }
-
-        export interface TimeScale extends GenericScale<TimeScale> {
-            (value: Date): number;
-            invert(value: number): Date;
-            rangeRound: (values: any[]) => TimeScale;
-            interpolate: {
-                (): D3.Transition.Interpolate;
-                (factory: D3.Transition.InterpolateFactory): TimeScale;
-            };
-            clamp(clamp: boolean): TimeScale;
-            ticks: {
-                (count: number): any[];
-                (range: D3.Time.Range, count: number): any[];
-            };
-            tickFormat(count: number): (n: number) => string;
-            nice(count?: number): TimeScale;
+            copy(): Ordinal<Domain, Range>;
         }
     }
 
-    // Behaviour
-    export module Behavior {
-        export interface Behavior{
-            /**
-            * Constructs a new drag behaviour
-            */
-            drag(): Drag;
-            /**
-            * Constructs a new zoom behaviour
-            */
-            zoom(): Zoom;
+    export function interpolate(a: number, b: number): (t: number) => number;
+    export function interpolate(a: string, b: string): (t: number) => string;
+    export function interpolate(a: string | Color, b: Color): (t: number) => string;
+    export function interpolate(a: Array<string | Color>, b: Color[]): (t: number) => string;
+    export function interpolate<Range, Output>(a: Range[], b: Output[]): (t: number) => Output[];
+    export function interpolate<Range, Output>(a: Range[], b: Range[]): (t: number) => Output[];
+    export function interpolate(a: { [key: string]: string | Color }, b: { [key: string]: Color }): (t: number) => { [key: string]: string };
+    export function interpolate<Range, Output>(a: { [key: string]: Range }, b: { [key: string]: Output }): (t: number) => { [key: string]: Output };
+    export function interpolate<Range, Output>(a: { [key: string]: Range }, b: { [key: string]: Range }): (t: number) => { [key: string]: Output };
+
+    export function interpolateNumber(a: number, b: number): (t: number) => number;
+
+    export function interpolateRound(a: number, b: number): (t: number) => number;
+
+    export function interpolateString(a: string, b: string): (t: number) => string;
+
+    export function interpolateRgb(a: string | Color, b: string | Color): (t: number) => string;
+
+    export function interpolateHsl(a: string | Color, b: string | Color): (t: number) => string;
+
+    export function interpolateLab(a: string | Color, b: string | Color): (t: number) => string;
+
+    export function interpolateHcl(a: string | Color, b: string | Color): (t: number) => string;
+
+    export function interpolateArray(a: Array<string | Color>, b: Color[]): (t: number) => string[];
+    export function interpolateArray<Range, Output>(a: Range[], b: Range[]): (t: number) => Output[];
+    export function interpolateArray<Range, Output>(a: Range[], b: Output[]): (t: number) => Output[];
+
+    export function interpolateObject(a: { [key: string]: string | Color }, b: { [key: string]: Color }): (t: number) => { [key: string]: string };
+    export function interpolateObject<Range, Output>(a: { [key: string]: Range }, b: { [key: string]: Output }): (t: number) => { [key: string]: Output };
+    export function interpolateObject<Range, Output>(a: { [key: string]: Range }, b: { [key: string]: Range }): (t: number) => { [key: string]: Output };
+
+    export function interpolateTransform(a: string | Transform, b: string | Transform): (t: number) => string;
+
+    export function interpolateZoom(a: [number, number, number], b: [number, number, number]): {
+        (t: number): [number, number, number];
+        duration: number;
+    };
+
+    export var interpolators: Array<(a: any, b: any) => (t: number) => any>;
+
+    export module time {
+        export var second: Interval;
+        export var minute: Interval;
+        export var hour: Interval;
+        export var day: Interval;
+        export var week: Interval;
+        export var sunday: Interval;
+        export var monday: Interval;
+        export var tuesday: Interval;
+        export var wednesday: Interval;
+        export var thursday: Interval;
+        export var friday: Interval;
+        export var saturday: Interval;
+        export var month: Interval;
+        export var year: Interval;
+
+        interface Interval {
+            (d: Date): Date;
+
+            floor(d: Date): Date;
+
+            round(d: Date): Date;
+
+            ceil(d: Date): Date;
+
+            range(start: Date, stop: Date, step?: number): Date[];
+
+            offset(date: Date, step: number): Date;
+
+            utc: {
+                (d: Date): Date;
+
+                floor(d: Date): Date;
+
+                round(d: Date): Date;
+
+                ceil(d: Date): Date;
+
+                range(start: Date, stop: Date, step?: number): Date[];
+
+                offset(date: Date, step: number): Date;
+            }
         }
 
-        export interface Zoom {
-            /**
-            * Applies the zoom behavior to the specified selection,
-            * registering the necessary event listeners to support
-            * panning and zooming.
-            */
-            (selection: _Selection<any>): void;
+        export function seconds(start: Date, stop: Date, step?: number): Date[];
+        export function minutes(start: Date, stop: Date, step?: number): Date[];
+        export function hours(start: Date, stop: Date, step?: number): Date[];
+        export function days(start: Date, stop: Date, step?: number): Date[];
+        export function weeks(start: Date, stop: Date, step?: number): Date[];
+        export function sundays(start: Date, stop: Date, step?: number): Date[];
+        export function mondays(start: Date, stop: Date, step?: number): Date[];
+        export function tuesdays(start: Date, stop: Date, step?: number): Date[];
+        export function wednesdays(start: Date, stop: Date, step?: number): Date[];
+        export function thursdays(start: Date, stop: Date, step?: number): Date[];
+        export function fridays(start: Date, stop: Date, step?: number): Date[];
+        export function saturdays(start: Date, stop: Date, step?: number): Date[];
+        export function months(start: Date, stop: Date, step?: number): Date[];
+        export function years(start: Date, stop: Date, step?: number): Date[];
 
-            /**
-            * Registers a listener to receive events
-            *
-            * @param type Enent name to attach the listener to
-            * @param listener Function to attach to event
-            */
-            on: (type: string, listener: (data: any, index?: number) => any) => Zoom;
+        export function dayOfYear(d: Date): number;
+        export function weekOfYear(d: Date): number;
+        export function sundayOfYear(d: Date): number;
+        export function mondayOfYear(d: Date): number;
+        export function tuesdayOfYear(d: Date): number;
+        export function wednesdayOfYear(d: Date): number;
+        export function fridayOfYear(d: Date): number;
+        export function saturdayOfYear(d: Date): number;
 
-            /**
-            * Gets or set the current zoom scale
-            */
-            scale: {
-                /**
-                * Get the current current zoom scale
-                */
-                (): number;
-                /**
-                * Set the current current zoom scale
-                *
-                * @param origin Zoom scale
-                */
-                (scale: number): Zoom;
-            };
+        export function format(specifier: string): Format;
 
-            /**
-            * Gets or set the current zoom translation vector
-            */
-            translate: {
-                /**
-                * Get the current zoom translation vector
-                */
-                (): number[];
-                /**
-                * Set the current zoom translation vector
-                *
-                * @param translate Tranlation vector
-                */
-                (translate: number[]): Zoom;
-            };
+        export module format {
+            export function multi(formats: Array<[string, (d: Date) => boolean|number]>): Format;
+            export function utc(specifier: string): Format;
+            module utc {
+                export function multi(formats: Array<[string, (d: Date) => boolean|number]>): Format;
+            }
 
-            /**
-            * Gets or set the allowed scale range
-            */
-            scaleExtent: {
-                /**
-                * Get the current allowed zoom range
-                */
-                (): number[];
-                /**
-                * Set the allowable zoom range
-                *
-                * @param extent Allowed zoom range
-                */
-                (extent: number[]): Zoom;
-            };
-
-            /**
-            * Gets or set the X-Scale that should be adjusted when zooming
-            */
-            x: {
-                /**
-                * Get the X-Scale
-                */
-                (): D3.Scale.Scale;
-                /**
-                * Set the X-Scale to be adjusted
-                *
-                * @param x The X Scale
-                */
-                (x: D3.Scale.Scale): Zoom;
-
-            };
-
-            /**
-            * Gets or set the Y-Scale that should be adjusted when zooming
-            */
-            y: {
-                /**
-                * Get the Y-Scale
-                */
-                (): D3.Scale.Scale;
-                /**
-                * Set the Y-Scale to be adjusted
-                *
-                * @param y The Y Scale
-                */
-                (y: D3.Scale.Scale): Zoom;
-            };
+            export var iso: Format;
         }
 
-        export interface Drag {
-            /**
-            * Execute drag method
-            */
+        interface Format {
+            (d: Date): string;
+            parse(input: string): Date;
+        }
+
+        export function scale(): Scale<number, number>;
+        export function scale<Output>(): Scale<Output, Output>;
+        export function scale<Range, Output>(): Scale<Range, Output>;
+
+        export module scale {
+            export function utc(): Scale<number, number>;
+            export function utc<Output>(): Scale<Output, Output>;
+            export function utc<Range, Output>(): Scale<Range, Output>;
+        }
+
+
+        interface Scale<Range, Output> {
+            (x: Date): Output;
+
+            invert(y: number): Date;
+
+            domain(): Date[];
+            domain(dates: number[]): Scale<Range, Output>;
+            domain(dates: Date[]): Scale<Range, Output>;
+
+            nice(): Scale<Range, Output>;
+            nice(interval: Interval, step?: number): Scale<Range, Output>;
+
+            range(): Range[];
+            range(values: Range[]): Scale<Range, Output>;
+
+            rangeRound(values: number[]): Scale<number, number>;
+
+            interpolate(): (a: Range, b: Range) => (t: number) => Output;
+            interpolate(factory: (a: Range, b: Range) => (t: number) => Output): Scale<Range, Output>;
+
+            clamp(): boolean;
+            clamp(clamp: boolean): Scale<Range, Output>;
+
+            ticks(): Date[];
+            ticks(interval: Interval, step?: number): Date[];
+            ticks(count: number): Date[];
+
+            tickFormat(count: number): (d: Date) => string;
+
+            copy(): Scale<Range, Output>;
+        }
+    }
+
+    export module behavior {
+        export function drag<Datum>(): Drag<Datum>;
+
+        interface Drag<Datum> {
+            (selection: Selection<Datum>): void;
+
+            on(type: string): (d: Datum, i: number) => any;
+            on(type: string, listener: (d: Datum, i: number) => any): Drag<Datum>;
+
+            origin(): (d: Datum, i: number) => { x: number; y: number };
+            origin(accessor: (d: Datum, i: number) => { x: number; y: number }): Drag<Datum>;
+        }
+
+        export function zoom<Datum>(): Zoom<Datum>;
+
+        module zoom {
+            interface Scale {
+                domain(): number[];
+                domain(values: number[]): Scale;
+
+                invert(y: number): number;
+
+                range(values: number[]): Scale;
+                range(): number[];
+            }
+        }
+
+        interface Zoom<Datum> {
+            (selection: Selection<Datum>): void;
+
+            translate(): [number, number];
+            translate(translate: [number, number]): Zoom<Datum>;
+
+            scale(): number;
+            scale(scale: number): Zoom<Datum>;
+
+            scaleExtent(): [number, number];
+            scaleExtent(extent: [number, number]): Zoom<Datum>;
+
+            center(): [number, number];
+            center(center: [number, number]): Zoom<Datum>;
+
+            size(): [number, number];
+            size(size: [number, number]): Zoom<Datum>;
+
+            x(): zoom.Scale;
+            x(x: zoom.Scale): Zoom<Datum>;
+
+            y(): zoom.Scale;
+            y(y: zoom.Scale): Zoom<Datum>;
+
+            on(type: string): (d: Datum, i: number) => any;
+            on(type: string, listener: (d: Datum, i: number) => any): Zoom<Datum>;
+
+            event(selection: Selection<Datum>): void;
+            event(transition: Transition<Datum>): void;
+        }
+    }
+
+    export module geo {
+        export function path(): Path;
+
+        interface Path {
+            (feature: any, index?: number): string;
+
+            area(feature: any): number;
+
+            centroid(feature: any): [number, number];
+
+            bounds(feature: any): [[number, number], [number, number]];
+
+            projection(): Transform | ((coordinates: [number, number]) => [number, number]);
+            projection(stream: Transform): Path;
+            projection(projection: (coordinates: [number, number]) => [number, number]): Path;
+
+            pointRadius(): number | ((datum: any, index: number) => number);
+            pointRadius(radius: number): Path;
+            pointRadius(radius: (datum: any, index: number) => number): Path;
+
+            context(): CanvasRenderingContext2D;
+            context(context: CanvasRenderingContext2D): Path;
+        }
+
+        export function graticule(): Graticule;
+
+        interface Graticule {
             (): any;
 
-            /**
-            * Registers a listener to receive events
-            *
-            * @param type Enent name to attach the listener to
-            * @param listener Function to attach to event
-            */
-            on: (type: string, listener: (data: any, index?: number) => any) => Drag;
+            lines(): any[];
 
-            /**
-            * Gets or set the current origin accessor function
-            */
-            origin: {
-                /**
-                * Get the current origin accessor function
-                */
-                (): any;
-                /**
-                * Set the origin accessor function
-                *
-                * @param origin Accessor function
-                */
-                (origin?: any): Drag;
-            };
-        }
-    }
+            outline(): any;
 
-    // Geography
-    export module Geo {
-        export interface Geo {
-            /**
-            * create a new geographic path generator
-            */
-            path(): Path;
-            /**
-            * create a circle generator.
-            */
-            circle(): Circle;
-            /**
-            * compute the spherical area of a given feature.
-            */
-            area(feature: any): number;
-            /**
-            * compute the latitude-longitude bounding box for a given feature.
-            */
-            bounds(feature: any): number[][];
-            /**
-            * compute the spherical centroid of a given feature.
-            */
-            centroid(feature: any): number[];
-            /**
-            * compute the great-arc distance between two points.
-            */
-            distance(a: number[], b: number[]): number;
-            /**
-            * interpolate between two points along a great arc.
-            */
-            interpolate(a: number[], b: number[]): (t: number) => number[];
-            /**
-            * compute the length of a line string or the circumference of a polygon.
-            */
-            length(feature: any): number;
-            /**
-            * create a standard projection from a raw projection.
-            */
-            projection(raw: RawProjection): Projection;
-            /**
-            * create a standard projection from a mutable raw projection.
-            */
-            projectionMutator(rawFactory: RawProjection): ProjectionMutator;
-            /**
-            * the Albers equal-area conic projection.
-            */
-            albers(): Projection;
-            /**
-            * a composite Albers projection for the United States.
-            */
-            albersUsa(): Projection;
-            /**
-            * the azimuthal equal-area projection.
-            */
-            azimuthalEqualArea: {
-                (): Projection;
-                raw: RawProjection;
-            }
-            /**
-            * the azimuthal equidistant projection.
-            */
-            azimuthalEquidistant: {
-                (): Projection;
-                raw: RawProjection;
-            }
-            /**
-            * the conic conformal projection.
-            */
-            conicConformal: {
-                (): Projection;
-                raw(phi1:number, phi2:number): RawProjection;
-            }
-            /**
-            * the conic equidistant projection.
-            */
-            conicEquidistant: {
-                (): Projection;
-                raw(phi1:number, phi2:number): RawProjection;
-            }
-            /**
-            * the conic equal-area (a.k.a. Albers) projection.
-            */
-            conicEqualArea: {
-                (): Projection;
-                raw(phi1:number, phi2:number): RawProjection;
-            }
-            /**
-            * the equirectangular (plate carreé) projection.
-            */
-            equirectangular: {
-                (): Projection;
-                raw: RawProjection;
-            }
-            /**
-            * the gnomonic projection.
-            */
-            gnomonic: {
-                (): Projection;
-                raw: RawProjection;
-            }
-            /**
-            * the spherical Mercator projection.
-            */
-            mercator: {
-                (): Projection;
-                raw: RawProjection;
-            }
-            /**
-            * the azimuthal orthographic projection.
-            */
-            orthographic: {
-                (): Projection;
-                raw: RawProjection;
-            }
-            /**
-            * the azimuthal stereographic projection.
-            */
-            stereographic: {
-                (): Projection;
-                raw: RawProjection;
-            }
-            /**
-            * the transverse Mercator projection.
-            */
-            transverseMercator: {
-                (): Projection;
-                raw: RawProjection;
-            }
-            /**
-            * convert a GeoJSON object to a geometry stream.
-            */
-            stream(object: GeoJSON, listener: Stream): void;
-            /**
-            *
-            */
-            graticule(): Graticule;
-            /**
-            *
-            */
-            greatArc(): GreatArc;
-            /**
-            *
-            */
-            rotation(rotation: number[]): Rotation;
+            extent(): [[number, number], [number, number]];
+            extent(extent: [[number, number], [number, number]]): Graticule;
+
+            majorExtent(): [[number, number], [number, number]];
+            majorExtent(extent: [[number, number], [number, number]]): Graticule;
+
+            minorExtent(): [[number, number], [number, number]];
+            minorExtent(extent: [[number, number], [number, number]]): Graticule;
+
+            step(): [number, number];
+            step(step: [number, number]): Graticule;
+
+            majorStep(): [number, number];
+            majorStep(step: [number, number]): Graticule;
+
+            minorStep(): [number, number];
+            minorStep(step: [number, number]): Graticule;
+
+            precision(): number;
+            precision(precision: number): Graticule;
         }
 
-        export interface Path {
-            /**
-            * Returns the path data string for the given feature
-            */
-            (feature: any, index?: any): string;
-            /**
-            * get or set the geographic projection.
-            */
-            projection: {
-                /**
-                * get the geographic projection.
-                */
-                (): Projection;
-                /**
-                * set the geographic projection.
-                */
-                (projection: Projection): Path;
-            }
-            /**
-            * get or set the render context.
-            */
-            context: {
-                /**
-                * return an SVG path string invoked on the given feature.
-                */
-                (): string;
-                /**
-                * sets the render context and returns the path generator
-                */
-                (context: Context): Path;
-            }
-            /**
-            * Computes the projected area
-            */
-            area(feature: any): any;
-            /**
-            * Computes the projected centroid
-            */
-            centroid(feature: any): any;
-            /**
-            * Computes the projected bounding box
-            */
-            bounds(feature: any): any;
-            /**
-            * get or set the radius to display point features.
-            */
-            pointRadius: {
-                /**
-                * returns the current radius
-                */
-                (): number;
-                /**
-                * sets the radius used to display Point and MultiPoint features to the specified number
-                */
-                (radius: number): Path;
-                /**
-                * sets the radius used to display Point and MultiPoint features to the specified number
-                */
-                (radius: (feature: any, index: number) => number): Path;
-            }
+        export function circle(): Circle;
+
+        interface Circle {
+            (...args: any[]): any;
+
+            origin(): [number, number] | ((...args: any[]) => [number, number]);
+            origin(origin: [number, number]): Circle;
+            origin(origin: (...args: any[]) => [number, number]): Circle;
+
+            angle(): number;
+            angle(angle: number): Circle;
+
+            precision(): number;
+            precision(precision: number): Circle;
         }
 
-        export interface Context {
-            beginPath(): any;
-            moveTo(x: number, y: number): any;
-            lineTo(x: number, y: number): any;
-            arc(x: number, y: number, radius: number, startAngle: number, endAngle: number): any;
-            closePath(): any;
+        export function area(feature: any): number;
+        export function centroid(feature: any): [number, number];
+        export function bounds(feature: any): [[number, number], [number, number]];
+        export function distance(a: [number, number], b: [number, number]): number;
+        export function length(feature: any): number;
+        export function interpolate(a: [number, number], b: [number, number]): (t: number) => [number, number];
+
+        export function rotation(rotate: [number, number] | [number, number, number]): Rotation;
+
+        interface Rotation {
+            (location: [number, number]): [number, number];
+            invert(location: [number, number]): [number, number];
         }
 
-        export interface Circle {
-            (...args: any[]): GeoJSON;
-            origin: {
-                (): number[];
-                (origin: number[]): Circle;
-                (origin: (...args: any[]) => number[]): Circle;
-            }
-            angle: {
-                (): number;
-                (angle: number): Circle;
-            }
-            precision: {
-                (): number;
-                (precision: number): Circle;
-            }
-        }
+        export function stream(object: any, listener: Listener): void;
 
-        export interface Graticule{
-            (): GeoJSON;
-            lines(): GeoJSON[];
-            outline(): GeoJSON;
-            extent: {
-                (): number[][];
-                (extent: number[][]): Graticule;
-            }
-            minorExtent: {
-                (): number[][];
-                (extent: number[][]): Graticule;
-            }
-            majorExtent: {
-                (): number[][];
-                (extent: number[][]): Graticule;
-            }
-            step: {
-                (): number[][];
-                (extent: number[][]): Graticule;
-            }
-            minorStep: {
-                (): number[][];
-                (extent: number[][]): Graticule;
-            }
-            majorStep: {
-                (): number[][];
-                (extent: number[][]): Graticule;
-            }
-            precision: {
-                (): number;
-                (precision: number): Graticule;
-            }
-        }
-
-        export interface GreatArc {
-            (): GeoJSON;
-            distance(): number;
-            source: {
-                (): any;
-                (source: any): GreatArc;
-            }
-            target: {
-                (): any;
-                (target: any): GreatArc;
-            }
-            precision: {
-                (): number;
-                (precision: number): GreatArc;
-            }
-        }
-
-        export interface GeoJSON {
-            coordinates: number[][];
-            type: string;
-        }
-
-        export interface RawProjection {
-            (lambda: number, phi: number): number[];
-            invert?(x: number, y: number): number[];
-        }
-
-        export interface Projection {
-            (coordinates: number[]): number[];
-            invert?(point: number[]): number[];
-            rotate: {
-                (): number[];
-                (rotation: number[]): Projection;
-            };
-            center: {
-                (): number[];
-                (location: number[]): Projection;
-            };
-            parallels: {
-                (): number[];
-                (location: number[]): Projection;
-            };
-            translate: {
-                (): number[];
-                (point: number[]): Projection;
-            };
-            scale: {
-                (): number;
-                (scale: number): Projection;
-            };
-            clipAngle: {
-                (): number;
-                (angle: number): Projection;
-            };
-            clipExtent: {
-                (): number[][];
-                (extent: number[][]): Projection;
-            };
-            precision: {
-                (): number;
-                (precision: number): Projection;
-            };
-            stream(listener?: Stream): Stream;
-        }
-
-        export interface Stream {
-            point(x: number, y: number, z?: number): void;
+        interface Listener {
+            point(x: number, y: number, z: number): void;
             lineStart(): void;
             lineEnd(): void;
             polygonStart(): void;
@@ -3281,212 +2013,1306 @@ declare module D3 {
             sphere(): void;
         }
 
-        export interface Rotation extends Array<any> {
-            (location: number[]): Rotation;
-            invert(location: number[]): Rotation;
+        export function transform(methods: TransformMethods): Transform;
+
+        interface TransformMethods {
+            point?(x: number, y: number, z: number): void;
+            lineStart?(): void;
+            lineEnd?(): void;
+            polygonStart?(): void;
+            polygonEnd?(): void;
+            sphere?(): void;
         }
 
-        export interface ProjectionMutator {
-            (lambda: number, phi: number): Projection;
+        interface Transform {
+            stream(stream: Listener): Listener;
+        }
+
+        export function clipExtent(): ClipExtent;
+
+        interface ClipExtent extends Transform {
+            extent(): [[number, number], [number, number]];
+            extent(extent: [[number, number], [number, number]]): ClipExtent;
+        }
+
+        export function projection(raw: RawInvertibleProjection): InvertibleProjection;
+        export function projection(raw: RawProjection): Projection;
+
+        export function projectionMutator(factory: (...args: any[]) => RawInvertibleProjection): (...args: any[]) => InvertibleProjection;
+        export function projectionMutator(factory: (...args: any[]) => RawProjection): (...args: any[]) => Projection;
+
+        export function albers(): ConicProjection;
+        export function albersUsa(): ConicProjection;
+        export function azimuthalEqualArea(): InvertibleProjection;
+        module azimuthalEqualArea {
+            export function raw(lambda: number, phi: number): [number, number];
+            module raw {
+                export function invert(x: number, y: number): [number, number];
+            }
+        }
+
+        export function azimuthalEquidistant(): InvertibleProjection;
+        module azimuthalEquidistant {
+            export function raw(lambda: number, phi: number): [number, number];
+            module raw {
+                export function invert(x: number, y: number): [number, number];
+            }
+        }
+
+        export function conicConformal(): ConicProjection;
+        module conicConformal {
+            export function raw(phi0: number, phi1: number): RawInvertibleProjection;
+        }
+
+        export function conicEqualArea(): ConicProjection;
+        module conicEqualArea {
+            export function raw(phi0: number, phi1: number): RawInvertibleProjection;
+        }
+
+        export function conicEquidistant(): ConicProjection;
+        module conicEquidistant {
+            export function raw(phi0: number, phi1: number): RawInvertibleProjection;
+        }
+
+        export function equirectangular(): InvertibleProjection;
+        module equirectangular {
+            export function raw(lambda: number, phi: number): [number, number];
+            module raw {
+                export function invert(x: number, y: number): [number, number];
+            }
+        }
+
+        export function gnomonic(): InvertibleProjection;
+        module gnomonic {
+            export function raw(lambda: number, phi: number): [number, number];
+            module raw {
+                export function invert(x: number, y: number): [number, number];
+            }
+        }
+
+        export function mercator(): InvertibleProjection;
+        module mercator {
+            export function raw(lambda: number, phi: number): [number, number];
+            module raw {
+                export function invert(x: number, y: number): [number, number];
+            }
+        }
+
+        export function orthographic(): InvertibleProjection;
+        module orthographic {
+            export function raw(lambda: number, phi: number): [number, number];
+            module raw {
+                export function invert(x: number, y: number): [number, number];
+            }
+        }
+
+        export function stereographic(): InvertibleProjection;
+        module stereographic {
+            export function raw(lambda: number, phi: number): [number, number];
+            module raw {
+                export function invert(x: number, y: number): [number, number];
+            }
+        }
+
+        export function transverseMercator(): InvertibleProjection;
+        module transverseMercator {
+            export function raw(lambda: number, phi: number): [number, number];
+            module raw {
+                export function invert(x: number, y: number): [number, number];
+            }
+        }
+
+        interface Projection {
+            (location: [number, number]): [number, number];
+
+            rotate(): [number, number, number];
+            rotate(rotation: [number, number, number]): Projection;
+
+            center(): [number, number];
+            center(location: [number, number]): Projection;
+
+            translate(): [number, number];
+            translate(point: [number, number]): Projection;
+
+            scale(): number;
+            scale(scale: number): Projection;
+
+            clipAngle(): number;
+            clipAngle(angle: number): Projection;
+
+            clipExtent(): [[number, number], [number, number]];
+            clipExtent(extent: [[number, number], [number, number]]): Projection;
+
+            precision(): number;
+            precision(precision: number): Projection;
+
+            stream(listener: Listener): Listener;
+        }
+
+        interface InvertibleProjection extends Projection {
+            invert(point: [number, number]): [number, number];
+        }
+
+        interface ConicProjection extends InvertibleProjection {
+            parallels(): [number, number];
+            parallels(parallels: [number, number]): ConicProjection;
+
+            rotate(): [number, number, number];
+            rotate(rotation: [number, number, number]): ConicProjection;
+
+            center(): [number, number];
+            center(location: [number, number]): ConicProjection;
+
+            translate(): [number, number];
+            translate(point: [number, number]): ConicProjection;
+
+            scale(): number;
+            scale(scale: number): ConicProjection;
+
+            clipAngle(): number;
+            clipAngle(angle: number): ConicProjection;
+
+            clipExtent(): [[number, number], [number, number]];
+            clipExtent(extent: [[number, number], [number, number]]): ConicProjection;
+
+            precision(): number;
+            precision(precision: number): ConicProjection;
+        }
+
+        interface RawProjection {
+            (lambda: number, phi: number): [number, number];
+        }
+
+        interface RawInvertibleProjection extends RawProjection {
+            invert(x: number, y: number): [number, number];
         }
     }
 
-    // Geometry
-    export module Geom {
-        export interface Geom {
-            voronoi<T>(): Voronoi<T>;
-            /**
-            * compute the Voronoi diagram for the specified points.
-            */
-            voronoi(vertices: Vertice[]): Polygon[];
-            /**
-            * compute the Delaunay triangulation for the specified points.
-            */
-            delaunay(vertices?: Vertice[]): Polygon[];
-            /**
-            * constructs a quadtree for an array of points.
-            */
-            quadtree(): QuadtreeFactory;
-            /**
-            * Constructs a new quadtree for the specified array of points.
-            */
-            quadtree(points: Point[], x1: number, y1: number, x2: number, y2: number): Quadtree;
-            /**
-            * Constructs a new quadtree for the specified array of points.
-            */
-            quadtree(points: Point[], width: number, height: number): Quadtree;
-            /**
-            * Returns the input array of vertices with additional methods attached
-            */
-            polygon(vertices:Vertice[]): Polygon;
-            /**
-            * creates a new hull layout with the default settings.
-            */
-            hull(): Hull;
+    module svg {
+        export function line(): Line<[number, number]>;
+        export function line<T>(): Line<T>;
 
-            hull(vertices:Vertice[]): Vertice[];
+        interface Line<T> {
+            (data: T[]): string;
+
+            x(): number | ((d: T, i: number) => number);
+            x(x: number): Line<T>;
+            x(x: (d: T, i: number) => number): Line<T>;
+
+            y(): number | ((d: T, i: number) => number);
+            y(x: number): Line<T>;
+            y(y: (d: T, i: number) => number): Line<T>;
+
+            interpolate(): string | ((points: Array<[number, number]>) => string);
+            interpolate(interpolate: "linear"): Line<T>;
+            interpolate(interpolate: "linear-closed"): Line<T>;
+            interpolate(interpolate: "step"): Line<T>;
+            interpolate(interpolate: "step-before"): Line<T>;
+            interpolate(interpolate: "step-after"): Line<T>;
+            interpolate(interpolate: "basis"): Line<T>;
+            interpolate(interpolate: "basis-open"): Line<T>;
+            interpolate(interpolate: "basis-closed"): Line<T>;
+            interpolate(interpolate: "bundle"): Line<T>;
+            interpolate(interpolate: "cardinal"): Line<T>;
+            interpolate(interpolate: "cardinal-open"): Line<T>;
+            interpolate(interpolate: "cardinal-closed"): Line<T>;
+            interpolate(interpolate: "monotone"): Line<T>;
+            interpolate(interpolate: string | ((points: Array<[number, number]>) => string)): Line<T>;
+
+            tension(): number;
+            tension(tension: number): Line<T>;
+
+            defined(): (d: T, i: number) => boolean;
+            defined(defined: (d: T, i: number) => boolean): Line<T>;
         }
 
-        export interface Vertice extends Array<number> {
-            /**
-            * Returns the angle of the vertice
-            */
-            angle?: number;
+        module line {
+            export function radial(): Radial<[number, number]>;
+            export function radial<T>(): Radial<T>;
+
+            interface Radial<T> {
+                (data: T[]): string;
+
+                radius(): number | ((d: T, i: number) => number);
+                radius(radius: number): Radial<T>;
+                radius(radius: (d: T, i: number) => number): Radial<T>;
+
+                angle(): number | ((d: T, i: number) => number);
+                angle(angle: number): Radial<T>;
+                angle(angle: (d: T, i: number) => number): Radial<T>;
+
+                interpolate(): string | ((points: Array<[number, number]>) => string);
+                interpolate(interpolate: "linear"): Radial<T>;
+                interpolate(interpolate: "linear-closed"): Radial<T>;
+                interpolate(interpolate: "step"): Radial<T>;
+                interpolate(interpolate: "step-before"): Radial<T>;
+                interpolate(interpolate: "step-after"): Radial<T>;
+                interpolate(interpolate: "basis"): Radial<T>;
+                interpolate(interpolate: "basis-open"): Radial<T>;
+                interpolate(interpolate: "basis-closed"): Radial<T>;
+                interpolate(interpolate: "bundle"): Radial<T>;
+                interpolate(interpolate: "cardinal"): Radial<T>;
+                interpolate(interpolate: "cardinal-open"): Radial<T>;
+                interpolate(interpolate: "cardinal-closed"): Radial<T>;
+                interpolate(interpolate: "monotone"): Radial<T>;
+                interpolate(interpolate: string | ((points: Array<[number, number]>) => string)): Radial<T>;
+
+                tension(): number;
+                tension(tension: number): Radial<T>;
+
+                defined(): (d: T, i: number) => boolean;
+                defined(defined: (d: T, i: number) => boolean): Radial<T>;
+            }
         }
 
-        export interface Polygon extends Array<Vertice> {
-            /**
-            * Returns the signed area of this polygon
-            */
+        export function area(): Area<[number, number]>;
+        export function area<T>(): Area<T>;
+
+        interface Area<T> {
+            (data: T[]): string;
+
+            x(): number | ((d: T, i: number) => number);
+            x(x: number): Area<T>;
+            x(x: (d: T, i: number) => number): Area<T>;
+
+            x0(): number | ((d: T, i: number) => number);
+            x0(x0: number): Area<T>;
+            x0(x0: (d: T, i: number) => number): Area<T>;
+
+            x1(): number | ((d: T, i: number) => number);
+            x1(x1: number): Area<T>;
+            x1(x1: (d: T, i: number) => number): Area<T>;
+
+            y(): number | ((d: T, i: number) => number);
+            y(y: number): Area<T>;
+            y(y: (d: T, i: number) => number): Area<T>;
+
+            y0(): number | ((d: T, i: number) => number);
+            y0(y0: number): Area<T>;
+            y0(y0: (d: T, i: number) => number): Area<T>;
+
+            y1(): number | ((d: T, i: number) => number);
+            y1(y1: number): Area<T>;
+            y1(y1: (d: T, i: number) => number): Area<T>;
+
+            interpolate(): string | ((points: Array<[number, number]>) => string);
+            interpolate(interpolate: "linear"): Area<T>;
+            interpolate(interpolate: "step"): Area<T>;
+            interpolate(interpolate: "step-before"): Area<T>;
+            interpolate(interpolate: "step-after"): Area<T>;
+            interpolate(interpolate: "basis"): Area<T>;
+            interpolate(interpolate: "basis-open"): Area<T>;
+            interpolate(interpolate: "cardinal"): Area<T>;
+            interpolate(interpolate: "cardinal-open"): Area<T>;
+            interpolate(interpolate: "monotone"): Area<T>;
+            interpolate(interpolate: string | ((points: Array<[number, number]>) => string)): Area<T>;
+
+            tension(): number;
+            tension(tension: number): Area<T>;
+
+            defined(): (d: T, i: number) => boolean;
+            defined(defined: (d: T, i: number) => boolean): Area<T>;
+        }
+
+        module area {
+            export function radial(): Radial<[number, number]>;
+            export function radial<T>(): Radial<T>;
+
+            interface Radial<T> {
+                (data: T[]): string;
+
+                radius(): number | ((d: T, i: number) => number);
+                radius(radius: number): Radial<T>;
+                radius(radius: (d: T, i: number) => number): Radial<T>;
+
+                innerRadius(): number | ((d: T, i: number) => number);
+                innerRadius(innerRadius: number): Radial<T>;
+                innerRadius(innerRadius: (d: T, i: number) => number): Radial<T>;
+
+                outerRadius(): number | ((d: T, i: number) => number);
+                outerRadius(outerRadius: number): Radial<T>;
+                outerRadius(outerRadius: (d: T, i: number) => number): Radial<T>;
+
+                angle(): number | ((d: T, i: number) => number);
+                angle(angle: number): Radial<T>;
+                angle(angle: (d: T, i: number) => number): Radial<T>;
+
+                startAngle(): number | ((d: T, i: number) => number);
+                startAngle(startAngle: number): Radial<T>;
+                startAngle(startAngle: (d: T, i: number) => number): Radial<T>;
+
+                endAngle(): number | ((d: T, i: number) => number);
+                endAngle(endAngle: number): Radial<T>;
+                endAngle(endAngle: (d: T, i: number) => number): Radial<T>;
+
+                interpolate(): string | ((points: Array<[number, number]>) => string);
+                interpolate(interpolate: "linear"): Radial<T>;
+                interpolate(interpolate: "step"): Radial<T>;
+                interpolate(interpolate: "step-before"): Radial<T>;
+                interpolate(interpolate: "step-after"): Radial<T>;
+                interpolate(interpolate: "basis"): Radial<T>;
+                interpolate(interpolate: "basis-open"): Radial<T>;
+                interpolate(interpolate: "cardinal"): Radial<T>;
+                interpolate(interpolate: "cardinal-open"): Radial<T>;
+                interpolate(interpolate: "monotone"): Radial<T>;
+                interpolate(interpolate: string | ((points: Array<[number, number]>) => string)): Radial<T>;
+
+                tension(): number;
+                tension(tension: number): Radial<T>;
+
+                defined(): (d: T, i: number) => boolean;
+                defined(defined: (d: T, i: number) => boolean): Radial<T>;
+            }
+        }
+
+        export function arc(): Arc<arc.Arc>;
+        export function arc<T>(): Arc<T>;
+
+        module arc {
+            interface Arc {
+                innerRadius: number;
+                outerRadius: number;
+                startAngle: number;
+                endAngle: number;
+                padAngle: number
+            }
+        }
+
+        interface Arc<T> {
+            (d: T, i?: number): string;
+
+            innerRadius(): (d: T, i: number) => number;
+            innerRadius(radius: number): Arc<T>;
+            innerRadius(radius: (d: T, i: number) => number): Arc<T>;
+
+            outerRadius(): (d: T, i: number) => number;
+            outerRadius(radius: number): Arc<T>;
+            outerRadius(radius: (d: T, i: number) => number): Arc<T>;
+
+            cornerRadius(): (d: T, i: number) => number;
+            cornerRadius(radius: number): Arc<T>;
+            cornerRadius(radius: (d: T, i: number) => number): Arc<T>;
+
+            padRadius(): string | ((d: T, i: number) => number);
+            padRadius(radius: "auto"): Arc<T>;
+            padRadius(radius: string): Arc<T>;
+            padRadius(radius: (d: T, i: number) => number): Arc<T>;
+
+            startAngle(): (d: T, i: number) => number;
+            startAngle(angle: number): Arc<T>;
+            startAngle(angle: (d: T, i: number) => number): Arc<T>;
+
+            endAngle(): (d: T, i: number) => number;
+            endAngle(angle: number): Arc<T>;
+            endAngle(angle: (d: T, i: number) => number): Arc<T>;
+
+            padAngle(): (d: T, i: number) => number;
+            padAngle(angle: number): Arc<T>;
+            padAngle(angle: (d: T, i: number) => number): Arc<T>;
+
+            centroid(d: T, i?: number): [number, number];
+        }
+
+        export function symbol(): Symbol<{}>;
+        export function symbol<T>(): Symbol<T>;
+
+        interface Symbol<T> {
+            (d: T, i?: number): string;
+
+            type(): (d: T, i: number) => string;
+            type(type: string): Symbol<T>;
+            type(type: (d: T, i: number) => string): Symbol<T>;
+
+            size(): (d: T, i: string) => number;
+            size(size: number): Symbol<T>;
+            size(size: (d: T, i: number) => number): Symbol<T>;
+        }
+
+        export var symbolTypes: string[];
+
+        export function chord(): Chord<chord.Link<chord.Node>, chord.Node>;
+        export function chord<Node>(): Chord<chord.Link<Node>, Node>;
+        export function chord<Link, Node>(): Chord<Link, Node>;
+
+        module chord {
+            interface Link<Node> {
+                source: Node;
+                target: Node;
+            }
+
+            interface Node {
+                radius: number;
+                startAngle: number;
+                endAngle: number
+            }
+        }
+
+        interface Chord<Link, Node> {
+            (d: Link, i: number): string;
+
+            source(): (d: Link, i: number) => Node;
+            source(source: Node): Chord<Link, Node>;
+            source(source: (d: Link, i: number) => Node): Chord<Link, Node>;
+
+            target(): (d: Link, i: number) => Node;
+            target(target: Node): Chord<Link, Node>;
+            target(target: (d: Link, i: number) => Node): Chord<Link, Node>;
+
+            radius(): (d: Node, i: number) => number;
+            radius(radius: number): Chord<Link, Node>;
+            radius(radius: (d: Node, i: number) => number): Chord<Link, Node>;
+
+            startAngle(): (d: Node, i: number) => number;
+            startAngle(angle: number): Chord<Link, Node>;
+            startAngle(angle: (d: Node, i: number) => number): Chord<Link, Node>;
+
+            endAngle(): (d: Node, i: number) => number;
+            endAngle(angle: number): Chord<Link, Node>;
+            endAngle(angle: (d: Node, i: number) => number): Chord<Link, Node>;
+        }
+
+        export function diagonal(): Diagonal<diagonal.Link<diagonal.Node>, diagonal.Node>;
+        export function diagonal<Node>(): Diagonal<diagonal.Link<Node>, Node>;
+        export function diagonal<Link, Node>(): Diagonal<Link, Node>;
+
+        module diagonal {
+            interface Link<Node> {
+                source: Node;
+                target: Node;
+            }
+
+            interface Node {
+                x: number;
+                y: number;
+            }
+        }
+
+        interface Diagonal<Link, Node> {
+            (d: Link, i: number): string;
+
+            source(): (d: Link, i: number) => Node;
+            source(source: Node): Diagonal<Link, Node>;
+            source(source: (d: Link, i: number) => Node): Diagonal<Link, Node>;
+
+            target(): (d: Link, i: number) => Node;
+            target(target: Node): Diagonal<Link, Node>;
+            target(target: (d: Link, i: number) => Node): Diagonal<Link, Node>;
+
+            projection(): (d: Node, i: number) => [number, number];
+            projection(projection: (d: Node, i: number) => [number, number]): Diagonal<Link, Node>;
+        }
+
+        module diagonal {
+            export function radial(): Radial<Link<Node>, Node>;
+            export function radial<Node>(): Radial<Link<Node>, Node>;
+            export function radial<Link, Node>(): Radial<Link, Node>;
+
+            interface Radial<Link, Node> {
+                (d: Link, i: number): string;
+
+                source(): (d: Link, i: number) => Node;
+                source(source: Node): Radial<Link, Node>;
+                source(source: (d: Link, i: number) => Node): Radial<Link, Node>;
+
+                target(): (d: Link, i: number) => Node;
+                target(target: Node): Radial<Link, Node>;
+                target(target: (d: Link, i: number) => Node): Radial<Link, Node>;
+
+                projection(): (d: Node, i: number) => [number, number];
+                projection(projection: (d: Node, i: number) => [number, number]): Radial<Link, Node>;
+            }
+        }
+
+        export function axis(): Axis;
+
+        interface Axis {
+            (selection: Selection<any>): void;
+            (selection: Transition<any>): void;
+
+            scale(): any;
+            scale(scale: any): Axis;
+
+            orient(): string;
+            orient(orientation: string): Axis;
+
+            ticks(): any[];
+            ticks(...args: any[]): Axis;
+
+            tickValues(): any[];
+            tickValues(values: any[]): Axis;
+
+            tickSize(): number;
+            tickSize(size: number): Axis;
+            tickSize(inner: number, outer: number): Axis;
+
+            innerTickSize(): number;
+            innerTickSize(size: number): Axis;
+
+            outerTickSize(): number;
+            outerTickSize(size: number): Axis;
+
+            tickPadding(): number;
+            tickPadding(padding: number): Axis;
+
+            tickFormat(): (t: any) => string;
+            tickFormat(format: (t: any) => string): Axis;
+            tickFormat(format:string): Axis;
+        }
+
+        export function brush(): Brush<any>;
+        export function brush<T>(): Brush<T>;
+
+        module brush {
+            interface Scale {
+                domain(): number[];
+                domain(domain: number[]): Scale;
+
+                range(): number[];
+                range(range: number[]): Scale;
+
+                invert?(y: number): number;
+            }
+        }
+
+        interface Brush<T> {
+            (selection: Selection<T>): void;
+            (selection: Transition<T>): void;
+
+            event(selection: Selection<T>): void;
+            event(selection: Transition<T>): void;
+
+            x(): brush.Scale;
+            x(x: brush.Scale): Brush<T>;
+
+            y(): brush.Scale;
+            y(y: brush.Scale): Brush<T>;
+
+            extent(): [number, number] | [[number, number], [number, number]];
+            extent(extent: [number, number] | [[number, number], [number, number]]): Brush<T>;
+
+            clamp(): boolean | [boolean, boolean];
+            clamp(clamp: boolean | [boolean, boolean]): Brush<T>;
+
+            clear(): void;
+
+            empty(): boolean;
+
+            on(type: 'brushstart'): (datum: T, index: number) => void;
+            on(type: 'brush'): (datum: T, index: number) => void;
+            on(type: 'brushend'): (datum: T, index: number) => void;
+            on(type: string): (datum: T, index: number) => void;
+
+            on(type: 'brushstart', listener: (datum: T, index: number) => void): Brush<T>;
+            on(type: 'brush', listener: (datum: T, index: number) => void): Brush<T>;
+            on(type: 'brushend', listener: (datum: T, index: number) => void): Brush<T>;
+            on(type: string, listener: (datum: T, index: number) => void): Brush<T>;
+        }
+    }
+
+    export function xhr(url: string, mimeType?: string, callback?: (err: any, data: any) => void): Xhr;
+    export function xhr(url: string, callback: (err: any, data: any) => void): Xhr;
+
+    interface Xhr {
+        header(name: string): string;
+        header(name: string, value: string): Xhr;
+
+        mimeType(): string;
+        mimeType(type: string): Xhr;
+
+        responseType(): string;
+        responseType(type: string): Xhr;
+
+        response(): (request: XMLHttpRequest) => any;
+        response(value: (request: XMLHttpRequest) => any): Xhr;
+
+        get(callback?: (err: any, data: any) => void): Xhr;
+
+        post(data?: any, callback?: (err: any, data: any) => void): Xhr;
+        post(callback: (err: any, data: any) => void): Xhr;
+
+        send(method: string, data?: any, callback?: (err: any, data: any) => void): Xhr;
+        send(method: string, callback: (err: any, data: any) => void): Xhr;
+
+        abort(): Xhr;
+
+        on(type: "beforesend"): (request: XMLHttpRequest) => void;
+        on(type: "progress"): (request: XMLHttpRequest) => void;
+        on(type: "load"): (response: any) => void;
+        on(type: "error"): (err: any) => void;
+        on(type: string): (...args: any[]) => void;
+
+        on(type: "beforesend", listener: (request: XMLHttpRequest) => void): Xhr;
+        on(type: "progress", listener: (request: XMLHttpRequest) => void): Xhr;
+        on(type: "load", listener: (response: any) => void): Xhr;
+        on(type: "error", listener: (err: any) => void): Xhr;
+        on(type: string, listener: (...args: any[]) => void): Xhr;
+    }
+
+    export function text(url: string, mimeType?: string, callback?: (err: any, data: string) => void): Xhr;
+    export function text(url: string, callback: (err: any, data: string) => void): Xhr;
+
+    export function json(url: string, callback?: (err: any, data: any) => void): Xhr;
+
+    export function xml(url: string, mimeType?: string, callback?: (err: any, data: any) => void): Xhr;
+    export function xml(url: string, callback: (err: any, data: any) => void): Xhr;
+
+    export function html(url: string, callback?: (err: any, data: DocumentFragment) => void): Xhr;
+
+    export var csv: Dsv;
+    export var tsv: Dsv;
+    export function dsv(delimiter: string, mimeType: string): Dsv;
+
+    interface Dsv {
+        (url: string, callback: (rows: { [key: string]: string }[]) => void): DsvXhr<{ [key: string]: string }>;
+        (url: string, callback: (error: any, rows: { [key: string]: string }[]) => void): DsvXhr<{ [key: string]: string }>;
+        (url: string): DsvXhr<{ [key: string]: string }>;
+        <T>(url: string, accessor: (row: { [key: string]: string }) => T, callback: (rows: T[]) => void): DsvXhr<T>;
+        <T>(url: string, accessor: (row: { [key: string]: string }) => T, callback: (error: any, rows: T[]) => void): DsvXhr<T>;
+        <T>(url: string, accessor: (row: { [key: string]: string }) => T): DsvXhr<T>;
+
+        parse(string: string): { [key: string]: string }[];
+        parse<T>(string: string, accessor: (row: { [key: string]: string }, index: number) => T): T[];
+
+        parseRows(string: string): string[][];
+        parseRows<T>(string: string, accessor: (row: string[], index: number) => T): T[];
+
+        format(rows: Object[]): string;
+
+        formatRows(rows: string[][]): string;
+    }
+
+    interface DsvXhr<T> extends Xhr {
+        row(): (row: { [key: string]: string }) => T;
+        row<U>(accessor: (row: { [key: string]: string }) => U): DsvXhr<U>;
+
+        header(name: string): string;
+        header(name: string, value: string): DsvXhr<T>;
+
+        mimeType(): string;
+        mimeType(type: string): DsvXhr<T>;
+
+        responseType(): string;
+        responseType(type: string): DsvXhr<T>;
+
+        response(): (request: XMLHttpRequest) => any;
+        response(value: (request: XMLHttpRequest) => any): DsvXhr<T>;
+
+        get(callback?: (err: any, data: T) => void): DsvXhr<T>;
+        post(data?: any, callback?: (err: any, data: T) => void): DsvXhr<T>;
+        post(callback: (err: any, data: T) => void): DsvXhr<T>;
+
+        send(method: string, data?: any, callback?: (err: any, data: T) => void): DsvXhr<T>;
+        send(method: string, callback: (err: any, data: T) => void): DsvXhr<T>;
+
+        abort(): DsvXhr<T>;
+
+        on(type: "beforesend"): (request: XMLHttpRequest) => void;
+        on(type: "progress"): (request: XMLHttpRequest) => void;
+        on(type: "load"): (response: T) => void;
+        on(type: "error"): (err: any) => void;
+        on(type: string): (...args: any[]) => void;
+
+        on(type: "beforesend", listener: (request: XMLHttpRequest) => void): DsvXhr<T>;
+        on(type: "progress", listener: (request: XMLHttpRequest) => void): DsvXhr<T>;
+        on(type: "load", listener: (response: T) => void): DsvXhr<T>;
+        on(type: "error", listener: (err: any) => void): DsvXhr<T>;
+        on(type: string, listener: (...args: any[]) => void): DsvXhr<T>;
+    }
+
+    export function locale(definition: LocaleDefinition): Locale;
+
+    interface LocaleDefinition {
+        decimal: string;
+        thousands: string;
+        grouping: number[];
+        currency: [string, string];
+        dateTime: string;
+        date: string;
+        time: string;
+        periods: [string, string];
+        days: [string, string, string, string, string, string, string];
+        shortDays: [string, string, string, string, string, string, string];
+        months: [string, string, string, string, string, string, string, string, string, string, string, string];
+        shortMonths: [string, string, string, string, string, string, string, string, string, string, string, string];
+    }
+
+    interface Locale {
+        numberFormat(specifier: string): (n: number) => string;
+        timeFormat: {
+            (specifier: string): time.Format;
+            utc(specifier: string): time.Format;
+            multi(formats: Array<[string, (d: Date) => boolean|number]>): time.Format;
+        }
+    }
+
+    module layout {
+        export function bundle(): Bundle<bundle.Node>;
+        export function bundle<T extends bundle.Node>(): Bundle<T>
+
+        module bundle {
+            interface Node {
+                parent: Node;
+            }
+
+            interface Link<T extends Node> {
+                source: T;
+                target: T;
+            }
+        }
+
+        interface Bundle<T extends bundle.Node> {
+            (links: bundle.Link<T>[]): T[][];
+        }
+
+        export function chord(): Chord;
+
+        module chord {
+            interface Link {
+                source: Node;
+                target: Node;
+            }
+
+            interface Node {
+                index: number;
+                subindex: number;
+                startAngle: number;
+                endAngle: number;
+                value: number;
+            }
+
+            interface Group {
+                index: number;
+                startAngle: number;
+                endAngle: number;
+                value: number;
+            }
+        }
+
+        interface Chord {
+            matrix(): number[][];
+            matrix(matrix: number[][]): Chord;
+
+            padding(): number;
+            padding(padding: number): Chord;
+
+            sortGroups(): (a: number, b: number) => number;
+            sortGroups(comparator: (a: number, b: number) => number): Chord;
+
+            sortSubgroups(): (a: number, b: number) => number;
+            sortSubgroups(comparator: (a: number, b: number) => number): Chord;
+
+            sortChords(): (a: number, b: number) => number;
+            sortChords(comparator: (a: number, b: number) => number): Chord;
+
+            chords(): chord.Link[];
+            groups(): chord.Group[];
+        }
+
+        export function cluster(): Cluster<cluster.Result>;
+        export function cluster<T extends cluster.Result>(): Cluster<T>;
+
+        module cluster {
+            interface Result {
+                parent?: Result;
+                children?: Result[];
+                depth?: number;
+                x?: number;
+                y?: number;
+            }
+
+            interface Link<T extends Result> {
+                source: T;
+                target: T;
+            }
+        }
+
+        interface Cluster<T extends cluster.Result> {
+            (root: T): T[];
+
+            nodes(root: T): T[];
+
+            links(nodes: T[]): cluster.Link<T>[];
+
+            children(): (node: T) => T[];
+            children(accessor: (node: T) => T[]): Cluster<T>;
+
+            sort(): (a: T, b: T) => number;
+            sort(comparator: (a: T, b: T) => number): Cluster<T>;
+
+            separation(): (a: T, b: T) => number;
+            separation(separation: (a: T, b: T) => number): Cluster<T>;
+
+            size(): [number, number];
+            size(size: [number, number]): Cluster<T>;
+
+            nodeSize(): [number, number];
+            nodeSize(nodeSize: [number, number]): Cluster<T>;
+
+            value(): (a: T) => number;
+            value(value: (a: T) => number): Cluster<T>;
+        }
+
+        export function force(): Force<force.Link<force.Node>, force.Node>;
+        export function force<Node extends force.Node>(): Force<force.Link<Node>, Node>;
+        export function force<Link extends force.Link<force.Node>, Node extends force.Node>(): Force<Link, Node>;
+
+        module force {
+            interface Link<T extends Node> {
+                source: T;
+                target: T;
+            }
+
+            interface Node {
+                index?: number;
+                x?: number;
+                y?: number;
+                px?: number;
+                py?: number;
+                fixed?: boolean;
+                weight?: number;
+            }
+
+            interface Event {
+                type: string;
+                alpha: number;
+            }
+        }
+
+        interface Force<Link extends force.Link<force.Node>, Node extends force.Node> {
+            size(): [number, number];
+            size(size: [number, number]): Force<Link, Node>;
+
+            linkDistance(): number | ((link: Link, index: number) => number);
+            linkDistance(distance: number): Force<Link, Node>;
+            linkDistance(distance: (link: Link, index: number) => number): Force<Link, Node>;
+
+            linkStrength(): number | ((link: Link, index: number) => number);
+            linkStrength(strength: number): Force<Link, Node>;
+            linkStrength(strength: (link: Link, index: number) => number): Force<Link, Node>;
+
+            friction(): number;
+            friction(friction: number): Force<Link, Node>;
+
+            charge(): number | ((node: Node, index: number) => number);
+            charge(charge: number): Force<Link, Node>;
+            charge(charge: (node: Node, index: number) => number): Force<Link, Node>;
+
+            chargeDistance(): number;
+            chargeDistance(distance: number): Force<Link, Node>;
+
+            theta(): number;
+            theta(theta: number): Force<Link, Node>;
+
+            gravity(): number;
+            gravity(gravity: number): Force<Link, Node>;
+
+            nodes(): Node[];
+            nodes(nodes: Node[]): Force<Link, Node>;
+
+            links(): Link[];
+            links(links: { source: number; target: number }[]): Force<Link, Node>;
+            links(links: Link[]): Force<Link, Node>;
+
+            start(): Force<Link, Node>;
+
+            alpha(): number;
+            alpha(value: number): Force<Link, Node>;
+
+            resume(): Force<Link, Node>;
+
+            stop(): Force<Link, Node>;
+
+            on(type: string): (event: force.Event) => void;
+            on(type: string, listener: (event: force.Event) => void): Force<Link, Node>;
+
+            drag(): behavior.Drag<Node>;
+            drag(selection: Selection<Node>): void;
+        }
+
+        export function hierarchy(): Hierarchy<hierarchy.Result>;
+        export function hierarchy<T extends hierarchy.Result>(): Hierarchy<T>;
+
+        module hierarchy {
+            interface Result {
+                parent?: Result;
+                children?: Result[];
+                value?: number;
+                depth?: number;
+            }
+        }
+
+        interface Hierarchy<T extends hierarchy.Result> {
+            (root: T): T[];
+
+            children(): (node: T) => T[];
+            children(accessor: (node: T) => T[]): Hierarchy<T>;
+
+            sort(): (a: T, b: T) => number;
+            sort(comparator: (a: T, b: T) => number): Hierarchy<T>;
+
+            value(): (node: T) => number;
+            value(accessor: (node: T) => number): Hierarchy<T>;
+
+            revalue(root: T): T[];
+        }
+
+        export function histogram(): Histogram<number>;
+        export function histogram<T>(): Histogram<T>;
+
+        module histogram {
+            interface Bin<T> extends Array<T> {
+                x: number;
+                dx: number;
+                y: number;
+            }
+        }
+
+        interface Histogram<T> {
+            (values: T[], index?: number): histogram.Bin<T>[];
+
+            value(): (datum: T, index: number) => number;
+            value(value: (datum: T, index: number) => number): Histogram<T>;
+
+            range(): (values: T[], index: number) => [number, number];
+            range(range: (values: T[], index: number) => [number, number]): Histogram<T>;
+
+            bins(): (range: [number, number], values: T[], index: number) => number[];
+            bins(count: number): Histogram<T>;
+            bins(thresholds: number[]): Histogram<T>;
+            bins(func: (range: [number, number], values: T[], index: number) => number[]): Histogram<T>;
+
+            frequency(): boolean;
+            frequency(frequency: boolean): Histogram<T>;
+        }
+
+        export function pack(): Pack<pack.Node>;
+        export function pack<T extends pack.Node>(): Pack<T>;
+
+        module pack {
+            interface Node {
+                parent?: Node;
+                children?: Node[];
+                value?: number;
+                depth?: number;
+                x?: number;
+                y?: number;
+                r?: number;
+            }
+
+            interface Link<T extends Node> {
+                source: Node;
+                target: Node;
+            }
+        }
+
+        interface Pack<T extends pack.Node> {
+            (root: T): T[];
+
+            nodes(root: T): T[];
+
+            links(nodes: T[]): pack.Link<T>[];
+
+            children(): (node: T, depth: number) => T[];
+            children(children: (node: T, depth: number) => T[]): Pack<T>;
+
+            sort(): (a: T, b: T) => number;
+            sort(comparator: (a: T, b: T) => number): Pack<T>;
+
+            value(): (node: T) => number;
+            value(value: (node: T) => number): Pack<T>;
+
+            size(): [number, number];
+            size(size: [number, number]): Pack<T>;
+
+            radius(): number | ((node: T) => number);
+            radius(radius: number): Pack<T>;
+            radius(radius: (node: T) => number): Pack<T>;
+
+            padding(): number;
+            padding(padding: number): Pack<T>;
+        }
+
+        export function pie(): Pie<number>;
+        export function pie<T>(): Pie<T>;
+
+        module pie {
+            interface Arc<T> {
+                value: number;
+                startAngle: number;
+                endAngle: number;
+                padAngle: number;
+                data: T;
+            }
+        }
+
+        interface Pie<T> {
+            (data: T[], index?: number): pie.Arc<T>[];
+
+            value(): (datum: T, index: number) => number;
+            value(accessor: (datum: T, index: number) => number): Pie<T>;
+
+            sort(): (a: T, b: T) => number;
+            sort(comparator: (a: T, b: T) => number): Pie<T>;
+
+            startAngle(): number | ((data: T[], index: number) => number);
+            startAngle(angle: number): Pie<T>;
+            startAngle(angle: (data: T[], index: number) => number): Pie<T>;
+
+            endAngle(): number | ((data: T[], index: number) => number);
+            endAngle(angle: number): Pie<T>;
+            endAngle(angle: (data: T[], index: number) => number): Pie<T>;
+
+            padAngle(): number | ((data: T[], index: number) => number);
+            padAngle(angle: number): Pie<T>;
+            padAngle(angle: (data: T[], index: number) => number): Pie<T>;
+        }
+
+        export function stack(): Stack<stack.Value[], stack.Value>;
+        export function stack<Value>(): Stack<Value[], Value>;
+        export function stack<Series, Value>(): Stack<Series, Value>;
+        module stack {
+            interface Value {
+                x: number;
+                y: number;
+                y0?: number;
+            }
+        }
+
+        interface Stack<Series, Value> {
+            (layers: Series[], index?: number): Series[];
+
+            values(): (layer: Series, index: number) => Value[];
+            values(accessor: (layer: Series, index: number) => Value[]): Stack<Series, Value>;
+
+            offset(): (data: Array<[number, number]>) => number[];
+            offset(offset: "silhouette"): Stack<Series, Value>;
+            offset(offset: "wiggle"): Stack<Series, Value>;
+            offset(offset: "expand"): Stack<Series, Value>;
+            offset(offset: "zero"): Stack<Series, Value>;
+            offset(offset: string): Stack<Series, Value>;
+            offset(offset: (data: Array<[number, number]>) => number[]): Stack<Series, Value>;
+
+            order(): (data: Array<[number, number]>) => number[];
+            order(order: "inside-out"): Stack<Series, Value>;
+            order(order: "reverse"): Stack<Series, Value>;
+            order(order: "default"): Stack<Series, Value>;
+            order(order: string): Stack<Series, Value>;
+            order(order: (data: Array<[number, number]>) => number[]): Stack<Series, Value>;
+
+            x(): (value: Value, index: number) => number;
+            x(accessor: (value: Value, index: number) => number): Stack<Series, Value>;
+
+            y(): (value: Value, index: number) => number;
+            y(accesor: (value: Value, index: number) => number): Stack<Series, Value>;
+
+            out(): (value: Value, y0: number, y: number) => void;
+            out(setter: (value: Value, y0: number, y: number) => void): Stack<Series, Value>;
+        }
+
+        export function tree(): Tree<tree.Node>;
+        export function tree<T extends tree.Node>(): Tree<T>;
+
+        module tree {
+            interface Link<T extends Node> {
+                source: T;
+                target: T;
+            }
+
+            interface Node {
+                parent?: Node;
+                children?: Node[];
+                depth?: number;
+                x?: number;
+                y?: number;
+            }
+        }
+
+        interface Tree<T> {
+            (root: T, index?: number): T[];
+
+            nodes(root: T, index?: number): T[];
+
+            links(nodes: T[]): tree.Link<T>[];
+
+            children(): (datum: T, index: number) => T[];
+            children(children: (datum: T, index: number) => T[]): Tree<T>;
+
+            separation(): (a: T, b: T) => number;
+            separation(separation: (a: T, b: T) => number): Tree<T>;
+
+            size(): [number, number];
+            size(size: [number, number]): Tree<T>;
+
+            nodeSize(): [number, number];
+            nodeSize(size: [number, number]): Tree<T>;
+
+            sort(): (a: T, b: T) => number;
+            sort(comparator: (a: T, b: T) => number): Tree<T>;
+
+            value(): (datum: T, index: number) => number;
+            value(value: (datum: T, index: number) => number): Tree<T>;
+        }
+
+        export function treemap(): Treemap<treemap.Node>;
+        export function treemap<T extends treemap.Node>(): Treemap<T>;
+
+        module treemap {
+            interface Node {
+                parent?: Node;
+                children?: Node[];
+                value?: number;
+                depth?: number;
+                x?: number;
+                y?: number;
+                dx?: number;
+                dy?: number;
+            }
+
+            interface Link<T extends Node> {
+                source: T;
+                target: T;
+            }
+
+            type Padding = number | [number, number, number, number];
+        }
+
+        interface Treemap<T extends treemap.Node> {
+            (root: T, index?: number): T[];
+
+            nodes(root: T, index?: number): T[];
+
+            links(nodes: T[]): treemap.Link<T>[];
+
+            children(): (node: T, depth: number) => T[];
+            children(children: (node: T, depth: number) => T[]): Treemap<T>;
+
+            sort(): (a: T, b: T) => number;
+            sort(comparator: (a: T, b: T) => number): Treemap<T>;
+
+            value(): (node: T, index: number) => number;
+            value(value: (node: T, index: number) => number): Treemap<T>;
+
+            size(): [number, number];
+            size(size: [number, number]): Treemap<T>;
+
+            padding(): (node: T, depth: number) => treemap.Padding;
+            padding(padding: treemap.Padding): Treemap<T>;
+            padding(padding: (node: T, depth: number) => treemap.Padding): Treemap<T>;
+
+            round(): boolean;
+            round(round: boolean): Treemap<T>;
+
+            sticky(): boolean;
+            sticky(sticky: boolean): boolean;
+
+            mode(): string;
+            mode(mode: "squarify"): Treemap<T>;
+            mode(mode: "slice"): Treemap<T>;
+            mode(mode: "dice"): Treemap<T>;
+            mode(mode: "slice-dice"): Treemap<T>;
+            mode(mode: string): Treemap<T>;
+
+            ratio(): number;
+            ratio(ratio: number): Treemap<T>;
+        }
+    }
+
+    module geom {
+        export function voronoi(): Voronoi<[number, number]>;
+        export function voronoi<T>(): Voronoi<T>;
+
+        module voronoi {
+            interface Link<T> {
+                source: T;
+                target: T;
+            }
+        }
+
+        interface Voronoi<T> {
+            (data: T[]): Array<[number, number]>;
+
+            x(): (vertex: T) => number;
+            x(x: (vertex: T) => number): Voronoi<T>;
+
+            y(): (vertex: T) => number;
+            y(y: (vertex: T) => number): Voronoi<T>;
+
+            clipExtent(): [[number, number], [number, number]];
+            clipExtent(extent: [[number, number], [number, number]]): Voronoi<T>;
+
+            links(data: T[]): voronoi.Link<T>[];
+
+            triangles(data: T[]): Array<[T, T, T]>;
+        }
+
+        /**
+         * @deprecated use d3.geom.voronoi().triangles() instead
+         */
+        export function delaunay(vertices: Array<[number, number]>): Array<[[number, number], [number, number], [number, number]]>;
+
+        export function quadtree(): Quadtree<[number, number]>;
+        export function quadtree<T>(): Quadtree<T>;
+
+        module quadtree {
+            interface Node<T> {
+                nodes: [Node<T>, Node<T>, Node<T>, Node<T>];
+                leaf: boolean;
+                point: T;
+                x: number;
+                y: number;
+            }
+
+            interface Quadtree<T> extends Node<T> {
+                add(point: T): void;
+                visit(callback: (node: Node<T>, x1: number, y1: number, x2: number, y2: number) => boolean | void): void;
+                find(point: [number, number]): T;
+            }
+        }
+
+        interface Quadtree<T> {
+            (points: T[]): quadtree.Quadtree<T>;
+
+            x(): (datum: T, index: number) => number;
+            x(x: number): Quadtree<T>;
+            x(x: (datum: T, index: number) => number): Quadtree<T>;
+
+            y(): (datum: T, index: number) => number;
+            y(y: number): Quadtree<T>;
+            y(y: (datum: T, index: number) => number): Quadtree<T>;
+
+            extent(): [[number, number], [number, number]];
+            extent(extent: [[number, number], [number, number]]): Quadtree<T>;
+        }
+
+        export function hull(vertices: Array<[number, number]>): Array<[number, number]>;
+        export function hull(): Hull<[number, number]>;
+        export function hull<T>(): Hull<T>;
+
+        interface Hull<T> {
+            (vertices: T[]): Array<[number, number]>;
+
+            x(): (datum: T) => number;
+            x(x: (datum: T) => number): Hull<T>;
+
+            y(): (datum: T) => number;
+            y(y: (datum: T) => number): Hull<T>;
+        }
+
+        export function polygon(vertices: Array<[number, number]>): Polygon;
+
+        interface Polygon {
             area(): number;
-            /**
-            * Returns a two-element array representing the centroid of this polygon.
-            */
-            centroid(): number[];
-            /**
-            * Clips the subject polygon against this polygon
-            */
-            clip(subject: Polygon): Polygon;
-        }
 
-        export interface QuadtreeFactory {
-            /**
-            * Constructs a new quadtree for the specified array of points.
-            */
-            (): Quadtree;
-            /**
-            * Constructs a new quadtree for the specified array of points.
-            */
-            (points: Point[], x1: number, y1: number, x2: number, y2: number): Quadtree;
-            /**
-            * Constructs a new quadtree for the specified array of points.
-            */
-            (points: Point[], width: number, height: number): Quadtree;
+            centroid(): [number, number];
 
-            x: {
-                (): (d: any) => any;
-                (accesor: (d: any) => any): QuadtreeFactory;
-
-            }
-            y: {
-                (): (d: any) => any;
-                (accesor: (d: any) => any): QuadtreeFactory;
-
-            }
-            size(): number[];
-            size(size: number[]): QuadtreeFactory;
-            extent(): number[][];
-            extent(points: number[][]): QuadtreeFactory;
-        }
-
-        export interface Quadtree {
-            /**
-            * Adds a new point to the quadtree.
-            */
-            add(point: Point): void;
-            visit(callback: any): void;
-        }
-
-        export interface Point {
-            x: number;
-            y: number;
-        }
-
-        export interface Voronoi<T> {
-            /**
-            * Compute the Voronoi diagram for the specified data.
-            */
-            (data: T[]): Polygon[];
-            /**
-            * Compute the graph links for the Voronoi diagram for the specified data.
-            */
-            links(data: T[]): Layout.GraphLink[];
-            /**
-            * Compute the triangles for the Voronoi diagram for the specified data.
-            */
-            triangles(data: T[]): number[][];
-            x: {
-                /**
-                * Get the x-coordinate accessor.
-                */
-                (): (data: T, index ?: number) => number;
-
-                /**
-                * Set the x-coordinate accessor.
-                *
-                * @param accessor The new accessor function
-                */
-                (accessor: (data: T, index: number) => number): Voronoi<T>;
-
-                /**
-                * Set the x-coordinate to a constant.
-                *
-                * @param constant The new constant value.
-                */
-                (constant: number): Voronoi<T>;
-            }
-            y: {
-                /**
-                * Get the y-coordinate accessor.
-                */
-                (): (data: T, index ?: number) => number;
-
-                /**
-                * Set the y-coordinate accessor.
-                *
-                * @param accessor The new accessor function
-                */
-                (accessor: (data: T, index: number) => number): Voronoi<T>;
-
-                /**
-                * Set the y-coordinate to a constant.
-                *
-                * @param constant The new constant value.
-                */
-                (constant: number): Voronoi<T>;
-            }
-            clipExtent: {
-                /**
-                * Get the clip extent.
-                */
-                (): number[][];
-                /**
-                * Set the clip extent.
-                *
-                * @param extent The new clip extent.
-                */
-                (extent: number[][]): Voronoi<T>;
-            }
-            size: {
-                /**
-                * Get the size.
-                */
-                (): number[];
-                /**
-                * Set the size, equivalent to a clip extent starting from (0,0).
-                *
-                * @param size The new size.
-                */
-                (size: number[]): Voronoi<T>;
-            }
-        }
-
-        export interface Hull {
-            (vertices: Vertice[]): Vertice[];
-            x: {
-                (): (d: any) => any;
-                (accesor: (d: any) => any): any;
-            }
-            y: {
-                (): (d: any) => any;
-                (accesor: (d: any) => any): any;
-            }
+            clip(subject: Array<[number, number]>): Array<[number, number]>;
         }
     }
 }
 
-declare var d3: D3.Base;
+// we need this to exist
+interface TouchList { }
 
-declare module "d3" {
+declare module 'd3' {
     export = d3;
 }

@@ -161,7 +161,7 @@ function test_dom_element() {
 }
 
 function test_dom_event() {
-    var event = new CKEDITOR.dom.event(new Event());
+    var event = new CKEDITOR.dom.event(new Event(""));
     alert(event.getKey());
     alert(event.getKeystroke() == 65);
     alert(event.getKeystroke() == CKEDITOR.CTRL + 65);
@@ -282,7 +282,6 @@ function test_adding_dialog_by_definition() {
 
 function test_adding_plugin() {
     CKEDITOR.plugins.add( 'abbr', {
-        icons: 'abbr',
         init: function( editor: CKEDITOR.editor ) {
             // empty logic
         }

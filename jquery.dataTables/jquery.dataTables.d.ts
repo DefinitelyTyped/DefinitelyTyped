@@ -1617,20 +1617,21 @@ declare module DataTables {
 
     //#region "language-settings"
 
+	// these are all optional
     interface LanguageSettings {
-        emptyTable: string;
-        info: string;
-        infoEmpty: string;
-        infoFiltered: string;
-        infoPostFix: string;
-        thousands: string;
-        lengthMenu: string;
-        loadingRecords: string;
-        processing: string;
-        search: string;
-        zeroRecords: string;
-        paginate: LanguagePaginateSettings;
-        aria: LanguageAriaSettings;
+        emptyTable?: string;
+        info?: string;
+        infoEmpty?: string;
+        infoFiltered?: string;
+        infoPostFix?: string;
+        thousands?: string;
+        lengthMenu?: string;
+        loadingRecords?: string;
+        processing?: string;
+        search?: string;
+        zeroRecords?: string;
+        paginate?: LanguagePaginateSettings;
+        aria?: LanguageAriaSettings;
     }
 
     interface LanguagePaginateSettings {

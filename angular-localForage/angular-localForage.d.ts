@@ -22,8 +22,8 @@ declare module angular.localForage {
     }
 
     interface ILocalForageService {
-        setDriver(driver:string):angular.IPromise<void>;
-        driver<T>():lf.ILocalForage<T>;
+        driver(): LocalForageDriver;
+        setDriver(name: string | string[]): angular.IPromise<void>;
 
         setItem(key:string, value:any):angular.IPromise<void>;
         setItem(keys:Array<string>, values:Array<any>):angular.IPromise<void>;
@@ -46,14 +46,14 @@ declare module angular.localForage {
 
         iterate<T>(iteratorCallback:(value:string | number, key:string)=>T):angular.IPromise<T>;
 
-        bind($scope:ng.IScope, key:string):void;
+        bind($scope:ng.IScope, key:string):angular.IPromise<any>;
 
         bind($scope:ng.IScope, config:{
             key:string;
-            defaultValue:any;
-            scopeKey:string;
-            name:string;
-        }):void;
+            defaultValue?:any;
+            scopeKey?:string;
+            name?:string;
+        }):angular.IPromise<any>;
 
         unbind($scope:ng.IScope, key:string, scopeKey?:string):void;
 

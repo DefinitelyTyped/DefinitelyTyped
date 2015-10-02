@@ -1,8 +1,7 @@
 /// <reference path="angular2.d.ts"/>
+/// <reference path="router.d.ts"/>
 
-// Use Typescript 1.4 style imports
-import ng = require("angular2/angular2");
-import di = require("angular2/di");
+import {Component, View, Directive, bootstrap, bind, NgFor, NgIf} from "angular2/angular2";
 
 class Service {
 	
@@ -15,14 +14,30 @@ class Cmp {
 	static annotations: any[];
 }
 Cmp.annotations = [
-  ng.Component({
+  Component({
     selector: 'cmp',
-    injectables: [Service, di.bind(Service2).toValue(null)]
+    bindings: [Service, bind(Service2).toValue(null)]
   }),
-  ng.View({
+  View({
     template: '{{greeting}} world!',
-    directives: [ng.For, ng.If]
+    directives: [NgFor, NgIf]
+  }),
+  Directive({
+    selector: '[tooltip]',
+    properties: [
+      'text: tooltip'
+    ],
+    host: {
+      '(onmouseenter)': 'onMouseEnter()',
+      '(onmouseleave)': 'onMouseLeave()'
+    }
   })
 ];
 
-ng.bootstrap(Cmp);
+@Component({selector: 'cmp2'})
+@View({templateUrl: '/index.html'})
+class Cmp2 {
+  
+}
+
+bootstrap(Cmp);

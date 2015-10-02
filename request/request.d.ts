@@ -12,43 +12,44 @@ declare module 'request' {
 	import stream = require('stream');
 	import http = require('http');
 	import FormData = require('form-data');
+	import url = require('url');
 
 	export = RequestAPI;
 
-	function RequestAPI(uri: string, options?: RequestAPI.Options, callback?: (error: any, response: any, body: any) => void): RequestAPI.Request;
-	function RequestAPI(uri: string, callback?: (error: any, response: any, body: any) => void): RequestAPI.Request;
-	function RequestAPI(options: RequestAPI.Options, callback?: (error: any, response: any, body: any) => void): RequestAPI.Request;
+	function RequestAPI(uri: string, options?: RequestAPI.Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): RequestAPI.Request;
+	function RequestAPI(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): RequestAPI.Request;
+	function RequestAPI(options: RequestAPI.Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): RequestAPI.Request;
 
 	module RequestAPI {
 		export function defaults(options: Options): typeof RequestAPI;
 
-		export function request(uri: string, options?: Options, callback?: (error: any, response: any, body: any) => void): Request;
-		export function request(uri: string, callback?: (error: any, response: any, body: any) => void): Request;
-		export function request(options?: Options, callback?: (error: any, response: any, body: any) => void): Request;
+		export function request(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+		export function request(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+		export function request(options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
 
-		export function get(uri: string, options?: Options, callback?: (error: any, response: any, body: any) => void): Request;
-		export function get(uri: string, callback?: (error: any, response: any, body: any) => void): Request;
-		export function get(options: Options, callback?: (error: any, response: any, body: any) => void): Request;
+		export function get(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+		export function get(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+		export function get(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
 
-		export function post(uri: string, options?: Options, callback?: (error: any, response: any, body: any) => void): Request;
-		export function post(uri: string, callback?: (error: any, response: any, body: any) => void): Request;
-		export function post(options: Options, callback?: (error: any, response: any, body: any) => void): Request;
+		export function post(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+		export function post(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+		export function post(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
 
-		export function put(uri: string, options?: Options, callback?: (error: any, response: any, body: any) => void): Request;
-		export function put(uri: string, callback?: (error: any, response: any, body: any) => void): Request;
-		export function put(options: Options, callback?: (error: any, response: any, body: any) => void): Request;
+		export function put(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+		export function put(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+		export function put(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
 
-		export function head(uri: string, options?: Options, callback?: (error: any, response: any, body: any) => void): Request;
-		export function head(uri: string, callback?: (error: any, response: any, body: any) => void): Request;
-		export function head(options: Options, callback?: (error: any, response: any, body: any) => void): Request;
+		export function head(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+		export function head(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+		export function head(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
 
-		export function patch(uri: string, options?: Options, callback?: (error: any, response: any, body: any) => void): Request;
-		export function patch(uri: string, callback?: (error: any, response: any, body: any) => void): Request;
-		export function patch(options: Options, callback?: (error: any, response: any, body: any) => void): Request;
+		export function patch(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+		export function patch(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+		export function patch(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
 
-		export function del(uri: string, options?: Options, callback?: (error: any, response: any, body: any) => void): Request;
-		export function del(uri: string, callback?: (error: any, response: any, body: any) => void): Request;
-		export function del(options: Options, callback?: (error: any, response: any, body: any) => void): Request;
+		export function del(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+		export function del(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+		export function del(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
 
 		export function forever(agentOptions: any, optionsArg: any): Request;
 		export function jar(): CookieJar;
@@ -59,13 +60,15 @@ declare module 'request' {
 		export interface Options {
 			url?: string;
 			uri?: string;
-			callback?: (error: any, response: any, body: any) => void;
+			callback?: (error: any, response: http.IncomingMessage, body: any) => void;
 			jar?: any; // CookieJar
+			formData?: any; // Object
 			form?: any; // Object or string
+			auth?: AuthOptions;
 			oauth?: OAuthOptions;
 			aws?: AWSOptions;
 			hawk ?: HawkOptions;
-			qs?: Object;
+			qs?: any;
 			json?: any;
 			multipart?: RequestPart[];
 			agentOptions?: any;
@@ -84,6 +87,7 @@ declare module 'request' {
 			timeout?: number;
 			proxy?: any;
 			strictSSL?: boolean;
+			gzip?: boolean;
 		}
 
 		export interface RequestPart {
@@ -107,6 +111,7 @@ declare module 'request' {
 			multipart(multipart: RequestPart[]): Request;
 			json(val: any): Request;
 			aws(opts: AWSOptions, now?: boolean): Request;
+			auth(username: string, password: string, sendInmediately?: boolean, bearer?: string): Request;
 			oauth(oauth: OAuthOptions): Request;
 			jar(jar: CookieJar): Request;
 
@@ -137,6 +142,7 @@ declare module 'request' {
 			pass?: string;
 			password?: string;
 			sendImmediately?: boolean;
+			bearer?: string;
 		}
 
 		export interface OAuthOptions {
@@ -158,9 +164,9 @@ declare module 'request' {
 		}
 
 		export interface CookieJar {
-			add(cookie: Cookie): void;
-			get(req: Request): Cookie;
-			cookieString(req: Request): string;
+			setCookie(cookie: Cookie, uri: string|url.Url, options?: any): void
+			getCookieString(uri: string|url.Url): string
+			getCookies(uri: string|url.Url): Cookie[]
 		}
 
 		export interface CookieValue {
