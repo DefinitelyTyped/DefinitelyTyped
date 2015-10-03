@@ -279,3 +279,22 @@ let person10 = new Person10(); //=> Warning!
 let otherPerson = new OtherPerson();
 otherPerson.fn(); //=> Don't use fn!
 
+
+//
+// https://github.com/steelsojka/lodash-decorators/tree/master/src/extensions
+//
+
+import { Writable, ReturnsArg } from 'lodash-decorators/extensions';
+
+class Person11 {
+    constructor() {}
+
+    @Writable(false)
+    getName() {}
+
+    @ReturnsArg(1)
+    doSomething(x: any, y: any, z: any) {
+        // Do something here
+    }
+}
+
