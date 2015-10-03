@@ -650,6 +650,54 @@ result = <number[]>_([1, 2]).zipWith<number>([1, 2], [1, 2], [1, 2], [1, 2], [1,
  * Collection *
  **************/
 
+// _.all
+module TestAll {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
+
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean;
+
+    let result: boolean;
+
+    result = _.all<TResult>(array);
+    result = _.all<TResult>(array, listIterator);
+    result = _.all<TResult>(array, listIterator, any);
+    result = _.all<TResult>(array, '');
+    result = _.all<{a: number}, TResult>(array, {a: 42});
+
+    result = _.all<TResult>(list);
+    result = _.all<TResult>(list, listIterator);
+    result = _.all<TResult>(list, listIterator, any);
+    result = _.all<TResult>(list, '');
+    result = _.all<{a: number}, TResult>(list, {a: 42});
+
+    result = _.all<TResult>(dictionary);
+    result = _.all<TResult>(dictionary, dictionaryIterator);
+    result = _.all<TResult>(dictionary, dictionaryIterator, any);
+    result = _.all<TResult>(dictionary, '');
+    result = _.all<{a: number}, TResult>(dictionary, {a: 42});
+
+    result = _(array).all();
+    result = _(array).all(listIterator);
+    result = _(array).all(listIterator, any);
+    result = _(array).all('');
+    result = _(array).all<{a: number}>({a: 42});
+
+    result = _(list).all<TResult>();
+    result = _(list).all<TResult>(listIterator);
+    result = _(list).all<TResult>(listIterator, any);
+    result = _(list).all('');
+    result = _(list).all<{a: number}>({a: 42});
+
+    result = _(dictionary).all<TResult>();
+    result = _(dictionary).all<TResult>(dictionaryIterator);
+    result = _(dictionary).all<TResult>(dictionaryIterator, any);
+    result = _(dictionary).all('');
+    result = _(dictionary).all<{a: number}>({a: 42});
+}
+
 // _.at
 {
     let testAtArray: TResult[];
@@ -747,13 +795,53 @@ result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy
 result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy(function (num) { return this.floor(num); }, Math);
 result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_(['one', 'two', 'three']).countBy('length');
 
-result = <boolean>_.every([true, 1, null, 'yes'], Boolean);
-result = <boolean>_.every(stoogesAges, 'age');
-result = <boolean>_.every(stoogesAges, { 'age': 50 });
+// _.every
+module TestEvery {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
 
-result = <boolean>_.all([true, 1, null, 'yes'], Boolean);
-result = <boolean>_.all(stoogesAges, 'age');
-result = <boolean>_.all(stoogesAges, { 'age': 50 });
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean;
+
+    let result: boolean;
+
+    result = _.every<TResult>(array);
+    result = _.every<TResult>(array, listIterator);
+    result = _.every<TResult>(array, listIterator, any);
+    result = _.every<TResult>(array, '');
+    result = _.every<{a: number}, TResult>(array, {a: 42});
+
+    result = _.every<TResult>(list);
+    result = _.every<TResult>(list, listIterator);
+    result = _.every<TResult>(list, listIterator, any);
+    result = _.every<TResult>(list, '');
+    result = _.every<{a: number}, TResult>(list, {a: 42});
+
+    result = _.every<TResult>(dictionary);
+    result = _.every<TResult>(dictionary, dictionaryIterator);
+    result = _.every<TResult>(dictionary, dictionaryIterator, any);
+    result = _.every<TResult>(dictionary, '');
+    result = _.every<{a: number}, TResult>(dictionary, {a: 42});
+
+    result = _(array).every();
+    result = _(array).every(listIterator);
+    result = _(array).every(listIterator, any);
+    result = _(array).every('');
+    result = _(array).every<{a: number}>({a: 42});
+
+    result = _(list).every<TResult>();
+    result = _(list).every<TResult>(listIterator);
+    result = _(list).every<TResult>(listIterator, any);
+    result = _(list).every('');
+    result = _(list).every<{a: number}>({a: 42});
+
+    result = _(dictionary).every<TResult>();
+    result = _(dictionary).every<TResult>(dictionaryIterator);
+    result = _(dictionary).every<TResult>(dictionaryIterator, any);
+    result = _(dictionary).every('');
+    result = _(dictionary).every<{a: number}>({a: 42});
+}
 
 result = <number[]>_.filter([1, 2, 3, 4, 5, 6]);
 result = <number[]>_.filter([1, 2, 3, 4, 5, 6], function (num) { return num % 2 == 0; });
