@@ -411,10 +411,41 @@ result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_([['moe', 30], ['larry', 40]
 result = <_.Dictionary<any>>_.object([['moe', 30], ['larry', 40]]);
 result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_([['moe', 30], ['larry', 40]]).object();
 
-result = <number[]>_.remove([1, 2, 3, 4, 5, 6], function (num: number) { return num % 2 == 0; });
-result = <IFoodOrganic[]>_.remove(foodsOrganic, 'organic');
-result = <IFoodType[]>_.remove(foodsType, { 'type': 'vegetable' });
-var typedResult: IFoodType[] = _.remove([ <IFoodType>{ name: 'apple' }, <IFoodType>{ name: 'orange' }], <IFoodType>{ name: 'orange' });
+// _.remove
+module TestRemove {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let predicateFn: (value: TResult, index?: number, collection?: _.List<TResult>) => boolean;
+    let result: TResult[];
+
+    result = _.remove<TResult>(array);
+    result = _.remove<TResult>(array, predicateFn);
+    result = _.remove<TResult>(array, predicateFn, any);
+    result = _.remove<TResult>(array, '');
+    result = _.remove<TResult>(array, '', any);
+    result = _.remove<{a: number}, TResult>(array, {a: 42});
+
+    result = _.remove<TResult>(list);
+    result = _.remove<TResult>(list, predicateFn);
+    result = _.remove<TResult>(list, predicateFn, any);
+    result = _.remove<TResult>(list, '');
+    result = _.remove<TResult>(list, '', any);
+    result = _.remove<{a: number}, TResult>(list, {a: 42});
+
+    result = _<TResult>(array).remove().value();
+    result = _<TResult>(array).remove(predicateFn).value();
+    result = _<TResult>(array).remove(predicateFn, any).value();
+    result = _<TResult>(array).remove('').value();
+    result = _<TResult>(array).remove('', any).value();
+    result = _<TResult>(array).remove<{a: number}>({a: 42}).value();
+
+    result = _(list).remove<TResult>().value();
+    result = _(list).remove<TResult>(predicateFn).value();
+    result = _(list).remove<TResult>(predicateFn, any).value();
+    result = _(list).remove<TResult>('').value();
+    result = _(list).remove<TResult>('', any).value();
+    result = _(list).remove<{a: number}, TResult>({a: 42}).value();
+}
 
 // _.slice
 {
