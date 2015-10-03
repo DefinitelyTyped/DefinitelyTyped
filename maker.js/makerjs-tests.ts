@@ -25,6 +25,7 @@ function test() {
 	}
 	
 	function testAngle() {
+		makerjs.angle.areEqual(12, 13);
 		makerjs.angle.mirror(45, true, false);
 		makerjs.angle.noRevolutions(90);
 		makerjs.angle.ofArcEnd(paths.arc);
@@ -63,12 +64,15 @@ function test() {
 	}
 	
 	function testModel(){
+		makerjs.model.combine(model, model, true, false, true, false);
 		makerjs.model.convertUnits(model, makerjs.unitType.Centimeter);
+		makerjs.model.getSimilarPathId(model, 'foo');
 		makerjs.model.mirror(model, false, true);
 		makerjs.model.move(makerjs.model.originate(model, [9,9]), [0,0]);
 		makerjs.model.moveRelative(model, [1,1]);
 		makerjs.model.originate(model);
 		makerjs.model.rotate(makerjs.model.scale(model, 6), 45, [0,0]);
+		makerjs.model.walkPaths(model, (modelContext: MakerJs.IModel, pathId: string, pathContext: MakerJs.IPath) => {});
 	}
 
 	function testModels(): MakerJs.IModel[] {
@@ -83,11 +87,13 @@ function test() {
 			new makerjs.models.Ring(7, 7),
 			new makerjs.models.RoundRectangle(2, 2, 0),
 			new makerjs.models.SCurve(5, .9),
-			new makerjs.models.Square(8)
+			new makerjs.models.Square(8),
+			new makerjs.models.Star(5, 10, 5)
 		];
 	}
 	
 	function testPath() {
+		makerjs.path.areEqual(paths.line, paths.circle);
 		makerjs.path.breakAtPoint(paths.arc, [0,0]).type;
 		makerjs.path.dogbone(paths.line, paths.line, 7);
 		makerjs.path.fillet(paths.arc, paths.line, 4);
@@ -110,6 +116,15 @@ function test() {
 		new makerjs.paths.Chord(paths.arc);
 		new makerjs.paths.Parallel(paths.line, 4, [1,1]);
 		
+		//paths.line.layer = "0";
+		
+		var x: MakerJs.IPathLine = { 
+			type: "line", 
+			origin: [9,9], 
+			end: [8,8], 
+			layer: "4"
+		};
+		
 		return paths;
 	}
 	
@@ -121,6 +136,7 @@ function test() {
 		makerjs.point.closest([0,0], [p1, p2]);
 		makerjs.point.fromAngleOnCircle(22, paths.circle);
 		makerjs.point.fromArc(paths.arc);
+		makerjs.point.fromPathEnds(paths.line);
 		makerjs.point.fromPolar(Math.PI, 7);
 		makerjs.point.middle(paths.line);
 		makerjs.point.mirror(p1, true, false);

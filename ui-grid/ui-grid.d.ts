@@ -809,10 +809,10 @@ declare module uiGrid {
         /**
          * By default, rows are compared using object equality.  This option can be overridden
          * to compare on any data item property or function
-         * @param {IGridRow} entityA First Data Item to compare
-         * @param {IGridRow} entityB Second Data Item to compare
+         * @param {any} entityA First Data Item to compare
+         * @param {any} entityB Second Data Item to compare
          */
-        rowEquality?(entityA: IGridRow, entityB: IGridRow): boolean;
+        rowEquality?(entityA: any, entityB: any): boolean;
         /**
          * This function is used to get and, if necessary, set the value uniquely identifying this row
          * (i.e. if an identity is not present it will set one).
