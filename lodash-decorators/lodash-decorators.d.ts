@@ -220,3 +220,53 @@ declare module "lodash-decorators/extensions" {
     export const readonly: MethodDecorator;
     export const Readonly: MethodDecorator;
 }
+
+declare module "lodash-decorators/validate" {
+    // Originally copied from ../node_modules/typescript/lib/lib.es6.d.ts
+    export interface ClassDecorator {
+        <TFunction extends Function>(target: TFunction): TFunction|void;
+    }
+    export interface PropertyDecorator {
+        (target: Object, propertyKey: string | symbol): void;
+    }
+    export interface MethodDecorator {
+        <T>(target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>): TypedPropertyDescriptor<T> | void;
+    }
+    export interface ParameterDecorator {
+        (target: Object, propertyKey: string | symbol, parameterIndex: number): void;
+    }
+
+    export interface TypedMethodDecorator<TFunction extends Function> {
+        (target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<TFunction>): TypedPropertyDescriptor<TFunction> | void;
+    }
+
+    export interface Predicate<T> {
+        (t: T): boolean;
+    }
+    type Predicates<T> = Predicate<T>|Predicate<T>[];
+
+    export interface ValidateDecorator {
+        <T1>(p1: Predicates<T1>):
+            TypedMethodDecorator<(<R>(param1: T1) => R)>;
+        <T1, T2>(p1: Predicates<T1>, p2?: Predicates<T2>):
+            TypedMethodDecorator<(<R>(param1: T1, param2: T2) => R)>;
+        <T1, T2, T3>(p1: Predicates<T1>, p2?: Predicates<T2>, p3?: Predicates<T3>):
+            TypedMethodDecorator<(<R>(param1: T1, param2: T2, param3: T3) => R)>;
+        <T1, T2, T3, T4>(p1: Predicates<T1>, p2?: Predicates<T2>, p3?: Predicates<T3>, p4?: Predicates<T4>):
+            TypedMethodDecorator<(<R>(param1: T1, param2: T2, param3: T3, param4: T4) => R)>;
+        <T1, T2, T3, T4, T5>(p1: Predicates<T1>, p2?: Predicates<T2>, p3?: Predicates<T3>, p4?: Predicates<T4>, p5?: Predicates<T5>):
+            TypedMethodDecorator<(<R>(param1: T1, param2: T2, param3: T3, param4: T4, param5: T5) => R)>;
+        <T1, T2, T3, T4, T5, T6>(p1: Predicates<T1>, p2?: Predicates<T2>, p3?: Predicates<T3>, p4?: Predicates<T4>, p5?: Predicates<T5>, p6?: Predicates<T6>):
+            TypedMethodDecorator<(<R>(param1: T1, param2: T2, param3: T3, param4: T4, param5: T5, param6: T6) => R)>;
+    }
+
+    export interface ValidateReturnDecorator {
+        <R>(p1: Predicates<R>): TypedMethodDecorator<((...args: any[]) => R)>;
+    }
+
+    export const validate: ValidateDecorator;
+    export const Validate: ValidateDecorator;
+
+    export const validateReturn: ValidateReturnDecorator;
+    export const ValidateReturn: ValidateReturnDecorator;
+}
