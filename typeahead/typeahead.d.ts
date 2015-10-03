@@ -411,3 +411,7 @@ declare class Bloodhound<T> {
   */
   public static tokenizers: Bloodhound.Tokenizers;
 }
+
+declare module "bloodhound" {
+  export = Bloodhound;
+}
