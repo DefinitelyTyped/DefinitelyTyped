@@ -1,5 +1,5 @@
 /// <reference path="lodash-decorators.d.ts" />
-/// <reference path="../lodash/lodash.d.ts" />
+/// <reference path="../lodash/lodash-global.d.ts" />
 
 //
 // With Arguments
@@ -102,7 +102,6 @@ person3.getUpperCaseName(); // JOE SMITH
 //
 
 //import { kebabCase } from 'lodash';
-import * as _ from 'lodash';
 
 class Person4 {
     firstName: string;

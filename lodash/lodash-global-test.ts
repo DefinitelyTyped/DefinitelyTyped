@@ -1,6 +1,4 @@
-/// <reference path="lodash.d.ts" />
-
-import {_} from "lodash";
+/// <reference path="lodash-global.d.ts" />
 
 declare var $: any, jQuery: any;
 
