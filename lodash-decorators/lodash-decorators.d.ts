@@ -83,31 +83,82 @@ declare module "lodash-decorators" {
     }
 
     export const debounce: DebounceDecorator & Accessor<DebounceDecorator>;
+    export const Debounce: DebounceDecorator & Accessor<DebounceDecorator>;
+
     export const throttle: ThrottleDecorator & Accessor<ThrottleDecorator>;
+    export const Throttle: ThrottleDecorator & Accessor<ThrottleDecorator>;
+
     export const memoize: MemoizeDecorator & Accessor<MemoizeDecorator>;
+    export const Memoize: MemoizeDecorator & Accessor<MemoizeDecorator>;
+
     export const after: AfterDecorator & Accessor<AfterDecorator>;
+    export const After: AfterDecorator & Accessor<AfterDecorator>;
+
     export const before: BeforeDecorator & Accessor<BeforeDecorator>;
+    export const Before: BeforeDecorator & Accessor<BeforeDecorator>;
+
     export const ary: AryDecorator & Accessor<AryDecorator>;
+    export const Ary: AryDecorator & Accessor<AryDecorator>;
+
     export const curry: CurryDecorator & Accessor<CurryDecorator>;
+    export const Curry: CurryDecorator & Accessor<CurryDecorator>;
+
     export const curryRight: CurryRightDecorator & Accessor<CurryRightDecorator>;
+    export const CurryRight: CurryRightDecorator & Accessor<CurryRightDecorator>;
+
     export const restParam: RestParamDecorator & Accessor<RestParamDecorator>;
+    export const RestParam: RestParamDecorator & Accessor<RestParamDecorator>;
+
     export const partial: PartialDecorator & Accessor<PartialDecorator>;
+    export const Partial: PartialDecorator & Accessor<PartialDecorator>;
+
     export const partialRight: PartialDecorator & Accessor<PartialDecorator>;
+    export const PartialRight: PartialDecorator & Accessor<PartialDecorator>;
+
     export const wrap: WrapDecorator & Accessor<WrapDecorator>;
+    export const Wrap: WrapDecorator & Accessor<WrapDecorator>;
+
     export const compose: ComposeDecorator & Accessor<ComposeDecorator>;
+    export const Compose: ComposeDecorator & Accessor<ComposeDecorator>;
+
     export const flow: ComposeDecorator & Accessor<ComposeDecorator>;
+    export const Flow: ComposeDecorator & Accessor<ComposeDecorator>;
+
     export const flowRight: ComposeDecorator & Accessor<ComposeDecorator>;
+    export const FlowRight: ComposeDecorator & Accessor<ComposeDecorator>;
+
     export const backflow: ComposeDecorator & Accessor<ComposeDecorator>;
+    export const Backflow: ComposeDecorator & Accessor<ComposeDecorator>;
+
     export const delay: DelayDecorator & Accessor<DelayDecorator>;
+    export const Delay: DelayDecorator & Accessor<DelayDecorator>;
+
     export const defer: DeferDecorator & Accessor<DeferDecorator>;
+    export const Defer: DeferDecorator & Accessor<DeferDecorator>;
+
     export const bind: BindDecorator & Accessor<BindDecorator>;
+    export const Bind: BindDecorator & Accessor<BindDecorator>;
+
     export const bindAll: BindAllDecorator;
+    export const BindAll: BindAllDecorator;
+
     export const modArgs: ModArgsDecorator & Accessor<ModArgsDecorator>;
+    export const ModArgs: ModArgsDecorator & Accessor<ModArgsDecorator>;
+
     export const once: MethodDecoratorWithAccessor;
+    export const Once: MethodDecoratorWithAccessor;
+
     export const spread: MethodDecoratorWithAccessor;
+    export const Spread: MethodDecoratorWithAccessor;
+
     export const rearg: MethodDecoratorWithAccessor;
+    export const Rearg: MethodDecoratorWithAccessor;
+
     export const negate: MethodDecoratorWithAccessor;
+    export const Negate: MethodDecoratorWithAccessor;
+
     export const tap: MethodDecoratorWithAccessor;
+    export const Tap: MethodDecoratorWithAccessor;
 }
 
 declare module "lodash-decorators/extensions" {
@@ -130,12 +181,26 @@ declare module "lodash-decorators/extensions" {
     }
 
     export const deprecated: DeprecatedDecorator;
+    export const Deprecated: DeprecatedDecorator;
+
     export const writable: (writable?: boolean) => MethodDecorator;
     export const Writable: (writable?: boolean) => MethodDecorator;
+
     export const configurable: (configurable?: boolean) => MethodDecorator;
+    export const Configurable: (configurable?: boolean) => MethodDecorator;
+
     export const returnsArg: (index?: number) => MethodDecorator;
+    export const ReturnsArg: (index?: number) => MethodDecorator;
+
     export const enumerable: (enumerable?: boolean) => MethodDecorator;
+    export const Enumerable: (enumerable?: boolean) => MethodDecorator;
+
     export const nonenumerable: MethodDecorator;
+    export const Nonenumerable: MethodDecorator;
+
     export const nonconfigurable: MethodDecorator;
+    export const Nonconfigurable: MethodDecorator;
+
     export const readonly: MethodDecorator;
+    export const Readonly: MethodDecorator;
 }
