@@ -81,17 +81,21 @@ class Person3 {
     getLastName(): string { return null; }
 
     @wrap('getName')
-    getUpperCaseName(fn: Function) {
+    getUpperCaseName(fn: () => string): string {
         return fn().toUpperCase();
     }
 }
 
-const person3 = new Person3('Joe', 'Smith');
+//by .d.ts author: a workaround to ensure type
+interface Person3Ex extends Person3 {
+    getUpperCaseName(): string;
+}
+
+const person3 = new Person3('Joe', 'Smith') as Person3Ex;
 
 person3.getFirstName(); // 'Joe'
 person3.getLastName(); // 'Smith'
-//FIXME: method signature changed by lodash-decorators
-(<any>person3.getUpperCaseName)(); // JOE SMITH
+person3.getUpperCaseName(); // JOE SMITH
 
 //
 // Composition
@@ -118,10 +122,14 @@ class Person4 {
     }
 }
 
-const person4 = new Person4('Joe', 'Smith');
+//by .d.ts author: a workaround to ensure type
+interface Person4Ex extends Person4 {
+    logName(): void;
+}
 
-//FIXME: method signature changed by lodash-decorators
-(<any>person4.logName)(); // joe-smith
+const person4 = new Person4('Joe', 'Smith') as Person4Ex;
+
+person4.logName(); // joe-smith
 
 //
 // Instance Decorators
@@ -152,28 +160,32 @@ class Person6 {
     constructor() {}
     private nameList: string[];
 
-    @once.get
+    //TODO: So far, TypeScript doesn't allow to put multiple decoratoes on set/get accessors.
+    // see https://github.com/Microsoft/TypeScript/issues/2249#issuecomment-141684146
+    //@once.get
     get names(): string[] {
-        //FIXME: Resolve type inconsistency
+        //MEMO: Resolve type inconsistency
         return [this.nameList.join(' ')];
         //MEMO: Original expression in repo
         //return this.nameList.join(' ');
     }
 
-    //TODO: So far, TypeScript doesn't allow to put a decorator here
-    // see https://github.com/Microsoft/TypeScript/issues/2249#issuecomment-141684146
-    //@compose.set(alwaysArray)
+    @compose.set(alwaysArray)
     set names(names: string[]) {
         this.nameList = names;
     }
+}
+
+//by .d.ts author: a workaround to ensure type
+interface Person6Alt {
+    names: string[]|string;
 }
 
 const person6 = new Person6();
 
 // nameList will always be an array.
 person6.names = undefined; //=> []
-//FIXME: method signature changed by lodash-decorators
-(<any>person6).names = 'Joe'; //=> ['Joe']
+(person6 as Person6Alt).names = 'Joe'; //=> ['Joe']
 person6.names = ['Jim']; //=> ['Jim']
 
 //
@@ -202,11 +214,15 @@ class Person7 {
     }
 }
 
-const person7 = new Person7('Joe', 'Smith');
+//by .d.ts author: a workaround to ensure type
+interface Person7Ex extends Person7 {
+    getUpperCaseName(): string;
+}
+
+const person7 = new Person7('Joe', 'Smith') as Person7Ex;
 
 person7.getName.call(null); // Joe Smith
-//FIXME: method signature changed by lodash-decorators
-(<any>person7.getUpperCaseName)(); // JOE
+person7.getUpperCaseName(); // JOE
 
 
 import { bindAll } from 'lodash-decorators'
