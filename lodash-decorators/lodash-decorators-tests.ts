@@ -314,3 +314,57 @@ class Person11 {
     }
 }
 
+//
+// https://github.com/steelsojka/lodash-decorators/tree/master/src/validate
+//
+
+import { Validate } from 'lodash-decorators/validate';
+
+class Person12 {
+    name: string;
+    constructor() {}
+
+    @Validate(_.isString)
+    setName(name: any) {
+        this.name = name as string;
+    }
+}
+
+class Person13 {
+    name: string;
+    age: number;
+    constructor() {}
+
+    @Validate(
+        _.isString,
+        [_.isNumber, _.partial(_.lt, 10) as ((_: any) => boolean)]
+    )
+    setData(name: any, age: any) {
+        this.name = name as string;
+        this.age = age as number;
+    }
+}
+
+const person13 = new Person13();
+
+person13.setData('test', 5); //=> TypeError
+person13.setData('test', 12); //=> Valid
+
+
+//
+// Additional typings
+//
+
+import { validateReturn } from 'lodash-decorators/validate';
+
+class Calc {
+    @validateReturn((c: number) => c > 0)
+    add(a: number, b: number): number {
+        return a + b;
+    }
+
+    @validateReturn<number>([c => c > 0])
+    mul(a: number, b: number): number {
+        return a + b;
+    }
+}
