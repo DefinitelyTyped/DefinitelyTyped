@@ -21,6 +21,10 @@ declare module "lodash-decorators" {
         (target: Object, propertyKey: string | symbol, parameterIndex: number): void;
     }
 
+    export interface TypedMethodDecorator<TFunction extends Function> {
+        (target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<TFunction>): TypedPropertyDescriptor<TFunction> | void;
+    }
+
     export interface MethodDecoratorWithAccessor extends MethodDecorator, Accessor<MethodDecorator> {
     }
 
@@ -73,7 +77,19 @@ declare module "lodash-decorators" {
         (...args: any[]): MethodDecorator;
     }
     export interface BindDecorator {
-        (...args: any[]): MethodDecorator;
+        (): TypedMethodDecorator<(<R>() => R)>;
+        <T1>(param1?: T1):
+            TypedMethodDecorator<(<R>(param1: T1) => R)>;
+        <T1, T2>(param1?: T1, param2?: T2):
+            TypedMethodDecorator<(<R>(param1: T1, param2: T2) => R)>;
+        <T1, T2, T3>(param1?: T1, param2?: T2, param3?: T3):
+            TypedMethodDecorator<(<R>(param1: T1, param2: T2, param3: T3) => R)>;
+        <T1, T2, T3, T4>(param1?: T1, param2?: T2, param3?: T3, param4?: T4):
+            TypedMethodDecorator<(<R>(param1: T1, param2: T2, param3: T3, param4: T4) => R)>;
+        <T1, T2, T3, T4, T5>(param1?: T1, param2?: T2, param3?: T3, param4?: T4, param5?: T5):
+            TypedMethodDecorator<(<R>(param1: T1, param2: T2, param3: T3, param4: T4, param5: T5) => R)>;
+        <T1, T2, T3, T4, T5, T6>(param1?: T1, param2?: T2, param3?: T3, param4?: T4, param5?: T5, param6?: T6):
+            TypedMethodDecorator<(<R>(param1: T1, param2: T2, param3: T3, param4: T4, param5: T5, param6: T6) => R)>;
     }
     export interface BindAllDecorator {
         (...methodNames: string[]): ClassDecorator;
