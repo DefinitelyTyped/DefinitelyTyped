@@ -261,7 +261,7 @@ interface KnockoutUtils {
 
     compareArrays<T>(a: T[], b: T[]): Array<KnockoutArrayChange<T>>;
 
-    arrayForEach<T>(array: T[], action: (item: T) => void): void;
+    arrayForEach<T>(array: T[], action: (item: T, index?: number) => void): void;
 
     arrayIndexOf<T>(array: T[], item: T): number;
 
