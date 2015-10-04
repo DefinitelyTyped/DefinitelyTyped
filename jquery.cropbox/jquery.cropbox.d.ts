@@ -104,8 +104,8 @@ declare module jQueryCropBox {
          */
         remove(): void;
     }
-
 }
+
 interface JQuery {
     cropbox(params?: jQueryCropBox.CropboxOptions): jQueryCropBox.Cropbox
 }
