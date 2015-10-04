@@ -474,9 +474,10 @@ declare module JQueryUI {
     }
 
     interface DroppableOptions extends DroppableEvents {
-        disabled?: boolean;
         accept?: any;
         activeClass?: string;
+        addClasses?: boolean;
+        disabled?: boolean;
         greedy?: boolean;
         hoverClass?: string;
         scope?: string;
