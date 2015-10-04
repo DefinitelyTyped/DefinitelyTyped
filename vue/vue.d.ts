@@ -65,8 +65,8 @@ declare module vuejs {
      * http://vuejs.org/api/instance-properties.html
      */
     $el: HTMLElement;
-    $data: {};
-    $options: {};
+    $data: any;
+    $options: any;
     $parent: Vue;
     $root: Vue;
     $: {};
