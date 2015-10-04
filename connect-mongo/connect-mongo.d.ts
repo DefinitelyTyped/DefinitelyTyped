@@ -3,9 +3,10 @@
 // Definitions by: Mizuki Yamamoto <https://github.com/Syati>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../express/express.d.ts" />
 /// <reference path="../mongoose/mongoose.d.ts" />
-/// <reference path="../express-session/express-session.d.ts" />
 /// <reference path="../mongodb/mongodb.d.ts" />
+/// <reference path="../express-session/express-session.d.ts" />
 
 declare module "connect-mongo" {
     import * as express from 'express';
