@@ -357,8 +357,17 @@ module TestIndexOf {
     result = _(testIntersectionList).intersection<TResult>(testIntersectionList, testIntersectionArray).value();
 }
 
-result = <number>_.last([1, 2, 3]);
-result = <number>_([1, 2, 3]).last();
+// _.last
+module TestLast {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let result: TResult;
+
+    result = _.last<TResult>(array);
+    result = _.last<TResult>(list);
+    result = _<TResult>(array).last();
+    result = _(list).last<TResult>();
+}
 
 result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2, 3);
