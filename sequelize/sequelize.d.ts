@@ -22,23 +22,26 @@ declare module "sequelize" {
 
 
         /**
-         * The options for the get mixin of the BelongsTo association.
-         * @see BelongsToAssociationGetMixin
+         * The options for the getAssociation mixin of the belongsTo association.
+         * @see BelongsToGetAssociationMixin
          */
-        interface BelongsToAssociationGetMixinOptions {
-          /**
-           * Apply a scope on the related model, or remove its default scope by passing false.
-           */
+        interface BelongsToGetAssociationMixinOptions {
+            /**
+             * Apply a scope on the related model, or remove its default scope by passing false.
+             */
             scope: string | boolean;
         }
 
         /**
-         * The get association mixin applied to models with BelongsTo.
+         * The getAssociation mixin applied to models with belongsTo.
          * An example of usage is as follows:
          *
          * ```js
+         *
+         * User.belongsTo(Role);
+         *
          * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttrib>, UserAttrib {
-         *    getRole: Sequelize.BelongsToAssociationGetMixin<RoleInstance>;
+         *    getRole: Sequelize.BelongsToGetAssociationMixin<RoleInstance>;
          *    // setRole...
          *    // createRole...
          * }
@@ -47,33 +50,36 @@ declare module "sequelize" {
          * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to/
          * @see Instance
          */
-        interface BelongsToAssociationGetMixin<TInstance> {
-          /**
-           * Get the associated instance.
-           * @param options The obtions to use when getting the association.
-           */
-          (options?: BelongsToAssociationGetMixinOptions): Promise<TInstance>
+        interface BelongsToGetAssociationMixin<TInstance> {
+            /**
+             * Get the associated instance.
+             * @param options The options to use when getting the association.
+             */
+            (options?: BelongsToGetAssociationMixinOptions): Promise<TInstance>
         }
 
         /**
-         * The options for the set mixin of the BelongsTo association.
-         * @see BelongsToAssociationSetMixin
+         * The options for the setAssociation mixin of the belongsTo association.
+         * @see BelongsToSetAssociationMixin
          */
-        interface BelongsToAssociationSetMixinOptions {
-          /**
-           * Skip saving this after setting the foreign key if false.
-           */
+        interface BelongsToSetAssociationMixinOptions {
+            /**
+             * Skip saving this after setting the foreign key if false.
+             */
             save: boolean;
         }
 
         /**
-         * The set association mixin applied to models with BelongsTo.
+         * The setAssociation mixin applied to models with belongsTo.
          * An example of usage is as follows:
          *
          * ```js
+         *
+         * User.belongsTo(Role);
+         *
          * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
          *    // getRole...
-         *    setRole: BelongsToAssociationSetMixin<RoleInstance, RoleId>;
+         *    setRole: Sequelize.BelongsToSetAssociationMixin<RoleInstance, RoleId>;
          *    // createRole...
          * }
          * ```
@@ -81,46 +87,157 @@ declare module "sequelize" {
          * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to/
          * @see Instance
          */
-        interface BelongsToAssociationSetMixin<TInstance, TInstancePrimaryKey> {
-          /**
-           * Get the associated instance.
-           * @param newAssociation An instance or the primary key of an instance to associate with this. Pass null or undefined to remove the association.
-           * @param options The obtions to use when setting the association.
-           */
-          (newAssociation: TInstance | TInstancePrimaryKey, options?: BelongsToAssociationSetMixinOptions): Promise<void>
+        interface BelongsToSetAssociationMixin<TInstance, TInstancePrimaryKey> {
+            /**
+             * Set the associated instance.
+             * @param newAssociation An instance or the primary key of an instance to associate with this. Pass null or undefined to remove the association.
+             * @param options The options to use when setting the association.
+             */
+            (newAssociation?: TInstance | TInstancePrimaryKey, options?: BelongsToSetAssociationMixinOptions): Promise<void>
         }
 
         /**
-         * The options for the create mixin of the BelongsTo association.
-         * @see BelongsToAssociationCreateMixin
+         * The options for the createAssociation mixin of the belongsTo association.
+         * @see BelongsToCreateAssociationMixin
          */
-        interface BelongsToAssociationCreateMixinOptions extends CreateOptions, BelongsToAssociationSetMixinOptions {}
+        interface BelongsToCreateAssociationMixinOptions extends CreateOptions, BelongsToSetAssociationMixinOptions { }
 
         /**
-         * The create association mixin applied to models with BelongsTo.
+         * The createAssociation mixin applied to models with belongsTo.
          * An example of usage is as follows:
          *
          * ```js
+         *
+         * User.belongsTo(Role);
+         *
          * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
          *    // getRole...
          *    // setRole...
-         *    createRole: BelongsToAssociationCreateMixin<RoleAttributes>;
+         *    createRole: Sequelize.BelongsToCreateAssociationMixin<RoleAttributes>;
          * }
          * ```
          *
          * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to/
          * @see Instance
          */
-        interface BelongsToAssociationCreateMixin<TAttributes> {
-          /**
-           * Create a new instance of the associated model and associate it with this.
-           * @param values The values used to create the association.
-           * @param options The options passed to `target.create` and `setAssociation`.
-           */
-          (values?: TAttributes, options?: BelongsToAssociationCreateMixinOptions): Promise<void>
+        interface BelongsToCreateAssociationMixin<TAttributes> {
+            /**
+             * Create a new instance of the associated model and associate it with this.
+             * @param values The values used to create the association.
+             * @param options The options passed to `target.create` and `setAssociation`.
+             */
+            (values?: TAttributes, options?: BelongsToCreateAssociationMixinOptions): Promise<void>
         }
 
-        // TODO: HasOne Associations
+        /**
+         * The options for the getAssociation mixin of the hasOne association.
+         * @see HasOneGetAssociationMixin
+         */
+        interface HasOneGetAssociationMixinOptions {
+            /**
+             * Apply a scope on the related model, or remove its default scope by passing false.
+             */
+            scope: string | boolean;
+        }
+
+        /**
+         * The getAssociation mixin applied to models with hasOne.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.hasOne(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttrib>, UserAttrib {
+         *    getRole: Sequelize.HasOneGetAssociationMixin<RoleInstance>;
+         *    // setRole...
+         *    // createRole...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/has-one/
+         * @see Instance
+         */
+        interface HasOneGetAssociationMixin<TInstance> {
+            /**
+             * Get the associated instance.
+             * @param options The options to use when getting the association.
+             */
+            (options?: HasOneGetAssociationMixinOptions): Promise<TInstance>
+        }
+
+        /**
+         * The options for the setAssociation mixin of the hasOne association.
+         * @see HasOneSetAssociationMixin
+         */
+        interface HasOneSetAssociationMixinOptions {
+            /**
+             * Skip saving this after setting the foreign key if false.
+             */
+            save: boolean;
+        }
+
+        /**
+         * The setAssociation mixin applied to models with hasOne.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.hasOne(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRole...
+         *    setRole: Sequelize.HasOneSetAssociationMixin<RoleInstance, RoleId>;
+         *    // createRole...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/has-one/
+         * @see Instance
+         */
+        interface HasOneSetAssociationMixin<TInstance, TInstancePrimaryKey> {
+            /**
+             * Set the associated instance.
+             * @param newAssociation An instance or the primary key of an instance to associate with this. Pass null or undefined to remove the association.
+             * @param options The options to use when setting the association.
+             */
+            (newAssociation?: TInstance | TInstancePrimaryKey, options?: HasOneSetAssociationMixinOptions): Promise<void>
+        }
+
+        /**
+         * The options for the createAssociation mixin of the hasOne association.
+         * @see HasOneCreateAssociationMixin
+         */
+        interface HasOneCreateAssociationMixinOptions extends CreateOptions, HasOneSetAssociationMixinOptions { }
+
+        /**
+         * The createAssociation mixin applied to models with hasOne.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.hasOne(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRole...
+         *    // setRole...
+         *    createRole: Sequelize.HasOneCreateAssociationMixin<RoleAttributes>;
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/has-one/
+         * @see Instance
+         */
+        interface HasOneCreateAssociationMixin<TAttributes> {
+            /**
+             * Create a new instance of the associated model and associate it with this.
+             * @param values The values used to create the association.
+             * @param options The options passed to `target.create` and `setAssociation`.
+             */
+            (values?: TAttributes, options?: HasOneCreateAssociationMixinOptions): Promise<void>
+        }
+
+
         // TODO: HasMany Associations
         // TODO: BelongsToMany Associations
 

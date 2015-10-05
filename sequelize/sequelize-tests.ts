@@ -152,6 +152,153 @@ Post.belongsToMany( Post, { through : { model : Post, unique : false }, foreignK
 Post.belongsToMany( Post, { as : 'Parents', through : 'Family', foreignKey : 'ChildId', otherKey : 'PersonId' } );
 
 //
+// Mixins
+// ~~~~~~
+//
+//  https://github.com/sequelize/sequelize/tree/v3.4.1/test/integration/associations
+//
+
+var Product = s.define<ProductInstance, ProductAttributes>('product', {});
+var product = Product.build();
+
+var Barcode = s.define<BarcodeInstance, BarcodeAttributes>('barcode', {});
+var barcode = Barcode.build();
+
+var Warehouse = s.define<WarehouseInstance, WarehouseAttributes>('warehouse', {});
+var warehouse = Warehouse.build();
+
+var Branch = s.define<BranchInstance, BranchAttributes>('brach', {});
+var branch = Branch.build();
+
+var WarehouseBranch = s.define<WarehouseBranchInstance, WarehouseBranchAttributes>('warehouseBranch', {});
+
+var Customer = s.define<CustomerInstance, CustomerAttributes>('customer', {});
+var customer = Customer.build();
+
+Product.hasOne(Barcode);
+Barcode.belongsTo(Product);
+
+Warehouse.hasMany(Product);
+Product.belongsTo(Warehouse);
+
+Warehouse.belongsToMany(Branch, { through: WarehouseBranch });
+Branch.belongsToMany(Warehouse, { through: WarehouseBranch });
+
+Branch.belongsToMany(Customer, { through: 'branchCustomer' });
+Customer.belongsToMany(Branch, { through: 'branchCustomer' });
+
+// hasOne
+product.getBarcode();
+product.getBarcode({ scope: null }).then(b => b.code);
+
+product.setBarcode();
+product.setBarcode(1);
+product.setBarcode(barcode);
+product.setBarcode(barcode, { save: true }).then(() => { });
+
+product.createBarcode();
+product.createBarcode({ id: 1, code: '1434-2' });
+product.createBarcode({ id: 1 }, { save: true, silent: true }).then(() => { });
+
+// belongsTo
+barcode.getProduct();
+barcode.getProduct({ scope: 'foo' }).then(p => p.name);
+
+barcode.setProduct();
+barcode.setProduct(1);
+barcode.setProduct(product);
+barcode.setProduct(product, { save: true }).then(() => { });
+
+barcode.createProduct();
+barcode.createProduct({ id: 1, name: 'Crowbar' });
+barcode.createProduct({ id: 1 }, { save: true, silent: true }).then(() => { });
+
+product.getWarehouse();
+product.getWarehouse({ scope: null }).then(w => w.capacity);
+
+product.setWarehouse();
+product.setWarehouse(1);
+product.setWarehouse(warehouse);
+product.setWarehouse(warehouse, { save: true }).then(() => { });
+
+product.createWarehouse();
+product.createWarehouse({ id: 1, capacity: 10000 });
+product.createWarehouse({ id: 1 }, { save: true, silent: true }).then(() => { });
+
+// TODO: hasMany
+
+// TODO: belongsToMany <Model>
+
+// TODO: belongsToMany <void>
+
+interface ProductAttributes {
+    id?: number;
+    name?: string;
+    price?: number;
+};
+
+interface ProductInstance extends Sequelize.Instance<ProductInstance, ProductAttributes>, ProductAttributes {
+    // hasOne association mixins:
+    getBarcode: Sequelize.HasOneGetAssociationMixin<BarcodeInstance>;
+    setBarcode: Sequelize.HasOneSetAssociationMixin<BarcodeInstance, number>;
+    createBarcode: Sequelize.HasOneCreateAssociationMixin<BarcodeAttributes>;
+
+    // belongsTo association mixins:
+    getWarehouse: Sequelize.BelongsToGetAssociationMixin<WarehouseInstance>;
+    setWarehouse: Sequelize.BelongsToSetAssociationMixin<WarehouseInstance, number>;
+    createWarehouse: Sequelize.BelongsToCreateAssociationMixin<WarehouseAttributes>;
+};
+
+
+
+interface BarcodeAttributes {
+    id?: number;
+    code?: string;
+    dateIssued?: Date;
+};
+
+interface BarcodeInstance extends Sequelize.Instance<BarcodeInstance, BarcodeAttributes>, BarcodeAttributes {
+    // belongsTo association mixins:
+    getProduct: Sequelize.BelongsToGetAssociationMixin<ProductInstance>;
+    setProduct: Sequelize.BelongsToSetAssociationMixin<ProductInstance, number>;
+    createProduct: Sequelize.BelongsToCreateAssociationMixin<ProductAttributes>;
+};
+
+interface WarehouseAttributes {
+    id?: number;
+    address?: string;
+    capacity?: number;
+};
+
+interface WarehouseInstance extends Sequelize.Instance<WarehouseInstance, WarehouseAttributes>, WarehouseAttributes {
+
+};
+
+interface BranchAttributes {
+
+};
+
+interface BranchInstance extends Sequelize.Instance<BranchInstance, BranchAttributes>, BranchAttributes {
+
+};
+
+interface WarehouseBranchAttributes {
+
+};
+
+interface WarehouseBranchInstance extends Sequelize.Instance<WarehouseBranchInstance, WarehouseBranchAttributes>, WarehouseBranchAttributes { };
+
+interface CustomerAttributes {
+
+};
+
+interface CustomerInstance extends Sequelize.Instance<CustomerInstance, CustomerAttributes>, CustomerAttributes {
+
+};
+
+
+
+//
 //  DataTypes
 // ~~~~~~~~~~~
 //
