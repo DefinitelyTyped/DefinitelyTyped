@@ -600,6 +600,13 @@ declare module uiGrid {
          * @default false
          */
         enableFiltering?: boolean;
+         /**
+         * False by default. When enabled, this adds a settings icon in the top right of the grid, 
+         * which floats above the column header. The menu by default gives access to show/hide columns, 
+         * but can be customized to show additional actions.
+         * @default false
+         */
+         enableGridMenu?: boolean;
         /**
          * uiGridConstants.scrollbars.ALWAYS by default. This settings controls the horizontal scrollbar for the grid.
          * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER
