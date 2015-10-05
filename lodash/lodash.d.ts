@@ -927,26 +927,38 @@ declare module _ {
     //_.lastIndexOf
     interface LoDashStatic {
         /**
-        * Gets the index at which the last occurrence of value is found using strict equality
-        * for comparisons, i.e. ===. If fromIndex is negative, it is used as the offset from the
-        * end of the collection.
-        * @param array The array to search.
-        * @param value The value to search for.
-        * @param fromIndex The index to search from.
-        * @return The index of the matched value or -1.
-        **/
-        lastIndexOf<T>(
-            array: Array<T>,
-            value: T,
-            fromIndex?: number): number;
-
-        /**
-        * @see _.lastIndexOf
-        **/
+         * This method is like _.indexOf except that it iterates over elements of array from right to left.
+         *
+         * @param array The array to search.
+         * @param value The value to search for.
+         * @param fromIndex The index to search from or true to perform a binary search on a sorted array.
+         * @return Returns the index of the matched value, else -1.
+         */
         lastIndexOf<T>(
             array: List<T>,
             value: T,
-            fromIndex?: number): number;
+            fromIndex?: boolean|number
+        ): number;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.lastIndexOf
+         */
+        lastIndexOf(
+            value: T,
+            fromIndex?: boolean|number
+        ): number;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.lastIndexOf
+         */
+        lastIndexOf<TResult>(
+            value: TResult,
+            fromIndex?: boolean|number
+        ): number;
     }
 
     //_.pull
