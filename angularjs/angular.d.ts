@@ -306,7 +306,7 @@ declare module angular {
          *
          * For further information check out the guide on @see https://docs.angularjs.org/guide/directive#matching-directives
          */
-        $normalize(name: string): void;
+        $normalize(name: string): string;
 
         /**
          * Adds the CSS class value specified by the classVal parameter to the
