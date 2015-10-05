@@ -296,6 +296,17 @@ module TestQ {
         result = $q.reject('');
     }
 
+    // $q.resolve
+    {
+        let result: angular.IPromise<void>;
+        result = $q.resolve();
+    }
+    {
+        let result: angular.IPromise<TResult>;
+        result = $q.resolve<TResult>(tResult);
+        result = $q.resolve<TResult>(promiseTResult);
+    }
+
     // $q.when
     {
         let result: angular.IPromise<void>;
@@ -388,18 +399,18 @@ module TestPromise {
     var tresult: TResult;
     var tresultPromise: ng.IPromise<TResult>;
     var tresultHttpPromise: ng.IHttpPromise<TResult>;
-    
+
     var tother: TOther;
     var totherPromise: ng.IPromise<TOther>;
     var totherHttpPromise: ng.IHttpPromise<TOther>;
-    
+
     var promise: angular.IPromise<TResult>;
 
     // promise.then
     result = <angular.IPromise<any>>promise.then((result) => any);
     result = <angular.IPromise<any>>promise.then((result) => any, (any) => any);
     result = <angular.IPromise<any>>promise.then((result) => any, (any) => any, (any) => any);
-    
+
     result = <angular.IPromise<TResult>>promise.then((result) => result);
     result = <angular.IPromise<TResult>>promise.then((result) => result, (any) => any);
     result = <angular.IPromise<TResult>>promise.then((result) => result, (any) => any, (any) => any);
@@ -409,7 +420,7 @@ module TestPromise {
     result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TResult>>>promise.then((result) => tresultHttpPromise);
     result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TResult>>>promise.then((result) => tresultHttpPromise, (any) => any);
     result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TResult>>>promise.then((result) => tresultHttpPromise, (any) => any, (any) => any);
-    
+
     result = <angular.IPromise<TOther>>promise.then((result) => tother);
     result = <angular.IPromise<TOther>>promise.then((result) => tother, (any) => any);
     result = <angular.IPromise<TOther>>promise.then((result) => tother, (any) => any, (any) => any);
@@ -419,7 +430,7 @@ module TestPromise {
     result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TOther>>>promise.then((result) => totherHttpPromise);
     result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TOther>>>promise.then((result) => totherHttpPromise, (any) => any);
     result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TOther>>>promise.then((result) => totherHttpPromise, (any) => any, (any) => any);
-    
+
     // promise.catch
     result = <angular.IPromise<any>>promise.catch((err) => any);
     result = <angular.IPromise<TResult>>promise.catch((err) => tresult);
@@ -949,7 +960,7 @@ function NgModelControllerTyping() {
 function ngFilterTyping() {
     var $filter:  angular.IFilterService;
     var items: string[];
-    
+
     $filter("name")(items, "test");
     $filter("name")(items, {name: "test"});
     $filter("name")(items, (val, index, array) => {
@@ -960,4 +971,14 @@ function ngFilterTyping() {
     }, (actual, expected) => {
         return actual == expected;
     });
+}
+
+function parseTyping() {
+    var $parse: angular.IParseService;
+    var compiledExp = $parse('a.b.c');
+    if (compiledExp.constant) {
+        return compiledExp({});
+    } else if (compiledExp.literal) {
+        return compiledExp({}, {a: {b: {c: 42}}});
+    }
 }
