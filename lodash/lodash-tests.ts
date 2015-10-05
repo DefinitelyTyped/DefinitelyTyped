@@ -348,8 +348,29 @@ result = <number>_.indexOf([1, 1, 2, 2, 3, 3], 2, true);
 result = <number>_.last([1, 2, 3]);
 result = <number>_([1, 2, 3]).last();
 
-result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
-result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2, 3);
+// _.lastIndexOf
+module TestLastIndexOf {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let value: TResult;
+    let result: number;
+
+    result = _.lastIndexOf<TResult>(array, value);
+    result = _.lastIndexOf<TResult>(array, value, true);
+    result = _.lastIndexOf<TResult>(array, value, 42);
+
+    result = _.lastIndexOf<TResult>(list, value);
+    result = _.lastIndexOf<TResult>(list, value, true);
+    result = _.lastIndexOf<TResult>(list, value, 42);
+
+    result = _(array).lastIndexOf(value);
+    result = _(array).lastIndexOf(value, true);
+    result = _(array).lastIndexOf(value, 42);
+
+    result = _(list).lastIndexOf<TResult>(value);
+    result = _(list).lastIndexOf<TResult>(value, true);
+    result = _(list).lastIndexOf<TResult>(value, 42);
+}
 
 // _.pull
 {
