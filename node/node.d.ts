@@ -1313,6 +1313,8 @@ declare module "fs" {
         fd?: string;
         mode?: number;
         bufferSize?: number;
+        start?:number;
+        end?:number;
     }): ReadStream;
     export function createReadStream(path: string, options?: {
         flags?: string;
@@ -1320,6 +1322,8 @@ declare module "fs" {
         fd?: string;
         mode?: string;
         bufferSize?: number;
+        start?:number;
+        end?:number;
     }): ReadStream;
     export function createWriteStream(path: string, options?: {
         flags?: string;
