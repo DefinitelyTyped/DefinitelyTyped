@@ -387,31 +387,31 @@ module TestPromise {
 
     var tresult: TResult;
     var tresultPromise: ng.IPromise<TResult>;
-    
+
     var tother: TOther;
     var totherPromise: ng.IPromise<TOther>;
-    
+
     var promise: angular.IPromise<TResult>;
 
     // promise.then
     result = <angular.IPromise<any>>promise.then((result) => any);
     result = <angular.IPromise<any>>promise.then((result) => any, (any) => any);
     result = <angular.IPromise<any>>promise.then((result) => any, (any) => any, (any) => any);
-    
+
     result = <angular.IPromise<TResult>>promise.then((result) => result);
     result = <angular.IPromise<TResult>>promise.then((result) => result, (any) => any);
     result = <angular.IPromise<TResult>>promise.then((result) => result, (any) => any, (any) => any);
     result = <angular.IPromise<TResult>>promise.then((result) => tresultPromise);
     result = <angular.IPromise<TResult>>promise.then((result) => tresultPromise, (any) => any);
     result = <angular.IPromise<TResult>>promise.then((result) => tresultPromise, (any) => any, (any) => any);
-    
+
     result = <angular.IPromise<TOther>>promise.then((result) => tother);
     result = <angular.IPromise<TOther>>promise.then((result) => tother, (any) => any);
     result = <angular.IPromise<TOther>>promise.then((result) => tother, (any) => any, (any) => any);
     result = <angular.IPromise<TOther>>promise.then((result) => totherPromise);
     result = <angular.IPromise<TOther>>promise.then((result) => totherPromise, (any) => any);
     result = <angular.IPromise<TOther>>promise.then((result) => totherPromise, (any) => any, (any) => any);
-    
+
     // promise.catch
     result = <angular.IPromise<any>>promise.catch((err) => any);
     result = <angular.IPromise<TResult>>promise.catch((err) => tresult);
@@ -937,7 +937,7 @@ function NgModelControllerTyping() {
 function ngFilterTyping() {
     var $filter:  angular.IFilterService;
     var items: string[];
-    
+
     $filter("name")(items, "test");
     $filter("name")(items, {name: "test"});
     $filter("name")(items, (val, index, array) => {
@@ -948,4 +948,14 @@ function ngFilterTyping() {
     }, (actual, expected) => {
         return actual == expected;
     });
+}
+
+function parseTyping() {
+    var $parse: angular.IParseService;
+    var compiledExp = $parse('a.b.c');
+    if (compiledExp.constant) {
+        return compiledExp({});
+    } else if (compiledExp.literal) {
+        return compiledExp({}, {a: {b: {c: 42}}});
+    }
 }
