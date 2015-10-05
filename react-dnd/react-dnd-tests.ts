@@ -81,6 +81,8 @@ module Knight {
     }
 
     export class Knight extends React.Component<KnightP, {}> {
+        static defaultProps: KnightP;
+        
         static create = React.createFactory(Knight);
 
         componentDidMount() {
@@ -154,6 +156,8 @@ module BoardSquare {
     }
 
     export class BoardSquare extends React.Component<BoardSquareP, {}> {
+        static defaultProps: BoardSquareP;
+        
         private _renderOverlay = (color: string) => {
             return r.div({
                 style: {
