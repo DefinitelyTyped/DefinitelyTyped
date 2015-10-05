@@ -7104,6 +7104,15 @@ declare module _ {
          * @param thisArg The this binding of predicate.
          * @return Returns the key of the matched element, else undefined.
          */
+        findKey<TValues, TObject>(
+            object: TObject,
+            predicate?: DictionaryIterator<TValues, boolean>,
+            thisArg?: any
+        ): string;
+
+        /**
+         * @see _.findKey
+         */
         findKey<TObject>(
             object: TObject,
             predicate?: ObjectIterator<any, boolean>,
@@ -7129,6 +7138,14 @@ declare module _ {
     }
 
     interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.findKey
+         */
+        findKey<TValues>(
+            predicate?: DictionaryIterator<TValues, boolean>,
+            thisArg?: any
+        ): string;
+
         /**
          * @see _.findKey
          */
@@ -8988,7 +9005,7 @@ declare module _ {
     }
 
     interface DictionaryIterator<T, TResult> {
-        (value: T, key: string, collection: Dictionary<T>): TResult;
+        (value: T, key?: string, collection?: Dictionary<T>): TResult;
     }
 
     interface ObjectIterator<T, TResult> {
