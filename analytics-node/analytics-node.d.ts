@@ -3,7 +3,7 @@
 // Definitions by: Andrew Fong <https://github.com/fongandrew>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module SegmentAnalytics {
+declare module AnalyticsNode {
 
   interface Integrations {
     [index: string]: boolean;
@@ -69,5 +69,5 @@ declare module SegmentAnalytics {
 }
 
 declare module "analytics-node" {
-  export = SegmentAnalytics.Analytics;
+  export = AnalyticsNode.Analytics;
 }

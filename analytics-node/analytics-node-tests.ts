@@ -1,6 +1,6 @@
-/// <reference path="./segment-analytics-node.d.ts" />
+/// <reference path="./analytics-node.d.ts" />
 
-var analytics: SegmentAnalytics.Analytics;
+var analytics: AnalyticsNode.Analytics;
 import Analytics = require("analytics-node");
 
 function testConfig(): void {
