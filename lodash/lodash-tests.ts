@@ -174,8 +174,18 @@ module TestChunk {
     result = _(list).chunk<TResult>(42).value();
 }
 
-result = <any[]>_.compact([0, 1, false, 2, '', 3]);
-result = <_.LoDashArrayWrapper<any>>_([0, 1, false, 2, '', 3]).compact();
+// _.compact
+module TestCompact {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let result: TResult[];
+
+    result = _.compact<TResult>();
+    result = _.compact<TResult>(array);
+    result = _.compact<TResult>(list);
+    result = _<TResult>(array).compact().value();
+    result = _(list).compact<TResult>().value();
+}
 
 // _.difference
 {
