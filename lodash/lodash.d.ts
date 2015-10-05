@@ -1023,72 +1023,97 @@ declare module _ {
     //_.remove
     interface LoDashStatic {
         /**
-        * Removes all elements from an array that the callback returns truey for and returns
-        * an array of removed elements. The callback is bound to thisArg and invoked with three
-        * arguments; (value, index, array).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will
-        * return the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return
-        * true for elements that have the properties of the given object, else false.
-        * @param array The array to modify.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return A new array of removed elements.
-        **/
-        remove<T>(
-            array: Array<T>,
-            callback?: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.remove
-        **/
+         * Removes all elements from array that predicate returns truthy for and returns an array of the removed
+         * elements. The predicate is bound to thisArg and invoked with three arguments: (value, index, array).
+         *
+         * If a property name is provided for predicate the created _.property style callback returns the property
+         * value of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for predicate the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * Note: Unlike _.filter, this method mutates array.
+         *
+         * @param array The array to modify.
+         * @param predicate The function invoked per iteration.
+         * @param thisArg The this binding of predicate.
+         * @return Returns the new array of removed elements.
+         */
         remove<T>(
             array: List<T>,
-            callback?: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.remove
-        * @param pluckValue _.pluck style callback
-        **/
-        remove<T>(
-            array: Array<T>,
-            pluckValue?: string): T[];
-
-        /**
-        * @see _.remove
-        * @param pluckValue _.pluck style callback
-        **/
-        remove<T>(
-            array: List<T>,
-            pluckValue?: string): T[];
-
-        /**
-        * @see _.remove
-        * @param whereValue _.where style callback
-        **/
-        remove<W, T>(
-            array: Array<T>,
-            wherealue?: Dictionary<W>): T[];
-
-        /**
-        * @see _.remove
-        * @param whereValue _.where style callback
-        **/
-        remove<W, T>(
-            array: List<T>,
-            wherealue?: Dictionary<W>): T[];
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): T[];
 
         /**
          * @see _.remove
-         * @param item The item to remove
-         **/
+         */
         remove<T>(
-            array:Array<T>,
-            item:T): T[];
+            array: List<T>,
+            predicate?: string,
+            thisArg?: any
+        ): T[];
+
+        /**
+         * @see _.remove
+         */
+        remove<W, T>(
+            array: List<T>,
+            predicate?: W
+        ): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.remove
+         */
+        remove(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashArrayWrapper<T>;
+
+        /**
+         * @see _.remove
+         */
+        remove(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashArrayWrapper<T>;
+
+        /**
+         * @see _.remove
+         */
+        remove<W>(
+            predicate?: W
+        ): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.remove
+         */
+        remove<TResult>(
+            predicate?: ListIterator<TResult, boolean>,
+            thisArg?: any
+        ): LoDashArrayWrapper<TResult>;
+
+        /**
+         * @see _.remove
+         */
+        remove<TResult>(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashArrayWrapper<TResult>;
+
+        /**
+         * @see _.remove
+         */
+        remove<W, TResult>(
+            predicate?: W
+        ): LoDashArrayWrapper<TResult>;
     }
 
     //_.rest
