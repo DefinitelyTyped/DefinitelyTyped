@@ -42,7 +42,7 @@ declare module "libxmljs" {
         name():string;
         name(newName:string):void;
         text():string;
-        attr(name:string):string;
+        attr(name:string):Attribute;
         attr(attr:Attribute):void;
         attr(attrObject:{[key:string]:string;}):void;
         attrs():Attribute[];
