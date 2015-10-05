@@ -16,7 +16,7 @@ Include a line like this:
 
 ## Contributions
 
-DefinitelyTyped only works because of contributions by users like you! 
+DefinitelyTyped only works because of contributions by users like you!
 
 Please see the [contribution guide](http://definitelytyped.org/guides/contributing.html) on how to contribute to DefinitelyTyped.
 
