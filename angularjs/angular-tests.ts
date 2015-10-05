@@ -507,7 +507,7 @@ function test_IAttributes(attributes: ng.IAttributes){
 }
 
 test_IAttributes({
-    $normalize: function (classVal){},
+    $normalize: function (classVal){ return "foo" },
     $addClass: function (classVal){},
     $removeClass: function(classVal){},
     $set: function(key, value){},
