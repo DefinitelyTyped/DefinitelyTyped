@@ -59,8 +59,9 @@ declare module "libxmljs" {
         addPrevSibling(siblingNode:Element):Element;
         find(xpath:string):Element[];
         find(xpath:string, ns_uri:string):Element[];
-        get(xpath:string, ns_uri:string):Element;
         find(xpath:string, namespaces:{[key:string]:string;}):Element[];
+        get(xpath:string):Element;
+        get(xpath:string, ns_uri:string):Element;
         get(xpath:string, ns_uri:{[key:string]:string;}):Element;
         defineNamespace(href:string):Namespace;
         defineNamespace(prefix:string, href:string):Namespace;
