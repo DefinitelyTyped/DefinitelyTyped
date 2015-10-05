@@ -261,12 +261,41 @@ result = <_.List<string>>_.fill<string>(testFillList, 'a', 0, 3);
 result = <number[]>_(testFillArray).fill<number>(0, 0, 3).value();
 result = <_.List<number>>_(testFillList).fill<number>(0, 0, 3).value();
 
+// _.findIndex
+module TestFindIndex {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let predicateFn: (value: TResult, index?: number, collection?: _.List<TResult>) => boolean;
+    let result: number;
 
-result = <number>_.findIndex(['apple', 'banana', 'beet'], function (f) {
-    return /^b/.test(f);
-});
-result = <number>_.findIndex(['apple', 'banana', 'beet'], 'apple');
-result = <number>_.findIndex([{ food: 'apple' }, { food: 'banana' }, { food: 'beet' }], { food: 'apple' });
+    result = _.findIndex<TResult>(array);
+    result = _.findIndex<TResult>(array, predicateFn);
+    result = _.findIndex<TResult>(array, predicateFn, any);
+    result = _.findIndex<TResult>(array, '');
+    result = _.findIndex<TResult>(array, '', any);
+    result = _.findIndex<{a: number}, TResult>(array, {a: 42});
+
+    result = _.findIndex<TResult>(list);
+    result = _.findIndex<TResult>(list, predicateFn);
+    result = _.findIndex<TResult>(list, predicateFn, any);
+    result = _.findIndex<TResult>(list, '');
+    result = _.findIndex<TResult>(list, '', any);
+    result = _.findIndex<{a: number}, TResult>(list, {a: 42});
+
+    result = _<TResult>(array).findIndex();
+    result = _<TResult>(array).findIndex(predicateFn);
+    result = _<TResult>(array).findIndex(predicateFn, any);
+    result = _<TResult>(array).findIndex('');
+    result = _<TResult>(array).findIndex('', any);
+    result = _<TResult>(array).findIndex<{a: number}>({a: 42});
+
+    result = _(list).findIndex();
+    result = _(list).findIndex<TResult>(predicateFn);
+    result = _(list).findIndex<TResult>(predicateFn, any);
+    result = _(list).findIndex('');
+    result = _(list).findIndex('', any);
+    result = _(list).findIndex<{a: number}>({a: 42});
+}
 
 result = <number>_.findLastIndex(['apple', 'banana', 'beet'], function (f: string) {
     return /^b/.test(f);
