@@ -228,6 +228,14 @@ declare module CodeMirror {
         The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
         scrollIntoView(pos: { left: number; top: number; right: number; bottom: number; }, margin: number): void;
 
+        /** Scrolls the given element into view. pos is a { line, ch } object, in editor-local coordinates.
+        The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
+        scrollIntoView(pos: { line: number, ch: number }, margin?: number): void;
+
+        /** Scrolls the given element into view. pos is a { from, to } object, in editor-local coordinates.
+        The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
+        scrollIntoView(pos: { from: CodeMirror.Position, to: CodeMirror.Position }, margin: number): void;
+
         /** Returns an { left , top , bottom } object containing the coordinates of the cursor position.
         If mode is "local" , they will be relative to the top-left corner of the editable document.
         If it is "page" or not given, they are relative to the top-left corner of the page.
