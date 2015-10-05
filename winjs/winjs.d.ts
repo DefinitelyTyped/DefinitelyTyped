@@ -1337,7 +1337,7 @@ declare module WinJS.Binding {
     /**
      * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
     **/
-    function getValue(obj: any, path?: any)
+    function getValue(obj: any, path?: any): any;
 
     /**
      * Marks a custom initializer function as being compatible with declarative data binding.
@@ -7601,12 +7601,12 @@ declare module WinJS.UI {
         /**
          * Gets or sets a mapping function which can be used to change the item that is targeted on zoom in.
         **/
-        zoomedInItem: (any) => any;
+        zoomedInItem: (any: any) => any;
 
         /**
          * Gets or sets a mapping function which can be used to change the item that is targeted on zoom out.
         **/
-        zoomedOutItem: (any) => any;
+        zoomedOutItem: (any: any) => any;
 
         //#endregion Properties
 
@@ -8881,7 +8881,7 @@ declare module WinJS.UI {
     /**
      * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
     **/
-    function simpleItemRenderer(Function): Function;
+    function simpleItemRenderer(fn: Function): Function;
 
     //#endregion Functions
 
