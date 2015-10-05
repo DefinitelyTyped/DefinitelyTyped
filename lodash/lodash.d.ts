@@ -554,53 +554,94 @@ declare module _ {
     //_.findLastIndex
     interface LoDashStatic {
         /**
-        * This method is like _.findIndex except that it iterates over elements of a collection from right to left.
-        * @param array The array to search.
-        * @param {(Function|Object|string)} callback The function called per iteration. If a property name or object is provided it will be
-        * used to create a ".pluck" or ".where" style callback, respectively.
-        * @param thisArg The this binding of callback.
-        * @return Returns the index of the found element, else -1.
-        **/
-        findLastIndex<T>(
-            array: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): number;
-
-        /**
-        * @see _.findLastIndex
-        **/
-        findLastIndex<T>(
-            array: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): number;
-
-        /**
-        * @see _.findLastIndex
-        **/
-        findLastIndex<T>(
-            array: Array<T>,
-            pluckValue: string): number;
-
-        /**
-        * @see _.findLastIndex
-        **/
+         * This method is like _.findIndex except that it iterates over elements of collection from right to left.
+         *
+         * If a property name is provided for predicate the created _.property style callback returns the property
+         * value of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for predicate the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * @param array The array to search.
+         * @param predicate The function invoked per iteration.
+         * @param thisArg The function invoked per iteration.
+         * @return Returns the index of the found element, else -1.
+         */
         findLastIndex<T>(
             array: List<T>,
-            pluckValue: string): number;
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): number;
 
         /**
-        * @see _.findLastIndex
-        **/
-        findLastIndex<T>(
-            array: Array<T>,
-            whereDictionary: Dictionary<any>): number;
-
-        /**
-        * @see _.findLastIndex
-        **/
+         * @see _.findLastIndex
+         */
         findLastIndex<T>(
             array: List<T>,
-            whereDictionary: Dictionary<any>): number;
+            predicate?: string,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.findLastIndex
+         */
+        findLastIndex<W, T>(
+            array: List<T>,
+            predicate?: W
+        ): number;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.findLastIndex
+         */
+        findLastIndex(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.findLastIndex
+         */
+        findLastIndex(
+            predicate?: string,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.findLastIndex
+         */
+        findLastIndex<W>(
+            predicate?: W
+        ): number;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.findLastIndex
+         */
+        findLastIndex<TResult>(
+            predicate?: ListIterator<TResult, boolean>,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.findLastIndex
+         */
+        findLastIndex(
+            predicate?: string,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.findLastIndex
+         */
+        findLastIndex<W>(
+            predicate?: W
+        ): number;
     }
 
     //_.first

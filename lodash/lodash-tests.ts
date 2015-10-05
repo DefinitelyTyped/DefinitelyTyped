@@ -297,11 +297,41 @@ module TestFindIndex {
     result = _(list).findIndex<{a: number}>({a: 42});
 }
 
-result = <number>_.findLastIndex(['apple', 'banana', 'beet'], function (f: string) {
-    return /^b/.test(f);
-});
-result = <number>_.findLastIndex(['apple', 'banana', 'beet'], 'apple');
-result = <number>_.findLastIndex([{ food: 'apple' }, { food: 'banana' }, { food: 'beet' }], { food: 'apple' });
+// _.findLastIndex
+module TestFindLastIndex {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let predicateFn: (value: TResult, index?: number, collection?: _.List<TResult>) => boolean;
+    let result: number;
+
+    result = _.findLastIndex<TResult>(array);
+    result = _.findLastIndex<TResult>(array, predicateFn);
+    result = _.findLastIndex<TResult>(array, predicateFn, any);
+    result = _.findLastIndex<TResult>(array, '');
+    result = _.findLastIndex<TResult>(array, '', any);
+    result = _.findLastIndex<{a: number}, TResult>(array, {a: 42});
+
+    result = _.findLastIndex<TResult>(list);
+    result = _.findLastIndex<TResult>(list, predicateFn);
+    result = _.findLastIndex<TResult>(list, predicateFn, any);
+    result = _.findLastIndex<TResult>(list, '');
+    result = _.findLastIndex<TResult>(list, '', any);
+    result = _.findLastIndex<{a: number}, TResult>(list, {a: 42});
+
+    result = _<TResult>(array).findLastIndex();
+    result = _<TResult>(array).findLastIndex(predicateFn);
+    result = _<TResult>(array).findLastIndex(predicateFn, any);
+    result = _<TResult>(array).findLastIndex('');
+    result = _<TResult>(array).findLastIndex('', any);
+    result = _<TResult>(array).findLastIndex<{a: number}>({a: 42});
+
+    result = _(list).findLastIndex();
+    result = _(list).findLastIndex<TResult>(predicateFn);
+    result = _(list).findLastIndex<TResult>(predicateFn, any);
+    result = _(list).findLastIndex('');
+    result = _(list).findLastIndex('', any);
+    result = _(list).findLastIndex<{a: number}>({a: 42});
+}
 
 // _.first
 module TestFirst {
