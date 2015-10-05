@@ -296,6 +296,17 @@ module TestQ {
         result = $q.reject('');
     }
 
+    // $q.resolve
+    {
+        let result: angular.IPromise<void>;
+        result = $q.resolve();
+    }
+    {
+        let result: angular.IPromise<TResult>;
+        result = $q.resolve<TResult>(tResult);
+        result = $q.resolve<TResult>(promiseTResult);
+    }
+
     // $q.when
     {
         let result: angular.IPromise<void>;
