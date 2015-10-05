@@ -866,6 +866,9 @@ describe("Custom matcher: 'toBeGoofy'", function () {
     var htmlReporter = new jasmine.HtmlReporter();
     env.addReporter(htmlReporter);
 
+	 env.randomizeTests(!env.randomTests());
+	 env.seed("1234");
+
     var specFilter = new jasmine.HtmlSpecFilter();
     env.specFilter = function (spec) {
         return specFilter.matches(spec.getFullName());
