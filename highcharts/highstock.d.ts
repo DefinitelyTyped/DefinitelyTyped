@@ -95,6 +95,12 @@ interface HighchartsStatic {
     StockChart: HighstockChart; 
 }
 
+interface HighchartsGlobalOptions {
+    rangeSelectorZoom: string;
+    rangeSelectorFrom: string;
+    rangeSelectorTo: string;
+}
+
 interface JQuery {
     highcharts(type: "StockChart"): HighstockChartObject;
     /**
