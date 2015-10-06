@@ -3,7 +3,7 @@
 // Definitions by: Damiano Gambarotto <http://github.com/damianog>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../../jquery/jquery.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 interface HighchartsPosition {
     align?: string;
