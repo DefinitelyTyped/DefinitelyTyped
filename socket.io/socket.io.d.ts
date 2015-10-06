@@ -687,7 +687,7 @@ declare module SocketIO {
 		 * Removes all event listeners on this object
 		 * @return This Socket
 		 */
-		removeAllListeners(): Socket;
+		removeAllListeners( event?: string ): Socket;
 		
 		/**
 		 * Sets the maximum number of listeners this instance can have
