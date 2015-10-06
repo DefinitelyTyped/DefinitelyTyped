@@ -124,3 +124,18 @@ $localForage.iterate(function (value, key) {
     }
 }).then(function (data) {
 });
+
+$localForage.bind($rootScope, 'key').then(function(data) {
+});
+
+$localForage.bind($rootScope, {key: 'key'}).then(function(data) {
+});
+
+$localForage.bind($rootScope, {key: 'key', defaultValue: 'defaultValue'}).then(function(data) {
+});
+
+$localForage.bind($rootScope, {key: 'key', scopeKey: 'scopeKey'}).then(function(data) {
+});
+
+$localForage.bind($rootScope, {key: 'key', name: 'name'}).then(function(data) {
+});

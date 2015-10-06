@@ -47,7 +47,19 @@ interface AccWizardOptions {
     nextText: string;
     
     /**
-     * @summary Text for back button
+     * @summary Text for back button.
+     * @type {string}
+     */
+    backText: string;
+    
+    /**
+     * @summary HTML input type for next button. (default: "submit")
+     * @type {string}
+     */
+    nextType: string;
+
+    /**
+     * @summary HTML input type for back button. (default: "reset")
      * @type {string}
      */
     backType: string;

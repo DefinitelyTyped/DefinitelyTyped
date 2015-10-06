@@ -159,6 +159,15 @@ declare module commander {
         option(flags:string, description?:string, defaultValue?:any):ICommand;
 
         /**
+         * Allow unknown options on the command line.
+         *
+         * @param {Boolean} arg if `true` or omitted, no error will be thrown
+         * for unknown options.
+         * @api public
+         */
+        allowUnknownOption(arg?: boolean):ICommand;
+
+        /**
          * Parse `argv`, settings options and invoking commands when defined.
          *
          * @param {Array} argv
