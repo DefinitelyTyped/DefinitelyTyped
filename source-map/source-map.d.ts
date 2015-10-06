@@ -13,7 +13,7 @@ declare module SourceMap {
         version: string;
         sources: Array<string>;
         names: Array<string>;
-        sourcesContent?: string;
+        sourcesContent?: string[];
         mappings: string;
     }
 
