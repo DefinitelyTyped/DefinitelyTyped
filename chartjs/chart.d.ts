@@ -15,14 +15,20 @@ interface LinearChartDataSet extends ChartDataSet {
     pointHighlightFill?: string;
     pointHighlightStroke?: string;
     data: number[];
-    points?: ChartElement[];
+}
+
+interface LinearChartDataSetInternal extends LinearChartDataSet {
+    points: ChartElement[];
 }
 
 interface BarChartDataSet extends ChartDataSet {
     highlightFill?: string;
     highlightStroke?: string;
     data: number[];
-    bars?: ChartElement[];
+}
+
+interface BarChartDataSetInternal extends BarChartDataSet {
+    bars: ChartElement[];
 }
 
 interface CircularChartDataSet {
@@ -171,7 +177,7 @@ interface LinearInstance extends ChartInstance {
     update: () => void;
     addData: (valuesArray: number[], label: string) => void;
     removeData: () => void;
-    datasets: LinearChartDataSet[];
+    datasets: LinearChartDataSetInternal[];
 }
 
 interface BarInstance extends ChartInstance {
@@ -179,7 +185,7 @@ interface BarInstance extends ChartInstance {
     update: () => void;
     addData: (valuesArray: number[], label: string) => void;
     removeData: () => void;
-    datasets: BarChartDataSet[];
+    datasets: BarChartDataSetInternal[];
 }
 
 interface CircularInstance extends ChartInstance {
