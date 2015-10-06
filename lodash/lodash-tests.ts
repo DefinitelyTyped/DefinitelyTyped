@@ -2696,6 +2696,24 @@ module TestMatches {
     }
 }
 
+// _.matchesProperty
+module TestMatches {
+    let path: {toString(): string;}|{toString(): string;}[];
+    let source: TResult;
+
+    {
+        let result: (value: any) => boolean;
+        result = _.matchesProperty<TResult>(path, source);
+        result = _(path).matchesProperty<TResult>(source).value();
+    }
+
+    {
+        let result: (value: TResult) => boolean;
+        result = _.matchesProperty<TResult, TResult>(path, source);
+        result = _(path).matchesProperty<TResult, TResult>(source).value();
+    }
+}
+
 // _.method
 class TestMethod {
     a = {
