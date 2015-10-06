@@ -1310,18 +1310,9 @@ declare module "fs" {
     export function createReadStream(path: string, options?: {
         flags?: string;
         encoding?: string;
-        fd?: string;
+        fd?: number;
         mode?: number;
-        bufferSize?: number;
-        start?:number;
-        end?:number;
-    }): ReadStream;
-    export function createReadStream(path: string, options?: {
-        flags?: string;
-        encoding?: string;
-        fd?: string;
-        mode?: string;
-        bufferSize?: number;
+        autoClose?: boolean;
         start?:number;
         end?:number;
     }): ReadStream;
