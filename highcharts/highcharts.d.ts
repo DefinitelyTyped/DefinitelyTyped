@@ -1283,6 +1283,7 @@ interface HighchartsStatic {
     Color(color: string | HighchartsGradient): string | HighchartsGradient;
 
     dateFormat(format: string, time?: number, capitalize?: boolean): string;
+    dateFormats: { [format: string]: (timestamp: number) => string };
     numberFormat(value: number, decimals?: number, decimalPoint?: string, thousandsSep?: string): string;
     setOptions(options: HighchartsGlobalOptions): HighchartsOptions;
     getOptions(): HighchartsOptions;
