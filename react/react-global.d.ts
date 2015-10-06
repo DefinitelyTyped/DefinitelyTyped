@@ -90,13 +90,13 @@ declare namespace __React {
         $merge?: {};
         $apply?(value: any): any;
     }
-    
+
     interface UpdateSpecPath {
         [key: string]: UpdateSpec;
     }
-    
+
     type UpdateSpec = UpdateSpecCommand | UpdateSpecPath;
-    
+
     interface UpdateArraySpec extends UpdateSpecCommand {
         $push?: any[];
         $unshift?: any[];
