@@ -1089,14 +1089,15 @@ declare module "crypto" {
         setAutoPadding(auto_padding: boolean): void;
     }
     export function createSign(algorithm: string): Signer;
-    interface Signer {
+    interface Signer extends NodeJS.WritableStream {
         update(data: any): void;
         sign(private_key: string, output_format: string): string;
     }
     export function createVerify(algorith: string): Verify;
-    interface Verify {
+    interface Verify extends NodeJS.WritableStream {
         update(data: any): void;
         verify(object: string, signature: string, signature_format?: string): boolean;
+        objectMode?: boolean;
     }
     export function createDiffieHellman(prime_length: number): DiffieHellman;
     export function createDiffieHellman(prime: number, encoding?: string): DiffieHellman;
@@ -1151,6 +1152,7 @@ declare module "stream" {
     export interface WritableOptions {
         highWaterMark?: number;
         decodeStrings?: boolean;
+        objectMode?: boolean;
     }
 
     export class Writable extends events.EventEmitter implements NodeJS.WritableStream {

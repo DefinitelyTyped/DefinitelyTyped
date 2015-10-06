@@ -197,3 +197,12 @@ users = odataResourceClass.odata()
 var countResult = odataResourceClass.odata().count();
 var total = countResult.result;
 
+
+
+
+var usersSelect1 = odataResourceClass.odata()
+	.select('name', 'user');
+
+
+var usersSelect2 = odataResourceClass.odata()
+	.select(['name', 'user']);

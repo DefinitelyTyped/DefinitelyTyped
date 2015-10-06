@@ -37,6 +37,7 @@ $(function() {
    $.UIGoToArticle("#main");
    $.UIGoBack();
    $.UIGoBackToArticle("#main");
+   $.UIEnableBrowserHashModification();
    $.UIBlock();
    $.UIBlock(.5);
    $.UIUnblock();

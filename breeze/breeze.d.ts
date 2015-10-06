@@ -459,6 +459,7 @@ declare module breeze {
     interface EntityManagerProperties {
         serviceName?: string;
         dataService?: DataService;
+        metadataStore?: MetadataStore;
         queryOptions?: QueryOptions;
         saveOptions?: SaveOptions;
         validationOptions?: ValidationOptions;
