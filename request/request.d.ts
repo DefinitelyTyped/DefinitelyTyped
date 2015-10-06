@@ -62,12 +62,13 @@ declare module 'request' {
 			uri?: string;
 			callback?: (error: any, response: http.IncomingMessage, body: any) => void;
 			jar?: any; // CookieJar
+			formData?: any; // Object
 			form?: any; // Object or string
 			auth?: AuthOptions;
 			oauth?: OAuthOptions;
 			aws?: AWSOptions;
 			hawk ?: HawkOptions;
-			qs?: Object;
+			qs?: any;
 			json?: any;
 			multipart?: RequestPart[];
 			agentOptions?: any;
@@ -141,6 +142,7 @@ declare module 'request' {
 			pass?: string;
 			password?: string;
 			sendImmediately?: boolean;
+			bearer?: string;
 		}
 
 		export interface OAuthOptions {

@@ -6,6 +6,13 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
+// Support AMD require (copying angular.d.ts approach)
+// allows for import {IRequestConfig} from 'restangular' ES6 approach
+declare module 'restangular' {
+    export = restangular;
+}
+
+
 
 declare module restangular {
 
@@ -36,6 +43,7 @@ declare module restangular {
   interface IResponse {
     status: number;
     data: any;
+    headers(name: string): string;
     config: {
         method: string;
         url: string;

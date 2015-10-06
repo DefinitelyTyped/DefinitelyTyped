@@ -15,13 +15,21 @@ declare module Needle {
 
     interface RequestOptions {
         timeout?: number;
-        follow?: any; // number | string
+        follow?: number;
+        follow_max?: number;
         multipart?: boolean;
         proxy?: string;
         agent?: string;
-        headers?: any;
+        headers?: HttpHeaderOptions;
         auth?: string; // auto | digest | basic (default)
         json?: boolean;
+
+        // These properties are overwritten by those in the 'headers' field
+        compressed?: boolean;
+        cookies?: { [name: string]: any; };
+        // Overwritten if present in the URI
+        username?: string;
+        password?: string;
     }
 
     interface ResponseOptions {
@@ -31,12 +39,15 @@ declare module Needle {
     }
 
     interface HttpHeaderOptions {
+        cookies?: { [name: string]: any; };
         compressed?: boolean;
-        username?: string;
-        password?: string;
         accept?: string;
         connection?: string;
         user_agent?: string;
+
+        // Overwritten if present in the URI
+        username?: string;
+        password?: string;
     }
 
     interface TLSOptions {

@@ -1,68 +1,62 @@
-// Type definitions for bootstrap-notify
-// Project: https://github.com/Nijikokun/bootstrap-notify
-// Definitions by: Blake Niemyjski <https://github.com/niemyjski/>
+// Type definitions for bootstrap-notify v3.1.3
+// Project: http://bootstrap-notify.remabledesigns.com/
+// Definitions by: Blake Niemyjski <https://github.com/niemyjski/>, Robert McIntosh <https://github.com/mouse0270>, Robert Voica <https://github.com/robert-voica>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="../jquery/jquery.d.ts" />
+
+/* tslint:disable: interface-name no-any */
+
+interface JQueryStatic {
+	/* tslint:enable: interface-name */
+    notify(message: string): NotifyReturn;
+	notify(opts: NotifyOptions, settings?: NotifySettings): NotifyReturn;
+	notifyDefaults(settings: NotifySettings): void;
+	notifyClose(): void;
+	notifyClose(command: string): void;
+}
 
 interface NotifyOptions {
-    /**
-    Alert style, omit alert- from style name.
-    @param {string} type
-    */
-    type?: string;
-    /**
-    Allow alert to be closable through a close icon.
-    @param {boolean} closable
-    */
-    closable?: boolean;
-    /**
-    Alert transition, pretty sure only fade is supported, you can try others if you wish.
-    @param {string} transition
-    */
-    transition?: string;
-    /**
-    Fade alert out after a certain delay (in ms)
-    @param {string} fadeOut
-    */
-    fadeOut?: NotifyFadeOutSettings;
-    /**
-    Text to show on alert, you can use either html or text. HTML will override text.
-    @param {MessageOptions} message
-    */
-    message?: MessageOptions;
-    /**
-    Called before alert closes.
-    @param {function} onClose
-    */
-    onClose?: () => void;
-    /**
-    Called after alert closes.
-    @param {function} onClosed
-    */
-    onClosed?: () => void;
+	message: string;
+	title?: string;
+	icon?: string;
+	url?: string;
+	target?: string;
 }
 
-interface NotifyFadeOutSettings {
-    enabled?: boolean;
-    delay?: number;
+interface NotifySettings {
+	element?: string;
+	position?: string;
+	type?: string;
+	allow_dismiss?: boolean;
+	allow_duplicates?: boolean;
+	newest_on_top?: boolean;
+	showProgressbar?: boolean;
+	placement?: {
+		from?: string;
+		align?: string;
+	};
+	offset?: number;
+	spacing?: number;
+	z_index?: number;
+	delay?: number;
+	timer?: number;
+	url_target?: string;
+	mouse_over?: string;
+	animate?: {
+		enter?: string;
+		exit?: string;
+	};
+	onShow?: () => void;
+	onShown?: () => void;
+	onClose?: () => void;
+	onClosed?: () => void;
+	icon_type?: string;
+	template?: string;
 }
 
-interface MessageOptions {
-    html?: string;
-    text?: string;
-}
-
-interface Notification {
-    show();
-    hide();
-}
-
-interface JQuery {
-    /**
-    Creates a notification instance with default options.
-    @constructor
-    @param {NotifyOptions} options
-    */
-    notify(options: NotifyOptions): Notification;
+interface NotifyReturn {
+	$ele: JQueryStatic;
+	close: () => void;
+	update: (command: string, update: any) => void;
 }

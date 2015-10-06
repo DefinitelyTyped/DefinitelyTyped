@@ -1,4 +1,4 @@
-// Type definitions for Tether-Shepherd v1.1.2
+// Type definitions for Tether-Shepherd v1.2.0
 // Project: http://github.hubspot.com/shepherd/
 // Definitions by: Matt Gibbs <https://github.com/mtgibbs>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -143,12 +143,13 @@ declare module TetherShepherd {
         title?: string;
         attachTo?: any;
         beforeShowPromise?: any;
-        classes?: any;
+        classes?: string;
         buttons?: IShepherdTourButton[];
         advanceOn?: any;
         showCancelLink?: boolean;
         scrollTo?: boolean;
         when?: any;
+        showOn?: () => boolean;
 
         // TODO: Tie this in with the tether.d.ts
         tetherOptions?: any;
@@ -156,9 +157,13 @@ declare module TetherShepherd {
 
     interface IShepherdTourButton {
         text: string;
-        classes: string[];
-        action?: any;
-        events?: any;
+        classes?: string;
+        action?: Function;
+        events?: IShepherdTourButtonEventHash;
+    }
+
+    interface IShepherdTourButtonEventHash {
+        [Key: string]: Function;
     }
 
     interface IShepherdTourAttachProperties {

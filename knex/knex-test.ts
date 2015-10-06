@@ -353,6 +353,7 @@ knex.transaction(function(trx) {
 knex.schema.createTable('users', function (table) {
   table.increments();
   table.string('name');
+  table.enu('favorite_color', ['red', 'blue', 'green']);
   table.timestamps();
 });
 

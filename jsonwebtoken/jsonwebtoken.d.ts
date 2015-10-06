@@ -27,6 +27,7 @@ declare module "jsonwebtoken" {
         audience?: string;
         subject?: string;
         issuer?: string;
+        noTimestamp?: boolean;
     }
 
     export interface VerifyOptions {
