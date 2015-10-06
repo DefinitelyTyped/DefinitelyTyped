@@ -1041,3 +1041,18 @@ function parseTyping() {
         return compiledExp({}, {a: {b: {c: 42}}});
     }
 }
+
+function doBootstrap(element: Element | JQuery, mode: string): ng.auto.IInjectorService {
+    if (mode === 'debug') {
+        return angular.bootstrap(element, ['main', function($provide: ng.auto.IProvideService) {
+            $provide.decorator('$rootScope', function($delegate: ng.IRootScopeService) {
+                $delegate['debug'] = true;
+            });
+        }, 'debug-helpers'], {
+            debugInfoEnabled: true
+        });
+    }
+    return angular.bootstrap(element, ['main'], {
+        debugInfoEnabled: false
+    });
+}
