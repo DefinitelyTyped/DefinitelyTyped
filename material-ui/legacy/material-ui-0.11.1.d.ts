@@ -1,9 +1,9 @@
-// Type definitions for material-ui v0.12.1
+// Type definitions for material-ui v0.11.1
 // Project: https://github.com/callemall/material-ui
 // Definitions by: Nathan Brown <https://github.com/ngbrown>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path='../react/react.d.ts' />
+///<reference path='../../react/react.d.ts' />
 
 declare module "material-ui" {
     // The reason for exporting the namespace types (__MaterialUI.*) is to also export the type for casting variable.
@@ -72,7 +72,7 @@ declare module "material-ui" {
     export import TableHeaderColumn = __MaterialUI.Table.TableHeaderColumn; // require('material-ui/lib/table/table-header-column');
     export import TableRow = __MaterialUI.Table.TableRow; // require('material-ui/lib/table/table-row');
     export import TableRowColumn = __MaterialUI.Table.TableRowColumn; // require('material-ui/lib/table/table-row-column');
-    export import ThemeWrapper = __MaterialUI.ThemeWrapper; // require('material-ui/lib/theme-wrapper');
+    export import Theme = __MaterialUI.Theme; // require('material-ui/lib/theme');
     export import Toggle = __MaterialUI.Toggle; // require('material-ui/lib/toggle');
     export import TimePicker = __MaterialUI.TimePicker; // require('material-ui/lib/time-picker');
     export import TextField = __MaterialUI.TextField; // require('material-ui/lib/text-field');
@@ -350,7 +350,6 @@ declare namespace __MaterialUI {
     }
 
     export interface DialogAction {
-        id?: string;
         text: string;
         ref?: string;
 
@@ -655,7 +654,7 @@ declare namespace __MaterialUI {
     export class Overlay extends React.Component<OverlayProps, {}> {
     }
 
-    interface PaperProps extends React.HTMLAttributesBase<Paper> {
+    interface PaperProps extends React.Props<Paper> {
         circle?: boolean;
         rounded?: boolean;
         transitionEnabled?: boolean;
@@ -844,29 +843,23 @@ declare namespace __MaterialUI {
             desktopToolbarHeight?: number;
         }
         interface ThemePalette {
-            primary1Color?: string;
-            primary2Color?: string;
-            primary3Color?: string;
-            accent1Color?: string;
-            accent2Color?: string;
-            accent3Color?: string;
-            textColor?: string;
-            canvasColor?: string;
-            borderColor?: string;
-            disabledColor?: string;
-            alternateTextColor?: string;
+            primary1Color?: string,
+            primary2Color?: string,
+            primary3Color?: string,
+            accent1Color?: string,
+            accent2Color?: string,
+            accent3Color?: string,
+            textColor?: string,
+            canvasColor?: string,
+            borderColor?: string,
+            disabledColor?: string
         }
-        interface MuiTheme {
-            rawTheme: RawTheme;
-            static: boolean;
+        interface Theme {
             appBar?: {
                 color?: string,
                 textColor?: string,
                 height?: number
             },
-            avatar?: {
-                borderColor?: string;
-            }
             button?: {
                 height?: number,
                 minWidth?: number,
@@ -907,15 +900,9 @@ declare namespace __MaterialUI {
                 disabledColor?: string,
                 disabledTextColor?: string
             },
-            inkBar?: {
-                backgroundColor?: string;
-            },
             leftNav?: {
                 width?: number,
                 color?: string,
-            },
-            listItem?: {
-                nestedLevelDepth?: number;
             },
             menu?: {
                 backgroundColor?: string,
@@ -956,10 +943,6 @@ declare namespace __MaterialUI {
                 disabledColor?: string,
                 disabledTextColor?: string
             },
-            refreshIndicator?: {
-                strokeColor?: string;
-                loadingStrokeColor?: string;
-            };
             slider?: {
                 trackSize?: number,
                 trackColor?: string,
@@ -977,38 +960,6 @@ declare namespace __MaterialUI {
                 backgroundColor?: string,
                 actionColor?: string,
             },
-            table?: {
-                backgroundColor?: string;
-            };
-            tableHeader?: {
-                borderColor?: string;
-            };
-            tableHeaderColumn?: {
-                textColor?: string;
-            };
-            tableFooter?: {
-                borderColor?: string;
-                textColor?: string;
-            };
-            tableRow?: {
-                hoverColor?: string;
-                stripeColor?: string;
-                selectedColor?: string;
-                textColor?: string;
-                borderColor?: string;
-            };
-            tableRowColumn?: {
-                height?: number;
-                spacing?: number;
-            };
-            timePicker?: {
-                color?: string;
-                textColor?: string;
-                accentColor?: string;
-                clockColor?: string;
-                selectColor?: string;
-                selectTextColor?: string;
-            };
             toggle?: {
                 thumbOnColor?: string,
                 thumbOffColor?: string,
@@ -1028,37 +979,35 @@ declare namespace __MaterialUI {
                 iconColor?: string,
                 separatorColor?: string,
                 menuHoverColor?: string,
-            };
-            tabs?: {
-                backgroundColor?: string;
-            };
-            textField?: {
-                textColor?: string;
-                hintColor?: string;
-                floatingLabelColor?: string;
-                disabledTextColor?: string;
-                errorColor?: string;
-                focusColor?: string;
-                backgroundColor?: string;
-                borderColor?: string;
-            };
+            }
+        }
+        interface CustomTheme {
+            spacing?: Spacing;
+            contentFontFamily?: string;
+            getPalette(): ThemePalette;
+            getComponentThemes(palette: ThemePalette, spacing: Spacing): Theme;
         }
 
-        interface RawTheme {
+        export class ThemeManager {
+            static: boolean;
             spacing: Spacing;
-            fontFamily?: string;
             palette: ThemePalette;
-        }
+            component: Theme;
+            contentFontFamily: string;
+            template: CustomTheme;
+            types: {
+                LIGHT: CustomTheme;
+                DARK: CustomTheme;
+            };
 
-        export function ThemeDecorator(muiTheme: Styles.MuiTheme): <P>(Component: React.ComponentClass<P>) => React.ComponentClass<P>;
-
-        interface ThemeManager {
-            getMuiTheme(rawTheme: RawTheme): MuiTheme;
-            modifyRawThemeSpacing(muiTheme: MuiTheme, newSpacing: Spacing): MuiTheme;
-            modifyRawThemePalette(muiTheme: MuiTheme, newPaletteKeys: ThemePalette): MuiTheme;
-            modifyRawThemeFontFamily(muiTheme: MuiTheme, newFontFamily: string): MuiTheme;
+            getCurrentTheme(): ThemeManager;
+            setContentFontFamily(newContentFontFamily: string): void;
+            setTheme(newTheme: CustomTheme): void;
+            setSpacing(newSpacing: Spacing): void;
+            setPalette(newPalette: ThemePalette): void;
+            setComponentThemes(overrides: Theme): void;
+            setIsRtl(isRtl: boolean): void;
         }
-        export var ThemeManager: ThemeManager;
 
         interface Transitions {
             easeOut(duration?: string, property?: string | string[], delay?: string, easeFunction?: string): string;
@@ -1085,9 +1034,6 @@ declare namespace __MaterialUI {
             fontStyleButtonFontSize: number;
         }
         export var Typography: Typography;
-
-        export var DarkRawTheme: RawTheme;
-        export var LightRawTheme: RawTheme;
     }
 
     interface SnackbarProps extends React.Props<Snackbar> {
@@ -1221,10 +1167,11 @@ declare namespace __MaterialUI {
         }
     }
 
-    interface ThemeWrapperProps extends React.Props<ThemeWrapper> {
-        theme: Styles.MuiTheme;
+    interface ThemeProps extends React.Props<Theme> {
+        theme: Styles.CustomTheme;
     }
-    export class ThemeWrapper extends React.Component<ThemeWrapperProps, {}> {
+    export class Theme extends React.Component<ThemeProps, {}> {
+        static theme(customTheme: Styles.CustomTheme): <P>(Component: React.ComponentClass<P>) => React.ComponentClass<P>;
     }
 
     interface ToggleProps extends CommonEnhancedSwitchProps<Toggle> {
@@ -1309,7 +1256,7 @@ declare namespace __MaterialUI {
         export class ToolbarSeparator extends React.Component<ToolbarSeparatorProps, {}> {
         }
 
-        interface ToolbarTitleProps extends React.HTMLAttributesBase<ToolbarTitle> {
+        interface ToolbarTitleProps extends React.Props<ToolbarTitle> {
            text?: string;
         }
         export class ToolbarTitle extends React.Component<ToolbarTitleProps, {}> {
@@ -1685,9 +1632,6 @@ declare module 'material-ui/lib/styles/' {
     export import ThemeManager = __MaterialUI.Styles.ThemeManager; // require('material-ui/lib/styles/theme-manager');
     export import Transitions = __MaterialUI.Styles.Transitions; // require('material-ui/lib/styles/transitions');
     export import Typography = __MaterialUI.Styles.Typography; // require('material-ui/lib/styles/typography');
-    export import LightRawTheme = __MaterialUI.Styles.LightRawTheme; // require('material-ui/lib/styles/raw-themes/light-raw-theme'),
-    export import DarkRawTheme = __MaterialUI.Styles.DarkRawTheme; // require('material-ui/lib/styles/raw-themes/dark-raw-theme'),
-    export import ThemeDecorator = __MaterialUI.Styles.ThemeDecorator; //require('material-ui/lib/styles/theme-decorator');
 }
 
 declare module 'material-ui/lib/styles/auto-prefix' {
@@ -1710,19 +1654,6 @@ declare module 'material-ui/lib/styles/transitions' {
 declare module 'material-ui/lib/styles/typography' {
     export = __MaterialUI.Styles.Typography;
 }
-
-declare module 'material-ui/lib/styles/raw-themes/light-raw-theme' {
-    export = __MaterialUI.Styles.LightRawTheme;
-}
-
-declare module 'material-ui/lib/styles/raw-themes/dark-raw-theme' {
-    export = __MaterialUI.Styles.DarkRawTheme;
-}
-
-declare module 'material-ui/lib/styles/theme-decorator' {
-    export = __MaterialUI.Styles.ThemeDecorator;
-}
-
 
 declare module 'material-ui/lib/snackbar' {
     export = __MaterialUI.Snackbar;
@@ -1764,8 +1695,8 @@ declare module 'material-ui/lib/table/table-row-column' {
     export = __MaterialUI.Table.TableRowColumn;
 }
 
-declare module 'material-ui/lib/theme-wrapper' {
-    export = __MaterialUI.ThemeWrapper;
+declare module 'material-ui/lib/theme' {
+    export = __MaterialUI.Theme;
 }
 
 declare module 'material-ui/lib/toggle' {

@@ -1,5 +1,5 @@
-///<reference path='../react/react.d.ts' />
-///<reference path='material-ui.d.ts' />
+///<reference path='../../react/react.d.ts' />
+///<reference path='material-ui-0.11.1.d.ts' />
 
 import * as React from "react/addons";
 import mui = require("material-ui");
@@ -54,13 +54,14 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
     render() {
 
         // "http://material-ui.com/#/customization/themes"
-        let ThemeManager = mui.Styles.ThemeManager;
-        let muiTheme: mui.Styles.MuiTheme = ThemeManager.getMuiTheme({
-            palette: {
-                accent1Color: Colors.cyan100
-            },
-            spacing: {
-                
+        let ThemeManager = new mui.Styles.ThemeManager();
+        ThemeManager.setTheme(ThemeManager.types.LIGHT);
+        ThemeManager.setTheme(ThemeManager.types.DARK);
+        let muiTheme = ThemeManager.getCurrentTheme();
+        ThemeManager.setComponentThemes({
+            toggle: {
+                thumbOnColor: "#00bcd4",
+                trackOnColor: "LightCyan",
             }
         });
 
@@ -85,6 +86,14 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
                 margin: '0 auto'
             }, iconStyle: {
                 fill: '#FF4081'
+            }
+        });
+
+        // "http://material-ui.com/#/customization/colors"
+        ThemeManager.setComponentThemes({
+            toggle: {
+                thumbOnColor: Colors.cyan200,
+                thumbOffColor: Colors.grey400,
             }
         });
 
