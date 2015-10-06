@@ -136,7 +136,7 @@ declare namespace __React {
         static contextTypes: ValidationMap<any>;
         static childContextTypes: ValidationMap<any>;
         static defaultProps: Props<any>;
-        
+
         constructor(props?: P, context?: any);
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
@@ -376,7 +376,7 @@ declare namespace __React {
         onTouchStart?: TouchEventHandler;
         onScroll?: UIEventHandler;
         onWheel?: WheelEventHandler;
-        
+
         className?: string;
         id?: string;
 
@@ -944,7 +944,7 @@ declare module "react/addons" {
         static contextTypes: ValidationMap<any>;
         static childContextTypes: ValidationMap<any>;
         static defaultProps: Props<any>;
-        
+
         constructor(props?: P, context?: any);
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
@@ -1613,7 +1613,7 @@ declare module "react/addons" {
         item(index: number): Touch;
         identifiedTouch(identifier: number): Touch;
     }
-    
+
     //
     // React.addons
     // ----------------------------------------------------------------------
@@ -1690,19 +1690,19 @@ declare module "react/addons" {
     //
     // Reat.addons.update
     // ----------------------------------------------------------------------
-    
+
     interface UpdateSpecCommand {
         $set?: any;
         $merge?: {};
         $apply?(value: any): any;
     }
-    
+
     interface UpdateSpecPath {
         [key: string]: UpdateSpec;
     }
-    
+
     type UpdateSpec = UpdateSpecCommand | UpdateSpecPath;
-    
+
     interface UpdateArraySpec extends UpdateSpecCommand {
         $push?: any[];
         $unshift?: any[];
