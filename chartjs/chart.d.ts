@@ -186,7 +186,7 @@ interface CircularInstance extends ChartInstance {
     getSegmentsAtEvent: (event: Event) => ChartElement[];
     update: () => void;
     addData: (valuesArray: CircularChartDataSet, index?: number) => void;
-    removeData: (index: number) => void;
+    removeData: (index?: number) => void;
     segments: ChartElement[];
 }
 
