@@ -1310,21 +1310,15 @@ declare module "fs" {
     export function createReadStream(path: string, options?: {
         flags?: string;
         encoding?: string;
-        fd?: string;
+        fd?: number;
         mode?: number;
-        bufferSize?: number;
-    }): ReadStream;
-    export function createReadStream(path: string, options?: {
-        flags?: string;
-        encoding?: string;
-        fd?: string;
-        mode?: string;
-        bufferSize?: number;
+        autoClose?: boolean;
     }): ReadStream;
     export function createWriteStream(path: string, options?: {
         flags?: string;
         encoding?: string;
-        string?: string;
+        fd?: number;
+        mode?: number;
     }): WriteStream;
 }
 
@@ -1693,6 +1687,7 @@ declare module "stream" {
     export interface WritableOptions {
         highWaterMark?: number;
         decodeStrings?: boolean;
+        objectMode?: boolean;
     }
 
     export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
