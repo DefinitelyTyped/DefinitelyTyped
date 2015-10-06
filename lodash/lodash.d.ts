@@ -2422,7 +2422,7 @@ declare module _ {
         ): LoDashArrayWrapper<boolean>;
     }
 
-    //_.includes
+    //_.contains
     interface LoDashStatic {
         /**
         * Checks if a given value is present in a collection using strict equality for comparisons,
@@ -2432,49 +2432,13 @@ declare module _ {
         * @param fromIndex The index to search from.
         * @return True if the target element is found, else false.
         **/
-        includes<T>(
-            collection: Array<T>,
-            target: T,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see _.includes
-        **/
-        includes<T>(
-            collection: List<T>,
-            target: T,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see _.includes
-        * @param dictionary The dictionary to iterate over.
-        * @param key The key in the dictionary to search for.
-        **/
-        includes<T>(
-            dictionary: Dictionary<T>,
-            key: string,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see _.includes
-        * @param searchString the string to search
-        * @param targetString the string to search for
-        **/
-        includes(
-            searchString: string,
-            targetString: string,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see _.includes
-        **/
         contains<T>(
             collection: Array<T>,
             target: T,
             fromIndex?: number): boolean;
 
         /**
-        * @see _.includes
+        * @see _.contains
         **/
         contains<T>(
             collection: List<T>,
@@ -2482,7 +2446,7 @@ declare module _ {
             fromIndex?: number): boolean;
 
         /**
-        * @see _.includes
+        * @see _.contains
         * @param dictionary The dictionary to iterate over.
         * @param value The value in the dictionary to search for.
         **/
@@ -2492,7 +2456,7 @@ declare module _ {
             fromIndex?: number): boolean;
 
         /**
-        * @see _.includes
+        * @see _.contains
         * @param searchString the string to search
         * @param targetString the string to search for
         **/
@@ -2501,9 +2465,8 @@ declare module _ {
             targetString: string,
             fromIndex?: number): boolean;
 
-
         /**
-        * @see _.includes
+        * @see _.contains
         **/
         include<T>(
             collection: Array<T>,
@@ -2511,7 +2474,7 @@ declare module _ {
             fromIndex?: number): boolean;
 
         /**
-        * @see _.includes
+        * @see _.contains
         **/
         include<T>(
             collection: List<T>,
@@ -2519,7 +2482,7 @@ declare module _ {
             fromIndex?: number): boolean;
 
         /**
-        * @see _.includes
+        * @see _.contains
         **/
         include<T>(
             dictionary: Dictionary<T>,
@@ -2527,7 +2490,7 @@ declare module _ {
             fromIndex?: number): boolean;
 
         /**
-        * @see _.includes
+        * @see _.contains
         **/
         include(
             searchString: string,
