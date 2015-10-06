@@ -41,6 +41,7 @@ declare module angular {
 
     interface IAngularBootstrapConfig {
         strictDi?: boolean;
+        debugInfoEnabled?: boolean;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -56,132 +57,11 @@ declare module angular {
          * @param element DOM element which is the root of angular application.
          * @param modules An array of modules to load into the application.
          *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
+         *     function that will be invoked by the injector as a config block.
          * @param config an object for defining configuration options for the application. The following keys are supported:
          *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
          */
-        bootstrap(element: string, modules?: string, config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: string, modules?: Function, config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: string, modules?: string[], config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: JQuery, modules?: string, config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: JQuery, modules?: Function, config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: JQuery, modules?: string[], config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: Element, modules?: string, config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: Element, modules?: Function, config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: Element, modules?: string[], config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: Document, modules?: string, config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: Document, modules?: Function, config?: IAngularBootstrapConfig): auto.IInjectorService;
-        /**
-         * Use this function to manually start up angular application.
-         *
-         * @param element DOM element which is the root of angular application.
-         * @param modules An array of modules to load into the application.
-         *     Each item in the array should be the name of a predefined module or a (DI annotated)
-         *     function that will be invoked by the injector as a run block.
-         * @param config an object for defining configuration options for the application. The following keys are supported:
-         *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
-         */
-        bootstrap(element: Document, modules?: string[], config?: IAngularBootstrapConfig): auto.IInjectorService;
+        bootstrap(element: string|Element|JQuery|Document, modules?: (string|Function|any[])[], config?: IAngularBootstrapConfig): auto.IInjectorService;
 
         /**
          * Creates a deep copy of source, which should be an object or an array.
@@ -426,7 +306,7 @@ declare module angular {
          *
          * For further information check out the guide on @see https://docs.angularjs.org/guide/directive#matching-directives
          */
-        $normalize(name: string): void;
+        $normalize(name: string): string;
 
         /**
          * Adds the CSS class value specified by the classVal parameter to the
@@ -674,7 +554,7 @@ declare module angular {
          */
         $odd: boolean;
 
-	}
+    }
 
     interface IAngularEvent {
         /**
@@ -776,29 +656,125 @@ declare module angular {
      * see https://docs.angularjs.org/api/ng/service/$filter
      */
     interface IFilterService {
+        (name: 'filter'): IFilterFilter;
+        (name: 'currency'): IFilterCurrency;
+        (name: 'number'): IFilterNumber;
+        (name: 'date'): IFilterDate;
+        (name: 'json'): IFilterJson;
+        (name: 'lowercase'): IFilterLowercase;
+        (name: 'uppercase'): IFilterUppercase;
+        (name: 'limitTo'): IFilterLimitTo;
+        (name: 'orderBy'): IFilterOrderBy;
         /**
          * Usage:
          * $filter(name);
          *
          * @param name Name of the filter function to retrieve
          */
-        (name: string): IFilterFunc;
+        <T>(name: string): T;
     }
-    
-    interface IFilterFunc {
-        <T>(array: T[], expression: string | IFilterPatternObject | IFilterPredicateFunc<T>, comparator?: IFilterComparatorFunc<T>|boolean): T[];
+
+    interface IFilterFilter {
+        <T>(array: T[], expression: string | IFilterFilterPatternObject | IFilterFilterPredicateFunc<T>, comparator?: IFilterFilterComparatorFunc<T>|boolean): T[];
     }
-    
-    interface IFilterPatternObject {
-        [name: string]: string;
+
+    interface IFilterFilterPatternObject {
+        [name: string]: any;
     }
-    
-    interface IFilterPredicateFunc<T> {
-        (value: T, index: number, array: T[]): T[];
+
+    interface IFilterFilterPredicateFunc<T> {
+        (value: T, index: number, array: T[]): boolean;
     }
-    
-    interface IFilterComparatorFunc<T> {
+
+    interface IFilterFilterComparatorFunc<T> {
         (actual: T, expected: T): boolean;
+    }
+
+    interface IFilterCurrency {
+        /**
+         * Formats a number as a currency (ie $1,234.56). When no currency symbol is provided, default symbol for current locale is used.
+         * @param amount Input to filter.
+         * @param symbol Currency symbol or identifier to be displayed.
+         * @param fractionSize Number of decimal places to round the amount to, defaults to default max fraction size for current locale
+         * @return Formatted number
+         */
+        (amount: number, symbol?: string, fractionSize?: number): string;
+    }
+
+    interface IFilterNumber {
+        /**
+         * Formats a number as text.
+         * @param number Number to format.
+         * @param fractionSize Number of decimal places to round the number to. If this is not provided then the fraction size is computed from the current locale's number formatting pattern. In the case of the default locale, it will be 3.
+         * @return Number rounded to decimalPlaces and places a “,” after each third digit.
+         */
+        (value: number|string, fractionSize?: number|string): string;
+    }
+
+    interface IFilterDate {
+        /**
+         * Formats date to a string based on the requested format.
+         *
+         * @param date Date to format either as Date object, milliseconds (string or number) or various ISO 8601 datetime string formats (e.g. yyyy-MM-ddTHH:mm:ss.sssZ and its shorter versions like yyyy-MM-ddTHH:mmZ, yyyy-MM-dd or yyyyMMddTHHmmssZ). If no timezone is specified in the string input, the time is considered to be in the local timezone.
+         * @param format Formatting rules (see Description). If not specified, mediumDate is used.
+         * @param timezone Timezone to be used for formatting. It understands UTC/GMT and the continental US time zone abbreviations, but for general use, use a time zone offset, for example, '+0430' (4 hours, 30 minutes east of the Greenwich meridian) If not specified, the timezone of the browser will be used.
+         * @return Formatted string or the input if input is not recognized as date/millis.
+         */
+        (date: Date | number | string, format?: string, timezone?: string): string;
+    }
+
+    interface IFilterJson {
+        /**
+         * Allows you to convert a JavaScript object into JSON string.
+         * @param object Any JavaScript object (including arrays and primitive types) to filter.
+         * @param spacing The number of spaces to use per indentation, defaults to 2.
+         * @return JSON string.
+         */
+        (object: any, spacing?: number): string;
+    }
+
+    interface IFilterLowercase {
+        /**
+         * Converts string to lowercase.
+         */
+        (value: string): string;
+    }
+
+    interface IFilterUppercase {
+        /**
+         * Converts string to uppercase.
+         */
+        (value: string): string;
+    }
+
+    interface IFilterLimitTo {
+        /**
+         * Creates a new array containing only a specified number of elements. The elements are taken from either the beginning or the end of the source array, string or number, as specified by the value and sign (positive or negative) of limit.
+         * @param input Source array to be limited.
+         * @param limit The length of the returned array. If the limit number is positive, limit number of items from the beginning of the source array/string are copied. If the number is negative, limit number of items from the end of the source array are copied. The limit will be trimmed if it exceeds array.length. If limit is undefined, the input will be returned unchanged.
+         * @param begin Index at which to begin limitation. As a negative index, begin indicates an offset from the end of input. Defaults to 0.
+         * @return A new sub-array of length limit or less if input array had less than limit elements.
+         */
+        <T>(input: T[], limit: string|number, begin?: string|number): T[];
+        /**
+         * Creates a new string containing only a specified number of elements. The elements are taken from either the beginning or the end of the source string or number, as specified by the value and sign (positive or negative) of limit. If a number is used as input, it is converted to a string.
+         * @param input Source string or number to be limited.
+         * @param limit The length of the returned string. If the limit number is positive, limit number of items from the beginning of the source string are copied. If the number is negative, limit number of items from the end of the source string are copied. The limit will be trimmed if it exceeds input.length. If limit is undefined, the input will be returned unchanged.
+         * @param begin Index at which to begin limitation. As a negative index, begin indicates an offset from the end of input. Defaults to 0.
+         * @return A new substring of length limit or less if input had less than limit elements.
+         */
+        (input: string|number, limit: string|number, begin?: string|number): string;
+    }
+
+    interface IFilterOrderBy {
+        /**
+         * Orders a specified array by the expression predicate. It is ordered alphabetically for strings and numerically for numbers. Note: if you notice numbers are not being sorted as expected, make sure they are actually being saved as numbers and not strings.
+         * @param array The array to sort.
+         * @param expression A predicate to be used by the comparator to determine the order of elements.
+         * @param reverse Reverse the order of the array.
+         * @return Reverse the order of the array.
+         */
+        <T>(array: T[], expression: string|string[]|((value: T) => any)|((value: T) => any)[], reverse?: boolean): T[];
     }
 
     /**
@@ -909,6 +885,9 @@ declare module angular {
 
     interface ICompiledExpression {
         (context: any, locals?: any): any;
+
+        literal: boolean;
+        constant: boolean;
 
         // If value is not provided, undefined is gonna be used since the implementation
         // does not check the parameter. Let's force a value for consistency. If consumer
@@ -1052,11 +1031,19 @@ declare module angular {
          *
          * @param value Value or a promise
          */
-        when<T>(value: IPromise<T>|T): IPromise<T>;
+        resolve<T>(value: IPromise<T>|T): IPromise<T>;
+        /**
+         * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
+         */
+        resolve(): IPromise<void>;
         /**
          * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
          *
          * @param value Value or a promise
+         */
+        when<T>(value: IPromise<T>|T): IPromise<T>;
+        /**
+         * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
          */
         when(): IPromise<void>;
     }
@@ -1067,12 +1054,12 @@ declare module angular {
          * The successCallBack may return IPromise<void> for when a $q.reject() needs to be returned
          * This method returns a new promise which is resolved or rejected via the return value of the successCallback, errorCallback. It also notifies via the return value of the notifyCallback method. The promise can not be resolved or rejected from the notifyCallback method.
          */
-        then<TResult>(successCallback: (promiseValue: T) => IHttpPromise<TResult>|IPromise<TResult>|TResult|IPromise<void>, errorCallback?: (reason: any) => any, notifyCallback?: (state: any) => any): IPromise<TResult>;
+        then<TResult>(successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback?: (reason: any) => any, notifyCallback?: (state: any) => any): IPromise<TResult>;
 
         /**
          * Shorthand for promise.then(null, errorCallback)
          */
-        catch<TResult>(onRejected: (reason: any) => IHttpPromise<TResult>|IPromise<TResult>|TResult): IPromise<TResult>;
+        catch<TResult>(onRejected: (reason: any) => IPromise<TResult>|TResult): IPromise<TResult>;
 
         /**
          * Allows you to observe either the fulfillment or rejection of a promise, but to do so without modifying the final value. This is useful to release resources or do some clean-up that needs to be done whether the promise was rejected or resolved. See the full specification for more information.
@@ -1400,7 +1387,6 @@ declare module angular {
     interface IHttpPromise<T> extends IPromise<IHttpPromiseCallbackArg<T>> {
         success(callback: IHttpPromiseCallback<T>): IHttpPromise<T>;
         error(callback: IHttpPromiseCallback<any>): IHttpPromise<T>;
-        then<TResult>(successCallback: (response: IHttpPromiseCallbackArg<T>) => IPromise<TResult>|TResult, errorCallback?: (response: IHttpPromiseCallbackArg<any>) => any): IPromise<TResult>;
     }
 
     // See the jsdoc for transformData() at https://github.com/angular/angular.js/blob/master/src/ng/http.js#L228
