@@ -13,6 +13,10 @@ declare module 'passport-facebook' {
     interface Profile extends passport.Profile {
         gender: string;
         profileUrl: string;
+        username: string;
+
+        _raw: string;
+        _json: any;
     }
 
     interface IStrategyOption {

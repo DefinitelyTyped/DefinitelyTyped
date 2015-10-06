@@ -158,6 +158,7 @@ declare module chrome.bookmarks {
     var onImportEnded: BookmarkImportEndedEvent;
     var onImportBegan: BookmarkImportBeganEvent;
     var onChanged: BookmarkChangedEvent;
+    var onMoved: BookmarkMovedEvent;
     var onCreated: BookmarkCreatedEvent;
     var onChildrenReordered: BookmarkChildrenReordered;
 }
@@ -868,7 +869,7 @@ declare module chrome.events {
         addListener(callback: Function): void;
         getRules(callback: (rules: Rule[]) => void): void;
         getRules(ruleIdentifiers: string[], callback: (rules: Rule[]) => void): void;
-        hasListener(callback: Function): void;
+        hasListener(callback: Function): boolean;
         removeRules(ruleIdentifiers?: string[], callback?: Function): void;
         addRules(rules: Rule[], callback?: (rules: Rule[]) => void): void;
         removeListener(callback: Function): void;
@@ -1082,6 +1083,7 @@ declare module chrome.history {
 ////////////////////
 declare module chrome.identity {
     var getAuthToken: (options: any, cb: (token: {}) => void) => void;
+    var launchWebAuthFlow: (options: any, cb: (redirect_url: string) => void) => void;
 }
 
 
@@ -1647,6 +1649,7 @@ declare module chrome.runtime {
     export function getPackageDirectoryEntry(callback: (directoryEntry: any) => void): void;
     export function getPlatformInfo(callback: (platformInfo: PlatformInfo) => void): void;
     export function getURL(path: string): string;
+    export function openOptionsPage(callback?: () => void): void;
     export function reload(): void;
     export function requestUpdateCheck(callback: (status: string, details?: UpdateCheckDetails) => void): void;
     export function restart(): void;
@@ -1820,7 +1823,7 @@ declare module chrome.tabCapture {
         videoConstraints?: MediaTrackConstraints;
     }
 
-    export function capture(options: CaptureOptions, callback: (stream: LocalMediaStream) => void): void;
+    export function capture(options: CaptureOptions, callback: (stream: MediaStream) => void): void;
     export function getCapturedTabs(callback: (result: CaptureInfo[]) => void): void;
 }
 
@@ -1898,7 +1901,7 @@ declare module chrome.tabs {
         active?: boolean;
         index?: number;
         title?: string;
-        url?: string;
+        url?: string | string[];
         currentWindow?: boolean;
         highlighted?: boolean;
         pinned?: boolean;

@@ -83,6 +83,7 @@ declare module NodeJS {
         code?: string;
         path?: string;
         syscall?: string;
+        stack?: string;
     }
 
     export interface EventEmitter {
@@ -909,6 +910,7 @@ declare module "fs" {
     }
     export interface WriteStream extends stream.Writable {
         close(): void;
+        bytesWritten: number;
     }
 
     export function rename(oldPath: string, newPath: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
@@ -1242,6 +1244,7 @@ declare module "stream" {
     export interface WritableOptions {
         highWaterMark?: number;
         decodeStrings?: boolean;
+        objectMode?: boolean;
     }
 
     export class Writable extends events.EventEmitter implements NodeJS.WritableStream {

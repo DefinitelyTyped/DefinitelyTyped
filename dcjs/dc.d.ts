@@ -20,6 +20,11 @@ declare module DC {
         (t: T, r?: R): V;
     }
 
+    export interface IGetSetComputed<T, R, V> {
+        (): R;
+        (t: T): V;
+    }
+
     export interface Scale<T> {
         (x: any): T;
 
@@ -118,7 +123,7 @@ declare module DC {
         minWidth: IGetSet<number, T>;
         minHeight: IGetSet<number, T>;
         dimension: IGetSet<any, T>;
-        data: IGetSet<(group: any) => Array<any>, T>;
+        data: IGetSetComputed<(group: any) => Array<any>, Array<any>, T>;
         group: IGetSet<any, T>;
         ordering: IGetSet<Accessor<any, any>, T>;
         filterAll(): void;
@@ -180,7 +185,7 @@ declare module DC {
         colorCalculator: IGetSet<Accessor<any, string>, T>;
     }
 
-    export interface CoordinateGridMixin<T> extends BaseMixin<T>, MarginMixin<T>, BaseMixin<T> {
+    export interface CoordinateGridMixin<T> extends BaseMixin<T>, MarginMixin<T>, ColorMixin<T> {
         rangeChart: IGetSet<BaseMixin<any>, T>;
         zoomScale: IGetSet<Array<any>, T>;
         zoomOutRestrict: IGetSet<boolean, T>;
@@ -258,7 +263,7 @@ declare module DC {
         radius: number;
     }
 
-    export interface LineChart extends StackMixin<BarChart>, CoordinateGridMixin<BarChart> {
+    export interface LineChart extends StackMixin<LineChart>, CoordinateGridMixin<LineChart> {
         interpolate: IGetSet<string, LineChart>;
         tension: IGetSet<number, LineChart>;
         defined: IGetSet<Accessor<any, boolean>, LineChart>;
@@ -297,19 +302,21 @@ declare module DC {
         elasticRadius: IGetSet<boolean, BubbleChart>;
     }
 
-    export interface CompositeChart extends CoordinateGridMixin<CompositeChart> {
-        useRightAxisGridLines: IGetSet<boolean, CompositeChart>;
-        childOptions: IGetSet<any, CompositeChart>;
-        rightYAxisLabel: IGetSet<string, CompositeChart>;
-        compose: IGetSet<Array<BaseMixin<any>>, CompositeChart>;
+    export interface ICompositeChart<T> extends CoordinateGridMixin<T> {
+        useRightAxisGridLines: IGetSet<boolean, ICompositeChart<T>>;
+        childOptions: IGetSet<any, ICompositeChart<T>>;
+        rightYAxisLabel: IGetSet<string, ICompositeChart<T>>;
+        compose: IGetSet<Array<BaseMixin<any>>, ICompositeChart<T>>;
         children(): Array<BaseMixin<any>>;
-        shareColors: IGetSet<boolean, CompositeChart>;
-        shareTitle: IGetSet<boolean, CompositeChart>;
-        rightY: IGetSet<(n: any) => any, CompositeChart>;
-        rightYAxis: IGetSet<d3.svg.Axis, CompositeChart>;
+        shareColors: IGetSet<boolean, ICompositeChart<T>>;
+        shareTitle: IGetSet<boolean, ICompositeChart<T>>;
+        rightY: IGetSet<(n: any) => any, ICompositeChart<T>>;
+        rightYAxis: IGetSet<d3.svg.Axis, ICompositeChart<T>>;
     }
 
-    export interface SeriesChart extends CompositeChart {
+    export interface CompositeChart extends ICompositeChart<CompositeChart> {}
+
+    export interface SeriesChart extends ICompositeChart<SeriesChart> {
         chart: IGetSet<(c: any) => BaseMixin<any>, SeriesChart>;
         seriesAccessor: IGetSet<Accessor<any, any>, SeriesChart>;
         seriesSort: IGetSet<(a: any, b: any) => number, SeriesChart>;

@@ -17,6 +17,11 @@ declare module 'redis' {
         socket_nodelay?: boolean;
         no_ready_check?: boolean;
         enable_offline_queue?: boolean;
+        retry_max_delay?: number;
+        connect_timeout?: boolean;
+        max_attempts?: number;
+        auth_pass?: string;
+        family?: string; // "IPv4" | "IPv6"
     }
 
     interface Command {

@@ -23,10 +23,10 @@ var animate: HighchartsAnimation = {
 
 var gradient: HighchartsGradient = {
     linearGradient: {
-        x0: 0,
-        y0: 0,
-        x1: 500,
-        y1: 500
+        x1: 0,
+        y1: 0,
+        x2: 500,
+        y2: 500
     },
     stops: [
         [0, 'rgb(255, 255, 255)'],
@@ -112,9 +112,7 @@ var chart2 = new Highcharts.Chart({
 });
 
 chart1.exportChart(null, {
-    chart: {
-        backgroundColor: '#FFFFFF'
-    }
+    backgroundColor: '#FFFFFF'
 });
 
 
@@ -137,3 +135,11 @@ var highChartSettings: HighchartsOptions = {
 var container = $("#container").highcharts(highChartSettings, (chart) => {
     chart.series[0].setVisible(true, true);
 });
+
+
+var singleYAxisOptions: HighchartsOptions = {
+    yAxis: {}
+};
+var multipleYAxisOptions: HighchartsOptions = {
+    yAxis: [{},{}]
+};

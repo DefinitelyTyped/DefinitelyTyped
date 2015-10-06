@@ -572,6 +572,10 @@ declare module CKEDITOR {
         colorButton_colors?: string;
         startupFocus?: boolean;
         on?: any;
+        extraPlugins?: string;
+        height?: string | number;
+        toolbarLocation?: string;
+        readOnly?: boolean;
     }
 
 
@@ -628,7 +632,7 @@ declare module CKEDITOR {
                 data: Function;
                 defaults: Object;
                 dialog: String;
-                downcast: any; // should be string | Function
+                downcast: string | Function;
                 downcasts: Object;
                 draggable: boolean;
                 editables: Object;
@@ -643,16 +647,16 @@ declare module CKEDITOR {
                 styleToAllowedContentRules: Function;
                 styleableElements: string;
                 template: string;
-                upcast: any; // should be string | Function
+                upcast: string | Function;
                 upcasts: Object;
 
                 addClass(className: string): void;
                 applyStyle(style: any): void; // any should be CKEDITOR.style
                 capture(): void;
                 checkStyleActive(style: any): boolean; // any should be CKEDITOR.style
-                define(name: string, meta: {errorProof?: boolean}): void;
+                define(name: string, meta: { errorProof?: boolean }): void;
                 destroy(offline?: boolean): void;
-                destroyEditable(editableName:string, offline?: boolean): void;
+                destroyEditable(editableName: string, offline?: boolean): void;
                 edit(): boolean;
                 fire(eventName: string, data?: Object, editor?: editor): any; // should be boolean | Object
                 fireOnce(eventName: string, data?: Object, editor?: editor): any; // should be boolean | Object
@@ -670,7 +674,7 @@ declare module CKEDITOR {
                 removeClass(className: string): void;
                 removeListener(evnetName: string, listenerFunction: Function): void;
                 removeStyle(style: any): void; // any should be CKEDITOR.style
-                setData(keyOrData: any, value?: Object): IWidget; // any should be string | Object
+                setData(keyOrData: string | {}, value?: Object): IWidget;
                 setFocused(selected: boolean): IWidget;
                 setSelected(selected: boolean): IWidget;
                 toFeature(): any; // should be CKEDITOR.feature
@@ -685,7 +689,7 @@ declare module CKEDITOR {
                 data?: Function;
                 defaults?: Object;
                 dialog?: String;
-                downcast?: any; // should be string | Function
+                downcast?: string | Function;
                 downcasts?: Object;
                 draggable?: boolean;
                 edit?: Function;
@@ -701,7 +705,7 @@ declare module CKEDITOR {
                 styleToAllowedContentRules?: Function;
                 styleableElements?: string;
                 template?: string;
-                upcast?: any; // should be string | Function
+                upcast?: string | Function;
                 upcasts?: Object;
                 toFeature?(): any; // should be CKEDITOR.feature
             }
@@ -732,8 +736,8 @@ declare module CKEDITOR {
 
         interface IPluginDefinition {
             hidpi?: boolean;
-            lang?: any; // should be string | string[]
-            requires?: any; // should be string | string[]a
+            lang?: string | string[];
+            requires?: string | string[];
             afterInit?(editor: editor): any;
             beforeInit?(editor: editor): any;
             init?(editor: editor): any;
