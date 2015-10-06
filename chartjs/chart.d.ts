@@ -7,29 +7,37 @@ interface ChartDataSet {
     label: string;
     fillColor: string;
     strokeColor: string;
+}
 
-    /* Line, Radar */
+interface LinearChartDataSet extends ChartDataSet {
     pointColor?: string;
     pointStrokeColor?: string;
     pointHighlightFill?: string;
     pointHighlightStroke?: string;
+    data: number[];
+}
 
-    /* Bar */
+interface BarChartDataSet extends ChartDataSet {
     highlightFill?: string;
     highlightStroke?: string;
     data: number[];
 }
 
-interface LinearChartData {
-    labels: string[];
-    datasets: ChartDataSet[];
-}
-
-interface CircularChartData {
-    value: number;
+interface CircularChartDataSet {
+    label?: string;
     color?: string;
     highlight?: string;
-    label?: string;
+    value: number;
+}
+
+interface LinearChartData {
+    labels: string[];
+    datasets: LinearChartDataSet[];
+}
+
+interface BarChartData {
+    labels: string[];
+    datasets: BarChartDataSet[];
 }
 
 interface ChartSettings {
@@ -166,7 +174,7 @@ interface LinearInstance extends ChartInstance {
 interface CircularInstance extends ChartInstance {
     getSegmentsAtEvent: (event: Event) => {}[];
     update: () => void;
-    addData: (valuesArray: CircularChartData, index?: number) => void;
+    addData: (valuesArray: CircularChartDataSet, index?: number) => void;
     removeData: (index: number) => void;
 }
 
@@ -216,12 +224,12 @@ interface PieChartOptions extends ChartOptions {
 
 interface Chart {
     Line(data: LinearChartData, options?: LineChartOptions): LinearInstance;
-    Bar(data: LinearChartData, options?: BarChartOptions): LinearInstance;
+    Bar(data: BarChartData, options?: BarChartOptions): LinearInstance;
     Radar(data: LinearChartData, options?: RadarChartOptions): LinearInstance;
 
-    PolarArea(data: CircularChartData[], options?: PolarAreaChartOptions): CircularInstance;
-    Pie(data: CircularChartData[], options?: PieChartOptions): CircularInstance;
-    Doughnut(data: CircularChartData[], options?: PieChartOptions): CircularInstance;
+    PolarArea(data: CircularChartDataSet[], options?: PolarAreaChartOptions): CircularInstance;
+    Pie(data: CircularChartDataSet[], options?: PieChartOptions): CircularInstance;
+    Doughnut(data: CircularChartDataSet[], options?: PieChartOptions): CircularInstance;
 }
 
 declare var Chart: {
