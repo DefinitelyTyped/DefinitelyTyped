@@ -15,12 +15,14 @@ interface LinearChartDataSet extends ChartDataSet {
     pointHighlightFill?: string;
     pointHighlightStroke?: string;
     data: number[];
+    points?: ChartElement[];
 }
 
 interface BarChartDataSet extends ChartDataSet {
     highlightFill?: string;
     highlightStroke?: string;
     data: number[];
+    bars?: ChartElement[];
 }
 
 interface CircularChartDataSet {
@@ -143,7 +145,7 @@ interface ChartOptions {
     legendTemplate?: string;
 }
 
-interface PointsAtEvent {
+interface ChartElement {
     value: number;
     label: string;
     datasetLabel: string;
@@ -165,21 +167,30 @@ interface ChartInstance {
 }
 
 interface LinearInstance extends ChartInstance {
-    getPointsAtEvent: (event: Event) => PointsAtEvent[];
+    getPointsAtEvent: (event: Event) => ChartElement[];
     update: () => void;
     addData: (valuesArray: number[], label: string) => void;
     removeData: () => void;
+    datasets: LinearChartDataSet[];
+}
+
+interface BarInstance extends ChartInstance {
+    getBarsAtEvent: (event: Event) => ChartElement[];
+    update: () => void;
+    addData: (valuesArray: number[], label: string) => void;
+    removeData: () => void;
+    datasets: BarChartDataSet[];
 }
 
 interface CircularInstance extends ChartInstance {
-    getSegmentsAtEvent: (event: Event) => {}[];
+    getSegmentsAtEvent: (event: Event) => ChartElement[];
     update: () => void;
     addData: (valuesArray: CircularChartDataSet, index?: number) => void;
     removeData: (index: number) => void;
+    segments: ChartElement[];
 }
 
 interface LineChartOptions extends ChartOptions {
-
 }
 
 interface BarChartOptions extends ChartOptions {
@@ -224,7 +235,7 @@ interface PieChartOptions extends ChartOptions {
 
 interface Chart {
     Line(data: LinearChartData, options?: LineChartOptions): LinearInstance;
-    Bar(data: BarChartData, options?: BarChartOptions): LinearInstance;
+    Bar(data: BarChartData, options?: BarChartOptions): BarInstance;
     Radar(data: LinearChartData, options?: RadarChartOptions): LinearInstance;
 
     PolarArea(data: CircularChartDataSet[], options?: PolarAreaChartOptions): CircularInstance;
