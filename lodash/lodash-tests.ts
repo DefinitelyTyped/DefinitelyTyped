@@ -2013,28 +2013,43 @@ result = <DefaultsDeepResult>_(TestDefaultsDeepObject).defaultsDeep<DefaultsDeep
 
 // _.findKey
 module TestFindKey {
-    let predicateFn: (value: any, key?: string, object?: {}) => boolean;
     let result: string;
 
-    result = _.findKey<{a: string;}>({a: ''});
+    {
+        let predicateFn: (value: any, key?: string, object?: {}) => boolean;
 
-    result = _.findKey<{a: string;}>({a: ''}, predicateFn);
-    result = _.findKey<{a: string;}>({a: ''}, predicateFn, any);
+        result = _.findKey<{a: string;}>({a: ''});
 
-    result = _.findKey<{a: string;}>({a: ''}, '');
-    result = _.findKey<{a: string;}>({a: ''}, '', any);
+        result = _.findKey<{a: string;}>({a: ''}, predicateFn);
+        result = _.findKey<{a: string;}>({a: ''}, predicateFn, any);
 
-    result = _.findKey<{a: number;}, {a: string;}>({a: ''}, {a: 42});
 
-    result = _<{a: string;}>({a: ''}).findKey();
+        result = _.findKey<{a: string;}>({a: ''}, '');
+        result = _.findKey<{a: string;}>({a: ''}, '', any);
 
-    result = _<{a: string;}>({a: ''}).findKey(predicateFn);
-    result = _<{a: string;}>({a: ''}).findKey(predicateFn, any);
+        result = _.findKey<{a: number;}, {a: string;}>({a: ''}, {a: 42});
 
-    result = _<{a: string;}>({a: ''}).findKey('');
-    result = _<{a: string;}>({a: ''}).findKey('', any);
+        result = _<{a: string;}>({a: ''}).findKey();
 
-    result = _<{a: string;}>({a: ''}).findKey<{a: number;}>({a: 42});
+        result = _<{a: string;}>({a: ''}).findKey(predicateFn);
+        result = _<{a: string;}>({a: ''}).findKey(predicateFn, any);
+
+
+        result = _<{a: string;}>({a: ''}).findKey('');
+        result = _<{a: string;}>({a: ''}).findKey('', any);
+
+        result = _<{a: string;}>({a: ''}).findKey<{a: number;}>({a: 42});
+    }
+
+    {
+        let predicateFn: (value: string, key?: string, collection?: _.Dictionary<string>) => boolean;
+
+        result = _.findKey<string, {a: string;}>({a: ''}, predicateFn);
+        result = _.findKey<string, {a: string;}>({a: ''}, predicateFn, any);
+
+        result = _<{a: string;}>({a: ''}).findKey<string>(predicateFn);
+        result = _<{a: string;}>({a: ''}).findKey<string>(predicateFn, any);
+    }
 }
 
 result = <string>_.findLastKey({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, function (num) {
