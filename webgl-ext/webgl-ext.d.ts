@@ -6,9 +6,19 @@
 // These definitions go beyond those already defined in TS 1.6.2 stdlib
 // All non-draft WebGL 1.0 extensions and prefixed extension names are
 // covered.
+// Some missing parameters for getContext and fields for
+// WebGLContextAttributes are added as well, copied over from
+// Shane Anderson's webgl interfaces.
+
+
+interface WebGLContextAttributes {
+	preferLowPowerToHighPerformance?: boolean;
+	failIfMajorPerformanceCaveat?: boolean;
+}
 
 interface HTMLCanvasElement {
-	getContext(contextId: "webgl"): WebGLRenderingContext;
+	getContext(contextId: "experimental-webgl", attributes?: WebGLContextAttributes): WebGLRenderingContext;
+	getContext(contextId: "webgl", attributes?: WebGLContextAttributes): WebGLRenderingContext;
 }
 
 interface WebGLRenderingContext {
