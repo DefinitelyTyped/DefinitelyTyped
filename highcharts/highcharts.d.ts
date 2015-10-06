@@ -3,7 +3,7 @@
 // Definitions by: Damiano Gambarotto <http://github.com/damianog>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="../../jquery/jquery.d.ts" />
 
 interface HighchartsPosition {
     align?: string;
@@ -115,7 +115,7 @@ interface HighchartsAxisOptions {
     minRange?: number;
     minTickInterval?: number;
     minorTickColor?: string;
-    minorTickInterval?: number|string;
+    minorTickInterval?: number | string;
     minorTickLength?: number;
     minorTickPosition?: string; // 'inside' 'outside'
     minorTickWidth?: number;
@@ -173,8 +173,8 @@ interface HighchartsGradient {
         cx: number; cy: number; r: number;
     };
     stops?: any[][];
-    brighten? (amount: number): string | HighchartsGradient;
-    get? (type: string): string;
+    brighten?(amount: number): string | HighchartsGradient;
+    get?(type: string): string;
 }
 
 interface HighchartsShadow {
@@ -248,7 +248,9 @@ interface HighchartsCSSObject {
     border?: string;
     color?: string;
     cursor?: string;
+    direction?: string;
     font?: string;
+    fontFamily?: string;
     fontSize?: string;
     fontWeight?: string;
     left?: string;
@@ -423,7 +425,7 @@ interface HighchartsPaneBackground {
 
 interface HighchartsPaneOptions {
     background?: HighchartsPaneBackground[];
-    center?: [number|string, number|string]; // [x,y] | ["50%","50%" ]
+    center?: [number | string, number | string]; // [x,y] | ["50%","50%" ]
     endAngle?: number;
     size?: number | string;
     startAngle?: number;
@@ -886,7 +888,7 @@ interface HighchartsLineChart {
     states?: {
         hover: HighchartsAreaStates;
     };
-    step?: boolean|string;
+    step?: boolean | string;
     stickyTracking?: boolean;
     tooltip?: HighchartsTooltipOptions;
     turboThreshold?: number;
@@ -1056,7 +1058,7 @@ interface HighchartsPlotOptions {
  * interfaces (HighchartsAreaChartSeriesOptions, HighchartsLineChartSeriesOptions, etc.)
  */
 interface HighchartsIndividualSeriesOptions {
-    data?: number[]|[number, number][]| HighchartsDataPoint[]; // [value1,value2, ... ] | [[x1,y1],[x2,y2],... ] | HighchartsDataPoint[]
+    data?: number[] | [number, number][] | HighchartsDataPoint[]; // [value1,value2, ... ] | [[x1,y1],[x2,y2],... ] | HighchartsDataPoint[]
     id?: string;
     index?: number;
     legendIndex?: number;
@@ -1107,7 +1109,7 @@ interface HighchartsDataPoint {
 
 interface HighchartsSeriesOptions extends HighchartsSeriesChart {
     type?: string;
-    data?: number[]| number[][]| HighchartsDataPoint[];
+    data?: number[] | number[][] | HighchartsDataPoint[];
     index?: number;
     legendIndex?: number;
     name?: string;
@@ -1149,7 +1151,7 @@ interface HighchartsTooltipOptions {
     borderColor?: string;
     borderRadius?: number;
     borderWidth?: number;
-    crosshairs?: boolean |[boolean, boolean]| HighchartsCrosshairObject |[HighchartsCrosshairObject, HighchartsCrosshairObject];
+    crosshairs?: boolean | [boolean, boolean] | HighchartsCrosshairObject | [HighchartsCrosshairObject, HighchartsCrosshairObject];
     enabled?: boolean;
     footerFormat?: string;
     formatter?: () => any;
@@ -1185,7 +1187,7 @@ interface HighchartsOptions {
     title?: HighchartsTitleOptions;
     tooltip?: HighchartsTooltipOptions;
     xAxis?: HighchartsAxisOptions;
-    yAxis?: HighchartsAxisOptions|HighchartsAxisOptions[];
+    yAxis?: HighchartsAxisOptions | HighchartsAxisOptions[];
 }
 
 interface HighchartsGlobalOptions extends HighchartsOptions {
@@ -1296,13 +1298,13 @@ declare var Highcharts: HighchartsStatic;
 interface HighchartsPointObject {
     category: string | number;
     percentage: number;
-    remove(redraw?: boolean, animation?: boolean|HighchartsAnimation): void;
+    remove(redraw?: boolean, animation?: boolean | HighchartsAnimation): void;
     select(): void;
     select(select: boolean): void;
     select(select: boolean, accumulate: boolean): void;
     selected: boolean;
     series: HighchartsSeriesObject;
-    slice(sliced?: boolean, redraw?: boolean, animation?: boolean|HighchartsAnimation): void;
+    slice(sliced?: boolean, redraw?: boolean, animation?: boolean | HighchartsAnimation): void;
     total: number;
     update(options: number | [number, number] | HighchartsDataPoint, redraw?: boolean, animation?: boolean | HighchartsAnimation): void;
     x: number;
@@ -1310,7 +1312,7 @@ interface HighchartsPointObject {
 }
 
 interface HighchartsSeriesObject {
-    addPoint(options: number |[number, number]| HighchartsDataPoint, redraw?: boolean, shift?: boolean, animation?: boolean | HighchartsAnimation): void;
+    addPoint(options: number | [number, number] | HighchartsDataPoint, redraw?: boolean, shift?: boolean, animation?: boolean | HighchartsAnimation): void;
     chart: HighchartsChartObject;
     data: HighchartsPointObject[];
     hide(): void;
