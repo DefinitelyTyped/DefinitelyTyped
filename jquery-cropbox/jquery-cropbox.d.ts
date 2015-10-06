@@ -107,9 +107,9 @@ declare module jQueryCropBox {
 }
 
 interface JQuery {
-    cropbox(params?: jQueryCropBox.CropboxOptions): jQueryCropBox.Cropbox
+    cropbox(params?: jQueryCropBox.CropboxOptions): JQuery
 }
 
 interface JQueryStatic {
-    cropbox(params?: jQueryCropBox.CropboxOptions): jQueryCropBox.Cropbox
+    cropbox(params?: jQueryCropBox.CropboxOptions): JQueryStatic
 }
