@@ -1968,6 +1968,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Creates an array of unique values that is the symmetric difference of the provided arrays.
+         *
          * @param arrays The arrays to inspect.
          * @return Returns the new array of values.
          */
@@ -1978,14 +1979,14 @@ declare module _ {
         /**
          * @see _.xor
          */
-        xor(...arrays: T[][]): LoDashArrayWrapper<T>;
+        xor(...arrays: List<T>[]): LoDashArrayWrapper<T>;
     }
 
     interface LoDashObjectWrapper<T> {
         /**
          * @see _.xor
          */
-        xor(...arrays: T[]): LoDashObjectWrapper<T>;
+        xor<TValue>(...arrays: List<TValue>[]): LoDashArrayWrapper<TValue>;
     }
 
     //_.zip

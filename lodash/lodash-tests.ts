@@ -726,21 +726,29 @@ result = <{ x: number; }[]>_([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }]).unique('x').v
 }
 
 // _.xor
-var testXorArray: number[];
-var testXorList: _.List<number>;
-result = <number[]>_.xor<number>();
-result = <number[]>_.xor<number>(testXorArray);
-result = <number[]>_.xor<number>(testXorArray, testXorArray);
-result = <number[]>_.xor<number>(testXorArray, testXorArray, testXorArray);
-result = <number[]>_.xor<number>(testXorList);
-result = <number[]>_.xor<number>(testXorList, testXorList);
-result = <number[]>_.xor<number>(testXorList, testXorList, testXorList);
-result = <number[]>(_(testXorArray).xor().value());
-result = <number[]>(_(testXorArray).xor(testXorArray).value());
-result = <number[]>(_(testXorArray).xor(testXorArray, testXorArray).value());
-result = <number[]>(_(testXorList).xor().value());
-result = <number[]>(_(testXorList).xor(testXorList).value());
-result = <number[]>(_(testXorList).xor(testXorList, testXorList).value());
+module TestXor {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let result: TResult[];
+
+    result = _.xor<TResult>();
+
+    result = _.xor<TResult>(array);
+    result = _.xor<TResult>(array, list);
+    result = _.xor<TResult>(array, list, array);
+
+    result = _.xor<TResult>(list);
+    result = _.xor<TResult>(list, array);
+    result = _.xor<TResult>(list, array, list);
+
+    result = _(array).xor().value();
+    result = _(array).xor(list).value();
+    result = _(array).xor(list, array).value();
+
+    result = _(list).xor<TResult>().value();
+    result = _(list).xor<TResult>(array).value();
+    result = _(list).xor<TResult>(array, list).value();
+}
 
 result = <any[][]>_.zip(['moe', 'larry'], [30, 40], [true, false]);
 result = <any[][]>_.unzip(['moe', 'larry'], [30, 40], [true, false]);
