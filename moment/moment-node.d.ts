@@ -19,6 +19,13 @@ declare module moment {
         month?: number;
         /** Month */
         M?: number;
+        
+        /** Week */
+        weeks?: number;
+        /** Week */
+        week?: number;
+        /** Week */
+        w?: number;
 
         /** Day/Date */
         days?: number;
