@@ -46,6 +46,9 @@ var step2Options: TetherShepherd.IShepherdTourStepOptions = {
         destroy: () => {
             console.log('Destroyed the Step 2');
         }
+    },
+    showOn: () => {
+        return true;
     }
 };
 
