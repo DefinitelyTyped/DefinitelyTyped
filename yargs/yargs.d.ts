@@ -56,6 +56,11 @@ declare module "yargs" {
 			command(command: string, description: string): Argv;
 			command(command: string, description: string, fn: (args: Argv) => void): Argv;
 
+			completion(cmd: string, fn?: SyncCompletionFunction): Argv;
+			completion(cmd: string, description?: string, fn?: SyncCompletionFunction): Argv;
+			completion(cmd: string, fn?: AsyncCompletionFunction): Argv;
+			completion(cmd: string, description?: string, fn?: AsyncCompletionFunction): Argv;
+
 			example(command: string, description: string): Argv;
 
 			check(func: (argv: any, aliases: { [alias: string]: string }) => any): Argv;
@@ -111,6 +116,9 @@ declare module "yargs" {
 			desc?: any;
 			requiresArg?: any;
 		}
+
+		type SyncCompletionFunction = (current: string, argv: any) => string[];
+		type AsyncCompletionFunction = (current: string, argv: any, done: (completion: string[]) => void) => void;
 	}
 
 	var yargs: yargs.Argv;
