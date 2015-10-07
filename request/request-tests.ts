@@ -212,7 +212,7 @@ request.get('http://google.com/img.png').pipe(request.put('http://mysite.com/img
 
 request
   .get('http://google.com/img.png')
-  .on('response', function(response) {
+  .on('response', function(response: any) {
     console.log(response.statusCode); // 200
     console.log(response.headers['content-type']); // 'image/png'
   })
@@ -220,7 +220,7 @@ request
   
 request
   .get('http://mysite.com/doodle.png')
-  .on('error', function(err) {
+  .on('error', function(err: any) {
     console.log(err);
   })
   .pipe(fs.createWriteStream('doodle.png'));
@@ -370,7 +370,7 @@ options = {
   }
 };
 
-function callback(error, response, body) {
+function callback(error: any, response: http.IncomingMessage, body: string) {
   if (!error && response.statusCode == 200) {
     var info = JSON.parse(body);
     console.log(info.stargazers_count + " Stars");
@@ -406,7 +406,7 @@ request.post({url:url, oauth:oauth}, function (e, r, body) {
 
   // step 3
   // after the user is redirected back to your server
-  var auth_data = qs.parse(body)
+  var auth_data: any = qs.parse(body)
     , oauth =
       { consumer_key: CONSUMER_KEY
       , consumer_secret: CONSUMER_SECRET
@@ -418,20 +418,19 @@ request.post({url:url, oauth:oauth}, function (e, r, body) {
     ;
   request.post({url:url, oauth:oauth}, function (e, r, body) {
     // ready to make signed requests on behalf of the user
-    var perm_data = qs.parse(body)
-      , oauth =
+    var perm_data: any = qs.parse(body);
+    var oauth =
         { consumer_key: CONSUMER_KEY
         , consumer_secret: CONSUMER_SECRET
         , token: perm_data.oauth_token
         , token_secret: perm_data.oauth_token_secret
-        }
-      , url = 'https://api.twitter.com/1.1/users/show.json'
-      , qs =
-        { screen_name: perm_data.screen_name
-        , user_id: perm_data.user_id
-        }
-      ;
-    request.get({url:url, oauth:oauth, qs:qs, json:true}, function (e, r, user) {
+        };
+    var url = 'https://api.twitter.com/1.1/users/show.json';
+    var query = { 
+      screen_name: perm_data.screen_name, 
+      user_id: perm_data.user_id
+    };
+    request.get({url:url, oauth:oauth, qs:query, json:true}, function (e, r, user) {
       console.log(user);
     });
   });
@@ -576,13 +575,13 @@ request(
       console.log('server encoded the data as: ' + (response.headers['content-encoding'] || 'identity'))
       console.log('the decoded data is: ' + body)
     }
-  ).on('data', function(data) {
+  ).on('data', function(data: any) {
     // decompressed data as it is received
     console.log('decoded chunk: ' + data)
   })
-  .on('response', function(response) {
+  .on('response', function(response: http.IncomingMessage) {
     // unmodified http.IncomingMessage object
-    response.on('data', function(data) {
+    response.on('data', function(data: any[]) {
       // compressed data as it is received
       console.log('received ' + data.length + ' bytes of compressed data')
     })
