@@ -4,6 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../when/when.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 declare module autobahn {
 
@@ -49,24 +50,52 @@ declare module autobahn {
 		procedure: string;
 	}
 
-	interface IEvent {
+    class Invocation implements IInvocation {
+        constructor(caller?: number, progress?: boolean, procedure?: string);
+
+        procedure: string;
+    }
+
+    interface IEvent {
 		publication: number;
 		publisher?: number;
 		topic: string;
 	}
 
-	interface IResult {
+    class Event implements IEvent {
+        constructor(publication?: number, publisher?: string, topic?: string);
+
+        publication: number;
+        topic: string;
+    }
+
+    interface IResult {
 		args: any[];
 		kwargs: any;
 	}
 
-	interface IError {
+    class Result implements IResult {
+        constructor(args? : any[], kwargs? : any);
+
+        args: any[];
+        kwargs: any;
+    }
+
+    interface IError {
 		error: string;
 		args: any[];
 		kwargs: any;
-	}
+    }
 
-	type SubscribeHandler = (args?: any[], kwargs?: any, details?: IEvent) => void;
+    class Error implements IError {
+        constructor(error? : string, args? : any[], kwargs? : any);
+
+        error: string;
+        args: any[];
+        kwargs: any;
+    }
+
+    type SubscribeHandler = (args?: any[], kwargs?: any, details?: IEvent) => void;
 
 	interface ISubscription {
 		topic: string;
@@ -78,7 +107,19 @@ declare module autobahn {
 		unsubscribe(): When.Promise<any>;
 	}
 
-	type RegisterEndpoint = (args?: any[], kwargs?: any, details?: IInvocation) => void;
+    class Subscription implements ISubscription {
+        constructor(topic?, handler?: SubscribeHandler, options?:ISubscribeOptions, session?:Session, id?:number);
+
+        handler: SubscribeHandler;
+        unsubscribe(): When.Promise<any>;
+        topic: string;
+        options: ISubscribeOptions;
+        session: Session;
+        id: number;
+        active: boolean;
+    }
+
+    type RegisterEndpoint = (args?: any[], kwargs?: any, details?: IInvocation) => void;
 
 	interface IRegistration {
 		procedure: string;
@@ -90,11 +131,31 @@ declare module autobahn {
 		unregister(): When.Promise<any>;
 	}
 
-	interface IPublication {
-		id: number;
-	}
+    class Registration implements IRegistration {
+        constructor(procedure? : string, endpoint? : RegisterEndpoint, options? : IRegisterOptions, session? : Session, id? : number);
 
-	interface ICallOptions {
+        endpoint : RegisterEndpoint;
+
+        unregister(): When.Promise<any>;
+
+        procedure: string;
+        options: IRegisterOptions;
+        session: Session;
+        id: number;
+        active: boolean;
+    }
+
+    interface IPublication {
+		id: number;
+    }
+
+    class Publication implements IPublication {
+        constructor(id : number);
+
+        id: number;
+    }
+
+    interface ICallOptions {
 		timeout?: number;
 		receive_progress?: boolean;
 		disclose_me?: boolean;
@@ -131,7 +192,7 @@ declare module autobahn {
 		type: string;
 	}
 
-	type DeferFactory = () => any;
+	type DeferFactory = () => JQueryPromise<any>;
 
 	type OnChallengeHandler = (session: Session, method: string, extra: any) => When.Promise<string>;
 
@@ -170,7 +231,7 @@ declare module autobahn {
 	}
 
 	interface ITransportFactory {
-		//constructor(options: any);
+		// constructor(options: any);
 		type: string;
 		create(): ITransport;
 	}
@@ -179,7 +240,7 @@ declare module autobahn {
 		register(name: string, factory: any): void;
 		isRegistered(name: string): boolean;
 		get(name: string): any;
-		list(): any[];
+		list(): string[];
 	}
 
 	interface ILog {
@@ -190,9 +251,15 @@ declare module autobahn {
 		assert(condition: boolean, message: string): void;
 	}
 
-	var util: IUtil;
+    interface IAuthCra {
+        derive_key(secret: string, salt: string, iterations: number, keylen: number): string;
+        sign(key: string, challenge: string): string;
+    }
+
+    var util: IUtil;
 	var log: ILog;
-	var transports: ITransports;
+    var transports: ITransports;
+    var auth_cra: IAuthCra;
 }
 
 declare module "autobahn" {
