@@ -868,6 +868,26 @@ declare module "child_process" {
         env?: any;
         encoding?: string;
     }): ChildProcess;
+    export function spawnSync(command: string, args?: string[], options?: {
+        cwd?: string;
+        input?: string | Buffer;
+        stdio?: any;
+        env?: any;
+        uid?: number;
+        gid?: number;
+        timeout?: number;
+        maxBuffer?: number;
+        killSignal?: string;
+        encoding?: string;
+    }): {
+        pid: number;
+        output: string[];
+        stdout: string | Buffer;
+        stderr: string | Buffer;
+        status: number;
+        signal: string;
+        error: Error;
+    };
     export function execSync(command: string, options?: {
         cwd?: string;
         input?: string|Buffer;
