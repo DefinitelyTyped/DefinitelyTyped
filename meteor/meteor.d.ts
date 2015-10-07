@@ -59,7 +59,7 @@ declare module Meteor {
 
 declare module DDP {
 	interface DDPStatic {
-		subscribe(name: string, ...rest: any[]);
+		subscribe(name: string, ...rest: any[]): Meteor.SubscriptionHandle;
 		call(method: string, ...parameters: any[]):void;
 		apply(method: string, ...parameters: any[]):void;
 		methods(IMeteorMethodsDictionary: any): any;
@@ -290,8 +290,8 @@ interface MailComposerStatic {
 interface MailComposer {
 	addHeader(name: string, value: string): void;
 	setMessageOption(from: string, to: string, body: string, html: string): void;
-	streamMessage();
-	pipe(stream: any /** fs.WriteStream **/);
+	streamMessage(): void;
+	pipe(stream: any /** fs.WriteStream **/): void;
 }
 /**
  * These are the modules and interfaces for packages that can't be automatically generated from the Meteor data.js file
@@ -342,8 +342,8 @@ declare module Meteor {
 }
 
 declare module Accounts {
-	function addEmail(userId: string, newEmail: string, verified?: boolean); /** TODO: add return value **/
-function changePassword(oldPassword: string, newPassword: string, callback?: Function): void;
+	function addEmail(userId: string, newEmail: string, verified?: boolean): void;
+	function changePassword(oldPassword: string, newPassword: string, callback?: Function): void;
 	function createUser(options: {
 		username?: string;
 		email?: string;
@@ -359,23 +359,23 @@ function changePassword(oldPassword: string, newPassword: string, callback?: Fun
 	function onEmailVerificationLink(callback: Function): void;
 	function onEnrollmentLink(callback: Function): void;
 	function onResetPasswordLink(callback: Function): void;
-	function removeEmail(userId: string, email: string); /** TODO: add return value **/
-function resetPassword(token: string, newPassword: string, callback?: Function): void;
+	function removeEmail(userId: string, email: string): void;
+	function resetPassword(token: string, newPassword: string, callback?: Function): void;
 	function sendEnrollmentEmail(userId: string, email?: string): void;
 	function sendResetPasswordEmail(userId: string, email?: string): void;
 	function sendVerificationEmail(userId: string, email?: string): void;
 	function setPassword(userId: string, newPassword: string, options?: {
 		logout?: Object;
 	}): void;
-	function setUsername(userId: string, newUsername: string); /** TODO: add return value **/
-var ui: {
-			config(options: {
-				requestPermissions?: Object;
-				requestOfflineToken?: Object;
-				forceApprovalPrompt?: Object;
-				passwordSignupFields?: string;
-			}): void;
-		};
+	function setUsername(userId: string, newUsername: string): void;
+	var ui: {
+		config(options: {
+			requestPermissions?: Object;
+			requestOfflineToken?: Object;
+			forceApprovalPrompt?: Object;
+			passwordSignupFields?: string;
+		}): void;
+	};
 	function verifyEmail(token: string, callback?: Function): void;
 	function config(options: {
 		sendVerificationEmail?: boolean;
@@ -383,39 +383,17 @@ var ui: {
 		restrictCreationByEmailDomain?: string | Function;
 		loginExpirationInDays?: number;
 		oauthSecretKey?: string;
-	}); /** TODO: add return value **/
-function onLogin(func: Function); /** TODO: add return value **/
-function onLoginFailure(func: Function); /** TODO: add return value **/
-function user(); /** TODO: add return value **/
-function userId(); /** TODO: add return value **/
-function config(options: {
-	sendVerificationEmail?: boolean;
-	forbidClientAccountCreation?: boolean;
-	restrictCreationByEmailDomain?: string | Function;
-	loginExpirationInDays?: number;
-	oauthSecretKey?: string;
-}); /** TODO: add return value **/
-function loggingIn(); /** TODO: add return value **/
-function logout(callback?: Function); /** TODO: add return value **/
-function logoutOtherClients(callback?: Function); /** TODO: add return value **/
-function onLogin(func: Function); /** TODO: add return value **/
-function onLoginFailure(func: Function); /** TODO: add return value **/
-function user(); /** TODO: add return value **/
-function userId(); /** TODO: add return value **/
-function config(options: {
-	sendVerificationEmail?: boolean;
-	forbidClientAccountCreation?: boolean;
-	restrictCreationByEmailDomain?: string | Function;
-	loginExpirationInDays?: number;
-	oauthSecretKey?: string;
-}); /** TODO: add return value **/
-function onCreateUser(func: Function); /** TODO: add return value **/
-function onLogin(func: Function); /** TODO: add return value **/
-function onLoginFailure(func: Function); /** TODO: add return value **/
-function user(); /** TODO: add return value **/
-function userId(); /** TODO: add return value **/
-function validateLoginAttempt(func: Function); /** TODO: add return value **/
-function validateNewUser(func: Function); /** TODO: add return value **/
+	}): void;
+	function onLogin(func: Function): { stop: () => void };
+	function onLoginFailure(func: Function): { stop: () => void };
+	function user(): Meteor.User;
+	function userId(): string;
+	function loggingIn(): boolean;
+	function logout(callback?: Function): void;
+	function logoutOtherClients(callback?: Function): void;
+	function onCreateUser(func: Function): void;
+	function validateLoginAttempt(func: Function): { stop: () => void };
+	function validateNewUser(func: Function): boolean;
 }
 
 declare module App {
@@ -636,8 +614,8 @@ declare module Mongo {
 			transform?: Function;
 		}): T;
 		insert(doc: T, callback?: Function): string;
-		rawCollection(); /** TODO: add return value **/
-		rawDatabase(); /** TODO: add return value **/
+		rawCollection(): any;
+		rawDatabase(): any;
 		remove(selector: Mongo.Selector | Mongo.ObjectID | string, callback?: Function): void;
 		update(selector: Mongo.Selector | Mongo.ObjectID | string, modifier: Mongo.Modifier, options?: {
 			multi?: boolean;
@@ -808,7 +786,7 @@ interface PackageAPIStatic {
 	new(): PackageAPI;
 }
 interface PackageAPI {
-	addAssets(filenames: string | string[], architecture: string | string[]); /** TODO: add return value **/
+	addAssets(filenames: string | string[], architecture: string | string[]): void;
 	addFiles(filenames: string | string[], architecture?: string | string[], options?: {
 		bare?: boolean;
 	}): void;
