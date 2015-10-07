@@ -17,34 +17,34 @@ declare module 'request' {
 
 	namespace request {
 		export interface RequestAPI<TRequest extends Request, TOptions extends Options> {
-			defaults(options: Options): RequestAPI<TRequest, TOptions>;
-			(uri: string, options?: Options, callback?: RequestCallback): TRequest;
+			defaults(options: TOptions): RequestAPI<TRequest, TOptions>;
+			(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			(uri: string, callback?: RequestCallback): TRequest;
-			(options?: Options, callback?: RequestCallback): TRequest;
+			(options?: TOptions, callback?: RequestCallback): TRequest;
 			
-			get(uri: string, options?: Options, callback?: RequestCallback): TRequest;
+			get(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			get(uri: string, callback?: RequestCallback): TRequest;
-			get(options: Options, callback?: RequestCallback): TRequest;
+			get(options: TOptions, callback?: RequestCallback): TRequest;
 	
-			post(uri: string, options?: Options, callback?: RequestCallback): TRequest;
+			post(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			post(uri: string, callback?: RequestCallback): TRequest;
-			post(options: Options, callback?: RequestCallback): TRequest;
+			post(options: TOptions, callback?: RequestCallback): TRequest;
 	
-			put(uri: string, options?: Options, callback?: RequestCallback): TRequest;
+			put(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			put(uri: string, callback?: RequestCallback): TRequest;
-			put(options: Options, callback?: RequestCallback): TRequest;
+			put(options: TOptions, callback?: RequestCallback): TRequest;
 	
-			head(uri: string, options?: Options, callback?: RequestCallback): TRequest;
+			head(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			head(uri: string, callback?: RequestCallback): TRequest;
-			head(options: Options, callback?: RequestCallback): TRequest;
+			head(options: TOptions, callback?: RequestCallback): TRequest;
 	
-			patch(uri: string, options?: Options, callback?: RequestCallback): TRequest;
+			patch(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			patch(uri: string, callback?: RequestCallback): TRequest;
-			patch(options: Options, callback?: RequestCallback): TRequest;
+			patch(options: TOptions, callback?: RequestCallback): TRequest;
 	
-			del(uri: string, options?: Options, callback?: RequestCallback): TRequest;
+			del(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			del(uri: string, callback?: RequestCallback): TRequest;
-			del(options: Options, callback?: RequestCallback): TRequest;
+			del(options: TOptions, callback?: RequestCallback): TRequest;
 	
 			forever(agentOptions: any, optionsArg: any): TRequest;
 			jar(): CookieJar;
