@@ -182,7 +182,7 @@ declare module Chartist {
     labelOffset?: {
       x?: number;
       y?: number;
-    },
+    };
     showLabel?: boolean;
     showGrid?: boolean;
     labelInterpolationFnc?: Function;
