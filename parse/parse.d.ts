@@ -1050,11 +1050,11 @@ declare namespace Parse {
 
 }
 
-declare module "parse" {
-    var type: typeof Parse;
-    var subType: {
-        Parse: typeof type;
-    }
+declare module "parse/node" {
+    export = { Parse };
+}
 
-    export = subType;
+declare module "parse" {
+    import parse = require("parse/node");
+    export = parse
 }
