@@ -12,9 +12,19 @@ declare module 'request-promise' {
     import request = require('request');
 	import http = require('http');
         
-    interface RequestPromise extends request.Request, Promise<any> {
+    interface RequestPromise extends request.Request {
+        then(onFulfilled: Function, onRejected: Function): Promise<any>;
+        catch(onRejected: Function): Promise<any>;
+        finally(onFinished: Function): Promise<any>;
+        promise(): Promise<any>;
     }
     
-    var requestPromise: request.RequestAPI<RequestPromise>;
+    interface RequestPromiseOptions extends request.Options {
+        simple?: boolean;
+        transform?: (body: any, response: http.IncomingMessage) => any;
+        resolveWithFullResponse?: boolean;
+    }
+    
+    var requestPromise: request.RequestAPI<RequestPromise, RequestPromiseOptions>;
 	export = requestPromise;
 }

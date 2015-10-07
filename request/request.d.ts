@@ -16,8 +16,8 @@ declare module 'request' {
 	import fs = require('fs');
 
 	namespace request {
-		export interface RequestAPI<TRequest extends Request> {
-			defaults(options: Options): RequestAPI<TRequest>;
+		export interface RequestAPI<TRequest extends Request, TOptions extends Options> {
+			defaults(options: Options): RequestAPI<TRequest, TOptions>;
 			(uri: string, options?: Options, callback?: RequestCallback): TRequest;
 			(uri: string, callback?: RequestCallback): TRequest;
 			(options?: Options, callback?: RequestCallback): TRequest;
@@ -214,6 +214,6 @@ declare module 'request' {
 			toString(): string;
 		}
 	}	
-	var request: request.RequestAPI<request.Request>;
+	var request: request.RequestAPI<request.Request, request.Options>;
 	export = request;
 }
