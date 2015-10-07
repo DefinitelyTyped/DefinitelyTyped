@@ -136,32 +136,32 @@ function Argv$options() {
 
 function command() {
 	var argv = yargs
-	.usage('npm <command>')
-	.command('install', 'tis a mighty fine package to install')
-	.command('publish', 'shiver me timbers, should you be sharing all that', yargs => {
-		argv = yargs.option('f', {
-			alias: 'force',
-			description: 'yar, it usually be a bad idea'
+		.usage('npm <command>')
+		.command('install', 'tis a mighty fine package to install')
+		.command('publish', 'shiver me timbers, should you be sharing all that', yargs => {
+			argv = yargs.option('f', {
+				alias: 'force',
+				description: 'yar, it usually be a bad idea'
+			})
+			.help('help')
+			.argv;
 		})
 		.help('help')
 		.argv;
-	})
-	.help('help')
-	.argv;
 }
 
 function completion_sync() {
 	var argv = yargs
-	.completion('completion', (current, argv) => {
-		// 'current' is the current command being completed.
-		// 'argv' is the parsed arguments so far.
-		// simply return an array of completions.
-		return [
-			'foo',
-			'bar'
-		];
-	})
-	.argv;
+		.completion('completion', (current, argv) => {
+			// 'current' is the current command being completed.
+			// 'argv' is the parsed arguments so far.
+			// simply return an array of completions.
+			return [
+				'foo',
+				'bar'
+			];
+		})
+		.argv;
 }
 
 function completion_async() {
