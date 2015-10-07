@@ -6,14 +6,28 @@
 // These definitions go beyond those already defined in TS 1.6.2 stdlib
 // All non-draft WebGL 1.0 extensions and prefixed extension names are
 // covered.
-// Some missing parameters for getContext and fields for
+// Some missing parameters for getContext and attributes for
 // WebGLContextAttributes are added as well, copied over from
 // Shane S. Anderson's definitions file.
 
 
 interface WebGLContextAttributes {
+	// The following attributes are missing from TypeScript 1.6.2's lib.d.ts
 	preferLowPowerToHighPerformance?: boolean;
 	failIfMajorPerformanceCaveat?: boolean;
+
+	// All others duplicated here for reference
+	/*
+	alpha?: boolean;
+    depth?: boolean;
+    stencil?: boolean;
+    antialias?: boolean;
+    premultipliedAlpha?: boolean;
+    preserveDrawingBuffer?: boolean;
+	*/
+
+	// For the meanings and default values of these attributes, see the full spec at:
+	// https://www.khronos.org/registry/webgl/specs/latest/1.0/index.html#5.2
 }
 
 interface HTMLCanvasElement {
