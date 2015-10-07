@@ -240,6 +240,42 @@ module TestDropRight {
     result = _(list).dropRight<TResult>(42).value();
 }
 
+// _.dropWhile
+module TestDropWhile {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let predicateFn: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
+    let result: TResult[];
+
+    result = _.dropWhile<TResult>(array);
+    result = _.dropWhile<TResult>(array, predicateFn);
+    result = _.dropWhile<TResult>(array, predicateFn, any);
+    result = _.dropWhile<TResult>(array, '')
+    result = _.dropWhile<TResult>(array, '', any);
+    result = _.dropWhile<{a: number;}, TResult>(array, {a: 42});
+
+    result = _.dropWhile<TResult>(list);
+    result = _.dropWhile<TResult>(list, predicateFn);
+    result = _.dropWhile<TResult>(list, predicateFn, any);
+    result = _.dropWhile<TResult>(list, '')
+    result = _.dropWhile<TResult>(list, '', any);
+    result = _.dropWhile<{a: number;}, TResult>(list, {a: 42});
+
+    result = _(array).dropWhile().value();
+    result = _(array).dropWhile(predicateFn).value();
+    result = _(array).dropWhile(predicateFn, any).value();
+    result = _(array).dropWhile('').value();
+    result = _(array).dropWhile('', any).value();
+    result = _(array).dropWhile<{a: number;}>({a: 42}).value();
+
+    result = _(list).dropWhile<TResult>().value();
+    result = _(list).dropWhile<TResult>(predicateFn).value();
+    result = _(list).dropWhile<TResult>(predicateFn, any).value();
+    result = _(list).dropWhile<TResult>('').value();
+    result = _(list).dropWhile<TResult>('', any).value();
+    result = _(list).dropWhile<{a: number;}, TResult>({a: 42}).value();
+}
+
 result = <number[]>_.rest([1, 2, 3]);
 result = <number[]>_.rest([1, 2, 3], 2);
 result = <number[]>_.rest([1, 2, 3], (num) => num < 3)
