@@ -1,6 +1,6 @@
 // Type definitions for request
 // Project: https://github.com/mikeal/request
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, bonnici <https://github.com/bonnici>, Bart van der Schoor <https://github.com/Bartvds>
+// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, bonnici <https://github.com/bonnici>, Bart van der Schoor <https://github.com/Bartvds>, Joe Skeen <http://github.com/joeskeen>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/d.ts
@@ -16,40 +16,40 @@ declare module 'request' {
 	import fs = require('fs');
 
 	namespace request {
-		export interface RequestAPI {
-			defaults(options: Options): RequestAPI;
+		export interface RequestAPI<TRequest extends Request> {
+			defaults(options: Options): RequestAPI<TRequest>;
 			(uri: string, 
 			options?: Options, 
 			callback?: (error: any, response: http.IncomingMessage, body: any) => void)
-				: Request;
-			(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-			(options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+				: TRequest;
+			(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			(options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
 			
-			get(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-			get(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-			get(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+			get(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			get(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			get(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
 	
-			post(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-			post(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-			post(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+			post(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			post(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			post(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
 	
-			put(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-			put(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-			put(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+			put(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			put(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			put(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
 	
-			head(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-			head(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-			head(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+			head(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			head(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			head(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
 	
-			patch(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-			patch(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-			patch(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+			patch(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			patch(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			patch(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
 	
-			del(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-			del(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-			del(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+			del(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			del(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			del(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
 	
-			forever(agentOptions: any, optionsArg: any): Request;
+			forever(agentOptions: any, optionsArg: any): TRequest;
 			jar(): CookieJar;
 			cookie(str: string): Cookie;
 	
@@ -159,7 +159,7 @@ declare module 'request' {
 			resume(): void;
 			abort(): void;
 			destroy(): void;
-			toJSON(): string;
+			toJSON(): Object;
 		}
 	
 		export interface Headers {
@@ -213,6 +213,6 @@ declare module 'request' {
 			toString(): string;
 		}
 	}	
-	var request: request.RequestAPI;
+	var request: request.RequestAPI<request.Request>;
 	export = request;
 }

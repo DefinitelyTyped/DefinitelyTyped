@@ -33,7 +33,7 @@ var bodyArr: request.RequestPart[] = [{
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
 
-str = req.toJSON();
+obj = req.toJSON();
 
 var cookieValue: request.CookieValue;
 str = cookieValue.name;
