@@ -2285,6 +2285,12 @@ declare module uiGrid {
              * @default false
              */
             useExternalPagination?: boolean;
+            /**
+             * Disables client side filtering. When true, handle the filterChanged event and set data,
+             * defaults to false
+             * @default false
+             */
+            useExternalFiltering?: boolean;
         }
         export interface IGridPaginationApi {
             // Methods
