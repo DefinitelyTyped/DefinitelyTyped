@@ -108,7 +108,7 @@ declare module autobahn {
     }
 
     class Subscription implements ISubscription {
-        constructor(topic?, handler?: SubscribeHandler, options?: ISubscribeOptions, session?: Session, id?: number);
+        constructor(topic? : string, handler?: SubscribeHandler, options?: ISubscribeOptions, session?: Session, id?: number);
 
         handler: SubscribeHandler;
 
