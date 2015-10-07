@@ -134,6 +134,22 @@ function Argv$options() {
 	;
 }
 
+function command() {
+	var argv = yargs
+	.usage('npm <command>')
+	.command('install', 'tis a mighty fine package to install')
+	.command('publish', 'shiver me timbers, should you be sharing all that', yargs => {
+		argv = yargs.option('f', {
+			alias: 'force',
+			description: 'yar, it usually be a bad idea'
+		})
+		.help('help')
+		.argv;
+	})
+	.help('help')
+	.argv;
+}
+
 function Argv$help() {
 	var yargs1 = yargs
 		.usage("$0 -operand1 number -operand2 number -operation [add|subtract]");
