@@ -5,15 +5,15 @@
 
 /// <reference path="../express/express.d.ts" />
 
-declare module BasicAuth {
-    export interface BasicAuthResult {
-        name:string;
-        pass:string;
-    }
-}
-
 declare module "basic-auth" {
-    function auth(req: Express.Request): BasicAuth.BasicAuthResult;
+    function auth(req: Express.Request): auth.BasicAuthResult;
+
+    namespace auth {
+        interface BasicAuthResult {
+            name: string;
+            pass: string;
+        }
+    }
 
     export = auth;
 }
