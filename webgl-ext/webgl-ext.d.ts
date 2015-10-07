@@ -8,7 +8,7 @@
 // covered.
 // Some missing parameters for getContext and fields for
 // WebGLContextAttributes are added as well, copied over from
-// Shane Anderson's webgl interfaces.
+// Shane S. Anderson's definitions file.
 
 
 interface WebGLContextAttributes {
