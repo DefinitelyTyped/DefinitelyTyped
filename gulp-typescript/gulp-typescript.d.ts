@@ -23,6 +23,7 @@ declare module "gulp-typescript" {
             sourceRoot?: string;
             sortOutput?: boolean;
             target?: string;
+            typescript?: any;
         }
 
         interface Project {

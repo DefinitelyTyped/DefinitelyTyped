@@ -3036,6 +3036,9 @@ declare module DevExpress.ui {
         showInColumnChooser?: boolean;
         /** Specifies the identifier of the column. */
         name?: string;
+        // NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+        text?: string;
+        value?: any;
     }
     export interface dxDataGridOptions extends WidgetOptions {
         /** Specifies whether the outer borders of the grid are visible or not. */

@@ -81,7 +81,7 @@ declare module ngRouter {
      * ]);
      * ```
      */
-     config(definitions: List<RouteDefinition>): Promise<any>;
+     config(definitions: Array<RouteDefinition>): Promise<any>;
     
 
     /**
@@ -135,7 +135,7 @@ declare module ngRouter {
      * Generate a URL from a component name and optional map of parameters. The URL is relative to the
      * app's base href.
      */
-     generate(linkParams: List<any>): Instruction;
+     generate(linkParams: Array<any>): Instruction;
   }
   
   class RootRouter extends Router {
@@ -258,7 +258,7 @@ declare module ngRouter {
      * Given a normalized list with component names and params like: `['user', {id: 3 }]`
      * generates a url with a leading slash relative to the provided `parentComponent`.
      */
-     generate(linkParams: List<any>, parentComponent: any): Instruction;
+     generate(linkParams: Array<any>, parentComponent: any): Instruction;
   }
   
   class LocationStrategy {
@@ -343,7 +343,7 @@ declare module ngRouter {
    */
   class Pipeline {
     
-     steps: List<Function>;
+     steps: Array<Function>;
     
      process(instruction: Instruction): Promise<any>;
   }
@@ -547,7 +547,7 @@ declare module ngRouter {
     
      urlPath: string;
     
-     urlParams: List<string>;
+     urlParams: Array<string>;
     
      params: StringMap<string, any>;
     
@@ -568,7 +568,7 @@ declare module ngRouter {
     
      child: Url;
     
-     auxiliary: List<Url>;
+     auxiliary: Array<Url>;
     
      params: StringMap<string, any>;
     
@@ -594,9 +594,9 @@ declare module ngRouter {
   
   }
   
-  const routerDirectives : List<any> ;
+  const routerDirectives : Array<any> ;
   
-  var routerInjectables : List<any> ;
+  var routerInjectables : Array<any> ;
   
   class Route implements RouteDefinition {
     
@@ -669,7 +669,7 @@ declare module ngRouter {
   
   const ROUTE_DATA : OpaqueToken ;
   
-  var RouteConfig : (configs: List<RouteDefinition>) => ClassDecorator ;
+  var RouteConfig : (configs: Array<RouteDefinition>) => ClassDecorator ;
   
   interface ComponentDefinition {
     

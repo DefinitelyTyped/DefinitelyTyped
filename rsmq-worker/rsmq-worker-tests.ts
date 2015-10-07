@@ -1,3 +1,4 @@
+/// <reference path="./rsmq-worker.d.ts" />
 
 import RSMQWorker = require('rsmq-worker');
 
@@ -20,4 +21,3 @@ worker.send('message2', 1, (e: Error, id:string) => {
 worker.send('message3', () => {});
 
 worker.stop();
-

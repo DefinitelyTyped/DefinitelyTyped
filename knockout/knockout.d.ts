@@ -5,13 +5,18 @@
 
 
 interface KnockoutSubscribableFunctions<T> {
+    [key: string]: KnockoutBindingHandler;
+    
 	notifySubscribers(valueToWrite?: T, event?: string): void;
 }
 
 interface KnockoutComputedFunctions<T> {
+    [key: string]: KnockoutBindingHandler;
 }
 
 interface KnockoutObservableFunctions<T> {
+    [key: string]: KnockoutBindingHandler;
+    
 	equalityComparer(a: any, b: any): boolean;
 }
 
@@ -30,6 +35,8 @@ interface KnockoutObservableArrayFunctions<T> {
     sort(compareFunction: (left: T, right: T) => number): void;
 
     // Ko specific
+    [key: string]: KnockoutBindingHandler;
+    
     replace(oldItem: T, newItem: T): void;
 
     remove(item: T): T[];
@@ -261,7 +268,7 @@ interface KnockoutUtils {
 
     compareArrays<T>(a: T[], b: T[]): Array<KnockoutArrayChange<T>>;
 
-    arrayForEach<T>(array: T[], action: (item: T) => void): void;
+    arrayForEach<T>(array: T[], action: (item: T, index: number) => void): void;
 
     arrayIndexOf<T>(array: T[], item: T): number;
 

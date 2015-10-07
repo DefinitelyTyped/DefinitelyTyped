@@ -128,6 +128,20 @@ declare module When {
     function settle<T>(promisesOrValues: any[]): Promise<Descriptor<T>[]>;
 
     /**
+     * Generates a potentially infinite stream of promises by repeatedly calling f until predicate becomes true.
+     * @memberOf when
+     * @param f function that, given a seed, returns the next value or a promise for it.
+     * @param predicate function that receives the current iteration value, and should return truthy when the iterating should stop
+     * @param handler function that receives each value as it is produced by f. It may return a promise to delay the next iteration.
+     * @param seed initial value provided to the handler, and first f invocation. May be a promise.
+     */
+    function iterate<U>(f: (seed: U) => U | Promise<U>,
+                        predicate: (value: U) => boolean,
+                        handler: (value: U) => Promise<any> | void,
+                        seed: U | Promise<U>): Promise<U>;
+
+
+    /**
      * Creates a {promise, resolver} pair, either or both of which
      * may be given out safely to consumers.
      * The resolver has resolve, reject, and progress.  The promise

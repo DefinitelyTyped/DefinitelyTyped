@@ -153,7 +153,7 @@ declare module JSData {
         findAll<T>(params?:DSFilterParams, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T>>;
         loadRelations<T>(idOrInstance:string | number | Object, relations:string | Array<string>, options?:DSAdapterOperationConfiguration):JSDataPromise<T>;
         update<T>(id:string | number, attrs:Object, options?:DSSaveConfiguration):JSDataPromise<T>;
-        updateAll<T>(attrs:Object, params?:DSFilterParams, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T>>;
+        updateAll<T>(attrs:Object, params?:DSFilterParams & T, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T>>;
         reap(resourceNametions?:DSConfiguration):JSDataPromise<any>;
         refresh<T>(id:string | number, options?:DSAdapterOperationConfiguration):JSDataPromise<T>;
         save<T>(id:string | number, options?:DSSaveConfiguration):JSDataPromise<T>;
@@ -283,7 +283,7 @@ declare module JSData {
 
         update<T>(config:DSResourceDefinition<T>, id:string | number, attrs:Object, options?:DSConfiguration):JSDataPromise<T>;
 
-        updateAll<T>(config:DSResourceDefinition<T>, attrs:Object, params?:DSFilterParams, options?:DSConfiguration):JSDataPromise<T>;
+        updateAll<T>(config:DSResourceDefinition<T>, attrs:Object, params?:DSFilterParams & T, options?:DSConfiguration):JSDataPromise<T[]>;
     }
 }
 

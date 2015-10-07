@@ -41,7 +41,7 @@ interface DropzoneOptions {
 	filesizeBase?: number;
 	maxFiles?: number;
 	params?: {};
-	headers?: {},
+	headers?: {};
 	clickable?: boolean|string|HTMLElement|(string|HTMLElement)[];
 	ignoreHiddenFiles?: boolean;
 	acceptedFiles?: string;

@@ -262,5 +262,5 @@ interface CheerioAPI extends CheerioSelector {
 declare var cheerio:CheerioAPI;
 
 declare module "cheerio" {
-    export default cheerio;
+    export = cheerio;
 }
