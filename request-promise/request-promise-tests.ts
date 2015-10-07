@@ -27,7 +27,7 @@ options = {
 };
 
 rp(options)
-    .then(function (response) {
+    .then(function (response: http.IncomingMessage) {
         console.log("DELETE succeeded with status %d", response.statusCode);
     })
     .catch(console.error);
