@@ -1581,6 +1581,10 @@ interface JQuery {
      * @param list An array of strings naming the pieces of data to delete.
      */
     removeData(list: string[]): JQuery;
+    /**
+     * Remove all previously-stored piece of data.
+     */
+    removeData(): JQuery;
 
     /**
      * Return a Promise object to observe when all actions of a certain type bound to the collection, queued or not, have finished.
