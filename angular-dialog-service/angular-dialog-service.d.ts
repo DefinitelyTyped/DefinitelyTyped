@@ -60,23 +60,23 @@ declare module angular.dialogservice {
     /**
      * Opens a new error modal instance.
      */
-    error(header: string, msg: string, progress: number, opts: IDialogOptions): ng.ui.bootstrap.IModalServiceInstance
+    error(header: string, msg: string, opts?: IDialogOptions): ng.ui.bootstrap.IModalServiceInstance
     /**
      * Opens a new wait modal instance.
      */
-    wait(header: string, msg: string, opts: IDialogOptions): ng.ui.bootstrap.IModalServiceInstance
+    wait(header: string, msg: string, progress: number, opts?: IDialogOptions): ng.ui.bootstrap.IModalServiceInstance
     /**
      * Opens a new notify modal instance.
      */
-    notify(header: string, msg: string, opts: IDialogOptions): ng.ui.bootstrap.IModalServiceInstance
+    notify(header: string, msg: string, opts?: IDialogOptions): ng.ui.bootstrap.IModalServiceInstance
     /**
      * Opens a new confirm modal instance.
      */
-    confirm(header: string, msg: string, opts: IDialogOptions): ng.ui.bootstrap.IModalServiceInstance
+    confirm(header: string, msg: string, opts?: IDialogOptions): ng.ui.bootstrap.IModalServiceInstance
     /**
      * Opens a new custom modal instance.
      */
-    create(url: string, ctrlr: string, data: any, opts: IDialogOptions): ng.ui.bootstrap.IModalServiceInstance
+    create(url: string, ctrlr: string, data: any, opts?: IDialogOptions): ng.ui.bootstrap.IModalServiceInstance
   }
 
 }
