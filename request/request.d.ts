@@ -18,36 +18,33 @@ declare module 'request' {
 	namespace request {
 		export interface RequestAPI<TRequest extends Request> {
 			defaults(options: Options): RequestAPI<TRequest>;
-			(uri: string, 
-			options?: Options, 
-			callback?: (error: any, response: http.IncomingMessage, body: any) => void)
-				: TRequest;
-			(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
-			(options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			(uri: string, options?: Options, callback?: RequestCallback): TRequest;
+			(uri: string, callback?: RequestCallback): TRequest;
+			(options?: Options, callback?: RequestCallback): TRequest;
 			
-			get(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
-			get(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
-			get(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			get(uri: string, options?: Options, callback?: RequestCallback): TRequest;
+			get(uri: string, callback?: RequestCallback): TRequest;
+			get(options: Options, callback?: RequestCallback): TRequest;
 	
-			post(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
-			post(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
-			post(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			post(uri: string, options?: Options, callback?: RequestCallback): TRequest;
+			post(uri: string, callback?: RequestCallback): TRequest;
+			post(options: Options, callback?: RequestCallback): TRequest;
 	
-			put(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
-			put(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
-			put(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			put(uri: string, options?: Options, callback?: RequestCallback): TRequest;
+			put(uri: string, callback?: RequestCallback): TRequest;
+			put(options: Options, callback?: RequestCallback): TRequest;
 	
-			head(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
-			head(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
-			head(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			head(uri: string, options?: Options, callback?: RequestCallback): TRequest;
+			head(uri: string, callback?: RequestCallback): TRequest;
+			head(options: Options, callback?: RequestCallback): TRequest;
 	
-			patch(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
-			patch(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
-			patch(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			patch(uri: string, options?: Options, callback?: RequestCallback): TRequest;
+			patch(uri: string, callback?: RequestCallback): TRequest;
+			patch(options: Options, callback?: RequestCallback): TRequest;
 	
-			del(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
-			del(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
-			del(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): TRequest;
+			del(uri: string, options?: Options, callback?: RequestCallback): TRequest;
+			del(uri: string, callback?: RequestCallback): TRequest;
+			del(options: Options, callback?: RequestCallback): TRequest;
 	
 			forever(agentOptions: any, optionsArg: any): TRequest;
 			jar(): CookieJar;
@@ -95,6 +92,10 @@ declare module 'request' {
 			passphrase?: string;
 			ca?: Buffer;
 			har?: HttpArchiveRequest;
+		}
+		
+		export interface RequestCallback {
+			(error: any, response: http.IncomingMessage, body: any): void;
 		}
 		
 		export interface HttpArchiveRequest {
