@@ -150,6 +150,33 @@ function command() {
 	.argv;
 }
 
+function completion_sync() {
+	var argv = yargs
+	.completion('completion', (current, argv) => {
+		// 'current' is the current command being completed.
+		// 'argv' is the parsed arguments so far.
+		// simply return an array of completions.
+		return [
+			'foo',
+			'bar'
+		];
+	})
+	.argv;
+}
+
+function completion_async() {
+	var argv = yargs
+		.completion('completion', (current, argv, done) => {
+			setTimeout(function() {
+				done([
+					'apple',
+					'banana'
+				]);
+			}, 500);
+		})
+		.argv;
+}
+
 function Argv$help() {
 	var yargs1 = yargs
 		.usage("$0 -operand1 number -operand2 number -operation [add|subtract]");
