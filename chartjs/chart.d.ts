@@ -27,7 +27,7 @@ interface LinearChartData {
 
 interface CircularChartData {
     value: number;
-    color: string;
+    color?: string;
     highlight?: string;
     label?: string;
 }

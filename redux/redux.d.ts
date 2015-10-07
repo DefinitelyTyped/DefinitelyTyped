@@ -44,6 +44,7 @@ declare module Redux {
     function bindActionCreators<T>(actionCreators: T, dispatch: Dispatch): T;
     function combineReducers(reducers: any): Reducer;
     function applyMiddleware(...middleware: Middleware[]): Function;
+    function compose<T extends Function>(...functions: Function[]): T;
 }
 
 declare module "redux" {

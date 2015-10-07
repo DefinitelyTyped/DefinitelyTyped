@@ -58,7 +58,7 @@ declare module jasmine {
     function addMatchers(matchers: CustomMatcherFactories): void;
     function stringMatching(str: string): Any;
     function stringMatching(str: RegExp): Any;
-    
+
     interface Any {
 
         new (expectedClass: any): any;
@@ -72,7 +72,7 @@ declare module jasmine {
         length: number;
         [n: number]: T;
     }
-    
+
     interface ArrayContaining {
         new (sample: any[]): any;
 
@@ -279,21 +279,21 @@ declare module jasmine {
         isNot?: boolean;
         message(): any;
 
-        toBe(expected: any): boolean;
-        toEqual(expected: any): boolean;
-        toMatch(expected: any): boolean;
-        toBeDefined(): boolean;
-        toBeUndefined(): boolean;
-        toBeNull(): boolean;
+        toBe(expected: any, expectationFailOutput?: any): boolean;
+        toEqual(expected: any, expectationFailOutput?: any): boolean;
+        toMatch(expected: any, expectationFailOutput?: any): boolean;
+        toBeDefined(expectationFailOutput?: any): boolean;
+        toBeUndefined(expectationFailOutput?: any): boolean;
+        toBeNull(expectationFailOutput?: any): boolean;
         toBeNaN(): boolean;
-        toBeTruthy(): boolean;
-        toBeFalsy(): boolean;
+        toBeTruthy(expectationFailOutput?: any): boolean;
+        toBeFalsy(expectationFailOutput?: any): boolean;
         toHaveBeenCalled(): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
-        toContain(expected: any): boolean;
-        toBeLessThan(expected: any): boolean;
-        toBeGreaterThan(expected: any): boolean;
-        toBeCloseTo(expected: any, precision: any): boolean;
+        toContain(expected: any, expectationFailOutput?: any): boolean;
+        toBeLessThan(expected: any, expectationFailOutput?: any): boolean;
+        toBeGreaterThan(expected: any, expectationFailOutput?: any): boolean;
+        toBeCloseTo(expected: any, precision: any, expectationFailOutput?: any): boolean;
         toContainHtml(expected: string): boolean;
         toContainText(expected: string): boolean;
         toThrow(expected?: any): boolean;
@@ -450,7 +450,7 @@ declare module jasmine {
         /** By chaining the spy with calls.reset(), will clears all tracking for a spy **/
         reset(): void;
     }
-    
+
     interface CallInfo {
         /** The context (the this) for the call */
         object: any;

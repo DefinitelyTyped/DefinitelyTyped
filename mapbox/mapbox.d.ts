@@ -21,7 +21,7 @@ declare module L.mapbox {
 	function map(element: string, id: string, options?: MapOptions): L.mapbox.Map;
 	function map(element: string, tilejson: any, options?: MapOptions): L.mapbox.Map;
 
-	interface MapOptions extends L.MapOptions {
+	interface MapOptions extends L.Map.MapOptions {
 		featureLayer?  : FeatureLayerOptions;
 		gridLayer?     : any;
 		tileLayer?     : TileLayerOptions;
