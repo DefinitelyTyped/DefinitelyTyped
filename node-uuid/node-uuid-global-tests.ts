@@ -1,13 +1,11 @@
-/// <reference path="node-uuid.d.ts" />
-
-import * as uuid from "node-uuid";
+/// <reference path="node-uuid-global.d.ts" />
 
 var uid1: string = uuid.v1();
 var uid2: string = uuid.v2();
 var uid3: string = uuid.v3();
 var uid4: string = uuid.v4();
 
-var options: uuid.UUIDOptions = {
+var options: UUIDOptions = {
 	node: [],
 	clockseq: 2,
 	nsecs: 3,
