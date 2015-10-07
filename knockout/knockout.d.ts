@@ -338,6 +338,10 @@ interface KnockoutUtils {
     isIe6: boolean;
 
     isIe7: boolean;
+    
+    objectForEach(obj: any, action: Function): void;
+
+    setPrototypeOf(obj: any, proto: any): void;
 }
 
 interface KnockoutArrayChange<T> {
