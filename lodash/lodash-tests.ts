@@ -240,6 +240,42 @@ module TestDropRight {
     result = _(list).dropRight<TResult>(42).value();
 }
 
+// _.dropRightWhile
+module TestDropRightWhile {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let predicateFn: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
+    let result: TResult[];
+
+    result = _.dropRightWhile<TResult>(array);
+    result = _.dropRightWhile<TResult>(array, predicateFn);
+    result = _.dropRightWhile<TResult>(array, predicateFn, any);
+    result = _.dropRightWhile<TResult>(array, '');
+    result = _.dropRightWhile<TResult>(array, '', any);
+    result = _.dropRightWhile<{a: number;}, TResult>(array, {a: 42});
+
+    result = _.dropRightWhile<TResult>(list);
+    result = _.dropRightWhile<TResult>(list, predicateFn);
+    result = _.dropRightWhile<TResult>(list, predicateFn, any);
+    result = _.dropRightWhile<TResult>(list, '');
+    result = _.dropRightWhile<TResult>(list, '', any);
+    result = _.dropRightWhile<{a: number;}, TResult>(list, {a: 42});
+
+    result = _(array).dropRightWhile().value();
+    result = _(array).dropRightWhile(predicateFn).value();
+    result = _(array).dropRightWhile(predicateFn, any).value();
+    result = _(array).dropRightWhile('').value();
+    result = _(array).dropRightWhile('', any).value();
+    result = _(array).dropRightWhile<{a: number;}>({a: 42}).value();
+
+    result = _(list).dropRightWhile<TResult>().value();
+    result = _(list).dropRightWhile<TResult>(predicateFn).value();
+    result = _(list).dropRightWhile<TResult>(predicateFn, any).value();
+    result = _(list).dropRightWhile<TResult>('').value();
+    result = _(list).dropRightWhile<TResult>('', any).value();
+    result = _(list).dropRightWhile<{a: number;}, TResult>({a: 42}).value();
+}
+
 // _.dropWhile
 module TestDropWhile {
     let array: TResult[];
@@ -250,14 +286,14 @@ module TestDropWhile {
     result = _.dropWhile<TResult>(array);
     result = _.dropWhile<TResult>(array, predicateFn);
     result = _.dropWhile<TResult>(array, predicateFn, any);
-    result = _.dropWhile<TResult>(array, '')
+    result = _.dropWhile<TResult>(array, '');
     result = _.dropWhile<TResult>(array, '', any);
     result = _.dropWhile<{a: number;}, TResult>(array, {a: 42});
 
     result = _.dropWhile<TResult>(list);
     result = _.dropWhile<TResult>(list, predicateFn);
     result = _.dropWhile<TResult>(list, predicateFn, any);
-    result = _.dropWhile<TResult>(list, '')
+    result = _.dropWhile<TResult>(list, '');
     result = _.dropWhile<TResult>(list, '', any);
     result = _.dropWhile<{a: number;}, TResult>(list, {a: 42});
 
@@ -648,14 +684,14 @@ module TestTakeRightWhile {
     result = _.takeRightWhile<TResult>(array);
     result = _.takeRightWhile<TResult>(array, predicateFn);
     result = _.takeRightWhile<TResult>(array, predicateFn, any);
-    result = _.takeRightWhile<TResult>(array, '')
+    result = _.takeRightWhile<TResult>(array, '');
     result = _.takeRightWhile<TResult>(array, '', any);
     result = _.takeRightWhile<{a: number;}, TResult>(array, {a: 42});
 
     result = _.takeRightWhile<TResult>(list);
     result = _.takeRightWhile<TResult>(list, predicateFn);
     result = _.takeRightWhile<TResult>(list, predicateFn, any);
-    result = _.takeRightWhile<TResult>(list, '')
+    result = _.takeRightWhile<TResult>(list, '');
     result = _.takeRightWhile<TResult>(list, '', any);
     result = _.takeRightWhile<{a: number;}, TResult>(list, {a: 42});
 
@@ -684,14 +720,14 @@ module TestTakeWhile {
     result = _.takeWhile<TResult>(array);
     result = _.takeWhile<TResult>(array, predicateFn);
     result = _.takeWhile<TResult>(array, predicateFn, any);
-    result = _.takeWhile<TResult>(array, '')
+    result = _.takeWhile<TResult>(array, '');
     result = _.takeWhile<TResult>(array, '', any);
     result = _.takeWhile<{a: number;}, TResult>(array, {a: 42});
 
     result = _.takeWhile<TResult>(list);
     result = _.takeWhile<TResult>(list, predicateFn);
     result = _.takeWhile<TResult>(list, predicateFn, any);
-    result = _.takeWhile<TResult>(list, '')
+    result = _.takeWhile<TResult>(list, '');
     result = _.takeWhile<TResult>(list, '', any);
     result = _.takeWhile<{a: number;}, TResult>(list, {a: 42});
 
