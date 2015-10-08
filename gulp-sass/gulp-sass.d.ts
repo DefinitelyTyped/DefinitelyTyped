@@ -45,6 +45,8 @@ declare module "gulp-sass" {
 
     interface Sass {
         (opts?: Options): NodeJS.ReadWriteStream;
+        logError(error?: string): void;
+        sync(options?: Options): NodeJS.ReadWriteStream;
     }
 
     var _tmp: Sass;
