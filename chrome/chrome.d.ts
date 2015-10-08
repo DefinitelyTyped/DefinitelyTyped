@@ -221,12 +221,12 @@ declare module chrome.browser {
      */
     export function openTab(options: Options, callback: () => void): void;
      
-     /**
-     * Opens a new tab in a browser window associated with the current application 
-     * and Chrome profile. If no browser window for the Chrome profile is opened, 
-     * a new one is opened prior to creating the new tab. Since Chrome 42 only. 
-     * @param options Configures how the tab should be opened. 
-     */
+	/**
+	* Opens a new tab in a browser window associated with the current application 
+	* and Chrome profile. If no browser window for the Chrome profile is opened, 
+	* a new one is opened prior to creating the new tab. Since Chrome 42 only. 
+	* @param options Configures how the tab should be opened. 
+	*/
     export function openTab(options: Options): void;
 }
 
@@ -666,7 +666,7 @@ declare module chrome.browsingData {
 		dataToRemove: DataTypeSet;
 		/** All of the types will be present in the result, with values of true if they are permitted to be removed (e.g., by enterprise policy) and false if not. */
 		dataRemovalPermitted: DataTypeSet;
-}
+	}
 
 	/**
 	 * Since Chrome 26. 
@@ -3747,7 +3747,7 @@ declare module chrome.identity {
 		 * function( AccountInfo account, boolean signedIn) {...}; 
 		 */
 		addListener(callback: (account: AccountInfo, signedIn: boolean) => void): void;
-}
+	}
 
 	/**
 	 * Retrieves a list of AccountInfo objects describing the accounts present on the profile.
@@ -7822,31 +7822,31 @@ declare module chrome.webRequest {
     }
 
 	interface WebRequestBodyEvent extends chrome.events.Event {
-		addListener(callback: (details: WebRequestBodyDetails) => void): void;
+		addListener(callback: (details: WebRequestBodyDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
 	interface WebRequestHeadersEvent extends chrome.events.Event {
-		addListener(callback: (details: WebRequestHeadersDetails) => void): void;
+		addListener(callback: (details: WebRequestHeadersDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
 	interface WebResponseHeadersEvent extends chrome.events.Event {
-		addListener(callback: (details: WebResponseHeadersDetails) => void): void;
+		addListener(callback: (details: WebResponseHeadersDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
 	interface WebResponseCacheEvent extends WebResponseHeadersEvent {
-		addListener(callback: (details: WebResponseCacheDetails) => void): void;
+		addListener(callback: (details: WebResponseCacheDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
 	interface WebRedirectionResponseEvent extends WebResponseCacheEvent {
-		addListener(callback: (details: WebRedirectionResponseDetails) => void): void;
+		addListener(callback: (details: WebRedirectionResponseDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
-	interface WebAuthenticationChallengeEvent extends WebResponseHeadersEvent {
+	interface WebAuthenticationChallengeEvent extends chrome.events.Event {
 		addListener(callback: (details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void): void;
     }
 
 	interface WebResponseErrorEvent extends WebResponseCacheEvent {
-		addListener(callback: (details: WebResponseErrorDetails) => void): void;
+		addListener(callback: (details: WebResponseErrorDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
 	/**
