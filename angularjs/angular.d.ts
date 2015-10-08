@@ -17,7 +17,7 @@ interface Function {
 import ng = angular;
 // Support AMD require
 declare module 'angular' {
-    export = angular;
+    export default angular;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
