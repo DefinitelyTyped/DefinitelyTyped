@@ -134,7 +134,7 @@ declare module Meteor {
 }
 
 declare module Mongo {
-	interface Selector extends Object {}
+	interface Selector {}
 	interface Modifier {}
 	interface SortSpecifier {}
 	interface FieldSpecifier {
@@ -576,7 +576,7 @@ declare module Mongo {
 
 	var ObjectID: ObjectIDStatic;
 	interface ObjectIDStatic {
-		new(hexString: string): ObjectID;
+		new(hexString?: string): ObjectID;
 	}
 	interface ObjectID {
 	}

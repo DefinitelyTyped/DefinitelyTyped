@@ -119,16 +119,16 @@ declare module chrome.accessibilityFeatures {
 declare module chrome.alarms {
     interface AlarmCreateInfo {
 		/** Optional. Length of time in minutes after which the onAlarm event should fire.  */
-		delayInMinutes?: number;
+        delayInMinutes?: number;
 		/** Optional. If set, the onAlarm event should fire every periodInMinutes minutes after the initial event specified by when or delayInMinutes. If not set, the alarm will only fire once.  */
-		periodInMinutes?: number;
+        periodInMinutes?: number;
 		/** Optional. Time at which the alarm should fire, in milliseconds past the epoch (e.g. Date.now() + n).  */
-		when?: number;
+        when?: number;
     }
 
     interface Alarm {
 		/** Optional. If not null, the alarm is a repeating alarm and will fire again in periodInMinutes minutes.  */
-		periodInMinutes?: number;
+        periodInMinutes?: number;
 		/** Time at which this alarm was scheduled to fire, in milliseconds past the epoch (e.g. Date.now() + n). For performance reasons, the alarm may have been delayed an arbitrary amount beyond this. */
         scheduledTime: number;
 		/** Name of this alarm. */
@@ -149,7 +149,7 @@ declare module chrome.alarms {
 	 * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
 	 * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes. 
 	 */
-    export function create(alarmInfo: AlarmCreateInfo): void;	
+    export function create(alarmInfo: AlarmCreateInfo): void;
 	/**
 	 * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
 	 * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
@@ -157,7 +157,7 @@ declare module chrome.alarms {
 	 * @param name Optional name to identify this alarm. Defaults to the empty string. 
 	 * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes. 
 	 */
-	export function create(name: string, alarmInfo: AlarmCreateInfo): void;
+    export function create(name: string, alarmInfo: AlarmCreateInfo): void;
 	/**
 	 * Gets an array of all the alarms. 
 	 * @param callback The callback parameter should be a function that looks like this:
@@ -188,7 +188,7 @@ declare module chrome.alarms {
 	 * @param callback The callback parameter should be a function that looks like this:
 	 * function( Alarm alarm) {...}; 
 	 */
-	export function get(callback: (alarm: Alarm) => void): void;
+    export function get(callback: (alarm: Alarm) => void): void;
 	/**
 	 * Retrieves details about the specified alarm. 
 	 * @param name The name of the alarm to get. Defaults to the empty string.
@@ -196,7 +196,7 @@ declare module chrome.alarms {
 	 * function( Alarm alarm) {...}; 
 	 */
     export function get(name: string, callback: (alarm: Alarm) => void): void;
-	
+
 	/** Fired when an alarm has elapsed. Useful for event pages. */
     var onAlarm: AlarmEvent;
 }
@@ -221,12 +221,12 @@ declare module chrome.browser {
      */
     export function openTab(options: Options, callback: () => void): void;
      
-	/**
-	* Opens a new tab in a browser window associated with the current application 
-	* and Chrome profile. If no browser window for the Chrome profile is opened, 
-	* a new one is opened prior to creating the new tab. Since Chrome 42 only. 
-	* @param options Configures how the tab should be opened. 
-	*/
+     /**
+     * Opens a new tab in a browser window associated with the current application 
+     * and Chrome profile. If no browser window for the Chrome profile is opened, 
+     * a new one is opened prior to creating the new tab. Since Chrome 42 only. 
+     * @param options Configures how the tab should be opened. 
+     */
     export function openTab(options: Options): void;
 }
 
@@ -242,21 +242,21 @@ declare module chrome.bookmarks {
 	/** A node (either a bookmark or a folder) in the bookmark tree. Child nodes are ordered within their parent folder. */
     interface BookmarkTreeNode {
 		/** Optional. The 0-based position of this node within its parent folder.  */
-		index?: number;
+        index?: number;
 		/** Optional. When this node was created, in milliseconds since the epoch (new Date(dateAdded)).  */
-		dateAdded?: number;
+        dateAdded?: number;
 		/** The text displayed for the node. */
         title: string;
 		/** Optional. The URL navigated to when a user clicks the bookmark. Omitted for folders.   */
-		url?: string;
+        url?: string;
 		/** Optional. When the contents of this folder last changed, in milliseconds since the epoch.   */
-		dateGroupModified?: number;
+        dateGroupModified?: number;
 		/** The unique identifier for the node. IDs are unique within the current profile, and they remain valid even after the browser is restarted.  */
         id: string;
 		/** Optional. The id of the parent folder. Omitted for the root node.   */
-		parentId?: string;
+        parentId?: string;
 		/** Optional. An ordered list of children of this node.  */
-		children?: BookmarkTreeNode[];
+        children?: BookmarkTreeNode[];
 		/**
 		 * Optional.
  		 * Since Chrome 37. 
@@ -291,7 +291,7 @@ declare module chrome.bookmarks {
 		 * @param callback The callback parameter should be a function that looks like this:
 		 * function(string id, object removeInfo) {...};  
 		 */
-		addListener(callback: (id: string, removeInfo: BookmarkRemoveInfo) => void): void;
+        addListener(callback: (id: string, removeInfo: BookmarkRemoveInfo) => void): void;
     }
 
     interface BookmarkImportEndedEvent extends chrome.events.Event {
@@ -307,7 +307,7 @@ declare module chrome.bookmarks {
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(string id, object moveInfo) {...}; 
 		 */
-		addListener(callback: (id: string, moveInfo: BookmarkMoveInfo) => void): void;
+        addListener(callback: (id: string, moveInfo: BookmarkMoveInfo) => void): void;
     }
 
     interface BookmarkImportBeganEvent extends chrome.events.Event {
@@ -323,7 +323,7 @@ declare module chrome.bookmarks {
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(string id, object changeInfo) {...}; 
 		 */
-		addListener(callback: (id: string, changeInfo: BookmarkChangeInfo) => void): void;
+        addListener(callback: (id: string, changeInfo: BookmarkChangeInfo) => void): void;
     }
 
     interface BookmarkCreatedEvent extends chrome.events.Event {
@@ -331,7 +331,7 @@ declare module chrome.bookmarks {
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(string id, BookmarkTreeNode bookmark) {...}; 
 		 */
-		addListener(callback: (id: string, bookmark: BookmarkTreeNode) => void): void;
+        addListener(callback: (id: string, bookmark: BookmarkTreeNode) => void): void;
     }
 
     interface BookmarkChildrenReordered extends chrome.events.Event {
@@ -339,7 +339,7 @@ declare module chrome.bookmarks {
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(string id, object reorderInfo) {...}; 
 		 */
-		addListener(callback: (id: string, reorderInfo: BookmarkReorderInfo) => void): void;
+        addListener(callback: (id: string, reorderInfo: BookmarkReorderInfo) => void): void;
     }
 
 	interface BookmarkSearchQuery {
@@ -370,14 +370,14 @@ declare module chrome.bookmarks {
     var MAX_WRITE_OPERATIONS_PER_HOUR: number;
 	/** @deprecated since Chrome 38. Bookmark write operations are no longer limited by Chrome. */
     var MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
-    
+
 	/**
 	 * Searches for BookmarkTreeNodes matching the given query. Queries specified with an object produce BookmarkTreeNodes matching all specified properties. 
 	 * @param query A string of words and quoted phrases that are matched against bookmark URLs and titles.
 	 * @param callback The callback parameter should be a function that looks like this: 
 	 * function(array of BookmarkTreeNode results) {...}; 
 	 */
-	export function search(query: string, callback: (results: BookmarkTreeNode[]) => void): void;
+    export function search(query: string, callback: (results: BookmarkTreeNode[]) => void): void;
 	/**
 	 * Searches for BookmarkTreeNodes matching the given query. Queries specified with an object produce BookmarkTreeNodes matching all specified properties. 
 	 * @param query An object with one or more of the properties query, url, and title specified. Bookmarks matching all specified properties will be produced. 
@@ -486,40 +486,40 @@ declare module chrome.browserAction {
 		/** An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is [255, 0, 0, 255]. Can also be a string with a CSS value, with opaque red being #FF0000 or #F00. */
         color: any;
 		/** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-		tabId?: number;
+        tabId?: number;
     }
 
     interface BadgeTextDetails {
 		/** Any number of characters can be passed, but only about four can fit in the space. */
         text: string;
 		/** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-		tabId?: number;
+        tabId?: number;
     }
 
     interface TitleDetails {
 		/** The string the browser action should display when moused over. */
         title: string;
 		/** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-		tabId?: number;
+        tabId?: number;
     }
 
     interface TabDetails {
 		/** Optional. Specify the tab to get the information. If no tab is specified, the non-tab-specific information is returned.  */
-		tabId?: number;
+        tabId?: number;
     }
 
     interface TabIconDetails {
 		/** Optional. Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'  */
-		path?: any;
+        path?: any;
 		/** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-		tabId?: number;
+        tabId?: number;
 		/** Optional. Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'  */
-		imageData?: ImageData;
+        imageData?: ImageData;
     }
 
     interface PopupDetails {
 		/** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-		tabId?: number;
+        tabId?: number;
 		/** The html file to show in a popup. If set to the empty string (''), no popup is shown. */
         popup: string;
     }
@@ -602,11 +602,11 @@ declare module chrome.browserAction {
 declare module chrome.browsingData {
     interface OriginTypes {
 		/** Optional. Websites that have been installed as hosted applications (be careful!).  */
-		protectedWeb?: boolean;
+        protectedWeb?: boolean;
 		/** Optional. Extensions and packaged applications a user has installed (be _really_ careful!).  */
-		extension?: boolean;
+        extension?: boolean;
 		/** Optional. Normal websites.  */
-		unprotectedWeb?: boolean;
+        unprotectedWeb?: boolean;
     }
 
 	/** Options that determine exactly what data will be removed. */
@@ -616,9 +616,9 @@ declare module chrome.browsingData {
  		 * Since Chrome 21. 
 		 * An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you really want to remove application data before adding 'protectedWeb' or 'extensions'. 
 		 */
-		originTypes?: OriginTypes;
+        originTypes?: OriginTypes;
 		/** Optional. Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the getTime method of the JavaScript Date object). If absent, defaults to 0 (which would remove all browsing data).  */
-		since?: number;
+        since?: number;
     }
 
 	/**
@@ -627,31 +627,31 @@ declare module chrome.browsingData {
 	 */
     interface DataTypeSet {
 		/** Optional. Websites' WebSQL data.  */
-		webSQL?: boolean;
+        webSQL?: boolean;
 		/** Optional. Websites' IndexedDB data.  */
-		indexedDB?: boolean;
+        indexedDB?: boolean;
 		/** Optional. The browser's cookies.  */
-		cookies?: boolean;
+        cookies?: boolean;
 		/** Optional. Stored passwords.  */
-		passwords?: boolean;
+        passwords?: boolean;
 		/** Optional. Server-bound certificates.  */
-		serverBoundCertificates?: boolean;
+        serverBoundCertificates?: boolean;
 		/** Optional. The browser's download list.  */
-		downloads?: boolean;
+        downloads?: boolean;
 		/** Optional. The browser's cache. Note: when removing data, this clears the entire cache: it is not limited to the range you specify.  */
-		cache?: boolean;
+        cache?: boolean;
 		/** Optional. Websites' appcaches.  */
-		appcache?: boolean;
+        appcache?: boolean;
 		/** Optional. Websites' file systems.  */
-		fileSystems?: boolean;
+        fileSystems?: boolean;
 		/** Optional. Plugins' data.  */
-		pluginData?: boolean;
+        pluginData?: boolean;
 		/** Optional. Websites' local storage data.  */
-		localStorage?: boolean;
+        localStorage?: boolean;
 		/** Optional. The browser's stored form data.  */
-		formData?: boolean;
+        formData?: boolean;
 		/** Optional. The browser's history.  */
-		history?: boolean;
+        history?: boolean;
 		/**
 		 * Optional.
  		 * Since Chrome 39. 
@@ -666,7 +666,7 @@ declare module chrome.browsingData {
 		dataToRemove: DataTypeSet;
 		/** All of the types will be present in the result, with values of true if they are permitted to be removed (e.g., by enterprise policy) and false if not. */
 		dataRemovalPermitted: DataTypeSet;
-	}
+}
 
 	/**
 	 * Since Chrome 26. 
@@ -794,7 +794,7 @@ declare module chrome.commands {
 		 */
         addListener(callback: (command: string) => void): void;
     }
-	
+
 	/**
 	 * Returns all the registered extension commands for this extension and their shortcut (if active). 
 	 * @param callback Called to return the registered commands. 
@@ -824,29 +824,29 @@ declare module chrome.contentSettings {
 		 * * regular: setting for regular profile (which is inherited by the incognito profile if not overridden elsewhere),
 		 * * incognito_session_only: setting for incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular settings).
 		 */
-		scope?: string;
+        scope?: string;
     }
 
     interface SetDetails {
 		/** Optional. The resource identifier for the content type.  */
-		resourceIdentifier?: ResourceIdentifier;
+        resourceIdentifier?: ResourceIdentifier;
 		/** The setting applied by this rule. See the description of the individual ContentSetting objects for the possible values. */
         setting: any;
 		/** Optional. The pattern for the secondary URL. Defaults to matching all URLs. For details on the format of a pattern, see Content Setting Patterns.  */
-		secondaryPattern?: string;
+        secondaryPattern?: string;
 		/** Optional. Where to set the setting (default: regular).  */
-		scope?: string;
+        scope?: string;
 		/** The pattern for the primary URL. For details on the format of a pattern, see Content Setting Patterns. */
         primaryPattern: string;
     }
 
     interface GetDetails {
 		/** Optional. The secondary URL for which the content setting should be retrieved. Defaults to the primary URL. Note that the meaning of a secondary URL depends on the content type, and not all content types use secondary URLs.  */
-		secondaryUrl?: string;
+        secondaryUrl?: string;
 		/** Optional. A more specific identifier of the type of content for which the settings should be retrieved.  */
-		resourceIdentifier?: ResourceIdentifier;
+        resourceIdentifier?: ResourceIdentifier;
 		/** Optional. Whether to check the content settings for an incognito session. (default false)  */
-		incognito?: boolean;
+        incognito?: boolean;
 		/** The primary URL for which the content setting should be retrieved. Note that the meaning of a primary URL depends on the content type. */
         primaryUrl: string;
     }
@@ -888,7 +888,7 @@ declare module chrome.contentSettings {
 		/** The resource identifier for the given content type. */
         id: string;
 		/** Optional. A human readable description of the resource.  */
-		description?: string;
+        description?: string;
     }
 
 	/**
@@ -1008,13 +1008,13 @@ declare module chrome.contextMenus {
  		 * Since Chrome 35.
 		 * The text for the context selection, if any. 
 		 */
-		selectionText?: string;
+        selectionText?: string;
 		/**
 		 * Optional.
  		 * Since Chrome 35.
 		 * A flag indicating the state of a checkbox or radio item after it is clicked.
 		 */
-		checked?: boolean;
+        checked?: boolean;
 		/**
 		 * Since Chrome 35.
 		 * The ID of the menu item that was clicked.
@@ -1025,7 +1025,7 @@ declare module chrome.contextMenus {
  		 * Since Chrome 35.
 		 * The URL of the frame of the element where the context menu was clicked, if it was in a frame.
 		 */
-		frameUrl?: string;
+        frameUrl?: string;
 		/**
 		 * Since Chrome 35.
 		 * A flag indicating whether the element is editable (text input, textarea, etc.).
@@ -1036,13 +1036,13 @@ declare module chrome.contextMenus {
  		 * Since Chrome 35. 
 		 * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
 		 */
-		mediaType?: string;
+        mediaType?: string;
 		/**
 		 * Optional.
  		 * Since Chrome 35.
 		 * A flag indicating the state of a checkbox or radio item before it was clicked.
 		 */
-		wasChecked?: boolean;
+        wasChecked?: boolean;
 		/**
 		 * Since Chrome 35. 
 		 * The URL of the page where the menu item was clicked. This property is not set if the click occured in a context where there is no current page, such as in a launcher context menu. 
@@ -1053,68 +1053,68 @@ declare module chrome.contextMenus {
  		 * Since Chrome 35.
 		 * If the element is a link, the URL it points to. 
 		 */
-		linkUrl?: string;
+        linkUrl?: string;
 		/**
 		 * Optional.
  		 * Since Chrome 35.
 		 * The parent ID, if any, for the item clicked.
 		 */
-		parentMenuItemId?: any;
+        parentMenuItemId?: any;
 		/**
 		 * Optional.
  		 * Since Chrome 35. 
 		 * Will be present for elements with a 'src' URL.
 		 */
-		srcUrl?: string;
+        srcUrl?: string;
     }
 
     interface CreateProperties {
 		/** Optional. Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see Match Patterns.  */
-		documentUrlPatterns?: string[];
+        documentUrlPatterns?: string[];
 		/** Optional. The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items.  */
-		checked?: boolean;
+        checked?: boolean;
 		/** Optional. The text to be displayed in the item; this is required unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".  */
-		title?: string;
+        title?: string;
 		/** Optional. List of contexts this menu item will appear in. Defaults to ['page'] if not specified.  */
-		contexts?: string[];
+        contexts?: string[];
 		/**
 		 * Optional.
  		 * Since Chrome 20. 
 		 * Whether this context menu item is enabled or disabled. Defaults to true. 
 		 */
-		enabled?: boolean;
+        enabled?: boolean;
 		/** Optional. Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.  */
-		targetUrlPatterns?: string[];
+        targetUrlPatterns?: string[];
 		/**
 		 * Optional.
  		 * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for chrome.contextMenus.onClicked. 
 		 * @param info Information sent when a context menu item is clicked. 
 		 * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions. 
 		 */
-		onclick?: (info: OnClickData, tab: chrome.tabs.Tab) => void;
+        onclick?: (info: OnClickData, tab: chrome.tabs.Tab) => void;
 		/** Optional. The ID of a parent menu item; this makes the item a child of a previously added item.  */
-		parentId?: any;
+        parentId?: any;
 		/** Optional. The type of menu item. Defaults to 'normal' if not specified.  */
-		type?: string;
+        type?: string;
 		/**
 		 * Optional.
  		 * Since Chrome 21. 
 		 * The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
 		 */
-		id?: string;
+        id?: string;
     }
 
-	interface UpdateProperties {
+    interface UpdateProperties {
         documentUrlPatterns?: string[];
         checked?: boolean;
         title?: string;
         contexts?: string[];
 		/** Optional. Since Chrome 20.  */
-		enabled?: boolean;
+        enabled?: boolean;
         targetUrlPatterns?: string[];
         onclick?: Function;
 		/** Optional. Note: You cannot change an item to be a child of one of its own descendants.  */
-		parentId?: any;
+        parentId?: any;
         type?: string;
     }
 
@@ -1127,7 +1127,7 @@ declare module chrome.contextMenus {
 		 */
         addListener(callback: (info: OnClickData, tab?: chrome.tabs.Tab) => void): void;
     }
-	
+
 	/**
 	 * Since Chrome 38. 
 	 * The maximum number of top level extension items that can be added to an extension action context menu. Any items beyond this limit will be ignored. 
@@ -1214,7 +1214,7 @@ declare module chrome.cookies {
 		/** True if the cookie is a host-only cookie (i.e. a request's host must exactly match the domain of the cookie). */
         hostOnly: boolean;
 		/** Optional. The expiration date of the cookie as the number of seconds since the UNIX epoch. Not provided for session cookies.  */
-		expirationDate?: number;
+        expirationDate?: number;
 		/** The path of the cookie. */
         path: string;
 		/** True if the cookie is marked as HttpOnly (i.e. the cookie is inaccessible to client-side scripts). */
@@ -1233,40 +1233,40 @@ declare module chrome.cookies {
 
     interface GetAllDetails {
 		/** Optional. Restricts the retrieved cookies to those whose domains match or are subdomains of this one.  */
-		domain?: string;
+        domain?: string;
 		/** Optional. Filters the cookies by name.  */
-		name?: string;
+        name?: string;
 		/** Optional. Restricts the retrieved cookies to those that would match the given URL.  */
-		url?: string;
+        url?: string;
 		/** Optional. The cookie store to retrieve cookies from. If omitted, the current execution context's cookie store will be used.  */
-		storeId?: string;
+        storeId?: string;
 		/** Optional. Filters out session vs. persistent cookies.  */
-		session?: boolean;
+        session?: boolean;
 		/** Optional. Restricts the retrieved cookies to those whose path exactly matches this string.  */
-		path?: string;
+        path?: string;
 		/** Optional. Filters the cookies by their Secure property.  */
-		secure?: boolean;
+        secure?: boolean;
     }
 
     interface SetDetails {
 		/** Optional. The domain of the cookie. If omitted, the cookie becomes a host-only cookie.  */
-		domain?: string;
+        domain?: string;
 		/** Optional. The name of the cookie. Empty by default if omitted.  */
-		name?: string;
+        name?: string;
 		/** The request-URI to associate with the setting of the cookie. This value can affect the default domain and path values of the created cookie. If host permissions for this URL are not specified in the manifest file, the API call will fail. */
         url: string;
 		/** Optional. The ID of the cookie store in which to set the cookie. By default, the cookie is set in the current execution context's cookie store.  */
-		storeId?: string;
+        storeId?: string;
 		/** Optional. The value of the cookie. Empty by default if omitted.  */
-		value?: string;
+        value?: string;
 		/** Optional. The expiration date of the cookie as the number of seconds since the UNIX epoch. If omitted, the cookie becomes a session cookie.  */
-		expirationDate?: number;
+        expirationDate?: number;
 		/** Optional. The path of the cookie. Defaults to the path portion of the url parameter.  */
-		path?: string;
+        path?: string;
 		/** Optional. Whether the cookie should be marked as HttpOnly. Defaults to false.  */
-		httpOnly?: boolean;
+        httpOnly?: boolean;
 		/** Optional. Whether the cookie should be marked as Secure. Defaults to false.  */
-		secure?: boolean;
+        secure?: boolean;
     }
 
     interface Details {
@@ -1394,7 +1394,7 @@ declare module "chrome.debugger" {
 		url: string;
 		/** Optional. Target favicon URL.  */
 		faviconUrl?: string;
-	}
+    }
 
     interface DebuggerDetachedEvent extends chrome.events.Event {
 		/**
@@ -1706,11 +1706,11 @@ declare module chrome.devtools.inspectedWindow {
 
     interface ReloadOptions {
 		/** Optional. If specified, the string will override the value of the User-Agent HTTP header that's sent while loading the resources of the inspected page. The string will also override the value of the navigator.userAgent property that's returned to any scripts that are running within the inspected page.  */
-		userAgent?: string;
+        userAgent?: string;
 		/** Optional. When true, the loader will ignore the cache for all inspected page resources loaded before the load event is fired. The effect is similar to pressing Ctrl+Shift+R in the inspected window or within the Developer Tools window.  */
-		ignoreCache?: boolean;
+        ignoreCache?: boolean;
 		/** Optional. If specified, the script will be injected into every frame of the inspected page immediately upon load, before any of the frame's scripts. The script will not be injected after subsequent reloads—for example, if the user presses Ctrl+R.  */
-		injectedScript?: boolean;
+        injectedScript?: boolean;
 		/**
 		 * Optional.
  		 * If specified, this script evaluates into a function that accepts three string arguments: the source to preprocess, the URL of the source, and a function name if the source is an DOM event handler. The preprocessorerScript function should return a string to be compiled by Chrome in place of the input source. In the case that the source is a DOM event handler, the returned source must compile to a single JS function. 
@@ -1732,7 +1732,7 @@ declare module chrome.devtools.inspectedWindow {
 		isException: boolean;
 		/** Set if the evaluated code produces an unhandled exception. */
 		value: string;
-	}
+    }
 
     interface ResourceAddedEvent extends chrome.events.Event {
 		/**
@@ -1943,10 +1943,10 @@ declare module chrome.devtools.panels {
 		 * function( ExtensionSidebarPane result) {...}; 
 		 * Parameter result: An ExtensionSidebarPane object for created sidebar pane. 
 		 */
-		createSidebarPane(title: string, callback?: (result: ExtensionSidebarPane) => void): void;
+        createSidebarPane(title: string, callback?: (result: ExtensionSidebarPane) => void): void;
 		/** Fired when an object is selected in the panel. */
         onSelectionChanged: SelectionChangedEvent;
-	}
+    }
 
     interface ExtensionSidebarPaneShownEvent extends chrome.events.Event {
 		/**
@@ -2108,17 +2108,17 @@ declare module chrome.downloads {
 
     interface DownloadOptions {
 		/** Optional. Post body.  */
-		body?: string;
+        body?: string;
 		/** Optional. Use a file-chooser to allow the user to select a filename regardless of whether filename is set or already exists.  */
-		saveAs?: boolean;
+        saveAs?: boolean;
 		/** The URL to download. */
         url: string;
 		/** Optional. A file path relative to the Downloads directory to contain the downloaded file, possibly containing subdirectories. Absolute paths, empty paths, and paths containing back-references ".." will cause an error. onDeterminingFilename allows suggesting a filename after the file's MIME type and a tentative filename have been determined.  */
-		filename?: string;
+        filename?: string;
 		/** Optional. Extra HTTP headers to send with the request if the URL uses the HTTP[s] protocol. Each header is represented as a dictionary containing the keys name and either value or binaryValue, restricted to those allowed by XMLHttpRequest.  */
-		headers?: HeaderNameValuePair[];
+        headers?: HeaderNameValuePair[];
 		/** Optional. The HTTP method to use if the URL uses the HTTP[S] protocol.  */
-		method?: string;
+        method?: string;
 		/** Optional. The action to take if filename already exists.  */
 		conflictAction?: string;
     }
@@ -2216,58 +2216,58 @@ declare module chrome.downloads {
     interface GetFileIconOptions {
 		/** Optional. * The size of the returned icon. The icon will be square with dimensions size * size pixels. The default and largest size for the icon is 32x32 pixels. The only supported sizes are 16 and 32. It is an error to specify any other size. 
  */
-		size?: number;
+        size?: number;
     }
 
     interface DownloadQuery {
 		/** Optional. Set elements of this array to DownloadItem properties in order to sort search results. For example, setting orderBy=['startTime'] sorts the DownloadItem by their start time in ascending order. To specify descending order, prefix with a hyphen: '-startTime'.  */
 		orderBy?: string[];
 		/** Optional. Limits results to DownloadItem whose url matches the given regular expression.  */
-		urlRegex?: string;
+        urlRegex?: string;
 		/** Optional. Limits results to DownloadItem that ended before the given ms since the epoch.  */
-		endedBefore?: number;
+        endedBefore?: number;
 		/** Optional. Limits results to DownloadItem whose totalBytes is greater than the given integer.  */
-		totalBytesGreater?: number;
+        totalBytesGreater?: number;
 		/** Optional. Indication of whether this download is thought to be safe or known to be suspicious.  */
-		danger?: string;
+        danger?: string;
 		/** Optional. Number of bytes in the whole file, without considering file compression, or -1 if unknown.  */
-		totalBytes?: number;
+        totalBytes?: number;
 		/** Optional. True if the download has stopped reading data from the host, but kept the connection open.  */
-		paused?: boolean;
+        paused?: boolean;
 		/** Optional. Limits results to DownloadItem whose filename matches the given regular expression.  */
-		filenameRegex?: string;
+        filenameRegex?: string;
 		/** Optional. This array of search terms limits results to DownloadItem whose filename or url contain all of the search terms that do not begin with a dash '-' and none of the search terms that do begin with a dash.  */
 		query?: string[];
 		/** Optional. Limits results to DownloadItem whose totalBytes is less than the given integer.  */
-		totalBytesLess?: number;
+        totalBytesLess?: number;
 		/** Optional. The id of the DownloadItem to query.  */
-		id?: number;
+        id?: number;
 		/** Optional. Number of bytes received so far from the host, without considering file compression.  */
-		bytesReceived?: number;
+        bytesReceived?: number;
 		/** Optional. Limits results to DownloadItem that ended after the given ms since the epoch.  */
-		endedAfter?: number;
+        endedAfter?: number;
 		/** Optional. Absolute local path.  */
-		filename?: string;
+        filename?: string;
 		/** Optional. Indicates whether the download is progressing, interrupted, or complete.  */
-		state?: string;
+        state?: string;
 		/** Optional. Limits results to DownloadItem that started after the given ms since the epoch.  */
-		startedAfter?: number;
+        startedAfter?: number;
 		/** Optional. The file's MIME type.  */
-		mime?: string;
+        mime?: string;
 		/** Optional. Number of bytes in the whole file post-decompression, or -1 if unknown.  */
-		fileSize?: number;
+        fileSize?: number;
 		/** Optional. The time when the download began in ISO 8601 format.  */
-		startTime?: number;
+        startTime?: number;
 		/** Optional. Absolute URL.  */
-		url?: string;
+        url?: string;
 		/** Optional. Limits results to DownloadItem that started before the given ms since the epoch.  */
-		startedBefore?: number;
+        startedBefore?: number;
 		/** Optional. The maximum number of matching DownloadItem returned. Defaults to 1000. Set to 0 in order to return all matching DownloadItem. See search for how to page through results.  */
-		limit?: number;
+        limit?: number;
 		/** Optional. Why a download was interrupted.  */
-		error?: number;
+        error?: number;
 		/** Optional. The time when the download ended in ISO 8601 format.  */
-		endTime?: number;
+        endTime?: number;
 		/** Optional. Whether the downloaded file exists;  */
 		exists?: boolean;
     }
@@ -2487,47 +2487,47 @@ declare module chrome.events {
 	/** Filters URLs for various criteria. See event filtering. All criteria are case sensitive. */
     interface UrlFilter {
 		/** Optional. Matches if the scheme of the URL is equal to any of the schemes specified in the array.  */
-		schemes?: string[];
+        schemes?: string[];
 		/**
 		 * Optional.
  		 * Since Chrome 23. 
 		 * Matches if the URL (without fragment identifier) matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax. 
 		 */
-		urlMatches?: string;
+        urlMatches?: string;
 		/** Optional. Matches if the path segment of the URL contains a specified string.  */
-		pathContains?: string;
+        pathContains?: string;
 		/** Optional. Matches if the host name of the URL ends with a specified string.  */
-		hostSuffix?: string;
+        hostSuffix?: string;
 		/** Optional. Matches if the host name of the URL starts with a specified string.  */
-		hostPrefix?: string;
+        hostPrefix?: string;
 		/** Optional. Matches if the host name of the URL contains a specified string. To test whether a host name component has a prefix 'foo', use hostContains: '.foo'. This matches 'www.foobar.com' and 'foo.com', because an implicit dot is added at the beginning of the host name. Similarly, hostContains can be used to match against component suffix ('foo.') and to exactly match against components ('.foo.'). Suffix- and exact-matching for the last components need to be done separately using hostSuffix, because no implicit dot is added at the end of the host name.  */
-		hostContains?: string;
+        hostContains?: string;
 		/** Optional. Matches if the URL (without fragment identifier) contains a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-		urlContains?: string;
+        urlContains?: string;
 		/** Optional. Matches if the query segment of the URL ends with a specified string.  */
-		querySuffix?: string;
+        querySuffix?: string;
 		/** Optional. Matches if the URL (without fragment identifier) starts with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-		urlPrefix?: string;
+        urlPrefix?: string;
 		/** Optional. Matches if the host name of the URL is equal to a specified string.  */
-		hostEquals?: string;
+        hostEquals?: string;
 		/** Optional. Matches if the URL (without fragment identifier) is equal to a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-		urlEquals?: string;
+        urlEquals?: string;
 		/** Optional. Matches if the query segment of the URL contains a specified string.  */
-		queryContains?: string;
+        queryContains?: string;
 		/** Optional. Matches if the path segment of the URL starts with a specified string.  */
-		pathPrefix?: string;
+        pathPrefix?: string;
 		/** Optional. Matches if the path segment of the URL is equal to a specified string.  */
-		pathEquals?: string;
+        pathEquals?: string;
 		/** Optional. Matches if the path segment of the URL ends with a specified string.  */
-		pathSuffix?: string;
+        pathSuffix?: string;
 		/** Optional. Matches if the query segment of the URL is equal to a specified string.  */
-		queryEquals?: string;
+        queryEquals?: string;
 		/** Optional. Matches if the query segment of the URL starts with a specified string.  */
-		queryPrefix?: string;
+        queryPrefix?: string;
 		/** Optional. Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-		urlSuffix?: string;
+        urlSuffix?: string;
 		/** Optional. Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.  */
-		ports?: any[];
+        ports?: any[];
 		/**
 		 * Optional.
  		 * Since Chrome 28. 
@@ -2597,17 +2597,17 @@ declare module chrome.events {
 		 * function() {...}; 
 		 */
         removeListener(callback: () => void): void;
-		hasListeners(): boolean;
+        hasListeners(): boolean;
     }
 
 	/** Description of a declarative rule for handling events. */
     interface Rule {
 		/** Optional. Optional priority of this rule. Defaults to 100.  */
-		priority?: number;
+        priority?: number;
 		/** List of conditions that can trigger the actions. */
         conditions: any[];
 		/** Optional. Optional identifier that allows referencing this rule.  */
-		id?: string;
+        id?: string;
 		/** List of actions that are triggered if one of the condtions is fulfilled. */
         actions: any[];
 		/**
@@ -2629,9 +2629,9 @@ declare module chrome.events {
 declare module chrome.extension {
     interface FetchProperties {
 		/** Optional. The window to restrict the search to. If omitted, returns all views.  */
-		windowId?: number;
+        windowId?: number;
 		/** Optional. The type of view to get. If omitted, returns all views (including background pages and tabs). Valid values: 'tab', 'notification', 'popup'.  */
-		type?: string;
+        type?: string;
     }
 
     interface LastError {
@@ -2653,7 +2653,7 @@ declare module chrome.extension {
 		 * Parameter sendResponse: Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object, or undefined if there is no response. If you have more than one onRequest listener in the same document, then only one may send a response. 
 		 */
 		addListener(callback: (sender: runtime.MessageSender, sendResponse: () => void) => void): void;
-	}
+    }
 
 	/**
 	 * Since Chrome 7. 
@@ -2744,14 +2744,14 @@ declare module chrome.fileBrowserHandler {
  		 * List of file extensions that the selected file can have. The list is also used to specify what files to be shown in the select file dialog. Files with the listed extensions are only shown in the dialog. Extensions should not include the leading '.'. Example: ['jpg', 'png'] 
 		 * Since Chrome 23. 
 		 */
-		allowedFileExtensions?: string[];
+        allowedFileExtensions?: string[];
 		/** Suggested name for the file. */
         suggestedName: string;
     }
 
     interface SelectionResult {
 		/** Optional. Selected file entry. It will be null if a file hasn't been selected.  */
-		entry?: Object;
+        entry?: Object;
 		/** Whether the file has been selected. */
         success: boolean;
     }
@@ -2759,7 +2759,7 @@ declare module chrome.fileBrowserHandler {
 	/** Event details payload for fileBrowserHandler.onExecute event. */
     interface FileHandlerExecuteEventDetails {
 		/** Optional. The ID of the tab that raised this event. Tab IDs are unique within a browser session.  */
-		tab_id?: number;
+        tab_id?: number;
 		/** Array of Entry instances representing files that are targets of this action (selected in ChromeOS file browser). */
         entries: any[];
     }
@@ -3235,104 +3235,104 @@ declare module chrome.fileSystemProvider {
  */
 declare module chrome.fontSettings {
 	/** Represents a font name. */
-	interface FontName {
+    interface FontName {
 		/** The display name of the font. */
-		displayName: string;
+        displayName: string;
 		/** The font ID. */
-		fontId: string;
-	}
+        fontId: string;
+    }
 
-	interface DefaultFontSizeDetails {
+    interface DefaultFontSizeDetails {
 		/** The font size in pixels. */
-		pixelSize: number;
-	}
+        pixelSize: number;
+    }
 
-	interface FontDetails {
+    interface FontDetails {
 		/** The generic font family for the font. */
-		genericFamily: string;
+        genericFamily: string;
 		/** Optional. The script for the font. If omitted, the global script font setting is affected.  */
-		script?: string;
-	}
+        script?: string;
+    }
 
-	interface FullFontDetails {
+    interface FullFontDetails {
 		/** The generic font family for which the font setting has changed. */
-		genericFamily: string;
+        genericFamily: string;
 		/** The level of control this extension has over the setting. */
-		levelOfControl: string;
+        levelOfControl: string;
 		/** Optional. The script code for which the font setting has changed.  */
-		script?: string;
+        script?: string;
 		/** The font ID. See the description in getFont. */
-		fontId: string;
-	}
+        fontId: string;
+    }
 
-	interface FontDetailsResult {
+    interface FontDetailsResult {
 		/** The level of control this extension has over the setting. */
-		levelOfControl: string;
+        levelOfControl: string;
 		/** The font ID. Rather than the literal font ID preference value, this may be the ID of the font that the system resolves the preference value to. So, fontId can differ from the font passed to setFont, if, for example, the font is not available on the system. The empty string signifies fallback to the global script font setting. */
-		fontId: string;
-	}
+        fontId: string;
+    }
 
-	interface FontSizeDetails {
+    interface FontSizeDetails {
 		/** The font size in pixels. */
-		pixelSize: number;
+        pixelSize: number;
 		/** The level of control this extension has over the setting. */
-		levelOfControl: string;
-	}
+        levelOfControl: string;
+    }
 
-	interface SetFontSizeDetails {
+    interface SetFontSizeDetails {
 		/** The font size in pixels. */
-		pixelSize: number;
-	}
+        pixelSize: number;
+    }
 
 	interface SetFontDetails extends FontDetails {
 		/** The font ID. The empty string means to fallback to the global script font setting. */
-		fontId: string;
-	}
+        fontId: string;
+    }
 
-	interface DefaultFixedFontSizeChangedEvent extends chrome.events.Event {
+    interface DefaultFixedFontSizeChangedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(object details) {...}; 
 		 */
-		addListener(callback: (details: FontSizeDetails) => void): void;
-	}
+        addListener(callback: (details: FontSizeDetails) => void): void;
+    }
 
-	interface DefaultFontSizeChangedEvent extends chrome.events.Event {
+    interface DefaultFontSizeChangedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(object details) {...}; 
 		 */
-		addListener(callback: (details: FontSizeDetails) => void): void;
-	}
+        addListener(callback: (details: FontSizeDetails) => void): void;
+    }
 
-	interface MinimumFontSizeChangedEvent extends chrome.events.Event {
+    interface MinimumFontSizeChangedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(object details) {...}; 
 		 */
-		addListener(callback: (details: FontSizeDetails) => void): void;
-	}
+        addListener(callback: (details: FontSizeDetails) => void): void;
+    }
 
-	interface FontChangedEvent extends chrome.events.Event {
+    interface FontChangedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(object details) {...}; 
 		 */
-		addListener(callback: (details: FullFontDetails) => void): void;
-	}
+        addListener(callback: (details: FullFontDetails) => void): void;
+    }
 
 	/**
 	 * Sets the default font size. 
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function() {...}; 
 	 */
-	export function setDefaultFontSize(details: DefaultFontSizeDetails, callback?: Function): void;
+    export function setDefaultFontSize(details: DefaultFontSizeDetails, callback?: Function): void;
 	/**
 	 * Gets the font for a given script and generic font family. 
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function(object details) {...}; 
 	 */
-	export function getFont(details: FontDetails, callback?: (details: FontDetailsResult) => void): void;
+    export function getFont(details: FontDetails, callback?: (details: FontDetailsResult) => void): void;
 	/**
 	 * Gets the default font size. 
 	 * @param details This parameter is currently unused. 
@@ -3346,74 +3346,74 @@ declare module chrome.fontSettings {
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function(object details) {...}; 
 	 */
-	export function getMinimumFontSize(details?: FontSizeDetails, callback?: (options: FontSizeDetails) => void): void;
+    export function getMinimumFontSize(details?: FontSizeDetails, callback?: (options: FontSizeDetails) => void): void;
 	/**
 	 * Sets the minimum font size. 
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function() {...}; 
 	 */
-	export function setMinimumFontSize(details: SetFontSizeDetails, callback?: Function): void;
+    export function setMinimumFontSize(details: SetFontSizeDetails, callback?: Function): void;
 	/**
 	 * Gets the default size for fixed width fonts. 
 	 * @param details This parameter is currently unused. 
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function(object details) {...}; 
 	 */
-	export function getDefaultFixedFontSize(details?: Object, callback?: (details: FontSizeDetails) => void): void;
+    export function getDefaultFixedFontSize(details?: Object, callback?: (details: FontSizeDetails) => void): void;
 	/**
 	 * Clears the default font size set by this extension, if any. 
 	 * @param details This parameter is currently unused. 
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function() {...}; 
 	 */
-	export function clearDefaultFontSize(details?: Object, callback?: Function): void;
+    export function clearDefaultFontSize(details?: Object, callback?: Function): void;
 	/**
 	 * Sets the default size for fixed width fonts. 
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function() {...}; 
 	 */
-	export function setDefaultFixedFontSize(details: SetFontSizeDetails, callback?: Function): void;
+    export function setDefaultFixedFontSize(details: SetFontSizeDetails, callback?: Function): void;
 	/**
 	 * Clears the font set by this extension, if any. 
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function() {...}; 
 	 */
-	export function clearFont(details: FontDetails, callback?: Function): void;
+    export function clearFont(details: FontDetails, callback?: Function): void;
 	/**
 	 * Sets the font for a given script and generic font family. 
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function(object details) {...}; 
 	 */
-	export function setFont(details: SetFontDetails, callback?: Function): void;
+    export function setFont(details: SetFontDetails, callback?: Function): void;
 	/**
 	 * Clears the minimum font size set by this extension, if any. 
 	 * @param details This parameter is currently unused. 
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function() {...}; 
 	 */
-	export function clearMinimumFontSize(details?: Object, callback?: Function): void;
+    export function clearMinimumFontSize(details?: Object, callback?: Function): void;
 	/**
 	 * Gets a list of fonts on the system. 
 	 * @param callback The callback parameter should be a function that looks like this: 
 	 * function(array of FontName results) {...}; 
 	 */
-	export function getFontList(callback: (results: FontName[]) => void): void;
+    export function getFontList(callback: (results: FontName[]) => void): void;
 	/**
 	 * Clears the default fixed font size set by this extension, if any. 
 	 * @param details This parameter is currently unused. 
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function() {...}; 
 	 */
-	export function clearDefaultFixedFontSize(details: Object, callback?: Function): void;
+    export function clearDefaultFixedFontSize(details: Object, callback?: Function): void;
 
 	/** Fired when the default fixed font size setting changes. */
-	var onDefaultFixedFontSizeChanged: DefaultFixedFontSizeChangedEvent;
+    var onDefaultFixedFontSizeChanged: DefaultFixedFontSizeChangedEvent;
 	/** Fired when the default font size setting changes. */
-	var onDefaultFontSizeChanged: DefaultFontSizeChangedEvent;
+    var onDefaultFontSizeChanged: DefaultFontSizeChangedEvent;
 	/** Fired when the minimum font size setting changes. */
-	var onMinimumFontSizeChanged: MinimumFontSizeChangedEvent;
+    var onMinimumFontSizeChanged: MinimumFontSizeChangedEvent;
 	/** Fired when a font setting changes. */
-	var onFontChanged: FontChangedEvent;
+    var onFontChanged: FontChangedEvent;
 }
 
 ////////////////////
@@ -3534,87 +3534,87 @@ declare module chrome.gcm {
  */
 declare module chrome.history {
 	/** An object encapsulating one visit to a URL. */
-	interface VisitItem {
+    interface VisitItem {
 		/** The transition type for this visit from its referrer. */
-		transition: string;
+        transition: string;
 		/** Optional. When this visit occurred, represented in milliseconds since the epoch. */
-		visitTime?: number;
+        visitTime?: number;
 		/** The unique identifier for this visit. */
-		visitId: string;
+        visitId: string;
 		/** The visit ID of the referrer. */
-		referringVisitId: string;
+        referringVisitId: string;
 		/** The unique identifier for the item. */
-		id: string;
-	}
+        id: string;
+    }
 
 	/** An object encapsulating one result of a history query. */
-	interface HistoryItem {
+    interface HistoryItem {
 		/** Optional. The number of times the user has navigated to this page by typing in the address. */
-		typedCount?: number;
+        typedCount?: number;
 		/** Optional. The title of the page when it was last loaded. */
-		title?: string;
+        title?: string;
 		/** Optional. The URL navigated to by a user. */
-		url?: string;
+        url?: string;
 		/** Optional. When this page was last loaded, represented in milliseconds since the epoch. */
-		lastVisitTime?: number;
+        lastVisitTime?: number;
 		/** Optional. The number of times the user has navigated to this page. */
-		visitCount?: number;
+        visitCount?: number;
 		/** The unique identifier for the item. */
-		id: string;
-	}
+        id: string;
+    }
 
-	interface HistoryQuery {
+    interface HistoryQuery {
 		/** A free-text query to the history service. Leave empty to retrieve all pages. */
-		text: string;
+        text: string;
 		/** Optional. The maximum number of results to retrieve. Defaults to 100. */
-		maxResults?: number;
+        maxResults?: number;
 		/** Optional. Limit results to those visited after this date, represented in milliseconds since the epoch. */
-		startTime?: number;
+        startTime?: number;
 		/** Optional. Limit results to those visited before this date, represented in milliseconds since the epoch. */
-		endTime?: number;
-	}
+        endTime?: number;
+    }
 
-	interface Url {
+    interface Url {
 		/** The URL for the operation. It must be in the format as returned from a call to history.search. */
-		url: string;
-	}
+        url: string;
+    }
 
-	interface Range {
+    interface Range {
 		/** Items added to history before this date, represented in milliseconds since the epoch. */
-		endTime: number;
+        endTime: number;
 		/** Items added to history after this date, represented in milliseconds since the epoch. */
-		startTime: number;
-	}
+        startTime: number;
+    }
 
-	interface RemovedResult {
+    interface RemovedResult {
 		/** True if all history was removed. If true, then urls will be empty. */
-		allHistory: boolean;
+        allHistory: boolean;
 		/** Optional. */
-		urls?: string[];
-	}
+        urls?: string[];
+    }
 
-	interface HistoryVisitedEvent extends chrome.events.Event {
+    interface HistoryVisitedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function( HistoryItem result) {...}; 
 		 */
-		addListener(callback: (result: HistoryItem) => void): void;
-	}
+        addListener(callback: (result: HistoryItem) => void): void;
+    }
 
-	interface HistoryVisitRemovedEvent extends chrome.events.Event {
+    interface HistoryVisitRemovedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(object removed) {...}; 
 		 */
-		addListener(callback: (removed: RemovedResult) => void): void;
-	}
+        addListener(callback: (removed: RemovedResult) => void): void;
+    }
 
 	/**
 	 * Searches the history for the last visit time of each page matching the query. 
 	 * @param callback The callback parameter should be a function that looks like this: 
 	 * function(array of HistoryItem results) {...}; 
 	 */
-	export function search(query: HistoryQuery, callback: (results: HistoryItem[]) => void): void;
+    export function search(query: HistoryQuery, callback: (results: HistoryItem[]) => void): void;
 	/**
 	 * Adds a URL to the history at the current time with a transition type of "link". 
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
@@ -3638,7 +3638,7 @@ declare module chrome.history {
 	 * @param callback The callback parameter should be a function that looks like this: 
 	 * function(array of VisitItem results) {...}; 
 	 */
-	export function getVisits(details: Url, callback: (results: VisitItem[]) => void): void;
+    export function getVisits(details: Url, callback: (results: VisitItem[]) => void): void;
 	/**
 	 * Removes all occurrences of the given URL from the history. 
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
@@ -3647,9 +3647,9 @@ declare module chrome.history {
 	export function deleteUrl(details: Url, callback?: () => void): void;
 
 	/** Fired when a URL is visited, providing the HistoryItem data for that URL. This event fires before the page has loaded. */
-	var onVisited: HistoryVisitedEvent;
+    var onVisited: HistoryVisitedEvent;
 	/** Fired when one or more URLs are removed from the history service. When all visits have been removed the URL is purged from history. */
-	var onVisitRemoved: HistoryVisitRemovedEvent;
+    var onVisitRemoved: HistoryVisitRemovedEvent;
 }
 
 ////////////////////
@@ -3747,8 +3747,8 @@ declare module chrome.identity {
 		 * function( AccountInfo account, boolean signedIn) {...}; 
 		 */
 		addListener(callback: (account: AccountInfo, signedIn: boolean) => void): void;
-	} 
-	
+}
+
 	/**
 	 * Retrieves a list of AccountInfo objects describing the accounts present on the profile.
 	 * getAccounts is only supported on dev channel.
@@ -3797,7 +3797,7 @@ declare module chrome.identity {
 	 * @param path Optional. The path appended to the end of the generated URL. 
 	 */
 	export function getRedirectURL(path?: string): void;
-	
+
 	/**
 	 * Fired when signin state changes for an account on the user's profile. 
 	 * @since Chrome 33.
@@ -3814,13 +3814,13 @@ declare module chrome.identity {
  * @since Chrome 6.
  */
 declare module chrome.idle {
-	interface IdleStateChangedEvent extends chrome.events.Event {
+    interface IdleStateChangedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function( IdleState newState) {...}; 
 		 */
-		addListener(callback: (newState: string) => void): void;
-	}
+        addListener(callback: (newState: string) => void): void;
+    }
 
 	/**
 	 * Returns "locked" if the system is locked, "idle" if the user has not generated any input for a specified number of seconds, or "active" otherwise. 
@@ -3838,7 +3838,7 @@ declare module chrome.idle {
 	export function setDetectionInterval(intervalInSeconds: number): void;
 
 	/** Fired when the system changes to an active, idle or locked state. The event fires with "locked" if the screen is locked or the screensaver activates, "idle" if the system is unlocked and the user has not generated any input for a specified number of seconds, and "active" when the user generates input on an idle system. */
-	var onStateChanged: IdleStateChangedEvent;
+    var onStateChanged: IdleStateChangedEvent;
 }
 
 ////////////////////
@@ -3851,28 +3851,28 @@ declare module chrome.idle {
  */
 declare module chrome.input.ime {
 	/** See http://www.w3.org/TR/DOM-Level-3-Events/#events-KeyboardEvent */
-	interface KeyboardEvent {
+    interface KeyboardEvent {
 		/**
 		 * Optional.
 		 * Whether or not the SHIFT key is pressed. 
 		 */
-		shiftKey?: boolean;
+        shiftKey?: boolean;
 		/**
 		 * Optional.
 		 * Whether or not the ALT key is pressed. 
 		 */
-		altKey?: boolean;
+        altKey?: boolean;
 		/** The ID of the request. */
-		requestId: string;
+        requestId: string;
 		/** Value of the key being pressed */
-		key: string;
+        key: string;
 		/**
 		 * Optional.
 		 * Whether or not the CTRL key is pressed. 
 		 */
-		ctrlKey?: boolean;
+        ctrlKey?: boolean;
 		/** One of keyup or keydown. */
-		type: string;
+        type: string;
 		/**
 		 * Optional.
 		 * The extension ID of the sender of this keyevent. 
@@ -3897,14 +3897,14 @@ declare module chrome.input.ime {
 		 * @since Chrome 29.
 		 */
 		capsLock?: boolean;
-	}
+    }
 
 	/** Describes an input Context */
-	interface InputContext {
+    interface InputContext {
 		/** This is used to specify targets of text field operations. This ID becomes invalid as soon as onBlur is called. */
-		contextID: number;
+        contextID: number;
 		/** Type of value this text field edits, (Text, Number, URL, etc) */
-		type: string;
+        type: string;
 		/**
 		 * Whether the text field wants auto-correct. 
 		 * @since Chrome 40.
@@ -3939,21 +3939,21 @@ declare module chrome.input.ime {
 		checked?: boolean;
 		/** Indicates this item is enabled. */
 		enabled?: boolean;
-	}
+    }
 
-	interface ImeParameters {
+    interface ImeParameters {
 		/** MenuItems to use. */
 		items: MenuItem[];
 		/** ID of the engine to use */
-		engineID: string;
-	}
+        engineID: string;
+    }
 
-	interface CommitTextParameters {
+    interface CommitTextParameters {
 		/** The text to commit */
-		text: string;
+        text: string;
 		/** ID of the context where the text will be committed */
-		contextID: number;
-	}
+        contextID: number;
+    }
 
 	interface CandidateUsage {
 		/** The title string of details description. */
@@ -3989,9 +3989,9 @@ declare module chrome.input.ime {
 		usage?: CandidateUsage;
 	}
 
-	interface CandidatesParameters {
+    interface CandidatesParameters {
 		/** ID of the context that owns the candidate window. */
-		contextID: number;
+        contextID: number;
 		/** List of candidates to show in the candidate window */
 		candidates: CandidateTemplate[];
 	}
@@ -4003,59 +4003,59 @@ declare module chrome.input.ime {
 		end: number;
 		/** The type of the underline to modify this segment. */
 		style: string;
-	}
+    }
 
-	interface CompositionParameters {
+    interface CompositionParameters {
 		/** ID of the context where the composition text will be set */
-		contextID: number;
+        contextID: number;
 		/** Text to set */
-		text: string;
+        text: string;
 		/** Optional. List of segments and their associated types. */
 		segments: CompositionParameterSegment[];
 		/** Position in the text of the cursor. */
-		cursor: number;
+        cursor: number;
 		/** Optional. Position in the text that the selection starts at. */
-		selectionStart?: number;
+        selectionStart?: number;
 		/** Optional. Position in the text that the selection ends at. */
-		selectionEnd?: number;
-	}
+        selectionEnd?: number;
+    }
 
-	interface MenuItemParameters {
-		items: Object[];
-		engineId: string;
-	}
+    interface MenuItemParameters {
+        items: Object[];
+        engineId: string;
+    }
 
 	interface CandidateWindowParameterProperties {
 		/**
 		 * Optional.
 		 * True to show the cursor, false to hide it. 
 		 */
-		cursorVisible?: boolean;
+        cursorVisible?: boolean;
 		/**
 		 * Optional.
 		 * True if the candidate window should be rendered vertical, false to make it horizontal. 
 		 */
-		vertical?: boolean;
+        vertical?: boolean;
 		/**
 		 * Optional.
 		 * The number of candidates to display per page. 
 		 */
-		pageSize?: number;
+        pageSize?: number;
 		/**
 		 * Optional.
 		 * True to display the auxiliary text, false to hide it. 
 		 */
-		auxiliaryTextVisible?: boolean;
+        auxiliaryTextVisible?: boolean;
 		/**
 		 * Optional.
 		 * Text that is shown at the bottom of the candidate window. 
 		 */
-		auxiliaryText?: string;
+        auxiliaryText?: string;
 		/**
 		 * Optional.
 		 * True to show the Candidate window, false to hide it. 
 		 */
-		visible?: boolean;
+        visible?: boolean;
 		/** 
 		 * Optional.
 		 * Where to display the candidate window. 
@@ -4068,16 +4068,16 @@ declare module chrome.input.ime {
 		/** ID of the engine to set properties on. */
 		engineID: string;
 		properties: CandidateWindowParameterProperties;
-	}
+    }
 
-	interface ClearCompositionParameters {
+    interface ClearCompositionParameters {
 		/** ID of the context where the composition will be cleared */
-		contextID: number;
-	}
+        contextID: number;
+    }
 
-	interface CursorPositionParameters {
+    interface CursorPositionParameters {
 		/** ID of the candidate to select. */
-		candidateID: number;
+        candidateID: number;
 		/** ID of the context that owns the candidate window. */
 		contextID: number;
 	}
@@ -4093,7 +4093,7 @@ declare module chrome.input.ime {
 		/** ID of the engine receiving the event. */
 		engineID: string;
 		/** ID of the context where the surrounding text will be deleted. */
-		contextID: number;
+        contextID: number;
 		/** The offset from the caret position where deletion will start. This value can be negative. */
 		offset: number;
 		/** The number of characters to be deleted */
@@ -4107,18 +4107,18 @@ declare module chrome.input.ime {
 		focus: number;
 		/** The beginning position of the selection. This value indicates caret position if is no selection. */
 		anchor: number;
-	}
+    }
 
-	interface BlurEvent extends chrome.events.Event {
+    interface BlurEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(integer contextID) {...};
 		 * Parameter contextID: The ID of the text field that has lost focus. The ID is invalid after this call 
 		 */
-		addListener(callback: (contextID: number) => void): void;
-	}
+        addListener(callback: (contextID: number) => void): void;
+    }
 
-	interface CandidateClickedEvent extends chrome.events.Event {
+    interface CandidateClickedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(string engineID, integer candidateID, MouseButton button) {...};
@@ -4126,38 +4126,38 @@ declare module chrome.input.ime {
 		 * Parameter candidateID: ID of the candidate that was clicked. 
 		 * Parameter button: Which mouse buttons was clicked. 
 		 */
-		addListener(callback: (engineID: string, candidateID: number, button: string) => void): void;
-	}
+        addListener(callback: (engineID: string, candidateID: number, button: string) => void): void;
+    }
 
-	interface KeyEventEvent extends chrome.events.Event {
+    interface KeyEventEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(string engineID, KeyboardEvent keyData) {...};
 		 * Parameter engineID: ID of the engine receiving the event
 		 * Parameter keyData: Data on the key event 
 		 */
-		addListener(callback: (engineID: string, keyData: KeyboardEvent) => void): void;
-	}
+        addListener(callback: (engineID: string, keyData: KeyboardEvent) => void): void;
+    }
 
-	interface DeactivatedEvent extends chrome.events.Event {
+    interface DeactivatedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(string engineID) {...};
 		 * Parameter engineID: ID of the engine receiving the event 
 		 */
-		addListener(callback: (engineID: string) => void): void;
-	}
+        addListener(callback: (engineID: string) => void): void;
+    }
 
-	interface InputContextUpdateEvent extends chrome.events.Event {
+    interface InputContextUpdateEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function( InputContext context) {...};
 		 * Parameter context: An InputContext object describing the text field that has changed. 
 		 */
-		addListener(callback: (context: InputContext) => void): void;
-	}
+        addListener(callback: (context: InputContext) => void): void;
+    }
 
-	interface ActivateEvent extends chrome.events.Event {
+    interface ActivateEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(string engineID, ScreenType screen) {...}; 
@@ -4165,26 +4165,26 @@ declare module chrome.input.ime {
 		 * Parameter The screen type under which the IME is activated. 
 		 */
 		addListener(callback: (engineID: string, screen: string) => void): void;
-	}
+    }
 
-	interface FocusEvent extends chrome.events.Event {
+    interface FocusEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function( InputContext context) {...};
 		 * Parameter context: Describes the text field that has acquired focus. 
 		 */
-		addListener(callback: (context: InputContext) => void): void;
-	}
+        addListener(callback: (context: InputContext) => void): void;
+    }
 
-	interface MenuItemActivatedEvent extends chrome.events.Event {
+    interface MenuItemActivatedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(string engineID, string name) {...}; 
 		 * Parameter engineID: ID of the engine receiving the event 
 		 * Parameter name: Name of the MenuItem which was activated 
 		 */
-		addListener(callback: (engineID: string, name: string) => void): void;
-	}
+        addListener(callback: (engineID: string, name: string) => void): void;
+    }
 
 	interface SurroundingTextChangedEvent extends chrome.events.Event {
 		/**
@@ -4217,21 +4217,21 @@ declare module chrome.input.ime {
 	 * If you specify the callback parameter, it should be a function that looks like this:
 	 * function(boolean success) {...}; 
 	 */
-	export function commitText(parameters: CommitTextParameters, callback?: (success: boolean) => void): void;
+    export function commitText(parameters: CommitTextParameters, callback?: (success: boolean) => void): void;
 	/**
 	 * Sets the current candidate list. This fails if this extension doesn't own the active IME 
 	 * @param callback Called when the operation completes. 
 	 * If you specify the callback parameter, it should be a function that looks like this:
 	 * function(boolean success) {...}; 
 	 */
-	export function setCandidates(parameters: CandidatesParameters, callback?: (success: boolean) => void): void;
+    export function setCandidates(parameters: CandidatesParameters, callback?: (success: boolean) => void): void;
 	/** 
 	 * Set the current composition. If this extension does not own the active IME, this fails. 
 	 * @param callback Called when the operation completes with a boolean indicating if the text was accepted or not. On failure, chrome.runtime.lastError is set. 
 	 * If you specify the callback parameter, it should be a function that looks like this:
 	 * function(boolean success) {...}; 
 	 */
-	export function setComposition(parameters: CompositionParameters, callback?: (success: boolean) => void): void;
+    export function setComposition(parameters: CompositionParameters, callback?: (success: boolean) => void): void;
 	/**
 	 * Updates the state of the MenuItems specified 
 	 * @param callback Called when the operation completes 
@@ -4252,14 +4252,14 @@ declare module chrome.input.ime {
 	 * If you specify the callback parameter, it should be a function that looks like this:
 	 * function(boolean success) {...}; 
 	 */
-	export function clearComposition(parameters: ClearCompositionParameters, callback?: (success: boolean) => void): void;
+    export function clearComposition(parameters: ClearCompositionParameters, callback?: (success: boolean) => void): void;
 	/**
 	 * Set the position of the cursor in the candidate window. This is a no-op if this extension does not own the active IME. 
 	 * @param callback Called when the operation completes 
 	 * If you specify the callback parameter, it should be a function that looks like this:
 	 * function(boolean success) {...}; 
 	 */
-	export function setCursorPosition(parameters: CursorPositionParameters, callback?: (success: boolean) => void): void;
+    export function setCursorPosition(parameters: CursorPositionParameters, callback?: (success: boolean) => void): void;
 	/**
 	 * Sends the key events. This function is expected to be used by virtual keyboards. When key(s) on a virtual keyboard is pressed by a user, this function is used to propagate that event to the system. 
 	 * @since Chrome 33.
@@ -4287,21 +4287,21 @@ declare module chrome.input.ime {
 	export function keyEventHandled(requestId: string, response: boolean): void;
 
 	/** This event is sent when focus leaves a text box. It is sent to all extensions that are listening to this event, and enabled by the user. */
-	var onBlur: BlurEvent;
+    var onBlur: BlurEvent;
 	/** This event is sent if this extension owns the active IME. */
-	var onCandidateClicked: CandidateClickedEvent;
+    var onCandidateClicked: CandidateClickedEvent;
 	/** This event is sent if this extension owns the active IME. */
-	var onKeyEvent: KeyEventEvent;
+    var onKeyEvent: KeyEventEvent;
 	/** This event is sent when an IME is deactivated. It signals that the IME will no longer be receiving onKeyPress events. */
-	var onDeactivated: DeactivatedEvent;
+    var onDeactivated: DeactivatedEvent;
 	/** This event is sent when the properties of the current InputContext change, such as the the type. It is sent to all extensions that are listening to this event, and enabled by the user. */
-	var onInputContextUpdate: InputContextUpdateEvent;
+    var onInputContextUpdate: InputContextUpdateEvent;
 	/** This event is sent when an IME is activated. It signals that the IME will be receiving onKeyPress events. */
-	var onActivate: ActivateEvent;
+    var onActivate: ActivateEvent;
 	/** This event is sent when focus enters a text box. It is sent to all extensions that are listening to this event, and enabled by the user. */
-	var onFocus: FocusEvent;
+    var onFocus: FocusEvent;
 	/** Called when the user selects a menu item */
-	var onMenuItemActivated: MenuItemActivatedEvent;
+    var onMenuItemActivated: MenuItemActivatedEvent;
 	/**
 	 * Called when the editable string around caret is changed or when the caret position is moved. The text length is limited to 100 characters for each back and forth direction. 
 	 * @since Chrome 27.
@@ -4324,77 +4324,77 @@ declare module chrome.input.ime {
  */
 declare module chrome.management {
 	/** Information about an installed extension, app, or theme. */
-	interface ExtensionInfo {
+    interface ExtensionInfo {
 		/**
 		 * Optional.
 		 * A reason the item is disabled. 
 		 * @since Chrome 17.
 		 */
-		disabledReason?: string;
+        disabledReason?: string;
 		/** Optional. The launch url (only present for apps). */
-		appLaunchUrl?: string;
+        appLaunchUrl?: string;
 		/**
 		 * The description of this extension, app, or theme. 
 		 * @since Chrome 9.
 		 */
-		description: string;
+        description: string;
 		/**
 		 * Returns a list of API based permissions. 
 		 * @since Chrome 9.
 		 */
-		permissions: string[];
+        permissions: string[];
 		/**
 		 * Optional.
 		 * A list of icon information. Note that this just reflects what was declared in the manifest, and the actual image at that url may be larger or smaller than what was declared, so you might consider using explicit width and height attributes on img tags referencing these images. See the manifest documentation on icons for more details. 
 		 */
-		icons?: IconInfo[];
+        icons?: IconInfo[];
 		/**
 		 * Returns a list of host based permissions. 
 		 * @since Chrome 9.
 		 */
-		hostPermissions: string[];
+        hostPermissions: string[];
 		/** Whether it is currently enabled or disabled. */
-		enabled: boolean;
+        enabled: boolean;
 		/**
 		 * Optional.
 		 * The URL of the homepage of this extension, app, or theme. 
 		 * @since Chrome 11.
 		 */
-		homepageUrl?: string;
+        homepageUrl?: string;
 		/**
 		 * Whether this extension can be disabled or uninstalled by the user. 
 		 * @since Chrome 12.
 		 */
-		mayDisable: boolean;
+        mayDisable: boolean;
 		/**
 		 * How the extension was installed. 
 		 * @since Chrome 22.
 		 */
-		installType: string;
+        installType: string;
 		/** The version of this extension, app, or theme. */
-		version: string;
+        version: string;
 		/** The extension's unique identifier. */
-		id: string;
+        id: string;
 		/**
 		 * Whether the extension, app, or theme declares that it supports offline. 
 		 * @since Chrome 15.
 		 */
-		offlineEnabled: boolean;
+        offlineEnabled: boolean;
 		/**
 		 * Optional.
 		 * The update URL of this extension, app, or theme. 
 		 * @since Chrome 16.
 		 */
-		updateUrl?: string;
+        updateUrl?: string;
 		/**
 		 * The type of this extension, app, or theme. 
 		 * @since Chrome 23.
 		 */
-		type: string;
+        type: string;
 		/** The url for the item's options page, if it has one. */
-		optionsUrl: string;
+        optionsUrl: string;
 		/** The name of this extension, app, or theme. */
-		name: string;
+        name: string;
 		/**
 		 * A short version of the name of this extension, app, or theme. 
 		 * @since Chrome 31.
@@ -4417,56 +4417,56 @@ declare module chrome.management {
 		 * @since Chrome 37.
 		 */
 		availableLaunchTypes?: string[];
-	}
+    }
 
 	/** Information about an icon belonging to an extension, app, or theme. */
-	interface IconInfo {
+    interface IconInfo {
 		/** The URL for this icon image. To display a grayscale version of the icon (to indicate that an extension is disabled, for example), append ?grayscale=true to the URL. */
-		url: string;
+        url: string;
 		/** A number representing the width and height of the icon. Likely values include (but are not limited to) 128, 48, 24, and 16. */
-		size: number;
-	}
+        size: number;
+    }
 
-	interface UninstallOptions {
+    interface UninstallOptions {
 		/**
 		 * Optional.
 		 * Whether or not a confirm-uninstall dialog should prompt the user. Defaults to false for self uninstalls. If an extension uninstalls another extension, this parameter is ignored and the dialog is always shown. 
 		 */
-		showConfirmDialog?: boolean;
-	}
+        showConfirmDialog?: boolean;
+    }
 
-	interface ManagementDisabledEvent extends chrome.events.Event {
+    interface ManagementDisabledEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function( ExtensionInfo info) {...}; 
 		 */
-		addListener(callback: (info: ExtensionInfo) => void): void;
-	}
+        addListener(callback: (info: ExtensionInfo) => void): void;
+    }
 
-	interface ManagementUninstalledEvent extends chrome.events.Event {
+    interface ManagementUninstalledEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(string id) {...};
 		 * Parameter id: The id of the extension, app, or theme that was uninstalled.  
 		 */
-		addListener(callback: (id: string) => void): void;
-	}
+        addListener(callback: (id: string) => void): void;
+    }
 
-	interface ManagementInstalledEvent extends chrome.events.Event {
+    interface ManagementInstalledEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function( ExtensionInfo info) {...}; 
 		 */
-		addListener(callback: (info: ExtensionInfo) => void): void;
-	}
+        addListener(callback: (info: ExtensionInfo) => void): void;
+    }
 
-	interface ManagementEnabledEvent extends chrome.events.Event {
+    interface ManagementEnabledEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function( ExtensionInfo info) {...}; 
 		 */
-		addListener(callback: (info: ExtensionInfo) => void): void;
-	}
+        addListener(callback: (info: ExtensionInfo) => void): void;
+    }
 
 	/**
 	 * Enables or disables an app or extension. 
@@ -4483,7 +4483,7 @@ declare module chrome.management {
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function(array of string permissionWarnings) {...}; 
 	 */
-	export function getPermissionWarningsById(id: string, callback?: (permissionWarnings: string[]) => void): void;
+    export function getPermissionWarningsById(id: string, callback?: (permissionWarnings: string[]) => void): void;
 	/**
 	 * Returns information about the installed extension, app, or theme that has the given ID. 
 	 * @since Chrome 9.
@@ -4491,13 +4491,13 @@ declare module chrome.management {
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function( ExtensionInfo result) {...}; 
 	 */
-	export function get(id: string, callback?: (result: ExtensionInfo) => void): void;
+    export function get(id: string, callback?: (result: ExtensionInfo) => void): void;
 	/**
 	 * Returns a list of information about installed extensions and apps. 
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function(array of ExtensionInfo result) {...}; 
 	 */
-	export function getAll(callback?: (result: ExtensionInfo[]) => void): void;
+    export function getAll(callback?: (result: ExtensionInfo[]) => void): void;
 	/**
 	 * Returns a list of permission warnings for the given extension manifest string. Note: This function can be used without requesting the 'management' permission in the manifest. 
 	 * @since Chrome 15.
@@ -4505,7 +4505,7 @@ declare module chrome.management {
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function(array of string permissionWarnings) {...}; 
 	 */
-	export function getPermissionWarningsByManifest(manifestStr: string, callback?: (permissionwarnings: string[]) => void): void;
+    export function getPermissionWarningsByManifest(manifestStr: string, callback?: (permissionwarnings: string[]) => void): void;
 	/**
 	 * Launches an application. 
 	 * @param id The extension id of the application. 
@@ -4579,13 +4579,13 @@ declare module chrome.management {
 	export function generateAppForLink(url: string, title: string, callback?: (result: ExtensionInfo) => void): void;
 
 	/** Fired when an app or extension has been disabled. */
-	var onDisabled: ManagementDisabledEvent;
+    var onDisabled: ManagementDisabledEvent;
 	/** Fired when an app or extension has been uninstalled. */
-	var onUninstalled: ManagementUninstalledEvent;
+    var onUninstalled: ManagementUninstalledEvent;
 	/** Fired when an app or extension has been installed. */
-	var onInstalled: ManagementInstalledEvent;
+    var onInstalled: ManagementInstalledEvent;
 	/** Fired when an app or extension has been enabled. */
-	var onEnabled: ManagementEnabledEvent;
+    var onEnabled: ManagementEnabledEvent;
 }
 
 ////////////////////
@@ -4658,41 +4658,41 @@ declare module chrome.networking.config {
  * @since Chrome 28.
  */
 declare module chrome.notifications {
-	interface ButtonOptions {
-		title: string;
-		iconUrl?: string;
-	}
+    interface ButtonOptions {
+        title: string;
+        iconUrl?: string;
+    }
 
-	interface ItemOptions {
+    interface ItemOptions {
 		/** Title of one item of a list notification. */
-		title: string;
+        title: string;
 		/** Additional details about this item. */
-		message: string;
-	}
+        message: string;
+    }
 
-	interface NotificationOptions {
+    interface NotificationOptions {
 		/** Optional. Which type of notification to display. Required for notifications.create method. */
-		type?: string;
+        type?: string;
 		/** 
 		 * Optional.
 		 * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
 		 * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file Required for notifications.create method.
 		 */
-		iconUrl?: string;
+        iconUrl?: string;
 		/** Optional. Title of the notification (e.g. sender name for email). Required for notifications.create method. */
-		title?: string;
+        title?: string;
 		/** Optional. Main notification content. Required for notifications.create method. */
-		message?: string;
+        message?: string;
 		/**
 		 * Optional.
 		 * Alternate notification content with a lower-weight font. 
 		 * @since Chrome 31.
 		 */
-		contextMessage?: string;
+        contextMessage?: string;
 		/** Optional. Priority ranges from -2 to 2. -2 is lowest priority. 2 is highest. Zero is default. */
-		priority?: number;
+        priority?: number;
 		/** Optional. A timestamp associated with the notification, in milliseconds past the epoch (e.g. Date.now() + n). */
-		eventTime?: number;
+        eventTime?: number;
 		/** Optional. Text and icons for up to two notification action buttons. */
 		buttons?: ButtonOptions[];
 		/** Optional. Items for multi-item notifications. */
@@ -4702,13 +4702,13 @@ declare module chrome.notifications {
 		 * Current progress ranges from 0 to 100. 
 		 * @since Chrome 30.
 		 */
-		progress?: number;
+        progress?: number;
 		/**
 		 * Optional.
 		 * Whether to show UI indicating that the app will visibly respond to clicks on the body of a notification. 
 		 * @since Chrome 32.
 		 */
-		isClickable?: boolean;
+        isClickable?: boolean;
 		/**
 		 * Optional.
 		 * A URL to the app icon mask. URLs have the same restrictions as iconUrl. The app icon mask should be in alpha channel, as only the alpha channel of the image will be considered. 
@@ -4717,39 +4717,39 @@ declare module chrome.notifications {
 		appIconMaskUrl?: string;
 		/** Optional. A URL to the image thumbnail for image-type notifications. URLs have the same restrictions as iconUrl. */
 		imageUrl?: string;
-	}
+    }
 
 	interface NotificationClosedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(string notificationId, boolean byUser) {...}; 
 		 */
-		addListener(callback: (notificationId: string, byUser: boolean) => void): void;
-	}
+        addListener(callback: (notificationId: string, byUser: boolean) => void): void;
+    }
 
 	interface NotificationClickedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(string notificationId) {...}; 
 		 */
-		addListener(callback: (notificationId: string) => void): void;
-	}
+        addListener(callback: (notificationId: string) => void): void;
+    }
 
 	interface NotificationButtonClickedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(string notificationId, integer buttonIndex) {...}; 
 		 */
-		addListener(callback: (notificationId: string, buttonIndex: number) => void): void;
-	}
+        addListener(callback: (notificationId: string, buttonIndex: number) => void): void;
+    }
 
 	interface NotificationPermissionLevelChangedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function( PermissionLevel level) {...}; 
 		 */
-		addListener(callback: (level: string) => void): void;
-	}
+        addListener(callback: (level: string) => void): void;
+    }
 
 	interface NotificationShowSettingsEvent extends chrome.events.Event {
 		/**
@@ -4757,7 +4757,7 @@ declare module chrome.notifications {
 		 * function() {...}; 
 		 */
 		addListener(callback: () => void): void;
-	}
+    }
 
 	/** The notification closed, either by the system or by user action. */
 	export var onClosed: NotificationClosedEvent;
@@ -4832,7 +4832,7 @@ declare module chrome.notifications {
 	 * The callback parameter should be a function that looks like this:
 	 * function( PermissionLevel level) {...}; 
 	 */
-	export function getPermissionLevel(callback: (level: string) => void): void;
+    export function getPermissionLevel(callback: (level: string) => void): void;
 }
 
 ////////////////////
@@ -4845,27 +4845,27 @@ declare module chrome.notifications {
  */
 declare module chrome.omnibox {
 	/** A suggest result. */
-	interface SuggestResult {
+    interface SuggestResult {
 		/** The text that is put into the URL bar, and that is sent to the extension when the user chooses this entry. */
-		content: string;
+        content: string;
 		/** The text that is displayed in the URL dropdown. Can contain XML-style markup for styling. The supported tags are 'url' (for a literal URL), 'match' (for highlighting text that matched what the user's query), and 'dim' (for dim helper text). The styles can be nested, eg. dimmed match. You must escape the five predefined entities to display them as text: stackoverflow.com/a/1091953/89484 */
-		description: string;
-	}
+        description: string;
+    }
 
-	interface Suggestion {
+    interface Suggestion {
 		/** The text that is displayed in the URL dropdown. Can contain XML-style markup for styling. The supported tags are 'url' (for a literal URL), 'match' (for highlighting text that matched what the user's query), and 'dim' (for dim helper text). The styles can be nested, eg. dimmed match. */
-		description: string;
-	}
+        description: string;
+    }
 
-	interface OmniboxInputEnteredEvent extends chrome.events.Event {
+    interface OmniboxInputEnteredEvent extends chrome.events.Event {
 		/**
 		 * The callback parameter should be a function that looks like this: 
 		 * function(string text, OnInputEnteredDisposition disposition) {...}; 
 		 */
-		addListener(callback: (text: string) => void): void;
-	}
+        addListener(callback: (text: string) => void): void;
+    }
 
-	interface OmniboxInputChangedEvent extends chrome.events.Event {
+    interface OmniboxInputChangedEvent extends chrome.events.Event {
 		/**
 		 * The callback parameter should be a function that looks like this: 
 		 * function(string text, function suggest) {...};
@@ -4873,39 +4873,39 @@ declare module chrome.omnibox {
 		 * The suggest parameter should be a function that looks like this:
 		 * function(array of SuggestResult suggestResults) {...}; 
 		 */
-		addListener(callback: (text: string, suggest: (suggestResults: SuggestResult[]) => void) => void): void;
-	}
+        addListener(callback: (text: string, suggest: (suggestResults: SuggestResult[]) => void) => void): void;
+    }
 
-	interface OmniboxInputStartedEvent extends chrome.events.Event {
+    interface OmniboxInputStartedEvent extends chrome.events.Event {
 		/** 
 		 * The callback parameter should be a function that looks like this: 
 		 * function() {...}; 
 		 */
 		addListener(callback: () => void): void;
-	}
+    }
 
-	interface OmniboxInputCancelledEvent extends chrome.events.Event {
+    interface OmniboxInputCancelledEvent extends chrome.events.Event {
 		/**
 		 * The callback parameter should be a function that looks like this: 
 		 * function() {...}; 
 		 */
 		addListener(callback: () => void): void;
-	}
+    }
 
 	/**
 	 * Sets the description and styling for the default suggestion. The default suggestion is the text that is displayed in the first suggestion row underneath the URL bar. 
 	 * @param suggestion A partial SuggestResult object, without the 'content' parameter. 
 	 */
-	export function setDefaultSuggestion(suggestion: Suggestion): void;
+    export function setDefaultSuggestion(suggestion: Suggestion): void;
 
 	/** User has accepted what is typed into the omnibox. */
-	var onInputEntered: OmniboxInputEnteredEvent;
+    var onInputEntered: OmniboxInputEnteredEvent;
 	/** User has changed what is typed into the omnibox. */
-	var onInputChanged: OmniboxInputChangedEvent;
+    var onInputChanged: OmniboxInputChangedEvent;
 	/** User has started a keyword input session by typing the extension's keyword. This is guaranteed to be sent exactly once per input session, and before any onInputChanged events. */
-	var onInputStarted: OmniboxInputStartedEvent;
+    var onInputStarted: OmniboxInputStartedEvent;
 	/** User has ended the keyword input session without accepting the input. */
-	var onInputCancelled: OmniboxInputCancelledEvent;
+    var onInputCancelled: OmniboxInputCancelledEvent;
 }
 
 ////////////////////
@@ -4917,81 +4917,81 @@ declare module chrome.omnibox {
  * @since Chrome 5.
  */
 declare module chrome.pageAction {
-	interface PageActionClickedEvent extends chrome.events.Event {
+    interface PageActionClickedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function( tabs.Tab tab) {...}; 
 		 */
-		addListener(callback: (tab: chrome.tabs.Tab) => void): void;
-	}
+        addListener(callback: (tab: chrome.tabs.Tab) => void): void;
+    }
 
-	interface TitleDetails {
+    interface TitleDetails {
 		/** The id of the tab for which you want to modify the page action. */
-		tabId: number;
+        tabId: number;
 		/** The tooltip string. */
-		title: string;
-	}
+        title: string;
+    }
 
-	interface GetDetails {
+    interface GetDetails {
 		/** Specify the tab to get the title from. */
-		tabId: number;
-	}
+        tabId: number;
+    }
 
-	interface PopupDetails {
+    interface PopupDetails {
 		/** The id of the tab for which you want to modify the page action. */
-		tabId: number;
+        tabId: number;
 		/** The html file to show in a popup. If set to the empty string (''), no popup is shown. */
-		popup: string;
-	}
+        popup: string;
+    }
 
-	interface IconDetails {
+    interface IconDetails {
 		/** The id of the tab for which you want to modify the page action. */
-		tabId: number;
+        tabId: number;
 		/**
 		 * Optional.
 		 * @deprecated This argument is ignored. 
 		 */
-		iconIndex?: number;
+        iconIndex?: number;
 		/**
 		 * Optional.
 		 * Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}' 
 		 */
-		imageData?: ImageData;
+        imageData?: ImageData;
 		/**
 		 * Optional.
 		 * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}' 
 		 */
-		path?: any;
-	}
+        path?: any;
+    }
 
 	/**
 	 * Shows the page action. The page action is shown whenever the tab is selected. 
 	 * @param tabId The id of the tab for which you want to modify the page action. 
 	 */
-	export function hide(tabId: number): void;
+    export function hide(tabId: number): void;
 	/**
 	 * Shows the page action. The page action is shown whenever the tab is selected. 
 	 * @param tabId The id of the tab for which you want to modify the page action. 
 	 */
-	export function show(tabId: number): void;
+    export function show(tabId: number): void;
 	/** Sets the title of the page action. This is displayed in a tooltip over the page action. */
-	export function setTitle(details: TitleDetails): void;
+    export function setTitle(details: TitleDetails): void;
 	/** Sets the html document to be opened as a popup when the user clicks on the page action's icon. */
-	export function setPopup(details: PopupDetails): void;
+    export function setPopup(details: PopupDetails): void;
 	/**
 	 * Gets the title of the page action. 
 	 * @since Chrome 19.
 	 * @param callback The callback parameter should be a function that looks like this: 
 	 * function(string result) {...};
 	 */
-	export function getTitle(details: GetDetails, callback: (result: string) => void): void;
+    export function getTitle(details: GetDetails, callback: (result: string) => void): void;
 	/**
 	 * Gets the html document set as the popup for this page action. 
 	 * @since Chrome 19.
 	 * @param callback The callback parameter should be a function that looks like this: 
 	 * function(string result) {...}; 
 	 */
-	export function getPopup(details: GetDetails, callback: (result: string) => void): void;
+    export function getPopup(details: GetDetails, callback: (result: string) => void): void;
 	/**
 	 * Sets the icon for the page action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the path or the imageData property must be specified. 
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
@@ -5000,7 +5000,7 @@ declare module chrome.pageAction {
 	export function setIcon(details: IconDetails, callback?: () => void): void;
 
 	/** Fired when a page action icon is clicked. This event will not fire if the page action has a popup. */
-	var onClicked: PageActionClickedEvent;
+    var onClicked: PageActionClickedEvent;
 }
 
 ////////////////////
@@ -5012,10 +5012,10 @@ declare module chrome.pageAction {
  * @since Chrome 18.
  */
 declare module chrome.pageCapture {
-	interface SaveDetails {
+    interface SaveDetails {
 		/** The id of the tab to save as MHTML. */
-		tabId: number;
-	}
+        tabId: number;
+    }
 
 	/**
 	 * Saves the content of the tab with given id as MHTML. 
@@ -5024,7 +5024,7 @@ declare module chrome.pageCapture {
 	 * function(binary mhtmlData) {...};
 	 * Parameter mhtmlData: The MHTML data as a Blob.  
 	 */
-	export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData: any) => void): void;
+    export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData: any) => void): void;
 }
 
 ////////////////////
@@ -5035,36 +5035,36 @@ declare module chrome.pageCapture {
  * @since Chrome 16.
  */
 declare module chrome.permissions {
-	interface Permissions {
+    interface Permissions {
 		/**
 		 * Optional.
 		 * List of named permissions (does not include hosts or origins). Anything listed here must appear in the optional_permissions list in the manifest. 
 		 */
-		origins?: string[];
+        origins?: string[];
 		/**
 		 * Optional.
 		 * List of origin permissions. Anything listed here must be a subset of a host that appears in the optional_permissions list in the manifest. For example, if http://*.example.com/ or http://* appears in optional_permissions, you can request an origin of http://help.example.com/. Any path is ignored. 
 		 */
-		permissions?: string[];
-	}
+        permissions?: string[];
+    }
 
-	interface PermissionsRemovedEvent {
+    interface PermissionsRemovedEvent {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function( Permissions permissions) {...};
 		 * Parameter permissions: The permissions that have been removed.  
 		 */
-		addListener(callback: (permissions: Permissions) => void): void;
-	}
+        addListener(callback: (permissions: Permissions) => void): void;
+    }
 
-	interface PermissionsAddedEvent {
+    interface PermissionsAddedEvent {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function( Permissions permissions) {...};
 		 * Parameter permissions: The newly acquired permissions.  
 		 */
-		addListener(callback: (permissions: Permissions) => void): void;
-	}
+        addListener(callback: (permissions: Permissions) => void): void;
+    }
 
 	/**
 	 * Checks if the extension has the specified permissions. 
@@ -5072,33 +5072,33 @@ declare module chrome.permissions {
 	 * function(boolean result) {...};
 	 * Parameter result: True if the extension has the specified permissions.  
 	 */
-	export function contains(permissions: Permissions, callback: (result: boolean) => void): void;
+    export function contains(permissions: Permissions, callback: (result: boolean) => void): void;
 	/**
 	 * Gets the extension's current set of permissions. 
 	 * @param callback The callback parameter should be a function that looks like this: 
 	 * function( Permissions permissions) {...};
 	 * Parameter permissions: The extension's active permissions.  
 	 */
-	export function getAll(callback: (permissions: Permissions) => void): void;
+    export function getAll(callback: (permissions: Permissions) => void): void;
 	/**
 	 * Requests access to the specified permissions. These permissions must be defined in the optional_permissions field of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set. 
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function(boolean granted) {...};
 	 * Parameter granted: True if the user granted the specified permissions.  
 	 */
-	export function request(permissions: Permissions, callback?: (granted: boolean) => void): void;
+    export function request(permissions: Permissions, callback?: (granted: boolean) => void): void;
 	/**
 	 * Removes access to the specified permissions. If there are any problems removing the permissions, runtime.lastError will be set. 
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function(boolean removed) {...};
 	 * Parameter removed: True if the permissions were removed.  
 	 */
-	export function remove(permissions: Permissions, callback?: (removed: boolean) => void): void;
+    export function remove(permissions: Permissions, callback?: (removed: boolean) => void): void;
 
 	/** Fired when access to permissions has been removed from the extension. */
-	var onRemoved: PermissionsRemovedEvent;
+    var onRemoved: PermissionsRemovedEvent;
 	/** Fired when the extension acquires new permissions. */
-	var onAdded: PermissionsAddedEvent;
+    var onAdded: PermissionsAddedEvent;
 }
 
 ////////////////////
@@ -5296,45 +5296,45 @@ declare module chrome.printerProvider {
  * @since Chrome 18.
  */
 declare module chrome.privacy {
-	interface Services {
+    interface Services {
 		/** since Chrome 20. */
-		spellingServiceEnabled: chrome.types.ChromeSetting;
-		searchSuggestEnabled: chrome.types.ChromeSetting;
-		instantEnabled: chrome.types.ChromeSetting;
-		alternateErrorPagesEnabled: chrome.types.ChromeSetting;
-		safeBrowsingEnabled: chrome.types.ChromeSetting;
-		autofillEnabled: chrome.types.ChromeSetting;
-		translationServiceEnabled: chrome.types.ChromeSetting;
+        spellingServiceEnabled: chrome.types.ChromeSetting;
+        searchSuggestEnabled: chrome.types.ChromeSetting;
+        instantEnabled: chrome.types.ChromeSetting;
+        alternateErrorPagesEnabled: chrome.types.ChromeSetting;
+        safeBrowsingEnabled: chrome.types.ChromeSetting;
+        autofillEnabled: chrome.types.ChromeSetting;
+        translationServiceEnabled: chrome.types.ChromeSetting;
 		/** @since Chrome 38. */
 		passwordSavingEnabled: chrome.types.ChromeSetting;
 		/** @since Chrome 42. */
 		hotwordSearchEnabled: chrome.types.ChromeSetting;
 		/** @since Chrome 42. */
 		safeBrowsingExtendedReportingEnabled: chrome.types.ChromeSetting;
-	}
+    }
 
-	interface Network {
-		networkPredictionEnabled: chrome.types.ChromeSetting;
+    interface Network {
+        networkPredictionEnabled: chrome.types.ChromeSetting;
 		/** @since Chrome 42. */
 		webRTCMultipleRoutesEnabled: chrome.types.ChromeSetting;
 		/** @since Chrome 47. Warning: this is the current Dev channel. */
 		webRTCNonProxiedUdpEnabled: chrome.types.ChromeSetting;
-	}
+    }
 
-	interface Websites {
-		thirdPartyCookiesAllowed: chrome.types.ChromeSetting;
-		referrersEnabled: chrome.types.ChromeSetting;
-		hyperlinkAuditingEnabled: chrome.types.ChromeSetting;
+    interface Websites {
+        thirdPartyCookiesAllowed: chrome.types.ChromeSetting;
+        referrersEnabled: chrome.types.ChromeSetting;
+        hyperlinkAuditingEnabled: chrome.types.ChromeSetting;
 		/** @since Chrome 21. */
-		protectedContentEnabled: chrome.types.ChromeSetting;
-	}
+        protectedContentEnabled: chrome.types.ChromeSetting;
+    }
 
 	/** Settings that enable or disable features that require third-party network services provided by Google and your default search provider. */
-	var services: Services;
+    var services: Services;
 	/** Settings that influence Chrome's handling of network connections in general. */
-	var network: Network;
+    var network: Network;
 	/** Settings that determine what information Chrome makes available to websites. */
-	var websites: Websites;
+    var websites: Websites;
 }
 
 ////////////////////
@@ -5347,21 +5347,21 @@ declare module chrome.privacy {
  */
 declare module chrome.proxy {
     /** An object holding proxy auto-config information. Exactly one of the fields should be non-empty. */
-	interface PacScript {
+    interface PacScript {
         /** Optional. URL of the PAC file to be used. */
-		url?: string;
+        url?: string;
         /** Optional. If true, an invalid PAC script will prevent the network stack from falling back to direct connections. Defaults to false. */
-		mandatory?: boolean;
+        mandatory?: boolean;
         /** Optional. A PAC script. */
-		data?: string;
-	}
+        data?: string;
+    }
 
     /** An object encapsulating a complete proxy configuration. */
-	interface ProxyConfig {
+    interface ProxyConfig {
         /** Optional. The proxy rules describing this configuration. Use this for 'fixed_servers' mode. */
-		rules?: ProxyRules;
+        rules?: ProxyRules;
         /** Optional. The proxy auto-config (PAC) script for this configuration. Use this for 'pac_script' mode. */
-		pacScript?: PacScript;
+        pacScript?: PacScript;
         /** 
          * 'direct' = Never use a proxy
          * 'auto_detect' = Auto detect proxy settings
@@ -5369,55 +5369,55 @@ declare module chrome.proxy {
          * 'fixed_servers' = Manually specify proxy servers
          * 'system' = Use system proxy settings 
          */
-		mode: string;
-	}
+        mode: string;
+    }
 
     /** An object encapsulating a single proxy server's specification. */
-	interface ProxyServer {
+    interface ProxyServer {
         /** The URI of the proxy server. This must be an ASCII hostname (in Punycode format). IDNA is not supported, yet. */
-		host: string;
+        host: string;
         /** Optional. The scheme (protocol) of the proxy server itself. Defaults to 'http'. */
-		scheme?: string;
+        scheme?: string;
         /** Optional. The port of the proxy server. Defaults to a port that depends on the scheme. */
-		port?: number;
-	}
+        port?: number;
+    }
 
     /** An object encapsulating the set of proxy rules for all protocols. Use either 'singleProxy' or (a subset of) 'proxyForHttp', 'proxyForHttps', 'proxyForFtp' and 'fallbackProxy'. */
-	interface ProxyRules {
+    interface ProxyRules {
         /** Optional. The proxy server to be used for FTP requests. */
-		proxyForFtp?: ProxyServer;
+        proxyForFtp?: ProxyServer;
         /** Optional. The proxy server to be used for HTTP requests. */
-		proxyForHttp?: ProxyServer;
+        proxyForHttp?: ProxyServer;
         /** Optional. The proxy server to be used for everthing else or if any of the specific proxyFor... is not specified. */
 		fallbackProxy?: ProxyServer;
         /** Optional. The proxy server to be used for all per-URL requests (that is http, https, and ftp). */
-		singleProxy?: ProxyServer;
+        singleProxy?: ProxyServer;
         /** Optional. The proxy server to be used for HTTPS requests. */
-		proxyForHttps?: ProxyServer;
+        proxyForHttps?: ProxyServer;
         /** Optional. List of servers to connect to without a proxy server. */
-		bypassList?: string[];
-	}
+        bypassList?: string[];
+    }
 
-	interface ErrorDetails {
+    interface ErrorDetails {
         /** Additional details about the error such as a JavaScript runtime error. */
-		details: string;
+        details: string;
         /** The error description. */
-		error: string;
+        error: string;
         /** If true, the error was fatal and the network transaction was aborted. Otherwise, a direct connection is used instead. */
-		fatal: boolean;
-	}
+        fatal: boolean;
+    }
 
-	interface ProxyErrorEvent extends chrome.events.Event {
+    interface ProxyErrorEvent extends chrome.events.Event {
         /**
          * @param callback The callback parameter should be a function that looks like this: 
          * function(object details) {...}; 
          */
-		addListener(callback: (details: ErrorDetails) => void): void;
-	}
+        addListener(callback: (details: ErrorDetails) => void): void;
+    }
 
-	var settings: chrome.types.ChromeSetting;
+    var settings: chrome.types.ChromeSetting;
     /** Notifies about proxy errors. */
-	var onProxyError: ProxyErrorEvent;
+    var onProxyError: ProxyErrorEvent;
 }
 
 ////////////////////
@@ -5429,186 +5429,186 @@ declare module chrome.proxy {
  */
 declare module chrome.runtime {
     /** This will be defined during an API method callback if there was an error */
-	var lastError: LastError;
+    var lastError: LastError;
     /** The ID of the extension/app. */
-	var id: string;
+    var id: string;
 
-	interface LastError {
+    interface LastError {
         /** Optional. Details about the error which occurred.  */
-		message?: string;
-	}
+        message?: string;
+    }
 
-	interface ConnectInfo {
-		name?: string;
-	}
+    interface ConnectInfo {
+        name?: string;
+    }
 
-	interface InstalledDetails {
+    interface InstalledDetails {
 		/**
 		 * The reason that this event is being dispatched. 
 		 * One of: "install", "update", "chrome_update", or "shared_module_update" 
 		 */
-		reason: string;
+        reason: string;
 		/**
 		 * Optional.
 		 * Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'. 
 		 */
-		previousVersion?: string;
+        previousVersion?: string;
 		/**
 		 * Optional.
 		 * Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'. 
 		 * @since Chrome 29.
 		 */
 		id?: string;
-	}
+    }
 
-	interface MessageOptions {
+    interface MessageOptions {
         /** Whether the TLS channel ID will be passed into onMessageExternal for processes that are listening for the connection event. */
-		includeTlsChannelId?: boolean;
-	}
+        includeTlsChannelId?: boolean;
+    }
 
     /**
      * An object containing information about the script context that sent a message or request.
      * @since Chrome 26.
      */
-	interface MessageSender {
+    interface MessageSender {
         /** The ID of the extension or app that opened the connection, if any. */
-		id?: string;
+        id?: string;
         /** The tabs.Tab which opened the connection, if any. This property will only be present when the connection was opened from a tab (including content scripts), and only if the receiver is an extension, not an app. */
-		tab?: chrome.tabs.Tab;
+        tab?: chrome.tabs.Tab;
         /**
          * The frame that opened the connection. 0 for top-level frames, positive for child frames. This will only be set when tab is set. 
          * @since Chrome 41.
          */
-		frameId?: number;
+        frameId?: number;
         /**
          * The URL of the page or frame that opened the connection. If the sender is in an iframe, it will be iframe's URL not the URL of the page which hosts it. 
          * @since Chrome 28.
          */
-		url?: string;
+        url?: string;
         /**
          * The TLS channel ID of the page or frame that opened the connection, if requested by the extension or app, and if available. 
          * @since Chrome 32.
          */
-		tlsChannelId?: string;
-	}
+        tlsChannelId?: string;
+    }
 
     /**
      * An object containing information about the current platform.
      * @since Chrome 36.
      */
-	interface PlatformInfo {
+    interface PlatformInfo {
         /** 
          * The operating system chrome is running on.
          * One of: "mac", "win", "android", "cros", "linux", or "openbsd" 
          */
-		os: string;
+        os: string;
         /**
          * The machine's processor architecture. 
          * One of: "arm", "x86-32", or "x86-64" 
          */
-		arch: string;
+        arch: string;
         /**
          * The native client architecture. This may be different from arch on some platforms. 
          * One of: "arm", "x86-32", or "x86-64" 
          */
-		nacl_arch: string;
-	}
+        nacl_arch: string;
+    }
 
     /**
      * An object which allows two way communication with other pages.
      * @since Chrome 26.
      */
-	interface Port {
-		postMessage: (message: Object) => void;
-		disconnect: () => void;
+    interface Port {
+        postMessage: (message: Object) => void;
+        disconnect: () => void;
         /**
          * Optional.
          * This property will only be present on ports passed to onConnect/onConnectExternal listeners. 
          */
-		sender?: MessageSender;
+        sender?: MessageSender;
         /** An object which allows the addition and removal of listeners for a Chrome event. */
-		onDisconnect: chrome.events.Event;
+        onDisconnect: chrome.events.Event;
         /** An object which allows the addition and removal of listeners for a Chrome event. */
-		onMessage: PortMessageEvent;
-		name: string;
-	}
+        onMessage: PortMessageEvent;
+        name: string;
+    }
 
-	interface UpdateAvailableDetails {
+    interface UpdateAvailableDetails {
 		/** The version number of the available update. */
-		version: string;
-	}
+        version: string;
+    }
 
-	interface UpdateCheckDetails {
+    interface UpdateCheckDetails {
         /** The version of the available update. */
-		version: string;
-	}
+        version: string;
+    }
 
-	interface PortMessageEvent extends chrome.events.Event {
-		addListener(callback: (message: Object, port: Port) => void): void;
-	}
+    interface PortMessageEvent extends chrome.events.Event {
+        addListener(callback: (message: Object, port: Port) => void): void;
+    }
 
-	interface ExtensionMessageEvent extends chrome.events.Event {
+    interface ExtensionMessageEvent extends chrome.events.Event {
 		/**
 		 * @param callback
 		 * Optional parameter message: The message sent by the calling script. 
 		 * Parameter sendResponse: Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object. If you have more than one onMessage listener in the same document, then only one may send a response. This function becomes invalid when the event listener returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this will keep the message channel open to the other end until sendResponse is called). 
 		 */
-		addListener(callback: (message: any, sender: MessageSender, sendResponse: Function) => void): void;
-	}
+        addListener(callback: (message: any, sender: MessageSender, sendResponse: Function) => void): void;
+    }
 
-	interface ExtensionConnectEvent extends chrome.events.Event {
-		addListener(callback: (port: Port) => void): void;
-	}
+    interface ExtensionConnectEvent extends chrome.events.Event {
+        addListener(callback: (port: Port) => void): void;
+    }
 
-	interface RuntimeInstalledEvent extends chrome.events.Event {
-		addListener(callback: (details: InstalledDetails) => void): void;
-	}
+    interface RuntimeInstalledEvent extends chrome.events.Event {
+        addListener(callback: (details: InstalledDetails) => void): void;
+    }
 
 	interface RuntimeEvent extends chrome.events.Event {
 		addListener(callback: () => void): void;
-	}
+    }
 
-	interface RuntimeRestartRequiredEvent extends chrome.events.Event {
+    interface RuntimeRestartRequiredEvent extends chrome.events.Event {
 		/**
 		 * @param callback
 		 * Parameter reason: The reason that the event is being dispatched. One of: "app_update", "os_update", or "periodic" 
 		 */
-		addListener(callback: (reason: string) => void): void;
-	}
+        addListener(callback: (reason: string) => void): void;
+    }
 
-	interface RuntimeUpdateAvailableEvent extends chrome.events.Event {
+    interface RuntimeUpdateAvailableEvent extends chrome.events.Event {
 		/**
 		 * @param callback 
 		 * Parameter details: The manifest details of the available update. 
 		 */
-		addListener(callback: (details: UpdateAvailableDetails) => void): void;
-	}
+        addListener(callback: (details: UpdateAvailableDetails) => void): void;
+    }
 
     /**
      * Attempts to connect to connect listeners within an extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes, inter-app/extension communication, and web messaging. Note that this does not connect to any listeners in a content script. Extensions may connect to content scripts embedded in tabs via tabs.connect. 
      * @since Chrome 26.
      */
-	export function connect(connectInfo?: ConnectInfo): Port;
+    export function connect(connectInfo?: ConnectInfo): Port;
 	/**
      * Attempts to connect to connect listeners within an extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes, inter-app/extension communication, and web messaging. Note that this does not connect to any listeners in a content script. Extensions may connect to content scripts embedded in tabs via tabs.connect. 
      * @since Chrome 26.
      * @param extensionId Optional.
      * The ID of the extension or app to connect to. If omitted, a connection will be attempted with your own extension. Required if sending messages from a web page for web messaging. 
      */
-	export function connect(extensionId: string, connectInfo?: ConnectInfo): Port;
+    export function connect(extensionId: string, connectInfo?: ConnectInfo): Port;
     /**
      * Connects to a native application in the host machine. 
      * @since Chrome 28.
      * @param application The name of the registered application to connect to. 
      */
-	export function connectNative(application: string): Port;
+    export function connectNative(application: string): Port;
     /** Retrieves the JavaScript 'window' object for the background page running inside the current extension/app. If the background page is an event page, the system will ensure it is loaded before calling the callback. If there is no background page, an error is set. */
-	export function getBackgroundPage(callback: (backgroundPage?: Window) => void): void;
+    export function getBackgroundPage(callback: (backgroundPage?: Window) => void): void;
     /**
      * Returns details about the app or extension from the manifest. The object returned is a serialization of the full manifest file. 
      * @returns The manifest details.
      */
-	export function getManifest(): Object;
+    export function getManifest(): Object;
     /**
      * Returns a DirectoryEntry for the package directory. 
      * @since Chrome 29.
@@ -5619,17 +5619,17 @@ declare module chrome.runtime {
      * @since Chrome 29.
      * @param callback Called with results  
      */
-	export function getPlatformInfo(callback: (platformInfo: PlatformInfo) => void): void;
+    export function getPlatformInfo(callback: (platformInfo: PlatformInfo) => void): void;
     /**
      * Converts a relative path within an app/extension install directory to a fully-qualified URL. 
      * @param path A path to a resource within an app/extension expressed relative to its install directory. 
      */
-	export function getURL(path: string): string;
+    export function getURL(path: string): string;
     /**
      * Reloads the app or extension. 
      * @since Chrome 25.
      */
-	export function reload(): void;
+    export function reload(): void;
     /**
      * Requests an update check for this app/extension. 
      * @since Chrome 25.
@@ -5637,26 +5637,26 @@ declare module chrome.runtime {
      * Parameter status: Result of the update check. One of: "throttled", "no_update", or "update_available" 
      * Optional parameter details: If an update is available, this contains more information about the available update. 
      */
-	export function requestUpdateCheck(callback: (status: string, details?: UpdateCheckDetails) => void): void;
+    export function requestUpdateCheck(callback: (status: string, details?: UpdateCheckDetails) => void): void;
     /**
      * Restart the ChromeOS device when the app runs in kiosk mode. Otherwise, it's no-op. 
      * @since Chrome 32.
      */
-	export function restart(): void;
+    export function restart(): void;
 	/**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage. 
      * @since Chrome 26.
      * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message. 
      */
-	export function sendMessage(message: any, responseCallback?: (response: any) => void): void;
+    export function sendMessage(message: any, responseCallback?: (response: any) => void): void;
 	/**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage. 
      * @since Chrome 32.
      * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message. 
      */
-	export function sendMessage(message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
+    export function sendMessage(message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
 	/**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage. 
      * @since Chrome 26.
@@ -5664,7 +5664,7 @@ declare module chrome.runtime {
      * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message. 
      */
-	export function sendMessage(extensionId: string, message: any, responseCallback?: (response: any) => void): void;
+    export function sendMessage(extensionId: string, message: any, responseCallback?: (response: any) => void): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage. 
      * @since Chrome 32.
@@ -5672,7 +5672,7 @@ declare module chrome.runtime {
      * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message. 
      */
-	export function sendMessage(extensionId: string, message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
+    export function sendMessage(extensionId: string, message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
     /**
      * Send a single message to a native application. 
      * @since Chrome 28.
@@ -5702,7 +5702,7 @@ declare module chrome.runtime {
 	 * Fired when a connection is made from either an extension process or a content script. 
 	 * @since Chrome 26.
 	 */
-	var onConnect: ExtensionConnectEvent;
+    var onConnect: ExtensionConnectEvent;
 	/**
 	 * Fired when a connection is made from another extension. 
 	 * @since Chrome 26.
@@ -5716,14 +5716,14 @@ declare module chrome.runtime {
 	 */
 	var onStartup: RuntimeEvent;
 	/** Fired when the extension is first installed, when the extension is updated to a new version, and when Chrome is updated to a new version. */
-	var onInstalled: RuntimeInstalledEvent;
+    var onInstalled: RuntimeInstalledEvent;
 	/** Sent after onSuspend to indicate that the app won't be unloaded after all. */
 	var onSuspendCanceled: RuntimeEvent;
 	/**
 	 * Fired when a message is sent from either an extension process or a content script. 
 	 * @since Chrome 26.
 	 */
-	var onMessage: ExtensionMessageEvent;
+    var onMessage: ExtensionMessageEvent;
 	/**
 	 * Fired when a message is sent from another extension/app. Cannot be used in a content script. 
 	 * @since Chrome 26.
@@ -5733,12 +5733,12 @@ declare module chrome.runtime {
 	 * Fired when an app or the device that it runs on needs to be restarted. The app should close all its windows at its earliest convenient time to let the restart to happen. If the app does nothing, a restart will be enforced after a 24-hour grace period has passed. Currently, this event is only fired for Chrome OS kiosk apps. 
 	 * @since Chrome 29.
 	 */
-	var onRestartRequired: RuntimeRestartRequiredEvent;
+    var onRestartRequired: RuntimeRestartRequiredEvent;
 	/**
 	 * Fired when an update is available, but isn't installed immediately because the app is currently running. If you do nothing, the update will be installed the next time the background page gets unloaded, if you want it to be installed sooner you can explicitly call chrome.runtime.reload(). If your extension is using a persistent background page, the background page of course never gets unloaded, so unless you call chrome.runtime.reload() manually in response to this event the update will not get installed until the next time chrome itself restarts. If no handlers are listening for this event, and your extension has a persistent background page, it behaves as if chrome.runtime.reload() is called in response to this event. 
 	 * @since Chrome 25.
 	 */
-	var onUpdateAvailable: RuntimeUpdateAvailableEvent;
+    var onUpdateAvailable: RuntimeUpdateAvailableEvent;
 	/**
 	 * @deprecated since Chrome 33. Please use chrome.runtime.onRestartRequired.
 	 * Fired when a Chrome update is available, but isn't installed immediately because a browser restart is required. 
@@ -5750,28 +5750,28 @@ declare module chrome.runtime {
 // Script Badge
 ////////////////////
 declare module chrome.scriptBadge {
-	interface GetPopupDetails {
-		tabId: number;
-	}
+    interface GetPopupDetails {
+        tabId: number;
+    }
 
-	interface AttentionDetails {
-		tabId: number;
-	}
+    interface AttentionDetails {
+        tabId: number;
+    }
 
-	interface SetPopupDetails {
-		tabId: number;
-		popup: string;
-	}
+    interface SetPopupDetails {
+        tabId: number;
+        popup: string;
+    }
 
-	interface ScriptBadgeClickedEvent extends chrome.events.Event {
-		addListener(callback: (tab: chrome.tabs.Tab) => void): void;
-	}
+    interface ScriptBadgeClickedEvent extends chrome.events.Event {
+        addListener(callback: (tab: chrome.tabs.Tab) => void): void;
+    }
 
-	export function getPopup(details: GetPopupDetails, callback: Function): void;
-	export function getAttention(details: AttentionDetails): void;
-	export function setPopup(details: SetPopupDetails): void;
+    export function getPopup(details: GetPopupDetails, callback: Function): void;
+    export function getAttention(details: AttentionDetails): void;
+    export function setPopup(details: SetPopupDetails): void;
 
-	var onClicked: ScriptBadgeClickedEvent;
+    var onClicked: ScriptBadgeClickedEvent;
 }
 
 ////////////////////
@@ -5866,13 +5866,13 @@ declare module chrome.sessions {
  * @since Chrome 20.
  */
 declare module chrome.storage {
-	interface StorageArea {
+    interface StorageArea {
 		/**
 		 * Gets the amount of space (in bytes) being used by one or more items. 
 		 * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set). 
 		 * Parameter bytesInUse: Amount of space being used in storage, in bytes. 
 		 */
-		getBytesInUse(callback: (bytesInUse: number) => void): void;
+        getBytesInUse(callback: (bytesInUse: number) => void): void;
 		/**
 		 * Gets the amount of space (in bytes) being used by one or more items. 
 		 * @param key A single key to get the total usage for. Pass in null to get the total usage of all of storage. 
@@ -5886,7 +5886,7 @@ declare module chrome.storage {
 		 * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set). 
 		 * Parameter bytesInUse: Amount of space being used in storage, in bytes. 
 		 */
-		getBytesInUse(keys: string[], callback: (bytesInUse: number) => void): void;
+        getBytesInUse(keys: string[], callback: (bytesInUse: number) => void): void;
 		/**
 		 * Removes all items from storage. 
 		 * @param callback Optional.
@@ -5920,7 +5920,7 @@ declare module chrome.storage {
 		 * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set). 
 		 * Parameter items: Object with items in their key-value mappings. 
 		 */
-		get(callback: (items: Object) => void): void;
+        get(callback: (items: Object) => void): void;
 		/**
 		 * Gets one or more items from storage. 
 		 * @param key A single key to get. Pass in null to get the entire contents of storage. 
@@ -5934,58 +5934,58 @@ declare module chrome.storage {
 		 * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set). 
 		 * Parameter items: Object with items in their key-value mappings. 
 		 */
-		get(keys: string[], callback: (items: Object) => void): void;
+        get(keys: string[], callback: (items: Object) => void): void;
 		/**
 		 * Gets one or more items from storage. 
 		 * @param keys A dictionary specifying default values. Pass in null to get the entire contents of storage. 
 		 * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set). 
 		 * Parameter items: Object with items in their key-value mappings. 
 		 */
-		get(keys: Object, callback: (items: Object) => void): void;
-	}
+        get(keys: Object, callback: (items: Object) => void): void;
+    }
 
-	interface StorageChange {
+    interface StorageChange {
 		/** Optional. The new value of the item, if there is a new value. */
-		newValue?: any;
+        newValue?: any;
 		/** Optional. The old value of the item, if there was an old value. */
-		oldValue?: any;
-	}
+        oldValue?: any;
+    }
 
 	interface LocalStorageArea extends StorageArea {
 		/** The maximum amount (in bytes) of data that can be stored in local storage, as measured by the JSON stringification of every value plus every key's length. This value will be ignored if the extension has the unlimitedStorage permission. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
-		QUOTA_BYTES: number;
-	}
+        QUOTA_BYTES: number;
+    }
 
 	interface SyncStorageArea extends StorageArea {
 		/** @deprecated since Chrome 40. The storage.sync API no longer has a sustained write operation quota. */
-		MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
+        MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
 		/** The maximum total amount (in bytes) of data that can be stored in sync storage, as measured by the JSON stringification of every value plus every key's length. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
-		QUOTA_BYTES: number;
+        QUOTA_BYTES: number;
 		/** The maximum size (in bytes) of each individual item in sync storage, as measured by the JSON stringification of its value plus its key length. Updates containing items larger than this limit will fail immediately and set runtime.lastError. */
-		QUOTA_BYTES_PER_ITEM: number;
+        QUOTA_BYTES_PER_ITEM: number;
 		/** The maximum number of items that can be stored in sync storage. Updates that would cause this limit to be exceeded will fail immediately and set runtime.lastError. */
-		MAX_ITEMS: number;
+        MAX_ITEMS: number;
 		/**
 		 * The maximum number of set, remove, or clear operations that can be performed each hour. This is 1 every 2 seconds, a lower ceiling than the short term higher writes-per-minute limit.
 		 * Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError.
 		 */
-		MAX_WRITE_OPERATIONS_PER_HOUR: number;
+        MAX_WRITE_OPERATIONS_PER_HOUR: number;
 		/**
 		 * The maximum number of set, remove, or clear operations that can be performed each minute. This is 2 per second, providing higher throughput than writes-per-hour over a shorter period of time.
 		 * Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError.
 		 * @since Chrome 40.
 		 */
 		MAX_WRITE_OPERATIONS_PER_MINUTE: number;
-	}
+    }
 
-	interface StorageChangedEvent extends chrome.events.Event {
+    interface StorageChangedEvent extends chrome.events.Event {
 		/**
 		 * @param callback
 		 * Parameter changes: Object mapping each key that changed to its corresponding storage.StorageChange for that item. 
 		 * Parameter areaName: Since Chrome 22. The name of the storage area ("sync", "local" or "managed") the changes are for.
 		 */
-		addListener(callback: (changes: Object, areaName: string) => void): void;
-	}
+        addListener(callback: (changes: Object, areaName: string) => void): void;
+    }
 
 	/** Items in the local storage area are local to each machine. */
 	var local: LocalStorageArea;
@@ -5998,67 +5998,67 @@ declare module chrome.storage {
 	var managed: StorageArea;
 
 	/** Fired when one or more items change. */
-	var onChanged: StorageChangedEvent;
+    var onChanged: StorageChangedEvent;
 }
 
 ////////////////////
 // Socket
 ////////////////////
 declare module chrome.socket {
-	interface CreateInfo {
-		socketId: number;
-	}
+    interface CreateInfo {
+        socketId: number;
+    }
 
-	interface AcceptInfo {
-		resultCode: number;
-		socketId?: number;
-	}
+    interface AcceptInfo {
+        resultCode: number;
+        socketId?: number;
+    }
 
-	interface ReadInfo {
-		resultCode: number;
-		data: ArrayBuffer;
-	}
+    interface ReadInfo {
+        resultCode: number;
+        data: ArrayBuffer;
+    }
 
-	interface WriteInfo {
-		bytesWritten: number;
-	}
+    interface WriteInfo {
+        bytesWritten: number;
+    }
 
-	interface RecvFromInfo {
-		resultCode: number;
-		data: ArrayBuffer;
-		port: number;
-		address: string;
-	}
+    interface RecvFromInfo {
+        resultCode: number;
+        data: ArrayBuffer;
+        port: number;
+        address: string;
+    }
 
-	interface SocketInfo {
-		socketType: string;
-		localPort?: number;
-		peerAddress?: string;
-		peerPort?: number;
-		localAddress?: string;
-		connected: boolean;
-	}
+    interface SocketInfo {
+        socketType: string;
+        localPort?: number;
+        peerAddress?: string;
+        peerPort?: number;
+        localAddress?: string;
+        connected: boolean;
+    }
 
-	interface NetworkInterface {
-		name: string;
-		address: string;
-	}
+    interface NetworkInterface {
+        name: string;
+        address: string;
+    }
 
-	export function create(type: string, options?: Object, callback?: (createInfo: CreateInfo) => void): void;
-	export function destroy(socketId: number): void;
-	export function connect(socketId: number, hostname: string, port: number, callback: (result: number) => void): void;
-	export function bind(socketId: number, address: string, port: number, callback: (result: number) => void): void;
-	export function disconnect(socketId: number): void;
-	export function read(socketId: number, bufferSize?: number, callback?: (readInfo: ReadInfo) => void): void;
-	export function write(socketId: number, data: ArrayBuffer, callback?: (writeInfo: WriteInfo) => void): void;
-	export function recvFrom(socketId: number, bufferSize?: number, callback?: (recvFromInfo: RecvFromInfo) => void): void;
-	export function sendTo(socketId: number, data: ArrayBuffer, address: string, port: number, callback?: (writeInfo: WriteInfo) => void): void;
-	export function listen(socketId: number, address: string, port: number, backlog?: number, callback?: (result: number) => void): void;
-	export function accept(socketId: number, callback?: (acceptInfo: AcceptInfo) => void): void;
-	export function setKeepAlive(socketId: number, enable: boolean, delay?: number, callback?: (result: boolean) => void): void;
-	export function setNoDelay(socketId: number, noDelay: boolean, callback?: (result: boolean) => void): void;
-	export function getInfo(socketId: number, callback: (result: SocketInfo) => void): void;
-	export function getNetworkList(callback: (result: NetworkInterface[]) => void): void;
+    export function create(type: string, options?: Object, callback?: (createInfo: CreateInfo) => void): void;
+    export function destroy(socketId: number): void;
+    export function connect(socketId: number, hostname: string, port: number, callback: (result: number) => void): void;
+    export function bind(socketId: number, address: string, port: number, callback: (result: number) => void): void;
+    export function disconnect(socketId: number): void;
+    export function read(socketId: number, bufferSize?: number, callback?: (readInfo: ReadInfo) => void): void;
+    export function write(socketId: number, data: ArrayBuffer, callback?: (writeInfo: WriteInfo) => void): void;
+    export function recvFrom(socketId: number, bufferSize?: number, callback?: (recvFromInfo: RecvFromInfo) => void): void;
+    export function sendTo(socketId: number, data: ArrayBuffer, address: string, port: number, callback?: (writeInfo: WriteInfo) => void): void;
+    export function listen(socketId: number, address: string, port: number, backlog?: number, callback?: (result: number) => void): void;
+    export function accept(socketId: number, callback?: (acceptInfo: AcceptInfo) => void): void;
+    export function setKeepAlive(socketId: number, enable: boolean, delay?: number, callback?: (result: boolean) => void): void;
+    export function setNoDelay(socketId: number, noDelay: boolean, callback?: (result: boolean) => void): void;
+    export function getInfo(socketId: number, callback: (result: SocketInfo) => void): void;
+    export function getNetworkList(callback: (result: NetworkInterface[]) => void): void;
 }
 
 ////////////////////
@@ -6195,23 +6195,23 @@ declare module chrome.system.storage {
  * @since Chrome 31.
  */
 declare module chrome.tabCapture {
-	interface CaptureInfo {
+    interface CaptureInfo {
 		/** The id of the tab whose status changed. */
-		tabId: number;
+        tabId: number;
 		/**
 		 * The new capture status of the tab. 
 		 * One of: "pending", "active", "stopped", or "error"
 		 */
-		status: string;
+        status: string;
 		/** Whether an element in the tab being captured is in fullscreen mode. */
-		fullscreen: boolean;
-	}
+        fullscreen: boolean;
+    }
 
-	interface CaptureOptions {
+    interface CaptureOptions {
 		/** Optional. */
-		audio?: boolean;
+        audio?: boolean;
 		/** Optional. */
-		video?: boolean;
+        video?: boolean;
 		/** Optional. */
 		audioConstraints?: MediaStreamConstraints;
 		/** Optional. */
@@ -6224,19 +6224,19 @@ declare module chrome.tabCapture {
 		 * Parameter info: CaptureInfo with new capture status for the tab. 
 		 */
 		addListener(callback: (info: CaptureInfo) => void): void;
-	}
+    }
 
 	/**
 	 * Captures the visible area of the currently active tab. Capture can only be started on the currently active tab after the extension has been invoked. Capture is maintained across page navigations within the tab, and stops when the tab is closed, or the media stream is closed by the extension. 
 	 * @param options Configures the returned media stream.  
 	 * @param callback Callback with either the tab capture stream or null. 
 	 */
-	export function capture(options: CaptureOptions, callback: (stream: MediaStream) => void): void;
+    export function capture(options: CaptureOptions, callback: (stream: MediaStream) => void): void;
 	/**
 	 * Returns a list of tabs that have requested capture or are being captured, i.e. status != stopped and status != error. This allows extensions to inform the user that there is an existing tab capture that would prevent a new tab capture from succeeding (or to prevent redundant requests for the same tab). 
 	 * @param callback Callback invoked with CaptureInfo[] for captured tabs. 
 	 */
-	export function getCapturedTabs(callback: (result: CaptureInfo[]) => void): void;
+    export function getCapturedTabs(callback: (result: CaptureInfo[]) => void): void;
 	
 	/** Event fired when the capture status of a tab changes. This allows extension authors to keep track of the capture status of tabs to keep UI elements like page actions in sync. */
 	var onStatusChanged: CaptureStatusChangedEvent;
@@ -6273,59 +6273,59 @@ declare module chrome.tabs {
 		extensionId?: string;
 	}
 
-	interface Tab {
+    interface Tab {
 		/**
 		 * Optional.
 		 * Either loading or complete. 
 		 */
-		status?: string;
+        status?: string;
 		/** The zero-based index of the tab within its window. */
-		index: number;
+        index: number;
 		/**
 		 * Optional.
 		 * The ID of the tab that opened this tab, if any. This property is only present if the opener tab still exists. 
 		 * @since Chrome 18.
 		 */
-		openerTabId?: number;
+        openerTabId?: number;
 		/**
 		 * Optional.
 		 * The title of the tab. This property is only present if the extension's manifest includes the "tabs" permission. 
 		 */
-		title?: string;
+        title?: string;
 		/**
 		 * Optional.
 		 * The URL the tab is displaying. This property is only present if the extension's manifest includes the "tabs" permission. 
 		 */
-		url?: string;
+        url?: string;
 		/**
 		 * Whether the tab is pinned. 
 		 * @since Chrome 9.
 		 */
-		pinned: boolean;
+        pinned: boolean;
 		/**
 		 * Whether the tab is highlighted. 
 		 * @since Chrome 16.
 		 */
-		highlighted: boolean;
+        highlighted: boolean;
 		/** The ID of the window the tab is contained within. */
-		windowId: number;
+        windowId: number;
 		/**
 		 * Whether the tab is active in its window. (Does not necessarily mean the window is focused.) 
 		 * @since Chrome 16.
 		 */
-		active: boolean;
+        active: boolean;
 		/**
 		 * Optional.
 		 * The URL of the tab's favicon. This property is only present if the extension's manifest includes the "tabs" permission. It may also be an empty string if the tab is loading. 
 		 */
-		favIconUrl?: string;
+        favIconUrl?: string;
 		/**
 		 * Optional.
 		 * The ID of the tab. Tab IDs are unique within a browser session. Under some circumstances a Tab may not be assigned an ID, for example when querying foreign tabs using the sessions API, in which case a session ID may be present. Tab ID can also be set to chrome.tabs.TAB_ID_NONE for apps and devtools windows. 
 		 */
 		id?: number;
 		/** Whether the tab is in an incognito window. */
-		incognito: boolean;
+        incognito: boolean;
 		/**
 		 * Whether the tab is selected. 
 		 * @deprecated since Chrome 33. Please use tabs.Tab.highlighted. 
@@ -6358,8 +6358,8 @@ declare module chrome.tabs {
 		 * @since Chrome 31.
 		 */
 		sessionId?: string;
-	}
-	
+    }
+
 	/**
 	 * Defines how zoom changes in a tab are handled and at what scope.
 	 * @since Chrome 38.
@@ -6388,97 +6388,97 @@ declare module chrome.tabs {
 		defaultZoomFactor?: number;
 	}
 
-	interface InjectDetails {
+    interface InjectDetails {
 		/**
 		 * Optional.
 		 * If allFrames is true, implies that the JavaScript or CSS should be injected into all frames of current page. By default, it's false and is only injected into the top frame. 
 		 */
-		allFrames?: boolean;
+        allFrames?: boolean;
 		/**
 		 * Optional. JavaScript or CSS code to inject.
 		 * Warning: Be careful using the code parameter. Incorrect use of it may open your extension to cross site scripting attacks. 
 		 */
-		code?: string;
+        code?: string;
 		/**
 		 * Optional. The soonest that the JavaScript or CSS will be injected into the tab. 
 		 * One of: "document_start", "document_end", or "document_idle"
 		 * @since Chrome 20.
 		 */
-		runAt?: string;
+        runAt?: string;
 		/** Optional. JavaScript or CSS file to inject. */
-		file?: string;
+        file?: string;
 		/**
 		 * Optional.
 		 * If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is false.
 		 * @since Chrome 39. 
 		 */
 		matchAboutBlank?: boolean;
-	}
+    }
 
-	interface CreateProperties {
+    interface CreateProperties {
 		/** Optional. The position the tab should take in the window. The provided value will be clamped to between zero and the number of tabs in the window. */
-		index?: number;
+        index?: number;
 		/**
 		 * Optional.
 		 * The ID of the tab that opened this tab. If specified, the opener tab must be in the same window as the newly created tab. 
 		 * @since Chrome 18.
 		 */
-		openerTabId?: number;
+        openerTabId?: number;
 		/**
 		 * Optional.
 		 * The URL to navigate the tab to initially. Fully-qualified URLs must include a scheme (i.e. 'http://www.google.com', not 'www.google.com'). Relative URLs will be relative to the current page within the extension. Defaults to the New Tab Page. 
 		 */
-		url?: string;
+        url?: string;
 		/**
 		 * Optional. Whether the tab should be pinned. Defaults to false 
 		 * @since Chrome 9.
 		 */
-		pinned?: boolean;
+        pinned?: boolean;
 		/** Optional. The window to create the new tab in. Defaults to the current window. */
-		windowId?: number;
+        windowId?: number;
 		/**
 		 * Optional.
 		 * Whether the tab should become the active tab in the window. Does not affect whether the window is focused (see windows.update). Defaults to true. 
 		 * @since Chrome 16.
 		 */
-		active?: boolean;
+        active?: boolean;
 		/**
 		 * Optional. Whether the tab should become the selected tab in the window. Defaults to true
 		 * @deprecated since Chrome 33. Please use active.  
 		 */
 		selected?: boolean;
-	}
+    }
 
-	interface MoveProperties {
+    interface MoveProperties {
 		/** The position to move the window to. -1 will place the tab at the end of the window. */
-		index: number;
+        index: number;
 		/** Optional. Defaults to the window the tab is currently in. */
-		windowId?: number;
-	}
+        windowId?: number;
+    }
 
-	interface UpdateProperties {
+    interface UpdateProperties {
 		/** 
 		 * Optional. Whether the tab should be pinned. 
 		 * @since Chrome 9.
 		 */
-		pinned?: boolean;
+        pinned?: boolean;
 		/**
 		 * Optional. The ID of the tab that opened this tab. If specified, the opener tab must be in the same window as this tab. 
 		 * @since Chrome 18.
 		 */
-		openerTabId?: number;
+        openerTabId?: number;
 		/** Optional. A URL to navigate the tab to. */
-		url?: string;
+        url?: string;
 		/**
 		 * Optional. Adds or removes the tab from the current selection. 
 		 * @since Chrome 16.
 		 */
-		highlighted?: boolean;
+        highlighted?: boolean;
 		/**
 		 * Optional. Whether the tab should be active. Does not affect whether the window is focused (see windows.update). 
 		 * @since Chrome 16.
 		 */
-		active?: boolean;
+        active?: boolean;
 		/**
 		 * Optional. Whether the tab should be selected. 
 		 * @deprecated since Chrome 33. Please use highlighted. 
@@ -6489,86 +6489,86 @@ declare module chrome.tabs {
 		 * @since Chrome 45.
 		 */
 		muted?: boolean;
-	}
+    }
 
-	interface CaptureVisibleTabOptions {
+    interface CaptureVisibleTabOptions {
 		/**
 		 * Optional.
 		 * When format is "jpeg", controls the quality of the resulting image. This value is ignored for PNG images. As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease. 
 		 */
-		quality?: number;
+        quality?: number;
 		/**
 		 * Optional. The format of an image. 
 		 * One of: "jpeg", or "png"
 		 */
-		format?: string;
-	}
+        format?: string;
+    }
 
-	interface ReloadProperties {
+    interface ReloadProperties {
 		/** Optional. Whether using any local cache. Default is false. */
-		bypassCache?: boolean;
-	}
+        bypassCache?: boolean;
+    }
 
-	interface ConnectInfo {
+    interface ConnectInfo {
 		/** Optional. Will be passed into onConnect for content scripts that are listening for the connection event. */
-		name?: string;
+        name?: string;
 		/**
 		 * Open a port to a specific frame identified by frameId instead of all frames in the tab. 
 		 * @since Chrome 41.
 		 */
 		frameId?: number;
-	}
+    }
 
 	interface MessageSendOptions {
 		/** Optional. Send a message to a specific frame identified by frameId instead of all frames in the tab. */
 		frameId?: number;
 	}
 
-	interface HighlightInfo {
+    interface HighlightInfo {
 		/** One or more tab indices to highlight. */
 		tabs: number | number[];
 		/** Optional. The window that contains the tabs. */
-		windowId?: number;
-	}
+        windowId?: number;
+    }
 
-	interface QueryInfo {
+    interface QueryInfo {
 		/**
 		 * Optional. Whether the tabs have completed loading.
 		 * One of: "loading", or "complete"  
 		 */
-		status?: string;
+        status?: string;
 		/**
 		 * Optional. Whether the tabs are in the last focused window. 
 		 * @since Chrome 19.
 		 */
-		lastFocusedWindow?: boolean;
+        lastFocusedWindow?: boolean;
 		/** Optional. The ID of the parent window, or windows.WINDOW_ID_CURRENT for the current window. */
-		windowId?: number;
+        windowId?: number;
 		/**
 		 * Optional. The type of window the tabs are in. 
 		 * One of: "normal", "popup", "panel", "app", or "devtools" 
 		 */
-		windowType?: string;
+        windowType?: string;
 		/** Optional. Whether the tabs are active in their windows. */
-		active?: boolean;
+        active?: boolean;
 		/**
 		 * Optional. The position of the tabs within their windows. 
 		 * @since Chrome 18.
 		 */
-		index?: number;
+        index?: number;
 		/** Optional. Match page titles against a pattern. */
-		title?: string;
+        title?: string;
 		/** Optional. Match tabs against one or more URL patterns. Note that fragment identifiers are not matched. */
-		url?: string | string[];
+        url?: string | string[];
 		/**
 		 * Optional. Whether the tabs are in the current window. 
 		 * @since Chrome 19.
 		 */
-		currentWindow?: boolean;
+        currentWindow?: boolean;
 		/** Optional. Whether the tabs are highlighted. */
-		highlighted?: boolean;
+        highlighted?: boolean;
 		/** Optional. Whether the tabs are pinned. */
-		pinned?: boolean;
+        pinned?: boolean;
 		/**
 		 * Optional. Whether the tabs are audible. 
 		 * @since Chrome 45.
@@ -6579,38 +6579,38 @@ declare module chrome.tabs {
 		 * @since Chrome 45.
 		 */
 		muted?: boolean;
-	}
+    }
 
-	interface TabHighlightInfo {
-		windowId: number;
-		tabIds: number[];
-	}
+    interface TabHighlightInfo {
+        windowId: number;
+        tabIds: number[];
+    }
 
-	interface TabRemoveInfo {
+    interface TabRemoveInfo {
 		/**
 		 * The window whose tab is closed. 
 		 * @since Chrome 25.
 		 */
-		windowId: number;
+        windowId: number;
 		/** True when the tab is being closed because its window is being closed. */
-		isWindowClosing: boolean;
-	}
+        isWindowClosing: boolean;
+    }
 
-	interface TabAttachInfo {
-		newPosition: number;
-		newWindowId: number;
-	}
+    interface TabAttachInfo {
+        newPosition: number;
+        newWindowId: number;
+    }
 
-	interface TabChangeInfo {
+    interface TabChangeInfo {
 		/** Optional. The status of the tab. Can be either loading or complete. */
-		status?: string;
+        status?: string;
 		/**
 		 * The tab's new pinned state. 
 		 * @since Chrome 9.
 		 */
-		pinned?: boolean;
+        pinned?: boolean;
 		/** Optional. The tab's URL if it has changed. */
-		url?: string;
+        url?: string;
 		/**
 		 * The tab's new audible state. 
 		 * @since Chrome 45.
@@ -6626,25 +6626,25 @@ declare module chrome.tabs {
 		 * @since Chrome 27.
 		 */
 		faviconUrl?: string;
-	}
+    }
 
-	interface TabMoveInfo {
-		toIndex: number;
-		windowId: number;
-		fromIndex: number;
-	}
+    interface TabMoveInfo {
+        toIndex: number;
+        windowId: number;
+        fromIndex: number;
+    }
 
-	interface TabDetachInfo {
-		oldWindowId: number;
-		oldPosition: number;
-	}
+    interface TabDetachInfo {
+        oldWindowId: number;
+        oldPosition: number;
+    }
 
-	interface TabActiveInfo {
+    interface TabActiveInfo {
 		/** The ID of the tab that has become active. */
-		tabId: number;
+        tabId: number;
 		/** The ID of the window the active tab changed inside of. */
-		windowId: number;
-	}
+        windowId: number;
+    }
 
 	interface TabWindowInfo {
 		/** The ID of the window of where the tab is located. */
@@ -6658,50 +6658,50 @@ declare module chrome.tabs {
 		zoomSettings: ZoomSettings;
 	}
 
-	interface TabHighlightedEvent extends chrome.events.Event {
-		addListener(callback: (highlightInfo: HighlightInfo) => void): void;
-	}
+    interface TabHighlightedEvent extends chrome.events.Event {
+        addListener(callback: (highlightInfo: HighlightInfo) => void): void;
+    }
 
-	interface TabRemovedEvent extends chrome.events.Event {
-		addListener(callback: (tabId: number, removeInfo: TabRemoveInfo) => void): void;
-	}
+    interface TabRemovedEvent extends chrome.events.Event {
+        addListener(callback: (tabId: number, removeInfo: TabRemoveInfo) => void): void;
+    }
 
-	interface TabUpdatedEvent extends chrome.events.Event {
+    interface TabUpdatedEvent extends chrome.events.Event {
 		/**
 		 * @param callback
 		 * Parameter changeInfo: Lists the changes to the state of the tab that was updated. 
 		 * Parameter tab: Gives the state of the tab that was updated. 
 		 */
-		addListener(callback: (tabId: number, changeInfo: TabChangeInfo, tab: Tab) => void): void;
-	}
+        addListener(callback: (tabId: number, changeInfo: TabChangeInfo, tab: Tab) => void): void;
+    }
 
-	interface TabAttachedEvent extends chrome.events.Event {
-		addListener(callback: (tabId: number, attachInfo: TabAttachInfo) => void): void;
-	}
+    interface TabAttachedEvent extends chrome.events.Event {
+        addListener(callback: (tabId: number, attachInfo: TabAttachInfo) => void): void;
+    }
 
-	interface TabMovedEvent extends chrome.events.Event {
-		addListener(callback: (tabId: number, moveInfo: TabMoveInfo) => void): void;
-	}
+    interface TabMovedEvent extends chrome.events.Event {
+        addListener(callback: (tabId: number, moveInfo: TabMoveInfo) => void): void;
+    }
 
-	interface TabDetachedEvent extends chrome.events.Event {
-		addListener(callback: (tabId: number, detachInfo: TabDetachInfo) => void): void;
-	}
+    interface TabDetachedEvent extends chrome.events.Event {
+        addListener(callback: (tabId: number, detachInfo: TabDetachInfo) => void): void;
+    }
 
-	interface TabCreatedEvent extends chrome.events.Event {
+    interface TabCreatedEvent extends chrome.events.Event {
 		/**
 		 * @param callback 
 		 * Parameter tab: Details of the tab that was created. 
 		 */
-		addListener(callback: (tab: Tab) => void): void;
-	}
+        addListener(callback: (tab: Tab) => void): void;
+    }
 
-	interface TabActivatedEvent extends chrome.events.Event {
-		addListener(callback: (activeInfo: TabActiveInfo) => void): void;
-	}
+    interface TabActivatedEvent extends chrome.events.Event {
+        addListener(callback: (activeInfo: TabActiveInfo) => void): void;
+    }
 
-	interface TabReplacedEvent extends chrome.events.Event {
-		addListener(callback: (addedTabId: number, removedTabId: number) => void): void;
-	}
+    interface TabReplacedEvent extends chrome.events.Event {
+        addListener(callback: (addedTabId: number, removedTabId: number) => void): void;
+    }
 
 	interface TabSelectedEvent extends chrome.events.Event {
 		addListener(callback: (tabId: number, selectInfo: TabWindowInfo) => void): void;
@@ -6717,7 +6717,7 @@ declare module chrome.tabs {
 	 * @param callback Optional. Called after all the JavaScript has been executed.
 	 * Parameter result: The result of the script in every injected frame.  
 	 */
-	export function executeScript(details: InjectDetails, callback?: (result: any[]) => void): void;
+    export function executeScript(details: InjectDetails, callback?: (result: any[]) => void): void;
 	/**
 	 * Injects JavaScript code into a page. For details, see the programmatic injection section of the content scripts doc. 
 	 * @param tabId Optional. The ID of the tab in which to run the script; defaults to the active tab of the current window. 
@@ -6725,9 +6725,9 @@ declare module chrome.tabs {
 	 * @param callback Optional. Called after all the JavaScript has been executed.
 	 * Parameter result: The result of the script in every injected frame.  
 	 */
-	export function executeScript(tabId: number, details: InjectDetails, callback?: (result: any[]) => void): void;
+    export function executeScript(tabId: number, details: InjectDetails, callback?: (result: any[]) => void): void;
 	/** Retrieves details about the specified tab. */
-	export function get(tabId: number, callback: (tab: Tab) => void): void;
+    export function get(tabId: number, callback: (tab: Tab) => void): void;
 	/**
 	 * Gets details about all tabs in the specified window. 
 	 * @deprecated since Chrome 33. Please use tabs.query {windowId: windowId}.
@@ -6740,7 +6740,7 @@ declare module chrome.tabs {
 	 */
 	export function getAllInWindow(windowId: number, callback: (tab: Tab) => void): void;
 	/** Gets the tab that this script call is being made from. May be undefined if called from a non-tab context (for example: a background page or popup view). */
-	export function getCurrent(callback: (tab?: Tab) => void): void;
+    export function getCurrent(callback: (tab?: Tab) => void): void;
 	/**
 	 * Gets the tab that is selected in the specified window. 
 	 * @deprecated since Chrome 33. Please use tabs.query {active: true}.
@@ -6757,64 +6757,64 @@ declare module chrome.tabs {
 	 * @param callback Optional.
 	 * Parameter tab: Details about the created tab. Will contain the ID of the new tab. 
 	 */
-	export function create(createProperties: CreateProperties, callback?: (tab: Tab) => void): void;
+    export function create(createProperties: CreateProperties, callback?: (tab: Tab) => void): void;
 	/**
 	 * Moves one or more tabs to a new position within its window, or to a new window. Note that tabs can only be moved to and from normal (window.type === "normal") windows. 
 	 * @param tabId The tab to move.
 	 * @param callback Optional.
 	 * Parameter tab: Details about the moved tab.
 	 */
-	export function move(tabId: number, moveProperties: MoveProperties, callback?: (tab: Tab) => void): void;
+    export function move(tabId: number, moveProperties: MoveProperties, callback?: (tab: Tab) => void): void;
 	/**
 	 * Moves one or more tabs to a new position within its window, or to a new window. Note that tabs can only be moved to and from normal (window.type === "normal") windows. 
 	 * @param tabIds The tabs to move.
 	 * @param callback Optional.
 	 * Parameter tabs: Details about the moved tabs.
 	 */
-	export function move(tabIds: number[], moveProperties: MoveProperties, callback?: (tabs: Tab[]) => void): void;
+    export function move(tabIds: number[], moveProperties: MoveProperties, callback?: (tabs: Tab[]) => void): void;
 	/**
 	 * Modifies the properties of a tab. Properties that are not specified in updateProperties are not modified. 
 	 * @param callback Optional.
 	 * Optional parameter tab: Details about the updated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested. 
 	 */
-	export function update(updateProperties: UpdateProperties, callback?: (tab?: Tab) => void): void;
+    export function update(updateProperties: UpdateProperties, callback?: (tab?: Tab) => void): void;
 	/**
 	 * Modifies the properties of a tab. Properties that are not specified in updateProperties are not modified. 
 	 * @param tabId Defaults to the selected tab of the current window. 
 	 * @param callback Optional.
 	 * Optional parameter tab: Details about the updated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested. 
 	 */
-	export function update(tabId: number, updateProperties: UpdateProperties, callback?: (tab?: Tab) => void): void;
+    export function update(tabId: number, updateProperties: UpdateProperties, callback?: (tab?: Tab) => void): void;
 	/**
 	 * Closes a tab.
 	 * @param tabId The tab to close. 
 	 */
-	export function remove(tabId: number, callback?: Function): void;
+    export function remove(tabId: number, callback?: Function): void;
 	/**
 	 * Closes several tabs.
 	 * @param tabIds The list of tabs to close. 
 	 */
-	export function remove(tabIds: number[], callback?: Function): void;
+    export function remove(tabIds: number[], callback?: Function): void;
 	/**
 	 * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method. 
 	 * @param callback 
 	 * Parameter dataUrl: A data URL which encodes an image of the visible area of the captured tab. May be assigned to the 'src' property of an HTML Image element for display.  
 	 */
-	export function captureVisibleTab(callback: (dataUrl: string) => void): void;
+    export function captureVisibleTab(callback: (dataUrl: string) => void): void;
 	/**
 	 * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method. 
 	 * @param windowId Optional. The target window. Defaults to the current window.
 	 * @param callback 
 	 * Parameter dataUrl: A data URL which encodes an image of the visible area of the captured tab. May be assigned to the 'src' property of an HTML Image element for display.  
 	 */
-	export function captureVisibleTab(windowId: number, callback: (dataUrl: string) => void): void;
+    export function captureVisibleTab(windowId: number, callback: (dataUrl: string) => void): void;
 	/**
 	 * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method. 
 	 * @param options Optional. Details about the format and quality of an image. 
 	 * @param callback 
 	 * Parameter dataUrl: A data URL which encodes an image of the visible area of the captured tab. May be assigned to the 'src' property of an HTML Image element for display.  
 	 */
-	export function captureVisibleTab(options: CaptureVisibleTabOptions, callback: (dataUrl: string) => void): void;
+    export function captureVisibleTab(options: CaptureVisibleTabOptions, callback: (dataUrl: string) => void): void;
 	/**
 	 * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method. 
 	 * @param windowId Optional. The target window. Defaults to the current window.
@@ -6822,7 +6822,7 @@ declare module chrome.tabs {
 	 * @param callback 
 	 * Parameter dataUrl: A data URL which encodes an image of the visible area of the captured tab. May be assigned to the 'src' property of an HTML Image element for display.  
 	 */
-	export function captureVisibleTab(windowId: number, options: CaptureVisibleTabOptions, callback: (dataUrl: string) => void): void;
+    export function captureVisibleTab(windowId: number, options: CaptureVisibleTabOptions, callback: (dataUrl: string) => void): void;
 	/**
 	 * Reload a tab.
 	 * @since Chrome 16.
@@ -6846,12 +6846,12 @@ declare module chrome.tabs {
 	 * @param callback Optional.
 	 * Optional parameter tab: Details about the duplicated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested. 
 	 */
-	export function duplicate(tabId: number, callback?: (tab?: Tab) => void): void;
+    export function duplicate(tabId: number, callback?: (tab?: Tab) => void): void;
 	/**
 	 * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
 	 * @since Chrome 20. 
 	 */
-	export function sendMessage(tabId: number, message: any, responseCallback?: (response: any) => void): void;
+    export function sendMessage(tabId: number, message: any, responseCallback?: (response: any) => void): void;
 	/**
 	 * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
 	 * @since Chrome 41. 
@@ -6867,7 +6867,7 @@ declare module chrome.tabs {
 	 */
 	export function sendRequest(tabId: number, request: any, responseCallback?: (response: any) => void): void;
 	/** Connects to the content script(s) in the specified tab. The runtime.onConnect event is fired in each content script running in the specified tab for the current extension. */
-	export function connect(tabId: number, connectInfo?: ConnectInfo): runtime.Port;
+    export function connect(tabId: number, connectInfo?: ConnectInfo): runtime.Port;
 	/**
 	 * Injects CSS into a page. For details, see the programmatic injection section of the content scripts doc.
 	 * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time. 
@@ -6880,32 +6880,32 @@ declare module chrome.tabs {
 	 * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time. 
 	 * @param callback Optional. Called when all the CSS has been inserted.  
 	 */
-	export function insertCSS(tabId: number, details: InjectDetails, callback?: Function): void;
+    export function insertCSS(tabId: number, details: InjectDetails, callback?: Function): void;
 	/**
 	 * Highlights the given tabs. 
 	 * @since Chrome 16.
 	 * @param callback Optional.
 	 * Parameter window: Contains details about the window whose tabs were highlighted. 
 	 */
-	export function highlight(highlightInfo: HighlightInfo, callback: (window: chrome.windows.Window) => void): void;
+    export function highlight(highlightInfo: HighlightInfo, callback: (window: chrome.windows.Window) => void): void;
 	/**
 	 * Gets all tabs that have the specified properties, or all tabs if no properties are specified. 
 	 * @since Chrome 16.
 	 */
-	export function query(queryInfo: QueryInfo, callback: (result: Tab[]) => void): void;
+    export function query(queryInfo: QueryInfo, callback: (result: Tab[]) => void): void;
 	/**
 	 * Detects the primary language of the content in a tab. 
 	 * @param callback 
 	 * Parameter language: An ISO language code such as en or fr. For a complete list of languages supported by this method, see kLanguageInfoTable. The 2nd to 4th columns will be checked and the first non-NULL value will be returned except for Simplified Chinese for which zh-CN will be returned. For an unknown language, und will be returned. 
 	 */
-	export function detectLanguage(callback: (language: string) => void): void;
+    export function detectLanguage(callback: (language: string) => void): void;
 	/**
 	 * Detects the primary language of the content in a tab.
 	 * @param tabId Optional. Defaults to the active tab of the current window.  
 	 * @param callback 
 	 * Parameter language: An ISO language code such as en or fr. For a complete list of languages supported by this method, see kLanguageInfoTable. The 2nd to 4th columns will be checked and the first non-NULL value will be returned except for Simplified Chinese for which zh-CN will be returned. For an unknown language, und will be returned. 
 	 */
-	export function detectLanguage(tabId: number, callback: (language: string) => void): void;
+    export function detectLanguage(tabId: number, callback: (language: string) => void): void;
 	/**
 	 * Zooms a specified tab.
 	 * @since Chrome 42.
@@ -6971,31 +6971,31 @@ declare module chrome.tabs {
 	 * Fired when the highlighted or selected tabs in a window changes. 
 	 * @since Chrome 18.
 	 */
-	var onHighlighted: TabHighlightedEvent;
+    var onHighlighted: TabHighlightedEvent;
 	/** Fired when a tab is closed. */
-	var onRemoved: TabRemovedEvent;
+    var onRemoved: TabRemovedEvent;
 	/** Fired when a tab is updated. */
-	var onUpdated: TabUpdatedEvent;
+    var onUpdated: TabUpdatedEvent;
 	/** Fired when a tab is attached to a window, for example because it was moved between windows. */
-	var onAttached: TabAttachedEvent;
+    var onAttached: TabAttachedEvent;
 	/**
 	 * Fired when a tab is moved within a window. Only one move event is fired, representing the tab the user directly moved. Move events are not fired for the other tabs that must move in response. This event is not fired when a tab is moved between windows. For that, see tabs.onDetached. 
 	 */
-	var onMoved: TabMovedEvent;
+    var onMoved: TabMovedEvent;
 	/** Fired when a tab is detached from a window, for example because it is being moved between windows. */
-	var onDetached: TabDetachedEvent;
+    var onDetached: TabDetachedEvent;
 	/** Fired when a tab is created. Note that the tab's URL may not be set at the time this event fired, but you can listen to onUpdated events to be notified when a URL is set. */
-	var onCreated: TabCreatedEvent;
+    var onCreated: TabCreatedEvent;
 	/**
 	 * Fires when the active tab in a window changes. Note that the tab's URL may not be set at the time this event fired, but you can listen to onUpdated events to be notified when a URL is set. 
 	 * @since Chrome 18.
 	 */
-	var onActivated: TabActivatedEvent;
+    var onActivated: TabActivatedEvent;
 	/**
 	 * Fired when a tab is replaced with another tab due to prerendering or instant. 
 	 * @since Chrome 26.
 	 */
-	var onReplaced: TabReplacedEvent;
+    var onReplaced: TabReplacedEvent;
 	/**
 	 * @deprecated since Chrome 33. Please use tabs.onActivated.
 	 * Fires when the selected tab in a window changes.  
@@ -7028,12 +7028,12 @@ declare module chrome.tabs {
  */
 declare module chrome.topSites {
 	/** An object encapsulating a most visited URL, such as the URLs on the new tab page. */
-	interface MostVisitedURL {
+    interface MostVisitedURL {
 		/** The most visited URL. */
-		url: string;
+        url: string;
 		/** The title of the page */
-		title: string;
-	}
+        title: string;
+    }
 
 	/** Gets a list of top sites. */
 	export function get(callback: (data: MostVisitedURL[]) => void): void;
@@ -7049,86 +7049,86 @@ declare module chrome.topSites {
  */
 declare module chrome.tts {
 	/** An event from the TTS engine to communicate the status of an utterance. */
-	interface TtsEvent {
+    interface TtsEvent {
 		/** Optional. The index of the current character in the utterance. */
-		charIndex?: number;
+        charIndex?: number;
 		/** Optional. The error description, if the event type is 'error'. */
-		errorMessage?: string;
+        errorMessage?: string;
 		/**
 		 * The type can be 'start' as soon as speech has started, 'word' when a word boundary is reached, 'sentence' when a sentence boundary is reached, 'marker' when an SSML mark element is reached, 'end' when the end of the utterance is reached, 'interrupted' when the utterance is stopped or interrupted before reaching the end, 'cancelled' when it's removed from the queue before ever being synthesized, or 'error' when any other error occurs. When pausing speech, a 'pause' event is fired if a particular utterance is paused in the middle, and 'resume' if an utterance resumes speech. Note that pause and resume events may not fire if speech is paused in-between utterances. 
 		 * One of: "start", "end", "word", "sentence", "marker", "interrupted", "cancelled", "error", "pause", or "resume"
 		 */
-		type: string;
-	}
+        type: string;
+    }
 
 	/** A description of a voice available for speech synthesis. */
-	interface TtsVoice {
+    interface TtsVoice {
 		/** Optional. The language that this voice supports, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
-		lang?: string;
+        lang?: string;
 		/** 
 		 * Optional. This voice's gender.
 		 * One of: "male", or "female" 
 		 */
-		gender?: string;
+        gender?: string;
 		/** Optional. The name of the voice. */
-		voiceName?: string;
+        voiceName?: string;
 		/** The ID of the extension providing this voice. */
-		extensionsId?: string;
+        extensionsId?: string;
 		/** All of the callback event types that this voice is capable of sending. */
-		eventTypes?: string[];
+        eventTypes?: string[];
 		/**
 		 * If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs. 
 		 * @since Chrome 33.
 		 */
 		remote?: boolean;
-	}
+    }
 
-	interface SpeakOptions {
+    interface SpeakOptions {
 		/** Optional. Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
-		volume?: number;
+        volume?: number;
 		/**
 		 * Optional.
 		 * If true, enqueues this utterance if TTS is already in progress. If false (the default), interrupts any current speech and flushes the speech queue before speaking this new utterance. 
 		 */
-		enqueue?: boolean;
+        enqueue?: boolean;
 		/**
 		 * Optional.
 		 * Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. Values below 0.1 or above 10.0 are strictly disallowed, but many voices will constrain the minimum and maximum rates further—for example a particular voice may not actually speak faster than 3 times normal even if you specify a value larger than 3.0. 
 		 */
-		rate?: number;
+        rate?: number;
 		/** 
 		 * Optional. This function is called with events that occur in the process of speaking the utterance.
 		 * @param event The update event from the text-to-speech engine indicating the status of this utterance.  
 		 */
-		onEvent?: (event: TtsEvent) => void;
+        onEvent?: (event: TtsEvent) => void;
 		/**
 		 * Optional.
 		 * Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to a voice's default pitch. 
 		 */
-		pitch?: number;
+        pitch?: number;
 		/** Optional. The language to be used for synthesis, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
-		lang?: string;
+        lang?: string;
 		/** Optional. The name of the voice to use for synthesis. If empty, uses any available voice. */
-		voiceName?: string;
+        voiceName?: string;
 		/** Optional. The extension ID of the speech engine to use, if known. */
-		extensionId?: string;
+        extensionId?: string;
 		/**
 		 * Optional. Gender of voice for synthesized speech. 
 		 * One of: "male", or "female" 
 		 */
-		gender?: string;
+        gender?: string;
 		/** Optional. The TTS event types the voice must support. */
-		requiredEventTypes?: string[];
+        requiredEventTypes?: string[];
 		/** Optional. The TTS event types that you are interested in listening to. If missing, all event types may be sent. */
-		desiredEventTypes?: string[];
-	}
+        desiredEventTypes?: string[];
+    }
 
 	/** Checks whether the engine is currently speaking. On Mac OS X, the result is true whenever the system speech engine is speaking, even if the speech wasn't initiated by Chrome. */
-	export function isSpeaking(callback?: (speaking: boolean) => void): void;
+    export function isSpeaking(callback?: (speaking: boolean) => void): void;
 	/** Stops any current speech and flushes the queue of any pending utterances. In addition, if speech was paused, it will now be un-paused for the next call to speak. */
-	export function stop(): void;
+    export function stop(): void;
 	/** Gets an array of all available voices. */
-	export function getVoices(callback?: (voices: TtsVoice[]) => void): void;
+    export function getVoices(callback?: (voices: TtsVoice[]) => void): void;
 	/**
 	 * Speaks text using a text-to-speech engine. 
 	 * @param utterance The text to speak, either plain text or a complete, well-formed SSML document. Speech engines that do not support SSML will strip away the tags and speak the text. The maximum length of the text is 32,768 characters. 
@@ -7163,39 +7163,39 @@ declare module chrome.tts {
  * @since Chrome 14.
  */
 declare module chrome.ttsEngine {
-	interface SpeakOptions {
+    interface SpeakOptions {
 		/** Optional. The language to be used for synthesis, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
-		lang?: string;
+        lang?: string;
 		/** Optional. The name of the voice to use for synthesis. */
-		voiceName?: string;
+        voiceName?: string;
 		/**
 		 * Optional. Gender of voice for synthesized speech. 
 		 * One of: "male", or "female"
 		 */
-		gender?: string;
+        gender?: string;
 		/** Optional. Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
-		volume?: number;
+        volume?: number;
 		/**
 		 * Optional.
 		 * Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. This value is guaranteed to be between 0.1 and 10.0, inclusive. When a voice does not support this full range of rates, don't return an error. Instead, clip the rate to the range the voice supports. 
 		 */
-		rate?: number;
+        rate?: number;
 		/** Optional. Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to this voice's default pitch. */
-		pitch?: number;
-	}
+        pitch?: number;
+    }
 
-	interface TtsEngineSpeakEvent extends chrome.events.Event {
+    interface TtsEngineSpeakEvent extends chrome.events.Event {
 		/**
 		 * @param callback
 		 * Parameter utterance: The text to speak, specified as either plain text or an SSML document. If your engine does not support SSML, you should strip out all XML markup and synthesize only the underlying text content. The value of this parameter is guaranteed to be no more than 32,768 characters. If this engine does not support speaking that many characters at a time, the utterance should be split into smaller chunks and queued internally without returning an error. 
 		 * Parameter options: Options specified to the tts.speak() method. 
 		 * Parameter sendTtsEvent: Call this function with events that occur in the process of speaking the utterance. 
 		 */
-		addListener(callback: (utterance: string, options: SpeakOptions, sendTtsEvent: (event: chrome.tts.TtsEvent) => void) => void): void;
-	}
+        addListener(callback: (utterance: string, options: SpeakOptions, sendTtsEvent: (event: chrome.tts.TtsEvent) => void) => void): void;
+    }
 
 	/** Called when the user makes a call to tts.speak() and one of the voices from this extension's manifest is the first to match the options object. */
-	var onSpeak: TtsEngineSpeakEvent;
+    var onSpeak: TtsEngineSpeakEvent;
 	/** Fired when a call is made to tts.stop and this extension may be in the middle of speaking. If an extension receives a call to onStop and speech is already stopped, it should do nothing (not raise an error). If speech is in the paused state, this should cancel the paused state. */
 	var onStop: chrome.events.Event;
 	/**
@@ -7218,7 +7218,7 @@ declare module chrome.ttsEngine {
  * @since Chrome 13.
  */
 declare module chrome.types {
-	interface ChromeSettingClearDetails {
+    interface ChromeSettingClearDetails {
 		/**
 		 * Optional.
 		 * The scope of the ChromeSetting. One of
@@ -7227,15 +7227,15 @@ declare module chrome.types {
 		 * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
 		 * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
 		 */
-		scope?: string;
-	}
+        scope?: string;
+    }
 
-	interface ChromeSettingSetDetails extends ChromeSettingClearDetails {
+    interface ChromeSettingSetDetails extends ChromeSettingClearDetails {
 		/**
 		 * The value of the setting. 
 		 * Note that every setting has a specific value type, which is described together with the setting. An extension should not set a value of a different type. 
 		 */
-		value: any;
+        value: any;
 		/**
 		 * Optional.
 		 * The scope of the ChromeSetting. One of
@@ -7245,19 +7245,19 @@ declare module chrome.types {
 		 * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
 		 */
 		scope?: string;
-	}
+    }
 
-	interface ChromeSettingGetDetails {
+    interface ChromeSettingGetDetails {
 		/** Optional. Whether to return the value that applies to the incognito session (default false). */
-		incognito?: boolean;
-	}
+        incognito?: boolean;
+    }
 
 	/**
 	 * @param details Details of the currently effective value. 
 	 */
-	type DetailsCallback = (details: ChromeSettingGetResultDetails) => void;
+    type DetailsCallback = (details: ChromeSettingGetResultDetails) => void;
 
-	interface ChromeSettingGetResultDetails {
+    interface ChromeSettingGetResultDetails {
 		/**
 		 * One of
 		 * • not_controllable: cannot be controlled by any extension
@@ -7265,43 +7265,43 @@ declare module chrome.types {
 		 * • controllable_by_this_extension: can be controlled by this extension
 		 * • controlled_by_this_extension: controlled by this extension
 		 */
-		levelOfControl: string;
+        levelOfControl: string;
 		/** The value of the setting. */
-		value: any;
+        value: any;
 		/**
 		 * Optional.
 		 * Whether the effective value is specific to the incognito session.
 		 * This property will only be present if the incognito property in the details parameter of get() was true. 
 		 */
-		incognitoSpecific?: boolean;
-	}
+        incognitoSpecific?: boolean;
+    }
 
-	interface ChromeSettingChangedEvent extends chrome.events.Event {
-		addListener(callback: DetailsCallback): void;
-	}
+    interface ChromeSettingChangedEvent extends chrome.events.Event {
+        addListener(callback: DetailsCallback): void;
+    }
 
 	/** An interface that allows access to a Chrome browser setting. See accessibilityFeatures for an example. */
-	interface ChromeSetting {
+    interface ChromeSetting {
 		/**
 		 * Sets the value of a setting. 
 		 * @param details Which setting to change. 
 		 * @param callback Optional. Called at the completion of the set operation. 
 		 */
-		set(details: ChromeSettingSetDetails, callback?: Function): void;
+        set(details: ChromeSettingSetDetails, callback?: Function): void;
 		/**
 		 * Gets the value of a setting. 
 		 * @param details Which setting to consider. 
 		 */
-		get(details: ChromeSettingGetDetails, callback?: DetailsCallback): void;
+        get(details: ChromeSettingGetDetails, callback?: DetailsCallback): void;
 		/**
 		 * Clears the setting, restoring any default value. 
 		 * @param details Which setting to clear.
 		 * @param callback Optional. Called at the completion of the clear operation. 
 		 */
-		clear(details: ChromeSettingClearDetails, callback?: Function): void;
+        clear(details: ChromeSettingClearDetails, callback?: Function): void;
 		/** Fired after the setting changes. */
-		onChange: ChromeSettingChangedEvent;
-	}
+        onChange: ChromeSettingChangedEvent;
+    }
 }
 
 ////////////////////
@@ -7474,54 +7474,54 @@ declare module chrome.wallpaper {
  * @since Chrome 16.
  */
 declare module chrome.webNavigation {
-	interface GetFrameDetails {
+    interface GetFrameDetails {
 		/**
 		 * The ID of the process runs the renderer for this tab. 
 		 * @since Chrome 22.
 		 */
-		processId: number;
+        processId: number;
 		/** The ID of the tab in which the frame is. */
-		tabId: number;
+        tabId: number;
 		/** The ID of the frame in the given tab. */
-		frameId: number;
-	}
+        frameId: number;
+    }
 
-	interface GetFrameResultDetails {
+    interface GetFrameResultDetails {
 		/** The URL currently associated with this frame, if the frame identified by the frameId existed at one point in the given tab. The fact that an URL is associated with a given frameId does not imply that the corresponding frame still exists. */
-		url: string;
+        url: string;
 		/** True if the last navigation in this frame was interrupted by an error, i.e. the onErrorOccurred event fired. */
-		errorOccurred: boolean;
+        errorOccurred: boolean;
 		/** ID of frame that wraps the frame. Set to -1 of no parent frame exists. */
-		parentFrameId: number;
-	}
+        parentFrameId: number;
+    }
 
-	interface GetAllFrameDetails {
+    interface GetAllFrameDetails {
 		/** The ID of the tab. */
-		tabId: number;
-	}
+        tabId: number;
+    }
 
-	interface GetAllFrameResultDetails extends GetFrameResultDetails {
+    interface GetAllFrameResultDetails extends GetFrameResultDetails {
 		/** The ID of the process runs the renderer for this tab. */
-		processId: number;
+        processId: number;
 		/** The ID of the frame. 0 indicates that this is the main frame; a positive value indicates the ID of a subframe. */
-		frameId: number;
-	}
+        frameId: number;
+    }
 
 	interface WebNavigationCallbackDetails {
 		/** The ID of the tab in which the navigation is about to occur. */
-		tabId: number;
+        tabId: number;
 		/** The time when the browser was about to start the navigation, in milliseconds since the epoch. */
-		timeStamp: number;
-	}
+        timeStamp: number;
+    }
 
 	interface WebNavigationUrlCallbackDetails extends WebNavigationCallbackDetails {
-		url: string;
-	}
+        url: string;
+    }
 
 	interface WebNavigationReplacementCallbackDetails extends WebNavigationCallbackDetails {
 		/** The ID of the tab that was replaced. */
 		replacedTabId: number;
-	}
+    }
 
 	interface WebNavigationFramedCallbackDetails extends WebNavigationUrlCallbackDetails {
 		/** 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique for a given tab and process. */
@@ -7531,32 +7531,32 @@ declare module chrome.webNavigation {
 		 * @since Chrome 22.
 		 */
 		processId: number;
-	}
+    }
 
 	interface WebNavigationFramedErrorCallbackDetails extends WebNavigationFramedCallbackDetails {
 		/** The error description. */
 		error: string;
-	}
+    }
 
 	interface WebNavigationSourceCallbackDetails extends WebNavigationUrlCallbackDetails {
 		/** The ID of the tab in which the navigation is triggered. */
-		sourceTabId: number;
+        sourceTabId: number;
 		/**
 		 * The ID of the process runs the renderer for the source tab. 
 		 * @since Chrome 22.
 		 */
-		sourceProcessId: number;
+        sourceProcessId: number;
 		/** The ID of the frame with sourceTabId in which the navigation is triggered. 0 indicates the main frame. */
-		sourceFrameId: number;
-	}
+        sourceFrameId: number;
+    }
 
 	interface WebNavigationParentedCallbackDetails extends WebNavigationFramedCallbackDetails {
 		/**
 		 * ID of frame that wraps the frame. Set to -1 of no parent frame exists. 
 		 * @since Chrome 24.
 		 */
-		parentFrameId: number;
-	}
+        parentFrameId: number;
+    }
 
 	interface WebNavigationTransitionCallbackDetails extends WebNavigationFramedCallbackDetails {
 		/**
@@ -7569,40 +7569,40 @@ declare module chrome.webNavigation {
 		 * Each element one of: "client_redirect", "server_redirect", "forward_back", or "from_address_bar" 
 		 */
 		transitionQualifiers: string[];
-	}
+    }
 
 	interface WebNavigationEventFilter {
 		/** Conditions that the URL being navigated to must satisfy. The 'schemes' and 'ports' fields of UrlFilter are ignored for this event. */
-		url: chrome.events.UrlFilter[];
-	}
+        url: chrome.events.UrlFilter[];
+    }
 
 	interface WebNavigationEvent extends chrome.events.Event {
 		addListener(callback: (details: WebNavigationCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
-	}
+    }
 
 	interface WebNavigationFramedEvent extends WebNavigationEvent {
 		addListener(callback: (details: WebNavigationFramedCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
-	}
+    }
 
 	interface WebNavigationFramedErrorEvent extends WebNavigationFramedEvent {
 		addListener(callback: (details: WebNavigationFramedErrorCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
-	}
+    }
 
 	interface WebNavigationSourceEvent extends WebNavigationEvent {
 		addListener(callback: (details: WebNavigationSourceCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
-	}
+    }
 
 	interface WebNavigationParentedEvent extends WebNavigationEvent {
 		addListener(callback: (details: WebNavigationParentedCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
-	}
+    }
 
 	interface WebNavigationTransitionalEvent extends WebNavigationEvent {
 		addListener(callback: (details: WebNavigationTransitionCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
-	}
+    }
 
 	interface WebNavigationReplacementEvent extends WebNavigationEvent {
 		addListener(callback: (details: WebNavigationReplacementCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
-	}
+    }
 
 	/**
 	 * Retrieves information about the given frame. A frame refers to an <iframe> or a <frame> of a web page and is identified by a tab ID and a frame ID. 
@@ -7610,14 +7610,14 @@ declare module chrome.webNavigation {
 	 * @param callback
 	 * Optional parameter details: Information about the requested frame, null if the specified frame ID and/or tab ID are invalid. 
 	 */
-	export function getFrame(details: GetFrameDetails, callback: (details?: GetFrameResultDetails) => void): void;
+    export function getFrame(details: GetFrameDetails, callback: (details?: GetFrameResultDetails) => void): void;
 	/**
 	 * Retrieves information about all frames of a given tab. 
 	 * @param details Information about the tab to retrieve all frames from.
 	 * @param callback
 	 * Optional parameter details: A list of frames in the given tab, null if the specified tab ID is invalid.  
 	 */
-	export function getAllFrames(details: GetAllFrameDetails, callback: (details?: GetAllFrameResultDetails[]) => void): void;
+    export function getAllFrames(details: GetAllFrameDetails, callback: (details?: GetAllFrameResultDetails[]) => void): void;
 
 	/** Fired when the reference fragment of a frame was updated. All future events for that frame will use the updated URL. */
 	var onReferenceFragmentUpdated: WebNavigationTransitionalEvent;
@@ -7654,66 +7654,66 @@ declare module chrome.webNavigation {
  * @since Chrome 17.   
  */
 declare module chrome.webRequest {
-	interface AuthCredentials {
-		username: string;
-		password: string;
-	}
+    interface AuthCredentials {
+        username: string;
+        password: string;
+    }
 
 	/** An HTTP Header, represented as an object containing a key and either a value or a binaryValue. */
-	interface HttpHeader {
-		name: string;
-		value?: string;
-		binaryValue?: ArrayBuffer;
-	}
+    interface HttpHeader {
+        name: string;
+        value?: string;
+        binaryValue?: ArrayBuffer;
+    }
 
 	/** Returns value for event handlers that have the 'blocking' extraInfoSpec applied. Allows the event handler to modify network requests. */
-	interface BlockingResponse {
+    interface BlockingResponse {
 		/** Optional. If true, the request is cancelled. Used in onBeforeRequest, this prevents the request from being sent. */
-		cancel?: boolean;
+        cancel?: boolean;
 		/**
 		 * Optional.
 		 * Only used as a response to the onBeforeRequest and onHeadersReceived events. If set, the original request is prevented from being sent/completed and is instead redirected to the given URL. Redirections to non-HTTP schemes such as data: are allowed. Redirects initiated by a redirect action use the original request method for the redirect, with one exception: If the redirect is initiated at the onHeadersReceived stage, then the redirect will be issued using the GET method. 
 		 */
-		redirectUrl?: string;
+        redirectUrl?: string;
 		/**
 		 * Optional.
 		 * Only used as a response to the onHeadersReceived event. If set, the server is assumed to have responded with these response headers instead. Only return responseHeaders if you really want to modify the headers in order to limit the number of conflicts (only one extension may modify responseHeaders for each request). 
 		 */
-		responseHeaders?: HttpHeader[];
+        responseHeaders?: HttpHeader[];
 		/** Optional. Only used as a response to the onAuthRequired event. If set, the request is made using the supplied credentials. */
-		authCredentials?: AuthCredentials;
+        authCredentials?: AuthCredentials;
 		/**
 		 * Optional.
 		 * Only used as a response to the onBeforeSendHeaders event. If set, the request is made with these request headers instead. 
 		 */
-		requestHeaders?: HttpHeader[];
-	}
+        requestHeaders?: HttpHeader[];
+    }
 
 	/** An object describing filters to apply to webRequest events. */
-	interface RequestFilter {
+    interface RequestFilter {
 		/** Optional. */
-		tabId?: number;
+        tabId?: number;
 		/**
 		 * A list of request types. Requests that cannot match any of the types will be filtered out. 
 		 * Each element one of: "main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", or "other" 
 		 */
-		types?: string[];
+        types?: string[];
 		/** A list of URLs or URL patterns. Requests that cannot match any of the URLs will be filtered out. */
-		urls: string[];
+        urls: string[];
 		/** Optional. */
-		windowId?: number;
-	}
+        windowId?: number;
+    }
 
 	/**
 	 * Contains data uploaded in a URL request.
 	 * @since Chrome 23.
 	 */
-	interface UploadData {
+    interface UploadData {
 		/** Optional. An ArrayBuffer with a copy of the data. */
-		bytes?: ArrayBuffer;
+        bytes?: ArrayBuffer;
 		/** Optional. A string with the file's path and name. */
-		file?: string;
-	}
+        file?: string;
+    }
 
 	interface WebRequestBody {
 		/** Optional. Errors when obtaining request body data. */
@@ -7737,32 +7737,32 @@ declare module chrome.webRequest {
 
 	interface ResourceRequest {
 		/** The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request. */
-		requestId: string;
+        requestId: string;
 		/** The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab. */
-		frameId: number;
+        frameId: number;
 		/** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
-		parentFrameId: number;
+        parentFrameId: number;
 		/** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
 		tabId: number;
 		/**
 		 * How the requested resource will be used. 
 		 * One of: "main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", or "other" 
 		 */
-		type: string;
+        type: string;
 		/** The time when this signal is triggered, in milliseconds since the epoch. */
 		timeStamp: number;
-	}
+    }
 
 	interface WebRequestDetails extends ResourceRequest {
 		url: string;
 		/** Standard HTTP method. */
 		method: string;
-	}
+    }
 
 	interface WebRequestHeadersDetails extends WebRequestDetails {
 		/** Optional. The HTTP request headers that are going to be sent out with this request. */
 		requestHeaders?: HttpHeader[];
-	}
+    }
 
 	interface WebRequestBodyDetails extends WebRequestDetails {
 		/**
@@ -7770,40 +7770,40 @@ declare module chrome.webRequest {
 		 * @since Chrome 23.
 		 */
 		requestBody: WebRequestBody;
-	}
+    }
 
 	interface WebRequestFullDetails extends WebRequestHeadersDetails, WebRequestBodyDetails {
-	}
+    }
 
 	interface WebResponseDetails extends ResourceRequest {
 		/** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line). */
-		statusLine: string;
+        statusLine: string;
 		/**
 		 * Standard HTTP status code returned by the server. 
 		 * @since Chrome 43.
 		 */
 		statusCode: number;
-	}
+    }
 
 	interface WebResponseHeadersDetails extends WebResponseDetails {
 		/** Optional. The HTTP response headers that have been received with this response. */
 		responseHeaders?: HttpHeader[];
-	}
+    }
 
 	interface WebResponseCacheDetails extends WebResponseHeadersDetails {
 		/**
 		 * Optional.
 		 * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address. 
 		 */
-		ip?: string;
+        ip?: string;
 		/** Indicates if this response was fetched from disk cache. */
-		fromCache: boolean;
-	}
+        fromCache: boolean;
+    }
 
 	interface WebRedirectionResponseDetails extends WebResponseCacheDetails {
 		/** The new URL. */
 		redirectUrl: string;
-	}
+    }
 
 	interface WebAuthenticationChallengeDetails extends WebResponseHeadersDetails {
 		/** The authentication scheme, e.g. Basic or Digest. */
@@ -7814,50 +7814,50 @@ declare module chrome.webRequest {
 		challenger: WebAuthChallenger;
 		/** True for Proxy-Authenticate, false for WWW-Authenticate. */
 		isProxy: boolean;
-	}
+    }
 
 	interface WebResponseErrorDetails extends WebResponseCacheDetails {
 		/** The error description. This string is not guaranteed to remain backwards compatible between releases. You must not parse and act based upon its content. */
 		error: string;
-	}
+    }
 
 	interface WebRequestBodyEvent extends chrome.events.Event {
 		addListener(callback: (details: WebRequestBodyDetails) => void): void;
-	}
+    }
 
 	interface WebRequestHeadersEvent extends chrome.events.Event {
 		addListener(callback: (details: WebRequestHeadersDetails) => void): void;
-	}
+    }
 
 	interface WebResponseHeadersEvent extends chrome.events.Event {
 		addListener(callback: (details: WebResponseHeadersDetails) => void): void;
-	}
+    }
 
 	interface WebResponseCacheEvent extends WebResponseHeadersEvent {
 		addListener(callback: (details: WebResponseCacheDetails) => void): void;
-	}
+    }
 
 	interface WebRedirectionResponseEvent extends WebResponseCacheEvent {
 		addListener(callback: (details: WebRedirectionResponseDetails) => void): void;
-	}
+    }
 
 	interface WebAuthenticationChallengeEvent extends WebResponseHeadersEvent {
 		addListener(callback: (details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void): void;
-	}
+    }
 
 	interface WebResponseErrorEvent extends WebResponseCacheEvent {
 		addListener(callback: (details: WebResponseErrorDetails) => void): void;
-	}
-	
+    }
+
 	/**
 	 * The maximum number of times that handlerBehaviorChanged can be called per 10 minute sustained interval. handlerBehaviorChanged is an expensive function call that shouldn't be called often. 
 	 * @since Chrome 23.
 	 */
-	var MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES: number;
+    var MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES: number;
 
 	/** Needs to be called when the behavior of the webRequest handlers has changed to prevent incorrect handling due to caching. This function call is expensive. Don't call it often. */
-	export function handlerBehaviorChanged(callback?: Function): void;
-	
+    export function handlerBehaviorChanged(callback?: Function): void;
+
 	/** Fired when a request is about to occur. */
 	var onBeforeRequest: WebRequestBodyEvent;
 	/** Fired before sending an HTTP request, once the request headers are available. This may occur after a TCP connection is made to the server, but before any HTTP data is sent. */
@@ -8000,9 +8000,9 @@ declare module chrome.webstore {
  * @since Chrome 5.
  */
 declare module chrome.windows {
-	interface Window {
+    interface Window {
 		/** Array of tabs.Tab objects representing the current tabs in the window. */
-		tabs?: chrome.tabs.Tab[];
+        tabs?: chrome.tabs.Tab[];
 		/** Optional. The offset of the window from the top edge of the screen in pixels. Under some circumstances a Window may not be assigned top property, for example when querying closed windows from the sessions API. */
 		top?: number;
 		/** Optional. The height of the window, including the frame, in pixels. Under some circumstances a Window may not be assigned height property, for example when querying closed windows from the sessions API. */
@@ -8014,23 +8014,23 @@ declare module chrome.windows {
 		 * One of: "normal", "minimized", "maximized", "fullscreen", or "docked" 
 		 * @since Chrome 17.
 		 */
-		state: string;
+        state: string;
 		/** Whether the window is currently the focused window. */
-		focused: boolean;
+        focused: boolean;
 		/**
 		 * Whether the window is set to be always on top. 
 		 * @since Chrome 19.
 		 */
-		alwaysOnTop: boolean;
+        alwaysOnTop: boolean;
 		/** Whether the window is incognito. */
-		incognito: boolean;
+        incognito: boolean;
 		/**
 		 * The type of browser window this is. 
 		 * One of: "normal", "popup", "panel", "app", or "devtools" 
 		 */
-		type: string;
+        type: string;
 		/** Optional. The ID of the window. Window IDs are unique within a browser session. Under some circumstances a Window may not be assigned an ID, for example when querying windows using the sessions API, in which case a session ID may be present. */
-		id: number;
+        id: number;
 		/** Optional. The offset of the window from the left edge of the screen in pixels. Under some circumstances a Window may not be assigned left property, for example when querying closed windows from the sessions API. */
 		left?: number;
 		/**
@@ -8038,28 +8038,28 @@ declare module chrome.windows {
 		 * @since Chrome 31.
 		 */
 		sessionId?: string;
-	}
+    }
 
-	interface GetInfo {
+    interface GetInfo {
 		/**
 		 * Optional.
 		 * If true, the windows.Window object will have a tabs property that contains a list of the tabs.Tab objects. The Tab objects only contain the url, title and favIconUrl properties if the extension's manifest file includes the "tabs" permission. 
 		 */
-		populate?: boolean;
+        populate?: boolean;
 		/**
 		 * If set, the windows.Window returned will be filtered based on its type. If unset the default filter is set to ['app', 'normal', 'panel', 'popup'], with 'app' and 'panel' window types limited to the extension's own windows. 
 		 * Each one of: "normal", "popup", "panel", "app", or "devtools" 
 		 * @since Chrome 46. Warning: this is the current Beta channel.
 		 */
 		windowTypes?: string[];
-	}
+    }
 
-	interface CreateData {
+    interface CreateData {
 		/**
 		 * Optional. The id of the tab for which you want to adopt to the new window. 
 		 * @since Chrome 10.
 		 */
-		tabId?: number;
+        tabId?: number;
 		/**
 		 * Optional.
 		 * A URL or array of URLs to open as tabs in the window. Fully-qualified URLs must include a scheme (i.e. 'http://www.google.com', not 'www.google.com'). Relative URLs will be relative to the current page within the extension. Defaults to the New Tab Page. 
@@ -8069,68 +8069,68 @@ declare module chrome.windows {
 		 * Optional.
 		 * The number of pixels to position the new window from the top edge of the screen. If not specified, the new window is offset naturally from the last focused window. This value is ignored for panels. 
 		 */
-		top?: number;
+        top?: number;
 		/**
 		 * Optional.
 		 * The height in pixels of the new window, including the frame. If not specified defaults to a natural height. 
 		 */
-		height?: number;
+        height?: number;
 		/**
 		 * Optional.
 		 * The width in pixels of the new window, including the frame. If not specified defaults to a natural width. 
 		 */
-		width?: number;
+        width?: number;
 		/**
 		 * Optional. If true, opens an active window. If false, opens an inactive window. 
 		 * @since Chrome 12.
 		 */
-		focused?: boolean;
+        focused?: boolean;
 		/** Optional. Whether the new window should be an incognito window. */
-		incognito?: boolean;
+        incognito?: boolean;
 		/**
 		 * Optional. Specifies what type of browser window to create. The 'panel' and 'detached_panel' types create a popup unless the '--enable-panels' flag is set. 
 		 * One of: "normal", "popup", "panel", or "detached_panel" 
 		 */
-		type?: string;
+        type?: string;
 		/**
 		 * Optional.
 		 * The number of pixels to position the new window from the left edge of the screen. If not specified, the new window is offset naturally from the last focused window. This value is ignored for panels. 
 		 */
-		left?: number;
+        left?: number;
 		/**
 		 * Optional. The initial state of the window. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with 'left', 'top', 'width' or 'height'. 
 		 * One of: "normal", "minimized", "maximized", "fullscreen", or "docked" 
 		 * @since Chrome 44.
 		 */
 		state?: string;
-	}
+    }
 
-	interface UpdateInfo {
+    interface UpdateInfo {
 		/** Optional. The offset from the top edge of the screen to move the window to in pixels. This value is ignored for panels. */
-		top?: number;
+        top?: number;
 		/**
 		 * Optional. If true, causes the window to be displayed in a manner that draws the user's attention to the window, without changing the focused window. The effect lasts until the user changes focus to the window. This option has no effect if the window already has focus. Set to false to cancel a previous draw attention request. 
 		 * @since Chrome 14.
 		 */
-		drawAttention?: boolean;
+        drawAttention?: boolean;
 		/** Optional. The height to resize the window to in pixels. This value is ignored for panels. */
-		height?: number;
+        height?: number;
 		/** Optional. The width to resize the window to in pixels. This value is ignored for panels. */
-		width?: number;
+        width?: number;
 		/**
 		 * Optional. The new state of the window. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with 'left', 'top', 'width' or 'height'. 
 		 * One of: "normal", "minimized", "maximized", "fullscreen", or "docked" 
 		 * @since Chrome 17.
 		 */
-		state?: string;
+        state?: string;
 		/**
 		 * Optional. If true, brings the window to the front. If false, brings the next window in the z-order to the front. 
 		 * @since Chrome 8.
 		 */
-		focused?: boolean;
+        focused?: boolean;
 		/** Optional. The offset from the left edge of the screen to move the window to in pixels. This value is ignored for panels. */
-		left?: number;
-	}
+        left?: number;
+    }
 
 	interface WindowEventFilter {
 		/**
@@ -8138,7 +8138,7 @@ declare module chrome.windows {
 		 * Each one of: "normal", "popup", "panel", "app", or "devtools" 
 		 */
 		windowTypes: string[];
-	}
+    }
 
 	interface WindowIdEvent extends chrome.events.Event {
 		/**
@@ -8146,7 +8146,7 @@ declare module chrome.windows {
 		 * Parameter windowId: The id of the window associated with this event.
 		 */
 		addListener(callback: (windowId: number, filters?: WindowEventFilter) => void): void;
-	}
+    }
 
 	interface WindowReferenceEvent extends chrome.events.Event {
 		/**
@@ -8154,35 +8154,35 @@ declare module chrome.windows {
 		 * Parameter window: The window object associated with this event.
 		 */
 		addListener(callback: (window: Window, filters?: WindowEventFilter) => void): void;
-	}	
+    }
 
 	/**
 	 * The windowId value that represents the current window. 
 	 * @since Chrome 18.
 	 */
-	var WINDOW_ID_CURRENT: number;
+    var WINDOW_ID_CURRENT: number;
 	/**
 	 * The windowId value that represents the absence of a chrome browser window. 
 	 * @since Chrome 6.
 	 */
-	var WINDOW_ID_NONE: number;
-	
+    var WINDOW_ID_NONE: number;
+
 	/** Gets details about a window. */
-	export function get(windowId: number, callback: (window: chrome.windows.Window) => void): void;
+    export function get(windowId: number, callback: (window: chrome.windows.Window) => void): void;
 	/** 
 	 * Gets details about a window. 
 	 * @since Chrome 18.
 	 */
-	export function get(windowId: number, getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
+    export function get(windowId: number, getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
 	/**
 	 * Gets the current window. 
 	 */
-	export function getCurrent(callback: (window: chrome.windows.Window) => void): void;
+    export function getCurrent(callback: (window: chrome.windows.Window) => void): void;
 	/**
 	 * Gets the current window. 
 	 * @since Chrome 18.
 	 */
-	export function getCurrent(getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
+    export function getCurrent(getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
 	/**
 	 * Creates (opens) a new browser with any optional sizing, position or default URL provided. 
 	 * @param callback
@@ -8198,25 +8198,25 @@ declare module chrome.windows {
 	/**
 	 * Gets all windows.
 	 */
-	export function getAll(callback: (windows: chrome.windows.Window[]) => void): void;
+    export function getAll(callback: (windows: chrome.windows.Window[]) => void): void;
 	/**
 	 * Gets all windows.
 	 * @since Chrome 18.
 	 */
-	export function getAll(getInfo: GetInfo, callback: (windows: chrome.windows.Window[]) => void): void;
+    export function getAll(getInfo: GetInfo, callback: (windows: chrome.windows.Window[]) => void): void;
 	/** Updates the properties of a window. Specify only the properties that you want to change; unspecified properties will be left unchanged. */
-	export function update(windowId: number, updateInfo: UpdateInfo, callback?: (window: chrome.windows.Window) => void): void;
+    export function update(windowId: number, updateInfo: UpdateInfo, callback?: (window: chrome.windows.Window) => void): void;
 	/** Removes (closes) a window, and all the tabs inside it. */
-	export function remove(windowId: number, callback?: Function): void;
+    export function remove(windowId: number, callback?: Function): void;
 	/**
 	 * Gets the window that was most recently focused — typically the window 'on top'. 
 	 */
-	export function getLastFocused(callback: (window: chrome.windows.Window) => void): void;
+    export function getLastFocused(callback: (window: chrome.windows.Window) => void): void;
 	/**
 	 * Gets the window that was most recently focused — typically the window 'on top'. 
 	 * @since Chrome 18.
 	 */
-	export function getLastFocused(getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
+    export function getLastFocused(getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
 
 	/** Fired when a window is removed (closed). */
 	var onRemoved: WindowIdEvent;

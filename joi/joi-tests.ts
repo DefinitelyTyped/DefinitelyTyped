@@ -107,9 +107,8 @@ whenOpts = {is: schema, otherwise: schema};
 
 var refOpts: Joi.ReferenceOptions = null;
 
-refOpts = {alias: bool};
-refOpts = {multiple: bool};
-refOpts = {override: bool};
+refOpts = {separator: str};
+refOpts = {contextPrefix: str};
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 

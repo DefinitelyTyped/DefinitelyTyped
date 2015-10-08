@@ -1136,6 +1136,13 @@ function test_jQuery_removeData() {
     $("span:eq(3)").text("" + jQuery.data(div, "test2"));
 }
 
+function test_removeDataAll() {
+    var el = $("div");
+    el.data("test1", "VALUE-1");
+    el.data("test2", "VALUE-2");
+    el.removeData();
+}
+
 function test_dblclick() {
     $('#target').dblclick(function () {
         alert('Handler for .dblclick() called.');
@@ -3359,7 +3366,7 @@ function test_promise_then_change_type() {
 		var def = $.Deferred<any>();
 		var promise = def.promise(null);
 
-		def.rejectWith(this, new Error());
+		def.rejectWith(this, [new Error()]);
 
 		return promise;
 	}

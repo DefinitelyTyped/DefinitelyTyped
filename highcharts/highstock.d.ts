@@ -14,7 +14,7 @@ interface HighstockNavigatorOptions {
     baseSeries?: string | number;
     enabled?: boolean;
     handles?: {
-        backgoundColor?: string;
+        backgroundColor?: string;
         borderColor?: string;
     };
     height?: number;
@@ -30,7 +30,7 @@ interface HighstockNavigatorOptions {
 
 interface RangeSelectorButton {
     type: string; //Defines the timespan, can be one of 'millisecond', 'second', 'minute', 'day', 'week', 'month', 'ytd' (year to date), 'year' and 'all'.
-    count: number;
+    count?: number;
     text: string;
     dataGrouping?: any; //not sure how this works
 }

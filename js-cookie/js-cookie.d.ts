@@ -90,3 +90,7 @@ declare module Cookies {
 }
 
 declare var Cookies: Cookies.CookiesStatic;
+
+declare module 'js-cookie' {
+    export = Cookies;
+}

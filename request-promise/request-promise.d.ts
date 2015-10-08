@@ -3,6 +3,8 @@
 // Definitions by: Christopher Glantschnig <https://github.com/cglantschnig/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+// Change [0]: 2015/08/20 - Aya Morisawa <https://github.com/AyaMorisawa>
+
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../form-data/form-data.d.ts" />
 /// <reference path="../request/request.d.ts" />
@@ -22,7 +24,7 @@ declare module 'request-promise' {
     module RequestPromiseAPI {
         export interface Options extends request.Options {
             simple?: boolean;
-            transform?: (body: any, response: http.IncomingMessage) => number;
+            transform?: (body: any, response: http.IncomingMessage) => any;
             resolveWithFullResponse?: boolean;
         }
     }

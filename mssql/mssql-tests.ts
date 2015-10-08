@@ -71,8 +71,74 @@ var connection: sql.Connection = new sql.Connection(config, function (err: any) 
                 console.error('Error happened calling Query: ' + err.name + " " + err.message);
             }
             else {
-                console.info(requestStoredProcedureWithOutput.parameters.output.value);
+                console.info(requestStoredProcedureWithOutput.parameters['output'].value);
             }
         });
     }
 });
+
+function test_table() {
+    var table = new sql.Table('#temp_table');
+
+    table.create = true;
+
+    table.columns.add('name', sql.VarChar(sql.MAX), { nullable: false });
+    table.columns.add('type', sql.Int, { nullable: false });
+    table.columns.add('amount', sql.Decimal(7, 2), { nullable: false });
+
+    table.rows.add('name', 42, 3.50);
+    table.rows.add('name2', 7, 3.14);
+}
+
+
+function test_promise_returns() {
+    // Methods return a promises if the callback is omitted.
+    var connection: sql.Connection = new sql.Connection(config);
+    connection.connect().then(() => { });
+    connection.close().then(() => { });
+
+    var preparedStatment = new sql.PreparedStatement(connection);
+    preparedStatment.prepare("SELECT @myValue").then(() => { });
+    preparedStatment.execute({ myValue: 1 }).then((recordSet) => { });
+    preparedStatment.unprepare().then(() => { });
+
+    var transaction = new sql.Transaction(connection);
+    transaction.begin().then(() => { });
+    transaction.commit().then(() => { });
+    transaction.rollback().then(() => { });
+
+    var request = new sql.Request();
+    request.batch('create procedure #temporary as select * from table').then((recordset) => { });
+    request.bulk(new sql.Table("table_name")).then(() => { });
+    request.query('SELECT 1').then((recordset) => { });
+    request.execute('procedure_name').then((recordset) => { });
+}
+
+
+function test_request_constructor() {
+    // Request can be constructed with a connection, preparedStatment, transaction or no arguments
+    var connection: sql.Connection = new sql.Connection(config);
+    var preparedStatment = new sql.PreparedStatement(connection);
+    var transaction = new sql.Transaction(connection);
+    
+    var request1 = new sql.Request(connection);
+    var request2 = new sql.Request(preparedStatment);
+    var request3 = new sql.Request(transaction);
+    var request4 = new sql.Request();
+}
+
+function test_classes_extend_eventemitter() {
+    var connection: sql.Connection = new sql.Connection(config);
+    var transaction = new sql.Transaction();
+    var request = new sql.Request();
+    var preparedStatment = new sql.PreparedStatement();
+
+    connection.on('connect', () => { });
+    transaction.on('begin', () => { });
+    transaction.on('commit', () => { });
+    transaction.on('rollback', () => { });
+    request.on('done', () => { });
+    request.on('error', () => { });
+
+    preparedStatment.on('error', () => { })
+}

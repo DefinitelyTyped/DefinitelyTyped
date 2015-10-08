@@ -294,4 +294,6 @@ declare module stampit {
     export function convertConstructor(Constructor:any): Stamp;
 }
 
-export = stampit;
+declare module "stampit" {
+    export = stampit;
+}
