@@ -1,4 +1,4 @@
-// Type definitions for pngjs2 1.2.0
+// Type definitions for pngjs2 2.0.0
 // Project: https://www.npmjs.com/package/pngjs2
 // Definitions by: Elisée Maurer <https://sparklinlabs.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -50,12 +50,10 @@ declare module "pngjs2" {
     pipe(destination: fs.WriteStream): PNG;
 
     static bitblt(src: PNG, dst: PNG, srcX: number, srcY: number,
-                           width: number, height: number, deltaX: number, deltaY: number): void;
+                  width: number, height: number, deltaX: number, deltaY: number): void;
 
-    // This method's signature is wrong in 1.2.0, see https://github.com/lukeapage/pngjs2/pull/29
-    // Use the static version in the meantime
-    /*bitblt(dst: PNG, srcX: number, srcY: number,
-             width: number, height: number, deltaX: number, deltaY: number): void;*/
+    bitblt(dst: PNG, srcX: number, srcY: number,
+           width: number, height: number, deltaX: number, deltaY: number): PNG;
   }
   
   export namespace PNG {
