@@ -1,3 +1,5 @@
+/// <reference path="./seedrandom.d.ts" />
+
 import seedrandom = require("seedrandom");
 
 var rng = seedrandom("hello.");

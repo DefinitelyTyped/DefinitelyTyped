@@ -35,8 +35,11 @@ declare module "gulp-concat" {
         contents?: NodeJS.ReadableStream | Buffer;
     }
 
-    function concat(filename: string, options?: IOptions): NodeJS.ReadWriteStream;
-    function concat(options: IVinylOptions): NodeJS.ReadWriteStream;
+    interface IConcat {
+        (filename: string, options?: IOptions): NodeJS.ReadWriteStream;
+        (options: IVinylOptions): NodeJS.ReadWriteStream;
+    }
 
-    export = concat;
+    var _tmp: IConcat;
+    export = _tmp;
 }

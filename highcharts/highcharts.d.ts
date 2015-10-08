@@ -13,6 +13,7 @@ interface HighchartsPosition {
 }
 
 interface HighchartsDateTimeFormats {
+    millisecond?: string; // '%H:%M:%S.%L'
     second?: string; // '%H:%M:%S'
     minute?: string; // '%H:%M'
     hour?: string; // '%H:%M'
@@ -216,8 +217,11 @@ interface HighchartsChartOptions {
     marginLeft?: number;
     marginRight?: number;
     marginTop?: number;
-    plotBackGroundColor?: string | HighchartsGradient;
-    plotBackGroundImage?: string;
+    panKey?: string;
+    panning?: number;
+    pinchType?: string;
+    plotBackgroundColor?: string | HighchartsGradient;
+    plotBackgroundImage?: string;
     plotBorderColor?: string;
     plotBorderWidth?: number;
     plotShadow?: boolean | HighchartsShadow;
@@ -228,6 +232,7 @@ interface HighchartsChartOptions {
     selectionMarkerFill?: string;
     shadow?: boolean | HighchartsShadow;
     showAxes?: boolean;
+    spacing?: number[];
     spacingBottom?: number;
     spacingLeft?: number;
     spacingRight?: number;
@@ -248,7 +253,7 @@ interface HighchartsCSSObject {
     fontWeight?: string;
     left?: string;
     opacity?: number;
-    padding?: string;
+    padding?: string | number;
     position?: string;
     top?: string;
 }
@@ -351,6 +356,11 @@ interface HighchartsLegendNavigationOptions {
     style?: HighchartsCSSObject;
 }
 
+interface HighchartsLegendTitleOptions {
+    style?: HighchartsCSSObject;
+    text?: string;
+}
+
 interface HighchartsLegendOptions {
     align?: string;
     backgroundColor?: string | HighchartsGradient;
@@ -359,6 +369,7 @@ interface HighchartsLegendOptions {
     borderWidth?: number;
     enabled?: boolean;
     floating?: boolean;
+    itemDistance?: number;
     itemHiddenStyle?: HighchartsCSSObject;
     itemHoverStyle?: HighchartsCSSObject;
     itemMarginBottom?: number;
@@ -367,19 +378,21 @@ interface HighchartsLegendOptions {
     itemWidth?: number;
     labelFormatter?: () => string;
     layout?: string;
-    lineHeight?: string;
+    lineHeight?: number;
     margin?: number;
     maxHeight?: number;
     navigation?: HighchartsLegendNavigationOptions;
     padding?: number;
     reversed?: boolean;
     rtl?: boolean;
-    verticalAlign?: string;
     shadow?: boolean | HighchartsShadow;
     style?: HighchartsCSSObject;
+    symbolHeight?: number;
     symbolPadding?: number;
     symbolWidth?: number;
+    title?: HighchartsLegendTitleOptions;
     useHTML?: boolean;
+    verticalAlign?: string;
     width?: number;
     x?: number;
     y?: number;
@@ -658,7 +671,7 @@ interface HighchartsBarChart {
     };
     pointInterval?: number;
     pointPadding?: number;
-    pointPlacement?: string; // null, "on", "between"
+    pointPlacement?: string | number; // null, "on", "between"
     pointRange?: number;
     pointStart?: number;
     pointWidth?: number;
@@ -863,7 +876,7 @@ interface HighchartsLineChart {
         events: HighchartsPointEvents;
     };
     pointInterval?: number;
-    pointPlacement?: string; // null, "on", "between"
+    pointPlacement?: string | number; // null, "on", "between"
     pointStart?: number;
     selected?: boolean;
     shadow?: boolean | HighchartsShadow;
@@ -887,25 +900,29 @@ interface HighchartsPieChart {
     borderColor?: string;
     borderWidth?: number;
     center?: string[];
-    color?: string;
+    colors?: string[];
     cursor?: string;
     dataLabels?: HighchartsDataLabels;
+    depth?: number;
     enableMouseTracking?: boolean;
+    endAngle?: number;
     events?: HighchartsPlotEvents;
+    getExtremesFromAll?: boolean;
     id?: string;
     ignoreHiddenPoint?: boolean;
     innerSize?: number | string;
     lineWidth?: number;
     marker?: HighchartsMarker;
+    minSize?: number;
     point?: {
         events: HighchartsPointEvents;
     };
-    pointPlacement?: string; // null, "on", "between"
     selected?: boolean;
     shadow?: boolean | HighchartsShadow;
     showInLegend?: boolean;
     size?: number | string;
     slicedOffset?: number;
+    startAngle?: number;
     states?: {
         hover: HighchartsAreaStates;
     };
@@ -941,7 +958,7 @@ interface HighchartsScatterChart {
         events: HighchartsPointEvents;
     };
     pointInterval?: number;
-    pointPlacement?: string; // null, "on", "between"
+    pointPlacement?: string | number; // null, "on", "between"
     pointStart?: number;
     selected?: boolean;
     shadow?: boolean | HighchartsShadow;
@@ -992,7 +1009,7 @@ interface HighchartsSeriesChart {
         events: HighchartsPointEvents;
     };
     pointInterval?: number;
-    pointPlacement?: string; // null, "on", "between"
+    pointPlacement?: string | number; // null, "on", "between"
     pointStart?: number;
     selected?: boolean;
     shadow?: boolean | HighchartsShadow;
@@ -1168,7 +1185,7 @@ interface HighchartsOptions {
     title?: HighchartsTitleOptions;
     tooltip?: HighchartsTooltipOptions;
     xAxis?: HighchartsAxisOptions;
-    yAxis?: HighchartsAxisOptions;
+    yAxis?: HighchartsAxisOptions|HighchartsAxisOptions[];
 }
 
 interface HighchartsGlobalOptions extends HighchartsOptions {

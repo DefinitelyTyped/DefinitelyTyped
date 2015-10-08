@@ -1314,6 +1314,7 @@ declare module "hapi" {
 	return reply.continue();
 	});*/
 	export class Response extends Events.EventEmitter {
+		isBoom: boolean;
 		/**  the HTTP response status code. Defaults to 200 (except for errors).*/
 		statusCode: number;
 		/** an object containing the response headers where each key is a header field name. Note that this is an incomplete list of headers to be included with the response. Additional headers will be added once the response is prepare for transmission.*/
