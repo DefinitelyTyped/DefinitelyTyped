@@ -1662,24 +1662,32 @@ declare module _ {
     //_.union
     interface LoDashStatic {
         /**
-        * Creates an array of unique values, in order, of the provided arrays using strict
-        * equality for comparisons, i.e. ===.
-        * @param arrays The arrays to inspect.
-        * @return Returns an array of composite values.
-        **/
-        union<T>(...arrays: Array<T>[]): T[];
-
-        /**
-        * @see _.union
-        **/
+         * Creates an array of unique values, in order, from all of the provided arrays using SameValueZero for
+         * equality comparisons.
+         *
+         * @param arrays The arrays to inspect.
+         * @return Returns the new array of combined values.
+         */
         union<T>(...arrays: List<T>[]): T[];
     }
 
     interface LoDashArrayWrapper<T> {
         /**
-        * @see _.union
-        **/
-        union<T>(...arrays: (Array<T>|List<T>)[]): LoDashArrayWrapper<T>;
+         * @see _.union
+         */
+        union(...arrays: List<T>[]): LoDashArrayWrapper<T>;
+
+        /**
+         * @see _.union
+         */
+        union<T>(...arrays: List<T>[]): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.union
+         */
+        union<T>(...arrays: List<T>[]): LoDashArrayWrapper<T>;
     }
 
     //_.uniq
