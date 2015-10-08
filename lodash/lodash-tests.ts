@@ -710,9 +710,34 @@ module TestTakeWhile {
     result = _(list).takeWhile<{a: number;}, TResult>({a: 42}).value();
 }
 
-result = <number[]>_.union([1, 2, 3], [101, 2, 1, 10], [2, 1]);
+// _.union
+module TestUnion {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let result: TResult[];
 
-result = <number[]>_([1, 2, 3]).union([101, 2, 1, 10], [2, 1]).value();
+    result = _.union<TResult>();
+
+    result = _.union<TResult>(array);
+    result = _.union<TResult>(array, list);
+    result = _.union<TResult>(array, list, array);
+
+    result = _.union<TResult>(list);
+    result = _.union<TResult>(list, array);
+    result = _.union<TResult>(list, array, list);
+
+    result = _(array).union().value();
+    result = _(array).union(list).value();
+    result = _(array).union(list, array).value();
+
+    result = _(array).union<TResult>().value();
+    result = _(array).union<TResult>(list).value();
+    result = _(array).union<TResult>(list, array).value();
+
+    result = _(list).union<TResult>().value();
+    result = _(list).union<TResult>(array).value();
+    result = _(list).union<TResult>(array, list).value();
+}
 
 result = <number[]>_.uniq([1, 2, 1, 3, 1]);
 result = <number[]>_.uniq([1, 1, 2, 2, 3], true);
