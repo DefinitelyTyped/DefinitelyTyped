@@ -1,11 +1,11 @@
 /// <reference path="spin.d.ts" />
 
-var spinner = new Spinner().spin();
+var spinner = new Spin.Spinner().spin();
 target.appendChild(spinner.el);
 
 var target = document.getElementById('foo');
 var opts = { speed: 5, color: '#abcdef' };
-var spinner2 = new Spinner(opts).spin(target);
+var spinner2 = new Spin.Spinner(opts).spin(target);
 
 var opts2 = {
     lines: 10,
@@ -27,4 +27,4 @@ var opts2 = {
 };
 
 var newTarget = document.getElementById('bar');
-var spinner3 = new Spinner(opts2).spin(newTarget);
+var spinner3 = new Spin.Spinner(opts2).spin(newTarget);
