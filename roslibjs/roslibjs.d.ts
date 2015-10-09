@@ -9,8 +9,8 @@ declare module ROSLIB {
 			url: string
 		});
 
-		on(eventName: string, callback: (event: any) => void);
-		connect(url: string);
+		on(eventName: string, callback: (event: any) => void) : void;
+		connect(url: string) : void;
 	}
 
 
