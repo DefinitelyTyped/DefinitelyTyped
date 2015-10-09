@@ -1,9 +1,7 @@
 ///<reference path="easy-table.d.ts" />
 
-//import * as Table from "easy-table";
-//import * as Table from "easy-table";
-
 import Table = require("easy-table");
+
 let data = [
 	{ id: 123123, desc: 'Something awesome', price: 1000.00 },
 	{ id: 245452, desc: 'Very interesting book', price: 11.45 },
