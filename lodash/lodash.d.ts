@@ -766,6 +766,8 @@ declare module _ {
     }
 
     interface MaybeNestedList<T> extends List<T|List<T>> { }
+    interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> { }
+    interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> { }
     interface RecursiveList<T> extends List<T|RecursiveList<T>> { }
 
     //_.flatten
@@ -792,16 +794,6 @@ declare module _ {
          * @return `array` flattened.
          **/
         flatten<T>(array: RecursiveList<T>, isDeep: boolean): List<T> | RecursiveList<T>;
-
-        /**
-         * Recursively flattens a nested array.
-         *
-         * _.flattenDeep(x) is equivalent to _.flatten(x, true);
-         *
-         * @param array The array to flatten
-         * @return `array` recursively flattened
-         */
-        flattenDeep<T>(array: RecursiveList<T>): List<T>
     }
 
     interface LoDashArrayWrapper<T> {
@@ -814,11 +806,41 @@ declare module _ {
          * @see _.flatten
          **/
         flatten<T>(isShallow: boolean): LoDashArrayWrapper<any>;
+    }
+
+    //_.flattenDeep
+    interface LoDashStatic {
+        /**
+         * Recursively flattens a nested array.
+         *
+         * @param array The array to recursively flatten.
+         * @return Returns the new flattened array.
+         */
+        flattenDeep<T>(array: RecursiveArray<T>): T[];
 
         /**
          * @see _.flattenDeep
          */
-        flattenDeep<T>(): LoDashArrayWrapper<any>;
+        flattenDeep<T>(array: ListOfRecursiveArraysOrValues<T>): T[];
+
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDeep<T>(array: RecursiveList<T>): any[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDeep<TResult>(): LoDashArrayWrapper<TResult>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDeep<TResult>(): LoDashArrayWrapper<TResult>;
     }
 
     //_.head
