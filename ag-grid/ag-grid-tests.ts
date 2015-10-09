@@ -95,7 +95,7 @@ function checkColDef(colDef: ag.grid.ColDef): void {
 
     colDef.sort = 'test';
     colDef.sortedAt = 0;
-    colDef.sortingOrder ['asc','desc'];
+    colDef.sortingOrder = ['asc','desc'];
     colDef.headerName = 'test';
     colDef.field = 'test';
     colDef.headerValueGetter = 'test';
@@ -128,7 +128,7 @@ function checkColDef(colDef: ag.grid.ColDef): void {
     colDef.template = 'test';
     colDef.templateUrl = 'test';
     colDef.filter = 'test';
-    colDef.filterParams = {}
+    colDef.filterParams = {};
     colDef.onCellValueChanged = function() {};
     colDef.onCellClicked = function() {};
     colDef.onCellDoubleClicked = function() {};
