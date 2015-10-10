@@ -605,7 +605,7 @@ declare module "sequelize" {
              * @param targets An array of instances or primary key of instances to check.
              * @param options The options to use when checking the associations.
              */
-            (targets?: Array<TInstance | TInstancePrimaryKey>, options?: HasManyHasAssociationsMixinOptions): Promise<boolean>
+            (targets: Array<TInstance | TInstancePrimaryKey>, options?: HasManyHasAssociationsMixinOptions): Promise<boolean>
         }
 
         /**

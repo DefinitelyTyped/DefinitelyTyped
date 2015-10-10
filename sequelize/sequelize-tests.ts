@@ -225,7 +225,43 @@ product.createWarehouse();
 product.createWarehouse({ id: 1, capacity: 10000 });
 product.createWarehouse({ id: 1 }, { save: true, silent: true }).then(() => { });
 
-// TODO: hasMany
+// hasMany
+warehouse.getProducts();
+warehouse.getProducts({where: {}, scope: false});
+warehouse.getProducts({where: {}, scope: false}).then((products) => products[0].id);
+
+warehouse.setProducts();
+warehouse.setProducts([product]);
+warehouse.setProducts([product], { validate: true }).then(() => {});
+
+warehouse.addProducts();
+warehouse.addProducts([product]);
+warehouse.addProducts([product, 2], { validate: false }).then(() => {});
+
+warehouse.addProduct();
+warehouse.addProduct(product);
+warehouse.addProduct(2, { validate: true }).then(() => {});
+
+warehouse.createProduct();
+warehouse.createProduct({ id: 1, name: 'baz' });
+warehouse.createProduct({ id: 1 }, { silent: true }).then(() => { });
+
+warehouse.removeProducts();
+warehouse.removeProducts([product]);
+warehouse.removeProducts([product, 2], { validate: false }).then(() => {});
+
+warehouse.removeProduct();
+warehouse.removeProduct(product);
+warehouse.removeProduct(2, { validate: true }).then(() => {});
+
+warehouse.hasProducts([product]);
+warehouse.hasProducts([product, 2], { scope: 'bar' }).then((result:boolean) => {});
+
+warehouse.hasProduct(product);
+warehouse.hasProduct(2, { scope: 'baz' }).then((result:boolean) => {});
+
+warehouse.countProducts();
+warehouse.countProducts({ scope: 'baz' }).then((result:number) => {});
 
 // TODO: belongsToMany <Model>
 
@@ -271,7 +307,17 @@ interface WarehouseAttributes {
 };
 
 interface WarehouseInstance extends Sequelize.Instance<WarehouseInstance, WarehouseAttributes>, WarehouseAttributes {
-
+    // hasMany association mixins:
+    getProducts: Sequelize.HasManyGetAssociationsMixin<ProductInstance>;
+    setProducts: Sequelize.HasManySetAssociationsMixin<ProductInstance, number>;
+    addProducts: Sequelize.HasManyAddAssociationsMixin<ProductInstance, number>;
+    addProduct: Sequelize.HasManyAddAssociationMixin<ProductInstance, number>;
+    createProduct: Sequelize.HasManyCreateAssociationMixin<ProductAttributes>;
+    removeProduct: Sequelize.HasManyRemoveAssociationMixin<ProductInstance, number>;
+    removeProducts: Sequelize.HasManyRemoveAssociationsMixin<ProductInstance, number>;
+    hasProduct: Sequelize.HasManyHasAssociationMixin<ProductInstance, number>;
+    hasProducts: Sequelize.HasManyHasAssociationsMixin<ProductInstance, number>;
+    countProducts: Sequelize.HasManyCountAssociationsMixin;
 };
 
 interface BranchAttributes {
