@@ -319,7 +319,7 @@ declare namespace __MaterialUI {
             minDate?: Date;
             mode?: string;
             onDismiss?: () => void;
-            
+
             // e is always null
             onChange?: (e: any, d: Date) => void;
 
@@ -672,7 +672,7 @@ declare namespace __MaterialUI {
         labelPosition?: string;
         style?: React.CSSProperties;
         value?: string;
-        
+
         onCheck?: (e: React.FormEvent, selected: string) => void;
     }
     export class RadioButton extends React.Component<RadioButtonProps, {}> {
@@ -1054,7 +1054,7 @@ declare namespace __MaterialUI {
             value?: string;
             selected?: boolean;
             width?: string;
-            
+
             // Called by Tabs component
             onActive?: (tab: Tab) => void;
 
@@ -1079,7 +1079,12 @@ declare namespace __MaterialUI {
     }
 
     namespace Table {
-        interface TableProps extends React.Props<Table> {
+        interface HasStyleAndClassNameProps<T> extends React.Props<T> {
+            style?: React.CSSProperties;
+            className?: string;
+        }
+
+        interface TableProps extends HasStyleAndClassNameProps<Table> {
             allRowsSelected?: boolean;
             fixedFooter?: boolean;
             fixedHeader?: boolean;
@@ -1096,7 +1101,7 @@ declare namespace __MaterialUI {
         export class Table extends React.Component<TableProps, {}> {
         }
 
-        interface TableBodyProps extends React.Props<TableBody> {
+        interface TableBodyProps extends HasStyleAndClassNameProps<TableBody> {
             allRowsSelected?: boolean;
             deselectOnClickaway?: boolean;
             displayRowCheckbox?: boolean;
@@ -1115,13 +1120,13 @@ declare namespace __MaterialUI {
         export class TableBody extends React.Component<TableBodyProps, {}> {
         }
 
-        interface TableFooterProps extends React.Props<TableFooter> {
+        interface TableFooterProps extends HasStyleAndClassNameProps<TableFooter> {
             adjustForCheckbox?: boolean;
         }
         export class TableFooter extends React.Component<TableFooterProps, {}> {
         }
 
-        interface TableHeaderProps extends React.Props<TableHeader> {
+        interface TableHeaderProps extends HasStyleAndClassNameProps<TableHeader> {
             adjustForCheckbox?: boolean;
             displaySelectAll?: boolean;
             enableSelectAll?: boolean;
@@ -1131,7 +1136,8 @@ declare namespace __MaterialUI {
         export class TableHeader extends React.Component<TableHeaderProps, {}> {
         }
 
-        interface TableHeaderColumnProps extends React.Props<TableHeaderColumn> {
+        interface TableHeaderColumnProps extends HasStyleAndClassNameProps<TableHeaderColumn> {
+            colSpan?: number;
             columnNumber?: number;
             onClick?:  (e: React.MouseEvent, column: number) => void;
             tooltip?: string;
@@ -1140,7 +1146,7 @@ declare namespace __MaterialUI {
         export class TableHeaderColumn extends React.Component<TableHeaderColumnProps, {}> {
         }
 
-        interface TableRowProps extends React.Props<TableRow> {
+        interface TableRowProps extends HasStyleAndClassNameProps<TableRow> {
             displayBorder?: boolean;
             hoverable?: boolean;
             onCellClick?: (e: React.MouseEvent, row: number, column: number) => void;
@@ -1157,7 +1163,8 @@ declare namespace __MaterialUI {
         export class TableRow extends React.Component<TableRowProps, {}> {
         }
 
-        interface TableRowColumnProps extends React.Props<TableRowColumn> {
+        interface TableRowColumnProps extends HasStyleAndClassNameProps<TableRowColumn> {
+            colSpan?: number;
             columnNumber?: number;
             hoverable?: boolean;
             onHover?: (e: React.MouseEvent, column: number) => void;
