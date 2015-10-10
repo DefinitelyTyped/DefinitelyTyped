@@ -19,6 +19,13 @@ declare module moment {
         month?: number;
         /** Month */
         M?: number;
+        
+        /** Week */
+        weeks?: number;
+        /** Week */
+        week?: number;
+        /** Week */
+        w?: number;
 
         /** Day/Date */
         days?: number;
@@ -242,6 +249,7 @@ declare module moment {
 
         from(f: Moment|string|number|Date|number[], suffix?: boolean): string;
         to(f: Moment|string|number|Date|number[], suffix?: boolean): string;
+        toNow(withoutPrefix?: boolean): string;
 
         diff(b: Moment): number;
         diff(b: Moment, unitOfTime: string): number;

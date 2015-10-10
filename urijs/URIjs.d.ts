@@ -27,6 +27,8 @@ declare module uri {
         domain(): string;
         domain(domain: boolean): string;
         domain(domain: string): URI;
+        
+        duplicateQueryParameters(val: boolean): URI;
 
         equals(): boolean;
         equals(url: string): boolean;
