@@ -2419,6 +2419,94 @@ declare module _ {
         ): boolean;
     }
 
+    //_.any
+    interface LoDashStatic {
+        /**
+         * @see _.some
+         */
+        any<T>(
+            collection: List<T>,
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): boolean;
+
+        /**
+         * @see _.some
+         */
+        any<T>(
+            collection: Dictionary<T>,
+            predicate?: DictionaryIterator<T, boolean>,
+            thisArg?: any
+        ): boolean;
+
+        /**
+         * @see _.some
+         */
+        any<T>(
+            collection: List<T>|Dictionary<T>,
+            predicate?: string,
+            thisArg?: any
+        ): boolean;
+
+        /**
+         * @see _.some
+         */
+        any<TObject extends {}, T>(
+            collection: List<T>|Dictionary<T>,
+            predicate?: TObject
+        ): boolean;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.some
+         */
+        any(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): boolean;
+
+        /**
+         * @see _.some
+         */
+        any(
+            predicate?: string,
+            thisArg?: any
+        ): boolean;
+
+        /**
+         * @see _.some
+         */
+        any<TObject extends {}>(
+            predicate?: TObject
+        ): boolean;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.some
+         */
+        any<TResult>(
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
+            thisArg?: any
+        ): boolean;
+
+        /**
+         * @see _.some
+         */
+        any(
+            predicate?: string,
+            thisArg?: any
+        ): boolean;
+
+        /**
+         * @see _.some
+         */
+        any<TObject extends {}>(
+            predicate?: TObject
+        ): boolean;
+    }
+
     //_.at
     interface LoDashStatic {
         /**
@@ -5283,176 +5371,107 @@ declare module _ {
     //_.some
     interface LoDashStatic {
         /**
-        * Checks if the callback returns a truey value for any element of a collection. The function
-        * returns as soon as it finds a passing value and does not iterate over the entire collection.
-        * The callback is bound to thisArg and invoked with three arguments; (value, index|key, collection).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will return
-        * the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return true for
-        * elements that have the properties of the given object, else false.
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return True if any element passed the callback check, else false.
-        **/
-        some<T>(
-            collection: Array<T>,
-            callback?: ListIterator<T, boolean>,
-            thisArg?: any): boolean;
-
-        /**
-        * @see _.some
-        **/
+         * Checks if predicate returns truthy for any element of collection. The function returns as soon as it finds
+         * a passing value and does not iterate over the entire collection. The predicate is bound to thisArg and
+         * invoked with three arguments: (value, index|key, collection).
+         *
+         * If a property name is provided for predicate the created _.property style callback returns the property
+         * value of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for predicate the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * @alias _.any
+         *
+         * @param collection The collection to iterate over.
+         * @param predicate The function invoked per iteration.
+         * @param thisArg The this binding of predicate.
+         * @return Returns true if any element passes the predicate check, else false.
+         */
         some<T>(
             collection: List<T>,
-            callback?: ListIterator<T, boolean>,
-            thisArg?: any): boolean;
-
-        /**
-        * @see _.some
-        **/
-        some<T>(
-            collection: Dictionary<T>,
-            callback?: DictionaryIterator<T, boolean>,
-            thisArg?: any): boolean;
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): boolean;
 
         /**
          * @see _.some
-         **/
+         */
+        some<T>(
+            collection: Dictionary<T>,
+            predicate?: DictionaryIterator<T, boolean>,
+            thisArg?: any
+        ): boolean;
+
+        /**
+         * @see _.some
+         */
+        some<T>(
+            collection: List<T>|Dictionary<T>,
+            predicate?: string,
+            thisArg?: any
+        ): boolean;
+
+        /**
+         * @see _.some
+         */
+        some<TObject extends {}, T>(
+            collection: List<T>|Dictionary<T>,
+            predicate?: TObject
+        ): boolean;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.some
+         */
         some(
-            collection: {},
-            callback?: ListIterator<{}, boolean>,
-            thisArg?: any): boolean;
-
-        /**
-        * @see _.some
-        * @param pluckValue _.pluck style callback
-        **/
-        some<T>(
-            collection: Array<T>,
-            pluckValue: string): boolean;
-
-        /**
-        * @see _.some
-        * @param pluckValue _.pluck style callback
-        **/
-        some<T>(
-            collection: List<T>,
-            pluckValue: string): boolean;
-
-        /**
-        * @see _.some
-        * @param pluckValue _.pluck style callback
-        **/
-        some<T>(
-            collection: Dictionary<T>,
-            pluckValue: string): boolean;
-
-        /**
-        * @see _.some
-        * @param whereValue _.where style callback
-        **/
-        some<W, T>(
-            collection: Array<T>,
-            whereValue: W): boolean;
-
-        /**
-        * @see _.some
-        * @param whereValue _.where style callback
-        **/
-        some<W, T>(
-            collection: List<T>,
-            whereValue: W): boolean;
-
-        /**
-        * @see _.some
-        * @param whereValue _.where style callback
-        **/
-        some<W, T>(
-            collection: Dictionary<T>,
-            whereValue: W): boolean;
-
-        /**
-        * @see _.some
-        **/
-        any<T>(
-            collection: Array<T>,
-            callback?: ListIterator<T, boolean>,
-            thisArg?: any): boolean;
-
-        /**
-        * @see _.some
-        **/
-        any<T>(
-            collection: List<T>,
-            callback?: ListIterator<T, boolean>,
-            thisArg?: any): boolean;
-
-        /**
-        * @see _.some
-        **/
-        any<T>(
-            collection: Dictionary<T>,
-            callback?: DictionaryIterator<T, boolean>,
-            thisArg?: any): boolean;
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): boolean;
 
         /**
          * @see _.some
-         **/
-        any(
-            collection: {},
-            callback?: ListIterator<{}, boolean>,
-            thisArg?: any): boolean;
+         */
+        some(
+            predicate?: string,
+            thisArg?: any
+        ): boolean;
 
         /**
-        * @see _.some
-        * @param pluckValue _.pluck style callback
-        **/
-        any<T>(
-            collection: Array<T>,
-            pluckValue: string): boolean;
+         * @see _.some
+         */
+        some<TObject extends {}>(
+            predicate?: TObject
+        ): boolean;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.some
+         */
+        some<TResult>(
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
+            thisArg?: any
+        ): boolean;
 
         /**
-        * @see _.some
-        * @param pluckValue _.pluck style callback
-        **/
-        any<T>(
-            collection: List<T>,
-            pluckValue: string): boolean;
+         * @see _.some
+         */
+        some(
+            predicate?: string,
+            thisArg?: any
+        ): boolean;
 
         /**
-        * @see _.some
-        * @param pluckValue _.pluck style callback
-        **/
-        any<T>(
-            collection: Dictionary<T>,
-            pluckValue: string): boolean;
-
-        /**
-        * @see _.some
-        * @param whereValue _.where style callback
-        **/
-        any<W, T>(
-            collection: Array<T>,
-            whereValue: W): boolean;
-
-        /**
-        * @see _.some
-        * @param whereValue _.where style callback
-        **/
-        any<W, T>(
-            collection: List<T>,
-            whereValue: W): boolean;
-
-        /**
-        * @see _.some
-        * @param whereValue _.where style callback
-        **/
-        any<W, T>(
-            collection: Dictionary<T>,
-            whereValue: W): boolean;
+         * @see _.some
+         */
+        some<TObject extends {}>(
+            predicate?: TObject
+        ): boolean;
     }
 
     //_.sortBy
