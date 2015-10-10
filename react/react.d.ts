@@ -354,7 +354,7 @@ declare namespace __React {
         onInput?: FormEventHandler;
         onSubmit?: FormEventHandler;
         onClick?: MouseEventHandler;
-        onContextMenu? MouseEventHandler;
+        onContextMenu?: MouseEventHandler;
         onDoubleClick?: MouseEventHandler;
         onDrag?: DragEventHandler;
         onDragEnd?: DragEventHandler;
