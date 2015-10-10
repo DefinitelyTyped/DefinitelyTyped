@@ -5,7 +5,7 @@
 
 /// <reference path="../es6-promise/es6-promise.d.ts" />
 
-declare class Request {
+declare class Request extends Body {
 	constructor(input: string|Request, init?:RequestInit);
 	method: string;
 	url: string;
@@ -52,6 +52,7 @@ declare class Body {
 	blob(): Promise<Blob>;
 	formData(): Promise<FormData>;
 	json(): Promise<any>;
+	json<T>(): Promise<T>;
 	text(): Promise<string>;
 }
 declare class Response extends Body {
@@ -69,10 +70,10 @@ declare class Response extends Body {
 
 declare enum ResponseType { "basic", "cors", "default", "error", "opaque" }
 
-declare class ResponseInit {
+interface ResponseInit {
 	status: number;
-	statusText: string;
-	headers: HeaderInit;
+	statusText?: string;
+	headers?: HeaderInit;
 }
 
 declare type HeaderInit = Headers|Array<string>;

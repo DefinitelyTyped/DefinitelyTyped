@@ -457,6 +457,100 @@ declare module _ {
         dropRight<TResult>(n?: number): LoDashArrayWrapper<TResult>;
     }
 
+    //_.dropWhile
+    interface LoDashStatic {
+        /**
+         * Creates a slice of array excluding elements dropped from the beginning. Elements are dropped until predicate
+         * returns falsey. The predicate is bound to thisArg and invoked with three arguments: (value, index, array).
+         *
+         * If a property name is provided for predicate the created _.property style callback returns the property
+         * value of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for predicate the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * @param array The array to query.
+         * @param predicate The function invoked per iteration.
+         * @param thisArg The this binding of predicate.
+         * @return Returns the slice of array.
+         */
+        dropWhile<TValue>(
+            array: List<TValue>,
+            predicate?: ListIterator<TValue, boolean>,
+            thisArg?: any
+        ): TValue[];
+
+        /**
+         * @see _.dropWhile
+         */
+        dropWhile<TValue>(
+            array: List<TValue>,
+            predicate?: string,
+            thisArg?: any
+        ): TValue[];
+
+        /**
+         * @see _.dropWhile
+         */
+        dropWhile<TWhere, TValue>(
+            array: List<TValue>,
+            predicate?: TWhere
+        ): TValue[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.dropWhile
+         */
+        dropWhile(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashArrayWrapper<T>;
+
+        /**
+         * @see _.dropWhile
+         */
+        dropWhile(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashArrayWrapper<T>;
+
+        /**
+         * @see _.dropWhile
+         */
+        dropWhile<TWhere>(
+            predicate?: TWhere
+        ): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.dropWhile
+         */
+        dropWhile<TValue>(
+            predicate?: ListIterator<TValue, boolean>,
+            thisArg?: any
+        ): LoDashArrayWrapper<TValue>;
+
+        /**
+         * @see _.dropWhile
+         */
+        dropWhile<TValue>(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashArrayWrapper<TValue>;
+
+        /**
+         * @see _.dropWhile
+         */
+        dropWhile<TWhere, TValue>(
+            predicate?: TWhere
+        ): LoDashArrayWrapper<TValue>;
+    }
+
     //_.findIndex
     interface LoDashStatic {
         /**
@@ -669,66 +763,6 @@ declare module _ {
          * @see _.first
          */
         first<TResult>(): TResult;
-    }
-
-    interface LoDashStatic {
-        /**
-         * Takes the first items from an array or list based on a predicate
-         * @param array The array or list of items on which the result set will be based
-         * @param predicate A predicate function to determine whether a value will be taken. Optional; defaults to identity.
-         * @param [thisArg] The this binding of predicate.
-         */
-        takeWhile<T>(
-            array: (Array<T>|List<T>),
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
-        ): T[];
-
-        /**
-         * Takes the first items from an array or list based on a predicate
-         * @param array The array or list of items on which the result set will be based
-         * @param pluckValue Uses a _.property style callback to return the property value of the given element
-         */
-        takeWhile<T>(
-            array: (Array<T>|List<T>),
-            pluckValue: string
-        ): any[];
-
-        /**
-         * Takes the first items from an array or list based on a predicate
-         * @param array The array or list of items on which the result set will be based
-         * @param whereValue Uses a _.matches style callback to return the first elements that match the given value
-         */
-        takeWhile<W, T>(
-            array: (Array<T>|List<T>),
-            whereValue: W
-        ): T[];
-    }
-
-    interface LoDashArrayWrapper<T> {
-        /**
-        * Takes the first items based on a predicate
-        * @param predicate The function called per element.
-        * @param [thisArg] The this binding of callback.
-        **/
-        takeWhile(
-            predicate: ListIterator<T, boolean>,
-            thisArg?: any): LoDashArrayWrapper<T>;
-
-        /**
-        * Takes the first items based on a predicate
-        * @param pluckValue Uses a _.property style callback to return the property value of the given element
-        **/
-        takeWhile<T>(
-            pluckValue: string): LoDashArrayWrapper<any>;
-
-        /**
-        * Takes the first items based on a predicate
-        * @param whereValue Uses a _.matches style callback to return the first elements that match the given value
-        **/
-        takeWhile<W, T>(
-            whereValue: W): LoDashArrayWrapper<T>;
-
     }
 
     interface MaybeNestedList<T> extends List<T|List<T>> { }
@@ -1437,6 +1471,194 @@ declare module _ {
         takeRight<TResult>(n?: number): LoDashArrayWrapper<TResult>;
     }
 
+    //_.takeRightWhile
+    interface LoDashStatic {
+        /**
+         * Creates a slice of array with elements taken from the end. Elements are taken until predicate returns
+         * falsey. The predicate is bound to thisArg and invoked with three arguments: (value, index, array).
+         *
+         * If a property name is provided for predicate the created _.property style callback returns the property
+         * value of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for predicate the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * @param array The array to query.
+         * @param predicate The function invoked per iteration.
+         * @param thisArg The this binding of predicate.
+         * @return Returns the slice of array.
+         */
+        takeRightWhile<TValue>(
+            array: List<TValue>,
+            predicate?: ListIterator<TValue, boolean>,
+            thisArg?: any
+        ): TValue[];
+
+        /**
+         * @see _.takeRightWhile
+         */
+        takeRightWhile<TValue>(
+            array: List<TValue>,
+            predicate?: string,
+            thisArg?: any
+        ): TValue[];
+
+        /**
+         * @see _.takeRightWhile
+         */
+        takeRightWhile<TWhere, TValue>(
+            array: List<TValue>,
+            predicate?: TWhere
+        ): TValue[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.takeRightWhile
+         */
+        takeRightWhile(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashArrayWrapper<T>;
+
+        /**
+         * @see _.takeRightWhile
+         */
+        takeRightWhile(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashArrayWrapper<T>;
+
+        /**
+         * @see _.takeRightWhile
+         */
+        takeRightWhile<TWhere>(
+            predicate?: TWhere
+        ): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.takeRightWhile
+         */
+        takeRightWhile<TValue>(
+            predicate?: ListIterator<TValue, boolean>,
+            thisArg?: any
+        ): LoDashArrayWrapper<TValue>;
+
+        /**
+         * @see _.takeRightWhile
+         */
+        takeRightWhile<TValue>(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashArrayWrapper<TValue>;
+
+        /**
+         * @see _.takeRightWhile
+         */
+        takeRightWhile<TWhere, TValue>(
+            predicate?: TWhere
+        ): LoDashArrayWrapper<TValue>;
+    }
+
+    //_.takeWhile
+    interface LoDashStatic {
+        /**
+         * Creates a slice of array with elements taken from the beginning. Elements are taken until predicate returns
+         * falsey. The predicate is bound to thisArg and invoked with three arguments: (value, index, array).
+         *
+         * If a property name is provided for predicate the created _.property style callback returns the property
+         * value of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for predicate the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * @param array The array to query.
+         * @param predicate The function invoked per iteration.
+         * @param thisArg The this binding of predicate.
+         * @return Returns the slice of array.
+         */
+        takeWhile<TValue>(
+            array: List<TValue>,
+            predicate?: ListIterator<TValue, boolean>,
+            thisArg?: any
+        ): TValue[];
+
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile<TValue>(
+            array: List<TValue>,
+            predicate?: string,
+            thisArg?: any
+        ): TValue[];
+
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile<TWhere, TValue>(
+            array: List<TValue>,
+            predicate?: TWhere
+        ): TValue[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashArrayWrapper<T>;
+
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashArrayWrapper<T>;
+
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile<TWhere>(
+            predicate?: TWhere
+        ): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile<TValue>(
+            predicate?: ListIterator<TValue, boolean>,
+            thisArg?: any
+        ): LoDashArrayWrapper<TValue>;
+
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile<TValue>(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashArrayWrapper<TValue>;
+
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile<TWhere, TValue>(
+            predicate?: TWhere
+        ): LoDashArrayWrapper<TValue>;
+    }
+
     //_.union
     interface LoDashStatic {
         /**
@@ -1874,6 +2096,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Creates an array of unique values that is the symmetric difference of the provided arrays.
+         *
          * @param arrays The arrays to inspect.
          * @return Returns the new array of values.
          */
@@ -1884,14 +2107,14 @@ declare module _ {
         /**
          * @see _.xor
          */
-        xor(...arrays: T[][]): LoDashArrayWrapper<T>;
+        xor(...arrays: List<T>[]): LoDashArrayWrapper<T>;
     }
 
     interface LoDashObjectWrapper<T> {
         /**
          * @see _.xor
          */
-        xor(...arrays: T[]): LoDashObjectWrapper<T>;
+        xor<TValue>(...arrays: List<TValue>[]): LoDashArrayWrapper<TValue>;
     }
 
     //_.zip
@@ -7104,6 +7327,15 @@ declare module _ {
          * @param thisArg The this binding of predicate.
          * @return Returns the key of the matched element, else undefined.
          */
+        findKey<TValues, TObject>(
+            object: TObject,
+            predicate?: DictionaryIterator<TValues, boolean>,
+            thisArg?: any
+        ): string;
+
+        /**
+         * @see _.findKey
+         */
         findKey<TObject>(
             object: TObject,
             predicate?: ObjectIterator<any, boolean>,
@@ -7129,6 +7361,14 @@ declare module _ {
     }
 
     interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.findKey
+         */
+        findKey<TValues>(
+            predicate?: DictionaryIterator<TValues, boolean>,
+            thisArg?: any
+        ): string;
+
         /**
          * @see _.findKey
          */
@@ -8654,6 +8894,48 @@ declare module _ {
         matches<V>(): LoDashObjectWrapper<(value: V) => boolean>;
     }
 
+    //_.matchesProperty
+    interface LoDashStatic {
+        /**
+         * Creates a function that compares the property value of path on a given object to value.
+         *
+         * Note: This method supports comparing arrays, booleans, Date objects, numbers, Object objects, regexes, and
+         * strings. Objects are compared by their own, not inherited, enumerable properties.
+         *
+         * @param path The path of the property to get.
+         * @param srcValue The value to match.
+         * @return Returns the new function.
+         */
+        matchesProperty<T>(
+            path: StringRepresentable|StringRepresentable[],
+            srcValue: T
+        ): (value: any) => boolean;
+
+        /**
+         * @see _.matchesProperty
+         */
+        matchesProperty<T, V>(
+            path: StringRepresentable|StringRepresentable[],
+            srcValue: T
+        ): (value: V) => boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.matchesProperty
+         */
+        matchesProperty<SrcValue>(
+            srcValue: SrcValue
+        ): LoDashObjectWrapper<(value: any) => boolean>;
+
+        /**
+         * @see _.matchesProperty
+         */
+        matchesProperty<SrcValue, Value>(
+            srcValue: SrcValue
+        ): LoDashObjectWrapper<(value: Value) => boolean>;
+    }
+
     //_.method
     interface LoDashStatic {
         /**
@@ -8988,7 +9270,7 @@ declare module _ {
     }
 
     interface DictionaryIterator<T, TResult> {
-        (value: T, key: string, collection: Dictionary<T>): TResult;
+        (value: T, key?: string, collection?: Dictionary<T>): TResult;
     }
 
     interface ObjectIterator<T, TResult> {
