@@ -285,8 +285,6 @@ interface ProductInstance extends Sequelize.Instance<ProductInstance, ProductAtt
     createWarehouse: Sequelize.BelongsToCreateAssociationMixin<WarehouseAttributes>;
 };
 
-
-
 interface BarcodeAttributes {
     id?: number;
     code?: string;
@@ -341,8 +339,6 @@ interface CustomerAttributes {
 interface CustomerInstance extends Sequelize.Instance<CustomerInstance, CustomerAttributes>, CustomerAttributes {
 
 };
-
-
 
 //
 //  DataTypes

@@ -29,7 +29,7 @@ declare module "sequelize" {
             /**
              * Apply a scope on the related model, or remove its default scope by passing false.
              */
-            scope: string | boolean;
+            scope?: string | boolean;
         }
 
         /**
@@ -66,7 +66,7 @@ declare module "sequelize" {
             /**
              * Skip saving this after setting the foreign key if false.
              */
-            save: boolean;
+            save?: boolean;
         }
 
         /**
@@ -91,16 +91,19 @@ declare module "sequelize" {
             /**
              * Set the associated instance.
              * @param newAssociation An instance or the primary key of an instance to associate with this. Pass null or undefined to remove the association.
-             * @param options The options to use when setting the association.
+             * @param options the options passed to `this.save`.
              */
-            (newAssociation?: TInstance | TInstancePrimaryKey, options?: BelongsToSetAssociationMixinOptions): Promise<void>
+            (
+                newAssociation?: TInstance | TInstancePrimaryKey,
+                options?: BelongsToSetAssociationMixinOptions | InstanceSaveOptions
+            ): Promise<void>
         }
 
         /**
          * The options for the createAssociation mixin of the belongsTo association.
          * @see BelongsToCreateAssociationMixin
          */
-        interface BelongsToCreateAssociationMixinOptions extends CreateOptions, BelongsToSetAssociationMixinOptions { }
+        interface BelongsToCreateAssociationMixinOptions { }
 
         /**
          * The createAssociation mixin applied to models with belongsTo.
@@ -126,7 +129,10 @@ declare module "sequelize" {
              * @param values The values used to create the association.
              * @param options The options passed to `target.create` and `setAssociation`.
              */
-            (values?: TAttributes, options?: BelongsToCreateAssociationMixinOptions): Promise<void>
+            (
+                values?: TAttributes,
+                options?: BelongsToCreateAssociationMixinOptions | CreateOptions | BelongsToSetAssociationMixinOptions
+            ): Promise<void>
         }
 
         /**
@@ -137,7 +143,7 @@ declare module "sequelize" {
             /**
              * Apply a scope on the related model, or remove its default scope by passing false.
              */
-            scope: string | boolean;
+            scope?: string | boolean;
         }
 
         /**
@@ -174,7 +180,7 @@ declare module "sequelize" {
             /**
              * Skip saving this after setting the foreign key if false.
              */
-            save: boolean;
+            save?: boolean;
         }
 
         /**
@@ -199,16 +205,19 @@ declare module "sequelize" {
             /**
              * Set the associated instance.
              * @param newAssociation An instance or the primary key of an instance to associate with this. Pass null or undefined to remove the association.
-             * @param options The options to use when setting the association.
+             * @param options The options passed to `getAssocation` and `target.save`.
              */
-            (newAssociation?: TInstance | TInstancePrimaryKey, options?: HasOneSetAssociationMixinOptions): Promise<void>
+            (
+                newAssociation?: TInstance | TInstancePrimaryKey,
+                options?: HasOneSetAssociationMixinOptions | HasOneGetAssociationMixinOptions | InstanceSaveOptions
+            ): Promise<void>
         }
 
         /**
          * The options for the createAssociation mixin of the hasOne association.
          * @see HasOneCreateAssociationMixin
          */
-        interface HasOneCreateAssociationMixinOptions extends CreateOptions, HasOneSetAssociationMixinOptions { }
+        interface HasOneCreateAssociationMixinOptions { }
 
         /**
          * The createAssociation mixin applied to models with hasOne.
@@ -234,7 +243,10 @@ declare module "sequelize" {
              * @param values The values used to create the association.
              * @param options The options passed to `target.create` and `setAssociation`.
              */
-            (values?: TAttributes, options?: HasOneCreateAssociationMixinOptions): Promise<void>
+            (
+                values?: TAttributes,
+                options?: HasOneCreateAssociationMixinOptions | HasOneSetAssociationMixinOptions | CreateOptions
+            ): Promise<void>
         }
 
         /**
@@ -291,7 +303,13 @@ declare module "sequelize" {
          * The options for the setAssociations mixin of the hasMany association.
          * @see HasManySetAssociationsMixin
          */
-        interface HasManySetAssociationsMixinOptions extends FindOptions, InstanceUpdateOptions { }
+        interface HasManySetAssociationsMixinOptions {
+
+            /**
+             * Run validation for the join model.
+             */
+            validate?: boolean;
+        }
 
         /**
          * The setAssociations mixin applied to models with hasMany.
@@ -323,16 +341,25 @@ declare module "sequelize" {
              * Set the associated models by passing an array of instances or their primary keys.
              * Everything that it not in the passed array will be un-associated.
              * @param newAssociations An array of instances or primary key of instances to associate with this. Pass null or undefined to remove all associations.
-             * @param options The options to use when setting the associations.
+             * @param Options passed to `target.findAll` and `update`.
              */
-            (newAssociations?: Array<TInstance | TInstancePrimaryKey>, options?: HasManySetAssociationsMixinOptions): Promise<void>
+            (
+                newAssociations?: Array<TInstance | TInstancePrimaryKey>,
+                options?: HasManySetAssociationsMixinOptions | FindOptions | InstanceUpdateOptions
+            ): Promise<void>
         }
 
         /**
          * The options for the addAssociations mixin of the hasMany association.
          * @see HasManyAddAssociationsMixin
          */
-        interface HasManyAddAssociationsMixinOptions extends InstanceUpdateOptions { }
+        interface HasManyAddAssociationsMixinOptions {
+
+            /**
+             * Run validation for the join model.
+             */
+            validate?: boolean;
+        }
 
         /**
          * The addAssociations mixin applied to models with hasMany.
@@ -363,16 +390,25 @@ declare module "sequelize" {
             /**
              * Associate several instances with this.
              * @param newAssociations An array of instances or primary key of instances to associate with this.
-             * @param options The options to use when adding the associations.
+             * @param options The pptions passed to `target.update`.
              */
-            (newAssociations?: Array<TInstance | TInstancePrimaryKey>, options?: HasManyAddAssociationsMixinOptions): Promise<void>
+            (
+                newAssociations?: Array<TInstance | TInstancePrimaryKey>,
+                options?: HasManyAddAssociationsMixinOptions | InstanceUpdateOptions
+            ): Promise<void>
         }
 
         /**
          * The options for the addAssociation mixin of the hasMany association.
          * @see HasManyAddAssociationMixin
          */
-        interface HasManyAddAssociationMixinOptions extends InstanceUpdateOptions { }
+        interface HasManyAddAssociationMixinOptions {
+
+            /**
+             * Run validation for the join model.
+             */
+            validate?: boolean;
+        }
 
         /**
          * The addAssociation mixin applied to models with hasMany.
@@ -403,16 +439,19 @@ declare module "sequelize" {
             /**
              * Associate an instance with this.
              * @param newAssociation An instance or the primary key of an instance to associate with this.
-             * @param options The options to use when adding the association.
+             * @param Options passed to `target.update`.
              */
-            (newAssociation?: TInstance | TInstancePrimaryKey, options?: HasManyAddAssociationMixinOptions): Promise<void>
+            (
+                newAssociation?: TInstance | TInstancePrimaryKey,
+                options?: HasManyAddAssociationMixinOptions | InstanceUpdateOptions
+            ): Promise<void>
         }
 
         /**
          * The options for the createAssociation mixin of the hasMany association.
          * @see HasManyCreateAssociationMixin
          */
-        interface HasManyCreateAssociationMixinOptions extends CreateOptions { }
+        interface HasManyCreateAssociationMixinOptions { }
 
         /**
          * The createAssociation mixin applied to models with hasMany.
@@ -443,16 +482,19 @@ declare module "sequelize" {
             /**
              * Create a new instance of the associated model and associate it with this.
              * @param values The values used to create the association.
-             * @param options The options to use when adding the association.
+             * @param options The options to use when creating the association.
              */
-            (values?: TAttributes, options?: HasManyCreateAssociationMixinOptions): Promise<void>
+            (
+                values?: TAttributes,
+                options?: HasManyCreateAssociationMixinOptions | CreateOptions
+            ): Promise<void>
         }
 
         /**
          * The options for the removeAssociation mixin of the hasMany association.
          * @see HasManyRemoveAssociationMixin
          */
-        interface HasManyRemoveAssociationMixinOptions extends InstanceUpdateOptions { }
+        interface HasManyRemoveAssociationMixinOptions { }
 
         /**
          * The removeAssociation mixin applied to models with hasMany.
@@ -483,16 +525,19 @@ declare module "sequelize" {
             /**
              * Un-associate the instance.
              * @param oldAssociated The instance or the primary key of the instance to un-associate.
-             * @param options The options to use when removing the association.
+             * @param options The options passed to `target.update`.
              */
-            (oldAssociated?: TInstance | TInstancePrimaryKey, options?: HasManyRemoveAssociationMixinOptions): Promise<void>
+            (
+                oldAssociated?: TInstance | TInstancePrimaryKey,
+                options?: HasManyRemoveAssociationMixinOptions | InstanceUpdateOptions
+            ): Promise<void>
         }
 
         /**
          * The options for the removeAssociations mixin of the hasMany association.
          * @see HasManyRemoveAssociationsMixin
          */
-        interface HasManyRemoveAssociationsMixinOptions extends InstanceUpdateOptions { }
+        interface HasManyRemoveAssociationsMixinOptions { }
 
         /**
          * The removeAssociations mixin applied to models with hasMany.
@@ -523,16 +568,19 @@ declare module "sequelize" {
             /**
              * Un-associate several instances.
              * @param oldAssociated An array of instances or primary key of instances to un-associate.
-             * @param options The options to use when removing the associations.
+             * @param options The options passed to `target.update`.
              */
-            (oldAssociateds?: Array<TInstance | TInstancePrimaryKey>, options?: HasManyRemoveAssociationsMixinOptions): Promise<void>
+            (
+                oldAssociateds?: Array<TInstance | TInstancePrimaryKey>,
+                options?: HasManyRemoveAssociationsMixinOptions | InstanceUpdateOptions
+            ): Promise<void>
         }
 
         /**
          * The options for the hasAssociation mixin of the hasMany association.
          * @see HasManyHasAssociationMixin
          */
-        interface HasManyHasAssociationMixinOptions extends HasManyGetAssociationsMixinOptions { }
+        interface HasManyHasAssociationMixinOptions { }
 
         /**
          * The hasAssociation mixin applied to models with hasMany.
@@ -563,16 +611,19 @@ declare module "sequelize" {
             /**
              * Check if an instance is associated with this.
              * @param target The instance or the primary key of the instance to check.
-             * @param options The options to use when checking the association.
+             * @param options The options passed to `getAssociations`.
              */
-            (target: TInstance | TInstancePrimaryKey, options?: HasManyHasAssociationMixinOptions): Promise<boolean>
+            (
+                target: TInstance | TInstancePrimaryKey,
+                options?: HasManyHasAssociationMixinOptions | HasManyGetAssociationsMixinOptions
+            ): Promise<boolean>
         }
 
         /**
          * The options for the hasAssociations mixin of the hasMany association.
          * @see HasManyHasAssociationsMixin
          */
-        interface HasManyHasAssociationsMixinOptions extends HasManyGetAssociationsMixinOptions { }
+        interface HasManyHasAssociationsMixinOptions { }
 
         /**
          * The removeAssociations mixin applied to models with hasMany.
@@ -603,16 +654,30 @@ declare module "sequelize" {
             /**
              * Check if all instances are associated with this.
              * @param targets An array of instances or primary key of instances to check.
-             * @param options The options to use when checking the associations.
+             * @param options The options passed to `getAssociations`.
              */
-            (targets: Array<TInstance | TInstancePrimaryKey>, options?: HasManyHasAssociationsMixinOptions): Promise<boolean>
+            (
+                targets: Array<TInstance | TInstancePrimaryKey>,
+                options?: HasManyHasAssociationsMixinOptions | HasManyGetAssociationsMixinOptions
+            ): Promise<boolean>
         }
 
         /**
          * The options for the countAssociations mixin of the hasMany association.
          * @see HasManyCountAssociationsMixin
          */
-        interface HasManyCountAssociationsMixinOptions extends HasManyGetAssociationsMixinOptions { }
+        interface HasManyCountAssociationsMixinOptions {
+
+            /**
+             * An optional where clause to limit the associated models.
+             */
+            where?: WhereOptions;
+
+            /**
+             * Apply a scope on the related model, or remove its default scope by passing false.
+             */
+            scope?: string | boolean;
+        }
 
         /**
          * The countAssociations mixin applied to models with hasMany.
