@@ -995,6 +995,79 @@ declare module _ {
         ): number;
     }
 
+    //_.object
+    interface LoDashStatic {
+        /**
+         * @see _.zipObject
+         */
+        object<TValues, TResult extends {}>(
+            props: List<StringRepresentable>,
+            values?: List<TValues>
+        ): TResult;
+
+        /**
+         * @see _.zipObject
+         */
+        object<TResult extends {}>(
+            props: List<StringRepresentable>,
+            values?: List<any>
+        ): TResult;
+
+        /**
+         * @see _.zipObject
+         */
+        object(
+            props: List<StringRepresentable>,
+            values?: List<any>
+        ): _.Dictionary<any>;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.zipObject
+         */
+        object<TValues, TResult extends {}>(
+            values?: List<TValues>
+        ): _.LoDashObjectWrapper<TResult>;
+
+        /**
+         * @see _.zipObject
+         */
+        object<TResult extends {}>(
+            values?: List<any>
+        ): _.LoDashObjectWrapper<TResult>;
+
+        /**
+         * @see _.zipObject
+         */
+        object(
+            values?: List<any>
+        ): _.LoDashObjectWrapper<_.Dictionary<any>>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.zipObject
+         */
+        object<TValues, TResult extends {}>(
+            values?: List<TValues>
+        ): _.LoDashObjectWrapper<TResult>;
+
+        /**
+         * @see _.zipObject
+         */
+        object<TResult extends {}>(
+            values?: List<any>
+        ): _.LoDashObjectWrapper<TResult>;
+
+        /**
+         * @see _.zipObject
+         */
+        object(
+            values?: List<any>
+        ): _.LoDashObjectWrapper<_.Dictionary<any>>;
+    }
+
     //_.pull
     interface LoDashStatic {
         /**
@@ -2159,45 +2232,82 @@ declare module _ {
     //_.zipObject
     interface LoDashStatic {
         /**
-        * The inverse of _.pairs; this method returns an object composed from arrays of property
-        * names and values. Provide either a single two dimensional array, e.g. [[key1, value1],
-        * [key2, value2]] or two arrays, one of property names and one of corresponding values.
-        * @param props The property names.
-        * @param values The property values.
-        * @return Returns the new object.
-        **/
+         * The inverse of _.pairs; this method returns an object composed from arrays of property names and values.
+         * Provide either a single two dimensional array, e.g. [[key1, value1], [key2, value2]] or two arrays, one of
+         * property names and one of corresponding values.
+         *
+         * @alias _.object
+         *
+         * @param props The property names.
+         * @param values The property values.
+         * @return Returns the new object.
+         */
+        zipObject<TValues, TResult extends {}>(
+            props: List<StringRepresentable>,
+            values?: List<TValues>
+        ): TResult;
+
+        /**
+         * @see _.zipObject
+         */
         zipObject<TResult extends {}>(
-            props: List<string>,
-            values?: List<any>): TResult;
+            props: List<StringRepresentable>,
+            values?: List<any>
+        ): TResult;
 
         /**
-        * @see _.zipObject
-        **/
-        zipObject<TResult extends {}>(props: List<List<any>>): Dictionary<any>;
-
-        /**
-        * @see _.zipObject
-        **/
-        object<TResult extends {}>(
-            props: List<string>,
-            values?: List<any>): TResult;
-
-        /**
-        * @see _.zipObject
-        **/
-        object<TResult extends {}>(props: List<List<any>>): Dictionary<any>;
+         * @see _.zipObject
+         */
+        zipObject(
+            props: List<StringRepresentable>,
+            values?: List<any>
+        ): _.Dictionary<any>;
     }
 
     interface LoDashArrayWrapper<T> {
         /**
-        * @see _.zipObject
-        **/
-        zipObject(values?: List<any>): _.LoDashObjectWrapper<Dictionary<any>>;
+         * @see _.zipObject
+         */
+        zipObject<TValues, TResult extends {}>(
+            values?: List<TValues>
+        ): _.LoDashObjectWrapper<TResult>;
 
         /**
-        * @see _.zipObject
-        **/
-        object(values?: List<any>): _.LoDashObjectWrapper<Dictionary<any>>;
+         * @see _.zipObject
+         */
+        zipObject<TResult extends {}>(
+            values?: List<any>
+        ): _.LoDashObjectWrapper<TResult>;
+
+        /**
+         * @see _.zipObject
+         */
+        zipObject(
+            values?: List<any>
+        ): _.LoDashObjectWrapper<_.Dictionary<any>>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.zipObject
+         */
+        zipObject<TValues, TResult extends {}>(
+            values?: List<TValues>
+        ): _.LoDashObjectWrapper<TResult>;
+
+        /**
+         * @see _.zipObject
+         */
+        zipObject<TResult extends {}>(
+            values?: List<any>
+        ): _.LoDashObjectWrapper<TResult>;
+
+        /**
+         * @see _.zipObject
+         */
+        zipObject(
+            values?: List<any>
+        ): _.LoDashObjectWrapper<_.Dictionary<any>>;
     }
 
     //_.zipWith
