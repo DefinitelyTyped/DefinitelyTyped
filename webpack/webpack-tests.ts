@@ -386,3 +386,22 @@ plugin = new webpack.ExtendedAPIPlugin();
 plugin = new webpack.NoErrorsPlugin();
 plugin = new webpack.WatchIgnorePlugin(paths);
 
+//
+// http://webpack.github.io/docs/api-in-modules.html
+//
+
+interface SomeModule {
+    someMethod(): void;
+}
+
+let someModule: SomeModule = require('./someModule');
+someModule.someMethod();
+
+let context2 = require.context('./somePath', true);
+let contextModule: SomeModule = context2('./someModule');
+
+require(['./someModule', './otherModule'], (someModule: SomeModule, otherModule: any) => {
+
+});
+
+
