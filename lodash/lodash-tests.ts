@@ -1988,23 +1988,53 @@ result = <_.LoDashObjectWrapper<() => boolean>>_(createCallbackObj).createCallba
 
 // _.curry
 var testCurryFn = (a: number, b: number, c: number) => [a, b, c];
-interface TestCurryResultFn {
-    (...args: number[]): number[] | TestCurryResultFn;
-}
-result = <number[]>_.curry<TestCurryResultFn>(testCurryFn)(1, 2, 3);
-result = <TestCurryResultFn>_.curry<TestCurryResultFn>(testCurryFn)(1);
-result = <number[]>_(testCurryFn).curry<TestCurryResultFn>().value()(1, 2, 3);
-result = <TestCurryResultFn>_(testCurryFn).curry<TestCurryResultFn>().value()(1);
+let curryResult0: number[]
+let curryResult1: _.CurriedFunction1<number, number[]>
+let curryResult2: _.CurriedFunction2<number, number, number[]>
+
+curryResult0 = _.curry(testCurryFn)(1, 2, 3);
+curryResult1 = _.curry(testCurryFn)(1, 2);
+curryResult0 = _.curry(testCurryFn)(1, 2)(3);
+curryResult0 = _.curry(testCurryFn)(1)(2)(3);
+curryResult2 = _.curry(testCurryFn)(1);
+curryResult1 = _.curry(testCurryFn)(1)(2);
+curryResult0 = _.curry(testCurryFn)(1)(2)(3);
+curryResult0 = _.curry(testCurryFn)(1)(2, 3);
+curryResult0 = _(testCurryFn).curry().value()(1, 2, 3);
+curryResult2 = _(testCurryFn).curry().value()(1);
+
+declare function testCurry2(a: string, b: number, c: boolean): [string, number, boolean];
+let curryResult3: [string, number, boolean];
+let curryResult4: _.CurriedFunction1<boolean, [string, number, boolean]>;
+let curryResult5: _.CurriedFunction2<number, boolean, [string, number, boolean]>;
+let curryResult6: _.CurriedFunction3<string, number, boolean, [string, number, boolean]>;
+curryResult3 = _.curry(testCurry2)("1", 2, true);
+curryResult3 = _.curry(testCurry2)("1", 2)(true);
+curryResult3 = _.curry(testCurry2)("1")(2, true);
+curryResult3 = _.curry(testCurry2)("1")(2)(true);
+curryResult4 = _.curry(testCurry2)("1", 2);
+curryResult4 = _.curry(testCurry2)("1")(2);
+curryResult5 = _.curry(testCurry2)("1");
+curryResult6 = _.curry(testCurry2);
 
 // _.curryRight
 var testCurryRightFn = (a: number, b: number, c: number) => [a, b, c];
-interface TestCurryRightResultFn {
-    (...args: number[]): number[] | TestCurryRightResultFn;
-}
-result = <number[]>_.curryRight<TestCurryRightResultFn>(testCurryRightFn)(1, 2, 3);
-result = <TestCurryRightResultFn>_.curryRight<TestCurryRightResultFn>(testCurryRightFn)(1);
-result = <number[]>_(testCurryRightFn).curryRight<TestCurryRightResultFn>().value()(1, 2, 3);
-result = <TestCurryRightResultFn>_(testCurryRightFn).curryRight<TestCurryRightResultFn>().value()(1);
+curryResult0 = _.curryRight(testCurryRightFn)(1, 2, 3);
+curryResult2 = _.curryRight(testCurryRightFn)(1);
+curryResult0 = _(testCurryRightFn).curryRight().value()(1, 2, 3);
+curryResult2 = _(testCurryRightFn).curryRight().value()(1);
+
+let curryResult7: _.CurriedFunction1<string, [string, number, boolean]>;
+let curryResult8: _.CurriedFunction2<number, string, [string, number, boolean]>;
+let curryResult9: _.CurriedFunction3<boolean, number, string, [string, number, boolean]>;
+curryResult3 = _.curryRight(testCurry2)(true, 2, "1");
+curryResult3 = _.curryRight(testCurry2)(true, 2)("1");
+curryResult3 = _.curryRight(testCurry2)(true)(2, "1");
+curryResult3 = _.curryRight(testCurry2)(true)(2)("1");
+curryResult7 = _.curryRight(testCurry2)(true, 2);
+curryResult7 = _.curryRight(testCurry2)(true)(2);
+curryResult8 = _.curryRight(testCurry2)(true);
+curryResult9 = _.curryRight(testCurry2);
 
 declare var source: any;
 result = <Function>_.debounce(function () { }, 150);
