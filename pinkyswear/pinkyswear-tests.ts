@@ -14,10 +14,10 @@ promise(true, [42]);
 
 promise = pinkySwear();
 
-promise.then(function(...values) {
-    console.log("Success with value " + Array.from(values).join(',') + "1");
-}, function(...values) {
-    console.log("Failure with value " + Array.from(values).join(',') + "!");
+promise.then(function(...values: any[]) {
+    console.log("Success with value " + values.join(',') + "1");
+}, function(...values: any[]) {
+    console.log("Failure with value " + values.join(',') + "!");
 });
 
 promise(false, [6, 6, 6]);
@@ -26,7 +26,7 @@ var state: boolean = promise();
 
 // A PinkySwear-powered timeout function that returns a promise:
 
-function promiseTimeout(timeoutMs) {
+function promiseTimeout(timeoutMs: number) {
     var prom = pinkySwear();
     setTimeout(function() {
         prom(true, []);
