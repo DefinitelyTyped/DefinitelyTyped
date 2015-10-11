@@ -899,7 +899,7 @@ declare module "child_process" {
         maxBuffer?: number;
         killSignal?: string;
         encoding?: string;
-    }): ChildProcess;
+    }): string | Buffer;
     export function execFileSync(command: string, args?: string[], options?: {
         cwd?: string;
         input?: string|Buffer;
@@ -911,7 +911,7 @@ declare module "child_process" {
         maxBuffer?: number;
         killSignal?: string;
         encoding?: string;
-    }): ChildProcess;
+    }): string | Buffer;
 }
 
 declare module "url" {
