@@ -3585,7 +3585,7 @@ declare module _ {
             predicate?: TObject
         ): TResult;
     }
-  
+
     //_.findWhere
     interface LoDashStatic {
         /**
