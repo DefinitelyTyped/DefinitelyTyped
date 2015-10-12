@@ -68,7 +68,6 @@ declare module 'es6-promise' {
 	var foo: typeof Promise; // Temp variable to reference Promise in local context
 	module rsvp {
 		export var Promise: typeof foo;
-		export function polyfill();
 	}
 	export = rsvp;
 }
