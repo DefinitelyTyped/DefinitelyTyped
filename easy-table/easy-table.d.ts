@@ -108,7 +108,7 @@ declare module "easy-table"
 		 * @param {IPrintColumnOptions} [opts]
 		 * @returns {String}
 		 */
-		public printTransposed<T>(opts?: IPrintColumnOptions<T>): string;
+		public printTransposed<T>(opts?: PrintColumnOptions<T>): string;
 
 		/**
 		 * Sort the table
@@ -132,11 +132,11 @@ declare module "easy-table"
 		 * @param {Object} [opts]
 		 * @returns {Table} `this`
 		 */
-		public total<T>(col: string, opts?: ITotalOptions<T>): EasyTable;
+		public total<T>(col: string, opts?: TotalOptions<T>): EasyTable;
 		/**
 		 * Predefined helpers for totals
 		 */
-		public static aggr: IAggregators;
+		public static aggr: Aggregators;
 
 		/**
 		 * Print the array or object
@@ -146,12 +146,12 @@ declare module "easy-table"
 		 * @param {Function} [cb] - Table post processing and formating
 		 * @returns {String}
 		 */
-		public static print<T>(obj: T | T[], format?: FormatFunction<T> | IFormatObject, cb?: TablePostProcessing): string;
+		public static print<T>(obj: T | T[], format?: FormatFunction<T> | FormatObject, cb?: TablePostProcessing): string;
 
 		/**
 		 * Same as `Table.print()` but yields the result to `console.log()`
 		 */
-		public static log<T>(obj: T | T[], format?: FormatFunction<T> | IFormatObject, cb?: TablePostProcessing): void;
+		public static log<T>(obj: T | T[], format?: FormatFunction<T> | FormatObject, cb?: TablePostProcessing): void;
 		/**
 		 * Same as `.toString()` but yields the result to `console.log()`
 		 */
@@ -164,7 +164,7 @@ declare module "easy-table"
 	type FormatFunction<T> = (obj: T, cell: (name: string, val: any) => void) => void;
 	type TablePostProcessing = (result: EasyTable) => string;
 
-	interface IPrintColumnOptions<T> {
+	interface PrintColumnOptions<T> {
 		/**
 		 * Column separation string
 		 */
@@ -175,7 +175,7 @@ declare module "easy-table"
 		namePrinter?: CellPrinter<T>;
 	}
 
-	interface IAggregators {
+	interface Aggregators {
 		/**
 		 * Create a printer which formats the value with `printer`,
 		 * adds the `prefix` to it and right aligns the whole thing
@@ -195,7 +195,7 @@ declare module "easy-table"
 		avg: any;
 	}
 
-	interface ITotalOptions<T> {
+	interface TotalOptions<T> {
 		/**
 		 * reduce(acc, val, idx, length) function to compute the total value
 		 */
@@ -210,11 +210,11 @@ declare module "easy-table"
 		init?: T;
 	}
 
-	interface IFormatObject {
-		[key: string]: IColumnFormat<any>;
+	interface FormatObject {
+		[key: string]: ColumnFormat<any>;
 	}
 
-	interface IColumnFormat<T> {
+	interface ColumnFormat<T> {
 		name?: string;
 		printer?: CellPrinter<T>
 	}

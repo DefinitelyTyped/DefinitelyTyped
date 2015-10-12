@@ -8,7 +8,7 @@ let data = [
 	{ id: 232323, desc: 'Yet another product', price: 555.55 }
 ];
 
-interface IData {
+interface Data {
 	id: number;
 	desc: string;
 	price: number;
@@ -35,7 +35,7 @@ function currency(val: number, width?: number) {
 }
 
 function sample_2() {
-	Table.print<IData>(data, {
+	Table.print<Data>(data, {
 		desc: { name: 'description' },
 		price: { printer: Table.number(2) }
 	});
