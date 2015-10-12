@@ -1,4 +1,4 @@
-/// <reference path="roslibjs.d.ts" />
+/// <reference path="roslib.d.ts" />
 
 var ros = new ROSLIB.Ros({url: "http://localhost:9090"});
 
