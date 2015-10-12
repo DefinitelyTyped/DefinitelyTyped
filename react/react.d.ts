@@ -132,6 +132,11 @@ declare namespace __React {
 
     // Base component for plain JS classes
     class Component<P, S> implements ComponentLifecycle<P, S> {
+        static propTypes: ValidationMap<any>;
+        static contextTypes: ValidationMap<any>;
+        static childContextTypes: ValidationMap<any>;
+        static defaultProps: Props<any>;
+
         constructor(props?: P, context?: any);
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
@@ -372,6 +377,9 @@ declare namespace __React {
         onScroll?: UIEventHandler;
         onWheel?: WheelEventHandler;
 
+        className?: string;
+        id?: string;
+
         dangerouslySetInnerHTML?: {
             __html: string;
         };
@@ -426,7 +434,6 @@ declare namespace __React {
         charSet?: string;
         checked?: boolean;
         classID?: string;
-        className?: string;
         cols?: number;
         colSpan?: number;
         content?: string;
@@ -461,7 +468,6 @@ declare namespace __React {
         htmlFor?: string;
         httpEquiv?: string;
         icon?: string;
-        id?: string;
         label?: string;
         lang?: string;
         list?: string;
@@ -934,6 +940,11 @@ declare module "react/addons" {
 
     // Base component for plain JS classes
     class Component<P, S> implements ComponentLifecycle<P, S> {
+        static propTypes: ValidationMap<any>;
+        static contextTypes: ValidationMap<any>;
+        static childContextTypes: ValidationMap<any>;
+        static defaultProps: Props<any>;
+
         constructor(props?: P, context?: any);
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
@@ -1174,6 +1185,9 @@ declare module "react/addons" {
         onScroll?: UIEventHandler;
         onWheel?: WheelEventHandler;
 
+        className?: string;
+        id?: string;
+
         dangerouslySetInnerHTML?: {
             __html: string;
         };
@@ -1228,7 +1242,6 @@ declare module "react/addons" {
         charSet?: string;
         checked?: boolean;
         classID?: string;
-        className?: string;
         cols?: number;
         colSpan?: number;
         content?: string;
@@ -1263,7 +1276,6 @@ declare module "react/addons" {
         htmlFor?: string;
         httpEquiv?: string;
         icon?: string;
-        id?: string;
         label?: string;
         lang?: string;
         list?: string;
@@ -1601,7 +1613,7 @@ declare module "react/addons" {
         item(index: number): Touch;
         identifiedTouch(identifier: number): Touch;
     }
-    
+
     //
     // React.addons
     // ----------------------------------------------------------------------
@@ -1679,14 +1691,19 @@ declare module "react/addons" {
     // Reat.addons.update
     // ----------------------------------------------------------------------
 
-    interface UpdateSpec {
+    interface UpdateSpecCommand {
         $set?: any;
         $merge?: {};
         $apply?(value: any): any;
-        // [key: string]: UpdateSpec;
     }
 
-    interface UpdateArraySpec extends UpdateSpec {
+    interface UpdateSpecPath {
+        [key: string]: UpdateSpec;
+    }
+
+    type UpdateSpec = UpdateSpecCommand | UpdateSpecPath;
+
+    interface UpdateArraySpec extends UpdateSpecCommand {
         $push?: any[];
         $unshift?: any[];
         $splice?: any[][];
