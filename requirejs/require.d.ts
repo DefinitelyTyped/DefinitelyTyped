@@ -116,6 +116,19 @@ interface RequireConfig {
 	};
 
 	/**
+	* Allows pointing multiple module IDs to a module ID that contains a bundle of modules.
+	*
+	* @example
+	* requirejs.config({
+	*	bundles: {
+	*		'primary': ['main', 'util', 'text', 'text!template.html'],
+	*		'secondary': ['text!secondary.html']
+	*	}
+	* });
+	**/
+	bundles?: { [key: string]: string[]; };
+
+	/**
 	* AMD configurations, use module.config() to access in
 	* define() functions
 	**/
