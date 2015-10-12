@@ -312,18 +312,6 @@ module TestDropWhile {
     result = _(list).dropWhile<{a: number;}, TResult>({a: 42}).value();
 }
 
-result = <number[]>_.rest([1, 2, 3]);
-result = <number[]>_.rest([1, 2, 3], 2);
-result = <number[]>_.rest([1, 2, 3], (num) => num < 3)
-result = <IFoodOrganic[]>_.rest(foodsOrganic, 'test');
-result = <IFoodType[]>_.rest(foodsType, { 'type': 'value' });
-
-result = <number[]>_.tail([1, 2, 3])
-result = <number[]>_.tail([1, 2, 3], 2)
-result = <number[]>_.tail([1, 2, 3], (num) => num < 3)
-result = <IFoodOrganic[]>_.tail(foodsOrganic, 'test')
-result = <IFoodType[]> _.tail(foodsType, { 'type': 'value' })
-
 // _.fill
 var testFillArray = [1, 2, 3];
 var testFillList: _.List<number> = {0: 1, 1: 2, 2: 3, length: 3};
@@ -620,6 +608,18 @@ module TestRemove {
     result = _(list).remove<{a: number}, TResult>({a: 42}).value();
 }
 
+// _.rest
+module TestRest {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let result: TResult[];
+
+    result = _.rest<TResult>(array);
+    result = _.rest<TResult>(list);
+    result = _(array).rest().value();
+    result = _(list).rest<TResult>().value();
+}
+
 // _.slice
 {
     let testSliceArray: TResult[];
@@ -643,6 +643,18 @@ result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function
 result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word: string) {
     return this.wordToNumber[word];
 }, sortedIndexDict);
+
+// _.tail
+module TestTail {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let result: TResult[];
+
+    result = _.tail<TResult>(array);
+    result = _.tail<TResult>(list);
+    result = _(array).tail().value();
+    result = _(list).tail<TResult>().value();
+}
 
 // _.take
 module TestTake {
