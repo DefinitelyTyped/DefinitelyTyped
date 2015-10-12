@@ -5,13 +5,18 @@
 
 
 interface KnockoutSubscribableFunctions<T> {
+    [key: string]: KnockoutBindingHandler;
+    
 	notifySubscribers(valueToWrite?: T, event?: string): void;
 }
 
 interface KnockoutComputedFunctions<T> {
+    [key: string]: KnockoutBindingHandler;
 }
 
 interface KnockoutObservableFunctions<T> {
+    [key: string]: KnockoutBindingHandler;
+    
 	equalityComparer(a: any, b: any): boolean;
 }
 
@@ -30,6 +35,8 @@ interface KnockoutObservableArrayFunctions<T> {
     sort(compareFunction: (left: T, right: T) => number): void;
 
     // Ko specific
+    [key: string]: KnockoutBindingHandler;
+    
     replace(oldItem: T, newItem: T): void;
 
     remove(item: T): T[];
@@ -261,7 +268,7 @@ interface KnockoutUtils {
 
     compareArrays<T>(a: T[], b: T[]): Array<KnockoutArrayChange<T>>;
 
-    arrayForEach<T>(array: T[], action: (item: T) => void): void;
+    arrayForEach<T>(array: T[], action: (item: T, index: number) => void): void;
 
     arrayIndexOf<T>(array: T[], item: T): number;
 
@@ -275,9 +282,7 @@ interface KnockoutUtils {
 
     arrayFilter<T>(array: T[], predicate: (item: T) => boolean): T[];
 
-    arrayPushAll<T>(array: T[], valuesToPush: T[]): T[];
-
-    arrayPushAll<T>(array: KnockoutObservableArray<T>, valuesToPush: T[]): T[];
+    arrayPushAll<T>(array: T[] | KnockoutObservableArray<T>, valuesToPush: T[]): T[];
 
     extend(target: Object, source: Object): Object;
 
@@ -313,8 +318,8 @@ interface KnockoutUtils {
 
     toggleDomNodeCssClass(node: any, className: string, shouldHaveClass: boolean): void;
 
-    //setTextContent(element: any, textContent: string): void; // NOT PART OF THE MINIFIED API SURFACE (ONLY IN knockout-{version}.debug.js) https://github.com/SteveSanderson/knockout/issues/670
-
+    setTextContent(element: any, textContent: string | KnockoutObservable<string>): void; // IT's PART OF THE MINIFIED API SURFACE https://github.com/knockout/knockout/blob/master/src/utils.js#L599
+    
     setElementName(element: any, name: string): void;
 
     forceRefresh(node: any): void;
@@ -338,6 +343,10 @@ interface KnockoutUtils {
     isIe6: boolean;
 
     isIe7: boolean;
+    
+    objectForEach(obj: any, action: (key: any, value: any) => void): void;
+    
+    addOrRemoveItem<T>(array: T[] | KnockoutObservable<T>, value: T, included: T): void;
 }
 
 interface KnockoutArrayChange<T> {
