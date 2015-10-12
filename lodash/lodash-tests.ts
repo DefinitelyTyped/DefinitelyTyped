@@ -1633,13 +1633,6 @@ result = <number>_(0.046).floor(2);
 result = <number>_(4060).floor(-2);
 // → 4000
 
-result = <number>_.min([4, 2, 8, 6]);
-result = <IStoogesAge>_.min(stoogesAges, function (stooge) { return stooge.age; });
-result = <IStoogesAge>_.min(stoogesAges, 'age');
-result = <_.LoDashWrapper<number>>_([4, 2, 8, 6]).min();
-result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).min(function (stooge) { return stooge.age; });
-result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).min('age');
-
 // _.round
 result = <number>_.round(4.006);
 // → 4
@@ -2498,6 +2491,54 @@ module TestMax {
     result = _(dictionary).max<number>(dictionaryIterator, any);
     result = _(dictionary).max<number>('');
     result = _(dictionary).max<{a: number}, number>({a: 42});
+}
+
+// _.min
+module TestMin {
+    let array: number[];
+    let list: _.List<number>;
+    let dictionary: _.Dictionary<number>;
+
+    let listIterator: (value: number, index: number, collection: _.List<number>) => number;
+    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => number;
+
+    let result: number;
+
+    result = _.min<number>(array);
+    result = _.min<number>(array, listIterator);
+    result = _.min<number>(array, listIterator, any);
+    result = _.min<number>(array, '');
+    result = _.min<{a: number}, number>(array, {a: 42});
+
+    result = _.min<number>(list);
+    result = _.min<number>(list, listIterator);
+    result = _.min<number>(list, listIterator, any);
+    result = _.min<number>(list, '');
+    result = _.min<{a: number}, number>(list, {a: 42});
+
+    result = _.min<number>(dictionary);
+    result = _.min<number>(dictionary, dictionaryIterator);
+    result = _.min<number>(dictionary, dictionaryIterator, any);
+    result = _.min<number>(dictionary, '');
+    result = _.min<{a: number}, number>(dictionary, {a: 42});
+
+    result = _(array).min();
+    result = _(array).min(listIterator);
+    result = _(array).min(listIterator, any);
+    result = _(array).min('');
+    result = _(array).min<{a: number}>({a: 42});
+
+    result = _(list).min<number>();
+    result = _(list).min<number>(listIterator);
+    result = _(list).min<number>(listIterator, any);
+    result = _(list).min<number>('');
+    result = _(list).min<{a: number}, number>({a: 42});
+
+    result = _(dictionary).min<number>();
+    result = _(dictionary).min<number>(dictionaryIterator);
+    result = _(dictionary).min<number>(dictionaryIterator, any);
+    result = _(dictionary).min<number>('');
+    result = _(dictionary).min<{a: number}, number>({a: 42});
 }
 
 /**********
