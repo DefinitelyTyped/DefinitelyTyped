@@ -1058,6 +1058,54 @@ result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy
 result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy(function (num) { return this.floor(num); }, Math);
 result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_(['one', 'two', 'three']).countBy('length');
 
+// _.detect
+module TestDetect {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
+
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean;
+
+    let result: TResult;
+
+    result = _.detect<TResult>(array);
+    result = _.detect<TResult>(array, listIterator);
+    result = _.detect<TResult>(array, listIterator, any);
+    result = _.detect<TResult>(array, '');
+    result = _.detect<{a: number}, TResult>(array, {a: 42});
+
+    result = _.detect<TResult>(list);
+    result = _.detect<TResult>(list, listIterator);
+    result = _.detect<TResult>(list, listIterator, any);
+    result = _.detect<TResult>(list, '');
+    result = _.detect<{a: number}, TResult>(list, {a: 42});
+
+    result = _.detect<TResult>(dictionary);
+    result = _.detect<TResult>(dictionary, dictionaryIterator);
+    result = _.detect<TResult>(dictionary, dictionaryIterator, any);
+    result = _.detect<TResult>(dictionary, '');
+    result = _.detect<{a: number}, TResult>(dictionary, {a: 42});
+
+    result = _(array).detect();
+    result = _(array).detect(listIterator);
+    result = _(array).detect(listIterator, any);
+    result = _(array).detect('');
+    result = _(array).detect<{a: number}>({a: 42});
+
+    result = _(list).detect<TResult>();
+    result = _(list).detect<TResult>(listIterator);
+    result = _(list).detect<TResult>(listIterator, any);
+    result = _(list).detect<TResult>('');
+    result = _(list).detect<{a: number}, TResult>({a: 42});
+
+    result = _(dictionary).detect<TResult>();
+    result = _(dictionary).detect<TResult>(dictionaryIterator);
+    result = _(dictionary).detect<TResult>(dictionaryIterator, any);
+    result = _(dictionary).detect<TResult>('');
+    result = _(dictionary).detect<{a: number}, TResult>({a: 42});
+}
+
 // _.every
 module TestEvery {
     let array: TResult[];
@@ -1123,20 +1171,53 @@ result = <number[]>_([1, 2, 3, 4, 5, 6]).select(function (num) { return num % 2 
 result = <IFoodCombined[]>_(foodsCombined).select('organic').value();
 result = <IFoodCombined[]>_(foodsCombined).select({ 'type': 'fruit' }).value();
 
-result = <number>_.find([1, 2, 3, 4], num => num % 2 == 0);
-result = <IFoodCombined>_.find(foodsCombined, { 'type': 'vegetable' });
-result = <IFoodCombined>_.find(foodsCombined, 'type', 'vegetable');
-result = <IFoodCombined>_.find(foodsCombined, 'organic');
-result = <number>_([1, 2, 3, 4]).find(num => num % 2 == 0);
-result = <IFoodCombined>_(foodsCombined).find({ 'type': 'vegetable' });
-result = <IFoodCombined>_(foodsCombined).find('type', 'vegetable');
-result = <IFoodCombined>_(foodsCombined).find('organic');
+// _.find
+module TestFind {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
 
-result = <number>_.detect([1, 2, 3, 4], function (num) {
-    return num % 2 == 0;
-});
-result = <IFoodCombined>_.detect(foodsCombined, { 'type': 'vegetable' });
-result = <IFoodCombined>_.detect(foodsCombined, 'organic');
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean;
+
+    let result: TResult;
+
+    result = _.find<TResult>(array);
+    result = _.find<TResult>(array, listIterator);
+    result = _.find<TResult>(array, listIterator, any);
+    result = _.find<TResult>(array, '');
+    result = _.find<{a: number}, TResult>(array, {a: 42});
+
+    result = _.find<TResult>(list);
+    result = _.find<TResult>(list, listIterator);
+    result = _.find<TResult>(list, listIterator, any);
+    result = _.find<TResult>(list, '');
+    result = _.find<{a: number}, TResult>(list, {a: 42});
+
+    result = _.find<TResult>(dictionary);
+    result = _.find<TResult>(dictionary, dictionaryIterator);
+    result = _.find<TResult>(dictionary, dictionaryIterator, any);
+    result = _.find<TResult>(dictionary, '');
+    result = _.find<{a: number}, TResult>(dictionary, {a: 42});
+
+    result = _(array).find();
+    result = _(array).find(listIterator);
+    result = _(array).find(listIterator, any);
+    result = _(array).find('');
+    result = _(array).find<{a: number}>({a: 42});
+
+    result = _(list).find<TResult>();
+    result = _(list).find<TResult>(listIterator);
+    result = _(list).find<TResult>(listIterator, any);
+    result = _(list).find<TResult>('');
+    result = _(list).find<{a: number}, TResult>({a: 42});
+
+    result = _(dictionary).find<TResult>();
+    result = _(dictionary).find<TResult>(dictionaryIterator);
+    result = _(dictionary).find<TResult>(dictionaryIterator, any);
+    result = _(dictionary).find<TResult>('');
+    result = _(dictionary).find<{a: number}, TResult>({a: 42});
+}
 
 result = <number>_.findWhere([1, 2, 3, 4], function (num) {
     return num % 2 == 0;

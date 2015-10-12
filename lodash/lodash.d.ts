@@ -2795,6 +2795,94 @@ declare module _ {
             thisArg?: any): LoDashObjectWrapper<Dictionary<number>>;
     }
 
+    //_.detect
+    interface LoDashStatic {
+        /**
+         * @see _.find
+         */
+        detect<T>(
+            collection: List<T>,
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.find
+         */
+        detect<T>(
+            collection: Dictionary<T>,
+            predicate?: DictionaryIterator<T, boolean>,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.find
+         */
+        detect<T>(
+            collection: List<T>|Dictionary<T>,
+            predicate?: string,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.find
+         */
+        detect<TObject extends {}, T>(
+            collection: List<T>|Dictionary<T>,
+            predicate?: TObject
+        ): T;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.find
+         */
+        detect(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.find
+         */
+        detect(
+            predicate?: string,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.find
+         */
+        detect<TObject extends {}>(
+            predicate?: TObject
+        ): T;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.find
+         */
+        detect<TResult>(
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
+            thisArg?: any
+        ): TResult;
+
+        /**
+         * @see _.find
+         */
+        detect<TResult>(
+            predicate?: string,
+            thisArg?: any
+        ): TResult;
+
+        /**
+         * @see _.find
+         */
+        detect<TObject extends {}, TResult>(
+            predicate?: TObject
+        ): TResult;
+    }
+
     //_.every
     interface LoDashStatic {
         /**
@@ -3179,223 +3267,180 @@ declare module _ {
     //_.find
     interface LoDashStatic {
         /**
-        * Iterates over elements of collection, returning the first element predicate returns
-        * truthy for. The predicate is bound to thisArg and invoked with three arguments:
-        * (value, index|key, collection).
-        *
-        * If a property name is provided for predicate the created _.property style callback
-        * returns the property value of the given element.
-        *
-        * If a value is also provided for thisArg the created _.matchesProperty style callback
-        * returns true for elements that have a matching property value, else false.
-        *
-        * If an object is provided for predicate the created _.matches style callback returns
-        * true for elements that have the properties of the given object, else false.
-        *
-        * @param collection Searches for a value in this list.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return The found element, else undefined.
-        **/
-        find<T>(
-            collection: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T;
-
-        /**
-	* Alias of _.find
-        * @see _.find
-        **/
-        detect<T>(
-            collection: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.find
-        **/
+         * Iterates over elements of collection, returning the first element predicate returns truthy for.
+         * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
+         *
+         * If a property name is provided for predicate the created _.property style callback returns the property
+         * value of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for predicate the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * @alias _.detect
+         *
+         * @param collection The collection to search.
+         * @param predicate The function invoked per iteration.
+         * @param thisArg The this binding of predicate.
+         * @return Returns the matched element, else undefined.
+         */
         find<T>(
             collection: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T;
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): T;
 
         /**
-	* Alias of _.find
-        * @see _.find
-        **/
-        detect<T>(
-            collection: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.find
-        **/
+         * @see _.find
+         */
         find<T>(
             collection: Dictionary<T>,
-            callback: DictionaryIterator<T, boolean>,
-            thisArg?: any): T;
+            predicate?: DictionaryIterator<T, boolean>,
+            thisArg?: any
+        ): T;
 
         /**
-	* Alias of _.find
-        * @see _.find
-        **/
-        detect<T>(
-            collection: Dictionary<T>,
-            callback: DictionaryIterator<T, boolean>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.find
-        * @param _.matches style callback
-        **/
-        find<W, T>(
-            collection: Array<T>|List<T>|Dictionary<T>,
-            whereValue: W): T;
-
-        /**
-	* Alias of _.find
-        * @see _.find
-        * @param _.matches style callback
-        **/
-        detect<W, T>(
-            collection: Array<T>|List<T>|Dictionary<T>,
-            whereValue: W): T;
-
-        /**
-        * @see _.find
-        * @param _.matchesProperty style callback
-        **/
+         * @see _.find
+         */
         find<T>(
-            collection: Array<T>|List<T>|Dictionary<T>,
-            path: string,
-            srcValue: any): T;
+            collection: List<T>|Dictionary<T>,
+            predicate?: string,
+            thisArg?: any
+        ): T;
 
         /**
-	* Alias of _.find
-        * @see _.find
-        * @param _.matchesProperty style callback
-        **/
-        detect<T>(
-            collection: Array<T>|List<T>|Dictionary<T>,
-            path: string,
-            srcValue: any): T;
-
-        /**
-        * @see _.find
-        * @param _.property style callback
-        **/
-        find<T>(
-            collection: Array<T>|List<T>|Dictionary<T>,
-            pluckValue: string): T;
-
-        /**
-	* Alias of _.find
-        * @see _.find
-        * @param _.property style callback
-        **/
-        detect<T>(
-            collection: Array<T>|List<T>|Dictionary<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.find
-        **/
-        findWhere<T>(
-            collection: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.find
-        **/
-        findWhere<T>(
-            collection: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.find
-        **/
-        findWhere<T>(
-            collection: Dictionary<T>,
-            callback: DictionaryIterator<T, boolean>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.find
-        * @param _.matches style callback
-        **/
-        findWhere<W, T>(
-            collection: Array<T>,
-            whereValue: W): T;
-
-        /**
-        * @see _.find
-        * @param _.matches style callback
-        **/
-        findWhere<W, T>(
-            collection: List<T>,
-            whereValue: W): T;
-
-        /**
-        * @see _.find
-        * @param _.matches style callback
-        **/
-        findWhere<W, T>(
-            collection: Dictionary<T>,
-            whereValue: W): T;
-
-        /**
-        * @see _.find
-        * @param _.property style callback
-        **/
-        findWhere<T>(
-            collection: Array<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.find
-        * @param _.property style callback
-        **/
-        findWhere<T>(
-            collection: List<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.find
-        * @param _.property style callback
-        **/
-        findWhere<T>(
-            collection: Dictionary<T>,
-            pluckValue: string): T;
+         * @see _.find
+         */
+        find<TObject extends {}, T>(
+            collection: List<T>|Dictionary<T>,
+            predicate?: TObject
+        ): T;
     }
 
     interface LoDashArrayWrapper<T> {
         /**
-        * @see _.find
-        */
+         * @see _.find
+         */
         find(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.find
+         */
+        find(
+            predicate?: string,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.find
+         */
+        find<TObject extends {}>(
+            predicate?: TObject
+        ): T;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.find
+         */
+        find<TResult>(
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
+            thisArg?: any
+        ): TResult;
+
+        /**
+         * @see _.find
+         */
+        find<TResult>(
+            predicate?: string,
+            thisArg?: any
+        ): TResult;
+
+        /**
+         * @see _.find
+         */
+        find<TObject extends {}, TResult>(
+            predicate?: TObject
+        ): TResult;
+    }
+
+    //_.findWhere
+    interface LoDashStatic {
+        /**
+        * @see _.find
+        **/
+        findWhere<T>(
+            collection: Array<T>,
             callback: ListIterator<T, boolean>,
             thisArg?: any): T;
+
+        /**
+        * @see _.find
+        **/
+        findWhere<T>(
+            collection: List<T>,
+            callback: ListIterator<T, boolean>,
+            thisArg?: any): T;
+
+        /**
+        * @see _.find
+        **/
+        findWhere<T>(
+            collection: Dictionary<T>,
+            callback: DictionaryIterator<T, boolean>,
+            thisArg?: any): T;
+
         /**
         * @see _.find
         * @param _.matches style callback
-        */
-        find<W>(
+        **/
+        findWhere<W, T>(
+            collection: Array<T>,
             whereValue: W): T;
+
         /**
         * @see _.find
-        * @param _.matchesProperty style callback
-        */
-        find(
-            path: string,
-            srcValue: any): T;
+        * @param _.matches style callback
+        **/
+        findWhere<W, T>(
+            collection: List<T>,
+            whereValue: W): T;
+
+        /**
+        * @see _.find
+        * @param _.matches style callback
+        **/
+        findWhere<W, T>(
+            collection: Dictionary<T>,
+            whereValue: W): T;
+
         /**
         * @see _.find
         * @param _.property style callback
-        */
-        find(
+        **/
+        findWhere<T>(
+            collection: Array<T>,
+            pluckValue: string): T;
+
+        /**
+        * @see _.find
+        * @param _.property style callback
+        **/
+        findWhere<T>(
+            collection: List<T>,
+            pluckValue: string): T;
+
+        /**
+        * @see _.find
+        * @param _.property style callback
+        **/
+        findWhere<T>(
+            collection: Dictionary<T>,
             pluckValue: string): T;
     }
 
