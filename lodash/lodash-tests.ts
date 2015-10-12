@@ -2474,7 +2474,7 @@ var returnedOnce = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedOnce(4);
 
 var greetPartial = function (greeting: string, name: string) { return greeting + ' ' + name; };
-var hi = <Function>_.partial(greetPartial, 'hi');
+var hi = _.partial(greetPartial, 'hi');
 hi('moe');
 
 var defaultsDeep = <Function>_.partialRight(_.merge, _.defaults);
