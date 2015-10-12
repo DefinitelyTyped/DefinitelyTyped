@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module 'bounce' {
+declare module 'bounce.js' {
     export default Bounce
 
     interface Point2D {
