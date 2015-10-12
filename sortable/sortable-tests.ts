@@ -60,7 +60,7 @@ Sortable.create(simpleList, {
     ghostClass: 'ghost'
 });
 
-simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(value, iterator) {
+simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(value: any, iterator: number) {
     return `<div class="list-group-item">item ${iterator + 1}</div>`;
 }).join('');
 
@@ -69,53 +69,41 @@ Sortable.create(simpleList, {
     chosenClass: 'chosen'
 });
 
-simpleList.innerHTML = Array.apply(null, new Array(10)).map(function(v, i) {
+simpleList.innerHTML = Array.apply(null, new Array(10)).map(function(value: any, iterator: number) {
     return '<div class="list-group-item">item ' +
-        (i + 1) +
+        (iterator + 1) +
         '</div>';
 }).join('');
 
 Sortable.create(simpleList, {});
 
-simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(v, i) {
+simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(value: any, iterator: number) {
     return '<div class="list-group-item">item ' +
-        (i + 1) +
+        (iterator + 1) +
         '</div>';
 }).join('');
 
 (function() {
     'use strict';
 
-    var byId = function(id) { return document.getElementById(id); },
+    var byId = function(id: string) { return document.getElementById(id); },
 
-        loadScripts = function(desc, callback) {
-            var deps = [], key, idx = 0;
+        loadScripts = function(desc: any, callback: any) {
+            var deps: string[] = [];
+            var key: string;
+            var idx = 0;
 
             for (key in desc) {
                 deps.push(key);
             }
 
             (function _next() {
-                var pid,
+                var pid: number,
                     name = deps[idx],
                     script = document.createElement('script');
 
                 script.type = 'text/javascript';
                 script.src = desc[deps[idx]];
-
-                pid = setInterval(function() {
-                    if (window[name]) {
-                        clearTimeout(pid);
-
-                        deps[idx++] = window[name];
-
-                        if (deps[idx]) {
-                            _next();
-                        } else {
-                            callback.apply(null, deps);
-                        }
-                    }
-                }, 30);
 
                 document.getElementsByTagName('head')[0].appendChild(script);
             })()
@@ -171,7 +159,7 @@ simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(v, i) {
         handle: '.tile__name'
     });
 
-    [].forEach.call(byId('multi').getElementsByClassName('tile__list'), function(el) {
+    [].forEach.call(byId('multi').getElementsByClassName('tile__list'), function(el: any) {
         Sortable.create(el, {
             group: 'photo',
             animation: 150
@@ -193,7 +181,7 @@ simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(v, i) {
         Ply.dialog('prompt', {
             title: 'Add',
             form: { name: 'name' }
-        }).done(function(ui) {
+        }).done(function(ui: any) {
             var el = document.createElement('li');
             el.innerHTML = ui.data.name + '<i class="js-remove">✖</i>';
             editableList.el.appendChild(el);
@@ -238,7 +226,7 @@ simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(v, i) {
                 console.log('default onEnd()');
             }
         })
-        .controller('TodoController', ['$scope', function($scope) {
+        .controller('TodoController', ['$scope', function($scope: any) {
             $scope.todos = [
                 { text: 'learn angular', done: true },
                 { text: 'build an angular app', done: false }
@@ -251,7 +239,7 @@ simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(v, i) {
 
             $scope.remaining = function() {
                 var count = 0;
-                angular.forEach($scope.todos, function(todo) {
+                angular.forEach($scope.todos, function(todo: any) {
                     count += todo.done ? 0 : 1;
                 });
                 return count;
@@ -260,12 +248,12 @@ simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(v, i) {
             $scope.archive = function() {
                 var oldTodos = $scope.todos;
                 $scope.todos = [];
-                angular.forEach(oldTodos, function(todo) {
+                angular.forEach(oldTodos, function(todo: any) {
                     if (!todo.done) $scope.todos.push(todo);
                 });
             };
         }])
-        .controller('TodoControllerNext', ['$scope', function($scope) {
+        .controller('TodoControllerNext', ['$scope', function($scope: any) {
             $scope.todos = [
                 { text: 'learn Sortable', done: true },
                 { text: 'use ng-sortable', done: false },
@@ -274,14 +262,14 @@ simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(v, i) {
 
             $scope.remaining = function() {
                 var count = 0;
-                angular.forEach($scope.todos, function(todo) {
+                angular.forEach($scope.todos, function(todo: any) {
                     count += todo.done ? 0 : 1;
                 });
                 return count;
             };
 
             $scope.sortableConfig = { group: 'todo', animation: 150 };
-            'Start End Add Update Remove Sort'.split(' ').forEach(function(name) {
+            'Start End Add Update Remove Sort'.split(' ').forEach(function(name: string) {
                 $scope.sortableConfig['on' + name] = console.log.bind(console, name);
             });
         }]);
@@ -289,7 +277,7 @@ simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(v, i) {
 
 // Background
 document.addEventListener("DOMContentLoaded", function() {
-    function setNoiseBackground(el, width, height, opacity) {
+    function setNoiseBackground(el: any, width: number, height: number, opacity: number) {
         var canvas = document.createElement("canvas");
         var context = canvas.getContext("2d");
 
