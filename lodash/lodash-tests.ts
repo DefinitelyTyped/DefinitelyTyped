@@ -538,6 +538,69 @@ module TestLastIndexOf {
     result = _(list).lastIndexOf<TResult>(value, 42);
 }
 
+// _.object
+module TestObject {
+    let arrayOfKeys: string[];
+    let arrayOfValues: number[];
+
+    let listOfKeys: _.List<string>;
+    let listOfValues: _.List<number>;
+
+    {
+        let result: _.Dictionary<void>;
+
+        result = _.object<_.Dictionary<void>>(arrayOfKeys);
+        result = _.object<_.Dictionary<void>>(listOfKeys);
+
+        result = _(arrayOfKeys).object<_.Dictionary<void>>().value();
+        result = _(listOfKeys).object<_.Dictionary<void>>().value();
+    }
+
+    {
+        let result: _.Dictionary<number>;
+
+        result = _.object<_.Dictionary<number>>(arrayOfKeys, arrayOfValues);
+        result = _.object<_.Dictionary<number>>(arrayOfKeys, listOfValues);
+        result = _.object<_.Dictionary<number>>(listOfKeys, listOfValues);
+        result = _.object<_.Dictionary<number>>(listOfKeys, arrayOfValues);
+
+        result = _.object<number, _.Dictionary<number>>(arrayOfKeys, arrayOfValues);
+        result = _.object<number, _.Dictionary<number>>(arrayOfKeys, listOfValues);
+        result = _.object<number, _.Dictionary<number>>(listOfKeys, listOfValues);
+        result = _.object<number, _.Dictionary<number>>(listOfKeys, arrayOfValues);
+
+        result = _(arrayOfKeys).object<_.Dictionary<number>>(arrayOfValues).value();
+        result = _(arrayOfKeys).object<_.Dictionary<number>>(listOfValues).value();
+        result = _(listOfKeys).object<_.Dictionary<number>>(listOfValues).value();
+        result = _(listOfKeys).object<_.Dictionary<number>>(arrayOfValues).value();
+
+        result = _(arrayOfKeys).object<number, _.Dictionary<number>>(arrayOfValues).value();
+        result = _(arrayOfKeys).object<number, _.Dictionary<number>>(listOfValues).value();
+        result = _(listOfKeys).object<number, _.Dictionary<number>>(listOfValues).value();
+        result = _(listOfKeys).object<number, _.Dictionary<number>>(arrayOfValues).value();
+    }
+
+    {
+        let result: _.Dictionary<any>;
+
+        result = _.object(arrayOfKeys);
+        result = _.object(arrayOfKeys, arrayOfValues);
+        result = _.object(arrayOfKeys, listOfValues);
+
+        result = _.object(listOfKeys);
+        result = _.object(listOfKeys, listOfValues);
+        result = _.object(listOfKeys, arrayOfValues);
+
+        result = _(arrayOfKeys).object().value();
+        result = _(arrayOfKeys).object(arrayOfValues).value();
+        result = _(arrayOfKeys).object(listOfValues).value();
+
+        result = _(listOfKeys).object().value();
+        result = _(listOfKeys).object(listOfValues).value();
+        result = _(listOfKeys).object(arrayOfValues).value();
+    }
+}
+
 // _.pull
 {
     let testPullArray: TResult[];
@@ -588,15 +651,6 @@ module TestLastIndexOf {
     result = _(testPullAtList).pullAt<TResult>([2, 3], 1).value();
     result = _(testPullAtList).pullAt<TResult>(4, [2, 3], 1).value();
 }
-
-result = <_.Dictionary<any>>_.zipObject(['moe', 'larry'], [30, 40]);
-result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_(['moe', 'larry']).zipObject([30, 40]);
-result = <_.Dictionary<any>>_.object(['moe', 'larry'], [30, 40]);
-result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_(['moe', 'larry']).object([30, 40]);
-result = <_.Dictionary<any>>_.zipObject([['moe', 30], ['larry', 40]]);
-result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_([['moe', 30], ['larry', 40]]).zipObject();
-result = <_.Dictionary<any>>_.object([['moe', 30], ['larry', 40]]);
-result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_([['moe', 30], ['larry', 40]]).object();
 
 // _.remove
 module TestRemove {
@@ -915,6 +969,69 @@ result = <any[][]>_.zip(['moe', 'larry'], [30, 40], [true, false]);
 result = <any[][]>_.unzip(['moe', 'larry'], [30, 40], [true, false]);
 result = <any[][]>_(['moe', 'larry']).zip([30, 40], [true, false]).value();
 result = <any[][]>_(['moe', 'larry']).unzip([30, 40], [true, false]).value();
+
+// _.zipObject
+module TestZipObject {
+    let arrayOfKeys: string[];
+    let arrayOfValues: number[];
+
+    let listOfKeys: _.List<string>;
+    let listOfValues: _.List<number>;
+
+    {
+        let result: _.Dictionary<void>;
+
+        result = _.zipObject<_.Dictionary<void>>(arrayOfKeys);
+        result = _.zipObject<_.Dictionary<void>>(listOfKeys);
+
+        result = _(arrayOfKeys).zipObject<_.Dictionary<void>>().value();
+        result = _(listOfKeys).zipObject<_.Dictionary<void>>().value();
+    }
+
+    {
+        let result: _.Dictionary<number>;
+
+        result = _.zipObject<_.Dictionary<number>>(arrayOfKeys, arrayOfValues);
+        result = _.zipObject<_.Dictionary<number>>(arrayOfKeys, listOfValues);
+        result = _.zipObject<_.Dictionary<number>>(listOfKeys, listOfValues);
+        result = _.zipObject<_.Dictionary<number>>(listOfKeys, arrayOfValues);
+
+        result = _.zipObject<number, _.Dictionary<number>>(arrayOfKeys, arrayOfValues);
+        result = _.zipObject<number, _.Dictionary<number>>(arrayOfKeys, listOfValues);
+        result = _.zipObject<number, _.Dictionary<number>>(listOfKeys, listOfValues);
+        result = _.zipObject<number, _.Dictionary<number>>(listOfKeys, arrayOfValues);
+
+        result = _(arrayOfKeys).zipObject<_.Dictionary<number>>(arrayOfValues).value();
+        result = _(arrayOfKeys).zipObject<_.Dictionary<number>>(listOfValues).value();
+        result = _(listOfKeys).zipObject<_.Dictionary<number>>(listOfValues).value();
+        result = _(listOfKeys).zipObject<_.Dictionary<number>>(arrayOfValues).value();
+
+        result = _(arrayOfKeys).zipObject<number, _.Dictionary<number>>(arrayOfValues).value();
+        result = _(arrayOfKeys).zipObject<number, _.Dictionary<number>>(listOfValues).value();
+        result = _(listOfKeys).zipObject<number, _.Dictionary<number>>(listOfValues).value();
+        result = _(listOfKeys).zipObject<number, _.Dictionary<number>>(arrayOfValues).value();
+    }
+
+    {
+        let result: _.Dictionary<any>;
+
+        result = _.zipObject(arrayOfKeys);
+        result = _.zipObject(arrayOfKeys, arrayOfValues);
+        result = _.zipObject(arrayOfKeys, listOfValues);
+
+        result = _.zipObject(listOfKeys);
+        result = _.zipObject(listOfKeys, listOfValues);
+        result = _.zipObject(listOfKeys, arrayOfValues);
+
+        result = _(arrayOfKeys).zipObject().value();
+        result = _(arrayOfKeys).zipObject(arrayOfValues).value();
+        result = _(arrayOfKeys).zipObject(listOfValues).value();
+
+        result = _(listOfKeys).zipObject().value();
+        result = _(listOfKeys).zipObject(listOfValues).value();
+        result = _(listOfKeys).zipObject(arrayOfValues).value();
+    }
+}
 
 // _.zipWith
 interface TestZipWithFn {
