@@ -1177,6 +1177,54 @@ module TestAll {
     result = _(dictionary).all<{a: number}>({a: 42});
 }
 
+// _.any
+module TestAny {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
+
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean;
+
+    let result: boolean;
+
+    result = _.any<TResult>(array);
+    result = _.any<TResult>(array, listIterator);
+    result = _.any<TResult>(array, listIterator, any);
+    result = _.any<TResult>(array, '');
+    result = _.any<{a: number}, TResult>(array, {a: 42});
+
+    result = _.any<TResult>(list);
+    result = _.any<TResult>(list, listIterator);
+    result = _.any<TResult>(list, listIterator, any);
+    result = _.any<TResult>(list, '');
+    result = _.any<{a: number}, TResult>(list, {a: 42});
+
+    result = _.any<TResult>(dictionary);
+    result = _.any<TResult>(dictionary, dictionaryIterator);
+    result = _.any<TResult>(dictionary, dictionaryIterator, any);
+    result = _.any<TResult>(dictionary, '');
+    result = _.any<{a: number}, TResult>(dictionary, {a: 42});
+
+    result = _(array).any();
+    result = _(array).any(listIterator);
+    result = _(array).any(listIterator, any);
+    result = _(array).any('');
+    result = _(array).any<{a: number}>({a: 42});
+
+    result = _(list).any<TResult>();
+    result = _(list).any<TResult>(listIterator);
+    result = _(list).any<TResult>(listIterator, any);
+    result = _(list).any('');
+    result = _(list).any<{a: number}>({a: 42});
+
+    result = _(dictionary).any<TResult>();
+    result = _(dictionary).any<TResult>(dictionaryIterator);
+    result = _(dictionary).any<TResult>(dictionaryIterator, any);
+    result = _(dictionary).any('');
+    result = _(dictionary).any<{a: number}>({a: 42});
+}
+
 // _.at
 {
     let testAtArray: TResult[];
@@ -1664,15 +1712,53 @@ result = <number>_.size({ 'one': 1, 'two': 2, 'three': 3 });
 result = <number>_({ 'one': 1, 'two': 2, 'three': 3 }).size();
 result = <number>_.size('curly');
 
-result = <boolean>_.some([null, 0, 'yes', false], Boolean);
-result = <boolean>_.some(foodsCombined, 'organic');
-result = <boolean>_.some(foodsCombined, { 'type': 'meat' });
-result = <boolean>_.some(foodsOrganic[0]);
+// _.some
+module TestSome {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
 
-result = <boolean>_.any([null, 0, 'yes', false], Boolean);
-result = <boolean>_.any(foodsCombined, 'organic');
-result = <boolean>_.any(foodsCombined, { 'type': 'meat' });
-result = <boolean>_.any(foodsOrganic[0]);
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean;
+
+    let result: boolean;
+
+    result = _.some<TResult>(array);
+    result = _.some<TResult>(array, listIterator);
+    result = _.some<TResult>(array, listIterator, any);
+    result = _.some<TResult>(array, '');
+    result = _.some<{a: number}, TResult>(array, {a: 42});
+
+    result = _.some<TResult>(list);
+    result = _.some<TResult>(list, listIterator);
+    result = _.some<TResult>(list, listIterator, any);
+    result = _.some<TResult>(list, '');
+    result = _.some<{a: number}, TResult>(list, {a: 42});
+
+    result = _.some<TResult>(dictionary);
+    result = _.some<TResult>(dictionary, dictionaryIterator);
+    result = _.some<TResult>(dictionary, dictionaryIterator, any);
+    result = _.some<TResult>(dictionary, '');
+    result = _.some<{a: number}, TResult>(dictionary, {a: 42});
+
+    result = _(array).some();
+    result = _(array).some(listIterator);
+    result = _(array).some(listIterator, any);
+    result = _(array).some('');
+    result = _(array).some<{a: number}>({a: 42});
+
+    result = _(list).some<TResult>();
+    result = _(list).some<TResult>(listIterator);
+    result = _(list).some<TResult>(listIterator, any);
+    result = _(list).some('');
+    result = _(list).some<{a: number}>({a: 42});
+
+    result = _(dictionary).some<TResult>();
+    result = _(dictionary).some<TResult>(dictionaryIterator);
+    result = _(dictionary).some<TResult>(dictionaryIterator, any);
+    result = _(dictionary).some('');
+    result = _(dictionary).some<{a: number}>({a: 42});
+}
 
 result = <number[]>_.sortBy([1, 2, 3], function (num) { return Math.sin(num); });
 result = <number[]>_.sortBy([1, 2, 3], function (num) { return this.sin(num); }, Math);
