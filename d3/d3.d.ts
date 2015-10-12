@@ -3251,7 +3251,7 @@ declare module d3 {
         export function delaunay(vertices: Array<[number, number]>): Array<[[number, number], [number, number], [number, number]]>;
 
         export function quadtree(): Quadtree<[number, number]>;
-        export function quadtree<T>(): Quadtree<T>;
+        export function quadtree<T>(nodes: T[], x1?: number, y1?: number, x2?: number, y2?: number): quadtree.Quadtree<T>;
 
         module quadtree {
             interface Node<T> {
