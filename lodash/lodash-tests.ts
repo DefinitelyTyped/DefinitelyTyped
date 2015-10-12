@@ -240,6 +240,42 @@ module TestDropRight {
     result = _(list).dropRight<TResult>(42).value();
 }
 
+// _.dropRightWhile
+module TestDropRightWhile {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let predicateFn: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
+    let result: TResult[];
+
+    result = _.dropRightWhile<TResult>(array);
+    result = _.dropRightWhile<TResult>(array, predicateFn);
+    result = _.dropRightWhile<TResult>(array, predicateFn, any);
+    result = _.dropRightWhile<TResult>(array, '');
+    result = _.dropRightWhile<TResult>(array, '', any);
+    result = _.dropRightWhile<{a: number;}, TResult>(array, {a: 42});
+
+    result = _.dropRightWhile<TResult>(list);
+    result = _.dropRightWhile<TResult>(list, predicateFn);
+    result = _.dropRightWhile<TResult>(list, predicateFn, any);
+    result = _.dropRightWhile<TResult>(list, '');
+    result = _.dropRightWhile<TResult>(list, '', any);
+    result = _.dropRightWhile<{a: number;}, TResult>(list, {a: 42});
+
+    result = _(array).dropRightWhile().value();
+    result = _(array).dropRightWhile(predicateFn).value();
+    result = _(array).dropRightWhile(predicateFn, any).value();
+    result = _(array).dropRightWhile('').value();
+    result = _(array).dropRightWhile('', any).value();
+    result = _(array).dropRightWhile<{a: number;}>({a: 42}).value();
+
+    result = _(list).dropRightWhile<TResult>().value();
+    result = _(list).dropRightWhile<TResult>(predicateFn).value();
+    result = _(list).dropRightWhile<TResult>(predicateFn, any).value();
+    result = _(list).dropRightWhile<TResult>('').value();
+    result = _(list).dropRightWhile<TResult>('', any).value();
+    result = _(list).dropRightWhile<{a: number;}, TResult>({a: 42}).value();
+}
+
 // _.dropWhile
 module TestDropWhile {
     let array: TResult[];
@@ -250,14 +286,14 @@ module TestDropWhile {
     result = _.dropWhile<TResult>(array);
     result = _.dropWhile<TResult>(array, predicateFn);
     result = _.dropWhile<TResult>(array, predicateFn, any);
-    result = _.dropWhile<TResult>(array, '')
+    result = _.dropWhile<TResult>(array, '');
     result = _.dropWhile<TResult>(array, '', any);
     result = _.dropWhile<{a: number;}, TResult>(array, {a: 42});
 
     result = _.dropWhile<TResult>(list);
     result = _.dropWhile<TResult>(list, predicateFn);
     result = _.dropWhile<TResult>(list, predicateFn, any);
-    result = _.dropWhile<TResult>(list, '')
+    result = _.dropWhile<TResult>(list, '');
     result = _.dropWhile<TResult>(list, '', any);
     result = _.dropWhile<{a: number;}, TResult>(list, {a: 42});
 
@@ -275,18 +311,6 @@ module TestDropWhile {
     result = _(list).dropWhile<TResult>('', any).value();
     result = _(list).dropWhile<{a: number;}, TResult>({a: 42}).value();
 }
-
-result = <number[]>_.rest([1, 2, 3]);
-result = <number[]>_.rest([1, 2, 3], 2);
-result = <number[]>_.rest([1, 2, 3], (num) => num < 3)
-result = <IFoodOrganic[]>_.rest(foodsOrganic, 'test');
-result = <IFoodType[]>_.rest(foodsType, { 'type': 'value' });
-
-result = <number[]>_.tail([1, 2, 3])
-result = <number[]>_.tail([1, 2, 3], 2)
-result = <number[]>_.tail([1, 2, 3], (num) => num < 3)
-result = <IFoodOrganic[]>_.tail(foodsOrganic, 'test')
-result = <IFoodType[]> _.tail(foodsType, { 'type': 'value' })
 
 // _.fill
 var testFillArray = [1, 2, 3];
@@ -388,14 +412,40 @@ result = <Array<number>>_.flatten([1, [2], [[3]]], true);
 result = <Array<number>>_.flatten<number>([1, [2], [3, [[4]]]], true);
 result = <Array<number|boolean>>_.flatten<number|boolean>([1, [2], [3, [[false]]]], true);
 
-result = <Array<number>>_.flattenDeep<number>([[[[1]]]]);
-
 result = <_.LoDashArrayWrapper<number>>_([[1, 2], [3, 4], 5, 6]).flatten();
 result = <_.LoDashArrayWrapper<number|Array<Array<number>>>>_([1, [2], [3, [[4]]]]).flatten();
 
 result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten(true);
 
-result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flattenDeep();
+// _.flattenDeep
+module TestFlattenDeep {
+    interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
+    interface ListOfRecursiveArraysOrValues<T> extends _.List<T|RecursiveArray<T>> {}
+    interface RecursiveList<T> extends _.List<T|RecursiveList<T>> { }
+
+    let recursiveArray: RecursiveArray<TResult>;
+    let listOfMaybeRecursiveArraysOrValues: ListOfRecursiveArraysOrValues<TResult>;
+    let recursiveList: RecursiveList<TResult>;
+
+    {
+        let result: TResult[];
+
+        result = _.flattenDeep<TResult>(recursiveArray);
+        result = _.flattenDeep<TResult>(listOfMaybeRecursiveArraysOrValues);
+
+        result = _(recursiveArray).flattenDeep<TResult>().value();
+
+        result = _(listOfMaybeRecursiveArraysOrValues).flattenDeep<TResult>().value();
+    }
+
+    {
+        let result: any;
+
+        result = _.flattenDeep<TResult>(recursiveList);
+
+        result = _(recursiveList).flattenDeep().value();
+    }
+}
 
 // _.head
 module TestHead {
@@ -584,6 +634,18 @@ module TestRemove {
     result = _(list).remove<{a: number}, TResult>({a: 42}).value();
 }
 
+// _.rest
+module TestRest {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let result: TResult[];
+
+    result = _.rest<TResult>(array);
+    result = _.rest<TResult>(list);
+    result = _(array).rest().value();
+    result = _(list).rest<TResult>().value();
+}
+
 // _.slice
 {
     let testSliceArray: TResult[];
@@ -607,6 +669,18 @@ result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function
 result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word: string) {
     return this.wordToNumber[word];
 }, sortedIndexDict);
+
+// _.tail
+module TestTail {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let result: TResult[];
+
+    result = _.tail<TResult>(array);
+    result = _.tail<TResult>(list);
+    result = _(array).tail().value();
+    result = _(list).tail<TResult>().value();
+}
 
 // _.take
 module TestTake {
@@ -648,14 +722,14 @@ module TestTakeRightWhile {
     result = _.takeRightWhile<TResult>(array);
     result = _.takeRightWhile<TResult>(array, predicateFn);
     result = _.takeRightWhile<TResult>(array, predicateFn, any);
-    result = _.takeRightWhile<TResult>(array, '')
+    result = _.takeRightWhile<TResult>(array, '');
     result = _.takeRightWhile<TResult>(array, '', any);
     result = _.takeRightWhile<{a: number;}, TResult>(array, {a: 42});
 
     result = _.takeRightWhile<TResult>(list);
     result = _.takeRightWhile<TResult>(list, predicateFn);
     result = _.takeRightWhile<TResult>(list, predicateFn, any);
-    result = _.takeRightWhile<TResult>(list, '')
+    result = _.takeRightWhile<TResult>(list, '');
     result = _.takeRightWhile<TResult>(list, '', any);
     result = _.takeRightWhile<{a: number;}, TResult>(list, {a: 42});
 
@@ -684,14 +758,14 @@ module TestTakeWhile {
     result = _.takeWhile<TResult>(array);
     result = _.takeWhile<TResult>(array, predicateFn);
     result = _.takeWhile<TResult>(array, predicateFn, any);
-    result = _.takeWhile<TResult>(array, '')
+    result = _.takeWhile<TResult>(array, '');
     result = _.takeWhile<TResult>(array, '', any);
     result = _.takeWhile<{a: number;}, TResult>(array, {a: 42});
 
     result = _.takeWhile<TResult>(list);
     result = _.takeWhile<TResult>(list, predicateFn);
     result = _.takeWhile<TResult>(list, predicateFn, any);
-    result = _.takeWhile<TResult>(list, '')
+    result = _.takeWhile<TResult>(list, '');
     result = _.takeWhile<TResult>(list, '', any);
     result = _.takeWhile<{a: number;}, TResult>(list, {a: 42});
 
@@ -710,9 +784,34 @@ module TestTakeWhile {
     result = _(list).takeWhile<{a: number;}, TResult>({a: 42}).value();
 }
 
-result = <number[]>_.union([1, 2, 3], [101, 2, 1, 10], [2, 1]);
+// _.union
+module TestUnion {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let result: TResult[];
 
-result = <number[]>_([1, 2, 3]).union([101, 2, 1, 10], [2, 1]).value();
+    result = _.union<TResult>();
+
+    result = _.union<TResult>(array);
+    result = _.union<TResult>(array, list);
+    result = _.union<TResult>(array, list, array);
+
+    result = _.union<TResult>(list);
+    result = _.union<TResult>(list, array);
+    result = _.union<TResult>(list, array, list);
+
+    result = _(array).union().value();
+    result = _(array).union(list).value();
+    result = _(array).union(list, array).value();
+
+    result = _(array).union<TResult>().value();
+    result = _(array).union<TResult>(list).value();
+    result = _(array).union<TResult>(list, array).value();
+
+    result = _(list).union<TResult>().value();
+    result = _(list).union<TResult>(array).value();
+    result = _(list).union<TResult>(array, list).value();
+}
 
 result = <number[]>_.uniq([1, 2, 1, 3, 1]);
 result = <number[]>_.uniq([1, 1, 2, 2, 3], true);

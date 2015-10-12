@@ -457,6 +457,100 @@ declare module _ {
         dropRight<TResult>(n?: number): LoDashArrayWrapper<TResult>;
     }
 
+    //_.dropRightWhile
+    interface LoDashStatic {
+        /**
+         * Creates a slice of array excluding elements dropped from the end. Elements are dropped until predicate
+         * returns falsey. The predicate is bound to thisArg and invoked with three arguments: (value, index, array).
+         *
+         * If a property name is provided for predicate the created _.property style callback returns the property
+         * value of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for predicate the created _.matches style callback returns true for elements that
+         * match the properties of the given object, else false.
+         *
+         * @param array The array to query.
+         * @param predicate The function invoked per iteration.
+         * @param thisArg The this binding of predicate.
+         * @return Returns the slice of array.
+         */
+        dropRightWhile<TValue>(
+            array: List<TValue>,
+            predicate?: ListIterator<TValue, boolean>,
+            thisArg?: any
+        ): TValue[];
+
+        /**
+         * @see _.dropRightWhile
+         */
+        dropRightWhile<TValue>(
+            array: List<TValue>,
+            predicate?: string,
+            thisArg?: any
+        ): TValue[];
+
+        /**
+         * @see _.dropRightWhile
+         */
+        dropRightWhile<TWhere, TValue>(
+            array: List<TValue>,
+            predicate?: TWhere
+        ): TValue[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.dropRightWhile
+         */
+        dropRightWhile(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashArrayWrapper<T>;
+
+        /**
+         * @see _.dropRightWhile
+         */
+        dropRightWhile(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashArrayWrapper<T>;
+
+        /**
+         * @see _.dropRightWhile
+         */
+        dropRightWhile<TWhere>(
+            predicate?: TWhere
+        ): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.dropRightWhile
+         */
+        dropRightWhile<TValue>(
+            predicate?: ListIterator<TValue, boolean>,
+            thisArg?: any
+        ): LoDashArrayWrapper<TValue>;
+
+        /**
+         * @see _.dropRightWhile
+         */
+        dropRightWhile<TValue>(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashArrayWrapper<TValue>;
+
+        /**
+         * @see _.dropRightWhile
+         */
+        dropRightWhile<TWhere, TValue>(
+            predicate?: TWhere
+        ): LoDashArrayWrapper<TValue>;
+    }
+
     //_.dropWhile
     interface LoDashStatic {
         /**
@@ -766,6 +860,8 @@ declare module _ {
     }
 
     interface MaybeNestedList<T> extends List<T|List<T>> { }
+    interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> { }
+    interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> { }
     interface RecursiveList<T> extends List<T|RecursiveList<T>> { }
 
     //_.flatten
@@ -792,16 +888,6 @@ declare module _ {
          * @return `array` flattened.
          **/
         flatten<T>(array: RecursiveList<T>, isDeep: boolean): List<T> | RecursiveList<T>;
-
-        /**
-         * Recursively flattens a nested array.
-         *
-         * _.flattenDeep(x) is equivalent to _.flatten(x, true);
-         *
-         * @param array The array to flatten
-         * @return `array` recursively flattened
-         */
-        flattenDeep<T>(array: RecursiveList<T>): List<T>
     }
 
     interface LoDashArrayWrapper<T> {
@@ -814,11 +900,41 @@ declare module _ {
          * @see _.flatten
          **/
         flatten<T>(isShallow: boolean): LoDashArrayWrapper<any>;
+    }
+
+    //_.flattenDeep
+    interface LoDashStatic {
+        /**
+         * Recursively flattens a nested array.
+         *
+         * @param array The array to recursively flatten.
+         * @return Returns the new flattened array.
+         */
+        flattenDeep<T>(array: RecursiveArray<T>): T[];
 
         /**
          * @see _.flattenDeep
          */
-        flattenDeep<T>(): LoDashArrayWrapper<any>;
+        flattenDeep<T>(array: ListOfRecursiveArraysOrValues<T>): T[];
+
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDeep<T>(array: RecursiveList<T>): any[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDeep<TResult>(): LoDashArrayWrapper<TResult>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDeep<TResult>(): LoDashArrayWrapper<TResult>;
     }
 
     //_.head
@@ -1165,155 +1281,28 @@ declare module _ {
     //_.rest
     interface LoDashStatic {
         /**
-        * The opposite of _.initial this method gets all but the first element or first n elements of
-        * an array. If a callback function is provided elements at the beginning of the array are excluded
-        * from the result as long as the callback returns truey. The callback is bound to thisArg and
-        * invoked with three arguments; (value, index, array).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will return
-        * the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return true
-        * for elements that have the properties of the given object, else false.
-        * @param array The array to query.
-        * @param {(Function|Object|number|string)} [callback=1] The function called per element or the number
-        * of elements to exclude. If a property name or object is provided it will be used to create a
-        * ".pluck" or ".where" style callback, respectively.
-        * @param {*} [thisArg] The this binding of callback.
-        * @return Returns a slice of array.
-        **/
-        rest<T>(array: Array<T>): T[];
-
-        /**
-        * @see _.rest
-        **/
+         * Gets all but the first element of array.
+         *
+         * @alias _.tail
+         *
+         * @param array The array to query.
+         * @return Returns the slice of array.
+         */
         rest<T>(array: List<T>): T[];
+    }
 
+    interface LoDashArrayWrapper<T> {
         /**
-        * @see _.rest
-        **/
-        rest<T>(
-            array: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
+         * @see _.rest
+         */
+        rest(): LoDashArrayWrapper<T>;
+    }
 
+    interface LoDashObjectWrapper<T> {
         /**
-        * @see _.rest
-        **/
-        rest<T>(
-            array: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.rest
-        **/
-        rest<T>(
-            array: Array<T>,
-            n: number): T[];
-
-        /**
-        * @see _.rest
-        **/
-        rest<T>(
-            array: List<T>,
-            n: number): T[];
-
-        /**
-        * @see _.rest
-        **/
-        rest<T>(
-            array: Array<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.rest
-        **/
-        rest<T>(
-            array: List<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.rest
-        **/
-        rest<W, T>(
-            array: Array<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.rest
-        **/
-        rest<W, T>(
-            array: List<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<T>(array: Array<T>): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<T>(array: List<T>): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<T>(
-            array: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<T>(
-            array: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<T>(
-            array: Array<T>,
-            n: number): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<T>(
-            array: List<T>,
-            n: number): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<T>(
-            array: Array<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<T>(
-            array: List<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<W, T>(
-            array: Array<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.rest
-        **/
-        tail<W, T>(
-            array: List<T>,
-            whereValue: W): T[];
+         * @see _.rest
+         */
+        rest<TResult>(): LoDashArrayWrapper<TResult>;
     }
 
     //_.slice
@@ -1411,6 +1400,28 @@ declare module _ {
             array: List<T>,
             value: T,
             whereValue: W): number;
+    }
+
+    //_.tail
+    interface LoDashStatic {
+        /**
+         * @see _.rest
+         */
+        tail<T>(array: List<T>): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.rest
+         */
+        tail(): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.rest
+         */
+        tail<TResult>(): LoDashArrayWrapper<TResult>;
     }
 
     //_.take
@@ -1662,24 +1673,32 @@ declare module _ {
     //_.union
     interface LoDashStatic {
         /**
-        * Creates an array of unique values, in order, of the provided arrays using strict
-        * equality for comparisons, i.e. ===.
-        * @param arrays The arrays to inspect.
-        * @return Returns an array of composite values.
-        **/
-        union<T>(...arrays: Array<T>[]): T[];
-
-        /**
-        * @see _.union
-        **/
+         * Creates an array of unique values, in order, from all of the provided arrays using SameValueZero for
+         * equality comparisons.
+         *
+         * @param arrays The arrays to inspect.
+         * @return Returns the new array of combined values.
+         */
         union<T>(...arrays: List<T>[]): T[];
     }
 
     interface LoDashArrayWrapper<T> {
         /**
-        * @see _.union
-        **/
-        union<T>(...arrays: (Array<T>|List<T>)[]): LoDashArrayWrapper<T>;
+         * @see _.union
+         */
+        union(...arrays: List<T>[]): LoDashArrayWrapper<T>;
+
+        /**
+         * @see _.union
+         */
+        union<T>(...arrays: List<T>[]): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.union
+         */
+        union<T>(...arrays: List<T>[]): LoDashArrayWrapper<T>;
     }
 
     //_.uniq
