@@ -1,7 +1,7 @@
 /// <reference path="./bounce.d.ts" />
 /// <reference path="./../jquery/jquery.d.ts" />
 
-import Bounce from 'bounce.js';
+import Bounce from 'bounce';
 import * as $ from 'jquery';
 
 function test_chaining_transformations() {
