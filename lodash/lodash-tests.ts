@@ -412,14 +412,40 @@ result = <Array<number>>_.flatten([1, [2], [[3]]], true);
 result = <Array<number>>_.flatten<number>([1, [2], [3, [[4]]]], true);
 result = <Array<number|boolean>>_.flatten<number|boolean>([1, [2], [3, [[false]]]], true);
 
-result = <Array<number>>_.flattenDeep<number>([[[[1]]]]);
-
 result = <_.LoDashArrayWrapper<number>>_([[1, 2], [3, 4], 5, 6]).flatten();
 result = <_.LoDashArrayWrapper<number|Array<Array<number>>>>_([1, [2], [3, [[4]]]]).flatten();
 
 result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten(true);
 
-result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flattenDeep();
+// _.flattenDeep
+module TestFlattenDeep {
+    interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
+    interface ListOfRecursiveArraysOrValues<T> extends _.List<T|RecursiveArray<T>> {}
+    interface RecursiveList<T> extends _.List<T|RecursiveList<T>> { }
+
+    let recursiveArray: RecursiveArray<TResult>;
+    let listOfMaybeRecursiveArraysOrValues: ListOfRecursiveArraysOrValues<TResult>;
+    let recursiveList: RecursiveList<TResult>;
+
+    {
+        let result: TResult[];
+
+        result = _.flattenDeep<TResult>(recursiveArray);
+        result = _.flattenDeep<TResult>(listOfMaybeRecursiveArraysOrValues);
+
+        result = _(recursiveArray).flattenDeep<TResult>().value();
+
+        result = _(listOfMaybeRecursiveArraysOrValues).flattenDeep<TResult>().value();
+    }
+
+    {
+        let result: any;
+
+        result = _.flattenDeep<TResult>(recursiveList);
+
+        result = _(recursiveList).flattenDeep().value();
+    }
+}
 
 // _.head
 module TestHead {
