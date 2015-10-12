@@ -6600,9 +6600,7 @@ declare module _ {
         * @param args Arguments to be partially applied.
         * @return The new partially applied function.
         **/
-        partialRight(
-            func: Function,
-            ...args: any[]): Function;
+        partialRight: PartialRight
     }
 
     interface PartialRight {
