@@ -1,4 +1,4 @@
-﻿// Type definitions for Highstock 2.1.5
+// Type definitions for Highstock 2.1.5
 // Project: http://www.highcharts.com/
 // Definitions by: David Deutsch <http://github.com/DavidKDeutsch>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -81,9 +81,9 @@ interface HighstockScrollbarOptions {
 }
 
 interface HighstockOptions extends HighchartsOptions {
-    navigator?: HighstockNavigatorOptions; 
-    rangeSelector?: HighstockRangeSelectorOptions; 
-    scrollbar?: HighstockScrollbarOptions; 
+    navigator?: HighstockNavigatorOptions;
+    rangeSelector?: HighstockRangeSelectorOptions;
+    scrollbar?: HighstockScrollbarOptions;
 }
 
 interface HighstockChart {
@@ -92,7 +92,13 @@ interface HighstockChart {
 }
 
 interface HighchartsStatic {
-    StockChart: HighstockChart; 
+    StockChart: HighstockChart;
+}
+
+interface HighchartsLangObject {
+    rangeSelectorZoom?: string;
+    rangeSelectorFrom?: string;
+    rangeSelectorTo?: string;
 }
 
 interface JQuery {
