@@ -1,4 +1,6 @@
 /// <reference path="./react-input-calendar.d.ts"/>
 /// <reference path="../react/react.d.ts"/>
 
-var reactInp = new ReactInputCalendar();
+import * as ReactInputCalendar from 'react-input-calendar';
+import * as React from 'react';
+React.render(<ReactInputCalendar />, document.body);
