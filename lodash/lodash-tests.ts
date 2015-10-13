@@ -2434,6 +2434,24 @@ result = <boolean>_.inRange(4, 8);
 result = <boolean>_(3).inRange(2, 4);
 result = <boolean>_(4).inRange(8);
 
+// _.random
+module TestRandom {
+    let result: number;
+
+    result = _.random();
+    result = _.random(1);
+    result = _.random(1, 2);
+    result = _.random(1, 2, true);
+    result = _.random(1, true);
+    result = _.random(true);
+
+    result = _(1).random();
+    result = _(1).random(2);
+    result = _(1).random(2, true);
+    result = _(1).random(true);
+    result = _(true).random();
+}
+
 /*********
 * Object *
 **********/
@@ -2910,12 +2928,6 @@ interface TestAttemptFn {
 var testAttempFn: TestAttemptFn;
 result = <TResult|Error>_.attempt<TResult>(testAttempFn);
 result = <TResult|Error>_(testAttempFn).attempt<TResult>();
-
-result = <number>_.random(0, 5);
-result = <number>_.random(5);
-result = <number>_.random(5, true);
-result = <number>_.random(1.2, 5.2);
-result = <number>_.random(0, 5, true);
 
 // _.noop
 result = <void>_.noop();

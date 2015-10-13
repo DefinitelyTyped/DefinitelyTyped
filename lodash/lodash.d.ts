@@ -7243,6 +7243,53 @@ declare module _ {
         inRange(end: number): boolean;
     }
 
+    //_.random
+    interface LoDashStatic {
+        /**
+         * Produces a random number between min and max (inclusive). If only one argument is provided a number between
+         * 0 and the given number is returned. If floating is true, or either min or max are floats, a floating-point
+         * number is returned instead of an integer.
+         *
+         * @param min The minimum possible value.
+         * @param max The maximum possible value.
+         * @param floating Specify returning a floating-point number.
+         * @return Returns the random number.
+         */
+        random(
+            min?: number,
+            max?: number,
+            floating?: boolean
+        ): number;
+
+        /**
+         * @see _.random
+         */
+        random(
+            min?: number,
+            floating?: boolean
+        ): number;
+
+        /**
+         * @see _.random
+         */
+        random(floating?: boolean): number;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.random
+         */
+        random(
+            max?: number,
+            floating?: boolean
+        ): number;
+
+        /**
+         * @see _.random
+         */
+        random(floating?: boolean): number;
+    }
+
     /**********
      * Object *
      **********/
@@ -9413,26 +9460,6 @@ declare module _ {
         range(
             end?: number,
             step?: number): LoDashArrayWrapper<number>;
-    }
-
-    //_.random
-    interface LoDashStatic {
-        /**
-        * Produces a random number between min and max (inclusive). If only one argument is provided a
-        * number between 0 and the given number will be returned. If floating is truey or either min or
-        * max are floats a floating-point number will be returned instead of an integer.
-        * @param max The maximum possible value.
-        * @param floating Specify returning a floating-point number.
-        * @return A random number.
-        **/
-        random(max: number, floating?: boolean): number;
-
-        /**
-        * @see _.random
-        * @param min The minimum possible value.
-        * @return A random number between `min` and `max`.
-        **/
-        random(min: number, max: number, floating?: boolean): number;
     }
 
     //_.runInContext
