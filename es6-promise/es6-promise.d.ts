@@ -16,7 +16,7 @@ declare class Promise<R> implements Thenable<R> {
 	 * For consistency and debugging (eg stack traces), obj should be an instanceof Error.
 	 * Any errors thrown in the constructor callback will be implicitly passed to reject().
 	 */
-	constructor(callback: (resolve : (value?: R | Thenable<R>) => void, reject: (error?: any) => void) => void);
+	constructor(callback: (resolve: (value?: R | Thenable<R>) => void, reject: (error?: any) => void) => void);
 
 	/**
 	 * onFulfilled is called when/if "promise" resolves. onRejected is called when/if "promise" rejects.
@@ -68,6 +68,7 @@ declare module 'es6-promise' {
 	var foo: typeof Promise; // Temp variable to reference Promise in local context
 	module rsvp {
 		export var Promise: typeof foo;
+		export function polyfill(): void;
 	}
 	export = rsvp;
 }
