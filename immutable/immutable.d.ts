@@ -1,3 +1,8 @@
+// Type definitions for Immutable 3.7.5
+// Project: https://github.com/facebook/immutable-js
+// Definitions by: Lee Byron <https://github.com/leebyron>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /**
  *  Copyright (c) 2014-2015, Facebook, Inc.
  *  All rights reserved.
