@@ -37,7 +37,7 @@ declare module Sortablejs {
         onMove?: (event: any) => boolean;
     }
 
-    interface SortableableUtils {
+    interface SortableUtils {
         /**
          * Attach an event handler function
          * @param {HTMLElement} element an HTMLElement.
@@ -150,7 +150,7 @@ declare module Sortablejs {
         constructor(element: any, options: SortableOptions);
 
         static active: Sortable;
-        static utils: SortableableUtils;
+        static utils: SortableUtils;
 
         /**
          * Creation of new instances.
