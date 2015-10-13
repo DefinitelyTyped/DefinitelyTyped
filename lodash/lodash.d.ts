@@ -6179,17 +6179,6 @@ declare module _ {
          * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
          * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
          * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        curry<TResult extends Function>(
-            func: Function,
-            arity: number): TResult;
-        /**
-         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
-         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
-         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
-         * @param func The function to curry.
          * @return Returns the new curried function.
          */
         curry<T1, R>(func: (t1: T1) => R):
@@ -6230,6 +6219,17 @@ declare module _ {
          */
         curry<T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R):
             CurriedFunction5<T1, T2, T3, T4, T5, R>;
+        /**
+         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
+         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
+         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
+         * @param func The function to curry.
+         * @param arity The arity of func.
+         * @return Returns the new curried function.
+         */
+        curry<TResult extends Function>(
+          func: Function,
+          arity?: number): TResult;
     }
 
     interface CurriedFunction1<T1, R> {
@@ -6280,16 +6280,6 @@ declare module _ {
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
          * instead of _.partial.
          * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        curryRight<TResult extends Function>(
-            func: Function,
-            arity: number): TResult;
-        /**
-         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
-         * instead of _.partial.
-         * @param func The function to curry.
          * @return Returns the new curried function.
          */
         curryRight<T1, R>(func: (t1: T1) => R):
@@ -6326,6 +6316,16 @@ declare module _ {
          */
         curryRight<T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R):
             CurriedFunction5<T5, T4, T3, T2, T1, R>;
+        /**
+         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
+         * instead of _.partial.
+         * @param func The function to curry.
+         * @param arity The arity of func.
+         * @return Returns the new curried function.
+         */
+        curryRight<TResult extends Function>(
+          func: Function,
+          arity?: number): TResult;
     }
 
     interface LoDashObjectWrapper<T> {
