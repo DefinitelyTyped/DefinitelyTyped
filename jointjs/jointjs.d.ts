@@ -78,7 +78,8 @@ declare module joint {
             findViewByModel(modelOrId:any):CellView;
             findViewsFromPoint(p:{ x: number; y: number; }):CellView[];
             findViewsInArea(r:{ x: number; y: number; width: number; height: number; }):CellView[];
-            fitToContent(opt?:any): void;
+            fitToContent(opt?:any, opt2?:any): void;
+            getContentBBox():{ width: number; height: number; };
         }
 
         class ElementView extends CellView {
