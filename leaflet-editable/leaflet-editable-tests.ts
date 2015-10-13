@@ -1,0 +1,1 @@
+/// <reference path="leaflet-editable.d.ts" />
