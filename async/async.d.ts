@@ -1,6 +1,6 @@
 // Type definitions for Async 1.4.2
 // Project: https://github.com/caolan/async
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Arseniy Maximov <https://github.com/kern0>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Arseniy Maximov <https://github.com/kern0>, Joe Herman <https://github.com/Penryn>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface Dictionary<T> { [key: string]: T; }
@@ -85,15 +85,15 @@ interface Async {
     map<T, R>(arr: T[], iterator: AsyncResultIterator<T, R>, callback?: AsyncResultArrayCallback<R>): any;
     mapSeries<T, R>(arr: T[], iterator: AsyncResultIterator<T, R>, callback?: AsyncResultArrayCallback<R>): any;
     mapLimit<T, R>(arr: T[], limit: number, iterator: AsyncResultIterator<T, R>, callback?: AsyncResultArrayCallback<R>): any;
-    filter<T>(arr: T[], iterator: AsyncResultIterator<T, boolean>, callback?: (results: T[]) => any): any;
-    select<T>(arr: T[], iterator: AsyncResultIterator<T, boolean>, callback?: (results: T[]) => any): any;
-    filterSeries<T>(arr: T[], iterator: AsyncResultIterator<T, boolean>, callback?: (results: T[]) => any): any;
-    selectSeries<T>(arr: T[], iterator: AsyncResultIterator<T, boolean>, callback?: (results: T[]) => any): any;
-    filterLimit<T>(arr: T[], limit: number, iterator: AsyncResultIterator<T, boolean>, callback?: (results: T[]) => any): any;
-    selectLimit<T>(arr: T[], limit: number, iterator: AsyncResultIterator<T, boolean>, callback?: (results: T[]) => any): any;
-    reject<T>(arr: T[], iterator: AsyncResultIterator<T, boolean>, callback?: (results: T[]) => any): any;
-    rejectSeries<T>(arr: T[], iterator: AsyncResultIterator<T, boolean>, callback?: (results: T[]) => any): any;
-    rejectLimit<T>(arr: T[], limit: number, iterator: AsyncResultIterator<T, boolean>, callback?: (results: T[]) => any): any;
+    filter<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
+    select<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
+    filterSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
+    selectSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
+    filterLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
+    selectLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
+    reject<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
+    rejectSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
+    rejectLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
     reduce<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback?: AsyncResultCallback<R>): any;
     inject<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback?: AsyncResultCallback<R>): any;
     foldl<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback?: AsyncResultCallback<R>): any;
