@@ -26,6 +26,7 @@ interface Select2AjaxOptions {
     url?: any;
     dataType?: string;
     quietMillis?: number;
+    cache?: boolean;
     data?: (term: string, page: number, context: any) => any;
     results?: (term: any, page: number, context: any) => any;
 }
@@ -70,6 +71,7 @@ interface Select2Options {
     dropdownCss?: any;
     dropdownCssClass?: any;
     escapeMarkup?: (markup: string) => string;
+    theme?: string;
 }
 
 interface Select2JQueryEventObject extends JQueryEventObject {
