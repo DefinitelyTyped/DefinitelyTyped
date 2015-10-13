@@ -5,6 +5,14 @@
 
 /// <reference path="../express/express.d.ts" />
 
+declare module Express {
+    export interface Request {
+        secret: string;
+        cookies: {[key: string]: string};
+        signedCookies: {[key: string]: string};
+    }
+}
+
 declare module "cookie-parser" {
     import express = require('express');
     function e(secret?: string, options?: any): express.RequestHandler;
