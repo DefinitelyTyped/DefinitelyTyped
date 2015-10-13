@@ -1,3 +1,9 @@
+// Type definitions for react-input-calendar
+// Project: https://github.com/Rudeg/react-input-calendar
+// Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="../react/react.d.ts"/>
 declare module reactInputCalendar {
     export interface ReactInputCalendarProps {
         /**
