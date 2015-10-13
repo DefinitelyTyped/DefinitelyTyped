@@ -23,7 +23,7 @@ declare module "easy-table"
 		 * @param {String} ch
 		 * @returns {Function}
 		 */
-		public static leftPadder<T>(ch: number): CellPrinter<T>;
+		public static leftPadder<T>(ch: string): CellPrinter<T>;
 
 		public static padLeft: CellPrinter<string>;
 
@@ -33,9 +33,9 @@ declare module "easy-table"
 		 * @param {String} ch
 		 * @returns {Function}
 		 */
-		public static rightPadder<T>(ch: number): CellPrinter<T>;
+		public static rightPadder<T>(ch: string): CellPrinter<T>;
 
-		public static padRight: CellPrinter<string>;
+		// public static padRight: CellPrinter<string>;
 
 		/**
 		 * Create a printer for numbers
