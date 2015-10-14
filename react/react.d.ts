@@ -377,6 +377,9 @@ declare namespace __React {
         onTouchStart?: TouchEventHandler;
         onScroll?: UIEventHandler;
         onWheel?: WheelEventHandler;
+        
+        className?: string;
+        id?: string;
 
         className?: string;
         id?: string;
