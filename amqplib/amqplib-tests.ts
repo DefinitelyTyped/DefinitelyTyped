@@ -1,5 +1,6 @@
 /// <reference path="amqplib.d.ts" />
 
+// promise api tests
 import amqp = require("amqplib");
 
 var msg = "Hello World";
@@ -19,3 +20,30 @@ amqp.connect("amqp://localhost")
             .then(channel => channel.consume("myQueue", newMsg => console.log("New Message: " + newMsg.content.toString())))
             .ensure(() => connection.close());
     });
+
+// callback api tests
+import amqpcb = require("amqplib/callback_api");
+
+amqpcb.connect("amqp://localhost", (err, connection) => {
+    if(!err) {
+        connection.createChannel((err, channel) => {
+          if (!err) {
+              channel.assertQueue("myQueue", (err, ok) => {
+                  channel.sendToQueue("myQueue", new Buffer(msg));
+              });
+          }
+        });
+    }
+});
+
+amqpcb.connect("amqp://localhost", (err, connection) => {
+    if(!err) {
+        connection.createChannel((err, channel) => {
+          if (!err) {
+              channel.assertQueue("myQueue", (err, ok) => {
+                  channel.consume("myQueue", newMsg => console.log("New Message: " + newMsg.content.toString()));
+              });
+          }
+        });
+    }
+});
