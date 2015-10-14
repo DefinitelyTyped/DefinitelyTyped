@@ -123,6 +123,31 @@ interface JQuery {
     on(events: "typeahead:select", selector: string, handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
     on(events: "typeahead:select", handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
     off(events: "typeahead:select", handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+
+    on(events: "typeahead:autocomplete", selector: string, data: any, handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+    on(events: "typeahead:autocomplete", selector: string, handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+    on(events: "typeahead:autocomplete", handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+    off(events: "typeahead:autocomplete", handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+
+    on(events: "typeahead:cursorchange", selector: string, data: any, handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+    on(events: "typeahead:cursorchange", selector: string, handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+    on(events: "typeahead:cursorchange", handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+    off(events: "typeahead:cursorchange", handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+
+    on(events: "typeahead:asyncrequest", selector: string, data: any, handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+    on(events: "typeahead:asyncrequest", selector: string, handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+    on(events: "typeahead:asyncrequest", handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+    off(events: "typeahead:asyncrequest", handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+
+    on(events: "typeahead:asynccancel", selector: string, data: any, handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+    on(events: "typeahead:asynccancel", selector: string, handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+    on(events: "typeahead:asynccancel", handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+    off(events: "typeahead:asynccancel", handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+
+    on(events: "typeahead:asyncreceive", selector: string, data: any, handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+    on(events: "typeahead:asyncreceive", selector: string, handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+    on(events: "typeahead:asyncreceive", handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+    off(events: "typeahead:asyncreceive", handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
 }
 
 declare module Twitter.Typeahead {
