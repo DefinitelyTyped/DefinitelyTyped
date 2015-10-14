@@ -453,8 +453,8 @@ declare module moment {
         weekdaysMin(format: string): string[];
         weekdaysMin(format: string, index: number): string;
 
-        min(moments: Moment[]): Moment;
-        max(moments: Moment[]): Moment;
+        min(...moments: Moment[]): Moment;
+        max(...moments: Moment[]): Moment;
 
         normalizeUnits(unit: string): string;
         relativeTimeThreshold(threshold: string): number|boolean;
