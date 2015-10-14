@@ -1,7 +1,6 @@
 // Type definitions for amqplib 0.3.x
 // Project: https://github.com/squaremo/amqp.node
-// Definitions by: Michael Nahkies <https://github.com/mnahkies>
-// Definitions for callback api added by: Ab Reitsma <https://github.com/abreits>
+// Definitions by: Michael Nahkies <https://github.com/mnahkies>, Ab Reitsma <https://github.com/abreits>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../when/when.d.ts" />
@@ -149,9 +148,9 @@ declare module "amqplib/callback_api" {
     import events = require("events");
 
     interface Connection extends events.EventEmitter {
-        close(callback?: (err: any) => void);
-        createChannel(callback: (err: any, channel: Channel) => void);
-        createConfirmChannel(callback: (err: any, confirmChannel: ConfirmChannel) => void);
+        close(callback?: (err: any) => void): void;
+        createChannel(callback: (err: any, channel: Channel) => void): void;
+        createConfirmChannel(callback: (err: any, confirmChannel: ConfirmChannel) => void): void;
     }
 
     module Replies {
@@ -242,32 +241,32 @@ declare module "amqplib/callback_api" {
     }
 
     interface Channel extends events.EventEmitter {
-        close(callback: (err: any) => void);
+        close(callback: (err: any) => void): void;
 
-        assertQueue(queue?: string, options?: Options.AssertQueue, callback?: (err:any, ok: Replies.AssertQueue) => void);
-        checkQueue(queue: string, callback?: (err: any, ok: Replies.AssertQueue) => void);
+        assertQueue(queue?: string, options?: Options.AssertQueue, callback?: (err:any, ok: Replies.AssertQueue) => void): void;
+        checkQueue(queue: string, callback?: (err: any, ok: Replies.AssertQueue) => void): void;
 
-        deleteQueue(queue: string, options?: Options.DeleteQueue, callback?: (err:any, ok: Replies.DeleteQueue) => void);
-        purgeQueue(queue: string, callback?: (err:any, ok: Replies.PurgeQueue) => void);
+        deleteQueue(queue: string, options?: Options.DeleteQueue, callback?: (err:any, ok: Replies.DeleteQueue) => void): void;
+        purgeQueue(queue: string, callback?: (err:any, ok: Replies.PurgeQueue) => void): void;
 
-        bindQueue(queue: string, source: string, pattern: string, args?: any, callback?: (err: any, ok: Replies.Empty) => void);
-        unbindQueue(queue: string, source: string, pattern: string, args?: any, callback?: (err: any, ok: Replies.Empty) => void);
+        bindQueue(queue: string, source: string, pattern: string, args?: any, callback?: (err: any, ok: Replies.Empty) => void): void;
+        unbindQueue(queue: string, source: string, pattern: string, args?: any, callback?: (err: any, ok: Replies.Empty) => void): void;
 
-        assertExchange(exchange: string, type: string, options?: Options.AssertExchange, callback?: (err: any, ok: Replies.AssertExchange) => void);
-        checkExchange(exchange: string, callback?: (err: any, ok: Replies.Empty) => void);
+        assertExchange(exchange: string, type: string, options?: Options.AssertExchange, callback?: (err: any, ok: Replies.AssertExchange) => void): void;
+        checkExchange(exchange: string, callback?: (err: any, ok: Replies.Empty) => void): void;
 
-        deleteExchange(exchange: string, options?: Options.DeleteExchange, callback?: (err: any, ok: Replies.Empty) => void);
+        deleteExchange(exchange: string, options?: Options.DeleteExchange, callback?: (err: any, ok: Replies.Empty) => void): void;
 
-        bindExchange(destination: string, source: string, pattern: string, args?: any, callback?: (err: any, ok: Replies.Empty) => void);
-        unbindExchange(destination: string, source: string, pattern: string, args?: any, callback?: (err: any, ok: Replies.Empty) => void);
+        bindExchange(destination: string, source: string, pattern: string, args?: any, callback?: (err: any, ok: Replies.Empty) => void): void;
+        unbindExchange(destination: string, source: string, pattern: string, args?: any, callback?: (err: any, ok: Replies.Empty) => void): void;
 
         publish(exchange: string, routingKey: string, content: Buffer, options?: Options.Publish): boolean;
         sendToQueue(queue: string, content: Buffer, options?: Options.Publish): boolean;
 
-        consume(queue: string, onMessage: (msg: Message) => any, options?: Options.Consume, callback?: (err: any, ok: Replies.Consume) => void);
+        consume(queue: string, onMessage: (msg: Message) => any, options?: Options.Consume, callback?: (err: any, ok: Replies.Consume) => void): void;
 
-        cancel(consumerTag: string, callback?: (err: any, ok: Replies.Empty) => void);
-        get(queue: string, options?: Options.Get, callback?: (err: any, ok: Message | boolean) => void);
+        cancel(consumerTag: string, callback?: (err: any, ok: Replies.Empty) => void): void;
+        get(queue: string, options?: Options.Get, callback?: (err: any, ok: Message | boolean) => void): void;
 
         ack(message: Message, allUpTo?: boolean): void;
         ackAll(): void;
@@ -276,18 +275,18 @@ declare module "amqplib/callback_api" {
         nackAll(requeue?: boolean): void;
         reject(message: Message, requeue?: boolean): void;
 
-        prefetch(count: number, global?: boolean);
-        recover(callback?: (err: any, ok: Replies.Empty) => void);
+        prefetch(count: number, global?: boolean): void;
+        recover(callback?: (err: any, ok: Replies.Empty) => void): void;
     }
 
     interface ConfirmChannel extends Channel {
         publish(exchange: string, routingKey: string, content: Buffer, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): boolean;
         sendToQueue(queue: string, content: Buffer, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): boolean;
 
-        waitForConfirms(callback?: (err: any) => void);
+        waitForConfirms(callback?: (err: any) => void): void;
     }
 
-    function connect(callback: (err: any, connection: Connection) => void);
-    function connect(url: string, callback: (err: any, connection: Connection) => void);
-    function connect(url: string, socketOptions: any, callback: (err: any, connection: Connection) => void);
+    function connect(callback: (err: any, connection: Connection) => void): void;
+    function connect(url: string, callback: (err: any, connection: Connection) => void): void;
+    function connect(url: string, socketOptions: any, callback: (err: any, connection: Connection) => void): void;
 }
