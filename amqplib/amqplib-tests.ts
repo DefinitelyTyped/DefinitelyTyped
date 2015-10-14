@@ -29,7 +29,9 @@ amqpcb.connect("amqp://localhost", (err, connection) => {
         connection.createChannel((err, channel) => {
           if (!err) {
               channel.assertQueue("myQueue", (err, ok) => {
-                  channel.sendToQueue("myQueue", new Buffer(msg));
+                  if(!err) {
+                      channel.sendToQueue("myQueue", new Buffer(msg));
+                  }
               });
           }
         });
@@ -41,7 +43,9 @@ amqpcb.connect("amqp://localhost", (err, connection) => {
         connection.createChannel((err, channel) => {
           if (!err) {
               channel.assertQueue("myQueue", (err, ok) => {
-                  channel.consume("myQueue", newMsg => console.log("New Message: " + newMsg.content.toString()));
+                  if(!err) {
+                      channel.consume("myQueue", newMsg => console.log("New Message: " + newMsg.content.toString()));
+                  }
               });
           }
         });
