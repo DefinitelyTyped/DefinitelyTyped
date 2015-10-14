@@ -2426,18 +2426,23 @@ result = <boolean>_([]).lte(2);
 result = <boolean>_({}).lte(2);
 
 // _.toPlainObject
-result = <Object>_.toPlainObject();
-result = <Object>_.toPlainObject(true);
-result = <Object>_.toPlainObject(1);
-result = <Object>_.toPlainObject('a');
-result = <Object>_.toPlainObject([]);
-result = <Object>_.toPlainObject({});
-result = <Object>_(true).toPlainObject();
-result = <Object>_(1).toPlainObject();
-result = <Object>_('a').toPlainObject();
-result = <Object>_([1]).toPlainObject();
-result = <Object>_<string>([]).toPlainObject();
-result = <Object>_({}).toPlainObject();
+module TestToPlainObject {
+    let result: TResult;
+
+    result = _.toPlainObject<TResult>();
+    result = _.toPlainObject<TResult>(true);
+    result = _.toPlainObject<TResult>(1);
+    result = _.toPlainObject<TResult>('a');
+    result = _.toPlainObject<TResult>([]);
+    result = _.toPlainObject<TResult>({});
+
+    result = _(true).toPlainObject<TResult>().value();
+    result = _(1).toPlainObject<TResult>().value();
+    result = _('a').toPlainObject<TResult>().value();
+    result = _([1]).toPlainObject<TResult>().value();
+    result = _<string>([]).toPlainObject<TResult>().value();
+    result = _({}).toPlainObject<TResult>().value();
+}
 
 /********
  * Math *
