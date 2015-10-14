@@ -1,4 +1,5 @@
 /// <reference path="nouislider.d.ts" />
+import noUiSlider = require('noUiSlider');
 
 var testHtmlElement = document.getElementById('test');
 
