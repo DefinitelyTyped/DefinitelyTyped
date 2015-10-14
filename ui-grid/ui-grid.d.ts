@@ -723,6 +723,25 @@ declare module uiGrid {
          */
         horizontalScrollThreshold?: number;
         /**
+         * Number of rows from the end of the dataset
+         * at which infinite scroll will trigger a request
+         * for more data
+         * @default 20
+         */
+        infiniteScrollRowsFromEnd?: number;
+        /**
+         * Inform the grid of whether there are rows
+         * to load when scrolling up
+         * @default false
+         */
+        infiniteScrollUp?: boolean,
+        /**
+         * Inform the grid of whether there are rows
+         * to load scrolling down
+         * @default true
+         */
+        infiniteScrollDown?: boolean,
+        /**
          * Defaults to 200
          * @default 200
          */
