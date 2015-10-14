@@ -484,6 +484,10 @@ declare module uiGrid {
          */
         appScope?: ng.IScope;
         /**
+        * returns an array of columns in the grid
+        */
+        columns: Array<IGridColumn>;
+        /**
          * returns the total column footer height
          */
         columnFooterHeight?: number;
@@ -718,6 +722,25 @@ declare module uiGrid {
          * @default 4
          */
         horizontalScrollThreshold?: number;
+        /**
+         * Number of rows from the end of the dataset
+         * at which infinite scroll will trigger a request
+         * for more data
+         * @default 20
+         */
+        infiniteScrollRowsFromEnd?: number;
+        /**
+         * Inform the grid of whether there are rows
+         * to load when scrolling up
+         * @default false
+         */
+        infiniteScrollUp?: boolean,
+        /**
+         * Inform the grid of whether there are rows
+         * to load scrolling down
+         * @default true
+         */
+        infiniteScrollDown?: boolean,
         /**
          * Defaults to 200
          * @default 200

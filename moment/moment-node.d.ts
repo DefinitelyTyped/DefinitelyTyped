@@ -1,4 +1,4 @@
-// Type definitions for Moment.js 2.10.6
+// Type definitions for Moment.js 2.8.0
 // Project: https://github.com/timrwood/moment
 // Definitions by: Michael Lakerveld <https://github.com/Lakerfield>, Aaron King <https://github.com/kingdango>, Hiroki Horiuchi <https://github.com/horiuchi>, Dick van den Brink <https://github.com/DickvdBrink>, Adi Dahiya <https://github.com/adidahiya>, Matt Brooks <https://github.com/EnableSoftware>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -303,7 +303,7 @@ declare module moment {
 
         get(unit: string): number;
         set(unit: string, value: number): Moment;
-        set(input: MomentInput): Moment;
+        set(objectLiteral: MomentInput): Moment;
     }
 
     type formatFunction = () => string;
@@ -454,8 +454,8 @@ declare module moment {
         weekdaysMin(format: string): string[];
         weekdaysMin(format: string, index: number): string;
 
-        min(moments: Moment[]): Moment;
-        max(moments: Moment[]): Moment;
+        min(...moments: Moment[]): Moment;
+        max(...moments: Moment[]): Moment;
 
         normalizeUnits(unit: string): string;
         relativeTimeThreshold(threshold: string): number|boolean;

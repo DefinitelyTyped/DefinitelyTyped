@@ -1633,13 +1633,6 @@ result = <number>_(0.046).floor(2);
 result = <number>_(4060).floor(-2);
 // → 4000
 
-result = <number>_.max([4, 2, 8, 6]);
-result = <IStoogesAge>_.max(stoogesAges, function (stooge) { return stooge.age; });
-result = <IStoogesAge>_.max(stoogesAges, 'age');
-result = <_.LoDashWrapper<number>>_([4, 2, 8, 6]).max();
-result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).max(function (stooge) { return stooge.age; });
-result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).max('age');
-
 result = <number>_.min([4, 2, 8, 6]);
 result = <IStoogesAge>_.min(stoogesAges, function (stooge) { return stooge.age; });
 result = <IStoogesAge>_.min(stoogesAges, 'age');
@@ -1988,23 +1981,53 @@ result = <_.LoDashObjectWrapper<() => boolean>>_(createCallbackObj).createCallba
 
 // _.curry
 var testCurryFn = (a: number, b: number, c: number) => [a, b, c];
-interface TestCurryResultFn {
-    (...args: number[]): number[] | TestCurryResultFn;
-}
-result = <number[]>_.curry<TestCurryResultFn>(testCurryFn)(1, 2, 3);
-result = <TestCurryResultFn>_.curry<TestCurryResultFn>(testCurryFn)(1);
-result = <number[]>_(testCurryFn).curry<TestCurryResultFn>().value()(1, 2, 3);
-result = <TestCurryResultFn>_(testCurryFn).curry<TestCurryResultFn>().value()(1);
+let curryResult0: number[]
+let curryResult1: _.CurriedFunction1<number, number[]>
+let curryResult2: _.CurriedFunction2<number, number, number[]>
+
+curryResult0 = _.curry(testCurryFn)(1, 2, 3);
+curryResult1 = _.curry(testCurryFn)(1, 2);
+curryResult0 = _.curry(testCurryFn)(1, 2)(3);
+curryResult0 = _.curry(testCurryFn)(1)(2)(3);
+curryResult2 = _.curry(testCurryFn)(1);
+curryResult1 = _.curry(testCurryFn)(1)(2);
+curryResult0 = _.curry(testCurryFn)(1)(2)(3);
+curryResult0 = _.curry(testCurryFn)(1)(2, 3);
+curryResult0 = _(testCurryFn).curry().value()(1, 2, 3);
+curryResult2 = _(testCurryFn).curry().value()(1);
+
+declare function testCurry2(a: string, b: number, c: boolean): [string, number, boolean];
+let curryResult3: [string, number, boolean];
+let curryResult4: _.CurriedFunction1<boolean, [string, number, boolean]>;
+let curryResult5: _.CurriedFunction2<number, boolean, [string, number, boolean]>;
+let curryResult6: _.CurriedFunction3<string, number, boolean, [string, number, boolean]>;
+curryResult3 = _.curry(testCurry2)("1", 2, true);
+curryResult3 = _.curry(testCurry2)("1", 2)(true);
+curryResult3 = _.curry(testCurry2)("1")(2, true);
+curryResult3 = _.curry(testCurry2)("1")(2)(true);
+curryResult4 = _.curry(testCurry2)("1", 2);
+curryResult4 = _.curry(testCurry2)("1")(2);
+curryResult5 = _.curry(testCurry2)("1");
+curryResult6 = _.curry(testCurry2);
 
 // _.curryRight
 var testCurryRightFn = (a: number, b: number, c: number) => [a, b, c];
-interface TestCurryRightResultFn {
-    (...args: number[]): number[] | TestCurryRightResultFn;
-}
-result = <number[]>_.curryRight<TestCurryRightResultFn>(testCurryRightFn)(1, 2, 3);
-result = <TestCurryRightResultFn>_.curryRight<TestCurryRightResultFn>(testCurryRightFn)(1);
-result = <number[]>_(testCurryRightFn).curryRight<TestCurryRightResultFn>().value()(1, 2, 3);
-result = <TestCurryRightResultFn>_(testCurryRightFn).curryRight<TestCurryRightResultFn>().value()(1);
+curryResult0 = _.curryRight(testCurryRightFn)(1, 2, 3);
+curryResult2 = _.curryRight(testCurryRightFn)(1);
+curryResult0 = _(testCurryRightFn).curryRight().value()(1, 2, 3);
+curryResult2 = _(testCurryRightFn).curryRight().value()(1);
+
+let curryResult7: _.CurriedFunction1<string, [string, number, boolean]>;
+let curryResult8: _.CurriedFunction2<number, string, [string, number, boolean]>;
+let curryResult9: _.CurriedFunction3<boolean, number, string, [string, number, boolean]>;
+curryResult3 = _.curryRight(testCurry2)(true, 2, "1");
+curryResult3 = _.curryRight(testCurry2)(true, 2)("1");
+curryResult3 = _.curryRight(testCurry2)(true)(2, "1");
+curryResult3 = _.curryRight(testCurry2)(true)(2)("1");
+curryResult7 = _.curryRight(testCurry2)(true, 2);
+curryResult7 = _.curryRight(testCurry2)(true)(2);
+curryResult8 = _.curryRight(testCurry2)(true);
+curryResult9 = _.curryRight(testCurry2);
 
 declare var source: any;
 result = <Function>_.debounce(function () { }, 150);
@@ -2403,18 +2426,23 @@ result = <boolean>_([]).lte(2);
 result = <boolean>_({}).lte(2);
 
 // _.toPlainObject
-result = <Object>_.toPlainObject();
-result = <Object>_.toPlainObject(true);
-result = <Object>_.toPlainObject(1);
-result = <Object>_.toPlainObject('a');
-result = <Object>_.toPlainObject([]);
-result = <Object>_.toPlainObject({});
-result = <Object>_(true).toPlainObject();
-result = <Object>_(1).toPlainObject();
-result = <Object>_('a').toPlainObject();
-result = <Object>_([1]).toPlainObject();
-result = <Object>_<string>([]).toPlainObject();
-result = <Object>_({}).toPlainObject();
+module TestToPlainObject {
+    let result: TResult;
+
+    result = _.toPlainObject<TResult>();
+    result = _.toPlainObject<TResult>(true);
+    result = _.toPlainObject<TResult>(1);
+    result = _.toPlainObject<TResult>('a');
+    result = _.toPlainObject<TResult>([]);
+    result = _.toPlainObject<TResult>({});
+
+    result = _(true).toPlainObject<TResult>().value();
+    result = _(1).toPlainObject<TResult>().value();
+    result = _('a').toPlainObject<TResult>().value();
+    result = _([1]).toPlainObject<TResult>().value();
+    result = _<string>([]).toPlainObject<TResult>().value();
+    result = _({}).toPlainObject<TResult>().value();
+}
 
 /********
  * Math *
@@ -2423,6 +2451,54 @@ result = <Object>_({}).toPlainObject();
 // _.add
 result = <number>_.add(1, 1);
 result = <number>_(1).add(1);
+
+// _.max
+module TestMax {
+    let array: number[];
+    let list: _.List<number>;
+    let dictionary: _.Dictionary<number>;
+
+    let listIterator: (value: number, index: number, collection: _.List<number>) => number;
+    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => number;
+
+    let result: number;
+
+    result = _.max<number>(array);
+    result = _.max<number>(array, listIterator);
+    result = _.max<number>(array, listIterator, any);
+    result = _.max<number>(array, '');
+    result = _.max<{a: number}, number>(array, {a: 42});
+
+    result = _.max<number>(list);
+    result = _.max<number>(list, listIterator);
+    result = _.max<number>(list, listIterator, any);
+    result = _.max<number>(list, '');
+    result = _.max<{a: number}, number>(list, {a: 42});
+
+    result = _.max<number>(dictionary);
+    result = _.max<number>(dictionary, dictionaryIterator);
+    result = _.max<number>(dictionary, dictionaryIterator, any);
+    result = _.max<number>(dictionary, '');
+    result = _.max<{a: number}, number>(dictionary, {a: 42});
+
+    result = _(array).max();
+    result = _(array).max(listIterator);
+    result = _(array).max(listIterator, any);
+    result = _(array).max('');
+    result = _(array).max<{a: number}>({a: 42});
+
+    result = _(list).max<number>();
+    result = _(list).max<number>(listIterator);
+    result = _(list).max<number>(listIterator, any);
+    result = _(list).max<number>('');
+    result = _(list).max<{a: number}, number>({a: 42});
+
+    result = _(dictionary).max<number>();
+    result = _(dictionary).max<number>(dictionaryIterator);
+    result = _(dictionary).max<number>(dictionaryIterator, any);
+    result = _(dictionary).max<number>('');
+    result = _(dictionary).max<{a: number}, number>({a: 42});
+}
 
 /**********
  * Number *
@@ -2433,6 +2509,24 @@ result = <boolean>_.inRange(3, 2, 4);
 result = <boolean>_.inRange(4, 8);
 result = <boolean>_(3).inRange(2, 4);
 result = <boolean>_(4).inRange(8);
+
+// _.random
+module TestRandom {
+    let result: number;
+
+    result = _.random();
+    result = _.random(1);
+    result = _.random(1, 2);
+    result = _.random(1, 2, true);
+    result = _.random(1, true);
+    result = _.random(true);
+
+    result = _(1).random();
+    result = _(1).random(2);
+    result = _(1).random(2, true);
+    result = _(1).random(true);
+    result = _(true).random();
+}
 
 /*********
 * Object *
@@ -2910,12 +3004,6 @@ interface TestAttemptFn {
 var testAttempFn: TestAttemptFn;
 result = <TResult|Error>_.attempt<TResult>(testAttempFn);
 result = <TResult|Error>_(testAttempFn).attempt<TResult>();
-
-result = <number>_.random(0, 5);
-result = <number>_.random(5);
-result = <number>_.random(5, true);
-result = <number>_.random(1.2, 5.2);
-result = <number>_.random(0, 5, true);
 
 // _.noop
 result = <void>_.noop();

@@ -238,11 +238,6 @@ declare module _ {
         * @see _.value
         **/
         valueOf(): T;
-
-        /**
-         * @see _.toPlainObject
-         */
-        toPlainObject(): Object;
     }
 
     interface LoDashWrapper<T> extends LoDashWrapperBase<T, LoDashWrapper<T>> { }
@@ -4375,117 +4370,6 @@ declare module _ {
         floor(precision?: number): number;
     }
 
-    //_.max
-    interface LoDashStatic {
-        /**
-        * Retrieves the maximum value of a collection. If the collection is empty or falsey -Infinity is
-        * returned. If a callback is provided it will be executed for each value in the collection to
-        * generate the criterion by which the value is ranked. The callback is bound to thisArg and invoked
-        * with three arguments; (value, index, collection).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will return the
-        * property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return true for
-        * elements that have the properties of the given object, else false.
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return Returns the maximum value.
-        **/
-        max<T>(
-            collection: Array<T>,
-            callback?: ListIterator<T, any>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.max
-        **/
-        max<T>(
-            collection: List<T>,
-            callback?: ListIterator<T, any>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.max
-        **/
-        max<T>(
-            collection: Dictionary<T>,
-            callback?: DictionaryIterator<T, any>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.max
-        * @param pluckValue _.pluck style callback
-        **/
-        max<T>(
-            collection: Array<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.max
-        * @param pluckValue _.pluck style callback
-        **/
-        max<T>(
-            collection: List<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.max
-        * @param pluckValue _.pluck style callback
-        **/
-        max<T>(
-            collection: Dictionary<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.max
-        * @param whereValue _.where style callback
-        **/
-        max<W, T>(
-            collection: Array<T>,
-            whereValue: W): T;
-
-        /**
-        * @see _.max
-        * @param whereValue _.where style callback
-        **/
-        max<W, T>(
-            collection: List<T>,
-            whereValue: W): T;
-
-        /**
-        * @see _.max
-        * @param whereValue _.where style callback
-        **/
-        max<W, T>(
-            collection: Dictionary<T>,
-            whereValue: W): T;
-    }
-
-    interface LoDashArrayWrapper<T> {
-        /**
-        * @see _.max
-        **/
-        max(
-            callback?: ListIterator<T, any>,
-            thisArg?: any): LoDashWrapper<T>;
-
-        /**
-        * @see _.max
-        * @param pluckValue _.pluck style callback
-        **/
-        max(
-            pluckValue: string): LoDashWrapper<T>;
-
-        /**
-        * @see _.max
-        * @param whereValue _.where style callback
-        **/
-        max<W>(
-            whereValue: W): LoDashWrapper<T>;
-    }
-
     //_.min
     interface LoDashStatic {
         /**
@@ -6179,12 +6063,92 @@ declare module _ {
          * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
          * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
          * @param func The function to curry.
+         * @return Returns the new curried function.
+         */
+        curry<T1, R>(func: (t1: T1) => R):
+            CurriedFunction1<T1, R>;
+        /**
+         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
+         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
+         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
+         * @param func The function to curry.
+         * @return Returns the new curried function.
+         */
+        curry<T1, T2, R>(func: (t1: T1, t2: T2) => R):
+            CurriedFunction2<T1, T2, R>;
+        /**
+         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
+         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
+         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
+         * @param func The function to curry.
+         * @return Returns the new curried function.
+         */
+        curry<T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R):
+            CurriedFunction3<T1, T2, T3, R>;
+        /**
+         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
+         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
+         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
+         * @param func The function to curry.
+         * @return Returns the new curried function.
+         */
+        curry<T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R):
+            CurriedFunction4<T1, T2, T3, T4, R>;
+        /**
+         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
+         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
+         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
+         * @param func The function to curry.
+         * @return Returns the new curried function.
+         */
+        curry<T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R):
+            CurriedFunction5<T1, T2, T3, T4, T5, R>;
+        /**
+         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
+         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
+         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
+         * @param func The function to curry.
          * @param arity The arity of func.
          * @return Returns the new curried function.
          */
         curry<TResult extends Function>(
-            func: Function,
-            arity?: number): TResult;
+          func: Function,
+          arity?: number): TResult;
+    }
+
+    interface CurriedFunction1<T1, R> {
+        (): CurriedFunction1<T1, R>;
+        (t1: T1): R;
+    }
+
+    interface CurriedFunction2<T1, T2, R> {
+        (): CurriedFunction2<T1, T2, R>;
+        (t1: T1): CurriedFunction1<T2, R>;
+        (t1: T1, t2: T2): R;
+    }
+
+    interface CurriedFunction3<T1, T2, T3, R> {
+        (): CurriedFunction3<T1, T2, T3, R>;
+        (t1: T1): CurriedFunction2<T2, T3, R>;
+        (t1: T1, t2: T2): CurriedFunction1<T3, R>;
+        (t1: T1, t2: T2, t3: T3): R;
+    }
+
+    interface CurriedFunction4<T1, T2, T3, T4, R> {
+        (): CurriedFunction4<T1, T2, T3, T4, R>;
+        (t1: T1): CurriedFunction3<T2, T3, T4, R>;
+        (t1: T1, t2: T2): CurriedFunction2<T3, T4, R>;
+        (t1: T1, t2: T2, t3: T3): CurriedFunction1<T4, R>;
+        (t1: T1, t2: T2, t3: T3, t4: T4): R;
+    }
+
+    interface CurriedFunction5<T1, T2, T3, T4, T5, R> {
+        (): CurriedFunction5<T1, T2, T3, T4, T5, R>;
+        (t1: T1): CurriedFunction4<T2, T3, T4, T5, R>;
+        (t1: T1, t2: T2): CurriedFunction3<T3, T4, T5, R>;
+        (t1: T1, t2: T2, t3: T3): CurriedFunction2<T4, T5, R>;
+        (t1: T1, t2: T2, t3: T3, t4: T4): CurriedFunction1<T5, R>;
+        (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
     }
 
     interface LoDashObjectWrapper<T> {
@@ -6200,12 +6164,52 @@ declare module _ {
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
          * instead of _.partial.
          * @param func The function to curry.
+         * @return Returns the new curried function.
+         */
+        curryRight<T1, R>(func: (t1: T1) => R):
+            CurriedFunction1<T1, R>;
+        /**
+         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
+         * instead of _.partial.
+         * @param func The function to curry.
+         * @return Returns the new curried function.
+         */
+        curryRight<T1, T2, R>(func: (t1: T1, t2: T2) => R):
+            CurriedFunction2<T2, T1, R>;
+        /**
+         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
+         * instead of _.partial.
+         * @param func The function to curry.
+         * @return Returns the new curried function.
+         */
+        curryRight<T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R):
+            CurriedFunction3<T3, T2, T1, R>;
+        /**
+         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
+         * instead of _.partial.
+         * @param func The function to curry.
+         * @return Returns the new curried function.
+         */
+        curryRight<T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R):
+            CurriedFunction4<T4, T3, T2, T1, R>;
+        /**
+         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
+         * instead of _.partial.
+         * @param func The function to curry.
+         * @return Returns the new curried function.
+         */
+        curryRight<T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R):
+            CurriedFunction5<T5, T4, T3, T2, T1, R>;
+        /**
+         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
+         * instead of _.partial.
+         * @param func The function to curry.
          * @param arity The arity of func.
          * @return Returns the new curried function.
          */
         curryRight<TResult extends Function>(
-            func: Function,
-            arity?: number): TResult;
+          func: Function,
+          arity?: number): TResult;
     }
 
     interface LoDashObjectWrapper<T> {
@@ -7180,10 +7184,18 @@ declare module _ {
         /**
          * Converts value to a plain object flattening inherited enumerable properties of value to own properties
          * of the plain object.
+         *
          * @param value The value to convert.
          * @return Returns the converted plain object.
          */
-        toPlainObject(value?: any): Object;
+        toPlainObject<TResult extends {}>(value?: any): TResult;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.toPlainObject
+         */
+        toPlainObject<TResult extends {}>(): LoDashObjectWrapper<TResult>;
     }
 
     /********
@@ -7206,6 +7218,110 @@ declare module _ {
          * @see _.add
          */
         add(addend: number): number;
+    }
+
+    //_.max
+    interface LoDashStatic {
+        /**
+         * Gets the maximum value of collection. If collection is empty or falsey -Infinity is returned. If an iteratee
+         * function is provided it’s invoked for each value in collection to generate the criterion by which the value
+         * is ranked. The iteratee is bound to thisArg and invoked with three arguments: (value, index, collection).
+         *
+         * If a property name is provided for iteratee the created _.property style callback returns the property value
+         * of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for iteratee the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns the maximum value.
+         */
+        max<T>(
+            collection: List<T>,
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.max
+         */
+        max<T>(
+            collection: Dictionary<T>,
+            iteratee?: DictionaryIterator<T, any>,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.max
+         */
+        max<T>(
+            collection: List<T>|Dictionary<T>,
+            iteratee?: string,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.max
+         */
+        max<TObject extends {}, T>(
+            collection: List<T>|Dictionary<T>,
+            whereValue?: TObject
+        ): T;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.max
+         */
+        max(
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.max
+         */
+        max(
+            iteratee?: string,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.max
+         */
+        max<TObject extends {}>(
+            whereValue?: TObject
+        ): T;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.max
+         */
+        max<T>(
+            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.max
+         */
+        max<T>(
+            iteratee?: string,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.max
+         */
+        max<TObject extends {}, T>(
+            whereValue?: TObject
+        ): T;
     }
 
     /**********
@@ -7241,6 +7357,53 @@ declare module _ {
          * @see _.inRange
          */
         inRange(end: number): boolean;
+    }
+
+    //_.random
+    interface LoDashStatic {
+        /**
+         * Produces a random number between min and max (inclusive). If only one argument is provided a number between
+         * 0 and the given number is returned. If floating is true, or either min or max are floats, a floating-point
+         * number is returned instead of an integer.
+         *
+         * @param min The minimum possible value.
+         * @param max The maximum possible value.
+         * @param floating Specify returning a floating-point number.
+         * @return Returns the random number.
+         */
+        random(
+            min?: number,
+            max?: number,
+            floating?: boolean
+        ): number;
+
+        /**
+         * @see _.random
+         */
+        random(
+            min?: number,
+            floating?: boolean
+        ): number;
+
+        /**
+         * @see _.random
+         */
+        random(floating?: boolean): number;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.random
+         */
+        random(
+            max?: number,
+            floating?: boolean
+        ): number;
+
+        /**
+         * @see _.random
+         */
+        random(floating?: boolean): number;
     }
 
     /**********
@@ -9413,26 +9576,6 @@ declare module _ {
         range(
             end?: number,
             step?: number): LoDashArrayWrapper<number>;
-    }
-
-    //_.random
-    interface LoDashStatic {
-        /**
-        * Produces a random number between min and max (inclusive). If only one argument is provided a
-        * number between 0 and the given number will be returned. If floating is truey or either min or
-        * max are floats a floating-point number will be returned instead of an integer.
-        * @param max The maximum possible value.
-        * @param floating Specify returning a floating-point number.
-        * @return A random number.
-        **/
-        random(max: number, floating?: boolean): number;
-
-        /**
-        * @see _.random
-        * @param min The minimum possible value.
-        * @return A random number between `min` and `max`.
-        **/
-        random(min: number, max: number, floating?: boolean): number;
     }
 
     //_.runInContext
