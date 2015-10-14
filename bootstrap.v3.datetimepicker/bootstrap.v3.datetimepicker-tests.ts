@@ -13,7 +13,7 @@ function test_cases() {
         minDate: '2012-12-31'
     });
 
-    $('#datetimepicker').data("DateTimePicker").setMaxDate('2012-12-31');
+    $('#datetimepicker').data("DateTimePicker").maxDate('2012-12-31');
 
     var startDate = moment(new Date(2012, 1, 20));
     var endDate = moment(new Date(2012, 1, 25));
