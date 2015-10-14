@@ -1,6 +1,7 @@
 // Type definitions for amqplib 0.3.x
 // Project: https://github.com/squaremo/amqp.node
 // Definitions by: Michael Nahkies <https://github.com/mnahkies>
+// Definitions for callback api added by: Ab Reitsma <https://github.com/abreits>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../when/when.d.ts" />
@@ -141,4 +142,152 @@ declare module "amqplib" {
     }
 
     function connect(url: string, socketOptions?: any): when.Promise<Connection>;
+}
+
+declare module "amqplib/callback_api" {
+
+    import events = require("events");
+
+    interface Connection extends events.EventEmitter {
+        close(callback?: (err: any) => void);
+        createChannel(callback: (err: any, channel: Channel) => void);
+        createConfirmChannel(callback: (err: any, confirmChannel: ConfirmChannel) => void);
+    }
+
+    module Replies {
+        interface Empty {
+        }
+        interface AssertQueue {
+            queue: string;
+            messageCount: number;
+            consumerCount: number;
+        }
+        interface DeleteQueue {
+            messageCount: number;
+        }
+        interface PurgeQueue {
+            messageCount: number;
+        }
+        interface AssertExchange {
+            exchange: string;
+        }
+        interface Consume {
+            consumerTag: string;
+        }
+    }
+
+    module Options {
+        interface AssertQueue {
+            exclusive?: boolean;
+            durable?: boolean;
+            autoDelete?: boolean;
+            arguments?: any;
+            messageTtl?: number;
+            expires?: number;
+            deadLetterExchange?: string;
+            maxLength?: number;
+        }
+        interface DeleteQueue {
+            ifUnused?: boolean;
+            ifEmpty?: boolean;
+        }
+        interface AssertExchange {
+            durable?: boolean;
+            internal?: boolean;
+            autoDelete?: boolean;
+            alternateExchange?: string;
+            arguments?: any;
+        }
+        interface DeleteExchange {
+            ifUnused?: boolean;
+        }
+        interface Publish {
+            expiration?: string;
+            userId?: string;
+            CC?: string | string[];
+
+            mandatory?: boolean;
+            persistent?: boolean;
+            deliveryMode?: boolean | number;
+            BCC?: string | string[];
+
+            contentType?: string;
+            contentEncoding?: string;
+            headers?: Object;
+            priority?: number;
+            correlationId?: string;
+            replyTo?: string;
+            messageId?: string;
+            timestamp?: number;
+            type?: string;
+            appId?: string;
+        }
+        interface Consume {
+            consumerTag?: string;
+            noLocal?: boolean;
+            noAck?: boolean;
+            exclusive?: boolean;
+            priority?: number;
+            arguments?: Object;
+        }
+        interface Get {
+            noAck?: boolean;
+        }
+    }
+
+    interface Message {
+        content: Buffer;
+        fields: any;
+        properties: any;
+    }
+
+    interface Channel extends events.EventEmitter {
+        close(callback: (err: any) => void);
+
+        assertQueue(queue?: string, options?: Options.AssertQueue, callback?: (err:any, ok: Replies.AssertQueue) => void);
+        checkQueue(queue: string, callback?: (err: any, ok: Replies.AssertQueue) => void);
+
+        deleteQueue(queue: string, options?: Options.DeleteQueue, callback?: (err:any, ok: Replies.DeleteQueue) => void);
+        purgeQueue(queue: string, callback?: (err:any, ok: Replies.PurgeQueue) => void);
+
+        bindQueue(queue: string, source: string, pattern: string, args?: any, callback?: (err: any, ok: Replies.Empty) => void);
+        unbindQueue(queue: string, source: string, pattern: string, args?: any, callback?: (err: any, ok: Replies.Empty) => void);
+
+        assertExchange(exchange: string, type: string, options?: Options.AssertExchange, callback?: (err: any, ok: Replies.AssertExchange) => void);
+        checkExchange(exchange: string, callback?: (err: any, ok: Replies.Empty) => void);
+
+        deleteExchange(exchange: string, options?: Options.DeleteExchange, callback?: (err: any, ok: Replies.Empty) => void);
+
+        bindExchange(destination: string, source: string, pattern: string, args?: any, callback?: (err: any, ok: Replies.Empty) => void);
+        unbindExchange(destination: string, source: string, pattern: string, args?: any, callback?: (err: any, ok: Replies.Empty) => void);
+
+        publish(exchange: string, routingKey: string, content: Buffer, options?: Options.Publish): boolean;
+        sendToQueue(queue: string, content: Buffer, options?: Options.Publish): boolean;
+
+        consume(queue: string, onMessage: (msg: Message) => any, options?: Options.Consume, callback?: (err: any, ok: Replies.Consume) => void);
+
+        cancel(consumerTag: string, callback?: (err: any, ok: Replies.Empty) => void);
+        get(queue: string, options?: Options.Get, callback?: (err: any, ok: Message | boolean) => void);
+
+        ack(message: Message, allUpTo?: boolean): void;
+        ackAll(): void;
+
+        nack(message: Message, allUpTo?: boolean, requeue?: boolean): void;
+        nackAll(requeue?: boolean): void;
+        reject(message: Message, requeue?: boolean): void;
+
+        prefetch(count: number, global?: boolean);
+        recover(callback?: (err: any, ok: Replies.Empty) => void);
+    }
+
+    interface ConfirmChannel extends Channel {
+        publish(exchange: string, routingKey: string, content: Buffer, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): boolean;
+        sendToQueue(queue: string, content: Buffer, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): boolean;
+
+        waitForConfirms(callback?: (err: any) => void);
+    }
+
+    function connect(callback: (err: any, connection: Connection) => void);
+    function connect(url: string, callback: (err: any, connection: Connection) => void);
+    function connect(url: string, socketOptions: any, callback: (err: any, connection: Connection) => void);
 }
