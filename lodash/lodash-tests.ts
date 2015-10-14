@@ -1633,13 +1633,6 @@ result = <number>_(0.046).floor(2);
 result = <number>_(4060).floor(-2);
 // → 4000
 
-result = <number>_.max([4, 2, 8, 6]);
-result = <IStoogesAge>_.max(stoogesAges, function (stooge) { return stooge.age; });
-result = <IStoogesAge>_.max(stoogesAges, 'age');
-result = <_.LoDashWrapper<number>>_([4, 2, 8, 6]).max();
-result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).max(function (stooge) { return stooge.age; });
-result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).max('age');
-
 result = <number>_.min([4, 2, 8, 6]);
 result = <IStoogesAge>_.min(stoogesAges, function (stooge) { return stooge.age; });
 result = <IStoogesAge>_.min(stoogesAges, 'age');
@@ -2423,6 +2416,54 @@ result = <Object>_({}).toPlainObject();
 // _.add
 result = <number>_.add(1, 1);
 result = <number>_(1).add(1);
+
+// _.max
+module TestMax {
+    let array: number[];
+    let list: _.List<number>;
+    let dictionary: _.Dictionary<number>;
+
+    let listIterator: (value: number, index: number, collection: _.List<number>) => number;
+    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => number;
+
+    let result: number;
+
+    result = _.max<number>(array);
+    result = _.max<number>(array, listIterator);
+    result = _.max<number>(array, listIterator, any);
+    result = _.max<number>(array, '');
+    result = _.max<{a: number}, number>(array, {a: 42});
+
+    result = _.max<number>(list);
+    result = _.max<number>(list, listIterator);
+    result = _.max<number>(list, listIterator, any);
+    result = _.max<number>(list, '');
+    result = _.max<{a: number}, number>(list, {a: 42});
+
+    result = _.max<number>(dictionary);
+    result = _.max<number>(dictionary, dictionaryIterator);
+    result = _.max<number>(dictionary, dictionaryIterator, any);
+    result = _.max<number>(dictionary, '');
+    result = _.max<{a: number}, number>(dictionary, {a: 42});
+
+    result = _(array).max();
+    result = _(array).max(listIterator);
+    result = _(array).max(listIterator, any);
+    result = _(array).max('');
+    result = _(array).max<{a: number}>({a: 42});
+
+    result = _(list).max<number>();
+    result = _(list).max<number>(listIterator);
+    result = _(list).max<number>(listIterator, any);
+    result = _(list).max<number>('');
+    result = _(list).max<{a: number}, number>({a: 42});
+
+    result = _(dictionary).max<number>();
+    result = _(dictionary).max<number>(dictionaryIterator);
+    result = _(dictionary).max<number>(dictionaryIterator, any);
+    result = _(dictionary).max<number>('');
+    result = _(dictionary).max<{a: number}, number>({a: 42});
+}
 
 /**********
  * Number *
