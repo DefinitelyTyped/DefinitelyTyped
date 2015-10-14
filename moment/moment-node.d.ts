@@ -303,6 +303,7 @@ declare module moment {
 
         get(unit: string): number;
         set(unit: string, value: number): Moment;
+        set(objectLiteral: MomentInput): Moment;
     }
 
     type formatFunction = () => string;
