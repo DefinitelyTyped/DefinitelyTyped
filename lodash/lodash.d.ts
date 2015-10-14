@@ -4370,117 +4370,6 @@ declare module _ {
         floor(precision?: number): number;
     }
 
-    //_.min
-    interface LoDashStatic {
-        /**
-        * Retrieves the minimum value of a collection. If the collection is empty or falsey
-        * Infinity is returned. If a callback is provided it will be executed for each value
-        * in the collection to generate the criterion by which the value is ranked. The callback
-        * is bound to thisArg and invoked with three arguments; (value, index, collection).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback
-        * will return the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will
-        * return true for elements that have the properties of the given object, else false.
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return Returns the maximum value.
-        **/
-        min<T>(
-            collection: Array<T>,
-            callback?: ListIterator<T, any>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.min
-        **/
-        min<T>(
-            collection: List<T>,
-            callback?: ListIterator<T, any>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.min
-        **/
-        min<T>(
-            collection: Dictionary<T>,
-            callback?: ListIterator<T, any>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.min
-        * @param pluckValue _.pluck style callback
-        **/
-        min<T>(
-            collection: Array<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.min
-        * @param pluckValue _.pluck style callback
-        **/
-        min<T>(
-            collection: List<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.min
-        * @param pluckValue _.pluck style callback
-        **/
-        min<T>(
-            collection: Dictionary<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.min
-        * @param whereValue _.where style callback
-        **/
-        min<W, T>(
-            collection: Array<T>,
-            whereValue: W): T;
-
-        /**
-        * @see _.min
-        * @param whereValue _.where style callback
-        **/
-        min<W, T>(
-            collection: List<T>,
-            whereValue: W): T;
-
-        /**
-        * @see _.min
-        * @param whereValue _.where style callback
-        **/
-        min<W, T>(
-            collection: Dictionary<T>,
-            whereValue: W): T;
-    }
-
-    interface LoDashArrayWrapper<T> {
-        /**
-        * @see _.min
-        **/
-        min(
-            callback?: ListIterator<T, any>,
-            thisArg?: any): LoDashWrapper<T>;
-
-        /**
-        * @see _.min
-        * @param pluckValue _.pluck style callback
-        **/
-        min(
-            pluckValue: string): LoDashWrapper<T>;
-
-        /**
-        * @see _.min
-        * @param whereValue _.where style callback
-        **/
-        min<W>(
-            whereValue: W): LoDashWrapper<T>;
-    }
-
     //_.round
     interface LoDashStatic {
         /**
@@ -7320,6 +7209,110 @@ declare module _ {
          * @see _.max
          */
         max<TObject extends {}, T>(
+            whereValue?: TObject
+        ): T;
+    }
+
+    //_.min
+    interface LoDashStatic {
+        /**
+         * Gets the minimum value of collection. If collection is empty or falsey Infinity is returned. If an iteratee
+         * function is provided it’s invoked for each value in collection to generate the criterion by which the value
+         * is ranked. The iteratee is bound to thisArg and invoked with three arguments: (value, index, collection).
+         *
+         * If a property name is provided for iteratee the created _.property style callback returns the property value
+         * of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for iteratee the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns the minimum value.
+         */
+        min<T>(
+            collection: List<T>,
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.min
+         */
+        min<T>(
+            collection: Dictionary<T>,
+            iteratee?: DictionaryIterator<T, any>,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.min
+         */
+        min<T>(
+            collection: List<T>|Dictionary<T>,
+            iteratee?: string,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.min
+         */
+        min<TObject extends {}, T>(
+            collection: List<T>|Dictionary<T>,
+            whereValue?: TObject
+        ): T;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.min
+         */
+        min(
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.min
+         */
+        min(
+            iteratee?: string,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.min
+         */
+        min<TObject extends {}>(
+            whereValue?: TObject
+        ): T;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.min
+         */
+        min<T>(
+            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.min
+         */
+        min<T>(
+            iteratee?: string,
+            thisArg?: any
+        ): T;
+
+        /**
+         * @see _.min
+         */
+        min<TObject extends {}, T>(
             whereValue?: TObject
         ): T;
     }
