@@ -88,6 +88,41 @@ interface JQuery {
       * @param datasets One or more datasets passed in as arguments.
       */
     typeahead(options: Twitter.Typeahead.Options, ...datasets: Twitter.Typeahead.Dataset[]): JQuery;
+
+    on(events: "typeahead:active", selector: string, data: any, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:active", selector: string, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:active", handler: (ev: JQueryEventObject) => any): JQuery;
+    off(events: "typeahead:active", handler: (ev: JQueryEventObject) => any): JQuery;
+
+    on(events: "typeahead:idle", selector: string, data: any, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:idle", selector: string, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:idle", handler: (ev: JQueryEventObject) => any): JQuery;
+    off(events: "typeahead:idle", handler: (ev: JQueryEventObject) => any): JQuery;
+
+    on(events: "typeahead:open", selector: string, data: any, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:open", selector: string, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:open", handler: (ev: JQueryEventObject) => any): JQuery;
+    off(events: "typeahead:open", handler: (ev: JQueryEventObject) => any): JQuery;
+
+    on(events: "typeahead:close", selector: string, data: any, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:close", selector: string, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:close", handler: (ev: JQueryEventObject) => any): JQuery;
+    off(events: "typeahead:close", handler: (ev: JQueryEventObject) => any): JQuery;
+
+    on(events: "typeahead:change", selector: string, data: any, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:change", selector: string, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:change", handler: (ev: JQueryEventObject) => any): JQuery;
+    off(events: "typeahead:change", handler: (ev: JQueryEventObject) => any): JQuery;
+
+    on(events: "typeahead:render", selector: string, data: any, handler: (ev: JQueryEventObject, suggestions: Array<any>, async: boolean, datasetName: string) => any): JQuery;
+    on(events: "typeahead:render", selector: string, handler: (ev: JQueryEventObject, suggestions: Array<any>, async: boolean, datasetName: string) => any): JQuery;
+    on(events: "typeahead:render", handler: (ev: JQueryEventObject, suggestions: Array<any>, async: boolean, datasetName: string) => any): JQuery;
+    off(events: "typeahead:render", handler: (ev: JQueryEventObject, suggestions: Array<any>, async: boolean, datasetName: string) => any): JQuery;
+
+    on(events: "typeahead:select", selector: string, data: any, handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+    on(events: "typeahead:select", selector: string, handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+    on(events: "typeahead:select", handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+    off(events: "typeahead:select", handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
 }
 
 declare module Twitter.Typeahead {
