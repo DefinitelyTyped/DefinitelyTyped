@@ -105,7 +105,7 @@ declare module Twitter.Typeahead {
          * cb can be invoked synchronously or asynchronously.
          *
          */
-        source: ((query: string, syncResults: (result: any) => void, asyncResults?: (result: any) => void) => void);
+        source: ((query: string, syncResults: (result: Array<any>) => void, asyncResults?: (result: Array<any>) => void) => void);
 
         /**
           * The name of the dataset.
@@ -120,7 +120,7 @@ declare module Twitter.Typeahead {
          * This will be used when setting the value of the input control after a suggestion is selected. Can be either a key string or a function that transforms a suggestion object into a string.
          * Defaults to value.
          */
-        displayKey?: string | ((obj: any) => string);
+        display?: string | ((obj: any) => string);
 
         /**
          * A hash of templates to be used when rendering the dataset.
@@ -128,7 +128,6 @@ declare module Twitter.Typeahead {
          */
         templates?: Templates;
         async?: boolean;
-        display?: boolean | ((x: any) => boolean);
     }
 
 
