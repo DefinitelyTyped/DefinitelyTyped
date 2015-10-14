@@ -6,7 +6,7 @@
 //
 
 var substringMatcher = function (strs: any) {
-    return function findMatches(q: string, syncResults: (x: any) => void) {
+    return function findMatches(q: string, syncResults: (x: Array<any>) => void) {
         var matches: Array<{ value: string }> = [];
         // regex used to determine if a string contains the substring `q`
         var substrRegex = new RegExp(q, 'i');
@@ -97,7 +97,7 @@ function test_datasets_array() {
 
     function with_displayKey_option() {
         $('#the-basics .typeahead').typeahead(options, [{
-            displayKey: 'value',
+            display: 'value',
             source: substringMatcher(states)
         }]
         );
@@ -114,7 +114,7 @@ function test_datasets_array() {
     function with_all_options() {
         $('#the-basics .typeahead').typeahead(options, [{
             name: 'states',
-            displayKey: 'value',
+            display: 'value',
             templates: {},
             source: substringMatcher(states)
         }]
@@ -125,13 +125,13 @@ function test_datasets_array() {
         $('#the-basics .typeahead').typeahead(options, [
             {
                 name: 'states',
-                displayKey: 'value',
+                display: 'value',
                 templates: {},
                 source: substringMatcher(states)
             },
             {
                 name: 'states alternative',
-                displayKey: 'value',
+                display: 'value',
                 templates: {},
                 source: substringMatcher(states)
             }
@@ -161,7 +161,7 @@ function test_datasets_objects() {
     function with_displayKey_option() {
         $('#the-basics .typeahead').typeahead(options,
             {
-                displayKey: 'value',
+                display: 'value',
                 source: substringMatcher(states)
             }
         );
@@ -180,7 +180,7 @@ function test_datasets_objects() {
         $('#the-basics .typeahead').typeahead(options,
             {
                 name: 'states',
-                displayKey: 'value',
+                display: x => x.value,
                 templates: {},
                 source: substringMatcher(states)
             }
@@ -191,13 +191,13 @@ function test_datasets_objects() {
         $('#the-basics .typeahead').typeahead(options,
             {
                 name: 'states',
-                displayKey: 'value',
+                display: 'value',
                 templates: {},
                 source: substringMatcher(states)
             },
             {
                 name: 'states alternative',
-                displayKey: 'value',
+                display: 'value',
                 templates: {},
                 source: substringMatcher(states)
             }
@@ -291,7 +291,7 @@ function test_dataset_templates() {
                 suggestion: function (context) {
                     return context.name;
                 }
-            }
+            },
         });
     }
 }
