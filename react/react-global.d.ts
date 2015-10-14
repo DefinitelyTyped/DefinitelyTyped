@@ -4,7 +4,6 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="react.d.ts" />
-/// <reference path="react-addons-clone-with-props.d.ts" />
 /// <reference path="react-addons-create-fragment.d.ts" />
 /// <reference path="react-addons-css-transition-group.d.ts" />
 /// <reference path="react-addons-linked-state-mixin.d.ts" />
@@ -26,7 +25,6 @@ declare namespace __React {
         export var LinkedStateMixin: __React.__Addons.LinkedStateMixin;
         export var PureRenderMixin: __React.__Addons.PureRenderMixin;
         
-        export import cloneWithProps = __React.__Addons.cloneWithProps;
         export import createFragment = __React.__Addons.createFragment;
         export import update = __React.__Addons.update;
         
