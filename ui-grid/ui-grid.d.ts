@@ -484,6 +484,10 @@ declare module uiGrid {
          */
         appScope?: ng.IScope;
         /**
+        * returns an array of columns in the grid
+        */
+        columns: Array<IGridColumn>;
+        /**
          * returns the total column footer height
          */
         columnFooterHeight?: number;
