@@ -2,7 +2,7 @@
 
 import Long = require("long");
 
-var val: Long;
+var val: dcodeIO.Long;
 var n: number = 42;
 var b: boolean = true;
 var s: string = "1337";
