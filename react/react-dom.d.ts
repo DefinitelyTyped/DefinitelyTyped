@@ -7,7 +7,7 @@
 
 declare namespace __React {
     
-    module __DOM {
+    namespace __DOM {
         function findDOMNode<TElement extends Element>(
             componentOrElement: __React.Component<any, any> | Element): TElement;
         function findDOMNode(
