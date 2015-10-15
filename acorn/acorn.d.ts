@@ -9,6 +9,7 @@ declare module acorn {
     var version: string;
     function parse(input: string, options?: Options): ESTree.Program;
     function parseExpressionAt(input: string, pos: number, options?: Options): ESTree.Expression;
+    function getLineInfo(input: string, offset: number): ESTree.Position;
     var defaultOptions: Options;
 
     interface TokenType {
