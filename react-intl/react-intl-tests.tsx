@@ -30,8 +30,7 @@ module I18nDirect {
     export interface Props extends IntlComponent.Props {}
 }
 
-@reactMixin.decorate( IntlMixin )
-class I18nDirect extends React.Component<I18nDirect.Props, any> { //implements IntlComponent {
+class I18nDirect extends React.Component<I18nDirect.Props, any> { 
 
     private _currentLocale: string
     private _messages: {[key: string]: string}
@@ -39,9 +38,6 @@ class I18nDirect extends React.Component<I18nDirect.Props, any> { //implements I
     constructor( props: I18nDirect.Props ) {
         super( props )
     }
-
-    //Mixin
-    //getIntlMessage: (key: string) => string =  this['getIntlMessage']
 
 
     render() {
