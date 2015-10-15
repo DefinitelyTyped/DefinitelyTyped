@@ -1,6 +1,6 @@
 /// <reference path="./power-assert.d.ts" />
 
-import assert = require("power-assert");
+import assert from "power-assert";
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 

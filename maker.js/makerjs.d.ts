@@ -37,6 +37,12 @@ declare module MakerJs {
      * @param accuracy Optional exemplar of number of decimal places.
      */
     function round(n: number, accuracy?: number): number;
+    /**
+     * Clone an object.
+     *
+     * @param objectToClone The object to clone.
+     * @returns A new clone of the original object.
+     */
     function cloneObject<T>(objectToClone: T): T;
     /**
      * Copy the properties from one object to another object.
@@ -90,11 +96,15 @@ declare module MakerJs {
         /**
          * The type of the path, e.g. "line", "circle", or "arc". These strings are enumerated in pathType.
          */
-        type: string;
+        "type": string;
         /**
          * The main point of reference for this path.
          */
         origin: IPoint;
+        /**
+         * Optional layer of this path.
+         */
+        layer?: string;
     }
     /**
      * Test to see if an object implements the required properties of a path.
@@ -187,7 +197,7 @@ declare module MakerJs {
         /**
          * Key is the type of a path, value is a function which accepts a path object a point object as its parameters.
          */
-        [type: string]: (id: string, pathValue: IPath, origin: IPoint) => void;
+        [type: string]: (id: string, pathValue: IPath, origin: IPoint, layer: string) => void;
     }
     /**
      * String-based enumeration of all paths types.
@@ -270,7 +280,7 @@ declare module MakerJs {
         /**
          * A model may want to specify its type, but this value is not employed yet.
          */
-        type?: string;
+        "type"?: string;
         /**
          * Optional array of path objects in this model.
          */
@@ -287,6 +297,10 @@ declare module MakerJs {
          * An author may wish to add notes to this model instance.
          */
         notes?: string;
+        /**
+         * Optional layer of this model.
+         */
+        layer?: string;
     }
     /**
      * Test to see if an object implements the required properties of a model.
@@ -294,6 +308,14 @@ declare module MakerJs {
     function isModel(item: any): boolean;
 }
 declare module MakerJs.angle {
+    /**
+     * Find out if two angles are equal.
+     *
+     * @param a First angle.
+     * @param b Second angle.
+     * @returns true if angles are the same, false if they are not
+     */
+    function areEqual(angle1: number, angle2: number): boolean;
     /**
      * Ensures an angle is not greater than 360
      *
@@ -388,7 +410,7 @@ declare module MakerJs.point {
      * @param b Second point.
      * @returns true if points are the same, false if they are not
      */
-    function areEqualRounded(a: IPoint, b: IPoint): boolean;
+    function areEqualRounded(a: IPoint, b: IPoint, accuracy?: number): boolean;
     /**
      * Clone a point into a new point.
      *
@@ -427,13 +449,20 @@ declare module MakerJs.point {
      */
     function fromArc(arc: IPathArc): IPoint[];
     /**
+     * Get the two end points of a path.
+     *
+     * @param pathContext The path object.
+     * @returns Array with 2 elements: [0] is the point object corresponding to the origin, [1] is the point object corresponding to the end.
+     */
+    function fromPathEnds(pathContext: IPath): IPoint[];
+    /**
      * Get the middle point of a path. Currently only supports Arc and Line paths.
      *
-     * @param path The path object.
+     * @param pathContext The path object.
      * @param ratio Optional ratio (between 0 and 1) of point along the path. Default is .5 for middle.
      * @returns Point on the path, in the middle of the path.
      */
-    function middle(path: IPath, ratio?: number): IPoint;
+    function middle(pathContext: IPath, ratio?: number): IPoint;
     /**
      * Create a clone of a point, mirrored on either or both x and y axes.
      *
@@ -477,6 +506,14 @@ declare module MakerJs.point {
     function zero(): IPoint;
 }
 declare module MakerJs.path {
+    /**
+     * Find out if two paths are equal.
+     *
+     * @param a First path.
+     * @param b Second path.
+     * @returns true if paths are the same, false if they are not
+     */
+    function areEqual(path1: IPath, path2: IPath): boolean;
     /**
      * Create a clone of a path, mirrored on either or both x and y axes.
      *
@@ -601,6 +638,13 @@ declare module MakerJs.paths {
 }
 declare module MakerJs.model {
     /**
+     * Get an unused id in the paths map with the same prefix.
+     *
+     * @param modelContext The model containing the paths map.
+     * @param pathId The pathId to use directly (if unused), or as a prefix.
+     */
+    function getSimilarPathId(modelContext: IModel, pathId: string): string;
+    /**
      * Moves all of a model's children (models and paths, recursively) in reference to a single common origin. Useful when points between children need to connect to each other.
      *
      * @param modelToOriginate The model to originate.
@@ -658,6 +702,33 @@ declare module MakerJs.model {
      * @returns The scaled model (for chaining).
      */
     function convertUnits(modeltoConvert: IModel, destUnitType: string): IModel;
+    /**
+     * Callback signature for walkPaths.
+     */
+    interface IModelPathCallback {
+        (modelContext: IModel, pathId: string, pathContext: IPath): void;
+    }
+    /**
+     * Recursively walk through all paths for a given model.
+     *
+     * @param modelContext The model to walk.
+     * @param callback Callback for each path.
+     */
+    function walkPaths(modelContext: IModel, callback: IModelPathCallback): void;
+}
+declare module MakerJs.model {
+    /**
+     * Combine 2 models. The models should be originated.
+     *
+     * @param modelA First model to combine.
+     * @param modelB Second model to combine.
+     * @param includeAInsideB Flag to include paths from modelA which are inside of modelB.
+     * @param includeAOutsideB Flag to include paths from modelA which are outside of modelB.
+     * @param includeBInsideA Flag to include paths from modelB which are inside of modelA.
+     * @param includeBOutsideA Flag to include paths from modelB which are outside of modelA.
+     * @param farPoint Optional point of reference which is outside the bounds of both models.
+     */
+    function combine(modelA: IModel, modelB: IModel, includeAInsideB: boolean, includeAOutsideB: boolean, includeBInsideA: boolean, includeBOutsideA: boolean, farPoint?: IPoint): void;
 }
 declare module MakerJs.units {
     /**
@@ -781,7 +852,7 @@ declare module MakerJs.exporter {
          * @param pathToExport The path to export.
          * @param offset The offset position of the path.
          */
-        exportPath(id: string, pathToExport: IPath, offset: IPoint): void;
+        exportPath(id: string, pathToExport: IPath, offset: IPoint, layer: string): void;
         /**
          * Export a model.
          *
@@ -1024,6 +1095,18 @@ declare module MakerJs.exporter {
     }
 }
 declare module MakerJs.models {
+    class ConnectTheDots implements IModel {
+        paths: IPathMap;
+        constructor(isClosed: boolean, points: IPoint[]);
+    }
+}
+declare module MakerJs.models {
+    class Polygon extends ConnectTheDots {
+        constructor(numberOfSides: number, radius: number, firstCornerAngleInDegrees?: number);
+        static getPoints(numberOfSides: number, radius: number, firstCornerAngleInDegrees?: number): IPoint[];
+    }
+}
+declare module MakerJs.models {
     class BoltCircle implements IModel {
         paths: IPathMap;
         constructor(boltRadius: number, holeRadius: number, boltCount: number, firstBoltAngleInDegrees?: number);
@@ -1033,12 +1116,6 @@ declare module MakerJs.models {
     class BoltRectangle implements IModel {
         paths: IPathMap;
         constructor(width: number, height: number, holeRadius: number);
-    }
-}
-declare module MakerJs.models {
-    class ConnectTheDots implements IModel {
-        paths: IPathMap;
-        constructor(isClosed: boolean, points: IPoint[]);
     }
 }
 declare module MakerJs.models {
@@ -1056,12 +1133,6 @@ declare module MakerJs.models {
     class OvalArc implements IModel {
         paths: IPathMap;
         constructor(startAngle: number, endAngle: number, sweepRadius: number, slotRadius: number);
-    }
-}
-declare module MakerJs.models {
-    class Polygon extends ConnectTheDots {
-        constructor(numberOfSides: number, radius: number, firstCornerAngleInDegrees?: number);
-        static getPoints(numberOfSides: number, radius: number, firstCornerAngleInDegrees?: number): IPoint[];
     }
 }
 declare module MakerJs.models {
@@ -1084,5 +1155,12 @@ declare module MakerJs.models {
 declare module MakerJs.models {
     class Square extends Rectangle {
         constructor(side: number);
+    }
+}
+declare module MakerJs.models {
+    class Star implements IModel {
+        paths: IPathMap;
+        constructor(numberOfPoints: number, outerRadius: number, innerRadius?: number, skipPoints?: number);
+        static InnerRadiusRatio(numberOfPoints: number, skipPoints: number): number;
     }
 }

@@ -119,7 +119,7 @@ declare var Buffer: {
      *
      * @param obj object to test.
      */
-    isBuffer(obj: any): boolean;
+    isBuffer(obj: any): obj is Buffer;
     /**
      * Returns true if {encoding} is a valid encoding argument.
      * Valid string encodings in Node 0.12: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
@@ -193,8 +193,7 @@ declare module NodeJS {
 
     export interface WritableStream extends EventEmitter {
         writable: boolean;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
+        write(buffer: Buffer|string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
         end(): void;
         end(buffer: Buffer, cb?: Function): void;
@@ -378,21 +377,21 @@ interface NodeBuffer {
     readFloatBE(offset: number, noAssert?: boolean): number;
     readDoubleLE(offset: number, noAssert?: boolean): number;
     readDoubleBE(offset: number, noAssert?: boolean): number;
-    writeUInt8(value: number, offset: number, noAssert?: boolean): void;
-    writeUInt16LE(value: number, offset: number, noAssert?: boolean): void;
-    writeUInt16BE(value: number, offset: number, noAssert?: boolean): void;
-    writeUInt32LE(value: number, offset: number, noAssert?: boolean): void;
-    writeUInt32BE(value: number, offset: number, noAssert?: boolean): void;
-    writeInt8(value: number, offset: number, noAssert?: boolean): void;
-    writeInt16LE(value: number, offset: number, noAssert?: boolean): void;
-    writeInt16BE(value: number, offset: number, noAssert?: boolean): void;
-    writeInt32LE(value: number, offset: number, noAssert?: boolean): void;
-    writeInt32BE(value: number, offset: number, noAssert?: boolean): void;
-    writeFloatLE(value: number, offset: number, noAssert?: boolean): void;
-    writeFloatBE(value: number, offset: number, noAssert?: boolean): void;
-    writeDoubleLE(value: number, offset: number, noAssert?: boolean): void;
-    writeDoubleBE(value: number, offset: number, noAssert?: boolean): void;
-    fill(value: any, offset?: number, end?: number): void;
+    writeUInt8(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt16LE(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt16BE(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt32LE(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt32BE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt8(value: number, offset: number, noAssert?: boolean): number;
+    writeInt16LE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt16BE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt32LE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt32BE(value: number, offset: number, noAssert?: boolean): number;
+    writeFloatLE(value: number, offset: number, noAssert?: boolean): number;
+    writeFloatBE(value: number, offset: number, noAssert?: boolean): number;
+    writeDoubleLE(value: number, offset: number, noAssert?: boolean): number;
+    writeDoubleBE(value: number, offset: number, noAssert?: boolean): number;
+    fill(value: any, offset?: number, end?: number): Buffer;
 }
 
 /************************************************
@@ -861,7 +860,7 @@ declare module "child_process" {
         env?: any;
         encoding?: string;
         timeout?: number;
-        maxBuffer?: string;
+        maxBuffer?: number;
         killSignal?: string;
     }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function fork(modulePath: string, args?: string[], options?: {
@@ -869,6 +868,26 @@ declare module "child_process" {
         env?: any;
         encoding?: string;
     }): ChildProcess;
+    export function spawnSync(command: string, args?: string[], options?: {
+        cwd?: string;
+        input?: string | Buffer;
+        stdio?: any;
+        env?: any;
+        uid?: number;
+        gid?: number;
+        timeout?: number;
+        maxBuffer?: number;
+        killSignal?: string;
+        encoding?: string;
+    }): {
+        pid: number;
+        output: string[];
+        stdout: string | Buffer;
+        stderr: string | Buffer;
+        status: number;
+        signal: string;
+        error: Error;
+    };
     export function execSync(command: string, options?: {
         cwd?: string;
         input?: string|Buffer;
@@ -880,7 +899,7 @@ declare module "child_process" {
         maxBuffer?: number;
         killSignal?: string;
         encoding?: string;
-    }): ChildProcess;
+    }): string | Buffer;
     export function execFileSync(command: string, args?: string[], options?: {
         cwd?: string;
         input?: string|Buffer;
@@ -892,7 +911,7 @@ declare module "child_process" {
         maxBuffer?: number;
         killSignal?: string;
         encoding?: string;
-    }): ChildProcess;
+    }): string | Buffer;
 }
 
 declare module "url" {
@@ -1311,21 +1330,15 @@ declare module "fs" {
     export function createReadStream(path: string, options?: {
         flags?: string;
         encoding?: string;
-        fd?: string;
+        fd?: number;
         mode?: number;
-        bufferSize?: number;
-    }): ReadStream;
-    export function createReadStream(path: string, options?: {
-        flags?: string;
-        encoding?: string;
-        fd?: string;
-        mode?: string;
-        bufferSize?: number;
+        autoClose?: boolean;
     }): ReadStream;
     export function createWriteStream(path: string, options?: {
         flags?: string;
         encoding?: string;
-        string?: string;
+        fd?: number;
+        mode?: number;
     }): WriteStream;
 }
 
@@ -1694,6 +1707,7 @@ declare module "stream" {
     export interface WritableOptions {
         highWaterMark?: number;
         decodeStrings?: boolean;
+        objectMode?: boolean;
     }
 
     export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
@@ -1772,6 +1786,7 @@ declare module "util" {
     export function isDate(object: any): boolean;
     export function isError(object: any): boolean;
     export function inherits(constructor: any, superConstructor: any): void;
+    export function debuglog(key:string): (msg:string,...param: any[])=>void;
 }
 
 declare module "assert" {
