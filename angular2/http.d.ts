@@ -1,4 +1,4 @@
-// Type definitions for Angular v2.0.0-alpha.37
+// Type definitions for Angular v2.0.0-local_sha.7d5c3eb
 // Project: http://angular.io/
 // Definitions by: angular team <https://github.com/angular/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -24,82 +24,72 @@
  * The http module provides services to perform http requests. To get started, see the {@link Http}
  * class.
  */
-declare module ngHttp {
-
+declare module ngHttp {  
   /**
    * Mock Connection to represent a {@link Connection} for tests.
    */
   class MockConnection implements Connection {
-
-
+    
+    constructor(req: Request);
+    
     /**
      * Describes the state of the connection, based on `XMLHttpRequest.readyState`, but with
      * additional states. For example, state 5 indicates an aborted connection.
      */
-     readyState: ReadyStates;
-
-
+    readyState: ReadyStates;
+    
     /**
      * {@link Request} instance used to create the connection.
      */
-     request: Request;
-
-
+    request: Request;
+    
     /**
-     * {@link EventEmitter} of {@link Response}. Can be subscribed to in order to be notified when a
+     * {@link ng.EventEmitter} of {@link Response}. Can be subscribed to in order to be notified when a
      * response is available.
      */
-     response: ng.EventEmitter;
-
-
-    /**
-     * Changes the `readyState` of the connection to a custom state of 5 (cancelled).
-     */
-     dispose(): void;
-
-
+    response: any;
+    
     /**
      * Sends a mock response to the connection. This response is the value that is emitted to the
-     * {@link EventEmitter} returned by {@link Http}.
-     *
+     * {@link ng.EventEmitter} returned by {@link Http}.
+     * 
      * #Example
-     *
+     * 
      * ```
      * var connection;
-     * backend.connections.subscribe(c => connection = c);
-     * http.request('data.json').subscribe(res => console.log(res.text()));
+     * backend.connections.toRx().subscribe(c => connection = c);
+     * http.request('data.json').toRx().subscribe(res => console.log(res.text()));
      * connection.mockRespond(new Response('fake response')); //logs 'fake response'
      * ```
      */
-     mockRespond(res: Response): void;
-
-
+    mockRespond(res: Response): void;
+    
     /**
      * Not yet implemented!
-     *
+     * 
      * Sends the provided {@link Response} to the `downloadObserver` of the `Request`
      * associated with this connection.
      */
-     mockDownload(res: Response): void;
-
-
+    mockDownload(res: Response): void;
+    
     /**
-     * Emits the provided error object as an error to the {@link Response} {@link EventEmitter}
+     * Emits the provided error object as an error to the {@link Response} {@link ng.EventEmitter}
      * returned
      * from {@link Http}.
      */
-     mockError(err?: Error): void;
+    mockError(err?: Error): void;
+    
   }
 
-
+    
   /**
    * A mock backend for testing the {@link Http} service.
-   *
+   * 
    * This class can be injected in tests, and should be used to override bindings
    * to other backends, such as {@link XHRBackend}.
-   *
+   * 
    * #Example
-   *
+   * 
    * ```
    * import {MockBackend, DefaultOptions, Http} from 'angular2/http';
    * it('should get some data', inject([AsyncTestCompleter], (async) => {
@@ -112,31 +102,32 @@ declare module ngHttp {
    *   var http = injector.get(Http);
    *   var backend = injector.get(MockBackend);
    *   //Assign any newly-created connection to local variable
-   *   backend.connections.subscribe(c => connection = c);
-   *   http.request('data.json').subscribe((res) => {
+   *   backend.connections.toRx().subscribe(c => connection = c);
+   *   http.request('data.json').toRx().subscribe((res) => {
    *     expect(res.text()).toBe('awesome');
    *     async.done();
    *   });
    *   connection.mockRespond(new Response('awesome'));
    * }));
    * ```
-   *
+   * 
    * This method only exists in the mock implementation, not in real Backends.
    */
   class MockBackend implements ConnectionBackend {
-
-
+    
+    constructor();
+    
     /**
-     * {@link EventEmitter}
+     * {@link ng.EventEmitter}
      * of {@link MockConnection} instances that have been created by this backend. Can be subscribed
      * to in order to respond to connections.
-     *
+     * 
      * #Example
-     *
+     * 
      * ```
      * import {MockBackend, Http, BaseRequestOptions} from 'angular2/http';
-     * import {Injector} from 'angular2/di';
-     *
+     * import {Injector} from 'angular2/core';
+     * 
      * it('should get a response', () => {
      *   var connection; //this will be set when a new connection is emitted from the backend.
      *   var text; //this will be set from mock response
@@ -147,426 +138,566 @@ declare module ngHttp {
      *     }, [MockBackend, BaseRequestOptions]]);
      *   var backend = injector.get(MockBackend);
      *   var http = injector.get(Http);
-     *   backend.connections.subscribe(c => connection = c);
-     *   http.request('something.json').subscribe(res => {
+     *   backend.connections.toRx().subscribe(c => connection = c);
+     *   http.request('something.json').toRx().subscribe(res => {
      *     text = res.text();
      *   });
      *   connection.mockRespond(new Response({body: 'Something'}));
      *   expect(text).toBe('Something');
      * });
      * ```
-     *
+     * 
      * This property only exists in the mock implementation, not in real Backends.
      */
-     connections: ng.EventEmitter;
-
-
+    connections: any;
+    
     /**
      * An array representation of `connections`. This array will be updated with each connection that
      * is created by this backend.
-     *
+     * 
      * This property only exists in the mock implementation, not in real Backends.
      */
-     connectionsArray: MockConnection[];
-
-
+    connectionsArray: MockConnection[];
+    
     /**
-     * {@link EventEmitter} of {@link MockConnection} instances that haven't yet been resolved (i.e.
+     * {@link ng.EventEmitter} of {@link MockConnection} instances that haven't yet been resolved (i.e.
      * with a `readyState`
      * less than 4). Used internally to verify that no connections are pending via the
      * `verifyNoPendingRequests` method.
-     *
+     * 
      * This property only exists in the mock implementation, not in real Backends.
      */
-     pendingConnections: ng.EventEmitter;
-
-
+    pendingConnections: any;
+    
     /**
      * Checks all connections, and raises an exception if any connection has not received a response.
-     *
+     * 
      * This method only exists in the mock implementation, not in real Backends.
      */
-     verifyNoPendingRequests(): void;
-
-
+    verifyNoPendingRequests(): void;
+    
     /**
      * Can be used in conjunction with `verifyNoPendingRequests` to resolve any not-yet-resolve
      * connections, if it's expected that there are connections that have not yet received a response.
-     *
+     * 
      * This method only exists in the mock implementation, not in real Backends.
      */
-     resolveAllConnections(): void;
-
-
+    resolveAllConnections(): void;
+    
     /**
      * Creates a new {@link MockConnection}. This is equivalent to calling `new
      * MockConnection()`, except that it also will emit the new `Connection` to the `connections`
      * emitter of this `MockBackend` instance. This method will usually only be used by tests
      * against the framework itself, not by end-users.
      */
-     createConnection(req: Request): Connection;
+    createConnection(req: Request): Connection;
+    
   }
 
-
+    
   /**
    * Creates `Request` instances from provided values.
-   *
+   * 
    * The Request's interface is inspired by the Request constructor defined in the [Fetch
    * Spec](https://fetch.spec.whatwg.org/#request-class),
    * but is considered a static value whose body can be accessed many times. There are other
    * differences in the implementation, but this is the most significant.
+   * 
+   * `Request` instances are typically created by higher-level classes, like {@link Http} and
+   * {@link Jsonp}, but it may occasionally be useful to explicitly create `Request` instances.
+   * One such example is when creating services that wrap higher-level services, like {@link Http},
+   * where it may be useful to generate a `Request` with arbitrary headers and search params.
+   * 
+   * ```typescript
+   * import {Injectable, Injector} from 'angular2/angular2';
+   * import {HTTP_BINDINGS, Http, Request, RequestMethods} from 'angular2/http';
+   * 
+   * @Injectable()
+   * class AutoAuthenticator {
+   *   constructor(public http:Http) {}
+   *   request(url:string) {
+   *     return this.http.request(new Request({
+   *       method: RequestMethods.Get,
+   *       url: url,
+   *       search: 'password=123'
+   *     }));
+   *   }
+   * }
+   * 
+   * var injector = Injector.resolveAndCreate([HTTP_BINDINGS, AutoAuthenticator]);
+   * var authenticator = injector.get(AutoAuthenticator);
+   * authenticator.request('people.json').toRx().subscribe(res => {
+   *   //URL should have included '?password=123'
+   *   console.log('people', res.json());
+   * });
+   * ```
    */
   class Request {
-
-
+    
+    constructor(requestOptions: RequestOptions);
+    
     /**
      * Http method with which to perform the request.
-     *
-     * Defaults to GET.
      */
-     method: RequestMethods;
-
-     mode: RequestModesOpts;
-
-     credentials: RequestCredentialsOpts;
-
-
+    method: RequestMethods;
+    
     /**
-     * Headers object based on the `Headers` class in the [Fetch
-     * Spec](https://fetch.spec.whatwg.org/#headers-class). {@link Headers} class reference.
+     * {@link Headers} instance
      */
-     headers: Headers;
-
-
+    headers: Headers;
+    
     /**
      * Url of the remote resource
      */
-     url: string;
-
-     cache: RequestCacheOpts;
-
-
+    url: string;
+    
     /**
      * Returns the request's body as string, assuming that body exists. If body is undefined, return
      * empty
      * string.
      */
-     text(): String;
+    text(): String;
+    
   }
 
-
+    
   /**
    * Creates `Response` instances from provided values.
-   *
+   * 
    * Though this object isn't
    * usually instantiated by end-users, it is the primary object interacted with when it comes time to
    * add data to a view.
-   *
+   * 
    * #Example
-   *
+   * 
    * ```
-   * http.request('my-friends.txt').subscribe(response => this.friends = response.text());
+   * http.request('my-friends.txt').toRx().subscribe(response => this.friends = response.text());
    * ```
-   *
+   * 
    * The Response's interface is inspired by the Response constructor defined in the [Fetch
    * Spec](https://fetch.spec.whatwg.org/#response-class), but is considered a static value whose body
    * can be accessed many times. There are other differences in the implementation, but this is the
    * most significant.
    */
   class Response {
-
-
+    
+    constructor(responseOptions: ResponseOptions);
+    
     /**
      * One of "basic", "cors", "default", "error, or "opaque".
-     *
+     * 
      * Defaults to "default".
      */
-     type: ResponseTypes;
-
-
+    type: ResponseTypes;
+    
     /**
      * True if the response's status is within 200-299
      */
-     ok: boolean;
-
-
+    ok: boolean;
+    
     /**
      * URL of response.
-     *
+     * 
      * Defaults to empty string.
      */
-     url: string;
-
-
+    url: string;
+    
     /**
      * Status code returned by server.
-     *
+     * 
      * Defaults to 200.
      */
-     status: number;
-
-
+    status: number;
+    
     /**
      * Text representing the corresponding reason phrase to the `status`, as defined in [ietf rfc 2616
      * section 6.1.1](https://tools.ietf.org/html/rfc2616#section-6.1.1)
-     *
+     * 
      * Defaults to "OK"
      */
-     statusText: string;
-
-
+    statusText: string;
+    
     /**
      * Non-standard property
-     *
+     * 
      * Denotes how many of the response body's bytes have been loaded, for example if the response is
      * the result of a progress event.
      */
-     bytesLoaded: number;
-
-
+    bytesLoaded: number;
+    
     /**
      * Non-standard property
-     *
+     * 
      * Denotes how many bytes are expected in the final response body.
      */
-     totalBytes: number;
-
-
+    totalBytes: number;
+    
     /**
      * Headers object based on the `Headers` class in the [Fetch
      * Spec](https://fetch.spec.whatwg.org/#headers-class).
      */
-     headers: Headers;
-
-
+    headers: Headers;
+    
     /**
      * Not yet implemented
      */
-     blob(): any;
-
-
+    blob(): any;
+    
     /**
      * Attempts to return body as parsed `JSON` object, or raises an exception.
      */
-     json(): Object;
-
-
+    json(): Object;
+    
     /**
      * Returns the body as a string, presuming `toString()` can be called on the response body.
      */
-     text(): string;
-
-
+    text(): string;
+    
     /**
      * Not yet implemented
      */
-     arrayBuffer(): any;
+    arrayBuffer(): any;
+    
   }
 
-
+    
   /**
    * Interface for options to construct a Request, based on
    * [RequestInit](https://fetch.spec.whatwg.org/#requestinit) from the Fetch spec.
    */
-  interface RequestOptionsArgs {
-
-     url?: string;
-
-     method?: RequestMethods;
-
-     search?: string | URLSearchParams;
-
-     headers?: Headers;
-
-     body?: string;
-
-     mode?: RequestModesOpts;
-
-     credentials?: RequestCredentialsOpts;
-
-     cache?: RequestCacheOpts;
+  type RequestOptionsArgs = {
+    url?: string;
+    method?: string | RequestMethods;
+    search?: string | URLSearchParams;
+    headers?: Headers;
+    // TODO: Support Blob, ArrayBuffer, JSON, URLSearchParams, FormData
+    body?: string;
   }
 
-
+    
   /**
    * Interface for options to construct a Response, based on
    * [ResponseInit](https://fetch.spec.whatwg.org/#responseinit) from the Fetch spec.
    */
-  interface ResponseOptionsArgs {
-
-     body?: string | Object | FormData;
-
-     status?: number;
-
-     statusText?: string;
-
-     headers?: Headers;
-
-     type?: ResponseTypes;
-
-     url?: string;
+  type ResponseOptionsArgs = {
+    // TODO: Support Blob, ArrayBuffer, JSON
+    body?: string | Object | FormData;
+    status?: number;
+    statusText?: string;
+    headers?: Headers;
+    type?: ResponseTypes;
+    url?: string;
   }
 
-
+    
   /**
    * Abstract class from which real connections are derived.
    */
   class Connection {
-
-     readyState: ReadyStates;
-
-     request: Request;
-
-     response: ng.EventEmitter;
-
-     dispose(): void;
+    
+    readyState: ReadyStates;
+    
+    request: Request;
+    
+    response: any;
+    
   }
 
-
+    
   /**
    * Abstract class from which real backends are derived.
-   *
+   * 
    * The primary purpose of a `ConnectionBackend` is to create new connections to fulfill a given
    * {@link Request}.
    */
   class ConnectionBackend {
-
-     createConnection(request: any): Connection;
+    
+    constructor();
+    
+    createConnection(request: any): Connection;
+    
   }
 
+    
   class BrowserXhr {
-
-     build(): any;
+    
+    constructor();
+    
+    build(): any;
+    
   }
 
-
+    
   /**
-   * Injectable version of {@link RequestOptions}, with overridable default values.
-   *
-   * #Example
-   *
-   * ```
-   * import {Http, BaseRequestOptions, Request} from 'angular2/http';
-   * ...
-   * class MyComponent {
-   *   constructor(baseRequestOptions:BaseRequestOptions, http:Http) {
-   *     var options = baseRequestOptions.merge({body: 'foobar', url: 'https://foo'});
-   *     var request = new Request(options);
-   *     http.request(request).subscribe(res => this.bars = res.json());
-   *   }
+   * Subclass of {@link RequestOptions}, with default values.
+   * 
+   * Default values:
+   *  * method: {@link RequestMethods RequestMethods.Get}
+   *  * headers: empty {@link Headers} object
+   * 
+   * This class could be extended and bound to the {@link RequestOptions} class
+   * when configuring an {@link Injector}, in order to override the default options
+   * used by {@link Http} to create and send {@link Request Requests}.
+   * 
+   * ### Example ([live demo](http://plnkr.co/edit/LEKVSx?p=preview))
+   * 
+   * ```typescript
+   * import {bind, bootstrap} from 'angular2/angular2';
+   * import {HTTP_BINDINGS, Http, BaseRequestOptions, RequestOptions} from 'angular2/http';
+   * import {App} from './myapp';
+   * 
+   * class MyOptions extends BaseRequestOptions {
+   *   search: string = 'coreTeam=true';
    * }
-   *
+   * 
+   * bootstrap(App, [HTTP_BINDINGS, bind(RequestOptions).toClass(MyOptions)]);
+   * ```
+   * 
+   * The options could also be extended when manually creating a {@link Request}
+   * object.
+   * 
+   * ### Example ([live demo](http://plnkr.co/edit/oyBoEvNtDhOSfi9YxaVb?p=preview))
+   * 
+   * ```
+   * import {BaseRequestOptions, Request, RequestMethods} from 'angular2/http';
+   * 
+   * var options = new BaseRequestOptions();
+   * var req = new Request(options.merge({
+   *   method: RequestMethods.Post,
+   *   url: 'https://google.com'
+   * }));
+   * console.log('req.method:', RequestMethods[req.method]); // Post
+   * console.log('options.url:', options.url); // null
+   * console.log('req.url:', req.url); // https://google.com
    * ```
    */
   class BaseRequestOptions extends RequestOptions {
+    
+    constructor();
+    
   }
 
-
+    
   /**
-   * Creates a request options object similar to the `RequestInit` description
-   * in the [Fetch
-   * Spec](https://fetch.spec.whatwg.org/#requestinit) to be optionally provided when instantiating a
+   * Creates a request options object to be optionally provided when instantiating a
    * {@link Request}.
-   *
-   * All values are null by default.
+   * 
+   * This class is based on the `RequestInit` description in the [Fetch
+   * Spec](https://fetch.spec.whatwg.org/#requestinit).
+   * 
+   * All values are null by default. Typical defaults can be found in the {@link BaseRequestOptions}
+   * class, which sub-classes `RequestOptions`.
+   * 
+   * ### Example ([live demo](http://plnkr.co/edit/7Wvi3lfLq41aQPKlxB4O?p=preview))
+   * 
+   * ```typescript
+   * import {RequestOptions, Request, RequestMethods} from 'angular2/http';
+   * 
+   * var options = new RequestOptions({
+   *   method: RequestMethods.Post,
+   *   url: 'https://google.com'
+   * });
+   * var req = new Request(options);
+   * console.log('req.method:', RequestMethods[req.method]); // Post
+   * console.log('options.url:', options.url); // https://google.com
+   * ```
    */
   class RequestOptions {
-
-
+    
+    constructor({method, headers, body, url, search}?: RequestOptionsArgs);
+    
     /**
-     * Http method with which to execute the request.
-     *
-     * Defaults to "GET".
+     * Http method with which to execute a {@link Request}.
+     * Acceptable methods are defined in the {@link RequestMethods} enum.
      */
-     method: RequestMethods;
-
-
+    method: RequestMethods | string;
+    
     /**
-     * Headers object based on the `Headers` class in the [Fetch
-     * Spec](https://fetch.spec.whatwg.org/#headers-class).
+     * {@link Headers} to be attached to a {@link Request}.
      */
-     headers: Headers;
-
-
+    headers: Headers;
+    
     /**
-     * Body to be used when creating the request.
+     * Body to be used when creating a {@link Request}.
      */
-     body: string;
-
-     mode: RequestModesOpts;
-
-     credentials: RequestCredentialsOpts;
-
-     cache: RequestCacheOpts;
-
-     url: string;
-
-     search: URLSearchParams;
-
-
+    body: string;
+    
+    /**
+     * Url with which to perform a {@link Request}.
+     */
+    url: string;
+    
+    /**
+     * Search parameters to be included in a {@link Request}.
+     */
+    search: URLSearchParams;
+    
     /**
      * Creates a copy of the `RequestOptions` instance, using the optional input as values to override
-     * existing values.
+     * existing values. This method will not change the values of the instance on which it is being
+     * called.
+     * 
+     * Note that `headers` and `search` will override existing values completely if present in
+     * the `options` object. If these values should be merged, it should be done prior to calling
+     * `merge` on the `RequestOptions` instance.
+     * 
+     * Example ([live demo](http://plnkr.co/edit/6w8XA8YTkDRcPYpdB9dk?p=preview))
+     * 
+     * ```typescript
+     * import {RequestOptions, Request, RequestMethods} from 'angular2/http';
+     * 
+     * var options = new RequestOptions({
+     *   method: RequestMethods.Post
+     * });
+     * var req = new Request(options.merge({
+     *   url: 'https://google.com'
+     * }));
+     * console.log('req.method:', RequestMethods[req.method]); // Post
+     * console.log('options.url:', options.url); // null
+     * console.log('req.url:', req.url); // https://google.com
+     * ```
      */
-     merge(options?: RequestOptionsArgs): RequestOptions;
+    merge(options?: RequestOptionsArgs): RequestOptions;
+    
   }
 
-
+    
   /**
-   * Injectable version of {@link ResponseOptions}, with overridable default values.
+   * Subclass of {@link ResponseOptions}, with default values.
+   * 
+   * Default values:
+   *  * status: 200
+   *  * headers: empty {@link Headers} object
+   * 
+   * This class could be extended and bound to the {@link ResponseOptions} class
+   * when configuring an {@link Injector}, in order to override the default options
+   * used by {@link Http} to create {@link Response Responses}.
+   * 
+   * ### Example ([live demo](http://plnkr.co/edit/qv8DLT?p=preview))
+   * 
+   * ```typescript
+   * import {bind, bootstrap} from 'angular2/angular2';
+   * import {HTTP_BINDINGS, Headers, Http, BaseResponseOptions, ResponseOptions} from 'angular2/http';
+   * import {App} from './myapp';
+   * 
+   * class MyOptions extends BaseResponseOptions {
+   *   headers:Headers = new Headers({network: 'github'});
+   * }
+   * 
+   * bootstrap(App, [HTTP_BINDINGS, bind(ResponseOptions).toClass(MyOptions)]);
+   * ```
+   * 
+   * The options could also be extended when manually creating a {@link Response}
+   * object.
+   * 
+   * ### Example ([live demo](http://plnkr.co/edit/VngosOWiaExEtbstDoix?p=preview))
+   * 
+   * ```
+   * import {BaseResponseOptions, Response} from 'angular2/http';
+   * 
+   * var options = new BaseResponseOptions();
+   * var res = new Response(options.merge({
+   *   body: 'Angular2',
+   *   headers: new Headers({framework: 'angular'})
+   * }));
+   * console.log('res.headers.get("framework"):', res.headers.get('framework')); // angular
+   * console.log('res.text():', res.text()); // Angular2;
+   * ```
    */
   class BaseResponseOptions extends ResponseOptions {
-
-     body: string | Object | ArrayBuffer | JSON | FormData | Blob;
-
-     status: number;
-
-     headers: Headers;
-
-     statusText: string;
-
-     type: ResponseTypes;
-
-     url: string;
+    
+    constructor();
+    
   }
 
-
+    
   /**
-   * Creates a response options object similar to the
-   * [ResponseInit](https://fetch.spec.whatwg.org/#responseinit) description
-   * in the Fetch
-   * Spec to be optionally provided when instantiating a
+   * Creates a response options object to be optionally provided when instantiating a
    * {@link Response}.
-   *
-   * All values are null by default.
+   * 
+   * This class is based on the `ResponseInit` description in the [Fetch
+   * Spec](https://fetch.spec.whatwg.org/#responseinit).
+   * 
+   * All values are null by default. Typical defaults can be found in the
+   * {@link BaseResponseOptions} class, which sub-classes `ResponseOptions`.
+   * 
+   * This class may be used in tests to build {@link Response Responses} for
+   * mock responses (see {@link MockBackend}).
+   * 
+   * ### Example ([live demo](http://plnkr.co/edit/P9Jkk8e8cz6NVzbcxEsD?p=preview))
+   * 
+   * ```typescript
+   * import {ResponseOptions, Response} from 'angular2/http';
+   * 
+   * var options = new ResponseOptions({
+   *   body: '{"name":"Jeff"}'
+   * });
+   * var res = new Response(options);
+   * 
+   * console.log('res.json():', res.json()); // Object {name: "Jeff"}
+   * ```
    */
   class ResponseOptions {
-
-     body: string | Object;
-
-     status: number;
-
-     headers: Headers;
-
-     statusText: string;
-
-     type: ResponseTypes;
-
-     url: string;
-
-     merge(options?: ResponseOptionsArgs): ResponseOptions;
+    
+    constructor({body, status, headers, statusText, type, url}?: ResponseOptionsArgs);
+    
+    /**
+     * String or Object representing the body of the {@link Response}.
+     */
+    body: string | Object;
+    
+    /**
+     * Http {@link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html status code}
+     * associated with the response.
+     */
+    status: number;
+    
+    /**
+     * Response {@link Headers headers}
+     */
+    headers: Headers;
+    
+    url: string;
+    
+    /**
+     * Creates a copy of the `ResponseOptions` instance, using the optional input as values to
+     * override
+     * existing values. This method will not change the values of the instance on which it is being
+     * called.
+     * 
+     * This may be useful when sharing a base `ResponseOptions` object inside tests,
+     * where certain properties may change from test to test.
+     * 
+     * Example ([live demo](http://plnkr.co/edit/1lXquqFfgduTFBWjNoRE?p=preview))
+     * 
+     * ```typescript
+     * import {ResponseOptions, Response} from 'angular2/http';
+     * 
+     * var options = new ResponseOptions({
+     *   body: {name: 'Jeff'}
+     * });
+     * var res = new Response(options.merge({
+     *   url: 'https://google.com'
+     * }));
+     * console.log('options.url:', options.url); // null
+     * console.log('res.json():', res.json()); // Object {name: "Jeff"}
+     * console.log('res.url:', res.url); // https://google.com
+     * ```
+     */
+    merge(options?: ResponseOptionsArgs): ResponseOptions;
+    
   }
 
-
+    
   /**
    * Creates {@link XHRConnection} instances.
-   *
+   * 
    * This class would typically not be used by end users, but could be
    * overridden if a different backend implementation should be used,
    * such as in a node backend.
-   *
+   * 
    * #Example
-   *
+   * 
    * ```
    * import {Http, MyNodeBackend, HTTP_BINDINGS, BaseRequestOptions} from 'angular2/http';
    * @Component({
@@ -578,94 +709,83 @@ declare module ngHttp {
    * })
    * class MyComponent {
    *   constructor(http:Http) {
-   *     http('people.json').subscribe(res => this.people = res.json());
+   *     http('people.json').toRx().subscribe(res => this.people = res.json());
    *   }
    * }
    * ```
    */
   class XHRBackend implements ConnectionBackend {
-
-     createConnection(request: Request): XHRConnection;
+    
+    constructor(_browserXHR: BrowserXhr, _baseResponseOptions: ResponseOptions);
+    
+    createConnection(request: Request): XHRConnection;
+    
   }
 
-
+    
   /**
    * Creates connections using `XMLHttpRequest`. Given a fully-qualified
    * request, an `XHRConnection` will immediately create an `XMLHttpRequest` object and send the
    * request.
-   *
+   * 
    * This class would typically not be created or interacted with directly inside applications, though
    * the {@link MockConnection} may be interacted with in tests.
    */
   class XHRConnection implements Connection {
-
-     request: Request;
-
-
+    
+    constructor(req: Request, browserXHR: BrowserXhr, baseResponseOptions?: ResponseOptions);
+    
+    request: Request;
+    
     /**
-     * Response {@link EventEmitter} which emits a single {@link Response} value on load event of
+     * Response {@link ng.EventEmitter} which emits a single {@link Response} value on load event of
      * `XMLHttpRequest`.
      */
-     response: ng.EventEmitter;
-
-     readyState: ReadyStates;
-
-
-    /**
-     * Calls abort on the underlying XMLHttpRequest.
-     */
-     dispose(): void;
+    response: any;
+    
+    readyState: ReadyStates;
+    
   }
 
-  class JSONPBackend implements ConnectionBackend {
-
-     createConnection(request: Request): JSONPConnection;
+    
+  interface JSONPBackend extends ConnectionBackend {
+    
+    createConnection(request: Request): JSONPConnection;
+    
   }
 
-  class JSONPConnection implements Connection {
-
-     readyState: ReadyStates;
-
-     request: Request;
-
-     response: ng.EventEmitter;
-
-     baseResponseOptions: ResponseOptions;
-
-     finished(data?: any): void;
-
-     dispose(): void;
+    
+  interface JSONPConnection extends Connection {
+    
+    readyState: ReadyStates;
+    
+    request: Request;
+    
+    response: any;
+    
+    baseResponseOptions: ResponseOptions;
+    
+    finished(data?: any): void;
+    
   }
 
-
+    
   /**
    * Performs http requests using `XMLHttpRequest` as the default backend.
-   *
+   * 
    * `Http` is available as an injectable class, with methods to perform http requests. Calling
-   * `request` returns an {@link EventEmitter} which will emit a single {@link Response} when a
+   * `request` returns an {@link ng.Observable} which will emit a single {@link Response} when a
    * response is received.
-   *
-   *
-   * ## Breaking Change
-   *
-   * Previously, methods of `Http` would return an RxJS Observable directly. For now,
-   * the `toRx()` method of {@link EventEmitter} needs to be called in order to get the RxJS
-   * Subject. `EventEmitter` does not provide combinators like `map`, and has different semantics for
-   * subscribing/observing. This is temporary; the result of all `Http` method calls will be either an
-   * Observable
-   * or Dart Stream when [issue #2794](https://github.com/angular/angular/issues/2794) is resolved.
-   *
+   * 
    * #Example
-   *
-   * ```
+   * 
+   * ```typescript
    * import {Http, HTTP_BINDINGS} from 'angular2/http';
    * @Component({selector: 'http-app', viewBindings: [HTTP_BINDINGS]})
    * @View({templateUrl: 'people.html'})
    * class PeopleComponent {
    *   constructor(http: Http) {
    *     http.get('people.json')
-   *       //Get the RxJS Subject
-   *       .toRx()
    *       // Call map on the response observable to get the parsed people object
    *       .map(res => res.json())
    *       // Subscribe to the observable to get the parsed people object and attach it to the
@@ -674,24 +794,21 @@ declare module ngHttp {
    *   }
    * }
    * ```
-   *
-   * To use the {@link EventEmitter} returned by `Http`, simply pass a generator (See "interface
-   * Generator" in the Async Generator spec: https://github.com/jhusain/asyncgenerator) to the
-   * `observer` method of the returned emitter, with optional methods of `next`, `throw`, and `return`.
-   *
+   * 
+   * 
    * #Example
-   *
+   * 
    * ```
    * http.get('people.json').observer({next: (value) => this.people = people});
    * ```
-   *
+   * 
    * The default construct used to perform requests, `XMLHttpRequest`, is abstracted as a "Backend" (
    * {@link XHRBackend} in this case), which could be mocked with dependency injection by replacing
    * the {@link XHRBackend} binding, as in the following example:
-   *
+   * 
    * #Example
-   *
-   * ```
+   * 
+   * ```typescript
    * import {MockBackend, BaseRequestOptions, Http} from 'angular2/http';
    * var injector = Injector.resolveAndCreate([
    *   BaseRequestOptions,
@@ -703,243 +820,212 @@ declare module ngHttp {
    *       [MockBackend, BaseRequestOptions])
    * ]);
    * var http = injector.get(Http);
-   * http.get('request-from-mock-backend.json').toRx().subscribe((res:Response) => doSomething(res));
+   * http.get('request-from-mock-backend.json').subscribe((res:Response) => doSomething(res));
    * ```
    */
   class Http {
-
-
+    
+    constructor(_backend: ConnectionBackend, _defaultOptions: RequestOptions);
+    
     /**
      * Performs any type of http request. First argument is required, and can either be a url or
      * a {@link Request} instance. If the first argument is a url, an optional {@link RequestOptions}
      * object can be provided as the 2nd argument. The options object will be merged with the values
      * of {@link BaseRequestOptions} before performing the request.
      */
-     request(url: string | Request, options?: RequestOptionsArgs): ng.EventEmitter;
-
-
+    request(url: string | Request, options?: RequestOptionsArgs): any;
+    
     /**
      * Performs a request with `get` http method.
      */
-     get(url: string, options?: RequestOptionsArgs): ng.EventEmitter;
-
-
+    get(url: string, options?: RequestOptionsArgs): any;
+    
     /**
      * Performs a request with `post` http method.
      */
-     post(url: string, body: string, options?: RequestOptionsArgs): ng.EventEmitter;
-
-
+    post(url: string, body: string, options?: RequestOptionsArgs): any;
+    
     /**
      * Performs a request with `put` http method.
      */
-     put(url: string, body: string, options?: RequestOptionsArgs): ng.EventEmitter;
-
-
+    put(url: string, body: string, options?: RequestOptionsArgs): any;
+    
     /**
      * Performs a request with `delete` http method.
      */
-     delete(url: string, options?: RequestOptionsArgs): ng.EventEmitter;
-
-
+    delete(url: string, options?: RequestOptionsArgs): any;
+    
     /**
      * Performs a request with `patch` http method.
      */
-     patch(url: string, body: string, options?: RequestOptionsArgs): ng.EventEmitter;
-
-
+    patch(url: string, body: string, options?: RequestOptionsArgs): any;
+    
     /**
      * Performs a request with `head` http method.
      */
-     head(url: string, options?: RequestOptionsArgs): ng.EventEmitter;
+    head(url: string, options?: RequestOptionsArgs): any;
+    
   }
 
+    
   class Jsonp extends Http {
-
-
+    
+    constructor(backend: ConnectionBackend, defaultOptions: RequestOptions);
+    
     /**
      * Performs any type of http request. First argument is required, and can either be a url or
      * a {@link Request} instance. If the first argument is a url, an optional {@link RequestOptions}
      * object can be provided as the 2nd argument. The options object will be merged with the values
      * of {@link BaseRequestOptions} before performing the request.
      */
-     request(url: string | Request, options?: RequestOptionsArgs): ng.EventEmitter;
+    request(url: string | Request, options?: RequestOptionsArgs): any;
+    
   }
 
-
+    
   /**
    * Polyfill for [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers/Headers), as
-   * specified in the [Fetch Spec](https://fetch.spec.whatwg.org/#headers-class). The only known
-   * difference from the spec is the lack of an `entries` method.
+   * specified in the [Fetch Spec](https://fetch.spec.whatwg.org/#headers-class).
+   * 
+   * The only known difference between this `Headers` implementation and the spec is the
+   * lack of an `entries` method.
+   * 
+   * ### Example ([live demo](http://plnkr.co/edit/MTdwT6?p=preview))
+   * 
+   * ```
+   * import {Headers} from 'angular2/http';
+   * 
+   * var firstHeaders = new Headers();
+   * firstHeaders.append('Content-ng.Type', 'image/jpeg');
+   * console.log(firstHeaders.get('Content-ng.Type')) //'image/jpeg'
+   * 
+   * // Create headers from Plain Old JavaScript Object
+   * var secondHeaders = new Headers({
+   *   'X-My-Custom-Header': 'Angular'
+   * });
+   * console.log(secondHeaders.get('X-My-Custom-Header')); //'Angular'
+   * 
+   * var thirdHeaders = new Headers(secondHeaders);
+   * console.log(thirdHeaders.get('X-My-Custom-Header')); //'Angular'
+   * ```
    */
   class Headers {
-
-
+    
+    constructor(headers?: Headers | {[key: string]: any});
+    
     /**
      * Appends a header to existing list of header values for a given header name.
      */
-     append(name: string, value: string): void;
-
-
+    append(name: string, value: string): void;
+    
     /**
      * Deletes all header values for the given name.
      */
-     delete(name: string): void;
-
-     forEach(fn: Function): void;
-
-
+    delete(name: string): void;
+    
+    forEach(fn: (value: string, name: string, headers: Headers) => any): void;
+    
     /**
      * Returns first header that matches given name.
      */
-     get(header: string): string;
-
-
+    get(header: string): string;
+    
     /**
      * Check for existence of header by given name.
      */
-     has(header: string): boolean;
-
-
+    has(header: string): boolean;
+    
     /**
      * Provides names of set headers
      */
-     keys(): string[];
-
-
+    keys(): string[];
+    
     /**
      * Sets or overrides header value for given name.
      */
-     set(header: string, value: string | string[]): void;
-
-
+    set(header: string, value: string | string[]): void;
+    
     /**
      * Returns values of all headers.
      */
-     values(): string[][];
-
-
+    values(): string[][];
+    
     /**
      * Returns list of header values for a given name.
      */
-     getAll(header: string): string[];
-
-
+    getAll(header: string): string[];
+    
     /**
      * This method is not implemented.
      */
-     entries(): void;
+    entries(): void;
+    
   }
 
-
+    
   /**
    * Acceptable response types to be associated with a {@link Response}, based on
    * [ResponseType](https://fetch.spec.whatwg.org/#responsetype) from the Fetch spec.
    */
   enum ResponseTypes {
-
-     Basic,
-
-     Cors,
-
-     Default,
-
-     Error,
-
-     Opaque
+    
+    Basic,
+    
+    Cors,
+    
+    Default,
+    
+    Error,
+    
+    Opaque
   }
+  
 
-
+    
   /**
    * All possible states in which a connection can be, based on
    * [States](http://www.w3.org/TR/XMLHttpRequest/#states) from the `XMLHttpRequest` spec, but with an
    * additional "CANCELLED" state.
    */
   enum ReadyStates {
-
-     Unsent,
-
-     Open,
-
-     HeadersReceived,
-
-     Loading,
-
-     Done,
-
-     Cancelled
+    
+    Unsent,
+    
+    Open,
+    
+    HeadersReceived,
+    
+    Loading,
+    
+    Done,
+    
+    Cancelled
   }
+  
 
-
+    
   /**
    * Supported http methods.
    */
   enum RequestMethods {
-
-     Get,
-
-     Post,
-
-     Put,
-
-     Delete,
-
-     Options,
-
-     Head,
-
-     Patch
+    
+    Get,
+    
+    Post,
+    
+    Put,
+    
+    Delete,
+    
+    Options,
+    
+    Head,
+    
+    Patch
   }
+  
 
-
-  /**
-   * Acceptable credentials option to be associated with a {@link Request}, based on
-   * [RequestCredentials](https://fetch.spec.whatwg.org/#requestcredentials) from the Fetch spec.
-   */
-  enum RequestCredentialsOpts {
-
-     Omit,
-
-     SameOrigin,
-
-     Include
-  }
-
-
-  /**
-   * Acceptable cache option to be associated with a {@link Request}, based on
-   * [RequestCache](https://fetch.spec.whatwg.org/#requestcache) from the Fetch spec.
-   */
-  enum RequestCacheOpts {
-
-     Default,
-
-     NoStore,
-
-     Reload,
-
-     NoCache,
-
-     ForceCache,
-
-     OnlyIfCached
-  }
-
-
-  /**
-   * Acceptable origin modes to be associated with a {@link Request}, based on
-   * [RequestMode](https://fetch.spec.whatwg.org/#requestmode) from the Fetch spec.
-   */
-  enum RequestModesOpts {
-
-     Cors,
-
-     NoCors,
-
-     SameOrigin
-  }
-
-
+    
   /**
    * Map-like representation of url search parameters, based on
    * [URLSearchParams](https://url.spec.whatwg.org/#urlsearchparams) in the url living standard,
@@ -949,55 +1035,272 @@ declare module ngHttp {
    *   - replaceAll()
    */
   class URLSearchParams {
-
-     paramsMap: Map<string, string[]>;
-
-     rawParams: string;
-
-     clone(): URLSearchParams;
-
-     has(param: string): boolean;
-
-     get(param: string): string;
-
-     getAll(param: string): string[];
-
-     set(param: string, val: string): void;
-
-     setAll(searchParams: URLSearchParams): void;
-
-     append(param: string, val: string): void;
-
-     appendAll(searchParams: URLSearchParams): void;
-
-     replaceAll(searchParams: URLSearchParams): void;
-
-     toString(): string;
-
-     delete(param: string): void;
+    
+    constructor(rawParams?: string);
+    
+    paramsMap: Map<string, string[]>;
+    
+    rawParams: string;
+    
+    clone(): URLSearchParams;
+    
+    has(param: string): boolean;
+    
+    get(param: string): string;
+    
+    getAll(param: string): string[];
+    
+    set(param: string, val: string): void;
+    
+    setAll(searchParams: URLSearchParams): void;
+    
+    append(param: string, val: string): void;
+    
+    appendAll(searchParams: URLSearchParams): void;
+    
+    replaceAll(searchParams: URLSearchParams): void;
+    
+    toString(): string;
+    
+    delete(param: string): void;
+    
   }
 
-
+    
   /**
    * Provides a basic set of injectables to use the {@link Http} service in any application.
-   *
-   * #Example
-   *
+   * 
+   * The `HTTP_BINDINGS` should be included either in a component's injector,
+   * or in the root injector when bootstrapping an application.
+   * 
+   * ### Example ([live demo](http://plnkr.co/edit/snj7Nv?p=preview))
+   * 
    * ```
-   * import {HTTP_BINDINGS, Http} from 'http/http';
-   * @Component({selector: 'http-app', viewBindings: [HTTP_BINDINGS]})
-   * @View({template: '{{data}}'})
-   * class MyApp {
+   * import {bootstrap, Component, NgFor, View} from 'angular2/angular2';
+   * import {HTTP_BINDINGS, Http} from 'angular2/http';
+   * 
+   * @Component({
+   *   selector: 'app',
+   *   bindings: [HTTP_BINDINGS]
+   * })
+   * @View({
+   *   template: `
+   *     <div>
+   *       <h1>People</h1>
+   *       <ul>
+   *         <li *ng-for="#person of people">
+   *           {{person.name}}
+   *         </li>
+   *       </ul>
+   *     </div>
+   *   `,
+   *   directives: [NgFor]
+   * })
+   * export class App {
+   *   people: Object[];
    *   constructor(http:Http) {
-   *     http.request('data.txt').subscribe(res => this.data = res.text());
+   *     http.get('people.json').toRx().subscribe(res => {
+   *       this.people = res.json();
+   *     });
+   *   }
+   *   active:boolean = false;
+   *   toggleActiveState() {
+   *     this.active = !this.active;
+   *   }
+   * }
+   * 
+   * bootstrap(App)
+   *   .catch(err => console.error(err));
+   * ```
+   * 
+   * The primary public API included in `HTTP_BINDINGS` is the {@link Http} class.
+   * However, other bindings required by `Http` are included,
+   * which may be beneficial to override in certain cases.
+   * 
+   * The bindings included in `HTTP_BINDINGS` include:
+   *  * {@link Http}
+   *  * {@link XHRBackend}
+   *  * `BrowserXHR` - Private factory to create `XMLHttpRequest` instances
+   *  * {@link RequestOptions} - Bound to {@link BaseRequestOptions} class
+   *  * {@link ResponseOptions} - Bound to {@link BaseResponseOptions} class
+   * 
+   * There may be cases where it makes sense to extend the base request options,
+   * such as to add a search string to be appended to all URLs.
+   * To accomplish this, a new binding for {@link RequestOptions} should
+   * be added in the same injector as `HTTP_BINDINGS`.
+   * 
+   * ### Example ([live demo](http://plnkr.co/edit/aCMEXi?p=preview))
+   * 
+   * ```
+   * import {bind, bootstrap} from 'angular2/angular2';
+   * import {HTTP_BINDINGS, BaseRequestOptions, RequestOptions} from 'angular2/http';
+   * 
+   * class MyOptions extends BaseRequestOptions {
+   *   search: string = 'coreTeam=true';
+   * }
+   * 
+   * bootstrap(App, [HTTP_BINDINGS, bind(RequestOptions).toClass(MyOptions)])
+   *   .catch(err => console.error(err));
+   * ```
+   * 
+   * Likewise, to use a mock backend for unit tests, the {@link XHRBackend}
+   * binding should be bound to {@link MockBackend}.
+   * 
+   * ### Example ([live demo](http://plnkr.co/edit/7LWALD?p=preview))
+   * 
+   * ```
+   * import {bind, Injector} from 'angular2/angular2';
+   * import {HTTP_BINDINGS, Http, Response, XHRBackend, MockBackend} from 'angular2/http';
+   * 
+   * var people = [{name: 'Jeff'}, {name: 'Tobias'}];
+   * 
+   * var injector = Injector.resolveAndCreate([
+   *   HTTP_BINDINGS,
+   *   MockBackend,
+   *   bind(XHRBackend).toAlias(MockBackend)
+   * ]);
+   * var http = injector.get(Http);
+   * var backend = injector.get(MockBackend);
+   * 
+   * // Listen for any new requests
+   * backend.connections.observer({
+   *   next: connection => {
+   *     var response = new Response({body: people});
+   *     setTimeout(() => {
+   *       // Send a response to the request
+   *       connection.mockRespond(response);
+   *     });
+   *   });
+   * 
+   * http.get('people.json').observer({
+   *   next: res => {
+   *     // Response came from mock backend
+   *     console.log('first person', res.json()[0].name);
+   *   }
+   * });
+   * ```
+   */
+  let HTTP_BINDINGS: any[];
+  
+
+    
+  /**
+   * Provides a basic set of bindings to use the {@link Jsonp} service in any application.
+   * 
+   * The `JSONP_BINDINGS` should be included either in a component's injector,
+   * or in the root injector when bootstrapping an application.
+   * 
+   * ### Example ([live demo](http://plnkr.co/edit/vmeN4F?p=preview))
+   * 
+   * ```
+   * import {Component, NgFor, View} from 'angular2/angular2';
+   * import {JSONP_BINDINGS, Jsonp} from 'angular2/http';
+   * 
+   * @Component({
+   *   selector: 'app',
+   *   bindings: [JSONP_BINDINGS]
+   * })
+   * @View({
+   *   template: `
+   *     <div>
+   *       <h1>People</h1>
+   *       <ul>
+   *         <li *ng-for="#person of people">
+   *           {{person.name}}
+   *         </li>
+   *       </ul>
+   *     </div>
+   *   `,
+   *   directives: [NgFor]
+   * })
+   * export class App {
+   *   people: Array<Object>;
+   *   constructor(jsonp:Jsonp) {
+   *     jsonp.request('people.json').toRx().subscribe(res => {
+   *       this.people = res.json();
+   *     })
    *   }
    * }
    * ```
+   * 
+   * The primary public API included in `JSONP_BINDINGS` is the {@link Jsonp} class.
+   * However, other bindings required by `Jsonp` are included,
+   * which may be beneficial to override in certain cases.
+   * 
+   * The bindings included in `JSONP_BINDINGS` include:
+   *  * {@link Jsonp}
+   *  * {@link JSONPBackend}
+   *  * `BrowserJsonp` - Private factory
+   *  * {@link RequestOptions} - Bound to {@link BaseRequestOptions} class
+   *  * {@link ResponseOptions} - Bound to {@link BaseResponseOptions} class
+   * 
+   * There may be cases where it makes sense to extend the base request options,
+   * such as to add a search string to be appended to all URLs.
+   * To accomplish this, a new binding for {@link RequestOptions} should
+   * be added in the same injector as `JSONP_BINDINGS`.
+   * 
+   * ### Example ([live demo](http://plnkr.co/edit/TFug7x?p=preview))
+   * 
+   * ```
+   * import {bind, bootstrap} from 'angular2/angular2';
+   * import {JSONP_BINDINGS, BaseRequestOptions, RequestOptions} from 'angular2/http';
+   * 
+   * class MyOptions extends BaseRequestOptions {
+   *   search: string = 'coreTeam=true';
+   * }
+   * 
+   * bootstrap(App, [JSONP_BINDINGS, bind(RequestOptions).toClass(MyOptions)])
+   *   .catch(err => console.error(err));
+   * ```
+   * 
+   * Likewise, to use a mock backend for unit tests, the {@link JSONPBackend}
+   * binding should be bound to {@link MockBackend}.
+   * 
+   * ### Example ([live demo](http://plnkr.co/edit/HDqZWL?p=preview))
+   * 
+   * ```
+   * import {bind, Injector} from 'angular2/angular2';
+   * import {JSONP_BINDINGS, Jsonp, Response, JSONPBackend, MockBackend} from 'angular2/http';
+   * 
+   * var people = [{name: 'Jeff'}, {name: 'Tobias'}];
+   * var injector = Injector.resolveAndCreate([
+   *   JSONP_BINDINGS,
+   *   MockBackend,
+   *   bind(JSONPBackend).toAlias(MockBackend)
+   * ]);
+   * var jsonp = injector.get(Jsonp);
+   * var backend = injector.get(MockBackend);
+   * 
+   * // Listen for any new requests
+   * backend.connections.observer({
+   *   next: connection => {
+   *     var response = new Response({body: people});
+   *     setTimeout(() => {
+   *       // Send a response to the request
+   *       connection.mockRespond(response);
+   *     });
+   *   });
+   * 
+   * jsonp.get('people.json').observer({
+   *   next: res => {
+   *     // Response came from mock backend
+   *     console.log('first person', res.json()[0].name);
+   *   }
+   * });
+   * ```
    */
-  const HTTP_BINDINGS : any[] ;
+  let JSONP_BINDINGS: any[];
+  
 
-  const JSONP_BINDINGS : any[] ;
+    
+  var JSONPBackend: ng.InjectableReference;
+  
 
+    
+  var JSONPConnection: ng.InjectableReference;
+  
+
+  
 }
 
 declare module "angular2/http" {

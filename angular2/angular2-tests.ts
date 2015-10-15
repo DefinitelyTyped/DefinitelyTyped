@@ -24,13 +24,13 @@ Cmp.annotations = [
   }),
   Directive({
     selector: '[tooltip]',
-    properties: [
+    inputs: [
       'text: tooltip'
     ],
-    host: {
-      '(onmouseenter)': 'onMouseEnter()',
-      '(onmouseleave)': 'onMouseLeave()'
-    }
+    outputs: [
+      '(mouseenter):onMouseEnter()',
+      '(mouseleave):onMouseLeave()'
+    ]
   })
 ];
 

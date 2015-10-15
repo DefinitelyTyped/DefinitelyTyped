@@ -1,20 +1,26 @@
 /// <reference path="ui-grid.d.ts" />
 /// <reference path="../angularjs/angular.d.ts" />
 
-var columnDef: uiGrid.IColumnDef;
+interface IMyEntity {
+    name: string;
+    age: number;
+}
+
+var columnDef: uiGrid.IColumnDefOf<IMyEntity>;
 columnDef.aggregationHideLabel = true;
 columnDef.aggregationHideLabel = false;
 columnDef.aggregationType = 1;
 columnDef.aggregationType = function () { return 1; };
 columnDef.cellClass = 'test';
-columnDef.cellClass = function (gridRow: uiGrid.IGridRow, gridCol: uiGrid.IGridColumn, index: number) {
-    return 'pizza';
+columnDef.cellClass = (gridRow, gridCol, index) => {
+    //types of gridRow, gridCol, and index are flowed in correctly
+    return `${gridRow.entity.name}-${gridCol.field}-${index + 1}`;
 };
 columnDef.cellFilter = 'date';
 columnDef.cellTemplate = '<div blah="something">hello</div>';
 columnDef.cellTooltip = 'blah';
 columnDef.cellTooltip = function (gridRow: uiGrid.IGridRow, gridCol: uiGrid.IGridColumn) {
-    return 'blah';
+    return `${gridRow.entity.unknownProperty}-${gridCol.displayName}`;
 };
 columnDef.displayName = 'Jumper';
 columnDef.enableColumnMenu = false;
@@ -38,24 +44,26 @@ columnDef.filter = {
 columnDef.filterCellFiltered = false;
 columnDef.filterHeaderTemplate = '<div blah="test"></div>';
 columnDef.filters = [columnDef.filter];
-columnDef.footerCellClass =
-    (gridRow: uiGrid.IGridRow, rowRenderIndex: number, gridCol: uiGrid.IGridColumn, colRenderIndex: number) => {
-        return 'blah';
+columnDef.footerCellClass = (gridRow, rowRenderIndex, gridCol, colRenderIndex) => {
+        //types for gridRow, rowRenderIndex, gridCol, and colRenderIndex flow in properly
+        return `${gridRow.entity.age}-${rowRenderIndex + 1}-${gridCol.field}-${colRenderIndex - 1}`;
     };
 columnDef.footerCellClass = 'theClass';
 columnDef.footerCellFilter = 'currency:$';
 columnDef.footerCellTemplate = '<div class="yoshi"></div>';
 columnDef.headerCellClass =
-    (gridRow: uiGrid.IGridRow, rowRenderIndex: number, gridCol: uiGrid.IGridColumn, colRenderIndex: number) => {
-        return 'blah';
+    (gridRow, rowRenderIndex, gridCol, colRenderIndex) => {
+        //types for gridRow, rowRenderIndex, gridCol, and colRenderIndex flow in properly
+        return `${gridRow.entity.age}-${rowRenderIndex + 1}-${gridCol.field}-${colRenderIndex - 1}`;
     };
 columnDef.headerCellClass = 'classy';
 columnDef.headerCellFilter = 'currency:$';
 columnDef.headerCellTemplate = '<div class="yoshi"></div>';
 columnDef.headerTooltip = false;
 columnDef.headerTooltip = 'The Tooltip';
-columnDef.headerTooltip = (col: uiGrid.IGridColumn) => {
-    return 'tooly';
+columnDef.headerTooltip = (col) => {
+    //type of col flows in properly
+    return col.displayName;
 };
 columnDef.maxWidth = 200;
 columnDef.menuItems = [{
@@ -87,10 +95,10 @@ columnDef.width = 100;
 columnDef.width = '*';
 
 
-var gridApi: uiGrid.IGridApi;
-var gridInstance: uiGrid.IGridInstance;
+var gridApi: uiGrid.IGridApiOf<IMyEntity>;
+var gridInstance: uiGrid.IGridInstanceOf<IMyEntity>;
 var menuItem: uiGrid.IMenuItem;
-var colProcessor: uiGrid.IColumnProcessor;
+var colProcessor: uiGrid.IColumnProcessor<IMyEntity>;
 
 gridApi.core.clearAllFilters(true);
 gridApi.core.addToGridMenu(gridInstance, [menuItem]);
@@ -100,11 +108,25 @@ gridApi.core.queueGridRefresh()
 gridApi.core.queueRefresh();
 gridApi.core.registerColumnsProcessor(colProcessor, 100);
 
-var rowEntityToScrollTo = {anObject: 'inGridOptionsData'};
+var gridOptions: uiGrid.IGridOptionsOf<IMyEntity> = {
+    data: [{name: 'Bob', age: 100}],
+    onRegisterApi: (api) => {
+        api.selection.on.rowSelectionChanged(null, (row) => {
+            console.log(row.entity.name);
+        })
+    }
+}
+interface IAnotherEntity {
+    anObject: string
+}
+var anotherGridInstance: uiGrid.IGridInstance;
+var rowEntityToScrollTo = {
+    anObject: 'inGridOptionsData'
+};
 var columnDefToScrollTo: uiGrid.IColumnDef;
-gridInstance.scrollTo();
-gridInstance.scrollTo(rowEntityToScrollTo);
-gridInstance.scrollTo(rowEntityToScrollTo, columnDefToScrollTo);
+anotherGridInstance.scrollTo();
+anotherGridInstance.scrollTo(rowEntityToScrollTo);
+anotherGridInstance.scrollTo(rowEntityToScrollTo, columnDefToScrollTo);
 
-var selectedRowEntities: Array<any> = gridApi.selection.getSelectedRows();
+var selectedRowEntities: Array<IMyEntity> = gridApi.selection.getSelectedRows();
 var selectedGridRows: Array<uiGrid.IGridRow> = gridApi.selection.getSelectedGridRows();
