@@ -2477,6 +2477,7 @@ var greetPartial = function (greeting: string, name: string) { return greeting +
 var hi = _.partial(greetPartial, 'hi');
 hi('moe');
 
+
 var defaultsDeep = <Function>_.partialRight(_.merge, _.defaults);
 
 var optionsPartialRight = {
@@ -3865,4 +3866,119 @@ result = <_.TemplateSettings>_.templateSettings;
     result = _.times(42, testTimesFn, any);
     result = _(42).times(testTimesFn).value();
     result = _(42).times(testTimesFn, any).value();
+}
+
+// _.partial & _.partialRight
+{
+    function func0(): number {
+        return 42;
+    }
+    function func1(arg1: number): number {
+        return arg1 * 2;
+    }
+    function func2(arg1: number, arg2: string): number {
+        return arg1 * arg2.length;
+    }
+    function func3(arg1: number, arg2: string, arg3: boolean): number {
+        return arg1 * arg2.length + (arg3 ? 1 : 0);
+    }
+    function func4(arg1: number, arg2: string, arg3: boolean, arg4: number): number {
+        return arg1 * arg2.length + (arg3 ? 1 : 0) - arg4;
+    }
+    let res____: () => number;
+    let res1___: (arg1: number                                              ) => number;
+    let res_2__: (              arg2: string                                ) => number;
+    let res__3_: (                              arg3: boolean               ) => number;
+    let res___4: (                                              arg4: number) => number;
+    let res12__: (arg1: number, arg2: string                                ) => number;
+    let res1_3_: (arg1: number,                 arg3: boolean               ) => number;
+    let res1__4: (arg1: number,                                 arg4: number) => number;
+    let res_23_: (              arg2: string,   arg3: boolean               ) => number;
+    let res_2_4: (              arg2: string,                   arg4: number) => number;
+    let res__34: (                              arg3: boolean,  arg4: number) => number;
+    let res123_: (arg1: number, arg2: string,   arg3: boolean               ) => number;
+    let res12_4: (arg1: number, arg2: string,                   arg4: number) => number;
+    let res1_34: (arg1: number,                 arg3: boolean,  arg4: number) => number;
+    let res_234: (              arg2: string,   arg3: boolean,  arg4: number) => number;
+    let res1234: (arg1: number, arg2: string,   arg3: boolean,  arg4: number) => number;
+
+    //
+    // _.partial
+    //
+    // with arity 0 function
+    res____ = _.partial(func0);
+    // with arity 1 function
+    res____ = _.partial(func1, 42       );
+    res1___ = _.partial(func1           );
+    // with arity 2 function
+    res12__ = _.partial(func2           );
+    res_2__ = _.partial(func2, 42       );
+    res1___ = _.partial(func2,  _, "foo");
+    res____ = _.partial(func2, 42, "foo");
+    // with arity 3 function
+    res123_ = _.partial(func3                 );
+    res_23_ = _.partial(func3, 42             );
+    res1_3_ = _.partial(func3,  _, "foo"      );
+    res__3_ = _.partial(func3, 42, "foo"      );
+    res12__ = _.partial(func3,  _,     _, true);
+    res_2__ = _.partial(func3, 42,     _, true);
+    res1___ = _.partial(func3,  _, "foo", true);
+    res____ = _.partial(func3, 42, "foo", true);
+    // with arity 4 function
+    res1234 = _.partial(func4                      );
+    res_234 = _.partial(func4, 42                  );
+    res1_34 = _.partial(func4,  _, "foo"           );
+    res__34 = _.partial(func4, 42, "foo"           );
+    res12_4 = _.partial(func4,  _,     _, true     );
+    res_2_4 = _.partial(func4, 42,     _, true     );
+    res1__4 = _.partial(func4,  _, "foo", true     );
+    res___4 = _.partial(func4, 42, "foo", true     );
+    res123_ = _.partial(func4,  _,     _,    _, 100);
+    res_23_ = _.partial(func4, 42,     _,    _, 100);
+    res1_3_ = _.partial(func4,  _, "foo",    _, 100);
+    res__3_ = _.partial(func4, 42, "foo",    _, 100);
+    res12__ = _.partial(func4,  _,     _, true, 100);
+    res_2__ = _.partial(func4, 42,     _, true, 100);
+    res1___ = _.partial(func4,  _, "foo", true, 100);
+    res____ = _.partial(func4, 42, "foo", true, 100);
+
+    //
+    // _.partialRight
+    //
+    // with arity 0 function
+    res____ = _.partialRight(func0);
+    // with arity 1 function
+    res____ = _.partialRight(func1, 42       );
+    res1___ = _.partialRight(func1           );
+    // with arity 2 function
+    res12__ = _.partialRight(func2           );
+    res_2__ = _.partialRight(func2, 42,     _);
+    res1___ = _.partialRight(func2,     "foo");
+    res____ = _.partialRight(func2, 42, "foo");
+    // with arity 3 function
+    res123_ = _.partialRight(func3                 );
+    res_23_ = _.partialRight(func3, 42,     _,    _);
+    res1_3_ = _.partialRight(func3,     "foo",    _);
+    res__3_ = _.partialRight(func3, 42, "foo",    _);
+    res12__ = _.partialRight(func3,            true);
+    res_2__ = _.partialRight(func3, 42,     _, true);
+    res1___ = _.partialRight(func3,     "foo", true);
+    res____ = _.partialRight(func3, 42, "foo", true);
+    // with arity 4 function
+    res1234 = _.partialRight(func4                      );
+    res_234 = _.partialRight(func4, 42,     _,    _,   _);
+    res1_34 = _.partialRight(func4,     "foo",    _,   _);
+    res__34 = _.partialRight(func4, 42, "foo",    _,   _);
+    res12_4 = _.partialRight(func4,            true,   _);
+    res_2_4 = _.partialRight(func4, 42,     _, true,   _);
+    res1__4 = _.partialRight(func4,     "foo", true,   _);
+    res___4 = _.partialRight(func4, 42, "foo", true,   _);
+    res123_ = _.partialRight(func4,                  100);
+    res_23_ = _.partialRight(func4, 42,     _,    _, 100);
+    res1_3_ = _.partialRight(func4,     "foo",    _, 100);
+    res__3_ = _.partialRight(func4, 42, "foo",    _, 100);
+    res12__ = _.partialRight(func4,            true, 100);
+    res_2__ = _.partialRight(func4, 42,     _, true, 100);
+    res1___ = _.partialRight(func4,     "foo", true, 100);
+    res____ = _.partialRight(func4, 42, "foo", true, 100);
 }
