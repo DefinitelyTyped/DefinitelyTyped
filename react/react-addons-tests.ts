@@ -84,6 +84,8 @@ class ModernComponent extends React.Component<Props, State>
     static childContextTypes: React.ValidationMap<ChildContext> = {
         someOtherValue: React.PropTypes.string
     }
+    
+    static defaultProps: Props;
 
     context: Context;
 

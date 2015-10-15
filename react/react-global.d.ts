@@ -85,14 +85,19 @@ declare namespace __React {
     // Reat.addons.update
     // ----------------------------------------------------------------------
 
-    interface UpdateSpec {
+    interface UpdateSpecCommand {
         $set?: any;
         $merge?: {};
         $apply?(value: any): any;
-        // [key: string]: UpdateSpec;
     }
 
-    interface UpdateArraySpec extends UpdateSpec {
+    interface UpdateSpecPath {
+        [key: string]: UpdateSpec;
+    }
+
+    type UpdateSpec = UpdateSpecCommand | UpdateSpecPath;
+
+    interface UpdateArraySpec extends UpdateSpecCommand {
         $push?: any[];
         $unshift?: any[];
         $splice?: any[][];

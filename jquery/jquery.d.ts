@@ -1581,6 +1581,10 @@ interface JQuery {
      * @param list An array of strings naming the pieces of data to delete.
      */
     removeData(list: string[]): JQuery;
+    /**
+     * Remove all previously-stored piece of data.
+     */
+    removeData(): JQuery;
 
     /**
      * Return a Promise object to observe when all actions of a certain type bound to the collection, queued or not, have finished.
@@ -1999,6 +2003,10 @@ interface JQuery {
     focus(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
+     * Trigger the "focusin" event on an element.
+     */
+    focusin(): JQuery;
+    /**
      * Bind an event handler to the "focusin" JavaScript event
      *
      * @param handler A function to execute each time the event is triggered.
@@ -2012,6 +2020,10 @@ interface JQuery {
      */
     focusin(eventData: Object, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "focusout" event on an element.
+     */
+    focusout(): JQuery;
     /**
      * Bind an event handler to the "focusout" JavaScript event
      *
