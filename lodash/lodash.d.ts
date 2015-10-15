@@ -5649,40 +5649,6 @@ declare module _ {
             orders?: string[]): LoDashArrayWrapper<T>;
     }
 
-    //_.toArray
-    interface LoDashStatic {
-        /**
-        * Converts the collection to an array.
-        * @param collection The collection to convert.
-        * @return The new converted array.
-        **/
-        toArray<T>(collection: Array<T>): T[];
-
-        /**
-        * @see _.toArray
-        **/
-        toArray<T>(collection: List<T>): T[];
-
-        /**
-        * @see _.toArray
-        **/
-        toArray<T>(collection: Dictionary<T>): T[];
-    }
-
-    interface LoDashArrayWrapper<T> {
-        /**
-        * @see _.toArray
-        **/
-        toArray(): LoDashArrayWrapper<T>;
-    }
-
-    interface LoDashObjectWrapper<T> {
-        /**
-        * @see _.toArray
-        **/
-        toArray<TValue>(): LoDashArrayWrapper<TValue>;
-    }
-
     //_.where
     interface LoDashStatic {
         /**
@@ -7066,6 +7032,58 @@ declare module _ {
          * @see _.lte
          */
         lte(other: any): boolean;
+    }
+
+    //_.toArray
+    interface LoDashStatic {
+        /**
+         * Converts value to an array.
+         *
+         * @param value The value to convert.
+         * @return Returns the converted array.
+         */
+        toArray(value: string): string[];
+
+        /**
+         * @see _.toArray
+         */
+        toArray<T>(value: List<T>|Dictionary<T>): T[];
+
+        /**
+         * @see _.toArray
+         */
+        toArray<TValue, TResult>(value: TValue): TResult[];
+
+        /**
+         * @see _.toArray
+         */
+        toArray<TValue>(value: TValue): any[];
+
+        /**
+         * @see _.toArray
+         */
+        toArray(value?: any): any[];
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.toArray
+         */
+        toArray<TResult>(): LoDashArrayWrapper<TResult>;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.toArray
+         */
+        toArray(): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.toArray
+         */
+        toArray<TResult>(): LoDashArrayWrapper<TResult>;
     }
 
     //_.toPlainObject
