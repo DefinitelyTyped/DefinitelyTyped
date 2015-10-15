@@ -18,5 +18,6 @@ declare namespace __React {
 
 declare module "react-addons-transition-group" {
     var TransitionGroup: __React.__Addons.TransitionGroup;
+    type TransitionGroup = __React.__Addons.TransitionGroup;
     export = TransitionGroup;
 }

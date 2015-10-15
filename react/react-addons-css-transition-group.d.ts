@@ -21,5 +21,6 @@ declare namespace __React {
 
 declare module "react-addons-css-transition-group" {
     var CSSTransitionGroup: __React.__Addons.CSSTransitionGroup;
+    type CSSTransitionGroup = __React.__Addons.CSSTransitionGroup;
     export = CSSTransitionGroup;
 }
