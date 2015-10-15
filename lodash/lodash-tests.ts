@@ -1850,12 +1850,6 @@ result = <number[]>_([1, 2, 3]).sortBy(function (num) { return this.sin(num); },
 result = <string[]>_(['banana', 'strawberry', 'apple']).sortBy('length').value();
 result = <IFoodOrganic[]>_(foodsOrganic).sortByAll('organic', (food) => food.name, { organic: true }).value();
 
-(function (a: number, b: number, c: number, d: number): Array<number> { return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
-result = <number[]>_.toArray([1, 2, 3, 4]);
-(function (a: number, b: number, c: number, d: number): Array<number> { return _(arguments).toArray<number>().slice(1).value(); })(1, 2, 3, 4);
-result = <number[]>_([1,2,3,4]).toArray().value();
-
-
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'age': 40 });
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'quotes': ['Poifect!'] });
 
@@ -2417,6 +2411,47 @@ result = <boolean>_.lte(1, 2);
 result = <boolean>_(1).lte(2);
 result = <boolean>_([]).lte(2);
 result = <boolean>_({}).lte(2);
+
+// _.toArray
+module TestToArray {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
+
+    {
+        let result: string[];
+
+        result = _.toArray('');
+
+        result = (function (a: string) {return _.toArray<IArguments, string>(arguments);})('');
+
+        result = _((function (a: string) {return arguments;})('')).toArray<string>().value();
+    }
+
+    {
+        let result: TResult[];
+
+        result = _.toArray<TResult>(array);
+        result = _.toArray<TResult>(list);
+        result = _.toArray<TResult>(dictionary);
+
+        result = _(array).toArray().value();
+        result = _(list).toArray<TResult>().value();
+        result = _(dictionary).toArray<TResult>().value();
+    }
+
+    {
+        let result: any[];
+
+        result = _.toArray();
+        result = _.toArray<number>(42);
+        result = _.toArray<boolean>(true);
+
+        result = _('').toArray<string>().value();
+        result = _(42).toArray<any>().value();
+        result = _(true).toArray<any>().value();
+    }
+}
 
 // _.toPlainObject
 module TestToPlainObject {
