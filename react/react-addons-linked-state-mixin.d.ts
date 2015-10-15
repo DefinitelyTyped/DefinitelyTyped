@@ -20,5 +20,6 @@ declare namespace __React {
 
 declare module "react-addons-linked-state-mixin" {
     var LinkedStateMixin: __React.__Addons.LinkedStateMixin;
+    type LinkedStateMixin = __React.__Addons.LinkedStateMixin;
     export = LinkedStateMixin;
 }

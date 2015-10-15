@@ -13,5 +13,6 @@ declare namespace __React {
 
 declare module "react-addons-pure-render-mixin" {
     var PureRenderMixin: __React.__Addons.PureRenderMixin;
+    type PureRenderMixin = __React.__Addons.PureRenderMixin;
     export = PureRenderMixin;
 }
