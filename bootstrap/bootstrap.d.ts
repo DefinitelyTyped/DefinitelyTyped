@@ -48,7 +48,7 @@ interface PopoverOptions {
     template?: string;
     content?: any;
     delay?: number | Object;
-    container?: string | boolean;
+    container?: string | boolean | JQuery;
     viewport?: string | Function | Object;
 }
 
