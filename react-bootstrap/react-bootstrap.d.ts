@@ -249,6 +249,7 @@ declare module "react-bootstrap" {
         dialogComponent?: any; // TODO: Add more specific type
         enforceFocus?: boolean;
         keyboard?: boolean;
+        show?: boolean;
     }
     interface Modal extends React.ReactElement<ModalProps> { }
     interface ModalClass extends React.ComponentClass<ModalProps> { 
