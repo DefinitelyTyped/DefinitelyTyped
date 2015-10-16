@@ -9,7 +9,7 @@ import * as crypto from "crypto";
 import * as tls from "tls";
 import * as http from "http";
 import * as net from "net";
-import * as dgram from "dgram";3
+import * as dgram from "dgram";
 import * as querystring from "querystring";
 import * as path from "path";
 import * as readline from "readline";
