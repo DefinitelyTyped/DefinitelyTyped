@@ -1490,8 +1490,8 @@ declare module "path" {
 
 declare module "string_decoder" {
     export interface NodeStringDecoder {
-        write(buffer: Buffer): string;
-        detectIncompleteChar(buffer: Buffer): number;
+        write(buffer: Buffer | string): string;
+        detectIncompleteChar(buffer: Buffer | string): number;
     }
     export var StringDecoder: {
         new (encoding: string): NodeStringDecoder;
