@@ -249,3 +249,7 @@ function test_run_withOnComplete() {
         console.log(failures);
     });
 }
+
+function test_throwError() {
+    mocha.throwError(new Error("I'm an error!"));
+}
