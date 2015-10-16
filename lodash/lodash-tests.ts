@@ -2739,9 +2739,46 @@ module TestFindKey {
     }
 }
 
-result = <string>_.findLastKey({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, function (num) {
-    return num % 2 == 1;
-});
+// _.findLastKey
+module TestFindLastKey {
+    let result: string;
+
+    {
+        let predicateFn: (value: any, key?: string, object?: {}) => boolean;
+
+        result = _.findLastKey<{a: string;}>({a: ''});
+
+        result = _.findLastKey<{a: string;}>({a: ''}, predicateFn);
+        result = _.findLastKey<{a: string;}>({a: ''}, predicateFn, any);
+
+
+        result = _.findLastKey<{a: string;}>({a: ''}, '');
+        result = _.findLastKey<{a: string;}>({a: ''}, '', any);
+
+        result = _.findLastKey<{a: number;}, {a: string;}>({a: ''}, {a: 42});
+
+        result = _<{a: string;}>({a: ''}).findLastKey();
+
+        result = _<{a: string;}>({a: ''}).findLastKey(predicateFn);
+        result = _<{a: string;}>({a: ''}).findLastKey(predicateFn, any);
+
+
+        result = _<{a: string;}>({a: ''}).findLastKey('');
+        result = _<{a: string;}>({a: ''}).findLastKey('', any);
+
+        result = _<{a: string;}>({a: ''}).findLastKey<{a: number;}>({a: 42});
+    }
+
+    {
+        let predicateFn: (value: string, key?: string, collection?: _.Dictionary<string>) => boolean;
+
+        result = _.findLastKey<string, {a: string;}>({a: ''}, predicateFn);
+        result = _.findLastKey<string, {a: string;}>({a: ''}, predicateFn, any);
+
+        result = _<{a: string;}>({a: ''}).findLastKey<string>(predicateFn);
+        result = _<{a: string;}>({a: ''}).findLastKey<string>(predicateFn, any);
+    }
+}
 
 result = <Dog>_.forIn(new Dog('Dagny'), function (value, key) {
     console.log(key);
