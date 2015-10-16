@@ -4119,6 +4119,21 @@ declare module THREE {
         clone(object?: Line): Line;
     }
 
+    export class LineSegments extends Line {
+        constructor(geometry?: Geometry, material?: LineDashedMaterial);
+        constructor(geometry?: Geometry, material?: LineBasicMaterial);
+        constructor(geometry?: Geometry, material?: ShaderMaterial);
+        constructor(geometry?: BufferGeometry, material?: LineDashedMaterial);
+        constructor(geometry?: BufferGeometry, material?: LineBasicMaterial);
+        constructor(geometry?: BufferGeometry, material?: ShaderMaterial);
+
+        geometry: any; // Geometry or BufferGeometry;
+        material: Material; // LineDashedMaterial or LineBasicMaterial or ShaderMaterial
+
+        raycast(raycaster: Raycaster, intersects: any): void;
+        clone(object?: Line): Line;
+    }
+
     enum LineMode{}
     var LineStrip: LineMode;
     var LinePieces: LineMode;
