@@ -6602,6 +6602,30 @@ declare module _ {
             thisArg?: any): T;
     }
 
+    //_.eq
+    interface LoDashStatic {
+        /**
+         * @see _.isEqual
+         */
+        eq(
+            value: any,
+            other: any,
+            customizer?: IsEqualCustomizer,
+            thisArg?: any
+        ): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isEqual
+         */
+        eq(
+            other: any,
+            customizer?: IsEqualCustomizer,
+            thisArg?: any
+        ): boolean;
+    }
+
     //_.gt
     interface LoDashStatic {
         /**
@@ -6739,6 +6763,49 @@ declare module _ {
          * @see _.isEmpty
          */
         isEmpty(): boolean;
+    }
+
+    //_.isEqual
+    interface IsEqualCustomizer {
+        (value: any, other: any, indexOrKey?: number|string): boolean;
+    }
+
+    interface LoDashStatic {
+        /**
+         * Performs a deep comparison between two values to determine if they are equivalent. If customizer is
+         * provided it’s invoked to compare values. If customizer returns undefined comparisons are handled by the
+         * method instead. The customizer is bound to thisArg and invoked with up to three arguments: (value, other
+         * [, index|key]).
+         *
+         * Note: This method supports comparing arrays, booleans, Date objects, numbers, Object objects, regexes,
+         * and strings. Objects are compared by their own, not inherited, enumerable properties. Functions and DOM
+         * nodes are not supported. Provide a customizer function to extend support for comparing other values.
+         *
+         * @alias _.eq
+         *
+         * @param value The value to compare.
+         * @param other The other value to compare.
+         * @param customizer The function to customize value comparisons.
+         * @param thisArg The this binding of customizer.
+         * @return Returns true if the values are equivalent, else false.
+         */
+        isEqual(
+            value: any,
+            other: any,
+            customizer?: IsEqualCustomizer,
+            thisArg?: any
+        ): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isEqual
+         */
+        isEqual(
+            other: any,
+            customizer?: IsEqualCustomizer,
+            thisArg?: any
+        ): boolean;
     }
 
     //_.isError
@@ -8014,86 +8081,6 @@ declare module _ {
          * @see _.invert
          */
         invert<TResult extends {}>(multiValue?: boolean): LoDashObjectWrapper<TResult>;
-    }
-
-    //_.isEqual
-    interface EqCustomizer {
-        (value: any, other: any, indexOrKey?: number|string): boolean;
-    }
-
-    interface LoDashStatic {
-        /**
-         * Performs a deep comparison between two values to determine if they are equivalent. If customizer is
-         * provided it is invoked to compare values. If customizer returns undefined comparisons are handled
-         * by the method instead. The customizer is bound to thisArg and invoked with three
-         * arguments: (value, other [, index|key]).
-         * @param value The value to compare.
-         * @param other The other value to compare.
-         * @param callback The function to customize value comparisons.
-         * @param thisArg The this binding of customizer.
-         * @return True if the values are equivalent, else false.
-         */
-        isEqual(value?: any,
-                other?: any,
-                callback?: EqCustomizer,
-                thisArg?: any): boolean;
-
-        /**
-         * @see _.isEqual
-         */
-        eq(value?: any,
-           other?: any,
-           callback?: EqCustomizer,
-           thisArg?: any): boolean;
-    }
-
-    interface LoDashWrapper<T> {
-        /**
-         * @see _.isEqual
-         */
-        isEqual(other?: any,
-                callback?: EqCustomizer,
-                thisArg?: any): boolean;
-
-        /**
-         * @see _.isEqual
-         */
-        eq(other?: any,
-           callback?: EqCustomizer,
-           thisArg?: any): boolean;
-
-    }
-
-    interface LoDashArrayWrapper<T> {
-        /**
-         * @see _.isEqual
-         */
-        isEqual(other?: any,
-                callback?: EqCustomizer,
-                thisArg?: any): boolean;
-
-        /**
-         * @see _.isEqual
-         */
-        eq(other?: any,
-           callback?: EqCustomizer,
-           thisArg?: any): boolean;
-    }
-
-    interface LoDashObjectWrapper<T> {
-        /**
-         * @see _.isEqual
-         */
-        isEqual(other?: any,
-                callback?: EqCustomizer,
-                thisArg?: any): boolean;
-
-        /**
-         * @see _.isEqual
-         */
-        eq(other?: any,
-           callback?: EqCustomizer,
-           thisArg?: any): boolean;
     }
 
     //_.keys
