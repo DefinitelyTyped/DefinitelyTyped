@@ -1850,12 +1850,6 @@ result = <number[]>_([1, 2, 3]).sortBy(function (num) { return this.sin(num); },
 result = <string[]>_(['banana', 'strawberry', 'apple']).sortBy('length').value();
 result = <IFoodOrganic[]>_(foodsOrganic).sortByAll('organic', (food) => food.name, { organic: true }).value();
 
-(function (a: number, b: number, c: number, d: number): Array<number> { return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
-result = <number[]>_.toArray([1, 2, 3, 4]);
-(function (a: number, b: number, c: number, d: number): Array<number> { return _(arguments).toArray<number>().slice(1).value(); })(1, 2, 3, 4);
-result = <number[]>_([1,2,3,4]).toArray().value();
-
-
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'age': 40 });
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'quotes': ['Poifect!'] });
 
@@ -2271,6 +2265,20 @@ var testCloneDeepCustomizerFn: TestCloneDeepCustomizerFn;
     result = _({a: {b: 2}}).cloneDeep(testCloneDeepCustomizerFn, any);
 }
 
+// _.eq
+module TestEq {
+    let customizer: (value: any, other: any, indexOrKey?: number|string) => boolean;
+    let result: boolean;
+
+    result = _.eq(any, any);
+    result = _.eq(any, any, customizer);
+    result = _.eq(any, any, customizer, any);
+
+    result = _(any).eq(any);
+    result = _(any).eq(any, customizer);
+    result = _(any).eq(any, customizer, any)
+}
+
 // _.gt
 result = <boolean>_.gt(1, 2);
 result = <boolean>_(1).gt(2);
@@ -2320,6 +2328,20 @@ result = <boolean>_.isEmpty('');
 result = <boolean>_([1, 2, 3]).isEmpty();
 result = <boolean>_({}).isEmpty();
 result = <boolean>_('').isEmpty();
+
+// _.isEqual
+module TestIsEqual {
+    let customizer: (value: any, other: any, indexOrKey?: number|string) => boolean;
+    let result: boolean;
+
+    result = _.isEqual(any, any);
+    result = _.isEqual(any, any, customizer);
+    result = _.isEqual(any, any, customizer, any);
+
+    result = _(any).isEqual(any);
+    result = _(any).isEqual(any, customizer);
+    result = _(any).isEqual(any, customizer, any)
+}
 
 // _.isError
 result = <boolean>_.isError(any);
@@ -2417,6 +2439,47 @@ result = <boolean>_.lte(1, 2);
 result = <boolean>_(1).lte(2);
 result = <boolean>_([]).lte(2);
 result = <boolean>_({}).lte(2);
+
+// _.toArray
+module TestToArray {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
+
+    {
+        let result: string[];
+
+        result = _.toArray('');
+
+        result = (function (a: string) {return _.toArray<IArguments, string>(arguments);})('');
+
+        result = _((function (a: string) {return arguments;})('')).toArray<string>().value();
+    }
+
+    {
+        let result: TResult[];
+
+        result = _.toArray<TResult>(array);
+        result = _.toArray<TResult>(list);
+        result = _.toArray<TResult>(dictionary);
+
+        result = _(array).toArray().value();
+        result = _(list).toArray<TResult>().value();
+        result = _(dictionary).toArray<TResult>().value();
+    }
+
+    {
+        let result: any[];
+
+        result = _.toArray();
+        result = _.toArray<number>(42);
+        result = _.toArray<boolean>(true);
+
+        result = _('').toArray<string>().value();
+        result = _(42).toArray<any>().value();
+        result = _(true).toArray<any>().value();
+    }
+}
 
 // _.toPlainObject
 module TestToPlainObject {
@@ -2676,9 +2739,46 @@ module TestFindKey {
     }
 }
 
-result = <string>_.findLastKey({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, function (num) {
-    return num % 2 == 1;
-});
+// _.findLastKey
+module TestFindLastKey {
+    let result: string;
+
+    {
+        let predicateFn: (value: any, key?: string, object?: {}) => boolean;
+
+        result = _.findLastKey<{a: string;}>({a: ''});
+
+        result = _.findLastKey<{a: string;}>({a: ''}, predicateFn);
+        result = _.findLastKey<{a: string;}>({a: ''}, predicateFn, any);
+
+
+        result = _.findLastKey<{a: string;}>({a: ''}, '');
+        result = _.findLastKey<{a: string;}>({a: ''}, '', any);
+
+        result = _.findLastKey<{a: number;}, {a: string;}>({a: ''}, {a: 42});
+
+        result = _<{a: string;}>({a: ''}).findLastKey();
+
+        result = _<{a: string;}>({a: ''}).findLastKey(predicateFn);
+        result = _<{a: string;}>({a: ''}).findLastKey(predicateFn, any);
+
+
+        result = _<{a: string;}>({a: ''}).findLastKey('');
+        result = _<{a: string;}>({a: ''}).findLastKey('', any);
+
+        result = _<{a: string;}>({a: ''}).findLastKey<{a: number;}>({a: 42});
+    }
+
+    {
+        let predicateFn: (value: string, key?: string, collection?: _.Dictionary<string>) => boolean;
+
+        result = _.findLastKey<string, {a: string;}>({a: ''}, predicateFn);
+        result = _.findLastKey<string, {a: string;}>({a: ''}, predicateFn, any);
+
+        result = _<{a: string;}>({a: ''}).findLastKey<string>(predicateFn);
+        result = _<{a: string;}>({a: ''}).findLastKey<string>(predicateFn, any);
+    }
+}
 
 result = <Dog>_.forIn(new Dog('Dagny'), function (value, key) {
     console.log(key);
@@ -2757,31 +2857,6 @@ result = <boolean>_({}).has(['', 42, true]);
     result = _({}).invert<TResult>().value();
     result = _({}).invert<TResult>(true).value();
 }
-
-// _.isEqual (alias: _.eq)
-result = <boolean>_.isEqual(1, 1);
-result = <boolean>_(1).isEqual(1);
-result = <boolean>_.eq(1, 1);
-result = <boolean>_(1).eq(1);
-
-var testEqObject = { 'user': 'fred' };
-var testEqOtherObject = { 'user': 'fred' };
-result = <boolean>_.isEqual(testEqObject, testEqOtherObject);
-result = <boolean>_(testEqObject).isEqual(testEqOtherObject);
-result = <boolean>_.eq(testEqObject, testEqOtherObject);
-result = <boolean>_(testEqObject).eq(testEqOtherObject);
-
-var testEqArray = ['hello', 'goodbye'];
-var testEqOtherArray = ['hi', 'goodbye'];
-var testEqCustomizerFn = (value: any, other: any): boolean => {
-    if (_.every([value, other], RegExp.prototype.test, /^h(?:i|ello)$/)) {
-        return true;
-    }
-};
-result = <boolean>_.isEqual(testEqArray, testEqOtherArray, testEqCustomizerFn);
-result = <boolean>_(testEqArray).isEqual(testEqOtherArray, testEqCustomizerFn);
-result = <boolean>_.eq(testEqArray, testEqOtherArray, testEqCustomizerFn);
-result = <boolean>_(testEqArray).eq(testEqOtherArray, testEqCustomizerFn);
 
 class Stooge {
     constructor(

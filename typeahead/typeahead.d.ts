@@ -152,6 +152,20 @@ declare module Twitter.Typeahead {
          * If it's a precompiled template, the passed in context will contain query and isEmpty.
           */
         header?: any;
+        
+        /**
+         * Rendered when 0 suggestions are available for the given query.
+         * Can be either a HTML string or a precompiled template.
+         * If it's a precompiled template, the passed in context will contain query.
+          */
+        notFound?: (query: string) => string;
+        
+        /**
+         * Rendered when 0 synchronous suggestions are available but asynchronous suggestions are expected.
+         * Can be either a HTML string or a precompiled template.
+         * If it's a precompiled template, the passed in context will contain query.
+          */
+        pending?: (query: string) => string;
 
         /**
          * Used to render a single suggestion.

@@ -5649,40 +5649,6 @@ declare module _ {
             orders?: string[]): LoDashArrayWrapper<T>;
     }
 
-    //_.toArray
-    interface LoDashStatic {
-        /**
-        * Converts the collection to an array.
-        * @param collection The collection to convert.
-        * @return The new converted array.
-        **/
-        toArray<T>(collection: Array<T>): T[];
-
-        /**
-        * @see _.toArray
-        **/
-        toArray<T>(collection: List<T>): T[];
-
-        /**
-        * @see _.toArray
-        **/
-        toArray<T>(collection: Dictionary<T>): T[];
-    }
-
-    interface LoDashArrayWrapper<T> {
-        /**
-        * @see _.toArray
-        **/
-        toArray(): LoDashArrayWrapper<T>;
-    }
-
-    interface LoDashObjectWrapper<T> {
-        /**
-        * @see _.toArray
-        **/
-        toArray<TValue>(): LoDashArrayWrapper<TValue>;
-    }
-
     //_.where
     interface LoDashStatic {
         /**
@@ -6636,6 +6602,30 @@ declare module _ {
             thisArg?: any): T;
     }
 
+    //_.eq
+    interface LoDashStatic {
+        /**
+         * @see _.isEqual
+         */
+        eq(
+            value: any,
+            other: any,
+            customizer?: IsEqualCustomizer,
+            thisArg?: any
+        ): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isEqual
+         */
+        eq(
+            other: any,
+            customizer?: IsEqualCustomizer,
+            thisArg?: any
+        ): boolean;
+    }
+
     //_.gt
     interface LoDashStatic {
         /**
@@ -6773,6 +6763,49 @@ declare module _ {
          * @see _.isEmpty
          */
         isEmpty(): boolean;
+    }
+
+    //_.isEqual
+    interface IsEqualCustomizer {
+        (value: any, other: any, indexOrKey?: number|string): boolean;
+    }
+
+    interface LoDashStatic {
+        /**
+         * Performs a deep comparison between two values to determine if they are equivalent. If customizer is
+         * provided it’s invoked to compare values. If customizer returns undefined comparisons are handled by the
+         * method instead. The customizer is bound to thisArg and invoked with up to three arguments: (value, other
+         * [, index|key]).
+         *
+         * Note: This method supports comparing arrays, booleans, Date objects, numbers, Object objects, regexes,
+         * and strings. Objects are compared by their own, not inherited, enumerable properties. Functions and DOM
+         * nodes are not supported. Provide a customizer function to extend support for comparing other values.
+         *
+         * @alias _.eq
+         *
+         * @param value The value to compare.
+         * @param other The other value to compare.
+         * @param customizer The function to customize value comparisons.
+         * @param thisArg The this binding of customizer.
+         * @return Returns true if the values are equivalent, else false.
+         */
+        isEqual(
+            value: any,
+            other: any,
+            customizer?: IsEqualCustomizer,
+            thisArg?: any
+        ): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isEqual
+         */
+        isEqual(
+            other: any,
+            customizer?: IsEqualCustomizer,
+            thisArg?: any
+        ): boolean;
     }
 
     //_.isError
@@ -7066,6 +7099,58 @@ declare module _ {
          * @see _.lte
          */
         lte(other: any): boolean;
+    }
+
+    //_.toArray
+    interface LoDashStatic {
+        /**
+         * Converts value to an array.
+         *
+         * @param value The value to convert.
+         * @return Returns the converted array.
+         */
+        toArray(value: string): string[];
+
+        /**
+         * @see _.toArray
+         */
+        toArray<T>(value: List<T>|Dictionary<T>): T[];
+
+        /**
+         * @see _.toArray
+         */
+        toArray<TValue, TResult>(value: TValue): TResult[];
+
+        /**
+         * @see _.toArray
+         */
+        toArray<TValue>(value: TValue): any[];
+
+        /**
+         * @see _.toArray
+         */
+        toArray(value?: any): any[];
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.toArray
+         */
+        toArray<TResult>(): LoDashArrayWrapper<TResult>;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.toArray
+         */
+        toArray(): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.toArray
+         */
+        toArray<TResult>(): LoDashArrayWrapper<TResult>;
     }
 
     //_.toPlainObject
@@ -7745,32 +7830,86 @@ declare module _ {
     //_.findLastKey
     interface LoDashStatic {
         /**
-        * This method is like _.findKey except that it iterates over elements of a collection in the opposite order.
-        * @param object The object to search.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return The key of the found element, else undefined.
-        **/
-        findLastKey(
-            object: any,
-            callback: (value: any) => boolean,
-            thisArg?: any): string;
+         * This method is like _.findKey except that it iterates over elements of a collection in the opposite order.
+         *
+         * If a property name is provided for predicate the created _.property style callback returns the property
+         * value of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for predicate the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * @param object The object to search.
+         * @param predicate The function invoked per iteration.
+         * @param thisArg The this binding of predicate.
+         * @return Returns the key of the matched element, else undefined.
+         */
+        findLastKey<TValues, TObject>(
+            object: TObject,
+            predicate?: DictionaryIterator<TValues, boolean>,
+            thisArg?: any
+        ): string;
 
         /**
-        * @see _.findLastKey
-        * @param pluckValue _.pluck style callback
-        **/
-        findLastKey(
-            object: any,
-            pluckValue: string): string;
+         * @see _.findLastKey
+         */
+        findLastKey<TObject>(
+            object: TObject,
+            predicate?: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): string;
 
         /**
-        * @see _.findLastKey
-        * @param whereValue _.where style callback
-        **/
-        findLastKey<W extends Dictionary<any>, T>(
-            object: T,
-            whereValue: W): string;
+         * @see _.findLastKey
+         */
+        findLastKey<TObject>(
+            object: TObject,
+            predicate?: string,
+            thisArg?: any
+        ): string;
+
+        /**
+         * @see _.findLastKey
+         */
+        findLastKey<TWhere extends Dictionary<any>, TObject>(
+            object: TObject,
+            predicate?: TWhere
+        ): string;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.findLastKey
+         */
+        findLastKey<TValues>(
+            predicate?: DictionaryIterator<TValues, boolean>,
+            thisArg?: any
+        ): string;
+
+        /**
+         * @see _.findLastKey
+         */
+        findLastKey(
+            predicate?: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): string;
+
+        /**
+         * @see _.findLastKey
+         */
+        findLastKey(
+            predicate?: string,
+            thisArg?: any
+        ): string;
+
+        /**
+         * @see _.findLastKey
+         */
+        findLastKey<TWhere extends Dictionary<any>>(
+            predicate?: TWhere
+        ): string;
     }
 
     //_.forIn
@@ -7996,86 +8135,6 @@ declare module _ {
          * @see _.invert
          */
         invert<TResult extends {}>(multiValue?: boolean): LoDashObjectWrapper<TResult>;
-    }
-
-    //_.isEqual
-    interface EqCustomizer {
-        (value: any, other: any, indexOrKey?: number|string): boolean;
-    }
-
-    interface LoDashStatic {
-        /**
-         * Performs a deep comparison between two values to determine if they are equivalent. If customizer is
-         * provided it is invoked to compare values. If customizer returns undefined comparisons are handled
-         * by the method instead. The customizer is bound to thisArg and invoked with three
-         * arguments: (value, other [, index|key]).
-         * @param value The value to compare.
-         * @param other The other value to compare.
-         * @param callback The function to customize value comparisons.
-         * @param thisArg The this binding of customizer.
-         * @return True if the values are equivalent, else false.
-         */
-        isEqual(value?: any,
-                other?: any,
-                callback?: EqCustomizer,
-                thisArg?: any): boolean;
-
-        /**
-         * @see _.isEqual
-         */
-        eq(value?: any,
-           other?: any,
-           callback?: EqCustomizer,
-           thisArg?: any): boolean;
-    }
-
-    interface LoDashWrapper<T> {
-        /**
-         * @see _.isEqual
-         */
-        isEqual(other?: any,
-                callback?: EqCustomizer,
-                thisArg?: any): boolean;
-
-        /**
-         * @see _.isEqual
-         */
-        eq(other?: any,
-           callback?: EqCustomizer,
-           thisArg?: any): boolean;
-
-    }
-
-    interface LoDashArrayWrapper<T> {
-        /**
-         * @see _.isEqual
-         */
-        isEqual(other?: any,
-                callback?: EqCustomizer,
-                thisArg?: any): boolean;
-
-        /**
-         * @see _.isEqual
-         */
-        eq(other?: any,
-           callback?: EqCustomizer,
-           thisArg?: any): boolean;
-    }
-
-    interface LoDashObjectWrapper<T> {
-        /**
-         * @see _.isEqual
-         */
-        isEqual(other?: any,
-                callback?: EqCustomizer,
-                thisArg?: any): boolean;
-
-        /**
-         * @see _.isEqual
-         */
-        eq(other?: any,
-           callback?: EqCustomizer,
-           thisArg?: any): boolean;
     }
 
     //_.keys
