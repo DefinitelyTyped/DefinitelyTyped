@@ -80,7 +80,7 @@ interface Async {
     forEachOf<T>(obj: T[], iterator: AsyncForEachOfIterator<T>, callback?: ErrorCallback): void;
     forEachOfSeries(obj: any, iterator: (item: any, key: string|number, callback?: ErrorCallback) => void, callback: ErrorCallback): void;
     forEachOfSeries<T>(obj: T[], iterator: AsyncForEachOfIterator<T>, callback?: ErrorCallback): void;
-    forEachOfLimit(obj: any, limit: number, iterator: (item: any, key: [string|number], callback?: ErrorCallback) => void, callback: ErrorCallback): void;
+    forEachOfLimit(obj: any, limit: number, iterator: (item: any, key: string|number, callback?: ErrorCallback) => void, callback: ErrorCallback): void;
     forEachOfLimit<T>(obj: T[], limit: number, iterator: AsyncForEachOfIterator<T>, callback?: ErrorCallback): void;
     map<T, R>(arr: T[], iterator: AsyncResultIterator<T, R>, callback?: AsyncResultArrayCallback<R>): any;
     mapSeries<T, R>(arr: T[], iterator: AsyncResultIterator<T, R>, callback?: AsyncResultArrayCallback<R>): any;
