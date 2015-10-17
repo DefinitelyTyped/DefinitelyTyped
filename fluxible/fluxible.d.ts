@@ -5,22 +5,9 @@
 
 ///<reference path='../react/react.d.ts' />
 ///<reference path="../dispatchr/dispatchr.d.ts"/>
+///<reference path="../es6-promise/es6-promise.d.ts"/>
 
 declare module fluxible {
-    interface IThenable<R> {
-        then<U>(onFulfilled?:(value:R) => U | IThenable<U>, onRejected?:(error:any) => U | IThenable<U>): IThenable<U>;
-        then<U>(onFulfilled?:(value:R) => U | IThenable<U>, onRejected?:(error:any) => void): IThenable<U>;
-    }
-
-    class Promise<R> implements IThenable<R> {
-        constructor(callback:(resolve:(value?:R | IThenable<R>) => void, reject:(error?:any) => void) => void);
-
-        public then<U>(onFulfilled?:(value:R) => U | IThenable<U>, onRejected?:(error:any) => U | IThenable<U>):Promise<U>;
-        public then<U>(onFulfilled?:(value:R) => U | IThenable<U>, onRejected?:(error:any) => void):Promise<U>;
-
-        public catch<U>(onRejected?:(error:any) => U | IThenable<U>):Promise<U>;
-    }
-
     interface IFluxiblePlugin {
         name: string;
         plugContext: Function;

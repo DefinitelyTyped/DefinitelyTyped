@@ -10,8 +10,6 @@ declare module __Dispatchr {
         public static name:string;
         public static handlers:{ [actionType: string]: string | Function };
 
-        protected dispatcher:Dispatcher;
-
         constructor(dispatcher:Dispatcher);
 
         protected dehydrate():Object;
@@ -101,10 +99,6 @@ declare module __Dispatchr {
         waitFor(stores:String | Array<String> | typeof Store | Array<typeof Store>, callback:Function): void;
     }
 
-    interface IDispatcherOptions {
-        stores: Array<typeof Store>
-    }
-
     export class Dispatcher {
         /**
          * @class Dispatcher
@@ -112,7 +106,9 @@ declare module __Dispatchr {
          * @param {Array} options.stores Array of stores to register
          * @constructor
          */
-        constructor(options:IDispatcherOptions);
+        constructor(options:{
+            stores: Array<typeof Store>
+        });
 
         public createContext(context:Object):IDispatcherContext;
 
@@ -158,6 +154,8 @@ declare module __Dispatchr {
          */
         public registerHandler(action:string, name:string, handler:string | Function):number;
     }
+
+
 }
 
 declare module DispatcherAddons {
@@ -191,20 +189,17 @@ declare module DispatcherAddons {
      */
     export function createStore(spec:{
         storeName: string,
-        handlers: {
-            [actionType: string]: string
-        },
+        handlers: { [actionType: string]: string },
 
         initialize: Function,
         dehydrate: Function,
-        rehydrate: Function,
-
-        [customMethods:string]:any
-    }):typeof __Dispatchr.Store;
+        rehydrate: Function
+    }):void;
 }
 
+
 declare module "dispatchr" {
-    export function createDispatcher(options:__Dispatchr.IDispatcherOptions):__Dispatchr.Dispatcher;
+    export = __Dispatchr.Dispatcher;
 }
 
 declare module "dispatchr/addons" {
