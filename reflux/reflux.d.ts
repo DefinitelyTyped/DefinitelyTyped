@@ -34,7 +34,7 @@ declare module  RefluxCore {
         stopListeningTo(listenable: Listenable): boolean,
         stopListeningToAll(): void,
         fetchInitialState(listenable: Listenable, defaultCallback: Function): void,
-        trigger(state: any)
+        trigger(state: any):void;
     }
 
     interface ActionsDefinition {
@@ -52,8 +52,8 @@ declare module  RefluxCore {
     function createActions(definition: ActionsDefinition): any;
     function createActions(definitions: string[]): any;
 
-    function listenTo(store: Store, handler: string);
-    function setState(state: any);
+    function listenTo(store: Store, handler: string):void;
+    function setState(state: any):void;
 }
 
 declare module "reflux" {
