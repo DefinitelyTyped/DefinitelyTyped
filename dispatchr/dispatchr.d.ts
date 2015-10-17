@@ -3,27 +3,28 @@
 // Definitions by: Umidbek Karimov <https://github.com/umidbek.karimov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path='../eventemitter3/eventemitter3.d.ts' />
+///<reference path="../eventemitter3/eventemitter3.d.ts" />
 
 declare module __Dispatchr {
     class Store {
-        static name: string;
-        static handlers: { [actionType: string]: string | Function };
+        public static name:string;
+        public static handlers:{ [actionType: string]: string | Function };
 
-        constructor(dispatcher: Dispatcher);
+        protected dispatcher:Dispatcher;
 
-        protected dehydrate(): Object;
-        protected rehydrate(state: Object): void;
+        constructor(dispatcher:Dispatcher);
+
+        protected dehydrate():Object;
+
+        protected rehydrate(state:Object):void;
     }
 
-    interface getStore {
-        <T extends Store>(store: string | typeof Store): T;
+    interface IGetStore {
+        <T extends Store>(store:string | typeof Store): T;
     }
 
-    function getStore<T extends Store>(store: string | typeof Store): T
-
-    interface Action<TPayload, TResult> {
-        constructor(name: String, payload: TPayload): void;
+    interface IAction<TPayload, TResult> {
+        constructor(name:String, payload:TPayload): void;
         /**
          * Gets a name from a store
          * @method getStoreName
@@ -31,14 +32,14 @@ declare module __Dispatchr {
          *      the name
          * @returns {String}
          */
-        getStoreName(store: string | typeof Store): string;
+        getStoreName(store:string | typeof Store): string;
         /**
          * Executes all handlers for the action
          * @method execute
          * @param {Function[]} handlers A mapping of store names to handler function
          * @throws {Error} if action has already been executed
          */
-        execute(handlers: Array<Function>): void;
+        execute(handlers:Array<Function>): void;
         /**
          * Waits until all stores have finished handling an action and then calls
          * the callback
@@ -47,24 +48,25 @@ declare module __Dispatchr {
          * @param {Function} callback Called after all stores have completed handling their actions
          * @throws {Error} if the action is not being executed
          */
-        waitFor(stores: String | Array<String> | typeof Store | Array<typeof Store>, callback: Function): void;
+        waitFor(stores:String | Array<String> | typeof Store | Array<typeof Store>, callback:Function): void;
     }
 
-    interface DispatcherContext {
+    interface IDispatcherContext {
         /**
-         * @class Dispatcher
-         * @param {Object} context The context to be used for store instances
-         * @constructor
-         */
-        constructor(dispatcher: Dispatcher, context: Object): void;
-        /**
-         * Returns a single store instance and creates one if it doesn't already exist
+         * Returns a single store instance and creates one if it doesn"t already exist
          * @method getStore
          * @param {String} name The name of the instance
          * @returns {Object} The store instance
          * @throws {Error} if store is not registered
          */
-        getStore: getStore;
+        getStore: IGetStore;
+
+        /**
+         * @class Dispatcher
+         * @param {Object} context The context to be used for store instances
+         * @constructor
+         */
+        constructor(dispatcher:Dispatcher, context:Object): void;
         /**
          * Dispatches a new action or queues it up if one is already in progress
          * @method dispatch
@@ -72,7 +74,7 @@ declare module __Dispatchr {
          * @param {Object} payload Parameters to describe the action
          * @throws {Error} if store has handler registered that does not exist
          */
-        dispatch(actionName: string, payload: any): void;
+        dispatch(actionName:string, payload:any): void;
         /**
          * Returns a raw data object representation of the current state of the
          * dispatcher and all store instances. If the store implements a shouldDehdyrate
@@ -87,7 +89,7 @@ declare module __Dispatchr {
          * @param {Object} dispatcherState raw state typically retrieved from `dehydrate`
          *      method
          */
-        rehydrate(dispatcherState: Object): void;
+        rehydrate(dispatcherState:Object): void;
         /**
          * Waits until all stores have finished handling an action and then calls
          * the callback
@@ -96,7 +98,11 @@ declare module __Dispatchr {
          * @param {Function} callback Called after all stores have completed handling their actions
          * @throws {Error} if there is no action dispatching
          */
-        waitFor(stores: String | Array<String> | typeof Store | Array<typeof Store>, callback: Function): void;
+        waitFor(stores:String | Array<String> | typeof Store | Array<typeof Store>, callback:Function): void;
+    }
+
+    interface IDispatcherOptions {
+        stores: Array<typeof Store>
     }
 
     export class Dispatcher {
@@ -106,11 +112,9 @@ declare module __Dispatchr {
          * @param {Array} options.stores Array of stores to register
          * @constructor
          */
-        constructor(options: {
-            stores: Array<typeof Store>
-        });
+        constructor(options:IDispatcherOptions);
 
-        createContext(context: Object): DispatcherContext;
+        public createContext(context:Object):IDispatcherContext;
 
         /**
          * Registers a store so that it can handle actions.
@@ -121,7 +125,7 @@ declare module __Dispatchr {
          * @throws {Error} if store is invalid
          * @throws {Error} if store is already registered
          */
-        registerStore(store: typeof Store): void;
+        public registerStore(store:typeof Store):void;
 
         /**
          * Method to discover if a storeName has been registered
@@ -130,7 +134,7 @@ declare module __Dispatchr {
          * @param {Object|String} store The store to check
          * @returns {boolean}
          */
-        isRegistered(store: Store): boolean;
+        public isRegistered(store:Store):boolean;
 
         /**
          * Gets a name from a store
@@ -140,7 +144,7 @@ declare module __Dispatchr {
          *      the name
          * @returns {String}
          */
-        getStoreName(store: Store): string;
+        public getStoreName(store:Store):string;
 
         /**
          * Adds a handler function to be called for the given action
@@ -152,10 +156,8 @@ declare module __Dispatchr {
          * @param {String|Function} handler The function or name of the method that handles the action
          * @returns {number}
          */
-        registerHandler(action: string, name: string, handler: string | Function): number;
+        public registerHandler(action:string, name:string, handler:string | Function):number;
     }
-
-
 }
 
 declare module DispatcherAddons {
@@ -166,15 +168,15 @@ declare module DispatcherAddons {
      * @constructor
      */
     export class BaseStore extends __Dispatchr.Store {
-        emitChange(): void;
+        public emitChange():void;
 
-        getContext(): __Dispatchr.DispatcherContext;
+        public getContext():__Dispatchr.IDispatcherContext;
 
-        addChangeListener(callback: Function): void;
+        public addChangeListener(callback:Function):void;
 
-        removeChangeListener(callback: Function): void;
+        public removeChangeListener(callback:Function):void;
 
-        shouldDehydrate(): boolean;
+        public shouldDehydrate():boolean;
     }
 
     /**
@@ -187,21 +189,24 @@ declare module DispatcherAddons {
      * @param {Function} spec.dehydrate Function that returns serializable data to send to the client
      * @param {Function} spec.rehydrate Function that takes in serializable data to rehydrate the store
      */
-    export function createStore(spec: {
+    export function createStore(spec:{
         storeName: string,
-        handlers: { [actionType: string]: string },
+        handlers: {
+            [actionType: string]: string
+        },
 
         initialize: Function,
         dehydrate: Function,
-        rehydrate: Function
-    }): void;
+        rehydrate: Function,
+
+        [customMethods:string]:any
+    }):typeof __Dispatchr.Store;
 }
 
-
-declare module 'dispatchr' {
-    export = __Dispatchr.Dispatcher;
+declare module "dispatchr" {
+    export function createDispatcher(options:__Dispatchr.IDispatcherOptions):__Dispatchr.Dispatcher;
 }
 
-declare module 'dispatchr/addons' {
+declare module "dispatchr/addons" {
     export = DispatcherAddons;
 }
