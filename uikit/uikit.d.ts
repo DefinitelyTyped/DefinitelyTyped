@@ -101,6 +101,7 @@ declare module UIkit {
     }
     /**
      * Create a smooth off-canvas sidebar that slides in and out of the page
+     * Documentation: {@link http://getuikit.org/docs/offcanvas.html}
      * <h2>Events:</h2>
      * <table class="uk-table uk-table-striped uk-text-nowrap">
      * <tr>
@@ -163,6 +164,7 @@ declare module UIkit {
     }
     /**
      * Create a fancy lightbox for images and videos utilizing the @see {@link modal|Modal Component}
+     * Documentation {@link http://getuikit.org/docs/lightbox.html}
      * <h2>Events:</h2>
      * <table>
      * <tr>
@@ -215,6 +217,7 @@ declare module UIkit {
     }
     /**
      * Create inputs that allow users to choose from a list of pre-generated values while typing
+     * Documentation {@link http://getuikit.org/docs/autocomplete.html}
      * <h2>Events</h2>
      * <table>
      * <tr>
@@ -290,6 +293,7 @@ declare module UIkit {
     }
     /**
      * Create a toggleable dropdown with an datepicker
+     * Documentation {@link http://getuikit.org/docs/datepicker.html}
      * <h2>Events</h2>
      * <table>
      * <tr>
@@ -350,6 +354,10 @@ declare module UIkit {
          */
         lblCodeview?: string
     }
+    /**
+     * Create a rich HTML or markdown editor with an immediate preview and syntax highlighting
+     * Documentation {@link http://getuikit.org/docs/htmleditor.html}
+     */
     interface HtmlEditor {
         /**
          * Init element manually
@@ -397,6 +405,7 @@ declare module UIkit {
     }
     /**
      * Create a list of items to use as a responsive carousel slider
+     * Documentation {@link http://getuikit.org/docs/slider.html}
      * <h2>Events</h2>
      * <table class="uk-table uk-table-striped uk-text-nowrap">
      * <tr>
@@ -483,7 +492,7 @@ declare module UIkit {
     }
     /**
      * Create sets and groups of items, allowing to loop through the sets.
-     *
+     * Documentation {@link http://getuikit.org/docs/slideset.html}
      * <h2>Events</h2>
      * <table>
      * <tr>
@@ -582,6 +591,7 @@ declare module UIkit {
     }
     /**
      * Create a responsive image or video slideshow with stunning transition effects, fullscreen mode and overlays.
+     * Documentation {@link http://getuikit.org/docs/slideshow.html}
      * <h2>Events</h2>
      * <table>
      * <tr>
@@ -634,6 +644,7 @@ declare module UIkit {
     }
     /**
      * Animate CSS properties depending on the scroll position of the document.
+     * Documentation {@link http://getuikit.org/docs/parallax.html}
      */
     interface Parallax {
         /**
@@ -703,6 +714,7 @@ declare module UIkit {
     }
     /**
      * Create a list of items, allowing each item's content to be expanded and collapsed by clicking its header.
+     * Documentation {@link http://getuikit.org/docs/accordion.html}
      * <h2>Events</h2>
      * <table class="uk-table uk-table-striped uk-text-nowrap">
      * <tr>
@@ -759,6 +771,7 @@ declare module UIkit {
     }
     /**
      * Create toggleable notifications that fade out automatically
+     * Documentation {@link http://getuikit.org/docs/notify.html}
      */
     interface Notify {
         /**
@@ -820,6 +833,7 @@ declare module UIkit {
     }
     /**
      * Easily create a nicely looking search.
+     * Documentation {@link http://getuikit.org/docs/search.html}
      */
     interface Search {
         /**
@@ -947,6 +961,7 @@ declare module UIkit {
     }
     /**
      * Create nestable lists that can be sorted by drag and drop.
+     * Documentation {@link http://getuikit.org/docs/nestable.html}
      * <h2>Events</h2>
      * <table>
      * <tr>
@@ -1024,6 +1039,7 @@ declare module UIkit {
     }
     /**
      * Create sortable grids and lists to rearrange the order of its elements.
+     * Documentation {@link http://getuikit.org/docs/sortable.html}
      * <h2>Events</h2>
      * <table class="uk-table uk-table-striped uk-text-nowrap">
      * <tr>
@@ -1136,6 +1152,7 @@ declare module UIkit {
     }
     /**
      * Make elements remain at the top of the viewport, like a sticky navbar.
+     * Documentation {@link http://getuikit.org/docs/sticky.html}
      * <h2>Events</h2>
      * <table class="uk-table uk-table-striped uk-text-nowrap">
      * <tr>
@@ -1189,6 +1206,7 @@ declare module UIkit {
     }
     /**
      * Create a timepicker which can easily be used by selecting a time value from a pre filled dropdown.
+     * Documentation {@link http://getuikit.org/docs/timepicker.html}
      */
     interface Timepicker {
         /**
@@ -1245,6 +1263,7 @@ declare module UIkit {
     }
     /**
      * Easily create a nicely looking tooltip.
+     * Documentation {@link http://getuikit.org/docs/tooltip.html}
      */
     interface Tooltip {
         /**
@@ -1321,6 +1340,7 @@ declare module UIkit {
 
     /**
      * Allow users to upload files through a file input form element or a placeholder area.
+     * Documentation {@link http://getuikit.org/docs/upload.html}
      * <h2>Callbacks</h2>
      * <table class="uk-table uk-table-striped">
      * <tr>

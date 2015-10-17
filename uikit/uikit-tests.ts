@@ -1,5 +1,5 @@
 /// <reference path="uikit.d.ts" />
-import StickyOptions = UIkit.StickyOptions;
+
 function testModal() {
     UIkit.modal.alert("Attention!");
     UIkit.modal.confirm("Are you sure?", function () {
@@ -30,7 +30,7 @@ function testLightBox() {
     var element = "#group";
     var lightbox = UIkit.lightbox(element, {/* options */});
     var lightbox2 = UIkit.lightbox.create([
-        {'source': 'http://url/to/video.mp4', 'type': 'video'},
+        {source: 'http://url/to/video.mp4', 'type': 'video'},
         {'source': 'http://url/to/image.jpg', 'type': 'image'}
     ]);
     lightbox2.show();
