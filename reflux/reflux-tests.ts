@@ -1,7 +1,8 @@
-/// <reference path="reflux.d.ts" />
+import Reflux = require("reflux");
+import React = require("react");
 
-
-var Reflux: RefluxCore;
+//var Reflux: RefluxCore;
+//var React: React;
 
 var syncActions = Reflux.createActions([
     "statusUpdate",
@@ -35,5 +36,24 @@ var statusStore = Reflux.createStore({
 
         // Pass on to listeners
         this.trigger(status);
+    }
+});
+
+Reflux.createAction({
+    children: ["progressed", "completed", "failed"]
+});
+
+
+var actions = Reflux.createActions(["fireBall", "magicMissile"]);
+
+var Store = Reflux.createStore({
+    init: function () {
+        this.listenToMany(actions);
+    },
+    onFireBall: function () {
+        // whoooosh!
+    },
+    onMagicMissile: function () {
+        // bzzzzapp!
     }
 });
