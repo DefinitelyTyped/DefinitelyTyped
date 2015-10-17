@@ -43,7 +43,12 @@ app.on('ready', () => {
 
 	// and load the index.html of the app.
 	mainWindow.loadUrl(`file://${__dirname}/index.html`);
+	mainWindow.loadUrl('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
+	mainWindow.webContents.loadUrl('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
 
+	mainWindow.openDevTools()
+	var opened: boolean = mainWindow.isDevToolsOpened()
+	mainWindow.toggleDevTools()
 	// Emitted when the window is closed.
 	mainWindow.on('closed', () => {
 		// Dereference the window object, usually you would store windows
@@ -406,6 +411,7 @@ app.on('ready', () => {
 	]);
 	appIcon.setToolTip('This is my application.');
 	appIcon.setContextMenu(contextMenu);
+	appIcon.setImage('/path/to/new/icon');
 });
 
 // clipboard

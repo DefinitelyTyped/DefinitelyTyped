@@ -411,6 +411,7 @@ declare module SinonChrome.runtime {
 
     export var id: string;
     export var getURL: Sinon.SinonSpy;
+    export var lastError: { message?: string };
 }
 
 declare module SinonChrome.sessions {

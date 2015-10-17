@@ -4,7 +4,7 @@
 
 function testRawApi(){
 	var inputElement:HTMLInputElement = null;
-	var resultPromise = AjaxFile.send({
+	var resultPromise = AjaxFile.send<number>({
 		method: 'POST',
 		url: '/',
 		desiredResponseDataType: JQueryAjaxFile.DataType.Json,
@@ -42,7 +42,7 @@ function testJQuery() {
         global: true,
         timeout: 60
     };
-    extension.ajaxWithFile(option);
+    extension.ajaxWithFile<number>(option);
 }
 
 function testKnockoutExtension(){

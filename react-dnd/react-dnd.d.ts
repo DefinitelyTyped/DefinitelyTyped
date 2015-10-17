@@ -53,10 +53,10 @@ declare module __ReactDnd {
         backend: Backend
     ): (componentClass: React.ComponentClass<P>) => ContextComponentClass<P>;
 
-    // TODO: Add exported function for DragLayer.
-    // The React DnD docs say that this is an advanced feature that is only
-    // necessary when performing custom rendering or when using a custom
-    // backend.
+    export function DragLayer<P>(
+        collect: (monitor: DragLayerMonitor) => Object,
+        options?: DndOptions<P>
+    ): (componentClass: React.ComponentClass<P>) => DndComponentClass<P>;
 
     // Shared
     // ----------------------------------------------------------------------
@@ -148,6 +148,20 @@ declare module __ReactDnd {
 
     type ConnectDropTarget = <P>(elementOrNode: React.ReactElement<P>) => React.ReactElement<P>;
 
+    /// DragLayerMonitor
+    // ----------------------------------------------------------------------
+
+    class DragLayerMonitor {
+        isDragging(): boolean;
+        getItemType(): Identifier;
+        getItem(): Object;
+        getInitialClientOffset(): ClientOffset;
+        getInitialSourceClientOffset(): ClientOffset;
+        getClientOffset(): ClientOffset;
+        getDifferenceFromInitialOffset(): ClientOffset;
+        getSourceClientOffset(): ClientOffset;
+    }
+
     /// Backend
     /// ---------------------------------------------------------------------
 
@@ -162,13 +176,9 @@ declare module "react-dnd" {
 }
 
 declare module "react-dnd/modules/backends/HTML5" {
-    enum _NativeTypes { FILE, URL, TEXT }
-    class HTML5Backend implements __ReactDnd.Backend {
-        static getEmptyImage(): any; // Image
-        static NativeTypes: _NativeTypes;
-    }
-
-    export = HTML5Backend;
+    export enum NativeTypes { FILE, URL, TEXT }
+    export function getEmptyImage(): any; // Image
+    export default class HTML5Backend implements __ReactDnd.Backend {}
 }
 
 declare module "react-dnd/modules/backends/Test" {

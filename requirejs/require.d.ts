@@ -116,6 +116,19 @@ interface RequireConfig {
 	};
 
 	/**
+	* Allows pointing multiple module IDs to a module ID that contains a bundle of modules.
+	*
+	* @example
+	* requirejs.config({
+	*	bundles: {
+	*		'primary': ['main', 'util', 'text', 'text!template.html'],
+	*		'secondary': ['text!secondary.html']
+	*	}
+	* });
+	**/
+	bundles?: { [key: string]: string[]; };
+
+	/**
 	* AMD configurations, use module.config() to access in
 	* define() functions
 	**/
@@ -166,8 +179,8 @@ interface RequireConfig {
 
 	/**
 	* Extra query string arguments appended to URLs that RequireJS
-	* uses to fetch resources.  Most useful to cachce bust when
-	* the browser or server is not configured correcty.
+	* uses to fetch resources.  Most useful to cache bust when
+	* the browser or server is not configured correctly.
 	*
 	* @example
 	* urlArgs: "bust= + (new Date()).getTime()
