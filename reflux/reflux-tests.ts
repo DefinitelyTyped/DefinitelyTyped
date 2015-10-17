@@ -1,8 +1,8 @@
+/// <reference path="reflux.d.ts" />
+/// <reference path="../react/react.d.ts" />
+
 import Reflux = require("reflux");
 import React = require("react");
-
-//var Reflux: RefluxCore;
-//var React: React;
 
 var syncActions = Reflux.createActions([
     "statusUpdate",
@@ -31,7 +31,7 @@ var statusStore = Reflux.createStore({
         this.listenTo(asyncActions.fireBall, this.onFireBall);
     },
     // Callback
-    onFireBall: function (flag) {
+    onFireBall: function (flag: boolean) {
         var status = flag ? 'ONLINE' : 'OFFLINE';
 
         // Pass on to listeners
