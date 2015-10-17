@@ -10,19 +10,19 @@ interface JQuery {
     /**
      * Destroys previously initialized typeaheads. This entails reverting
      * DOM modifications and removing event handlers.
-     *
-     * @constructor
+      *
+      * @constructor
      * @param methodName Method 'destroy'
-     */
+      */
     typeahead(methodName: 'destroy'): JQuery;
 
     /**
      * Opens the dropdown menu of typeahead. Note that being open does not mean that the menu is visible.
      * The menu is only visible when it is open and has content.
-     *
-     * @constructor
+      *
+      * @constructor
      * @param methodName Method 'open'
-     */
+      */
     typeahead(methodName: 'open'): JQuery;
 
     /**
@@ -36,10 +36,10 @@ interface JQuery {
     /**
      * Returns the current value of the typeahead.
      * The value is the text the user has entered into the input element.
-     *
-     * @constructor
+      *
+      * @constructor
      * @param methodName Method 'val'
-     */
+      */
     typeahead(methodName: 'val'): string;
 
     /**
@@ -164,7 +164,7 @@ declare module Twitter.Typeahead {
          * It is expected that the function will compute the suggestion set (i.e. an array of JavaScript objects) for query and then invoke cb with said set.
          * cb can be invoked synchronously or asynchronously.
          *
-         */
+          */
         source: ((query: string, syncResults: (result: Array<any>) => void, asyncResults?: (result: Array<any>) => void) => void);
 
         /**
@@ -185,7 +185,7 @@ declare module Twitter.Typeahead {
         /**
          * A hash of templates to be used when rendering the dataset.
          * Note a precompiled template is a function that takes a JavaScript object as its first argument and returns a HTML string.
-         */
+          */
         templates?: Templates;
         async?: boolean;
     }
@@ -196,29 +196,43 @@ declare module Twitter.Typeahead {
          * Rendered when 0 suggestions are available for the given query.
          * Can be either a HTML string or a precompiled template.
          * If it's a precompiled template, the passed in context will contain query
-         */
+          */
         empty?: any;
 
         /**
          * Rendered at the bottom of the dataset.
          * Can be either a HTML string or a precompiled template.
          * If it's a precompiled template, the passed in context will contain query and isEmpty.
-         */
+          */
         footer?: any;
 
         /**
          * Rendered at the top of the dataset.
          * Can be either a HTML string or a precompiled template.
          * If it's a precompiled template, the passed in context will contain query and isEmpty.
-         */
+          */
         header?: any;
+        
+        /**
+         * Rendered when 0 suggestions are available for the given query.
+         * Can be either a HTML string or a precompiled template.
+         * If it's a precompiled template, the passed in context will contain query.
+          */
+        notFound?: (query: string) => string;
+        
+        /**
+         * Rendered when 0 synchronous suggestions are available but asynchronous suggestions are expected.
+         * Can be either a HTML string or a precompiled template.
+         * If it's a precompiled template, the passed in context will contain query.
+          */
+        pending?: (query: string) => string;
 
         /**
          * Used to render a single suggestion.
          * If set, this has to be a precompiled template.
          * The associated suggestion object will serve as the context.
          * Defaults to the value of displayKey wrapped in a p tag i.e. <p>{{value}}</p>.
-         */
+          */
         suggestion?: (datum: any) => string;
 
     }
