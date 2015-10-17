@@ -107,43 +107,43 @@ result = <(key: string, value: any) => _.Dictionary<any>>testMapCache.set;
 /*************
  * Chaining *
  *************/
-result = <_.LoDashWrapper<string>>_('test');
-result = <_.LoDashWrapper<number>>_(1);
-result = <_.LoDashWrapper<boolean>>_(true);
-result = <_.LoDashArrayWrapper<string>>_(['test1', 'test2']);
+result = <_.LoDashImplicitWrapper<string>>_('test');
+result = <_.LoDashImplicitWrapper<number>>_(1);
+result = <_.LoDashImplicitWrapper<boolean>>_(true);
+result = <_.LoDashImplicitArrayWrapper<string>>_(['test1', 'test2']);
 // Appears to be a change in the compiler, if the type explicity implements the object indexer.
 // Looking at: https://typescript.codeplex.com/wikipage?title=Known%20breaking%20changes%20between%200.8%20and%200.9&referringTitle=Documentation
 // "The ‘noimplicitany’ option now warns on the use of the hidden default indexer"
-result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' });
+result = <_.LoDashImplicitObjectWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' });
 
-result = <_.LoDashWrapper<string>>_.chain('test');
-result = <_.LoDashWrapper<string>>_('test').chain();
-result = <_.LoDashWrapper<number>>_.chain(1);
-result = <_.LoDashWrapper<number>>_(1).chain();
-result = <_.LoDashWrapper<boolean>>_.chain(true);
-result = <_.LoDashWrapper<boolean>>_(true).chain();
-result = <_.LoDashArrayWrapper<string>>_.chain(['test1', 'test2']);
-result = <_.LoDashArrayWrapper<string>>_(['test1', 'test2']).chain();
-result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_.chain(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' });
-result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).chain();
+result = <_.LoDashImplicitWrapper<string>>_.chain('test');
+result = <_.LoDashImplicitWrapper<string>>_('test').chain();
+result = <_.LoDashImplicitWrapper<number>>_.chain(1);
+result = <_.LoDashImplicitWrapper<number>>_(1).chain();
+result = <_.LoDashImplicitWrapper<boolean>>_.chain(true);
+result = <_.LoDashImplicitWrapper<boolean>>_(true).chain();
+result = <_.LoDashImplicitArrayWrapper<string>>_.chain(['test1', 'test2']);
+result = <_.LoDashImplicitArrayWrapper<string>>_(['test1', 'test2']).chain();
+result = <_.LoDashImplicitObjectWrapper<_.Dictionary<string>>>_.chain(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' });
+result = <_.LoDashImplicitObjectWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).chain();
 
 //Wrapped array shortcut methods
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).concat(5, 6);
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).concat([5, 6]);
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).concat(5, 6);
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).concat([5, 6]);
 result = <string>_([1, 2, 3, 4]).join(',');
 result = <number>_([1, 2, 3, 4]).pop();
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).push(5, 6, 7);
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).reverse();
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).push(5, 6, 7);
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).reverse();
 result = <number>_([1, 2, 3, 4]).shift();
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).sort((a, b) => 1);
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).splice(1);
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).splice(1, 2, 5, 6);
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sort((a, b) => 1);
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1);
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1, 2, 5, 6);
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
 
 result = <number[]>_.tap([1, 2, 3, 4], function (array) { console.log(array); });
-result = <_.LoDashWrapper<string>>_('test').tap(function (value) { console.log(value); });
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).tap(function (array) { console.log(array); });
-result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).tap(function (array) { console.log(array); });
+result = <_.LoDashImplicitWrapper<string>>_('test').tap(function (value) { console.log(value); });
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).tap(function (array) { console.log(array); });
+result = <_.LoDashImplicitObjectWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).tap(function (array) { console.log(array); });
 
 result = <string>_('test').toString();
 result = <string>_([1, 2, 3]).toString();
@@ -412,10 +412,10 @@ result = <Array<number>>_.flatten([1, [2], [[3]]], true);
 result = <Array<number>>_.flatten<number>([1, [2], [3, [[4]]]], true);
 result = <Array<number|boolean>>_.flatten<number|boolean>([1, [2], [3, [[false]]]], true);
 
-result = <_.LoDashArrayWrapper<number>>_([[1, 2], [3, 4], 5, 6]).flatten();
-result = <_.LoDashArrayWrapper<number|Array<Array<number>>>>_([1, [2], [3, [[4]]]]).flatten();
+result = <_.LoDashImplicitArrayWrapper<number>>_([[1, 2], [3, 4], 5, 6]).flatten();
+result = <_.LoDashImplicitArrayWrapper<number|Array<Array<number>>>>_([1, [2], [3, [[4]]]]).flatten();
 
-result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten(true);
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten(true);
 
 // _.flattenDeep
 module TestFlattenDeep {
@@ -1060,68 +1060,68 @@ result = <number[]>_([1, 2]).zipWith<number>([1, 2], [1, 2], [1, 2], [1, 2], [1,
     result = _.thru<number, number>(1, (value: number) => value, any);
 }
 {
-    let result: _.LoDashWrapper<number>;
+    let result: _.LoDashImplicitWrapper<number>;
     result = _(1).thru<number>((value: number) => value);
     result = _(1).thru<number>((value: number) => value, any);
 }
 {
-    let result: _.LoDashWrapper<string>;
+    let result: _.LoDashImplicitWrapper<string>;
     result = _('').thru<string>((value: string) => value);
     result = _('').thru<string>((value: string) => value, any);
 }
 {
-    let result: _.LoDashWrapper<boolean>;
+    let result: _.LoDashImplicitWrapper<boolean>;
     result = _(true).thru<boolean>((value: boolean) => value);
     result = _(true).thru<boolean>((value: boolean) => value, any);
 }
 {
-    let result: _.LoDashObjectWrapper<any>;
+    let result: _.LoDashImplicitObjectWrapper<any>;
     result = _({}).thru<Object>((value: Object) => value);
     result = _({}).thru<Object>((value: Object) => value, any);
 }
 {
-    let result: _.LoDashArrayWrapper<number>;
+    let result: _.LoDashImplicitArrayWrapper<number>;
     result = _([1, 2, 3]).thru<number>((value: number[]) => value);
     result = _([1, 2, 3]).thru<number>((value: number[]) => value, any);
 }
 
 // _.prototype.commit
 {
-    let result: _.LoDashWrapper<number>;
+    let result: _.LoDashImplicitWrapper<number>;
     result = _(42).commit();
 }
 {
-    let result: _.LoDashArrayWrapper<any>;
+    let result: _.LoDashImplicitArrayWrapper<any>;
     result = _<any>([]).commit();
 }
 {
-    let result: _.LoDashObjectWrapper<any>;
+    let result: _.LoDashImplicitObjectWrapper<any>;
     result = _({}).commit();
 }
 
 // _.prototype.plant
 {
-    let result: _.LoDashWrapper<number>;
+    let result: _.LoDashImplicitWrapper<number>;
     result = _(any).plant(42);
 }
 {
-    let result: _.LoDashStringWrapper;
+    let result: _.LoDashImplicitStringWrapper;
     result = _(any).plant('');
 }
 {
-    let result: _.LoDashWrapper<boolean>;
+    let result: _.LoDashImplicitWrapper<boolean>;
     result = _(any).plant(true);
 }
 {
-    let result: _.LoDashNumberArrayWrapper;
+    let result: _.LoDashImplicitNumberArrayWrapper;
     result = _(any).plant([42]);
 }
 {
-    let result: _.LoDashArrayWrapper<any>;
+    let result: _.LoDashImplicitArrayWrapper<any>;
     result = _(any).plant<any>([]);
 }
 {
-    let result: _.LoDashObjectWrapper<{}>;
+    let result: _.LoDashImplicitObjectWrapper<{}>;
     result = _(any).plant<{}>({});
 }
 
@@ -1318,9 +1318,9 @@ result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function (num) { retur
 result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function (num) { return this.floor(num); }, Math);
 result = <_.Dictionary<number>>_.countBy(['one', 'two', 'three'], 'length');
 
-result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy(function (num) { return Math.floor(num); });
-result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy(function (num) { return this.floor(num); }, Math);
-result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_(['one', 'two', 'three']).countBy('length');
+result = <_.LoDashImplicitObjectWrapper<_.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy(function (num) { return Math.floor(num); });
+result = <_.LoDashImplicitObjectWrapper<_.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy(function (num) { return this.floor(num); }, Math);
+result = <_.LoDashImplicitObjectWrapper<_.Dictionary<number>>>_(['one', 'two', 'three']).countBy('length');
 
 // _.detect
 module TestDetect {
@@ -1509,11 +1509,11 @@ result = <number[]>_.each([1, 2, 3], function (num) { console.log(num); });
 result = <_.Dictionary<number>>_.each({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
 result = <IFoodType>_.each<IFoodType, string>({ name: 'apple', type: 'fruit' }, function (value, key) { console.log(value, key) });
 
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).forEach(function (num) { console.log(num); });
-result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).forEach(function (num) { console.log(num); });
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3]).forEach(function (num) { console.log(num); });
+result = <_.LoDashImplicitObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).forEach(function (num) { console.log(num); });
 
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).each(function (num) { console.log(num); });
-result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).each(function (num) { console.log(num); });
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3]).each(function (num) { console.log(num); });
+result = <_.LoDashImplicitObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).each(function (num) { console.log(num); });
 
 result = <number[]>_.forEachRight([1, 2, 3], function (num) { console.log(num); });
 result = <_.Dictionary<number>>_.forEachRight({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
@@ -1521,11 +1521,11 @@ result = <_.Dictionary<number>>_.forEachRight({ 'one': 1, 'two': 2, 'three': 3 }
 result = <number[]>_.eachRight([1, 2, 3], function (num) { console.log(num); });
 result = <_.Dictionary<number>>_.eachRight({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
 
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).forEachRight(function (num) { console.log(num); });
-result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).forEachRight(function (num) { console.log(num); });
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3]).forEachRight(function (num) { console.log(num); });
+result = <_.LoDashImplicitObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).forEachRight(function (num) { console.log(num); });
 
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).eachRight(function (num) { console.log(num); });
-result = <_.LoDashObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).eachRight(function (num) { console.log(num); });
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3]).eachRight(function (num) { console.log(num); });
+result = <_.LoDashImplicitObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).eachRight(function (num) { console.log(num); });
 
 result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function (num) { return Math.floor(num); });
 result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function (num) { return this.floor(num); }, Math);
@@ -1764,14 +1764,14 @@ result = <IFoodCombined[]>_(foodsCombined).reject({ 'type': 'fruit' }).value();
 
 result = <number>_.sample([1, 2, 3, 4]);
 result = <number[]>_.sample([1, 2, 3, 4], 2);
-result = <_.LoDashWrapper<number>>_([1, 2, 3, 4]).sample();
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).sample(2);
+result = <_.LoDashImplicitWrapper<number>>_([1, 2, 3, 4]).sample();
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sample(2);
 result = <number>_([1, 2, 3, 4]).sample().value();
 result = <number[]>_([1, 2, 3, 4]).sample(2).value();
 
 result = <number[]>_.shuffle([1, 2, 3, 4, 5, 6]);
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).shuffle();
-result = <_.LoDashArrayWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).shuffle();
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3]).shuffle();
+result = <_.LoDashImplicitArrayWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).shuffle();
 
 result = <number>_.size([1, 2]);
 result = <number>_([1, 2]).size();
@@ -1963,8 +1963,8 @@ result = <number>_(testComposeSquareFn).compose<(n: number, m: number) => number
 var createCallbackObj: { [index: string]: string; } = { name: 'Joe' };
 result = <() => any>_.createCallback('name');
 result = <() => boolean>_.createCallback(createCallbackObj);
-result = <_.LoDashObjectWrapper<() => any>>_('name').createCallback();
-result = <_.LoDashObjectWrapper<() => boolean>>_(createCallbackObj).createCallback();
+result = <_.LoDashImplicitObjectWrapper<() => any>>_('name').createCallback();
+result = <_.LoDashImplicitObjectWrapper<() => boolean>>_(createCallbackObj).createCallback();
 
 // _.curry
 var testCurryFn = (a: number, b: number, c: number) => [a, b, c];
@@ -2028,14 +2028,14 @@ source.addEventListener('message', <Function>_.debounce(function () { }, 250, {
     'maxWait': 1000
 }), false);
 
-result = <_.LoDashObjectWrapper<Function>>_(function () { }).debounce(150);
+result = <_.LoDashImplicitObjectWrapper<Function>>_(function () { }).debounce(150);
 
-jQuery('#postbox').on('click', <_.LoDashObjectWrapper<Function>>_(function () { }).debounce(300, {
+jQuery('#postbox').on('click', <_.LoDashImplicitObjectWrapper<Function>>_(function () { }).debounce(300, {
     'leading': true,
     'trailing': false
 }));
 
-source.addEventListener('message', <_.LoDashObjectWrapper<Function>>_(function () { }).debounce(250, {
+source.addEventListener('message', <_.LoDashImplicitObjectWrapper<Function>>_(function () { }).debounce(250, {
     'maxWait': 1000
 }), false);
 
@@ -2043,11 +2043,11 @@ var returnedDebounce = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedThrottled(4);
 
 result = <number>_.defer(function () { console.log('deferred'); });
-result = <_.LoDashWrapper<number>>_(function () { console.log('deferred'); }).defer();
+result = <_.LoDashImplicitWrapper<number>>_(function () { console.log('deferred'); }).defer();
 
 var log = _.bind(console.log, console);
 result = <number>_.delay(log, 1000, 'logged later');
-result = <_.LoDashWrapper<number>>_(log).delay(1000, 'logged later');
+result = <_.LoDashImplicitWrapper<number>>_(log).delay(1000, 'logged later');
 
 // _.flow
 var testFlowSquareFn = (n: number) => n * n;
@@ -2644,8 +2644,8 @@ result = <NameAge>_.assign({ 'name': 'moe' }, { 'age': 40 }, function (a, b) {
     return typeof a == 'undefined' ? b : a;
 });
 
-result = <_.LoDashObjectWrapper<NameAge>>_({ 'name': 'moe' }).assign({ 'age': 40 });
-result = <_.LoDashObjectWrapper<NameAge>>_({ 'name': 'moe' }).assign({ 'age': 40 }, function (a, b) {
+result = <_.LoDashImplicitObjectWrapper<NameAge>>_({ 'name': 'moe' }).assign({ 'age': 40 });
+result = <_.LoDashImplicitObjectWrapper<NameAge>>_({ 'name': 'moe' }).assign({ 'age': 40 }, function (a, b) {
     return typeof a == 'undefined' ? b : a;
 });
 
@@ -2654,8 +2654,8 @@ result = <NameAge>_.extend({ 'name': 'moe' }, { 'age': 40 }, function (a, b) {
     return typeof a == 'undefined' ? b : a;
 });
 
-result = <_.LoDashObjectWrapper<NameAge>>_({ 'name': 'moe' }).extend({ 'age': 40 });
-result = <_.LoDashObjectWrapper<NameAge>>_({ 'name': 'moe' }).extend({ 'age': 40 }, function (a, b) {
+result = <_.LoDashImplicitObjectWrapper<NameAge>>_({ 'name': 'moe' }).extend({ 'age': 40 });
+result = <_.LoDashImplicitObjectWrapper<NameAge>>_({ 'name': 'moe' }).extend({ 'age': 40 }, function (a, b) {
     return typeof a == 'undefined' ? b : a;
 });
 
@@ -2684,7 +2684,7 @@ interface Food {
 }
 var foodDefaults = { 'name': 'apple' };
 result = <Food>_.defaults(foodDefaults, { 'name': 'banana', 'type': 'fruit' });
-result = <_.LoDashObjectWrapper<Food>>_(foodDefaults).defaults({ 'name': 'banana', 'type': 'fruit' });
+result = <_.LoDashImplicitObjectWrapper<Food>>_(foodDefaults).defaults({ 'name': 'banana', 'type': 'fruit' });
 
 //_.defaultsDeep
 interface DefaultsDeepResult {
@@ -2784,7 +2784,7 @@ result = <Dog>_.forIn(new Dog('Dagny'), function (value, key) {
     console.log(key);
 });
 
-result = <_.LoDashObjectWrapper<Dog>>_(new Dog('Dagny')).forIn(function (value, key) {
+result = <_.LoDashImplicitObjectWrapper<Dog>>_(new Dog('Dagny')).forIn(function (value, key) {
     console.log(key);
 });
 
@@ -2792,7 +2792,7 @@ result = <Dog>_.forInRight(new Dog('Dagny'), function (value, key) {
     console.log(key);
 });
 
-result = <_.LoDashObjectWrapper<Dog>>_(new Dog('Dagny')).forInRight(function (value, key) {
+result = <_.LoDashImplicitObjectWrapper<Dog>>_(new Dog('Dagny')).forInRight(function (value, key) {
     console.log(key);
 });
 
@@ -2806,7 +2806,7 @@ result = <ZeroOne>_.forOwn(<ZeroOne>{ '0': 'zero', '1': 'one', 'one': '2' }, fun
     console.log(key);
 });
 
-result = <_.LoDashObjectWrapper<ZeroOne>>_({ '0': 'zero', '1': 'one', 'length': 2 }).forOwn(function (num, key) {
+result = <_.LoDashImplicitObjectWrapper<ZeroOne>>_({ '0': 'zero', '1': 'one', 'length': 2 }).forOwn(function (num, key) {
     console.log(key);
 });
 
@@ -2814,15 +2814,15 @@ result = <any>_.forOwnRight({ '0': 'zero', '1': 'one', 'length': 2 }, function (
     console.log(key);
 });
 
-result = <_.LoDashObjectWrapper<ZeroOne>>_({ '0': 'zero', '1': 'one', 'length': 2 }).forOwnRight(function (num, key) {
+result = <_.LoDashImplicitObjectWrapper<ZeroOne>>_({ '0': 'zero', '1': 'one', 'length': 2 }).forOwnRight(function (num, key) {
     console.log(key);
 });
 
 result = <string[]>_.functions(_);
 result = <string[]>_.methods(_);
 
-result = <_.LoDashArrayWrapper<string>>_(_).functions();
-result = <_.LoDashArrayWrapper<string>>_(_).methods();
+result = <_.LoDashImplicitArrayWrapper<string>>_(_).functions();
+result = <_.LoDashImplicitArrayWrapper<string>>_(_).methods();
 
 // _.get
 result = <number>_.get<number>({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c');
