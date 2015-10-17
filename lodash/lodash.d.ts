@@ -211,40 +211,23 @@ declare module _ {
         unindexedChars: boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
-        /**
-        * Produces the toString result of the wrapped value.
-        * @return Returns the string result.
-        **/
-        toString(): string;
+    interface LoDashWrapperBase<T, TWrapper> { }
 
-        /**
-        * Executes the chained sequence to extract the unwrapped value.
-        * @return Returns the resolved unwrapped value.
-        **/
-        value(): T;
+    interface LoDashImplicitWrapperBase<T, TWrapper> extends LoDashWrapperBase<T, TWrapper> { }
 
-        /**
-        * @see _.value
-        **/
-        run(): T;
-
-        /**
-        * @see _.value
-        **/
-        toJSON(): T;
-
-        /**
-        * @see _.value
-        **/
-        valueOf(): T;
-    }
+    interface LoDashExplicitWrapperBase<T, TWrapper> extends LoDashWrapperBase<T, TWrapper> { }
 
     interface LoDashImplicitWrapper<T> extends LoDashImplicitWrapperBase<T, LoDashImplicitWrapper<T>> { }
 
+    interface LoDashExplicitWrapper<T> extends LoDashExplicitWrapperBase<T, LoDashExplicitWrapper<T>> { }
+
     interface LoDashImplicitStringWrapper extends LoDashImplicitWrapper<string> { }
 
+    interface LoDashExplicitStringWrapper extends LoDashExplicitWrapper<string> { }
+
     interface LoDashImplicitObjectWrapper<T> extends LoDashImplicitWrapperBase<T, LoDashImplicitObjectWrapper<T>> { }
+
+    interface LoDashExplicitObjectWrapper<T> extends LoDashExplicitWrapperBase<T, LoDashExplicitObjectWrapper<T>> { }
 
     interface LoDashImplicitArrayWrapper<T> extends LoDashImplicitWrapperBase<T[], LoDashImplicitArrayWrapper<T>> {
         concat(...items: Array<T|Array<T>>): LoDashImplicitArrayWrapper<T>;
@@ -259,53 +242,11 @@ declare module _ {
         unshift(...items: T[]): LoDashImplicitArrayWrapper<T>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> extends LoDashExplicitWrapperBase<T[], LoDashExplicitArrayWrapper<T>> { }
+
     interface LoDashImplicitNumberArrayWrapper extends LoDashImplicitArrayWrapper<number> { }
 
-    //_.chain
-    interface LoDashStatic {
-        /**
-        * Creates a lodash object that wraps the given value with explicit method chaining enabled.
-        * @param value The value to wrap.
-        * @return The wrapper object.
-        **/
-        chain(value: number): LoDashImplicitWrapper<number>;
-        chain(value: string): LoDashImplicitWrapper<string>;
-        chain(value: boolean): LoDashImplicitWrapper<boolean>;
-        chain<T>(value: Array<T>): LoDashImplicitArrayWrapper<T>;
-        chain<T extends {}>(value: T): LoDashImplicitObjectWrapper<T>;
-        chain(value: any): LoDashImplicitWrapper<any>;
-    }
-
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
-        /**
-        * Enables explicit method chaining on the wrapper object.
-        * @see _.chain
-        * @return The wrapper object.
-        **/
-        chain(): TWrapper;
-    }
-
-    //_.tap
-    interface LoDashStatic {
-        /**
-        * Invokes interceptor with the value as the first argument and then returns value. The
-        * purpose of this method is to "tap into" a method chain in order to perform operations on
-        * intermediate results within the chain.
-        * @param value The value to provide to interceptor
-        * @param interceptor The function to invoke.
-        * @return value
-        **/
-        tap<T>(
-            value: T,
-            interceptor: (value: T) => void): T;
-    }
-
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
-        /**
-        * @see _.tap
-        **/
-        tap(interceptor: (value: T) => void): TWrapper;
-    }
+    interface LoDashExplicitNumberArrayWrapper extends LoDashExplicitArrayWrapper<number> { }
 
     /*********
      * Array *
@@ -2349,6 +2290,89 @@ declare module _ {
      * Chain *
      *********/
 
+    //_.chain
+    interface LoDashStatic {
+        /**
+         * Creates a lodash object that wraps value with explicit method chaining enabled.
+         *
+         * @param value The value to wrap.
+         * @return Returns the new lodash wrapper instance.
+         */
+        chain(value: number): LoDashExplicitWrapper<number>;
+        chain(value: string): LoDashExplicitWrapper<string>;
+        chain(value: boolean): LoDashExplicitWrapper<boolean>;
+        chain<T>(value: T[]): LoDashExplicitArrayWrapper<T>;
+        chain<T extends {}>(value: T): LoDashExplicitObjectWrapper<T>;
+        chain(value: any): LoDashExplicitWrapper<any>;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.chain
+         */
+        chain(): LoDashExplicitWrapper<T>;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.chain
+         */
+        chain(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.chain
+         */
+        chain(): LoDashExplicitObjectWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.chain
+         */
+        chain(): TWrapper;
+    }
+
+    //_.tap
+    interface LoDashStatic {
+        /**
+         * This method invokes interceptor and returns value. The interceptor is bound to thisArg and invoked with one
+         * argument; (value). The purpose of this method is to "tap into" a method chain in order to perform operations
+         * on intermediate results within the chain.
+         *
+         * @param value The value to provide to interceptor.
+         * @param interceptor The function to invoke.
+         * @parem thisArg The this binding of interceptor.
+         * @return Returns value.
+         **/
+        tap<T>(
+            value: T,
+            interceptor: (value: T) => void,
+            thisArg?: any
+        ): T;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.tap
+         */
+        tap(
+            interceptor: (value: T) => void,
+            thisArg?: any
+        ): TWrapper;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.tap
+         */
+        tap(
+            interceptor: (value: T) => void,
+            thisArg?: any
+        ): TWrapper;
+    }
+
     //_.thru
     interface LoDashStatic {
         /**
@@ -2449,6 +2473,51 @@ declare module _ {
          * @see _.plant
          */
         plant(value: any): LoDashImplicitWrapper<any>;
+    }
+
+    // _.run
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.value
+         */
+        run(): T;
+    }
+
+    // _.toJSON
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.value
+         */
+        toJSON(): T;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * Produces the result of coercing the unwrapped value to a string.
+         *
+         * @return Returns the coerced string value.
+         */
+        toString(): string;
+    }
+
+    // _.value
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * Executes the chained sequence to extract the unwrapped value.
+         *
+         * @alias _.run, _.toJSON, _.valueOf
+         *
+         * @return Returns the resolved unwrapped value.
+         */
+        value(): T;
+    }
+
+    // _.valueOf
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.value
+         */
+        valueOf(): T;
     }
 
     /**************

@@ -104,28 +104,33 @@ result = <(key: string) => any>testMapCache.get;
 result = <(key: string) => boolean>testMapCache.has;
 result = <(key: string, value: any) => _.Dictionary<any>>testMapCache.set;
 
-/*************
- * Chaining *
- *************/
-result = <_.LoDashImplicitWrapper<string>>_('test');
-result = <_.LoDashImplicitWrapper<number>>_(1);
-result = <_.LoDashImplicitWrapper<boolean>>_(true);
-result = <_.LoDashImplicitArrayWrapper<string>>_(['test1', 'test2']);
-// Appears to be a change in the compiler, if the type explicity implements the object indexer.
-// Looking at: https://typescript.codeplex.com/wikipage?title=Known%20breaking%20changes%20between%200.8%20and%200.9&referringTitle=Documentation
-// "The ‘noimplicitany’ option now warns on the use of the hidden default indexer"
-result = <_.LoDashImplicitObjectWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' });
+// _
+module TestWrapper {
+    {
+        let result: _.LoDashImplicitWrapper<string>;
+        result = _('');
+    }
 
-result = <_.LoDashImplicitWrapper<string>>_.chain('test');
-result = <_.LoDashImplicitWrapper<string>>_('test').chain();
-result = <_.LoDashImplicitWrapper<number>>_.chain(1);
-result = <_.LoDashImplicitWrapper<number>>_(1).chain();
-result = <_.LoDashImplicitWrapper<boolean>>_.chain(true);
-result = <_.LoDashImplicitWrapper<boolean>>_(true).chain();
-result = <_.LoDashImplicitArrayWrapper<string>>_.chain(['test1', 'test2']);
-result = <_.LoDashImplicitArrayWrapper<string>>_(['test1', 'test2']).chain();
-result = <_.LoDashImplicitObjectWrapper<_.Dictionary<string>>>_.chain(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' });
-result = <_.LoDashImplicitObjectWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).chain();
+    {
+        let result: _.LoDashImplicitWrapper<number>;
+        result = _(42);
+    }
+
+    {
+        let result: _.LoDashImplicitWrapper<boolean>;
+        result = _(true);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+        result = _<string>(['']);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<{a: string}>;
+        result = _<{a: string}>({a: ''});
+    }
+}
 
 //Wrapped array shortcut methods
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).concat(5, 6);
@@ -139,11 +144,6 @@ result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sort((a, b) => 1)
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1);
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1, 2, 5, 6);
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
-
-result = <number[]>_.tap([1, 2, 3, 4], function (array) { console.log(array); });
-result = <_.LoDashImplicitWrapper<string>>_('test').tap(function (value) { console.log(value); });
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).tap(function (array) { console.log(array); });
-result = <_.LoDashImplicitObjectWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).tap(function (array) { console.log(array); });
 
 result = <string>_('test').toString();
 result = <string>_([1, 2, 3]).toString();
@@ -1052,6 +1052,140 @@ result = <number[]>_([1, 2]).zipWith<number>([1, 2], [1, 2], [1, 2], [1, 2], [1,
 /*********
  * Chain *
  *********/
+
+// _.chain
+module TestChain {
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _.chain('');
+        result = _('').chain();
+
+        result = _.chain('').chain();
+        result = _('').chain().chain();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _.chain(42);
+        result = _(42).chain();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _.chain(true);
+        result = _(true).chain();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _.chain(['']);
+        result = _(['']).chain();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{a: string}>;
+
+        result = _.chain<{a: string}>({a: ''});
+        result = _<{a: string}>({a: ''}).chain();
+    }
+}
+
+// _.tap
+module TestTap {
+    {
+        let interceptor: (value: string) => void;
+        let result: string;
+
+        _.tap('', interceptor);
+        _.tap('', interceptor, any);
+    }
+
+    {
+        let interceptor: (value: string[]) => void;
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        _.tap([''], interceptor);
+        _.tap([''], interceptor, any);
+    }
+
+    {
+        let interceptor: (value: {a: string}) => void;
+        let result: _.LoDashImplicitObjectWrapper<{a: string}>;
+
+        _.tap({a: ''}, interceptor);
+        _.tap({a: ''}, interceptor, any);
+    }
+
+    {
+        let interceptor: (value: string) => void;
+        let result: _.LoDashImplicitWrapper<string>;
+
+        _.chain('').tap(interceptor, any);
+        _.chain('').tap(interceptor, any);
+
+        _('').tap(interceptor);
+        _('').tap(interceptor, any);
+    }
+
+    {
+        let interceptor: (value: string[]) => void;
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        _.chain(['']).tap(interceptor);
+        _.chain(['']).tap(interceptor, any);
+
+        _(['']).tap(interceptor);
+        _(['']).tap(interceptor, any);
+    }
+
+    {
+        let interceptor: (value: {a: string}) => void;
+        let result: _.LoDashImplicitObjectWrapper<{a: string}>;
+
+        _.chain({a: ''}).tap(interceptor);
+        _.chain({a: ''}).tap(interceptor, any);
+
+        _({a: ''}).tap(interceptor);
+        _({a: ''}).tap(interceptor, any);
+    }
+
+    {
+        let interceptor: (value: string) => void;
+        let result: _.LoDashExplicitWrapper<string>;
+
+        _.chain('').tap(interceptor, any);
+        _.chain('').tap(interceptor, any);
+
+        _('').chain().tap(interceptor);
+        _('').chain().tap(interceptor, any);
+    }
+
+    {
+        let interceptor: (value: string[]) => void;
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        _.chain(['']).tap(interceptor);
+        _.chain(['']).tap(interceptor, any);
+
+        _(['']).chain().tap(interceptor);
+        _(['']).chain().tap(interceptor, any);
+    }
+
+    {
+        let interceptor: (value: {a: string}) => void;
+        let result: _.LoDashExplicitObjectWrapper<{a: string}>;
+
+        _.chain({a: ''}).tap(interceptor);
+        _.chain({a: ''}).tap(interceptor, any);
+
+        _({a: ''}).chain().tap(interceptor);
+        _({a: ''}).chain().tap(interceptor, any);
+    }
+}
 
 // _.thru
 {
