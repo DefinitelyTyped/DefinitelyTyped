@@ -5,10 +5,23 @@
 
 ///<reference path='../react/react.d.ts' />
 ///<reference path="../dispatchr/dispatchr.d.ts"/>
-///<reference path="../es6-promise/es6-promise.d.ts"/>
 
 declare module fluxible {
-    interface FluxiblePlugin {
+    interface IThenable<R> {
+        then<U>(onFulfilled?:(value:R) => U | IThenable<U>, onRejected?:(error:any) => U | IThenable<U>): IThenable<U>;
+        then<U>(onFulfilled?:(value:R) => U | IThenable<U>, onRejected?:(error:any) => void): IThenable<U>;
+    }
+
+    class Promise<R> implements IThenable<R> {
+        constructor(callback:(resolve:(value?:R | IThenable<R>) => void, reject:(error?:any) => void) => void);
+
+        public then<U>(onFulfilled?:(value:R) => U | IThenable<U>, onRejected?:(error:any) => U | IThenable<U>):Promise<U>;
+        public then<U>(onFulfilled?:(value:R) => U | IThenable<U>, onRejected?:(error:any) => void):Promise<U>;
+
+        public catch<U>(onRejected?:(error:any) => U | IThenable<U>):Promise<U>;
+    }
+
+    interface IFluxiblePlugin {
         name: string;
         plugContext: Function;
         plugStoreContext: Function;
@@ -18,19 +31,20 @@ declare module fluxible {
         rehydrate: Function;
     }
 
-    interface ExecuteAction {
-        <P, R>(action: IAction<P, R>, payload: P, done: ICallback<R>): void;
-        <P, R>(action: IPromiseAction<P, R>, payload: P): Promise<R>;
+    interface IExecuteAction {
+        <P, R>(action:IAction<P, R>, payload:P, done:ICallback<R>): void;
+        <P, R>(action:IPromiseAction<P, R>, payload:P): Promise<R>;
     }
 
-    interface DehydratedState {
-        context: Object,
+    interface IDehydratedState {
+        context: Object;
         plugins: {
             [pluginName: string]: Object
-        }
+        };
     }
 
-    interface FluxibleCreateContextOptions { }
+    interface IFluxibleCreateContextOptions {
+    }
 
     export class Fluxible {
         /**
@@ -47,7 +61,7 @@ declare module fluxible {
          *          component: require('./components/App.jsx')
          *      });
          */
-        constructor(options: {
+        constructor(options:{
             component: typeof __React.Component,
             componentActionHandler?: Function
         });
@@ -56,9 +70,9 @@ declare module fluxible {
          * Creates an isolated context for a request/session
          * @method createContext
          * @param {Object} [options]
-         * @returns {FluxibleContext}
+         * @returns {IFluxibleContext}
          */
-        createContext(options: FluxibleCreateContextOptions): FluxibleContext;
+        public createContext(options:IFluxibleCreateContextOptions):IFluxibleContext;
 
         /**
          * Creates a new dispatcher instance using the application's dispatchr class. Used by
@@ -67,67 +81,88 @@ declare module fluxible {
          * @param {Object} contextOptions The context options to be provided to each store instance
          * @returns {Dispatcher}
          */
-        createDispatcherInstance(): __Dispatchr.Dispatcher;
+        public createDispatcherInstance():__Dispatchr.Dispatcher;
+
         /**
-        * Provides plugin mechanism for adding application level settings that are persisted
-        * between server/client and also modification of the FluxibleContext
-        * @method plug
-        * @param {Object} plugin
-        * @param {String} plugin.name Name of the plugin
-        * @param {Function} plugin.plugContext Method called after context is created to allow
-        *  dynamically plugging the context
-        * @param {Object} [plugin.dehydrate] Method called to serialize the plugin settings to be persisted
-        *  to the client
-        * @param {Object} [plugin.rehydrate] Method called to rehydrate the plugin settings from the server
-        */
-        plug(plugin: FluxiblePlugin): void;
+         * Provides plugin mechanism for adding application level settings that are persisted
+         * between server/client and also modification of the FluxibleContext
+         * @method plug
+         * @param {Object} plugin
+         * @param {String} plugin.name Name of the plugin
+         * @param {Function} plugin.plugContext Method called after context is created to allow
+         *  dynamically plugging the context
+         * @param {Object} [plugin.dehydrate] Method called to serialize the plugin settings to be persisted
+         *  to the client
+         * @param {Object} [plugin.rehydrate] Method called to rehydrate the plugin settings from the server
+         */
+        public plug(plugin:IFluxiblePlugin):void;
+
         /**
-        * Provides access to a plugin instance by name
-        * @method getPlugin
-        * @param {String} pluginName The plugin name
-        * @returns {Object}
-        */
-        getPlugin(pluginName: string): Plugin;
+         * Provides access to a plugin instance by name
+         * @method getPlugin
+         * @param {String} pluginName The plugin name
+         * @returns {Object}
+         */
+        public getPlugin(pluginName:string):Plugin;
+
         /**
-        * Getter for the top level react component for the application
-        * @method getComponent
-        * @returns {ReactComponent}
-        */
-        getComponent(): new () => __React.Component<any, any>;
+         * Getter for the top level react component for the application
+         * @method getComponent
+         * @returns {ReactComponent}
+         */
+        public getComponent():new () => __React.Component<any, any>;
+
         /**
-        * Registers a store to the dispatcher so it can listen for actions
-        * @method registerStore
-        */
-        registerStore(store: typeof __Dispatchr.Store): void;
-       
+         * Registers a store to the dispatcher so it can listen for actions
+         * @method registerStore
+         */
+        public registerStore(store:__Dispatchr.Store):void;
+
         /**
-        * Creates a serializable state of the application and a given context for sending to the client
-        * @method dehydrate
-        * @param {FluxibleContext} context
-        * @returns {Object} Dehydrated state object
-        */
-        dehydrate(context: FluxibleContext): DehydratedState;
-        
+         * Creates a serializable state of the application and a given context for sending to the client
+         * @method dehydrate
+         * @param {IFluxibleContext} context
+         * @returns {Object} Dehydrated state object
+         */
+        public dehydrate(context:IFluxibleContext):IDehydratedState;
+
         /**
-        * Rehydrates the application and creates a new context with the state from the server
-        * @method rehydrate
-        * @param {Object} obj Raw object of dehydrated state
-        * @param {Object} obj.plugins Dehydrated app plugin state
-        * @param {Object} obj.context Dehydrated context state
-        * @param {Function} callback
-        * @async Rehydration may require more asset loading or async IO calls
-        */
-        rehydrate(obj: DehydratedState, callback?: (err: Error, context: FluxibleContext) => void): Promise<any>
+         * Rehydrates the application and creates a new context with the state from the server
+         * @method rehydrate
+         * @param {Object} obj Raw object of dehydrated state
+         * @param {Object} obj.plugins Dehydrated app plugin state
+         * @param {Object} obj.context Dehydrated context state
+         * @param {Function} callback
+         * @async Rehydration may require more asset loading or async IO calls
+         */
+        public rehydrate(obj:IDehydratedState, callback?:(err:Error, context:IFluxibleContext) => void):Promise<any>;
     }
 
-    interface FluxibleContext {
+    interface IFluxibleContext {
+        /**
+         * Getter for store from dispatcher
+         * @method getStore
+         * @returns {Object}
+         */
+        getStore: __Dispatchr.IGetStore;
+
+        /**
+         * Proxy function for executing an action.
+         * @param {Function} action An action creator function that receives actionContext, payload,
+         *  and done as parameters
+         * @param {Object} payload The action payload
+         * @param {Function} [done] Method to be called once action execution has completed
+         * @return {Promise} executeActionPromise Resolved with action result or rejected with action error
+         */
+        executeAction: IExecuteAction;
+
         /**
          * A request or browser-session context
-         * @class FluxibleContext
+         * @class IFluxibleContext
          * @param {Fluxible} app The Fluxible instance used to create the context
          * @constructor
          */
-        constructor(app: Fluxible): void;
+        constructor(app:Fluxible): void;
 
         /**
          * Creates an instance of the app level component with given props and a proper component
@@ -137,7 +172,7 @@ declare module fluxible {
          * @deprecated
          * @return {ReactElement}
          */
-        createElement(props: Object): __React.ReactElement<any>;
+        createElement(props:Object): __React.ReactElement<any>;
 
         /**
          * Getter for the app's component. Pass through to the Fluxible instance.
@@ -145,13 +180,6 @@ declare module fluxible {
          * @returns {ReactComponent}
          */
         getComponent(): __React.Component<any, any>;
-
-        /**
-         * Getter for store from dispatcher
-         * @method getStore
-         * @returns {Object}
-         */
-        getStore: __Dispatchr.getStore;
 
         /**
          * Provides plugin mechanism for adding application level settings that are persisted
@@ -169,38 +197,28 @@ declare module fluxible {
          *  to the client
          * @param {Object} [plugin.rehydrate] Method called to rehydrate the plugin settings from the server
          */
-        plug(plugin: FluxiblePlugin): void;
+        plug(plugin:IFluxiblePlugin): void;
 
-        /**
-         * Proxy function for executing an action.
-         * @param {Function} action An action creator function that receives actionContext, payload,
-         *  and done as parameters
-         * @param {Object} payload The action payload
-         * @param {Function} [done] Method to be called once action execution has completed
-         * @return {Promise} executeActionPromise Resolved with action result or rejected with action error
-         */
-        executeAction: ExecuteAction;
-        
         /**
          * Returns the context for action controllers
          * @method getActionContext
          * @return {Object} Action context information
          */
-        getActionContext(): ActionContext;
+        getActionContext(): IActionContext;
 
         /**
          * Returns the context for action controllers
          * @method getComponentContext
          * @return {Object} Component context information
          */
-        getComponentContext(): ComponentContext;
+        getComponentContext(): IComponentContext;
 
         /**
          * Returns the context for stores
          * @method getStoreContext
          * @return {Object} Store context information
          */
-        getStoreContext(): StoreContext;
+        getStoreContext(): IStoreContext;
 
         /**
          * Returns a serializable context state
@@ -216,26 +234,33 @@ declare module fluxible {
          * @param {Object} obj.plugins Dehydrated context plugin state
          * @param {Object} obj.dispatcher Dehydrated dispatcher state
          */
-        rehydrate(obj: { plugins: Object, dispatcher: __Dispatchr.Dispatcher }): void;
+        rehydrate(obj:{ plugins: Object, dispatcher: __Dispatchr.Dispatcher }): void;
     }
 
     interface ICallback<R> {
-        (error?: any | Error, data?: R): void;
+        (error?:any | Error, data?:R): void;
     }
 
     interface IBaseAction<P, R> {
     }
 
     interface IAction<P, R> extends IBaseAction<P, R> {
-        (actionContext: ActionContext, payload: P, done: ICallback<R>): void;
+        (actionContext:IActionContext, payload:P, done:ICallback<R>): void;
     }
 
     interface IPromiseAction<P, R> extends IBaseAction<P, R> {
-        (actionContext: ActionContext, payload: P): Promise<R>;
+        (actionContext:IActionContext, payload:P): Promise<R>;
     }
 
-    interface ActionContext {
-        dispatch(eventName: string, payload: any): void;
+    interface IActionContext {
+        /**
+         * Getter for store from dispatcher
+         * @method getStore
+         * @returns {Object}
+         */
+        getStore: __Dispatchr.IGetStore;
+
+        dispatch(eventName:string, payload:any): void;
         /**
          * Proxy function for executing an action.
          * @param {Function} action An action creator function that receives actionContext, payload,
@@ -244,34 +269,27 @@ declare module fluxible {
          * @param {Function} [done] Method to be called once action execution has completed
          * @return {Promise} executeActionPromise Resolved with action result or rejected with action error
          */
-        executeAction<P, R>(action: IAction<P, R>, payload: P, done: ICallback<R>): void;
-        executeAction<P, R>(action: IPromiseAction<P, R>, payload: P): Promise<R>;
-        /**
-         * Getter for store from dispatcher
-         * @method getStore
-         * @returns {Object}
-         */
-        getStore: __Dispatchr.getStore;
+        executeAction<P, R>(action:IAction<P, R>, payload:P, done:ICallback<R>): void;
+        executeAction<P, R>(action:IPromiseAction<P, R>, payload:P): Promise<R>;
     }
 
-    interface ComponentContext {
+    interface IComponentContext {
         /**
          * Getter for store from dispatcher
          * @method getStore
          * @returns {Object}
          */
-        getStore: __Dispatchr.getStore;
+        getStore: __Dispatchr.IGetStore;
         /**
          * Proxy function for executing an action.
          * @param {Function} action An action creator function that receives actionContext, payload,
          *  and done as parameters
          * @param {Object} payload The action payload
          */
-        executeAction(action: IBaseAction<any, any>, payload: any): void;
+        executeAction(action:IBaseAction<any, any>, payload:any): void;
     }
 
-    interface StoreContext {
-        getContext(): Object;
+    interface IStoreContext {
         /**
          * Returns a single store instance and creates one if it doesn't already exist
          * @method getStore
@@ -279,7 +297,9 @@ declare module fluxible {
          * @returns {Object} The store instance
          * @throws {Error} if store is not registered
          */
-        getStore: __Dispatchr.getStore;
+        getStore: __Dispatchr.IGetStore;
+
+        getContext(): Object;
         /**
          * Waits until all stores have finished handling an action and then calls
          * the callback
@@ -288,14 +308,14 @@ declare module fluxible {
          * @param {Function} callback Called after all stores have completed handling their actions
          * @throws {Error} if there is no action dispatching
          */
-        waitFor(stores: String | Array<String> | __Dispatchr.Store | Array<__Dispatchr.Store>, callback?: Function): Promise<any>;
+        waitFor(stores:String | Array<String> | __Dispatchr.Store | Array<__Dispatchr.Store>, callback?:Function): Promise<any>;
     }
 }
 
-declare module 'fluxible/addons' {
+declare module "fluxible/addons" {
     export = DispatcherAddons;
 }
 
-declare module 'fluxible' {
+declare module "fluxible" {
     export = fluxible;
 }
