@@ -1188,35 +1188,98 @@ module TestTap {
 }
 
 // _.thru
-{
-    let result: number;
-    result = _.thru<number, number>(1, (value: number) => value);
-    result = _.thru<number, number>(1, (value: number) => value, any);
-}
-{
-    let result: _.LoDashImplicitWrapper<number>;
-    result = _(1).thru<number>((value: number) => value);
-    result = _(1).thru<number>((value: number) => value, any);
-}
-{
-    let result: _.LoDashImplicitWrapper<string>;
-    result = _('').thru<string>((value: string) => value);
-    result = _('').thru<string>((value: string) => value, any);
-}
-{
-    let result: _.LoDashImplicitWrapper<boolean>;
-    result = _(true).thru<boolean>((value: boolean) => value);
-    result = _(true).thru<boolean>((value: boolean) => value, any);
-}
-{
-    let result: _.LoDashImplicitObjectWrapper<any>;
-    result = _({}).thru<Object>((value: Object) => value);
-    result = _({}).thru<Object>((value: Object) => value, any);
-}
-{
-    let result: _.LoDashImplicitArrayWrapper<number>;
-    result = _([1, 2, 3]).thru<number>((value: number[]) => value);
-    result = _([1, 2, 3]).thru<number>((value: number[]) => value, any);
+module TestThru {
+    interface Interceptor<T> {
+        (value: T): T;
+    }
+
+    {
+        let interceptor: Interceptor<number>;
+        let result: number;
+
+        result = _.thru<number, number>(1, interceptor);
+        result = _.thru<number, number>(1, interceptor, any);
+    }
+
+    {
+        let interceptor: Interceptor<number>;
+        let result: _.LoDashImplicitWrapper<number>;
+
+        result = _(1).thru<number>(interceptor);
+        result = _(1).thru<number>(interceptor, any);
+    }
+
+    {
+        let interceptor: Interceptor<string>;
+        let result: _.LoDashImplicitWrapper<string>;
+
+        result = _('').thru<string>(interceptor);
+        result = _('').thru<string>(interceptor, any);
+    }
+
+    {
+        let interceptor: Interceptor<boolean>;
+        let result: _.LoDashImplicitWrapper<boolean>;
+
+        result = _(true).thru<boolean>(interceptor);
+        result = _(true).thru<boolean>(interceptor, any);
+    }
+
+    {
+        let interceptor: Interceptor<{a: string}>;
+        let result: _.LoDashImplicitObjectWrapper<{a: string}>;
+
+        result = _({a: ''}).thru<{a: string}>(interceptor);
+        result = _({a: ''}).thru<{a: string}>(interceptor, any);
+    }
+
+    {
+        let interceptor: Interceptor<number[]>;
+        let result: _.LoDashImplicitArrayWrapper<number>;
+
+        result = _([1, 2, 3]).thru<number>(interceptor);
+        result = _([1, 2, 3]).thru<number>(interceptor, any);
+    }
+
+    {
+        let interceptor: Interceptor<number>;
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(1).chain().thru<number>(interceptor);
+        result = _(1).chain().thru<number>(interceptor, any);
+    }
+
+    {
+        let interceptor: Interceptor<string>;
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('').chain().thru<string>(interceptor);
+        result = _('').chain().thru<string>(interceptor, any);
+    }
+
+    {
+        let interceptor: Interceptor<boolean>;
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(true).chain().thru<boolean>(interceptor);
+        result = _(true).chain().thru<boolean>(interceptor, any);
+    }
+
+    {
+        let interceptor: Interceptor<{a: string}>;
+        let result: _.LoDashExplicitObjectWrapper<{a: string}>;
+
+        result = _({a: ''}).chain().thru<{a: string}>(interceptor);
+        result = _({a: ''}).chain().thru<{a: string}>(interceptor, any);
+    }
+
+    {
+        let interceptor: Interceptor<number[]>;
+        let result: _.LoDashExplicitArrayWrapper<number>;
+
+        result = _([1, 2, 3]).chain().thru<number>(interceptor);
+        result = _([1, 2, 3]).chain().thru<number>(interceptor, any);
+    }
 }
 
 // _.prototype.commit
