@@ -2377,6 +2377,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * This method is like _.tap except that it returns the result of interceptor.
+         *
          * @param value The value to provide to interceptor.
          * @param interceptor The function to invoke.
          * @param thisArg The this binding of interceptor.
@@ -2385,7 +2386,8 @@ declare module _ {
         thru<T, TResult>(
             value: T,
             interceptor: (value: T) => TResult,
-            thisArg?: any): TResult;
+            thisArg?: any
+        ): TResult;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -2413,7 +2415,7 @@ declare module _ {
         /**
          * @see _.thru
          */
-        thru<TResult extends Object>(
+        thru<TResult extends {}>(
             interceptor: (value: T) => TResult,
             thisArg?: any): LoDashImplicitObjectWrapper<TResult>;
 
@@ -2423,6 +2425,48 @@ declare module _ {
         thru<TResult>(
             interceptor: (value: T) => TResult[],
             thisArg?: any): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.thru
+         */
+        thru<TResult extends number>(
+            interceptor: (value: T) => TResult,
+            thisArg?: any
+        ): LoDashExplicitWrapper<TResult>;
+
+        /**
+         * @see _.thru
+         */
+        thru<TResult extends string>(
+            interceptor: (value: T) => TResult,
+            thisArg?: any
+        ): LoDashExplicitWrapper<TResult>;
+
+        /**
+         * @see _.thru
+         */
+        thru<TResult extends boolean>(
+            interceptor: (value: T) => TResult,
+            thisArg?: any
+        ): LoDashExplicitWrapper<TResult>;
+
+        /**
+         * @see _.thru
+         */
+        thru<TResult extends {}>(
+            interceptor: (value: T) => TResult,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.thru
+         */
+        thru<TResult>(
+            interceptor: (value: T) => TResult[],
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TResult>;
     }
 
     // _.prototype.commit
