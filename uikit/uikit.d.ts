@@ -74,6 +74,13 @@ declare module UIkit {
         /**
          * Create a prompt dialog, where the user enter information
          * @param  {string} message The message to display. Can be Html
+         * @param  {function} fn  A function to execute on confirmation. The function
+         * receive the new value as a parameter
+         */
+        prompt(message:string, fn:(newValue:string) => any): void
+        /**
+         * Create a prompt dialog, where the user enter information
+         * @param  {string} message The message to display. Can be Html
          * @param  {string} value   A value to init the input
          * @param  {function} fn  A function to execute on confirmation. The function
          * receive the new value as a parameter
