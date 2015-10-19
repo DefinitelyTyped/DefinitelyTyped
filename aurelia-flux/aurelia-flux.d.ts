@@ -1,3 +1,8 @@
+// Type definitions for aurelia-flux
+// Project: https://github.com/tfrydrychewicz/aurelia-flux
+// Definitions by: Tomasz Frydrychewicz <https://github.com/tfrydrychewicz>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /**
  * A Flux plugin for Aurelia that supports Promises.
  */
@@ -43,7 +48,7 @@ declare module 'aurelia-flux' {
 	 * @param actions Handled actions (e.g. 'items.add', 'items.*', 'items.???')
  	 * @returns Method decorator
 	 */
-	export function handle(...actions: String[]): ((target, descriptor) => void);
+	export function handle(...actions: String[]): MethodDecorator;
 
 	/**
 	 * Registers a method that will be invoked when all
@@ -52,7 +57,7 @@ declare module 'aurelia-flux' {
 	 * @param types	Types to wait for before dispatcher will call this handler
  	 * @returns Method decorator
 	 */
-	export function waitFor(...types: Function[]): ((target, descriptor) => void);
+	export function waitFor(...types: Function[]): MethodDecorator;
 
 }
 
@@ -101,7 +106,7 @@ declare module aurelia.flux {
 	}
 	
 	export interface IDispatcherHandle {
-		(...actions: String[]): ((target, descriptor) => void);
+		(actions: String | String[], callback: aurelia.flux.IDispatcherCallback): aurelia.flux.IDisposeDisptacher;
 	}
 	
 	export interface IDisposeDisptacher {

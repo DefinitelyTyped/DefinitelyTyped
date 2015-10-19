@@ -1,3 +1,4 @@
+/// <reference path="aurelia-flux.d.ts" />
 import {Dispatcher, handle, waitFor} from 'aurelia-flux';
 
 class Store {
