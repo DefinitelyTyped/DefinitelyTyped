@@ -34,10 +34,10 @@ var knex = Knex({
   pool: {
     min: 0,
     max: 7,
-    afterCreate: (connection, callback) => {
+    afterCreate: (connection: any, callback: Function) => {
       return callback(null, connection);
     },
-    beforeDestroy: (connection, callback) => {
+    beforeDestroy: (connection: any, callback: Function) => {
       return callback(null, connection);
     }
   }
