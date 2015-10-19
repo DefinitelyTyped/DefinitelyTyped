@@ -1,7 +1,10 @@
 ﻿// Type definitions for Flux
 // Project: http://facebook.github.io/flux/
-// Definitions by: Steve Baker <https://github.com/stkb/>
+// Definitions by: Steve Baker <https://github.com/stkb/>, Giedrius Grabauskas <https://github.com/QuatroDevOfficial/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="../immutable/immutable.d.ts" />
+/// <reference path="../react/react-global.d.ts" />
 
 declare module Flux {
 
