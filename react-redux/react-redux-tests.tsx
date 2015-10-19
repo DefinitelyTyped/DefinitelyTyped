@@ -23,13 +23,13 @@ interface CounterState {
 declare var increment: Function;
 
 class Counter extends Component<any, any> {
-  render() {
-    return (
-      <button onClick={this.props.onIncrement}>
-        {this.props.value}
-      </button>
-    );
-  }
+    render() {
+        return (
+            <button onClick={this.props.onIncrement}>
+                {this.props.value}
+            </button>
+        );
+    }
 }
 
 function mapStateToProps(state: CounterState) {
@@ -242,3 +242,14 @@ connect(mapStateToProps2, actionCreators, mergeProps)(TodoApp);
 
 
 
+
+
+// Ensure return value of the connect()(TodoApp) is of the type TodoApp
+let WrappedTodoApp: typeof TodoApp = connect()(TodoApp);
+
+// connect()(SomeClass) has the same constructor as SomeClass itself
+class SomeClass {
+    constructor(public foo: string) { }
+    public bar: number;
+}
+let bar: number = new (connect()(SomeClass))("foo").bar;

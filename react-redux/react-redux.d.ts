@@ -11,7 +11,7 @@ declare module "react-redux" {
   import { Store, Dispatch, ActionCreator } from 'redux';
 
   export interface ClassDecorator {
-    <TFunction extends Function>(target: TFunction): TFunction|void;
+    <TFunction extends Function>(target: TFunction): TFunction;
   }
 
   /**
