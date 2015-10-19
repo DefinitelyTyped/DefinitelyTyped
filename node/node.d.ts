@@ -153,6 +153,68 @@ declare var Buffer: {
      */
     compare(buf1: Buffer, buf2: Buffer): number;
     /**
+     * Writes value to the buffer at the specified offset. Note, value must be a valid unsigned 8 bit integer.
+     * @param value Number
+     * @param offset Number
+     * @param noAssert Optional, default false
+     */
+    writeUInt8(value: number, offset: number, noAssert?: boolean): void;
+    /**
+     * Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid unsigned 16 bit integer.
+     * @param value Number
+     * @param offset Number
+     * @param noAssert Optional, default false
+     */
+    writeUInt16LE(value: number, offset: number, noAssert?: boolean): void;
+    writeUInt16BE(value: number, offset: number, noAssert?: boolean): void;
+    /**
+     * Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid unsigned 32 bit integer.
+     * @param value Number
+     * @param offset Number
+     * @param noAssert Optional, default false
+     */
+    writeUInt32LE(value: number, offset: number, noAssert?: boolean): void;
+    writeUInt32BE(value: number, offset: number, noAssert?: boolean): void;
+    /**
+     * Writes value to the buffer at the specified offset. Note, value must be a valid signed 8 bit integer.
+     * @param value Number
+     * @param offset Number
+     * @param noAssert Optional, default false
+     */
+    writeInt8(value: number, offset: number, noAssert?: boolean): void;
+    /**
+     * Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid signed 16 bit integer.
+     * @param value Number
+     * @param offset Number
+     * @param noAssert Optional, default false
+     */
+    writeInt16LE(value: number, offset: number, noAssert?: boolean): void;
+    writeInt16BE(value: number, offset: number, noAssert?: boolean): void;
+    /**
+     * Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid signed 32 bit integer.
+     * @param value Number
+     * @param offset Number
+     * @param noAssert Optional, default false
+     */
+    writeInt32LE(value: number, offset: number, noAssert?: boolean): void;
+    writeInt32BE(value: number, offset: number, noAssert?: boolean): void;
+    /**
+     * Writes value to the buffer at the specified offset with specified endian format. Note, behavior is unspecified if value is not a 32 bit float.
+     * @param value Number
+     * @param offset Number
+     * @param noAssert Optional, default false
+     */
+    writeFloatLE(value: number, offset: number, noAssert?: boolean): void;
+    writeFloatBE(value: number, offset: number, noAssert?: boolean): void;
+    /**
+     * Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid 64 bit double.
+     * @param value Number
+     * @param offset Number
+     * @param noAssert Optional, default false
+     */
+    writeDoubleLE(value: number, offset: number, noAssert?: boolean): void;
+    writeDoubleBE(value: number, offset: number, noAssert?: boolean): void;
+    /**
      * Writes value to the buffer at the specified offset and byteLength. Supports up to 48 bits of accuracy.
      * @param value Bytes to be written to buffer
      * @param offset 0 <= offset <= buf.length
