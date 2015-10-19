@@ -118,8 +118,9 @@ declare var Buffer: {
      * Returns true if {obj} is a Buffer
      *
      * @param obj object to test.
+     * @return {boolean}
      */
-    isBuffer(obj: any): obj is Buffer;
+    isBuffer(obj: any): boolean;
     /**
      * Returns true if {encoding} is a valid encoding argument.
      * Valid string encodings in Node 0.12: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
@@ -951,6 +952,7 @@ declare module "url" {
 declare module "dns" {
     export function lookup(domain: string, family: number, callback: (err: Error, address: string, family: number) =>void ): string;
     export function lookup(domain: string, callback: (err: Error, address: string, family: number) =>void ): string;
+    export function lookupService(address: string, port: number, callback: (err: any, hostname: string, service: string) =>void ): string;
     export function resolve(domain: string, rrtype: string, callback: (err: Error, addresses: string[]) =>void ): string[];
     export function resolve(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
     export function resolve4(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
