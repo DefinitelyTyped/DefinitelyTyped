@@ -9,7 +9,7 @@ declare module Microsoft.Maps.AdvancedShapes {
 
     export class EntityCollection {
 
-        constructor(options: EntityCollectionOptions);
+        constructor(options?: EntityCollectionOptions);
 
         clear(): void;
         get(index: number): Entity;
@@ -24,10 +24,6 @@ declare module Microsoft.Maps.AdvancedShapes {
         removeAt(index: number): Entity;
         setOptions(options: EntityCollectionOptions): void;
         toString(): string;
-
-        entityAdded: (args: EntityChangeArgs) => any;
-        entityChanged: (args: EntityChangeArgs) => any;
-        entityRemoved: (args: EntityChangeArgs) => any;
     }
 
     export class Polygon implements Entity {
@@ -43,15 +39,6 @@ declare module Microsoft.Maps.AdvancedShapes {
         setLocations(locations: Location[]): void;
         setOptions(options: PolylineOptions): void;
         toString(): string;
-
-        click: (eventArgs: MouseEventArgs) => void;
-        dbclick: (eventArgs: MouseEventArgs) => void;
-        entitychanged: (entity: Entity) => void;
-        mousedown: (eventArgs: MouseEventArgs) => void;
-        mouseout: (eventArgs: MouseEventArgs) => void;
-        mouseover: (eventArgs: MouseEventArgs) => void;
-        mouseup: (eventArgs: MouseEventArgs) => void;
-        rightclick: (eventArgs: MouseEventArgs) => void;
     }
 
 }

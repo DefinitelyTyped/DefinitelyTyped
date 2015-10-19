@@ -71,3 +71,4 @@ log4js.configure({
   }
 });
 
+log4js.configure('file.json', { reloadSecs: 300 });

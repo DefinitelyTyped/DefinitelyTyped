@@ -120,6 +120,11 @@ function test_ajax() {
         alert("Data Saved: " + msg);
     });
     $.ajax({
+        method: "POST",
+        url: "some.php",
+        data: { name: "John", location: "Boston" }
+    });
+    $.ajax({
         url: "test.html",
         cache: false
     }).done(function (html) {
@@ -1129,6 +1134,13 @@ function test_jQuery_removeData() {
     jQuery.removeData(div, "test1");
     $("span:eq(2)").text("" + jQuery.data(div, "test1"));
     $("span:eq(3)").text("" + jQuery.data(div, "test2"));
+}
+
+function test_removeDataAll() {
+    var el = $("div");
+    el.data("test1", "VALUE-1");
+    el.data("test2", "VALUE-2");
+    el.removeData();
 }
 
 function test_dblclick() {
@@ -2511,10 +2523,10 @@ function test_jQuery() {
     $foo.triggerHandler('eventName');
     $("div > p").css("border", "1px solid gray");
     $("input:radio", document.forms[0]);
-	var xml: any;
+    var xml: any;
     $("div", xml.responseXML);
     $(document.body).css("background", "black");
-	var myForm: any;
+    var myForm: any;
     $(myForm.elements).hide();
     $('<p id="test">My <em>new</em> text</p>').appendTo('body');
     $('<img />');
@@ -2537,6 +2549,10 @@ function test_jQuery() {
         }
     }).appendTo("body");
     jQuery(function ($) {
+        // Your code using failsafe $ alias here...
+    });
+    jQuery(document).ready(function ($) {
+        // Your code using failsafe $ alias here...
     });
 }
 
@@ -3212,7 +3228,7 @@ function test_EventIsCallable() {
 }
 
 $.when<any>($.ajax("/my/page.json")).then(a => a.asdf); // is type JQueryPromise<any>
-$.when($.ajax("/my/page.json")).then((a?,b?,c?) => a.asdf); // is type JQueryPromise<any>
+$.when<any>($.ajax("/my/page.json")).then((a?,b?,c?) => a.asdf); // is type JQueryPromise<any>
 $.when("asdf", "jkl;").done((x,y) => x.length + y.length, (x,y) => x.length + y.length);
 
 var f1 = $.when("fetch"); // Is type JQueryPromise<string>
@@ -3350,7 +3366,7 @@ function test_promise_then_change_type() {
 		var def = $.Deferred<any>();
 		var promise = def.promise(null);
 
-		def.rejectWith(this, new Error());
+		def.rejectWith(this, [new Error()]);
 
 		return promise;
 	}
@@ -3370,4 +3386,28 @@ function test_promise_then_change_type() {
 	count().done(data => {
 	}).fail((exception: Error) => {
 	});
+}
+
+function test_promise_then_not_return_deferred() {
+  var state: string;
+
+  var deferred: JQueryDeferred<any> = $.Deferred();
+  state = deferred.state();
+  deferred = deferred.progress();
+  deferred = deferred.done();
+  deferred = deferred.fail();
+  deferred = deferred.always();
+  deferred = deferred.notify();
+  deferred = deferred.resolve();
+  deferred = deferred.reject();
+  promise = deferred.promise();
+  promise = deferred.then(function () { });
+
+  var promise: JQueryPromise<any> = $.Deferred().promise();
+  state = promise.state();
+  promise = promise.then(function () { });
+  promise = promise.progress();
+  promise = promise.done();
+  promise = promise.fail();
+  promise = promise.always();
 }

@@ -1,16 +1,19 @@
 /// <reference path="node.d.ts" />
-
-import assert = require("assert");
-import fs = require("fs");
-import events = require("events");
-import zlib = require("zlib");
-import url = require('url');
-import util = require("util");
-import crypto = require("crypto");
-import http = require("http");
-import net = require("net");
-import dgram = require("dgram");
-import querystring = require('querystring');
+import * as assert from "assert";
+import * as fs from "fs";
+import * as events from "events";
+import * as zlib from "zlib";
+import * as url from "url";
+import * as util from "util";
+import * as crypto from "crypto";
+import * as tls from "tls";
+import * as http from "http";
+import * as net from "net";
+import * as dgram from "dgram";
+import * as querystring from "querystring";
+import * as path from "path";
+import * as readline from "readline";
+import * as childProcess from "child_process";
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -32,6 +35,8 @@ assert.doesNotThrow(() => {
 fs.writeFile("thebible.txt",
     "Do unto others as you would have them do unto you.",
     assert.ifError);
+
+fs.write(1234, "test");
 
 fs.writeFile("Harry Potter",
     "\"You be wizzing, Harry,\" jived Dumbledore.",
@@ -60,6 +65,51 @@ class Networker extends events.EventEmitter {
     }
 }
 
+var errno: number;
+fs.readFile('testfile', (err, data) => {
+    if (err && err.errno) {
+        errno = err.errno;
+    }
+});
+
+
+///////////////////////////////////////////////////////
+/// Buffer tests : https://nodejs.org/api/buffer.html
+///////////////////////////////////////////////////////
+
+function bufferTests() {
+    var utf8Buffer = new Buffer('test');
+    var base64Buffer = new Buffer('','base64');
+    var octets: Uint8Array = null;
+    var octetBuffer = new Buffer(octets);
+    console.log(Buffer.isBuffer(octetBuffer));
+    console.log(Buffer.isEncoding('utf8'));
+    console.log(Buffer.byteLength('xyz123'));
+    console.log(Buffer.byteLength('xyz123', 'ascii'));
+    var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
+    var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
+
+    // Test that TS 1.6 works with the 'as Buffer' annotation
+    // on isBuffer.
+    var a: Buffer | number;
+    a = new Buffer(10);
+    if (Buffer.isBuffer(a)) {
+        a.writeUInt8(3, 4);
+    }
+
+    // write* methods return offsets.
+    var b = new Buffer(16);
+    var result: number = b.writeUInt32LE(0, 0);
+    result = b.writeUInt16LE(0, 4);
+    result = b.writeUInt8(0, 6);
+    result = b.writeInt8(0, 7);
+    result = b.writeDoubleLE(0, 8);
+
+    // fill returns the input buffer.
+    b.fill('a').fill('b');
+}
+
+
 ////////////////////////////////////////////////////
 /// Url tests : http://nodejs.org/api/url.html
 ////////////////////////////////////////////////////
@@ -68,9 +118,9 @@ url.format(url.parse('http://www.example.com/xyz'));
 
 // https://google.com/search?q=you're%20a%20lizard%2C%20gary
 url.format({
-    protocol: 'https', 
-    host: "google.com", 
-    pathname: 'search', 
+    protocol: 'https',
+    host: "google.com",
+    pathname: 'search',
     query: { q: "you're a lizard, gary" }
 });
 
@@ -136,6 +186,16 @@ function crypto_cipher_decipher_buffer_test() {
 }
 
 ////////////////////////////////////////////////////
+/// TLS tests : http://nodejs.org/api/tls.html
+////////////////////////////////////////////////////
+
+var ctx: tls.SecureContext = tls.createSecureContext({
+    key: "NOT REALLY A KEY",
+    cert: "SOME CERTIFICATE",
+});
+var blah = ctx.context;
+
+////////////////////////////////////////////////////
 
 // Make sure .listen() and .close() retuern a Server instance
 http.createServer().listen(0).close().address();
@@ -154,6 +214,15 @@ module http_tests {
     var code = 100;
     var codeMessage = http.STATUS_CODES['400'];
     var codeMessage = http.STATUS_CODES[400];
+
+	var agent: http.Agent = new http.Agent({
+		keepAlive: true,
+		keepAliveMsecs: 10000,
+		maxSockets: Infinity,
+		maxFreeSockets: 256
+	});
+
+	var agent: http.Agent = http.globalAgent;
 }
 
 ////////////////////////////////////////////////////
@@ -175,5 +244,168 @@ var escaped: string = querystring.escape(original);
 console.log(escaped);
 // http%3A%2F%2Fexample.com%2Fproduct%2Fabcde.html
 var unescaped: string = querystring.unescape(escaped);
-console.log(unescaped); 
+console.log(unescaped);
 // http://example.com/product/abcde.html
+
+////////////////////////////////////////////////////
+/// path tests : http://nodejs.org/api/path.html
+////////////////////////////////////////////////////
+
+module path_tests {
+
+    path.normalize('/foo/bar//baz/asdf/quux/..');
+
+    path.join('/foo', 'bar', 'baz/asdf', 'quux', '..');
+    // returns
+    //'/foo/bar/baz/asdf'
+
+    try {
+        path.join('foo', {}, 'bar');
+    }
+    catch(error) {
+
+    }
+
+    path.resolve('foo/bar', '/tmp/file/', '..', 'a/../subfile');
+    //Is similar to:
+    //
+    //cd foo/bar
+    //cd /tmp/file/
+    //cd ..
+    //    cd a/../subfile
+    //pwd
+
+    path.resolve('/foo/bar', './baz')
+    // returns
+    //    '/foo/bar/baz'
+
+    path.resolve('/foo/bar', '/tmp/file/')
+    // returns
+    //    '/tmp/file'
+
+    path.resolve('wwwroot', 'static_files/png/', '../gif/image.gif')
+    // if currently in /home/myself/node, it returns
+    //    '/home/myself/node/wwwroot/static_files/gif/image.gif'
+
+    path.isAbsolute('/foo/bar') // true
+    path.isAbsolute('/baz/..')  // true
+    path.isAbsolute('qux/')     // false
+    path.isAbsolute('.')        // false
+
+    path.isAbsolute('//server')  // true
+    path.isAbsolute('C:/foo/..') // true
+    path.isAbsolute('bar\\baz')   // false
+    path.isAbsolute('.')         // false
+
+    path.relative('C:\\orandea\\test\\aaa', 'C:\\orandea\\impl\\bbb')
+// returns
+//    '..\\..\\impl\\bbb'
+
+    path.relative('/data/orandea/test/aaa', '/data/orandea/impl/bbb')
+// returns
+//    '../../impl/bbb'
+
+    path.dirname('/foo/bar/baz/asdf/quux')
+// returns
+//    '/foo/bar/baz/asdf'
+
+    path.basename('/foo/bar/baz/asdf/quux.html')
+// returns
+//    'quux.html'
+
+    path.basename('/foo/bar/baz/asdf/quux.html', '.html')
+// returns
+//    'quux'
+
+    path.extname('index.html')
+// returns
+//    '.html'
+
+    path.extname('index.coffee.md')
+// returns
+//    '.md'
+
+    path.extname('index.')
+// returns
+//    '.'
+
+    path.extname('index')
+// returns
+//    ''
+
+    'foo/bar/baz'.split(path.sep)
+// returns
+//        ['foo', 'bar', 'baz']
+
+    'foo\\bar\\baz'.split(path.sep)
+// returns
+//        ['foo', 'bar', 'baz']
+
+    console.log(process.env.PATH)
+// '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin'
+
+    process.env.PATH.split(path.delimiter)
+// returns
+//        ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
+
+    console.log(process.env.PATH)
+// 'C:\Windows\system32;C:\Windows;C:\Program Files\nodejs\'
+
+    process.env.PATH.split(path.delimiter)
+// returns
+//        ['C:\Windows\system32', 'C:\Windows', 'C:\Program Files\nodejs\']
+
+    path.parse('/home/user/dir/file.txt')
+// returns
+//    {
+//        root : "/",
+//        dir : "/home/user/dir",
+//        base : "file.txt",
+//        ext : ".txt",
+//        name : "file"
+//    }
+
+    path.parse('C:\\path\\dir\\index.html')
+// returns
+//    {
+//        root : "C:\",
+//        dir : "C:\path\dir",
+//        base : "index.html",
+//        ext : ".html",
+//        name : "index"
+//    }
+
+    path.format({
+        root : "/",
+        dir : "/home/user/dir",
+        base : "file.txt",
+        ext : ".txt",
+        name : "file"
+    });
+// returns
+//    '/home/user/dir/file.txt'
+}
+
+////////////////////////////////////////////////////
+///ReadLine tests : https://nodejs.org/api/readline.html
+////////////////////////////////////////////////////
+
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+rl.setPrompt("$>");
+rl.prompt();
+rl.prompt(true);
+
+rl.question("do you like typescript?", function(answer: string) {
+  rl.close();
+});
+
+//////////////////////////////////////////////////////////////////////
+/// Child Process tests: https://nodejs.org/api/child_process.html ///
+//////////////////////////////////////////////////////////////////////
+
+childProcess.exec("echo test");
+childProcess.spawnSync("echo test");

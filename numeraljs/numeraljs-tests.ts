@@ -1,4 +1,5 @@
 /// <reference path="numeraljs.d.ts" />
+
 var valueFormat: string = numeral(1000).format('0,0');
 // '1,000'
 
@@ -27,7 +28,7 @@ var difference = value6.difference(value);
 
 var value7: Numeral = numeral(0);
 numeral.zeroFormat('N/A');
-var zeroString: string = value7.format('0.0')
+var zeroString: string = value7.format('0.0');
 // 'N/A'
 
 var a: Numeral = numeral(1000);

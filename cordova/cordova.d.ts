@@ -43,7 +43,11 @@ interface Cordova {
     define(moduleName: string, factory: (require: any, exports: any, module: any) => any): void;
     /** Access a Cordova module by name. */
     require(moduleName: string): any;
+    /** Namespace for Cordova plugin functionality */
+    plugins:CordovaPlugins;
 }
+
+interface CordovaPlugins {}
 
 interface Document {
     addEventListener(type: "deviceready", listener: (ev: Event) => any, useCapture?: boolean): void;

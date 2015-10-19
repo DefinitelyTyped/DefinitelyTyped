@@ -3,7 +3,7 @@
 import base = require("git");
 
 var git = new base.Git("../.git");
-git.call_git("", "clone", "", {}, ["https://github.com/borisyankov/DefinitelyTyped.git", "d.ts"], (err, data) => {
+git.call_git("", "clone", "", {}, ["https://github.com/borisyankov/DefinitelyTyped.git", "d.ts"], function (err, data) {
     console.log(arguments);
 });
 

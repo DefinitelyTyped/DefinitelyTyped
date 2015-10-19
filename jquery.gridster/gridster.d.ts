@@ -160,11 +160,10 @@ interface JQuery {
 
 	/**
 	* Gridster
-	* @param el The HTMLElement that contains all the widgets.
 	* @param options An object with all the gridster options you want to overwrite.
 	* @return Gridster jQuery instance.
 	**/
-	gridster(el: HTMLElement, options?: GridsterOptions): JQuery;
+	gridster(options?: GridsterOptions): JQuery;
 }
 
 interface Gridster {
@@ -184,6 +183,11 @@ interface Gridster {
 	* @see add_widget
 	**/
 	add_widget(html: HTMLElement, size_x?: number, size_y?: number, col?: number, row?: number): JQuery;
+
+	/**
+	* @see add_widget
+	**/
+	add_widget(html: JQuery, size_x?: number, size_y?: number, col?: number, row?: number): JQuery;
 
 	/**
 	* Change the size of a widget.
@@ -208,6 +212,16 @@ interface Gridster {
 	* @see remove_widget
 	**/
 	remove_widget(el: HTMLElement, callback: (el: HTMLElement) => void): Gridster;
+
+	/**
+	* @see remove_widget
+	**/
+	remove_widget(el: JQuery, silent?: boolean, callback?: (el: HTMLElement) => void): Gridster;
+
+	/**
+	* @see remove_widget
+	**/
+	remove_widget(el: JQuery, callback: (el: HTMLElement) => void): Gridster;
 
 	/**
 	* Returns a serialized array of the widgets in the grid.

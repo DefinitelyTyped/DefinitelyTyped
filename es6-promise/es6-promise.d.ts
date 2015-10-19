@@ -4,7 +4,8 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface Thenable<R> {
-	then<U>(onFulfilled?: (value: R) => U | Thenable<U>,  onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
+    then<U>(onFulfilled?: (value: R) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
+    then<U>(onFulfilled?: (value: R) => U | Thenable<U>, onRejected?: (error: any) => void): Thenable<U>;
 }
 
 declare class Promise<R> implements Thenable<R> {
@@ -27,7 +28,8 @@ declare class Promise<R> implements Thenable<R> {
 	 * @param onFulfilled called when/if "promise" resolves
 	 * @param onRejected called when/if "promise" rejects
 	 */
-	then<U>(onFulfilled?: (value: R) => U | Thenable<U>,  onRejected?: (error: any) => U | Thenable<U>): Promise<U>;
+    then<U>(onFulfilled?: (value: R) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Promise<U>;
+    then<U>(onFulfilled?: (value: R) => U | Thenable<U>, onRejected?: (error: any) => void): Promise<U>;
 
 	/**
 	 * Sugar for promise.then(undefined, onRejected)
@@ -54,12 +56,12 @@ declare module Promise {
 	 * the array passed to all can be a mixture of promise-like objects and other objects.
 	 * The fulfillment value is an array (in order) of fulfillment values. The rejection value is the first rejection value.
 	 */
-	function all<R>(promises: Promise<R>[]): Promise<R[]>;
+	function all<R>(promises: (R | Thenable<R>)[]): Promise<R[]>;
 
 	/**
 	 * Make a Promise that fulfills when any item fulfills, and rejects if any item rejects.
 	 */
-	function race<R>(promises: Promise<R>[]): Promise<R>;
+	function race<R>(promises: (R | Thenable<R>)[]): Promise<R>;
 }
 
 declare module 'es6-promise' {

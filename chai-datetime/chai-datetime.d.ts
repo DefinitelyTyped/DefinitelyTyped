@@ -5,35 +5,38 @@
 
 /// <reference path="../chai/chai.d.ts" />
 
-declare module chai {
+declare module Chai {
 
-	interface Expect {
-		afterDate(date: Date): boolean;
-		beforeDate(date: Date): boolean;
-		equalDate(date: Date): boolean;
+    interface Assertion {
+        afterDate(date: Date): Assertion;
+        beforeDate(date: Date): Assertion;
+        equalDate(date: Date): Assertion;
+        afterTime(date: Date): Assertion;
+        beforeTime(date: Date): Assertion;
+        equalTime(date: Date): Assertion;
+    }
 
-		afterTime(date: Date): boolean;
-		beforeTime(date: Date): boolean;
-		equalTime(date: Date): boolean;
-	}
-
-	interface Assert {
-	        equalTime(val: Date, exp: Date, msg?: string): boolean;
-	        notEqualTime(val: Date, exp: Date, msg?: string): boolean;
-	        beforeTime(val: Date, exp: Date, msg?: string): boolean;
-	        notBeforeTime(val: Date, exp: Date, msg?: string): boolean;
-	        afterTime(val: Date, exp: Date, msg?: string): boolean;
-	        notAfterTime(val: Date, exp: Date, msg?: string): boolean;
-	        
-	        equalDate(val: Date, exp: Date, msg?: string): boolean;
-	        notEqualDate(val: Date, exp: Date, msg?: string): boolean;
-	        beforeDate(val: Date, exp: Date, msg?: string): boolean;
-	        notBeforeDate(val: Date, exp: Date, msg?: string): boolean;
-	        afterDate(val: Date, exp: Date, msg?: string): boolean;
-	        notAfterDate(val: Date, exp: Date, msg?: string): boolean;
-	}
+    interface Assert {
+        equalTime(val: Date, exp: Date, msg?: string): void;
+        notEqualTime(val: Date, exp: Date, msg?: string): void;
+        beforeTime(val: Date, exp: Date, msg?: string): void;
+        notBeforeTime(val: Date, exp: Date, msg?: string): void;
+        afterTime(val: Date, exp: Date, msg?: string): void;
+        notAfterTime(val: Date, exp: Date, msg?: string): void;
+        equalDate(val: Date, exp: Date, msg?: string): void;
+        notEqualDate(val: Date, exp: Date, msg?: string): void;
+        beforeDate(val: Date, exp: Date, msg?: string): void;
+        notBeforeDate(val: Date, exp: Date, msg?: string): void;
+        afterDate(val: Date, exp: Date, msg?: string): void;
+        notAfterDate(val: Date, exp: Date, msg?: string): void;
+    }
 }
 
 interface Date {
-	should: chai.Expect;
+    should: Chai.Assertion;
+}
+
+declare module "chai-datetime" {
+    function chaiDateTime(chai: any, utils: any): void;
+    export = chaiDateTime;
 }

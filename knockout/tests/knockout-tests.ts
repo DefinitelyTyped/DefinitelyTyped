@@ -163,6 +163,7 @@ function test_bindings() {
 
     ko.bindingHandlers.yourBindingName = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        	return { "controlsDescendantBindings": true };
         },
         update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         }
