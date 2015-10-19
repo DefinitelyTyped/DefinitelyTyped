@@ -223,7 +223,7 @@ declare module angular.material {
     }
     
     interface IDateLocaleProvider {
-        month: string[];
+        months: string[];
         shortMonths: string[];
         days: string[];
         shortDays: string[];
