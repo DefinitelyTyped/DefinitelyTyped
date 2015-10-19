@@ -152,6 +152,34 @@ declare var Buffer: {
      * The same as buf1.compare(buf2).
      */
     compare(buf1: Buffer, buf2: Buffer): number;
+    /**
+     * Writes value to the buffer at the specified offset and byteLength. Supports up to 48 bits of accuracy.
+     * @param value Bytes to be written to buffer
+     * @param offset 0 <= offset <= buf.length
+     * @param byteLength number 0 < byteLength <= 6
+     * @param noAssert Default false
+     * @return number
+     */
+    writeUIntLe(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeUIntBe(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeIntLe(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeIntBe(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    /**
+     * A generalized version of all numeric read methods. Supports up to 48 bits of accuracy.
+     * @param offset 0 <= offset <= buf.length
+     * @param byteLength 0 < byteLength <= 6
+     * @param noAssert Default false
+     * @return number
+     */
+    readUIntLe(offset: number, byteLength: number, noAssert?: boolean): number;
+    readUIntBe(offset: number, byteLength: number, noAssert?: boolean): number;
+    readIntLe(offset: number, byteLength: number, noAssert?: boolean): number;
+    readIntBe(offset: number, byteLength: number, noAssert?: boolean): number;
+    readUInt8(offset: number, noAssert?: boolean) : number;
+    readUInt16LE(offset: number, noAssert?: boolean) : number;
+    readUInt16BE(offset: number, noAssert?: boolean) : number;
+    readUInt32LE(offset: number, noAssert?: boolean) : number;
+    readUInt32BE(offset: number, noAssert?: boolean) : number;
 };
 
 /************************************************
