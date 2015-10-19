@@ -231,7 +231,7 @@ declare module ROSLIB {
 		 * @constructor
 		 * @param values - object matching the fields defined in the .srv definition file
 		 */
-		constructor(values: any);
+		constructor(values?: any);
 	}
 
 	export class ServiceResponse {
@@ -241,7 +241,7 @@ declare module ROSLIB {
 		 * @constructor
 		 * @param values - object matching the fields defined in the .srv definition file
 		 */
-		constructor(values: any);
+		constructor(values?: any);
 	}
 
 	export class Topic {
