@@ -158,7 +158,7 @@ declare var Buffer: {
      * @param offset Number
      * @param noAssert Optional, default false
      */
-    writeUInt8(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt8(value: number, offset: number, noAssert?: boolean): void;
     /**
      * Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid unsigned 16 bit integer.
      * @param value Number
