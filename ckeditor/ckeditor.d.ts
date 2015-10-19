@@ -64,6 +64,7 @@ declare module CKEDITOR {
     var status: string;
     var timestamp: string;
     var version: string;
+    var config: config;
 
 
     // Methods
@@ -556,6 +557,7 @@ declare module CKEDITOR {
     }
 
     interface config {
+        contentsCss?: string | string[];
         startupMode?: string;
         removeButtons?: string;
         removePlugins?: string;
@@ -572,6 +574,11 @@ declare module CKEDITOR {
         colorButton_colors?: string;
         startupFocus?: boolean;
         on?: any;
+        extraPlugins?: string;
+        height?: string | number;
+        toolbarLocation?: string;
+        readOnly?: boolean;
+        customConfig?: string;
     }
 
 

@@ -201,6 +201,8 @@ declare module polymer {
 
     observers?: string[];
 
+    beforeRegister?(): void;
+
     registered?(): void;
 
     created?(): void;

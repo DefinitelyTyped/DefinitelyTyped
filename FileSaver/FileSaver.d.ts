@@ -20,7 +20,13 @@ interface FileSaver {
          * @summary File name.
          * @type {DOMString}
          */
-        filename: string
+	 filename: string,
+
+	 /**
+	  * @summary Disable Unicode text encoding hints or not.
+	  * @type {boolean}
+	  */
+	 disableAutoBOM?: boolean
     ): void
 }
 

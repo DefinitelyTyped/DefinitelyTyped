@@ -188,6 +188,14 @@ interface Navigator {
 
 interface MediaDevices {
     getSupportedConstraints(): MediaTrackSupportedConstraints;
-    
+
     getUserMedia(constraints: MediaStreamConstraints): Promise<MediaStream>;
+    enumerateDevices(): Promise<MediaDeviceInfo[]>;
+}
+
+interface MediaDeviceInfo {
+    label: string;
+    id: string;
+    kind: string;
+    facing: string;
 }
