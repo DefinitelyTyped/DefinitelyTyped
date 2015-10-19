@@ -119,8 +119,8 @@ declare module Twitter.Typeahead {
          * For a given suggestion object, determines the string representation of it.
          * This will be used when setting the value of the input control after a suggestion is selected. Can be either a key string or a function that transforms a suggestion object into a string.
          * Defaults to value.
-          */
-        displayKey?: string;
+         */
+        displayKey?: string | ((obj: any) => string);
 
         /**
          * A hash of templates to be used when rendering the dataset.
@@ -152,6 +152,20 @@ declare module Twitter.Typeahead {
          * If it's a precompiled template, the passed in context will contain query and isEmpty.
           */
         header?: any;
+        
+        /**
+         * Rendered when 0 suggestions are available for the given query.
+         * Can be either a HTML string or a precompiled template.
+         * If it's a precompiled template, the passed in context will contain query.
+          */
+        notFound?: (query: string) => string;
+        
+        /**
+         * Rendered when 0 synchronous suggestions are available but asynchronous suggestions are expected.
+         * Can be either a HTML string or a precompiled template.
+         * If it's a precompiled template, the passed in context will contain query.
+          */
+        pending?: (query: string) => string;
 
         /**
          * Used to render a single suggestion.
@@ -316,6 +330,19 @@ declare module Bloodhound
     * The ajax settings object passed to jQuery.ajax.
     */
     ajax?: JQueryAjaxSettings;
+    
+    /**
+     * A function that provides a hook to allow you to prepare the settings object passed to transport
+     * when a request is about to be made. The function signature should be prepare(query, settings),
+     * where query is the query #search was called with and settings is the default settings object 
+     * created internally by the Bloodhound instance. The prepare function should return a settings object.
+     * [Note: Added in 0.11.1]
+     * 
+     * @param query The query #search was called with.
+     * @param settings The default settings object created internally by Bloodhound.
+     * @returns A JqueryAjaxSettings object.
+     */
+    prepare?: (query: string, settings: JQueryAjaxSettings) => JQueryAjaxSettings;
   }
 
   /**
@@ -352,7 +379,7 @@ declare module Bloodhound
 }
 
 declare class Bloodhound<T> {
-  constructor(options: Bloodhound.BloodhoundOptions<T>)
+  constructor(options: Bloodhound.BloodhoundOptions<T>);
   /**
   * wraps the suggestion engine in an adapter that is compatible with the typeahead jQuery plugin
   */
@@ -410,4 +437,8 @@ declare class Bloodhound<T> {
   * Specify how you want datums and queries tokenized.
   */
   public static tokenizers: Bloodhound.Tokenizers;
+}
+
+declare module "bloodhound" {
+  export = Bloodhound;
 }

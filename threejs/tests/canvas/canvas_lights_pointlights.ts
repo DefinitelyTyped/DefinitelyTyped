@@ -42,7 +42,7 @@
 
         }
 
-				var sprite = new THREE.Sprite(new THREE.SpriteCanvasMaterial({ color: 0xff0040, program: program }));
+        var sprite = new THREE.Sprite(new THREE.SpriteCanvasMaterial({ color: 0xff0040, program: program }));
         light1.add(sprite);
 
         var sprite = new THREE.Sprite(new THREE.SpriteCanvasMaterial({ color: 0x0040ff, program: program }));

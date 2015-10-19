@@ -2,7 +2,15 @@
 
 var app = angular.module('at', ['pascalprecht.translate']);
 
-app.config(($translateProvider: ng.translate.ITranslateProvider) => {
+app.factory('customLoader', ($q:angular.IQService) => {
+    return (options:any) => {
+        var dfd:angular.IDeferred<string> = $q.defer();
+        dfd.resolve('whatever you wanted to translate, I simply know nothing about the language with the key ' + options.key);
+        return dfd.promise;
+    }
+});
+
+app.config(($translateProvider: angular.translate.ITranslateProvider) => {
     $translateProvider.translations('en', {
         TITLE: 'Hello',
         FOO: 'This is a paragraph.',
@@ -16,13 +24,15 @@ app.config(($translateProvider: ng.translate.ITranslateProvider) => {
         BUTTON_LANG_DE: 'deutsch'
     });
     $translateProvider.preferredLanguage('en');
+
+    $translateProvider.useLoader('customLoader');
 });
 
 interface Scope extends ng.IScope {
     changeLanguage(key: any): void;
 }
 
-app.controller('Ctrl', ($scope: Scope, $translate: ng.translate.ITranslateService) => {
+app.controller('Ctrl', ($scope: Scope, $translate: angular.translate.ITranslateService) => {
     $scope['changeLanguage'] = function (key: any) {
         $translate.use(key);
     };

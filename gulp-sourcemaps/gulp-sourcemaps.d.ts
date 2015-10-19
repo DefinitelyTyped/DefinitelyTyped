@@ -17,12 +17,12 @@ declare module "gulp-sourcemaps" {
 
     interface WriteOptions {
         addComment?: boolean;
-        includeContext?: boolean;
+        includeContent?: boolean;
         sourceRoot?: string | WriteMapper;
         sourceMappingURLPrefix?: string | WriteMapper;
     }
 
     export function init(opts?: InitOptions): NodeJS.ReadWriteStream;
-    export function write(opts?: WriteOptions): NodeJS.ReadWriteStream;
     export function write(path?: string, opts?: WriteOptions): NodeJS.ReadWriteStream;
+    export function write(opts?: WriteOptions): NodeJS.ReadWriteStream;
 }

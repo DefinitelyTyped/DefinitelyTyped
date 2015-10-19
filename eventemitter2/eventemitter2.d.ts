@@ -55,7 +55,7 @@ declare class EventEmitter2 {
      * Removes the listener that will be fired when any event is emitted.
      * @param listener
      */
-    offAny(listener: Function): EventEmitter2;
+    offAny(listener?: Function): EventEmitter2;
 
     /**
      * Adds a one time listener for the event.
