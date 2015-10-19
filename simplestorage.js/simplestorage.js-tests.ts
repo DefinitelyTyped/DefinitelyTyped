@@ -1,4 +1,4 @@
-///<reference path="simpleStorage.d.ts"/>
+///<reference path="simplestorage.js.d.ts"/>
 
 var versionTest:        string           = simpleStorage.version;
 var canUseTest:         boolean          = simpleStorage.canUse();

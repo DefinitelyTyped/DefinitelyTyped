@@ -3,7 +3,7 @@
 // Definitions by: Áxel Costas Pena <https://github.com/axelcostaspena>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module andris9_simpleStorage {
+declare module simplestoragejs {
 
     /**
      * {@link simpleStorage} API is a subset of {@link http://www.jstorage.info/|jStorage} with slight modifications, so for most cases it should work out of the box if you are converting from {@link http://www.jstorage.info/|jStorage}. Main difference is between return values - if an action failed because of an error (storage full, storage not available, invalid data used etc.), you get the error object as the return value. {@link http://www.jstorage.info/|jStorage} never indicated anything if an error occurred.
@@ -107,4 +107,4 @@ declare module "simpleStorage" {
  * {@link simpleStorage} is very small - about 1kB in size when minimized and gzipped.
  * @see https://github.com/andris9/simpleStorage#simplestorage
  */
-declare var simpleStorage:andris9_simpleStorage.SimpleStorage;
+declare var simpleStorage:simplestoragejs.SimpleStorage;
