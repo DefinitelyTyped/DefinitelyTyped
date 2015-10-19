@@ -734,13 +734,13 @@ declare module uiGrid {
          * to load when scrolling up
          * @default false
          */
-        infiniteScrollUp?: boolean,
+        infiniteScrollUp?: boolean;
         /**
          * Inform the grid of whether there are rows
          * to load scrolling down
          * @default true
          */
-        infiniteScrollDown?: boolean,
+        infiniteScrollDown?: boolean;
         /**
          * Defaults to 200
          * @default 200
