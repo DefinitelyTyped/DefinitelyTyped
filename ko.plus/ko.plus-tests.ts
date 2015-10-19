@@ -43,6 +43,8 @@ function CommandTests() {
         action: () => { return "Hello cmd4"; }
     });
 
+    // initialize command with action with typed argument
+    var cmd5 = ko.command((message: string) => { return message; });
 
     // test execute the command
     cmd1();

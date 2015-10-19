@@ -1,4 +1,4 @@
-// Type definitions for DevExtreme 15.1.6
+// Type definitions for DevExtreme 15.1.7
 // Project: http://js.devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -61,6 +61,8 @@ declare module DevExpress {
     export var hardwareBackButton: JQueryCallback;
     /** Processes the hardware back button click. */
     export function processHardwareBackButton(): void;
+    /** Hides the last displayed overlay widget. */
+    export function hideTopOverlay(): boolean;
     /** Specifies whether or not the entire application/site supports right-to-left representation. */
     export var rtlEnabled: boolean;
     /** Registers a new component in the DevExpress.ui namespace as a jQuery plugin, Angular directive and Knockout binding. */
@@ -328,11 +330,9 @@ declare module DevExpress {
             /** Removes the data item specified by the key. */
             remove(key: any): JQueryPromise<any>;
             /** Obtains the total count of items that will be returned by the load() function. */
-            totalCount(obj?: {
+            totalCount(options?: {
                 filter?: Object;
-                select?: Object;
                 group?: Object;
-                sort?: Object;
             }): JQueryPromise<any>;
             /** Updates the data item specified by the key. */
             update(key: any, values: Object): JQueryPromise<any>;
@@ -396,7 +396,10 @@ declare module DevExpress {
             /** The user implementation of the remove(key) method. */
             remove?: (key: any) => Promise;
             /** The user implementation of the totalCount(options) method. */
-            totalCount?: () => Promise;
+            totalCount?: (options?: {
+                filter?: Object;
+                group?: Object;
+            }) => Promise;
             /** The user implementation of the update(key, values) method. */
             update?: (key: any, values: Object) => Promise;
         }
@@ -701,7 +704,7 @@ declare module DevExpress {
             repaint(): void;
             /** Sets focus on the widget. */
             focus(): void;
-            /** Registers a handler for pressing of the specified key. */
+            /** Registers a handler when a specified key is pressed. */
             registerKeyHandler(key: string, handler: Function): void;
         }
         export interface CollectionWidgetOptions extends WidgetOptions {
@@ -1033,7 +1036,7 @@ declare module DevExpress.ui {
         focusStateEnabled?: boolean;
         /** A Boolean value specifying whether or not the widget changes its state when being hovered by an end user. */
         hoverStateEnabled?: boolean;
-        /** The editor mask, which specifies the format of the entered string. */
+        /** The editor mask that specifies the format of the entered string. */
         mask?: string;
         /** Specifies a mask placeholder character. */
         maskChar?: string;
@@ -1361,6 +1364,8 @@ declare module DevExpress.ui {
         selectedIndex?: number;
         /** A Boolean value specifying whether or not to allow users to change the selected index by swiping. */
         swipeEnabled?: boolean;
+        /** Specifies whether widget content is rendered when the widget is shown or when rendering the widget. */
+        deferRendering?: boolean;
     }
     /** A widget used to display a view and to switch between several views. */
     export class dxMultiView extends CollectionWidget {
@@ -1370,81 +1375,71 @@ declare module DevExpress.ui {
     export interface dxMapOptions extends WidgetOptions {
         /** Specifies whether or not the widget automatically adjusts center and zoom option values when adding a new marker or route. */
         autoAdjust?: boolean;
-        bounds?: {
-            northEast?: {
-                lat?: number;
-                lng?: number;
-            };
-            southWest?: {
-                lat?: number;
-                lng?: number;
-            };
-            /** An object, a string, or an array specifying the location displayed at the center of the widget. */
-            center?: {
-                /** The latitude location displayed in the center of the widget. */
-                lat?: number;
-                /** The longitude location displayed in the center of the widget. */
-                lng?: number;
-            };
-            /** A handler for the click event. */
-            onClick?: any;
-            clickAction?: any;
-            /** Specifies whether or not map widget controls are available. */
-            controls?: boolean;
-            /** Specifies the height of the widget. */
-            height?: number;
-            /** A key used to authenticate the application within the required map provider. */
-            key?: {
-                /** A key used to authenticate the application within the "Bing" map provider. */
-                bing?: string;
-                /** A key used to authenticate the application within the "Google" map provider. */
-                google?: string;
-                /** A key used to authenticate the application within the "Google Static" map provider. */
-                googleStatic?: string;
-            }
-            /** A handler for the markerAdded event. */
-            onMarkerAdded?: Function;
-            markerAddedAction?: Function;
-            /** A URL pointing to the custom icon to be used for map markers. */
-            markerIconSrc?: string;
-            /** A handler for the markerRemoved event. */
-            onMarkerRemoved?: Function;
-            markerRemovedAction?: Function;
-            /** An array of markers displayed on a map. */
-            markers?: Array<any>;
-            /** The name of the current map data provider. */
-            provider?: string;
-            /** A handler for the ready event. */
-            onReady?: Function;
-            readyAction?: Function;
-            /** A handler for the routeAdded event. */
-            onRouteAdded?: Function;
-            routeAddedAction?: Function;
-            /** A handler for the routeRemoved event. */
-            onRouteRemoved?: Function;
-            routeRemovedAction?: Function;
-            /** An array of routes shown on the map. */
-            routes?: Array<any>;
-            /** The type of a map to display. */
-            type?: string;
-            /** Specifies the width of the widget. */
-            width?: number;
-            /** The zoom level of the map. */
-            zoom?: number;
-            /** Adds a marker to the map. */
-            addMarker(markerOptions: Object): JQueryPromise<Object>;
-            /** Adds a route to the map. */
-            addRoute(options: Object): JQueryPromise<Object>;
-            /** Removes a marker from the map. */
-            removeMarker(marker: Object): JQueryPromise<void>;
-            /** Removes a route from the map. */
-            removeRoute(route: any): JQueryPromise<void>;
+        /** An object, a string, or an array specifying the location displayed at the center of the widget. */
+        center?: {
+            /** The latitude location displayed in the center of the widget. */
+            lat?: number;
+            /** The longitude location displayed in the center of the widget. */
+            lng?: number;
         };
+        /** A handler for the click event. */
+        onClick?: any;
+        clickAction?: any;
+        /** Specifies whether or not map widget controls are available. */
+        controls?: boolean;
+        /** Specifies the height of the widget. */
+        height?: number;
+        /** A key used to authenticate the application within the required map provider. */
+        key?: {
+            /** A key used to authenticate the application within the "Bing" map provider. */
+            bing?: string;
+            /** A key used to authenticate the application within the "Google" map provider. */
+            google?: string;
+            /** A key used to authenticate the application within the "Google Static" map provider. */
+            googleStatic?: string;
+        }
+        /** A handler for the markerAdded event. */
+        onMarkerAdded?: Function;
+        markerAddedAction?: Function;
+        /** A URL pointing to the custom icon to be used for map markers. */
+        markerIconSrc?: string;
+        /** A handler for the markerRemoved event. */
+        onMarkerRemoved?: Function;
+        markerRemovedAction?: Function;
+        /** An array of markers displayed on a map. */
+        markers?: Array<any>;
+        /** The name of the current map data provider. */
+        provider?: string;
+        /** A handler for the ready event. */
+        onReady?: Function;
+        readyAction?: Function;
+        /** A handler for the routeAdded event. */
+        onRouteAdded?: Function;
+        routeAddedAction?: Function;
+        /** A handler for the routeRemoved event. */
+        onRouteRemoved?: Function;
+        routeRemovedAction?: Function;
+        /** An array of routes shown on the map. */
+        routes?: Array<any>;
+        /** The type of a map to display. */
+        type?: string;
+        /** Specifies the width of the widget. */
+        width?: number;
+        /** The zoom level of the map. */
+        zoom?: number;
     }
     /** An interactive map widget. */
     export class dxMap extends Widget {
         constructor(element: JQuery, options?: dxMapOptions);
         constructor(element: Element, options?: dxMapOptions);
+        /** Adds a marker to the map. */
+        addMarker(markerOptions: Object): JQueryPromise<Object>;
+        /** Adds a route to the map. */
+        addRoute(options: Object): JQueryPromise<Object>;
+        /** Removes a marker from the map. */
+        removeMarker(marker: Object): JQueryPromise<void>;
+        /** Removes a route from the map. */
+        removeRoute(route: any): JQueryPromise<void>;
     }
     export interface dxLookupOptions extends dxDropDownListOptions {
         /** An object defining widget animation options. */
@@ -1628,7 +1623,7 @@ declare module DevExpress.ui {
         pageLoadMode?: string;
         /** Specifies whether or not to display controls used to select list items. */
         showSelectionControls?: boolean;
-        /** Specifies whether the list supports single item selection or multi-selection. */
+        /** Specifies item selection mode. */
         selectionMode?: string;
         selectAllText?: string;
         /** Specifies the array of items for a context menu called for a list item. */
@@ -1643,6 +1638,7 @@ declare module DevExpress.ui {
         allowItemReordering?: boolean;
         /** Specifies whether or not to show the loading panel when the DataSource bound to the widget is loading data. */
         indicateLoading?: boolean;
+        activeStateEnabled?: boolean;
     }
     /** A list widget. */
     export class dxList extends CollectionWidget {
@@ -1746,6 +1742,8 @@ declare module DevExpress.ui {
         editEnabled?: boolean;
         /** Specifies the way an end-user applies the selected value. */
         applyValueMode?: string;
+        /** Specifies whether widget content is rendered when the widget is shown or when rendering the widget. */
+        deferRendering?: boolean;
     }
     /** A drop-down editor widget. */
     export class dxDropDownEditor extends dxTextBox {
@@ -1887,77 +1885,14 @@ declare module DevExpress.ui {
         constructor(element: Element, options?: dxBoxOptions);
     }
     export interface dxAutocompleteOptions extends dxDropDownListOptions {
-        accessKey?: string;
-        activeStateEnabled?: boolean;
-        attr?: any;
-        dataSource?: any;
-        disabled?: boolean;
-        displayValue?: string;
-        fieldEditEnabled?: boolean;
-        focusStateEnabled?: boolean;
-        height?: string | number | (() => string | number);
-        hint?: string;
-        hoverStateEnabled?: boolean;
-        isValid?: boolean;
-        items?: any[];
-        /**
-         * The template to be used for rendering items.
-         * Defaults Value: "item"
-         */
-        itemTemplate?: string | Node | JQuery | (() => string | Node | JQuery);
-        /** Specifies the maximum count of items displayed by the widget. */
-        maxItemCount?: number;
-
-        maxLength?: string | number;
-        /** The minimum number of characters that must be entered into the text box to begin a search. */
-        minSearchLength?: number;
-
-
-        mode?: string; // "text" | "email" | "search" | "tel" | "url" | "password"
-        onChange?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
-        onClosed?: (e: { component: any; element: JQuery; model: any }) => void;
-        onContentReady?: (e: { component: any; element: JQuery; model: any }) => void;
-        onCopy?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
-        onCut?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
-        onDisposing?: (e: { component: any; element: JQuery; model: any }) => void;
-        onEnterKey?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
-        onFocusIn?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
-        onFocusOut?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
-        onInitialized?: (e: { component: any; element: JQuery }) => void;
-        onInput?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
-        onItemClick?: (e: { component: any; element: JQuery; model: any; itemElement: HTMLElement }) => void;
-        onKeyDown?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
-        onKeyPress?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
-        onKeyUp?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
-        onOpened?: (e: { component: any; element: JQuery; model: any }) => void;
-        onOptionChanged?: (e: { component: any; element: JQuery; model: any; value: any }) => void;
-        onPaste?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
-        onSelectionChanged?: (e: { component: any; element: JQuery; model: any; selectedItem: any }) => void;
-        onValueChanged?: (e: { component: any; element: JQuery; model: any; value: any; previousValue: any; itemData: any; jQueryEvent: JQueryEventObject }) => void;
-        opened?: boolean;
-        placeholder?: string;
-        readOnly?: boolean;
-        rtlEnabled?: boolean;
-        searchExpr?: string;
-        searchMode?: string; // "contains" | "startswith"
-        searchTimeout?: number;
-        /** Gets the currently selected item. */
-        selectedItem?: any;
-        showClearButton?: boolean;
-        spellcheck?: boolean;
-        tabIndex?: number;
-        text?: string;
-        validationError?: any;
-        validationMessageMode?: string; // "auto" | "always"
         /** Specifies the current value displayed by the widget. */
         value?: string;
-        /**
-         * CAn be any DOM event names separated by spaces.
-         */
-        valueChangeEvent?: string;
-        valueExpr?: string | Function;
-        visible?: boolean;
-        width?: string | number | (() => string | number);
+        /** The minimum number of characters that must be entered into the text box to begin a search. */
+        minSearchLength?: number;
+        /** Specifies the maximum count of items displayed by the widget. */
+        maxItemCount?: number;
+        /** Gets the currently selected item. */
+        selectedItem?: Object;
     }
     /** A textbox widget that supports autocompletion. */
     export class dxAutocomplete extends dxDropDownList {
@@ -1987,6 +1922,8 @@ declare module DevExpress.ui {
         itemTitleTemplate?: any;
         /** The index number of the currently selected item. */
         selectedIndex?: number;
+        /** Specifies whether widget content is rendered when the widget is shown or when rendering the widget. */
+        deferRendering?: boolean;
     }
     /** A widget that displays data source items on collapsible panels. */
     export class dxAccordion extends CollectionWidget {
@@ -1996,6 +1933,8 @@ declare module DevExpress.ui {
         collapseItem(index: number): JQueryPromise<dxAccordion>;
         /** Expands the specified item. */
         expandItem(index: number): JQueryPromise<dxAccordion>;
+        /** Updates the dimensions of the widget contents. */
+        updateDimensions(): JQueryPromise<dxAccordion>;
     }
     export interface dxFileUploaderOptions extends EditorOptions {
         /** A read-only option that holds a File instance representing the selected file. */
@@ -2031,6 +1970,12 @@ declare module DevExpress.ui {
         uploadFailedMessage?: string;
         /** Specifies how the widget uploads files. */
         uploadMode?: string;
+        /** A handler for the uploaded event. */
+        onUploaded?: Function;
+        /** A handler for the uploaded event. */
+        onProgress?: Function;
+        /** A handler for the uploadError event. */
+        onUploadError?: Function;
     }
     /** A widget used to select and upload a file or multiple files. */
     export class dxFileUploader extends Editor {
@@ -2135,6 +2080,7 @@ interface JQuery {
     dxValidator(options: "instance"): DevExpress.ui.dxValidator;
     dxValidator(options: string): any;
     dxValidator(options: string, ...params: any[]): any;
+    dxValidator(options: DevExpress.ui.dxValidatorOptions): JQuery;
     dxValidationGroup(): JQuery;
     dxValidationGroup(options: "instance"): DevExpress.ui.dxValidationGroup;
     dxValidationGroup(options: string): any;
@@ -2143,6 +2089,7 @@ interface JQuery {
     dxValidationSummary(options: "instance"): DevExpress.ui.dxValidationSummary;
     dxValidationSummary(options: string): any;
     dxValidationSummary(options: string, ...params: any[]): any;
+    dxValidationSummary(options: DevExpress.ui.dxValidationSummaryOptions): JQuery;
     dxTooltip(): JQuery;
     dxTooltip(options: "instance"): DevExpress.ui.dxTooltip;
     dxTooltip(options: string): any;
@@ -2308,6 +2255,11 @@ interface JQuery {
     dxAccordion(options: string): any;
     dxAccordion(options: string, ...params: any[]): any;
     dxAccordion(options: DevExpress.ui.dxAccordionOptions): JQuery;
+    dxResponsiveBox(): JQuery;
+    dxResponsiveBox(options: "instance"): DevExpress.ui.dxResponsiveBox;
+    dxResponsiveBox(options: string): any;
+    dxResponsiveBox(options: string, ...params: any[]): any;
+    dxResponsiveBox(options: DevExpress.ui.dxResponsiveBoxOptions): JQuery;
     dxAutocomplete(): JQuery;
     dxAutocomplete(options: "instance"): DevExpress.ui.dxAutocomplete;
     dxAutocomplete(options: string): any;
@@ -2415,6 +2367,8 @@ declare module DevExpress.ui {
         swipeEnabled?: boolean;
         /** A template to be used for rendering widget content. */
         contentTemplate?: any;
+        /** The template to be used for rendering an item title. */
+        itemTitleTemplate?: any;
     }
     /** A widget that is similar to a traditional tab control, but optimized for the phone with simplified end-user interaction. */
     export class dxPivot extends CollectionWidget {
@@ -2666,13 +2620,17 @@ declare module DevExpress.data {
         /** Sets the fields option. */
         fields(fields: Array<PivotGridField>): void;
         /** Gets current options of a specified field. */
-        field(id: number): PivotGridField;
+        field(id: any): PivotGridField;
         /** Sets one or more options of a specified field. */
-        field(id: number, field: PivotGridField): void;
+        field(id: any, field: PivotGridField): void;
         /** Collapses a specified header item. */
         collapseHeaderItem(area: string, path: Array<any>): void;
         /** Expands a specified header item. */
         expandHeaderItem(area: string, path: Array<any>): void;
+        /** Expands all header items of a field. */
+        expandAll(id: any): void;
+        /** Collapses all header items of a field. */
+        collapseAll(id: any): void;
         /** Disposes of all resources associated with this PivotGridDataSource. */
         dispose(): void;
         on(eventName: string, eventHandler: Function): PivotGridDataSource;
@@ -2685,6 +2643,10 @@ declare module DevExpress.ui {
     export interface dxSchedulerOptions extends WidgetOptions {
         /** Specifies a date displayed on the current scheduler view by default. */
         currentDate?: Date;
+        /** The earliest date the widget allows you to select. */
+        min?: Date;
+        /** The latest date the widget allows you to select. */
+        max?: Date;
         /** Specifies the view used in the scheduler by default. */
         currentView?: string;
         /** A data source used to fetch data to be displayed by the widget. */
@@ -2720,15 +2682,15 @@ declare module DevExpress.ui {
             /** Specifies the label of the Appointment popup window field that allows end users to assign a resource of this kind. */
             label?: string;
         }>;
-        /** A handler for the AppoinmentAdding event. */
+        /** A handler for the AppointmentAdding event. */
         onAppointmentAdding?: Function;
         /** A handler for the appointmentAdded event. */
         onAppointmentAdded?: Function;
-        /** A handler for the AppoinmentUpdating event. */
+        /** A handler for the AppointmentUpdating event. */
         onAppointmentUpdating?: Function;
         /** A handler for the appointmentUpdated event. */
         onAppointmentUpdated?: Function;
-        /** A handler for the AppoinmentDeleting event. */
+        /** A handler for the AppointmentDeleting event. */
         onAppointmentDeleting?: Function;
         /** A handler for the appointmentDeleted event. */
         onAppointmentDeleted?: Function;
@@ -2973,11 +2935,11 @@ declare module DevExpress.ui {
         alignment?: string;
         /** Specifies whether the values in a column can be edited at runtime. Setting this option makes sense only when editing is enabled for a grid. */
         allowEditing?: boolean;
-        /** Specifies whether or not a column can be used for filtering grid records. Setting this option makes sense only when the filter row and column header filtering are visible.  */
+        /** Specifies whether or not a column can be used for filtering grid records. Setting this option makes sense only when the filter row and column header filtering are visible. */
         allowFiltering?: boolean;
         /** Specifies whether or not the column can be anchored to a grid edge by end users. Setting this option makes sense only when the columnFixing | enabled option is set to true. */
         allowFixing?: boolean;
-        /** Specifies if a column can be used for searching grid records. Setting this option makes sense only when the search panel is visible.  */
+        /** Specifies if a column can be used for searching grid records. Setting this option makes sense only when the search panel is visible. */
         allowSearch?: boolean;
         /** Specifies whether a column can be used for grouping grid records at runtime. Setting this option makes sense only when the group panel is visible. */
         allowGrouping?: boolean;
@@ -3001,9 +2963,9 @@ declare module DevExpress.ui {
         cellTemplate?: any;
         /** Specifies a CSS class to be applied to a column. */
         cssClass?: string;
-        /** Specifies a callback function that determines values for column cells to be used for grouping. */
+        /** Specifies a field name or a function that returns a field name or a value to be used for grouping column cells. */
         calculateGroupValue?: any;
-        /** Specifies a callback function that returns a value or the name of the field to be used for sorting column cells. */
+        /** Specifies a field name or a function that returns a field name or a value to be used for sorting column cells. */
         calculateSortValue?: any;
         /** Specifies a callback function that returns the text to be displayed in the cells of a column. */
         customizeText?: (cellInfo: { value: any; valueText: string }) => string;
@@ -3041,9 +3003,7 @@ declare module DevExpress.ui {
         lookup?: {
             /** Specifies whether or not a user can nullify values of a lookup column. */
             allowClearing?: boolean;
-            /**
-             * Specifies the data source providing data for a lookup column.
-             */
+            /** Specifies the data source providing data for a lookup column. */
             dataSource?: any;
             /** Specifies the expression defining the data source field whose values must be displayed. */
             displayExpr?: any;
@@ -3140,7 +3100,7 @@ declare module DevExpress.ui {
             /** Specifies the width of the column chooser panel. */
             width?: number;
         };
-        /** Specifies options for column fixing.  */
+        /** Specifies options for column fixing. */
         columnFixing?: {
             /** Indicates if column fixing is enabled. */
             enabled?: boolean;
@@ -3174,10 +3134,8 @@ declare module DevExpress.ui {
                 cancel?: string;
             }
         };
-        /**
-         * An array of grid columns.
-         */
-        columns?: dxDataGridColumn[];
+        /** An array of grid columns. */
+        columns?: Array<dxDataGridColumn>;
         onContentReady?: Function;
         contentReadyAction?: Function;
         /** Specifies a function that customizes grid columns after they are created. */
@@ -3274,9 +3232,7 @@ declare module DevExpress.ui {
             autoExpandAll?: boolean;
             /** Specifies the message displayed in a group row when the corresponding group is continued from the previous page. */
             groupContinuedMessage?: string;
-            /**
-             * Specifies the message displayed in a group row when the corresponding group continues on the next page.
-             */
+            /** Specifies the message displayed in a group row when the corresponding group continues on the next page. */
             groupContinuesMessage?: string;
         };
         /** Specifies options that configure the group panel. */
@@ -3324,7 +3280,7 @@ declare module DevExpress.ui {
         };
         /** Specifies paging options. */
         paging?: {
-            /** Specifies whether dxDataGrid loads data page by page or all at once.  */
+            /** Specifies whether dxDataGrid loads data page by page or all at once. */
             enabled?: boolean;
             /** Specifies the grid page that should be displayed by default. */
             pageIndex?: number;
@@ -3521,7 +3477,7 @@ declare module DevExpress.ui {
                 precision?: number;
                 /** Specifies whether or not a summary item must be displayed in the group footer. */
                 showInGroupFooter?: boolean;
-                /** Indicates whether to display group summary items in brackets of the group row header or to align them by the corresponding columns within the group row. */
+                /** Indicates whether to display group summary items in parentheses after the group row header or to align them by the corresponding columns within the group row. */
                 alignByColumn?: boolean;
                 /** Specifies the column that must hold the summary item when this item is displayed in the group footer or aligned by a column in the group row. */
                 showInColumn?: string;
@@ -3590,7 +3546,7 @@ declare module DevExpress.ui {
         getKeyByRowIndex(rowIndex: number): any;
         /** Adds a new column to a grid. */
         addColumn(columnOptions: dxDataGridColumn): void;
-        /** Displays the load panel.  */
+        /** Displays the load panel. */
         beginCustomLoading(messageText: string): void;
         /** Discards changes made in a grid. */
         cancelEditData(): void;
@@ -3605,9 +3561,9 @@ declare module DevExpress.ui {
         /** Returns the number of data columns in a grid. */
         columnCount(): number;
         /** Returns the value of a specific column option. */
-        columnOption(id: number, optionName: string): any;
+        columnOption(id: any, optionName: string): any;
         /** Sets an option of a specific column. */
-        columnOption(id: number, optionName: string, optionValue: any): void;
+        columnOption(id: any, optionName: string, optionValue: any): void;
         /** Returns the options of a column by an identifier. */
         columnOption(id: any): Object;
         /** Sets several options of a column at once. */
@@ -3616,7 +3572,7 @@ declare module DevExpress.ui {
         editCell(rowIndex: number, columnIndex: number): void;
         /** Sets a specific row into the editing state. */
         editRow(rowIndex: number): void;
-        /** Hides the load panel.  */
+        /** Hides the load panel. */
         endCustomLoading(): void;
         /** Expands groups or master rows in a grid. */
         expandAll(groupIndex: number): void;
@@ -3632,9 +3588,9 @@ declare module DevExpress.ui {
         filter(): any;
         /** Returns a filter expression applied to the grid using all possible scenarious. */
         getCombinedFilter(): any;
-        /** Gets the keys of currently selected grid records.  */
+        /** Gets the keys of currently selected grid records. */
         getSelectedRowKeys(): Array<Object>;
-        /** Gets the data objects of currently selected grid records.  */
+        /** Gets the data objects of currently selected grid records. */
         getSelectedRowsData(): Array<Object>;
         /** Hides the column chooser panel. */
         hideColumnChooser(): void;
@@ -3656,9 +3612,7 @@ declare module DevExpress.ui {
         removeRow(rowIndex: number): void;
         /** Saves changes made in a grid. */
         saveEditData(): void;
-        /**
-         * Searches grid records by a search string.
-         */
+        /** Searches grid records by a search string. */
         searchByText(text: string): void;
         /** Selects all grid records. */
         selectAll(): void;
@@ -3793,6 +3747,8 @@ declare module DevExpress.ui {
         updateDimensions(): void;
     }
     export interface dxPivotGridFieldChooserOptions extends WidgetOptions {
+        /** Specifies the height of the widget. */
+        height?: any;
         /** Specifies the field chooser layout. */
         layout?: number;
         /** The data source of a dxPivotGrid widget. */
@@ -3888,7 +3844,7 @@ declare module DevExpress.framework {
         onExecute?: any;
         /** Indicates whether or not the widget that displays this command is disabled. */
         disabled?: boolean;
-        /** Specifies whether the current command should is rendered when a view is being rendered, or after a view has been shown. */
+        /** Specifies whether the current command is rendered when a view is being rendered or after a view is shown. */
         renderStage?: string;
         /** Specifies the name of the icon shown inside the widget associated with this command. */
         icon?: string;
@@ -3919,7 +3875,7 @@ declare module DevExpress.framework {
         format(obj: Object): string;
     }
     export interface StateManagerOptions {
-        /** A storage to which the state manager saves the application state.  */
+        /** A storage to which the state manager saves the application state. */
         storage?: Object;
     }
     /** An object used to store the current application state. */
@@ -4003,7 +3959,7 @@ declare module DevExpress.framework {
             canBack(): boolean;
             /** Calls the clearState() method of the application's StateManager object. */
             clearState(): void;
-            /** Creates global navigation commands.  */
+            /** Creates global navigation commands. */
             createNavigation(navigationConfig: Array<any>): void;
             /** Returns an HTML template of the specified view. */
             getViewTemplate(viewName: string): JQuery;
@@ -4196,7 +4152,6 @@ declare module DevExpress.viz.core {
         weight?: number;
     }
     export interface Hatching {
-        /** Specifies how to apply hatching to highlight a selected series. */
         direction?: string;
         /** Specifies the opacity of hatching lines. */
         opacity?: number;
@@ -4230,6 +4185,7 @@ declare module DevExpress.viz.core {
         color?: string;
         /** Specifies the z-index for tooltips. */
         zIndex?: number;
+        container?: any;
         /** Specifies text and appearance of a set of tooltips. */
         customizeTooltip?: (arg: Object) => { color?: string; text?: string };
         /** Specifies whether or not the tooltip is enabled. */
@@ -4303,7 +4259,7 @@ declare module DevExpress.viz.core {
         margin?: viz.core.Margins;
         /** Specifies the size of item markers in the legend in pixels. */
         markerSize?: number;
-        /** Specifies whether to arrange legend items horizontally or vertically.  */
+        /** Specifies whether to arrange legend items horizontally or vertically. */
         orientation?: string;
         /** Specifies the spacing between the legend left/right border and legend items in pixels. */
         paddingLeftRight?: number;
@@ -4588,7 +4544,6 @@ declare module DevExpress.viz.charts {
         /** Specifies the dash style of the series' line. */
         dashStyle?: string;
         hoverMode?: string;
-        /** An object defining configuration options for a hovered series. */
         hoverStyle?: {
             /** An object defining the border options for a hovered series. */
             border?: viz.core.DashedBorder;
@@ -4596,7 +4551,6 @@ declare module DevExpress.viz.charts {
             color?: string;
             /** Specifies the dash style for the line in a hovered series. */
             dashStyle?: string;
-            /** Specifies the hatching options to be applied when a series is hovered over. */
             hatching?: viz.core.Hatching;
             /** Specifies the width of a line in a hovered series. */
             width?: number;
@@ -4611,7 +4565,6 @@ declare module DevExpress.viz.charts {
         opacity?: number;
         /** Specifies the series elements to highlight when the series is selected. */
         selectionMode?: string;
-        /** An object defining configuration options for a selected series. */
         selectionStyle?: {
             /** An object defining the border options for a selected series. */
             border?: viz.core.DashedBorder;
@@ -4619,7 +4572,6 @@ declare module DevExpress.viz.charts {
             color?: string;
             /** Specifies the dash style for the line in a selected series. */
             dashStyle?: string;
-            /** Specifies the hatching options to be applied when a series is selected. */
             hatching?: viz.core.Hatching;
             /** Specifies the width of a line in a selected series. */
             width?: number;
@@ -5582,7 +5534,7 @@ declare module DevExpress.viz.charts {
         /** A handler for the legendClick event. */
         onLegendClick?: any;
         legendClick?: any;
-        /** Specifies how the chart must behave when series point labels overlap. */
+        /** Specifies how a chart must behave when series point labels overlap. */
         resolveLabelOverlapping?: string;
     }
     /** A circular chart widget for HTML JS applications. */
@@ -5955,9 +5907,7 @@ declare module DevExpress.viz.rangeSelector {
         behavior?: {
             /** Indicates whether or not you can swap sliders. */
             allowSlidersSwap?: boolean;
-            /**
-Indicates whether or not animation is enabled.
- */
+            /** Indicates whether or not animation is enabled. */
             animationEnabled?: boolean;
             /** Specifies when to call the onSelectedRangeChanged function. */
             callSelectedRangeChanged?: string;
@@ -6070,9 +6020,7 @@ Indicates whether or not animation is enabled.
             maxRange?: any;
             /** Specifies the number of minor ticks between neighboring major ticks. */
             minorTickCount?: number;
-            /**
-Specifies an interval between minor ticks.
- */
+            /** Specifies an interval between minor ticks. */
             minorTickInterval?: any;
             /** Specifies the minimum range that can be selected. */
             minRange?: any;
