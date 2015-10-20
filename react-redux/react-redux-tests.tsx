@@ -4,7 +4,7 @@
 /// <reference path="../react-router/react-router.d.ts" />
 /// <reference path="../object-assign/object-assign.d.ts" />
 
-import { Component } from 'react';
+import { Component, ReactElement } from 'react';
 import * as React from 'react';
 import * as Router from 'react-router';
 import { Route, RouterState } from 'react-router';
@@ -244,12 +244,35 @@ connect(mapStateToProps2, actionCreators, mergeProps)(TodoApp);
 
 
 
-// Ensure return value of the connect()(TodoApp) is of the type TodoApp
-let WrappedTodoApp: typeof TodoApp = connect()(TodoApp);
+interface TestProp {
+    property1: number;
+    someOtherProperty?: string;
+}
+interface TestState {
+    isLoaded: boolean;
+    state1: number;
+}
+class TestComponent extends Component<TestProp, TestState> { }
+const WrappedTestComponent = connect()(TestComponent);
+
+// return value of the connect()(TestComponent) is of the type TestComponent
+let ATestComponent: typeof TestComponent = null;
+ATestComponent = TestComponent;
+ATestComponent = WrappedTestComponent;
+
+let anElement: ReactElement<TestProp>;
+<TestComponent property1={42} />;
+<WrappedTestComponent property1={42} />;
+<ATestComponent property1={42} />;
+
+class NonComponent {}
+// this doesn't compile
+//connect()(NonComponent);
 
 // connect()(SomeClass) has the same constructor as SomeClass itself
-class SomeClass {
-    constructor(public foo: string) { }
+class SomeClass extends Component<any, any> {
+    constructor(public foo: string) { super() }
     public bar: number;
 }
 let bar: number = new (connect()(SomeClass))("foo").bar;
+
