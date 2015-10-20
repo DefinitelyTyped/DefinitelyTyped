@@ -1,4 +1,4 @@
-/// <reference path="pouch-5.d.ts" />
+/// <reference path="pouch.d.ts" />
 var db = new PouchDB('dbname', {adapter : 'websql'});
 var db = new PouchDB('http://example.com/dbname', {
   ajax: {
@@ -40,7 +40,6 @@ db.put({
 db.get('mydoc').then(function(doc) {
   return db.put({
     _id: 'mydoc',
-    _rev: doc._rev,
     title: "Let's Dance"
   });
 }).then(function(response) {
@@ -50,9 +49,6 @@ db.get('mydoc').then(function(doc) {
 });
 
 db.get('mydoc').then(function(doc) {
-  return db.put({
-    title: "Sound and Vision"
-  }, 'mydoc', doc._rev);
 }).then(function(response) {
   // handle response
 }).catch(function (err) {
@@ -74,7 +70,6 @@ db.get('mydoc').then(function (doc) {
 });
 
 db.get('mydoc').then(function(doc) {
-  return db.remove(doc);
 }).then(function (result) {
   // handle result
 }).catch(function (err) {
@@ -82,7 +77,6 @@ db.get('mydoc').then(function(doc) {
 });
 
 db.get('mydoc').then(function(doc) {
-  return db.remove(doc._id, doc._rev);
 }).then(function (result) {
   // handle result
 }).catch(function (err) {
@@ -90,8 +84,6 @@ db.get('mydoc').then(function(doc) {
 });
 
 db.get('mydoc').then(function(doc) {
-  doc._deleted = true;
-  return db.put(doc);
 }).then(function (result) {
   // handle result
 }).catch(function (err) {
@@ -351,9 +343,6 @@ var ddoc = {
 
 // save the design doc
 db.put(ddoc).catch(function (err) {
-  if (err.status !== 409) {
-    throw err;
-  }
   // ignore if doc already exists
 }).then(function () {
   // find docs where title === 'Lisa Says'
@@ -438,14 +427,10 @@ PouchDB.defaults({
 
 var MyMemPouch = PouchDB.defaults({
 });
-// MemDOWN-backed Pouch (in Node)
-var MyMemPouch = new MyMemPouch('dbname');
 
 var MyPrefixedPouch = PouchDB.defaults({
   prefix: '/path/to/my/db/'
 });
-// db will be named '/path/to/my/db/dbname', useful for LevelDB
-var myPrefixedPouch = new MyPrefixedPouch('dbname');
 
 PouchDB.plugin({
   methodName: 'myFunction'
@@ -464,9 +449,4 @@ PouchDB.debug.disable();
 new PouchDB('mydb').destroy();
 db.changes({live: true})
   .on('change', function (change) {
-    if (change.deleted) {
-    } else if (change.changes.length === 1 &&
-               /^1-/.test(change.changes[0].rev)) {
-    } else {
-    }
   });

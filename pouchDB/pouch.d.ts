@@ -10,9 +10,9 @@ interface PouchDBFactory {
 
 	replicate(source: string, target: string, options?: PouchDBOptions): PouchDBSync
 	sync(source: string, target: string, options?: PouchDBOptions): PouchDBSync
-	on(event: string, callback: (dbName: string) => void)
-	defaults(defaults: Object)
-	plugin(plugin: Object)
+	on(event: string, callback: (dbName: string) => void): PouchDBPromise
+	defaults(defaults: Object): void
+	plugin(plugin: Object): void
 	debug: PouchDBDebug
 }
 interface PouchDBOptions extends levelupOptions {
@@ -31,30 +31,30 @@ interface PouchDBAuth {
 	password: string
 }
 interface PouchDB {
-	destroy(options?: Object, callback?: (error, result) => void)
-	put(doc: PouchDBDoc, docId?: string, docRev?: string, options?: Object, callback?: (error, result) => void)
-	put(doc: Object, docId: string, docRev?: string, options?: Object, callback?: (error, result) => void)
-	post(doc: Object, options?: Object, callback?: (error, result) => void)
-	get(docId: string, options?: Object, callback?: (error, result) => void)
-	remove(doc: PouchDBDoc, options?: Object, callback?: (error, result) => void)
-	remove(docId: string, docRev: string, options?: Object, callback?: (error, result) => void)
-	bulkDocs(docs: Array<PouchDBDoc>, options?: Object, callback?: (error, result) => void)
-	bulkDocs(docs: Array<Object>, options?: Object, callback?: (error, result) => void)
-	allDocs(options?: Object, callback?: (error, result) => void)
-	changes(options: PouchDBChangesOpts)
+	destroy(options?: Object, callback?: (error, result) => void): PouchDBPromise
+	put(doc: PouchDBDoc, docId?: string, docRev?: string, options?: Object, callback?: (error, result) => void): PouchDBPromise
+	put(doc: Object, docId: string, docRev?: string, options?: Object, callback?: (error, result) => void): PouchDBPromise
+	post(doc: Object, options?: Object, callback?: (error, result) => void): PouchDBPromise
+	get(docId: string, options?: Object, callback?: (error, result) => void): PouchDBPromise
+	remove(doc: PouchDBDoc, options?: Object, callback?: (error, result) => void): PouchDBPromise
+	remove(docId: string, docRev: string, options?: Object, callback?: (error, result) => void): PouchDBPromise
+	bulkDocs(docs: Array<PouchDBDoc>, options?: Object, callback?: (error, result) => void): PouchDBPromise
+	bulkDocs(docs: Array<Object>, options?: Object, callback?: (error, result) => void): PouchDBPromise
+	allDocs(options?: Object, callback?: (error, result) => void): PouchDBPromise
+	changes(options: PouchDBChangesOpts): PouchDBChanges
 	replicate: PouchDBReplicateFromTo
-	putAttachment(docId: string, attachmentId: string, attachment: Blob, type: string, callback?: (error, result) => void)
-	putAttachment(docId: string, attachmentId: string, rev: string, attachment: Blob, type: string, callback?: (error, result) => void)
-	getAttachment(docId: string, attachmentId: string, options?: Object, callback?: (error, result) => void)
-	removeAttachment(docId: string, attachmentId: string, rev: string, callback?: (error, result) => void)
-	query(fun: Object, options?: Object, callback?: (error, result) => void)
-	query(fun: string, options?: Object, callback?: (error, result) => void)
-	query(fun: (doc: PouchDBDoc) => PouchDBDoc, options?: Object, callback?: (error, result) => void)
-	viewCleanup(callback?: (error, result) => void)
-	info(callback?: (error, result) => void)
-	compact(options?: Object)
+	putAttachment(docId: string, attachmentId: string, attachment: Blob, type: string, callback?: (error, result) => void): PouchDBPromise
+	putAttachment(docId: string, attachmentId: string, rev: string, attachment: Blob, type: string, callback?: (error, result) => void): PouchDBPromise
+	getAttachment(docId: string, attachmentId: string, options?: Object, callback?: (error, result) => void): PouchDBPromise
+	removeAttachment(docId: string, attachmentId: string, rev: string, callback?: (error, result) => void): PouchDBPromise
+	query(fun: Object, options?: Object, callback?: (error, result) => void): PouchDBPromise
+	query(fun: string, options?: Object, callback?: (error, result) => void): PouchDBPromise
+	query(fun: (doc: PouchDBDoc) => PouchDBDoc, options?: Object, callback?: (error, result) => void): PouchDBPromise
+	viewCleanup(callback?: (error, result) => void): PouchDBPromise
+	info(callback?: (error, result) => void): PouchDBPromise
+	compact(options?: Object):PouchDBPromise
 	sync(remoteDB: string, options?: Object): PouchDBSync
-	revsDiff(diff: Object, callback?: (error, result) => void)
+	revsDiff(diff: Object, callback?: (error, result) => void): PouchDBPromise
 }
 interface PouchDBDoc {
 	_id: string
@@ -85,6 +85,9 @@ interface PouchDBChangesOpts extends PouchDBFilteringOptions {
 	timeout?: number
 	heartbeat?: number
 }
+interface PouchDBChanges extends PouchDBPromise {
+	on(handle: string, callback: (infoOrErr?: Object) => void)
+}
 interface PouchDBReplicateOpts extends PouchDBFilteringOptions {
 	live?: boolean
 	retry?: boolean
@@ -99,13 +102,17 @@ interface PouchDBReplicateFromTo {
 	to(remoteDB: string, options?: PouchDBReplicateOpts)
 	from(remoteDB: string, options?: PouchDBReplicateOpts)
 }
-interface PouchDBSync {
+interface PouchDBSync extends PouchDBPromise {
 	on(handle: string, callback: (infoOrErr?: Object) => void)
 	cancel()
 }
 interface PouchDBDebug {
 	enable(module: string)
 	disable()
+}
+interface PouchDBPromise {
+	then(callback: (result: Object) => void): PouchDBPromise
+	catch(callback: (err: Object) => void): PouchDBPromise
 }
 
 declare var PouchDB: PouchDBFactory
