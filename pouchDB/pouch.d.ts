@@ -96,7 +96,7 @@ interface PouchDBFilteringOptions {
 	doc_ids?: string[]
 	query_params?: Object
 	view?: string
-	filter?: string
+	filter?: any
 }
 interface PouchDBReplicateFromTo {
 	to(remoteDB: string, options?: PouchDBReplicateOpts)
