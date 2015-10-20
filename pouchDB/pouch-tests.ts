@@ -202,7 +202,7 @@ db.changes({
 
 db.changes({
   filter: function (doc) {
-    return doc.type === 'marsupial';
+    return doc === 'marsupial';
   }
 });
 
@@ -251,7 +251,7 @@ db.replicate.to('http://localhost:5984/mydb').then(function (result) {
 
 db.replicate.to('http://localhost:5984/mydb', {
   filter: function (doc) {
-    return doc.type === 'marsupial';
+    return doc === 'marsupial';
   }
 });
 

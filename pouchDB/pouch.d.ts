@@ -41,7 +41,8 @@ interface PouchDB {
 	bulkDocs(docs: Array<PouchDBDoc>, options?: Object, callback?: (error, result) => void): PouchDBPromise
 	bulkDocs(docs: Array<Object>, options?: Object, callback?: (error, result) => void): PouchDBPromise
 	allDocs(options?: Object, callback?: (error, result) => void): PouchDBPromise
-	changes(options: PouchDBChangesOpts): PouchDBChanges
+	changes(options: PouchDBChangesOptsA): PouchDBChanges
+	changes(options: PouchDBChangesOptsB): PouchDBChanges
 	replicate: PouchDBReplicateFromTo
 	putAttachment(docId: string, attachmentId: string, attachment: Blob, type: string, callback?: (error, result) => void): PouchDBPromise
 	putAttachment(docId: string, attachmentId: string, rev: string, attachment: Blob, type: string, callback?: (error, result) => void): PouchDBPromise
@@ -52,7 +53,7 @@ interface PouchDB {
 	query(fun: (doc: PouchDBDoc) => PouchDBDoc, options?: Object, callback?: (error, result) => void): PouchDBPromise
 	viewCleanup(callback?: (error, result) => void): PouchDBPromise
 	info(callback?: (error, result) => void): PouchDBPromise
-	compact(options?: Object):PouchDBPromise
+	compact(options?: Object): PouchDBPromise
 	sync(remoteDB: string, options?: Object): PouchDBSync
 	revsDiff(diff: Object, callback?: (error, result) => void): PouchDBPromise
 }
@@ -73,7 +74,7 @@ interface PouchDBAllDocsOpts {
 	key?: string
 	keys?: Array<string>
 }
-interface PouchDBChangesOpts extends PouchDBFilteringOptions {
+interface PouchDBChangesOpts {
 	include_docs?: boolean
 	conflicts?: boolean
 	attachments?: boolean
@@ -85,10 +86,16 @@ interface PouchDBChangesOpts extends PouchDBFilteringOptions {
 	timeout?: number
 	heartbeat?: number
 }
+interface PouchDBChangesOptsA extends PouchDBChangesOpts, PouchDBFilteringOptionsA { }
+interface PouchDBChangesOptsB extends PouchDBChangesOpts, PouchDBFilteringOptionsB { }
 interface PouchDBChanges extends PouchDBPromise {
 	on(handle: string, callback: (infoOrErr?: Object) => void)
 }
-interface PouchDBReplicateOpts extends PouchDBFilteringOptions {
+interface PouchDBReplicateOptsA extends PouchDBFilteringOptionsA {
+	live?: boolean
+	retry?: boolean
+}
+interface PouchDBReplicateOptsB extends PouchDBFilteringOptionsB {
 	live?: boolean
 	retry?: boolean
 }
@@ -96,11 +103,18 @@ interface PouchDBFilteringOptions {
 	doc_ids?: string[]
 	query_params?: Object
 	view?: string
-	filter?: any
+}
+interface PouchDBFilteringOptionsA extends PouchDBFilteringOptions {
+	filter?: string
+}
+interface PouchDBFilteringOptionsB extends PouchDBFilteringOptions {
+	filter?: (doc: Object) => boolean
 }
 interface PouchDBReplicateFromTo {
-	to(remoteDB: string, options?: PouchDBReplicateOpts)
-	from(remoteDB: string, options?: PouchDBReplicateOpts)
+	to(remoteDB: string, options?: PouchDBReplicateOptsA)
+	from(remoteDB: string, options?: PouchDBReplicateOptsA)
+	to(remoteDB: string, options?: PouchDBReplicateOptsB)
+	from(remoteDB: string, options?: PouchDBReplicateOptsB)
 }
 interface PouchDBSync extends PouchDBPromise {
 	on(handle: string, callback: (infoOrErr?: Object) => void)
