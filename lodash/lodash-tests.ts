@@ -133,8 +133,6 @@ module TestWrapper {
 }
 
 //Wrapped array shortcut methods
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).concat(5, 6);
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).concat([5, 6]);
 result = <string>_([1, 2, 3, 4]).join(',');
 result = <number>_([1, 2, 3, 4]).pop();
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).push(5, 6, 7);
@@ -1283,17 +1281,111 @@ module TestThru {
 }
 
 // _.prototype.commit
-{
-    let result: _.LoDashImplicitWrapper<number>;
-    result = _(42).commit();
+module TestCommit {
+    {
+        let result: _.LoDashImplicitWrapper<number>;
+        result = _(42).commit();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<any>;
+        result = _<any>([]).commit();
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<any>;
+        result = _({}).commit();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+        result = _(42).chain().commit();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<any>;
+        result = _<any>([]).chain().commit();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<any>;
+        result = _({}).chain().commit();
+    }
 }
-{
-    let result: _.LoDashImplicitArrayWrapper<any>;
-    result = _<any>([]).commit();
-}
-{
-    let result: _.LoDashImplicitObjectWrapper<any>;
-    result = _({}).commit();
+
+// _.prototype.concat
+module TestConcat {
+    {
+        let result: _.LoDashImplicitArrayWrapper<number>;
+
+        result = _(1).concat<number>(2);
+        result = _(1).concat<number>(2, 3);
+        result = _(1).concat<number>(2, 3, 4);
+
+        result = _(1).concat(2);
+        result = _(1).concat(2, 3);
+        result = _(1).concat(2, 3, 4);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _<string>(['']).concat<string>(['']);
+        result = _<string>(['']).concat<string>([''], ['']);
+        result = _<string>(['']).concat<string>([''], [''], ['']);
+
+        result = _<string>(['']).concat(['']);
+        result = _<string>(['']).concat([''], ['']);
+        result = _<string>(['']).concat([''], [''], ['']);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<{a: string}>;
+
+        result = _({a: ''}).concat<{a: string}>({a: ''});
+        result = _({a: ''}).concat<{a: string}>({a: ''}, {a: ''});
+        result = _({a: ''}).concat<{a: string}>({a: ''}, {a: ''}, {a: ''});
+
+        result = _({a: ''}).concat({a: ''});
+        result = _({a: ''}).concat({a: ''}, {a: ''});
+        result = _({a: ''}).concat({a: ''}, {a: ''}, {a: ''});
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<number>;
+
+        result = _(1).chain().concat<number>(2);
+        result = _(1).chain().concat<number>(2, 3);
+        result = _(1).chain().concat<number>(2, 3, 4);
+
+        result = _(1).chain().concat(2);
+        result = _(1).chain().concat(2, 3);
+        result = _(1).chain().concat(2, 3, 4);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _<string>(['']).chain().concat<string>(['']);
+        result = _<string>(['']).chain().concat<string>([''], ['']);
+        result = _<string>(['']).chain().concat<string>([''], [''], ['']);
+
+        result = _<string>(['']).chain().concat(['']);
+        result = _<string>(['']).chain().concat([''], ['']);
+        result = _<string>(['']).chain().concat([''], [''], ['']);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<{a: string}>;
+
+        result = _({a: ''}).chain().concat<{a: string}>({a: ''});
+        result = _({a: ''}).chain().concat<{a: string}>({a: ''}, {a: ''});
+        result = _({a: ''}).chain().concat<{a: string}>({a: ''}, {a: ''}, {a: ''});
+
+        result = _({a: ''}).chain().concat({a: ''});
+        result = _({a: ''}).chain().concat({a: ''}, {a: ''});
+        result = _({a: ''}).chain().concat({a: ''}, {a: ''}, {a: ''});
+    }
 }
 
 // _.prototype.plant
@@ -2057,7 +2149,24 @@ result = <IStoogesCombined[]>_(stoogesCombined).where({ 'quotes': ['Poifect!'] }
  * Date *
  ********/
 
-result = <number>_.now();
+module TestNow {
+    {
+        let result: number;
+
+        result = _.now();
+        result = _(42).now();
+        result = _<any>([]).now();
+        result = _({}).now();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(42).chain().now();
+        result = _<any>([]).chain().now();
+        result = _({}).chain().now();
+    }
+}
 
 /*************
  * Functions *
