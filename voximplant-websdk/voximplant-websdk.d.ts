@@ -3,7 +3,7 @@
 // Definitions by: Alexey Aylarov <https://github.com/aylarov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module VoxImplant {	
+declare namespace VoxImplant {	
 
 	module Events {
 
@@ -727,7 +727,7 @@ declare module VoxImplant {
 		*
 		*	@param config Client configuration options
 		*/
-		init(config: Config): void;
+		init(config?: Config): void;
 		/**
 		*	Check if WebRTC support is available
 		*/
@@ -1162,4 +1162,8 @@ declare module VoxImplant {
 	*/
 	function version(): String;
 	
+}
+
+declare module "voximplant-websdk" {
+    export = VoxImplant;
 }
