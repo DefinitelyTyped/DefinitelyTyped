@@ -31,31 +31,31 @@ interface PouchDBAuth {
 	password: string
 }
 interface PouchDB {
-	destroy(options?: Object, callback?: (error, result) => void): PouchDBPromise
-	put(doc: PouchDBDoc, docId?: string, docRev?: string, options?: Object, callback?: (error, result) => void): PouchDBPromise
-	put(doc: Object, docId: string, docRev?: string, options?: Object, callback?: (error, result) => void): PouchDBPromise
-	post(doc: Object, options?: Object, callback?: (error, result) => void): PouchDBPromise
-	get(docId: string, options?: Object, callback?: (error, result) => void): PouchDBPromise
-	remove(doc: PouchDBDoc, options?: Object, callback?: (error, result) => void): PouchDBPromise
-	remove(docId: string, docRev: string, options?: Object, callback?: (error, result) => void): PouchDBPromise
-	bulkDocs(docs: Array<PouchDBDoc>, options?: Object, callback?: (error, result) => void): PouchDBPromise
-	bulkDocs(docs: Array<Object>, options?: Object, callback?: (error, result) => void): PouchDBPromise
-	allDocs(options?: Object, callback?: (error, result) => void): PouchDBPromise
+	destroy(options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	put(doc: PouchDBDoc, docId?: string, docRev?: string, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	put(doc: Object, docId: string, docRev?: string, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	post(doc: Object, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	get(docId: string, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	remove(doc: PouchDBDoc, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	remove(docId: string, docRev: string, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	bulkDocs(docs: Array<PouchDBDoc>, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	bulkDocs(docs: Array<Object>, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	allDocs(options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
 	changes(options: PouchDBChangesOptsA): PouchDBChanges
 	changes(options: PouchDBChangesOptsB): PouchDBChanges
 	replicate: PouchDBReplicateFromTo
-	putAttachment(docId: string, attachmentId: string, attachment: Blob, type: string, callback?: (error, result) => void): PouchDBPromise
-	putAttachment(docId: string, attachmentId: string, rev: string, attachment: Blob, type: string, callback?: (error, result) => void): PouchDBPromise
-	getAttachment(docId: string, attachmentId: string, options?: Object, callback?: (error, result) => void): PouchDBPromise
-	removeAttachment(docId: string, attachmentId: string, rev: string, callback?: (error, result) => void): PouchDBPromise
-	query(fun: Object, options?: Object, callback?: (error, result) => void): PouchDBPromise
-	query(fun: string, options?: Object, callback?: (error, result) => void): PouchDBPromise
-	query(fun: (doc: PouchDBDoc) => PouchDBDoc, options?: Object, callback?: (error, result) => void): PouchDBPromise
-	viewCleanup(callback?: (error, result) => void): PouchDBPromise
-	info(callback?: (error, result) => void): PouchDBPromise
+	putAttachment(docId: string, attachmentId: string, attachment: Blob, type: string, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	putAttachment(docId: string, attachmentId: string, rev: string, attachment: Blob, type: string, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	getAttachment(docId: string, attachmentId: string, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	removeAttachment(docId: string, attachmentId: string, rev: string, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	query(fun: Object, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	query(fun: string, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	query(fun: (doc: PouchDBDoc) => PouchDBDoc, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	viewCleanup(callback?: (error: Object, result: Object) => void): PouchDBPromise
+	info(callback?: (error: Object, result: Object) => void): PouchDBPromise
 	compact(options?: Object): PouchDBPromise
 	sync(remoteDB: string, options?: Object): PouchDBSync
-	revsDiff(diff: Object, callback?: (error, result) => void): PouchDBPromise
+	revsDiff(diff: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
 }
 interface PouchDBDoc {
 	_id: string
