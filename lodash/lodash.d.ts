@@ -230,7 +230,6 @@ declare module _ {
     interface LoDashExplicitObjectWrapper<T> extends LoDashExplicitWrapperBase<T, LoDashExplicitObjectWrapper<T>> { }
 
     interface LoDashImplicitArrayWrapper<T> extends LoDashImplicitWrapperBase<T[], LoDashImplicitArrayWrapper<T>> {
-        concat(...items: Array<T|Array<T>>): LoDashImplicitArrayWrapper<T>;
         join(seperator?: string): string;
         pop(): T;
         push(...items: T[]): LoDashImplicitArrayWrapper<T>;
@@ -2469,7 +2468,7 @@ declare module _ {
         ): LoDashExplicitArrayWrapper<TResult>;
     }
 
-    // _.prototype.commit
+    //_.prototype.commit
     interface LoDashImplicitWrapperBase<T, TWrapper> {
         /**
          * Executes the chained sequence and returns the wrapped result.
@@ -2477,6 +2476,41 @@ declare module _ {
          * @return Returns the new lodash wrapper instance.
          */
         commit(): TWrapper;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.commit
+         */
+        commit(): TWrapper;
+    }
+
+    //_.prototype.concat
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * Creates a new array joining a wrapped array with any additional arrays and/or values.
+         *
+         * @param items
+         * @return Returns the new concatenated array.
+         */
+        concat<TItem>(...items: Array<TItem|Array<TItem>>): LoDashImplicitArrayWrapper<TItem>;
+
+        /**
+         * @see _.concat
+         */
+        concat(...items: Array<T|Array<T>>): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.concat
+         */
+        concat<TItem>(...items: Array<TItem|Array<TItem>>): LoDashExplicitArrayWrapper<TItem>;
+
+        /**
+         * @see _.concat
+         */
+        concat(...items: Array<T|Array<T>>): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.prototype.plant
@@ -5804,11 +5838,25 @@ declare module _ {
     //_.now
     interface LoDashStatic {
         /**
-        * Gets the number of milliseconds that have elapsed since the Unix epoch
-        * (1 January 1970 00:00:00 UTC).
-        * @return The number of milliseconds.
-        **/
+         * Gets the number of milliseconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
+         *
+         * @return The number of milliseconds.
+         */
         now(): number;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.now
+         */
+        now(): number;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.now
+         */
+        now(): LoDashExplicitWrapper<number>;
     }
 
     /*************
