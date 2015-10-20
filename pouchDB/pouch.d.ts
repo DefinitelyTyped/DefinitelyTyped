@@ -89,7 +89,8 @@ interface PouchDBChangesOpts {
 interface PouchDBChangesOptsA extends PouchDBChangesOpts, PouchDBFilteringOptionsA { }
 interface PouchDBChangesOptsB extends PouchDBChangesOpts, PouchDBFilteringOptionsB { }
 interface PouchDBChanges extends PouchDBPromise {
-	on(handle: string, callback: (infoOrErr?: Object) => void)
+	on(handle: string, callback: (infoOrErr?: Object) => void): PouchDBChanges
+	cancel(): void
 }
 interface PouchDBReplicateOptsA extends PouchDBFilteringOptionsA {
 	live?: boolean
@@ -111,18 +112,18 @@ interface PouchDBFilteringOptionsB extends PouchDBFilteringOptions {
 	filter?: (doc: Object) => boolean
 }
 interface PouchDBReplicateFromTo {
-	to(remoteDB: string, options?: PouchDBReplicateOptsA)
-	from(remoteDB: string, options?: PouchDBReplicateOptsA)
-	to(remoteDB: string, options?: PouchDBReplicateOptsB)
-	from(remoteDB: string, options?: PouchDBReplicateOptsB)
+	to(remoteDB: string, options?: PouchDBReplicateOptsA): PouchDBPromise
+	from(remoteDB: string, options?: PouchDBReplicateOptsA): PouchDBPromise
+	to(remoteDB: string, options?: PouchDBReplicateOptsB): PouchDBPromise
+	from(remoteDB: string, options?: PouchDBReplicateOptsB): PouchDBPromise
 }
 interface PouchDBSync extends PouchDBPromise {
-	on(handle: string, callback: (infoOrErr?: Object) => void)
-	cancel()
+	on(handle: string, callback: (infoOrErr?: Object) => void): PouchDBSync
+	cancel(): void
 }
 interface PouchDBDebug {
-	enable(module: string)
-	disable()
+	enable(module: string): void
+	disable(): void
 }
 interface PouchDBPromise {
 	then(callback: (result: Object) => void): PouchDBPromise
