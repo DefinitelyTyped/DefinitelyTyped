@@ -20,6 +20,8 @@ interface PouchDBOptions extends levelupOptions {
 	adapter?: string
 	ajax?: PouchDBAjax
 	auth?: PouchDBAuth
+	live?: boolean
+	retry?: boolean
 }
 interface PouchDBAjax {
 	cache?: boolean
@@ -37,6 +39,7 @@ interface PouchDB {
 	post(doc: Object, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
 	get(docId: string, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
 	remove(doc: PouchDBDoc, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	remove(doc: Object, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
 	remove(docId: string, docRev: string, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
 	bulkDocs(docs: Array<PouchDBDoc>, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
 	bulkDocs(docs: Array<Object>, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
@@ -51,6 +54,7 @@ interface PouchDB {
 	query(fun: Object, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
 	query(fun: string, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
 	query(fun: (doc: PouchDBDoc) => PouchDBDoc, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	query(fun: (doc: Object) => Object, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
 	viewCleanup(callback?: (error: Object, result: Object) => void): PouchDBPromise
 	info(callback?: (error: Object, result: Object) => void): PouchDBPromise
 	compact(options?: Object): PouchDBPromise
@@ -92,18 +96,15 @@ interface PouchDBChanges extends PouchDBPromise {
 	on(handle: string, callback: (infoOrErr?: Object) => void): PouchDBChanges
 	cancel(): void
 }
-interface PouchDBReplicateOptsA extends PouchDBFilteringOptionsA {
-	live?: boolean
-	retry?: boolean
-}
-interface PouchDBReplicateOptsB extends PouchDBFilteringOptionsB {
-	live?: boolean
-	retry?: boolean
-}
+interface PouchDBReplicateOptsA extends PouchDBFilteringOptionsA {}
+interface PouchDBReplicateOptsB extends PouchDBFilteringOptionsB {}
 interface PouchDBFilteringOptions {
 	doc_ids?: string[]
 	query_params?: Object
 	view?: string
+	live?: boolean
+	retry?: boolean
+	back_off_function?: (delay: number) => number
 }
 interface PouchDBFilteringOptionsA extends PouchDBFilteringOptions {
 	filter?: string
