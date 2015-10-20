@@ -35,7 +35,7 @@ interface PouchDBAuth {
 interface PouchDB {
 	destroy(options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
 	put(doc: PouchDBDoc, docId?: string, docRev?: string, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
-	put(doc: Object, docId: string, docRev?: string, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
+	put(doc: Object, docId?: string, docRev?: string, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
 	post(doc: Object, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
 	get(docId: string, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
 	remove(doc: PouchDBDoc, options?: Object, callback?: (error: Object, result: Object) => void): PouchDBPromise
