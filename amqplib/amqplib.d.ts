@@ -6,7 +6,7 @@
 /// <reference path="../when/when.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
-declare module "amqplib/shared" {
+declare module "amqplib/properties" {
     module Replies {
         interface Empty {
         }
@@ -99,7 +99,7 @@ declare module "amqplib" {
 
     import events = require("events");
     import when = require("when");
-    import shared = require("amqplib/shared")
+    import shared = require("amqplib/properties")
     import Replies = shared.Replies;
     import Options = shared.Options;
     import Message = shared.Message;
@@ -155,7 +155,7 @@ declare module "amqplib" {
 declare module "amqplib/callback_api" {
 
     import events = require("events");
-    import shared = require("amqplib/shared")
+    import shared = require("amqplib/properties")
     import Replies = shared.Replies;
     import Options = shared.Options;
     import Message = shared.Message;
