@@ -136,7 +136,6 @@ module TestWrapper {
 result = <string>_([1, 2, 3, 4]).join(',');
 result = <number>_([1, 2, 3, 4]).pop();
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).push(5, 6, 7);
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).reverse();
 result = <number>_([1, 2, 3, 4]).shift();
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sort((a, b) => 1);
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1);
@@ -1389,29 +1388,79 @@ module TestConcat {
 }
 
 // _.prototype.plant
-{
-    let result: _.LoDashImplicitWrapper<number>;
-    result = _(any).plant(42);
+module TestPlant {
+    {
+        let result: _.LoDashImplicitWrapper<number>;
+        result = _(any).plant(42);
+    }
+
+    {
+        let result: _.LoDashImplicitStringWrapper;
+        result = _(any).plant('');
+    }
+
+    {
+        let result: _.LoDashImplicitWrapper<boolean>;
+        result = _(any).plant(true);
+    }
+
+    {
+        let result: _.LoDashImplicitNumberArrayWrapper;
+        result = _(any).plant([42]);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<any>;
+        result = _(any).plant<any>([]);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<{}>;
+        result = _(any).plant<{}>({});
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+        result = _(any).chain().plant(42);
+    }
+
+    {
+        let result: _.LoDashExplicitStringWrapper;
+        result = _(any).chain().plant('');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+        result = _(any).chain().plant(true);
+    }
+
+    {
+        let result: _.LoDashExplicitNumberArrayWrapper;
+        result = _(any).chain().plant([42]);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<any>;
+        result = _(any).chain().plant<any>([]);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{}>;
+        result = _(any).chain().plant<{}>({});
+    }
 }
-{
-    let result: _.LoDashImplicitStringWrapper;
-    result = _(any).plant('');
-}
-{
-    let result: _.LoDashImplicitWrapper<boolean>;
-    result = _(any).plant(true);
-}
-{
-    let result: _.LoDashImplicitNumberArrayWrapper;
-    result = _(any).plant([42]);
-}
-{
-    let result: _.LoDashImplicitArrayWrapper<any>;
-    result = _(any).plant<any>([]);
-}
-{
-    let result: _.LoDashImplicitObjectWrapper<{}>;
-    result = _(any).plant<{}>({});
+
+// _.prototype.reverse
+module TestReverse {
+    {
+        let result: _.LoDashImplicitArrayWrapper<number>;
+        result: _([42]).reverse();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<number>;
+        result: _([42]).chain().reverse();
+    }
 }
 
 /**************
