@@ -12,6 +12,7 @@ var knex = Knex({
 });
 
 var knex = Knex({
+  debug: true,
   client: 'mysql',
   connection: {
     socketPath     : '/path/to/socket.sock',
@@ -32,7 +33,13 @@ var knex = Knex({
   },
   pool: {
     min: 0,
-    max: 7
+    max: 7,
+    afterCreate: (connection: any, callback: Function) => {
+      return callback(null, connection);
+    },
+    beforeDestroy: (connection: any, callback: Function) => {
+      return callback(null, connection);
+    }
   }
 });
 
