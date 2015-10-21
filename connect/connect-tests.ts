@@ -6,13 +6,13 @@ import * as connect from "connect";
 const app = connect();
 
 // log all requests
-app.use((req, res, next) => {
+app.use((req: http.IncomingMessage, res: http.ServerResponse, next: Function) => {
     console.log(req, res);
     next();
 });
 
 // Stop on errors
-app.use((err, req, res, next) => {
+app.use((err: Error, req: http.IncomingMessage, res: http.ServerResponse, next: Function) => {
     if (err) {
         return res.end(`Error: ${err}`);
     }
@@ -21,7 +21,7 @@ app.use((err, req, res, next) => {
 });
 
 // respond to all requests
-app.use((req, res) => {
+app.use((req: http.IncomingMessage, res: http.ServerResponse) => {
     res.end("Hello from Connect!\n");
 });
 
