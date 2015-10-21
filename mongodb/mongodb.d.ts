@@ -134,7 +134,7 @@ declare module "mongodb" {
     
     // Generate a 12 byte id string used in ObjectID's
     // time - optional parameter allowing to pass in a second based timestamp
-    public static generate(time?: number): string;
+    public generate(time?: number): string;
   }
 
   // Class documentation : http://mongodb.github.io/node-mongodb-native/api-bson-generated/binary.html
