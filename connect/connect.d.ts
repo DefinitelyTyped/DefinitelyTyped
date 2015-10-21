@@ -1,4 +1,4 @@
-// Type definitions for connect v3.4.0.
+// Type definitions for connect v3.4.0
 // Project: https://github.com/senchalabs/connect
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -16,12 +16,11 @@ declare module "connect" {
     
     module createServer {
     	export type ServerHandle = HandleFunction | http.Server;
-
-        export interface HandleFunction {
-            (req: http.IncomingMessage, res: http.ServerResponse): void;
-            (req: http.IncomingMessage, res: http.ServerResponse, next: Function): void;
-            (err: Error, req: http.IncomingMessage, res: http.ServerResponse, next: Function): void;
-        }
+        
+        export type SimpleHandleFunction = (req: http.IncomingMessage, res: http.ServerResponse) => void;
+        export type NextHandleFunction = (req: http.IncomingMessage, res: http.ServerResponse, next: Function) => void;
+        export type ErrorHandleFunction = (err: Error, req: http.IncomingMessage, res: http.ServerResponse, next: Function) => void;
+        export type HandleFunction = SimpleHandleFunction | NextHandleFunction | ErrorHandleFunction;
 
     	export interface ServerStackItem {
             route: string;
@@ -29,7 +28,7 @@ declare module "connect" {
     	}
     	
         export interface Server extends NodeJS.EventEmitter {
-            (req: http.IncomingMessage, res: http.ServerResponse, next: Function) => void;
+            (req: http.IncomingMessage, res: http.ServerResponse, next?: Function): void;
 
             route: string;
             stack: ServerStackItem[];
