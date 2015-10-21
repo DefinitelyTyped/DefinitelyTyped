@@ -5,32 +5,31 @@
 declare module 'cache-manager' {
 
 
-    interface ICachingConfig {
+    interface CachingConfig {
         ttl: number;
     }
-    interface IStoreConfig extends ICachingConfig {
-        store:string;
+    interface StoreConfig extends CachingConfig {
+        store: string;
         max?: number;
-        isCacheableValue?:(value:any)=>boolean;
+        isCacheableValue?: (value: any) => boolean;
     }
-    interface ICache {
-        set<T>(key:string, value:T, options:ICachingConfig, callback?:(error:any)=>void):void;
-        set<T>(key:string, value:T, ttl:number, callback?:(error:any)=>void):void;
+    interface Cache {
+        set<T>(key: string, value: T, options: CachingConfig, callback?: (error: any) => void): void;
+        set<T>(key: string, value: T, ttl: number, callback?: (error: any) => void): void;
 
-        wrap<T>(key:string, wrapper:(callback:(error:any, result:T)=>void)=>void, options:ICachingConfig, callback:(error:any, result:T)=>void):void;
-        wrap<T>(key:string, wrapper:(callback:(error:any, result:T)=>void)=>void, callback:(error:any, result:T)=>void):void;
+        wrap<T>(key: string, wrapper: (callback: (error: any, result: T) => void) => void, options: CachingConfig, callback: (error: any, result: T) => void): void;
+        wrap<T>(key: string, wrapper: (callback: (error: any, result: T) => void) => void, callback: (error: any, result: T) => void): void;
 
-        get<T>(key:string, callback:(error:any, result:T)=>void):void;
+        get<T>(key: string, callback: (error: any, result: T) => void): void;
 
-        del(key:string, callback?:(error:any)=>void):void;
+        del(key: string, callback?: (error: any) => void): void;
     }
 
 
 
     module cacheManager {
-        function caching(ICongig:IStoreConfig):ICache;
-
-        function multiCaching(Caches:ICache[]):ICache;
+        function caching(ICongig: StoreConfig): Cache;
+        function multiCaching(Caches: Cache[]): Cache;
     }
 
     export = cacheManager;
