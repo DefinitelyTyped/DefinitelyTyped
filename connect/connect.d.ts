@@ -16,8 +16,13 @@ declare module "connect" {
     
     module createServer {
     	export type ServerHandle = HandleFunction | http.Server;
-    	export type HandleFunction = (req: http.IncomingMessage, res: http.ServerResponse, next: Function) => void;
-    	
+
+        export interface HandleFunction {
+            (req: http.IncomingMessage, res: http.ServerResponse): void;
+            (req: http.IncomingMessage, res: http.ServerResponse, next: Function): void;
+            (err: Error, req: http.IncomingMessage, res: http.ServerResponse, next: Function): void;
+        }
+
     	export interface ServerStackItem {
             route: string;
             handle: ServerHandle;
@@ -25,10 +30,10 @@ declare module "connect" {
     	
         export interface Server extends NodeJS.EventEmitter {
             (req: http.IncomingMessage, res: http.ServerResponse, next: Function) => void;
-            
+
             route: string;
             stack: ServerStackItem[];
-            
+
             /**
             * Utilize the given middleware `handle` to the given `route`,
             * defaulting to _/_. This "route" is the mount-point for the
@@ -44,7 +49,7 @@ declare module "connect" {
             */
             use(fn: HandleFunction): Server;
             use(route: string, fn: HandleFunction): Server;
-            		
+		
             /**
             * Handle server requests, punting them down
             * the middleware stack.
@@ -52,8 +57,7 @@ declare module "connect" {
             * @private
             */
             handle(req: http.IncomingMessage, res: http.ServerResponse, next: Function): void;
-            
-            		
+		
             /**
             * Listen for connections.
             *
