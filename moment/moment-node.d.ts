@@ -19,7 +19,7 @@ declare module moment {
         month?: number;
         /** Month */
         M?: number;
-        
+
         /** Week */
         weeks?: number;
         /** Week */
@@ -346,11 +346,13 @@ declare module moment {
       LLL: string;
       LLLL: string;
       LT: string;
+      LTS: string;
       l?: string;
       ll?: string;
       lll?: string;
       llll?: string;
       lt?: string;
+      lts?: string;
     }
 
     interface MomentRelativeTime {
