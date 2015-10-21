@@ -233,7 +233,6 @@ declare module _ {
         join(seperator?: string): string;
         pop(): T;
         push(...items: T[]): LoDashImplicitArrayWrapper<T>;
-        reverse(): LoDashImplicitArrayWrapper<T>;
         shift(): T;
         sort(compareFn?: (a: T, b: T) => number): LoDashImplicitArrayWrapper<T>;
         splice(start: number): LoDashImplicitArrayWrapper<T>;
@@ -2551,6 +2550,63 @@ declare module _ {
          * @see _.plant
          */
         plant(value: any): LoDashImplicitWrapper<any>;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.plant
+         */
+        plant(value: number): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.plant
+         */
+        plant(value: string): LoDashExplicitStringWrapper;
+
+        /**
+         * @see _.plant
+         */
+        plant(value: boolean): LoDashExplicitWrapper<boolean>;
+
+        /**
+         * @see _.plant
+         */
+        plant(value: number[]): LoDashExplicitNumberArrayWrapper;
+
+        /**
+         * @see _.plant
+         */
+        plant<T>(value: T[]): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.plant
+         */
+        plant<T extends {}>(value: T): LoDashExplicitObjectWrapper<T>;
+
+        /**
+         * @see _.plant
+         */
+        plant(value: any): LoDashExplicitWrapper<any>;
+    }
+
+    //_.prototype.reverse
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * Reverses the wrapped array so the first element becomes the last, the second element becomes the second to
+         * last, and so on.
+         *
+         * Note: This method mutates the wrapped array.
+         *
+         * @return Returns the new reversed lodash wrapper instance.
+         */
+        reverse(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.reverse
+         */
+        reverse(): LoDashExplicitArrayWrapper<T>;
     }
 
     // _.run
