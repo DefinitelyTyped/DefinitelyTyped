@@ -565,13 +565,13 @@ declare module AngularFormly {
 		/**
 		 * You can override the field ID generation by specifying a function that is passed: (options, model, scope).Note: Remember to check options.id to make sure you don't override an ID that has been specified.
 		 */
-        getFieldId: (options, model, scope) => any;
+        getFieldId: (options: any, model: any, scope: any) => string;
 		/**
 		 * Allows you to modify/ convert the fields before angular- formly handles them or validates them.
 		 * So you can now have your own custom field configuration and then simply use this function to modify 
 		 * them into something that angular- formly recognizes, or you can dynamically add/remove/modify fields.
 		 */
-        fieldTransform: (fields, model, formOptions, form) => any;
+        fieldTransform: (fields: any[], model: any, formOptions: any, form: any) => any[];
 		/**
 		 * Forces all validators to be placed on the $validators api regardless of whether it's a string or function. See #369 for more info. Recommended to turn this on.
 		 */
