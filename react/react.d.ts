@@ -354,6 +354,7 @@ declare namespace __React {
         onInput?: FormEventHandler;
         onSubmit?: FormEventHandler;
         onClick?: MouseEventHandler;
+        onContextMenu?: MouseEventHandler;
         onDoubleClick?: MouseEventHandler;
         onDrag?: DragEventHandler;
         onDragEnd?: DragEventHandler;
@@ -426,7 +427,7 @@ declare namespace __React {
         allowTransparency?: boolean;
         alt?: string;
         async?: boolean;
-        autoComplete?: boolean;
+        autoComplete?: string;
         autoFocus?: boolean;
         autoPlay?: boolean;
         cellPadding?: number | string;
