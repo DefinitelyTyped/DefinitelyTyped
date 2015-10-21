@@ -266,6 +266,7 @@ moment.locale('en', {
     weekdaysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     weekdaysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
     longDateFormat: {
+        LTS: "h:mm:ss A",
         LT: "h:mm A",
         L: "MM/DD/YYYY",
         LL: "MMMM D YYYY",
@@ -387,6 +388,7 @@ moment.locale('en', {
 
 moment.locale('en', {
     longDateFormat : {
+        LTS: "h:mm:ss A",
         LT: "h:mm A",
         L: "MM/DD/YYYY",
         l: "M/D/YYYY",
@@ -401,6 +403,7 @@ moment.locale('en', {
 
 moment.locale('en', {
     longDateFormat : {
+        LTS: "h:mm A",
         LT: "h:mm A",
         L: "MM/DD/YYYY",
         LL: "MMMM Do YYYY",
