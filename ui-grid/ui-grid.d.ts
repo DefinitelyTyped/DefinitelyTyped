@@ -1038,6 +1038,12 @@ declare module uiGrid {
              * @param {scrollEndHandler} handler callback
              */
             scrollEnd: (scope: ng.IScope, handler: scrollEndHandler) => void;
+            /**
+             * is raised after the sort criteria on one or more columns have changed
+             * @param {ng.IScope} scope Grid scope
+             * @param {sortChangedHandler} handler callback
+             */
+            sortChanged: (scope: ng.IScope, handler: sortChangedHandler<TEntity>) => void;
         }
     }
     export interface columnVisibilityChangedHandler<TEntity> {
@@ -1094,6 +1100,15 @@ declare module uiGrid {
          * @param {JQueryMouseEventObject} scrollEvent Mouse scroll event
          */
         (scrollEvent: JQueryMouseEventObject): void;
+    }
+
+    export interface sortChangedHandler<TEntity> {
+        /**
+         * Sort change event callback 
+         * @param {IGridInstance} grid instance 
+         * @param {IGridColumn} array of gridColumns that have sorting on them, sorted in priority order
+         */
+        (grid: IGridInstanceOf<TEntity>, columns: Array<IGridColumnOf<TEntity>>): void;
     }
 
     export module cellNav {
