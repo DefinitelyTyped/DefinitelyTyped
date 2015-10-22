@@ -4131,7 +4131,7 @@ declare module THREE {
         material: Material; // LineDashedMaterial or LineBasicMaterial or ShaderMaterial
 
         raycast(raycaster: Raycaster, intersects: any): void;
-        clone(object?: Line): Line;
+        clone(object?: LineSegments): LineSegments;
     }
 
     enum LineMode{}
