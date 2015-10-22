@@ -21,7 +21,7 @@ import {IntlMixin, IntlComponent, FormattedNumber, FormattedMessage, FormattedDa
 ////////////////////////////////////////////////////////////////////////////
 
 
-const MESSAGES = {
+const MESSAGES: {[key: string] : { [lang: string]: string }} = {
 
     Sorry: {
         'en-US': 'Sorry {name}',
@@ -75,12 +75,12 @@ class I18nDirect extends React.Component<I18nDirect.Props, any> {
 
     private compileMessages = (props: I18nDirect.Props): void => {
 
-        let locale = ( props.locales && props.locales[ 0 ] ) || 'en-US'
+        let locale: string = ( props.locales && props.locales[ 0 ] ) || 'en-US'
 
         if (this._currentLocale !== locale) {
 
             this._messages = Object.keys( MESSAGES ).reduce(
-                ( dic: { [key: string]: string; }, key: string ) => {
+                ( dic , key ) => {
                     dic[ key ] = MESSAGES[ key ][ locale ]
                     return dic
                 },
