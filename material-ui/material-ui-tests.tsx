@@ -54,14 +54,13 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
     render() {
 
         // "http://material-ui.com/#/customization/themes"
-        let ThemeManager = new mui.Styles.ThemeManager();
-        ThemeManager.setTheme(ThemeManager.types.LIGHT);
-        ThemeManager.setTheme(ThemeManager.types.DARK);
-        let muiTheme = ThemeManager.getCurrentTheme();
-        ThemeManager.setComponentThemes({
-            toggle: {
-                thumbOnColor: "#00bcd4",
-                trackOnColor: "LightCyan",
+        let ThemeManager = mui.Styles.ThemeManager;
+        let muiTheme: mui.Styles.MuiTheme = ThemeManager.getMuiTheme({
+            palette: {
+                accent1Color: Colors.cyan100
+            },
+            spacing: {
+                
             }
         });
 
@@ -86,14 +85,6 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
                 margin: '0 auto'
             }, iconStyle: {
                 fill: '#FF4081'
-            }
-        });
-
-        // "http://material-ui.com/#/customization/colors"
-        ThemeManager.setComponentThemes({
-            toggle: {
-                thumbOnColor: Colors.cyan200,
-                thumbOffColor: Colors.grey400,
             }
         });
 

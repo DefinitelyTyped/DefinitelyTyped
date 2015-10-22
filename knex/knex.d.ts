@@ -135,6 +135,8 @@ declare module "knex" {
     
       transacting(trx: Transaction): QueryBuilder;
       connection(connection: any): QueryBuilder;
+
+      clone(): QueryBuilder;
     }
     
     interface As {
@@ -394,6 +396,7 @@ declare module "knex" {
     }
     
     interface Config {
+      debug?: boolean;
       client?: string;
       dialect?: string;
       connection: string|ConnectionConfig|
@@ -427,7 +430,9 @@ declare module "knex" {
     interface PoolConfig {
       name?: string;
       create?: Function;
+      afterCreate?: Function;
       destroy?: Function;
+      beforeDestroy?: Function;
       min?: number;
       max?: number;
       refreshIdle?: boolean;

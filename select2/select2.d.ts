@@ -71,6 +71,7 @@ interface Select2Options {
     dropdownCss?: any;
     dropdownCssClass?: any;
     escapeMarkup?: (markup: string) => string;
+    theme?: string;
 }
 
 interface Select2JQueryEventObject extends JQueryEventObject {
