@@ -4573,24 +4573,6 @@ declare module _ {
         floor(precision?: number): number;
     }
 
-    //_.round
-    interface LoDashStatic {
-        /**
-         * Calculates n rounded to precision.
-         * @param n The number to round.
-         * @param precision The precision to round to.
-         * @return Returns the rounded number.
-         */
-        round(n: number, precision?: number): number;
-    }
-
-    interface LoDashImplicitWrapper<T> {
-        /**
-         * @see _.round
-         */
-        round(precision?: number): number;
-    }
-
     //_.sum
     interface LoDashStatic {
         /**
@@ -7617,6 +7599,35 @@ declare module _ {
         min<TObject extends {}, T>(
             whereValue?: TObject
         ): T;
+    }
+
+    //_.round
+    interface LoDashStatic {
+        /**
+         * Calculates n rounded to precision.
+         *
+         * @param n The number to round.
+         * @param precision The precision to round to.
+         * @return Returns the rounded number.
+         */
+        round(
+            n: number,
+            precision?: number
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.round
+         */
+        round(precision?: number): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.round
+         */
+        round(precision?: number): LoDashExplicitWrapper<number>;
     }
 
     /**********
