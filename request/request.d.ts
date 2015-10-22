@@ -79,7 +79,7 @@ declare module 'request' {
 			method?: string;
 			headers?: Headers;
 			body?: any;
-			followRedirect?: boolean;
+			followRedirect?: boolean|((response: http.IncomingMessage) => boolean);
 			followAllRedirects?: boolean;
 			maxRedirects?: number;
 			encoding?: string;
