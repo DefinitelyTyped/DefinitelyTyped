@@ -5,6 +5,7 @@ import amqp = require("amqplib");
 
 var msg = "Hello World";
 
+// test promise api
 amqp.connect("amqp://localhost")
     .then(connection => {
         return connection.createChannel()
@@ -20,6 +21,12 @@ amqp.connect("amqp://localhost")
             .then(channel => channel.consume("myQueue", newMsg => console.log("New Message: " + newMsg.content.toString())))
             .ensure(() => connection.close());
     });
+
+// test promise api properties
+var amqpMessage: amqp.Message;
+var amqpAssertExchangeOptions: amqp.Options.AssertExchange;
+var anqpAssertExchangeReplies: amqp.Replies.AssertExchange;
+
 
 // callback api tests
 import amqpcb = require("amqplib/callback_api");
@@ -51,3 +58,8 @@ amqpcb.connect("amqp://localhost", (err, connection) => {
         });
     }
 });
+
+// test callback api properties
+var amqpcbMessage: amqp.Message;
+var amqpcbAssertExchangeOptions: amqp.Options.AssertExchange;
+var anqpcbAssertExchangeReplies: amqp.Replies.AssertExchange;

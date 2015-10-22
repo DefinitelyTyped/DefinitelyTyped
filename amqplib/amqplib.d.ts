@@ -100,9 +100,9 @@ declare module "amqplib" {
     import events = require("events");
     import when = require("when");
     import shared = require("amqplib/properties")
-    import Replies = shared.Replies;
-    import Options = shared.Options;
-    import Message = shared.Message;
+    export import Replies = shared.Replies;
+    export import Options = shared.Options;
+    export import Message = shared.Message;
 
     interface Connection extends events.EventEmitter {
         close(): when.Promise<void>;
@@ -156,9 +156,9 @@ declare module "amqplib/callback_api" {
 
     import events = require("events");
     import shared = require("amqplib/properties")
-    import Replies = shared.Replies;
-    import Options = shared.Options;
-    import Message = shared.Message;
+    export import Replies = shared.Replies;
+    export import Options = shared.Options;
+    export import Message = shared.Message;
 
     interface Connection extends events.EventEmitter {
         close(callback?: (err: any) => void): void;
