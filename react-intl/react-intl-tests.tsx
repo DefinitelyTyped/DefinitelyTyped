@@ -1,6 +1,10 @@
 /**
  * Created by Bruno Grieder
  */
+
+///<reference path='../react/react.d.ts' />
+///<reference path='../react-mixin/react-mixin.d.ts' />
+
 import * as React from 'react'
 
 import * as reactMixin from 'react-mixin'
@@ -10,7 +14,7 @@ import {IntlMixin, IntlComponent, FormattedNumber, FormattedMessage, FormattedDa
 ///////////////////////////////////////////////////////////////////////////
 //
 // This class does not use the mixin and react-mixin is not required
-// The MESSQGES are maintained in the file
+// The MESSAGES are maintained in the file
 // To use it call <I18nDirect locales={['en-US']}/>
 //
 ////////////////////////////////////////////////////////////////////////////
@@ -30,7 +34,7 @@ module I18nDirect {
     export interface Props extends IntlComponent.Props {}
 }
 
-class I18nDirect extends React.Component<I18nDirect.Props, any> { 
+class I18nDirect extends React.Component<I18nDirect.Props, any> {
 
     private _currentLocale: string
     private _messages: {[key: string]: string}
@@ -69,7 +73,7 @@ class I18nDirect extends React.Component<I18nDirect.Props, any> {
 
 
     private compileMessages = (props: I18nDirect.Props): void => {
-        
+
         let locale = ( props.locales && props.locales[ 0 ] ) || 'en-US'
 
         if (this._currentLocale !== locale) {
