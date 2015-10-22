@@ -4,6 +4,7 @@
 
 ///<reference path='../react/react.d.ts' />
 ///<reference path='../react-mixin/react-mixin.d.ts' />
+///<reference path='../react-intl/react-intl.d.ts' />
 
 import * as React from 'react'
 
@@ -79,7 +80,7 @@ class I18nDirect extends React.Component<I18nDirect.Props, any> {
         if (this._currentLocale !== locale) {
 
             this._messages = Object.keys( MESSAGES ).reduce(
-                ( dic, key ) => {
+                ( dic: { [key: string]: string; }, key: string ) => {
                     dic[ key ] = MESSAGES[ key ][ locale ]
                     return dic
                 },
