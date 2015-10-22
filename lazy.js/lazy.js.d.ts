@@ -111,11 +111,11 @@ declare module LazyJS {
     }
 
     interface SequenceBase<T> extends SequenceBaser<T> {
-        first(): any;
+        first(): T;
         first(count: number): Sequence<T>;
         indexOf(value: any, startIndex?: number): Sequence<T>;
 
-        last(): any;
+        last(): T;
         last(count: number): Sequence<T>;
         lastIndexOf(value: any): Sequence<T>;
 
@@ -184,7 +184,6 @@ declare module LazyJS {
     interface ArrayLikeSequence<T> extends Sequence<T> {
         // define()X;
         concat(var_args: T[]): ArrayLikeSequence<T>;
-        first(count?: number): ArrayLikeSequence<T>;
         get(index: number): T;
         length(): number;
         map<U>(mapFn: MapCallback<T, U>): ArrayLikeSequence<U>;
@@ -224,24 +223,14 @@ declare module LazyJS {
         function define(methodName: string[], overrides: Object): Function;
     }
 
-    interface StringLikeSequence extends SequenceBaser<string> {
+    interface StringLikeSequence extends SequenceBase<string> {
         charAt(index: number): string;
         charCodeAt(index: number): number;
         contains(value: string): boolean;
         endsWith(suffix: string): boolean;
 
-        first(): string;
-        first(count: number): StringLikeSequence;
-
-        indexOf(substring: string, startIndex?: number): number;
-
-        last(): string;
-        last(count: number): StringLikeSequence;
-
-        lastIndexOf(substring: string, startIndex?: number): number;
         mapString(mapFn: MapStringCallback): StringLikeSequence;
         match(pattern: RegExp): StringLikeSequence;
-        reverse(): StringLikeSequence;
 
         split(delimiter: string): StringLikeSequence;
         split(delimiter: RegExp): StringLikeSequence;
