@@ -3,6 +3,8 @@
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+///<reference path='../react/react.d.ts' />
+
 declare module "react-intl" {
 
     import * as React from 'react'
