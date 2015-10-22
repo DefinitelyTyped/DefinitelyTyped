@@ -24,6 +24,7 @@ amqp.connect("amqp://localhost")
 
 // test promise api properties
 var amqpMessage: amqp.Message;
+amqpMessage.properties.contentType === "application/json";
 var amqpAssertExchangeOptions: amqp.Options.AssertExchange;
 var anqpAssertExchangeReplies: amqp.Replies.AssertExchange;
 
@@ -61,5 +62,6 @@ amqpcb.connect("amqp://localhost", (err, connection) => {
 
 // test callback api properties
 var amqpcbMessage: amqp.Message;
+amqpMessage.properties.contentType === "application/json";
 var amqpcbAssertExchangeOptions: amqp.Options.AssertExchange;
 var anqpcbAssertExchangeReplies: amqp.Replies.AssertExchange;
