@@ -66,7 +66,7 @@ declare module "amqplib/properties" {
 
             contentType?: string;
             contentEncoding?: string;
-            headers?: Object;
+            headers?: any;
             priority?: number;
             correlationId?: string;
             replyTo?: string;
@@ -81,7 +81,7 @@ declare module "amqplib/properties" {
             noAck?: boolean;
             exclusive?: boolean;
             priority?: number;
-            arguments?: Object;
+            arguments?: any;
         }
         interface Get {
             noAck?: boolean;
@@ -90,8 +90,8 @@ declare module "amqplib/properties" {
 
     interface Message {
         content: Buffer;
-        fields: Object;
-        properties: Object;
+        fields: any;
+        properties: any;
     }
 }
 
