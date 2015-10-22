@@ -2609,7 +2609,7 @@ declare module _ {
         reverse(): LoDashExplicitArrayWrapper<T>;
     }
 
-    // _.run
+    //_.prototype.run
     interface LoDashWrapperBase<T, TWrapper> {
         /**
          * @see _.value
@@ -2617,7 +2617,7 @@ declare module _ {
         run(): T;
     }
 
-    // _.toJSON
+    //_.prototype.toJSON
     interface LoDashWrapperBase<T, TWrapper> {
         /**
          * @see _.value
@@ -2625,6 +2625,7 @@ declare module _ {
         toJSON(): T;
     }
 
+    //_.prototype.toString
     interface LoDashWrapperBase<T, TWrapper> {
         /**
          * Produces the result of coercing the unwrapped value to a string.
@@ -2634,7 +2635,7 @@ declare module _ {
         toString(): string;
     }
 
-    // _.value
+    //_.prototype.value
     interface LoDashWrapperBase<T, TWrapper> {
         /**
          * Executes the chained sequence to extract the unwrapped value.
@@ -2646,7 +2647,7 @@ declare module _ {
         value(): T;
     }
 
-    // _.valueOf
+    //_.valueOf
     interface LoDashWrapperBase<T, TWrapper> {
         /**
          * @see _.value
