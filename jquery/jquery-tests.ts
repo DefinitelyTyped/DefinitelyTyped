@@ -1136,6 +1136,13 @@ function test_jQuery_removeData() {
     $("span:eq(3)").text("" + jQuery.data(div, "test2"));
 }
 
+function test_removeDataAll() {
+    var el = $("div");
+    el.data("test1", "VALUE-1");
+    el.data("test2", "VALUE-2");
+    el.removeData();
+}
+
 function test_dblclick() {
     $('#target').dblclick(function () {
         alert('Handler for .dblclick() called.');
