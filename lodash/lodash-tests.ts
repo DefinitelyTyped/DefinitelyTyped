@@ -3537,8 +3537,20 @@ result = <string>_.camelCase('Foo Bar');
 result = <string>_('Foo Bar').camelCase();
 
 // _.capitalize
-result = <string>_.capitalize('fred');
-result = <string>_('fred').capitalize();
+module TestCapitalize {
+    {
+        let result: string;
+
+        result = _.capitalize('fred');
+        result = _('fred').capitalize();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('fred').chain().capitalize();
+    }
+}
 
 // _.deburr
 result = <string>_.deburr('déjà vu');
