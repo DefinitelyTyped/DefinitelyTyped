@@ -9567,16 +9567,12 @@ declare module _ {
          * @param source The object of property values to match.
          * @return Returns the new function.
          */
-        matches<T>(
-            source: T
-        ): (value: any) => boolean;
+        matches<T>(source: T): (value: any) => boolean;
 
         /**
          * @see _.matches
          */
-        matches<T, V>(
-            source: T
-        ): (value: V) => boolean;
+        matches<T, V>(source: T): (value: V) => boolean;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -9584,6 +9580,13 @@ declare module _ {
          * @see _.matches
          */
         matches<V>(): LoDashImplicitObjectWrapper<(value: V) => boolean>;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.matches
+         */
+        matches<V>(): LoDashExplicitObjectWrapper<(value: V) => boolean>;
     }
 
     //_.matchesProperty
