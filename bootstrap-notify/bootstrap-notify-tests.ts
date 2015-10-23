@@ -1,9 +1,9 @@
 /// <reference path="bootstrap-notify.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
-    
+
 //Test for bootstrap-notify v3.1.3
 //Copied example directly from Bootstrap-notify site
-	
+
 $.notify({
 	// options
 	icon: 'glyphicon glyphicon-warning-sign',
@@ -48,5 +48,5 @@ $.notify({
 			'<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
 		'</div>' +
 		'<a href="{3}" target="{4}" data-notify="url"></a>' +
-	'</div>' 
+	'</div>'
 });

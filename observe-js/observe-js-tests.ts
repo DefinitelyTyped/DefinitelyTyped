@@ -1,7 +1,7 @@
 /// <reference path="observe-js.d.ts" />
 
 module observejs {
-	
+
 	function Test_PathObserver() {
 		var obj = { foo: { bar: 'baz' } };
 		var defaultValue = 42;
@@ -10,8 +10,8 @@ module observejs {
 		// respond to obj.foo.bar having changed value.
 		});
 	}
-	
-	
+
+
 	function Test_ArrayObserver() {
 		var arr = [0, 1, 2, 4];
 		var observer = new ArrayObserver(arr);
@@ -24,7 +24,7 @@ module observejs {
 		});
 		});
 	}
-	
+
 	function Test_ObejctObserver() {
 		var myObj = { id: 1, foo: 'bar' };
 		var observer = new ObjectObserver(myObj);
@@ -45,15 +45,15 @@ module observejs {
 		});
 		});
 	}
-	
+
 	function Test_CompounObserver() {
 		var obj = {
 			a: 1,
 			b: 2,
 		};
-		
+
 		var otherObj = { c: 3 };
-		
+
 		var observer = new CompoundObserver();
 		observer.addPath(obj, 'a');
 		observer.addObserver(new PathObserver(obj, 'b'));
@@ -66,25 +66,25 @@ module observejs {
 		}
 		});
 	}
-	
+
 	function Test_ObserverTransform_1() {
 		var obj = { value: 10 };
 		var observer = new PathObserver(obj, 'value');
 		function getValue(value:any) { return value * 2 };
 		function setValue(value:any) { return value / 2 };
-		
+
 		var transform = new ObserverTransform(observer, getValue, setValue);
-		
+
 		// returns 20.
 		transform.open(function(newValue, oldValue) {
 		console.log('new: ' + newValue + ', old: ' + oldValue);
 		});
-		
+
 		obj.value = 20;
 		transform.deliver(); // 'new: 40, old: 20'
 		transform.setValue(4); // obj.value === 2;
 	}
-	
+
 	function Test_ObserverTransform_2() {
 		var obj = { a: 1, b: 2, c: 3 };
 		var observer = new CompoundObserver();
@@ -97,12 +97,12 @@ module observejs {
 			value += values[i]
 		return value;
 		});
-		
+
 		// returns 6.
 		transform.open(function(newValue, oldValue) {
 		console.log('new: ' + newValue + ', old: ' + oldValue);
 		});
-		
+
 		obj.a = 2;
 		obj.c = 10;
 		transform.deliver(); // 'new: 14, old: 6'

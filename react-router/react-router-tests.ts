@@ -129,7 +129,7 @@ class DefaultRouteTest {
         var Handler: React.ComponentClass<any>;
         React.createElement(Router.DefaultRoute, null);
         React.createElement(Router.DefaultRoute, {name: 'name', handler: Handler});
-        
+
         ReactAddons.createElement(Router.DefaultRoute, null);
         ReactAddons.createElement(Router.DefaultRoute, {name: 'name', handler: Handler});
     }
@@ -169,7 +169,7 @@ class LinkTest {
             query: {},
             onClick: () => console.log(1)
         });
-        
+
         ReactAddons.createElement(Router.Link, null);
         ReactAddons.createElement(Router.Link, {to: 'home'});
         ReactAddons.createElement(Router.Link, {
@@ -195,7 +195,7 @@ class NotFoundRouteTest {
         React.createElement(Router.NotFoundRoute, null);
         React.createElement(Router.NotFoundRoute, {handler: Handler});
         React.createElement(Router.NotFoundRoute, {handler: Handler, name: "home"});
-        
+
         ReactAddons.createElement(Router.NotFoundRoute, null);
         ReactAddons.createElement(Router.NotFoundRoute, {handler: Handler});
         ReactAddons.createElement(Router.NotFoundRoute, {handler: Handler, name: "home"});
@@ -215,7 +215,7 @@ class RedirectTest {
         React.createElement(Router.Redirect, null);
         React.createElement(Router.Redirect, {});
         React.createElement(Router.Redirect, {path: 'a', from: 'a', to: 'b'});
-        
+
         ReactAddons.createElement(Router.Redirect, null);
         ReactAddons.createElement(Router.Redirect, {});
         ReactAddons.createElement(Router.Redirect, {path: 'a', from: 'a', to: 'b'});
@@ -237,7 +237,7 @@ class RouteTest {
         React.createElement(Router.Route, null);
         React.createElement(Router.Route, {});
         React.createElement(Router.Route, {name: "home", path: "/", handler: Handler, ignoreScrollBehavior: true});
-        
+
         ReactAddons.createElement(Router.Route, null);
         ReactAddons.createElement(Router.Route, {});
         ReactAddons.createElement(Router.Route, {name: "home", path: "/", handler: Handler, ignoreScrollBehavior: true});
@@ -250,7 +250,7 @@ class RouteHandlerTest {
     createElement() {
         React.createElement(Router.RouteHandler, null);
         React.createElement(Router.RouteHandler, {});
-        
+
         ReactAddons.createElement(Router.RouteHandler, null);
         ReactAddons.createElement(Router.RouteHandler, {});
     }
