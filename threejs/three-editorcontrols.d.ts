@@ -7,7 +7,7 @@
 
 declare module THREE {
 
-  class EditorControls extends Object3D {
+  class EditorControls extends EventDispatcher {
 
     constructor(object: Camera, domElement?:HTMLElement);
 
