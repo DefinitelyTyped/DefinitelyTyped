@@ -1,9 +1,9 @@
-// React-Bootstrap Test 
+// React-Bootstrap Test
 // ================================================================================
 ///<reference path="react-bootstrap.d.ts"/>
 ///<reference path="../react/react.d.ts"/>
 
-// Imports 
+// Imports
 // --------------------------------------------------------------------------------
 import * as React from 'react';
 import { Component, CSSProperties } from 'react';
@@ -11,7 +11,7 @@ import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuIt
 
 
 export class ReactBootstrapTest extends Component<any, any> {
-    callback() { 
+    callback() {
         alert('Callback: ' + JSON.stringify(arguments));
     }
 
@@ -30,7 +30,7 @@ export class ReactBootstrapTest extends Component<any, any> {
         const innerCheckbox = <input type='checkbox' aria-label='...' />;
 
         return (
-            <div style={style}> 
+            <div style={style}>
                 <div style={style}>
                     <ButtonToolbar>
                         <Button>Default</Button>
@@ -40,7 +40,7 @@ export class ReactBootstrapTest extends Component<any, any> {
                         <Button bsStyle='warning'>Warning</Button>
                         <Button bsStyle='danger'>Danger</Button>
                         <Button bsStyle='link'>Link</Button>
-                    </ButtonToolbar>                    
+                    </ButtonToolbar>
                 </div>
 
                 <div style={style}>
@@ -81,7 +81,7 @@ export class ReactBootstrapTest extends Component<any, any> {
                     <ButtonToolbar>
                         <Button href='#'>Link</Button>
                         <Button>Button</Button>
-                    </ButtonToolbar>    
+                    </ButtonToolbar>
                 </div>
 
 
@@ -177,7 +177,7 @@ export class ReactBootstrapTest extends Component<any, any> {
                     <MenuItem eventKey='3' active>Active Item</MenuItem>
                     <MenuItem divider />
                     <MenuItem eventKey='4'>Separated link</MenuItem>
-                  </DropdownButton>                
+                  </DropdownButton>
                 </div>
 
                 <div style={style}>
@@ -202,7 +202,7 @@ export class ReactBootstrapTest extends Component<any, any> {
                 <div style={style}>
                     <Panel onClick={this.callback}>
                         Basic panel example
-                    </Panel>                
+                    </Panel>
                 </div>
 
                 <div style={style}>
@@ -464,7 +464,7 @@ export class ReactBootstrapTest extends Component<any, any> {
                         <MenuItem eventKey='4'>Separated link</MenuItem>
                       </NavDropdown>
                     </Nav>
-                  </Navbar>                
+                  </Navbar>
                 </div>
 
                 <div style={style}>
@@ -473,7 +473,7 @@ export class ReactBootstrapTest extends Component<any, any> {
                       <NavItem eventKey={1} href='#'>Link</NavItem>
                       <NavItem eventKey={2} href='#'>Link</NavItem>
                     </Nav>
-                  </Navbar>                
+                  </Navbar>
                 </div>
 
                 <div style={style}>
@@ -526,7 +526,7 @@ export class ReactBootstrapTest extends Component<any, any> {
                       activePage={1}
                       onSelect={this.callback} />
                     <br />
-            
+
                     <Pagination
                       bsSize='small'
                       items={10}
@@ -564,7 +564,7 @@ export class ReactBootstrapTest extends Component<any, any> {
                         <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
                       </div>
                     </CarouselItem>
-                  </Carousel>   
+                  </Carousel>
                 </div>
 
                 <div style={style}>

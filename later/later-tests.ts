@@ -8,7 +8,7 @@ module LaterTest_DefineSchedule {
     var cronSched = later.parse.cron('0 0/5 14,18 * * ?');
     var recurSched = later.parse.recur().last().dayOfMonth();
     var manualSched = <Later.IScheduleData>{ schedules: [ <Later.IRecurrence>{ M: [ 3 ], D: [ 21 ] } ] };
-    
+
     // this schedule will fire on the closest weekday to the 15th
     // every month at 2:00 am except in March
     var complexSched = later.parse.recur()
@@ -414,7 +414,7 @@ module LaterTest_TimePeriods {
     export function custom() {
 
         var customLater = <IPartOfDayLater>later;
-        
+
         customLater.partOfDay = {
 
             name: 'part of day',
@@ -422,10 +422,10 @@ module LaterTest_TimePeriods {
             range: later.hour.range * 6,
 
             val: function(d: Date): number {
-                return later.hour.val(d) < 12 
-                    ? 0 
-                    : later.hour.val(d) < 18 
-                        ? 1 
+                return later.hour.val(d) < 12
+                    ? 0
+                    : later.hour.val(d) < 18
+                        ? 1
                         : 2;
             },
 
@@ -433,15 +433,15 @@ module LaterTest_TimePeriods {
                 return customLater.partOfDay.val(d) === val;
             },
 
-            extent: function(date?: Date) { 
-                return [0, 2]; 
+            extent: function(date?: Date) {
+                return [0, 2];
             },
 
             start: function(date: Date) {
-                var hour = customLater.partOfDay.val(date) === 0 
-                    ? 0 
-                    : customLater.partOfDay.val(date) === 1 
-                        ? 12 
+                var hour = customLater.partOfDay.val(date) === 0
+                    ? 0
+                    : customLater.partOfDay.val(date) === 1
+                        ? 12
                         : 18;
 
                 return later.date.next(
@@ -453,10 +453,10 @@ module LaterTest_TimePeriods {
             },
 
             end: function(date: Date) {
-                var hour = customLater.partOfDay.val(date) === 0 
-                    ? 11 
-                    : customLater.partOfDay.val(date) === 1 
-                        ? 5 
+                var hour = customLater.partOfDay.val(date) === 0
+                    ? 11
+                    : customLater.partOfDay.val(date) === 1
+                        ? 5
                         : 23;
 
                 return later.date.prev(
@@ -468,10 +468,10 @@ module LaterTest_TimePeriods {
             },
 
             next: function(date: Date, val: any) {
-                var hour = val === 0 
-                    ? 0 
-                    : val === 1 
-                        ? 12 
+                var hour = val === 0
+                    ? 0
+                    : val === 1
+                        ? 12
                         : 18;
 
                 return later.date.next(
@@ -484,17 +484,17 @@ module LaterTest_TimePeriods {
             },
 
             prev: function(date: Date, val: any) {
-                var hour = val === 0 
-                    ? 11 
-                    : val === 1 
-                        ? 5 
+                var hour = val === 0
+                    ? 11
+                    : val === 1
+                        ? 5
                         : 23;
 
                 return later.date.prev(
                     later.year.val(date),
                     later.month.val(date),
                     // decrement the day if we already passed the desired time period
-                    later.day.val(date) + (hour > later.hour.val(date) ? -1 : 0), 
+                    later.day.val(date) + (hour > later.hour.val(date) ? -1 : 0),
                     hour
                 );
             }
@@ -503,7 +503,7 @@ module LaterTest_TimePeriods {
 }
 
 module LaterTest_GenerateRecurences {
-    
+
     export function on_method() {
         // fires on the 2nd minute every hour
         later.parse.recur().on(2).minute();
