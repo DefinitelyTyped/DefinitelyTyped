@@ -45,31 +45,53 @@ declare var xit: Mocha.ITestDefinition;
 // alias for `it`
 declare var test: Mocha.ITestDefinition;
 
-declare type HookAction = (() => void) | ((done: MochaDone) => void);
+declare function before(action: () => void): void;
 
-declare function before(action: HookAction): void;
+declare function before(action: (done: MochaDone) => void): void;
 
-declare function before(description: string, action: HookAction): void;
+declare function before(description: string, action: () => void): void;
 
-declare function setup(action: HookAction): void;
+declare function before(description: string, action: (done: MochaDone) => void): void;
 
-declare function after(action: HookAction): void;
+declare function setup(action: () => void): void;
 
-declare function after(description: string, action: HookAction): void;
+declare function setup(action: (done: MochaDone) => void): void;
 
-declare function teardown(action: HookAction): void;
+declare function after(action: () => void): void;
 
-declare function beforeEach(action: HookAction): void;
+declare function after(action: (done: MochaDone) => void): void;
 
-declare function beforeEach(description: string, action: HookAction): void;
+declare function after(description: string, action: () => void): void;
 
-declare function suiteSetup(action: HookAction): void;
+declare function after(description: string, action: (done: MochaDone) => void): void;
 
-declare function afterEach(action: HookAction): void;
+declare function teardown(action: () => void): void;
 
-declare function afterEach(description: string, action: HookAction): void;
+declare function teardown(action: (done: MochaDone) => void): void;
 
-declare function suiteTeardown(action: HookAction): void;
+declare function beforeEach(action: () => void): void;
+
+declare function beforeEach(action: (done: MochaDone) => void): void;
+
+declare function beforeEach(description: string, action: () => void): void;
+
+declare function beforeEach(description: string, action: (done: MochaDone) => void): void;
+
+declare function suiteSetup(action: () => void): void;
+
+declare function suiteSetup(action: (done: MochaDone) => void): void;
+
+declare function afterEach(action: () => void): void;
+
+declare function afterEach(action: (done: MochaDone) => void): void;
+
+declare function afterEach(description: string, action: () => void): void;
+
+declare function afterEach(description: string, action: (done: MochaDone) => void): void;
+
+declare function suiteTeardown(action: () => void): void;
+
+declare function suiteTeardown(action: (done: MochaDone) => void): void;
 
 declare class Mocha {
     constructor(options?: {
