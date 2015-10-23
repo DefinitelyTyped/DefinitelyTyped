@@ -70,6 +70,13 @@ myApp.config((
         $scope.items = ["A", "List", "Of", "Items"];
       }
     })
+    .state('state1.list', {
+      url: "/list",
+      templateUrl: "partials/state1.list.html",
+      controller: ['$scope', function ($scope: MyAppScope) {
+        $scope.items = ["A", "List", "Of", "Items"];
+      }]
+    })
     .state('state2', {
       url: "/state2",
       templateUrl: "partials/state2.html"
@@ -173,7 +180,21 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
         this.$state.get("myState");
         this.$state.get();
         this.$state.reload();
-        
+
+        // http://angular-ui.github.io/ui-router/site/#/api/ui.router.state.$state#properties
+        if (this.$state.transition) {
+          var transitionPromise: ng.IPromise<{}> = this.$state.transition;
+          transitionPromise.then(() => {
+            // transition success
+          }, () => {
+            // transition failure
+          }).catch(() => {
+            // transition failure
+          }).finally(() => {
+            // transition ended (success or failure)
+          });
+        }
+
         // Accesses the currently resolved values for the current state
         // http://stackoverflow.com/questions/28026620/is-there-a-way-to-access-resolved-state-dependencies-besides-injecting-them-into/28027023#28027023
         var resolvedValues = this.$state.$current.locals.globals;

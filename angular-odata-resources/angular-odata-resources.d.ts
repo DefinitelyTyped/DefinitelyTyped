@@ -19,6 +19,7 @@ declare module OData {
             url?: string;
             method?: string;
         };
+        isodatav4?: boolean;
     }
 
 
