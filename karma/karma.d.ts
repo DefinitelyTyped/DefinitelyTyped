@@ -8,7 +8,7 @@
 /// <reference path="../log4js/log4js.d.ts" />
 
 declare module 'karma' {
-    // See Karma public API https://karma-runner.github.io/0.12/dev/public-api.html
+    // See Karma public API https://karma-runner.github.io/0.13/dev/public-api.html
     import Promise = require('bluebird');
     import https = require('https');
     import log4js = require('log4js');
