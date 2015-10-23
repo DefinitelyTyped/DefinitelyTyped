@@ -116,6 +116,14 @@ when.iterate(function (x) {
 	console.log(err);
 });
 
+when.unfold(function (x) {
+	return [{foo: 'bar'}, x + 1];
+}, function (x) {
+	return x < 10;
+}, function (y) {
+	delete y.foo;
+}, 0);
+
 /* when.promise(resolver) */
 
 promise = when.promise<number>(resolve => resolve(5));
