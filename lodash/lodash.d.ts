@@ -9048,6 +9048,7 @@ declare module _ {
         /**
          * Escapes the RegExp special characters "\", "/", "^", "$", ".", "|", "?", "*", "+", "(", ")", "[", "]",
          * "{" and "}" in string.
+         *
          * @param string The string to escape.
          * @return Returns the escaped string.
          */
@@ -9059,6 +9060,13 @@ declare module _ {
          * @see _.escapeRegExp
          */
         escapeRegExp(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.escapeRegExp
+         */
+        escapeRegExp(): LoDashExplicitWrapper<string>;
     }
 
     //_.kebabCase
