@@ -9633,40 +9633,71 @@ declare module _ {
         /**
          * Creates a function that invokes the method at path on a given object. Any additional arguments are provided
          * to the invoked method.
+         *
          * @param path The path of the method to invoke.
          * @param args The arguments to invoke the method with.
          * @return Returns the new function.
          */
-        method<TResult>(path: string, ...args: any[]): (object: any) => TResult;
+        method<TObject, TResult>(
+            path: string|StringRepresentable[],
+            ...args: any[]
+        ): (object: TObject) => TResult;
 
         /**
          * @see _.method
          */
-        method<TResult>(path: any[], ...args: any[]): (object: any) => TResult;
+        method<TResult>(
+            path: string|StringRepresentable[],
+            ...args: any[]
+        ): (object: any) => TResult;
     }
 
     interface LoDashImplicitWrapper<T> {
         /**
          * @see _.method
          */
-        method<TResult>(...args: any[]): LoDashImplicitWrapper<(object: any) => TResult>;
+        method<TObject, TResult>(...args: any[]): LoDashImplicitObjectWrapper<(object: TObject) => TResult>;
 
         /**
          * @see _.method
          */
-        method<TResult>(...args: any[]): LoDashImplicitWrapper<(object: any) => TResult>;
+        method<TResult>(...args: any[]): LoDashImplicitObjectWrapper<(object: any) => TResult>;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.method
          */
-        method<TResult>(...args: any[]): LoDashImplicitWrapper<(object: any) => TResult>;
+        method<TObject, TResult>(...args: any[]): LoDashImplicitObjectWrapper<(object: TObject) => TResult>;
 
         /**
          * @see _.method
          */
-        method<TResult>(...args: any[]): LoDashImplicitWrapper<(object: any) => TResult>;
+        method<TResult>(...args: any[]): LoDashImplicitObjectWrapper<(object: any) => TResult>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.method
+         */
+        method<TObject, TResult>(...args: any[]): LoDashExplicitObjectWrapper<(object: TObject) => TResult>;
+
+        /**
+         * @see _.method
+         */
+        method<TResult>(...args: any[]): LoDashExplicitObjectWrapper<(object: any) => TResult>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.method
+         */
+        method<TObject, TResult>(...args: any[]): LoDashExplicitObjectWrapper<(object: TObject) => TResult>;
+
+        /**
+         * @see _.method
+         */
+        method<TResult>(...args: any[]): LoDashExplicitObjectWrapper<(object: any) => TResult>;
     }
 
     //_.methodOf
