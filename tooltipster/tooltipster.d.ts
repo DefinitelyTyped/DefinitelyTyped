@@ -42,7 +42,7 @@ declare module JQueryTooltipster {
 		 * If the content of the tooltip is provided as a string, it is displayed as plain text by default. 
 		 * If this content should actually be interpreted as HTML, set this option to true. Default: false
 		 */
-		contentAsHTML?: string;
+		contentAsHTML?: boolean;
 
 		/**
 		 * If you provide a jQuery object to the 'content' option, this sets if it is a clone of this object that should actually be used. Default: true

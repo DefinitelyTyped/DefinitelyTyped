@@ -13,6 +13,7 @@ import * as dgram from "dgram";
 import * as querystring from "querystring";
 import * as path from "path";
 import * as readline from "readline";
+import * as childProcess from "child_process";
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -34,7 +35,7 @@ assert.doesNotThrow(() => {
 fs.writeFile("thebible.txt",
     "Do unto others as you would have them do unto you.",
     assert.ifError);
-    
+
 fs.write(1234, "test");
 
 fs.writeFile("Harry Potter",
@@ -87,6 +88,25 @@ function bufferTests() {
     console.log(Buffer.byteLength('xyz123', 'ascii'));
     var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
     var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
+
+    // Test that TS 1.6 works with the 'as Buffer' annotation
+    // on isBuffer.
+    var a: Buffer | number;
+    a = new Buffer(10);
+    if (Buffer.isBuffer(a)) {
+        a.writeUInt8(3, 4);
+    }
+
+    // write* methods return offsets.
+    var b = new Buffer(16);
+    var result: number = b.writeUInt32LE(0, 0);
+    result = b.writeUInt16LE(0, 4);
+    result = b.writeUInt8(0, 6);
+    result = b.writeInt8(0, 7);
+    result = b.writeDoubleLE(0, 8);
+
+    // fill returns the input buffer.
+    b.fill('a').fill('b');
 }
 
 
@@ -382,3 +402,10 @@ rl.prompt(true);
 rl.question("do you like typescript?", function(answer: string) {
   rl.close();
 });
+
+//////////////////////////////////////////////////////////////////////
+/// Child Process tests: https://nodejs.org/api/child_process.html ///
+//////////////////////////////////////////////////////////////////////
+
+childProcess.exec("echo test");
+childProcess.spawnSync("echo test");

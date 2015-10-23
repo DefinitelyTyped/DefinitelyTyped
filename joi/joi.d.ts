@@ -1,6 +1,6 @@
 // Type definitions for joi v4.6.0
 // Project: https://github.com/spumko/joi
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>, Christopher Glantschnig <https://github.com/cglantschnig>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // TODO express type of Schema in a type-parameter (.default, .valid, .example etc)
@@ -120,7 +120,7 @@ declare module 'joi' {
 		cidr?: string
 	}
 
-	export interface ValidationError {
+	export interface ValidationError extends Error {
 		message: string;
 		details: ValidationErrorItem[];
 		simple(): string;

@@ -296,6 +296,17 @@ module TestQ {
         result = $q.reject('');
     }
 
+    // $q.resolve
+    {
+        let result: angular.IPromise<void>;
+        result = $q.resolve();
+    }
+    {
+        let result: angular.IPromise<TResult>;
+        result = $q.resolve<TResult>(tResult);
+        result = $q.resolve<TResult>(promiseTResult);
+    }
+
     // $q.when
     {
         let result: angular.IPromise<void>;
@@ -387,35 +398,47 @@ module TestPromise {
 
     var tresult: TResult;
     var tresultPromise: ng.IPromise<TResult>;
-    
+    var tresultHttpPromise: ng.IHttpPromise<TResult>;
+
     var tother: TOther;
     var totherPromise: ng.IPromise<TOther>;
-    
+    var totherHttpPromise: ng.IHttpPromise<TOther>;
+
     var promise: angular.IPromise<TResult>;
 
     // promise.then
     result = <angular.IPromise<any>>promise.then((result) => any);
     result = <angular.IPromise<any>>promise.then((result) => any, (any) => any);
     result = <angular.IPromise<any>>promise.then((result) => any, (any) => any, (any) => any);
-    
+
     result = <angular.IPromise<TResult>>promise.then((result) => result);
     result = <angular.IPromise<TResult>>promise.then((result) => result, (any) => any);
     result = <angular.IPromise<TResult>>promise.then((result) => result, (any) => any, (any) => any);
     result = <angular.IPromise<TResult>>promise.then((result) => tresultPromise);
     result = <angular.IPromise<TResult>>promise.then((result) => tresultPromise, (any) => any);
     result = <angular.IPromise<TResult>>promise.then((result) => tresultPromise, (any) => any, (any) => any);
-    
+    result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TResult>>>promise.then((result) => tresultHttpPromise);
+    result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TResult>>>promise.then((result) => tresultHttpPromise, (any) => any);
+    result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TResult>>>promise.then((result) => tresultHttpPromise, (any) => any, (any) => any);
+
     result = <angular.IPromise<TOther>>promise.then((result) => tother);
     result = <angular.IPromise<TOther>>promise.then((result) => tother, (any) => any);
     result = <angular.IPromise<TOther>>promise.then((result) => tother, (any) => any, (any) => any);
     result = <angular.IPromise<TOther>>promise.then((result) => totherPromise);
     result = <angular.IPromise<TOther>>promise.then((result) => totherPromise, (any) => any);
     result = <angular.IPromise<TOther>>promise.then((result) => totherPromise, (any) => any, (any) => any);
-    
+    result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TOther>>>promise.then((result) => totherHttpPromise);
+    result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TOther>>>promise.then((result) => totherHttpPromise, (any) => any);
+    result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TOther>>>promise.then((result) => totherHttpPromise, (any) => any, (any) => any);
+
     // promise.catch
     result = <angular.IPromise<any>>promise.catch((err) => any);
     result = <angular.IPromise<TResult>>promise.catch((err) => tresult);
+    result = <angular.IPromise<TResult>>promise.catch((err) => tresultPromise);
+    result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TResult>>>promise.catch((err) => tresultHttpPromise);
     result = <angular.IPromise<TOther>>promise.catch((err) => tother);
+    result = <angular.IPromise<TOther>>promise.catch((err) => totherPromise);
+    result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TOther>>>promise.catch((err) => totherHttpPromise);
 
     // promise.finally
     result = <angular.IPromise<TResult>>promise.finally(() => any);
@@ -484,7 +507,7 @@ function test_IAttributes(attributes: ng.IAttributes){
 }
 
 test_IAttributes({
-    $normalize: function (classVal){},
+    $normalize: function (classVal){ return "foo" },
     $addClass: function (classVal){},
     $removeClass: function(classVal){},
     $set: function(key, value){},
@@ -934,18 +957,114 @@ function NgModelControllerTyping() {
     };
 }
 
-function ngFilterTyping() {
-    var $filter:  angular.IFilterService;
+var $filter:  angular.IFilterService;
+
+function testFilter() {
+
     var items: string[];
-    
-    $filter("name")(items, "test");
-    $filter("name")(items, {name: "test"});
-    $filter("name")(items, (val, index, array) => {
-        return array;
+    $filter("filter")(items, "test");
+    $filter("filter")(items, {name: "test"});
+    $filter("filter")(items, (val, index, array) => {
+        return true;
     });
-    $filter("name")(items, (val, index, array) => {
-        return array;
+    $filter("filter")(items, (val, index, array) => {
+      return true;
     }, (actual, expected) => {
         return actual == expected;
+    });
+}
+
+function testCurrency() {
+    $filter("currency")(126);
+    $filter("currency")(126, "$", 2);
+}
+
+function testNumber() {
+    $filter("number")(167);
+    $filter("number")(167, 2);
+}
+
+function testDate() {
+    $filter("date")(new Date());
+    $filter("date")(new Date(), 'yyyyMMdd');
+    $filter("date")(new Date(), 'yyyyMMdd', '+0430');
+}
+
+function testJson() {
+    var json: string = $filter("json")({test:true}, 2);
+}
+
+function testLowercase() {
+    var lower: string = $filter("lowercase")('test');
+}
+
+function testUppercase() {
+    var lower: string = $filter("uppercase")('test');
+}
+
+function testLimitTo() {
+    var limitTo = $filter("limitTo");
+    var filtered: number[] = $filter("limitTo")([1,2,3], 5);
+    filtered = $filter("limitTo")([1,2,3], 5, 2);
+
+    var filteredString: string = $filter("limitTo")("124", 4);
+    filteredString = $filter("limitTo")(124, 4);
+}
+
+function testOrderBy() {
+    var filtered: number[] = $filter("orderBy")([1,2,3], "test");
+    filtered = $filter("orderBy")([1,2,3], "test", true);
+    filtered = $filter("orderBy")([1,2,3], ['prop1', 'prop2']);
+    filtered = $filter("orderBy")([1,2,3], (val: number) => 1);
+    var filtered2: string[] = $filter("orderBy")(["1","2","3"], (val: string) => 1);
+    filtered2 = $filter("orderBy")(["1","2","3"], [
+        (val: string) => 1,
+        (val: string) => 2
+    ]);
+}
+
+function testDynamicFilter() {
+    // Test with separate variables
+    var dateFilter = $filter("date");
+    var myDate = new Date();
+    dateFilter(myDate , "EEE, MMM d");
+
+    // Test with dynamic name
+    var filterName = 'date';
+    var dynDateFilter = $filter<ng.IFilterDate>(filterName);
+    dynDateFilter(new Date());
+}
+
+interface MyCustomFilter {
+    (value: string): string;
+}
+
+function testCustomFilter() {
+    var filterCustom = $filter<MyCustomFilter>('custom');
+    var filtered: string = filterCustom("test");
+}
+
+function parseTyping() {
+    var $parse: angular.IParseService;
+    var compiledExp = $parse('a.b.c');
+    if (compiledExp.constant) {
+        return compiledExp({});
+    } else if (compiledExp.literal) {
+        return compiledExp({}, {a: {b: {c: 42}}});
+    }
+}
+
+function doBootstrap(element: Element | JQuery, mode: string): ng.auto.IInjectorService {
+    if (mode === 'debug') {
+        return angular.bootstrap(element, ['main', function($provide: ng.auto.IProvideService) {
+            $provide.decorator('$rootScope', function($delegate: ng.IRootScopeService) {
+                $delegate['debug'] = true;
+            });
+        }, 'debug-helpers'], {
+            debugInfoEnabled: true
+        });
+    }
+    return angular.bootstrap(element, ['main'], {
+        debugInfoEnabled: false
     });
 }

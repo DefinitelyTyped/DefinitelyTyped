@@ -100,6 +100,12 @@ declare class Mocha {
     invert(): Mocha;
     ignoreLeaks(value: boolean): Mocha;
     checkLeaks(): Mocha;
+    /**
+     * Function to allow assertion libraries to throw errors directly into mocha.
+     * This is useful when running tests in a browser because window.onerror will
+     * only receive the 'message' attribute of the Error.
+     */
+    throwError(error: Error): void;
     /** Enables growl support. */
     growl(): Mocha;
     globals(value: string): Mocha;
