@@ -9472,6 +9472,31 @@ declare module _ {
         callback<TResult>(thisArg?: any): LoDashImplicitObjectWrapper<(...args: any[]) => TResult>;
     }
 
+    //_.constant
+    interface LoDashStatic {
+        /**
+         * Creates a function that returns value.
+         *
+         * @param value The value to return from the new function.
+         * @return Returns the new function.
+         */
+        constant<T>(value: T): () => T;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.constant
+         */
+        constant<TResult>(): LoDashImplicitObjectWrapper<() => TResult>;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.constant
+         */
+        constant<TResult>(): LoDashExplicitObjectWrapper<() => TResult>;
+    }
+
     //_.identity
     interface LoDashStatic {
         /**
@@ -9918,23 +9943,6 @@ declare module _ {
          * @see _.uniqueId
          */
         uniqueId(): string;
-    }
-
-    //_.constant
-    interface LoDashStatic {
-        /**
-         * Creates a function that returns value.
-         * @param value The value to return from the new function.
-         * @return Returns the new function.
-         */
-        constant<T>(value: T): () => T;
-    }
-
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
-        /**
-         * @see _.constant
-         */
-        constant<TResult>(): () => TResult;
     }
 
     interface ListIterator<T, TResult> {
