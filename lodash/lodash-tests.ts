@@ -3468,14 +3468,6 @@ result = <number[]>_(new TestValueIn()).valuesIn<number>().value();
 * Utility *
 ***********/
 
-// _.attempt
-interface TestAttemptFn {
-    (): TResult;
-}
-var testAttempFn: TestAttemptFn;
-result = <TResult|Error>_.attempt<TResult>(testAttempFn);
-result = <TResult|Error>_(testAttempFn).attempt<TResult>();
-
 // _.noop
 result = <void>_.noop();
 result = <void>_.noop(1);
@@ -3677,6 +3669,24 @@ result = <string[]>_('fred, barney, & pebbles').words(/[^, ]+/g);
 /***********
  * Utility *
  ***********/
+
+// _.attempt
+module TestAttempt {
+    let func: (...args: any[]) => {a: string};
+
+    {
+        let result: {a: string}|Error;
+
+        result = _.attempt<{a: string}>(func);
+        result = _(func).attempt<{a: string}>();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{a: string}|Error>;
+
+        result = _(func).chain().attempt<{a: string}>();
+    }
+}
 
 // _.callback
 {
