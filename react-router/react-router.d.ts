@@ -147,7 +147,7 @@ declare module ReactRouter {
     //
     // Top-Level
     // ----------------------------------------------------------------------
-    interface Router extends React.ReactElement<any> {
+    interface Router extends React.ReactElement<any>, Navigation, State {
         run(callback: RouterRunCallback): void;
     }
 
