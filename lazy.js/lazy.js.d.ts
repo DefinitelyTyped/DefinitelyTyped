@@ -113,11 +113,11 @@ declare module LazyJS {
     interface SequenceBase<T> extends SequenceBaser<T> {
         first(): T;
         first(count: number): Sequence<T>;
-        indexOf(value: any, startIndex?: number): Sequence<T>;
+        indexOf(value: any, startIndex?: number): number;
 
         last(): T;
         last(count: number): Sequence<T>;
-        lastIndexOf(value: any): Sequence<T>;
+        lastIndexOf(value: any): number;
 
         reverse(): Sequence<T>;
     }
