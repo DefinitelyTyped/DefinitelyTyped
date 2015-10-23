@@ -3759,13 +3759,21 @@ module TestMatches {
     {
         let result: (value: any) => boolean;
         result = _.matches<TResult>(source);
-        result = _(source).matches().value();
     }
 
     {
         let result: (value: TResult) => boolean;
         result = _.matches<TResult, TResult>(source);
-        result = _(source).matches<TResult>().value();
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(value: TResult) => boolean>;
+        result = _(source).matches<TResult>();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(value: TResult) => boolean>;
+        result = _(source).chain().matches<TResult>();
     }
 }
 
