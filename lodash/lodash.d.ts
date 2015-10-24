@@ -9231,6 +9231,13 @@ declare module _ {
     }
 
     //_.template
+    interface TemplateOptions extends TemplateSettings {
+        /**
+         * The sourceURL of the template's compiled source.
+         */
+        sourceURL?: string;
+    }
+
     interface TemplateExecutor {
         (data?: Object): string;
         source: string;
@@ -9259,19 +9266,28 @@ declare module _ {
          * @param options.evaluate The "evaluate" delimiter.
          * @param options.imports An object to import into the template as free variables.
          * @param options.interpolate The "interpolate" delimiter.
+         * @param options.sourceURL The sourceURL of the template's compiled source.
          * @param options.variable The data object variable name.
          * @return Returns the compiled template function.
          */
         template(
             string: string,
-            options?: TemplateSettings): TemplateExecutor;
+            options?: TemplateOptions
+        ): TemplateExecutor;
     }
 
     interface LoDashImplicitWrapper<T> {
         /**
          * @see _.template
          */
-        template(options?: TemplateSettings): TemplateExecutor;
+        template(options?: TemplateOptions): TemplateExecutor;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.template
+         */
+        template(options?: TemplateOptions): LoDashExplicitObjectWrapper<TemplateExecutor>;
     }
 
     //_.trim
