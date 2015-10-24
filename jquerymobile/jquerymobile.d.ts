@@ -333,6 +333,7 @@ interface JQueryMobilePath {
     getDocumentUrl(asParsedObject?: boolean): any;
     getLocation(): string;
     isAbsoluteUrl(url: string): boolean;
+    isEmbeddedPage(url: string): boolean;
     isRelativeUrl(url: string): boolean;
     makeUrlAbsolute(relUrl: string, absUrl: string): string;
     parseLocation(): ParsedPath;
