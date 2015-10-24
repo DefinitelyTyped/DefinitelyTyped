@@ -3,11 +3,12 @@
 // Definitions by: Petar Paar <https://github.com/pepaar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path='../react/react.d.ts' />
-declare module FixedDataTable {
-    var version: string;
+/// <reference path="../react/react.d.ts"/>
 
-    interface TableProps {
+declare module FixedDataTable {    
+    export var version: string;
+
+    export interface TableProps extends __React.Props<Table> {
          /**
 	     * Pixel width of table. If all columns do not fit,
 	     * a horizontal scrollbar will appear.
@@ -108,7 +109,7 @@ declare module FixedDataTable {
 	     * DEPRECATED - use footerDataGetter instead.
 	     * Data that will be passed to footer cell renderers.
 	     */
-	    footerData?: any,
+	    footerData?: any;
 
 	    /**
 	     * Function that is called to get the data for the footer row.
@@ -205,7 +206,7 @@ declare module FixedDataTable {
 	     * The horizontal alignment of the table cell content.
          * 'left', 'center', 'right'
 	     */
-	    align?: string,
+	    align?: string;
 
 	    /**
 	     * className for this column's header cell.
@@ -251,12 +252,12 @@ declare module FixedDataTable {
 	     * must be either `string` or `number`. Since we use this
 	     * for keys, it must be specified for each column.
 	     */
-	    dataKey: string|number,
+	    dataKey: string|number;
 
 	    /**
 	     * Controls if the column is fixed when scrolling in the X axis.
 	     */
-	    fixed?: boolean,
+	    fixed?: boolean;
 
 	    /**
 	     * The cell renderer that returns React-renderable content for table column
@@ -291,7 +292,7 @@ declare module FixedDataTable {
 	    /**
 	     * Bucket for any data to be passed into column renderer functions.
 	     */
-	    columnData?: any,
+	    columnData?: any;
 
 	    /**
 	     * The column's header label.
@@ -330,7 +331,7 @@ declare module FixedDataTable {
 	     * is set to true, you will need ot se the onColumnResizeEndCallback table
 	     * property and render your columns appropriately.
 	     */
-	    isResizable?: boolean,
+	    isResizable?: boolean;
 
 	    /**
 	     * Experimental feature
@@ -343,10 +344,10 @@ declare module FixedDataTable {
 	     * Setting the property to false will keep previous behaviour and keep
 	     * cell rendered if the row it belongs to is visible.
 	     */
-	    allowCellsRecycling?: boolean
+	    allowCellsRecycling?: boolean;
     }
 
-    interface ColumnGroupProps {
+    export interface ColumnGroupProps {
         /**
 	     * The horizontal alignment of the table cell content.
          * 'left', 'center', 'right'
@@ -356,12 +357,12 @@ declare module FixedDataTable {
 	    /**
 	     * Controls if the column group is fixed when scrolling in the X axis.
 	     */
-	    fixed?: boolean,
+	    fixed?: boolean;
 
 	    /**
 	     * Bucket for any data to be passed into column group renderer functions.
 	     */
-	    columnGroupData?: any,
+	    columnGroupData?: any;
 
 	    /**
 	     * The column group's header label.
@@ -385,11 +386,17 @@ declare module FixedDataTable {
 	    groupHeaderRenderer?: Function;
     }
 
-    class Table extends React.Component<TableProps, {}> {}
-    class Column extends React.Component<ColumnProps, {}> {}
-    class ColumnGroup extends React.Component<ColumnGroupProps, {}> {}
+    export class Table extends __React.Component<TableProps, {}> {
+         render(): __React.DOMElement<any>
+    }
+    export class Column extends __React.Component<ColumnProps, {}> {
+         render(): __React.DOMElement<any>
+    }
+    export class ColumnGroup extends __React.Component<ColumnGroupProps, {}> {
+         render(): __React.DOMElement<any>
+    }
 }
 
-declare module "fixed-data-table" {
+declare module "fixed-data-table" {    
     export = FixedDataTable;
 }
