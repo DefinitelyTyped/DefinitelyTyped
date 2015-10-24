@@ -36,7 +36,7 @@ function main()
   return gear;
 }
 
-function involuteGear(numTeeth, circularPitch, pressureAngle, clearance, thickness)
+function involuteGear(numTeeth: number, circularPitch: number, pressureAngle: number, clearance: number, thickness: number)
 {
   // default values:
   if(arguments.length < 3) pressureAngle = 20;
@@ -167,7 +167,7 @@ function main2()
   return result;
 }
 
-function makeShaft(innerdiameter, outerdiameter, spidercenterdiameter, shaftlength, outerlength, spiderlength, nutradius, nutthickness, screwdiameter, numteeth)
+function makeShaft(innerdiameter: number, outerdiameter: number, spidercenterdiameter: number, shaftlength: number, outerlength: number, spiderlength: number, nutradius: number, nutthickness: number, screwdiameter: number, numteeth: number)
 {
   var result=CSG.cylinder({start:[0,0,0], end:[0,0,outerlength], radius:outerdiameter/2, resolution:cylresolution});
 
@@ -210,7 +210,7 @@ function makeShaft(innerdiameter, outerdiameter, spidercenterdiameter, shaftleng
   return result;
 }
 
-function makePie(radius, height, startangle, endangle)
+function makePie(radius: number, height: number, startangle: number, endangle: number)
 {
   var absangle=Math.abs(startangle-endangle);
   if(absangle >= 180)
@@ -219,7 +219,7 @@ function makePie(radius, height, startangle, endangle)
   }
   var numsteps=cylresolution*absangle/360;
   if(numsteps < 1) numsteps=1;
-  var points=[];
+  var points: CSG.Vector2D[] = [];
   for(var i=0; i <= numsteps; i++)
   {
     var angle=startangle+i/numsteps*(endangle-startangle);
@@ -234,9 +234,9 @@ function makePie(radius, height, startangle, endangle)
   return extruded;
 }
 
-function hexagon(radius, height)
+function hexagon(radius: number, height: number)
 {
-  var vertices=[];
+  var vertices: CSG.Vertex[] = [];
   for(var i=0; i < 6; i++)
   {
     var point=CSG.Vector2D.fromAngleDegrees(-i*60).times(radius).toVector3D(0);
@@ -247,7 +247,7 @@ function hexagon(radius, height)
   return hexagon;
 }
 
-function makeSpider(outerdiameter, spidercenterdiameter, spiderlength, numteeth)
+function makeSpider(outerdiameter: number, spidercenterdiameter: number, spiderlength: number, numteeth: number)
 {
   var result=new CSG();
   var numspiderteeth=numteeth*2; // spider has twice the number of teeth
