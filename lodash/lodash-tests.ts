@@ -3579,12 +3579,28 @@ result = <string>_('abc').padLeft(6);
 result = <string>_('abc').padLeft(6, '_-');
 
 // _.padRight
-result = <string>_.padRight('abc');
-result = <string>_.padRight('abc', 6);
-result = <string>_.padRight('abc', 6, '_-');
-result = <string>_('abc').padRight();
-result = <string>_('abc').padRight(6);
-result = <string>_('abc').padRight(6, '_-');
+module TestPadRight {
+    {
+        let result: string;
+
+        result = _.padRight('abc');
+        result = _.padRight('abc', 6);
+        result = _.padRight('abc', 6, '_-');
+
+        result = _('abc').padRight();
+        result = _('abc').padRight(6);
+        result = _('abc').padRight(6, '_-');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('abc').chain().padRight();
+        result = _('abc').chain().padRight(6);
+        result = _('abc').chain().padRight(6, '_-');
+    }
+}
+
 
 // _.parseInt
 result = <number>_.parseInt('08');
