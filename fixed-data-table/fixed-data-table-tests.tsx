@@ -11,7 +11,7 @@ var rows = [
     // .... and more
 ];
 
-function rowGetter(rowIndex) {
+function rowGetter(rowIndex: number) {
     return rows[rowIndex];
 }
 
