@@ -9163,11 +9163,15 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Repeats the given string n times.
+         *
          * @param string The string to repeat.
          * @param n The number of times to repeat the string.
          * @return Returns the repeated string.
          */
-        repeat(string?: string, n?: number): string;
+        repeat(
+            string?: string,
+            n?: number
+        ): string;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -9175,6 +9179,13 @@ declare module _ {
          * @see _.repeat
          */
         repeat(n?: number): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.repeat
+         */
+        repeat(n?: number): LoDashExplicitWrapper<string>;
     }
 
     //_.snakeCase
