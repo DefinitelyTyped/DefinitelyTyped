@@ -2,7 +2,7 @@
 
 function test() {
 
-  var gProcessor=null;
+  var gProcessor: OpenJsCad.Processor = null;
   
   // Show all exceptions to the user:
   OpenJsCad.AlertUserOfUncaughtExceptions();
@@ -21,44 +21,21 @@ function test() {
 
 }
 
-function main(params)
+function main()
 {
   // Main entry point; here we construct our solid: 
   var gear = involuteGear(
-    params.numTeeth,
-    params.circularPitch,
-    params.pressureAngle,
-    params.clearance,
-    params.thickness
+    15,
+    10,
+    20,
+    0,
+    5
   );
-  if(params.centerholeradius > 0)
-  {
-    var centerhole = CSG.cylinder({start: [0,0,-params.thickness], end: [0,0,params.thickness], radius: params.centerholeradius, resolution: 16});
-    gear = gear.subtract(centerhole);
-  }
+  var centerhole = CSG.cylinder({start: [0,0,-5], end: [0,0,5], radius: 2, resolution: 16});
+  gear = gear.subtract(centerhole);
   return gear;
 }
 
-// Here we define the user editable parameters: 
-function getParameterDefinitions() {
-  return [
-    { name: 'numTeeth', caption: 'Number of teeth:', type: 'int', default: 15 },
-    { name: 'circularPitch', caption: 'Circular pitch:', type: 'float', default: 10 },
-    { name: 'pressureAngle', caption: 'Pressure angle:', type: 'float', default: 20 },
-    { name: 'clearance', caption: 'Clearance:', type: 'float', default: 0 },
-    { name: 'thickness', caption: 'Thickness:', type: 'float', default: 5 },
-    { name: 'centerholeradius', caption: 'Radius of center hole (0 for no hole):', type: 'float', default: 2 },
-  ];
-}
-
-/*
-  For gear terminology see: 
-    http://www.astronomiainumbria.org/advanced_internet_files/meccanica/easyweb.easynet.co.uk/_chrish/geardata.htm
-  Algorithm based on:
-    http://www.cartertools.com/involute.html
-
-  circularPitch: The distance between adjacent teeth measured at the pitch circle
-*/ 
 function involuteGear(numTeeth, circularPitch, pressureAngle, clearance, thickness)
 {
   // default values:
@@ -138,41 +115,32 @@ function involuteGear(numTeeth, circularPitch, pressureAngle, clearance, thickne
 
 var cylresolution=16;
 
-// Here we define the user editable parameters:
-function getParameterDefinitions2() {
-  return [
-    {
-      name: 'quality',
-      type: 'choice',
-      caption: 'Quality',
-      values: [0, 1],
-      captions: ["Draft","High"],
-      default: 0,
-    },
 
-    { name: 'diameter1', caption: 'Axis diameter of first coupler:', type: 'float', default: 12.2 },
-    { name: 'shaftlength1', caption: 'Axis depth of first coupler:', type: 'float', default: 15 },
-    { name: 'outerlength1', caption: 'Outer length of first coupler:', type: 'float', default: 20 },
-    { name: 'nutradius1', caption: 'Nut radius of first coupler:', type: 'float', default: 4.65 },
-    { name: 'nutthickness1', caption: 'Nut thickness of first coupler:', type: 'float', default: 4.2},
-    { name: 'screwdiameter1', caption: 'Screw diameter of first coupler:', type: 'float', default: 5},
-    { name: 'diameter2', caption: 'Axis diameter of second coupler:', type: 'float', default: 9.5 },
-    { name: 'shaftlength2', caption: 'Axis depth of second coupler:', type: 'float', default: 10 },
-    { name: 'outerlength2', caption: 'Outer length of second coupler:', type: 'float', default: 15 },
-    { name: 'nutradius2', caption: 'Nut radius of second coupler:', type: 'float', default: 3.2 },
-    { name: 'nutthickness2', caption: 'Nut thickness of second coupler:', type: 'float', default: 2.6},
-    { name: 'screwdiameter2', caption: 'Screw diameter of second coupler:', type: 'float', default: 3},
-    { name: 'outerdiameter', caption: 'Outer diameter:', type: 'float', default: 30 },
-    { name: 'spiderlength', caption: 'Spider thickness:', type: 'float', default: 12 },
-    { name: 'spidermargin', caption: 'Spider tolerance:', type: 'float', default: 0 },
-    { name: 'numteeth', caption: 'Num teeth per coupler:', type: 'int', default: 2},
-
-  ];
-}
-
-function main2(params)
+function main2()
 {
-  cylresolution=(params.quality == "1")? 64:16;
+  var params = 
+    {
+      quality: 0,
+      diameter1: 12.2,
+      shaftlength1: 15,
+      outerlength1: 20,
+      nutradius1: 4.65,
+      nutthickness1: 4.2,
+      screwdiameter1: 5,
+      diameter2: 9.5,
+      shaftlength2: 10,
+      outerlength2: 15,
+      nutradius2: 3.2,
+      nutthickness2: 2.6,
+      screwdiameter2: 3,
+      outerdiameter: 30,
+      spiderlength: 12,
+      spidermargin: 0,
+      numteeth: 2
+    };
+
+
+  cylresolution=(params.quality == 1)? 64:16;
 
   var outerdiameter=params.outerdiameter;
   outerdiameter=Math.max(outerdiameter, params.diameter1+0.5);
