@@ -9198,6 +9198,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Converts string to start case.
+         *
          * @param string The string to convert.
          * @return Returns the start cased string.
          */
@@ -9209,6 +9210,13 @@ declare module _ {
          * @see _.startCase
          */
         startCase(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.startCase
+         */
+        startCase(): LoDashExplicitWrapper<string>;
     }
 
     //_.startsWith
