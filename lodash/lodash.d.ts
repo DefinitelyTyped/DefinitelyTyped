@@ -9739,6 +9739,23 @@ declare module _ {
         ): LoDashImplicitObjectWrapper<TResult>;
     }
 
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.mixin
+         */
+        mixin<TResult>(
+            source: Dictionary<Function>,
+            options?: MixinOptions
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.mixin
+         */
+        mixin<TResult>(
+            options?: MixinOptions
+        ): LoDashExplicitObjectWrapper<TResult>;
+    }
+
     //_.noConflict
     interface LoDashStatic {
         /**
