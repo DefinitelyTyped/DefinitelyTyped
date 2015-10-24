@@ -291,7 +291,7 @@ declare module OpenJsCad {
         addLibrary(lib: any): void;
         setError(txt: string): void;
         setDebugging(debugging: boolean): void;
-        setJsCad(script: string, filename: string): void;
+        setJsCad(script: string, filename?: string): void;
         getParamValues(): {};
         rebuildSolid(): void;
         hasSolid(): boolean;
