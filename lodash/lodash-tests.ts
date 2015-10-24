@@ -3812,18 +3812,36 @@ result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())('a[0]');
 result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())(['a', '0']);
 
 // _.mixin
-{
-    let testMixinSource: _.Dictionary<Function>;
-    let testMixinOptions: {chain?: boolean;}
-    let result: TResult;
-    result = _.mixin<TResult, Object>({}, testMixinSource);
-    result = _.mixin<TResult, Object>({}, testMixinSource, testMixinOptions);
-    result = _.mixin<TResult>(testMixinSource);
-    result = _.mixin<TResult>(testMixinSource, testMixinOptions);
-    result = _({}).mixin<TResult>(testMixinSource).value();
-    result = _({}).mixin<TResult>(testMixinSource, testMixinOptions).value();
-    result = _(testMixinSource).mixin<TResult>().value();
-    result = _(testMixinSource).mixin<TResult>(testMixinOptions).value();
+module TestMixin {
+    let source: _.Dictionary<Function>;
+    let options: {chain?: boolean};
+
+    {
+        let result: TResult;
+
+        result = _.mixin<TResult, Object>({}, source);
+        result = _.mixin<TResult, Object>({}, source, options);
+        result = _.mixin<TResult>(source);
+        result = _.mixin<TResult>(source, options);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<TResult>;
+
+        result = _({}).mixin<TResult>(source);
+        result = _({}).mixin<TResult>(source, options);
+        result = _(source).mixin<TResult>();
+        result = _(source).mixin<TResult>(options);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<TResult>;
+
+        result = _({}).chain().mixin<TResult>(source);
+        result = _({}).chain().mixin<TResult>(source, options);
+        result = _(source).chain().mixin<TResult>();
+        result = _(source).chain().mixin<TResult>(options);
+    }
 }
 
 // _.noConflict
