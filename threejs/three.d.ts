@@ -539,7 +539,8 @@ declare module THREE {
         groups: {start: number, count: number, materialIndex?: number}[]
         boundingBox: Box3;
         boundingSphere: BoundingSphere;
-
+        /** Deprecated. This overloaded method is deprecated. */
+        addAttribute(name: string, array: any, itemSize: number): any;
         addAttribute(name: string, attribute: BufferAttribute|InterleavedBufferAttribute): void;
         getAttribute(name: string): BufferAttribute|InterleavedBufferAttribute;
         removeAttribute(name: string): void;
@@ -547,6 +548,8 @@ declare module THREE {
         setIndex(index: BufferAttribute): void;
         getIndex(): BufferAttribute;
 
+        /** Deprecated. Use addGroup */
+        addDrawCall(start: number, count: number, index: number): void;
         addGroup(start: number, count: number, materialIndex?: number): void;
         clearGroups(): void;
 
