@@ -3653,16 +3653,33 @@ result = <string>_('-_-abc-_-').trimRight();
 result = <string>_('-_-abc-_-').trimRight('_-');
 
 // _.trunc
-result = <string>_.trunc('hi-diddly-ho there, neighborino');
-result = <string>_.trunc('hi-diddly-ho there, neighborino', 24);
-result = <string>_.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': ' ' });
-result = <string>_.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': /,? +/ });
-result = <string>_.trunc('hi-diddly-ho there, neighborino', { 'omission': ' […]' });
-result = <string>_('hi-diddly-ho there, neighborino').trunc();
-result = <string>_('hi-diddly-ho there, neighborino').trunc(24);
-result = <string>_('hi-diddly-ho there, neighborino').trunc({ 'length': 24, 'separator': ' ' });
-result = <string>_('hi-diddly-ho there, neighborino').trunc({ 'length': 24, 'separator': /,? +/ });
-result = <string>_('hi-diddly-ho there, neighborino').trunc({ 'omission': ' […]' });
+module TestTrunc {
+    {
+        let result: string;
+
+        result = _.trunc('hi-diddly-ho there, neighborino');
+        result = _.trunc('hi-diddly-ho there, neighborino', 24);
+        result = _.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': ' ' });
+        result = _.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': /,? +/ });
+        result = _.trunc('hi-diddly-ho there, neighborino', { 'omission': ' […]' });
+
+        result = _('hi-diddly-ho there, neighborino').trunc();
+        result = _('hi-diddly-ho there, neighborino').trunc(24);
+        result = _('hi-diddly-ho there, neighborino').trunc({ 'length': 24, 'separator': ' ' });
+        result = _('hi-diddly-ho there, neighborino').trunc({ 'length': 24, 'separator': /,? +/ });
+        result = _('hi-diddly-ho there, neighborino').trunc({ 'omission': ' […]' });
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('hi-diddly-ho there, neighborino').chain().trunc();
+        result = _('hi-diddly-ho there, neighborino').chain().trunc(24);
+        result = _('hi-diddly-ho there, neighborino').chain().trunc({ 'length': 24, 'separator': ' ' });
+        result = _('hi-diddly-ho there, neighborino').chain().trunc({ 'length': 24, 'separator': /,? +/ });
+        result = _('hi-diddly-ho there, neighborino').chain().trunc({ 'omission': ' […]' });
+    }
+}
 
 // _.unescape
 result = <string>_.unescape('fred, barney, &amp; pebbles');
