@@ -9342,11 +9342,15 @@ declare module _ {
         /**
          * Truncates string if it’s longer than the given maximum string length. The last characters of the truncated
          * string are replaced with the omission string which defaults to "…".
+         *
          * @param string The string to truncate.
          * @param options The options object or maximum string length.
          * @return Returns the truncated string.
          */
-        trunc(string?: string, options?: TruncOptions|number): string;
+        trunc(
+            string?: string,
+            options?: TruncOptions|number
+        ): string;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -9354,6 +9358,13 @@ declare module _ {
          * @see _.trunc
          */
         trunc(options?: TruncOptions|number): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.trunc
+         */
+        trunc(options?: TruncOptions|number): LoDashExplicitWrapper<string>;
     }
 
     //_.unescape
