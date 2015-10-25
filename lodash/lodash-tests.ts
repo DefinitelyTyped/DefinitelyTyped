@@ -3639,11 +3639,25 @@ result = <string>_('-_-abc-_-').trim();
 result = <string>_('-_-abc-_-').trim('_-');
 
 // _.trimLeft
-result = <string>_.trimLeft();
-result = <string>_.trimLeft('  abc  ');
-result = <string>_.trimLeft('-_-abc-_-', '_-');
-result = <string>_('-_-abc-_-').trimLeft();
-result = <string>_('-_-abc-_-').trimLeft('_-');
+module TestTrimLeft {
+    {
+        let result: string;
+
+        result = _.trimLeft();
+        result = _.trimLeft('  abc  ');
+        result = _.trimLeft('-_-abc-_-', '_-');
+
+        result = _('-_-abc-_-').trimLeft();
+        result = _('-_-abc-_-').trimLeft('_-');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('-_-abc-_-').chain().trimLeft();
+        result = _('-_-abc-_-').chain().trimLeft('_-');
+    }
+}
 
 // _.trimRight
 result = <string>_.trimRight();
