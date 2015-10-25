@@ -532,6 +532,10 @@ declare module THREE {
         type: string;
         attributes: BufferAttribute|InterleavedBufferAttribute[];
         attributesKeys: string[];
+        /** Deprecated. Use groups instead. */
+        drawcalls: { start: number; count: number; index: number; }[];
+        /** Deprecated. Use groups instead. */
+        offsets: { start: number; count: number; index: number; }[];
         groups: {start: number, count: number, materialIndex?: number}[]
         boundingBox: Box3;
         boundingSphere: BoundingSphere;
@@ -636,10 +640,10 @@ declare module THREE {
         type: string;
         indices: number[];
         vertices: Vector3[];
-    	normals: Vector3[];
-    	colors: Color[];
-    	uvs: Vector2[];
-    	uvs2: Vector2[];
+        normals: Vector3[];
+        colors: Color[];
+        uvs: Vector2[];
+        uvs2: Vector2[];
         groups: {start: number, materialIndex: number}[];
         morphTargets: MorphTarget[];
         skinWeights: number[];
@@ -647,10 +651,10 @@ declare module THREE {
         boundingBox: Box3;
         boundingSphere: BoundingSphere;
         verticesNeedUpdate: boolean;
-    	normalsNeedUpdate: boolean;
-    	colorsNeedUpdate: boolean;
-    	uvsNeedUpdate: boolean;
-    	groupsNeedUpdate: boolean;
+        normalsNeedUpdate: boolean;
+        colorsNeedUpdate: boolean;
+        uvsNeedUpdate: boolean;
+        groupsNeedUpdate: boolean;
         computeBoundingBox(): void;
         computeBoundingSphere(): void;
         computeGroups(geometry: Geometry): void;
