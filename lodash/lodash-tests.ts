@@ -142,16 +142,6 @@ result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1);
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1, 2, 5, 6);
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
 
-result = <string>_('test').toString();
-result = <string>_([1, 2, 3]).toString();
-result = <string>_({ 'key1': 'test1', 'key2': 'test2' }).toString();
-
-// _.value (aliases: _.run, _.toJSON, _.valueOf)
-result = <string>_('test').value();
-result = <number[]>_([1, 2, 3]).run();
-result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).toJSON();
-result = <_.Dictionary<number>>_({ a: 1, b: 2}).mapValues(function(num: number) { return num * 2; }).valueOf();
-
 /*********
  * Array *
  *********/
@@ -1460,6 +1450,175 @@ module TestReverse {
     {
         let result: _.LoDashExplicitArrayWrapper<number>;
         result: _([42]).chain().reverse();
+    }
+}
+
+// _.prototype.run
+module TestRun {
+    {
+        let result: string;
+
+        result = _('').run();
+        result = _('').chain().run();
+    }
+
+    {
+        let result: number;
+
+        result = _(42).run();
+        result = _(42).chain().run();
+    }
+
+    {
+        let result: boolean;
+
+        result = _(true).run();
+        result = _(true).chain().run();
+    }
+
+    {
+        let result: string[];
+
+        result = _<string>([]).run();
+        result = _<string>([]).chain().run();
+    }
+
+    {
+        let result: {a: string};
+
+        result = _({a: ''}).run();
+        result = _({a: ''}).chain().run();
+    }
+}
+
+// _.prototype.toJSON
+module TestToJSON {
+    {
+        let result: string;
+
+        result = _('').toJSON();
+        result = _('').chain().toJSON();
+    }
+
+    {
+        let result: number;
+
+        result = _(42).toJSON();
+        result = _(42).chain().toJSON();
+    }
+
+    {
+        let result: boolean;
+
+        result = _(true).toJSON();
+        result = _(true).chain().toJSON();
+    }
+
+    {
+        let result: string[];
+
+        result = _<string>([]).toJSON();
+        result = _<string>([]).chain().toJSON();
+    }
+
+    {
+        let result: {a: string};
+
+        result = _({a: ''}).toJSON();
+        result = _({a: ''}).chain().toJSON();
+    }
+}
+
+// _.prototype.toString
+module TestToString {
+    let result: string;
+
+    result = _('').toString();
+    result = _(42).toString();
+    result = _(true).toString();
+    result = _<string>(['']).toString();
+    result = _({}).toString();
+
+    result = _('').chain().toString();
+    result = _(42).chain().toString();
+    result = _(true).chain().toString();
+    result = _<string>(['']).chain().toString();
+    result = _({}).chain().toString();
+}
+
+// _.prototype.value
+module TestValue {
+    {
+        let result: string;
+
+        result = _('').value();
+        result = _('').chain().value();
+    }
+
+    {
+        let result: number;
+
+        result = _(42).value();
+        result = _(42).chain().value();
+    }
+
+    {
+        let result: boolean;
+
+        result = _(true).value();
+        result = _(true).chain().value();
+    }
+
+    {
+        let result: string[];
+
+        result = _<string>([]).value();
+        result = _<string>([]).chain().value();
+    }
+
+    {
+        let result: {a: string};
+
+        result = _({a: ''}).value();
+        result = _({a: ''}).chain().value();
+    }
+}
+
+// _.prototype.valueOf
+module TestValueOf {
+    {
+        let result: string;
+
+        result = _('').valueOf();
+        result = _('').chain().valueOf();
+    }
+
+    {
+        let result: number;
+
+        result = _(42).valueOf();
+        result = _(42).chain().valueOf();
+    }
+
+    {
+        let result: boolean;
+
+        result = _(true).valueOf();
+        result = _(true).chain().valueOf();
+    }
+
+    {
+        let result: string[];
+
+        result = _<string>([]).valueOf();
+        result = _<string>([]).chain().valueOf();
+    }
+
+    {
+        let result: {a: string};
+
+        result = _({a: ''}).valueOf();
+        result = _({a: ''}).chain().valueOf();
     }
 }
 
