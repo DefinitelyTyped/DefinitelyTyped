@@ -1,4 +1,4 @@
-/// <reference path="jquery.highlight.d.ts" />
+/// <reference path="jquery.highlight-bartaz.d.ts" />
 
 
 
