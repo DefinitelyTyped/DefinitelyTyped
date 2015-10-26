@@ -3839,8 +3839,23 @@ result = <number>_('08').parseInt();
 result = <number>_('08').parseInt(10);
 
 // _.repeat
-result = <string>_.repeat('*', 3);
-result = <string>_('*').repeat(3);
+module TestRepeat {
+    {
+        let result: string;
+        result = _.repeat('*');
+        result = _.repeat('*', 3);
+
+        result = _('*').repeat();
+        result = _('*').repeat(3);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('*').chain().repeat();
+        result = _('*').chain().repeat(3);
+    }
+}
 
 // _.snakeCase
 result = <string>_.snakeCase('Foo Bar');
