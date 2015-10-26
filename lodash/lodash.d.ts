@@ -6886,7 +6886,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          */
-        isArguments(value?: any): boolean;
+        isArguments(value?: any): value is IArguments;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -6903,7 +6903,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          **/
-        isArray(value?: any): boolean;
+        isArray(value?: any): value is any[];
     }
 
     interface LoDashImplicitWrapperBase<T,TWrapper> {
@@ -6920,7 +6920,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          **/
-        isBoolean(value?: any): boolean;
+        isBoolean(value?: any): value is boolean;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -6937,7 +6937,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          **/
-        isDate(value?: any): boolean;
+        isDate(value?: any): value is Date;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -7033,7 +7033,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is an error object, else false.
          */
-        isError(value: any): boolean;
+        isError(value: any): value is Error;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -7051,7 +7051,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is a finite number, else false.
          **/
-        isFinite(value?: any): boolean;
+        isFinite(value?: any): value is number;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -7068,7 +7068,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          **/
-        isFunction(value?: any): boolean;
+        isFunction(value?: any): value is Function;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -7130,7 +7130,7 @@ declare module _ {
          * @param value The value to check.
          * @retrun Returns true if value is a native function, else false.
          */
-        isNative(value: any): boolean;
+        isNative(value: any): value is Function;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -7165,7 +7165,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          */
-        isNumber(value?: any): boolean;
+        isNumber(value?: any): value is number;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -7221,7 +7221,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          */
-        isRegExp(value?: any): boolean;
+        isRegExp(value?: any): value is RegExp;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -7238,7 +7238,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          **/
-        isString(value?: any): boolean;
+        isString(value?: any): value is string;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {

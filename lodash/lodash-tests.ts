@@ -2651,24 +2651,68 @@ result = <boolean>_.isArguments(any);
 result = <boolean>_(1).isArguments();
 result = <boolean>_<any>([]).isArguments();
 result = <boolean>_({}).isArguments();
+{
+  let value: IArguments|number = 42;
+  if (_.isArguments(value)) {
+    let length: number = value.length;
+    // compile error
+    // let i: number = value + 1;
+  } else {
+    let i: number = value + 1;
+    // compile error
+    // let length: number = value.length;
+  }
+}
 
 // _.isArray
 result = <boolean>_.isArray(any);
 result = <boolean>_(1).isArray();
 result = <boolean>_<any>([]).isArray();
 result = <boolean>_({}).isArray();
+{
+  let value: number[]|string = [1, 3, 5];
+  if (_.isArray(value)) {
+    let length: number[] = value.concat(4);
+    // compile error
+    // let char: string = value.charAt(0);
+  } else {
+    let char: string = value.charAt(0);
+    // compile error
+    // let length: number[] = value.concat(4);
+  }
+}
 
 // _.isBoolean
 result = <boolean>_.isBoolean(any);
 result = <boolean>_(1).isBoolean();
 result = <boolean>_<any>([]).isBoolean();
 result = <boolean>_({}).isBoolean();
+{
+    let value: number[]|boolean = [1, 3, 5];
+    if (_.isBoolean(value)) {
+        let b: boolean = value;
+        // compile error
+        // let length: number = value.length;
+    } else {
+        let length: number = value.length;
+        // compile error
+        // let b: boolean = value;
+    }
+}
 
 // _.isDate
 result = <boolean>_.isDate(any);
 result = <boolean>_(42).isDate();
 result = <boolean>_<any>([]).isDate();
 result = <boolean>_({}).isDate();
+{
+  let value: Date|string = "foo";
+  if (_.isDate(value)) {
+    value.toTimeString();
+  } else {
+    value.charAt(0);
+  }
+}
 
 // _.isElement
 result = <boolean>_.isElement(any);
@@ -2703,6 +2747,14 @@ result = <boolean>_.isError(any);
 result = <boolean>_(1).isError();
 result = <boolean>_<any>([]).isError();
 result = <boolean>_({}).isError();
+{
+  let value: Error|string = "error";
+  if (_.isError(value)) {
+    let message: string = value.message;
+  } else {
+    let message: string = value;
+  }
+}
 
 // _.isFinite
 result = <boolean>_.isFinite(any);
@@ -2715,6 +2767,14 @@ result = <boolean>_.isFunction(any);
 result = <boolean>_(1).isFunction();
 result = <boolean>_<any>([]).isFunction();
 result = <boolean>_({}).isFunction();
+{
+  let value: Function|string = "foo";
+  if (_.isFunction(value)) {
+    value();
+  } else {
+    let result: string = value;
+  }
+}
 
 // _.isMatch
 var testIsMatchCustiomizerFn: (value: any, other: any, indexOrKey: number|string) => boolean;
@@ -2736,6 +2796,14 @@ result = <boolean>_(undefined).isNaN();
 // _.isNative
 result = <boolean>_.isNative(Array.prototype.push);
 result = <boolean>_(Array.prototype.push).isNative();
+{
+  let value: Function|string = "foo";
+  if (_.isNative(value)) {
+    value();
+  } else {
+    let result: string = value;
+  }
+}
 
 // _.isNull
 result = <boolean>_.isNull(any);
@@ -2748,6 +2816,14 @@ result = <boolean>_.isNumber(any);
 result = <boolean>_(1).isNumber();
 result = <boolean>_<any>([]).isNumber();
 result = <boolean>_({}).isNumber();
+{
+  let value: number|string = "foo";
+  if (_.isNumber(value)) {
+    let result: number = value * 42;
+  } else {
+    let result: string = value;
+  }
+}
 
 // _.isObject
 result = <boolean>_.isObject(any);
@@ -2766,12 +2842,29 @@ result = <boolean>_.isRegExp(any);
 result = <boolean>_(1).isRegExp();
 result = <boolean>_<any>([]).isRegExp();
 result = <boolean>_({}).isRegExp();
+{
+  let value: RegExp|string = /^foo$/g;
+  if (_.isRegExp(value)) {
+    let regex: RegExp = value;
+    let index: number = value.exec("foo").index;
+  } else {
+    let result: string = value;
+  }
+}
 
 // _.isString
 result = <boolean>_.isString(any);
 result = <boolean>_(1).isString();
 result = <boolean>_<any>([]).isString();
 result = <boolean>_({}).isString();
+{
+  let value: string|number = "foo";
+  if (_.isString(value)) {
+    let result: string = value;
+  } else {
+    let result: number = value * 42;
+  }
+}
 
 // _.isTypedArray
 result = <boolean>_.isTypedArray([]);
