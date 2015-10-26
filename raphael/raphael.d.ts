@@ -129,8 +129,8 @@ interface RaphaelSet {
     hide(): RaphaelSet;
     hover(f_in: Function, f_out: Function, icontext?: any, ocontext?: any): RaphaelSet;
     id: string;
-    insertAfter(): RaphaelSet;
-    insertBefore(): RaphaelSet;
+    insertAfter(el: RaphaelElement): RaphaelSet;
+    insertBefore(el: RaphaelElement): RaphaelSet;
     isPointInside(x: number, y: number): boolean;
     isVisible(): boolean;
     matrix: RaphaelMatrix;
