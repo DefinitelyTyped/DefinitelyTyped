@@ -3766,8 +3766,20 @@ result = <string>_.escape('fred, barney, & pebbles');
 result = <string>_('fred, barney, & pebbles').escape();
 
 // _.escapeRegExp
-result = <string>_.escapeRegExp('[lodash](https://lodash.com/)');
-result = <string>_('[lodash](https://lodash.com/)').escapeRegExp();
+module TestEscapeRegExp {
+    {
+        let result: string;
+
+        result = _.escapeRegExp('[lodash](https://lodash.com/)');
+        result = _('[lodash](https://lodash.com/)').escapeRegExp();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('[lodash](https://lodash.com/)').chain().escapeRegExp();
+    }
+}
 
 // _.kebabCase
 result = <string>_.kebabCase('Foo Bar');
