@@ -9638,11 +9638,15 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Splits string into an array of its words.
+         *
          * @param string The string to inspect.
          * @param pattern The pattern to match words.
          * @return Returns the words of string.
          */
-        words(string?: string, pattern?: string|RegExp): string[];
+        words(
+            string?: string,
+            pattern?: string|RegExp
+        ): string[];
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -9650,6 +9654,13 @@ declare module _ {
          * @see _.words
          */
         words(pattern?: string|RegExp): string[];
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.words
+         */
+        words(pattern?: string|RegExp): LoDashExplicitArrayWrapper<string>;
     }
 
     /***********
