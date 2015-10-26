@@ -3778,12 +3778,27 @@ result = <string>_.kebabCase('Foo Bar');
 result = <string>_('Foo Bar').kebabCase();
 
 // _.pad
-result = <string>_.pad('abd');
-result = <string>_.pad('abc', 8);
-result = <string>_.pad('abc', 8, '_-');
-result = <string>_('abc').pad();
-result = <string>_('abc').pad(8);
-result = <string>_('abc').pad(8, '_-');
+module TestPad {
+    {
+        let result: string;
+
+        result = _.pad('abd');
+        result = _.pad('abc', 8);
+        result = _.pad('abc', 8, '_-');
+
+        result = _('abc').pad();
+        result = _('abc').pad(8);
+        result = _('abc').pad(8, '_-');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('abc').chain().pad();
+        result = _('abc').chain().pad(8);
+        result = _('abc').chain().pad(8, '_-');
+    }
+}
 
 // _.padLeft
 result = <string>_.padLeft('abc');
