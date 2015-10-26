@@ -88,9 +88,6 @@ interface RequireConfig {
 	// baseUrl.
 	paths?: { [key: string]: any; };
 
-	// Allows configuring multiple module IDs to be found in
-	// another script.
-	bundles?: { [key: string]: any; };
 
 	// Dictionary of Shim's.
 	// does not cover case of key->string[]
