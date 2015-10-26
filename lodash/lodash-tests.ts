@@ -4009,10 +4009,24 @@ result = <string>_.unescape('fred, barney, &amp; pebbles');
 result = <string>_('fred, barney, &amp; pebbles').unescape();
 
 // _.words
-result = <string[]>_.words('fred, barney, & pebbles');
-result = <string[]>_.words('fred, barney, & pebbles', /[^, ]+/g);
-result = <string[]>_('fred, barney, & pebbles').words();
-result = <string[]>_('fred, barney, & pebbles').words(/[^, ]+/g);
+module TestWords {
+    {
+        let result: string[];
+
+        result = _.words('fred, barney, & pebbles');
+        result = _.words('fred, barney, & pebbles', /[^, ]+/g);
+
+        result = _('fred, barney, & pebbles').words();
+        result = _('fred, barney, & pebbles').words(/[^, ]+/g);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _('fred, barney, & pebbles').chain().words();
+        result = _('fred, barney, & pebbles').chain().words(/[^, ]+/g);
+    }
+}
 
 /***********
  * Utility *
