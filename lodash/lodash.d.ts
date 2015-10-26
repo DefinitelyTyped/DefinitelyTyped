@@ -7857,6 +7857,21 @@ declare module _ {
         random(floating?: boolean): number;
     }
 
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.random
+         */
+        random(
+            max?: number,
+            floating?: boolean
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.random
+         */
+        random(floating?: boolean): LoDashExplicitWrapper<number>;
+    }
+
     /**********
      * Object *
      **********/

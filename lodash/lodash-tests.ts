@@ -3178,20 +3178,32 @@ module TestInRange {
 
 // _.random
 module TestRandom {
-    let result: number;
+    {
+        let result: number;
 
-    result = _.random();
-    result = _.random(1);
-    result = _.random(1, 2);
-    result = _.random(1, 2, true);
-    result = _.random(1, true);
-    result = _.random(true);
+        result = _.random();
+        result = _.random(1);
+        result = _.random(1, 2);
+        result = _.random(1, 2, true);
+        result = _.random(1, true);
+        result = _.random(true);
 
-    result = _(1).random();
-    result = _(1).random(2);
-    result = _(1).random(2, true);
-    result = _(1).random(true);
-    result = _(true).random();
+        result = _(1).random();
+        result = _(1).random(2);
+        result = _(1).random(2, true);
+        result = _(1).random(true);
+        result = _(true).random();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(1).chain().random();
+        result = _(1).chain().random(2);
+        result = _(1).chain().random(2, true);
+        result = _(1).chain().random(true);
+        result = _(true).chain().random();
+    }
 }
 
 /*********
