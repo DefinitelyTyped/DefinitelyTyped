@@ -9098,6 +9098,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Converts string to camel case.
+         *
          * @param string The string to convert.
          * @return Returns the camel cased string.
          */
@@ -9109,6 +9110,13 @@ declare module _ {
          * @see _.camelCase
          */
         camelCase(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.camelCase
+         */
+        camelCase(): LoDashExplicitWrapper<string>;
     }
 
     //_.capitalize
