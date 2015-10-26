@@ -9483,6 +9483,7 @@ declare module _ {
         /**
          * Attempts to invoke func, returning either the result or the caught error object. Any additional arguments
          * are provided to func when it’s invoked.
+         *
          * @param func The function to attempt.
          * @return Returns the func result or error object.
          */
@@ -9494,6 +9495,13 @@ declare module _ {
          * @see _.attempt
          */
         attempt<TResult>(): TResult|Error;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.attempt
+         */
+        attempt<TResult>(): LoDashExplicitObjectWrapper<TResult|Error>;
     }
 
     //_.callback
