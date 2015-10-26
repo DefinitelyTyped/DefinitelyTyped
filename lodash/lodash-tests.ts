@@ -3935,16 +3935,82 @@ module TestAttempt {
 }
 
 // _.constant
-result = <() => number>_.constant<number>(1);
-result = <() => string>_.constant<string>('a');
-result = <() => boolean>_.constant<boolean>(true);
-result = <() => any[]>_.constant<any[]>([]);
-result = <() => {}>_.constant<{}>({});
-result = <() => number>_(1).constant<number>();
-result = <() => string>_('a').constant<string>();
-result = <() => boolean>_(true).constant<boolean>();
-result = <() => any[]>_(['a']).constant<any[]>();
-result = <() => {}>_({}).constant<{}>();
+module TestConstant {
+    {
+        let result: () => number;
+        result: _.constant<number>(42);
+    }
+
+    {
+        let result: () => string;
+        result: _.constant<string>('a');
+    }
+
+    {
+        let result: () => boolean;
+        result: _.constant<boolean>(true);
+    }
+
+    {
+        let result: () => string[];
+        result: _.constant<string[]>(['a']);
+    }
+
+    {
+        let result: () => {a: string};
+        result: _.constant<{a: string}>({a: 'a'});
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<() => number>;
+        result: _(42).constant<number>();
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<() => string>;
+        result: _('a').constant<string>();
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<() => boolean>;
+        result: _(true).constant<boolean>();
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<() => string[]>;
+        result: _(['a']).constant<string[]>();
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<() => {a: string}>;
+        result: _({a: 'a'}).constant<{a: string}>();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<() => number>;
+        result: _(42).chain().constant<number>();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<() => string>;
+        result: _('a').chain().constant<string>();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<() => boolean>;
+        result: _(true).chain().constant<boolean>();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<() => string[]>;
+        result: _(['a']).chain().constant<string[]>();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<() => {a: string}>;
+        result: _({a: 'a'}).chain().constant<{a: string}>();
+    }
+}
 
 // _.identity
 {
