@@ -2116,20 +2116,6 @@ result = <number>_(0.046).floor(2);
 result = <number>_(4060).floor(-2);
 // → 4000
 
-// _.round
-result = <number>_.round(4.006);
-// → 4
-result = <number>_.round(4.006, 2);
-// → 4.01
-result = <number>_.round(4060, -2);
-// → 4100
-result = <number>_(4.006).round();
-// → 4
-result = <number>_(4.006).round(2);
-// → 4.01
-result = <number>_(4060).round(-2);
-// → 4100
-
 result = <number>_.sum([4, 2, 8, 6]);
 result = <number>_.sum([4, 2, 8, 6], function(v) { return v; });
 result = <number>_.sum({a: 2, b: 4});
@@ -3122,6 +3108,26 @@ module TestMin {
     result = _(dictionary).min<number>(dictionaryIterator, any);
     result = _(dictionary).min<number>('');
     result = _(dictionary).min<{a: number}, number>({a: 42});
+}
+
+// _.round
+module TestRound {
+    {
+        let result: number;
+
+        result = _.round(4.006);
+        result = _.round(4.006, 2);
+
+        result = _(4.006).round();
+        result = _(4.006).round(2);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(4.006).chain().round();
+        result = _(4.006).chain().round(2);
+    }
 }
 
 /**********
