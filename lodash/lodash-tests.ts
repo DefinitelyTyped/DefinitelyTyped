@@ -3862,8 +3862,20 @@ result = <string>_.snakeCase('Foo Bar');
 result = <string>_('Foo Bar').snakeCase();
 
 // _.startCase
-result = <string>_.startCase('--foo-bar');
-result = <string>_('--foo-bar').startCase();
+module TestStartCase {
+    {
+        let result: string;
+
+        result = _.startCase('--foo-bar');
+        result = _('--foo-bar').startCase();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('--foo-bar').chain().startCase();
+    }
+}
 
 // _.startsWith
 result = <boolean>_.startsWith('abc', 'a');
