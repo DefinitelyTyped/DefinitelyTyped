@@ -301,7 +301,7 @@ declare module Backbone {
         checkUrl(e?: any): void;
         loadUrl(fragmentOverride: string): boolean;
         navigate(fragment: string, options?: any): boolean;
-        started: boolean;
+        static started: boolean;
         options: any;
 
         private _updateHash(location: Location, fragment: string, replace: boolean): void;
