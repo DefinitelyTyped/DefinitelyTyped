@@ -1,4 +1,4 @@
-﻿/// <reference path="Microsoft.Maps.d.ts"/> 
+﻿/// <reference path="Microsoft.Maps.d.ts"/>
 /// <reference path="Microsoft.Maps.AdvancedShapes.d.ts"/>
 /// <reference path="Microsoft.Maps.Directions.d.ts"/>
 /// <reference path="Microsoft.Maps.Search.d.ts"/>
@@ -55,7 +55,7 @@ module BingMapsTests {
                         locations.push(location);
                     }
 
-                    // Sets the view of the map to the smallest size that contains all of the 
+                    // Sets the view of the map to the smallest size that contains all of the
                     // specified locations (in this case the pusphin locations)
                     map.setView({ bounds: Microsoft.Maps.LocationRect.fromLocations(locations) });
                 }
