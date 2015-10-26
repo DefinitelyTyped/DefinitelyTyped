@@ -42,8 +42,8 @@ interface RaphaelElement {
     hide(): RaphaelElement;
     hover(f_in: Function, f_out: Function, icontext?: any, ocontext?: any): RaphaelElement;
     id: string;
-    insertAfter(): RaphaelElement;
-    insertBefore(): RaphaelElement;
+    insertAfter(el: RaphaelElement): RaphaelElement;
+    insertBefore(el: RaphaelElement): RaphaelElement;
     isPointInside(x: number, y: number): boolean;
     isVisible(): boolean;
     matrix: RaphaelMatrix;
