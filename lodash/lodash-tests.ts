@@ -3884,24 +3884,38 @@ result = <boolean>_('abc').startsWith('a');
 result = <boolean>_('abc').startsWith('a', 1);
 
 // _.template
-interface TestTemplateOptions {
-    escape?: RegExp;
-    evaluate?: RegExp;
-    imports?: _.Dictionary<any>;
-    interpolate?: RegExp;
-    variable?: string;
-}
-interface TestTemplateExecutor {
-    (obj?: Object): string;
-    source: string;
-}
-{
-    let testTemplateOptions: TestTemplateOptions
-    let result: TestTemplateExecutor;
-    result = _.template('');
-    result = _.template('', testTemplateOptions);
-    result = _('').template();
-    result = _('').template(testTemplateOptions);
+
+module TestTemplate {
+    interface TemplateExecutor {
+        (obj?: Object): string;
+        source: string;
+    }
+
+    let options: {
+        escape?: RegExp;
+        evaluate?: RegExp;
+        imports?: _.Dictionary<any>;
+        interpolate?: RegExp;
+        sourceURL?: string;
+        variable?: string;
+    };
+
+    {
+        let result: TemplateExecutor;
+
+        result = _.template('');
+        result = _.template('', options);
+
+        result = _('').template();
+        result = _('').template(options);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<TemplateExecutor>;
+
+        result = _('').chain().template();
+        result = _('').chain().template(options);
+    }
 }
 
 // _.trim
