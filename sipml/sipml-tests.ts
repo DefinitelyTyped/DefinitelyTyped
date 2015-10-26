@@ -110,7 +110,7 @@ var eventsListener = (e:any)=>{
 var publishPresence = ()=>{
     publishSession = <SIPml.Session.Publish>sipStack.newSession('publish', {
         events_listener: { events: '*', listener: eventsListener } // optional: '*' means all events
-    });                
+    });
     var contentType = 'application/pidf+xml';
     var content = '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n' +
                     '<presence xmlns=\"urn:ietf:params:xml:ns:pidf\"\n' +
