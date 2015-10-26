@@ -3732,8 +3732,20 @@ class Mage {
 *********/
 
 // _.camelCase
-result = <string>_.camelCase('Foo Bar');
-result = <string>_('Foo Bar').camelCase();
+module TestCamelCase {
+    {
+        let result: string;
+
+        result = _.camelCase('Foo Bar');
+        result = _('Foo Bar').camelCase();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('Foo Bar').chain().camelCase();
+    }
+}
 
 // _.capitalize
 module TestCapitalize {
