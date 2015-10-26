@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /**
- * bootstrap-datetimepicker.js 3.0.0 Copyright (c) 2014 Jonathan Peterson
+ * bootstrap-datetimepicker.js 4.15.35 Copyright (c) 2015 Jonathan Peterson
  * Available via the MIT license.
  * see: http://eonasdan.github.io/bootstrap-datetimepicker or https://github.com/Eonasdan/bootstrap-datetimepicker for details.
  */
