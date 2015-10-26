@@ -7447,11 +7447,15 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Adds two numbers.
+         *
          * @param augend The first number to add.
          * @param addend The second number to add.
          * @return Returns the sum.
          */
-        add(augend: number, addend: number): number;
+        add(
+            augend: number,
+            addend: number
+        ): number;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -7459,6 +7463,13 @@ declare module _ {
          * @see _.add
          */
         add(addend: number): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.add
+         */
+        add(addend: number): LoDashExplicitWrapper<number>;
     }
 
     //_.ceil

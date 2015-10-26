@@ -2992,8 +2992,20 @@ module TestToPlainObject {
  ********/
 
 // _.add
-result = <number>_.add(1, 1);
-result = <number>_(1).add(1);
+module TestAdd {
+    {
+        let result: number;
+
+        result = _.add(1, 1);
+        result = _(1).add(1);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(1).chain().add(1);
+    }
+}
 
 // _.ceil
 module TestCeil {
