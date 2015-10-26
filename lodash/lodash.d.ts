@@ -9038,6 +9038,13 @@ declare module _ {
         capitalize(): string;
     }
 
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.capitalize
+         */
+        capitalize(): LoDashExplicitWrapper<string>;
+    }
+
     //_.deburr
     interface LoDashStatic {
         /**
