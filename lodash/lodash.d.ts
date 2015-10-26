@@ -4538,24 +4538,6 @@ declare module _ {
         ): LoDashImplicitArrayWrapper<boolean>;
     }
 
-    //_.ceil
-    interface LoDashStatic {
-        /**
-         * Calculates n rounded up to precision.
-         * @param n The number to round up.
-         * @param precision The precision to round up to.
-         * @return Returns the rounded up number.
-         */
-        ceil(n: number, precision?: number): number;
-    }
-
-    interface LoDashImplicitWrapper<T> {
-        /**
-         * @see _.ceil
-         */
-        ceil(precision?: number): number;
-    }
-
     //_.floor
     interface LoDashStatic {
         /**
@@ -7410,6 +7392,35 @@ declare module _ {
          * @see _.add
          */
         add(addend: number): number;
+    }
+
+    //_.ceil
+    interface LoDashStatic {
+        /**
+         * Calculates n rounded up to precision.
+         *
+         * @param n The number to round up.
+         * @param precision The precision to round up to.
+         * @return Returns the rounded up number.
+         */
+        ceil(
+            n: number,
+            precision?: number
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.ceil
+         */
+        ceil(precision?: number): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.ceil
+         */
+        ceil(precision?: number): LoDashExplicitWrapper<number>;
     }
 
     //_.max

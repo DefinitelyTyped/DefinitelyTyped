@@ -2102,20 +2102,6 @@ module TestMap {
     }
 }
 
-// _.ceil
-result = <number>_.ceil(4.006);
-// → 5
-result = <number>_.ceil(6.004, 2);
-// → 6.01
-result = <number>_.ceil(6040, -2);
-// → 6100
-result = <number>_(4.006).ceil();
-// → 5
-result = <number>_(6.004).ceil(2);
-// → 6.01
-result = <number>_(6040).ceil(-2);
-// → 6100
-
 // _.floor
 result = <number>_.floor(4.006);
 // → 4
@@ -3021,6 +3007,26 @@ module TestToPlainObject {
 // _.add
 result = <number>_.add(1, 1);
 result = <number>_(1).add(1);
+
+// _.ceil
+module TestCeil {
+    {
+        let result: number;
+
+        result = _.ceil(6.004);
+        result = _.ceil(6.004, 2);
+
+        result = _(6.004).ceil();
+        result = _(6.004).ceil(2);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(6.004).chain().ceil();
+        result = _(6.004).chain().ceil(2);
+    }
+}
 
 // _.max
 module TestMax {
