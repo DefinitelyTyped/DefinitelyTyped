@@ -949,7 +949,6 @@ declare module cola {
         powerGraph: any;
     };
 }
-/// <reference path="../extern/d3.d.ts" />
 /// <reference path="layout.d.ts" />
 declare module cola {
     class D3StyleLayoutAdaptor extends Layout {
