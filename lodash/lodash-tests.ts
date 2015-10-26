@@ -4095,16 +4095,91 @@ module TestMatches {
 }
 
 // _.method
-class TestMethod {
-    a = {
-        b: (a1: number, a2: number) => a1 + a2
+module TestMethod {
+    {
+        let result: (object: any) => {a: string};
+
+        result = _.method<{a: string}>('a.0');
+        result = _.method<{a: string}>('a.0', any);
+        result = _.method<{a: string}>('a.0', any, any);
+        result = _.method<{a: string}>('a.0', any, any, any);
+
+        result = _.method<{a: string}>(['a', 0]);
+        result = _.method<{a: string}>(['a', 0], any);
+        result = _.method<{a: string}>(['a', 0], any, any);
+        result = _.method<{a: string}>(['a', 0], any, any, any);
+    }
+
+    {
+        let result: (object: {a: string}) => {b: string};
+
+        result = _.method<{a: string}, {b: string}>('a.0');
+        result = _.method<{a: string}, {b: string}>('a.0', any);
+        result = _.method<{a: string}, {b: string}>('a.0', any, any);
+        result = _.method<{a: string}, {b: string}>('a.0', any, any, any);
+
+        result = _.method<{a: string}, {b: string}>(['a', 0]);
+        result = _.method<{a: string}, {b: string}>(['a', 0], any);
+        result = _.method<{a: string}, {b: string}>(['a', 0], any, any);
+        result = _.method<{a: string}, {b: string}>(['a', 0], any, any, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(object: any) => {a: string}>;
+
+        result = _('a.0').method<{a: string}>();
+        result = _('a.0').method<{a: string}>(any);
+        result = _('a.0').method<{a: string}>(any, any);
+        result = _('a.0').method<{a: string}>(any, any, any);
+
+        result = _(['a', 0]).method<{a: string}>();
+        result = _(['a', 0]).method<{a: string}>(any);
+        result = _(['a', 0]).method<{a: string}>(any, any);
+        result = _(['a', 0]).method<{a: string}>(any, any, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(object: {a: string}) => {b: string}>;
+
+        result = _('a.0').method<{a: string}, {b: string}>();
+        result = _('a.0').method<{a: string}, {b: string}>(any);
+        result = _('a.0').method<{a: string}, {b: string}>(any, any);
+        result = _('a.0').method<{a: string}, {b: string}>(any, any, any);
+
+        result = _(['a', 0]).method<{a: string}, {b: string}>();
+        result = _(['a', 0]).method<{a: string}, {b: string}>(any);
+        result = _(['a', 0]).method<{a: string}, {b: string}>(any, any);
+        result = _(['a', 0]).method<{a: string}, {b: string}>(any, any, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(object: any) => {a: string}>;
+
+        result = _('a.0').chain().method<{a: string}>();
+        result = _('a.0').chain().method<{a: string}>(any);
+        result = _('a.0').chain().method<{a: string}>(any, any);
+        result = _('a.0').chain().method<{a: string}>(any, any, any);
+
+        result = _(['a', 0]).chain().method<{a: string}>();
+        result = _(['a', 0]).chain().method<{a: string}>(any);
+        result = _(['a', 0]).chain().method<{a: string}>(any, any);
+        result = _(['a', 0]).chain().method<{a: string}>(any, any, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(object: {a: string}) => {b: string}>;
+
+        result = _('a.0').chain().method<{a: string}, {b: string}>();
+        result = _('a.0').chain().method<{a: string}, {b: string}>(any);
+        result = _('a.0').chain().method<{a: string}, {b: string}>(any, any);
+        result = _('a.0').chain().method<{a: string}, {b: string}>(any, any, any);
+
+        result = _(['a', 0]).chain().method<{a: string}, {b: string}>();
+        result = _(['a', 0]).chain().method<{a: string}, {b: string}>(any);
+        result = _(['a', 0]).chain().method<{a: string}, {b: string}>(any, any);
+        result = _(['a', 0]).chain().method<{a: string}, {b: string}>(any, any, any);
     }
 }
-var TestMethodObject = new TestMethod();
-result = <number>(_.method<number>('a.b', 1, 2))(TestMethodObject);
-result = <number>(_.method<number>(['a', 'b'], 1, 2))(TestMethodObject);
-result = <number>(_('a.b').method<number>(1, 2).value())(TestMethodObject);
-result = <number>(_(['a', 'b']).method<number>(1, 2).value())(TestMethodObject);
 
 // _.methodOf
 class TestMethodOf {
