@@ -2102,20 +2102,6 @@ module TestMap {
     }
 }
 
-// _.floor
-result = <number>_.floor(4.006);
-// → 4
-result = <number>_.floor(0.046, 2);
-// → 0.04
-result = <number>_.floor(4060, -2);
-// → 4000
-result = <number>_(4.006).floor();
-// → 4
-result = <number>_(0.046).floor(2);
-// → 0.04
-result = <number>_(4060).floor(-2);
-// → 4000
-
 result = <number>_.sum([4, 2, 8, 6]);
 result = <number>_.sum([4, 2, 8, 6], function(v) { return v; });
 result = <number>_.sum({a: 2, b: 4});
@@ -3024,6 +3010,29 @@ module TestCeil {
 
         result = _(6.004).chain().ceil();
         result = _(6.004).chain().ceil(2);
+    }
+}
+
+// _.floor
+module TestFloor {
+    {
+        let result: number;
+
+        result = _.floor(4.006);
+        result = _.floor(0.046, 2);
+        result = _.floor(4060, -2);
+
+        result = _(4.006).floor();
+        result = _(0.046).floor(2);
+        result = _(4060).floor(-2);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(4.006).chain().floor();
+        result = _(0.046).chain().floor(2);
+        result = _(4060).chain().floor(-2);
     }
 }
 
