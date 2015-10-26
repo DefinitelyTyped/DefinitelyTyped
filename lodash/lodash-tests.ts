@@ -3129,10 +3129,24 @@ module TestMin {
  **********/
 
 // _.inRange
-result = <boolean>_.inRange(3, 2, 4);
-result = <boolean>_.inRange(4, 8);
-result = <boolean>_(3).inRange(2, 4);
-result = <boolean>_(4).inRange(8);
+module TestInRange {
+    {
+        let result: boolean;
+
+        result = _.inRange(3, 2, 4);
+        result = _.inRange(4, 8);
+
+        result = _(3).inRange(2, 4);
+        result = _(4).inRange(8);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(3).chain().inRange(2, 4);
+        result = _(4).chain().inRange(8);
+    }
+}
 
 // _.random
 module TestRandom {
