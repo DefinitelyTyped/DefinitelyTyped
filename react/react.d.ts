@@ -534,6 +534,8 @@ declare namespace __React {
         itemScope?: boolean;
         itemType?: string;
         unselectable?: boolean;
+
+        [propertyName: string]: any;
     }
 
     interface HTMLAttributes extends HTMLAttributesBase<HTMLComponent> {
@@ -1342,6 +1344,8 @@ declare module "react/addons" {
         itemScope?: boolean;
         itemType?: string;
         unselectable?: boolean;
+
+        [propertyName: string]: any;
     }
 
     interface HTMLAttributes extends HTMLAttributesBase<HTMLComponent> {
