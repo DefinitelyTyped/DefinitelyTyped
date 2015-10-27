@@ -334,6 +334,7 @@ declare module NodeJS {
         undefined: typeof undefined;
         unescape: (str: string) => string;
         gc: () => void;
+        v8debug?: any;
     }
 
     export interface Timer {

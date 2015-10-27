@@ -4538,24 +4538,6 @@ declare module _ {
         ): LoDashImplicitArrayWrapper<boolean>;
     }
 
-    //_.floor
-    interface LoDashStatic {
-        /**
-         * Calculates n rounded down to precision.
-         * @param n The number to round down.
-         * @param precision The precision to round down to.
-         * @return Returns the rounded down number.
-         */
-        floor(n: number, precision?: number): number;
-    }
-
-    interface LoDashImplicitWrapper<T> {
-        /**
-         * @see _.floor
-         */
-        floor(precision?: number): number;
-    }
-
     //_.sum
     interface LoDashStatic {
         /**
@@ -7447,11 +7429,15 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Adds two numbers.
+         *
          * @param augend The first number to add.
          * @param addend The second number to add.
          * @return Returns the sum.
          */
-        add(augend: number, addend: number): number;
+        add(
+            augend: number,
+            addend: number
+        ): number;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -7459,6 +7445,13 @@ declare module _ {
          * @see _.add
          */
         add(addend: number): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.add
+         */
+        add(addend: number): LoDashExplicitWrapper<number>;
     }
 
     //_.ceil
@@ -7488,6 +7481,35 @@ declare module _ {
          * @see _.ceil
          */
         ceil(precision?: number): LoDashExplicitWrapper<number>;
+    }
+
+    //_.floor
+    interface LoDashStatic {
+        /**
+         * Calculates n rounded down to precision.
+         *
+         * @param n The number to round down.
+         * @param precision The precision to round down to.
+         * @return Returns the rounded down number.
+         */
+        floor(
+            n: number,
+            precision?: number
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.floor
+         */
+        floor(precision?: number): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.floor
+         */
+        floor(precision?: number): LoDashExplicitWrapper<number>;
     }
 
     //_.max
@@ -7833,6 +7855,21 @@ declare module _ {
          * @see _.random
          */
         random(floating?: boolean): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.random
+         */
+        random(
+            max?: number,
+            floating?: boolean
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.random
+         */
+        random(floating?: boolean): LoDashExplicitWrapper<number>;
     }
 
     /**********
@@ -9098,6 +9135,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Converts string to camel case.
+         *
          * @param string The string to convert.
          * @return Returns the camel cased string.
          */
@@ -9109,6 +9147,13 @@ declare module _ {
          * @see _.camelCase
          */
         camelCase(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.camelCase
+         */
+        camelCase(): LoDashExplicitWrapper<string>;
     }
 
     //_.capitalize
@@ -9638,11 +9683,15 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Splits string into an array of its words.
+         *
          * @param string The string to inspect.
          * @param pattern The pattern to match words.
          * @return Returns the words of string.
          */
-        words(string?: string, pattern?: string|RegExp): string[];
+        words(
+            string?: string,
+            pattern?: string|RegExp
+        ): string[];
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -9650,6 +9699,13 @@ declare module _ {
          * @see _.words
          */
         words(pattern?: string|RegExp): string[];
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.words
+         */
+        words(pattern?: string|RegExp): LoDashExplicitArrayWrapper<string>;
     }
 
     /***********
