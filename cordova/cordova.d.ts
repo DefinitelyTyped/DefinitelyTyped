@@ -25,6 +25,8 @@
 /// <reference path="plugins/StatusBar.d.ts"/>
 /// <reference path="plugins/Vibration.d.ts"/>
 /// <reference path="plugins/WebSQL.d.ts"/>
+/// <reference path="plugins/AppPreferences.d.ts"/>
+/// <reference path="plugins/DatePicker.d.ts"/>
 
 interface Cordova {
     /** Invokes native functionality by specifying corresponding service name, action and optional parameters.
