@@ -43,6 +43,11 @@ declare module yo {
 		setMaxListeners(n: number): void;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
+		
+		async(): any;
+		prompt(opt?, callback?);
+		
+		appname:string;
 	}
 
   export interface IArgumentConfig {
