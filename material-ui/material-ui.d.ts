@@ -281,6 +281,7 @@ declare namespace __MaterialUI {
     }
 
     interface CircularProgressProps extends React.Props<CircularProgress> {
+        className?: string;
         mode?: string;
         value?: number;
         min?: number;
