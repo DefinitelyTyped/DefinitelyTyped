@@ -49,7 +49,7 @@ declare module yo {
         async(): any;
         prompt(opt?:IPromptOptions, callback?:(answers:any)=>void) :void;
         log(message: string) : void;
-        npmInstall(packages: string[], options?) :void;
+        npmInstall(packages: string[], options?:any) :void;
 
         appname: string;
         gruntfile: IGruntFileStatic;
