@@ -6,17 +6,19 @@
 /// <reference path="../redux/redux.d.ts" />
 
 declare module 'redux-logger' {
+    function createLogger(options?: createLogger.LoggerOptions): Redux.Middleware;
 
-  interface ReduxLoggerOptions {
-    actionTransformer?: (action: any) => any;
-    collapsed?: boolean;
-    duration?: boolean;
-    level?: string;
-    logger?: any;
-    predicate?: (getState: Function, action: any) => boolean;
-    timestamp?: boolean;
-    transformer?: (state:any) => any;
-  }
-
-  export default function createLogger(options?: ReduxLoggerOptions): Redux.Middleware;
+    namespace createLogger {
+        export interface LoggerOptions {
+            actionTransformer?: (action: any) => any;
+            collapsed?: boolean;
+            duration?: boolean;
+            level?: string;
+            logger?: any;
+            predicate?: (getState: Function, action: any) => boolean;
+            timestamp?: boolean;
+            transformer?: (state:any) => any;
+        }
+    }
+    export = createLogger
 }
