@@ -772,13 +772,42 @@ declare module CSG {
         followWith(cagish: any): CSG;
         verify(): void;
     }
+    interface IRadiusOptions {
+        radius?: number;
+        resolution?: number;
+    }
+    interface ICircleOptions extends IRadiusOptions {
+        center?: Vector2D | number[];
+    }
+    interface IArcOptions extends ICircleOptions {
+        startangle?: number;
+        endangle?: number;
+        maketangent?: boolean;
+    }
+    interface IEllpiticalArcOptions extends IRadiusOptions {
+        clockwise?: boolean;
+        large?: boolean;
+        xaxisrotation?: number;
+        xradius?: number;
+        yradius?: number;
+    }
+    interface IRectangleOptions {
+        center?: Vector2D;
+        corner1?: Vector2D;
+        corner2?: Vector2D;
+        radius?: Vector2D;
+    }
+    interface IRoundRectangleOptions {
+        roundradius: number;
+        resolution?: number;
+    }
     class Path2D extends CxG {
         closed: boolean;
         points: Vector2D[];
         lastBezierControlPoint: Vector2D;
         constructor(points: number[], closed?: boolean);
         constructor(points: Vector2D[], closed?: boolean);
-        static arc(options: any): Path2D;
+        static arc(options: IArcOptions): Path2D;
         concat(otherpath: Path2D): Path2D;
         appendPoint(point: Vector2D): Path2D;
         appendPoints(points: Vector2D[]): Path2D;
@@ -788,7 +817,7 @@ declare module CSG {
         innerToCAG(): CAG;
         transform(matrix4x4: Matrix4x4): Path2D;
         appendBezier(controlpoints: any, options: any): Path2D;
-        appendArc(endpoint: Vector2D, options: any): Path2D;
+        appendArc(endpoint: Vector2D, options: IEllpiticalArcOptions): Path2D;
     }
 }
 declare class CAG extends CxG implements ICenter {
@@ -799,9 +828,9 @@ declare class CAG extends CxG implements ICenter {
     static fromPoints(points: CSG.Vector2D[]): CAG;
     static fromPointsNoCheck(points: CSG.Vector2D[]): CAG;
     static fromFakeCSG(csg: CSG): CAG;
-    static linesIntersect(p0start: any, p0end: any, p1start: any, p1end: any): boolean;
-    static circle(options: any): CAG;
-    static rectangle(options: any): CAG;
+    static linesIntersect(p0start: CSG.Vector2D, p0end: CSG.Vector2D, p1start: CSG.Vector2D, p1end: CSG.Vector2D): boolean;
+    static circle(options: CSG.ICircleOptions): CAG;
+    static rectangle(options: CSG.IRectangleOptions): CAG;
     static roundedRectangle(options: any): CAG;
     static fromCompactBinary(bin: any): CAG;
     toString(): string;
@@ -834,11 +863,11 @@ declare class CAG extends CxG implements ICenter {
         sideVertexIndices: Uint32Array;
         vertexData: Float64Array;
     };
-    getOutlinePaths(): any[];
+    getOutlinePaths(): CSG.Path2D[];
     overCutInsideCorners(cutterradius: any): CAG;
     center(cAxes: string[]): CxG;
     toDxf(): Blob;
-    static PathsToDxf(paths: any): Blob;
+    static PathsToDxf(paths: CSG.Path2D[]): Blob;
 }
 declare module CAG {
     class Vertex {
