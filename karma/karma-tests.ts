@@ -30,7 +30,7 @@ karma.runner.run({port: 9876}, (exitCode: number) => {
 
 
 //var Server = require('karma').Server; => cannot use this syntax otherwise Server is of type any
-var server = new karma.Server({port: 9876}, function(exitCode: number) {
+var server = new karma.Server({logLevel: 'debug', port: 9876}, function(exitCode: number) {
     console.log('Karma has exited with ' + exitCode);
     process.exit(exitCode);
 });
@@ -57,6 +57,7 @@ var captured: boolean = karma.launcher.areAllCaptured();
 // Example of configuration file karma.conf.ts, see http://karma-runner.github.io/0.13/config/configuration-file.html
 module.exports = function(config: karma.Config) {
   config.set({
+    logLevel: config.LOG_DEBUG,
     basePath: '..',
     urlRoot: '/base/',
     frameworks: ['jasmine'],
