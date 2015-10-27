@@ -47,9 +47,9 @@ declare module yo {
         emit(event: string, ...args: any[]): boolean;
 
         async(): any;
-        prompt(opt?:IPromptOptions, callback?:(answers:any)=>void);
-        log(message: string);
-        npmInstall(packages: string[], options?);
+        prompt(opt?:IPromptOptions, callback?:(answers:any)=>void) :void;
+        log(message: string) : void;
+        npmInstall(packages: string[], options?) :void;
 
         appname: string;
         gruntfile: IGruntFileStatic;
