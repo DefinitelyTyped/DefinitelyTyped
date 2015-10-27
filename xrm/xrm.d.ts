@@ -2576,19 +2576,18 @@ declare module Xrm
         /**
          * Opens quick create.
          *
-         * @param   {Function}  callback                    The function that will be called when a record is created. This
-         *                                                  function is passed a LookupValue object as a parameter.
          * @param   {string}    entityLogicalName           The logical name of the entity to create.
          * @param   {Page.LookupValue}  createFromEntity    (Optional) Designates a record that will provide default values
          *                                                  based on mapped attribute values.
          * @param   {OpenParameters}    parameters          (Optional) A dictionary object that passes extra query string
          *                                                  parameters to the form. Invalid query string parameters will cause an
          *                                                  error.
+         * @return An Async.XrmPromise.
          */
-        export function openQuickCreate( callback: ( recordReference: Page.LookupValue ) => void,
+        export function openQuickCreate(
             entityLogicalName: string,
             createFromEntity?: Page.LookupValue,
-            parameters?: OpenParameters ): void;
+            parameters?: OpenParameters ): Async.XrmPromise;
 
         /**
          * Opens an HTML Web Resource in a new browser window.
