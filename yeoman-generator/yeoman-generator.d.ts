@@ -65,11 +65,11 @@ declare module yo {
   }
 
   export interface IYeomanGeneratorOption {
-    alias: string;
-    defaults: any;
-    desc: string;
-    hide: boolean;
-    type: any;
+    alias?: string;
+    defaults?: any;
+    desc?: string;
+    hide?: boolean;
+    type?: any;
   }
 
   export interface IQueueProps {
