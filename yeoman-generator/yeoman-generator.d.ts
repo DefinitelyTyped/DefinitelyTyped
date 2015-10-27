@@ -29,7 +29,7 @@ declare module yo {
 		determineAppname(): void;
 		getCollisionFilter(): (output: any) => void;
 		hookFor(name: string, config: IHookConfig): void;
-		option(name: string, config: IYeomanGeneratorOption): void;
+		option(name: string, config?: IYeomanGeneratorOption): void;
 		rootGeneratorName(): string;
 		run(args?: any): void;
 		run(args: any, callback?: Function): void;
