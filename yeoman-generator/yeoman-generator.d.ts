@@ -47,14 +47,20 @@ declare module yo {
         emit(event: string, ...args: any[]): boolean;
 
         async(): any;
-        prompt(opt?, callback?);
+        prompt(opt?:IPromptOptions, callback?:(answers:any)=>void);
         log(message: string);
         npmInstall(packages: string[], options?);
 
         appname: string;
         gruntfile: IGruntFileStatic;
     }
-
+    export interface IPromptOptions{
+        type:stirng;
+        name:string;
+        message:string;
+        default:string;
+    }
+    
     export interface IGruntFileStatic {
         loadNpmTasks(pluginName: string): void;
         insertConfig(name, config);
