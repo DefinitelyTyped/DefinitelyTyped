@@ -4538,136 +4538,6 @@ declare module _ {
         ): LoDashImplicitArrayWrapper<boolean>;
     }
 
-    //_.sum
-    interface LoDashStatic {
-        /**
-        * Gets the sum of the values in collection.
-        *
-        * @param collection The collection to iterate over.
-        * @param iteratee The function invoked per iteration.
-        * @param thisArg The this binding of iteratee.
-        * @return Returns the sum.
-        **/
-        sum(
-            collection: Array<number>): number;
-
-        /**
-        * @see _.sum
-        **/
-        sum(
-            collection: List<number>): number;
-
-        /**
-        * @see _.sum
-        **/
-        sum(
-            collection: Dictionary<number>): number;
-
-        /**
-        * @see _.sum
-        **/
-        sum<T>(
-            collection: Array<T>,
-            iteratee: ListIterator<T, number>,
-            thisArg?: any): number;
-
-        /**
-        * @see _.sum
-        **/
-        sum<T>(
-            collection: List<T>,
-            iteratee: ListIterator<T, number>,
-            thisArg?: any): number;
-
-        /**
-        * @see _.sum
-        **/
-        sum<T>(
-            collection: Dictionary<T>,
-            iteratee: ObjectIterator<T, number>,
-            thisArg?: any): number;
-
-        /**
-        * @see _.sum
-        * @param property _.property callback shorthand.
-        **/
-        sum<T>(
-            collection: Array<T>,
-            property: string): number;
-
-        /**
-        * @see _.sum
-        * @param property _.property callback shorthand.
-        **/
-        sum<T>(
-            collection: List<T>,
-            property: string): number;
-
-        /**
-        * @see _.sum
-        * @param property _.property callback shorthand.
-        **/
-        sum<T>(
-            collection: Dictionary<T>,
-            property: string): number;
-    }
-
-    interface LoDashImplicitNumberArrayWrapper {
-        /**
-        * @see _.sum
-        **/
-        sum(): number;
-
-        /**
-        * @see _.sum
-        **/
-        sum(
-            iteratee: ListIterator<number, number>,
-            thisArg?: any): number;
-    }
-
-    interface LoDashImplicitArrayWrapper<T> {
-        /**
-        * @see _.sum
-        **/
-        sum(): number;
-
-        /**
-        * @see _.sum
-        **/
-        sum(
-            iteratee: ListIterator<T, number>,
-            thisArg?: any): number;
-
-        /**
-        * @see _.sum
-        * @param property _.property callback shorthand.
-        **/
-        sum(
-            property: string): number;
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-        * @see _.sum
-        **/
-        sum(): number;
-
-        /**
-        * @see _.sum
-        **/
-        sum(
-            iteratee: ObjectIterator<any, number>,
-            thisArg?: any): number;
-
-        /**
-        * @see _.sum
-        * @param property _.property callback shorthand.
-        **/
-        sum(
-            property: string): number;
-    }
-
     //_.pluck
     interface LoDashStatic {
         /**
@@ -7747,6 +7617,130 @@ declare module _ {
          * @see _.round
          */
         round(precision?: number): LoDashExplicitWrapper<number>;
+    }
+
+    //_.sum
+    interface LoDashStatic {
+        /**
+         * Gets the sum of the values in collection.
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns the sum.
+         */
+        sum<T>(
+            collection: List<T>,
+            iteratee: ListIterator<T, number>,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.sum
+         **/
+        sum<T>(
+            collection: Dictionary<T>,
+            iteratee: DictionaryIterator<T, number>,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.sum
+         */
+        sum<T>(
+            collection: List<number>|Dictionary<number>,
+            iteratee: string
+        ): number;
+
+        /**
+         * @see _.sum
+         */
+        sum<T>(collection: List<T>|Dictionary<T>): number;
+
+        /**
+         * @see _.sum
+         */
+        sum(collection: List<number>|Dictionary<number>): number;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.sum
+         */
+        sum(
+            iteratee: ListIterator<T, number>,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.sum
+         */
+        sum(iteratee: string): number;
+
+        /**
+         * @see _.sum
+         */
+        sum(): number;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.sum
+         **/
+        sum<TValue>(
+            iteratee: ListIterator<TValue, number>|DictionaryIterator<TValue, number>,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.sum
+         */
+        sum(iteratee: string): number;
+
+        /**
+         * @see _.sum
+         */
+        sum(): number;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.sum
+         */
+        sum(
+            iteratee: ListIterator<T, number>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sum
+         */
+        sum(iteratee: string): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sum
+         */
+        sum(): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.sum
+         */
+        sum<TValue>(
+            iteratee: ListIterator<TValue, number>|DictionaryIterator<TValue, number>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sum
+         */
+        sum(iteratee: string): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sum
+         */
+        sum(): LoDashExplicitWrapper<number>;
     }
 
     /**********
