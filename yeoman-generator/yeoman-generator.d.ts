@@ -55,7 +55,7 @@ declare module yo {
         gruntfile: IGruntFileStatic;
     }
     export interface IPromptOptions{
-        type:stirng;
+        type:string;
         name:string;
         message:string;
         default:string;
@@ -63,10 +63,10 @@ declare module yo {
     
     export interface IGruntFileStatic {
         loadNpmTasks(pluginName: string): void;
-        insertConfig(name, config);
-        registerTask(name, tasks);
-        insertVariable(name, value);
-        prependJavaScript(code);
+        insertConfig(name:string, config:any):void;
+        registerTask(name:string, tasks:any):void;
+        insertVariable(name:string, value:any):void;
+        prependJavaScript(code:string):void;
     }
 
     export interface IArgumentConfig {
