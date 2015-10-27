@@ -9180,6 +9180,7 @@ declare module _ {
         /**
          * Deburrs string by converting latin-1 supplementary letters to basic latin letters and removing combining
          * diacritical marks.
+         *
          * @param string The string to deburr.
          * @return Returns the deburred string.
          */
@@ -9191,6 +9192,13 @@ declare module _ {
          * @see _.deburr
          */
         deburr(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.deburr
+         */
+        deburr(): LoDashExplicitWrapper<string>;
     }
 
     //_.endsWith

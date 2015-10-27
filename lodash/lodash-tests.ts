@@ -3776,8 +3776,20 @@ module TestCapitalize {
 }
 
 // _.deburr
-result = <string>_.deburr('déjà vu');
-result = <string>_('déjà vu').deburr();
+module TestDeburr {
+    {
+        let result: string;
+
+        result = _.deburr('déjà vu');
+        result = _('déjà vu').deburr();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('déjà vu').chain().deburr();
+    }
+}
 
 // _.endsWith
 module TestEndsWith {
