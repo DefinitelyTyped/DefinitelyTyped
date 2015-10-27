@@ -52,3 +52,43 @@ karma.runner.run({port: 9876}, function(exitCode: number) {
 //
 
 var captured: boolean = karma.launcher.areAllCaptured();
+
+
+// Example of configuration file karma.conf.ts, see http://karma-runner.github.io/0.13/config/configuration-file.html
+module.exports = function(config: karma.Config) {
+  config.set({
+    basePath: '..',
+    urlRoot: '/base/',
+    frameworks: ['jasmine'],
+
+    files: [
+      'file1.js',
+      'file2.js',
+      'file3.js',
+      {
+        pattern: '**/*.html',
+        included: false
+      }
+    ],
+
+    reporters: [
+      'progress',
+      'coverage'
+    ],
+
+    preprocessors: {
+      'app.js': ['coverage']
+    },
+
+    port: 9876,
+
+    autoWatch: true,
+
+    browsers: [
+      'Chrome',
+      'Firefox'
+    ],
+
+    singleRun: true
+  });
+};
