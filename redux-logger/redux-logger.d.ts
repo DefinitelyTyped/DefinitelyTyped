@@ -20,5 +20,6 @@ declare module 'redux-logger' {
             transformer?: (state:any) => any;
         }
     }
-    export = createLogger
+
+    export = createLogger;
 }
