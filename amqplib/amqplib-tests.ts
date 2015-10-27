@@ -63,5 +63,5 @@ amqpcb.connect("amqp://localhost", (err, connection) => {
 // test callback api properties
 var amqpcbMessage: amqpcb.Message;
 amqpcbMessage.properties.contentType = "application/json";
-var amqpcbAssertExchangeOptions: amqp.Options.AssertExchange;
-var anqpcbAssertExchangeReplies: amqp.Replies.AssertExchange;
+var amqpcbAssertExchangeOptions: amqpcb.Options.AssertExchange;
+var anqpcbAssertExchangeReplies: amqpcb.Replies.AssertExchange;
