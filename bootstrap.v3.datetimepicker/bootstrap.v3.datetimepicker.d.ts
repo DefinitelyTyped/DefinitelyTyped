@@ -1,4 +1,4 @@
-// Type definitions for Bootstrap datetimepicker v3 
+﻿// Type definitions for Bootstrap datetimepicker v3 
 // Project: http://eonasdan.github.io/bootstrap-datetimepicker
 // Definitions by: Jesica N. Fera <https://github.com/bayitajesi>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -55,14 +55,13 @@ declare module BootstrapV3DatetimePicker {
     }
 
     interface Datetimepicker {
-        date(): void;
-        date(date: any): void;
-        minDate(date: any): void;
-        maxDate(date: any): void;
+        setDate(date: any): void;
+        setMinDate(date: any): void;
+        setMaxDate(date: any): void;
         show(): void;
         disable(): void;
         enable(): void;
-        options(options: any): void;
+        getDate(): void;
     }
 
 }
