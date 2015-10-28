@@ -94,3 +94,7 @@ interface UrlUtil {
 
 /** Apache Cordova instance */
 declare var cordova: Cordova;
+
+declare module 'cordova' {
+    export = cordova;
+}
