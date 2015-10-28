@@ -3,9 +3,12 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-//
-// This version of the definition creates a global `Promise` class.
-//
+
+/* --DECLARATION-PERMUTATION--
+ *
+ * This version of the definition creates a global `Promise` class.
+ */
+
 
 // ES6 model with generics overload was sourced and trans-multiplied from es6-promises.d.ts
 // By: Campredon <https://github.com/fdecampredon/>
