@@ -3800,8 +3800,20 @@ module TestEndsWith {
 }
 
 // _.escape
-result = <string>_.escape('fred, barney, & pebbles');
-result = <string>_('fred, barney, & pebbles').escape();
+module TestEscape {
+    {
+        let result: string;
+
+        result = _.escape('fred, barney, & pebbles');
+        result = _('fred, barney, & pebbles').escape();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('fred, barney, & pebbles').chain().escape();
+    }
+}
 
 // _.escapeRegExp
 module TestEscapeRegExp {
