@@ -235,10 +235,10 @@ declare module angular.ui {
          */
         go(to: string, params?: {}, options?: IStateOptions): angular.IPromise<any>;
         go(to: IState, params?: {}, options?: IStateOptions): angular.IPromise<any>;
-        transitionTo(state: string, params?: {}, updateLocation?: boolean): ng.IPromise<any>;
-        transitionTo(state: IState, params?: {}, updateLocation?: boolean): ng.IPromise<any>;
-        transitionTo(state: string, params?: {}, options?: IStateOptions): ng.IPromise<any>;
-        transitionTo(state: IState, params?: {}, options?: IStateOptions): ng.IPromise<any>;
+        transitionTo(state: string, params?: {}, updateLocation?: boolean): angular.IPromise<any>;
+        transitionTo(state: IState, params?: {}, updateLocation?: boolean): angular.IPromise<any>;
+        transitionTo(state: string, params?: {}, options?: IStateOptions): angular.IPromise<any>;
+        transitionTo(state: IState, params?: {}, options?: IStateOptions): angular.IPromise<any>;
         includes(state: string, params?: {}): boolean;
         is(state:string, params?: {}): boolean;
         is(state: IState, params?: {}): boolean;
@@ -250,10 +250,10 @@ declare module angular.ui {
         current: IState;
         /** A param object, e.g. {sectionId: section.id)}, that you'd like to test against the current active state. */
         params: IStateParamsService;
-        reload(): ng.IPromise<any>;
+        reload(): angular.IPromise<any>;
 
         /** Currently pending transition. A promise that'll resolve or reject. */
-        transition: ng.IPromise<{}>;
+        transition: angular.IPromise<{}>;
 
         $current: IResolvedState;
     }
