@@ -8,9 +8,12 @@
 
 declare module Express {
     export interface Request {
+        /** Array of files processed via .array() or .fields()  */
         files: {
             [fieldname: string]: Multer.File
-        }
+        },
+        /** Single file when processed via .single()  */
+        file: Multer.File
     }
 
     module Multer {
@@ -33,6 +36,8 @@ declare module Express {
             path: string;
             /** A Buffer of the entire file (MemoryStorage) */
             buffer: Buffer;
+            /** A Buffer of the entire file (MemoryStorage) */
+            stream: any;
         }
     }
 }
@@ -40,11 +45,21 @@ declare module Express {
 declare module "multer" {
     import express = require('express');
 
-    function multer(options?: multer.Options): express.RequestHandler;
+    interface RequestHandler extends express.RequestHandler {
+        /** Processes a fingle file passed in the name parameter returns via .file  */
+        single(name:string) : express.RequestHandler;
+        /** Processes an array of fields specified by name and maxCount returns via .files  */
+        array(name:string, maxCount:number): express.RequestHandler;
+        /** Process an array of different field names and maxCounts returns via .files  */
+        fields(fields:{ name:string, maxCount? :number}[]):express.RequestHandler;
+    }
+
+    function multer(options?:multer.Options):RequestHandler;
 
     module multer {
-
         type Options = {
+            /** The storage engine to use. */
+            storage?: StorageEngine;
             /** The destination directory for the uploaded files. */
             dest?: string;
             /** An object specifying the size limits of the following optional properties. This object is passed to busboy directly, and the details of properties can be found on https://github.com/mscdex/busboy#busboy-methods */
@@ -69,23 +84,23 @@ declare module "multer" {
             /** If this Boolean value is true, the file.buffer property holds the data in-memory that Multer would have written to disk. The dest option is still populated and the path property contains the proposed path to save the file. Defaults to false. */
             inMemory?: boolean;
             /** Function to rename the uploaded files. Whatever the function returns will become the new name of the uploaded file (extension is not included). The fieldname and filename of the file will be available in this function, use them if you need to. */
-            rename?: (fieldname: string, filename: string, req: Express.Request, res: Express.Response) => string;
+            rename?: (fieldname:string, filename:string, req:Express.Request, res:Express.Response) => string;
             /** Function to rename the directory in which to place uploaded files. The dest parameter is the default value originally assigned or passed into multer. The req and res parameters are also passed into the function because they may contain information (eg session data) needed to create the path (eg get userid from the session). */
-            changeDest?: (dest: string, req: Express.Request, res: Express.Response) => string;
+            changeDest?: (dest:string, req:Express.Request, res:Express.Response) => string;
             /** Event handler triggered when a file starts to be uploaded. A file object, with the following properties, is available to this function: fieldname, originalname, name, encoding, mimetype, path, and extension. */
-            onFileUploadStart?: (file: Express.Multer.File, req: Express.Request, res: Express.Response) => void;
+            onFileUploadStart?: (file:Express.Multer.File, req:Express.Request, res:Express.Response) => void;
             /** Event handler triggered when a chunk of buffer is received. A buffer object along with a file object is available to the function. */
-            onFileUploadData?: (file: Express.Multer.File, data: Buffer, req: Express.Request, res: Express.Response) => void;
+            onFileUploadData?: (file:Express.Multer.File, data:Buffer, req:Express.Request, res:Express.Response) => void;
             /** Event handler trigger when a file is completely uploaded. A file object is available to the function. */
-            onFileUploadComplete?: (file: Express.Multer.File, req: Express.Request, res: Express.Response) => void;
+            onFileUploadComplete?: (file:Express.Multer.File, req:Express.Request, res:Express.Response) => void;
             /** Event handler triggered when the form parsing starts. */
             onParseStart?: () => void;
             /** Event handler triggered when the form parsing completes. The request object and the next objects are are passed to the function. */
-            onParseEnd?: (req: Express.Request, next: () => void) => void;
+            onParseEnd?: (req:Express.Request, next:() => void) => void;
             /** Event handler for any errors encountering while processing the form. The error object and the next object is available to the function. If you are handling errors yourself, make sure to terminate the request or call the next() function, else the request will be left hanging. */
             onError?: () => void;
             /** Event handler triggered when a file size exceeds the specification in the limit object. No more files will be parsed after the limit is reached. */
-            onFileSizeLimit?: (file: Express.Multer.File) => void;
+            onFileSizeLimit?: (file:Express.Multer.File) => void;
             /** Event handler triggered when the number of files exceed the specification in the limit object. No more files will be parsed after the limit is reached. */
             onFilesLimit?: () => void;
             /** Event handler triggered when the number of fields exceed the specification in the limit object. No more fields will be parsed after the limit is reached. */
@@ -93,7 +108,13 @@ declare module "multer" {
             /** Event handler triggered when the number of parts exceed the specification in the limit object. No more files or fields will be parsed after the limit is reached. */
             onPartsLimit?: () => void;
         };
-    }
 
+        interface StorageEngine {
+            /** Processes request and return information required to access file  */
+            _handleFile(req:express.Request, file:Express.Multer.File, cb:(error?:any, info?:Express.Multer.File)=>void):void;
+            /** Removes a file from the storage engine  */
+            _removeFile(req:express.Request, file:Express.Multer.File, cb:(error:Error) => void) : void;
+        }
+    }
     export = multer;
 }
