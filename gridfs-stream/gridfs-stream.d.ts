@@ -52,6 +52,7 @@ declare module "gridfs-stream" {
 
             files: mongo.Collection;
             collection(name?: string): mongo.Collection;
+            curCol: string;
 
             createWriteStream(options?: GridFSStream.Options): GridFSStream.WriteStream;
             createReadStream(options?: GridFSStream.Options): GridFSStream.ReadStream;
@@ -60,6 +61,7 @@ declare module "gridfs-stream" {
 
             remove(options: GridFSStream.Options, callback: (err: Error) => void): void;
             exist(options: GridFSStream.Options, callback: (err: Error, found: boolean) => void): void;
+            findOne(options: GridFSStream.Options, callback: (err: Error, record: any)=>void):void;
         }
     }
 
