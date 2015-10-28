@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 //
-// This version of the definition avoids conflicting with the ES6 `Promise` interface.
+// This version of the definition creates a global `Promise` class.
 //
 
 // ES6 model with generics overload was sourced and trans-multiplied from es6-promises.d.ts
@@ -18,30 +18,30 @@
 
 // TODO fix remaining TODO annotations in both definition and test
 
-// TODO verify support to have no return statement in handlers to get a BluebirdPromise<void> (more overloads?)
+// TODO verify support to have no return statement in handlers to get a Promise<void> (more overloads?)
 
-declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, BluebirdPromise.Inspection<R> {
+declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	/**
 	 * Create a new promise. The passed in function will receive functions `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
 	 */
-	constructor(callback: (resolve: (thenableOrResult: R | BluebirdPromise.Thenable<R>) => void, reject: (error: any) => void) => void);
+	constructor(callback: (resolve: (thenableOrResult: R | Promise.Thenable<R>) => void, reject: (error: any) => void) => void);
 
 	/**
 	 * Promises/A+ `.then()` with progress handler. Returns a new promise chained from this promise. The new promise will be rejected or resolved dedefer on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
 	 */
-	then<U>(onFulfill: (value: R) => U|BluebirdPromise.Thenable<U>, onReject: (error: any) => BluebirdPromise.Thenable<U>, onProgress?: (note: any) => any): BluebirdPromise<U>;
-	then<U>(onFulfill: (value: R) => U|BluebirdPromise.Thenable<U>, onReject?: (error: any) => U, onProgress?: (note: any) => any): BluebirdPromise<U>;
+	then<U>(onFulfill: (value: R) => U|Promise.Thenable<U>, onReject: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
+	then<U>(onFulfill: (value: R) => U|Promise.Thenable<U>, onReject?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
 
 	/**
 	 * This is a catch-all exception handler, shortcut for calling `.then(null, handler)` on this promise. Any exception happening in a `.then`-chain will propagate to nearest `.catch` handler.
 	 *
 	 * Alias `.caught();` for compatibility with earlier ECMAScript version.
 	 */
-	catch<U>(onReject?: (error: any) => BluebirdPromise.Thenable<U>): BluebirdPromise<U>;
-	caught<U>(onReject?: (error: any) => BluebirdPromise.Thenable<U>): BluebirdPromise<U>;
+	catch<U>(onReject?: (error: any) => Promise.Thenable<U>): Promise<U>;
+	caught<U>(onReject?: (error: any) => Promise.Thenable<U>): Promise<U>;
 
-	catch<U>(onReject?: (error: any) => U): BluebirdPromise<U>;
-	caught<U>(onReject?: (error: any) => U): BluebirdPromise<U>;
+	catch<U>(onReject?: (error: any) => U): Promise<U>;
+	caught<U>(onReject?: (error: any) => U): Promise<U>;
 
 	/**
 	 * This extends `.catch` to work more like catch-clauses in languages like Java or C#. Instead of manually checking `instanceof` or `.name === "SomeError"`, you may specify a number of error constructors which are eligible for this catch handler. The catch handler that is first met that has eligible constructors specified, is the one that will be called.
@@ -50,82 +50,82 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 *
 	 * Alias `.caught();` for compatibility with earlier ECMAScript version.
 	 */
-	catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => BluebirdPromise.Thenable<U>): BluebirdPromise<U>;
-	caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => BluebirdPromise.Thenable<U>): BluebirdPromise<U>;
+	catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => Promise.Thenable<U>): Promise<U>;
+	caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => Promise.Thenable<U>): Promise<U>;
 
-	catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U): BluebirdPromise<U>;
-	caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => U): BluebirdPromise<U>;
+	catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U): Promise<U>;
+	caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => U): Promise<U>;
 
-	catch<U>(ErrorClass: Function, onReject: (error: any) => BluebirdPromise.Thenable<U>): BluebirdPromise<U>;
-	caught<U>(ErrorClass: Function, onReject: (error: any) => BluebirdPromise.Thenable<U>): BluebirdPromise<U>;
+	catch<U>(ErrorClass: Function, onReject: (error: any) => Promise.Thenable<U>): Promise<U>;
+	caught<U>(ErrorClass: Function, onReject: (error: any) => Promise.Thenable<U>): Promise<U>;
 
-	catch<U>(ErrorClass: Function, onReject: (error: any) => U): BluebirdPromise<U>;
-	caught<U>(ErrorClass: Function, onReject: (error: any) => U): BluebirdPromise<U>;
+	catch<U>(ErrorClass: Function, onReject: (error: any) => U): Promise<U>;
+	caught<U>(ErrorClass: Function, onReject: (error: any) => U): Promise<U>;
 
 	/**
 	 * Like `.catch` but instead of catching all types of exceptions, it only catches those that don't originate from thrown errors but rather from explicit rejections.
 	 */
-	error<U>(onReject: (reason: any) => BluebirdPromise.Thenable<U>): BluebirdPromise<U>;
-	error<U>(onReject: (reason: any) => U): BluebirdPromise<U>;
+	error<U>(onReject: (reason: any) => Promise.Thenable<U>): Promise<U>;
+	error<U>(onReject: (reason: any) => U): Promise<U>;
 
 	/**
 	 * Pass a handler that will be called regardless of this promise's fate. Returns a new promise chained from this promise. There are special semantics for `.finally()` in that the final value cannot be modified from the handler.
 	 *
 	 * Alias `.lastly();` for compatibility with earlier ECMAScript version.
 	 */
-	finally<U>(handler: () => BluebirdPromise.Thenable<U>): BluebirdPromise<R>;
-	finally<U>(handler: () => U): BluebirdPromise<R>;
+	finally<U>(handler: () => Promise.Thenable<U>): Promise<R>;
+	finally<U>(handler: () => U): Promise<R>;
 
-	lastly<U>(handler: () => BluebirdPromise.Thenable<U>): BluebirdPromise<R>;
-	lastly<U>(handler: () => U): BluebirdPromise<R>;
+	lastly<U>(handler: () => Promise.Thenable<U>): Promise<R>;
+	lastly<U>(handler: () => U): Promise<R>;
 
 	/**
 	 * Create a promise that follows this promise, but is bound to the given `thisArg` value. A bound promise will call its handlers with the bound value set to `this`. Additionally promises derived from a bound promise will also be bound promises with the same `thisArg` binding as the original promise.
 	 */
-	bind(thisArg: any): BluebirdPromise<R>;
+	bind(thisArg: any): Promise<R>;
 
 	/**
 	 * Like `.then()`, but any unhandled rejection that ends up here will be thrown as an error.
 	 */
-	done<U>(onFulfilled: (value: R) => BluebirdPromise.Thenable<U>, onRejected: (error: any) => BluebirdPromise.Thenable<U>, onProgress?: (note: any) => any): void;
-	done<U>(onFulfilled: (value: R) => BluebirdPromise.Thenable<U>, onRejected?: (error: any) => U, onProgress?: (note: any) => any): void;
-	done<U>(onFulfilled: (value: R) => U, onRejected: (error: any) => BluebirdPromise.Thenable<U>, onProgress?: (note: any) => any): void;
+	done<U>(onFulfilled: (value: R) => Promise.Thenable<U>, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): void;
+	done<U>(onFulfilled: (value: R) => Promise.Thenable<U>, onRejected?: (error: any) => U, onProgress?: (note: any) => any): void;
+	done<U>(onFulfilled: (value: R) => U, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): void;
 	done<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U, onProgress?: (note: any) => any): void;
 
 	/**
 	 * Like `.finally()`, but not called for rejections.
 	 */
-	tap<U>(onFulFill: (value: R) => BluebirdPromise.Thenable<U>): BluebirdPromise<R>;
-	tap<U>(onFulfill: (value: R) => U): BluebirdPromise<R>;
+	tap<U>(onFulFill: (value: R) => Promise.Thenable<U>): Promise<R>;
+	tap<U>(onFulfill: (value: R) => U): Promise<R>;
 
 	/**
 	 * Shorthand for `.then(null, null, handler);`. Attach a progress handler that will be called if this promise is progressed. Returns a new promise chained from this promise.
 	 */
-	progressed(handler: (note: any) => any): BluebirdPromise<R>;
+	progressed(handler: (note: any) => any): Promise<R>;
 
 	/**
 	 * Same as calling `Promise.delay(this, ms)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
 	 */
-	delay(ms: number): BluebirdPromise<R>;
+	delay(ms: number): Promise<R>;
 
 	/**
-	 * Returns a promise that will be fulfilled with this promise's fulfillment value or rejection reason. However, if this promise is not fulfilled or rejected within `ms` milliseconds, the returned promise is rejected with a `BluebirdPromise.TimeoutError` instance.
+	 * Returns a promise that will be fulfilled with this promise's fulfillment value or rejection reason. However, if this promise is not fulfilled or rejected within `ms` milliseconds, the returned promise is rejected with a `Promise.TimeoutError` instance.
 	 *
 	 * You may specify a custom error message with the `message` parameter.
 	 */
-	timeout(ms: number, message?: string): BluebirdPromise<R>;
+	timeout(ms: number, message?: string): Promise<R>;
 
 	/**
 	 * Register a node-style callback on this promise. When this promise is is either fulfilled or rejected, the node callback will be called back with the node.js convention where error reason is the first argument and success value is the second argument. The error argument will be `null` in case of success.
 	 * Returns back this promise instead of creating a new one. If the `callback` argument is not a function, this method does not do anything.
 	 */
-	nodeify(callback: (err: any, value?: R) => void, options?: BluebirdPromise.SpreadOption): BluebirdPromise<R>;
+	nodeify(callback: (err: any, value?: R) => void, options?: Promise.SpreadOption): Promise<R>;
 	nodeify(...sink: any[]): void;
 
 	/**
 	 * Marks this promise as cancellable. Promises by default are not cancellable after v0.11 and must be marked as such for `.cancel()` to have any effect. Marking a promise as cancellable is infectious and you don't need to remark any descendant promise.
 	 */
-	cancellable(): BluebirdPromise<R>;
+	cancellable(): Promise<R>;
 
 	/**
 	 * Cancel this promise. The cancellation will propagate to farthest cancellable ancestor promise which is still pending.
@@ -137,20 +137,20 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 * Promises are by default not cancellable. Use `.cancellable()` to mark a promise as cancellable.
 	 */
 	// TODO what to do with this?
-	cancel<U>(): BluebirdPromise<U>;
+	cancel<U>(): Promise<U>;
 
 	/**
 	 * Like `.then()`, but cancellation of the the returned promise or any of its descendant will not propagate cancellation to this promise or this promise's ancestors.
 	 */
-	fork<U>(onFulfilled: (value: R) => BluebirdPromise.Thenable<U>, onRejected: (error: any) => BluebirdPromise.Thenable<U>, onProgress?: (note: any) => any): BluebirdPromise<U>;
-	fork<U>(onFulfilled: (value: R) => BluebirdPromise.Thenable<U>, onRejected?: (error: any) => U, onProgress?: (note: any) => any): BluebirdPromise<U>;
-	fork<U>(onFulfilled: (value: R) => U, onRejected: (error: any) => BluebirdPromise.Thenable<U>, onProgress?: (note: any) => any): BluebirdPromise<U>;
-	fork<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U, onProgress?: (note: any) => any): BluebirdPromise<U>;
+	fork<U>(onFulfilled: (value: R) => Promise.Thenable<U>, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
+	fork<U>(onFulfilled: (value: R) => Promise.Thenable<U>, onRejected?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
+	fork<U>(onFulfilled: (value: R) => U, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
+	fork<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
 
 	/**
 	 * Create an uncancellable promise based on this promise.
 	 */
-	uncancellable(): BluebirdPromise<R>;
+	uncancellable(): Promise<R>;
 
 	/**
 	 * See if this promise can be cancelled.
@@ -194,7 +194,7 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	/**
 	 * Synchronously inspect the state of this `promise`. The `PromiseInspection` will represent the state of the promise as snapshotted at the time of calling `.inspect()`.
 	 */
-	inspect(): BluebirdPromise.Inspection<R>;
+	inspect(): Promise.Inspection<R>;
 
 	/**
 	 * This is a convenience method for doing:
@@ -205,7 +205,7 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	* });
 	 * </code>
 	 */
-	call(propertyName: string, ...args: any[]): BluebirdPromise<any>;
+	call(propertyName: string, ...args: any[]): Promise<any>;
 
 	/**
 	 * This is a convenience method for doing:
@@ -217,7 +217,7 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 * </code>
 	 */
 	// TODO find way to fix get()
-	// get<U>(propertyName: string): BluebirdPromise<U>;
+	// get<U>(propertyName: string): Promise<U>;
 
 	/**
 	 * Convenience method for:
@@ -232,10 +232,10 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 *
 	 * Alias `.thenReturn();` for compatibility with earlier ECMAScript version.
 	 */
-	return(): BluebirdPromise<any>;
-	thenReturn(): BluebirdPromise<any>;
-	return<U>(value: U): BluebirdPromise<U>;
-	thenReturn<U>(value: U): BluebirdPromise<U>;
+	return(): Promise<any>;
+	thenReturn(): Promise<any>;
+	return<U>(value: U): Promise<U>;
+	thenReturn<U>(value: U): Promise<U>;
 
 	/**
 	 * Convenience method for:
@@ -249,8 +249,8 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 *
 	 * Alias `.thenThrow();` for compatibility with earlier ECMAScript version.
 	 */
-	throw(reason: Error): BluebirdPromise<R>;
-	thenThrow(reason: Error): BluebirdPromise<R>;
+	throw(reason: Error): Promise<R>;
+	thenThrow(reason: Error): Promise<R>;
 
 	/**
 	 * Convert to String.
@@ -266,76 +266,76 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 * Like calling `.then`, but the fulfillment value or rejection reason is assumed to be an array, which is flattened to the formal parameters of the handlers.
 	 */
 	// TODO how to model instance.spread()? like Q?
-	spread<U>(onFulfill: Function, onReject?: (reason: any) => BluebirdPromise.Thenable<U>): BluebirdPromise<U>;
-	spread<U>(onFulfill: Function, onReject?: (reason: any) => U): BluebirdPromise<U>;
+	spread<U>(onFulfill: Function, onReject?: (reason: any) => Promise.Thenable<U>): Promise<U>;
+	spread<U>(onFulfill: Function, onReject?: (reason: any) => U): Promise<U>;
 	/*
 	 // TODO or something like this?
-	 spread<U, W>(onFulfill: (...values: W[]) => BluebirdPromise.Thenable<U>, onReject?: (reason: any) => BluebirdPromise.Thenable<U>): BluebirdPromise<U>;
-	 spread<U, W>(onFulfill: (...values: W[]) => BluebirdPromise.Thenable<U>, onReject?: (reason: any) => U): BluebirdPromise<U>;
-	 spread<U, W>(onFulfill: (...values: W[]) => U, onReject?: (reason: any) => BluebirdPromise.Thenable<U>): BluebirdPromise<U>;
-	 spread<U, W>(onFulfill: (...values: W[]) => U, onReject?: (reason: any) => U): BluebirdPromise<U>;
+	 spread<U, W>(onFulfill: (...values: W[]) => Promise.Thenable<U>, onReject?: (reason: any) => Promise.Thenable<U>): Promise<U>;
+	 spread<U, W>(onFulfill: (...values: W[]) => Promise.Thenable<U>, onReject?: (reason: any) => U): Promise<U>;
+	 spread<U, W>(onFulfill: (...values: W[]) => U, onReject?: (reason: any) => Promise.Thenable<U>): Promise<U>;
+	 spread<U, W>(onFulfill: (...values: W[]) => U, onReject?: (reason: any) => U): Promise<U>;
 	 */
 	/**
 	 * Same as calling `Promise.all(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
 	 */
 	// TODO type inference from array-resolving promise?
-	all<U>(): BluebirdPromise<U[]>;
+	all<U>(): Promise<U[]>;
 
 	/**
 	 * Same as calling `Promise.props(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
 	 */
 	// TODO how to model instance.props()?
-	props(): BluebirdPromise<Object>;
+	props(): Promise<Object>;
 
 	/**
 	 * Same as calling `Promise.settle(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
 	 */
 	// TODO type inference from array-resolving promise?
-	settle<U>(): BluebirdPromise<BluebirdPromise.Inspection<U>[]>;
+	settle<U>(): Promise<Promise.Inspection<U>[]>;
 
 	/**
 	 * Same as calling `Promise.any(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
 	 */
 	// TODO type inference from array-resolving promise?
-	any<U>(): BluebirdPromise<U>;
+	any<U>(): Promise<U>;
 
 	/**
 	 * Same as calling `Promise.some(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
 	 */
 	// TODO type inference from array-resolving promise?
-	some<U>(count: number): BluebirdPromise<U[]>;
+	some<U>(count: number): Promise<U[]>;
 
 	/**
 	 * Same as calling `Promise.race(thisPromise, count)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
 	 */
 	// TODO type inference from array-resolving promise?
-	race<U>(): BluebirdPromise<U>;
+	race<U>(): Promise<U>;
 
 	/**
 	 * Same as calling `Promise.map(thisPromise, mapper)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
 	 */
 	// TODO type inference from array-resolving promise?
-	map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => BluebirdPromise.Thenable<U>, options?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<U[]>;
-	map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => U, options?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<U[]>;
+	map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => Promise.Thenable<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
+	map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
 	/**
 	 * Same as calling `Promise.reduce(thisPromise, Function reducer, initialValue)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
 	 */
 	// TODO type inference from array-resolving promise?
-	reduce<Q, U>(reducer: (memo: U, item: Q, index: number, arrayLength: number) => BluebirdPromise.Thenable<U>, initialValue?: U): BluebirdPromise<U>;
-	reduce<Q, U>(reducer: (memo: U, item: Q, index: number, arrayLength: number) => U, initialValue?: U): BluebirdPromise<U>;
+	reduce<Q, U>(reducer: (memo: U, item: Q, index: number, arrayLength: number) => Promise.Thenable<U>, initialValue?: U): Promise<U>;
+	reduce<Q, U>(reducer: (memo: U, item: Q, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
 
 	/**
 	 * Same as calling ``Promise.filter(thisPromise, filterer)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
 	 */
 	// TODO type inference from array-resolving promise?
-	filter<U>(filterer: (item: U, index: number, arrayLength: number) => BluebirdPromise.Thenable<boolean>, options?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<U[]>;
-	filter<U>(filterer: (item: U, index: number, arrayLength: number) => boolean, options?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<U[]>;
+	filter<U>(filterer: (item: U, index: number, arrayLength: number) => Promise.Thenable<boolean>, options?: Promise.ConcurrencyOption): Promise<U[]>;
+	filter<U>(filterer: (item: U, index: number, arrayLength: number) => boolean, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
 	/**
 	 * Same as calling ``Promise.each(thisPromise, iterator)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
 	 */
-	each<R, U>(iterator: (item: R, index: number, arrayLength: number) => U | BluebirdPromise.Thenable<U>): BluebirdPromise<R[]>;
+	each<R, U>(iterator: (item: R, index: number, arrayLength: number) => U | Promise.Thenable<U>): Promise<R[]>;
 
 	/**
 	 * Start the chain of promises with `Promise.try`. Any synchronous exceptions will be turned into rejections on the returned promise.
@@ -344,11 +344,11 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 *
 	 * Alias for `attempt();` for compatibility with earlier ECMAScript version.
 	 */
-	static try<R>(fn: () => BluebirdPromise.Thenable<R>, args?: any[], ctx?: any): BluebirdPromise<R>;
-	static try<R>(fn: () => R, args?: any[], ctx?: any): BluebirdPromise<R>;
+	static try<R>(fn: () => Promise.Thenable<R>, args?: any[], ctx?: any): Promise<R>;
+	static try<R>(fn: () => R, args?: any[], ctx?: any): Promise<R>;
 
-	static attempt<R>(fn: () => BluebirdPromise.Thenable<R>, args?: any[], ctx?: any): BluebirdPromise<R>;
-	static attempt<R>(fn: () => R, args?: any[], ctx?: any): BluebirdPromise<R>;
+	static attempt<R>(fn: () => Promise.Thenable<R>, args?: any[], ctx?: any): Promise<R>;
+	static attempt<R>(fn: () => R, args?: any[], ctx?: any): Promise<R>;
 
 	/**
 	 * Returns a new function that wraps the given function `fn`. The new function will always return a promise that is fulfilled with the original functions return values or rejected with thrown exceptions from the original function.
@@ -359,31 +359,31 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	/**
 	 * Create a promise that is resolved with the given `value`. If `value` is a thenable or promise, the returned promise will assume its state.
 	 */
-	static resolve(): BluebirdPromise<void>;
-	static resolve<R>(value: BluebirdPromise.Thenable<R>): BluebirdPromise<R>;
-	static resolve<R>(value: R): BluebirdPromise<R>;
+	static resolve(): Promise<void>;
+	static resolve<R>(value: Promise.Thenable<R>): Promise<R>;
+	static resolve<R>(value: R): Promise<R>;
 
 	/**
 	 * Create a promise that is rejected with the given `reason`.
 	 */
-	static reject(reason: any): BluebirdPromise<any>;
-	static reject<R>(reason: any): BluebirdPromise<R>;
+	static reject(reason: any): Promise<any>;
+	static reject<R>(reason: any): Promise<R>;
 
 	/**
-	 * Create a promise with undecided fate and return a `PromiseResolver` to control it. See resolution?: BluebirdPromise(#promise-resolution).
+	 * Create a promise with undecided fate and return a `PromiseResolver` to control it. See resolution?: Promise(#promise-resolution).
 	 */
-	static defer<R>(): BluebirdPromise.Resolver<R>;
+	static defer<R>(): Promise.Resolver<R>;
 
 	/**
-	 * Cast the given `value` to a trusted promise. If `value` is already a trusted `BluebirdPromise`, it is returned as is. If `value` is not a thenable, a fulfilled is: BluebirdPromise returned with `value` as its fulfillment value. If `value` is a thenable (BluebirdPromise-like object, like those returned by jQuery's `$.ajax`), returns a trusted that: BluebirdPromise assimilates the state of the thenable.
+	 * Cast the given `value` to a trusted promise. If `value` is already a trusted `Promise`, it is returned as is. If `value` is not a thenable, a fulfilled is: Promise returned with `value` as its fulfillment value. If `value` is a thenable (Promise-like object, like those returned by jQuery's `$.ajax`), returns a trusted that: Promise assimilates the state of the thenable.
 	 */
-	static cast<R>(value: BluebirdPromise.Thenable<R>): BluebirdPromise<R>;
-	static cast<R>(value: R): BluebirdPromise<R>;
+	static cast<R>(value: Promise.Thenable<R>): Promise<R>;
+	static cast<R>(value: R): Promise<R>;
 
 	/**
 	 * Sugar for `Promise.resolve(undefined).bind(thisArg);`. See `.bind()`.
 	 */
-	static bind(thisArg: any): BluebirdPromise<void>;
+	static bind(thisArg: any): Promise<void>;
 
 	/**
 	 * See if `value` is a trusted Promise.
@@ -399,9 +399,9 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 * Returns a promise that will be fulfilled with `value` (or `undefined`) after given `ms` milliseconds. If `value` is a promise, the delay will start counting down when it is fulfilled and the returned promise will be fulfilled with the fulfillment value of the `value` promise.
 	 */
 	// TODO enable more overloads
-	static delay<R>(value: BluebirdPromise.Thenable<R>, ms: number): BluebirdPromise<R>;
-	static delay<R>(value: R, ms: number): BluebirdPromise<R>;
-	static delay(ms: number): BluebirdPromise<void>;
+	static delay<R>(value: Promise.Thenable<R>, ms: number): Promise<R>;
+	static delay<R>(value: R, ms: number): Promise<R>;
+	static delay(ms: number): Promise<void>;
 
 	/**
 	 * Returns a function that will wrap the given `nodeFunction`. Instead of taking a callback, the returned function will return a promise whose fate is decided by the callback behavior of the given node function. The node function should conform to node.js convention of accepting a callback as last argument and calling that callback with error as the first argument and success value on the second argument.
@@ -410,12 +410,12 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 *
 	 * If you pass a `receiver`, the `nodeFunction` will be called as a method on the `receiver`.
 	 */
-	static promisify<T>(func: (callback: (err:any, result: T) => void) => void, receiver?: any): () => BluebirdPromise<T>;
-	static promisify<T, A1>(func: (arg1: A1, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1) => BluebirdPromise<T>;
-	static promisify<T, A1, A2>(func: (arg1: A1, arg2: A2, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1, arg2: A2) => BluebirdPromise<T>;
-	static promisify<T, A1, A2, A3>(func: (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1, arg2: A2, arg3: A3) => BluebirdPromise<T>;
-	static promisify<T, A1, A2, A3, A4>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => BluebirdPromise<T>;
-	static promisify<T, A1, A2, A3, A4, A5>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => BluebirdPromise<T>;
+	static promisify<T>(func: (callback: (err:any, result: T) => void) => void, receiver?: any): () => Promise<T>;
+	static promisify<T, A1>(func: (arg1: A1, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1) => Promise<T>;
+	static promisify<T, A1, A2>(func: (arg1: A1, arg2: A2, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1, arg2: A2) => Promise<T>;
+	static promisify<T, A1, A2, A3>(func: (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1, arg2: A2, arg3: A3) => Promise<T>;
+	static promisify<T, A1, A2, A3, A4>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => Promise<T>;
+	static promisify<T, A1, A2, A3, A4, A5>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => Promise<T>;
 	static promisify(nodeFunction: Function, receiver?: any): Function;
 
 	/**
@@ -424,13 +424,13 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 * Note that the original methods on the object are not overwritten but new methods are created with the `Async`-postfix. For example, if you `promisifyAll()` the node.js `fs` object use `fs.statAsync()` to call the promisified `stat` method.
 	 */
 	// TODO how to model promisifyAll?
-	static promisifyAll(target: Object, options?: BluebirdPromise.PromisifyAllOptions): Object;
+	static promisifyAll(target: Object, options?: Promise.PromisifyAllOptions): Object;
 
 
 	/**
 	 * Returns a promise that is resolved by a node style callback function.
 	 */
-	static fromNode(resolver: (callback: (err: any, result: any) => void) => void): BluebirdPromise<any>;
+	static fromNode(resolver: (callback: (err: any, result: any) => void) => void): Promise<any>;
 
 	/**
 	 * Returns a function that can use `yield` to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
@@ -442,14 +442,14 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 * Spawn a coroutine which may yield promises to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
 	 */
 	// TODO fix spawn GeneratorFunction
-	static spawn<R>(generatorFunction: Function): BluebirdPromise<R>;
+	static spawn<R>(generatorFunction: Function): Promise<R>;
 
 	/**
 	 * This is relevant to browser environments with no module loader.
 	 *
 	 * Release control of the `Promise` namespace to whatever it was before this library was loaded. Returns a reference to the library namespace so you can attach it to something else.
 	 */
-	static noConflict(): typeof BluebirdPromise;
+	static noConflict(): typeof Promise;
 
 	/**
 	 * Add `handler` as the handler to call when there is a possibly unhandled rejection. The default handler logs the error stack to stderr or `console.error` in browsers.
@@ -463,26 +463,26 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 */
 	// TODO enable more overloads
 	// promise of array with promises of value
-	static all<R>(values: BluebirdPromise.Thenable<BluebirdPromise.Thenable<R>[]>): BluebirdPromise<R[]>;
+	static all<R>(values: Promise.Thenable<Promise.Thenable<R>[]>): Promise<R[]>;
 	// promise of array with values
-	static all<R>(values: BluebirdPromise.Thenable<R[]>): BluebirdPromise<R[]>;
+	static all<R>(values: Promise.Thenable<R[]>): Promise<R[]>;
 	// array with promises of value
-	static all<R>(values: BluebirdPromise.Thenable<R>[]): BluebirdPromise<R[]>;
+	static all<R>(values: Promise.Thenable<R>[]): Promise<R[]>;
 	// array with values
-	static all<R>(values: R[]): BluebirdPromise<R[]>;
+	static all<R>(values: R[]): Promise<R[]>;
 
 	/**
-	 * Like ``BluebirdPromise.all`` but for object properties instead of array items. Returns a promise that is fulfilled when all the properties of the object are fulfilled. The promise's fulfillment value is an object with fulfillment values at respective keys to the original object. If any promise in the object rejects, the returned promise is rejected with the rejection reason.
+	 * Like ``Promise.all`` but for object properties instead of array items. Returns a promise that is fulfilled when all the properties of the object are fulfilled. The promise's fulfillment value is an object with fulfillment values at respective keys to the original object. If any promise in the object rejects, the returned promise is rejected with the rejection reason.
 	 *
-	 * If `object` is a trusted `BluebirdPromise`, then it will be treated as a promise for object rather than for its properties. All other objects are treated for their properties as is returned by `Object.keys` - the object's own enumerable properties.
+	 * If `object` is a trusted `Promise`, then it will be treated as a promise for object rather than for its properties. All other objects are treated for their properties as is returned by `Object.keys` - the object's own enumerable properties.
 	 *
 	 * *The original object is not modified.*
 	 */
 	// TODO verify this is correct
 	// trusted promise for object
-	static props(object: BluebirdPromise<Object>): BluebirdPromise<Object>;
+	static props(object: Promise<Object>): Promise<Object>;
 	// object
-	static props(object: Object): BluebirdPromise<Object>;
+	static props(object: Object): Promise<Object>;
 
 	/**
 	 * Given an array, or a promise of an array, which contains promises (or a mix of promises and values) return a promise that is fulfilled when all the items in the array are either fulfilled or rejected. The fulfillment value is an array of ``PromiseInspection`` instances at respective positions in relation to the input array.
@@ -490,25 +490,25 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 * *original: The array is not modified. The input array sparsity is retained in the resulting array.*
 	 */
 	// promise of array with promises of value
-	static settle<R>(values: BluebirdPromise.Thenable<BluebirdPromise.Thenable<R>[]>): BluebirdPromise<BluebirdPromise.Inspection<R>[]>;
+	static settle<R>(values: Promise.Thenable<Promise.Thenable<R>[]>): Promise<Promise.Inspection<R>[]>;
 	// promise of array with values
-	static settle<R>(values: BluebirdPromise.Thenable<R[]>): BluebirdPromise<BluebirdPromise.Inspection<R>[]>;
+	static settle<R>(values: Promise.Thenable<R[]>): Promise<Promise.Inspection<R>[]>;
 	// array with promises of value
-	static settle<R>(values: BluebirdPromise.Thenable<R>[]): BluebirdPromise<BluebirdPromise.Inspection<R>[]>;
+	static settle<R>(values: Promise.Thenable<R>[]): Promise<Promise.Inspection<R>[]>;
 	// array with values
-	static settle<R>(values: R[]): BluebirdPromise<BluebirdPromise.Inspection<R>[]>;
+	static settle<R>(values: R[]): Promise<Promise.Inspection<R>[]>;
 
 	/**
 	 * Like `Promise.some()`, with 1 as `count`. However, if the promise fulfills, the fulfillment value is not an array of 1 but the value directly.
 	 */
 	// promise of array with promises of value
-	static any<R>(values: BluebirdPromise.Thenable<BluebirdPromise.Thenable<R>[]>): BluebirdPromise<R>;
+	static any<R>(values: Promise.Thenable<Promise.Thenable<R>[]>): Promise<R>;
 	// promise of array with values
-	static any<R>(values: BluebirdPromise.Thenable<R[]>): BluebirdPromise<R>;
+	static any<R>(values: Promise.Thenable<R[]>): Promise<R>;
 	// array with promises of value
-	static any<R>(values: BluebirdPromise.Thenable<R>[]): BluebirdPromise<R>;
+	static any<R>(values: Promise.Thenable<R>[]): Promise<R>;
 	// array with values
-	static any<R>(values: R[]): BluebirdPromise<R>;
+	static any<R>(values: R[]): Promise<R>;
 
 	/**
 	 * Given an array, or a promise of an array, which contains promises (or a mix of promises and values) return a promise that is fulfilled or rejected as soon as a promise in the array is fulfilled or rejected with the respective rejection reason or fulfillment value.
@@ -516,13 +516,13 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 * **Note** If you pass empty array or a sparse array with no values, or a promise/thenable for such, it will be forever pending.
 	 */
 	// promise of array with promises of value
-	static race<R>(values: BluebirdPromise.Thenable<BluebirdPromise.Thenable<R>[]>): BluebirdPromise<R>;
+	static race<R>(values: Promise.Thenable<Promise.Thenable<R>[]>): Promise<R>;
 	// promise of array with values
-	static race<R>(values: BluebirdPromise.Thenable<R[]>): BluebirdPromise<R>;
+	static race<R>(values: Promise.Thenable<R[]>): Promise<R>;
 	// array with promises of value
-	static race<R>(values: BluebirdPromise.Thenable<R>[]): BluebirdPromise<R>;
+	static race<R>(values: Promise.Thenable<R>[]): Promise<R>;
 	// array with values
-	static race<R>(values: R[]): BluebirdPromise<R>;
+	static race<R>(values: R[]): Promise<R>;
 
 	/**
 	 * Initiate a competetive race between multiple promises or values (values will become immediately fulfilled promises). When `count` amount of promises have been fulfilled, the returned promise is fulfilled with an array that contains the fulfillment values of the winners in order of resolution.
@@ -532,21 +532,21 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 * *The original array is not modified.*
 	 */
 	// promise of array with promises of value
-	static some<R>(values: BluebirdPromise.Thenable<BluebirdPromise.Thenable<R>[]>, count: number): BluebirdPromise<R[]>;
+	static some<R>(values: Promise.Thenable<Promise.Thenable<R>[]>, count: number): Promise<R[]>;
 	// promise of array with values
-	static some<R>(values: BluebirdPromise.Thenable<R[]>, count: number): BluebirdPromise<R[]>;
+	static some<R>(values: Promise.Thenable<R[]>, count: number): Promise<R[]>;
 	// array with promises of value
-	static some<R>(values: BluebirdPromise.Thenable<R>[], count: number): BluebirdPromise<R[]>;
+	static some<R>(values: Promise.Thenable<R>[], count: number): Promise<R[]>;
 	// array with values
-	static some<R>(values: R[], count: number): BluebirdPromise<R[]>;
+	static some<R>(values: R[], count: number): Promise<R[]>;
 
 	/**
 	 * Like `Promise.all()` but instead of having to pass an array, the array is generated from the passed variadic arguments.
 	 */
 	// variadic array with promises of value
-	static join<R>(...values: BluebirdPromise.Thenable<R>[]): BluebirdPromise<R[]>;
+	static join<R>(...values: Promise.Thenable<R>[]): Promise<R[]>;
 	// variadic array with values
-	static join<R>(...values: R[]): BluebirdPromise<R[]>;
+	static join<R>(...values: R[]): Promise<R[]>;
 
 	/**
 	 * Map an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `mapper` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
@@ -556,20 +556,20 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 * *The original array is not modified.*
 	 */
 	// promise of array with promises of value
-	static map<R, U>(values: BluebirdPromise.Thenable<BluebirdPromise.Thenable<R>[]>, mapper: (item: R, index: number, arrayLength: number) => BluebirdPromise.Thenable<U>, options?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<U[]>;
-	static map<R, U>(values: BluebirdPromise.Thenable<BluebirdPromise.Thenable<R>[]>, mapper: (item: R, index: number, arrayLength: number) => U, options?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<U[]>;
+	static map<R, U>(values: Promise.Thenable<Promise.Thenable<R>[]>, mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
+	static map<R, U>(values: Promise.Thenable<Promise.Thenable<R>[]>, mapper: (item: R, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
 	// promise of array with values
-	static map<R, U>(values: BluebirdPromise.Thenable<R[]>, mapper: (item: R, index: number, arrayLength: number) => BluebirdPromise.Thenable<U>, options?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<U[]>;
-	static map<R, U>(values: BluebirdPromise.Thenable<R[]>, mapper: (item: R, index: number, arrayLength: number) => U, options?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<U[]>;
+	static map<R, U>(values: Promise.Thenable<R[]>, mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
+	static map<R, U>(values: Promise.Thenable<R[]>, mapper: (item: R, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
 	// array with promises of value
-	static map<R, U>(values: BluebirdPromise.Thenable<R>[], mapper: (item: R, index: number, arrayLength: number) => BluebirdPromise.Thenable<U>, options?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<U[]>;
-	static map<R, U>(values: BluebirdPromise.Thenable<R>[], mapper: (item: R, index: number, arrayLength: number) => U, options?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<U[]>;
+	static map<R, U>(values: Promise.Thenable<R>[], mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
+	static map<R, U>(values: Promise.Thenable<R>[], mapper: (item: R, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
 	// array with values
-	static map<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => BluebirdPromise.Thenable<U>, options?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<U[]>;
-	static map<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => U, options?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<U[]>;
+	static map<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
+	static map<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
 	/**
 	 * Reduce an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `reducer` function with the signature `(total, current, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
@@ -579,20 +579,20 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 * *The original array is not modified. If no `intialValue` is given and the array doesn't contain at least 2 items, the callback will not be called and `undefined` is returned. If `initialValue` is given and the array doesn't have at least 1 item, `initialValue` is returned.*
 	 */
 	// promise of array with promises of value
-	static reduce<R, U>(values: BluebirdPromise.Thenable<BluebirdPromise.Thenable<R>[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => BluebirdPromise.Thenable<U>, initialValue?: U): BluebirdPromise<U>;
-	static reduce<R, U>(values: BluebirdPromise.Thenable<BluebirdPromise.Thenable<R>[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => U, initialValue?: U): BluebirdPromise<U>;
+	static reduce<R, U>(values: Promise.Thenable<Promise.Thenable<R>[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => Promise.Thenable<U>, initialValue?: U): Promise<U>;
+	static reduce<R, U>(values: Promise.Thenable<Promise.Thenable<R>[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
 
 	// promise of array with values
-	static reduce<R, U>(values: BluebirdPromise.Thenable<R[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => BluebirdPromise.Thenable<U>, initialValue?: U): BluebirdPromise<U>;
-	static reduce<R, U>(values: BluebirdPromise.Thenable<R[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => U, initialValue?: U): BluebirdPromise<U>;
+	static reduce<R, U>(values: Promise.Thenable<R[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => Promise.Thenable<U>, initialValue?: U): Promise<U>;
+	static reduce<R, U>(values: Promise.Thenable<R[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
 
 	// array with promises of value
-	static reduce<R, U>(values: BluebirdPromise.Thenable<R>[], reducer: (total: U, current: R, index: number, arrayLength: number) => BluebirdPromise.Thenable<U>, initialValue?: U): BluebirdPromise<U>;
-	static reduce<R, U>(values: BluebirdPromise.Thenable<R>[], reducer: (total: U, current: R, index: number, arrayLength: number) => U, initialValue?: U): BluebirdPromise<U>;
+	static reduce<R, U>(values: Promise.Thenable<R>[], reducer: (total: U, current: R, index: number, arrayLength: number) => Promise.Thenable<U>, initialValue?: U): Promise<U>;
+	static reduce<R, U>(values: Promise.Thenable<R>[], reducer: (total: U, current: R, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
 
 	// array with values
-	static reduce<R, U>(values: R[], reducer: (total: U, current: R, index: number, arrayLength: number) => BluebirdPromise.Thenable<U>, initialValue?: U): BluebirdPromise<U>;
-	static reduce<R, U>(values: R[], reducer: (total: U, current: R, index: number, arrayLength: number) => U, initialValue?: U): BluebirdPromise<U>;
+	static reduce<R, U>(values: R[], reducer: (total: U, current: R, index: number, arrayLength: number) => Promise.Thenable<U>, initialValue?: U): Promise<U>;
+	static reduce<R, U>(values: R[], reducer: (total: U, current: R, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
 
 	/**
 	 * Filter an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `filterer` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
@@ -602,20 +602,20 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 * *The original array is not modified.
 	 */
 	// promise of array with promises of value
-	static filter<R>(values: BluebirdPromise.Thenable<BluebirdPromise.Thenable<R>[]>, filterer: (item: R, index: number, arrayLength: number) => BluebirdPromise.Thenable<boolean>, option?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<R[]>;
-	static filter<R>(values: BluebirdPromise.Thenable<BluebirdPromise.Thenable<R>[]>, filterer: (item: R, index: number, arrayLength: number) => boolean, option?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<R[]>;
+	static filter<R>(values: Promise.Thenable<Promise.Thenable<R>[]>, filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>, option?: Promise.ConcurrencyOption): Promise<R[]>;
+	static filter<R>(values: Promise.Thenable<Promise.Thenable<R>[]>, filterer: (item: R, index: number, arrayLength: number) => boolean, option?: Promise.ConcurrencyOption): Promise<R[]>;
 
 	// promise of array with values
-	static filter<R>(values: BluebirdPromise.Thenable<R[]>, filterer: (item: R, index: number, arrayLength: number) => BluebirdPromise.Thenable<boolean>, option?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<R[]>;
-	static filter<R>(values: BluebirdPromise.Thenable<R[]>, filterer: (item: R, index: number, arrayLength: number) => boolean, option?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<R[]>;
+	static filter<R>(values: Promise.Thenable<R[]>, filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>, option?: Promise.ConcurrencyOption): Promise<R[]>;
+	static filter<R>(values: Promise.Thenable<R[]>, filterer: (item: R, index: number, arrayLength: number) => boolean, option?: Promise.ConcurrencyOption): Promise<R[]>;
 
 	// array with promises of value
-	static filter<R>(values: BluebirdPromise.Thenable<R>[], filterer: (item: R, index: number, arrayLength: number) => BluebirdPromise.Thenable<boolean>, option?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<R[]>;
-	static filter<R>(values: BluebirdPromise.Thenable<R>[], filterer: (item: R, index: number, arrayLength: number) => boolean, option?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<R[]>;
+	static filter<R>(values: Promise.Thenable<R>[], filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>, option?: Promise.ConcurrencyOption): Promise<R[]>;
+	static filter<R>(values: Promise.Thenable<R>[], filterer: (item: R, index: number, arrayLength: number) => boolean, option?: Promise.ConcurrencyOption): Promise<R[]>;
 
 	// array with values
-	static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => BluebirdPromise.Thenable<boolean>, option?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<R[]>;
-	static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => boolean, option?: BluebirdPromise.ConcurrencyOption): BluebirdPromise<R[]>;
+	static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>, option?: Promise.ConcurrencyOption): Promise<R[]>;
+	static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => boolean, option?: Promise.ConcurrencyOption): Promise<R[]>;
 
 	/**
 	 * Iterate over an array, or a promise of an array, which contains promises (or a mix of promises and values) with the given iterator function with the signature (item, index, value) where item is the resolved value of a respective promise in the input array. Iteration happens serially. If any promise in the input array is rejected the returned promise is rejected as well.
@@ -623,14 +623,14 @@ declare class BluebirdPromise<R> implements BluebirdPromise.Thenable<R>, Bluebir
 	 * Resolves to the original array unmodified, this method is meant to be used for side effects. If the iterator function returns a promise or a thenable, the result for the promise is awaited for before continuing with next iteration.
 	 */
 	// promise of array with promises of value
-	static each<R, U>(values: BluebirdPromise.Thenable<BluebirdPromise.Thenable<R>[]>, iterator: (item: R, index: number, arrayLength: number) => U | BluebirdPromise.Thenable<U>): BluebirdPromise<R[]>;
+	static each<R, U>(values: Promise.Thenable<Promise.Thenable<R>[]>, iterator: (item: R, index: number, arrayLength: number) => U | Promise.Thenable<U>): Promise<R[]>;
 	// array with promises of value
-	static each<R, U>(values: BluebirdPromise.Thenable<R>[], iterator: (item: R, index: number, arrayLength: number) => U | BluebirdPromise.Thenable<U>): BluebirdPromise<R[]>;
+	static each<R, U>(values: Promise.Thenable<R>[], iterator: (item: R, index: number, arrayLength: number) => U | Promise.Thenable<U>): Promise<R[]>;
 	// array with values OR promise of array with values
-	static each<R, U>(values: R[] | BluebirdPromise.Thenable<R[]>, iterator: (item: R, index: number, arrayLength: number) => U | BluebirdPromise.Thenable<U>): BluebirdPromise<R[]>;
+	static each<R, U>(values: R[] | Promise.Thenable<R[]>, iterator: (item: R, index: number, arrayLength: number) => U | Promise.Thenable<U>): Promise<R[]>;
 }
 
-declare module BluebirdPromise {
+declare module Promise {
 	export interface RangeError extends Error {
 	}
 	export interface CancellationError extends Error {
@@ -678,7 +678,7 @@ declare module BluebirdPromise {
 		/**
 		 * Returns a reference to the controlled promise that can be passed to clients.
 		 */
-		promise: BluebirdPromise<R>;
+		promise: Promise<R>;
 
 		/**
 		 * Resolve the underlying promise with `value` as the resolution value. If `value` is a thenable or a promise, the underlying promise will assume its state.
@@ -746,5 +746,5 @@ declare module BluebirdPromise {
 }
 
 declare module 'bluebird' {
-	export = BluebirdPromise;
+	export = Promise;
 }
