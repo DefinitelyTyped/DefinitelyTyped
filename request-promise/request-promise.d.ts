@@ -22,10 +22,11 @@ declare module 'request-promise' {
     function RequestPromiseAPI(uri: string): Promise<request.Request>;
 
     module RequestPromiseAPI {
-        export interface Options extends request.Options {
+        interface AdditionalOptions {
             simple?: boolean;
             transform?: (body: any, response: http.IncomingMessage) => any;
             resolveWithFullResponse?: boolean;
         }
+        export type Options = AdditionalOptions & request.Options; 
     }
 }
