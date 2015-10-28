@@ -3687,17 +3687,6 @@ result = <number[]>_(new TestValueIn()).valuesIn<number>().value();
 * Utility *
 ***********/
 
-// _.noop
-result = <void>_.noop();
-result = <void>_.noop(1);
-result = <void>_.noop('a', 1);
-result = <void>_.noop(true, 'a', 1);
-result = <void>_('a').noop(true, 'a', 1);
-result = <void>_([1]).noop(true, 'a', 1);
-result = <void>_<string>([]).noop(true, 'a', 1);
-result = <void>_({}).noop(true, 'a', 1);
-result = <void>_(any).noop(true, 'a', 1);
-
 // _.property
 interface TestPropertyObject {
     a: {
@@ -4396,6 +4385,34 @@ module TestMixin {
     result = _(42).noConflict();
     result = _<any>([]).noConflict();
     result = _({}).noConflict();
+}
+
+// _.noop
+module TestNoop {
+    {
+        let result: void;
+
+        result = _.noop();
+        result = _.noop(1);
+        result = _.noop('a', 1);
+        result = _.noop(true, 'a', 1);
+
+        result = _('a').noop(true, 'a', 1);
+        result = _([1]).noop(true, 'a', 1);
+        result = _<string>([]).noop(true, 'a', 1);
+        result = _({}).noop(true, 'a', 1);
+        result = _(any).noop(true, 'a', 1);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<void>;
+
+        result = _('a').chain().noop(true, 'a', 1);
+        result = _([1]).chain().noop(true, 'a', 1);
+        result = _<string>([]).chain().noop(true, 'a', 1);
+        result = _({}).chain().noop(true, 'a', 1);
+        result = _(any).chain().noop(true, 'a', 1);
+    }
 }
 
 // _.runInContext
