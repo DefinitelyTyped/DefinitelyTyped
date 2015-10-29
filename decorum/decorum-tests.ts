@@ -8,8 +8,12 @@ import {Length} from 'decorum';
 import {FieldName} from 'decorum';
 import {Validation} from 'decorum';
 import {Pattern} from 'decorum';
+import {Alpha} from 'decorum';
+import {AlphaNumeric} from 'decorum';
 import {Validator} from 'decorum';
 import {BaseValidator} from 'decorum';
+import {IMessageOpts} from 'decorum';
+import {MessageHandlers} from 'decorum';
 
 class MyModel {
     @FieldName('User name')
@@ -39,6 +43,12 @@ class MyModel {
 
     @Length(6, 'Alias must be 6 characters long')
     alias: string;
+
+    @Alpha((opts: IMessageOpts) => 'Message overridden for field ' + opts.property + ' with friendly name ' + opts.friendlyName)
+    alpha: string;
+
+    @AlphaNumeric((opts: IMessageOpts) => 'Message overridden for field ' + opts.property + ' with friendly name ' + opts.friendlyName)
+    alphaNumeric: string;
 }
 
 // ES6-style
@@ -48,9 +58,9 @@ class MyController {
 
     doStuff(): void {
         var opts = this.validator.getValidationOptions('alias');
-        var fieldName = opts.getFieldName();
+        var fieldName = opts.getFriendlyName();
         var errs = opts.validateValue('foo', this.model);
-        opts.setFieldName('Foo');
+        opts.setFriendlyName('Foo');
         opts.addValidator(null);
         var validators = opts.getValidators();
     }
@@ -74,10 +84,11 @@ function MyOtherModel() {
 
 Validator.decorate(MyOtherModel, {
     foo: [
-        Required()
+        decorum.Required()
     ],
     bar: [
-        Pattern(/^[a-z][0-9]$/i)
+        decorum.Pattern(/^[a-z][0-9]$/i),
+        decorum.FieldName('My bar')
     ]
 });
 
@@ -91,12 +102,14 @@ class MyValidator extends BaseValidator {
         return false;
     }
 
-    getMessage(fieldName: string, fieldValue: any): string {
-        return 'No!';
+    getMessage(opts: IMessageOpts): string {
+        return opts.friendlyName + ' is not a valid thing because of value ' + opts.value + '! Fyi... its property name is ' + opts.property;
     }
 
     isValid(value: any, model: any): boolean {
         return false;
     }
-
 }
+
+// Message overrides
+MessageHandlers['alpha'] = (opts: IMessageOpts) => 'The value ' + opts.value + ' for property ' + opts.property + ' is invalid!';
