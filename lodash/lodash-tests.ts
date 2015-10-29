@@ -216,15 +216,37 @@ module TestCompact {
 module TestDropRight {
     let array: TResult[];
     let list: _.List<TResult>;
-    let result: TResult[];
-    result = _.dropRight<TResult>(array);
-    result = _.dropRight<TResult>(array, 42);
-    result = _.dropRight<TResult>(list);
-    result = _.dropRight<TResult>(list, 42);
-    result = _(array).dropRight().value();
-    result = _(array).dropRight(42).value();
-    result = _(list).dropRight<TResult>().value();
-    result = _(list).dropRight<TResult>(42).value();
+
+    {
+        let result: TResult[];
+
+        result = _.dropRight<TResult>(array);
+        result = _.dropRight<TResult>(array, 42);
+
+        result = _.dropRight<TResult>(list);
+        result = _.dropRight<TResult>(list, 42);
+
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).dropRight();
+        result = _(array).dropRight(42);
+
+        result = _(list).dropRight<TResult>();
+        result = _(list).dropRight<TResult>(42);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().dropRight();
+        result = _(array).chain().dropRight(42);
+
+        result = _(list).chain().dropRight<TResult>();
+        result = _(list).chain().dropRight<TResult>(42);
+    }
 }
 
 // _.dropRightWhile
