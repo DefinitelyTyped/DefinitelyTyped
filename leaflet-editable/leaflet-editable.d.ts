@@ -174,16 +174,18 @@ declare module L {
     export interface Polyline extends EditableMixin {
     }
 
-    export interface MapOptions {
-        /**
-         * Whether to create a L.Editable instance at map init or not.
-         */
-        editable?: boolean;
+    module Map {
+        export interface MapOptions {
+            /**
+             * Whether to create a L.Editable instance at map init or not.
+             */
+            editable?: boolean;
 
-        /**
-         * Options to pass to L.Editable when instanciating.
-         */
-        editOptions?: EditOptions;
+            /**
+             * Options to pass to L.Editable when instanciating.
+             */
+            editOptions?: EditOptions;
+        }
     }
 
     /**
