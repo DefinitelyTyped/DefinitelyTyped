@@ -9277,6 +9277,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Converts string to kebab case.
+         *
          * @param string The string to convert.
          * @return Returns the kebab cased string.
          */
@@ -9288,6 +9289,13 @@ declare module _ {
          * @see _.kebabCase
          */
         kebabCase(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.kebabCase
+         */
+        kebabCase(): LoDashExplicitWrapper<string>;
     }
 
     //_.pad
