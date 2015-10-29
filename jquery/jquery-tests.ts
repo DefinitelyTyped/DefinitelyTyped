@@ -120,6 +120,11 @@ function test_ajax() {
         alert("Data Saved: " + msg);
     });
     $.ajax({
+        method: "POST",
+        url: "some.php",
+        data: { name: "John", location: "Boston" }
+    });
+    $.ajax({
         url: "test.html",
         cache: false
     }).done(function (html) {
@@ -1129,6 +1134,13 @@ function test_jQuery_removeData() {
     jQuery.removeData(div, "test1");
     $("span:eq(2)").text("" + jQuery.data(div, "test1"));
     $("span:eq(3)").text("" + jQuery.data(div, "test2"));
+}
+
+function test_removeDataAll() {
+    var el = $("div");
+    el.data("test1", "VALUE-1");
+    el.data("test2", "VALUE-2");
+    el.removeData();
 }
 
 function test_dblclick() {
@@ -3354,7 +3366,7 @@ function test_promise_then_change_type() {
 		var def = $.Deferred<any>();
 		var promise = def.promise(null);
 
-		def.rejectWith(this, new Error());
+		def.rejectWith(this, [new Error()]);
 
 		return promise;
 	}

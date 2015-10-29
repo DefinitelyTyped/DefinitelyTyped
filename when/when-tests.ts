@@ -91,6 +91,31 @@ promise = liftedFunc5(when(1), when('2'), when(true), when(4), when('5'));
 
 var joinedPromise: when.Promise<number[]> = when.join(when(1), when(2), when(3));
 
+/* when.all(arr) */
+when.all<number[]>([when(1), when(2), when(3)]).then(results => {
+	return results.reduce((r, x) => r + x, 0);
+});
+
+/* when.settle(arr) */
+when.settle<number>([when(1), when(2), when.reject(new Error("Foo"))]).then(descriptors => {
+	return descriptors.filter(d => d.state === 'rejected').reduce((r, d) => r + d.value, 0);
+});
+
+/* when.iterate(f, predicate, handler, seed) */
+
+when.iterate(function (x) {
+	return x + 1;
+}, function (x) {
+	// Stop when x >= 100000000000
+	return x >= 100000000000;
+}, function (x) {
+	console.log(x);
+}, 0).done(function (x) {
+	console.log(x === 100000000000);
+}, function (err) {
+	console.log(err);
+});
+
 /* when.promise(resolver) */
 
 promise = when.promise<number>(resolve => resolve(5));
@@ -132,9 +157,11 @@ promise = when(1).then((val: number) => when(val + val), (err: any) => 2);
 
 /* promise.spread(onFulfilledArray) */
 
-// TODO: Work out how to do this...
-// promise = when([1, '2', true]).spread((a: number, b: string, c: boolean) => a);
-// promise = when([1, '2', true]).spread((a: number, b: string, c: boolean) => when(a));
+promise = when([]).spread(() => 2);
+promise = when([1]).spread((a: number) => a);
+promise = when([1, '2']).spread((a: number, b: string) => a);
+promise = when([1, '2', true]).spread((a: number, b: string, c: boolean) => a);
+promise = when([1, '2', true]).spread((a: number, b: string, c: boolean) => when(a));
 
 /* promise.fold(combine, promise2) */
 
@@ -151,6 +178,9 @@ promise = when(1).catch((err: any) => when(2));
 
 promise = when(1).catch((err: any) => err.good, (err: any) => 2);
 promise = when(1).catch((err: any) => err.good, (err: any) => when(2));
+
+promise = when(1).catch(Error, (err: any) => 2);
+promise = when(1).catch(Error, (err: any) => when(2));
 
 //TODO: error constructor predicate
 

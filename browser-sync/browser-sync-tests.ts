@@ -79,4 +79,12 @@ bs.init({
 
 bs.reload();
 
-
+function browserSyncInit() {
+    var browser = browserSync.create();
+    browser.init();
+    console.log(browser.name);
+    console.log(browserSync.name);
+    return browser;
+}
+var browser = browserSyncInit();
+browser.exit();
