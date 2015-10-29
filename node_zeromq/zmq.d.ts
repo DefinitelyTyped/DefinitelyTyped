@@ -182,7 +182,7 @@ declare module 'zmq' {
          * @param eventName {string}
          * @param callback {Function}
          */
-        on(eventName: string, callback: (buffer: Buffer) => void): void;
+        on(eventName: string, callback: (...buffer: Buffer[]) => void): void;
 
         // Socket Options
         _fd: any;

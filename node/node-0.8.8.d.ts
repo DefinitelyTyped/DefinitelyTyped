@@ -73,6 +73,7 @@ interface ErrnoException extends Error {
     code?: string;
     path?: string;
     syscall?: string;
+    stack?: string;
 }
 
 interface EventEmitter {
@@ -572,7 +573,7 @@ declare module "child_process" {
         env?: any;
         encoding?: string;
         timeout?: number;
-        maxBuffer?: string;
+        maxBuffer?: number;
         killSignal?: string;
     }, callback: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function fork(modulePath: string, args?: string[], options?: {

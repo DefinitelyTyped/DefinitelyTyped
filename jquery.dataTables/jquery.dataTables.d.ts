@@ -182,7 +182,7 @@ declare module DataTables {
         destroy(remove?: boolean): DataTable;
 
         /**
-        * Destroy the DataTables in the current context.
+        * Redraw the table.
         *
         * @param reset Reset (default) or hold the current paging position. A full re-sort and re-filter is performed when this method is called, which is why the pagination reset is the default action.
         */
@@ -1617,20 +1617,21 @@ declare module DataTables {
 
     //#region "language-settings"
 
+	// these are all optional
     interface LanguageSettings {
-        emptyTable: string;
-        info: string;
-        infoEmpty: string;
-        infoFiltered: string;
-        infoPostFix: string;
-        thousands: string;
-        lengthMenu: string;
-        loadingRecords: string;
-        processing: string;
-        search: string;
-        zeroRecords: string;
-        paginate: LanguagePaginateSettings;
-        aria: LanguageAriaSettings;
+        emptyTable?: string;
+        info?: string;
+        infoEmpty?: string;
+        infoFiltered?: string;
+        infoPostFix?: string;
+        thousands?: string;
+        lengthMenu?: string;
+        loadingRecords?: string;
+        processing?: string;
+        search?: string;
+        zeroRecords?: string;
+        paginate?: LanguagePaginateSettings;
+        aria?: LanguageAriaSettings;
     }
 
     interface LanguagePaginateSettings {
