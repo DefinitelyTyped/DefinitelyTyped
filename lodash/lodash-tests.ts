@@ -2102,20 +2102,6 @@ module TestMap {
     }
 }
 
-// _.floor
-result = <number>_.floor(4.006);
-// → 4
-result = <number>_.floor(0.046, 2);
-// → 0.04
-result = <number>_.floor(4060, -2);
-// → 4000
-result = <number>_(4.006).floor();
-// → 4
-result = <number>_(0.046).floor(2);
-// → 0.04
-result = <number>_(4060).floor(-2);
-// → 4000
-
 result = <number>_.sum([4, 2, 8, 6]);
 result = <number>_.sum([4, 2, 8, 6], function(v) { return v; });
 result = <number>_.sum({a: 2, b: 4});
@@ -2992,8 +2978,20 @@ module TestToPlainObject {
  ********/
 
 // _.add
-result = <number>_.add(1, 1);
-result = <number>_(1).add(1);
+module TestAdd {
+    {
+        let result: number;
+
+        result = _.add(1, 1);
+        result = _(1).add(1);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(1).chain().add(1);
+    }
+}
 
 // _.ceil
 module TestCeil {
@@ -3012,6 +3010,29 @@ module TestCeil {
 
         result = _(6.004).chain().ceil();
         result = _(6.004).chain().ceil(2);
+    }
+}
+
+// _.floor
+module TestFloor {
+    {
+        let result: number;
+
+        result = _.floor(4.006);
+        result = _.floor(0.046, 2);
+        result = _.floor(4060, -2);
+
+        result = _(4.006).floor();
+        result = _(0.046).floor(2);
+        result = _(4060).floor(-2);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(4.006).chain().floor();
+        result = _(0.046).chain().floor(2);
+        result = _(4060).chain().floor(-2);
     }
 }
 
@@ -3157,20 +3178,32 @@ module TestInRange {
 
 // _.random
 module TestRandom {
-    let result: number;
+    {
+        let result: number;
 
-    result = _.random();
-    result = _.random(1);
-    result = _.random(1, 2);
-    result = _.random(1, 2, true);
-    result = _.random(1, true);
-    result = _.random(true);
+        result = _.random();
+        result = _.random(1);
+        result = _.random(1, 2);
+        result = _.random(1, 2, true);
+        result = _.random(1, true);
+        result = _.random(true);
 
-    result = _(1).random();
-    result = _(1).random(2);
-    result = _(1).random(2, true);
-    result = _(1).random(true);
-    result = _(true).random();
+        result = _(1).random();
+        result = _(1).random(2);
+        result = _(1).random(2, true);
+        result = _(1).random(true);
+        result = _(true).random();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(1).chain().random();
+        result = _(1).chain().random(2);
+        result = _(1).chain().random(2, true);
+        result = _(1).chain().random(true);
+        result = _(true).chain().random();
+    }
 }
 
 /*********
@@ -3711,8 +3744,20 @@ class Mage {
 *********/
 
 // _.camelCase
-result = <string>_.camelCase('Foo Bar');
-result = <string>_('Foo Bar').camelCase();
+module TestCamelCase {
+    {
+        let result: string;
+
+        result = _.camelCase('Foo Bar');
+        result = _('Foo Bar').camelCase();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('Foo Bar').chain().camelCase();
+    }
+}
 
 // _.capitalize
 module TestCapitalize {
@@ -3988,10 +4033,24 @@ result = <string>_.unescape('fred, barney, &amp; pebbles');
 result = <string>_('fred, barney, &amp; pebbles').unescape();
 
 // _.words
-result = <string[]>_.words('fred, barney, & pebbles');
-result = <string[]>_.words('fred, barney, & pebbles', /[^, ]+/g);
-result = <string[]>_('fred, barney, & pebbles').words();
-result = <string[]>_('fred, barney, & pebbles').words(/[^, ]+/g);
+module TestWords {
+    {
+        let result: string[];
+
+        result = _.words('fred, barney, & pebbles');
+        result = _.words('fred, barney, & pebbles', /[^, ]+/g);
+
+        result = _('fred, barney, & pebbles').words();
+        result = _('fred, barney, & pebbles').words(/[^, ]+/g);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _('fred, barney, & pebbles').chain().words();
+        result = _('fred, barney, & pebbles').chain().words(/[^, ]+/g);
+    }
+}
 
 /***********
  * Utility *
