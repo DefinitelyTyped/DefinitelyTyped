@@ -18,7 +18,7 @@ declare module 'lockfile' {
 	export function unlock(path: string, callback: (err: Error) => void): void;
 	export function unlockSync(path: string):void;
 
-	export function check(path: string, opts: Options, callback: (err: Error) => void): void;
-	export function check(path: string, callback: (err: Error) => void): void;
+	export function check(path: string, opts: Options, callback: (err: Error, isLocked: boolean) => void): void;
+	export function check(path: string, callback: (err: Error, isLocked: boolean) => void): void;
 	export function checkSync(path: string, opts: Options): boolean;
 }

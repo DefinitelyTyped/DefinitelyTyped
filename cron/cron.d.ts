@@ -6,9 +6,9 @@
 declare module "cron" {
 
   interface CronJobStatic {
-    new(cronTime: string|Date, onTick: () => void, onComplete?: () => void, start?: boolean, timezone?: string, context?: any): CronJob;
+    new(cronTime: string|Date, onTick: () => void, onComplete?: () => void, start?: boolean, timeZone?: string, context?: any): CronJob;
     new(options: {
-      cronTime: string|Date; onTick: () => void; onComplete?: () => void; start?: boolean; timezone?: string; context?: any
+      cronTime: string|Date; onTick: () => void; onComplete?: () => void; start?: boolean; timeZone?: string; context?: any
     }): CronJob;
   }
   interface CronJob {

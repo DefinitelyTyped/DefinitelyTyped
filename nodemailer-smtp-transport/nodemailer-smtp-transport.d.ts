@@ -19,6 +19,40 @@ declare module "nodemailer-smtp-transport" {
 
 		export interface SmtpOptions {
 			/**
+			 * Fills in certain SMTP configurations options (e.g. 'host', 'port', and 'secure') for
+			 * well-known services. Possible values:
+			 *   - '1und1'
+			 *   - 'AOL'
+			 *   - 'DebugMail.io'
+			 *   - 'DynectEmail'
+			 *   - 'FastMail'
+			 *   - 'GandiMail'
+			 *   - 'Gmail'
+			 *   - 'Godaddy'
+			 *   - 'GodaddyAsia'
+			 *   - 'GodaddyEurope'
+			 *   - 'hot.ee'
+			 *   - 'Hotmail'
+			 *   - 'iCloud'
+			 *   - 'mail.ee'
+			 *   - 'Mail.ru'
+			 *   - 'Mailgun'
+			 *   - 'Mailjet'
+			 *   - 'Mandrill'
+			 *   - 'Naver'
+			 *   - 'Postmark'
+			 *   - 'QQ'
+			 *   - 'QQex'
+			 *   - 'SendCloud'
+			 *   - 'SendGrid'
+			 *   - 'SES'
+			 *   - 'Sparkpost'
+			 *   - 'Yahoo'
+			 *   - 'Yandex'
+			 *   - 'Zoho'
+			 */
+			service?: string;
+			/**
 			 * is the port to connect to (defaults to 25 or 465)
 			 */
 			port?: number;
