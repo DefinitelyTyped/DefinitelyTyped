@@ -391,6 +391,20 @@ declare module _ {
         dropRight<TResult>(n?: number): LoDashImplicitArrayWrapper<TResult>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.dropRight
+         */
+        dropRight(n?: number): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.dropRight
+         */
+        dropRight<TResult>(n?: number): LoDashExplicitArrayWrapper<TResult>;
+    }
+
     //_.dropRightWhile
     interface LoDashStatic {
         /**
