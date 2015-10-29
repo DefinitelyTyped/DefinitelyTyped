@@ -150,15 +150,36 @@ result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
 module TestChunk {
     let array: TResult[];
     let list: _.List<TResult>;
-    let result: TResult[][];
-    result = _.chunk<TResult>(array);
-    result = _.chunk<TResult>(array, 42);
-    result = _.chunk<TResult>(list);
-    result = _.chunk<TResult>(list, 42);
-    result = _(array).chunk().value();
-    result = _(array).chunk(42).value();
-    result = _(list).chunk<TResult>().value();
-    result = _(list).chunk<TResult>(42).value();
+
+    {
+        let result: TResult[][];
+
+        result = _.chunk<TResult>(array);
+        result = _.chunk<TResult>(array, 42);
+
+        result = _.chunk<TResult>(list);
+        result = _.chunk<TResult>(list, 42);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult[]>;
+
+        result = _(array).chunk();
+        result = _(array).chunk(42);
+
+        result = _(list).chunk<TResult>();
+        result = _(list).chunk<TResult>(42);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult[]>;
+
+        result = _(array).chain().chunk();
+        result = _(array).chain().chunk(42);
+
+        result = _(list).chain().chunk<TResult>();
+        result = _(list).chain().chunk<TResult>(42);
+    }
 }
 
 // _.compact
