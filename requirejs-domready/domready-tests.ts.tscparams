@@ -1,0 +1,1 @@
+--noImplicitAny --target es5 --module amd

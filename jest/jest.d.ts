@@ -40,6 +40,7 @@ declare module jest {
         toBeFalsy(): boolean;
         toBeTruthy(): boolean;
         toBeNull(): boolean;
+        toBeDefined(): boolean;
         toBeUndefined(): boolean;
         toMatch(expected: RegExp): boolean;
         toContain(expected: string): boolean;
