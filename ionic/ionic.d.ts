@@ -56,7 +56,7 @@ declare module ionic {
     }
     module loading {
         interface IonicLoadingService {
-            show(opts: IonicLoadingOptions): void;
+            show(opts?: IonicLoadingOptions): void;
             hide(): void;
         }
         interface IonicLoadingOptions {
