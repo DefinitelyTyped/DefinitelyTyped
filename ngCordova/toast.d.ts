@@ -1,6 +1,7 @@
 // Type definitions for ngCordova toast plugin
 // Project: https://github.com/driftyco/ng-cordova
-// Definitions by: Kapil Sachdeva <https://github.com/ksachdeva/DefinitelyTyped>
+// Definitions by: Kapil Sachdeva <https://github.com/ksachdeva>
+// Definitions: https://github.com/ksachdeva/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 

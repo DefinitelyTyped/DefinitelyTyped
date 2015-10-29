@@ -1,6 +1,7 @@
 // Type definitions for ngCordova device plugin
 // Project: https://github.com/driftyco/ng-cordova
-// Definitions by: Kapil Sachdeva <https://github.com/ksachdeva/DefinitelyTyped>
+// Definitions by: Kapil Sachdeva <https://github.com/ksachdeva>
+// Definitions: https://github.com/ksachdeva/DefinitelyTyped
 
 declare module ngCordova {
 	
