@@ -1409,6 +1409,76 @@ declare module _ {
             whereValue: W): number;
     }
 
+    //_.sortedLastIndex
+    interface LoDashStatic {
+        /**
+        * Uses a binary search to determine the highest index at which a value should be inserted
+        * into a given sorted array in order to maintain the sort order of the array. If a callback
+        * is provided it will be executed for value and each element of array to compute their sort
+        * ranking. The callback is bound to thisArg and invoked with one argument; (value).
+        *
+        * If a property name is provided for callback the created "_.pluck" style callback will
+        * return the property value of the given element.
+        *
+        * If an object is provided for callback the created "_.where" style callback will return
+        * true for elements that have the properties of the given object, else false.
+        * @param array The sorted list.
+        * @param value The value to determine its index within `list`.
+        * @param callback Iterator to compute the sort ranking of each value, optional.
+        * @return The index at which value should be inserted into array.
+        **/
+        sortedLastIndex<T, TSort>(
+            array: Array<T>,
+            value: T,
+            callback?: (x: T) => TSort,
+            thisArg?: any): number;
+
+        /**
+        * @see _.sortedLastIndex
+        **/
+        sortedLastIndex<T, TSort>(
+            array: List<T>,
+            value: T,
+            callback?: (x: T) => TSort,
+            thisArg?: any): number;
+
+        /**
+        * @see _.sortedLastIndex
+        * @param pluckValue the _.pluck style callback
+        **/
+        sortedLastIndex<T>(
+            array: Array<T>,
+            value: T,
+            pluckValue: string): number;
+
+        /**
+        * @see _.sortedLastIndex
+        * @param pluckValue the _.pluck style callback
+        **/
+        sortedLastIndex<T>(
+            array: List<T>,
+            value: T,
+            pluckValue: string): number;
+
+        /**
+        * @see _.sortedLastIndex
+        * @param pluckValue the _.where style callback
+        **/
+        sortedLastIndex<W, T>(
+            array: Array<T>,
+            value: T,
+            whereValue: W): number;
+
+        /**
+        * @see _.sortedLastIndex
+        * @param pluckValue the _.where style callback
+        **/
+        sortedLastIndex<W, T>(
+            array: List<T>,
+            value: T,
+            whereValue: W): number;
+    }
+
     //_.tail
     interface LoDashStatic {
         /**
