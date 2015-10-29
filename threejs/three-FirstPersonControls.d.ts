@@ -1,4 +1,6 @@
 // Type definitions for three.js
+// Project: http://mrdoob.github.com/three.js/
+// Definitions by: Poul Kjeldager Sørensen
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 //Source : https://github.com/NTaylorMullen/CycleR/blob/master/CycleR/CycleR.Game.Client/Client/Interfaces/ThreeJS/Cameras/FirstPersonControls.d.ts
 
