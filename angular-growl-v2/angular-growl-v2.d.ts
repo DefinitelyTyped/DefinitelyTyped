@@ -26,9 +26,12 @@ declare module angular.growl {
         disableCountDown?: boolean;
         disableIcons?: boolean;
         disableCloseButton?: boolean;
-        referenceId?: number;
         onclose?: Function;
         onopen?: Function;
+        position?: string;
+        referenceId?: number;
+        translateMessage?: boolean;
+        variables?: { [variable: string]: any; };
     }
 
     /**
@@ -45,7 +48,7 @@ declare module angular.growl {
         /**
          * Pre-defined server error interceptor.
          */
-        serverMessagesInterceptor: (string|Function)[];
+        serverMessagesInterceptor: (string|IHttpInterceptorFactory)[];
 
         /**
          * Set default TTL settings.

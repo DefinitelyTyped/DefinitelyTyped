@@ -22,7 +22,7 @@ declare module ESTree {
   }
 
   interface Program extends Node {
-    body: Array<Statement>;
+    body: Array<Statement | ModuleDeclaration>;
     sourceType: string;
   }
 
@@ -72,7 +72,6 @@ declare module ESTree {
   interface SwitchStatement extends Statement {
     discriminant: Expression;
     cases: Array<SwitchCase>;
-    lexical: boolean;
   }
 
   interface ReturnStatement extends Statement {
@@ -215,7 +214,6 @@ declare module ESTree {
 
   interface CatchClause extends Node {
     param: Pattern;
-    guard: any;
     body: BlockStatement;
   }
 
@@ -227,7 +225,7 @@ declare module ESTree {
     value?: string | boolean | number | RegExp;
   }
 
-  interface RegexLiteral extends Literal {
+  interface RegExpLiteral extends Literal {
     regex: {
       pattern: string;
       flags: string;
@@ -258,6 +256,7 @@ declare module ESTree {
 
   interface YieldExpression extends Expression {
     argument?: Expression;
+    delegate: boolean;
   }
 
   interface TemplateLiteral extends Expression {
@@ -274,7 +273,7 @@ declare module ESTree {
     tail: boolean;
     value: {
       cooked: string;
-      value: string;
+      raw: string;
     };
   }
 
@@ -312,7 +311,7 @@ declare module ESTree {
   }
 
   interface MethodDefinition extends Node {
-    key: Identifier;
+    key: Expression;
     value: FunctionExpression;
     kind: string;
     computed: boolean;
@@ -330,40 +329,40 @@ declare module ESTree {
     property: Identifier;
   }
 
-  interface ImportDeclaration extends Node {
+  interface ModuleDeclaration extends Node {}
+
+  interface ModuleSpecifier extends Node {
+    local: Identifier;
+  }
+
+  interface ImportDeclaration extends ModuleDeclaration {
     specifiers: Array<ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier>;
     source: Literal;
   }
 
-  interface ImportSpecifier {
+  interface ImportSpecifier extends ModuleSpecifier {
     imported: Identifier;
-    local: Identifier;
   }
 
-  interface ImportDefaultSpecifier {
-    local: Identifier;
-  }
+  interface ImportDefaultSpecifier extends ModuleSpecifier {}
 
-  interface ImportNamespaceSpecifier {
-    local: Identifier;
-  }
+  interface ImportNamespaceSpecifier extends ModuleSpecifier {}
 
-  interface ExportNamedDeclaration extends Node {
+  interface ExportNamedDeclaration extends ModuleDeclaration {
     declaration?: Declaration;
     specifiers: Array<ExportSpecifier>;
     source?: Literal;
   }
 
-  interface ExportSpecifier {
+  interface ExportSpecifier extends ModuleSpecifier {
     exported: Identifier;
-    local: Identifier;
   }
 
-  interface ExportDefaultDeclaration extends Node {
+  interface ExportDefaultDeclaration extends ModuleDeclaration {
     declaration: Declaration | Expression;
   }
 
-  interface ExportAllDeclaration extends Node {
+  interface ExportAllDeclaration extends ModuleDeclaration {
     source: Literal;
   }
 }

@@ -8,6 +8,7 @@ interface IMyResourceClass extends angular.resource.IResourceClass<IMyResource> 
 ///////////////////////////////////////
 var actionDescriptor: angular.resource.IActionDescriptor;
 
+actionDescriptor.url = '/api/test-url/'
 actionDescriptor.headers = { header: 'value' };
 actionDescriptor.isArray = true;
 actionDescriptor.method = 'method action';
@@ -136,3 +137,10 @@ mod = mod.factory('factory name', resourceServiceFactoryFunction);
 ///////////////////////////////////////
 // IResource
 ///////////////////////////////////////
+
+
+///////////////////////////////////////
+// IResourceServiceProvider
+///////////////////////////////////////
+var resourceServiceProvider: angular.resource.IResourceServiceProvider;
+resourceServiceProvider.defaults.stripTrailingSlashes = false;

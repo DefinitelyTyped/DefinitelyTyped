@@ -6,7 +6,7 @@
 declare var Decimal: decimal.IDecimalStatic;
 
 // Support AMD require
-declare module 'decimal' {
+declare module 'decimal.js' {
     export = Decimal;
 }
 
