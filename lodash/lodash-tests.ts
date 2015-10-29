@@ -699,17 +699,20 @@ module TestRest {
     result = _(testSliceArray).slice(42, 42).value();
 }
 
-result = <number>_.sortedIndex([20, 30, 50], 40);
-result = <number>_.sortedIndex([{ 'x': 20 }, { 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
-var sortedIndexDict: { wordToNumber: { [idx: string]: number } } = {
-    'wordToNumber': { 'twenty': 20, 'thirty': 30, 'fourty': 40, 'fifty': 50 }
-};
-result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word: string) {
-    return sortedIndexDict.wordToNumber[word];
-});
-result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word: string) {
-    return this.wordToNumber[word];
-}, sortedIndexDict);
+// _.sortedIndex
+module TestSortedIndex {
+    result = <number>_.sortedIndex([20, 30, 50], 40);
+    result = <number>_.sortedIndex([{ 'x': 20 }, { 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
+    var sortedIndexDict: { wordToNumber: { [idx: string]: number } } = {
+        'wordToNumber': { 'twenty': 20, 'thirty': 30, 'fourty': 40, 'fifty': 50 }
+    };
+    result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word: string) {
+        return sortedIndexDict.wordToNumber[word];
+    });
+    result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word: string) {
+        return this.wordToNumber[word];
+    }, sortedIndexDict);
+}
 
 // _.tail
 module TestTail {
