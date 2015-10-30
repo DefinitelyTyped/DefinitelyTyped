@@ -7,29 +7,111 @@
 // Vector and Matrix mathematics modules for JavaScript
 // Copyright (c) 2007 James Coglan
 
-interface VectorStatic {
-    /**
-     * Constructor function.
-     */
-    create(elements: Vector|Array<number>): Vector;
+declare module Sylvester {
+    interface VectorStatic {
+        /**
+         * Constructor function.
+         */
+        create(elements: Vector|Array<number>): Vector;
 
-    i: Vector;
-    j: Vector;
-    k: Vector;
+        i: Vector;
+        j: Vector;
+        k: Vector;
 
-    /**
-     * Random vector of size n.
-     *
-     * @param {number} n The vector size.
-     */
-    Random(n: number): Vector;
+        /**
+         * Random vector of size n.
+         *
+         * @param {number} n The vector size.
+         */
+        Random(n: number): Vector;
 
-    /**
-     * Vector filled with zeros.
-     *
-     * @param {number} n The vector size.
-     */
-    Zero(n: number): Vector;
+        /**
+         * Vector filled with zeros.
+         *
+         * @param {number} n The vector size.
+         */
+        Zero(n: number): Vector;
+    }
+    interface MatrixStatic {
+        /**
+         * Constructor function.
+         *
+         * @param {Array<number>|Array<Array<number>>|Vector|Matrix} elements The elements.
+         */
+        create(elements: Array<number>|Array<Array<number>>|Vector | Matrix): Matrix;
+
+        /**
+         * Identity matrix of size n.
+         *
+         * @param {number} n The size.
+         */
+        I(n: number): Matrix;
+
+        /**
+         * Diagonal matrix - all off-diagonal elements are zero
+         *
+         * @param {any} elements The elements.
+         */
+        Diagonal(elements: Array<number>|Array<Array<number>>|Vector | Matrix): Matrix;
+
+        /**
+         * Rotation matrix about some axis. If no axis is supplied, assume we're after a 2D transform.
+         *
+         * @param {number} theta The angle in radians.
+         * @param {Vector} a [Optional] The axis.
+         */
+        Rotation(theta: number, a?: Vector): Matrix;
+
+        RotationX(t: number): Matrix;
+        RotationY(t: number): Matrix;
+        RotationZ(t: number): Matrix;
+
+        /**
+         * Random matrix of n rows, m columns.
+         *
+         * @param {number} n The number of rows.
+         * @param {number} m The number of columns.
+         */
+        Random(n: number, m: number): Matrix;
+
+        /**
+         * Matrix filled with zeros.
+         *
+         * @param {number} n The number of rows.
+         * @param {number} m The number of columns.
+         */
+        Zero(n: number, m: number): Matrix;
+    }
+
+    interface LineStatic {
+        /**
+         * Constructor function.
+         *
+         * @param Array<number>|Vector anchor The anchor vector.
+         * @param Array<number>|Vector direction The direction vector.
+         */
+        create(anchor: Array<number>|Vector, direction: Array<number>|Vector): Line;
+
+        X: Line;
+        Y: Line;
+        Z: Line;
+    }
+    interface PlaneStatic {
+        /**
+         * Constructor function.
+         */
+        create(anchor: Array<number>|Vector, normal: Array<number>|Vector): Plane;
+
+        /**
+         * Constructor function.
+         */
+        create(anchor: Array<number>|Vector, v1: Array<number>|Vector, v2: Array<number>|Vector): Plane;
+
+        XY: Plane;
+        YZ: Plane;
+        ZX: Plane;
+        YX: Plane;
+    }
 }
 
 interface Vector {
@@ -237,57 +319,6 @@ interface Vector {
      * @param {Vector|Array<number>} els The elements.
      */
     setElements(els: Vector|Array<number>): Vector;
-}
-
-interface MatrixStatic {
-    /**
-     * Constructor function.
-     *
-     * @param {Array<number>|Array<Array<number>>|Vector|Matrix} elements The elements.
-     */
-    create(elements: Array<number>|Array<Array<number>>|Vector | Matrix): Matrix;
-
-    /**
-     * Identity matrix of size n.
-     *
-     * @param {number} n The size.
-     */
-    I(n: number): Matrix;
-
-    /**
-     * Diagonal matrix - all off-diagonal elements are zero
-     *
-     * @param {any} elements The elements.
-     */
-    Diagonal(elements: Array<number>|Array<Array<number>>|Vector | Matrix): Matrix;
-
-    /**
-     * Rotation matrix about some axis. If no axis is supplied, assume we're after a 2D transform.
-     *
-     * @param {number} theta The angle in radians.
-     * @param {Vector} a [Optional] The axis.
-     */
-    Rotation(theta: number, a?: Vector): Matrix;
-
-    RotationX(t: number): Matrix;
-    RotationY(t: number): Matrix;
-    RotationZ(t: number): Matrix;
-
-    /**
-     * Random matrix of n rows, m columns.
-     *
-     * @param {number} n The number of rows.
-     * @param {number} m The number of columns.
-     */
-    Random(n: number, m: number): Matrix;
-
-    /**
-     * Matrix filled with zeros.
-     *
-     * @param {number} n The number of rows.
-     * @param {number} m The number of columns.
-     */
-    Zero(n: number, m: number): Matrix;
 }
 
 interface Matrix {
@@ -515,20 +546,6 @@ interface Matrix {
     setElements(matrix: Array<number>|Array<Array<number>>|Vector|Matrix): Matrix;
 }
 
-interface LineStatic {
-    /**
-     * Constructor function.
-     *
-     * @param Array<number>|Vector anchor The anchor vector.
-     * @param Array<number>|Vector direction The direction vector.
-     */
-    create(anchor: Array<number>|Vector, direction: Array<number>|Vector): Line;
-
-    X: Line;
-    Y: Line;
-    Z: Line;
-}
-
 interface Line {
     /**
      * Gets the 3D vector corresponding to a point on the line.
@@ -635,23 +652,6 @@ interface Line {
      * @param {Array<number>|Vector} direction The direction vector.
      */
     setVectors(anchor: Array<number>|Vector, direction: Array<number>|Vector): Line;
-}
-
-interface PlaneStatic {
-    /**
-     * Constructor function.
-     */
-    create(anchor: Array<number>|Vector, normal: Array<number>|Vector): Plane;
-
-    /**
-     * Constructor function.
-     */
-    create(anchor: Array<number>|Vector, v1: Array<number>|Vector, v2: Array<number>|Vector): Plane;
-
-    XY: Plane;
-    YZ: Plane;
-    ZX: Plane;
-    YX: Plane;
 }
 
 interface Plane {
@@ -780,10 +780,10 @@ declare module Sylvester {
     export var precision: number;
 }
 
-declare var Vector: VectorStatic;
-declare var Matrix: MatrixStatic;
-declare var Line: LineStatic;
-declare var Plane: PlaneStatic;
+declare var Vector: Sylvester.VectorStatic;
+declare var Matrix: Sylvester.MatrixStatic;
+declare var Line: Sylvester.LineStatic;
+declare var Plane: Sylvester.PlaneStatic;
 
 /**
 * Constructor function.

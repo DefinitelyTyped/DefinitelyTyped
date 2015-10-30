@@ -13,10 +13,14 @@ var m: Matrix = Matrix.create(v);
 var p: Plane = Plane.create(v, v);
 var v: Vector = Vector.create([n, n]);
 
+l = $L(v, v);
+l = $L([n], [n]);
 l = Line.create([n], [n]);
+
 l = Line.X;
 l = Line.Y;
 l = Line.Z;
+
 v = l.anchor;
 bool = l.contains(v);
 v = l.direction;
@@ -44,10 +48,15 @@ l = l.setVectors(v, [n, n]);
 l = l.translate(v);
 l = l.translate([n, n]);
 
+m = $M(m);
+m = $M([n]);
+m = $M([[n]]);
+m = $M(v);
 m = Matrix.create(m);
 m = Matrix.create([n]);
 m = Matrix.create([[n]]);
 m = Matrix.create(v);
+
 m = Matrix.Diagonal(m);
 m = Matrix.Diagonal([n]);
 m = Matrix.Diagonal([[n]]);
@@ -114,11 +123,15 @@ m = m.x(m);
 m = m.x(n);
 v = m.x(v);
 
+p = $P([n], [n]);
+p = $P(v, v);
 p = Plane.create([0], [0]);
+
 p = Plane.XY;
 p = Plane.YX;
 p = Plane.YZ;
 p = Plane.ZX;
+
 v = p.anchor;
 bool = p.contains(v);
 bool = p.contains(l);
@@ -147,10 +160,14 @@ p = p.setVectors(v, v, v);
 p = p.translate([n]);
 p = p.translate(v);
 
+v = $V(v);
+v = $V([n]);
 v = Vector.create(v);
+
 v = Vector.i;
 v = Vector.j;
 v = Vector.k;
+
 v = Vector.Random(n);
 v = Vector.Zero(n);
 v = v.add(v);
