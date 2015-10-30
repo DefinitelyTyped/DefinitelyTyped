@@ -8,6 +8,7 @@
 interface KnockoutValidationGroupingOptions {
     deep?: boolean;
     observable?: boolean;
+    live?: boolean;
 }
 
 interface KnockoutValidationConfiguration {
