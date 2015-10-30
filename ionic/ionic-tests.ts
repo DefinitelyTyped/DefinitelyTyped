@@ -42,7 +42,7 @@ testIonic.config(['$ionicConfigProvider', ($ionicConfigProvider: ionic.utility.I
     $ionicConfigProvider.navBar.positionPrimaryButtons("platform");
     var positionSecondaryButtons: string = $ionicConfigProvider.navBar.positionSecondaryButtons();
     $ionicConfigProvider.navBar.positionSecondaryButtons("platform");
-}])
+}]);
 
 class IonicTestController {
     public static $inject = [
@@ -102,7 +102,7 @@ class IonicTestController {
     }
     private testGesture(): void {
         var gesture: ionic.gestures.IonicGesture = this.$ionicGesture.on(
-            'eventType', 
+            'eventType',
             (e)=>{ return e; },
             angular.element("body"),
             {}
@@ -226,7 +226,7 @@ class IonicTestController {
             cssClass: "cssClass",
             template: "template",
             templateUrl: "templateUrl",
-            okText: "OK", 
+            okText: "OK",
             okType: "okType"
         }).then(() => console.log("popover shown"))
         this.$ionicPopup.alert({
@@ -235,7 +235,7 @@ class IonicTestController {
             cssClass: "cssClass",
             template: "template",
             templateUrl: "templateUrl",
-            okText: "OK", 
+            okText: "OK",
             okType: "okType"
         }).close();
 
@@ -245,9 +245,9 @@ class IonicTestController {
             cssClass: "cssClass",
             template: "template",
             templateUrl: "templateUrl",
-            okText: "OK", 
+            okText: "OK",
             okType: "okType",
-            cancelText: "Cancel", 
+            cancelText: "Cancel",
             cancelType: "cancelType"
         }).then(() => console.log("popover shown"))
         this.$ionicPopup.confirm({
@@ -256,9 +256,9 @@ class IonicTestController {
             cssClass: "cssClass",
             template: "template",
             templateUrl: "templateUrl",
-            okText: "OK", 
+            okText: "OK",
             okType: "okType",
-            cancelText: "Cancel", 
+            cancelText: "Cancel",
             cancelType: "cancelType"
         }).close();
 
@@ -268,9 +268,9 @@ class IonicTestController {
             cssClass: "cssClass",
             template: "template",
             templateUrl: "templateUrl",
-            okText: "OK", 
+            okText: "OK",
             okType: "okType",
-            cancelText: "Cancel", 
+            cancelText: "Cancel",
             cancelType: "cancelType",
             inputType: "text",
             inputPlaceholder: "Type some text..."
@@ -281,9 +281,9 @@ class IonicTestController {
             cssClass: "cssClass",
             template: "template",
             templateUrl: "templateUrl",
-            okText: "OK", 
+            okText: "OK",
             okType: "okType",
-            cancelText: "Cancel", 
+            cancelText: "Cancel",
             cancelType: "cancelType",
             inputType: "text",
             inputPlaceholder: "Type some text..."
@@ -363,3 +363,5 @@ class IonicTestController {
 
 testIonic.controller('ionicTestController', IonicTestController);
 
+ionic.EventController.onGesture('someGesture',function(){}, new Element());
+ionic.EventController.offGesture('someGesture',function(){}, new Element());

@@ -6,6 +6,7 @@
 // Copyright (c) Microsoft Open Technologies, Inc.
 // Licensed under the MIT license.
 
+/// <reference path="plugins/AppVersion.d.ts"/>
 /// <reference path="plugins/BatteryStatus.d.ts"/>
 /// <reference path="plugins/Camera.d.ts"/>
 /// <reference path="plugins/Contacts.d.ts"/>
@@ -45,6 +46,8 @@ interface Cordova {
     require(moduleName: string): any;
     /** Namespace for Cordova plugin functionality */
     plugins:CordovaPlugins;
+
+    getAppVersion: IGetAppVersion;
 }
 
 interface CordovaPlugins {}

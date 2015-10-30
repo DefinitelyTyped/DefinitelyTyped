@@ -5,7 +5,85 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
+declare var ionic: ionic.IBase;
+
+
 declare module ionic {
+
+    interface IBase {
+        Platform: IPlatform;
+        DomUtil: IDomUtil;
+        EventController: IEventController;
+        Utils: IUtils;
+    }
+
+    interface IPlatform {
+        ready(callback: () => void): void;
+        setGrade(grade: string): void;
+        device(): {uuid: string}; //TODO lookup window.device schema
+        isWebView(): boolean;
+        isIPad(): boolean;
+        isIOS(): boolean;
+        isAndroid(): boolean;
+        isWindowsPhone(): boolean;
+        platform(): string;
+        version(): number;
+        exitApp(): void;
+        showStatusBar(shouldShow: boolean): void;
+        fullScreen(showFullScreen:boolean, showStatusBar:boolean) : void;
+        isReady: boolean;
+    }
+
+    /**
+     * DOCS http://ionicframework.com/docs/api/utility/ionic.DomUtil/
+     */
+    interface IDomUtil
+    {
+        requestAnimationFrame(callback: () => void): void;
+        animationFrameThrottle(callback: () => void): void;
+        getPositionInParent(element: Element): void;
+        ready(callback: () => void): void;
+        getTextBounds(textNode: Element): {
+            left: number;
+            right: number;
+            top: number;
+            bottom: number;
+            width: number;
+            height: number;
+        };
+
+        getChildIndex(element: Element, type: string): number;
+        getParentWithClass(element: Element, className: string): Element
+        getParentOrSelfWithClass(element: Element, className: string): Element;
+        rectContains(x: number, y: number, x1: number, y1: number, x2: number, y2: number): boolean;
+        blurAll(): Element;
+    }
+
+    interface IEventController
+    {
+        trigger(eventType: string, data: Object, bubbles?: boolean, cancelable?: boolean): void;
+        on(type: string, callback: () => void, element: Element): void;
+        off(type: string, callback: () => void, element: Element): void;
+
+        onGesture(eventType: string, callback: () => void, element: Element): void;
+
+        offGesture(eventType: string, callback: () => void, element: Element): void;
+    }
+
+    interface IUtils
+    {
+        arrayMove(arr: any[], old_index: number, new_index: number): any[];
+        proxy(func: Function, context: any): () => any;
+        debounce(func: Function, wait: number, immediate: boolean): () => any;
+        throttle(func: Function, wait: number, options?: any): () => any;
+        inherit(protoProps: any, staticProps: any): any;
+        extend(obj: any): any;
+        nextUid(): string;
+        disconnectScope(scope: any): void;
+        reconnectScope(scope: any): void;
+        isScopeDisconnected(scope: any): boolean;
+    }
+
     module actionSheet {
         interface IonicActionSheetService {
             show(options: IonicActionSheetOptions): ()=>void;
@@ -142,6 +220,7 @@ declare module ionic {
             show($event?: any): ng.IPromise<any>;
             hide(): ng.IPromise<any>;
             isShown(): boolean;
+            remove():void;
         }
         interface IonicPopoverOptions {
             scope?: any;
