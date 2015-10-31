@@ -35,6 +35,21 @@ app.on('window-all-closed', () => {
 		app.quit();
 });
 
+// Check single instance app
+var shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) {
+  // Someone tried to run a second instance, we should focus our window
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+  }
+  return true;
+});
+
+if (shouldQuit) {
+  app.quit();
+  process.exit(0);
+}
+
 // This method will be called when Electron has done everything
 // initialization and ready for creating browser windows.
 app.on('ready', () => {
