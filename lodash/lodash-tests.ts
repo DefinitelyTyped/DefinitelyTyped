@@ -450,19 +450,38 @@ module TestIndexOf {
     let array: TResult[];
     let list: _.List<TResult>;
     let value: TResult;
-    let result: number;
-    result = _.indexOf<TResult>(array, value);
-    result = _.indexOf<TResult>(array, value, true);
-    result = _.indexOf<TResult>(array, value, 42);
-    result = _.indexOf<TResult>(list, value);
-    result = _.indexOf<TResult>(list, value, true);
-    result = _.indexOf<TResult>(list, value, 42);
-    result = _(array).indexOf(value);
-    result = _(array).indexOf(value, true);
-    result = _(array).indexOf(value, 42);
-    result = _(list).indexOf<TResult>(value);
-    result = _(list).indexOf<TResult>(value, true);
-    result = _(list).indexOf<TResult>(value, 42);
+
+    {
+        let result: number;
+
+        result = _.indexOf<TResult>(array, value);
+        result = _.indexOf<TResult>(array, value, true);
+        result = _.indexOf<TResult>(array, value, 42);
+
+        result = _.indexOf<TResult>(list, value);
+        result = _.indexOf<TResult>(list, value, true);
+        result = _.indexOf<TResult>(list, value, 42);
+
+        result = _(array).indexOf(value);
+        result = _(array).indexOf(value, true);
+        result = _(array).indexOf(value, 42);
+
+        result = _(list).indexOf<TResult>(value);
+        result = _(list).indexOf<TResult>(value, true);
+        result = _(list).indexOf<TResult>(value, 42);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(array).chain().indexOf(value);
+        result = _(array).chain().indexOf(value, true);
+        result = _(array).chain().indexOf(value, 42);
+
+        result = _(list).chain().indexOf<TResult>(value);
+        result = _(list).chain().indexOf<TResult>(value, true);
+        result = _(list).chain().indexOf<TResult>(value, 42);
+    }
 }
 
 //_.initial
