@@ -983,6 +983,20 @@ declare module _ {
         intersection<TResult>(...arrays: (TResult[]|List<TResult>)[]): LoDashImplicitArrayWrapper<TResult>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.intersection
+         */
+        intersection<TResult>(...arrays: (TResult[]|List<TResult>)[]): LoDashExplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.intersection
+         */
+        intersection<TResult>(...arrays: (TResult[]|List<TResult>)[]): LoDashExplicitArrayWrapper<TResult>;
+    }
+
     //_.last
     interface LoDashStatic {
         /**
