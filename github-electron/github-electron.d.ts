@@ -515,6 +515,7 @@ declare module GitHubElectron {
 		'shared-worker'?: boolean;
 		'direct-write'?: boolean;
 		'page-visibility'?: boolean;
+		'title-bar-style'?: string;
 	}
 
 	interface Rectangle {
