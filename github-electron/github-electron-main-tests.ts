@@ -145,7 +145,11 @@ ipc.on('online-status-changed', (event: any, status: any) => {
 // https://github.com/atom/electron/blob/master/docs/api/synopsis.md
 
 app.on('ready', () => {
-	window = new BrowserWindow({ width: 800, height: 600 });
+	window = new BrowserWindow({
+		width: 800,
+		height: 600, 
+		'title-bar-style': 'hidden-inset',
+	});
 	window.loadUrl('https://github.com');
 });
 
