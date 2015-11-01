@@ -1339,6 +1339,16 @@ declare module _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.slice
+         */
+        slice(
+            start?: number,
+            end?: number
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
     //_.sortedIndex
     interface LoDashStatic {
         /**

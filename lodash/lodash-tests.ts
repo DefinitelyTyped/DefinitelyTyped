@@ -688,15 +688,32 @@ module TestRest {
 }
 
 // _.slice
-{
-    let testSliceArray: TResult[];
-    let result: TResult[];
-    result = _.slice(testSliceArray);
-    result = _.slice(testSliceArray, 42);
-    result = _.slice(testSliceArray, 42, 42);
-    result = _(testSliceArray).slice().value();
-    result = _(testSliceArray).slice(42).value();
-    result = _(testSliceArray).slice(42, 42).value();
+module TestSlice {
+    let array: TResult[];
+
+    {
+        let result: TResult[];
+
+        result = _.slice(array);
+        result = _.slice(array, 42);
+        result = _.slice(array, 42, 42);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).slice();
+        result = _(array).slice(42);
+        result = _(array).slice(42, 42);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().slice();
+        result = _(array).chain().slice(42);
+        result = _(array).chain().slice(42, 42);
+    }
 }
 
 result = <number>_.sortedIndex([20, 30, 50], 40);
