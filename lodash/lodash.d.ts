@@ -10201,6 +10201,7 @@ declare module _ {
         /**
          * The opposite of _.property; this method creates a function that returns the property value at a given path
          * on object.
+         *
          * @param object The object to query.
          * @return Returns the new function.
          */
@@ -10212,6 +10213,13 @@ declare module _ {
          * @see _.propertyOf
          */
         propertyOf(): LoDashImplicitObjectWrapper<(path: string|string[]) => any>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.propertyOf
+         */
+        propertyOf(): LoDashExplicitObjectWrapper<(path: string|string[]) => any>;
     }
 
     //_.range
