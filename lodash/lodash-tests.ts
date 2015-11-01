@@ -758,35 +758,60 @@ module TestTakeRightWhile {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
-    let result: TResult[];
 
-    result = _.takeRightWhile<TResult>(array);
-    result = _.takeRightWhile<TResult>(array, predicateFn);
-    result = _.takeRightWhile<TResult>(array, predicateFn, any);
-    result = _.takeRightWhile<TResult>(array, '');
-    result = _.takeRightWhile<TResult>(array, '', any);
-    result = _.takeRightWhile<{a: number;}, TResult>(array, {a: 42});
+    {
+        let result: TResult[];
 
-    result = _.takeRightWhile<TResult>(list);
-    result = _.takeRightWhile<TResult>(list, predicateFn);
-    result = _.takeRightWhile<TResult>(list, predicateFn, any);
-    result = _.takeRightWhile<TResult>(list, '');
-    result = _.takeRightWhile<TResult>(list, '', any);
-    result = _.takeRightWhile<{a: number;}, TResult>(list, {a: 42});
+        result = _.takeRightWhile<TResult>(array);
+        result = _.takeRightWhile<TResult>(array, predicateFn);
+        result = _.takeRightWhile<TResult>(array, predicateFn, any);
+        result = _.takeRightWhile<TResult>(array, '');
+        result = _.takeRightWhile<TResult>(array, '', any);
+        result = _.takeRightWhile<{a: number;}, TResult>(array, {a: 42});
 
-    result = _(array).takeRightWhile().value();
-    result = _(array).takeRightWhile(predicateFn).value();
-    result = _(array).takeRightWhile(predicateFn, any).value();
-    result = _(array).takeRightWhile('').value();
-    result = _(array).takeRightWhile('', any).value();
-    result = _(array).takeRightWhile<{a: number;}>({a: 42}).value();
+        result = _.takeRightWhile<TResult>(list);
+        result = _.takeRightWhile<TResult>(list, predicateFn);
+        result = _.takeRightWhile<TResult>(list, predicateFn, any);
+        result = _.takeRightWhile<TResult>(list, '');
+        result = _.takeRightWhile<TResult>(list, '', any);
+        result = _.takeRightWhile<{a: number;}, TResult>(list, {a: 42});
+    }
 
-    result = _(list).takeRightWhile<TResult>().value();
-    result = _(list).takeRightWhile<TResult>(predicateFn).value();
-    result = _(list).takeRightWhile<TResult>(predicateFn, any).value();
-    result = _(list).takeRightWhile<TResult>('').value();
-    result = _(list).takeRightWhile<TResult>('', any).value();
-    result = _(list).takeRightWhile<{a: number;}, TResult>({a: 42}).value();
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).takeRightWhile();
+        result = _(array).takeRightWhile(predicateFn);
+        result = _(array).takeRightWhile(predicateFn, any);
+        result = _(array).takeRightWhile('');
+        result = _(array).takeRightWhile('', any);
+        result = _(array).takeRightWhile<{a: number;}>({a: 42});
+
+        result = _(list).takeRightWhile<TResult>();
+        result = _(list).takeRightWhile<TResult>(predicateFn);
+        result = _(list).takeRightWhile<TResult>(predicateFn, any);
+        result = _(list).takeRightWhile<TResult>('');
+        result = _(list).takeRightWhile<TResult>('', any);
+        result = _(list).takeRightWhile<{a: number;}, TResult>({a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().takeRightWhile();
+        result = _(array).chain().takeRightWhile(predicateFn);
+        result = _(array).chain().takeRightWhile(predicateFn, any);
+        result = _(array).chain().takeRightWhile('');
+        result = _(array).chain().takeRightWhile('', any);
+        result = _(array).chain().takeRightWhile<{a: number;}>({a: 42});
+
+        result = _(list).chain().takeRightWhile<TResult>();
+        result = _(list).chain().takeRightWhile<TResult>(predicateFn);
+        result = _(list).chain().takeRightWhile<TResult>(predicateFn, any);
+        result = _(list).chain().takeRightWhile<TResult>('');
+        result = _(list).chain().takeRightWhile<TResult>('', any);
+        result = _(list).chain().takeRightWhile<{a: number;}, TResult>({a: 42});
+    }
 }
 
 // _.takeWhile
