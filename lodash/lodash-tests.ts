@@ -3904,8 +3904,20 @@ module TestRepeat {
 }
 
 // _.snakeCase
-result = <string>_.snakeCase('Foo Bar');
-result = <string>_('Foo Bar').snakeCase();
+module TestSnakeCase {
+    {
+        let result: string;
+
+        result = _.snakeCase('Foo Bar');
+        result = _('Foo Bar').snakeCase();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('Foo Bar').chain().snakeCase();
+    }
+}
 
 // _.startCase
 module TestStartCase {
