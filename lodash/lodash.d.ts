@@ -9333,20 +9333,37 @@ declare module _ {
         /**
          * Pads string on the left side if it’s shorter than length. Padding characters are truncated if they exceed
          * length.
+         *
          * @param string The string to pad.
          * @param length The padding length.
          * @param chars The string used as padding.
          * @return Returns the padded string.
          */
-        padLeft(string?: string, length?: number, chars?: string): string;
+        padLeft(
+            string?: string,
+            length?: number,
+            chars?: string
+        ): string;
     }
 
-    //_.padLeft
     interface LoDashImplicitWrapper<T> {
         /**
          * @see _.padLeft
          */
-        padLeft(length?: number, chars?: string): string;
+        padLeft(
+            length?: number,
+            chars?: string
+        ): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.padLeft
+         */
+        padLeft(
+            length?: number,
+            chars?: string
+        ): LoDashExplicitWrapper<string>;
     }
 
     //_.padRight

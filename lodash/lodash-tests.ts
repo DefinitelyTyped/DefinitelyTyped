@@ -3847,12 +3847,27 @@ module TestPad {
 }
 
 // _.padLeft
-result = <string>_.padLeft('abc');
-result = <string>_.padLeft('abc', 6);
-result = <string>_.padLeft('abc', 6, '_-');
-result = <string>_('abc').padLeft();
-result = <string>_('abc').padLeft(6);
-result = <string>_('abc').padLeft(6, '_-');
+module TestPadLeft {
+    {
+        let result: string;
+
+        result = _.padLeft('abc');
+        result = _.padLeft('abc', 6);
+        result = _.padLeft('abc', 6, '_-');
+
+        result = _('abc').padLeft();
+        result = _('abc').padLeft(6);
+        result = _('abc').padLeft(6, '_-');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('abc').chain().padLeft();
+        result = _('abc').chain().padLeft(6);
+        result = _('abc').chain().padLeft(6, '_-');
+    }
+}
 
 // _.padRight
 module TestPadRight {
