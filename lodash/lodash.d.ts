@@ -1460,6 +1460,20 @@ declare module _ {
         take<TResult>(n?: number): LoDashImplicitArrayWrapper<TResult>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.take
+         */
+        take(n?: number): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.take
+         */
+        take<TResult>(n?: number): LoDashExplicitArrayWrapper<TResult>;
+    }
+
     //_.takeRight
     interface LoDashStatic {
         /**
