@@ -10173,6 +10173,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * A no-operation function that returns undefined regardless of the arguments it receives.
+         *
          * @return undefined
          */
         noop(...args: any[]): void;
@@ -10183,6 +10184,13 @@ declare module _ {
          * @see _.noop
          */
         noop(...args: any[]): void;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.noop
+         */
+        noop(...args: any[]): _.LoDashExplicitWrapper<void>;
     }
 
     //_.property
