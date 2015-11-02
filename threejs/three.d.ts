@@ -1213,7 +1213,7 @@ declare module THREE {
          * Searches through the object's children and returns the first with a matching id, optionally recursive.
          * @param id  Unique number of the object instance
          */
-        getObjectById(id: string): Object3D;
+        getObjectById(id: number): Object3D;
 
         /**
          * Searches through the object's children and returns the first with a matching name, optionally recursive.
