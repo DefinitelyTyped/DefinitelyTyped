@@ -20,6 +20,7 @@ declare module "react-bootstrap" {
         block?: boolean;
         bsStyle?: string;
         bsSize?: string;
+        key?: string | number;
         navItem?: boolean;
         navDropdown?: boolean;
         componentClass?: string;
@@ -74,7 +75,7 @@ declare module "react-bootstrap" {
         dropup?: boolean;
         href?: string;
         id?: string | number; 
-        key?: any; // TODO: Add more specific type
+        key?: string | number;
         navItem?: boolean;
         noCaret?: boolean;
         onClick?: Function;  // TODO: Add more specifc type 
@@ -119,7 +120,7 @@ declare module "react-bootstrap" {
         eventKey?: any;
         header?: boolean;
         href?: string;
-        key?: any; 
+        key?: string | number;
         onSelect?: Function;
         target?: string;
         title?: string;
@@ -690,7 +691,7 @@ declare module "react-bootstrap" {
         eventKey?: any;
         header?: any; // TODO: Add more specific type
         href?: string;
-        key?: any; // TODO: Add more specific type 
+        key?: string | number;
         listItem?: boolean;
         onClick?: Function; // TODO: Add more specific type 
         target?: string;

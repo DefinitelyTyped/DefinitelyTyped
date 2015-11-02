@@ -64,8 +64,8 @@ export class ReactBootstrapTest extends Component<any, any> {
 
                 <div style={style}>
                     <Well>
-                        <Button bsStyle='primary' bsSize='large' block>Block level button</Button>
-                        <Button bsSize='large' block>Block level button</Button>
+                        <Button key='btn1' bsStyle='primary' bsSize='large' block>Block level button</Button>
+                        <Button key={2} bsSize='large' block>Block level button</Button>
                     </Well>
                 </div>
 
