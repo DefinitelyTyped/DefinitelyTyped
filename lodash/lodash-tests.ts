@@ -1118,29 +1118,52 @@ module TestTakeWhile {
 module TestUnion {
     let array: TResult[];
     let list: _.List<TResult>;
-    let result: TResult[];
 
-    result = _.union<TResult>();
+    {
+        let result: TResult[];
 
-    result = _.union<TResult>(array);
-    result = _.union<TResult>(array, list);
-    result = _.union<TResult>(array, list, array);
+        result = _.union<TResult>();
 
-    result = _.union<TResult>(list);
-    result = _.union<TResult>(list, array);
-    result = _.union<TResult>(list, array, list);
+        result = _.union<TResult>(array);
+        result = _.union<TResult>(array, list);
+        result = _.union<TResult>(array, list, array);
 
-    result = _(array).union().value();
-    result = _(array).union(list).value();
-    result = _(array).union(list, array).value();
+        result = _.union<TResult>(list);
+        result = _.union<TResult>(list, array);
+        result = _.union<TResult>(list, array, list);
+    }
 
-    result = _(array).union<TResult>().value();
-    result = _(array).union<TResult>(list).value();
-    result = _(array).union<TResult>(list, array).value();
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
-    result = _(list).union<TResult>().value();
-    result = _(list).union<TResult>(array).value();
-    result = _(list).union<TResult>(array, list).value();
+        result = _(array).union();
+        result = _(array).union(list);
+        result = _(array).union(list, array);
+
+        result = _(array).union<TResult>();
+        result = _(array).union<TResult>(list);
+        result = _(array).union<TResult>(list, array);
+
+        result = _(list).union<TResult>();
+        result = _(list).union<TResult>(array);
+        result = _(list).union<TResult>(array, list);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().union();
+        result = _(array).chain().union(list);
+        result = _(array).chain().union(list, array);
+
+        result = _(array).chain().union<TResult>();
+        result = _(array).chain().union<TResult>(list);
+        result = _(array).chain().union<TResult>(list, array);
+
+        result = _(list).chain().union<TResult>();
+        result = _(list).chain().union<TResult>(array);
+        result = _(list).chain().union<TResult>(array, list);
+    }
 }
 
 result = <number[]>_.uniq([1, 2, 1, 3, 1]);
