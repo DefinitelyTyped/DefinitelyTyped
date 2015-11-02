@@ -196,26 +196,51 @@ module TestCompact {
 }
 
 // _.difference
-{
-    let testDifferenceArray: TResult[];
-    let testDifferenceList: _.List<TResult>;
-    let result: TResult[];
-    result = _.difference<TResult>(testDifferenceArray);
-    result = _.difference<TResult>(testDifferenceArray, testDifferenceArray);
-    result = _.difference<TResult>(testDifferenceArray, testDifferenceList, testDifferenceArray);
-    result = _.difference<TResult>(testDifferenceArray, testDifferenceArray, testDifferenceList, testDifferenceArray);
-    result = _.difference<TResult>(testDifferenceList);
-    result = _.difference<TResult>(testDifferenceList, testDifferenceList);
-    result = _.difference<TResult>(testDifferenceList, testDifferenceArray, testDifferenceList);
-    result = _.difference<TResult>(testDifferenceList, testDifferenceList, testDifferenceArray, testDifferenceList);
-    result = _(testDifferenceArray).difference().value();
-    result = _(testDifferenceArray).difference(testDifferenceArray).value();
-    result = _(testDifferenceArray).difference(testDifferenceList, testDifferenceArray).value();
-    result = _(testDifferenceArray).difference(testDifferenceArray, testDifferenceList, testDifferenceArray).value();
-    result = _(testDifferenceList).difference<TResult>().value();
-    result = _(testDifferenceList).difference<TResult>(testDifferenceList).value();
-    result = _(testDifferenceList).difference<TResult>(testDifferenceArray, testDifferenceList).value();
-    result = _(testDifferenceList).difference<TResult>(testDifferenceList, testDifferenceArray, testDifferenceList).value();
+module TestDifference {
+    let array: TResult[];
+    let list: _.List<TResult>;
+
+    {
+        let result: TResult[];
+
+        result = _.difference<TResult>(array);
+        result = _.difference<TResult>(array, array);
+        result = _.difference<TResult>(array, list, array);
+        result = _.difference<TResult>(array, array, list, array);
+
+        result = _.difference<TResult>(list);
+        result = _.difference<TResult>(list, list);
+        result = _.difference<TResult>(list, array, list);
+        result = _.difference<TResult>(list, list, array, list);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).difference();
+        result = _(array).difference(array);
+        result = _(array).difference(list, array);
+        result = _(array).difference(array, list, array);
+
+        result = _(list).difference<TResult>();
+        result = _(list).difference<TResult>(list);
+        result = _(list).difference<TResult>(array, list);
+        result = _(list).difference<TResult>(list, array, list);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().difference();
+        result = _(array).chain().difference(array);
+        result = _(array).chain().difference(list, array);
+        result = _(array).chain().difference(array, list, array);
+
+        result = _(list).chain().difference<TResult>();
+        result = _(list).chain().difference<TResult>(list);
+        result = _(list).chain().difference<TResult>(array, list);
+        result = _(list).chain().difference<TResult>(list, array, list);
+    }
 }
 
 // _.drop
