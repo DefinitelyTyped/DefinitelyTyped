@@ -3978,8 +3978,20 @@ module TestEscapeRegExp {
 }
 
 // _.kebabCase
-result = <string>_.kebabCase('Foo Bar');
-result = <string>_('Foo Bar').kebabCase();
+module TestKebabCase {
+    {
+        let result: string;
+
+        result = _.kebabCase('Foo Bar');
+        result = _('Foo Bar').kebabCase();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('Foo Bar').chain().kebabCase();
+    }
+}
 
 // _.pad
 module TestPad {
