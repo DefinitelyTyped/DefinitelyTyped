@@ -3362,15 +3362,7 @@ declare module _ {
          * @see _.map
          */
         collect<T, TResult>(
-            collection: List<T>,
-            iteratee?: string
-        ): TResult[];
-
-        /**
-         * @see _.map
-         */
-        collect<T, TResult>(
-            collection: Dictionary<T>,
+            collection: List<T>|Dictionary<T>,
             iteratee?: string
         ): TResult[];
 
@@ -3378,15 +3370,7 @@ declare module _ {
          * @see _.map
          */
         collect<T, TObject extends {}>(
-            collection: List<T>,
-            iteratee?: TObject
-        ): boolean[];
-
-        /**
-         * @see _.map
-         */
-        collect<T, TObject extends {}>(
-            collection: Dictionary<T>,
+            collection: List<T>|Dictionary<T>,
             iteratee?: TObject
         ): boolean[];
     }
@@ -3437,6 +3421,54 @@ declare module _ {
         collect<TObject extends {}>(
             iteratee?: TObject
         ): LoDashImplicitArrayWrapper<boolean>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.map
+         */
+        collect<TResult>(
+            iteratee?: ListIterator<T, TResult>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.map
+         */
+        collect<TResult>(
+            iteratee?: string
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.map
+         */
+        collect<TObject extends {}>(
+            iteratee?: TObject
+        ): LoDashExplicitArrayWrapper<boolean>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.map
+         */
+        collect<TValue, TResult>(
+            iteratee?: ListIterator<TValue, TResult>|DictionaryIterator<TValue, TResult>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.map
+         */
+        collect<TValue, TResult>(
+            iteratee?: string
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.map
+         */
+        collect<TObject extends {}>(
+            iteratee?: TObject
+        ): LoDashExplicitArrayWrapper<boolean>;
     }
 
     //_.contains
@@ -4984,15 +5016,7 @@ declare module _ {
          * @see _.map
          */
         map<T, TResult>(
-            collection: List<T>,
-            iteratee?: string
-        ): TResult[];
-
-        /**
-         * @see _.map
-         */
-        map<T, TResult>(
-            collection: Dictionary<T>,
+            collection: List<T>|Dictionary<T>,
             iteratee?: string
         ): TResult[];
 
@@ -5000,15 +5024,7 @@ declare module _ {
          * @see _.map
          */
         map<T, TObject extends {}>(
-            collection: List<T>,
-            iteratee?: TObject
-        ): boolean[];
-
-        /**
-         * @see _.map
-         */
-        map<T, TObject extends {}>(
-            collection: Dictionary<T>,
+            collection: List<T>|Dictionary<T>,
             iteratee?: TObject
         ): boolean[];
     }
@@ -5059,6 +5075,54 @@ declare module _ {
         map<TObject extends {}>(
             iteratee?: TObject
         ): LoDashImplicitArrayWrapper<boolean>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.map
+         */
+        map<TResult>(
+            iteratee?: ListIterator<T, TResult>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.map
+         */
+        map<TResult>(
+            iteratee?: string
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.map
+         */
+        map<TObject extends {}>(
+            iteratee?: TObject
+        ): LoDashExplicitArrayWrapper<boolean>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.map
+         */
+        map<TValue, TResult>(
+            iteratee?: ListIterator<TValue, TResult>|DictionaryIterator<TValue, TResult>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.map
+         */
+        map<TValue, TResult>(
+            iteratee?: string
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.map
+         */
+        map<TObject extends {}>(
+            iteratee?: TObject
+        ): LoDashExplicitArrayWrapper<boolean>;
     }
 
     //_.pluck
