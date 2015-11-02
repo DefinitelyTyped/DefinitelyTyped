@@ -2839,6 +2839,56 @@ declare module _ {
         ): boolean;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.every
+         */
+        all(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
+
+        /**
+         * @see _.every
+         */
+        all(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
+
+        /**
+         * @see _.every
+         */
+        all<TObject extends {}>(
+            predicate?: TObject
+        ): LoDashExplicitWrapper<boolean>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.every
+         */
+        all<TResult>(
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
+
+        /**
+         * @see _.every
+         */
+        all(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
+
+        /**
+         * @see _.every
+         */
+        all<TObject extends {}>(
+            predicate?: TObject
+        ): LoDashExplicitWrapper<boolean>;
+    }
+
     //_.any
     interface LoDashStatic {
         /**
@@ -3494,6 +3544,56 @@ declare module _ {
         every<TObject extends {}>(
             predicate?: TObject
         ): boolean;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.every
+         */
+        every(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
+
+        /**
+         * @see _.every
+         */
+        every(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
+
+        /**
+         * @see _.every
+         */
+        every<TObject extends {}>(
+            predicate?: TObject
+        ): LoDashExplicitWrapper<boolean>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.every
+         */
+        every<TResult>(
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
+
+        /**
+         * @see _.every
+         */
+        every(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
+
+        /**
+         * @see _.every
+         */
+        every<TObject extends {}>(
+            predicate?: TObject
+        ): LoDashExplicitWrapper<boolean>;
     }
 
     //_.fill

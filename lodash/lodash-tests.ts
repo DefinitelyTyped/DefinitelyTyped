@@ -1728,43 +1728,67 @@ module TestAll {
     let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
     let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean;
 
-    let result: boolean;
+    {
+        let result: boolean;
 
-    result = _.all<TResult>(array);
-    result = _.all<TResult>(array, listIterator);
-    result = _.all<TResult>(array, listIterator, any);
-    result = _.all<TResult>(array, '');
-    result = _.all<{a: number}, TResult>(array, {a: 42});
+        result = _.all<TResult>(array);
+        result = _.all<TResult>(array, listIterator);
+        result = _.all<TResult>(array, listIterator, any);
+        result = _.all<TResult>(array, '');
+        result = _.all<{a: number}, TResult>(array, {a: 42});
 
-    result = _.all<TResult>(list);
-    result = _.all<TResult>(list, listIterator);
-    result = _.all<TResult>(list, listIterator, any);
-    result = _.all<TResult>(list, '');
-    result = _.all<{a: number}, TResult>(list, {a: 42});
+        result = _.all<TResult>(list);
+        result = _.all<TResult>(list, listIterator);
+        result = _.all<TResult>(list, listIterator, any);
+        result = _.all<TResult>(list, '');
+        result = _.all<{a: number}, TResult>(list, {a: 42});
 
-    result = _.all<TResult>(dictionary);
-    result = _.all<TResult>(dictionary, dictionaryIterator);
-    result = _.all<TResult>(dictionary, dictionaryIterator, any);
-    result = _.all<TResult>(dictionary, '');
-    result = _.all<{a: number}, TResult>(dictionary, {a: 42});
+        result = _.all<TResult>(dictionary);
+        result = _.all<TResult>(dictionary, dictionaryIterator);
+        result = _.all<TResult>(dictionary, dictionaryIterator, any);
+        result = _.all<TResult>(dictionary, '');
+        result = _.all<{a: number}, TResult>(dictionary, {a: 42});
 
-    result = _(array).all();
-    result = _(array).all(listIterator);
-    result = _(array).all(listIterator, any);
-    result = _(array).all('');
-    result = _(array).all<{a: number}>({a: 42});
+        result = _(array).all();
+        result = _(array).all(listIterator);
+        result = _(array).all(listIterator, any);
+        result = _(array).all('');
+        result = _(array).all<{a: number}>({a: 42});
 
-    result = _(list).all<TResult>();
-    result = _(list).all<TResult>(listIterator);
-    result = _(list).all<TResult>(listIterator, any);
-    result = _(list).all('');
-    result = _(list).all<{a: number}>({a: 42});
+        result = _(list).all<TResult>();
+        result = _(list).all<TResult>(listIterator);
+        result = _(list).all<TResult>(listIterator, any);
+        result = _(list).all('');
+        result = _(list).all<{a: number}>({a: 42});
 
-    result = _(dictionary).all<TResult>();
-    result = _(dictionary).all<TResult>(dictionaryIterator);
-    result = _(dictionary).all<TResult>(dictionaryIterator, any);
-    result = _(dictionary).all('');
-    result = _(dictionary).all<{a: number}>({a: 42});
+        result = _(dictionary).all<TResult>();
+        result = _(dictionary).all<TResult>(dictionaryIterator);
+        result = _(dictionary).all<TResult>(dictionaryIterator, any);
+        result = _(dictionary).all('');
+        result = _(dictionary).all<{a: number}>({a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(array).chain().all();
+        result = _(array).chain().all(listIterator);
+        result = _(array).chain().all(listIterator, any);
+        result = _(array).chain().all('');
+        result = _(array).chain().all<{a: number}>({a: 42});
+
+        result = _(list).chain().all<TResult>();
+        result = _(list).chain().all<TResult>(listIterator);
+        result = _(list).chain().all<TResult>(listIterator, any);
+        result = _(list).chain().all('');
+        result = _(list).chain().all<{a: number}>({a: 42});
+
+        result = _(dictionary).chain().all<TResult>();
+        result = _(dictionary).chain().all<TResult>(dictionaryIterator);
+        result = _(dictionary).chain().all<TResult>(dictionaryIterator, any);
+        result = _(dictionary).chain().all('');
+        result = _(dictionary).chain().all<{a: number}>({a: 42});
+    }
 }
 
 // _.any
@@ -1969,43 +1993,67 @@ module TestEvery {
     let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
     let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean;
 
-    let result: boolean;
+    {
+        let result: boolean;
 
-    result = _.every<TResult>(array);
-    result = _.every<TResult>(array, listIterator);
-    result = _.every<TResult>(array, listIterator, any);
-    result = _.every<TResult>(array, '');
-    result = _.every<{a: number}, TResult>(array, {a: 42});
+        result = _.every<TResult>(array);
+        result = _.every<TResult>(array, listIterator);
+        result = _.every<TResult>(array, listIterator, any);
+        result = _.every<TResult>(array, '');
+        result = _.every<{a: number}, TResult>(array, {a: 42});
 
-    result = _.every<TResult>(list);
-    result = _.every<TResult>(list, listIterator);
-    result = _.every<TResult>(list, listIterator, any);
-    result = _.every<TResult>(list, '');
-    result = _.every<{a: number}, TResult>(list, {a: 42});
+        result = _.every<TResult>(list);
+        result = _.every<TResult>(list, listIterator);
+        result = _.every<TResult>(list, listIterator, any);
+        result = _.every<TResult>(list, '');
+        result = _.every<{a: number}, TResult>(list, {a: 42});
 
-    result = _.every<TResult>(dictionary);
-    result = _.every<TResult>(dictionary, dictionaryIterator);
-    result = _.every<TResult>(dictionary, dictionaryIterator, any);
-    result = _.every<TResult>(dictionary, '');
-    result = _.every<{a: number}, TResult>(dictionary, {a: 42});
+        result = _.every<TResult>(dictionary);
+        result = _.every<TResult>(dictionary, dictionaryIterator);
+        result = _.every<TResult>(dictionary, dictionaryIterator, any);
+        result = _.every<TResult>(dictionary, '');
+        result = _.every<{a: number}, TResult>(dictionary, {a: 42});
 
-    result = _(array).every();
-    result = _(array).every(listIterator);
-    result = _(array).every(listIterator, any);
-    result = _(array).every('');
-    result = _(array).every<{a: number}>({a: 42});
+        result = _(array).every();
+        result = _(array).every(listIterator);
+        result = _(array).every(listIterator, any);
+        result = _(array).every('');
+        result = _(array).every<{a: number}>({a: 42});
 
-    result = _(list).every<TResult>();
-    result = _(list).every<TResult>(listIterator);
-    result = _(list).every<TResult>(listIterator, any);
-    result = _(list).every('');
-    result = _(list).every<{a: number}>({a: 42});
+        result = _(list).every<TResult>();
+        result = _(list).every<TResult>(listIterator);
+        result = _(list).every<TResult>(listIterator, any);
+        result = _(list).every('');
+        result = _(list).every<{a: number}>({a: 42});
 
-    result = _(dictionary).every<TResult>();
-    result = _(dictionary).every<TResult>(dictionaryIterator);
-    result = _(dictionary).every<TResult>(dictionaryIterator, any);
-    result = _(dictionary).every('');
-    result = _(dictionary).every<{a: number}>({a: 42});
+        result = _(dictionary).every<TResult>();
+        result = _(dictionary).every<TResult>(dictionaryIterator);
+        result = _(dictionary).every<TResult>(dictionaryIterator, any);
+        result = _(dictionary).every('');
+        result = _(dictionary).every<{a: number}>({a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(array).chain().every();
+        result = _(array).chain().every(listIterator);
+        result = _(array).chain().every(listIterator, any);
+        result = _(array).chain().every('');
+        result = _(array).chain().every<{a: number}>({a: 42});
+
+        result = _(list).chain().every<TResult>();
+        result = _(list).chain().every<TResult>(listIterator);
+        result = _(list).chain().every<TResult>(listIterator, any);
+        result = _(list).chain().every('');
+        result = _(list).chain().every<{a: number}>({a: 42});
+
+        result = _(dictionary).chain().every<TResult>();
+        result = _(dictionary).chain().every<TResult>(dictionaryIterator);
+        result = _(dictionary).chain().every<TResult>(dictionaryIterator, any);
+        result = _(dictionary).chain().every('');
+        result = _(dictionary).chain().every<{a: number}>({a: 42});
+    }
 }
 
 result = <number[]>_.filter([1, 2, 3, 4, 5, 6]);
