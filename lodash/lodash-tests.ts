@@ -845,35 +845,60 @@ module TestRemove {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index?: number, collection?: _.List<TResult>) => boolean;
-    let result: TResult[];
 
-    result = _.remove<TResult>(array);
-    result = _.remove<TResult>(array, predicateFn);
-    result = _.remove<TResult>(array, predicateFn, any);
-    result = _.remove<TResult>(array, '');
-    result = _.remove<TResult>(array, '', any);
-    result = _.remove<{a: number}, TResult>(array, {a: 42});
+    {
+        let result: TResult[];
 
-    result = _.remove<TResult>(list);
-    result = _.remove<TResult>(list, predicateFn);
-    result = _.remove<TResult>(list, predicateFn, any);
-    result = _.remove<TResult>(list, '');
-    result = _.remove<TResult>(list, '', any);
-    result = _.remove<{a: number}, TResult>(list, {a: 42});
+        result = _.remove<TResult>(array);
+        result = _.remove<TResult>(array, predicateFn);
+        result = _.remove<TResult>(array, predicateFn, any);
+        result = _.remove<TResult>(array, '');
+        result = _.remove<TResult>(array, '', any);
+        result = _.remove<{a: number}, TResult>(array, {a: 42});
 
-    result = _<TResult>(array).remove().value();
-    result = _<TResult>(array).remove(predicateFn).value();
-    result = _<TResult>(array).remove(predicateFn, any).value();
-    result = _<TResult>(array).remove('').value();
-    result = _<TResult>(array).remove('', any).value();
-    result = _<TResult>(array).remove<{a: number}>({a: 42}).value();
+        result = _.remove<TResult>(list);
+        result = _.remove<TResult>(list, predicateFn);
+        result = _.remove<TResult>(list, predicateFn, any);
+        result = _.remove<TResult>(list, '');
+        result = _.remove<TResult>(list, '', any);
+        result = _.remove<{a: number}, TResult>(list, {a: 42});
+    }
 
-    result = _(list).remove<TResult>().value();
-    result = _(list).remove<TResult>(predicateFn).value();
-    result = _(list).remove<TResult>(predicateFn, any).value();
-    result = _(list).remove<TResult>('').value();
-    result = _(list).remove<TResult>('', any).value();
-    result = _(list).remove<{a: number}, TResult>({a: 42}).value();
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _<TResult>(array).remove();
+        result = _<TResult>(array).remove(predicateFn);
+        result = _<TResult>(array).remove(predicateFn, any);
+        result = _<TResult>(array).remove('');
+        result = _<TResult>(array).remove('', any);
+        result = _<TResult>(array).remove<{a: number}>({a: 42});
+
+        result = _(list).remove<TResult>();
+        result = _(list).remove<TResult>(predicateFn);
+        result = _(list).remove<TResult>(predicateFn, any);
+        result = _(list).remove<TResult>('');
+        result = _(list).remove<TResult>('', any);
+        result = _(list).remove<{a: number}, TResult>({a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _<TResult>(array).chain().remove();
+        result = _<TResult>(array).chain().remove(predicateFn);
+        result = _<TResult>(array).chain().remove(predicateFn, any);
+        result = _<TResult>(array).chain().remove('');
+        result = _<TResult>(array).chain().remove('', any);
+        result = _<TResult>(array).chain().remove<{a: number}>({a: 42});
+
+        result = _(list).chain().remove<TResult>();
+        result = _(list).chain().remove<TResult>(predicateFn);
+        result = _(list).chain().remove<TResult>(predicateFn, any);
+        result = _(list).chain().remove<TResult>('');
+        result = _(list).chain().remove<TResult>('', any);
+        result = _(list).chain().remove<{a: number}, TResult>({a: 42});
+    }
 }
 
 // _.rest
