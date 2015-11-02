@@ -1074,6 +1074,26 @@ declare module _ {
         ): number;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.indexOf
+         */
+        indexOf(
+            value: T,
+            fromIndex?: boolean|number
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.indexOf
+         */
+        indexOf<TValue>(
+            value: TValue,
+            fromIndex?: boolean|number
+        ): LoDashExplicitWrapper<number>;
+    }
+
     //_.initial
     interface LoDashStatic {
         /**
