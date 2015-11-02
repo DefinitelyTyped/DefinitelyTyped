@@ -970,15 +970,36 @@ module TestTail {
 module TestTake {
     let array: TResult[];
     let list: _.List<TResult>;
-    let result: TResult[];
-    result = _.take<TResult>(array);
-    result = _.take<TResult>(array, 42);
-    result = _.take<TResult>(list);
-    result = _.take<TResult>(list, 42);
-    result = _(array).take().value();
-    result = _(array).take(42).value();
-    result = _(list).take<TResult>().value();
-    result = _(list).take<TResult>(42).value();
+
+    {
+        let result: TResult[];
+
+        result = _.take<TResult>(array);
+        result = _.take<TResult>(array, 42);
+
+        result = _.take<TResult>(list);
+        result = _.take<TResult>(list, 42);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).take();
+        result = _(array).take(42);
+
+        result = _(list).take<TResult>();
+        result = _(list).take<TResult>(42);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().take();
+        result = _(array).chain().take(42);
+
+        result = _(list).chain().take<TResult>();
+        result = _(list).chain().take<TResult>(42);
+    }
 }
 
 // _.takeRight
