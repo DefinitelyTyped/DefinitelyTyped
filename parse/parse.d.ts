@@ -3,10 +3,6 @@
 // Definitions by: Ullisen Media Group <http://ullisenmedia.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../underscore/underscore.d.ts" />
-
 declare namespace Parse {
 
     var applicationId: string;
