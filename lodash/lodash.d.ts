@@ -9962,6 +9962,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Converts string to snake case.
+         *
          * @param string The string to convert.
          * @return Returns the snake cased string.
          */
@@ -9973,6 +9974,13 @@ declare module _ {
          * @see _.snakeCase
          */
         snakeCase(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.snakeCase
+         */
+        snakeCase(): LoDashExplicitWrapper<string>;
     }
 
     //_.startCase
