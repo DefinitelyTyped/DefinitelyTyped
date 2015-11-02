@@ -2102,23 +2102,6 @@ module TestMap {
     }
 }
 
-result = <number>_.sum([4, 2, 8, 6]);
-result = <number>_.sum([4, 2, 8, 6], function(v) { return v; });
-result = <number>_.sum({a: 2, b: 4});
-result = <number>_.sum({a: 2, b: 4}, function(v) { return v; });
-result = <number>_.sum(stoogesAges, function (stooge) { return stooge.age; });
-result = <number>_.sum(stoogesAges, 'age');
-result = <number>_.sum(stoogesAgesDict, function(stooge) { return stooge.age; });
-result = <number>_.sum(stoogesAgesDict, 'age');
-result = <number>_([4, 2, 8, 6]).sum();
-result = <number>_([4, 2, 8, 6]).sum(function(v) { return v; });
-result = <number>_({a: 2, b: 4}).sum();
-result = <number>_({a: 2, b: 4}).sum(function(v) { return v; });
-result = <number>_(stoogesAges).sum(function (stooge) { return stooge.age; });
-result = <number>_(stoogesAges).sum('age');
-result = <number>_(stoogesAgesDict).sum(function (stooge) { return stooge.age; });
-result = <number>_(stoogesAgesDict).sum('age');
-
 result = <string[]>_.pluck(stoogesAges, 'name');
 result = <string[]>_(stoogesAges).pluck('name').value();
 result = <string[]>_.pluck(stoogesAges, ['name']);
@@ -3149,6 +3132,75 @@ module TestRound {
 
         result = _(4.006).chain().round();
         result = _(4.006).chain().round(2);
+    }
+}
+
+// _.sum
+module TestSum {
+    let array: number[];
+    let list: _.List<number>;
+    let dictionary: _.Dictionary<number>;
+
+    let listIterator: (value: number, index: number, collection: _.List<number>) => number;
+    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => number;
+
+    {
+        let result: number;
+
+        result = _.sum(array);
+        result = _.sum<number>(array);
+        result = _.sum<number>(array, listIterator);
+        result = _.sum<number>(array, listIterator, any);
+        result = _.sum<number>(array, '');
+
+
+        result = _.sum(list);
+        result = _.sum<number>(list);
+        result = _.sum<number>(list, listIterator);
+        result = _.sum<number>(list, listIterator, any);
+        result = _.sum<number>(list, '');
+
+        result = _.sum(dictionary);
+        result = _.sum<number>(dictionary);
+        result = _.sum<number>(dictionary, dictionaryIterator);
+        result = _.sum<number>(dictionary, dictionaryIterator, any);
+        result = _.sum<number>(dictionary, '');
+
+        result = _(array).sum();
+        result = _(array).sum(listIterator);
+        result = _(array).sum(listIterator, any);
+        result = _(array).sum('');
+
+
+        result = _(list).sum();
+        result = _(list).sum<number>(listIterator);
+        result = _(list).sum<number>(listIterator, any);
+        result = _(list).sum('');
+
+        result = _(dictionary).sum();
+        result = _(dictionary).sum<number>(dictionaryIterator);
+        result = _(dictionary).sum<number>(dictionaryIterator, any);
+        result = _(dictionary).sum('');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(array).chain().sum();
+        result = _(array).chain().sum(listIterator);
+        result = _(array).chain().sum(listIterator, any);
+        result = _(array).chain().sum('');
+
+
+        result = _(list).chain().sum();
+        result = _(list).chain().sum<number>(listIterator);
+        result = _(list).chain().sum<number>(listIterator, any);
+        result = _(list).chain().sum('');
+
+        result = _(dictionary).chain().sum();
+        result = _(dictionary).chain().sum<number>(dictionaryIterator);
+        result = _(dictionary).chain().sum<number>(dictionaryIterator, any);
+        result = _(dictionary).chain().sum('');
     }
 }
 
