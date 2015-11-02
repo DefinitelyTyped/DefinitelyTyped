@@ -280,6 +280,20 @@ declare module _ {
         chunk<TResult>(size?: number): LoDashImplicitArrayWrapper<TResult[]>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.chunk
+         */
+        chunk(size?: number): LoDashExplicitArrayWrapper<T[]>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.chunk
+         */
+        chunk<TResult>(size?: number): LoDashExplicitArrayWrapper<TResult[]>;
+    }
+
     //_.compact
     interface LoDashStatic {
         /**
