@@ -2095,43 +2095,89 @@ module TestCollect {
     let array: number[];
     let list: _.List<number>;
     let dictionary: _.Dictionary<number>;
-    let listIterator: {(value: number, index: number, collection: _.List<number>): TResult};
-    let dictionaryIterator: {(value: number, key: string, collection: _.Dictionary<number>): TResult};
+
+    let listIterator: (value: number, index: number, collection: _.List<number>) => TResult;
+    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => TResult;
+
     {
         let result: TResult[];
+
         result = _.collect<number, TResult>(array);
         result = _.collect<number, TResult>(array, listIterator);
         result = _.collect<number, TResult>(array, listIterator, any);
         result = _.collect<number, TResult>(array, '');
+
         result = _.collect<number, TResult>(list);
         result = _.collect<number, TResult>(list, listIterator);
         result = _.collect<number, TResult>(list, listIterator, any);
         result = _.collect<number, TResult>(list, '');
+
         result = _.collect<number, TResult>(dictionary);
         result = _.collect<number, TResult>(dictionary, dictionaryIterator);
         result = _.collect<number, TResult>(dictionary, dictionaryIterator, any);
         result = _.collect<number, TResult>(dictionary, '');
-        result = _<number>(array).collect<TResult>().value();
-        result = _<number>(array).collect<TResult>(listIterator).value();
-        result = _<number>(array).collect<TResult>(listIterator, any).value();
-        result = _<number>(array).collect<TResult>('').value();
-        result = _(list).collect<number, TResult>().value();
-        result = _(list).collect<number, TResult>(listIterator).value();
-        result = _(list).collect<number, TResult>(listIterator, any).value();
-        result = _(list).collect<number, TResult>('').value();
-        result = _(dictionary).collect<number, TResult>().value();
-        result = _(dictionary).collect<number, TResult>(dictionaryIterator).value();
-        result = _(dictionary).collect<number, TResult>(dictionaryIterator, any).value();
-        result = _(dictionary).collect<number, TResult>('').value();
     }
+
     {
         let result: boolean[];
+
         result = _.collect<number, {}>(array, {});
         result = _.collect<number, {}>(list, {});
         result = _.collect<number, {}>(dictionary, {});
-        result = _<number>(array).collect<{}>({}).value();
-        result = _(list).collect<{}>({}).value();
-        result = _(dictionary).collect<{}>({}).value();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _<number>(array).collect<TResult>();
+        result = _<number>(array).collect<TResult>(listIterator);
+        result = _<number>(array).collect<TResult>(listIterator, any);
+        result = _<number>(array).collect<TResult>('');
+
+        result = _(list).collect<number, TResult>();
+        result = _(list).collect<number, TResult>(listIterator);
+        result = _(list).collect<number, TResult>(listIterator, any);
+        result = _(list).collect<number, TResult>('');
+
+        result = _(dictionary).collect<number, TResult>();
+        result = _(dictionary).collect<number, TResult>(dictionaryIterator);
+        result = _(dictionary).collect<number, TResult>(dictionaryIterator, any);
+        result = _(dictionary).collect<number, TResult>('');
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<boolean>;
+
+        result = _<number>(array).collect<{}>({});
+        result = _(list).collect<{}>({});
+        result = _(dictionary).collect<{}>({});
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _<number>(array).chain().collect<TResult>();
+        result = _<number>(array).chain().collect<TResult>(listIterator);
+        result = _<number>(array).chain().collect<TResult>(listIterator, any);
+        result = _<number>(array).chain().collect<TResult>('');
+
+        result = _(list).chain().collect<number, TResult>();
+        result = _(list).chain().collect<number, TResult>(listIterator);
+        result = _(list).chain().collect<number, TResult>(listIterator, any);
+        result = _(list).chain().collect<number, TResult>('');
+
+        result = _(dictionary).chain().collect<number, TResult>();
+        result = _(dictionary).chain().collect<number, TResult>(dictionaryIterator);
+        result = _(dictionary).chain().collect<number, TResult>(dictionaryIterator, any);
+        result = _(dictionary).chain().collect<number, TResult>('');
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<boolean>;
+
+        result = _<number>(array).chain().collect<{}>({});
+        result = _(list).chain().collect<{}>({});
+        result = _(dictionary).chain().collect<{}>({});
     }
 }
 
@@ -2451,32 +2497,68 @@ module TestMap {
         result = _.map<number, TResult>(dictionary, dictionaryIterator);
         result = _.map<number, TResult>(dictionary, dictionaryIterator, any);
         result = _.map<number, TResult>(dictionary, '');
-
-        result = _<number>(array).map<TResult>().value();
-        result = _<number>(array).map<TResult>(listIterator).value();
-        result = _<number>(array).map<TResult>(listIterator, any).value();
-        result = _<number>(array).map<TResult>('').value();
-
-        result = _(list).map<number, TResult>().value();
-        result = _(list).map<number, TResult>(listIterator).value();
-        result = _(list).map<number, TResult>(listIterator, any).value();
-        result = _(list).map<number, TResult>('').value();
-
-        result = _(dictionary).map<number, TResult>().value();
-        result = _(dictionary).map<number, TResult>(dictionaryIterator).value();
-        result = _(dictionary).map<number, TResult>(dictionaryIterator, any).value();
-        result = _(dictionary).map<number, TResult>('').value();
     }
+
     {
         let result: boolean[];
 
         result = _.map<number, {}>(array, {});
         result = _.map<number, {}>(list, {});
         result = _.map<number, {}>(dictionary, {});
+    }
 
-        result = _<number>(array).map<{}>({}).value();
-        result = _(list).map<{}>({}).value();
-        result = _(dictionary).map<{}>({}).value();
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _<number>(array).map<TResult>();
+        result = _<number>(array).map<TResult>(listIterator);
+        result = _<number>(array).map<TResult>(listIterator, any);
+        result = _<number>(array).map<TResult>('');
+
+        result = _(list).map<number, TResult>();
+        result = _(list).map<number, TResult>(listIterator);
+        result = _(list).map<number, TResult>(listIterator, any);
+        result = _(list).map<number, TResult>('');
+
+        result = _(dictionary).map<number, TResult>();
+        result = _(dictionary).map<number, TResult>(dictionaryIterator);
+        result = _(dictionary).map<number, TResult>(dictionaryIterator, any);
+        result = _(dictionary).map<number, TResult>('');
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<boolean>;
+
+        result = _<number>(array).map<{}>({});
+        result = _(list).map<{}>({});
+        result = _(dictionary).map<{}>({});
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _<number>(array).chain().map<TResult>();
+        result = _<number>(array).chain().map<TResult>(listIterator);
+        result = _<number>(array).chain().map<TResult>(listIterator, any);
+        result = _<number>(array).chain().map<TResult>('');
+
+        result = _(list).chain().map<number, TResult>();
+        result = _(list).chain().map<number, TResult>(listIterator);
+        result = _(list).chain().map<number, TResult>(listIterator, any);
+        result = _(list).chain().map<number, TResult>('');
+
+        result = _(dictionary).chain().map<number, TResult>();
+        result = _(dictionary).chain().map<number, TResult>(dictionaryIterator);
+        result = _(dictionary).chain().map<number, TResult>(dictionaryIterator, any);
+        result = _(dictionary).chain().map<number, TResult>('');
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<boolean>;
+
+        result = _<number>(array).chain().map<{}>({});
+        result = _(list).chain().map<{}>({});
+        result = _(dictionary).chain().map<{}>({});
     }
 }
 
