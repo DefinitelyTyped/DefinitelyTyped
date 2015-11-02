@@ -50,7 +50,7 @@ declare module angular.resource {
         params?: any;
         url?: string;
         isArray?: boolean;
-        transformRequest?: angular.IHttpResquestTransformer | angular.IHttpResquestTransformer[];
+        transformRequest?: angular.IHttpRequestTransformer | angular.IHttpRequestTransformer[];
         transformResponse?: angular.IHttpResponseTransformer | angular.IHttpResponseTransformer[];
         headers?: any;
         cache?: boolean | angular.ICacheObject;
