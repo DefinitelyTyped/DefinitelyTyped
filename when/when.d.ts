@@ -142,6 +142,23 @@ declare module When {
 
 
     /**
+     * Similar to when/iterate, when.unfold generates a potentially infinite stream of promises by repeatedly calling
+     * unspool until predicate becomes true. when.unfold allows you to thread additional state information through the iteration.
+     * @memberOf when
+     * @param unspool function that, given a seed, returns a [valueToSendToHandler, newSeed] pair.
+     * May return an array, array of promises, promise for an array, or promise for an array of promises.
+     * @param predicate function that receives the current seed, and should return truthy when the unfold should stop
+     * @param handler function that receives the valueToSendToHandler of the current iteration.
+     * This function can process valueToSendToHandler in whatever way you need.
+     * It may return a promise to delay the next iteration of the unfold.
+     * @param seed initial value provided to the first unspool invocation. May be a promise.
+     */
+    function unfold<T, U>(unspool: (seed: U) => [T | Promise<T>, U | Promise<U>] | Promise<[T | Promise<T>, U | Promise<U>]>,
+                          predicate: (value: U) => boolean | Promise<boolean>,
+                          handler: (value: T) => Promise<any> | void,
+                          seed: U | Promise<U>): Promise<void>;
+
+    /**
      * Creates a {promise, resolver} pair, either or both of which
      * may be given out safely to consumers.
      * The resolver has resolve, reject, and progress.  The promise
