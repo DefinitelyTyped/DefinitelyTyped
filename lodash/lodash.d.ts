@@ -10343,6 +10343,21 @@ declare module _ {
         times(): LoDashImplicitArrayWrapper<number>;
     }
 
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.times
+         */
+        times<TResult>(
+            iteratee: (num: number) => TResult,
+            thisArgs?: any
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.times
+         */
+        times(): LoDashExplicitArrayWrapper<number>;
+    }
+
     //_.uniqueId
     interface LoDashStatic {
         /**
