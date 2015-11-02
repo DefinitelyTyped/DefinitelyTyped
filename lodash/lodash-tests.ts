@@ -757,31 +757,64 @@ module TestObject {
 }
 
 // _.pull
-{
-    let testPullArray: TResult[];
-    let testPullValue: TResult;
-    let result: TResult[];
-    result = _.pull<TResult>(testPullArray);
-    result = _.pull<TResult>(testPullArray, testPullValue);
-    result = _.pull<TResult>(testPullArray, testPullValue, testPullValue);
-    result = _.pull<TResult>(testPullArray, testPullValue, testPullValue, testPullValue);
-    result = _(testPullArray).pull().value();
-    result = _(testPullArray).pull(testPullValue).value();
-    result = _(testPullArray).pull(testPullValue, testPullValue).value();
-    result = _(testPullArray).pull(testPullValue, testPullValue, testPullValue).value();
-}
-{
-    let testPullList: _.List<TResult>;
-    let testPullValue: TResult;
-    let result: _.List<TResult>;
-    result = _.pull<TResult>(testPullList);
-    result = _.pull<TResult>(testPullList, testPullValue);
-    result = _.pull<TResult>(testPullList, testPullValue, testPullValue);
-    result = _.pull<TResult>(testPullList, testPullValue, testPullValue, testPullValue);
-    result = _(testPullList).pull<TResult>().value();
-    result = _(testPullList).pull<TResult>(testPullValue).value();
-    result = _(testPullList).pull<TResult>(testPullValue, testPullValue).value();
-    result = _(testPullList).pull<TResult>(testPullValue, testPullValue, testPullValue).value();
+module TestPull {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let value: TResult;
+
+    {
+        let result: TResult[];
+
+        result = _.pull<TResult>(array);
+        result = _.pull<TResult>(array, value);
+        result = _.pull<TResult>(array, value, value);
+        result = _.pull<TResult>(array, value, value, value);
+    }
+
+    {
+        let result: _.List<TResult>;
+
+        result = _.pull<TResult>(list);
+        result = _.pull<TResult>(list, value);
+        result = _.pull<TResult>(list, value, value);
+        result = _.pull<TResult>(list, value, value, value);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).pull();
+        result = _(array).pull(value);
+        result = _(array).pull(value, value);
+        result = _(array).pull(value, value, value);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
+
+        result = _(list).pull<TResult>();
+        result = _(list).pull<TResult>(value);
+        result = _(list).pull<TResult>(value, value);
+        result = _(list).pull<TResult>(value, value, value);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().pull();
+        result = _(array).chain().pull(value);
+        result = _(array).chain().pull(value, value);
+        result = _(array).chain().pull(value, value, value);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
+
+        result = _(list).chain().pull<TResult>();
+        result = _(list).chain().pull<TResult>(value);
+        result = _(list).chain().pull<TResult>(value, value);
+        result = _(list).chain().pull<TResult>(value, value, value);
+    }
 }
 
 // _.pullAt
