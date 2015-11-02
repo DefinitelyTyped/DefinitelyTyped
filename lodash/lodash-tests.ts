@@ -4205,15 +4205,34 @@ result = <number>(_('a.b').property<TestPropertyObject, number>().value())(testP
 result = <number>(_(['a', 'b']).property<TestPropertyObject, number>().value())(testPropertyObject);
 
 // _.propertyOf
-interface TestPropertyOfObject {
-    a: {
-        b: number[];
+module TestPropertyOf {
+    interface SampleObject {
+        a: {
+            b: number[];
+        }
+    }
+
+    let object: SampleObject;
+
+    {
+        let result: (path: string|string[]) => any;
+
+        result = _.propertyOf({});
+        result = _.propertyOf<SampleObject>(object);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(path: string|string[]) => any>;
+
+        result = _({}).propertyOf();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(path: string|string[]) => any>;
+
+        result = _({}).chain().propertyOf();
     }
 }
-var testPropertyOfObject: TestPropertyOfObject;
-result = <(path: string|string[]) => any>_.propertyOf({});
-result = <(path: string|string[]) => any>_.propertyOf<TestPropertyOfObject>(testPropertyOfObject);
-result = <(path: string|string[]) => any>_({}).propertyOf().value();
 
 // _.range
 result = <number[]>_.range(10);
