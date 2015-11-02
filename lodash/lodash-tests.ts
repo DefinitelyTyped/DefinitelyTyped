@@ -610,16 +610,36 @@ module TestIndexOf {
 }
 
 // _.intersection
-{
-    let testIntersectionArray: TResult[];
-    let testIntersectionList: _.List<TResult>;
-    let result: TResult[];
-    result = _.intersection<TResult>(testIntersectionArray, testIntersectionList);
-    result = _.intersection<TResult>(testIntersectionList, testIntersectionArray, testIntersectionList);
-    result = _(testIntersectionArray).intersection<TResult>(testIntersectionArray).value();
-    result = _(testIntersectionArray).intersection<TResult>(testIntersectionList, testIntersectionArray).value();
-    result = _(testIntersectionList).intersection<TResult>(testIntersectionArray).value();
-    result = _(testIntersectionList).intersection<TResult>(testIntersectionList, testIntersectionArray).value();
+module TestIntersection {
+    let array: TResult[];
+    let list: _.List<TResult>;
+
+    {
+        let result: TResult[];
+
+        result = _.intersection<TResult>(array, list);
+        result = _.intersection<TResult>(list, array, list);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).intersection<TResult>(array);
+        result = _(array).intersection<TResult>(list, array);
+
+        result = _(list).intersection<TResult>(array);
+        result = _(list).intersection<TResult>(list, array);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().intersection<TResult>(array);
+        result = _(array).chain().intersection<TResult>(list, array);
+
+        result = _(list).chain().intersection<TResult>(array);
+        result = _(list).chain().intersection<TResult>(list, array);
+    }
 }
 
 // _.last
