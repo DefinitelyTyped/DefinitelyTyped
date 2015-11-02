@@ -2042,6 +2042,25 @@ declare module _ {
         union<T>(...arrays: List<T>[]): LoDashImplicitArrayWrapper<T>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.union
+         */
+        union(...arrays: List<T>[]): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.union
+         */
+        union<T>(...arrays: List<T>[]): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.union
+         */
+        union<T>(...arrays: List<T>[]): LoDashExplicitArrayWrapper<T>;
+    }
+
     //_.uniq
     interface LoDashStatic {
         /**
