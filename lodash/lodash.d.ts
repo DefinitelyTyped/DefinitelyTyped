@@ -1353,6 +1353,20 @@ declare module _ {
         pull<TValue>(...values: TValue[]): LoDashImplicitObjectWrapper<List<TValue>>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.pull
+         */
+        pull(...values: T[]): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.pull
+         */
+        pull<TValue>(...values: TValue[]): LoDashExplicitObjectWrapper<List<TValue>>;
+    }
+
     //_.pullAt
     interface LoDashStatic {
         /**
