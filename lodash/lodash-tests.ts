@@ -4424,10 +4424,24 @@ module TestPadRight {
 
 
 // _.parseInt
-result = <number>_.parseInt('08');
-result = <number>_.parseInt('08', 10);
-result = <number>_('08').parseInt();
-result = <number>_('08').parseInt(10);
+module TestParseInt {
+    {
+        let result: number;
+
+        result = _.parseInt('08');
+        result = _.parseInt('08', 10);
+
+        result = _('08').parseInt();
+        result = _('08').parseInt(10);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _('08').chain().parseInt();
+        result = _('08').chain().parseInt(10);
+    }
+}
 
 // _.repeat
 module TestRepeat {
