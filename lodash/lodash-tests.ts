@@ -4791,14 +4791,38 @@ module TestMatches {
 
     {
         let result: (value: any) => boolean;
+
         result = _.matchesProperty<TResult>(path, source);
-        result = _(path).matchesProperty<TResult>(source).value();
     }
 
     {
         let result: (value: TResult) => boolean;
+
         result = _.matchesProperty<TResult, TResult>(path, source);
-        result = _(path).matchesProperty<TResult, TResult>(source).value();
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(value: any) => boolean>;
+
+        result = _(path).matchesProperty<TResult>(source);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(value: TResult) => boolean>;
+
+        result = _(path).matchesProperty<TResult, TResult>(source);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(value: any) => boolean>;
+
+        result = _(path).chain().matchesProperty<TResult>(source);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(value: TResult) => boolean>;
+
+        result = _(path).chain().matchesProperty<TResult, TResult>(source);
     }
 }
 
