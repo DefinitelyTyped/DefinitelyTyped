@@ -406,35 +406,56 @@ module TestFindIndex {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index?: number, collection?: _.List<TResult>) => boolean;
-    let result: number;
 
-    result = _.findIndex<TResult>(array);
-    result = _.findIndex<TResult>(array, predicateFn);
-    result = _.findIndex<TResult>(array, predicateFn, any);
-    result = _.findIndex<TResult>(array, '');
-    result = _.findIndex<TResult>(array, '', any);
-    result = _.findIndex<{a: number}, TResult>(array, {a: 42});
+    {
+        let result: number;
 
-    result = _.findIndex<TResult>(list);
-    result = _.findIndex<TResult>(list, predicateFn);
-    result = _.findIndex<TResult>(list, predicateFn, any);
-    result = _.findIndex<TResult>(list, '');
-    result = _.findIndex<TResult>(list, '', any);
-    result = _.findIndex<{a: number}, TResult>(list, {a: 42});
+        result = _.findIndex<TResult>(array);
+        result = _.findIndex<TResult>(array, predicateFn);
+        result = _.findIndex<TResult>(array, predicateFn, any);
+        result = _.findIndex<TResult>(array, '');
+        result = _.findIndex<TResult>(array, '', any);
+        result = _.findIndex<{a: number}, TResult>(array, {a: 42});
 
-    result = _<TResult>(array).findIndex();
-    result = _<TResult>(array).findIndex(predicateFn);
-    result = _<TResult>(array).findIndex(predicateFn, any);
-    result = _<TResult>(array).findIndex('');
-    result = _<TResult>(array).findIndex('', any);
-    result = _<TResult>(array).findIndex<{a: number}>({a: 42});
+        result = _.findIndex<TResult>(list);
+        result = _.findIndex<TResult>(list, predicateFn);
+        result = _.findIndex<TResult>(list, predicateFn, any);
+        result = _.findIndex<TResult>(list, '');
+        result = _.findIndex<TResult>(list, '', any);
+        result = _.findIndex<{a: number}, TResult>(list, {a: 42});
 
-    result = _(list).findIndex();
-    result = _(list).findIndex<TResult>(predicateFn);
-    result = _(list).findIndex<TResult>(predicateFn, any);
-    result = _(list).findIndex('');
-    result = _(list).findIndex('', any);
-    result = _(list).findIndex<{a: number}>({a: 42});
+        result = _<TResult>(array).findIndex();
+        result = _<TResult>(array).findIndex(predicateFn);
+        result = _<TResult>(array).findIndex(predicateFn, any);
+        result = _<TResult>(array).findIndex('');
+        result = _<TResult>(array).findIndex('', any);
+        result = _<TResult>(array).findIndex<{a: number}>({a: 42});
+
+        result = _(list).findIndex();
+        result = _(list).findIndex<TResult>(predicateFn);
+        result = _(list).findIndex<TResult>(predicateFn, any);
+        result = _(list).findIndex('');
+        result = _(list).findIndex('', any);
+        result = _(list).findIndex<{a: number}>({a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _<TResult>(array).chain().findIndex();
+        result = _<TResult>(array).chain().findIndex(predicateFn);
+        result = _<TResult>(array).chain().findIndex(predicateFn, any);
+        result = _<TResult>(array).chain().findIndex('');
+        result = _<TResult>(array).chain().findIndex('', any);
+        result = _<TResult>(array).chain().findIndex<{a: number}>({a: 42});
+
+        result = _(list).chain().findIndex();
+        result = _(list).chain().findIndex<TResult>(predicateFn);
+        result = _(list).chain().findIndex<TResult>(predicateFn, any);
+        result = _(list).chain().findIndex('');
+        result = _(list).chain().findIndex('', any);
+        result = _(list).chain().findIndex<{a: number}>({a: 42});
+    }
 }
 
 // _.findLastIndex
