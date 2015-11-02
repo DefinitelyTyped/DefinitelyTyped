@@ -4499,6 +4499,50 @@ module TestNoop {
     result = _({}).runInContext();
 }
 
+// _.times
+module TestTimes {
+    let iteratee: (num: number) => TResult;
+
+    {
+        let result: number[];
+
+        result = _.times(42);
+    }
+
+    {
+        let result: TResult[];
+
+        result = _.times(42, iteratee);
+        result = _.times(42, iteratee, any);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<number>;
+
+        result = _(42).times();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(42).times(iteratee);
+        result = _(42).times(iteratee, any);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<number>;
+
+        result = _(42).chain().times();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(42).chain().times(iteratee);
+        result = _(42).chain().times(iteratee, any);
+    }
+}
+
 // _.uniqueId
 result = <string>_.uniqueId();
 result = <string>_.uniqueId('');
@@ -4507,21 +4551,6 @@ result = <string>_('').uniqueId();
 result = <string>_.VERSION;
 result = <_.Support>_.support;
 result = <_.TemplateSettings>_.templateSettings;
-
-// _.times
-{
-    let result: number[];
-    result = _.times(42);
-    result = _(42).times().value();
-}
-{
-    let testTimesFn: (num: number) => TResult;
-    let result: TResult[];
-    result = _.times(42, testTimesFn);
-    result = _.times(42, testTimesFn, any);
-    result = _(42).times(testTimesFn).value();
-    result = _(42).times(testTimesFn, any).value();
-}
 
 // _.partial & _.partialRight
 {
