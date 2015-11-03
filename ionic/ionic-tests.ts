@@ -364,33 +364,33 @@ class IonicTestController {
      * ionic.version
      */
     private testStaticVersion(): void {
-      var version: string = ionic.version;
+        var version: string = ionic.version;
     }
 
     /**
      * ionic.Platform
      */
     private testStaticPlaform(): void {
-      var ready: void = ionic.Platform.ready(function() {
-      });
-      var setGrade: void = ionic.Platform.setGrade('iOS');
-      var deviceInformation: string = ionic.Platform.device();
-      var isWebView: boolean = ionic.Platform.isWebView();
-      var isIPad: boolean = ionic.Platform.isIPad();
-      var isIOS: boolean = ionic.Platform.isIOS();
-      var isAndroid: boolean = ionic.Platform.isAndroid();
-      var isWindowsPhone: boolean = ionic.Platform.isWindowsPhone();
-      var currentPlatform: string = ionic.Platform.platform();
-      var currentPlatformVersion: number = ionic.Platform.version();
-      var exitApp: void = ionic.Platform.exitApp();
-      var showStatusBar: void = ionic.Platform.showStatusBar(true);
-      var showStatusBar: void = ionic.Platform.fullScreen();
-      showStatusBar = ionic.Platform.fullScreen(true);
-      showStatusBar = ionic.Platform.fullScreen(true, true);
-      var isReady: boolean = ionic.Platform.isReady;
-      var isFullScreen: boolean = ionic.Platform.isFullScreen;
-      var platforms: Array<string> = ionic.Platform.platforms;
-      var grade: string = ionic.Platform.grade;
+        var ready: void = ionic.Platform.ready(function() {
+        });
+        var setGrade: void = ionic.Platform.setGrade('iOS');
+        var deviceInformation: string = ionic.Platform.device();
+        var isWebView: boolean = ionic.Platform.isWebView();
+        var isIPad: boolean = ionic.Platform.isIPad();
+        var isIOS: boolean = ionic.Platform.isIOS();
+        var isAndroid: boolean = ionic.Platform.isAndroid();
+        var isWindowsPhone: boolean = ionic.Platform.isWindowsPhone();
+        var currentPlatform: string = ionic.Platform.platform();
+        var currentPlatformVersion: number = ionic.Platform.version();
+        var exitApp: void = ionic.Platform.exitApp();
+        var showStatusBar: void = ionic.Platform.showStatusBar(true);
+        var showStatusBar: void = ionic.Platform.fullScreen();
+        showStatusBar = ionic.Platform.fullScreen(true);
+        showStatusBar = ionic.Platform.fullScreen(true, true);
+        var isReady: boolean = ionic.Platform.isReady;
+        var isFullScreen: boolean = ionic.Platform.isFullScreen;
+        var platforms: Array<string> = ionic.Platform.platforms;
+        var grade: string = ionic.Platform.grade;
     }
 }
 
