@@ -280,6 +280,20 @@ declare module _ {
         chunk<TResult>(size?: number): LoDashImplicitArrayWrapper<TResult[]>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.chunk
+         */
+        chunk(size?: number): LoDashExplicitArrayWrapper<T[]>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.chunk
+         */
+        chunk<TResult>(size?: number): LoDashExplicitArrayWrapper<TResult[]>;
+    }
+
     //_.compact
     interface LoDashStatic {
         /**
@@ -336,6 +350,20 @@ declare module _ {
         difference<TValue>(...values: (TValue[]|List<TValue>)[]): LoDashImplicitArrayWrapper<TValue>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.difference
+         */
+        difference(...values: (T[]|List<T>)[]): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.difference
+         */
+        difference<TValue>(...values: (TValue[]|List<TValue>)[]): LoDashExplicitArrayWrapper<TValue>;
+    }
+
     //_.drop
     interface LoDashStatic {
         /**
@@ -389,6 +417,20 @@ declare module _ {
          * @see _.dropRight
          */
         dropRight<TResult>(n?: number): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.dropRight
+         */
+        dropRight(n?: number): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.dropRight
+         */
+        dropRight<TResult>(n?: number): LoDashExplicitArrayWrapper<TResult>;
     }
 
     //_.dropRightWhile
@@ -579,6 +621,56 @@ declare module _ {
         ): LoDashImplicitArrayWrapper<TValue>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.dropWhile
+         */
+        dropWhile(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.dropWhile
+         */
+        dropWhile(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.dropWhile
+         */
+        dropWhile<TWhere>(
+            predicate?: TWhere
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.dropWhile
+         */
+        dropWhile<TValue>(
+            predicate?: ListIterator<TValue, boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TValue>;
+
+        /**
+         * @see _.dropWhile
+         */
+        dropWhile<TValue>(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TValue>;
+
+        /**
+         * @see _.dropWhile
+         */
+        dropWhile<TWhere, TValue>(
+            predicate?: TWhere
+        ): LoDashExplicitArrayWrapper<TValue>;
+    }
+
     //_.findIndex
     interface LoDashStatic {
         /**
@@ -671,6 +763,56 @@ declare module _ {
         findIndex<W>(
             predicate?: W
         ): number;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.findIndex
+         */
+        findIndex(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.findIndex
+         */
+        findIndex(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.findIndex
+         */
+        findIndex<W>(
+            predicate?: W
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.findIndex
+         */
+        findIndex<TResult>(
+            predicate?: ListIterator<TResult, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.findIndex
+         */
+        findIndex(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.findIndex
+         */
+        findIndex<W>(
+            predicate?: W
+        ): LoDashExplicitWrapper<number>;
     }
 
     //_.findLastIndex
@@ -932,6 +1074,26 @@ declare module _ {
         ): number;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.indexOf
+         */
+        indexOf(
+            value: T,
+            fromIndex?: boolean|number
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.indexOf
+         */
+        indexOf<TValue>(
+            value: TValue,
+            fromIndex?: boolean|number
+        ): LoDashExplicitWrapper<number>;
+    }
+
     //_.initial
     interface LoDashStatic {
         /**
@@ -981,6 +1143,20 @@ declare module _ {
          * @see _.intersection
          */
         intersection<TResult>(...arrays: (TResult[]|List<TResult>)[]): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.intersection
+         */
+        intersection<TResult>(...arrays: (TResult[]|List<TResult>)[]): LoDashExplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.intersection
+         */
+        intersection<TResult>(...arrays: (TResult[]|List<TResult>)[]): LoDashExplicitArrayWrapper<TResult>;
     }
 
     //_.last
@@ -1043,6 +1219,26 @@ declare module _ {
             value: TResult,
             fromIndex?: boolean|number
         ): number;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.lastIndexOf
+         */
+        lastIndexOf(
+            value: T,
+            fromIndex?: boolean|number
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.lastIndexOf
+         */
+        lastIndexOf<TResult>(
+            value: TResult,
+            fromIndex?: boolean|number
+        ): LoDashExplicitWrapper<number>;
     }
 
     //_.object
@@ -1155,6 +1351,20 @@ declare module _ {
          * @see _.pull
          */
         pull<TValue>(...values: TValue[]): LoDashImplicitObjectWrapper<List<TValue>>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.pull
+         */
+        pull(...values: T[]): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.pull
+         */
+        pull<TValue>(...values: TValue[]): LoDashExplicitObjectWrapper<List<TValue>>;
     }
 
     //_.pullAt
@@ -1285,6 +1495,56 @@ declare module _ {
         ): LoDashImplicitArrayWrapper<TResult>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.remove
+         */
+        remove(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.remove
+         */
+        remove(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.remove
+         */
+        remove<W>(
+            predicate?: W
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.remove
+         */
+        remove<TResult>(
+            predicate?: ListIterator<TResult, boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.remove
+         */
+        remove<TResult>(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.remove
+         */
+        remove<W, TResult>(
+            predicate?: W
+        ): LoDashExplicitArrayWrapper<TResult>;
+    }
+
     //_.rest
     interface LoDashStatic {
         /**
@@ -1337,6 +1597,16 @@ declare module _ {
             start?: number,
             end?: number
         ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.slice
+         */
+        slice(
+            start?: number,
+            end?: number
+        ): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.sortedIndex
@@ -1409,6 +1679,76 @@ declare module _ {
             whereValue: W): number;
     }
 
+    //_.sortedLastIndex
+    interface LoDashStatic {
+        /**
+        * Uses a binary search to determine the highest index at which a value should be inserted
+        * into a given sorted array in order to maintain the sort order of the array. If a callback
+        * is provided it will be executed for value and each element of array to compute their sort
+        * ranking. The callback is bound to thisArg and invoked with one argument; (value).
+        *
+        * If a property name is provided for callback the created "_.pluck" style callback will
+        * return the property value of the given element.
+        *
+        * If an object is provided for callback the created "_.where" style callback will return
+        * true for elements that have the properties of the given object, else false.
+        * @param array The sorted list.
+        * @param value The value to determine its index within `list`.
+        * @param callback Iterator to compute the sort ranking of each value, optional.
+        * @return The index at which value should be inserted into array.
+        **/
+        sortedLastIndex<T, TSort>(
+            array: Array<T>,
+            value: T,
+            callback?: (x: T) => TSort,
+            thisArg?: any): number;
+
+        /**
+        * @see _.sortedLastIndex
+        **/
+        sortedLastIndex<T, TSort>(
+            array: List<T>,
+            value: T,
+            callback?: (x: T) => TSort,
+            thisArg?: any): number;
+
+        /**
+        * @see _.sortedLastIndex
+        * @param pluckValue the _.pluck style callback
+        **/
+        sortedLastIndex<T>(
+            array: Array<T>,
+            value: T,
+            pluckValue: string): number;
+
+        /**
+        * @see _.sortedLastIndex
+        * @param pluckValue the _.pluck style callback
+        **/
+        sortedLastIndex<T>(
+            array: List<T>,
+            value: T,
+            pluckValue: string): number;
+
+        /**
+        * @see _.sortedLastIndex
+        * @param pluckValue the _.where style callback
+        **/
+        sortedLastIndex<W, T>(
+            array: Array<T>,
+            value: T,
+            whereValue: W): number;
+
+        /**
+        * @see _.sortedLastIndex
+        * @param pluckValue the _.where style callback
+        **/
+        sortedLastIndex<W, T>(
+            array: List<T>,
+            value: T,
+            whereValue: W): number;
+    }
+
     //_.tail
     interface LoDashStatic {
         /**
@@ -1458,6 +1798,20 @@ declare module _ {
          * @see _.take
          */
         take<TResult>(n?: number): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.take
+         */
+        take(n?: number): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.take
+         */
+        take<TResult>(n?: number): LoDashExplicitArrayWrapper<TResult>;
     }
 
     //_.takeRight
@@ -1583,6 +1937,56 @@ declare module _ {
         ): LoDashImplicitArrayWrapper<TValue>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.takeRightWhile
+         */
+        takeRightWhile(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.takeRightWhile
+         */
+        takeRightWhile(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.takeRightWhile
+         */
+        takeRightWhile<TWhere>(
+            predicate?: TWhere
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.takeRightWhile
+         */
+        takeRightWhile<TValue>(
+            predicate?: ListIterator<TValue, boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TValue>;
+
+        /**
+         * @see _.takeRightWhile
+         */
+        takeRightWhile<TValue>(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TValue>;
+
+        /**
+         * @see _.takeRightWhile
+         */
+        takeRightWhile<TWhere, TValue>(
+            predicate?: TWhere
+        ): LoDashExplicitArrayWrapper<TValue>;
+    }
+
     //_.takeWhile
     interface LoDashStatic {
         /**
@@ -1706,6 +2110,25 @@ declare module _ {
          * @see _.union
          */
         union<T>(...arrays: List<T>[]): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.union
+         */
+        union(...arrays: List<T>[]): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.union
+         */
+        union<T>(...arrays: List<T>[]): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.union
+         */
+        union<T>(...arrays: List<T>[]): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.uniq
@@ -2609,7 +3032,7 @@ declare module _ {
         reverse(): LoDashExplicitArrayWrapper<T>;
     }
 
-    // _.run
+    //_.prototype.run
     interface LoDashWrapperBase<T, TWrapper> {
         /**
          * @see _.value
@@ -2617,7 +3040,7 @@ declare module _ {
         run(): T;
     }
 
-    // _.toJSON
+    //_.prototype.toJSON
     interface LoDashWrapperBase<T, TWrapper> {
         /**
          * @see _.value
@@ -2625,6 +3048,7 @@ declare module _ {
         toJSON(): T;
     }
 
+    //_.prototype.toString
     interface LoDashWrapperBase<T, TWrapper> {
         /**
          * Produces the result of coercing the unwrapped value to a string.
@@ -2634,7 +3058,7 @@ declare module _ {
         toString(): string;
     }
 
-    // _.value
+    //_.prototype.value
     interface LoDashWrapperBase<T, TWrapper> {
         /**
          * Executes the chained sequence to extract the unwrapped value.
@@ -2646,7 +3070,7 @@ declare module _ {
         value(): T;
     }
 
-    // _.valueOf
+    //_.valueOf
     interface LoDashWrapperBase<T, TWrapper> {
         /**
          * @see _.value
@@ -2744,6 +3168,56 @@ declare module _ {
         all<TObject extends {}>(
             predicate?: TObject
         ): boolean;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.every
+         */
+        all(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
+
+        /**
+         * @see _.every
+         */
+        all(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
+
+        /**
+         * @see _.every
+         */
+        all<TObject extends {}>(
+            predicate?: TObject
+        ): LoDashExplicitWrapper<boolean>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.every
+         */
+        all<TResult>(
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
+
+        /**
+         * @see _.every
+         */
+        all(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
+
+        /**
+         * @see _.every
+         */
+        all<TObject extends {}>(
+            predicate?: TObject
+        ): LoDashExplicitWrapper<boolean>;
     }
 
     //_.any
@@ -2888,15 +3362,7 @@ declare module _ {
          * @see _.map
          */
         collect<T, TResult>(
-            collection: List<T>,
-            iteratee?: string
-        ): TResult[];
-
-        /**
-         * @see _.map
-         */
-        collect<T, TResult>(
-            collection: Dictionary<T>,
+            collection: List<T>|Dictionary<T>,
             iteratee?: string
         ): TResult[];
 
@@ -2904,15 +3370,7 @@ declare module _ {
          * @see _.map
          */
         collect<T, TObject extends {}>(
-            collection: List<T>,
-            iteratee?: TObject
-        ): boolean[];
-
-        /**
-         * @see _.map
-         */
-        collect<T, TObject extends {}>(
-            collection: Dictionary<T>,
+            collection: List<T>|Dictionary<T>,
             iteratee?: TObject
         ): boolean[];
     }
@@ -2963,6 +3421,54 @@ declare module _ {
         collect<TObject extends {}>(
             iteratee?: TObject
         ): LoDashImplicitArrayWrapper<boolean>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.map
+         */
+        collect<TResult>(
+            iteratee?: ListIterator<T, TResult>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.map
+         */
+        collect<TResult>(
+            iteratee?: string
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.map
+         */
+        collect<TObject extends {}>(
+            iteratee?: TObject
+        ): LoDashExplicitArrayWrapper<boolean>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.map
+         */
+        collect<TValue, TResult>(
+            iteratee?: ListIterator<TValue, TResult>|DictionaryIterator<TValue, TResult>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.map
+         */
+        collect<TValue, TResult>(
+            iteratee?: string
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.map
+         */
+        collect<TObject extends {}>(
+            iteratee?: TObject
+        ): LoDashExplicitArrayWrapper<boolean>;
     }
 
     //_.contains
@@ -3401,6 +3907,56 @@ declare module _ {
         every<TObject extends {}>(
             predicate?: TObject
         ): boolean;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.every
+         */
+        every(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
+
+        /**
+         * @see _.every
+         */
+        every(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
+
+        /**
+         * @see _.every
+         */
+        every<TObject extends {}>(
+            predicate?: TObject
+        ): LoDashExplicitWrapper<boolean>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.every
+         */
+        every<TResult>(
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
+
+        /**
+         * @see _.every
+         */
+        every(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
+
+        /**
+         * @see _.every
+         */
+        every<TObject extends {}>(
+            predicate?: TObject
+        ): LoDashExplicitWrapper<boolean>;
     }
 
     //_.fill
@@ -4460,15 +5016,7 @@ declare module _ {
          * @see _.map
          */
         map<T, TResult>(
-            collection: List<T>,
-            iteratee?: string
-        ): TResult[];
-
-        /**
-         * @see _.map
-         */
-        map<T, TResult>(
-            collection: Dictionary<T>,
+            collection: List<T>|Dictionary<T>,
             iteratee?: string
         ): TResult[];
 
@@ -4476,15 +5024,7 @@ declare module _ {
          * @see _.map
          */
         map<T, TObject extends {}>(
-            collection: List<T>,
-            iteratee?: TObject
-        ): boolean[];
-
-        /**
-         * @see _.map
-         */
-        map<T, TObject extends {}>(
-            collection: Dictionary<T>,
+            collection: List<T>|Dictionary<T>,
             iteratee?: TObject
         ): boolean[];
     }
@@ -4537,188 +5077,52 @@ declare module _ {
         ): LoDashImplicitArrayWrapper<boolean>;
     }
 
-    //_.ceil
-    interface LoDashStatic {
+    interface LoDashExplicitArrayWrapper<T> {
         /**
-         * Calculates n rounded up to precision.
-         * @param n The number to round up.
-         * @param precision The precision to round up to.
-         * @return Returns the rounded up number.
+         * @see _.map
          */
-        ceil(n: number, precision?: number): number;
-    }
+        map<TResult>(
+            iteratee?: ListIterator<T, TResult>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TResult>;
 
-    interface LoDashImplicitWrapper<T> {
         /**
-         * @see _.ceil
+         * @see _.map
          */
-        ceil(precision?: number): number;
-    }
+        map<TResult>(
+            iteratee?: string
+        ): LoDashExplicitArrayWrapper<TResult>;
 
-    //_.floor
-    interface LoDashStatic {
         /**
-         * Calculates n rounded down to precision.
-         * @param n The number to round down.
-         * @param precision The precision to round down to.
-         * @return Returns the rounded down number.
+         * @see _.map
          */
-        floor(n: number, precision?: number): number;
+        map<TObject extends {}>(
+            iteratee?: TObject
+        ): LoDashExplicitArrayWrapper<boolean>;
     }
 
-    interface LoDashImplicitWrapper<T> {
+    interface LoDashExplicitObjectWrapper<T> {
         /**
-         * @see _.floor
+         * @see _.map
          */
-        floor(precision?: number): number;
-    }
+        map<TValue, TResult>(
+            iteratee?: ListIterator<TValue, TResult>|DictionaryIterator<TValue, TResult>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TResult>;
 
-    //_.round
-    interface LoDashStatic {
         /**
-         * Calculates n rounded to precision.
-         * @param n The number to round.
-         * @param precision The precision to round to.
-         * @return Returns the rounded number.
+         * @see _.map
          */
-        round(n: number, precision?: number): number;
-    }
+        map<TValue, TResult>(
+            iteratee?: string
+        ): LoDashExplicitArrayWrapper<TResult>;
 
-    interface LoDashImplicitWrapper<T> {
         /**
-         * @see _.round
+         * @see _.map
          */
-        round(precision?: number): number;
-    }
-
-    //_.sum
-    interface LoDashStatic {
-        /**
-        * Gets the sum of the values in collection.
-        *
-        * @param collection The collection to iterate over.
-        * @param iteratee The function invoked per iteration.
-        * @param thisArg The this binding of iteratee.
-        * @return Returns the sum.
-        **/
-        sum(
-            collection: Array<number>): number;
-
-        /**
-        * @see _.sum
-        **/
-        sum(
-            collection: List<number>): number;
-
-        /**
-        * @see _.sum
-        **/
-        sum(
-            collection: Dictionary<number>): number;
-
-        /**
-        * @see _.sum
-        **/
-        sum<T>(
-            collection: Array<T>,
-            iteratee: ListIterator<T, number>,
-            thisArg?: any): number;
-
-        /**
-        * @see _.sum
-        **/
-        sum<T>(
-            collection: List<T>,
-            iteratee: ListIterator<T, number>,
-            thisArg?: any): number;
-
-        /**
-        * @see _.sum
-        **/
-        sum<T>(
-            collection: Dictionary<T>,
-            iteratee: ObjectIterator<T, number>,
-            thisArg?: any): number;
-
-        /**
-        * @see _.sum
-        * @param property _.property callback shorthand.
-        **/
-        sum<T>(
-            collection: Array<T>,
-            property: string): number;
-
-        /**
-        * @see _.sum
-        * @param property _.property callback shorthand.
-        **/
-        sum<T>(
-            collection: List<T>,
-            property: string): number;
-
-        /**
-        * @see _.sum
-        * @param property _.property callback shorthand.
-        **/
-        sum<T>(
-            collection: Dictionary<T>,
-            property: string): number;
-    }
-
-    interface LoDashImplicitNumberArrayWrapper {
-        /**
-        * @see _.sum
-        **/
-        sum(): number;
-
-        /**
-        * @see _.sum
-        **/
-        sum(
-            iteratee: ListIterator<number, number>,
-            thisArg?: any): number;
-    }
-
-    interface LoDashImplicitArrayWrapper<T> {
-        /**
-        * @see _.sum
-        **/
-        sum(): number;
-
-        /**
-        * @see _.sum
-        **/
-        sum(
-            iteratee: ListIterator<T, number>,
-            thisArg?: any): number;
-
-        /**
-        * @see _.sum
-        * @param property _.property callback shorthand.
-        **/
-        sum(
-            property: string): number;
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-        * @see _.sum
-        **/
-        sum(): number;
-
-        /**
-        * @see _.sum
-        **/
-        sum(
-            iteratee: ObjectIterator<any, number>,
-            thisArg?: any): number;
-
-        /**
-        * @see _.sum
-        * @param property _.property callback shorthand.
-        **/
-        sum(
-            property: string): number;
+        map<TObject extends {}>(
+            iteratee?: TObject
+        ): LoDashExplicitArrayWrapper<boolean>;
     }
 
     //_.pluck
@@ -6543,9 +6947,66 @@ declare module _ {
         * @param args Arguments to be partially applied.
         * @return The new partially applied function.
         **/
-        partial(
-            func: Function,
-            ...args: any[]): Function;
+        partial: Partial;
+    }
+
+    type PH = LoDashStatic;
+
+    interface Function0<R> {
+        (): R;
+    }
+    interface Function1<T1, R> {
+        (t1: T1): R;
+    }
+    interface Function2<T1, T2, R> {
+        (t1: T1, t2: T2): R;
+    }
+    interface Function3<T1, T2, T3, R> {
+        (t1: T1, t2: T2, t3: T3): R;
+    }
+    interface Function4<T1, T2, T3, T4, R> {
+        (t1: T1, t2: T2, t3: T3, t4: T4): R;
+    }
+
+    interface Partial {
+        // arity 0
+        <R>(func: Function0<R>): Function0<R>;
+        // arity 1
+        <T1, R>(func: Function1<T1, R>): Function1<T1, R>;
+        <T1, R>(func: Function1<T1, R>, arg1: T1): Function0<R>;
+        // arity 2
+        <T1, T2, R>(func: Function2<T1, T2, R>):                      Function2<T1, T2, R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1):            Function1<    T2, R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, plc1: PH, arg2: T2):  Function1<T1,     R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, arg2: T2):  Function0<        R>;
+        // arity 3
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>):                                Function3<T1, T2, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1):                      Function2<    T2, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: PH, arg2: T2):            Function2<T1,     T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2):            Function1<        T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: PH, plc2: PH, arg3: T3):  Function2<T1, T2,     R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: PH, arg3: T3):  Function1<    T2,     R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: PH, arg2: T2, arg3: T3):  Function1<T1,         R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3):  Function0<            R>;
+        // arity 4
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>):                                          Function4<T1, T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1):                                Function3<    T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, arg2: T2):                      Function3<T1,     T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2):                      Function2<        T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, plc2: PH, arg3: T3):            Function3<T1, T2,     T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, arg3: T3):            Function2<    T2,     T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, arg2: T2, arg3: T3):            Function2<T1,         T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3):            Function1<            T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, plc2: PH, plc3: PH, arg4: T4):  Function3<T1, T2, T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, plc3: PH, arg4: T4):  Function2<    T2, T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, arg2: T2, plc3: PH, arg4: T4):  Function2<T1,     T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: PH, arg4: T4):  Function1<        T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, plc2: PH, arg3: T3, arg4: T4):  Function2<T1, T2,         R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, arg3: T3, arg4: T4):  Function1<    T2,         R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, arg2: T2, arg3: T3, arg4: T4):  Function1<T1,             R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Function0<                R>;
+        // catch-all
+        (func: Function, ...args: any[]): Function;
     }
 
     //_.partialRight
@@ -6557,9 +7018,48 @@ declare module _ {
         * @param args Arguments to be partially applied.
         * @return The new partially applied function.
         **/
-        partialRight(
-            func: Function,
-            ...args: any[]): Function;
+        partialRight: PartialRight
+    }
+
+    interface PartialRight {
+        // arity 0
+        <R>(func: Function0<R>): Function0<R>;
+        // arity 1
+        <T1, R>(func: Function1<T1, R>): Function1<T1, R>;
+        <T1, R>(func: Function1<T1, R>, arg1: T1): Function0<R>;
+        // arity 2
+        <T1, T2, R>(func: Function2<T1, T2, R>):                      Function2<T1, T2, R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, plc2: PH):  Function1<    T2, R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>,           arg2: T2):  Function1<T1,     R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, arg2: T2):  Function0<        R>;
+        // arity 3
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>):                                Function3<T1, T2, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: PH, plc3: PH):  Function2<    T2, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,           arg2: T2, plc3: PH):  Function2<T1,     T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, plc3: PH):  Function1<        T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,                     arg3: T3):  Function2<T1, T2,     R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: PH, arg3: T3):  Function1<    T2,     R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,           arg2: T2, arg3: T3):  Function1<T1,         R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3):  Function0<            R>;
+        // arity 4
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>):                                          Function4<T1, T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, plc3: PH, plc4: PH):  Function3<    T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, plc3: PH, plc4: PH):  Function3<T1,     T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: PH, plc4: PH):  Function2<        T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                     arg3: T3, plc4: PH):  Function3<T1, T2,     T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, arg3: T3, plc4: PH):  Function2<    T2,     T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, arg3: T3, plc4: PH):  Function2<T1,         T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, plc4: PH):  Function1<            T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                               arg4: T4):  Function3<T1, T2, T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, plc3: PH, arg4: T4):  Function2<    T2, T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, plc3: PH, arg4: T4):  Function2<T1,     T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: PH, arg4: T4):  Function1<        T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                     arg3: T3, arg4: T4):  Function2<T1, T2,         R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, arg3: T3, arg4: T4):  Function1<    T2,         R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, arg3: T3, arg4: T4):  Function1<T1,             R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Function0<                R>;
+        // catch-all
+        (func: Function, ...args: any[]): Function;
     }
 
     //_.rearg
@@ -6886,7 +7386,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          */
-        isArguments(value?: any): boolean;
+        isArguments(value?: any): value is IArguments;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -6903,7 +7403,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          **/
-        isArray(value?: any): boolean;
+        isArray(value?: any): value is any[];
     }
 
     interface LoDashImplicitWrapperBase<T,TWrapper> {
@@ -6920,7 +7420,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          **/
-        isBoolean(value?: any): boolean;
+        isBoolean(value?: any): value is boolean;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -6937,7 +7437,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          **/
-        isDate(value?: any): boolean;
+        isDate(value?: any): value is Date;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -7033,7 +7533,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is an error object, else false.
          */
-        isError(value: any): boolean;
+        isError(value: any): value is Error;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -7051,7 +7551,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is a finite number, else false.
          **/
-        isFinite(value?: any): boolean;
+        isFinite(value?: any): value is number;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -7068,7 +7568,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          **/
-        isFunction(value?: any): boolean;
+        isFunction(value?: any): value is Function;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -7130,7 +7630,7 @@ declare module _ {
          * @param value The value to check.
          * @retrun Returns true if value is a native function, else false.
          */
-        isNative(value: any): boolean;
+        isNative(value: any): value is Function;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -7165,7 +7665,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          */
-        isNumber(value?: any): boolean;
+        isNumber(value?: any): value is number;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -7221,7 +7721,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          */
-        isRegExp(value?: any): boolean;
+        isRegExp(value?: any): value is RegExp;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -7238,7 +7738,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          **/
-        isString(value?: any): boolean;
+        isString(value?: any): value is string;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -7397,11 +7897,15 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Adds two numbers.
+         *
          * @param augend The first number to add.
          * @param addend The second number to add.
          * @return Returns the sum.
          */
-        add(augend: number, addend: number): number;
+        add(
+            augend: number,
+            addend: number
+        ): number;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -7409,6 +7913,71 @@ declare module _ {
          * @see _.add
          */
         add(addend: number): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.add
+         */
+        add(addend: number): LoDashExplicitWrapper<number>;
+    }
+
+    //_.ceil
+    interface LoDashStatic {
+        /**
+         * Calculates n rounded up to precision.
+         *
+         * @param n The number to round up.
+         * @param precision The precision to round up to.
+         * @return Returns the rounded up number.
+         */
+        ceil(
+            n: number,
+            precision?: number
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.ceil
+         */
+        ceil(precision?: number): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.ceil
+         */
+        ceil(precision?: number): LoDashExplicitWrapper<number>;
+    }
+
+    //_.floor
+    interface LoDashStatic {
+        /**
+         * Calculates n rounded down to precision.
+         *
+         * @param n The number to round down.
+         * @param precision The precision to round down to.
+         * @return Returns the rounded down number.
+         */
+        floor(
+            n: number,
+            precision?: number
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.floor
+         */
+        floor(precision?: number): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.floor
+         */
+        floor(precision?: number): LoDashExplicitWrapper<number>;
     }
 
     //_.max
@@ -7619,6 +8188,159 @@ declare module _ {
         ): T;
     }
 
+    //_.round
+    interface LoDashStatic {
+        /**
+         * Calculates n rounded to precision.
+         *
+         * @param n The number to round.
+         * @param precision The precision to round to.
+         * @return Returns the rounded number.
+         */
+        round(
+            n: number,
+            precision?: number
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.round
+         */
+        round(precision?: number): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.round
+         */
+        round(precision?: number): LoDashExplicitWrapper<number>;
+    }
+
+    //_.sum
+    interface LoDashStatic {
+        /**
+         * Gets the sum of the values in collection.
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns the sum.
+         */
+        sum<T>(
+            collection: List<T>,
+            iteratee: ListIterator<T, number>,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.sum
+         **/
+        sum<T>(
+            collection: Dictionary<T>,
+            iteratee: DictionaryIterator<T, number>,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.sum
+         */
+        sum<T>(
+            collection: List<number>|Dictionary<number>,
+            iteratee: string
+        ): number;
+
+        /**
+         * @see _.sum
+         */
+        sum<T>(collection: List<T>|Dictionary<T>): number;
+
+        /**
+         * @see _.sum
+         */
+        sum(collection: List<number>|Dictionary<number>): number;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.sum
+         */
+        sum(
+            iteratee: ListIterator<T, number>,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.sum
+         */
+        sum(iteratee: string): number;
+
+        /**
+         * @see _.sum
+         */
+        sum(): number;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.sum
+         **/
+        sum<TValue>(
+            iteratee: ListIterator<TValue, number>|DictionaryIterator<TValue, number>,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.sum
+         */
+        sum(iteratee: string): number;
+
+        /**
+         * @see _.sum
+         */
+        sum(): number;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.sum
+         */
+        sum(
+            iteratee: ListIterator<T, number>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sum
+         */
+        sum(iteratee: string): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sum
+         */
+        sum(): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.sum
+         */
+        sum<TValue>(
+            iteratee: ListIterator<TValue, number>|DictionaryIterator<TValue, number>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sum
+         */
+        sum(iteratee: string): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sum
+         */
+        sum(): LoDashExplicitWrapper<number>;
+    }
+
     /**********
      * Number *
      **********/
@@ -7628,30 +8350,56 @@ declare module _ {
         /**
          * Checks if n is between start and up to but not including, end. If end is not specified it’s set to start
          * with start then set to 0.
+         *
          * @param n The number to check.
          * @param start The start of the range.
          * @param end The end of the range.
          * @return Returns true if n is in the range, else false.
          */
-        inRange(n: number, start: number, end: number): boolean;
+        inRange(
+            n: number,
+            start: number,
+            end: number
+        ): boolean;
 
 
         /**
          * @see _.inRange
          */
-        inRange(n: number, end: number): boolean;
+        inRange(
+            n: number,
+            end: number
+        ): boolean;
     }
 
     interface LoDashImplicitWrapper<T> {
         /**
          * @see _.inRange
          */
-        inRange(start: number, end: number): boolean;
+        inRange(
+            start: number,
+            end: number
+        ): boolean;
 
         /**
          * @see _.inRange
          */
         inRange(end: number): boolean;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.inRange
+         */
+        inRange(
+            start: number,
+            end: number
+        ): LoDashExplicitWrapper<boolean>;
+
+        /**
+         * @see _.inRange
+         */
+        inRange(end: number): LoDashExplicitWrapper<boolean>;
     }
 
     //_.random
@@ -7699,6 +8447,21 @@ declare module _ {
          * @see _.random
          */
         random(floating?: boolean): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.random
+         */
+        random(
+            max?: number,
+            floating?: boolean
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.random
+         */
+        random(floating?: boolean): LoDashExplicitWrapper<number>;
     }
 
     /**********
@@ -8964,6 +9727,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Converts string to camel case.
+         *
          * @param string The string to convert.
          * @return Returns the camel cased string.
          */
@@ -8975,6 +9739,13 @@ declare module _ {
          * @see _.camelCase
          */
         camelCase(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.camelCase
+         */
+        camelCase(): LoDashExplicitWrapper<string>;
     }
 
     //_.capitalize
@@ -8989,11 +9760,19 @@ declare module _ {
         capitalize(): string;
     }
 
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.capitalize
+         */
+        capitalize(): LoDashExplicitWrapper<string>;
+    }
+
     //_.deburr
     interface LoDashStatic {
         /**
          * Deburrs string by converting latin-1 supplementary letters to basic latin letters and removing combining
          * diacritical marks.
+         *
          * @param string The string to deburr.
          * @return Returns the deburred string.
          */
@@ -9007,29 +9786,66 @@ declare module _ {
         deburr(): string;
     }
 
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.deburr
+         */
+        deburr(): LoDashExplicitWrapper<string>;
+    }
+
     //_.endsWith
     interface LoDashStatic {
         /**
          * Checks if string ends with the given target string.
+         *
          * @param string The string to search.
          * @param target The string to search for.
          * @param position The position to search from.
          * @return Returns true if string ends with target, else false.
          */
-        endsWith(string?: string, target?: string, position?: number): boolean;
+        endsWith(
+            string?: string,
+            target?: string,
+            position?: number
+        ): boolean;
     }
 
     interface LoDashImplicitWrapper<T> {
         /**
          * @see _.endsWith
          */
-        endsWith(target?: string, position?: number): boolean;
+        endsWith(
+            target?: string,
+            position?: number
+        ): boolean;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.endsWith
+         */
+        endsWith(
+            target?: string,
+            position?: number
+        ): LoDashExplicitWrapper<boolean>;
     }
 
     // _.escape
     interface LoDashStatic {
         /**
          * Converts the characters "&", "<", ">", '"', "'", and "`", in string to their corresponding HTML entities.
+         *
+         * Note: No other characters are escaped. To escape additional characters use a third-party library like he.
+         *
+         * Though the ">" character is escaped for symmetry, characters like ">" and "/" don’t need escaping in HTML
+         * and have no special meaning unless they're part of a tag or unquoted attribute value. See Mathias Bynens’s
+         * article (under "semi-related fun fact") for more details.
+         *
+         * Backticks are escaped because in Internet Explorer < 9, they can break out of attribute values or HTML
+         * comments. See #59, #102, #108, and #133 of the HTML5 Security Cheatsheet for more details.
+         *
+         * When working with HTML you should always quote attribute values to reduce XSS vectors.
+         *
          * @param string The string to escape.
          * @return Returns the escaped string.
          */
@@ -9043,11 +9859,19 @@ declare module _ {
         escape(): string;
     }
 
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.escape
+         */
+        escape(): LoDashExplicitWrapper<string>;
+    }
+
     // _.escapeRegExp
     interface LoDashStatic {
         /**
          * Escapes the RegExp special characters "\", "/", "^", "$", ".", "|", "?", "*", "+", "(", ")", "[", "]",
          * "{" and "}" in string.
+         *
          * @param string The string to escape.
          * @return Returns the escaped string.
          */
@@ -9061,10 +9885,18 @@ declare module _ {
         escapeRegExp(): string;
     }
 
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.escapeRegExp
+         */
+        escapeRegExp(): LoDashExplicitWrapper<string>;
+    }
+
     //_.kebabCase
     interface LoDashStatic {
         /**
          * Converts string to kebab case.
+         *
          * @param string The string to convert.
          * @return Returns the kebab cased string.
          */
@@ -9078,23 +9910,49 @@ declare module _ {
         kebabCase(): string;
     }
 
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.kebabCase
+         */
+        kebabCase(): LoDashExplicitWrapper<string>;
+    }
+
+    //_.pad
     interface LoDashStatic {
         /**
+         * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+         * they can’t be evenly divided by length.
          *
          * @param string The string to pad.
          * @param length The padding length.
          * @param chars The string used as padding.
          * @return Returns the padded string.
          */
-        pad(string?: string, length?: number, chars?: string): string;
+        pad(
+            string?: string,
+            length?: number,
+            chars?: string
+        ): string;
     }
 
-    //_.pad
     interface LoDashImplicitWrapper<T> {
         /**
          * @see _.pad
          */
-        pad(length?: number, chars?: string): string;
+        pad(
+            length?: number,
+            chars?: string
+        ): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.pad
+         */
+        pad(
+            length?: number,
+            chars?: string
+        ): LoDashExplicitWrapper<string>;
     }
 
     //_.padLeft
@@ -9102,20 +9960,37 @@ declare module _ {
         /**
          * Pads string on the left side if it’s shorter than length. Padding characters are truncated if they exceed
          * length.
+         *
          * @param string The string to pad.
          * @param length The padding length.
          * @param chars The string used as padding.
          * @return Returns the padded string.
          */
-        padLeft(string?: string, length?: number, chars?: string): string;
+        padLeft(
+            string?: string,
+            length?: number,
+            chars?: string
+        ): string;
     }
 
-    //_.padLeft
     interface LoDashImplicitWrapper<T> {
         /**
          * @see _.padLeft
          */
-        padLeft(length?: number, chars?: string): string;
+        padLeft(
+            length?: number,
+            chars?: string
+        ): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.padLeft
+         */
+        padLeft(
+            length?: number,
+            chars?: string
+        ): LoDashExplicitWrapper<string>;
     }
 
     //_.padRight
@@ -9123,20 +9998,37 @@ declare module _ {
         /**
          * Pads string on the right side if it’s shorter than length. Padding characters are truncated if they exceed
          * length.
+         *
          * @param string The string to pad.
          * @param length The padding length.
          * @param chars The string used as padding.
          * @return Returns the padded string.
          */
-        padRight(string?: string, length?: number, chars?: string): string;
+        padRight(
+            string?: string,
+            length?: number,
+            chars?: string
+        ): string;
     }
 
-    //_.padRight
     interface LoDashImplicitWrapper<T> {
         /**
          * @see _.padRight
          */
-        padRight(length?: number, chars?: string): string;
+        padRight(
+            length?: number,
+            chars?: string
+        ): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.padRight
+         */
+        padRight(
+            length?: number,
+            chars?: string
+        ): LoDashExplicitWrapper<string>;
     }
 
     //_.parseInt
@@ -9144,12 +10036,17 @@ declare module _ {
         /**
          * Converts string to an integer of the specified radix. If radix is undefined or 0, a radix of 10 is used
          * unless value is a hexadecimal, in which case a radix of 16 is used.
+         *
          * Note: This method aligns with the ES5 implementation of parseInt.
+         *
          * @param string The string to convert.
          * @param radix The radix to interpret value by.
          * @return Returns the converted integer.
          */
-        parseInt(string: string, radix?: number): number;
+        parseInt(
+            string: string,
+            radix?: number
+        ): number;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -9159,15 +10056,26 @@ declare module _ {
         parseInt(radix?: number): number;
     }
 
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.parseInt
+         */
+        parseInt(radix?: number): LoDashExplicitWrapper<number>;
+    }
+
     //_.repeat
     interface LoDashStatic {
         /**
          * Repeats the given string n times.
+         *
          * @param string The string to repeat.
          * @param n The number of times to repeat the string.
          * @return Returns the repeated string.
          */
-        repeat(string?: string, n?: number): string;
+        repeat(
+            string?: string,
+            n?: number
+        ): string;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -9177,10 +10085,18 @@ declare module _ {
         repeat(n?: number): string;
     }
 
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.repeat
+         */
+        repeat(n?: number): LoDashExplicitWrapper<string>;
+    }
+
     //_.snakeCase
     interface LoDashStatic {
         /**
          * Converts string to snake case.
+         *
          * @param string The string to convert.
          * @return Returns the snake cased string.
          */
@@ -9194,10 +10110,18 @@ declare module _ {
         snakeCase(): string;
     }
 
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.snakeCase
+         */
+        snakeCase(): LoDashExplicitWrapper<string>;
+    }
+
     //_.startCase
     interface LoDashStatic {
         /**
          * Converts string to start case.
+         *
          * @param string The string to convert.
          * @return Returns the start cased string.
          */
@@ -9209,6 +10133,13 @@ declare module _ {
          * @see _.startCase
          */
         startCase(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.startCase
+         */
+        startCase(): LoDashExplicitWrapper<string>;
     }
 
     //_.startsWith
@@ -9231,6 +10162,13 @@ declare module _ {
     }
 
     //_.template
+    interface TemplateOptions extends TemplateSettings {
+        /**
+         * The sourceURL of the template's compiled source.
+         */
+        sourceURL?: string;
+    }
+
     interface TemplateExecutor {
         (data?: Object): string;
         source: string;
@@ -9259,19 +10197,28 @@ declare module _ {
          * @param options.evaluate The "evaluate" delimiter.
          * @param options.imports An object to import into the template as free variables.
          * @param options.interpolate The "interpolate" delimiter.
+         * @param options.sourceURL The sourceURL of the template's compiled source.
          * @param options.variable The data object variable name.
          * @return Returns the compiled template function.
          */
         template(
             string: string,
-            options?: TemplateSettings): TemplateExecutor;
+            options?: TemplateOptions
+        ): TemplateExecutor;
     }
 
     interface LoDashImplicitWrapper<T> {
         /**
          * @see _.template
          */
-        template(options?: TemplateSettings): TemplateExecutor;
+        template(options?: TemplateOptions): TemplateExecutor;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.template
+         */
+        template(options?: TemplateOptions): LoDashExplicitObjectWrapper<TemplateExecutor>;
     }
 
     //_.trim
@@ -9296,11 +10243,15 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Removes leading whitespace or specified characters from string.
+         *
          * @param string The string to trim.
          * @param chars The characters to trim.
          * @return Returns the trimmed string.
          */
-        trimLeft(string?: string, chars?: string): string;
+        trimLeft(
+            string?: string,
+            chars?: string
+        ): string;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -9308,6 +10259,13 @@ declare module _ {
          * @see _.trimLeft
          */
         trimLeft(chars?: string): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.trimLeft
+         */
+        trimLeft(chars?: string): LoDashExplicitWrapper<string>;
     }
 
     //_.trimRight
@@ -9342,11 +10300,15 @@ declare module _ {
         /**
          * Truncates string if it’s longer than the given maximum string length. The last characters of the truncated
          * string are replaced with the omission string which defaults to "…".
+         *
          * @param string The string to truncate.
          * @param options The options object or maximum string length.
          * @return Returns the truncated string.
          */
-        trunc(string?: string, options?: TruncOptions|number): string;
+        trunc(
+            string?: string,
+            options?: TruncOptions|number
+        ): string;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -9354,6 +10316,13 @@ declare module _ {
          * @see _.trunc
          */
         trunc(options?: TruncOptions|number): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.trunc
+         */
+        trunc(options?: TruncOptions|number): LoDashExplicitWrapper<string>;
     }
 
     //_.unescape
@@ -9378,11 +10347,15 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Splits string into an array of its words.
+         *
          * @param string The string to inspect.
          * @param pattern The pattern to match words.
          * @return Returns the words of string.
          */
-        words(string?: string, pattern?: string|RegExp): string[];
+        words(
+            string?: string,
+            pattern?: string|RegExp
+        ): string[];
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -9390,6 +10363,13 @@ declare module _ {
          * @see _.words
          */
         words(pattern?: string|RegExp): string[];
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.words
+         */
+        words(pattern?: string|RegExp): LoDashExplicitArrayWrapper<string>;
     }
 
     /***********
@@ -9401,6 +10381,7 @@ declare module _ {
         /**
          * Attempts to invoke func, returning either the result or the caught error object. Any additional arguments
          * are provided to func when it’s invoked.
+         *
          * @param func The function to attempt.
          * @return Returns the func result or error object.
          */
@@ -9412,6 +10393,13 @@ declare module _ {
          * @see _.attempt
          */
         attempt<TResult>(): TResult|Error;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.attempt
+         */
+        attempt<TResult>(): LoDashExplicitObjectWrapper<TResult|Error>;
     }
 
     //_.callback
@@ -9470,6 +10458,31 @@ declare module _ {
          * @see _.callback
          */
         callback<TResult>(thisArg?: any): LoDashImplicitObjectWrapper<(...args: any[]) => TResult>;
+    }
+
+    //_.constant
+    interface LoDashStatic {
+        /**
+         * Creates a function that returns value.
+         *
+         * @param value The value to return from the new function.
+         * @return Returns the new function.
+         */
+        constant<T>(value: T): () => T;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.constant
+         */
+        constant<TResult>(): LoDashImplicitObjectWrapper<() => TResult>;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.constant
+         */
+        constant<TResult>(): LoDashExplicitObjectWrapper<() => TResult>;
     }
 
     //_.identity
@@ -9567,16 +10580,12 @@ declare module _ {
          * @param source The object of property values to match.
          * @return Returns the new function.
          */
-        matches<T>(
-            source: T
-        ): (value: any) => boolean;
+        matches<T>(source: T): (value: any) => boolean;
 
         /**
          * @see _.matches
          */
-        matches<T, V>(
-            source: T
-        ): (value: V) => boolean;
+        matches<T, V>(source: T): (value: V) => boolean;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -9584,6 +10593,13 @@ declare module _ {
          * @see _.matches
          */
         matches<V>(): LoDashImplicitObjectWrapper<(value: V) => boolean>;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.matches
+         */
+        matches<V>(): LoDashExplicitObjectWrapper<(value: V) => boolean>;
     }
 
     //_.matchesProperty
@@ -9628,45 +10644,92 @@ declare module _ {
         ): LoDashImplicitObjectWrapper<(value: Value) => boolean>;
     }
 
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.matchesProperty
+         */
+        matchesProperty<SrcValue>(
+            srcValue: SrcValue
+        ): LoDashExplicitObjectWrapper<(value: any) => boolean>;
+
+        /**
+         * @see _.matchesProperty
+         */
+        matchesProperty<SrcValue, Value>(
+            srcValue: SrcValue
+        ): LoDashExplicitObjectWrapper<(value: Value) => boolean>;
+    }
+
     //_.method
     interface LoDashStatic {
         /**
          * Creates a function that invokes the method at path on a given object. Any additional arguments are provided
          * to the invoked method.
+         *
          * @param path The path of the method to invoke.
          * @param args The arguments to invoke the method with.
          * @return Returns the new function.
          */
-        method<TResult>(path: string, ...args: any[]): (object: any) => TResult;
+        method<TObject, TResult>(
+            path: string|StringRepresentable[],
+            ...args: any[]
+        ): (object: TObject) => TResult;
 
         /**
          * @see _.method
          */
-        method<TResult>(path: any[], ...args: any[]): (object: any) => TResult;
+        method<TResult>(
+            path: string|StringRepresentable[],
+            ...args: any[]
+        ): (object: any) => TResult;
     }
 
     interface LoDashImplicitWrapper<T> {
         /**
          * @see _.method
          */
-        method<TResult>(...args: any[]): LoDashImplicitWrapper<(object: any) => TResult>;
+        method<TObject, TResult>(...args: any[]): LoDashImplicitObjectWrapper<(object: TObject) => TResult>;
 
         /**
          * @see _.method
          */
-        method<TResult>(...args: any[]): LoDashImplicitWrapper<(object: any) => TResult>;
+        method<TResult>(...args: any[]): LoDashImplicitObjectWrapper<(object: any) => TResult>;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.method
          */
-        method<TResult>(...args: any[]): LoDashImplicitWrapper<(object: any) => TResult>;
+        method<TObject, TResult>(...args: any[]): LoDashImplicitObjectWrapper<(object: TObject) => TResult>;
 
         /**
          * @see _.method
          */
-        method<TResult>(...args: any[]): LoDashImplicitWrapper<(object: any) => TResult>;
+        method<TResult>(...args: any[]): LoDashImplicitObjectWrapper<(object: any) => TResult>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.method
+         */
+        method<TObject, TResult>(...args: any[]): LoDashExplicitObjectWrapper<(object: TObject) => TResult>;
+
+        /**
+         * @see _.method
+         */
+        method<TResult>(...args: any[]): LoDashExplicitObjectWrapper<(object: any) => TResult>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.method
+         */
+        method<TObject, TResult>(...args: any[]): LoDashExplicitObjectWrapper<(object: TObject) => TResult>;
+
+        /**
+         * @see _.method
+         */
+        method<TResult>(...args: any[]): LoDashExplicitObjectWrapper<(object: any) => TResult>;
     }
 
     //_.methodOf
@@ -9739,6 +10802,23 @@ declare module _ {
         ): LoDashImplicitObjectWrapper<TResult>;
     }
 
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.mixin
+         */
+        mixin<TResult>(
+            source: Dictionary<Function>,
+            options?: MixinOptions
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.mixin
+         */
+        mixin<TResult>(
+            options?: MixinOptions
+        ): LoDashExplicitObjectWrapper<TResult>;
+    }
+
     //_.noConflict
     interface LoDashStatic {
         /**
@@ -9760,6 +10840,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * A no-operation function that returns undefined regardless of the arguments it receives.
+         *
          * @return undefined
          */
         noop(...args: any[]): void;
@@ -9770,6 +10851,13 @@ declare module _ {
          * @see _.noop
          */
         noop(...args: any[]): void;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.noop
+         */
+        noop(...args: any[]): _.LoDashExplicitWrapper<void>;
     }
 
     //_.property
@@ -9801,6 +10889,7 @@ declare module _ {
         /**
          * The opposite of _.property; this method creates a function that returns the property value at a given path
          * on object.
+         *
          * @param object The object to query.
          * @return Returns the new function.
          */
@@ -9812,6 +10901,13 @@ declare module _ {
          * @see _.propertyOf
          */
         propertyOf(): LoDashImplicitObjectWrapper<(path: string|string[]) => any>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.propertyOf
+         */
+        propertyOf(): LoDashExplicitObjectWrapper<(path: string|string[]) => any>;
     }
 
     //_.range
@@ -9903,6 +10999,21 @@ declare module _ {
         times(): LoDashImplicitArrayWrapper<number>;
     }
 
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.times
+         */
+        times<TResult>(
+            iteratee: (num: number) => TResult,
+            thisArgs?: any
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.times
+         */
+        times(): LoDashExplicitArrayWrapper<number>;
+    }
+
     //_.uniqueId
     interface LoDashStatic {
         /**
@@ -9918,23 +11029,6 @@ declare module _ {
          * @see _.uniqueId
          */
         uniqueId(): string;
-    }
-
-    //_.constant
-    interface LoDashStatic {
-        /**
-         * Creates a function that returns value.
-         * @param value The value to return from the new function.
-         * @return Returns the new function.
-         */
-        constant<T>(value: T): () => T;
-    }
-
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
-        /**
-         * @see _.constant
-         */
-        constant<TResult>(): () => TResult;
     }
 
     interface ListIterator<T, TResult> {
