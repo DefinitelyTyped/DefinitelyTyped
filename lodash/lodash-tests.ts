@@ -186,13 +186,28 @@ module TestChunk {
 module TestCompact {
     let array: TResult[];
     let list: _.List<TResult>;
-    let result: TResult[];
 
-    result = _.compact<TResult>();
-    result = _.compact<TResult>(array);
-    result = _.compact<TResult>(list);
-    result = _<TResult>(array).compact().value();
-    result = _(list).compact<TResult>().value();
+    {
+        let result: TResult[];
+
+        result = _.compact<TResult>();
+        result = _.compact<TResult>(array);
+        result = _.compact<TResult>(list);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _<TResult>(array).compact();
+        result = _(list).compact<TResult>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _<TResult>(array).chain().compact();
+        result = _(list).chain().compact<TResult>();
+    }
 }
 
 // _.difference

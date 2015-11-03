@@ -320,6 +320,20 @@ declare module _ {
         compact<TResult>(): LoDashImplicitArrayWrapper<TResult>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.compact
+         */
+        compact(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.compact
+         */
+        compact<TResult>(): LoDashExplicitArrayWrapper<TResult>;
+    }
+
     //_.difference
     interface LoDashStatic {
         /**
