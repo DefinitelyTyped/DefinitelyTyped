@@ -4765,26 +4765,69 @@ module TestAttempt {
 }
 
 // _.callback
-{
-    let result: (...args: any[]) => TResult;
-    result = _.callback<TResult>(Function);
-    result = _.callback<TResult>(Function, any);
-    result = _(Function).callback<TResult>().value();
-    result = _(Function).callback<TResult>(any).value();
-}
-{
-    let result: (object: any) => TResult;
-    result = _.callback<TResult>('');
-    result = _.callback<TResult>('', any);
-    result = _('').callback<TResult>().value();
-    result = _('').callback<TResult>(any).value();
-}
-{
-    let result: (object: any) => boolean;
-    result = _.callback({});
-    result = _.callback({}, any);
-    result = _({}).callback().value();
-    result = _({}).callback(any).value();
+module TestCallback {
+    {
+        let result: (...args: any[]) => TResult;
+
+        result = _.callback<TResult>(Function);
+        result = _.callback<TResult>(Function, any);
+    }
+
+    {
+        let result: (object: any) => TResult;
+
+        result = _.callback<TResult>('');
+        result = _.callback<TResult>('', any);
+    }
+
+    {
+        let result: (object: any) => boolean;
+
+        result = _.callback({});
+        result = _.callback({}, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => TResult>;
+
+        result = _(Function).callback<TResult>();
+        result = _(Function).callback<TResult>(any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(object: any) => TResult>;
+
+        result = _('').callback<TResult>();
+        result = _('').callback<TResult>(any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(object: any) => boolean>;
+
+        result = _({}).callback();
+        result = _({}).callback(any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => TResult>;
+
+        result = _(Function).chain().callback<TResult>();
+        result = _(Function).chain().callback<TResult>(any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(object: any) => TResult>;
+
+        result = _('').chain().callback<TResult>();
+        result = _('').chain().callback<TResult>(any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(object: any) => boolean>;
+
+        result = _({}).chain().callback();
+        result = _({}).chain().callback(any);
+    }
 }
 
 // _.constant
@@ -4882,26 +4925,69 @@ module TestConstant {
 }
 
 // _.iteratee
-{
-    let result: (...args: any[]) => TResult;
-    result = _.iteratee<TResult>(Function);
-    result = _.iteratee<TResult>(Function, any);
-    result = _(Function).iteratee<TResult>().value();
-    result = _(Function).iteratee<TResult>(any).value();
-}
-{
-    let result: (object: any) => TResult;
-    result = _.iteratee<TResult>('');
-    result = _.iteratee<TResult>('', any);
-    result = _('').iteratee<TResult>().value();
-    result = _('').iteratee<TResult>(any).value();
-}
-{
-    let result: (object: any) => boolean;
-    result = _.iteratee({});
-    result = _.iteratee({}, any);
-    result = _({}).iteratee().value();
-    result = _({}).iteratee(any).value();
+module TestIteratee {
+    {
+        let result: (...args: any[]) => TResult;
+
+        result = _.iteratee<TResult>(Function);
+        result = _.iteratee<TResult>(Function, any);
+    }
+
+    {
+        let result: (object: any) => TResult;
+
+        result = _.iteratee<TResult>('');
+        result = _.iteratee<TResult>('', any);
+    }
+
+    {
+        let result: (object: any) => boolean;
+
+        result = _.iteratee({});
+        result = _.iteratee({}, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => TResult>;
+
+        result = _(Function).iteratee<TResult>();
+        result = _(Function).iteratee<TResult>(any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(object: any) => TResult>;
+
+        result = _('').iteratee<TResult>();
+        result = _('').iteratee<TResult>(any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(object: any) => boolean>;
+
+        result = _({}).iteratee();
+        result = _({}).iteratee(any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => TResult>;
+
+        result = _(Function).chain().iteratee<TResult>();
+        result = _(Function).chain().iteratee<TResult>(any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(object: any) => TResult>;
+
+        result = _('').chain().iteratee<TResult>();
+        result = _('').chain().iteratee<TResult>(any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(object: any) => boolean>;
+
+        result = _({}).chain().iteratee();
+        result = _({}).chain().iteratee(any);
+    }
 }
 
 // _.matches
