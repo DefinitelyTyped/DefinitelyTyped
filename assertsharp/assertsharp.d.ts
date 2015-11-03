@@ -8,7 +8,7 @@ declare module "assertsharp" {
         static AreEqual<T>(expected: T, actual: T, message?: string): void;
         static AreNotEqual<T>(notExpected: T, actual: T, message?: string): void;
         static AreNotSame<T>(notExpected: T, actual: T, message?: string): void;
-        static AreSequenceEqual<T>(expected: T[], actual: T[], equals?: (x, y) => boolean, message?: string): void;
+        static AreSequenceEqual<T>(expected: T[], actual: T[], equals?: (x: any, y: any) => boolean, message?: string): void;
         static Fail(message?: string): void;
         static IsFalse(actual: boolean, message?: string): void;
         static IsInstanceOfType(actual: any, expectedType: Function, message?: string): void;
