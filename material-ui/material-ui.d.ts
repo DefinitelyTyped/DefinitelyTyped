@@ -303,6 +303,8 @@ declare namespace __MaterialUI {
             autoOk?: boolean;
             defaultDate?: Date;
             formatDate?: string;
+            hintText?: string;
+            floatingLabelText?: string;
             hideToolbarYearChange?: boolean;
             maxDate?: Date;
             minDate?: Date;
