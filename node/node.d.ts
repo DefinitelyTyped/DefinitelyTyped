@@ -758,7 +758,7 @@ declare module "punycode" {
     export function toASCII(domain: string): string;
     export var ucs2: ucs2;
     interface ucs2 {
-        decode(string: string): string;
+        decode(string: string): number[];
         encode(codePoints: number[]): string;
     }
     export var version: any;
