@@ -5,10 +5,6 @@
 
 declare module 'ms' {
 
-    interface IMSOptions {
-        long: boolean
-    }
-
     /**
     * Short/Long format for `value`.
     *
@@ -16,7 +12,7 @@ declare module 'ms' {
     * @param {{long: boolean}} options
     * @return {String}
     */
-    function ms(value: number, options?: IMSOptions): string;
+    function ms(value: number, options?: { long: boolean }): string;
 
     /**
     * Parse the given `value` and return milliseconds.
