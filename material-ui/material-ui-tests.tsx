@@ -161,10 +161,10 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
             </Card>;
 
         // "http://material-ui.com/#/components/date-picker"
-        <DatePicker
-            floatingLabelText="Floating Label Text" />
-        <DatePicker
-            hintText="Hint Text" />
+        element = <DatePicker
+            floatingLabelText="Floating Label Text" />;
+        element = <DatePicker
+            hintText="Hint Text" />;
 
         // "http://material-ui.com/#/components/dialog"
         let standardActions = [
