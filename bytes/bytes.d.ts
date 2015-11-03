@@ -5,10 +5,6 @@
 
 declare module 'bytes' {
 
-    interface IBytesFormatOptions {
-        thousandsSeparator: string
-    }
-
     /**
      *Convert the given value in bytes into a string.
      *
@@ -19,7 +15,7 @@ declare module 'bytes' {
      *
      * @returns {string}
      */
-    function bytes(value: number, options?: IBytesFormatOptions): string;
+    function bytes(value: number, options?: { thousandsSeparator: string }): string;
 
     /**
      *Parse string to an integer in bytes.
@@ -38,10 +34,10 @@ declare module 'bytes' {
          * it is rounded.
          * 
          * @param {number} value
-         * @param {IBytesFormatOptions} [options]
+         * @param {BytesFormatOptions} [options]
          */
 
-        function format(value: number, options?: IBytesFormatOptions): string;
+        function format(value: number, options?: { thousandsSeparator: string }): string;
 
         /**
          * Just return the input number value.
