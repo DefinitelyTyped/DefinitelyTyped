@@ -6,16 +6,14 @@
 /// <reference path="../redux/redux.d.ts" />
 
 declare module "redux-thunk" {
-    import { Middleware, Dispatch } from 'redux';
+    namespace thunk {
+        export interface Thunk extends Redux.Middleware { }
 
-    export interface Thunk extends Middleware { }
-
-    export interface ThunkInterface {
-        <T>(dispatch: Dispatch, getState?: () => T): any;
+        export interface ThunkInterface {
+                <T>(dispatch: Redux.Dispatch, getState?: () => T): any;
+        }
     }
 
-    var thunk: Thunk;
-
-    export default thunk;
+    var thunk: thunk.Thunk;
+    export = thunk;
 }
-
