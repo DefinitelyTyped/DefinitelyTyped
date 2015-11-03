@@ -329,11 +329,12 @@ var ContextTypesSpecification: React.ComponentSpec<any, any> = {
 // React.Children
 // --------------------------------------------------------------------------
 
-var childMap: { [key: string]: number } =
+var mappedChildrenArray: number[] =
     React.Children.map<number>(children, (child) => { return 42; });
 React.Children.forEach(children, (child) => {});
 var nChildren: number = React.Children.count(children);
 var onlyChild = React.Children.only([null, [[["Hallo"], true]], false]);
+var childrenToArray: React.ReactChild[] = React.Children.toArray(children);
 
 //
 // Example from http://facebook.github.io/react/
