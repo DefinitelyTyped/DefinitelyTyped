@@ -172,11 +172,11 @@ declare namespace __WebpackModuleApi {
         /**
          * If true the update process continues even if some modules are not accepted (and would bubble to the entry point).
          */
-        ignoreUnaccepted: boolean;
+        ignoreUnaccepted?: boolean;
         /**
          * Indicates that apply() is automatically called by check function
          */
-        autoApply: boolean;
+        autoApply?: boolean;
   }
 }
 
