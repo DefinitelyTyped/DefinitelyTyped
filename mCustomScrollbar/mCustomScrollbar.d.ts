@@ -132,9 +132,17 @@ declare module MCustomScrollbar {
         */
         scrollInertia?: number;
         /**
++       * Scroll-to animation easing, values: "linear", "easeOut", "easeInOut". 
++       */
++       scrollEasing?: string;
++       /**
         * Scroll scrollbar dragger (instead of content) to a number of pixels, values: true, false
         */
         moveDragger?: boolean;
+        /**
++       * Set a timeout for the method (the default timeout is 60 ms in order to work with automatic scrollbar update), value in milliseconds.
++       */
++       timeout?: number;
         /**
         * Trigger user defined callback after scroll-to completes, value: true, false
         */
