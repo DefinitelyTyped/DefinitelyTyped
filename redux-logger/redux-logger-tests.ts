@@ -1,6 +1,6 @@
 /// <reference path="./redux-logger.d.ts" />
 
-import createLogger from 'redux-logger';
+import * as createLogger from 'redux-logger';
 import { applyMiddleware, createStore } from 'redux'
 
 let logger = createLogger();
