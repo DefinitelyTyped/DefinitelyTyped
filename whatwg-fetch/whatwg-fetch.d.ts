@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="../whatwg-streams/whatwg-streams.d.ts" />
 /// <reference path="../es6-shim/es6-shim.d.ts" />
+/// <reference path="../es6-shim/es6-shim.d.ts" />
 
 interface Window {
     fetch(url: RequestInfo, init?: RequestInit): Promise<Response>;
