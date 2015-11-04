@@ -908,6 +908,56 @@ declare module _ {
         ): number;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.findLastIndex
+         */
+        findLastIndex(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.findLastIndex
+         */
+        findLastIndex(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.findLastIndex
+         */
+        findLastIndex<W>(
+            predicate?: W
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.findLastIndex
+         */
+        findLastIndex<TResult>(
+            predicate?: ListIterator<TResult, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.findLastIndex
+         */
+        findLastIndex(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.findLastIndex
+         */
+        findLastIndex<W>(
+            predicate?: W
+        ): LoDashExplicitWrapper<number>;
+    }
+
     //_.first
     interface LoDashStatic {
         /**
