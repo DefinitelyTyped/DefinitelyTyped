@@ -1950,7 +1950,7 @@ function irisParallel() {
 
     var line = d3.svg.line(),
         axis = d3.svg.axis().orient("left"),
-        foreground: d3.Selection<{ [key: string]: string}>;
+        foreground;
 
     var svg = d3.select("body").append("svg:svg")
         .attr("width", w + m[1] + m[3])

@@ -2672,19 +2672,20 @@ declare module d3 {
     export var tsv: Dsv;
     export function dsv(delimiter: string, mimeType: string): Dsv;
 
-    interface Dsv {
-        (url: string, callback: (rows: { [key: string]: string }[]) => void): DsvXhr<{ [key: string]: string }>;
-        (url: string, callback: (error: any, rows: { [key: string]: string }[]) => void): DsvXhr<{ [key: string]: string }>;
-        (url: string): DsvXhr<{ [key: string]: string }>;
-        <T>(url: string, accessor: (row: { [key: string]: string }) => T, callback: (rows: T[]) => void): DsvXhr<T>;
-        <T>(url: string, accessor: (row: { [key: string]: string }) => T, callback: (error: any, rows: T[]) => void): DsvXhr<T>;
-        <T>(url: string, accessor: (row: { [key: string]: string }) => T): DsvXhr<T>;
+    type Dict<T> = { [key: string]: T };
+    type S = Dict<string>;
+    type DsvAccessor<T>  = (rows: S[], index?: number)=> T ;
+    type DsvCallback1<T> = (            rows: T[]) => void;
+    type DsvCallback2<T> = (error: any, rows: T[]) => void;
+    type DsvCallback<T>  = DsvCallback1<T> | DsvCallback2<T>;
 
-        parse(string: string): { [key: string]: string }[];
-        parse<T>(string: string, accessor: (row: { [key: string]: string }, index: number) => T): T[];
+    interface Dsv{
+        <T>(url: string,                           callback?: DsvCallback<T>): DsvXhr<T>;
+        <T>(url: string, accessor: DsvAccessor<T>, callback : DsvCallback<T>): DsvXhr<T>;
 
-        parseRows(string: string): string[][];
-        parseRows<T>(string: string, accessor: (row: string[], index: number) => T): T[];
+        parse<T>(string: string, accessor?: DsvAccessor<T>): T[];
+
+        parseRows<T>(string: string, accessor?: DsvAccessor<string>): T[];
 
         format(rows: Object[]): string;
 
