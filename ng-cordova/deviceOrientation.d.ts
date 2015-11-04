@@ -1,7 +1,6 @@
 // Type definitions for ngCordova device orientation plugin
 // Project: https://github.com/driftyco/ng-cordova
-// Definitions by: Michel Vidailhet <https://github.com/mvidailhet>
-// Definitions by: Kapil Sachdeva <https://github.com/ksachdeva>
+// Definitions by: Michel Vidailhet <https://github.com/mvidailhet>, Kapil Sachdeva <https://github.com/ksachdeva>
 // Definitions: https://github.com/ksachdeva/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
