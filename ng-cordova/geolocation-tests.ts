@@ -22,12 +22,12 @@ namespace demo.geolocation {
 
       this.$cordovaGeolocation
         .getCurrentPosition(<ngCordova.IGeolocationOptions>{timeout: 10000, enableHighAccuracy: false})
-        .then((position) => {
+        .then((position:ngCordova.IGeoPosition) => {
           console.log("position found");
           this.position = position;
           // long = position.coords.longitude
           // lat = position.coords.latitude
-        }, (err) => {
+        }, (err:ngCordova.IGeoPositionError) => {
           console.log("unable to find location");
           this.errorMsg = "Error : " + err.message;
         });
