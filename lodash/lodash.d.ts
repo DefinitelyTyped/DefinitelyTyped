@@ -5125,49 +5125,6 @@ declare module _ {
         ): LoDashExplicitArrayWrapper<boolean>;
     }
 
-    //_.pluck
-    interface LoDashStatic {
-        /**
-        * Retrieves the value of a specified property from all elements in the collection.
-        * @param collection The collection to iterate over.
-        * @param property The property to pluck.
-        * @return A new array of property values.
-        **/
-        pluck<T extends {}>(
-            collection: Array<T>,
-            property: string|string[]): any[];
-
-        /**
-        * @see _.pluck
-        **/
-        pluck<T extends {}>(
-            collection: List<T>,
-            property: string|string[]): any[];
-
-        /**
-        * @see _.pluck
-        **/
-        pluck<T extends {}>(
-            collection: Dictionary<T>,
-            property: string|string[]): any[];
-    }
-
-    interface LoDashImplicitArrayWrapper<T> {
-        /**
-        * @see _.pluck
-        **/
-        pluck<TResult>(
-            property: string): LoDashImplicitArrayWrapper<TResult>;
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-        * @see _.pluck
-        **/
-        pluck<TResult>(
-            property: string): LoDashImplicitArrayWrapper<TResult>;
-    }
-
     //_.partition
     interface LoDashStatic {
         /**
@@ -5314,6 +5271,57 @@ declare module _ {
          */
         partition<TResult>(
             pluckValue: string): LoDashImplicitArrayWrapper<TResult[]>;
+    }
+
+    //_.pluck
+    interface LoDashStatic {
+        /**
+         * Gets the property value of path from all elements in collection.
+         *
+         * @param collection The collection to iterate over.
+         * @param path The path of the property to pluck.
+         * @return A new array of property values.
+         */
+        pluck<T extends {}>(
+            collection: List<T>|Dictionary<T>,
+            path: StringRepresentable|StringRepresentable[]
+        ): any[];
+
+        /**
+         * @see _.pluck
+         */
+        pluck<T extends {}, TResult>(
+            collection: List<T>|Dictionary<T>,
+            path: StringRepresentable|StringRepresentable[]
+        ): TResult[];
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.pluck
+         */
+        pluck<TResult>(path: StringRepresentable|StringRepresentable[]): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.pluck
+         */
+        pluck<TResult>(path: StringRepresentable|StringRepresentable[]): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.pluck
+         */
+        pluck<TResult>(path: StringRepresentable|StringRepresentable[]): LoDashExplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.pluck
+         */
+        pluck<TResult>(path: StringRepresentable|StringRepresentable[]): LoDashExplicitArrayWrapper<TResult>;
     }
 
     //_.reduce
