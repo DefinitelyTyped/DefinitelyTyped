@@ -245,17 +245,37 @@ module TestDifference {
 
 // _.drop
 {
-    let testDropArray: TResult[];
-    let testDropList: _.List<TResult>;
-    let result: TResult[];
-    result = _.drop<TResult>(testDropArray);
-    result = _.drop<TResult>(testDropArray, 42);
-    result = _.drop<TResult>(testDropList);
-    result = _.drop<TResult>(testDropList, 42);
-    result = _(testDropArray).drop().value();
-    result = _(testDropArray).drop(42).value();
-    result = _(testDropList).drop<TResult>().value();
-    result = _(testDropList).drop<TResult>(42).value();
+    let array: TResult[];
+    let list: _.List<TResult>;
+
+    {
+        let result: TResult[];
+        result = _.drop<TResult>(array);
+        result = _.drop<TResult>(array, 42);
+
+        result = _.drop<TResult>(list);
+        result = _.drop<TResult>(list, 42);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).drop();
+        result = _(array).drop(42);
+
+        result = _(list).drop<TResult>();
+        result = _(list).drop<TResult>(42);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().drop();
+        result = _(array).chain().drop(42);
+
+        result = _(list).chain().drop<TResult>();
+        result = _(list).chain().drop<TResult>(42);
+    }
 }
 
 // _.dropRight
