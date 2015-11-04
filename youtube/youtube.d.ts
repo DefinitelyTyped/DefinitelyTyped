@@ -50,8 +50,8 @@ declare module YT {
     }
 
     export interface PlayerOptions {
-        width?: string;
-        height?: string;
+        width?: string | number;
+        height?: string | number;
         videoId?: string;
         playerVars?: PlayerVars;
         events?: Events;
