@@ -2306,6 +2306,101 @@ module TestDetect {
     result = _(dictionary).detect<{a: number}, TResult>({a: 42});
 }
 
+// _.each
+module TestEach {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
+
+    let stringIterator: (char: string, index: number, string: string) => boolean|void;
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean|void;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean|void;
+
+    {
+        let result: string;
+
+        _.each('', stringIterator);
+        _.each('', stringIterator, any);
+    }
+
+    {
+        let result: TResult[];
+
+        _.each<TResult>(array, listIterator);
+        _.each<TResult>(array, listIterator, any);
+    }
+
+    {
+        let result: _.List<TResult>;
+
+        _.each<TResult>(list, listIterator);
+        _.each<TResult>(list, listIterator, any);
+    }
+
+    {
+        let result: _.Dictionary<TResult>;
+
+        _.each<TResult>(dictionary, dictionaryIterator);
+        _.each<TResult>(dictionary, dictionaryIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitWrapper<string>;
+
+        _('').each(stringIterator);
+        _('').each(stringIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        _(array).each(listIterator);
+        _(array).each(listIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
+
+        _(list).each<TResult>(listIterator);
+        _(list).each<TResult>(listIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
+
+        _(dictionary).each<TResult>(dictionaryIterator);
+        _(dictionary).each<TResult>(dictionaryIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        _('').chain().each(stringIterator);
+        _('').chain().each(stringIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        _(array).chain().each(listIterator);
+        _(array).chain().each(listIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
+
+        _(list).chain().each<TResult>(listIterator);
+        _(list).chain().each<TResult>(listIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
+
+        _(dictionary).chain().each<TResult>(dictionaryIterator);
+        _(dictionary).chain().each<TResult>(dictionaryIterator, any);
+    }
+}
+
 // _.every
 module TestEvery {
     let array: TResult[];
@@ -2461,19 +2556,100 @@ result = <number>_([1, 2, 3, 4]).findLast(function (num) {
 result = <IFoodCombined>_(foodsCombined).findLast({ 'type': 'vegetable' });
 result = <IFoodCombined>_(foodsCombined).findLast('organic');
 
-result = <number[]>_.forEach([1, 2, 3], function (num) { console.log(num); });
-result = <_.Dictionary<number>>_.forEach({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
-result = <IFoodType>_.forEach<IFoodType, string>({ name: 'apple', type: 'fruit' }, function (value, key) { console.log(value, key) });
+// _.forEach
+module TestForEach {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
 
-result = <number[]>_.each([1, 2, 3], function (num) { console.log(num); });
-result = <_.Dictionary<number>>_.each({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
-result = <IFoodType>_.each<IFoodType, string>({ name: 'apple', type: 'fruit' }, function (value, key) { console.log(value, key) });
+    let stringIterator: (char: string, index: number, string: string) => boolean|void;
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean|void;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean|void;
 
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3]).forEach(function (num) { console.log(num); });
-result = <_.LoDashImplicitObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).forEach(function (num) { console.log(num); });
+    {
+        let result: string;
 
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3]).each(function (num) { console.log(num); });
-result = <_.LoDashImplicitObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).each(function (num) { console.log(num); });
+        _.forEach('', stringIterator);
+        _.forEach('', stringIterator, any);
+    }
+
+    {
+        let result: TResult[];
+
+        _.forEach<TResult>(array, listIterator);
+        _.forEach<TResult>(array, listIterator, any);
+    }
+
+    {
+        let result: _.List<TResult>;
+
+        _.forEach<TResult>(list, listIterator);
+        _.forEach<TResult>(list, listIterator, any);
+    }
+
+    {
+        let result: _.Dictionary<TResult>;
+
+        _.forEach<TResult>(dictionary, dictionaryIterator);
+        _.forEach<TResult>(dictionary, dictionaryIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitWrapper<string>;
+
+        _('').forEach(stringIterator);
+        _('').forEach(stringIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        _(array).forEach(listIterator);
+        _(array).forEach(listIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
+
+        _(list).forEach<TResult>(listIterator);
+        _(list).forEach<TResult>(listIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
+
+        _(dictionary).forEach<TResult>(dictionaryIterator);
+        _(dictionary).forEach<TResult>(dictionaryIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        _('').chain().forEach(stringIterator);
+        _('').chain().forEach(stringIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        _(array).chain().forEach(listIterator);
+        _(array).chain().forEach(listIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
+
+        _(list).chain().forEach<TResult>(listIterator);
+        _(list).chain().forEach<TResult>(listIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
+
+        _(dictionary).chain().forEach<TResult>(dictionaryIterator);
+        _(dictionary).chain().forEach<TResult>(dictionaryIterator, any);
+    }
+}
 
 result = <number[]>_.forEachRight([1, 2, 3], function (num) { console.log(num); });
 result = <_.Dictionary<number>>_.forEachRight({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
@@ -2851,17 +3027,9 @@ done = _.after(saves.length, function () {
     console.log('Done saving!');
 });
 
-_.forEach(saves, function (type) {
-    asyncSave({ 'type': type, 'complete': done });
-});
-
 done = _(saves.length).after(function () {
     console.log('Done saving!');
 }).value();
-
-_.forEach(saves, function (type) {
-    asyncSave({ 'type': type, 'complete': done });
-});
 
 // _.ary
 result = <number[]>['6', '8', '10'].map(_.ary<(s: string) => number>(parseInt, 1));

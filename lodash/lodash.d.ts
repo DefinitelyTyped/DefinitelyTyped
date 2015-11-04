@@ -3868,6 +3868,105 @@ declare module _ {
         ): TResult;
     }
 
+    //_.each
+    interface LoDashStatic {
+        /**
+         * @see _.forEach
+         */
+        each(
+            collection: string,
+            iteratee?: StringIterator<boolean|void>,
+            thisArg?: any
+        ): string;
+
+        /**
+         * @see _.forEach
+         */
+        each<T>(
+            collection: T[],
+            iteratee?: ListIterator<T, boolean|void>,
+            thisArg?: any
+        ): T[];
+
+        /**
+         * @see _.forEach
+         */
+        each<T>(
+            collection: List<T>,
+            iteratee?: ListIterator<T, boolean|void>,
+            thisArg?: any
+        ): List<T>;
+
+        /**
+         * @see _.forEach
+         */
+        each<T>(
+            collection: Dictionary<T>,
+            iteratee?: DictionaryIterator<T, boolean|void>,
+            thisArg?: any
+        ): Dictionary<T>;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.forEach
+         */
+        each(
+            iteratee: StringIterator<boolean|void>,
+            thisArg?: any
+        ): LoDashImplicitWrapper<string>;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.forEach
+         */
+        each(
+            iteratee: ListIterator<T, boolean|void>,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.forEach
+         */
+        each<TValue>(
+            iteratee?: ListIterator<TValue, boolean|void>|DictionaryIterator<TValue, boolean|void>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.forEach
+         */
+        each(
+            iteratee: StringIterator<boolean|void>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.forEach
+         */
+        each(
+            iteratee: ListIterator<T, boolean|void>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.forEach
+         */
+        each<TValue>(
+            iteratee?: ListIterator<TValue, boolean|void>|DictionaryIterator<TValue, boolean|void>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<T>;
+    }
+
     //_.every
     interface LoDashStatic {
         /**
@@ -4584,108 +4683,111 @@ declare module _ {
     //_.forEach
     interface LoDashStatic {
         /**
-        * Iterates over elements of a collection, executing the callback for each element.
-        * The callback is bound to thisArg and invoked with three arguments; (value, index|key,
-        * collection). Callbacks may exit iteration early by explicitly returning false.
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        **/
-        forEach<T>(
-            collection: Array<T>,
-            callback: ListIterator<T, void>,
-            thisArg?: any): Array<T>;
+         * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
+         * and invoked with three arguments:
+         * (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
+         *
+         * Note: As with other "Collections" methods, objects with a "length" property are iterated like arrays. To
+         * avoid this behavior _.forIn or _.forOwn may be used for object iteration.
+         *
+         * @alias _.each
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         */
+        forEach(
+            collection: string,
+            iteratee?: StringIterator<boolean|void>,
+            thisArg?: any
+        ): string;
 
         /**
-        * @see _.forEach
-        **/
+         * @see _.forEach
+         */
+        forEach<T>(
+            collection: T[],
+            iteratee?: ListIterator<T, boolean|void>,
+            thisArg?: any
+        ): T[];
+
+        /**
+         * @see _.forEach
+         */
         forEach<T>(
             collection: List<T>,
-            callback: ListIterator<T, void>,
-            thisArg?: any): List<T>;
+            iteratee?: ListIterator<T, boolean|void>,
+            thisArg?: any
+        ): List<T>;
 
         /**
-        * @see _.forEach
-        **/
-        forEach<T extends {}>(
-            object: Dictionary<T>,
-            callback: DictionaryIterator<T, void>,
-            thisArg?: any): Dictionary<T>;
+         * @see _.forEach
+         */
+        forEach<T>(
+            collection: Dictionary<T>,
+            iteratee?: DictionaryIterator<T, boolean|void>,
+            thisArg?: any
+        ): Dictionary<T>;
+    }
 
+    interface LoDashImplicitWrapper<T> {
         /**
-        * @see _.each
-        **/
-        forEach<T extends {}, TValue>(
-            object: T,
-            callback: ObjectIterator<TValue, void>,
-            thisArg?: any): T
-
-        /**
-        * @see _.forEach
-        **/
-        each<T>(
-            collection: Array<T>,
-            callback: ListIterator<T, void>,
-            thisArg?: any): Array<T>;
-
-        /**
-        * @see _.forEach
-        **/
-        each<T>(
-            collection: List<T>,
-            callback: ListIterator<T, void>,
-            thisArg?: any): List<T>;
-
-        /**
-        * @see _.forEach
-        * @param object The object to iterate over
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        **/
-        each<T extends {}>(
-            object: Dictionary<T>,
-            callback: DictionaryIterator<T, void>,
-            thisArg?: any): Dictionary<T>;
-
-        /**
-        * @see _.each
-        **/
-        each<T extends {}, TValue>(
-            object: T,
-            callback: ObjectIterator<TValue, void>,
-            thisArg?: any): T
+         * @see _.forEach
+         */
+        forEach(
+            iteratee: StringIterator<boolean|void>,
+            thisArg?: any
+        ): LoDashImplicitWrapper<string>;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
-        * @see _.forEach
-        **/
+         * @see _.forEach
+         */
         forEach(
-            callback: ListIterator<T, void>,
-            thisArg?: any): LoDashImplicitArrayWrapper<T>;
-
-        /**
-        * @see _.forEach
-        **/
-        each(
-            callback: ListIterator<T, void>,
-            thisArg?: any): LoDashImplicitArrayWrapper<T>;
+            iteratee: ListIterator<T, boolean|void>,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.forEach
-        **/
-        forEach<T extends {}>(
-            callback: ObjectIterator<T, void>,
-            thisArg?: any): LoDashImplicitObjectWrapper<T>;
+         * @see _.forEach
+         */
+        forEach<TValue>(
+            iteratee?: ListIterator<TValue, boolean|void>|DictionaryIterator<TValue, boolean|void>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<T>;
+    }
 
+    interface LoDashExplicitWrapper<T> {
         /**
-        * @see _.forEach
-        **/
-        each<T extends {}>(
-            callback: ObjectIterator<T, void>,
-            thisArg?: any): LoDashImplicitObjectWrapper<T>;
+         * @see _.forEach
+         */
+        forEach(
+            iteratee: StringIterator<boolean|void>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.forEach
+         */
+        forEach(
+            iteratee: ListIterator<T, boolean|void>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.forEach
+         */
+        forEach<TValue>(
+            iteratee?: ListIterator<TValue, boolean|void>|DictionaryIterator<TValue, boolean|void>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<T>;
     }
 
     //_.forEachRight
@@ -11211,6 +11313,10 @@ declare module _ {
 
     interface ObjectIterator<T, TResult> {
         (element: T, key?: string, collection?: any): TResult;
+    }
+
+    interface StringIterator<TResult> {
+        (char: string, index?: number, string?: string): TResult;
     }
 
     interface MemoVoidIterator<T, TResult> {
