@@ -387,7 +387,21 @@ declare module _ {
         /**
          * @see _.drop
          */
-        drop<TResult>(n?: number): LoDashImplicitArrayWrapper<TResult>;
+        drop<T>(n?: number): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.drop
+         */
+        drop(n?: number): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.drop
+         */
+        drop<T>(n?: number): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.dropRight
