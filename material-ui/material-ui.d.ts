@@ -276,7 +276,7 @@ declare namespace __MaterialUI {
         onCheck?: (event: React.MouseEvent, checked: boolean) => void;
     }
     export class Checkbox extends React.Component<CheckboxProps, {}> {
-        isChecked(): void;
+        isChecked(): boolean;
         setChecked(newCheckedValue: boolean): void;
     }
 
