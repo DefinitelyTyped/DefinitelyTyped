@@ -57,7 +57,7 @@ declare module Snap {
 	export var filter:Filter;
 	export var path:Path;
 
-        export function Matrix():void;
+	export function Matrix():void;
 	export function matrix(a:number,b:number,c:number,d:number,e:number,f:number):Matrix;
 	export function matrix(svgMatrix:SVGMatrix):Matrix;
 
