@@ -3,7 +3,7 @@
 // Definitions by: Alexey Aylarov <https://github.com/aylarov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module VoxImplant {	
+declare namespace VoxImplant {	
 
 	/**
 	*	VoxImplant.Client general events
@@ -1208,4 +1208,8 @@ declare module VoxImplant {
 	*/
 	function version(): String;
 	
+}
+
+declare module "voximplant-websdk" {
+    export = VoxImplant;
 }
