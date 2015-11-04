@@ -20,8 +20,8 @@ declare module ngCordova {
   export interface IEmailComposerService {
 
     isAvailable(): ng.IPromise<boolean>;
-    open(properties: IEmailComposerOptions);
-    addAlias(app: string, schema: string);
+    open(properties: IEmailComposerOptions) : ng.IPromise<any>;
+    addAlias(app: string, schema: string) : void;
 
   }
 
