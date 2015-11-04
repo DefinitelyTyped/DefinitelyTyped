@@ -4614,13 +4614,26 @@ module TestStartCase {
 }
 
 // _.startsWith
-result = <boolean>_.startsWith('abc', 'a');
-result = <boolean>_.startsWith('abc', 'a', 1);
-result = <boolean>_('abc').startsWith('a');
-result = <boolean>_('abc').startsWith('a', 1);
+module TestStartsWith {
+    {
+        let result: boolean;
+
+        result = _.startsWith('abc', 'a');
+        result = _.startsWith('abc', 'a', 1);
+
+        result = _('abc').startsWith('a');
+        result = _('abc').startsWith('a', 1);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _('abc').chain().startsWith('a');
+        result = _('abc').chain().startsWith('a', 1);
+    }
+}
 
 // _.template
-
 module TestTemplate {
     interface TemplateExecutor {
         (obj?: Object): string;
