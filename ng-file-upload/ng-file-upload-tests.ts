@@ -40,7 +40,7 @@ module controllers {
 		        .error((data: any, status: number, response: any, headers: any) => {
 			        console.error(data, status, response, headers);
 		        })
-				.success((data: any, status: number, headers: any, config: angular.angularFileUpload.IFileUploadConfig) => {
+				.success((data: any, status: number, headers: any, config: angular.angularFileUpload.IFileUploadConfigFile) => {
 			        // file is uploaded successfully
 					console.log("Success!", data, status, headers, config);
 		        });

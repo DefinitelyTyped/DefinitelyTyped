@@ -171,6 +171,8 @@ declare module Faker {
 			uuid(): string;
 			boolean(): boolean;
 		};
+		
+		seed(value: number): void;
 	}
 
 	interface Card {

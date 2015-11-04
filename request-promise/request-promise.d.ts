@@ -10,7 +10,7 @@
 
 declare module 'request-promise' {
     import request = require('request');
-	import http = require('http');
+    import http = require('http');
         
     interface RequestPromise extends request.Request {
         then(onFulfilled: Function, onRejected?: Function): Promise<any>;
@@ -19,7 +19,7 @@ declare module 'request-promise' {
         promise(): Promise<any>;
     }
     
-    interface RequestPromiseOptions extends request.Options {
+    interface RequestPromiseOptions extends request.OptionalOptions {
         simple?: boolean;
         transform?: (body: any, response: http.IncomingMessage) => any;
         resolveWithFullResponse?: boolean;

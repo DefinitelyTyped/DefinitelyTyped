@@ -4,7 +4,7 @@
 /// <reference path="../react-router/react-router.d.ts" />
 /// <reference path="../object-assign/object-assign.d.ts" />
 
-import { Component } from 'react';
+import { Component, ReactElement } from 'react';
 import * as React from 'react';
 import * as Router from 'react-router';
 import { Route, RouterState } from 'react-router';
@@ -23,13 +23,13 @@ interface CounterState {
 declare var increment: Function;
 
 class Counter extends Component<any, any> {
-  render() {
-    return (
-      <button onClick={this.props.onIncrement}>
-        {this.props.value}
-      </button>
-    );
-  }
+    render() {
+        return (
+            <button onClick={this.props.onIncrement}>
+                {this.props.value}
+            </button>
+        );
+    }
 }
 
 function mapStateToProps(state: CounterState) {
@@ -241,4 +241,38 @@ function mergeProps(stateProps: TodoState, dispatchProps: DispatchProps, ownProp
 connect(mapStateToProps2, actionCreators, mergeProps)(TodoApp);
 
 
+
+
+
+interface TestProp {
+    property1: number;
+    someOtherProperty?: string;
+}
+interface TestState {
+    isLoaded: boolean;
+    state1: number;
+}
+class TestComponent extends Component<TestProp, TestState> { }
+const WrappedTestComponent = connect()(TestComponent);
+
+// return value of the connect()(TestComponent) is of the type TestComponent
+let ATestComponent: typeof TestComponent = null;
+ATestComponent = TestComponent;
+ATestComponent = WrappedTestComponent;
+
+let anElement: ReactElement<TestProp>;
+<TestComponent property1={42} />;
+<WrappedTestComponent property1={42} />;
+<ATestComponent property1={42} />;
+
+class NonComponent {}
+// this doesn't compile
+//connect()(NonComponent);
+
+// connect()(SomeClass) has the same constructor as SomeClass itself
+class SomeClass extends Component<any, any> {
+    constructor(public foo: string) { super() }
+    public bar: number;
+}
+let bar: number = new (connect()(SomeClass))("foo").bar;
 
