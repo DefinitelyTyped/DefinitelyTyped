@@ -2725,9 +2725,81 @@ module TestSome {
     result = _(dictionary).some<{a: number}>({a: 42});
 }
 
-result = <number[]>_.sortBy([1, 2, 3], function (num) { return Math.sin(num); });
-result = <number[]>_.sortBy([1, 2, 3], function (num) { return this.sin(num); }, Math);
-result = <string[]>_.sortBy(['banana', 'strawberry', 'apple'], 'length');
+// _.sortBy
+module TestSortBy {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
+
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => number;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => number;
+
+    {
+        let result: TResult[];
+
+        result = _.sortBy<TResult>(array);
+        result = _.sortBy<TResult, number>(array, listIterator);
+        result = _.sortBy<TResult, number>(array, listIterator, any);
+        result = _.sortBy<TResult>(array, '');
+        result = _.sortBy<{a: number}, TResult>(array, {a: 42});
+
+        result = _.sortBy<TResult>(list);
+        result = _.sortBy<TResult, number>(list, listIterator);
+        result = _.sortBy<TResult, number>(list, listIterator, any);
+        result = _.sortBy<TResult>(list, '');
+        result = _.sortBy<{a: number}, TResult>(list, {a: 42});
+
+        result = _.sortBy<TResult>(dictionary);
+        result = _.sortBy<TResult, number>(dictionary, dictionaryIterator);
+        result = _.sortBy<TResult, number>(dictionary, dictionaryIterator, any);
+        result = _.sortBy<TResult>(dictionary, '');
+        result = _.sortBy<{a: number}, TResult>(dictionary, {a: 42});
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).sortBy();
+        result = _(array).sortBy<number>(listIterator);
+        result = _(array).sortBy<number>(listIterator, any);
+        result = _(array).sortBy('');
+        result = _(array).sortBy<{a: number}>({a: 42});
+
+        result = _(list).sortBy<TResult>();
+        result = _(list).sortBy<TResult, number>(listIterator);
+        result = _(list).sortBy<TResult, number>(listIterator, any);
+        result = _(list).sortBy<TResult>('');
+        result = _(list).sortBy<{a: number}, TResult>({a: 42});
+
+        result = _(dictionary).sortBy<TResult>();
+        result = _(dictionary).sortBy<TResult, number>(dictionaryIterator);
+        result = _(dictionary).sortBy<TResult, number>(dictionaryIterator, any);
+        result = _(dictionary).sortBy<TResult>('');
+        result = _(dictionary).sortBy<{a: number}, TResult>({a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().sortBy();
+        result = _(array).chain().sortBy<number>(listIterator);
+        result = _(array).chain().sortBy<number>(listIterator, any);
+        result = _(array).chain().sortBy('');
+        result = _(array).chain().sortBy<{a: number}>({a: 42});
+
+        result = _(list).chain().sortBy<TResult>();
+        result = _(list).chain().sortBy<TResult, number>(listIterator);
+        result = _(list).chain().sortBy<TResult, number>(listIterator, any);
+        result = _(list).chain().sortBy<TResult>('');
+        result = _(list).chain().sortBy<{a: number}, TResult>({a: 42});
+
+        result = _(dictionary).chain().sortBy<TResult>();
+        result = _(dictionary).chain().sortBy<TResult, number>(dictionaryIterator);
+        result = _(dictionary).chain().sortBy<TResult, number>(dictionaryIterator, any);
+        result = _(dictionary).chain().sortBy<TResult>('');
+        result = _(dictionary).chain().sortBy<{a: number}, TResult>({a: 42});
+    }
+}
 
 result = <IStoogesAge[]>_.sortByAll(stoogesAges, function(stooge) { return Math.sin(stooge.age); }, function(stooge) { return stooge.name.slice(1); });
 result = <IStoogesAge[]>_.sortByAll(stoogesAges, ['name', 'age']);
@@ -2743,9 +2815,6 @@ result = <IStoogesAge[]>_.sortByOrder(stoogesAges, [function(stooge) { return Ma
 result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', 'age'], [true, false]);
 result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', function(stooge) { return Math.sin(stooge.age); }], [true, false]);
 
-result = <number[]>_([1, 2, 3]).sortBy(function (num) { return Math.sin(num); }).value();
-result = <number[]>_([1, 2, 3]).sortBy(function (num) { return this.sin(num); }, Math).value();
-result = <string[]>_(['banana', 'strawberry', 'apple']).sortBy('length').value();
 result = <IFoodOrganic[]>_(foodsOrganic).sortByAll('organic', (food) => food.name, { organic: true }).value();
 
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'age': 40 });

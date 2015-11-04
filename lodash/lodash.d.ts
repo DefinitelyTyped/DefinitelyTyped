@@ -6031,104 +6031,162 @@ declare module _ {
     //_.sortBy
     interface LoDashStatic {
         /**
-        * Creates an array of elements, sorted in ascending order by the results of running each
-        * element in a collection through the callback. This method performs a stable sort, that
-        * is, it will preserve the original sort order of equal elements. The callback is bound
-        * to thisArg and invoked with three arguments; (value, index|key, collection).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will
-        * return the property value of the given element.
-        *
-        * If a value is also provided for thisArg the created "_.matchesProperty" style callback
-        * returns true for elements that have a matching property value, else false.
-        *
-        * If an object is provided for an iteratee the created "_.matches" style callback returns
-        * true for elements that have the properties of the given object, else false.
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return A new array of sorted elements.
-        **/
-        sortBy<T, TSort>(
-            collection: Array<T>,
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.sortBy
-        **/
-        sortBy<T, TSort>(
-            collection: List<T>,
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.sortBy
-        * @param pluckValue _.pluck style callback
-        **/
-        sortBy<T>(
-            collection: Array<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.sortBy
-        * @param pluckValue _.pluck style callback
-        **/
-        sortBy<T>(
-            collection: List<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.sortBy
-        * @param whereValue _.where style callback
-        **/
-        sortBy<W, T>(
-            collection: Array<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.sortBy
-        * @param whereValue _.where style callback
-        **/
-        sortBy<W, T>(
-            collection: List<T>,
-            whereValue: W): T[];
-
-        /**
-         * Sorts by all the given arguments, using either ListIterator, pluckValue, or whereValue foramts
-         * @param args The rules by which to sort
+         * Creates an array of elements, sorted in ascending order by the results of running each element in a
+         * collection through iteratee. This method performs a stable sort, that is, it preserves the original sort
+         * order of equal elements. The iteratee is bound to thisArg and invoked with three arguments:
+         * (value, index|key, collection).
+         *
+         * If a property name is provided for iteratee the created _.property style callback returns the property
+         * valueof the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for iteratee the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns the new sorted array.
          */
-        sortByAll<T>(
-            collection: (Array<T>|List<T>),
-            ...args: (ListIterator<T, boolean>|Object|string)[]
+        sortBy<T, TSort>(
+            collection: List<T>,
+            iteratee?: ListIterator<T, TSort>,
+            thisArg?: any
+        ): T[];
+
+        /**
+         * @see _.sortBy
+         */
+        sortBy<T, TSort>(
+            collection: Dictionary<T>,
+            iteratee?: DictionaryIterator<T, TSort>,
+            thisArg?: any
+        ): T[];
+
+        /**
+         * @see _.sortBy
+         */
+        sortBy<T>(
+            collection: List<T>|Dictionary<T>,
+            iteratee: string
+        ): T[];
+
+        /**
+         * @see _.sortBy
+         */
+        sortBy<W extends {}, T>(
+            collection: List<T>|Dictionary<T>,
+            whereValue: W
+        ): T[];
+
+        /**
+         * @see _.sortBy
+         */
+        sortBy<T>(
+            collection: List<T>|Dictionary<T>
         ): T[];
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
-        * @see _.sortBy
-        **/
+         * @see _.sortBy
+         */
         sortBy<TSort>(
             iteratee?: ListIterator<T, TSort>,
-            thisArg?: any): LoDashImplicitArrayWrapper<T>;
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<T>;
 
         /**
-        * @see _.sortBy
-        * @param pluckValue _.pluck style callback
-        **/
-        sortBy(pluckValue: string): LoDashImplicitArrayWrapper<T>;
-
-        /**
-        * @see _.sortBy
-        * @param whereValue _.where style callback
-        **/
-        sortBy<W>(whereValue: W): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * Sorts by all the given arguments, using either ListIterator, pluckValue, or whereValue foramts
-         * @param args The rules by which to sort
+         * @see _.sortBy
          */
-        sortByAll(...args: (ListIterator<T, boolean>|Object|string)[]): LoDashImplicitArrayWrapper<T>;
+        sortBy(iteratee: string): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortBy
+         */
+        sortBy<W extends {}>(whereValue: W): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortBy
+         */
+        sortBy(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.sortBy
+         */
+        sortBy<T, TSort>(
+            iteratee?: ListIterator<T, TSort>|DictionaryIterator<T, TSort>,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortBy
+         */
+        sortBy<T>(iteratee: string): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortBy
+         */
+        sortBy<W extends {}, T>(whereValue: W): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortBy
+         */
+        sortBy<T>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.sortBy
+         */
+        sortBy<TSort>(
+            iteratee?: ListIterator<T, TSort>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortBy
+         */
+        sortBy(iteratee: string): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortBy
+         */
+        sortBy<W extends {}>(whereValue: W): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortBy
+         */
+        sortBy(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.sortBy
+         */
+        sortBy<T, TSort>(
+            iteratee?: ListIterator<T, TSort>|DictionaryIterator<T, TSort>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortBy
+         */
+        sortBy<T>(iteratee: string): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortBy
+         */
+        sortBy<W extends {}, T>(whereValue: W): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortBy
+         */
+        sortBy<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.sortByAll
@@ -6175,9 +6233,24 @@ declare module _ {
         sortByAll<T>(
             collection: List<T>,
             ...iteratees: (ListIterator<T, any>|string|Object)[]): T[];
+
+        /**
+         * Sorts by all the given arguments, using either ListIterator, pluckValue, or whereValue foramts
+         * @param args The rules by which to sort
+         */
+        sortByAll<T>(
+            collection: (Array<T>|List<T>),
+            ...args: (ListIterator<T, boolean>|Object|string)[]
+        ): T[];
     }
 
     interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * Sorts by all the given arguments, using either ListIterator, pluckValue, or whereValue foramts
+         * @param args The rules by which to sort
+         */
+        sortByAll(...args: (ListIterator<T, boolean>|Object|string)[]): LoDashImplicitArrayWrapper<T>;
+
         /**
         * @see _.sortByAll
         **/
