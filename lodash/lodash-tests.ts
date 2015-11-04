@@ -300,35 +300,60 @@ module TestDropRightWhile {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
-    let result: TResult[];
 
-    result = _.dropRightWhile<TResult>(array);
-    result = _.dropRightWhile<TResult>(array, predicateFn);
-    result = _.dropRightWhile<TResult>(array, predicateFn, any);
-    result = _.dropRightWhile<TResult>(array, '');
-    result = _.dropRightWhile<TResult>(array, '', any);
-    result = _.dropRightWhile<{a: number;}, TResult>(array, {a: 42});
+    {
+        let result: TResult[];
 
-    result = _.dropRightWhile<TResult>(list);
-    result = _.dropRightWhile<TResult>(list, predicateFn);
-    result = _.dropRightWhile<TResult>(list, predicateFn, any);
-    result = _.dropRightWhile<TResult>(list, '');
-    result = _.dropRightWhile<TResult>(list, '', any);
-    result = _.dropRightWhile<{a: number;}, TResult>(list, {a: 42});
+        result = _.dropRightWhile<TResult>(array);
+        result = _.dropRightWhile<TResult>(array, predicateFn);
+        result = _.dropRightWhile<TResult>(array, predicateFn, any);
+        result = _.dropRightWhile<TResult>(array, '');
+        result = _.dropRightWhile<TResult>(array, '', any);
+        result = _.dropRightWhile<{a: number;}, TResult>(array, {a: 42});
 
-    result = _(array).dropRightWhile().value();
-    result = _(array).dropRightWhile(predicateFn).value();
-    result = _(array).dropRightWhile(predicateFn, any).value();
-    result = _(array).dropRightWhile('').value();
-    result = _(array).dropRightWhile('', any).value();
-    result = _(array).dropRightWhile<{a: number;}>({a: 42}).value();
+        result = _.dropRightWhile<TResult>(list);
+        result = _.dropRightWhile<TResult>(list, predicateFn);
+        result = _.dropRightWhile<TResult>(list, predicateFn, any);
+        result = _.dropRightWhile<TResult>(list, '');
+        result = _.dropRightWhile<TResult>(list, '', any);
+        result = _.dropRightWhile<{a: number;}, TResult>(list, {a: 42});
+    }
 
-    result = _(list).dropRightWhile<TResult>().value();
-    result = _(list).dropRightWhile<TResult>(predicateFn).value();
-    result = _(list).dropRightWhile<TResult>(predicateFn, any).value();
-    result = _(list).dropRightWhile<TResult>('').value();
-    result = _(list).dropRightWhile<TResult>('', any).value();
-    result = _(list).dropRightWhile<{a: number;}, TResult>({a: 42}).value();
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).dropRightWhile();
+        result = _(array).dropRightWhile(predicateFn);
+        result = _(array).dropRightWhile(predicateFn, any);
+        result = _(array).dropRightWhile('');
+        result = _(array).dropRightWhile('', any);
+        result = _(array).dropRightWhile<{a: number;}>({a: 42});
+
+        result = _(list).dropRightWhile<TResult>();
+        result = _(list).dropRightWhile<TResult>(predicateFn);
+        result = _(list).dropRightWhile<TResult>(predicateFn, any);
+        result = _(list).dropRightWhile<TResult>('');
+        result = _(list).dropRightWhile<TResult>('', any);
+        result = _(list).dropRightWhile<{a: number;}, TResult>({a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().dropRightWhile();
+        result = _(array).chain().dropRightWhile(predicateFn);
+        result = _(array).chain().dropRightWhile(predicateFn, any);
+        result = _(array).chain().dropRightWhile('');
+        result = _(array).chain().dropRightWhile('', any);
+        result = _(array).chain().dropRightWhile<{a: number;}>({a: 42});
+
+        result = _(list).chain().dropRightWhile<TResult>();
+        result = _(list).chain().dropRightWhile<TResult>(predicateFn);
+        result = _(list).chain().dropRightWhile<TResult>(predicateFn, any);
+        result = _(list).chain().dropRightWhile<TResult>('');
+        result = _(list).chain().dropRightWhile<TResult>('', any);
+        result = _(list).chain().dropRightWhile<{a: number;}, TResult>({a: 42});
+    }
 }
 
 // _.dropWhile

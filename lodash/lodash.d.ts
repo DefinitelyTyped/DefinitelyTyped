@@ -527,6 +527,56 @@ declare module _ {
         ): LoDashImplicitArrayWrapper<TValue>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.dropRightWhile
+         */
+        dropRightWhile(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.dropRightWhile
+         */
+        dropRightWhile(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.dropRightWhile
+         */
+        dropRightWhile<TWhere>(
+            predicate?: TWhere
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.dropRightWhile
+         */
+        dropRightWhile<TValue>(
+            predicate?: ListIterator<TValue, boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TValue>;
+
+        /**
+         * @see _.dropRightWhile
+         */
+        dropRightWhile<TValue>(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TValue>;
+
+        /**
+         * @see _.dropRightWhile
+         */
+        dropRightWhile<TWhere, TValue>(
+            predicate?: TWhere
+        ): LoDashExplicitArrayWrapper<TValue>;
+    }
+
     //_.dropWhile
     interface LoDashStatic {
         /**
