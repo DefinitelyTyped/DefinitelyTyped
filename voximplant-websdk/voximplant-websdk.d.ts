@@ -3,14 +3,60 @@
 // Definitions by: Alexey Aylarov <https://github.com/aylarov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare namespace VoxImplant {	
+declare module VoxImplant {	
+
+	/**
+	*	VoxImplant.Client general events
+	*/
+	enum Events {
+		AuthResult,
+		ConnectionClosed,
+		ConnectionEstablished,
+		ConnectionFailed,
+		IMError,
+		IncomingCall,
+		MicAccessResult,
+		NetStatsReceived,
+		PlaybackFinished,
+		SDKReady,
+		SourcesInfoUpdated
+	}
+
+	/**
+	*	VoxImplant.Client Instant Messaging and Presence events
+	*/
+	enum IMEvents {
+		ChatStateUpdate,
+		MessageReceived,
+		MessageStatus,
+		PresenceUpdate,
+		RosterItemChange,
+		RosterPresenceUpdate,
+		RosterReceived,
+		SubscriptionRequest
+	}
+
+	/**
+	*	VoxImplant.Call events
+	*/
+	enum CallEvents {
+		Connected,
+		Disconnected,
+		Failed,
+		InfoReceived,
+		MessageReceived,
+		ProgressToneStart,
+		ProgressToneStop,
+		TransferComplete,
+		TransferFailed
+	}
 
 	module Events {
 
 		/**
 		*	Event dispatched after login , loginWithOneTimeKey, requestOneTimeLoginKey or loginWithCode function call
 		*/
-		interface AuthEvent {
+		interface AuthResult {
 			/**
 			*	Auth error code, possible values are: 301 - code for 'code' auth type was sent, 302 - key for 'onetimekey' auth type received, 401 - invalid password, 404 - invalid username, 403 - user account is frozen, 500 - internal error
 			*/
@@ -20,7 +66,7 @@ declare namespace VoxImplant {
 			*/
 			displayName?: string;
 			/**
-			*	This parameter is used to calculate hash parameter for loginWithOneTimeKey method. AuthEvent with the key dispatched after requestOneTimeLoginKey method was called
+			*	This parameter is used to calculate hash parameter for loginWithOneTimeKey method. AuthResult with the key dispatched after requestOneTimeLoginKey method was called
 			*/
 			key?: string;
 			/**
@@ -420,7 +466,7 @@ declare namespace VoxImplant {
 
 	}
 
-	type VoxImplantEvent = Events.AuthEvent | Events.ConnectionClosed | Events.ConnectionEstablished |
+	type VoxImplantEvent = Events.AuthResult | Events.ConnectionClosed | Events.ConnectionEstablished |
 		Events.ConnectionFailed | Events.IMError | Events.IncomingCall | Events.MicAccessResult | 
 		Events.NetStatsReceived | Events.PlaybackFinished | Events.SDKReady | Events.SourcesInfoUpdated;
 
@@ -666,7 +712,7 @@ declare namespace VoxImplant {
 		*	@param eventName Event name
 		*	@param eventHandler Handler function. A single parameter is passed - object with the event information
 		*/
-		addEventListener(eventName: string, eventHandler: (eventObject: VoxImplantEvent | VoxImplantIMEvent) => any): void;
+		addEventListener(eventName: VoxImplant.Events | VoxImplant.IMEvents, eventHandler: (eventObject: VoxImplantEvent | VoxImplantIMEvent) => any): void;
 		/**
 		*	Add roster item (IM)
 		*
@@ -727,7 +773,7 @@ declare namespace VoxImplant {
 		*
 		*	@param config Client configuration options
 		*/
-		init(config?: Config): void;
+		init(config: Config): void;
 		/**
 		*	Check if WebRTC support is available
 		*/
@@ -777,7 +823,7 @@ declare namespace VoxImplant {
 		*	@param eventName Event name
 		*	@param eventHandler Handler function
 		*/
-		removeEventListener(eventName: string, eventHandler: () => any): void;
+		removeEventListener(eventName: VoxImplant.Events | VoxImplant.IMEvents, eventHandler: () => any): void;
 		/**
 		*	Remove roster item (IM)
 		*
@@ -942,7 +988,7 @@ declare namespace VoxImplant {
 		*	@param eventName Event name
 		*	@param eventHandler Handler function. A single parameter is passed - object with the event information
 		*/
-		addEventListener(eventName: string, eventHandler: (eventObject: VoxImplantCallEvent) => any): void;	
+		addEventListener(eventName: VoxImplant.CallEvents, eventHandler: (eventObject: VoxImplantCallEvent) => any): void;	
 		/**
 		*	Answer on incoming call
 		*
@@ -1002,7 +1048,7 @@ declare namespace VoxImplant {
 		*	@param eventName Event name
 		*	@param eventHandler Handler function
 		*/
-		removeEventListener(eventName: string, eventHandler: () => any): void;
+		removeEventListener(eventName: VoxImplant.CallEvents, eventHandler: () => any): void;
 		/**
 		*	Send Info (SIP INFO) message inside the call
 		*
@@ -1162,8 +1208,4 @@ declare namespace VoxImplant {
 	*/
 	function version(): String;
 	
-}
-
-declare module "voximplant-websdk" {
-    export = VoxImplant;
 }
