@@ -55,7 +55,7 @@ declare module FullCalendar {
         weekMode?: string;
         weekNumbers?: boolean;
         weekNumberCalculation?: any; // String/Function
-        height?: number;
+        height?: number | string;
         contentHeight?: number;
         aspectRatio?: number;
         handleWindowResize?: boolean;
@@ -76,6 +76,7 @@ declare module FullCalendar {
 
         // Text/Time Customization - http://arshaw.com/fullcalendar/docs/text/
 
+        lang?: string;
         timeFormat?: any; // String/ViewOptionHash
         columnFormat?: any; // String/ViewOptionHash
         titleFormat?: any; // String/ViewOptionHash
@@ -85,6 +86,11 @@ declare module FullCalendar {
         dayNames?: Array<string>;
         dayNamesShort?: Array<string>;
         weekNumberTitle?: string;
+        displayEventTime?: boolean;
+        displayEventEnd?: boolean;
+        eventLimitText?: string;
+        dayPopoverFormat?: string;
+
 
         // Clicking & Hovering - http://arshaw.com/fullcalendar/docs/mouse/
 
@@ -159,6 +165,12 @@ declare module FullCalendar {
         droppable?: boolean;
         dropAccept?: any; // String/Function
         drop?: (date: Date, allDay: boolean, jsEvent: MouseEvent, ui: any) => void;
+        
+        // Timeline View
+        
+        slotDuration?: any; // Duration-ish
+        slotLabelFormat?: string | string[];
+        slotLabelInterval?: any; // Duration-ish
     }
 
     export interface View {
