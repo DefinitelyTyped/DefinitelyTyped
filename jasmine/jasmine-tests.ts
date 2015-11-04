@@ -657,6 +657,30 @@ describe("jasmine.objectContaining", function () {
     });
 });
 
+describe("jasmine.arrayContaining", function() {
+  var foo: any;
+
+  beforeEach(function() {
+    foo = [1, 2, 3, 4];
+  });
+
+  it("matches arrays with some of the values", function() {
+    expect(foo).toEqual(jasmine.arrayContaining([3, 1]));
+    expect(foo).not.toEqual(jasmine.arrayContaining([6]));
+  });
+
+  describe("when used with a spy", function() {
+    it("is useful when comparing arguments", function() {
+      var callback = jasmine.createSpy('callback');
+
+      callback([1, 2, 3, 4]);
+
+      expect(callback).toHaveBeenCalledWith(jasmine.arrayContaining([4, 2, 3]));
+      expect(callback).not.toHaveBeenCalledWith(jasmine.arrayContaining([5, 2]));
+    });
+  });
+});
+
 describe("Manually ticking the Jasmine Clock", function () {
     var timerCallback: any;
 
@@ -696,6 +720,17 @@ describe("Manually ticking the Jasmine Clock", function () {
 
         jasmine.clock().tick(50);
         expect(timerCallback.calls.count()).toEqual(2);
+    });
+
+    describe("Mocking the Date object", function(){
+        it("mocks the Date object and sets it to a given time", function() {
+            var baseTime = new Date(2013, 9, 23);
+
+            jasmine.clock().mockDate(baseTime);
+
+            jasmine.clock().tick(50);
+            expect(new Date().getTime()).toEqual(baseTime.getTime() + 50);
+        });
     });
 });
 
@@ -746,6 +781,82 @@ describe("Fail", function () {
     fail(new Error("The test failed with this error"));
   });
 
+});
+
+// test based on http://jasmine.github.io/2.2/custom_equality.html
+describe("custom equality", function() {
+    var myCustomEquality: jasmine.CustomEqualityTester = function(first: any, second: any): boolean {
+        if (typeof first == "string" && typeof second == "string") {
+            return first[0] == second[1];
+        }
+    };
+
+    beforeEach(function() {
+        jasmine.addCustomEqualityTester(myCustomEquality);
+    });
+
+
+    it("should be custom equal", function() {
+        expect("abc").toEqual("aaa");
+    });
+
+    it("should be custom not equal", function() {
+        expect("abc").not.toEqual("abc");
+    });
+});
+
+// test based on http://jasmine.github.io/2.2/custom_matcher.html
+var customMatchers: jasmine.CustomMatcherFactories = {
+    toBeGoofy: function (util: jasmine.MatchersUtil, customEqualityTesters: Array<jasmine.CustomEqualityTester>) {
+        return {
+            compare: function (actual: any, expected: any): jasmine.CustomMatcherResult {
+                if (expected === undefined) {
+                    expected = '';
+                }
+                var result: jasmine.CustomMatcherResult = { pass: false, message: ''};
+
+                result.pass = util.equals(actual.hyuk, "gawrsh" + expected, customEqualityTesters);
+
+                if (result.pass) {
+                    result.message = "Expected " + actual + " not to be quite so goofy";
+                } else {
+                    result.message = "Expected " + actual + " to be goofy, but it was not very goofy";
+                }
+
+                return result;
+            }
+        };
+    }
+};
+// add the custom matchers to interface jasmine.Matchers via TypeScript declaration merging
+declare module jasmine {
+    interface Matchers {
+        toBeGoofy(expected?: any): boolean;
+    }
+}
+
+describe("Custom matcher: 'toBeGoofy'", function () {
+    beforeEach(function () {
+        jasmine.addMatchers(customMatchers);
+    });
+
+    it("is available on an expectation", function () {
+        expect({
+            hyuk: 'gawrsh'
+        }).toBeGoofy();
+    });
+
+    it("can take an 'expected' parameter", function () {
+        expect({
+            hyuk: 'gawrsh is fun'
+        }).toBeGoofy(' is fun');
+    });
+
+    it("can be negated", function () {
+        expect({
+            hyuk: 'this is fun'
+        }).not.toBeGoofy();
+    });
 });
 
 (() => {

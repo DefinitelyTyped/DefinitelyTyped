@@ -59,10 +59,17 @@ interface MarkedStatic {
      *
      * @param options Hash of options
      */
-    setOptions(options: MarkedOptions): void;
+    setOptions(options: MarkedOptions): MarkedStatic;
 }
 
 interface MarkedOptions {
+    /**
+     * Type: object Default: new Renderer()
+     *
+     * An object containing functions to render tokens to HTML.
+     */
+    renderer?: Object; 
+
     /**
      * Enable GitHub flavored markdown.
      */

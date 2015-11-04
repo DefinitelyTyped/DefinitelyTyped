@@ -14,7 +14,7 @@ var string: string;
 // acorn
 string = acorn.version;
 program = acorn.parse('code');
-program = acorn.parse('code', {range: true, onToken: tokens, onComment: comments});
+program = acorn.parse('code', {ranges: true, onToken: tokens, onComment: comments});
 program = acorn.parse('code', {
     ranges: true,
     onToken: (token) => tokens.push(token),

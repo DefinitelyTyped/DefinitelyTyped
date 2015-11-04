@@ -21,6 +21,7 @@ declare module angular.resource {
         stripTrailingSlashes?: boolean;
     }
 
+
     ///////////////////////////////////////////////////////////////////////////
     // ResourceService
     // see http://docs.angularjs.org/api/ngResource.$resource
@@ -46,9 +47,17 @@ declare module angular.resource {
     // Just a reference to facilitate describing new actions
     interface IActionDescriptor {
         method: string;
-        isArray?: boolean;
         params?: any;
+        url?: string;
+        isArray?: boolean;
+        transformRequest?: angular.IHttpRequestTransformer | angular.IHttpRequestTransformer[];
+        transformResponse?: angular.IHttpResponseTransformer | angular.IHttpResponseTransformer[];
         headers?: any;
+        cache?: boolean | angular.ICacheObject;
+        timeout?: number | angular.IPromise<any>;
+        withCredentials?: boolean;
+        responseType?: string;
+        interceptor?: any;
     }
 
     // Baseclass for everyresource with default actions.
@@ -143,6 +152,13 @@ declare module angular.resource {
         ($resource: angular.resource.IResourceService): IResourceClass<T>;
         <U extends IResourceClass<T>>($resource: angular.resource.IResourceService): U;
     }
+
+    // IResourceServiceProvider used to configure global settings
+    interface IResourceServiceProvider extends angular.IServiceProvider {
+
+        defaults: IResourceOptions;
+    }
+
 }
 
 /** extensions to base ng based on using angular-resource */

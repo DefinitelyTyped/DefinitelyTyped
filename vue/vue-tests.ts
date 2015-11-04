@@ -17,7 +17,7 @@ module myapp {
       });
       this.methods = {
         action: this.action
-      }
+      };
     }
     action(): void {
       console.log("action");
@@ -26,4 +26,8 @@ module myapp {
 }
 
 var app = new myapp.Application();
+app.$mount("#main");
+
+var AppConstructor = Vue.extend({});
+var extendedApp = new AppConstructor();
 app.$mount("#main");

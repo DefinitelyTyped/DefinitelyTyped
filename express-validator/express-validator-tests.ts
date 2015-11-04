@@ -5,11 +5,11 @@
 import util = require('util')
 import express = require('express')
 import expressValidator = require('express-validator')
-var app = express()
+var app = express();
 
 app.use(expressValidator());
 
-app.post('/:urlparam', function(req: expressValidator.ValidatedRequest, res: express.Response) {
+app.post('/:urlparam', function(req: express.Request, res: express.Response) {
 
   // checkBody only checks req.body; none of the other req parameters
   // Similarly checkParams only checks in req.params (URL params) and
@@ -17,6 +17,9 @@ app.post('/:urlparam', function(req: expressValidator.ValidatedRequest, res: exp
   req.checkBody('postparam', 'Invalid postparam').notEmpty().isInt();
   req.checkParams('urlparam', 'Invalid urlparam').isAlpha();
   req.checkQuery('getparam', 'Invalid getparam').isInt();
+  req.checkHeader('testHeader', 'Invalid testHeader').isLowercase().isUppercase();
+  req.checkFiles('testFiles', 'Invalid testFiles').isUrl();
+
 
   // OR assert can be used to check on all 3 types of params.
   // req.assert('postparam', 'Invalid postparam').notEmpty().isInt();
@@ -24,8 +27,11 @@ app.post('/:urlparam', function(req: expressValidator.ValidatedRequest, res: exp
   // req.assert('getparam', 'Invalid getparam').isInt();
 
   req.sanitize('postparam').toBoolean();
+  req.filter('postparam').toBoolean();
 
   var errors = req.validationErrors();
+  var mappedErrors = req.validationErrors(true);
+
   if (errors) {
     res.status(400).send('There have been validation errors: ' + util.inspect(errors));
     return;

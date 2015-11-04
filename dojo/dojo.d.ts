@@ -927,7 +927,7 @@ declare module dojo {
          *
          * 
          */
-        class __Promise extends dojo.promise.Promise {
+        class __Promise implements dojo.promise.Promise<any> {
             constructor();
             /**
              * A promise resolving to an object representing
@@ -988,7 +988,7 @@ declare module dojo {
              * @param errback               OptionalCallback to be invoked when the promise is rejected.Receives the rejection error.             
              * @param progback               OptionalCallback to be invoked when the promise emits a progressupdate. Receives the progress update.             
              */
-            then(callback?: Function, errback?: Function, progback?: Function): dojo.promise.Promise;
+            then(callback?: Function, errback?: Function, progback?: Function): dojo.promise.Promise<any>;
             /**
              * 
              */
@@ -996,11 +996,11 @@ declare module dojo {
             /**
              * 
              */
-            trace(): dojo.promise.Promise;
+            trace(): dojo.promise.Promise<any>;
             /**
              * 
              */
-            traceRejected(): dojo.promise.Promise;
+            traceRejected(): dojo.promise.Promise<any>;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/default.html
@@ -1590,7 +1590,7 @@ declare module dojo {
          * @param listener             
          * @param dontFix             
          */
-        once(target: any, type: any, listener: any, dontFix: any): any;
+        once(target: any, type: any, listener: any, dontFix?: any): any;
         /**
          * 
          * @param target             
@@ -1671,7 +1671,7 @@ declare module dojo {
      * @param selector A CSS selector to search for.     
      * @param context       OptionalAn optional context to limit the searching scope. Only nodes under context will bescanned.     
      */
-    interface query{(selector: String, context?: String): void}
+    interface query{(selector: String, context?: String): NodeList}
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/query.html
      *
@@ -1713,7 +1713,7 @@ declare module dojo {
      * @param selector A CSS selector to search for.     
      * @param context       OptionalAn optional context to limit the searching scope. Only nodes under context will bescanned.     
      */
-    interface query{(selector: String, context?: HTMLElement): void}
+    interface query{(selector: String, context?: HTMLElement): NodeList}
     interface query {
         /**
          * can be used as AMD plugin to conditionally load new query engine
@@ -1783,7 +1783,7 @@ declare module dojo {
      * @param errback       OptionalCallback to be invoked when the promise is rejected.     
      * @param progback       OptionalCallback to be invoked when the promise emits a progress update.     
      */
-    interface when{(valueOrPromise: any, callback?: Function, errback?: Function, progback?: Function): void}
+    interface when { <T, U>(value: T|dojo.promise.Promise<T>, callback: dojo.promise.Callback<T, U>, errback?: any, progback?: any): U|dojo.promise.Promise<U> }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/DeferredList.html
      *
@@ -1822,7 +1822,7 @@ declare module dojo {
         /**
          * 
          */
-        "promise": dojo.promise.Promise;
+        "promise": dojo.promise.Promise<any>;
         /**
          * Inform the deferred it may cancel its asynchronous operation.
          * Inform the deferred it may cancel its asynchronous operation.
@@ -1863,7 +1863,7 @@ declare module dojo {
          * @param update The progress update. Passed to progbacks.             
          * @param strict               OptionalIf strict, will throw an error if the deferred has alreadybeen fulfilled and consequently no progress can be emitted.             
          */
-        progress(update: any, strict: boolean): dojo.promise.Promise;
+        progress(update: any, strict: boolean): dojo.promise.Promise<any>;
         /**
          * Reject the deferred.
          * Reject the deferred, putting it in an error state.
@@ -1879,7 +1879,7 @@ declare module dojo {
          * @param value The result of the deferred. Passed to callbacks.             
          * @param strict               OptionalIf strict, will throw an error if the deferred has alreadybeen fulfilled and consequently cannot be resolved.             
          */
-        resolve(value: any, strict?: boolean): dojo.promise.Promise;
+        resolve(value: any, strict?: boolean): dojo.promise.Promise<any>;
         /**
          * Add new callbacks to the deferred.
          * Add new callbacks to the deferred. Callbacks can be added
@@ -1889,7 +1889,7 @@ declare module dojo {
          * @param errback               OptionalCallback to be invoked when the promise is rejected.Receives the rejection error.             
          * @param progback               OptionalCallback to be invoked when the promise emits a progressupdate. Receives the progress update.             
          */
-        then(callback: Function, errback: Function, progback: Function): dojo.promise.Promise;
+        then(callback: Function, errback: Function, progback: Function): dojo.promise.Promise<any>;
         /**
          * 
          */
@@ -3098,7 +3098,7 @@ declare module dojo {
      */
     class Stateful {
         constructor();
-        inherited: {(arguments: IArguments): any};
+        inherited: {(args: IArguments): any};
         /**
          * Get a property on a Stateful instance.
          * Get a named property on a Stateful object. The property may
@@ -4873,7 +4873,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            every(arr: any[], callback: Function, thisObject: Object): boolean;
+            every(arr: any[], callback: Function, thisObject?: Object): boolean;
             /**
              * Determines whether or not every item in arr satisfies the
              * condition implemented by callback.
@@ -4887,7 +4887,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            every(arr: String, callback: Function, thisObject: Object): boolean;
+            every(arr: String, callback: Function, thisObject?: Object): boolean;
             /**
              * Determines whether or not every item in arr satisfies the
              * condition implemented by callback.
@@ -4901,7 +4901,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            every(arr: any[], callback: String, thisObject: Object): boolean;
+            every(arr: any[], callback: String, thisObject?: Object): boolean;
             /**
              * Determines whether or not every item in arr satisfies the
              * condition implemented by callback.
@@ -4915,7 +4915,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            every(arr: String, callback: String, thisObject: Object): boolean;
+            every(arr: String, callback: String, thisObject?: Object): boolean;
             /**
              * Returns a new Array with those items from arr that match the
              * condition implemented by callback.
@@ -4929,7 +4929,7 @@ declare module dojo {
              * @param callback a function that is invoked with three arguments (item,index, array). The return of this function is expected tobe a boolean which determines whether the passed-in itemwill be included in the returned array.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            filter(arr: any[], callback: Function, thisObject: Object): any[];
+            filter(arr: any[], callback: Function, thisObject?: Object): any[];
             /**
              * Returns a new Array with those items from arr that match the
              * condition implemented by callback.
@@ -4943,7 +4943,7 @@ declare module dojo {
              * @param callback a function that is invoked with three arguments (item,index, array). The return of this function is expected tobe a boolean which determines whether the passed-in itemwill be included in the returned array.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            filter(arr: any[], callback: String, thisObject: Object): any[];
+            filter(arr: any[], callback: String, thisObject?: Object): any[];
             /**
              * for every item in arr, callback is invoked. Return values are ignored.
              * If you want to break out of the loop, consider using array.every() or array.some().
@@ -5020,7 +5020,7 @@ declare module dojo {
              * @param fromIndex               Optional            
              * @param findLast               OptionalMakes indexOf() work like lastIndexOf().  Used internally; not meant for external usage.             
              */
-            indexOf(arr: any[], value: Object, fromIndex: number, findLast: boolean): number;
+            indexOf(arr: any[], value: Object, fromIndex?: number, findLast?: boolean): number;
             /**
              * locates the last index of the provided value in the passed
              * array. If the value is not found, -1 is returned.
@@ -5036,7 +5036,7 @@ declare module dojo {
              * @param value             
              * @param fromIndex               Optional            
              */
-            lastIndexOf(arr: any, value: any, fromIndex: number): number;
+            lastIndexOf(arr: any, value: any, fromIndex?: number): number;
             /**
              * applies callback to each element of arr and returns
              * an Array with the results
@@ -5110,7 +5110,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            some(arr: any[], callback: Function, thisObject: Object): boolean;
+            some(arr: any[], callback: Function, thisObject?: Object): boolean;
             /**
              * Determines whether or not any item in arr satisfies the
              * condition implemented by callback.
@@ -5124,7 +5124,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            some(arr: String, callback: Function, thisObject: Object): boolean;
+            some(arr: String, callback: Function, thisObject?: Object): boolean;
             /**
              * Determines whether or not any item in arr satisfies the
              * condition implemented by callback.
@@ -5138,7 +5138,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            some(arr: any[], callback: String, thisObject: Object): boolean;
+            some(arr: any[], callback: String, thisObject?: Object): boolean;
             /**
              * Determines whether or not any item in arr satisfies the
              * condition implemented by callback.
@@ -5152,7 +5152,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            some(arr: String, callback: String, thisObject: Object): boolean;
+            some(arr: String, callback: String, thisObject?: Object): boolean;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/connect.html
@@ -9119,7 +9119,7 @@ declare module dojo {
              * @param errback               OptionalCallback to be invoked when the promise is rejected.             
              * @param progback               OptionalCallback to be invoked when the promise emits a progress update.             
              */
-            when(valueOrPromise: any, callback: Function, errback: Function, progback: Function): dojo.promise.Promise;
+            when(valueOrPromise: any, callback: Function, errback: Function, progback: Function): dojo.promise.Promise<any>;
             /**
              * signal fired by impending window destruction. You may use
              * dojo.addOnWIndowUnload() or dojo.connect() to this method to perform
@@ -16050,7 +16050,7 @@ declare module dojo {
          * 
          * @param objectOrArray       OptionalThe promise will be fulfilled with a list of results if invoked with anarray, or an object of results when passed an object (using the samekeys). If passed neither an object or array it is resolved with anundefined value.     
          */
-        interface all{(objectOrArray?: Object): void}
+        interface all{<T>(value: Promise<T>[]): Promise<T[]>}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/all.html
          *
@@ -16063,7 +16063,7 @@ declare module dojo {
          * 
          * @param objectOrArray       OptionalThe promise will be fulfilled with a list of results if invoked with anarray, or an object of results when passed an object (using the samekeys). If passed neither an object or array it is resolved with anundefined value.     
          */
-        interface all{(objectOrArray?: any[]): void}
+        interface all{(value: Object): Promise<any>}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/first.html
          *
@@ -16107,6 +16107,11 @@ declare module dojo {
          * @param Deferred     
          */
         interface instrumentation{(Deferred: any): void}
+
+        interface Callback<T, U> {
+            (arg: T): U|Promise<U>;
+        }
+
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/Promise.html
          *
@@ -16115,15 +16120,14 @@ declare module dojo {
          * instances of this class.
          * 
          */
-        class Promise {
-            constructor();
+        interface Promise<T> {
             /**
              * Add a callback to be invoked when the promise is resolved
              * or rejected.
              * 
              * @param callbackOrErrback               OptionalA function that is used both as a callback and errback.             
              */
-            always(callbackOrErrback: Function): any;
+            always<U>(callbackOrErrback: Callback<any, U>): Promise<U>;
             /**
              * Inform the deferred it may cancel its asynchronous operation.
              * Inform the deferred it may cancel its asynchronous operation.
@@ -16160,7 +16164,7 @@ declare module dojo {
              * 
              * @param errback               OptionalCallback to be invoked when the promise is rejected.             
              */
-            otherwise(errback: Function): any;
+            otherwise<U>(errback: Callback<any, U>): Promise<U>;
             /**
              * Add new callbacks to the promise.
              * Add new callbacks to the deferred. Callbacks can be added
@@ -16170,7 +16174,7 @@ declare module dojo {
              * @param errback               OptionalCallback to be invoked when the promise is rejected.Receives the rejection error.             
              * @param progback               OptionalCallback to be invoked when the promise emits a progressupdate. Receives the progress update.             
              */
-            then(callback: Function, errback?: Function, progback?: Function): dojo.promise.Promise;
+            then<U>(callback: Callback<T, U>, errback?: Callback<any, U>, progback?: Callback<any, U>): Promise<U>;
             /**
              * 
              */
@@ -16184,7 +16188,7 @@ declare module dojo {
              * to handle traces.
              * 
              */
-            trace(): dojo.promise.Promise;
+            trace(): Promise<T>;
             /**
              * Trace rejection of the promise.
              * Tracing allows you to transparently log progress,
@@ -16194,7 +16198,7 @@ declare module dojo {
              * to handle traces.
              * 
              */
-            traceRejected(): dojo.promise.Promise;
+            traceRejected(): Promise<T>;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/tracer.html
@@ -17467,7 +17471,7 @@ declare module dojo {
              * 
              * @param results The result set as an array, or a promise for an array.     
              */
-            interface QueryResults{(results: dojo.promise.Promise): void}
+            interface QueryResults{(results: dojo.promise.Promise<any>): void}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/util/SimpleQueryEngine.html
              *
@@ -20456,7 +20460,7 @@ declare module dojo {
          * @param value the number to be formatted             
          * @param options               OptionalAn object with the following properties:pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.  Literal characters in patterns are not supported.type (String, optional): choose a format type based on the locale from the following:decimal, scientific (not yet supported), percent, currency. decimal by default.places (Number, optional): fixed number of decimal places to show.  This overrides anyinformation in the provided pattern.round (Number, optional): 5 rounds to nearest .5; 0 rounds to nearest whole (default). -1means do not round.locale (String, optional): override the locale used to determine formatting rulesfractional (Boolean, optional): If false, show no decimal places, overriding places and pattern settings.            
          */
-        format(value: number, options: Object): any;
+        format(value: number, options?: Object): any;
         /**
          * Convert a properly formatted string to a primitive Number, using
          * locale-specific settings.
@@ -20782,7 +20786,7 @@ declare module dojo {
          * @param root               OptionalA default starting root node from which to start the parsing. Can beomitted, defaulting to the entire document. If omitted, the optionsobject can be passed in this place. If the options object has arootNode member, that is used.             
          * @param options a kwArgs options object, see parse() for details             
          */
-        scan(root: HTMLElement, options: Object): dojo.promise.Promise;
+        scan(root: HTMLElement, options: Object): dojo.promise.Promise<any>;
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/regexp.html
@@ -24419,7 +24423,7 @@ declare module dojo {
          * @param errback               OptionalCallback to be invoked when the promise is rejected.             
          * @param progback               OptionalCallback to be invoked when the promise emits a progress update.             
          */
-        when(valueOrPromise: any, callback: Function, errback: Function, progback: Function): dojo.promise.Promise;
+        when(valueOrPromise: any, callback: Function, errback: Function, progback: Function): dojo.promise.Promise<any>;
         /**
          * signal fired by impending window destruction. You may use
          * dojo.addOnWIndowUnload() or dojo.connect() to this method to perform
@@ -28268,8 +28272,8 @@ declare module "dojo/promise/tracer" {
     export=exp;
 }
 declare module "dojo/promise/Promise" {
-    var exp: typeof dojo.promise.Promise
-    export=exp;
+    interface Promise<T> extends dojo.promise.Promise<T> { }
+    export = Promise;
 }
 declare module "dojo/rpc/JsonpService" {
     var exp: typeof dojo.rpc.JsonpService

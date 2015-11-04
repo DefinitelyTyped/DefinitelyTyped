@@ -5,15 +5,16 @@
 
 /* =================== USAGE ===================
 
-    import serveStatic = require('serve-static');
-    app.use(serveStatic('public/ftp', {'index': ['default.html', 'default.htm']}))
+    import * as serveStatic from "serve-static";
+    app.use(serveStatic("public/ftp", {"index": ["default.html", "default.htm"]}))
 
  =============================================== */
 
 /// <reference path="../express/express.d.ts" />
+/// <reference path="../mime/mime.d.ts" />
 
 declare module "serve-static" {
-    import express = require('express');
+    import * as express from "express";
     
     /**
      * Create a new middleware function to serve files from within a given root directory. 
@@ -48,7 +49,7 @@ declare module "serve-static" {
          * By default this module will send "index.html" files in response to a request on a directory.
          * To disable this set false or to supply a new index pass a string or an array in preferred order.
          */
-        index?: boolean;
+        index?: boolean|string|string[];
 
         /**
          * Enable or disable Last-Modified header, defaults to true. Uses the file system's last modified value.
@@ -58,7 +59,7 @@ declare module "serve-static" {
         /**
          * Provide a max-age in milliseconds for http caching, defaults to 0. This can also be a string accepted by the ms module.
          */
-        maxAge?: number;
+        maxAge?: number|string;
 
         /**
          * Redirect to trailing "/" when the pathname is a dir. Defaults to true.
@@ -74,6 +75,12 @@ declare module "serve-static" {
          */
         setHeaders?: (res: express.Response, path: string, stat: any) => any;
     }): express.Handler;
+
+    import * as m from "mime";
+
+    module serveStatic {
+        var mime: typeof m;
+    }
 
     export = serveStatic;
 }

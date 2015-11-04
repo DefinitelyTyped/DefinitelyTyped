@@ -109,6 +109,7 @@ declare module angular.route {
     // see http://docs.angularjs.org/api/ng.$route#current
     interface ICurrentRoute extends IRoute {
         locals: {
+            [index: string]: any;
             $scope: IScope;
             $template: string;
         };

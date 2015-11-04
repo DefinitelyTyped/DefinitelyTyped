@@ -11,6 +11,7 @@ _.map({ one: 1, two: 2, three: 3 }, (value, key) => value * 3);
 //var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);	// https://typescript.codeplex.com/workitem/1960
 var sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num, 0);
 sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num); // memo is optional #issue 5 github
+sum = _.reduce<string, number>({'a':'1', 'b':'2', 'c':'3'}, (memo, numstr) => memo + (+numstr));
 
 var list = [[0, 1], [2, 3], [4, 5]];
 //var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
@@ -176,10 +177,16 @@ _.pairs({ one: 1, two: 2, three: 3 });
 _.invert({ Moe: "Moses", Larry: "Louis", Curly: "Jerome" });
 _.functions(_);
 _.extend({ name: 'moe' }, { age: 50 });
+_.extendOwn({ name: 'moe'}, { age: 50 });
+_.assign({ name: 'moe'}, { age: 50 });
 _.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']);
+
+_.mapObject({ a: 1, b: 2 }, val => val * 2) === _.mapObject({ a: 2, b: 4 }, _.identity);
+_.mapObject({ a: 1, b: 2 }, (val, key, o) => o[key] * 2) === _.mapObject({ a: 2, b: 4}, _.identity);
+_.mapObject({ x: "string 1", y: "string 2" }, 'length') === _.mapObject({ x: "string 1", y: "string 2"}, _.property('length'));
 
 var iceCream = { flavor: "chocolate" };
 _.defaults(iceCream, { flavor: "vanilla", sprinkles: "lots" });
@@ -286,17 +293,18 @@ _.result(object, 'stuff');
 var compiled = _.template("hello: <%= name %>");
 compiled({ name: 'moe' });
 var list2 = "<% _.each(people, function(name) { %> <li><%= name %></li> <% }); %>";
-_.template(list2, { people: ['moe', 'curly', 'larry'] });
+_.template(list2)({ people: ['moe', 'curly', 'larry'] });
 var template = _.template("<b><%- value %></b>");
 template({ value: '<script>' });
 var compiled2 = _.template("<% print('Hello ' + epithet); %>");
 compiled2({ epithet: "stooge" });
+var oldTemplateSettings = _.templateSettings;
 _.templateSettings = {
 	interpolate: /\{\{(.+?)\}\}/g
 };
 var template2 = _.template("Hello {{ name }}!");
 template2({ name: "Mustache" });
-_.template("Using 'with': <%= data.answer %>", { variable: 'data' });
+_.template("Using 'with': <%= data.answer %>", oldTemplateSettings)({ variable: 'data' });
 
 
 _(['test', 'test']).pick(['test2', 'test2']);
