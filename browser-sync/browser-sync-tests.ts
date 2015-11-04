@@ -1,6 +1,13 @@
 /// <reference path="./browser-sync.d.ts"/>
 import browserSync = require("browser-sync");
 
+(() => {
+    //make sure that the interfaces are correctly exposed
+    var bsInstance: browserSync.BrowserSyncInstance;
+    var bsStatic: browserSync.BrowserSyncStatic;
+    var opts: browserSync.Options;
+})();
+
 browserSync({
     server: {
         baseDir: "./"
