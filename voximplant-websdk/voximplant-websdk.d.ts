@@ -773,7 +773,7 @@ declare namespace VoxImplant {
 		*
 		*	@param config Client configuration options
 		*/
-		init(config: Config): void;
+		init(config?: Config): void;
 		/**
 		*	Check if WebRTC support is available
 		*/
