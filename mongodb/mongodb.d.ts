@@ -127,6 +127,14 @@ declare module "mongodb" {
     // Creates an ObjectID from a hex string representation of an ObjectID.
     // hexString – create a ObjectID from a passed in 24 byte hexstring.
     public static createFromHexString(hexString: string): ObjectID;
+    
+    // Checks if a value is a valid bson ObjectId
+    // id - Value to be checked
+    public static isValid(id: string): Boolean;
+    
+    // Generate a 12 byte id string used in ObjectID's
+    // time - optional parameter allowing to pass in a second based timestamp
+    public generate(time?: number): string;
   }
 
   // Class documentation : http://mongodb.github.io/node-mongodb-native/api-bson-generated/binary.html

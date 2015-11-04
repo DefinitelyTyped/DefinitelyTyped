@@ -5,6 +5,16 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
+interface IonicStatic {
+    version: string;
+}
+
+declare var ionic: IonicStatic;
+
+declare module 'ionic' {
+    export = ionic;
+}
+
 declare module ionic {
     module actionSheet {
         interface IonicActionSheetService {
@@ -56,7 +66,7 @@ declare module ionic {
     }
     module loading {
         interface IonicLoadingService {
-            show(opts: IonicLoadingOptions): void;
+            show(opts?: IonicLoadingOptions): void;
             hide(): void;
         }
         interface IonicLoadingOptions {

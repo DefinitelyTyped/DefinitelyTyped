@@ -36,6 +36,9 @@ interface Foo {
 interface Bar {
 	bar(): string;
 }
+interface Baz {
+  baz(): string;
+}
 
 // - - - - - - - - - - - - - - - - -
 
@@ -61,6 +64,7 @@ interface StrBarArrMap {
 
 var foo: Foo;
 var bar: Bar;
+var baz: Baz;
 
 var fooArr: Foo[];
 var barArr: Bar[];
@@ -76,6 +80,7 @@ var voidProm: Promise<void>;
 
 var fooProm: Promise<Foo>;
 var barProm: Promise<Bar>;
+var bazProm: Promise<Baz>;
 
 // - - - - - - - - - - - - - - - - -
 
@@ -496,6 +501,30 @@ barProm = fooProm.any<Bar>();
 barArrProm = fooProm.some<Bar>(num);
 
 barProm = fooProm.race<Bar>();
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Promise.all([fooProm, barProm]).then(result => {
+  result[0].foo();
+  result[1].bar();
+});
+
+Promise.all([fooProm, fooProm]).then(result => {
+  result[0].foo();
+  result[1].foo();
+});
+
+Promise.all([fooProm, barProm, bazProm]).then(result => {
+  result[0].foo();
+  result[1].bar();
+  result[2].baz();
+});
+
+Promise.all([fooProm, barProm, fooProm]).then(result => {
+  result[0].foo();
+  result[1].bar();
+  result[2].foo();
+});
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

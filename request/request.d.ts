@@ -16,47 +16,53 @@ declare module 'request' {
 	import fs = require('fs');
 
 	namespace request {
-		export interface RequestAPI<TRequest extends Request, TOptions extends Options> {
+		export interface RequestAPI<TRequest extends Request, TOptions extends OptionalOptions> {
 			defaults(options: TOptions): RequestAPI<TRequest, TOptions>;
 			(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			(uri: string, callback?: RequestCallback): TRequest;
-			(options?: TOptions, callback?: RequestCallback): TRequest;
-			
+			(options?: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
+
 			get(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			get(uri: string, callback?: RequestCallback): TRequest;
-			get(options: TOptions, callback?: RequestCallback): TRequest;
-	
+			get(options: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
+
 			post(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			post(uri: string, callback?: RequestCallback): TRequest;
-			post(options: TOptions, callback?: RequestCallback): TRequest;
-	
+			post(options: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
+
 			put(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			put(uri: string, callback?: RequestCallback): TRequest;
-			put(options: TOptions, callback?: RequestCallback): TRequest;
-	
+			put(options: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
+
 			head(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			head(uri: string, callback?: RequestCallback): TRequest;
-			head(options: TOptions, callback?: RequestCallback): TRequest;
-	
+			head(options: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
+
 			patch(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			patch(uri: string, callback?: RequestCallback): TRequest;
-			patch(options: TOptions, callback?: RequestCallback): TRequest;
-	
+			patch(options: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
+
 			del(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			del(uri: string, callback?: RequestCallback): TRequest;
-			del(options: TOptions, callback?: RequestCallback): TRequest;
-	
+			del(options: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
+
 			forever(agentOptions: any, optionsArg: any): TRequest;
 			jar(): CookieJar;
 			cookie(str: string): Cookie;
-	
+
 			initParams: any;
 			debug: boolean;
 		}
-		
-		export interface Options {
-			url?: string;
-			uri?: string;
+
+		interface UriOptions {
+			uri: string;
+		}
+
+		interface UrlOptions {
+			url: string;
+		}
+
+		interface OptionalOptions {
 			callback?: (error: any, response: http.IncomingMessage, body: any) => void;
 			jar?: any; // CookieJar
 			formData?: any; // Object
@@ -64,7 +70,7 @@ declare module 'request' {
 			auth?: AuthOptions;
 			oauth?: OAuthOptions;
 			aws?: AWSOptions;
-			hawk ?: HawkOptions;
+			hawk?: HawkOptions;
 			qs?: any;
 			json?: any;
 			multipart?: RequestPart[] | Multipart;
@@ -76,7 +82,7 @@ declare module 'request' {
 			method?: string;
 			headers?: Headers;
 			body?: any;
-			followRedirect?: boolean;
+			followRedirect?: boolean | ((response: http.IncomingMessage) => boolean);
 			followAllRedirects?: boolean;
 			maxRedirects?: number;
 			encoding?: string;
@@ -93,11 +99,14 @@ declare module 'request' {
 			ca?: Buffer;
 			har?: HttpArchiveRequest;
 		}
-		
+
+		export type RequiredOptions = UriOptions | UrlOptions;
+		export type Options = RequiredOptions & OptionalOptions;
+
 		export interface RequestCallback {
 			(error: any, response: http.IncomingMessage, body: any): void;
 		}
-		
+
 		export interface HttpArchiveRequest {
 			url?: string;
 			method?: string;
@@ -106,30 +115,30 @@ declare module 'request' {
 				mimeType?: string;
 				params?: NameValuePair[];
 			}
-	  	}
+		}
 
 		export interface NameValuePair {
 			name: string;
 			value: string;
 		}
-		
+
 		export interface Multipart {
-      		chunked?: boolean;
-      		data?: {
-           		'content-type'?: string,
-          		body: string
-        	}[];
+			chunked?: boolean;
+			data?: {
+				'content-type'?: string,
+				body: string
+			}[];
 		}
-	
+
 		export interface RequestPart {
 			headers?: Headers;
 			body: any;
 		}
-	
+
 		export interface Request extends stream.Stream {
 			readable: boolean;
 			writable: boolean;
-	
+
 			getAgent(): http.Agent;
 			//start(): void;
 			//abort(): void;
@@ -145,9 +154,9 @@ declare module 'request' {
 			auth(username: string, password: string, sendInmediately?: boolean, bearer?: string): Request;
 			oauth(oauth: OAuthOptions): Request;
 			jar(jar: CookieJar): Request;
-	
+
 			on(event: string, listener: Function): Request;
-	
+
 			write(buffer: Buffer, cb?: Function): boolean;
 			write(str: string, cb?: Function): boolean;
 			write(str: string, encoding: string, cb?: Function): boolean;
@@ -162,11 +171,11 @@ declare module 'request' {
 			destroy(): void;
 			toJSON(): Object;
 		}
-	
+
 		export interface Headers {
 			[key: string]: any;
 		}
-	
+
 		export interface AuthOptions {
 			user?: string;
 			username?: string;
@@ -175,7 +184,7 @@ declare module 'request' {
 			sendImmediately?: boolean;
 			bearer?: string;
 		}
-	
+
 		export interface OAuthOptions {
 			callback?: string;
 			consumer_key?: string;
@@ -184,28 +193,28 @@ declare module 'request' {
 			token_secret?: string;
 			verifier?: string;
 		}
-	
+
 		export interface HawkOptions {
 			credentials: any;
 		}
-	
+
 		export interface AWSOptions {
 			secret: string;
 			bucket?: string;
 		}
-	
+
 		export interface CookieJar {
-			setCookie(cookie: Cookie, uri: string|url.Url, options?: any): void
-			getCookieString(uri: string|url.Url): string
-			getCookies(uri: string|url.Url): Cookie[]
+			setCookie(cookie: Cookie, uri: string | url.Url, options?: any): void
+			getCookieString(uri: string | url.Url): string
+			getCookies(uri: string | url.Url): Cookie[]
 		}
-	
+
 		export interface CookieValue {
 			name: string;
 			value: any;
 			httpOnly: boolean;
 		}
-	
+
 		export interface Cookie extends Array<CookieValue> {
 			constructor(name: string, req: Request): void;
 			str: string;
@@ -213,7 +222,7 @@ declare module 'request' {
 			path: string;
 			toString(): string;
 		}
-	}	
-	var request: request.RequestAPI<request.Request, request.Options>;
+	}
+	var request: request.RequestAPI<request.Request, request.OptionalOptions>;
 	export = request;
 }

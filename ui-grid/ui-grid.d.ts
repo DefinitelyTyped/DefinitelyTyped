@@ -484,6 +484,10 @@ declare module uiGrid {
          */
         appScope?: ng.IScope;
         /**
+        * returns an array of columns in the grid
+        */
+        columns: Array<IGridColumn>;
+        /**
          * returns the total column footer height
          */
         columnFooterHeight?: number;
@@ -606,6 +610,13 @@ declare module uiGrid {
          */
         enableFiltering?: boolean;
         /**
+        * False by default. When enabled, this adds a settings icon in the top right of the grid, 
+        * which floats above the column header. The menu by default gives access to show/hide columns, 
+        * but can be customized to show additional actions.
+        * @default false
+        */
+        enableGridMenu?: boolean;
+        /**
          * uiGridConstants.scrollbars.ALWAYS by default. This settings controls the horizontal scrollbar for the grid.
          * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER
          * @default 1
@@ -719,6 +730,25 @@ declare module uiGrid {
          */
         horizontalScrollThreshold?: number;
         /**
+         * Number of rows from the end of the dataset
+         * at which infinite scroll will trigger a request
+         * for more data
+         * @default 20
+         */
+        infiniteScrollRowsFromEnd?: number;
+        /**
+         * Inform the grid of whether there are rows
+         * to load when scrolling up
+         * @default false
+         */
+        infiniteScrollUp?: boolean;
+        /**
+         * Inform the grid of whether there are rows
+         * to load scrolling down
+         * @default true
+         */
+        infiniteScrollDown?: boolean;
+        /**
          * Defaults to 200
          * @default 200
          */
@@ -796,6 +826,12 @@ declare module uiGrid {
          * @default 20
          */
         virtualizationThreshold?: number;
+        /**
+         * Disables client side filtering. When true, handle the filterChanged event and set data,
+         * defaults to false
+         * @default false
+         */
+        useExternalFiltering?: boolean;
         /**
          * Default time in milliseconds to throttle scroll events to, defaults to 70ms
          * @default 70
@@ -1015,6 +1051,12 @@ declare module uiGrid {
              * @param {scrollEndHandler} handler callback
              */
             scrollEnd: (scope: ng.IScope, handler: scrollEndHandler) => void;
+            /**
+             * is raised after the sort criteria on one or more columns have changed
+             * @param {ng.IScope} scope Grid scope
+             * @param {sortChangedHandler} handler callback
+             */
+            sortChanged: (scope: ng.IScope, handler: sortChangedHandler<TEntity>) => void;
         }
     }
     export interface columnVisibilityChangedHandler<TEntity> {
@@ -1071,6 +1113,15 @@ declare module uiGrid {
          * @param {JQueryMouseEventObject} scrollEvent Mouse scroll event
          */
         (scrollEvent: JQueryMouseEventObject): void;
+    }
+
+    export interface sortChangedHandler<TEntity> {
+        /**
+         * Sort change event callback 
+         * @param {IGridInstance} grid instance 
+         * @param {IGridColumn} array of gridColumns that have sorting on them, sorted in priority order
+         */
+        (grid: IGridInstanceOf<TEntity>, columns: Array<IGridColumnOf<TEntity>>): void;
     }
 
     export module cellNav {
