@@ -38,7 +38,7 @@ declare module Html2Canvas {
         useCORS?: boolean;
 
         /** Callback providing the rendered canvas element after rendering */
-        onrendered?(canvas: HTMLElement): void;
+        onrendered?(canvas: HTMLCanvasElement): void;
     }
 }
 
