@@ -56,7 +56,7 @@ db.ready(() => {
 
     usersDb.findSingle(
         {
-            userId: 18,
+            userId: '= 18',
             myComments: {
                 userId: '=',
                 tableRules: { //NEW: SET rules to joined tables too!
@@ -94,7 +94,7 @@ db.ready(() => {
 
     usersDb.find(
         {
-            yearsOld: 22,
+            yearsOld: '>= 18',
             comments: {
                 userId: "=",
                 tableRules: {
@@ -117,7 +117,7 @@ db.ready(() => {
     
     let _criteriaFromBuilder = usersDb.criteria
         .except("password") // or .exclude(...columns). the only column you cannot except/exclude is the primary key (because it is used at where clause), be careful.
-        .where("userId", 24)
+        .where("userId").eq(24)
         .joinAs("info", "userInfos", "userId") 
         .at("info")
         .limit(1) //because we make it limit 1 it will return this result as object not as array.
@@ -130,7 +130,7 @@ db.ready(() => {
     /* console.dir(_criteriaFromBuilder);
      prints this object: ( of course you can create your own in order to pass it on .find table methods )
     {
-        userId:23,
+        userId:'= 24',
         
         myComments:{
             userId: '=',
