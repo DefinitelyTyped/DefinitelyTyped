@@ -14,7 +14,7 @@ declare namespace __React {
         type: string | ComponentClass<P>;
         props: P;
         key: string | number;
-        ref: string | ((component: Component<P, any>) => any);
+        ref: string | ((component: Component<P, any> | Element) => any);
     }
 
     interface ClassicElement<P> extends ReactElement<P> {
@@ -22,13 +22,18 @@ declare namespace __React {
         ref: string | ((component: ClassicComponent<P, any>) => any);
     }
 
-    interface DOMElement<P> extends ClassicElement<P> {
+    interface DOMElement<P> extends ReactElement<P> {
         type: string;
-        ref: string | ((component: DOMComponent<P>) => any);
+        ref: string | ((element: Element) => any);
     }
 
-    type HTMLElement = DOMElement<HTMLAttributes>;
-    type SVGElement = DOMElement<SVGAttributes>;
+    interface ReactHTMLElement extends DOMElement<HTMLProps> {
+        ref: string | ((element: HTMLElement) => any);
+    }
+
+    interface ReactSVGElement extends DOMElement<SVGProps> {
+        ref: string | ((element: SVGElement) => any);
+    }
 
     //
     // Factories
@@ -46,9 +51,8 @@ declare namespace __React {
         (props?: P, ...children: ReactNode[]): DOMElement<P>;
     }
 
-    type HTMLFactory = DOMFactory<HTMLAttributes>;
-    type SVGFactory = DOMFactory<SVGAttributes>;
-    type SVGElementFactory = DOMFactory<SVGElementAttributes>;
+    type HTMLFactory = DOMFactory<HTMLProps>;
+    type SVGFactory = DOMFactory<SVGProps>;
 
     //
     // React Nodes
@@ -124,7 +128,7 @@ declare namespace __React {
         state: S;
         context: {};
         refs: {
-            [key: string]: Component<any, any>
+            [key: string]: Component<any, any> | Element
         };
     }
 
@@ -138,8 +142,8 @@ declare namespace __React {
         tagName: string;
     }
 
-    type HTMLComponent = DOMComponent<HTMLAttributes>;
-    type SVGComponent = DOMComponent<SVGAttributes>;
+    type HTMLComponent = DOMComponent<HTMLProps>;
+    type SVGComponent = DOMComponent<SVGProps>;
 
     interface ChildContextProvider<CC> {
         getChildContext(): CC;
@@ -315,7 +319,12 @@ declare namespace __React {
         ref?: string | ((component: T) => any);
     }
 
-    interface DOMAttributesBase<T> extends Props<T> {
+    interface HTMLProps extends HTMLAttributes, Props<HTMLElement> {
+    }
+    interface SVGProps extends SVGAttributes, Props<SVGElement> {
+    }
+
+    interface DOMAttributes {
         onCopy?: ClipboardEventHandler;
         onCut?: ClipboardEventHandler;
         onPaste?: ClipboardEventHandler;
@@ -360,9 +369,6 @@ declare namespace __React {
         };
     }
 
-    interface DOMAttributes extends DOMAttributesBase<DOMComponent<any>> {
-    }
-
     // This interface is not complete. Only properties accepting
     // unitless numbers are listed here (see CSSProperty.js in React)
     interface CSSProperties {
@@ -392,7 +398,7 @@ declare namespace __React {
         [propertyName: string]: any;
     }
 
-    interface HTMLAttributesBase<T> extends DOMAttributesBase<T> {
+    interface HTMLAttributes extends DOMAttributes {
         accept?: string;
         acceptCharset?: string;
         accessKey?: string;
@@ -510,17 +516,7 @@ declare namespace __React {
         unselectable?: boolean;
     }
 
-    interface HTMLAttributes extends HTMLAttributesBase<HTMLComponent> {
-    }
-
-    interface SVGElementAttributes extends HTMLAttributes {
-        viewBox?: string;
-        preserveAspectRatio?: string;
-    }
-
     interface SVGAttributes extends DOMAttributes {
-        ref?: string | ((component: SVGComponent) => void);
-
         cx?: number | string;
         cy?: number | string;
         d?: string;
@@ -689,7 +685,7 @@ declare namespace __React {
         wbr: HTMLFactory;
 
         // SVG
-        svg: SVGElementFactory;
+        svg: SVGFactory;
         circle: SVGFactory;
         defs: SVGFactory;
         ellipse: SVGFactory;
@@ -798,137 +794,136 @@ declare namespace JSX {
 
     interface IntrinsicElements {
         // HTML
-        a: React.HTMLAttributes;
-        abbr: React.HTMLAttributes;
-        address: React.HTMLAttributes;
-        area: React.HTMLAttributes;
-        article: React.HTMLAttributes;
-        aside: React.HTMLAttributes;
-        audio: React.HTMLAttributes;
-        b: React.HTMLAttributes;
-        base: React.HTMLAttributes;
-        bdi: React.HTMLAttributes;
-        bdo: React.HTMLAttributes;
-        big: React.HTMLAttributes;
-        blockquote: React.HTMLAttributes;
-        body: React.HTMLAttributes;
-        br: React.HTMLAttributes;
-        button: React.HTMLAttributes;
-        canvas: React.HTMLAttributes;
-        caption: React.HTMLAttributes;
-        cite: React.HTMLAttributes;
-        code: React.HTMLAttributes;
-        col: React.HTMLAttributes;
-        colgroup: React.HTMLAttributes;
-        data: React.HTMLAttributes;
-        datalist: React.HTMLAttributes;
-        dd: React.HTMLAttributes;
-        del: React.HTMLAttributes;
-        details: React.HTMLAttributes;
-        dfn: React.HTMLAttributes;
-        dialog: React.HTMLAttributes;
-        div: React.HTMLAttributes;
-        dl: React.HTMLAttributes;
-        dt: React.HTMLAttributes;
-        em: React.HTMLAttributes;
-        embed: React.HTMLAttributes;
-        fieldset: React.HTMLAttributes;
-        figcaption: React.HTMLAttributes;
-        figure: React.HTMLAttributes;
-        footer: React.HTMLAttributes;
-        form: React.HTMLAttributes;
-        h1: React.HTMLAttributes;
-        h2: React.HTMLAttributes;
-        h3: React.HTMLAttributes;
-        h4: React.HTMLAttributes;
-        h5: React.HTMLAttributes;
-        h6: React.HTMLAttributes;
-        head: React.HTMLAttributes;
-        header: React.HTMLAttributes;
-        hr: React.HTMLAttributes;
-        html: React.HTMLAttributes;
-        i: React.HTMLAttributes;
-        iframe: React.HTMLAttributes;
-        img: React.HTMLAttributes;
-        input: React.HTMLAttributes;
-        ins: React.HTMLAttributes;
-        kbd: React.HTMLAttributes;
-        keygen: React.HTMLAttributes;
-        label: React.HTMLAttributes;
-        legend: React.HTMLAttributes;
-        li: React.HTMLAttributes;
-        link: React.HTMLAttributes;
-        main: React.HTMLAttributes;
-        map: React.HTMLAttributes;
-        mark: React.HTMLAttributes;
-        menu: React.HTMLAttributes;
-        menuitem: React.HTMLAttributes;
-        meta: React.HTMLAttributes;
-        meter: React.HTMLAttributes;
-        nav: React.HTMLAttributes;
-        noscript: React.HTMLAttributes;
-        object: React.HTMLAttributes;
-        ol: React.HTMLAttributes;
-        optgroup: React.HTMLAttributes;
-        option: React.HTMLAttributes;
-        output: React.HTMLAttributes;
-        p: React.HTMLAttributes;
-        param: React.HTMLAttributes;
-        picture: React.HTMLAttributes;
-        pre: React.HTMLAttributes;
-        progress: React.HTMLAttributes;
-        q: React.HTMLAttributes;
-        rp: React.HTMLAttributes;
-        rt: React.HTMLAttributes;
-        ruby: React.HTMLAttributes;
-        s: React.HTMLAttributes;
-        samp: React.HTMLAttributes;
-        script: React.HTMLAttributes;
-        section: React.HTMLAttributes;
-        select: React.HTMLAttributes;
-        small: React.HTMLAttributes;
-        source: React.HTMLAttributes;
-        span: React.HTMLAttributes;
-        strong: React.HTMLAttributes;
-        style: React.HTMLAttributes;
-        sub: React.HTMLAttributes;
-        summary: React.HTMLAttributes;
-        sup: React.HTMLAttributes;
-        table: React.HTMLAttributes;
-        tbody: React.HTMLAttributes;
-        td: React.HTMLAttributes;
-        textarea: React.HTMLAttributes;
-        tfoot: React.HTMLAttributes;
-        th: React.HTMLAttributes;
-        thead: React.HTMLAttributes;
-        time: React.HTMLAttributes;
-        title: React.HTMLAttributes;
-        tr: React.HTMLAttributes;
-        track: React.HTMLAttributes;
-        u: React.HTMLAttributes;
-        ul: React.HTMLAttributes;
-        "var": React.HTMLAttributes;
-        video: React.HTMLAttributes;
-        wbr: React.HTMLAttributes;
+        a: React.HTMLProps;
+        abbr: React.HTMLProps;
+        address: React.HTMLProps;
+        area: React.HTMLProps;
+        article: React.HTMLProps;
+        aside: React.HTMLProps;
+        audio: React.HTMLProps;
+        b: React.HTMLProps;
+        base: React.HTMLProps;
+        bdi: React.HTMLProps;
+        bdo: React.HTMLProps;
+        big: React.HTMLProps;
+        blockquote: React.HTMLProps;
+        body: React.HTMLProps;
+        br: React.HTMLProps;
+        button: React.HTMLProps;
+        canvas: React.HTMLProps;
+        caption: React.HTMLProps;
+        cite: React.HTMLProps;
+        code: React.HTMLProps;
+        col: React.HTMLProps;
+        colgroup: React.HTMLProps;
+        data: React.HTMLProps;
+        datalist: React.HTMLProps;
+        dd: React.HTMLProps;
+        del: React.HTMLProps;
+        details: React.HTMLProps;
+        dfn: React.HTMLProps;
+        dialog: React.HTMLProps;
+        div: React.HTMLProps;
+        dl: React.HTMLProps;
+        dt: React.HTMLProps;
+        em: React.HTMLProps;
+        embed: React.HTMLProps;
+        fieldset: React.HTMLProps;
+        figcaption: React.HTMLProps;
+        figure: React.HTMLProps;
+        footer: React.HTMLProps;
+        form: React.HTMLProps;
+        h1: React.HTMLProps;
+        h2: React.HTMLProps;
+        h3: React.HTMLProps;
+        h4: React.HTMLProps;
+        h5: React.HTMLProps;
+        h6: React.HTMLProps;
+        head: React.HTMLProps;
+        header: React.HTMLProps;
+        hr: React.HTMLProps;
+        html: React.HTMLProps;
+        i: React.HTMLProps;
+        iframe: React.HTMLProps;
+        img: React.HTMLProps;
+        input: React.HTMLProps;
+        ins: React.HTMLProps;
+        kbd: React.HTMLProps;
+        keygen: React.HTMLProps;
+        label: React.HTMLProps;
+        legend: React.HTMLProps;
+        li: React.HTMLProps;
+        link: React.HTMLProps;
+        main: React.HTMLProps;
+        map: React.HTMLProps;
+        mark: React.HTMLProps;
+        menu: React.HTMLProps;
+        menuitem: React.HTMLProps;
+        meta: React.HTMLProps;
+        meter: React.HTMLProps;
+        nav: React.HTMLProps;
+        noscript: React.HTMLProps;
+        object: React.HTMLProps;
+        ol: React.HTMLProps;
+        optgroup: React.HTMLProps;
+        option: React.HTMLProps;
+        output: React.HTMLProps;
+        p: React.HTMLProps;
+        param: React.HTMLProps;
+        picture: React.HTMLProps;
+        pre: React.HTMLProps;
+        progress: React.HTMLProps;
+        q: React.HTMLProps;
+        rp: React.HTMLProps;
+        rt: React.HTMLProps;
+        ruby: React.HTMLProps;
+        s: React.HTMLProps;
+        samp: React.HTMLProps;
+        script: React.HTMLProps;
+        section: React.HTMLProps;
+        select: React.HTMLProps;
+        small: React.HTMLProps;
+        source: React.HTMLProps;
+        span: React.HTMLProps;
+        strong: React.HTMLProps;
+        style: React.HTMLProps;
+        sub: React.HTMLProps;
+        summary: React.HTMLProps;
+        sup: React.HTMLProps;
+        table: React.HTMLProps;
+        tbody: React.HTMLProps;
+        td: React.HTMLProps;
+        textarea: React.HTMLProps;
+        tfoot: React.HTMLProps;
+        th: React.HTMLProps;
+        thead: React.HTMLProps;
+        time: React.HTMLProps;
+        title: React.HTMLProps;
+        tr: React.HTMLProps;
+        track: React.HTMLProps;
+        u: React.HTMLProps;
+        ul: React.HTMLProps;
+        "var": React.HTMLProps;
+        video: React.HTMLProps;
+        wbr: React.HTMLProps;
 
         // SVG
-        svg: React.SVGElementAttributes;
-
-        circle: React.SVGAttributes;
-        defs: React.SVGAttributes;
-        ellipse: React.SVGAttributes;
-        g: React.SVGAttributes;
-        line: React.SVGAttributes;
-        linearGradient: React.SVGAttributes;
-        mask: React.SVGAttributes;
-        path: React.SVGAttributes;
-        pattern: React.SVGAttributes;
-        polygon: React.SVGAttributes;
-        polyline: React.SVGAttributes;
-        radialGradient: React.SVGAttributes;
-        rect: React.SVGAttributes;
-        stop: React.SVGAttributes;
-        text: React.SVGAttributes;
-        tspan: React.SVGAttributes;
+        circle: React.SVGProps;
+        defs: React.SVGProps;
+        ellipse: React.SVGProps;
+        g: React.SVGProps;
+        line: React.SVGProps;
+        linearGradient: React.SVGProps;
+        mask: React.SVGProps;
+        path: React.SVGProps;
+        pattern: React.SVGProps;
+        polygon: React.SVGProps;
+        polyline: React.SVGProps;
+        radialGradient: React.SVGProps;
+        rect: React.SVGProps;
+        stop: React.SVGProps;
+        svg: React.SVGProps;
+        text: React.SVGProps;
+        tspan: React.SVGProps;
     }
 }

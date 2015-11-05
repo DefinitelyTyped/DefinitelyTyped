@@ -16,15 +16,15 @@ declare namespace __React {
         function render<P>(
             element: DOMElement<P>,
             container: Element,
-            callback?: () => any): DOMComponent<P>;
+            callback?: (element: Element) => any): Element;
         function render<P, S>(
             element: ClassicElement<P>,
             container: Element,
-            callback?: () => any): ClassicComponent<P, S>;
+            callback?: (component: ClassicComponent<P, S>) => any): ClassicComponent<P, S>;
         function render<P, S>(
             element: ReactElement<P>,
             container: Element,
-            callback?: () => any): Component<P, S>;
+            callback?: (component: Component<P, S>) => any): Component<P, S>;
     
         function unmountComponentAtNode(container: Element): boolean;
         
@@ -38,7 +38,7 @@ declare namespace __React {
             parentComponent: Component<any, any>,
             nextElement: DOMElement<P>,
             container: Element,
-            callback?: (component: DOMComponent<P>) => any): DOMComponent<P>;
+            callback?: (element: Element) => any): Element;
         function unstable_renderSubtreeIntoContainer<P, S>(
             parentComponent: Component<any, any>,
             nextElement: ClassicElement<P>,
