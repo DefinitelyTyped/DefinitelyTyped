@@ -2777,10 +2777,6 @@ module TestMap {
     }
 }
 
-result = <string[]>_.pluck(stoogesAges, 'name');
-result = <string[]>_(stoogesAges).pluck('name').value();
-result = <string[]>_.pluck(stoogesAges, ['name']);
-
 // _.partition
 result = <string[][]>_.partition<string>('abcd', (n) => n < 'c');
 result = <string[][]>_.partition<string>(['a', 'b', 'c', 'd'], (n) => n < 'c');
@@ -2808,6 +2804,69 @@ result = <{a: number}[][]>_([{a: 1}, {a: 2}]).partition('a').value();
 result = <{a: number}[][]>_([{a: 1}, {a: 2}]).partition('a', 2).value();
 result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}>('a').value();
 result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}>('a', 2).value();
+
+// _.pluck
+module TestPluck {
+    interface SampleObject {
+        d: {b: TResult}[];
+    }
+
+    let array: SampleObject[];
+    let list: _.List<SampleObject>;
+    let dictionary: _.Dictionary<SampleObject>;
+
+    {
+        let result: any[];
+
+        result = _.pluck<SampleObject>(array, 'd.0.b');
+        result = _.pluck<SampleObject>(array, ['d', 0, 'b']);
+
+        result = _.pluck<SampleObject>(list, 'd.0.b');
+        result = _.pluck<SampleObject>(list, ['d', 0, 'b']);
+
+        result = _.pluck<SampleObject>(dictionary, 'd.0.b');
+        result = _.pluck<SampleObject>(dictionary, ['d', 0, 'b']);
+    }
+
+    {
+        let result: TResult[];
+
+        result = _.pluck<SampleObject, TResult>(array, 'd.0.b');
+        result = _.pluck<SampleObject, TResult>(array, ['d', 0, 'b']);
+
+        result = _.pluck<SampleObject, TResult>(list, 'd.0.b');
+        result = _.pluck<SampleObject, TResult>(list, ['d', 0, 'b']);
+
+        result = _.pluck<SampleObject, TResult>(dictionary, 'd.0.b');
+        result = _.pluck<SampleObject, TResult>(dictionary, ['d', 0, 'b']);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).pluck<TResult>('d.0.b');
+        result = _(array).pluck<TResult>(['d', 0, 'b']);
+
+        result = _(list).pluck<TResult>('d.0.b');
+        result = _(list).pluck<TResult>(['d', 0, 'b']);
+
+        result = _(dictionary).pluck<TResult>('d.0.b');
+        result = _(dictionary).pluck<TResult>(['d', 0, 'b']);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().pluck<TResult>('d.0.b');
+        result = _(array).chain().pluck<TResult>(['d', 0, 'b']);
+
+        result = _(list).chain().pluck<TResult>('d.0.b');
+        result = _(list).chain().pluck<TResult>(['d', 0, 'b']);
+
+        result = _(dictionary).chain().pluck<TResult>('d.0.b');
+        result = _(dictionary).chain().pluck<TResult>(['d', 0, 'b']);
+    }
+}
 
 interface ABC {
     [index: string]: number;
