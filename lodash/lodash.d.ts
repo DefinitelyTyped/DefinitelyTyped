@@ -11557,6 +11557,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Generates a unique ID. If prefix is provided the ID is appended to it.
+         *
          * @param prefix The value to prefix the ID with.
          * @return Returns the unique ID.
          */
@@ -11568,6 +11569,13 @@ declare module _ {
          * @see _.uniqueId
          */
         uniqueId(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.uniqueId
+         */
+        uniqueId(): LoDashExplicitWrapper<string>;
     }
 
     interface ListIterator<T, TResult> {
