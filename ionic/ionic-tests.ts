@@ -371,8 +371,10 @@ class IonicTestController {
      * ionic.Platform
      */
     private testStaticPlaform(): void {
-        var ready: void = ionic.Platform.ready(function() {
-        });
+        var callbackWithoutReturn: ()=>void;
+        var callbackWithReturn: ()=>boolean;
+        var ready: void = ionic.Platform.ready(callbackWithoutReturn);
+        ready = ionic.Platform.ready(callbackWithReturn);
         var setGrade: void = ionic.Platform.setGrade('iOS');
         var deviceInformation: string = ionic.Platform.device();
         var isWebView: boolean = ionic.Platform.isWebView();

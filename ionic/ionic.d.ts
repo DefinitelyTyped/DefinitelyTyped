@@ -21,7 +21,7 @@ interface IonicStatic {
          * Please remember that Cordova features (Camera, FileSystem, etc) still
          * will not work in a web browser.
          */
-        ready(callback: ()=>void): void;
+        ready(callback: ()=>any): void;
         /**
          * Set the grade of the device: ‘a’, ‘b’, or ‘c’. ‘a’ is the best
          * (most css features enabled), ‘c’ is the worst. By default, sets the grade
