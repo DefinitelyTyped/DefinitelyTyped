@@ -30,15 +30,15 @@
 	<a class="item" href="/"><i class="home icon"></i> Home</a>
 	<a class="item" href="/guides.html"><i class="wrench icon"></i> Guides</a>
 	<a class="item" href="/directory.html"><i class="unordered list icon"></i> Directory</a>
-	<a class="item" href="https://github.com/borisyankov/DefinitelyTyped"><i class="github icon"></i> Repository</a>
+	<a class="item" href="https://github.com/DefinitelyTyped/DefinitelyTyped"><i class="github icon"></i> Repository</a>
 	<a class="item" href="http://definitelytyped.org/tsd/"><i class="terminal icon"></i> TSD</a>
 	<a class="item" href="http://nuget.org/packages?q=DefinitelyTyped"><i class="download disk icon"></i> NuGet</a>
 <!--
 	<div class="right menu">
 		<div class="item">
-			<iframe src="http://ghbtns.com/github-btn.html?user=borisyankov&repo=DefinitelyTyped&type=watch&count=true"
+			<iframe src="http://ghbtns.com/github-btn.html?user=DefinitelyTyped&repo=DefinitelyTyped&type=watch&count=true"
 					allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
-			<iframe src="http://ghbtns.com/github-btn.html?user=borisyankov&repo=DefinitelyTyped&type=fork&count=true"
+			<iframe src="http://ghbtns.com/github-btn.html?user=DefinitelyTyped&repo=DefinitelyTyped&type=fork&count=true"
 					allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
 		</div>
 	</div>
@@ -60,12 +60,12 @@
 	<h2 id="getting-latest-upstream-changes"  class="ui header">Getting latest upstream changes</h2>
 <p>You don&#39;t need to do this unless we request you to do so.</p>
 <p>Initially make sure you have DT added as an upstream remote in your fork. Do this by :</p>
-<pre><code>git remote <span class="hljs-built_in">add</span> upstream http<span class="hljs-variable">s:</span>//github.<span class="hljs-keyword">com</span>/borisyankov/DefinitelyTyped.git
+<pre><code>git remote <span class="hljs-built_in">add</span> upstream http<span class="hljs-variable">s:</span>//github.<span class="hljs-keyword">com</span>/DefinitelyTyped/DefinitelyTyped.git
 </code></pre><p>Now whenever you want the latest changes from DT added to your local branch just run these two commands :</p>
 <pre><code>git fetch upstream
-# Fetches any new changes from DefinitelyTyped
-git <span class="hljs-operator"><span class="hljs-keyword">merge</span> upstream/<span class="hljs-keyword">master</span>
-# Merges <span class="hljs-keyword">any</span> changes fetched <span class="hljs-keyword">into</span> your working files</span>
+<span class="hljs-comment"># Fetches any new changes from DefinitelyTyped</span>
+git merge upstream/<span class="hljs-keyword">master</span>
+<span class="hljs-title"># Merges</span> any changes fetched into your working files
 </code></pre><h2 id="broken-build"  class="ui header">Broken Build</h2>
 <p>If tests fail and you know how to fix them, just add a commit to fix that error in your local branch and push it to your DT fork. If the Pull Request uses the same branch it will be update automatically and the tests will run again.</p>
 <p>If you need multiple tries to make it work then please flatten your commits so the history is moderately clean (please also minimise the commit message). You could <code>git push --force</code> (<em>careful!</em>) the flat commit over your earlier commits in the same branch and the PR will be automatically updated.</p>
@@ -110,7 +110,7 @@ git <span class="hljs-operator"><span class="hljs-keyword">merge</span> upstream
 	<div class="row">
 		<div class="column">
 			<a href="/">Home</a>
-			- <a href="https://github.com/borisyankov/DefinitelyTyped">GitHub</a>
+			- <a href="https://github.com/DefinitelyTyped/DefinitelyTyped">GitHub</a>
 			- <a href="http://definitelytyped.org/tsd/">TSD</a>
 			- <a href="http://nuget.org/packages?q=DefinitelyTyped">NuGet</a>
 		</div>

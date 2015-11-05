@@ -30,15 +30,15 @@
 	<a class="item" href="/"><i class="home icon"></i> Home</a>
 	<a class="item" href="/guides.html"><i class="wrench icon"></i> Guides</a>
 	<a class="item" href="/directory.html"><i class="unordered list icon"></i> Directory</a>
-	<a class="item" href="https://github.com/borisyankov/DefinitelyTyped"><i class="github icon"></i> Repository</a>
+	<a class="item" href="https://github.com/DefinitelyTyped/DefinitelyTyped"><i class="github icon"></i> Repository</a>
 	<a class="item" href="http://definitelytyped.org/tsd/"><i class="terminal icon"></i> TSD</a>
 	<a class="item" href="http://nuget.org/packages?q=DefinitelyTyped"><i class="download disk icon"></i> NuGet</a>
 <!--
 	<div class="right menu">
 		<div class="item">
-			<iframe src="http://ghbtns.com/github-btn.html?user=borisyankov&repo=DefinitelyTyped&type=watch&count=true"
+			<iframe src="http://ghbtns.com/github-btn.html?user=DefinitelyTyped&repo=DefinitelyTyped&type=watch&count=true"
 					allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
-			<iframe src="http://ghbtns.com/github-btn.html?user=borisyankov&repo=DefinitelyTyped&type=fork&count=true"
+			<iframe src="http://ghbtns.com/github-btn.html?user=DefinitelyTyped&repo=DefinitelyTyped&type=fork&count=true"
 					allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
 		</div>
 	</div>
@@ -80,16 +80,16 @@
 <pre><code>/<span class="hljs-regexp">/ Type definitions for [LIBRARY NAME]
 /</span><span class="hljs-regexp">/ Project: [LIBRARY URL]
 /</span><span class="hljs-regexp">/ Definitions by: [AUTHOR NAME] &lt;[AUTHOR URL]&gt;
-/</span><span class="hljs-regexp">/ Definitions: https:/</span><span class="hljs-regexp">/github.com/borisyankov</span><span class="hljs-regexp">/DefinitelyTyped</span>
+/</span><span class="hljs-regexp">/ Definitions: https:/</span><span class="hljs-regexp">/github.com/</span><span class="hljs-constant">DefinitelyTyped</span>/<span class="hljs-constant">DefinitelyTyped</span>
 </code></pre><p>If the version of the library is known then add it as a semver to the label.</p>
 <pre><code>/<span class="hljs-regexp">/ Type definitions for Backbone v0.9.10
 /</span><span class="hljs-regexp">/ Project: http:/</span><span class="hljs-regexp">/backbonejs.org/</span>
 /<span class="hljs-regexp">/ Definitions by: Boris Yankov &lt;https:/</span><span class="hljs-regexp">/github.com/borisyankov</span><span class="hljs-regexp">/&gt;
-/</span><span class="hljs-regexp">/ Definitions: https:/</span><span class="hljs-regexp">/github.com/borisyankov</span><span class="hljs-regexp">/DefinitelyTyped</span>
+/</span><span class="hljs-regexp">/ Definitions: https:/</span><span class="hljs-regexp">/github.com/</span><span class="hljs-constant">DefinitelyTyped</span>/<span class="hljs-constant">DefinitelyTyped</span>
 </code></pre><h3 id="namespacing"  class="ui header">Namespacing</h3>
 <div class="ui list"><div class="ui item">Be careful to use a module to avoid conflicts to your internal interfaces and the interfaces from another typings. See <a href="/guides/best-practices.html">best practices</a> and <a href="https://typescript.codeplex.com/wikipage?title=Writing%20Definition%20%28.d.ts%29%20Files">the TypeScript wiki</a> for some tips.</div>
 </div><blockquote>
-<p>The <a href="https://github.com/borisyankov/DefinitelyTyped/blob/master/jquery.bbq/jquery.bbq.d.ts"><code>jQuery.bbq</code> typing</a> has the interfaces in a module named <code>JQueryBbq</code></p>
+<p>The <a href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/jquery.bbq/jquery.bbq.d.ts"><code>jQuery.bbq</code> typing</a> has the interfaces in a module named <code>JQueryBbq</code></p>
 </blockquote>
 <p>Example:</p>
 <pre><code class="lang-typescript"><span class="hljs-keyword">module</span> JQueryBbq {
@@ -108,7 +108,7 @@
 <p>Take advantage of TypeScript <a href="http://blogs.msdn.com/b/typescript/archive/2013/01/21/announcing-typescript-0-8-2.aspx">JSDoc support</a>.</p>
 <h2 id="tests"  class="ui header">Tests</h2>
 <p>The typing must have tests in a files called <code>library-tests.ts</code>. The tests are not runnable in the TDD way but contain code that should compile with no errors, usually taken from the documentation samples of the library.</p>
-<p>Example: <code>backbone.d.ts</code> has a test file named <code>backbone-tests.ts</code>, with this <a href="https://github.com/borisyankov/DefinitelyTyped/blob/master/backbone/backbone-tests.ts">example of a real test file</a>.</p>
+<p>Example: <code>backbone.d.ts</code> has a test file named <code>backbone-tests.ts</code>, with this <a href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/backbone/backbone-tests.ts">example of a real test file</a>.</p>
 <p>There are a few ways to test changes:</p>
 <div class="ui ordered list"><div class="ui item">Simply compile the test file:<div class="ui list"><div class="ui item"><code>tsc --noImplicitAny your/code-tests.ts</code></div>
 <div class="ui item"><code>tsc --noImplicitAny --module commonjs your/code-tests.ts</code></div>
@@ -122,11 +122,11 @@
 </div></div>
 <div class="ui item">Depend on the automated test on Travis that runs after you send a PR.<div class="ui list"><div class="ui item">If you need many attempts to fix errors then please flatten the history and clean the commit message.</div>
 </div></div>
-</div><p>You can use a <code>tscparams</code> file to specify custom compiler arguments e.g. <a href="https://github.com/borisyankov/DefinitelyTyped/blob/master/atom/atom-tests.ts.tscparams">atom/atom-tests.ts.tscparams</a></p>
+</div><p>You can use a <code>tscparams</code> file to specify custom compiler arguments e.g. <a href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/atom/atom-tests.ts.tscparams">atom/atom-tests.ts.tscparams</a></p>
 <p>Note: By default <code>npm test</code> only runs tests for the changed / new definition files. To run all tests just execute <code>npm run all</code>.</p>
 <h2 id="code-style"  class="ui header">Code style</h2>
 <div class="ui list"><div class="ui item">At this point we do not enforce a specific <em>general</em> code style, but we do like idiomatic code in each <em>individual</em> file.</div>
-<div class="ui item">When creating a new definition file the author is free to choose either tabs or 4-space indentation (<a href="https://github.com/borisyankov/DefinitelyTyped/issues/1709">discussion</a> on github).</div>
+<div class="ui item">When creating a new definition file the author is free to choose either tabs or 4-space indentation (<a href="https://github.com/DefinitelyTyped/DefinitelyTyped/issues/1709">discussion</a> on github).</div>
 <div class="ui item">Choice between Unix or Windows linebreaks is not enforced, as node.js doesn&#39;t care for it either way. Try to keep it idiomatic per file.</div>
 <div class="ui item">When editing an existing file please maintain the existing style as much as possible, this includes indenting, separator whitespace, bracing etc..</div>
 <div class="ui item">Do not use fancy code alignments or smart-tabs; instead keep things plain and simple.</div>
@@ -136,7 +136,7 @@
 </div><h2 id="private-apis"  class="ui header">Private APIs</h2>
 <p>We do not support exposing <em>undocumented</em> internal implementation details of libraries in <code>.d.ts</code> files. We follow this more strictly for <em>popular</em> libraries with good documentation e.g. jquery, angular, node etc.</p>
 <h2 id="contributors-link"  class="ui header">Contributors link</h2>
-<p><a href="https://github.com/borisyankov/DefinitelyTyped/blob/master/CONTRIBUTORS.md">CONTRIBUTORS.md</a> will update automatically.</p>
+<p><a href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/CONTRIBUTORS.md">CONTRIBUTORS.md</a> will update automatically.</p>
 <h3 id="note"  class="ui header">Note</h3>
 <p>Keep in mind the repos is a community project with a wide range on quality in contributions and moderation; so there may be the occasional rule violation or historical artifact.</p>
 
@@ -171,7 +171,7 @@
 	<div class="row">
 		<div class="column">
 			<a href="/">Home</a>
-			- <a href="https://github.com/borisyankov/DefinitelyTyped">GitHub</a>
+			- <a href="https://github.com/DefinitelyTyped/DefinitelyTyped">GitHub</a>
 			- <a href="http://definitelytyped.org/tsd/">TSD</a>
 			- <a href="http://nuget.org/packages?q=DefinitelyTyped">NuGet</a>
 		</div>
