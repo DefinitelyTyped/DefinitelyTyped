@@ -27,7 +27,7 @@ function testPieChart() {
       .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    d3.csv("data.csv", d => ({ population: +d['population'], age: d['age'] }), function (error:any, data: TestPieChartData[]) {
+    d3.csv("data.csv", d => ({ population: +d['population'], age: d['age'] }), function (error, data) {
         var g = svg.selectAll(".arc")
             .data(pie(data))
           .enter().append("g")
@@ -1951,7 +1951,7 @@ function irisParallel() {
 
     var line = d3.svg.line(),
         axis = d3.svg.axis().orient("left"),
-        foreground:any;
+        foreground:d3.Selection<{ [key: string]: string}>;
 
     var svg = d3.select("body").append("svg:svg")
         .attr("width", w + m[1] + m[3])
@@ -2055,7 +2055,7 @@ function irisParallel() {
     function brush() {
         var actives = traits.filter(function (p) { return !y[p].brush.empty(); } ),
             extents = actives.map(function (p) { return y[p].brush.extent(); } );
-        foreground.classed("fade", function (d:any) {
+        foreground.classed("fade", function (d) {
             return !actives.every(function (p, i) {
                 return extents[i][0] <= d[p] && d[p] <= extents[i][1];
             } );
