@@ -1,5 +1,24 @@
 /// <reference path="react.d.ts" />
+/// <reference path="react-dom.d.ts" />
+/// <reference path="react-addons-create-fragment.d.ts" />
+/// <reference path="react-addons-css-transition-group.d.ts" />
+/// <reference path="react-addons-linked-state-mixin.d.ts" />
+/// <reference path="react-addons-perf.d.ts" />
+/// <reference path="react-addons-pure-render-mixin.d.ts" />
+/// <reference path="react-addons-test-utils.d.ts" />
+/// <reference path="react-addons-transition-group.d.ts" />
+/// <reference path="react-addons-update.d.ts" />
 import React = require("react");
+import ReactDOM = require("react-dom");
+import ReactDOMServer = require("react-dom/server");
+import createFragment = require("react-addons-create-fragment");
+import CSSTransitionGroup = require("react-addons-css-transition-group");
+import LinkedStateMixin = require("react-addons-linked-state-mixin");
+import Perf = require("react-addons-perf");
+import PureRenderMixin = require("react-addons-pure-render-mixin");
+import TestUtils = require("react-addons-test-utils");
+import TransitionGroup = require("react-addons-transition-group");
+import update = require("react-addons-update");
 
 interface Props extends React.Props<MyComponent> {
     hello: string;
@@ -149,21 +168,20 @@ var clonedDOMElement: React.HTMLElement =
 
 // React.render
 var component: React.Component<Props, any> =
-    React.render(element, container);
+    ReactDOM.render(element, container);
 var classicComponent: React.ClassicComponent<Props, any> =
-    React.render(classicElement, container);
+    ReactDOM.render(classicElement, container);
 var domComponent: React.DOMComponent<any> =
-    React.render(domElement, container);
+    ReactDOM.render(domElement, container);
 
 // Other Top-Level API
-var unmounted: boolean = React.unmountComponentAtNode(container);
-var str: string = React.renderToString(element);
-var markup: string = React.renderToStaticMarkup(element);
+var unmounted: boolean = ReactDOM.unmountComponentAtNode(container);
+var str: string = ReactDOMServer.renderToString(element);
+var markup: string = ReactDOMServer.renderToStaticMarkup(element);
 var notValid: boolean = React.isValidElement(props); // false
 var isValid = React.isValidElement(element); // true
-React.initializeTouchEvents(true);
-var domNode: Element = React.findDOMNode(component);
-domNode = React.findDOMNode(domNode);
+var domNode: Element = ReactDOM.findDOMNode(component);
+domNode = ReactDOM.findDOMNode(domNode);
 
 //
 // React Elements
@@ -191,11 +209,7 @@ component.setState({ inputValue: "!!!" });
 component.forceUpdate();
 
 // classic
-var htmlElement: Element = classicComponent.getDOMNode();
-var divElement: HTMLDivElement = classicComponent.getDOMNode<HTMLDivElement>();
 var isMounted: boolean = classicComponent.isMounted();
-classicComponent.setProps(elementProps);
-classicComponent.replaceProps(props);
 classicComponent.replaceState({ inputValue: "???", seconds: 60 });
 
 var myComponent = <MyComponent>component;
@@ -367,5 +381,93 @@ class Timer extends React.Component<{}, TimerState> {
         );
     }
 }
-React.render(React.createElement(Timer), container);
+ReactDOM.render(React.createElement(Timer), container);
 
+//
+// createFragment addon
+// --------------------------------------------------------------------------
+createFragment({
+    a: React.DOM.div(),
+    b: ["a", false, React.createElement("span")]
+});
+
+//
+// CSSTransitionGroup addon
+// --------------------------------------------------------------------------
+React.createFactory(CSSTransitionGroup)({
+    component: React.createClass({
+        render: (): React.ReactElement<any> => null
+    }),
+    childFactory: (c) => c,
+    transitionName: "transition",
+    transitionAppear: false,
+    transitionEnter: true,
+    transitionLeave: true
+});
+
+//
+// LinkedStateMixin addon
+// --------------------------------------------------------------------------
+React.createClass({
+  mixins: [LinkedStateMixin],
+  render: function() { return React.DOM.div(null) }
+});
+
+//
+// Perf addon
+// --------------------------------------------------------------------------
+Perf.start();
+Perf.stop();
+var measurements = Perf.getLastMeasurements();
+Perf.printInclusive(measurements);
+Perf.printExclusive(measurements);
+Perf.printWasted(measurements);
+Perf.printDOM(measurements);
+
+//
+// PureRenderMixin addon
+// --------------------------------------------------------------------------
+React.createClass({
+  mixins: [PureRenderMixin],
+  render: function() { return React.DOM.div(null) }
+});
+
+//
+// TestUtils addon
+// --------------------------------------------------------------------------
+var node: Element;
+TestUtils.Simulate.click(node);
+TestUtils.Simulate.change(node);
+TestUtils.Simulate.keyDown(node, { key: "Enter" });
+
+var renderer: React.ShallowRenderer =
+    TestUtils.createRenderer();
+renderer.render(React.createElement(Timer));
+var output: React.ReactElement<React.Props<Timer>> =
+    renderer.getRenderOutput();
+    
+//
+// TransitionGroup addon
+// --------------------------------------------------------------------------
+React.createFactory(TransitionGroup)({ component: "div" });
+
+//
+// update addon
+// --------------------------------------------------------------------------
+{
+// These are copied from https://facebook.github.io/react/docs/update.html   
+let initialArray = [1, 2, 3];
+let newArray = update(initialArray, {$push: [4]}); // => [1, 2, 3, 4]
+
+let collection = [1, 2, {a: [12, 17, 15]}];
+let newCollection = update(collection, {2: {a: {$splice: [[1, 1, 13, 14]]}}});
+// => [1, 2, {a: [12, 13, 14, 15]}]
+
+let obj = {a: 5, b: 3};
+let newObj = update(obj, {b: {$apply: function(x) {return x * 2;}}});
+// => {a: 5, b: 6}
+let newObj2 = update(obj, {b: {$set: obj.b * 2}});
+
+let objShallow = {a: 5, b: 3};
+let newObjShallow = update(obj, {$merge: {b: 6, c: 7}}); // => {a: 5, b: 6, c: 7}
+}

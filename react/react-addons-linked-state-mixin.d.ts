@@ -6,20 +6,22 @@
 /// <reference path="react.d.ts" />
 
 declare namespace __React {
-    namespace __Addons {
-        interface ReactLink<T> {
-            value: T;
-            requestChange(newValue: T): void;
-        }
+    interface ReactLink<T> {
+        value: T;
+        requestChange(newValue: T): void;
+    }
+    
+    interface LinkedStateMixin extends Mixin<any, any> {
+        linkState<T>(key: string): ReactLink<T>;
+    }
         
-        interface LinkedStateMixin extends Mixin<any, any> {
-            linkState<T>(key: string): ReactLink<T>;
-        }
+    namespace __Addons {
+        export var LinkedStateMixin: LinkedStateMixin;
     }
 }
 
 declare module "react-addons-linked-state-mixin" {
-    var LinkedStateMixin: __React.__Addons.LinkedStateMixin;
-    type LinkedStateMixin = __React.__Addons.LinkedStateMixin;
+    var LinkedStateMixin: __React.LinkedStateMixin;
+    type LinkedStateMixin = __React.LinkedStateMixin;
     export = LinkedStateMixin;
 }

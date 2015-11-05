@@ -6,57 +6,57 @@
 /// <reference path="react.d.ts" />
 
 declare namespace __React {
-    namespace __Addons {
-        interface SyntheticEventData {
-            altKey?: boolean;
-            button?: number;
-            buttons?: number;
-            clientX?: number;
-            clientY?: number;
-            changedTouches?: TouchList;
-            charCode?: boolean;
-            clipboardData?: DataTransfer;
-            ctrlKey?: boolean;
-            deltaMode?: number;
-            deltaX?: number;
-            deltaY?: number;
-            deltaZ?: number;
-            detail?: number;
-            getModifierState?(key: string): boolean;
-            key?: string;
-            keyCode?: number;
-            locale?: string;
-            location?: number;
-            metaKey?: boolean;
-            pageX?: number;
-            pageY?: number;
-            relatedTarget?: EventTarget;
-            repeat?: boolean;
-            screenX?: number;
-            screenY?: number;
-            shiftKey?: boolean;
-            targetTouches?: TouchList;
-            touches?: TouchList;
-            view?: AbstractView;
-            which?: number;
-        }
+    interface SyntheticEventData {
+        altKey?: boolean;
+        button?: number;
+        buttons?: number;
+        clientX?: number;
+        clientY?: number;
+        changedTouches?: TouchList;
+        charCode?: boolean;
+        clipboardData?: DataTransfer;
+        ctrlKey?: boolean;
+        deltaMode?: number;
+        deltaX?: number;
+        deltaY?: number;
+        deltaZ?: number;
+        detail?: number;
+        getModifierState?(key: string): boolean;
+        key?: string;
+        keyCode?: number;
+        locale?: string;
+        location?: number;
+        metaKey?: boolean;
+        pageX?: number;
+        pageY?: number;
+        relatedTarget?: EventTarget;
+        repeat?: boolean;
+        screenX?: number;
+        screenY?: number;
+        shiftKey?: boolean;
+        targetTouches?: TouchList;
+        touches?: TouchList;
+        view?: AbstractView;
+        which?: number;
+    }
+
+    interface EventSimulator {
+        (element: Element, eventData?: SyntheticEventData): void;
+        (component: Component<any, any>, eventData?: SyntheticEventData): void;
+    }
     
-        interface EventSimulator {
-            (element: Element, eventData?: SyntheticEventData): void;
-            (component: Component<any, any>, eventData?: SyntheticEventData): void;
-        }
+    interface MockedComponentClass {
+        new(): any;
+    }
+    
+    class ShallowRenderer {
+        getRenderOutput<E extends ReactElement<any>>(): E;
+        getRenderOutput(): ReactElement<any>;
+        render(element: ReactElement<any>, context?: any): void;
+        unmount(): void;
+    }
         
-        interface MockedComponentClass {
-            new(): any;
-        }
-        
-        class ShallowRenderer {
-            getRenderOutput<E extends ReactElement<any>>(): E;
-            getRenderOutput(): ReactElement<any>;
-            render(element: ReactElement<any>, context?: any): void;
-            unmount(): void;
-        }
-        
+    namespace __Addons {
         namespace TestUtils {
             namespace Simulate {
                 export var blur: EventSimulator;

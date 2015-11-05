@@ -6,28 +6,28 @@
 /// <reference path="react.d.ts" />
 
 declare namespace __React {
+    interface ComponentPerfContext {
+        current: string;
+        owner: string;
+    }
+
+    interface NumericPerfContext {
+        [key: string]: number;
+    }
+
+    interface Measurements {
+        exclusive: NumericPerfContext;
+        inclusive: NumericPerfContext;
+        render: NumericPerfContext;
+        counts: NumericPerfContext;
+        writes: NumericPerfContext;
+        displayNames: {
+            [key: string]: ComponentPerfContext;
+        };
+        totalTime: number;
+    }
+    
     namespace __Addons {
-        interface ComponentPerfContext {
-            current: string;
-            owner: string;
-        }
-    
-        interface NumericPerfContext {
-            [key: string]: number;
-        }
-    
-        interface Measurements {
-            exclusive: NumericPerfContext;
-            inclusive: NumericPerfContext;
-            render: NumericPerfContext;
-            counts: NumericPerfContext;
-            writes: NumericPerfContext;
-            displayNames: {
-                [key: string]: ComponentPerfContext;
-            };
-            totalTime: number;
-        }
-        
         namespace Perf {
             export function start(): void;
             export function stop(): void;

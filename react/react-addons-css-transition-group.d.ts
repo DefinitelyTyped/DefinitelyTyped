@@ -7,20 +7,22 @@
 /// <reference path="react-addons-transition-group.d.ts" />
 
 declare namespace __React {
+    interface CSSTransitionGroupProps extends TransitionGroupProps {
+        transitionName: string;
+        transitionAppear?: boolean;
+        transitionEnter?: boolean;
+        transitionLeave?: boolean;
+    }
+    
+    type CSSTransitionGroup = ComponentClass<CSSTransitionGroupProps>;
+    
     namespace __Addons {
-        interface CSSTransitionGroupProps extends TransitionGroupProps {
-            transitionName: string;
-            transitionAppear?: boolean;
-            transitionEnter?: boolean;
-            transitionLeave?: boolean;
-        }
-        
-        type CSSTransitionGroup = ComponentClass<CSSTransitionGroupProps>;
+        export var CSSTransitionGroup: __React.CSSTransitionGroup;
     }
 }
 
 declare module "react-addons-css-transition-group" {
-    var CSSTransitionGroup: __React.__Addons.CSSTransitionGroup;
-    type CSSTransitionGroup = __React.__Addons.CSSTransitionGroup;
+    var CSSTransitionGroup: __React.CSSTransitionGroup;
+    type CSSTransitionGroup = __React.CSSTransitionGroup;
     export = CSSTransitionGroup;
 }
