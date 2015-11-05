@@ -230,3 +230,7 @@ declare var URI: uri.URIStatic;
 declare module 'URI' {
     export = URI;
 }
+
+declare module 'urijs' {
+    export = URI;
+}
