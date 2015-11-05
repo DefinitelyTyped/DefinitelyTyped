@@ -200,7 +200,9 @@ declare module lf {
           name: string, columns: Array<string>|Array<IndexedColumn>,
           unique?: boolean, order?: Order): TableBuilder
       addNullable(columns: Array<Column>): TableBuilder
-      addPrimaryKey(columns: Array<string>|Array<IndexedColumn>): TableBuilder
+      addPrimaryKey(
+          columns: Array<string>|Array<IndexedColumn>,
+          autoInc?: boolean): TableBuilder
       addUnique(name: string, columns: Array<Column>): TableBuilder
     }
 

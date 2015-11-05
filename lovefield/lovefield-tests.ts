@@ -8,7 +8,7 @@ function main(): void {
       addColumn('description', lf.Type.STRING).
       addColumn('deadline', lf.Type.DATE_TIME).
       addColumn('done', lf.Type.BOOLEAN).
-      addPrimaryKey(['id']).
+      addPrimaryKey(['id'], false).
       addIndex('idxDeadline', ['deadline'], false, lf.Order.DESC);
 
   var todoDb: lf.Database = null;
