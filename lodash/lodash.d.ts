@@ -10506,11 +10506,15 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Removes trailing whitespace or specified characters from string.
+         *
          * @param string The string to trim.
          * @param chars The characters to trim.
          * @return Returns the trimmed string.
          */
-        trimRight(string?: string, chars?: string): string;
+        trimRight(
+            string?: string,
+            chars?: string
+        ): string;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -10518,6 +10522,13 @@ declare module _ {
          * @see _.trimRight
          */
         trimRight(chars?: string): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.trimRight
+         */
+        trimRight(chars?: string): LoDashExplicitWrapper<string>;
     }
 
     //_.trunc

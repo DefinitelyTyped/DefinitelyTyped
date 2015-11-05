@@ -4927,11 +4927,26 @@ module TestTrimLeft {
 }
 
 // _.trimRight
-result = <string>_.trimRight();
-result = <string>_.trimRight('  abc  ');
-result = <string>_.trimRight('-_-abc-_-', '_-');
-result = <string>_('-_-abc-_-').trimRight();
-result = <string>_('-_-abc-_-').trimRight('_-');
+
+module TestTrimRight {
+    {
+        let result: string;
+
+        result = _.trimRight();
+        result = _.trimRight('  abc  ');
+        result = _.trimRight('-_-abc-_-', '_-');
+
+        result = _('-_-abc-_-').trimRight();
+        result = _('-_-abc-_-').trimRight('_-');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('-_-abc-_-').chain().trimRight();
+        result = _('-_-abc-_-').chain().trimRight('_-');
+    }
+}
 
 // _.trunc
 module TestTrunc {
