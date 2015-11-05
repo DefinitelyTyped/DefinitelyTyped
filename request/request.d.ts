@@ -1,6 +1,6 @@
 // Type definitions for request
 // Project: https://github.com/mikeal/request
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, bonnici <https://github.com/bonnici>, Bart van der Schoor <https://github.com/Bartvds>
+// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, bonnici <https://github.com/bonnici>, Bart van der Schoor <https://github.com/Bartvds>, Joe Skeen <http://github.com/joeskeen>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/d.ts
@@ -13,49 +13,46 @@ declare module 'request' {
 	import http = require('http');
 	import FormData = require('form-data');
 	import url = require('url');
+	import fs = require('fs');
 
-	export = RequestAPI;
+	namespace request {
+		export interface RequestAPI<TRequest extends Request, TOptions extends OptionalOptions> {
+			defaults(options: DefaultsOptions): RequestAPI<TRequest, TOptions>;
+			(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+			(uri: string, callback?: RequestCallback): TRequest;
+			(options?: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
 
-	function RequestAPI(uri: string, options?: RequestAPI.Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): RequestAPI.Request;
-	function RequestAPI(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): RequestAPI.Request;
-	function RequestAPI(options: RequestAPI.Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): RequestAPI.Request;
+			get(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+			get(uri: string, callback?: RequestCallback): TRequest;
+			get(options: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
 
-	module RequestAPI {
-		export function defaults(options: DefaultsOptions): typeof RequestAPI;
+			post(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+			post(uri: string, callback?: RequestCallback): TRequest;
+			post(options: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
 
-		export function request(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-		export function request(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-		export function request(options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+			put(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+			put(uri: string, callback?: RequestCallback): TRequest;
+			put(options: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
 
-		export function get(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-		export function get(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-		export function get(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+			head(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+			head(uri: string, callback?: RequestCallback): TRequest;
+			head(options: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
 
-		export function post(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-		export function post(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-		export function post(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+			patch(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+			patch(uri: string, callback?: RequestCallback): TRequest;
+			patch(options: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
 
-		export function put(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-		export function put(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-		export function put(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+			del(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+			del(uri: string, callback?: RequestCallback): TRequest;
+			del(options: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
 
-		export function head(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-		export function head(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-		export function head(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
+			forever(agentOptions: any, optionsArg: any): TRequest;
+			jar(): CookieJar;
+			cookie(str: string): Cookie;
 
-		export function patch(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-		export function patch(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-		export function patch(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-
-		export function del(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-		export function del(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-		export function del(options: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
-
-		export function forever(agentOptions: any, optionsArg: any): Request;
-		export function jar(): CookieJar;
-		export function cookie(str: string): Cookie;
-
-		export var initParams: any;
+			initParams: any;
+			debug: boolean;
+		}
 
 		interface UriOptions {
 			uri: string;
@@ -63,6 +60,11 @@ declare module 'request' {
 
 		interface UrlOptions {
 			url: string;
+		}
+
+		interface OptionalUriUrl {
+			uri?: string;
+			url?: string;
 		}
 
 		interface OptionalOptions {
@@ -74,10 +76,10 @@ declare module 'request' {
 			auth?: AuthOptions;
 			oauth?: OAuthOptions;
 			aws?: AWSOptions;
-			hawk ?: HawkOptions;
+			hawk?: HawkOptions;
 			qs?: any;
 			json?: any;
-			multipart?: RequestPart[];
+			multipart?: RequestPart[] | Multipart;
 			agentOptions?: any;
 			agentClass?: any;
 			forever?: any;
@@ -86,7 +88,7 @@ declare module 'request' {
 			method?: string;
 			headers?: Headers;
 			body?: any;
-			followRedirect?: boolean|((response: http.IncomingMessage) => boolean);
+			followRedirect?: boolean | ((response: http.IncomingMessage) => boolean);
 			followAllRedirects?: boolean;
 			maxRedirects?: number;
 			encoding?: string;
@@ -95,14 +97,45 @@ declare module 'request' {
 			proxy?: any;
 			strictSSL?: boolean;
 			gzip?: boolean;
+			preambleCRLF?: boolean;
+			postambleCRLF?: boolean;
+			key?: Buffer;
+			cert?: Buffer;
+			passphrase?: string;
+			ca?: Buffer;
+			har?: HttpArchiveRequest;
 		}
 
-		export interface DefaultsOptions extends OptionalOptions {
-			url?: string,
-			uri?: string
+		export type RequiredOptions = UriOptions | UrlOptions;
+		export type Options = RequiredOptions & OptionalOptions;
+		export type DefaultsOptions = OptionalUriUrl & OptionalOptions;
+
+		export interface RequestCallback {
+			(error: any, response: http.IncomingMessage, body: any): void;
 		}
 
-		export type Options = (UriOptions|UrlOptions)&OptionalOptions;
+		export interface HttpArchiveRequest {
+			url?: string;
+			method?: string;
+			headers?: NameValuePair[];
+			postData?: {
+				mimeType?: string;
+				params?: NameValuePair[];
+			}
+		}
+
+		export interface NameValuePair {
+			name: string;
+			value: string;
+		}
+
+		export interface Multipart {
+			chunked?: boolean;
+			data?: {
+				'content-type'?: string,
+				body: string
+			}[];
+		}
 
 		export interface RequestPart {
 			headers?: Headers;
@@ -143,7 +176,7 @@ declare module 'request' {
 			resume(): void;
 			abort(): void;
 			destroy(): void;
-			toJSON(): string;
+			toJSON(): Object;
 		}
 
 		export interface Headers {
@@ -178,9 +211,9 @@ declare module 'request' {
 		}
 
 		export interface CookieJar {
-			setCookie(cookie: Cookie, uri: string|url.Url, options?: any): void
-			getCookieString(uri: string|url.Url): string
-			getCookies(uri: string|url.Url): Cookie[]
+			setCookie(cookie: Cookie, uri: string | url.Url, options?: any): void
+			getCookieString(uri: string | url.Url): string
+			getCookies(uri: string | url.Url): Cookie[]
 		}
 
 		export interface CookieValue {
@@ -197,4 +230,6 @@ declare module 'request' {
 			toString(): string;
 		}
 	}
+	var request: request.RequestAPI<request.Request, request.OptionalOptions>;
+	export = request;
 }

@@ -1715,6 +1715,7 @@ interface HighchartsCSSObject {
     color?: string;
     cursor?: string;
     font?: string;
+    fontFamily?: string;
     fontSize?: string;
     fontWeight?: string;
     left?: string;
