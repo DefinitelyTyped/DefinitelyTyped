@@ -57,13 +57,13 @@ declare module 'request' {
 
 		export var initParams: any;
 
-    interface UriOptions {
-      uri: string;
-    }
+		interface UriOptions {
+			uri: string;
+		}
 
-    interface UrlOptions {
-      url: string;
-    }
+		interface UrlOptions {
+			url: string;
+		}
 
 		interface OptionalOptions {
 			callback?: (error: any, response: http.IncomingMessage, body: any) => void;
@@ -96,7 +96,7 @@ declare module 'request' {
 			gzip?: boolean;
 		}
 
-    export type Options = (UriOptions|UrlOptions)&OptionalOptions;
+		export type Options = (UriOptions|UrlOptions)&OptionalOptions;
 
 		export interface RequestPart {
 			headers?: Headers;
