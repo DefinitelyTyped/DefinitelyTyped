@@ -7,21 +7,51 @@
 ///<reference path='./../bluebird/bluebird.d.ts' />
 ///<reference path="./my-meteor.d.ts" />
 
+declare namespace Mysql {
+    interface IError {
+
+    }
+
+    interface IConnection {
+
+    }
+
+    interface IConnectionConfig {
+
+    }
+}
+
+declare class EventEmitter {
+}
+
 
 declare module "node-mysql-wrapper" {
-    import * as Mysql from 'mysql';
-    import * as Promise from 'bluebird';
-    import {EventEmitter} from 'events';
+    	
+	// export function wrap(mysqlUrlOrObjectOrMysqlAlreadyConnection: Mysql.IConnection | string, ...useTables: any[]): NodeMysqlWrapper.Database;
+
+    // /** Same as wrap but it's sync mode - autoconnect to the database without need to use database.ready(callback).
+    //  *  Do not use it yet. It works only on 32/86 bit, use .wrap instead
+    //  */
+    // export function connect(mysqlUrlOrObjectOrMysqlAlreadyConnection: Mysql.IConnection | string, ...useTables: any[]): NodeMysqlWrapper.Database;
+
+    // export function observable<T>(obj: T): T & NodeMysqlWrapper.ObservableObject;
+	
+    export = NodeMysqlWrapper;
+	
+}
+
+
+declare module NodeMysqlWrapper {
 
     var EQUAL_TO_PROPERTY_SYMBOL: string;
     var TABLE_RULES_PROPERTY: string;
 
-    type DeleteAnswer = {
+    export type DeleteAnswer = {
         affectedRows: number;
         table: string;
     };
 
-    type RawRules = {
+    export type RawRules = {
         table: string,
         begin: string,
         orderBy: string,
@@ -34,45 +64,45 @@ declare module "node-mysql-wrapper" {
 
     };
 
-    type TableToSearchPart = { tableName: string, propertyName: string };
+    export type TableToSearchPart = { tableName: string,propertyName: string };
 
-    type PropertyChangedCallback = (args: PropertyChangedArgs) => any;
+    export type PropertyChangedCallback = (args: PropertyChangedArgs) => any;
 
     interface Map<T> {
         [index: string]: T;
     }
 
-    interface IQuery<T> {
+    export interface IQuery<T> {
         _table: Table<T>;
         execute(rawCriteria: any, callback?: (_results: any) => any): Promise<any>;
     }
 
-    interface IQueryConstructor<T> {
+    export interface IQueryConstructor<T> {
         new (_table: Table<T>): IQuery<T>;
     }
 
 
-    class Helper {
-        /** 
+    export class Helper {
+        /**
          * Callback like forEach
          * @name valueCallback
          * @function
-         * @param {T} the value of the object's key 
+         * @param {T} the value of the object's key
          * @returnTye {U}
          * @return {U}
-        */
-        
+         */
+
         /**
          * Callback like forEach
          * @name keyCallback
          * @function
-         * @param {string} the name of the object's key 
+         * @param {string} the name of the object's key
          * @returnTye {U}
          * @return {U}
-        */
+         */
 
         constructor();
-        
+
         /**
          * Create and return a copy of an object.
          * @param {T} object the object you want to copy.
@@ -80,7 +110,7 @@ declare module "node-mysql-wrapper" {
          * @return {T}
          */
         static copyObject<T>(object: T): T;
-        
+
         /**
          * Converts any_string to anyString and returns it.
          * @param {string} columnKey the string you want to convert.
@@ -88,7 +118,7 @@ declare module "node-mysql-wrapper" {
          * @return {string}
          */
         static toObjectProperty(columnKey: string): string;
-        
+
         /**
          * Converts anyString to any_string and returns it.
          * @param {string} objectKey the string you want to convert.
@@ -96,7 +126,7 @@ declare module "node-mysql-wrapper" {
          * @return {string}
          */
         static toRowProperty(objectKey: string): string;
-    
+
         /**
          * Iterate object's keys and return their values to the callback.
          * @param {<T>} map the object.
@@ -107,22 +137,22 @@ declare module "node-mysql-wrapper" {
         static forEachValue<T, U>(map: T, callback: (value: T) => U): U;
 
         /**
-        * Iterate object's keys and return their names to the callback.
-        * @param {Map<T>} map the object.
-        * @param {keyCallback}
-        * @returnType {U}
-        * @return {U}
-        */
+         * Iterate object's keys and return their names to the callback.
+         * @param {Map<T>} map the object.
+         * @param {keyCallback}
+         * @returnType {U}
+         * @return {U}
+         */
 
         static forEachKey<T, U>(map: Map<T>, callback: (key: string) => U): U;
-        
+
         /**
          * Checks if anything is a function.
          * @param {functionToCheck} the object or function to pass
          * @return boolean
          */
         static isFunction(functionToCheck: any): boolean;
-        
+
         /**
          * Checks if an object has 'tableRules' property.
          * @param {obj} the object to pass
@@ -132,7 +162,7 @@ declare module "node-mysql-wrapper" {
     }
 
 
-    interface ICriteriaParts {
+    export interface ICriteriaParts {
         rawCriteriaObject: any;
         tables: TableToSearchPart[];
         noDatabaseProperties: string[];
@@ -143,26 +173,25 @@ declare module "node-mysql-wrapper" {
     }
 
 
+    export class CriteriaParts implements ICriteriaParts {
 
-    class CriteriaParts implements ICriteriaParts {
-        
         /**
          * The raw format of the criteria eg: {yearsOld:22}.
          */
         rawCriteriaObject: any;
-        
+
         /**
          * Which tables to search after the find method of the proto table finish.
          */
         tables: TableToSearchPart[];
-        
+
         /**
          * The properties of the criteria which don't belong to the database's table.
          */
         noDatabaseProperties: string[];
-        
+
         /**
-         * The converted/exported where clause. 
+         * The converted/exported where clause.
          */
         whereClause: string;
 
@@ -171,10 +200,11 @@ declare module "node-mysql-wrapper" {
         selectFromClause<T>(_table: Table<T>): string;
     }
 
-    class CriteriaDivider<T> {
+    export class CriteriaDivider<T> {
         private _table;
+
         constructor(table: Table<T>);
-        
+
         /**
          * Builds the criteria raw object to Criteria object.
          * @param {any} rawCriteriaObject the criteria at raw format you pass eg: {yearsOld:18}.
@@ -184,7 +214,7 @@ declare module "node-mysql-wrapper" {
         build(rawCriteriaObject: any): CriteriaParts;
     }
 
-    class SelectQueryRules {
+    export class SelectQueryRules {
         private lastPropertyClauseName: string;
         manuallyEndClause: string;
         manuallyBeginClause: string;
@@ -196,36 +226,98 @@ declare module "node-mysql-wrapper" {
         limitEnd: number;
         public tableName: string; //auto den benei oute sto last, oute sto from.
         static build(): SelectQueryRules;
+
         private last(propertyClauseName);
+
         except(...columns: string[]): SelectQueryRules;
-        
+
         /**
          * Same as .except(...columns)
          */
         exclude(...columns: string[]): SelectQueryRules;
 
         orderBy(columnKey: string, descending?: boolean): SelectQueryRules;
+
         groupBy(columnKey: string): SelectQueryRules;
+
         limit(limitRowsOrStart: number, limitEnd?: number): SelectQueryRules;
+
         appendToBegin(manualAfterWhereString: string): SelectQueryRules;
+
         appendToEnd(manualAfterWhereString: string): SelectQueryRules;
+
         append(appendToCurrent: string): SelectQueryRules;
+
         clearOrderBy(): SelectQueryRules;
+
         clearGroupBy(): SelectQueryRules;
+
         clearLimit(): SelectQueryRules;
+
         clearEndClause(): SelectQueryRules;
+
         clearBeginClause(): SelectQueryRules;
+
         clear(): SelectQueryRules;
+
         from(parentRule: SelectQueryRules): SelectQueryRules;
+
         isEmpty(): boolean;
+
         toString(): string;
+
         toRawObject(): RawRules;
+
         static toString(rules: SelectQueryRules): string;
+
         static toRawObject(rules: SelectQueryRules): RawRules;
+
         static fromRawObject(obj: RawRules): SelectQueryRules;
     }
 
-    class CriteriaBuilder<T>{
+    export class WhereBuilder<T> {
+        parentCriteriaBuilder: CriteriaBuilder<T>;
+
+        constructor(parentCriteriaBuilder: CriteriaBuilder<T>, key: string);
+
+        /**
+         * Equals
+         */
+        eq(val: any): CriteriaBuilder<T>;
+
+        /**
+         * Is Not Equal to
+         */
+        ne(val: any): CriteriaBuilder<T>;
+
+        /**
+         * Greater Than
+         */
+        gt(val: any): CriteriaBuilder<T>;
+
+        /**
+         * Less Than
+         */
+        lt(val: any): CriteriaBuilder<T>;
+
+        /**
+         * Is greater than or equal to
+         */
+        ge(val: any): CriteriaBuilder<T>;
+
+        /**
+         * Is less than or equal to
+         */
+        le(val: any): CriteriaBuilder<T>;
+
+        /**
+         * IN ()  ( same as many OR operators with the same key)
+         */
+        in(values: any[]): CriteriaBuilder<T>;
+
+    }
+
+    export class CriteriaBuilder<T> {
 
         private rawCriteria: any;
         private primaryTable: Table<T>;
@@ -236,13 +328,15 @@ declare module "node-mysql-wrapper" {
         constructor(primaryTable: Table<T>, tablePropertyName?: string, parentBuilder?: CriteriaBuilder<any>);
 
         except(...columns: string[]): CriteriaBuilder<T>;
-        
+
         /**
-	    * Same as .except(...columns)
-	    */
+         * Same as .except(...columns)
+         */
         exclude(...columns: string[]): CriteriaBuilder<T>;
 
-        where(key: string, value: any): CriteriaBuilder<T>;
+        where(key: string): WhereBuilder<T>;
+
+        or(key?: string): WhereBuilder<T>;
 
         private createRulesIfNotExists(): void;
 
@@ -250,28 +344,29 @@ declare module "node-mysql-wrapper" {
 
         limit(start: number, end?: number): CriteriaBuilder<T>;
 
-        join(realTableName: string, foreignColumnName: string): CriteriaBuilder<T>;
+        join(realTableName: string, foreignColumnName: string, thisColumnName?: string): CriteriaBuilder<T>;
 
-        joinAs(tableNameProperty: string, realTableName: string, foreignColumnName: string): CriteriaBuilder<T>;
+        joinAs(tableNameProperty: string, realTableName: string, foreignColumnName: string, thisColumnName?: string): CriteriaBuilder<T>;
 
         at(tableNameProperty: string): CriteriaBuilder<T>;
 
         parent(): CriteriaBuilder<T>;
 
         original(): CriteriaBuilder<T>;
-        
+
         /**
          * Auto kanei kuklous mexri na paei sto primary table kai ekei na epistrepsei to sunoliko raw criteria gia execute i kati allo.
          */
         build(): any;
 
-        static from<T>(table: Table<T>): CriteriaBuilder<T>
+        static from<T>(table: Table<T>): CriteriaBuilder<T>;
 
     }
 
-    class SelectQuery<T> implements IQuery<T> { // T for Table's result type.
-       
-        _table: Table<T>
+    export class SelectQuery<T> implements IQuery<T> { // T for Table's result type.
+
+        _table: Table<T>;
+
         constructor(_table: Table<T>);
 
         private parseQueryResult(result: any, criteria: ICriteriaParts): Promise<any>;
@@ -284,30 +379,35 @@ declare module "node-mysql-wrapper" {
         /**
          * Exactly the same thing as promise().
          * Executes the select and returns the Promise.
-        */
+         */
         execute(rawCriteria: any, callback?: (_results: T[]) => any): Promise<T[]>;
     }
 
-    class SaveQuery<T> implements IQuery<T> {
+    export class SaveQuery<T> implements IQuery<T> {
         _table: Table<T>
+
         constructor(_table: Table<T>);
+
         execute(criteriaRawJsObject: any, callback?: (_result: T | any) => any): Promise<T | any>;
     }
 
-    class DeleteQuery<T> implements IQuery<T>{
+    export class DeleteQuery<T> implements IQuery<T> {
         _table: Table<T>
+
         constructor(_table: Table<T>);
+
         execute(criteriaOrID: any | number | string, callback?: (_result: DeleteAnswer) => any): Promise<DeleteAnswer>;
     }
 
 
-    class PropertyChangedArgs {
+    export class PropertyChangedArgs {
         propertyName: string;
         oldValue: any;
+
         constructor(propertyName: string, oldValue: any);
     }
 
-    class ObservableObject {
+    export class ObservableObject {
 
         /** Property names that your row couldn't have:
          * "propertyChangedListeners", "notifyPropertyChanged", "onPropertyChanged", "toJSON", "makeObservable", "_forget"
@@ -315,7 +415,7 @@ declare module "node-mysql-wrapper" {
         static RESERVED_PROPERTY_NAMES: string[];
 
         private propertyChangedListeners: PropertyChangedCallback[];
-        
+
         /** Make the obj observable. Used in constructor or extend this class and use it. */
         private makeObservable(obj: any): void;
 
@@ -324,7 +424,7 @@ declare module "node-mysql-wrapper" {
 
         /**Add a listener/observer to watch for changes in this object's properties */
         onPropertyChanged(listener: PropertyChangedCallback): void;
-        
+
         /** If developer wants manualy notify for property changed */
         notifyPropertyChanged(propertyName: string, oldValue: any): void;
 
@@ -335,11 +435,11 @@ declare module "node-mysql-wrapper" {
 
     }
 
-    enum CollectionChangedAction {
+    export enum CollectionChangedAction {
         INSERT, DELETE, RESET//for now I will use only add, remove and reset . replace and move is for future., REPLACE, MOVE
     }
 
-    class CollectionChangedEventArgs<T> {
+    export class CollectionChangedEventArgs<T> {
         action: CollectionChangedAction;
         oldItems: (T | (T & ObservableObject))[];
         newItems: (T | (T & ObservableObject))[];
@@ -350,26 +450,39 @@ declare module "node-mysql-wrapper" {
     }
 
 
-    class BaseCollection<T> {//T=result type of Table
+    export class BaseCollection<T> {//T=result type of Table
         private list: (T | (T & ObservableObject))[];
         listeners: ((eventArgs: CollectionChangedEventArgs<T>) => void)[];
+
         constructor(table: Table<T>);
+
         length: number;
         items: (T | (T & ObservableObject))[];
+
         indexOf(item: T | string | number): number;
+
         findItem(itemId: string | number): T;
+
         getItem(index: number): T;
+
         getItemObservable(index: number): T & ObservableObject;
+
         addItem(...items: (T | (T & ObservableObject))[]): (T | (T & ObservableObject));
+
         removeItem(...items: (T | (T & ObservableObject))[]): BaseCollection<T>;
+
         removeItemById(id: number | string): BaseCollection<T>;
+
         forgetItem(...items: (T | (T & ObservableObject))[]): BaseCollection<T>;
+
         reset(): BaseCollection<T>;
+
         notifyCollectionChanged(evtArgs: CollectionChangedEventArgs<T>): void;
+
         onCollectionChanged(callback: (eventArgs: CollectionChangedEventArgs<T>) => void): void;
     }
 
-    class ObservableCollection<T> { //auti i klasi 9a xrisimopoieite ws Collection me kapoies paralages mesa sto index.ts.
+    export class ObservableCollection<T> { //auti i klasi 9a xrisimopoieite ws Collection me kapoies paralages mesa sto index.ts.
         local: BaseCollection<T>;
         private _items: (T & ObservableObject)[];
 
@@ -388,7 +501,7 @@ declare module "node-mysql-wrapper" {
         findById(id: number | string, callback?: (result: T) => any): Promise<T>;
 
         findAll(tableRules?: RawRules, callback?: (_results: T[]) => any): Promise<T[]>;
-    
+
         /**
          * .insert() and .update() do the same thing:  .save();
          */
@@ -399,7 +512,7 @@ declare module "node-mysql-wrapper" {
         save(criteriaRawJsObject: any, callback?: (_result: any) => any): Promise<T | any>;
 
         remove(criteriaOrID: any | number | string, callback?: (_result: DeleteAnswer) => any): Promise<DeleteAnswer>;
-	
+
         /**
          * same thing as .remove();
          */
@@ -408,7 +521,7 @@ declare module "node-mysql-wrapper" {
 
     }
 
-    class MeteorCollection<T> {
+    export class MeteorCollection<T> {
         private collection: Mongo.Collection<T>;
         protected table: Table<T>;
 
@@ -423,7 +536,7 @@ declare module "node-mysql-wrapper" {
         fillAll(): void;
 
         fillOne(criteriaRawJsObject: any): void;
-    
+
         //ONLY MONGO/METEOR COLLECTION METHODS START
         allow(options: {
             insert?: (userId: string, doc: T) => boolean;
@@ -457,36 +570,36 @@ declare module "node-mysql-wrapper" {
             reactive?: boolean;
             transform?: Function;
         }): T;
-    
+
         //ONLY MONGO/METEOR COLLECTION METHODS FINISH.
 
     }
 
 
-    class Connection extends EventEmitter {
-        
+    export class Connection extends EventEmitter {
+
         /**
          * The real database connection socket.
          */
         connection: Mysql.IConnection;
-        
+
         /**
          * Collection of the supported event types for the tables.
          */
         eventTypes: string[];
-        
+
         /**
-         * Force to fetch ONLY these Database table names {array of string}.  
+         * Force to fetch ONLY these Database table names {array of string}.
          */
         tableNamesToUseOnly: any[];
-        
+
         /**
          * All tables {MysqlTable} inside this connection's database.
          */
         tables: Table<any>[];
 
         constructor(connection: string | Mysql.IConnection | Mysql.IConnectionConfig);
-        
+
         /**
          * Creates the MysqlConnection from the connection url or the real connection object.
          * @param {string | Mysql.IConnection |  Mysql.IConnectionConfig} connection the connection url or the real connection object.
@@ -494,36 +607,36 @@ declare module "node-mysql-wrapper" {
          * @return {nothing}
          */
         create(connection: string | Mysql.IConnection | Mysql.IConnectionConfig): void;
-        
+
         /**
          * Attach a real connection.
          * @param {Mysql.IConnection} connection the real connection object.
          * @returnType {nothing}
-         * @return {nothing} 
+         * @return {nothing}
          */
         attach(connection: Mysql.IConnection): void;
-        
+
         /**
          * Close the entire real connection and remove all event's listeners (if exist).
          * @param {function} callback If error occurs when closing the connection, this callback has the responsibility to catch it.
          * @returnType {nothing}
-         * @return {nothing} 
+         * @return {nothing}
          */
         end(callback?: (error: any) => void): void;
-        
+
         /**
          * Close the entire real connection and remove all event's listeners (if exist).
-         * the difference from the 'end' is that this method doesn't care about errors so no callback passing here. 
+         * the difference from the 'end' is that this method doesn't care about errors so no callback passing here.
          */
         destroy(): void;
-        
+
         /**
          * Clear all binary logs from the whole database.
          * When finish returns a promise, use it with .then(function(){});
          * @return Promise
          */
         clearBinaryLogs(): Promise<void>;
-        
+
         /**
          * Link the real connection with this MysqlConnection object.
          * @param {function} readyCallback when the link operation is done this callback is executed.
@@ -531,7 +644,7 @@ declare module "node-mysql-wrapper" {
          * @return {Promise}
          */
         link(readyCallback?: () => void): Promise<void>;
-        
+
         /**
          * Force to use/fetch information from only certain of database's tables, otherwise all database's tables information will be fetched.
          * @param {Array} tables the array of the tables  {string}
@@ -539,22 +652,22 @@ declare module "node-mysql-wrapper" {
          * @return {nothing}
          */
         useOnly(...tables: any[]): void;
-        
+
         /**
          * This method has the resposibility of fetching the correct tables from the database ( table = columns' names, primary key name).
          * @returnType {Promise}
          * @return {Promise}
          */
         fetchDatabaseInformation(): Promise<void>;
-        
+
         /**
          * Escape the query column's value  and return it.
-         * @param {string} val the value which will be escaped. 
+         * @param {string} val the value which will be escaped.
          * @returnType {string}
          * @return {string}
          */
         escape(val: string): string;
-        
+
         /**
          * Call when must notify the Database events, SAVE(INSERT,UPDATE), REMOVE(DELETE).
          * @param {string} tableWhichCalled the table name which event is coming from.
@@ -564,40 +677,40 @@ declare module "node-mysql-wrapper" {
          * @return {nothing}
          */
         notice(tableWhichCalled: string, queryStr: string, rawRows: any[]): void;
-        
+
         /**
          * Adds an event listener/watcher on a table for a 'database event'.
          * @param {string} tableName the table name which you want to add the event listener.
          * @param {string or string[]} evtType the event(s) type you want to watch, one of these(string) or an array of them(string[]): ["INSERT", "UPDATE", "REMOVE", "SAVE"].
-         * @param {function} callback Callback which has one parameter(typeof any[]) which filled by the rawRows (results after query executed and before parsed to object(s)). 
+         * @param {function} callback Callback which has one parameter(typeof any[]) which filled by the rawRows (results after query executed and before parsed to object(s)).
          * @returnType {nothing}
          * @return {nothing}
          */
         watch(tableName: string, evtType: any, callback: (rawRows: any[]) => void): void;
-        
+
         /**
          * Removes an event listener/watcher from a table for a specific event type.
-         * @param {string} tableName the table name which you want to remove the event listener. 
+         * @param {string} tableName the table name which you want to remove the event listener.
          * @param {string} evtType the Event type you want to remove, one of these: "INSERT", "UPDATE", "REMOVE", "SAVE".
          * @param {function} callbackToRemove the callback that you were used for watch this event type.
          * @returnType {nothing}
          * @return {nothing}
          */
         unwatch(tableName: string, evtType: string, callbackToRemove: (rawResults: any[]) => void): void;
-        
+
         /**
          * Executes a database query.
          * @param {string} queryStr the query text/string to be executed.
          * @param {function} callback the function will be called and fill the one and only parameter when an errors occurs.
          * @param {any[]} queryArguments (optional) the query arguments you want to pass into query. ['arg1','arg2']...
          * @returnType {nothing}
-         * @return {nothing} 
+         * @return {nothing}
          */
         query(queryStr: string, callback: (err: Mysql.IError, results: any) => any, queryArguments?: any[]): void;
-        
+
         /**
          * Returns a MysqlTable object from the database factory. (Note: this method doesn't create anything, just finds and returns the correct table, you don't have to create anything at all. Tables are fetched by the library itself.)
-         * If you are using typescript you can pass a class (generic<T>) in order to use the auto completion assistance on table's results methods(find,findById,findAll,save,remove,safeRemove). 
+         * If you are using typescript you can pass a class (generic<T>) in order to use the auto completion assistance on table's results methods(find,findById,findAll,save,remove,safeRemove).
          * @param {string} tableName the table name which you want to get, on the form of: 'anyDatabaseTable' OR 'any_database_table' (possible your real table name into your database).
          * @returnType {MysqlTable}
          * @return {MysqlTable}
@@ -605,10 +718,11 @@ declare module "node-mysql-wrapper" {
         table<T>(tableName: string): Table<T>;
     }
 
-    class Table<T>  {
-        /** Private keywords here are useless but I put them. 
+
+    export class Table<T> {
+        /** Private keywords here are useless but I put them.
          * If the developer wants to see the properties of the Table class, he/she just comes here.
-        */
+         */
 
         private _name: string;
         private _connection: Connection;
@@ -619,58 +733,58 @@ declare module "node-mysql-wrapper" {
         private _selectQuery: SelectQuery<T>
         private _saveQuery: SaveQuery<T>;
         private _deleteQuery: DeleteQuery<T>;
+
         constructor(tableName: string, connection: Connection);
 
 
-      
         /**
          * An array of all columns' names inside this table.
          */
         columns: string[];
-        
+
         /**
          * The name of the primary key column which this table is using.
          */
         primaryKey: string;
-        
+
         /**
-         * The MysqlConnection object which this MysqlTable belongs. 
+         * The MysqlConnection object which this MysqlTable belongs.
          */
         connection: Connection;
-        
+
         /**
-         * The real database name of the table. Autofilled by library. 
+         * The real database name of the table. Autofilled by library.
          */
         name: string;
-        
+
         /**
-         * Set of the query rules that will be applied after the 'where clause' on each select query executed by this table. 
+         * Set of the query rules that will be applied after the 'where clause' on each select query executed by this table.
          * @return {SelectQueryRules}
          */
         rules: SelectQueryRules;
-        
+
         /**
          * Returns this table's criteria divider class.
          * @return {CriteriaDivider}
          */
         criteriaDivider: CriteriaDivider<T>;
-        
+
         /**
          * Returns new Criteria Builder each time.
          * Helps you  to make criteria raw js objects ready to use in find,remove and save methods.
          * @return {CriteriaBuilder}
          */
         criteria: CriteriaBuilder<T>;
-        
+
         /**
-        * Adds or turn on an event listener/watcher on a table for a 'database event'.
-        * @param {string} evtType the event type you want to watch, one of these: ["INSERT", "UPDATE", "REMOVE", "SAVE"].
-        * @param {function} callback Callback which has one parameter(typeof any[]) which filled by the rawResults (results after query executed and before exports to object(s)). 
-        * @returnType {nothing}
-        * @return {nothing}
-        */
+         * Adds or turn on an event listener/watcher on a table for a 'database event'.
+         * @param {string} evtType the event type you want to watch, one of these: ["INSERT", "UPDATE", "REMOVE", "SAVE"].
+         * @param {function} callback Callback which has one parameter(typeof any[]) which filled by the rawResults (results after query executed and before exports to object(s)).
+         * @returnType {nothing}
+         * @return {nothing}
+         */
         on(evtType: string, callback: (rawResults: any[]) => void): void;
-            
+
         /**
          * Removes or turn off an event listener/watcher from a table for a specific event type.
          * @param {string} evtType the Event type you want to remove, one of these: "INSERT", "UPDATE", "REMOVE", "SAVE".
@@ -679,7 +793,7 @@ declare module "node-mysql-wrapper" {
          * @return {nothing}
          */
         off(evtType: string, callbackToRemove: (rawResults: any[]) => void): void;
-         
+
         /**
          * Use it when you want to check if extended function is exists here.
          * @param {string} extendedFunctionName the name of the function you want to check.
@@ -687,16 +801,16 @@ declare module "node-mysql-wrapper" {
          * @return {boolean}
          */
         has(extendedFunctionName: string): boolean;
-        
+
         /**
          * Extends this table's capabilities with a function.
          * @param {string} functionName the function name you want to use, this is used when you want to call this function later.
          * @param {function} theFunction the function with any optional parameters you want to pass along.
          * @returnType {nothing}
-         * @return {nothing} 
+         * @return {nothing}
          */
         extend(functionName: string, theFunction: (...args: any[]) => any): void;
-        
+
         /**
          * Converts and returns an object from this form: { a_property:'dsda', other_property:something, any_property_name:true } to { aProperty:..., otherProperty...,anyPropertyName...}
          * @param {any} row the raw row object.
@@ -704,7 +818,7 @@ declare module "node-mysql-wrapper" {
          * @return {any}
          */
         objectFromRow(row: any): any;
-           
+
         /**
          * Converts and returns an object from this form: { aProperty:'dsda', otherProperty:something, anyPropertyName:true } to { a_property:..., other_property...,any_property_name...}
          * @param {any} row the raw row object.
@@ -712,7 +826,7 @@ declare module "node-mysql-wrapper" {
          * @return {any}
          */
         rowFromObject(obj: any): any;
-        
+
         /**
          * Returns and array of [columns[],values[]]
          * @param {any} jsObject the raw row object.
@@ -720,7 +834,7 @@ declare module "node-mysql-wrapper" {
          * @return {array}
          */
         getRowAsArray(jsObject: any): Array<any>;
-        
+
         /**
          * Returns the primary key's value from an object.
          * @param {any} jsObject the object which you want to find and return the value of the primary key.
@@ -728,11 +842,11 @@ declare module "node-mysql-wrapper" {
          * @return {number | string}
          */
         getPrimaryKeyValue(jsObject: any): number | string;
-        
+
         /**
-         * 
+         *
          */
-        find(criteriaRawJsObject: any): Promise<T[]>; // only criteria 
+        find(criteriaRawJsObject: any): Promise<T[]>; // only criteria
         find(criteriaRawJsObject: any, callback: ((_results: T[]) => any)): Promise<T[]>; // criteria and callback
         find(criteriaRawJsObject: any, callback?: (_results: T[]) => any): Promise<T[]>;
 
@@ -742,7 +856,7 @@ declare module "node-mysql-wrapper" {
         findById(id: number | string, callback?: (result: T) => any): Promise<T>;
 
         findAll(): Promise<T[]>; // only criteria and promise
-        findAll(tableRules: RawRules): Promise<T[]> // only rules and promise
+        findAll(tableRules: RawRules): Promise<T[]>; // only rules and promise
         findAll(tableRules?: RawRules, callback?: (_results: T[]) => any): Promise<T[]>;
 
 
@@ -753,32 +867,87 @@ declare module "node-mysql-wrapper" {
         remove(criteriaRawObject: any): Promise<DeleteAnswer>; // criteria obj without callback
         remove(criteriaOrID: any | number | string, callback?: (_result: DeleteAnswer) => any): Promise<DeleteAnswer>;
 
+        /** Only for Meteor JS
+         * Returns a sync to client, the server  and the actual/real database internal or external actions.
+         */
+        meteorCollection(collectionName: string, fillWithCriteria?: any): MeteorMysqlCollection<T>;
+
     }
 
-    class MeteorTable<T>{
-        public table: Table<T>;
-        constructor(table: Table<T>);
+    export class MeteorMysqlCollection<T> {
 
-        insert(doc: T, callback?: (_result: T) => void): T;
+        constructor(table?: Table<T>, name?: string);
 
-        remove(selector: any, callback?: () => DeleteAnswer): DeleteAnswer;
+        rawCollection(): any;
 
-        update(selector: any, modifier: any, options?: {
+        rawDatabase(): any;
+
+        _ensureIndex(indexName: string, options?: { [key: string]: any }): void;
+
+        allow(options: {
+            insert?: (userId: string, doc: T) => boolean;
+            update?: (userId: string, doc: T, fieldNames: string[], modifier: any) => boolean;
+            remove?: (userId: string, doc: T) => boolean;
+            fetch?: string[];
+            transform?: Function;
+        }): boolean;
+
+        deny(options: {
+            insert?: (userId: string, doc: T) => boolean;
+            update?: (userId: string, doc: T, fieldNames: string[], modifier: any) => boolean;
+            remove?: (userId: string, doc: T) => boolean;
+            fetch?: string[];
+            transform?: Function;
+        }): boolean;
+
+
+        fill(criteriaRawJsObject: any): MeteorMysqlCollection<T>;
+
+        fillAll(): MeteorMysqlCollection<T>;
+
+        fillOne(criteriaRawJsObject: any): MeteorMysqlCollection<T>;
+
+        find(selector?: any, options?: {
+            sort?: any;
+            skip?: number;
+            limit?: number;
+            fields?: any;
+            reactive?: boolean;
+            transform?: Function;
+        }): Mongo.Cursor<T>;
+
+
+        findOne(selector?: any, options?: {
+            sort?: any;
+            skip?: number;
+            fields?: any;
+            reactive?: boolean;
+            transform?: Function;
+        }): T;
+
+        insert(doc: T, callback?: Function): string;
+
+        remove(selector: any, callback?: Function): void;
+
+        update(selector: any, modifier?: any, options?: {
             multi?: boolean;
             upsert?: boolean;
-        }, callback?: (result: T) => any): number;
+        }, callback?: Function): number;
 
-        collection(nameOfCollection?: string, fillWithCriteria?: any): Mongo.Collection<T>;
+
     }
 
-    class Database {
+    export class Database {
         connection: Connection;
         isReady: boolean;
         readyListenerCallbacks: Function[];
+
         constructor(connection?: Connection);
+
         static when(..._promises: Promise<any>[]): Promise<any>;
+
         setConnection(connection: Connection): void;
-            
+
         /**
          * Force to use/fetch information from only certain of database's tables, otherwise all database's tables information will be fetched.
          * @param {Array} tables the array of the tables  {string}
@@ -788,43 +957,68 @@ declare module "node-mysql-wrapper" {
         useOnly(...useTables: any[]): void;
 
         has(tableName: string, functionName?: string): boolean;
+
         ready(callback?: () => void): void;
+
         table<T>(tableName: string): Table<T>;
+
         noticeReady(): void;
+
         removeReadyListener(callback: () => void): void;
+
         query(queryStr: string, callback: (err: Mysql.IError, results: any) => any, queryArguments?: any[]): void;
-        
+
         /**
-        * Close the entire real connection and remove all event's listeners (if exist).
-        * the difference from the 'end' is that this method doesn't care about errors so no callback passing here. 
-        */
+         * Close the entire real connection and remove all event's listeners (if exist).
+         * the difference from the 'end' is that this method doesn't care about errors so no callback passing here.
+         */
         destroy(): void;
-        
+
         /**
-       * Close the entire real connection and remove all event's listeners (if exist).
-       * @param {function} maybeAcallbackError If error occurs when closing the connection, this callback has the responsibility to catch it.
-       * @returnType {nothing}
-       * @return {nothing} 
-       */
+         * Close the entire real connection and remove all event's listeners (if exist).
+         * @param {function} maybeAcallbackError If error occurs when closing the connection, this callback has the responsibility to catch it.
+         * @returnType {nothing}
+         * @return {nothing}
+         */
         end(maybeAcallbackError: (err: any) => void): void;
 
         newTableRules(tableName: string): SelectQueryRules;
 
         buildRules(): SelectQueryRules;
+
         buildRules(parentRules?: SelectQueryRules): SelectQueryRules;
+
+        criteriaFor<T>(tableName: string): CriteriaBuilder<T>;
 
         collection<T>(tableName: string, callbackWhenReady?: Function): ObservableCollection<T>;
 
-        /**Meteor js feature only: Returns a table which it's collection can make synchronization with the client */
-        meteorTable<T>(tableName: string): MeteorTable<T>;
+        /**Meteor js feature only: Returns a  collection which can sync with the client, the ui and the real external database actions */
+        meteorCollection<T>(tableOrTableName: string | Table<T>, collectionName: string, fillWithCriteria?: any): MeteorMysqlCollection<T>;
+
+
     }
 
-    function wrap(mysqlUrlOrObjectOrMysqlAlreadyConnection: Mysql.IConnection | string, ...useTables: any[]): Database;
-    
-    /** For meteor js only
-     * Same as wrap but it's sync mode - autoconnect to the database without need to use database.ready(callback).
-     */
-    function connect(mysqlUrlOrObjectOrMysqlAlreadyConnection: Mysql.IConnection | string, ...useTables: any[]): Database;
+    export class ConditionalConverter {
 
-    function observable<T>(obj: T): T & ObservableObject;
+        static toMysql(_symbol: string): string;
+
+        static toJS(_symbol: string): string;
+
+        static toMysqlConditional(ifevalStatement: string): string;
+
+        static toJSConditional(whereStatementConditional: string): string;
+    }
+
+
+    export function wrap(mysqlUrlOrObjectOrMysqlAlreadyConnection: Mysql.IConnection | string, ...useTables: any[]): NodeMysqlWrapper.Database;
+
+    /** Same as wrap but it's sync mode - autoconnect to the database without need to use database.ready(callback).
+     *  Do not use it yet. It works only on 32/86 bit, use .wrap instead
+     */
+    export function connect(mysqlUrlOrObjectOrMysqlAlreadyConnection: Mysql.IConnection | string, ...useTables: any[]): NodeMysqlWrapper.Database;
+
+    export function observable<T>(obj: T): T & NodeMysqlWrapper.ObservableObject;
+
 }
+
+
