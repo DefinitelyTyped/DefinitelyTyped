@@ -614,14 +614,30 @@ module TestIndexOf {
 }
 
 //_.initial
-{
-    let testInitalArray: TResult[];
-    let testInitalList: _.List<TResult>;
-    let result: TResult[];
-    result = _.initial<TResult>(testInitalArray);
-    result = _.initial<TResult>(testInitalList);
-    result = _(testInitalArray).initial().value();
-    result = _(testInitalList).initial<TResult>().value();
+module TestInitial {
+    let array: TResult[];
+    let list: _.List<TResult>;
+
+    {
+        let result: TResult[];
+
+        result = _.initial<TResult>(array);
+        result = _.initial<TResult>(list);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).initial();
+        result = _(list).initial<TResult>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().initial();
+        result = _(list).chain().initial<TResult>();
+    }
 }
 
 // _.intersection
