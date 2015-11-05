@@ -27,7 +27,7 @@ function testPieChart() {
       .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    d3.csv("data.csv", d => ({ population: +d['population'], age: d['age'] }), function (error, data) {
+    d3.csv("data.csv", d => ({ population: +d['population'], age: d['age'] }), function (error:any, data: TestPieChartData[]) {
         var g = svg.selectAll(".arc")
             .data(pie(data))
           .enter().append("g")
@@ -271,6 +271,7 @@ function stackedBarChart() {
     });
 }
 
+type Dict<T> = { [key: string]: T };
 // example from http://bl.ocks.org/3886394
 function normalizedBarChart() {
     var margin = { top: 20, right: 100, bottom: 30, left: 40 },
@@ -301,7 +302,7 @@ function normalizedBarChart() {
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.csv("data.csv", function (error, data) {
+    d3.csv("data.csv", function (error:any , data:Dict<string>[][]) {
         color.domain(d3.keys(data[0]).filter(function (key) { return key !== "State"; }));
 
         data.forEach(function (d: any) {
@@ -494,7 +495,7 @@ function callenderView() {
         .attr("class", "month")
         .attr("d", monthPath);
 
-    d3.csv("dji.csv", function (error, csv) {
+    d3.csv("dji.csv", function (error:any, csv: Dict<string>[]) {
         var data = d3.nest()
           .key(function (d: any) { return d.Date; })
           .rollup(function (d: any) { return (d[0].Close - d[0].Open) / d[0].Open; })
@@ -1950,7 +1951,7 @@ function irisParallel() {
 
     var line = d3.svg.line(),
         axis = d3.svg.axis().orient("left"),
-        foreground;
+        foreground:any;
 
     var svg = d3.select("body").append("svg:svg")
         .attr("width", w + m[1] + m[3])
@@ -1958,13 +1959,13 @@ function irisParallel() {
         .append("svg:g")
         .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
-    d3.csv("iris.csv", function (flowers) {
+    d3.csv("iris.csv", function (flowers:any) {
         var i: number;
 
         // Create a scale and brush for each trait.
-        traits.forEach(function (d) {
+        traits.forEach(function (d:string) {
             y[d] = d3.scale.linear<number>()
-                .domain(d3.extent(flowers, function (p) { return +p[d]; } ))
+                .domain(d3.extent(flowers, function (p:{[k:string]:any}) { return +p[d]; } ))
                 .range([h, 0]);
 
             y[d].brush = d3.svg.brush()
@@ -1995,7 +1996,7 @@ function irisParallel() {
             .data(flowers)
             .enter().append("svg:path")
             .attr("d", path)
-            .attr("class", function (d) { return d['species']; } );
+            .attr("class", function (d: Dict<any>) { return d['species']; } );
 
         // Add a group element for each trait.
         var g = svg.selectAll(".trait")
@@ -2054,7 +2055,7 @@ function irisParallel() {
     function brush() {
         var actives = traits.filter(function (p) { return !y[p].brush.empty(); } ),
             extents = actives.map(function (p) { return y[p].brush.extent(); } );
-        foreground.classed("fade", function (d) {
+        foreground.classed("fade", function (d:any) {
             return !actives.every(function (p, i) {
                 return extents[i][0] <= d[p] && d[p] <= extents[i][1];
             } );
