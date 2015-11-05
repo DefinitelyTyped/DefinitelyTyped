@@ -297,6 +297,7 @@ declare module AngularFormly {
 			bound?: any;
 			expression?: any;
 			value?: any;
+			[key: string]: any;
 		};
 
 
