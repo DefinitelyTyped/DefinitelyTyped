@@ -12,6 +12,7 @@ declare module 'request' {
 	import stream = require('stream');
 	import http = require('http');
 	import FormData = require('form-data');
+	import url = require('url');
 
 	export = RequestAPI;
 
@@ -56,17 +57,24 @@ declare module 'request' {
 
 		export var initParams: any;
 
-		export interface Options {
-			url?: string;
-			uri?: string;
+    interface UriOptions {
+      uri: string;
+    }
+
+    interface UrlOptions {
+      url: string;
+    }
+
+		interface OptionalOptions {
 			callback?: (error: any, response: http.IncomingMessage, body: any) => void;
 			jar?: any; // CookieJar
+			formData?: any; // Object
 			form?: any; // Object or string
 			auth?: AuthOptions;
 			oauth?: OAuthOptions;
 			aws?: AWSOptions;
 			hawk ?: HawkOptions;
-			qs?: Object;
+			qs?: any;
 			json?: any;
 			multipart?: RequestPart[];
 			agentOptions?: any;
@@ -77,7 +85,7 @@ declare module 'request' {
 			method?: string;
 			headers?: Headers;
 			body?: any;
-			followRedirect?: boolean;
+			followRedirect?: boolean|((response: http.IncomingMessage) => boolean);
 			followAllRedirects?: boolean;
 			maxRedirects?: number;
 			encoding?: string;
@@ -85,7 +93,10 @@ declare module 'request' {
 			timeout?: number;
 			proxy?: any;
 			strictSSL?: boolean;
+			gzip?: boolean;
 		}
+
+    export type Options = (UriOptions|UrlOptions)&OptionalOptions;
 
 		export interface RequestPart {
 			headers?: Headers;
@@ -139,6 +150,7 @@ declare module 'request' {
 			pass?: string;
 			password?: string;
 			sendImmediately?: boolean;
+			bearer?: string;
 		}
 
 		export interface OAuthOptions {
@@ -160,9 +172,9 @@ declare module 'request' {
 		}
 
 		export interface CookieJar {
-			add(cookie: Cookie): void;
-			get(req: Request): Cookie;
-			cookieString(req: Request): string;
+			setCookie(cookie: Cookie, uri: string|url.Url, options?: any): void
+			getCookieString(uri: string|url.Url): string
+			getCookies(uri: string|url.Url): Cookie[]
 		}
 
 		export interface CookieValue {

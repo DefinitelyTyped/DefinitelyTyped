@@ -17,11 +17,16 @@ interface Cheerio {
     attr(name: string, value: any): Cheerio;
 
     data(): any;
+    data(name: string): any;
+    data(name: string, value: any): any;
 
     val(): string;
     val(value: string): Cheerio;
 
     removeAttr(name: string): Cheerio;
+
+    has(selector: string): Cheerio;
+    has(element: CheerioElement): Cheerio;
 
     hasClass(className: string): boolean;
     addClass(classNames: string): Cheerio;
@@ -41,6 +46,9 @@ interface Cheerio {
     is(selection: Cheerio): boolean;
     is(func: (index: number, element: CheerioElement) => boolean): boolean;
 
+    // Form
+    serializeArray(): {name: string, value: string}[];
+
     // Traversing
 
     find(selector: string): Cheerio;
@@ -52,10 +60,12 @@ interface Cheerio {
     parentsUntil(element: CheerioElement, filter?: string): Cheerio;
     parentsUntil(element: Cheerio, filter?: string): Cheerio;
 
+    closest(): Cheerio;
     closest(selector: string): Cheerio;
 
     next(selector?: string): Cheerio;
     nextAll(): Cheerio;
+    nextAll(selector: string): Cheerio;
 
     nextUntil(selector?: string, filter?: string): Cheerio;
     nextUntil(element: CheerioElement, filter?: string): Cheerio;
@@ -63,6 +73,7 @@ interface Cheerio {
 
     prev(selector?: string): Cheerio;
     prevAll(): Cheerio;
+    prevAll(selector: string): Cheerio;
 
     prevUntil(selector?: string, filter?: string): Cheerio;
     prevUntil(element: CheerioElement, filter?: string): Cheerio;
@@ -74,6 +85,8 @@ interface Cheerio {
 
     children(selector?: string): Cheerio;
 
+    contents(): Cheerio;
+
     each(func: (index: number, element: CheerioElement) => any): Cheerio;
     map(func: (index: number, element: CheerioElement) => any): Cheerio;
 
@@ -81,15 +94,24 @@ interface Cheerio {
     filter(selection: Cheerio): Cheerio;
     filter(element: CheerioElement): Cheerio;
     filter(elements: CheerioElement[]): Cheerio;
-    filter(func: (index: number) => boolean): Cheerio;
+    filter(func: (index: number, element: CheerioElement) => boolean): Cheerio;
+
+    not(selector: string): Cheerio;
+    not(selection: Cheerio): Cheerio;
+    not(element: CheerioElement): Cheerio;
+    not(func: (index: number, element: CheerioElement) => boolean): Cheerio;
 
     first(): Cheerio;
     last(): Cheerio;
 
     eq(index: number): Cheerio;
 
-    get(): Document[];
-    get(index: number): Document;
+    get(): CheerioElement[];
+    get(index: number): CheerioElement;
+
+    index(): number;
+    index(selector: string): number;
+    index(selection: Cheerio): number;
 
     end(): Cheerio;
 
@@ -98,6 +120,9 @@ interface Cheerio {
     add(element: CheerioElement): Cheerio;
     add(elements: CheerioElement[]): Cheerio;
     add(selection: Cheerio): Cheerio;
+
+    addBack():Cheerio;
+    addBack(filter: string):Cheerio;
 
     // Manipulation
 
@@ -116,10 +141,18 @@ interface Cheerio {
     after(content: Document[], ...contents: any[]): Cheerio;
     after(content: Cheerio, ...contents: any[]): Cheerio;
 
+    insertAfter(content: string): Cheerio;
+    insertAfter(content: Document): Cheerio;
+    insertAfter(content: Cheerio): Cheerio;
+
     before(content: string, ...contents: any[]): Cheerio;
     before(content: Document, ...contents: any[]): Cheerio;
     before(content: Document[], ...contents: any[]): Cheerio;
     before(content: Cheerio, ...contents: any[]): Cheerio;
+
+    insertBefore(content: string): Cheerio;
+    insertBefore(content: Document): Cheerio;
+    insertBefore(content: Cheerio): Cheerio;
 
     remove(selector?: string): Cheerio;
 
@@ -135,6 +168,11 @@ interface Cheerio {
 
     text(): string;
     text(text: string): Cheerio;
+
+    // See https://github.com/cheeriojs/cheerio/issues/731
+    /*wrap(content: string): Cheerio;
+    wrap(content: Document): Cheerio;
+    wrap(content: Cheerio): Cheerio;*/
 
     css(propertyName: string): string;
     css(propertyNames: string[]): string[];
@@ -170,11 +208,7 @@ interface CheerioOptionsInterface {
     normalizeWhitespace?: boolean;
 }
 
-interface CheerioStatic {
-    // Document References
-    // Cheerio https://github.com/cheeriojs/cheerio
-    // JQuery http://api.jquery.com
-
+interface CheerioSelector {
     (selector: string): Cheerio;
     (selector: string, context: string): Cheerio;
     (selector: string, context: CheerioElement): Cheerio;
@@ -185,7 +219,12 @@ interface CheerioStatic {
     (selector: string, context: CheerioElement[], root: string): Cheerio;
     (selector: string, context: Cheerio, root: string): Cheerio;
     (selector: any): Cheerio;
+}
 
+interface CheerioStatic extends CheerioSelector {
+    // Document References
+    // Cheerio https://github.com/cheeriojs/cheerio
+    // JQuery http://api.jquery.com
     xml(): string;
     root(): Cheerio;
     contains(container: CheerioElement, contained: CheerioElement): boolean;
@@ -200,17 +239,28 @@ interface CheerioStatic {
 interface CheerioElement {
     // Document References
     // Node Console
-
+    tagName: string;
     type: string;
     name: string;
     attribs: Object;
     children: CheerioElement[];
+    childNodes: CheerioElement[];
+    lastChild: CheerioElement;
     next: CheerioElement;
+    nextSibling: CheerioElement;
     prev: CheerioElement;
+    previousSibling: CheerioElement;
     parent: CheerioElement;
-    root: CheerioElement;
+    parentNode: CheerioElement;
+    nodeValue: string;
 }
 
+interface CheerioAPI extends CheerioSelector {
+  load(html: string, options?: CheerioOptionsInterface): CheerioStatic;
+}
+
+declare var cheerio:CheerioAPI;
+
 declare module "cheerio" {
-    export function load(html: string, options?: CheerioOptionsInterface): CheerioStatic;
+    export = cheerio;
 }

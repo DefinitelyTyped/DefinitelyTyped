@@ -5,13 +5,18 @@
 
 
 interface KnockoutSubscribableFunctions<T> {
+    [key: string]: KnockoutBindingHandler;
+
 	notifySubscribers(valueToWrite?: T, event?: string): void;
 }
 
 interface KnockoutComputedFunctions<T> {
+    [key: string]: KnockoutBindingHandler;
 }
 
 interface KnockoutObservableFunctions<T> {
+    [key: string]: KnockoutBindingHandler;
+
 	equalityComparer(a: any, b: any): boolean;
 }
 
@@ -30,6 +35,8 @@ interface KnockoutObservableArrayFunctions<T> {
     sort(compareFunction: (left: T, right: T) => number): void;
 
     // Ko specific
+    [key: string]: KnockoutBindingHandler;
+
     replace(oldItem: T, newItem: T): void;
 
     remove(item: T): T[];
@@ -70,7 +77,7 @@ interface KnockoutComputedStatic {
 
 interface KnockoutComputed<T> extends KnockoutObservable<T>, KnockoutComputedFunctions<T> {
 	fn: KnockoutComputedFunctions<any>;
-	
+
 	dispose(): void;
 	isActive(): boolean;
 	getDependenciesCount(): number;
@@ -209,22 +216,12 @@ interface KnockoutExtenders {
 	trackArrayChanges(target: any): any;
 }
 
+//
+// NOTE TO MAINTAINERS AND CONTRIBUTORS : pay attention to only include symbols that are
+// publicly exported in the minified version of ko, without that you can give the false
+// impression that some functions will be available in production builds.
+//
 interface KnockoutUtils {
-
-    //////////////////////////////////
-    // utils.domManipulation.js
-    //////////////////////////////////
-
-    simpleHtmlParse(html: string): any[];
-
-    jQueryHtmlParse(html: string): any[];
-
-    parseHtmlFragment(html: string): any[];
-
-    setHtml(node: Element, html: string): void;
-
-    setHtml(node: Element, html: () => string): void;
-
     //////////////////////////////////
     // utils.domData.js
     //////////////////////////////////
@@ -253,91 +250,77 @@ interface KnockoutUtils {
         removeNode(node: Node): void;
     };
 
-    //////////////////////////////////
-    // utils.js
-    //////////////////////////////////
-
-    fieldsIncludedWithJsonPost: any[];
-
-    compareArrays<T>(a: T[], b: T[]): Array<KnockoutArrayChange<T>>;
-
-    arrayForEach<T>(array: T[], action: (item: T) => void): void;
-
-    arrayIndexOf<T>(array: T[], item: T): number;
-
-    arrayFirst<T>(array: T[], predicate: (item: T) => boolean, predicateOwner?: any): T;
-
-    arrayRemoveItem(array: any[], itemToRemove: any): void;
-
-    arrayGetDistinctValues<T>(array: T[]): T[];
-
-    arrayMap<T, U>(array: T[], mapping: (item: T) => U): U[];
+    addOrRemoveItem<T>(array: T[] | KnockoutObservable<T>, value: T, included: T): void;
 
     arrayFilter<T>(array: T[], predicate: (item: T) => boolean): T[];
 
-    arrayPushAll<T>(array: T[], valuesToPush: T[]): T[];
+    arrayFirst<T>(array: T[], predicate: (item: T) => boolean, predicateOwner?: any): T;
 
-    arrayPushAll<T>(array: KnockoutObservableArray<T>, valuesToPush: T[]): T[];
+    arrayForEach<T>(array: T[], action: (item: T, index: number) => void): void;
+
+    arrayGetDistinctValues<T>(array: T[]): T[];
+
+    arrayIndexOf<T>(array: T[], item: T): number;
+
+    arrayMap<T, U>(array: T[], mapping: (item: T) => U): U[];
+
+    arrayPushAll<T>(array: T[] | KnockoutObservableArray<T>, valuesToPush: T[]): T[];
+
+    arrayRemoveItem(array: any[], itemToRemove: any): void;
+
+    compareArrays<T>(a: T[], b: T[]): Array<KnockoutArrayChange<T>>;
 
     extend(target: Object, source: Object): Object;
 
-    moveCleanedNodesToContainerElement(nodes: any[]): HTMLElement;
+    fieldsIncludedWithJsonPost: any[];
 
-    cloneNodes(nodesArray: any[], shouldCleanNodes: boolean): any[];
+    getFormFields(form: any, fieldName: string): any[];
 
-    setDomNodeChildren(domNode: any, childNodes: any[]): void;
+    objectForEach(obj: any, action: (key: any, value: any) => void): void;
 
-    replaceDomNodes(nodeToReplaceOrNodeArray: any, newNodesArray: any[]): void;
+    parseHtmlFragment(html: string): any[];
 
-    setOptionNodeSelectionState(optionNode: any, isSelected: boolean): void;
+    parseJson(jsonString: string): any;
 
-    stringTrim(str: string): string;
+    postJson(urlOrForm: any, data: any, options: any): void;
 
-    stringTokenize(str: string, delimiter: string): string[];
+    peekObservable<T>(value: KnockoutObservable<T>): T;
 
-    stringStartsWith(str: string, startsWith: string): boolean;
-
-    domNodeIsContainedBy(node: any, containedByNode: any): boolean;
-
-    domNodeIsAttachedToDocument(node: any): boolean;
-
-    tagNameLower(element: any): string;
+    range(min: any, max: any): any;
 
     registerEventHandler(element: any, eventType: any, handler: Function): void;
+
+    setHtml(node: Element, html: () => string): void;
+
+    setHtml(node: Element, html: string): void;
+
+    setTextContent(element: any, textContent: string | KnockoutObservable<string>): void;
+
+    stringifyJson(data: any, replacer?: Function, space?: string): string;
+
+    toggleDomNodeCssClass(node: any, className: string, shouldHaveClass: boolean): void;
 
     triggerEvent(element: any, eventType: any): void;
 
     unwrapObservable<T>(value: KnockoutObservable<T> | T): T;
 
-    peekObservable<T>(value: KnockoutObservable<T>): T;
-
-    toggleDomNodeCssClass(node: any, className: string, shouldHaveClass: boolean): void;
-
-    //setTextContent(element: any, textContent: string): void; // NOT PART OF THE MINIFIED API SURFACE (ONLY IN knockout-{version}.debug.js) https://github.com/SteveSanderson/knockout/issues/670
-
-    setElementName(element: any, name: string): void;
-
-    forceRefresh(node: any): void;
-
-    ensureSelectElementIsRenderedCorrectly(selectElement: any): void;
-
-    range(min: any, max: any): any;
-
-    makeArray(arrayLikeObject: any): any[];
-
-    getFormFields(form: any, fieldName: string): any[];
-
-    parseJson(jsonString: string): any;
-
-    stringifyJson(data: any, replacer?: Function, space?: string): string;
-
-    postJson(urlOrForm: any, data: any, options: any): void;
-
-    ieVersion: number;
-
-    isIe6: boolean;
-
-    isIe7: boolean;
+    // NOT PART OF THE MINIFIED API SURFACE (ONLY IN knockout-{version}.debug.js) https://github.com/SteveSanderson/knockout/issues/670
+    // forceRefresh(node: any): void;
+    // ieVersion: number;
+    // isIe6: boolean;
+    // isIe7: boolean;
+    // jQueryHtmlParse(html: string): any[];
+    // makeArray(arrayLikeObject: any): any[];
+    // moveCleanedNodesToContainerElement(nodes: any[]): HTMLElement;
+    // replaceDomNodes(nodeToReplaceOrNodeArray: any, newNodesArray: any[]): void;
+    // setDomNodeChildren(domNode: any, childNodes: any[]): void;
+    // setElementName(element: any, name: string): void;
+    // setOptionNodeSelectionState(optionNode: any, isSelected: boolean): void;
+    // simpleHtmlParse(html: string): any[];
+    // stringStartsWith(str: string, startsWith: string): boolean;
+    // stringTokenize(str: string, delimiter: string): string[];
+    // stringTrim(str: string): string;
+    // tagNameLower(element: any): string;
 }
 
 interface KnockoutArrayChange<T> {
@@ -566,7 +549,7 @@ interface KnockoutComputedContext {
 }
 
 //
-// refactored types into a namespace to reduce global pollution 
+// refactored types into a namespace to reduce global pollution
 // and used Union Types to simplify overloads (requires TypeScript 1.4)
 //
 declare module KnockoutComponentTypes {

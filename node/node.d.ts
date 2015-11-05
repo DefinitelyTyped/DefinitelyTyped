@@ -9,6 +9,19 @@
 *                                               *
 ************************************************/
 
+interface Error {
+    stack?: string;
+}
+
+
+// compat for TypeScript 1.5.3
+// if you use with --target es3 or --target es5 and use below definitions,
+// use the lib.es6.d.ts that is bundled with TypeScript 1.5.3.
+interface MapConstructor {}
+interface WeakMapConstructor {}
+interface SetConstructor {}
+interface WeakSetConstructor {}
+
 /************************************************
 *                                               *
 *                   GLOBAL                      *
@@ -27,23 +40,30 @@ declare function clearInterval(intervalId: NodeJS.Timer): void;
 declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
 declare function clearImmediate(immediateId: any): void;
 
-declare var require: {
+interface NodeRequireFunction {
     (id: string): any;
+}
+
+interface NodeRequire extends NodeRequireFunction {
     resolve(id:string): string;
     cache: any;
     extensions: any;
     main: any;
-};
+}
 
-declare var module: {
+declare var require: NodeRequire;
+
+interface NodeModule {
     exports: any;
-    require(id: string): any;
+    require: NodeRequireFunction;
     id: string;
     filename: string;
     loaded: boolean;
     parent: any;
     children: any[];
-};
+}
+
+declare var module: NodeModule;
 
 // Same as module.exports
 declare var exports: any;
@@ -99,7 +119,7 @@ declare var Buffer: {
      *
      * @param obj object to test.
      */
-    isBuffer(obj: any): boolean;
+    isBuffer(obj: any): obj is Buffer;
     /**
      * Returns true if {encoding} is a valid encoding argument.
      * Valid string encodings in Node 0.12: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
@@ -173,8 +193,7 @@ declare module NodeJS {
 
     export interface WritableStream extends EventEmitter {
         writable: boolean;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
+        write(buffer: Buffer|string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
         end(): void;
         end(buffer: Buffer, cb?: Function): void;
@@ -271,7 +290,7 @@ declare module NodeJS {
         Int8Array: typeof Int8Array;
         Intl: typeof Intl;
         JSON: typeof JSON;
-        Map: typeof Map;
+        Map: MapConstructor;
         Math: typeof Math;
         NaN: typeof NaN;
         Number: typeof Number;
@@ -280,7 +299,7 @@ declare module NodeJS {
         RangeError: typeof RangeError;
         ReferenceError: typeof ReferenceError;
         RegExp: typeof RegExp;
-        Set: typeof Set;
+        Set: SetConstructor;
         String: typeof String;
         Symbol: Function;
         SyntaxError: typeof SyntaxError;
@@ -290,8 +309,8 @@ declare module NodeJS {
         Uint32Array: typeof Uint32Array;
         Uint8Array: typeof Uint8Array;
         Uint8ClampedArray: Function;
-        WeakMap: typeof WeakMap;
-        WeakSet: Function;
+        WeakMap: WeakMapConstructor;
+        WeakSet: WeakSetConstructor;
         clearImmediate: (immediateId: any) => void;
         clearInterval: (intervalId: NodeJS.Timer) => void;
         clearTimeout: (timeoutId: NodeJS.Timer) => void;
@@ -315,6 +334,7 @@ declare module NodeJS {
         undefined: typeof undefined;
         unescape: (str: string) => string;
         gc: () => void;
+        v8debug?: any;
     }
 
     export interface Timer {
@@ -358,21 +378,21 @@ interface NodeBuffer {
     readFloatBE(offset: number, noAssert?: boolean): number;
     readDoubleLE(offset: number, noAssert?: boolean): number;
     readDoubleBE(offset: number, noAssert?: boolean): number;
-    writeUInt8(value: number, offset: number, noAssert?: boolean): void;
-    writeUInt16LE(value: number, offset: number, noAssert?: boolean): void;
-    writeUInt16BE(value: number, offset: number, noAssert?: boolean): void;
-    writeUInt32LE(value: number, offset: number, noAssert?: boolean): void;
-    writeUInt32BE(value: number, offset: number, noAssert?: boolean): void;
-    writeInt8(value: number, offset: number, noAssert?: boolean): void;
-    writeInt16LE(value: number, offset: number, noAssert?: boolean): void;
-    writeInt16BE(value: number, offset: number, noAssert?: boolean): void;
-    writeInt32LE(value: number, offset: number, noAssert?: boolean): void;
-    writeInt32BE(value: number, offset: number, noAssert?: boolean): void;
-    writeFloatLE(value: number, offset: number, noAssert?: boolean): void;
-    writeFloatBE(value: number, offset: number, noAssert?: boolean): void;
-    writeDoubleLE(value: number, offset: number, noAssert?: boolean): void;
-    writeDoubleBE(value: number, offset: number, noAssert?: boolean): void;
-    fill(value: any, offset?: number, end?: number): void;
+    writeUInt8(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt16LE(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt16BE(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt32LE(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt32BE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt8(value: number, offset: number, noAssert?: boolean): number;
+    writeInt16LE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt16BE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt32LE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt32BE(value: number, offset: number, noAssert?: boolean): number;
+    writeFloatLE(value: number, offset: number, noAssert?: boolean): number;
+    writeFloatBE(value: number, offset: number, noAssert?: boolean): number;
+    writeDoubleLE(value: number, offset: number, noAssert?: boolean): number;
+    writeDoubleBE(value: number, offset: number, noAssert?: boolean): number;
+    fill(value: any, offset?: number, end?: number): Buffer;
 }
 
 /************************************************
@@ -407,9 +427,9 @@ declare module "events" {
 }
 
 declare module "http" {
-    import events = require("events");
-    import net = require("net");
-    import stream = require("stream");
+    import * as events from "events";
+    import * as net from "net";
+    import * as stream from "stream";
 
     export interface Server extends events.EventEmitter {
         listen(port: number, hostname?: string, backlog?: number, callback?: Function): Server;
@@ -438,6 +458,7 @@ declare module "http" {
         writeHead(statusCode: number, reasonPhrase?: string, headers?: any): void;
         writeHead(statusCode: number, headers?: any): void;
         statusCode: number;
+        statusMessage: string;
         setHeader(name: string, value: string): void;
         sendDate: boolean;
         getHeader(name: string): string;
@@ -553,8 +574,8 @@ declare module "http" {
 }
 
 declare module "cluster" {
-    import child  = require("child_process");
-    import events = require("events");
+    import * as child from "child_process";
+    import * as events from "events";
 
     export interface ClusterSettings {
         exec?: string;
@@ -593,7 +614,7 @@ declare module "cluster" {
 }
 
 declare module "zlib" {
-    import stream = require("stream");
+    import * as stream from "stream";
     export interface ZlibOptions { chunkSize?: number; windowBits?: number; level?: number; memLevel?: number; strategy?: number; dictionary?: any; }
 
     export interface Gzip extends stream.Transform { }
@@ -678,9 +699,9 @@ declare module "os" {
 }
 
 declare module "https" {
-    import tls = require("tls");
-    import events = require("events");
-    import http = require("http");
+    import * as tls from "tls";
+    import * as events from "events";
+    import * as http from "http";
 
     export interface ServerOptions {
         pfx?: any;
@@ -737,15 +758,15 @@ declare module "punycode" {
     export function toASCII(domain: string): string;
     export var ucs2: ucs2;
     interface ucs2 {
-        decode(string: string): string;
+        decode(string: string): number[];
         encode(codePoints: number[]): string;
     }
     export var version: any;
 }
 
 declare module "repl" {
-    import stream = require("stream");
-    import events = require("events");
+    import * as stream from "stream";
+    import * as events from "events";
 
     export interface ReplOptions {
         prompt?: string;
@@ -762,11 +783,11 @@ declare module "repl" {
 }
 
 declare module "readline" {
-    import events = require("events");
-    import stream = require("stream");
+    import * as events from "events";
+    import * as stream from "stream";
 
     export interface ReadLine extends events.EventEmitter {
-        setPrompt(prompt: string, length: number): void;
+        setPrompt(prompt: string): void;
         prompt(preserveCursor?: boolean): void;
         question(query: string, callback: Function): void;
         pause(): void;
@@ -797,8 +818,8 @@ declare module "vm" {
 }
 
 declare module "child_process" {
-    import events = require("events");
-    import stream = require("stream");
+    import * as events from "events";
+    import * as stream from "stream";
 
     export interface ChildProcess extends events.EventEmitter {
         stdin:  stream.Writable;
@@ -808,6 +829,7 @@ declare module "child_process" {
         kill(signal?: string): void;
         send(message: any, sendHandle?: any): void;
         disconnect(): void;
+        unref(): void;
     }
 
     export function spawn(command: string, args?: string[], options?: {
@@ -839,7 +861,7 @@ declare module "child_process" {
         env?: any;
         encoding?: string;
         timeout?: number;
-        maxBuffer?: string;
+        maxBuffer?: number;
         killSignal?: string;
     }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function fork(modulePath: string, args?: string[], options?: {
@@ -847,6 +869,26 @@ declare module "child_process" {
         env?: any;
         encoding?: string;
     }): ChildProcess;
+    export function spawnSync(command: string, args?: string[], options?: {
+        cwd?: string;
+        input?: string | Buffer;
+        stdio?: any;
+        env?: any;
+        uid?: number;
+        gid?: number;
+        timeout?: number;
+        maxBuffer?: number;
+        killSignal?: string;
+        encoding?: string;
+    }): {
+        pid: number;
+        output: string[];
+        stdout: string | Buffer;
+        stderr: string | Buffer;
+        status: number;
+        signal: string;
+        error: Error;
+    };
     export function execSync(command: string, options?: {
         cwd?: string;
         input?: string|Buffer;
@@ -858,7 +900,7 @@ declare module "child_process" {
         maxBuffer?: number;
         killSignal?: string;
         encoding?: string;
-    }): ChildProcess;
+    }): string | Buffer;
     export function execFileSync(command: string, args?: string[], options?: {
         cwd?: string;
         input?: string|Buffer;
@@ -870,26 +912,12 @@ declare module "child_process" {
         maxBuffer?: number;
         killSignal?: string;
         encoding?: string;
-    }): ChildProcess;
+    }): string | Buffer;
 }
 
 declare module "url" {
     export interface Url {
-        href: string;
-        protocol: string;
-        auth: string;
-        hostname: string;
-        port: string;
-        host: string;
-        pathname: string;
-        search: string;
-        query: any; // string | Object
-        slashes: boolean;
-        hash?: string;
-        path?: string;
-    }
-
-    export interface UrlOptions {
+        href?: string;
         protocol?: string;
         auth?: string;
         hostname?: string;
@@ -897,13 +925,14 @@ declare module "url" {
         host?: string;
         pathname?: string;
         search?: string;
-        query?: any;
+        query?: any; // string | Object
+        slashes?: boolean;
         hash?: string;
         path?: string;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean , slashesDenoteHost?: boolean ): Url;
-    export function format(url: UrlOptions): string;
+    export function format(url: Url): string;
     export function resolve(from: string, to: string): string;
 }
 
@@ -923,7 +952,7 @@ declare module "dns" {
 }
 
 declare module "net" {
-    import stream = require("stream");
+    import * as stream from "stream";
 
     export interface Socket extends stream.Duplex {
         // Extended base methods
@@ -979,10 +1008,10 @@ declare module "net" {
     }
     export function createServer(connectionListener?: (socket: Socket) =>void ): Server;
     export function createServer(options?: { allowHalfOpen?: boolean; }, connectionListener?: (socket: Socket) =>void ): Server;
-    export function connect(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
+    export function connect(options: { port: number, host?: string, localAddress? : string, localPort? : string, family? : number, allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
     export function connect(port: number, host?: string, connectionListener?: Function): Socket;
     export function connect(path: string, connectionListener?: Function): Socket;
-    export function createConnection(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
+    export function createConnection(options: { port: number, host?: string, localAddress? : string, localPort? : string, family? : number, allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
     export function createConnection(port: number, host?: string, connectionListener?: Function): Socket;
     export function createConnection(path: string, connectionListener?: Function): Socket;
     export function isIP(input: string): number;
@@ -991,7 +1020,7 @@ declare module "net" {
 }
 
 declare module "dgram" {
-    import events = require("events");
+    import * as events from "events";
 
     interface RemoteInfo {
         address: string;
@@ -1021,8 +1050,8 @@ declare module "dgram" {
 }
 
 declare module "fs" {
-    import stream = require("stream");
-    import events = require("events");
+    import * as stream from "stream";
+    import * as events from "events";
 
     interface Stats {
         isFile(): boolean;
@@ -1045,6 +1074,7 @@ declare module "fs" {
         atime: Date;
         mtime: Date;
         ctime: Date;
+        birthtime: Date;
     }
 
     interface FSWatcher extends events.EventEmitter {
@@ -1196,6 +1226,10 @@ declare module "fs" {
     export function fsync(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function fsyncSync(fd: number): void;
     export function write(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
+    export function write(fd: number, buffer: Buffer, offset: number, length: number, callback?: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
+    export function write(fd: number, data: any, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
+    export function write(fd: number, data: any, offset: number, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
+    export function write(fd: number, data: any, offset: number, encoding: string, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
     export function writeSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
     export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
     export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
@@ -1284,21 +1318,15 @@ declare module "fs" {
     export function createReadStream(path: string, options?: {
         flags?: string;
         encoding?: string;
-        fd?: string;
+        fd?: number;
         mode?: number;
-        bufferSize?: number;
-    }): ReadStream;
-    export function createReadStream(path: string, options?: {
-        flags?: string;
-        encoding?: string;
-        fd?: string;
-        mode?: string;
-        bufferSize?: number;
+        autoClose?: boolean;
     }): ReadStream;
     export function createWriteStream(path: string, options?: {
         flags?: string;
         encoding?: string;
-        string?: string;
+        fd?: number;
+        mode?: number;
     }): WriteStream;
 }
 
@@ -1459,9 +1487,9 @@ declare module "string_decoder" {
 }
 
 declare module "tls" {
-    import crypto = require("crypto");
-    import net = require("net");
-    import stream = require("stream");
+    import * as crypto from "crypto";
+    import * as net from "net";
+    import * as stream from "stream";
 
     var CLIENT_RENEG_LIMIT: number;
     var CLIENT_RENEG_WINDOW: number;
@@ -1604,12 +1632,12 @@ declare module "crypto" {
         setAutoPadding(auto_padding: boolean): void;
     }
     export function createSign(algorithm: string): Signer;
-    interface Signer {
+    interface Signer extends NodeJS.WritableStream {
         update(data: any): void;
         sign(private_key: string, output_format: string): string;
     }
     export function createVerify(algorith: string): Verify;
-    interface Verify {
+    interface Verify extends NodeJS.WritableStream {
         update(data: any): void;
         verify(object: string, signature: string, signature_format?: string): boolean;
     }
@@ -1637,7 +1665,7 @@ declare module "crypto" {
 }
 
 declare module "stream" {
-    import events = require("events");
+    import * as events from "events";
 
     export interface Stream extends events.EventEmitter {
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
@@ -1653,14 +1681,13 @@ declare module "stream" {
         readable: boolean;
         constructor(opts?: ReadableOptions);
         _read(size: number): void;
-        read(size?: number): string|Buffer;
+        read(size?: number): any;
         setEncoding(encoding: string): void;
         pause(): void;
         resume(): void;
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
-        unshift(chunk: string): void;
-        unshift(chunk: Buffer): void;
+        unshift(chunk: any): void;
         wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
         push(chunk: any, encoding?: string): boolean;
     }
@@ -1668,20 +1695,18 @@ declare module "stream" {
     export interface WritableOptions {
         highWaterMark?: number;
         decodeStrings?: boolean;
+        objectMode?: boolean;
     }
 
     export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
         writable: boolean;
         constructor(opts?: WritableOptions);
-        _write(data: Buffer, encoding: string, callback: Function): void;
-        _write(data: string, encoding: string, callback: Function): void;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
+        _write(chunk: any, encoding: string, callback: Function): void;
+        write(chunk: any, cb?: Function): boolean;
+        write(chunk: any, encoding?: string, cb?: Function): boolean;
         end(): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
+        end(chunk: any, cb?: Function): void;
+        end(chunk: any, encoding?: string, cb?: Function): void;
     }
 
     export interface DuplexOptions extends ReadableOptions, WritableOptions {
@@ -1692,15 +1717,12 @@ declare module "stream" {
     export class Duplex extends Readable implements NodeJS.ReadWriteStream {
         writable: boolean;
         constructor(opts?: DuplexOptions);
-        _write(data: Buffer, encoding: string, callback: Function): void;
-        _write(data: string, encoding: string, callback: Function): void;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
+        _write(chunk: any, encoding: string, callback: Function): void;
+        write(chunk: any, cb?: Function): boolean;
+        write(chunk: any, encoding?: string, cb?: Function): boolean;
         end(): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
+        end(chunk: any, cb?: Function): void;
+        end(chunk: any, encoding?: string, cb?: Function): void;
     }
 
     export interface TransformOptions extends ReadableOptions, WritableOptions {}
@@ -1710,8 +1732,7 @@ declare module "stream" {
         readable: boolean;
         writable: boolean;
         constructor(opts?: TransformOptions);
-        _transform(chunk: Buffer, encoding: string, callback: Function): void;
-        _transform(chunk: string, encoding: string, callback: Function): void;
+        _transform(chunk: any, encoding: string, callback: Function): void;
         _flush(callback: Function): void;
         read(size?: number): any;
         setEncoding(encoding: string): void;
@@ -1719,17 +1740,14 @@ declare module "stream" {
         resume(): void;
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
-        unshift(chunk: string): void;
-        unshift(chunk: Buffer): void;
+        unshift(chunk: any): void;
         wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
         push(chunk: any, encoding?: string): boolean;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
+        write(chunk: any, cb?: Function): boolean;
+        write(chunk: any, encoding?: string, cb?: Function): boolean;
         end(): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
+        end(chunk: any, cb?: Function): void;
+        end(chunk: any, encoding?: string, cb?: Function): void;
     }
 
     export class PassThrough extends Transform {}
@@ -1756,6 +1774,7 @@ declare module "util" {
     export function isDate(object: any): boolean;
     export function isError(object: any): boolean;
     export function inherits(constructor: any, superConstructor: any): void;
+    export function debuglog(key:string): (msg:string,...param: any[])=>void;
 }
 
 declare module "assert" {
@@ -1802,7 +1821,7 @@ declare module "assert" {
 }
 
 declare module "tty" {
-    import net = require("net");
+    import * as net from "net";
 
     export function isatty(fd: number): boolean;
     export interface ReadStream extends net.Socket {
@@ -1816,7 +1835,7 @@ declare module "tty" {
 }
 
 declare module "domain" {
-    import events = require("events");
+    import * as events from "events";
 
     export class Domain extends events.EventEmitter {
         run(fn: Function): void;

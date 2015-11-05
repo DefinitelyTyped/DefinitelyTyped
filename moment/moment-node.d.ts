@@ -1,40 +1,71 @@
 // Type definitions for Moment.js 2.8.0
 // Project: https://github.com/timrwood/moment
-// Definitions by: Michael Lakerveld <https://github.com/Lakerfield>, Aaron King <https://github.com/kingdango>, Hiroki Horiuchi <https://github.com/horiuchi>, Dick van den Brink <https://github.com/DickvdBrink>, Adi Dahiya <https://github.com/adidahiya>
+// Definitions by: Michael Lakerveld <https://github.com/Lakerfield>, Aaron King <https://github.com/kingdango>, Hiroki Horiuchi <https://github.com/horiuchi>, Dick van den Brink <https://github.com/DickvdBrink>, Adi Dahiya <https://github.com/adidahiya>, Matt Brooks <https://github.com/EnableSoftware>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module moment {
 
     interface MomentInput {
-
+        /** Year */
         years?: number;
+        /** Year */
+        year?: number;
+        /** Year */
         y?: number;
 
+        /** Month */
         months?: number;
+        /** Month */
+        month?: number;
+        /** Month */
         M?: number;
 
+        /** Week */
         weeks?: number;
+        /** Week */
+        week?: number;
+        /** Week */
         w?: number;
 
+        /** Day/Date */
         days?: number;
+        /** Day/Date */
+        day?: number;
+        /** Day/Date */
+        date?: number;
+        /** Day/Date */
         d?: number;
 
+        /** Hour */
         hours?: number;
+        /** Hour */
+        hour?: number;
+        /** Hour */
         h?: number;
 
+        /** Minute */
         minutes?: number;
+        /** Minute */
+        minute?: number;
+        /** Minute */
         m?: number;
 
+        /** Second */
         seconds?: number;
+        /** Second */
+        second?: number;
+        /** Second */
         s?: number;
 
+        /** Millisecond */
         milliseconds?: number;
+        /** Millisecond */
+        millisecond?: number;
+        /** Millisecond */
         ms?: number;
-
     }
 
     interface Duration {
-
         humanize(withSuffix?: boolean): string;
 
         as(units: string): number;
@@ -70,11 +101,9 @@ declare module moment {
 
         toISOString(): string;
         toJSON(): string;
-
     }
 
     interface Moment {
-
         format(format: string): string;
         format(): string;
 
@@ -153,6 +182,7 @@ declare module moment {
 
         calendar(): string;
         calendar(start: Moment): string;
+        calendar(start: Moment, formats: MomentCalendar): string;
 
         clone(): Moment;
 
@@ -166,6 +196,7 @@ declare module moment {
         utc(): Moment; // current date/time in UTC mode
 
         isValid(): boolean;
+        invalidAt(): number;
 
         year(y: number): Moment;
         year(): number;
@@ -218,6 +249,7 @@ declare module moment {
 
         from(f: Moment|string|number|Date|number[], suffix?: boolean): string;
         to(f: Moment|string|number|Date|number[], suffix?: boolean): string;
+        toNow(withoutPrefix?: boolean): string;
 
         diff(b: Moment): number;
         diff(b: Moment, unitOfTime: string): number;
@@ -271,18 +303,18 @@ declare module moment {
 
         get(unit: string): number;
         set(unit: string, value: number): Moment;
-
+        set(objectLiteral: MomentInput): Moment;
     }
 
+    type formatFunction = () => string;
+
     interface MomentCalendar {
-
-      lastDay: any;
-      sameDay: any;
-      nextDay: any;
-      lastWeek: any;
-      nextWeek: any;
-      sameElse: any;
-
+      lastDay?: string | formatFunction;
+      sameDay?: string | formatFunction;
+      nextDay?: string | formatFunction;
+      lastWeek?: string | formatFunction;
+      nextWeek?: string | formatFunction;
+      sameElse?: string | formatFunction;
     }
 
     interface BaseMomentLanguage {
@@ -309,22 +341,21 @@ declare module moment {
     }
 
     interface MomentLongDateFormat {
-
       L: string;
       LL: string;
       LLL: string;
       LLLL: string;
       LT: string;
+      LTS: string;
       l?: string;
       ll?: string;
       lll?: string;
       llll?: string;
       lt?: string;
-
+      lts?: string;
     }
 
     interface MomentRelativeTime {
-
       future: any;
       past: any;
       s: any;
@@ -338,12 +369,11 @@ declare module moment {
       MM: any;
       y: any;
       yy: any;
-
     }
 
     interface MomentStatic {
-
         version: string;
+        fn: Moment;
 
         (): Moment;
         (date: number): Moment;
@@ -426,8 +456,8 @@ declare module moment {
         weekdaysMin(format: string): string[];
         weekdaysMin(format: string, index: number): string;
 
-        min(moments: Moment[]): Moment;
-        max(moments: Moment[]): Moment;
+        min(...moments: Moment[]): Moment;
+        max(...moments: Moment[]): Moment;
 
         normalizeUnits(unit: string): string;
         relativeTimeThreshold(threshold: string): number|boolean;
@@ -438,6 +468,7 @@ declare module moment {
          */
         ISO_8601(): void;
 
+        defaultFormat: string;
     }
 
 }

@@ -56,6 +56,7 @@ validOpts = {allowUnknown: bool};
 validOpts = {skipFunctions: bool};
 validOpts = {stripUnknown: bool};
 validOpts = {language: bool};
+validOpts = {presence: str};
 validOpts = {context: obj};
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -65,6 +66,34 @@ var renOpts: Joi.RenameOptions = null;
 renOpts = {alias: bool};
 renOpts = {multiple: bool};
 renOpts = {override: bool};
+renOpts = {ignoreUndefined: bool};
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+var emailOpts: Joi.EmailOptions = null;
+
+emailOpts = {errorLevel: num};
+emailOpts = {errorLevel: bool};
+emailOpts = {tldWhitelist: strArr};
+emailOpts = {tldWhitelist: obj};
+emailOpts = {minDomainAtoms: num};
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+var ipOpts: Joi.IpOptions = null;
+
+ipOpts = {version: str};
+ipOpts = {version: strArr};
+ipOpts = {cidr: str};
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+var uriOpts: Joi.UriOptions = null;
+
+uriOpts = {scheme: str};
+uriOpts = {scheme: exp};
+uriOpts = {scheme: strArr};
+uriOpts = {scheme: expArr};
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -78,9 +107,8 @@ whenOpts = {is: schema, otherwise: schema};
 
 var refOpts: Joi.ReferenceOptions = null;
 
-refOpts = {alias: bool};
-refOpts = {multiple: bool};
-refOpts = {override: bool};
+refOpts = {separator: str};
+refOpts = {contextPrefix: str};
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -144,15 +172,30 @@ module common {
 	anySchema = anySchema.valid(x);
 	anySchema = anySchema.valid(x, x);
 	anySchema = anySchema.valid([x, x, x]);
+	anySchema = anySchema.only(x);
+	anySchema = anySchema.only(x, x);
+	anySchema = anySchema.only([x, x, x]);
+	anySchema = anySchema.equal(x);
+	anySchema = anySchema.equal(x, x);
+	anySchema = anySchema.equal([x, x, x]);
 	anySchema = anySchema.invalid(x);
 	anySchema = anySchema.invalid(x, x);
 	anySchema = anySchema.invalid([x, x, x]);
+	anySchema = anySchema.disallow(x);
+	anySchema = anySchema.disallow(x, x);
+	anySchema = anySchema.disallow([x, x, x]);
+	anySchema = anySchema.not(x);
+	anySchema = anySchema.not(x, x);
+	anySchema = anySchema.not([x, x, x]);
 
+	anySchema = anySchema.default();
 	anySchema = anySchema.default(x);
+	anySchema = anySchema.default(x, str);
 
 	anySchema = anySchema.required();
 	anySchema = anySchema.optional();
 	anySchema = anySchema.forbidden();
+	anySchema = anySchema.strip();
 
 	anySchema = anySchema.description(str);
 	anySchema = anySchema.notes(str);
@@ -166,43 +209,65 @@ module common {
 
 	anySchema = anySchema.options(validOpts);
 	anySchema = anySchema.strict();
+	anySchema = anySchema.strict(bool);
 	anySchema = anySchema.concat(x);
 
 	altSchema = anySchema.when(str, whenOpts);
 	altSchema = anySchema.when(ref, whenOpts);
+
+	anySchema = anySchema.label(str);
+	anySchema = anySchema.raw();
+	anySchema = anySchema.raw(bool);
+	anySchema = anySchema.empty();
+	anySchema = anySchema.empty(str);
+	anySchema = anySchema.empty(anySchema);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 arrSchema = Joi.array();
 
+arrSchema = arrSchema.sparse();
+arrSchema = arrSchema.sparse(bool);
+arrSchema = arrSchema.single();
+arrSchema = arrSchema.single(bool);
 arrSchema = arrSchema.min(num);
 arrSchema = arrSchema.max(num);
 arrSchema = arrSchema.length(num);
+arrSchema = arrSchema.unique();
 
-arrSchema = arrSchema.includes(numSchema);
-arrSchema = arrSchema.includes(numSchema, strSchema);
-arrSchema = arrSchema.includes([numSchema, strSchema]);
+arrSchema = arrSchema.items(numSchema);
+arrSchema = arrSchema.items(numSchema, strSchema);
+arrSchema = arrSchema.items([numSchema, strSchema]);
 
-arrSchema = arrSchema.excludes(numSchema);
-arrSchema = arrSchema.excludes(numSchema, strSchema);
-arrSchema = arrSchema.excludes([numSchema, strSchema]);
 
 // - - - - - - - -
 
 module common_copy_paste {
 	// use search & replace from any
-	anySchema = anySchema.allow(x);
-	anySchema = anySchema.allow(x, x);
-	anySchema = anySchema.allow([x, x, x]);
-	anySchema = anySchema.valid(x);
-	anySchema = anySchema.valid(x, x);
-	anySchema = anySchema.valid([x, x, x]);
-	anySchema = anySchema.invalid(x);
-	anySchema = anySchema.invalid(x, x);
-	anySchema = anySchema.invalid([x, x, x]);
-	
-	anySchema = anySchema.default(x);
+	arrSchema = arrSchema.allow(x);
+	arrSchema = arrSchema.allow(x, x);
+	arrSchema = arrSchema.allow([x, x, x]);
+	arrSchema = arrSchema.valid(x);
+	arrSchema = arrSchema.valid(x, x);
+	arrSchema = arrSchema.valid([x, x, x]);
+	arrSchema = arrSchema.only(x);
+	arrSchema = arrSchema.only(x, x);
+	arrSchema = arrSchema.only([x, x, x]);
+	arrSchema = arrSchema.equal(x);
+	arrSchema = arrSchema.equal(x, x);
+	arrSchema = arrSchema.equal([x, x, x]);
+	arrSchema = arrSchema.invalid(x);
+	arrSchema = arrSchema.invalid(x, x);
+	arrSchema = arrSchema.invalid([x, x, x]);
+	arrSchema = arrSchema.disallow(x);
+	arrSchema = arrSchema.disallow(x, x);
+	arrSchema = arrSchema.disallow([x, x, x]);
+	arrSchema = arrSchema.not(x);
+	arrSchema = arrSchema.not(x, x);
+	arrSchema = arrSchema.not([x, x, x]);
+
+	arrSchema = arrSchema.default(x);
 
 	arrSchema = arrSchema.required();
 	arrSchema = arrSchema.optional();
@@ -238,10 +303,22 @@ module common_copy_paste {
 	boolSchema = boolSchema.valid(x);
 	boolSchema = boolSchema.valid(x, x);
 	boolSchema = boolSchema.valid([x, x, x]);
+	boolSchema = boolSchema.only(x);
+	boolSchema = boolSchema.only(x, x);
+	boolSchema = boolSchema.only([x, x, x]);
+	boolSchema = boolSchema.equal(x);
+	boolSchema = boolSchema.equal(x, x);
+	boolSchema = boolSchema.equal([x, x, x]);
 	boolSchema = boolSchema.invalid(x);
 	boolSchema = boolSchema.invalid(x, x);
 	boolSchema = boolSchema.invalid([x, x, x]);
-	
+	boolSchema = boolSchema.disallow(x);
+	boolSchema = boolSchema.disallow(x, x);
+	boolSchema = boolSchema.disallow([x, x, x]);
+	boolSchema = boolSchema.not(x);
+	boolSchema = boolSchema.not(x, x);
+	boolSchema = boolSchema.not([x, x, x]);
+
 	boolSchema = boolSchema.default(x);
 
 	boolSchema = boolSchema.required();
@@ -270,6 +347,7 @@ module common_copy_paste {
 
 binSchema = Joi.binary();
 
+binSchema = binSchema.encoding(str);
 binSchema = binSchema.min(num);
 binSchema = binSchema.max(num);
 binSchema = binSchema.length(num);
@@ -281,10 +359,22 @@ module common {
 	binSchema = binSchema.valid(x);
 	binSchema = binSchema.valid(x, x);
 	binSchema = binSchema.valid([x, x, x]);
+	binSchema = binSchema.only(x);
+	binSchema = binSchema.only(x, x);
+	binSchema = binSchema.only([x, x, x]);
+	binSchema = binSchema.equal(x);
+	binSchema = binSchema.equal(x, x);
+	binSchema = binSchema.equal([x, x, x]);
 	binSchema = binSchema.invalid(x);
 	binSchema = binSchema.invalid(x, x);
 	binSchema = binSchema.invalid([x, x, x]);
-	
+	binSchema = binSchema.disallow(x);
+	binSchema = binSchema.disallow(x, x);
+	binSchema = binSchema.disallow([x, x, x]);
+	binSchema = binSchema.not(x);
+	binSchema = binSchema.not(x, x);
+	binSchema = binSchema.not([x, x, x]);
+
 	binSchema = binSchema.default(x);
 
 	binSchema = binSchema.required();
@@ -322,6 +412,14 @@ dateSchema = dateSchema.max(str);
 dateSchema = dateSchema.min(num);
 dateSchema = dateSchema.max(num);
 
+dateSchema = dateSchema.min(ref);
+dateSchema = dateSchema.max(ref);
+
+dateSchema = dateSchema.format(str);
+dateSchema = dateSchema.format(strArr);
+
+dateSchema = dateSchema.iso();
+
 module common {
 	dateSchema = dateSchema.allow(x);
 	dateSchema = dateSchema.allow(x, x);
@@ -329,10 +427,22 @@ module common {
 	dateSchema = dateSchema.valid(x);
 	dateSchema = dateSchema.valid(x, x);
 	dateSchema = dateSchema.valid([x, x, x]);
+	dateSchema = dateSchema.only(x);
+	dateSchema = dateSchema.only(x, x);
+	dateSchema = dateSchema.only([x, x, x]);
+	dateSchema = dateSchema.equal(x);
+	dateSchema = dateSchema.equal(x, x);
+	dateSchema = dateSchema.equal([x, x, x]);
 	dateSchema = dateSchema.invalid(x);
 	dateSchema = dateSchema.invalid(x, x);
 	dateSchema = dateSchema.invalid([x, x, x]);
-	
+	dateSchema = dateSchema.disallow(x);
+	dateSchema = dateSchema.disallow(x, x);
+	dateSchema = dateSchema.disallow([x, x, x]);
+	dateSchema = dateSchema.not(x);
+	dateSchema = dateSchema.not(x, x);
+	dateSchema = dateSchema.not([x, x, x]);
+
 	dateSchema = dateSchema.default(x);
 
 	dateSchema = dateSchema.required();
@@ -366,8 +476,18 @@ funcSchema = Joi.func();
 numSchema = Joi.number();
 
 numSchema = numSchema.min(num);
+numSchema = numSchema.min(ref);
 numSchema = numSchema.max(num);
+numSchema = numSchema.max(ref);
+numSchema = numSchema.greater(num);
+numSchema = numSchema.greater(ref);
+numSchema = numSchema.less(num);
+numSchema = numSchema.less(ref);
 numSchema = numSchema.integer();
+numSchema = numSchema.precision(num);
+numSchema = numSchema.multiple(num);
+numSchema = numSchema.positive();
+numSchema = numSchema.negative();
 
 module common {
 	numSchema = numSchema.allow(x);
@@ -376,10 +496,22 @@ module common {
 	numSchema = numSchema.valid(x);
 	numSchema = numSchema.valid(x, x);
 	numSchema = numSchema.valid([x, x, x]);
+	numSchema = numSchema.only(x);
+	numSchema = numSchema.only(x, x);
+	numSchema = numSchema.only([x, x, x]);
+	numSchema = numSchema.equal(x);
+	numSchema = numSchema.equal(x, x);
+	numSchema = numSchema.equal([x, x, x]);
 	numSchema = numSchema.invalid(x);
 	numSchema = numSchema.invalid(x, x);
 	numSchema = numSchema.invalid([x, x, x]);
-	
+	numSchema = numSchema.disallow(x);
+	numSchema = numSchema.disallow(x, x);
+	numSchema = numSchema.disallow([x, x, x]);
+	numSchema = numSchema.not(x);
+	numSchema = numSchema.not(x, x);
+	numSchema = numSchema.not([x, x, x]);
+
 	numSchema = numSchema.default(x);
 
 	numSchema = numSchema.required();
@@ -418,12 +550,23 @@ objSchema = objSchema.length(num);
 
 objSchema = objSchema.pattern(exp, schema);
 
+objSchema = objSchema.and(str);
+objSchema = objSchema.and(str, str);
 objSchema = objSchema.and(str, str, str);
 objSchema = objSchema.and(strArr);
 
+objSchema = objSchema.nand(str);
+objSchema = objSchema.nand(str, str);
+objSchema = objSchema.nand(str, str, str);
+objSchema = objSchema.nand(strArr);
+
+objSchema = objSchema.or(str);
+objSchema = objSchema.or(str, str);
 objSchema = objSchema.or(str, str, str);
 objSchema = objSchema.or(strArr);
 
+objSchema = objSchema.xor(str);
+objSchema = objSchema.xor(str, str);
 objSchema = objSchema.xor(str, str, str);
 objSchema = objSchema.xor(strArr);
 
@@ -442,6 +585,17 @@ objSchema = objSchema.assert(ref, schema, str);
 objSchema = objSchema.unknown();
 objSchema = objSchema.unknown(bool);
 
+objSchema = objSchema.type(func);
+objSchema = objSchema.type(func, str);
+
+objSchema = objSchema.requiredKeys(str);
+objSchema = objSchema.requiredKeys(str, str);
+objSchema = objSchema.requiredKeys(strArr);
+
+objSchema = objSchema.optionalKeys(str);
+objSchema = objSchema.optionalKeys(str, str);
+objSchema = objSchema.optionalKeys(strArr);
+
 module common {
 	objSchema = objSchema.allow(x);
 	objSchema = objSchema.allow(x, x);
@@ -449,10 +603,22 @@ module common {
 	objSchema = objSchema.valid(x);
 	objSchema = objSchema.valid(x, x);
 	objSchema = objSchema.valid([x, x, x]);
+	objSchema = objSchema.only(x);
+	objSchema = objSchema.only(x, x);
+	objSchema = objSchema.only([x, x, x]);
+	objSchema = objSchema.equal(x);
+	objSchema = objSchema.equal(x, x);
+	objSchema = objSchema.equal([x, x, x]);
 	objSchema = objSchema.invalid(x);
 	objSchema = objSchema.invalid(x, x);
 	objSchema = objSchema.invalid([x, x, x]);
-	
+	objSchema = objSchema.disallow(x);
+	objSchema = objSchema.disallow(x, x);
+	objSchema = objSchema.disallow([x, x, x]);
+	objSchema = objSchema.not(x);
+	objSchema = objSchema.not(x, x);
+	objSchema = objSchema.not([x, x, x]);
+
 	objSchema = objSchema.default(x);
 
 	objSchema = objSchema.required();
@@ -483,13 +649,33 @@ strSchema = Joi.string();
 
 strSchema = strSchema.insensitive();
 strSchema = strSchema.min(num);
+strSchema = strSchema.min(num, str);
+strSchema = strSchema.min(ref);
+strSchema = strSchema.min(ref, str);
 strSchema = strSchema.max(num);
+strSchema = strSchema.max(num, str);
+strSchema = strSchema.max(ref);
+strSchema = strSchema.max(ref, str);
+strSchema = strSchema.creditCard();
 strSchema = strSchema.length(num);
+strSchema = strSchema.length(num, str);
+strSchema = strSchema.length(ref);
+strSchema = strSchema.length(ref, str);
 strSchema = strSchema.regex(exp);
+strSchema = strSchema.regex(exp, str);
+strSchema = strSchema.replace(exp, str);
+strSchema = strSchema.replace(str, str);
 strSchema = strSchema.alphanum();
 strSchema = strSchema.token();
 strSchema = strSchema.email();
+strSchema = strSchema.email(emailOpts);
+strSchema = strSchema.ip();
+strSchema = strSchema.ip(ipOpts);
+strSchema = strSchema.uri();
+strSchema = strSchema.uri(uriOpts);
 strSchema = strSchema.guid();
+strSchema = strSchema.hex();
+strSchema = strSchema.hostname();
 strSchema = strSchema.isoDate();
 strSchema = strSchema.lowercase();
 strSchema = strSchema.uppercase();
@@ -502,10 +688,22 @@ module common {
 	strSchema = strSchema.valid(x);
 	strSchema = strSchema.valid(x, x);
 	strSchema = strSchema.valid([x, x, x]);
+	strSchema = strSchema.only(x);
+	strSchema = strSchema.only(x, x);
+	strSchema = strSchema.only([x, x, x]);
+	strSchema = strSchema.equal(x);
+	strSchema = strSchema.equal(x, x);
+	strSchema = strSchema.equal([x, x, x]);
 	strSchema = strSchema.invalid(x);
 	strSchema = strSchema.invalid(x, x);
 	strSchema = strSchema.invalid([x, x, x]);
-	
+	strSchema = strSchema.disallow(x);
+	strSchema = strSchema.disallow(x, x);
+	strSchema = strSchema.disallow([x, x, x]);
+	strSchema = strSchema.not(x);
+	strSchema = strSchema.not(x, x);
+	strSchema = strSchema.not([x, x, x]);
+
 	strSchema = strSchema.default(x);
 
 	strSchema = strSchema.required();
@@ -537,6 +735,7 @@ schema = Joi.alternatives(schema, anySchema, boolSchema);
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
+Joi.validate(value, obj);
 Joi.validate(value, schema);
 Joi.validate(value, schema, validOpts);
 Joi.validate(value, schema, validOpts, (err, value) => {
@@ -566,6 +765,8 @@ Joi.validate(value, {});
 schema = Joi.compile(obj);
 
 Joi.assert(obj, schema);
+Joi.assert(obj, schema, str);
+Joi.assert(obj, schema, err);
 
 ref = Joi.ref(str, refOpts);
 ref = Joi.ref(str);

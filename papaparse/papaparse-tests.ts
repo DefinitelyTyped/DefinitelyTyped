@@ -12,14 +12,14 @@ res.errors[0].code;
 Papa.parse("3,3,3", {
 	delimiter: ';',
 	comments: false,
-	
+
 	step: function(results, p) {
 		p.abort();
 		results.data.length;
 	}
 });
 
-var file = new File();
+var file = new File(null, null, null);
 
 Papa.parse(file, {
 	complete: function(a, b) {
