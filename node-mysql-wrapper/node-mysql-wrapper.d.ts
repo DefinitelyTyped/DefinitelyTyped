@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path='./../bluebird/bluebird.d.ts' />
-///<reference path="./my-meteor/my-meteor.d.ts" />
+///<reference path="./my-meteor.d.ts" />
 
 declare namespace Mysql {
     interface IError {
