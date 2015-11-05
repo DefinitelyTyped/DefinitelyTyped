@@ -920,12 +920,28 @@ module TestRemove {
 module TestRest {
     let array: TResult[];
     let list: _.List<TResult>;
-    let result: TResult[];
 
-    result = _.rest<TResult>(array);
-    result = _.rest<TResult>(list);
-    result = _(array).rest().value();
-    result = _(list).rest<TResult>().value();
+    {
+        let result: TResult[];
+
+        result = _.rest<TResult>(array);
+        result = _.rest<TResult>(list);
+
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).rest();
+        result = _(list).rest<TResult>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().rest();
+        result = _(list).chain().rest<TResult>();
+    }
 }
 
 // _.slice
@@ -991,12 +1007,28 @@ module TestSortedLastIndex {
 module TestTail {
     let array: TResult[];
     let list: _.List<TResult>;
-    let result: TResult[];
 
-    result = _.tail<TResult>(array);
-    result = _.tail<TResult>(list);
-    result = _(array).tail().value();
-    result = _(list).tail<TResult>().value();
+    {
+        let result: TResult[];
+
+        result = _.tail<TResult>(array);
+        result = _.tail<TResult>(list);
+
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).tail();
+        result = _(list).tail<TResult>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().tail();
+        result = _(list).chain().tail<TResult>();
+    }
 }
 
 // _.take
