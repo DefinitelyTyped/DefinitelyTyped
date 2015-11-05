@@ -1,11 +1,11 @@
-// Type definitions for Node.js v4.x
+// Type definitions for Node.js v0.12.0
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/borisyankov/DefinitelyTyped>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /************************************************
 *                                               *
-*               Node.js v4.x API                *
+*               Node.js v0.12.0 API             *
 *                                               *
 ************************************************/
 
@@ -430,21 +430,6 @@ declare module "http" {
     import * as events from "events";
     import * as net from "net";
     import * as stream from "stream";
-    
-    export interface RequestOptions {
-        protocol?: string;
-        host?: string;
-        hostname?: string;
-        family?: number;
-        port?: number
-        localAddress?: string;
-        socketPath?: string;
-        method?: string;
-        path?: string;
-        headers?: { [key: string]: any };
-        auth?: string;
-        agent?: Agent;
-    }
 
     export interface Server extends events.EventEmitter {
         listen(port: number, hostname?: string, backlog?: number, callback?: Function): Server;
@@ -583,7 +568,7 @@ declare module "http" {
     };
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) =>void ): Server;
     export function createClient(port?: number, host?: string): any;
-    export function request(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
@@ -733,7 +718,15 @@ declare module "https" {
         SNICallback?: (servername: string) => any;
     }
 
-    export interface RequestOptions extends http.RequestOptions{
+    export interface RequestOptions {
+        host?: string;
+        hostname?: string;
+        port?: number;
+        path?: string;
+        method?: string;
+        headers?: any;
+        auth?: string;
+        agent?: any;
         pfx?: any;
         key?: any;
         passphrase?: string;
@@ -741,7 +734,6 @@ declare module "https" {
         ca?: any;
         ciphers?: string;
         rejectUnauthorized?: boolean;
-        secureProtocol?: string;
     }
 
     export interface Agent {
@@ -766,7 +758,7 @@ declare module "punycode" {
     export function toASCII(domain: string): string;
     export var ucs2: ucs2;
     interface ucs2 {
-        decode(string: string): number[];
+        decode(string: string): string;
         encode(codePoints: number[]): string;
     }
     export var version: any;
