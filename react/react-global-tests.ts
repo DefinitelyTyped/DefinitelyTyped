@@ -103,12 +103,12 @@ class ModernComponent extends React.Component<Props, State>
         });
     }
 
-    private _input: React.HTMLComponent;
+    private _input: HTMLInputElement;
     
     render() {
         return React.DOM.div(null,
             React.DOM.input({
-                ref: input => this._input = input,
+                ref: input => this._input = <HTMLInputElement>input,
                 value: this.state.inputValue
             }));
     }
@@ -135,7 +135,7 @@ var element: React.ReactElement<Props> =
     React.createElement(ModernComponent, props);
 var classicElement: React.ClassicElement<Props> =
     React.createElement(ClassicComponent, props);
-var domElement: React.HTMLElement =
+var domElement: React.ReactHTMLElement =
     React.createElement("div");
 
 // React.cloneElement
@@ -143,7 +143,7 @@ var clonedElement: React.ReactElement<Props> =
     React.cloneElement(element, props);
 var clonedClassicElement: React.ClassicElement<Props> =
     React.cloneElement(classicElement, props);
-var clonedDOMElement: React.HTMLElement =
+var clonedDOMElement: React.ReactHTMLElement =
     React.cloneElement(domElement);
 
 // React.render
@@ -151,7 +151,7 @@ var component: React.Component<Props, any> =
     ReactDOM.render(element, container);
 var classicComponent: React.ClassicComponent<Props, any> =
     ReactDOM.render(classicElement, container);
-var domComponent: React.DOMComponent<any> =
+var domComponent: Element =
     ReactDOM.render(domElement, container);
 
 // Other Top-Level API
@@ -206,7 +206,7 @@ var divStyle: React.CSSProperties = { // CSSProperties
     flex: "1 1 main-size",
     backgroundImage: "url('hello.png')"
 };
-var htmlAttr: React.HTMLAttributes = {
+var htmlAttr: React.HTMLProps = {
     key: 36,
     ref: "htmlComponent",
     children: children,
