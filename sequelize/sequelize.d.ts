@@ -5446,7 +5446,7 @@ declare module "sequelize" {
              * @param defineFunction An optional function that provides model definitions. Useful if you do not
              *     want to use the module root as the define function
              */
-            import<TInstance, TAttributes>( path : string, defineFunction? : (Sequelize, DataTypes) => Model<TInstance, TAttributes> ) : Model<TInstance, TAttributes>;
+            import<TInstance, TAttributes>( path : string, defineFunction? : (sequelize: Sequelize, dataTypes: DataTypes) => Model<TInstance, TAttributes> ) : Model<TInstance, TAttributes>;
 
             /**
              * Execute a query on the DB, with the posibility to bypass all the sequelize goodness.
