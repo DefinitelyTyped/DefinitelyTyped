@@ -66,6 +66,7 @@ declare module 'request' {
 		}
 
 		interface OptionalOptions {
+			baseUrl?: string;
 			callback?: (error: any, response: http.IncomingMessage, body: any) => void;
 			jar?: any; // CookieJar
 			formData?: any; // Object
