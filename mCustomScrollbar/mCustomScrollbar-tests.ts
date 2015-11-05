@@ -39,7 +39,7 @@ class SimpleTestAllParams {
             advanced: {
                 updateOnBrowserResize: true,
                 updateOnContentResize: false,
-                autoExpandscrollInertia: false,
+                autoExpandHorizontalScroll: false,
                 autoScrollOnFocus: true,
                 normalizeMouseWheelDelta: false
             },
