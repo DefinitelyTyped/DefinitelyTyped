@@ -2674,7 +2674,7 @@ declare module d3 {
 
     type Dict<T> = { [key: string]: T };
     type S = Dict<string>;
-    type DsvAccessor<T>  = (rows: S[], index?: number)=> T ;
+    type DsvAccessor<T>  = (rows: S, index?: number)=> T ;
     type DsvCallback1<T> = (            rows: T[]) => void;
     type DsvCallback2<T> = (error: any, rows: T[]) => void;
     type DsvCallback<T>  = DsvCallback1<T> | DsvCallback2<T>;
