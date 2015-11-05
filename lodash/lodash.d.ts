@@ -11455,6 +11455,7 @@ declare module _ {
          * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
          * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
          * range is created unless a negative step is specified.
+         *
          * @param start The start of the range.
          * @param end The end of the range.
          * @param step The value to increment or decrement by.
@@ -11463,14 +11464,16 @@ declare module _ {
         range(
             start: number,
             end: number,
-            step?: number): number[];
+            step?: number
+        ): number[];
 
         /**
          * @see _.range
          */
         range(
             end: number,
-            step?: number): number[];
+            step?: number
+        ): number[];
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -11479,7 +11482,18 @@ declare module _ {
          */
         range(
             end?: number,
-            step?: number): LoDashImplicitArrayWrapper<number>;
+            step?: number
+        ): LoDashImplicitArrayWrapper<number>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.range
+         */
+        range(
+            end?: number,
+            step?: number
+        ): LoDashExplicitArrayWrapper<number>;
     }
 
     //_.runInContext
