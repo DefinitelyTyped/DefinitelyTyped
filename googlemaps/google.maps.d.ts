@@ -1956,6 +1956,7 @@ declare module google.maps {
             bounds?: LatLngBounds;
             input?: string;
             location?: LatLng;
+            offset?: number;
             radius?: number;
         }
 
