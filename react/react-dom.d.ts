@@ -8,10 +8,8 @@
 declare namespace __React {
     
     namespace __DOM {
-        function findDOMNode<TElement extends Element>(
-            componentOrElement: __React.Component<any, any> | Element): TElement;
-        function findDOMNode(
-            componentOrElement: __React.Component<any, any> | Element): Element;
+        function findDOMNode<E extends Element>(instance: ReactInstance): E;
+        function findDOMNode(instance: ReactInstance): Element;
         
         function render<P>(
             element: DOMElement<P>,
@@ -49,8 +47,6 @@ declare namespace __React {
             nextElement: ReactElement<P>,
             container: Element,
             callback?: (component: Component<P, S>) => any): Component<P, S>;
-            
-        
     }
     
     namespace __DOMServer {

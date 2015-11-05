@@ -94,6 +94,8 @@ declare namespace __React {
                 export var wheel: EventSimulator;
             }
     
+            export function renderIntoDocument(
+                element: DOMElement<any>): Element;
             export function renderIntoDocument<P>(
                 element: ReactElement<P>): Component<P, any>;
             export function renderIntoDocument<C extends Component<any, any>>(
@@ -104,43 +106,42 @@ declare namespace __React {
     
             export function isElementOfType(
                 element: ReactElement<any>, type: ReactType): boolean;
-            export function isTextComponent(instance: Component<any, any>): boolean;
-            export function isDOMComponent(instance: Component<any, any>): boolean;
-            export function isCompositeComponent(instance: Component<any, any>): boolean;
+            export function isDOMComponent(instance: ReactInstance): boolean;
+            export function isCompositeComponent(instance: ReactInstance): boolean;
             export function isCompositeComponentWithType(
-                instance: Component<any, any>,
+                instance: ReactInstance,
                 type: ComponentClass<any>): boolean;
     
             export function findAllInRenderedTree(
-                tree: Component<any, any>,
-                fn: (i: Component<any, any>) => boolean): Component<any, any>;
+                root: Component<any, any>,
+                fn: (i: ReactInstance) => boolean): ReactInstance[];
     
             export function scryRenderedDOMComponentsWithClass(
-                tree: Component<any, any>,
-                className: string): DOMComponent<any>[];
+                root: Component<any, any>,
+                className: string): Element[];
             export function findRenderedDOMComponentWithClass(
-                tree: Component<any, any>,
-                className: string): DOMComponent<any>;
+                root: Component<any, any>,
+                className: string): Element;
     
             export function scryRenderedDOMComponentsWithTag(
-                tree: Component<any, any>,
-                tagName: string): DOMComponent<any>[];
+                root: Component<any, any>,
+                tagName: string): Element[];
             export function findRenderedDOMComponentWithTag(
-                tree: Component<any, any>,
-                tagName: string): DOMComponent<any>;
+                root: Component<any, any>,
+                tagName: string): Element;
     
             export function scryRenderedComponentsWithType<P>(
-                tree: Component<any, any>,
+                root: Component<any, any>,
                 type: ComponentClass<P>): Component<P, {}>[];
             export function scryRenderedComponentsWithType<C extends Component<any, any>>(
-                tree: Component<any, any>,
+                root: Component<any, any>,
                 type: ComponentClass<any>): C[];
     
             export function findRenderedComponentWithType<P>(
-                tree: Component<any, any>,
+                root: Component<any, any>,
                 type: ComponentClass<P>): Component<P, {}>;
             export function findRenderedComponentWithType<C extends Component<any, any>>(
-                tree: Component<any, any>,
+                root: Component<any, any>,
                 type: ComponentClass<any>): C;
     
             export function createRenderer(): ShallowRenderer;

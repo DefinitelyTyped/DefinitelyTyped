@@ -112,6 +112,8 @@ declare namespace __React {
     // Component API
     // ----------------------------------------------------------------------
 
+    type ReactInstance = Component<any, any> | Element;
+
     // Base component for plain JS classes
     class Component<P, S> implements ComponentLifecycle<P, S> {
         static propTypes: ValidationMap<any>;
@@ -128,7 +130,7 @@ declare namespace __React {
         state: S;
         context: {};
         refs: {
-            [key: string]: Component<any, any> | Element
+            [key: string]: ReactInstance
         };
     }
 
@@ -137,13 +139,6 @@ declare namespace __React {
         isMounted(): boolean;
         getInitialState?(): S;
     }
-
-    interface DOMComponent<P> extends ClassicComponent<P, any> {
-        tagName: string;
-    }
-
-    type HTMLComponent = DOMComponent<HTMLProps>;
-    type SVGComponent = DOMComponent<SVGProps>;
 
     interface ChildContextProvider<CC> {
         getChildContext(): CC;
