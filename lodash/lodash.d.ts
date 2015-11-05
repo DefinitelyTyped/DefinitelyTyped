@@ -1711,7 +1711,21 @@ declare module _ {
         /**
          * @see _.rest
          */
-        rest<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+        rest<T>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.rest
+         */
+        rest(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.rest
+         */
+        rest<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.slice
@@ -1910,7 +1924,21 @@ declare module _ {
         /**
          * @see _.rest
          */
-        tail<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+        tail<T>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.rest
+         */
+        tail(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.rest
+         */
+        tail<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.take
