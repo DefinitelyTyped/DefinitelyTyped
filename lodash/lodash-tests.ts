@@ -5142,11 +5142,25 @@ module TestTemplate {
 }
 
 // _.trim
-result = <string>_.trim();
-result = <string>_.trim('  abc  ');
-result = <string>_.trim('-_-abc-_-', '_-');
-result = <string>_('-_-abc-_-').trim();
-result = <string>_('-_-abc-_-').trim('_-');
+module TestTrim {
+    {
+        let result: string;
+
+        result = _.trim();
+        result = _.trim('  abc  ');
+        result = _.trim('-_-abc-_-', '_-');
+
+        result = _('-_-abc-_-').trim();
+        result = _('-_-abc-_-').trim('_-');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('-_-abc-_-').chain().trim();
+        result = _('-_-abc-_-').chain().trim('_-');
+    }
+}
 
 // _.trimLeft
 module TestTrimLeft {
