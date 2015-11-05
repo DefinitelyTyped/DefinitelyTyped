@@ -11276,18 +11276,41 @@ declare module _ {
         /**
          * The opposite of _.method; this method creates a function that invokes the method at a given path on object.
          * Any additional arguments are provided to the invoked method.
+         *
          * @param object The object to query.
          * @param args The arguments to invoke the method with.
          * @return Returns the new function.
          */
-        methodOf<TResult>(object: Object, ...args: any[]): (path: string | any[]) => TResult;
+        methodOf<TObject extends {}, TResult>(
+            object: TObject,
+            ...args: any[]
+        ): (path: StringRepresentable|StringRepresentable[]) => TResult;
+
+        /**
+         * @see _.methodOf
+         */
+        methodOf<TResult>(
+            object: {},
+            ...args: any[]
+        ): (path: StringRepresentable|StringRepresentable[]) => TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.methodOf
          */
-        methodOf<TResult>(...args: any[]): LoDashImplicitObjectWrapper<(path: string | any[]) => TResult>;
+        methodOf<TResult>(
+            ...args: any[]
+        ): LoDashImplicitObjectWrapper<(path: StringRepresentable|StringRepresentable[]) => TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.methodOf
+         */
+        methodOf<TResult>(
+            ...args: any[]
+        ): LoDashExplicitObjectWrapper<(path: StringRepresentable|StringRepresentable[]) => TResult>;
     }
 
     //_.mixin
