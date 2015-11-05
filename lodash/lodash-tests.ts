@@ -4963,8 +4963,20 @@ module TestTrunc {
 }
 
 // _.unescape
-result = <string>_.unescape('fred, barney, &amp; pebbles');
-result = <string>_('fred, barney, &amp; pebbles').unescape();
+module TestUnescape {
+    {
+        let result: string;
+
+        result = _.unescape('fred, barney, &amp; pebbles');
+        result = _('fred, barney, &amp; pebbles').unescape();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('fred, barney, &amp; pebbles').chain().unescape();
+    }
+}
 
 // _.words
 module TestWords {

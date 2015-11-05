@@ -10564,6 +10564,7 @@ declare module _ {
         /**
          * The inverse of _.escape; this method converts the HTML entities &amp;, &lt;, &gt;, &quot;, &#39;, and &#96;
          * in string to their corresponding characters.
+         *
          * @param string The string to unescape.
          * @return Returns the unescaped string.
          */
@@ -10575,6 +10576,13 @@ declare module _ {
          * @see _.unescape
          */
         unescape(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.unescape
+         */
+        unescape(): LoDashExplicitWrapper<string>;
     }
 
     //_.words
