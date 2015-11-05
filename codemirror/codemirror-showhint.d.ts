@@ -39,11 +39,11 @@ declare module CodeMirror {
         /** An extension of the existing CodeMirror typings for the Editor.on("keyup", func) syntax */
         on(eventName: string, handler: (doc: CodeMirror.Doc, event: any) => void): void;
         off(eventName: string, handler: (doc: CodeMirror.Doc, event: any) => void): void;
+        /** Extend CodeMirror.Editor with a state object, so that the Editor.state.completionActive property is reachable*/
+        state: any;
     }
 
-    /** Extend CodeMirror.Doc with a state object, so that the Doc.state.completionActive property is reachable*/
     interface Doc {
-        state: any;
         showHint: (options: ShowHintOptions) => void;
     }
 
