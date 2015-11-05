@@ -1,5 +1,7 @@
 /// <reference path="./immutable.d.ts" />
 
+import * as Immutable from "immutable";
+
 let obj = {a:1, b:2};
 let iObj1 = Immutable.fromJS(obj);
 let iObj2 = Immutable.fromJS(obj);
