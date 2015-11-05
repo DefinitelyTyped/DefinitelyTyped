@@ -302,7 +302,7 @@ function normalizedBarChart() {
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.csv("data.csv", function (error:any , data:Dict<string>[][]) {
+    d3.csv("data.csv", function (error, data) {
         color.domain(d3.keys(data[0]).filter(function (key) { return key !== "State"; }));
 
         data.forEach(function (d: any) {
@@ -495,7 +495,7 @@ function callenderView() {
         .attr("class", "month")
         .attr("d", monthPath);
 
-    d3.csv("dji.csv", function (error:any, csv: Dict<string>[]) {
+    d3.csv("dji.csv", function (error, csv) {
         var data = d3.nest()
           .key(function (d: any) { return d.Date; })
           .rollup(function (d: any) { return (d[0].Close - d[0].Open) / d[0].Open; })
@@ -1959,13 +1959,13 @@ function irisParallel() {
         .append("svg:g")
         .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
-    d3.csv("iris.csv", function (flowers:any) {
+    d3.csv("iris.csv", function (flowers) {
         var i: number;
 
         // Create a scale and brush for each trait.
-        traits.forEach(function (d:string) {
+        traits.forEach(function (d) {
             y[d] = d3.scale.linear<number>()
-                .domain(d3.extent(flowers, function (p:{[k:string]:any}) { return +p[d]; } ))
+                .domain(d3.extent(flowers, function (p) { return +p[d]; } ))
                 .range([h, 0]);
 
             y[d].brush = d3.svg.brush()
@@ -1996,7 +1996,7 @@ function irisParallel() {
             .data(flowers)
             .enter().append("svg:path")
             .attr("d", path)
-            .attr("class", function (d: Dict<any>) { return d['species']; } );
+            .attr("class", function (d) { return d['species']; } );
 
         // Add a group element for each trait.
         var g = svg.selectAll(".trait")

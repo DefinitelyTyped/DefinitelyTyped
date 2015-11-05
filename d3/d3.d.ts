@@ -2677,11 +2677,17 @@ declare module d3 {
     type DsvAccessor<T>  = (rows: S, index?: number)=> T ;
     type DsvCallback1<T> = (            rows: T[]) => void;
     type DsvCallback2<T> = (error: any, rows: T[]) => void;
-    type DsvCallback<T>  = DsvCallback1<T> | DsvCallback2<T>;
 
     interface Dsv{
-        <T>(url: string,                           callback?: DsvCallback<T>): DsvXhr<T>;
-        <T>(url: string, accessor: DsvAccessor<T>, callback : DsvCallback<T>): DsvXhr<T>;
+           (url: string,                           callback?: DsvCallback1<S>): DsvXhr<S>;
+           (url: string,                           callback?: DsvCallback2<S>): DsvXhr<S>;
+           (url: string, accessor: DsvAccessor<S>, callback : DsvCallback1<S>): DsvXhr<S>;
+           (url: string, accessor: DsvAccessor<S>, callback : DsvCallback2<S>): DsvXhr<S>;
+
+        <T>(url: string,                           callback?: DsvCallback1<T>): DsvXhr<T>;
+        <T>(url: string,                           callback?: DsvCallback2<T>): DsvXhr<T>;
+        <T>(url: string, accessor: DsvAccessor<T>, callback : DsvCallback1<T>): DsvXhr<T>;
+        <T>(url: string, accessor: DsvAccessor<T>, callback : DsvCallback2<T>): DsvXhr<T>;
 
         parse<T>(string: string, accessor?: DsvAccessor<T>): T[];
 
