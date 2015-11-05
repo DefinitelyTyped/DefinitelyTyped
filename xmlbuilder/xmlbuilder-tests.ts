@@ -1,7 +1,8 @@
 /// <reference path="xmlbuilder.d.ts" />
 
 import xmlbuilder = require('xmlbuilder');
-var xml = xmlbuilder.create;
+var builder = xmlbuilder.builder;
+var xml = builder.create;
 
 // https://github.com/oozcitak/xmlbuilder-js/blob/master/test/comment.coffee
 xml('comment', {}, {}, { headless: true }).comment('<>\'"&\t\n\r').end();

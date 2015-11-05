@@ -4,7 +4,6 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module 'xmlbuilder' {
-    export = xmlbuilder;
     class XMLDocType {
         clone(): XMLDocType;
         element(name: string, value?: Object): XMLDocType;
@@ -85,5 +84,11 @@ declare module 'xmlbuilder' {
 
     module xmlbuilder {
         function create(name: string, xmldec?: Object, doctype?: any, options?: Object): XMLElementOrXMLNode;
+    }
+    
+    export = {
+      builder: xmlbuilder,
+      XMLDocType: XMLDocType,
+      XMLElementOrXMLNode: XMLElementOrXMLNode
     }
 }
