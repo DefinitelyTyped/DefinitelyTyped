@@ -6,13 +6,15 @@
 /// <reference path="react.d.ts" />
 
 declare namespace __React {
+    interface PureRenderMixin extends Mixin<any, any> {}
+    
     namespace __Addons {
-        interface PureRenderMixin extends Mixin<any, any> {}
+        export var PureRenderMixin: PureRenderMixin;
     }
 }
 
 declare module "react-addons-pure-render-mixin" {
-    var PureRenderMixin: __React.__Addons.PureRenderMixin;
-    type PureRenderMixin = __React.__Addons.PureRenderMixin;
+    var PureRenderMixin: __React.PureRenderMixin;
+    type PureRenderMixin = __React.PureRenderMixin;
     export = PureRenderMixin;
 }

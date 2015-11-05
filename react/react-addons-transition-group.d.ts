@@ -6,18 +6,21 @@
 /// <reference path="react.d.ts" />
 
 declare namespace __React {
+    
+    interface TransitionGroupProps {
+        component?: ReactType;
+        childFactory?: (child: ReactElement<any>) => ReactElement<any>;
+    }
+    
+    type TransitionGroup = ComponentClass<TransitionGroupProps>;
+    
     namespace __Addons {
-        interface TransitionGroupProps {
-            component?: ReactType;
-            childFactory?: (child: ReactElement<any>) => ReactElement<any>;
-        }
-        
-        type TransitionGroup = ComponentClass<TransitionGroupProps>;
+        export var TransitionGroup: __React.TransitionGroup;
     }
 }
 
 declare module "react-addons-transition-group" {
-    var TransitionGroup: __React.__Addons.TransitionGroup;
-    type TransitionGroup = __React.__Addons.TransitionGroup;
+    var TransitionGroup: __React.TransitionGroup;
+    type TransitionGroup = __React.TransitionGroup;
     export = TransitionGroup;
 }
