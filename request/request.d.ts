@@ -21,7 +21,7 @@ declare module 'request' {
 	function RequestAPI(options: RequestAPI.Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): RequestAPI.Request;
 
 	module RequestAPI {
-		export function defaults(options: Options): typeof RequestAPI;
+		export function defaults(options: DefaultsOptions): typeof RequestAPI;
 
 		export function request(uri: string, options?: Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
 		export function request(uri: string, callback?: (error: any, response: http.IncomingMessage, body: any) => void): Request;
@@ -95,6 +95,11 @@ declare module 'request' {
 			proxy?: any;
 			strictSSL?: boolean;
 			gzip?: boolean;
+		}
+
+		export interface DefaultsOptions extends OptionalOptions {
+			url?: string,
+			uri?: string
 		}
 
 		export type Options = (UriOptions|UrlOptions)&OptionalOptions;
