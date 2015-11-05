@@ -1230,7 +1230,7 @@ declare module _ {
          * @param array The array to query.
          * @return Returns the slice of array.
          */
-        initial<T>(array: T[]|List<T>): T[];
+        initial<T>(array: List<T>): T[];
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -1244,7 +1244,21 @@ declare module _ {
         /**
          * @see _.initial
          */
-        initial<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+        initial<T>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.initial
+         */
+        initial(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.initial
+         */
+        initial<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.intersection
