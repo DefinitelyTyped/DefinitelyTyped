@@ -90,16 +90,10 @@ declare module MysqlLiveClient {
 	}
 
 	//index
-	export function subscribe(collectionName: string, clientCriteria?: any): LiveCollectionClient {
-		return LiveClient.subscribe(collectionName, clientCriteria);
-	};
+	export function subscribe(collectionName: string, clientCriteria?: any): LiveCollectionClient;
 
-	export function unsubscribe(collectionName: string): boolean {
-		return LiveClient.unsubscribe(collectionName);
-	};
+	export function unsubscribe(collectionName: string): boolean;
 
-	export function start(_host?: string) {
-		LiveClient.start(_host);
-	};
+	export function start(_host?: string):void;
 
 }
