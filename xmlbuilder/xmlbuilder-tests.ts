@@ -1,7 +1,7 @@
 /// <reference path="xmlbuilder.d.ts" />
 
 import xmlbuilder = require('xmlbuilder');
-var builder = xmlbuilder.builder;
+var builder = xmlbuilder.xmlbuilder
 var xml = builder.create;
 
 // https://github.com/oozcitak/xmlbuilder-js/blob/master/test/comment.coffee
