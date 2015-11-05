@@ -316,12 +316,12 @@ declare module "when/node" {
     ): when.Promise<T>;
 
 
-    function apply<T>(fn: _.NodeFn0<T>, args: any[]): when.Promise<T>;
-    function apply<T>(fn: _.NodeFn1<any, T>, args: any[]): when.Promise<T>;
-    function apply<T>(fn: _.NodeFn2<any, any, T>, args: any[]): when.Promise<T>;
-    function apply<T>(fn: _.NodeFn3<any, any, any, T>, args: any[]): when.Promise<T>;
-    function apply<T>(fn: _.NodeFn4<any, any, any, any, T>, args: any[]): when.Promise<T>;
-    function apply<T>(fn: _.NodeFn5<any, any, any, any, any, T>, args: any[]): when.Promise<T>;
+    function apply<T>(fn: _.NodeFn0<T>, args: any[] | IArguments): when.Promise<T>;
+    function apply<T>(fn: _.NodeFn1<any, T>, args: any[] | IArguments): when.Promise<T>;
+    function apply<T>(fn: _.NodeFn2<any, any, T>, args: any[] | IArguments): when.Promise<T>;
+    function apply<T>(fn: _.NodeFn3<any, any, any, T>, args: any[] | IArguments): when.Promise<T>;
+    function apply<T>(fn: _.NodeFn4<any, any, any, any, T>, args: any[] | IArguments): when.Promise<T>;
+    function apply<T>(fn: _.NodeFn5<any, any, any, any, any, T>, args: any[] | IArguments): when.Promise<T>;
 
 
     function liftAll(srcApi: any, transform?: (destApi: any, liftedFunc: Function, name: string) => any, destApi?: any): any;
