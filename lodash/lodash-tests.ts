@@ -5807,9 +5807,22 @@ module TestTimes {
 }
 
 // _.uniqueId
-result = <string>_.uniqueId();
-result = <string>_.uniqueId('');
-result = <string>_('').uniqueId();
+module TestUniqueId {
+    {
+        let result: string;
+
+        result = _.uniqueId();
+        result = _.uniqueId('');
+
+        result = _('').uniqueId();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('').chain().uniqueId();
+    }
+}
 
 result = <string>_.VERSION;
 result = <_.Support>_.support;
