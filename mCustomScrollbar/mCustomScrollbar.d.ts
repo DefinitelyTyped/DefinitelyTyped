@@ -19,7 +19,7 @@ declare module MCustomScrollbar {
          * Define content’s scrolling axis (the type of scrollbars added to the element: vertical and/of horizontal).
          * Available values: "y", "x", "yx". y -vertical, x - horizontal
          */
-        axis: string;
+        axis?: string;
         /**
         * Scrolling inertia (easing), value in milliseconds (0 for no scrolling inertia)
         */
