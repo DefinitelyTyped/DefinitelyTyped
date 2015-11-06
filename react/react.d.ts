@@ -216,12 +216,23 @@ declare namespace __React {
         type: string;
     }
 
+    interface ClipboardEvent extends SyntheticEvent {
+        clipboardData: DataTransfer;
+    }
+
+    interface CompositionEvent extends SyntheticEvent {
+        data: string;
+    }
+
     interface DragEvent extends SyntheticEvent {
         dataTransfer: DataTransfer;
     }
 
-    interface ClipboardEvent extends SyntheticEvent {
-        clipboardData: DataTransfer;
+    interface FocusEvent extends SyntheticEvent {
+        relatedTarget: EventTarget;
+    }
+
+    interface FormEvent extends SyntheticEvent {
     }
 
     interface KeyboardEvent extends SyntheticEvent {
@@ -237,13 +248,6 @@ declare namespace __React {
         repeat: boolean;
         shiftKey: boolean;
         which: number;
-    }
-
-    interface FocusEvent extends SyntheticEvent {
-        relatedTarget: EventTarget;
-    }
-
-    interface FormEvent extends SyntheticEvent {
     }
 
     interface MouseEvent extends SyntheticEvent {
@@ -294,15 +298,18 @@ declare namespace __React {
         (event: E): void;
     }
 
-    interface DragEventHandler extends EventHandler<DragEvent> {}
-    interface ClipboardEventHandler extends EventHandler<ClipboardEvent> {}
-    interface KeyboardEventHandler extends EventHandler<KeyboardEvent> {}
-    interface FocusEventHandler extends EventHandler<FocusEvent> {}
-    interface FormEventHandler extends EventHandler<FormEvent> {}
-    interface MouseEventHandler extends EventHandler<MouseEvent> {}
-    interface TouchEventHandler extends EventHandler<TouchEvent> {}
-    interface UIEventHandler extends EventHandler<UIEvent> {}
-    interface WheelEventHandler extends EventHandler<WheelEvent> {}
+    type ReactEventHandler = EventHandler<SyntheticEvent>;
+
+    type ClipboardEventHandler = EventHandler<ClipboardEvent>;
+    type CompositionEventHandler = EventHandler<CompositionEvent>;
+    type DragEventHandler = EventHandler<DragEvent>;
+    type FocusEventHandler = EventHandler<FocusEvent>;
+    type FormEventHandler = EventHandler<FormEvent>;
+    type KeyboardEventHandler = EventHandler<KeyboardEvent>;
+    type MouseEventHandler = EventHandler<MouseEvent>;
+    type TouchEventHandler = EventHandler<TouchEvent>;
+    type UIEventHandler = EventHandler<UIEvent>;
+    type WheelEventHandler = EventHandler<WheelEvent>;
 
     //
     // Props / DOM Attributes
@@ -322,17 +329,63 @@ declare namespace __React {
     }
 
     interface DOMAttributes {
+        dangerouslySetInnerHTML?: {
+            __html: string;
+        };
+
+        // Clipboard Events
         onCopy?: ClipboardEventHandler;
         onCut?: ClipboardEventHandler;
         onPaste?: ClipboardEventHandler;
-        onKeyDown?: KeyboardEventHandler;
-        onKeyPress?: KeyboardEventHandler;
-        onKeyUp?: KeyboardEventHandler;
+
+        // Composition Events
+        onCompositionEnd?: CompositionEventHandler;
+        onCompositionStart?: CompositionEventHandler;
+        onCompositionUpdate?: CompositionEventHandler;
+
+        // Focus Events
         onFocus?: FocusEventHandler;
         onBlur?: FocusEventHandler;
+
+        // Form Events
         onChange?: FormEventHandler;
         onInput?: FormEventHandler;
         onSubmit?: FormEventHandler;
+
+        // Image Events
+        onLoad?: ReactEventHandler;
+        onError?: ReactEventHandler; // also a Media Event
+
+        // Keyboard Events
+        onKeyDown?: KeyboardEventHandler;
+        onKeyPress?: KeyboardEventHandler;
+        onKeyUp?: KeyboardEventHandler;
+
+        // Media Events
+        onAbort?: ReactEventHandler;
+        onCanPlay?: ReactEventHandler;
+        onCanPlayThrough?: ReactEventHandler;
+        onDurationChange?: ReactEventHandler;
+        onEmptied?: ReactEventHandler;
+        onEncrypted?: ReactEventHandler;
+        onEnded?: ReactEventHandler;
+        onLoadedData?: ReactEventHandler;
+        onLoadedMetadata?: ReactEventHandler;
+        onLoadStart?: ReactEventHandler;
+        onPause?: ReactEventHandler;
+        onPlay?: ReactEventHandler;
+        onPlaying?: ReactEventHandler;
+        onProgress?: ReactEventHandler;
+        onRateChange?: ReactEventHandler;
+        onSeeked?: ReactEventHandler;
+        onSeeking?: ReactEventHandler;
+        onStalled?: ReactEventHandler;
+        onSuspend?: ReactEventHandler;
+        onTimeUpdate?: ReactEventHandler;
+        onVolumeChange?: ReactEventHandler;
+        onWaiting?: ReactEventHandler;
+
+        // MouseEvents
         onClick?: MouseEventHandler;
         onContextMenu?: MouseEventHandler;
         onDoubleClick?: MouseEventHandler;
@@ -351,16 +404,21 @@ declare namespace __React {
         onMouseOut?: MouseEventHandler;
         onMouseOver?: MouseEventHandler;
         onMouseUp?: MouseEventHandler;
+
+        // Selection Events
+        onSelect?: ReactEventHandler;
+
+        // Touch Events
         onTouchCancel?: TouchEventHandler;
         onTouchEnd?: TouchEventHandler;
         onTouchMove?: TouchEventHandler;
         onTouchStart?: TouchEventHandler;
-        onScroll?: UIEventHandler;
-        onWheel?: WheelEventHandler;
 
-        dangerouslySetInnerHTML?: {
-            __html: string;
-        };
+        // UI Events
+        onScroll?: UIEventHandler;
+
+        // Wheel Events
+        onWheel?: WheelEventHandler;
     }
 
     // This interface is not complete. Only properties accepting
@@ -720,6 +778,7 @@ declare namespace __React {
         defs: SVGFactory;
         ellipse: SVGFactory;
         g: SVGFactory;
+        image: SVGFactory;
         line: SVGFactory;
         linearGradient: SVGFactory;
         mask: SVGFactory;
