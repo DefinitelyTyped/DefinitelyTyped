@@ -21,6 +21,8 @@ var comparer: LinqSharp.IEqualityComparer<number> = {
 		return obj.valueOf();
 	}
 };
+var comparer2: (o: number, i: number) => number;
+var comparer3: (o: number, i: number) => boolean;
 
 numberResult = linq.Aggregate<number>((prev: number, next: number) => { return prev + next; });
 boolResult = linq.All((value: number) => value == 0);
@@ -63,16 +65,16 @@ numberResult = linq.Max((value: number) => value);
 numberResult = linq.Min();
 numberResult = linq.Min((value: number) => value);
 linqResult = linq.OrderBy((value: number) => value);
-linqResult = linq.OrderBy((value: number) => value, comparer);
+linqResult = linq.OrderBy((value: number) => value, comparer2);
 linqResult = linq.OrderByDescending((value: number) => value);
-linqResult = linq.OrderByDescending((value: number) => value, comparer);
+linqResult = linq.OrderByDescending((value: number) => value, comparer2);
 linqResult = linq.Reverse();
 linqResult = linq.Select((value: number) => value);
 linqResult = linq.Select((value: number, index: number) => value + index);
 linqResult = linq.SelectMany<number>((value: number) => [ value ]);
 linqResult = linq.SelectMany<number>((value: number) => [ value ], (value: number) => value);
 boolResult = linq.SequenceEqual([0]);
-boolResult = linq.SequenceEqual([0], comparer);
+boolResult = linq.SequenceEqual([0], comparer3);
 numberResult = linq.Single();
 numberResult = linq.Single((value: number) => value == 0);
 numberResult = linq.SingleOrDefault();
