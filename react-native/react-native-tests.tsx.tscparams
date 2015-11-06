@@ -1,1 +1,1 @@
---target ES6 --noImplicitAny --experimentalDecorators --jsx react
+--target es5 --noImplicitAny --experimentalDecorators --jsx react --module commonjs
