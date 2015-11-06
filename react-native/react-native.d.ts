@@ -7,6 +7,7 @@
 //
 // This work is mostly based on the work made by Bernd Paradies: https://github.com/bparadie
 //
+// These definitions are meant to be used with the compiler target set to ES6
 //
 // WARNING: this work is very much beta:
 //            -it may be missing react-native definitions
