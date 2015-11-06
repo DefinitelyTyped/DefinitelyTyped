@@ -1,6 +1,9 @@
 
 /*
 
+Note: This must be compiled with the target set to ES6
+
+
 The content of index.io.js could be something like
 
 
