@@ -27,6 +27,17 @@ var tsProject = typescript.createProject({
 });
 
 gulp.task('scripts', function() {
+    var tsResult = tsProject.src()
+        .pipe(typescript(tsProject));
+
+    return tsResult.js.pipe(gulp.dest('release'));
+});
+
+var mainTscProject = typescript.createProject("tsconfig.json", {
+   target: "es6"
+});
+
+gulp.task('scripts', function() {
     var tsResult = gulp.src('lib/*.ts')
         .pipe(typescript(tsProject));
 

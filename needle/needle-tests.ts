@@ -22,7 +22,7 @@ function ResponsePipeline() {
 
     var options = {
         compressed: true,
-        follow: true,
+        follow: 5,
         rejectUnauthorized: true
     };
 

@@ -263,7 +263,7 @@ declare module DC {
         radius: number;
     }
 
-    export interface LineChart extends StackMixin<BarChart>, CoordinateGridMixin<BarChart> {
+    export interface LineChart extends StackMixin<LineChart>, CoordinateGridMixin<LineChart> {
         interpolate: IGetSet<string, LineChart>;
         tension: IGetSet<number, LineChart>;
         defined: IGetSet<Accessor<any, boolean>, LineChart>;

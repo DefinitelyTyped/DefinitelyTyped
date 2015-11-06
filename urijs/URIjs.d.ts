@@ -9,10 +9,12 @@ declare module uri {
 
     interface URI {
         absoluteTo(path: string): URI;
+        absoluteTo(path: URI): URI;
         addFragment(fragment: string): URI;
         addQuery(qry: string): URI;
         addQuery(qry: Object): URI;
         addSearch(qry: string): URI;
+        addSearch(key: string, value:any): URI;
         addSearch(qry: Object): URI;
         authority(): string;
         authority(authority: string): URI;
@@ -25,6 +27,8 @@ declare module uri {
         domain(): string;
         domain(domain: boolean): string;
         domain(domain: string): URI;
+        
+        duplicateQueryParameters(val: boolean): URI;
 
         equals(): boolean;
         equals(url: string): boolean;
@@ -93,10 +97,10 @@ declare module uri {
         search(qry: boolean): any;
         search(qry: Object): URI;
         segment(): string[];
-        segment(segments: string[]): string;
+        segment(segments: string[]): URI;
         segment(position: number): string;
-        segment(position: number, level: string): string;
-        segment(level: string): string;
+        segment(position: number, level: string): URI;
+        segment(segment: string): URI;
         setQuery(key: string, value: string): URI;
         setQuery(qry: Object): URI;
         setSearch(key: string, value: string): URI;
@@ -224,5 +228,9 @@ interface JQuery {
 declare var URI: uri.URIStatic;
 
 declare module 'URI' {
+    export = URI;
+}
+
+declare module 'urijs' {
     export = URI;
 }

@@ -48,6 +48,10 @@ declare module BootstrapV3DatetimePicker {
         direction?: string;
         sideBySide?: boolean;
         daysOfWeekDisabled?: Array<any>;
+        calendarWeeks?: boolean;
+        format?: string | boolean;
+        locale?: string;
+        showTodayButton?: boolean;
     }
 
     interface Datetimepicker {

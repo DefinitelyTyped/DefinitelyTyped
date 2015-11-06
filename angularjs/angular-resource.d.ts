@@ -46,11 +46,18 @@ declare module angular.resource {
 
     // Just a reference to facilitate describing new actions
     interface IActionDescriptor {
-        url?: string;
         method: string;
-        isArray?: boolean;
         params?: any;
+        url?: string;
+        isArray?: boolean;
+        transformRequest?: angular.IHttpRequestTransformer | angular.IHttpRequestTransformer[];
+        transformResponse?: angular.IHttpResponseTransformer | angular.IHttpResponseTransformer[];
         headers?: any;
+        cache?: boolean | angular.ICacheObject;
+        timeout?: number | angular.IPromise<any>;
+        withCredentials?: boolean;
+        responseType?: string;
+        interceptor?: any;
     }
 
     // Baseclass for everyresource with default actions.
@@ -147,7 +154,7 @@ declare module angular.resource {
     }
 
     // IResourceServiceProvider used to configure global settings
-    interface IResourceServiceProvider extends ng.IServiceProvider {
+    interface IResourceServiceProvider extends angular.IServiceProvider {
 
         defaults: IResourceOptions;
     }
