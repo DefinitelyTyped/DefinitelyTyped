@@ -17,7 +17,7 @@ declare module 'request' {
 
 	namespace request {
 		export interface RequestAPI<TRequest extends Request, TOptions extends OptionalOptions> {
-			defaults(options: DefaultsOptions): RequestAPI<TRequest, TOptions>;
+			defaults(options: TOptions & OptionalUriUrl): RequestAPI<TRequest, TOptions>;
 			(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			(uri: string, callback?: RequestCallback): TRequest;
 			(options?: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
