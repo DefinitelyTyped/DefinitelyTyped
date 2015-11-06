@@ -19,6 +19,14 @@ declare module MysqlLive {
 		static canInsert(objRow: any, rawCriteria:any, joinedRow?: any): boolean;
 	}
 
+	export type AllowOptionsType = { 
+		insert?: (socket: SocketIO.Socket, object: any) => boolean,
+		update?:(socket:SocketIO.Socket,object:any)=>boolean,
+		remove?:(socket:SocketIO.Socket,primaryKey:string|number)=>boolean	
+	};
+
+	export type DisallowOptions = {}; //future
+
 	export interface LiveSocket {
 		id: string;
 		criteriaClient: any;
@@ -34,6 +42,7 @@ declare module MysqlLive {
 		table: string;
 		criteria: any;
 		liveSockets: LiveSocketDictionary; //maybe = {} ? but I want to check for undefined.
+		options: AllowOptionsType;
 
 		constructor(collectionName: string, tableName: string, criteriaServer?: any);
 		/*
@@ -42,6 +51,8 @@ declare module MysqlLive {
 		public static getSocketMethod: (socketId: string) => SocketIO.Socket;
 
 		getSocket(socketIdOrLiveSocket: LiveSocket | string): SocketIO.Socket;
+
+		allow(options: AllowOptionsType): boolean;
 	}
 
 	export interface LiveCollectionServerDictionary {
@@ -57,7 +68,7 @@ declare module MysqlLive {
 		/* Just add the collection object to the static collections variable, so the sockets can subscribe.*/
 		_register(collection: LiveCollectionServer): void;
 
-		register(collectionName: string, tableName: string, optionalCriteriaServer?: any): void;
+		register(collectionName: string, tableName: string, optionalCriteriaServer?: any): LiveCollectionServer;
 
 
 		publishCollection(socketId: string, collectionName: string): void;
@@ -70,9 +81,9 @@ declare module MysqlLive {
 
 		onRequestRefresh(socketId: string, collectionName: string): void;
 
-		onRequestSaveObject(collectionName: string, object: any): void;
+		onRequestSaveObject(socketId: string, collectionName: string, object: any): void;
 
-		onRequestRemoveObject(collectionName: string, primaryKey: string|number): void;
+		onRequestRemoveObject(socketId:string,collectionName: string, primaryKey: string | number): void;
 
 	}
 
@@ -119,7 +130,7 @@ declare module MysqlLive {
 		constructor(db: NodeMysqlWrapper.Database, io: SocketIO.Server);
 
 		/* Just register the collection, when user subscribe to it for first time, then and only then will be published*/
-		publish(collectionName: string, tableName: string, optionalCriteriaServer?: any): void;
+		publish(collectionName: string, tableName: string, optionalCriteriaServer?: any): LiveCollectionServer;
 
 		listen(): void;
 
