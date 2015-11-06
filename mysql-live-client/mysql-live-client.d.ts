@@ -6,12 +6,12 @@
 /// <reference path="../socket.io-client/socket.io-client.d.ts" />
 
 declare module "mysql-live-client" {
-	export default MysqlLiveClient.LiveClient;
+	export default MysqlLiveClientSide.MysqlLiveClient;
 }
 
-declare module MysqlLiveClient {
+declare module MysqlLiveClientSide {
 
-	export type onChangeEvent = (evt: string, items?: any[]) => void;
+	export type onChangeEvent = (evt?: string, items?: any[]) => void;
 
 	export class LiveCollectionClient {
 		name: string;
@@ -24,6 +24,8 @@ declare module MysqlLiveClient {
 		destroy():void;
 
 		onChange(cb: onChangeEvent): void;
+		
+		fetch(whenFinishReceiveCollection: onChangeEvent): any[];
 
 		fireChange(event: string): void;
 
@@ -50,10 +52,12 @@ declare module MysqlLiveClient {
 
 		listen(): void;
 
+		getCollection(collectionName: string): LiveCollectionClient;
+
 		subscribe(collectionName: string, clientCriteria?: any): LiveCollectionClient;
 
 		unsubscribe(collectionName: string): boolean;
-		
+
 		static requestRefresh(collectionName: string): void;
 
 		static requestSaveObject(collectionName: string, object: any): void;
@@ -63,7 +67,7 @@ declare module MysqlLiveClient {
 		static requestRemoveObject(collectionName: string, primaryKey: string|number): void;
 	}
 
-	export class LiveClient {
+	export class MysqlLiveClient {
 
 		static PROTOCOL: string;
 		static DOMAIN: string;
@@ -84,6 +88,9 @@ declare module MysqlLiveClient {
 		static start(_endpoint?: string): LiveCollectionClientManager;
 
 		static subscribe(collectionName: string, clientCriteria?: any): LiveCollectionClient;
+
+		/* returns the collection if exists,if no then it does the same thing as .subscribe method */
+		static Collection(collectionName: string, clientCriteria?: any): LiveCollectionClient;
 
 		static unsubscribe(collectionName: string): boolean;
 
