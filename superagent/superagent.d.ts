@@ -97,6 +97,7 @@ declare module "superagent" {
       redirects(n: number): Req;
       send(data: string): Req;
       send(data: Object): Req;
+      send(): Req;
       set(field: string, val: string): Req;
       set(field: Object): Req;
       timeout(ms: number): Req;
