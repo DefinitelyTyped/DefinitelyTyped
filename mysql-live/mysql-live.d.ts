@@ -8,10 +8,10 @@
 
 
 declare module "mysql-live" {
-	export default function live(db: NodeMysqlWrapper.Database, io: SocketIO.Server): MysqlLive.LiveServer;
+	export default function live(db: NodeMysqlWrapper.Database, io: SocketIO.Server): MysqlLiveServerSide.MysqlLiveServer;
 }
 
-declare module MysqlLive {
+declare module MysqlLiveServerSide {
 	export type TableToSearchPart = { tableName: string, propertyName: string };
 
 	export class LiveHelper {
@@ -25,7 +25,7 @@ declare module MysqlLive {
 		remove?:(socket:SocketIO.Socket,primaryKey:string|number)=>boolean	
 	};
 
-	export type DisallowOptions = {}; //future
+	export type DisallowOptions = {};
 
 	export interface LiveSocket {
 		id: string;
@@ -61,15 +61,16 @@ declare module MysqlLive {
 
 	export class LiveCollectionServerManager {
 		private collections: LiveCollectionServerDictionary; //OBJECTS: map collection with table and sockets .
-		protected server: LiveServerImpl;
+		protected server: MysqlLiveServerImpl;
 
-		constructor(server: LiveServerImpl);
+		constructor(server: MysqlLiveServerImpl);
+
+		getCollection(collectionName: string): LiveCollectionServer;
 
 		/* Just add the collection object to the static collections variable, so the sockets can subscribe.*/
 		_register(collection: LiveCollectionServer): void;
 
 		register(collectionName: string, tableName: string, optionalCriteriaServer?: any): LiveCollectionServer;
-
 
 		publishCollection(socketId: string, collectionName: string): void;
 
@@ -93,16 +94,16 @@ declare module MysqlLive {
 
 	export class LiveTableServerManager {
 		listeningTables: LiveTableServerDictionary; // OBJECT : map table with all registed collections.
-		protected server: LiveServerImpl;
-		constructor(server: LiveServerImpl);
+		protected server: MysqlLiveServerImpl;
+		constructor(server: MysqlLiveServerImpl);
 
 		listenToTable(tableName: string): void;
 
-		private onTableDelete(tableName: string, toBeRemovedCriteria: any): void;
+		private onTableRowRemove(tableName: string, toBeRemovedCriteria: any): void;
 
-		private onTableUpdate(tableName: string, selector: any, newItem: any): void;
+		private onTableRowUpdate(tableName: string, selector: any, newItem: any): void;
 
-		private onTableInsert<T>(table: NodeMysqlWrapper.Table<T>, newItem: any): void;
+		private onTableRowInsert<T>(table: NodeMysqlWrapper.Table<T>, newItem: any): void;
 
 		/*
 		 edw elenxw an uparxei joined table tote to pernei olo aptin arxi, an oxi tote den kanei tpt epistrefei apla to objRow.
@@ -110,13 +111,13 @@ declare module MysqlLive {
 		private checkJoinedAndFetch<T>(table: NodeMysqlWrapper.Table<T>, objRow: any, serverCollectionOnlyCriteria: any): Promise<T>;
 	}
 
-	export interface LiveServerImpl {
+	export interface MysqlLiveServerImpl {
 		db: NodeMysqlWrapper.Database;
 		nsp: SocketIO.Namespace;
 		tableManager: LiveTableServerManager;
 	}
 
-	export class LiveServer implements LiveServerImpl {
+	export class MysqlLiveServer implements MysqlLiveServerImpl {
 
 		public static LiveServerCount: number;
 		public static LiveServerSocketNamespace: string;
@@ -131,6 +132,9 @@ declare module MysqlLive {
 
 		/* Just register the collection, when user subscribe to it for first time, then and only then will be published*/
 		publish(collectionName: string, tableName: string, optionalCriteriaServer?: any): LiveCollectionServer;
+		
+		/* Exactly the same thing that .publish does, but if the collection is already registed then this collection will return*/
+		Collection(collectionName: string, tableName: string, optionalCriteriaServer?: any): LiveCollectionServer;
 
 		listen(): void;
 
@@ -145,6 +149,6 @@ declare module MysqlLive {
 	}
 
 
-	export function live(db: NodeMysqlWrapper.Database, io: SocketIO.Server): MysqlLive.LiveServer;
+	export function live(db: NodeMysqlWrapper.Database, io: SocketIO.Server): MysqlLiveServerSide.MysqlLiveServer;
 
 }
