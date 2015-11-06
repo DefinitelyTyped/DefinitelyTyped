@@ -315,6 +315,8 @@ declare namespace __React {
     }
 
     interface HTMLProps extends HTMLAttributes, Props<HTMLElement> {
+        defaultChecked?: boolean;
+        defaultValue?: string | string[];
     }
     interface SVGProps extends SVGAttributes, Props<SVGElement> {
     }
@@ -355,9 +357,6 @@ declare namespace __React {
         onTouchStart?: TouchEventHandler;
         onScroll?: UIEventHandler;
         onWheel?: WheelEventHandler;
-
-        className?: string;
-        id?: string;
 
         dangerouslySetInnerHTML?: {
             __html: string;
@@ -405,23 +404,25 @@ declare namespace __React {
         autoComplete?: boolean;
         autoFocus?: boolean;
         autoPlay?: boolean;
+        capture?: boolean;
         cellPadding?: number | string;
         cellSpacing?: number | string;
         charSet?: string;
+        challenge?: string;
         checked?: boolean;
         classID?: string;
+        className?: string;
         cols?: number;
         colSpan?: number;
         content?: string;
         contentEditable?: boolean;
         contextMenu?: string;
-        controls?: any;
+        controls?: boolean;
         coords?: string;
         crossOrigin?: string;
         data?: string;
         dateTime?: string;
-        defaultChecked?: boolean;
-        defaultValue?: string;
+        default?: boolean;
         defer?: boolean;
         dir?: string;
         disabled?: boolean;
@@ -444,6 +445,13 @@ declare namespace __React {
         htmlFor?: string;
         httpEquiv?: string;
         icon?: string;
+        id?: string;
+        inputMode?: string;
+        integrity?: string;
+        is?: string;
+        keyParams?: string;
+        keyType?: string;
+        kind?: string;
         label?: string;
         lang?: string;
         list?: string;
@@ -458,6 +466,7 @@ declare namespace __React {
         mediaGroup?: string;
         method?: string;
         min?: number | string;
+        minLength?: number;
         multiple?: boolean;
         muted?: boolean;
         name?: string;
@@ -488,30 +497,49 @@ declare namespace __React {
         spellCheck?: boolean;
         src?: string;
         srcDoc?: string;
+        srcLang?: string;
         srcSet?: string;
         start?: number;
         step?: number | string;
         style?: CSSProperties;
+        summary?: string;
         tabIndex?: number;
         target?: string;
         title?: string;
         type?: string;
         useMap?: string;
-        value?: string;
+        value?: string | string[];
         width?: number | string;
         wmode?: string;
+        wrap?: string;
+
+        // RDFa Attributes
+        about?: string;
+        datatype?: string;
+        inlist?: any;
+        prefix?: string;
+        property?: string;
+        resource?: string;
+        typeof?: string;
+        vocab?: string;
 
         // Non-standard Attributes
         autoCapitalize?: boolean;
-        autoCorrect?: boolean;
-        property?: string;
+        autoCorrect?: string;
+        autoSave?: string;
+        color?: string;
         itemProp?: string;
         itemScope?: boolean;
         itemType?: string;
+        itemID?: string;
+        itemRef?: string;
+        results?: number;
+        security?: string;
         unselectable?: boolean;
     }
 
-    interface SVGAttributes extends DOMAttributes {
+    interface SVGAttributes extends HTMLAttributes {
+        clipPath?: string;
         cx?: number | string;
         cy?: number | string;
         d?: string;
@@ -525,7 +553,6 @@ declare namespace __React {
         fy?: number | string;
         gradientTransform?: string;
         gradientUnits?: string;
-        height?: number | string;
         markerEnd?: string;
         markerMid?: string;
         markerStart?: string;
@@ -544,17 +571,25 @@ declare namespace __React {
         stroke?: string;
         strokeDasharray?: string;
         strokeLinecap?: string;
-        strokeMiterlimit?: string;
         strokeOpacity?: number | string;
         strokeWidth?: number | string;
         textAnchor?: string;
         transform?: string;
         version?: string;
         viewBox?: string;
-        width?: number | string;
         x1?: number | string;
         x2?: number | string;
         x?: number | string;
+        xlinkActuate?: string;
+        xlinkArcrole?: string;
+        xlinkHref?: string;
+        xlinkRole?: string;
+        xlinkShow?: string;
+        xlinkTitle?: string;
+        xlinkType?: string;
+        xmlBase?: string;
+        xmlLang?: string;
+        xmlSpace?: string;
         y1?: number | string;
         y2?: number | string
         y?: number | string;
