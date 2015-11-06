@@ -509,10 +509,10 @@ interface UnderscoreStatic {
 	* @param context `this` object in `iterator`, optional.
 	* @return The maximum element within `list`.
 	**/
-	max<T>(
+	max<T, R>(
 		list: _.List<T>,
-		iterator?: _.ListIterator<T, any>,
-		context?: any): T;
+		iterator?: _.ListIterator<T, R>,
+		context?: any): R;
 
 	/**
 	* Returns the minimum value in list.
@@ -529,10 +529,10 @@ interface UnderscoreStatic {
 	* @param context `this` object in `iterator`, optional.
 	* @return The minimum element within `list`.
 	**/
-	min<T>(
+	min<T, R>(
 		list: _.List<T>,
-		iterator?: _.ListIterator<T, any>,
-		context?: any): T;
+		iterator?: _.ListIterator<T, R>,
+		context?: any): R;
 
 	/**
 	* Returns a sorted copy of list, ranked in ascending order by the results of running each value
@@ -655,7 +655,7 @@ interface UnderscoreStatic {
 	size<T>(list: _.Collection<T>): number;
 
 	/**
-	* Split array into two arrays: 
+	* Split array into two arrays:
 	* one whose elements all satisfy predicate and one whose elements all do not satisfy predicate.
 	* @param array Array to split in two.
 	* @param iterator Filter iterator function for each element in `array`.
@@ -1003,8 +1003,8 @@ interface UnderscoreStatic {
 
 	/**
 	* Partially apply a function by filling in any number of its arguments, without changing its dynamic this value.
-	* A close cousin of bind.  You may pass _ in your list of arguments to specify an argument that should not be 
-	* pre-filled, but left open to supply at call-time. 
+	* A close cousin of bind.  You may pass _ in your list of arguments to specify an argument that should not be
+	* pre-filled, but left open to supply at call-time.
 	* @param fn Function to partially fill in arguments.
 	* @param arguments The partial arguments.
 	* @return `fn` with partially filled in arguments.
@@ -1170,7 +1170,7 @@ interface UnderscoreStatic {
 	* @return List of all the values on `object`.
 	**/
 	values(object: any): any[];
-    
+
     /**
      * Like map, but for objects. Transform the value of each property in turn.
      * @param object The object to transform
@@ -1179,7 +1179,7 @@ interface UnderscoreStatic {
      * @return a new _.Dictionary of property values
      */
     mapObject<T, U>(object: _.Dictionary<T>, iteratee: (val: T, key: string, object: _.Dictionary<T>) => U, context?: any): _.Dictionary<U>;
-    
+
     /**
      * Like map, but for objects. Transform the value of each property in turn.
      * @param object The object to transform
@@ -1187,7 +1187,7 @@ interface UnderscoreStatic {
      * @param context The optional context (value of `this`) to bind to
      */
     mapObject<T>(object: any, iteratee: (val: any, key: string, object: any) => T, context?: any): _.Dictionary<T>;
-    
+
     /**
      * Like map, but for objects. Retrieves a property from each entry in the object, as if by _.property
      * @param object The object to transform
@@ -1242,7 +1242,7 @@ interface UnderscoreStatic {
 	extendOwn(
 		destination: any,
 		...source: any[]): any;
-		
+
 	/**
 	* Like extend, but only copies own properties over to the destination object. (alias: extendOwn)
 	*/
@@ -1487,7 +1487,7 @@ interface UnderscoreStatic {
 	constant<T>(value: T): () => T;
 
 	/**
-	* Returns undefined irrespective of the arguments passed to it.  Useful as the default 
+	* Returns undefined irrespective of the arguments passed to it.  Useful as the default
 	* for optional callback arguments.
 	* Note there is no way to indicate a 'undefined' return, so it is currently typed as void.
 	* @return undefined
@@ -1590,7 +1590,7 @@ interface UnderscoreStatic {
 	* @return Returns the compiled Underscore HTML template.
 	**/
 	template(templateString: string, settings?: _.TemplateSettings): (...data: any[]) => string;
-    	
+
 	/**
 	* By default, Underscore uses ERB-style template delimiters, change the
 	* following template settings to use alternative delimiters.
@@ -3305,7 +3305,7 @@ interface _Chain<T> {
 	/************* *
 	* Array proxy *
 	************** */
-	
+
 	/**
 	* Returns a new array comprised of the array on which it is called
 	* joined with the array(s) and/or value(s) provided as arguments.

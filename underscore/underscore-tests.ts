@@ -52,6 +52,11 @@ var numbers = [10, 5, 100, 2, 1000];
 _.max(numbers);
 _.min(numbers);
 
+var objlist = [{x:1, y:2}, {x:3, y:4}, {x:10, y:15}];
+var result:number;
+result = _.min(objlist, function(c):number{return c.x;});
+result = _.max(objlist, function(c):number{return c.x;});
+
 _.sortBy([1, 2, 3, 4, 5, 6], (num) => Math.sin(num));
 
 
@@ -336,7 +341,7 @@ function chain_tests() {
 		.flatten()
 		.find(num => num % 2 == 0)
 		.value();
-		
+
 	var firstVal: number = _.chain([1, 2, 3])
 		.first()
 		.value();
