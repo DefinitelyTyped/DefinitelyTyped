@@ -10,15 +10,16 @@ declare module MCustomScrollbar {
         /**
         * Set the width of your content (overwrites CSS width), value in pixels (integer) or percentage (string)
         */
-        set_width?: any;
+        setWidth?: any;
         /**
         * Set the height of your content (overwirtes CSS height), value in pixels (integer) or percentage (string)
         */
-        set_height?: any;
+        setHeight?: any;
         /**
-        * Add horizontal scrollbar (default is vertical), value: true, false
-        */
-        horizontalScroll?: boolean;
+         * Define content’s scrolling axis (the type of scrollbars added to the element: vertical and/of horizontal).
+         * Available values: "y", "x", "yx". y -vertical, x - horizontal
+         */
+        axis?: string;
         /**
         * Scrolling inertia (easing), value in milliseconds (0 for no scrolling inertia)
         */
@@ -132,9 +133,17 @@ declare module MCustomScrollbar {
         */
         scrollInertia?: number;
         /**
+        * Scroll-to animation easing, values: "linear", "easeOut", "easeInOut". 
+        */
+        scrollEasing?: string;
+        /**
         * Scroll scrollbar dragger (instead of content) to a number of pixels, values: true, false
         */
         moveDragger?: boolean;
+        /**
+        * Set a timeout for the method (the default timeout is 60 ms in order to work with automatic scrollbar update), value in milliseconds.
+        */
+        timeout?: number;
         /**
         * Trigger user defined callback after scroll-to completes, value: true, false
         */
