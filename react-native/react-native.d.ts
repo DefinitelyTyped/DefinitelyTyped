@@ -1142,99 +1142,99 @@ declare namespace  ReactNative {
     // Event System
     // ----------------------------------------------------------------------
 
-    interface SyntheticEvent extends React.SyntheticEvent{}
+    export interface SyntheticEvent extends React.SyntheticEvent{}
 
-    interface DragEvent extends React.DragEvent{}
+    export interface DragEvent extends React.DragEvent{}
 
-    interface ClipboardEvent extends React.ClipboardEvent{}
+    export interface ClipboardEvent extends React.ClipboardEvent{}
 
-    interface KeyboardEvent extends React.KeyboardEvent{}
+    export interface KeyboardEvent extends React.KeyboardEvent{}
 
 
-    interface FocusEvent extends React.FocusEvent{}
+    export interface FocusEvent extends React.FocusEvent{}
 
-    interface FormEvent extends React.FormEvent {}
+    export interface FormEvent extends React.FormEvent {}
 
-    interface MouseEvent extends React.MouseEvent {}
+    export interface MouseEvent extends React.MouseEvent {}
 
-    interface TouchEvent extends React.TouchEvent {}
+    export interface TouchEvent extends React.TouchEvent {}
 
-    interface UIEvent extends React.UIEvent {}
+    export interface UIEvent extends React.UIEvent {}
 
-    interface WheelEvent extends React.WheelEvent {}
+    export interface WheelEvent extends React.WheelEvent {}
 
     //
     // Event Handler Types
     // ----------------------------------------------------------------------
 
-    interface EventHandler<E extends React.SyntheticEvent> extends React.EventHandler<E>{}
+    export interface EventHandler<E extends React.SyntheticEvent> extends React.EventHandler<E>{}
 
-    interface DragEventHandler extends React.DragEventHandler {}
-    interface ClipboardEventHandler extends React.ClipboardEventHandler {}
-    interface KeyboardEventHandler extends React.KeyboardEventHandler {}
-    interface FocusEventHandler extends React.FocusEventHandler {}
-    interface FormEventHandler extends React.FormEventHandler {}
-    interface MouseEventHandler extends React.MouseEventHandler {}
-    interface TouchEventHandler extends React.TouchEventHandler {}
-    interface UIEventHandler extends React.UIEventHandler {}
-    interface WheelEventHandler extends React.WheelEventHandler{}
+    export interface DragEventHandler extends React.DragEventHandler {}
+    export interface ClipboardEventHandler extends React.ClipboardEventHandler {}
+    export interface KeyboardEventHandler extends React.KeyboardEventHandler {}
+    export interface FocusEventHandler extends React.FocusEventHandler {}
+    export interface FormEventHandler extends React.FormEventHandler {}
+    export interface MouseEventHandler extends React.MouseEventHandler {}
+    export interface TouchEventHandler extends React.TouchEventHandler {}
+    export interface UIEventHandler extends React.UIEventHandler {}
+    export interface WheelEventHandler extends React.WheelEventHandler{}
 
     //
     // Props / DOM Attributes
     // ----------------------------------------------------------------------
 
-    interface Props<T> extends React.Props<T>{}
+    export interface Props<T> extends React.Props<T>{}
 
-    interface DOMAttributesBase<T> extends React.DOMAttributesBase<T>{}
+    export interface DOMAttributesBase<T> extends React.DOMAttributesBase<T>{}
 
-    interface DOMAttributes extends React.DOMAttributes{}
+    export interface DOMAttributes extends React.DOMAttributes{}
 
     // This interface is not complete. Only properties accepting
     // unitless numbers are listed here (see CSSProperty.js in React)
-    interface CSSProperties extends React.CSSProperties{}
+    export interface CSSProperties extends React.CSSProperties{}
 
-    interface HTMLAttributesBase<T> extends React.HTMLAttributesBase<T>{}
+    export interface HTMLAttributesBase<T> extends React.HTMLAttributesBase<T>{}
 
-    interface HTMLAttributes extends React.HTMLAttributes{}
+    export interface HTMLAttributes extends React.HTMLAttributes{}
 
-    interface SVGElementAttributes extends React.SVGElementAttributes{}
+    export interface SVGElementAttributes extends React.SVGElementAttributes{}
 
-    interface SVGAttributes extends React.SVGAttributes{}
+    export interface SVGAttributes extends React.SVGAttributes{}
 
     //
     // React.DOM
     // ----------------------------------------------------------------------
 
-    interface ReactDOM extends React.ReactDOM{}
+    export interface ReactDOM extends React.ReactDOM{}
 
     //
     // React.PropTypes
     // ----------------------------------------------------------------------
 
-    interface Validator<T> extends React.Validator<T>{}
+    export interface Validator<T> extends React.Validator<T>{}
 
-    interface Requireable<T> extends React.Requireable<T> {}
+    export interface Requireable<T> extends React.Requireable<T> {}
 
-    interface ValidationMap<T> extends React.ValidationMap<T>{}
+    export interface ValidationMap<T> extends React.ValidationMap<T>{}
 
-    interface ReactPropTypes extends React.ReactPropTypes{}
+    export interface ReactPropTypes extends React.ReactPropTypes{}
 
     //
     // React.Children
     // ----------------------------------------------------------------------
 
-    interface ReactChildren extends React.ReactChildren{}
+    export interface ReactChildren extends React.ReactChildren{}
 
     //
     // Browser Interfaces
     // https://github.com/nikeee/2048-typescript/blob/master/2048/js/touch.d.ts
     // ----------------------------------------------------------------------
 
-    interface AbstractView extends React.AbstractView{}
+    export interface AbstractView extends React.AbstractView{}
 
-    interface Touch extends React.Touch{}
+    export interface Touch extends React.Touch{}
 
-    interface TouchList extends React.TouchList{}
+    export interface TouchList extends React.TouchList{}
 
 
     export function __spread(target:any, ...sources:any[]): any;
