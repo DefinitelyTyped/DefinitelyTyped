@@ -744,12 +744,28 @@ module TestIntersection {
 module TestLast {
     let array: TResult[];
     let list: _.List<TResult>;
-    let result: TResult;
 
-    result = _.last<TResult>(array);
-    result = _.last<TResult>(list);
-    result = _<TResult>(array).last();
-    result = _(list).last<TResult>();
+    {
+        let result: TResult;
+
+        result = _.last<TResult>(array);
+        result = _.last<TResult>(list);
+
+        result = _(array).last();
+        result = _(list).last<TResult>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().last();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
+
+        result = _(list).chain().last<_.List<TResult>>();
+    }
 }
 
 // _.lastIndexOf

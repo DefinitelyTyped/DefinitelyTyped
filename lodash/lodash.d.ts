@@ -1326,6 +1326,20 @@ declare module _ {
         last<T>(): T;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.last
+         */
+        last(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.last
+         */
+        last<T>(): LoDashExplicitObjectWrapper<T>;
+    }
+
     //_.lastIndexOf
     interface LoDashStatic {
         /**
