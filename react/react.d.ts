@@ -438,6 +438,7 @@ declare namespace __React {
         cellSpacing?: number | string;
         charSet?: string;
         checked?: boolean;
+        checkedLink?: {value: boolean, requestChange: (newValue: boolean) => void};
         classID?: string;
         cols?: number;
         colSpan?: number;
@@ -527,6 +528,7 @@ declare namespace __React {
         type?: string;
         useMap?: string;
         value?: string;
+        valueLink?: {value: string, requestChange: (newValue: string) => void};
         width?: number | string;
         wmode?: string;
 
@@ -1239,13 +1241,14 @@ declare module "react/addons" {
         allowTransparency?: boolean;
         alt?: string;
         async?: boolean;
-        autoComplete?: boolean;
+        autoComplete?: string;
         autoFocus?: boolean;
         autoPlay?: boolean;
         cellPadding?: number | string;
         cellSpacing?: number | string;
         charSet?: string;
         checked?: boolean;
+        checkedLink?: {value: boolean, requestChange: (newValue: boolean) => void};
         classID?: string;
         cols?: number;
         colSpan?: number;
@@ -1335,6 +1338,7 @@ declare module "react/addons" {
         type?: string;
         useMap?: string;
         value?: string;
+        valueLink?: {value: string, requestChange: (newValue: string) => void};
         width?: number | string;
         wmode?: string;
 
