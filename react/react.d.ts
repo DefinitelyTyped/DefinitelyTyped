@@ -438,6 +438,7 @@ declare namespace __React {
         cellSpacing?: number | string;
         charSet?: string;
         checked?: boolean;
+        checkedLink?: ReactLink<boolean>;
         classID?: string;
         cols?: number;
         colSpan?: number;
@@ -527,6 +528,7 @@ declare namespace __React {
         type?: string;
         useMap?: string;
         value?: string;
+        valueLink?: ReactLink<string>;
         width?: number | string;
         wmode?: string;
 
