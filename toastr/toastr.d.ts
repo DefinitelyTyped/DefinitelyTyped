@@ -129,6 +129,10 @@ interface ToastrOptions {
 	* Function to execute on toast click
 	*/
 	onclick?: () => void;
+	/**
+	* Set if toastr should parse containing html 
+	**/
+	allowHtml?: boolean;
 }
 
 interface ToastrDisplayMethod {
