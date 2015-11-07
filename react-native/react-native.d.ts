@@ -33,14 +33,14 @@ declare namespace  ReactNative {
          * @param onrejected The callback to execute when the Promise is rejected.
          * @returns A Promise for the completion of which ever callback is executed.
          */
-        then<TResult>(onfulfilled?: (value: T) => TResult | Promise<TResult>, onrejected?: (reason: any) => TResult | Promise<TResult>): Promise<TResult>;
+        then<TResult>( onfulfilled?: ( value: T ) => TResult | Promise<TResult>, onrejected?: ( reason: any ) => TResult | Promise<TResult> ): Promise<TResult>;
 
         /**
          * Attaches a callback for only the rejection of the Promise.
          * @param onrejected The callback to execute when the Promise is rejected.
          * @returns A Promise for the completion of the callback.
          */
-        catch(onrejected?: (reason: any) => T | Promise<T>): Promise<T>;
+        catch( onrejected?: ( reason: any ) => T | Promise<T> ): Promise<T>;
 
 
         // not in lib.es6.d.ts but called by react-native
@@ -59,9 +59,9 @@ declare namespace  ReactNative {
          * a resolve callback used resolve the promise with a value or the result of another promise,
          * and a reject callback used to reject the promise with a provided reason or error.
          */
-        new <T>(init: (resolve: (value?: T | Promise<T>) => void, reject: (reason?: any) => void) => void): Promise<T>;
+        new <T>( init: ( resolve: ( value?: T | Promise<T> ) => void, reject: ( reason?: any ) => void ) => void ): Promise<T>;
 
-        <T>(init: (resolve: (value?: T | Promise<T>) => void, reject: (reason?: any) => void) => void): Promise<T>;
+        <T>( init: ( resolve: ( value?: T | Promise<T> ) => void, reject: ( reason?: any ) => void ) => void ): Promise<T>;
 
         /**
          * Creates a Promise that is resolved with an array of results when all of the provided Promises
@@ -69,7 +69,7 @@ declare namespace  ReactNative {
          * @param values An array of Promises.
          * @returns A new Promise.
          */
-        all<T>(values: (T | Promise<T>)[]): Promise<T[]>;
+        all<T>( values: (T | Promise<T>)[] ): Promise<T[]>;
 
         /**
          * Creates a Promise that is resolved with an array of results when all of the provided Promises
@@ -77,7 +77,7 @@ declare namespace  ReactNative {
          * @param values An array of values.
          * @returns A new Promise.
          */
-        all(values: Promise<void>[]): Promise<void>;
+        all( values: Promise<void>[] ): Promise<void>;
 
         /**
          * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved
@@ -85,28 +85,28 @@ declare namespace  ReactNative {
          * @param values An array of Promises.
          * @returns A new Promise.
          */
-        race<T>(values: (T | Promise<T>)[]): Promise<T>;
+        race<T>( values: (T | Promise<T>)[] ): Promise<T>;
 
         /**
          * Creates a new rejected promise for the provided reason.
          * @param reason The reason the promise was rejected.
          * @returns A new rejected Promise.
          */
-        reject(reason: any): Promise<void>;
+        reject( reason: any ): Promise<void>;
 
         /**
          * Creates a new rejected promise for the provided reason.
          * @param reason The reason the promise was rejected.
          * @returns A new rejected Promise.
          */
-        reject<T>(reason: any): Promise<T>;
+        reject<T>( reason: any ): Promise<T>;
 
         /**
          * Creates a new resolved promise for the provided value.
          * @param value A promise.
          * @returns A promise whose internal state matches the provided promise.
          */
-        resolve<T>(value: T | Promise<T>): Promise<T>;
+        resolve<T>( value: T | Promise<T> ): Promise<T>;
 
         /**
          * Creates a new resolved promise .
@@ -119,19 +119,17 @@ declare namespace  ReactNative {
     export var Promise: PromiseConstructor;
 
     // node_modules/react-tools/src/classic/class/ReactClass.js
-    export interface ReactClass<D, P, S>
-    {
+    export interface ReactClass<D, P, S> {
         // TODO:
     }
 
     // see react-jsx.d.ts
-    export function createElement<P>(
-        type: React.ReactType,
-        props?: P,
-        ...children: React.ReactNode[]): React.ReactElement<P>;
+    export function createElement<P>( type: React.ReactType,
+                                      props?: P,
+                                      ...children: React.ReactNode[] ): React.ReactElement<P>;
 
 
-    export type Runnable = (appParameters:any) => void;
+    export type Runnable = ( appParameters: any ) => void;
 
     export type AppConfig = {
         appKey: string;
@@ -140,12 +138,14 @@ declare namespace  ReactNative {
     }
 
     // https://github.com/facebook/react-native/blob/master/Libraries/AppRegistry/AppRegistry.js
-    export class AppRegistry
-    {
-        static registerConfig(config: AppConfig[]): void;
-        static registerComponent(appKey: string, getComponentFunc: () => React.ComponentClass<any>): string;
-        static registerRunnable(appKey: string, func: Runnable): string;
-        static runApplication(appKey: string, appParameters: any): void;
+    export class AppRegistry {
+        static registerConfig( config: AppConfig[] ): void;
+
+        static registerComponent( appKey: string, getComponentFunc: () => React.ComponentClass<any> ): string;
+
+        static registerRunnable( appKey: string, func: Runnable ): string;
+
+        static runApplication( appKey: string, appParameters: any ): void;
     }
 
     /*
@@ -160,14 +160,52 @@ declare namespace  ReactNative {
      }
      */
 
+    /**
+     * Flex Prop Types
+     * @see https://facebook.github.io/react-native/docs/flexbox.html#proptypes
+     */
+    export interface FlexStyle {
 
-    export interface StyleSheetProperties
-    {
+        alignItems?: string;  //enum('flex-start', 'flex-end', 'center', 'stretch')
+        alignSelf?: string// enum('auto', 'flex-start', 'flex-end', 'center', 'stretch')
+        borderBottomWidth?: number
+        borderLeftWidth?: number
+        borderRightWidth?: number
+        borderTopWidth?: number
+        borderWidth?: number
+        bottom?: number
+        flex?: number
+        flexDirection?: string // enum('row', 'column')
+        flexWrap?: string // enum('wrap', 'nowrap')
+        height?: number
+        justifyContent?: string // enum('flex-start', 'flex-end', 'center', 'space-between', 'space-around')
+        left?: number
+        margin?: number
+        marginBottom?: number
+        marginHorizontal?: number
+        marginLeft?: number
+        marginRight?: number
+        marginTop?: number
+        marginVertical?: number
+        padding?: number
+        paddingBottom?: number
+        paddingHorizontal?: number
+        paddingLeft?: number
+        paddingRight?: number
+        paddingTop?: number
+        paddingVertical?: number
+        position?: string // enum('absolute', 'relative')
+        right?: number
+        top?: number
+        width?: number
+    }
+
+
+    export interface StyleSheetProperties {
         // TODO:
     }
 
-    export interface LayoutRectangle
-    {
+    export interface LayoutRectangle {
         x: number;
         y: number;
         width: number;
@@ -175,16 +213,14 @@ declare namespace  ReactNative {
     }
 
     // @see TextProperties.onLayout
-    export interface LayoutChangeEvent
-    {
+    export interface LayoutChangeEvent {
         nativeEvent: {
             layout: LayoutRectangle
         }
     }
 
     // @see https://facebook.github.io/react-native/docs/text.html#style
-    export interface TextStyle
-    {
+    export interface TextStyle extends FlexStyle{
         color?: string;
         containerBackgroundColor?: string;
         fontFamily?: string;
@@ -198,8 +234,7 @@ declare namespace  ReactNative {
     }
 
     // https://facebook.github.io/react-native/docs/text.html#props
-    export interface TextProperties
-    {
+    export interface TextProperties {
         /**
          * numberOfLines number
          *
@@ -214,7 +249,7 @@ declare namespace  ReactNative {
          *
          * {nativeEvent: { layout: {x, y, width, height}}}.
          */
-        onLayout?: (event: LayoutChangeEvent) => void;
+        onLayout?: ( event: LayoutChangeEvent ) => void;
 
         /**
          * onPress function
@@ -229,14 +264,12 @@ declare namespace  ReactNative {
         style?: TextStyle;
     }
 
-    export interface AccessibilityTraits
-    {
+    export interface AccessibilityTraits {
         // TODO
     }
 
     // @see https://facebook.github.io/react-native/docs/view.html#style
-    export interface ViewStyle
-    {
+    export interface ViewStyle extends FlexStyle {
         backgroundColor?: string;
         borderBottomColor?: string;
         borderBottomLeftRadius?: number;
@@ -259,8 +292,7 @@ declare namespace  ReactNative {
     /**
      * @see https://facebook.github.io/react-native/docs/view.html#props
      */
-    export interface ViewProperties
-    {
+    export interface ViewProperties {
         /**
          * accessibilityLabel string
          *
@@ -301,7 +333,7 @@ declare namespace  ReactNative {
          *
          * {nativeEvent: { layout: {x, y, width, height}}}.
          */
-        onLayout?: (event: LayoutChangeEvent) => void;
+        onLayout?: ( event: LayoutChangeEvent ) => void;
 
         /**
          * onMagicTap function
@@ -397,8 +429,7 @@ declare namespace  ReactNative {
     /**
      * @see https://facebook.github.io/react-native/docs/activityindicatorios.html#props
      */
-    export interface AlertIOSProperties
-    {
+    export interface AlertIOSProperties {
         /**
          * animating bool
          *
@@ -429,7 +460,7 @@ declare namespace  ReactNative {
          *
          * {nativeEvent: { layout: {x, y, width, height}}}.
          */
-        onLayout?: (event: LayoutChangeEvent) => void;
+        onLayout?: ( event: LayoutChangeEvent ) => void;
 
         /**
          * size enum('small', 'large')
@@ -442,40 +473,35 @@ declare namespace  ReactNative {
     /**
      * @see
      */
-    export interface SegmentedControlIOSProperties
-    {
+    export interface SegmentedControlIOSProperties {
         /// TODO
     }
 
     /**
      * @see
      */
-    export interface SwitchIOSProperties
-    {
+    export interface SwitchIOSProperties {
         /// TODO
     }
 
     /**
      * @see
      */
-    export interface NavigatorProperties
-    {
+    export interface NavigatorProperties {
         /// TODO
     }
 
     /**
      * @see
      */
-    export interface ActivityIndicatorIOSProperties
-    {
+    export interface ActivityIndicatorIOSProperties {
         /// TODO
     }
 
     /**
      * @see https://facebook.github.io/react-native/docs/sliderios.html
      */
-    export interface SliderIOSProperties
-    {
+    export interface SliderIOSProperties {
         /**
          maximumTrackTintColor string
          The color used for the track to the right of the button. Overrides the default blue gradient image.
@@ -511,7 +537,7 @@ declare namespace  ReactNative {
          onValueChange function
          Callback continuously called while the user is dragging the slider.
          */
-        onValueChange?: (value: number) => void;
+        onValueChange?: ( value: number ) => void;
 
         /**
          value number
@@ -525,32 +551,124 @@ declare namespace  ReactNative {
     /**
      * @see
      */
-    export interface CameraRollProperties
-    {
+    export interface CameraRollProperties {
         /// TODO
+    }
+
+    /**
+     * Image style
+     * @see https://facebook.github.io/react-native/docs/image.html#style
+     */
+    export interface ImageStyle extends FlexStyle{
+        color?: string;
+        containerBackgroundColor?: string;
+        fontFamily?: string;
+        fontSize?: number;
+        fontStyle?: string; // 'normal' | 'italic';
+        fontWeight?: string; // enum("normal", 'bold', '100', '200', '300', '400', '500', '600', '700', '800', '900')
+        letterSpacing?: number;
+        lineHeight?: number;
+        textAlign?: string; // enum("auto", 'left', 'right', 'center')
+        writingDirection?: string; //enum("auto", 'ltr', 'rtl')
+    }
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/image.html
+     */
+    export interface ImageProperties {
+        /**
+         * onLayout function
+         *
+         * Invoked on mount and layout changes with
+         *
+         * {nativeEvent: { layout: {x, y, width, height}}}.
+         */
+        onLayout?: ( event: LayoutChangeEvent ) => void;
+
+
+        /**
+         * Determines how to resize the image when the frame doesn't match the raw image dimensions.
+         */
+        resizeMode?: string; // enum('cover', 'contain', 'stretch')
+
+        /**
+         * uri is a string representing the resource identifier for the image,
+         * which could be an http address, a local file path,
+         * or the name of a static image resource (which should be wrapped in the require('image!name') function).
+         */
+        source: {uri: string} | string;
+
+        /**
+         *
+         * Style
+         */
+        style?:  ImageStyle;
+
+        /**
+         * A unique identifier for this element to be used in UI Automation testing scripts.
+         */
+        testID?: string;
+
+        /**
+         * The text that's read by the screen reader when the user interacts with the image.
+         */
+        iosaccessibilityLabel?: string;
+
+        /**
+         * When true, indicates the image is an accessibility element.
+         */
+        iosaccessible?: boolean;
+
+        /**
+         * When the image is resized, the corners of the size specified by capInsets will stay a fixed size,
+         * but the center content and borders of the image will be stretched.
+         * This is useful for creating resizable rounded buttons, shadows, and other resizable assets.
+         * More info on Apple documentation
+         */
+        ioscapInsets?: {top: number, left: number, bottom: number, right: number}
+
+        /**
+         * A static image to display while downloading the final image off the network.
+         */
+        iosdefaultSource?: {uri: string}
+
+        /**
+         * Invoked on load error with {nativeEvent: {error}}
+         */
+        iosonError?: ( error: {nativeEvent: any} ) => void
+
+        /**
+         * Invoked when load completes successfully
+         */
+        iosonLoad?: () => void
+
+        /**
+         * Invoked when load either succeeds or fails
+         */
+        iosonLoadEnd?: () => void
+
+        /**
+         * Invoked on load start
+         */
+        iosonLoadStart?: () => void
+
+        /**
+         * Invoked on download progress with {nativeEvent: {loaded, total}}
+         */
+        iosonProgress?: ()=> void
     }
 
     /**
      * @see
      */
-    export interface ImageProperties
-    {
-        /// TODO
-    }
-
-    /**
-     * @see
-     */
-    export interface ListViewProperties
-    {
+    export interface ListViewProperties {
         /// TODO
     }
 
     /**
      * @see https://facebook.github.io/react-native/docs/touchablehighlight.html#props
      */
-    export interface TouchableHighlightProperties
-    {
+    export interface TouchableHighlightProperties {
         /**
          * activeOpacity number
          *
@@ -591,8 +709,7 @@ declare namespace  ReactNative {
     /**
      * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html
      */
-    export interface TouchableWithoutFeedbackProperties
-    {
+    export interface TouchableWithoutFeedbackProperties {
         /*
          accessible bool
 
@@ -645,8 +762,7 @@ declare namespace  ReactNative {
     /**
      * @see https://facebook.github.io/react-native/docs/touchableopacity.html#props
      */
-    export interface TouchableOpacityProperties
-    {
+    export interface TouchableOpacityProperties {
         /**
          * activeOpacity number
          *
@@ -656,19 +772,16 @@ declare namespace  ReactNative {
     }
 
 
-    export interface LeftToRightGesture
-    {
+    export interface LeftToRightGesture {
 
     }
 
-    export interface AnimationInterpolator
-    {
+    export interface AnimationInterpolator {
 
     }
 
     // see /NavigatorSceneConfigs.js
-    export interface SceneConfig
-    {
+    export interface SceneConfig {
         // A list of all gestures that are enabled on this scene
         gestures: {
             pop: LeftToRightGesture,
@@ -690,8 +803,7 @@ declare namespace  ReactNative {
     }
 
     // see /NavigatorSceneConfigs.js
-    export interface SceneConfigs
-    {
+    export interface SceneConfigs {
         FloatFromBottom: SceneConfig;
         FloatFromRight: SceneConfig;
         PushFromRight: SceneConfig;
@@ -707,22 +819,19 @@ declare namespace  ReactNative {
     /**
      * @see
      */
-    export interface NavigatorBarProperties
-    {
+    export interface NavigatorBarProperties {
 
     }
 
-    export interface NavigationBar extends React.ComponentClass<NavigatorBarProperties>
-    {
+    export interface NavigationBar extends React.ComponentClass<NavigatorBarProperties> {
 
     }
 
-    export interface NavigatorStatic extends React.ComponentClass<NavigatorProperties>
-    {
+    export interface NavigatorStatic extends React.ComponentClass<NavigatorProperties> {
         SceneConfigs: SceneConfigs;
-        getContext(self:any): NavigatorStatic;
+        getContext( self: any ): NavigatorStatic;
 
-        push(route: Route): void;
+        push( route: Route ): void;
         pop(): void;
         popToTop(): void;
         popToRoute( route: Route ): void;
@@ -732,78 +841,65 @@ declare namespace  ReactNative {
         NavigationBar: NavigationBar;
     }
 
-    export interface StyleSheetStatic extends React.ComponentClass<StyleSheetProperties>
-    {
-        create<T>(styles:T): T;
+    export interface StyleSheetStatic extends React.ComponentClass<StyleSheetProperties> {
+        create<T>( styles: T ): T;
     }
 
-    export interface DataSourceAssetCallback
-    {
-        rowHasChanged: (r1: any[], r2: any[]) => boolean;
+    export interface DataSourceAssetCallback {
+        rowHasChanged: ( r1: any[], r2: any[] ) => boolean;
     }
 
-    export interface ListViewDataSource
-    {
-        new(onAsset: DataSourceAssetCallback): ListViewDataSource;
-        cloneWithRows<T>(rowList:T[][]): void;
+    export interface ListViewDataSource {
+        new( onAsset: DataSourceAssetCallback ): ListViewDataSource;
+        cloneWithRows<T>( rowList: T[][] ): void;
     }
 
-    export interface ListViewStatic extends React.ComponentClass<ListViewProperties>
-    {
+    export interface ListViewStatic extends React.ComponentClass<ListViewProperties> {
         DataSource: ListViewDataSource;
     }
 
-    export interface ImageStatic extends React.ComponentClass<ImageProperties>
-    {
+    export interface ImageStatic extends React.ComponentClass<ImageProperties> {
         uri: string;
     }
 
     /**
      * @see
      */
-    export interface TabBarItemProperties
-    {
+    export interface TabBarItemProperties {
 
     }
 
-    export interface TabBarItem extends React.ComponentClass<TabBarItemProperties>
-    {
+    export interface TabBarItem extends React.ComponentClass<TabBarItemProperties> {
     }
 
     /**
      * @see
      */
-    export interface TabBarIOSProperties
-    {
+    export interface TabBarIOSProperties {
     }
 
-    export interface TabBarIOSStatic extends React.ComponentClass<TabBarIOSProperties>
-    {
+    export interface TabBarIOSStatic extends React.ComponentClass<TabBarIOSProperties> {
         Item: TabBarItem;
     }
 
-    export interface CameraRollFetchParams
-    {
+    export interface CameraRollFetchParams {
         first: number;
         groupTypes: string;
         after?: string;
     }
 
-    export interface CameraRollNodeInfo
-    {
+    export interface CameraRollNodeInfo {
         image: Image;
         group_name: string;
         timestamp: number;
         location: any;
     }
 
-    export interface CameraRollEdgeInfo
-    {
+    export interface CameraRollEdgeInfo {
         node: CameraRollNodeInfo;
     }
 
-    export interface CameraRollAssetInfo
-    {
+    export interface CameraRollAssetInfo {
         edges: CameraRollEdgeInfo[];
         page_info: {
             has_next_page: boolean;
@@ -811,25 +907,21 @@ declare namespace  ReactNative {
         };
     }
 
-    export interface CameraRollStatic extends React.ComponentClass<CameraRollProperties>
-    {
-        getPhotos(fetch: CameraRollFetchParams,
-                  onAsset: (assetInfo: CameraRollAssetInfo) => void,
-                  logError: ()=> void): void;
+    export interface CameraRollStatic extends React.ComponentClass<CameraRollProperties> {
+        getPhotos( fetch: CameraRollFetchParams,
+                   onAsset: ( assetInfo: CameraRollAssetInfo ) => void,
+                   logError: ()=> void ): void;
     }
 
-    export interface PanHandlers
-    {
-
-    }
-
-    export interface PanResponderEvent
-    {
+    export interface PanHandlers {
 
     }
 
-    export interface PanResponderGestureState
-    {
+    export interface PanResponderEvent {
+
+    }
+
+    export interface PanResponderGestureState {
         stateID: number;
         moveX: number;
         moveY: number;
@@ -875,104 +967,90 @@ declare namespace  ReactNative {
      *  accordingly. (numberActiveTouches) may not be totally accurate unless you
      *  are the responder.
      */
-    export interface PanResponderCallbacks
-    {
-        onMoveShouldSetPanResponder?: (e: PanResponderEvent, gestureState: PanResponderGestureState) => boolean;
-        onStartShouldSetPanResponder?: (e: PanResponderEvent, gestureState: PanResponderGestureState) => void;
-        onPanResponderGrant?: (e: PanResponderEvent, gestureState: PanResponderGestureState) => void;
-        onPanResponderMove?: (e: PanResponderEvent, gestureState: PanResponderGestureState) => void;
-        onPanResponderRelease?: (e: PanResponderEvent, gestureState: PanResponderGestureState) => void;
-        onPanResponderTerminate?: (e: PanResponderEvent, gestureState: PanResponderGestureState) => void;
+    export interface PanResponderCallbacks {
+        onMoveShouldSetPanResponder?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => boolean;
+        onStartShouldSetPanResponder?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => void;
+        onPanResponderGrant?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => void;
+        onPanResponderMove?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => void;
+        onPanResponderRelease?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => void;
+        onPanResponderTerminate?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => void;
 
-        onMoveShouldSetPanResponderCapture?: (e: PanResponderEvent, gestureState: PanResponderGestureState) => boolean;
-        onStartShouldSetPanResponderCapture?: (e: PanResponderEvent, gestureState: PanResponderGestureState) => boolean;
-        onPanResponderReject?: (e: PanResponderEvent, gestureState: PanResponderGestureState) => void;
-        onPanResponderStart?: (e: PanResponderEvent, gestureState: PanResponderGestureState) => void;
-        onPanResponderEnd?: (e: PanResponderEvent, gestureState: PanResponderGestureState) => void;
-        onPanResponderTerminationRequest?: (e: PanResponderEvent, gestureState: PanResponderGestureState) => void;
+        onMoveShouldSetPanResponderCapture?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => boolean;
+        onStartShouldSetPanResponderCapture?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => boolean;
+        onPanResponderReject?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => void;
+        onPanResponderStart?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => void;
+        onPanResponderEnd?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => void;
+        onPanResponderTerminationRequest?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => void;
     }
 
-    export interface PanResponderInstance
-    {
+    export interface PanResponderInstance {
         panHandlers: PanHandlers;
     }
 
-    export interface PanResponderStatic
-    {
-        create(callbacks: PanResponderCallbacks): PanResponderInstance;
+    export interface PanResponderStatic {
+        create( callbacks: PanResponderCallbacks ): PanResponderInstance;
     }
 
-    export interface PixelRatioStatic
-    {
+    export interface PixelRatioStatic {
         get(): number;
     }
 
-    export interface DeviceEventSubscriptionStatic
-    {
+    export interface DeviceEventSubscriptionStatic {
         remove(): void;
     }
 
-    export interface DeviceEventEmitterStatic
-    {
-        addListener<T>(type:string, onReceived: (data:T) => void): DeviceEventSubscription;
+    export interface DeviceEventEmitterStatic {
+        addListener<T>( type: string, onReceived: ( data: T ) => void ): DeviceEventSubscription;
     }
 
     // Used by Dimensions below
-    export interface ScaledSize
-    {
+    export interface ScaledSize {
         width: number;
         height: number;
         scale: number;
     }
 
     // @see https://facebook.github.io/react-native/docs/asyncstorage.html#content
-    export interface AsyncStorageStatic
-    {
-        getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string>;
-        setItem(key: string, value: string, callback?: (error?: Error) => void): Promise<string>;
-        removeItem(key: string, callback?: (error?: Error) => void): Promise<string>;
-        mergeItem(key: string, value: string, callback?: (error?: Error) => void): Promise<string>;
-        clear(callback?: (error?: Error) => void): Promise<string>;
-        getAllKeys(callback?: (error?: Error, keys?: string[]) => void): Promise<string>;
-        multiGet(keys: string[], callback?: (errors?: Error[], result?: string[][]) => void): Promise<string>;
-        multiSet(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<string>;
-        multiRemove(keys: string[], callback?: (errors?: Error[]) => void): Promise<string>;
-        multiMerge(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<string>;
+    export interface AsyncStorageStatic {
+        getItem( key: string, callback?: ( error?: Error, result?: string ) => void ): Promise<string>;
+        setItem( key: string, value: string, callback?: ( error?: Error ) => void ): Promise<string>;
+        removeItem( key: string, callback?: ( error?: Error ) => void ): Promise<string>;
+        mergeItem( key: string, value: string, callback?: ( error?: Error ) => void ): Promise<string>;
+        clear( callback?: ( error?: Error ) => void ): Promise<string>;
+        getAllKeys( callback?: ( error?: Error, keys?: string[] ) => void ): Promise<string>;
+        multiGet( keys: string[], callback?: ( errors?: Error[], result?: string[][] ) => void ): Promise<string>;
+        multiSet( keyValuePairs: string[][], callback?: ( errors?: Error[] ) => void ): Promise<string>;
+        multiRemove( keys: string[], callback?: ( errors?: Error[] ) => void ): Promise<string>;
+        multiMerge( keyValuePairs: string[][], callback?: ( errors?: Error[] ) => void ): Promise<string>;
     }
 
-    export interface InteractionManagerStatic
-    {
+    export interface InteractionManagerStatic {
         runAfterInteractions( fn: () => void ): void;
     }
 
-    export interface ScrollViewProperties
-    {
+    export interface ScrollViewProperties {
 
     }
 
 
-    export interface NativeScrollRectangle
-    {
+    export interface NativeScrollRectangle {
         left: number;
         top: number;
         bottom: number;
         right: number;
     }
 
-    export interface NativeScrollPoint
-    {
+    export interface NativeScrollPoint {
         x: number;
         y: number;
     }
 
-    export interface NativeScrollSize
-    {
+    export interface NativeScrollSize {
         height: number;
         width: number;
     }
 
-    export interface NativeScrollEvent
-    {
+    export interface NativeScrollEvent {
         contentInset: NativeScrollRectangle;
         contentOffset: NativeScrollPoint;
         contentSize: NativeScrollSize;
@@ -980,11 +1058,10 @@ declare namespace  ReactNative {
         zoomScale: number;
     }
 
-    export interface AppStateIOSStatic
-    {
+    export interface AppStateIOSStatic {
         currentState: string;
-        addEventListener( type: string, listener: (state: string) => void ): void;
-        removeEventListener( type: string, listener: (state: string) => void ): void;
+        addEventListener( type: string, listener: ( state: string ) => void ): void;
+        removeEventListener( type: string, listener: ( state: string ) => void ): void;
     }
 
     // exported singletons:
@@ -1025,11 +1102,11 @@ declare namespace  ReactNative {
     //react re-exported
     export type ReactType = React.ReactType;
 
-    export interface ReactElement<P> extends React.ReactElement<P>{}
+    export interface ReactElement<P> extends React.ReactElement<P> {}
 
-    export interface ClassicElement<P> extends React.ClassicElement<P>{}
+    export interface ClassicElement<P> extends React.ClassicElement<P> {}
 
-    export interface DOMElement<P> extends React.DOMElement<P>{}
+    export interface DOMElement<P> extends React.DOMElement<P> {}
 
     export type HTMLElement =React.HTMLElement;
     export type SVGElement = React.SVGElement;
@@ -1038,11 +1115,11 @@ declare namespace  ReactNative {
     // Factories
     // ----------------------------------------------------------------------
 
-    export interface Factory<P> extends React.Factory<P>{}
+    export interface Factory<P> extends React.Factory<P> {}
 
-    export interface ClassicFactory<P> extends React.ClassicFactory<P>{}
+    export interface ClassicFactory<P> extends React.ClassicFactory<P> {}
 
-    export interface DOMFactory<P> extends React.DOMFactory<P>{}
+    export interface DOMFactory<P> extends React.DOMFactory<P> {}
 
     export type HTMLFactory = React.HTMLFactory;
     export type SVGFactory = React.SVGFactory;
@@ -1064,39 +1141,33 @@ declare namespace  ReactNative {
     // Top Level API
     // ----------------------------------------------------------------------
 
-    export function createClass<P, S>(spec: React.ComponentSpec<P, S>): React.ClassicComponentClass<P>;
+    export function createClass<P, S>( spec: React.ComponentSpec<P, S> ): React.ClassicComponentClass<P>;
 
-    export function createFactory<P>(type: string): React.DOMFactory<P>;
-    export function createFactory<P>(type: React.ClassicComponentClass<P> | string): React.ClassicFactory<P>;
-    export function createFactory<P>(type: React.ComponentClass<P>): React.Factory<P>;
+    export function createFactory<P>( type: string ): React.DOMFactory<P>;
+    export function createFactory<P>( type: React.ClassicComponentClass<P> | string ): React.ClassicFactory<P>;
+    export function createFactory<P>( type: React.ComponentClass<P> ): React.Factory<P>;
 
-    export function createElement<P>(
-        type: string,
-        props?: P,
-        ...children: React.ReactNode[]): React.DOMElement<P>;
-    export function createElement<P>(
-        type: React.ClassicComponentClass<P> | string,
-        props?: P,
-        ...children: React.ReactNode[]): React.ClassicElement<P>;
-    export function createElement<P>(
-        type: React.ComponentClass<P>,
-        props?: P,
-        ...children: React.ReactNode[]): React.ReactElement<P>;
+    export function createElement<P>( type: string,
+                                      props?: P,
+                                      ...children: React.ReactNode[] ): React.DOMElement<P>;
+    export function createElement<P>( type: React.ClassicComponentClass<P> | string,
+                                      props?: P,
+                                      ...children: React.ReactNode[] ): React.ClassicElement<P>;
+    export function createElement<P>( type: React.ComponentClass<P>,
+                                      props?: P,
+                                      ...children: React.ReactNode[] ): React.ReactElement<P>;
 
-    export function cloneElement<P>(
-        element: React.DOMElement<P>,
-        props?: P,
-        ...children: React.ReactNode[]): React.DOMElement<P>;
-    export function cloneElement<P>(
-        element: React.ClassicElement<P>,
-        props?: P,
-        ...children: React.ReactNode[]): React.ClassicElement<P>;
-    export function cloneElement<P>(
-        element: React.ReactElement<P>,
-        props?: P,
-        ...children: React.ReactNode[]): React.ReactElement<P>;
+    export function cloneElement<P>( element: React.DOMElement<P>,
+                                     props?: P,
+                                     ...children: React.ReactNode[] ): React.DOMElement<P>;
+    export function cloneElement<P>( element: React.ClassicElement<P>,
+                                     props?: P,
+                                     ...children: React.ReactNode[] ): React.ClassicElement<P>;
+    export function cloneElement<P>( element: React.ReactElement<P>,
+                                     props?: P,
+                                     ...children: React.ReactNode[] ): React.ReactElement<P>;
 
-    export function isValidElement(object: {}): boolean;
+    export function isValidElement( object: {} ): boolean;
 
     export var DOM: React.ReactDOM;
     export var PropTypes: React.ReactPropTypes;
@@ -1107,7 +1178,7 @@ declare namespace  ReactNative {
     // ----------------------------------------------------------------------
 
     // Base component for plain JS classes
-    export class Component<P, S> extends React.Component<P,S>{}
+    export class Component<P, S> extends React.Component<P,S> {}
 
     export interface ClassicComponent<P, S> extends React.ClassicComponent<P,S> {}
 
@@ -1118,40 +1189,40 @@ declare namespace  ReactNative {
     export type HTMLComponent = React.HTMLComponent;
     export type SVGComponent = React.SVGComponent
 
-    export interface ChildContextProvider<CC> extends React.ChildContextProvider<CC>{}
+    export interface ChildContextProvider<CC> extends React.ChildContextProvider<CC> {}
 
     //
     // Class Interfaces
     // ----------------------------------------------------------------------
 
-    export interface ComponentClass<P> extends React.ComponentClass<P>{}
+    export interface ComponentClass<P> extends React.ComponentClass<P> {}
 
-    export interface ClassicComponentClass<P> extends React.ClassicComponentClass<P>{}
+    export interface ClassicComponentClass<P> extends React.ClassicComponentClass<P> {}
 
     //
     // Component Specs and Lifecycle
     // ----------------------------------------------------------------------
 
-    export interface ComponentLifecycle<P, S> extends React.ComponentLifecycle<P,S>{}
+    export interface ComponentLifecycle<P, S> extends React.ComponentLifecycle<P,S> {}
 
-    export interface Mixin<P, S> extends React.Mixin<P,S>{}
+    export interface Mixin<P, S> extends React.Mixin<P,S> {}
 
-    export interface ComponentSpec<P, S> extends React.ComponentSpec<P,S>{}
+    export interface ComponentSpec<P, S> extends React.ComponentSpec<P,S> {}
 
     //
     // Event System
     // ----------------------------------------------------------------------
 
-    export interface SyntheticEvent extends React.SyntheticEvent{}
+    export interface SyntheticEvent extends React.SyntheticEvent {}
 
-    export interface DragEvent extends React.DragEvent{}
+    export interface DragEvent extends React.DragEvent {}
 
-    export interface ClipboardEvent extends React.ClipboardEvent{}
+    export interface ClipboardEvent extends React.ClipboardEvent {}
 
-    export interface KeyboardEvent extends React.KeyboardEvent{}
+    export interface KeyboardEvent extends React.KeyboardEvent {}
 
 
-    export interface FocusEvent extends React.FocusEvent{}
+    export interface FocusEvent extends React.FocusEvent {}
 
     export interface FormEvent extends React.FormEvent {}
 
@@ -1167,7 +1238,7 @@ declare namespace  ReactNative {
     // Event Handler Types
     // ----------------------------------------------------------------------
 
-    export interface EventHandler<E extends React.SyntheticEvent> extends React.EventHandler<E>{}
+    export interface EventHandler<E extends React.SyntheticEvent> extends React.EventHandler<E> {}
 
     export interface DragEventHandler extends React.DragEventHandler {}
     export interface ClipboardEventHandler extends React.ClipboardEventHandler {}
@@ -1177,67 +1248,67 @@ declare namespace  ReactNative {
     export interface MouseEventHandler extends React.MouseEventHandler {}
     export interface TouchEventHandler extends React.TouchEventHandler {}
     export interface UIEventHandler extends React.UIEventHandler {}
-    export interface WheelEventHandler extends React.WheelEventHandler{}
+    export interface WheelEventHandler extends React.WheelEventHandler {}
 
     //
     // Props / DOM Attributes
     // ----------------------------------------------------------------------
 
-    export interface Props<T> extends React.Props<T>{}
+    export interface Props<T> extends React.Props<T> {}
 
-    export interface DOMAttributesBase<T> extends React.DOMAttributesBase<T>{}
+    export interface DOMAttributesBase<T> extends React.DOMAttributesBase<T> {}
 
-    export interface DOMAttributes extends React.DOMAttributes{}
+    export interface DOMAttributes extends React.DOMAttributes {}
 
     // This interface is not complete. Only properties accepting
     // unitless numbers are listed here (see CSSProperty.js in React)
-    export interface CSSProperties extends React.CSSProperties{}
+    export interface CSSProperties extends React.CSSProperties {}
 
-    export interface HTMLAttributesBase<T> extends React.HTMLAttributesBase<T>{}
+    export interface HTMLAttributesBase<T> extends React.HTMLAttributesBase<T> {}
 
-    export interface HTMLAttributes extends React.HTMLAttributes{}
+    export interface HTMLAttributes extends React.HTMLAttributes {}
 
-    export interface SVGElementAttributes extends React.SVGElementAttributes{}
+    export interface SVGElementAttributes extends React.SVGElementAttributes {}
 
-    export interface SVGAttributes extends React.SVGAttributes{}
+    export interface SVGAttributes extends React.SVGAttributes {}
 
     //
     // React.DOM
     // ----------------------------------------------------------------------
 
-    export interface ReactDOM extends React.ReactDOM{}
+    export interface ReactDOM extends React.ReactDOM {}
 
     //
     // React.PropTypes
     // ----------------------------------------------------------------------
 
-    export interface Validator<T> extends React.Validator<T>{}
+    export interface Validator<T> extends React.Validator<T> {}
 
     export interface Requireable<T> extends React.Requireable<T> {}
 
-    export interface ValidationMap<T> extends React.ValidationMap<T>{}
+    export interface ValidationMap<T> extends React.ValidationMap<T> {}
 
-    export interface ReactPropTypes extends React.ReactPropTypes{}
+    export interface ReactPropTypes extends React.ReactPropTypes {}
 
     //
     // React.Children
     // ----------------------------------------------------------------------
 
-    export interface ReactChildren extends React.ReactChildren{}
+    export interface ReactChildren extends React.ReactChildren {}
 
     //
     // Browser Interfaces
     // https://github.com/nikeee/2048-typescript/blob/master/2048/js/touch.d.ts
     // ----------------------------------------------------------------------
 
-    export interface AbstractView extends React.AbstractView{}
+    export interface AbstractView extends React.AbstractView {}
 
-    export interface Touch extends React.Touch{}
+    export interface Touch extends React.Touch {}
 
-    export interface TouchList extends React.TouchList{}
+    export interface TouchList extends React.TouchList {}
 
 
-    export function __spread(target:any, ...sources:any[]): any;
+    export function __spread( target: any, ...sources: any[] ): any;
 }
 
 declare module "react-native" {
@@ -1246,14 +1317,11 @@ declare module "react-native" {
 }
 
 
-
-declare module "Dimensions"
-{
+declare module "Dimensions" {
     import React from 'react-native';
 
-    interface Dimensions
-    {
-        get(what:string): React.ScaledSize;
+    interface Dimensions {
+        get( what: string ): React.ScaledSize;
     }
 
     var ExportDimensions: Dimensions;
