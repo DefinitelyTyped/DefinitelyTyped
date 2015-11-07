@@ -9135,23 +9135,170 @@ declare module _ {
     //_.defaults
     interface LoDashStatic {
         /**
-        * Assigns own enumerable properties of source object(s) to the destination object for all
-        * destination properties that resolve to undefined. Once a property is set, additional defaults
-        * of the same property will be ignored.
-        * @param object The destination object.
-        * @param sources The source objects.
-        * @return The destination object.
-        **/
-        defaults<T, TResult>(
-            object: T,
-            ...sources: any[]): TResult;
+         * Assigns own enumerable properties of source object(s) to the destination object for all destination
+         * properties that resolve to undefined. Once a property is set, additional values of the same property are
+         * ignored.
+         *
+         * Note: This method mutates object.
+         *
+         * @param object The destination object.
+         * @param sources The source objects.
+         * @return The destination object.
+         */
+        defaults<Obj extends {}, TResult extends {}>(
+            object: Obj,
+            ...sources: {}[]
+        ): TResult;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<Obj extends {}, S1 extends {}, TResult extends {}>(
+            object: Obj,
+            source1: S1,
+            ...sources: {}[]
+        ): TResult;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<Obj extends {}, S1 extends {}, S2 extends {}, TResult extends {}>(
+            object: Obj,
+            source1: S1,
+            source2: S2,
+            ...sources: {}[]
+        ): TResult;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<Obj extends {}, S1 extends {}, S2 extends {}, S3 extends {}, TResult extends {}>(
+            object: Obj,
+            source1: S1,
+            source2: S2,
+            source3: S3,
+            ...sources: {}[]
+        ): TResult;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<Obj extends {}, S1 extends {}, S2 extends {}, S3 extends {}, S4 extends {}, TResult extends {}>(
+            object: Obj,
+            source1: S1,
+            source2: S2,
+            source3: S3,
+            source4: S4,
+            ...sources: {}[]
+        ): TResult;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<TResult extends {}>(
+            object: {},
+            ...sources: {}[]
+        ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.defaults
-        **/
-        defaults<T, TResult>(...sources: any[]): LoDashImplicitObjectWrapper<TResult>
+         * @see _.defaults
+         */
+        defaults<S1 extends {}, TResult extends {}>(
+            source1: S1,
+            ...sources: {}[]
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<S1 extends {}, S2 extends {}, TResult extends {}>(
+            source1: S1,
+            source2: S2,
+            ...sources: {}[]
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<S1 extends {}, S2 extends {}, S3 extends {}, TResult extends {}>(
+            source1: S1,
+            source2: S2,
+            source3: S3,
+            ...sources: {}[]
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<S1 extends {}, S2 extends {}, S3 extends {}, S4 extends {}, TResult extends {}>(
+            source1: S1,
+            source2: S2,
+            source3: S3,
+            source4: S4,
+            ...sources: {}[]
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults(): LoDashImplicitObjectWrapper<T>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<TResult>(...sources: {}[]): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.defaults
+         */
+        defaults<S1 extends {}, TResult extends {}>(
+            source1: S1,
+            ...sources: {}[]
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<S1 extends {}, S2 extends {}, TResult extends {}>(
+            source1: S1,
+            source2: S2,
+            ...sources: {}[]
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<S1 extends {}, S2 extends {}, S3 extends {}, TResult extends {}>(
+            source1: S1,
+            source2: S2,
+            source3: S3,
+            ...sources: {}[]
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<S1 extends {}, S2 extends {}, S3 extends {}, S4 extends {}, TResult extends {}>(
+            source1: S1,
+            source2: S2,
+            source3: S3,
+            source4: S4,
+            ...sources: {}[]
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults(): LoDashExplicitObjectWrapper<T>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<TResult>(...sources: {}[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.defaultsDeep
