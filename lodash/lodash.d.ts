@@ -2251,6 +2251,56 @@ declare module _ {
         ): LoDashImplicitArrayWrapper<TValue>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile<TWhere>(
+            predicate?: TWhere
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile<TValue>(
+            predicate?: ListIterator<TValue, boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TValue>;
+
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile<TValue>(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TValue>;
+
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile<TWhere, TValue>(
+            predicate?: TWhere
+        ): LoDashExplicitArrayWrapper<TValue>;
+    }
+
     //_.union
     interface LoDashStatic {
         /**
