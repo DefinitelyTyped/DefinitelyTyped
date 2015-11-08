@@ -21,6 +21,17 @@ declare module MCustomScrollbar {
          */
         axis?: string;
         /**
+        * Always keep scrollbar(s) visible, even when there’s nothing to scroll.
+        * 0 – disable (default)
+        * 1 – keep dragger rail visible
+        * 2 – keep all scrollbar components (dragger, rail, buttons etc.) visible
+        */
+        alwaysShowScrollbar?: number;
+        /**
+        * Enable or disable auto-expanding the scrollbar when cursor is over or dragging the scrollbar.
+        */
+        autoExpandScrollbar?: boolean;
+        /**
         * Scrolling inertia (easing), value in milliseconds (0 for no scrolling inertia)
         */
         scrollInertia?: number;
@@ -120,6 +131,12 @@ declare module MCustomScrollbar {
             * User defined callback function, triggered while scrolling
             */
             whileScrolling?: () => void;
+            /**
+            * Set the behavior of calling onTotalScroll and onTotalScrollBack offsets.
+            * By default, callback offsets will trigger repeatedly while content is scrolling within the offsets.
+            * Set alwaysTriggerOffsets: false when you need to trigger onTotalScroll and onTotalScrollBack callbacks once, each time scroll end or beginning is reached.
+            */
+            alwaysTriggerOffsets?: boolean;
         }
     /**
     * Set a scrollbar ready-to-use theme. See themes demo for all themes - http://manos.malihu.gr/tuts/custom-scrollbar-plugin/scrollbar_themes_demo.html
