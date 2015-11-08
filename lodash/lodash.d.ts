@@ -6827,8 +6827,15 @@ declare module _ {
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.flowRight
-         **/
+         */
         backflow<TResult extends Function>(...funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.flowRight
+         */
+        backflow<TResult extends Function>(...funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.before
@@ -6939,6 +6946,13 @@ declare module _ {
          * @see _.flowRight
          */
         compose<TResult extends Function>(...funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.flowRight
+         */
+        compose<TResult extends Function>(...funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.createCallback
@@ -7268,6 +7282,9 @@ declare module _ {
         /**
          * This method is like _.flow except that it creates a function that invokes the provided functions from right
          * to left.
+         *
+         * @alias _.backflow, _.compose
+         *
          * @param funcs Functions to invoke.
          * @return Returns the new function.
          */
@@ -7277,9 +7294,17 @@ declare module _ {
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.flowRight
-         **/
+         */
         flowRight<TResult extends Function>(...funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
     }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.flowRight
+         */
+        flowRight<TResult extends Function>(...funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
+    }
+
 
     //_.memoize
     interface MemoizedFunction extends Function {
