@@ -220,7 +220,7 @@ declare namespace  ReactNative {
     }
 
     // @see https://facebook.github.io/react-native/docs/text.html#style
-    export interface TextStyle extends FlexStyle{
+    export interface TextStyle extends FlexStyle {
         color?: string;
         containerBackgroundColor?: string;
         fontFamily?: string;
@@ -485,11 +485,108 @@ declare namespace  ReactNative {
     }
 
     /**
-     * @see
+     * @see https://facebook.github.io/react-native/docs/navigator.html#content
      */
     export interface NavigatorProperties {
-        /// TODO
+        /**
+         * Optional function that allows configuration about scene animations and gestures.
+         * Will be invoked with the route and should return a scene configuration object
+         * @param route
+         */
+        configureScene?: ( route: Route ) => SceneConfig
+        /**
+         * Specify a route to start on.
+         * A route is an object that the navigator will use to identify each scene to render.
+         * initialRoute must be a route in the initialRouteStack if both props are provided.
+         * The initialRoute will default to the last item in the initialRouteStack.
+         */
+        initialRoute?: Route
+        /**
+         * Provide a set of routes to initially mount.
+         * Required if no initialRoute is provided.
+         * Otherwise, it will default to an array containing only the initialRoute
+         */
+        initialRouteStack?: Route[]
+
+        /**
+         * Optionally provide a navigation bar that persists across scene transitions
+         */
+        navigationBar?: NavigationBar
+
+        /**
+         * Optionally provide the navigator object from a parent Navigator
+         */
+        navigator?: Navigator
+
+        /**
+         * @deprecated Use navigationContext.addListener('willfocus', callback) instead.
+         */
+        onDidFocus?: Function
+
+        /**
+         * @deprecated Use navigationContext.addListener('willfocus', callback) instead.
+         */
+        onWillFocus?: Function
+
+        /**
+         * Required function which renders the scene for a given route.
+         * Will be invoked with the route and the navigator object
+         * @param route
+         * @param navigator
+         */
+        renderScene: (route: Route, navigator: Navigator) => React.ComponentClass<ViewProperties>
+
+        /**
+         * Styles to apply to the container of each scene
+         */
+        sceneStyle: ViewStyle
     }
+
+    export interface NavigatorIOSProperties {
+
+        /**
+         * NavigatorIOS uses "route" objects to identify child views, their props, and navigation bar configuration.
+         * "push" and all the other navigation operations expect routes to be like this
+         */
+        initialRoute?: Route
+
+        /**
+         * The default wrapper style for components in the navigator.
+         * A common use case is to set the backgroundColor for every page
+         */
+        itemWrapperStyle?: ViewStyle
+
+        /**
+         * A Boolean value that indicates whether the navigation bar is hidden
+         */
+        navigationBarHidden?: boolean
+
+        /**
+         * A Boolean value that indicates whether to hide the 1px hairline shadow
+         */
+        shadowHidden?: boolean
+
+        /**
+         * The color used for buttons in the navigation bar
+         */
+        tintColor?: string
+
+        /**
+         * The text color of the navigation bar title
+         */
+        titleTextColor?: string
+
+        /**
+         * A Boolean value that indicates whether the navigation bar is translucent
+         */
+        translucent?: boolean
+
+        /**
+         * NOT IN THE DOC BUT IN THE EXAMPLES
+         */
+        style?: ViewStyle
+    }
+
 
     /**
      * @see
@@ -559,7 +656,7 @@ declare namespace  ReactNative {
      * Image style
      * @see https://facebook.github.io/react-native/docs/image.html#style
      */
-    export interface ImageStyle extends FlexStyle{
+    export interface ImageStyle extends FlexStyle {
         color?: string;
         containerBackgroundColor?: string;
         fontFamily?: string;
@@ -812,8 +909,10 @@ declare namespace  ReactNative {
     }
 
     export interface Route {
-        id: string;
+        component?: ComponentClass<ViewProperties>
+        id?: string;
         title?: string;
+        passProps?: Object
     }
 
     /**
@@ -827,18 +926,26 @@ declare namespace  ReactNative {
 
     }
 
+    /**
+     * @see https://facebook.github.io/react-native/docs/navigator.html
+     */
     export interface NavigatorStatic extends React.ComponentClass<NavigatorProperties> {
         SceneConfigs: SceneConfigs;
+        NavigationBar: NavigationBar;
         getContext( self: any ): NavigatorStatic;
 
+        getCurrentRoutes(): Route[];
+        jumpBack(): void;
+        jumpForward(): void;
+        jumpTo( route: Route ): void;
         push( route: Route ): void;
         pop(): void;
-        popToTop(): void;
-        popToRoute( route: Route ): void;
+        replace( route: Route ): void;
+        replaceAtIndex( route: Route, index: number ): void;
+        replacePrevious( route: Route ): void;
         immediatelyResetRouteStack( routes: Route[] ): void;
-        getCurrentRoutes(): Route[];
-
-        NavigationBar: NavigationBar;
+        popToRoute( route: Route ): void;
+        popToTop(): void;
     }
 
     export interface StyleSheetStatic extends React.ComponentClass<StyleSheetProperties> {
@@ -1079,6 +1186,7 @@ declare namespace  ReactNative {
 
     export var Text: React.ComponentClass<TextProperties>;
     export var View: React.ComponentClass<ViewProperties>;
+    export var NavigatorIOS: React.ComponentClass<NavigatorIOSProperties>;
     export var AlertIOS: React.ComponentClass<AlertIOSProperties>;
     export var SegmentedControlIOS: React.ComponentClass<SegmentedControlIOSProperties>;
     export var SwitchIOS: React.ComponentClass<SwitchIOSProperties>;
@@ -1307,6 +1415,9 @@ declare namespace  ReactNative {
 
     export interface TouchList extends React.TouchList {}
 
+    //
+    // Additional ( and controversial)
+    //
 
     export function __spread( target: any, ...sources: any[] ): any;
 }
