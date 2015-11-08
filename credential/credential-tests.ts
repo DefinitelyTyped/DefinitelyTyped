@@ -1,4 +1,4 @@
-/// <reference path="credential.d.ts">
+/// <reference path="credential.d.ts" />
 
 import * as credential from 'credential';
 
