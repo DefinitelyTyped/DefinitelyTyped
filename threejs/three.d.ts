@@ -5618,6 +5618,23 @@ declare module THREE {
         addShape(shape: Shape, options?: any): void;
     }
 
+    interface SphereParameters {
+        radius: number;
+        widthSegments: number;
+        heightSegments: number;
+        phiStart: number;
+        phiLength: number;
+        thetaStart: number;
+        thetaLength: number;
+    }
+
+    export class SphereBufferGeometry extends BufferGeometry {
+        constructor(radius: number, widthSegments?: number, heightSegments?: number, phiStart?: number, phiLength?: number, thetaStart?: number, thetaLength?: number);
+
+        parameters: SphereParameters;
+
+    }
+
     /**
      * A class for generating sphere geometries
      */
@@ -5635,15 +5652,7 @@ declare module THREE {
          */
         constructor(radius: number, widthSegments?: number, heightSegments?: number, phiStart?: number, phiLength?: number, thetaStart?: number, thetaLength?: number);
 
-        parameters: {
-            radius: number;
-            widthSegments: number;
-            heightSegments: number;
-            phiStart: number;
-            phiLength: number;
-            thetaStart: number;
-            thetaLength: number;
-        };
+        parameters: SphereParameters;
     }
 
     export class TetrahedronGeometry extends PolyhedronGeometry {
