@@ -369,7 +369,7 @@ declare namespace  ReactNative {
     /**
      * @see https://facebook.github.io/react-native/docs/textinput.html#props
      */
-    export interface TextInputProperties extends TextInputIOSProperties, TextInputAndroidProperties {
+    export interface TextInputProperties extends TextInputIOSProperties, TextInputAndroidProperties, React.Props<TextInputStatic> {
 
         /**
          * Can tell TextInput to automatically capitalize certain characters.
@@ -438,7 +438,7 @@ declare namespace  ReactNative {
          * Callback that is called when the text input's text changes.
          * Changed text is passed as an argument to the callback handler.
          */
-        onChangeText?: () => void
+        onChangeText?: (text: string) => void
 
         /**
          * Callback that is called when text input ends.
@@ -494,6 +494,10 @@ declare namespace  ReactNative {
          * or set/update maxLength to prevent unwanted edits without flicker.
          */
         value?: string
+    }
+
+    export interface TextInputStatic extends React.ComponentClass<TextInputProperties> {
+
     }
 
     export interface AccessibilityTraits {
@@ -658,7 +662,7 @@ declare namespace  ReactNative {
         testID?: string;
     }
 
-    interface ViewStatic extends React.ComponentClass<ViewProperties> {
+    export interface ViewStatic extends React.ComponentClass<ViewProperties> {
 
     }
 
@@ -823,7 +827,7 @@ declare namespace  ReactNative {
         style?: ViewStyle
     }
 
-    interface NavigatorIOSStatic extends React.ComponentClass<NavigatorIOSProperties> {
+    export interface NavigatorIOSStatic extends React.ComponentClass<NavigatorIOSProperties> {
 
     }
 
@@ -885,7 +889,7 @@ declare namespace  ReactNative {
         value?: number;
     }
 
-    interface SliderIOSStatic extends React.ComponentClass<SliderIOSProperties> {
+    export interface SliderIOSStatic extends React.ComponentClass<SliderIOSProperties> {
 
     }
 
@@ -1000,7 +1004,7 @@ declare namespace  ReactNative {
     }
 
     /**
-     * @see
+     * @see https://facebook.github.io/react-native/docs/listview.html#props
      */
     export interface ListViewProperties extends ScrollViewProperties, React.Props<ListViewStatic>{
 
@@ -1111,46 +1115,11 @@ declare namespace  ReactNative {
         scrollRenderAheadDistance?: number
     }
 
-    /**
-     * @see https://facebook.github.io/react-native/docs/touchablehighlight.html#props
-     */
-    export interface TouchableHighlightProperties {
-        /**
-         * activeOpacity number
-         *
-         * Determines what the opacity of the wrapped view should be when touch is active.
-         */
-        activeOpacity?: number;
-
-        /**
-         * onHideUnderlay function
-         *
-         * Called immediately after the underlay is hidden
-         */
-
-        onHideUnderlay?: () => void;
-
-
-        /**
-         * onShowUnderlay function
-         *
-         * Called immediately after the underlay is shown
-         */
-
-        /**
-         * @see https://facebook.github.io/react-native/docs/view.html#style
-         */
-        style?: ViewStyle;
-
-
-        /**
-         * underlayColor string
-         *
-         * The color of the underlay that will show through when the touch is active.
-         */
-        underlayColor?: string;
-
+    export interface ListViewStatic extends React.ComponentClass<ListViewProperties> {
+        DataSource: ListViewDataSource;
     }
+
+
 
     /**
      * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html
@@ -1205,10 +1174,65 @@ declare namespace  ReactNative {
     }
 
 
+    export interface TouchableWithoutFeedbackProps extends TouchableWithoutFeedbackProperties, React.Props<TouchableWithoutFeedbackStatic> {
+
+    }
+
+    export interface TouchableWithoutFeedbackStatic  extends React.ComponentClass<TouchableWithoutFeedbackProps> {
+
+    }
+
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/touchablehighlight.html#props
+     */
+    export interface TouchableHighlightProperties extends TouchableWithoutFeedbackProperties, React.Props<TouchableHighlightStatic> {
+        /**
+         * activeOpacity number
+         *
+         * Determines what the opacity of the wrapped view should be when touch is active.
+         */
+        activeOpacity?: number
+
+        /**
+         * onHideUnderlay function
+         *
+         * Called immediately after the underlay is hidden
+         */
+
+        onHideUnderlay?: () => void
+
+
+        /**
+         * onShowUnderlay function
+         *
+         * Called immediately after the underlay is shown
+         */
+        onShowUnderlay?: () => void
+
+        /**
+         * @see https://facebook.github.io/react-native/docs/view.html#style
+         */
+        style?: ViewStyle
+
+
+        /**
+         * underlayColor string
+         *
+         * The color of the underlay that will show through when the touch is active.
+         */
+        underlayColor?: string
+
+    }
+
+    export interface TouchableHighlightStatic extends React.ComponentClass<TouchableHighlightProperties> {
+    }
+
+
     /**
      * @see https://facebook.github.io/react-native/docs/touchableopacity.html#props
      */
-    export interface TouchableOpacityProperties {
+    export interface TouchableOpacityProperties extends TouchableWithoutFeedbackProperties, React.Props<TouchableOpacityStatic> {
         /**
          * activeOpacity number
          *
@@ -1216,6 +1240,10 @@ declare namespace  ReactNative {
          */
         activeOpacity?: number;
     }
+
+    export interface TouchableOpacityStatic extends React.ComponentClass<TouchableOpacityProperties> {
+    }
+
 
 
     export interface LeftToRightGesture {
@@ -1382,9 +1410,6 @@ declare namespace  ReactNative {
         getSectionHeaderData( sectionIndex: number ): any
     }
 
-    export interface ListViewStatic extends React.ComponentClass<ListViewProperties> {
-        DataSource: ListViewDataSource;
-    }
 
     export interface ImageStatic extends React.ComponentClass<ImageProperties> {
         uri: string;
@@ -1879,16 +1904,16 @@ declare namespace  ReactNative {
     export var StyleSheet: StyleSheetStatic;
     export var TabBarIOS: TabBarIOSStatic;
     export type TabBarIOS = TabBarIOSStatic;
+    export var TextInput: TextInputStatic
+    export var TouchableHighlight: TouchableHighlightStatic;
+    export var TouchableOpacity:TouchableOpacityStatic;
+    export var TouchableWithoutFeedback: TouchableWithoutFeedbackStatic;
     export var View: ViewStatic;
 
     export var Text: React.ComponentClass<TextProperties>;
-    export var TextInput: React.ComponentClass<TextInputProperties>;
     export var AlertIOS: React.ComponentClass<AlertIOSProperties>;
     export var SegmentedControlIOS: React.ComponentClass<SegmentedControlIOSProperties>;
     export var SwitchIOS: React.ComponentClass<SwitchIOSProperties>;
-    export var TouchableHighlight: React.ComponentClass<TouchableHighlightProperties>;
-    export var TouchableOpacity: React.ComponentClass<TouchableOpacityProperties>;
-    export var TouchableWithoutFeedback: React.ComponentClass<TouchableWithoutFeedbackProperties>;
 
 
     export var ActivityIndicatorIOS: React.ComponentClass<ActivityIndicatorIOSProperties>;
