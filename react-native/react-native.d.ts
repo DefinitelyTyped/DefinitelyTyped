@@ -163,6 +163,7 @@ declare namespace  ReactNative {
     /**
      * Flex Prop Types
      * @see https://facebook.github.io/react-native/docs/flexbox.html#proptypes
+     * @see LayoutPropTypes.js
      */
     export interface FlexStyle {
 
@@ -198,6 +199,19 @@ declare namespace  ReactNative {
         right?: number
         top?: number
         width?: number
+    }
+
+
+    export interface TransformsStyle {
+
+        transform?: [{perspective: number}, {rotate: string}, {rotateX: string}, {rotateY: string}, {rotateZ: string}, {scale: number}, {scaleX: number}, {scaleY: number}, {translateX: number}, {translateY: number}, {skewX: string}, {skewY: string}]
+        transformMatrix?: Array<number>
+        rotation?: number
+        scaleX?: number
+        scaleY?: number
+        translateX?: number
+        translateY?: number
+
     }
 
 
@@ -264,12 +278,230 @@ declare namespace  ReactNative {
         style?: TextStyle;
     }
 
+
+    /**
+     * IOS Specific properties for TextInput
+     * @see https://facebook.github.io/react-native/docs/textinput.html#props
+     */
+    export interface TextInputIOSProperties {
+
+        /**
+         * If true, the text field will blur when submitted.
+         * The default value is true.
+         */
+        blurOnSubmit?: boolean
+
+        /**
+         * enum('never', 'while-editing', 'unless-editing', 'always')
+         * When the clear button should appear on the right side of the text view
+         */
+        clearButtonMode?: string
+
+        /**
+         * If true, clears the text field automatically when editing begins
+         */
+        clearTextOnFocus?: boolean
+
+        /**
+         * If true, the keyboard disables the return key when there is no text and automatically enables it when there is text.
+         * The default value is false.
+         */
+        enablesReturnKeyAutomatically?: boolean
+
+        /**
+         * Callback that is called when a key is pressed.
+         * Pressed key value is passed as an argument to the callback handler.
+         * Fires before onChange callbacks.
+         */
+        onKeyPress?: () => void
+
+        /**
+         * enum('default', 'go', 'google', 'join', 'next', 'route', 'search', 'send', 'yahoo', 'done', 'emergency-call')
+         * Determines how the return key should look.
+         */
+        returnKeyType?: string
+
+        /**
+         * If true, all text will automatically be selected on focus
+         */
+        selectTextOnFocus?: boolean
+
+        /**
+         * //FIXME: require typing
+         * See DocumentSelectionState.js, some state that is responsible for maintaining selection information for a document
+         */
+        selectionState?: any
+
+
+    }
+
+    /**
+     * Android Specific properties for TextInput
+     * @see https://facebook.github.io/react-native/docs/textinput.html#props
+     */
+    export interface TextInputAndroidProperties {
+
+        /**
+         * Sets the number of lines for a TextInput.
+         * Use it with multiline set to true to be able to fill the lines.
+         */
+        numberOfLines?: number
+
+        /**
+         * enum('start', 'center', 'end')
+         * Set the position of the cursor from where editing will begin.
+         */
+        textAlign?: string
+
+        /**
+         * enum('top', 'center', 'bottom')
+         * Aligns text vertically within the TextInput.
+         */
+        textAlignVertical?: string
+
+        /**
+         * The color of the textInput underline.
+         */
+        underlineColorAndroid?: string
+    }
+
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/textinput.html#props
+     */
+    export interface TextInputProperties extends TextInputIOSProperties, TextInputAndroidProperties {
+
+        /**
+         * Can tell TextInput to automatically capitalize certain characters.
+         *      characters: all characters,
+         *      words: first letter of each word
+         *      sentences: first letter of each sentence (default)
+         *      none: don't auto capitalize anything
+         *
+         * https://facebook.github.io/react-native/docs/textinput.html#autocapitalize
+         */
+        autoCapitalize?: string
+
+        /**
+         * If false, disables auto-correct.
+         * The default value is true.
+         */
+        autoCorrect?: boolean
+
+        /**
+         * If true, focuses the input on componentDidMount.
+         * The default value is false.
+         */
+        autoFocus?: boolean
+
+        /**
+         * Provides an initial value that will change when the user starts typing.
+         * Useful for simple use-cases where you don't want to deal with listening to events
+         * and updating the value prop to keep the controlled state in sync.
+         */
+        defaultValue?: string
+
+        /**
+         * If false, text is not editable. The default value is true.
+         */
+        editable?: boolean
+
+        /**
+         * enum("default", 'numeric', 'email-address', "ascii-capable", 'numbers-and-punctuation', 'url', 'number-pad', 'phone-pad', 'name-phone-pad', 'decimal-pad', 'twitter', 'web-search')
+         * Determines which keyboard to open, e.g.numeric.
+         * The following values work across platforms: - default - numeric - email-address
+         */
+        keyboardType?: string
+
+        /**
+         * Limits the maximum number of characters that can be entered.
+         * Use this instead of implementing the logic in JS to avoid flicker.
+         */
+        maxLength?: number
+
+        /**
+         * If true, the text input can be multiple lines. The default value is false.
+         */
+        multiline?: boolean
+
+        /**
+         * Callback that is called when the text input is blurred
+         */
+        onBlur?: () => void
+
+        /**
+         * Callback that is called when the text input's text changes.
+         */
+        onChange?: () => void
+
+        /**
+         * Callback that is called when the text input's text changes.
+         * Changed text is passed as an argument to the callback handler.
+         */
+        onChangeText?: () => void
+
+        /**
+         * Callback that is called when text input ends.
+         */
+        onEndEditing?: () => void
+
+        /**
+         * Callback that is called when the text input is focused
+         */
+        onFocus?: () => void
+
+        /**
+         * Invoked on mount and layout changes with {x, y, width, height}.
+         */
+        onLayout?: () => void
+
+        /**
+         * Callback that is called when the text input's submit button is pressed.
+         */
+        onSubmitEditing?: () => void
+
+        /**
+         * The string that will be rendered before text input has been entered
+         */
+        placeholder?: string
+
+        /**
+         * The text color of the placeholder string
+         */
+        placeholderTextColor?: string
+
+        /**
+         * If true, the text input obscures the text entered so that sensitive text like passwords stay secure.
+         * The default value is false.
+         */
+        secureTextEntry?: boolean
+
+        /**
+         * Styles
+         */
+        style?: TextStyle
+
+        /**
+         * Used to locate this view in end-to-end tests
+         */
+        testID?: string
+
+        /**
+         * The value to show for the text input. TextInput is a controlled component,
+         * which means the native value will be forced to match this value prop if provided.
+         * For most uses this works great, but in some cases this may cause flickering - one common cause is preventing edits by keeping value the same.
+         * In addition to simply setting the same value, either set editable={false},
+         * or set/update maxLength to prevent unwanted edits without flicker.
+         */
+        value?: string
+    }
+
     export interface AccessibilityTraits {
         // TODO
     }
 
     // @see https://facebook.github.io/react-native/docs/view.html#style
-    export interface ViewStyle extends FlexStyle {
+    export interface ViewStyle extends FlexStyle, TransformsStyle {
         backgroundColor?: string;
         borderBottomColor?: string;
         borderBottomLeftRadius?: number;
@@ -292,7 +524,7 @@ declare namespace  ReactNative {
     /**
      * @see https://facebook.github.io/react-native/docs/view.html#props
      */
-    export interface ViewProperties {
+    export interface ViewProperties extends React.Props<ViewStatic> {
         /**
          * accessibilityLabel string
          *
@@ -426,6 +658,10 @@ declare namespace  ReactNative {
         testID?: string;
     }
 
+    interface ViewStatic extends React.ComponentClass<ViewProperties> {
+
+    }
+
     /**
      * @see https://facebook.github.io/react-native/docs/activityindicatorios.html#props
      */
@@ -487,7 +723,7 @@ declare namespace  ReactNative {
     /**
      * @see https://facebook.github.io/react-native/docs/navigator.html#content
      */
-    export interface NavigatorProperties {
+    export interface NavigatorProperties extends React.Props<Navigator> {
         /**
          * Optional function that allows configuration about scene animations and gestures.
          * Will be invoked with the route and should return a scene configuration object
@@ -534,7 +770,7 @@ declare namespace  ReactNative {
          * @param route
          * @param navigator
          */
-        renderScene: (route: Route, navigator: Navigator) => React.ComponentClass<ViewProperties>
+        renderScene: ( route: Route, navigator: Navigator ) => React.ComponentClass<ViewProperties>
 
         /**
          * Styles to apply to the container of each scene
@@ -542,7 +778,7 @@ declare namespace  ReactNative {
         sceneStyle: ViewStyle
     }
 
-    export interface NavigatorIOSProperties {
+    export interface NavigatorIOSProperties extends React.Props<NavigatorIOSStatic> {
 
         /**
          * NavigatorIOS uses "route" objects to identify child views, their props, and navigation bar configuration.
@@ -587,6 +823,10 @@ declare namespace  ReactNative {
         style?: ViewStyle
     }
 
+    interface NavigatorIOSStatic extends React.ComponentClass<NavigatorIOSProperties> {
+
+    }
+
 
     /**
      * @see
@@ -598,7 +838,7 @@ declare namespace  ReactNative {
     /**
      * @see https://facebook.github.io/react-native/docs/sliderios.html
      */
-    export interface SliderIOSProperties {
+    export interface SliderIOSProperties extends React.Props<SliderIOSStatic> {
         /**
          maximumTrackTintColor string
          The color used for the track to the right of the button. Overrides the default blue gradient image.
@@ -645,6 +885,10 @@ declare namespace  ReactNative {
         value?: number;
     }
 
+    interface SliderIOSStatic extends React.ComponentClass<SliderIOSProperties> {
+
+    }
+
     /**
      * @see
      */
@@ -672,7 +916,7 @@ declare namespace  ReactNative {
     /**
      * @see https://facebook.github.io/react-native/docs/image.html
      */
-    export interface ImageProperties {
+    export interface ImageProperties  extends React.Props<Image> {
         /**
          * onLayout function
          *
@@ -758,8 +1002,113 @@ declare namespace  ReactNative {
     /**
      * @see
      */
-    export interface ListViewProperties {
-        /// TODO
+    export interface ListViewProperties extends ScrollViewProperties, React.Props<ListViewStatic>{
+
+        dataSource?: ListViewDataSource
+
+        /**
+         * How many rows to render on initial component mount.  Use this to make
+         * it so that the first screen worth of data apears at one time instead of
+         * over the course of multiple frames.
+         */
+        initialListSize?: number
+
+        /**
+         * (visibleRows, changedRows) => void
+         *
+         * Called when the set of visible rows changes.  `visibleRows` maps
+         * { sectionID: { rowID: true }} for all the visible rows, and
+         * `changedRows` maps { sectionID: { rowID: true | false }} for the rows
+         * that have changed their visibility, with true indicating visible, and
+         * false indicating the view has moved out of view.
+         */
+        onChangeVisibleRows?: (visibleRows: Array<{[sectionId: string]: {[rowID: string]: boolean}}>, changedRows: Array<{[sectionId: string]: {[rowID: string]: boolean}}>) => void
+
+        /**
+         * Called when all rows have been rendered and the list has been scrolled
+         * to within onEndReachedThreshold of the bottom.  The native scroll
+         * event is provided.
+         */
+        onEndReached?: () => void
+
+        /**
+         * Threshold in pixels for onEndReached.
+         */
+        onEndReachedThreshold?: number
+
+        /**
+         * Number of rows to render per event loop.
+         */
+        pageSize?: number
+
+        /**
+         * An experimental performance optimization for improving scroll perf of
+         * large lists, used in conjunction with overflow: 'hidden' on the row
+         * containers.  Use at your own risk.
+         */
+        removeClippedSubviews?: boolean
+
+        /**
+         * () => renderable
+         *
+         * The header and footer are always rendered (if these props are provided)
+         * on every render pass.  If they are expensive to re-render, wrap them
+         * in StaticContainer or other mechanism as appropriate.  Footer is always
+         * at the bottom of the list, and header at the top, on every render pass.
+         */
+        renderFooter?: () => React.ReactElement<any>
+
+        /**
+         * () => renderable
+         *
+         * The header and footer are always rendered (if these props are provided)
+         * on every render pass.  If they are expensive to re-render, wrap them
+         * in StaticContainer or other mechanism as appropriate.  Footer is always
+         * at the bottom of the list, and header at the top, on every render pass.
+         */
+        renderHeader?: () => React.ReactElement<any>
+
+        /**
+         * (rowData, sectionID, rowID) => renderable
+         * Takes a data entry from the data source and its ids and should return
+         * a renderable component to be rendered as the row.  By default the data
+         * is exactly what was put into the data source, but it's also possible to
+         * provide custom extractors.
+         */
+        renderRow?: (rowData: any, sectionID: string, rowID: string, highlightRow?: boolean) => React.ReactElement<any>
+
+
+        /**
+         * A function that returns the scrollable component in which the list rows are rendered.
+         * Defaults to returning a ScrollView with the given props.
+         */
+        renderScrollComponent?: (props: ScrollViewProperties) => React.ReactElement<ScrollViewProperties>
+
+        /**
+         * (sectionData, sectionID) => renderable
+         *
+         * If provided, a sticky header is rendered for this section.  The sticky
+         * behavior means that it will scroll with the content at the top of the
+         * section until it reaches the top of the screen, at which point it will
+         * stick to the top until it is pushed off the screen by the next section
+         * header.
+         */
+        renderSectionHeader?: (sectionData: any, sectionId: string) => React.ReactElement<any>
+
+
+        /**
+         * (sectionID, rowID, adjacentRowHighlighted) => renderable
+         * If provided, a renderable component to be rendered as the separator below each row
+         * but not the last row if there is a section header below.
+         * Take a sectionID and rowID of the row above and whether its adjacent row is highlighted.
+         */
+        renderSeparator?: (sectionID: string, rowID: string, adjacentRowHighlighted?: boolean) => React.ReactElement<any>
+
+        /**
+         * How early to start rendering rows before they come on screen, in
+         * pixels.
+         */
+        scrollRenderAheadDistance?: number
     }
 
     /**
@@ -952,13 +1301,85 @@ declare namespace  ReactNative {
         create<T>( styles: T ): T;
     }
 
+    /**
+     * //FIXME: Could not find docs. Inferred from examples and jscode : ListViewDataSource.js
+     */
     export interface DataSourceAssetCallback {
-        rowHasChanged: ( r1: any[], r2: any[] ) => boolean;
+        rowHasChanged?: ( r1: any, r2: any ) => boolean
+        sectionHeaderHasChanged?: ( h1: any, h2: any ) => boolean
+        getRowData?: <T>( dataBlob: any, sectionID: number | string, rowID: number | string ) => T
+        getSectionHeaderData?: <T>( dataBlob: any, sectionID: number | string ) => T
     }
 
+    /**
+     * //FIXME: Could not find docs. Inferred from examples and js code: ListViewDataSource.js
+     */
     export interface ListViewDataSource {
         new( onAsset: DataSourceAssetCallback ): ListViewDataSource;
-        cloneWithRows<T>( rowList: T[][] ): void;
+        /**
+         * Clones this `ListViewDataSource` with the specified `dataBlob` and
+         * `rowIdentities`. The `dataBlob` is just an aribitrary blob of data. At
+         * construction an extractor to get the interesting informatoin was defined
+         * (or the default was used).
+         *
+         * The `rowIdentities` is is a 2D array of identifiers for rows.
+         * ie. [['a1', 'a2'], ['b1', 'b2', 'b3'], ...].  If not provided, it's
+         * assumed that the keys of the section data are the row identities.
+         *
+         * Note: This function does NOT clone the data in this data source. It simply
+         * passes the functions defined at construction to a new data source with
+         * the data specified. If you wish to maintain the existing data you must
+         * handle merging of old and new data separately and then pass that into
+         * this function as the `dataBlob`.
+         */
+        cloneWithRows<T>( dataBlob: Array<any> | {[key: string]: any}, rowIdentities?: Array<string> ): ListViewDataSource
+
+        /**
+         * This performs the same function as the `cloneWithRows` function but here
+         * you also specify what your `sectionIdentities` are. If you don't care
+         * about sections you should safely be able to use `cloneWithRows`.
+         *
+         * `sectionIdentities` is an array of identifiers for  sections.
+         * ie. ['s1', 's2', ...].  If not provided, it's assumed that the
+         * keys of dataBlob are the section identities.
+         *
+         * Note: this returns a new object!
+         */
+        cloneWithRowsAndSections( dataBlob: Array<any> | {[key: string]: any}, sectionIdentities?: Array<string>, rowIdentities?: Array<Array<string>> ): ListViewDataSource
+
+        getRowCount(): number
+
+        /**
+         * Gets the data required to render the row.
+         */
+        getRowData( sectionIndex: number, rowIndex: number ): any
+
+        /**
+         * Gets the rowID at index provided if the dataSource arrays were flattened,
+         * or null of out of range indexes.
+         */
+        getRowIDForFlatIndex( index: number ): string
+
+        /**
+         * Gets the sectionID at index provided if the dataSource arrays were flattened,
+         * or null for out of range indexes.
+         */
+        getSectionIDForFlatIndex( index: number ): string
+
+        /**
+         * Returns an array containing the number of rows in each section
+         */
+        getSectionLengths(): Array<number>
+
+        /**
+         * Returns if the section header is dirtied and needs to be rerendered
+         */
+        sectionHeaderShouldUpdate( sectionIndex: number ): boolean
+
+        /**
+         * Gets the data required to render the section header
+         */
+        getSectionHeaderData( sectionIndex: number ): any
     }
 
     export interface ListViewStatic extends React.ComponentClass<ListViewProperties> {
@@ -1135,7 +1556,279 @@ declare namespace  ReactNative {
         runAfterInteractions( fn: () => void ): void;
     }
 
-    export interface ScrollViewProperties {
+
+    export interface ScrollViewStyle extends FlexStyle, TransformsStyle {
+
+        backfaceVisibility?:string //enum('visible', 'hidden')
+        backgroundColor?: string
+        borderColor?: string
+        borderTopColor?: string
+        borderRightColor?: string
+        borderBottomColor?: string
+        borderLeftColor?: string
+        borderRadius?: number
+        borderTopLeftRadius?: number
+        borderTopRightRadius?: number
+        borderBottomLeftRadius?: number
+        borderBottomRightRadius?: number
+        borderStyle?: string //enum('solid', 'dotted', 'dashed')
+        borderWidth?: number
+        borderTopWidth?: number
+        borderRightWidth?: number
+        borderBottomWidth?: number
+        borderLeftWidth?: number
+        opacity?: number
+        overflow?: string //enum('visible', 'hidden')
+        shadowColor?: string
+        shadowOffset?: {width: number; height: number}
+        shadowOpacity?: number
+        shadowRadius?: number
+    }
+
+    export interface  EdgeInsetsProperties {
+        top: number
+        left: number
+        bottom: number
+        right: number
+    }
+
+    export interface  PointProperties {
+        x: number
+        y: number
+    }
+
+    export interface ScrollViewIOSProperties {
+
+        /**
+         * When true the scroll view bounces horizontally when it reaches the end
+         * even if the content is smaller than the scroll view itself. The default
+         * value is true when `horizontal={true}` and false otherwise.
+         */
+        alwaysBounceHorizontal?: boolean
+        /**
+         * When true the scroll view bounces vertically when it reaches the end
+         * even if the content is smaller than the scroll view itself. The default
+         * value is false when `horizontal={true}` and true otherwise.
+         */
+        alwaysBounceVertical?: boolean
+
+        /**
+         * Controls whether iOS should automatically adjust the content inset for scroll views that are placed behind a navigation bar or tab bar/ toolbar.
+         * The default value is true.
+         */
+        automaticallyAdjustContentInsets?: boolean // true
+
+        /**
+         * When true the scroll view bounces when it reaches the end of the
+         * content if the content is larger then the scroll view along the axis of
+         * the scroll direction. When false it disables all bouncing even if
+         * the `alwaysBounce*` props are true. The default value is true.
+         */
+        bounces?: boolean
+        /**
+         * When true gestures can drive zoom past min/max and the zoom will animate
+         * to the min/max value at gesture end otherwise the zoom will not exceed
+         * the limits.
+         */
+        bouncesZoom?: boolean
+
+        /**
+         * When false once tracking starts won't try to drag if the touch moves.
+         * The default value is true.
+         */
+        canCancelContentTouches?: boolean
+
+        /**
+         * When true the scroll view automatically centers the content when the
+         * content is smaller than the scroll view bounds; when the content is
+         * larger than the scroll view this property has no effect. The default
+         * value is false.
+         */
+        centerContent?: boolean
+
+
+        /**
+         * The amount by which the scroll view content is inset from the edges of the scroll view.
+         * Defaults to {0, 0, 0, 0}.
+         */
+        contentInset?: EdgeInsetsProperties // zeros
+
+        /**
+         * Used to manually set the starting scroll offset.
+         * The default value is {x: 0, y: 0}
+         */
+        contentOffset?: PointProperties // zeros
+
+        /**
+         * A floating-point number that determines how quickly the scroll view
+         * decelerates after the user lifts their finger. Reasonable choices include
+         *   - Normal: 0.998 (the default)
+         *   - Fast: 0.9
+         */
+        decelerationRate?: number
+
+        /**
+         * When true the ScrollView will try to lock to only vertical or horizontal
+         * scrolling while dragging.  The default value is false.
+         */
+        directionalLockEnabled?: boolean
+
+        /**
+         * The maximum allowed zoom scale. The default value is 1.0.
+         */
+        maximumZoomScale?: number
+
+        /**
+         * The minimum allowed zoom scale. The default value is 1.0.
+         */
+        minimumZoomScale?: number
+
+        /**
+         * Called when a scrolling animation ends.
+         */
+        onScrollAnimationEnd?: () => void
+
+        /**
+         * When true the scroll view stops on multiples of the scroll view's size
+         * when scrolling. This can be used for horizontal pagination. The default
+         * value is false.
+         */
+        pagingEnabled?: boolean
+
+        /**
+         * When false, the content does not scroll. The default value is true
+         */
+        scrollEnabled?: boolean // true
+
+        /**
+         * This controls how often the scroll event will be fired while scrolling (in events per seconds).
+         * A higher number yields better accuracy for code that is tracking the scroll position,
+         * but can lead to scroll performance problems due to the volume of information being send over the bridge.
+         * The default value is zero, which means the scroll event will be sent only once each time the view is scrolled.
+         */
+        scrollEventThrottle?: number // null
+
+        /**
+         * The amount by which the scroll view indicators are inset from the edges of the scroll view.
+         * This should normally be set to the same value as the contentInset.
+         * Defaults to {0, 0, 0, 0}.
+         */
+        scrollIndicatorInsets?: EdgeInsetsProperties //zeroes
+
+        /**
+         * When true the scroll view scrolls to top when the status bar is tapped.
+         * The default value is true.
+         */
+        scrollsToTop?: boolean
+
+        /**
+         * When snapToInterval is set, snapToAlignment will define the relationship of the the snapping to the scroll view.
+         *      - start (the default) will align the snap at the left (horizontal) or top (vertical)
+         *      - center will align the snap in the center
+         *      - end will align the snap at the right (horizontal) or bottom (vertical)
+         */
+        snapToAlignment?: string
+
+        /**
+         * When set, causes the scroll view to stop at multiples of the value of snapToInterval.
+         * This can be used for paginating through children that have lengths smaller than the scroll view.
+         * Used in combination with snapToAlignment.
+         */
+        snapToInterval?: number
+
+        /**
+         * An array of child indices determining which children get docked to the
+         * top of the screen when scrolling. For example passing
+         * `stickyHeaderIndices={[0]}` will cause the first child to be fixed to the
+         * top of the scroll view. This property is not supported in conjunction
+         * with `horizontal={true}`.
+         */
+        stickyHeaderIndices?: number[]
+
+        /**
+         * The current scale of the scroll view content. The default value is 1.0.
+         */
+        zoomScale?: number
+    }
+
+    export interface ScrollViewProperties extends ScrollViewIOSProperties {
+
+        /**
+         * These styles will be applied to the scroll view content container which
+         * wraps all of the child views. Example:
+         *
+         *   return (
+         *     <ScrollView contentContainerStyle={styles.contentContainer}>
+         *     </ScrollView>
+         *   );
+         *   ...
+         *   var styles = StyleSheet.create({
+         *     contentContainer: {
+         *       paddingVertical: 20
+         *     }
+         *   });
+         */
+        contentContainerStyle?: ViewStyle
+
+        /**
+         * When true the scroll view's children are arranged horizontally in a row
+         * instead of vertically in a column. The default value is false.
+         */
+        horizontal?: boolean
+
+        /**
+         * Determines whether the keyboard gets dismissed in response to a drag.
+         *   - 'none' (the default) drags do not dismiss the keyboard.
+         *   - 'onDrag' the keyboard is dismissed when a drag begins.
+         *   - 'interactive' the keyboard is dismissed interactively with the drag
+         *     and moves in synchrony with the touch; dragging upwards cancels the
+         *     dismissal.
+         */
+        keyboardDismissMode?: string
+
+        /**
+         * When false tapping outside of the focused text input when the keyboard
+         * is up dismisses the keyboard. When true the scroll view will not catch
+         * taps and the keyboard will not dismiss automatically. The default value
+         * is false.
+         */
+        keyboardShouldPersistTaps?: boolean
+
+        /**
+         * Fires at most once per frame during scrolling.
+         * The frequency of the events can be contolled using the scrollEventThrottle prop.
+         */
+        onScroll?: () => void
+
+        /**
+         * Experimental: When true offscreen child views (whose `overflow` value is
+         * `hidden`) are removed from their native backing superview when offscreen.
+         * This canimprove scrolling performance on long lists. The default value is
+         * false.
+         */
+        removeClippedSubviews?: boolean
+
+        /**
+         * When true, shows a horizontal scroll indicator.
+         */
+        showsHorizontalScrollIndicator?: boolean
+
+        /**
+         * When true, shows a vertical scroll indicator.
+         */
+        showsVerticalScrollIndicator?: boolean
+
+        /**
+         * Style
+         */
+        style?: ScrollViewStyle
+    }
+
+    export interface ScrollViewProps extends ScrollViewProperties, React.Props<ScrollViewStatic> {
+
+    }
+
+    interface ScrollViewStatic extends React.ComponentClass<ScrollViewProps> {
 
     }
 
@@ -1173,20 +1866,23 @@ declare namespace  ReactNative {
 
     // exported singletons:
     // export var AppRegistry: AppRegistryStatic;
-    export var StyleSheet: StyleSheetStatic;
-    export var Navigator: NavigatorStatic;
-    export type Navigator = NavigatorStatic;
-    export var ListView: ListViewStatic;
+    export var AsyncStorage: AsyncStorageStatic;
     export var CameraRoll: CameraRollStatic;
     export var Image: ImageStatic;
     export type Image = ImageStatic;
+    export var ListView: ListViewStatic;
+    export type Navigator = NavigatorStatic;
+    export var Navigator: NavigatorStatic;
+    export var NavigatorIOS: NavigatorIOSStatic;
+    export var SliderIOS: SliderIOSStatic;
+    export var ScrollView: ScrollViewStatic
+    export var StyleSheet: StyleSheetStatic;
     export var TabBarIOS: TabBarIOSStatic;
     export type TabBarIOS = TabBarIOSStatic;
-    export var AsyncStorage: AsyncStorageStatic;
+    export var View: ViewStatic;
 
     export var Text: React.ComponentClass<TextProperties>;
-    export var View: React.ComponentClass<ViewProperties>;
-    export var NavigatorIOS: React.ComponentClass<NavigatorIOSProperties>;
+    export var TextInput: React.ComponentClass<TextInputProperties>;
     export var AlertIOS: React.ComponentClass<AlertIOSProperties>;
     export var SegmentedControlIOS: React.ComponentClass<SegmentedControlIOSProperties>;
     export var SwitchIOS: React.ComponentClass<SwitchIOSProperties>;
@@ -1201,9 +1897,7 @@ declare namespace  ReactNative {
     export var DeviceEventSubscription: DeviceEventSubscriptionStatic;
     export type DeviceEventSubscription = DeviceEventSubscriptionStatic;
     export var InteractionManager: InteractionManagerStatic;
-    export var ScrollView: React.ComponentClass<ScrollViewProperties>;
     export var PanResponder: PanResponderStatic;
-    export var SliderIOS: React.ComponentClass<SliderIOSProperties>;
     export var AppStateIOS: AppStateIOSStatic;
 
 
@@ -1420,6 +2114,20 @@ declare namespace  ReactNative {
     //
 
     export function __spread( target: any, ...sources: any[] ): any;
+
+
+    export interface GlobalStatic {
+
+        /**
+         * Accepts a function as its only argument and calls that function before the next repaint.
+         * It is an essential building block for animations that underlies all of the JavaScript-based animation APIs.
+         * In general, you shouldn't need to call this yourself - the animation API's will manage frame updates for you.
+         * @see https://facebook.github.io/react-native/docs/animations.html#requestanimationframe
+         */
+        requestAnimationFrame( fn: () => void ) : void;
+
+    }
+
 }
 
 declare module "react-native" {
@@ -1438,3 +2146,5 @@ declare module "Dimensions" {
     var ExportDimensions: Dimensions;
     export = ExportDimensions;
 }
+
+declare var global: ReactNative.GlobalStatic
