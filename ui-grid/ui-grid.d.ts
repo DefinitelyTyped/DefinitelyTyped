@@ -3514,6 +3514,8 @@ declare module uiGrid {
         filter?: IFilterOptions;
         /** Filters for this column. Includes 'term' property bound to filter input elements */
         filters?: Array<IFilterOptions>;
+        /** Reference to grid containing the column */
+        grid: IGridInstanceOf<TEntity>;
         name?: string;
         /** Sort on this column */
         sort?: ISortInfo;
