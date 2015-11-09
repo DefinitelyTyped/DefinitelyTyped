@@ -59,7 +59,7 @@ interface MarkedStatic {
      *
      * @param options Hash of options
      */
-    setOptions(options: MarkedOptions): void;
+    setOptions(options: MarkedOptions): MarkedStatic;
 }
 
 interface MarkedOptions {

@@ -66,7 +66,7 @@ declare module "amqplib/properties" {
 
             contentType?: string;
             contentEncoding?: string;
-            headers?: Object;
+            headers?: any;
             priority?: number;
             correlationId?: string;
             replyTo?: string;
@@ -81,7 +81,7 @@ declare module "amqplib/properties" {
             noAck?: boolean;
             exclusive?: boolean;
             priority?: number;
-            arguments?: Object;
+            arguments?: any;
         }
         interface Get {
             noAck?: boolean;
@@ -90,8 +90,8 @@ declare module "amqplib/properties" {
 
     interface Message {
         content: Buffer;
-        fields: Object;
-        properties: Object;
+        fields: any;
+        properties: any;
     }
 }
 
@@ -100,9 +100,9 @@ declare module "amqplib" {
     import events = require("events");
     import when = require("when");
     import shared = require("amqplib/properties")
-    import Replies = shared.Replies;
-    import Options = shared.Options;
-    import Message = shared.Message;
+    export import Replies = shared.Replies;
+    export import Options = shared.Options;
+    export import Message = shared.Message;
 
     interface Connection extends events.EventEmitter {
         close(): when.Promise<void>;
@@ -156,9 +156,9 @@ declare module "amqplib/callback_api" {
 
     import events = require("events");
     import shared = require("amqplib/properties")
-    import Replies = shared.Replies;
-    import Options = shared.Options;
-    import Message = shared.Message;
+    export import Replies = shared.Replies;
+    export import Options = shared.Options;
+    export import Message = shared.Message;
 
     interface Connection extends events.EventEmitter {
         close(callback?: (err: any) => void): void;
