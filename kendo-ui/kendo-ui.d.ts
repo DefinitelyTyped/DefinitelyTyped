@@ -4584,7 +4584,7 @@ declare module kendo.ui {
         dataSource: kendo.data.DataSource;
         totalPages(): number;
         pageSize(): number;
-        page(page: boolean): number;
+        page(page: number): number;
         refresh(): void;
         destroy(): void;
     }
