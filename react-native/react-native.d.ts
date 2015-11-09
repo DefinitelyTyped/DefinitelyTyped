@@ -831,7 +831,62 @@ declare namespace  ReactNative {
         style?: ViewStyle
     }
 
-    export interface NavigatorIOSStatic extends React.ComponentClass<NavigatorIOSProperties> {
+    /**
+     * A navigator is an object of navigation functions that a view can call.
+     * It is passed as a prop to any component rendered by NavigatorIOS.
+     *
+     * Navigator functions are also available on the NavigatorIOS component:
+     *
+     * @see https://facebook.github.io/react-native/docs/navigatorios.html#navigator
+     */
+    export interface NavigationIOS {
+        /**
+         * Navigate forward to a new route
+         */
+        push: (route: Route) => void
+
+        /**
+         * Go back one page
+         */
+        pop: () => void
+
+        /**
+         * Go back N pages at once. When N=1, behavior matches pop()
+         */
+        popN: (n: number) => void
+
+        /**
+         * Replace the route for the current page and immediately load the view for the new route
+         */
+        replace: (route: Route) => void
+
+        /**
+         * Replace the route/view for the previous page
+         */
+        replacePrevious: (route: Route) => void
+
+        /**
+         * Replaces the previous route/view and transitions back to it
+         */
+        replacePreviousAndPop: (route: Route) => void
+
+        /**
+         * Replaces the top item and popToTop
+         */
+        resetTo: (route: Route) => void
+
+        /**
+         * Go back to the item for a particular route object
+         */
+        popToRoute(route: Route): void
+
+        /**
+         * Go back to the top item
+         */
+        popToTop(): void
+    }
+
+    export interface NavigatorIOSStatic extends NavigationIOS, React.ComponentClass<NavigatorIOSProperties> {
 
     }
 
@@ -1293,7 +1348,17 @@ declare namespace  ReactNative {
         component?: ComponentClass<ViewProperties>
         id?: string;
         title?: string;
-        passProps?: Object
+        passProps?: Object;
+
+        //anything else
+        [key: string]: any
+
+        //Commonly found properties
+        backButtonTitle?: string;
+        rightButtonTitle?: string;
+        onRightButtonPress?: () => void;
+        wrapperStyle?: any; //FIXME needs typing
+        index?: number;
     }
 
     /**
