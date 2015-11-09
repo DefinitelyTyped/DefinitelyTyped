@@ -366,7 +366,7 @@ declare module THREE {
         array: ArrayLike<number>;
         stride: number;
         dynamic: boolean;
-        updateRange: {offset:number, count:number};
+        updateRange: { offset: number; count:number };
         version: number;
         length: number;
         count: number;
@@ -397,7 +397,7 @@ declare module THREE {
         array: ArrayLike<number>;
         itemSize: number;
         dynamic: boolean;
-        updateRange: {offset:number, count:number};
+        updateRange: { offset: number; count:number };
         needsUpdate: boolean;
         /** Deprecated, use count instead */
         length: number;
@@ -407,11 +407,11 @@ declare module THREE {
         copy(source: BufferAttribute): BufferAttribute;
         copyAt(index1: number, attribute: BufferAttribute, index2: number): BufferAttribute;
         copyArray(array: ArrayLike<number>): BufferAttribute;
-        copyColorArray(colors: {r:number, g:number, b:number}[]): BufferAttribute;
-        copyIndicesArray(indices: {a:number, b:number, c:number}[]): BufferAttribute;
-        copyVector2sArray(vectors: {x:number, y:number}[]): BufferAttribute;
-        copyVector3sArray(vectors: {x:number, y:number, z:number}[]): BufferAttribute;
-        copyVector4sArray(vectors: {x:number, y:number, z:number, w:number}[]): BufferAttribute;
+        copyColorArray(colors: { r: number; g: number; b: number }[]): BufferAttribute;
+        copyIndicesArray(indices: { a: number; b: number; c: number }[]): BufferAttribute;
+        copyVector2sArray(vectors: { x: number; y: number }[]): BufferAttribute;
+        copyVector3sArray(vectors: { x: number; y: number; z: number }[]): BufferAttribute;
+        copyVector4sArray(vectors: { x: number; y: number; z: number; w:number }[]): BufferAttribute;
         set(value: ArrayLike<number>, offset?: number): BufferAttribute;
         getX(index: number): number;
         setX(index: number, x: number): BufferAttribute;
@@ -536,7 +536,7 @@ declare module THREE {
         drawcalls: { start: number; count: number; index: number; }[];
         /** Deprecated. Use groups instead. */
         offsets: { start: number; count: number; index: number; }[];
-        groups: {start: number, count: number, materialIndex?: number}[]
+        groups: { start: number; count: number; materialIndex?: number }[]
         boundingBox: Box3;
         boundingSphere: BoundingSphere;
         /** Deprecated. This overloaded method is deprecated. */
@@ -627,7 +627,7 @@ declare module THREE {
      */
     export class InstancedBufferGeometry extends BufferGeometry {
         constructor();
-        groups: {start:number, count:number, instances:number}[];
+        groups: { start: number; count: number; instances:number }[];
         addGroup(start: number, count: number, instances: number): void;
         copy(source: InstancedBufferGeometry): InstancedBufferGeometry;
     }
@@ -647,7 +647,7 @@ declare module THREE {
         colors: Color[];
         uvs: Vector2[];
         uvs2: Vector2[];
-        groups: {start: number, materialIndex: number}[];
+        groups: { start: number; materialIndex: number }[];
         morphTargets: MorphTarget[];
         skinWeights: number[];
         skinIndices: number[];
