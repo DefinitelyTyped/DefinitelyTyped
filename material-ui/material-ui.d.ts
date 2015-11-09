@@ -1251,6 +1251,7 @@ declare namespace __MaterialUI {
     }
 
     interface TextFieldProps extends React.Props<TextField> {
+        className?: string;
         errorStyle?: React.CSSProperties;
         errorText?: string;
         floatingLabelText?: string;
