@@ -692,6 +692,7 @@ declare namespace __MaterialUI {
         labelStyle?: React.CSSProperties;
         backgroundColor?: string;
         labelColor?: string;
+        labelPosition?: string;
         disabledBackgroundColor?: string;
         disabledLabelColor?: string;
         fullWidth?: boolean;
