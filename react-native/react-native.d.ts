@@ -5,12 +5,12 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// This work is mostly based on the work made by Bernd Paradies: https://github.com/bparadie
+// This work is based on an original work made by Bernd Paradies: https://github.com/bparadie
 //
-// These definitions are meant to be used with the compiler target set to ES6
+// These definitions are meant to be used with the TSC compiler target set to ES6
 //
 // WARNING: this work is very much beta:
-//            -it may be missing react-native definitions
+//            -it is still missing react-native definitions
 //            -it re-exports the whole of react 0.14 which may not be what react-native actually does
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -248,7 +248,7 @@ declare namespace  ReactNative {
     }
 
     // https://facebook.github.io/react-native/docs/text.html#props
-    export interface TextProperties {
+    export interface TextProperties extends React.Props<TextProperties> {
         /**
          * numberOfLines number
          *
@@ -276,6 +276,10 @@ declare namespace  ReactNative {
          * @see https://facebook.github.io/react-native/docs/text.html#style
          */
         style?: TextStyle;
+    }
+
+    export interface TextStatic extends React.ComponentClass<TextProperties> {
+
     }
 
 
@@ -1904,13 +1908,13 @@ declare namespace  ReactNative {
     export var StyleSheet: StyleSheetStatic;
     export var TabBarIOS: TabBarIOSStatic;
     export type TabBarIOS = TabBarIOSStatic;
+    export var Text: TextStatic;
     export var TextInput: TextInputStatic
     export var TouchableHighlight: TouchableHighlightStatic;
     export var TouchableOpacity:TouchableOpacityStatic;
     export var TouchableWithoutFeedback: TouchableWithoutFeedbackStatic;
     export var View: ViewStatic;
 
-    export var Text: React.ComponentClass<TextProperties>;
     export var AlertIOS: React.ComponentClass<AlertIOSProperties>;
     export var SegmentedControlIOS: React.ComponentClass<SegmentedControlIOSProperties>;
     export var SwitchIOS: React.ComponentClass<SwitchIOSProperties>;
