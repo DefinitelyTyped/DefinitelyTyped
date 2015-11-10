@@ -5,6 +5,7 @@
 /// <reference path="react-addons-linked-state-mixin.d.ts" />
 /// <reference path="react-addons-perf.d.ts" />
 /// <reference path="react-addons-pure-render-mixin.d.ts" />
+/// <reference path="react-addons-shallow-compare.d.ts" />
 /// <reference path="react-addons-test-utils.d.ts" />
 /// <reference path="react-addons-transition-group.d.ts" />
 /// <reference path="react-addons-update.d.ts" />
@@ -16,6 +17,7 @@ import CSSTransitionGroup = require("react-addons-css-transition-group");
 import LinkedStateMixin = require("react-addons-linked-state-mixin");
 import Perf = require("react-addons-perf");
 import PureRenderMixin = require("react-addons-pure-render-mixin");
+import shallowCompare = require("react-addons-shallow-compare");
 import TestUtils = require("react-addons-test-utils");
 import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
@@ -85,32 +87,32 @@ var ClassicComponent: React.ClassicComponentClass<Props> =
 
 class ModernComponent extends React.Component<Props, State>
     implements MyComponent, React.ChildContextProvider<ChildContext> {
-    
+
     static propTypes: React.ValidationMap<Props> = {
         foo: React.PropTypes.number
     }
-    
+
     static contextTypes: React.ValidationMap<Context> = {
         someValue: React.PropTypes.string
     }
-    
+
     static childContextTypes: React.ValidationMap<ChildContext> = {
         someOtherValue: React.PropTypes.string
     }
-    
+
     context: Context;
-    
+
     getChildContext() {
         return {
             someOtherValue: 'foo'
         }
     }
-    
+
     state = {
         inputValue: this.context.someValue,
         seconds: this.props.foo
     }
-    
+
     reset() {
         this._myComponent.reset();
         this.setState({
@@ -121,13 +123,17 @@ class ModernComponent extends React.Component<Props, State>
 
     private _myComponent: MyComponent;
     private _input: HTMLInputElement;
-    
+
     render() {
         return React.DOM.div(null,
             React.DOM.input({
                 ref: input => this._input = <HTMLInputElement>input,
                 value: this.state.inputValue
             }));
+    }
+
+    shouldComponentUpdate(nextProps: Props, nextState: State, nextContext: any): boolean {
+        return shallowCompare(this, nextProps, nextState);
     }
 }
 
@@ -496,7 +502,7 @@ var renderer: React.ShallowRenderer =
 renderer.render(React.createElement(Timer));
 var output: React.ReactElement<React.Props<Timer>> =
     renderer.getRenderOutput();
-    
+
 //
 // TransitionGroup addon
 // --------------------------------------------------------------------------
@@ -506,7 +512,7 @@ React.createFactory(TransitionGroup)({ component: "div" });
 // update addon
 // --------------------------------------------------------------------------
 {
-// These are copied from https://facebook.github.io/react/docs/update.html   
+// These are copied from https://facebook.github.io/react/docs/update.html
 let initialArray = [1, 2, 3];
 let newArray = update(initialArray, {$push: [4]}); // => [1, 2, 3, 4]
 
