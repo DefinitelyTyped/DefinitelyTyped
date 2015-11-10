@@ -5,7 +5,15 @@
 
 /// <reference path="react.d.ts" />
 
+declare namespace __React {
+    namespace __Addons {
+        export function shallowCompare<P, S>(
+            component: __React.Component<P, S>,
+            nextProps: P,
+            nextState: S): boolean;
+    }
+}
+
 declare module "react-addons-shallow-compare" {
-    function shallowCompare<P, S>(component: __React.Component<P, S>, nextProps: P, nextState: S): boolean;
-    export = shallowCompare;
+    export = __React.__Addons.shallowCompare;
 }
