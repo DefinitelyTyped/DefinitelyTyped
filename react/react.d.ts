@@ -8,21 +8,21 @@ declare namespace __React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ReactType = ComponentClass<any> | string;
+    type ReactType = string | ComponentClass<any> | StatelessComponent<any>;
 
-    interface ReactElement<P> {
-        type: string | ComponentClass<P>;
+    interface ReactElement<P extends Props<any>> {
+        type: string | ComponentClass<P> | StatelessComponent<P>;
         props: P;
         key: string | number;
         ref: string | ((component: Component<P, any> | Element) => any);
     }
 
     interface ClassicElement<P> extends ReactElement<P> {
-        type: string | ClassicComponentClass<P>;
+        type: ClassicComponentClass<P>;
         ref: string | ((component: ClassicComponent<P, any>) => any);
     }
 
-    interface DOMElement<P> extends ReactElement<P> {
+    interface DOMElement<P extends Props<Element>> extends ReactElement<P> {
         type: string;
         ref: string | ((element: Element) => any);
     }
@@ -47,7 +47,7 @@ declare namespace __React {
         (props?: P, ...children: ReactNode[]): ClassicElement<P>;
     }
 
-    interface DOMFactory<P> extends ClassicFactory<P> {
+    interface DOMFactory<P extends Props<Element>> extends Factory<P> {
         (props?: P, ...children: ReactNode[]): DOMElement<P>;
     }
 
@@ -73,19 +73,19 @@ declare namespace __React {
     function createClass<P, S>(spec: ComponentSpec<P, S>): ClassicComponentClass<P>;
 
     function createFactory<P>(type: string): DOMFactory<P>;
-    function createFactory<P>(type: ClassicComponentClass<P> | string): ClassicFactory<P>;
-    function createFactory<P>(type: ComponentClass<P>): Factory<P>;
+    function createFactory<P>(type: ClassicComponentClass<P>): ClassicFactory<P>;
+    function createFactory<P>(type: ComponentClass<P> | StatelessComponent<P>): Factory<P>;
 
     function createElement<P>(
         type: string,
         props?: P,
         ...children: ReactNode[]): DOMElement<P>;
     function createElement<P>(
-        type: ClassicComponentClass<P> | string,
+        type: ClassicComponentClass<P>,
         props?: P,
         ...children: ReactNode[]): ClassicElement<P>;
     function createElement<P>(
-        type: ComponentClass<P>,
+        type: ComponentClass<P> | StatelessComponent<P>,
         props?: P,
         ...children: ReactNode[]): ReactElement<P>;
 
@@ -116,11 +116,6 @@ declare namespace __React {
 
     // Base component for plain JS classes
     class Component<P, S> implements ComponentLifecycle<P, S> {
-        static propTypes: ValidationMap<any>;
-        static contextTypes: ValidationMap<any>;
-        static childContextTypes: ValidationMap<any>;
-        static defaultProps: Props<any>;
-
         constructor(props?: P, context?: any);
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
@@ -147,6 +142,13 @@ declare namespace __React {
     //
     // Class Interfaces
     // ----------------------------------------------------------------------
+
+    interface StatelessComponent<P> {
+        (props?: P, context?: any): ReactElement<any>;
+        propTypes?: ValidationMap<P>;
+        contextTypes?: ValidationMap<any>;
+        defaultProps?: P;
+    }
 
     interface ComponentClass<P> {
         new(props?: P, context?: any): Component<P, any>;
@@ -325,6 +327,7 @@ declare namespace __React {
         defaultChecked?: boolean;
         defaultValue?: string | string[];
     }
+
     interface SVGProps extends SVGAttributes, Props<SVGElement> {
     }
 
@@ -1001,6 +1004,7 @@ declare namespace JSX {
         defs: React.SVGProps;
         ellipse: React.SVGProps;
         g: React.SVGProps;
+        image: React.SVGProps;
         line: React.SVGProps;
         linearGradient: React.SVGProps;
         mask: React.SVGProps;
