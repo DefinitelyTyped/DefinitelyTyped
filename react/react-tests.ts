@@ -24,7 +24,6 @@ interface Props extends React.Props<MyComponent> {
     hello: string;
     world?: string;
     foo: number;
-    bar: boolean;
 }
 
 interface State {
@@ -48,8 +47,7 @@ var props: Props = {
     key: 42,
     ref: "myComponent42",
     hello: "world",
-    foo: 42,
-    bar: true
+    foo: 42
 };
 
 var container: Element;
@@ -61,11 +59,10 @@ var container: Element;
 var ClassicComponent: React.ClassicComponentClass<Props> =
     React.createClass<Props, State>({
         getDefaultProps() {
-            return <Props>{
+            return {
                 hello: undefined,
                 world: "peace",
-                foo: undefined,
-                bar: undefined,
+                foo: undefined
             };
         },
         getInitialState() {
@@ -87,7 +84,7 @@ var ClassicComponent: React.ClassicComponentClass<Props> =
     });
 
 class ModernComponent extends React.Component<Props, State>
-    implements React.ChildContextProvider<ChildContext> {
+    implements MyComponent, React.ChildContextProvider<ChildContext> {
     
     static propTypes: React.ValidationMap<Props> = {
         foo: React.PropTypes.number
@@ -100,8 +97,6 @@ class ModernComponent extends React.Component<Props, State>
     static childContextTypes: React.ValidationMap<ChildContext> = {
         someOtherValue: React.PropTypes.string
     }
-    
-    static defaultProps: Props;
     
     context: Context;
     
@@ -117,12 +112,14 @@ class ModernComponent extends React.Component<Props, State>
     }
     
     reset() {
+        this._myComponent.reset();
         this.setState({
             inputValue: this.context.someValue,
             seconds: this.props.foo
         });
     }
 
+    private _myComponent: MyComponent;
     private _input: HTMLInputElement;
     
     render() {
@@ -134,11 +131,31 @@ class ModernComponent extends React.Component<Props, State>
     }
 }
 
+interface SCProps extends React.Props<{}> {
+    foo?: number;
+}
+
+var StatelessComponent = (props: SCProps) => {
+    return React.DOM.div(null, props.foo);
+};
+
+// Must explicitly type-annotate to add defaultProps/contextTypes
+var StatelessComponent2: React.StatelessComponent<SCProps> =
+    (props: SCProps) => React.DOM.div(null, props.foo);
+StatelessComponent2.defaultProps = {
+    foo: 42
+};
+
 // React.createFactory
 var factory: React.Factory<Props> =
     React.createFactory(ModernComponent);
 var factoryElement: React.ReactElement<Props> =
     factory(props);
+
+var statelessFactory: React.Factory<SCProps> =
+    React.createFactory(StatelessComponent);
+var statelessElement: React.ReactElement<SCProps> =
+    statelessFactory(props);
 
 var classicFactory: React.ClassicFactory<Props> =
     React.createFactory(ClassicComponent);
@@ -153,6 +170,8 @@ var domFactoryElement: React.DOMElement<any> =
 // React.createElement
 var element: React.ReactElement<Props> =
     React.createElement(ModernComponent, props);
+var statelessElement: React.ReactElement<SCProps> =
+    React.createElement(StatelessComponent, props);
 var classicElement: React.ClassicElement<Props> =
     React.createElement(ClassicComponent, props);
 var domElement: React.ReactHTMLElement =
@@ -161,6 +180,8 @@ var domElement: React.ReactHTMLElement =
 // React.cloneElement
 var clonedElement: React.ReactElement<Props> =
     React.cloneElement(element, props);
+var clonedStatelessElement: React.ReactElement<SCProps> =
+    React.cloneElement(statelessElement, props);
 var clonedClassicElement: React.ClassicElement<Props> =
     React.cloneElement(classicElement, props);
 var clonedDOMElement: React.ReactHTMLElement =
@@ -214,6 +235,36 @@ classicComponent.replaceState({ inputValue: "???", seconds: 60 });
 
 var myComponent = <MyComponent>component;
 myComponent.reset();
+
+//
+// Refs
+// NB: to infer the correct type for callback refs, your component's Props
+// interface must extend React.Props<T> where T is your component type (or
+// an interface that it implements).
+// --------------------------------------------------------------------------
+
+interface RCProps extends React.Props<RefComponent> {
+}
+
+class RefComponent extends React.Component<RCProps, {}> {
+    static create = React.createFactory(RefComponent);
+    refMethod() {
+    }
+}
+
+var componentRef: RefComponent;
+RefComponent.create({ ref: "componentRef" });
+// type of c should be inferred
+RefComponent.create({ ref: c => componentRef = c });
+componentRef.refMethod();
+
+var domNodeRef: Element;
+React.DOM.div({ ref: "domRef" });
+// type of node should be inferred
+React.DOM.div({ ref: node => domNodeRef = node });
+
+var inputNodeRef: HTMLInputElement;
+React.DOM.input({ ref: node => inputNodeRef = <HTMLInputElement>node });
 
 //
 // Attributes
