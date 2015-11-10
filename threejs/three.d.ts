@@ -1,7 +1,7 @@
 // Type definitions for three.js r71
 // Project: http://mrdoob.github.com/three.js/
 // Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped  
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface WebGLRenderingContext {}
 
@@ -357,26 +357,77 @@ declare module THREE {
     }
 
     // Core ///////////////////////////////////////////////////////////////////////////////////////////////
-    export class BufferAttribute {
-        constructor(array: any, itemSize: number); // array parameter should be TypedArray.
 
-        array: number[];
-        itemSize: number;
-        needsUpdate: boolean;
+    /**
+     * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/InterleavedBuffer.js">src/core/InterleavedBuffer.js</a>
+     */
+    export class InterleavedBuffer {
+        constructor(array: ArrayLike<number>, stride: number);
+        array: ArrayLike<number>;
+        stride: number;
+        dynamic: boolean;
+        updateRange: {offset:number, count:number};
+        version: number;
         length: number;
+        count: number;
+        needsUpdate: boolean;
 
-        copyAt(index1: number, attribute: BufferAttribute, index2: number): void;
-        set(value: number, offset?: number): BufferAttribute;
+        setDynamic(dynamic: boolean): InterleavedBuffer;
+        copy(source: InterleavedBuffer): void;
+        copyAt(index1: number, attribute: InterleavedBufferAttribute, index2: number): InterleavedBuffer;
+        set(value: ArrayLike<number>, index: number): InterleavedBuffer;
+        clone(): InterleavedBuffer;
+    }
+
+    /**
+     * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/InstancedInterleavedBuffer.js">src/core/InstancedInterleavedBuffer.js</a>
+     */
+    export class InstancedInterleavedBuffer extends InterleavedBuffer {
+        constructor(array: ArrayLike<number>, stride: number, meshPerAttribute?: number);
+        meshPerAttribute: number;
+        copy(source: InstancedInterleavedBuffer): InstancedInterleavedBuffer;
+    }
+
+    /**
+     * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/BufferAttribute.js">src/core/BufferAttribute.js</a>
+     */
+    export class BufferAttribute {
+        constructor(array: ArrayLike<number>, itemSize: number); // array parameter should be TypedArray.
+
+        array: ArrayLike<number>;
+        itemSize: number;
+        dynamic: boolean;
+        updateRange: {offset:number, count:number};
+        needsUpdate: boolean;
+        /** Deprecated, use count instead */
+        length: number;
+        count: number;
+
+        setDynamic(dynamic: boolean): BufferAttribute;
+        copy(source: BufferAttribute): BufferAttribute;
+        copyAt(index1: number, attribute: BufferAttribute, index2: number): BufferAttribute;
+        copyArray(array: ArrayLike<number>): BufferAttribute;
+        copyColorArray(colors: {r:number, g:number, b:number}[]): BufferAttribute;
+        copyIndicesArray(indices: {a:number, b:number, c:number}[]): BufferAttribute;
+        copyVector2sArray(vectors: {x:number, y:number}[]): BufferAttribute;
+        copyVector3sArray(vectors: {x:number, y:number, z:number}[]): BufferAttribute;
+        copyVector4sArray(vectors: {x:number, y:number, z:number, w:number}[]): BufferAttribute;
+        set(value: ArrayLike<number>, offset?: number): BufferAttribute;
+        getX(index: number): number;
         setX(index: number, x: number): BufferAttribute;
+        getY(index: number): number;
         setY(index: number, y: number): BufferAttribute;
+        getZ(index: number): number;
         setZ(index: number, z: number): BufferAttribute;
+        getW(index: number): number;
+        setW(index: number, z: number): BufferAttribute;
         setXY(index: number, x: number, y: number): BufferAttribute;
         setXYZ(index: number, x: number, y: number, z: number): BufferAttribute;
         setXYZW(index: number, x: number, y: number, z: number, w: number): BufferAttribute;
         clone(): BufferAttribute;
     }
 
-    // deprecated
+    // deprecated (are these actually deprecated?)
     export class Int8Attribute extends BufferAttribute{
         constructor(data: any, itemSize: number);
     }
@@ -422,6 +473,42 @@ declare module THREE {
     }
 
     /**
+     * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/InstancedBufferAttribute.js">src/core/InstancedBufferAttribute.js</a>
+     */
+    export class InstancedBufferAttribute extends BufferAttribute {
+        constructor(data: ArrayLike<number>, itemSize: number, meshPerAttribute?: number);
+        meshPerAttribute: number;
+        copy(source: InstancedBufferAttribute): InstancedBufferAttribute;
+    }
+
+    /**
+     * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/InterleavedBufferAttribute.js">src/core/InterleavedBufferAttribute.js</a>
+     */
+    export class InterleavedBufferAttribute {
+        constructor(interleavedBuffer: InterleavedBuffer, itemSize: number, offset: number);
+
+        uuid: string;
+        data: InterleavedBuffer;
+        itemSize: number;
+        offset: number;
+        /** Deprecated, use count instead */
+        length: number;
+        count: number;
+
+        getX(index: number): number;
+        setX(index: number, x: number): InterleavedBufferAttribute;
+        getY(index: number): number;
+        setY(index: number, y: number): InterleavedBufferAttribute;
+        getZ(index: number): number;
+        setZ(index: number, z: number): InterleavedBufferAttribute;
+        getW(index: number): number;
+        setW(index: number, z: number): InterleavedBufferAttribute;
+        setXY(index: number, x: number, y: number): InterleavedBufferAttribute;
+        setXYZ(index: number, x: number, y: number, z: number): InterleavedBufferAttribute;
+        setXYZW(index: number, x: number, y: number, z: number, w: number): InterleavedBufferAttribute;
+    }
+
+    /**
      * This is a superefficent class for geometries because it saves all data in buffers.
      * It reduces memory costs and cpu cycles. But it is not as easy to work with because of all the nessecary buffer calculations.
      * It is mainly interesting when working with static objects.
@@ -434,6 +521,8 @@ declare module THREE {
          */
         constructor();
 
+        static MaxIndex: number;
+
         /**
          * Unique number of this buffergeometry instance
          */
@@ -441,26 +530,49 @@ declare module THREE {
         uuid: string;
         name: string;
         type: string;
-        attributes: BufferAttribute[];
+        attributes: BufferAttribute|InterleavedBufferAttribute[];
         attributesKeys: string[];
+        /** Deprecated. Use groups instead. */
         drawcalls: { start: number; count: number; index: number; }[];
+        /** Deprecated. Use groups instead. */
         offsets: { start: number; count: number; index: number; }[];
+        groups: {start: number, count: number, materialIndex?: number}[]
         boundingBox: Box3;
         boundingSphere: BoundingSphere;
-
-        addAttribute(name: string, attribute: BufferAttribute): any;
+        /** Deprecated. This overloaded method is deprecated. */
         addAttribute(name: string, array: any, itemSize: number): any;
-        getAttribute(name: string): any;
+        addAttribute(name: string, attribute: BufferAttribute|InterleavedBufferAttribute): void;
+        getAttribute(name: string): BufferAttribute|InterleavedBufferAttribute;
+        removeAttribute(name: string): void;
+
+        setIndex(index: BufferAttribute): void;
+        getIndex(): BufferAttribute;
+
+        /** Deprecated. Use addGroup */
         addDrawCall(start: number, count: number, index: number): void;
+        addGroup(start: number, count: number, materialIndex?: number): void;
+        clearGroups(): void;
+
+        setDrawRange(start:number, count:number): void;
 
         /**
          * Bakes matrix transform directly into vertex coordinates.
          */
         applyMatrix(matrix: Matrix4): void;
 
+        rotateX(angle: number): BufferGeometry;
+        rotateY(angle: number): BufferGeometry;
+        rotateZ(angle: number): BufferGeometry;
+        translate(x:number, y:number, z:number): BufferGeometry;
+        scale(x:number, y:number, z:number): BufferGeometry;
+        lookAt(v:Vector3): void;
+
         center(): Vector3;
 
-        fromGeometry( geometry: Geometry, settings?: any ): BufferGeometry;
+        setFromObject(object: Object3D) : void;
+        updateFromObject(object: Object3D) : void;
+
+        fromGeometry(geometry: Geometry, settings?: any): BufferGeometry;
 
         /**
          * Computes bounding box of the geometry, updating Geometry.boundingBox attribute.
@@ -508,6 +620,49 @@ declare module THREE {
         hasEventListener(type: string, listener: (event: any) => void): void;
         removeEventListener(type: string, listener: (event: any) => void): void;
         dispatchEvent(event: { type: string; target: any; }): void;
+    }
+
+    /**
+     * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/InstancedBufferGeometry.js">src/core/InstancedBufferGeometry.js</a>
+     */
+    export class InstancedBufferGeometry extends BufferGeometry {
+        constructor();
+        groups: {start:number, count:number, instances:number}[];
+        addGroup(start: number, count: number, instances: number): void;
+        copy(source: InstancedBufferGeometry): InstancedBufferGeometry;
+    }
+
+    /**
+     * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/DirectGeometry.js">src/core/DirectGeometry.js</a>
+     */
+    export class DirectGeometry {
+        constructor();
+        id: number;
+        uuid: string;
+        name: string;
+        type: string;
+        indices: number[];
+        vertices: Vector3[];
+        normals: Vector3[];
+        colors: Color[];
+        uvs: Vector2[];
+        uvs2: Vector2[];
+        groups: {start: number, materialIndex: number}[];
+        morphTargets: MorphTarget[];
+        skinWeights: number[];
+        skinIndices: number[];
+        boundingBox: Box3;
+        boundingSphere: BoundingSphere;
+        verticesNeedUpdate: boolean;
+        normalsNeedUpdate: boolean;
+        colorsNeedUpdate: boolean;
+        uvsNeedUpdate: boolean;
+        groupsNeedUpdate: boolean;
+        computeBoundingBox(): void;
+        computeBoundingSphere(): void;
+        computeGroups(geometry: Geometry): void;
+        fromGeometry(geometry: Geometry): DirectGeometry;
+        dispose(): void;
     }
 
     /**
@@ -570,6 +725,9 @@ declare module THREE {
         getDelta(): number;
     }
 
+    /**
+     * Deprecated. Use new THREE.BufferAttribute().setDynamic(true) instead.
+     */
     export class DynamicBufferAttribute extends BufferAttribute{
         constructor(array: any, itemSize: number);
 
@@ -586,21 +744,21 @@ declare module THREE {
      *
      * # Example
      *     var Car = function () {
-     *     
+     *
      *         EventDispatcher.call( this );
      *         this.start = function () {
-     *     
+     *
      *             this.dispatchEvent( { type: 'start', message: 'vroom vroom!' } );
-     *     
+     *
      *         };
-     *     
+     *
      *     };
      *
      *     var car = new Car();
      *     car.addEventListener( 'start', function ( event ) {
-     *     
+     *
      *         alert( event.message );
-     *     
+     *
      *     } );
      *     car.start();
      *
@@ -1213,7 +1371,7 @@ declare module THREE {
          * Searches through the object's children and returns the first with a matching id, optionally recursive.
          * @param id  Unique number of the object instance
          */
-        getObjectById(id: string): Object3D;
+        getObjectById(id: number): Object3D;
 
         /**
          * Searches through the object's children and returns the first with a matching name, optionally recursive.
@@ -1222,7 +1380,7 @@ declare module THREE {
         getObjectByName(name: string): Object3D;
 
         getObjectByProperty( name: string, value: string ): Object3D;
-        
+
         getWorldPosition(optionalTarget?: Vector3): Vector3;
         getWorldQuaternion(optionalTarget?: Quaternion): Quaternion;
         getWorldRotation(optionalTarget?: Euler): Euler;
@@ -1744,16 +1902,16 @@ declare module THREE {
         add(regex:string, loader:Loader):void;
         get(file: string):Loader;
     }
-    
+
     export class BinaryTextureLoader {
         constructor();
-        
+
         load(url: string, onLoad: (dataTexture: DataTexture) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
     }
 
     export class BufferGeometryLoader {
         constructor(manager?: LoadingManager);
-        
+
         manager: LoadingManager;
         load(url: string, onLoad: (bufferGeometry: BufferGeometry) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
         setCrossOrigin(crossOrigin: string): void;
@@ -1891,10 +2049,10 @@ declare module THREE {
      */
     export class TextureLoader {
         constructor(manager?: LoadingManager);
-        
+
         manager: LoadingManager;
         crossOrigin: string;
-        
+
         /**
          * Begin loading from url
          *
@@ -3313,8 +3471,8 @@ declare module THREE {
          */
         multiplyQuaternions(a: Quaternion, b: Quaternion): Quaternion;
 
-        /** 
-          * Deprecated. Use Vector3.applyQuaternion instead 
+        /**
+          * Deprecated. Use Vector3.applyQuaternion instead
           */
         multiplyVector3(vector: Vector3): Vector3;
         slerp(qb: Quaternion, t: number): Quaternion;
@@ -4119,6 +4277,21 @@ declare module THREE {
         clone(object?: Line): Line;
     }
 
+    export class LineSegments extends Line {
+        constructor(geometry?: Geometry, material?: LineDashedMaterial);
+        constructor(geometry?: Geometry, material?: LineBasicMaterial);
+        constructor(geometry?: Geometry, material?: ShaderMaterial);
+        constructor(geometry?: BufferGeometry, material?: LineDashedMaterial);
+        constructor(geometry?: BufferGeometry, material?: LineBasicMaterial);
+        constructor(geometry?: BufferGeometry, material?: ShaderMaterial);
+
+        geometry: any; // Geometry or BufferGeometry;
+        material: Material; // LineDashedMaterial or LineBasicMaterial or ShaderMaterial
+
+        raycast(raycaster: Raycaster, intersects: any): void;
+        clone(object?: LineSegments): LineSegments;
+    }
+
     enum LineMode{}
     var LineStrip: LineMode;
     var LinePieces: LineMode;
@@ -4245,7 +4418,7 @@ declare module THREE {
         normalizeSkinWeights(): void;
         updateMatrixWorld(force?: boolean): void;
         clone(object?: SkinnedMesh): SkinnedMesh;
-        
+
         skeleton: Skeleton;
     }
 
@@ -5670,8 +5843,8 @@ declare module THREE {
             heightScale: number;
         };
     }
-    
-    
+
+
     export class TubeGeometry extends Geometry {
         constructor(path: Path, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean, taper?: (u: number) => number);
 
@@ -5690,7 +5863,7 @@ declare module THREE {
         static NoTaper(u?: number): number;
         static SinusoidalTaper(u: number): number;
         static FrenetFrames(path: Path, segments: number, closed: boolean): void;
-        
+
     }
 
     // Extras / Helpers /////////////////////////////////////////////////////////////////////
