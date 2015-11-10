@@ -442,7 +442,7 @@ declare namespace  ReactNative {
          * Callback that is called when the text input's text changes.
          * Changed text is passed as an argument to the callback handler.
          */
-        onChangeText?: (text: string) => void
+        onChangeText?: ( text: string ) => void
 
         /**
          * Callback that is called when text input ends.
@@ -728,63 +728,6 @@ declare namespace  ReactNative {
         /// TODO
     }
 
-    /**
-     * @see https://facebook.github.io/react-native/docs/navigator.html#content
-     */
-    export interface NavigatorProperties extends React.Props<Navigator> {
-        /**
-         * Optional function that allows configuration about scene animations and gestures.
-         * Will be invoked with the route and should return a scene configuration object
-         * @param route
-         */
-        configureScene?: ( route: Route ) => SceneConfig
-        /**
-         * Specify a route to start on.
-         * A route is an object that the navigator will use to identify each scene to render.
-         * initialRoute must be a route in the initialRouteStack if both props are provided.
-         * The initialRoute will default to the last item in the initialRouteStack.
-         */
-        initialRoute?: Route
-        /**
-         * Provide a set of routes to initially mount.
-         * Required if no initialRoute is provided.
-         * Otherwise, it will default to an array containing only the initialRoute
-         */
-        initialRouteStack?: Route[]
-
-        /**
-         * Optionally provide a navigation bar that persists across scene transitions
-         */
-        navigationBar?: NavigationBar
-
-        /**
-         * Optionally provide the navigator object from a parent Navigator
-         */
-        navigator?: Navigator
-
-        /**
-         * @deprecated Use navigationContext.addListener('willfocus', callback) instead.
-         */
-        onDidFocus?: Function
-
-        /**
-         * @deprecated Use navigationContext.addListener('willfocus', callback) instead.
-         */
-        onWillFocus?: Function
-
-        /**
-         * Required function which renders the scene for a given route.
-         * Will be invoked with the route and the navigator object
-         * @param route
-         * @param navigator
-         */
-        renderScene: ( route: Route, navigator: Navigator ) => React.ComponentClass<ViewProperties>
-
-        /**
-         * Styles to apply to the container of each scene
-         */
-        sceneStyle: ViewStyle
-    }
 
     export interface NavigatorIOSProperties extends React.Props<NavigatorIOSStatic> {
 
@@ -843,7 +786,7 @@ declare namespace  ReactNative {
         /**
          * Navigate forward to a new route
          */
-        push: (route: Route) => void
+        push: ( route: Route ) => void
 
         /**
          * Go back one page
@@ -853,32 +796,32 @@ declare namespace  ReactNative {
         /**
          * Go back N pages at once. When N=1, behavior matches pop()
          */
-        popN: (n: number) => void
+        popN: ( n: number ) => void
 
         /**
          * Replace the route for the current page and immediately load the view for the new route
          */
-        replace: (route: Route) => void
+        replace: ( route: Route ) => void
 
         /**
          * Replace the route/view for the previous page
          */
-        replacePrevious: (route: Route) => void
+        replacePrevious: ( route: Route ) => void
 
         /**
          * Replaces the previous route/view and transitions back to it
          */
-        replacePreviousAndPop: (route: Route) => void
+        replacePreviousAndPop: ( route: Route ) => void
 
         /**
          * Replaces the top item and popToTop
          */
-        resetTo: (route: Route) => void
+        resetTo: ( route: Route ) => void
 
         /**
          * Go back to the item for a particular route object
          */
-        popToRoute(route: Route): void
+        popToRoute( route: Route ): void
 
         /**
          * Go back to the top item
@@ -887,7 +830,6 @@ declare namespace  ReactNative {
     }
 
     export interface NavigatorIOSStatic extends NavigationIOS, React.ComponentClass<NavigatorIOSProperties> {
-
     }
 
 
@@ -979,7 +921,7 @@ declare namespace  ReactNative {
     /**
      * @see https://facebook.github.io/react-native/docs/image.html
      */
-    export interface ImageProperties  extends React.Props<Image> {
+    export interface ImageProperties extends React.Props<Image> {
         /**
          * onLayout function
          *
@@ -1065,7 +1007,7 @@ declare namespace  ReactNative {
     /**
      * @see https://facebook.github.io/react-native/docs/listview.html#props
      */
-    export interface ListViewProperties extends ScrollViewProperties, React.Props<ListViewStatic>{
+    export interface ListViewProperties extends ScrollViewProperties, React.Props<ListViewStatic> {
 
         dataSource?: ListViewDataSource
 
@@ -1085,7 +1027,7 @@ declare namespace  ReactNative {
          * that have changed their visibility, with true indicating visible, and
          * false indicating the view has moved out of view.
          */
-        onChangeVisibleRows?: (visibleRows: Array<{[sectionId: string]: {[rowID: string]: boolean}}>, changedRows: Array<{[sectionId: string]: {[rowID: string]: boolean}}>) => void
+        onChangeVisibleRows?: ( visibleRows: Array<{[sectionId: string]: {[rowID: string]: boolean}}>, changedRows: Array<{[sectionId: string]: {[rowID: string]: boolean}}> ) => void
 
         /**
          * Called when all rows have been rendered and the list has been scrolled
@@ -1138,14 +1080,14 @@ declare namespace  ReactNative {
          * is exactly what was put into the data source, but it's also possible to
          * provide custom extractors.
          */
-        renderRow?: (rowData: any, sectionID: string, rowID: string, highlightRow?: boolean) => React.ReactElement<any>
+        renderRow?: ( rowData: any, sectionID: string, rowID: string, highlightRow?: boolean ) => React.ReactElement<any>
 
 
         /**
          * A function that returns the scrollable component in which the list rows are rendered.
          * Defaults to returning a ScrollView with the given props.
          */
-        renderScrollComponent?: (props: ScrollViewProperties) => React.ReactElement<ScrollViewProperties>
+        renderScrollComponent?: ( props: ScrollViewProperties ) => React.ReactElement<ScrollViewProperties>
 
         /**
          * (sectionData, sectionID) => renderable
@@ -1156,7 +1098,7 @@ declare namespace  ReactNative {
          * stick to the top until it is pushed off the screen by the next section
          * header.
          */
-        renderSectionHeader?: (sectionData: any, sectionId: string) => React.ReactElement<any>
+        renderSectionHeader?: ( sectionData: any, sectionId: string ) => React.ReactElement<any>
 
 
         /**
@@ -1165,7 +1107,7 @@ declare namespace  ReactNative {
          * but not the last row if there is a section header below.
          * Take a sectionID and rowID of the row above and whether its adjacent row is highlighted.
          */
-        renderSeparator?: (sectionID: string, rowID: string, adjacentRowHighlighted?: boolean) => React.ReactElement<any>
+        renderSeparator?: ( sectionID: string, rowID: string, adjacentRowHighlighted?: boolean ) => React.ReactElement<any>
 
         /**
          * How early to start rendering rows before they come on screen, in
@@ -1177,7 +1119,6 @@ declare namespace  ReactNative {
     export interface ListViewStatic extends React.ComponentClass<ListViewProperties> {
         DataSource: ListViewDataSource;
     }
-
 
 
     /**
@@ -1237,7 +1178,7 @@ declare namespace  ReactNative {
 
     }
 
-    export interface TouchableWithoutFeedbackStatic  extends React.ComponentClass<TouchableWithoutFeedbackProps> {
+    export interface TouchableWithoutFeedbackStatic extends React.ComponentClass<TouchableWithoutFeedbackProps> {
 
     }
 
@@ -1304,7 +1245,6 @@ declare namespace  ReactNative {
     }
 
 
-
     export interface LeftToRightGesture {
 
     }
@@ -1346,53 +1286,201 @@ declare namespace  ReactNative {
 
     export interface Route {
         component?: ComponentClass<ViewProperties>
-        id?: string;
-        title?: string;
+        id?: string
+        title?: string
         passProps?: Object;
 
         //anything else
         [key: string]: any
 
         //Commonly found properties
-        backButtonTitle?: string;
-        rightButtonTitle?: string;
-        onRightButtonPress?: () => void;
-        wrapperStyle?: any; //FIXME needs typing
-        index?: number;
+        backButtonTitle?: string
+        content?: string
+        message?: string;
+        index?: number
+        onRightButtonPress?: () => void
+        rightButtonTitle?: string
+        sceneConfig?: SceneConfig
+        wrapperStyle?: any
     }
 
+
     /**
-     * @see
+     * @see https://facebook.github.io/react-native/docs/navigator.html#content
      */
-    export interface NavigatorBarProperties {
+    export interface NavigatorProperties extends React.Props<Navigator> {
+        /**
+         * Optional function that allows configuration about scene animations and gestures.
+         * Will be invoked with the route and should return a scene configuration object
+         * @param route
+         */
+        configureScene?: ( route: Route ) => SceneConfig
+        /**
+         * Specify a route to start on.
+         * A route is an object that the navigator will use to identify each scene to render.
+         * initialRoute must be a route in the initialRouteStack if both props are provided.
+         * The initialRoute will default to the last item in the initialRouteStack.
+         */
+        initialRoute?: Route
+        /**
+         * Provide a set of routes to initially mount.
+         * Required if no initialRoute is provided.
+         * Otherwise, it will default to an array containing only the initialRoute
+         */
+        initialRouteStack?: Route[]
 
-    }
+        /**
+         * Optionally provide a navigation bar that persists across scene transitions
+         */
+        navigationBar?: React.ReactElement<NavigatorStatic.NavigationBarProperties>
 
-    export interface NavigationBar extends React.ComponentClass<NavigatorBarProperties> {
+        /**
+         * Optionally provide the navigator object from a parent Navigator
+         */
+        navigator?: Navigator
+
+        /**
+         * @deprecated Use navigationContext.addListener('willfocus', callback) instead.
+         */
+        onDidFocus?: Function
+
+        /**
+         * @deprecated Use navigationContext.addListener('willfocus', callback) instead.
+         */
+        onWillFocus?: Function
+
+        /**
+         * Required function which renders the scene for a given route.
+         * Will be invoked with the route and the navigator object
+         * @param route
+         * @param navigator
+         */
+        renderScene?: ( route: Route, navigator: Navigator ) => React.ReactElement<ViewProperties>
+
+        /**
+         * Styles to apply to the container of each scene
+         */
+        sceneStyle?: ViewStyle
+
+        /**
+         * //FIXME: not found in doc but found in examples
+         */
+        debugOverlay?: boolean
 
     }
 
     /**
+     * Use Navigator to transition between different scenes in your app.
+     * To accomplish this, provide route objects to the navigator to identify each scene,
+     * and also a renderScene function that the navigator can use to render the scene for a given route.
+     *
+     * To change the animation or gesture properties of the scene, provide a configureScene prop to get the config object for a given route.
+     * See Navigator.SceneConfigs for default animations and more info on scene config options.
      * @see https://facebook.github.io/react-native/docs/navigator.html
      */
     export interface NavigatorStatic extends React.ComponentClass<NavigatorProperties> {
         SceneConfigs: SceneConfigs;
-        NavigationBar: NavigationBar;
+        NavigationBar: NavigatorStatic.NavigationBar;
+
         getContext( self: any ): NavigatorStatic;
 
+        /**
+         * returns the current list of routes
+         */
         getCurrentRoutes(): Route[];
+
+        /**
+         * Jump backward without unmounting the current scen
+         */
         jumpBack(): void;
+
+        /**
+         * Jump forward to the next scene in the route stack
+         */
         jumpForward(): void;
+
+        /**
+         * Transition to an existing scene without unmounting
+         */
         jumpTo( route: Route ): void;
+
+        /**
+         * Navigate forward to a new scene, squashing any scenes that you could jumpForward to
+         */
         push( route: Route ): void;
+
+        /**
+         * Transition back and unmount the current scene
+         */
         pop(): void;
+
+        /**
+         * Replace the current scene with a new route
+         */
         replace( route: Route ): void;
+
+        /**
+         * Replace a scene as specified by an index
+         */
         replaceAtIndex( route: Route, index: number ): void;
+
+        /**
+         *  Replace the previous scene
+         */
         replacePrevious( route: Route ): void;
+
+        /**
+         * Reset every scene with an array of routes
+         */
         immediatelyResetRouteStack( routes: Route[] ): void;
+
+        /**
+         * Pop to a particular scene, as specified by its route. All scenes after it will be unmounted
+         */
         popToRoute( route: Route ): void;
+
+        /**
+         * Pop to the first scene in the stack, unmounting every other scene
+         */
         popToTop(): void;
     }
+
+    module NavigatorStatic {
+
+
+        export interface NavState {
+            routeStack: Route[]
+            idStack: number[]
+            presentedIndex: number
+        }
+
+        export interface NavigationBarStyle {
+            //TODO @see NavigationBarStyle.ios.js
+        }
+
+        /**
+         * @see NavigatorNavigationBar.js
+         */
+        export interface NavigationBarProperties extends React.Props<NavigationBar>{
+            navigator?: Navigator
+            routeMapper?: ({
+                Title: ( route: Route, nav: Navigator, index: number, navState: NavState ) => React.ReactElement<any>;
+                LeftButton: ( route: Route, nav: Navigator, index: number, navState: NavState )=> React.ReactElement<any>;
+                RightButton: ( route: Route, nav: Navigator, index: number, navState: NavState )=> React.ReactElement<any>;
+            })
+            navState?: NavState
+            style?: ViewStyle
+        }
+
+        export interface NavigationBarStatic extends React.ComponentClass<NavigationBarProperties> {
+            Styles?: NavigationBarStyle
+
+        }
+
+        export var NavigationBar: NavigationBarStatic
+        export type NavigationBar = NavigationBarStatic
+    }
+
 
     export interface StyleSheetStatic extends React.ComponentClass<StyleSheetProperties> {
         create<T>( styles: T ): T;
@@ -1961,30 +2049,56 @@ declare namespace  ReactNative {
     // exported singletons:
     // export var AppRegistry: AppRegistryStatic;
     export var AsyncStorage: AsyncStorageStatic;
+    export type AsyncStorage = AsyncStorageStatic;
+
     export var CameraRoll: CameraRollStatic;
+    export type CameraRoll = CameraRollStatic;
+
     export var Image: ImageStatic;
     export type Image = ImageStatic;
+
     export var ListView: ListViewStatic;
-    export type Navigator = NavigatorStatic;
+    export type ListView = ListViewStatic;
+
     export var Navigator: NavigatorStatic;
+    export type Navigator = NavigatorStatic;
+
     export var NavigatorIOS: NavigatorIOSStatic;
+    export type NavigatorIOS = NavigatorIOSStatic;
+
     export var SliderIOS: SliderIOSStatic;
+    export type SliderIOS = SliderIOSStatic;
+
     export var ScrollView: ScrollViewStatic
+    export type ScrollView = ScrollViewStatic
+
     export var StyleSheet: StyleSheetStatic;
+    export type StyleSheet = StyleSheetStatic;
+
     export var TabBarIOS: TabBarIOSStatic;
     export type TabBarIOS = TabBarIOSStatic;
+
     export var Text: TextStatic;
+    export type Text = TextStatic;
+
     export var TextInput: TextInputStatic
+    export type TextInput = TextInputStatic
+
     export var TouchableHighlight: TouchableHighlightStatic;
-    export var TouchableOpacity:TouchableOpacityStatic;
+    export type TouchableHighlight = TouchableHighlightStatic;
+
+    export var TouchableOpacity: TouchableOpacityStatic;
+    export type TouchableOpacity = TouchableOpacityStatic;
+
     export var TouchableWithoutFeedback: TouchableWithoutFeedbackStatic;
+    export type TouchableWithoutFeedback= TouchableWithoutFeedbackStatic;
+
     export var View: ViewStatic;
+    export type View = ViewStatic;
 
     export var AlertIOS: React.ComponentClass<AlertIOSProperties>;
     export var SegmentedControlIOS: React.ComponentClass<SegmentedControlIOSProperties>;
     export var SwitchIOS: React.ComponentClass<SwitchIOSProperties>;
-
-
     export var ActivityIndicatorIOS: React.ComponentClass<ActivityIndicatorIOSProperties>;
     export var PixelRatio: PixelRatioStatic;
     export var DeviceEventEmitter: DeviceEventEmitterStatic;
@@ -2242,3 +2356,5 @@ declare module "Dimensions" {
 }
 
 declare var global: ReactNative.GlobalStatic
+
+declare function require(name: string): any
