@@ -1380,7 +1380,8 @@ declare namespace  ReactNative {
      */
     export interface NavigatorStatic extends React.ComponentClass<NavigatorProperties> {
         SceneConfigs: SceneConfigs;
-        NavigationBar: NavigatorStatic.NavigationBar;
+        NavigationBar: NavigatorStatic.NavigationBarStatic;
+        BreadcrumbNavigationBar: NavigatorStatic.BreadcrumbNavigationBarStatic
 
         getContext( self: any ): NavigatorStatic;
 
@@ -1443,9 +1444,10 @@ declare namespace  ReactNative {
          * Pop to the first scene in the stack, unmounting every other scene
          */
         popToTop(): void;
+
     }
 
-    module NavigatorStatic {
+    namespace NavigatorStatic {
 
 
         export interface NavState {
@@ -1458,27 +1460,61 @@ declare namespace  ReactNative {
             //TODO @see NavigationBarStyle.ios.js
         }
 
+
+        export interface NavigationBarRouteMapper {
+            Title: ( route: Route, nav: Navigator, index: number, navState: NavState ) => React.ReactElement<any>;
+            LeftButton: ( route: Route, nav: Navigator, index: number, navState: NavState )=> React.ReactElement<any>;
+            RightButton: ( route: Route, nav: Navigator, index: number, navState: NavState )=> React.ReactElement<any>;
+        }
+
         /**
          * @see NavigatorNavigationBar.js
          */
-        export interface NavigationBarProperties extends React.Props<NavigationBar>{
+        export interface NavigationBarProperties extends React.Props<NavigationBarStatic>{
             navigator?: Navigator
-            routeMapper?: ({
-                Title: ( route: Route, nav: Navigator, index: number, navState: NavState ) => React.ReactElement<any>;
-                LeftButton: ( route: Route, nav: Navigator, index: number, navState: NavState )=> React.ReactElement<any>;
-                RightButton: ( route: Route, nav: Navigator, index: number, navState: NavState )=> React.ReactElement<any>;
-            })
+            routeMapper?: NavigationBarRouteMapper
             navState?: NavState
             style?: ViewStyle
         }
 
         export interface NavigationBarStatic extends React.ComponentClass<NavigationBarProperties> {
-            Styles?: NavigationBarStyle
+            Styles: NavigationBarStyle
 
         }
 
-        export var NavigationBar: NavigationBarStatic
         export type NavigationBar = NavigationBarStatic
+        export var NavigationBar: NavigationBarStatic
+
+
+        export interface BreadcrumbNavigationBarStyle {
+            //TODO &see NavigatorBreadcrumbNavigationBar.js
+        }
+
+        export interface BreadcrumbNavigationBarRouteMapper {
+            rightContentForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
+            titleContentForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
+            iconForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
+            //in samples...
+            separatorForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
+        }
+
+        /**
+         * @see NavigatorNavigationBar.js
+         */
+        export interface BreadcrumbNavigationBarProperties extends React.Props<BreadcrumbNavigationBarStatic>{
+            navigator?: Navigator
+            routeMapper?: BreadcrumbNavigationBarRouteMapper
+            navState?: NavState
+            style?: ViewStyle
+        }
+
+        export interface BreadcrumbNavigationBarStatic extends React.ComponentClass<BreadcrumbNavigationBarProperties> {
+            Styles: BreadcrumbNavigationBarStyle
+        }
+
+        export type BreadcrumbNavigationBar = BreadcrumbNavigationBarStatic
+        var BreadcrumbNavigationBar: BreadcrumbNavigationBarStatic
+
     }
 
 
@@ -2062,6 +2098,12 @@ declare namespace  ReactNative {
 
     export var Navigator: NavigatorStatic;
     export type Navigator = NavigatorStatic;
+
+    //export var NavigationBar: NavigationBarStatic
+    //export type NavigationBar = NavigationBarStatic
+
+    //export var BreadcrumbNavigationBar: BreadcrumbNavigationBarStatic
+    //export type BreadcrumbNavigationBar = BreadcrumbNavigationBarStatic
 
     export var NavigatorIOS: NavigatorIOSStatic;
     export type NavigatorIOS = NavigatorIOSStatic;
