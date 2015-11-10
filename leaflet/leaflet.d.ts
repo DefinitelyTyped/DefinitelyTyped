@@ -4176,6 +4176,11 @@ declare namespace L {
           * When this option is set, the TileLayer only loads tiles that are in the given geographical bounds.
           */
         bounds?: LatLngBounds;
+        
+        /**
+          * Custom keys may be specified in TileLayerOptions so they can be used in a provided URL template.
+          */
+        [additionalKeys: string]: any;
     }
 }
 
