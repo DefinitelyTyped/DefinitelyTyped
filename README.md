@@ -34,7 +34,7 @@ Please see the [contribution guide](http://definitelytyped.org/guides/contributi
 
 Here is are the [currently requested definitions](https://github.com/borisyankov/DefinitelyTyped/labels/Definition%3ARequest).
 
-## Licence
+## License
 
 This project is licensed under the MIT license.
 

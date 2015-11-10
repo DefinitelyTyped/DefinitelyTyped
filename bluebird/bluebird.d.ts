@@ -464,6 +464,11 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	static all<R>(values: Promise.Thenable<R[]>): Promise<R[]>;
 	// array with promises of value
 	static all<R>(values: Promise.Thenable<R>[]): Promise<R[]>;
+    // array with promises of different types
+	static all<T1, T2>(values: [Promise.Thenable<T1>, Promise.Thenable<T2>]): Promise<[T1, T2]>;
+	static all<T1, T2, T3>(values: [Promise.Thenable<T1>, Promise.Thenable<T2>, Promise.Thenable<T3>]): Promise<[T1, T2, T3]>;
+	static all<T1, T2, T3, T4>(values: [Promise.Thenable<T1>, Promise.Thenable<T2>, Promise.Thenable<T3>, Promise.Thenable<T4>]): Promise<[T1, T2, T3, T4]>;
+	static all<T1, T2, T3, T4, T5>(values: [Promise.Thenable<T1>, Promise.Thenable<T2>, Promise.Thenable<T3>, Promise.Thenable<T4>, Promise.Thenable<T5>]): Promise<[T1, T2, T3, T4, T5]>;
 	// array with values
 	static all<R>(values: R[]): Promise<R[]>;
 
