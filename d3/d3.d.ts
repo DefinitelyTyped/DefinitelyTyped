@@ -2681,11 +2681,7 @@ declare module d3 {
     interface Dsv{
            (url: string,                           callback?: DsvCallback1<S>): DsvXhr<S>;
            (url: string,                           callback?: DsvCallback2<S>): DsvXhr<S>;
-           (url: string, accessor: DsvAccessor<S>, callback : DsvCallback1<S>): DsvXhr<S>;
-           (url: string, accessor: DsvAccessor<S>, callback : DsvCallback2<S>): DsvXhr<S>;
 
-        <T>(url: string,                           callback?: DsvCallback1<T>): DsvXhr<T>;
-        <T>(url: string,                           callback?: DsvCallback2<T>): DsvXhr<T>;
         <T>(url: string, accessor: DsvAccessor<T>, callback : DsvCallback1<T>): DsvXhr<T>;
         <T>(url: string, accessor: DsvAccessor<T>, callback : DsvCallback2<T>): DsvXhr<T>;
 
