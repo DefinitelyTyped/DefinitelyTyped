@@ -102,7 +102,7 @@ class IonicTestController {
     }
     private testGesture(): void {
         var gesture: ionic.gestures.IonicGesture = this.$ionicGesture.on(
-            'eventType', 
+            'eventType',
             (e)=>{ return e; },
             angular.element("body"),
             {}
@@ -226,7 +226,7 @@ class IonicTestController {
             cssClass: "cssClass",
             template: "template",
             templateUrl: "templateUrl",
-            okText: "OK", 
+            okText: "OK",
             okType: "okType"
         }).then(() => console.log("popover shown"))
         this.$ionicPopup.alert({
@@ -235,7 +235,7 @@ class IonicTestController {
             cssClass: "cssClass",
             template: "template",
             templateUrl: "templateUrl",
-            okText: "OK", 
+            okText: "OK",
             okType: "okType"
         }).close();
 
@@ -245,9 +245,9 @@ class IonicTestController {
             cssClass: "cssClass",
             template: "template",
             templateUrl: "templateUrl",
-            okText: "OK", 
+            okText: "OK",
             okType: "okType",
-            cancelText: "Cancel", 
+            cancelText: "Cancel",
             cancelType: "cancelType"
         }).then(() => console.log("popover shown"))
         this.$ionicPopup.confirm({
@@ -256,9 +256,9 @@ class IonicTestController {
             cssClass: "cssClass",
             template: "template",
             templateUrl: "templateUrl",
-            okText: "OK", 
+            okText: "OK",
             okType: "okType",
-            cancelText: "Cancel", 
+            cancelText: "Cancel",
             cancelType: "cancelType"
         }).close();
 
@@ -268,9 +268,9 @@ class IonicTestController {
             cssClass: "cssClass",
             template: "template",
             templateUrl: "templateUrl",
-            okText: "OK", 
+            okText: "OK",
             okType: "okType",
-            cancelText: "Cancel", 
+            cancelText: "Cancel",
             cancelType: "cancelType",
             inputType: "text",
             inputPlaceholder: "Type some text..."
@@ -281,9 +281,9 @@ class IonicTestController {
             cssClass: "cssClass",
             template: "template",
             templateUrl: "templateUrl",
-            okText: "OK", 
+            okText: "OK",
             okType: "okType",
-            cancelText: "Cancel", 
+            cancelText: "Cancel",
             cancelType: "cancelType",
             inputType: "text",
             inputPlaceholder: "Type some text..."
@@ -358,6 +358,41 @@ class IonicTestController {
     private testUtility(): void {
         var {top: number, left: number, width: number, height: number} = this.$ionicPositionService.position(angular.element("body"));
         var {top: number, left: number, width: number, height: number} = this.$ionicPositionService.offset(angular.element("body"));
+    }
+
+    /**
+     * ionic.version
+     */
+    private testStaticVersion(): void {
+        var version: string = ionic.version;
+    }
+
+    /**
+     * ionic.Platform
+     */
+    private testStaticPlaform(): void {
+        var callbackWithoutReturn: ()=>void;
+        var callbackWithReturn: ()=>boolean;
+        var ready: void = ionic.Platform.ready(callbackWithoutReturn);
+        ready = ionic.Platform.ready(callbackWithReturn);
+        var setGrade: void = ionic.Platform.setGrade('iOS');
+        var deviceInformation: string = ionic.Platform.device();
+        var isWebView: boolean = ionic.Platform.isWebView();
+        var isIPad: boolean = ionic.Platform.isIPad();
+        var isIOS: boolean = ionic.Platform.isIOS();
+        var isAndroid: boolean = ionic.Platform.isAndroid();
+        var isWindowsPhone: boolean = ionic.Platform.isWindowsPhone();
+        var currentPlatform: string = ionic.Platform.platform();
+        var currentPlatformVersion: number = ionic.Platform.version();
+        var exitApp: void = ionic.Platform.exitApp();
+        var showStatusBar: void = ionic.Platform.showStatusBar(true);
+        var showStatusBar: void = ionic.Platform.fullScreen();
+        showStatusBar = ionic.Platform.fullScreen(true);
+        showStatusBar = ionic.Platform.fullScreen(true, true);
+        var isReady: boolean = ionic.Platform.isReady;
+        var isFullScreen: boolean = ionic.Platform.isFullScreen;
+        var platforms: Array<string> = ionic.Platform.platforms;
+        var grade: string = ionic.Platform.grade;
     }
 }
 

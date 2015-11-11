@@ -1,4 +1,4 @@
-// Type definitions for Application Insights v0.15.1
+// Type definitions for Application Insights v0.15.7
 // Project: https://github.com/Microsoft/ApplicationInsights-node.js
 // Definitions by: Scott Southwood <https://github.com/scsouthw/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -342,6 +342,19 @@ interface Client {
     trackRequest(request: any /* http.ServerRequest */, response: any /* http.ServerResponse */, properties?: {
         [key: string]: string;
     }): void;
+    /**
+     * Log information about a dependency of your app. Typically used to track the time database calls or outgoing http requests take from your server.
+     * @param name   The name of the dependency (i.e. "myDatabse")
+     * @param commandname   The name of the command executed on the dependency
+     * @param elapsedTimeMs   The amount of time in ms that the dependency took to return the result
+     * @param success         True if the dependency succeeded, false otherwise
+     * @param dependencyTypeName  The type of the dependency (i.e. "SQL" "HTTP"). Defaults to empty.
+     * @param properties   map[string, string] - additional data used to filter events and metrics in the portal. Defaults to empty.
+     * @param dependencyKind   ContractsModule.DependencyKind of this dependency. Defaults to Other.
+     * @param async  True if the dependency was executed asynchronously, false otherwise. Defaults to false
+     * @param dependencySource  ContractsModule.DependencySourceType of this dependency. Defaults to Undefined. 
+     */
+    trackDependency(name: string, commandName: string, elapsedTimeMs: number, success: boolean, dependencyTypeName?: string, properties?: {}, dependencyKind?: any, async?: boolean, dependencySource?: number): void;
     /**
      * Immediately send all queued telemetry.
      */
