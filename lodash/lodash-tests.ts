@@ -3369,17 +3369,33 @@ module TestNow {
 /*************
  * Functions *
  *************/
-var saves = ['profile', 'settings'];
-var asyncSave = (obj: any) => obj.done();
-var done: Function;
 
-done = _.after(saves.length, function () {
-    console.log('Done saving!');
-});
+// _after
+module TestAfter {
+    interface Func {
+        (a: string, b: number): boolean;
+    }
 
-done = _(saves.length).after(function () {
-    console.log('Done saving!');
-}).value();
+    let func: Func;
+
+    {
+        let result: Func;
+
+        _.after(42, func);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<Func>;
+
+        _(42).after(func);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<Func>;
+
+        _(42).chain().after(func);
+    }
+}
 
 // _.ary
 result = <number[]>['6', '8', '10'].map(_.ary<(s: string) => number>(parseInt, 1));
