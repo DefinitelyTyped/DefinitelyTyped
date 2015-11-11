@@ -6,7 +6,7 @@
 /// <reference path="../es6-promise/es6-promise.d.ts" />
 /// <reference path="../bootbox/bootbox.d.ts" />
 
-interface IBootboxDialog {
+interface NgBootboxDialog {
 	title?: string;
 	message?: string;
 	templateUrl?: string;
@@ -22,7 +22,7 @@ interface IBootboxDialog {
 	buttons?: BootboxButtonMap;
 }
 
-interface IBootboxService {
+interface BootboxService {
 	alert(msg: string): Promise<any>;
 	confirm(msg: string): Promise<any>;
 	prompt(msg: string): Promise<any>;
@@ -35,4 +35,4 @@ interface IBootboxService {
 	setLocale(name: string): void;
 }
 
-declare var $ngBootbox: IBootboxService;
+declare var $ngBootbox: BootboxService;
