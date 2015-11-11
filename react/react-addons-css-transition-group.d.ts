@@ -7,8 +7,18 @@
 /// <reference path="react-addons-transition-group.d.ts" />
 
 declare namespace __React {
+    
+    interface CSSTransitionGroupTransitionName {
+        enter: string;
+        enterActive?: string;
+        leave: string;
+        leaveActive?: string;
+        appear?: string;
+        appearActive?: string;
+    }
+    
     interface CSSTransitionGroupProps extends TransitionGroupProps {
-        transitionName: string;
+        transitionName: string | CSSTransitionGroupTransitionName;
         transitionAppear?: boolean;
         transitionEnter?: boolean;
         transitionLeave?: boolean;

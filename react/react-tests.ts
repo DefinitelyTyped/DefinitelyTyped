@@ -462,6 +462,17 @@ React.createFactory(CSSTransitionGroup)({
     transitionLeave: true
 });
 
+React.createFactory(CSSTransitionGroup)({
+    transitionName: {
+        enter: "enter",
+        enterActive: "enterActive",
+        leave: "leave",
+        leaveActive: "leaveActive",
+        appear: "appear",
+        appearActive: "appearActive"
+    }
+});
+
 //
 // LinkedStateMixin addon
 // --------------------------------------------------------------------------
