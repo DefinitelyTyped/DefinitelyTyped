@@ -6009,16 +6009,44 @@ module TestMethod {
 }
 
 // _.methodOf
-class TestMethodOf {
-    a = [
-        (a1: number, a2: number) => a1 + a2
-    ];
+module TestMethodOf {
+    type SampleObject = {a: {b: () => TResult}[]};
+    type ResultFn = (path: _.StringRepresentable|_.StringRepresentable[]) => TResult;
+
+    let object: SampleObject;
+
+    {
+        let result: ResultFn;
+
+        result = _.methodOf<SampleObject, TResult>(object);
+        result = _.methodOf<SampleObject, TResult>(object, any);
+        result = _.methodOf<SampleObject, TResult>(object, any, any);
+        result = _.methodOf<SampleObject, TResult>(object, any, any, any);
+
+        result = _.methodOf<TResult>(object);
+        result = _.methodOf<TResult>(object, any);
+        result = _.methodOf<TResult>(object, any, any);
+        result = _.methodOf<TResult>(object, any, any, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<ResultFn>;
+
+        result = _(object).methodOf<TResult>();
+        result = _(object).methodOf<TResult>(any);
+        result = _(object).methodOf<TResult>(any, any);
+        result = _(object).methodOf<TResult>(any, any, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<ResultFn>;
+
+        result = _(object).chain().methodOf<TResult>();
+        result = _(object).chain().methodOf<TResult>(any);
+        result = _(object).chain().methodOf<TResult>(any, any);
+        result = _(object).chain().methodOf<TResult>(any, any, any);
+    }
 }
-var TestMethodOfObject = new TestMethodOf();
-result = <number>(_.methodOf<number>(TestMethodOfObject, 1, 2))('a[0]');
-result = <number>(_.methodOf<number>(TestMethodOfObject, 1, 2))(['a', '0']);
-result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())('a[0]');
-result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())(['a', '0']);
 
 // _.mixin
 module TestMixin {
