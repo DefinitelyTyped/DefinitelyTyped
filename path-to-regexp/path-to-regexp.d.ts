@@ -5,7 +5,7 @@
 
 declare module "path-to-regexp" {
 
-    function pathToRegexp(path: string, keys: string[], options?: pathToRegexp.Options): RegExp;
+    function pathToRegexp(path: string, keys?: string[], options?: pathToRegexp.Options): RegExp;
 
     module pathToRegexp {
 
@@ -14,7 +14,9 @@ declare module "path-to-regexp" {
             strict?: boolean;
             end?: boolean;
         }
+
     }
 
     export = pathToRegexp;
+
 }
