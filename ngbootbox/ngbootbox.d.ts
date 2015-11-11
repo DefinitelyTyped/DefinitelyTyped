@@ -26,7 +26,7 @@ interface BootboxService {
 	alert(msg: string): Promise<any>;
 	confirm(msg: string): Promise<any>;
 	prompt(msg: string): Promise<any>;
-	customDialog(options: IBootboxDialog): void;
+	customDialog(options: NgBootboxDialog): void;
 	setDefaults(options: BootboxDefaultOptions): void;
 	hideAll(): void;
 
