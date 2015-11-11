@@ -328,3 +328,254 @@ Expressions examples
 	// clear defined functions and variables
 	parser.clear();
 }());
+
+
+/*
+Fractions examples
+*/
+(function(){
+	// configure the default type of numbers as Fractions
+	math.config({
+		number: 'fraction'   // Default type of number:
+							// 'number' (default), 'bignumber', or 'fraction'
+	});
+	
+	console.log('basic usage');
+	math.fraction(0.125);         // Fraction, 1/8
+	math.fraction(0.32);          // Fraction, 8/25
+	math.fraction('1/3');         // Fraction, 1/3
+	math.fraction('0.(3)');       // Fraction, 1/3
+	math.fraction(2, 3);          // Fraction, 2/3
+	math.fraction('0.(285714)');  // Fraction, 2/7
+	console.log();
+	
+	console.log('round-off errors with numbers');
+	math.add(0.1, 0.2);                // number, 0.30000000000000004
+	math.divide(0.3, 0.2);             // number, 1.4999999999999998
+	console.log();
+	
+	console.log('no round-off errors with fractions :)');
+	math.add(math.fraction(0.1), math.fraction(0.2));     // Fraction, 3/10
+	math.divide(math.fraction(0.3), math.fraction(0.2));  // Fraction, 3/2
+	console.log();
+	
+	console.log('represent an infinite number of repeating digits');
+	math.fraction('1/3');        // Fraction, 0.(3)
+	math.fraction('2/7');        // Fraction, 0.(285714)
+	math.fraction('23/11');      // Fraction, 2.(09)
+	console.log();
+	
+	// one can work conveniently with fractions using the expression parser.
+	// note though that Fractions are only supported by basic arithmetic functions
+	console.log('use fractions in the expression parser');
+	math.eval('0.1 + 0.2'); // Fraction,  3/10
+	math.eval('0.3 / 0.2'); // Fraction,  3/2
+	math.eval('23 / 11');   // Fraction, 23/11
+	console.log();
+	
+	// output formatting
+	console.log('output formatting of fractions');
+	var a = math.fraction('2/3');
+	console.log(math.format(a));                          // Fraction,  2/3
+	console.log(math.format(a, {fraction: 'ratio'}));     // Fraction,  2/3
+	console.log(math.format(a, {fraction: 'decimal'}));   // Fraction,  0.(6)
+	console.log(a.toString());                            // Fraction,  0.(6)
+	console.log();	
+}());
+
+/*
+Matrices examples
+*/
+(function() {
+	// create matrices and arrays. a matrix is just a wrapper around an Array,
+	// providing some handy utilities.
+	console.log('create a matrix');
+	var a = math.matrix([1, 4, 9, 16, 25]); // [1, 4, 9, 16, 25]
+	var b = math.matrix(math.ones([2, 3])); // [[1, 1, 1], [1, 1, 1]]
+	b.size();                           // [2, 3]
+	
+	// the Array data of a Matrix can be retrieved using valueOf()
+	var array = a.valueOf();  // [1, 4, 9, 16, 25]
+	
+	// Matrices can be cloned
+	var clone = a.clone(); // [1, 4, 9, 16, 25]
+	console.log();
+	
+	// perform operations with matrices
+	console.log('perform operations');
+	math.sqrt(a);                       // [1, 2, 3, 4, 5]
+	var c = [1, 2, 3, 4, 5];
+	math.factorial(c);                  // [1, 2, 6, 24, 120]
+	console.log();
+	
+	// create and manipulate matrices. Arrays and Matrices can be used mixed.
+	console.log('manipulate matrices');
+	var d = [[1, 2], [3, 4]]; // [[1, 2], [3, 4]]
+	var e = math.matrix([[5, 6], [1, 1]]); // [[5, 6], [1, 1]]
+	
+	// set a submatrix.
+	// Matrix indexes are zero-based.
+	e.subset(math.index(1, [0, 1]), [[7, 8]]); // [[5, 6], [7, 8]]
+	var f = math.multiply(d, e); // [[19, 22], [43, 50]]
+	var g = f.subset(math.index(1, 0)); // 43
+	console.log();
+	
+	// get a sub matrix
+	// Matrix indexes are zero-based.
+	console.log('get a sub matrix');
+	var h = math.diag(math.range(1,4)); // [[1, 0, 0], [0, 2, 0], [0, 0, 3]]
+	h.subset( math.index([1, 2], [1, 2])); // [[2, 0], [0, 3]]
+	var i = math.range(1,6); // [1, 2, 3, 4, 5]
+	i.subset(math.index(math.range(1,4))); // [2, 3, 4]
+	console.log();
+	
+	
+	// resize a multi dimensional matrix
+	console.log('resizing a matrix');
+	var j = math.matrix();
+	var defaultValue = 0;
+	j.resize([2, 2, 2], defaultValue); // [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]
+	j.size();                            // [2, 2, 2]
+	j.resize([2, 2]); // [[0, 0], [0, 0]]
+	j.size();                            // [2, 2]
+	console.log();
+	
+	// setting a value outside the matrices range will resize the matrix.
+	// new elements will be initialized with zero.
+	console.log('set a value outside a matrices range');
+	var k = math.matrix();
+	k.subset(math.index(2), 6); // [0, 0, 6]
+	console.log();
+	
+	console.log('set a value outside a matrices range, leaving new entries uninitialized');
+	var m = math.matrix();
+	defaultValue = math.uninitialized;
+	m.subset(math.index(2), 6, defaultValue); // [undefined, undefined, 6]
+	console.log();
+	
+	// create ranges
+	console.log('create ranges');
+	math.range(1, 6);                    // [1, 2, 3, 4, 5]
+	math.range(0, 18, 3);                // [0, 3, 6, 9, 12, 15]
+	math.range('2:-1:-3');               // [2, 1, 0, -1, -2]
+	math.factorial(math.range('1:6'));   // [1, 2, 6, 24, 120]
+	console.log();
+}());
+
+/*
+Sparse matrices examples
+*/
+(function() {
+	// create a sparse matrix
+	console.log('creating a 1000x1000 sparse matrix...');
+	var a = math.eye(1000, 1000, 'sparse');
+	
+	// do operations with a sparse matrix
+	console.log('doing some operations on the sparse matrix...');
+	var b = math.multiply(a, a);
+	var c = math.multiply(b, math.complex(2, 2));
+	var d = math.transpose(c);
+	var e = math.multiply(d, a);
+	
+	// we will not print the output, but doing the same operations
+	// with a dense matrix are very slow, try it for yourself.
+	console.log('already done');
+	console.log('now try this with a dense matrix :)');
+}());
+
+/*
+Units examples
+*/
+(function() {
+	// units can be created by providing a value and unit name, or by providing
+	// a string with a valued unit.
+	console.log('create units');
+	var a = math.unit(45, 'cm'); // 450 mm
+	var b = math.unit('0.1m'); // 100 mm
+	console.log();
+	
+	// units can be added, subtracted, and multiplied or divided by numbers and by other units
+	console.log('perform operations');
+	math.add(a, b);                                  // 0.55 m
+	math.multiply(b, 2);                             // 200 mm
+	math.divide(math.unit('1 m'), math.unit('1 s')); // 1 m / s
+	math.pow(math.unit('12 in'), 3);                 // 1728 in^3
+	console.log();
+	
+	// units can be converted to a specific type, or to a number
+	console.log('convert to another type or to a number');
+	b.to('cm');                    // 10 cm  Alternatively: math.to(b, 'cm')
+	math.to(b, 'inch');            // 3.9370... inch
+	b.toNumber('cm');              // 10
+	math.number(b, 'cm');          // 10
+	console.log();
+	
+	// the expression parser supports units too
+	console.log('parse expressions');
+	math.eval('2 inch to cm');     // 5.08 cm
+	math.eval('cos(45 deg)');      // 0.70711...
+	math.eval('90 km/h to m/s');   // 25 m / s
+	console.log();
+	
+	// convert a unit to a number
+	// A second parameter with the unit for the exported number must be provided
+	math.eval('number(5 cm, mm)'); // number, 50
+	console.log();
+	
+	// simplify units
+	console.log('simplify units');
+	math.eval('100000 N / m^2');   // 100 kPa
+	math.eval('9.81 m/s^2 * 100 kg * 40 m'); // 39.24 kJ
+	console.log();
+	
+	// example engineering calculations
+	console.log('compute molar volume of ideal gas at 65 Fahrenheit, 14.7 psi in L/mol');
+	var Rg = math.unit('8.314 N m / (mol K)');
+	var T = math.unit('65 degF');
+	var P = math.unit('14.7 psi');
+	var v = math.divide(math.multiply(Rg, T), P);
+	console.log('gas constant (Rg) = ', format(Rg));
+	console.log('P = ' + format(P));
+	console.log('T = ' + format(T));
+	console.log('v = Rg * T / P = ' + format(math.to(v, 'L/mol'))); // 23.910... L / mol
+	console.log();
+	
+	console.log('compute speed of fluid flowing out of hole in a container');
+	var g = math.unit('9.81 m / s^2');
+	var h = math.unit('1 m');
+	var v2 = math.pow(math.multiply(2, math.multiply(g, h)), 0.5); // Can also use math.sqrt
+	console.log('g = ' + format(g));
+	console.log('h = ' + format(h));
+	console.log('v = (2 g h) ^ 0.5 = ' + format(v2)); // 4.429... m / s
+	console.log();
+	
+	console.log('electrical power consumption:');
+	var expr = '460 V * 20 A * 30 days to kWh';
+	console.log(expr + ' = ' + math.eval(expr));  // 6624 kWh
+	console.log();
+	
+	console.log('circuit design:');
+	var expr = '24 V / (6 mA)';
+	console.log(expr + ' = ' + math.eval(expr));  // 4 kohm
+	console.log();
+	
+	console.log('operations on arrays:');
+	var B = math.eval('[1, 0, 0] T');
+	var v3 = math.eval('[0, 1, 0] m/s');
+	var q = math.eval('1 C');
+	var F = math.multiply(q, math.cross(v3, B));
+	console.log('B (magnetic field strength) = ' + format(B)); // [1 T, 0 T, 0 T]
+	console.log('v (particle velocity) = ' + format(v3));       // [0 m / s, 1 m / s, 0 m / s]
+	console.log('q (particle charge) = ' + format(q));         // 1 C
+	console.log('F (force) = q (v cross B) = ' + format(F));   // [0 N, 0 N, -1 N]
+	
+	/**
+	* Helper function to format an output a value.
+	* @param {*} value
+	* @return {string} Returns the formatted value
+	*/
+	function format (value: any): string {
+		var precision = 14;
+		return math.format(value, precision);
+	}
+}());
