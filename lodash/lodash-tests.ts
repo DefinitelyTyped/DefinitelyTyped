@@ -2489,9 +2489,9 @@ module TestEach {
     let list: _.List<TResult>;
     let dictionary: _.Dictionary<TResult>;
 
-    let stringIterator: (char: string, index: number, string: string) => boolean|void;
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean|void;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean|void;
+    let stringIterator: (char: string, index: number, string: string) => any;
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any;
 
     {
         let result: string;
@@ -2575,6 +2575,101 @@ module TestEach {
 
         _(dictionary).chain().each<TResult>(dictionaryIterator);
         _(dictionary).chain().each<TResult>(dictionaryIterator, any);
+    }
+}
+
+// _.eachRight
+module TestEachRight {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
+
+    let stringIterator: (char: string, index: number, string: string) => any;
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any;
+
+    {
+        let result: string;
+
+        _.eachRight('', stringIterator);
+        _.eachRight('', stringIterator, any);
+    }
+
+    {
+        let result: TResult[];
+
+        _.eachRight<TResult>(array, listIterator);
+        _.eachRight<TResult>(array, listIterator, any);
+    }
+
+    {
+        let result: _.List<TResult>;
+
+        _.eachRight<TResult>(list, listIterator);
+        _.eachRight<TResult>(list, listIterator, any);
+    }
+
+    {
+        let result: _.Dictionary<TResult>;
+
+        _.eachRight<TResult>(dictionary, dictionaryIterator);
+        _.eachRight<TResult>(dictionary, dictionaryIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitWrapper<string>;
+
+        _('').eachRight(stringIterator);
+        _('').eachRight(stringIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        _(array).eachRight(listIterator);
+        _(array).eachRight(listIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
+
+        _(list).eachRight<TResult>(listIterator);
+        _(list).eachRight<TResult>(listIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
+
+        _(dictionary).eachRight<TResult>(dictionaryIterator);
+        _(dictionary).eachRight<TResult>(dictionaryIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        _('').chain().eachRight(stringIterator);
+        _('').chain().eachRight(stringIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        _(array).chain().eachRight(listIterator);
+        _(array).chain().eachRight(listIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
+
+        _(list).chain().eachRight<TResult>(listIterator);
+        _(list).chain().eachRight<TResult>(listIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
+
+        _(dictionary).chain().eachRight<TResult>(dictionaryIterator);
+        _(dictionary).chain().eachRight<TResult>(dictionaryIterator, any);
     }
 }
 
@@ -2739,9 +2834,9 @@ module TestForEach {
     let list: _.List<TResult>;
     let dictionary: _.Dictionary<TResult>;
 
-    let stringIterator: (char: string, index: number, string: string) => boolean|void;
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean|void;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean|void;
+    let stringIterator: (char: string, index: number, string: string) => any;
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any;
 
     {
         let result: string;
@@ -2828,17 +2923,100 @@ module TestForEach {
     }
 }
 
-result = <number[]>_.forEachRight([1, 2, 3], function (num) { console.log(num); });
-result = <_.Dictionary<number>>_.forEachRight({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
+// _.forEachRight
+module TestForEachRight {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
 
-result = <number[]>_.eachRight([1, 2, 3], function (num) { console.log(num); });
-result = <_.Dictionary<number>>_.eachRight({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
+    let stringIterator: (char: string, index: number, string: string) => any;
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any;
 
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3]).forEachRight(function (num) { console.log(num); });
-result = <_.LoDashImplicitObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).forEachRight(function (num) { console.log(num); });
+    {
+        let result: string;
 
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3]).eachRight(function (num) { console.log(num); });
-result = <_.LoDashImplicitObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).eachRight(function (num) { console.log(num); });
+        _.forEachRight('', stringIterator);
+        _.forEachRight('', stringIterator, any);
+    }
+
+    {
+        let result: TResult[];
+
+        _.forEachRight<TResult>(array, listIterator);
+        _.forEachRight<TResult>(array, listIterator, any);
+    }
+
+    {
+        let result: _.List<TResult>;
+
+        _.forEachRight<TResult>(list, listIterator);
+        _.forEachRight<TResult>(list, listIterator, any);
+    }
+
+    {
+        let result: _.Dictionary<TResult>;
+
+        _.forEachRight<TResult>(dictionary, dictionaryIterator);
+        _.forEachRight<TResult>(dictionary, dictionaryIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitWrapper<string>;
+
+        _('').forEachRight(stringIterator);
+        _('').forEachRight(stringIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        _(array).forEachRight(listIterator);
+        _(array).forEachRight(listIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
+
+        _(list).forEachRight<TResult>(listIterator);
+        _(list).forEachRight<TResult>(listIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
+
+        _(dictionary).forEachRight<TResult>(dictionaryIterator);
+        _(dictionary).forEachRight<TResult>(dictionaryIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        _('').chain().forEachRight(stringIterator);
+        _('').chain().forEachRight(stringIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        _(array).chain().forEachRight(listIterator);
+        _(array).chain().forEachRight(listIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
+
+        _(list).chain().forEachRight<TResult>(listIterator);
+        _(list).chain().forEachRight<TResult>(listIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
+
+        _(dictionary).chain().forEachRight<TResult>(dictionaryIterator);
+        _(dictionary).chain().forEachRight<TResult>(dictionaryIterator, any);
+    }
+}
 
 result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function (num) { return Math.floor(num); });
 result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function (num) { return this.floor(num); }, Math);
