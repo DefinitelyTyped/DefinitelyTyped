@@ -782,7 +782,487 @@ declare module mathjs {
 		randomInt(size: MathArray|Matrix, max?: number): MathArray|Matrix;
 		randomInt(size: MathArray|Matrix, min:number, max: number): MathArray|Matrix;
 		
+		/**
+		 * Compare two values. Returns 1 when x > y, -1 when x < y, and 0 when x == y.
+		 * x and y are considered equal when the relative difference between x and y is smaller than the configured epsilon. 
+		 * The function cannot be used to compare values smaller than approximately 2.22e-16.
+		 * For matrices, the function is evaluated element wise.
+		 */
+		compare(x: MathType, y: MathType): number|BigNumber|Fraction|MathArray|Matrix;
 		
+		/**
+		 * Test element wise whether two matrices are equal. The function accepts both matrices and scalar values.
+		 */
+		deepEqual(x: MathType, y: MathType): number|BigNumber|Fraction|Complex|Unit|MathArray|Matrix;
+		
+		/**
+		 * Test whether two values are equal.
+		 * 
+		 * The function tests whether the relative difference between x and y is smaller than the configured epsilon. 
+		 * The function cannot be used to compare values smaller than approximately 2.22e-16.
+		 * 
+		 * For matrices, the function is evaluated element wise. In case of complex numbers, x.re must equal y.re, and x.im must equal y.im.
+		 * 
+		 * Values null and undefined are compared strictly, thus null is only equal to null and nothing else, and undefined is only equal to undefined and nothing else.
+		 */
+		equal(x: MathType, y: MathType): boolean|MathArray|Matrix;
+		
+		/**
+		 * Test whether value x is larger than y.
+		 * 
+		 * The function returns true when x is larger than y and the relative difference between x and y is larger than the configured epsilon. 
+		 * The function cannot be used to compare values smaller than approximately 2.22e-16.
+		 * 
+		 * For matrices, the function is evaluated element wise.
+		 */
+		larger(x: MathType, y: MathType): boolean|MathArray|Matrix;
+		
+		/**
+		 * Test whether value x is larger or equal to y.
+		 * 
+		 * The function returns true when x is larger than y or the relative difference between x and y is smaller than the configured epsilon. 
+		 * The function cannot be used to compare values smaller than approximately 2.22e-16.
+		 * 
+		 * For matrices, the function is evaluated element wise.
+		 */
+		largerEq(x: MathType, y: MathType): boolean|MathArray|Matrix;
+		
+		/**
+		 * Test whether value x is smaller than y.
+		 * 
+		 * The function returns true when x is smaller than y and the relative difference between x and y is smaller than the configured epsilon. 
+		 * The function cannot be used to compare values smaller than approximately 2.22e-16.
+		 * 
+		 * For matrices, the function is evaluated element wise.
+		 */
+		smaller(x: MathType, y: MathType): boolean|MathArray|Matrix;
+		
+		/**
+		 * Test whether value x is smaller or equal to y.
+		 * 
+		 * The function returns true when x is smaller than y or the relative difference between x and y is smaller than the configured epsilon. 
+		 * The function cannot be used to compare values smaller than approximately 2.22e-16. For matrices, the function is evaluated element wise.
+		 */
+		smallerEq(x: MathType, y: MathType): boolean|MathArray|Matrix;
+		
+		/**
+		 * Test whether two values are unequal.
+		 * 
+		 * The function tests whether the relative difference between x and y is larger than the configured epsilon. The function cannot 
+		 * be used to compare values smaller than approximately 2.22e-16.
+		 * 
+		 * For matrices, the function is evaluated element wise. In case of complex numbers, x.re must unequal y.re, or x.im must unequal y.im.
+		 * 
+		 * Values null and undefined are compared strictly, thus null is unequal with everything except null, and undefined is unequal with 
+		 * everying except. undefined.
+		 */
+		unequal(x: MathType, y: MathType): boolean|MathArray|Matrix;
+		
+		/**
+		 * Compute the maximum value of a matrix or a list with values. In case of a multi dimensional array, the maximum of the flattened 
+		 * array will be calculated. When dim is provided, the maximum over the selected dimension will be calculated. Parameter dim is zero-based.
+		 */
+		max(...args: MathType[]): any;
+		max(A: MathArray|Matrix, dim?: number): any;
+		
+		/**
+		 * Compute the mean value of matrix or a list with values. In case of a multi dimensional array, the mean of the flattened array will be 
+		 * calculated. When dim is provided, the maximum over the selected dimension will be calculated. Parameter dim is zero-based.
+		 */
+		mean(...args: MathType[]): any;
+		mean(A: MathArray|Matrix, dim?: number): any;
+		
+		/**
+		 * Compute the median of a matrix or a list with values. The values are sorted and the middle value is returned. In case of an 
+		 * even number of values, the average of the two middle values is returned. Supported types of values are: Number, BigNumber, Unit
+		 * 
+		 * In case of a (multi dimensional) array or matrix, the median of all elements will be calculated.
+		 */
+		median(...args: MathType[]): any;
+		
+		/**
+		 * Compute the maximum value of a matrix or a list of values. In case of a multi dimensional array, the maximum of the flattened 
+		 * array will be calculated. When dim is provided, the maximum over the selected dimension will be calculated. Parameter dim is zero-based.
+		 */
+		min(...args: MathType[]): any;
+		min(A: MathArray|Matrix, dim?: number): any;
+		
+		/**
+		 * Computes the mode of a set of numbers or a list with values(numbers or characters). If there are more than one modes, it returns a list of those values.
+		 */
+		mode(...args: MathType[]): any;
+		
+		/**
+		 * Compute the product of a matrix or a list with values. In case of a (multi dimensional) array or matrix, the sum of all elements will be calculated.
+		 */
+		prod(...args: MathType[]): any;
+		
+		/**
+		 * Compute the prob order quantile of a matrix or a list with values. The sequence is sorted and the middle value is returned. 
+		 * Supported types of sequence values are: Number, BigNumber, Unit Supported types of probability are: Number, BigNumber
+		 * 
+		 * In case of a (multi dimensional) array or matrix, the prob order quantile of all elements will be calculated.
+		 */
+		quantileSeq(A: MathArray|Matrix, prob: Number|BigNumber|MathArray, sorted?: boolean): Number|BigNumber|Unit|MathArray;
+		
+		/**
+		 * Compute the standard deviation of a matrix or a list with values. The standard deviations is defined as the square root of the 
+		 * variance: std(A) = sqrt(var(A)). In case of a (multi dimensional) array or matrix, the standard deviation over all elements will 
+		 * be calculated.
+		 * 
+		 * Optionally, the type of normalization can be specified as second parameter. The parameter normalization can be one of the following 
+		 * values:
+		 * 
+		 * 'unbiased' (default) The sum of squared errors is divided by (n - 1)
+		 * 'uncorrected' The sum of squared errors is divided by n
+		 * 'biased' The sum of squared errors is divided by (n + 1)
+		 */
+		std(array: MathArray|Matrix, normalization?: string): number;
+		
+		/**
+		 * Compute the sum of a matrix or a list with values. In case of a (multi dimensional) array or matrix, the sum of all elements will be calculated.
+		 */
+		sum(...args: (Number|BigNumber|Fraction)[]): any;
+		sum(array: MathArray|Matrix): any;
+		
+		/**
+		 * Compute the variance of a matrix or a list with values. In case of a (multi dimensional) array or matrix, the variance over all 
+		 * elements will be calculated.
+		 * 
+		 * Optionally, the type of normalization can be specified as second parameter. The parameter normalization can be one of the 
+		 * following values:
+		 * 
+		 * 'unbiased' (default) The sum of squared errors is divided by (n - 1)
+		 * 'uncorrected' The sum of squared errors is divided by n
+		 * 'biased' The sum of squared errors is divided by (n + 1)
+		 * Note that older browser may not like the variable name var. In that case, the function can be called as math['var'](...) 
+		 * instead of math.var(...).
+		 */
+		var(...args: (Number|BigNumber|Fraction)[]): any;
+		var(array: MathArray|Matrix, normalization?: string): any;
+		
+		/**
+		 * Calculate the inverse cosine of a value. For matrices, the function is evaluated element wise.
+		 */
+		acos(x: number): number;
+		acos(x: BigNumber): BigNumber;
+		acos(x: Complex): Complex;
+		acos(x: MathArray): MathArray;
+		acos(x: Matrix): Matrix;
+
+		/**
+		 * Calculate the hyperbolic arccos of a value, defined as acosh(x) = ln(sqrt(x^2 - 1) + x).
+		 * For matrices, the function is evaluated element wise.
+		 */
+		acosh(x: number): number;
+		acosh(x: BigNumber): BigNumber;
+		acosh(x: Complex): Complex;
+		acosh(x: MathArray): MathArray;
+		acosh(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the inverse cotangent of a value. For matrices, the function is evaluated element wise.
+		 */
+		acot(x: number): number;
+		acot(x: BigNumber): BigNumber;
+		acot(x: MathArray): MathArray;
+		acot(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the hyperbolic arccotangent of a value, defined as acoth(x) = (ln((x+1)/x) + ln(x/(x-1))) / 2.
+		 * For matrices, the function is evaluated element wise.
+		 */
+		acoth(x: number): number;
+		acoth(x: BigNumber): BigNumber;
+		acoth(x: MathArray): MathArray;
+		acoth(x: Matrix): Matrix;
+
+		/**
+		 * Calculate the inverse cosecant of a value. For matrices, the function is evaluated element wise.
+		 */
+		acsc(x: number): number;
+		acsc(x: BigNumber): BigNumber;
+		acsc(x: MathArray): MathArray;
+		acsc(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the hyperbolic arccosecant of a value, defined as acsch(x) = ln(1/x + sqrt(1/x^2 + 1)).
+		 * For matrices, the function is evaluated element wise.
+		 */
+		acsch(x: number): number;
+		acsch(x: BigNumber): BigNumber;
+		acsch(x: MathArray): MathArray;
+		acsch(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the inverse secant of a value. For matrices, the function is evaluated element wise.
+		 */
+		asec(x: number): number;
+		asec(x: BigNumber): BigNumber;
+		asec(x: MathArray): MathArray;
+		asec(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the hyperbolic arcsecant of a value, defined as asech(x) = ln(sqrt(1/x^2 - 1) + 1/x). For matrices, the function is evaluated element wise.
+		 */
+		asech(x: number): number;
+		asech(x: BigNumber): BigNumber;
+		asech(x: MathArray): MathArray;
+		asech(x: Matrix): Matrix;
+		
+		/** 
+		 * Calculate the inverse sine of a value. For matrices, the function is evaluated element wise.
+		 */
+		asin(x: number): number;
+		asin(x: BigNumber): BigNumber;
+		asin(x: Complex): Complex;
+		asin(x: MathArray): MathArray;
+		asin(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the hyperbolic arcsine of a value, defined as asinh(x) = ln(x + sqrt(x^2 + 1)). For matrices, the function is evaluated element wise.
+		 */
+		asinh(x: number): number;
+		asinh(x: BigNumber): BigNumber;
+		asinh(x: MathArray): MathArray;
+		asinh(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the inverse tangent of a value. For matrices, the function is evaluated element wise.
+		 */
+		atan(x: number): number;
+		atan(x: BigNumber): BigNumber;
+		atan(x: MathArray): MathArray;
+		atan(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the inverse tangent function with two arguments, y/x. By providing two arguments, the right quadrant of the 
+		 * computed angle can be determined.
+		 * 
+		 * For matrices, the function is evaluated element wise.
+		 */
+		atan2(y: number, x: number): number;
+		atan2(y: MathArray|Matrix, x: MathArray|Matrix): MathArray|Matrix;
+		
+		/**
+		 * Calculate the hyperbolic arctangent of a value, defined as atanh(x) = ln((1 + x)/(1 - x)) / 2.
+		 * For matrices, the function is evaluated element wise.
+		 */
+		atanh(x: number): number;
+		atanh(x: BigNumber): BigNumber;
+		atanh(x: MathArray): MathArray;
+		atanh(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the cosine of a value. For matrices, the function is evaluated element wise.
+		 */
+		asin(x: number): number;
+		asin(x: BigNumber): BigNumber;
+		asin(x: Complex): Complex;
+		asin(x: Unit): number;
+		asin(x: MathArray): MathArray;
+		asin(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the hyperbolic cosine of a value, defined as cosh(x) = 1/2 * (exp(x) + exp(-x)). For matrices, the function is evaluated element wise.
+		 */
+		cosh(x: number): number;
+		cosh(x: BigNumber): BigNumber;
+		cosh(x: Complex): Complex;
+		cosh(x: Unit): number;
+		cosh(x: MathArray): MathArray;
+		cosh(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the cotangent of a value. cot(x) is defined as 1 / tan(x). For matrices, the function is evaluated element wise.
+		 */
+		cot(x: number): number;
+		cot(x: Complex): Complex;
+		cot(x: Unit): number;
+		cot(x: MathArray): MathArray;
+		cot(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the hyperbolic cotangent of a value, defined as coth(x) = 1 / tanh(x). For matrices, the function is evaluated element wise.
+		 */
+		coth(x: number): number;
+		coth(x: Complex): Complex;
+		coth(x: Unit): number;
+		coth(x: MathArray): MathArray;
+		coth(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the cosecant of a value, defined as csc(x) = 1/sin(x). For matrices, the function is evaluated element wise.
+		 */
+		csc(x: number): number;
+		csc(x: Complex): Complex;
+		csc(x: Unit): number;
+		csc(x: MathArray): MathArray;
+		csc(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the hyperbolic cosecant of a value, defined as csch(x) = 1 / sinh(x). For matrices, the function is evaluated element wise.
+		 */
+		csch(x: number): number;
+		csch(x: Complex): Complex;
+		csch(x: Unit): number;
+		csch(x: MathArray): MathArray;
+		csch(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the secant of a value, defined as sec(x) = 1/cos(x). For matrices, the function is evaluated element wise.
+		 */
+		sec(x: number): number;
+		sec(x: Complex): Complex;
+		sec(x: Unit): number;
+		sec(x: MathArray): MathArray;
+		sec(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the hyperbolic secant of a value, defined as sech(x) = 1 / cosh(x). For matrices, the function is evaluated element wise.
+		 */
+		sech(x: number): number;
+		sech(x: Complex): Complex;
+		sech(x: Unit): number;
+		sech(x: MathArray): MathArray;
+		sech(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the sine of a value. For matrices, the function is evaluated element wise.
+		 */
+		sin(x: number): number;
+		sin(x: BigNumber): BigNumber;
+		sin(x: Complex): Complex;
+		sin(x: Unit): number;
+		sin(x: MathArray): MathArray;
+		sin(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the hyperbolic sine of a value, defined as sinh(x) = 1/2 * (exp(x) - exp(-x)). For matrices, the function is evaluated element wise.
+		 */
+		sinh(x: number): number;
+		sinh(x: BigNumber): BigNumber;
+		sinh(x: Complex): Complex;
+		sinh(x: Unit): number;
+		sinh(x: MathArray): MathArray;
+		sinh(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the tangent of a value. tan(x) is equal to sin(x) / cos(x). For matrices, the function is evaluated element wise.
+		 */
+		tan(x: number): number;
+		tan(x: BigNumber): BigNumber;
+		tan(x: Complex): Complex;
+		tan(x: Unit): number;
+		tan(x: MathArray): MathArray;
+		tan(x: Matrix): Matrix;
+		
+		/**
+		 * Calculate the hyperbolic tangent of a value, defined as tanh(x) = (exp(2 * x) - 1) / (exp(2 * x) + 1). For matrices, the function is evaluated element wise.
+		 */
+		tanh(x: number): number;
+		tanh(x: BigNumber): BigNumber;
+		tanh(x: Complex): Complex;
+		tanh(x: Unit): number;
+		tanh(x: MathArray): MathArray;
+		tanh(x: Matrix): Matrix;
+		
+		/**
+		 * Change the unit of a value. For matrices, the function is evaluated element wise.
+		 * @param x The unit to be converted.
+		 * @param unit New unit. Can be a string like "cm" or a unit without value.
+		 */
+		to(x: Unit|MathArray|Matrix, unit: Unit|string): Unit|MathArray|Matrix
+		
+		/**
+		 * Clone an object.
+		 */
+		clone(x: any): any;
+		
+		/**
+		 * Filter the items in an array or one dimensional matrix.
+		 * @param x A one dimensional matrix or array to filter
+		 * @param test 
+		 */
+		filter(x: MathArray|Matrix, test: RegExp|((any)=>boolean)): MathArray|Matrix;
+		
+		/**
+		 * Iterate over all elements of a matrix/array, and executes the given callback function.
+		 * @param x The matrix to iterate on.
+		 * @param callback The callback function is invoked with three parameters: the value of the element, the index of the element, and the Matrix/array being traversed.
+		 */
+		forEach(x: MathArray|Matrix, callback: (any)=>any);
+		
+		/**
+		 * Format a value of any type into a string.
+		 * @param value The value to be formatted
+		 */
+		format(value, options?: IFormatOptions|number|((any)=>string)): string;
+		
+		/**
+		 * Test whether a value is an integer number. The function supports number, BigNumber, and Fraction. 
+		 * The function is evaluated element-wise in case of Array or Matrix input.
+		 */
+		isInteger(x: any): boolean;
+		
+		/**
+		 * Test whether a value is negative: smaller than zero. The function supports types number, BigNumber, Fraction, and Unit.
+		 * The function is evaluated element-wise in case of Array or Matrix input.
+		 */
+		isNegative(x: any): boolean;
+		
+		/**
+		 * Test whether a value is an numeric value. The function is evaluated element-wise in case of Array or Matrix input.
+		 */
+		isNumeric(x: any): boolean;
+		
+		/**
+		 * Test whether a value is positive: larger than zero. The function supports types number, BigNumber, Fraction, and Unit.
+		 * The function is evaluated element-wise in case of Array or Matrix input.
+		 */
+		isPositive(x: any): boolean;
+		
+		/**
+		 * Test whether a value is zero. The function can check for zero for types number, BigNumber, Fraction, Complex, and Unit.
+		 * The function is evaluated element-wise in case of Array or Matrix input.
+		 */
+		isZero(x: any): boolean;
+		
+		/**
+		 * Create a new matrix or array with the results of the callback function executed on each entry of the matrix/array.
+		 * @param x The matrix to iterate on.
+		 * @param callback The callback method is invoked with three parameters: the value of the element, the index of the element, and the matrix being traversed.
+		 */
+		map(x: MathArray|Matrix, callback: (any)=>any): MathArray|Matrix;
+		
+		/**
+		 * Partition-based selection of an array or 1D matrix. Will find the kth smallest value, and mutates the input array. Uses Quickselect.
+		 * @param x A one dimensional matrix or array to sort
+		 * @param k The kth smallest value to be retrieved; zero-based index
+		 * @param compare  An optional comparator function. The function is called as compare(a, b), and must return 1 when a > b, -1 when a < b, and 0 when a == b. Default value: 'asc'.
+		 * @returns Returns the kth lowest value.
+		 */
+		partitionSelect(x: MathArray|Matrix, k: number, compare?: string|((a: any, b: any)=>number)): any;
+		
+		/**
+		 * Interpolate values into a string template.
+		 * @param template A string containing variable placeholders.
+		 * @param values An object containing variables which will be filled in in the template.
+		 * @param precision Number of digits to format numbers. If not provided, the value will not be rounded.
+		 */
+		print(template:string, values: any, precision?: number);
+		
+		/**
+		 * Sort the items in a matrix.
+		 * @param x A one dimensional matrix or array to sort
+		 * @param compare  An optional comparator function. The function is called as compare(a, b), and must return 1 when a > b, -1 when a < b, and 0 when a == b. Default value: 'asc'.
+		 */
+		sort(x: MathArray|Matrix, compare?: string|((a: any, b: any)=>number)): MathArray|Matrix;
+		
+		/**
+		 * Determine the type of a variable.
+		 */
+		typeof(x: any): string;
 	}
 	
 	export interface Matrix {
@@ -828,6 +1308,42 @@ declare module mathjs {
 		random(size: any, min?: any, max?: any): any;
 		randomInt(min: any, max?: any): any;
 		pickRandom(array: any): any;
+	}
+	
+	export interface IFormatOptions {
+		/**
+		 * Number notation. Choose from:
+		 * 'fixed' Always use regular number notation. For example '123.40' and '14000000'
+		 * 'exponential' Always use exponential notation. For example '1.234e+2' and '1.4e+7'
+		 * 'auto' (default) Regular number notation for numbers having an absolute value between lower and upper bounds, and 
+		 * uses exponential notation elsewhere. Lower bound is included, upper bound is excluded. For example '123.4' and '1.4e7'.
+		 */
+		notation?: string;
+		
+		/**
+		 * A number between 0 and 16 to round the digits of the number. In case of notations 'exponential' and 'auto', 
+		 * precision defines the total number of significant digits returned and is undefined by default. In case of notation 'fixed', 
+		 * precision defines the number of significant digits after the decimal point, and is 0 by default.
+		 */
+		precision?: number;
+		
+		/**
+		 * An object containing two parameters, {number} lower and {number} upper, used by notation 'auto' to determine 
+		 * when to return exponential notation. Default values are lower=1e-3 and upper=1e5. Only applicable for notation auto.
+		 */
+		exponential?: {lower: number; upper: number};
+		
+		/**
+		 * Available values: 'ratio' (default) or 'decimal'. For example format(fraction(1, 3)) will output '1/3' when 'ratio' 
+		 * is configured, and will output 0.(3) when 'decimal' is configured.
+		 */
+		fraction?: string;
+		
+		/** 
+		 * A custom formatting function. Can be used to override the built-in notations. Function fn is called with 
+		 * value as parameter and must return a string. Is useful for example to format all values inside a matrix in a particular way. 
+		 * */
+		fn?: (any)=>string;
 	}
 	
 	export interface Help {
