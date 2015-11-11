@@ -340,11 +340,12 @@ declare namespace __React {
 
     interface Props<T> {
         children?: ReactNode;
-        key?: string | number;
-        ref?: string | ((component: T) => any);
     }
 
-    interface DOMAttributesBase<T> extends Props<T> {
+    interface DOMAttributesBase<T> {
+        key?: string | number;
+        ref?: string | ((component: T) => any);
+
         onCopy?: ClipboardEventHandler;
         onCut?: ClipboardEventHandler;
         onPaste?: ClipboardEventHandler;
@@ -541,6 +542,9 @@ declare namespace __React {
     }
 
     interface HTMLAttributes extends HTMLAttributesBase<HTMLComponent> {
+    }
+
+    interface HTMLElementAttributes<T> extends HTMLAttributesBase<T> {
     }
 
     interface SVGElementAttributes extends HTMLAttributes {
@@ -1904,120 +1908,128 @@ declare namespace JSX {
     }
     interface ElementAttributesProperty { props: {}; }
 
+    interface IntrinsicAttributes {
+        key?: string | number;
+    }
+
+    interface IntrinsicClassAttributes<T> {
+        ref?: string | ((classInstance: T) => void);
+    }
+
     interface IntrinsicElements {
         // HTML
-        a: React.HTMLAttributes;
-        abbr: React.HTMLAttributes;
-        address: React.HTMLAttributes;
-        area: React.HTMLAttributes;
-        article: React.HTMLAttributes;
-        aside: React.HTMLAttributes;
-        audio: React.HTMLAttributes;
-        b: React.HTMLAttributes;
-        base: React.HTMLAttributes;
-        bdi: React.HTMLAttributes;
-        bdo: React.HTMLAttributes;
-        big: React.HTMLAttributes;
-        blockquote: React.HTMLAttributes;
-        body: React.HTMLAttributes;
-        br: React.HTMLAttributes;
-        button: React.HTMLAttributes;
-        canvas: React.HTMLAttributes;
-        caption: React.HTMLAttributes;
-        cite: React.HTMLAttributes;
-        code: React.HTMLAttributes;
-        col: React.HTMLAttributes;
-        colgroup: React.HTMLAttributes;
-        data: React.HTMLAttributes;
-        datalist: React.HTMLAttributes;
-        dd: React.HTMLAttributes;
-        del: React.HTMLAttributes;
-        details: React.HTMLAttributes;
-        dfn: React.HTMLAttributes;
-        dialog: React.HTMLAttributes;
-        div: React.HTMLAttributes;
-        dl: React.HTMLAttributes;
-        dt: React.HTMLAttributes;
-        em: React.HTMLAttributes;
-        embed: React.HTMLAttributes;
-        fieldset: React.HTMLAttributes;
-        figcaption: React.HTMLAttributes;
-        figure: React.HTMLAttributes;
-        footer: React.HTMLAttributes;
-        form: React.HTMLAttributes;
-        h1: React.HTMLAttributes;
-        h2: React.HTMLAttributes;
-        h3: React.HTMLAttributes;
-        h4: React.HTMLAttributes;
-        h5: React.HTMLAttributes;
-        h6: React.HTMLAttributes;
-        head: React.HTMLAttributes;
-        header: React.HTMLAttributes;
-        hr: React.HTMLAttributes;
-        html: React.HTMLAttributes;
-        i: React.HTMLAttributes;
-        iframe: React.HTMLAttributes;
-        img: React.HTMLAttributes;
-        input: React.HTMLAttributes;
-        ins: React.HTMLAttributes;
-        kbd: React.HTMLAttributes;
-        keygen: React.HTMLAttributes;
-        label: React.HTMLAttributes;
-        legend: React.HTMLAttributes;
-        li: React.HTMLAttributes;
-        link: React.HTMLAttributes;
-        main: React.HTMLAttributes;
-        map: React.HTMLAttributes;
-        mark: React.HTMLAttributes;
-        menu: React.HTMLAttributes;
-        menuitem: React.HTMLAttributes;
-        meta: React.HTMLAttributes;
-        meter: React.HTMLAttributes;
-        nav: React.HTMLAttributes;
-        noscript: React.HTMLAttributes;
-        object: React.HTMLAttributes;
-        ol: React.HTMLAttributes;
-        optgroup: React.HTMLAttributes;
-        option: React.HTMLAttributes;
-        output: React.HTMLAttributes;
-        p: React.HTMLAttributes;
-        param: React.HTMLAttributes;
-        picture: React.HTMLAttributes;
-        pre: React.HTMLAttributes;
-        progress: React.HTMLAttributes;
-        q: React.HTMLAttributes;
-        rp: React.HTMLAttributes;
-        rt: React.HTMLAttributes;
-        ruby: React.HTMLAttributes;
-        s: React.HTMLAttributes;
-        samp: React.HTMLAttributes;
-        script: React.HTMLAttributes;
-        section: React.HTMLAttributes;
-        select: React.HTMLAttributes;
-        small: React.HTMLAttributes;
-        source: React.HTMLAttributes;
-        span: React.HTMLAttributes;
-        strong: React.HTMLAttributes;
-        style: React.HTMLAttributes;
-        sub: React.HTMLAttributes;
-        summary: React.HTMLAttributes;
-        sup: React.HTMLAttributes;
-        table: React.HTMLAttributes;
-        tbody: React.HTMLAttributes;
-        td: React.HTMLAttributes;
-        textarea: React.HTMLAttributes;
-        tfoot: React.HTMLAttributes;
-        th: React.HTMLAttributes;
-        thead: React.HTMLAttributes;
-        time: React.HTMLAttributes;
-        title: React.HTMLAttributes;
-        tr: React.HTMLAttributes;
-        track: React.HTMLAttributes;
-        u: React.HTMLAttributes;
-        ul: React.HTMLAttributes;
-        "var": React.HTMLAttributes;
-        video: React.HTMLAttributes;
-        wbr: React.HTMLAttributes;
+        a: React.HTMLElementAttributes<HTMLAnchorElement>;
+        abbr: React.HTMLElementAttributes<HTMLElement>;
+        address: React.HTMLElementAttributes<HTMLElement>;
+        area: React.HTMLElementAttributes<HTMLAreaElement>;
+        article: React.HTMLElementAttributes<HTMLElement>;
+        aside: React.HTMLElementAttributes<HTMLElement>;
+        audio: React.HTMLElementAttributes<HTMLAudioElement>;
+        b: React.HTMLElementAttributes<HTMLElement>;
+        base: React.HTMLElementAttributes<HTMLBaseElement>;
+        bdi: React.HTMLElementAttributes<HTMLElement>;
+        bdo: React.HTMLElementAttributes<HTMLElement>;
+        big: React.HTMLElementAttributes<HTMLElement>;
+        blockquote: React.HTMLElementAttributes<HTMLElement>;
+        body: React.HTMLElementAttributes<HTMLBodyElement>;
+        br: React.HTMLElementAttributes<HTMLBRElement>;
+        button: React.HTMLElementAttributes<HTMLButtonElement>;
+        canvas: React.HTMLElementAttributes<HTMLCanvasElement>;
+        caption: React.HTMLElementAttributes<HTMLElement>;
+        cite: React.HTMLElementAttributes<HTMLElement>;
+        code: React.HTMLElementAttributes<HTMLElement>;
+        col: React.HTMLElementAttributes<HTMLTableColElement>;
+        colgroup: React.HTMLElementAttributes<HTMLTableColElement>;
+        data: React.HTMLElementAttributes<HTMLElement>;
+        datalist: React.HTMLElementAttributes<HTMLDataListElement>;
+        dd: React.HTMLElementAttributes<HTMLElement>;
+        del: React.HTMLElementAttributes<HTMLElement>;
+        details: React.HTMLElementAttributes<HTMLElement>;
+        dfn: React.HTMLElementAttributes<HTMLElement>;
+        dialog: React.HTMLElementAttributes<HTMLElement>;
+        div: React.HTMLElementAttributes<HTMLDivElement>;
+        dl: React.HTMLElementAttributes<HTMLDListElement>;
+        dt: React.HTMLElementAttributes<HTMLElement>;
+        em: React.HTMLElementAttributes<HTMLElement>;
+        embed: React.HTMLElementAttributes<HTMLEmbedElement>;
+        fieldset: React.HTMLElementAttributes<HTMLFieldSetElement>;
+        figcaption: React.HTMLElementAttributes<HTMLElement>;
+        figure: React.HTMLElementAttributes<HTMLElement>;
+        footer: React.HTMLElementAttributes<HTMLElement>;
+        form: React.HTMLElementAttributes<HTMLFormElement>;
+        h1: React.HTMLElementAttributes<HTMLHeadingElement>;
+        h2: React.HTMLElementAttributes<HTMLHeadingElement>;
+        h3: React.HTMLElementAttributes<HTMLHeadingElement>;
+        h4: React.HTMLElementAttributes<HTMLHeadingElement>;
+        h5: React.HTMLElementAttributes<HTMLHeadingElement>;
+        h6: React.HTMLElementAttributes<HTMLHeadingElement>;
+        head: React.HTMLElementAttributes<HTMLHeadElement>;
+        header: React.HTMLElementAttributes<HTMLElement>;
+        hr: React.HTMLElementAttributes<HTMLHRElement>;
+        html: React.HTMLElementAttributes<HTMLHtmlElement>;
+        i: React.HTMLElementAttributes<HTMLElement>;
+        iframe: React.HTMLElementAttributes<HTMLIFrameElement>;
+        img: React.HTMLElementAttributes<HTMLImageElement>;
+        input: React.HTMLElementAttributes<HTMLInputElement>;
+        ins: React.HTMLElementAttributes<HTMLModElement>;
+        kbd: React.HTMLElementAttributes<HTMLElement>;
+        keygen: React.HTMLElementAttributes<HTMLElement>;
+        label: React.HTMLElementAttributes<HTMLLabelElement>;
+        legend: React.HTMLElementAttributes<HTMLLegendElement>;
+        li: React.HTMLElementAttributes<HTMLLIElement>;
+        link: React.HTMLElementAttributes<HTMLLinkElement>;
+        main: React.HTMLElementAttributes<HTMLElement>;
+        map: React.HTMLElementAttributes<HTMLMapElement>;
+        mark: React.HTMLElementAttributes<HTMLElement>;
+        menu: React.HTMLElementAttributes<HTMLElement>;
+        menuitem: React.HTMLElementAttributes<HTMLElement>;
+        meta: React.HTMLElementAttributes<HTMLMetaElement>;
+        meter: React.HTMLElementAttributes<HTMLElement>;
+        nav: React.HTMLElementAttributes<HTMLElement>;
+        noscript: React.HTMLElementAttributes<HTMLElement>;
+        object: React.HTMLElementAttributes<HTMLObjectElement>;
+        ol: React.HTMLElementAttributes<HTMLOListElement>;
+        optgroup: React.HTMLElementAttributes<HTMLOptGroupElement>;
+        option: React.HTMLElementAttributes<HTMLOptionElement>;
+        output: React.HTMLElementAttributes<HTMLElement>;
+        p: React.HTMLElementAttributes<HTMLParagraphElement>;
+        param: React.HTMLElementAttributes<HTMLParamElement>;
+        picture: React.HTMLElementAttributes<HTMLElement>;
+        pre: React.HTMLElementAttributes<HTMLPreElement>;
+        progress: React.HTMLElementAttributes<HTMLProgressElement>;
+        q: React.HTMLElementAttributes<HTMLQuoteElement>;
+        rp: React.HTMLElementAttributes<HTMLElement>;
+        rt: React.HTMLElementAttributes<HTMLElement>;
+        ruby: React.HTMLElementAttributes<HTMLElement>;
+        s: React.HTMLElementAttributes<HTMLElement>;
+        samp: React.HTMLElementAttributes<HTMLElement>;
+        script: React.HTMLElementAttributes<HTMLElement>;
+        section: React.HTMLElementAttributes<HTMLElement>;
+        select: React.HTMLElementAttributes<HTMLSelectElement>;
+        small: React.HTMLElementAttributes<HTMLElement>;
+        source: React.HTMLElementAttributes<HTMLSourceElement>;
+        span: React.HTMLElementAttributes<HTMLSpanElement>;
+        strong: React.HTMLElementAttributes<HTMLElement>;
+        style: React.HTMLElementAttributes<HTMLStyleElement>;
+        sub: React.HTMLElementAttributes<HTMLElement>;
+        summary: React.HTMLElementAttributes<HTMLElement>;
+        sup: React.HTMLElementAttributes<HTMLElement>;
+        table: React.HTMLElementAttributes<HTMLTableElement>;
+        tbody: React.HTMLElementAttributes<HTMLTableSectionElement>;
+        td: React.HTMLElementAttributes<HTMLTableDataCellElement>;
+        textarea: React.HTMLElementAttributes<HTMLTextAreaElement>;
+        tfoot: React.HTMLElementAttributes<HTMLTableSectionElement>;
+        th: React.HTMLElementAttributes<HTMLTableHeaderCellElement>;
+        thead: React.HTMLElementAttributes<HTMLTableSectionElement>;
+        time: React.HTMLElementAttributes<HTMLElement>;
+        title: React.HTMLElementAttributes<HTMLTitleElement>;
+        tr: React.HTMLElementAttributes<HTMLTableRowElement>;
+        track: React.HTMLElementAttributes<HTMLTrackElement>;
+        u: React.HTMLElementAttributes<HTMLElement>;
+        ul: React.HTMLElementAttributes<HTMLUListElement>;
+        "var": React.HTMLElementAttributes<HTMLElement>;
+        video: React.HTMLElementAttributes<HTMLVideoElement>;
+        wbr: React.HTMLElementAttributes<HTMLElement>;
 
         // SVG
         svg: React.SVGElementAttributes;
