@@ -7,7 +7,7 @@ declare var math: mathjs.IMathJsStatic;
 
 declare module mathjs {
 	
-	type MathArray = Array<Number>;
+	type MathArray = number[]|number[][];
 	type MathType = number|BigNumber|Fraction|Complex|Unit|MathArray|Matrix;
 	type MathExpression = string|string[]|MathArray|Matrix;
 	
@@ -15,6 +15,7 @@ declare module mathjs {
 		
 		e: number;
 		pi: number;
+		uninitialized: any;
 		
 		config(options: any): void;
 		
@@ -132,6 +133,8 @@ declare module mathjs {
 		 * @param y Denominator
 		 * @returns Quotient, x / y
 		 */
+		divide(x: Unit, y: Unit): Unit;
+		divide(x: number, y: number): number;
 		divide(x:MathType, y:MathType): MathType;
 		
 		/**
@@ -250,6 +253,10 @@ declare module mathjs {
 		/**
 		 * Multiply two values, x * y. The result is squeezed. For matrices, the matrix product is calculated.
 		 */
+		multiply(x: MathArray|Matrix, y: MathArray|Matrix): Matrix;
+		multiply(x: MathArray|Matrix, y: MathType): Matrix;
+		multiply(x: Unit, y: Unit): Unit;
+		multiply(x: number, y: number): number;
 		multiply(x: MathType, y: MathType): MathType;
 		
 		/**
@@ -491,7 +498,7 @@ declare module mathjs {
 		/**
 		 * Create a fraction convert a value to a fraction.
 		 */
-		fraction(numerator: number|string|MathArray|Matrix, denominator: number|string|MathArray|Matrix): Fraction|MathArray|Matrix;
+		fraction(numerator: number|string|MathArray|Matrix, denominator?: number|string|MathArray|Matrix): Fraction|MathArray|Matrix;
 		
 		/**
 		 * Create an index. An Index can store ranges having start, step, and end for multiple dimensions. Matrix.get, Matrix.set, and math.subset accept an Index as input.
@@ -529,8 +536,8 @@ declare module mathjs {
 		 * Create a unit. Depending on the passed arguments, the function will create and return a new math.type.Unit object. 
 		 * When a matrix is provided, all elements will be converted to units.
 		 */
-		unit(unit: string): Unit|MathArray|Matrix;
-		unit(value: number, unit: string): Unit|MathArray|Matrix;
+		unit(unit: string): Unit;
+		unit(value: number, unit: string): Unit;
 		
 		/**
 		 * Parse and compile an expression. Returns a an object with a function eval([scope]) to evaluate the compiled expression.
@@ -612,7 +619,7 @@ declare module mathjs {
 		 * and B =[b1, b2, b3] is defined as:
 		 * cross(A, B) = [ a2 * b3 - a3 * b2, a3 * b1 - a1 * b3, a1 * b2 - a2 * b1 ]
 		 */
-		cross(x: MathArray|Matrix, y: MathArray|Matrix): MathArray|Matrix;
+		cross(x: MathArray|Matrix, y: MathArray|Matrix): Matrix;
 		
 		/**
 		 * Calculate the determinant of a matrix.
@@ -629,8 +636,8 @@ declare module mathjs {
 		 * @param k The diagonal where the vector will be filled in or retrieved. Default value: 0.
 		 * @param format The matrix storage format. Default value: 'dense'.
 		 */
-		diag(X: MathArray|Matrix, format?: string): MathArray|Matrix;
-		diag(X: MathArray|Matrix, k: number|BigNumber, format?: string): MathArray|Matrix;
+		diag(X: MathArray|Matrix, format?: string): Matrix;
+		diag(X: MathArray|Matrix, k: number|BigNumber, format?: string): Matrix;
 		
 		/**
 		 * Calculate the dot product of two vectors. The dot product of A = [a1, a2, a3, ..., an] and B = [b1, b2, b3, ..., bn] 
@@ -642,9 +649,9 @@ declare module mathjs {
 		/**
 		 * Create a 2-dimensional identity matrix with size m x n or n x n. The matrix has ones on the diagonal and zeros elsewhere.
 		 */
-		eye(n: number, format?: string): MathArray|Matrix|number;
-		eye(m: number, n: number, format?: string): MathArray|Matrix|number;
-		eye(size: number[], format?: string): MathArray|Matrix|number;
+		eye(n: number, format?: string): Matrix;
+		eye(m: number, n: number, format?: string): Matrix;
+		eye(size: number[], format?: string): Matrix;
 		
 		/**
 		 * Flatten a multi dimensional matrix into a single dimensional matrix.
@@ -659,9 +666,9 @@ declare module mathjs {
 		/**
 		 * Create a matrix filled with ones. The created matrix can have one or multiple dimensions.
 		 */
-		ones(n: number, format?: string): MathArray|Matrix|number;
-		ones(m: number, n: number, format?: string): MathArray|Matrix|number;
-		ones(size: number[], format?: string): MathArray|Matrix|number;
+		ones(n: number, format?: string): MathArray|Matrix;
+		ones(m: number, n: number, format?: string): MathArray|Matrix;
+		ones(size: number[], format?: string): MathArray|Matrix;
 		
 		/**
 		 * Create an array from a range. By default, the range end is excluded. This can be customized by providing an extra parameter includeEnd.
@@ -671,9 +678,9 @@ declare module mathjs {
 		 * @param step Step size. Default value is 1.
 		 * @returns Parameters describing the ranges start, end, and optional step.
 		 */
-		range(str: string, includeEnd?: boolean): MathArray|Matrix;
-		range(start: number|BigNumber, end:number|BigNumber, includeEnd?:boolean): MathArray|Matrix;
-		range(start: number|BigNumber, end: number|BigNumber, step: number|BigNumber, includeEnd?:boolean): MathArray|Matrix;
+		range(str: string, includeEnd?: boolean): Matrix;
+		range(start: number|BigNumber, end:number|BigNumber, includeEnd?:boolean): Matrix;
+		range(start: number|BigNumber, end: number|BigNumber, step: number|BigNumber, includeEnd?:boolean): Matrix;
 		
 		/**
 		 * Resize a matrix
@@ -715,9 +722,9 @@ declare module mathjs {
 		/**
 		 * Create a matrix filled with zeros. The created matrix can have one or multiple dimensions.
 		 */
-		zeros(n: number, format?: string): MathArray|Matrix|number;
-		zeros(m: number, n: number, format?: string): MathArray|Matrix|number;
-		zeros(size: number[], format?: string): MathArray|Matrix|number;
+		zeros(n: number, format?: string): MathArray|Matrix;
+		zeros(m: number, n: number, format?: string): MathArray|Matrix;
+		zeros(size: number[], format?: string): MathArray|Matrix;
 	
 		/**
 		 * Compute the number of ways of picking k unordered outcomes from n possibilities. 
@@ -1269,7 +1276,10 @@ declare module mathjs {
 	}
 	
 	export interface Matrix {
-		
+		size(): number[];
+		subset(index: Index, replacement?: any, defaultValue?: any): Matrix;
+		resize(size: MathArray|Matrix, defaultValue?: number|string): Matrix;
+		clone(): Matrix;
 	}
 	
 	export interface BigNumber {
@@ -1293,7 +1303,8 @@ declare module mathjs {
 	} 
 	
 	export interface Unit {
-		
+		to(unit: string): Unit;
+		toNumber(unit: string): number;
 	}
 	
 	export interface Index {
