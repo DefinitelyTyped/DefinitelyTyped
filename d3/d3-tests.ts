@@ -271,6 +271,7 @@ function stackedBarChart() {
     });
 }
 
+type Dict<T> = { [key: string]: T };
 // example from http://bl.ocks.org/3886394
 function normalizedBarChart() {
     var margin = { top: 20, right: 100, bottom: 30, left: 40 },
@@ -2706,3 +2707,4 @@ function testMultiUtcFormat() {
         ["%Y", function() { return true; }]
     ]);
 }
+
