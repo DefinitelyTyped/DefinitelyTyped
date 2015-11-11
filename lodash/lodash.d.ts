@@ -7510,10 +7510,10 @@ declare module _ {
         /**
          * Creates a function that is restricted to invoking func once. Repeat calls to the function return the value
          * of the first call. The func is invoked with the this binding and arguments of the created function.
+         *
          * @param func The function to restrict.
          * @return Returns the new restricted function.
          */
-
         once<T extends Function>(func: T): T;
     }
 
@@ -7522,6 +7522,13 @@ declare module _ {
          * @see _.once
          */
         once(): LoDashImplicitObjectWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.once
+         */
+        once(): LoDashExplicitObjectWrapper<T>;
     }
 
     //_.partial
