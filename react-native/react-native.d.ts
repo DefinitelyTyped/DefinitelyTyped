@@ -131,6 +131,19 @@ declare namespace  ReactNative {
 
     export type Runnable = ( appParameters: any ) => void;
 
+
+    export interface  PointProperties {
+        x: number
+        y: number
+    }
+
+    export interface Insets {
+        top: number
+        left: number
+        bottom: number
+        right: number
+    }
+
     export type AppConfig = {
         appKey: string;
         component: ReactClass<any, any, any>;
@@ -148,6 +161,48 @@ declare namespace  ReactNative {
         static runApplication( appKey: string, appParameters: any ): void;
     }
 
+    export interface LayoutAnimationTypes {
+        spring: string
+        linear: string
+        easeInEaseOut: string
+        easeIn: string
+        easeOut: string
+    }
+
+    export interface LayoutAnimationProperties {
+        opacity: string
+        scaleXY: string
+    }
+
+    export interface LayoutAnimationAnim {
+        duration?: number
+        delay?: number
+        springDamping?: number
+        initialVelocity?: number
+        type?: string //LayoutAnimationTypes
+        property?: string //LayoutAnimationProperties
+    }
+
+    export interface LayoutAnimationConfig {
+        duration: number
+        create?: LayoutAnimationAnim
+        update?: LayoutAnimationAnim
+        delete?: LayoutAnimationAnim
+    }
+
+    export interface LayoutAnimationStatic {
+
+        configureNext: ( config: LayoutAnimationConfig, onAnimationDidEnd?: () => void, onError?: ( error?: any ) => void ) => void
+        create: ( duration: number, type?: string, creationProp?: string ) => LayoutAnimationConfig
+        Types: LayoutAnimationTypes
+        Properties: LayoutAnimationProperties
+        configChecker: ( conf: {config: LayoutAnimationConfig}, name: string, next: string ) => void
+        Presets : {
+            easeInEaseOut: LayoutAnimationConfig
+            linear:LayoutAnimationConfig
+            spring: LayoutAnimationConfig
+        }
+    }
     /*
      export interface ReactPropTypes extends React.ReactPropTypes
      {
@@ -211,7 +266,6 @@ declare namespace  ReactNative {
         scaleY?: number
         translateX?: number
         translateY?: number
-
     }
 
 
@@ -436,7 +490,7 @@ declare namespace  ReactNative {
         /**
          * Callback that is called when the text input's text changes.
          */
-        onChange?: (event: {nativeEvent: {text: string}}) => void
+        onChange?: ( event: {nativeEvent: {text: string}} ) => void
 
         /**
          * Callback that is called when the text input's text changes.
@@ -447,7 +501,7 @@ declare namespace  ReactNative {
         /**
          * Callback that is called when text input ends.
          */
-        onEndEditing?: (event: {nativeEvent: {text: string}}) => void
+        onEndEditing?: ( event: {nativeEvent: {text: string}} ) => void
 
         /**
          * Callback that is called when the text input is focused
@@ -457,12 +511,12 @@ declare namespace  ReactNative {
         /**
          * Invoked on mount and layout changes with {x, y, width, height}.
          */
-        onLayout?: (event: {nativeEvent: {x: number, y: number, width: number, height: number}}) => void
+        onLayout?: ( event: {nativeEvent: {x: number, y: number, width: number, height: number}} ) => void
 
         /**
          * Callback that is called when the text input's submit button is pressed.
          */
-        onSubmitEditing?: (event: {nativeEvent: {text: string}}) => void
+        onSubmitEditing?: ( event: {nativeEvent: {text: string}} ) => void
 
         /**
          * The string that will be rendered before text input has been entered
@@ -910,7 +964,7 @@ declare namespace  ReactNative {
          * This is called when the user changes the date or time in the UI.
          * The first and only argument is a Date object representing the new date and time.
          */
-        onDateChange?: (newDate: Date) => void
+        onDateChange?: ( newDate: Date ) => void
 
         /**
          * Timezone offset in minutes.
@@ -1039,7 +1093,7 @@ declare namespace  ReactNative {
          * This is useful for creating resizable rounded buttons, shadows, and other resizable assets.
          * More info on Apple documentation
          */
-        capInsets?: {top: number, left: number, bottom: number, right: number}
+        capInsets?: Insets
 
         /**
          * A static image to display while downloading the final image off the network.
@@ -1195,7 +1249,7 @@ declare namespace  ReactNative {
          * is exactly what was put into the data source, but it's also possible to
          * provide custom extractors.
          */
-        renderRow?: ( rowData: any, sectionID: string, rowID: string, highlightRow?: boolean ) => React.ReactElement<any>
+        renderRow?: ( rowData: any, sectionID: string | number, rowID: string | number, highlightRow?: boolean ) => React.ReactElement<any>
 
 
         /**
@@ -1213,7 +1267,7 @@ declare namespace  ReactNative {
          * stick to the top until it is pushed off the screen by the next section
          * header.
          */
-        renderSectionHeader?: ( sectionData: any, sectionId: string ) => React.ReactElement<any>
+        renderSectionHeader?: ( sectionData: any, sectionId: string | number ) => React.ReactElement<any>
 
 
         /**
@@ -1222,7 +1276,7 @@ declare namespace  ReactNative {
          * but not the last row if there is a section header below.
          * Take a sectionID and rowID of the row above and whether its adjacent row is highlighted.
          */
-        renderSeparator?: ( sectionID: string, rowID: string, adjacentRowHighlighted?: boolean ) => React.ReactElement<any>
+        renderSeparator?: ( sectionID: string | number, rowID: string | number, adjacentRowHighlighted?: boolean ) => React.ReactElement<any>
 
         /**
          * How early to start rendering rows before they come on screen, in
@@ -1233,6 +1287,138 @@ declare namespace  ReactNative {
 
     export interface ListViewStatic extends React.ComponentClass<ListViewProperties> {
         DataSource: ListViewDataSource;
+    }
+
+
+    export interface MapViewAnnotation {
+        latitude?: number
+        longitude?: number
+        animateDrop?: boolean
+        title?: string
+        subtitle?: string
+        hasLeftCallout?: boolean
+        hasRightCallout?: boolean
+        onLeftCalloutPress?: () => void
+        onRightCalloutPress?: () => void
+        id?: string
+    }
+
+    export interface MapViewRegion {
+        latitude: number
+        longitude: number
+        latitudeDelta: number
+        longitudeDelta: number
+    }
+
+    export interface MapViewPropertiesIOS {
+
+        /**
+         * If false points of interest won't be displayed on the map.
+         * Default value is true.
+         */
+        showsPointsOfInterest?: boolean
+    }
+
+    export interface MapViewProperties extends MapViewPropertiesIOS, React.Props<MapViewStatic> {
+
+        /**
+         * Map annotations with title/subtitle.
+         */
+        annotations?: MapViewAnnotation[]
+
+        /**
+         * Insets for the map's legal label, originally at bottom left of the map. See EdgeInsetsPropType.js for more information.
+         */
+        legalLabelInsets?: Insets
+
+        /**
+         * The map type to be displayed.
+         *     standard: standard road map (default)
+         *     satellite: satellite view
+         *     hybrid: satellite view with roads and points of interest overlayed
+         *
+         * enum('standard', 'satellite', 'hybrid')
+         */
+        mapType?: string
+
+        /**
+         * Maximum size of area that can be displayed.
+         */
+        maxDelta?: number
+
+        /**
+         * Minimum size of area that can be displayed.
+         */
+        minDelta?: number
+
+        /**
+         * Callback that is called once, when the user taps an annotation.
+         */
+        onAnnotationPress?: () => void
+
+        /**
+         * Callback that is called continuously when the user is dragging the map.
+         */
+        onRegionChange?: (region: MapViewRegion) => void
+
+        /**
+         * Callback that is called once, when the user is done moving the map.
+         */
+        onRegionChangeComplete?: (region: MapViewRegion) => void
+
+        /**
+         * When this property is set to true and a valid camera is associated with the map,
+         * the camera’s pitch angle is used to tilt the plane of the map.
+         *
+         * When this property is set to false, the camera’s pitch angle is ignored and
+         * the map is always displayed as if the user is looking straight down onto it.
+         */
+        pitchEnabled?: boolean
+
+        /**
+         * The region to be displayed by the map.
+         * The region is defined by the center coordinates and the span of coordinates to display.
+         */
+        region?: MapViewRegion
+
+        /**
+         * When this property is set to true and a valid camera is associated with the map,
+         * the camera’s heading angle is used to rotate the plane of the map around its center point.
+         *
+         * When this property is set to false, the camera’s heading angle is ignored and the map is always oriented
+         * so that true north is situated at the top of the map view
+         */
+        rotateEnabled?: boolean
+
+        /**
+         * If false the user won't be able to change the map region being displayed.
+         * Default value is true.
+         */
+        scrollEnabled?: boolean
+
+        /**
+         * If true the app will ask for the user's location and focus on it.
+         * Default value is false.
+         *
+         * NOTE: You need to add NSLocationWhenInUseUsageDescription key in Info.plist to enable geolocation,
+         * otherwise it is going to fail silently!
+         */
+        showsUserLocation?: boolean
+
+        /**
+         * Used to style and layout the MapView.
+         * See StyleSheet.js and ViewStylePropTypes.js for more info.
+         */
+        style?: ViewStyle
+
+        /**
+         * If false the user won't be able to pinch/zoom the map.
+         * Default value is true.
+         */
+        zoomEnabled?: boolean
+    }
+
+    export interface MapViewStatic extends React.ComponentClass<MapViewProperties> {
     }
 
 
@@ -1361,11 +1547,11 @@ declare namespace  ReactNative {
 
 
     export interface LeftToRightGesture {
-
+        //TODO:
     }
 
     export interface AnimationInterpolator {
-
+        //TODO:
     }
 
     // see /NavigatorSceneConfigs.js
@@ -1668,7 +1854,7 @@ declare namespace  ReactNative {
          * handle merging of old and new data separately and then pass that into
          * this function as the `dataBlob`.
          */
-        cloneWithRows<T>( dataBlob: Array<any> | {[key: string]: any}, rowIdentities?: Array<string> ): ListViewDataSource
+        cloneWithRows<T>( dataBlob: Array<any> | {[key: string ]: any}, rowIdentities?: Array<string | number> ): ListViewDataSource
 
         /**
          * This performs the same function as the `cloneWithRows` function but here
@@ -1681,7 +1867,7 @@ declare namespace  ReactNative {
          *
          * Note: this returns a new object!
          */
-        cloneWithRowsAndSections( dataBlob: Array<any> | {[key: string]: any}, sectionIdentities?: Array<string>, rowIdentities?: Array<Array<string>> ): ListViewDataSource
+        cloneWithRowsAndSections( dataBlob: Array<any> | {[key: string]: any}, sectionIdentities?: Array<string | number>, rowIdentities?: Array<Array<string | number>> ): ListViewDataSource
 
         getRowCount(): number
 
@@ -1717,7 +1903,6 @@ declare namespace  ReactNative {
          */
         getSectionHeaderData( sectionIndex: number ): any
     }
-
 
 
     /**
@@ -1915,17 +2100,6 @@ declare namespace  ReactNative {
         shadowRadius?: number
     }
 
-    export interface  EdgeInsetsProperties {
-        top: number
-        left: number
-        bottom: number
-        right: number
-    }
-
-    export interface  PointProperties {
-        x: number
-        y: number
-    }
 
     export interface ScrollViewIOSProperties {
 
@@ -1981,7 +2155,7 @@ declare namespace  ReactNative {
          * The amount by which the scroll view content is inset from the edges of the scroll view.
          * Defaults to {0, 0, 0, 0}.
          */
-        contentInset?: EdgeInsetsProperties // zeros
+        contentInset?: Insets // zeros
 
         /**
          * Used to manually set the starting scroll offset.
@@ -2043,7 +2217,7 @@ declare namespace  ReactNative {
          * This should normally be set to the same value as the contentInset.
          * Defaults to {0, 0, 0, 0}.
          */
-        scrollIndicatorInsets?: EdgeInsetsProperties //zeroes
+        scrollIndicatorInsets?: Insets //zeroes
 
         /**
          * When true the scroll view scrolls to top when the status bar is tapped.
@@ -2213,8 +2387,14 @@ declare namespace  ReactNative {
     export var Image: ImageStatic;
     export type Image = ImageStatic;
 
+    export var LayoutAnimation: LayoutAnimationStatic;
+    export type LayoutAnimation = LayoutAnimationStatic;
+
     export var ListView: ListViewStatic;
     export type ListView = ListViewStatic;
+
+    export var MapView: MapViewStatic;
+    export type MapView = MapViewStatic;
 
     export var Navigator: NavigatorStatic;
     export type Navigator = NavigatorStatic;
@@ -2500,8 +2680,8 @@ declare namespace  ReactNative {
         //FIXME: Documentation ?
         export interface TestModuleStatic {
 
-            verifySnapshot: (done: (indicator?: any) => void) => void
-            markTestPassed: (indicator: any) => void
+            verifySnapshot: ( done: ( indicator?: any ) => void ) => void
+            markTestPassed: ( indicator: any ) => void
             markTestCompleted: () => void
         }
 
