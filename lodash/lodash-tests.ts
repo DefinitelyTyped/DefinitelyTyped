@@ -3696,8 +3696,31 @@ result = <TestNegateResult>_(testNegatePredicate).negate().value();
 result = <TestNegateResult>_(testNegatePredicate).negate<TestNegateResult>().value();
 
 // _.once
-result = <() => void>_.once<() => void>(function () {});
-result = <() => void>(_(function () {}).once().value());
+module TestOnce {
+    interface Func {
+        (a: number, b: string): boolean;
+    }
+
+    let func: Func;
+
+    {
+        let result: Func;
+
+        result = _.once(func);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<Func>;
+
+        result = _(func).once();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<Func>;
+
+        result = _(func).chain().once();
+    }
+}
 
 var returnedOnce = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedOnce(4);
