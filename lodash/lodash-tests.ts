@@ -3345,11 +3345,37 @@ module TestShuffle {
     }
 }
 
-result = <number>_.size([1, 2]);
-result = <number>_([1, 2]).size();
-result = <number>_.size({ 'one': 1, 'two': 2, 'three': 3 });
-result = <number>_({ 'one': 1, 'two': 2, 'three': 3 }).size();
-result = <number>_.size('curly');
+// _.size
+module TestSize {
+    type SampleType = {a: string; b: number; c: boolean;};
+
+    let array: SampleType[];
+    let list: _.List<SampleType>;
+    let dictionary: _.Dictionary<SampleType>;
+
+    {
+        let result: number;
+
+        result = _.size<SampleType>(array);
+        result = _.size<SampleType>(list);
+        result = _.size<SampleType>(dictionary);
+        result = _.size('');
+
+        result = _(array).size();
+        result = _(list).size();
+        result = _(dictionary).size();
+        result = _('').size();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(array).chain().size();
+        result = _(list).chain().size();
+        result = _(dictionary).chain().size();
+        result = _('').chain().size();
+    }
+}
 
 // _.some
 module TestSome {

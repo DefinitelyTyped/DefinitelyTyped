@@ -6423,45 +6423,60 @@ declare module _ {
     //_.size
     interface LoDashStatic {
         /**
-        * Gets the size of the collection by returning collection.length for arrays and array-like
-        * objects or the number of own enumerable properties for objects.
-        * @param collection The collection to inspect.
-        * @return collection.length
-        **/
-        size<T>(collection: Array<T>): number;
+         * Gets the size of collection by returning its length for array-like values or the number of own enumerable
+         * properties for objects.
+         *
+         * @param collection The collection to inspect.
+         * @return Returns the size of collection.
+         */
+        size<T>(collection: List<T>|Dictionary<T>): number;
 
         /**
-        * @see _.size
-        **/
-        size<T>(collection: List<T>): number;
+         * @see _.size
+         */
+        size(collection: string): number;
+    }
 
+    interface LoDashImplicitWrapper<T> {
         /**
-        * @see _.size
-        * @param object The object to inspect
-        * @return The number of own enumerable properties.
-        **/
-        size<T extends {}>(object: T): number;
-
-        /**
-        * @see _.size
-        * @param aString The string to inspect
-        * @return The length of aString
-        **/
-        size(aString: string): number;
+         * @see _.size
+         */
+        size(): number;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.size
-         **/
+         */
         size(): number;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.size
-         **/
+         */
         size(): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.size
+         */
+        size(): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.size
+         */
+        size(): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.size
+         */
+        size(): LoDashExplicitWrapper<number>;
     }
 
     //_.some
