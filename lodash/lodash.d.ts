@@ -3772,160 +3772,82 @@ declare module _ {
     //_.contains
     interface LoDashStatic {
         /**
-        * Checks if a given value is present in a collection using strict equality for comparisons,
-        * i.e. ===. If fromIndex is negative, it is used as the offset from the end of the collection.
-        * @param collection The collection to iterate over.
-        * @param target The value to check for.
-        * @param fromIndex The index to search from.
-        * @return True if the target element is found, else false.
-        **/
+         * @see _.includes
+         */
         contains<T>(
-            collection: Array<T>,
+            collection: List<T>|Dictionary<T>,
             target: T,
-            fromIndex?: number): boolean;
+            fromIndex?: number
+        ): boolean;
 
         /**
-        * @see _.contains
-        **/
-        contains<T>(
-            collection: List<T>,
-            target: T,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see _.contains
-        * @param dictionary The dictionary to iterate over.
-        * @param value The value in the dictionary to search for.
-        **/
-        contains<T>(
-            dictionary: Dictionary<T>,
-            value: T,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see _.contains
-        * @param searchString the string to search
-        * @param targetString the string to search for
-        **/
+         * @see _.includes
+         */
         contains(
-            searchString: string,
-            targetString: string,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see _.contains
-        **/
-        include<T>(
-            collection: Array<T>,
-            target: T,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see _.contains
-        **/
-        include<T>(
-            collection: List<T>,
-            target: T,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see _.contains
-        **/
-        include<T>(
-            dictionary: Dictionary<T>,
-            value: T,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see _.contains
-        **/
-        include(
-            searchString: string,
-            targetString: string,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see _.contains
-        **/
-        includes<T>(
-            collection: Array<T>,
-            target: T,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see _.contains
-        **/
-        includes<T>(
-            collection: List<T>,
-            target: T,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see _.contains
-        **/
-        includes<T>(
-            dictionary: Dictionary<T>,
-            value: T,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see _.contains
-        **/
-        includes(
-            searchString: string,
-            targetString: string,
-            fromIndex?: number): boolean;
+            collection: string,
+            target: string,
+            fromIndex?: number
+        ): boolean;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
-         * @see _.contains
-         **/
-        contains(target: T, fromIndex?: number): boolean;
-
-        /**
-         * @see _.contains
-         **/
-        include(target: T, fromIndex?: number): boolean;
-
-        /**
-         * @see _.contains
-         **/
-        includes(target: T, fromIndex?: number): boolean;
+         * @see _.includes
+         */
+        contains(
+            target: T,
+            fromIndex?: number
+        ): boolean;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-         * @see _.contains
-         **/
-        contains<TValue>(target: TValue, fromIndex?: number): boolean;
-
-        /**
-         * @see _.contains
-         **/
-        include<TValue>(target: TValue, fromIndex?: number): boolean;
-
-        /**
-         * @see _.contains
-         **/
-        includes<TValue>(target: TValue, fromIndex?: number): boolean;
+         * @see _.includes
+         */
+        contains<TValue>(
+            target: TValue,
+            fromIndex?: number
+        ): boolean;
     }
 
-    interface LoDashImplicitStringWrapper {
+    interface LoDashImplicitWrapper<T> {
         /**
-         * @see _.contains
-         **/
-        contains(target: string, fromIndex?: number): boolean;
+         * @see _.includes
+         */
+        contains(
+            target: string,
+            fromIndex?: number
+        ): boolean;
+    }
 
+    interface LoDashExplicitArrayWrapper<T> {
         /**
-         * @see _.contains
-         **/
-        include(target: string, fromIndex?: number): boolean;
+         * @see _.includes
+         */
+        contains(
+            target: T,
+            fromIndex?: number
+        ): LoDashExplicitWrapper<boolean>;
+    }
 
+    interface LoDashExplicitObjectWrapper<T> {
         /**
-         * @see _.contains
-         **/
-        includes(target: string, fromIndex?: number): boolean;
+         * @see _.includes
+         */
+        contains<TValue>(
+            target: TValue,
+            fromIndex?: number
+        ): LoDashExplicitWrapper<boolean>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.includes
+         */
+        contains(
+            target: string,
+            fromIndex?: number
+        ): LoDashExplicitWrapper<boolean>;
     }
 
     //_.countBy
@@ -5355,6 +5277,176 @@ declare module _ {
         **/
         groupBy<W, TValue>(
             whereValue: W): _.LoDashImplicitObjectWrapper<_.Dictionary<TValue[]>>;
+    }
+
+    //_.include
+    interface LoDashStatic {
+        /**
+         * @see _.includes
+         */
+        include<T>(
+            collection: List<T>|Dictionary<T>,
+            target: T,
+            fromIndex?: number
+        ): boolean;
+
+        /**
+         * @see _.includes
+         */
+        include(
+            collection: string,
+            target: string,
+            fromIndex?: number
+        ): boolean;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.includes
+         */
+        include(
+            target: T,
+            fromIndex?: number
+        ): boolean;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.includes
+         */
+        include<TValue>(
+            target: TValue,
+            fromIndex?: number
+        ): boolean;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.includes
+         */
+        include(
+            target: string,
+            fromIndex?: number
+        ): boolean;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.includes
+         */
+        include(
+            target: T,
+            fromIndex?: number
+        ): LoDashExplicitWrapper<boolean>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.includes
+         */
+        include<TValue>(
+            target: TValue,
+            fromIndex?: number
+        ): LoDashExplicitWrapper<boolean>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.includes
+         */
+        include(
+            target: string,
+            fromIndex?: number
+        ): LoDashExplicitWrapper<boolean>;
+    }
+
+    //_.includes
+    interface LoDashStatic {
+        /**
+         * Checks if target is in collection using SameValueZero for equality comparisons. If fromIndex is negative,
+         * it’s used as the offset from the end of collection.
+         *
+         * @alias _.contains, _.include
+         *
+         * @param collection The collection to search.
+         * @param target The value to search for.
+         * @param fromIndex The index to search from.
+         * @return True if the target element is found, else false.
+         */
+        includes<T>(
+            collection: List<T>|Dictionary<T>,
+            target: T,
+            fromIndex?: number
+        ): boolean;
+
+        /**
+         * @see _.includes
+         */
+        includes(
+            collection: string,
+            target: string,
+            fromIndex?: number
+        ): boolean;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.includes
+         */
+        includes(
+            target: T,
+            fromIndex?: number
+        ): boolean;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.includes
+         */
+        includes<TValue>(
+            target: TValue,
+            fromIndex?: number
+        ): boolean;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.includes
+         */
+        includes(
+            target: string,
+            fromIndex?: number
+        ): boolean;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.includes
+         */
+        includes(
+            target: T,
+            fromIndex?: number
+        ): LoDashExplicitWrapper<boolean>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.includes
+         */
+        includes<TValue>(
+            target: TValue,
+            fromIndex?: number
+        ): LoDashExplicitWrapper<boolean>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.includes
+         */
+        includes(
+            target: string,
+            fromIndex?: number
+        ): LoDashExplicitWrapper<boolean>;
     }
 
     //_.indexBy
