@@ -1151,18 +1151,39 @@ module TestTake {
 }
 
 // _.takeRight
-{
-    let testTakeRightArray: TResult[];
-    let testTakeRightList: _.List<TResult>;
-    let result: TResult[];
-    result = _.takeRight<TResult>(testTakeRightArray);
-    result = _.takeRight<TResult>(testTakeRightArray, 42);
-    result = _.takeRight<TResult>(testTakeRightList);
-    result = _.takeRight<TResult>(testTakeRightList, 42);
-    result = _(testTakeRightArray).takeRight().value();
-    result = _(testTakeRightArray).takeRight(42).value();
-    result = _(testTakeRightList).takeRight<TResult>().value();
-    result = _(testTakeRightList).takeRight<TResult>(42).value();
+module TestTakeRight {
+    let array: TResult[];
+    let list: _.List<TResult>;
+
+    {
+        let result: TResult[];
+
+        result = _.takeRight<TResult>(array);
+        result = _.takeRight<TResult>(array, 42);
+
+        result = _.takeRight<TResult>(list);
+        result = _.takeRight<TResult>(list, 42);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).takeRight();
+        result = _(array).takeRight(42);
+
+        result = _(list).takeRight<TResult>();
+        result = _(list).takeRight<TResult>(42);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().takeRight();
+        result = _(array).chain().takeRight(42);
+
+        result = _(list).chain().takeRight<TResult>();
+        result = _(list).chain().takeRight<TResult>(42);
+    }
 }
 
 // _.takeRightWhile
