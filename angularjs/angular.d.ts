@@ -1660,6 +1660,7 @@ declare module angular {
         restrict?: string;
         scope?: any;
         template?: any;
+        templateNamespace?: string;
         templateUrl?: any;
         terminal?: boolean;
         transclude?: any;
