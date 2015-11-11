@@ -1,7 +1,9 @@
 ///<reference path='../react/react.d.ts' />
+///<reference path='../react/react-addons-linked-state-mixin.d.ts' />
 ///<reference path='material-ui.d.ts' />
 
-import * as React from "react/addons";
+import * as React from "react";
+import * as LinkedStateMixin from "react-addons-linked-state-mixin";
 import Checkbox = require("material-ui/lib/checkbox");
 import Colors = require("material-ui/lib/styles/colors");
 import AppBar = require("material-ui/lib/app-bar");
