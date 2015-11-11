@@ -229,6 +229,21 @@ barProm = fooProm.then((value: Foo) => {
 });
 barProm = fooProm.then((value: Foo) => {
 	return bar;
+}, (reason: any) => {
+	return barProm;
+});
+barProm = fooProm.then((value: Foo) => {
+	return bar;
+}, (reason: any) => {
+	return;
+});
+barProm = fooProm.then((value: Foo) => {
+	return bar;
+}, (reason: any) => {
+	return voidProm;
+});
+barProm = fooProm.then((value: Foo) => {
+	return bar;
 });
 barProm = barProm.then((value: Bar) => {
 	if (value) return value;
