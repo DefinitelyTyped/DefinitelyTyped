@@ -5,9 +5,9 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// This work is based on an original work made by Bernd Paradies: https://github.com/bparadie
-//
 // These definitions are meant to be used with the TSC compiler target set to ES6
+//
+// This work is based on an original work made by Bernd Paradies: https://github.com/bparadie
 //
 // WARNING: this work is very much beta:
 //            -it is still missing react-native definitions
@@ -834,10 +834,42 @@ declare namespace  ReactNative {
 
 
     /**
-     * @see
+     * @see https://facebook.github.io/react-native/docs/activityindicatorios.html#props
      */
-    export interface ActivityIndicatorIOSProperties {
-        /// TODO
+    export interface ActivityIndicatorIOSProperties extends React.Props<ActivityIndicatorIOSStatic> {
+
+        /**
+         * Whether to show the indicator (true, the default) or hide it (false).
+         */
+        animating?: boolean
+
+        /**
+         * The foreground color of the spinner (default is gray).
+         */
+        color?: string
+
+        /**
+         * Whether the indicator should hide when not animating (true by default).
+         */
+        hidesWhenStopped?: boolean
+
+        /**
+         * Invoked on mount and layout changes with
+         */
+        onLayout?: ( event: {nativeEvent: { layout: {x: number, y: number , width: number, height: number}}} ) => void
+
+        /**
+         * Size of the indicator.
+         * Small has a height of 20, large has a height of 36.
+         *
+         * enum('small', 'large')
+         */
+        size?: string
+
+        style?: ViewStyle
+    }
+
+    export interface ActivityIndicatorIOSStatic extends React.ComponentClass<ActivityIndicatorIOSProperties> {
     }
 
     /**
@@ -1470,7 +1502,7 @@ declare namespace  ReactNative {
         /**
          * @see NavigatorNavigationBar.js
          */
-        export interface NavigationBarProperties extends React.Props<NavigationBarStatic>{
+        export interface NavigationBarProperties extends React.Props<NavigationBarStatic> {
             navigator?: Navigator
             routeMapper?: NavigationBarRouteMapper
             navState?: NavState
@@ -1491,17 +1523,17 @@ declare namespace  ReactNative {
         }
 
         export interface BreadcrumbNavigationBarRouteMapper {
-            rightContentForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
-            titleContentForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
-            iconForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
+            rightContentForRoute: ( route: Route, navigator: Navigator ) => React.ReactElement<any>
+            titleContentForRoute: ( route: Route, navigator: Navigator ) => React.ReactElement<any>
+            iconForRoute: ( route: Route, navigator: Navigator ) => React.ReactElement<any>
             //in samples...
-            separatorForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
+            separatorForRoute: ( route: Route, navigator: Navigator ) => React.ReactElement<any>
         }
 
         /**
          * @see NavigatorNavigationBar.js
          */
-        export interface BreadcrumbNavigationBarProperties extends React.Props<BreadcrumbNavigationBarStatic>{
+        export interface BreadcrumbNavigationBarProperties extends React.Props<BreadcrumbNavigationBarStatic> {
             navigator?: Navigator
             routeMapper?: BreadcrumbNavigationBarRouteMapper
             navState?: NavState
@@ -2084,6 +2116,11 @@ declare namespace  ReactNative {
 
     // exported singletons:
     // export var AppRegistry: AppRegistryStatic;
+
+
+    export var ActivityIndicatorIOS: ActivityIndicatorIOSStatic;
+    export type ActivityIndicatorIOS = ActivityIndicatorIOSStatic;
+
     export var AsyncStorage: AsyncStorageStatic;
     export type AsyncStorage = AsyncStorageStatic;
 
@@ -2141,7 +2178,7 @@ declare namespace  ReactNative {
     export var AlertIOS: React.ComponentClass<AlertIOSProperties>;
     export var SegmentedControlIOS: React.ComponentClass<SegmentedControlIOSProperties>;
     export var SwitchIOS: React.ComponentClass<SwitchIOSProperties>;
-    export var ActivityIndicatorIOS: React.ComponentClass<ActivityIndicatorIOSProperties>;
+
     export var PixelRatio: PixelRatioStatic;
     export var DeviceEventEmitter: DeviceEventEmitterStatic;
     export var DeviceEventSubscription: DeviceEventSubscriptionStatic;
@@ -2399,4 +2436,4 @@ declare module "Dimensions" {
 
 declare var global: ReactNative.GlobalStatic
 
-declare function require(name: string): any
+declare function require( name: string ): any
