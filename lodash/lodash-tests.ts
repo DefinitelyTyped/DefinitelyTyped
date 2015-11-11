@@ -3840,25 +3840,58 @@ var returnedMemoize = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedMemoize(4);
 
 // _.modArgs
-function modArgsFn1(n: number): string {return n.toString()}
-function modArgsFn2(n: boolean): string {return n.toString()}
-interface ModArgsFunc {
-    (x: string, y: string): string[];
+module TestModArgs {
+    type Func1 = (a: boolean) => boolean;
+    type Func2 = (a: boolean, b: boolean) => boolean;
+
+    let func1: Func1;
+    let func2: Func2;
+
+    let transform1: (a: string) => boolean;
+    let transform2: (b: number) => boolean;
+
+    {
+        let result: (a: string) => boolean;
+
+        result = _.modArgs<Func1, (a: string) => boolean>(func1, transform1);
+        result = _.modArgs<Func1, (a: string) => boolean>(func1, [transform1]);
+    }
+
+    {
+        let result: (a: string, b: number) => boolean;
+
+        result = _.modArgs<Func2, (a: string, b: number) => boolean>(func2, transform1, transform2);
+        result = _.modArgs<Func2, (a: string, b: number) => boolean>(func2, [transform1, transform2]);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(a: string) => boolean>;
+
+        result = _(func1).modArgs<(a: string) => boolean>(transform1);
+        result = _(func1).modArgs<(a: string) => boolean>([transform1]);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(a: string, b: number) => boolean>;
+
+        result = _(func2).modArgs<(a: string, b: number) => boolean>(transform1, transform2);
+        result = _(func2).modArgs<(a: string, b: number) => boolean>([transform1, transform2]);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(a: string) => boolean>;
+
+        result = _(func1).chain().modArgs<(a: string) => boolean>(transform1);
+        result = _(func1).chain().modArgs<(a: string) => boolean>([transform1]);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(a: string, b: number) => boolean>;
+
+        result = _(func2).chain().modArgs<(a: string, b: number) => boolean>(transform1, transform2);
+        result = _(func2).chain().modArgs<(a: string, b: number) => boolean>([transform1, transform2]);
+    }
 }
-interface ModArgsResult {
-    (x: number, y: boolean): string[]
-}
-result = <ModArgsResult>_.modArgs<ModArgsFunc, ModArgsResult>((x: string, y: string) => [x, y], modArgsFn1, modArgsFn2);
-result = <string[]>result(1, true);
-
-result = <ModArgsResult>_.modArgs<ModArgsFunc, ModArgsResult>((x: string, y: string) => [x, y], [modArgsFn1, modArgsFn2]);
-result = <string[]>result(1, true);
-
-result = <ModArgsResult>_<ModArgsFunc>((x: string, y: string) => [x, y]).modArgs<ModArgsResult>(modArgsFn1, modArgsFn2).value();
-result = <string[]>result(1, true);
-
-result = <ModArgsResult>_<ModArgsFunc>((x: string, y: string) => [x, y]).modArgs<ModArgsResult>([modArgsFn1, modArgsFn2]).value();
-result = <string[]>result(1, true);
 
 // _.negate
 interface TestNegatePredicate {
