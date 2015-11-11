@@ -4510,13 +4510,130 @@ result = <{}>_(testCreateProto).create(testCreateProps).value();
 result = <TestCreateProto>_(testCreateProto).create<TestCreateProto>().value();
 result = <TestCreateTResult>_(testCreateProto).create<TestCreateTResult>(testCreateProps).value();
 
-interface Food {
-    name: string;
-    type: string;
+// _.defaults
+module TestDefaults {
+    interface Obj {a: string};
+    interface S1 {a: number};
+    interface S2 {b: number};
+    interface S3 {c: number};
+    interface S4 {d: number};
+    interface S5 {e: number};
+
+    let obj: Obj;
+    let s1: S1;
+    let s2: S2;
+    let s3: S3;
+    let s4: S4;
+    let s5: S5;
+
+    {
+        let result: Obj;
+
+        result = _.defaults<Obj>(obj);
+    }
+
+    {
+        let result: {a: string};
+
+        result = _.defaults<Obj, S1, {a: string}>(obj, s1);
+    }
+
+    {
+        let result: {a: string, b: number};
+
+        result = _.defaults<Obj, S1, S2, {a: string, b: number}>(obj, s1, s2);
+    }
+
+    {
+        let result: {a: string, b: number, c: number};
+
+        result = _.defaults<Obj, S1, S2, S3, {a: string, b: number, c: number}>(obj, s1, s2, s3);
+    }
+
+    {
+        let result: {a: string, b: number, c: number, d: number};
+
+        result = _.defaults<Obj, S1, S2, S3, S4, {a: string, b: number, c: number, d: number}>(obj, s1, s2, s3, s4);
+    }
+
+    {
+        let result: {a: string, b: number, c: number, d: number, e: number};
+
+        result = _.defaults<Obj, {a: string, b: number, c: number, d: number, e: number}>(obj, s1, s2, s3, s4, s5);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<Obj>;
+
+        result = _(obj).defaults();
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<{a: string}>;
+
+        result = _(obj).defaults<S1, {a: string}>(s1);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<{a: string, b: number}>;
+
+        result = _(obj).defaults<S1, S2, {a: string, b: number}>(s1, s2);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<{a: string, b: number, c: number}>;
+
+        result = _(obj).defaults<S1, S2, S3, {a: string, b: number, c: number}>(s1, s2, s3);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<{a: string, b: number, c: number, d: number}>;
+
+        result = _(obj).defaults<S1, S2, S3, S4, {a: string, b: number, c: number, d: number}>(s1, s2, s3, s4);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<{a: string, b: number, c: number, d: number, e: number}>;
+
+        result = _(obj).defaults<{a: string, b: number, c: number, d: number, e: number}>(s1, s2, s3, s4, s5);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<Obj>;
+
+        result = _(obj).chain().defaults();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{a: string}>;
+
+        result = _(obj).chain().defaults<S1, {a: string}>(s1);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{a: string, b: number}>;
+
+        result = _(obj).chain().defaults<S1, S2, {a: string, b: number}>(s1, s2);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{a: string, b: number, c: number}>;
+
+        result = _(obj).chain().defaults<S1, S2, S3, {a: string, b: number, c: number}>(s1, s2, s3);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{a: string, b: number, c: number, d: number}>;
+
+        result = _(obj).chain().defaults<S1, S2, S3, S4, {a: string, b: number, c: number, d: number}>(s1, s2, s3, s4);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{a: string, b: number, c: number, d: number, e: number}>;
+
+        result = _(obj).chain().defaults<{a: string, b: number, c: number, d: number, e: number}>(s1, s2, s3, s4, s5);
+    }
 }
-var foodDefaults = { 'name': 'apple' };
-result = <Food>_.defaults(foodDefaults, { 'name': 'banana', 'type': 'fruit' });
-result = <_.LoDashImplicitObjectWrapper<Food>>_(foodDefaults).defaults({ 'name': 'banana', 'type': 'fruit' });
 
 //_.defaultsDeep
 interface DefaultsDeepResult {
