@@ -25,9 +25,9 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	/**
 	 * Promises/A+ `.then()` with progress handler. Returns a new promise chained from this promise. The new promise will be rejected or resolved dedefer on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
 	 */
-	then<U>(onFulfill: (value: R) => U|Promise.Thenable<U>, onReject: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
-	then<U>(onFulfill: (value: R) => U|Promise.Thenable<U>, onReject?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
-
+	then<U>(onFulfill: (value: R) => U|Promise.Thenable<U>, onReject?: (error: any) => U|Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
+	then<U>(onFulfill: (value: R) => U|Promise.Thenable<U>, onReject?: (error: any) => void|Promise.Thenable<void>, onProgress?: (note: any) => any): Promise<U>;
+	
 	/**
 	 * This is a catch-all exception handler, shortcut for calling `.then(null, handler)` on this promise. Any exception happening in a `.then`-chain will propagate to nearest `.catch` handler.
 	 *
@@ -672,8 +672,8 @@ declare module Promise {
 	export function OperationalError(): OperationalError;
 
 	export interface Thenable<R> {
-		then<U>(onFulfilled: (value: R) => U|Thenable<U>, onRejected: (error: any) => Thenable<U>): Thenable<U>;
-		then<U>(onFulfilled: (value: R) => U|Thenable<U>, onRejected?: (error: any) => U): Thenable<U>;
+		then<U>(onFulfilled: (value: R) => U|Thenable<U>, onRejected?: (error: any) => U|Thenable<U>): Thenable<U>;
+		then<U>(onFulfilled: (value: R) => U|Thenable<U>, onRejected?: (error: any) => void|Thenable<void>): Thenable<U>;
 	}
 
 	export interface Resolver<R> {
