@@ -10740,7 +10740,7 @@ declare module _ {
         /**
         * @see _.values
         **/
-        values<TResult>(): LoDashImplicitObjectWrapper<TResult[]>;
+        values<TResult>(): LoDashImplicitArrayWrapper<TResult>;
     }
 
     //_.valuesIn
@@ -10757,7 +10757,7 @@ declare module _ {
         /**
         * @see _.valuesIn
         **/
-        valuesIn<TResult>(): LoDashImplicitObjectWrapper<TResult[]>;
+        valuesIn<TResult>(): LoDashImplicitArrayWrapper<TResult>;
     }
 
     /**********
