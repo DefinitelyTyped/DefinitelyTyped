@@ -6880,22 +6880,30 @@ declare module _ {
     //_.after
     interface LoDashStatic {
         /**
-        * Creates a function that executes func, with the this binding and arguments of the
-        * created function, only after being called n times.
-        * @param n The number of times the function must be called before func is executed.
-        * @param func The function to restrict.
-        * @return The new restricted function.
-        **/
-        after(
+         * The opposite of _.before; this method creates a function that invokes func once it’s called n or more times.
+         *
+         * @param n The number of calls before func is invoked.
+         * @param func The function to restrict.
+         * @return Returns the new restricted function.
+         */
+        after<TFunc extends Function>(
             n: number,
-            func: Function): Function;
+            func: TFunc
+        ): TFunc;
     }
 
     interface LoDashImplicitWrapper<T> {
         /**
         * @see _.after
         **/
-        after(func: Function): LoDashImplicitObjectWrapper<Function>;
+        after<TFunc extends Function>(func: TFunc): LoDashImplicitObjectWrapper<TFunc>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.after
+         **/
+        after<TFunc extends Function>(func: TFunc): LoDashExplicitObjectWrapper<TFunc>;
     }
 
     //_.ary
