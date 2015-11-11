@@ -3402,10 +3402,34 @@ result = <number[]>['6', '8', '10'].map(_.ary<(s: string) => number>(parseInt, 1
 result = <number[]>['6', '8', '10'].map(_(parseInt).ary<(s: string) => number>(1).value());
 
 // _.backflow
-var testBackflowSquareFn = (n: number) => n * n;
-var testBackflowAddFn = (n: number, m: number) => n + m;
-result = <number>_.backflow<(n: number, m: number) => number>(testBackflowSquareFn, testBackflowAddFn)(1, 2);
-result = <number>_(testBackflowSquareFn).backflow<(n: number, m: number) => number>(testBackflowAddFn).value()(1, 2);
+module TestBackflow {
+    let Fn1: (n: number) => number;
+    let Fn2: (m: number, n: number) => number;
+
+    {
+        let result: (m: number, n: number) => number;
+
+        result = _.backflow<(m: number, n: number) => number>(Fn1, Fn2);
+        result = _.backflow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _.backflow<(m: number, n: number) => number>(Fn1, Fn1, Fn1, Fn2);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(m: number, n: number) => number>;
+
+        result = _(Fn1).backflow<(m: number, n: number) => number>(Fn2);
+        result = _(Fn1).backflow<(m: number, n: number) => number>(Fn1, Fn2);
+        result = _(Fn1).backflow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(m: number, n: number) => number>;
+
+        result = _(Fn1).chain().backflow<(m: number, n: number) => number>(Fn2);
+        result = _(Fn1).chain().backflow<(m: number, n: number) => number>(Fn1, Fn2);
+        result = _(Fn1).chain().backflow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+    }
+}
 
 // _.before
 var testBeforeFn = ((n: number) => () => ++n)(0);
@@ -3467,10 +3491,34 @@ funcBindKey = _(objectBindKey).bindKey('greet', 'hi').value();
 funcBindKey();
 
 // _.compose
-var testComposeSquareFn = (n: number) => n * n;
-var testComposeAddFn = (n: number, m: number) => n + m;
-result = <number>_.compose<(n: number, m: number) => number>(testComposeSquareFn, testComposeAddFn)(1, 2);
-result = <number>_(testComposeSquareFn).compose<(n: number, m: number) => number>(testComposeAddFn).value()(1, 2);
+module TestCompose {
+    let Fn1: (n: number) => number;
+    let Fn2: (m: number, n: number) => number;
+
+    {
+        let result: (m: number, n: number) => number;
+
+        result = _.compose<(m: number, n: number) => number>(Fn1, Fn2);
+        result = _.compose<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _.compose<(m: number, n: number) => number>(Fn1, Fn1, Fn1, Fn2);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(m: number, n: number) => number>;
+
+        result = _(Fn1).compose<(m: number, n: number) => number>(Fn2);
+        result = _(Fn1).compose<(m: number, n: number) => number>(Fn1, Fn2);
+        result = _(Fn1).compose<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(m: number, n: number) => number>;
+
+        result = _(Fn1).chain().compose<(m: number, n: number) => number>(Fn2);
+        result = _(Fn1).chain().compose<(m: number, n: number) => number>(Fn1, Fn2);
+        result = _(Fn1).chain().compose<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+    }
+}
 
 var createCallbackObj: { [index: string]: string; } = { name: 'Joe' };
 result = <() => any>_.createCallback('name');
@@ -3568,10 +3616,34 @@ result = <number>_.flow<(n: number, m: number) => number>(testFlowAddFn, testFlo
 result = <number>_(testFlowAddFn).flow<(n: number, m: number) => number>(testFlowSquareFn).value()(1, 2);
 
 // _.flowRight
-var testFlowRightSquareFn = (n: number) => n * n;
-var testFlowRightAddFn = (n: number, m: number) => n + m;
-result = <number>_.flowRight<(n: number, m: number) => number>(testFlowRightSquareFn, testFlowRightAddFn)(1, 2);
-result = <number>_(testFlowRightSquareFn).flowRight<(n: number, m: number) => number>(testFlowRightAddFn).value()(1, 2);
+module TestFlowRight {
+    let Fn1: (n: number) => number;
+    let Fn2: (m: number, n: number) => number;
+
+    {
+        let result: (m: number, n: number) => number;
+
+        result = _.flowRight<(m: number, n: number) => number>(Fn1, Fn2);
+        result = _.flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _.flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn1, Fn2);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(m: number, n: number) => number>;
+
+        result = _(Fn1).flowRight<(m: number, n: number) => number>(Fn2);
+        result = _(Fn1).flowRight<(m: number, n: number) => number>(Fn1, Fn2);
+        result = _(Fn1).flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(m: number, n: number) => number>;
+
+        result = _(Fn1).chain().flowRight<(m: number, n: number) => number>(Fn2);
+        result = _(Fn1).chain().flowRight<(m: number, n: number) => number>(Fn1, Fn2);
+        result = _(Fn1).chain().flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+    }
+}
 
 // _.memoize
 var testMemoizedFunction: _.MemoizedFunction;
