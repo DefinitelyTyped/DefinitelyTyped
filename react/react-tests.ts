@@ -466,8 +466,25 @@ React.createFactory(CSSTransitionGroup)({
 // LinkedStateMixin addon
 // --------------------------------------------------------------------------
 React.createClass({
-  mixins: [LinkedStateMixin],
-  render: function() { return React.DOM.div(null) }
+    mixins: [LinkedStateMixin],
+    getInitialState: function() {
+        return {
+            isChecked: false,
+            message: "hello!"
+        };
+    },
+    render: function() {
+        return React.DOM.div(null,
+            React.DOM.input({
+                type: "checkbox",
+                checkedLink: this.linkState("isChecked")
+            }),
+            React.DOM.input({
+                type: "text",
+                valueLink: this.linkState("message")
+            })
+        );
+    }
 });
 
 //

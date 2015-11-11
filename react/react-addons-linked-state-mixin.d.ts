@@ -14,6 +14,11 @@ declare namespace __React {
     interface LinkedStateMixin extends Mixin<any, any> {
         linkState<T>(key: string): ReactLink<T>;
     }
+
+    interface HTMLAttributes {
+        checkedLink?: ReactLink<string>;
+        valueLink?: ReactLink<string>;
+    }
         
     namespace __Addons {
         export var LinkedStateMixin: LinkedStateMixin;

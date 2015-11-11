@@ -324,8 +324,6 @@ declare namespace __React {
     }
 
     interface HTMLProps extends HTMLAttributes, Props<HTMLElement> {
-        defaultChecked?: boolean;
-        defaultValue?: string | string[];
     }
 
     interface SVGProps extends SVGAttributes, Props<SVGElement> {
@@ -454,6 +452,11 @@ declare namespace __React {
     }
 
     interface HTMLAttributes extends DOMAttributes {
+        // React-specific Attributes
+        defaultChecked?: boolean;
+        defaultValue?: string | string[];
+
+        // Standard HTML Attributes
         accept?: string;
         acceptCharset?: string;
         accessKey?: string;
