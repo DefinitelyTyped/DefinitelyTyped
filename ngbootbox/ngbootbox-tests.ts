@@ -3,7 +3,7 @@
 
 class TestBootboxController {
 
-	constructor(private $scope: angular.IScope, $ngBootbox: IBootboxService) {
+	constructor(private $scope: angular.IScope, $ngBootbox: BootboxService) {
 
 		$ngBootbox.alert('An important message!').then(function() {
 			console.log('Alert closed');
@@ -21,7 +21,7 @@ class TestBootboxController {
 			console.log('Prompt dismissed!');
 		});
 
-		var options: IBootboxDialog = {
+		var options: NgBootboxDialog = {
 			message: 'This is a message!',
 			title: 'The title!',
 			className: 'test-class',
