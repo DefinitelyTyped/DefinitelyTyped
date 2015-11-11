@@ -16,6 +16,8 @@ declare module mathjs {
 		e: number;
 		pi: number;
 		
+		config(options: any): void;
+		
 		/**
 		 * Solves the linear equation system by forwards substitution. Matrix must be a lower triangular matrix.
 		 * @param L A N x N matrix or array (L)
@@ -484,6 +486,7 @@ declare module mathjs {
 		complex(complex: Complex): Complex;
 		complex(arg: string): Complex;
 		complex(array: MathArray): Complex;
+		complex(obj: IPolarCoordinates): Complex;
 		
 		/**
 		 * Create a fraction convert a value to a fraction.
@@ -1278,8 +1281,16 @@ declare module mathjs {
 	}
 	
 	export interface Complex {
-		
+		re: number;
+		im: number;
+		toPolar(): IPolarCoordinates;
+		clone(): Complex;
 	}
+	
+	export interface IPolarCoordinates {
+		r: number; 
+		phi: number;
+	} 
 	
 	export interface Unit {
 		
@@ -1290,11 +1301,12 @@ declare module mathjs {
 	}
 	
 	export interface EvalFunction {
-		eval(): any;
+		eval(scope?: any): any;
 	}
 	
 	export interface MathNode {
 		compile(): EvalFunction;
+		eval(): any;
 	}
 	
 	export interface Parser {
