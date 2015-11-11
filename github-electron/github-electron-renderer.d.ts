@@ -94,7 +94,7 @@ declare module GitHubElectron {
 	}
 }
 
-declare module 'ipc' {
+declare module 'ipc-renderer' {
 	var inProcess: GitHubElectron.InProcess;
 	export = inProcess;
 }

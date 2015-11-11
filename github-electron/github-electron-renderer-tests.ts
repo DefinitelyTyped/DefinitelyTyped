@@ -1,5 +1,5 @@
 ﻿/// <reference path="./github-electron-renderer.d.ts" />
-import ipc = require('ipc');
+import ipc = require('ipc-renderer');
 import remote = require('remote');
 import WebFrame = require('web-frame');
 import Clipboard = require('clipboard');

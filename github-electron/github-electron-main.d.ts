@@ -224,7 +224,7 @@ declare module 'global-shortcut' {
 	export = globalShortcut;
 }
 
-declare module 'ipc' {
+declare module 'ipc-main' {
 	var ipc: NodeJS.EventEmitter;
 	export = ipc;
 }
