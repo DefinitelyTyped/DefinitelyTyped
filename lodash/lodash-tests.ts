@@ -1252,35 +1252,60 @@ module TestTakeWhile {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
-    let result: TResult[];
 
-    result = _.takeWhile<TResult>(array);
-    result = _.takeWhile<TResult>(array, predicateFn);
-    result = _.takeWhile<TResult>(array, predicateFn, any);
-    result = _.takeWhile<TResult>(array, '');
-    result = _.takeWhile<TResult>(array, '', any);
-    result = _.takeWhile<{a: number;}, TResult>(array, {a: 42});
+    {
+        let result: TResult[];
 
-    result = _.takeWhile<TResult>(list);
-    result = _.takeWhile<TResult>(list, predicateFn);
-    result = _.takeWhile<TResult>(list, predicateFn, any);
-    result = _.takeWhile<TResult>(list, '');
-    result = _.takeWhile<TResult>(list, '', any);
-    result = _.takeWhile<{a: number;}, TResult>(list, {a: 42});
+        result = _.takeWhile<TResult>(array);
+        result = _.takeWhile<TResult>(array, predicateFn);
+        result = _.takeWhile<TResult>(array, predicateFn, any);
+        result = _.takeWhile<TResult>(array, '');
+        result = _.takeWhile<TResult>(array, '', any);
+        result = _.takeWhile<{a: number;}, TResult>(array, {a: 42});
 
-    result = _(array).takeWhile().value();
-    result = _(array).takeWhile(predicateFn).value();
-    result = _(array).takeWhile(predicateFn, any).value();
-    result = _(array).takeWhile('').value();
-    result = _(array).takeWhile('', any).value();
-    result = _(array).takeWhile<{a: number;}>({a: 42}).value();
+        result = _.takeWhile<TResult>(list);
+        result = _.takeWhile<TResult>(list, predicateFn);
+        result = _.takeWhile<TResult>(list, predicateFn, any);
+        result = _.takeWhile<TResult>(list, '');
+        result = _.takeWhile<TResult>(list, '', any);
+        result = _.takeWhile<{a: number;}, TResult>(list, {a: 42});
+    }
 
-    result = _(list).takeWhile<TResult>().value();
-    result = _(list).takeWhile<TResult>(predicateFn).value();
-    result = _(list).takeWhile<TResult>(predicateFn, any).value();
-    result = _(list).takeWhile<TResult>('').value();
-    result = _(list).takeWhile<TResult>('', any).value();
-    result = _(list).takeWhile<{a: number;}, TResult>({a: 42}).value();
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).takeWhile();
+        result = _(array).takeWhile(predicateFn);
+        result = _(array).takeWhile(predicateFn, any);
+        result = _(array).takeWhile('');
+        result = _(array).takeWhile('', any);
+        result = _(array).takeWhile<{a: number;}>({a: 42});
+
+        result = _(list).takeWhile<TResult>();
+        result = _(list).takeWhile<TResult>(predicateFn);
+        result = _(list).takeWhile<TResult>(predicateFn, any);
+        result = _(list).takeWhile<TResult>('');
+        result = _(list).takeWhile<TResult>('', any);
+        result = _(list).takeWhile<{a: number;}, TResult>({a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().takeWhile();
+        result = _(array).chain().takeWhile(predicateFn);
+        result = _(array).chain().takeWhile(predicateFn, any);
+        result = _(array).chain().takeWhile('');
+        result = _(array).chain().takeWhile('', any);
+        result = _(array).chain().takeWhile<{a: number;}>({a: 42});
+
+        result = _(list).chain().takeWhile<TResult>();
+        result = _(list).chain().takeWhile<TResult>(predicateFn);
+        result = _(list).chain().takeWhile<TResult>(predicateFn, any);
+        result = _(list).chain().takeWhile<TResult>('');
+        result = _(list).chain().takeWhile<TResult>('', any);
+        result = _(list).chain().takeWhile<{a: number;}, TResult>({a: 42});
+    }
 }
 
 // _.union
