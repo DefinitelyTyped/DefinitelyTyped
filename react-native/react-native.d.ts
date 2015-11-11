@@ -436,7 +436,7 @@ declare namespace  ReactNative {
         /**
          * Callback that is called when the text input's text changes.
          */
-        onChange?: () => void
+        onChange?: (event: {nativeEvent: {text: string}}) => void
 
         /**
          * Callback that is called when the text input's text changes.
@@ -447,7 +447,7 @@ declare namespace  ReactNative {
         /**
          * Callback that is called when text input ends.
          */
-        onEndEditing?: () => void
+        onEndEditing?: (event: {nativeEvent: {text: string}}) => void
 
         /**
          * Callback that is called when the text input is focused
@@ -457,12 +457,12 @@ declare namespace  ReactNative {
         /**
          * Invoked on mount and layout changes with {x, y, width, height}.
          */
-        onLayout?: () => void
+        onLayout?: (event: {nativeEvent: {x: number, y: number, width: number, height: number}}) => void
 
         /**
          * Callback that is called when the text input's submit button is pressed.
          */
-        onSubmitEditing?: () => void
+        onSubmitEditing?: (event: {nativeEvent: {text: string}}) => void
 
         /**
          * The string that will be rendered before text input has been entered
@@ -872,6 +872,58 @@ declare namespace  ReactNative {
     export interface ActivityIndicatorIOSStatic extends React.ComponentClass<ActivityIndicatorIOSProperties> {
     }
 
+
+    export interface DatePickerIOSProperties extends React.Props<DatePickerIOSStatic> {
+
+        /**
+         * The currently selected date.
+         */
+        date?: Date
+
+
+        /**
+         * Maximum date.
+         * Restricts the range of possible date/time values.
+         */
+        maximumDate?: Date
+
+        /**
+         * Maximum date.
+         * Restricts the range of possible date/time values.
+         */
+        minimumDate?: Date
+
+        /**
+         *  enum(1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30)
+         *  The interval at which minutes can be selected.
+         */
+        minuteInterval?: number
+
+        /**
+         *  enum('date', 'time', 'datetime')
+         *  The date picker mode.
+         */
+        mode?: string
+
+        /**
+         * Date change handler.
+         * This is called when the user changes the date or time in the UI.
+         * The first and only argument is a Date object representing the new date and time.
+         */
+        onDateChange?: (newDate: Date) => void
+
+        /**
+         * Timezone offset in minutes.
+         * By default, the date picker will use the device's timezone. With this parameter, it is possible to force a certain timezone offset.
+         * For instance, to show times in Pacific Standard Time, pass -7 * 60.
+         */
+        timeZoneOffsetInMinutes?: number
+
+    }
+
+    export interface DatePickerIOSStatic extends React.ComponentClass<DatePickerIOSProperties> {
+    }
+
     /**
      * @see https://facebook.github.io/react-native/docs/sliderios.html
      */
@@ -934,26 +986,96 @@ declare namespace  ReactNative {
     }
 
     /**
+     * @see ImageResizeMode.js
+     */
+    export interface ImageResizeModeStatic {
+        /**
+         * contain - The image will be resized such that it will be completely
+         * visible, contained within the frame of the View.
+         */
+        contain: string
+        /**
+         * cover - The image will be resized such that the entire area of the view
+         * is covered by the image, potentially clipping parts of the image.
+         */
+        cover: string
+        /**
+         * stretch - The image will be stretched to fill the entire frame of the
+         * view without clipping.  This may change the aspect ratio of the image,
+         * distoring it.  Only supported on iOS.
+         */
+        stretch: string
+    }
+
+    /**
      * Image style
      * @see https://facebook.github.io/react-native/docs/image.html#style
      */
-    export interface ImageStyle extends FlexStyle {
-        color?: string;
-        containerBackgroundColor?: string;
-        fontFamily?: string;
-        fontSize?: number;
-        fontStyle?: string; // 'normal' | 'italic';
-        fontWeight?: string; // enum("normal", 'bold', '100', '200', '300', '400', '500', '600', '700', '800', '900')
-        letterSpacing?: number;
-        lineHeight?: number;
-        textAlign?: string; // enum("auto", 'left', 'right', 'center')
-        writingDirection?: string; //enum("auto", 'ltr', 'rtl')
+    export interface ImageStyle extends FlexStyle, TransformsStyle {
+        resizeMode?: string //Object.keys(ImageResizeMode)
+        backgroundColor?: string
+        borderColor?: string
+        borderWidth?: number
+        borderRadius?: number
+        overflow?: string // enum('visible', 'hidden')
+        tintColor?: string
+        opacity?: number
+    }
+
+    export interface ImagePropertiesIOS {
+        /**
+         * The text that's read by the screen reader when the user interacts with the image.
+         */
+        accessibilityLabel?: string;
+
+        /**
+         * When true, indicates the image is an accessibility element.
+         */
+        accessible?: boolean;
+
+        /**
+         * When the image is resized, the corners of the size specified by capInsets will stay a fixed size,
+         * but the center content and borders of the image will be stretched.
+         * This is useful for creating resizable rounded buttons, shadows, and other resizable assets.
+         * More info on Apple documentation
+         */
+        capInsets?: {top: number, left: number, bottom: number, right: number}
+
+        /**
+         * A static image to display while downloading the final image off the network.
+         */
+        defaultSource?: {uri: string}
+
+        /**
+         * Invoked on load error with {nativeEvent: {error}}
+         */
+        onError?: ( error: {nativeEvent: any} ) => void
+
+        /**
+         * Invoked when load completes successfully
+         */
+        onLoad?: () => void
+
+        /**
+         * Invoked when load either succeeds or fails
+         */
+        onLoadEnd?: () => void
+
+        /**
+         * Invoked on load start
+         */
+        onLoadStart?: () => void
+
+        /**
+         * Invoked on download progress with {nativeEvent: {loaded, total}}
+         */
+        onProgress?: ()=> void
     }
 
     /**
      * @see https://facebook.github.io/react-native/docs/image.html
      */
-    export interface ImageProperties extends React.Props<Image> {
+    export interface ImageProperties extends ImagePropertiesIOS, React.Props<Image> {
         /**
          * onLayout function
          *
@@ -966,8 +1088,10 @@ declare namespace  ReactNative {
 
         /**
          * Determines how to resize the image when the frame doesn't match the raw image dimensions.
+         *
+         * enum('cover', 'contain', 'stretch')
          */
-        resizeMode?: string; // enum('cover', 'contain', 'stretch')
+        resizeMode?: string;
 
         /**
          * uri is a string representing the resource identifier for the image,
@@ -987,54 +1111,13 @@ declare namespace  ReactNative {
          */
         testID?: string;
 
-        /**
-         * The text that's read by the screen reader when the user interacts with the image.
-         */
-        iosaccessibilityLabel?: string;
-
-        /**
-         * When true, indicates the image is an accessibility element.
-         */
-        iosaccessible?: boolean;
-
-        /**
-         * When the image is resized, the corners of the size specified by capInsets will stay a fixed size,
-         * but the center content and borders of the image will be stretched.
-         * This is useful for creating resizable rounded buttons, shadows, and other resizable assets.
-         * More info on Apple documentation
-         */
-        ioscapInsets?: {top: number, left: number, bottom: number, right: number}
-
-        /**
-         * A static image to display while downloading the final image off the network.
-         */
-        iosdefaultSource?: {uri: string}
-
-        /**
-         * Invoked on load error with {nativeEvent: {error}}
-         */
-        iosonError?: ( error: {nativeEvent: any} ) => void
-
-        /**
-         * Invoked when load completes successfully
-         */
-        iosonLoad?: () => void
-
-        /**
-         * Invoked when load either succeeds or fails
-         */
-        iosonLoadEnd?: () => void
-
-        /**
-         * Invoked on load start
-         */
-        iosonLoadStart?: () => void
-
-        /**
-         * Invoked on download progress with {nativeEvent: {loaded, total}}
-         */
-        iosonProgress?: ()=> void
     }
+
+    export interface ImageStatic extends React.ComponentClass<ImageProperties> {
+        uri: string;
+        resizeMode: ImageResizeModeStatic
+    }
+
 
     /**
      * @see https://facebook.github.io/react-native/docs/listview.html#props
@@ -1636,9 +1719,6 @@ declare namespace  ReactNative {
     }
 
 
-    export interface ImageStatic extends React.ComponentClass<ImageProperties> {
-        uri: string;
-    }
 
     /**
      * @see
@@ -2127,6 +2207,9 @@ declare namespace  ReactNative {
     export var CameraRoll: CameraRollStatic;
     export type CameraRoll = CameraRollStatic;
 
+    export var DatePickerIOS: DatePickerIOSStatic
+    export type DatePickerIOS = DatePickerIOSStatic
+
     export var Image: ImageStatic;
     export type Image = ImageStatic;
 
@@ -2135,12 +2218,6 @@ declare namespace  ReactNative {
 
     export var Navigator: NavigatorStatic;
     export type Navigator = NavigatorStatic;
-
-    //export var NavigationBar: NavigationBarStatic
-    //export type NavigationBar = NavigationBarStatic
-
-    //export var BreadcrumbNavigationBar: BreadcrumbNavigationBarStatic
-    //export type BreadcrumbNavigationBar = BreadcrumbNavigationBarStatic
 
     export var NavigatorIOS: NavigatorIOSStatic;
     export type NavigatorIOS = NavigatorIOSStatic;
@@ -2414,6 +2491,24 @@ declare namespace  ReactNative {
         requestAnimationFrame( fn: () => void ) : void;
 
     }
+
+    //
+    // Add-Ons
+    //
+    namespace addons {
+
+        //FIXME: Documentation ?
+        export interface TestModuleStatic {
+
+            verifySnapshot: (done: (indicator?: any) => void) => void
+            markTestPassed: (indicator: any) => void
+            markTestCompleted: () => void
+        }
+
+        export var TestModule: TestModuleStatic
+        export type TestModule = TestModuleStatic
+    }
+
 
 }
 
