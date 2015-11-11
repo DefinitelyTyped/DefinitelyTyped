@@ -5114,57 +5114,9 @@ result = <number>_.property<TestPropertyObject, number>(['a', 'b'])(testProperty
 result = <number>(_('a.b').property<TestPropertyObject, number>().value())(testPropertyObject);
 result = <number>(_(['a', 'b']).property<TestPropertyObject, number>().value())(testPropertyObject);
 
-// _.propertyOf
-module TestPropertyOf {
-    interface SampleObject {
-        a: {
-            b: number[];
-        }
-    }
-
-    let object: SampleObject;
-
-    {
-        let result: (path: string|string[]) => any;
-
-        result = _.propertyOf({});
-        result = _.propertyOf<SampleObject>(object);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<(path: string|string[]) => any>;
-
-        result = _({}).propertyOf();
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<(path: string|string[]) => any>;
-
-        result = _({}).chain().propertyOf();
-    }
-}
-
-// _.range
-result = <number[]>_.range(10);
-result = <number[]>_.range(1, 11);
-result = <number[]>_.range(0, 30, 5);
-result = <number[]>_(10).range().value();
-result = <number[]>_(1).range(11).value();
-result = <number[]>_(0).range(30, 5).value();
-
-class Mage {
-    public castSpell(n: number) {
-        return n;
-    }
-
-    public cast(n: number) {
-        return n;
-    }
-}
-
-/*********
-* String
-*********/
+/**********
+ * String *
+ **********/
 
 // _.camelCase
 module TestCamelCase {
@@ -6115,6 +6067,63 @@ module TestNoop {
         result = _<string>([]).chain().noop(true, 'a', 1);
         result = _({}).chain().noop(true, 'a', 1);
         result = _(any).chain().noop(true, 'a', 1);
+    }
+}
+
+// _.propertyOf
+module TestPropertyOf {
+    interface SampleObject {
+        a: {
+            b: number[];
+        }
+    }
+
+    let object: SampleObject;
+
+    {
+        let result: (path: string|string[]) => any;
+
+        result = _.propertyOf({});
+        result = _.propertyOf<SampleObject>(object);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(path: string|string[]) => any>;
+
+        result = _({}).propertyOf();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(path: string|string[]) => any>;
+
+        result = _({}).chain().propertyOf();
+    }
+}
+
+// _.range
+module TestRange {
+    {
+        let result: number[];
+
+        result = _.range(10);
+        result = _.range(1, 11);
+        result = _.range(0, 30, 5);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<number>;
+
+        result = _(10).range();
+        result = _(1).range(11);
+        result = _(0).range(30, 5);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<number>;
+
+        result = _(10).chain().range();
+        result = _(1).chain().range(11);
+        result = _(0).chain().range(30, 5);
     }
 }
 
