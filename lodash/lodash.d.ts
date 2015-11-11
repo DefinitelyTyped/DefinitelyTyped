@@ -12014,13 +12014,14 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Creates a function that returns the property value at path on a given object.
+         *
          * @param path The path of the property to get.
          * @return Returns the new function.
          */
-        property<TObj, TResult>(path: string|string[]): (obj: TObj) => TResult;
+        property<TObj, TResult>(path: StringRepresentable|StringRepresentable[]): (obj: TObj) => TResult;
     }
 
-    interface LoDashImplicitStringWrapper {
+    interface LoDashImplicitWrapper<T> {
         /**
          * @see _.property
          */
@@ -12032,6 +12033,20 @@ declare module _ {
          * @see _.property
          */
         property<TObj, TResult>(): LoDashImplicitObjectWrapper<(obj: TObj) => TResult>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.property
+         */
+        property<TObj, TResult>(): LoDashExplicitObjectWrapper<(obj: TObj) => TResult>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.property
+         */
+        property<TObj, TResult>(): LoDashExplicitObjectWrapper<(obj: TObj) => TResult>;
     }
 
     //_.propertyOf

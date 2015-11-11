@@ -5589,22 +5589,6 @@ result = <number[]>_(new TestValueIn()).valuesIn<number>().value();
 // → [1, 2, 3]
 
 /**********
-* Utility *
-***********/
-
-// _.property
-interface TestPropertyObject {
-    a: {
-        b: number;
-    }
-}
-var testPropertyObject: TestPropertyObject;
-result = <number>_.property<TestPropertyObject, number>('a.b')(testPropertyObject);
-result = <number>_.property<TestPropertyObject, number>(['a', 'b'])(testPropertyObject);
-result = <number>(_('a.b').property<TestPropertyObject, number>().value())(testPropertyObject);
-result = <number>(_(['a', 'b']).property<TestPropertyObject, number>().value())(testPropertyObject);
-
-/**********
  * String *
  **********/
 
@@ -6557,6 +6541,36 @@ module TestNoop {
         result = _<string>([]).chain().noop(true, 'a', 1);
         result = _({}).chain().noop(true, 'a', 1);
         result = _(any).chain().noop(true, 'a', 1);
+    }
+}
+
+// _.property
+module TestProperty {
+    interface SampleObject {
+        a: {
+            b: number[];
+        }
+    }
+
+    {
+        let result: (object: SampleObject) => number;
+
+        result = _.property<SampleObject, number>('a.b[0]');
+        result = _.property<SampleObject, number>(['a', 'b', 0]);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(object: SampleObject) => number>;
+
+        result = _('a.b[0]').property<SampleObject, number>();
+        result = _(['a', 'b', 0]).property<SampleObject, number>();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(object: SampleObject) => number>;
+
+        result = _('a.b[0]').chain().property<SampleObject, number>();
+        result = _(['a', 'b', 0]).chain().property<SampleObject, number>();
     }
 }
 
