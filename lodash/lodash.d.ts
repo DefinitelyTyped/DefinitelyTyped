@@ -6176,36 +6176,59 @@ declare module _ {
     //_.shuffle
     interface LoDashStatic {
         /**
-        * Creates an array of shuffled values, using a version of the Fisher-Yates shuffle.
-        * See http://en.wikipedia.org/wiki/Fisher-Yates_shuffle.
-        * @param collection The collection to shuffle.
-        * @return Returns a new shuffled collection.
-        **/
-        shuffle<T>(collection: Array<T>): T[];
+         * Creates an array of shuffled values, using a version of the Fisher-Yates shuffle.
+         *
+         * @param collection The collection to shuffle.
+         * @return Returns the new shuffled array.
+         */
+        shuffle<T>(collection: List<T>|Dictionary<T>): T[];
 
         /**
-        * @see _.shuffle
-        **/
-        shuffle<T>(collection: List<T>): T[];
+         * @see _.shuffle
+         */
+        shuffle(collection: string): string[];
+    }
 
+    interface LoDashImplicitWrapper<T> {
         /**
-        * @see _.shuffle
-        **/
-        shuffle<T>(collection: Dictionary<T>): T[];
+         * @see _.shuffle
+         */
+        shuffle(): LoDashImplicitArrayWrapper<string>;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.shuffle
-         **/
+         */
         shuffle(): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.shuffle
-         **/
-        shuffle(): LoDashImplicitArrayWrapper<T>;
+         */
+        shuffle<T>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.shuffle
+         */
+        shuffle(): LoDashExplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.shuffle
+         */
+        shuffle(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.shuffle
+         */
+        shuffle<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.size

@@ -3056,9 +3056,54 @@ result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sample(2);
 result = <number>_([1, 2, 3, 4]).sample().value();
 result = <number[]>_([1, 2, 3, 4]).sample(2).value();
 
-result = <number[]>_.shuffle([1, 2, 3, 4, 5, 6]);
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3]).shuffle();
-result = <_.LoDashImplicitArrayWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).shuffle();
+// _.shuffle
+module TestShuffle {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
+
+    {
+        let result: string[];
+
+        result = _.shuffle('abc');
+    }
+
+    {
+        let result: TResult[];
+
+        result = _.shuffle<TResult>(array);
+        result = _.shuffle<TResult>(list);
+        result = _.shuffle<TResult>(dictionary);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _('abc').shuffle();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).shuffle();
+        result = _(list).shuffle<TResult>();
+        result = _(dictionary).shuffle<TResult>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _('abc').chain().shuffle();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().shuffle();
+        result = _(list).chain().shuffle<TResult>();
+        result = _(dictionary).chain().shuffle<TResult>();
+    }
+}
 
 result = <number>_.size([1, 2]);
 result = <number>_([1, 2]).size();
