@@ -80,6 +80,7 @@ var voidProm: Promise<void>;
 
 var fooProm: Promise<Foo>;
 var barProm: Promise<Bar>;
+var fooOrBarProm: Promise<Foo|Bar>;
 var bazProm: Promise<Baz>;
 
 // - - - - - - - - - - - - - - - - -
@@ -237,36 +238,96 @@ barProm = barProm.then((value: Bar) => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-barProm = fooProm.catch((reason: any) => {
+fooProm = fooProm.catch((reason: any) => {
+	return;
+});
+
+fooProm = fooProm.caught((reason: any) => {
+	return;
+});
+fooProm = fooProm.catch((error: any) => {
+	return true;
+}, (reason: any) => {
+	return;
+});
+fooProm = fooProm.caught((error: any) => {
+	return true;
+}, (reason: any) => {
+	return;
+});
+
+fooProm = fooProm.catch((reason: any) => {
+	return voidProm;
+});
+
+fooProm = fooProm.caught((reason: any) => {
+	return voidProm;
+});
+fooProm = fooProm.catch((error: any) => {
+	return true;
+}, (reason: any) => {
+	return voidProm;
+});
+fooProm = fooProm.caught((error: any) => {
+	return true;
+}, (reason: any) => {
+	return voidProm;
+});
+
+fooProm = fooProm.catch((reason: any) => {
+	//handle multiple valid return types simultaneously
+	if (true) {
+		return;
+	} else if (false) {
+		return voidProm;
+	} else if (foo) {
+		return foo;
+	}
+});
+
+fooOrBarProm = fooProm.catch((reason: any) => {
 	return bar;
 });
-barProm = fooProm.caught((reason: any) => {
+fooOrBarProm = fooProm.caught((reason: any) => {
 	return bar;
 });
 
-barProm = fooProm.catch((reason: any) => {
-	return bar;
+fooOrBarProm = fooProm.catch((error: any) => {
+	return true;
 }, (reason: any) => {
 	return bar;
 });
-barProm = fooProm.caught((reason: any) => {
-	return bar;
+fooOrBarProm = fooProm.caught((error: any) => {
+	return true;
 }, (reason: any) => {
 	return bar;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-barProm = fooProm.catch(Error, (reason: any) => {
+fooProm = fooProm.catch(Error, (reason: any) => {
+	return;
+});
+fooProm = fooProm.catch(Promise.CancellationError, (reason: any) => {
+	return;
+});
+fooProm = fooProm.caught(Error, (reason: any) => {
+	return;
+});
+fooProm = fooProm.caught(Promise.CancellationError, (reason: any) => {
+	return;
+});
+
+fooOrBarProm = fooProm.catch(Error, (reason: any) => {
 	return bar;
 });
-barProm = fooProm.catch(Promise.CancellationError, (reason: any) => {
+fooOrBarProm = fooProm.catch(Promise.CancellationError, (reason: any) => {
 	return bar;
 });
-barProm = fooProm.caught(Error, (reason: any) => {
+fooOrBarProm = fooProm.caught(Error, (reason: any) => {
 	return bar;
 });
-barProm = fooProm.caught(Promise.CancellationError, (reason: any) => {
+fooOrBarProm = fooProm.caught(Promise.CancellationError, (reason: any) => {
 	return bar;
 });
 

@@ -33,11 +33,11 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	 *
 	 * Alias `.caught();` for compatibility with earlier ECMAScript version.
 	 */
-	catch<U>(onReject?: (error: any) => Promise.Thenable<U>): Promise<U>;
-	caught<U>(onReject?: (error: any) => Promise.Thenable<U>): Promise<U>;
+	catch(onReject?: (error: any) => R|Promise.Thenable<R>|void|Promise.Thenable<void>): Promise<R>;
+	caught(onReject?: (error: any) => R|Promise.Thenable<R>|void|Promise.Thenable<void>): Promise<R>;
 
-	catch<U>(onReject?: (error: any) => U): Promise<U>;
-	caught<U>(onReject?: (error: any) => U): Promise<U>;
+	catch<U>(onReject?: (error: any) => U|Promise.Thenable<U>): Promise<U|R>;
+	caught<U>(onReject?: (error: any) => U|Promise.Thenable<U>): Promise<U|R>;
 
 	/**
 	 * This extends `.catch` to work more like catch-clauses in languages like Java or C#. Instead of manually checking `instanceof` or `.name === "SomeError"`, you may specify a number of error constructors which are eligible for this catch handler. The catch handler that is first met that has eligible constructors specified, is the one that will be called.
@@ -46,17 +46,18 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	 *
 	 * Alias `.caught();` for compatibility with earlier ECMAScript version.
 	 */
-	catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => Promise.Thenable<U>): Promise<U>;
-	caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => Promise.Thenable<U>): Promise<U>;
+	catch(predicate: (error: any) => boolean, onReject: (error: any) => R|Promise.Thenable<R>|void|Promise.Thenable<void>): Promise<R>;
+	caught(predicate: (error: any) => boolean, onReject: (error: any) => R|Promise.Thenable<R>|void|Promise.Thenable<void>): Promise<R>;
 
-	catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U): Promise<U>;
-	caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => U): Promise<U>;
+	catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U|Promise.Thenable<U>): Promise<U|R>;
+	caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => U|Promise.Thenable<U>): Promise<U|R>;
 
-	catch<U>(ErrorClass: Function, onReject: (error: any) => Promise.Thenable<U>): Promise<U>;
-	caught<U>(ErrorClass: Function, onReject: (error: any) => Promise.Thenable<U>): Promise<U>;
+	catch(ErrorClass: Function, onReject: (error: any) => R|Promise.Thenable<R>|void|Promise.Thenable<void>): Promise<R>;
+	caught(ErrorClass: Function, onReject: (error: any) => R|Promise.Thenable<R>|void|Promise.Thenable<void>): Promise<R>;
 
-	catch<U>(ErrorClass: Function, onReject: (error: any) => U): Promise<U>;
-	caught<U>(ErrorClass: Function, onReject: (error: any) => U): Promise<U>;
+	catch<U>(ErrorClass: Function, onReject: (error: any) => U|Promise.Thenable<U>): Promise<U|R>;
+	caught<U>(ErrorClass: Function, onReject: (error: any) => U|Promise.Thenable<U>): Promise<U|R>;
+
 
 	/**
 	 * Like `.catch` but instead of catching all types of exceptions, it only catches those that don't originate from thrown errors but rather from explicit rejections.
