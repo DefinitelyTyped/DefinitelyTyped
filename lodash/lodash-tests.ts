@@ -4054,15 +4054,26 @@ var testCloneDeepCustomizerFn: TestCloneDeepCustomizerFn;
 // _.eq
 module TestEq {
     let customizer: (value: any, other: any, indexOrKey?: number|string) => boolean;
-    let result: boolean;
 
-    result = _.eq(any, any);
-    result = _.eq(any, any, customizer);
-    result = _.eq(any, any, customizer, any);
+    {
+        let result: boolean;
 
-    result = _(any).eq(any);
-    result = _(any).eq(any, customizer);
-    result = _(any).eq(any, customizer, any)
+        result = _.eq(any, any);
+        result = _.eq(any, any, customizer);
+        result = _.eq(any, any, customizer, any);
+
+        result = _(any).eq(any);
+        result = _(any).eq(any, customizer);
+        result = _(any).eq(any, customizer, any);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(any).chain().eq(any);
+        result = _(any).chain().eq(any, customizer);
+        result = _(any).chain().eq(any, customizer, any);
+    }
 }
 
 // _.gt
@@ -4162,15 +4173,26 @@ result = <boolean>_('').isEmpty();
 // _.isEqual
 module TestIsEqual {
     let customizer: (value: any, other: any, indexOrKey?: number|string) => boolean;
-    let result: boolean;
 
-    result = _.isEqual(any, any);
-    result = _.isEqual(any, any, customizer);
-    result = _.isEqual(any, any, customizer, any);
+    {
+        let result: boolean;
 
-    result = _(any).isEqual(any);
-    result = _(any).isEqual(any, customizer);
-    result = _(any).isEqual(any, customizer, any)
+        result = _.isEqual(any, any);
+        result = _.isEqual(any, any, customizer);
+        result = _.isEqual(any, any, customizer, any);
+
+        result = _(any).isEqual(any);
+        result = _(any).isEqual(any, customizer);
+        result = _(any).isEqual(any, customizer, any);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(any).chain().isEqual(any);
+        result = _(any).chain().isEqual(any, customizer);
+        result = _(any).chain().isEqual(any, customizer, any);
+    }
 }
 
 // _.isError

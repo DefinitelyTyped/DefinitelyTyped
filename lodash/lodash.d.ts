@@ -8048,6 +8048,17 @@ declare module _ {
         ): boolean;
     }
 
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isEqual
+         */
+        eq(
+            other: any,
+            customizer?: IsEqualCustomizer,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
+    }
+
     //_.gt
     interface LoDashStatic {
         /**
@@ -8228,6 +8239,17 @@ declare module _ {
             customizer?: IsEqualCustomizer,
             thisArg?: any
         ): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isEqual
+         */
+        isEqual(
+            other: any,
+            customizer?: IsEqualCustomizer,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isError
