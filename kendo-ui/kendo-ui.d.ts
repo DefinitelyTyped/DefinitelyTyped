@@ -3,6 +3,8 @@
 // Definitions by: Telerik <https://github.com/telerik/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../jquery/jquery.d.ts" />
+
 declare module kendo {
     function culture(): {
         name: string;
