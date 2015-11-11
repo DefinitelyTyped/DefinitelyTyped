@@ -1994,7 +1994,7 @@ declare module _ {
          * @return Returns the slice of array.
          */
         takeRight<T>(
-            array: T[]|List<T>,
+            array: List<T>,
             n?: number
         ): T[];
     }
@@ -2011,6 +2011,20 @@ declare module _ {
          * @see _.takeRight
          */
         takeRight<TResult>(n?: number): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.takeRight
+         */
+        takeRight(n?: number): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.takeRight
+         */
+        takeRight<TResult>(n?: number): LoDashExplicitArrayWrapper<TResult>;
     }
 
     //_.takeRightWhile
