@@ -1,7 +1,9 @@
 ///<reference path="./fixed-data-table.d.ts"" />
 /// <reference path="../react/react.d.ts"/>
+/// <reference path="../react/react-dom.d.ts"/>
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import * as FixedDataTable from "fixed-data-table";
 
 var rows = [
@@ -34,4 +36,4 @@ function rowGetter(rowIndex: number) {
                 />
             </FixedDataTable.Table>   
 
-React.render(table, document.body);
+ReactDOM.render(table, document.body);
