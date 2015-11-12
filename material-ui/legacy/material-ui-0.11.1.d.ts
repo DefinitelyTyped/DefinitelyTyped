@@ -233,7 +233,7 @@ declare namespace __MaterialUI {
     }
 
     // what's not commonly overridden by Checkbox, RadioButton, or Toggle
-    interface CommonEnhancedSwitchProps<T> extends React.HTMLAttributesBase<T> {
+    interface CommonEnhancedSwitchProps<T> extends React.HTMLAttributes, React.Props<T> {
         // <input/> is root element
         id?: string;
         iconStyle?: React.CSSProperties;
@@ -412,7 +412,7 @@ declare namespace __MaterialUI {
     }
 
     // non generally overridden elements of EnhancedButton
-    interface SharedEnhancedButtonProps<T> extends React.HTMLAttributesBase<T> {
+    interface SharedEnhancedButtonProps<T> extends React.HTMLAttributes, React.Props<T> {
         centerRipple?: boolean;
         containerElement?: string | React.ReactElement<any>;
         disabled?: boolean;
