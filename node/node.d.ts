@@ -1,11 +1,11 @@
-// Type definitions for Node.js v0.12.0
+// Type definitions for Node.js v4.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/borisyankov/DefinitelyTyped>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /************************************************
 *                                               *
-*               Node.js v0.12.0 API             *
+*               Node.js v4.x API                *
 *                                               *
 ************************************************/
 
@@ -334,6 +334,7 @@ declare module NodeJS {
         undefined: typeof undefined;
         unescape: (str: string) => string;
         gc: () => void;
+        v8debug?: any;
     }
 
     export interface Timer {
@@ -429,6 +430,21 @@ declare module "http" {
     import * as events from "events";
     import * as net from "net";
     import * as stream from "stream";
+    
+    export interface RequestOptions {
+        protocol?: string;
+        host?: string;
+        hostname?: string;
+        family?: number;
+        port?: number
+        localAddress?: string;
+        socketPath?: string;
+        method?: string;
+        path?: string;
+        headers?: { [key: string]: any };
+        auth?: string;
+        agent?: Agent;
+    }
 
     export interface Server extends events.EventEmitter {
         listen(port: number, hostname?: string, backlog?: number, callback?: Function): Server;
@@ -567,7 +583,7 @@ declare module "http" {
     };
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) =>void ): Server;
     export function createClient(port?: number, host?: string): any;
-    export function request(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
@@ -717,15 +733,7 @@ declare module "https" {
         SNICallback?: (servername: string) => any;
     }
 
-    export interface RequestOptions {
-        host?: string;
-        hostname?: string;
-        port?: number;
-        path?: string;
-        method?: string;
-        headers?: any;
-        auth?: string;
-        agent?: any;
+    export interface RequestOptions extends http.RequestOptions{
         pfx?: any;
         key?: any;
         passphrase?: string;
@@ -733,6 +741,7 @@ declare module "https" {
         ca?: any;
         ciphers?: string;
         rejectUnauthorized?: boolean;
+        secureProtocol?: string;
     }
 
     export interface Agent {
@@ -757,7 +766,7 @@ declare module "punycode" {
     export function toASCII(domain: string): string;
     export var ucs2: ucs2;
     interface ucs2 {
-        decode(string: string): string;
+        decode(string: string): number[];
         encode(codePoints: number[]): string;
     }
     export var version: any;
@@ -916,21 +925,7 @@ declare module "child_process" {
 
 declare module "url" {
     export interface Url {
-        href: string;
-        protocol: string;
-        auth: string;
-        hostname: string;
-        port: string;
-        host: string;
-        pathname: string;
-        search: string;
-        query: any; // string | Object
-        slashes: boolean;
-        hash?: string;
-        path?: string;
-    }
-
-    export interface UrlOptions {
+        href?: string;
         protocol?: string;
         auth?: string;
         hostname?: string;
@@ -938,13 +933,14 @@ declare module "url" {
         host?: string;
         pathname?: string;
         search?: string;
-        query?: any;
+        query?: any; // string | Object
+        slashes?: boolean;
         hash?: string;
         path?: string;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean , slashesDenoteHost?: boolean ): Url;
-    export function format(url: UrlOptions): string;
+    export function format(url: Url): string;
     export function resolve(from: string, to: string): string;
 }
 
@@ -1020,10 +1016,10 @@ declare module "net" {
     }
     export function createServer(connectionListener?: (socket: Socket) =>void ): Server;
     export function createServer(options?: { allowHalfOpen?: boolean; }, connectionListener?: (socket: Socket) =>void ): Server;
-    export function connect(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
+    export function connect(options: { port: number, host?: string, localAddress? : string, localPort? : string, family? : number, allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
     export function connect(port: number, host?: string, connectionListener?: Function): Socket;
     export function connect(path: string, connectionListener?: Function): Socket;
-    export function createConnection(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
+    export function createConnection(options: { port: number, host?: string, localAddress? : string, localPort? : string, family? : number, allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
     export function createConnection(port: number, host?: string, connectionListener?: Function): Socket;
     export function createConnection(path: string, connectionListener?: Function): Socket;
     export function isIP(input: string): number;
