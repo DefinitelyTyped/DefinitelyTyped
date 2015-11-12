@@ -1,10 +1,10 @@
-// Type definitions for ByteBuffer.js 5.0.0
+// Type definitions for bytebuffer.js 5.0.0
 // Project: https://github.com/dcodeIO/bytebuffer.js
-// Definitions by: SINTEF-9012 <http://github.com/SINTEF-9012>
 // Definitions by: Denis Cappellin <http://github.com/cappellin>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: SINTEF-9012 <http://github.com/SINTEF-9012>
 
-/// <reference path="../long/long.d.ts" />
+/// <reference path="long.d.ts" />
 
 declare class ByteBuffer
 {
@@ -26,7 +26,7 @@ declare class ByteBuffer
     /**
      * Default no assertions flag of false.
      */
-    static DEFAULT_NOASSERT
+    static DEFAULT_NOASSERT: boolean;
 
     /**
      * Little endian constant that can be used instead of its boolean value. Evaluates to true.
@@ -51,7 +51,7 @@ declare class ByteBuffer
     /**
      * Metrics representing number of UTF8 characters.Evaluates to 1.
      */
-    static METRICS_CHARS
+    static METRICS_CHARS: number;
 
     /**
      * ByteBuffer version.
@@ -286,7 +286,7 @@ declare class ByteBuffer
     /**
      * Prints debug information about this ByteBuffer's contents.
      */
-    printDebug( out?: ( string ) => void ): void;
+    printDebug( out?: ( text: string ) => void ): void;
 
     /**
      * Reads an 8bit signed integer. This is an alias of ByteBuffer#readInt8.
