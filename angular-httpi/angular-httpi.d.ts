@@ -4,6 +4,9 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
+declare module "httpi" {
+    export = Httpi;
+}
 
 declare module Httpi {
     export interface HttpiPayload extends ng.IRequestShortcutConfig {
