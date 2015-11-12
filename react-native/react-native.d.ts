@@ -10,8 +10,11 @@
 // This work is based on an original work made by Bernd Paradies: https://github.com/bparadie
 //
 // WARNING: this work is very much beta:
-//            -it is still missing react-native definitions
+//            -it is still missing react-native definitions (see below)
 //            -it re-exports the whole of react 0.14 which may not be what react-native actually does
+//
+// I (Bruno Grieder) complete these definitions as I port the UI Explorer to Typescript
+// If you are in a hurry for the latest definitions, check those in https://github.com/bgrieder/RNTSExplorer
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -138,10 +141,10 @@ declare namespace  ReactNative {
     }
 
     export interface Insets {
-        top: number
-        left: number
-        bottom: number
-        right: number
+        top?: number
+        left?: number
+        bottom?: number
+        right?: number
     }
 
     export type AppConfig = {
@@ -203,17 +206,7 @@ declare namespace  ReactNative {
             spring: LayoutAnimationConfig
         }
     }
-    /*
-     export interface ReactPropTypes extends React.ReactPropTypes
-     {
 
-     }
-
-     export interface PropTypes
-     {
-     [key:string]: React.Requireable<any>;
-     }
-     */
 
     /**
      * Flex Prop Types
@@ -385,7 +378,7 @@ declare namespace  ReactNative {
         selectTextOnFocus?: boolean
 
         /**
-         * //FIXME: require typing
+         * //FIXME: requires typing
          * See DocumentSelectionState.js, some state that is responsible for maintaining selection information for a document
          */
         selectionState?: any
@@ -666,20 +659,20 @@ declare namespace  ReactNative {
          * In the absence of auto property, none is much like CSS's none value. box-none is as if you had applied the CSS class:
          *
          * .box-none {
-     *   pointer-events: none;
-     * }
+         *   pointer-events: none;
+         * }
          * .box-none * {
-     *   pointer-events: all;
-     * }
+         *   pointer-events: all;
+         * }
          *
          * box-only is the equivalent of
          *
          * .box-only {
-     *   pointer-events: all;
-     * }
+         *   pointer-events: all;
+         * }
          * .box-only * {
-     *   pointer-events: none;
-     * }
+         *   pointer-events: none;
+         * }
          *
          * But since pointerEvents does not affect layout/appearance, and we are already deviating from the spec by adding additional modes,
          * we opt to not include pointerEvents on style. On some platforms, we would need to implement it as a className anyways. Using style or not is an implementation detail of the platform.
@@ -772,13 +765,6 @@ declare namespace  ReactNative {
      * @see
      */
     export interface SegmentedControlIOSProperties {
-        /// TODO
-    }
-
-    /**
-     * @see
-     */
-    export interface SwitchIOSProperties {
         /// TODO
     }
 
@@ -978,57 +964,170 @@ declare namespace  ReactNative {
     export interface DatePickerIOSStatic extends React.ComponentClass<DatePickerIOSProperties> {
     }
 
+
+    /**
+     * @see PickerIOS.ios.js
+     */
+    export interface PickerIOSItemProperties extends React.Props<PickerIOSItemStatic> {
+        value?: string | number
+        label?: string
+    }
+
+    /**
+     * @see PickerIOS.ios.js
+     */
+    export interface PickerIOSItemStatic extends React.ComponentClass<PickerIOSItemProperties> {
+    }
+
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/pickerios.html
+     * @see PickerIOS.ios.js
+     */
+    export interface PickerIOSProperties extends React.Props<PickerIOSStatic> {
+
+        onValueChange?: ( value: string | number ) => void
+
+        selectedValue?: string | number
+
+        style?: ViewStyle
+    }
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/pickerios.html
+     * @see PickerIOS.ios.js
+     */
+    export interface PickerIOSStatic extends React.ComponentClass<PickerIOSProperties> {
+
+        Item: PickerIOSItemStatic
+    }
+
+
     /**
      * @see https://facebook.github.io/react-native/docs/sliderios.html
      */
     export interface SliderIOSProperties extends React.Props<SliderIOSStatic> {
-        /**
-         maximumTrackTintColor string
-         The color used for the track to the right of the button. Overrides the default blue gradient image.
-         */
-        maximumTrackTintColor?: string;
 
         /**
-         maximumValue number
-
-         Initial maximum value of the slider. Default value is 1.
+         * If true the user won't be able to move the slider. Default value is false.
          */
-        maximumValue?: number;
+        disabled?: boolean
 
         /**
-         minimumTrackTintColor string
-         The color used for the track to the left of the button. Overrides the default blue gradient image.
+         * Initial maximum value of the slider. Default value is 1.
          */
-        minimumTrackTintColor?: string;
+        maximumValue?: number
 
         /**
-         minimumValue number
-         Initial minimum value of the slider. Default value is 0.
+         * The color used for the track to the right of the button. Overrides the default blue gradient image.
          */
-        minimumValue?: number;
+        maximumTrackTintColor?: string
 
         /**
-         onSlidingComplete function
-         Callback called when the user finishes changing the value (e.g. when the slider is released).
+         * Initial minimum value of the slider. Default value is 0.
          */
-        onSlidingComplete?: () => void;
+        minimumValue?: number
 
         /**
-         onValueChange function
-         Callback continuously called while the user is dragging the slider.
+         * The color used for the track to the left of the button. Overrides the default blue gradient image.
          */
-        onValueChange?: ( value: number ) => void;
+        minimumTrackTintColor?: string
 
         /**
-         value number
-         Initial value of the slider. The value should be between minimumValue and maximumValue, which default to 0 and 1 respectively. Default value is 0.
-
-         This is not a controlled component, e.g. if you don't update the value, the component won't be reset to its inital value.
+         * Callback called when the user finishes changing the value (e.g. when the slider is released).
          */
-        value?: number;
+        onSlidingComplete?: () => void
+
+        /**
+         * Callback continuously called while the user is dragging the slider.
+         */
+        onValueChange?: ( value: number ) => void
+
+        /**
+         * Step value of the slider.
+         * The value should be between 0 and (maximumValue - minimumValue).
+         * Default value is 0.
+         */
+        step?: number
+
+        /**
+         * Used to style and layout the Slider.
+         * @see StyleSheet.js and ViewStylePropTypes.js for more info.
+         */
+        style?: ViewStyle
+
+        /**
+         * Initial value of the slider.
+         * The value should be between minimumValue and maximumValue, which default to 0 and 1 respectively.
+         * Default value is 0.
+         *
+         * This is not a controlled component, e.g. if you don't update the value, the component won't be reset to its inital value.
+         */
+        value?: number
     }
 
     export interface SliderIOSStatic extends React.ComponentClass<SliderIOSProperties> {
+
+    }
+
+    /**
+     * //FIXME: no dcumentation, inferred
+     * @see SwitchIOS.ios.js
+     */
+    export interface SwitchIOSStyle extends ViewStyle {
+        height?: number
+        width?: number
+    }
+
+
+    /**
+     * https://facebook.github.io/react-native/docs/switchios.html#props
+     */
+    export interface SwitchIOSProperties extends React.Props<SwitchIOSStatic> {
+
+        /**
+         * If true the user won't be able to toggle the switch. Default value is false.
+         */
+        disabled?: boolean
+
+        /**
+         * Background color when the switch is turned on.
+         */
+        onTintColor?: string
+
+        /**
+         * Callback that is called when the user toggles the switch.
+         */
+        onValueChange?: ( value: boolean ) => void
+
+        /**
+         * Background color for the switch round button.
+         */
+        thumbTintColor?: string
+
+        /**
+         * Background color when the switch is turned off.
+         */
+        tintColor?: string
+
+        /**
+         * The value of the switch, if true the switch will be turned on. Default value is false.
+         */
+        value?: boolean
+
+        style?: SwitchIOSStyle
+    }
+
+    /**
+     *
+     * Use SwitchIOS to render a boolean input on iOS.
+     *
+     * This is a controlled component, so you must hook in to the onValueChange callback and update the value prop in order for the component to update,
+     * otherwise the user's change will be reverted immediately to reflect props.value as the source of truth.
+     *
+     * @see https://facebook.github.io/react-native/docs/switchios.html
+     */
+    export interface SwitchIOSStatic extends React.ComponentClass<SwitchIOSProperties> {
 
     }
 
@@ -1359,12 +1458,12 @@ declare namespace  ReactNative {
         /**
          * Callback that is called continuously when the user is dragging the map.
          */
-        onRegionChange?: (region: MapViewRegion) => void
+        onRegionChange?: ( region: MapViewRegion ) => void
 
         /**
          * Callback that is called once, when the user is done moving the map.
          */
-        onRegionChangeComplete?: (region: MapViewRegion) => void
+        onRegionChangeComplete?: ( region: MapViewRegion ) => void
 
         /**
          * When this property is set to true and a valid camera is associated with the map,
@@ -1906,23 +2005,85 @@ declare namespace  ReactNative {
 
 
     /**
-     * @see
+     * @see https://facebook.github.io/react-native/docs/tabbarios-item.html#props
      */
-    export interface TabBarItemProperties {
+    export interface TabBarItemProperties extends React.Props<TabBarItemStatic> {
+
+        /**
+         * Little red bubble that sits at the top right of the icon.
+         */
+        badge?:  string | number
+
+        /**
+         * A custom icon for the tab. It is ignored when a system icon is defined.
+         */
+        icon?: {uri: string} | string
+
+        /**
+         * Callback when this tab is being selected,
+         * you should change the state of your component to set selected={true}.
+         */
+        onPress?: () => void
+
+        /**
+         * It specifies whether the children are visible or not. If you see a blank content, you probably forgot to add a selected one.
+         */
+        selected?: boolean
+
+        /**
+         * A custom icon when the tab is selected.
+         * It is ignored when a system icon is defined. If left empty, the icon will be tinted in blue.
+         */
+        selectedIcon?: {uri: string} | string;
+
+        /**
+         * React style object.
+         */
+        style?: ViewStyle
+
+        /**
+         * Items comes with a few predefined system icons.
+         * Note that if you are using them, the title and selectedIcon will be overriden with the system ones.
+         *
+         *  enum('bookmarks', 'contacts', 'downloads', 'favorites', 'featured', 'history', 'more', 'most-recent', 'most-viewed', 'recents', 'search', 'top-rated')
+         */
+        systemIcon: string
+
+        /**
+         * Text that appears under the icon. It is ignored when a system icon is defined.
+         */
+        title?: string
 
     }
 
-    export interface TabBarItem extends React.ComponentClass<TabBarItemProperties> {
+    export interface TabBarItemStatic extends React.ComponentClass<TabBarItemProperties> {
     }
 
     /**
-     * @see
+     * @see https://facebook.github.io/react-native/docs/tabbarios.html#props
      */
-    export interface TabBarIOSProperties {
+    export interface TabBarIOSProperties extends React.Props<TabBarIOSStatic> {
+
+        /**
+         * Background color of the tab bar
+         */
+        barTintColor?: string
+
+        style?: ViewStyle
+
+        /**
+         * Color of the currently selected tab icon
+         */
+        tintColor?: string
+
+        /**
+         * A Boolean value that indicates whether the tab bar is translucent
+         */
+        translucent?: boolean
     }
 
     export interface TabBarIOSStatic extends React.ComponentClass<TabBarIOSProperties> {
-        Item: TabBarItem;
+        Item: TabBarItemStatic;
     }
 
     export interface CameraRollFetchParams {
@@ -2402,6 +2563,9 @@ declare namespace  ReactNative {
     export var NavigatorIOS: NavigatorIOSStatic;
     export type NavigatorIOS = NavigatorIOSStatic;
 
+    export var PickerIOS: PickerIOSStatic
+    export type PickerIOS = PickerIOSStatic
+
     export var SliderIOS: SliderIOSStatic;
     export type SliderIOS = SliderIOSStatic;
 
@@ -2410,6 +2574,9 @@ declare namespace  ReactNative {
 
     export var StyleSheet: StyleSheetStatic;
     export type StyleSheet = StyleSheetStatic;
+
+    export var SwitchIOS: SwitchIOSStatic
+    export type SwitchIOS = SwitchIOSStatic
 
     export var TabBarIOS: TabBarIOSStatic;
     export type TabBarIOS = TabBarIOSStatic;
@@ -2434,7 +2601,6 @@ declare namespace  ReactNative {
 
     export var AlertIOS: React.ComponentClass<AlertIOSProperties>;
     export var SegmentedControlIOS: React.ComponentClass<SegmentedControlIOSProperties>;
-    export var SwitchIOS: React.ComponentClass<SwitchIOSProperties>;
 
     export var PixelRatio: PixelRatioStatic;
     export var DeviceEventEmitter: DeviceEventEmitterStatic;
