@@ -1,3 +1,8 @@
+// Type definitions for Google Apps Script 2015-11-12
+// Project: https://developers.google.com/apps-script/
+// Definitions by: motemen <https://github.com/motemen/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 /// <reference path="google-apps-script.document.d.ts" />
