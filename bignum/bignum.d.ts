@@ -5,6 +5,143 @@
 
 /// <reference path="../node/node.d.ts" />
 
+declare class BigNum {
+    /** Create a new BigNum from n. */
+    constructor(n: number|BigNum);
+    
+    /** Create a new BigNum from n and a base. */
+    constructor(n: string, base?: number);
+    
+    /**
+     * Create a new BigNum from a Buffer.
+     * 
+     * The default options are: {endian: 'big', size: 1}.
+     */
+    static fromBuffer(buffer: Buffer, options?: BigNum.BufferOptions): BigNum;
+    
+    /**
+     * Generate a probable prime of length bits.
+     * 
+     * If safe is true, it will be a "safe" prime of the form p=2p'+1 where p' is also prime.
+     */
+    static prime(bits: number, safe?: boolean): BigNum;
+    
+    /** Return true if num is identified as a BigNum instance. Otherwise, return false. */
+    static isBigNum(num: any): boolean;
+    
+    /** Print out the BigNum instance in the requested base as a string. Default: base 10 */
+    toString(base?: number): string;
+    
+    /**
+     * Turn a BigNum into a Number.
+     * 
+     * If the BigNum is too big you'll lose precision or you'll get ±Infinity.
+     */
+    toNumber(): number;
+    
+    /**
+    * Return a new Buffer with the data from the BigNum.
+    * 
+    * The default options are: {endian: 'big', size: 1}.
+    */
+    toBuffer(options?: BigNum.BufferOptions): Buffer;
+    
+    /** Return a new BigNum containing the instance value plus n. */
+    add(n: BigNum.BigNumCompatible): BigNum;
+    
+    /** Return a new BigNum containing the instance value minus n. */
+    sub(n: BigNum.BigNumCompatible): BigNum;
+    
+    /** Return a new BigNum containing the instance value multiplied by n. */
+    mul(n: BigNum.BigNumCompatible): BigNum;
+    
+    /** Return a new BigNum containing the instance value integrally divided by n. */
+    div(n: BigNum.BigNumCompatible): BigNum;
+    
+    /** Return a new BigNum with the absolute value of the instance. */
+    abs(): BigNum;
+    
+    /** Return a new BigNum with the negative of the instance value. */
+    neg(): BigNum;
+    
+    /**
+     * Compare the instance value to n.
+     * 
+     * Return a positive integer if > n, a negative integer if < n, and 0 if == n.
+     */
+    cmp(n: BigNum.BigNumCompatible): number;
+    
+    /** Return a boolean: whether the instance value is greater than n (> n). */
+    gt(n: BigNum.BigNumCompatible): boolean;
+    
+    /** Return a boolean: whether the instance value is greater than or equal to n (>= n). */
+    ge(n: BigNum.BigNumCompatible): boolean;
+    
+    /** Return a boolean: whether the instance value is equal to n (== n). */
+    eq(n: BigNum.BigNumCompatible): boolean;
+    
+    /** Return a boolean: whether the instance value is less than n (< n). */
+    lt(n: BigNum.BigNumCompatible): boolean;
+    
+    /** Return a boolean: whether the instance value is less than or equal to n (<= n). */
+    le(n: BigNum.BigNumCompatible): boolean;
+    
+    /** Return a new BigNum with the instance value bitwise AND (&)-ed with n. */
+    and(n: BigNum.BigNumCompatible): BigNum;
+    
+    /** Return a new BigNum with the instance value bitwise inclusive-OR (|)-ed with n. */
+    or(n: BigNum.BigNumCompatible): BigNum;
+    
+    /** Return a new BigNum with the instance value bitwise exclusive-OR (^)-ed with n. */
+    xor(n: BigNum.BigNumCompatible): BigNum;
+    
+    /** Return a new BigNum with the instance value modulo n. */
+    mod(n: BigNum.BigNumCompatible): BigNum;
+    
+    /** Return a new BigNum with the instance value raised to the nth power. */
+    pow(n: BigNum.BigNumCompatible): BigNum;
+    
+    /** Return a new BigNum with the instance value raised to the nth power modulo m. */
+    powm(n: BigNum.BigNumCompatible, m: BigNum.BigNumCompatible): BigNum;
+    
+    /** Compute the multiplicative inverse modulo m. */
+    invertm(m: BigNum.BigNumCompatible): BigNum;
+    
+    /**
+     * If upperBound is supplied, return a random BigNum between the instance value and upperBound - 1, inclusive.
+     * Otherwise, return a random BigNum between 0 and the instance value - 1, inclusive.
+     */
+    rand(upperBound?: BigNum.BigNumCompatible): BigNum;
+    
+    /** 
+     * Return whether the BigNum is:
+     *  - certainly prime (true)
+     *  - probably prime ('maybe')
+     *  - certainly composite (false)
+     */
+    probPrime(): boolean | string;
+    
+    /** Return a new BigNum that is the 2^n multiple. Equivalent of the << operator. */
+    shiftLeft(n: BigNum.BigNumCompatible): BigNum;
+    
+    /** Return a new BigNum of the value integer divided by 2^n. Equivalent of the >> operator. */
+    shiftRight(n: BigNum.BigNumCompatible): BigNum;
+    
+    /** Return the greatest common divisor of the current BigNum with n as a new BigNum. */
+    gcd(n: BigNum): BigNum;
+    
+    /**
+     * Return the Jacobi symbol (or Legendre symbol if n is prime) of the current BigNum (= a) over n.
+     * Note that n must be odd and >= 3. 0 <= a < n.
+     * 
+     * Returns -1 or 1 as an int (NOT a BigNum). Throws an error on failure.
+     */
+    jacobi(n: BigNum): number;
+    
+    /** Return the number of bits used to represent the current BigNum. */
+    bitLength(): number;
+}
+
 declare namespace BigNum {
     /** Anything that can be converted to BigNum. */
     type BigNumCompatible = BigNum | number | string;
@@ -15,143 +152,6 @@ declare namespace BigNum {
         
         /** Number of bytes per word, or 'auto' to flip entire Buffer. */
         size: number | string;
-    }
-    
-    export class BigNum {
-        /** Create a new BigNum from n. */
-        constructor(n: number|BigNum);
-        
-        /** Create a new BigNum from n and a base. */
-        constructor(n: string, base?: number);
-        
-        /**
-         * Create a new BigNum from a Buffer.
-         * 
-         * The default options are: {endian: 'big', size: 1}.
-         */
-        static fromBuffer(buffer: Buffer, options?: BufferOptions): BigNum;
-        
-        /**
-         * Generate a probable prime of length bits.
-         * 
-         * If safe is true, it will be a "safe" prime of the form p=2p'+1 where p' is also prime.
-         */
-        static prime(bits: number, safe?: boolean): BigNum;
-        
-        /** Return true if num is identified as a BigNum instance. Otherwise, return false. */
-        static isBigNum(num: any): boolean;
-        
-        /** Print out the BigNum instance in the requested base as a string. Default: base 10 */
-        toString(base?: number): string;
-        
-        /**
-         * Turn a BigNum into a Number.
-         * 
-         * If the BigNum is too big you'll lose precision or you'll get ±Infinity.
-         */
-        toNumber(): number;
-        
-        /**
-         * Return a new Buffer with the data from the BigNum.
-         * 
-         * The default options are: {endian: 'big', size: 1}.
-         */
-        toBuffer(options?: BufferOptions): Buffer;
-        
-        /** Return a new BigNum containing the instance value plus n. */
-        add(n: BigNumCompatible): BigNum;
-        
-        /** Return a new BigNum containing the instance value minus n. */
-        sub(n: BigNumCompatible): BigNum;
-        
-        /** Return a new BigNum containing the instance value multiplied by n. */
-        mul(n: BigNumCompatible): BigNum;
-        
-        /** Return a new BigNum containing the instance value integrally divided by n. */
-        div(n: BigNumCompatible): BigNum;
-        
-        /** Return a new BigNum with the absolute value of the instance. */
-        abs(): BigNum;
-        
-        /** Return a new BigNum with the negative of the instance value. */
-        neg(): BigNum;
-        
-        /**
-         * Compare the instance value to n.
-         * 
-         * Return a positive integer if > n, a negative integer if < n, and 0 if == n.
-         */
-        cmp(n: BigNumCompatible): number;
-        
-        /** Return a boolean: whether the instance value is greater than n (> n). */
-        gt(n: BigNumCompatible): boolean;
-        
-        /** Return a boolean: whether the instance value is greater than or equal to n (>= n). */
-        ge(n: BigNumCompatible): boolean;
-        
-        /** Return a boolean: whether the instance value is equal to n (== n). */
-        eq(n: BigNumCompatible): boolean;
-        
-        /** Return a boolean: whether the instance value is less than n (< n). */
-        lt(n: BigNumCompatible): boolean;
-        
-        /** Return a boolean: whether the instance value is less than or equal to n (<= n). */
-        le(n: BigNumCompatible): boolean;
-        
-        /** Return a new BigNum with the instance value bitwise AND (&)-ed with n. */
-        and(n: BigNumCompatible): BigNum;
-        
-        /** Return a new BigNum with the instance value bitwise inclusive-OR (|)-ed with n. */
-        or(n: BigNumCompatible): BigNum;
-        
-        /** Return a new BigNum with the instance value bitwise exclusive-OR (^)-ed with n. */
-        xor(n: BigNumCompatible): BigNum;
-        
-        /** Return a new BigNum with the instance value modulo n. */
-        mod(n: BigNumCompatible): BigNum;
-        
-        /** Return a new BigNum with the instance value raised to the nth power. */
-        pow(n: BigNumCompatible): BigNum;
-        
-        /** Return a new BigNum with the instance value raised to the nth power modulo m. */
-        powm(n: BigNumCompatible, m: BigNumCompatible): BigNum;
-        
-        /** Compute the multiplicative inverse modulo m. */
-        invertm(m: BigNumCompatible): BigNum;
-        
-        /**
-         * If upperBound is supplied, return a random BigNum between the instance value and upperBound - 1, inclusive.
-         * Otherwise, return a random BigNum between 0 and the instance value - 1, inclusive.
-         */
-        rand(upperBound?: BigNumCompatible): BigNum;
-        
-        /** 
-         * Return whether the BigNum is:
-         *  - certainly prime (true)
-         *  - probably prime ('maybe')
-         *  - certainly composite (false)
-         */
-        probPrime(): boolean | string;
-        
-        /** Return a new BigNum that is the 2^n multiple. Equivalent of the << operator. */
-        shiftLeft(n: BigNumCompatible): BigNum;
-        
-        /** Return a new BigNum of the value integer divided by 2^n. Equivalent of the >> operator. */
-        shiftRight(n: BigNumCompatible): BigNum;
-        
-        /** Return the greatest common divisor of the current BigNum with n as a new BigNum. */
-        gcd(n: BigNum): BigNum;
-        
-        /**
-         * Return the Jacobi symbol (or Legendre symbol if n is prime) of the current BigNum (= a) over n.
-         * Note that n must be odd and >= 3. 0 <= a < n.
-         * 
-         * Returns -1 or 1 as an int (NOT a BigNum). Throws an error on failure.
-         */
-        jacobi(n: BigNum): number;
-        
-        /** Return the number of bits used to represent the current BigNum. */
-        bitLength(): number;
     }
     
     /**
@@ -265,5 +265,5 @@ declare namespace BigNum {
 }
 
 declare module "bignum" {
-    export = BigNum.BigNum;
+    export = BigNum;
 }
