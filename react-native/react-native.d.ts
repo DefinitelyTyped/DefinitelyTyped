@@ -281,50 +281,71 @@ declare namespace  ReactNative {
     }
 
     // @see https://facebook.github.io/react-native/docs/text.html#style
-    export interface TextStyle extends FlexStyle {
-        color?: string;
-        containerBackgroundColor?: string;
-        fontFamily?: string;
-        fontSize?: number;
-        fontStyle?: string; // 'normal' | 'italic';
-        fontWeight?: string; // enum("normal", 'bold', '100', '200', '300', '400', '500', '600', '700', '800', '900')
-        letterSpacing?: number;
-        lineHeight?: number;
-        textAlign?: string; // enum("auto", 'left', 'right', 'center')
+    export interface TextStyle extends ViewStyle {
+        color?: string
+        fontFamily?: string
+        fontSize?: number
+        fontStyle?: string // 'normal' | 'italic';
+        fontWeight?: string // enum("normal", 'bold', '100', '200', '300', '400', '500', '600', '700', '800', '900')
+        letterSpacing?: number
+        lineHeight?: number
+        textAlign?: string // enum("auto", 'left', 'right', 'center')
+        textDecorationLine?: string // enum("none", 'underline', 'line-through', 'underline line-through')
+        textDecorationStyle?: string // enum("solid", 'double', 'dotted', 'dashed')
+        textDecorationColor?: string
         writingDirection?: string; //enum("auto", 'ltr', 'rtl')
+        //containerBackgroundColor?: string
+    }
+
+    export interface TextPropertiesIOS {
+
+        /**
+         * When true, no visual change is made when text is pressed down.
+         * By default, a gray oval highlights the text on press down.
+         */
+        suppressHighlighting?: boolean
     }
 
     // https://facebook.github.io/react-native/docs/text.html#props
     export interface TextProperties extends React.Props<TextProperties> {
-        /**
-         * numberOfLines number
-         *
-         * Used to truncate the text with an elipsis after computing the text layout, including line wrapping, such that the total number of lines does not exceed this number.
-         */
-        numberOfLines?: number;
 
         /**
-         * onLayout function
-         *
+         * Specifies should fonts scale to respect Text Size accessibility setting on iOS.
+         */
+        allowFontScaling?: boolean
+
+        /**
+         * Used to truncate the text with an elipsis after computing the text layout, including line wrapping, such that the total number of lines does not exceed this number.
+         */
+        numberOfLines?: number
+
+        /**
          * Invoked on mount and layout changes with
          *
          * {nativeEvent: { layout: {x, y, width, height}}}.
          */
-        onLayout?: ( event: LayoutChangeEvent ) => void;
+        onLayout?: ( event: LayoutChangeEvent ) => void
 
         /**
-         * onPress function
-         *
-         * This function is called on press. Text intrinsically supports press handling with a default highlight state (which can be disabled with suppressHighlighting).
+         * This function is called on press.
+         * Text intrinsically supports press handling with a default highlight state (which can be disabled with suppressHighlighting).
          */
-        onPress?: () => void;
+        onPress?: () => void
 
         /**
          * @see https://facebook.github.io/react-native/docs/text.html#style
          */
-        style?: TextStyle;
+        style?: TextStyle
+
+        /**
+         * Used to locate this view in end-to-end tests.
+         */
+        testID?: string
     }
 
+    /**
+     * A React component for displaying text which supports nesting, styling, and touch handling.
+     */
     export interface TextStatic extends React.ComponentClass<TextProperties> {
 
     }
