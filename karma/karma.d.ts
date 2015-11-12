@@ -8,7 +8,7 @@
 /// <reference path="../log4js/log4js.d.ts" />
 
 declare module 'karma' {
-    // See Karma public API https://karma-runner.github.io/0.12/dev/public-api.html
+    // See Karma public API https://karma-runner.github.io/0.13/dev/public-api.html
     import Promise = require('bluebird');
     import https = require('https');
     import log4js = require('log4js');
@@ -53,11 +53,11 @@ declare module 'karma' {
         }
 
         interface Runner {
-            run(options?: Config, callback?: ServerCallback): void;
+            run(options?: ConfigOptions|ConfigFile, callback?: ServerCallback): void;
         }
 
         interface Server extends NodeJS.EventEmitter {
-            new(options?: Config, callback?: ServerCallback): Server;
+            new(options?: ConfigOptions|ConfigFile, callback?: ServerCallback): Server;
             /**
              * Start the server
              */
@@ -82,8 +82,21 @@ declare module 'karma' {
         interface ServerCallback {
             (exitCode: number): void;
         }
+        
+        interface Config { 
+            set: (config: ConfigOptions) => void;
+            LOG_DISABLE: string;
+            LOG_ERROR: string;
+            LOG_WARN: string;
+            LOG_INFO: string;
+            LOG_DEBUG: string;
+        }
+        
+        interface ConfigFile {
+            configFile: string;
+        }
 
-        interface Config {
+        interface ConfigOptions {
             /**
              * @description Enable or disable watching files and executing the tests whenever one of these files changes.
              * @default true
@@ -163,7 +176,7 @@ declare module 'karma' {
              * </p>
              */
             captureTimeout?: number;
-            client?: ClientConfig;
+            client?: ClientOptions;
             /**
              * @default true
              * @description Enable or disable colors in the output (reporters and logs).
@@ -308,7 +321,7 @@ declare module 'karma' {
             urlRoot?: string;
         }
 
-        interface ClientConfig {
+        interface ClientOptions {
             /**
              * @default undefined
              * @description When karma run is passed additional arguments on the command-line, they

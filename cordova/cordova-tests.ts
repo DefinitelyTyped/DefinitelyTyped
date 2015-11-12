@@ -1,5 +1,5 @@
 // Copyright (c) Microsoft Open Technologies, Inc.
-// Licensed under the MIT license. 
+// Licensed under the MIT license.
 
 /// <reference path="cordova.d.ts"/>
 
@@ -203,7 +203,7 @@ file.abort();
 // InAppBrowser plugin
 //----------------------------------------------------------------------
 
-// signature of window.open() added by InAppBrowser plugin 
+// signature of window.open() added by InAppBrowser plugin
 // is similar to native window.open signature, so the compiler can's
 // select proper overload, but we cast result to InAppBrowser manually.
 var iab = <InAppBrowser>window.open('google.com', '_self');
@@ -307,3 +307,28 @@ db.transaction(
 navigator.notification.vibrate(100);
 navigator.notification.vibrateWithPattern([100, 200, 200, 150, 50], 3);
 setTimeout(navigator.notification.cancelVibration, 1000);
+
+// Keyboard plugin
+//----------------------------------------------------------------------
+Keyboard.shrinkView(true);
+Keyboard.shrinkView(false);
+Keyboard.hideFormAccessoryBar(true);
+Keyboard.hideFormAccessoryBar(false);
+Keyboard.disableScrollingInShrinkView(true);
+Keyboard.disableScrollingInShrinkView(false);
+if (Keyboard.isVisible) {
+    console.log('Keyboard is visible');
+}
+Keyboard.automaticScrollToTopOnHiding = true;
+Keyboard.onshow = function () {
+    console.log('onshow');
+};
+Keyboard.onhide = function () {
+    console.log('onhide');
+};
+Keyboard.onshowing = function () {
+    console.log('onshowing');
+};
+Keyboard.onhiding= function () {
+    console.log('onhiding');
+};
