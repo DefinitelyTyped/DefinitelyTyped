@@ -131,7 +131,7 @@ declare namespace BigNum {
          *  - probably prime ('maybe')
          *  - certainly composite (false)
          */
-        probPrime(): boolean|string;
+        probPrime(): boolean | string;
         
         /** Return a new BigNum that is the 2^n multiple. Equivalent of the << operator. */
         shiftLeft(n: BigNumCompatible): BigNum;
@@ -148,7 +148,7 @@ declare namespace BigNum {
          * 
          * Returns -1 or 1 as an int (NOT a BigNum). Throws an error on failure.
          */
-        jacobi(n: BigNum): BigNum;
+        jacobi(n: BigNum): number;
         
         /** Return the number of bits used to represent the current BigNum. */
         bitLength(): number;
@@ -241,7 +241,7 @@ declare namespace BigNum {
      *  - probably prime ('maybe')
      *  - certainly composite (false)
      */
-    export function probPrime(n: BigNumCompatible): boolean|string;
+    export function probPrime(n: BigNumCompatible): boolean | string;
     
     /** Return a new BigNum that is the 2^bits multiple. Equivalent of the << operator. */
     export function shiftLeft(n: BigNumCompatible, bits: BigNumCompatible): BigNum;
@@ -258,7 +258,7 @@ declare namespace BigNum {
      * 
      * Returns -1 or 1 as an int (NOT a BigNum). Throws an error on failure.
      */
-    export function jacobi(a: BigNumCompatible, n: BigNum): BigNum;
+    export function jacobi(a: BigNumCompatible, n: BigNum): number;
     
     /** Return the number of bits used to represent the current BigNum. */
     export function bitLength(n: BigNumCompatible): number;
