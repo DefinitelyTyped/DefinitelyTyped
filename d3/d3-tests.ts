@@ -2622,6 +2622,9 @@ function extentTest() {
     // d3.extent([1, 2, 3, 4, 5, o], (d) => { return d; });
     d3.extent([10, null, 3, undefined, 5, NaN], (d) => { return d; });
     d3.extent([-1, null, -3, undefined, -5, NaN], (d) => { return d; });
+
+    var d = ['2015-01-01', '2015-02-01'];
+    d3.extent(d, x => new Date(x))
     // d3.extent([20, "3"], (d) => { return d; });
     // d3.extent(["20", 3], (d) => { return d; });
     // d3.extent([3, "20"], (d) => { return d; });
@@ -2706,3 +2709,11 @@ function testMultiUtcFormat() {
         ["%Y", function() { return true; }]
     ]);
 }
+
+type Dict<T> = { [key: string]: T};
+type StrDict = Dict<string>;
+
+function testCsv(){
+    d3.csv('',  (rows: StrDict[]) => {});
+    d3.csv('', (d:StrDict) => d,  (rows: StrDict[]) => {});
+ }
