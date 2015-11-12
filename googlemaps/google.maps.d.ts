@@ -822,6 +822,7 @@ declare module google.maps {
         bounds?: LatLngBounds;
         componentRestrictions?: GeocoderComponentRestrictions;
         location?: LatLng|LatLngLiteral;
+        placeId?: string;
         region?: string;
     }
 
@@ -1955,6 +1956,7 @@ declare module google.maps {
             bounds?: LatLngBounds;
             input?: string;
             location?: LatLng;
+            offset?: number;
             radius?: number;
         }
 

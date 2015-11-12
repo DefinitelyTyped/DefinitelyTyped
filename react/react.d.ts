@@ -313,6 +313,8 @@ declare namespace __React {
         deltaZ: number;
     }
 
+    interface LoadEvent extends SyntheticEvent {}
+
     //
     // Event Handler Types
     // ----------------------------------------------------------------------
@@ -330,6 +332,7 @@ declare namespace __React {
     interface TouchEventHandler extends EventHandler<TouchEvent> {}
     interface UIEventHandler extends EventHandler<UIEvent> {}
     interface WheelEventHandler extends EventHandler<WheelEvent> {}
+    interface LoadEventHandler extends EventHandler<LoadEvent> {}
 
     //
     // Props / DOM Attributes
@@ -354,6 +357,7 @@ declare namespace __React {
         onInput?: FormEventHandler;
         onSubmit?: FormEventHandler;
         onClick?: MouseEventHandler;
+        onContextMenu?: MouseEventHandler;
         onDoubleClick?: MouseEventHandler;
         onDrag?: DragEventHandler;
         onDragEnd?: DragEventHandler;
@@ -376,6 +380,7 @@ declare namespace __React {
         onTouchStart?: TouchEventHandler;
         onScroll?: UIEventHandler;
         onWheel?: WheelEventHandler;
+        onLoad?: LoadEventHandler;
 
         className?: string;
         id?: string;
@@ -426,7 +431,7 @@ declare namespace __React {
         allowTransparency?: boolean;
         alt?: string;
         async?: boolean;
-        autoComplete?: boolean;
+        autoComplete?: string;
         autoFocus?: boolean;
         autoPlay?: boolean;
         cellPadding?: number | string;
