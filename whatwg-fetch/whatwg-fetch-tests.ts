@@ -1,8 +1,5 @@
 ﻿/// <reference path="whatwg-fetch.d.ts" />
-<<<<<<< d969b903d1fce89a5e43828ec68458b4f852db4d
-=======
 /// <reference path="../es6-shim/es6-shim.d.ts" />
->>>>>>> Patch 1 for whatwg-fetch
 
 function test_fetchUrlWithOptions() {
 	var headers = new Headers();
