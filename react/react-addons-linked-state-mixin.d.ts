@@ -16,8 +16,8 @@ declare namespace __React {
     }
 
     interface HTMLAttributes {
-        checkedLink?: ReactLink<string>;
-        valueLink?: ReactLink<string>;
+        checkedLink?: ReactLink<boolean>;
+        valueLink?: ReactLink<boolean | string | number>;
     }
         
     namespace __Addons {
