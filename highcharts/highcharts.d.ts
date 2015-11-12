@@ -5819,7 +5819,7 @@ interface Chart {
      * @param {string|HTMLElement} renderTo The id or a reference to a DOM element where the chart should be rendered (since v4.2.0).
      * @param {HighchartsOptions} options The chart options
      * @param callback A function to execute when the chart object is finished loading and rendering. In most cases the chart is built in one thread, but in Internet Explorer version 8 or less the chart is sometimes initiated before the document is ready, and in these cases the chart object will not be finished directly after callingnew Highcharts.Chart(). As a consequence, code that relies on the newly built Chart object should always run in the callback. Defining a chart.event.load handler is equivalent.
-     * @return {HighchartsChartObject}
+     * @return {ChartObject}
      */
     new (renderTo: string | HTMLElement, options: Options, callback: (chart: ChartObject) => void): ChartObject;
 }
@@ -6292,17 +6292,5 @@ interface JQuery {
      * @return current {JQuery} selector the current JQuery selector
      **/
     highcharts(options: __Highcharts.Options, callback: (chart: __Highcharts.ChartObject) => void): JQuery;
-}
-
-/**
- * Enabling the usage of ES6 module loading.
- */
-declare var Highcharts: HighchartsStatic;
-
-/**
- * Declaration for ES6 module loading.
- */
-declare module "highcharts" {
-    export = Highcharts;
 }
 
