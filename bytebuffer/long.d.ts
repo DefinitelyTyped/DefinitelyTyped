@@ -1,5 +1,7 @@
-// Type definitions for ByteBuffer.js 5.0.0
-// Project: https://github.com/dcodeIO/bytebuffer.js
+// Type definitions for long.js 3.0.2
+// Project: https://github.com/dcodeIO/long.js
+// Definitions by: Denis Cappellin <http://github.com/cappellin>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare class Long
 {

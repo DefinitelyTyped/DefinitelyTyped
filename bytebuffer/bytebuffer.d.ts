@@ -1,5 +1,8 @@
 // Type definitions for ByteBuffer.js 5.0.0
 // Project: https://github.com/dcodeIO/bytebuffer.js
+// Definitions by: SINTEF-9012 <http://github.com/SINTEF-9012>
+// Definitions by: Denis Cappellin <http://github.com/cappellin>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../long/long.d.ts" />
 
