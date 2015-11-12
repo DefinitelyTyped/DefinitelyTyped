@@ -2721,6 +2721,46 @@ declare module _ {
             whereValue: W): LoDashImplicitArrayWrapper<T>;
     }
 
+    //_.unzip
+    interface LoDashStatic {
+        /**
+         * This method is like _.zip except that it accepts an array of grouped elements and creates an array
+         * regrouping the elements to their pre-zip configuration.
+         *
+         * @param array The array of grouped elements to process.
+         * @return Returns the new array of regrouped elements.
+         */
+        unzip<T>(array: List<List<T>>): T[][];
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.unzip
+         */
+        unzip<T>(): LoDashImplicitArrayWrapper<T[]>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.unzip
+         */
+        unzip<T>(): LoDashImplicitArrayWrapper<T[]>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.unzip
+         */
+        unzip<T>(): LoDashExplicitArrayWrapper<T[]>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.unzip
+         */
+        unzip<T>(): LoDashExplicitArrayWrapper<T[]>;
+    }
+
     //_.unzipWith
     interface LoDashStatic {
         /**
@@ -2829,16 +2869,6 @@ declare module _ {
         * @see _.zip
         **/
         zip(...arrays: any[]): any[];
-
-        /**
-        * @see _.zip
-        **/
-        unzip(...arrays: any[][]): any[][];
-
-        /**
-        * @see _.zip
-        **/
-        unzip(...arrays: any[]): any[];
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -2846,11 +2876,6 @@ declare module _ {
         * @see _.zip
         **/
         zip(...arrays: any[][]): _.LoDashImplicitArrayWrapper<any[][]>;
-
-        /**
-        * @see _.zip
-        **/
-        unzip(...arrays: any[]): _.LoDashImplicitArrayWrapper<any[][]>;
     }
 
     //_.zipObject
