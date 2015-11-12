@@ -19,7 +19,7 @@ declare module moment {
         month?: number;
         /** Month */
         M?: number;
-        
+
         /** Week */
         weeks?: number;
         /** Week */
@@ -303,6 +303,7 @@ declare module moment {
 
         get(unit: string): number;
         set(unit: string, value: number): Moment;
+        set(objectLiteral: MomentInput): Moment;
     }
 
     type formatFunction = () => string;
@@ -345,11 +346,13 @@ declare module moment {
       LLL: string;
       LLLL: string;
       LT: string;
+      LTS: string;
       l?: string;
       ll?: string;
       lll?: string;
       llll?: string;
       lt?: string;
+      lts?: string;
     }
 
     interface MomentRelativeTime {
@@ -453,8 +456,8 @@ declare module moment {
         weekdaysMin(format: string): string[];
         weekdaysMin(format: string, index: number): string;
 
-        min(moments: Moment[]): Moment;
-        max(moments: Moment[]): Moment;
+        min(...moments: Moment[]): Moment;
+        max(...moments: Moment[]): Moment;
 
         normalizeUnits(unit: string): string;
         relativeTimeThreshold(threshold: string): number|boolean;

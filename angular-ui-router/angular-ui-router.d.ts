@@ -71,10 +71,16 @@ declare module angular.ui {
          * Arbitrary data object, useful for custom configuration.
          */
         data?: any;
+        
         /**
          * Boolean (default true). If false will not re-trigger the same state just because a search/query parameter has changed. Useful for when you'd like to modify $location.search() without triggering a reload.
          */
         reloadOnSearch?: boolean;
+        
+        /**
+         * Boolean (default true). If false will reload state on everytransitions. Useful for when you'd like to restore all data  to its initial state.
+         */
+        cache?: boolean;
     }
 
     interface IStateProvider extends angular.IServiceProvider {
@@ -229,10 +235,10 @@ declare module angular.ui {
          */
         go(to: string, params?: {}, options?: IStateOptions): angular.IPromise<any>;
         go(to: IState, params?: {}, options?: IStateOptions): angular.IPromise<any>;
-        transitionTo(state: string, params?: {}, updateLocation?: boolean): void;
-        transitionTo(state: IState, params?: {}, updateLocation?: boolean): void;
-        transitionTo(state: string, params?: {}, options?: IStateOptions): void;
-        transitionTo(state: IState, params?: {}, options?: IStateOptions): void;
+        transitionTo(state: string, params?: {}, updateLocation?: boolean): angular.IPromise<any>;
+        transitionTo(state: IState, params?: {}, updateLocation?: boolean): angular.IPromise<any>;
+        transitionTo(state: string, params?: {}, options?: IStateOptions): angular.IPromise<any>;
+        transitionTo(state: IState, params?: {}, options?: IStateOptions): angular.IPromise<any>;
         includes(state: string, params?: {}): boolean;
         is(state:string, params?: {}): boolean;
         is(state: IState, params?: {}): boolean;
@@ -244,10 +250,10 @@ declare module angular.ui {
         current: IState;
         /** A param object, e.g. {sectionId: section.id)}, that you'd like to test against the current active state. */
         params: IStateParamsService;
-        reload(): void;
+        reload(): angular.IPromise<any>;
 
         /** Currently pending transition. A promise that'll resolve or reject. */
-        transition: ng.IPromise<{}>;
+        transition: angular.IPromise<{}>;
 
         $current: IResolvedState;
     }
