@@ -13,13 +13,6 @@
 /// <reference path="../moment/moment.d.ts"/>
 
 declare module BootstrapV3DatetimePicker {
-    enum ViewMode {
-        'days',
-        'months',
-        'years',
-        'decades'
-    }
-
     interface DatetimepickerChangeEventObject extends DatetimepickerEventObject {
         oldDate: moment.Moment;
     }
