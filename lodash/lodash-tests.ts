@@ -811,18 +811,17 @@ module TestLastIndexOf {
 module TestObject {
     let arrayOfKeys: string[];
     let arrayOfValues: number[];
+    let arrayOfKeyValuePairs: (string|number)[][]
 
     let listOfKeys: _.List<string>;
     let listOfValues: _.List<number>;
+    let listOfKeyValuePairs: _.List<_.List<string|number>>;
 
     {
         let result: _.Dictionary<void>;
 
         result = _.object<_.Dictionary<void>>(arrayOfKeys);
         result = _.object<_.Dictionary<void>>(listOfKeys);
-
-        result = _(arrayOfKeys).object<_.Dictionary<void>>().value();
-        result = _(listOfKeys).object<_.Dictionary<void>>().value();
     }
 
     {
@@ -838,15 +837,8 @@ module TestObject {
         result = _.object<number, _.Dictionary<number>>(listOfKeys, listOfValues);
         result = _.object<number, _.Dictionary<number>>(listOfKeys, arrayOfValues);
 
-        result = _(arrayOfKeys).object<_.Dictionary<number>>(arrayOfValues).value();
-        result = _(arrayOfKeys).object<_.Dictionary<number>>(listOfValues).value();
-        result = _(listOfKeys).object<_.Dictionary<number>>(listOfValues).value();
-        result = _(listOfKeys).object<_.Dictionary<number>>(arrayOfValues).value();
-
-        result = _(arrayOfKeys).object<number, _.Dictionary<number>>(arrayOfValues).value();
-        result = _(arrayOfKeys).object<number, _.Dictionary<number>>(listOfValues).value();
-        result = _(listOfKeys).object<number, _.Dictionary<number>>(listOfValues).value();
-        result = _(listOfKeys).object<number, _.Dictionary<number>>(arrayOfValues).value();
+        result = _.object<_.Dictionary<number>>(arrayOfKeyValuePairs);
+        result = _.object<_.Dictionary<number>>(listOfKeyValuePairs);
     }
 
     {
@@ -860,13 +852,86 @@ module TestObject {
         result = _.object(listOfKeys, listOfValues);
         result = _.object(listOfKeys, arrayOfValues);
 
-        result = _(arrayOfKeys).object().value();
-        result = _(arrayOfKeys).object(arrayOfValues).value();
-        result = _(arrayOfKeys).object(listOfValues).value();
+        result = _.object<_.Dictionary<number>>(arrayOfKeyValuePairs);
+        result = _.object<_.Dictionary<number>>(listOfKeyValuePairs);
+    }
 
-        result = _(listOfKeys).object().value();
-        result = _(listOfKeys).object(listOfValues).value();
-        result = _(listOfKeys).object(arrayOfValues).value();
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<void>>;
+
+        result = _(arrayOfKeys).object<_.Dictionary<void>>();
+        result = _(listOfKeys).object<_.Dictionary<void>>();
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<number>>;
+
+        result = _(arrayOfKeys).object<_.Dictionary<number>>(arrayOfValues);
+        result = _(arrayOfKeys).object<_.Dictionary<number>>(listOfValues);
+        result = _(listOfKeys).object<_.Dictionary<number>>(listOfValues);
+        result = _(listOfKeys).object<_.Dictionary<number>>(arrayOfValues);
+
+        result = _(arrayOfKeys).object<number, _.Dictionary<number>>(arrayOfValues);
+        result = _(arrayOfKeys).object<number, _.Dictionary<number>>(listOfValues);
+        result = _(listOfKeys).object<number, _.Dictionary<number>>(listOfValues);
+        result = _(listOfKeys).object<number, _.Dictionary<number>>(arrayOfValues);
+
+        result = _(listOfKeys).object<_.Dictionary<number>>(arrayOfKeyValuePairs);
+        result = _(listOfKeys).object<_.Dictionary<number>>(listOfKeyValuePairs);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<any>>;
+
+        result = _(arrayOfKeys).object();
+        result = _(arrayOfKeys).object(arrayOfValues);
+        result = _(arrayOfKeys).object(listOfValues);
+
+        result = _(listOfKeys).object();
+        result = _(listOfKeys).object(listOfValues);
+        result = _(listOfKeys).object(arrayOfValues);
+
+        result = _(listOfKeys).object(arrayOfKeyValuePairs);
+        result = _(listOfKeys).object(listOfKeyValuePairs);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<void>>;
+
+        result = _(arrayOfKeys).chain().object<_.Dictionary<void>>();
+        result = _(listOfKeys).chain().object<_.Dictionary<void>>();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
+
+        result = _(arrayOfKeys).chain().object<_.Dictionary<number>>(arrayOfValues);
+        result = _(arrayOfKeys).chain().object<_.Dictionary<number>>(listOfValues);
+        result = _(listOfKeys).chain().object<_.Dictionary<number>>(listOfValues);
+        result = _(listOfKeys).chain().object<_.Dictionary<number>>(arrayOfValues);
+
+        result = _(arrayOfKeys).chain().object<number, _.Dictionary<number>>(arrayOfValues);
+        result = _(arrayOfKeys).chain().object<number, _.Dictionary<number>>(listOfValues);
+        result = _(listOfKeys).chain().object<number, _.Dictionary<number>>(listOfValues);
+        result = _(listOfKeys).chain().object<number, _.Dictionary<number>>(arrayOfValues);
+
+        result = _(listOfKeys).chain().object<_.Dictionary<number>>(arrayOfKeyValuePairs);
+        result = _(listOfKeys).chain().object<_.Dictionary<number>>(listOfKeyValuePairs);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
+
+        result = _(arrayOfKeys).chain().object();
+        result = _(arrayOfKeys).chain().object(arrayOfValues);
+        result = _(arrayOfKeys).chain().object(listOfValues);
+
+        result = _(listOfKeys).chain().object();
+        result = _(listOfKeys).chain().object(listOfValues);
+        result = _(listOfKeys).chain().object(arrayOfValues);
+
+        result = _(listOfKeys).chain().object(arrayOfKeyValuePairs);
+        result = _(listOfKeys).chain().object(listOfKeyValuePairs);
     }
 }
 
@@ -1483,18 +1548,17 @@ result = <any[][]>_(['moe', 'larry']).unzip([30, 40], [true, false]).value();
 module TestZipObject {
     let arrayOfKeys: string[];
     let arrayOfValues: number[];
+    let arrayOfKeyValuePairs: (string|number)[][]
 
     let listOfKeys: _.List<string>;
     let listOfValues: _.List<number>;
+    let listOfKeyValuePairs: _.List<_.List<string|number>>;
 
     {
         let result: _.Dictionary<void>;
 
         result = _.zipObject<_.Dictionary<void>>(arrayOfKeys);
         result = _.zipObject<_.Dictionary<void>>(listOfKeys);
-
-        result = _(arrayOfKeys).zipObject<_.Dictionary<void>>().value();
-        result = _(listOfKeys).zipObject<_.Dictionary<void>>().value();
     }
 
     {
@@ -1510,15 +1574,8 @@ module TestZipObject {
         result = _.zipObject<number, _.Dictionary<number>>(listOfKeys, listOfValues);
         result = _.zipObject<number, _.Dictionary<number>>(listOfKeys, arrayOfValues);
 
-        result = _(arrayOfKeys).zipObject<_.Dictionary<number>>(arrayOfValues).value();
-        result = _(arrayOfKeys).zipObject<_.Dictionary<number>>(listOfValues).value();
-        result = _(listOfKeys).zipObject<_.Dictionary<number>>(listOfValues).value();
-        result = _(listOfKeys).zipObject<_.Dictionary<number>>(arrayOfValues).value();
-
-        result = _(arrayOfKeys).zipObject<number, _.Dictionary<number>>(arrayOfValues).value();
-        result = _(arrayOfKeys).zipObject<number, _.Dictionary<number>>(listOfValues).value();
-        result = _(listOfKeys).zipObject<number, _.Dictionary<number>>(listOfValues).value();
-        result = _(listOfKeys).zipObject<number, _.Dictionary<number>>(arrayOfValues).value();
+        result = _.zipObject<_.Dictionary<number>>(arrayOfKeyValuePairs);
+        result = _.zipObject<_.Dictionary<number>>(listOfKeyValuePairs);
     }
 
     {
@@ -1532,13 +1589,86 @@ module TestZipObject {
         result = _.zipObject(listOfKeys, listOfValues);
         result = _.zipObject(listOfKeys, arrayOfValues);
 
-        result = _(arrayOfKeys).zipObject().value();
-        result = _(arrayOfKeys).zipObject(arrayOfValues).value();
-        result = _(arrayOfKeys).zipObject(listOfValues).value();
+        result = _.zipObject<_.Dictionary<number>>(arrayOfKeyValuePairs);
+        result = _.zipObject<_.Dictionary<number>>(listOfKeyValuePairs);
+    }
 
-        result = _(listOfKeys).zipObject().value();
-        result = _(listOfKeys).zipObject(listOfValues).value();
-        result = _(listOfKeys).zipObject(arrayOfValues).value();
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<void>>;
+
+        result = _(arrayOfKeys).zipObject<_.Dictionary<void>>();
+        result = _(listOfKeys).zipObject<_.Dictionary<void>>();
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<number>>;
+
+        result = _(arrayOfKeys).zipObject<_.Dictionary<number>>(arrayOfValues);
+        result = _(arrayOfKeys).zipObject<_.Dictionary<number>>(listOfValues);
+        result = _(listOfKeys).zipObject<_.Dictionary<number>>(listOfValues);
+        result = _(listOfKeys).zipObject<_.Dictionary<number>>(arrayOfValues);
+
+        result = _(arrayOfKeys).zipObject<number, _.Dictionary<number>>(arrayOfValues);
+        result = _(arrayOfKeys).zipObject<number, _.Dictionary<number>>(listOfValues);
+        result = _(listOfKeys).zipObject<number, _.Dictionary<number>>(listOfValues);
+        result = _(listOfKeys).zipObject<number, _.Dictionary<number>>(arrayOfValues);
+
+        result = _(listOfKeys).zipObject<_.Dictionary<number>>(arrayOfKeyValuePairs);
+        result = _(listOfKeys).zipObject<_.Dictionary<number>>(listOfKeyValuePairs);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<any>>;
+
+        result = _(arrayOfKeys).zipObject();
+        result = _(arrayOfKeys).zipObject(arrayOfValues);
+        result = _(arrayOfKeys).zipObject(listOfValues);
+
+        result = _(listOfKeys).zipObject();
+        result = _(listOfKeys).zipObject(listOfValues);
+        result = _(listOfKeys).zipObject(arrayOfValues);
+
+        result = _(listOfKeys).zipObject(arrayOfKeyValuePairs);
+        result = _(listOfKeys).zipObject(listOfKeyValuePairs);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<void>>;
+
+        result = _(arrayOfKeys).chain().zipObject<_.Dictionary<void>>();
+        result = _(listOfKeys).chain().zipObject<_.Dictionary<void>>();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
+
+        result = _(arrayOfKeys).chain().zipObject<_.Dictionary<number>>(arrayOfValues);
+        result = _(arrayOfKeys).chain().zipObject<_.Dictionary<number>>(listOfValues);
+        result = _(listOfKeys).chain().zipObject<_.Dictionary<number>>(listOfValues);
+        result = _(listOfKeys).chain().zipObject<_.Dictionary<number>>(arrayOfValues);
+
+        result = _(arrayOfKeys).chain().zipObject<number, _.Dictionary<number>>(arrayOfValues);
+        result = _(arrayOfKeys).chain().zipObject<number, _.Dictionary<number>>(listOfValues);
+        result = _(listOfKeys).chain().zipObject<number, _.Dictionary<number>>(listOfValues);
+        result = _(listOfKeys).chain().zipObject<number, _.Dictionary<number>>(arrayOfValues);
+
+        result = _(listOfKeys).chain().zipObject<_.Dictionary<number>>(arrayOfKeyValuePairs);
+        result = _(listOfKeys).chain().zipObject<_.Dictionary<number>>(listOfKeyValuePairs);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
+
+        result = _(arrayOfKeys).chain().zipObject();
+        result = _(arrayOfKeys).chain().zipObject(arrayOfValues);
+        result = _(arrayOfKeys).chain().zipObject(listOfValues);
+
+        result = _(listOfKeys).chain().zipObject();
+        result = _(listOfKeys).chain().zipObject(listOfValues);
+        result = _(listOfKeys).chain().zipObject(arrayOfValues);
+
+        result = _(listOfKeys).chain().zipObject(arrayOfKeyValuePairs);
+        result = _(listOfKeys).chain().zipObject(listOfKeyValuePairs);
     }
 }
 
