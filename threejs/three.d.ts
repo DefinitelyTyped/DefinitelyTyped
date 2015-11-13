@@ -3,13 +3,11 @@
 // Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface WebGLRenderingContext {}
-
 declare module THREE {
     export var REVISION: string;
 
     // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent.button
-    export enum MOUSE {LEFT, MIDDLE, RIGHT}
+    export enum MOUSE { LEFT, MIDDLE, RIGHT }
 
     // GL STATE CONSTANTS
     export enum CullFace { }
@@ -716,7 +714,7 @@ declare module THREE {
         addGroup(start: number, count: number, materialIndex?: number): void;
         clearGroups(): void;
 
-        setDrawRange(start:number, count:number): void;
+        setDrawRange(start: number, count: number): void;
 
         /**
          * Bakes matrix transform directly into vertex coordinates.
@@ -726,9 +724,9 @@ declare module THREE {
         rotateX(angle: number): BufferGeometry;
         rotateY(angle: number): BufferGeometry;
         rotateZ(angle: number): BufferGeometry;
-        translate(x:number, y:number, z:number): BufferGeometry;
-        scale(x:number, y:number, z:number): BufferGeometry;
-        lookAt(v:Vector3): void;
+        translate(x: number, y: number, z: number): BufferGeometry;
+        scale(x: number, y: number, z: number): BufferGeometry;
+        lookAt(v: Vector3): void;
 
         center(): Vector3;
 
@@ -759,19 +757,12 @@ declare module THREE {
          */
         computeVertexNormals(): void;
 
-        /**
-         * Computes vertex tangents.
-         * Based on http://www.terathon.com/code/tangent.html
-         * Geometry must have vertex UVs (layer 0 will be used).
-         */
-        computeTangents(): void;
-
         computeOffsets(size: number): void;
         merge(geometry: BufferGeometry, offset: number): BufferGeometry;
         normalizeNormals(): void;
-        reorderBuffers(indexBuffer: number, indexMap: number[], vertexCount: number): void;
         toJSON(): any;
         clone(): BufferGeometry;
+        copy(source: BufferGeometry): BufferGeometry;
 
         /**
          * Disposes the object from memory.
@@ -1221,13 +1212,6 @@ declare module THREE {
          * Computes morph normals.
          */
         computeMorphNormals(): void;
-
-        /**
-         * Computes vertex tangents.
-         * Based on <a href="http://www.terathon.com/code/tangent.html">http://www.terathon.com/code/tangent.html</a>
-         * Geometry must have vertex UVs (layer 0 will be used).
-         */
-        computeTangents(): void;
 
         computeLineDistances(): void;
 
@@ -1832,18 +1816,6 @@ declare module THREE {
 
     /**
      * A point light that can cast shadow in one direction.
-     *
-     * @example
-     * // white spotlight shining from the side, casting shadow
-     * var spotLight = new THREE.SpotLight( 0xffffff );
-     * spotLight.position.set( 100, 1000, 100 );
-     * spotLight.castShadow = true;
-     * spotLight.shadowMapWidth = 1024;
-     * spotLight.shadowMapHeight = 1024;
-     * spotLight.shadowCameraNear = 500;
-     * spotLight.shadowCameraFar = 4000;
-     * spotLight.shadowCameraFov = 30;
-     * scene.add( spotLight );
      */
     export class SpotLight extends Light {
         constructor(hex?: number, intensity?: number, distance?: number, angle?: number, exponent?: number, decay?: number);
@@ -1936,7 +1908,7 @@ declare module THREE {
         initMaterials(materials: Material[], texturePath: string): Material[];
         createMaterial(m: Material, texturePath: string, crossOrigin?: string): boolean;
 
-        static Handlers:LoaderHandler;
+        static Handlers: LoaderHandler;
     }
 
     export interface LoaderHandler{
@@ -1971,7 +1943,8 @@ declare module THREE {
         parse(json: any): BufferGeometry;
     }
 
-    export interface Cache{
+    export interface Cache {
+        enabled: boolean;
         files: any[];
 
         add(key: string, file: any): void;
@@ -1979,7 +1952,7 @@ declare module THREE {
         remove(key: string): void;
         clear(): void;
     }
-    export var Cache:Cache;
+    export var Cache: Cache;
 
     export class CompressedTextureLoader{
         constructor(manager?: LoadingManager);
@@ -2051,7 +2024,7 @@ declare module THREE {
          * Will be called while load progresses.
          * The default is a function with empty body.
          */
-        onProgress: (item:any, loaded:number, total:number) => void;
+        onProgress: (item: any, loaded: number, total: number) => void;
 
         /**
          * Will be called when each element in the scene completes loading.
@@ -2584,7 +2557,7 @@ declare module THREE {
         constructor(parameters?: ShaderMaterialParameters);
     }
 
-    export interface ShaderMaterialParameters extends MaterialParameters{
+    export interface ShaderMaterialParameters extends MaterialParameters {
         defines?: any;
         uniforms?: any;
         fragmentShader?: string;
@@ -2628,7 +2601,7 @@ declare module THREE {
         toJSON(meta: any): any;
     }
 
-    export interface SpriteMaterialParameters extends MaterialParameters{
+    export interface SpriteMaterialParameters extends MaterialParameters {
         color?: number;
         opacity?: number;
         map?: Texture;
@@ -3650,7 +3623,7 @@ declare module THREE {
     /**
      * ( interface Vector&lt;T&gt; )
      *
-     * Abstruct interface of Vector2, Vector3 and Vector4.
+     * Abstract interface of Vector2, Vector3 and Vector4.
      * Currently the members of Vector is NOT type safe because it accepts different typed vectors.
      * Those definitions will be changed when TypeScript innovates Generics to be type safe.
      *
@@ -3966,6 +3939,7 @@ declare module THREE {
          */
         add(a: Vector3): Vector3;
         addScalar(s: number): Vector3;
+        addScaledVector(v: Vector3, s: number): Vector3;
 
         /**
          * Sets this vector to a + b.
@@ -4298,7 +4272,7 @@ declare module THREE {
             mode?: number
         );
 
-        geometry: any; // Geometry or BufferGeometry;
+        geometry: Geometry|BufferGeometry;
         material: Material; // LineDashedMaterial or LineBasicMaterial or ShaderMaterial
 
         raycast(raycaster: Raycaster, intersects: any): void;
@@ -4336,7 +4310,7 @@ declare module THREE {
         constructor(geometry?: Geometry, material?: Material);
         constructor(geometry?: BufferGeometry, material?: Material);
 
-        geometry: Geometry;
+        geometry: Geometry|BufferGeometry;
         material: Material;
 
         updateMorphTargets(): void;
@@ -4505,9 +4479,7 @@ declare module THREE {
         /**
          * The HTML5 Canvas's 'webgl' context obtained from the canvas where the renderer will draw.
          */
-        //  If you are using three.d.ts with other complete definitions of webgl, context:WebGLRenderingContext is suitable.
-        //context:WebGLRenderingContext;
-        context: any;
+        context: WebGLRenderingContext;
 
         /**
          * Defines whether the renderer should automatically clear its output before rendering.
@@ -4533,6 +4505,8 @@ declare module THREE {
          * Defines whether the renderer should sort objects. Default is true.
          */
         sortObjects: boolean;
+
+        extensions: WebGLExtensions;
 
         gammaFactor: number;
 
@@ -4566,11 +4540,6 @@ declare module THREE {
          * Default is false.
          */
         shadowMapDebug: boolean;
-
-        /**
-         * Default is false.
-         */
-        shadowMapCascade: boolean;
 
         /**
          * Default is 8.
@@ -4611,19 +4580,22 @@ declare module THREE {
 
         forceContextLoss(): void;
 
-        /**
-         * Return a Boolean true if the context supports vertex textures.
-         */
+        capabilities: WebGLCapabilities;
+
+        /** Deprecated, use capabilities instead */
         supportsVertexTextures(): boolean;
         supportsFloatTextures(): boolean;
         supportsStandardDerivatives(): boolean;
         supportsCompressedTextureS3TC(): boolean;
         supportsCompressedTexturePVRTC(): boolean;
         supportsBlendMinMax(): boolean;
-        getMaxAnisotropy(): number;
         getPrecision(): string;
+
+        getMaxAnisotropy(): number;
         getPixelRatio(): number;
         setPixelRatio(value: number): void;
+        
+        getSize(): { width: number; height: number; };
 
         /**
          * Resizes the output canvas to (width, height), and also sets the viewport to fit that size, starting in (0, 0).
@@ -4686,6 +4658,7 @@ declare module THREE {
         clearStencil(): void;
         clearTarget(renderTarget:WebGLRenderTarget, color: boolean, depth: boolean, stencil: boolean): void;
         resetGLState(): void;
+        dispose(): void;
 
         /**
          * Tells the shadow map plugin to update using the passed scene and camera parameters.
@@ -4725,7 +4698,24 @@ declare module THREE {
         setRenderTarget(renderTarget: RenderTarget): void;
         readRenderTargetPixels( renderTarget: RenderTarget, x: number, y: number, width: number, height: number, buffer: any ): void;
     }
-
+    
+    export interface WebGLCapabilities {
+        getMaxPrecision(precision: string): string;
+        precision: string;
+        logarithmicDepthBuffer: boolean;
+        maxTextures: number;
+        maxVertexTextures: number;
+        maxTextureSize: number;
+        maxCubemapSize: number;
+        maxAttributes: number;
+        maxVertexUniforms: number;
+        maxVaryings: number;
+        maxFragmentUniforms: number;
+        vertexTextures: boolean;
+        floatFragmentTextures: boolean;
+        floatVertexTextures: boolean;
+    }
+  
     export interface RenderTarget {
     }
 
@@ -4963,9 +4953,15 @@ declare module THREE {
 
     export class WebGLProgram{
         constructor(renderer: WebGLRenderer, code: string, material: ShaderMaterial, parameters: WebGLRendererParameters);
+        
+        getUniforms(): any;
+        getAttributes(): any;
 
+        /** Deprecated, use getUniforms */
+        uniforms: any;
+        /** Deprecated, use getAttributes */
         attributes: any;
-        attributesKeys: string[];
+
         id: number;
         code: string;
         usedTimes: number;
@@ -5441,6 +5437,13 @@ declare module THREE {
         static create(constructorFunc: Function, getPointFunc: Function): Function;
     }
 
+    export var CurveUtils: {
+        tangentQuadraticBezier(t: number, p0: number, p1: number, p2: number): number;
+        tangentCubicBezier(t: number, p0: number, p1: number, p2: number, p3: number): number;
+        tangentSpline(t: number, p0: number, p1: number, p2: number, p3: number): number;
+        interpolate(p0: number, p1: number, p2: number, p3: number, t: number): number;
+    };
+
     export interface BoundingBox {
         minX: number;
         minY: number;
@@ -5498,8 +5501,8 @@ declare module THREE {
         splineThru(pts: Vector2[]): void;
         arc(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
         absarc(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
-        ellipse(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
-        absellipse(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
+        ellipse(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean, aRotation: number): void;
+        absellipse(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean, aRotation: number): void;
         getSpacedPoints(divisions?: number, closedPath?: boolean): Vector2[];
         getPoints(divisions?: number, closedPath?: boolean): Vector2[];
         toShapes(): Shape[];
@@ -5534,13 +5537,13 @@ declare module THREE {
     }
 
     export class ClosedSplineCurve3 extends Curve<Vector3> {
-        constructor( points?:Vector3[] );
+        constructor(points?: Vector3[]);
 
-        points:Vector3[];
+        points: Vector3[];
     }
 
     export class CubicBezierCurve extends Curve<Vector2> {
-        constructor( v0: Vector2, v1: Vector2, v2: Vector2, v3: Vector2 );
+        constructor(v0: Vector2, v1: Vector2, v2: Vector2, v3: Vector2);
 
         v0: Vector2;
         v1: Vector2;
@@ -5548,7 +5551,7 @@ declare module THREE {
         v3: Vector2;
     }
     export class CubicBezierCurve3 extends Curve<Vector3> {
-        constructor( v0: Vector3, v1: Vector3, v2: Vector3, v3: Vector3 );
+        constructor(v0: Vector3, v1: Vector3, v2: Vector3, v3: Vector3);
 
         v0: Vector3;
         v1: Vector3;
@@ -5556,7 +5559,7 @@ declare module THREE {
         v3: Vector3;
     }
     export class EllipseCurve extends Curve<Vector2> {
-        constructor( aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean );
+        constructor(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean, aRotation: number);
 
         aX: number;
         aY: number;
@@ -5847,15 +5850,7 @@ declare module THREE {
          */
         constructor(radius: number, widthSegments?: number, heightSegments?: number, phiStart?: number, phiLength?: number, thetaStart?: number, thetaLength?: number);
 
-        parameters: {
-            radius: number;
-            widthSegments: number;
-            heightSegments: number;
-            phiStart: number;
-            phiLength: number;
-            thetaStart: number;
-            thetaLength: number;
-        };
+        parameters: SphereParameters;
     }
 
     export class TetrahedronGeometry extends PolyhedronGeometry {
@@ -6097,5 +6092,5 @@ declare module THREE {
 }
 
 declare module 'three' {
-    export=THREE;
+    export = THREE;
 }

@@ -1326,6 +1326,20 @@ declare module _ {
         last<T>(): T;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.last
+         */
+        last(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.last
+         */
+        last<T>(): LoDashExplicitObjectWrapper<T>;
+    }
+
     //_.lastIndexOf
     interface LoDashStatic {
         /**
@@ -1994,7 +2008,7 @@ declare module _ {
          * @return Returns the slice of array.
          */
         takeRight<T>(
-            array: T[]|List<T>,
+            array: List<T>,
             n?: number
         ): T[];
     }
@@ -2011,6 +2025,20 @@ declare module _ {
          * @see _.takeRight
          */
         takeRight<TResult>(n?: number): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.takeRight
+         */
+        takeRight(n?: number): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.takeRight
+         */
+        takeRight<TResult>(n?: number): LoDashExplicitArrayWrapper<TResult>;
     }
 
     //_.takeRightWhile
@@ -2249,6 +2277,56 @@ declare module _ {
         takeWhile<TWhere, TValue>(
             predicate?: TWhere
         ): LoDashImplicitArrayWrapper<TValue>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile(
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile<TWhere>(
+            predicate?: TWhere
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile<TValue>(
+            predicate?: ListIterator<TValue, boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TValue>;
+
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile<TValue>(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<TValue>;
+
+        /**
+         * @see _.takeWhile
+         */
+        takeWhile<TWhere, TValue>(
+            predicate?: TWhere
+        ): LoDashExplicitArrayWrapper<TValue>;
     }
 
     //_.union
@@ -4031,7 +4109,7 @@ declare module _ {
          */
         each(
             collection: string,
-            iteratee?: StringIterator<boolean|void>,
+            iteratee?: StringIterator<any>,
             thisArg?: any
         ): string;
 
@@ -4040,7 +4118,7 @@ declare module _ {
          */
         each<T>(
             collection: T[],
-            iteratee?: ListIterator<T, boolean|void>,
+            iteratee?: ListIterator<T, any>,
             thisArg?: any
         ): T[];
 
@@ -4049,7 +4127,7 @@ declare module _ {
          */
         each<T>(
             collection: List<T>,
-            iteratee?: ListIterator<T, boolean|void>,
+            iteratee?: ListIterator<T, any>,
             thisArg?: any
         ): List<T>;
 
@@ -4058,7 +4136,7 @@ declare module _ {
          */
         each<T>(
             collection: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, boolean|void>,
+            iteratee?: DictionaryIterator<T, any>,
             thisArg?: any
         ): Dictionary<T>;
     }
@@ -4068,7 +4146,7 @@ declare module _ {
          * @see _.forEach
          */
         each(
-            iteratee: StringIterator<boolean|void>,
+            iteratee: StringIterator<any>,
             thisArg?: any
         ): LoDashImplicitWrapper<string>;
     }
@@ -4078,7 +4156,7 @@ declare module _ {
          * @see _.forEach
          */
         each(
-            iteratee: ListIterator<T, boolean|void>,
+            iteratee: ListIterator<T, any>,
             thisArg?: any
         ): LoDashImplicitArrayWrapper<T>;
     }
@@ -4088,7 +4166,7 @@ declare module _ {
          * @see _.forEach
          */
         each<TValue>(
-            iteratee?: ListIterator<TValue, boolean|void>|DictionaryIterator<TValue, boolean|void>,
+            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>,
             thisArg?: any
         ): LoDashImplicitObjectWrapper<T>;
     }
@@ -4098,7 +4176,7 @@ declare module _ {
          * @see _.forEach
          */
         each(
-            iteratee: StringIterator<boolean|void>,
+            iteratee: StringIterator<any>,
             thisArg?: any
         ): LoDashExplicitWrapper<string>;
     }
@@ -4108,7 +4186,7 @@ declare module _ {
          * @see _.forEach
          */
         each(
-            iteratee: ListIterator<T, boolean|void>,
+            iteratee: ListIterator<T, any>,
             thisArg?: any
         ): LoDashExplicitArrayWrapper<T>;
     }
@@ -4118,7 +4196,106 @@ declare module _ {
          * @see _.forEach
          */
         each<TValue>(
-            iteratee?: ListIterator<TValue, boolean|void>|DictionaryIterator<TValue, boolean|void>,
+            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<T>;
+    }
+
+    //_.eachRight
+    interface LoDashStatic {
+        /**
+         * @see _.forEachRight
+         */
+        eachRight(
+            collection: string,
+            iteratee?: StringIterator<any>,
+            thisArg?: any
+        ): string;
+
+        /**
+         * @see _.forEachRight
+         */
+        eachRight<T>(
+            collection: T[],
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): T[];
+
+        /**
+         * @see _.forEachRight
+         */
+        eachRight<T>(
+            collection: List<T>,
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): List<T>;
+
+        /**
+         * @see _.forEachRight
+         */
+        eachRight<T>(
+            collection: Dictionary<T>,
+            iteratee?: DictionaryIterator<T, any>,
+            thisArg?: any
+        ): Dictionary<T>;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.forEachRight
+         */
+        eachRight(
+            iteratee: StringIterator<any>,
+            thisArg?: any
+        ): LoDashImplicitWrapper<string>;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.forEachRight
+         */
+        eachRight(
+            iteratee: ListIterator<T, any>,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.forEachRight
+         */
+        eachRight<TValue>(
+            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.forEachRight
+         */
+        eachRight(
+            iteratee: StringIterator<any>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.forEachRight
+         */
+        eachRight(
+            iteratee: ListIterator<T, any>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.forEachRight
+         */
+        eachRight<TValue>(
+            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>,
             thisArg?: any
         ): LoDashExplicitObjectWrapper<T>;
     }
@@ -4854,7 +5031,7 @@ declare module _ {
          */
         forEach(
             collection: string,
-            iteratee?: StringIterator<boolean|void>,
+            iteratee?: StringIterator<any>,
             thisArg?: any
         ): string;
 
@@ -4863,7 +5040,7 @@ declare module _ {
          */
         forEach<T>(
             collection: T[],
-            iteratee?: ListIterator<T, boolean|void>,
+            iteratee?: ListIterator<T, any>,
             thisArg?: any
         ): T[];
 
@@ -4872,7 +5049,7 @@ declare module _ {
          */
         forEach<T>(
             collection: List<T>,
-            iteratee?: ListIterator<T, boolean|void>,
+            iteratee?: ListIterator<T, any>,
             thisArg?: any
         ): List<T>;
 
@@ -4881,7 +5058,7 @@ declare module _ {
          */
         forEach<T>(
             collection: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, boolean|void>,
+            iteratee?: DictionaryIterator<T, any>,
             thisArg?: any
         ): Dictionary<T>;
     }
@@ -4891,7 +5068,7 @@ declare module _ {
          * @see _.forEach
          */
         forEach(
-            iteratee: StringIterator<boolean|void>,
+            iteratee: StringIterator<any>,
             thisArg?: any
         ): LoDashImplicitWrapper<string>;
     }
@@ -4901,7 +5078,7 @@ declare module _ {
          * @see _.forEach
          */
         forEach(
-            iteratee: ListIterator<T, boolean|void>,
+            iteratee: ListIterator<T, any>,
             thisArg?: any
         ): LoDashImplicitArrayWrapper<T>;
     }
@@ -4911,7 +5088,7 @@ declare module _ {
          * @see _.forEach
          */
         forEach<TValue>(
-            iteratee?: ListIterator<TValue, boolean|void>|DictionaryIterator<TValue, boolean|void>,
+            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>,
             thisArg?: any
         ): LoDashImplicitObjectWrapper<T>;
     }
@@ -4921,7 +5098,7 @@ declare module _ {
          * @see _.forEach
          */
         forEach(
-            iteratee: StringIterator<boolean|void>,
+            iteratee: StringIterator<any>,
             thisArg?: any
         ): LoDashExplicitWrapper<string>;
     }
@@ -4931,7 +5108,7 @@ declare module _ {
          * @see _.forEach
          */
         forEach(
-            iteratee: ListIterator<T, boolean|void>,
+            iteratee: ListIterator<T, any>,
             thisArg?: any
         ): LoDashExplicitArrayWrapper<T>;
     }
@@ -4941,7 +5118,7 @@ declare module _ {
          * @see _.forEach
          */
         forEach<TValue>(
-            iteratee?: ListIterator<TValue, boolean|void>|DictionaryIterator<TValue, boolean|void>,
+            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>,
             thisArg?: any
         ): LoDashExplicitObjectWrapper<T>;
     }
@@ -4949,94 +5126,106 @@ declare module _ {
     //_.forEachRight
     interface LoDashStatic {
         /**
-        * This method is like _.forEach except that it iterates over elements of a
-        * collection from right to left.
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        **/
-        forEachRight<T>(
-            collection: Array<T>,
-            callback: ListIterator<T, void>,
-            thisArg?: any): Array<T>;
+         * This method is like _.forEach except that it iterates over elements of collection from right to left.
+         *
+         * @alias _.eachRight
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function called per iteration.
+         * @param thisArg The this binding of callback.
+         */
+        forEachRight(
+            collection: string,
+            iteratee?: StringIterator<any>,
+            thisArg?: any
+        ): string;
 
         /**
-        * @see _.forEachRight
-        **/
+         * @see _.forEachRight
+         */
+        forEachRight<T>(
+            collection: T[],
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): T[];
+
+        /**
+         * @see _.forEachRight
+         */
         forEachRight<T>(
             collection: List<T>,
-            callback: ListIterator<T, void>,
-            thisArg?: any): List<T>;
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): List<T>;
 
         /**
-        * @see _.forEachRight
-        **/
-        forEachRight<T extends {}>(
-            object: Dictionary<T>,
-            callback: DictionaryIterator<T, void>,
-            thisArg?: any): Dictionary<T>;
+         * @see _.forEachRight
+         */
+        forEachRight<T>(
+            collection: Dictionary<T>,
+            iteratee?: DictionaryIterator<T, any>,
+            thisArg?: any
+        ): Dictionary<T>;
+    }
 
+    interface LoDashImplicitWrapper<T> {
         /**
-        * @see _.forEachRight
-        **/
-        eachRight<T>(
-            collection: Array<T>,
-            callback: ListIterator<T, void>,
-            thisArg?: any): Array<T>;
-
-        /**
-        * @see _.forEachRight
-        **/
-        eachRight<T>(
-            collection: List<T>,
-            callback: ListIterator<T, void>,
-            thisArg?: any): List<T>;
-
-        /**
-        * @see _.forEachRight
-        * @param object The object to iterate over
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        **/
-        eachRight<T extends {}>(
-            object: Dictionary<T>,
-            callback: DictionaryIterator<T, void>,
-            thisArg?: any): Dictionary<T>;
+         * @see _.forEachRight
+         */
+        forEachRight(
+            iteratee: StringIterator<any>,
+            thisArg?: any
+        ): LoDashImplicitWrapper<string>;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
-        * @see _.forEachRight
-        **/
+         * @see _.forEachRight
+         */
         forEachRight(
-            callback: ListIterator<T, void>,
-            thisArg?: any): LoDashImplicitArrayWrapper<T>;
-
-        /**
-        * @see _.forEachRight
-        **/
-        eachRight(
-            callback: ListIterator<T, void>,
-            thisArg?: any): LoDashImplicitArrayWrapper<T>;
+            iteratee: ListIterator<T, any>,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.forEachRight
-        **/
-        forEachRight<T extends {}>(
-            callback: ObjectIterator<T, void>,
-            thisArg?: any): LoDashImplicitObjectWrapper<Dictionary<T>>;
+         * @see _.forEachRight
+         */
+        forEachRight<TValue>(
+            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<T>;
+    }
 
+    interface LoDashExplicitWrapper<T> {
         /**
-        * @see _.forEachRight
-        * @param object The object to iterate over
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        **/
-        eachRight<T extends {}>(
-            callback: ObjectIterator<T, void>,
-            thisArg?: any): LoDashImplicitObjectWrapper<Dictionary<T>>;
+         * @see _.forEachRight
+         */
+        forEachRight(
+            iteratee: StringIterator<any>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight(
+            iteratee: ListIterator<T, any>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight<TValue>(
+            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<T>;
     }
 
     //_.groupBy
@@ -6176,36 +6365,59 @@ declare module _ {
     //_.shuffle
     interface LoDashStatic {
         /**
-        * Creates an array of shuffled values, using a version of the Fisher-Yates shuffle.
-        * See http://en.wikipedia.org/wiki/Fisher-Yates_shuffle.
-        * @param collection The collection to shuffle.
-        * @return Returns a new shuffled collection.
-        **/
-        shuffle<T>(collection: Array<T>): T[];
+         * Creates an array of shuffled values, using a version of the Fisher-Yates shuffle.
+         *
+         * @param collection The collection to shuffle.
+         * @return Returns the new shuffled array.
+         */
+        shuffle<T>(collection: List<T>|Dictionary<T>): T[];
 
         /**
-        * @see _.shuffle
-        **/
-        shuffle<T>(collection: List<T>): T[];
+         * @see _.shuffle
+         */
+        shuffle(collection: string): string[];
+    }
 
+    interface LoDashImplicitWrapper<T> {
         /**
-        * @see _.shuffle
-        **/
-        shuffle<T>(collection: Dictionary<T>): T[];
+         * @see _.shuffle
+         */
+        shuffle(): LoDashImplicitArrayWrapper<string>;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.shuffle
-         **/
+         */
         shuffle(): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.shuffle
-         **/
-        shuffle(): LoDashImplicitArrayWrapper<T>;
+         */
+        shuffle<T>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.shuffle
+         */
+        shuffle(): LoDashExplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.shuffle
+         */
+        shuffle(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.shuffle
+         */
+        shuffle<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.size
@@ -6779,22 +6991,30 @@ declare module _ {
     //_.after
     interface LoDashStatic {
         /**
-        * Creates a function that executes func, with the this binding and arguments of the
-        * created function, only after being called n times.
-        * @param n The number of times the function must be called before func is executed.
-        * @param func The function to restrict.
-        * @return The new restricted function.
-        **/
-        after(
+         * The opposite of _.before; this method creates a function that invokes func once it’s called n or more times.
+         *
+         * @param n The number of calls before func is invoked.
+         * @param func The function to restrict.
+         * @return Returns the new restricted function.
+         */
+        after<TFunc extends Function>(
             n: number,
-            func: Function): Function;
+            func: TFunc
+        ): TFunc;
     }
 
     interface LoDashImplicitWrapper<T> {
         /**
         * @see _.after
         **/
-        after(func: Function): LoDashImplicitObjectWrapper<Function>;
+        after<TFunc extends Function>(func: TFunc): LoDashImplicitObjectWrapper<TFunc>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.after
+         **/
+        after<TFunc extends Function>(func: TFunc): LoDashExplicitObjectWrapper<TFunc>;
     }
 
     //_.ary
@@ -6827,8 +7047,15 @@ declare module _ {
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.flowRight
-         **/
+         */
         backflow<TResult extends Function>(...funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.flowRight
+         */
+        backflow<TResult extends Function>(...funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.before
@@ -6939,6 +7166,13 @@ declare module _ {
          * @see _.flowRight
          */
         compose<TResult extends Function>(...funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.flowRight
+         */
+        compose<TResult extends Function>(...funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.createCallback
@@ -7268,6 +7502,9 @@ declare module _ {
         /**
          * This method is like _.flow except that it creates a function that invokes the provided functions from right
          * to left.
+         *
+         * @alias _.backflow, _.compose
+         *
          * @param funcs Functions to invoke.
          * @return Returns the new function.
          */
@@ -7277,9 +7514,17 @@ declare module _ {
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.flowRight
-         **/
+         */
         flowRight<TResult extends Function>(...funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
     }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.flowRight
+         */
+        flowRight<TResult extends Function>(...funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
+    }
+
 
     //_.memoize
     interface MemoizedFunction extends Function {
@@ -7376,10 +7621,10 @@ declare module _ {
         /**
          * Creates a function that is restricted to invoking func once. Repeat calls to the function return the value
          * of the first call. The func is invoked with the this binding and arguments of the created function.
+         *
          * @param func The function to restrict.
          * @return Returns the new restricted function.
          */
-
         once<T extends Function>(func: T): T;
     }
 
@@ -7388,6 +7633,13 @@ declare module _ {
          * @see _.once
          */
         once(): LoDashImplicitObjectWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.once
+         */
+        once(): LoDashExplicitObjectWrapper<T>;
     }
 
     //_.partial
@@ -7796,6 +8048,17 @@ declare module _ {
         ): boolean;
     }
 
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isEqual
+         */
+        eq(
+            other: any,
+            customizer?: IsEqualCustomizer,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
+    }
+
     //_.gt
     interface LoDashStatic {
         /**
@@ -7976,6 +8239,17 @@ declare module _ {
             customizer?: IsEqualCustomizer,
             thisArg?: any
         ): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isEqual
+         */
+        isEqual(
+            other: any,
+            customizer?: IsEqualCustomizer,
+            thisArg?: any
+        ): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isError
@@ -8922,195 +9196,191 @@ declare module _ {
      **********/
 
     //_.assign
+    interface AssignCustomizer {
+        (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}): any;
+    }
+
     interface LoDashStatic {
         /**
-        * Assigns own enumerable properties of source object(s) to the destination object. Subsequent
-        * sources will overwrite property assignments of previous sources. If a callback is provided
-        * it will be executed to produce the assigned values. The callback is bound to thisArg and
-        * invoked with two arguments; (objectValue, sourceValue).
-        * @param object The destination object.
-        * @param s1-8 The source object(s)
-        * @param callback The function to customize merging properties.
-        * @param thisArg The this binding of callback.
-        * @return The destination object.
-        **/
-        assign<P, T, S1, Value, Result>(
-            object: T,
-            s1: S1,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
+         * Assigns own enumerable properties of source object(s) to the destination object. Subsequent sources
+         * overwrite property assignments of previous sources. If customizer is provided it’s invoked to produce the
+         * assigned values. The customizer is bound to thisArg and invoked with five arguments:
+         * (objectValue, sourceValue, key, object, source).
+         *
+         * Note: This method mutates object and is based on Object.assign.
+         *
+         * @alias _.extend
+         *
+         * @param object The destination object.
+         * @param source The source objects.
+         * @param customizer The function to customize assigned values.
+         * @param thisArg The this binding of callback.
+         * @return The destination object.
+         */
+        assign<TObject extends {}, TSource extends {}, TResult extends {}>(
+            object: TObject,
+            source: TSource,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): TResult;
 
         /**
-        * @see _.assign
-        **/
-        assign<P, T, S1, S2, Value, Result>(
-            object: T,
-            s1: S1,
-            s2: S2,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
+         * @see assign
+         */
+        assign<TObject extends {}, TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): TResult;
 
         /**
-        * @see _.assign
-        **/
-        assign<P, T, S1, S2, S3, Value, Result>(
-            object: T,
-            s1: S1,
-            s2: S2,
-            s3: S3,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
+         * @see assign
+         */
+        assign<TObject extends {}, TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TResult extends {}>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): TResult;
 
         /**
-        * @see _.assign
-        **/
-        assign<P, T, S1, S2, S3, S4, Value, Result>(
-            object: T,
-            s1: S1,
-            s2: S2,
-            s3: S3,
-            s4: S4,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
+         * @see assign
+         */
+        assign<TObject extends {}, TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TSource4 extends {},
+            TResult extends {}>
+        (
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): TResult;
 
         /**
-        * @see _.assign
-        **/
-        extend<P, T, S1, Value, Result>(
-            object: T,
-            s1: S1,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
+         * @see _.assign
+         */
+        assign<TObject extends {}>(object: TObject): TObject;
 
         /**
-        * @see _.assign
-        **/
-        extend<P, T, S1, S2, Value, Result>(
-            object: T,
-            s1: S1,
-            s2: S2,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
-
-        /**
-        * @see _.assign
-        **/
-        extend<P, T, S1, S2, S3, Value, Result>(
-            object: T,
-            s1: S1,
-            s2: S2,
-            s3: S3,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
-
-        /**
-        * @see _.assign
-        **/
-        extend<P, T, S1, S2, S3, S4, Value, Result>(
-            object: T,
-            s1: S1,
-            s2: S2,
-            s3: S3,
-            s4: S4,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
+         * @see _.assign
+         */
+        assign<TObject extends {}, TResult extends {}>(
+            object: TObject, ...otherArgs: any[]
+        ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.assign
-        **/
-        assign<S1, Value, TResult>(
-            s1: S1,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
+         * @see _.assign
+         */
+        assign<TSource extends {}, TResult extends {}>(
+            source: TSource,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<TResult>;
 
         /**
-        * @see _.assign
-        **/
-        assign<S1, S2, Value, TResult>(
-            s1: S1,
-            s2: S2,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
-        /**
-        * @see _.assign
-        **/
-        assign<S1, S2, S3, Value, TResult>(
-            s1: S1,
-            s2: S2,
-            s3: S3,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
-        /**
-        * @see _.assign
-        **/
-        assign<S1, S2, S3, S4, Value, TResult>(
-            s1: S1,
-            s2: S2,
-            s3: S3,
-            s4: S4,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
-        /**
-        * @see _.assign
-        **/
-        assign<S1, S2, S3, S4, S5, Value, TResult>(
-            s1: S1,
-            s2: S2,
-            s3: S3,
-            s4: S4,
-            s5: S5,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
+         * @see assign
+         */
+        assign<TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
+            source1: TSource1,
+            source2: TSource2,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<TResult>;
 
         /**
-        * @see _.assign
-        **/
-        extend<S1, Value, TResult>(
-            s1: S1,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
+         * @see assign
+         */
+        assign<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TResult extends {}>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<TResult>;
 
         /**
-        * @see _.assign
-        **/
-        extend<S1, S2, Value, TResult>(
-            s1: S1,
-            s2: S2,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
-        /**
-        * @see _.assign
-        **/
-        extend<S1, S2, S3, Value, TResult>(
-            s1: S1,
-            s2: S2,
-            s3: S3,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
-        /**
-        * @see _.assign
-        **/
-        extend<S1, S2, S3, S4, Value, TResult>(
-            s1: S1,
-            s2: S2,
-            s3: S3,
-            s4: S4,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
-        /**
-        * @see _.assign
-        **/
-        extend<S1, S2, S3, S4, S5, Value, TResult>(
-            s1: S1,
-            s2: S2,
-            s3: S3,
-            s4: S4,
-            s5: S5,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
+         * @see assign
+         */
+        assign<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TSource4 extends {}, TResult extends {}>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<TResult>;
 
+        /**
+         * @see _.assign
+         */
+        assign(): LoDashImplicitObjectWrapper<T>;
+
+        /**
+         * @see _.assign
+         */
+        assign<TResult extends {}>(...otherArgs: any[]): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.assign
+         */
+        assign<TSource extends {}, TResult extends {}>(
+            source: TSource,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see assign
+         */
+        assign<TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
+            source1: TSource1,
+            source2: TSource2,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see assign
+         */
+        assign<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TResult extends {}>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see assign
+         */
+        assign<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TSource4 extends {}, TResult extends {}>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.assign
+         */
+        assign(): LoDashExplicitObjectWrapper<T>;
+
+        /**
+         * @see _.assign
+         */
+        assign<TResult extends {}>(...otherArgs: any[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.create
@@ -9135,23 +9405,170 @@ declare module _ {
     //_.defaults
     interface LoDashStatic {
         /**
-        * Assigns own enumerable properties of source object(s) to the destination object for all
-        * destination properties that resolve to undefined. Once a property is set, additional defaults
-        * of the same property will be ignored.
-        * @param object The destination object.
-        * @param sources The source objects.
-        * @return The destination object.
-        **/
-        defaults<T, TResult>(
-            object: T,
-            ...sources: any[]): TResult;
+         * Assigns own enumerable properties of source object(s) to the destination object for all destination
+         * properties that resolve to undefined. Once a property is set, additional values of the same property are
+         * ignored.
+         *
+         * Note: This method mutates object.
+         *
+         * @param object The destination object.
+         * @param sources The source objects.
+         * @return The destination object.
+         */
+        defaults<Obj extends {}, TResult extends {}>(
+            object: Obj,
+            ...sources: {}[]
+        ): TResult;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<Obj extends {}, S1 extends {}, TResult extends {}>(
+            object: Obj,
+            source1: S1,
+            ...sources: {}[]
+        ): TResult;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<Obj extends {}, S1 extends {}, S2 extends {}, TResult extends {}>(
+            object: Obj,
+            source1: S1,
+            source2: S2,
+            ...sources: {}[]
+        ): TResult;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<Obj extends {}, S1 extends {}, S2 extends {}, S3 extends {}, TResult extends {}>(
+            object: Obj,
+            source1: S1,
+            source2: S2,
+            source3: S3,
+            ...sources: {}[]
+        ): TResult;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<Obj extends {}, S1 extends {}, S2 extends {}, S3 extends {}, S4 extends {}, TResult extends {}>(
+            object: Obj,
+            source1: S1,
+            source2: S2,
+            source3: S3,
+            source4: S4,
+            ...sources: {}[]
+        ): TResult;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<TResult extends {}>(
+            object: {},
+            ...sources: {}[]
+        ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.defaults
-        **/
-        defaults<T, TResult>(...sources: any[]): LoDashImplicitObjectWrapper<TResult>
+         * @see _.defaults
+         */
+        defaults<S1 extends {}, TResult extends {}>(
+            source1: S1,
+            ...sources: {}[]
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<S1 extends {}, S2 extends {}, TResult extends {}>(
+            source1: S1,
+            source2: S2,
+            ...sources: {}[]
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<S1 extends {}, S2 extends {}, S3 extends {}, TResult extends {}>(
+            source1: S1,
+            source2: S2,
+            source3: S3,
+            ...sources: {}[]
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<S1 extends {}, S2 extends {}, S3 extends {}, S4 extends {}, TResult extends {}>(
+            source1: S1,
+            source2: S2,
+            source3: S3,
+            source4: S4,
+            ...sources: {}[]
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults(): LoDashImplicitObjectWrapper<T>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<TResult>(...sources: {}[]): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.defaults
+         */
+        defaults<S1 extends {}, TResult extends {}>(
+            source1: S1,
+            ...sources: {}[]
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<S1 extends {}, S2 extends {}, TResult extends {}>(
+            source1: S1,
+            source2: S2,
+            ...sources: {}[]
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<S1 extends {}, S2 extends {}, S3 extends {}, TResult extends {}>(
+            source1: S1,
+            source2: S2,
+            source3: S3,
+            ...sources: {}[]
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<S1 extends {}, S2 extends {}, S3 extends {}, S4 extends {}, TResult extends {}>(
+            source1: S1,
+            source2: S2,
+            source3: S3,
+            source4: S4,
+            ...sources: {}[]
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults(): LoDashExplicitObjectWrapper<T>;
+
+        /**
+         * @see _.defaults
+         */
+        defaults<TResult>(...sources: {}[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.defaultsDeep
@@ -9172,6 +9589,177 @@ declare module _ {
          * @see _.defaultsDeep
          **/
         defaultsDeep<TResult>(...sources: any[]): LoDashImplicitObjectWrapper<TResult>
+    }
+
+    //_.extend
+    interface LoDashStatic {
+        /**
+         * @see assign
+         */
+        extend<TObject extends {}, TSource extends {}, TResult extends {}>(
+            object: TObject,
+            source: TSource,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): TResult;
+
+        /**
+         * @see assign
+         */
+        extend<TObject extends {}, TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): TResult;
+
+        /**
+         * @see assign
+         */
+        extend<TObject extends {}, TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TResult extends {}>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): TResult;
+
+        /**
+         * @see assign
+         */
+        extend<TObject extends {}, TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TSource4 extends {},
+            TResult extends {}>
+            (
+                object: TObject,
+                source1: TSource1,
+                source2: TSource2,
+                source3: TSource3,
+                source4: TSource4,
+                customizer?: AssignCustomizer,
+                thisArg?: any
+            ): TResult;
+
+        /**
+         * @see _.assign
+         */
+        extend<TObject extends {}>(object: TObject): TObject;
+
+        /**
+         * @see _.assign
+         */
+        extend<TObject extends {}, TResult extends {}>(
+            object: TObject, ...otherArgs: any[]
+        ): TResult;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.assign
+         */
+        extend<TSource extends {}, TResult extends {}>(
+            source: TSource,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see assign
+         */
+        extend<TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
+            source1: TSource1,
+            source2: TSource2,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see assign
+         */
+        extend<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TResult extends {}>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see assign
+         */
+        extend<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TSource4 extends {}, TResult extends {}>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.assign
+         */
+        extend(): LoDashImplicitObjectWrapper<T>;
+
+        /**
+         * @see _.assign
+         */
+        extend<TResult extends {}>(...otherArgs: any[]): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.assign
+         */
+        extend<TSource extends {}, TResult extends {}>(
+            source: TSource,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see assign
+         */
+        extend<TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
+            source1: TSource1,
+            source2: TSource2,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see assign
+         */
+        extend<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TResult extends {}>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see assign
+         */
+        extend<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TSource4 extends {}, TResult extends {}>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer?: AssignCustomizer,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.assign
+         */
+        extend(): LoDashExplicitObjectWrapper<T>;
+
+        /**
+         * @see _.assign
+         */
+        extend<TResult extends {}>(...otherArgs: any[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.findKey
@@ -11276,18 +11864,41 @@ declare module _ {
         /**
          * The opposite of _.method; this method creates a function that invokes the method at a given path on object.
          * Any additional arguments are provided to the invoked method.
+         *
          * @param object The object to query.
          * @param args The arguments to invoke the method with.
          * @return Returns the new function.
          */
-        methodOf<TResult>(object: Object, ...args: any[]): (path: string | any[]) => TResult;
+        methodOf<TObject extends {}, TResult>(
+            object: TObject,
+            ...args: any[]
+        ): (path: StringRepresentable|StringRepresentable[]) => TResult;
+
+        /**
+         * @see _.methodOf
+         */
+        methodOf<TResult>(
+            object: {},
+            ...args: any[]
+        ): (path: StringRepresentable|StringRepresentable[]) => TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.methodOf
          */
-        methodOf<TResult>(...args: any[]): LoDashImplicitObjectWrapper<(path: string | any[]) => TResult>;
+        methodOf<TResult>(
+            ...args: any[]
+        ): LoDashImplicitObjectWrapper<(path: StringRepresentable|StringRepresentable[]) => TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.methodOf
+         */
+        methodOf<TResult>(
+            ...args: any[]
+        ): LoDashExplicitObjectWrapper<(path: StringRepresentable|StringRepresentable[]) => TResult>;
     }
 
     //_.mixin
@@ -11455,6 +12066,7 @@ declare module _ {
          * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
          * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
          * range is created unless a negative step is specified.
+         *
          * @param start The start of the range.
          * @param end The end of the range.
          * @param step The value to increment or decrement by.
@@ -11463,14 +12075,16 @@ declare module _ {
         range(
             start: number,
             end: number,
-            step?: number): number[];
+            step?: number
+        ): number[];
 
         /**
          * @see _.range
          */
         range(
             end: number,
-            step?: number): number[];
+            step?: number
+        ): number[];
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -11479,7 +12093,18 @@ declare module _ {
          */
         range(
             end?: number,
-            step?: number): LoDashImplicitArrayWrapper<number>;
+            step?: number
+        ): LoDashImplicitArrayWrapper<number>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.range
+         */
+        range(
+            end?: number,
+            step?: number
+        ): LoDashExplicitArrayWrapper<number>;
     }
 
     //_.runInContext
@@ -11557,6 +12182,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Generates a unique ID. If prefix is provided the ID is appended to it.
+         *
          * @param prefix The value to prefix the ID with.
          * @return Returns the unique ID.
          */
@@ -11568,6 +12194,13 @@ declare module _ {
          * @see _.uniqueId
          */
         uniqueId(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.uniqueId
+         */
+        uniqueId(): LoDashExplicitWrapper<string>;
     }
 
     interface ListIterator<T, TResult> {
