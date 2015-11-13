@@ -1,21 +1,21 @@
-// Type definitions for Redux v1.0.0
+// Type definitions for Redux v3.0.0
 // Project: https://github.com/rackt/redux
 // Definitions by: William Buchwalter <https://github.com/wbuchwalter/>, Vincent Prouillet <https://github.com/Keats/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module Redux {
     // Minimalist Action definition
-    type Action = {
+    interface Action {
         type: string;
     }
     
     // FSA-compliant action (from redux-actions.d.ts)
     // See: https://github.com/acdlite/flux-standard-action
-    type FluxStandardAction<P,M> extends Action = {
+    interface FluxStandardAction<P,M> extends Action {
         payload?: P
         error?: boolean
         meta?: M
-    };
+    }
 
     // Not used...?
     interface ActionCreator extends Function {
