@@ -133,7 +133,7 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
         element = <FlatButton linkButton={true} href="https://github.com/callemall/material-ui" secondary={true} label="GitHub">
         <FontIcon style={{ color: Typography.textFullWhite }} className="muidocs-icon-custom-github"/>
             </FlatButton>;
-        element = <RaisedButton linkButton={true} href="https://github.com/callemall/material-ui" secondary={true} label="GitHub">
+        element = <RaisedButton linkButton={true} href="https://github.com/callemall/material-ui" secondary={true} label="GitHub" labelPosition="before">
         <FontIcon style={{ color: Typography.textFullWhite }} className="muidocs-icon-custom-github"/>
             </RaisedButton>;
         element = <FloatingActionButton secondary={true} mini={true} linkButton={true}

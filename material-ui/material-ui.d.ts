@@ -276,11 +276,12 @@ declare namespace __MaterialUI {
         onCheck?: (event: React.MouseEvent, checked: boolean) => void;
     }
     export class Checkbox extends React.Component<CheckboxProps, {}> {
-        isChecked(): void;
+        isChecked(): boolean;
         setChecked(newCheckedValue: boolean): void;
     }
 
     interface CircularProgressProps extends React.Props<CircularProgress> {
+        className?: string;
         mode?: string;
         value?: number;
         min?: number;
@@ -692,6 +693,7 @@ declare namespace __MaterialUI {
         labelStyle?: React.CSSProperties;
         backgroundColor?: string;
         labelColor?: string;
+        labelPosition?: string;
         disabledBackgroundColor?: string;
         disabledLabelColor?: string;
         fullWidth?: boolean;
@@ -1250,6 +1252,7 @@ declare namespace __MaterialUI {
     }
 
     interface TextFieldProps extends React.Props<TextField> {
+        className?: string;
         errorStyle?: React.CSSProperties;
         errorText?: string;
         floatingLabelText?: string;
