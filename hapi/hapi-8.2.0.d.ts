@@ -390,7 +390,8 @@ declare module "hapi" {
 			'try'same as 'optional' but allows for invalid authentication. */
 			mode: string;
 			/**  a string array of strategy names in order they should be attempted.If only one strategy is used, strategy can be used instead with the single string value.Defaults to the default authentication strategy which is available only when a single strategy is configured.  */
-			strategies: string | Array<string>;
+			strategies?: string | Array<string>;
+			strategy?: string;
 			/**  if set, the payload (in requests other than 'GET' and 'HEAD') is authenticated after it is processed.Requires a strategy with payload authentication support (e.g.Hawk).Cannot be set to a value other than 'required' when the scheme sets the options.payload to true.Available values:
 			falseno payload authentication.This is the default value.
 			'required'payload authentication required.This is the default value when the scheme sets options.payload to true.
@@ -2100,12 +2101,14 @@ declare module "hapi" {
 		Returns a server object with connections set to the requested subset. Selecting again on a selection operates as a logic AND statement between the individual selections.
 		var Hapi = require('hapi');
 		var server = new Hapi.Server();
-		server.connection({ port: 80, labels: ['a', 'b'] });
-		server.connection({ port: 8080, labels: ['a', 'c'] });
-		server.connection({ port: 8081, labels: ['b', 'c'] });
-		var a = server.select('a');     // 80, 8080
-		var ac = a.select('c');         // 8080*/
-		select(labels: string|string[]): void;
+		server.connection({ port: 80, labels: ['a'] });
+		server.connection({ port: 8080, labels: ['b'] });
+		server.connection({ port: 8081, labels: ['c'] });
+		server.connection({ port: 8082, labels: ['c','d'] });
+		var a = server.select('a');          // The server with port 80
+		var ab = server.select(['a','b']);   // A list of servers containing the server with port 80 and the server with port 8080
+		var c = server.select('c');          // A list of servers containing the server with port 8081 and the server with port 8082 */
+		select(labels: string|string[]): Server|Server[];
 		/** server.start([callback])
 		Starts the server connections by listening for incoming requests on the configured port of each listener (unless the connection was configured with autoListen set to false), where:
 		callback - optional callback when server startup is completed or failed with the signature function(err) where:

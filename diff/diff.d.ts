@@ -39,6 +39,8 @@ declare module JsDiff {
 
     function diffWordsWithSpace(oldStr:string, newStr:string):IDiffResult[];
 
+    function diffJson(oldObj: Object, newObj: Object): IDiffResult[];
+
     function diffLines(oldStr:string, newStr:string):IDiffResult[];
 
     function diffCss(oldStr:string, newStr:string):IDiffResult[];

@@ -95,5 +95,18 @@ server.route([{
     }
 }]);
 
+// Should be able to chain reply options
+server.route([{
+    method: 'GET',
+    path: '/chained-notation',
+    handler: function(request: Hapi.Request, reply: Hapi.IReply) {
+        reply('chained-notation')
+            .bytes(16)
+            .code(200)
+            .type('text/plain')
+            .header('X-Custom', 'some-value');
+    }
+}]);
+
 // Start the server
 server.start();

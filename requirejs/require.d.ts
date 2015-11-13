@@ -1,4 +1,4 @@
-// Type definitions for RequireJS 2.1.8
+// Type definitions for RequireJS 2.1.20
 // Project: http://requirejs.org/
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -88,6 +88,7 @@ interface RequireConfig {
 	// baseUrl.
 	paths?: { [key: string]: any; };
 
+
 	// Dictionary of Shim's.
 	// does not cover case of key->string[]
 	shim?: { [key: string]: RequireShim; };
@@ -114,6 +115,19 @@ interface RequireConfig {
 			[id: string]: string;
 		};
 	};
+
+	/**
+	* Allows pointing multiple module IDs to a module ID that contains a bundle of modules.
+	*
+	* @example
+	* requirejs.config({
+	*	bundles: {
+	*		'primary': ['main', 'util', 'text', 'text!template.html'],
+	*		'secondary': ['text!secondary.html']
+	*	}
+	* });
+	**/
+	bundles?: { [key: string]: string[]; };
 
 	/**
 	* AMD configurations, use module.config() to access in
@@ -166,8 +180,8 @@ interface RequireConfig {
 
 	/**
 	* Extra query string arguments appended to URLs that RequireJS
-	* uses to fetch resources.  Most useful to cachce bust when
-	* the browser or server is not configured correcty.
+	* uses to fetch resources.  Most useful to cache bust when
+	* the browser or server is not configured correctly.
 	*
 	* @example
 	* urlArgs: "bust= + (new Date()).getTime()
@@ -182,6 +196,20 @@ interface RequireConfig {
 	**/
 	scriptType?: string;
 
+	/**
+	* If set to true, skips the data-main attribute scanning done
+	* to start module loading. Useful if RequireJS is embedded in
+	* a utility library that may interact with other RequireJS
+	* library on the page, and the embedded version should not do
+	* data-main loading.
+	**/
+	skipDataMain?: boolean;
+
+	/**
+	* Allow extending requirejs to support Subresource Integrity
+	* (SRI).
+	**/
+	onNodeCreated?: (node: HTMLScriptElement, config: RequireConfig, moduleName: string, url: string) => void;
 }
 
 // todo: not sure what to do with this guy
