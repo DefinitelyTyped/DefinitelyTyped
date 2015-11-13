@@ -18,6 +18,7 @@ declare namespace ReactRouter {
         path ?: string;
         component ?: __React.ComponentClass<any>;
         components ?: __React.ComponentClass<any>[];
+        onEnter?:(state, replaceState)=>any
     }
     interface Route extends __React.ReactElement<RouteProps> {}
 
