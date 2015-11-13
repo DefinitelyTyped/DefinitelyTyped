@@ -17,11 +17,12 @@ declare module 'request' {
 
 	namespace request {
 		export interface RequestAPI<TRequest extends Request,
-									TOptions extends CoreOptions,
-									TUriUrlOptions> {
+			TOptions extends CoreOptions,
+			TUriUrlOptions> {
+
 			defaults(options: TOptions): RequestAPI<TRequest, TOptions, RequiredUriUrl>;
 			defaults(options: RequiredUriUrl & TOptions): DefaultUriUrlRequestApi<TRequest, TOptions, OptionalUriUrl>;
-			
+
 			(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			(uri: string, callback?: RequestCallback): TRequest;
 			(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
@@ -57,11 +58,11 @@ declare module 'request' {
 			initParams: any;
 			debug: boolean;
 		}
-		
-		interface DefaultUriUrlRequestApi<TRequest extends Request, 
-										  TOptions extends CoreOptions,
-										  TUriUrlOptions> 
-						extends RequestAPI<TRequest, TOptions, TUriUrlOptions> {
+
+		interface DefaultUriUrlRequestApi<TRequest extends Request,
+			TOptions extends CoreOptions,
+			TUriUrlOptions>	extends RequestAPI<TRequest, TOptions, TUriUrlOptions> {
+				
 			defaults(options: TOptions): DefaultUriUrlRequestApi<TRequest, TOptions, OptionalUriUrl>;
 			(): TRequest;
 			get(): TRequest;
