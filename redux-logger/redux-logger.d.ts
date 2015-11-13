@@ -7,16 +7,17 @@
 
 declare module 'redux-logger' {
 
-  interface ReduxLoggerOptions {
-    actionTransformer?: (action: any) => any;
+  // In this case, T is the type that represents the state involved.
+  interface ReduxLoggerOptions<T> {
+    actionTransformer?: (action: Redux.Action) => Redux.Action;
     collapsed?: boolean;
     duration?: boolean;
     level?: string;
     logger?: any;
-    predicate?: (getState: Function, action: any) => boolean;
+    predicate?: (getState: () => T, action: Redux.Action) => boolean;
     timestamp?: boolean;
-    transformer?: (state:any) => any;
+    transformer?: (state:T) => any;
   }
 
-  export default function createLogger(options?: ReduxLoggerOptions): Redux.Middleware;
+  export default function createLogger<T>(options?: ReduxLoggerOptions<T>): Redux.Middleware<T>;
 }
