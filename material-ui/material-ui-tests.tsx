@@ -20,6 +20,7 @@ import CardText = require("material-ui/lib/card/card-text");
 import CardActions = require("material-ui/lib/card/card-actions");
 import Dialog = require("material-ui/lib/dialog");
 import DropDownMenu = require("material-ui/lib/drop-down-menu");
+import DatePicker = require("material-ui/lib/date-picker/date-picker");
 import RadioButtonGroup = require("material-ui/lib/radio-button-group");
 import RadioButton = require("material-ui/lib/radio-button");
 import Toggle = require("material-ui/lib/toggle");
@@ -162,7 +163,7 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
             </Card>;
 
         // "http://material-ui.com/#/components/date-picker"
-
+		<DatePicker style={{ color: 'red' }} />;
 
         // "http://material-ui.com/#/components/dialog"
         let standardActions = [
