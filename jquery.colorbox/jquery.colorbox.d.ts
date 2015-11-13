@@ -106,6 +106,10 @@ interface ColorboxSettings {
     */
     close?: string;
     /**
+     * Set to false to remove the close button. 
+     */
+    closeButton?: boolean;
+    /**
     * Error message given when ajax content for a given URL cannot be loaded.
     */
     xhrError?: string;
@@ -281,7 +285,7 @@ interface ColorboxStatic {
     * Default settings used for Colorbox calls
     */
     settings: ColorboxSettings;
-
+    
 }
 
 interface Colorbox {
