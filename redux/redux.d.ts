@@ -13,13 +13,13 @@ declare module Redux {
         meta?: any
     };
 
-	// Not used...?
-	interface ActionCreator extends Function {
+    // Not used...?
+    interface ActionCreator extends Function {
         (...args: any[]): Action;
     }
 
-	// Also not used here...
-	interface StoreMethods<T,A extends Action> {
+    // Also not used here...
+    interface StoreMethods<T,A extends Action> {
         dispatch: Dispatch;
         getState(): T;
     }
@@ -30,8 +30,8 @@ declare module Redux {
         (state: T, action: any): T;
     }
 
-	// Dispatch is a function that takes an action of type A and
-	// returns an instance of that same action (still of type A)
+    // Dispatch is a function that takes an action of type A and
+    // returns an instance of that same action (still of type A)
     interface Dispatch extends Function {
         <A extends Action>(action: A): A;
     }
