@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 import { ThunkInterface } from 'redux-thunk';
 import { Promise } from 'es6-promise';
 
-declare var rootReducer: Function;
+declare var rootReducer: Redux.Reducer<any>;
 declare var fetch: any;
 
 // create a store that has redux-thunk middleware enabled
@@ -16,7 +16,7 @@ const createStoreWithMiddleware = applyMiddleware(
     thunk
 )(createStore);
 
-const store: Store = createStoreWithMiddleware(rootReducer);
+const store: Store<any> = createStoreWithMiddleware(rootReducer);
 
 function fetchSecretSauce() {
     return fetch('https://www.google.com/search?q=secret+sauce');
@@ -26,7 +26,12 @@ function fetchSecretSauce() {
 // The actions they return can be dispatched without any middleware.
 // However, they only express “facts” and not the “async flow”.
 
-function makeASandwich(forPerson: any, secretSauce?: any): any {
+interface SandwichAction extends Redux.Action {
+	forPerson: any;
+	secretSauce?: any;
+}
+
+function makeASandwich(forPerson: any, secretSauce?: any): SandwichAction {
     return {
         type: 'MAKE_SANDWICH',
         forPerson,
@@ -34,7 +39,13 @@ function makeASandwich(forPerson: any, secretSauce?: any): any {
     };
 }
 
-function apologize(fromPerson: any, toPerson?: any, error?: any): any {
+interface ApologyAction extends Redux.Action {
+	fromPerson: any;
+	toPerson?: any;
+	error?: any;
+}
+
+function apologize(fromPerson: any, toPerson?: any, error?: any): ApologyAction {
     return {
         type: 'APOLOGIZE',
         fromPerson,
@@ -43,7 +54,11 @@ function apologize(fromPerson: any, toPerson?: any, error?: any): any {
     };
 }
 
-function withdrawMoney(amount: number): any {
+interface WithdrawAction extends Redux.Action {
+	amount: number;
+}
+
+function withdrawMoney(amount: number): WithdrawAction {
     return {
         type: 'WITHDRAW',
         amount
@@ -77,16 +92,12 @@ function makeASandwichWithSecretSauce(forPerson: any): ThunkInterface {
 // Thunk middleware lets me dispatch thunk async actions
 // as if they were actions!
 
-store.dispatch(
-    makeASandwichWithSecretSauce('Me')
-);
+makeASandwichWithSecretSauce("Me")(store.dispatch)
 
 // It even takes care to return the thunk’s return value
 // from the dispatch, so I can chain Promises as long as I return them.
 
-store.dispatch(
-    makeASandwichWithSecretSauce('My wife')
-).then(() => {
+makeASandwichWithSecretSauce('My wife')(store.dispatch).then(() => {
     console.log('Done!');
 });
 
@@ -107,21 +118,17 @@ function makeSandwichesForEverybody(): ThunkInterface {
         // We can dispatch both plain object actions and other thunks,
         // which lets us compose the asynchronous actions in a single flow.
 
-        return dispatch(
-            makeASandwichWithSecretSauce('My Grandma')
-        ).then(() =>
+		makeASandwichWithSecretSauce('My Grandma')(dispatch).then(() =>
                 Promise.all([
-                    dispatch(makeASandwichWithSecretSauce('Me')),
-                    dispatch(makeASandwichWithSecretSauce('My wife'))
+					makeASandwichWithSecretSauce('Me')(dispatch),
+					makeASandwichWithSecretSauce('My wife')(dispatch)
                 ])
         ).then(() =>
-                dispatch(makeASandwichWithSecretSauce('Our kids'))
+			   makeASandwichWithSecretSauce('Our kids')(dispatch)
         ).then(() =>
-                dispatch(getState().myMoney > 42 ?
-                        withdrawMoney(42) :
-                        apologize('Me', 'The Sandwich Shop')
-                )
+			   getState().myMoney > 42 ?
+			   dispatch(withdrawMoney(42)) :
+			   dispatch(apologize('Me', 'The Sandwich Shop'))
         );
     };
 }
-
