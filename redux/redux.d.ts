@@ -4,13 +4,17 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module Redux {
+    // Minimalist Action definition
+    type Action = {
+        type: string;
+    }
+    
     // FSA-compliant action (from redux-actions.d.ts)
     // See: https://github.com/acdlite/flux-standard-action
-    type Action = {
-        type: string
-        payload?: any
+    type FluxStandardAction<P,M> extends Action = {
+        payload?: P
         error?: boolean
-        meta?: any
+        meta?: M
     };
 
     // Not used...?
