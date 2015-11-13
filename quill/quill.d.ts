@@ -1,3 +1,8 @@
+// Type definitions for quill.js
+// Project: https://github.com/quilljs/quill/tree/0.20.1
+// Definitions by: Asana <https://asana.com>
+// Definitions: https://github.com/Asana/DefinitelyTyped
+
 declare module "quill" {
     class Quill {
         // we shouldn't be accessing the internal modules object, but we need
@@ -16,6 +21,7 @@ declare module "quill" {
         static require(internalQuillModule: "delta"): Quill.DeltaClass;
         static require(internalQuillModule: string): any;
         static registerModule(name: string, moduleClass: Quill.ModuleClass): void;
+        static registerTheme(name: string, theme: Quill.ThemeClass): void;
 
         addContainer(className: string): HTMLElement;
         constructor(container: HTMLElement, configs?: Quill.QuillConfig);
@@ -119,6 +125,12 @@ declare module "quill" {
             pollInterval?: number;
             readOnly?: boolean;
             styles?: {};
+            theme?: string;
+        }
+
+        export interface ThemeClass {
+            new(quill: Quill, options: QuillConfig): {};
+            OPTIONS: QuillConfig;
         }
 
         export interface InsertOperation extends Operation {
