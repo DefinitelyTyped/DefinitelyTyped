@@ -282,6 +282,10 @@ interface Channel {
     send(envelope: ContractsModule.Envelope): void;
     handleCrash(envelope: ContractsModule.Envelope): void;
     /**
+     * Enable or disable offline mode
+     */
+    setOfflineMode(value: boolean): void;
+    /**
      * Immediately send buffered data
      */
     triggerSend(isNodeCrashing?: boolean): void;
