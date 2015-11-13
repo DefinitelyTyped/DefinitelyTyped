@@ -533,6 +533,11 @@ declare namespace  ReactNative {
         onSubmitEditing?: ( event: {nativeEvent: {text: string}} ) => void
 
         /**
+         * //FIXME: Not part of the doc but found in examples
+         */
+        password?: boolean
+
+        /**
          * The string that will be rendered before text input has been entered
          */
         placeholder?: string
@@ -569,12 +574,10 @@ declare namespace  ReactNative {
     }
 
     export interface TextInputStatic extends React.ComponentClass<TextInputProperties> {
-
+        blur: () => void
+        focus: () => void
     }
 
-    export interface AccessibilityTraits {
-        // TODO
-    }
 
     // @see https://facebook.github.io/react-native/docs/view.html#style
     export interface ViewStyle extends FlexStyle, TransformsStyle {
@@ -597,46 +600,120 @@ declare namespace  ReactNative {
         shadowRadius?: number;
     }
 
+
+    export interface ViewPropertiesIOS {
+
+        /**
+         * Provides additional traits to screen reader.
+         * By default no traits are provided unless specified otherwise in element
+         *
+         * @enum('none', 'button', 'link', 'header', 'search', 'image', 'selected', 'plays', 'key', 'text','summary', 'disabled', 'frequentUpdates', 'startsMedia', 'adjustable', 'allowsDirectInteraction', 'pageTurn')
+         */
+        accessibilityTraits?: string | string[];
+
+        /**
+         * Whether this view should be rendered as a bitmap before compositing.
+         *
+         * On iOS, this is useful for animations and interactions that do not modify this component's dimensions nor its children;
+         * for example, when translating the position of a static view, rasterization allows the renderer to reuse a cached bitmap of a static view
+         * and quickly composite it during each frame.
+         *
+         * Rasterization incurs an off-screen drawing pass and the bitmap consumes memory.
+         * Test and measure when using this property.
+         */
+        shouldRasterizeIOS?: boolean
+    }
+
+    export interface ViewPropertiesAndroid {
+
+        /**
+         * Indicates to accessibility services to treat UI component like a native one.
+         * Works for Android only.
+         *
+         * @enum('none', 'button', 'radiobutton_checked', 'radiobutton_unchecked' )
+         */
+        accessibilityComponentType?: string
+
+
+        /**
+         * Indicates to accessibility services whether the user should be notified when this view changes.
+         * Works for Android API >= 19 only.
+         * See http://developer.android.com/reference/android/view/View.html#attr_android:accessibilityLiveRegion for references.
+         */
+        accessibilityLiveRegion?: string
+
+        /**
+         * Views that are only used to layout their children or otherwise don't draw anything
+         * may be automatically removed from the native hierarchy as an optimization.
+         * Set this property to false to disable this optimization and ensure that this View exists in the native view hierarchy.
+         */
+        collapsable?: boolean
+
+
+        /**
+         * Controls how view is important for accessibility which is if it fires accessibility events
+         * and if it is reported to accessibility services that query the screen.
+         * Works for Android only. See http://developer.android.com/reference/android/R.attr.html#importantForAccessibility for references.
+         *
+         * Possible values:
+         *      'auto' - The system determines whether the view is important for accessibility - default (recommended).
+         *      'yes' - The view is important for accessibility.
+         *      'no' - The view is not important for accessibility.
+         *      'no-hide-descendants' - The view is not important for accessibility, nor are any of its descendant views.
+         */
+        importantForAccessibility?: string
+
+
+        /**
+         * Whether this view needs to rendered offscreen and composited with an alpha in order to preserve 100% correct colors and blending behavior.
+         * The default (false) falls back to drawing the component and its children
+         * with an alpha applied to the paint used to draw each element instead of rendering the full component offscreen and compositing it back with an alpha value.
+         * This default may be noticeable and undesired in the case where the View you are setting an opacity on
+         * has multiple overlapping elements (e.g. multiple overlapping Views, or text and a background).
+         *
+         * Rendering offscreen to preserve correct alpha behavior is extremely expensive
+         * and hard to debug for non-native developers, which is why it is not turned on by default.
+         * If you do need to enable this property for an animation,
+         * consider combining it with renderToHardwareTextureAndroid if the view contents are static (i.e. it doesn't need to be redrawn each frame).
+         * If that property is enabled, this View will be rendered off-screen once,
+         * saved in a hardware texture, and then composited onto the screen with an alpha each frame without having to switch rendering targets on the GPU.
+         */
+        needsOffscreenAlphaCompositing?: boolean
+
+
+        /**
+         * Whether this view should render itself (and all of its children) into a single hardware texture on the GPU.
+         *
+         * On Android, this is useful for animations and interactions that only modify opacity, rotation, translation, and/or scale:
+         * in those cases, the view doesn't have to be redrawn and display lists don't need to be re-executed. The texture can just be
+         * re-used and re-composited with different parameters. The downside is that this can use up limited video memory, so this prop should be set back to false at the end of the interaction/animation.
+         */
+        renderToHardwareTextureAndroid?: boolean;
+
+    }
+
     /**
      * @see https://facebook.github.io/react-native/docs/view.html#props
      */
-    export interface ViewProperties extends React.Props<ViewStatic> {
-        /**
-         * accessibilityLabel string
-         *
-         * Overrides the text that's read by the screen reader when the user interacts with the element. By default, the label is constructed by traversing all the children and accumulating all the Text nodes separated by space.
-         *
-         */
+    export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS, React.Props<ViewStatic> {
 
+        /**
+         * Overrides the text that's read by the screen reader when the user interacts with the element. By default, the label is constructed by traversing all the children and accumulating all the Text nodes separated by space.
+         */
         accessibilityLabel?: string;
 
-
         /**
-         * accessibilityTraits AccessibilityTraits, [AccessibilityTraits]
-         * Provides additional traits to screen reader. By default no traits are provided unless specified otherwise in element
+         * When true, indicates that the view is an accessibility element.
+         * By default, all the touchable elements are accessible.
          */
-
-        accessibilityTraits?: AccessibilityTraits;
-
-        /**
-         * accessible bool
-         *
-         * When true, indicates that the view is an accessibility element. By default, all the touchable elements are accessible.
-         */
-
         accessible?: boolean;
 
         /**
-         * onAcccessibilityTap function
-         * When accessible is true, the system will try to invoke this function when the user performs accessibility tap gesture.
-         *
+         * When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.
          */
-
         onAcccessibilityTap?: () => void;
 
         /**
-         * onLayout function
-         *
          * Invoked on mount and layout changes with
          *
          * {nativeEvent: { layout: {x, y, width, height}}}.
@@ -644,20 +721,18 @@ declare namespace  ReactNative {
         onLayout?: ( event: LayoutChangeEvent ) => void;
 
         /**
-         * onMagicTap function
-         *
          * When accessible is true, the system will invoke this function when the user performs the magic tap gesture.
          */
-
         onMagicTap?: () => void;
 
-        /**
-         * onMoveShouldSetResponder function
-         *
-         * For most touch interactions, you'll simply want to wrap your component in TouchableHighlight or TouchableOpacity. Check out Touchable.js, ScrollResponder.js and ResponderEventPlugin.js for more discussion.
-         */
         onMoveShouldSetResponder?: () => void;
 
+        onMoveShouldSetResponderCapture?: () => void;
+
+        /**
+         * For most touch interactions, you'll simply want to wrap your component in TouchableHighlight or TouchableOpacity.
+         * Check out Touchable.js, ScrollResponder.js and ResponderEventPlugin.js for more discussion.
+         */
         onResponderGrant?: () => void;
 
         onResponderMove?: () => void;
@@ -674,8 +749,8 @@ declare namespace  ReactNative {
 
         onStartShouldSetResponderCapture?: () => void;
 
+
         /**
-         * pointerEvents enum('box-none', 'none', 'box-only', 'auto')
          *
          * In the absence of auto property, none is much like CSS's none value. box-none is as if you had applied the CSS class:
          *
@@ -698,44 +773,115 @@ declare namespace  ReactNative {
          * But since pointerEvents does not affect layout/appearance, and we are already deviating from the spec by adding additional modes,
          * we opt to not include pointerEvents on style. On some platforms, we would need to implement it as a className anyways. Using style or not is an implementation detail of the platform.
          */
-
         pointerEvents?: string;
 
         /**
-         * removeClippedSubviews bool
          *
          * This is a special performance property exposed by RCTView and is useful for scrolling content when there are many subviews,
          * most of which are offscreen. For this property to be effective, it must be applied to a view that contains many subviews that extend outside its bound.
          * The subviews must also have overflow: hidden, as should the containing view (or one of its superviews).
          */
-
         removeClippedSubviews?: boolean
-
-        /**
-         * renderToHardwareTextureAndroid bool
-         *
-         * Whether this view should render itself (and all of its children) into a single hardware texture on the GPU.
-         *
-         * On Android, this is useful for animations and interactions that only modify opacity, rotation, translation, and/or scale:
-         * in those cases, the view doesn't have to be redrawn and display lists don't need to be re-executed. The texture can just be
-         * re-used and re-composited with different parameters. The downside is that this can use up limited video memory, so this prop should be set back to false at the end of the interaction/animation.
-         */
-
-        renderToHardwareTextureAndroid?: boolean;
 
         style?: ViewStyle;
 
         /**
-         * testID string
-         *
          * Used to locate this view in end-to-end tests.
          */
-
         testID?: string;
     }
 
+    /**
+     * The most fundamental component for building UI, View is a container that supports layout with flexbox, style, some touch handling,
+     * and accessibility controls, and is designed to be nested inside other views and to have 0 to many children of any type.
+     * View maps directly to the native view equivalent on whatever platform React is running on,
+     * whether that is a UIView, <div>, android.view, etc.
+     */
     export interface ViewStatic extends React.ComponentClass<ViewProperties> {
 
+    }
+
+    /**
+     * //FIXME: No documentation extracted from code comment on WebView.ios.js
+     */
+    export interface NavState {
+
+        url?: string
+        title?: string
+        loading?: boolean
+        canGoBack?: boolean
+        canGoForward?: boolean;
+
+        [key: string]: any
+    }
+
+    export interface WebViewPropertiesAndroid {
+
+        /**
+         * Used for android only, JS is enabled by default for WebView on iOS
+         */
+        javaScriptEnabledAndroid?: boolean
+    }
+
+    export interface WebViewPropertiesIOS {
+
+        /**
+         * Used for iOS only, sets whether the webpage scales to fit the view and the user can change the scale
+         */
+        scalesPageToFit?: boolean
+    }
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/webview.html#props
+     */
+    export interface WebViewProperties extends WebViewPropertiesAndroid, WebViewPropertiesIOS, React.Props<WebViewStatic> {
+
+        automaticallyAdjustContentInsets?: boolean
+
+        bounces?: boolean
+
+        contentInset?: Insets
+
+        html?: string
+
+        /**
+         * Sets the JS to be injected when the webpage loads.
+         */
+        injectedJavaScript?: string
+
+        onNavigationStateChange?: (event: NavState) => void
+
+        /**
+         * Allows custom handling of any webview requests by a JS handler.
+         * Return true or false from this method to continue loading the request.
+         */
+        onShouldStartLoadWithRequest?: () => boolean
+
+        /**
+         * view to show if there's an error
+         */
+        renderError?: () => ViewStatic
+
+        /**
+         * loading indicator to show
+         */
+        renderLoading?: () => ViewStatic
+
+        scrollEnabled?: boolean
+
+        startInLoadingState?: boolean
+
+        style?: ViewStyle
+
+        url: string
+    }
+
+
+    export interface WebViewStatic extends React.ComponentClass<WebViewProperties> {
+
+        goBack: () => void
+        goForward: () => void
+        reload: () => void
     }
 
     /**
@@ -1538,60 +1684,84 @@ declare namespace  ReactNative {
         zoomEnabled?: boolean
     }
 
+    /**
+     * @see https://facebook.github.io/react-native/docs/mapview.html#content
+     */
     export interface MapViewStatic extends React.ComponentClass<MapViewProperties> {
     }
 
 
-    /**
-     * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html
-     */
-    export interface TouchableWithoutFeedbackProperties {
-        /*
-         accessible bool
+    export interface TouchableWithoutFeedbackAndroidProperties {
 
-         Called when the touch is released, but not if cancelled (e.g. by a scroll that steals the responder lock).
+        /**
+         * Indicates to accessibility services to treat UI component like a native one.
+         * Works for Android only.
+         *
+         * @enum('none', 'button', 'radiobutton_checked', 'radiobutton_unchecked' )
          */
-        accessible?: boolean;
-        /*
-         delayLongPress number
+        accessibilityComponentType?: string
+    }
 
-         Delay in ms, from onPressIn, before onLongPress is called.
+    export interface TouchableWithoutFeedbackIOSProperties {
+
+        /**
+         * Provides additional traits to screen reader.
+         * By default no traits are provided unless specified otherwise in element
+         *
+         * @enum('none', 'button', 'link', 'header', 'search', 'image', 'selected', 'plays', 'key', 'text','summary', 'disabled', 'frequentUpdates', 'startsMedia', 'adjustable', 'allowsDirectInteraction', 'pageTurn')
+         */
+        accessibilityTraits?: string | string[];
+
+    }
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html#props
+     */
+    export interface TouchableWithoutFeedbackProperties extends TouchableWithoutFeedbackAndroidProperties, TouchableWithoutFeedbackIOSProperties {
+
+
+        /**
+         * Called when the touch is released, but not if cancelled (e.g. by a scroll that steals the responder lock).
+         */
+        accessible?: boolean
+
+        /**
+         * Delay in ms, from onPressIn, before onLongPress is called.
          */
         delayLongPress?: number;
 
-        /*
-         delayPressIn number
-
-         Delay in ms, from the start of the touch, before onPressIn is called.
+        /**
+         * Delay in ms, from the start of the touch, before onPressIn is called.
          */
         delayPressIn?: number;
 
-        /*
-         delayPressOut number
-
-         Delay in ms, from the release of the touch, before onPressOut is called.
+        /**
+         * Delay in ms, from the release of the touch, before onPressOut is called.
          */
         delayPressOut?: number;
 
-        /*
-         onLongPress function
+        /**
+         * Invoked on mount and layout changes with
+         * {nativeEvent: {layout: {x, y, width, height}}}
          */
+        onLayout?: ( event: LayoutChangeEvent ) => void
+
         onLongPress?: () => void;
 
-        /*
-         onPress function
+        /**
+         * Called when the touch is released,
+         * but not if cancelled (e.g. by a scroll that steals the responder lock).
          */
         onPress?: () => void;
 
-        /*
-         onPressIn function
-         */
         onPressIn?: () => void;
 
-        /*
-         onPressOut function
-         */
         onPressOut?: () => void;
+
+        /**
+         * //FIXME: not in doc but available in exmaples
+         */
+        style?: ViewStyle
     }
 
 
@@ -1599,6 +1769,13 @@ declare namespace  ReactNative {
 
     }
 
+    /**
+     * Do not use unless you have a very good reason.
+     * All the elements that respond to press should have a visual feedback when touched.
+     * This is one of the primary reason a "web" app doesn't feel "native".
+     *
+     * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html
+     */
     export interface TouchableWithoutFeedbackStatic extends React.ComponentClass<TouchableWithoutFeedbackProps> {
 
     }
@@ -1608,25 +1785,19 @@ declare namespace  ReactNative {
      * @see https://facebook.github.io/react-native/docs/touchablehighlight.html#props
      */
     export interface TouchableHighlightProperties extends TouchableWithoutFeedbackProperties, React.Props<TouchableHighlightStatic> {
+
         /**
-         * activeOpacity number
-         *
          * Determines what the opacity of the wrapped view should be when touch is active.
          */
         activeOpacity?: number
 
         /**
-         * onHideUnderlay function
          *
          * Called immediately after the underlay is hidden
          */
-
         onHideUnderlay?: () => void
 
-
         /**
-         * onShowUnderlay function
-         *
          * Called immediately after the underlay is shown
          */
         onShowUnderlay?: () => void
@@ -1638,14 +1809,24 @@ declare namespace  ReactNative {
 
 
         /**
-         * underlayColor string
-         *
          * The color of the underlay that will show through when the touch is active.
          */
         underlayColor?: string
-
     }
 
+    /**
+     * A wrapper for making views respond properly to touches.
+     * On press down, the opacity of the wrapped view is decreased,
+     * which allows the underlay color to show through, darkening or tinting the view.
+     * The underlay comes from adding a view to the view hierarchy,
+     * which can sometimes cause unwanted visual artifacts if not used correctly,
+     * for example if the backgroundColor of the wrapped view isn't explicitly set to an opaque color.
+     *
+     * NOTE: TouchableHighlight supports only one child
+     * If you wish to have several child components, wrap them in a View.
+     *
+     * @see https://facebook.github.io/react-native/docs/touchablehighlight.html
+     */
     export interface TouchableHighlightStatic extends React.ComponentClass<TouchableHighlightProperties> {
     }
 
@@ -1655,14 +1836,53 @@ declare namespace  ReactNative {
      */
     export interface TouchableOpacityProperties extends TouchableWithoutFeedbackProperties, React.Props<TouchableOpacityStatic> {
         /**
-         * activeOpacity number
-         *
          * Determines what the opacity of the wrapped view should be when touch is active.
+         * Defaults to 0.2
          */
-        activeOpacity?: number;
+        activeOpacity?: number
     }
 
+    /**
+     * A wrapper for making views respond properly to touches.
+     * On press down, the opacity of the wrapped view is decreased, dimming it.
+     * This is done without actually changing the view hierarchy,
+     * and in general is easy to add to an app without weird side-effects.
+     *
+     * @see https://facebook.github.io/react-native/docs/touchableopacity.html
+     */
     export interface TouchableOpacityStatic extends React.ComponentClass<TouchableOpacityProperties> {
+    }
+
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/touchableopacity.html#props
+     */
+    export interface TouchableNativeFeedbackProperties extends TouchableWithoutFeedbackProperties, React.Props<TouchableNativeFeedbackStatic> {
+        /**
+         * Determines the type of background drawable that's going to be used to display feedback.
+         * It takes an object with type property and extra data depending on the type.
+         * It's recommended to use one of the following static methods to generate that dictionary:
+         *      1) TouchableNativeFeedback.SelectableBackground() - will create object that represents android theme's default background for selectable elements (?android:attr/selectableItemBackground)
+         *      2) TouchableNativeFeedback.SelectableBackgroundBorderless() - will create object that represent android theme's default background for borderless selectable elements (?android:attr/selectableItemBackgroundBorderless). Available on android API level 21+
+         *      3) TouchableNativeFeedback.Ripple(color, borderless) - will create object that represents ripple drawable with specified color (as a string). If property borderless evaluates to true the ripple will render outside of the view bounds (see native actionbar buttons as an example of that behavior). This background type is available on Android API level 21+
+         */
+        background?: any
+    }
+
+    /**
+     * A wrapper for making views respond properly to touches (Android only).
+     * On Android this component uses native state drawable to display touch feedback.
+     * At the moment it only supports having a single View instance as a child node,
+     * as it's implemented by replacing that View with another instance of RCTView node with some additional properties set.
+     *
+     * Background drawable of native feedback touchable can be customized with background property.
+     *
+     * @see https://facebook.github.io/react-native/docs/touchablenativefeedback.html#content
+     */
+    export interface TouchableNativeFeedbackStatic extends React.ComponentClass<TouchableNativeFeedbackProperties> {
+        SelectableBackground: () => TouchableNativeFeedbackStatic
+        SelectableBackgroundBorderless: () => TouchableNativeFeedbackStatic
+        Ripple: ( color: string, borderless?: boolean ) => TouchableNativeFeedbackStatic
     }
 
 
@@ -2611,6 +2831,9 @@ declare namespace  ReactNative {
     export var TouchableHighlight: TouchableHighlightStatic;
     export type TouchableHighlight = TouchableHighlightStatic;
 
+    export var TouchableNativeFeedback: TouchableNativeFeedbackStatic;
+    export type TouchableNativeFeedback = TouchableNativeFeedbackStatic;
+
     export var TouchableOpacity: TouchableOpacityStatic;
     export type TouchableOpacity = TouchableOpacityStatic;
 
@@ -2619,6 +2842,10 @@ declare namespace  ReactNative {
 
     export var View: ViewStatic;
     export type View = ViewStatic;
+
+    export var WebView: WebViewStatic
+    export type WebView = WebViewStatic
+
 
     export var AlertIOS: React.ComponentClass<AlertIOSProperties>;
     export var SegmentedControlIOS: React.ComponentClass<SegmentedControlIOSProperties>;
