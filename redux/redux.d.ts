@@ -24,8 +24,8 @@ declare module Redux {
         getState(): T;
     }
 
-	// Reducer is a function that takes a state of type T and an
-	// action and returns a new state, also of type T
+    // Reducer is a function that takes a state of type T and an
+    // action and returns a new state, also of type T
     interface Reducer<T> extends Function {
         (state: T, action: any): T;
     }
@@ -36,24 +36,24 @@ declare module Redux {
         <A extends Action>(action: A): A;
     }
 
-	// MiddlewareArg is an instance of middleware that provides a
-	// dispatch method and a getState method.  The type parameter T is
-	// the type of the state.  No type parameter is provided on
-	// Dispatch because the middleware generally needs to be able to
-	// handle any type of action.
+    // MiddlewareArg is an instance of middleware that provides a
+    // dispatch method and a getState method.  The type parameter T is
+    // the type of the state.  No type parameter is provided on
+    // Dispatch because the middleware generally needs to be able to
+    // handle any type of action.
     interface MiddlewareArg<T> {
         dispatch: Dispatch;
         getState: () => T;
     }
 
-	// Middleware is constructed from an instance of MiddlewareArg<T> where
-	// T is the type of the state.
+    // Middleware is constructed from an instance of MiddlewareArg<T> where
+    // T is the type of the state.
     interface Middleware<T> extends Function {
         (obj: MiddlewareArg<T>): Function;
     }
 
-	// Store manages the state of the system.  The state of the system
-	// should be of type T.
+    // Store manages the state of the system.  The state of the system
+    // should be of type T.
     class Store<T> {
         getReducer(): Reducer<T>;
         replaceReducer(nextReducer: Reducer<T>): void;
@@ -62,14 +62,14 @@ declare module Redux {
         subscribe(listener: () => void): () => void;
     }
 
-	// StoreCreator describes any function that can be used to create
-	// a Store<T> (where T is the type of the state).  This type is
-	// used to describe the return type of applyMiddleware since
-	// produces special function that can be used to create a store
-	// that integrates a collection of middleware.
-	interface StoreCreator<T> extends Function {
-		(reducer: Reducer<T>, initialState?: T): Store<T>;
-	}
+    // StoreCreator describes any function that can be used to create
+    // a Store<T> (where T is the type of the state).  This type is
+    // used to describe the return type of applyMiddleware since
+    // produces special function that can be used to create a store
+    // that integrates a collection of middleware.
+    interface StoreCreator<T> extends Function {
+        (reducer: Reducer<T>, initialState?: T): Store<T>;
+    }
 
     function createStore<T>(reducer: Reducer<T>, initialState?: T): Store<T>;
     function bindActionCreators<C>(actionCreators: C, dispatch: Dispatch): C;
