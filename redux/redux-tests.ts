@@ -1,6 +1,6 @@
 /// <reference path="./redux.d.ts" />
 
-function counter(state: any, action: any) {
+function counter(state: number, action: Redux.Action) {
     if (!state) {
         state = 0;
     }
@@ -15,7 +15,7 @@ function counter(state: any, action: any) {
 }
 
 function loggingMiddleware() {
-    return (next: Redux.Dispatch) => (action: any) => {
+    return (next: Redux.Dispatch) => (action: Redux.Action) => {
         console.log(action.type);
         next(action);
     };
