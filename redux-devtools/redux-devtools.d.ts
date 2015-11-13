@@ -14,24 +14,24 @@ declare module "redux-devtools" {
 declare module "redux-devtools/lib/react" {
     import * as React from 'react';
 
-    export class DevTools extends React.Component<any, any> {
+    export class DevTools<P,S> extends React.Component<P, S> {
 
     }
 
-    export interface DevToolsProps {
+    export interface DevToolsProps<S> {
         monitor: Function;
-        store: Store;
+        store: Store<S>;
     }
 
-    export interface Store {
-        devToolStore: DevToolStore;
+    export interface Store<S> {
+        devToolStore: DevToolStore<S>;
     }
 
-    export class DevToolStore extends React.Component<any, any> {
-        dispatch: Function;
+    export class DevToolStore<S> extends React.Component<void, S> {
+        dispatch: Redux.Dispatch;
     }
 
-    export class DebugPanel extends React.Component<DebugPanelProps, any> { }
+    export class DebugPanel extends React.Component<DebugPanelProps, void> { }
 
     export interface DebugPanelProps {
         position?: string;
@@ -52,10 +52,10 @@ declare module "redux-devtools/lib/react" {
         getStyle?: () => DebugPanelProps;
     }
 
-    export class LogMonitor extends React.Component<LogMonitorProps, any> { }
+    export class LogMonitor<S> extends React.Component<LogMonitorProps<S>, void> { }
 
-    export interface LogMonitorProps {
-        computedStates?: ComputedState[];
+    export interface LogMonitorProps<S> {
+        computedStates?: ComputedState<S>[];
         currentStateIndex?: number;
         monitorState?: MonitorState;
         stagedActions?: Action[];
@@ -72,13 +72,13 @@ declare module "redux-devtools/lib/react" {
         theme?: Theme|string;
     }
 
-    export interface ComputedState {
-        state?: any;
+    export interface ComputedState<T> {
+        state?: T;
         error?: string;
     }
 
     export interface MonitorState {
-        isViaible?: boolean;
+        isViable?: boolean;
     }
 
     export interface Action {
@@ -106,4 +106,3 @@ declare module "redux-devtools/lib/react" {
         base0F: string;
     }
 }
-
