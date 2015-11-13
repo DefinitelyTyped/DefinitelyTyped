@@ -16,7 +16,7 @@ Include a line like this:
 
 ## Contributions
 
-DefinitelyTyped only works because of contributions by users like you! 
+DefinitelyTyped only works because of contributions by users like you!
 
 Please see the [contribution guide](http://definitelytyped.org/guides/contributing.html) on how to contribute to DefinitelyTyped.
 
@@ -34,7 +34,7 @@ Please see the [contribution guide](http://definitelytyped.org/guides/contributi
 
 Here is are the [currently requested definitions](https://github.com/borisyankov/DefinitelyTyped/labels/Definition%3ARequest).
 
-## Licence
+## License
 
 This project is licensed under the MIT license.
 

@@ -22,6 +22,7 @@ declare module drop {
         content?: Element | string | ((drop?: Drop) => string) | ((drop?: Drop) => Element);
         position?: string;
         openOn?: string;
+        classes?: string;
         constrainToWindow?: boolean;
         constrainToScrollParent?: boolean;
         remove?: boolean;

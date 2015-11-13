@@ -1,3 +1,5 @@
+/// <reference path="./passport-google-oauth.d.ts" />
+
 /**
  * Created by jcabresos on 4/19/2014.
  */

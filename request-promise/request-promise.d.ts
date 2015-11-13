@@ -1,29 +1,30 @@
 // Type definitions for request-promise v0.4.2
 // Project: https://www.npmjs.com/package/request-promise
-// Definitions by: Christopher Glantschnig <https://github.com/cglantschnig/>
+// Definitions by: Christopher Glantschnig <https://github.com/cglantschnig/>, Joe Skeen <http://github.com/joeskeen>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../form-data/form-data.d.ts" />
+// Change [0]: 2015/08/20 - Aya Morisawa <https://github.com/AyaMorisawa>
+
 /// <reference path="../request/request.d.ts" />
 /// <reference path="../bluebird/bluebird.d.ts" />
 
 declare module 'request-promise' {
     import request = require('request');
-    import stream = require('stream');
     import http = require('http');
-    import FormData = require('form-data');
-
-    export = RequestPromiseAPI;
-
-    function RequestPromiseAPI(options: RequestPromiseAPI.Options): Promise<any>;
-    function RequestPromiseAPI(uri: string): Promise<request.Request>;
-
-    module RequestPromiseAPI {
-        export interface Options extends request.Options {
-            simple?: boolean;
-            transform?: (body: any, response: http.IncomingMessage) => number;
-            resolveWithFullResponse?: boolean;
-        }
+        
+    interface RequestPromise extends request.Request {
+        then(onFulfilled: Function, onRejected?: Function): Promise<any>;
+        catch(onRejected: Function): Promise<any>;
+        finally(onFinished: Function): Promise<any>;
+        promise(): Promise<any>;
     }
+    
+    interface RequestPromiseOptions extends request.OptionalOptions {
+        simple?: boolean;
+        transform?: (body: any, response: http.IncomingMessage) => any;
+        resolveWithFullResponse?: boolean;
+    }
+    
+    var requestPromise: request.RequestAPI<RequestPromise, RequestPromiseOptions>;
+	export = requestPromise;
 }

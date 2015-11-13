@@ -185,6 +185,10 @@ interface JQueryXHR extends XMLHttpRequest, JQueryPromise<any> {
      * Property containing the parsed response if the response Content-Type is json
      */
     responseJSON?: any;
+    /**
+     * A function to be called if the request fails.
+     */
+    error(xhr: JQueryXHR, textStatus: string, errorThrown: string): void;
 }
 
 /**
@@ -237,7 +241,7 @@ interface JQueryCallback {
      * @param context A reference to the context in which the callbacks in the list should be fired.
      * @param arguments An argument, or array of arguments, to pass to the callbacks in the list.
      */
-    fireWith(context?: any, ...args: any[]): JQueryCallback;
+    fireWith(context?: any, args?: any[]): JQueryCallback;
 
     /**
      * Determine whether a supplied callback is in a list
@@ -391,7 +395,7 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param context Context passed to the progressCallbacks as the this object.
      * @param args Optional arguments that are passed to the progressCallbacks.
      */
-    notifyWith(context: any, value?: any, ...args: any[]): JQueryDeferred<T>;
+    notifyWith(context: any, value?: any[]): JQueryDeferred<T>;
 
     /**
      * Reject a Deferred object and call any failCallbacks with the given args.
@@ -405,7 +409,7 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param context Context passed to the failCallbacks as the this object.
      * @param args An optional array of arguments that are passed to the failCallbacks.
      */
-    rejectWith(context: any, value?: any, ...args: any[]): JQueryDeferred<T>;
+    rejectWith(context: any, value?: any[]): JQueryDeferred<T>;
 
     /**
      * Resolve a Deferred object and call any doneCallbacks with the given args.
@@ -421,7 +425,7 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param context Context passed to the doneCallbacks as the this object.
      * @param args An optional array of arguments that are passed to the doneCallbacks.
      */
-    resolveWith(context: any, value?: T, ...args: any[]): JQueryDeferred<T>;
+    resolveWith(context: any, value?: T[]): JQueryDeferred<T>;
 
     /**
      * Return a Deferred's Promise object.
@@ -1359,9 +1363,9 @@ interface JQuery {
     /**
      * Set the value of each element in the set of matched elements.
      *
-     * @param value A string of text or an array of strings corresponding to the value of each matched element to set as selected/checked.
+     * @param value A string of text, an array of strings or number corresponding to the value of each matched element to set as selected/checked.
      */
-    val(value: string|string[]): JQuery;
+    val(value: string|string[]|number): JQuery;
     /**
      * Set the value of each element in the set of matched elements.
      *
@@ -1542,17 +1546,17 @@ interface JQuery {
      */
     data(key: string, value: any): JQuery;
     /**
-     * Store arbitrary data associated with the matched elements.
-     *
-     * @param obj An object of key-value pairs of data to update.
-     */
-    data(obj: { [key: string]: any; }): JQuery;
-    /**
      * Return the value at the named data store for the first element in the jQuery collection, as set by data(name, value) or by an HTML5 data-* attribute.
      *
      * @param key Name of the data stored.
      */
     data(key: string): any;
+    /**
+     * Store arbitrary data associated with the matched elements.
+     *
+     * @param obj An object of key-value pairs of data to update.
+     */
+    data(obj: { [key: string]: any; }): JQuery;
     /**
      * Return the value at the named data store for the first element in the jQuery collection, as set by data(name, value) or by an HTML5 data-* attribute.
      */
@@ -1577,6 +1581,10 @@ interface JQuery {
      * @param list An array of strings naming the pieces of data to delete.
      */
     removeData(list: string[]): JQuery;
+    /**
+     * Remove all previously-stored piece of data.
+     */
+    removeData(): JQuery;
 
     /**
      * Return a Promise object to observe when all actions of a certain type bound to the collection, queued or not, have finished.
@@ -1995,6 +2003,10 @@ interface JQuery {
     focus(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
+     * Trigger the "focusin" event on an element.
+     */
+    focusin(): JQuery;
+    /**
      * Bind an event handler to the "focusin" JavaScript event
      *
      * @param handler A function to execute each time the event is triggered.
@@ -2008,6 +2020,10 @@ interface JQuery {
      */
     focusin(eventData: Object, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
+    /**
+     * Trigger the "focusout" event on an element.
+     */
+    focusout(): JQuery;
     /**
      * Bind an event handler to the "focusout" JavaScript event
      *
@@ -3034,7 +3050,7 @@ interface JQuery {
      * 
      * @param elements One or more DOM elements to remove from the matched set.
      */
-    not(...elements: Element[]): JQuery;
+    not(elements: Element|Element[]): JQuery;
     /**
      * Remove elements from the set of matched elements.
      * 

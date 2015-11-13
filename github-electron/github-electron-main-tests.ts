@@ -35,6 +35,21 @@ app.on('window-all-closed', () => {
 		app.quit();
 });
 
+// Check single instance app
+var shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) {
+  // Someone tried to run a second instance, we should focus our window
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+  }
+  return true;
+});
+
+if (shouldQuit) {
+  app.quit();
+  process.exit(0);
+}
+
 // This method will be called when Electron has done everything
 // initialization and ready for creating browser windows.
 app.on('ready', () => {
@@ -43,7 +58,12 @@ app.on('ready', () => {
 
 	// and load the index.html of the app.
 	mainWindow.loadUrl(`file://${__dirname}/index.html`);
+	mainWindow.loadUrl('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
+	mainWindow.webContents.loadUrl('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
 
+	mainWindow.openDevTools()
+	var opened: boolean = mainWindow.isDevToolsOpened()
+	mainWindow.toggleDevTools()
 	// Emitted when the window is closed.
 	mainWindow.on('closed', () => {
 		// Dereference the window object, usually you would store windows
@@ -51,6 +71,35 @@ app.on('ready', () => {
 		// when you should delete the corresponding element.
 		mainWindow = null;
 	});
+
+	mainWindow.print({silent: true, printBackground: false});
+	mainWindow.webContents.print({silent: true, printBackground: false});
+	mainWindow.print();
+	mainWindow.webContents.print();
+
+	mainWindow.print({silent: true, printBackground: false});
+	mainWindow.webContents.print({silent: true, printBackground: false});
+	mainWindow.print();
+	mainWindow.webContents.print();
+
+	mainWindow.printToPDF({
+		marginsType: 1,
+		pageSize: 'A3',
+		printBackground: true,
+		printSelectionOnly: true,
+		landscape: true,
+	}, (error: Error, data: Buffer) => {});
+
+	mainWindow.webContents.printToPDF({
+		marginsType: 1,
+		pageSize: 'A3',
+		printBackground: true,
+		printSelectionOnly: true,
+		landscape: true,
+	}, (error: Error, data: Buffer) => {});
+
+	mainWindow.printToPDF({}, (err, data) => {});
+	mainWindow.webContents.printToPDF({}, (err, data) => {});
 });
 
 // Desktop environment integration
@@ -111,7 +160,11 @@ ipc.on('online-status-changed', (event: any, status: any) => {
 // https://github.com/atom/electron/blob/master/docs/api/synopsis.md
 
 app.on('ready', () => {
-	window = new BrowserWindow({ width: 800, height: 600 });
+	window = new BrowserWindow({
+		width: 800,
+		height: 600, 
+		'title-bar-style': 'hidden-inset',
+	});
 	window.loadUrl('https://github.com');
 });
 
@@ -377,6 +430,7 @@ app.on('ready', () => {
 	]);
 	appIcon.setToolTip('This is my application.');
 	appIcon.setContextMenu(contextMenu);
+	appIcon.setImage('/path/to/new/icon');
 });
 
 // clipboard
