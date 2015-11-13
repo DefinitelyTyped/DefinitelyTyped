@@ -18,4 +18,3 @@ declare module "redux-thunk" {
 
     export default thunk;
 }
-
