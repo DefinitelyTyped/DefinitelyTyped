@@ -5488,14 +5488,41 @@ interface TestPickFn {
 }
 
 // _.set
-{
-    let testSetObject: TResult;
-    let testSetPath: {toSting(): string};
-    let result: TResult;
-    result = _.set(testSetObject, testSetPath, any);
-    result = _.set(testSetObject, [testSetPath], any);
-    result = _(testSetObject).set(testSetPath, any).value();
-    result = _(testSetObject).set([testSetPath], any).value();
+module TestSet {
+    type SampleValue = {a: number; b: string; c: boolean;};
+
+    let object: TResult;
+    let value = {a: 1, b: '', c: true};
+
+    {
+        let result: TResult;
+
+        result = _.set(object, '', any);
+        result = _.set(object, ['a', 'b', 1], any);
+
+        result = _.set<SampleValue>(object, '', value);
+        result = _.set<SampleValue>(object, ['a', 'b', 1], value);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<TResult>;
+
+        result = _(object).set('', any);
+        result = _(object).set(['a', 'b', 1], any);
+
+        result = _(object).set<SampleValue>('', value);
+        result = _(object).set<SampleValue>(['a', 'b', 1], value);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<TResult>;
+
+        result = _(object).chain().set('', any);
+        result = _(object).chain().set(['a', 'b', 1], any);
+
+        result = _(object).chain().set<SampleValue>('', value);
+        result = _(object).chain().set<SampleValue>(['a', 'b', 1], value);
+    }
 }
 
 // _.transform
