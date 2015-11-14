@@ -12,3 +12,4 @@
 /// <reference path="deviceMotion.d.ts"/>
 /// <reference path="deviceOrientation.d.ts"/>
 /// <reference path="appAvailability.d.ts"/>
+/// <reference path="datepicker.d.ts"/>
