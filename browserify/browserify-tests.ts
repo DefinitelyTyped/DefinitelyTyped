@@ -1,12 +1,18 @@
 /// <reference path="browserify.d.ts"/>
 
-import browserify = require("browserify");
-import fs = require("fs");
+var stream = require('stream');
+var browserify = require('browserify');
 
-var b: BrowserifyObject = browserify();
-b.add('./browser/main.js');
-b.transform('deamdify');
-b.bundle().pipe(fs.createWriteStream('bundle.js'));
+var b: BrowserifyObject = browserify('./browser/main.js', {
+  noParse: ['jquery'],
+  debug: true,
+  foo: 'bar'
+});
+b.add('./browser/other.js');
+b.transform(function(file: string): NodeJS.ReadWriteStream {
+  return new stream.PassThrough();
+});
 
-var customBrowsify: Browserify = require("browserify");
-customBrowsify({entries: []});
+var record_pipeline = b.pipeline.get('record');
+
+b.bundle().pipe(process.stdout);
