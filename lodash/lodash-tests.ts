@@ -3927,17 +3927,37 @@ result = <string[]>(_.rearg<TestReargResultFn>(testReargFn, [2, 0, 1]))('b', 'c'
 result = <string[]>(_(testReargFn).rearg<TestReargResultFn>(2, 0, 1).value())('b', 'c', 'a');
 result = <string[]>(_(testReargFn).rearg<TestReargResultFn>([2, 0, 1]).value())('b', 'c', 'a');
 
-//_.restParam
-var testRestParamFn = (a: string, b: string, c: number[]) => a + ' ' + b + ' ' + c.join(' ');
-interface testRestParamFunc {
-    (a: string, b: string, c: number[]): string;
+// _.restParam
+module TestRestParam {
+    type Func = (a: string, b: number[]) => boolean;
+    type ResultFunc = (a: string, ...b: number[]) => boolean;
+
+    let func: Func;
+
+    {
+        let result: ResultFunc;
+
+        result = _.restParam<ResultFunc>(func);
+        result = _.restParam<ResultFunc>(func, 1);
+
+        result = _.restParam<ResultFunc, Func>(func);
+        result = _.restParam<ResultFunc, Func>(func, 1);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<ResultFunc>;
+
+        result = _(func).restParam<ResultFunc>();
+        result = _(func).restParam<ResultFunc>(1);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<ResultFunc>;
+
+        result = _(func).chain().restParam<ResultFunc>();
+        result = _(func).chain().restParam<ResultFunc>(1);
+    }
 }
-interface testRestParamResult {
-    (a: string, b: string, ...c: number[]): string;
-}
-result = <string>(_.restParam<testRestParamResult, testRestParamFunc>(testRestParamFn, 2))('a', 'b', 1, 2, 3);
-result = <string>(_.restParam<testRestParamResult>(testRestParamFn, 2))('a', 'b', 1, 2, 3);
-result = <string>(_(testRestParamFn).restParam<testRestParamResult>(2).value())('a', 'b', 1, 2, 3);
 
 //_.spread
 var testSpreadFn = (who: string, what: string) => who + ' says ' + what;
