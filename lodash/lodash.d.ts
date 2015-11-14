@@ -10622,16 +10622,35 @@ declare module _ {
             path: StringRepresentable|StringRepresentable[],
             value: any
         ): T;
+
+        /**
+         * @see _.set
+         */
+        set<V, T>(
+            object: T,
+            path: StringRepresentable|StringRepresentable[],
+            value: V
+        ): T;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.set
          */
-        set(
+        set<V>(
             path: StringRepresentable|StringRepresentable[],
-            value: any
+            value: V
         ): LoDashImplicitObjectWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.set
+         */
+        set<V>(
+            path: StringRepresentable|StringRepresentable[],
+            value: V
+        ): LoDashExplicitObjectWrapper<T>;
     }
 
     //_.transform
