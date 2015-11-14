@@ -884,49 +884,7 @@ declare namespace  ReactNative {
         reload: () => void
     }
 
-    /**
-     * @see https://facebook.github.io/react-native/docs/activityindicatorios.html#props
-     */
-    export interface AlertIOSProperties {
-        /**
-         * animating bool
-         *
-         * Whether to show the indicator (true, the default) or hide it (false).
-         */
-        animating?: boolean;
 
-        /**
-         * color string
-         *
-         * The foreground color of the spinner (default is gray).
-         */
-
-        color?: string;
-
-        /**
-         * hidesWhenStopped bool
-         *
-         * Whether the indicator should hide when not animating (true by default).
-         */
-
-        hidesWhenStopped?: boolean;
-
-        /**
-         * onLayout function
-         *
-         * Invoked on mount and layout changes with
-         *
-         * {nativeEvent: { layout: {x, y, width, height}}}.
-         */
-        onLayout?: ( event: LayoutChangeEvent ) => void;
-
-        /**
-         * size enum('small', 'large')
-         *
-         * Size of the indicator. Small has a height of 20, large has a height of 36.
-         */
-        size: string; // enum('small', 'large')
-    }
 
     /**
      * @see
@@ -2764,13 +2722,83 @@ declare namespace  ReactNative {
         zoomScale: number;
     }
 
+
+    //////////////////////////////////////////////////////////////////////////
+    //
+    // A P I s
+    //
+    //////////////////////////////////////////////////////////////////////////
+
+    /**
+     * //FIXME: no documentation - inferred from RCTACtionSheetManager.m
+     */
+    export interface ActionSheetIOSOptions {
+        title?: string
+        options?: string[]
+        cancelButtonIndex?: number
+        destructiveButtonIndex?: number
+    }
+
+    /**
+     * //FIXME: no documentation - inferred from RCTACtionSheetManager.m
+     */
+    export interface ShareActionSheetIOSOptions {
+        message?: string
+        url?: string
+    }
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/actionsheetios.html#content
+     * //FIXME: no documentation - inferred from RCTACtionSheetManager.m
+     */
+    export interface ActionSheetIOSStatic {
+        showActionSheetWithOptions: (options: ActionSheetIOSOptions, callback: (buttonIndex: number) => void ) => void
+        showShareActionSheetWithOptions: (options: ShareActionSheetIOSOptions, failureCallback: (error: Error) => void, successCallback: (success: boolean, method: string) => void ) => void
+    }
+
+
+    /**
+     * //FIXME: No documentation - inferred from RCTAdSupport.m
+     */
+    export interface AdSupportIOSStatic {
+        getAdvertisingId: (onSuccess: (deviceId: string) => void, onFailure: (err: Error) => void) => void
+        getAdvertisingTrackingEnabled: (onSuccess: (hasTracking: boolean) => void, onFailure: (err: Error) => void) => void
+    }
+
+    interface AlertIOSButton {
+        text: string
+        onPress?: () => void
+    }
+
+    /**
+     * Launches an alert dialog with the specified title and message.
+     *
+     * Optionally provide a list of buttons.
+     * Tapping any button will fire the respective onPress callback and dismiss the alert.
+     * By default, the only button will be an 'OK' button
+     *
+     * The last button in the list will be considered the 'Primary' button and it will appear bold.
+     *
+     * @see https://facebook.github.io/react-native/docs/alertios.html#content
+     */
+    export interface AlertIOSStatic {
+        alert: (title: string, message?: string, buttons?: Array<AlertIOSButton>, type?: string) => void
+        prompt: (title: string, value?: string, buttons?: Array<AlertIOSButton>, callback?: (value?: string) => void) => void
+    }
+
+
     export interface AppStateIOSStatic {
         currentState: string;
         addEventListener( type: string, listener: ( state: string ) => void ): void;
         removeEventListener( type: string, listener: ( state: string ) => void ): void;
     }
 
-    // exported singletons:
+    //////////////////////////////////////////////////////////////////////////
+    //
+    //  R E - E X P O R T S
+    //
+    //////////////////////////////////////////////////////////////////////////
+
     // export var AppRegistry: AppRegistryStatic;
 
 
@@ -2847,7 +2875,16 @@ declare namespace  ReactNative {
     export type WebView = WebViewStatic
 
 
-    export var AlertIOS: React.ComponentClass<AlertIOSProperties>;
+    //////////// APIS //////////////
+    export var ActionSheetIOS: ActionSheetIOSStatic
+    export type ActionSheetIOS = ActionSheetIOSStatic
+
+    export var AdSupportIOS: AdSupportIOSStatic
+    export type AdSupportIOS = AdSupportIOSStatic
+
+    export var AlertIOS: AlertIOSStatic
+    export type AlertIOS = AlertIOSStatic
+
     export var SegmentedControlIOS: React.ComponentClass<SegmentedControlIOSProperties>;
 
     export var PixelRatio: PixelRatioStatic;
