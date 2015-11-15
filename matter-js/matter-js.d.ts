@@ -1,6 +1,6 @@
 // Type definitions for Matter.js 0.8.0
 // Project: https://github.com/liabru/matter-js
-// Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>
+// Definitions by: Ivane Gegia <http://ivane.info>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
