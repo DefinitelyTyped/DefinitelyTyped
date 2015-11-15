@@ -1,7 +1,6 @@
 /// <reference path='knex.d.ts' />
-/// <reference path='../lodash/lodash.d.ts' />
+/// <reference path='../lodash/lodash-global.d.ts' />
 import Knex = require('knex');
-import _ = require('lodash');
 'use strict';
 // Initializing the Library
 var knex = Knex({

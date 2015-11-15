@@ -1,6 +1,4 @@
-/// <reference path="lodash.d.ts" />
-
-import {_} from "lodash";
+/// <reference path="lodash-global.d.ts" />
 
 declare var $: any, jQuery: any;
 
@@ -152,184 +150,81 @@ result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
 module TestChunk {
     let array: TResult[];
     let list: _.List<TResult>;
-
-    {
-        let result: TResult[][];
-
-        result = _.chunk<TResult>(array);
-        result = _.chunk<TResult>(array, 42);
-
-        result = _.chunk<TResult>(list);
-        result = _.chunk<TResult>(list, 42);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult[]>;
-
-        result = _(array).chunk();
-        result = _(array).chunk(42);
-
-        result = _(list).chunk<TResult>();
-        result = _(list).chunk<TResult>(42);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult[]>;
-
-        result = _(array).chain().chunk();
-        result = _(array).chain().chunk(42);
-
-        result = _(list).chain().chunk<TResult>();
-        result = _(list).chain().chunk<TResult>(42);
-    }
+    let result: TResult[][];
+    result = _.chunk<TResult>(array);
+    result = _.chunk<TResult>(array, 42);
+    result = _.chunk<TResult>(list);
+    result = _.chunk<TResult>(list, 42);
+    result = _(array).chunk().value();
+    result = _(array).chunk(42).value();
+    result = _(list).chunk<TResult>().value();
+    result = _(list).chunk<TResult>(42).value();
 }
 
 // _.compact
 module TestCompact {
     let array: TResult[];
     let list: _.List<TResult>;
+    let result: TResult[];
 
-    {
-        let result: TResult[];
-
-        result = _.compact<TResult>();
-        result = _.compact<TResult>(array);
-        result = _.compact<TResult>(list);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _<TResult>(array).compact();
-        result = _(list).compact<TResult>();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _<TResult>(array).chain().compact();
-        result = _(list).chain().compact<TResult>();
-    }
+    result = _.compact<TResult>();
+    result = _.compact<TResult>(array);
+    result = _.compact<TResult>(list);
+    result = _<TResult>(array).compact().value();
+    result = _(list).compact<TResult>().value();
 }
 
 // _.difference
-module TestDifference {
-    let array: TResult[];
-    let list: _.List<TResult>;
-
-    {
-        let result: TResult[];
-
-        result = _.difference<TResult>(array);
-        result = _.difference<TResult>(array, array);
-        result = _.difference<TResult>(array, list, array);
-        result = _.difference<TResult>(array, array, list, array);
-
-        result = _.difference<TResult>(list);
-        result = _.difference<TResult>(list, list);
-        result = _.difference<TResult>(list, array, list);
-        result = _.difference<TResult>(list, list, array, list);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).difference();
-        result = _(array).difference(array);
-        result = _(array).difference(list, array);
-        result = _(array).difference(array, list, array);
-
-        result = _(list).difference<TResult>();
-        result = _(list).difference<TResult>(list);
-        result = _(list).difference<TResult>(array, list);
-        result = _(list).difference<TResult>(list, array, list);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().difference();
-        result = _(array).chain().difference(array);
-        result = _(array).chain().difference(list, array);
-        result = _(array).chain().difference(array, list, array);
-
-        result = _(list).chain().difference<TResult>();
-        result = _(list).chain().difference<TResult>(list);
-        result = _(list).chain().difference<TResult>(array, list);
-        result = _(list).chain().difference<TResult>(list, array, list);
-    }
+{
+    let testDifferenceArray: TResult[];
+    let testDifferenceList: _.List<TResult>;
+    let result: TResult[];
+    result = _.difference<TResult>(testDifferenceArray);
+    result = _.difference<TResult>(testDifferenceArray, testDifferenceArray);
+    result = _.difference<TResult>(testDifferenceArray, testDifferenceList, testDifferenceArray);
+    result = _.difference<TResult>(testDifferenceArray, testDifferenceArray, testDifferenceList, testDifferenceArray);
+    result = _.difference<TResult>(testDifferenceList);
+    result = _.difference<TResult>(testDifferenceList, testDifferenceList);
+    result = _.difference<TResult>(testDifferenceList, testDifferenceArray, testDifferenceList);
+    result = _.difference<TResult>(testDifferenceList, testDifferenceList, testDifferenceArray, testDifferenceList);
+    result = _(testDifferenceArray).difference().value();
+    result = _(testDifferenceArray).difference(testDifferenceArray).value();
+    result = _(testDifferenceArray).difference(testDifferenceList, testDifferenceArray).value();
+    result = _(testDifferenceArray).difference(testDifferenceArray, testDifferenceList, testDifferenceArray).value();
+    result = _(testDifferenceList).difference<TResult>().value();
+    result = _(testDifferenceList).difference<TResult>(testDifferenceList).value();
+    result = _(testDifferenceList).difference<TResult>(testDifferenceArray, testDifferenceList).value();
+    result = _(testDifferenceList).difference<TResult>(testDifferenceList, testDifferenceArray, testDifferenceList).value();
 }
 
 // _.drop
 {
-    let array: TResult[];
-    let list: _.List<TResult>;
-
-    {
-        let result: TResult[];
-        result = _.drop<TResult>(array);
-        result = _.drop<TResult>(array, 42);
-
-        result = _.drop<TResult>(list);
-        result = _.drop<TResult>(list, 42);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).drop();
-        result = _(array).drop(42);
-
-        result = _(list).drop<TResult>();
-        result = _(list).drop<TResult>(42);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().drop();
-        result = _(array).chain().drop(42);
-
-        result = _(list).chain().drop<TResult>();
-        result = _(list).chain().drop<TResult>(42);
-    }
+    let testDropArray: TResult[];
+    let testDropList: _.List<TResult>;
+    let result: TResult[];
+    result = _.drop<TResult>(testDropArray);
+    result = _.drop<TResult>(testDropArray, 42);
+    result = _.drop<TResult>(testDropList);
+    result = _.drop<TResult>(testDropList, 42);
+    result = _(testDropArray).drop().value();
+    result = _(testDropArray).drop(42).value();
+    result = _(testDropList).drop<TResult>().value();
+    result = _(testDropList).drop<TResult>(42).value();
 }
 
 // _.dropRight
 module TestDropRight {
     let array: TResult[];
     let list: _.List<TResult>;
-
-    {
-        let result: TResult[];
-
-        result = _.dropRight<TResult>(array);
-        result = _.dropRight<TResult>(array, 42);
-
-        result = _.dropRight<TResult>(list);
-        result = _.dropRight<TResult>(list, 42);
-
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).dropRight();
-        result = _(array).dropRight(42);
-
-        result = _(list).dropRight<TResult>();
-        result = _(list).dropRight<TResult>(42);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().dropRight();
-        result = _(array).chain().dropRight(42);
-
-        result = _(list).chain().dropRight<TResult>();
-        result = _(list).chain().dropRight<TResult>(42);
-    }
+    let result: TResult[];
+    result = _.dropRight<TResult>(array);
+    result = _.dropRight<TResult>(array, 42);
+    result = _.dropRight<TResult>(list);
+    result = _.dropRight<TResult>(list, 42);
+    result = _(array).dropRight().value();
+    result = _(array).dropRight(42).value();
+    result = _(list).dropRight<TResult>().value();
+    result = _(list).dropRight<TResult>(42).value();
 }
 
 // _.dropRightWhile
@@ -337,60 +232,35 @@ module TestDropRightWhile {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
+    let result: TResult[];
 
-    {
-        let result: TResult[];
+    result = _.dropRightWhile<TResult>(array);
+    result = _.dropRightWhile<TResult>(array, predicateFn);
+    result = _.dropRightWhile<TResult>(array, predicateFn, any);
+    result = _.dropRightWhile<TResult>(array, '');
+    result = _.dropRightWhile<TResult>(array, '', any);
+    result = _.dropRightWhile<{a: number;}, TResult>(array, {a: 42});
 
-        result = _.dropRightWhile<TResult>(array);
-        result = _.dropRightWhile<TResult>(array, predicateFn);
-        result = _.dropRightWhile<TResult>(array, predicateFn, any);
-        result = _.dropRightWhile<TResult>(array, '');
-        result = _.dropRightWhile<TResult>(array, '', any);
-        result = _.dropRightWhile<{a: number;}, TResult>(array, {a: 42});
+    result = _.dropRightWhile<TResult>(list);
+    result = _.dropRightWhile<TResult>(list, predicateFn);
+    result = _.dropRightWhile<TResult>(list, predicateFn, any);
+    result = _.dropRightWhile<TResult>(list, '');
+    result = _.dropRightWhile<TResult>(list, '', any);
+    result = _.dropRightWhile<{a: number;}, TResult>(list, {a: 42});
 
-        result = _.dropRightWhile<TResult>(list);
-        result = _.dropRightWhile<TResult>(list, predicateFn);
-        result = _.dropRightWhile<TResult>(list, predicateFn, any);
-        result = _.dropRightWhile<TResult>(list, '');
-        result = _.dropRightWhile<TResult>(list, '', any);
-        result = _.dropRightWhile<{a: number;}, TResult>(list, {a: 42});
-    }
+    result = _(array).dropRightWhile().value();
+    result = _(array).dropRightWhile(predicateFn).value();
+    result = _(array).dropRightWhile(predicateFn, any).value();
+    result = _(array).dropRightWhile('').value();
+    result = _(array).dropRightWhile('', any).value();
+    result = _(array).dropRightWhile<{a: number;}>({a: 42}).value();
 
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).dropRightWhile();
-        result = _(array).dropRightWhile(predicateFn);
-        result = _(array).dropRightWhile(predicateFn, any);
-        result = _(array).dropRightWhile('');
-        result = _(array).dropRightWhile('', any);
-        result = _(array).dropRightWhile<{a: number;}>({a: 42});
-
-        result = _(list).dropRightWhile<TResult>();
-        result = _(list).dropRightWhile<TResult>(predicateFn);
-        result = _(list).dropRightWhile<TResult>(predicateFn, any);
-        result = _(list).dropRightWhile<TResult>('');
-        result = _(list).dropRightWhile<TResult>('', any);
-        result = _(list).dropRightWhile<{a: number;}, TResult>({a: 42});
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().dropRightWhile();
-        result = _(array).chain().dropRightWhile(predicateFn);
-        result = _(array).chain().dropRightWhile(predicateFn, any);
-        result = _(array).chain().dropRightWhile('');
-        result = _(array).chain().dropRightWhile('', any);
-        result = _(array).chain().dropRightWhile<{a: number;}>({a: 42});
-
-        result = _(list).chain().dropRightWhile<TResult>();
-        result = _(list).chain().dropRightWhile<TResult>(predicateFn);
-        result = _(list).chain().dropRightWhile<TResult>(predicateFn, any);
-        result = _(list).chain().dropRightWhile<TResult>('');
-        result = _(list).chain().dropRightWhile<TResult>('', any);
-        result = _(list).chain().dropRightWhile<{a: number;}, TResult>({a: 42});
-    }
+    result = _(list).dropRightWhile<TResult>().value();
+    result = _(list).dropRightWhile<TResult>(predicateFn).value();
+    result = _(list).dropRightWhile<TResult>(predicateFn, any).value();
+    result = _(list).dropRightWhile<TResult>('').value();
+    result = _(list).dropRightWhile<TResult>('', any).value();
+    result = _(list).dropRightWhile<{a: number;}, TResult>({a: 42}).value();
 }
 
 // _.dropWhile
@@ -398,60 +268,35 @@ module TestDropWhile {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
+    let result: TResult[];
 
-    {
-        let result: TResult[];
+    result = _.dropWhile<TResult>(array);
+    result = _.dropWhile<TResult>(array, predicateFn);
+    result = _.dropWhile<TResult>(array, predicateFn, any);
+    result = _.dropWhile<TResult>(array, '');
+    result = _.dropWhile<TResult>(array, '', any);
+    result = _.dropWhile<{a: number;}, TResult>(array, {a: 42});
 
-        result = _.dropWhile<TResult>(array);
-        result = _.dropWhile<TResult>(array, predicateFn);
-        result = _.dropWhile<TResult>(array, predicateFn, any);
-        result = _.dropWhile<TResult>(array, '');
-        result = _.dropWhile<TResult>(array, '', any);
-        result = _.dropWhile<{a: number;}, TResult>(array, {a: 42});
+    result = _.dropWhile<TResult>(list);
+    result = _.dropWhile<TResult>(list, predicateFn);
+    result = _.dropWhile<TResult>(list, predicateFn, any);
+    result = _.dropWhile<TResult>(list, '');
+    result = _.dropWhile<TResult>(list, '', any);
+    result = _.dropWhile<{a: number;}, TResult>(list, {a: 42});
 
-        result = _.dropWhile<TResult>(list);
-        result = _.dropWhile<TResult>(list, predicateFn);
-        result = _.dropWhile<TResult>(list, predicateFn, any);
-        result = _.dropWhile<TResult>(list, '');
-        result = _.dropWhile<TResult>(list, '', any);
-        result = _.dropWhile<{a: number;}, TResult>(list, {a: 42});
-    }
+    result = _(array).dropWhile().value();
+    result = _(array).dropWhile(predicateFn).value();
+    result = _(array).dropWhile(predicateFn, any).value();
+    result = _(array).dropWhile('').value();
+    result = _(array).dropWhile('', any).value();
+    result = _(array).dropWhile<{a: number;}>({a: 42}).value();
 
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).dropWhile();
-        result = _(array).dropWhile(predicateFn);
-        result = _(array).dropWhile(predicateFn, any);
-        result = _(array).dropWhile('');
-        result = _(array).dropWhile('', any);
-        result = _(array).dropWhile<{a: number;}>({a: 42});
-
-        result = _(list).dropWhile<TResult>();
-        result = _(list).dropWhile<TResult>(predicateFn);
-        result = _(list).dropWhile<TResult>(predicateFn, any);
-        result = _(list).dropWhile<TResult>('');
-        result = _(list).dropWhile<TResult>('', any);
-        result = _(list).dropWhile<{a: number;}, TResult>({a: 42});
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().dropWhile();
-        result = _(array).chain().dropWhile(predicateFn);
-        result = _(array).chain().dropWhile(predicateFn, any);
-        result = _(array).chain().dropWhile('');
-        result = _(array).chain().dropWhile('', any);
-        result = _(array).chain().dropWhile<{a: number;}>({a: 42});
-
-        result = _(list).chain().dropWhile<TResult>();
-        result = _(list).chain().dropWhile<TResult>(predicateFn);
-        result = _(list).chain().dropWhile<TResult>(predicateFn, any);
-        result = _(list).chain().dropWhile<TResult>('');
-        result = _(list).chain().dropWhile<TResult>('', any);
-        result = _(list).chain().dropWhile<{a: number;}, TResult>({a: 42});
-    }
+    result = _(list).dropWhile<TResult>().value();
+    result = _(list).dropWhile<TResult>(predicateFn).value();
+    result = _(list).dropWhile<TResult>(predicateFn, any).value();
+    result = _(list).dropWhile<TResult>('').value();
+    result = _(list).dropWhile<TResult>('', any).value();
+    result = _(list).dropWhile<{a: number;}, TResult>({a: 42}).value();
 }
 
 // _.fill
@@ -468,114 +313,71 @@ module TestFindIndex {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index?: number, collection?: _.List<TResult>) => boolean;
+    let result: number;
 
-    {
-        let result: number;
+    result = _.findIndex<TResult>(array);
+    result = _.findIndex<TResult>(array, predicateFn);
+    result = _.findIndex<TResult>(array, predicateFn, any);
+    result = _.findIndex<TResult>(array, '');
+    result = _.findIndex<TResult>(array, '', any);
+    result = _.findIndex<{a: number}, TResult>(array, {a: 42});
 
-        result = _.findIndex<TResult>(array);
-        result = _.findIndex<TResult>(array, predicateFn);
-        result = _.findIndex<TResult>(array, predicateFn, any);
-        result = _.findIndex<TResult>(array, '');
-        result = _.findIndex<TResult>(array, '', any);
-        result = _.findIndex<{a: number}, TResult>(array, {a: 42});
+    result = _.findIndex<TResult>(list);
+    result = _.findIndex<TResult>(list, predicateFn);
+    result = _.findIndex<TResult>(list, predicateFn, any);
+    result = _.findIndex<TResult>(list, '');
+    result = _.findIndex<TResult>(list, '', any);
+    result = _.findIndex<{a: number}, TResult>(list, {a: 42});
 
-        result = _.findIndex<TResult>(list);
-        result = _.findIndex<TResult>(list, predicateFn);
-        result = _.findIndex<TResult>(list, predicateFn, any);
-        result = _.findIndex<TResult>(list, '');
-        result = _.findIndex<TResult>(list, '', any);
-        result = _.findIndex<{a: number}, TResult>(list, {a: 42});
+    result = _<TResult>(array).findIndex();
+    result = _<TResult>(array).findIndex(predicateFn);
+    result = _<TResult>(array).findIndex(predicateFn, any);
+    result = _<TResult>(array).findIndex('');
+    result = _<TResult>(array).findIndex('', any);
+    result = _<TResult>(array).findIndex<{a: number}>({a: 42});
 
-        result = _<TResult>(array).findIndex();
-        result = _<TResult>(array).findIndex(predicateFn);
-        result = _<TResult>(array).findIndex(predicateFn, any);
-        result = _<TResult>(array).findIndex('');
-        result = _<TResult>(array).findIndex('', any);
-        result = _<TResult>(array).findIndex<{a: number}>({a: 42});
-
-        result = _(list).findIndex();
-        result = _(list).findIndex<TResult>(predicateFn);
-        result = _(list).findIndex<TResult>(predicateFn, any);
-        result = _(list).findIndex('');
-        result = _(list).findIndex('', any);
-        result = _(list).findIndex<{a: number}>({a: 42});
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<number>;
-
-        result = _<TResult>(array).chain().findIndex();
-        result = _<TResult>(array).chain().findIndex(predicateFn);
-        result = _<TResult>(array).chain().findIndex(predicateFn, any);
-        result = _<TResult>(array).chain().findIndex('');
-        result = _<TResult>(array).chain().findIndex('', any);
-        result = _<TResult>(array).chain().findIndex<{a: number}>({a: 42});
-
-        result = _(list).chain().findIndex();
-        result = _(list).chain().findIndex<TResult>(predicateFn);
-        result = _(list).chain().findIndex<TResult>(predicateFn, any);
-        result = _(list).chain().findIndex('');
-        result = _(list).chain().findIndex('', any);
-        result = _(list).chain().findIndex<{a: number}>({a: 42});
-    }
+    result = _(list).findIndex();
+    result = _(list).findIndex<TResult>(predicateFn);
+    result = _(list).findIndex<TResult>(predicateFn, any);
+    result = _(list).findIndex('');
+    result = _(list).findIndex('', any);
+    result = _(list).findIndex<{a: number}>({a: 42});
 }
 
 // _.findLastIndex
 module TestFindLastIndex {
     let array: TResult[];
     let list: _.List<TResult>;
-
     let predicateFn: (value: TResult, index?: number, collection?: _.List<TResult>) => boolean;
+    let result: number;
 
-    {
-        let result: number;
+    result = _.findLastIndex<TResult>(array);
+    result = _.findLastIndex<TResult>(array, predicateFn);
+    result = _.findLastIndex<TResult>(array, predicateFn, any);
+    result = _.findLastIndex<TResult>(array, '');
+    result = _.findLastIndex<TResult>(array, '', any);
+    result = _.findLastIndex<{a: number}, TResult>(array, {a: 42});
 
-        result = _.findLastIndex<TResult>(array);
-        result = _.findLastIndex<TResult>(array, predicateFn);
-        result = _.findLastIndex<TResult>(array, predicateFn, any);
-        result = _.findLastIndex<TResult>(array, '');
-        result = _.findLastIndex<TResult>(array, '', any);
-        result = _.findLastIndex<{a: number}, TResult>(array, {a: 42});
+    result = _.findLastIndex<TResult>(list);
+    result = _.findLastIndex<TResult>(list, predicateFn);
+    result = _.findLastIndex<TResult>(list, predicateFn, any);
+    result = _.findLastIndex<TResult>(list, '');
+    result = _.findLastIndex<TResult>(list, '', any);
+    result = _.findLastIndex<{a: number}, TResult>(list, {a: 42});
 
-        result = _.findLastIndex<TResult>(list);
-        result = _.findLastIndex<TResult>(list, predicateFn);
-        result = _.findLastIndex<TResult>(list, predicateFn, any);
-        result = _.findLastIndex<TResult>(list, '');
-        result = _.findLastIndex<TResult>(list, '', any);
-        result = _.findLastIndex<{a: number}, TResult>(list, {a: 42});
+    result = _<TResult>(array).findLastIndex();
+    result = _<TResult>(array).findLastIndex(predicateFn);
+    result = _<TResult>(array).findLastIndex(predicateFn, any);
+    result = _<TResult>(array).findLastIndex('');
+    result = _<TResult>(array).findLastIndex('', any);
+    result = _<TResult>(array).findLastIndex<{a: number}>({a: 42});
 
-        result = _<TResult>(array).findLastIndex();
-        result = _<TResult>(array).findLastIndex(predicateFn);
-        result = _<TResult>(array).findLastIndex(predicateFn, any);
-        result = _<TResult>(array).findLastIndex('');
-        result = _<TResult>(array).findLastIndex('', any);
-        result = _<TResult>(array).findLastIndex<{a: number}>({a: 42});
-
-        result = _(list).findLastIndex();
-        result = _(list).findLastIndex<TResult>(predicateFn);
-        result = _(list).findLastIndex<TResult>(predicateFn, any);
-        result = _(list).findLastIndex('');
-        result = _(list).findLastIndex('', any);
-        result = _(list).findLastIndex<{a: number}>({a: 42});
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<number>;
-
-        result = _<TResult>(array).chain().findLastIndex();
-        result = _<TResult>(array).chain().findLastIndex(predicateFn);
-        result = _<TResult>(array).chain().findLastIndex(predicateFn, any);
-        result = _<TResult>(array).chain().findLastIndex('');
-        result = _<TResult>(array).chain().findLastIndex('', any);
-        result = _<TResult>(array).chain().findLastIndex<{a: number}>({a: 42});
-
-        result = _(list).chain().findLastIndex();
-        result = _(list).chain().findLastIndex<TResult>(predicateFn);
-        result = _(list).chain().findLastIndex<TResult>(predicateFn, any);
-        result = _(list).chain().findLastIndex('');
-        result = _(list).chain().findLastIndex('', any);
-        result = _(list).chain().findLastIndex<{a: number}>({a: 42});
-    }
+    result = _(list).findLastIndex();
+    result = _(list).findLastIndex<TResult>(predicateFn);
+    result = _(list).findLastIndex<TResult>(predicateFn, any);
+    result = _(list).findLastIndex('');
+    result = _(list).findLastIndex('', any);
+    result = _(list).findLastIndex<{a: number}>({a: 42});
 }
 
 // _.first
@@ -648,126 +450,55 @@ module TestIndexOf {
     let array: TResult[];
     let list: _.List<TResult>;
     let value: TResult;
-
-    {
-        let result: number;
-
-        result = _.indexOf<TResult>(array, value);
-        result = _.indexOf<TResult>(array, value, true);
-        result = _.indexOf<TResult>(array, value, 42);
-
-        result = _.indexOf<TResult>(list, value);
-        result = _.indexOf<TResult>(list, value, true);
-        result = _.indexOf<TResult>(list, value, 42);
-
-        result = _(array).indexOf(value);
-        result = _(array).indexOf(value, true);
-        result = _(array).indexOf(value, 42);
-
-        result = _(list).indexOf<TResult>(value);
-        result = _(list).indexOf<TResult>(value, true);
-        result = _(list).indexOf<TResult>(value, 42);
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<number>;
-
-        result = _(array).chain().indexOf(value);
-        result = _(array).chain().indexOf(value, true);
-        result = _(array).chain().indexOf(value, 42);
-
-        result = _(list).chain().indexOf<TResult>(value);
-        result = _(list).chain().indexOf<TResult>(value, true);
-        result = _(list).chain().indexOf<TResult>(value, 42);
-    }
+    let result: number;
+    result = _.indexOf<TResult>(array, value);
+    result = _.indexOf<TResult>(array, value, true);
+    result = _.indexOf<TResult>(array, value, 42);
+    result = _.indexOf<TResult>(list, value);
+    result = _.indexOf<TResult>(list, value, true);
+    result = _.indexOf<TResult>(list, value, 42);
+    result = _(array).indexOf(value);
+    result = _(array).indexOf(value, true);
+    result = _(array).indexOf(value, 42);
+    result = _(list).indexOf<TResult>(value);
+    result = _(list).indexOf<TResult>(value, true);
+    result = _(list).indexOf<TResult>(value, 42);
 }
 
 //_.initial
-module TestInitial {
-    let array: TResult[];
-    let list: _.List<TResult>;
-
-    {
-        let result: TResult[];
-
-        result = _.initial<TResult>(array);
-        result = _.initial<TResult>(list);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).initial();
-        result = _(list).initial<TResult>();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().initial();
-        result = _(list).chain().initial<TResult>();
-    }
+{
+    let testInitalArray: TResult[];
+    let testInitalList: _.List<TResult>;
+    let result: TResult[];
+    result = _.initial<TResult>(testInitalArray);
+    result = _.initial<TResult>(testInitalList);
+    result = _(testInitalArray).initial().value();
+    result = _(testInitalList).initial<TResult>().value();
 }
 
 // _.intersection
-module TestIntersection {
-    let array: TResult[];
-    let list: _.List<TResult>;
-
-    {
-        let result: TResult[];
-
-        result = _.intersection<TResult>(array, list);
-        result = _.intersection<TResult>(list, array, list);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).intersection<TResult>(array);
-        result = _(array).intersection<TResult>(list, array);
-
-        result = _(list).intersection<TResult>(array);
-        result = _(list).intersection<TResult>(list, array);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().intersection<TResult>(array);
-        result = _(array).chain().intersection<TResult>(list, array);
-
-        result = _(list).chain().intersection<TResult>(array);
-        result = _(list).chain().intersection<TResult>(list, array);
-    }
+{
+    let testIntersectionArray: TResult[];
+    let testIntersectionList: _.List<TResult>;
+    let result: TResult[];
+    result = _.intersection<TResult>(testIntersectionArray, testIntersectionList);
+    result = _.intersection<TResult>(testIntersectionList, testIntersectionArray, testIntersectionList);
+    result = _(testIntersectionArray).intersection<TResult>(testIntersectionArray).value();
+    result = _(testIntersectionArray).intersection<TResult>(testIntersectionList, testIntersectionArray).value();
+    result = _(testIntersectionList).intersection<TResult>(testIntersectionArray).value();
+    result = _(testIntersectionList).intersection<TResult>(testIntersectionList, testIntersectionArray).value();
 }
 
 // _.last
 module TestLast {
     let array: TResult[];
     let list: _.List<TResult>;
+    let result: TResult;
 
-    {
-        let result: TResult;
-
-        result = _.last<TResult>(array);
-        result = _.last<TResult>(list);
-
-        result = _(array).last();
-        result = _(list).last<TResult>();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().last();
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
-
-        result = _(list).chain().last<_.List<TResult>>();
-    }
+    result = _.last<TResult>(array);
+    result = _.last<TResult>(list);
+    result = _<TResult>(array).last();
+    result = _(list).last<TResult>();
 }
 
 // _.lastIndexOf
@@ -775,38 +506,23 @@ module TestLastIndexOf {
     let array: TResult[];
     let list: _.List<TResult>;
     let value: TResult;
+    let result: number;
 
-    {
-        let result: number;
+    result = _.lastIndexOf<TResult>(array, value);
+    result = _.lastIndexOf<TResult>(array, value, true);
+    result = _.lastIndexOf<TResult>(array, value, 42);
 
-        result = _.lastIndexOf<TResult>(array, value);
-        result = _.lastIndexOf<TResult>(array, value, true);
-        result = _.lastIndexOf<TResult>(array, value, 42);
+    result = _.lastIndexOf<TResult>(list, value);
+    result = _.lastIndexOf<TResult>(list, value, true);
+    result = _.lastIndexOf<TResult>(list, value, 42);
 
-        result = _.lastIndexOf<TResult>(list, value);
-        result = _.lastIndexOf<TResult>(list, value, true);
-        result = _.lastIndexOf<TResult>(list, value, 42);
+    result = _(array).lastIndexOf(value);
+    result = _(array).lastIndexOf(value, true);
+    result = _(array).lastIndexOf(value, 42);
 
-        result = _(array).lastIndexOf(value);
-        result = _(array).lastIndexOf(value, true);
-        result = _(array).lastIndexOf(value, 42);
-
-        result = _(list).lastIndexOf<TResult>(value);
-        result = _(list).lastIndexOf<TResult>(value, true);
-        result = _(list).lastIndexOf<TResult>(value, 42);
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<number>;
-
-        result = _(array).chain().lastIndexOf(value);
-        result = _(array).chain().lastIndexOf(value, true);
-        result = _(array).chain().lastIndexOf(value, 42);
-
-        result = _(list).chain().lastIndexOf<TResult>(value);
-        result = _(list).chain().lastIndexOf<TResult>(value, true);
-        result = _(list).chain().lastIndexOf<TResult>(value, 42);
-    }
+    result = _(list).lastIndexOf<TResult>(value);
+    result = _(list).lastIndexOf<TResult>(value, true);
+    result = _(list).lastIndexOf<TResult>(value, 42);
 }
 
 // _.object
@@ -873,64 +589,31 @@ module TestObject {
 }
 
 // _.pull
-module TestPull {
-    let array: TResult[];
-    let list: _.List<TResult>;
-    let value: TResult;
-
-    {
-        let result: TResult[];
-
-        result = _.pull<TResult>(array);
-        result = _.pull<TResult>(array, value);
-        result = _.pull<TResult>(array, value, value);
-        result = _.pull<TResult>(array, value, value, value);
-    }
-
-    {
-        let result: _.List<TResult>;
-
-        result = _.pull<TResult>(list);
-        result = _.pull<TResult>(list, value);
-        result = _.pull<TResult>(list, value, value);
-        result = _.pull<TResult>(list, value, value, value);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).pull();
-        result = _(array).pull(value);
-        result = _(array).pull(value, value);
-        result = _(array).pull(value, value, value);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
-
-        result = _(list).pull<TResult>();
-        result = _(list).pull<TResult>(value);
-        result = _(list).pull<TResult>(value, value);
-        result = _(list).pull<TResult>(value, value, value);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().pull();
-        result = _(array).chain().pull(value);
-        result = _(array).chain().pull(value, value);
-        result = _(array).chain().pull(value, value, value);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
-
-        result = _(list).chain().pull<TResult>();
-        result = _(list).chain().pull<TResult>(value);
-        result = _(list).chain().pull<TResult>(value, value);
-        result = _(list).chain().pull<TResult>(value, value, value);
-    }
+{
+    let testPullArray: TResult[];
+    let testPullValue: TResult;
+    let result: TResult[];
+    result = _.pull<TResult>(testPullArray);
+    result = _.pull<TResult>(testPullArray, testPullValue);
+    result = _.pull<TResult>(testPullArray, testPullValue, testPullValue);
+    result = _.pull<TResult>(testPullArray, testPullValue, testPullValue, testPullValue);
+    result = _(testPullArray).pull().value();
+    result = _(testPullArray).pull(testPullValue).value();
+    result = _(testPullArray).pull(testPullValue, testPullValue).value();
+    result = _(testPullArray).pull(testPullValue, testPullValue, testPullValue).value();
+}
+{
+    let testPullList: _.List<TResult>;
+    let testPullValue: TResult;
+    let result: _.List<TResult>;
+    result = _.pull<TResult>(testPullList);
+    result = _.pull<TResult>(testPullList, testPullValue);
+    result = _.pull<TResult>(testPullList, testPullValue, testPullValue);
+    result = _.pull<TResult>(testPullList, testPullValue, testPullValue, testPullValue);
+    result = _(testPullList).pull<TResult>().value();
+    result = _(testPullList).pull<TResult>(testPullValue).value();
+    result = _(testPullList).pull<TResult>(testPullValue, testPullValue).value();
+    result = _(testPullList).pull<TResult>(testPullValue, testPullValue, testPullValue).value();
 }
 
 // _.pullAt
@@ -961,247 +644,113 @@ module TestRemove {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index?: number, collection?: _.List<TResult>) => boolean;
+    let result: TResult[];
 
-    {
-        let result: TResult[];
+    result = _.remove<TResult>(array);
+    result = _.remove<TResult>(array, predicateFn);
+    result = _.remove<TResult>(array, predicateFn, any);
+    result = _.remove<TResult>(array, '');
+    result = _.remove<TResult>(array, '', any);
+    result = _.remove<{a: number}, TResult>(array, {a: 42});
 
-        result = _.remove<TResult>(array);
-        result = _.remove<TResult>(array, predicateFn);
-        result = _.remove<TResult>(array, predicateFn, any);
-        result = _.remove<TResult>(array, '');
-        result = _.remove<TResult>(array, '', any);
-        result = _.remove<{a: number}, TResult>(array, {a: 42});
+    result = _.remove<TResult>(list);
+    result = _.remove<TResult>(list, predicateFn);
+    result = _.remove<TResult>(list, predicateFn, any);
+    result = _.remove<TResult>(list, '');
+    result = _.remove<TResult>(list, '', any);
+    result = _.remove<{a: number}, TResult>(list, {a: 42});
 
-        result = _.remove<TResult>(list);
-        result = _.remove<TResult>(list, predicateFn);
-        result = _.remove<TResult>(list, predicateFn, any);
-        result = _.remove<TResult>(list, '');
-        result = _.remove<TResult>(list, '', any);
-        result = _.remove<{a: number}, TResult>(list, {a: 42});
-    }
+    result = _<TResult>(array).remove().value();
+    result = _<TResult>(array).remove(predicateFn).value();
+    result = _<TResult>(array).remove(predicateFn, any).value();
+    result = _<TResult>(array).remove('').value();
+    result = _<TResult>(array).remove('', any).value();
+    result = _<TResult>(array).remove<{a: number}>({a: 42}).value();
 
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _<TResult>(array).remove();
-        result = _<TResult>(array).remove(predicateFn);
-        result = _<TResult>(array).remove(predicateFn, any);
-        result = _<TResult>(array).remove('');
-        result = _<TResult>(array).remove('', any);
-        result = _<TResult>(array).remove<{a: number}>({a: 42});
-
-        result = _(list).remove<TResult>();
-        result = _(list).remove<TResult>(predicateFn);
-        result = _(list).remove<TResult>(predicateFn, any);
-        result = _(list).remove<TResult>('');
-        result = _(list).remove<TResult>('', any);
-        result = _(list).remove<{a: number}, TResult>({a: 42});
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _<TResult>(array).chain().remove();
-        result = _<TResult>(array).chain().remove(predicateFn);
-        result = _<TResult>(array).chain().remove(predicateFn, any);
-        result = _<TResult>(array).chain().remove('');
-        result = _<TResult>(array).chain().remove('', any);
-        result = _<TResult>(array).chain().remove<{a: number}>({a: 42});
-
-        result = _(list).chain().remove<TResult>();
-        result = _(list).chain().remove<TResult>(predicateFn);
-        result = _(list).chain().remove<TResult>(predicateFn, any);
-        result = _(list).chain().remove<TResult>('');
-        result = _(list).chain().remove<TResult>('', any);
-        result = _(list).chain().remove<{a: number}, TResult>({a: 42});
-    }
+    result = _(list).remove<TResult>().value();
+    result = _(list).remove<TResult>(predicateFn).value();
+    result = _(list).remove<TResult>(predicateFn, any).value();
+    result = _(list).remove<TResult>('').value();
+    result = _(list).remove<TResult>('', any).value();
+    result = _(list).remove<{a: number}, TResult>({a: 42}).value();
 }
 
 // _.rest
 module TestRest {
     let array: TResult[];
     let list: _.List<TResult>;
+    let result: TResult[];
 
-    {
-        let result: TResult[];
-
-        result = _.rest<TResult>(array);
-        result = _.rest<TResult>(list);
-
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).rest();
-        result = _(list).rest<TResult>();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().rest();
-        result = _(list).chain().rest<TResult>();
-    }
+    result = _.rest<TResult>(array);
+    result = _.rest<TResult>(list);
+    result = _(array).rest().value();
+    result = _(list).rest<TResult>().value();
 }
 
 // _.slice
-module TestSlice {
-    let array: TResult[];
-
-    {
-        let result: TResult[];
-
-        result = _.slice(array);
-        result = _.slice(array, 42);
-        result = _.slice(array, 42, 42);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).slice();
-        result = _(array).slice(42);
-        result = _(array).slice(42, 42);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().slice();
-        result = _(array).chain().slice(42);
-        result = _(array).chain().slice(42, 42);
-    }
+{
+    let testSliceArray: TResult[];
+    let result: TResult[];
+    result = _.slice(testSliceArray);
+    result = _.slice(testSliceArray, 42);
+    result = _.slice(testSliceArray, 42, 42);
+    result = _(testSliceArray).slice().value();
+    result = _(testSliceArray).slice(42).value();
+    result = _(testSliceArray).slice(42, 42).value();
 }
 
-// _.sortedIndex
-module TestSortedIndex {
-    result = <number>_.sortedIndex([20, 30, 50], 40);
-    result = <number>_.sortedIndex([{ 'x': 20 }, { 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
-    var sortedIndexDict: { wordToNumber: { [idx: string]: number } } = {
-        'wordToNumber': { 'twenty': 20, 'thirty': 30, 'fourty': 40, 'fifty': 50 }
-    };
-    result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word: string) {
-        return sortedIndexDict.wordToNumber[word];
-    });
-    result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word: string) {
-        return this.wordToNumber[word];
-    }, sortedIndexDict);
-}
-
-// _.sortedLastIndex
-module TestSortedLastIndex {
-    result = <number>_.sortedLastIndex([20, 30, 50], 40);
-    result = <number>_.sortedLastIndex([{ 'x': 20 }, { 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
-    var sortedLastIndexDict: { wordToNumber: { [idx: string]: number } } = {
-        'wordToNumber': { 'twenty': 20, 'thirty': 30, 'fourty': 40, 'fifty': 50 }
-    };
-    result = <number>_.sortedLastIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word: string) {
-        return sortedLastIndexDict.wordToNumber[word];
-    });
-    result = <number>_.sortedLastIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word: string) {
-        return this.wordToNumber[word];
-    }, sortedLastIndexDict);
-}
+result = <number>_.sortedIndex([20, 30, 50], 40);
+result = <number>_.sortedIndex([{ 'x': 20 }, { 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
+var sortedIndexDict: { wordToNumber: { [idx: string]: number } } = {
+    'wordToNumber': { 'twenty': 20, 'thirty': 30, 'fourty': 40, 'fifty': 50 }
+};
+result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word: string) {
+    return sortedIndexDict.wordToNumber[word];
+});
+result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word: string) {
+    return this.wordToNumber[word];
+}, sortedIndexDict);
 
 // _.tail
 module TestTail {
     let array: TResult[];
     let list: _.List<TResult>;
+    let result: TResult[];
 
-    {
-        let result: TResult[];
-
-        result = _.tail<TResult>(array);
-        result = _.tail<TResult>(list);
-
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).tail();
-        result = _(list).tail<TResult>();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().tail();
-        result = _(list).chain().tail<TResult>();
-    }
+    result = _.tail<TResult>(array);
+    result = _.tail<TResult>(list);
+    result = _(array).tail().value();
+    result = _(list).tail<TResult>().value();
 }
 
 // _.take
 module TestTake {
     let array: TResult[];
     let list: _.List<TResult>;
-
-    {
-        let result: TResult[];
-
-        result = _.take<TResult>(array);
-        result = _.take<TResult>(array, 42);
-
-        result = _.take<TResult>(list);
-        result = _.take<TResult>(list, 42);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).take();
-        result = _(array).take(42);
-
-        result = _(list).take<TResult>();
-        result = _(list).take<TResult>(42);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().take();
-        result = _(array).chain().take(42);
-
-        result = _(list).chain().take<TResult>();
-        result = _(list).chain().take<TResult>(42);
-    }
+    let result: TResult[];
+    result = _.take<TResult>(array);
+    result = _.take<TResult>(array, 42);
+    result = _.take<TResult>(list);
+    result = _.take<TResult>(list, 42);
+    result = _(array).take().value();
+    result = _(array).take(42).value();
+    result = _(list).take<TResult>().value();
+    result = _(list).take<TResult>(42).value();
 }
 
 // _.takeRight
-module TestTakeRight {
-    let array: TResult[];
-    let list: _.List<TResult>;
-
-    {
-        let result: TResult[];
-
-        result = _.takeRight<TResult>(array);
-        result = _.takeRight<TResult>(array, 42);
-
-        result = _.takeRight<TResult>(list);
-        result = _.takeRight<TResult>(list, 42);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).takeRight();
-        result = _(array).takeRight(42);
-
-        result = _(list).takeRight<TResult>();
-        result = _(list).takeRight<TResult>(42);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().takeRight();
-        result = _(array).chain().takeRight(42);
-
-        result = _(list).chain().takeRight<TResult>();
-        result = _(list).chain().takeRight<TResult>(42);
-    }
+{
+    let testTakeRightArray: TResult[];
+    let testTakeRightList: _.List<TResult>;
+    let result: TResult[];
+    result = _.takeRight<TResult>(testTakeRightArray);
+    result = _.takeRight<TResult>(testTakeRightArray, 42);
+    result = _.takeRight<TResult>(testTakeRightList);
+    result = _.takeRight<TResult>(testTakeRightList, 42);
+    result = _(testTakeRightArray).takeRight().value();
+    result = _(testTakeRightArray).takeRight(42).value();
+    result = _(testTakeRightList).takeRight<TResult>().value();
+    result = _(testTakeRightList).takeRight<TResult>(42).value();
 }
 
 // _.takeRightWhile
@@ -1209,60 +758,35 @@ module TestTakeRightWhile {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
+    let result: TResult[];
 
-    {
-        let result: TResult[];
+    result = _.takeRightWhile<TResult>(array);
+    result = _.takeRightWhile<TResult>(array, predicateFn);
+    result = _.takeRightWhile<TResult>(array, predicateFn, any);
+    result = _.takeRightWhile<TResult>(array, '');
+    result = _.takeRightWhile<TResult>(array, '', any);
+    result = _.takeRightWhile<{a: number;}, TResult>(array, {a: 42});
 
-        result = _.takeRightWhile<TResult>(array);
-        result = _.takeRightWhile<TResult>(array, predicateFn);
-        result = _.takeRightWhile<TResult>(array, predicateFn, any);
-        result = _.takeRightWhile<TResult>(array, '');
-        result = _.takeRightWhile<TResult>(array, '', any);
-        result = _.takeRightWhile<{a: number;}, TResult>(array, {a: 42});
+    result = _.takeRightWhile<TResult>(list);
+    result = _.takeRightWhile<TResult>(list, predicateFn);
+    result = _.takeRightWhile<TResult>(list, predicateFn, any);
+    result = _.takeRightWhile<TResult>(list, '');
+    result = _.takeRightWhile<TResult>(list, '', any);
+    result = _.takeRightWhile<{a: number;}, TResult>(list, {a: 42});
 
-        result = _.takeRightWhile<TResult>(list);
-        result = _.takeRightWhile<TResult>(list, predicateFn);
-        result = _.takeRightWhile<TResult>(list, predicateFn, any);
-        result = _.takeRightWhile<TResult>(list, '');
-        result = _.takeRightWhile<TResult>(list, '', any);
-        result = _.takeRightWhile<{a: number;}, TResult>(list, {a: 42});
-    }
+    result = _(array).takeRightWhile().value();
+    result = _(array).takeRightWhile(predicateFn).value();
+    result = _(array).takeRightWhile(predicateFn, any).value();
+    result = _(array).takeRightWhile('').value();
+    result = _(array).takeRightWhile('', any).value();
+    result = _(array).takeRightWhile<{a: number;}>({a: 42}).value();
 
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).takeRightWhile();
-        result = _(array).takeRightWhile(predicateFn);
-        result = _(array).takeRightWhile(predicateFn, any);
-        result = _(array).takeRightWhile('');
-        result = _(array).takeRightWhile('', any);
-        result = _(array).takeRightWhile<{a: number;}>({a: 42});
-
-        result = _(list).takeRightWhile<TResult>();
-        result = _(list).takeRightWhile<TResult>(predicateFn);
-        result = _(list).takeRightWhile<TResult>(predicateFn, any);
-        result = _(list).takeRightWhile<TResult>('');
-        result = _(list).takeRightWhile<TResult>('', any);
-        result = _(list).takeRightWhile<{a: number;}, TResult>({a: 42});
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().takeRightWhile();
-        result = _(array).chain().takeRightWhile(predicateFn);
-        result = _(array).chain().takeRightWhile(predicateFn, any);
-        result = _(array).chain().takeRightWhile('');
-        result = _(array).chain().takeRightWhile('', any);
-        result = _(array).chain().takeRightWhile<{a: number;}>({a: 42});
-
-        result = _(list).chain().takeRightWhile<TResult>();
-        result = _(list).chain().takeRightWhile<TResult>(predicateFn);
-        result = _(list).chain().takeRightWhile<TResult>(predicateFn, any);
-        result = _(list).chain().takeRightWhile<TResult>('');
-        result = _(list).chain().takeRightWhile<TResult>('', any);
-        result = _(list).chain().takeRightWhile<{a: number;}, TResult>({a: 42});
-    }
+    result = _(list).takeRightWhile<TResult>().value();
+    result = _(list).takeRightWhile<TResult>(predicateFn).value();
+    result = _(list).takeRightWhile<TResult>(predicateFn, any).value();
+    result = _(list).takeRightWhile<TResult>('').value();
+    result = _(list).takeRightWhile<TResult>('', any).value();
+    result = _(list).takeRightWhile<{a: number;}, TResult>({a: 42}).value();
 }
 
 // _.takeWhile
@@ -1270,112 +794,64 @@ module TestTakeWhile {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
+    let result: TResult[];
 
-    {
-        let result: TResult[];
+    result = _.takeWhile<TResult>(array);
+    result = _.takeWhile<TResult>(array, predicateFn);
+    result = _.takeWhile<TResult>(array, predicateFn, any);
+    result = _.takeWhile<TResult>(array, '');
+    result = _.takeWhile<TResult>(array, '', any);
+    result = _.takeWhile<{a: number;}, TResult>(array, {a: 42});
 
-        result = _.takeWhile<TResult>(array);
-        result = _.takeWhile<TResult>(array, predicateFn);
-        result = _.takeWhile<TResult>(array, predicateFn, any);
-        result = _.takeWhile<TResult>(array, '');
-        result = _.takeWhile<TResult>(array, '', any);
-        result = _.takeWhile<{a: number;}, TResult>(array, {a: 42});
+    result = _.takeWhile<TResult>(list);
+    result = _.takeWhile<TResult>(list, predicateFn);
+    result = _.takeWhile<TResult>(list, predicateFn, any);
+    result = _.takeWhile<TResult>(list, '');
+    result = _.takeWhile<TResult>(list, '', any);
+    result = _.takeWhile<{a: number;}, TResult>(list, {a: 42});
 
-        result = _.takeWhile<TResult>(list);
-        result = _.takeWhile<TResult>(list, predicateFn);
-        result = _.takeWhile<TResult>(list, predicateFn, any);
-        result = _.takeWhile<TResult>(list, '');
-        result = _.takeWhile<TResult>(list, '', any);
-        result = _.takeWhile<{a: number;}, TResult>(list, {a: 42});
-    }
+    result = _(array).takeWhile().value();
+    result = _(array).takeWhile(predicateFn).value();
+    result = _(array).takeWhile(predicateFn, any).value();
+    result = _(array).takeWhile('').value();
+    result = _(array).takeWhile('', any).value();
+    result = _(array).takeWhile<{a: number;}>({a: 42}).value();
 
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).takeWhile();
-        result = _(array).takeWhile(predicateFn);
-        result = _(array).takeWhile(predicateFn, any);
-        result = _(array).takeWhile('');
-        result = _(array).takeWhile('', any);
-        result = _(array).takeWhile<{a: number;}>({a: 42});
-
-        result = _(list).takeWhile<TResult>();
-        result = _(list).takeWhile<TResult>(predicateFn);
-        result = _(list).takeWhile<TResult>(predicateFn, any);
-        result = _(list).takeWhile<TResult>('');
-        result = _(list).takeWhile<TResult>('', any);
-        result = _(list).takeWhile<{a: number;}, TResult>({a: 42});
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().takeWhile();
-        result = _(array).chain().takeWhile(predicateFn);
-        result = _(array).chain().takeWhile(predicateFn, any);
-        result = _(array).chain().takeWhile('');
-        result = _(array).chain().takeWhile('', any);
-        result = _(array).chain().takeWhile<{a: number;}>({a: 42});
-
-        result = _(list).chain().takeWhile<TResult>();
-        result = _(list).chain().takeWhile<TResult>(predicateFn);
-        result = _(list).chain().takeWhile<TResult>(predicateFn, any);
-        result = _(list).chain().takeWhile<TResult>('');
-        result = _(list).chain().takeWhile<TResult>('', any);
-        result = _(list).chain().takeWhile<{a: number;}, TResult>({a: 42});
-    }
+    result = _(list).takeWhile<TResult>().value();
+    result = _(list).takeWhile<TResult>(predicateFn).value();
+    result = _(list).takeWhile<TResult>(predicateFn, any).value();
+    result = _(list).takeWhile<TResult>('').value();
+    result = _(list).takeWhile<TResult>('', any).value();
+    result = _(list).takeWhile<{a: number;}, TResult>({a: 42}).value();
 }
 
 // _.union
 module TestUnion {
     let array: TResult[];
     let list: _.List<TResult>;
+    let result: TResult[];
 
-    {
-        let result: TResult[];
+    result = _.union<TResult>();
 
-        result = _.union<TResult>();
+    result = _.union<TResult>(array);
+    result = _.union<TResult>(array, list);
+    result = _.union<TResult>(array, list, array);
 
-        result = _.union<TResult>(array);
-        result = _.union<TResult>(array, list);
-        result = _.union<TResult>(array, list, array);
+    result = _.union<TResult>(list);
+    result = _.union<TResult>(list, array);
+    result = _.union<TResult>(list, array, list);
 
-        result = _.union<TResult>(list);
-        result = _.union<TResult>(list, array);
-        result = _.union<TResult>(list, array, list);
-    }
+    result = _(array).union().value();
+    result = _(array).union(list).value();
+    result = _(array).union(list, array).value();
 
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
+    result = _(array).union<TResult>().value();
+    result = _(array).union<TResult>(list).value();
+    result = _(array).union<TResult>(list, array).value();
 
-        result = _(array).union();
-        result = _(array).union(list);
-        result = _(array).union(list, array);
-
-        result = _(array).union<TResult>();
-        result = _(array).union<TResult>(list);
-        result = _(array).union<TResult>(list, array);
-
-        result = _(list).union<TResult>();
-        result = _(list).union<TResult>(array);
-        result = _(list).union<TResult>(array, list);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().union();
-        result = _(array).chain().union(list);
-        result = _(array).chain().union(list, array);
-
-        result = _(array).chain().union<TResult>();
-        result = _(array).chain().union<TResult>(list);
-        result = _(array).chain().union<TResult>(list, array);
-
-        result = _(list).chain().union<TResult>();
-        result = _(list).chain().union<TResult>(array);
-        result = _(list).chain().union<TResult>(array, list);
-    }
+    result = _(list).union<TResult>().value();
+    result = _(list).union<TResult>(array).value();
+    result = _(list).union<TResult>(array, list).value();
 }
 
 result = <number[]>_.uniq([1, 2, 1, 3, 1]);
@@ -2159,67 +1635,43 @@ module TestAll {
     let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
     let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean;
 
-    {
-        let result: boolean;
+    let result: boolean;
 
-        result = _.all<TResult>(array);
-        result = _.all<TResult>(array, listIterator);
-        result = _.all<TResult>(array, listIterator, any);
-        result = _.all<TResult>(array, '');
-        result = _.all<{a: number}, TResult>(array, {a: 42});
+    result = _.all<TResult>(array);
+    result = _.all<TResult>(array, listIterator);
+    result = _.all<TResult>(array, listIterator, any);
+    result = _.all<TResult>(array, '');
+    result = _.all<{a: number}, TResult>(array, {a: 42});
 
-        result = _.all<TResult>(list);
-        result = _.all<TResult>(list, listIterator);
-        result = _.all<TResult>(list, listIterator, any);
-        result = _.all<TResult>(list, '');
-        result = _.all<{a: number}, TResult>(list, {a: 42});
+    result = _.all<TResult>(list);
+    result = _.all<TResult>(list, listIterator);
+    result = _.all<TResult>(list, listIterator, any);
+    result = _.all<TResult>(list, '');
+    result = _.all<{a: number}, TResult>(list, {a: 42});
 
-        result = _.all<TResult>(dictionary);
-        result = _.all<TResult>(dictionary, dictionaryIterator);
-        result = _.all<TResult>(dictionary, dictionaryIterator, any);
-        result = _.all<TResult>(dictionary, '');
-        result = _.all<{a: number}, TResult>(dictionary, {a: 42});
+    result = _.all<TResult>(dictionary);
+    result = _.all<TResult>(dictionary, dictionaryIterator);
+    result = _.all<TResult>(dictionary, dictionaryIterator, any);
+    result = _.all<TResult>(dictionary, '');
+    result = _.all<{a: number}, TResult>(dictionary, {a: 42});
 
-        result = _(array).all();
-        result = _(array).all(listIterator);
-        result = _(array).all(listIterator, any);
-        result = _(array).all('');
-        result = _(array).all<{a: number}>({a: 42});
+    result = _(array).all();
+    result = _(array).all(listIterator);
+    result = _(array).all(listIterator, any);
+    result = _(array).all('');
+    result = _(array).all<{a: number}>({a: 42});
 
-        result = _(list).all<TResult>();
-        result = _(list).all<TResult>(listIterator);
-        result = _(list).all<TResult>(listIterator, any);
-        result = _(list).all('');
-        result = _(list).all<{a: number}>({a: 42});
+    result = _(list).all<TResult>();
+    result = _(list).all<TResult>(listIterator);
+    result = _(list).all<TResult>(listIterator, any);
+    result = _(list).all('');
+    result = _(list).all<{a: number}>({a: 42});
 
-        result = _(dictionary).all<TResult>();
-        result = _(dictionary).all<TResult>(dictionaryIterator);
-        result = _(dictionary).all<TResult>(dictionaryIterator, any);
-        result = _(dictionary).all('');
-        result = _(dictionary).all<{a: number}>({a: 42});
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<boolean>;
-
-        result = _(array).chain().all();
-        result = _(array).chain().all(listIterator);
-        result = _(array).chain().all(listIterator, any);
-        result = _(array).chain().all('');
-        result = _(array).chain().all<{a: number}>({a: 42});
-
-        result = _(list).chain().all<TResult>();
-        result = _(list).chain().all<TResult>(listIterator);
-        result = _(list).chain().all<TResult>(listIterator, any);
-        result = _(list).chain().all('');
-        result = _(list).chain().all<{a: number}>({a: 42});
-
-        result = _(dictionary).chain().all<TResult>();
-        result = _(dictionary).chain().all<TResult>(dictionaryIterator);
-        result = _(dictionary).chain().all<TResult>(dictionaryIterator, any);
-        result = _(dictionary).chain().all('');
-        result = _(dictionary).chain().all<{a: number}>({a: 42});
-    }
+    result = _(dictionary).all<TResult>();
+    result = _(dictionary).all<TResult>(dictionaryIterator);
+    result = _(dictionary).all<TResult>(dictionaryIterator, any);
+    result = _(dictionary).all('');
+    result = _(dictionary).all<{a: number}>({a: 42});
 }
 
 // _.any
@@ -2231,67 +1683,43 @@ module TestAny {
     let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
     let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean;
 
-    {
-        let result: boolean;
+    let result: boolean;
 
-        result = _.any<TResult>(array);
-        result = _.any<TResult>(array, listIterator);
-        result = _.any<TResult>(array, listIterator, any);
-        result = _.any<TResult>(array, '');
-        result = _.any<{a: number}, TResult>(array, {a: 42});
+    result = _.any<TResult>(array);
+    result = _.any<TResult>(array, listIterator);
+    result = _.any<TResult>(array, listIterator, any);
+    result = _.any<TResult>(array, '');
+    result = _.any<{a: number}, TResult>(array, {a: 42});
 
-        result = _.any<TResult>(list);
-        result = _.any<TResult>(list, listIterator);
-        result = _.any<TResult>(list, listIterator, any);
-        result = _.any<TResult>(list, '');
-        result = _.any<{a: number}, TResult>(list, {a: 42});
+    result = _.any<TResult>(list);
+    result = _.any<TResult>(list, listIterator);
+    result = _.any<TResult>(list, listIterator, any);
+    result = _.any<TResult>(list, '');
+    result = _.any<{a: number}, TResult>(list, {a: 42});
 
-        result = _.any<TResult>(dictionary);
-        result = _.any<TResult>(dictionary, dictionaryIterator);
-        result = _.any<TResult>(dictionary, dictionaryIterator, any);
-        result = _.any<TResult>(dictionary, '');
-        result = _.any<{a: number}, TResult>(dictionary, {a: 42});
+    result = _.any<TResult>(dictionary);
+    result = _.any<TResult>(dictionary, dictionaryIterator);
+    result = _.any<TResult>(dictionary, dictionaryIterator, any);
+    result = _.any<TResult>(dictionary, '');
+    result = _.any<{a: number}, TResult>(dictionary, {a: 42});
 
-        result = _(array).any();
-        result = _(array).any(listIterator);
-        result = _(array).any(listIterator, any);
-        result = _(array).any('');
-        result = _(array).any<{a: number}>({a: 42});
+    result = _(array).any();
+    result = _(array).any(listIterator);
+    result = _(array).any(listIterator, any);
+    result = _(array).any('');
+    result = _(array).any<{a: number}>({a: 42});
 
-        result = _(list).any<TResult>();
-        result = _(list).any<TResult>(listIterator);
-        result = _(list).any<TResult>(listIterator, any);
-        result = _(list).any('');
-        result = _(list).any<{a: number}>({a: 42});
+    result = _(list).any<TResult>();
+    result = _(list).any<TResult>(listIterator);
+    result = _(list).any<TResult>(listIterator, any);
+    result = _(list).any('');
+    result = _(list).any<{a: number}>({a: 42});
 
-        result = _(dictionary).any<TResult>();
-        result = _(dictionary).any<TResult>(dictionaryIterator);
-        result = _(dictionary).any<TResult>(dictionaryIterator, any);
-        result = _(dictionary).any('');
-        result = _(dictionary).any<{a: number}>({a: 42});
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<boolean>;
-
-        result = _(array).chain().any();
-        result = _(array).chain().any(listIterator);
-        result = _(array).chain().any(listIterator, any);
-        result = _(array).chain().any('');
-        result = _(array).chain().any<{a: number}>({a: 42});
-
-        result = _(list).chain().any<TResult>();
-        result = _(list).chain().any<TResult>(listIterator);
-        result = _(list).chain().any<TResult>(listIterator, any);
-        result = _(list).chain().any('');
-        result = _(list).chain().any<{a: number}>({a: 42});
-
-        result = _(dictionary).chain().any<TResult>();
-        result = _(dictionary).chain().any<TResult>(dictionaryIterator);
-        result = _(dictionary).chain().any<TResult>(dictionaryIterator, any);
-        result = _(dictionary).chain().any('');
-        result = _(dictionary).chain().any<{a: number}>({a: 42});
-    }
+    result = _(dictionary).any<TResult>();
+    result = _(dictionary).any<TResult>(dictionaryIterator);
+    result = _(dictionary).any<TResult>(dictionaryIterator, any);
+    result = _(dictionary).any('');
+    result = _(dictionary).any<{a: number}>({a: 42});
 }
 
 // _.at
@@ -2313,89 +1741,43 @@ module TestCollect {
     let array: number[];
     let list: _.List<number>;
     let dictionary: _.Dictionary<number>;
-
-    let listIterator: (value: number, index: number, collection: _.List<number>) => TResult;
-    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => TResult;
-
+    let listIterator: {(value: number, index: number, collection: _.List<number>): TResult};
+    let dictionaryIterator: {(value: number, key: string, collection: _.Dictionary<number>): TResult};
     {
         let result: TResult[];
-
         result = _.collect<number, TResult>(array);
         result = _.collect<number, TResult>(array, listIterator);
         result = _.collect<number, TResult>(array, listIterator, any);
         result = _.collect<number, TResult>(array, '');
-
         result = _.collect<number, TResult>(list);
         result = _.collect<number, TResult>(list, listIterator);
         result = _.collect<number, TResult>(list, listIterator, any);
         result = _.collect<number, TResult>(list, '');
-
         result = _.collect<number, TResult>(dictionary);
         result = _.collect<number, TResult>(dictionary, dictionaryIterator);
         result = _.collect<number, TResult>(dictionary, dictionaryIterator, any);
         result = _.collect<number, TResult>(dictionary, '');
+        result = _<number>(array).collect<TResult>().value();
+        result = _<number>(array).collect<TResult>(listIterator).value();
+        result = _<number>(array).collect<TResult>(listIterator, any).value();
+        result = _<number>(array).collect<TResult>('').value();
+        result = _(list).collect<number, TResult>().value();
+        result = _(list).collect<number, TResult>(listIterator).value();
+        result = _(list).collect<number, TResult>(listIterator, any).value();
+        result = _(list).collect<number, TResult>('').value();
+        result = _(dictionary).collect<number, TResult>().value();
+        result = _(dictionary).collect<number, TResult>(dictionaryIterator).value();
+        result = _(dictionary).collect<number, TResult>(dictionaryIterator, any).value();
+        result = _(dictionary).collect<number, TResult>('').value();
     }
-
     {
         let result: boolean[];
-
         result = _.collect<number, {}>(array, {});
         result = _.collect<number, {}>(list, {});
         result = _.collect<number, {}>(dictionary, {});
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _<number>(array).collect<TResult>();
-        result = _<number>(array).collect<TResult>(listIterator);
-        result = _<number>(array).collect<TResult>(listIterator, any);
-        result = _<number>(array).collect<TResult>('');
-
-        result = _(list).collect<number, TResult>();
-        result = _(list).collect<number, TResult>(listIterator);
-        result = _(list).collect<number, TResult>(listIterator, any);
-        result = _(list).collect<number, TResult>('');
-
-        result = _(dictionary).collect<number, TResult>();
-        result = _(dictionary).collect<number, TResult>(dictionaryIterator);
-        result = _(dictionary).collect<number, TResult>(dictionaryIterator, any);
-        result = _(dictionary).collect<number, TResult>('');
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<boolean>;
-
-        result = _<number>(array).collect<{}>({});
-        result = _(list).collect<{}>({});
-        result = _(dictionary).collect<{}>({});
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _<number>(array).chain().collect<TResult>();
-        result = _<number>(array).chain().collect<TResult>(listIterator);
-        result = _<number>(array).chain().collect<TResult>(listIterator, any);
-        result = _<number>(array).chain().collect<TResult>('');
-
-        result = _(list).chain().collect<number, TResult>();
-        result = _(list).chain().collect<number, TResult>(listIterator);
-        result = _(list).chain().collect<number, TResult>(listIterator, any);
-        result = _(list).chain().collect<number, TResult>('');
-
-        result = _(dictionary).chain().collect<number, TResult>();
-        result = _(dictionary).chain().collect<number, TResult>(dictionaryIterator);
-        result = _(dictionary).chain().collect<number, TResult>(dictionaryIterator, any);
-        result = _(dictionary).chain().collect<number, TResult>('');
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<boolean>;
-
-        result = _<number>(array).chain().collect<{}>({});
-        result = _(list).chain().collect<{}>({});
-        result = _(dictionary).chain().collect<{}>({});
+        result = _<number>(array).collect<{}>({}).value();
+        result = _(list).collect<{}>({}).value();
+        result = _(dictionary).collect<{}>({}).value();
     }
 }
 
@@ -2485,196 +1867,6 @@ module TestDetect {
     result = _(dictionary).detect<{a: number}, TResult>({a: 42});
 }
 
-// _.each
-module TestEach {
-    let array: TResult[];
-    let list: _.List<TResult>;
-    let dictionary: _.Dictionary<TResult>;
-
-    let stringIterator: (char: string, index: number, string: string) => any;
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any;
-
-    {
-        let result: string;
-
-        _.each('', stringIterator);
-        _.each('', stringIterator, any);
-    }
-
-    {
-        let result: TResult[];
-
-        _.each<TResult>(array, listIterator);
-        _.each<TResult>(array, listIterator, any);
-    }
-
-    {
-        let result: _.List<TResult>;
-
-        _.each<TResult>(list, listIterator);
-        _.each<TResult>(list, listIterator, any);
-    }
-
-    {
-        let result: _.Dictionary<TResult>;
-
-        _.each<TResult>(dictionary, dictionaryIterator);
-        _.each<TResult>(dictionary, dictionaryIterator, any);
-    }
-
-    {
-        let result: _.LoDashImplicitWrapper<string>;
-
-        _('').each(stringIterator);
-        _('').each(stringIterator, any);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        _(array).each(listIterator);
-        _(array).each(listIterator, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
-
-        _(list).each<TResult>(listIterator);
-        _(list).each<TResult>(listIterator, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
-
-        _(dictionary).each<TResult>(dictionaryIterator);
-        _(dictionary).each<TResult>(dictionaryIterator, any);
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        _('').chain().each(stringIterator);
-        _('').chain().each(stringIterator, any);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        _(array).chain().each(listIterator);
-        _(array).chain().each(listIterator, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
-
-        _(list).chain().each<TResult>(listIterator);
-        _(list).chain().each<TResult>(listIterator, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
-
-        _(dictionary).chain().each<TResult>(dictionaryIterator);
-        _(dictionary).chain().each<TResult>(dictionaryIterator, any);
-    }
-}
-
-// _.eachRight
-module TestEachRight {
-    let array: TResult[];
-    let list: _.List<TResult>;
-    let dictionary: _.Dictionary<TResult>;
-
-    let stringIterator: (char: string, index: number, string: string) => any;
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any;
-
-    {
-        let result: string;
-
-        _.eachRight('', stringIterator);
-        _.eachRight('', stringIterator, any);
-    }
-
-    {
-        let result: TResult[];
-
-        _.eachRight<TResult>(array, listIterator);
-        _.eachRight<TResult>(array, listIterator, any);
-    }
-
-    {
-        let result: _.List<TResult>;
-
-        _.eachRight<TResult>(list, listIterator);
-        _.eachRight<TResult>(list, listIterator, any);
-    }
-
-    {
-        let result: _.Dictionary<TResult>;
-
-        _.eachRight<TResult>(dictionary, dictionaryIterator);
-        _.eachRight<TResult>(dictionary, dictionaryIterator, any);
-    }
-
-    {
-        let result: _.LoDashImplicitWrapper<string>;
-
-        _('').eachRight(stringIterator);
-        _('').eachRight(stringIterator, any);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        _(array).eachRight(listIterator);
-        _(array).eachRight(listIterator, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
-
-        _(list).eachRight<TResult>(listIterator);
-        _(list).eachRight<TResult>(listIterator, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
-
-        _(dictionary).eachRight<TResult>(dictionaryIterator);
-        _(dictionary).eachRight<TResult>(dictionaryIterator, any);
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        _('').chain().eachRight(stringIterator);
-        _('').chain().eachRight(stringIterator, any);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        _(array).chain().eachRight(listIterator);
-        _(array).chain().eachRight(listIterator, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
-
-        _(list).chain().eachRight<TResult>(listIterator);
-        _(list).chain().eachRight<TResult>(listIterator, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
-
-        _(dictionary).chain().eachRight<TResult>(dictionaryIterator);
-        _(dictionary).chain().eachRight<TResult>(dictionaryIterator, any);
-    }
-}
-
 // _.every
 module TestEvery {
     let array: TResult[];
@@ -2684,67 +1876,43 @@ module TestEvery {
     let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
     let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean;
 
-    {
-        let result: boolean;
+    let result: boolean;
 
-        result = _.every<TResult>(array);
-        result = _.every<TResult>(array, listIterator);
-        result = _.every<TResult>(array, listIterator, any);
-        result = _.every<TResult>(array, '');
-        result = _.every<{a: number}, TResult>(array, {a: 42});
+    result = _.every<TResult>(array);
+    result = _.every<TResult>(array, listIterator);
+    result = _.every<TResult>(array, listIterator, any);
+    result = _.every<TResult>(array, '');
+    result = _.every<{a: number}, TResult>(array, {a: 42});
 
-        result = _.every<TResult>(list);
-        result = _.every<TResult>(list, listIterator);
-        result = _.every<TResult>(list, listIterator, any);
-        result = _.every<TResult>(list, '');
-        result = _.every<{a: number}, TResult>(list, {a: 42});
+    result = _.every<TResult>(list);
+    result = _.every<TResult>(list, listIterator);
+    result = _.every<TResult>(list, listIterator, any);
+    result = _.every<TResult>(list, '');
+    result = _.every<{a: number}, TResult>(list, {a: 42});
 
-        result = _.every<TResult>(dictionary);
-        result = _.every<TResult>(dictionary, dictionaryIterator);
-        result = _.every<TResult>(dictionary, dictionaryIterator, any);
-        result = _.every<TResult>(dictionary, '');
-        result = _.every<{a: number}, TResult>(dictionary, {a: 42});
+    result = _.every<TResult>(dictionary);
+    result = _.every<TResult>(dictionary, dictionaryIterator);
+    result = _.every<TResult>(dictionary, dictionaryIterator, any);
+    result = _.every<TResult>(dictionary, '');
+    result = _.every<{a: number}, TResult>(dictionary, {a: 42});
 
-        result = _(array).every();
-        result = _(array).every(listIterator);
-        result = _(array).every(listIterator, any);
-        result = _(array).every('');
-        result = _(array).every<{a: number}>({a: 42});
+    result = _(array).every();
+    result = _(array).every(listIterator);
+    result = _(array).every(listIterator, any);
+    result = _(array).every('');
+    result = _(array).every<{a: number}>({a: 42});
 
-        result = _(list).every<TResult>();
-        result = _(list).every<TResult>(listIterator);
-        result = _(list).every<TResult>(listIterator, any);
-        result = _(list).every('');
-        result = _(list).every<{a: number}>({a: 42});
+    result = _(list).every<TResult>();
+    result = _(list).every<TResult>(listIterator);
+    result = _(list).every<TResult>(listIterator, any);
+    result = _(list).every('');
+    result = _(list).every<{a: number}>({a: 42});
 
-        result = _(dictionary).every<TResult>();
-        result = _(dictionary).every<TResult>(dictionaryIterator);
-        result = _(dictionary).every<TResult>(dictionaryIterator, any);
-        result = _(dictionary).every('');
-        result = _(dictionary).every<{a: number}>({a: 42});
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<boolean>;
-
-        result = _(array).chain().every();
-        result = _(array).chain().every(listIterator);
-        result = _(array).chain().every(listIterator, any);
-        result = _(array).chain().every('');
-        result = _(array).chain().every<{a: number}>({a: 42});
-
-        result = _(list).chain().every<TResult>();
-        result = _(list).chain().every<TResult>(listIterator);
-        result = _(list).chain().every<TResult>(listIterator, any);
-        result = _(list).chain().every('');
-        result = _(list).chain().every<{a: number}>({a: 42});
-
-        result = _(dictionary).chain().every<TResult>();
-        result = _(dictionary).chain().every<TResult>(dictionaryIterator);
-        result = _(dictionary).chain().every<TResult>(dictionaryIterator, any);
-        result = _(dictionary).chain().every('');
-        result = _(dictionary).chain().every<{a: number}>({a: 42});
-    }
+    result = _(dictionary).every<TResult>();
+    result = _(dictionary).every<TResult>(dictionaryIterator);
+    result = _(dictionary).every<TResult>(dictionaryIterator, any);
+    result = _(dictionary).every('');
+    result = _(dictionary).every<{a: number}>({a: 42});
 }
 
 result = <number[]>_.filter([1, 2, 3, 4, 5, 6]);
@@ -2830,195 +1998,31 @@ result = <number>_([1, 2, 3, 4]).findLast(function (num) {
 result = <IFoodCombined>_(foodsCombined).findLast({ 'type': 'vegetable' });
 result = <IFoodCombined>_(foodsCombined).findLast('organic');
 
-// _.forEach
-module TestForEach {
-    let array: TResult[];
-    let list: _.List<TResult>;
-    let dictionary: _.Dictionary<TResult>;
+result = <number[]>_.forEach([1, 2, 3], function (num) { console.log(num); });
+result = <_.Dictionary<number>>_.forEach({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
+result = <IFoodType>_.forEach<IFoodType, string>({ name: 'apple', type: 'fruit' }, function (value, key) { console.log(value, key) });
 
-    let stringIterator: (char: string, index: number, string: string) => any;
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any;
+result = <number[]>_.each([1, 2, 3], function (num) { console.log(num); });
+result = <_.Dictionary<number>>_.each({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
+result = <IFoodType>_.each<IFoodType, string>({ name: 'apple', type: 'fruit' }, function (value, key) { console.log(value, key) });
 
-    {
-        let result: string;
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3]).forEach(function (num) { console.log(num); });
+result = <_.LoDashImplicitObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).forEach(function (num) { console.log(num); });
 
-        _.forEach('', stringIterator);
-        _.forEach('', stringIterator, any);
-    }
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3]).each(function (num) { console.log(num); });
+result = <_.LoDashImplicitObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).each(function (num) { console.log(num); });
 
-    {
-        let result: TResult[];
+result = <number[]>_.forEachRight([1, 2, 3], function (num) { console.log(num); });
+result = <_.Dictionary<number>>_.forEachRight({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
 
-        _.forEach<TResult>(array, listIterator);
-        _.forEach<TResult>(array, listIterator, any);
-    }
+result = <number[]>_.eachRight([1, 2, 3], function (num) { console.log(num); });
+result = <_.Dictionary<number>>_.eachRight({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
 
-    {
-        let result: _.List<TResult>;
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3]).forEachRight(function (num) { console.log(num); });
+result = <_.LoDashImplicitObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).forEachRight(function (num) { console.log(num); });
 
-        _.forEach<TResult>(list, listIterator);
-        _.forEach<TResult>(list, listIterator, any);
-    }
-
-    {
-        let result: _.Dictionary<TResult>;
-
-        _.forEach<TResult>(dictionary, dictionaryIterator);
-        _.forEach<TResult>(dictionary, dictionaryIterator, any);
-    }
-
-    {
-        let result: _.LoDashImplicitWrapper<string>;
-
-        _('').forEach(stringIterator);
-        _('').forEach(stringIterator, any);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        _(array).forEach(listIterator);
-        _(array).forEach(listIterator, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
-
-        _(list).forEach<TResult>(listIterator);
-        _(list).forEach<TResult>(listIterator, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
-
-        _(dictionary).forEach<TResult>(dictionaryIterator);
-        _(dictionary).forEach<TResult>(dictionaryIterator, any);
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        _('').chain().forEach(stringIterator);
-        _('').chain().forEach(stringIterator, any);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        _(array).chain().forEach(listIterator);
-        _(array).chain().forEach(listIterator, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
-
-        _(list).chain().forEach<TResult>(listIterator);
-        _(list).chain().forEach<TResult>(listIterator, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
-
-        _(dictionary).chain().forEach<TResult>(dictionaryIterator);
-        _(dictionary).chain().forEach<TResult>(dictionaryIterator, any);
-    }
-}
-
-// _.forEachRight
-module TestForEachRight {
-    let array: TResult[];
-    let list: _.List<TResult>;
-    let dictionary: _.Dictionary<TResult>;
-
-    let stringIterator: (char: string, index: number, string: string) => any;
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any;
-
-    {
-        let result: string;
-
-        _.forEachRight('', stringIterator);
-        _.forEachRight('', stringIterator, any);
-    }
-
-    {
-        let result: TResult[];
-
-        _.forEachRight<TResult>(array, listIterator);
-        _.forEachRight<TResult>(array, listIterator, any);
-    }
-
-    {
-        let result: _.List<TResult>;
-
-        _.forEachRight<TResult>(list, listIterator);
-        _.forEachRight<TResult>(list, listIterator, any);
-    }
-
-    {
-        let result: _.Dictionary<TResult>;
-
-        _.forEachRight<TResult>(dictionary, dictionaryIterator);
-        _.forEachRight<TResult>(dictionary, dictionaryIterator, any);
-    }
-
-    {
-        let result: _.LoDashImplicitWrapper<string>;
-
-        _('').forEachRight(stringIterator);
-        _('').forEachRight(stringIterator, any);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        _(array).forEachRight(listIterator);
-        _(array).forEachRight(listIterator, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
-
-        _(list).forEachRight<TResult>(listIterator);
-        _(list).forEachRight<TResult>(listIterator, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
-
-        _(dictionary).forEachRight<TResult>(dictionaryIterator);
-        _(dictionary).forEachRight<TResult>(dictionaryIterator, any);
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        _('').chain().forEachRight(stringIterator);
-        _('').chain().forEachRight(stringIterator, any);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        _(array).chain().forEachRight(listIterator);
-        _(array).chain().forEachRight(listIterator, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
-
-        _(list).chain().forEachRight<TResult>(listIterator);
-        _(list).chain().forEachRight<TResult>(listIterator, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
-
-        _(dictionary).chain().forEachRight<TResult>(dictionaryIterator);
-        _(dictionary).chain().forEachRight<TResult>(dictionaryIterator, any);
-    }
-}
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3]).eachRight(function (num) { console.log(num); });
+result = <_.LoDashImplicitObjectWrapper<_.Dictionary<number>>>_(<{ [index: string]: number; }>{ 'one': 1, 'two': 2, 'three': 3 }).eachRight(function (num) { console.log(num); });
 
 result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function (num) { return Math.floor(num); });
 result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function (num) { return this.floor(num); }, Math);
@@ -3069,70 +2073,55 @@ module TestMap {
         result = _.map<number, TResult>(dictionary, dictionaryIterator);
         result = _.map<number, TResult>(dictionary, dictionaryIterator, any);
         result = _.map<number, TResult>(dictionary, '');
-    }
 
+        result = _<number>(array).map<TResult>().value();
+        result = _<number>(array).map<TResult>(listIterator).value();
+        result = _<number>(array).map<TResult>(listIterator, any).value();
+        result = _<number>(array).map<TResult>('').value();
+
+        result = _(list).map<number, TResult>().value();
+        result = _(list).map<number, TResult>(listIterator).value();
+        result = _(list).map<number, TResult>(listIterator, any).value();
+        result = _(list).map<number, TResult>('').value();
+
+        result = _(dictionary).map<number, TResult>().value();
+        result = _(dictionary).map<number, TResult>(dictionaryIterator).value();
+        result = _(dictionary).map<number, TResult>(dictionaryIterator, any).value();
+        result = _(dictionary).map<number, TResult>('').value();
+    }
     {
         let result: boolean[];
 
         result = _.map<number, {}>(array, {});
         result = _.map<number, {}>(list, {});
         result = _.map<number, {}>(dictionary, {});
-    }
 
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _<number>(array).map<TResult>();
-        result = _<number>(array).map<TResult>(listIterator);
-        result = _<number>(array).map<TResult>(listIterator, any);
-        result = _<number>(array).map<TResult>('');
-
-        result = _(list).map<number, TResult>();
-        result = _(list).map<number, TResult>(listIterator);
-        result = _(list).map<number, TResult>(listIterator, any);
-        result = _(list).map<number, TResult>('');
-
-        result = _(dictionary).map<number, TResult>();
-        result = _(dictionary).map<number, TResult>(dictionaryIterator);
-        result = _(dictionary).map<number, TResult>(dictionaryIterator, any);
-        result = _(dictionary).map<number, TResult>('');
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<boolean>;
-
-        result = _<number>(array).map<{}>({});
-        result = _(list).map<{}>({});
-        result = _(dictionary).map<{}>({});
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _<number>(array).chain().map<TResult>();
-        result = _<number>(array).chain().map<TResult>(listIterator);
-        result = _<number>(array).chain().map<TResult>(listIterator, any);
-        result = _<number>(array).chain().map<TResult>('');
-
-        result = _(list).chain().map<number, TResult>();
-        result = _(list).chain().map<number, TResult>(listIterator);
-        result = _(list).chain().map<number, TResult>(listIterator, any);
-        result = _(list).chain().map<number, TResult>('');
-
-        result = _(dictionary).chain().map<number, TResult>();
-        result = _(dictionary).chain().map<number, TResult>(dictionaryIterator);
-        result = _(dictionary).chain().map<number, TResult>(dictionaryIterator, any);
-        result = _(dictionary).chain().map<number, TResult>('');
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<boolean>;
-
-        result = _<number>(array).chain().map<{}>({});
-        result = _(list).chain().map<{}>({});
-        result = _(dictionary).chain().map<{}>({});
+        result = _<number>(array).map<{}>({}).value();
+        result = _(list).map<{}>({}).value();
+        result = _(dictionary).map<{}>({}).value();
     }
 }
+
+result = <number>_.sum([4, 2, 8, 6]);
+result = <number>_.sum([4, 2, 8, 6], function(v) { return v; });
+result = <number>_.sum({a: 2, b: 4});
+result = <number>_.sum({a: 2, b: 4}, function(v) { return v; });
+result = <number>_.sum(stoogesAges, function (stooge) { return stooge.age; });
+result = <number>_.sum(stoogesAges, 'age');
+result = <number>_.sum(stoogesAgesDict, function(stooge) { return stooge.age; });
+result = <number>_.sum(stoogesAgesDict, 'age');
+result = <number>_([4, 2, 8, 6]).sum();
+result = <number>_([4, 2, 8, 6]).sum(function(v) { return v; });
+result = <number>_({a: 2, b: 4}).sum();
+result = <number>_({a: 2, b: 4}).sum(function(v) { return v; });
+result = <number>_(stoogesAges).sum(function (stooge) { return stooge.age; });
+result = <number>_(stoogesAges).sum('age');
+result = <number>_(stoogesAgesDict).sum(function (stooge) { return stooge.age; });
+result = <number>_(stoogesAgesDict).sum('age');
+
+result = <string[]>_.pluck(stoogesAges, 'name');
+result = <string[]>_(stoogesAges).pluck('name').value();
+result = <string[]>_.pluck(stoogesAges, ['name']);
 
 // _.partition
 result = <string[][]>_.partition<string>('abcd', (n) => n < 'c');
@@ -3161,69 +2150,6 @@ result = <{a: number}[][]>_([{a: 1}, {a: 2}]).partition('a').value();
 result = <{a: number}[][]>_([{a: 1}, {a: 2}]).partition('a', 2).value();
 result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}>('a').value();
 result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}>('a', 2).value();
-
-// _.pluck
-module TestPluck {
-    interface SampleObject {
-        d: {b: TResult}[];
-    }
-
-    let array: SampleObject[];
-    let list: _.List<SampleObject>;
-    let dictionary: _.Dictionary<SampleObject>;
-
-    {
-        let result: any[];
-
-        result = _.pluck<SampleObject>(array, 'd.0.b');
-        result = _.pluck<SampleObject>(array, ['d', 0, 'b']);
-
-        result = _.pluck<SampleObject>(list, 'd.0.b');
-        result = _.pluck<SampleObject>(list, ['d', 0, 'b']);
-
-        result = _.pluck<SampleObject>(dictionary, 'd.0.b');
-        result = _.pluck<SampleObject>(dictionary, ['d', 0, 'b']);
-    }
-
-    {
-        let result: TResult[];
-
-        result = _.pluck<SampleObject, TResult>(array, 'd.0.b');
-        result = _.pluck<SampleObject, TResult>(array, ['d', 0, 'b']);
-
-        result = _.pluck<SampleObject, TResult>(list, 'd.0.b');
-        result = _.pluck<SampleObject, TResult>(list, ['d', 0, 'b']);
-
-        result = _.pluck<SampleObject, TResult>(dictionary, 'd.0.b');
-        result = _.pluck<SampleObject, TResult>(dictionary, ['d', 0, 'b']);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).pluck<TResult>('d.0.b');
-        result = _(array).pluck<TResult>(['d', 0, 'b']);
-
-        result = _(list).pluck<TResult>('d.0.b');
-        result = _(list).pluck<TResult>(['d', 0, 'b']);
-
-        result = _(dictionary).pluck<TResult>('d.0.b');
-        result = _(dictionary).pluck<TResult>(['d', 0, 'b']);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().pluck<TResult>('d.0.b');
-        result = _(array).chain().pluck<TResult>(['d', 0, 'b']);
-
-        result = _(list).chain().pluck<TResult>('d.0.b');
-        result = _(list).chain().pluck<TResult>(['d', 0, 'b']);
-
-        result = _(dictionary).chain().pluck<TResult>('d.0.b');
-        result = _(dictionary).chain().pluck<TResult>(['d', 0, 'b']);
-    }
-}
 
 interface ABC {
     [index: string]: number;
@@ -3298,54 +2224,9 @@ result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sample(2);
 result = <number>_([1, 2, 3, 4]).sample().value();
 result = <number[]>_([1, 2, 3, 4]).sample(2).value();
 
-// _.shuffle
-module TestShuffle {
-    let array: TResult[];
-    let list: _.List<TResult>;
-    let dictionary: _.Dictionary<TResult>;
-
-    {
-        let result: string[];
-
-        result = _.shuffle('abc');
-    }
-
-    {
-        let result: TResult[];
-
-        result = _.shuffle<TResult>(array);
-        result = _.shuffle<TResult>(list);
-        result = _.shuffle<TResult>(dictionary);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<string>;
-
-        result = _('abc').shuffle();
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).shuffle();
-        result = _(list).shuffle<TResult>();
-        result = _(dictionary).shuffle<TResult>();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<string>;
-
-        result = _('abc').chain().shuffle();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().shuffle();
-        result = _(list).chain().shuffle<TResult>();
-        result = _(dictionary).chain().shuffle<TResult>();
-    }
-}
+result = <number[]>_.shuffle([1, 2, 3, 4, 5, 6]);
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3]).shuffle();
+result = <_.LoDashImplicitArrayWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).shuffle();
 
 result = <number>_.size([1, 2]);
 result = <number>_([1, 2]).size();
@@ -3362,144 +2243,48 @@ module TestSome {
     let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
     let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean;
 
-    {
-        let result: boolean;
+    let result: boolean;
 
-        result = _.some<TResult>(array);
-        result = _.some<TResult>(array, listIterator);
-        result = _.some<TResult>(array, listIterator, any);
-        result = _.some<TResult>(array, '');
-        result = _.some<{a: number}, TResult>(array, {a: 42});
+    result = _.some<TResult>(array);
+    result = _.some<TResult>(array, listIterator);
+    result = _.some<TResult>(array, listIterator, any);
+    result = _.some<TResult>(array, '');
+    result = _.some<{a: number}, TResult>(array, {a: 42});
 
-        result = _.some<TResult>(list);
-        result = _.some<TResult>(list, listIterator);
-        result = _.some<TResult>(list, listIterator, any);
-        result = _.some<TResult>(list, '');
-        result = _.some<{a: number}, TResult>(list, {a: 42});
+    result = _.some<TResult>(list);
+    result = _.some<TResult>(list, listIterator);
+    result = _.some<TResult>(list, listIterator, any);
+    result = _.some<TResult>(list, '');
+    result = _.some<{a: number}, TResult>(list, {a: 42});
 
-        result = _.some<TResult>(dictionary);
-        result = _.some<TResult>(dictionary, dictionaryIterator);
-        result = _.some<TResult>(dictionary, dictionaryIterator, any);
-        result = _.some<TResult>(dictionary, '');
-        result = _.some<{a: number}, TResult>(dictionary, {a: 42});
+    result = _.some<TResult>(dictionary);
+    result = _.some<TResult>(dictionary, dictionaryIterator);
+    result = _.some<TResult>(dictionary, dictionaryIterator, any);
+    result = _.some<TResult>(dictionary, '');
+    result = _.some<{a: number}, TResult>(dictionary, {a: 42});
 
-        result = _(array).some();
-        result = _(array).some(listIterator);
-        result = _(array).some(listIterator, any);
-        result = _(array).some('');
-        result = _(array).some<{a: number}>({a: 42});
+    result = _(array).some();
+    result = _(array).some(listIterator);
+    result = _(array).some(listIterator, any);
+    result = _(array).some('');
+    result = _(array).some<{a: number}>({a: 42});
 
-        result = _(list).some<TResult>();
-        result = _(list).some<TResult>(listIterator);
-        result = _(list).some<TResult>(listIterator, any);
-        result = _(list).some('');
-        result = _(list).some<{a: number}>({a: 42});
+    result = _(list).some<TResult>();
+    result = _(list).some<TResult>(listIterator);
+    result = _(list).some<TResult>(listIterator, any);
+    result = _(list).some('');
+    result = _(list).some<{a: number}>({a: 42});
 
-        result = _(dictionary).some<TResult>();
-        result = _(dictionary).some<TResult>(dictionaryIterator);
-        result = _(dictionary).some<TResult>(dictionaryIterator, any);
-        result = _(dictionary).some('');
-        result = _(dictionary).some<{a: number}>({a: 42});
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<boolean>;
-
-        result = _(array).chain().some();
-        result = _(array).chain().some(listIterator);
-        result = _(array).chain().some(listIterator, any);
-        result = _(array).chain().some('');
-        result = _(array).chain().some<{a: number}>({a: 42});
-
-        result = _(list).chain().some<TResult>();
-        result = _(list).chain().some<TResult>(listIterator);
-        result = _(list).chain().some<TResult>(listIterator, any);
-        result = _(list).chain().some('');
-        result = _(list).chain().some<{a: number}>({a: 42});
-
-        result = _(dictionary).chain().some<TResult>();
-        result = _(dictionary).chain().some<TResult>(dictionaryIterator);
-        result = _(dictionary).chain().some<TResult>(dictionaryIterator, any);
-        result = _(dictionary).chain().some('');
-        result = _(dictionary).chain().some<{a: number}>({a: 42});
-    }
+    result = _(dictionary).some<TResult>();
+    result = _(dictionary).some<TResult>(dictionaryIterator);
+    result = _(dictionary).some<TResult>(dictionaryIterator, any);
+    result = _(dictionary).some('');
+    result = _(dictionary).some<{a: number}>({a: 42});
 }
 
-// _.sortBy
-module TestSortBy {
-    let array: TResult[];
-    let list: _.List<TResult>;
-    let dictionary: _.Dictionary<TResult>;
-
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => number;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => number;
-
-    {
-        let result: TResult[];
-
-        result = _.sortBy<TResult>(array);
-        result = _.sortBy<TResult, number>(array, listIterator);
-        result = _.sortBy<TResult, number>(array, listIterator, any);
-        result = _.sortBy<TResult>(array, '');
-        result = _.sortBy<{a: number}, TResult>(array, {a: 42});
-
-        result = _.sortBy<TResult>(list);
-        result = _.sortBy<TResult, number>(list, listIterator);
-        result = _.sortBy<TResult, number>(list, listIterator, any);
-        result = _.sortBy<TResult>(list, '');
-        result = _.sortBy<{a: number}, TResult>(list, {a: 42});
-
-        result = _.sortBy<TResult>(dictionary);
-        result = _.sortBy<TResult, number>(dictionary, dictionaryIterator);
-        result = _.sortBy<TResult, number>(dictionary, dictionaryIterator, any);
-        result = _.sortBy<TResult>(dictionary, '');
-        result = _.sortBy<{a: number}, TResult>(dictionary, {a: 42});
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).sortBy();
-        result = _(array).sortBy<number>(listIterator);
-        result = _(array).sortBy<number>(listIterator, any);
-        result = _(array).sortBy('');
-        result = _(array).sortBy<{a: number}>({a: 42});
-
-        result = _(list).sortBy<TResult>();
-        result = _(list).sortBy<TResult, number>(listIterator);
-        result = _(list).sortBy<TResult, number>(listIterator, any);
-        result = _(list).sortBy<TResult>('');
-        result = _(list).sortBy<{a: number}, TResult>({a: 42});
-
-        result = _(dictionary).sortBy<TResult>();
-        result = _(dictionary).sortBy<TResult, number>(dictionaryIterator);
-        result = _(dictionary).sortBy<TResult, number>(dictionaryIterator, any);
-        result = _(dictionary).sortBy<TResult>('');
-        result = _(dictionary).sortBy<{a: number}, TResult>({a: 42});
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().sortBy();
-        result = _(array).chain().sortBy<number>(listIterator);
-        result = _(array).chain().sortBy<number>(listIterator, any);
-        result = _(array).chain().sortBy('');
-        result = _(array).chain().sortBy<{a: number}>({a: 42});
-
-        result = _(list).chain().sortBy<TResult>();
-        result = _(list).chain().sortBy<TResult, number>(listIterator);
-        result = _(list).chain().sortBy<TResult, number>(listIterator, any);
-        result = _(list).chain().sortBy<TResult>('');
-        result = _(list).chain().sortBy<{a: number}, TResult>({a: 42});
-
-        result = _(dictionary).chain().sortBy<TResult>();
-        result = _(dictionary).chain().sortBy<TResult, number>(dictionaryIterator);
-        result = _(dictionary).chain().sortBy<TResult, number>(dictionaryIterator, any);
-        result = _(dictionary).chain().sortBy<TResult>('');
-        result = _(dictionary).chain().sortBy<{a: number}, TResult>({a: 42});
-    }
-}
+result = <number[]>_.sortBy([1, 2, 3], function (num) { return Math.sin(num); });
+result = <number[]>_.sortBy([1, 2, 3], function (num) { return this.sin(num); }, Math);
+result = <string[]>_.sortBy(['banana', 'strawberry', 'apple'], 'length');
 
 result = <IStoogesAge[]>_.sortByAll(stoogesAges, function(stooge) { return Math.sin(stooge.age); }, function(stooge) { return stooge.name.slice(1); });
 result = <IStoogesAge[]>_.sortByAll(stoogesAges, ['name', 'age']);
@@ -3515,6 +2300,9 @@ result = <IStoogesAge[]>_.sortByOrder(stoogesAges, [function(stooge) { return Ma
 result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', 'age'], [true, false]);
 result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', function(stooge) { return Math.sin(stooge.age); }], [true, false]);
 
+result = <number[]>_([1, 2, 3]).sortBy(function (num) { return Math.sin(num); }).value();
+result = <number[]>_([1, 2, 3]).sortBy(function (num) { return this.sin(num); }, Math).value();
+result = <string[]>_(['banana', 'strawberry', 'apple']).sortBy('length').value();
 result = <IFoodOrganic[]>_(foodsOrganic).sortByAll('organic', (food) => food.name, { organic: true }).value();
 
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'age': 40 });
@@ -3549,67 +2337,35 @@ module TestNow {
 /*************
  * Functions *
  *************/
+var saves = ['profile', 'settings'];
+var asyncSave = (obj: any) => obj.done();
+var done: Function;
 
-// _after
-module TestAfter {
-    interface Func {
-        (a: string, b: number): boolean;
-    }
+done = _.after(saves.length, function () {
+    console.log('Done saving!');
+});
 
-    let func: Func;
+_.forEach(saves, function (type) {
+    asyncSave({ 'type': type, 'complete': done });
+});
 
-    {
-        let result: Func;
+done = _(saves.length).after(function () {
+    console.log('Done saving!');
+}).value();
 
-        _.after(42, func);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<Func>;
-
-        _(42).after(func);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<Func>;
-
-        _(42).chain().after(func);
-    }
-}
+_.forEach(saves, function (type) {
+    asyncSave({ 'type': type, 'complete': done });
+});
 
 // _.ary
 result = <number[]>['6', '8', '10'].map(_.ary<(s: string) => number>(parseInt, 1));
 result = <number[]>['6', '8', '10'].map(_(parseInt).ary<(s: string) => number>(1).value());
 
 // _.backflow
-module TestBackflow {
-    let Fn1: (n: number) => number;
-    let Fn2: (m: number, n: number) => number;
-
-    {
-        let result: (m: number, n: number) => number;
-
-        result = _.backflow<(m: number, n: number) => number>(Fn1, Fn2);
-        result = _.backflow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
-        result = _.backflow<(m: number, n: number) => number>(Fn1, Fn1, Fn1, Fn2);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<(m: number, n: number) => number>;
-
-        result = _(Fn1).backflow<(m: number, n: number) => number>(Fn2);
-        result = _(Fn1).backflow<(m: number, n: number) => number>(Fn1, Fn2);
-        result = _(Fn1).backflow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<(m: number, n: number) => number>;
-
-        result = _(Fn1).chain().backflow<(m: number, n: number) => number>(Fn2);
-        result = _(Fn1).chain().backflow<(m: number, n: number) => number>(Fn1, Fn2);
-        result = _(Fn1).chain().backflow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
-    }
-}
+var testBackflowSquareFn = (n: number) => n * n;
+var testBackflowAddFn = (n: number, m: number) => n + m;
+result = <number>_.backflow<(n: number, m: number) => number>(testBackflowSquareFn, testBackflowAddFn)(1, 2);
+result = <number>_(testBackflowSquareFn).backflow<(n: number, m: number) => number>(testBackflowAddFn).value()(1, 2);
 
 // _.before
 var testBeforeFn = ((n: number) => () => ++n)(0);
@@ -3671,34 +2427,10 @@ funcBindKey = _(objectBindKey).bindKey('greet', 'hi').value();
 funcBindKey();
 
 // _.compose
-module TestCompose {
-    let Fn1: (n: number) => number;
-    let Fn2: (m: number, n: number) => number;
-
-    {
-        let result: (m: number, n: number) => number;
-
-        result = _.compose<(m: number, n: number) => number>(Fn1, Fn2);
-        result = _.compose<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
-        result = _.compose<(m: number, n: number) => number>(Fn1, Fn1, Fn1, Fn2);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<(m: number, n: number) => number>;
-
-        result = _(Fn1).compose<(m: number, n: number) => number>(Fn2);
-        result = _(Fn1).compose<(m: number, n: number) => number>(Fn1, Fn2);
-        result = _(Fn1).compose<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<(m: number, n: number) => number>;
-
-        result = _(Fn1).chain().compose<(m: number, n: number) => number>(Fn2);
-        result = _(Fn1).chain().compose<(m: number, n: number) => number>(Fn1, Fn2);
-        result = _(Fn1).chain().compose<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
-    }
-}
+var testComposeSquareFn = (n: number) => n * n;
+var testComposeAddFn = (n: number, m: number) => n + m;
+result = <number>_.compose<(n: number, m: number) => number>(testComposeSquareFn, testComposeAddFn)(1, 2);
+result = <number>_(testComposeSquareFn).compose<(n: number, m: number) => number>(testComposeAddFn).value()(1, 2);
 
 var createCallbackObj: { [index: string]: string; } = { name: 'Joe' };
 result = <() => any>_.createCallback('name');
@@ -3796,34 +2528,10 @@ result = <number>_.flow<(n: number, m: number) => number>(testFlowAddFn, testFlo
 result = <number>_(testFlowAddFn).flow<(n: number, m: number) => number>(testFlowSquareFn).value()(1, 2);
 
 // _.flowRight
-module TestFlowRight {
-    let Fn1: (n: number) => number;
-    let Fn2: (m: number, n: number) => number;
-
-    {
-        let result: (m: number, n: number) => number;
-
-        result = _.flowRight<(m: number, n: number) => number>(Fn1, Fn2);
-        result = _.flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
-        result = _.flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn1, Fn2);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<(m: number, n: number) => number>;
-
-        result = _(Fn1).flowRight<(m: number, n: number) => number>(Fn2);
-        result = _(Fn1).flowRight<(m: number, n: number) => number>(Fn1, Fn2);
-        result = _(Fn1).flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<(m: number, n: number) => number>;
-
-        result = _(Fn1).chain().flowRight<(m: number, n: number) => number>(Fn2);
-        result = _(Fn1).chain().flowRight<(m: number, n: number) => number>(Fn1, Fn2);
-        result = _(Fn1).chain().flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
-    }
-}
+var testFlowRightSquareFn = (n: number) => n * n;
+var testFlowRightAddFn = (n: number, m: number) => n + m;
+result = <number>_.flowRight<(n: number, m: number) => number>(testFlowRightSquareFn, testFlowRightAddFn)(1, 2);
+result = <number>_(testFlowRightSquareFn).flowRight<(n: number, m: number) => number>(testFlowRightAddFn).value()(1, 2);
 
 // _.memoize
 var testMemoizedFunction: _.MemoizedFunction;
@@ -3876,31 +2584,8 @@ result = <TestNegateResult>_(testNegatePredicate).negate().value();
 result = <TestNegateResult>_(testNegatePredicate).negate<TestNegateResult>().value();
 
 // _.once
-module TestOnce {
-    interface Func {
-        (a: number, b: string): boolean;
-    }
-
-    let func: Func;
-
-    {
-        let result: Func;
-
-        result = _.once(func);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<Func>;
-
-        result = _(func).once();
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<Func>;
-
-        result = _(func).chain().once();
-    }
-}
+result = <() => void>_.once<() => void>(function () {});
+result = <() => void>(_(function () {}).once().value());
 
 var returnedOnce = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedOnce(4);
@@ -4056,26 +2741,15 @@ var testCloneDeepCustomizerFn: TestCloneDeepCustomizerFn;
 // _.eq
 module TestEq {
     let customizer: (value: any, other: any, indexOrKey?: number|string) => boolean;
+    let result: boolean;
 
-    {
-        let result: boolean;
+    result = _.eq(any, any);
+    result = _.eq(any, any, customizer);
+    result = _.eq(any, any, customizer, any);
 
-        result = _.eq(any, any);
-        result = _.eq(any, any, customizer);
-        result = _.eq(any, any, customizer, any);
-
-        result = _(any).eq(any);
-        result = _(any).eq(any, customizer);
-        result = _(any).eq(any, customizer, any);
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<boolean>;
-
-        result = _(any).chain().eq(any);
-        result = _(any).chain().eq(any, customizer);
-        result = _(any).chain().eq(any, customizer, any);
-    }
+    result = _(any).eq(any);
+    result = _(any).eq(any, customizer);
+    result = _(any).eq(any, customizer, any)
 }
 
 // _.gt
@@ -4095,68 +2769,24 @@ result = <boolean>_.isArguments(any);
 result = <boolean>_(1).isArguments();
 result = <boolean>_<any>([]).isArguments();
 result = <boolean>_({}).isArguments();
-{
-  let value: IArguments|number = 42;
-  if (_.isArguments(value)) {
-    let length: number = value.length;
-    // compile error
-    // let i: number = value + 1;
-  } else {
-    let i: number = value + 1;
-    // compile error
-    // let length: number = value.length;
-  }
-}
 
 // _.isArray
 result = <boolean>_.isArray(any);
 result = <boolean>_(1).isArray();
 result = <boolean>_<any>([]).isArray();
 result = <boolean>_({}).isArray();
-{
-  let value: number[]|string = [1, 3, 5];
-  if (_.isArray(value)) {
-    let length: number[] = value.concat(4);
-    // compile error
-    // let char: string = value.charAt(0);
-  } else {
-    let char: string = value.charAt(0);
-    // compile error
-    // let length: number[] = value.concat(4);
-  }
-}
 
 // _.isBoolean
 result = <boolean>_.isBoolean(any);
 result = <boolean>_(1).isBoolean();
 result = <boolean>_<any>([]).isBoolean();
 result = <boolean>_({}).isBoolean();
-{
-    let value: number[]|boolean = [1, 3, 5];
-    if (_.isBoolean(value)) {
-        let b: boolean = value;
-        // compile error
-        // let length: number = value.length;
-    } else {
-        let length: number = value.length;
-        // compile error
-        // let b: boolean = value;
-    }
-}
 
 // _.isDate
 result = <boolean>_.isDate(any);
 result = <boolean>_(42).isDate();
 result = <boolean>_<any>([]).isDate();
 result = <boolean>_({}).isDate();
-{
-  let value: Date|string = "foo";
-  if (_.isDate(value)) {
-    value.toTimeString();
-  } else {
-    value.charAt(0);
-  }
-}
 
 // _.isElement
 result = <boolean>_.isElement(any);
@@ -4175,26 +2805,15 @@ result = <boolean>_('').isEmpty();
 // _.isEqual
 module TestIsEqual {
     let customizer: (value: any, other: any, indexOrKey?: number|string) => boolean;
+    let result: boolean;
 
-    {
-        let result: boolean;
+    result = _.isEqual(any, any);
+    result = _.isEqual(any, any, customizer);
+    result = _.isEqual(any, any, customizer, any);
 
-        result = _.isEqual(any, any);
-        result = _.isEqual(any, any, customizer);
-        result = _.isEqual(any, any, customizer, any);
-
-        result = _(any).isEqual(any);
-        result = _(any).isEqual(any, customizer);
-        result = _(any).isEqual(any, customizer, any);
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<boolean>;
-
-        result = _(any).chain().isEqual(any);
-        result = _(any).chain().isEqual(any, customizer);
-        result = _(any).chain().isEqual(any, customizer, any);
-    }
+    result = _(any).isEqual(any);
+    result = _(any).isEqual(any, customizer);
+    result = _(any).isEqual(any, customizer, any)
 }
 
 // _.isError
@@ -4202,14 +2821,6 @@ result = <boolean>_.isError(any);
 result = <boolean>_(1).isError();
 result = <boolean>_<any>([]).isError();
 result = <boolean>_({}).isError();
-{
-  let value: Error|string = "error";
-  if (_.isError(value)) {
-    let message: string = value.message;
-  } else {
-    let message: string = value;
-  }
-}
 
 // _.isFinite
 result = <boolean>_.isFinite(any);
@@ -4222,14 +2833,6 @@ result = <boolean>_.isFunction(any);
 result = <boolean>_(1).isFunction();
 result = <boolean>_<any>([]).isFunction();
 result = <boolean>_({}).isFunction();
-{
-  let value: Function|string = "foo";
-  if (_.isFunction(value)) {
-    value();
-  } else {
-    let result: string = value;
-  }
-}
 
 // _.isMatch
 var testIsMatchCustiomizerFn: (value: any, other: any, indexOrKey: number|string) => boolean;
@@ -4251,14 +2854,6 @@ result = <boolean>_(undefined).isNaN();
 // _.isNative
 result = <boolean>_.isNative(Array.prototype.push);
 result = <boolean>_(Array.prototype.push).isNative();
-{
-  let value: Function|string = "foo";
-  if (_.isNative(value)) {
-    value();
-  } else {
-    let result: string = value;
-  }
-}
 
 // _.isNull
 result = <boolean>_.isNull(any);
@@ -4271,14 +2866,6 @@ result = <boolean>_.isNumber(any);
 result = <boolean>_(1).isNumber();
 result = <boolean>_<any>([]).isNumber();
 result = <boolean>_({}).isNumber();
-{
-  let value: number|string = "foo";
-  if (_.isNumber(value)) {
-    let result: number = value * 42;
-  } else {
-    let result: string = value;
-  }
-}
 
 // _.isObject
 result = <boolean>_.isObject(any);
@@ -4297,29 +2884,12 @@ result = <boolean>_.isRegExp(any);
 result = <boolean>_(1).isRegExp();
 result = <boolean>_<any>([]).isRegExp();
 result = <boolean>_({}).isRegExp();
-{
-  let value: RegExp|string = /^foo$/g;
-  if (_.isRegExp(value)) {
-    let regex: RegExp = value;
-    let index: number = value.exec("foo").index;
-  } else {
-    let result: string = value;
-  }
-}
 
 // _.isString
 result = <boolean>_.isString(any);
 result = <boolean>_(1).isString();
 result = <boolean>_<any>([]).isString();
 result = <boolean>_({}).isString();
-{
-  let value: string|number = "foo";
-  if (_.isString(value)) {
-    let result: string = value;
-  } else {
-    let result: number = value * 42;
-  }
-}
 
 // _.isTypedArray
 result = <boolean>_.isTypedArray([]);
@@ -4582,75 +3152,6 @@ module TestRound {
     }
 }
 
-// _.sum
-module TestSum {
-    let array: number[];
-    let list: _.List<number>;
-    let dictionary: _.Dictionary<number>;
-
-    let listIterator: (value: number, index: number, collection: _.List<number>) => number;
-    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => number;
-
-    {
-        let result: number;
-
-        result = _.sum(array);
-        result = _.sum<number>(array);
-        result = _.sum<number>(array, listIterator);
-        result = _.sum<number>(array, listIterator, any);
-        result = _.sum<number>(array, '');
-
-
-        result = _.sum(list);
-        result = _.sum<number>(list);
-        result = _.sum<number>(list, listIterator);
-        result = _.sum<number>(list, listIterator, any);
-        result = _.sum<number>(list, '');
-
-        result = _.sum(dictionary);
-        result = _.sum<number>(dictionary);
-        result = _.sum<number>(dictionary, dictionaryIterator);
-        result = _.sum<number>(dictionary, dictionaryIterator, any);
-        result = _.sum<number>(dictionary, '');
-
-        result = _(array).sum();
-        result = _(array).sum(listIterator);
-        result = _(array).sum(listIterator, any);
-        result = _(array).sum('');
-
-
-        result = _(list).sum();
-        result = _(list).sum<number>(listIterator);
-        result = _(list).sum<number>(listIterator, any);
-        result = _(list).sum('');
-
-        result = _(dictionary).sum();
-        result = _(dictionary).sum<number>(dictionaryIterator);
-        result = _(dictionary).sum<number>(dictionaryIterator, any);
-        result = _(dictionary).sum('');
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<number>;
-
-        result = _(array).chain().sum();
-        result = _(array).chain().sum(listIterator);
-        result = _(array).chain().sum(listIterator, any);
-        result = _(array).chain().sum('');
-
-
-        result = _(list).chain().sum();
-        result = _(list).chain().sum<number>(listIterator);
-        result = _(list).chain().sum<number>(listIterator, any);
-        result = _(list).chain().sum('');
-
-        result = _(dictionary).chain().sum();
-        result = _(dictionary).chain().sum<number>(dictionaryIterator);
-        result = _(dictionary).chain().sum<number>(dictionaryIterator, any);
-        result = _(dictionary).chain().sum('');
-    }
-}
-
 /**********
  * Number *
  **********/
@@ -4705,166 +3206,32 @@ module TestRandom {
     }
 }
 
-/**********
- * Object *
- **********/
-
-// _.assign
-module TestAssign {
-    interface Obj {a: string};
-    interface S1 {a: number};
-    interface S2 {b: number};
-    interface S3 {c: number};
-    interface S4 {d: number};
-    interface S5 {e: number};
-
-    let obj: Obj;
-    let s1: S1;
-    let s2: S2;
-    let s3: S3;
-    let s4: S4;
-    let s5: S5;
-
-    let customizer: (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => any;
-
-    {
-        let result: Obj;
-
-        result = _.assign<Obj>(obj);
-    }
-
-    {
-        let result: {a: number};
-
-        result = _.assign<Obj, S1, {a: number}>(obj, s1);
-        result = _.assign<Obj, S1, {a: number}>(obj, s1, customizer);
-        result = _.assign<Obj, S1, {a: number}>(obj, s1, customizer, any);
-    }
-
-    {
-        let result: {a: number, b: number};
-
-        result = _.assign<Obj, S1, S2, {a: number, b: number}>(obj, s1, s2);
-        result = _.assign<Obj, S1, S2, {a: number, b: number}>(obj, s1, s2, customizer);
-        result = _.assign<Obj, S1, S2, {a: number, b: number}>(obj, s1, s2, customizer, any);
-    }
-
-    {
-        let result: {a: number, b: number, c: number};
-
-        result = _.assign<Obj, S1, S2, S3, {a: number, b: number, c: number}>(obj, s1, s2, s3);
-        result = _.assign<Obj, S1, S2, S3, {a: number, b: number, c: number}>(obj, s1, s2, s3, customizer);
-        result = _.assign<Obj, S1, S2, S3, {a: number, b: number, c: number}>(obj, s1, s2, s3, customizer, any);
-    }
-
-    {
-        let result: {a: number, b: number, c: number, d: number};
-
-        result = _.assign<Obj, S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(obj, s1, s2, s3, s4);
-        result = _.assign<Obj, S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(obj, s1, s2, s3, s4, customizer);
-        result = _.assign<Obj, S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(obj, s1, s2, s3, s4, customizer, any);
-    }
-
-    {
-        let result: {a: number, b: number, c: number, d: number, e: number};
-
-        result = _.assign<Obj, {a: number, b: number, c: number, d: number, e: number}>(obj, s1, s2, s3, s4, s5);
-        result = _.assign<Obj, {a: number, b: number, c: number, d: number, e: number}>(obj, s1, s2, s3, s4, s5, customizer);
-        result = _.assign<Obj, {a: number, b: number, c: number, d: number, e: number}>(obj, s1, s2, s3, s4, s5, customizer, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<Obj>;
-
-        result = _(obj).assign();
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<{a: number}>;
-
-        result = _(obj).assign<S1, {a: number}>(s1);
-        result = _(obj).assign<S1, {a: number}>(s1, customizer);
-        result = _(obj).assign<S1, {a: number}>(s1, customizer, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<{a: number, b: number}>;
-
-        result = _(obj).assign<S1, S2, {a: number, b: number}>(s1, s2);
-        result = _(obj).assign<S1, S2, {a: number, b: number}>(s1, s2, customizer);
-        result = _(obj).assign<S1, S2, {a: number, b: number}>(s1, s2, customizer, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<{a: number, b: number, c: number}>;
-
-        result = _(obj).assign<S1, S2, S3, {a: number, b: number, c: number}>(s1, s2, s3);
-        result = _(obj).assign<S1, S2, S3, {a: number, b: number, c: number}>(s1, s2, s3, customizer);
-        result = _(obj).assign<S1, S2, S3, {a: number, b: number, c: number}>(s1, s2, s3, customizer, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<{a: number, b: number, c: number, d: number}>;
-
-        result = _(obj).assign<S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(s1, s2, s3, s4);
-        result = _(obj).assign<S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(s1, s2, s3, s4, customizer);
-        result = _(obj).assign<S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(s1, s2, s3, s4, customizer, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<{a: number, b: number, c: number, d: number, e: number}>;
-
-        result = _(obj).assign<{a: number, b: number, c: number, d: number, e: number}>(s1, s2, s3, s4, s5);
-        result = _(obj).assign<{a: number, b: number, c: number, d: number, e: number}>(s1, s2, s3, s4, s5, customizer);
-        result = _(obj).assign<{a: number, b: number, c: number, d: number, e: number}>(s1, s2, s3, s4, s5, customizer, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<Obj>;
-
-        result = _(obj).chain().assign();
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<{a: number}>;
-
-        result = _(obj).chain().assign<S1, {a: number}>(s1);
-        result = _(obj).chain().assign<S1, {a: number}>(s1, customizer);
-        result = _(obj).chain().assign<S1, {a: number}>(s1, customizer, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<{a: number, b: number}>;
-
-        result = _(obj).chain().assign<S1, S2, {a: number, b: number}>(s1, s2);
-        result = _(obj).chain().assign<S1, S2, {a: number, b: number}>(s1, s2, customizer);
-        result = _(obj).chain().assign<S1, S2, {a: number, b: number}>(s1, s2, customizer, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<{a: number, b: number, c: number}>;
-
-        result = _(obj).chain().assign<S1, S2, S3, {a: number, b: number, c: number}>(s1, s2, s3);
-        result = _(obj).chain().assign<S1, S2, S3, {a: number, b: number, c: number}>(s1, s2, s3, customizer);
-        result = _(obj).chain().assign<S1, S2, S3, {a: number, b: number, c: number}>(s1, s2, s3, customizer, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<{a: number, b: number, c: number, d: number}>;
-
-        result = _(obj).chain().assign<S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(s1, s2, s3, s4);
-        result = _(obj).chain().assign<S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(s1, s2, s3, s4, customizer);
-        result = _(obj).chain().assign<S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(s1, s2, s3, s4, customizer, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<{a: number, b: number, c: number, d: number, e: number}>;
-
-        result = _(obj).chain().assign<{a: number, b: number, c: number, d: number, e: number}>(s1, s2, s3, s4, s5);
-        result = _(obj).chain().assign<{a: number, b: number, c: number, d: number, e: number}>(s1, s2, s3, s4, s5, customizer);
-        result = _(obj).chain().assign<{a: number, b: number, c: number, d: number, e: number}>(s1, s2, s3, s4, s5, customizer, any);
-    }
+/*********
+* Object *
+**********/
+interface NameAge {
+    name: string;
+    age: number;
 }
+result = <NameAge>_.assign({ 'name': 'moe' }, { 'age': 40 });
+result = <NameAge>_.assign({ 'name': 'moe' }, { 'age': 40 }, function (a, b) {
+    return typeof a == 'undefined' ? b : a;
+});
+
+result = <_.LoDashImplicitObjectWrapper<NameAge>>_({ 'name': 'moe' }).assign({ 'age': 40 });
+result = <_.LoDashImplicitObjectWrapper<NameAge>>_({ 'name': 'moe' }).assign({ 'age': 40 }, function (a, b) {
+    return typeof a == 'undefined' ? b : a;
+});
+
+result = <NameAge>_.extend({ 'name': 'moe' }, { 'age': 40 });
+result = <NameAge>_.extend({ 'name': 'moe' }, { 'age': 40 }, function (a, b) {
+    return typeof a == 'undefined' ? b : a;
+});
+
+result = <_.LoDashImplicitObjectWrapper<NameAge>>_({ 'name': 'moe' }).extend({ 'age': 40 });
+result = <_.LoDashImplicitObjectWrapper<NameAge>>_({ 'name': 'moe' }).extend({ 'age': 40 }, function (a, b) {
+    return typeof a == 'undefined' ? b : a;
+});
 
 // _.create
 interface TestCreateProto {
@@ -4885,130 +3252,13 @@ result = <{}>_(testCreateProto).create(testCreateProps).value();
 result = <TestCreateProto>_(testCreateProto).create<TestCreateProto>().value();
 result = <TestCreateTResult>_(testCreateProto).create<TestCreateTResult>(testCreateProps).value();
 
-// _.defaults
-module TestDefaults {
-    interface Obj {a: string};
-    interface S1 {a: number};
-    interface S2 {b: number};
-    interface S3 {c: number};
-    interface S4 {d: number};
-    interface S5 {e: number};
-
-    let obj: Obj;
-    let s1: S1;
-    let s2: S2;
-    let s3: S3;
-    let s4: S4;
-    let s5: S5;
-
-    {
-        let result: Obj;
-
-        result = _.defaults<Obj>(obj);
-    }
-
-    {
-        let result: {a: string};
-
-        result = _.defaults<Obj, S1, {a: string}>(obj, s1);
-    }
-
-    {
-        let result: {a: string, b: number};
-
-        result = _.defaults<Obj, S1, S2, {a: string, b: number}>(obj, s1, s2);
-    }
-
-    {
-        let result: {a: string, b: number, c: number};
-
-        result = _.defaults<Obj, S1, S2, S3, {a: string, b: number, c: number}>(obj, s1, s2, s3);
-    }
-
-    {
-        let result: {a: string, b: number, c: number, d: number};
-
-        result = _.defaults<Obj, S1, S2, S3, S4, {a: string, b: number, c: number, d: number}>(obj, s1, s2, s3, s4);
-    }
-
-    {
-        let result: {a: string, b: number, c: number, d: number, e: number};
-
-        result = _.defaults<Obj, {a: string, b: number, c: number, d: number, e: number}>(obj, s1, s2, s3, s4, s5);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<Obj>;
-
-        result = _(obj).defaults();
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<{a: string}>;
-
-        result = _(obj).defaults<S1, {a: string}>(s1);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<{a: string, b: number}>;
-
-        result = _(obj).defaults<S1, S2, {a: string, b: number}>(s1, s2);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<{a: string, b: number, c: number}>;
-
-        result = _(obj).defaults<S1, S2, S3, {a: string, b: number, c: number}>(s1, s2, s3);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<{a: string, b: number, c: number, d: number}>;
-
-        result = _(obj).defaults<S1, S2, S3, S4, {a: string, b: number, c: number, d: number}>(s1, s2, s3, s4);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<{a: string, b: number, c: number, d: number, e: number}>;
-
-        result = _(obj).defaults<{a: string, b: number, c: number, d: number, e: number}>(s1, s2, s3, s4, s5);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<Obj>;
-
-        result = _(obj).chain().defaults();
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<{a: string}>;
-
-        result = _(obj).chain().defaults<S1, {a: string}>(s1);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<{a: string, b: number}>;
-
-        result = _(obj).chain().defaults<S1, S2, {a: string, b: number}>(s1, s2);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<{a: string, b: number, c: number}>;
-
-        result = _(obj).chain().defaults<S1, S2, S3, {a: string, b: number, c: number}>(s1, s2, s3);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<{a: string, b: number, c: number, d: number}>;
-
-        result = _(obj).chain().defaults<S1, S2, S3, S4, {a: string, b: number, c: number, d: number}>(s1, s2, s3, s4);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<{a: string, b: number, c: number, d: number, e: number}>;
-
-        result = _(obj).chain().defaults<{a: string, b: number, c: number, d: number, e: number}>(s1, s2, s3, s4, s5);
-    }
+interface Food {
+    name: string;
+    type: string;
 }
+var foodDefaults = { 'name': 'apple' };
+result = <Food>_.defaults(foodDefaults, { 'name': 'banana', 'type': 'fruit' });
+result = <_.LoDashImplicitObjectWrapper<Food>>_(foodDefaults).defaults({ 'name': 'banana', 'type': 'fruit' });
 
 //_.defaultsDeep
 interface DefaultsDeepResult {
@@ -5021,163 +3271,6 @@ var TestDefaultsDeepObject = {'user': {'name': 'barney'}};
 var TestDefaultsDeepSource = {'user': {'name': 'fred', 'age': 36}};
 result = <DefaultsDeepResult>_.defaultsDeep(TestDefaultsDeepObject, TestDefaultsDeepSource);
 result = <DefaultsDeepResult>_(TestDefaultsDeepObject).defaultsDeep<DefaultsDeepResult>(TestDefaultsDeepSource).value();
-
-// _.extend
-module TestExtend {
-    type Obj = {a: string};
-    type S1 = {a: number};
-    type S2 = {b: number};
-    type S3 = {c: number};
-    type S4 = {d: number};
-    type S5 = {e: number};
-
-    let obj: Obj;
-    let s1: S1;
-    let s2: S2;
-    let s3: S3;
-    let s4: S4;
-    let s5: S5;
-
-    let customizer: (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => any;
-
-    {
-        let result: Obj;
-
-        result = _.extend<Obj>(obj);
-    }
-
-    {
-        let result: {a: number};
-
-        result = _.extend<Obj, S1, Obj & S1>(obj, s1);
-        result = _.extend<Obj, S1, Obj & S1>(obj, s1, customizer);
-        result = _.extend<Obj, S1, Obj & S1>(obj, s1, customizer, any);
-    }
-
-    {
-        let result: {a: number, b: number};
-
-        result = _.extend<Obj, S1, S2, Obj & S1 & S2>(obj, s1, s2);
-        result = _.extend<Obj, S1, S2, Obj & S1 & S2>(obj, s1, s2, customizer);
-        result = _.extend<Obj, S1, S2, Obj & S1 & S2>(obj, s1, s2, customizer, any);
-    }
-
-    {
-        let result: {a: number, b: number, c: number};
-
-        result = _.extend<Obj, S1, S2, S3, Obj & S1 & S2 & S3>(obj, s1, s2, s3);
-        result = _.extend<Obj, S1, S2, S3, Obj & S1 & S2 & S3>(obj, s1, s2, s3, customizer);
-        result = _.extend<Obj, S1, S2, S3, Obj & S1 & S2 & S3>(obj, s1, s2, s3, customizer, any);
-    }
-
-    {
-        let result: {a: number, b: number, c: number, d: number};
-
-        result = _.extend<Obj, S1, S2, S3, S4, Obj & S1 & S2 & S3 & S4>(obj, s1, s2, s3, s4);
-        result = _.extend<Obj, S1, S2, S3, S4, Obj & S1 & S2 & S3 & S4>(obj, s1, s2, s3, s4, customizer);
-        result = _.extend<Obj, S1, S2, S3, S4, Obj & S1 & S2 & S3 & S4>(obj, s1, s2, s3, s4, customizer, any);
-    }
-
-    {
-        let result: {a: number, b: number, c: number, d: number, e: number};
-
-        result = _.extend<Obj, Obj & S1 & S2 & S3 & S4 & S5>(obj, s1, s2, s3, s4, s5);
-        result = _.extend<Obj, Obj & S1 & S2 & S3 & S4 & S5>(obj, s1, s2, s3, s4, s5, customizer);
-        result = _.extend<Obj, Obj & S1 & S2 & S3 & S4 & S5>(obj, s1, s2, s3, s4, s5, customizer, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<Obj>;
-
-        result = _(obj).extend();
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<{a: number}>;
-
-        result = _(obj).extend<S1, Obj & S1>(s1);
-        result = _(obj).extend<S1, Obj & S1>(s1, customizer);
-        result = _(obj).extend<S1, Obj & S1>(s1, customizer, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<{a: number, b: number}>;
-
-        result = _(obj).extend<S1, S2, Obj & S1 & S2>(s1, s2);
-        result = _(obj).extend<S1, S2, Obj & S1 & S2>(s1, s2, customizer);
-        result = _(obj).extend<S1, S2, Obj & S1 & S2>(s1, s2, customizer, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<{a: number, b: number, c: number}>;
-
-        result = _(obj).extend<S1, S2, S3, Obj & S1 & S2 & S3>(s1, s2, s3);
-        result = _(obj).extend<S1, S2, S3, Obj & S1 & S2 & S3>(s1, s2, s3, customizer);
-        result = _(obj).extend<S1, S2, S3, Obj & S1 & S2 & S3>(s1, s2, s3, customizer, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<{a: number, b: number, c: number, d: number}>;
-
-        result = _(obj).extend<S1, S2, S3, S4, Obj & S1 & S2 & S3 & S4>(s1, s2, s3, s4);
-        result = _(obj).extend<S1, S2, S3, S4, Obj & S1 & S2 & S3 & S4>(s1, s2, s3, s4, customizer);
-        result = _(obj).extend<S1, S2, S3, S4, Obj & S1 & S2 & S3 & S4>(s1, s2, s3, s4, customizer, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<{a: number, b: number, c: number, d: number, e: number}>;
-
-        result = _(obj).extend<Obj & S1 & S2 & S3 & S4 & S5>(s1, s2, s3, s4, s5);
-        result = _(obj).extend<Obj & S1 & S2 & S3 & S4 & S5>(s1, s2, s3, s4, s5, customizer);
-        result = _(obj).extend<Obj & S1 & S2 & S3 & S4 & S5>(s1, s2, s3, s4, s5, customizer, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<Obj>;
-
-        result = _(obj).chain().extend();
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<{a: number}>;
-
-        result = _(obj).chain().extend<S1, Obj & S1>(s1);
-        result = _(obj).chain().extend<S1, Obj & S1>(s1, customizer);
-        result = _(obj).chain().extend<S1, Obj & S1>(s1, customizer, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<{a: number, b: number}>;
-
-        result = _(obj).chain().extend<S1, S2, Obj & S1 & S2>(s1, s2);
-        result = _(obj).chain().extend<S1, S2, Obj & S1 & S2>(s1, s2, customizer);
-        result = _(obj).chain().extend<S1, S2, Obj & S1 & S2>(s1, s2, customizer, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<{a: number, b: number, c: number}>;
-
-        result = _(obj).chain().extend<S1, S2, S3, Obj & S1 & S2 & S3>(s1, s2, s3);
-        result = _(obj).chain().extend<S1, S2, S3, Obj & S1 & S2 & S3>(s1, s2, s3, customizer);
-        result = _(obj).chain().extend<S1, S2, S3, Obj & S1 & S2 & S3>(s1, s2, s3, customizer, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<{a: number, b: number, c: number, d: number}>;
-
-        result = _(obj).chain().extend<S1, S2, S3, S4, Obj & S1 & S2 & S3 & S4>(s1, s2, s3, s4);
-        result = _(obj).chain().extend<S1, S2, S3, S4, Obj & S1 & S2 & S3 & S4>(s1, s2, s3, s4, customizer);
-        result = _(obj).chain().extend<S1, S2, S3, S4, Obj & S1 & S2 & S3 & S4>(s1, s2, s3, s4, customizer, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<{a: number, b: number, c: number, d: number, e: number}>;
-
-        result = _(obj).chain().extend<Obj & S1 & S2 & S3 & S4 & S5>(s1, s2, s3, s4, s5);
-        result = _(obj).chain().extend<Obj & S1 & S2 & S3 & S4 & S5>(s1, s2, s3, s4, s5, customizer);
-        result = _(obj).chain().extend<Obj & S1 & S2 & S3 & S4 & S5>(s1, s2, s3, s4, s5, customizer, any);
-    }
-}
 
 // _.findKey
 module TestFindKey {
@@ -5594,6 +3687,17 @@ result = <number[]>_(new TestValueIn()).valuesIn<number>().value();
 * Utility *
 ***********/
 
+// _.noop
+result = <void>_.noop();
+result = <void>_.noop(1);
+result = <void>_.noop('a', 1);
+result = <void>_.noop(true, 'a', 1);
+result = <void>_('a').noop(true, 'a', 1);
+result = <void>_([1]).noop(true, 'a', 1);
+result = <void>_<string>([]).noop(true, 'a', 1);
+result = <void>_({}).noop(true, 'a', 1);
+result = <void>_(any).noop(true, 'a', 1);
+
 // _.property
 interface TestPropertyObject {
     a: {
@@ -5606,9 +3710,38 @@ result = <number>_.property<TestPropertyObject, number>(['a', 'b'])(testProperty
 result = <number>(_('a.b').property<TestPropertyObject, number>().value())(testPropertyObject);
 result = <number>(_(['a', 'b']).property<TestPropertyObject, number>().value())(testPropertyObject);
 
-/**********
- * String *
- **********/
+// _.propertyOf
+interface TestPropertyOfObject {
+    a: {
+        b: number[];
+    }
+}
+var testPropertyOfObject: TestPropertyOfObject;
+result = <(path: string|string[]) => any>_.propertyOf({});
+result = <(path: string|string[]) => any>_.propertyOf<TestPropertyOfObject>(testPropertyOfObject);
+result = <(path: string|string[]) => any>_({}).propertyOf().value();
+
+// _.range
+result = <number[]>_.range(10);
+result = <number[]>_.range(1, 11);
+result = <number[]>_.range(0, 30, 5);
+result = <number[]>_(10).range().value();
+result = <number[]>_(1).range(11).value();
+result = <number[]>_(0).range(30, 5).value();
+
+class Mage {
+    public castSpell(n: number) {
+        return n;
+    }
+
+    public cast(n: number) {
+        return n;
+    }
+}
+
+/*********
+* String
+*********/
 
 // _.camelCase
 module TestCamelCase {
@@ -5643,20 +3776,8 @@ module TestCapitalize {
 }
 
 // _.deburr
-module TestDeburr {
-    {
-        let result: string;
-
-        result = _.deburr('déjà vu');
-        result = _('déjà vu').deburr();
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        result = _('déjà vu').chain().deburr();
-    }
-}
+result = <string>_.deburr('déjà vu');
+result = <string>_('déjà vu').deburr();
 
 // _.endsWith
 module TestEndsWith {
@@ -5679,20 +3800,8 @@ module TestEndsWith {
 }
 
 // _.escape
-module TestEscape {
-    {
-        let result: string;
-
-        result = _.escape('fred, barney, & pebbles');
-        result = _('fred, barney, & pebbles').escape();
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        result = _('fred, barney, & pebbles').chain().escape();
-    }
-}
+result = <string>_.escape('fred, barney, & pebbles');
+result = <string>_('fred, barney, & pebbles').escape();
 
 // _.escapeRegExp
 module TestEscapeRegExp {
@@ -5711,20 +3820,8 @@ module TestEscapeRegExp {
 }
 
 // _.kebabCase
-module TestKebabCase {
-    {
-        let result: string;
-
-        result = _.kebabCase('Foo Bar');
-        result = _('Foo Bar').kebabCase();
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        result = _('Foo Bar').chain().kebabCase();
-    }
-}
+result = <string>_.kebabCase('Foo Bar');
+result = <string>_('Foo Bar').kebabCase();
 
 // _.pad
 module TestPad {
@@ -5750,27 +3847,12 @@ module TestPad {
 }
 
 // _.padLeft
-module TestPadLeft {
-    {
-        let result: string;
-
-        result = _.padLeft('abc');
-        result = _.padLeft('abc', 6);
-        result = _.padLeft('abc', 6, '_-');
-
-        result = _('abc').padLeft();
-        result = _('abc').padLeft(6);
-        result = _('abc').padLeft(6, '_-');
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        result = _('abc').chain().padLeft();
-        result = _('abc').chain().padLeft(6);
-        result = _('abc').chain().padLeft(6, '_-');
-    }
-}
+result = <string>_.padLeft('abc');
+result = <string>_.padLeft('abc', 6);
+result = <string>_.padLeft('abc', 6, '_-');
+result = <string>_('abc').padLeft();
+result = <string>_('abc').padLeft(6);
+result = <string>_('abc').padLeft(6, '_-');
 
 // _.padRight
 module TestPadRight {
@@ -5797,24 +3879,10 @@ module TestPadRight {
 
 
 // _.parseInt
-module TestParseInt {
-    {
-        let result: number;
-
-        result = _.parseInt('08');
-        result = _.parseInt('08', 10);
-
-        result = _('08').parseInt();
-        result = _('08').parseInt(10);
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<number>;
-
-        result = _('08').chain().parseInt();
-        result = _('08').chain().parseInt(10);
-    }
-}
+result = <number>_.parseInt('08');
+result = <number>_.parseInt('08', 10);
+result = <number>_('08').parseInt();
+result = <number>_('08').parseInt(10);
 
 // _.repeat
 module TestRepeat {
@@ -5836,20 +3904,8 @@ module TestRepeat {
 }
 
 // _.snakeCase
-module TestSnakeCase {
-    {
-        let result: string;
-
-        result = _.snakeCase('Foo Bar');
-        result = _('Foo Bar').snakeCase();
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        result = _('Foo Bar').chain().snakeCase();
-    }
-}
+result = <string>_.snakeCase('Foo Bar');
+result = <string>_('Foo Bar').snakeCase();
 
 // _.startCase
 module TestStartCase {
@@ -5868,26 +3924,13 @@ module TestStartCase {
 }
 
 // _.startsWith
-module TestStartsWith {
-    {
-        let result: boolean;
-
-        result = _.startsWith('abc', 'a');
-        result = _.startsWith('abc', 'a', 1);
-
-        result = _('abc').startsWith('a');
-        result = _('abc').startsWith('a', 1);
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<boolean>;
-
-        result = _('abc').chain().startsWith('a');
-        result = _('abc').chain().startsWith('a', 1);
-    }
-}
+result = <boolean>_.startsWith('abc', 'a');
+result = <boolean>_.startsWith('abc', 'a', 1);
+result = <boolean>_('abc').startsWith('a');
+result = <boolean>_('abc').startsWith('a', 1);
 
 // _.template
+
 module TestTemplate {
     interface TemplateExecutor {
         (obj?: Object): string;
@@ -5922,25 +3965,11 @@ module TestTemplate {
 }
 
 // _.trim
-module TestTrim {
-    {
-        let result: string;
-
-        result = _.trim();
-        result = _.trim('  abc  ');
-        result = _.trim('-_-abc-_-', '_-');
-
-        result = _('-_-abc-_-').trim();
-        result = _('-_-abc-_-').trim('_-');
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        result = _('-_-abc-_-').chain().trim();
-        result = _('-_-abc-_-').chain().trim('_-');
-    }
-}
+result = <string>_.trim();
+result = <string>_.trim('  abc  ');
+result = <string>_.trim('-_-abc-_-', '_-');
+result = <string>_('-_-abc-_-').trim();
+result = <string>_('-_-abc-_-').trim('_-');
 
 // _.trimLeft
 module TestTrimLeft {
@@ -5964,26 +3993,11 @@ module TestTrimLeft {
 }
 
 // _.trimRight
-
-module TestTrimRight {
-    {
-        let result: string;
-
-        result = _.trimRight();
-        result = _.trimRight('  abc  ');
-        result = _.trimRight('-_-abc-_-', '_-');
-
-        result = _('-_-abc-_-').trimRight();
-        result = _('-_-abc-_-').trimRight('_-');
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        result = _('-_-abc-_-').chain().trimRight();
-        result = _('-_-abc-_-').chain().trimRight('_-');
-    }
-}
+result = <string>_.trimRight();
+result = <string>_.trimRight('  abc  ');
+result = <string>_.trimRight('-_-abc-_-', '_-');
+result = <string>_('-_-abc-_-').trimRight();
+result = <string>_('-_-abc-_-').trimRight('_-');
 
 // _.trunc
 module TestTrunc {
@@ -6015,20 +4029,8 @@ module TestTrunc {
 }
 
 // _.unescape
-module TestUnescape {
-    {
-        let result: string;
-
-        result = _.unescape('fred, barney, &amp; pebbles');
-        result = _('fred, barney, &amp; pebbles').unescape();
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        result = _('fred, barney, &amp; pebbles').chain().unescape();
-    }
-}
+result = <string>_.unescape('fred, barney, &amp; pebbles');
+result = <string>_('fred, barney, &amp; pebbles').unescape();
 
 // _.words
 module TestWords {
@@ -6073,69 +4075,26 @@ module TestAttempt {
 }
 
 // _.callback
-module TestCallback {
-    {
-        let result: (...args: any[]) => TResult;
-
-        result = _.callback<TResult>(Function);
-        result = _.callback<TResult>(Function, any);
-    }
-
-    {
-        let result: (object: any) => TResult;
-
-        result = _.callback<TResult>('');
-        result = _.callback<TResult>('', any);
-    }
-
-    {
-        let result: (object: any) => boolean;
-
-        result = _.callback({});
-        result = _.callback({}, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => TResult>;
-
-        result = _(Function).callback<TResult>();
-        result = _(Function).callback<TResult>(any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<(object: any) => TResult>;
-
-        result = _('').callback<TResult>();
-        result = _('').callback<TResult>(any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<(object: any) => boolean>;
-
-        result = _({}).callback();
-        result = _({}).callback(any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => TResult>;
-
-        result = _(Function).chain().callback<TResult>();
-        result = _(Function).chain().callback<TResult>(any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<(object: any) => TResult>;
-
-        result = _('').chain().callback<TResult>();
-        result = _('').chain().callback<TResult>(any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<(object: any) => boolean>;
-
-        result = _({}).chain().callback();
-        result = _({}).chain().callback(any);
-    }
+{
+    let result: (...args: any[]) => TResult;
+    result = _.callback<TResult>(Function);
+    result = _.callback<TResult>(Function, any);
+    result = _(Function).callback<TResult>().value();
+    result = _(Function).callback<TResult>(any).value();
+}
+{
+    let result: (object: any) => TResult;
+    result = _.callback<TResult>('');
+    result = _.callback<TResult>('', any);
+    result = _('').callback<TResult>().value();
+    result = _('').callback<TResult>(any).value();
+}
+{
+    let result: (object: any) => boolean;
+    result = _.callback({});
+    result = _.callback({}, any);
+    result = _({}).callback().value();
+    result = _({}).callback(any).value();
 }
 
 // _.constant
@@ -6233,69 +4192,26 @@ module TestConstant {
 }
 
 // _.iteratee
-module TestIteratee {
-    {
-        let result: (...args: any[]) => TResult;
-
-        result = _.iteratee<TResult>(Function);
-        result = _.iteratee<TResult>(Function, any);
-    }
-
-    {
-        let result: (object: any) => TResult;
-
-        result = _.iteratee<TResult>('');
-        result = _.iteratee<TResult>('', any);
-    }
-
-    {
-        let result: (object: any) => boolean;
-
-        result = _.iteratee({});
-        result = _.iteratee({}, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => TResult>;
-
-        result = _(Function).iteratee<TResult>();
-        result = _(Function).iteratee<TResult>(any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<(object: any) => TResult>;
-
-        result = _('').iteratee<TResult>();
-        result = _('').iteratee<TResult>(any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<(object: any) => boolean>;
-
-        result = _({}).iteratee();
-        result = _({}).iteratee(any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => TResult>;
-
-        result = _(Function).chain().iteratee<TResult>();
-        result = _(Function).chain().iteratee<TResult>(any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<(object: any) => TResult>;
-
-        result = _('').chain().iteratee<TResult>();
-        result = _('').chain().iteratee<TResult>(any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<(object: any) => boolean>;
-
-        result = _({}).chain().iteratee();
-        result = _({}).chain().iteratee(any);
-    }
+{
+    let result: (...args: any[]) => TResult;
+    result = _.iteratee<TResult>(Function);
+    result = _.iteratee<TResult>(Function, any);
+    result = _(Function).iteratee<TResult>().value();
+    result = _(Function).iteratee<TResult>(any).value();
+}
+{
+    let result: (object: any) => TResult;
+    result = _.iteratee<TResult>('');
+    result = _.iteratee<TResult>('', any);
+    result = _('').iteratee<TResult>().value();
+    result = _('').iteratee<TResult>(any).value();
+}
+{
+    let result: (object: any) => boolean;
+    result = _.iteratee({});
+    result = _.iteratee({}, any);
+    result = _({}).iteratee().value();
+    result = _({}).iteratee(any).value();
 }
 
 // _.matches
@@ -6330,38 +4246,14 @@ module TestMatches {
 
     {
         let result: (value: any) => boolean;
-
         result = _.matchesProperty<TResult>(path, source);
+        result = _(path).matchesProperty<TResult>(source).value();
     }
 
     {
         let result: (value: TResult) => boolean;
-
         result = _.matchesProperty<TResult, TResult>(path, source);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<(value: any) => boolean>;
-
-        result = _(path).matchesProperty<TResult>(source);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<(value: TResult) => boolean>;
-
-        result = _(path).matchesProperty<TResult, TResult>(source);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<(value: any) => boolean>;
-
-        result = _(path).chain().matchesProperty<TResult>(source);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<(value: TResult) => boolean>;
-
-        result = _(path).chain().matchesProperty<TResult, TResult>(source);
+        result = _(path).matchesProperty<TResult, TResult>(source).value();
     }
 }
 
@@ -6453,44 +4345,16 @@ module TestMethod {
 }
 
 // _.methodOf
-module TestMethodOf {
-    type SampleObject = {a: {b: () => TResult}[]};
-    type ResultFn = (path: _.StringRepresentable|_.StringRepresentable[]) => TResult;
-
-    let object: SampleObject;
-
-    {
-        let result: ResultFn;
-
-        result = _.methodOf<SampleObject, TResult>(object);
-        result = _.methodOf<SampleObject, TResult>(object, any);
-        result = _.methodOf<SampleObject, TResult>(object, any, any);
-        result = _.methodOf<SampleObject, TResult>(object, any, any, any);
-
-        result = _.methodOf<TResult>(object);
-        result = _.methodOf<TResult>(object, any);
-        result = _.methodOf<TResult>(object, any, any);
-        result = _.methodOf<TResult>(object, any, any, any);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<ResultFn>;
-
-        result = _(object).methodOf<TResult>();
-        result = _(object).methodOf<TResult>(any);
-        result = _(object).methodOf<TResult>(any, any);
-        result = _(object).methodOf<TResult>(any, any, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<ResultFn>;
-
-        result = _(object).chain().methodOf<TResult>();
-        result = _(object).chain().methodOf<TResult>(any);
-        result = _(object).chain().methodOf<TResult>(any, any);
-        result = _(object).chain().methodOf<TResult>(any, any, any);
-    }
+class TestMethodOf {
+    a = [
+        (a1: number, a2: number) => a1 + a2
+    ];
 }
+var TestMethodOfObject = new TestMethodOf();
+result = <number>(_.methodOf<number>(TestMethodOfObject, 1, 2))('a[0]');
+result = <number>(_.methodOf<number>(TestMethodOfObject, 1, 2))(['a', '0']);
+result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())('a[0]');
+result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())(['a', '0']);
 
 // _.mixin
 module TestMixin {
@@ -6534,91 +4398,6 @@ module TestMixin {
     result = _({}).noConflict();
 }
 
-// _.noop
-module TestNoop {
-    {
-        let result: void;
-
-        result = _.noop();
-        result = _.noop(1);
-        result = _.noop('a', 1);
-        result = _.noop(true, 'a', 1);
-
-        result = _('a').noop(true, 'a', 1);
-        result = _([1]).noop(true, 'a', 1);
-        result = _<string>([]).noop(true, 'a', 1);
-        result = _({}).noop(true, 'a', 1);
-        result = _(any).noop(true, 'a', 1);
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<void>;
-
-        result = _('a').chain().noop(true, 'a', 1);
-        result = _([1]).chain().noop(true, 'a', 1);
-        result = _<string>([]).chain().noop(true, 'a', 1);
-        result = _({}).chain().noop(true, 'a', 1);
-        result = _(any).chain().noop(true, 'a', 1);
-    }
-}
-
-// _.propertyOf
-module TestPropertyOf {
-    interface SampleObject {
-        a: {
-            b: number[];
-        }
-    }
-
-    let object: SampleObject;
-
-    {
-        let result: (path: string|string[]) => any;
-
-        result = _.propertyOf({});
-        result = _.propertyOf<SampleObject>(object);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<(path: string|string[]) => any>;
-
-        result = _({}).propertyOf();
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<(path: string|string[]) => any>;
-
-        result = _({}).chain().propertyOf();
-    }
-}
-
-// _.range
-module TestRange {
-    {
-        let result: number[];
-
-        result = _.range(10);
-        result = _.range(1, 11);
-        result = _.range(0, 30, 5);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<number>;
-
-        result = _(10).range();
-        result = _(1).range(11);
-        result = _(0).range(30, 5);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<number>;
-
-        result = _(10).chain().range();
-        result = _(1).chain().range(11);
-        result = _(0).chain().range(30, 5);
-    }
-}
-
 // _.runInContext
 {
     let result: typeof _;
@@ -6627,71 +4406,29 @@ module TestRange {
     result = _({}).runInContext();
 }
 
-// _.times
-module TestTimes {
-    let iteratee: (num: number) => TResult;
-
-    {
-        let result: number[];
-
-        result = _.times(42);
-    }
-
-    {
-        let result: TResult[];
-
-        result = _.times(42, iteratee);
-        result = _.times(42, iteratee, any);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<number>;
-
-        result = _(42).times();
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(42).times(iteratee);
-        result = _(42).times(iteratee, any);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<number>;
-
-        result = _(42).chain().times();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(42).chain().times(iteratee);
-        result = _(42).chain().times(iteratee, any);
-    }
-}
-
 // _.uniqueId
-module TestUniqueId {
-    {
-        let result: string;
-
-        result = _.uniqueId();
-        result = _.uniqueId('');
-
-        result = _('').uniqueId();
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        result = _('').chain().uniqueId();
-    }
-}
+result = <string>_.uniqueId();
+result = <string>_.uniqueId('');
+result = <string>_('').uniqueId();
 
 result = <string>_.VERSION;
 result = <_.Support>_.support;
 result = <_.TemplateSettings>_.templateSettings;
+
+// _.times
+{
+    let result: number[];
+    result = _.times(42);
+    result = _(42).times().value();
+}
+{
+    let testTimesFn: (num: number) => TResult;
+    let result: TResult[];
+    result = _.times(42, testTimesFn);
+    result = _.times(42, testTimesFn, any);
+    result = _(42).times(testTimesFn).value();
+    result = _(42).times(testTimesFn, any).value();
+}
 
 // _.partial & _.partialRight
 {
