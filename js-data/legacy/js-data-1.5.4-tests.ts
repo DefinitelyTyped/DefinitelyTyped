@@ -1,4 +1,4 @@
-/// <reference path="js-data.d.ts" />
+/// <reference path="js-data-1.5.4.d.ts" />
 
 interface IUser {
     id?: number;
@@ -10,7 +10,7 @@ interface IUser {
     profile?:any;
 }
 
-interface IUserWithMethod extends IUser {
+interface IUserWithMethod {
     fullName:()=>string;
 }
 
@@ -135,10 +135,9 @@ aComment.filter({
 });
 
 // Get all comments where comment.userId == 5
-//TODO rather unexplicit version of where.. support in typings?
-//aComment.filter({
-//    userId: 5
-//});
+aComment.filter({
+    userId: 5
+});
 
 // Get all comments where comment.userId === 5
 aComment.filter({
@@ -359,7 +358,7 @@ User.find(10).then(function (user:IUser) {
     user.comments; // undefined
     user.profile; // undefined
 
-    User.loadRelations(user.id, ['comment', 'profile']).then(function (user:IUser) {
+    User.loadRelations(user, ['comment', 'profile']).then(function (user:IUser) {
         user.comments; // array
         user.profile; // object
     });
@@ -524,11 +523,11 @@ myResourceDefinition = store.definitions.myResource;
  * Custom action on datastore resource
  */
 
-interface Resource {
+interface ActionResource extends JSData.DSInstanceShorthands<ActionResource> {
     someProp:string;
 }
 
-interface ActionsForResource {
+interface ActionResourceDefinition extends JSData.DSResourceDefinition<ActionResource> {
     myAction:JSData.DSActionFn;
     myOtherAction:JSData.DSActionFn;
 }
@@ -538,7 +537,7 @@ var myOtherAction:JSData.DSActionConfig = {
     endpoint: 'goHere'
 };
 
-var customActionResource = store.defineResource<Resource, ActionsForResource>({
+var customActionResource = store.defineResource<ActionResourceDefinition>({
     name: 'actionResource',
     actions: {
         myAction: {
@@ -577,7 +576,10 @@ customActionResourceInstance.DSLastSaved();
 customActionResourceInstance.DSPrevious();
 customActionResourceInstance.DSCreate();
 customActionResourceInstance.DSDestroy();
+customActionResourceInstance.DSLink();
+customActionResourceInstance.DSLinkInverse();
 customActionResourceInstance.DSLoadRelations('myRelation');
 customActionResourceInstance.DSRefresh();
 customActionResourceInstance.DSSave();
+customActionResourceInstance.DSUnlinkInverse();
 customActionResourceInstance.DSUpdate();
