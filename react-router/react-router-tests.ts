@@ -1,8 +1,9 @@
 ///<reference path="react-router.d.ts" />
+///<reference path='../react/react-dom.d.ts' />
 "use strict";
 
 import React = require('react');
-import ReactAddons = require('react/addons');
+import ReactDOM = require('react-dom');
 import Router = require('react-router');
 
 // Mixin
@@ -129,9 +130,6 @@ class DefaultRouteTest {
         var Handler: React.ComponentClass<any>;
         React.createElement(Router.DefaultRoute, null);
         React.createElement(Router.DefaultRoute, {name: 'name', handler: Handler});
-
-        ReactAddons.createElement(Router.DefaultRoute, null);
-        ReactAddons.createElement(Router.DefaultRoute, {name: 'name', handler: Handler});
     }
 }
 
@@ -169,16 +167,6 @@ class LinkTest {
             query: {},
             onClick: () => console.log(1)
         });
-
-        ReactAddons.createElement(Router.Link, null);
-        ReactAddons.createElement(Router.Link, {to: 'home'});
-        ReactAddons.createElement(Router.Link, {
-            activeClassName: 'name',
-            to: 'home',
-            params: {},
-            query: {},
-            onClick: () => console.log(1)
-        });
     }
 }
 
@@ -195,10 +183,6 @@ class NotFoundRouteTest {
         React.createElement(Router.NotFoundRoute, null);
         React.createElement(Router.NotFoundRoute, {handler: Handler});
         React.createElement(Router.NotFoundRoute, {handler: Handler, name: "home"});
-
-        ReactAddons.createElement(Router.NotFoundRoute, null);
-        ReactAddons.createElement(Router.NotFoundRoute, {handler: Handler});
-        ReactAddons.createElement(Router.NotFoundRoute, {handler: Handler, name: "home"});
     }
 }
 
@@ -215,10 +199,6 @@ class RedirectTest {
         React.createElement(Router.Redirect, null);
         React.createElement(Router.Redirect, {});
         React.createElement(Router.Redirect, {path: 'a', from: 'a', to: 'b'});
-
-        ReactAddons.createElement(Router.Redirect, null);
-        ReactAddons.createElement(Router.Redirect, {});
-        ReactAddons.createElement(Router.Redirect, {path: 'a', from: 'a', to: 'b'});
     }
 }
 
@@ -237,10 +217,6 @@ class RouteTest {
         React.createElement(Router.Route, null);
         React.createElement(Router.Route, {});
         React.createElement(Router.Route, {name: "home", path: "/", handler: Handler, ignoreScrollBehavior: true});
-
-        ReactAddons.createElement(Router.Route, null);
-        ReactAddons.createElement(Router.Route, {});
-        ReactAddons.createElement(Router.Route, {name: "home", path: "/", handler: Handler, ignoreScrollBehavior: true});
     }
 }
 
@@ -250,9 +226,6 @@ class RouteHandlerTest {
     createElement() {
         React.createElement(Router.RouteHandler, null);
         React.createElement(Router.RouteHandler, {});
-
-        ReactAddons.createElement(Router.RouteHandler, null);
-        ReactAddons.createElement(Router.RouteHandler, {});
     }
 }
 
@@ -307,24 +280,24 @@ class RunTest {
     constructor() {
         // React.createElement() version
         var v1: Router.Router = Router.run(React.createElement(Router.Route, null), (Handler) => {
-            React.render(React.createElement(Handler, null), document.body);
+            ReactDOM.render(React.createElement(Handler, null), document.body);
         });
         var v2: Router.Router = Router.run(React.createElement(Router.Route, null), Router.HistoryLocation, (Handler, state) => {
-            React.render(React.createElement(Handler, null), document.body);
+            ReactDOM.render(React.createElement(Handler, null), document.body);
         });
         var v3: Router.Router = Router.run(React.createElement(Router.Route, null), '/foo/bar', (Handler, state) => {
-            React.render(React.createElement(Handler, null), document.body);
+            ReactDOM.render(React.createElement(Handler, null), document.body);
         });
 
         // React.createFactory() version
         var v4: Router.Router = Router.run(React.createFactory(Router.Route)(), (Handler) => {
-            React.render(React.createElement(Handler, null), document.body);
+            ReactDOM.render(React.createElement(Handler, null), document.body);
         });
         var v5: Router.Router = Router.run(React.createFactory(Router.Route)(), Router.HistoryLocation, (Handler, state) => {
-            React.render(React.createElement(Handler, null), document.body);
+            ReactDOM.render(React.createElement(Handler, null), document.body);
         });
         var v6: Router.Router = Router.run(React.createFactory(Router.Route)(), '/foo/bar', (Handler, state) => {
-            React.render(React.createElement(Handler, null), document.body);
+            ReactDOM.render(React.createElement(Handler, null), document.body);
         });
     }
 }
