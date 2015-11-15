@@ -10518,19 +10518,28 @@ declare module _ {
     //_.pairs
     interface LoDashStatic {
         /**
-        * Creates a two dimensional array of an object's key-value pairs,
-        * i.e. [[key1, value1], [key2, value2]].
-        * @param object The object to inspect.
-        * @return Aew array of key-value pairs.
-        **/
-        pairs(object?: any): any[][];
+         * Creates a two dimensional array of the key-value pairs for object, e.g. [[key1, value1], [key2, value2]].
+         *
+         * @param object The object to query.
+         * @return Returns the new array of key-value pairs.
+         */
+        pairs<T extends {}>(object?: T): any[][];
+
+        pairs<T extends {}, TResult>(object?: T): TResult[][];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.pairs
-        **/
-        pairs(): LoDashImplicitArrayWrapper<any[]>;
+         * @see _.pairs
+         */
+        pairs<TResult>(): LoDashImplicitArrayWrapper<TResult[]>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.pairs
+         */
+        pairs<TResult>(): LoDashExplicitArrayWrapper<TResult[]>;
     }
 
     //_.pick

@@ -5458,8 +5458,46 @@ result = <HasName>_({ 'name': 'moe', 'age': 40 }).omit(function (value) {
     return typeof value == 'number';
 }).value();
 
-result = <any[][]>_.pairs({ 'moe': 30, 'larry': 40 });
-result = <any[][]>_({ 'moe': 30, 'larry': 40 }).pairs().value();
+// _.pairs
+module TestPairs {
+    let object: _.Dictionary<string>;
+
+    {
+        let result: any[][];
+
+        result = _.pairs<_.Dictionary<string>>(object);
+    }
+
+    {
+        let result: string[][];
+
+        result = _.pairs<_.Dictionary<string>, string>(object);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string[]>;
+
+        result = _(object).pairs<string>();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<any[]>;
+
+        result = _(object).pairs();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string[]>;
+
+        result = _(object).chain().pairs<string>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<any[]>;
+
+        result = _(object).chain().pairs();
+    }
+}
 
 // _.pick
 interface TestPickFn {
