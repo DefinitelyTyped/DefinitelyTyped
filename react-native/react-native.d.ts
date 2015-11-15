@@ -849,7 +849,7 @@ declare namespace  ReactNative {
          */
         injectedJavaScript?: string
 
-        onNavigationStateChange?: (event: NavState) => void
+        onNavigationStateChange?: ( event: NavState ) => void
 
         /**
          * Allows custom handling of any webview requests by a JS handler.
@@ -883,7 +883,6 @@ declare namespace  ReactNative {
         goForward: () => void
         reload: () => void
     }
-
 
 
     /**
@@ -2413,19 +2412,6 @@ declare namespace  ReactNative {
         scale: number;
     }
 
-    // @see https://facebook.github.io/react-native/docs/asyncstorage.html#content
-    export interface AsyncStorageStatic {
-        getItem( key: string, callback?: ( error?: Error, result?: string ) => void ): Promise<string>;
-        setItem( key: string, value: string, callback?: ( error?: Error ) => void ): Promise<string>;
-        removeItem( key: string, callback?: ( error?: Error ) => void ): Promise<string>;
-        mergeItem( key: string, value: string, callback?: ( error?: Error ) => void ): Promise<string>;
-        clear( callback?: ( error?: Error ) => void ): Promise<string>;
-        getAllKeys( callback?: ( error?: Error, keys?: string[] ) => void ): Promise<string>;
-        multiGet( keys: string[], callback?: ( errors?: Error[], result?: string[][] ) => void ): Promise<string>;
-        multiSet( keyValuePairs: string[][], callback?: ( errors?: Error[] ) => void ): Promise<string>;
-        multiRemove( keys: string[], callback?: ( errors?: Error[] ) => void ): Promise<string>;
-        multiMerge( keyValuePairs: string[][], callback?: ( errors?: Error[] ) => void ): Promise<string>;
-    }
 
     export interface InteractionManagerStatic {
         runAfterInteractions( fn: () => void ): void;
@@ -2752,8 +2738,8 @@ declare namespace  ReactNative {
      * //FIXME: no documentation - inferred from RCTACtionSheetManager.m
      */
     export interface ActionSheetIOSStatic {
-        showActionSheetWithOptions: (options: ActionSheetIOSOptions, callback: (buttonIndex: number) => void ) => void
-        showShareActionSheetWithOptions: (options: ShareActionSheetIOSOptions, failureCallback: (error: Error) => void, successCallback: (success: boolean, method: string) => void ) => void
+        showActionSheetWithOptions: ( options: ActionSheetIOSOptions, callback: ( buttonIndex: number ) => void ) => void
+        showShareActionSheetWithOptions: ( options: ShareActionSheetIOSOptions, failureCallback: ( error: Error ) => void, successCallback: ( success: boolean, method: string ) => void ) => void
     }
 
 
@@ -2761,8 +2747,8 @@ declare namespace  ReactNative {
      * //FIXME: No documentation - inferred from RCTAdSupport.m
      */
     export interface AdSupportIOSStatic {
-        getAdvertisingId: (onSuccess: (deviceId: string) => void, onFailure: (err: Error) => void) => void
-        getAdvertisingTrackingEnabled: (onSuccess: (hasTracking: boolean) => void, onFailure: (err: Error) => void) => void
+        getAdvertisingId: ( onSuccess: ( deviceId: string ) => void, onFailure: ( err: Error ) => void ) => void
+        getAdvertisingTrackingEnabled: ( onSuccess: ( hasTracking: boolean ) => void, onFailure: ( err: Error ) => void ) => void
     }
 
     interface AlertIOSButton {
@@ -2782,16 +2768,99 @@ declare namespace  ReactNative {
      * @see https://facebook.github.io/react-native/docs/alertios.html#content
      */
     export interface AlertIOSStatic {
-        alert: (title: string, message?: string, buttons?: Array<AlertIOSButton>, type?: string) => void
-        prompt: (title: string, value?: string, buttons?: Array<AlertIOSButton>, callback?: (value?: string) => void) => void
+        alert: ( title: string, message?: string, buttons?: Array<AlertIOSButton>, type?: string ) => void
+        prompt: ( title: string, value?: string, buttons?: Array<AlertIOSButton>, callback?: ( value?: string ) => void ) => void
     }
 
 
+    /**
+     * AppStateIOS can tell you if the app is in the foreground or background,
+     * and notify you when the state changes.
+     *
+     * AppStateIOS is frequently used to determine the intent and proper behavior
+     * when handling push notifications.
+     *
+     * iOS App States
+     *      active - The app is running in the foreground
+     *      background - The app is running in the background. The user is either in another app or on the home screen
+     *      inactive - This is a transition state that currently never happens for typical React Native apps.
+     *
+     * For more information, see Apple's documentation: https://developer.apple.com/library/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/TheAppLifeCycle/TheAppLifeCycle.html
+     *
+     * @see https://facebook.github.io/react-native/docs/appstateios.html#content
+     */
     export interface AppStateIOSStatic {
-        currentState: string;
-        addEventListener( type: string, listener: ( state: string ) => void ): void;
-        removeEventListener( type: string, listener: ( state: string ) => void ): void;
+        currentState: string
+        addEventListener( type: string, listener: ( state: string ) => void ): void
+        removeEventListener( type: string, listener: ( state: string ) => void ): void
     }
+
+    /**
+     * AsyncStorage is a simple, asynchronous, persistent, key-value storage system that is global to the app.
+     * It should be used instead of LocalStorage.
+     *
+     * It is recommended that you use an abstraction on top of AsyncStorage
+     * instead of AsyncStorage directly for anything more than light usage since it operates globally.
+     *
+     * @see https://facebook.github.io/react-native/docs/asyncstorage.html#content
+     */
+    export interface AsyncStorageStatic {
+
+        /**
+         * Fetches key and passes the result to callback, along with an Error if there is any.
+         */
+        getItem( key: string, callback?: ( error?: Error, result?: string ) => void ): Promise<string>
+
+        /**
+         * Sets value for key and calls callback on completion, along with an Error if there is any
+         */
+        setItem( key: string, value: string, callback?: ( error?: Error ) => void ): Promise<string>
+
+        removeItem( key: string, callback?: ( error?: Error ) => void ): Promise<string>
+
+        /**
+         * Merges existing value with input value, assuming they are stringified json. Returns a Promise object.
+         * Not supported by all native implementation
+         */
+        mergeItem( key: string, value: string, callback?: ( error?: Error ) => void ): Promise<string>
+
+        /**
+         * Erases all AsyncStorage for all clients, libraries, etc. You probably don't want to call this.
+         * Use removeItem or multiRemove to clear only your own keys instead.
+         */
+        clear( callback?: ( error?: Error ) => void ): Promise<string>
+
+        /**
+         * Gets all keys known to the app, for all callers, libraries, etc
+         */
+        getAllKeys( callback?: ( error?: Error, keys?: string[] ) => void ): Promise<string>
+
+        /**
+         * multiGet invokes callback with an array of key-value pair arrays that matches the input format of multiSet
+         */
+        multiGet( keys: string[], callback?: ( errors?: Error[], result?: string[][] ) => void ): Promise<string>
+
+        /**
+         * multiSet and multiMerge take arrays of key-value array pairs that match the output of multiGet,
+         *
+         * multiSet([['k1', 'val1'], ['k2', 'val2']], cb);
+         */
+        multiSet( keyValuePairs: string[][], callback?: ( errors?: Error[] ) => void ): Promise<string>
+
+        /**
+         * Delete all the keys in the keys array.
+         */
+        multiRemove( keys: string[], callback?: ( errors?: Error[] ) => void ): Promise<string>
+
+        /**
+         * Merges existing values with input values, assuming they are stringified json.
+         * Returns a Promise object.
+         *
+         * Not supported by all native implementations.
+         */
+        multiMerge( keyValuePairs: string[][], callback?: ( errors?: Error[] ) => void ): Promise<string>
+    }
+
 
     //////////////////////////////////////////////////////////////////////////
     //
@@ -2804,9 +2873,6 @@ declare namespace  ReactNative {
 
     export var ActivityIndicatorIOS: ActivityIndicatorIOSStatic;
     export type ActivityIndicatorIOS = ActivityIndicatorIOSStatic;
-
-    export var AsyncStorage: AsyncStorageStatic;
-    export type AsyncStorage = AsyncStorageStatic;
 
     export var CameraRoll: CameraRollStatic;
     export type CameraRoll = CameraRollStatic;
@@ -2885,6 +2951,10 @@ declare namespace  ReactNative {
     export var AlertIOS: AlertIOSStatic
     export type AlertIOS = AlertIOSStatic
 
+    export var AsyncStorage: AsyncStorageStatic
+    export type AsyncStorage = AsyncStorageStatic
+
+
     export var SegmentedControlIOS: React.ComponentClass<SegmentedControlIOSProperties>;
 
     export var PixelRatio: PixelRatioStatic;
@@ -2896,7 +2966,13 @@ declare namespace  ReactNative {
     export var AppStateIOS: AppStateIOSStatic;
 
 
-    //react re-exported
+    //////////////////////////////////////////////////////////////////////////
+    //
+    //  R E A C T  -  0 . 1 4
+    //
+    //////////////////////////////////////////////////////////////////////////
+
+
     export type ReactType = React.ReactType;
 
     export interface ReactElement<P> extends React.ReactElement<P> {}
