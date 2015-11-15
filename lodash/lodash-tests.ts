@@ -5259,13 +5259,48 @@ module TestFindLastKey {
     }
 }
 
-result = <Dog>_.forIn(new Dog('Dagny'), function (value, key) {
-    console.log(key);
-});
+// _.forIn
+module TestForIn {
+    type SampleObject = {a: number; b: string; c: boolean;};
 
-result = <_.LoDashImplicitObjectWrapper<Dog>>_(new Dog('Dagny')).forIn(function (value, key) {
-    console.log(key);
-});
+    let dictionary: _.Dictionary<number>;
+    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => any;
+
+    let object: SampleObject;
+    let objectIterator: (element: any, key?: string, collection?: any) => any;
+
+    {
+        let result: _.Dictionary<number>;
+
+        result = _.forIn<number>(dictionary);
+        result = _.forIn<number>(dictionary, dictionaryIterator);
+        result = _.forIn<number>(dictionary, dictionaryIterator, any);
+    }
+
+    {
+        let result: SampleObject;
+
+        result = _.forIn<SampleObject>(object);
+        result = _.forIn<SampleObject>(object, objectIterator);
+        result = _.forIn<SampleObject>(object, objectIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<number>>;
+
+        result = _(dictionary).forIn<number>();
+        result = _(dictionary).forIn<number>(dictionaryIterator);
+        result = _(dictionary).forIn<number>(dictionaryIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
+
+        result = _(dictionary).chain().forIn<number>();
+        result = _(dictionary).chain().forIn<number>(dictionaryIterator);
+        result = _(dictionary).chain().forIn<number>(dictionaryIterator, any);
+    }
+}
 
 result = <Dog>_.forInRight(new Dog('Dagny'), function (value, key) {
     console.log(key);
