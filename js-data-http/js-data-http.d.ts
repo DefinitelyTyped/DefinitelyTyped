@@ -6,7 +6,7 @@
 /// <reference path="../js-data/js-data.d.ts" />
 
 declare module JSData {
-    
+
     interface DSHttpAdapterOptions {
         serialize?: (resourceName:string, data:any)=>any;
         deserialize?: (resourceName:string, data:any)=>any;
@@ -38,3 +38,7 @@ declare module JSData {
 }
 
 declare var DSHttpAdapter:JSData.DSHttpAdapter;
+
+declare module 'js-data-http' {
+    export = DSHttpAdapter;
+}

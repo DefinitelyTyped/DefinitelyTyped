@@ -1,4 +1,3 @@
-/// <reference path="js-data.d.ts" />
 /// <reference path="../js-data-http/js-data-http.d.ts" />
 
 import JSData = require('js-data');

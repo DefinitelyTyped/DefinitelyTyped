@@ -135,10 +135,9 @@ aComment.filter({
 });
 
 // Get all comments where comment.userId == 5
-//TODO rather unexplicit version of where.. support in typings?
-//aComment.filter({
-//    userId: 5
-//});
+aComment.filter({
+    userId: 5
+});
 
 // Get all comments where comment.userId === 5
 aComment.filter({
@@ -400,7 +399,7 @@ OtherOtherComment.update(1, {content: 'stuff'}, {params: {postId: false}}); // P
 
 var store = new JSData.DS({
     // set the default
-    beforeCreate: function (resource, data, cb) {
+    beforeCreate: function (resource:JSData.DSResourceDefinition<any>, data:any, cb:(err:Error, returnData:any)=>void) {
         // do something general
         cb(null, data);
     }
@@ -409,7 +408,7 @@ var store = new JSData.DS({
 var User4 = store.defineResource({
     name: 'user',
     // set just for this resource
-    beforeCreate: function (resource, data, cb) {
+    beforeCreate: function (resource:JSData.DSResourceDefinition<any>, data:any, cb:(err:Error, returnData:any)=>void) {
         // do something more specific to "users"
         cb(null, data);
     }
@@ -417,7 +416,7 @@ var User4 = store.defineResource({
 
 User4.create({name: 'John'}, {
     // set just for this method call
-    beforeCreate: function (resource, data, cb) {
+    beforeCreate: function (resource:JSData.DSResourceDefinition<any>, data:any, cb:(err:Error, returnData:any)=>void) {
         // do something specific for this method call
         cb(null, data);
     }

@@ -387,7 +387,7 @@ var promise = OtherOtherComment.find(5); // GET /comment/5
 
 promise.then().catch().finally();
 
-OtherOtherComment.inject({id: 1, postId: 2});
+OtherOtherComment.inject(<IComment>{id: 1, postId: 2});
 
 // We don't have to provide the parentKey here
 // because js-data found it in the comment
@@ -523,11 +523,11 @@ myResourceDefinition = store.definitions.myResource;
  * Custom action on datastore resource
  */
 
-interface ActionResource extends JSData.DSInstanceShorthands<ActionResource> {
+interface Resource {
     someProp:string;
 }
 
-interface ActionResourceDefinition extends JSData.DSResourceDefinition<ActionResource> {
+interface ActionsForResource {
     myAction:JSData.DSActionFn;
     myOtherAction:JSData.DSActionFn;
 }
@@ -537,7 +537,7 @@ var myOtherAction:JSData.DSActionConfig = {
     endpoint: 'goHere'
 };
 
-var customActionResource = store.defineResource<ActionResourceDefinition>({
+var resourceWithCustomActions = store.defineResource<Resource, ActionsForResource>({
     name: 'actionResource',
     actions: {
         myAction: {
@@ -547,16 +547,16 @@ var customActionResource = store.defineResource<ActionResourceDefinition>({
     }
 });
 
-customActionResource.myAction<number>(3).then((result)=>{
+resourceWithCustomActions.myAction<number>(3).then((result)=>{
 
     var theCustomResult:number = result;
 });
 
-customActionResource.myOtherAction<void>(2, {data:'blub'}).then(()=>{
+resourceWithCustomActions.myOtherAction<void>(2, {data:'blub'}).then(()=>{
     // success
 });
 
-customActionResource.find(1).then((result)=>{
+resourceWithCustomActions.find(1).then((result)=>{
 
     var aProperty = result.someProp;
 });
@@ -565,7 +565,7 @@ customActionResource.find(1).then((result)=>{
  * Instance shorthands
  */
 
-var customActionResourceInstance = customActionResource.get(1);
+var customActionResourceInstance = resourceWithCustomActions.get(1);
 
 customActionResourceInstance.DSCompute();
 customActionResourceInstance.DSChanges();
