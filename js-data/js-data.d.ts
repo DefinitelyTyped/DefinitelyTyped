@@ -27,7 +27,7 @@ declare module JSData {
         clearEmptyQueries?:boolean;
         debug?:boolean;
         defaultAdapter?: string;
-        defaultFilter?: (collection:Array<any>, resourceName:string, params:DSFilterParams, options:DSConfiguration)=>Array<any>;
+        defaultFilter?: (collection:Array<any>, resourceName:string, params:DSFilterArg, options:DSConfiguration)=>Array<any>;
         defaultValues?:Object;
         eagerEject?: boolean;
         endpoint?: string;
@@ -86,6 +86,8 @@ declare module JSData {
         sort?: string | Array<string> | Array<Array<string>>;
     }
 
+    type DSFilterArg = DSFilterParams | Object;
+
     interface DSAdapterOperationConfiguration extends DSConfiguration {
         adapter?: string;
         params?: {
@@ -95,6 +97,12 @@ declare module JSData {
 
     interface DSSaveConfiguration extends DSAdapterOperationConfiguration {
         changesOnly?: boolean;
+    }
+
+    interface DSCollection<T> extends Array<T> {
+        fetch(params?:DSFilterArg, options?:DSConfiguration):JSDataPromise<Array<T & DSInstanceShorthands<T>>>;
+        params:DSFilterArg;
+        resourceName:string;
     }
 
     interface DS {
@@ -114,16 +122,16 @@ declare module JSData {
         clear<T>():Array<T & DSInstanceShorthands<T>>;
         compute<T>(resourceName:string, idOrInstance:number | string | T):T & DSInstanceShorthands<T>;
         create<T>(resourceName:string, attrs:Object, options?:DSConfiguration):JSDataPromise<T & DSInstanceShorthands<T>>;
-        createCollection<T>(resourceName:string, array?:Array<T>, params?:DSFilterParams, options?:DSConfiguration);
+        createCollection<T>(resourceName:string, array?:Array<T>, params?:DSFilterArg, options?:DSConfiguration):DSCollection<T & DSInstanceShorthands<T>>;
         createInstance<T>(resourceName:string, attrs?:Object, options?:DSConfiguration):T & DSInstanceShorthands<T>;
         destroy(resourceName:string, id:string | number, options?:DSAdapterOperationConfiguration):JSDataPromise<void>;
-        destroyAll(resourceName:string, params?:DSFilterParams, options?:DSAdapterOperationConfiguration):JSDataPromise<void>;
+        destroyAll(resourceName:string, params?:DSFilterArg, options?:DSAdapterOperationConfiguration):JSDataPromise<void>;
         digest():void;
         eject<T>(resourceName:string, id:string | number, options?:DSConfiguration):T & DSInstanceShorthands<T>;
-        ejectAll<T>(resourceName:string, params:DSFilterParams, options?:DSConfiguration):Array<T & DSInstanceShorthands<T>>;
-        filter<T>(resourceName:string, params:DSFilterParams, options?:DSConfiguration):Array<T & DSInstanceShorthands<T>>;
+        ejectAll<T>(resourceName:string, params:DSFilterArg, options?:DSConfiguration):Array<T & DSInstanceShorthands<T>>;
+        filter<T>(resourceName:string, params:DSFilterArg, options?:DSConfiguration):Array<T & DSInstanceShorthands<T>>;
         find<T>(resourceName:string, id:string | number, options?:DSAdapterOperationConfiguration):JSDataPromise<T & DSInstanceShorthands<T>>;
-        findAll<T>(resourceName:string, params?:DSFilterParams, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T & DSInstanceShorthands<T>>>;
+        findAll<T>(resourceName:string, params?:DSFilterArg, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T & DSInstanceShorthands<T>>>;
         get<T>(resourceName:string, id:string | number):T & DSInstanceShorthands<T>;
         getAll<T>(resourceName:string, ids?:Array<string | number>):Array<T & DSInstanceShorthands<T>>;
         hasChanges(resourceName:string, id:string | number):boolean;
@@ -136,11 +144,11 @@ declare module JSData {
         previous<T>(resourceName:string, id:string | number):T & DSInstanceShorthands<T>;
         reap(resourceName:string):JSDataPromise<void>;
         refresh<T>(resourceName:string, id:string | number, options?:DSAdapterOperationConfiguration):JSDataPromise<T & DSInstanceShorthands<T>>;
-        refreshAll<T>(resourceName:string, params?:DSFilterParams, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T & DSInstanceShorthands<T>>>;
+        refreshAll<T>(resourceName:string, params?:DSFilterArg, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T & DSInstanceShorthands<T>>>;
         revert<T>(resourceName:string, id:string | number):T & DSInstanceShorthands<T>;
         save<T>(resourceName:string, id:string | number, options?:DSSaveConfiguration):JSDataPromise<T & DSInstanceShorthands<T>>;
         update<T>(resourceName:string, id:string | number, attrs:Object, options?:DSAdapterOperationConfiguration):JSDataPromise<T & DSInstanceShorthands<T>>;
-        updateAll<T>(resourceName:string, attrs:Object, params?:DSFilterParams, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T & DSInstanceShorthands<T>>>;
+        updateAll<T>(resourceName:string, attrs:Object, params?:DSFilterArg, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T & DSInstanceShorthands<T>>>;
 
         defineResource<T>(resourceNameOrDefinition:string | DSResourceDefinitionConfiguration):DSResourceDefinition<T>;
         defineResource<T, TActions>(resourceNameOrDefinition:string | DSResourceDefinitionConfiguration):DSResourceDefinition<T> & TActions;
@@ -153,16 +161,16 @@ declare module JSData {
         clear():Array<T & DSInstanceShorthands<T>>;
         compute(idOrInstance:number | string | T):T & DSInstanceShorthands<T>;
         create(attrs:Object, options?:DSConfiguration):JSDataPromise<T & DSInstanceShorthands<T>>;
-        createCollection(array?:Array<T>, params?:DSFilterParams, options?:DSConfiguration);
+        createCollection(array?:Array<T>, params?:DSFilterArg, options?:DSConfiguration):DSCollection<T & DSInstanceShorthands<T>>;
         createInstance(attrs?:Object, options?:DSConfiguration):T & DSInstanceShorthands<T>;
         destroy(id:string | number, options?:DSAdapterOperationConfiguration):JSDataPromise<void>;
-        destroyAll(params?:DSFilterParams, options?:DSAdapterOperationConfiguration):JSDataPromise<void>;
+        destroyAll(params?:DSFilterArg, options?:DSAdapterOperationConfiguration):JSDataPromise<void>;
         digest():void;
         eject(id:string | number, options?:DSConfiguration):T & DSInstanceShorthands<T>;
-        ejectAll(params:DSFilterParams, options?:DSConfiguration):Array<T & DSInstanceShorthands<T>>;
-        filter(params:DSFilterParams, options?:DSConfiguration):Array<T & DSInstanceShorthands<T>>;
+        ejectAll(params:DSFilterArg, options?:DSConfiguration):Array<T & DSInstanceShorthands<T>>;
+        filter(params:DSFilterArg, options?:DSConfiguration):Array<T & DSInstanceShorthands<T>>;
         find(id:string | number, options?:DSAdapterOperationConfiguration):JSDataPromise<T & DSInstanceShorthands<T>>;
-        findAll(params?:DSFilterParams, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T & DSInstanceShorthands<T>>>;
+        findAll(params?:DSFilterArg, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T & DSInstanceShorthands<T>>>;
         get(id:string | number):T & DSInstanceShorthands<T>;
         getAll(ids?:Array<string | number>):Array<T & DSInstanceShorthands<T>>;
         hasChanges(id:string | number):boolean;
@@ -175,11 +183,11 @@ declare module JSData {
         previous(id:string | number):T & DSInstanceShorthands<T>;
         reap():JSDataPromise<void>;
         refresh(id:string | number, options?:DSAdapterOperationConfiguration):JSDataPromise<T & DSInstanceShorthands<T>>;
-        refreshAll(params?:DSFilterParams, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T & DSInstanceShorthands<T>>>;
+        refreshAll(params?:DSFilterArg, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T & DSInstanceShorthands<T>>>;
         revert(id:string | number):T & DSInstanceShorthands<T>;
         save(id:string | number, options?:DSSaveConfiguration):JSDataPromise<T & DSInstanceShorthands<T>>;
         update(id:string | number, attrs:Object, options?:DSAdapterOperationConfiguration):JSDataPromise<T & DSInstanceShorthands<T>>;
-        updateAll(attrs:Object, params?:DSFilterParams, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T & DSInstanceShorthands<T>>>;
+        updateAll(attrs:Object, params?:DSFilterArg, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T & DSInstanceShorthands<T>>>;
     }
 
     // cannot specify T at interface level because the interface is used as generic constraint itself which ends up being recursive
@@ -257,6 +265,11 @@ declare module JSData {
         afterLoadRelations?: DSAsyncLifecycleHookHandler | DSAsyncLifecycleHookHandlerCb;
     }
 
+    interface IDSResourceLifecycleCreateCollectionEventHandlers {
+        beforeCreateCollection?: DSSyncLifecycleHookHandler;
+        afterCreateCollection?: DSSyncLifecycleHookHandler;
+    }
+
     interface IDSResourceLifecycleEventHandlers extends IDSResourceLifecycleCreateEventHandlers,
         IDSResourceLifecycleCreateInstanceEventHandlers,
         IDSResourceLifecycleValidateEventHandlers,
@@ -267,7 +280,8 @@ declare module JSData {
         IDSResourceLifecycleReapEventHandlers,
         IDSResourceLifecycleFindEventHandlers,
         IDSResourceLifecycleFindAllEventHandlers,
-        IDSResourceLifecycleLoadRelationsEventHandlers {
+        IDSResourceLifecycleLoadRelationsEventHandlers,
+        IDSResourceLifecycleCreateCollectionEventHandlers {
     }
 
     // errors
@@ -293,13 +307,13 @@ declare module JSData {
         create(config:DSResourceDefinition<any>, attrs:Object, options?:DSConfiguration):JSDataPromise<any>;
 
         destroy(config:DSResourceDefinition<any>, id:string | number, options?:DSConfiguration):JSDataPromise<void>;
-        destroyAll(config:DSResourceDefinition<any>, params:DSFilterParams, options?:DSConfiguration):JSDataPromise<void>;
+        destroyAll(config:DSResourceDefinition<any>, params:DSFilterArg, options?:DSConfiguration):JSDataPromise<void>;
 
         find(config:DSResourceDefinition<any>, id:string | number, options?:DSConfiguration):JSDataPromise<any>;
-        findAll(config:DSResourceDefinition<any>, params?:DSFilterParams, options?:DSConfiguration):JSDataPromise<any>;
+        findAll(config:DSResourceDefinition<any>, params?:DSFilterArg, options?:DSConfiguration):JSDataPromise<any>;
 
         update(config:DSResourceDefinition<any>, id:string | number, attrs:Object, options?:DSConfiguration):JSDataPromise<any>;
-        updateAll(config:DSResourceDefinition<any>, attrs:Object, params?:DSFilterParams, options?:DSConfiguration):JSDataPromise<any>;
+        updateAll(config:DSResourceDefinition<any>, attrs:Object, params?:DSFilterArg, options?:DSConfiguration):JSDataPromise<any>;
     }
 
     // Custom action config
