@@ -302,6 +302,17 @@ declare module AngularFormly {
 
 
 		/**
+		 * This allows you to place attributes with string values on the ng-model element.
+		 * Easy to use alternative to ngModelAttrs option.
+		 *
+		 * see http://docs.angular-formly.com/docs/field-configuration-object#ngmodelelattrs-object
+		 */
+		ngModelElAttrs?: {
+			[key: string]: string;
+		};
+
+
+		/**
 		 * Used to tell angular-formly to not attempt to add the formControl property to your object. This is useful
 		 * for things like validation, but not necessary if your "field" doesn't use ng-model (if it's just a horizontal
 		 * line for example). Defaults to undefined.

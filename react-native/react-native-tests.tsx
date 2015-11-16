@@ -7,15 +7,21 @@ Note: This must be compiled with the target set to ES6
 The content of index.io.js could be something like
 
 
-'use strict';
+    'use strict';
 
-import { AppRegistry } from 'react-native'
-import Welcome from './gen/Welcome'
+     import { AppRegistry } from 'react-native'
+     import Welcome from './gen/Welcome'
 
-AppRegistry.registerComponent('MopNative', () => Welcome);
+     AppRegistry.registerComponent('MopNative', () => Welcome);
 
 
-*/
+
+
+NOTE:  I (Bruno Grieder) complete these definitions as I port the UI Explorer to Typescript
+If you are in a hurry for the latest definitions, or are looking for typescript examples,
+check https://github.com/bgrieder/RNTSExplorer
+
+ */
 
 ///<reference path="../react-native/react-native.d.ts" />
 
