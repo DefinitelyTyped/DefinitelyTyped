@@ -10596,14 +10596,24 @@ declare module _ {
          * @param path The path to check.
          * @return Returns true if path is a direct property, else false.
          */
-        has(object: any, path: string|number|boolean|Array<string|number|boolean>): boolean;
+        has<T extends {}>(
+            object: T,
+            path: StringRepresentable|StringRepresentable[]
+        ): boolean;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.has
          */
-        has(path: string|number|boolean|Array<string|number|boolean>): boolean;
+        has(path: StringRepresentable|StringRepresentable[]): boolean;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.has
+         */
+        has(path: StringRepresentable|StringRepresentable[]): LoDashExplicitWrapper<boolean>;
     }
 
     //_.invert
