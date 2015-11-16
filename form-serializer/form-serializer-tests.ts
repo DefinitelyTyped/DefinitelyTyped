@@ -1,4 +1,4 @@
-/// <reference path="jquery-serialize-object.d.ts" />
+/// <reference path="form-serializer.d.ts" />
 
 $("#form").serializeObject();
 $("#form").serializeJSON();

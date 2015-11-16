@@ -23,6 +23,10 @@ declare module "jquery-serialize-object" {
   export = FormSerializer;
 }
 
+declare module "form-serializer" {
+  export = FormSerializer;
+}
+
 interface JQuery {
 
   /**
