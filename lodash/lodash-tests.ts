@@ -4718,10 +4718,24 @@ module TestEq {
 }
 
 // _.gt
-result = <boolean>_.gt(1, 2);
-result = <boolean>_(1).gt(2);
-result = <boolean>_([]).gt(2);
-result = <boolean>_({}).gt(2);
+module TestGt {
+    {
+        let result: boolean;
+
+        result = _.gt(any, any);
+        result = _(1).gt(any);
+        result = _([]).gt(any);
+        result = _({}).gt(any);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().gt(any);
+        result = _([]).chain().gt(any);
+        result = _({}).chain().gt(any);
+    }
+}
 
 // _.gte
 module TestGte {
