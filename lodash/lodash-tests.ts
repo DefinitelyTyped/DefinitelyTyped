@@ -3574,13 +3574,103 @@ result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).inject<number, ABC>(function (r: ABC
 result = <number[]>_.reduceRight([[0, 1], [2, 3], [4, 5]], function (a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
 result = <number[]>_.foldr([[0, 1], [2, 3], [4, 5]], function (a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
 
-result = <number[]>_.reject([1, 2, 3, 4, 5, 6], function (num) { return num % 2 == 0; });
-result = <IFoodCombined[]>_.reject(foodsCombined, 'organic');
-result = <IFoodCombined[]>_.reject(foodsCombined, { 'type': 'fruit' });
+// _.reject
+module TestReject {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
 
-result = <number[]>_([1, 2, 3, 4, 5, 6]).reject(function (num) { return num % 2 == 0; }).value();
-result = <IFoodCombined[]>_(foodsCombined).reject('organic').value();
-result = <IFoodCombined[]>_(foodsCombined).reject({ 'type': 'fruit' }).value();
+    let stringIterator: (char: string, index: number, string: string) => any;
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any;
+
+    {
+        let result: string[];
+
+        result = _.reject('', stringIterator);
+        result = _.reject('', stringIterator, any);
+    }
+
+    {
+        let result: TResult[];
+
+        result = _.reject<TResult>(array, listIterator);
+        result = _.reject<TResult>(array, listIterator, any);
+        result = _.reject<TResult>(array, '');
+        result = _.reject<TResult>(array, '', any);
+        result = _.reject<{a: number}, TResult>(array, {a: 42});
+
+        result = _.reject<TResult>(list, listIterator);
+        result = _.reject<TResult>(list, listIterator, any);
+        result = _.reject<TResult>(list, '');
+        result = _.reject<TResult>(list, '', any);
+        result = _.reject<{a: number}, TResult>(list, {a: 42});
+
+        result = _.reject<TResult>(dictionary, dictionaryIterator);
+        result = _.reject<TResult>(dictionary, dictionaryIterator, any);
+        result = _.reject<TResult>(dictionary, '');
+        result = _.reject<TResult>(dictionary, '', any);
+        result = _.reject<{a: number}, TResult>(dictionary, {a: 42});
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _('').reject(stringIterator);
+        result = _('').reject(stringIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).reject(listIterator);
+        result = _(array).reject(listIterator, any);
+        result = _(array).reject('');
+        result = _(array).reject('', any);
+        result = _(array).reject<{a: number}>({a: 42});
+
+        result = _(list).reject<TResult>(listIterator);
+        result = _(list).reject<TResult>(listIterator, any);
+        result = _(list).reject<TResult>('');
+        result = _(list).reject<TResult>('', any);
+        result = _(list).reject<{a: number}, TResult>({a: 42});
+
+        result = _(dictionary).reject<TResult>(dictionaryIterator);
+        result = _(dictionary).reject<TResult>(dictionaryIterator, any);
+        result = _(dictionary).reject<TResult>('');
+        result = _(dictionary).reject<TResult>('', any);
+        result = _(dictionary).reject<{a: number}, TResult>({a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _('').chain().reject(stringIterator);
+        result = _('').chain().reject(stringIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().reject(listIterator);
+        result = _(array).chain().reject(listIterator, any);
+        result = _(array).chain().reject('');
+        result = _(array).chain().reject('', any);
+        result = _(array).chain().reject<{a: number}>({a: 42});
+
+        result = _(list).chain().reject<TResult>(listIterator);
+        result = _(list).chain().reject<TResult>(listIterator, any);
+        result = _(list).chain().reject<TResult>('');
+        result = _(list).chain().reject<TResult>('', any);
+        result = _(list).chain().reject<{a: number}, TResult>({a: 42});
+
+        result = _(dictionary).chain().reject<TResult>(dictionaryIterator);
+        result = _(dictionary).chain().reject<TResult>(dictionaryIterator, any);
+        result = _(dictionary).chain().reject<TResult>('');
+        result = _(dictionary).chain().reject<TResult>('', any);
+        result = _(dictionary).chain().reject<{a: number}, TResult>({a: 42});
+    }
+}
 
 result = <number>_.sample([1, 2, 3, 4]);
 result = <number[]>_.sample([1, 2, 3, 4], 2);
