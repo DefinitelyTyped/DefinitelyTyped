@@ -19,9 +19,9 @@ declare module "method-override" {
             methods: string[];
         }
     }
-    
-    function e(getter: string, options?: e.MethodOverrideOptions): express.RequestHandler;
-    function e(getter: (req: express.Request, res: express.Response) => string, options?: e.MethodOverrideOptions): express.RequestHandler;
+
+    function e(getter?: string, options?: e.MethodOverrideOptions): express.RequestHandler;
+    function e(getter?: (req: express.Request, res: express.Response) => string, options?: e.MethodOverrideOptions): express.RequestHandler;
 
     export = e;
 }
