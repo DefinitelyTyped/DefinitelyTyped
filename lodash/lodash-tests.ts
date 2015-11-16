@@ -6043,14 +6043,34 @@ result = <number>_.get<number>({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c');
 }
 
 // _.has
-result = <boolean>_.has({}, '');
-result = <boolean>_.has({}, 42);
-result = <boolean>_.has({}, true);
-result = <boolean>_.has({}, ['', 42, true]);
-result = <boolean>_({}).has('');
-result = <boolean>_({}).has(42);
-result = <boolean>_({}).has(true);
-result = <boolean>_({}).has(['', 42, true]);
+module TestHas {
+    type SampleObject = {a: number; b: string; c: boolean;};
+
+    let object: SampleObject;
+
+    {
+        let result: boolean;
+
+        result = _.has<SampleObject>(object, '');
+        result = _.has<SampleObject>(object, 42);
+        result = _.has<SampleObject>(object, true);
+        result = _.has<SampleObject>(object, ['', 42, true]);
+
+        result = _(object).has('');
+        result = _(object).has(42);
+        result = _(object).has(true);
+        result = _(object).has(['', 42, true]);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(object).chain().has('');
+        result = _(object).chain().has(42);
+        result = _(object).chain().has(true);
+        result = _(object).chain().has(['', 42, true]);
+    }
+}
 
 // _.invert
 {
