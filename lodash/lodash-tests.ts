@@ -2946,22 +2946,103 @@ module TestEvery {
     }
 }
 
-result = <number[]>_.filter([1, 2, 3, 4, 5, 6]);
-result = <number[]>_.filter([1, 2, 3, 4, 5, 6], function (num) { return num % 2 == 0; });
-result = <IFoodCombined[]>_.filter(foodsCombined, 'organic');
-result = <IFoodCombined[]>_.filter(foodsCombined, { 'type': 'fruit' });
+// _.filter
+module TestFilter {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
 
-result = <number[]>_([1, 2, 3, 4, 5, 6]).filter(function (num) { return num % 2 == 0; }).value();
-result = <IFoodCombined[]>_(foodsCombined).filter('organic').value();
-result = <IFoodCombined[]>_(foodsCombined).filter({ 'type': 'fruit' }).value();
+    let stringIterator: (char: string, index: number, string: string) => any;
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any;
 
-result = <number[]>_.select([1, 2, 3, 4, 5, 6], function (num) { return num % 2 == 0; });
-result = <IFoodCombined[]>_.select(foodsCombined, 'organic');
-result = <IFoodCombined[]>_.select(foodsCombined, { 'type': 'fruit' });
+    {
+        let result: string[];
 
-result = <number[]>_([1, 2, 3, 4, 5, 6]).select(function (num) { return num % 2 == 0; }).value();
-result = <IFoodCombined[]>_(foodsCombined).select('organic').value();
-result = <IFoodCombined[]>_(foodsCombined).select({ 'type': 'fruit' }).value();
+        result = _.filter('', stringIterator);
+        result = _.filter('', stringIterator, any);
+    }
+
+    {
+        let result: TResult[];
+
+        result = _.filter<TResult>(array, listIterator);
+        result = _.filter<TResult>(array, listIterator, any);
+        result = _.filter<TResult>(array, '');
+        result = _.filter<TResult>(array, '', any);
+        result = _.filter<{a: number}, TResult>(array, {a: 42});
+
+        result = _.filter<TResult>(list, listIterator);
+        result = _.filter<TResult>(list, listIterator, any);
+        result = _.filter<TResult>(list, '');
+        result = _.filter<TResult>(list, '', any);
+        result = _.filter<{a: number}, TResult>(list, {a: 42});
+
+        result = _.filter<TResult>(dictionary, dictionaryIterator);
+        result = _.filter<TResult>(dictionary, dictionaryIterator, any);
+        result = _.filter<TResult>(dictionary, '');
+        result = _.filter<TResult>(dictionary, '', any);
+        result = _.filter<{a: number}, TResult>(dictionary, {a: 42});
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _('').filter(stringIterator);
+        result = _('').filter(stringIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).filter(listIterator);
+        result = _(array).filter(listIterator, any);
+        result = _(array).filter('');
+        result = _(array).filter('', any);
+        result = _(array).filter<{a: number}>({a: 42});
+
+        result = _(list).filter<TResult>(listIterator);
+        result = _(list).filter<TResult>(listIterator, any);
+        result = _(list).filter<TResult>('');
+        result = _(list).filter<TResult>('', any);
+        result = _(list).filter<{a: number}, TResult>({a: 42});
+
+        result = _(dictionary).filter<TResult>(dictionaryIterator);
+        result = _(dictionary).filter<TResult>(dictionaryIterator, any);
+        result = _(dictionary).filter<TResult>('');
+        result = _(dictionary).filter<TResult>('', any);
+        result = _(dictionary).filter<{a: number}, TResult>({a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _('').chain().filter(stringIterator);
+        result = _('').chain().filter(stringIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().filter(listIterator);
+        result = _(array).chain().filter(listIterator, any);
+        result = _(array).chain().filter('');
+        result = _(array).chain().filter('', any);
+        result = _(array).chain().filter<{a: number}>({a: 42});
+
+        result = _(list).chain().filter<TResult>(listIterator);
+        result = _(list).chain().filter<TResult>(listIterator, any);
+        result = _(list).chain().filter<TResult>('');
+        result = _(list).chain().filter<TResult>('', any);
+        result = _(list).chain().filter<{a: number}, TResult>({a: 42});
+
+        result = _(dictionary).chain().filter<TResult>(dictionaryIterator);
+        result = _(dictionary).chain().filter<TResult>(dictionaryIterator, any);
+        result = _(dictionary).chain().filter<TResult>('');
+        result = _(dictionary).chain().filter<TResult>('', any);
+        result = _(dictionary).chain().filter<{a: number}, TResult>({a: 42});
+    }
+}
 
 // _.find
 module TestFind {
@@ -3678,6 +3759,104 @@ result = <_.LoDashImplicitWrapper<number>>_([1, 2, 3, 4]).sample();
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sample(2);
 result = <number>_([1, 2, 3, 4]).sample().value();
 result = <number[]>_([1, 2, 3, 4]).sample(2).value();
+
+// _.select
+module TestSelect {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
+
+    let stringIterator: (char: string, index: number, string: string) => any;
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any;
+
+    {
+        let result: string[];
+
+        result = _.select('', stringIterator);
+        result = _.select('', stringIterator, any);
+    }
+
+    {
+        let result: TResult[];
+
+        result = _.select<TResult>(array, listIterator);
+        result = _.select<TResult>(array, listIterator, any);
+        result = _.select<TResult>(array, '');
+        result = _.select<TResult>(array, '', any);
+        result = _.select<{a: number}, TResult>(array, {a: 42});
+
+        result = _.select<TResult>(list, listIterator);
+        result = _.select<TResult>(list, listIterator, any);
+        result = _.select<TResult>(list, '');
+        result = _.select<TResult>(list, '', any);
+        result = _.select<{a: number}, TResult>(list, {a: 42});
+
+        result = _.select<TResult>(dictionary, dictionaryIterator);
+        result = _.select<TResult>(dictionary, dictionaryIterator, any);
+        result = _.select<TResult>(dictionary, '');
+        result = _.select<TResult>(dictionary, '', any);
+        result = _.select<{a: number}, TResult>(dictionary, {a: 42});
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _('').select(stringIterator);
+        result = _('').select(stringIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).select(listIterator);
+        result = _(array).select(listIterator, any);
+        result = _(array).select('');
+        result = _(array).select('', any);
+        result = _(array).select<{a: number}>({a: 42});
+
+        result = _(list).select<TResult>(listIterator);
+        result = _(list).select<TResult>(listIterator, any);
+        result = _(list).select<TResult>('');
+        result = _(list).select<TResult>('', any);
+        result = _(list).select<{a: number}, TResult>({a: 42});
+
+        result = _(dictionary).select<TResult>(dictionaryIterator);
+        result = _(dictionary).select<TResult>(dictionaryIterator, any);
+        result = _(dictionary).select<TResult>('');
+        result = _(dictionary).select<TResult>('', any);
+        result = _(dictionary).select<{a: number}, TResult>({a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _('').chain().select(stringIterator);
+        result = _('').chain().select(stringIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().select(listIterator);
+        result = _(array).chain().select(listIterator, any);
+        result = _(array).chain().select('');
+        result = _(array).chain().select('', any);
+        result = _(array).chain().select<{a: number}>({a: 42});
+
+        result = _(list).chain().select<TResult>(listIterator);
+        result = _(list).chain().select<TResult>(listIterator, any);
+        result = _(list).chain().select<TResult>('');
+        result = _(list).chain().select<TResult>('', any);
+        result = _(list).chain().select<{a: number}, TResult>({a: 42});
+
+        result = _(dictionary).chain().select<TResult>(dictionaryIterator);
+        result = _(dictionary).chain().select<TResult>(dictionaryIterator, any);
+        result = _(dictionary).chain().select<TResult>('');
+        result = _(dictionary).chain().select<TResult>('', any);
+        result = _(dictionary).chain().select<{a: number}, TResult>({a: 42});
+    }
+}
 
 // _.shuffle
 module TestShuffle {
