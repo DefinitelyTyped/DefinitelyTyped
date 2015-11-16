@@ -6431,108 +6431,166 @@ declare module _ {
     //_.reject
     interface LoDashStatic {
         /**
-        * The opposite of _.filter this method returns the elements of a collection that
-        * the callback does not return truey for.
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback
-        * will return the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will
-        * return true for elements that have the properties of the given object, else false.
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return A new array of elements that failed the callback check.
-        **/
-        reject<T>(
-            collection: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.reject
-        **/
+         * The opposite of _.filter; this method returns the elements of collection that predicate does not return
+         * truthy for.
+         *
+         * @param collection The collection to iterate over.
+         * @param predicate The function invoked per iteration.
+         * @param thisArg The this binding of predicate.
+         * @return Returns the new filtered array.
+         */
         reject<T>(
             collection: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): T[];
 
         /**
-        * @see _.reject
-        **/
+         * @see _.reject
+         */
         reject<T>(
             collection: Dictionary<T>,
-            callback: DictionaryIterator<T, boolean>,
-            thisArg?: any): T[];
+            predicate?: DictionaryIterator<T, boolean>,
+            thisArg?: any
+        ): T[];
 
         /**
-        * @see _.reject
-        * @param pluckValue _.pluck style callback
-        **/
+         * @see _.reject
+         */
+        reject(
+            collection: string,
+            predicate?: StringIterator<boolean>,
+            thisArg?: any
+        ): string[];
+
+        /**
+         * @see _.reject
+         */
         reject<T>(
-            collection: Array<T>,
-            pluckValue: string): T[];
+            collection: List<T>|Dictionary<T>,
+            predicate: string,
+            thisArg?: any
+        ): T[];
 
         /**
-        * @see _.reject
-        * @param pluckValue _.pluck style callback
-        **/
-        reject<T>(
-            collection: List<T>,
-            pluckValue: string): T[];
+         * @see _.reject
+         */
+        reject<W extends {}, T>(
+            collection: List<T>|Dictionary<T>,
+            predicate: W
+        ): T[];
+    }
 
+    interface LoDashImplicitWrapper<T> {
         /**
-        * @see _.reject
-        * @param pluckValue _.pluck style callback
-        **/
-        reject<T>(
-            collection: Dictionary<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.reject
-        * @param whereValue _.where style callback
-        **/
-        reject<W, T>(
-            collection: Array<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.reject
-        * @param whereValue _.where style callback
-        **/
-        reject<W, T>(
-            collection: List<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.reject
-        * @param whereValue _.where style callback
-        **/
-        reject<W, T>(
-            collection: Dictionary<T>,
-            whereValue: W): T[];
+         * @see _.reject
+         */
+        reject(
+            predicate?: StringIterator<boolean>,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<string>;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
-        * @see _.reject
-        **/
+         * @see _.reject
+         */
         reject(
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): LoDashImplicitArrayWrapper<T>;
+            predicate: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<T>;
 
         /**
-        * @see _.reject
-        * @param pluckValue _.pluck style callback
-        **/
-        reject(pluckValue: string): LoDashImplicitArrayWrapper<T>;
+         * @see _.reject
+         */
+        reject(
+            predicate: string,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<T>;
 
         /**
-        * @see _.reject
-        * @param whereValue _.where style callback
-        **/
-        reject<W>(whereValue: W): LoDashImplicitArrayWrapper<T>;
+         * @see _.reject
+         */
+        reject<W>(predicate: W): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.reject
+         */
+        reject<T>(
+            predicate: ListIterator<T, boolean>|DictionaryIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.reject
+         */
+        reject<T>(
+            predicate: string,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.reject
+         */
+        reject<W, T>(predicate: W): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.reject
+         */
+        reject(
+            predicate?: StringIterator<boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.reject
+         */
+        reject(
+            predicate: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.reject
+         */
+        reject(
+            predicate: string,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.reject
+         */
+        reject<W>(predicate: W): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.reject
+         */
+        reject<T>(
+            predicate: ListIterator<T, boolean>|DictionaryIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.reject
+         */
+        reject<T>(
+            predicate: string,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.reject
+         */
+        reject<W, T>(predicate: W): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.sample
