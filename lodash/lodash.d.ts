@@ -10439,34 +10439,47 @@ declare module _ {
     //_.forInRight
     interface LoDashStatic {
         /**
-        * This method is like _.forIn except that it iterates over elements of a collection in the
-        * opposite order.
-        * @param object The object to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return object
-        **/
-        forInRight<T extends {}>(
+         * This method is like _.forIn except that it iterates over properties of object in the opposite order.
+         *
+         * @param object The object to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns object.
+         */
+        forInRight<T>(
             object: Dictionary<T>,
-            callback?: DictionaryIterator<T, void>,
-            thisArg?: any): Dictionary<T>;
+            iteratee?: DictionaryIterator<T, any>,
+            thisArg?: any
+        ): Dictionary<T>;
 
         /**
-        * @see _.forInRight
-        **/
+         * @see _.forInRight
+         */
         forInRight<T extends {}>(
             object: T,
-            callback?: ObjectIterator<T, void>,
-            thisArg?: any): T;
+            iteratee?: ObjectIterator<any, any>,
+            thisArg?: any
+        ): T;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.forInRight
-        **/
-        forInRight<T extends {}>(
-            callback: ObjectIterator<T, void>,
-            thisArg?: any): _.LoDashImplicitObjectWrapper<T>;
+         * @see _.forInRight
+         */
+        forInRight<TValue>(
+            iteratee?: DictionaryIterator<TValue, any>,
+            thisArg?: any
+        ): _.LoDashImplicitObjectWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.forInRight
+         */
+        forInRight<TValue>(
+            iteratee?: DictionaryIterator<TValue, any>,
+            thisArg?: any
+        ): _.LoDashExplicitObjectWrapper<T>;
     }
 
     //_.forOwn
