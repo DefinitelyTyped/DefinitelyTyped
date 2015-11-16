@@ -1,4 +1,4 @@
-﻿// Type definitions for openpgpjs
+// Type definitions for openpgpjs
 // Project: http://openpgpjs.org/
 // Definitions by: Guillaume Lacasa <https://blog.lacasa.fr>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -364,6 +364,14 @@ declare module openpgp.enums {
         aes256,
         twofish
     }
+
+    enum keyStatus {
+        invalid,
+        expired,
+        revoked,
+        valid,
+        no_self_cert
+    }
 }
 
 declare module openpgp.key {
@@ -376,8 +384,19 @@ declare module openpgp.key {
     /** Class that represents an OpenPGP key. Must contain a primary key. Can contain additional subkeys, signatures, user ids, user attributes.
      */
     interface Key {
-        armor(): String,
-        decrypt(passphrase: String): Boolean,
+        armor(): string,
+        decrypt(passphrase: string): boolean;
+        getExpirationTime(): Date;
+        getKeyIds(): Array<Keyid>;
+        getPreferredHashAlgorithm(): string;
+        getPrimaryUser(): any;
+        getUserIds(): Array<string>;
+        isPrivate(): boolean;
+        isPublic(): boolean;
+        primaryKey: packet.PublicKey;
+        toPublic(): Key;
+        update(key: Key): void;
+        verifyPrimaryKey(): enums.keyStatus;
     }
 
     /** Generates a new OpenPGP key. Currently only supports RSA keys. Primary and subkey will be of same type.
@@ -461,6 +480,34 @@ declare module openpgp.message {
 }
 
 declare module openpgp.packet {
+
+    interface PublicKey {
+        algorithm: enums.publicKey;
+        created: Date;
+        fingerprint: string;
+
+        getBitSize(): number;
+        getFingerprint(): string;
+        getKeyId(): string;
+        read(input: string): any;
+        write(): any;
+    }
+
+    // SecretKey extends PublicKey
+    interface SecretKey {
+        algorithm: enums.publicKey;
+        created: Date;
+        fingerprint: string;
+
+        getBitSize(): number;
+        getFingerprint(): string;
+        getKeyId(): string;
+        read(bytes:string): void;
+        write(): string;
+
+        clearPrivateMPIs(str_passphrase: string): boolean;
+        encrypt(passphrase:string): void;
+    }
 
     /** Allocate a new packet from structured packet clone
         @param packetClone packet clone
