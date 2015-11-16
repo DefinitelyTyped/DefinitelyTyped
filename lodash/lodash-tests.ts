@@ -5945,19 +5945,54 @@ result = <_.LoDashImplicitObjectWrapper<Dog>>_(new Dog('Dagny')).forInRight(func
     console.log(key);
 });
 
+// _.forOwn
+module TestForOwn {
+    type SampleObject = {a: number; b: string; c: boolean;};
+
+    let dictionary: _.Dictionary<number>;
+    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => any;
+
+    let object: SampleObject;
+    let objectIterator: (element: any, key?: string, collection?: any) => any;
+
+    {
+        let result: _.Dictionary<number>;
+
+        result = _.forOwn<number>(dictionary);
+        result = _.forOwn<number>(dictionary, dictionaryIterator);
+        result = _.forOwn<number>(dictionary, dictionaryIterator, any);
+    }
+
+    {
+        let result: SampleObject;
+
+        result = _.forOwn<SampleObject>(object);
+        result = _.forOwn<SampleObject>(object, objectIterator);
+        result = _.forOwn<SampleObject>(object, objectIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<number>>;
+
+        result = _(dictionary).forOwn<number>();
+        result = _(dictionary).forOwn<number>(dictionaryIterator);
+        result = _(dictionary).forOwn<number>(dictionaryIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
+
+        result = _(dictionary).chain().forOwn<number>();
+        result = _(dictionary).chain().forOwn<number>(dictionaryIterator);
+        result = _(dictionary).chain().forOwn<number>(dictionaryIterator, any);
+    }
+}
+
 interface ZeroOne {
     0: string;
     1: string;
     one: string;
 }
-
-result = <ZeroOne>_.forOwn(<ZeroOne>{ '0': 'zero', '1': 'one', 'one': '2' }, function (num, key) {
-    console.log(key);
-});
-
-result = <_.LoDashImplicitObjectWrapper<ZeroOne>>_({ '0': 'zero', '1': 'one', 'length': 2 }).forOwn(function (num, key) {
-    console.log(key);
-});
 
 result = <any>_.forOwnRight({ '0': 'zero', '1': 'one', 'length': 2 }, function (num, key) {
     console.log(key);
