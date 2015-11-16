@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // Definitions by: SINTEF-9012 <http://github.com/SINTEF-9012>
 
-/// <reference path="long.d.ts" />
+/// <reference path="../long/long.d.ts" />
 
 declare class ByteBuffer
 {
