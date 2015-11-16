@@ -83,7 +83,7 @@ interface JQuerySlickOptions {
      * Custom paging templates. See source for use example.
      * Default: n/a
      */
-    customPaging?: (slider, i: number) => string;
+    customPaging?: (slider: any, i: number) => string;
 
     /**
      * Show dot indicators
@@ -271,6 +271,13 @@ interface JQuery {
      */
     slick(): JQuery;
     slick(options: JQuerySlickOptions): JQuery;
+
+    /**
+     * Trigger non-specialized signature method
+     * @param methodName
+     * @param arg
+     */
+    slick(methodName: string, ...arg: any[]): any;
 
     /**
      * Returns the current slide index
