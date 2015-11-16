@@ -10524,29 +10524,28 @@ declare module _ {
     //_.functions
     interface LoDashStatic {
         /**
-        * Creates a sorted array of property names of all enumerable properties, own and inherited, of
-        * object that have function values.
-        * @param object The object to inspect.
-        * @return An array of property names that have function values.
-        **/
-        functions(object: any): string[];
-
-        /**
-        * @see _functions
-        **/
-        methods(object: any): string[];
+         * Creates an array of function property names from all enumerable properties, own and inherited, of object.
+         *
+         * @alias _.methods
+         *
+         * @param object The object to inspect.
+         * @return Returns the new array of property names.
+         */
+        functions<T extends {}>(object: any): string[];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.functions
-        **/
+         * @see _.functions
+         */
         functions(): _.LoDashImplicitArrayWrapper<string>;
+    }
 
+    interface LoDashExplicitObjectWrapper<T> {
         /**
-        * @see _.functions
-        **/
-        methods(): _.LoDashImplicitArrayWrapper<string>;
+         * @see _.functions
+         */
+        functions(): _.LoDashExplicitArrayWrapper<string>;
     }
 
     //_.get
@@ -10915,6 +10914,28 @@ declare module _ {
         merge<TResult>(
             ...otherArgs: any[]
         ): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    //_.methods
+    interface LoDashStatic {
+        /**
+         * @see _.functions
+         */
+        methods<T extends {}>(object: any): string[];
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.functions
+         */
+        methods(): _.LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.functions
+         */
+        methods(): _.LoDashExplicitArrayWrapper<string>;
     }
 
     //_.omit

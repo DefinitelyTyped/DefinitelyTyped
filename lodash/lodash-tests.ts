@@ -5967,11 +5967,30 @@ result = <_.LoDashImplicitObjectWrapper<ZeroOne>>_({ '0': 'zero', '1': 'one', 'l
     console.log(key);
 });
 
-result = <string[]>_.functions(_);
-result = <string[]>_.methods(_);
+// _.functions
+module TestFunctions {
+    type SampleObject = {a: number; b: string; c: boolean;};
 
-result = <_.LoDashImplicitArrayWrapper<string>>_(_).functions();
-result = <_.LoDashImplicitArrayWrapper<string>>_(_).methods();
+    let object: SampleObject;
+
+    {
+        let result: string[];
+
+        result = _.functions<SampleObject>(object);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _(object).functions();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _(object).chain().functions();
+    }
+}
 
 // _.get
 result = <number>_.get<number>({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c');
@@ -6112,6 +6131,31 @@ module TestMerge {
     result = _({}).merge<TResult>({}, {}, {}, {}, {}).value();
     result = _({}).merge<TResult>({}, {}, {}, {}, {}, customizer).value();
     result = _({}).merge<TResult>({}, {}, {}, {}, {}, customizer, any).value();
+}
+
+// _.methods
+module TestFunctions {
+    type SampleObject = {a: number; b: string; c: boolean;};
+
+    let object: SampleObject;
+
+    {
+        let result: string[];
+
+        result = _.methods<SampleObject>(object);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _(object).methods();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _(object).chain().methods();
+    }
 }
 
 interface HasName {
