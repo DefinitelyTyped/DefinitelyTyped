@@ -158,6 +158,13 @@ declare module JQueryMmenu {
     interface API {
 
         /**
+         * Trigger non-specialized signature method
+         * @param methodName
+         * @param callback
+         */
+        bind(methodName: string, callback: (...args: any[]) => void): any;
+
+        /**
          * Trigger this method to close all opened panels and go back to the first panel.
          */
         closeAllPanels(): JQuery;
@@ -169,48 +176,48 @@ declare module JQueryMmenu {
          * (only available if the "slidingSubmenus" option is set to false).
          * @param panel
          */
-        closePanel(panel: JQuery);
+        closePanel(panel: JQuery): void;
         /** @see closePanel() */
-        bind(methodName: "closePanel", callback: (panel: JQuery) => void);
+        bind(methodName: "closePanel", callback: (panel: JQuery) => void): void;
 
         /**
          * Trigger this method to get the class instance for the menu.
          */
-        getInstance();
+        getInstance(): void;
         /** @see getInstance() */
-        bind(methodName: "getInstance", callback: () => void);
+        bind(methodName: "getInstance", callback: () => void): void;
 
         /**
          * Trigger this method to (re)initialize a newly added panel.
          * @param panel The panel to (re)initialize.
          */
-        init(panel: JQuery);
+        init(panel: JQuery): void;
         /** @see init() */
-        bind(methodName: "init", callback: (panel: JQuery) => void);
+        bind(methodName: "init", callback: (panel: JQuery) => void): void;
 
         /**
          * Trigger this method to open a panel.
          * @param panel The panel to open.
          */
-        openPanel(panel: JQuery);
+        openPanel(panel: JQuery): void;
         /** @see openPanel() */
-        bind(methodName: "openPanel", callback: (panel: JQuery) => void);
+        bind(methodName: "openPanel", callback: (panel: JQuery) => void): void;
 
         /**
          * Trigger this method to set or unset a list item as "selected".
          * @param li The list item to set or unset as "selected".
          * @param selected Whether to set or unset the list item as "selected". Default: true
          */
-        setSelected(li: JQuery, selected?: boolean);
+        setSelected(li: JQuery, selected?: boolean): void;
         /** @see setSelected() */
-        bind(methodName: "setSelected", callback: (li: JQuery, selected?: boolean) => void);
+        bind(methodName: "setSelected", callback: (li: JQuery, selected?: boolean) => void): void;
 
         /**
          * Trigger this method to update the appearance for the menu.
          */
-        update();
+        update(): void;
         /** @see update() */
-        bind(methodName: "update", callback: () => void);
+        bind(methodName: "update", callback: () => void): void;
 
     }
 
@@ -225,5 +232,11 @@ interface JQuery {
     mmenu(): JQuery;
     mmenu(options: JQueryMmenu.Options): JQuery;
     mmenu(options: JQueryMmenu.Options, configurations: JQueryMmenu.Configurations): JQuery;
+
+    /**
+     * Return the mmenu object
+     * @param element
+     */
+    data(element: "mmenu"): JQueryMmenu.API;
 
 }

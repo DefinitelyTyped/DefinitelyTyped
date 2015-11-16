@@ -1,5 +1,5 @@
 ///<reference path="../jquery/jquery.d.ts" />
-///<reference path="/jquery.mmenu/jquery.mmenu.d.ts" />
+///<reference path="../jquery.mmenu/jquery.mmenu.d.ts" />
 
 
 // --------------------------------------------------------
@@ -44,7 +44,7 @@ menu.mmenu(
 // ------------------- TEST MMENU API ---------------------
 // --------------------------------------------------------
 
-var api: JQueryMmenu.API = menu.data("mmenu");
+var api = menu.data("mmenu");
 var myPanel: JQuery = $("#panel");
 var listItem: JQuery = $(".list-item");
 
