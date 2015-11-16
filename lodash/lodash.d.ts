@@ -4560,228 +4560,177 @@ declare module _ {
     //_.filter
     interface LoDashStatic {
         /**
-        * Iterates over elements of a collection, returning an array of all elements the
-        * identity function returns truey for.
-        *
-        * @param collection The collection to iterate over.
-        * @return Returns a new array of elements that passed the callback check.
-        **/
-        filter<T>(
-            collection: (Array<T>|List<T>)): T[];
-
-        /**
-        * Iterates over elements of a collection, returning an array of all elements the
-        * callback returns truey for. The callback is bound to thisArg and invoked with three
-        * arguments; (value, index|key, collection).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will
-        * return the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return
-        * true for elements that have the properties of the given object, else false.
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param context The this binding of callback.
-        * @return Returns a new array of elements that passed the callback check.
-        **/
-        filter<T>(
-            collection: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.filter
-        **/
+         * Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The
+         * predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
+         *
+         * If a property name is provided for predicate the created _.property style callback returns the property
+         * value of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for predicate the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * @alias _.select
+         *
+         * @param collection The collection to iterate over.
+         * @param predicate The function invoked per iteration.
+         * @param thisArg The this binding of predicate.
+         * @return Returns the new filtered array.
+         */
         filter<T>(
             collection: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): T[];
 
         /**
-        * @see _.filter
-        **/
+         * @see _.filter
+         */
         filter<T>(
             collection: Dictionary<T>,
-            callback: DictionaryIterator<T, boolean>,
-            thisArg?: any): T[];
+            predicate?: DictionaryIterator<T, boolean>,
+            thisArg?: any
+        ): T[];
 
         /**
-        * @see _.filter
-        * @param pluckValue _.pluck style callback
-        **/
+         * @see _.filter
+         */
+        filter(
+            collection: string,
+            predicate?: StringIterator<boolean>,
+            thisArg?: any
+        ): string[];
+
+        /**
+         * @see _.filter
+         */
         filter<T>(
-            collection: Array<T>,
-            pluckValue: string): T[];
+            collection: List<T>|Dictionary<T>,
+            predicate: string,
+            thisArg?: any
+        ): T[];
 
         /**
-        * @see _.filter
-        * @param pluckValue _.pluck style callback
-        **/
-        filter<T>(
-            collection: List<T>,
-            pluckValue: string): T[];
+         * @see _.filter
+         */
+        filter<W extends {}, T>(
+            collection: List<T>|Dictionary<T>,
+            predicate: W
+        ): T[];
+    }
 
+    interface LoDashImplicitWrapper<T> {
         /**
-        * @see _.filter
-        * @param pluckValue _.pluck style callback
-        **/
-        filter<T>(
-            collection: Dictionary<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.filter
-        * @param pluckValue _.pluck style callback
-        **/
-        filter<W, T>(
-            collection: Array<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.filter
-        * @param pluckValue _.pluck style callback
-        **/
-        filter<W, T>(
-            collection: List<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.filter
-        * @param pluckValue _.pluck style callback
-        **/
-        filter<W, T>(
-            collection: Dictionary<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.filter
-        **/
-        select<T>(
-            collection: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.filter
-        **/
-        select<T>(
-            collection: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.filter
-        **/
-        select<T>(
-            collection: Dictionary<T>,
-            callback: DictionaryIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.filter
-        * @param pluckValue _.pluck style callback
-        **/
-        select<T>(
-            collection: Array<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.filter
-        * @param pluckValue _.pluck style callback
-        **/
-        select<T>(
-            collection: List<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.filter
-        * @param pluckValue _.pluck style callback
-        **/
-        select<T>(
-            collection: Dictionary<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.filter
-        * @param pluckValue _.pluck style callback
-        **/
-        select<W, T>(
-            collection: Array<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.filter
-        * @param pluckValue _.pluck style callback
-        **/
-        select<W, T>(
-            collection: List<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.filter
-        * @param pluckValue _.pluck style callback
-        **/
-        select<W, T>(
-            collection: Dictionary<T>,
-            whereValue: W): T[];
+         * @see _.filter
+         */
+        filter(
+            predicate?: StringIterator<boolean>,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<string>;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
-        * @see _.filter
-        **/
-        filter(): LoDashImplicitArrayWrapper<T>;
-
-        /**
-        * @see _.filter
-        **/
+         * @see _.filter
+         */
         filter(
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): LoDashImplicitArrayWrapper<T>;
+            predicate: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<T>;
 
         /**
-        * @see _.filter
-        * @param pluckValue _.pluck style callback
-        **/
+         * @see _.filter
+         */
         filter(
-            pluckValue: string): LoDashImplicitArrayWrapper<T>;
+            predicate: string,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<T>;
 
         /**
-        * @see _.filter
-        * @param pluckValue _.pluck style callback
-        **/
-        filter<W>(
-            whereValue: W): LoDashImplicitArrayWrapper<T>;
-
-        /**
-        * @see _.filter
-        **/
-        select(
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): LoDashImplicitArrayWrapper<T>;
-
-        /**
-        * @see _.filter
-        * @param pluckValue _.pluck style callback
-        **/
-        select(
-            pluckValue: string): LoDashImplicitArrayWrapper<T>;
-
-        /**
-        * @see _.filter
-        * @param pluckValue _.pluck style callback
-        **/
-        select<W>(
-            whereValue: W): LoDashImplicitArrayWrapper<T>;
+         * @see _.filter
+         */
+        filter<W>(predicate: W): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.filter
-        **/
-        filter<T extends {}>(
-            callback: ObjectIterator<T, boolean>,
-            thisArg?: any): LoDashImplicitObjectWrapper<T>;
+         * @see _.filter
+         */
+        filter<T>(
+            predicate: ListIterator<T, boolean>|DictionaryIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.filter
+         */
+        filter<T>(
+            predicate: string,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.filter
+         */
+        filter<W, T>(predicate: W): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.filter
+         */
+        filter(
+            predicate?: StringIterator<boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.filter
+         */
+        filter(
+            predicate: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.filter
+         */
+        filter(
+            predicate: string,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.filter
+         */
+        filter<W>(predicate: W): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.filter
+         */
+        filter<T>(
+            predicate: ListIterator<T, boolean>|DictionaryIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.filter
+         */
+        filter<T>(
+            predicate: string,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.filter
+         */
+        filter<W, T>(predicate: W): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.find
@@ -6641,6 +6590,165 @@ declare module _ {
          * @see _.sample
          **/
         sample(): LoDashImplicitWrapper<T>;
+    }
+
+    //_.select
+    interface LoDashStatic {
+        /**
+         * @see _.filter
+         */
+        select<T>(
+            collection: List<T>,
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any
+        ): T[];
+
+        /**
+         * @see _.filter
+         */
+        select<T>(
+            collection: Dictionary<T>,
+            predicate?: DictionaryIterator<T, boolean>,
+            thisArg?: any
+        ): T[];
+
+        /**
+         * @see _.filter
+         */
+        select(
+            collection: string,
+            predicate?: StringIterator<boolean>,
+            thisArg?: any
+        ): string[];
+
+        /**
+         * @see _.filter
+         */
+        select<T>(
+            collection: List<T>|Dictionary<T>,
+            predicate: string,
+            thisArg?: any
+        ): T[];
+
+        /**
+         * @see _.filter
+         */
+        select<W extends {}, T>(
+            collection: List<T>|Dictionary<T>,
+            predicate: W
+        ): T[];
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.filter
+         */
+        select(
+            predicate?: StringIterator<boolean>,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.filter
+         */
+        select(
+            predicate: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.filter
+         */
+        select(
+            predicate: string,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.filter
+         */
+        select<W>(predicate: W): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.filter
+         */
+        select<T>(
+            predicate: ListIterator<T, boolean>|DictionaryIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.filter
+         */
+        select<T>(
+            predicate: string,
+            thisArg?: any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.filter
+         */
+        select<W, T>(predicate: W): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.filter
+         */
+        select(
+            predicate?: StringIterator<boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.filter
+         */
+        select(
+            predicate: ListIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.filter
+         */
+        select(
+            predicate: string,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.filter
+         */
+        select<W>(predicate: W): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.filter
+         */
+        select<T>(
+            predicate: ListIterator<T, boolean>|DictionaryIterator<T, boolean>,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.filter
+         */
+        select<T>(
+            predicate: string,
+            thisArg?: any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.filter
+         */
+        select<W, T>(predicate: W): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.shuffle
