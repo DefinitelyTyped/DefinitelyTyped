@@ -774,7 +774,7 @@ declare module angular {
          * @param reverse Reverse the order of the array.
          * @return Reverse the order of the array.
          */
-        <T>(array: T[], expression: string|string[]|((value: T) => any)|((value: T) => any)[], reverse?: boolean): T[];
+        <T>(array: T[], expression: string|((value: T) => any)|(((value: T) => any)|string)[], reverse?: boolean): T[];
     }
 
     /**
@@ -1660,6 +1660,7 @@ declare module angular {
         restrict?: string;
         scope?: any;
         template?: any;
+        templateNamespace?: string;
         templateUrl?: any;
         terminal?: boolean;
         transclude?: any;
