@@ -25,19 +25,19 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	/**
 	 * Promises/A+ `.then()` with progress handler. Returns a new promise chained from this promise. The new promise will be rejected or resolved dedefer on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
 	 */
-	then<U>(onFulfill: (value: R) => U|Promise.Thenable<U>, onReject: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
-	then<U>(onFulfill: (value: R) => U|Promise.Thenable<U>, onReject?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
-
+	then<U>(onFulfill: (value: R) => U|Promise.Thenable<U>, onReject?: (error: any) => U|Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
+	then<U>(onFulfill: (value: R) => U|Promise.Thenable<U>, onReject?: (error: any) => void|Promise.Thenable<void>, onProgress?: (note: any) => any): Promise<U>;
+	
 	/**
 	 * This is a catch-all exception handler, shortcut for calling `.then(null, handler)` on this promise. Any exception happening in a `.then`-chain will propagate to nearest `.catch` handler.
 	 *
 	 * Alias `.caught();` for compatibility with earlier ECMAScript version.
 	 */
-	catch<U>(onReject?: (error: any) => Promise.Thenable<U>): Promise<U>;
-	caught<U>(onReject?: (error: any) => Promise.Thenable<U>): Promise<U>;
+	catch(onReject?: (error: any) => R|Promise.Thenable<R>|void|Promise.Thenable<void>): Promise<R>;
+	caught(onReject?: (error: any) => R|Promise.Thenable<R>|void|Promise.Thenable<void>): Promise<R>;
 
-	catch<U>(onReject?: (error: any) => U): Promise<U>;
-	caught<U>(onReject?: (error: any) => U): Promise<U>;
+	catch<U>(onReject?: (error: any) => U|Promise.Thenable<U>): Promise<U|R>;
+	caught<U>(onReject?: (error: any) => U|Promise.Thenable<U>): Promise<U|R>;
 
 	/**
 	 * This extends `.catch` to work more like catch-clauses in languages like Java or C#. Instead of manually checking `instanceof` or `.name === "SomeError"`, you may specify a number of error constructors which are eligible for this catch handler. The catch handler that is first met that has eligible constructors specified, is the one that will be called.
@@ -46,17 +46,18 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	 *
 	 * Alias `.caught();` for compatibility with earlier ECMAScript version.
 	 */
-	catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => Promise.Thenable<U>): Promise<U>;
-	caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => Promise.Thenable<U>): Promise<U>;
+	catch(predicate: (error: any) => boolean, onReject: (error: any) => R|Promise.Thenable<R>|void|Promise.Thenable<void>): Promise<R>;
+	caught(predicate: (error: any) => boolean, onReject: (error: any) => R|Promise.Thenable<R>|void|Promise.Thenable<void>): Promise<R>;
 
-	catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U): Promise<U>;
-	caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => U): Promise<U>;
+	catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U|Promise.Thenable<U>): Promise<U|R>;
+	caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => U|Promise.Thenable<U>): Promise<U|R>;
 
-	catch<U>(ErrorClass: Function, onReject: (error: any) => Promise.Thenable<U>): Promise<U>;
-	caught<U>(ErrorClass: Function, onReject: (error: any) => Promise.Thenable<U>): Promise<U>;
+	catch(ErrorClass: Function, onReject: (error: any) => R|Promise.Thenable<R>|void|Promise.Thenable<void>): Promise<R>;
+	caught(ErrorClass: Function, onReject: (error: any) => R|Promise.Thenable<R>|void|Promise.Thenable<void>): Promise<R>;
 
-	catch<U>(ErrorClass: Function, onReject: (error: any) => U): Promise<U>;
-	caught<U>(ErrorClass: Function, onReject: (error: any) => U): Promise<U>;
+	catch<U>(ErrorClass: Function, onReject: (error: any) => U|Promise.Thenable<U>): Promise<U|R>;
+	caught<U>(ErrorClass: Function, onReject: (error: any) => U|Promise.Thenable<U>): Promise<U|R>;
+
 
 	/**
 	 * Like `.catch` but instead of catching all types of exceptions, it only catches those that don't originate from thrown errors but rather from explicit rejections.
@@ -426,7 +427,7 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	/**
 	 * Returns a promise that is resolved by a node style callback function.
 	 */
-	static fromNode(resolver: (callback: (err: any, result: any) => void) => void): Promise<any>;
+	static fromNode(resolver: (callback: (err: any, result?: any) => void) => void): Promise<any>;
 
 	/**
 	 * Returns a function that can use `yield` to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
@@ -671,8 +672,8 @@ declare module Promise {
 	export function OperationalError(): OperationalError;
 
 	export interface Thenable<R> {
-		then<U>(onFulfilled: (value: R) => U|Thenable<U>, onRejected: (error: any) => Thenable<U>): Thenable<U>;
-		then<U>(onFulfilled: (value: R) => U|Thenable<U>, onRejected?: (error: any) => U): Thenable<U>;
+		then<U>(onFulfilled: (value: R) => U|Thenable<U>, onRejected?: (error: any) => U|Thenable<U>): Thenable<U>;
+		then<U>(onFulfilled: (value: R) => U|Thenable<U>, onRejected?: (error: any) => void|Thenable<void>): Thenable<U>;
 	}
 
 	export interface Resolver<R> {
