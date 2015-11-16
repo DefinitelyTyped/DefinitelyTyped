@@ -2810,7 +2810,7 @@ declare module _ {
          * @return Returns the new array of filtered values.
          */
         without<T>(
-            array: T[]|List<T>,
+            array: List<T>,
             ...values: T[]
         ): T[];
     }
@@ -2826,7 +2826,21 @@ declare module _ {
         /**
          * @see _.without
          */
-        without<TValue>(...values: TValue[]): LoDashImplicitArrayWrapper<TValue>;
+        without<T>(...values: T[]): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.without
+         */
+        without(...values: T[]): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.without
+         */
+        without<T>(...values: T[]): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.xor

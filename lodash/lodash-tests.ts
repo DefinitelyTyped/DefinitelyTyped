@@ -1460,26 +1460,50 @@ module TestUnzip {
 }
 
 // _.without
-{
-    let testWithoutArray: number[];
-    let testWithoutList: _.List<number>;
-    let result: number[];
-    result = _.without<number>(testWithoutArray);
-    result = _.without<number>(testWithoutArray, 1);
-    result = _.without<number>(testWithoutArray, 1, 2);
-    result = _.without<number>(testWithoutArray, 1, 2, 3);
-    result = _.without<number>(testWithoutList);
-    result = _.without<number>(testWithoutList, 1);
-    result = _.without<number>(testWithoutList, 1, 2);
-    result = _.without<number>(testWithoutList, 1, 2, 3);
-    result = _(testWithoutArray).without().value();
-    result = _(testWithoutArray).without(1).value();
-    result = _(testWithoutArray).without(1, 2).value();
-    result = _(testWithoutArray).without(1, 2, 3).value();
-    result = _(testWithoutList).without<number>().value();
-    result = _(testWithoutList).without<number>(1).value();
-    result = _(testWithoutList).without<number>(1, 2).value();
-    result = _(testWithoutList).without<number>(1, 2, 3).value();
+module TestWithout {
+    let array: number[];
+    let list: _.List<number>;
+
+    {
+        let result: number[];
+
+        result = _.without<number>(array);
+        result = _.without<number>(array, 1);
+        result = _.without<number>(array, 1, 2);
+        result = _.without<number>(array, 1, 2, 3);
+
+        result = _.without<number>(list);
+        result = _.without<number>(list, 1);
+        result = _.without<number>(list, 1, 2);
+        result = _.without<number>(list, 1, 2, 3);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<number>;
+
+        result = _(array).without();
+        result = _(array).without(1);
+        result = _(array).without(1, 2);
+        result = _(array).without(1, 2, 3);
+        result = _(list).without<number>();
+        result = _(list).without<number>(1);
+        result = _(list).without<number>(1, 2);
+        result = _(list).without<number>(1, 2, 3);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<number>;
+
+        result = _(array).chain().without();
+        result = _(array).chain().without(1);
+        result = _(array).chain().without(1, 2);
+        result = _(array).chain().without(1, 2, 3);
+
+        result = _(list).chain().without<number>();
+        result = _(list).chain().without<number>(1);
+        result = _(list).chain().without<number>(1, 2);
+        result = _(list).chain().without<number>(1, 2, 3);
+    }
 }
 
 // _.xor
