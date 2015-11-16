@@ -4985,10 +4985,25 @@ result = <boolean>_<any>([]).isUndefined();
 result = <boolean>_({}).isUndefined();
 
 // _.lt
-result = <boolean>_.lt(1, 2);
-result = <boolean>_(1).lt(2);
-result = <boolean>_([]).lt(2);
-result = <boolean>_({}).lt(2);
+
+module TestLt {
+    {
+        let result: boolean;
+
+        result = _.lt(any, any);
+        result = _(1).lt(any);
+        result = _([]).lt(any);
+        result = _({}).lt(any);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().lt(any);
+        result = _([]).chain().lt(any);
+        result = _({}).chain().lt(any);
+    }
+}
 
 // _.lte
 result = <boolean>_.lte(1, 2);
