@@ -30,6 +30,7 @@ import Menu = require('material-ui/lib/menus/menu');
 import MenuItem = require('material-ui/lib/menus/menu-item');
 import MenuDivider = require('material-ui/lib/menus/menu-divider');
 import ThemeManager = require('material-ui/lib/styles/theme-manager');
+import ThemeDecorator = require('material-ui/lib/styles/theme-decorator');
 import GridList = require('material-ui/lib/grid-list/grid-list');
 import GridTile = require('material-ui/lib/grid-list/grid-tile');
 
@@ -45,6 +46,17 @@ type CheckboxProps = __MaterialUI.CheckboxProps;
 type MuiTheme = __MaterialUI.Styles.MuiTheme;
 type TouchTapEvent = __MaterialUI.TouchTapEvent;
 
+// "http://material-ui.com/#/customization/themes"
+let muiTheme: MuiTheme = ThemeManager.getMuiTheme({
+    palette: {
+        accent1Color: Colors.cyan100
+    },
+    spacing: {
+
+    }
+});
+
+@ThemeDecorator(muiTheme)
 class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedStateMixin {
 
     // injected with mixin
@@ -60,16 +72,6 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
     }
 
     render() {
-
-        // "http://material-ui.com/#/customization/themes"
-        let muiTheme: MuiTheme = ThemeManager.getMuiTheme({
-            palette: {
-                accent1Color: Colors.cyan100
-            },
-            spacing: {
-
-            }
-        });
 
         // "http://material-ui.com/#/customization/inline-styles"
         let element: React.ReactElement<any>;
@@ -461,19 +463,19 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
             hintText="Password Field"
             floatingLabelText="Password"
             type="password" />;
-            
+
 
         // "http://material-ui.com/#/components/time-picker"
 
 
         // "http://material-ui.com/#/components/toolbars"
-        
+
         // "http://material-ui.com/#/components/grid-list"
         element = <GridList
             cols={3}
             padding={50}
             cellHeight={200} />;
-            
+
         element = <GridTile
             title="GridTileTitle"
             actionIcon={<h1>GridTile</h1>}
