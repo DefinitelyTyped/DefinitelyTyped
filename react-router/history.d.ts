@@ -1,4 +1,4 @@
-// Type definitions for history v1.11.1
+// Type definitions for history v1.13.1
 // Project: https://github.com/rackt/history
 // Definitions by: Sergey Buturlakin <http://github.com/sergey-buturlakin>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -22,13 +22,14 @@ declare namespace HistoryModule {
         transitionTo(location: Location): void
         pushState(state: LocationState, path: Path): void
         replaceState(state: LocationState, path: Path): void
-        setState(state: LocationState): void
+        setState(state: LocationState): void // deprecated
         go(n: number): void
         goBack(): void
         goForward(): void
         createKey(): LocationKey
         createPath(path: Path): Path
         createHref(path: Path): Href
+        createLocation(path?: Path, state?: LocationState, action?: Action, key?: LocationKey): Location
     }
 
     type HistoryOptions = Object
@@ -80,7 +81,7 @@ declare namespace HistoryModule {
         createHistory: CreateHistory<History>
         createHashHistory: CreateHistory<History>
         createMemoryHistory: CreateHistory<History>
-        createLocation(): Location
+        createLocation(path?: Path, state?: LocationState, action?: Action, key?: LocationKey): Location
         useBasename<T>(createHistory: CreateHistory<T>): CreateHistory<T>
         useBeforeUnload<T>(createHistory: CreateHistory<T>): CreateHistory<T & HistoryBeforeUnload>
         useQueries<T>(createHistory: CreateHistory<T>): CreateHistory<T & HistoryQueries>
@@ -117,7 +118,7 @@ declare module "history/lib/createMemoryHistory" {
 
 declare module "history/lib/createLocation" {
 
-    export default function createLocation(): HistoryModule.Location
+    export default function createLocation(path?: HistoryModule.Path, state?: HistoryModule.LocationState, action?: HistoryModule.Action, key?: HistoryModule.LocationKey): HistoryModule.Location
 
 }
 
