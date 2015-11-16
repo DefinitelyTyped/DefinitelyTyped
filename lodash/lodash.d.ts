@@ -7664,6 +7664,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Creates a function that runs each argument through a corresponding transform function.
+         *
          * @param func The function to wrap.
          * @param transforms The functions to transform arguments, specified as individual functions or arrays
          * of functions.
@@ -7693,6 +7694,18 @@ declare module _ {
          * @see _.modArgs
          */
         modArgs<TResult extends Function>(transforms: Function[]): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.modArgs
+         */
+        modArgs<TResult extends Function>(...transforms: Function[]): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.modArgs
+         */
+        modArgs<TResult extends Function>(transforms: Function[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.negate
