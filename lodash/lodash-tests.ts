@@ -4217,10 +4217,24 @@ result = <boolean>_([]).gt(2);
 result = <boolean>_({}).gt(2);
 
 // _.gte
-result = <boolean>_.gte(1, 2);
-result = <boolean>_(1).gte(2);
-result = <boolean>_([]).gte(2);
-result = <boolean>_({}).gte(2);
+module TestGte {
+    {
+        let result: boolean;
+
+        result = _.gte(any, any);
+        result = _(1).gte(any);
+        result = _([]).gte(any);
+        result = _({}).gte(any);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().gte(any);
+        result = _([]).chain().gte(any);
+        result = _({}).chain().gte(any);
+    }
+}
 
 // _.isArguments
 result = <boolean>_.isArguments(any);
