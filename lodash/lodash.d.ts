@@ -8219,16 +8219,25 @@ declare module _ {
         /**
          * Creates a function that invokes func with the this binding of the created function and arguments from start
          * and beyond provided as an array.
+         *
+         * Note: This method is based on the rest parameter.
+         *
          * @param func The function to apply a rest parameter to.
          * @param start The start position of the rest parameter.
          * @return Returns the new function.
          */
-        restParam<TResult extends Function>(func: Function, start?: number): TResult;
+        restParam<TResult extends Function>(
+            func: Function,
+            start?: number
+        ): TResult;
 
         /**
          * @see _.restParam
          */
-        restParam<TResult extends Function, TFunc extends Function>(func: TFunc, start?: number): TResult;
+        restParam<TResult extends Function, TFunc extends Function>(
+            func: TFunc,
+            start?: number
+        ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -8236,6 +8245,13 @@ declare module _ {
          * @see _.restParam
          */
         restParam<TResult extends Function>(start?: number): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.restParam
+         */
+        restParam<TResult extends Function>(start?: number): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.spread
