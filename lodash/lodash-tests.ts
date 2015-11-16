@@ -2397,35 +2397,51 @@ module TestCollect {
     }
 }
 
-result = <boolean>_.contains([1, 2, 3], 1);
-result = <boolean>_.contains([1, 2, 3], 1, 2);
-result = <boolean>_.contains({ 'moe': 30, 'larry': 40, 'curly': 67 }, 40);
-result = <boolean>_.contains('curly', 'ur');
+// _.contains
+module TestContains {
+    type SampleType = {a: string; b: number; c: boolean;};
 
-result = <boolean>_([1, 2, 3]).contains(1);
-result = <boolean>_([1, 2, 3]).contains(1, 2);
-result = <boolean>_({ 'moe': 30, 'larry': 40, 'curly': 67 }).contains(40);
-result = <boolean>_('curly').contains('ur');
+    let array: SampleType[];
+    let list: _.List<SampleType>;
+    let dictionary: _.Dictionary<SampleType>;
 
-result = <boolean>_.include([1, 2, 3], 1);
-result = <boolean>_.include([1, 2, 3], 1, 2);
-result = <boolean>_.include({ 'moe': 30, 'larry': 40, 'curly': 67 }, 40);
-result = <boolean>_.include('curly', 'ur');
+    let target: SampleType;
 
-result = <boolean>_([1, 2, 3]).include(1);
-result = <boolean>_([1, 2, 3]).include(1, 2);
-result = <boolean>_({ 'moe': 30, 'larry': 40, 'curly': 67 }).include(40);
-result = <boolean>_('curly').include('ur');
+    {
+        let result: boolean;
 
-result = <boolean>_.includes([1, 2, 3], 1);
-result = <boolean>_.includes([1, 2, 3], 1, 2);
-result = <boolean>_.includes({ 'moe': 30, 'larry': 40, 'curly': 67 }, 40);
-result = <boolean>_.includes('curly', 'ur');
+        result = _.contains<SampleType>(array, target);
+        result = _.contains<SampleType>(array, target, 42);
 
-result = <boolean>_([1, 2, 3]).includes(1);
-result = <boolean>_([1, 2, 3]).includes(1, 2);
-result = <boolean>_({ 'moe': 30, 'larry': 40, 'curly': 67 }).includes(40);
-result = <boolean>_('curly').includes('ur');
+        result = _.contains<SampleType>(list, target);
+        result = _.contains<SampleType>(list, target, 42);
+
+        result = _.contains<SampleType>(dictionary, target);
+        result = _.contains<SampleType>(dictionary, target, 42);
+
+        result = _(array).contains(target);
+        result = _(array).contains(target, 42);
+
+        result = _(list).contains<SampleType>(target);
+        result = _(list).contains<SampleType>(target, 42);
+
+        result = _(dictionary).contains<SampleType>(target);
+        result = _(dictionary).contains<SampleType>(target, 42);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(array).chain().contains(target);
+        result = _(array).chain().contains(target, 42);
+
+        result = _(list).chain().contains<SampleType>(target);
+        result = _(list).chain().contains<SampleType>(target, 42);
+
+        result = _(dictionary).chain().contains<SampleType>(target);
+        result = _(dictionary).chain().contains<SampleType>(target, 42);
+    }
+}
 
 result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function (num) { return Math.floor(num); });
 result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function (num) { return this.floor(num); }, Math);
@@ -3033,6 +3049,98 @@ result = <_.Dictionary<string[]>>_(['one', 'two', 'three']).groupBy('length').va
 result = <_.Dictionary<number[]>>_({ prop1: 4.2, prop2: 6.1, prop3: 6.4}).groupBy<number>(function (num) { return Math.floor(num); }).value();
 result = <_.Dictionary<number[]>>_({ prop1: 4.2, prop2: 6.1, prop3: 6.4}).groupBy<number>(function (num) { return this.floor(num); }, Math).value();
 result = <_.Dictionary<string[]>>_({ prop1: 'one', prop2: 'two', prop3: 'three'}).groupBy<string>('length').value();
+
+// _.include
+module TestInclude {
+    type SampleType = {a: string; b: number; c: boolean;};
+
+    let array: SampleType[];
+    let list: _.List<SampleType>;
+    let dictionary: _.Dictionary<SampleType>;
+
+    let target: SampleType;
+
+    {
+        let result: boolean;
+
+        result = _.include<SampleType>(array, target);
+        result = _.include<SampleType>(array, target, 42);
+
+        result = _.include<SampleType>(list, target);
+        result = _.include<SampleType>(list, target, 42);
+
+        result = _.include<SampleType>(dictionary, target);
+        result = _.include<SampleType>(dictionary, target, 42);
+
+        result = _(array).include(target);
+        result = _(array).include(target, 42);
+
+        result = _(list).include<SampleType>(target);
+        result = _(list).include<SampleType>(target, 42);
+
+        result = _(dictionary).include<SampleType>(target);
+        result = _(dictionary).include<SampleType>(target, 42);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(array).chain().include(target);
+        result = _(array).chain().include(target, 42);
+
+        result = _(list).chain().include<SampleType>(target);
+        result = _(list).chain().include<SampleType>(target, 42);
+
+        result = _(dictionary).chain().include<SampleType>(target);
+        result = _(dictionary).chain().include<SampleType>(target, 42);
+    }
+}
+
+// _.includes
+module TestIncludes {
+    type SampleType = {a: string; b: number; c: boolean;};
+
+    let array: SampleType[];
+    let list: _.List<SampleType>;
+    let dictionary: _.Dictionary<SampleType>;
+
+    let target: SampleType;
+
+    {
+        let result: boolean;
+
+        result = _.includes<SampleType>(array, target);
+        result = _.includes<SampleType>(array, target, 42);
+
+        result = _.includes<SampleType>(list, target);
+        result = _.includes<SampleType>(list, target, 42);
+
+        result = _.includes<SampleType>(dictionary, target);
+        result = _.includes<SampleType>(dictionary, target, 42);
+
+        result = _(array).includes(target);
+        result = _(array).includes(target, 42);
+
+        result = _(list).includes<SampleType>(target);
+        result = _(list).includes<SampleType>(target, 42);
+
+        result = _(dictionary).includes<SampleType>(target);
+        result = _(dictionary).includes<SampleType>(target, 42);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(array).chain().includes(target);
+        result = _(array).chain().includes(target, 42);
+
+        result = _(list).chain().includes<SampleType>(target);
+        result = _(list).chain().includes<SampleType>(target, 42);
+
+        result = _(dictionary).chain().includes<SampleType>(target);
+        result = _(dictionary).chain().includes<SampleType>(target, 42);
+    }
+}
 
 result = <_.Dictionary<IKey>>_.indexBy(keys, 'dir');
 result = <_.Dictionary<IKey>>_.indexBy(keys, function (key) { return String.fromCharCode(key.code); });
