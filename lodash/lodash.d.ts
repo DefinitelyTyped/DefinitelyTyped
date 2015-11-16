@@ -1403,7 +1403,7 @@ declare module _ {
          * @see _.zipObject
          */
         object<TValues, TResult extends {}>(
-            props: List<StringRepresentable>,
+            props: List<StringRepresentable>|List<List<any>>,
             values?: List<TValues>
         ): TResult;
 
@@ -1411,7 +1411,7 @@ declare module _ {
          * @see _.zipObject
          */
         object<TResult extends {}>(
-            props: List<StringRepresentable>,
+            props: List<StringRepresentable>|List<List<any>>,
             values?: List<any>
         ): TResult;
 
@@ -1419,7 +1419,7 @@ declare module _ {
          * @see _.zipObject
          */
         object(
-            props: List<StringRepresentable>,
+            props: List<StringRepresentable>|List<List<any>>,
             values?: List<any>
         ): _.Dictionary<any>;
     }
@@ -1468,6 +1468,52 @@ declare module _ {
         object(
             values?: List<any>
         ): _.LoDashImplicitObjectWrapper<_.Dictionary<any>>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.zipObject
+         */
+        object<TValues, TResult extends {}>(
+            values?: List<TValues>
+        ): _.LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.zipObject
+         */
+        object<TResult extends {}>(
+            values?: List<any>
+        ): _.LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.zipObject
+         */
+        object(
+            values?: List<any>
+        ): _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.zipObject
+         */
+        object<TValues, TResult extends {}>(
+            values?: List<TValues>
+        ): _.LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.zipObject
+         */
+        object<TResult extends {}>(
+            values?: List<any>
+        ): _.LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.zipObject
+         */
+        object(
+            values?: List<any>
+        ): _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
     }
 
     //_.pull
@@ -2906,7 +2952,7 @@ declare module _ {
          * @return Returns the new object.
          */
         zipObject<TValues, TResult extends {}>(
-            props: List<StringRepresentable>,
+            props: List<StringRepresentable>|List<List<any>>,
             values?: List<TValues>
         ): TResult;
 
@@ -2914,7 +2960,7 @@ declare module _ {
          * @see _.zipObject
          */
         zipObject<TResult extends {}>(
-            props: List<StringRepresentable>,
+            props: List<StringRepresentable>|List<List<any>>,
             values?: List<any>
         ): TResult;
 
@@ -2922,7 +2968,7 @@ declare module _ {
          * @see _.zipObject
          */
         zipObject(
-            props: List<StringRepresentable>,
+            props: List<StringRepresentable>|List<List<any>>,
             values?: List<any>
         ): _.Dictionary<any>;
     }
@@ -2971,6 +3017,52 @@ declare module _ {
         zipObject(
             values?: List<any>
         ): _.LoDashImplicitObjectWrapper<_.Dictionary<any>>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.zipObject
+         */
+        zipObject<TValues, TResult extends {}>(
+            values?: List<TValues>
+        ): _.LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.zipObject
+         */
+        zipObject<TResult extends {}>(
+            values?: List<any>
+        ): _.LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.zipObject
+         */
+        zipObject(
+            values?: List<any>
+        ): _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.zipObject
+         */
+        zipObject<TValues, TResult extends {}>(
+            values?: List<TValues>
+        ): _.LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.zipObject
+         */
+        zipObject<TResult extends {}>(
+            values?: List<any>
+        ): _.LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.zipObject
+         */
+        zipObject(
+            values?: List<any>
+        ): _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
     }
 
     //_.zipWith
