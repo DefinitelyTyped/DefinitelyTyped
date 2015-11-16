@@ -1,5 +1,5 @@
 ///<reference path="../jquery/jquery.d.ts" />
-///<reference path="/jquery.slick/slick.d.ts" />
+///<reference path="../jquery.slick/slick.d.ts" />
 
 
 // --------------------------------------------------------
@@ -196,9 +196,8 @@ $("#diaporama").slick({
     centerMode: false,
     centerPadding: "50px",
     cssEase: "ease",
-    customPaging: (slider, i: number) => {
-        console.log("customPaging slider", slider);
-        console.log("customPaging index", i);
+    customPaging: (slider, i) => {
+        return "customPaging slider " + slider + " customPaging index " + i;
     },
     dots: false,
     draggable: true,
