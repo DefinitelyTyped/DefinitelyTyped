@@ -1408,6 +1408,39 @@ result = <string[]>_(['A', 'b', 'C', 'a', 'B', 'c']).unique(function (letter) {
 result = <number[]>_([1, 2.5, 3, 1.5, 2, 3.5]).unique(function (num) { return this.floor(num); }, Math).value();
 result = <{ x: number; }[]>_([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }]).unique('x').value();
 
+// _.upzip
+module TestUnzip {
+    let array = [['a', 'b'], [1, 2], [true, false]];
+
+    let list: _.List<_.List<string|number|boolean>> = {
+        0: {0: 'a', 1: 'b', length: 2},
+        1: {0: 1, 1: 2, length: 2},
+        2: {0: true, 1: false, length: 2},
+        length: 3
+    };
+
+    {
+        let result: (string|number|boolean)[][];
+
+        result = _.unzip<string|number|boolean>(array);
+        result = _.unzip<string|number|boolean>(list);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<(string|number|boolean)[]>;
+
+        result = _(array).unzip<string|number|boolean>();
+        result = _(list).unzip<string|number|boolean>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<(string|number|boolean)[]>;
+
+        result = _(array).chain().unzip<string|number|boolean>();
+        result = _(list).chain().unzip<string|number|boolean>();
+    }
+}
+
 // _.unzipWith
 {
     let testUnzipWithArray: (number[]|_.List<number>)[];
@@ -1475,9 +1508,7 @@ module TestXor {
 }
 
 result = <any[][]>_.zip(['moe', 'larry'], [30, 40], [true, false]);
-result = <any[][]>_.unzip(['moe', 'larry'], [30, 40], [true, false]);
 result = <any[][]>_(['moe', 'larry']).zip([30, 40], [true, false]).value();
-result = <any[][]>_(['moe', 'larry']).unzip([30, 40], [true, false]).value();
 
 // _.zipObject
 module TestZipObject {
