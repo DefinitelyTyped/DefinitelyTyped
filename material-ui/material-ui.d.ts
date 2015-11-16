@@ -71,7 +71,7 @@ declare module "material-ui" {
     export import ToolbarTitle = __MaterialUI.Toolbar.ToolbarTitle; // require('material-ui/lib/toolbar/toolbar-title');
     export import Tooltip = __MaterialUI.Tooltip; // require('material-ui/lib/tooltip');
     export import Utils = __MaterialUI.Utils; // require('material-ui/lib/utils/');
-    
+
     export import GridList = __MaterialUI.GridList.GridList; // require('material-ui/lib/gridlist/grid-list');
     export import GridTile = __MaterialUI.GridList.GridTile; // require('material-ui/lib/gridlist/grid-tile');
 
@@ -1048,7 +1048,7 @@ declare namespace __MaterialUI {
             palette: ThemePalette;
         }
 
-        export function ThemeDecorator(muiTheme: Styles.MuiTheme): <P>(Component: React.ComponentClass<P>) => React.ComponentClass<P>;
+        export function ThemeDecorator(muiTheme: Styles.MuiTheme): <TFunction extends Function>(Component: TFunction) => TFunction;
 
         interface ThemeManager {
             getMuiTheme(rawTheme: RawTheme): MuiTheme;
@@ -1479,18 +1479,18 @@ declare namespace __MaterialUI {
         export class MenuDivider extends React.Component<MenuDividerProps, {}>{
         }
     }
-    
+
     namespace GridList {
-        
+
         interface GridListProps extends React.Props<GridList> {
             cols?: number;
             padding?: number;
             cellHeight?: number;
         }
-        
+
         export class GridList extends React.Component<GridListProps, {}>{
         }
-        
+
         interface GridTileProps extends React.Props<GridTile> {
             title?: string;
             subtitle?: __React.ReactNode;
@@ -1502,10 +1502,10 @@ declare namespace __MaterialUI {
             rows?: number;
             rootClass?: string | __React.Component<any,any>;
         }
-        
+
         export class GridTile extends React.Component<GridTileProps, {}>{
         }
-        
+
     }
 }    // __MaterialUI
 
