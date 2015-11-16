@@ -1,4 +1,4 @@
-/// <reference path="js-data.d.ts" />
+/// <reference path="js-data-1.5.4.d.ts" />
 
 interface IUser {
     id?: number;
@@ -10,7 +10,7 @@ interface IUser {
     profile?:any;
 }
 
-interface IUserWithMethod extends IUser {
+interface IUserWithMethod {
     fullName:()=>string;
 }
 
@@ -358,7 +358,7 @@ User.find(10).then(function (user:IUser) {
     user.comments; // undefined
     user.profile; // undefined
 
-    User.loadRelations(user.id, ['comment', 'profile']).then(function (user:IUser) {
+    User.loadRelations(user, ['comment', 'profile']).then(function (user:IUser) {
         user.comments; // array
         user.profile; // object
     });
@@ -387,7 +387,7 @@ var promise = OtherOtherComment.find(5); // GET /comment/5
 
 promise.then().catch().finally();
 
-OtherOtherComment.inject({id: 1, postId: 2});
+OtherOtherComment.inject(<IComment>{id: 1, postId: 2});
 
 // We don't have to provide the parentKey here
 // because js-data found it in the comment
@@ -399,7 +399,7 @@ OtherOtherComment.update(1, {content: 'stuff'}, {params: {postId: false}}); // P
 
 var store = new JSData.DS({
     // set the default
-    beforeCreate: function (resource:JSData.DSResourceDefinition<any>, data:any, cb:(err:Error, returnData:any)=>void) {
+    beforeCreate: function (resource, data, cb) {
         // do something general
         cb(null, data);
     }
@@ -408,7 +408,7 @@ var store = new JSData.DS({
 var User4 = store.defineResource({
     name: 'user',
     // set just for this resource
-    beforeCreate: function (resource:JSData.DSResourceDefinition<any>, data:any, cb:(err:Error, returnData:any)=>void) {
+    beforeCreate: function (resource, data, cb) {
         // do something more specific to "users"
         cb(null, data);
     }
@@ -416,7 +416,7 @@ var User4 = store.defineResource({
 
 User4.create({name: 'John'}, {
     // set just for this method call
-    beforeCreate: function (resource:JSData.DSResourceDefinition<any>, data:any, cb:(err:Error, returnData:any)=>void) {
+    beforeCreate: function (resource, data, cb) {
         // do something specific for this method call
         cb(null, data);
     }
@@ -537,7 +537,7 @@ var myOtherAction:JSData.DSActionConfig = {
     endpoint: 'goHere'
 };
 
-var customActionResource = store.defineResource<Resource, ActionsForResource>({
+var resourceWithCustomActions = store.defineResource<Resource, ActionsForResource>({
     name: 'actionResource',
     actions: {
         myAction: {
@@ -547,16 +547,16 @@ var customActionResource = store.defineResource<Resource, ActionsForResource>({
     }
 });
 
-customActionResource.myAction<number>(3).then((result)=>{
+resourceWithCustomActions.myAction<number>(3).then((result)=>{
 
     var theCustomResult:number = result;
 });
 
-customActionResource.myOtherAction<void>(2, {data:'blub'}).then(()=>{
+resourceWithCustomActions.myOtherAction<void>(2, {data:'blub'}).then(()=>{
     // success
 });
 
-customActionResource.find(1).then((result)=>{
+resourceWithCustomActions.find(1).then((result)=>{
 
     var aProperty = result.someProp;
 });
@@ -565,7 +565,7 @@ customActionResource.find(1).then((result)=>{
  * Instance shorthands
  */
 
-var customActionResourceInstance = customActionResource.get(1);
+var customActionResourceInstance = resourceWithCustomActions.get(1);
 
 customActionResourceInstance.DSCompute();
 customActionResourceInstance.DSChanges();
@@ -576,7 +576,10 @@ customActionResourceInstance.DSLastSaved();
 customActionResourceInstance.DSPrevious();
 customActionResourceInstance.DSCreate();
 customActionResourceInstance.DSDestroy();
+customActionResourceInstance.DSLink();
+customActionResourceInstance.DSLinkInverse();
 customActionResourceInstance.DSLoadRelations('myRelation');
 customActionResourceInstance.DSRefresh();
 customActionResourceInstance.DSSave();
+customActionResourceInstance.DSUnlinkInverse();
 customActionResourceInstance.DSUpdate();
