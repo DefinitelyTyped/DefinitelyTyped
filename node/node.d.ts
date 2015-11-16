@@ -119,7 +119,7 @@ declare var Buffer: {
      *
      * @param obj object to test.
      */
-    isBuffer(obj: any): obj is Buffer;
+    isBuffer(obj: any): boolean;
     /**
      * Returns true if {encoding} is a valid encoding argument.
      * Valid string encodings in Node 0.12: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
