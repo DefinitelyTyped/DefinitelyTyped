@@ -8,14 +8,6 @@ declare module Redux {
     interface Action {
         type: string;
     }
-    
-    // FSA-compliant action (from redux-actions.d.ts)
-    // See: https://github.com/acdlite/flux-standard-action
-    interface FluxStandardAction<P,M> extends Action {
-        payload?: P
-        error?: boolean
-        meta?: M
-    }
 
     // Not used...?
     interface ActionCreator extends Function {
@@ -23,63 +15,63 @@ declare module Redux {
     }
 
     // Also not used here...
-    interface StoreMethods<T,A extends Action> {
+    interface StoreMethods<S,A extends Action> {
         dispatch: Dispatch;
-        getState(): T;
+        getState(): S;
     }
 
-    // Reducer is a function that takes a state of type T and an
-    // action and returns a new state, also of type T
-    interface Reducer<T> extends Function {
-        (state: T, action: any): T;
+    // Reducer is a function that takes a state of type S and an
+    // action and returns a new state, also of type S
+    interface Reducer<S> extends Function {
+        (state: T, action: any): S;
     }
 
     // Dispatch is a function that takes an action of type A and
     // returns an instance of that same action (still of type A)
     interface Dispatch extends Function {
-        <A extends Action>(action: A): A;
+        <A extends Action>(action: A): any;
     }
 
     // MiddlewareArg is an instance of middleware that provides a
-    // dispatch method and a getState method.  The type parameter T is
+    // dispatch method and a getState method.  The type parameter S is
     // the type of the state.  No type parameter is provided on
     // Dispatch because the middleware generally needs to be able to
     // handle any type of action.
-    interface MiddlewareArg<T> {
+    interface MiddlewareArg<S> {
         dispatch: Dispatch;
-        getState: () => T;
+        getState: () => S;
     }
 
-    // Middleware is constructed from an instance of MiddlewareArg<T> where
-    // T is the type of the state.
-    interface Middleware<T> extends Function {
-        (obj: MiddlewareArg<T>): Function;
+    // Middleware is constructed from an instance of MiddlewareArg<S> where
+    // S is the type of the state.
+    interface Middleware<S> extends Function {
+        (obj: MiddlewareArg<S>): Function;
     }
 
     // Store manages the state of the system.  The state of the system
-    // should be of type T.
-    class Store<T> {
-        getReducer(): Reducer<T>;
-        replaceReducer(nextReducer: Reducer<T>): void;
-        dispatch<A extends Action>(action: A): A;
-        getState(): T;
+    // should be of type S.
+    class Store<S> {
+        getReducer(): Reducer<S>;
+        replaceReducer(nextReducer: Reducer<S>): void;
+        dispatch<A extends Action>(action: A): any;
+        getState(): S;
         subscribe(listener: () => void): () => void;
     }
 
     // StoreCreator describes any function that can be used to create
-    // a Store<T> (where T is the type of the state).  This type is
+    // a Store<S> (where S is the type of the state).  This type is
     // used to describe the return type of applyMiddleware since
     // produces special function that can be used to create a store
     // that integrates a collection of middleware.
-    interface StoreCreator<T> extends Function {
-        (reducer: Reducer<T>, initialState?: T): Store<T>;
+    interface StoreCreator<S> extends Function {
+        (reducer: Reducer<S>, initialState?: S): Store<S>;
     }
 
-    function createStore<T>(reducer: Reducer<T>, initialState?: T): Store<T>;
+    function createStore<S>(reducer: Reducer<S>, initialState?: S): Store<S>;
     function bindActionCreators<C>(actionCreators: C, dispatch: Dispatch): C;
-    function combineReducers<T>(reducers: { [key: string]: Reducer<T> }): Reducer<T>;
-    function applyMiddleware<T>(...middlewares: Middleware<T>[]): (c: StoreCreator<T>) => StoreCreator<T>;
-    function compose<T extends Function>(...functions: Function[]): T;
+    function combineReducers<S>(reducers: { [key: string]: Reducer<S> }): Reducer<S>;
+    function applyMiddleware<S>(...middlewares: Middleware<S>[]): (c: StoreCreator<S>) => StoreCreator<S>;
+    function compose<F extends Function>(...functions: Function[]): F;
 }
 
 declare module "redux" {
