@@ -1,8 +1,10 @@
 ///<reference path='../react/react.d.ts' />
+///<reference path='../react/react-addons-linked-state-mixin.d.ts' />
 ///<reference path='material-ui.d.ts' />
 
-import * as React from "react/addons";
-import mui = require("material-ui");
+import * as React from "react";
+import * as LinkedStateMixin from "react-addons-linked-state-mixin";
+import Checkbox = require("material-ui/lib/checkbox");
 import Colors = require("material-ui/lib/styles/colors");
 import AppBar = require("material-ui/lib/app-bar");
 import IconButton = require("material-ui/lib/icon-button");
@@ -27,6 +29,10 @@ import IconMenu = require("material-ui/lib/menus/icon-menu");
 import Menu = require('material-ui/lib/menus/menu');
 import MenuItem = require('material-ui/lib/menus/menu-item');
 import MenuDivider = require('material-ui/lib/menus/menu-divider');
+import ThemeManager = require('material-ui/lib/styles/theme-manager');
+import GridList = require('material-ui/lib/grid-list/grid-list');
+import GridTile = require('material-ui/lib/grid-list/grid-tile');
+
 
 import NavigationClose = require("material-ui/lib/svg-icon");  // TODO: Should actually import the actual "material-ui/lib/svg-icons/navigation/close", but they aren't defined yet.
 import FileFolder = require("material-ui/lib/svg-icon");  // TODO: Should actually import the actual "material-ui/lib/svg-icons/file/folder", but they aren't defined yet.
@@ -35,37 +41,37 @@ import ActionGrade = require("material-ui/lib/svg-icon");  // TODO: Should actua
 import ToggleStarBorder = require("material-ui/lib/svg-icon");  // TODO: Should actually import the actual "material-ui/lib/svg-icons/toggle/star-border", but they aren't defined yet.
 import ArrowDropRight = require("material-ui/lib/svg-icon");  // TODO: Should actually import the actual "material-ui/lib/svg-icons/toggle/star-border", but they aren't defined yet.
 
+type CheckboxProps = __MaterialUI.CheckboxProps;
+type MuiTheme = __MaterialUI.Styles.MuiTheme;
+type TouchTapEvent = __MaterialUI.TouchTapEvent;
+
 class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedStateMixin {
 
     // injected with mixin
     linkState: <T>(key: string) => React.ReactLink<T>;
-    dialog: mui.Dialog;
-    //dialog2: Dialog;  // can't get type directly from require("material-ui/lib/dialog");
+    dialog: Dialog;
 
-    private touchTapEventHandler(e: __MaterialUI.TouchTapEvent) {
+    private touchTapEventHandler(e: TouchTapEvent) {
         this.dialog.show();
-        //this.dialog2.show();
     }
     private formEventHandler(e: React.FormEvent) {
     }
-    private selectFieldChangeHandler(e: __MaterialUI.TouchTapEvent, si: number, mi: any) {
+    private selectFieldChangeHandler(e: TouchTapEvent, si: number, mi: any) {
     }
 
     render() {
 
         // "http://material-ui.com/#/customization/themes"
-        let ThemeManager = mui.Styles.ThemeManager;
-        let muiTheme: mui.Styles.MuiTheme = ThemeManager.getMuiTheme({
+        let muiTheme: MuiTheme = ThemeManager.getMuiTheme({
             palette: {
                 accent1Color: Colors.cyan100
             },
             spacing: {
-                
+
             }
         });
 
         // "http://material-ui.com/#/customization/inline-styles"
-        let Checkbox = mui.Checkbox;
         let element: React.ReactElement<any>;
         element = <Checkbox
             id="checkboxId1"
@@ -79,7 +85,7 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
             iconStyle={{
                 fill: '#FF4081'
             }}/>
-        element = React.createElement<__MaterialUI.CheckboxProps>(Checkbox, {
+        element = React.createElement<CheckboxProps>(Checkbox, {
             id: "checkboxId1", name: "checkboxName1", value: "checkboxValue1", label: "went for a run today", style: {
                 width: '50%',
                 margin: '0 auto'
@@ -455,12 +461,29 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
             hintText="Password Field"
             floatingLabelText="Password"
             type="password" />;
-
+            
 
         // "http://material-ui.com/#/components/time-picker"
 
 
         // "http://material-ui.com/#/components/toolbars"
+        
+        // "http://material-ui.com/#/components/grid-list"
+        element = <GridList
+            cols={3}
+            padding={50}
+            cellHeight={200} />;
+            
+        element = <GridTile
+            title="GridTileTitle"
+            actionIcon={<h1>GridTile</h1>}
+            actionPosition="left"
+            titlePosition="top"
+            titleBackground="rgba(0, 0, 0, 0.4)"
+            cols={2}
+            rows={1} >
+            <h1>Children are Required!</h1>
+            </GridTile>;
 
         return element;
     }

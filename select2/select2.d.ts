@@ -72,6 +72,11 @@ interface Select2Options {
     dropdownCssClass?: any;
     escapeMarkup?: (markup: string) => string;
     theme?: string;
+    /**
+    * Template can return both plain string that will be HTML escaped and a jquery object that can render HTML
+    */
+    templateSelection?: (object: Select2SelectionObject) => any;
+    templateResult?: (object: Select2SelectionObject) => any;
 }
 
 interface Select2JQueryEventObject extends JQueryEventObject {
@@ -82,6 +87,15 @@ interface Select2JQueryEventObject extends JQueryEventObject {
         id: any;
         text: string;
     };
+}
+
+interface Select2SelectionObject {
+    disabled: boolean,
+    element: HTMLOptionElement,
+    id: string,
+    selected: boolean,
+    text: string,
+    title: string,
 }
 
 interface JQuery {

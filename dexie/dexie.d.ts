@@ -38,7 +38,7 @@ declare class Dexie {
 
     static deepClone(obj: Object): Object;
 
-    version(versionNumber: Number): Dexie.Version
+    version(versionNumber: number): Dexie.Version
 
     on: {
         (eventName: string, subscriber: () => any): void;
