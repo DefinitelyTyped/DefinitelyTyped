@@ -1,6 +1,8 @@
 // Type definitions for Redux v3.0.0
 // Project: https://github.com/rackt/redux
-// Definitions by: William Buchwalter <https://github.com/wbuchwalter/>, Vincent Prouillet <https://github.com/Keats/>
+// Definitions by: William Buchwalter <https://github.com/wbuchwalter/>,
+//                 Vincent Prouillet <https://github.com/Keats/>,
+//                 Michael Tiller <https://github.com/xogeny/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module Redux {
