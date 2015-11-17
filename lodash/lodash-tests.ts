@@ -4985,7 +4985,6 @@ result = <boolean>_<any>([]).isUndefined();
 result = <boolean>_({}).isUndefined();
 
 // _.lt
-
 module TestLt {
     {
         let result: boolean;
@@ -5006,10 +5005,24 @@ module TestLt {
 }
 
 // _.lte
-result = <boolean>_.lte(1, 2);
-result = <boolean>_(1).lte(2);
-result = <boolean>_([]).lte(2);
-result = <boolean>_({}).lte(2);
+module TestLte {
+    {
+        let result: boolean;
+
+        result = _.lte(any, any);
+        result = _(1).lte(any);
+        result = _([]).lte(any);
+        result = _({}).lte(any);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().lte(any);
+        result = _([]).chain().lte(any);
+        result = _({}).chain().lte(any);
+    }
+}
 
 // _.toArray
 module TestToArray {
