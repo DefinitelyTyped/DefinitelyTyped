@@ -10,8 +10,9 @@ declare module "react-redux" {
   import { Component } from 'react';
   import { Store, Dispatch, ActionCreator } from 'redux';
 
+  export class ElementClass extends Component<any, any> { }
   export interface ClassDecorator {
-    <TFunction extends Function>(target: TFunction): TFunction|void;
+    <T extends (typeof ElementClass)>(component: T): T
   }
 
   /**

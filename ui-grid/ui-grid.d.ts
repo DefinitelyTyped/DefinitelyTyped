@@ -610,6 +610,13 @@ declare module uiGrid {
          */
         enableFiltering?: boolean;
         /**
+        * False by default. When enabled, this adds a settings icon in the top right of the grid, 
+        * which floats above the column header. The menu by default gives access to show/hide columns, 
+        * but can be customized to show additional actions.
+        * @default false
+        */
+        enableGridMenu?: boolean;
+        /**
          * uiGridConstants.scrollbars.ALWAYS by default. This settings controls the horizontal scrollbar for the grid.
          * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER
          * @default 1
@@ -819,6 +826,12 @@ declare module uiGrid {
          * @default 20
          */
         virtualizationThreshold?: number;
+        /**
+         * Disables client side filtering. When true, handle the filterChanged event and set data,
+         * defaults to false
+         * @default false
+         */
+        useExternalFiltering?: boolean;
         /**
          * Default time in milliseconds to throttle scroll events to, defaults to 70ms
          * @default 70
@@ -1038,6 +1051,12 @@ declare module uiGrid {
              * @param {scrollEndHandler} handler callback
              */
             scrollEnd: (scope: ng.IScope, handler: scrollEndHandler) => void;
+            /**
+             * is raised after the sort criteria on one or more columns have changed
+             * @param {ng.IScope} scope Grid scope
+             * @param {sortChangedHandler} handler callback
+             */
+            sortChanged: (scope: ng.IScope, handler: sortChangedHandler<TEntity>) => void;
         }
     }
     export interface columnVisibilityChangedHandler<TEntity> {
@@ -1094,6 +1113,15 @@ declare module uiGrid {
          * @param {JQueryMouseEventObject} scrollEvent Mouse scroll event
          */
         (scrollEvent: JQueryMouseEventObject): void;
+    }
+
+    export interface sortChangedHandler<TEntity> {
+        /**
+         * Sort change event callback 
+         * @param {IGridInstance} grid instance 
+         * @param {IGridColumn} array of gridColumns that have sorting on them, sorted in priority order
+         */
+        (grid: IGridInstanceOf<TEntity>, columns: Array<IGridColumnOf<TEntity>>): void;
     }
 
     export module cellNav {
@@ -3499,6 +3527,8 @@ declare module uiGrid {
         filter?: IFilterOptions;
         /** Filters for this column. Includes 'term' property bound to filter input elements */
         filters?: Array<IFilterOptions>;
+        /** Reference to grid containing the column */
+        grid: IGridInstanceOf<TEntity>;
         name?: string;
         /** Sort on this column */
         sort?: ISortInfo;
@@ -3752,7 +3782,7 @@ declare module uiGrid {
     }
 
     export interface ICellClassGetter<TEntity> {
-        (gridRow?: IGridRowOf<TEntity>, gridCol?: IGridColumnOf<TEntity>, colRenderIndex?: number): string;
+        (grid?: IGridInstanceOf<TEntity>, gridRow?: IGridRowOf<TEntity>, gridCol?: IGridColumnOf<TEntity>, rowRenderIndex?: number, colRenderIndex?: number): string;
     }
 
     export interface ICellTooltipGetter<TEntity> {
@@ -3762,7 +3792,7 @@ declare module uiGrid {
         (gridCol: IGridColumnOf<TEntity>): string;
     }
     export interface IHeaderFooterCellClassGetter<TEntity> {
-        (gridRow: IGridRowOf<TEntity>, rowRenderIndex: number, gridCol: IGridColumnOf<TEntity>, colRenderIndex: number)
+        (grid: IGridInstanceOf<TEntity>, gridRow: IGridRowOf<TEntity>, gridCol: IGridColumnOf<TEntity>, rowRenderIndex: number, colRenderIndex: number)
             : string;
     }
     export interface IMenuItem {

@@ -65,8 +65,21 @@ declare module Backbone {
         reset?: boolean;
     }
 
+    interface ObjectHash {
+        [key: string]: any;
+    }
+
+    interface RoutesHash {
+        [routePattern: string]: string | {(...urlParts: string[]): void};
+    }
+
+    interface EventsHash {
+        [selector: string]: string | {(eventObject: JQueryEventObject): void};
+    }
+
     class Events {
         on(eventName: string, callback?: Function, context?: any): any;
+        on(eventMap: EventsHash): any;
         off(eventName?: string, callback?: Function, context?: any): any;
         trigger(eventName: string, ...args: any[]): any;
         bind(eventName: string, callback: Function, context?: any): any;
@@ -102,7 +115,7 @@ declare module Backbone {
         * For assigning an object hash, do it like this: this.defaults = <any>{ attribute: value, ... };
         * That works only if you set it in the constructor or the initialize method.
         **/
-        defaults(): any;
+        defaults(): ObjectHash;
         id: any;
         idAttribute: string;
         validationError: any;
@@ -272,7 +285,7 @@ declare module Backbone {
         * For assigning routes as object hash, do it like this: this.routes = <any>{ "route": callback, ... };
         * That works only if you set it in the constructor or the initialize method.
         **/
-        routes: any;
+        routes: RoutesHash | any;
 
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
@@ -301,7 +314,7 @@ declare module Backbone {
         checkUrl(e?: any): void;
         loadUrl(fragmentOverride: string): boolean;
         navigate(fragment: string, options?: any): boolean;
-        started: boolean;
+        static started: boolean;
         options: any;
 
         private _updateHash(location: Location, fragment: string, replace: boolean): void;
@@ -310,7 +323,7 @@ declare module Backbone {
    interface ViewOptions<TModel extends Model> {
       model?: TModel;
        // TODO: quickfix, this can't be fixed easy. The collection does not need to have the same model as the parent view.
-      collection?: Backbone.Collection<any>;
+      collection?: Backbone.Collection<any>; //was: Collection<TModel>;
       el?: any;
       id?: string;
       className?: string;
@@ -333,7 +346,7 @@ declare module Backbone {
         * For assigning events as object hash, do it like this: this.events = <any>{ "event:selector": callback, ... };
         * That works only if you set it in the constructor or the initialize method.
         **/
-        events(): any;
+        events(): EventsHash;
 
         $(selector: string): JQuery;
         model: TModel;
@@ -353,8 +366,10 @@ declare module Backbone {
         render(): View<TModel>;
         remove(): View<TModel>;
         make(tagName: any, attributes?: any, content?: any): any;
-        delegateEvents(events?: any): any;
+        delegateEvents(events?: EventsHash): any;
+        delegate(eventName: string, selector: string, listener: Function): View<TModel>;
         undelegateEvents(): any;
+        undelegate(eventName: string, selector?: string, listener?: Function): View<TModel>;
 
         _ensureElement(): void;
     }
