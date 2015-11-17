@@ -23,7 +23,7 @@ declare module Redux {
     // Reducer is a function that takes a state of type S and an
     // action and returns a new state, also of type S
     interface Reducer<S> extends Function {
-        (state: T, action: any): S;
+        (state: S, action: any): S;
     }
 
     // Dispatch is a function that takes an action of type A and
