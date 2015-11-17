@@ -54,11 +54,11 @@ declare module "react-redux" {
     pure: boolean;
   }
 
-  export interface Property<T> {
+  export interface Property<S> {
     /**
      * The single Redux store in your application.
      */
-    store?: Store<T>;
+    store?: Store<S>;
     children?: Function;
   }
 
