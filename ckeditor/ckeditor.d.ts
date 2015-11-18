@@ -74,7 +74,7 @@ declare module CKEDITOR {
     function appendTo(element: string, config?: config, data?: string): editor;
     function appendTo(element: HTMLTextAreaElement, config?: config, data?: string): editor;
     function domReady(): void;
-	function dialogCommand(dialogName: string): void;
+    function dialogCommand(dialogName: string): void;
     function editorConfig(config: config): void;
     function getCss(): string;
     function getTemplate(name: string): template;
@@ -557,36 +557,36 @@ declare module CKEDITOR {
         groups?: string[];
     }
 
-		// Currently very incomplete. See here for all options that should be included:
-		// http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-fileTools_defaultFileName
+          // Currently very incomplete. See here for all options that should be included:
+          // http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-fileTools_defaultFileName
     interface config {
-		allowedContent?: string | boolean;
-		colorButton_enableMore?: boolean;
+        allowedContent?: string | boolean;
+        colorButton_enableMore?: boolean;
         colorButton_colors?: string;
         contentsCss?: string | string[];
-		customConfig?: string;
-		extraPlugins?: string;
-		font_names?: string;
+        customConfig?: string;
+        extraPlugins?: string;
+        font_names?: string;
         font_defaultLabel?: string;
         fontSize_sizes?: string;
         fontSize_defaultLabel?: string;
-		height?: string | number;
-		language?: string;
-		on?: any;
-		plugins?: string;
+        height?: string | number;
+        language?: string;
+        on?: any;
+        plugins?: string;
         startupFocus?: boolean;
-		startupMode?: string;
+        startupMode?: string;
         removeButtons?: string;
         removePlugins?: string;
         toolbar?: any;
         toolbarGroups?: toolbarGroups[];
-		toolbarLocation?: string;
-		readOnly?: boolean;
+        toolbarLocation?: string;
+        readOnly?: boolean;
         skin?: string;
-		width?: string | number;
+        width?: string | number;
     }
 
-	
+
     interface feature {
 
     }
@@ -750,7 +750,7 @@ declare module CKEDITOR {
             beforeInit?(editor: editor): any;
             init?(editor: editor): any;
             onLoad?(): any;
-			icons?: string;
+            icons?: string;
         }
 
         function add(name: string, definition?: IPluginDefinition): void;
@@ -939,8 +939,8 @@ declare module CKEDITOR {
             interface button extends uiElement {
                 disabled?: boolean;
                 label?: string;
-				command?: string;
-				toolbar?: string;
+                command?: string;
+                toolbar?: string;
             }
 
 
