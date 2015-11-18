@@ -4164,8 +4164,34 @@ module TestAfter {
 }
 
 // _.ary
-result = <number[]>['6', '8', '10'].map(_.ary<(s: string) => number>(parseInt, 1));
-result = <number[]>['6', '8', '10'].map(_(parseInt).ary<(s: string) => number>(1).value());
+module TestAry {
+    type SampleFunc = (a: number, b: string) => boolean;
+
+    let func: SampleFunc;
+
+    {
+        let result: SampleFunc;
+
+        result = _.ary<SampleFunc>(func);
+        result = _.ary<SampleFunc>(func, 2);
+        result = _.ary<SampleFunc, SampleFunc>(func);
+        result = _.ary<SampleFunc, SampleFunc>(func, 2);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<SampleFunc>;
+
+        result = _(func).ary<SampleFunc>();
+        result = _(func).ary<SampleFunc>(2);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<SampleFunc>;
+
+        result = _(func).chain().ary<SampleFunc>();
+        result = _(func).chain().ary<SampleFunc>(2);
+    }
+}
 
 // _.backflow
 module TestBackflow {
