@@ -28,7 +28,7 @@ declare module angular.material {
 
     interface IPresetDialog<T> {
         title(title: string): T;
-        content(content: string): T;
+        textContent(content: string): T;
         ok(ok: string): T;
         theme(theme: string): T;
         templateUrl(templateUrl?: string): T;
