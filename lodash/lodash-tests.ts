@@ -4371,9 +4371,36 @@ returnedThrottled(4);
 result = <number>_.defer(function () { console.log('deferred'); });
 result = <_.LoDashImplicitWrapper<number>>_(function () { console.log('deferred'); }).defer();
 
-var log = _.bind(console.log, console);
-result = <number>_.delay(log, 1000, 'logged later');
-result = <_.LoDashImplicitWrapper<number>>_(log).delay(1000, 'logged later');
+// _.delay
+module TestDelay {
+    type SampleFunc = (a: number, b: string) => boolean;
+
+    let func: SampleFunc;
+
+    {
+        let result: number;
+
+        result = _.delay<SampleFunc>(func, 1);
+        result = _.delay<SampleFunc>(func, 1, 2);
+        result = _.delay<SampleFunc>(func, 1, 2, '');
+    }
+
+    {
+        let result: _.LoDashImplicitWrapper<number>;
+
+        result = _(func).delay(1);
+        result = _(func).delay(1, 2);
+        result = _(func).delay(1, 2, '');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(func).chain().delay(1);
+        result = _(func).chain().delay(1, 2);
+        result = _(func).chain().delay(1, 2, '');
+    }
+}
 
 // _.flow
 var testFlowSquareFn = (n: number) => n * n;
