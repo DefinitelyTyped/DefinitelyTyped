@@ -18,7 +18,7 @@ app.post('/:urlparam', function(req: express.Request, res: express.Response) {
   req.checkParams('urlparam', 'Invalid urlparam').isAlpha();
   req.checkQuery('getparam', 'Invalid getparam').isInt();
   req.checkHeader('testHeader', 'Invalid testHeader').isLowercase().isUppercase();
-  req.checkFiles('testFiles', 'Invalid testFiles').isUrl();
+  req.checkFiles('testFiles', 'Invalid testFiles').isURL();
 
 
   // OR assert can be used to check on all 3 types of params.
