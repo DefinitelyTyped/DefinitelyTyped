@@ -7425,19 +7425,34 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Creates a function that accepts up to n arguments ignoring any additional arguments.
+         *
          * @param func The function to cap arguments for.
          * @param n The arity cap.
-         * @param guard Enables use as a callback for functions like `_.map`.
          * @returns Returns the new function.
          */
-        ary<TResult extends Function>(func: Function, n?: number, guard?: Object): TResult;
+        ary<TResult extends Function>(
+            func: Function,
+            n?: number
+        ): TResult;
+
+        ary<T extends Function, TResult extends Function>(
+            func: T,
+            n?: number
+        ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.ary
          */
-        ary<TResult extends Function>(n?: number, guard?: Object): LoDashImplicitObjectWrapper<TResult>;
+        ary<TResult extends Function>(n?: number): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.ary
+         */
+        ary<TResult extends Function>(n?: number): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.backflow
