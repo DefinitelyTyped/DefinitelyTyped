@@ -1575,25 +1575,44 @@ module TestWithout {
 module TestXor {
     let array: TResult[];
     let list: _.List<TResult>;
-    let result: TResult[];
 
-    result = _.xor<TResult>();
+    {
+        let result: TResult[];
 
-    result = _.xor<TResult>(array);
-    result = _.xor<TResult>(array, list);
-    result = _.xor<TResult>(array, list, array);
+        result = _.xor<TResult>();
 
-    result = _.xor<TResult>(list);
-    result = _.xor<TResult>(list, array);
-    result = _.xor<TResult>(list, array, list);
+        result = _.xor<TResult>(array);
+        result = _.xor<TResult>(array, list);
+        result = _.xor<TResult>(array, list, array);
 
-    result = _(array).xor().value();
-    result = _(array).xor(list).value();
-    result = _(array).xor(list, array).value();
+        result = _.xor<TResult>(list);
+        result = _.xor<TResult>(list, array);
+        result = _.xor<TResult>(list, array, list);
+    }
 
-    result = _(list).xor<TResult>().value();
-    result = _(list).xor<TResult>(array).value();
-    result = _(list).xor<TResult>(array, list).value();
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).xor();
+        result = _(array).xor(list);
+        result = _(array).xor(list, array);
+
+        result = _(list).xor<TResult>();
+        result = _(list).xor<TResult>(array);
+        result = _(list).xor<TResult>(array, list);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().xor();
+        result = _(array).chain().xor(list);
+        result = _(array).chain().xor(list, array);
+
+        result = _(list).chain().xor<TResult>();
+        result = _(list).chain().xor<TResult>(array);
+        result = _(list).chain().xor<TResult>(array, list);
+    }
 }
 
 result = <any[][]>_.zip(['moe', 'larry'], [30, 40], [true, false]);
