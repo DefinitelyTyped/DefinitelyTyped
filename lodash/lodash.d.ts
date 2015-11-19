@@ -2911,7 +2911,21 @@ declare module _ {
         /**
          * @see _.xor
          */
-        xor<TValue>(...arrays: List<TValue>[]): LoDashImplicitArrayWrapper<TValue>;
+        xor<T>(...arrays: List<T>[]): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.xor
+         */
+        xor(...arrays: List<T>[]): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.xor
+         */
+        xor<T>(...arrays: List<T>[]): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.zip
