@@ -6151,15 +6151,28 @@ module TestHas {
     result = _({}).invert<TResult>(true).value();
 }
 
-class Stooge {
-    constructor(
-        public name: string,
-        public age: number
-        ) { }
-}
+// _.keys
+module TestKeys {
+    let object: _.Dictionary<any>;
 
-result = <string[]>_.keys({ 'one': 1, 'two': 2, 'three': 3 });
-result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keys().value();
+    {
+        let result: string[];
+
+        result = _.keys(object);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _(object).keys();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _(object).chain().keys();
+    }
+}
 
 result = <string[]>_.keysIn({ 'one': 1, 'two': 2, 'three': 3 });
 result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keysIn().value();

@@ -10666,18 +10666,26 @@ declare module _ {
     //_.keys
     interface LoDashStatic {
         /**
-        * Creates an array composed of the own enumerable property names of an object.
-        * @param object The object to inspect.
-        * @return An array of property names.
-        **/
+         * Creates an array of the own enumerable property names of object.
+         *
+         * @param object The object to query.
+         * @return Returns the array of property names.
+         */
         keys(object?: any): string[];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.keys
-        **/
-        keys(): LoDashImplicitArrayWrapper<string>
+         * @see _.keys
+         */
+        keys(): LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.keys
+         */
+        keys(): LoDashExplicitArrayWrapper<string>;
     }
 
     //_.keysIn
