@@ -163,7 +163,7 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
             </Card>;
 
         // "http://material-ui.com/#/components/date-picker"
-		<DatePicker style={{ color: 'red' }} />;
+        <DatePicker style={{ color: 'red' }} />;
 
         // "http://material-ui.com/#/components/dialog"
         let standardActions = [
