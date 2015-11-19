@@ -16,35 +16,40 @@ declare module 'request' {
 	import fs = require('fs');
 
 	namespace request {
-		export interface RequestAPI<TRequest extends Request, TOptions extends OptionalOptions> {
-			defaults(options: TOptions): RequestAPI<TRequest, TOptions>;
+		export interface RequestAPI<TRequest extends Request,
+			TOptions extends CoreOptions,
+			TUriUrlOptions> {
+
+			defaults(options: TOptions): RequestAPI<TRequest, TOptions, RequiredUriUrl>;
+			defaults(options: RequiredUriUrl & TOptions): DefaultUriUrlRequestApi<TRequest, TOptions, OptionalUriUrl>;
+
 			(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			(uri: string, callback?: RequestCallback): TRequest;
-			(options?: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
+			(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
 
 			get(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			get(uri: string, callback?: RequestCallback): TRequest;
-			get(options: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
+			get(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
 
 			post(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			post(uri: string, callback?: RequestCallback): TRequest;
-			post(options: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
+			post(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
 
 			put(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			put(uri: string, callback?: RequestCallback): TRequest;
-			put(options: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
+			put(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
 
 			head(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			head(uri: string, callback?: RequestCallback): TRequest;
-			head(options: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
+			head(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
 
 			patch(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			patch(uri: string, callback?: RequestCallback): TRequest;
-			patch(options: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
+			patch(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
 
 			del(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
 			del(uri: string, callback?: RequestCallback): TRequest;
-			del(options: RequiredOptions & TOptions, callback?: RequestCallback): TRequest;
+			del(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
 
 			forever(agentOptions: any, optionsArg: any): TRequest;
 			jar(): CookieJar;
@@ -54,15 +59,22 @@ declare module 'request' {
 			debug: boolean;
 		}
 
-		interface UriOptions {
-			uri: string;
+		interface DefaultUriUrlRequestApi<TRequest extends Request,
+			TOptions extends CoreOptions,
+			TUriUrlOptions>	extends RequestAPI<TRequest, TOptions, TUriUrlOptions> {
+				
+			defaults(options: TOptions): DefaultUriUrlRequestApi<TRequest, TOptions, OptionalUriUrl>;
+			(): TRequest;
+			get(): TRequest;
+			post(): TRequest;
+			put(): TRequest;
+			head(): TRequest;
+			patch(): TRequest;
+			del(): TRequest;
 		}
 
-		interface UrlOptions {
-			url: string;
-		}
-
-		interface OptionalOptions {
+		interface CoreOptions {
+			baseUrl?: string;
 			callback?: (error: any, response: http.IncomingMessage, body: any) => void;
 			jar?: any; // CookieJar
 			formData?: any; // Object
@@ -100,8 +112,19 @@ declare module 'request' {
 			har?: HttpArchiveRequest;
 		}
 
-		export type RequiredOptions = UriOptions | UrlOptions;
-		export type Options = RequiredOptions & OptionalOptions;
+		interface UriOptions {
+			uri: string;
+		}
+		interface UrlOptions {
+			url: string;
+		}
+		export type RequiredUriUrl = UriOptions | UrlOptions;
+
+		interface OptionalUriUrl {
+			uri?: string;
+			url?: string;
+		}
+		export type Options = RequiredUriUrl & CoreOptions;
 
 		export interface RequestCallback {
 			(error: any, response: http.IncomingMessage, body: any): void;
@@ -223,6 +246,6 @@ declare module 'request' {
 			toString(): string;
 		}
 	}
-	var request: request.RequestAPI<request.Request, request.OptionalOptions>;
+	var request: request.RequestAPI<request.Request, request.CoreOptions, request.RequiredUriUrl>;
 	export = request;
 }
