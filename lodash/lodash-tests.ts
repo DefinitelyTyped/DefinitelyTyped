@@ -1615,8 +1615,43 @@ module TestXor {
     }
 }
 
-result = <any[][]>_.zip(['moe', 'larry'], [30, 40], [true, false]);
-result = <any[][]>_(['moe', 'larry']).zip([30, 40], [true, false]).value();
+// _.zip
+module TestZip {
+    let array: TResult[];
+    let list: _.List<TResult>;
+
+    {
+        let result: TResult[][];
+
+        result = _.zip<TResult>(array);
+        result = _.zip<TResult>(array, list);
+        result = _.zip<TResult>(array, list, array);
+
+        result = _.zip<TResult>(list);
+        result = _.zip<TResult>(list, array);
+        result = _.zip<TResult>(list, array, list);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult[]>;
+
+        result = _(array).zip<TResult>(list);
+        result = _(array).zip<TResult>(list, array);
+
+        result = _(list).zip<TResult>(array);
+        result = _(list).zip<TResult>(array, list);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult[]>;
+
+        result = _(array).chain().zip<TResult>(list);
+        result = _(array).chain().zip<TResult>(list, array);
+
+        result = _(list).chain().zip<TResult>(array);
+        result = _(list).chain().zip<TResult>(array, list);
+    }
+}
 
 // _.zipObject
 module TestZipObject {
