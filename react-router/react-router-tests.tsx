@@ -1,12 +1,14 @@
 
 /// <reference path="../react/react.d.ts" />
-/// <reference path="./react-router.d.ts" />
+/// <reference path="../react/react-dom.d.ts" />
 /// <reference path="./history.d.ts" />
+/// <reference path="./react-router.d.ts" />
 
 
-import * as React from "react";
+import * as React from "react"
+import * as ReactDOM from "react-dom"
 
-import { Router, Route, IndexRoute, Link } from "react-router";
+import { Router, Route, IndexRoute, Link } from "react-router"
 
 import createHistory from "history/lib/createBrowserHistory"
 
@@ -56,7 +58,7 @@ class Users extends React.Component<{}, {}> {
 }
 
 
-React.render((
+ReactDOM.render((
 	<Router history={createHistory()}>
 		<Route path="/" component={Master}>
 			<IndexRoute component={Dashboard} />
