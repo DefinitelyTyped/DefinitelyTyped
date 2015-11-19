@@ -8496,18 +8496,29 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is greater than other.
+         *
          * @param value The value to compare.
          * @param other The other value to compare.
          * @return Returns true if value is greater than other, else false.
          */
-        gt(value: any, other: any): boolean;
+        gt(
+            value: any,
+            other: any
+        ): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T,TWrapper> {
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.gt
          */
         gt(other: any): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.gt
+         */
+        gt(other: any): LoDashExplicitWrapper<boolean>;
     }
 
     //_.gte
