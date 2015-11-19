@@ -7861,26 +7861,38 @@ declare module _ {
     //_.delay
     interface LoDashStatic {
         /**
-        * Executes the func function after wait milliseconds. Additional arguments will be provided
-        * to func when it is invoked.
-        * @param func The function to delay.
-        * @param wait The number of milliseconds to delay execution.
-        * @param args Arguments to invoke the function with.
-        * @return The timer id.
-        **/
-        delay(
-            func: Function,
+         * Invokes func after wait milliseconds. Any additional arguments are provided to func when it’s invoked.
+         *
+         * @param func The function to delay.
+         * @param wait The number of milliseconds to delay invocation.
+         * @param args The arguments to invoke the function with.
+         * @return Returns the timer id.
+         */
+        delay<T extends Function>(
+            func: T,
             wait: number,
-            ...args: any[]): number;
+            ...args: any[]
+        ): number;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.delay
-        **/
+         * @see _.delay
+         */
         delay(
             wait: number,
-            ...args: any[]): LoDashImplicitWrapper<number>;
+            ...args: any[]
+        ): LoDashImplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.delay
+         */
+        delay(
+            wait: number,
+            ...args: any[]
+        ): LoDashExplicitWrapper<number>;
     }
 
     //_.flow
