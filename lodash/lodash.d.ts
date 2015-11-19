@@ -1582,7 +1582,7 @@ declare module _ {
          * @return Returns the new array of removed elements.
          */
         pullAt<T>(
-            array: T[]|List<T>,
+            array: List<T>,
             ...indexes: (number|number[])[]
         ): T[];
     }
@@ -1598,7 +1598,21 @@ declare module _ {
         /**
          * @see _.pullAt
          */
-        pullAt<TValue>(...indexes: (number|number[])[]): LoDashImplicitArrayWrapper<TValue>;
+        pullAt<T>(...indexes: (number|number[])[]): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.pullAt
+         */
+        pullAt(...indexes: (number|number[])[]): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.pullAt
+         */
+        pullAt<T>(...indexes: (number|number[])[]): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.remove
