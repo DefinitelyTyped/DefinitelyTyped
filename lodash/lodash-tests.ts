@@ -6072,19 +6072,48 @@ module TestForOwn {
     }
 }
 
-interface ZeroOne {
-    0: string;
-    1: string;
-    one: string;
+// _.forOwnRight
+module TestForOwnRight {
+    type SampleObject = {a: number; b: string; c: boolean;};
+
+    let dictionary: _.Dictionary<number>;
+    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => any;
+
+    let object: SampleObject;
+    let objectIterator: (element: any, key?: string, collection?: any) => any;
+
+    {
+        let result: _.Dictionary<number>;
+
+        result = _.forOwnRight<number>(dictionary);
+        result = _.forOwnRight<number>(dictionary, dictionaryIterator);
+        result = _.forOwnRight<number>(dictionary, dictionaryIterator, any);
+    }
+
+    {
+        let result: SampleObject;
+
+        result = _.forOwnRight<SampleObject>(object);
+        result = _.forOwnRight<SampleObject>(object, objectIterator);
+        result = _.forOwnRight<SampleObject>(object, objectIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<number>>;
+
+        result = _(dictionary).forOwnRight<number>();
+        result = _(dictionary).forOwnRight<number>(dictionaryIterator);
+        result = _(dictionary).forOwnRight<number>(dictionaryIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
+
+        result = _(dictionary).chain().forOwnRight<number>();
+        result = _(dictionary).chain().forOwnRight<number>(dictionaryIterator);
+        result = _(dictionary).chain().forOwnRight<number>(dictionaryIterator, any);
+    }
 }
-
-result = <any>_.forOwnRight({ '0': 'zero', '1': 'one', 'length': 2 }, function (num, key) {
-    console.log(key);
-});
-
-result = <_.LoDashImplicitObjectWrapper<ZeroOne>>_({ '0': 'zero', '1': 'one', 'length': 2 }).forOwnRight(function (num, key) {
-    console.log(key);
-});
 
 // _.functions
 module TestFunctions {
