@@ -2698,11 +2698,11 @@ declare module d3 {
         response(value: (request: XMLHttpRequest) => any): DsvXhr<T>;
 
         get(callback?: (err: XMLHttpRequest, data: T[]) => void): DsvXhr<T>;
-        post(data?: any, callback?: (err: any, data: T[]) => void): DsvXhr<T>;
+        post(data?: any, callback?: (err: XMLHttpRequest, data: T[]) => void): DsvXhr<T>;
         post(callback: (err: XMLHttpRequest, data: T[]) => void): DsvXhr<T>;
 
-        send(method: string, data?: any, callback?: (err: any, data: T[]) => void): DsvXhr<T>;
-        send(method: string, callback: (err: any, data: T[]) => void): DsvXhr<T>;
+        send(method: string, data?: any, callback?: (err: XMLHttpRequest, data: T[]) => void): DsvXhr<T>;
+        send(method: string, callback: (err: XMLHttpRequest, data: T[]) => void): DsvXhr<T>;
 
         abort(): DsvXhr<T>;
 
