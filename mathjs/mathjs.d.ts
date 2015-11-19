@@ -19,6 +19,8 @@ declare module mathjs {
 
 		config(options: any): void;
 
+                expression: MathNode;
+
 		/**
 		 * Solves the linear equation system by forwards substitution. Matrix must be a lower triangular matrix.
 		 * @param L A N x N matrix or array (L)
@@ -1320,9 +1322,10 @@ declare module mathjs {
                 isSymbolNode: boolean;
                 type: string;
                 name: string;
+                value: any;
 
-		compile(): EvalFunction;
-		eval(): any;
+                compile(): EvalFunction;
+                eval(): any;
                 eval(expr: string): any;
                 /**
                  *
