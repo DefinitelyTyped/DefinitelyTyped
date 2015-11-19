@@ -16,7 +16,7 @@ declare module "csurf" {
 
   function csurf(options?: {
     value?: (req: express.Request) => string;
-    cookie?: csurf.CookieOptions;
+    cookie?: csurf.CookieOptions | boolean;
   }): express.RequestHandler;
 
   module csurf {
@@ -27,4 +27,3 @@ declare module "csurf" {
 
   export = csurf;
 }
-

@@ -41,7 +41,7 @@ flowOptions.testMethod = "";
 flowOptions.uploadMethod = "";
 flowOptions.allowDuplicateUploads = true;
 flowOptions.prioritizeFirstAndLastChunk = true;
-flowOptions.testchunks = true;
+flowOptions.testChunks = true;
 flowOptions.preprocess = () => {};
 flowOptions.initFileFn = () => {};
 flowOptions.generateUniqueIdentifier = () => {};

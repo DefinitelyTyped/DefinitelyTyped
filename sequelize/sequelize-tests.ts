@@ -152,6 +152,317 @@ Post.belongsToMany( Post, { through : { model : Post, unique : false }, foreignK
 Post.belongsToMany( Post, { as : 'Parents', through : 'Family', foreignKey : 'ChildId', otherKey : 'PersonId' } );
 
 //
+// Mixins
+// ~~~~~~
+//
+//  https://github.com/sequelize/sequelize/tree/v3.4.1/test/integration/associations
+//
+
+var Product = s.define<ProductInstance, ProductAttributes>('product', {});
+var product = Product.build();
+
+var Barcode = s.define<BarcodeInstance, BarcodeAttributes>('barcode', {});
+var barcode = Barcode.build();
+
+var Warehouse = s.define<WarehouseInstance, WarehouseAttributes>('warehouse', {});
+var warehouse = Warehouse.build();
+
+var Branch = s.define<BranchInstance, BranchAttributes>('brach', {});
+var branch = Branch.build();
+
+var WarehouseBranch = s.define<WarehouseBranchInstance, WarehouseBranchAttributes>('warehouseBranch', {});
+
+var Customer = s.define<CustomerInstance, CustomerAttributes>('customer', {});
+var customer = Customer.build();
+
+Product.hasOne(Barcode);
+Barcode.belongsTo(Product);
+
+Warehouse.hasMany(Product);
+Product.belongsTo(Warehouse);
+
+Warehouse.belongsToMany(Branch, { through: WarehouseBranch });
+Branch.belongsToMany(Warehouse, { through: WarehouseBranch });
+
+Branch.belongsToMany(Customer, { through: 'branchCustomer' });
+Customer.belongsToMany(Branch, { through: 'branchCustomer' });
+
+// hasOne
+product.getBarcode();
+product.getBarcode({ scope: null }).then(b => b.code);
+
+product.setBarcode();
+product.setBarcode(1);
+product.setBarcode(barcode);
+product.setBarcode(barcode, { save: true }).then(() => { });
+
+product.createBarcode();
+product.createBarcode({ id: 1, code: '1434-2' });
+product.createBarcode({ id: 1 }, { save: true, silent: true }).then(() => { });
+
+// belongsTo
+barcode.getProduct();
+barcode.getProduct({ scope: 'foo' }).then(p => p.name);
+
+barcode.setProduct();
+barcode.setProduct(1);
+barcode.setProduct(product);
+barcode.setProduct(product, { save: true }).then(() => { });
+
+barcode.createProduct();
+barcode.createProduct({ id: 1, name: 'Crowbar' });
+barcode.createProduct({ id: 1 }, { save: true, silent: true }).then(() => { });
+
+product.getWarehouse();
+product.getWarehouse({ scope: null }).then(w => w.capacity);
+
+product.setWarehouse();
+product.setWarehouse(1);
+product.setWarehouse(warehouse);
+product.setWarehouse(warehouse, { save: true }).then(() => { });
+
+product.createWarehouse();
+product.createWarehouse({ id: 1, capacity: 10000 });
+product.createWarehouse({ id: 1 }, { save: true, silent: true }).then(() => { });
+
+// hasMany
+warehouse.getProducts();
+warehouse.getProducts({ where: {}, scope: false });
+warehouse.getProducts({ where: {}, scope: false }).then((products) => products[0].id);
+
+warehouse.setProducts();
+warehouse.setProducts([product]);
+warehouse.setProducts([product], { validate: true }).then(() => { });
+
+warehouse.addProducts();
+warehouse.addProducts([product]);
+warehouse.addProducts([product, 2], { validate: false }).then(() => { });
+
+warehouse.addProduct();
+warehouse.addProduct(product);
+warehouse.addProduct(2, { validate: true }).then(() => { });
+
+warehouse.createProduct();
+warehouse.createProduct({ id: 1, name: 'baz' });
+warehouse.createProduct({ id: 1 }, { silent: true }).then(() => { });
+
+warehouse.removeProducts();
+warehouse.removeProducts([product]);
+warehouse.removeProducts([product, 2], { validate: false }).then(() => { });
+
+warehouse.removeProduct();
+warehouse.removeProduct(product);
+warehouse.removeProduct(2, { validate: true }).then(() => { });
+
+warehouse.hasProducts([product]);
+warehouse.hasProducts([product, 2], { scope: 'bar' }).then((result: boolean) => { });
+
+warehouse.hasProduct(product);
+warehouse.hasProduct(2, { scope: 'baz' }).then((result: boolean) => { });
+
+warehouse.countProducts();
+warehouse.countProducts({ scope: 'baz' }).then((result: number) => { });
+
+// belongsToMany <Model>
+warehouse.getBranches();
+warehouse.getBranches({ where: {} });
+warehouse.getBranches({ where: {} }).then((branches) => branches[0].rank);
+
+warehouse.setBranches();
+warehouse.setBranches([branch]);
+warehouse.setBranches([branch, 2], { validate: true, distance: 1 }).then(() => { });
+
+warehouse.addBranches();
+warehouse.addBranches([branch]);
+warehouse.addBranches([branch, 2], { validate: false, distance: 1 }).then(() => { });
+
+warehouse.addBranch();
+warehouse.addBranch(branch);
+warehouse.addBranch(2, { validate: true, distance: 1 }).then(() => { });
+
+warehouse.createBranch();
+warehouse.createBranch({ id: 1, address: 'baz' });
+warehouse.createBranch({ id: 1 }, { silent: true, distance: 1 }).then(() => { });
+
+warehouse.removeBranches();
+warehouse.removeBranches([branch]);
+warehouse.removeBranches([branch, 2], { validate: false }).then(() => { });
+
+warehouse.removeBranch();
+warehouse.removeBranch(branch);
+warehouse.removeBranch(2, { validate: true }).then(() => { });
+
+warehouse.hasBranches([branch]);
+warehouse.hasBranches([branch, 2], { scope: 'bar' }).then((result: boolean) => { });
+
+warehouse.hasBranch(branch);
+warehouse.hasBranch(2, { scope: 'baz' }).then((result: boolean) => { });
+
+warehouse.countBranches();
+warehouse.countBranches({ scope: 'baz' }).then((result: number) => { });
+
+// belongsToMany <void>
+customer.getBranches();
+customer.getBranches({ where: {} });
+customer.getBranches({ where: {} }).then((branches) => branches[0].rank);
+
+customer.setBranches();
+customer.setBranches([branch]);
+customer.setBranches([branch, 2], { validate: true }).then(() => { });
+
+customer.addBranches();
+customer.addBranches([branch]);
+customer.addBranches([branch, 2], { validate: false }).then(() => { });
+
+customer.addBranch();
+customer.addBranch(branch);
+customer.addBranch(2, { validate: true }).then(() => { });
+
+customer.createBranch();
+customer.createBranch({ id: 1, address: 'baz' });
+customer.createBranch({ id: 1 }, { silent: true }).then(() => { });
+
+customer.removeBranches();
+customer.removeBranches([branch]);
+customer.removeBranches([branch, 2], { validate: false }).then(() => { });
+
+customer.removeBranch();
+customer.removeBranch(branch);
+customer.removeBranch(2, { validate: true }).then(() => { });
+
+customer.hasBranches([branch]);
+customer.hasBranches([branch, 2], { scope: 'bar' }).then((result: boolean) => { });
+
+customer.hasBranch(branch);
+customer.hasBranch(2, { scope: 'baz' }).then((result: boolean) => { });
+
+customer.countBranches();
+customer.countBranches({ scope: 'baz' }).then((result: number) => { });
+
+
+
+interface ProductAttributes {
+    id?: number;
+    name?: string;
+    price?: number;
+};
+
+interface ProductInstance extends Sequelize.Instance<ProductInstance, ProductAttributes>, ProductAttributes {
+    // hasOne association mixins:
+    getBarcode: Sequelize.HasOneGetAssociationMixin<BarcodeInstance>;
+    setBarcode: Sequelize.HasOneSetAssociationMixin<BarcodeInstance, number>;
+    createBarcode: Sequelize.HasOneCreateAssociationMixin<BarcodeAttributes>;
+
+    // belongsTo association mixins:
+    getWarehouse: Sequelize.BelongsToGetAssociationMixin<WarehouseInstance>;
+    setWarehouse: Sequelize.BelongsToSetAssociationMixin<WarehouseInstance, number>;
+    createWarehouse: Sequelize.BelongsToCreateAssociationMixin<WarehouseAttributes>;
+};
+
+interface BarcodeAttributes {
+    id?: number;
+    code?: string;
+    dateIssued?: Date;
+};
+
+interface BarcodeInstance extends Sequelize.Instance<BarcodeInstance, BarcodeAttributes>, BarcodeAttributes {
+    // belongsTo association mixins:
+    getProduct: Sequelize.BelongsToGetAssociationMixin<ProductInstance>;
+    setProduct: Sequelize.BelongsToSetAssociationMixin<ProductInstance, number>;
+    createProduct: Sequelize.BelongsToCreateAssociationMixin<ProductAttributes>;
+};
+
+interface WarehouseAttributes {
+    id?: number;
+    address?: string;
+    capacity?: number;
+};
+
+interface WarehouseInstance extends Sequelize.Instance<WarehouseInstance, WarehouseAttributes>, WarehouseAttributes {
+    // hasMany association mixins:
+    getProducts: Sequelize.HasManyGetAssociationsMixin<ProductInstance>;
+    setProducts: Sequelize.HasManySetAssociationsMixin<ProductInstance, number>;
+    addProducts: Sequelize.HasManyAddAssociationsMixin<ProductInstance, number>;
+    addProduct: Sequelize.HasManyAddAssociationMixin<ProductInstance, number>;
+    createProduct: Sequelize.HasManyCreateAssociationMixin<ProductAttributes>;
+    removeProduct: Sequelize.HasManyRemoveAssociationMixin<ProductInstance, number>;
+    removeProducts: Sequelize.HasManyRemoveAssociationsMixin<ProductInstance, number>;
+    hasProduct: Sequelize.HasManyHasAssociationMixin<ProductInstance, number>;
+    hasProducts: Sequelize.HasManyHasAssociationsMixin<ProductInstance, number>;
+    countProducts: Sequelize.HasManyCountAssociationsMixin;
+
+    // belongsToMany association mixins:
+    getBranches: Sequelize.BelongsToManyGetAssociationsMixin<BranchInstance>;
+    setBranches: Sequelize.BelongsToManySetAssociationsMixin<BranchInstance, number, WarehouseBranchAttributes>;
+    addBranches: Sequelize.BelongsToManyAddAssociationsMixin<BranchInstance, number, WarehouseBranchAttributes>;
+    addBranch: Sequelize.BelongsToManyAddAssociationMixin<BranchInstance, number, WarehouseBranchAttributes>;
+    createBranch: Sequelize.BelongsToManyCreateAssociationMixin<BranchAttributes, WarehouseBranchAttributes>;
+    removeBranch: Sequelize.BelongsToManyRemoveAssociationMixin<BranchInstance, number>;
+    removeBranches: Sequelize.BelongsToManyRemoveAssociationsMixin<BranchInstance, number>;
+    hasBranch: Sequelize.BelongsToManyHasAssociationMixin<BranchInstance, number>;
+    hasBranches: Sequelize.BelongsToManyHasAssociationsMixin<BranchInstance, number>;
+    countBranches: Sequelize.BelongsToManyCountAssociationsMixin;
+};
+
+interface BranchAttributes {
+    id?: number;
+    address?: string;
+    rank?: number;
+};
+
+interface BranchInstance extends Sequelize.Instance<BranchInstance, BranchAttributes>, BranchAttributes {
+    // belongsToMany association mixins:
+    getWarehouses: Sequelize.BelongsToManyGetAssociationsMixin<WarehouseInstance>;
+    setWarehouses: Sequelize.BelongsToManySetAssociationsMixin<WarehouseInstance, number, WarehouseBranchAttributes>;
+    addWarehouses: Sequelize.BelongsToManyAddAssociationsMixin<WarehouseInstance, number, WarehouseBranchAttributes>;
+    addWarehouse: Sequelize.BelongsToManyAddAssociationMixin<WarehouseInstance, number, WarehouseBranchAttributes>;
+    createWarehouse: Sequelize.BelongsToManyCreateAssociationMixin<WarehouseAttributes, WarehouseBranchAttributes>;
+    removeWarehouse: Sequelize.BelongsToManyRemoveAssociationMixin<WarehouseInstance, number>;
+    removeWarehouses: Sequelize.BelongsToManyRemoveAssociationsMixin<WarehouseInstance, number>;
+    hasWarehouse: Sequelize.BelongsToManyHasAssociationMixin<WarehouseInstance, number>;
+    hasWarehouses: Sequelize.BelongsToManyHasAssociationsMixin<WarehouseInstance, number>;
+    countWarehouses: Sequelize.BelongsToManyCountAssociationsMixin;
+
+    // belongsToMany association mixins:
+    getCustomers: Sequelize.BelongsToManyGetAssociationsMixin<CustomerInstance>;
+    setCustomers: Sequelize.BelongsToManySetAssociationsMixin<CustomerInstance, number, void>;
+    addCustomers: Sequelize.BelongsToManyAddAssociationsMixin<CustomerInstance, number, void>;
+    addCustomer: Sequelize.BelongsToManyAddAssociationMixin<CustomerInstance, number, void>;
+    createCustomer: Sequelize.BelongsToManyCreateAssociationMixin<CustomerAttributes, void>;
+    removeCustomer: Sequelize.BelongsToManyRemoveAssociationMixin<CustomerInstance, number>;
+    removeCustomers: Sequelize.BelongsToManyRemoveAssociationsMixin<CustomerInstance, number>;
+    hasCustomer: Sequelize.BelongsToManyHasAssociationMixin<CustomerInstance, number>;
+    hasCustomers: Sequelize.BelongsToManyHasAssociationsMixin<CustomerInstance, number>;
+    countCustomers: Sequelize.BelongsToManyCountAssociationsMixin;
+};
+
+interface WarehouseBranchAttributes {
+    distance?: number;
+};
+
+interface WarehouseBranchInstance extends Sequelize.Instance<WarehouseBranchInstance, WarehouseBranchAttributes>, WarehouseBranchAttributes { };
+
+interface CustomerAttributes {
+    id?: number;
+    fullname?: string;
+    credit?: number;
+};
+
+interface CustomerInstance extends Sequelize.Instance<CustomerInstance, CustomerAttributes>, CustomerAttributes {
+    // belongsToMany association mixins:
+    getBranches: Sequelize.BelongsToManyGetAssociationsMixin<BranchInstance>;
+    setBranches: Sequelize.BelongsToManySetAssociationsMixin<BranchInstance, number, void>;
+    addBranches: Sequelize.BelongsToManyAddAssociationsMixin<BranchInstance, number, void>;
+    addBranch: Sequelize.BelongsToManyAddAssociationMixin<BranchInstance, number, void>;
+    createBranch: Sequelize.BelongsToManyCreateAssociationMixin<BranchAttributes, void>;
+    removeBranch: Sequelize.BelongsToManyRemoveAssociationMixin<BranchInstance, number>;
+    removeBranches: Sequelize.BelongsToManyRemoveAssociationsMixin<BranchInstance, number>;
+    hasBranch: Sequelize.BelongsToManyHasAssociationMixin<BranchInstance, number>;
+    hasBranches: Sequelize.BelongsToManyHasAssociationsMixin<BranchInstance, number>;
+    countBranches: Sequelize.BelongsToManyCountAssociationsMixin;
+};
+
+//
 //  DataTypes
 // ~~~~~~~~~~~
 //

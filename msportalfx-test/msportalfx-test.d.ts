@@ -76,6 +76,7 @@ declare module MsPortalTestFx {
 
             constructor(title: string);
             clickCommand(commandText: string): Q.Promise<Blade>;
+            getTiles(): Q.Promise<Parts.Tile[]>;
         }
 
         export class CreateBlade extends Blade {
@@ -94,6 +95,15 @@ declare module MsPortalTestFx {
 
         export class SpecPickerBlade extends Blade {
             pickSpec(specCode: string): Q.Promise<void>;
+        }
+
+        export class QuickStartBlade extends Blade {            
+            constructor();
+            clickLink(linkText: string): Q.Promise<void>;
+        }
+
+        export class UsersBlade extends Blade {
+            constructor();
         }
     }
 
@@ -127,11 +137,16 @@ declare module MsPortalTestFx {
 
         export class TextField extends FormElement {
             constructor(parentLocator?: Locators.Locator, label?: string, baseLocator?: Locators.Locator);
-            sendKeys(...var_args: string[]): Q.Promise<TextField>;
+            sendKeys(...var_args: string[]): Q.Promise<void>;
         }
 
         export class ResourceFilterTextField extends TextField {
             constructor(parentLocator?: Locators.Locator);
+        }
+
+        export class HotSpot extends PortalElement {
+            constructor(parentLocator?: Locators.Locator, baseLocator?: Locators.Locator);
+            isSelected(): Q.Promise<boolean>;
         }
     }
 
@@ -143,6 +158,8 @@ declare module MsPortalTestFx {
             isSelected(): Q.Promise<boolean>;
             isLoaded(): Q.Promise<boolean>;
             waitUntilLoaded(timeout?: number): Q.Promise<boolean>;
+            isClickable(): Q.Promise<boolean>;
+            hasError(): Q.Promise<boolean>;
         }
 
         export class PartProperty extends MsPortalTestFx.PortalElement {
@@ -155,6 +172,8 @@ declare module MsPortalTestFx {
         export class ResourceSummaryPart extends Part {
             public properties: Array<PartProperty>;
             public resourceGroupProperty: PartProperty;
+            public quickStartHotSpot: Controls.HotSpot;
+            public accessHotSpot: Controls.HotSpot;
 
             constructor(parentLocator?: Locators.Locator);
         }
@@ -166,17 +185,57 @@ declare module MsPortalTestFx {
             public progressLocator: Locators.Locator;
 
             constructor(parentLocator?: Locators.Locator);
+            tryPin(): Q.Promise<void>;
+            getPart(): Part;
+            waitUntilLoaded(timeout?: number): Q.Promise<void>;
+        }
+    }
+
+    export module Commands {
+        export class ContextMenu extends PortalElement {
+            constructor();
+            public hasItem(text: string): Q.Promise<boolean>;
+            public clickItem(text: string): Q.Promise<void>;
+        }
+
+        export class ContextMenuItem extends PortalElement {
+            constructor(parentLocator: Locators.Locator, text?: string);
+        }
+    }
+
+    export module Notifications {
+        export class Notification extends PortalElement {
+            constructor();
+            getTitle(): Q.Promise<string>;
+            getDescription(): Q.Promise<string>;
+        }
+
+        export class NotificationsMenu extends PortalElement {
+            constructor();
+            waitForNewNotification(title?: string, description?: string, timeout?: number): Q.Promise<Notification>;
+        }
+    }
+
+    export module Tests {
+        export module Parts {
+            export function canPinAllBladeParts(targetBladeDeepLink: string, targetBladeTitle: string, timeout?: number): Q.Promise<boolean>;
         }
     }
 
     export class PortalElement {
-        protected baseLocator: Locators.Locator;
+        public baseLocator: Locators.Locator;
         protected parentLocator: Locators.Locator;
 
         constructor(baseLocator: Locators.Locator, parentLocator?: Locators.Locator);
-        getLocator(): Locators.Locator;
         click(): Q.Promise<void>;
+        rightClick(): Q.Promise<void>;
         getAttribute(attributeName: string): Q.Promise<string>;
+        sendKeys(...var_args: string[]): Q.Promise<void>;
+        getText(): Q.Promise<string>;
+        isPresent(): Q.Promise<boolean>;
+        isElementPresent(subLocator: Locators.Locator): Q.Promise<boolean>;
+        isDisplayed(): Q.Promise<boolean>;
+        getLocator(): Locators.Locator;
     }
 
     export interface TestExtension {
@@ -216,28 +275,33 @@ declare module MsPortalTestFx {
 
     export class Portal {
         portalContext: PortalContext;
-        click(locator: Locators.Locator): Q.Promise<void>;
-        sendKeys(locator: Locators.Locator, ...var_args: string[]): Q.Promise<void>
-        getText(locator: Locators.Locator): Q.Promise<string>;
+
+        goHome(timeout?: number): Q.Promise<void>;
         openGalleryCreateBlade(galleryPackageName: string, bladeTitle: string, timeout?: number): Q.Promise<Blades.CreateBlade>;
         openBrowseBlade(resourceProvider: string, resourceType: string, bladeTitle: string, timeout?: number): Q.Promise<Blades.BrowseResourceBlade>;
         openResourceBlade(resourceId: string, bladeTitle: string, timeout?: number): Q.Promise<Blades.Blade>;
         navigateToDeepLink(deepLink: string, timeout?: number): Q.Promise<any>;
-        getAttribute(locator: Locators.Locator, attributeName: string, timeout?: number): Q.Promise<string>;
+        waitForElementVisible(locator: Locators.Locator, timeout?: number): Q.Promise<boolean>;
         waitForElementNotVisible(locator: Locators.Locator, timeout?: number): Q.Promise<boolean>;
         waitUntilElementContainsAttribute(locator: Locators.Locator, attributeName: string, attributeValue: string, timeout?: number): Q.Promise<any>;
         waitUntilElementDoesNotContainAttribute(locator: Locators.Locator, attributeName: string, attributeValue: string, timeout?: number): Q.Promise<any>;
         waitForElementLocated(locator: Locators.Locator, timeout?: number): Q.Promise<any>;
+        waitForElementsLocated(locator: Locators.Locator, timeout?: number): Q.Promise<any[]>;
         takeScreenshot(filePrefix?: string): Q.Promise<string>;
-        goHome(timeout?: number): Q.Promise<void>;
         getBrowserLogs(level: LogLevel): Q.Promise<string[]>;
-        applyFeature(name: string, value: string): void;
         executeScript<T>(script: string): Q.Promise<T>;
+        applyFeature(name: string, value: string): void;
+        getCurrentUrl(): Q.Promise<string>;
         quit(): Q.Promise<any>;
     }
 
     export class SplashScreen extends PortalElement {
         clickUntrustedExtensionsOkButton(): Q.Promise<void>;
+    }
+
+    export class StartBoard extends PortalElement {
+        constructor();
+        getTiles(): Q.Promise<Parts.Tile[]>;
     }
 
     export var portal: Portal;
