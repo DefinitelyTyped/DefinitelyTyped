@@ -105,7 +105,13 @@ declare module JSData {
         resourceName:string;
     }
 
-    interface DS {
+    interface DSEvents {
+        on(name:string, handler:(...args:any[])=>void):void;
+        off(name:string, handler:(...args:any[])=>void):void;
+        emit(name:string, ...args:any[]):void;
+    }
+
+    interface DS extends DSEvents {
         new(config?:DSConfiguration):DS;
 
         // rather undocumented
@@ -155,7 +161,7 @@ declare module JSData {
         registerAdapter(adapterId:string, adapter:IDSAdapter, options?:{default: boolean}):void;
     }
 
-    interface DSResourceDefinition<T> extends DSResourceDefinitionConfiguration {
+    interface DSResourceDefinition<T> extends DSResourceDefinitionConfiguration, DSEvents {
         changeHistory(id:string | number):Array<Object>;
         changes(id:string | number, options?:{ignoredChanges:Array<string|RegExp>}):Object;
         clear():Array<T & DSInstanceShorthands<T>>;
@@ -191,7 +197,7 @@ declare module JSData {
     }
 
     // cannot specify T at interface level because the interface is used as generic constraint itself which ends up being recursive
-    export interface DSInstanceShorthands<T> {
+    export interface DSInstanceShorthands<T> extends DSEvents {
         DSCompute():void;
         DSRefresh(options?:DSAdapterOperationConfiguration):JSDataPromise<T & DSInstanceShorthands<T>>;
         DSSave(options?:DSSaveConfiguration):JSDataPromise<T & DSInstanceShorthands<T>>;
