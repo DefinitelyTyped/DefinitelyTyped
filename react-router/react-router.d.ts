@@ -406,8 +406,9 @@ declare module "react-router" {
     export {
         Router,
         Link,
-        IndexRoute,
+        IndexLink,
         IndexRedirect,
+        IndexRoute,
         Redirect,
         Route,
         History,
