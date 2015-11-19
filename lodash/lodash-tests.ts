@@ -6186,43 +6186,80 @@ module TestMapKeys {
     let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => string;
     let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => string;
 
-    let result: _.Dictionary<TResult>;
+    {
+        let result: _.Dictionary<TResult>;
 
-    result = _.mapKeys<TResult, string>(array);
-    result = _.mapKeys<TResult, string>(array, listIterator);
-    result = _.mapKeys<TResult, string>(array, listIterator, any);
-    result = _.mapKeys<TResult>(array, '');
-    result = _.mapKeys<TResult, {}>(array, {});
+        result = _.mapKeys<TResult, string>(array);
+        result = _.mapKeys<TResult, string>(array, listIterator);
+        result = _.mapKeys<TResult, string>(array, listIterator, any);
+        result = _.mapKeys<TResult>(array, '');
+        result = _.mapKeys<TResult>(array, '', any);
+        result = _.mapKeys<TResult, {}>(array, {});
 
-    result = _.mapKeys<TResult, string>(list);
-    result = _.mapKeys<TResult, string>(list, listIterator);
-    result = _.mapKeys<TResult, string>(list, listIterator, any);
-    result = _.mapKeys<TResult>(list, '');
-    result = _.mapKeys<TResult, {}>(list, {});
+        result = _.mapKeys<TResult, string>(list);
+        result = _.mapKeys<TResult, string>(list, listIterator);
+        result = _.mapKeys<TResult, string>(list, listIterator, any);
+        result = _.mapKeys<TResult>(list, '');
+        result = _.mapKeys<TResult>(list, '', any);
+        result = _.mapKeys<TResult, {}>(list, {});
 
-    result = _.mapKeys<TResult, string>(dictionary);
-    result = _.mapKeys<TResult, string>(dictionary, dictionaryIterator);
-    result = _.mapKeys<TResult, string>(dictionary, dictionaryIterator, any);
-    result = _.mapKeys<TResult>(dictionary, '');
-    result = _.mapKeys<TResult, {}>(dictionary, {});
+        result = _.mapKeys<TResult, string>(dictionary);
+        result = _.mapKeys<TResult, string>(dictionary, dictionaryIterator);
+        result = _.mapKeys<TResult, string>(dictionary, dictionaryIterator, any);
+        result = _.mapKeys<TResult>(dictionary, '');
+        result = _.mapKeys<TResult>(dictionary, '', any);
+        result = _.mapKeys<TResult, {}>(dictionary, {});
+    }
 
-    result = _(array).mapKeys<string>().value();
-    result = _(array).mapKeys<string>(listIterator).value();
-    result = _(array).mapKeys<string>(listIterator, any).value();
-    result = _(array).mapKeys('').value();
-    result = _(array).mapKeys<{}>({}).value();
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
 
-    result = _(list).mapKeys<TResult, string>().value();
-    result = _(list).mapKeys<TResult, string>(listIterator).value();
-    result = _(list).mapKeys<TResult, string>(listIterator, any).value();
-    result = _(list).mapKeys<TResult>('').value();
-    result = _(list).mapKeys<TResult, {}>({}).value();
+        result = _(array).mapKeys<string>();
+        result = _(array).mapKeys<string>(listIterator);
+        result = _(array).mapKeys<string>(listIterator, any);
+        result = _(array).mapKeys('');
+        result = _(array).mapKeys('', any);
+        result = _(array).mapKeys<{}>({});
 
-    result = _(dictionary).mapKeys<TResult, string>().value();
-    result = _(dictionary).mapKeys<TResult, string>(dictionaryIterator).value();
-    result = _(dictionary).mapKeys<TResult, string>(dictionaryIterator, any).value();
-    result = _(dictionary).mapKeys<TResult>('').value();
-    result = _(dictionary).mapKeys<TResult, {}>({}).value();
+        result = _(list).mapKeys<TResult, string>();
+        result = _(list).mapKeys<TResult, string>(listIterator);
+        result = _(list).mapKeys<TResult, string>(listIterator, any);
+        result = _(list).mapKeys<TResult>('');
+        result = _(list).mapKeys<TResult>('', any);
+        result = _(list).mapKeys<TResult, {}>({});
+
+        result = _(dictionary).mapKeys<TResult, string>();
+        result = _(dictionary).mapKeys<TResult, string>(dictionaryIterator);
+        result = _(dictionary).mapKeys<TResult, string>(dictionaryIterator, any);
+        result = _(dictionary).mapKeys<TResult>('');
+        result = _(dictionary).mapKeys<TResult>('', any);
+        result = _(dictionary).mapKeys<TResult, {}>({});
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
+
+        result = _(array).chain().mapKeys<string>();
+        result = _(array).chain().mapKeys<string>(listIterator);
+        result = _(array).chain().mapKeys<string>(listIterator, any);
+        result = _(array).chain().mapKeys('');
+        result = _(array).chain().mapKeys('', any);
+        result = _(array).chain().mapKeys<{}>({});
+
+        result = _(list).chain().mapKeys<TResult, string>();
+        result = _(list).chain().mapKeys<TResult, string>(listIterator);
+        result = _(list).chain().mapKeys<TResult, string>(listIterator, any);
+        result = _(list).chain().mapKeys<TResult>('');
+        result = _(list).chain().mapKeys<TResult>('', any);
+        result = _(list).chain().mapKeys<TResult, {}>({});
+
+        result = _(dictionary).chain().mapKeys<TResult, string>();
+        result = _(dictionary).chain().mapKeys<TResult, string>(dictionaryIterator);
+        result = _(dictionary).chain().mapKeys<TResult, string>(dictionaryIterator, any);
+        result = _(dictionary).chain().mapKeys<TResult>('');
+        result = _(dictionary).chain().mapKeys<TResult>('', any);
+        result = _(dictionary).chain().mapKeys<TResult, {}>({});
+    }
 }
 
 // _.merge

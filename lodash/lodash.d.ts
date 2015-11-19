@@ -10744,7 +10744,8 @@ declare module _ {
          */
         mapKeys<T>(
             object: List<T>|Dictionary<T>,
-            iteratee?: string
+            iteratee?: string,
+            thisArg?: any
         ): Dictionary<T>;
     }
 
@@ -10768,7 +10769,8 @@ declare module _ {
          * @see _.mapKeys
          */
         mapKeys(
-            iteratee?: string
+            iteratee?: string,
+            thisArg?: any
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
     }
 
@@ -10792,8 +10794,59 @@ declare module _ {
          * @see _.mapKeys
          */
         mapKeys<TResult>(
-            iteratee?: string
+            iteratee?: string,
+            thisArg?: any
         ): LoDashImplicitObjectWrapper<Dictionary<TResult>>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys<TKey>(
+            iteratee?: ListIterator<T, TKey>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys<TObject extends {}>(
+            iteratee?: TObject
+        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys(
+            iteratee?: string,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys<TResult, TKey>(
+            iteratee?: ListIterator<TResult, TKey>|DictionaryIterator<TResult, TKey>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
+
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys<TResult, TObject extends {}>(
+            iteratee?: TObject
+        ): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
+
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys<TResult>(
+            iteratee?: string,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
     }
 
     //_.mapValues
