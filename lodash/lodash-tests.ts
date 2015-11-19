@@ -6434,16 +6434,27 @@ module TestTransform {
 }
 
 // _.values
-class TestValues {
-    public a = 1;
-    public b = 2;
-    public c: string;
+module TestValues {
+    let object: _.Dictionary<TResult>;
+
+    {
+        let result: TResult[];
+
+        result = _.values<TResult>(object);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(object).values<TResult>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(object).chain().values<TResult>();
+    }
 }
-TestValues.prototype.c = 'a';
-result = <number[]>_.values<number>(new TestValues());
-// → [1, 2] (iteration order is not guaranteed)
-result = <number[]>_(new TestValues()).values<number>().value();
-// → [1, 2] (iteration order is not guaranteed)
 
 // _.valueIn
 class TestValueIn {

@@ -11271,18 +11271,26 @@ declare module _ {
     //_.values
     interface LoDashStatic {
         /**
-        * Creates an array of the own enumerable property values of object.
-        * @param object The object to query.
-        * @return Returns an array of property values.
-        **/
+         * Creates an array of the own enumerable property values of object.
+         *
+         * @param object The object to query.
+         * @return Returns an array of property values.
+         */
         values<T>(object?: any): T[];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.values
-        **/
-        values<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+         * @see _.values
+         */
+        values<T>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.values
+         */
+        values<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.valuesIn
