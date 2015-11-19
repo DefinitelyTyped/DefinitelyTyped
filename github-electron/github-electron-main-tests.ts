@@ -35,6 +35,21 @@ app.on('window-all-closed', () => {
 		app.quit();
 });
 
+// Check single instance app
+var shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) {
+  // Someone tried to run a second instance, we should focus our window
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+  }
+  return true;
+});
+
+if (shouldQuit) {
+  app.quit();
+  process.exit(0);
+}
+
 // This method will be called when Electron has done everything
 // initialization and ready for creating browser windows.
 app.on('ready', () => {
@@ -145,7 +160,11 @@ ipc.on('online-status-changed', (event: any, status: any) => {
 // https://github.com/atom/electron/blob/master/docs/api/synopsis.md
 
 app.on('ready', () => {
-	window = new BrowserWindow({ width: 800, height: 600 });
+	window = new BrowserWindow({
+		width: 800,
+		height: 600, 
+		'title-bar-style': 'hidden-inset',
+	});
 	window.loadUrl('https://github.com');
 });
 

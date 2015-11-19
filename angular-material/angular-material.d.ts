@@ -28,7 +28,8 @@ declare module angular.material {
 
     interface IPresetDialog<T> {
         title(title: string): T;
-        content(content: string): T;
+        textContent(textContent: string): T;
+        htmlContent(htmlContent: string): T;
         ok(ok: string): T;
         theme(theme: string): T;
         templateUrl(templateUrl?: string): T;
@@ -220,5 +221,20 @@ declare module angular.material {
         extendPalette(name: string, palette: IPalette): IPalette;
         setDefaultTheme(theme: string): void;
         alwaysWatchTheme(alwaysWatch: boolean): void;
+    }
+    
+    interface IDateLocaleProvider {
+        months: string[];
+        shortMonths: string[];
+        days: string[];
+        shortDays: string[];
+        dates: string[];
+        firstDayOfWeek: number;
+        parseDate(dateString: string): Date;
+        formatDate(date: Date): string;
+        monthHeaderFormatter(date: Date): string;
+        weekNumberFormatter(weekNumber: number): string;
+        msgCalendar: string;
+        msgOpenCalendar: string;
     }
 }

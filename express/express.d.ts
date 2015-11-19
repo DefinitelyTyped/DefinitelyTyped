@@ -108,6 +108,9 @@ declare module "express" {
             use(path: string, handler: ErrorRequestHandler): T;
             use(path: string[], ...handler: RequestHandler[]): T;
             use(path: string[], handler: ErrorRequestHandler): T;
+            use(path: RegExp, ...handler: RequestHandler[]): T;
+            use(path: RegExp, handler: ErrorRequestHandler): T;
+            use(path:string, router:Router): T;
         }
 
         export function Router(options?: any): Router;
