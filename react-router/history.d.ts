@@ -22,6 +22,8 @@ declare namespace HistoryModule {
         transitionTo(location: Location): void
         pushState(state: LocationState, path: Path): void
         replaceState(state: LocationState, path: Path): void
+        push(path: Path): void
+        replace(path: Path): void
         go(n: number): void
         goBack(): void
         goForward(): void
