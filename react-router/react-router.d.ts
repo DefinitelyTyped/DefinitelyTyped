@@ -82,7 +82,7 @@ declare namespace ReactRouter {
         history?: H.History
         routes?: RouteConfig // alias for children
         createElement?: (component: RouteComponent, props: Object) => any
-        onError?: (err: any) => any
+        onError?: (error: any) => any
         onUpdate?: () => any
         parseQueryString?: ParseQueryString
         stringifyQuery?: StringifyQuery
@@ -127,8 +127,8 @@ declare namespace ReactRouter {
         path?: RoutePattern
         component?: RouteComponent
         components?: RouteComponents
-        getComponent?: (location: H.Location, cb: (err: any, component?: RouteComponent) => void) => void
-        getComponents?: (location: H.Location, cb: (err: any, components?: RouteComponents) => void) => void
+        getComponent?: (location: H.Location, cb: (error: any, component?: RouteComponent) => void) => void
+        getComponents?: (location: H.Location, cb: (error: any, components?: RouteComponents) => void) => void
         onEnter?: EnterHook
         onLeave?: LeaveHook
     }
@@ -141,14 +141,14 @@ declare namespace ReactRouter {
         path?: RoutePattern
         component?: RouteComponent
         components?: RouteComponents
-        getComponent?: (location: H.Location, cb: (err: any, component?: RouteComponent) => void) => void
-        getComponents?: (location: H.Location, cb: (err: any, components?: RouteComponents) => void) => void
+        getComponent?: (location: H.Location, cb: (error: any, component?: RouteComponent) => void) => void
+        getComponents?: (location: H.Location, cb: (error: any, components?: RouteComponents) => void) => void
         onEnter?: EnterHook
         onLeave?: LeaveHook
         indexRoute?: PlainRoute
-        getIndexRoute?: (location: H.Location, cb: (err: any, indexRoute: RouteConfig) => void) => void
+        getIndexRoute?: (location: H.Location, cb: (error: any, indexRoute: RouteConfig) => void) => void
         childRoutes?: PlainRoute[]
-        getChildRoutes?: (location: H.Location, cb: (err: any, childRoutes: RouteConfig) => void) => void
+        getChildRoutes?: (location: H.Location, cb: (error: any, childRoutes: RouteConfig) => void) => void
     }
 
 
@@ -167,8 +167,8 @@ declare namespace ReactRouter {
     interface IndexRouteProps extends React.Props<IndexRoute> {
         component?: RouteComponent
         components?: RouteComponents
-        getComponent?: (location: H.Location, cb: (err: any, component?: RouteComponent) => void) => void
-        getComponents?: (location: H.Location, cb: (err: any, components?: RouteComponents) => void) => void
+        getComponent?: (location: H.Location, cb: (error: any, component?: RouteComponent) => void) => void
+        getComponents?: (location: H.Location, cb: (error: any, components?: RouteComponents) => void) => void
         onEnter?: EnterHook
         onLeave?: LeaveHook
     }
@@ -207,11 +207,10 @@ declare namespace ReactRouter {
     /* utils */
 
     interface HistoryRoutes {
-        isActive(pathname: H.Pathname, query: H.Query): boolean
-        registerRouteHook(route: PlainRoute, hook: RouteHook): void
-        unregisterRouteHook(route: PlainRoute, hook: RouteHook): void
         listen(listener: RouterListener): Function
+        listenBeforeLeavingRoute(route: PlainRoute, hook: RouteHook): void
         match(location: H.Location, callback: (error: any, nextState: RouterState, nextLocation: H.Location) => void): void
+        isActive(pathname: H.Pathname, query?: H.Query, indexOnly?: boolean): boolean
     }
 
     function useRoutes<T>(createHistory: HistoryModule.CreateHistory<T>): HistoryModule.CreateHistory<T & HistoryRoutes>
