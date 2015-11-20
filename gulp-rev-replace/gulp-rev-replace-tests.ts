@@ -9,13 +9,9 @@ import rev = require('gulp-rev');
 import useref = require('gulp-useref');
 
 gulp.task("index", () => {
-    var userefAssets = useref.assets();
-
     return gulp.src("src/index.html")
-        .pipe(userefAssets)      // Concatenate with gulp-useref
+        .pipe(useref())             // Concatenate with gulp-useref
         .pipe(rev())                // Rename the concatenated files
-        .pipe(userefAssets.restore())
-        .pipe(useref())
         .pipe(revReplace())         // Substitute in new filenames
         .pipe(gulp.dest('public'));
 });
