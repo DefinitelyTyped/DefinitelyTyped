@@ -45,7 +45,7 @@ interface TldStatic {
     validHosts: Array<string>;
 }
 
-declare module 'tld' {
-  export = tld;
+declare module 'tldjs' {
+  export = tldjs;
 }
-declare var tld: TldStatic;
+declare var tldjs: TldStatic;
