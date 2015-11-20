@@ -20,8 +20,11 @@ declare namespace __React {
     interface CSSTransitionGroupProps extends TransitionGroupProps {
         transitionName: string | CSSTransitionGroupTransitionName;
         transitionAppear?: boolean;
+        transitionAppearTimeout?: number;
         transitionEnter?: boolean;
+        transitionEnterTimeout?: number;
         transitionLeave?: boolean;
+        transitionLeaveTimeout?: number;
     }
     
     type CSSTransitionGroup = ComponentClass<CSSTransitionGroupProps>;
