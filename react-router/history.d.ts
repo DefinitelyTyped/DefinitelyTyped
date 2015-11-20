@@ -10,7 +10,7 @@ declare namespace HistoryModule {
 
     type Action = string
 
-    type BeforeUnloadHook = () => string
+    type BeforeUnloadHook = () => string | boolean
 
     type CreateHistory<T> = (options?: HistoryOptions) => T
 
@@ -22,7 +22,6 @@ declare namespace HistoryModule {
         transitionTo(location: Location): void
         pushState(state: LocationState, path: Path): void
         replaceState(state: LocationState, path: Path): void
-        setState(state: LocationState): void // deprecated
         go(n: number): void
         goBack(): void
         goForward(): void
@@ -30,6 +29,13 @@ declare namespace HistoryModule {
         createPath(path: Path): Path
         createHref(path: Path): Href
         createLocation(path?: Path, state?: LocationState, action?: Action, key?: LocationKey): Location
+
+        /** @deprecated use location.key to save state instead */
+        setState(state: LocationState): void
+        /** @deprecated use listenBefore instead */
+        registerTransitionHook(hook: TransitionHook): void
+        /** @deprecated use the callback returned from listenBefore instead */
+        unregisterTransitionHook(hook: TransitionHook): void
     }
 
     type HistoryOptions = Object
@@ -63,7 +69,7 @@ declare namespace HistoryModule {
 
 
     interface HistoryBeforeUnload {
-        listenBeforeUnload(hook: () => string | boolean): Function
+        listenBeforeUnload(hook: BeforeUnloadHook): Function
     }
 
     interface HistoryQueries {
