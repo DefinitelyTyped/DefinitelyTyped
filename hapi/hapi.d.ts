@@ -903,7 +903,7 @@ declare module "hapi" {
 			/** the request URL. If the URI includes an authority (e.g. 'example.com:8080'), it is used to automatically set an HTTP 'Host' header, unless one was specified in headers.*/
 			url: string;
 			/** an object with optional request headers where each key is the header name and the value is the header content. Defaults to no additions to the default Shot headers.*/
-			headers: IDictionary<string>;
+			headers?: IDictionary<string>;
 			/** n optional string, buffer or object containing the request payload. In case of an object it will be converted to a string for you. Defaults to no payload. Note that payload processing defaults to 'application/json' if no 'Content-Type' header provided.*/
 			payload?: string|{}|Buffer;
 			/** an optional credentials object containing authentication information. The credentials are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Defaults to no credentials.*/
