@@ -254,4 +254,5 @@ declare module "css" {
 	 * @return {string} CSS code.
 	 */
 	function stringify(stylesheet: Stylesheet, options?: StringifyOptions): string;
+
 }
