@@ -61,9 +61,11 @@ app.on('ready', () => {
 	mainWindow.loadUrl('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
 	mainWindow.webContents.loadUrl('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
 
-	mainWindow.openDevTools()
-	var opened: boolean = mainWindow.isDevToolsOpened()
-	mainWindow.toggleDevTools()
+	mainWindow.webContents.openDevTools();
+	mainWindow.webContents.toggleDevTools();
+	mainWindow.webContents.openDevTools({detach: true});
+	mainWindow.webContents.closeDevTools();
+	var opened: boolean = mainWindow.webContents.isDevToolsOpened()
 	// Emitted when the window is closed.
 	mainWindow.on('closed', () => {
 		// Dereference the window object, usually you would store windows
@@ -344,7 +346,7 @@ var template = [
 			{
 				label: 'Toggle DevTools',
 				accelerator: 'Alt+Command+I',
-				click: () => { BrowserWindow.getFocusedWindow().toggleDevTools(); }
+				click: () => { BrowserWindow.getFocusedWindow().webContents.toggleDevTools(); }
 			}
 		]
 	},
