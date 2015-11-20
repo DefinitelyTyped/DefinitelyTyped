@@ -897,7 +897,7 @@ declare module "hapi" {
 
 
 	export interface IServerInject {
-		(options: {
+		(options: string | {
 			/**  the request HTTP method (e.g. 'POST'). Defaults to 'GET'.*/
 			method: string;
 			/** the request URL. If the URI includes an authority (e.g. 'example.com:8080'), it is used to automatically set an HTTP 'Host' header, unless one was specified in headers.*/
