@@ -65,6 +65,8 @@ app.on('ready', () => {
 	mainWindow.webContents.toggleDevTools();
 	mainWindow.webContents.openDevTools({detach: true});
 	mainWindow.webContents.closeDevTools();
+	mainWindow.webContents.addWorkSpace('/path/to/workspace');
+	mainWindow.webContents.removeWorkSpace('/path/to/workspace');
 	var opened: boolean = mainWindow.webContents.isDevToolsOpened()
 	// Emitted when the window is closed.
 	mainWindow.on('closed', () => {

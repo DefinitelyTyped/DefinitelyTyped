@@ -711,6 +711,14 @@ declare module GitHubElectron {
 		 */
 		callback: (error: Error, data: Buffer) => void): void;
 		/**
+		 * Adds the specified path to DevTools workspace.
+		 */
+		addWorkSpace(path: string): void;
+		/**
+		 * Removes the specified path from DevTools workspace.
+		 */
+		removeWorkSpace(path: string): void;
+		/**
 		 * Opens the developer tools.
 		 */
 		openDevTools(options?: {
