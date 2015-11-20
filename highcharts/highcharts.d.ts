@@ -3,8 +3,6 @@
 // Definitions by: Damiano Gambarotto <http://github.com/damianog>, Dan Lewi Harkestad <http://github.com/baltie>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path='../jquery/jquery.d.ts' />
-
 interface HighchartsPosition {
     align?: string;
     verticalAlign?: string;

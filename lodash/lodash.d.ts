@@ -2911,7 +2911,21 @@ declare module _ {
         /**
          * @see _.xor
          */
-        xor<TValue>(...arrays: List<TValue>[]): LoDashImplicitArrayWrapper<TValue>;
+        xor<T>(...arrays: List<T>[]): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.xor
+         */
+        xor(...arrays: List<T>[]): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.xor
+         */
+        xor<T>(...arrays: List<T>[]): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.zip
@@ -7425,19 +7439,34 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Creates a function that accepts up to n arguments ignoring any additional arguments.
+         *
          * @param func The function to cap arguments for.
          * @param n The arity cap.
-         * @param guard Enables use as a callback for functions like `_.map`.
          * @returns Returns the new function.
          */
-        ary<TResult extends Function>(func: Function, n?: number, guard?: Object): TResult;
+        ary<TResult extends Function>(
+            func: Function,
+            n?: number
+        ): TResult;
+
+        ary<T extends Function, TResult extends Function>(
+            func: T,
+            n?: number
+        ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.ary
          */
-        ary<TResult extends Function>(n?: number, guard?: Object): LoDashImplicitObjectWrapper<TResult>;
+        ary<TResult extends Function>(n?: number): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.ary
+         */
+        ary<TResult extends Function>(n?: number): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.backflow
@@ -7861,26 +7890,38 @@ declare module _ {
     //_.delay
     interface LoDashStatic {
         /**
-        * Executes the func function after wait milliseconds. Additional arguments will be provided
-        * to func when it is invoked.
-        * @param func The function to delay.
-        * @param wait The number of milliseconds to delay execution.
-        * @param args Arguments to invoke the function with.
-        * @return The timer id.
-        **/
-        delay(
-            func: Function,
+         * Invokes func after wait milliseconds. Any additional arguments are provided to func when it’s invoked.
+         *
+         * @param func The function to delay.
+         * @param wait The number of milliseconds to delay invocation.
+         * @param args The arguments to invoke the function with.
+         * @return Returns the timer id.
+         */
+        delay<T extends Function>(
+            func: T,
             wait: number,
-            ...args: any[]): number;
+            ...args: any[]
+        ): number;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.delay
-        **/
+         * @see _.delay
+         */
         delay(
             wait: number,
-            ...args: any[]): LoDashImplicitWrapper<number>;
+            ...args: any[]
+        ): LoDashImplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.delay
+         */
+        delay(
+            wait: number,
+            ...args: any[]
+        ): LoDashExplicitWrapper<number>;
     }
 
     //_.flow
@@ -8496,18 +8537,29 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is greater than other.
+         *
          * @param value The value to compare.
          * @param other The other value to compare.
          * @return Returns true if value is greater than other, else false.
          */
-        gt(value: any, other: any): boolean;
+        gt(
+            value: any,
+            other: any
+        ): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T,TWrapper> {
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.gt
          */
         gt(other: any): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.gt
+         */
+        gt(other: any): LoDashExplicitWrapper<boolean>;
     }
 
     //_.gte
@@ -8986,18 +9038,29 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is less than or equal to other.
+         *
          * @param value The value to compare.
          * @param other The other value to compare.
          * @return Returns true if value is less than or equal to other, else false.
          */
-        lte(value: any, other: any): boolean;
+        lte(
+            value: any,
+            other: any
+        ): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T,TWrapper> {
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.lte
          */
         lte(other: any): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.lte
+         */
+        lte(other: any): LoDashExplicitWrapper<boolean>;
     }
 
     //_.toArray
@@ -10439,34 +10502,47 @@ declare module _ {
     //_.forInRight
     interface LoDashStatic {
         /**
-        * This method is like _.forIn except that it iterates over elements of a collection in the
-        * opposite order.
-        * @param object The object to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return object
-        **/
-        forInRight<T extends {}>(
+         * This method is like _.forIn except that it iterates over properties of object in the opposite order.
+         *
+         * @param object The object to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns object.
+         */
+        forInRight<T>(
             object: Dictionary<T>,
-            callback?: DictionaryIterator<T, void>,
-            thisArg?: any): Dictionary<T>;
+            iteratee?: DictionaryIterator<T, any>,
+            thisArg?: any
+        ): Dictionary<T>;
 
         /**
-        * @see _.forInRight
-        **/
+         * @see _.forInRight
+         */
         forInRight<T extends {}>(
             object: T,
-            callback?: ObjectIterator<T, void>,
-            thisArg?: any): T;
+            iteratee?: ObjectIterator<any, any>,
+            thisArg?: any
+        ): T;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.forInRight
-        **/
-        forInRight<T extends {}>(
-            callback: ObjectIterator<T, void>,
-            thisArg?: any): _.LoDashImplicitObjectWrapper<T>;
+         * @see _.forInRight
+         */
+        forInRight<TValue>(
+            iteratee?: DictionaryIterator<TValue, any>,
+            thisArg?: any
+        ): _.LoDashImplicitObjectWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.forInRight
+         */
+        forInRight<TValue>(
+            iteratee?: DictionaryIterator<TValue, any>,
+            thisArg?: any
+        ): _.LoDashExplicitObjectWrapper<T>;
     }
 
     //_.forOwn
@@ -10520,33 +10596,47 @@ declare module _ {
     //_.forOwnRight
     interface LoDashStatic {
         /**
-        * This method is like _.forOwn except that it iterates over elements of a collection in the
-        * opposite order.
-        * @param object The object to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return object
-        **/
-        forOwnRight<T extends {}>(
+         * This method is like _.forOwn except that it iterates over properties of object in the opposite order.
+         *
+         * @param object The object to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns object.
+         */
+        forOwnRight<T>(
             object: Dictionary<T>,
-            callback?: DictionaryIterator<T, void>,
-            thisArg?: any): Dictionary<T>;
+            iteratee?: DictionaryIterator<T, any>,
+            thisArg?: any
+        ): Dictionary<T>;
+
         /**
-        * @see _.forOwnRight
-        **/
+         * @see _.forOwnRight
+         */
         forOwnRight<T extends {}>(
             object: T,
-            callback?: ObjectIterator<any, void>,
-            thisArg?: any): T;
+            iteratee?: ObjectIterator<any, any>,
+            thisArg?: any
+        ): T;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.forOwnRight
-        **/
-        forOwnRight<T extends {}>(
-            callback: ObjectIterator<T, void>,
-            thisArg?: any): _.LoDashImplicitObjectWrapper<T>;
+         * @see _.forOwnRight
+         */
+        forOwnRight<TValue>(
+            iteratee?: DictionaryIterator<TValue, any>,
+            thisArg?: any
+        ): _.LoDashImplicitObjectWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.forOwnRight
+         */
+        forOwnRight<TValue>(
+            iteratee?: DictionaryIterator<TValue, any>,
+            thisArg?: any
+        ): _.LoDashExplicitObjectWrapper<T>;
     }
 
     //_.functions
@@ -10653,18 +10743,26 @@ declare module _ {
     //_.keys
     interface LoDashStatic {
         /**
-        * Creates an array composed of the own enumerable property names of an object.
-        * @param object The object to inspect.
-        * @return An array of property names.
-        **/
+         * Creates an array of the own enumerable property names of object.
+         *
+         * @param object The object to query.
+         * @return Returns the array of property names.
+         */
         keys(object?: any): string[];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.keys
-        **/
-        keys(): LoDashImplicitArrayWrapper<string>
+         * @see _.keys
+         */
+        keys(): LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.keys
+         */
+        keys(): LoDashExplicitArrayWrapper<string>;
     }
 
     //_.keysIn
@@ -10723,7 +10821,8 @@ declare module _ {
          */
         mapKeys<T>(
             object: List<T>|Dictionary<T>,
-            iteratee?: string
+            iteratee?: string,
+            thisArg?: any
         ): Dictionary<T>;
     }
 
@@ -10747,7 +10846,8 @@ declare module _ {
          * @see _.mapKeys
          */
         mapKeys(
-            iteratee?: string
+            iteratee?: string,
+            thisArg?: any
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
     }
 
@@ -10771,8 +10871,59 @@ declare module _ {
          * @see _.mapKeys
          */
         mapKeys<TResult>(
-            iteratee?: string
+            iteratee?: string,
+            thisArg?: any
         ): LoDashImplicitObjectWrapper<Dictionary<TResult>>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys<TKey>(
+            iteratee?: ListIterator<T, TKey>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys<TObject extends {}>(
+            iteratee?: TObject
+        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys(
+            iteratee?: string,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys<TResult, TKey>(
+            iteratee?: ListIterator<TResult, TKey>|DictionaryIterator<TResult, TKey>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
+
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys<TResult, TObject extends {}>(
+            iteratee?: TObject
+        ): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
+
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys<TResult>(
+            iteratee?: string,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
     }
 
     //_.mapValues
@@ -11271,18 +11422,26 @@ declare module _ {
     //_.values
     interface LoDashStatic {
         /**
-        * Creates an array of the own enumerable property values of object.
-        * @param object The object to query.
-        * @return Returns an array of property values.
-        **/
+         * Creates an array of the own enumerable property values of object.
+         *
+         * @param object The object to query.
+         * @return Returns an array of property values.
+         */
         values<T>(object?: any): T[];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.values
-        **/
-        values<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+         * @see _.values
+         */
+        values<T>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.values
+         */
+        values<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.valuesIn

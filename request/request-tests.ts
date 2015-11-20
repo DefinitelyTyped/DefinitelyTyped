@@ -31,6 +31,22 @@ var bodyArr: request.RequestPart[] = [{
 	body: value
 }];
 
+//Defaults tests
+(() => {
+  const githubUrl = 'https://github.com';
+  const defaultJarRequest = request.defaults({ jar: true });
+  defaultJarRequest.get(githubUrl);
+  //defaultJarRequest(); //this line doesn't compile (and shouldn't)
+  const defaultUrlRequest = request.defaults({ url: githubUrl });
+  defaultUrlRequest();
+  defaultUrlRequest.get();
+  const defaultBodyRequest = defaultUrlRequest.defaults({body: '{}', json: true});
+  defaultBodyRequest.get();
+  defaultBodyRequest.post();
+  defaultBodyRequest.put();
+})();
+
+
 // --- --- --- --- --- --- --- --- --- --- --- ---
 
 obj = req.toJSON();
@@ -525,6 +541,9 @@ var baseRequest = request.defaults({
 var specialRequest = baseRequest.defaults({
   headers: {special: 'special value'}
 });
+
+const urlRequest = specialRequest.defaults({url: 'https://github.com'});
+urlRequest({}, function(error, response, body) {console.log(body);});
 
 request.put(url);
 request.patch(url);
