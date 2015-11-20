@@ -131,7 +131,7 @@ declare class ByteBuffer
     /**
      * Concatenates multiple ByteBuffers into one.
      */
-    static concat( buffers: Array<ByteBuffer> | ArrayBuffer | Uint8Array | string, encoding?: string | boolean, litteEndian?: boolean, noAssert?: boolean ): ByteBuffer;
+    static concat( buffers: Array<ByteBuffer | ArrayBuffer | Uint8Array | string>, encoding?: string | boolean, litteEndian?: boolean, noAssert?: boolean ): ByteBuffer;
 
     /**
      * Decodes a base64 encoded string to a ByteBuffer.
