@@ -564,6 +564,7 @@ declare module CKEDITOR {
         colorButton_enableMore?: boolean;
         colorButton_colors?: string;
         contentsCss?: string | string[];
+        contentsLangDirection?: string;
         customConfig?: string;
         extraPlugins?: string;
         font_names?: string;
