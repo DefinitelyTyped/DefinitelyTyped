@@ -1575,25 +1575,44 @@ module TestWithout {
 module TestXor {
     let array: TResult[];
     let list: _.List<TResult>;
-    let result: TResult[];
 
-    result = _.xor<TResult>();
+    {
+        let result: TResult[];
 
-    result = _.xor<TResult>(array);
-    result = _.xor<TResult>(array, list);
-    result = _.xor<TResult>(array, list, array);
+        result = _.xor<TResult>();
 
-    result = _.xor<TResult>(list);
-    result = _.xor<TResult>(list, array);
-    result = _.xor<TResult>(list, array, list);
+        result = _.xor<TResult>(array);
+        result = _.xor<TResult>(array, list);
+        result = _.xor<TResult>(array, list, array);
 
-    result = _(array).xor().value();
-    result = _(array).xor(list).value();
-    result = _(array).xor(list, array).value();
+        result = _.xor<TResult>(list);
+        result = _.xor<TResult>(list, array);
+        result = _.xor<TResult>(list, array, list);
+    }
 
-    result = _(list).xor<TResult>().value();
-    result = _(list).xor<TResult>(array).value();
-    result = _(list).xor<TResult>(array, list).value();
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).xor();
+        result = _(array).xor(list);
+        result = _(array).xor(list, array);
+
+        result = _(list).xor<TResult>();
+        result = _(list).xor<TResult>(array);
+        result = _(list).xor<TResult>(array, list);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().xor();
+        result = _(array).chain().xor(list);
+        result = _(array).chain().xor(list, array);
+
+        result = _(list).chain().xor<TResult>();
+        result = _(list).chain().xor<TResult>(array);
+        result = _(list).chain().xor<TResult>(array, list);
+    }
 }
 
 result = <any[][]>_.zip(['moe', 'larry'], [30, 40], [true, false]);
@@ -4164,8 +4183,34 @@ module TestAfter {
 }
 
 // _.ary
-result = <number[]>['6', '8', '10'].map(_.ary<(s: string) => number>(parseInt, 1));
-result = <number[]>['6', '8', '10'].map(_(parseInt).ary<(s: string) => number>(1).value());
+module TestAry {
+    type SampleFunc = (a: number, b: string) => boolean;
+
+    let func: SampleFunc;
+
+    {
+        let result: SampleFunc;
+
+        result = _.ary<SampleFunc>(func);
+        result = _.ary<SampleFunc>(func, 2);
+        result = _.ary<SampleFunc, SampleFunc>(func);
+        result = _.ary<SampleFunc, SampleFunc>(func, 2);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<SampleFunc>;
+
+        result = _(func).ary<SampleFunc>();
+        result = _(func).ary<SampleFunc>(2);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<SampleFunc>;
+
+        result = _(func).chain().ary<SampleFunc>();
+        result = _(func).chain().ary<SampleFunc>(2);
+    }
+}
 
 // _.backflow
 module TestBackflow {
@@ -4371,9 +4416,36 @@ returnedThrottled(4);
 result = <number>_.defer(function () { console.log('deferred'); });
 result = <_.LoDashImplicitWrapper<number>>_(function () { console.log('deferred'); }).defer();
 
-var log = _.bind(console.log, console);
-result = <number>_.delay(log, 1000, 'logged later');
-result = <_.LoDashImplicitWrapper<number>>_(log).delay(1000, 'logged later');
+// _.delay
+module TestDelay {
+    type SampleFunc = (a: number, b: string) => boolean;
+
+    let func: SampleFunc;
+
+    {
+        let result: number;
+
+        result = _.delay<SampleFunc>(func, 1);
+        result = _.delay<SampleFunc>(func, 1, 2);
+        result = _.delay<SampleFunc>(func, 1, 2, '');
+    }
+
+    {
+        let result: _.LoDashImplicitWrapper<number>;
+
+        result = _(func).delay(1);
+        result = _(func).delay(1, 2);
+        result = _(func).delay(1, 2, '');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(func).chain().delay(1);
+        result = _(func).chain().delay(1, 2);
+        result = _(func).chain().delay(1, 2, '');
+    }
+}
 
 // _.flow
 var testFlowSquareFn = (n: number) => n * n;
@@ -4718,10 +4790,24 @@ module TestEq {
 }
 
 // _.gt
-result = <boolean>_.gt(1, 2);
-result = <boolean>_(1).gt(2);
-result = <boolean>_([]).gt(2);
-result = <boolean>_({}).gt(2);
+module TestGt {
+    {
+        let result: boolean;
+
+        result = _.gt(any, any);
+        result = _(1).gt(any);
+        result = _([]).gt(any);
+        result = _({}).gt(any);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().gt(any);
+        result = _([]).chain().gt(any);
+        result = _({}).chain().gt(any);
+    }
+}
 
 // _.gte
 module TestGte {
@@ -4985,7 +5071,6 @@ result = <boolean>_<any>([]).isUndefined();
 result = <boolean>_({}).isUndefined();
 
 // _.lt
-
 module TestLt {
     {
         let result: boolean;
@@ -5006,10 +5091,24 @@ module TestLt {
 }
 
 // _.lte
-result = <boolean>_.lte(1, 2);
-result = <boolean>_(1).lte(2);
-result = <boolean>_([]).lte(2);
-result = <boolean>_({}).lte(2);
+module TestLte {
+    {
+        let result: boolean;
+
+        result = _.lte(any, any);
+        result = _(1).lte(any);
+        result = _([]).lte(any);
+        result = _({}).lte(any);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().lte(any);
+        result = _([]).chain().lte(any);
+        result = _({}).chain().lte(any);
+    }
+}
 
 // _.toArray
 module TestToArray {
@@ -5972,13 +6071,48 @@ module TestForIn {
     }
 }
 
-result = <Dog>_.forInRight(new Dog('Dagny'), function (value, key) {
-    console.log(key);
-});
+// _.forInRight
+module TestForInRight {
+    type SampleObject = {a: number; b: string; c: boolean;};
 
-result = <_.LoDashImplicitObjectWrapper<Dog>>_(new Dog('Dagny')).forInRight(function (value, key) {
-    console.log(key);
-});
+    let dictionary: _.Dictionary<number>;
+    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => any;
+
+    let object: SampleObject;
+    let objectIterator: (element: any, key?: string, collection?: any) => any;
+
+    {
+        let result: _.Dictionary<number>;
+
+        result = _.forInRight<number>(dictionary);
+        result = _.forInRight<number>(dictionary, dictionaryIterator);
+        result = _.forInRight<number>(dictionary, dictionaryIterator, any);
+    }
+
+    {
+        let result: SampleObject;
+
+        result = _.forInRight<SampleObject>(object);
+        result = _.forInRight<SampleObject>(object, objectIterator);
+        result = _.forInRight<SampleObject>(object, objectIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<number>>;
+
+        result = _(dictionary).forInRight<number>();
+        result = _(dictionary).forInRight<number>(dictionaryIterator);
+        result = _(dictionary).forInRight<number>(dictionaryIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
+
+        result = _(dictionary).chain().forInRight<number>();
+        result = _(dictionary).chain().forInRight<number>(dictionaryIterator);
+        result = _(dictionary).chain().forInRight<number>(dictionaryIterator, any);
+    }
+}
 
 // _.forOwn
 module TestForOwn {
@@ -6023,19 +6157,48 @@ module TestForOwn {
     }
 }
 
-interface ZeroOne {
-    0: string;
-    1: string;
-    one: string;
+// _.forOwnRight
+module TestForOwnRight {
+    type SampleObject = {a: number; b: string; c: boolean;};
+
+    let dictionary: _.Dictionary<number>;
+    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => any;
+
+    let object: SampleObject;
+    let objectIterator: (element: any, key?: string, collection?: any) => any;
+
+    {
+        let result: _.Dictionary<number>;
+
+        result = _.forOwnRight<number>(dictionary);
+        result = _.forOwnRight<number>(dictionary, dictionaryIterator);
+        result = _.forOwnRight<number>(dictionary, dictionaryIterator, any);
+    }
+
+    {
+        let result: SampleObject;
+
+        result = _.forOwnRight<SampleObject>(object);
+        result = _.forOwnRight<SampleObject>(object, objectIterator);
+        result = _.forOwnRight<SampleObject>(object, objectIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<number>>;
+
+        result = _(dictionary).forOwnRight<number>();
+        result = _(dictionary).forOwnRight<number>(dictionaryIterator);
+        result = _(dictionary).forOwnRight<number>(dictionaryIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
+
+        result = _(dictionary).chain().forOwnRight<number>();
+        result = _(dictionary).chain().forOwnRight<number>(dictionaryIterator);
+        result = _(dictionary).chain().forOwnRight<number>(dictionaryIterator, any);
+    }
 }
-
-result = <any>_.forOwnRight({ '0': 'zero', '1': 'one', 'length': 2 }, function (num, key) {
-    console.log(key);
-});
-
-result = <_.LoDashImplicitObjectWrapper<ZeroOne>>_({ '0': 'zero', '1': 'one', 'length': 2 }).forOwnRight(function (num, key) {
-    console.log(key);
-});
 
 // _.functions
 module TestFunctions {
@@ -6116,15 +6279,28 @@ module TestHas {
     result = _({}).invert<TResult>(true).value();
 }
 
-class Stooge {
-    constructor(
-        public name: string,
-        public age: number
-        ) { }
-}
+// _.keys
+module TestKeys {
+    let object: _.Dictionary<any>;
 
-result = <string[]>_.keys({ 'one': 1, 'two': 2, 'three': 3 });
-result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keys().value();
+    {
+        let result: string[];
+
+        result = _.keys(object);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _(object).keys();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _(object).chain().keys();
+    }
+}
 
 result = <string[]>_.keysIn({ 'one': 1, 'two': 2, 'three': 3 });
 result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keysIn().value();
@@ -6138,43 +6314,80 @@ module TestMapKeys {
     let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => string;
     let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => string;
 
-    let result: _.Dictionary<TResult>;
+    {
+        let result: _.Dictionary<TResult>;
 
-    result = _.mapKeys<TResult, string>(array);
-    result = _.mapKeys<TResult, string>(array, listIterator);
-    result = _.mapKeys<TResult, string>(array, listIterator, any);
-    result = _.mapKeys<TResult>(array, '');
-    result = _.mapKeys<TResult, {}>(array, {});
+        result = _.mapKeys<TResult, string>(array);
+        result = _.mapKeys<TResult, string>(array, listIterator);
+        result = _.mapKeys<TResult, string>(array, listIterator, any);
+        result = _.mapKeys<TResult>(array, '');
+        result = _.mapKeys<TResult>(array, '', any);
+        result = _.mapKeys<TResult, {}>(array, {});
 
-    result = _.mapKeys<TResult, string>(list);
-    result = _.mapKeys<TResult, string>(list, listIterator);
-    result = _.mapKeys<TResult, string>(list, listIterator, any);
-    result = _.mapKeys<TResult>(list, '');
-    result = _.mapKeys<TResult, {}>(list, {});
+        result = _.mapKeys<TResult, string>(list);
+        result = _.mapKeys<TResult, string>(list, listIterator);
+        result = _.mapKeys<TResult, string>(list, listIterator, any);
+        result = _.mapKeys<TResult>(list, '');
+        result = _.mapKeys<TResult>(list, '', any);
+        result = _.mapKeys<TResult, {}>(list, {});
 
-    result = _.mapKeys<TResult, string>(dictionary);
-    result = _.mapKeys<TResult, string>(dictionary, dictionaryIterator);
-    result = _.mapKeys<TResult, string>(dictionary, dictionaryIterator, any);
-    result = _.mapKeys<TResult>(dictionary, '');
-    result = _.mapKeys<TResult, {}>(dictionary, {});
+        result = _.mapKeys<TResult, string>(dictionary);
+        result = _.mapKeys<TResult, string>(dictionary, dictionaryIterator);
+        result = _.mapKeys<TResult, string>(dictionary, dictionaryIterator, any);
+        result = _.mapKeys<TResult>(dictionary, '');
+        result = _.mapKeys<TResult>(dictionary, '', any);
+        result = _.mapKeys<TResult, {}>(dictionary, {});
+    }
 
-    result = _(array).mapKeys<string>().value();
-    result = _(array).mapKeys<string>(listIterator).value();
-    result = _(array).mapKeys<string>(listIterator, any).value();
-    result = _(array).mapKeys('').value();
-    result = _(array).mapKeys<{}>({}).value();
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
 
-    result = _(list).mapKeys<TResult, string>().value();
-    result = _(list).mapKeys<TResult, string>(listIterator).value();
-    result = _(list).mapKeys<TResult, string>(listIterator, any).value();
-    result = _(list).mapKeys<TResult>('').value();
-    result = _(list).mapKeys<TResult, {}>({}).value();
+        result = _(array).mapKeys<string>();
+        result = _(array).mapKeys<string>(listIterator);
+        result = _(array).mapKeys<string>(listIterator, any);
+        result = _(array).mapKeys('');
+        result = _(array).mapKeys('', any);
+        result = _(array).mapKeys<{}>({});
 
-    result = _(dictionary).mapKeys<TResult, string>().value();
-    result = _(dictionary).mapKeys<TResult, string>(dictionaryIterator).value();
-    result = _(dictionary).mapKeys<TResult, string>(dictionaryIterator, any).value();
-    result = _(dictionary).mapKeys<TResult>('').value();
-    result = _(dictionary).mapKeys<TResult, {}>({}).value();
+        result = _(list).mapKeys<TResult, string>();
+        result = _(list).mapKeys<TResult, string>(listIterator);
+        result = _(list).mapKeys<TResult, string>(listIterator, any);
+        result = _(list).mapKeys<TResult>('');
+        result = _(list).mapKeys<TResult>('', any);
+        result = _(list).mapKeys<TResult, {}>({});
+
+        result = _(dictionary).mapKeys<TResult, string>();
+        result = _(dictionary).mapKeys<TResult, string>(dictionaryIterator);
+        result = _(dictionary).mapKeys<TResult, string>(dictionaryIterator, any);
+        result = _(dictionary).mapKeys<TResult>('');
+        result = _(dictionary).mapKeys<TResult>('', any);
+        result = _(dictionary).mapKeys<TResult, {}>({});
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
+
+        result = _(array).chain().mapKeys<string>();
+        result = _(array).chain().mapKeys<string>(listIterator);
+        result = _(array).chain().mapKeys<string>(listIterator, any);
+        result = _(array).chain().mapKeys('');
+        result = _(array).chain().mapKeys('', any);
+        result = _(array).chain().mapKeys<{}>({});
+
+        result = _(list).chain().mapKeys<TResult, string>();
+        result = _(list).chain().mapKeys<TResult, string>(listIterator);
+        result = _(list).chain().mapKeys<TResult, string>(listIterator, any);
+        result = _(list).chain().mapKeys<TResult>('');
+        result = _(list).chain().mapKeys<TResult>('', any);
+        result = _(list).chain().mapKeys<TResult, {}>({});
+
+        result = _(dictionary).chain().mapKeys<TResult, string>();
+        result = _(dictionary).chain().mapKeys<TResult, string>(dictionaryIterator);
+        result = _(dictionary).chain().mapKeys<TResult, string>(dictionaryIterator, any);
+        result = _(dictionary).chain().mapKeys<TResult>('');
+        result = _(dictionary).chain().mapKeys<TResult>('', any);
+        result = _(dictionary).chain().mapKeys<TResult, {}>({});
+    }
 }
 
 // _.merge
@@ -6434,16 +6647,27 @@ module TestTransform {
 }
 
 // _.values
-class TestValues {
-    public a = 1;
-    public b = 2;
-    public c: string;
+module TestValues {
+    let object: _.Dictionary<TResult>;
+
+    {
+        let result: TResult[];
+
+        result = _.values<TResult>(object);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(object).values<TResult>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(object).chain().values<TResult>();
+    }
 }
-TestValues.prototype.c = 'a';
-result = <number[]>_.values<number>(new TestValues());
-// → [1, 2] (iteration order is not guaranteed)
-result = <number[]>_(new TestValues()).values<number>().value();
-// → [1, 2] (iteration order is not guaranteed)
 
 // _.valueIn
 class TestValueIn {

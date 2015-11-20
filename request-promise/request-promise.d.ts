@@ -19,12 +19,12 @@ declare module 'request-promise' {
         promise(): Promise<any>;
     }
     
-    interface RequestPromiseOptions extends request.OptionalOptions {
+    interface RequestPromiseOptions extends request.CoreOptions {
         simple?: boolean;
         transform?: (body: any, response: http.IncomingMessage) => any;
         resolveWithFullResponse?: boolean;
     }
     
-    var requestPromise: request.RequestAPI<RequestPromise, RequestPromiseOptions>;
+    var requestPromise: request.RequestAPI<RequestPromise, RequestPromiseOptions, request.RequiredUriUrl>;
 	export = requestPromise;
 }

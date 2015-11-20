@@ -16,6 +16,7 @@ import RaisedButton = require("material-ui/lib/raised-button");
 import FloatingActionButton = require("material-ui/lib/floating-action-button");
 import Card = require("material-ui/lib/card/card");
 import CardHeader = require("material-ui/lib/card/card-header");
+import DatePicker = require("material-ui/lib/date-picker/date-picker");
 import CardText = require("material-ui/lib/card/card-text");
 import CardActions = require("material-ui/lib/card/card-actions");
 import Dialog = require("material-ui/lib/dialog");
@@ -165,7 +166,10 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
             </Card>;
 
         // "http://material-ui.com/#/components/date-picker"
-
+        element = <DatePicker
+            floatingLabelText="Floating Label Text" />;
+        element = <DatePicker
+            hintText="Hint Text" />;
 
         // "http://material-ui.com/#/components/dialog"
         let standardActions = [
