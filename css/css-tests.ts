@@ -1,6 +1,9 @@
 /// <reference path="./css.d.ts" />
 
 import css = require("css");
+
+// Check that user can parse, modify and persist CSS content
+
 var parserOptions: css.ParserOptions;
 parserOptions = {
 	silent: true,
@@ -23,4 +26,37 @@ stringifyOptions = {
 };
 
 var content = css.stringify(stylesheet, stringifyOptions);
-console.log(content);
+
+// Create new stylesheet and save it
+
+var bgDeclaration: css.Declaration = {
+	type: "declaration",
+	property: "background",
+	value: "#eee"
+};
+
+var colorDeclaration: css.Declaration = {
+	type: "declaration",
+	property: "color",
+	value: "#888"
+};
+
+var ruleComment: css.Comment = {
+	type: "comment",
+	comment: "New CSS AST Tree Rule"
+};
+
+var bodyRule: css.Rule = {
+	type: "rule",
+	selectors: ["body"],
+	declarations: [ruleComment, bgDeclaration, colorDeclaration]
+};
+
+var newStylesheet: css.Stylesheet = {
+	type: "stylesheet",
+	stylesheet: {
+		rules: [bodyRule]
+	}
+};
+
+content = css.stringify(newStylesheet);
