@@ -904,15 +904,25 @@ declare module "hapi" {
 			url: string;
 			/** an object with optional request headers where each key is the header name and the value is the header content. Defaults to no additions to the default Shot headers.*/
 			headers: IDictionary<string>;
-			/**- an optional string or buffer containing the request payload (object must be manually converted to a string first). Defaults to no payload. Note that payload processing defaults to 'application/json' if no 'Content-Type' header provided.*/
-			payload: string|Buffer;
-			/**an optional credentials object containing authentication information. The credentials are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Defaults to no credentials.*/
-			credentials: any;
+			/** n optional string, buffer or object containing the request payload. In case of an object it will be converted to a string for you. Defaults to no payload. Note that payload processing defaults to 'application/json' if no 'Content-Type' header provided.*/
+			payload?: string|{}|Buffer;
+			/** an optional credentials object containing authentication information. The credentials are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Defaults to no credentials.*/
+			credentials?: any;
+			/** an optional artifacts object containing authentication artifact information. The artifacts are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Ignored if set without credentials. Defaults to no artifacts.*/
+			artifacts?: any;
+			/** sets the initial value of request.app*/
+			app?: any;
+			/** sets the initial value of request.plugins*/
+			plugins?: any;
+			/** allows access to routes with config.isInternal set to true. Defaults to false.*/
+			allowInternals?: boolean;
+			/** sets the remote address for the incoming connection.*/
+			remoteAddress?: boolean;
 			/**object with options used to simulate client request stream conditions for testing:
 			error - if true, emits an 'error' event after payload transmission (if any). Defaults to false.
 			close - if true, emits a 'close' event after payload transmission (if any). Defaults to false.
 			end - if false, does not end the stream. Defaults to true.*/
-			simulate: {
+			simulate?: {
 				error: boolean;
 				close: boolean;
 				end: boolean;
