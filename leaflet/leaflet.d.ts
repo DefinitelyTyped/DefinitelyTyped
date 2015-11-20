@@ -337,7 +337,6 @@ declare module L {
         Layers: Control.LayersStatic;
         Scale: Control.ScaleStatic;
     }
-    export var Control: ControlStatic;
 
     export interface Control extends IControl {
         /**
