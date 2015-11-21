@@ -10745,6 +10745,8 @@ declare module _ {
         /**
          * Creates an array of the own enumerable property names of object.
          *
+         * Note: Non-object values are coerced to objects. See the ES spec for more details.
+         *
          * @param object The object to query.
          * @return Returns the array of property names.
          */
@@ -10769,17 +10771,27 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Creates an array of the own and inherited enumerable property names of object.
+         *
+         * Note: Non-object values are coerced to objects.
+         *
          * @param object The object to query.
          * @return An array of property names.
-         **/
+         */
         keysIn(object?: any): string[];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.keysIn
-         **/
-        keysIn(): LoDashImplicitArrayWrapper<string>
+         */
+        keysIn(): LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.keysIn
+         */
+        keysIn(): LoDashExplicitArrayWrapper<string>;
     }
 
     //_.mapKeys

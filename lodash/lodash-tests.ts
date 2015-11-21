@@ -6302,8 +6302,28 @@ module TestKeys {
     }
 }
 
-result = <string[]>_.keysIn({ 'one': 1, 'two': 2, 'three': 3 });
-result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keysIn().value();
+// _.keysIn
+module TestKeysIn {
+    let object: _.Dictionary<any>;
+
+    {
+        let result: string[];
+
+        result = _.keysIn(object);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _(object).keysIn();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _(object).chain().keysIn();
+    }
+}
 
 // _.mapKeys
 module TestMapKeys {
