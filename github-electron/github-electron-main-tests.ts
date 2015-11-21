@@ -57,9 +57,9 @@ app.on('ready', () => {
 	mainWindow = new BrowserWindow({ width: 800, height: 600 });
 
 	// and load the index.html of the app.
-	mainWindow.loadUrl(`file://${__dirname}/index.html`);
-	mainWindow.loadUrl('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
-	mainWindow.webContents.loadUrl('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
+	mainWindow.loadURL(`file://${__dirname}/index.html`);
+	mainWindow.loadURL('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
+	mainWindow.webContents.loadURL('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
 
 	mainWindow.openDevTools()
 	var opened: boolean = mainWindow.isDevToolsOpened()
@@ -149,7 +149,7 @@ var onlineStatusWindow: GitHubElectron.BrowserWindow;
 
 app.on('ready', () => {
 	onlineStatusWindow = new BrowserWindow({ width: 0, height: 0, show: false });
-	onlineStatusWindow.loadUrl(`file://${__dirname}/online-status.html`);
+	onlineStatusWindow.loadURL(`file://${__dirname}/online-status.html`);
 });
 
 ipc.on('online-status-changed', (event: any, status: any) => {
@@ -165,7 +165,7 @@ app.on('ready', () => {
 		height: 600, 
 		'title-bar-style': 'hidden-inset',
 	});
-	window.loadUrl('https://github.com');
+	window.loadURL('https://github.com');
 });
 
 // Supported Chrome command line switches
@@ -179,7 +179,7 @@ app.commandLine.appendSwitch('vmodule', 'console=0');
 // auto-updater
 // https://github.com/atom/electron/blob/master/docs/api/auto-updater.md
 
-AutoUpdater.setFeedUrl('http://mycompany.com/myapp/latest?version=' + app.getVersion());
+AutoUpdater.setFeedURL('http://mycompany.com/myapp/latest?version=' + app.getVersion());
 
 // browser-window
 // https://github.com/atom/electron/blob/master/docs/api/browser-window.md
@@ -189,7 +189,7 @@ win.on('closed', () => {
 	win = null;
 });
 
-win.loadUrl('https://github.com');
+win.loadURL('https://github.com');
 win.show();
 
 // content-tracing
@@ -446,7 +446,7 @@ console.log(Clipboard.readText('selection'));
 CrashReporter.start({
 	productName: 'YourName',
 	companyName: 'YourCompany',
-	submitUrl: 'https://your-domain.com/url-to-submit',
+	submitURL: 'https://your-domain.com/url-to-submit',
 	autoSubmit: true
 });
 
