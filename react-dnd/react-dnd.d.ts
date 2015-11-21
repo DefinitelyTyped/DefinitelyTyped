@@ -179,13 +179,13 @@ declare module "react-dnd" {
     export = __ReactDnd;
 }
 
-declare module "react-dnd/modules/backends/HTML5" {
+declare module "react-dnd-html5-backend" {
     export enum NativeTypes { FILE, URL, TEXT }
     export function getEmptyImage(): any; // Image
     export default class HTML5Backend implements __ReactDnd.Backend {}
 }
 
-declare module "react-dnd/modules/backends/Test" {
+declare module "react-dnd-test-backend" {
     class TestBackend {
         setup(): void;
         teardown(): void;
@@ -198,5 +198,5 @@ declare module "react-dnd/modules/backends/Test" {
         simulateEndDrag(): void;
     }
 
-    export = TestBackend;
+    export { TestBackend as default };
 }
