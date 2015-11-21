@@ -90,7 +90,7 @@ declare module GitHubElectron {
 		 * warnings. For example, https and data are secure schemes because they cannot be
 		 * corrupted by active network attackers.
 		 */
-		registerUrlSchemeAsSecure(scheme: string): void;
+		registerURLSchemeAsSecure(scheme: string): void;
 	}
 }
 
