@@ -1,4 +1,4 @@
-// Type definitions for React DnD v1.1.4
+// Type definitions for React DnD v2.0.2
 // Project: https://github.com/gaearon/react-dnd
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -173,26 +173,4 @@ declare module __ReactDnd {
 
 declare module "react-dnd" {
     export = __ReactDnd;
-}
-
-declare module "react-dnd-html5-backend" {
-    export enum NativeTypes { FILE, URL, TEXT }
-    export function getEmptyImage(): any; // Image
-    export default class HTML5Backend implements __ReactDnd.Backend {}
-}
-
-declare module "react-dnd-test-backend" {
-    class TestBackend {
-        setup(): void;
-        teardown(): void;
-        connectDragSource(): void;
-        connectDropTarget(): void;
-        simulateBeginDrag(sourceIds: __ReactDnd.Identifier[], options?: {}): void;
-        simulatePublishDragSource(): void;
-        simulateHover(targetIds: __ReactDnd.Identifier[], options?: {}): void;
-        simulateDrop(): void;
-        simulateEndDrag(): void;
-    }
-
-    export { TestBackend as default };
 }
