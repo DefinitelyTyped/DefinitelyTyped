@@ -430,7 +430,7 @@ declare module "http" {
     import * as events from "events";
     import * as net from "net";
     import * as stream from "stream";
-    
+
     export interface RequestOptions {
         protocol?: string;
         host?: string;
@@ -1808,6 +1808,8 @@ declare module "assert" {
         export function notDeepEqual(acutal: any, expected: any, message?: string): void;
         export function strictEqual(actual: any, expected: any, message?: string): void;
         export function notStrictEqual(actual: any, expected: any, message?: string): void;
+        export function deepStrictEqual(actual: any, expected: any, message?: string): void;
+        export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
         export var throws: {
             (block: Function, message?: string): void;
             (block: Function, error: Function, message?: string): void;
