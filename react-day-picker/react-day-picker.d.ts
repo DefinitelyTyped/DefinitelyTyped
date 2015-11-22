@@ -1,4 +1,4 @@
-// Type definitions for react-day-picker
+// Type definitions for react-day-picker v1.1.4
 // Project: https://github.com/gpbl/react-day-picker
 // Definitions by: Giampaolo Bellavite <https://github.com/gpbl>, Jason Killian <https://github.com/jkillian>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -6,7 +6,8 @@
 /// <reference path="../react/react.d.ts" />
 
 declare module "react-day-picker" {
-    export default ReactDayPicker.DayPicker;
+    import DayPicker = ReactDayPicker.DayPicker;
+    export = DayPicker;
 }
 
 declare var DayPicker: typeof ReactDayPicker.DayPicker;
@@ -23,7 +24,7 @@ declare namespace ReactDayPicker {
         [name: string]: (date: Date) => boolean;
     }
 
-    interface Props {
+    interface Props extends __React.Props<DayPicker>{
         modifiers?: Modifiers;
         initialMonth?: Date;
         numberOfMonths?: number;
@@ -45,9 +46,21 @@ declare namespace ReactDayPicker {
         tabIndex?: number;
     }
 
-    export class DayPicker extends __React.Component<Props, {}> {
+    class DayPicker extends __React.Component<Props, {}> {
         showMonth(month: Date): void;
         showPreviousMonth(): void;
         showNextMonth(): void;
+    }
+
+    namespace DayPicker {
+        var LocaleUtils: LocaleUtils;
+        namespace DateUtils {
+            function clone(d: Date): Date;
+            function isSameDay(d1?: Date, d2?: Date): boolean;
+            function isPastDay(d: Date): boolean;
+            function isDayBetween(day: Date, startDate: Date, endDate: Date): boolean;
+            function addDayToRange(day: Date, range: { from?: Date, to?: Date }): { from?: Date, to?: Date };
+            function isDayInRange(day: Date, range: { from?: Date, to?: Date }): boolean;
+        }  
     }
 }
