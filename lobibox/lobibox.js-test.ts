@@ -4,11 +4,11 @@
     ///<reference path="lobibox.d.ts"/>
     ///<reference path="../jquery/jquery.d.ts"/>
 
-    // run test by calling
-    // LobiboxTest.test();
+
+    //Run test : LobiboxTest.test()
 class LobiboxTest {
     static test() {
-        //extending default parameters
+        // extending default parameters
         Lobibox.notify.DEFAULTS = $.extend({}, Lobibox.notify.DEFAULTS, {
             //override any options from default options
             delay: false,
@@ -55,8 +55,8 @@ class LobiboxTest {
                     text: 'Custom'
                 }
             },
-            callback: function (lobibox, type) {
-                var btnType;
+            callback: function (lobibox:any, type:string):any {
+                let btnType:string = "";
                 if (type === 'no') {
                     btnType = 'warning';
                 } else if (type === 'yes') {
@@ -91,9 +91,9 @@ class LobiboxTest {
         Lobibox.progress({
             title: 'Please wait',
             label: 'Uploading files...',
-            onShow: function ($this) {
+            onShow: function ($this:any):void {
                 var i = 0;
-                var inter = setInterval(function () {
+                var inter = setInterval(function ():void {
                     window.console.log(i);
                     if (i > 100) {
                         clearInterval(inter);
@@ -108,7 +108,7 @@ class LobiboxTest {
         Lobibox.window({
             title: 'Window title',
             //Available types: string, jquery object, function
-            content: function () {
+            content: function ():any {
                 return $('.container');
             },
             url: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.css',
@@ -128,9 +128,9 @@ class LobiboxTest {
                     closeOnClick: true
                 }
             },
-            callback: function ($this, type, ev) {
+            callback: function ($this:any, type:string, ev:any):void {
                 if (type === 'load') {
-                    $this.load(function () {
+                    $this.load(function ():any {
                         //Do something when content is loaded
                     });
                 }
