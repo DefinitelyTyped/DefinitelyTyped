@@ -82,9 +82,8 @@ declare module LobiboxModule {
                 text?: string,
                 closeOnClick?: boolean
             },
-            custom?: any,
-        };
-        callback? (lobibox:any, type:string);
+        }|any;
+        callback? (lobibox:any, type:string, ev: any): void;
     }
     interface ConfirmOptions extends MessageBoxesOptions {
         title?           : string;
@@ -132,7 +131,7 @@ declare module LobiboxModule {
     interface WindowOptions extends MessageBoxesOptions {
         width?           : number;
         height?          : any;
-        content?         : string;  // HTML Content of window
+        content?         : any;  // HTML Content of window
         url?             : string;  // URL which will be used to load content
         draggable?       : boolean;  // Override default option
         autoload?        : boolean;  // Auto load from given url when window is created
@@ -183,16 +182,16 @@ declare module LobiboxModule {
     }
 
     interface NotifyMethods {
-        remove? ();
+        remove? (): any;
     }
 
     interface LobiboxStatic {
         base:       {OPTIONS: MessageBoxesOptions, DEFAULTS: MessageBoxesDefault};
-        alert:      {(type: string, options?: AlertOptions), DEFAULTS: AlertOptions};
-        prompt:     {(type: string, options?: PromptOptions), DEFAULTS: PromptOptions};
-        confirm:    {(options?: ConfirmOptions), DEFAULTS: ConfirmOptions};
-        progress:   {(options: ProgressOptions), DEFAULTS: ProgressOptions};
-        window:     {(options: WindowOptions), DEFAULTS: WindowOptions};
-        notify:     {(type: string, options?: NotifyOptions), DEFAULTS?: NotifyDefault,OPTIONS?:NotifyOptions};
+        alert:      {<T extends MessageBoxesDefault>(type: string, options?: T): LobiboxStatic, DEFAULTS: AlertOptions};
+        prompt:     {<T extends MessageBoxesDefault>(type: string, options?: T): LobiboxStatic, DEFAULTS: PromptOptions};
+        confirm:    {<T extends MessageBoxesDefault>(options?: ConfirmOptions): T, DEFAULTS: ConfirmOptions};
+        progress:   {<T extends MessageBoxesDefault>(options: ProgressOptions): T, DEFAULTS: ProgressOptions};
+        window:     {<T extends MessageBoxesDefault>(options: WindowOptions): T, DEFAULTS: WindowOptions};
+        notify:     {<T extends NotifyDefault>(type: string, options?: NotifyOptions): T, DEFAULTS?: NotifyDefault,OPTIONS?:NotifyOptions};
     }
 }
