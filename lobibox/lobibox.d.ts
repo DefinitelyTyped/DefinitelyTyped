@@ -83,7 +83,7 @@ declare module LobiboxModule {
                 closeOnClick?: boolean
             },
         }|any;
-        callback? (lobibox:any, type:string, ev: any): void;
+        callback? (lobibox:any, type?:string, ev?: any): void;
     }
     interface ConfirmOptions extends MessageBoxesOptions {
         title?           : string;
