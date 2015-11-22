@@ -1,12 +1,14 @@
 /**
  * Created by itboy on 11/22/2015.
  */
-    ///<reference path="Lobibox.d.ts"/>
+    ///<reference path="lobibox.d.ts"/>
     ///<reference path="../jquery/jquery.d.ts"/>
 
-    //extending default parameters
+    // run test by calling
+    // LobiboxTest.test();
 class LobiboxTest {
     static test() {
+        //extending default parameters
         Lobibox.notify.DEFAULTS = $.extend({}, Lobibox.notify.DEFAULTS, {
             //override any options from default options
             delay: false,
