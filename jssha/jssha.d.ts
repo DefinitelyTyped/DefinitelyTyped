@@ -40,7 +40,7 @@ declare module jsSHA {
 		 *
 		 * @param {string} key The key used to calculate the HMAC
 		 * @param {string} inputFormat The format of key, HEX, TEXT, B64, or BYTES
-		 * @param {{encoding : (string|undefined)}=} options Associative array
+		 * @param {{encoding : (string|undefined)}=} encodingOpts Associative array
 		 *   of input format options
 		 */
         setHMACKey(key:string, inputFormat:string, encodingOpts?:EncodingOptions):void;
@@ -60,7 +60,7 @@ declare module jsSHA {
 		 *
 		 * @param {string} format The desired output formatting (B64, HEX, or BYTES)
 		 * @param {{outputUpper : (boolean|undefined), b64Pad : (string|undefined)}=}
-		 *   options Hash list of output formatting options
+		 *   outputFormatOpts Hash list of output formatting options
 		 * @return {string} The string representation of the hash in the format
 		 *   specified
 		 */
@@ -73,7 +73,7 @@ declare module jsSHA {
 		 * @param {string} format The desired output formatting
 		 *   (B64, HEX, or BYTES)
 		 * @param {{outputUpper : (boolean|undefined), b64Pad : (string|undefined)}=}
-		 *   options associative array of output formatting options
+		 *   outputFormatOpts associative array of output formatting options
 		 * @return {string} The string representation of the hash in the format
 		 *   specified
 		 */
