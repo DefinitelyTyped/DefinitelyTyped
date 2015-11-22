@@ -7,14 +7,11 @@
 //
 // These definitions are meant to be used with the TSC compiler target set to ES6
 //
+// These definitions have been mostly completed by porting to Typescript
+// the UI Explorer which comes with the react-native distribution
+// Check: https://github.com/bgrieder/RNTSExplorer
+//
 // This work is based on an original work made by Bernd Paradies: https://github.com/bparadie
-//
-// WARNING: this work is very much beta:
-//            -it is still missing react-native definitions (see below)
-//            -it re-exports the whole of react 0.14 which may not be what react-native actually does
-//
-// I (Bruno Grieder) complete these definitions as I port the UI Explorer to Typescript
-// If you are in a hurry for the latest definitions, check those in https://github.com/bgrieder/RNTSExplorer
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -47,7 +44,7 @@ declare namespace  ReactNative {
 
 
         // not in lib.es6.d.ts but called by react-native
-        done(callback?: (value: T) => void): void;
+        done( callback?: ( value: T ) => void ): void;
     }
 
     export interface PromiseConstructor {
@@ -135,6 +132,73 @@ declare namespace  ReactNative {
     export type Runnable = ( appParameters: any ) => void;
 
 
+    // Similar to React.SyntheticEvent except for nativeEvent
+    interface NativeSyntheticEvent<T> {
+        bubbles: boolean
+        cancelable: boolean
+        currentTarget: EventTarget
+        defaultPrevented: boolean
+        eventPhase: number
+        isTrusted: boolean
+        nativeEvent: T
+        preventDefault(): void
+        stopPropagation(): void
+        target: EventTarget
+        timeStamp: Date
+        type: string
+    }
+
+    export interface NativeTouchEvent {
+        /**
+         * Array of all touch events that have changed since the last event
+         */
+        changedTouches: NativeTouchEvent[]
+
+        /**
+         * The ID of the touch
+         */
+        identifier: string
+
+        /**
+         * The X position of the touch, relative to the element
+         */
+        locationX: number
+
+        /**
+         * The Y position of the touch, relative to the element
+         */
+        locationY: number
+
+        /**
+         * The X position of the touch, relative to the screen
+         */
+        pageX: number
+
+        /**
+         * The Y position of the touch, relative to the screen
+         */
+        pageY: number
+
+        /**
+         * The node id of the element receiving the touch event
+         */
+        target: string
+
+        /**
+         * A time identifier for the touch, useful for velocity calculation
+         */
+        timestamp: number
+
+        /**
+         * Array of all current touches on the screen
+         */
+        touches : NativeTouchEvent[]
+    }
+
+    export interface GestureResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {
+    }
+
+
     export interface  PointProperties {
         x: number
         y: number
@@ -147,8 +211,23 @@ declare namespace  ReactNative {
         right?: number
     }
 
+    /**
+     * //FIXME: need to find documentation on which compoenent is a native (i.e. non composite component)
+     */
     export interface NativeComponent {
-        setNativeProps: (props: Object) => void
+        setNativeProps: ( props: Object ) => void
+    }
+
+    /**
+     * //FIXME: need to find documentation on which component is a TTouchable and can implement that interface
+     * @see React.DOMAtributes
+     */
+    export interface Touchable {
+        onTouchStart?: ( event: GestureResponderEvent ) => void
+        onTouchMove?: ( event: GestureResponderEvent ) => void
+        onTouchEnd?: ( event: GestureResponderEvent ) => void
+        onTouchCancel?: ( event: GestureResponderEvent ) => void
+        onTouchEndCapture?: ( event: GestureResponderEvent ) => void
     }
 
     export type AppConfig = {
@@ -583,55 +662,6 @@ declare namespace  ReactNative {
     }
 
 
-    export interface GestureResponderEvent {
-        nativeEvent : {
-            /**
-             * Array of all touch events that have changed since the last event
-             */
-            changedTouches: any[]
-
-            /**
-             * The ID of the touch
-             */
-            identifier: string
-
-            /**
-             * The X position of the touch, relative to the element
-             */
-            locationX: number
-
-            /**
-             * The Y position of the touch, relative to the element
-             */
-            locationY: number
-
-            /**
-             * The X position of the touch, relative to the screen
-             */
-            pageX: number
-
-            /**
-             * The Y position of the touch, relative to the screen
-             */
-            pageY: number
-
-            /**
-             * The node id of the element receiving the touch event
-             */
-            target: string
-
-            /**
-             * A time identifier for the touch, useful for velocity calculation
-             */
-            timestamp: number
-
-            /**
-             * Array of all current touches on the screen
-             */
-            touches : any[]
-        }
-    }
-
     /**
      * Gesture recognition on mobile devices is much more complicated than web.
      * A touch can go through several phases as the app determines what the user's intention is.
@@ -667,12 +697,12 @@ declare namespace  ReactNative {
         /**
          * Does this view want to become responder on the start of a touch?
          */
-        onStartShouldSetResponder?: (event: GestureResponderEvent) => boolean
+        onStartShouldSetResponder?: ( event: GestureResponderEvent ) => boolean
 
         /**
          * Called for every touch move on the View when it is not the responder: does this view want to "claim" touch responsiveness?
          */
-        onMoveShouldSetResponder?: (event: GestureResponderEvent) => boolean
+        onMoveShouldSetResponder?: ( event: GestureResponderEvent ) => boolean
 
         /**
          * If the View returns true and attempts to become the responder, one of the following will happen:
@@ -682,12 +712,12 @@ declare namespace  ReactNative {
          * The View is now responding for touch events.
          * This is the time to highlight and show the user what is happening
          */
-        onResponderGrant?: (event: GestureResponderEvent) => void
+        onResponderGrant?: ( event: GestureResponderEvent ) => void
 
         /**
          * Something else is the responder right now and will not release it
          */
-        onResponderReject?: (event: GestureResponderEvent) => void
+        onResponderReject?: ( event: GestureResponderEvent ) => void
 
         /**
          * If the view is responding, the following handlers can be called:
@@ -696,25 +726,25 @@ declare namespace  ReactNative {
         /**
          * The user is moving their finger
          */
-        onResponderMove?: (event: GestureResponderEvent) => void
+        onResponderMove?: ( event: GestureResponderEvent ) => void
 
         /**
          * Fired at the end of the touch, ie "touchUp"
          */
-        onResponderRelease?: (event: GestureResponderEvent) => void
+        onResponderRelease?: ( event: GestureResponderEvent ) => void
 
         /**
          *  Something else wants to become responder.
          *  Should this view release the responder? Returning true allows release
          */
-        onResponderTerminationRequest?: (event: GestureResponderEvent) => boolean
+        onResponderTerminationRequest?: ( event: GestureResponderEvent ) => boolean
 
         /**
          * The responder has been taken from the View.
          * Might be taken by other views after a call to onResponderTerminationRequest,
          * or might be taken by the OS without asking (happens with control center/ notification center on iOS)
          */
-        onResponderTerminate?: (event: GestureResponderEvent) => void
+        onResponderTerminate?: ( event: GestureResponderEvent ) => void
 
         /**
          * onStartShouldSetResponder and onMoveShouldSetResponder are called with a bubbling pattern,
@@ -729,7 +759,7 @@ declare namespace  ReactNative {
          * So if a parent View wants to prevent the child from becoming responder on a touch start,
          * it should have a onStartShouldSetResponderCapture handler which returns true.
          */
-        onStartShouldSetResponderCapture?: (event: GestureResponderEvent) => boolean
+        onStartShouldSetResponderCapture?: ( event: GestureResponderEvent ) => boolean
 
         /**
          * onStartShouldSetResponder and onMoveShouldSetResponder are called with a bubbling pattern,
@@ -864,7 +894,7 @@ declare namespace  ReactNative {
     /**
      * @see https://facebook.github.io/react-native/docs/view.html#props
      */
-    export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS, GestureResponderHandlers, React.Props<ViewStatic> {
+    export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS, GestureResponderHandlers, Touchable, React.Props<ViewStatic> {
 
         /**
          * Overrides the text that's read by the screen reader when the user interacts with the element. By default, the label is constructed by traversing all the children and accumulating all the Text nodes separated by space.
@@ -1680,7 +1710,7 @@ declare namespace  ReactNative {
         showsPointsOfInterest?: boolean
     }
 
-    export interface MapViewProperties extends MapViewPropertiesIOS, React.Props<MapViewStatic> {
+    export interface MapViewProperties extends MapViewPropertiesIOS, Touchable, React.Props<MapViewStatic> {
 
         /**
          * Map annotations with title/subtitle.
@@ -2423,7 +2453,6 @@ declare namespace  ReactNative {
     }
 
 
-
     export interface PixelRatioStatic {
         get(): number;
     }
@@ -2632,7 +2661,7 @@ declare namespace  ReactNative {
         zoomScale?: number
     }
 
-    export interface ScrollViewProperties extends ScrollViewIOSProperties {
+    export interface ScrollViewProperties extends ScrollViewIOSProperties, Touchable {
 
         /**
          * These styles will be applied to the scroll view content container which
@@ -2962,13 +2991,13 @@ declare namespace  ReactNative {
          * eventName is expected to be `change`
          * //FIXME: No doc - inferred from NetInfo.js
          */
-        addEventListener: (eventName: string, listener: (result: T) => void) => void
+        addEventListener: ( eventName: string, listener: ( result: T ) => void ) => void
 
         /**
          * eventName is expected to be `change`
          * //FIXME: No doc - inferred from NetInfo.js
          */
-        removeEventListener: (eventName: string, listener: (result: T) => void) => void
+        removeEventListener: ( eventName: string, listener: ( result: T ) => void ) => void
     }
 
     /**
@@ -2994,30 +3023,6 @@ declare namespace  ReactNative {
 
         //FIXME: Documentation missing
         isConnectionMetered: any
-    }
-
-    /**
-     * //FIXME: Documentation ?
-     */
-    export interface PanResponderEvent {
-
-        bubbles: boolean
-        cancelable: boolean
-        currentTarget: number
-        defaultPrevented: boolean
-        dispatchConfig: any
-        dispatchMarker: any
-        eventPhase: any
-        isDefaultPrevented: () => boolean
-        isPropagationStopped: () => boolean
-        isTrusted: boolean
-        nativeEvent: GestureResponderEvent
-        path: any
-        target: number
-        timeStamp: number
-        touchHistory: any[]
-        type: any
-
     }
 
 
@@ -3083,19 +3088,19 @@ declare namespace  ReactNative {
      * @see documentation of GestureResponderHandlers
      */
     export interface PanResponderCallbacks {
-        onMoveShouldSetPanResponder?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => boolean
-        onStartShouldSetPanResponder?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => void
-        onPanResponderGrant?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => void
-        onPanResponderMove?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => void
-        onPanResponderRelease?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => void
-        onPanResponderTerminate?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => void
+        onMoveShouldSetPanResponder?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => boolean
+        onStartShouldSetPanResponder?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => void
+        onPanResponderGrant?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => void
+        onPanResponderMove?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => void
+        onPanResponderRelease?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => void
+        onPanResponderTerminate?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => void
 
-        onMoveShouldSetPanResponderCapture?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => boolean
-        onStartShouldSetPanResponderCapture?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => boolean
-        onPanResponderReject?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => void
-        onPanResponderStart?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => void
-        onPanResponderEnd?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => void
-        onPanResponderTerminationRequest?: ( e: PanResponderEvent, gestureState: PanResponderGestureState ) => boolean
+        onMoveShouldSetPanResponderCapture?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => boolean
+        onStartShouldSetPanResponderCapture?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => boolean
+        onPanResponderReject?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => void
+        onPanResponderStart?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => void
+        onPanResponderEnd?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => void
+        onPanResponderTerminationRequest?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => boolean
     }
 
     export interface PanResponderInstance {
@@ -3145,7 +3150,143 @@ declare namespace  ReactNative {
         create( config: PanResponderCallbacks ): PanResponderInstance
     }
 
+    export interface PushNotificationPermissions {
+        alert?: boolean
+        badge?: boolean
+        sound?: boolean
+    }
 
+    export interface PushNotification {
+
+
+        /**
+         * An alias for `getAlert` to get the notification's main message string
+         */
+        getMessage(): string | Object
+
+        /**
+         * Gets the sound string from the `aps` object
+         */
+        getSound(): string
+
+        /**
+         * Gets the notification's main message from the `aps` object
+         */
+        getAlert(): string | Object
+
+        /**
+         * Gets the badge count number from the `aps` object
+         */
+        getBadgeCount(): number
+
+        /**
+         * Gets the data object on the notif
+         */
+        getData(): Object
+
+    }
+
+
+    /**
+     * Handle push notifications for your app, including permission handling and icon badge number.
+     * @see https://facebook.github.io/react-native/docs/pushnotificationios.html#content
+     *
+     * //FIXME: BGR: The documentation seems completely off compared to the actual js implementation. I could never get the example to run
+     */
+    export interface PushNotificationIOSStatic {
+
+        /**
+         * Sets the badge number for the app icon on the home screen
+         */
+        setApplicationIconBadgeNumber( number: number ): void
+
+        /**
+         * Gets the current badge number for the app icon on the home screen
+         */
+        getApplicationIconBadgeNumber( callback: ( badge: number ) => void ): void
+
+        /**
+         * Attaches a listener to remote notifications while the app is running in the
+         * foreground or the background.
+         *
+         * The handler will get be invoked with an instance of `PushNotificationIOS`
+         *
+         * The type MUST be 'notification'
+         */
+        addEventListener( type: string, handler: ( notification: PushNotification ) => void ):void
+
+        /**
+         * Requests all notification permissions from iOS, prompting the user's
+         * dialog box.
+         */
+        requestPermissions(): void
+
+        /**
+         * See what push permissions are currently enabled. `callback` will be
+         * invoked with a `permissions` object:
+         *
+         *  - `alert` :boolean
+         *  - `badge` :boolean
+         *  - `sound` :boolean
+         */
+        checkPermissions( callback: ( permissions: PushNotificationPermissions ) => void ): void
+
+        /**
+         * Removes the event listener. Do this in `componentWillUnmount` to prevent
+         * memory leaks
+         */
+        removeEventListener( type: string, handler: ( notification: PushNotification ) => void ): void
+
+        /**
+         * An initial notification will be available if the app was cold-launched
+         * from a notification.
+         *
+         * The first caller of `popInitialNotification` will get the initial
+         * notification object, or `null`. Subsequent invocations will return null.
+         */
+        popInitialNotification(): PushNotification
+    }
+
+
+    /**
+     * @enum('default', 'light-content')
+     */
+    export type StatusBarStyle = string
+
+    /**
+     * @enum('none','fade', 'slide')
+     */
+    type StatusBarAnimation = string
+
+
+    /**
+     * //FIXME: No documentation is available (although this is self explanatory)
+     *
+     * @see https://facebook.github.io/react-native/docs/statusbarios.html#content
+     */
+    export interface StatusBarIOSStatic {
+
+        setStyle(style: StatusBarStyle, animated?: boolean): void
+
+        setHidden(hidden: boolean, animation?: StatusBarAnimation): void
+
+        setNetworkActivityIndicatorVisible(visible: boolean): void
+    }
+
+    /**
+     * The Vibration API is exposed at VibrationIOS.vibrate().
+     * On iOS, calling this function will trigger a one second vibration.
+     * The vibration is asynchronous so this method will return immediately.
+     *
+     * There will be no effect on devices that do not support Vibration, eg. the iOS simulator.
+     *
+     * Vibration patterns are currently unsupported.
+     *
+     * @see https://facebook.github.io/react-native/docs/vibrationios.html#content
+     */
+    export interface VibrationIOSStatic {
+        vibrate(): void
+    }
 
     //////////////////////////////////////////////////////////////////////////
     //
@@ -3248,6 +3389,20 @@ declare namespace  ReactNative {
     export var PanResponder: PanResponderStatic
     export type PanResponder = PanResponderStatic
 
+    export var PushNotificationIOS: PushNotificationIOSStatic
+    export type PushNotificationIOS = PushNotificationIOSStatic
+
+    export var StatusBarIOS: StatusBarIOSStatic
+    export type StatusBarIOS = StatusBarIOSStatic
+
+    export var VibrationIOS: VibrationIOSStatic
+    export type VibrationIOS = VibrationIOSStatic
+
+
+    //
+    // /TODO: BGR: These are leftovers of the initial port that must be revisited
+    //
+
     export var SegmentedControlIOS: React.ComponentClass<SegmentedControlIOSProperties>
 
     export var PixelRatio: PixelRatioStatic
@@ -3255,8 +3410,6 @@ declare namespace  ReactNative {
     export var DeviceEventSubscription: DeviceEventSubscriptionStatic
     export type DeviceEventSubscription = DeviceEventSubscriptionStatic
     export var InteractionManager: InteractionManagerStatic
-
-
 
 
     //////////////////////////////////////////////////////////////////////////
