@@ -997,26 +997,51 @@ module TestPull {
 }
 
 // _.pullAt
-{
-    let testPullAtArray: TResult[];
-    let testPullAtList: _.List<TResult>;
-    let result: TResult[];
-    result = _.pullAt<TResult>(testPullAtArray);
-    result = _.pullAt<TResult>(testPullAtArray, 1);
-    result = _.pullAt<TResult>(testPullAtArray, [2, 3], 1);
-    result = _.pullAt<TResult>(testPullAtArray, 4, [2, 3], 1);
-    result = _.pullAt<TResult>(testPullAtList);
-    result = _.pullAt<TResult>(testPullAtList, 1);
-    result = _.pullAt<TResult>(testPullAtList, [2, 3], 1);
-    result = _.pullAt<TResult>(testPullAtList, 4, [2, 3], 1);
-    result = _(testPullAtArray).pullAt().value();
-    result = _(testPullAtArray).pullAt(1).value();
-    result = _(testPullAtArray).pullAt([2, 3], 1).value();
-    result = _(testPullAtArray).pullAt(4, [2, 3], 1).value();
-    result = _(testPullAtList).pullAt<TResult>().value();
-    result = _(testPullAtList).pullAt<TResult>(1).value();
-    result = _(testPullAtList).pullAt<TResult>([2, 3], 1).value();
-    result = _(testPullAtList).pullAt<TResult>(4, [2, 3], 1).value();
+module TestPullAt {
+    let array: TResult[];
+    let list: _.List<TResult>;
+
+    {
+        let result: TResult[];
+
+        result = _.pullAt<TResult>(array);
+        result = _.pullAt<TResult>(array, 1);
+        result = _.pullAt<TResult>(array, [2, 3], 1);
+        result = _.pullAt<TResult>(array, 4, [2, 3], 1);
+
+        result = _.pullAt<TResult>(list);
+        result = _.pullAt<TResult>(list, 1);
+        result = _.pullAt<TResult>(list, [2, 3], 1);
+        result = _.pullAt<TResult>(list, 4, [2, 3], 1);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).pullAt();
+        result = _(array).pullAt(1);
+        result = _(array).pullAt([2, 3], 1);
+        result = _(array).pullAt(4, [2, 3], 1);
+
+        result = _(list).pullAt<TResult>();
+        result = _(list).pullAt<TResult>(1);
+        result = _(list).pullAt<TResult>([2, 3], 1);
+        result = _(list).pullAt<TResult>(4, [2, 3], 1);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().pullAt();
+        result = _(array).chain().pullAt(1);
+        result = _(array).chain().pullAt([2, 3], 1);
+        result = _(array).chain().pullAt(4, [2, 3], 1);
+
+        result = _(list).chain().pullAt<TResult>();
+        result = _(list).chain().pullAt<TResult>(1);
+        result = _(list).chain().pullAt<TResult>([2, 3], 1);
+        result = _(list).chain().pullAt<TResult>(4, [2, 3], 1);
+    }
 }
 
 // _.remove
