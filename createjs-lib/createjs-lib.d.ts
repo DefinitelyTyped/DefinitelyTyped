@@ -29,6 +29,8 @@ declare module createjs {
         immediatePropagationStopped: boolean;
         propagationStopped: boolean;
         removed: boolean;
+        stageX: number;
+        stageY: number;
         target: any; // It is 'Object' type officially, but 'any' is easier to use.
         timeStamp: number;
         type: string;
