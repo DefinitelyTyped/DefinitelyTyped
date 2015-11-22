@@ -38,13 +38,13 @@ declare module LobiboxModule {
 
         // events
         // when messagebox show is called but before it is actually shown
-        onShow?           (lobibox:LobiboxStatic): void ;
+        onShow?           (lobibox:any): void ;
         // after messagebox is shown
-        shown?            (lobibox:LobiboxStatic): void;
+        shown?            (lobibox:any): void;
         // when messagebox remove method is called but before it is actually hidden
-        beforeClose?      (lobibox:LobiboxStatic): void;
+        beforeClose?      (lobibox:any): void;
         // after messagebox is hidden
-        closed?           (lobibox:LobiboxStatic): void;
+        closed?           (lobibox:any): void;
     }
 
     interface MessageBoxesOptions extends MessageBoxesDefault {
@@ -81,7 +81,8 @@ declare module LobiboxModule {
                 'class'?: string,
                 text?: string,
                 closeOnClick?: boolean
-            }
+            },
+            custom?: any,
         };
         callback? (lobibox:any, type:string);
     }
