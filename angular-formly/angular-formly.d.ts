@@ -9,6 +9,11 @@ declare module 'AngularFormly' {
 	export = AngularFormly;
 }
 
+declare module 'angular-formly' {
+	var angularFormlyDefaultExport: string;
+	export = angularFormlyDefaultExport;
+}
+
 declare module AngularFormly {
 
 
