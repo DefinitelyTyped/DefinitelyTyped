@@ -24,8 +24,6 @@ declare module jsSHA {
          * jsSHA is the workhorse of the library.  Instantiate it with the string to
          * be hashed as the parameter
          *
-         * @constructor
-         * @this {jsSHA}
          * @param {string} variant The desired SHA variant (SHA-1, SHA-224, SHA-256,
          *   SHA-384, or SHA-512)
          * @param {string} inputFormat The format of srcString: HEX, TEXT, B64, or BYTES
