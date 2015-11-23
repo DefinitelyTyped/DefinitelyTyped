@@ -9,7 +9,7 @@ declare var describeToHaveArrayX: (arr: string, descriptor: () => void) => void;
 declare var describeToHaveX: (arr: string, descriptor: () => void) => void;
 declare var describeToHaveBooleanX: (arr: string, descriptor: () => void) => void;
 declare var badReference: {someValue: any};
-var _undefined;
+var _undefined: any = undefined;
 
 describe('toBeAfter', function() {
     describe('when invoked', function() {
@@ -993,7 +993,7 @@ describe('toHaveCalculable', function() {
 });
 
 describe('toHaveDate', function() {
-    var mockDate;
+    var mockDate: any;
     beforeEach(function() {
         mockDate = {
             any: new Date(),
@@ -1020,7 +1020,7 @@ describe('toHaveDate', function() {
 });
 
 describe('toHaveDateAfter', function() {
-    var mockDate;
+    var mockDate: any;
     beforeEach(function() {
         mockDate = {
             any: new Date(),
@@ -1056,7 +1056,7 @@ describe('toHaveDateAfter', function() {
 });
 
 describeToHaveX('toHaveDateBefore', function() {
-    var mockDate;
+    var mockDate: any;
     beforeEach(function() {
         mockDate = {
             any: new Date(),
