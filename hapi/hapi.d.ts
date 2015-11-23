@@ -7,7 +7,7 @@
 
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../es6-promise/es6-promise.d.ts" />
 
 
 
