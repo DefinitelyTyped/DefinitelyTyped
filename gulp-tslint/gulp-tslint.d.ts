@@ -1,4 +1,4 @@
-// Type definitions for gulp-tslint
+// Type definitions for gulp-tslint 3.6.0
 // Project: https://github.com/panuhorsmalahti/gulp-tslint
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -15,7 +15,10 @@ declare module "gulp-tslint" {
         interface Options {
             configuration?: {};
             rulesDirectory?: string;
+            tslint?: any;
             emitError?: boolean;
+            reportLimit?: number;
+            summarizeFailureOutput?: boolean;
         }
 
         interface Position {
