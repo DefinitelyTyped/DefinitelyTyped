@@ -25,84 +25,84 @@ declare module jasmine {
     interface Matchers {
         // These functions are written in the order defined in the src directory of jasmine-matchers
         // The type system is used smartly whenever it can provide value (by looking at the code of every matcher)
-        toBeAfter(otherDate: Date, actualDate: Date): boolean; //
-        toBeArray(actualArray: any[]): boolean; //
-        toBeArrayOfBooleans(actualArray: any[]): boolean; //
-        toBeArrayOfNumbers(actualArray: any[]): boolean;
-        toBeArrayOfObjects(actualArray: any[]): boolean;
-        toBeArrayOfSize(size: number, actualArray: any[]): boolean;
-        toBeArrayOfStrings(actualArray: any[]): boolean;
-        toBeBefore(otherDate: Date, actualDate: Date): boolean; //
-        toBeBoolean(actual: boolean): boolean;
-        toBeCalculable(actual: number): boolean;
-        toBeDate(actual: Date): boolean;
-        toBeEmptyArray(actualArray: any[]): boolean;
-        toBeEmptyObject(actual: {}): boolean;
-        toBeEmptyString(actual: string): boolean;
-        toBeEvenNumber(actual: number): boolean;
-        toBeFalse(actual: boolean): boolean;
-        toBeFunction(actual: any): boolean;
-        toBeHtmlString(actual: string): boolean;
-        toBeIso8601(actual: string): boolean;
-        toBeJsonString(actual: string): boolean;
-        toBeLongerThan(actual: string): boolean;
-        toBeNonEmptyArray(actualArray: any[]): boolean;
-        toBeNonEmptyObject(actual: {}): boolean;
-        toBeNonEmptyString(actual: string): boolean;
-        toBeNumber(actual: number): boolean;
-        toBeObject(actual: {}): boolean;
-        toBeOddNumber(actual: number): boolean;
-        toBeSameLengthAs(other: string, actual: string): boolean;
-        toBeShorterThan(other: string, actual: string): boolean;
-        toBeString(actual: string): boolean;
-        toBeTrue(actual: boolean): boolean;
-        toBeWhitespace(actual: string): boolean;
-        toBeWholeNumber(actual: number): boolean;
-        toBeWithinRange(floor: number, ceiling: number, actual: number): boolean;
+        toBeAfter(otherDate: Date): boolean; //
+        toBeArray(): boolean; //
+        toBeArrayOfBooleans(): boolean; //
+        toBeArrayOfNumbers(): boolean;
+        toBeArrayOfObjects(): boolean;
+        toBeArrayOfSize(size: number): boolean;
+        toBeArrayOfStrings(): boolean;
+        toBeBefore(otherDate: Date): boolean; //
+        toBeBoolean(): boolean;
+        toBeCalculable(): boolean;
+        toBeDate(): boolean;
+        toBeEmptyArray(): boolean;
+        toBeEmptyObject(): boolean;
+        toBeEmptyString(): boolean;
+        toBeEvenNumber(): boolean;
+        toBeFalse(): boolean;
+        toBeFunction(): boolean;
+        toBeHtmlString(): boolean;
+        toBeIso8601(): boolean;
+        toBeJsonString(): boolean;
+        toBeLongerThan(other: string): boolean;
+        toBeNonEmptyArray(): boolean;
+        toBeNonEmptyObject(): boolean;
+        toBeNonEmptyString(): boolean;
+        toBeNumber(): boolean;
+        toBeObject(): boolean;
+        toBeOddNumber(): boolean;
+        toBeSameLengthAs(other: string): boolean;
+        toBeShorterThan(other: string): boolean;
+        toBeString(): boolean;
+        toBeTrue(): boolean;
+        toBeWhitespace(): boolean;
+        toBeWholeNumber(): boolean;
+        toBeWithinRange(floor: number, ceiling: number): boolean;
 
-        toEndWith(subString: string, actual: string): boolean;
+        toEndWith(subString: string): boolean;
 
-        toHaveArray(key: string, actual: {}): boolean;
-        toHaveArrayOfBooleans(key: string, actual: {}): boolean;
-        toHaveArrayOfNumbers(key: string, actual: {}): boolean;
-        toHaveArrayOfObjects(key: string, actual: {}): boolean;
-        toHaveArrayOfSize(key: string, size: number, actual: {}): boolean;
-        toHaveArrayOfStrings(key: string, actual: {}): boolean;
-        toHaveBoolean(key: string, actual: {}): boolean;
-        toHaveCalculable(key: string, actual: {}): boolean;
-        toHaveDate(key: string, actual: {}): boolean;
-        toHaveDateAfter(key: string, actual: {}): boolean;
-        toHaveDateBefore(key: string, actual: {}): boolean;
-        toHaveEmptyArray(key: string, actual: {}): boolean;
-        toHaveEmptyObject(key: string, actual: {}): boolean;
-        toHaveEmptyString(key: string, actual: {}): boolean;
-        toHaveEvenNumber(key: string, actual: {}): boolean;
-        toHaveFalse(key: string, actual: {}): boolean;
-        toHaveHtmlString(key: string, actual: {}): boolean;
-        toHaveIso8601(key: string, actual: {}): boolean;
-        toHaveJsonString(key: string, actual: {}): boolean;
-        toHaveMember(key: string, actual: {}): boolean;
-        toHaveMethod(key: string, actual: {}): boolean;
-        toHaveNonEmptyArray(key: string, actual: {}): boolean;
-        toHaveNonEmptyObject(key: string, actual: {}): boolean;
-        toHaveNonEmptyString(key: string, actual: {}): boolean;
-        toHaveNumber(key: string, actual: {}): boolean;
-        toHaveNumberWithinRange(key: string, actual: {}): boolean;
-        toHaveObject(key: string, actual: {}): boolean;
-        toHaveOddNumber(key: string, actual: {}): boolean;
-        toHaveString(key: string, actual: {}): boolean;
-        toHaveStringLongerThan(key: string, actual: {}): boolean;
-        toHaveStringSameLengthAs(key: string, actual: {}): boolean;
-        toHaveStringShorterThan(key: string, actual: {}): boolean;
-        toHaveTrue(key: string, actual: {}): boolean;
-        toHaveWhitespaceString(key: string, actual: {}): boolean;
-        toHaveWholeNumber(key: string, actual: {}): boolean;
+        toHaveArray(key: string): boolean;
+        toHaveArrayOfBooleans(key: string): boolean;
+        toHaveArrayOfNumbers(key: string): boolean;
+        toHaveArrayOfObjects(key: string): boolean;
+        toHaveArrayOfSize(key: string, size?: number): boolean;
+        toHaveArrayOfStrings(key: string): boolean;
+        toHaveBoolean(key: string): boolean;
+        toHaveCalculable(key: string): boolean;
+        toHaveDate(key: string): boolean;
+        toHaveDateAfter(key: string, otherDate: Date): boolean;
+        toHaveDateBefore(key: string, otherDate: Date): boolean;
+        toHaveEmptyArray(key: string): boolean;
+        toHaveEmptyObject(key: string): boolean;
+        toHaveEmptyString(key: string): boolean;
+        toHaveEvenNumber(key: string): boolean;
+        toHaveFalse(key: string): boolean;
+        toHaveHtmlString(key: string): boolean;
+        toHaveIso8601(key: string): boolean;
+        toHaveJsonString(key: string): boolean;
+        toHaveMember(key: string): boolean;
+        toHaveMethod(key: string): boolean;
+        toHaveNonEmptyArray(key: string): boolean;
+        toHaveNonEmptyObject(key: string): boolean;
+        toHaveNonEmptyString(key: string): boolean;
+        toHaveNumber(key: string): boolean;
+        toHaveNumberWithinRange(key: string, floor: number, ceiling: number): boolean;
+        toHaveObject(key: string): boolean;
+        toHaveOddNumber(key: string): boolean;
+        toHaveString(key: string): boolean;
+        toHaveStringLongerThan(key: string, other: string): boolean;
+        toHaveStringSameLengthAs(key: string, other: string): boolean;
+        toHaveStringShorterThan(key: string, other: string): boolean;
+        toHaveTrue(key: string): boolean;
+        toHaveWhitespaceString(key: string): boolean;
+        toHaveWholeNumber(key: string): boolean;
 
-        toImplement(api: {}, actual: {}): boolean;
+        toImplement(api: {}): boolean;
 
-        toStartWith(subString: string, actual: string): boolean;
+        toStartWith(subString: string): boolean;
 
-        toThrowAnyError(throwerFn: () => any): boolean;
-        toThrowErrorOfType(type: string, throwerFn: () => any): boolean;
+        toThrowAnyError(): boolean;
+        toThrowErrorOfType(type: string): boolean;
     }
 }
