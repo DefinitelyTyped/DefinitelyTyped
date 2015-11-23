@@ -9005,6 +9005,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is classified as a typed array.
+         *
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          */
@@ -9016,6 +9017,13 @@ declare module _ {
          * see _.isTypedArray
          */
         isTypedArray(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * see _.isTypedArray
+         */
+        isTypedArray(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isUndefined

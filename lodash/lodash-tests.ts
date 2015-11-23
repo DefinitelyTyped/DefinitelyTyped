@@ -5121,8 +5121,20 @@ result = <boolean>_({}).isString();
 }
 
 // _.isTypedArray
-result = <boolean>_.isTypedArray([]);
-result = <boolean>_([]).isTypedArray();
+module TestIsTypedArray {
+    {
+        let result: boolean;
+
+        result = _.isTypedArray([]);
+        result = _([]).isTypedArray();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _([]).chain().isTypedArray();
+    }
+}
 
 // _.isUndefined
 result = <boolean>_.isUndefined(any);
