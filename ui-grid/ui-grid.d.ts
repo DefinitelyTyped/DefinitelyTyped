@@ -3857,7 +3857,7 @@ declare module uiGrid {
          * defaults to uiGridConstants.filter.INPUT, which gives a text box. If set to uiGridConstants.filter.SELECT
          * then a select box will be shown with options selectOptions
          */
-        type?: number;
+        type?: number | string;
         /**
          * options in the format [{ value: 1, label: 'male' }]. No i18n filter is provided, you need to perform the i18n
          * on the values before you provide them
@@ -3870,7 +3870,7 @@ declare module uiGrid {
         disableCancelButton?: boolean;
     }
     export interface ISelectOption {
-        value: number;
+        value: number | string;
         label: string;
     }
 
