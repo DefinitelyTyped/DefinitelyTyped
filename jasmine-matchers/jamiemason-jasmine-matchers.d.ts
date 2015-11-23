@@ -102,7 +102,7 @@ declare module jasmine {
 
         toStartWith(subString: string, actual: string): boolean;
 
-        toThrowAnyError(throwerFn: (...any) => any): boolean;
-        toThrowErrorOfType(type: string, throwerFn: (...any) => any): boolean;
+        toThrowAnyError(throwerFn: () => any): boolean;
+        toThrowErrorOfType(type: string, throwerFn: () => any): boolean;
     }
 }
