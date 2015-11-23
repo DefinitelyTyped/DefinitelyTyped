@@ -6008,10 +6008,9 @@ module TestExtend {
 
 // _.findKey
 module TestFindKey {
-    let result: string;
-
     {
         let predicateFn: (value: any, key?: string, object?: {}) => boolean;
+        let result: string;
 
         result = _.findKey<{a: string;}>({a: ''});
 
@@ -6038,12 +6037,37 @@ module TestFindKey {
 
     {
         let predicateFn: (value: string, key?: string, collection?: _.Dictionary<string>) => boolean;
+        let result: string;
 
         result = _.findKey<string, {a: string;}>({a: ''}, predicateFn);
         result = _.findKey<string, {a: string;}>({a: ''}, predicateFn, any);
 
         result = _<{a: string;}>({a: ''}).findKey<string>(predicateFn);
         result = _<{a: string;}>({a: ''}).findKey<string>(predicateFn, any);
+    }
+
+    {
+        let predicateFn: (value: any, key?: string, object?: {}) => boolean;
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _<{a: string;}>({a: ''}).chain().findKey();
+
+        result = _<{a: string;}>({a: ''}).chain().findKey(predicateFn);
+        result = _<{a: string;}>({a: ''}).chain().findKey(predicateFn, any);
+
+
+        result = _<{a: string;}>({a: ''}).chain().findKey('');
+        result = _<{a: string;}>({a: ''}).chain().findKey('', any);
+
+        result = _<{a: string;}>({a: ''}).chain().findKey<{a: number;}>({a: 42});
+    }
+
+    {
+        let predicateFn: (value: string, key?: string, collection?: _.Dictionary<string>) => boolean;
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _<{a: string;}>({a: ''}).chain().findKey<string>(predicateFn);
+        result = _<{a: string;}>({a: ''}).chain().findKey<string>(predicateFn, any);
     }
 }
 
