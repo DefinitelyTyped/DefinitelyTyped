@@ -1,5 +1,5 @@
 ///<reference path="../jquery/jquery.d.ts" />
-///<reference path="../jquery.slick/slick.d.ts" />
+///<reference path="../slick-carousel/slick-carousel.d.ts" />
 
 
 // --------------------------------------------------------
