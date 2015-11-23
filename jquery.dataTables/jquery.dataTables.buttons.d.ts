@@ -1,4 +1,4 @@
-// Type definitions for JQuery DataTables (v1.10.10) Buttons extension (v1.1.0)
+// Type definitions for JQuery DataTables Buttons extension 1.1.0
 // Project: http://datatables.net/extensions/buttons/
 // Definitions by: Sam Germano <https://github.com/SammyG4Free>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
