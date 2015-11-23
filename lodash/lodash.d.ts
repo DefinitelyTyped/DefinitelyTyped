@@ -1582,7 +1582,7 @@ declare module _ {
          * @return Returns the new array of removed elements.
          */
         pullAt<T>(
-            array: T[]|List<T>,
+            array: List<T>,
             ...indexes: (number|number[])[]
         ): T[];
     }
@@ -1598,7 +1598,21 @@ declare module _ {
         /**
          * @see _.pullAt
          */
-        pullAt<TValue>(...indexes: (number|number[])[]): LoDashImplicitArrayWrapper<TValue>;
+        pullAt<T>(...indexes: (number|number[])[]): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.pullAt
+         */
+        pullAt(...indexes: (number|number[])[]): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.pullAt
+         */
+        pullAt<T>(...indexes: (number|number[])[]): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.remove
@@ -2931,25 +2945,41 @@ declare module _ {
     //_.zip
     interface LoDashStatic {
         /**
-        * Creates an array of grouped elements, the first of which contains the first
-        * elements of the given arrays, the second of which contains the second elements
-        * of the given arrays, and so on.
-        * @param arrays Arrays to process.
-        * @return A new array of grouped elements.
-        **/
-        zip(...arrays: any[][]): any[][];
-
-        /**
-        * @see _.zip
-        **/
-        zip(...arrays: any[]): any[];
+         * Creates an array of grouped elements, the first of which contains the first elements of the given arrays,
+         * the second of which contains the second elements of the given arrays, and so on.
+         *
+         * @param arrays The arrays to process.
+         * @return Returns the new array of grouped elements.
+         */
+        zip<T>(...arrays: List<T>[]): T[][];
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
-        * @see _.zip
-        **/
-        zip(...arrays: any[][]): _.LoDashImplicitArrayWrapper<any[][]>;
+         * @see _.zip
+         */
+        zip<T>(...arrays: List<T>[]): _.LoDashImplicitArrayWrapper<T[]>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.zip
+         */
+        zip<T>(...arrays: List<T>[]): _.LoDashImplicitArrayWrapper<T[]>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.zip
+         */
+        zip<T>(...arrays: List<T>[]): _.LoDashExplicitArrayWrapper<T[]>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.zip
+         */
+        zip<T>(...arrays: List<T>[]): _.LoDashExplicitArrayWrapper<T[]>;
     }
 
     //_.zipObject
