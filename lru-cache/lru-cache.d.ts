@@ -1,4 +1,4 @@
-// Type definitions for lru-cache v2.5.0
+// Type definitions for lru-cache v2.7.0
 // Project: https://github.com/isaacs/node-lru-cache
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -27,6 +27,10 @@ declare module 'lru-cache' {
 
 			keys(): string[];
 			values(): T[];
+			length(): number;
+			itemCount(): number();
+			dump() Object[];
+			load(cacheEntriesArray: Object[]): void;
 		}
 	}
 
