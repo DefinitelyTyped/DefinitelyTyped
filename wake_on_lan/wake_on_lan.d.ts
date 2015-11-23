@@ -4,7 +4,6 @@
 // Definitions: https://github.com/SrTobi/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
-/// <reference path="../node/node.d.ts"/>
 
 declare module wol {
 
@@ -70,5 +69,5 @@ declare module wol {
 
 declare module 'wake_on_lan' {
 	var wol: wol.Wol;
-    export = wol;
+	export = wol;
 }
