@@ -15,10 +15,26 @@ declare module turf {
     //////////////////////////////////////////////////////////////////////////
 
     /**
+    * Takes a line and returns a point at a specified distance along the line.
+    * @param line Input line
+    * @param distance Distance along the line
+    * @param [units=miles] Can be degrees, radians, miles, or kilometers. Default is miles
+    * @returns Point along the line
+    */
+    function along(line: GeoJSON.Feature, distance: number, units?: string): GeoJSON.Feature;
+
+    /**
+    * Takes one or more features and returns their area in square meters.
+    * @param input Input features
+    * @returns Area in square meters
+    */
+    function area(input: GeoJSON.Feature | GeoJSON.FeatureCollection): number;
+    
+    /**
     * Calculates the distance between two points in degress, radians, miles, or kilometers. This uses the Haversine formula to account for global curvature.
     * @param from Origin point
     * @param to Destination point
-    * @param units Can be degrees, radians, miles, or kilometers. Default is kilometers.
+    * @param [units=kilometers] Can be degrees, radians, miles, or kilometers. Default is kilometers.
     * @returns Distance between the two points
     */
     function distance(from: GeoJSON.Feature, to: GeoJSON.Feature, units?: string): number;
