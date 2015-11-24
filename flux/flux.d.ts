@@ -3,7 +3,6 @@
 // Definitions by: Steve Baker <https://github.com/stkb/>, Giedrius Grabauskas <https://github.com/QuatroDevOfficial/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../immutable/immutable.d.ts" />
 /// <reference path="../react/react-global.d.ts" />
 
 declare module Flux {
@@ -84,8 +83,8 @@ declare module FluxUtils {
     /**
     * This class extends ReduceStore and defines the state as an immutable map.
     */
-    export class MapStore<K extends string | number, V> extends ReduceStore<Immutable.Map<K, V>> {
-
+    // TODO: Change <any>  to <Immutable.Map<K, V>>
+    export class MapStore<K extends string | number, V> extends ReduceStore<any> {
         /**
         * Access the value at the given key. 
         * Throws an error if the key does not exist in the cache.
@@ -108,7 +107,9 @@ declare module FluxUtils {
         * it allows providing a previous result to update instead of generating a new map.
         * Providing a previous result allows the possibility of keeping the same reference if the keys did not change.
         */
-        getAll(keys: Immutable.IndexedIterable<K>, prev?: Immutable.Map<K, V>): Immutable.Map<K, V>;
+        // TODO: Update with Immutable interface. 
+        // getAll(keys: Immutable.IndexedIterable<K>, prev?: Immutable.Map<K, V>): Immutable.Map<K, V>;
+        getAll(keys: any, prev?: any): any;
     }
 
     export class ReduceStore<T> extends Store {
