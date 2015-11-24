@@ -1558,6 +1558,18 @@ declare module uiGrid {
              */
             (row: IGridRowOf<TEntity>): void;
         }
+        
+        /**
+         * GridRow settings for expandable
+         */
+        export interface IGridRow {
+            /**
+             * If set to true, the row is expanded and the expanded view is visible
+             * Defaults to false
+             * @default false
+             */
+            isExpanded?: boolean;
+        }
     }
 
     export module exporter {
@@ -3418,7 +3430,7 @@ declare module uiGrid {
     }
     export type IGridRow = IGridRowOf<any>;
     export interface IGridRowOf<TEntity> extends cellNav.IGridRow, edit.IGridRow, exporter.IGridRow, 
-        selection.IGridRow {
+        selection.IGridRow, expandable.IGridRow {
         /** A reference to an item in gridOptions.data[] */
         entity: TEntity;
         /** A reference back to the grid */
@@ -3527,6 +3539,8 @@ declare module uiGrid {
         filter?: IFilterOptions;
         /** Filters for this column. Includes 'term' property bound to filter input elements */
         filters?: Array<IFilterOptions>;
+        /** Reference to grid containing the column */
+        grid: IGridInstanceOf<TEntity>;
         name?: string;
         /** Sort on this column */
         sort?: ISortInfo;
