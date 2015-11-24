@@ -620,7 +620,7 @@ declare module angular {
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // AngularProvider
+    // AnimateProvider
     // see http://docs.angularjs.org/api/ng/provider/$animateProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IAnimateProvider {
@@ -774,7 +774,7 @@ declare module angular {
          * @param reverse Reverse the order of the array.
          * @return Reverse the order of the array.
          */
-        <T>(array: T[], expression: string|string[]|((value: T) => any)|((value: T) => any)[], reverse?: boolean): T[];
+        <T>(array: T[], expression: string|((value: T) => any)|(((value: T) => any)|string)[], reverse?: boolean): T[];
     }
 
     /**
@@ -1390,7 +1390,7 @@ declare module angular {
     }
 
     // See the jsdoc for transformData() at https://github.com/angular/angular.js/blob/master/src/ng/http.js#L228
-    interface IHttpResquestTransformer {
+    interface IHttpRequestTransformer {
         (data: any, headersGetter: IHttpHeadersGetter): any;
     }
 
@@ -1427,7 +1427,7 @@ declare module angular {
          * headers and returns its transformed (typically serialized) version.
          * @see {@link https://docs.angularjs.org/api/ng/service/$http#transforming-requests-and-responses}
          */
-        transformRequest?: IHttpResquestTransformer |IHttpResquestTransformer[];
+        transformRequest?: IHttpRequestTransformer |IHttpRequestTransformer[];
 
         /**
          * Transform function or an array of such functions. The transform function takes the http response body and
@@ -1660,6 +1660,7 @@ declare module angular {
         restrict?: string;
         scope?: any;
         template?: any;
+        templateNamespace?: string;
         templateUrl?: any;
         terminal?: boolean;
         transclude?: any;

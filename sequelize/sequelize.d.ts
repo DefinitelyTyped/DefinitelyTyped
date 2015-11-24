@@ -5442,8 +5442,11 @@ declare module "sequelize" {
              *
              * @param path The path to the file that holds the model you want to import. If the part is relative, it
              *     will be resolved relatively to the calling file
+             * 
+             * @param defineFunction An optional function that provides model definitions. Useful if you do not
+             *     want to use the module root as the define function
              */
-            import<TInstance, TAttributes>( path : string ) : Model<TInstance, TAttributes>;
+            import<TInstance, TAttributes>( path : string, defineFunction? : (sequelize: Sequelize, dataTypes: DataTypes) => Model<TInstance, TAttributes> ) : Model<TInstance, TAttributes>;
 
             /**
              * Execute a query on the DB, with the posibility to bypass all the sequelize goodness.

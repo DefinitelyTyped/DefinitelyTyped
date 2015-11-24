@@ -3128,6 +3128,7 @@ function test_val() {
     $("#single").val("Single2");
     $("#multiple").val(["Multiple2", "Multiple3"]);
     $("input").val(["check1", "check2", "radio1"]);
+    $("input").val(1);
 }
 
 function test_selector() {
@@ -3217,6 +3218,10 @@ function test_not() {
     $("p").not("#selected");
 
     $("p").not($("div p.selected"));
+    
+    var el1 = $("<div/>")[0];
+    var el2 = $("<div/>")[0];
+    $("p").not([el1, el2]);
 }
 
 function test_EventIsNewable() {

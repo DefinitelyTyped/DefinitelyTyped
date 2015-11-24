@@ -515,6 +515,7 @@ declare module GitHubElectron {
 		'shared-worker'?: boolean;
 		'direct-write'?: boolean;
 		'page-visibility'?: boolean;
+		'title-bar-style'?: string;
 	}
 
 	interface Rectangle {
@@ -986,6 +987,12 @@ declare module GitHubElectron {
 		setUserTasks(tasks: Task[]): void;
 		dock: BrowserWindow;
 		commandLine: CommandLine;
+		/**
+		 * This method makes your application a Single Instance Application instead of allowing
+		 * multiple instances of your app to run, this will ensure that only a single instance
+		 * of your app is running, and other instances signal this instance and exit.
+		 */
+		makeSingleInstance(callback: (args: string[], workingDirectory: string) => boolean): boolean;
 	}
 
 	interface CommandLine {

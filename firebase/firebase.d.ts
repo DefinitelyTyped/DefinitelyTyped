@@ -1,6 +1,6 @@
 // Type definitions for Firebase API 2.0.2
 // Project: https://www.firebase.com/docs/javascript/firebase
-// Definitions by: Vincent Botone <https://github.com/vbortone/>, Shin1 Kashimura <https://github.com/in-async/>
+// Definitions by: Vincent Botone <https://github.com/vbortone/>, Shin1 Kashimura <https://github.com/in-async/>, Sebastien Dubois <https://github.com/dsebastien/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface FirebaseAuthResult {
@@ -317,6 +317,27 @@ interface FirebaseAuthData {
 	token: string;
 	expires: number;
 	auth: Object;
+	google?: FirebaseAuthDataGoogle;
+}
+
+interface FirebaseAuthDataGoogle {
+	accessToken: string;
+	cachedUserProfile: FirebaseAuthDataGoogleCachedUserProfile;
+	displayName: string;
+	email?: string;
+	id: string;
+	profileImageURL: string;
+}
+
+interface FirebaseAuthDataGoogleCachedUserProfile {
+	"family name"?: string;
+	gender?: string;
+	"given name"?: string;
+	id?: string;
+	link?: string;
+	locale?: string;
+	name?: string;
+	picture?: string;
 }
 
 interface FirebaseCredentials {

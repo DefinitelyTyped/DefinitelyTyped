@@ -1229,7 +1229,7 @@ interface SchedulerStatic{
 	 * return the event object by its id
 	 * @param event_id event_id
 	*/
-	getEvent(event_id: any);
+	getEvent<T>(event_id: any): T;
 
 	/**
 	 * gets the event's end date

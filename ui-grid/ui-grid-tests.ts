@@ -12,9 +12,9 @@ columnDef.aggregationHideLabel = false;
 columnDef.aggregationType = 1;
 columnDef.aggregationType = function () { return 1; };
 columnDef.cellClass = 'test';
-columnDef.cellClass = (gridRow, gridCol, index) => {
-    //types of gridRow, gridCol, and index are flowed in correctly
-    return `${gridRow.entity.name}-${gridCol.field}-${index + 1}`;
+columnDef.cellClass = (grid, gridRow, gridCol, rowIndex, colIndex) => {
+    //types of grid, gridRow, gridCol, rowIndex and colIndex are flowed in correctly
+    return `${grid.footerHeight}-${gridRow.entity.name}-${gridCol.field}-${rowIndex + 1}-${colIndex + 1}`;
 };
 columnDef.cellFilter = 'date';
 columnDef.cellTemplate = '<div blah="something">hello</div>';
@@ -44,17 +44,17 @@ columnDef.filter = {
 columnDef.filterCellFiltered = false;
 columnDef.filterHeaderTemplate = '<div blah="test"></div>';
 columnDef.filters = [columnDef.filter];
-columnDef.footerCellClass = (gridRow, rowRenderIndex, gridCol, colRenderIndex) => {
-        //types for gridRow, rowRenderIndex, gridCol, and colRenderIndex flow in properly
-        return `${gridRow.entity.age}-${rowRenderIndex + 1}-${gridCol.field}-${colRenderIndex - 1}`;
+columnDef.footerCellClass = (grid, gridRow, gridCol, rowRenderIndex, colRenderIndex) => {
+        //types for grid, gridRow, gridCol, rowRenderIndex, and colRenderIndex flow in properly
+        return `${grid.footerHeight}-${gridRow.entity.age}-${rowRenderIndex + 1}-${gridCol.field}-${colRenderIndex - 1}`;
     };
 columnDef.footerCellClass = 'theClass';
 columnDef.footerCellFilter = 'currency:$';
 columnDef.footerCellTemplate = '<div class="yoshi"></div>';
 columnDef.headerCellClass =
-    (gridRow, rowRenderIndex, gridCol, colRenderIndex) => {
-        //types for gridRow, rowRenderIndex, gridCol, and colRenderIndex flow in properly
-        return `${gridRow.entity.age}-${rowRenderIndex + 1}-${gridCol.field}-${colRenderIndex - 1}`;
+    (grid, gridRow, gridCol, rowRenderIndex, colRenderIndex) => {
+        //types for grid, gridRow, gridCol, rowRenderIndex, and colRenderIndex flow in properly
+        return `${grid.footerHeight}-${gridRow.entity.age}-${rowRenderIndex + 1}-${gridCol.field}-${colRenderIndex - 1}`;
     };
 columnDef.headerCellClass = 'classy';
 columnDef.headerCellFilter = 'currency:$';
@@ -130,3 +130,14 @@ anotherGridInstance.scrollTo(rowEntityToScrollTo, columnDefToScrollTo);
 
 var selectedRowEntities: Array<IMyEntity> = gridApi.selection.getSelectedRows();
 var selectedGridRows: Array<uiGrid.IGridRow> = gridApi.selection.getSelectedGridRows();
+
+gridApi.expandable.on.rowExpandedStateChanged(null, (row) => {
+    if (row.isExpanded) {
+        console.log('expanded', row.entity);
+    } else {
+        gridApi.expandable.toggleRowExpansion(row.entity);
+    }
+});
+gridApi.expandable.expandAllRows();
+gridApi.expandable.collapseAllRows();
+gridApi.expandable.toggleAllRows();
