@@ -17,7 +17,7 @@ interface ngStomp {
 
         disconnect: (callback:()=>void) => angular.IHttpPromise<any>;
 
-        subscribe: (destination:string, callback:Function, headers?:Headers, scope?:any) => any;
+        subscribe: (destination:string, callback:(payload:string, headers:Headers, res:Function)=>void, headers?:Headers, scope?:any) => any;
 
         unsubscribe: () => any;
 
@@ -28,6 +28,8 @@ interface ngStomp {
      interface Headers {
         [key: string]: any;
     }
+
+
 
 
 
