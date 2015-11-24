@@ -1,11 +1,7 @@
 /// <reference path="turf.d.ts"/>
 
 //////////////////////////////////////////////////////////////////////////
-// Tests Aggregation
-//////////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////////
-// Tests Measurement
+// Tests data initialisation
 //////////////////////////////////////////////////////////////////////////
 
 var point1 = {
@@ -16,6 +12,7 @@ var point1 = {
     "coordinates": [-75.343, 39.984]
   }
 };
+
 var point2 = {
   "type": "Feature",
   "properties": {},
@@ -24,22 +21,6 @@ var point2 = {
     "coordinates": [-75.534, 39.123]
     }
 };
-var units = "miles";
-
-var points = {
-  "type": "FeatureCollection",
-  "features": [point1, point2]
-};
-
-var distance = turf.distance(point1, point2, units);
-
-//////////////////////////////////////////////////////////////////////////
-// Tests Transformation
-//////////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////////
-// Tests Misc
-//////////////////////////////////////////////////////////////////////////
 
 var line = {
   "type": "Feature",
@@ -56,21 +37,78 @@ var line = {
     ]
   }
 };
-var pt = {
-  "type": "Feature",
-  "properties": {},
-  "geometry": {
-    "type": "Point",
-    "coordinates": [-77.037076, 38.884017]
-  }
+
+var polygons = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-67.031021, 10.458102],
+          [-67.031021, 10.53372],
+          [-66.929397, 10.53372],
+          [-66.929397, 10.458102],
+          [-67.031021, 10.458102]
+        ]]
+      }
+    }, {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-66.919784, 10.397325],
+          [-66.919784, 10.513467],
+          [-66.805114, 10.513467],
+          [-66.805114, 10.397325],
+          [-66.919784, 10.397325]
+        ]]
+      }
+    }
+  ]
 };
 
-var snapped = turf.pointOnLine(line, pt);
-snapped.properties['marker-color'] = '#00f'
+//////////////////////////////////////////////////////////////////////////
+// Tests Aggregation
+//////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////
+// Tests Measurement
+//////////////////////////////////////////////////////////////////////////
+
+// -- Test along --
+var along = turf.along(line, 1, 'miles');
 
 var result = {
   "type": "FeatureCollection",
-  "features": [line, pt, snapped]
+  "features": [line, along]
+};
+
+// -- Test area --
+var area = turf.area(polygons);
+
+// -- Test distance --
+var units = "miles";
+var distance = turf.distance(point1, point2, units);
+
+//////////////////////////////////////////////////////////////////////////
+// Tests Transformation
+//////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////
+// Tests Misc
+//////////////////////////////////////////////////////////////////////////
+
+// -- Test pointOnLine --
+var snapped = turf.pointOnLine(line, point1);
+snapped.properties['marker-color'] = '#00f'
+
+result = {
+  "type": "FeatureCollection",
+  "features": [line, point1, snapped]
 };
 
 //////////////////////////////////////////////////////////////////////////
