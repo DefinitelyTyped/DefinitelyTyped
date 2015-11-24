@@ -64,7 +64,7 @@ function test() {
 			console.log('did finish');
 		}, () => {
 			console.log('did not finish');
-		})
+		});
 	};
 
 	let errorHandler = (e: Error) => {

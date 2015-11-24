@@ -153,7 +153,7 @@ declare module PhonegapPluginPush {
 			 */
 			alert?: boolean | string
 			/**
-			 * Boolean|String Optional. If true|"true" the badge will be cleared on app startup. Default is false|"false".
+			 * If true|"true" the badge will be cleared on app startup. Default is false|"false".
 			 */
 			clearBadge?: boolean | string
 		}
