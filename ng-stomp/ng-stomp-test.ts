@@ -9,11 +9,12 @@ module ngStompTesting {
     class test {
         constructor(private ngstomp:ngStomp) {
             var connectHeaders ={
-                "Lol": "user",
+                "Auth": "user",
                 "Accept": "lol"
             };
 
             ngstomp.connect('/endpoint', connectHeaders)
+
 
                 // frame = CONNECTED headers
                 .then(function (frame) {
