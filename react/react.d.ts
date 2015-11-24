@@ -112,7 +112,7 @@ declare namespace __React {
     // Component API
     // ----------------------------------------------------------------------
 
-    type ReactInstance = Component<any, any> | Element;
+    type ReactInstance = Component<any, any> & Element;
 
     // Base component for plain JS classes
     class Component<P, S> implements ComponentLifecycle<P, S> {
