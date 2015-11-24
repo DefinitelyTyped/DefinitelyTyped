@@ -615,18 +615,40 @@ module TestFlattenDeep {
 
         result = _.flattenDeep<TResult>(recursiveArray);
         result = _.flattenDeep<TResult>(listOfMaybeRecursiveArraysOrValues);
-
-        result = _(recursiveArray).flattenDeep<TResult>().value();
-
-        result = _(listOfMaybeRecursiveArraysOrValues).flattenDeep<TResult>().value();
     }
 
     {
-        let result: any;
+        let result: any[];
 
         result = _.flattenDeep<TResult>(recursiveList);
+    }
 
-        result = _(recursiveList).flattenDeep().value();
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(recursiveArray).flattenDeep<TResult>();
+
+        result = _(listOfMaybeRecursiveArraysOrValues).flattenDeep<TResult>();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<any>;
+
+        result = _(recursiveList).flattenDeep();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(recursiveArray).chain().flattenDeep<TResult>();
+
+        result = _(listOfMaybeRecursiveArraysOrValues).chain().flattenDeep<TResult>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<any>;
+
+        result = _(recursiveList).chain().flattenDeep();
     }
 }
 
