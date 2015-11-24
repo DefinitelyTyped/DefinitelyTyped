@@ -71,8 +71,8 @@ interface RTCMediaConstraints {
 }
 
 interface RTCMediaOfferConstraints {
-  offerToReceiveAudio: boolean;
-  offerToReceiveVideo: boolean;
+  OfferToReceiveAudio: boolean;
+  OfferToReceiveVideo: boolean;
 }
 
 interface RTCSessionDescriptionInit {
