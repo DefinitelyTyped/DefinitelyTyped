@@ -7,7 +7,6 @@ import React = require('react')
 
 var Component = React.Component
 var Container = FluxUtils.Container
-var ReduceStore = FluxUtils.ReduceStore
 
 //
 // Basic dispatcher usage
@@ -87,8 +86,9 @@ var customDispatcher = new CustomDispatcher()
 
 export = customDispatcher
 
+
 // Sample Reduce Store
-class CounterStore extends ReduceStore<number> {
+class CounterStore extends FluxUtils.ReduceStore<number> {
   getInitialState(): number {
     return 0;
   }
