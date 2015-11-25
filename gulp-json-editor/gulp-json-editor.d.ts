@@ -8,7 +8,7 @@
 declare module "gulp-json-editor" {
 
   interface JEditor {
-    (mergeWith: Object | ((json : Object) => Object ),
+    (mergeWith: any | ((json : any) => any ),
     jsBeautifyOptions? : JsBeautifyOptions ) : NodeJS.ReadWriteStream;
   }
 
