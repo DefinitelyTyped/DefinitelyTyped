@@ -1,6 +1,12 @@
 ﻿/// <reference path="flux.d.ts" />
+﻿/// <reference path="../react/react.d.ts" />
 
 import flux = require('flux')
+import FluxUtils = require('flux/utils')
+import React = require('react')
+
+var Component = React.Component
+var Container = FluxUtils.Container
 
 //
 // Basic dispatcher usage
@@ -79,3 +85,5 @@ class CustomDispatcher extends flux.Dispatcher<Action> {
 var customDispatcher = new CustomDispatcher()
 
 export = customDispatcher
+
+
