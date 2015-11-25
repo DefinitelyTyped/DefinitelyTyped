@@ -84,13 +84,19 @@ class IonicTestController {
 
     private testActionSheet(): void {
         var closeActionSheetFn: ()=>void = this.$ionicActionSheet.show({
-            buttons: [],
+            buttons: [{ text: 'A button' }],
             titleText: "titleText",
             cancelText: "cancelText",
             destructiveText: "destructiveText",
             cancel: ()=>{ console.log("cancel"); },
-            buttonClicked: ()=>{ console.log("buttonClicked"); },
-            destructiveButtonClicked: ()=>{ console.log("destructiveButtonClicked"); },
+            buttonClicked: (index)=>{ 
+                console.log("buttonClicked");
+                return index === 0;
+            },
+            destructiveButtonClicked: ()=>{
+                console.log("destructiveButtonClicked");
+                return false;
+            },
             cancelOnStateChange: true,
             cssClass: "cssClass"
         });
