@@ -102,14 +102,17 @@ declare module ionic {
         interface IonicActionSheetService {
             show(options: IonicActionSheetOptions): ()=>void;
         }
+        interface IonicActionSheetButton {
+            text: string;
+        }
         interface IonicActionSheetOptions {
-            buttons?: Array<any>;
+            buttons?: Array<IonicActionSheetButton>;
             titleText?: string;
             cancelText?: string;
             destructiveText?: string;
             cancel?: ()=>any;
-            buttonClicked?: (index: any)=>any;
-            destructiveButtonClicked?: ()=>any;
+            buttonClicked?: (index: number)=>boolean;
+            destructiveButtonClicked?: ()=>boolean;
             cancelOnStateChange?: boolean;
             cssClass?: string;
         }
