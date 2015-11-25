@@ -296,6 +296,15 @@ declare module turf {
     // Data
     //////////////////////////////////////////////////////
 
+    /**
+    * Takes a FeatureCollection and filters it by a given property and value.
+    * @param features Input features
+    * @param key The property on which to filter
+    * @param value The value of that property on which to filter
+    * @returns A filtered collection with only features that match input key and value
+    */
+    function filter(features: GeoJSON.FeatureCollection, key: string, value: string): GeoJSON.FeatureCollection;
+
     //////////////////////////////////////////////////////
     // Interpolation
     //////////////////////////////////////////////////////
