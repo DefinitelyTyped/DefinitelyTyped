@@ -21,20 +21,23 @@ declare module Pako {
 	 * Decompress data with inflate/ungzip and options. Autodetect format via wrapper header
 	 * by default. That's why we don't provide separate ungzip method.
 	 */
-	export function inflate( data: Uint8Array | Array<number> | string, options?: any ): Uint8Array | Array<number> | string;
+	export function inflate( data: Uint8Array | Array<number> | string, options?: any ): Uint8Array;
+	export function inflate( data: Uint8Array | Array<number> | string, options?: any ): Array<number>;
+	export function inflate( data: Uint8Array | Array<number> | string, options?: any ): String;
 	/**
 	 * The same as inflate, but creates raw data, without wrapper (header and adler32 crc).
 	 */
-	export function inflateRaw( data: Uint8Array | Array<number> | string, options?: any ): Uint8Array | Array<number> | string;
+	export function inflateRaw( data: Uint8Array | Array<number> | string, options?: any ): Uint8Array;
+	export function inflateRaw( data: Uint8Array | Array<number> | string, options?: any ): Array<number>;
+	export function inflateRaw( data: Uint8Array | Array<number> | string, options?: any ): string;
 	/**
 	 * Just shortcut to inflate, because it autodetects format by header.content. Done for convenience.
 	 */
-	export function ungzip( data: Uint8Array | Array<number> | string, options?: any ): Uint8Array | Array<number> | string;
+	export function ungzip( data: Uint8Array | Array<number> | string, options?: any ): Uint8Array;
+	export function ungzip( data: Uint8Array | Array<number> | string, options?: any ): Array<number>;
+	export function ungzip( data: Uint8Array | Array<number> | string, options?: any ): string;
 
-	export interface Deflate {
-		/**
-		 *
-		 */
+	export class Deflate {
 		constructor( options?: any );
 		err: number;
 		msg: string;
@@ -44,7 +47,7 @@ declare module Pako {
 		push( data: Uint8Array | Array<number> | ArrayBuffer | string, mode?: number | boolean ): boolean;
 	}
 
-	export interface Inflate {
+	export class Inflate {
 		constructor( options?: any );
 		err: number;
 		msg: string;
