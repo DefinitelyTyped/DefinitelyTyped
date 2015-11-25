@@ -7,6 +7,7 @@ import React = require('react')
 
 var Component = React.Component
 var Container = FluxUtils.Container
+var ReduceStore = FluxUtils.ReduceStore
 
 //
 // Basic dispatcher usage
@@ -92,7 +93,7 @@ class CounterStore extends ReduceStore<number> {
     return 0;
   }
 
-  reduce(state: number, action: Object): number {
+  reduce(state: number, action: any): number {
     switch (action.type) {
       case 'increment':
         return state + 1;
@@ -107,12 +108,12 @@ class CounterStore extends ReduceStore<number> {
 }
 
 // Sample Flux container with CounterStore
-class CounterContainer extends Component {
+class CounterContainer extends Component<any, any> {
   static getStores() {
     return [CounterStore];
   }
 
-  static calculateState(prevState) {
+  static calculateState(prevState: any) {
     return {
       counter: CounterStore.getState(),
     };
