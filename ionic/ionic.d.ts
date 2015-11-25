@@ -246,10 +246,13 @@ declare module ionic {
         interface IonicPopupService {
             show(options: IonicPopupFullOptions): IonicPopupPromise;
             alert(options: IonicPopupAlertOptions): IonicPopupPromise;
-            confirm(options: IonicPopupConfirmOptions): IonicPopupPromise;
+            confirm(options: IonicPopupConfirmOptions): IonicPopupConfirmPromise;
             prompt(options: IonicPopupPromptOptions): IonicPopupPromise;
         }
 
+        interface IonicPopupConfirmPromise extends ng.IPromise<boolean> {
+            close(value?: boolean): void;
+        }
         interface IonicPopupPromise extends ng.IPromise<any> {
             close(value?: any): any;
         }
