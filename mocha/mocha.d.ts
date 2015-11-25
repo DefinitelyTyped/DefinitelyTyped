@@ -27,6 +27,9 @@ interface MochaSetupOptions {
 
     // grep string or regexp to filter tests with
     grep?: any;
+
+    // moduels that shall be required for each test spec
+    require?: string[];
 }
 
 interface MochaDone {
