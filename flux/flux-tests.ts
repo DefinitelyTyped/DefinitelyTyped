@@ -86,4 +86,41 @@ var customDispatcher = new CustomDispatcher()
 
 export = customDispatcher
 
+// Sample Reduce Store
+class CounterStore extends ReduceStore<number> {
+  getInitialState(): number {
+    return 0;
+  }
 
+  reduce(state: number, action: Object): number {
+    switch (action.type) {
+      case 'increment':
+        return state + 1;
+
+      case 'square':
+        return state * state;
+
+      default:
+        return state;
+    }
+  }
+}
+
+// Sample Flux container with CounterStore
+class CounterContainer extends Component {
+  static getStores() {
+    return [CounterStore];
+  }
+
+  static calculateState(prevState) {
+    return {
+      counter: CounterStore.getState(),
+    };
+  }
+
+  render() {
+    return <span>{this.state.counter}</span>;
+  }
+}
+
+const container = Container.create(CounterContainer);
