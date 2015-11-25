@@ -119,7 +119,7 @@ class CounterContainer extends Component {
   }
 
   render() {
-    return <span>{this.state.counter}</span>;
+    return this.state.counter;
   }
 }
 
