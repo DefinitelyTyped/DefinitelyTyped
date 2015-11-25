@@ -77,7 +77,7 @@ declare module FluxUtils {
         * that updates its state when relevant stores change. 
         * The provided base class must have static methods getStores() and calculateState().
         */
-        static create(base: React.ComponentClass<Object>, options?: Object): React.ComponentClass<Object>;
+        static create(base: React.ComponentClass<any>, options?: any): React.ComponentClass<any>;
     }
 
     /**
@@ -130,7 +130,7 @@ declare module FluxUtils {
         * All subclasses must implement this method. 
         * This method should be pure and have no side-effects.
         */
-        reduce(state: T, action: Object): T;
+        reduce(state: T, action: any): T;
 
         /**
         * Checks if two versions of state are the same. 
@@ -145,7 +145,7 @@ declare module FluxUtils {
         /**
         * Constructs and registers an instance of this store with the given dispatcher.
         */
-        constructor(dispatcher: Flux.Dispatcher<Object>);
+        constructor(dispatcher: Flux.Dispatcher<any>);
 
         /**
         * Adds a listener to the store, when the store changes the given callback will be called. 
@@ -157,7 +157,7 @@ declare module FluxUtils {
         /**
         * Returns the dispatcher this store is registered with.
         */
-        getDispatcher(): Flux.Dispatcher<Object>;
+        getDispatcher(): Flux.Dispatcher<any>;
 
         /**
         * Returns the dispatch token that the dispatcher recognizes this store by. 
@@ -184,7 +184,7 @@ declare module FluxUtils {
         * This is how the store receives actions from the dispatcher.
         * All state mutation logic must be done during this method.
         */
-        __onDispatch(payload: Object): void;
+        __onDispatch(payload: any): void;
     }
 }
 
