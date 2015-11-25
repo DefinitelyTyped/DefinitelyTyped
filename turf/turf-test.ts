@@ -352,6 +352,24 @@ var key = "species";
 var value = "oak";
 var filtered = turf.filter(features, key, value);
 
+// -- Test random --
+var points = turf.random('points', 100, {
+  bbox: [-70, 40, -60, 60]
+});
+
+var points = turf.random('points', 100, {
+  bbox: [-70, 40, -60, 60],
+  num_vertices: 2,
+  max_radial_length: 10
+});
+
+// -- Test remove --
+var filtered = turf.remove(points, 'marker-color', '#00f');
+
+// -- Test sample --
+var points = turf.random('points', 1000);
+var sample = turf.sample(points, 10);
+
 //////////////////////////////////////////////////////////////////////////
 // Tests Interpolation
 //////////////////////////////////////////////////////////////////////////;

@@ -305,6 +305,35 @@ declare module turf {
     */
     function filter(features: GeoJSON.FeatureCollection, key: string, value: string): GeoJSON.FeatureCollection;
 
+    /**
+    * Generates random GeoJSON data, including Points and Polygons, for testing and experimentation.
+    * @param [type='point'] Type of features desired: 'points' or 'polygons'
+    * @param [count=1] How many geometries should be generated.
+    * @param [options] Options relevant to the feature desired. Can include:
+    *   - A bounding box inside of which geometries are placed. In the case of Point features, they are guaranteed to be within this bounds, while Polygon features have their centroid within the bounds.
+    *   - The number of vertices added to polygon features. Default is 10;
+    *   - The total number of decimal degrees longitude or latitude that a polygon can extent outwards to from its center. Default is 10.
+    * @returns Generated random features
+    */
+    function random(type?: string, count?: number, options?: {bbox?: Array<number>; num_vertices?: number; max_radial_length?: number;}): GeoJSON.FeatureCollection;
+
+    /**
+    * Takes a FeatureCollection of any type, a property, and a value and returns a FeatureCollection with features matching that property-value pair removed.
+    * @param features Set of input features
+    * @param property The property to remove
+    * @param value The value to remove
+    * @returns The resulting FeatureCollection without features that match the property-value pair
+    */
+    function remove(features: GeoJSON.FeatureCollection, property: string, value: string): GeoJSON.FeatureCollection;
+
+    /**
+    * Takes a FeatureCollection and returns a FeatureCollection with given number of features at random.
+    * @param features Set of input features
+    * @param n Number of features to select
+    * @returns A FeatureCollection with n features
+    */
+    function sample(features: GeoJSON.FeatureCollection, n: number): GeoJSON.FeatureCollection;
+
     //////////////////////////////////////////////////////
     // Interpolation
     //////////////////////////////////////////////////////
