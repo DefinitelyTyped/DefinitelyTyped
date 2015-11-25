@@ -71,7 +71,7 @@ var polygons = {
   ]
 };
 
-var polygon = {
+var polygon1 = {
   "type": "Feature",
   "properties": {},
   "geometry": {
@@ -85,6 +85,26 @@ var polygon = {
     ]]
   }
 };
+
+var polygon2 = {
+  "type": "Feature",
+  "properties": {
+    "fill": "#00f"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [[
+      [-122.520217, 45.535693],
+      [-122.64038, 45.553967],
+      [-122.720031, 45.526554],
+      [-122.669906, 45.507309],
+      [-122.723464, 45.446643],
+      [-122.532577, 45.408574],
+      [-122.487258, 45.477466],
+      [-122.520217, 45.535693]
+    ]]
+  }
+}
 
 var features = {
   "type": "FeatureCollection",
@@ -227,7 +247,7 @@ var length = turf.lineDistance(line, 'miles');
 var midpointed = turf.midpoint(point1, point2);
 
 // -- Test pointOnSurface --
-var pointOnPolygon = turf.pointOnSurface(polygon);
+var pointOnPolygon = turf.pointOnSurface(polygon1);
 
 // -- Test size --
 var resized = turf.size(bbox, 2);
@@ -238,6 +258,34 @@ var squared = turf.square(bbox);
 //////////////////////////////////////////////////////////////////////////
 // Tests Transformation
 //////////////////////////////////////////////////////////////////////////
+
+// -- Test bezier --
+var curved = turf.bezier(line);
+
+// -- Test buffer --
+var buffered = turf.buffer(point1, 500, units);
+
+// -- Test concave --
+var hull = turf.concave(features, 1, 'miles');
+
+// -- Test convex --
+var hull = turf.convex(features);
+
+// -- Test difference --
+var differenced = turf.difference(polygon1, polygon2);
+
+// -- Test intersect --
+var intersection = turf.intersect(polygon1, polygon2);
+
+// -- Test merge --
+var merged = turf.merge(polygons);
+
+// -- Test simplify --
+var tolerance = 0.01;
+var simplified = turf.simplify(polygon1, tolerance, false);
+
+// -- Test union --
+var union = turf.union(polygon1, polygon2);
 
 //////////////////////////////////////////////////////////////////////////
 // Tests Misc

@@ -18,7 +18,7 @@ declare module turf {
     * Takes a line and returns a point at a specified distance along the line.
     * @param line Input line
     * @param distance Distance along the line
-    * @param [units=miles] Can be degrees, radians, miles, or kilometers. Default is miles
+    * @param [units=miles] 'miles', 'feet', 'kilometers', 'meters', or 'degrees'
     * @returns Point along the line
     */
     function along(line: GeoJSON.Feature, distance: number, units?: string): GeoJSON.Feature;
@@ -64,7 +64,7 @@ declare module turf {
     * @param start Starting point
     * @param distance Distance from the starting point
     * @param bearing Ranging from -180 and 180
-    * @param units Miles, kilometers, degrees or radians
+    * @param units 'miles', 'feet', 'kilometers', 'meters', or 'degrees'
     * @returns Destination point
     */
     function destination(start: GeoJSON.Feature, distance: number, bearing: number, units: string): GeoJSON.Feature;
@@ -73,7 +73,7 @@ declare module turf {
     * Calculates the distance between two points in degress, radians, miles, or kilometers. This uses the Haversine formula to account for global curvature.
     * @param from Origin point
     * @param to Destination point
-    * @param [units=kilometers] Can be degrees, radians, miles, or kilometers. Default is kilometers.
+    * @param [units=kilometers] 'miles', 'feet', 'kilometers', 'meters', or 'degrees'
     * @returns Distance between the two points
     */
     function distance(from: GeoJSON.Feature, to: GeoJSON.Feature, units?: string): number;
@@ -95,7 +95,7 @@ declare module turf {
     /**
     * Takes a line and measures its length in the specified units.
     * @param line Line to measure
-    * @param units Can be degrees, radians, miles, or kilometers
+    * @param units 'miles', 'feet', 'kilometers', 'meters', or 'degrees'
     * @returns Length of the input line
     */
     function lineDistance(line: GeoJSON.Feature, units: string): number;
@@ -133,6 +133,80 @@ declare module turf {
     //////////////////////////////////////////////////////
     // Transformation
     //////////////////////////////////////////////////////
+
+    /**
+    * Takes a line and returns a curved version by applying a Bezier spline algorithm. The bezier spline implementation is by Leszek Rybicki.
+    * @param line Input LineString
+    * @param [resolution=10000] Time in milliseconds between points
+    * @param [sharpness=0.85] A measure of how curvy the path should be between splines
+    * @returns Curved line
+    */
+    function bezier(line: GeoJSON.Feature, resolution?: number, sharpness?: number): GeoJSON.Feature;
+
+    /**
+    * Calculates a buffer for input features for a given radius. Units supported are miles, kilometers, and degrees.
+    * @param feature Input to be buffered
+    * @param distance Distance to draw the buffer
+    * @param units 'miles', 'feet', 'kilometers', 'meters', or 'degrees'
+    * @returns Buffered features
+    */
+    function buffer(feature: GeoJSON.Feature | GeoJSON.FeatureCollection, distance: number, units: string): GeoJSON.Feature | GeoJSON.FeatureCollection;
+
+    /**
+    * Takes a set of points and returns a concave hull polygon. Internally, this implements a Monotone chain algorithm.
+    * @param points Input points
+    * @param maxEdge The size of an edge necessary for part of the hull to become concave (in miles)
+    * @param units Used for maxEdge distance (miles or kilometers)
+    * @returns A concave hull
+    */
+    function concave(points: GeoJSON.FeatureCollection, maxEdge: number, units: string): GeoJSON.Feature;
+
+    /**
+    * Takes a set of points and returns a convex hull polygon. Internally this uses the convex-hull module that implements a monotone chain hull.
+    * @param input Input points
+    * @returns A convex hull
+    */
+    function convex(points: GeoJSON.FeatureCollection): GeoJSON.Feature;
+
+    /**
+    * Finds the difference between two polygons by clipping the second polygon from the first.
+    * @param poly1 Input Polygon feaure
+    * @param poly2 Polygon feature to difference from poly1
+    * @returns A Polygon feature showing the area of poly1 excluding the area of poly2
+    */
+    function difference(poly1: GeoJSON.Feature, poly2: GeoJSON.Feature): GeoJSON.Feature;
+
+    /**
+    * Takes two polygons and finds their intersection. If they share a border, returns the border; if they don't intersect, returns undefined.
+    * @param poly1 The first polygon
+    * @param poly2 The second polygon
+    * @returns If poly1 and poly2 overlap, returns a Polygon feature representing the area they overlap; if poly1 and poly2 do not overlap, returns undefined; if poly1 and poly2 share a border, a MultiLineString of the locations where their borders are shared
+    */
+    function intersect(poly1: GeoJSON.Feature, poly2: GeoJSON.Feature): GeoJSON.Feature;
+
+    /**
+    * Takes a set of polygons and returns a single merged polygon feature. If the input polygon features are not contiguous, this function returns a MultiPolygon feature.
+    * @param fc Input polygons
+    * @returns Merged polygon or multipolygon
+    */
+    function merge(fc: GeoJSON.FeatureCollection): GeoJSON.Feature;
+
+    /**
+    * Takes a LineString or Polygon and returns a simplified version. Internally uses simplify-js to perform simplification.
+    * @param feature Feature to be simplified
+    * @param tolerance Simplification tolerance
+    * @param highQuality Whether or not to spend more time to create a higher-quality simplification with a different algorithm
+    * @returns A simplified feature
+    */
+    function simplify(feature: GeoJSON.Feature | GeoJSON.FeatureCollection | GeoJSON.GeometryCollection, tolerance: number, highQuality: boolean): GeoJSON.Feature | GeoJSON.FeatureCollection | GeoJSON.GeometryCollection;
+
+    /**
+    * Takes two polygons and returns a combined polygon. If the input polygons are not contiguous, this function returns a MultiPolygon feature.
+    * @param poly1 Input polygon
+    * @param poly2 Another input polygon
+    * @returns A combined Polygon or MultiPolygon feature
+    */
+    function union(poly1: GeoJSON.Feature, poly2: GeoJSON.Feature): GeoJSON.Feature;
 
     //////////////////////////////////////////////////////
     // Misc
