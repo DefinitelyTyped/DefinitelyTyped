@@ -213,6 +213,43 @@ declare module turf {
     //////////////////////////////////////////////////////
 
     /**
+    * Combines a FeatureCollection of Point, LineString, or Polygon features into MultiPoint, MultiLineString, or MultiPolygon features.
+    * @param fc A FeatureCollection of any type
+    * @returns A FeatureCollection of corresponding type to input
+    */
+    function combine(fc: GeoJSON.FeatureCollection): GeoJSON.FeatureCollection;
+
+    /**
+    * Takes a feature or set of features and returns all positions as points.
+    * @param input Input features
+    * @returns Points representing the exploded input features
+    */
+    function explode(input: GeoJSON.Feature | GeoJSON.FeatureCollection): GeoJSON.FeatureCollection;
+
+    /**
+    * Takes input features and flips all of their coordinates from [x, y] to [y, x].
+    * @param input Input features
+    * @returns A feature or set of features of the same type as input with flipped coordinates
+    */
+    function flip(input: GeoJSON.Feature | GeoJSON.FeatureCollection): GeoJSON.Feature | GeoJSON.FeatureCollection;
+
+    /**
+    * Takes a polygon and returns points at all self-intersections.
+    * @param polygon Input polygon
+    * @returns Self-intersections
+    */
+    function kinks(polygon: GeoJSON.Feature): GeoJSON.FeatureCollection;
+
+    /**
+    * Takes a line, a start Point, and a stop point and returns the line in between those points.
+    * @param point1 Starting point
+    * @param point2 Stopping point
+    * @param line Line to slice
+    * @returns Sliced line
+    */
+    function lineSlice(point1: GeoJSON.Feature, point2: GeoJSON.Feature, line: GeoJSON.Feature): GeoJSON.Feature;
+
+    /**
     * Takes a Point and a LineString and calculates the closest Point on the LineString.
     * @param line Line to snap to
     * @param point Point to snap from

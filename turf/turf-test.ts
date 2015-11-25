@@ -222,7 +222,7 @@ var bearing = turf.bearing(point1, point2);
 var centerPt = turf.center(features);
 
 // -- Test centroid --
-var centroidPt = turf.centroid(poly);
+var centroidPt = turf.centroid(polygon1);
 
 // -- Test destination --
 var distance = 50;
@@ -290,6 +290,21 @@ var union = turf.union(polygon1, polygon2);
 //////////////////////////////////////////////////////////////////////////
 // Tests Misc
 //////////////////////////////////////////////////////////////////////////
+
+// -- Test combine --
+var combined = turf.combine(features);
+
+// -- Test explode --
+var points = turf.explode(polygon1);
+
+// -- Test flip --
+var flipedPoint = turf.flip(point1);
+
+// -- Test kinks --
+var kinks = turf.kinks(polygon1);
+
+// -- Test lineSlice --
+var sliced = turf.lineSlice(point1, point2, line);
 
 // -- Test pointOnLine --
 var snapped = turf.pointOnLine(line, point1);
