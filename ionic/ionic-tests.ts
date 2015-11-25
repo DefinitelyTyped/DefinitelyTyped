@@ -249,7 +249,7 @@ class IonicTestController {
             okType: "okType",
             cancelText: "Cancel",
             cancelType: "cancelType"
-        }).then(() => console.log("popover shown"))
+        }).then((result) => console.log(result === true ? "confirmed": "cancelled"))
         this.$ionicPopup.confirm({
             title: "title",
             subTitle: "subTitle",
