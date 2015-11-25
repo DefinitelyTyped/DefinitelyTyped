@@ -33,7 +33,7 @@ interface FastClickStatic {
 }
 
 declare module "fastclick" {
-	var FastClick: FastClickStatic;
+	var attach(layer: any, options?: FastClickOptions): FastClickObject;
 	export = FastClick;
 }
 
