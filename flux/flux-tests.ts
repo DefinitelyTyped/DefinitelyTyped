@@ -107,15 +107,18 @@ class CounterStore extends FluxUtils.ReduceStore<number> {
   }
 }
 
+var Disaptcher: any;
+const Store = new CounterStore(Dispatcher);
+
 // Sample Flux container with CounterStore
 class CounterContainer extends Component<any, any> {
   static getStores() {
-    return [CounterStore];
+    return [Store];
   }
 
   static calculateState(prevState: any) {
     return {
-      counter: CounterStore.getState(),
+      counter: Store.getState(),
     };
   }
 
