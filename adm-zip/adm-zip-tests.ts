@@ -55,3 +55,7 @@ zip.extractEntryTo("folder/subfolder/myfile.txt", "/home/user/", true, true);
 
 // will extract the file myfile.txt from the archive to /home/user/myfile.txt
 zip.extractEntryTo("folder/subfolder/myfile.txt", "/home/user/", false, true);
+
+function isAdmZipEntry(obj: any): obj is AdmZip.IZipEntry {
+  return obj !== null && typeof obj === "object" && typeof obj['entryName'] === 'string';
+}
