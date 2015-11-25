@@ -15,8 +15,5 @@ document.body.addEventListener('click', function(e) {
 });
 
 // on CommonJS environment
-import fastclick = require('fastclick');
-fastclick(document.body);
-new fastclick.FastClick(document.links[0]);
-new fastclick.FastClick(document.links[1], {tapDelay: 50});
-new fastclick.FastClick(document.links[2], {touchBoundary: 50});
+import attachFastClick = require('fastclick');
+attachFastClick(document.body);
