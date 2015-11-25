@@ -187,7 +187,7 @@ declare namespace __React {
         displayName?: string;
         propTypes?: ValidationMap<any>;
         contextTypes?: ValidationMap<any>;
-        childContextTypes?: ValidationMap<any>
+        childContextTypes?: ValidationMap<any>;
 
         getDefaultProps?(): P;
         getInitialState?(): S;
@@ -1884,7 +1884,7 @@ declare namespace __React {
         xmlLang?: string;
         xmlSpace?: string;
         y1?: number | string;
-        y2?: number | string
+        y2?: number | string;
         y?: number | string;
     }
 

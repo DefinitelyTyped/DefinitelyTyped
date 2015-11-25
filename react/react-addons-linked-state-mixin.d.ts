@@ -10,7 +10,7 @@ declare namespace __React {
         value: T;
         requestChange(newValue: T): void;
     }
-    
+
     interface LinkedStateMixin extends Mixin<any, any> {
         linkState<T>(key: string): ReactLink<T>;
     }
@@ -19,7 +19,7 @@ declare namespace __React {
         checkedLink?: ReactLink<boolean>;
         valueLink?: ReactLink<boolean | string | number>;
     }
-        
+
     namespace __Addons {
         export var LinkedStateMixin: LinkedStateMixin;
     }
