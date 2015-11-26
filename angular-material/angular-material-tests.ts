@@ -96,5 +96,5 @@ myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.materia
 });
 
 myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IToastService) => {
-    $scope['openToast'] = () => $mdToast.show($mdToast.simple().content('Hello!'));
+    $scope['openToast'] = () => $mdToast.show($mdToast.simple().textContent('Hello!'));
 });
