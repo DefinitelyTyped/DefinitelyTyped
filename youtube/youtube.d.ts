@@ -44,6 +44,7 @@ declare module YT {
 		origin?: string;
         playerpiid?: string;
 		playlist?: string[];
+        playsinline?: number;
 		rel?: number;
         showinfo?: number;
 		start?: number;
