@@ -1,59 +1,62 @@
 /// <reference path="helmet.d.ts" />
 
+import express = require("express")
 import helmet = require("helmet");
+
+var app = express();
 
 /**
  * @summary Test for {@see helmet}.
  */
 function helmetTest() {
-    helmet();
+    app.use(helmet());
 }
 
 /**
  * @summary Test for {@see helmet#xssFilter} function.
  */
 function contentSecurityPolicyTest() {
-    helmet.xssFilter();
-    helmet.xssFilter({ setOnOldIE: true });
+    app.use(helmet.xssFilter());
+    app.use(helmet.xssFilter({ setOnOldIE: true }));
 }
 
 /**
  * @summary Test for {@see helmet#frameguard} function.
  */
 function frameguardTest() {
-    helmet.frameguard();
-    helmet.frameguard("sameorigin");
+    app.use(helmet.frameguard());
+    app.use(helmet.frameguard("sameorigin"));
 }
 
 /**
  * @summary Test for {@see helmet#hsts} function.
  */
 function hstsTest() {
-    helmet.hsts();
-    helmet.hsts({ maxAge: 7776000000 });
+    app.use(helmet.hsts());
+    app.use(helmet.hsts({ maxAge: 7776000000 }));
 }
 
 /**
  * @summary Test for {@see helmet#ieNoOpen} function.
  */
 function ieNoOpenTest() {
-    helmet.ieNoOpen();
+    app.use(helmet.ieNoOpen());
 }
 
 /**
  * @summary Test for {@see helmet#noSniff} function.
  */
 function noSniffTest() {
-    helmet.noSniff();
+    app.use(helmet.noSniff());
 }
 
 /**
  * @summary Test for {@see helmet#publicKeyPins} function.
  */
 function publicKeyPinsTest() {
-    helmet.publicKeyPins({
+    app.use(helmet.publicKeyPins({
         sha256s: ["AbCdEf123=", "ZyXwVu456="],
         includeSubdomains: true,
         reportUri: "http://example.com"
-    });
+    }));
 }
