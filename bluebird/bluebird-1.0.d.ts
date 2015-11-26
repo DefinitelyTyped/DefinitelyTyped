@@ -131,7 +131,7 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	 * Promises are by default not cancellable. Use `.cancellable()` to mark a promise as cancellable.
 	 */
 	// TODO what to do with this?
-	cancel<U>(): Promise<U>;
+	cancel<U>(reason?: any): Promise<U>;
 
 	/**
 	 * Like `.then()`, but cancellation of the the returned promise or any of its descendant will not propagate cancellation to this promise or this promise's ancestors.
