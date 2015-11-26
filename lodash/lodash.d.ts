@@ -3793,7 +3793,7 @@ declare module _ {
          */
         at<T>(
             collection: List<T>|Dictionary<T>,
-            ...props: Array<number|string|Array<number|string>>
+            ...props: (number|string|(number|string)[])[]
         ): T[];
     }
 
@@ -3801,14 +3801,28 @@ declare module _ {
         /**
          * @see _.at
          */
-        at(...props: Array<number|string|Array<number|string>>): LoDashImplicitArrayWrapper<T>;
+        at(...props: (number|string|(number|string)[])[]): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.at
          */
-        at<TResult>(...props: Array<number|string|Array<number|string>>): LoDashImplicitArrayWrapper<TResult>;
+        at<T>(...props: (number|string|(number|string)[])[]): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.at
+         */
+        at(...props: (number|string|(number|string)[])[]): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.at
+         */
+        at<T>(...props: (number|string|(number|string)[])[]): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.collect

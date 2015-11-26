@@ -2557,17 +2557,34 @@ module TestAny {
 }
 
 // _.at
-{
-    let testAtArray: TResult[];
-    let testAtList: _.List<TResult>;
-    let testAtDictionary: _.Dictionary<TResult>;
-    let result: TResult[];
-    result = _.at<TResult>(testAtArray, 0, '1', [2], ['3'], [4, '5']);
-    result = _.at<TResult>(testAtList, 0, '1', [2], ['3'], [4, '5']);
-    result = _.at<TResult>(testAtDictionary, 0, '1', [2], ['3'], [4, '5']);
-    result = _(testAtArray).at(0, '1', [2], ['3'], [4, '5']).value();
-    result = _(testAtList).at<TResult>(0, '1', [2], ['3'], [4, '5']).value();
-    result = _(testAtDictionary).at<TResult>(0, '1', [2], ['3'], [4, '5']).value();
+module TestAt {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
+
+    {
+        let result: TResult[];
+
+        result = _.at<TResult>(array, 0, '1', [2], ['3'], [4, '5']);
+        result = _.at<TResult>(list, 0, '1', [2], ['3'], [4, '5']);
+        result = _.at<TResult>(dictionary, 0, '1', [2], ['3'], [4, '5']);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).at(0, '1', [2], ['3'], [4, '5']);
+        result = _(list).at<TResult>(0, '1', [2], ['3'], [4, '5']);
+        result = _(dictionary).at<TResult>(0, '1', [2], ['3'], [4, '5']);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().at(0, '1', [2], ['3'], [4, '5']);
+        result = _(list).chain().at<TResult>(0, '1', [2], ['3'], [4, '5']);
+        result = _(dictionary).chain().at<TResult>(0, '1', [2], ['3'], [4, '5']);
+    }
 }
 
 // _.collect
