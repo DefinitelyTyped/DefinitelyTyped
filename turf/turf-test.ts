@@ -433,3 +433,20 @@ var ptsWithin = turf.within(points, polygons);
 //////////////////////////////////////////////////////////////////////////
 // Tests Classification
 //////////////////////////////////////////////////////////////////////////
+
+// -- Test jenks --
+var breaks = turf.jenks(points, 'population', 3);
+
+// -- Test nearest --
+var nearest = turf.nearest(point1, points);
+
+// -- Test quantile --
+var breaks = turf.quantile(points, 'population', [25, 50, 75, 99]);
+
+// -- Test reclass --
+var translations = [
+  [0, 200, "small"],
+  [200, 400, "medium"],
+  [400, 600, "large"]
+];
+var reclassed = turf.reclass(points, 'population', 'size', translations);
