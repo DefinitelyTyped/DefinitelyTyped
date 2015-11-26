@@ -11538,18 +11538,26 @@ declare module _ {
     //_.valuesIn
     interface LoDashStatic {
         /**
-        * Creates an array of the own and inherited enumerable property values of object.
-        * @param object The object to query.
-        * @return Returns the array of property values.
-        **/
+         * Creates an array of the own and inherited enumerable property values of object.
+         *
+         * @param object The object to query.
+         * @return Returns the array of property values.
+         */
         valuesIn<T>(object?: any): T[];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.valuesIn
-        **/
-        valuesIn<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+         * @see _.valuesIn
+         */
+        valuesIn<T>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.valuesIn
+         */
+        valuesIn<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
     /**********

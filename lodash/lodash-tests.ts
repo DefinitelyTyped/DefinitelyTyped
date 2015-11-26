@@ -6800,17 +6800,28 @@ module TestValues {
     }
 }
 
-// _.valueIn
-class TestValueIn {
-    public a = 1;
-    public b = 2;
-    public c: number;
+// _.valuesIn
+module TestValuesIn {
+    let object: _.Dictionary<TResult>;
+
+    {
+        let result: TResult[];
+
+        result = _.valuesIn<TResult>(object);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(object).valuesIn<TResult>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(object).chain().valuesIn<TResult>();
+    }
 }
-TestValueIn.prototype.c = 3;
-result = <number[]>_.valuesIn<number>(new TestValueIn());
-// → [1, 2, 3]
-result = <number[]>_(new TestValueIn()).valuesIn<number>().value();
-// → [1, 2, 3]
 
 /**********
  * String *
