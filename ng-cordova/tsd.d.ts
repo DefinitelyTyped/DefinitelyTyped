@@ -14,3 +14,4 @@
 /// <reference path="appAvailability.d.ts"/>
 /// <reference path="datepicker.d.ts"/>
 /// <reference path="app-version.d.ts"/>
+/// <reference path="camera.d.ts"/>
