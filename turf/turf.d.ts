@@ -338,6 +338,70 @@ declare module turf {
     // Interpolation
     //////////////////////////////////////////////////////
 
+    /**
+    * Takes a bounding box and a cell size in degrees and returns a FeatureCollection of flat-topped hexagons (Polygon features) aligned in an "odd-q" vertical grid as described in Hexagonal Grids.
+    * @param bbox Bounding box in [minX, minY, maxX, maxY] order
+    * @param cellWidth Width of cell in specified units
+    * @param units Used in calculating cellWidth ('miles' or 'kilometers')
+    * @returns A hexagonal grid
+    */
+    function hexGrid(bbox: Array<number>, cellWidth: number, units: string): GeoJSON.FeatureCollection;
+
+    /**
+    * Takes points with z-values and an array of value breaks and generates isolines.
+    * @param points Input points
+    * @param z The property name in points from which z-values will be pulled
+    * @param resolution Resolution of the underlying grid
+    * @param breaks Where to draw contours
+    * @returns Isolines
+    */
+    function isolines(points: GeoJSON.FeatureCollection, z: string, resolution: number, breaks: Array<number>): GeoJSON.FeatureCollection;
+
+    /**
+    * Takes a triangular plane as a Polygon and a Point within that triangle and returns the z-value at that point. The Polygon needs to have properties a, b, and c that define the values at its three corners.
+    * @param interpolatedPoint The Point for which a z-value will be calculated
+    * @param triangle A Polygon feature with three vertices
+    * @returns The z-value for interpolatedPoint
+    */
+    function planepoint(interpolatedPoint: GeoJSON.Feature, triangle: GeoJSON.Feature): number;
+
+    /**
+    * Takes a bounding box and a cell depth and returns a set of points in a grid.
+    * @param extent Extent in [minX, minY, maxX, maxY] order
+    * @param cellWidth The distance across each cell
+    * @param units Used in calculating cellWidth ('miles' or 'kilometers')
+    * @returns Grid of points
+    */
+    function pointGrid(extent: Array<number>, cellWidth: number, units: string): GeoJSON.FeatureCollection;
+
+    /**
+    * Takes a bounding box and a cell depth and returns a set of square polygons in a grid.
+    * @param extent Extent in [minX, minY, maxX, maxY] order
+    * @param cellWidth Width of each cell
+    * @param units Used in calculating cellWidth ('miles' or 'kilometers')
+    * @returns Grid of polygons
+    */
+    function squareGrid(extent: Array<number>, cellWidth: number, units: string): GeoJSON.FeatureCollection;
+
+    /**
+    * Takes a set of points and the name of a z-value property and creates a Triangulated Irregular Network, or a TIN for short, returned as a collection of Polygons.
+    * These are often used for developing elevation contour maps or stepped heat visualizations.
+    * This triangulates the points, as well as adds properties called a, b, and c representing the value of the given propertyName at each of the points that represent the corners of the triangle.
+    * @param points Input points
+    * @param [propertyName] Name of the property from which to pull z values This is optional: if not given, then there will be no extra data added to the derived triangles.
+    * @returns TIN output
+    */
+    function tin(points: GeoJSON.FeatureCollection, propertyName?: string): GeoJSON.FeatureCollection;
+
+    /**
+    * Takes a bounding box and a cell depth and returns a set of triangular polygons in a grid.
+    * @param extent Extent in [minX, minY, maxX, maxY] order
+    * @param cellWidth Width of each cell
+    * @param units Used in calculating cellWidth ('miles' or 'kilometers')
+    * @returns Grid of triangles
+    */
+    function triangleGrid(extent: Array<number>, cellWidth: number, units: string): GeoJSON.FeatureCollection;
+
     //////////////////////////////////////////////////////
     // Joins
     //////////////////////////////////////////////////////
