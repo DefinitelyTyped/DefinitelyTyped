@@ -197,6 +197,24 @@ var features = {
   ]
 };
 
+var triangle = {
+  "type": "Feature",
+  "properties": {
+    "a": 11,
+    "b": 122,
+    "c": 44
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [[
+      [-75.1221, 39.57],
+      [-75.58, 39.18],
+      [-75.97, 39.86],
+      [-75.1221, 39.57]
+    ]]
+  }
+};
+
 //////////////////////////////////////////////////////////////////////////
 // Tests Aggregation
 //////////////////////////////////////////////////////////////////////////
@@ -373,6 +391,31 @@ var sample = turf.sample(points, 10);
 //////////////////////////////////////////////////////////////////////////
 // Tests Interpolation
 //////////////////////////////////////////////////////////////////////////;
+
+// -- Test hexGrid --
+var cellWidth = 50;
+var hexgrid = turf.hexGrid(bbox, cellWidth, units);
+
+// -- Test isolines --
+var breaks = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+var isolined = turf.isolines(points, 'z', 15, breaks);
+
+// -- Test planepoint --
+var zValue = turf.planepoint(point1, triangle);
+
+// -- Test pointGrid --
+var extent = [-70.823364, -33.553984, -70.473175, -33.302986];
+var cellWidth = 3;
+var grid = turf.pointGrid(extent, cellWidth, units);
+
+// -- Test squareGrid --
+var squareGrid = turf.squareGrid(extent, cellWidth, units);
+
+// -- Test tin --
+var tin = turf.tin(points, 'z');
+
+// -- Test triangleGrid --
+var triangleGrid = turf.triangleGrid(extent, cellWidth, units);
 
 //////////////////////////////////////////////////////////////////////////
 // Tests Joins
