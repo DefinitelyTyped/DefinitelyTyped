@@ -343,27 +343,6 @@ declare module GitHubElectron {
 		 * @returns Whether the window's document has been edited.
 		 */
 		isDocumentEdited(): boolean;
-		/**
-		 * Opens the developer tools.
-		 */
-		openDevTools(options?: {
-			/**
-			 * Opens devtools in a new window.
-			 */
-			detach?: boolean;
-		}): void;
-		/**
-		 * Closes the developer tools.
-		 */
-		closeDevTools(): void;
-		/**
-		 * Returns whether the developer tools are opened.
-		 */
-		isDevToolsOpened(): boolean;
-		/**
-		 * Toggle the developer tools.
-		 */
-		toggleDevTools(): void;
 		reloadIgnoringCache(): void;
 		/**
 		 * Starts inspecting element at position (x, y).
@@ -731,6 +710,35 @@ declare module GitHubElectron {
 		 *   data Buffer - PDF file content
 		 */
 		callback: (error: Error, data: Buffer) => void): void;
+		/**
+		 * Adds the specified path to DevTools workspace.
+		 */
+		addWorkSpace(path: string): void;
+		/**
+		 * Removes the specified path from DevTools workspace.
+		 */
+		removeWorkSpace(path: string): void;
+		/**
+		 * Opens the developer tools.
+		 */
+		openDevTools(options?: {
+			/**
+			 * Opens devtools in a new window.
+			 */
+			detach?: boolean;
+		}): void;
+		/**
+		 * Closes the developer tools.
+		 */
+		closeDevTools(): void;
+		/**
+		 * Returns whether the developer tools are opened.
+		 */
+		isDevToolsOpened(): boolean;
+		/**
+		 * Toggle the developer tools.
+		 */
+		toggleDevTools(): void;
 		/**
 		 * Send args.. to the web page via channel in asynchronous message, the web page
 		 * can handle it by listening to the channel event of ipc module.
