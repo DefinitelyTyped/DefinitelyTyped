@@ -406,6 +406,32 @@ declare module turf {
     // Joins
     //////////////////////////////////////////////////////
 
+    /**
+    * Takes a Point and a Polygon or MultiPolygon and determines if the point resides inside the polygon. The polygon can be convex or concave. The function accounts for holes.
+    * @param point Input point
+    * @param polygon Input polygon or multipolygon
+    * @returns true if the Point is inside the Polygon; false if the Point is not inside the Polygon
+    */
+    function inside(point: GeoJSON.Feature, polygon: GeoJSON.Feature): boolean;
+
+    /**
+    * Takes a set of points and a set of polygons and performs a spatial join.
+    * @param points Input points
+    * @param polygons Input polygons
+    * @param polyId Property in polygons to add to joined Point features
+    * @param containingPolyId Property in points in which to store joined property from polygons
+    * @returns Points with containingPolyId property containing values from polyId
+    */
+    function tag(points: GeoJSON.FeatureCollection, polygons: GeoJSON.FeatureCollection, polyId: string, containingPolyId: string): GeoJSON.FeatureCollection;
+
+    /**
+    * Takes a set of points and a set of polygons and returns the points that fall within the polygons.
+    * @param points Input points
+    * @param polygons Input polygons
+    * @returns Points that land within at least one polygon
+    */
+    function within(points: GeoJSON.FeatureCollection, polygons: GeoJSON.FeatureCollection): GeoJSON.FeatureCollection;
+
     //////////////////////////////////////////////////////
     // Classification
     //////////////////////////////////////////////////////

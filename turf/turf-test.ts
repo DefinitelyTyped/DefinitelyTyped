@@ -421,6 +421,15 @@ var triangleGrid = turf.triangleGrid(extent, cellWidth, units);
 // Tests Joins
 //////////////////////////////////////////////////////////////////////////
 
+// -- Test inside --
+var isInside1 = turf.inside(point1, polygon);
+
+// -- Test tag --
+var tagged = turf.tag(points, triangleGrid, 'fill', 'marker-color');
+
+// -- Test within --
+var ptsWithin = turf.within(points, polygons);
+
 //////////////////////////////////////////////////////////////////////////
 // Tests Classification
 //////////////////////////////////////////////////////////////////////////
