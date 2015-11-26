@@ -17,6 +17,7 @@ declare module YT {
         onReady?: EventHandler;
         onPlayback?: EventHandler;
         onStateChange?: EventHandler;
+        onError?: EventHandler;
     }
 
 	export enum ListType {
