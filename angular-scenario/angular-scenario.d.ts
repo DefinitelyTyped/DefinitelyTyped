@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module ng {
+declare module angular {
     export interface IAngularStatic {
         scenario: any;
     }
