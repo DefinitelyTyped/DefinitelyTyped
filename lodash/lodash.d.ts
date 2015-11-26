@@ -8693,6 +8693,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is a DOM element.
+         *
          * @param value The value to check.
          * @return Returns true if value is a DOM element, else false.
          */
@@ -8704,6 +8705,13 @@ declare module _ {
          * @see _.isElement
          */
         isElement(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isElement
+         */
+        isElement(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isEmpty
