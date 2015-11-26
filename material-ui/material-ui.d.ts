@@ -9,6 +9,7 @@ declare module "material-ui" {
     export import AppBar = __MaterialUI.AppBar; // require('material-ui/lib/app-bar');
     export import AppCanvas = __MaterialUI.AppCanvas; // require('material-ui/lib/app-canvas');
     export import Avatar = __MaterialUI.Avatar; // require('material-ui/lib/avatar');
+    export import Badge = __MaterialUI.Badge; // require('material-ui/lib/badge');
     export import BeforeAfterWrapper = __MaterialUI.BeforeAfterWrapper; // require('material-ui/lib/before-after-wrapper');
     export import Card = __MaterialUI.Card.Card; // require('material-ui/lib/card/card');
     export import CardActions = __MaterialUI.Card.CardActions; // require('material-ui/lib/card/card-actions');
@@ -135,6 +136,16 @@ declare namespace __MaterialUI {
         style?: React.CSSProperties;
     }
     export class Avatar extends React.Component<AvatarProps, {}> {
+    }
+
+    interface BadgeProps extends React.Props<Badge> {
+        badgeContent: React.ReactElement<any> | string | number;
+        primary?: boolean;
+        secondary?: boolean;
+        style?: React.CSSProperties;
+        badgeStyle?: React.CSSProperties;
+    }
+    export class Badge extends React.Component<BadgeProps, {}> {
     }
 
     interface BeforeAfterWrapperProps extends React.Props<BeforeAfterWrapper> {
@@ -1524,6 +1535,11 @@ declare module 'material-ui/lib/app-canvas' {
 declare module 'material-ui/lib/avatar' {
     import Avatar = __MaterialUI.Avatar;
     export = Avatar;
+}
+
+declare module "material-ui/lib/badge" {
+    import Badge = __MaterialUI.Badge;
+    export = Badge;
 }
 
 declare module 'material-ui/lib/before-after-wrapper' {
