@@ -5,21 +5,24 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// These definitions are meant to be used with the TSC compiler target set to ES6
+// USING: these definitions are meant to be used with the TSC compiler target set to ES6
 //
-// These definitions have been mostly completed by porting to Typescript
-// the UI Explorer which comes with the react-native distribution
-// Check: https://github.com/bgrieder/RNTSExplorer
+// USAGE EXAMPLES: check the RNTSExplorer project at https://github.com/bgrieder/RNTSExplorer
 //
-// This work is based on an original work made by Bernd Paradies: https://github.com/bparadie
+// CONTRIBUTING: please open pull requests and make sure that the changes do not break RNTSExplorer (they should not)
+// Do not hesitate to open a pull request against RNTSExplorer to provide an example for a case not covered by the current App
+//
+// CREDITS: This work is based on an original work made by Bernd Paradies: https://github.com/bparadie
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /// <reference path="../react/react.d.ts" />
 
+//so we know what is "original" React
 import React = __React;
 
-declare namespace  ReactNative {
+//react-native "extends" react
+declare namespace  __React {
 
 
     /**
@@ -118,6 +121,7 @@ declare namespace  ReactNative {
     // @see lib.es6.d.ts
     export var Promise: PromiseConstructor;
 
+    //TODO: BGR: Replace with ComponentClass ?
     // node_modules/react-tools/src/classic/class/ReactClass.js
     export interface ReactClass<D, P, S> {
         // TODO:
@@ -3411,214 +3415,11 @@ declare namespace  ReactNative {
     export type DeviceEventSubscription = DeviceEventSubscriptionStatic
     export var InteractionManager: InteractionManagerStatic
 
-
     //////////////////////////////////////////////////////////////////////////
-    //
-    //  R E A C T  -  0 . 1 4
-    //
-    //////////////////////////////////////////////////////////////////////////
-
-
-    export type ReactType = React.ReactType;
-
-    export interface ReactElement<P> extends React.ReactElement<P> {}
-
-    export interface ClassicElement<P> extends React.ClassicElement<P> {}
-
-    export interface DOMElement<P> extends React.DOMElement<P> {}
-
-    export type HTMLElement =React.ReactHTMLElement;
-    export type SVGElement = React.ReactSVGElement;
-
-    //
-    // Factories
-    // ----------------------------------------------------------------------
-
-    export interface Factory<P> extends React.Factory<P> {}
-
-    export interface ClassicFactory<P> extends React.ClassicFactory<P> {}
-
-    export interface DOMFactory<P> extends React.DOMFactory<P> {}
-
-    export type HTMLFactory = React.HTMLFactory;
-    export type SVGFactory = React.SVGFactory;
-
-    //
-    // React Nodes
-    // http://facebook.github.io/react/docs/glossary.html
-    // ----------------------------------------------------------------------
-
-    export type ReactText = React.ReactText;
-    export type ReactChild = React.ReactChild;
-
-    // Should be Array<ReactNode> but type aliases cannot be recursive
-    export type ReactFragment = React.ReactFragment;
-    export type ReactNode = React.ReactNode;
-
-    //
-    // Top Level API
-    // ----------------------------------------------------------------------
-
-    export function createClass<P, S>( spec: React.ComponentSpec<P, S> ): React.ClassicComponentClass<P>;
-
-    export function createFactory<P>( type: string ): React.DOMFactory<P>;
-    export function createFactory<P>( type: React.ClassicComponentClass<P> | string ): React.ClassicFactory<P>;
-    export function createFactory<P>( type: React.ComponentClass<P> ): React.Factory<P>;
-
-    export function createElement<P>( type: string,
-                                      props?: P,
-                                      ...children: React.ReactNode[] ): React.DOMElement<P>;
-    export function createElement<P>( type: React.ClassicComponentClass<P> | string,
-                                      props?: P,
-                                      ...children: React.ReactNode[] ): React.ClassicElement<P>;
-    export function createElement<P>( type: React.ComponentClass<P>,
-                                      props?: P,
-                                      ...children: React.ReactNode[] ): React.ReactElement<P>;
-
-    export function cloneElement<P>( element: React.DOMElement<P>,
-                                     props?: P,
-                                     ...children: React.ReactNode[] ): React.DOMElement<P>;
-    export function cloneElement<P>( element: React.ClassicElement<P>,
-                                     props?: P,
-                                     ...children: React.ReactNode[] ): React.ClassicElement<P>;
-    export function cloneElement<P>( element: React.ReactElement<P>,
-                                     props?: P,
-                                     ...children: React.ReactNode[] ): React.ReactElement<P>;
-
-    export function isValidElement( object: {} ): boolean;
-
-    export var DOM: React.ReactDOM;
-    export var PropTypes: React.ReactPropTypes;
-    export var Children: React.ReactChildren;
-
-    //
-    // Component API
-    // ----------------------------------------------------------------------
-
-    // Base component for plain JS classes
-    export class Component<P, S> extends React.Component<P,S> {}
-
-    export interface ClassicComponent<P, S> extends React.ClassicComponent<P,S> {}
-
-    export interface DOMComponent<P> extends ClassicComponent<P, any> {
-        tagName: string;
-    }
-
-    export interface ChildContextProvider<CC> extends React.ChildContextProvider<CC> {}
-
-    //
-    // Class Interfaces
-    // ----------------------------------------------------------------------
-
-    export interface ComponentClass<P> extends React.ComponentClass<P> {}
-
-    export interface ClassicComponentClass<P> extends React.ClassicComponentClass<P> {}
-
-    //
-    // Component Specs and Lifecycle
-    // ----------------------------------------------------------------------
-
-    export interface ComponentLifecycle<P, S> extends React.ComponentLifecycle<P,S> {}
-
-    export interface Mixin<P, S> extends React.Mixin<P,S> {}
-
-    export interface ComponentSpec<P, S> extends React.ComponentSpec<P,S> {}
-
-    //
-    // Event System
-    // ----------------------------------------------------------------------
-
-    export interface SyntheticEvent extends React.SyntheticEvent {}
-
-    export interface DragEvent extends React.DragEvent {}
-
-    export interface ClipboardEvent extends React.ClipboardEvent {}
-
-    export interface KeyboardEvent extends React.KeyboardEvent {}
-
-
-    export interface FocusEvent extends React.FocusEvent {}
-
-    export interface FormEvent extends React.FormEvent {}
-
-    export interface MouseEvent extends React.MouseEvent {}
-
-    export interface TouchEvent extends React.TouchEvent {}
-
-    export interface UIEvent extends React.UIEvent {}
-
-    export interface WheelEvent extends React.WheelEvent {}
-
-    //
-    // Event Handler Types
-    // ----------------------------------------------------------------------
-
-    export interface EventHandler<E extends React.SyntheticEvent> extends React.EventHandler<E> {}
-
-    export interface DragEventHandler extends React.DragEventHandler {}
-    export interface ClipboardEventHandler extends React.ClipboardEventHandler {}
-    export interface KeyboardEventHandler extends React.KeyboardEventHandler {}
-    export interface FocusEventHandler extends React.FocusEventHandler {}
-    export interface FormEventHandler extends React.FormEventHandler {}
-    export interface MouseEventHandler extends React.MouseEventHandler {}
-    export interface TouchEventHandler extends React.TouchEventHandler {}
-    export interface UIEventHandler extends React.UIEventHandler {}
-    export interface WheelEventHandler extends React.WheelEventHandler {}
-
-    //
-    // Props / DOM Attributes
-    // ----------------------------------------------------------------------
-
-    export interface Props<T> extends React.Props<T> {}
-
-    export interface DOMAttributes extends React.DOMAttributes {}
-
-    // This interface is not complete. Only properties accepting
-    // unitless numbers are listed here (see CSSProperty.js in React)
-    export interface CSSProperties extends React.CSSProperties {}
-
-    export interface HTMLAttributes extends React.HTMLAttributes {}
-
-    export interface SVGAttributes extends React.SVGAttributes {}
-
-    //
-    // React.DOM
-    // ----------------------------------------------------------------------
-
-    export interface ReactDOM extends React.ReactDOM {}
-
-    //
-    // React.PropTypes
-    // ----------------------------------------------------------------------
-
-    export interface Validator<T> extends React.Validator<T> {}
-
-    export interface Requireable<T> extends React.Requireable<T> {}
-
-    export interface ValidationMap<T> extends React.ValidationMap<T> {}
-
-    export interface ReactPropTypes extends React.ReactPropTypes {}
-
-    //
-    // React.Children
-    // ----------------------------------------------------------------------
-
-    export interface ReactChildren extends React.ReactChildren {}
-
-    //
-    // Browser Interfaces
-    // https://github.com/nikeee/2048-typescript/blob/master/2048/js/touch.d.ts
-    // ----------------------------------------------------------------------
-
-    export interface AbstractView extends React.AbstractView {}
-
-    export interface Touch extends React.Touch {}
-
-    export interface TouchList extends React.TouchList {}
-
     //
     // Additional ( and controversial)
     //
+    //////////////////////////////////////////////////////////////////////////
 
     export function __spread( target: any, ...sources: any[] ): any;
 
@@ -3657,10 +3458,16 @@ declare namespace  ReactNative {
 
 declare module "react-native" {
 
+    import ReactNative = __React
     export default ReactNative
 }
 
+declare var global: __React.GlobalStatic
 
+declare function require( name: string ): any
+
+
+//TODO: BGR: this is a left-over from the initial port. Not sure it makes any sense
 declare module "Dimensions" {
     import React from 'react-native';
 
@@ -3671,7 +3478,3 @@ declare module "Dimensions" {
     var ExportDimensions: Dimensions;
     export = ExportDimensions;
 }
-
-declare var global: ReactNative.GlobalStatic
-
-declare function require( name: string ): any
