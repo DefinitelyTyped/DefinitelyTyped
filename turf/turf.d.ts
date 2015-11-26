@@ -436,7 +436,39 @@ declare module turf {
     // Classification
     //////////////////////////////////////////////////////
 
-    //////////////////////////////////////////////////////
-    // Types
-    //////////////////////////////////////////////////////
+    /**
+    * Takes a set of features and returns an array of the Jenks Natural breaks for a given property.
+    * @param input Input features
+    * @param field The property in input on which to calculate Jenks natural breaks
+    * @param numberOfBreaks Number of classes in which to group the data
+    * @returns The break number for each class plus the minimum and maximum values
+    */
+    function jenks(input: GeoJSON.FeatureCollection, field: string, numberOfBreaks: number): Array<number>;
+
+    /**
+    * Takes a reference point and a set of points and returns the point from the set closest to the reference.
+    * @param point The reference point
+    * @param against Input point set
+    * @returns The closest point in the set to the reference point
+    */
+    function nearest(point: GeoJSON.Feature, against: GeoJSON.FeatureCollection): GeoJSON.Feature;
+
+    /**
+    * Takes a FeatureCollection, a property name, and a set of percentiles and returns a quantile array.
+    * @param input Set of features
+    * @param field The property in input from which to retrieve quantile values
+    * @param percentiles An Array of percentiles on which to calculate quantile values
+    * @returns An array of the break values
+    */
+    function quantile(input: GeoJSON.FeatureCollection, field: string, percentiles: Array<number>): Array<number>;
+
+    /**
+    * Takes a FeatureCollection, an input field, an output field, and an array of translations and outputs an identical FeatureCollection with the output field property populated.
+    * @param input Set of input features
+    * @param inField The field to translate
+    * @param outField The field in which to store translated results
+    * @param translations An array of translations
+    * @returns A FeatureCollection with identical geometries to input but with outField populated.
+    */
+    function reclass(input: GeoJSON.FeatureCollection, inField: string, outField: string, translations: Array<any>): GeoJSON.FeatureCollection;
 }
