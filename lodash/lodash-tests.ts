@@ -4958,10 +4958,25 @@ result = <boolean>_({}).isDate();
 }
 
 // _.isElement
-result = <boolean>_.isElement(any);
-result = <boolean>_(42).isElement();
-result = <boolean>_<any>([]).isElement();
-result = <boolean>_({}).isElement();
+module TestIsElement {
+    {
+        let result: boolean;
+
+        result = _.isElement(any);
+
+        result = _(42).isElement();
+        result = _<any>([]).isElement();
+        result = _({}).isElement();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(42).chain().isElement();
+        result = _<any>([]).chain().isElement();
+        result = _({}).chain().isElement();
+    }
+}
 
 // _.isEmpty
 result = <boolean>_.isEmpty([1, 2, 3]);
