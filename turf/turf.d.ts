@@ -10,6 +10,94 @@ declare module turf {
     // Aggregation
     //////////////////////////////////////////////////////
 
+    /**
+    * Calculates a series of aggregations for a set of points within a set of polygons. Sum, average, count, min, max, and deviation are supported.
+    * @param polygons Polygons with values on which to aggregate
+    * @param points Points to be aggregated
+    * @param aggregations An array of aggregation objects
+    * @returns Polygons with properties listed based on outField values in aggregations
+    */
+    function aggregate(polygons: GeoJSON.FeatureCollection, points: GeoJSON.FeatureCollection, aggregations: Array<{aggregation: string, inField: string, outField: string}>): GeoJSON.FeatureCollection;
+
+    /**
+    * Calculates the average value of a field for a set of points within a set of polygons.
+    * @param polygons Polygons with values on which to average
+    * @param points Points from which to calculate the average
+    * @param field The field in the points features from which to pull values to average
+    * @param outField The field in polygons to put results of the averages
+    * @returns Polygons with the value of outField set to the calculated averages
+    */
+    function average(polygons: GeoJSON.FeatureCollection, points: GeoJSON.FeatureCollection, field: string, outField: string): GeoJSON.FeatureCollection;
+
+    /**
+    * Takes a set of points and a set of polygons and calculates the number of points that fall within the set of polygons.
+    * @param polygons Input polygons
+    * @param points Input points
+    * @param countField A field to append to the attributes of the Polygon features representing Point counts
+    * @returns Polygons with countField appended
+    */
+    function count(polygons: GeoJSON.FeatureCollection, points: GeoJSON.FeatureCollection, countField: string): GeoJSON.FeatureCollection;
+
+    /**
+    * Calculates the standard deviation value of a field for a set of points within a set of polygons.
+    * @param polygons Input polygons
+    * @param points Input points
+    * @param inField The field in points from which to aggregate
+    * @param outField The field to append to polygons representing deviation
+    * @returns Polygons with appended field representing deviation
+    */
+    function deviation(polygons: GeoJSON.FeatureCollection, points: GeoJSON.FeatureCollection, inField: string, outField: string): GeoJSON.FeatureCollection;
+
+    /**
+    * Calculates the maximum value of a field for a set of points within a set of polygons.
+    * @param polygons Input polygons
+    * @param points Input points
+    * @param inField The field in input data to analyze
+    * @param outField The field in which to store results
+    * @returns Polygons with properties listed as outField values
+    */
+    function max(polygons: GeoJSON.FeatureCollection, points: GeoJSON.FeatureCollection, inField: string, outField: string): GeoJSON.FeatureCollection;
+
+    /**
+    * Calculates the median value of a field for a set of points within a set of polygons.
+    * @param polygons Input polygons
+    * @param points Input points
+    * @param inField The field in input data to analyze
+    * @param outField The field in which to store results
+    * @returns Polygons with properties listed as outField values
+    */
+    function median(polygons: GeoJSON.FeatureCollection, points: GeoJSON.FeatureCollection, inField: string, outField: string): GeoJSON.FeatureCollection;
+
+    /**
+    * Calculates the minimum value of a field for a set of points within a set of polygons.
+    * @param polygons Input polygons
+    * @param points Input points
+    * @param inField The field in input data to analyze
+    * @param outField The field in which to store results
+    * @returns Polygons with properties listed as outField values
+    */
+    function min(polygons: GeoJSON.FeatureCollection, points: GeoJSON.FeatureCollection, inField: string, outField: string): GeoJSON.FeatureCollection;
+
+    /**
+    * Calculates the sum of a field for a set of points within a set of polygons.
+    * @param polygons Input polygons
+    * @param points Input points
+    * @param inField The field in input data to analyze
+    * @param outField The field in which to store results
+    * @returns Polygons with properties listed as outField
+    */
+    function sum(polygons: GeoJSON.FeatureCollection, points: GeoJSON.FeatureCollection, inField: string, outField: string): GeoJSON.FeatureCollection;
+
+    /**
+    * Calculates the variance value of a field for a set of points within a set of polygons.
+    * @param polygons Input polygons
+    * @param points Input points
+    * @param inField The field in input data to analyze
+    * @param outField The field in which to store results
+    * @returns Polygons with properties listed as outField
+    */
+    function variance(polygons: GeoJSON.FeatureCollection, points: GeoJSON.FeatureCollection, inField: string, outField: string): GeoJSON.FeatureCollection;
+
     //////////////////////////////////////////////////////
     // Measurement
     //////////////////////////////////////////////////////
