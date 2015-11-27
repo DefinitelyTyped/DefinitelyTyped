@@ -52,6 +52,7 @@ const nthbaseN:string[] = baseN.nth(3);
 
 const cartesianProduct1 = Combinatorics.cartesianProduct(["a", "b", "c"]);
 const nextCartesianProduct1:[string] = cartesianProduct1.next();
+const nextCartesianProduct1Char = nextCartesianProduct1[0].substr(0, 1);
 cartesianProduct1.forEach((i:[string]) => console.log(i));
 const cartesianProduct1sLengths:number[] = cartesianProduct1.map((i:[string]) => i.length);
 const filteredCartesianProduct1s:[string][] = cartesianProduct1.filter((i:[string]) => i.length > 0);
@@ -62,6 +63,8 @@ const cartesianProduct1ByCoords:[string] = cartesianProduct1.get(1);
 
 const cartesianProduct2 = Combinatorics.cartesianProduct(["a", "b", "c"], [1, 2, 3]);
 const nextCartesianProduct2:[string, number] = cartesianProduct2.next();
+const nextCartesianProduct2Char = nextCartesianProduct2[0].substr(0, 1);
+const nextCartesianProduct2Num = nextCartesianProduct2[1].toFixed(2);
 cartesianProduct2.forEach((i:[string, number]) => console.log(i));
 const cartesianProduct2sLengths:number[] = cartesianProduct2.map((i:[string, number]) => i.length);
 const filteredCartesianProduct2s:[string, number][] = cartesianProduct2.filter((i:[string, number]) => i.length > 0);
@@ -72,6 +75,9 @@ const cartesianProduct2ByCoords:[string, number] = cartesianProduct2.get(1, 1);
 
 const cartesianProduct3 = Combinatorics.cartesianProduct(["a", "b", "c"], [1, 2, 3], [true, false]);
 const nextCartesianProduct3:[string, number, boolean] = cartesianProduct3.next();
+const nextCartesianProduct3Char = nextCartesianProduct3[0].substr(0, 1);
+const nextCartesianProduct3Num = nextCartesianProduct3[1].toFixed(2);
+const nextCartesianProduct4Cond = nextCartesianProduct3[2] === true;
 cartesianProduct3.forEach((i:[string, number, boolean]) => console.log(i));
 const cartesianProduct3sLengths:number[] = cartesianProduct3.map((i:[string, number, boolean]) => i.length);
 const filteredCartesianProduct3s:[string, number, boolean][] = cartesianProduct3.filter((i:[string, number, boolean]) => i.length > 0);
