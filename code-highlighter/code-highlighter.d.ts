@@ -7,7 +7,4 @@ interface IHighlighter {
 	lateInit(delay?: number): void;
 }
 
-declare module "code-highlighter" {
-	var Highlighter: IHighlighter;
-	export = Highlighter;
-}
+declare var Highlighter: IHighlighter;
