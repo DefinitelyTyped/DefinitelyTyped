@@ -5,7 +5,7 @@
     ///<reference path="../jquery/jquery.d.ts"/>
 
 
-    //Run test : LobiboxTest.test()
+    //Run test : LobiboxTest.test() after window load event
 class LobiboxTest {
     static test() {
         // extending default parameters
@@ -138,3 +138,7 @@ class LobiboxTest {
         });
     }
 }
+
+window.onload = (): void => {
+  Notify.error("test");
+};
