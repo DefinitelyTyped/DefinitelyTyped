@@ -10544,6 +10544,39 @@ declare module _ {
         ): string;
     }
 
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.findLastKey
+         */
+        findLastKey<TValues>(
+            predicate?: DictionaryIterator<TValues, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<string>;
+
+        /**
+         * @see _.findLastKey
+         */
+        findLastKey(
+            predicate?: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<string>;
+
+        /**
+         * @see _.findLastKey
+         */
+        findLastKey(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitWrapper<string>;
+
+        /**
+         * @see _.findLastKey
+         */
+        findLastKey<TWhere extends Dictionary<any>>(
+            predicate?: TWhere
+        ): LoDashExplicitWrapper<string>;
+    }
+
     //_.forIn
     interface LoDashStatic {
         /**
