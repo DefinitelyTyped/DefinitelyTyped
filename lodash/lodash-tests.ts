@@ -2557,17 +2557,34 @@ module TestAny {
 }
 
 // _.at
-{
-    let testAtArray: TResult[];
-    let testAtList: _.List<TResult>;
-    let testAtDictionary: _.Dictionary<TResult>;
-    let result: TResult[];
-    result = _.at<TResult>(testAtArray, 0, '1', [2], ['3'], [4, '5']);
-    result = _.at<TResult>(testAtList, 0, '1', [2], ['3'], [4, '5']);
-    result = _.at<TResult>(testAtDictionary, 0, '1', [2], ['3'], [4, '5']);
-    result = _(testAtArray).at(0, '1', [2], ['3'], [4, '5']).value();
-    result = _(testAtList).at<TResult>(0, '1', [2], ['3'], [4, '5']).value();
-    result = _(testAtDictionary).at<TResult>(0, '1', [2], ['3'], [4, '5']).value();
+module TestAt {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
+
+    {
+        let result: TResult[];
+
+        result = _.at<TResult>(array, 0, '1', [2], ['3'], [4, '5']);
+        result = _.at<TResult>(list, 0, '1', [2], ['3'], [4, '5']);
+        result = _.at<TResult>(dictionary, 0, '1', [2], ['3'], [4, '5']);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).at(0, '1', [2], ['3'], [4, '5']);
+        result = _(list).at<TResult>(0, '1', [2], ['3'], [4, '5']);
+        result = _(dictionary).at<TResult>(0, '1', [2], ['3'], [4, '5']);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().at(0, '1', [2], ['3'], [4, '5']);
+        result = _(list).chain().at<TResult>(0, '1', [2], ['3'], [4, '5']);
+        result = _(dictionary).chain().at<TResult>(0, '1', [2], ['3'], [4, '5']);
+    }
 }
 
 // _.collect
@@ -4958,10 +4975,25 @@ result = <boolean>_({}).isDate();
 }
 
 // _.isElement
-result = <boolean>_.isElement(any);
-result = <boolean>_(42).isElement();
-result = <boolean>_<any>([]).isElement();
-result = <boolean>_({}).isElement();
+module TestIsElement {
+    {
+        let result: boolean;
+
+        result = _.isElement(any);
+
+        result = _(42).isElement();
+        result = _<any>([]).isElement();
+        result = _({}).isElement();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(42).chain().isElement();
+        result = _<any>([]).chain().isElement();
+        result = _({}).chain().isElement();
+    }
+}
 
 // _.isEmpty
 result = <boolean>_.isEmpty([1, 2, 3]);
@@ -5121,8 +5153,20 @@ result = <boolean>_({}).isString();
 }
 
 // _.isTypedArray
-result = <boolean>_.isTypedArray([]);
-result = <boolean>_([]).isTypedArray();
+module TestIsTypedArray {
+    {
+        let result: boolean;
+
+        result = _.isTypedArray([]);
+        result = _([]).isTypedArray();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _([]).chain().isTypedArray();
+    }
+}
 
 // _.isUndefined
 result = <boolean>_.isUndefined(any);
@@ -6008,10 +6052,9 @@ module TestExtend {
 
 // _.findKey
 module TestFindKey {
-    let result: string;
-
     {
         let predicateFn: (value: any, key?: string, object?: {}) => boolean;
+        let result: string;
 
         result = _.findKey<{a: string;}>({a: ''});
 
@@ -6038,12 +6081,37 @@ module TestFindKey {
 
     {
         let predicateFn: (value: string, key?: string, collection?: _.Dictionary<string>) => boolean;
+        let result: string;
 
         result = _.findKey<string, {a: string;}>({a: ''}, predicateFn);
         result = _.findKey<string, {a: string;}>({a: ''}, predicateFn, any);
 
         result = _<{a: string;}>({a: ''}).findKey<string>(predicateFn);
         result = _<{a: string;}>({a: ''}).findKey<string>(predicateFn, any);
+    }
+
+    {
+        let predicateFn: (value: any, key?: string, object?: {}) => boolean;
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _<{a: string;}>({a: ''}).chain().findKey();
+
+        result = _<{a: string;}>({a: ''}).chain().findKey(predicateFn);
+        result = _<{a: string;}>({a: ''}).chain().findKey(predicateFn, any);
+
+
+        result = _<{a: string;}>({a: ''}).chain().findKey('');
+        result = _<{a: string;}>({a: ''}).chain().findKey('', any);
+
+        result = _<{a: string;}>({a: ''}).chain().findKey<{a: number;}>({a: 42});
+    }
+
+    {
+        let predicateFn: (value: string, key?: string, collection?: _.Dictionary<string>) => boolean;
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _<{a: string;}>({a: ''}).chain().findKey<string>(predicateFn);
+        result = _<{a: string;}>({a: ''}).chain().findKey<string>(predicateFn, any);
     }
 }
 
@@ -6362,8 +6430,28 @@ module TestKeys {
     }
 }
 
-result = <string[]>_.keysIn({ 'one': 1, 'two': 2, 'three': 3 });
-result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keysIn().value();
+// _.keysIn
+module TestKeysIn {
+    let object: _.Dictionary<any>;
+
+    {
+        let result: string[];
+
+        result = _.keysIn(object);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _(object).keysIn();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _(object).chain().keysIn();
+    }
+}
 
 // _.mapKeys
 module TestMapKeys {
@@ -6729,17 +6817,28 @@ module TestValues {
     }
 }
 
-// _.valueIn
-class TestValueIn {
-    public a = 1;
-    public b = 2;
-    public c: number;
+// _.valuesIn
+module TestValuesIn {
+    let object: _.Dictionary<TResult>;
+
+    {
+        let result: TResult[];
+
+        result = _.valuesIn<TResult>(object);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(object).valuesIn<TResult>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(object).chain().valuesIn<TResult>();
+    }
 }
-TestValueIn.prototype.c = 3;
-result = <number[]>_.valuesIn<number>(new TestValueIn());
-// → [1, 2, 3]
-result = <number[]>_(new TestValueIn()).valuesIn<number>().value();
-// → [1, 2, 3]
 
 /**********
  * String *

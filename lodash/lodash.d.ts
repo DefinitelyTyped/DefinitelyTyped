@@ -3793,7 +3793,7 @@ declare module _ {
          */
         at<T>(
             collection: List<T>|Dictionary<T>,
-            ...props: Array<number|string|Array<number|string>>
+            ...props: (number|string|(number|string)[])[]
         ): T[];
     }
 
@@ -3801,14 +3801,28 @@ declare module _ {
         /**
          * @see _.at
          */
-        at(...props: Array<number|string|Array<number|string>>): LoDashImplicitArrayWrapper<T>;
+        at(...props: (number|string|(number|string)[])[]): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.at
          */
-        at<TResult>(...props: Array<number|string|Array<number|string>>): LoDashImplicitArrayWrapper<TResult>;
+        at<T>(...props: (number|string|(number|string)[])[]): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.at
+         */
+        at(...props: (number|string|(number|string)[])[]): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.at
+         */
+        at<T>(...props: (number|string|(number|string)[])[]): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.collect
@@ -8693,6 +8707,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is a DOM element.
+         *
          * @param value The value to check.
          * @return Returns true if value is a DOM element, else false.
          */
@@ -8704,6 +8719,13 @@ declare module _ {
          * @see _.isElement
          */
         isElement(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isElement
+         */
+        isElement(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isEmpty
@@ -9005,6 +9027,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is classified as a typed array.
+         *
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          */
@@ -9016,6 +9039,13 @@ declare module _ {
          * see _.isTypedArray
          */
         isTypedArray(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * see _.isTypedArray
+         */
+        isTypedArray(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isUndefined
@@ -10396,6 +10426,39 @@ declare module _ {
         ): string;
     }
 
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.findKey
+         */
+        findKey<TValues>(
+            predicate?: DictionaryIterator<TValues, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<string>;
+
+        /**
+         * @see _.findKey
+         */
+        findKey(
+            predicate?: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<string>;
+
+        /**
+         * @see _.findKey
+         */
+        findKey(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitWrapper<string>;
+
+        /**
+         * @see _.findKey
+         */
+        findKey<TWhere extends Dictionary<any>>(
+            predicate?: TWhere
+        ): LoDashExplicitWrapper<string>;
+    }
+
     //_.findLastKey
     interface LoDashStatic {
         /**
@@ -10775,6 +10838,8 @@ declare module _ {
         /**
          * Creates an array of the own enumerable property names of object.
          *
+         * Note: Non-object values are coerced to objects. See the ES spec for more details.
+         *
          * @param object The object to query.
          * @return Returns the array of property names.
          */
@@ -10799,17 +10864,27 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Creates an array of the own and inherited enumerable property names of object.
+         *
+         * Note: Non-object values are coerced to objects.
+         *
          * @param object The object to query.
          * @return An array of property names.
-         **/
+         */
         keysIn(object?: any): string[];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.keysIn
-         **/
-        keysIn(): LoDashImplicitArrayWrapper<string>
+         */
+        keysIn(): LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.keysIn
+         */
+        keysIn(): LoDashExplicitArrayWrapper<string>;
     }
 
     //_.mapKeys
@@ -11477,18 +11552,26 @@ declare module _ {
     //_.valuesIn
     interface LoDashStatic {
         /**
-        * Creates an array of the own and inherited enumerable property values of object.
-        * @param object The object to query.
-        * @return Returns the array of property values.
-        **/
+         * Creates an array of the own and inherited enumerable property values of object.
+         *
+         * @param object The object to query.
+         * @return Returns the array of property values.
+         */
         valuesIn<T>(object?: any): T[];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.valuesIn
-        **/
-        valuesIn<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+         * @see _.valuesIn
+         */
+        valuesIn<T>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.valuesIn
+         */
+        valuesIn<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
     /**********
