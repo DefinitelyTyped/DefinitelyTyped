@@ -26,6 +26,9 @@ declare module "watch" {
 		ignoreDotFiles?: boolean;
 		filter?: any;
 		interval?: number;
+		ignoreUnreadableDir?:boolean;
+		ignoreNotPermitted ?:boolean;
+		ignoreDirectoryPattern?: RegExp;
 	}
 
 	export function watchTree(root: string, callback: (f: any, curr: fs.Stats, prev: fs.Stats) => void): void;
