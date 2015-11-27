@@ -140,5 +140,5 @@ class LobiboxTest {
 }
 
 window.onload = (): void => {
-  Notify.error("test");
+  LobiboxTest.test();
 };
