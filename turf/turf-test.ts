@@ -215,9 +215,79 @@ var triangle = {
   }
 };
 
+var aggregations = [
+  {
+    aggregation: 'sum',
+    inField: 'population',
+    outField: 'pop_sum'
+  },
+  {
+    aggregation: 'average',
+    inField: 'population',
+    outField: 'pop_avg'
+  },
+  {
+    aggregation: 'median',
+    inField: 'population',
+    outField: 'pop_median'
+  },
+  {
+    aggregation: 'min',
+    inField: 'population',
+    outField: 'pop_min'
+  },
+  {
+    aggregation: 'max',
+    inField: 'population',
+    outField: 'pop_max'
+  },
+  {
+    aggregation: 'deviation',
+    inField: 'population',
+    outField: 'pop_deviation'
+  },
+  {
+    aggregation: 'variance',
+    inField: 'population',
+    outField: 'pop_variance'
+  },
+  {
+    aggregation: 'count',
+    inField: '',
+    outField: 'point_count'
+  }
+];
+
 //////////////////////////////////////////////////////////////////////////
 // Tests Aggregation
 //////////////////////////////////////////////////////////////////////////
+
+// -- Test aggregate --
+var aggregated = turf.aggregate(polygons, points, aggregations);
+
+// -- Test average --
+var averaged = turf.average(polygons, points, 'population', 'pop_avg');
+
+// -- Test count --
+var counted = turf.count(polygons, points, 'pt_count');
+
+// -- Test deviation --
+var deviated = turf.deviation(polygons, points, 'population', 'pop_deviation');
+
+// -- Test max --
+var aggregated = turf.max(polygons, points, 'population', 'max');
+
+// -- Test median --
+var medians = turf.median(polygons, points, 'population', 'median');
+
+// -- Test min --
+var minimums = turf.min(polygons, points, 'population', 'min');
+
+// -- Test sum --
+var summed = turf.sum(polygons, points, 'population', 'sum');
+
+// -- Test variance --
+var varianced = turf.variance(polygons, points, 'population', 'variance');
 
 //////////////////////////////////////////////////////////////////////////
 // Tests Measurement
