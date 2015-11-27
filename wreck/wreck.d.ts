@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module Wreck
+declare module "wreck"
 {
     import http = require('http');
     import stream = require('stream');
@@ -15,17 +15,17 @@ declare module Wreck
     {
         defaults: (options: any) => IWreckObject;
 
-        request: (method: string, uri: string, options: any = null, callback: (err: any, response: http.IncomingMessage) => void = null) => http.ClientRequest;
+        request: (method: string, uri: string, options: any, callback?: (err: any, response: http.IncomingMessage) => void) => http.ClientRequest;
 
         read: (response: http.IncomingMessage, options: any, callback: (err: any, payload: any) => void) => void;
 
-        get: (uri: string, options: any = null, callback: (err: any, response: http.IncomingMessage, payload: any) => void = null) => http.ClientRequest;
-        post: (uri: string, options: any = null, callback: (err: any, response: http.IncomingMessage, payload: any) => void = null) => http.ClientRequest;
-        patch: (uri: string, options: any = null, callback: (err: any, response: http.IncomingMessage, payload: any) => void = null) => http.ClientRequest;
-        put: (uri: string, options: any = null, callback: (err: any, response: http.IncomingMessage, payload: any) => void = null) => http.ClientRequest;
-        delete: (uri: string, options: any = null, callback: (err: any, response: http.IncomingMessage, payload: any) => void = null) => http.ClientRequest;
+        get: (uri: string, options: any, callback: (err: any, response: http.IncomingMessage, payload: any) => void) => http.ClientRequest;
+        post: (uri: string, options: any, callback: (err: any, response: http.IncomingMessage, payload: any) => void) => http.ClientRequest;
+        patch: (uri: string, options: any, callback: (err: any, response: http.IncomingMessage, payload: any) => void) => http.ClientRequest;
+        put: (uri: string, options: any, callback: (err: any, response: http.IncomingMessage, payload: any) => void) => http.ClientRequest;
+        delete: (uri: string, options: any, callback: (err: any, response: http.IncomingMessage, payload: any) => void) => http.ClientRequest;
 
-        toReadableStream: (payload: any, encoding: string = null) => stream.Readable;
+        toReadableStream: (payload: any, encoding?: string) => stream.Readable;
 
         parseCacheControl: (field: string) => any;
 
@@ -35,11 +35,7 @@ declare module Wreck
         };
     }
 
-}
-
-declare module "wreck"
-{
-    var wreck: Wreck.IWreckObject;
+    var wreck: IWreckObject;
 
     export = wreck;
 }

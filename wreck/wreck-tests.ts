@@ -2,7 +2,7 @@
 
 import Wreck = require('wreck');
 
-Wreck.get('https://google.com/', function (err, res, payload) {
+Wreck.get('https://google.com/', {}, function (err: any, res: any, payload: any) {
     /* do stuff */
 });
 
@@ -23,17 +23,15 @@ var wreckWithTimeout = wreck.defaults({
 // all attributes are optional
 var options = {
     maxBytes:  1048576, // 1 MB, default: unlimited
-    rejectUnauthorized: true,
-    downstreamRes: null,
-    agent: null,         // Node Core http.Agent
+    rejectUnauthorized: true
 };
 
-var optionalCallback = function (err, res) {
+var optionalCallback = function (err: any, res: any) {
 
     /* handle err if it exists, in which case res will be undefined */
 
     // buffer the response stream
-    Wreck.read(res, null, function (err, body) {
+    Wreck.read(res, null, function (err: any, body: any) {
         /* do stuff */
     });
 };
