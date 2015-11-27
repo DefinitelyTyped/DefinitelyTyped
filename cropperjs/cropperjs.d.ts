@@ -223,7 +223,7 @@ declare module cropperjs{
 
 		}
 }
-declare var cropper: typeof cropperjs.Cropper;
+declare var Cropper: typeof cropperjs.Cropper;
 declare module "cropperjs"{
-	export = cropper;
+	export = Cropper;
 }
