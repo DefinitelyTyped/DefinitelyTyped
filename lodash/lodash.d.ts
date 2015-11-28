@@ -7913,22 +7913,31 @@ declare module _ {
     //_.defer
     interface LoDashStatic {
         /**
-        * Defers executing the func function until the current call stack has cleared. Additional
-        * arguments will be provided to func when it is invoked.
-        * @param func The function to defer.
-        * @param args Arguments to invoke the function with.
-        * @return The timer id.
-        **/
-        defer(
-            func: Function,
-            ...args: any[]): number;
+         * Defers invoking the func until the current call stack has cleared. Any additional arguments are provided to
+         * func when it’s invoked.
+         *
+         * @param func The function to defer.
+         * @param args The arguments to invoke the function with.
+         * @return Returns the timer id.
+         */
+        defer<T extends Function>(
+            func: T,
+            ...args: any[]
+        ): number;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.defer
-        **/
+         * @see _.defer
+         */
         defer(...args: any[]): LoDashImplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.defer
+         */
+        defer(...args: any[]): LoDashExplicitWrapper<number>;
     }
 
     //_.delay
