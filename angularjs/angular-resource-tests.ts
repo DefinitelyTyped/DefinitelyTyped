@@ -8,10 +8,24 @@ interface IMyResourceClass extends angular.resource.IResourceClass<IMyResource> 
 ///////////////////////////////////////
 var actionDescriptor: angular.resource.IActionDescriptor;
 
-actionDescriptor.headers = { header: 'value' };
-actionDescriptor.isArray = true;
-actionDescriptor.method = 'method action';
-actionDescriptor.params = { key: 'value' };
+angular.injector(['ng']).invoke(function ($cacheFactory: angular.ICacheFactoryService, $timeout: angular.ITimeoutService) {
+    actionDescriptor.method = 'method action';
+    actionDescriptor.params = { key: 'value' };
+    actionDescriptor.url = '/api/test-url/';
+    actionDescriptor.isArray = true;
+    actionDescriptor.transformRequest = function () { };
+    actionDescriptor.transformRequest = [function () { }];
+    actionDescriptor.transformResponse = function () { };
+    actionDescriptor.transformResponse = [function () { }];
+    actionDescriptor.headers = { header: 'value' };
+    actionDescriptor.cache = true;
+    actionDescriptor.cache = $cacheFactory('cacheId');
+    actionDescriptor.timeout = 1000;
+    actionDescriptor.timeout = $timeout(function () { });
+    actionDescriptor.withCredentials = true;
+    actionDescriptor.responseType = 'response type';
+    actionDescriptor.interceptor = { key: 'value' };
+});
 
 
 ///////////////////////////////////////
@@ -136,3 +150,10 @@ mod = mod.factory('factory name', resourceServiceFactoryFunction);
 ///////////////////////////////////////
 // IResource
 ///////////////////////////////////////
+
+
+///////////////////////////////////////
+// IResourceServiceProvider
+///////////////////////////////////////
+var resourceServiceProvider: angular.resource.IResourceServiceProvider;
+resourceServiceProvider.defaults.stripTrailingSlashes = false;

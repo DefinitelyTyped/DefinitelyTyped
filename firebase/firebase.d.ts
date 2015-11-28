@@ -1,6 +1,6 @@
 // Type definitions for Firebase API 2.0.2
 // Project: https://www.firebase.com/docs/javascript/firebase
-// Definitions by: Vincent Botone <https://github.com/vbortone/>, Shin1 Kashimura <https://github.com/in-async/>
+// Definitions by: Vincent Botone <https://github.com/vbortone/>, Shin1 Kashimura <https://github.com/in-async/>, Sebastien Dubois <https://github.com/dsebastien/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface FirebaseAuthResult {
@@ -9,6 +9,11 @@ interface FirebaseAuthResult {
 }
 
 interface FirebaseDataSnapshot {
+	/**
+	 * Returns true if this DataSnapshot contains any data.
+	 * It is slightly more efficient than using snapshot.val() !== null.
+	 */
+	exists(): boolean;
 	/**
 	 * Gets the JavaScript object representation of the DataSnapshot.
 	 */
@@ -60,23 +65,23 @@ interface FirebaseDataSnapshot {
 
 interface FirebaseOnDisconnect {
 	/**
-	 * Ensures the data at this location is set to the specified value when the client is disconnected 
+	 * Ensures the data at this location is set to the specified value when the client is disconnected
 	 * (due to closing the browser, navigating to a new page, or network issues).
 	 */
 	set(value: any, onComplete?: (error: any) => void): void;
 	/**
-	 * Ensures the data at this location is set to the specified value and priority when the client is disconnected 
+	 * Ensures the data at this location is set to the specified value and priority when the client is disconnected
 	 * (due to closing the browser, navigating to a new page, or network issues).
 	 */
 	setWithPriority(value: any, priority: string, onComplete?: (error: any) => void): void;
 	setWithPriority(value: any, priority: number, onComplete?: (error: any) => void): void;
 	/**
-	 * Writes the enumerated children at this Firebase location when the client is disconnected 
+	 * Writes the enumerated children at this Firebase location when the client is disconnected
 	 * (due to closing the browser, navigating to a new page, or network issues).
 	 */
 	update(value: Object, onComplete?: (error: any) => void): void;
 	/**
-	 * Ensures the data at this location is deleted when the client is disconnected 
+	 * Ensures the data at this location is deleted when the client is disconnected
 	 * (due to closing the browser, navigating to a new page, or network issues).
 	 */
 	remove(onComplete?: (error: any) => void): void;
@@ -109,6 +114,10 @@ interface FirebaseQuery {
 	 */
 	orderByKey(): FirebaseQuery;
 	/**
+	 * Generates a new Query object ordered by child values.
+	 */
+	orderByValue(): FirebaseQuery;
+	/**
 	 * Generates a new Query object ordered by priority.
 	 */
 	orderByPriority(): FirebaseQuery;
@@ -118,13 +127,13 @@ interface FirebaseQuery {
 	 */
 	limit(limit: number): FirebaseQuery;
 	/**
-	 * Creates a Query with the specified starting point. 
+	 * Creates a Query with the specified starting point.
 	 * The generated Query includes children which match the specified starting point.
 	 */
 	startAt(value: string, key?: string): FirebaseQuery;
 	startAt(value: number, key?: string): FirebaseQuery;
 	/**
-	 * Creates a Query with the specified ending point. 
+	 * Creates a Query with the specified ending point.
 	 * The generated Query includes children which match the specified ending point.
 	 */
 	endAt(value: string, key?: string): FirebaseQuery;
@@ -254,11 +263,15 @@ interface Firebase extends FirebaseQuery {
 	/**
 	 * Creates a new user account using an email / password combination.
 	 */
-	createUser(credentials: FirebaseCredentials, onComplete: (error: any) => void): void;
+	createUser(credentials: FirebaseCredentials, onComplete: (error: any, userData: any) => void): void;
+	/**
+	 * Updates the email associated with an email / password user account.
+	 */
+	changeEmail(credentials: FirebaseChangeEmailCredentials, onComplete: (error: any) => void): void;
 	/**
 	 * Change the password of an existing user using an email / password combination.
 	 */
-	changePassword(credentials: { email: string; oldPassword: string; newPassword: string }, onComplete: (error: any) => void): void;
+	changePassword(credentials: FirebaseChangePasswordCredentials, onComplete: (error: any) => void): void;
 	/**
 	 * Removes an existing user account using an email / password combination.
 	 */
@@ -266,7 +279,7 @@ interface Firebase extends FirebaseQuery {
 	/**
 	 * Sends a password-reset email to the owner of the account, containing a token that may be used to authenticate and change the user password.
 	 */
-	resetPassword(credentials: { email: string }, onComplete: (error: any) => void): void;
+	resetPassword(credentials: FirebaseResetPasswordCredentials, onComplete: (error: any) => void): void;
 	onDisconnect(): FirebaseOnDisconnect;
 }
 interface FirebaseStatic {
@@ -285,13 +298,17 @@ interface FirebaseStatic {
 
 	ServerValue: {
 		/**
-		 * A placeholder value for auto-populating the current timestamp 
+		 * A placeholder value for auto-populating the current timestamp
 		 * (time since the Unix epoch, in milliseconds) by the Firebase servers.
 		 */
 		TIMESTAMP: any;
 	};
 }
 declare var Firebase: FirebaseStatic;
+
+declare module 'firebase' {
+	export = Firebase;
+}
 
 // Reference: https://www.firebase.com/docs/web/api/firebase/getauth.html
 interface FirebaseAuthData {
@@ -300,9 +317,46 @@ interface FirebaseAuthData {
 	token: string;
 	expires: number;
 	auth: Object;
+	google?: FirebaseAuthDataGoogle;
+}
+
+interface FirebaseAuthDataGoogle {
+	accessToken: string;
+	cachedUserProfile: FirebaseAuthDataGoogleCachedUserProfile;
+	displayName: string;
+	email?: string;
+	id: string;
+	profileImageURL: string;
+}
+
+interface FirebaseAuthDataGoogleCachedUserProfile {
+	"family name"?: string;
+	gender?: string;
+	"given name"?: string;
+	id?: string;
+	link?: string;
+	locale?: string;
+	name?: string;
+	picture?: string;
 }
 
 interface FirebaseCredentials {
 	email: string;
 	password: string;
+}
+
+interface FirebaseChangePasswordCredentials {
+	email: string;
+	oldPassword: string;
+	newPassword: string;
+}
+
+interface FirebaseChangeEmailCredentials {
+	oldEmail: string;
+	newEmail: string;
+	password: string;
+}
+
+interface FirebaseResetPasswordCredentials {
+	email: string;
 }

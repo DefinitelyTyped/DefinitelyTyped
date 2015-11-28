@@ -41,18 +41,6 @@ declare module _ {
 		escape?: RegExp;
 	}
 
-	interface ListIterator<T, TResult> {
-		(value: T, index: number, list: T[]): TResult;
-	}
-
-	interface ObjectIterator<T, TResult> {
-		(element: T, key: string, list: any): TResult;
-	}
-
-	interface MemoIterator<T, TResult> {
-		(prev: TResult, curr: T, index: number, list: T[]): TResult;
-	}
-
 	interface Collection<T> { }
 
 	// Common interface between Arrays and jQuery objects
@@ -63,6 +51,22 @@ declare module _ {
 
 	interface Dictionary<T> extends Collection<T> {
 		[index: string]: T;
+	}
+
+	interface ListIterator<T, TResult> {
+		(value: T, index: number, list: List<T>): TResult;
+	}
+
+	interface ObjectIterator<T, TResult> {
+		(element: T, key: string, list: Dictionary<T>): TResult;
+	}
+
+	interface MemoIterator<T, TResult> {
+		(prev: TResult, curr: T, index: number, list: List<T>): TResult;
+	}
+
+	interface MemoObjectIterator<T, TResult> {
+		(prev: TResult, curr: T, key: string, list: Dictionary<T>): TResult;
 	}
 }
 
@@ -181,7 +185,7 @@ interface UnderscoreStatic {
 
 	reduce<T, TResult>(
 		list: _.Dictionary<T>,
-		iterator: _.ObjectIterator<T, TResult>,
+		iterator: _.MemoObjectIterator<T, TResult>,
 		memo?: TResult,
 		context?: any): TResult;
 
@@ -253,6 +257,20 @@ interface UnderscoreStatic {
 	/**
 	* @see _.find
 	**/
+	find<T, U extends {}>(
+		object: _.List<T>|_.Dictionary<T>,
+		iterator: U): T;
+
+	/**
+	* @see _.find
+	**/
+	find<T>(
+		object: _.List<T>|_.Dictionary<T>,
+		iterator: string): T;
+
+	/**
+	* @see _.find
+	**/
 	detect<T>(
 		list: _.List<T>,
 		iterator: _.ListIterator<T, boolean>,
@@ -265,6 +283,20 @@ interface UnderscoreStatic {
 		object: _.Dictionary<T>,
 		iterator: _.ObjectIterator<T, boolean>,
         context?: any): T;
+
+	/**
+	* @see _.find
+	**/
+	detect<T, U extends {}>(
+		object: _.List<T>|_.Dictionary<T>,
+		iterator: U): T;
+
+	/**
+	* @see _.find
+	**/
+	detect<T>(
+		object: _.List<T>|_.Dictionary<T>,
+		iterator: string): T;
 
     /**
 	* Looks through each value in the list, returning the index of the first one that passes a truth
@@ -1166,6 +1198,31 @@ interface UnderscoreStatic {
 	* @return List of all the values on `object`.
 	**/
 	values(object: any): any[];
+    
+    /**
+     * Like map, but for objects. Transform the value of each property in turn.
+     * @param object The object to transform
+     * @param iteratee The function that transforms property values
+     * @param context The optional context (value of `this`) to bind to
+     * @return a new _.Dictionary of property values
+     */
+    mapObject<T, U>(object: _.Dictionary<T>, iteratee: (val: T, key: string, object: _.Dictionary<T>) => U, context?: any): _.Dictionary<U>;
+    
+    /**
+     * Like map, but for objects. Transform the value of each property in turn.
+     * @param object The object to transform
+     * @param iteratee The function that tranforms property values
+     * @param context The optional context (value of `this`) to bind to
+     */
+    mapObject<T>(object: any, iteratee: (val: any, key: string, object: any) => T, context?: any): _.Dictionary<T>;
+    
+    /**
+     * Like map, but for objects. Retrieves a property from each entry in the object, as if by _.property
+     * @param object The object to transform
+     * @param iteratee The property name to retrieve
+     * @param context The optional context (value of `this`) to bind to
+     */
+    mapObject(object: any, iteratee: string, context?: any): _.Dictionary<any>;
 
 	/**
 	* Convert an object into a list of [key, value] pairs.
@@ -1206,6 +1263,20 @@ interface UnderscoreStatic {
 	extend(
 		destination: any,
 		...sources: any[]): any;
+
+	/**
+	* Like extend, but only copies own properties over to the destination object. (alias: assign)
+	*/
+	extendOwn(
+		destination: any,
+		...source: any[]): any;
+		
+	/**
+	* Like extend, but only copies own properties over to the destination object. (alias: extendOwn)
+	*/
+	assign(
+		destination: any,
+		...source: any[]): any;
 
 	/**
 	* Return a copy of the object, filtered to only have values for the whitelisted keys
@@ -1571,13 +1642,6 @@ interface UnderscoreStatic {
 	**/
 	chain<T>(obj: T[]): _Chain<T>;
 	chain<T extends {}>(obj: T): _Chain<T>;
-
-	/**
-	* Extracts the value of a wrapped object.
-	* @param obj Wrapped object to extract the value from.
-	* @return Value of `obj`.
-	**/
-	value<T, TResult>(obj: T): TResult;
 }
 
 interface Underscore<T> {
@@ -1660,12 +1724,32 @@ interface Underscore<T> {
 	* Wrapped type `any[]`.
 	* @see _.find
 	**/
-	find(iterator: _.ListIterator<T, boolean>, context?: any): T;
+	find<T>(iterator: _.ListIterator<T, boolean>|_.ObjectIterator<T, boolean>, context?: any): T;
 
 	/**
 	* @see _.find
 	**/
-	detect(iterator: _.ListIterator<T, boolean>, context?: any): T;
+	find<T, U extends {}>(interator: U): T;
+
+	/**
+	* @see _.find
+	**/
+	find<T>(interator: string): T;
+
+	/**
+	* @see _.find
+	**/
+	detect<T>(iterator: _.ListIterator<T, boolean>|_.ObjectIterator<T, boolean>, context?: any): T;
+
+	/**
+	* @see _.find
+	**/
+	detect<T, U extends {}>(interator?: U): T;
+
+	/**
+	* @see _.find
+	**/
+	detect<T>(interator?: string): T;
 
 	/**
 	* Wrapped type `any[]`.
@@ -2183,8 +2267,8 @@ interface Underscore<T> {
 	* Wrapped type `object`.
 	* @see _.pick
 	**/
-	pick(...keys: string[]): any;
-	pick(keys: string[]): any;
+	pick(...keys: any[]): any;
+	pick(keys: any[]): any;
 	pick(fn: (value: any, key: any, object: any) => any): any;
 
 	/**
@@ -2420,7 +2504,8 @@ interface Underscore<T> {
 
 	/**
 	* Wrapped type `any`.
-	* @see _.value
+	* Extracts the value of a wrapped object.
+	* @return Value of the wrapped object.
 	**/
 	value<TResult>(): TResult;
 }
@@ -2517,12 +2602,32 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.find
 	**/
-	find(iterator: _.ListIterator<T, boolean>, context?: any): _ChainSingle<T>;
+	find<T>(iterator: _.ListIterator<T, boolean>|_.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T>;
 
 	/**
 	* @see _.find
 	**/
-	detect(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+	find<T, U extends {}>(interator: U): _ChainSingle<T>;
+
+	/**
+	* @see _.find
+	**/
+	find<T>(interator: string): _ChainSingle<T>;
+
+	/**
+	* @see _.find
+	**/
+	detect<T>(iterator: _.ListIterator<T, boolean>|_.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T>;
+
+	/**
+	* @see _.find
+	**/
+	detect<T, U extends {}>(interator: U): _ChainSingle<T>;
+
+	/**
+	* @see _.find
+	**/
+	detect<T>(interator: string): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
@@ -2804,7 +2909,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.partition
 	**/
-	partition(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T[][]>;
+	partition(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T[]>;
 
 	/**
 	* Wrapped type `any[][]`.
@@ -3040,7 +3145,8 @@ interface _Chain<T> {
 	* Wrapped type `object`.
 	* @see _.pick
 	**/
-	pick(...keys: string[]): _Chain<T>;
+	pick(...keys: any[]): _Chain<T>;
+	pick(keys: any[]): _Chain<T>;
 	pick(fn: (value: any, key: any, object: any) => any): _Chain<T>;
 
 	/**

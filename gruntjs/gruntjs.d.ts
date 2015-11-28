@@ -192,6 +192,12 @@ declare module grunt {
              */
             requires(prop: string, ...andProps: string[]): void
             requires(prop: string[], ...andProps: string[][]): void
+            
+            /**
+             * Recursively merges properties of the specified configObject into the current project configuration.
+             * You can use this method to append configuration options, targets, etc., to already defined tasks.
+             */
+            merge<T>(configObject: T): void;
         }
     }
 
@@ -604,7 +610,7 @@ declare module grunt {
             /**
              * All {@link IExpandedFilesConfig.src} matches are relative to (but don't include) this path.
              */
-            cwd?: boolean
+            cwd?: string
 
             /**
              * Replace any existing extension with this value in generated {@link IExpandedFilesConfig.dest} paths.

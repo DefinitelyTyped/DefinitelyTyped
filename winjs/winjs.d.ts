@@ -4,18 +4,12 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /* *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved. 
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0  
- 
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE, 
-MERCHANTABLITY OR NON-INFRINGEMENT. 
- 
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
+Copyright (c) Microsoft Corporation. All rights reserved.
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ""Software""), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ***************************************************************************** */
 
 /**
@@ -58,6 +52,11 @@ interface IOHelper {
      * @returns A promise that is completed when the file has been written.
      **/
     writeText(fileName: string, text: string): WinJS.Promise<number>;
+
+    /**
+     * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
+    **/
+    storage: any;
 }
 
 /**
@@ -87,16 +86,6 @@ declare module WinJS.Application {
     var sessionState: any;
 
     //#endregion Objects
-
-    //#region Methods
-
-    /**
-     * Informs the application object that asynchronous work is being performed, and that this event handler should not be considered complete until the promise completes. This function can be set inside the handlers for all WinJS.Application events: onactivated oncheckpoint onerror onloaded onready onsettings onunload.
-     * @param promise The promise that should complete before processing is complete.
-    **/
-    function setPromise(promise: Promise<any>): void;
-
-    //#endregion Methods
 
     //#region Functions
 
@@ -141,47 +130,61 @@ declare module WinJS.Application {
 
     //#region Events
 
+    interface IPromiseEvent extends CustomEvent {
+        /**
+         * Informs the application object that asynchronous work is being performed, and that this event handler should not be considered complete until the promise completes. This function can be set inside the handlers for all WinJS.Application events: onactivated oncheckpoint onerror onloaded onready onsettings onunload.
+         * @param promise The promise that should complete before processing is complete.
+        **/
+        setPromise(promise: IPromise<any>): void;
+    }
+
     /**
      * Occurs when WinRT activation has occurred. The name of this event is "activated" (and also "mainwindowactivated"). This event occurs after the loaded event and before the ready event.
      * @param eventInfo An object that contains information about the event. For more information about event arguments, see the WinRT event argument classes: WebUICachedFileUpdaterActivatedEventArgs, WebUICameraSettingsActivatedEventArgs, WebUIContactPickerActivatedEventArgs, WebUIDeviceActivatedEventArgs, WebUIFileActivatedEventArgs, WebUIFileOpenPickerActivatedEventArgs, WebUIFileSavePickerActivatedEventArgs, WebUILaunchActivatedEventArgs, WebUIPrintTaskSettingsActivatedEventArgs, WebUIProtocolActivatedEventArgs, WebUISearchActivatedEventArgs, WebUIShareTargetActivatedEventArgs.
     **/
-    function onactivated(eventInfo: CustomEvent): void;
+    function onactivated(eventInfo: IPromiseEvent): void;
 
     /**
      * Occurs when receiving PLM notification or when the checkpoint function is called.
      * @param eventInfo An object that contains information about the event. The detail property of this object includes the following subproperties: type, setPromise.
     **/
-    function oncheckpoint(eventInfo: CustomEvent): void;
+    function oncheckpoint(eventInfo: IPromiseEvent): void;
 
     /**
      * Occurs when an unhandled error has been raised.
      * @param eventInfo An object that contains information about the event.
     **/
-    function onerror(eventInfo: CustomEvent): void;
+    function onerror(eventInfo: IPromiseEvent): void;
 
     /**
      * Occurs after the DOMContentLoaded event, which fires after the page has been parsed but before all the resources are loaded. This event occurs before the activated event and the ready event.
      * @param eventInfo An object that contains information about the event. The detail property of this object includes the following subproperties: type, setPromise.
     **/
-    function onloaded(eventInfo: CustomEvent): void;
+    function onloaded(eventInfo: IPromiseEvent): void;
 
     /**
      * Occurs when the application is ready. This event occurs after the loaded event and the activated event.
      * @param eventInfo An object that contains information about the event. The detail property of this object includes the following sub-properties: type, setPromise.
     **/
-    function onready(eventInfo: CustomEvent): void;
+    function onready(eventInfo: IPromiseEvent): void;
 
     /**
      * Occurs when the settings charm is invoked.
      * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: type, applicationcommands.
     **/
-    function onsettings(eventInfo: CustomEvent): void;
+    function onsettings(eventInfo: IPromiseEvent): void;
 
     /**
      * Occurs when the application is about to be unloaded.
      * @param eventInfo An object that contains information about the event. The detail property of this object includes the following sub-properties: type, setPromise.
     **/
-    function onunload(eventInfo: CustomEvent): void;
+    function onunload(eventInfo: IPromiseEvent): void;
+
+    /**
+     * Occurs whenever a user clicks the hardware backbutton.
+     * @param eventInfo An object that contains information about the event. The detail property of this object includes the following sub-properties: type
+    **/
+    function onbackclick(eventInfo: IPromiseEvent): void;
 
     //#endregion Events
 
@@ -191,11 +194,6 @@ declare module WinJS.Application {
 **/
 declare module WinJS.Binding {
     //#region Properties
-
-    /**
-     * Determines whether or not binding should automatically set the ID of an element. This property should be set to true in apps that use WinJS (WinJS) binding.
-    **/
-    var optimizeBindingReferences: boolean;
 
     //#endregion Properties
 
@@ -276,7 +274,7 @@ declare module WinJS.Binding {
     /**
      * Do not instantiate. A list returned by the createFiltered method.
     **/
-    class FilteredListProjection<T> extends ListProjection<T> {
+    interface FilteredListProjection<T> extends ListProjection<T> {
         //#region Methods
 
         /**
@@ -320,9 +318,9 @@ declare module WinJS.Binding {
     }
 
     /**
-     * Do not instantiate. A list of groups.
+     * A list of groups.
     **/
-    class GroupsListProjection<T> extends ListBase<T> {
+    interface GroupsListProjection<T> extends ListBase<T> {
         //#region Methods
 
         /**
@@ -362,13 +360,13 @@ declare module WinJS.Binding {
     /**
      * Do not instantiate. Sorts the underlying list by group key and within a group respects the position of the item in the underlying list. Returned by createGrouped.
     **/
-    class GroupedSortedListProjection<T> extends SortedListProjection<T> {
+    interface GroupedSortedListProjection<T, G> extends SortedListProjection<T> {
         //#region Properties
 
         /**
          * Gets a List, which is a projection of the groups that were identified in this list.
         **/
-        groups: GroupsListProjection<T>;
+        groups: GroupsListProjection<G>;
 
         //#endregion Properties
 
@@ -383,12 +381,12 @@ declare module WinJS.Binding {
     /**
      * Represents a list of objects that can be accessed by index or by a string key. Provides methods to search, sort, filter, and manipulate the data.
     **/
-    class List<T> extends ListBaseWithMutators<T> {
+    class List<T> implements ListBaseWithMutators<T> {
         //#region Constructors
 
         /**
          * Creates a List object.
-         * @constructor 
+         * @constructor
          * @param list The array containing the elements to initalize the list.
          * @param options You can set two Boolean options: binding and proxy. If options.binding is true, the list contains the result of calling as on the element values. If options.proxy is true, the list specified as the first parameter is used as the storage for the List. This option should be used with care, because uncoordinated edits to the data storage may result in errors.
         **/
@@ -396,86 +394,6 @@ declare module WinJS.Binding {
 
         //#endregion Constructors
 
-        //#region Methods
-
-        /**
-         * Gets a key/data pair for the specified list index.
-         * @param index The index of value to retrieve.
-         * @returns An object with .key and .data properties.
-        **/
-        getItem(index: number): IKeyDataPair<T>;
-
-        /**
-         * Gets a key/data pair for the list item key specified.
-         * @param key The key of the value to retrieve.
-         * @returns An object with .key and .data properties.
-        **/
-        getItemFromKey(key: string): IKeyDataPair<T>;
-
-        /**
-         * Gets the index of the first occurrence of a key in a list.
-         * @param key The key to locate in the list.
-         * @returns The index of the first occurrence of a key in a list, or -1 if not found.
-        **/
-        indexOfKey(key: string): number;
-
-        /**
-         * Moves the value at index to the specified position.
-         * @param index The original index of the value.
-         * @param newIndex The index of the value after the move.
-        **/
-        move(index: number, newIndex: number): void;
-
-        /**
-         * Forces the list to send a itemmutated notification to any listeners for the value at the specified index.
-         * @param index The index of the value that was mutated.
-        **/
-        notifyMutated(index: number): void;
-
-        /**
-         * Returns a list with the elements reversed. This method reverses the elements of a list object in place. It does not create a new list object during execution.
-        **/
-        reverse(): void;
-
-        /**
-         * Replaces the value at the specified index with a new value.
-         * @param index The index of the value that was replaced.
-         * @param newValue The new value.
-        **/
-        setAt(index: number, newValue: T): void;
-
-        /**
-         * Returns a list with the elements sorted. This method sorts the elements of a list object in place. It does not create a new list object during execution.
-         * @param sortFunction The function used to determine the order of the elements. If omitted, the elements are sorted in ascending, ASCII character order. This function must always return the same results, given the same inputs. The results should not depend on values that are subject to change. You must call notifyMutated each time an item changes. Do not batch change notifications.
-        **/
-        sort(sortFunction?: (left: T, right: T) => number): void;
-
-        /**
-         * Removes elements from a list and, if necessary, inserts new elements in their place, returning the deleted elements.
-         * @param start The zero-based location in the list from which to start removing elements.
-         * @param howMany The number of elements to remove.
-         * @param item The elements to insert into the list in place of the deleted elements.
-         * @returns The deleted elements.
-        **/
-        splice(start: number, howMany?: number, ...item: T[]): T[];
-
-        //#endregion Methods
-
-        //#region Properties
-
-        /**
-         * Gets or sets the length of the list, which is an integer value one higher than the highest element defined in the list.
-        **/
-        length: number;
-
-        //#endregion Properties
-
-    }
-
-    /**
-     * Represents a base class for lists.
-    **/
-    class ListBase<T> {
         //#region Events
 
         /**
@@ -555,7 +473,341 @@ declare module WinJS.Binding {
          * @param groupSorter A function that accepts two arguments. The function is called with pairs of group keys found in the list. It must return one of the following numeric values: negative if the first argument is less than the second (sorted before), zero if the two arguments are equivalent, positive if the first argument is greater than the second (sorted after).
          * @returns A grouped projection over the list.
         **/
-        createGrouped(groupKey: (x: T) => string, groupData: (x: T) => any, groupSorter?: (left: string, right: string) => number): GroupedSortedListProjection<T>;
+        createGrouped<G>(groupKey: (x: T) => string, groupData: (x: T) => G, groupSorter?: (left: string, right: string) => number): GroupedSortedListProjection<T, G>;
+
+        /**
+         * Creates a live sorted projection over this list. As the list changes, the sorted projection reacts to those changes and may also change.
+         * @param sorter A function that accepts two arguments. The function is called with elements in the list. It must return one of the following numeric values: negative if the first argument is less than the second, zero if the two arguments are equivalent, positive if the first argument is greater than the second. This function must always return the same results, given the same inputs. The results should not depend on values that are subject to change. You must call notifyMutated each time an item changes. Do not batch change notifications.
+         * @returns A sorted projection over the list.
+        **/
+        createSorted(sorter: (left: T, right: T) => number): SortedListProjection<T>;
+
+        /**
+        * Raises an event of the specified type and with the specified additional properties.
+        * @param type The type (name) of the event.
+        * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
+        * @returns true if preventDefault was called on the event.
+       **/
+        dispatchEvent(type: string, eventProperties: any): boolean;
+
+        /**
+         * Checks whether the specified callback function returns true for all elements in a list.
+         * @param callback A function that accepts up to three arguments. This function is called for each element in the list until it returns false or the end of the list is reached.
+         * @param thisArg An object to which the this keyword can refer in the callback function. If thisArg is omitted, undefined is used.
+         * @returns true if the callback returns true for all elements in the list.
+        **/
+        every(callback: (value: T, index: number, array: T[]) => boolean, thisArg?: any): boolean;
+
+        /**
+         * Returns the elements of a list that meet the condition specified in a callback function.
+         * @param callback A function that accepts up to three arguments. The function is called for each element in the list. This function must always return the same results, given the same inputs. The results should not depend on values that are subject to change. You must call notifyMutated each time an item changes. Do not batch change notifications.
+         * @param thisArg An object to which the this keyword can refer in the callback function. If thisArg is omitted, undefined is used.
+         * @returns An array containing the elements that meet the condition specified in the callback function.
+        **/
+        filter(callback: (value: T, index: number, array: T[]) => any, thisArg?: any): T[];
+
+        /**
+         * Calls the specified callback function for each element in a list.
+         * @param callback A function that accepts up to three arguments. The function is called for each element in the list. The arguments are as follows: value, index, array.
+         * @param thisArg An object to which the this keyword can refer in the callback function. If thisArg is omitted, undefined is used.
+        **/
+        forEach(callback: (value: T, index: number, array: T[]) => void, thisArg?: any): void;
+
+        /**
+         * Gets the value at the specified index.
+         * @param index The index of the value to get.
+         * @returns The value at the specified index.
+        **/
+        getAt(index: number): T;
+
+        /**
+         * Gets a key/data pair for the specified list index.
+         * @param index The index of value to retrieve.
+         * @returns An object with .key and .data properties.
+        **/
+        getItem(index: number): IKeyDataPair<T>;
+
+        /**
+         * Gets a key/data pair for the list item key specified.
+         * @param key The key of the value to retrieve.
+         * @returns An object with .key and .data properties.
+        **/
+        getItemFromKey(key: string): IKeyDataPair<T>;
+
+        /**
+         * Gets the index of the first occurrence of the specified value in a list.
+         * @param searchElement The value to locate in the list.
+         * @param fromIndex The index at which to begin the search. If fromIndex is omitted, the search starts at index 0.
+         * @returns The index of the first occurrence of a value in a list or -1 if not found.
+        **/
+        indexOf(searchElement: T, fromIndex?: number): number;
+
+        /**
+         * Gets the index of the first occurrence of a key in a list.
+         * @param key The key to locate in the list.
+         * @returns The index of the first occurrence of a key in a list, or -1 if not found.
+        **/
+        indexOfKey(key: string): number;
+
+        /**
+         * Returns a string consisting of all the elements of a list separated by the specified separator string.
+         * @param separator A string used to separate the elements of a list. If this parameter is omitted, the list elements are separated with a comma.
+         * @returns The elements of a list separated by the specified separator string.
+        **/
+        join(separator?: string): string;
+
+        /**
+         * Gets the index of the last occurrence of the specified value in a list.
+         * @param searchElement The value to locate in the list.
+         * @param fromIndex The index at which to begin the search. If fromIndex is omitted, the search starts at the last index in the list.
+         * @returns The index of the last occurrence of a value in a list, or -1 if not found.
+        **/
+        lastIndexOf(searchElement: T, fromIndex?: number): number;
+
+        /**
+         * Calls the specified callback function on each element of a list, and returns an array that contains the results.
+         * @param callback A function that accepts up to three arguments. The function is called for each element in the list.
+         * @param thisArg n object to which the this keyword can refer in the callback function. If thisArg is omitted, undefined is used.
+         * @returns An array containing the result of calling the callback function on each element in the list.
+        **/
+        map<G>(callback: (value: T, index: number, array: T[]) => G, thisArg?: any): G[];
+
+        /**
+         * Moves the value at index to the specified position.
+         * @param index The original index of the value.
+         * @param newIndex The index of the value after the move.
+        **/
+        move(index: number, newIndex: number): void;
+
+        /**
+         * Notifies listeners that a property value was updated.
+         * @param name The name of the property that is being updated.
+         * @param newValue The new value for the property.
+         * @param oldValue The old value for the property.
+         * @returns A promise that is completed when the notifications are complete.
+        **/
+        notify(name: string, newValue: any, oldValue: any): Promise<any>;
+
+        /**
+         * Forces the list to send a itemmutated notification to any listeners for the value at the specified index.
+         * @param index The index of the value that was mutated.
+        **/
+        notifyMutated(index: number): void;
+
+        /**
+         * Forces the list to send a reload notification to any listeners.
+        **/
+        notifyReload(): void;
+
+        /**
+         * Removes the last element from a list and returns it.
+         * @returns The last element from the list.
+        **/
+        pop(): T;
+
+        /**
+         * Appends new element(s) to a list, and returns the new length of the list.
+         * @param value The element to insert at the end of the list.
+         * @returns The new length of the list.
+        **/
+        push(value: T): number;
+        push(...values: T[]): number;
+
+        /**
+         * Accumulates a single result by calling the specified callback function for all elements in a list. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+         * @param callback A function that accepts up to four arguments. These arguments are: previousValue, currentValue, currentIndex, array. The function is called for each element in the list.
+         * @param initiallValue If initialValue is specified, it is used as the value with which to start the accumulation. The first call to the function provides this value as an argument instead of a list value.
+         * @returns The return value from the last call to the callback function.
+        **/
+        reduce(callback: (previousValue: any, currentValue: any, currentIndex: number, array: T[]) => T, initiallValue?: T): T;
+
+        /**
+         * Accumulates a single result by calling the specified callback function for all elements in a list, starting with the last member of the list. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+         * @param callback A function that accepts up to four arguments. These arguments are: previousValue, currentValue, currentIndex, array. The function is called for each element in the list.
+         * @param initialValue If initialValue is specified, it is used as the value with which to start the accumulation. The first call to the callback function provides this value as an argument instead of a list value.
+         * @returns The return value from the last call to callback function.
+        **/
+        reduceRight(callback: (previousValue: any, currentValue: any, currentIndex: number, array: T[]) => T, initialValue?: T): T;
+
+        /**
+         * Removes an event listener from the control.
+         * @param type The type (name) of the event.
+         * @param listener The listener to remove.
+         * @param useCapture true if capture is to be initiated, otherwise false.
+        **/
+        removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
+
+        /**
+         * Returns a list with the elements reversed. This method reverses the elements of a list object in place. It does not create a new list object during execution.
+        **/
+        reverse(): void;
+
+        /**
+         * Replaces the value at the specified index with a new value.
+         * @param index The index of the value that was replaced.
+         * @param newValue The new value.
+        **/
+        setAt(index: number, newValue: T): void;
+
+        /**
+         * Removes the first element from a list and returns it.
+         * @returns The first element from the list.
+        **/
+        shift(): T;
+
+        /**
+         * Extracts a section of a list and returns a new list.
+         * @param begin The index that specifies the beginning of the section.
+         * @param end The index that specifies the end of the section.
+         * @returns Returns a section of list.
+        **/
+        slice(begin: number, end?: number): T[];
+
+        /**
+         * Checks whether the specified callback function returns true for any element of a list.
+         * @param callback A function that accepts up to three arguments. The function is called for each element in the list until it returns true, or until the end of the list.
+         * @param thisArg An object to which the this keyword can refer in the callback function. If thisArg is omitted, undefined is used.
+         * @returns true if callback returns true for any element in the list.
+        **/
+        some(callback: (value: T, index: number, array: T[]) => boolean, thisArg?: any): boolean;
+
+        /**
+         * Returns a list with the elements sorted. This method sorts the elements of a list object in place. It does not create a new list object during execution.
+         * @param sortFunction The function used to determine the order of the elements. If omitted, the elements are sorted in ascending, ASCII character order. This function must always return the same results, given the same inputs. The results should not depend on values that are subject to change. You must call notifyMutated each time an item changes. Do not batch change notifications.
+        **/
+        sort(sortFunction?: (left: T, right: T) => number): void;
+
+        /**
+         * Removes elements from a list and, if necessary, inserts new elements in their place, returning the deleted elements.
+         * @param start The zero-based location in the list from which to start removing elements.
+         * @param howMany The number of elements to remove.
+         * @param item The elements to insert into the list in place of the deleted elements.
+         * @returns The deleted elements.
+        **/
+        splice(start: number, howMany?: number, ...item: T[]): T[];
+
+        /**
+         * Removes one or more listeners from the notification list for a given property.
+         * @param name The name of the property to unbind. If this parameter is omitted, all listeners for all events are removed.
+         * @param action The function to remove from the listener list for the specified property. If this parameter is omitted, all listeners are removed for the specific property.
+         * @returns This object is returned.
+        **/
+        unbind(name: string, action: Function): any;
+
+        /**
+         * Appends new element(s) to a list, and returns the new length of the list.
+         * @param value The element to insert at the start of the list.
+         * @returns The new length of the list.
+        **/
+        unshift(value: T): number;
+        unshift(...values: T[]): number;
+
+        //#endregion Methods
+
+        //#region Properties
+
+        /**
+         * Gets the IListDataSource for the list. The only purpose of this property is to adapt a List to the data model that is used by ListView and FlipView.
+        **/
+        dataSource: WinJS.UI.IListDataSource<T>;
+
+        /**
+         * Gets or sets the length of the list, which is an integer value one higher than the highest element defined in the list.
+        **/
+        length: number;
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        //#endregion Properties
+    }
+
+    /**
+     * Represents a base class for lists.
+    **/
+    interface ListBase<T> {
+        //#region Events
+
+        /**
+         * An item in the list has changed its value.
+         * @param eventInfo An object that contains information about the event. The detail contains the following information: index, key, newItem, newValue, oldItem, oldValue.
+        **/
+        onitemchanged(eventInfo: CustomEvent): void;
+
+        /**
+         * A new item has been inserted into the list.
+         * @param eventInfo An object that contains information about the event. The detail contains the following information: index, key, value.
+        **/
+        oniteminserted(eventInfo: CustomEvent): void;
+
+        /**
+         * An item has been changed locations in the list.
+         * @param eventInfo An object that contains information about the event. The detail contains the following information: index, key, value.
+        **/
+        onitemmoved(eventInfo: CustomEvent): void;
+
+        /**
+         * An item has been mutated. This event occurs as a result of calling the notifyMutated method.
+         * @param eventInfo An object that contains information about the event. The detail contains the following information: index, key, value.
+        **/
+        onitemmutated(eventInfo: CustomEvent): void;
+
+        /**
+         * An item has been removed from the list.
+         * @param eventInfo An object that contains information about the event. The detail contains the following information: index, key, value.
+        **/
+        onitemremoved(eventInfo: CustomEvent): void;
+
+        /**
+         * The list has been refreshed. Any references to items in the list may be incorrect.
+         * @param eventInfo An object that contains information about the event. The detail property of this object is null.
+        **/
+        onreload(eventInfo: CustomEvent): void;
+
+        //#endregion Events
+
+        //#region Methods
+
+        /**
+         * Adds an event listener to the control.
+         * @param type The type (name) of the event.
+         * @param listener The listener to invoke when the event gets raised.
+         * @param useCapture If true, initiates capture, otherwise false.
+        **/
+        addEventListener(type: string, listener: Function, useCapture?: boolean): void;
+
+        /**
+         * Links the specified action to the property specified in the name parameter. This function is invoked when the value of the property may have changed. It is not guaranteed that the action will be called only when a value has actually changed, nor is it guaranteed that the action will be called for every value change. The implementation of this function coalesces change notifications, such that multiple updates to a property value may result in only a single call to the specified action.
+         * @param name The name of the property to which to bind the action.
+         * @param action The function to invoke asynchronously when the property may have changed.
+         * @returns A reference to this observableMixin object.
+        **/
+        bind(name: string, action: Function): any;
+
+        /**
+         * Returns a new list consisting of a combination of two arrays.
+         * @param item Additional items to add to the end of the list.
+         * @returns An array containing the concatenation of the list and any other supplied items.
+        **/
+        concat(...item: T[]): T[];
+
+        /**
+         * Creates a live filtered projection over this list. As the list changes, the filtered projection reacts to those changes and may also change.
+         * @param predicate A function that accepts a single argument. The createFiltered function calls the callback with each element in the list. If the function returns true, that element will be included in the filtered list. This function must always return the same results, given the same inputs. The results should not depend on values that are subject to change. You must call notifyMutated each time an item changes. Do not batch change notifications.
+         * @returns A filtered projection over the list.
+        **/
+        createFiltered(predicate: (x: T) => boolean): FilteredListProjection<T>;
+
+        /**
+         * Creates a live grouped projection over this list. As the list changes, the grouped projection reacts to those changes and may also change. The grouped projection sorts all the elements of the list to be in group-contiguous order. The grouped projection also contains a .groups property, which is a List representing the groups that were found in the list.
+         * @param groupKey A function that accepts a single argument. The function is called with each element in the list, the function should return a string representing the group containing the element. This function must always return the same results, given the same inputs. The results should not depend on values that are subject to change. You must call notifyMutated each time an item changes. Do not batch change notifications.
+         * @param groupData A function that accepts a single argument. The function is called once, on one element per group. It should return the value that should be set as the data of the .groups list element for this group. The data value usually serves as summary or header information for the group.
+         * @param groupSorter A function that accepts two arguments. The function is called with pairs of group keys found in the list. It must return one of the following numeric values: negative if the first argument is less than the second (sorted before), zero if the two arguments are equivalent, positive if the first argument is greater than the second (sorted after).
+         * @returns A grouped projection over the list.
+        **/
+        createGrouped<G>(groupKey: (x: T) => string, groupData: (x: T) => G, groupSorter?: (left: string, right: string) => number): GroupedSortedListProjection<T, G>;
 
         /**
          * Creates a live sorted projection over this list. As the list changes, the sorted projection reacts to those changes and may also change.
@@ -704,18 +956,13 @@ declare module WinJS.Binding {
         **/
         dataSource: WinJS.UI.IListDataSource<T>;
 
-        /**
-         * Indicates that the object is compatibile with declarative processing.
-        **/
-        static supportedForProcessing: boolean;
-
         //#endregion Properties
     }
 
     /**
      * Represents a base class for normal list modifying operations.
     **/
-    class ListBaseWithMutators<T> extends ListBase<T> {
+    interface ListBaseWithMutators<T> extends ListBase<T> {
         //#region Methods
 
         /**
@@ -752,7 +999,7 @@ declare module WinJS.Binding {
     /**
      * Represents a base class for list projections.
     **/
-    class ListProjection<T> extends ListBaseWithMutators<T> {
+    interface ListProjection<T> extends ListBaseWithMutators<T> {
         //#region Methods
 
         /**
@@ -897,7 +1144,7 @@ declare module WinJS.Binding {
     /**
      * Do not instantiate. Returned by the createSorted method.
     **/
-    class SortedListProjection<T> extends ListProjection<T> {
+    interface SortedListProjection<T> extends ListProjection<T> {
         //#region Methods
 
         /**
@@ -948,30 +1195,35 @@ declare module WinJS.Binding {
 
         /**
          * Creates a template that provides a reusable declarative binding element.
-         * @constructor 
+         * @constructor
          * @param element The DOM element to convert to a template.
          * @param options If this parameter is supplied, the template is loaded from the URI and the content of the element parameter is ignored. You can add the following options: href.
         **/
-        constructor(element: HTMLElement, options?:any);
+        constructor(element: HTMLElement, options?: any);
 
         //#endregion Constructors
 
         //#region Methods
 
         /**
-          * Binds values from the specified data context to elements that are descendants of the specified root element that have the declarative binding attributes specified (data-win-bind).
-          * @param dataContext The object to use for default data binding.
-          * @param container The element to which to add this rendered template. If this parameter is omitted, a new DIV is created.
-          * @returns A Promise that will be completed after binding has finished. The value is either container or the created DIV. promise that is completed after binding has finished.
+         * Binds values from the specified data context to elements that are descendants of the specified root element that have the declarative binding attributes specified (data-win-bind).
+         * @param dataContext The object to use for default data binding.
+         * @param container The element to which to add this rendered template. If this parameter is omitted, a new DIV is created.
+         * @returns A Promise that will be completed after binding has finished. The value is either container or the created DIV. promise that is completed after binding has finished.
         **/
         render(dataContext: any, container?: HTMLElement): Promise<HTMLElement>;
 
         /**
-          * Renders a template based on the specified URI (static method).
-          * @param href The URI from which to load the template.
-          * @param dataContext The object to use for default data binding.
-          * @param container The element to which to add this rendered template. If this parameter is omitted, a new DIV is created.
-          * @returns A promise that is completed after binding has finished. The value is either the object in the container parameter or the created DIV.
+         * This API supports the WinJS infrastructure and is not intended to be used directly from your code. Use render instead.
+        **/
+        renderItem<T>(item: WinJS.Promise<T>, recyled: HTMLElement): { element: WinJS.Promise<HTMLElement>; renderComplete: WinJS.Promise<any>; };
+
+        /**
+         * Renders a template based on the specified URI (static method).
+         * @param href The URI from which to load the template.
+         * @param dataContext The object to use for default data binding.
+         * @param container The element to which to add this rendered template. If this parameter is omitted, a new DIV is created.
+         * @returns A promise that is completed after binding has finished. The value is either the object in the container parameter or the created DIV.
         **/
         static render(href: string, dataContext: any, container?: HTMLElement): Promise<HTMLElement>;
 
@@ -1005,9 +1257,20 @@ declare module WinJS.Binding {
         extractChild: boolean;
 
         /**
+         * Gets or sets the Number of milliseconds to delay instantiating declarative controls. Zero (0) will result in no delay, any negative number
+         * will result in a setImmediate delay, any positive number will be treated as the number of milliseconds.
+        **/
+        processTimeout: number;
+
+        /**
          * Determines whether the Template contains declarative controls that must be processed separately. This property is always true. The controls that belong to a Template object's children are instantiated when a Template instance is rendered.
         **/
-        isDeclarativeControlContainer: boolean;
+        static isDeclarativeControlContainer: boolean;
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
 
         //#endregion Properties
 
@@ -1072,20 +1335,16 @@ declare module WinJS.Binding {
     function expandProperties(shape: any): any;
 
     /**
+     * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
+    **/
+    function getValue(obj: any, path?: any): any;
+
+    /**
      * Marks a custom initializer function as being compatible with declarative data binding.
      * @param customInitializer The custom initializer to be marked as compatible with declarative data binding.
      * @returns The input customInitializer.
     **/
     function initializer(customInitializer: Function): Function;
-
-    /**
-     * Notifies listeners that a property value was updated.
-     * @param name The name of the property that is being updated.
-     * @param newValue The new value for the property.
-     * @param oldValue The old value for the property.
-     * @returns A promise that is completed when the notifications are complete.
-    **/
-    function notify(name: string, newValue: string, oldValue: string): Promise<any>;
 
     /**
      * Sets the destination property to the value of the source property.
@@ -1211,13 +1470,22 @@ declare module WinJS {
 
         /**
          * Creates an Error object with the specified name and message properties.
-         * @constructor 
+         * @constructor
          * @param name The name of this error. The name is meant to be consumed programmatically and should not be localized.
          * @param message The message for this error. The message is meant to be consumed by humans and should be localized.
         **/
         constructor(name: string, message?: string);
 
         //#endregion Constructors
+
+        //#region Properties
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        //#endregion Properties
 
     }
 
@@ -1243,7 +1511,7 @@ declare module WinJS {
 
         /**
          * A promise provides a mechanism to schedule work to be done on a value that has not yet been computed. It is a convenient abstraction for managing interactions with asynchronous APIs. For more information about asynchronous programming, see Asynchronous programming. For more information about promises in JavaScript, see Asynchronous programming in JavaScript. For more information about using promises, see the WinJS Promise sample.
-         * @constructor 
+         * @constructor
          * @param init The function that is called during construction of the Promise that contains the implementation of the operation that the Promise will represent. This can be synchronous or asynchronous, depending on the nature of the operation. Note that placing code within this function does not automatically run it asynchronously; that must be done explicitly with other asynchronous APIs such as setImmediate, setTimeout, requestAnimationFrame, and the Windows Runtime asynchronous APIs. The init function is given three arguments: completeDispatch, errorDispatch, progressDispatch. This parameter is optional.
          * @param onCancel The function to call if a consumer of this promise wants to cancel its undone work. Promises are not required to support cancellation.
         **/
@@ -1460,6 +1728,15 @@ declare module WinJS {
 
         //#endregion Methods
 
+        //#region Properties
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        //#endregion Properties
+
     }
 
     //#endregion Objects
@@ -1473,12 +1750,7 @@ declare module WinJS {
      * @param type The type of message (error, warning, info, etc.).
     **/
     function log(message: string, tags?: string, type?: string): void;
-    function log(message: ()=>string, tags?: string, type?: string): void;
-
-    /**
-     * This method has been deprecated. Strict processing is always on; you don't have to call this method to turn it on.
-    **/
-    function strictProcessing(): void;
+    function log(message: () => string, tags?: string, type?: string): void;
 
     /**
      * Wraps calls to XMLHttpRequest in a promise.
@@ -1499,7 +1771,7 @@ declare module WinJS {
         headers?: any;
         data?: any;
         responseType?: string;
-        customRequestInitializer?:(request: XMLHttpRequest) => void;
+        customRequestInitializer?: (request: XMLHttpRequest) => void;
     }
 
     //#endregion Interfaces
@@ -1692,7 +1964,7 @@ declare module WinJS.UI.Animation {
     /**
      * Creates an object that performs an animation that adds an item or items to a list.
      * @param added Element or elements to add to the list.
-     * @param affected Element or elements affected by the added items.
+     * @param affected Element or elements affected by the added items. Typically, this is all other items displayed in the list.
      * @returns An object whose execute method is used to execute the animation. The execute method returns a Promise that completes when the animation is finished.
     **/
     function createAddToListAnimation(added: any, affected: any): IAnimationMethodResponse;
@@ -1700,7 +1972,7 @@ declare module WinJS.UI.Animation {
     /**
      * Creates an object that performs an animation that adds an item or items to a list of search results.
      * @param added Element or elements to add to the list.
-     * @param affected Element or elements affected by the added items.
+     * @param affected Element or elements affected by the added items. Typically, this is all other items displayed in the list.
      * @returns An object whose execute method is used to execute the animation. The execute method returns a Promise that completes when the animation is finished.
     **/
     function createAddToSearchListAnimation(added: any, affected: any): IAnimationMethodResponse;
@@ -1708,7 +1980,7 @@ declare module WinJS.UI.Animation {
     /**
      * Creates an object that performs an animation that collapses a list.
      * @param hidden Element or elements hidden as a result of the collapse.
-     * @param affected Element or elements affected by the hidden items.
+     * @param affected Element or elements affected by the hidden items. Typically, this is all other items displayed in the list.
      * @returns An object whose execute method is used to execute the animation. The execute method returns a Promise that completes when the animation is finished.
     **/
     function createCollapseAnimation(hidden: any, affected: any): IAnimationMethodResponse;
@@ -1716,7 +1988,7 @@ declare module WinJS.UI.Animation {
     /**
      * Creates an object that performs an animation that removes an item or items from a list.
      * @param deleted Element or elements to delete from the list.
-     * @param remaining Element or elements affected by the removal of the deleted items.
+     * @param remaining Element or elements affected by the removal of the deleted items. Typically, this is all other items displayed in the list.
      * @returns An object whose execute method is used to execute the animation. The execute method returns a Promise that completes when the animation is finished.
     **/
     function createDeleteFromListAnimation(deleted: any, remaining: any): IAnimationMethodResponse;
@@ -1724,7 +1996,7 @@ declare module WinJS.UI.Animation {
     /**
      * Creates an object that performs an animation that removes an item or items from a list of search results.
      * @param deleted Element or elements to delete from the list.
-     * @param remaining Element or elements affected by the removal of the deleted items.
+     * @param remaining Element or elements affected by the removal of the deleted items. Typically, this is all other items displayed in the list.
      * @returns An object whose execute method is used to execute the animation. The execute method returns a Promise that completes when the animation is finished.
     **/
     function createDeleteFromSearchListAnimation(deleted: any, remaining: any): IAnimationMethodResponse;
@@ -1732,10 +2004,20 @@ declare module WinJS.UI.Animation {
     /**
      * Creates an object that performs an animation that expands a list.
      * @param revealed Element or elements revealed by the expansion.
-     * @param affected Element or elements affected by the newly revealed items.
+     * @param affected Element or elements affected by the newly revealed items. Typically, this is all other items displayed in the list.
      * @returns An object whose execute method is used to execute the animation. The execute method returns a Promise that completes when the animation is finished.
     **/
     function createExpandAnimation(revealed: any, affected: any): IAnimationMethodResponse;
+
+    /**
+     * Creates an exit and entrance animation to play for a page navigation given the current and incoming pages'
+     * animation preferences and whether the pages are navigating forwards or backwards.
+     * @param currentPreferredAnimation A value from WinJS.UI.PageNavigationAnimation describing the animation the current page prefers to use.
+     * @param A value from nextPreferredAnimation WinJS.UI.PageNavigationAnimation describing the animation the incoming page prefers to use.
+     * @param movingBackwards Boolean value for whether the navigation is moving backwards.
+     * @returns an object containing the exit and entrance animations to play based on the parameters given.
+    **/
+    function createPageNavigationAnimations(currentPreferredAnimation: string, nextPreferredAnimation: string, movingBackwards: boolean): { exit: Function; entrance: Function };
 
     /**
      * Creates an object that performs a peek animation.
@@ -1790,6 +2072,34 @@ declare module WinJS.UI.Animation {
      * @returns An object that completes when the animation is finished.
     **/
     function dragSourceStart(dragSource: any, affected?: any): Promise<any>;
+
+    /**
+     * Execute the incoming phase of the drill in animation, scaling up the incoming page while fading it in.
+     * @param incomingPage Element to be scaled up and faded in.
+     * @returns Promise object that completes when the animation is complete.
+    **/
+    function drillInIncoming(incomingPage: HTMLElement): Promise<any>;
+
+    /**
+     * Execute the outgoing phase of the drill in animation, scaling up the outgoing page while fading it out.
+     * @param incomingPage Element to be scaled up and faded out.
+     * @returns Promise object that completes when the animation is complete.
+    **/
+    function drillInOutgoing(outgoingPage: HTMLElement): Promise<any>;
+
+    /**
+     * Execute the incoming phase of the drill out animation, scaling down the incoming page while fading it in.
+     * @param incomingPage Element to be scaled up and faded in.
+     * @returns Promise object that completes when the animation is complete.
+    **/
+    function drillOutIncoming(incomingPage: HTMLElement): Promise<any>;
+
+    /**
+     * Execute the outgoing phase of the drill out animation, scaling down the outgoing page while fading it out.
+     * @param outgoingPage Element to be scaled down and faded out.
+     * @returns Promise object that completes when the animation is complete.
+    **/
+    function drillOutOutgoing(outgoingPage: HTMLElement): Promise<any>;
 
     /**
      * Performs an animation that displays one or more elements on a page.
@@ -2264,7 +2574,8 @@ declare module WinJS.UI {
         threebars,
         fourbars,
         scan,
-        preview
+        preview,
+        hamburger
     }
 
     /**
@@ -2313,6 +2624,10 @@ declare module WinJS.UI {
          * The edit operation timed out.
         **/
         noResponse,
+        /**
+         * The edit operation was canceled.
+        **/
+        canceled,
         /**
          * The data source cannot be written to.
         **/
@@ -2390,7 +2705,15 @@ declare module WinJS.UI {
         /**
          * The object is an item in the list.
         **/
-        item
+        item,
+        /**
+         * The object is the header for the list.
+        **/
+        header,
+        /**
+         * The object is the footer for the list.
+        **/
+        footer
     }
 
     /**
@@ -2461,9 +2784,146 @@ declare module WinJS.UI {
         none
     }
 
+    /**
+     * Specifies what animation type should be returned by WinJS.UI.Animation.createPageNavigationAnimations.
+    **/
+    enum PageNavigationAnimation {
+        /**
+         * The pages will exit and enter using a turnstile animation.
+        **/
+        turnstile,
+        /**
+         * The pages will exit and enter using an animation that slides up/down.
+        **/
+        slide,
+        /**
+         * The pages will enter using an enterPage animation, and exit with no animation.
+        **/
+        enterPage,
+        /**
+         * The pages will exit and enter using a continuum animation.
+        **/
+        continuum,
+    }
+
     //#endregion Enumerations
 
     //#region Interfaces
+
+    /** 
+     * Define the shape of a Command object to be used in AppBar and ToolBar controls. 
+    **/
+    export interface ICommand {
+        //#region Methods
+
+        /**
+         * Registers an event handler for the specified event.
+         * @param type The event type to register.
+         * @param listener The event handler function to associate with the event.
+         * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
+        **/
+        addEventListener(type: string, listener: Function, useCapture?: boolean): void;
+
+        /**
+         * Releases resources held by this ICommand. Call this method when the ICommand is no longer needed. After calling this method, the ICommand becomes unusable.
+        **/
+        dispose(): void;
+
+        /**
+         * Removes an event handler that the addEventListener method registered.
+         * @param type The event type to unregister.
+         * @param listener The event handler function to remove.
+         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
+        **/
+        removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
+
+        //#endregion Methods
+
+        //#region Properties
+
+        /**
+         * Gets or sets a value that indicates whether the ICommand is disabled.
+        **/
+        disabled: boolean;
+
+        /**
+         * Gets the DOM element that hosts the ICommand.
+        **/
+        element: HTMLElement;
+
+        /**
+         * Adds an extra CSS class during construction.
+        **/
+        extraClass: string;
+
+        /**
+         * Gets or sets the HTMLElement with a 'content' type ICommand that should receive focus whenever focus moves by the user pressing HOME or the arrow keys, from the previous ICommand to this ICommand.
+        **/
+        firstElementFocus: HTMLElement;
+
+        /**
+         * Gets or sets the Flyout object displayed by this command. The specified flyout is shown when the ICommand's button is invoked.
+        **/
+        flyout: Flyout;
+
+        /**
+         * Gets or sets a value that indicates whether the ICommand is hiding or in the process of becoming hidden.
+        **/
+        hidden: boolean;
+
+        /**
+         * Gets or sets the icon of the ICommand.
+        **/
+        icon: string;
+
+        /**
+         * Gets the element identifier (ID) of the command.
+        **/
+        id: string;
+
+        /**
+         * Gets or sets the label of the command.
+        **/
+        label: string;
+
+        /**
+         * Gets or sets the HTMLElement with a 'content' type ICommand that should receive focus whenever focus moves by the user pressing END or the arrow keys, from the previous Command to this Command.
+        **/
+        lastElementFocus: HTMLElement;
+
+        /**
+         * Gets or sets the function to be invoked when the command is clicked.
+        **/
+        onclick: Function;
+
+        /**
+         * Gets the section of the parent control that the command is in. The section can only be set through constructor options.
+        **/
+        section: string;
+
+        /**
+         * Gets or sets the selected state of a toggle button.
+        **/
+        selected: boolean;
+
+        /**
+         * Gets or sets the tooltip of the command.
+        **/
+        tooltip: string;
+
+        /**
+         * Gets the type of the command. The type can only be set through constructor options.
+        **/
+        type: string;
+
+        /**
+          * Gets or sets the priority of the command.
+         **/
+        priority: number;
+
+        //#endregion Properties
+    }
+
 
     /**
      * Contains items that were requested from an IListDataAdapter and provides some information about those items.
@@ -2570,145 +3030,6 @@ declare module WinJS.UI {
          * Gets or sets the index of the IItem contained by this IItemPromise.
         **/
         index: number;
-
-        //#endregion Properties
-
-    }
-
-    /**
-     * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface. Represents a layout for the ListView.
-    **/
-    interface ILayout {
-        //#region Methods
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-         * @param beginScrollPosition The first visible pixel in the ListView. For horizontal layouts, this is the x-coordinate of the pixel. For vertical layouts, this is the y-coordinate.
-         * @param wholeItem true if the item must be completely visible; otherwise, false if its ok for the item to be partially visible. Promise.
-         * @returns A Promise for the index of the first visible item at the specified point.
-        **/
-        calculateFirstVisible(beginScrollPosition: number, wholeItem: boolean): Promise<any>;
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-         * @param endScrollPosition The last visible pixel in the ListView. For horizontal layouts, this is the x-coordinate of the pixel. For vertical layouts, this is the y-coordinate.
-         * @param wholeItem true if the item must be completely visible; otherwise, false if its ok for the item to be partially visible. Promise.
-         * @returns A Promise for the index of the last visible item at the specified point.
-        **/
-        calculateLastVisible(endScrollPosition: number, wholeItem: boolean): Promise<any>;
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-         * @returns A object that has these properties: animationPromise, newEndIndex.
-        **/
-        endLayout(): any;
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-         * @param itemIndex The index of the item.
-         * @returns A Promise that returns an object with these properties: left, top, contentWidth, contentHeight, totalWidth, totalHeight.
-        **/
-        getItemPosition(itemIndex: number): Promise<any>;
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-         * @param itemIndex The data source index of the current item.
-         * @param element The element for the current item.
-         * @param keyPressed The key that was pressed. This function must check for the arrow keys (leftArrow, upArrow, rightArrow, downArrow), pageDown, and pageUp and determine which item the user navigated to.
-         * @returns A Promise that contains the index of the next item (This item becomes the current item).
-        **/
-        getKeyboardNavigatedItem(itemIndex: number, element: HTMLElement, keyPressed: WinJS.Utilities.Key): Promise<number>;
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-         * @returns A Promise that returns an object that has these properties: beginScrollPosition, endScrollPosition.
-        **/
-        getScrollBarRange(): Promise<any>;
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-         * @param x The x-coordinate to test.
-         * @param y The y-coordinate to test.
-        **/
-        hitTest(x: number, y: number): void;
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-         * @param elements The elements that represent the items that were added.
-        **/
-        itemsAdded(elements: HTMLElement[]): void;
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-        **/
-        itemsMoved(): void;
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-         * @param elements The elements that represent the items that were removed.
-        **/
-        itemsRemoved(elements: HTMLElement[]): void;
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-         * @param groupIndex The index of the group in the group data source.
-         * @param element The element to render for the group header.
-        **/
-        layoutHeader(groupIndex: number, element: HTMLElement): void;
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-         * @param itemIndex The index of the item in the data source.
-         * @param element The element to render for the item.
-        **/
-        layoutItem(itemIndex: number, element: HTMLElement): void;
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-         * @param element The element that represents a header in the data source.
-        **/
-        prepareHeader(element: HTMLElement): void;
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-         * @param element An element that represents an item in the data source.
-        **/
-        prepareItem(element: HTMLElement): void;
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-         * @param element The element being released.
-        **/
-        releaseItem(element: HTMLElement): void;
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-        **/
-        reset(): void;
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-         * @param site The layout site for the layout. You can use this object to query the hosting ListView for info you might need to lay out items.
-        **/
-        setSite(site: ILayoutSite): void;
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-         * @param beginScrollPosition The starting pixel of the area to which the items are rendered.
-         * @param endScrollPosition The last pixel of the area to which the items are rendered.
-         * @param count The upper bound of the number of items to render.
-         * @returns A Promise that returns an object that has these properties: beginIndex, endIndex.
-        **/
-        startLayout(beginScrollPosition: number, endScrollPosition: number, count: number): Promise<any>;
-
-        //#endregion Methods
-
-        //#region Properties
-
-        /**
-         * This API is no longer supported. Starting with the Windows Library for JavaScript 2.0 Preview, use the ILayout2 interface.
-        **/
-        horizontal: boolean;
 
         //#endregion Properties
 
@@ -3613,14 +3934,15 @@ declare module WinJS.UI {
     //#region Objects
 
     /**
-     * Represents an application toolbar for displaying commands.
+     * Displays ICommands in overlayed application pane that opens and closes at the top or bottom of the main view.
     **/
     class AppBar {
+
         //#region Constructors
 
         /**
          * Creates a new AppBar object.
-         * @constructor 
+         * @constructor
          * @param element The DOM element that will host the control.
          * @param options The set of properties and values to apply to the new AppBar.
         **/
@@ -3631,28 +3953,28 @@ declare module WinJS.UI {
         //#region Events
 
         /**
-         * Occurs immediately after the AppBar is hidden.
+         * Occurs immediately after the AppBar is closed.
          * @param eventInfo An object that contains information about the event.
         **/
-        onafterhide(eventInfo: Event): void;
+        onafterclose: (eventInfo: CustomEvent) => void;
 
         /**
-         * Occurs after the AppBar is shown.
+         * Occurs immeidately after the AppBar is opened.
          * @param eventInfo An object that contains information about the event.
         **/
-        onaftershow(eventInfo: Event): void;
+        onafteropen: (eventInfo: CustomEvent) => void;
 
         /**
-         * Occurs before the AppBar is hidden.
+         * Occurs immediately before the AppBar is closed. Is cancelable.
          * @param eventInfo An object that contains information about the event.
         **/
-        onbeforehide(eventInfo: Event): void;
+        onbeforeclose: (eventInfo: CustomEvent) => void;
 
         /**
-         * Occurs before a hidden AppBar is shown.
+         * Occurs immediately before the AppBar is opened. Is cancelable.
          * @param eventInfo An object that contains information about the event.
         **/
-        onbeforeshow(eventInfo: Event): void;
+        onbeforeopen: (eventInfo: CustomEvent) => void;
 
         //#endregion Events
 
@@ -3660,11 +3982,19 @@ declare module WinJS.UI {
 
         /**
          * Registers an event handler for the specified event.
-         * @param type The event type to register. It must be beforeshow, beforehide, aftershow, or afterhide.
+         * @param type The event type to register. It must be beforeopen, beforeclose, afteropen, or afterclose.
          * @param listener The event handler function to associate with the event.
          * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
         **/
-        addEventListener(type: string, listener: Function, useCapture?: boolean): void;
+        addEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
+
+        /**
+         * Removes an event handler that the addEventListener method registered.
+         * @param type The event type to unregister. It must be beforeopen, beforeclose, afteropen, or afterclose.
+         * @param listener The event handler function to remove.
+         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
+        **/
+        removeEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
 
         /**
          * Raises an event of the specified type and with additional properties.
@@ -3672,7 +4002,7 @@ declare module WinJS.UI {
          * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
          * @returns true if preventDefault was called on the event, otherwise false.
         **/
-        dispatchEvent(type: string, eventProperties: any): boolean;
+        dispatchEvent(eventName: string, eventProperties: any): boolean;
 
         /**
          * Releases resources held by this AppBar. Call this method when the AppBar is no longer needed. After calling this method, the AppBar becomes unusable.
@@ -3680,69 +4010,46 @@ declare module WinJS.UI {
         dispose(): void;
 
         /**
-         * Returns the AppBarCommand object identified by id.
+         * Returns the Command object identified by id.
          * @param id The element idenitifier (ID) of the command to be returned.
-         * @returns The command identified by id. If multiple commands have the same ID, returns an array of all the commands matching the ID.
+         * @returns The command identified by id. If multiple commands have the same ID, returns the first command found.
         **/
-        getCommandById(id: string): AppBarCommand;
-
-        /**
-         * Hides the AppBar.
-        **/
-        hide(): void;
-
-        /**
-         * Hides the specified commands of the AppBar.
-         * @param commands The commands to hide. The array elements may be AppBarCommand objects, or the string identifiers (IDs) of commands.
-         * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to hide the commands immediately, without animating them; otherwise, false.
-        **/
-        hideCommands(commands: any[], immediate?: boolean): void;
-
-        /**
-         * Removes an event handler that the addEventListener method registered.
-         * @param type The event type to unregister. It must be beforeshow, beforehide, aftershow, or afterhide.
-         * @param listener The event handler function to remove.
-         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
-        **/
-        removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
-
-        /**
-         * Shows the AppBar if it is not disabled.
-        **/
-        show(): void;
-
-        /**
-         * Shows the specified commands of the AppBar.
-         * @param commands The commands to show. The array elements may be AppBarCommand objects, or the string identifiers (IDs) of commands.
-         * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the commands immediately, without animating them; otherwise, false.
-        **/
-        showCommands(commands: any[], immediate?: boolean): void;
+        getCommandById(id: string): ICommand;
 
         /**
          * Shows the specified commands of the AppBar while hiding all other commands.
-         * @param commands The commands to show. The array elements may be AppBarCommand objects, or the string identifiers (IDs) of commands.
-         * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the specified commands (and hide the others) immediately, without animating them; otherwise, false.
+         * @param commands The commands to show. The array elements may be ICommand objects, or the string identifiers (IDs) of commands.
         **/
-        showOnlyCommands(commands: any[], immediate?: boolean): void;
+        showOnlyCommands(commands: Array<string|ICommand>): void;
+
+        /**
+         * Opens the AppBar.
+        **/
+        open(): void;
+
+        /**
+         * Closes the AppBar.
+        **/
+        close(): void;
+
+        /**
+         * Forces the AppBar to update its layout.
+        **/
+        forceLayout(): void;
 
         //#endregion Methods
 
         //#region Properties
 
         /**
-         * Gets/Sets how AppBar will display itself while hidden. Values are "none" and "minimal".
+         * Gets/Sets how AppBar will display itself while closed. Values are "none" , "minimal", "compact" and "full".
         **/
         closedDisplayMode: string;
 
         /**
-         * Sets the AppBarCommand objects that appear in the app bar.
+         * Gets or sets the Binding List of WinJS.UI.Command for the AppBar.
         **/
-        commands: AppBarCommand[];
-
-        /**
-         * Gets or sets a value that indicates whether the AppBar is disabled.
-        **/
-        disabled: boolean;
+        data: WinJS.Binding.List<ICommand>;
 
         /**
          * Gets the DOM element that hosts the AppBar.
@@ -3750,24 +4057,55 @@ declare module WinJS.UI {
         element: HTMLElement;
 
         /**
-         * Gets a value that indicates whether the AppBar is hidden or in the process of becoming hidden.
+         * Gets or sets whether the AppBar is currently opened.
         **/
-        hidden: boolean;
-
-        /**
-         * Gets or sets the layout of the app bar contents.
-        **/
-        layout: string;
+        opened: boolean;
 
         /**
          * Gets or sets a value that specifies whether the AppBar appears at the top or bottom of the main view.
         **/
         placement: string;
 
-        /**
-         * Gets or sets a value that indicates whether the AppBar is sticky (won't light dismiss). If not sticky, the app bar dismisses normally when the user touches outside of the appbar.
+        /** 
+         * Display options for the AppBar when closed.
         **/
-        sticky: boolean;
+        static ClosedDisplayMode: {
+            /**
+             * When the AppBar is closed, it is not visible and doesn't take up any space.
+            **/
+            none: string;
+            /**
+             * When the AppBar is closed, its height is reduced to the minimal height required to display only its overflowbutton. All other content in the AppBar is not displayed.
+            **/
+            minimal: string;
+            /**
+             * When the AppBar is closed, its height is reduced such that button commands are still visible, but their labels are hidden.
+            **/
+            compact: string;
+            /**
+             * When the AppBar is closed, its height is always sized to content.
+            **/
+            full: string;
+        };
+
+        /** 
+         * Display options for AppBar placement in relation to the main view.
+        */
+        static Placement: {
+            /**
+             * The AppBar appears at the top of the main view
+            **/
+            top: string;
+            /**
+             * The AppBar appears at the bottom of the main view
+            **/
+            bottom: string;
+        };
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
 
         //#endregion Properties
 
@@ -3776,12 +4114,12 @@ declare module WinJS.UI {
     /**
      * Represents a command to be displayed in an app bar.
     **/
-    class AppBarCommand {
+    class AppBarCommand implements ICommand {
         //#region Constructors
 
         /**
          * Creates a new AppBarCommand object.
-         * @constructor 
+         * @constructor
          * @param element The DOM element that will host the control.
          * @param options The set of properties and values to apply to the new AppBarCommand.
         **/
@@ -3806,7 +4144,7 @@ declare module WinJS.UI {
 
         /**
          * Removes an event handler that the addEventListener method registered.
-         * @param type The event type to unregister. It must be beforeshow, beforehide, aftershow, or afterhide.
+         * @param type The event type to unregister.
          * @param listener The event handler function to remove.
          * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
         **/
@@ -3872,7 +4210,7 @@ declare module WinJS.UI {
         onclick: Function;
 
         /**
-         * Gets the section of the app bar that the command is in.
+         * Gets the section of the parent control that the command is in. The section can only be set through constructor options.
         **/
         section: string;
 
@@ -3887,12 +4225,157 @@ declare module WinJS.UI {
         tooltip: string;
 
         /**
-         * Gets the type of the command.
+         * Gets the type of the command. The type can only be set through constructor options.
         **/
         type: string;
 
+        /**
+         * Gets or sets the priority of the command
+        **/
+        priority: number;
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
         //#endregion Properties
 
+    }
+
+    /**
+     * A rich input box that provides suggestions as the user types.
+    **/
+    class AutoSuggestBox {
+        //#region Constructors
+
+        /**
+         * Creates a new AutoSuggestBox.
+         * @constructor
+         * @param element The DOM element hosts the new AutoSuggestBox.
+         * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
+        **/
+        constructor(element?: HTMLElement, options?: any);
+
+        //#endregion Constructors
+
+        //#region Events
+
+        /**
+         * Raised when the user or the app changes the queryText.
+         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.language, detail.queryText, detail.linguisticDetails.
+        **/
+        onquerychanged(eventInfo: CustomEvent): void;
+
+        /**
+         * Raised awhen the user presses Enter.
+         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.language, detail.queryText, detail.linguisticDetails, detail.keyModifiers.
+        **/
+        onquerysubmitted(eventInfo: CustomEvent): void;
+
+        /**
+         * Raised when the user selects a suggested option for their query.
+         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.tag, detail.keyModifiers, detail.storageFile.
+        **/
+        onresultsuggestionchosen(eventInfo: CustomEvent): void;
+
+        /**
+         * Raised when the system requests suggestions from this app.
+         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.language, detail.linguisticDetails, detail.queryText, detail.searchSuggestionCollection.
+        **/
+        onsuggestionsrequested(eventInfo: CustomEvent): void;
+
+        //#endregion Events
+
+        //#region Methods
+
+        /**
+         * Registers an event handler for the specified event.
+         * @param eventName The name of the event to handle. Note that you drop the "on" when specifying the event name. For example, instead of specifying "onclick", you specify "click".
+         * @param eventHandler The event handler function to associate with the event.
+         * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
+        **/
+        addEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
+
+        /**
+         * Raises an event of the specified type and with additional properties.
+         * @param type The type (name) of the event.
+         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
+         * @returns true if preventDefault was called on the event, otherwise false.
+        **/
+        dispatchEvent(type: string, eventProperties: any): boolean;
+
+        /**
+         * Releases resources held by this AutoSuggestBox. Call this method when the AutoSuggestBox is no longer needed. After calling this method, the AutoSuggestBox becomes unusable.
+        **/
+        dispose(): void;
+
+        /**
+         * Removes an event handler that the addEventListener method registered.
+         * @param eventName The name of the event that the event handler is registered for.
+         * @param eventCallback The event handler function to remove.
+         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
+        **/
+        removeEventListener(eventName: string, eventCallback: Function, useCapture?: boolean): void;
+
+        /**
+         * Specifies whether suggestions based on local files are automatically displayed in the input field, and defines the criteria that
+         * the system uses to locate and filter these suggestions.
+         * @param settings The new settings for local content suggestions.
+        **/
+        setLocalContentSuggestionSettings(settings: any): void
+
+        //#endregion Methods
+
+        //#region Properties
+
+        /**
+         * Gets or sets whether the first suggestion is chosen when the user presses Enter.
+        **/
+        chooseSuggestionOnEnter: boolean;
+
+        /**
+         * Gets or sets a value that specifies whether the AutoSuggestBox is disabled. If the control is disabled, it won't receive focus.
+        **/
+        disabled: boolean;
+
+        /**
+         * Gets the DOM element that hosts the AutoSuggestBox.
+        **/
+        element: HTMLElement;
+
+        /**
+         * Gets or sets the placeholder text for the AutoSuggestBox. This text is displayed if there is no other text in the input box.
+        **/
+        placeholderText: string;
+
+        /**
+         * Gets or sets the query text for the AutoSuggestBox.
+        **/
+        queryText: string;
+
+        /**
+         * Gets or sets the history context. This context is used a secondary key (the app ID is the primary key) for storing history.
+        **/
+        searchHistoryContext: string;
+
+        /**
+         * Gets or sets a value that specifies whether history is disabled.
+        **/
+        searchHistoryDisabled: boolean;
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        //#endregion Properties
+
+        /**
+         * Creates the image argument for SearchSuggestionCollection.appendResultSuggestion.
+         * @param url The url of the image.
+        **/
+        static createResultSuggestionImage(url: string): any;
     }
 
     /**
@@ -3903,7 +4386,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new BackButton.
-         * @constructor 
+         * @constructor
          * @param element The DOM element hosts the new BackButton.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
@@ -3956,6 +4439,11 @@ declare module WinJS.UI {
         **/
         element: HTMLElement;
 
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
         //#endregion Properties
 
     }
@@ -3968,7 +4456,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new CellSpanningLayout.
-         * @constructor 
+         * @constructor
          * @param options An object that contains one or more property/value pairs to apply to the new CellSpanningLayout. Each property of the options object corresponds to one of the object's properties or events. Event names must begin with "on".
         **/
         constructor(options?: any);
@@ -4023,10 +4511,10 @@ declare module WinJS.UI {
 
         /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
-         * @param tree 
-         * @param changedRange 
-         * @param modifiedItems 
-         * @param modifiedGroups 
+         * @param tree
+         * @param changedRange
+         * @param modifiedItems
+         * @param modifiedGroups
         **/
         layout(tree: ILayoutSite2, changedRange: any, modifiedItems: any, modifiedGroups: any): void;
 
@@ -4074,8 +4562,176 @@ declare module WinJS.UI {
         **/
         orientation: WinJS.UI.Orientation;
 
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
         //#endregion Properties
 
+    }
+
+    /**
+     * Data associated with hiding a dialog.
+    **/
+    interface ContentDialogHideInfo {
+        /***
+         * The dialog's dismissal result. May be 'primary', 'secondary', 'none', or whatever custom value was passed to hide.
+        **/
+        result: string
+    }
+
+    /**
+     * Event object associated with hiding a dialog.
+    **/
+    interface ContentDialogHideEvent extends Event {
+        detail: ContentDialogHideInfo
+    }
+
+    /**
+     * Represents a command to be displayed in an AppBar or ToolBar
+    **/
+    class Command extends AppBarCommand implements ICommand {
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+    }
+
+    /**
+     * Displays a modal dialog which can display arbitrary HTML content.
+    **/
+    class ContentDialog {
+        /**
+         * Specifies the result of dismissing the ContentDialog.
+        **/
+        static DismissalResult: {
+            /**
+              * The dialog was dismissed without the user selecting any of the commands. The user may have dismissed the dialog by hitting the escape key or pressing the hardware back button.
+            **/
+            none: string;
+            /**
+             * The user dismissed the dialog by pressing the primary command.
+            **/
+            primary: string;
+            /**
+             * The user dismissed the dialog by pressing the secondary command.
+            **/
+            secondary: string
+        }
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        /**
+         * Creates a new ContentDialog control.
+         * @constructor
+         * @param The DOM element that hosts the ContentDialog control.
+         * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
+        **/
+        constructor(element?: HTMLElement, options?: any);
+
+        /**
+         * Gets the DOM element that hosts the ContentDialog control.
+        **/
+        element: HTMLElement;
+
+        /**
+         * Gets or sets the ContentDialog's visibility.
+        **/
+        hidden: boolean;
+
+        /**
+         * The text displayed as the title of the dialog.
+        **/
+        title: string;
+
+        /**
+         * The text displayed on the primary command's button.
+        **/
+        primaryCommandText: string;
+
+        /**
+         * Indicates whether the button representing the primary command is currently disabled.
+        **/
+        primaryCommandDisabled: boolean;
+
+        /**
+         * The text displayed on the secondary command's button.
+        **/
+        secondaryCommandText: string;
+
+        /**
+         * Indicates whether the button representing the secondary command is currently disabled.
+        **/
+        secondaryCommandDisabled: boolean;
+
+        /**
+         * Shows the ContentDialog. Only one ContentDialog may be shown at a time. If another ContentDialog is already shown, this ContentDialog will remain hidden.
+         * @returns  A promise which is successfully fulfilled when the dialog is dismissed. The completion value indicates the dialog's dismissal result. This may be 'primary', 'secondary', 'none', or whatever custom value was passed to hide. If this ContentDialog cannot be shown because a ContentDialog is already showing or the ContentDialog is disposed, then the return value is a promise which is in an error state. If preventDefault() is called on the beforeshow event, then this promise will be canceled.
+        **/
+        show(): Promise<ContentDialogHideInfo>;
+
+        /**
+         * Hides the ContentDialog.
+         * @param result A value indicating why the dialog is being hidden. The promise returned by show will be fulfilled with this value.
+        **/
+        hide(result?: any): void;
+
+        /**
+         * Disposes this control.
+        **/
+        dispose(): void;
+
+        /**
+         * Registers an event handler for the specified event.
+         * @param eventName The name of the event to handle. Note that you drop the "on" when specifying the event name. For example, instead of specifying "onclick", you specify "click".
+         * @param eventHandler The event handler function to associate with the event.
+         * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
+        **/
+        addEventListener(type: string, listener: Function, useCapture?: boolean): void;
+
+        /**
+         * Removes an event handler that the addEventListener method registered.
+         * @param eventName The name of the event that the event handler is registered for.
+         * @param eventCallback The event handler function to remove.
+         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
+        **/
+        removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
+
+        /**
+         * Raises an event of the specified type and with additional properties.
+         * @param type The type (name) of the event.
+         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
+         * @returns true if preventDefault was called on the event, otherwise false.
+        **/
+        dispatchEvent(type: string, eventProperties: any): boolean;
+
+        /**
+         * Raised just before showing a dialog. Call preventDefault on this event to stop the dialog from being shown.
+         * @param eventInfo An object that contains information about the event.
+        **/
+        onbeforeshow(eventInfo: Event): void;
+
+        /**
+         * Raised immediately after a dialog is fully shown.
+         * @param eventInfo An object that contains information about the event.
+        **/
+        onaftershow(eventInfo: Event): void;
+
+        /**
+         * Raised just before hiding a dialog. Call preventDefault on this event to stop the dialog from being hidden.
+         * @param eventInfo An object that contains information about the event.
+        **/
+        onbeforehide(eventInfo: ContentDialogHideEvent): void;
+
+        /**
+         * Raised immediately after a dialog is fully hidden.
+         * @param eventInfo An object that contains information about the event.
+        **/
+        onafterhide(eventInfo: ContentDialogHideEvent): void;
     }
 
     /**
@@ -4086,7 +4742,7 @@ declare module WinJS.UI {
 
         /**
          * Initializes a new instance of the DatePicker control.
-         * @constructor 
+         * @constructor
          * @param element The DOM element associated with the DatePicker control.
          * @param options The set of options to be applied initially to the DatePicker control. The options are the following: calendar, current, datePattern, disabled, maxYear, minYear, monthPattern, yearPattern.
         **/
@@ -4128,12 +4784,9 @@ declare module WinJS.UI {
         dispose(): void;
 
         /**
-         * Raises an event of the specified type and with additional properties.
-         * @param type The type (name) of the event.
-         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
-         * @returns true if preventDefault was called on the event, otherwise false.
+         * This API supports the WinJS infrastructure and is not intended to be used directly from your code. Use render instead.
         **/
-        raiseEvent(type: string, eventProperties: any): boolean;
+        static getInformation(startDate: any, endDate: any, calendar?: any, datePatterns?: any): any;
 
         /**
          * Removes a listener for the specified event.
@@ -4192,6 +4845,11 @@ declare module WinJS.UI {
         **/
         yearPattern: string;
 
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
         //#endregion Properties
 
     }
@@ -4199,7 +4857,7 @@ declare module WinJS.UI {
     /**
      * Adds event-related methods to the control.
     **/
-    class DOMEventMixin {
+    module DOMEventMixin {
         //#region Methods
 
         /**
@@ -4208,7 +4866,7 @@ declare module WinJS.UI {
          * @param listener The listener to invoke when the event gets raised.
          * @param useCapture true to initiate capture; otherwise, false.
         **/
-        addEventListener(type: string, listener: Function, useCapture?: boolean): void;
+        export function addEventListener(type: string, listener: Function, useCapture?: boolean): void;
 
         /**
          * Raises an event of the specified type, adding the specified additional properties.
@@ -4216,7 +4874,7 @@ declare module WinJS.UI {
          * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
          * @returns true if preventDefault was called on the event, otherwise false.
         **/
-        dispatchEvent(type: string, eventProperties: any): boolean;
+        export function dispatchEvent(type: string, eventProperties: any): boolean;
 
         /**
          * Removes an event listener from the control.
@@ -4224,17 +4882,9 @@ declare module WinJS.UI {
          * @param listener The listener to remove.
          * @param useCapture true to initiate capture; otherwise, false.
         **/
-        removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
-
-        /**
-         * Adds the set of declaratively specified options (properties and events) to the specified control. If the name of the options property begins with "on", the property value is a function and the control supports addEventListener. This method calls the addEventListener method on the control.
-         * @param control The control on which the properties and events are to be applied.
-         * @param options The set of options that are specified declaratively.
-        **/
-        setOptions(control: any, options: any): void;
+        export function removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
 
         //#endregion Methods
-
     }
 
     /**
@@ -4245,7 +4895,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new FlipView.
-         * @constructor 
+         * @constructor
          * @param element The DOM element that hosts the control.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the pageselected event, add a property named "onpageselected" and set its value to the event handler.
         **/
@@ -4375,6 +5025,31 @@ declare module WinJS.UI {
         **/
         orientation: string;
 
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        /**
+         * Event Name
+        **/
+        static datasourceCountChangedEvent: string;
+
+        /**
+         * Event Name
+        **/
+        static pageCompletedEvent: string;
+
+        /**
+         * Event Name
+        **/
+        static pageSelectedEvent: string;
+
+        /**
+         * Event Name
+        **/
+        static pageVisibilityChangedEvent: string;
+
         //#endregion Properties
 
     }
@@ -4387,7 +5062,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new Flyout object.
-         * @constructor 
+         * @constructor
          * @param element The DOM element that will host the control.
          * @param options The set of properties and values to apply to the new Flyout.
         **/
@@ -4434,6 +5109,14 @@ declare module WinJS.UI {
         addEventListener(type: string, listener: Function, useCapture?: boolean): void;
 
         /**
+         * Raises an event of the specified type and with additional properties.
+         * @param type The type (name) of the event.
+         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
+         * @returns true if preventDefault was called on the event, otherwise false.
+        **/
+        dispatchEvent(eventName: string, eventProperties: any): boolean;
+
+        /**
          * Releases resources held by this object. Call this method when the object is no longer needed. After calling this method, the object becomes unusable.
         **/
         dispose(): void;
@@ -4444,20 +5127,32 @@ declare module WinJS.UI {
         hide(): void;
 
         /**
+         * Shows the Flyout, if hidden, regardless of other states.
+         * @param anchor. DOM element to temporarily anchor the position of the Flyout to. This is optional if Flyout.anchor has already been set.
+         * @param placement The placement of the Flyout to the anchor: the string literal "top", "bottom", "left", or "right".
+         * @param alignment For "top" or "bottom" placement, the alignment of the Flyout to the anchor's edge: the string literal "center", "left", or "right".
+        **/
+        show(anchor?: HTMLElement, placement?: string, alignment?: string): void;
+
+        /**
+         * Shows the Flyout, if hidden, regardless of other states, top and left aligned at the specified coordinates,
+         * @param coordinates Required. The point where the top left corner of the flyout will appear, relative to the top and left edge of the visual viewport.
+        **/
+        showAt(coordinates: { x: number; y: number; }): void;
+
+        /**
+         * Shows the Flyout, if hidden, regardless of other states, top and left aligned at the location of the mouse event object,
+         * @param mouseEventObj Required. The MouseEvent Object specifying where to show the Flyout.
+        **/
+        showAt(mouseEventObj: MouseEvent): void;
+
+        /**
          * Removes an event handler that the addEventListener method registered.
          * @param type The event type to unregister. It must be beforeshow, beforehide, aftershow, or afterhide.
          * @param listener The event handler function to remove.
          * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
         **/
         removeEventListener(type: string, listener: Function, useCapture?: boolean): void;
-
-        /**
-         * Shows the Flyout, if hidden, regardless of other states.
-         * @param anchor Required. The DOM element to anchor the Flyout.
-         * @param placement The placement of the Flyout to the anchor: the string literal "top", "bottom", "left", or "right".
-         * @param alignment For "top" or "bottom" placement, the alignment of the Flyout to the anchor's edge: the string literal "center", "left", or "right".
-        **/
-        show(anchor: HTMLElement, placement?: string, alignment?: string): void;
 
         //#endregion Methods
 
@@ -4474,12 +5169,17 @@ declare module WinJS.UI {
         anchor: HTMLElement;
 
         /**
+         * Gets or sets a value that indicates whether the Flyout is disabled.
+        **/
+        disabled: boolean;
+
+        /**
          * Gets the DOM element that hosts the Flyout.
         **/
         element: HTMLElement;
 
         /**
-         * Gets a value that indicates whether the Flyout is hidden or in the process of becoming hidden.
+         * Gets a value that indicates whether the Flyout is hidden or in the process of becoming hidden, or sets the Flyout to hide or show itself.
         **/
         hidden: boolean;
 
@@ -4487,6 +5187,11 @@ declare module WinJS.UI {
          * Gets or sets the default placement to be used for this Flyout.
         **/
         placement: string;
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
 
         //#endregion Properties
 
@@ -4500,7 +5205,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new GridLayout object.
-         * @constructor 
+         * @constructor
          * @param options The set of properties and values to apply to the new GridLayout.
         **/
         constructor(options?: any);
@@ -4508,20 +5213,6 @@ declare module WinJS.UI {
         //#endregion Constructors
 
         //#region Methods
-
-        /**
-         * This method is no longer supported.
-         * @param beginScrollPosition 
-         * @param wholeItem 
-        **/
-        calculateFirstVisible(beginScrollPosition: number, wholeItem: boolean): void;
-
-        /**
-         * This method is no longer supported.
-         * @param endScrollPosition 
-         * @param wholeItem 
-        **/
-        calculateLastVisible(endScrollPosition: number, wholeItem: boolean): void;
 
         /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
@@ -4532,11 +5223,6 @@ declare module WinJS.UI {
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
         **/
         dragOver(): void;
-
-        /**
-         * This method is no longer supported.
-        **/
-        endLayout(): void;
 
         /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
@@ -4552,37 +5238,11 @@ declare module WinJS.UI {
         getAdjacent(currentItem: any, pressedKey: WinJS.Utilities.Key): any;
 
         /**
-         * This method is no longer supported.
-         * @param itemIndex 
-        **/
-        getItemPosition(itemIndex: number): void;
-
-        /**
-         * This method is no longer supported.
-         * @param itemIndex 
-         * @param element 
-         * @param keyPressed 
-        **/
-        getKeyboardNavigatedItem(itemIndex: number, element: any, keyPressed: any): void;
-
-        /**
-         * This method is no longer supported.
-         * @param beginScrollPosition 
-         * @param endScrollPosition 
-        **/
-        getScrollbarRange(beginScrollPosition: number, endScrollPosition: number): void;
-
-        /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
          * @param x The x-coordinate, or the horizontal position on the screen.
          * @param y The y-coordinate, or the vertical position on the screen.
         **/
         hitTest(x: number, y: number): void;
-
-        /**
-         * This method is no longer supported.
-        **/
-        init(): void;
 
         /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
@@ -4592,12 +5252,6 @@ declare module WinJS.UI {
         initialize(site: ILayoutSite2, groupsEnabled: boolean): void;
 
         /**
-         * This method is no longer supported.
-         * @param elements 
-        **/
-        itemsAdded(elements: any): void;
-
-        /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
          * @param firstPixel The first pixel the range of items falls between.
          * @param lastPixel The last pixel the range of items falls between.
@@ -4605,69 +5259,13 @@ declare module WinJS.UI {
         itemsFromRange(firstPixel: number, lastPixel: number): void;
 
         /**
-         * This method is no longer supported.
-        **/
-        itemsMoved(): void;
-
-        /**
-         * This method is no longer supported.
-         * @param elements 
-        **/
-        itemsRemoved(elements: any): void;
-
-        /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
-         * @param tree 
-         * @param changedRange 
-         * @param modifiedItems 
-         * @param modifiedGroups 
+         * @param tree
+         * @param changedRange
+         * @param modifiedItems
+         * @param modifiedGroups
         **/
         layout(tree: any, changedRange: any, modifiedItems: any, modifiedGroups: any): void;
-
-        /**
-         * This method is no longer supported.
-         * @param groupIndex 
-         * @param element A DOM element.
-        **/
-        layoutHeader(groupIndex: number, element: any): void;
-
-        /**
-         * This method is no longer supported.
-         * @param itemIndex 
-         * @param element A DOM element.
-        **/
-        layoutItem(itemIndex: number, element: any): void;
-
-        /**
-         * This method is no longer supported.
-         * @param element 
-        **/
-        prepareHeader(element: HTMLElement): void;
-
-        /**
-         * This method is no longer supported.
-         * @param itemIndex 
-         * @param element A DOM element.
-        **/
-        prepareItem(itemIndex: number, element: any): void;
-
-        /**
-         * This method is no longer supported.
-         * @param item 
-         * @param newItem 
-        **/
-        releaseItem(item: any, newItem: any): void;
-
-        /**
-         * This method is no longer supported.
-        **/
-        reset(): void;
-
-        /**
-         * This method is no longer supported.
-         * @param layoutSite 
-        **/
-        setSite(layoutSite: any): void;
 
         /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
@@ -4675,22 +5273,9 @@ declare module WinJS.UI {
         setupAnimations(): void;
 
         /**
-         * This method is no longer supported.
-         * @param beginScrollPosition 
-         * @param endScrollPositionScrollPosition 
-        **/
-        startLayout(beginScrollPosition: number, endScrollPositionScrollPosition: number): void;
-
-        /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
         **/
         uninitialize(): void;
-
-        /**
-         * This method is no longer supported.
-         * @param count 
-        **/
-        updateBackdrop(count: number): void;
 
         //#endregion Methods
 
@@ -4717,11 +5302,6 @@ declare module WinJS.UI {
         groupInfo: Function;
 
         /**
-         * This property is no longer supported. Starting with the Windows Library for JavaScript 2.0, use the orientation property instead.
-        **/
-        horizontal: boolean;
-
-        /**
          * This property is no longer supported. Starting with the Windows Library for JavaScript 2.0, use a CellSpanningLayout.
         **/
         itemInfo: Function;
@@ -4746,6 +5326,11 @@ declare module WinJS.UI {
         **/
         orientation: WinJS.UI.Orientation;
 
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
         //#endregion Properties
 
     }
@@ -4758,7 +5343,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new Hub control.
-         * @constructor 
+         * @constructor
          * @param element The DOM element that will host the Hub control.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the contentanimating event, add a property named "oncontentanimating" to the options object and set its value to the event handler.
         **/
@@ -4810,6 +5395,12 @@ declare module WinJS.UI {
          * Releases resources held by this Hub. Call this method when the Hub is no longer needed. After calling this method, the Hub becomes unusable.
         **/
         dispose(): void;
+
+        /**
+         * Forces the Hub to update its layout. 
+         * Use this function when making the Hub visible again after you've set its style.display property to "none” or after style changes have been made that affect the size of the HubSections.
+        **/
+        forceLayout(): void;
 
         /**
          * Removes an event handler that the addEventListener method registered.
@@ -4873,6 +5464,47 @@ declare module WinJS.UI {
         **/
         zoomableView: IZoomableView<any>;
 
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        /**
+         * Specifies whether the Hub animation is an entrance animation or a transition animation.
+        **/
+        static AnimationType: {
+            /**
+             * The animation plays when the Hub is first displayed.
+            **/
+            entrance: string;
+            /**
+             * The animation plays when the Hub is changing its content.
+            **/
+            contentTransition: string;
+            /**
+             * The animation plays when a section is inserted into the Hub.
+            **/
+            insert: string;
+            /**
+             * The animation plays when a section is removed into the Hub.
+            **/
+            remove: string;
+        }
+
+        /**
+         * Gets the current loading state of the Hub.
+        **/
+        static LoadingState: {
+            /**
+             * The Hub is loading sections.
+            **/
+            loading: string;
+            /**
+             * All sections are loaded and animations are complete.
+            **/
+            complete: string;
+        }
+
         //#endregion Properties
 
     }
@@ -4885,7 +5517,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new HubSection.
-         * @constructor 
+         * @constructor
          * @param element The DOM element hosts the new HubSection.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
@@ -4924,6 +5556,16 @@ declare module WinJS.UI {
         **/
         isHeaderStatic: boolean;
 
+        /**
+         * This object supports the WinJS infrastructure and is not intended to be used directly from your code.
+        **/
+        static isDeclarativeControlContainer: any;
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
         //#endregion Properties
 
     }
@@ -4944,6 +5586,15 @@ declare module WinJS.UI {
 
         //#endregion Constructors
 
+        //#region Properties
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        //#endregion Properties
+
     }
 
     /**
@@ -4954,7 +5605,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new ItemContainer.
-         * @constructor 
+         * @constructor
          * @param element The DOM element hosts the new ItemContainer. For the ItemContainer to be accessible, this element must have its role attribute set to "list" or "listbox". If tapBehavior is set to none and selectionDisabled is true, then use the "list" role; otherwise, use the "listbox" role.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
@@ -5059,6 +5710,11 @@ declare module WinJS.UI {
         **/
         tapBehavior: TapBehavior;
 
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
         //#endregion Properties
 
     }
@@ -5067,6 +5723,10 @@ declare module WinJS.UI {
      * This object supports the WinJS infrastructure and is not intended to be used directly from your code.
     **/
     class Layout {
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
     }
 
     /**
@@ -5077,7 +5737,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new ListLayout.
-         * @constructor 
+         * @constructor
          * @param options An object that contains one or more property/value pairs to apply to the new ListLayout. Each property of the options object corresponds to one of the object's properties or events. Event names must begin with "on".
         **/
         constructor(options?: any);
@@ -5085,20 +5745,6 @@ declare module WinJS.UI {
         //#endregion Constructors
 
         //#region Methods
-
-        /**
-         * This method is no longer supported.
-         * @param beginScrollPosition 
-         * @param wholeItem 
-        **/
-        calculateFirstVisible(beginScrollPosition: number, wholeItem: boolean): void;
-
-        /**
-         * This method is no longer supported.
-         * @param endScrollPosition 
-         * @param wholeItem 
-        **/
-        calculateLastVisible(endScrollPosition: number, wholeItem: boolean): void;
 
         /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
@@ -5109,11 +5755,6 @@ declare module WinJS.UI {
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
         **/
         dragOver(): void;
-
-        /**
-         * This method is no longer supported.
-        **/
-        endLayout(): void;
 
         /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
@@ -5129,27 +5770,6 @@ declare module WinJS.UI {
         getAdjacent(currentItem: any, pressedKey: WinJS.Utilities.Key): any;
 
         /**
-         * This method is no longer supported.
-         * @param itemIndex 
-        **/
-        getItemPosition(itemIndex: number): void;
-
-        /**
-         * This method is no longer supported.
-         * @param itemIndex 
-         * @param element 
-         * @param keyPressed 
-        **/
-        getKeyboardNavigatedItem(itemIndex: number, element: HTMLElement, keyPressed: any): void;
-
-        /**
-         * This method is no longer supported.
-         * @param beginScrollPosition 
-         * @param endScrollPosition 
-        **/
-        getScrollbarRange(beginScrollPosition: number, endScrollPosition: number): void;
-
-        /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
          * @param x The x-coordinate, or the horizontal position on the screen.
          * @param y The y-coordinate, or the vertical position on the screen.
@@ -5157,92 +5777,25 @@ declare module WinJS.UI {
         hitTest(x: number, y: number): void;
 
         /**
-         * This method is no longer supported.
-        **/
-        init(): void;
-
-        /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
         **/
         initialize(): void;
 
         /**
-         * This method is no longer supported.
-         * @param elements 
-        **/
-        itemsAdded(elements: any): void;
-
-        /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
-         * @param firstPixel 
-         * @param lastPixel 
+         * @param firstPixel
+         * @param lastPixel
         **/
         itemsFromRange(firstPixel: number, lastPixel: number): void;
 
         /**
-         * This method is no longer supported.
-        **/
-        itemsMoved(): void;
-
-        /**
-         * This method is no longer supported.
-         * @param elements 
-        **/
-        itemsRemoved(elements: any): void;
-
-        /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
-         * @param tree 
-         * @param changedRange 
-         * @param modifiedItems 
-         * @param modifiedGroups 
+         * @param tree
+         * @param changedRange
+         * @param modifiedItems
+         * @param modifiedGroups
         **/
         layout(tree: any, changedRange: any, modifiedItems: any, modifiedGroups: any): void;
-
-        /**
-         * This method is no longer supported.
-         * @param groupIndex 
-         * @param element A DOM element.
-        **/
-        layoutHeader(groupIndex: number, element: any): void;
-
-        /**
-         * This method is no longer supported.
-         * @param itemIndex 
-         * @param element A DOM element.
-        **/
-        layoutItem(itemIndex: number, element: any): void;
-
-        /**
-         * This method is no longer supported.
-         * @param element 
-        **/
-        prepareHeader(element: HTMLElement): void;
-
-        /**
-         * This method is no longer supported.
-         * @param itemIndex 
-         * @param element A DOM element.
-        **/
-        prepareItem(itemIndex: number, element: any): void;
-
-        /**
-         * This method is no longer supported.
-         * @param item 
-         * @param newItem 
-        **/
-        releaseItem(item: any, newItem: any): void;
-
-        /**
-         * This method is no longer supported.
-        **/
-        reset(): void;
-
-        /**
-         * This method is no longer supported.
-         * @param layoutSite 
-        **/
-        setSite(layoutSite: any): void;
 
         /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
@@ -5250,22 +5803,9 @@ declare module WinJS.UI {
         setupAnimations(): void;
 
         /**
-         * This method is no longer supported.
-         * @param beginScrollPosition 
-         * @param endScrollPositionScrollPosition 
-        **/
-        startLayout(beginScrollPosition: number, endScrollPositionScrollPosition: number): void;
-
-        /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
         **/
         uninitialize(): void;
-
-        /**
-         * This method is no longer supported.
-         * @param count 
-        **/
-        updateBackdrop(count: number): void;
 
         //#endregion Methods
 
@@ -5287,21 +5827,6 @@ declare module WinJS.UI {
         groupHeaderPosition: WinJS.UI.HeaderPosition;
 
         /**
-         * This property is no longer supported. Starting with the Windows Library for JavaScript 2.0, use a CellSpanningLayout.
-        **/
-        groupInfo: Function;
-
-        /**
-         * This property is no longer supported. Starting with the Windows Library for JavaScript 2.0, use the orientation property instead.
-        **/
-        horizontal: boolean;
-
-        /**
-         * This property is no longer supported. Starting with the Windows Library for JavaScript 2.0, use a CellSpanningLayout.
-        **/
-        itemInfo: Function;
-
-        /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
         **/
         numberOfItemsPerItemsBlock: any;
@@ -5310,6 +5835,11 @@ declare module WinJS.UI {
          * Gets or sets the orientation of the GridLayout.
         **/
         orientation: WinJS.UI.Orientation;
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
 
         //#endregion Properties
 
@@ -5323,7 +5853,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new ListView.
-         * @constructor 
+         * @constructor
          * @param element The DOM element that hosts the ListView control.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the selectionchanged event, add a property named "onselectionchanged" to the options object and set its value to the event handler.
         **/
@@ -5332,6 +5862,12 @@ declare module WinJS.UI {
         //#endregion Constructors
 
         //#region Events
+
+        /**
+         * Raised when the accessibility attributes have been added to the ListView items.
+         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties detail.firstIndex, detail.lastIndex, detail.firstHeaderIndex, detail.lastHeaderIndex.
+        **/
+        onaccessibilityannotationcomplete(eventInfo: CustomEvent): void;
 
         /**
          * Occurs when the ListView is about to play an entrance or contentTransition animation.
@@ -5416,6 +5952,18 @@ declare module WinJS.UI {
          * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.newSelection, detail.preventTapBehavior.
         **/
         onselectionchanging(eventInfo: CustomEvent): void;
+
+        /**
+         * Raised when the header's visibility property changes. 
+         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.visible.
+        **/
+        onheadervisibilitychanged(eventInfo: CustomEvent): void;
+
+        /**
+         * Raised when the footer's visibility property changes. 
+         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.visible.
+        **/
+        onfootervisibilitychanged(eventInfo: CustomEvent): void;
 
         //#endregion Events
 
@@ -5560,6 +6108,16 @@ declare module WinJS.UI {
         layout: ILayout2;
 
         /**
+         * Gets or sets the footer of the ListView.
+        **/
+        footer: HTMLElement;
+
+        /**
+         * Gets or sets the header of the ListView.
+        **/
+        header: HTMLElement;
+
+        /**
          * Gets or sets a value that specifies how the ListView fetches items and adds and removes them to the DOM. Don't change the value of this property after the ListView has begun loading data.
         **/
         loadingBehavior: string;
@@ -5575,14 +6133,24 @@ declare module WinJS.UI {
         maxDeferredItemCleanup: number;
 
         /**
-         * Gets or sets the number of pages to load when the loadingBehavior property is set to "incremental" and the user scrolls beyond the threshold specified by the pagesToLoadThreshold property.
+         * This property is deprecated. Gets or sets the number of pages to load when the loadingBehavior property is set to "incremental" and the user scrolls beyond the threshold specified by the pagesToLoadThreshold property.
         **/
         pagesToLoad: number;
 
         /**
-         * Gets or sets the threshold (in pages) for initiating an incremental load. When the last visible item is within the specified number of pages from the end of the loaded portion of the list, and if automaticallyLoadPages is true and loadingBehavior is set to "incremental", the ListView initiates an incremental load.
+         * This property is deprecated. Gets or sets the threshold (in pages) for initiating an incremental load. When the last visible item is within the specified number of pages from the end of the loaded portion of the list, and if automaticallyLoadPages is true and loadingBehavior is set to "incremental", the ListView initiates an incremental load.
         **/
         pagesToLoadThreshold: number;
+
+        /**
+         * Gets or sets the maximum number of pages to prefetch in the leading buffer for virtualization.
+        **/
+        maxLeadingPages: number;
+
+        /**
+         * Gets or sets the maximum number of pages to prefetch in the trailing buffer for virtualization.
+        **/
+        maxTrailingPages: number;
 
         /**
          * Gets or sets the function that is called when the ListView discards or recycles the element representation of a group header.
@@ -5624,19 +6192,59 @@ declare module WinJS.UI {
         **/
         zoomableView: IZoomableView<ListView<T>>;
 
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
         //#endregion Properties
 
     }
 
     /**
- * A tab control that displays multiple items.
-**/
+     * An enumeration of Media commands that the transport bar buttons support.
+    **/
+    interface MediaCommand {
+        audioTracks: string;
+        cast: string;
+        chapterSkipBack: string;
+        chapterSkipForward: string;
+        closedCaptions: string;
+        fastForward: string;
+        goToLive: string;
+        nextTrack: string;
+        pause: string;
+        play: string;
+        playbackRate: string;
+        playFromBeginning: string;
+        previousTrack: string;
+        rewind: string;
+        seek: string;
+        stop: string;
+        timeSkipBack: string;
+        timeSkipForward: string;
+        volume: string;
+        zoom: string;
+    }
+
+    /**
+     * The types of timeline markers supported by the MediaPlayer.
+    **/
+    interface MarkerType {
+        advertisement: string;
+        chapter: string;
+        custom: string;
+    }
+
+    /**
+     * A tab control that displays multiple items.
+    **/
     class Pivot {
         //#region Constructors
 
         /**
          * Creates a new Pivot.
-         * @constructor 
+         * @constructor
          * @param element The DOM element hosts the new Pivot.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the cancel event, add a property named "oncancel" to the options object and set its value to the event handler.
         **/
@@ -5690,6 +6298,12 @@ declare module WinJS.UI {
         dispose(): void;
 
         /**
+         * Forces the control to relayout its content. This function is expected to be called
+         * when the pivot element is manually resized.
+        **/
+        forceLayout(): void;
+
+        /**
          * Removes an event handler that the addEventListener method registered.
          * @param eventName The name of the event that the event handler is registered for.
          * @param eventCallback The event handler function to remove.
@@ -5705,6 +6319,16 @@ declare module WinJS.UI {
          * Gets the DOM element that hosts the Pivot control.
         **/
         element: HTMLElement;
+
+        /**
+         * Gets or sets the left custom header.
+        **/
+        customLeftHeader: HTMLElement;
+
+        /**
+         * Gets or sets the right custom header.
+        **/
+        customRightHeader: HTMLElement;
 
         /**
          * Gets or sets the Binding.List that contains the PivotItem objects that belong to this Pivot.
@@ -5727,6 +6351,11 @@ declare module WinJS.UI {
         selectedItem: PivotItem;
 
         /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        /**
          * Gets or sets the title displayed above the PivotItem controls.
         **/
         title: string;
@@ -5742,7 +6371,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new PivotItem.
-         * @constructor 
+         * @constructor
          * @param element The DOM element hosts the new PivotItem.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the cancel event, add a property named "oncancel" to the options object and set its value to the event handler.
         **/
@@ -5776,6 +6405,16 @@ declare module WinJS.UI {
         **/
         header: string;
 
+        /**
+         * This object supports the WinJS infrastructure and is not intended to be used directly from your code.
+        **/
+        static isDeclarativeControlContainer: any;
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
         //#endregion Properties
     }
 
@@ -5787,7 +6426,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new Menu object.
-         * @constructor 
+         * @constructor
          * @param element The DOM element that will host the control.
          * @param options The set of properties and values to apply to the new Menu.
         **/
@@ -5834,6 +6473,14 @@ declare module WinJS.UI {
         addEventListener(type: string, listener: Function, useCapture?: boolean): void;
 
         /**
+         * Raises an event of the specified type and with additional properties.
+         * @param type The type (name) of the event.
+         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
+         * @returns true if preventDefault was called on the event, otherwise false.
+        **/
+        dispatchEvent(eventName: string, eventProperties: any): boolean;
+
+        /**
          * Releases resources held by this Menu. Call this method when the Menu is no longer needed. After calling this method, the Menu becomes unusable.
         **/
         dispose(): void;
@@ -5855,7 +6502,7 @@ declare module WinJS.UI {
          * @param commands The commands to hide. The array elements may be MenuCommand objects, or the string identifiers (IDs) of commands.
          * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to hide the commands immediately, without animating them; otherwise, false.
         **/
-        hideCommands(commands: any[], immediate: boolean): void;
+        hideCommands(commands: any[], immediate?: boolean): void;
 
         /**
          * Removes an event handler that the addEventListener method registered.
@@ -5874,18 +6521,31 @@ declare module WinJS.UI {
         show(anchor: HTMLElement, placement?: string, alignment?: string): void;
 
         /**
+         * Shows the Menu, if hidden, regardless of other states, top and left aligned at the specified coordinates,
+         * @param coordinates Required. The point where the top left corner of the Menu will appear, relative to the top and left edge of the visual viewport.
+        **/
+        showAt(coordinates: { x: number; y: number; }): void;
+
+        /**
+         * Shows the Menu, if hidden, regardless of other states, top and left aligned at the location of the mouse event object,
+         * @param mouseEventObj Required. The MouseEvent Object specifying where to show the Menu.
+        **/
+        showAt(mouseEventObj: MouseEvent): void;
+
+
+        /**
          * Shows the specified commands of the Menu.
          * @param commands The commands to show. The array elements may be Menu objects, or the string identifiers (IDs) of commands.
          * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the commands immediately, without animating them; otherwise, false.
         **/
-        showCommands(commands: any[], immediate: boolean): void;
+        showCommands(commands: any[], immediate?: boolean): void;
 
         /**
          * Shows the specified commands of the Menu while hiding all other commands.
          * @param commands The commands to show. The array elements may be MenuCommand objects, or the string identifiers (IDs) of commands.
          * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the specified commands (and hide the others) immediately, without animating them; otherwise, false.
         **/
-        showOnlyCommands(commands: any[], immediate: boolean): void;
+        showOnlyCommands(commands: any[], immediate?: boolean): void;
 
         //#endregion Methods
 
@@ -5907,12 +6567,17 @@ declare module WinJS.UI {
         commands: MenuCommand[];
 
         /**
+         * Gets or sets a value that indicates whether the Menu is disabled.
+        **/
+        disabled: boolean;
+
+        /**
          * Gets the DOM element that hosts the Menu.
         **/
         element: HTMLElement;
 
         /**
-         * Gets a value that indicates whether the Menu is hidden or in the process of becoming hidden.
+         * Gets a value that indicates whether the Menu is hidden or in the process of becoming hidden, or sets the Menu to hide or show itself.
         **/
         hidden: boolean;
 
@@ -5920,6 +6585,11 @@ declare module WinJS.UI {
          * Gets or sets the default placement to be used for this Menu.
         **/
         placement: string;
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
 
         //#endregion Properties
 
@@ -5933,7 +6603,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new MenuCommand object.
-         * @constructor 
+         * @constructor
          * @param element The DOM element that will host the control.
          * @param options The set of properties and values to apply to the new MenuCommand.
         **/
@@ -5945,7 +6615,7 @@ declare module WinJS.UI {
 
         /**
          * Registers an event handler for the specified event.
-         * @param type The event type to register. It must be beforeshow, beforehide, aftershow, or afterhide.
+         * @param type The event type to register.
          * @param listener The event handler function to associate with the event.
          * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
         **/
@@ -5958,7 +6628,7 @@ declare module WinJS.UI {
 
         /**
          * Removes an event handler that the addEventListener method registered.
-         * @param type The event type to unregister. It must be beforeshow, beforehide, aftershow, or afterhide.
+         * @param type The event type to unregister.
          * @param listener The event handler function to remove.
          * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
         **/
@@ -6014,6 +6684,11 @@ declare module WinJS.UI {
         selected: boolean;
 
         /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        /**
          * Gets the type of the command.
         **/
         type: string;
@@ -6023,14 +6698,14 @@ declare module WinJS.UI {
     }
 
     /**
-     * Displays navigation commands in a toolbar that the user can show or hide.
+     * Displays NavBarCommands in an overlayed navigation pane that opens and closes at the top or bottom of the main view.
     **/
     class NavBar {
         //#region Constructors
 
         /**
          * Creates a new NavBar.
-         * @constructor 
+         * @constructor
          * @param element The DOM element that will host the new NavBar.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
@@ -6041,28 +6716,28 @@ declare module WinJS.UI {
         //#region Events
 
         /**
-         * Occurs immediately after the NavBar is hidden.
+         * Occurs immediately after the NavBar is closed.
          * @param eventInfo An object that contains information about the event.
         **/
-        onafterhide(eventInfo: Event): void;
+        onafterclose(eventInfo: Event): void;
 
         /**
-         * Raised after the NavBar is shown.
+         * Raised after the NavBar is opened.
          * @param eventInfo An object that contains information about the event.
         **/
-        onaftershow(eventInfo: Event): void;
+        onafteropen(eventInfo: Event): void;
 
         /**
-         * Raised just before the NavBar is hidden.
+         * Raised just before the NavBar is closed.
          * @param eventInfo An object that contains information about the event.
         **/
-        onbeforehide(eventInfo: Event): void;
+        onbeforeclose(eventInfo: Event): void;
 
         /**
-         * Occurs before a hidden NavBar is shown.
+         * Occurs before a closed NavBar is opened.
          * @param eventInfo An object that contains information about the event.
         **/
-        onbeforeshow(eventInfo: Event): void;
+        onbeforeopen(eventInfo: Event): void;
 
         /**
          * Occurs after the NavBar has finished processing its child elements.
@@ -6096,16 +6771,16 @@ declare module WinJS.UI {
         dispose(): void;
 
         /**
-         * Hides the NavBar.
+         * Closes the NavBar.
         **/
-        hide(): void;
+        close(): void;
 
         /**
          * Hides the specified commands of the NavBar.
          * @param commands The commands to hide. The array elements may be NavBarCommand objects, or the string identifiers (IDs) of commands.
          * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to hide the commands immediately, without animating them; otherwise, false.
         **/
-        hideCommands(commands: any[], immediate: boolean): void;
+        hideCommands(commands: any[], immediate?: boolean): void;
 
         /**
          * Removes an event handler that the addEventListener method registered.
@@ -6116,27 +6791,32 @@ declare module WinJS.UI {
         removeEventListener(eventName: string, eventCallback: Function, useCapture?: boolean): void;
 
         /**
-         * Shows the NavBar if it is not disabled.
+         * Opens the NavBar
         **/
-        show(): void;
+        open(): void;
 
         /**
          * Shows the specified commands of the NavBar.
          * @param commands The commands to show. The array elements may be NavBarCommand objects, or the string identifiers (IDs) of commands.
          * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the commands immediately, without animating them; otherwise, false.
         **/
-        showCommands(commands: any[], immediate: boolean): void;
+        showCommands(commands: any[], immediate?: boolean): void;
 
         /**
          * Shows the specified commands of the NavBar while hiding all other commands.
          * @param commands The commands to show. The array elements may be NavBarCommand objects, or the string identifiers (IDs) of commands.
          * @param immediate The parameter immediate is not supported and may be altered or unavailable in the future. true to show the specified commands (and hide the others) immediately, without animating them; otherwise, false.
         **/
-        showOnlyCommands(commands: any[], immediate: boolean): void;
+        showOnlyCommands(commands: any[], immediate?: boolean): void;
 
         //#endregion Methods
 
         //#region Properties
+
+        /**
+         * Gets/Sets how NavBar will display itself while closed. Values are "none" and "minimal".
+        **/
+        closedDisplayMode: string;
 
         /**
          * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
@@ -6144,24 +6824,26 @@ declare module WinJS.UI {
         commands: AppBarCommand;
 
         /**
-         * Gets or sets a value that indicates whether the NavBar is disabled.
-        **/
-        disabled: boolean;
-
-        /**
          * Gets the HTML element that hosts this NavBar.
         **/
         element: HTMLElement;
 
         /**
-         * Gets a value that indicates whether the NavBar is hidden or in the process of becoming hidden.
+         * Returns the NavBarCommand object identified by id.
+         * @param id The element idenitifier (ID) of the NavBarCommand to be returned.
+         * @returns The NavBarCommand identified by id. If multiple commands have the same ID, returns the first command found.
+        **/
+        getCommandById(id: string): NavBarCommand;
+
+        /**
+         * This API supports the WinJS infrastructure and is not intended to be used directly from your code. Use NavBar.opened instead.
         **/
         hidden: boolean;
 
         /**
-         * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
+         * Gets a value that indicates whether the NavBar is opened or in the process of becoming opened, or sets the NavBar to open or close itself.
         **/
-        layout: string;
+        opened: boolean;
 
         /**
          * Gets or sets a value that specifies whether the NavBar appears at the top or bottom of the main view.
@@ -6169,9 +6851,14 @@ declare module WinJS.UI {
         placement: string;
 
         /**
-         * Gets or sets a value that indicates whether the NavBar is sticky (won't light dismiss). If not sticky, the NavBar dismisses normally when the user touches outside of the NavBar.
+         * This object supports the WinJS infrastructure and is not intended to be used directly from your code.
         **/
-        sticky: boolean;
+        static isDeclarativeControlContainer: any;
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
 
         //#endregion Properties
 
@@ -6185,13 +6872,23 @@ declare module WinJS.UI {
 
         /**
          * Creates a new NavBarCommand.
-         * @constructor 
+         * @constructor
          * @param element The DOM element hosts the new NavBarCommand.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
         constructor(element?: HTMLElement, options?: any);
 
         //#endregion Constructors
+
+        //#region Events
+
+        /**
+         * This API supports the Windows Library for JavaScript infrastructure and is not intended to be used directly from your code. 
+         * Use NavBarContainer.oninvoked instead.
+        **/
+        oninvoked: any;
+
+        //#endregion Events
 
         //#region Methods
 
@@ -6264,9 +6961,14 @@ declare module WinJS.UI {
         state: any;
 
         /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        /**
          * Gets or sets the tooltip of the command.
         **/
-        tooltip: any;
+        tooltip: string;
 
         //#endregion Properties
 
@@ -6280,7 +6982,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new NavBarContainer.
-         * @constructor 
+         * @constructor
          * @param element The DOM element hosts the new NavBarContainer.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
@@ -6375,6 +7077,11 @@ declare module WinJS.UI {
         maxRows: number;
 
         /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        /**
          * Gets or sets the WinJS.Binding.Template or templating function that creates the DOM elements for each item in the data source. Each item can contain multiple elements, but it must have a single root element.
         **/
         template: WinJS.Binding.Template;
@@ -6391,7 +7098,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new Rating.
-         * @constructor 
+         * @constructor
          * @param element The DOM element hosts the new Rating.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the cancel event, add a property named "oncancel" to the options object and set its value to the event handler.
         **/
@@ -6474,6 +7181,11 @@ declare module WinJS.UI {
         maxRating: number;
 
         /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        /**
          * Gets or sets a set of descriptions to show for rating values in the tooltip.
         **/
         tooltipStrings: string[];
@@ -6495,11 +7207,11 @@ declare module WinJS.UI {
 
         /**
          * Creates a new Repeater control.
-         * @constructor 
+         * @constructor
          * @param elemnt The DOM element that will host the new control. The Repeater will create an element if this value is null.
          * @param options An object that contains one or more property/value pairs to apply to the new Repeater. Each property of the options object corresponds to one of the object's properties or events. Event names must begin with "on".
         **/
-        constructor(element?:HTMLElement, options?: any);
+        constructor(element?: HTMLElement, options?: any);
 
         //#endregion Constructors
 
@@ -6631,6 +7343,16 @@ declare module WinJS.UI {
         length: number;
 
         /**
+         * This object supports the WinJS infrastructure and is not intended to be used directly from your code.
+        **/
+        static isDeclarativeControlContainer: any;
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        /**
          * Gets or sets a WinJS.Binding.Template or custom rendering function that defines the HTML of each item within the Repeater.
         **/
         template: WinJS.Binding.Template;
@@ -6647,7 +7369,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new SearchBox.
-         * @constructor 
+         * @constructor
          * @param element The DOM element hosts the new SearchBox.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
@@ -6670,16 +7392,10 @@ declare module WinJS.UI {
         onquerysubmitted(eventInfo: CustomEvent): void;
 
         /**
-         * Raised when the app automatically redirects focus to the search box. This event can only be raised when the focusOnKeyboardInput property is set to true.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.propertyName.
-        **/
-        onreceivingfocusonkeyboardinput(eventInfo: CustomEvent): void;
-
-        /**
          * Raised when the user selects a suggested option for the search.
          * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: detail.tag, detail.keyModifiers, detail.storageFile.
         **/
-        onresultsuggestionschosen(eventInfo: CustomEvent): void;
+        onresultsuggestionchosen(eventInfo: CustomEvent): void;
 
         /**
          * Raised when the system requests search suggestions from this app.
@@ -6770,6 +7486,11 @@ declare module WinJS.UI {
         **/
         searchHistoryDisabled: boolean;
 
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
         //#endregion Properties
 
         static createResultSuggestionImage(url: string): any;
@@ -6784,7 +7505,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new SemanticZoom.
-         * @constructor 
+         * @constructor
          * @param element The DOM element that hosts the SemanticZoom.
          * @param options An object that contains one or more property/value pairs to apply to the new control. This object can contain these properties: initiallyZoomedOut Boolean, zoomFactor 0.2–0.85.
         **/
@@ -6838,6 +7559,11 @@ declare module WinJS.UI {
         **/
         removeEventListener(eventName: string, eventCallback: Function, useCapture?: boolean): void;
 
+        /**
+         * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
+        **/
+        setTimeoutAfterTTFF(callback: Function, delay: number): void
+
         //#endregion Methods
 
         //#region Properties
@@ -6853,14 +7579,14 @@ declare module WinJS.UI {
         enableButton: boolean;
 
         /**
-         * Determines whether any controls contained in a SemanticZoom should be processed separately. This property is always true, meaning that the SemanticZoom takes care of processing its own controls.
-        **/
-        isDeclarativeControlContainer: boolean;
-
-        /**
          * Gets or sets a value that indicates whether SemanticZoom is locked and zooming between views is disabled.
         **/
         locked: boolean;
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
 
         /**
          * Gets or sets a value that indicates whether the control is zoomed out.
@@ -6871,6 +7597,16 @@ declare module WinJS.UI {
          * Gets or sets a value that specifies how much the scaling the cross-fade animation performs when the SemanticZoom transitions between views.
         **/
         zoomFactor: number;
+
+        /**
+         * Gets or sets a mapping function which can be used to change the item that is targeted on zoom in.
+        **/
+        zoomedInItem: (any: any) => any;
+
+        /**
+         * Gets or sets a mapping function which can be used to change the item that is targeted on zoom out.
+        **/
+        zoomedOutItem: (any: any) => any;
 
         //#endregion Properties
 
@@ -6884,7 +7620,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new SettingsFlyout object.
-         * @constructor 
+         * @constructor
          * @param element The DOM element that will host the control.
          * @param options The set of properties and values to apply to the new SettingsFlyout.
         **/
@@ -6979,9 +7715,19 @@ declare module WinJS.UI {
         **/
         static showSettings(id: string, path: any): void;
 
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
         //#endregion Methods
 
         //#region Properties
+
+        /**
+         * Specifies whether the SettingsFlyout is disabled.
+        **/
+        disabled: boolean;
 
         /**
          * Gets the DOM element the SettingsFlyout is attached to.
@@ -7005,6 +7751,325 @@ declare module WinJS.UI {
 
         //#endregion Properties
 
+    }
+    /**
+     * Displays a SplitView which renders a collapsable pane next to arbitrary HTML content.
+    **/
+    class SplitView {
+        /**
+         * Placement options for a SplitView's pane.
+        **/
+        static PanePlacement: {
+            /**
+             * Pane is positioned left of the SplitView's content.
+            **/
+            left: string;
+            /**
+             * Pane is positioned right of the SplitView's content.
+            **/
+            right: string;
+            /**
+             * Pane is positioned above the SplitView's content.
+            **/
+            top: string;
+            /**
+             * Pane is positioned below the SplitView's content.
+            **/
+            bottom: string;
+        }
+
+        /**
+         * Display options for a SplitView's pane when it is closed.
+        **/
+        static ClosedDisplayMode: {
+            /**
+             * When the pane is closed, it is not visible and doesn't take up any space.
+            **/
+            none: string;
+            /**
+             * When the pane is closed, it occupies space leaving less room for the SplitView's content.
+            **/
+            inline: string;
+        }
+
+        /**
+         * Display options for a SplitView's pane when it is open.
+        **/
+        static OpenedDisplayMode: {
+            /**
+             * When the pane is open, it occupies space leaving less room for the SplitView's content.
+            **/
+            inline: string;
+            /**
+             * When the pane is open, it doesn't take up any space and it is light dismissable.
+            **/
+            overlay: string;
+        }
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        /**
+         * Creates a new SplitView.
+         * @constructor
+         * @param element The DOM element hosts the new SplitView.
+         * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
+        **/
+        constructor(element?: HTMLElement, options?: any);
+
+        /**
+         * Gets the DOM element that hosts the SplitView control.
+        **/
+        element: HTMLElement;
+
+        /**
+         * Gets the DOM element that hosts the SplitView pane.
+        **/
+        paneElement: HTMLElement;
+
+        /**
+         * Gets the DOM element that hosts the SplitView's content.
+        **/
+        contentElement: HTMLElement;
+
+        /**
+         * Gets or sets the placement of the SplitView's pane.
+        **/
+        panePlacement: string;
+
+        /**
+         * Gets or sets the display mode of the SplitView's pane when it is closed.
+        **/
+        closedDisplayMode: string;
+
+        /**
+         * Gets or sets the display mode of the SplitView's pane when it is open.
+        **/
+        openedDisplayMode: string;
+
+        /**
+         * Gets or sets whether the SpitView's pane is currently open.
+        **/
+        paneOpened: boolean;
+
+        /**
+         * Opens the SplitView's pane.
+        **/
+        openPane(): void;
+
+        /**
+         * Closes the SplitView's pane.
+        **/
+        closePane(): void;
+
+        /**
+         * Disposes this control.
+        **/
+        dispose(): void;
+
+        /**
+         * Registers an event handler for the specified event.
+         * @param eventName The name of the event to handle. Note that you drop the "on" when specifying the event name. For example, instead of specifying "onclick", you specify "click".
+         * @param eventHandler The event handler function to associate with the event.
+         * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
+        **/
+        addEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
+
+        /**
+         * Removes an event handler that the addEventListener method registered.
+         * @param eventName The name of the event that the event handler is registered for.
+         * @param eventCallback The event handler function to remove.
+         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
+        **/
+        removeEventListener(eventName: string, eventCallback: Function, useCapture?: boolean): void;
+
+        /**
+         * Raises an event of the specified type and with additional properties.
+         * @param type The type (name) of the event.
+         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
+         * @returns true if preventDefault was called on the event, otherwise false.
+        **/
+        dispatchEvent(type: string, eventProperties: any): boolean;
+
+        /**
+         * Raised just before opening the pane. Call preventDefault on this event to stop the pane from opening.
+         * @param eventInfo An object that contains information about the event.
+        **/
+        onbeforeopen(eventInfo: Event): void;
+
+        /**
+         * Raised immediately after the pane is fully open.
+         * @param eventInfo An object that contains information about the event.
+        **/
+        onafteropen(eventInfo: Event): void;
+
+        /**
+         * Raised just before closing the pane. Call preventDefault on this event to stop the pane from closing.
+         * @param eventInfo An object that contains information about the event.
+        **/
+        onbeforeclose(eventInfo: Event): void;
+
+        /**
+         * Raised immediately after the pane is fully closed.
+         * @param eventInfo An object that contains information about the event.
+        **/
+        onafterclose(eventInfo: Event): void;
+    }
+
+    /**
+     * Displays a button which is used for opening and closing a SplitView's pane.
+    **/
+    class SplitViewPaneToggle {
+        /**
+         * Creates a new SplitViewPaneToggle.
+         * @constructor
+         * @param element The DOM element hosts the new SplitViewPaneToggle.
+         * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
+        **/
+        constructor(element?: HTMLButtonElement, options?: any);
+
+        /**
+         * Gets the DOM element that hosts the SplitViewPaneToggle control.
+        **/
+        element: HTMLButtonElement;
+
+        /**
+         * Gets or sets the DOM element of the SplitView that is associated with the SplitViewPaneToggle control.
+         * When the SplitViewPaneToggle is invoked, it'll toggle this SplitView's pane.
+        **/
+        splitView: HTMLElement;
+
+        /**
+         * Disposes this control.
+        **/
+        dispose(): void;
+
+        /**
+         * Registers an event handler for the specified event.
+         * @param eventName The name of the event to handle. Note that you drop the "on" when specifying the event name. For example, instead of specifying "onclick", you specify "click".
+         * @param eventHandler The event handler function to associate with the event.
+         * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
+        **/
+        addEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
+
+        /**
+         * Removes an event handler that the addEventListener method registered.
+         * @param eventName The name of the event that the event handler is registered for.
+         * @param eventCallback The event handler function to remove.
+         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
+        **/
+        removeEventListener(eventName: string, eventCallback: Function, useCapture?: boolean): void;
+
+        /**
+         * Raises an event of the specified type and with additional properties.
+         * @param type The type (name) of the event.
+         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
+         * @returns true if preventDefault was called on the event, otherwise false.
+        **/
+        dispatchEvent(type: string, eventProperties: any): boolean;
+
+        /**
+         * Raised when the SplitViewPaneToggle is invoked.
+         * @param eventInfo An object that contains information about the event.
+        **/
+        oninvoked(eventInfo: Event): void;
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+    }
+
+    /**
+    * Represents a command in the SplitView Pane.
+    **/
+    class SplitViewCommand {
+        //#region Constructors
+
+        /**
+         * Creates a new SplitViewCommand.
+         * @constructor
+         * @param element The DOM element hosts the new SplitViewCommand.
+         * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
+        **/
+        constructor(element?: HTMLElement, options?: any);
+
+        //#endregion Constructors
+
+        //# region Events
+
+        /** 
+         * Raised when a SplitViewCommand has been invoked.
+         * @param eventInfo An object that contains information about the event.
+        **/
+        oninvoked(eventInfo: CustomEvent): void;
+
+        //#endregion Events
+
+        //#region Methods
+
+        /**
+         * Registers an event handler for the specified event.
+         * @param eventName The name of the event to handle. Note that you drop the "on" when specifying the event name. For example, instead of specifying "onclick", you specify "click".
+         * @param eventHandler The event handler function to associate with the event.
+         * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
+        **/
+        addEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
+
+        /**
+         * Raises an event of the specified type and with additional properties.
+         * @param type The type (name) of the event.
+         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
+         * @returns true if preventDefault was called on the event, otherwise false.
+        **/
+        dispatchEvent(type: string, eventProperties: any): boolean;
+
+        /**
+         * Releases resources held by this SplitViewCommand. Call this method when the SplitViewCommand is no longer needed. After calling this method, the SplitViewCommand becomes unusable.
+        **/
+        dispose(): void;
+
+        /**
+         * Removes an event handler that the addEventListener method registered.
+         * @param eventName The name of the event that the event handler is registered for.
+         * @param eventCallback The event handler function to remove.
+         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
+        **/
+        removeEventListener(eventName: string, eventCallback: Function, useCapture?: boolean): void;
+
+        //#endregion Methods
+
+        //#region Properties
+
+        /**
+         * Gets the HTML element that hosts this SplitViewCommand.
+        **/
+        element: HTMLElement;
+
+        /**
+         * Gets or sets the command's icon.
+        **/
+        icon: string;
+
+        /**
+         * Gets or sets the label of the command.
+        **/
+        label: string;
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        /**
+         * Gets or sets the tooltip of the command.
+        **/
+        tooltip: string;
+
+        //#endregion Properties
     }
 
     /**
@@ -7033,7 +8098,36 @@ declare module WinJS.UI {
         **/
         loadThumbnail(item: IItem<T>, image: HTMLImageElement): Promise<void>;
 
+        /**
+         * Registers an event handler for the specified event.
+         * @param type The name of the event for which to add a listener.
+         * @param eventHandler The event handler function to associate with the event.
+         * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
+        **/
+        addEventListener(type: string, eventHandler: Function, useCapture?: boolean): void;
+
+        /**
+         * Raises an event of the specified type and with additional properties.
+         * @param type The type (name) of the event.
+         * @param details The set of additional properties to be attached to the event object.
+         * @returns true if preventDefault was called on the event, otherwise false.
+        **/
+        dispatchEvent(type: string, details: any): boolean;
+
+        /**
+         * Removes a listener for the specified event.
+         * @param type The name of the event for which to remove a listener.
+         * @param eventHandler The event handler function to associate with the event.
+         * @param useCapture Optional. The same value that was passed to addEventListener for this listener. It may be omitted if it was omitted when calling addEventListener.
+        **/
+        removeEventListener(type: string, eventHandler: Function, useCapture?: any): void;
+
         //#endregion Methods
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
 
     }
 
@@ -7045,7 +8139,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new TabContainer.
-         * @constructor 
+         * @constructor
          * @param element The DOM element that hosts the TabContainer control.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties.
         **/
@@ -7070,6 +8164,11 @@ declare module WinJS.UI {
         childFocus: HTMLElement;
 
         /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        /**
          * Gets or sets the tab index of this container.
         **/
         tabIndex: number;
@@ -7086,7 +8185,7 @@ declare module WinJS.UI {
 
         /**
          * Initializes a new instance of a TimePicker control.
-         * @constructor 
+         * @constructor
          * @param element The DOM element associated with the TimePicker control.
          * @param options The set of options to be applied initially to the TimePicker control. The options are the following: clock.
         **/
@@ -7128,12 +8227,9 @@ declare module WinJS.UI {
         dispose(): void;
 
         /**
-         * Raises an event of the specified type and with additional properties.
-         * @param type The type (name) of the event.
-         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
-         * @returns true if preventDefault was called on the event, otherwise false.
+         * This API supports the WinJS infrastructure and is not intended to be used directly from your code. Use render instead.
         **/
-        raiseEvent(type: string, eventProperties: any): boolean;
+        static getInformation(clock: any, minuteIncrement: any, timerPatterns?: any): any;
 
         /**
          * Removes a listener for the specified event.
@@ -7187,6 +8283,11 @@ declare module WinJS.UI {
         **/
         periodPattern: string;
 
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
         //#endregion Properties
 
     }
@@ -7199,7 +8300,7 @@ declare module WinJS.UI {
 
         /**
          * Creates a new ToggleSwitch.
-         * @constructor 
+         * @constructor
          * @param element The DOM that hosts the control.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the change event, add a property named "onchange" to the options object and set its value to the event handler.
         **/
@@ -7241,20 +8342,6 @@ declare module WinJS.UI {
         dispose(): void;
 
         /**
-         * Handles the specified event.
-         * @param event The event.
-        **/
-        handleEvent(event: any): void;
-
-        /**
-         * Raises an event of the specified type and with additional properties.
-         * @param type The type (name) of the event.
-         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
-         * @returns true if preventDefault was called on the event, otherwise false.
-        **/
-        raiseEvent(type: string, eventProperties: any): boolean;
-
-        /**
          * Removes an event handler that the addEventListener method registered.
          * @param eventName The name of the event that the event handler is registered for.
          * @param eventCallback The event handler function to remove.
@@ -7292,12 +8379,150 @@ declare module WinJS.UI {
         labelOn: string;
 
         /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        /**
          * Gets or sets the main text for the ToggleSwitch control. This text is always displayed, regardless of whether the control is switched on or off.
         **/
         title: string;
 
         //#endregion Properties
 
+    }
+    /**
+     * Displays ICommands within the flow of the app. Use the ToolBar around other statically positioned app content.
+    **/
+    class ToolBar {
+
+        /**
+         * Display options for the closed ToolBar.
+        **/
+        public static ClosedDisplayMode: {
+            /**
+             * When the ToolBar is closed, the height of the ToolBar is reduced such that button commands are still visible, but their labels are hidden.
+            **/
+            compact: string;
+            /**
+             * When the ToolBar is closed, the height of the ToolBar is always sized to content.
+            **/
+            full: string;
+        };
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        public static supportedForProcessing: boolean;
+
+        /**
+        * Gets the DOM element that hosts the ToolBar.
+        **/
+        public element: HTMLElement;
+
+        /**
+         * Gets or sets the Binding List of ICommand for the ToolBar.
+        **/
+        public data: WinJS.Binding.List<ICommand>;
+
+        /**
+         * Gets or sets the closedDisplayMode for the ToolBar. Values are "compact" and "full".
+        **/
+        public closedDisplayMode: string;
+
+        /**
+         * Creates a new ToolBar control.
+         * @param element The DOM element that will host the control.
+         * @param options The set of properties and values to apply to the new ToolBar.
+        **/
+        constructor(element?: HTMLElement, options?: any);
+
+        /**
+         * Disposes the ToolBar
+        **/
+        public dispose(): void;
+
+        /**
+         * Forces the ToolBar to update its layout. 
+         * Use this function when the window did not change size, but the ToolBar itself did.
+        **/
+        public forceLayout(): void;
+
+        /**
+         * Opens the ToolBar
+        **/
+        public open(): void;
+
+        /**
+         * Closes the ToolBar
+        **/
+        public close(): void;
+
+        /**
+         * Returns the Command object identified by id.
+         * @param id The element idenitifier (ID) of the command to be returned.
+         * @returns The command identified by id. If multiple commands have the same ID, returns the first command found.
+        **/
+        getCommandById(id: string): ICommand;
+
+        /**
+         * Shows the specified commands of the ToolBar while hiding all other commands.
+         * @param commands The commands to show. The array elements may be ICommand objects, or the string identifiers (IDs) of commands.
+        **/
+        showOnlyCommands(commands: Array<string|ICommand>): void;
+
+        /**
+         * Gets or sets whether the ToolBar is currently opened.
+        **/
+        public opened: boolean;
+
+        /**
+         * Occurs immediately before the control is opened. Is cancelable.
+         * @param eventInfo An object that contains information about the event.
+        **/
+        public onbeforeopen: (eventInfo: CustomEvent) => void;
+
+        /**
+         * Occurs immediately after the control is opened.
+         * @param eventInfo An object that contains information about the event.
+        **/
+        public onafteropen: (eventInfo: CustomEvent) => void;
+
+        /**
+         * Occurs immediately before the control is closed. Is cancelable.
+         * @param eventInfo An object that contains information about the event.
+        **/
+        public onbeforeclose: (eventInfo: CustomEvent) => void;
+
+        /**
+         * Occurs immediately after the control is closed.
+         * @param eventInfo An object that contains information about the event.
+        **/
+        public onafterclose: (eventInfo: CustomEvent) => void;
+
+        /**
+          * Registers an event handler for the specified event.
+          * @param type The event type to register. It must be beforeopen, beforeclose, afteropen, or afterclose.
+          * @param listener The event handler function to associate with the event.
+          * @param useCapture Set to true to register the event handler for the capturing phase; otherwise, set to false to register the event handler for the bubbling phase.
+         **/
+        addEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
+
+        /**
+         * Removes an event handler that the addEventListener method registered.
+         * @param type The event type to unregister. It must be beforeopen, beforeclose, afteropen, or afterclose.
+         * @param listener The event handler function to remove.
+         * @param useCapture Set to true to remove the capturing phase event handler; set to false to remove the bubbling phase event handler.
+        **/
+        removeEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
+
+        /**
+         * Raises an event of the specified type and with additional properties.
+         * @param type The type (name) of the event.
+         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
+         * @returns true if preventDefault was called on the event, otherwise false.
+        **/
+        dispatchEvent(eventName: string, eventProperties: any): boolean;
     }
 
     /**
@@ -7412,6 +8637,11 @@ declare module WinJS.UI {
         **/
         placement: string;
 
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
         //#endregion Properties
 
     }
@@ -7443,6 +8673,14 @@ declare module WinJS.UI {
         addEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
 
         /**
+         * Raises an event of the specified type and with additional properties.
+         * @param eventName The name of the event.
+         * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
+         * @returns true if preventDefault was called on the event, otherwise false.
+        **/
+        dispatchEvent(eventName: string, eventProperties: any): boolean;
+
+        /**
          * Releases resources held by this ViewBox. Call this method when the ViewBox is no longer needed. After calling this method, the ViewBox becomes unusable.
         **/
         dispose(): void;
@@ -7469,6 +8707,11 @@ declare module WinJS.UI {
         **/
         element: HTMLElement;
 
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
         //#endregion Properties
 
     }
@@ -7488,7 +8731,7 @@ declare module WinJS.UI {
 
         /**
          * Initializes the VirtualizedDataSource base class of a custom data source.
-         * @constructor 
+         * @constructor
          * @param listDataAdapter The object that supplies data to the VirtualizedDataSource.
          * @param options An object that can contain properties that specify additional options for the VirtualizedDataSource. It supports these properties: cacheSize.
         **/
@@ -7497,12 +8740,6 @@ declare module WinJS.UI {
         //#endregion Constructors
 
         //#region Events
-
-        /**
-         * Occurs when the status of the VirtualizedDataSource changes.
-         * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: status.
-        **/
-        statuschanged(eventInfo: CustomEvent): void;
 
         //#endregion Events
 
@@ -7533,6 +8770,15 @@ declare module WinJS.UI {
         removeEventListener(eventName: string, eventCallback: Function, useCapture?: boolean): void;
 
         //#endregion Methods
+
+        //#region Properties
+
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
+
+        //#endregion Properties
 
     }
 
@@ -7598,6 +8844,11 @@ declare module WinJS.UI {
     function isAnimationEnabled(): boolean;
 
     /**
+     * * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
+    **/
+    function optionsParser(value: string, context?: any, functionContext?: any): any;
+
+    /**
      * Applies declarative control binding to all elements, starting at the specified root element.
      * @param rootElement The element at which to start applying the binding. If this parameter is not specified, the binding is applied to the entire document.
      * @param skipRoot If true, the elements to be bound skip the specified root element and include only the children.
@@ -7621,22 +8872,156 @@ declare module WinJS.UI {
     function scopedSelect(selector: string, element: HTMLElement): HTMLElement;
 
     /**
-     * Given a DOM element and a control, attaches the control to the element.
-     * @param element Element to associate with the control.
-     * @param control The control to attach to the element.
-    **/
-    function setControl(element: HTMLElement, control: any): void;
-
-    /**
-     * Adds the set of declaratively specified options (properties and events) to the specified control. If name of the options property begins with "on", the property value is a function and the control supports addEventListener. setControl calls addEventListener on the control.
+     * Adds the set of declaratively specified options (properties and events) to the specified control. If name of the options property begins with "on", the property value is a function and the control supports addEventListener, setOptions calls addEventListener on the control.
      * @param control The control on which the properties and events are to be applied.
      * @param options The set of options that are specified declaratively.
     **/
     function setOptions(control: any, options?: any): void;
 
+    /**
+     * This API supports the WinJS infrastructure and is not intended to be used directly from your code.
+    **/
+    function simpleItemRenderer(fn: Function): Function;
+
     //#endregion Functions
 
 }
+/**
+ * Provides utility functions for generic directional focus movement
+**/
+declare module WinJS.UI.XYFocus {
+    export interface XYFocusOptions {
+        /**
+         * The focus scope, only children of this element are considered in the calculation.
+        **/
+        focusRoot?: HTMLElement;
+
+        /**
+         * A rectangle indicating where focus came from before the current state.
+        **/
+        historyRect?: IRect;
+
+        /**
+         * The element from which to calculate the next focusable element; if specified, referenceRect is ignored.
+        **/
+        referenceElement?: HTMLElement;
+
+        /**
+         * The rectangle from which to calculate next focusable element; ignored if referenceElement is also specified.
+        **/
+        referenceRect?: IRect;
+    }
+
+    export interface IRect {
+        left: number;
+        right?: number;
+        top: number;
+        bottom?: number;
+
+        height: number;
+        width: number;
+    }
+
+    export interface XYFocusEvent extends CustomEvent {
+        detail: { nextFocusElement: HTMLElement; keyCode: number; previousFocusElement: HTMLElement };
+    }
+
+    /**
+     * Gets the mapping object that maps keycodes to XYFocus actions.
+    **/
+    export var keyCodeMap: {
+        /**
+         * The array of keycodes that cause XYFocus to accept.
+        **/
+        accept: Array<number>;
+        /**
+         * The array of keycodes that cause XYFocus to cancel.
+        **/
+        cancel: Array<number>;
+        /**
+         * The array of keycodes that cause XYFocus to navigate down.
+        **/
+        down: Array<number>;
+        /**
+         * The array of keycodes that cause XYFocus to navigate left.
+        **/
+        left: Array<number>;
+        /**
+         * The array of keycodes that cause XYFocus to navigate right.
+        **/
+        right: Array<number>;
+        /**
+         * The array of keycodes that cause XYFocus to navigate up.
+        **/
+        up: Array<number>;
+    };
+
+    /**
+     * Gets or sets the focus root when invoking XYFocus APIs.
+    **/
+    export var focusRoot: HTMLElement;
+
+    /**
+     * Adds an event listener to XYFocus events.
+     * @param type The type (name) of the event.
+     * @param listener The listener to invoke when the event gets raised.
+    **/
+    export function addEventListener(type: string, handler: EventListener): void;
+
+    /**
+     * Raises an event of the specified type and with additional properties.
+     * @param type The type (name) of the event.
+     * @param eventProperties The set of additional properties to be attached to the event object when the event is raised.
+     * @returns true if preventDefault was called on the event, otherwise false.
+    **/
+    export function dispatchEvent(type: string, eventProperties: any): boolean;
+
+    /**
+     * Removes an event listener to XYFocus events.
+     * @param type The type (name) of the event.
+     * @param listener The listener to remove.
+    **/
+    export function removeEventListener(type: string, handler: EventListener): void;
+
+    /**
+     * Returns the next focusable element from the current active element (or reference, if supplied) towards the specified direction.
+     * @param direction The direction to search.
+     * @param options An options object configuring the search.
+    **/
+    export function findNextFocusElement(direction: string, options?: XYFocusOptions): HTMLElement;
+    export function findNextFocusElement(direction: "left", options?: XYFocusOptions): HTMLElement;
+    export function findNextFocusElement(direction: "right", options?: XYFocusOptions): HTMLElement;
+    export function findNextFocusElement(direction: "up", options?: XYFocusOptions): HTMLElement;
+    export function findNextFocusElement(direction: "down", options?: XYFocusOptions): HTMLElement;
+
+    /**
+     * Moves focus to the next focusable element from the current active element (or reference, if supplied) towards the specific direction.
+     * @param direction The direction to move.
+     * @param options An options object configuring the focus move.
+    **/
+    export function moveFocus(direction: string, options?: XYFocusOptions): HTMLElement;
+    export function moveFocus(direction: "left", options?: XYFocusOptions): HTMLElement;
+    export function moveFocus(direction: "right", options?: XYFocusOptions): HTMLElement;
+    export function moveFocus(direction: "up", options?: XYFocusOptions): HTMLElement;
+    export function moveFocus(direction: "down", options?: XYFocusOptions): HTMLElement;
+
+    //#region Events
+
+    /**
+     * Occurs immeidately after XYFocus has changed focus targets.
+     * @param eventInfo An object that contains information about the event. The detail property of this object includes the following subproperties: previousFocusElemewnt, keyCode.
+    **/
+    export function onfocuschanged(eventInfo: CustomEvent): void;
+
+    /**
+     * Occurs immeidately before XYFocus changes focus targets. Is cancelable.
+     * @param eventInfo An object that contains information about the event. The detail property of this object includes the following subproperties: nextFocusElement, keyCode.
+    **/
+    export function onfocuschanging(eventInfo: CustomEvent): void;
+
+    //#endregion Events
+}
+
 /**
  * Provides functions to load HTML content programmatically.
 **/
@@ -7792,7 +9177,7 @@ declare module WinJS.UI.TrackTabBehavior {
      * Removes the tab order information from the specified element.
      * @param element The element to remove tab information from.
     **/
-    function detatch(element: HTMLElement): void;
+    function detach(element: HTMLElement): void;
 
     //#endregion Functions
 
@@ -8152,6 +9537,38 @@ declare module WinJS.Utilities {
         **/
         F12,
         /**
+         * The XBox One Remote navigation view button.
+        **/
+        NavigationView,
+        /**
+         * The XBox One Remote navigation menu button.
+        **/
+        NavigationMenu,
+        /**
+         * The XBox One Remote navigation up button.
+        **/
+        NavigationUp,
+        /**
+         * The XBox One Remote navigation down button.
+        **/
+        NavigationDown,
+        /**
+         * The XBox One Remote navigation left button.
+        **/
+        NavigationLeft,
+        /**
+         * The XBox One Remote navigation right button.
+        **/
+        NavigationRight,
+        /**
+         * The XBox One Remote navigation accept button.
+        **/
+        NavigationAccept,
+        /**
+         * The XBox One Remote navigation cancel button.
+        **/
+        NavigationCancel,
+        /**
          * The NUMBER LOCK key.
         **/
         numLock,
@@ -8198,6 +9615,105 @@ declare module WinJS.Utilities {
         /**
          * The open bracket key ([).
         **/
+        /**
+         * The XBox One gamepad A button.
+        **/
+        GamepadA,
+        /**
+         * The XBox One gamepad B button.
+        **/
+        GamepadB,
+        /**
+         * The XBox One gamepad X button.
+        **/
+        GamepadX,
+        /**
+         * The XBox One gamepad Y button.
+        **/
+        GamepadY,
+        /**
+         * The XBox One gamepad right shoulder.
+        **/
+        GamepadRightShoulder,
+        /**
+         * The XBox One gamepad left shoulder.
+        **/
+        GamepadLeftShoulder,
+        /**
+         * The XBox One gamepad left trigger.
+        **/
+        GamepadLeftTrigger,
+        /**
+         * The XBox One gamepad right trigger.
+        **/
+        GamepadRightTrigger,
+        /**
+         * The XBox One gamepad dpad up.
+        **/
+        GamepadDPadUp,
+        /**
+         * The XBox One gamepad dpad down.
+        **/
+        GamepadDPadDown,
+        /**
+         * The XBox One gamepad dpad left.
+        **/
+        GamepadDPadLeft,
+        /**
+         * The XBox One gamepad dpad right.
+        **/
+        GamepadDPadRight,
+        /**
+         * The XBox One gamepad menu button.
+        **/
+        GamepadMenu,
+        /**
+         * The XBox One gamepad view button.
+        **/
+        GamepadView,
+        /**
+         * The XBox One gamepad left thumbstick button.
+        **/
+        GamepadLeftThumbstick,
+        /**
+         * The XBox One gamepad right thumbstick button.
+        **/
+        GamepadRightThumbstick,
+        /**
+         * The XBox One gamepad left thumbstick's up.
+        **/
+        GamepadLeftThumbstickUp,
+        /**
+         * The XBox One gamepad left thumbstick's down.
+        **/
+        GamepadLeftThumbstickDown,
+        /**
+         * The XBox One gamepad left thumbstick's right.
+        **/
+        GamepadLeftThumbstickRight,
+        /**
+         * The XBox One gamepad left thumbstick's left.
+        **/
+        GamepadLeftThumbstickLeft,
+        /**
+         * The XBox One gamepad right thumbstick's up.
+        **/
+        GamepadRightThumbstickUp,
+        /**
+         * The XBox One gamepad right thumbstick's down.
+        **/
+        GamepadRightThumbstickDown,
+        /**
+         * The XBox One gamepad right thumbstick's right.
+        **/
+        GamepadRightThumbstickRight,
+        /**
+         * The XBox One gamepad right thumbstick's left.
+        **/
+        GamepadRightThumbstickLeft,
+        /**
+         * The open bracket key ([).
+        **/
         openBracket,
         /**
          * The backslash key (\).
@@ -8210,7 +9726,11 @@ declare module WinJS.Utilities {
         /**
          * The single quote key (').
         **/
-        singleQuote
+        singleQuote,
+        /**
+         * Any IME input.
+        **/
+        IME,
     }
 
     //#endregion Enumerations
@@ -8254,7 +9774,7 @@ declare module WinJS.Utilities {
     /**
      * Represents the result of a query selector, and provides various operations that perform actions over the elements of the collection.
     **/
-    interface QueryCollection<T> extends Array<T> {
+    class QueryCollection<T> implements Array<T> {
         //#region Methods
 
         /**
@@ -8263,13 +9783,6 @@ declare module WinJS.Utilities {
          * @returns This QueryCollection object.
         **/
         addClass(name: string): QueryCollection<T>;
-
-        /**
-         * Creates a QueryCollection that contains the children of the specified parent element.
-         * @param element The parent element.
-         * @returns The QueryCollection that contains the children of the element.
-        **/
-        children(element: HTMLElement): QueryCollection<T>;
 
         /**
          * Clears the specified style property for all the elements in the collection.
@@ -8316,13 +9829,6 @@ declare module WinJS.Utilities {
         hasClass(name: string): boolean;
 
         /**
-         * Looks up an element by ID and wraps the result in a QueryCollection.
-         * @param id The ID of the element.
-         * @returns A QueryCollection that contains the element, if it is found.
-        **/
-        id(id: string): QueryCollection<T>;
-
-        /**
          * Adds a set of items to this QueryCollection.
          * @param items The items to add to the QueryCollection. This may be an array-like object, a document fragment, or a single item.
         **/
@@ -8358,7 +9864,7 @@ declare module WinJS.Utilities {
         /**
          * Removes the specified class from all the elements in the collection.
          * @param name The name of the class to be removed.
-         * @returns his QueryCollection object.
+         * @returns This QueryCollection object.
         **/
         removeClass(name: string): QueryCollection<T>;
 
@@ -8405,14 +9911,161 @@ declare module WinJS.Utilities {
 
         //#endregion Methods
 
-    }
+        /**
+         * Indicates that the object is compatibile with declarative processing.
+        **/
+        static supportedForProcessing: boolean;
 
-    /**
-     * Constructor support for QueryCollection interface
-    **/
-    export var QueryCollection: {
-        new <T>(items: T[]): QueryCollection<T>;
-        prototype: QueryCollection<any>;
+        //#region Array<T>.prototype
+
+        /**
+         * Combines two or more arrays.
+         * @param items Additional items to add to the end of array1.
+        **/
+        concat<U extends T[]>(...items: U[]): T[];
+        /**
+         * Combines two or more arrays.
+         * @param items Additional items to add to the end of array1.
+        **/
+        concat(...items: T[]): T[];
+
+        /**
+         * Adds all the elements of an array separated by the specified separator string.
+         * @param separator A string used to separate one element of an array from the next in the resulting String. If omitted, the array elements are separated with a comma.
+        **/
+        join(separator?: string): string;
+
+        /**
+         * Removes the last element from an array and returns it.
+        **/
+        pop(): T;
+
+        /**
+         * Appends new elements to an array, and returns the new length of the array.
+         * @param items New elements of the Array.
+        **/
+        push(...items: T[]): number;
+
+        /**
+         * Reverses the elements in an Array. 
+        **/
+        reverse(): T[];
+
+        /**
+         * Removes the first element from an array and returns it.
+        **/
+        shift(): T;
+
+        /** 
+         * Returns a section of an array.
+         * @param start The beginning of the specified portion of the array.
+         * @param end The end of the specified portion of the array.
+        **/
+        slice(start?: number, end?: number): T[];
+
+        /**
+         * Sorts an array.
+         * @param compareFn The name of the function used to determine the order of the elements. If omitted, the elements are sorted in ascending, ASCII character order.
+        **/
+        sort(compareFn?: (a: T, b: T) => number): T[];
+
+        /**
+         * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
+         * @param start The zero-based location in the array from which to start removing elements.
+        **/
+        splice(start: number): T[];
+
+        /**
+         * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
+         * @param start The zero-based location in the array from which to start removing elements.
+         * @param deleteCount The number of elements to remove.
+         * @param items Elements to insert into the array in place of the deleted elements.
+        **/
+        splice(start: number, deleteCount: number, ...items: T[]): T[];
+
+        /**
+         * Inserts new elements at the start of an array.
+         * @param items  Elements to insert at the start of the Array.
+        **/
+        unshift(...items: T[]): number;
+
+        /**
+         * Returns the index of the first occurrence of a value in an array.
+         * @param searchElement The value to locate in the array.
+         * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at index 0.
+        **/
+        indexOf(searchElement: T, fromIndex?: number): number;
+
+        /**
+         * Returns the index of the last occurrence of a specified value in an array.
+         * @param searchElement The value to locate in the array.
+         * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at the last index in the array.
+        **/
+        lastIndexOf(searchElement: T, fromIndex?: number): number;
+
+        /**
+         * Determines whether all the members of an array satisfy the specified test.
+         * @param callbackfn A function that accepts up to three arguments. The every method calls the callbackfn function for each element in array1 until the callbackfn returns false, or until the end of the array.
+         * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+        **/
+        every(callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): boolean;
+
+        /**
+         * Determines whether the specified callback function returns true for any element of an array.
+         * @param callbackfn A function that accepts up to three arguments. The some method calls the callbackfn function for each element in array1 until the callbackfn returns true, or until the end of the array.
+         * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+        **/
+        some(callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): boolean;
+
+        /**
+         * Calls a defined callback function on each element of an array, and returns an array that contains the results.
+         * @param callbackfn A function that accepts up to three arguments. The map method calls the callbackfn function one time for each element in the array. 
+         * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+        **/
+        map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[];
+
+        /**
+         * Returns the elements of an array that meet the condition specified in a callback function. 
+         * @param callbackfn A function that accepts up to three arguments. The filter method calls the callbackfn function one time for each element in the array. 
+         * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+        **/
+        filter(callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): T[];
+
+        /**
+         * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+         * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
+         * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
+        **/
+        reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
+        /**
+         * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+         * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
+         * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
+        **/
+        reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
+
+        /** 
+         * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+         * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array. 
+         * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
+        **/
+        reduceRight(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
+        /** 
+         * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+         * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array. 
+         * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
+        **/
+        reduceRight<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
+
+        /**
+         * Gets or sets the length of the array. This is a number one higher than the highest element defined in an array.
+        **/
+        length: number;
+
+        [n: number]: T;
+
+        //#endregion Array<T>.prototype
+
     }
 
     //#endregion Objects
@@ -8536,7 +10189,7 @@ declare module WinJS.Utilities {
      * @param element The element.
      * @returns An object with two properties: scrollLeft and scrollTop
     **/
-    function getScrollPosition(element: HTMLElement): { scrollLeft: number; scrollTop: number};
+    function getScrollPosition(element: HTMLElement): { scrollLeft: number; scrollTop: number };
 
     /**
      * Gets the tab index of the specified element.
@@ -8668,7 +10321,7 @@ declare module WinJS.Utilities {
      * @param element The element.
      * @param position An object describing the position to set.
     **/
-    function setScrollPosition(element: HTMLElement, position: { scrollLeft: number; scrollTop: number}): void;
+    function setScrollPosition(element: HTMLElement, position: { scrollLeft: number; scrollTop: number }): void;
 
     /**
      * Configures a logger that writes messages containing the specified tags to the JavaScript console.
@@ -8700,9 +10353,9 @@ declare module WinJS.Utilities {
     var hasWinRT: boolean;
 
     /**
-     * Indicates whether the app is running on Windows Phone.
+     * Determines if strict declarative processing is enabled in this script context.
     **/
-    var isPhone: boolean;
+    var strictProcessing: boolean;
 
     //#endregion Properties
 
