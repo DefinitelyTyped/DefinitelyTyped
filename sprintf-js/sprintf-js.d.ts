@@ -10,7 +10,7 @@ Its prototype is simple:
 
 string sprintf(string format , [mixed arg1 [, mixed arg2 [ ,...]]]) 
 */
-declare module "sprintf-js" {
+declare module sprintf_js {
 	/** sprintf.js is a complete open source JavaScript sprintf implementation for the browser and node.js.
 Its prototype is simple:
 		string sprintf(string format , [mixed arg1 [, mixed arg2 [ ,...]]]) 
@@ -69,3 +69,10 @@ X - yields an integer as a hexadecimal number (upper-case)
 */
 	export function vsprintf(fmt: string, args: any[]): string;
 }
+
+declare module "sprintf-js" {
+	export =sprintf_js;
+}
+
+declare var sprintf: typeof sprintf_js.sprintf;
+declare var vsprintf: typeof sprintf_js.vsprintf;

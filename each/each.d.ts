@@ -6,9 +6,9 @@
 interface Each {
 	paused: boolean;
 	readable: boolean;
-	started: boolean;
-	done: boolean;
-	total: boolean;
+	started: number;
+	done: number;
+	total: number;
 	on(eventName: string, onCallback: Function): Each;
 	on(eventName: "item", onItem: (item: any, next: (error?: Error) => void) => void): Each;
 	on(eventName: "error", onError: (error: Error[]) => void): Each;

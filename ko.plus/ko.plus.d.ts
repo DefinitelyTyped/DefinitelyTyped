@@ -1,8 +1,9 @@
-// Type definitions for ko.plus v0.0.21
+// Type definitions for ko.plus v0.0.24
 // Project: https://github.com/stevegreatrex/ko.plus
 // Definitions by: Howard Richards <https://github.com/conficient>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../knockout/knockout.d.ts" />
 
 /**
@@ -16,6 +17,9 @@
  *
  * Version 1.1 - fixed bug - makeEditable is now a function on .editable
  *               also refactored how the Editable classes inherit to simplify
+ * 
+ * Version 1.2 - amended callback on commmand.fail() method - accepts response,
+ *               status and message values
  */
 
 //
@@ -23,7 +27,7 @@
 //
 interface KnockoutStatic {
     // create a command - two overloads
-    command: (param: KoPlus.Callback | KoPlus.CommandOptions) => KoPlus.Command;
+    command: (param: Function | KoPlus.CommandOptions) => KoPlus.Command;
 
     editable: KoPlus.EditableStatic;
     editableArray: KoPlus.EditableArrayStatic;
@@ -60,8 +64,6 @@ interface KnockoutBindingHandlers {
 // namespace for ko.plus types
 //
 declare module KoPlus {
-    // predefine a callback type
-    export type Callback = () => void;
 
     //#region Command types
 
@@ -89,11 +91,11 @@ declare module KoPlus {
         //
         done: (callback: (data: any) => void) => Command;
 
-        fail: (callback: (error: string) => void) => Command;
+        fail: (callback: (response: any, status?: string, statusText?:string) => void) => Command;
 
-        always: (callback: Callback) => Command;
+        always: (callback: Function) => Command;
 
-        then: (resolve: Callback, reject: Callback) => Command;
+        then: (resolve: Function, reject: Function) => Command;
     }
 
     //
@@ -102,7 +104,7 @@ declare module KoPlus {
     //
     export interface CommandOptions {
         // [required] sets the command action method
-        action: Callback;
+        action: Function;
 
         // [optional] function to determine if command can be executed
         canExecute?: () => boolean;

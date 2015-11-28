@@ -13,6 +13,7 @@ declare module "gm" {
 	module m {
 		export interface ClassOptions {
 			imageMagick?: boolean;
+			nativeAutoOrient?: boolean;
 		}
 
 		export interface CompareCallback {

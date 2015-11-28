@@ -6,27 +6,38 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../chai/chai.d.ts" />
 
-declare module chai {
-	export function request(server: any): chaiHttp.Agent;
+declare module Chai {
 
-	export module request {
-		export function agent(server: any): chaiHttp.Agent;
-		export function addPromises(promiseConstructor: chaiHttp.PromiseConstructor): void;
+	interface ChaiStatic {
+		request: ChaiHttpRequest;
 	}
 
-	interface Assertions extends chaiHttp.Assertions {
+	interface ChaiHttpRequest {
+		(server: any): ChaiHttp.Agent;
+		agent(server: any): ChaiHttp.Agent;
+		addPromises(promiseConstructor: any): void;
 	}
 
-	interface TypeComparison extends chaiHttp.TypeComparison {
+	interface Assertion {
+		status(code: number): Assertion;
+		header(key: string, value?: string): Assertion;
+		header(key: string, value?: RegExp): Assertion;
+		headers: Assertion;
+		json: Assertion;
+		text: Assertion;
+		html: Assertion;
+		redirect: Assertion;
+		redirectTo(location: string): Assertion;
+		param(key: string, value?: string): Assertion;
+		cookie(key: string, value?: string): Assertion;
+	}
+
+	interface TypeComparison {
+		ip: Assertion;
 	}
 }
 
-declare function chaiHttp(chai: any, utils: any): void;
-declare module chaiHttp {
-	interface PromiseConstructor {
-		<T>(resolver: (resolve: (value: T) => void, reject: (reason: any) => void) => void): Promise<T>;
-	}
-
+declare module ChaiHttp {
 	interface Promise<T> {
 		then<U>(onFulfilled: (value: T) => U, onRejected?: (reason: any) => U): Promise<U>;
 	}
@@ -38,10 +49,9 @@ declare module chaiHttp {
 	}
 
 	interface Request extends FinishedRequest {
-		attach(field: string, file: string, filename: string): Request;
-		attach(field: string, file: Buffer, filename: string): Request;
+		attach(field: string, file: string|Buffer, filename: string): Request;
 		set(field: string, val: string): Request;
-		query(key: string, value: string): Request;
+		query(params: Object): Request;
 		send(data: Object): Request;
 		auth(user: string, name: string): Request;
 		field(name: string, val: string): Request;
@@ -63,25 +73,12 @@ declare module chaiHttp {
 		patch(url: string, callback?: (err: any, res: Response) => void): Request;
 	}
 
-	interface Assertions {
-		status(code: number): any;
-		header(key: string, value?: string): any;
-		header(key: string, value?: RegExp): any;
-		headers: any;
-		json: any;
-		// text: any;
-		// html: any;
-		redirect: any;
-		redirectTo(location: string): any;
-		param(key: string, value?: string): any;
-		cookie(key: string, value?: string): any;
-	}
-
 	interface TypeComparison {
 		ip: any;
 	}
 }
 
 declare module "chai-http" {
+	function chaiHttp(chai: any, utils: any): void;
 	export = chaiHttp;
 }
