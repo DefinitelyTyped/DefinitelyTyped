@@ -5092,10 +5092,25 @@ result = <boolean>_(Array.prototype.push).isNative();
 }
 
 // _.isNull
-result = <boolean>_.isNull(any);
-result = <boolean>_(1).isNull();
-result = <boolean>_<any>([]).isNull();
-result = <boolean>_({}).isNull();
+module TestIsNull {
+    {
+        let result: boolean;
+
+        result = _.isNull(any);
+
+        result = _(1).isNull();
+        result = _<any>([]).isNull();
+        result = _({}).isNull();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isNull();
+        result = _<any>([]).chain().isNull();
+        result = _({}).chain().isNull();
+    }
+}
 
 // _.isNumber
 result = <boolean>_.isNumber(any);
