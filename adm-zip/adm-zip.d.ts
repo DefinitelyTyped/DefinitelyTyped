@@ -227,70 +227,70 @@ declare module "adm-zip" {
 
     module AdmZip {    
         /**
-        * The ZipEntry is more than a structure representing the entry inside the
-        * zip file. Beside the normal attributes and headers a entry can have, the
-        * class contains a reference to the part of the file where the compressed
-        * data resides and decompresses it when requested. It also compresses the
-        * data and creates the headers required to write in the zip file.
-        */
+         * The ZipEntry is more than a structure representing the entry inside the
+         * zip file. Beside the normal attributes and headers a entry can have, the
+         * class contains a reference to the part of the file where the compressed
+         * data resides and decompresses it when requested. It also compresses the
+         * data and creates the headers required to write in the zip file.
+         */
         interface IZipEntry {
             /**
-            * Represents the full name and path of the file
-            */
+             * Represents the full name and path of the file
+             */
             entryName: string;
             rawEntryName: Buffer;
             /**
-            * Extra data associated with this entry.
-            */
+             * Extra data associated with this entry.
+             */
             extra: Buffer;
             /**
-            * Entry comment.
-            */
+             * Entry comment.
+             */
             comment: string;
             name: string;
             /**
-            * Read-Only property that indicates the type of the entry.
-            */
+             * Read-Only property that indicates the type of the entry.
+             */
             isDirectory: boolean;
             /**
-            * Get the header associated with this ZipEntry.
-            */
+             * Get the header associated with this ZipEntry.
+             */
             header: Buffer;
             /**
-            * Retrieve the compressed data for this entry. Note that this may trigger
-            * compression if any properties were modified.
-            */
+             * Retrieve the compressed data for this entry. Note that this may trigger
+             * compression if any properties were modified.
+             */
             getCompressedData(): Buffer;
             /**
-            * Asynchronously retrieve the compressed data for this entry. Note that
-            * this may trigger compression if any properties were modified.
-            */
+             * Asynchronously retrieve the compressed data for this entry. Note that
+             * this may trigger compression if any properties were modified.
+             */
             getCompressedDataAsync(callback: (data: Buffer) => void): void;
             /**
-            * Set the (uncompressed) data to be associated with this entry.
-            */
+             * Set the (uncompressed) data to be associated with this entry.
+             */
             setData(value: string): void;
             /**
-            * Set the (uncompressed) data to be associated with this entry.
-            */
+             * Set the (uncompressed) data to be associated with this entry.
+             */
             setData(value: Buffer): void;
             /**
-            * Get the decompressed data associated with this entry.
-            */
+             * Get the decompressed data associated with this entry.
+             */
             getData(): Buffer;
             /**
-            * Asynchronously get the decompressed data associated with this entry.
-            */
+             * Asynchronously get the decompressed data associated with this entry.
+             */
             getDataAsync(callback: (data: Buffer) => void): void;
             /**
-            * Returns the CEN Entry Header to be written to the output zip file, plus
-            * the extra data and the entry comment.
-            */
+             * Returns the CEN Entry Header to be written to the output zip file, plus
+             * the extra data and the entry comment.
+             */
             packHeader(): Buffer;
             /**
-            * Returns a nicely formatted string with the most important properties of
-            * the ZipEntry.
-            */
+             * Returns a nicely formatted string with the most important properties of
+             * the ZipEntry.
+             */
             toString(): string;
         }
     }
