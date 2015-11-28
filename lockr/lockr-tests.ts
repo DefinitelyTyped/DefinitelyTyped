@@ -8,7 +8,7 @@ Lockr.set('hash', [1, 2, 3]);
 Lockr.set('valueFalse', false);
 Lockr.set('value0', 0);
 
-let value = Lockr.get<numbr>('test');
+let value = Lockr.get<number>('test');
 Lockr.rm('test');
 
 let contents = Lockr.getAll();
