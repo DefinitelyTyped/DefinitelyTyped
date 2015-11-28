@@ -1338,6 +1338,7 @@ declare module google.maps {
         lightness?: number;
         saturation?: number;
         visibility?: string;
+        weight?: number;
     }
 
     /***** Layers *****/

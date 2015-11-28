@@ -5,17 +5,17 @@
 
 () => {
     // ------- variable definitions that does not exist in the original code. These are for typescript.
-    var material: THREE.SpriteMaterial;
-    var container: HTMLElement;
-    var pcBuffer: THREE.PointCloud;
-    var v: any;
+    var material:THREE.SpriteMaterial;
+    var container:HTMLElement;
+    var pcBuffer:THREE.Points;
+    var v:any;
     // -------
 
     if (!Detector.webgl) Detector.addGetWebGLMessage();
 
     var renderer, scene, camera, stats;
     var pointclouds;
-    var raycaster, intersects;
+    var raycaster;
     var mouse = new THREE.Vector2();
     var intersection = null;
     var spheres = [];
@@ -48,14 +48,14 @@
                 var u = i / width;
                 var v = j / length;
                 var x = u - 0.5;
-                var y = (Math.cos(u * Math.PI * 8) + Math.sin(v * Math.PI * 8)) / 20;
+                var y = ( Math.cos(u * Math.PI * 8) + Math.sin(v * Math.PI * 8) ) / 20;
                 var z = v - 0.5;
 
                 positions[3 * k] = x;
                 positions[3 * k + 1] = y;
                 positions[3 * k + 2] = z;
 
-                var intensity = (y + 0.1) * 5;
+                var intensity = ( y + 0.1 ) * 5;
                 colors[3 * k] = color.r * intensity;
                 colors[3 * k + 1] = color.g * intensity;
                 colors[3 * k + 2] = color.b * intensity;
@@ -78,8 +78,8 @@
 
         var geometry = generatePointCloudGeometry(color, width, length);
 
-        var material = new THREE.PointCloudMaterial({ size: pointSize, vertexColors: THREE.VertexColors });
-        var pointcloud = new THREE.PointCloud(geometry, material);
+        var material = new THREE.PointsMaterial({size: pointSize, vertexColors: THREE.VertexColors});
+        var pointcloud = new THREE.Points(geometry, material);
 
         return pointcloud;
 
@@ -104,10 +104,10 @@
 
         }
 
-        geometry.addAttribute('index', new THREE.BufferAttribute(indices, 1));
+        geometry.setIndex(new THREE.BufferAttribute(indices, 1));
 
-        var material = new THREE.PointCloudMaterial({ size: pointSize, vertexColors: THREE.VertexColors });
-        var pointcloud = new THREE.PointCloud(geometry, material);
+        var material = new THREE.PointsMaterial({size: pointSize, vertexColors: THREE.VertexColors});
+        var pointcloud = new THREE.Points(geometry, material);
 
         return pointcloud;
 
@@ -132,13 +132,11 @@
 
         }
 
-        geometry.addAttribute('index', new THREE.BufferAttribute(indices, 1));
+        geometry.setIndex(new THREE.BufferAttribute(indices, 1));
+        geometry.addDrawCall(0, indices.length);
 
-        var offset = { start: 0, count: indices.length, index: 0 };
-        geometry.offsets.push(offset);
-
-        var material = new THREE.PointCloudMaterial({ size: pointSize, vertexColors: THREE.VertexColors });
-        var pointcloud = new THREE.PointCloud(geometry, material);
+        var material = new THREE.PointsMaterial({size: pointSize, vertexColors: THREE.VertexColors});
+        var pointcloud = new THREE.Points(geometry, material);
 
         return pointcloud;
 
@@ -147,7 +145,6 @@
     function generateRegularPointcloud(color, width, length) {
 
         var geometry = new THREE.Geometry();
-        var numPoints = width * length;
 
         var colors = [];
 
@@ -160,17 +157,17 @@
                 var u = i / width;
                 var v = j / length;
                 var x = u - 0.5;
-                var y = (Math.cos(u * Math.PI * 8) + Math.sin(v * Math.PI * 8)) / 20;
+                var y = ( Math.cos(u * Math.PI * 8) + Math.sin(v * Math.PI * 8) ) / 20;
                 var z = v - 0.5;
-                var vec = new THREE.Vector3(x, y, z);
+                var v2 = new THREE.Vector3(x, y, z);
 
-                var intensity = (y + 0.1) * 7;
+                var intensity = ( y + 0.1 ) * 7;
                 colors[3 * k] = color.r * intensity;
                 colors[3 * k + 1] = color.g * intensity;
                 colors[3 * k + 2] = color.b * intensity;
 
-                geometry.vertices.push(vec);
-                colors[k] = (color.clone().multiplyScalar(intensity));
+                geometry.vertices.push(v2);
+                colors[k] = ( color.clone().multiplyScalar(intensity) );
 
                 k++;
 
@@ -181,8 +178,8 @@
         geometry.colors = colors;
         geometry.computeBoundingBox();
 
-        var material = new THREE.PointCloudMaterial({ size: pointSize, vertexColors: THREE.VertexColors });
-        var pointcloud = new THREE.PointCloud(geometry, material);
+        var material = new THREE.PointsMaterial({size: pointSize, vertexColors: THREE.VertexColors});
+        var pointcloud = new THREE.Points(geometry, material);
 
         return pointcloud;
 
@@ -190,7 +187,7 @@
 
     function init() {
 
-        container = document.getElementById('container');
+        var container = document.getElementById('container');
 
         scene = new THREE.Scene();
 
@@ -202,7 +199,7 @@
 
         //
 
-        pcBuffer = generatePointcloud(new THREE.Color(1, 0, 0), width, length);
+        var pcBuffer = generatePointcloud(new THREE.Color(1, 0, 0), width, length);
         pcBuffer.scale.set(10, 10, 10);
         pcBuffer.position.set(-5, 0, 5);
         scene.add(pcBuffer);
@@ -227,7 +224,7 @@
         //
 
         var sphereGeometry = new THREE.SphereGeometry(0.1, 32, 32);
-        var sphereMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, shading: THREE.FlatShading });
+        var sphereMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, shading: THREE.FlatShading});
 
         for (var i = 0; i < 40; i++) {
 
@@ -247,7 +244,7 @@
         //
 
         raycaster = new THREE.Raycaster();
-        raycaster.params.PointCloud.threshold = threshold;
+        raycaster.params.Points.threshold = threshold;
 
         //
 
@@ -267,8 +264,8 @@
 
         event.preventDefault();
 
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+        mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+        mouse.y = -( event.clientY / window.innerHeight ) * 2 + 1;
 
     }
 
@@ -300,13 +297,13 @@
         raycaster.setFromCamera(mouse, camera);
 
         var intersections = raycaster.intersectObjects(pointclouds);
-        intersection = (intersections.length) > 0 ? intersections[0] : null;
+        intersection = ( intersections.length ) > 0 ? intersections[0] : null;
 
         if (toggle > 0.02 && intersection !== null) {
 
             spheres[spheresIndex].position.copy(intersection.point);
             spheres[spheresIndex].scale.set(1, 1, 1);
-            spheresIndex = (spheresIndex + 1) % spheres.length;
+            spheresIndex = ( spheresIndex + 1 ) % spheres.length;
 
             toggle = 0;
 

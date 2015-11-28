@@ -1,6 +1,6 @@
-// Type definitions for material-ui v0.12.1
+// Type definitions for material-ui v0.13.1
 // Project: https://github.com/callemall/material-ui
-// Definitions by: Nathan Brown <https://github.com/ngbrown>
+// Definitions by: Nathan Brown <https://github.com/ngbrown>, Oliver Herrmann <https://github.com/herrmanno>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path='../react/react.d.ts' />
@@ -9,6 +9,7 @@ declare module "material-ui" {
     export import AppBar = __MaterialUI.AppBar; // require('material-ui/lib/app-bar');
     export import AppCanvas = __MaterialUI.AppCanvas; // require('material-ui/lib/app-canvas');
     export import Avatar = __MaterialUI.Avatar; // require('material-ui/lib/avatar');
+    export import Badge = __MaterialUI.Badge; // require('material-ui/lib/badge');
     export import BeforeAfterWrapper = __MaterialUI.BeforeAfterWrapper; // require('material-ui/lib/before-after-wrapper');
     export import Card = __MaterialUI.Card.Card; // require('material-ui/lib/card/card');
     export import CardActions = __MaterialUI.Card.CardActions; // require('material-ui/lib/card/card-actions');
@@ -71,6 +72,9 @@ declare module "material-ui" {
     export import ToolbarTitle = __MaterialUI.Toolbar.ToolbarTitle; // require('material-ui/lib/toolbar/toolbar-title');
     export import Tooltip = __MaterialUI.Tooltip; // require('material-ui/lib/tooltip');
     export import Utils = __MaterialUI.Utils; // require('material-ui/lib/utils/');
+    
+    export import GridList = __MaterialUI.GridList.GridList; // require('material-ui/lib/gridlist/grid-list');
+    export import GridTile = __MaterialUI.GridList.GridTile; // require('material-ui/lib/gridlist/grid-tile');
 
     // export type definitions
     export type TouchTapEvent = __MaterialUI.TouchTapEvent;
@@ -132,6 +136,16 @@ declare namespace __MaterialUI {
         style?: React.CSSProperties;
     }
     export class Avatar extends React.Component<AvatarProps, {}> {
+    }
+
+    interface BadgeProps extends React.Props<Badge> {
+        badgeContent: React.ReactElement<any> | string | number;
+        primary?: boolean;
+        secondary?: boolean;
+        style?: React.CSSProperties;
+        badgeStyle?: React.CSSProperties;
+    }
+    export class Badge extends React.Component<BadgeProps, {}> {
     }
 
     interface BeforeAfterWrapperProps extends React.Props<BeforeAfterWrapper> {
@@ -303,6 +317,8 @@ declare namespace __MaterialUI {
             autoOk?: boolean;
             defaultDate?: Date;
             formatDate?: string;
+            hintText?: string;
+            floatingLabelText?: string;
             hideToolbarYearChange?: boolean;
             maxDate?: Date;
             minDate?: Date;
@@ -1121,6 +1137,7 @@ declare namespace __MaterialUI {
             tabItemContainerStyle?: React.CSSProperties;
             tabWidth?: number;
             value?: string | number;
+            tabTemplate?: __React.ComponentClass<any>;
 
             onChange?: (value: string | number, e: React.FormEvent, tab: Tab) => void;
         }
@@ -1241,6 +1258,10 @@ declare namespace __MaterialUI {
         defaultTime?: Date;
         format?: string;
         pedantic?: boolean;
+        style?: __React.CSSProperties;
+        textFieldStye?: __React.CSSProperties;
+        autoOk?: boolean;
+        openDialog?: () => void;
         onFocus?: React.FocusEventHandler;
         onTouchTap?: TouchTapEventHandler;
         onChange?: (e: any, time: Date) => void;
@@ -1267,6 +1288,7 @@ declare namespace __MaterialUI {
         underlineFocusStyle?: React.CSSProperties;
         underlineDisabledStyle?: React.CSSProperties;
         type?: string;
+        hintStyle?: React.CSSProperties;
 
         disabled?: boolean;
         isRtl?: boolean;
@@ -1471,6 +1493,34 @@ declare namespace __MaterialUI {
         export class MenuDivider extends React.Component<MenuDividerProps, {}>{
         }
     }
+    
+    namespace GridList {
+        
+        interface GridListProps extends React.Props<GridList> {
+            cols?: number;
+            padding?: number;
+            cellHeight?: number;
+        }
+        
+        export class GridList extends React.Component<GridListProps, {}>{
+        }
+        
+        interface GridTileProps extends React.Props<GridTile> {
+            title?: string;
+            subtitle?: __React.ReactNode;
+            titlePosition?: string; //"top"|"bottom"
+            titleBackground?: string;
+            actionIcon?: __React.ReactElement<any>;
+            actionPosition?: string; //"left"|"right"
+            cols?: number;
+            rows?: number;
+            rootClass?: string | __React.Component<any,any>;
+        }
+        
+        export class GridTile extends React.Component<GridTileProps, {}>{
+        }
+        
+    }
 }    // __MaterialUI
 
 declare module 'material-ui/lib/app-bar' {
@@ -1486,6 +1536,11 @@ declare module 'material-ui/lib/app-canvas' {
 declare module 'material-ui/lib/avatar' {
     import Avatar = __MaterialUI.Avatar;
     export = Avatar;
+}
+
+declare module "material-ui/lib/badge" {
+    import Badge = __MaterialUI.Badge;
+    export = Badge;
 }
 
 declare module 'material-ui/lib/before-after-wrapper' {
@@ -1951,6 +2006,16 @@ declare module "material-ui/lib/menus/menu-item" {
 declare module "material-ui/lib/menus/menu-divider" {
     import MenuDivider = __MaterialUI.Menus.MenuDivider;
     export = MenuDivider;
+}
+
+declare module "material-ui/lib/grid-list/grid-list" {
+    import GridList = __MaterialUI.GridList.GridList;
+    export = GridList;
+}
+
+declare module "material-ui/lib/grid-list/grid-tile" {
+    import GridTile = __MaterialUI.GridList.GridTile;
+    export = GridTile;
 }
 
 declare module "material-ui/lib/styles/colors" {
