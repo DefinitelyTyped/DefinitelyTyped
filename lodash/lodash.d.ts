@@ -8919,9 +8919,10 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is null.
+         *
          * @param value The value to check.
          * @return Returns true if value is null, else false.
-         **/
+         */
         isNull(value?: any): boolean;
     }
 
@@ -8930,6 +8931,13 @@ declare module _ {
          * see _.isNull
          */
         isNull(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * see _.isNull
+         */
+        isNull(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isNumber
