@@ -18,20 +18,20 @@ declare module lockr {
          * @param key 
          * @param value
          */
-        set(key: string, value: string | number | Object);
+        set(key: string, value: string | number | Object): void;
 
         /**
          * Set a key to a particular value or a hash object (Object or Array) under a hash key.
          * @param key 
          * @param value
          */
-        set<T>(key: string, value: Array<T>);
+        set<T>(key: string, value: Array<T>): void;
 
         /**
          * Removes all data associated to a key.
          * @param key 
          */
-        rm(key: string);
+        rm(key: string): void;
 
         /**
          * Returns the saved value for given key, even if the saved value is hash object. 
@@ -46,14 +46,14 @@ declare module lockr {
          * @param key  
          * @param value 
          */
-        sadd(key: string, value: string | number | Object);
+        sadd(key: string, value: string | number | Object): void;
 
         /**
          * Adds a unique value to a particular set under a hash key.
          * @param key  
          * @param value 
          */
-        sadd<T>(key: string, value: Array<T>);
+        sadd<T>(key: string, value: Array<T>): void;
 
         /**
          * Returns the values of a particular set under a hash key.
@@ -86,14 +86,14 @@ declare module lockr {
          * @param key  
          * @param value 
          */
-        srem(key: string, value: string | number | Object);
+        srem(key: string, value: string | number | Object): void;
 
         /**
          * Removes a value from a particular set under a hash key.
          * @param key  
          * @param value 
          */
-        srem<T>(key: string, value: Array<T>);
+        srem<T>(key: string, value: Array<T>): void;
 
         /**
          * Returns all saved values & objects, in an Array.
@@ -103,7 +103,7 @@ declare module lockr {
         /**
          * Empties localStorage.
          */
-        flush();
+        flush(): void;
     }
 }
 
