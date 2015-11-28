@@ -1,3 +1,8 @@
+// Type definitions for ng-redux 2.0.1
+// Project: https://github.com/wbuchwalter/ng-redux
+// Definitions by: Dror Weiss <https://github.com/droritos>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 declare module ngRedux {
 
     interface Reducer extends Function {
