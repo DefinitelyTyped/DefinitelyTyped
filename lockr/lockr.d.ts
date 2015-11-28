@@ -9,6 +9,11 @@ declare module lockr {
     interface ILockrStatic {
 
         /**
+         * The prefix used by lockr.
+         */
+        prefix: string;
+        
+        /**
          * Set a key to a particular value or a hash object (Object or Array) under a hash key.
          * @param key 
          * @param value
