@@ -2,7 +2,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-import tape = require('tape');
+import tape = require("tape");
 
 var name: string;
 var cb: tape.TestCase;
