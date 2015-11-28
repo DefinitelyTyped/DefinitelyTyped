@@ -8,12 +8,10 @@ Lockr.set('hash', [1, 2, 3]);
 Lockr.set('valueFalse', false);
 Lockr.set('value0', 0);
 
-let value;
-value = Lockr.get('test');
+let value = Lockr.get<numbr>('test');
 Lockr.rm('test');
 
-let contents;
-contents = Lockr.getAll();
+let contents = Lockr.getAll();
 Lockr.flush();
 
 Lockr.sadd('test_set', 1);
