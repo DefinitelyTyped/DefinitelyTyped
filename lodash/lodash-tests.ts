@@ -6399,12 +6399,30 @@ module TestHas {
 }
 
 // _.invert
-{
-    let result: TResult;
-    result = _.invert<Object, TResult>({});
-    result = _.invert<Object, TResult>({}, true);
-    result = _({}).invert<TResult>().value();
-    result = _({}).invert<TResult>(true).value();
+module TestInvert {
+    {
+        let result: TResult;
+
+        result = _.invert<Object, TResult>({});
+        result = _.invert<Object, TResult>({}, true);
+
+        result = _.invert<TResult>({});
+        result = _.invert<TResult>({}, true);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<TResult>;
+
+        result = _({}).invert<TResult>();
+        result = _({}).invert<TResult>(true);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<TResult>;
+
+        result = _({}).chain().invert<TResult>();
+        result = _({}).chain().invert<TResult>(true);
+    }
 }
 
 // _.keys
