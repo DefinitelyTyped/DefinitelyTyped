@@ -78,6 +78,8 @@ evt.on("init", function () {
 
 browserSync(config);
 
+var instance = browserSync.instances[0];
+
 var bs = browserSync.create();
 
 bs.init({

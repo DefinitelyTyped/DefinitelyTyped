@@ -328,6 +328,8 @@ declare module "browser-sync" {
              * @param name the identifier used for retrieval
              */
             get(name: string): BrowserSyncInstance;
+
+            instances: BrowserSyncInstance[];
         }
 
         interface BrowserSyncInstance {
