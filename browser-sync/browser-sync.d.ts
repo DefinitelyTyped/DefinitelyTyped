@@ -365,7 +365,7 @@ declare module "browser-sync" {
              * The stream method returns a transform stream and can act once or on many files.
              * @param opts Configuration for the stream method
              */
-            stream(opts?: { once: boolean }): NodeJS.ReadWriteStream;
+            stream(opts?: { once?: boolean, match?: string | RegExp | ((testString: string) => boolean) | (string | RegExp | ((testString: string) => boolean))[] }): NodeJS.ReadWriteStream;
             /**
              * Helper method for browser notifications
              * @param message Can be a simple message such as 'Connected' or HTML
