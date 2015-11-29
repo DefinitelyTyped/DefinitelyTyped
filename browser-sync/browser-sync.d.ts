@@ -14,16 +14,16 @@ declare module "browser-sync" {
     namespace browserSync {
         interface Options {
             /**
-             * Browsersync includes a user-interface that is accessed via a separate port. The UI allows to controls 
+             * Browsersync includes a user-interface that is accessed via a separate port. The UI allows to controls
              * all devices, push sync updates and much more.
-             * 
+             *
              * port - Default: 3001
              * weinre.port - Default: 8080
              * Note: requires at least version 2.0.0
              */
             ui?: UIOptions;
             /**
-             * Browsersync can watch your files as you work. Changes you make will either be injected into the page (CSS 
+             * Browsersync can watch your files as you work. Changes you make will either be injected into the page (CSS
              * & images) or will cause all browsers to do a full-page refresh. See anymatch for more information on glob
              * patterns.
              * Default: false
@@ -55,14 +55,14 @@ declare module "browser-sync" {
              */
             port?: number;
             /**
-             * Add additional directories from which static files should be served. 
+             * Add additional directories from which static files should be served.
              * Should only be used in proxy or snippet mode.
              * Default: []
              * Note: requires at least version 2.8.0
              */
             serveStatic?: string[];
             /**
-             * Enable https for localhost development. 
+             * Enable https for localhost development.
              * Note - this is not needed for proxy option as it will be inferred from your target url.
              * Note: requires at least version 1.3.0
              */
@@ -102,7 +102,7 @@ declare module "browser-sync" {
              */
             logSnippet?: boolean;
             /**
-             * You can control how the snippet is injected onto each page via a custom regex + function. 
+             * You can control how the snippet is injected onto each page via a custom regex + function.
              * You can also provide patterns for certain urls that should be ignored from the snippet injection.
              * Note: requires at least version 2.0.0
              */
@@ -119,13 +119,13 @@ declare module "browser-sync" {
              */
             tunnel?: string | boolean;
             /**
-             * Some features of Browsersync (such as xip & tunnel) require an internet connection, but if you're 
+             * Some features of Browsersync (such as xip & tunnel) require an internet connection, but if you're
              * working offline, you can reduce start-up time by setting this option to false
              */
             online?: boolean;
             /**
              * Default: true
-             * Decide which URL to open automatically when Browsersync starts. Defaults to "local" if none set. 
+             * Decide which URL to open automatically when Browsersync starts. Defaults to "local" if none set.
              * Can be true, local, external, ui, ui-external, tunnel or false
              */
             open?: string | boolean;
@@ -135,7 +135,7 @@ declare module "browser-sync" {
              */
             browser?: string | string[];
             /**
-             * Requires an internet connection - useful for services such as Typekit as it allows you to configure 
+             * Requires an internet connection - useful for services such as Typekit as it allows you to configure
              * domains such as *.xip.io in your kit settings
              * Default: false
              */
@@ -154,14 +154,14 @@ declare module "browser-sync" {
              * scrollProportionally: false // Sync viewports to TOP position
              * Default: true
              */
-            scrollProportionally?: boolean
+            scrollProportionally?: boolean;
             /**
              * How often to send scroll events
              * Default: 0
              */
             scrollThrottle?: number;
             /**
-             * Decide which technique should be used to restore scroll position following a reload. 
+             * Decide which technique should be used to restore scroll position following a reload.
              * Can be window.name or cookie
              * Default: 'window.name'
              */
@@ -175,13 +175,13 @@ declare module "browser-sync" {
             /**
              * Default: []
              * Note: requires at least version 2.9.0
-             * Sync the scroll position of any element on the page - where any scrolled element will cause 
-             * all others to match scroll position. This is helpful when a breakpoint alters which element 
+             * Sync the scroll position of any element on the page - where any scrolled element will cause
+             * all others to match scroll position. This is helpful when a breakpoint alters which element
              * is actually scrolling
              */
             scrollElementMapping?: string[];
             /**
-             * Time, in milliseconds, to wait before instructing the browser to reload/inject following a file 
+             * Time, in milliseconds, to wait before instructing the browser to reload/inject following a file
              * change event
              * Default: 0
              */
@@ -227,7 +227,7 @@ declare module "browser-sync" {
              */
             timestamps?: boolean;
             /**
-             * Alter the script path for complete control over where the Browsersync Javascript is served 
+             * Alter the script path for complete control over where the Browsersync Javascript is served
              * from. Whatever you return from this function will be used as the script path.
              * Note: requires at least version 1.5.0
              */
@@ -250,7 +250,7 @@ declare module "browser-sync" {
             [path: string]: T;
         }
 
-        interface UIOptions { 
+        interface UIOptions {
             /** set the default port */
             port?: number;
             /** set the default weinre port */
@@ -266,9 +266,9 @@ declare module "browser-sync" {
             directory?: boolean;
             /** set index filename */
             index?: string;
-            /** 
-             * key-value object hash, where the key is the url to match, 
-             * and the value is the folder to serve (relative to your working directory) 
+            /**
+             * key-value object hash, where the key is the url to match,
+             * and the value is the folder to serve (relative to your working directory)
              */
             routes?: Hash<string>;
             /** configure custom middleware */
@@ -314,7 +314,7 @@ declare module "browser-sync" {
 
         interface BrowserSyncStatic extends BrowserSyncInstance {
             /**
-             * Start the Browsersync service. This will launch a server, proxy or start the snippet mode 
+             * Start the Browsersync service. This will launch a server, proxy or start the snippet mode
              * depending on your use-case.
              */
             (config?: Options, callback?: (err: Error, bs: Object) => any): BrowserSyncInstance;
@@ -336,30 +336,30 @@ declare module "browser-sync" {
             /** the name of this instance of browser-sync */
             name: string;
             /**
-             * Start the Browsersync service. This will launch a server, proxy or start the snippet mode 
+             * Start the Browsersync service. This will launch a server, proxy or start the snippet mode
              * depending on your use-case.
              */
             init(config?: Options, callback?: (err: Error, bs: Object) => any): BrowserSyncInstance;
             /**
              * Reload the browser
-             * The reload method will inform all browsers about changed files and will either cause the browser 
+             * The reload method will inform all browsers about changed files and will either cause the browser
              * to refresh, or inject the files where possible.
              */
             reload(): void;
             /**
              * Reload a single file
-             * The reload method will inform all browsers about changed files and will either cause the browser 
+             * The reload method will inform all browsers about changed files and will either cause the browser
              * to refresh, or inject the files where possible.
              */
             reload(file: string): void;
             /**
              * Reload multiple files
-             * The reload method will inform all browsers about changed files and will either cause the browser 
+             * The reload method will inform all browsers about changed files and will either cause the browser
              * to refresh, or inject the files where possible.
              */
             reload(files: string[]): void;
             /**
-             * The reload method will inform all browsers about changed files and will either cause the browser 
+             * The reload method will inform all browsers about changed files and will either cause the browser
              * to refresh, or inject the files where possible.
              */
             reload(options: { stream: boolean }): NodeJS.ReadWriteStream;
@@ -392,7 +392,7 @@ declare module "browser-sync" {
              */
             resume(): void;
             /**
-             * The internal Event Emitter used by the running Browsersync instance (if there is one). You can use 
+             * The internal Event Emitter used by the running Browsersync instance (if there is one). You can use
              * this to emit your own events, such as changed files, logging etc.
              */
             emitter: NodeJS.EventEmitter;

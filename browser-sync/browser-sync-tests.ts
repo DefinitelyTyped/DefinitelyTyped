@@ -87,7 +87,7 @@ bs.init({
 });
 
 bs.reload();
- 
+
 function browserSyncInit(): browserSync.BrowserSyncInstance {
     var browser = browserSync.create();
     browser.init();
