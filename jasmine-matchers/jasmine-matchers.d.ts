@@ -24,46 +24,94 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 declare module jasmine {
     interface Matchers {
 
-        //toBe
+        // Arrays
         toBeArray(): boolean;
-        toBeCloseToOneOf(values: any[], isCloseToFunction: (actual: number, expected: number) => boolean): boolean;
-        toBeInstanceOf(Constructor: Function): boolean;
-        toBeInRange(min: number, max: number): boolean;
-        toBeNan(): boolean;
+        toBeArrayOfBooleans(): boolean;
+        toBeArrayOfNumbers(): boolean;
+        toBeArrayOfObjects(): boolean;
+        toBeArrayOfSize(size: any): boolean;
+        toBeArrayOfStrings(): boolean;
+        toBeEmptyArray(): boolean;
+        toBeNonEmptyArray(): boolean;
+        toHaveArray(memberName: string): boolean;
+        toHaveArrayOfBooleans(memberName: string): boolean;
+        toHaveArrayOfNumbers(memberName: string): boolean;
+        toHaveArrayOfObjects(memberName: string): boolean;
+        toHaveArrayOfSize(memberName: string, size: number): boolean;
+        toHaveArrayOfStrings(memberName: string): boolean;
+        toHaveEmptyArray(memberName: string): boolean;
+        toHaveNonEmptyArray(memberName: string): boolean;
+
+        // Booleans
+        toBeBoolean(): boolean;
+        toBeFalse(): boolean;
+        toBeTrue(): boolean;
+        toHaveBoolean(memberName: string): boolean;
+        toHaveFalse(memberName: string): boolean;
+        toHaveTrue(memberName: string): boolean;
+
+        // Dates
+        toBeAfter(date: Date): boolean;
+        toBeBefore(date: Date): boolean;
+        toBeDate(): boolean;
+        toBeIso8601(): boolean;
+        toHaveDate(memberName: string): boolean;
+        toHaveDateAfter(memberName: string, date: Date): boolean;
+        toHaveDateBefore(memberName: string, date: Date): boolean;
+        toHaveIso8601(memberName: string): boolean;
+
+        // Functions and Errors
+        toBeFunction(): boolean;
+        toThrowError(): boolean;
+        toThrowErrorOfType(type: any): boolean;
+        toThrowAnyError(): boolean;
+
+        // Numbers
+        toBeCalculable(): boolean;
+        toBeEvenNumber(): boolean;
         toBeNumber(): boolean;
-        toBeOfType(type: string): boolean;
-        toBeOneOf(values: any[]): boolean;
+        toBeOddNumber(): boolean;
+        toBeWholeNumber(): boolean;
+        toBeWithinRange(floor: number, ceiling: number): boolean;
+        toHaveCalculable(memberName: string): boolean;
+        toHaveEvenNumber(memberName: string): boolean;
+        toHaveMethod(memberName: string): boolean;
+        toHaveNumber(memberName: string): boolean;
+        toHaveNumberWithinRange(memberName: string, floor: number, ceiling: number): boolean;
+        toHaveOddNumber(memberName: string): boolean;
+        toHaveWholeNumber(memberName: string): boolean;
 
-        //toContain
-        toContainOnce(value: any): boolean;
+        // Objects
+        toBeEmptyObject(): boolean;
+        toBeNonEmptyObject(): boolean;
+        toBeObject(): boolean;
+        toHaveEmptyObject(memberName: string): boolean;
+        toHaveMember(memberName: string): boolean;
+        toHaveNonEmptyObject(memberName: string): boolean;
+        toHaveObject(memberName: string): boolean;
+        toImplement(other: any): boolean;
 
-        //toHave
-        toHaveBeenCalledXTimes(count:number): boolean;
-        toHaveLength(length:number): boolean;
-        toHaveOwnProperties(...names:string[]): boolean;
-        toHaveOwnPropertiesWithValues(obj:Object): boolean;
-        toHaveProperties(...names:string[]): boolean;
-        toHavePropertiesWithValues(obj:Object): boolean;
-        toExactlyHaveProperties(...names:string[]): boolean;
-
-        //toStartEndWith
-        toStartWith(value:any): boolean;
-        toStartWith(value:any[]): boolean;
-
-        toEndWith(value:any): boolean;
-        toEndWith(values:any[]): boolean;
-
-        toEachStartWith(searchString:string): boolean;
-        toSomeStartWith(searchString:string): boolean;
-
-        toEachEndWith(searchString:string): boolean;
-        toSomeEndWith(searchString:string): boolean;
-
-        toStartWithEither(...searchString:any[]): boolean;
-
-        //toThrow
-        toThrowInstanceOf(klass:Function): boolean;
-        toThrowStartsWith(text:string): boolean;
+        // Strings
+        toBeEmptyString(): boolean;
+        toBeHtmlString(): boolean;
+        toBeJsonString(): boolean;
+        toBeLongerThan(other: string): boolean;
+        toBeNonEmptyString(): boolean;
+        toBeSameLengthAs(other: string): boolean;
+        toBeShorterThan(other: string): boolean;
+        toBeString(): boolean;
+        toBeWhitespace(): boolean;
+        toEndWith(expected: string): boolean;
+        toStartWith(expected: string): boolean;
+        toHaveEmptyString(memberName: string): boolean;
+        toHaveHtmlString(memberName: string): boolean;
+        toHaveJsonString(memberName: string): boolean;
+        toHaveNonEmptyString(memberName: string): boolean;
+        toHaveString(memberName: string): boolean;
+        toHaveStringLongerThan(memberName: string, other: string): boolean;
+        toHaveStringSameLengthAs(memberName: string, other: string): boolean;
+        toHaveStringShorterThan(memberName: string, other: string): boolean;
+        toHaveWhitespaceString(memberName: string): boolean;
     }
 }
 

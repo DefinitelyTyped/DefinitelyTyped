@@ -17,662 +17,978 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 /// <reference path="../jasmine/jasmine.d.ts" />
 /// <reference path="jasmine-matchers.d.ts" />
 
-describe('toBeArray', function () {
-    describe('matches', function () {
-        it('should pass for []', function () {
-            expect([]).toBeArray();
+function getArgumentsObject() {
+    return (function (a, b, c) {
+        return arguments;
+    } (1, 2, 3));
+}
+
+function getArrayLikeObject() {
+    return {
+        0: 1,
+        1: 2,
+        2: 3
+    };
+}
+
+function describeWhenNotArray(toBeArraymemberName) {
+    describe('when subject is not a true Array', function () {
+        describe('when subject is Array-like', function () {
+            it('should deny', function () {
+                expect(getArgumentsObject()).not[toBeArraymemberName]();
+                expect(getArrayLikeObject()).not[toBeArraymemberName]();
+            });
         });
-        it('should pass for `new Array`', function () {
-            expect(new Array()).toBeArray();
-        });
-        it('should pass for [1,"",{}]', function () {
-            expect([
-                1, 
-                "", 
-                {
-                }
-            ]).toBeArray();
-        });
-    });
-    describe('.not matches', function () {
-        it('should pass for {}', function () {
-            expect({
-            }).not.toBeArray();
-        });
-        it('should pass for `arguments`', function () {
-            expect(arguments).not.toBeArray();
-        });
-    });
-});
-describe('toBeNumber', function () {
-    describe('matches', function () {
-        it('should pass for 0', function () {
-            expect(0).toBeNumber();
-        });
-        it('should pass for 2.1', function () {
-            expect(2.1).toBeNumber();
+        describe('when subject is not Array-like', function () {
+            it('should deny', function () {
+                expect({}).not[toBeArraymemberName]();
+                expect(null).not[toBeArraymemberName]();
+                expect(void (0)).not[toBeArraymemberName]();
+                expect(true).not[toBeArraymemberName]();
+                expect(false).not[toBeArraymemberName]();
+                expect(Array).not[toBeArraymemberName]();
+            });
         });
     });
-    describe('non matches', function () {
-        it('should pass for "x"', function () {
-            expect('x').not.toBeNumber();
-        });
-        it('should pass for function(){}', function () {
-            expect(function () {
-            }).not.toBeNumber();
-        });
-    });
-});
-describe('toBeInstanceOf', function () {
-    describe('matches', function () {
-        it('should work for `function(){}` to be instance of `Function`', function () {
-            expect(function () {
-            }).toBeInstanceOf(Function);
-        });
-    });
-});
-describe('toBeNan', function () {
-    describe('matches', function () {
-        it('should work for NaN', function () {
-            expect(NaN).toBeNan();
-        });
-    });
-});
-describe('toBeOfType', function () {
-    describe('matches', function () {
-        it('should work for `number`', function () {
-            expect(1).toBeOfType('number');
+}
+
+function describeToBeArrayOfX(options) {
+    describe(options.name, function () {
+        describe('when invoked', function () {
+            describe('when subject is a true Array', function () {
+                describe('when subject has no members', function () {
+                    it('should confirm (an empty array of ' + options.type + 's is valid)', function () {
+                        expect([])[options.name]();
+                    });
+                });
+                describe('when subject has members', function () {
+                    describe('when subject has a mix of ' + options.type + 's and other items', function () {
+                        it('should deny', options.whenMixed);
+                    });
+                    describe('when subject has only ' + options.type + 's', function () {
+                        it('should confirm', options.whenValid);
+                    });
+                    describe('when subject has other items', function () {
+                        it('should deny', options.whenInvalid);
+                    });
+                });
+            });
+            describeWhenNotArray(options.name);
         });
     });
-    describe('non-matches', function () {
-        it('should work for `number`', function () {
-            expect('a').not.toBeOfType('number');
+}
+
+function describeToHaveX(options) {
+    describe(options.name, function () {
+        describe('when invoked', function () {
+            describe('when subject is not an object', function () {
+                it('should deny', function () {
+                    expect(0).not[options.name]('memberName');
+                    expect(null).not[options.name]('memberName');
+                    expect(true).not[options.name]('memberName');
+                    expect(false).not[options.name]('memberName');
+                    expect('').not[options.name]('memberName');
+                });
+            });
+            describe('when subject is an object', function () {
+                describe('when member is not present', function () {
+                    it('should deny', function () {
+                        expect({}).not[options.name]('memberName');
+                    });
+                });
+                describe('when member is present', function () {
+                    options.whenPresent();
+                });
+            });
         });
     });
-});
-describe('toBeInRange', function () {
-    describe('matches', function () {
-        it('should find 0 in 0..1', function () {
-            expect(0).toBeInRange(0, 1);
-        });
-        it('should find 1 in 0..2', function () {
-            expect(1).toBeInRange(0, 2);
-        });
-        it('should find 1.5 in 1..2', function () {
-            expect(1.5).toBeInRange(1, 2);
+}
+
+function describeToHaveArrayX(options) {
+    describeToHaveX({
+        name: options.name,
+        whenPresent: function () {
+            describe('when member is an array', options.whenArray);
+        }
+    });
+}
+
+function describeToHaveBooleanX(options) {
+    describeToHaveX({
+        name: options.name,
+        whenPresent: function () {
+            describe('when member is truthy', function () {
+                it('should deny', function () {
+                    expect({
+                        memberName: 1
+                    }).not[options.name]('memberName');
+                    expect({
+                        memberName: 'true'
+                    }).not[options.name]('memberName');
+                });
+            });
+            describe('when member is falsy', function () {
+                it('should deny', function () {
+                    expect({
+                        memberName: 0
+                    }).not[options.name]('memberName');
+                    expect({
+                        memberName: ''
+                    }).not[options.name]('memberName');
+                });
+            });
+            describe('when member is boolean', options.whenBoolean);
+        }
+    });
+}
+
+
+describe('Arrays', function () {
+
+    describe('toBeArray', function () {
+        describe('when invoked', function () {
+            describe('when subject is a true Array', function () {
+                it('should confirm', function () {
+                    expect([]).toBeArray();
+                    expect(new Array()).toBeArray();
+                });
+            });
+            describeWhenNotArray('toBeArray');
         });
     });
-    describe('non-matches', function () {
-        it('should not find 0 in 1..2', function () {
-            expect(0).not.toBeInRange(1, 2);
-        });
-        it('should not find 100 in 33..55', function () {
-            expect(100).not.toBeInRange(33, 55);
-        });
-    });
-});
-describe('toBeOneOf', function () {
-    describe('matches', function () {
-        it('should find "a" in ["a", "b"]', function () {
-            expect('a').toBeOneOf([
-                'a', 
-                'b'
-            ]);
-        });
-        it('should find "uxebu" in ["company", "uxebu"]', function () {
-            expect('uxebu').toBeOneOf([
-                'company', 
-                'uxebu'
-            ]);
-        });
-    });
-    describe('non-matches', function () {
-        it('should not find "" in [" ", "0"]', function () {
-            expect('').not.toBeOneOf([
-                ' ', 
-                '0'
-            ]);
-        });
-        it('should not find "a" in ["b", "c"]', function () {
-            expect('a').not.toBeOneOf([
-                'b', 
-                'c'
-            ]);
+
+    describe('toBeArrayOfSize', function () {
+        describe('when invoked', function () {
+            describe('when subject is a true Array', function () {
+                describe('when subject has the expected number of members', function () {
+                    it('should confirm', function () {
+                        expect([]).toBeArrayOfSize(0);
+                        expect([null]).toBeArrayOfSize(1);
+                        expect([false, false]).toBeArrayOfSize(2);
+                        expect([void (0), void (0)]).toBeArrayOfSize(2);
+                    });
+                });
+                describe('when subject has an unexpected number of members', function () {
+                    it('should deny', function () {
+                        expect([]).not.toBeArrayOfSize(1);
+                        expect([null]).not.toBeArrayOfSize(0);
+                        expect([true, true]).not.toBeArrayOfSize(1);
+                    });
+                });
+            });
+            describeWhenNotArray('toBeArrayOfSize');
         });
     });
-});
-describe('toBeCloseToOneOf', function () {
-    function oneDigitOff(actual, expected) {
-        var actualInt = parseInt(actual, 10);
-        return actualInt - 1 <= expected && actualInt + 1 >= expected;
-    }
-    function tenPercentOff(actual, expected) {
-        return expected * 0.9 <= actual && expected * 1.1 >= actual;
-    }
-    function oneDigitOrTenPercentOff(actual, expected) {
-        return oneDigitOff(actual, expected) || tenPercentOff(actual, expected);
-    }
-    function twoDecimalsOff(actual, expected) {
-        var lower = ((expected * 100) - 2) / 100;
-        var upper = ((expected * 100) + 2) / 100;
-        return lower <= actual && upper >= actual;
-    }
-    describe('matches', function () {
-        it('should say 7 is close to one of [8, 9]', function () {
-            expect(7).toBeCloseToOneOf([
-                8, 
-                9
-            ], oneDigitOff);
-        });
-        it('should say 2 is 10% off of one of [2.2, 1.0]', function () {
-            expect(2).toBeCloseToOneOf([
-                2.2, 
-                1.0
-            ], tenPercentOff);
-        });
-        it('should say 7 is close to one of [8, 9]', function () {
-            expect(7).toBeCloseToOneOf([
-                8, 
-                9
-            ], oneDigitOrTenPercentOff);
-        });
-        it('should say 1.345 two decimals off of [1.325, 1.365]', function () {
-            expect(1.345).toBeCloseToOneOf([
-                1.325, 
-                1.365
-            ], twoDecimalsOff);
+
+    describe('toBeEmptyArray', function () {
+        describe('when invoked', function () {
+            describe('when subject is a true Array', function () {
+                describe('when subject has members', function () {
+                    it('should confirm', function () {
+                        expect([]).toBeEmptyArray();
+                    });
+                });
+                describe('when subject has no members', function () {
+                    it('should deny', function () {
+                        expect([null]).not.toBeEmptyArray();
+                        expect(['']).not.toBeEmptyArray();
+                        expect([1]).not.toBeEmptyArray();
+                        expect([true]).not.toBeEmptyArray();
+                        expect([false]).not.toBeEmptyArray();
+                    });
+                });
+            });
+            describeWhenNotArray('toBeEmptyArray');
         });
     });
-    describe('non-matches', function () {
-        it('should say 7 is NOT one off of [9, 10, 11]', function () {
-            expect(7).not.toBeCloseToOneOf([
-                9, 
-                10, 
-                11
-            ], oneDigitOff);
-        });
-        it('should say 1 is close to one of [8, 9]', function () {
-            expect(1).not.toBeCloseToOneOf([
-                8, 
-                9
-            ], oneDigitOrTenPercentOff);
-        });
-        it('should say 1.9 is NOT 10% off of one of [2.2, 1.0]', function () {
-            expect(1.9).not.toBeCloseToOneOf([
-                2.2, 
-                1.0
-            ], tenPercentOff);
-        });
-        it('should say 1.345 two decimals off of [1.325, 1.365]', function () {
-            expect(1.304).not.toBeCloseToOneOf([
-                1.325, 
-                1.365
-            ], twoDecimalsOff);
+
+    describe('toBeNonEmptyArray', function () {
+        describe('when invoked', function () {
+            describe('when subject is a true Array', function () {
+                describe('when subject has members', function () {
+                    it('should confirm', function () {
+                        expect([null]).toBeNonEmptyArray();
+                        expect([void (0)]).toBeNonEmptyArray();
+                        expect(['']).toBeNonEmptyArray();
+                    });
+                });
+                describe('when subject has no members', function () {
+                    it('should deny', function () {
+                        expect([]).not.toBeNonEmptyArray();
+                    });
+                });
+            });
+            describeWhenNotArray('toBeNonEmptyArray');
         });
     });
+
+    describeToBeArrayOfX({
+        name: 'toBeArrayOfObjects',
+        type: 'Object',
+        whenValid: function () {
+            expect([{}, {}]).toBeArrayOfObjects();
+        },
+        whenInvalid: function () {
+            expect([null]).not.toBeArrayOfObjects();
+            expect(['Object']).not.toBeArrayOfObjects();
+            expect(['[object Object]']).not.toBeArrayOfObjects();
+        },
+        whenMixed: function () {
+            expect([null, {}]).not.toBeArrayOfObjects();
+        }
+    });
+
+    describeToBeArrayOfX({
+        name: 'toBeArrayOfStrings',
+        type: 'String',
+        whenValid: function () {
+            expect(['truthy']).toBeArrayOfStrings();
+            expect([new String('truthy')]).toBeArrayOfStrings();
+            expect([new String('')]).toBeArrayOfStrings();
+            expect(['', 'truthy']).toBeArrayOfStrings();
+        },
+        whenInvalid: function () {
+            expect([null]).not.toBeArrayOfStrings();
+        },
+        whenMixed: function () {
+            expect([null, '']).not.toBeArrayOfStrings();
+        }
+    });
+
+    describeToBeArrayOfX({
+        name: 'toBeArrayOfNumbers',
+        type: 'Number',
+        whenValid: function () {
+            expect([1]).toBeArrayOfNumbers();
+            expect([new Number(1)]).toBeArrayOfNumbers();
+            expect([new Number(0)]).toBeArrayOfNumbers();
+            expect([0, 1]).toBeArrayOfNumbers();
+        },
+        whenInvalid: function () {
+            expect([null]).not.toBeArrayOfNumbers();
+        },
+        whenMixed: function () {
+            expect([null, 0]).not.toBeArrayOfNumbers();
+        }
+    });
+
+    describeToBeArrayOfX({
+        name: 'toBeArrayOfBooleans',
+        type: 'Boolean',
+        whenValid: function () {
+            expect([true]).toBeArrayOfBooleans();
+            expect([new Boolean(true)]).toBeArrayOfBooleans();
+            expect([new Boolean(false)]).toBeArrayOfBooleans();
+            expect([false, true]).toBeArrayOfBooleans();
+        },
+        whenInvalid: function () {
+            expect([null]).not.toBeArrayOfBooleans();
+        },
+        whenMixed: function () {
+            expect([null, false]).not.toBeArrayOfBooleans();
+            expect([null, true]).not.toBeArrayOfBooleans();
+        }
+    });
+
 });
 
-describe('toContainOnce', function () {
-    describe('matches', function () {
-        it('should work for arrays', function () {
-            expect([
-                1, 
-                2
-            ]).toContainOnce(1);
-        });
-        it('should work for strings', function () {
-            expect('uxebu rox').toContainOnce('uxebu');
-        });
-    });
-    describe('non-matches', function () {
-        it('should work for arrays', function () {
-            expect([
-                1, 
-                2
-            ]).not.toContainOnce(3);
-        });
-        it('should work for strings', function () {
-            expect('uxebu rox').not.toContainOnce('u');
-        });
-        it('should work for undefined', function () {
-            expect(undefined).not.toContainOnce(1);
+describe('Booleans', function () {
+
+    describe('toBeTrue', function () {
+        describe('when invoked', function () {
+            describe('when subject is not only truthy, but a boolean true', function () {
+                it('should confirm', function () {
+                    expect(true).toBeTrue();
+                    expect(new Boolean(true)).toBeTrue();
+                });
+            });
+            describe('when subject is truthy', function () {
+                it('should deny', function () {
+                    expect(1).not.toBeTrue();
+                });
+            });
         });
     });
+
+    describe('toBeFalse', function () {
+        describe('when invoked', function () {
+            describe('when subject is not only falsy, but a boolean false', function () {
+                it('should confirm', function () {
+                    expect(false).toBeFalse();
+                    expect(new Boolean(false)).toBeFalse();
+                });
+            });
+            describe('when subject is falsy', function () {
+                it('should deny', function () {
+                    expect(1).not.toBeFalse();
+                });
+            });
+        });
+    });
+
+    describe('toBeBoolean', function () {
+        describe('when invoked', function () {
+            describe('when subject not only truthy or falsy, but a boolean', function () {
+                it('should confirm', function () {
+                    expect(true).toBeBoolean();
+                    expect(false).toBeBoolean();
+                    expect(new Boolean(true)).toBeBoolean();
+                    expect(new Boolean(false)).toBeBoolean();
+                });
+            });
+            describe('when subject is truthy or falsy', function () {
+                it('should deny', function () {
+                    expect(1).not.toBeBoolean();
+                    expect(0).not.toBeBoolean();
+                });
+            });
+        });
+    });
+
 });
 
-describe('toHaveLength', function () {
-    describe('matches', function () {
-        it('should work for `{length:2}`', function () {
-            expect({
-                length: 2
-            }).toHaveLength(2);
-        });
-        it('should work for `{length:null}`', function () {
-            expect({
-                length: null
-            }).toHaveLength(null);
-        });
-    });
-});
-describe('toHaveProperties', function () {
-    describe('matches', function () {
-        it('should work for `{x:0, y:undefined}`', function () {
-            var obj = {
-                x: 0,
-                y: undefined
-            };
-            expect(obj).toHaveProperties('x', 'y');
-        });
-    });
-});
-describe('toHavePropertiesWithValues', function () {
-    describe('matches', function () {
-        it('should work with a reference object', function () {
-            function C() {
-                this.x = 0;
-            }
-            C.prototype.y = 'arbitrary';
-            expect(new C()).toHavePropertiesWithValues({
-                x: 0,
-                y: 'arbitrary',
-                constructor: C
+describe('Dates', function () {
+
+    describe('toBeDate', function () {
+        describe('when invoked', function () {
+            describe('when value is an instance of Date', function () {
+                it('should confirm', function () {
+                    expect(new Date()).toBeDate();
+                });
+            });
+            describe('when value is NOT an instance of Date', function () {
+                it('should deny', function () {
+                    expect(null).not.toBeDate();
+                });
             });
         });
     });
-});
-describe('toHaveOwnProperties', function () {
-    describe('matches', function () {
-        it('should work for `{x:0, y:undefined}`', function () {
-            var obj = {
-                x: 0,
-                y: undefined
-            };
-            expect(obj).toHaveOwnProperties('x', 'y');
-        });
-    });
-});
-describe('toHaveOwnPropertiesWithValues', function () {
-    describe('matches', function () {
-        it('should work with a reference object', function () {
-            expect({
-                x: 0,
-                y: 'arbitrary'
-            }).toHaveOwnPropertiesWithValues({
-                x: 0,
-                y: 'arbitrary'
+
+    describe('toBeIso8601', function () {
+        describe('when invoked', function () {
+            describe('when value is a Date String conforming to the ISO 8601 standard', function () {
+                describe('when specified date is valid', function () {
+                    it('should confirm', function () {
+                        expect('2013-07-08T07:29:15.863Z').toBeIso8601();
+                        expect('2013-07-08T07:29:15.863').toBeIso8601();
+                        expect('2013-07-08T07:29:15').toBeIso8601();
+                        expect('2013-07-08T07:29').toBeIso8601();
+                        expect('2013-07-08').toBeIso8601();
+                    });
+                });
+                describe('when specified date is NOT valid', function () {
+                    it('should deny', function () {
+                        expect('2013-99-12T00:00:00.000Z').not.toBeIso8601();
+                        expect('2013-12-99T00:00:00.000Z').not.toBeIso8601();
+                        expect('2013-01-01T99:00:00.000Z').not.toBeIso8601();
+                        expect('2013-01-01T99:99:00.000Z').not.toBeIso8601();
+                        expect('2013-01-01T00:00:99.000Z').not.toBeIso8601();
+                    });
+                });
+            });
+            describe('when value is a String NOT conforming to the ISO 8601 standard', function () {
+                it('should deny', function () {
+                    expect('2013-07-08T07:29:15.').not.toBeIso8601();
+                    expect('2013-07-08T07:29:').not.toBeIso8601();
+                    expect('2013-07-08T07:2').not.toBeIso8601();
+                    expect('2013-07-08T07:').not.toBeIso8601();
+                    expect('2013-07-08T07').not.toBeIso8601();
+                    expect('2013-07-08T').not.toBeIso8601();
+                    expect('2013-07-0').not.toBeIso8601();
+                    expect('2013-07-').not.toBeIso8601();
+                    expect('2013-07').not.toBeIso8601();
+                    expect('2013-0').not.toBeIso8601();
+                    expect('2013-').not.toBeIso8601();
+                    expect('2013').not.toBeIso8601();
+                    expect('201').not.toBeIso8601();
+                    expect('20').not.toBeIso8601();
+                    expect('2').not.toBeIso8601();
+                    expect('').not.toBeIso8601();
+                });
             });
         });
     });
-});
-describe('toHaveBeenCalledXTimes', function () {
-    describe('matches', function () {
-        it('should work for 1', function () {
-            var func = jasmine.createSpy('func');
-            func();
-            expect(func).toHaveBeenCalledXTimes(1);
-        });
-        it('should work for 2', function () {
-            var func = jasmine.createSpy('func');
-            func();
-            func();
-            expect(func).not.toHaveBeenCalledXTimes(1);
-        });
-    });
-});
-describe('toExactlyHaveProperties', function () {
-    describe('matches', function () {
-        it('should work for `{x:0, y:undefined}`', function () {
-            var obj = {
-                x: 0,
-                y: undefined
-            };
-            expect(obj).toExactlyHaveProperties('x', 'y');
-        });
-        it('should work in any order', function () {
-            var obj = {
-                x: 0,
-                y: undefined
-            };
-            expect(obj).toExactlyHaveProperties('y', 'x');
+
+    describe('toBeBefore', function () {
+        describe('when invoked', function () {
+            describe('when value is a Date', function () {
+                describe('when date occurs before another', function () {
+                    it('should confirm', function () {
+                        expect(new Date('2013-01-01T00:00:00.000Z')).toBeBefore(new Date('2013-01-01T01:00:00.000Z'));
+                    });
+                });
+                describe('when date does NOT occur before another', function () {
+                    it('should deny', function () {
+                        expect(new Date('2013-01-01T01:00:00.000Z')).not.toBeBefore(new Date('2013-01-01T00:00:00.000Z'));
+                    });
+                });
+            });
         });
     });
-    describe('non-matches', function () {
-        it('should work for too many properties', function () {
-            var obj = {
-                x: 0,
-                y: undefined
-            };
-            expect(obj).not.toExactlyHaveProperties('x');
-        });
-        it('should work for missing properties', function () {
-            var obj = {
-                x: 0,
-                y: undefined
-            };
-            expect(obj).not.toExactlyHaveProperties('x', 'y', 'z');
+
+    describe('toBeAfter', function () {
+        describe('when invoked', function () {
+            describe('when value is a Date', function () {
+                describe('when date occurs after another', function () {
+                    it('should confirm', function () {
+                        expect(new Date('2013-01-01T01:00:00.000Z')).toBeAfter(new Date('2013-01-01T00:00:00.000Z'));
+                    });
+                });
+                describe('when date does NOT occur after another', function () {
+                    it('should deny', function () {
+                        expect(new Date('2013-01-01T00:00:00.000Z')).not.toBeAfter(new Date('2013-01-01T01:00:00.000Z'));
+                    });
+                });
+            });
         });
     });
+
 });
 
-describe('toEndWith', function () {
-    describe('matches', function () {
-        it('should work for string', function () {
-            expect('abc').toEndWith('c');
-        });
-        it('should work for equal string', function () {
-            expect('abc').toEndWith('abc');
-        });
-    });
-    describe('non-matches', function () {
-        it('should work for string', function () {
-            expect('abc').not.toEndWith('d');
-        });
-        it('should work for equal string', function () {
-            expect('abc').not.toEndWith('abz');
-        });
-    });
-    describe('with array', function () {
-        describe('matches', function () {
-            it('should work for string', function () {
-                expect([
-                    '1', 
-                    '2'
-                ]).toEndWith('2');
+describe('Errors', function () {
+
+    describe('toThrowAnyError', function () {
+        describe('when supplied a function', function () {
+            describe('when function errors when invoked', function () {
+                beforeEach(function () {
+                    this.throwError = function () {
+                        throw new Error('wut?');
+                    };
+                    this.badReference = function () {
+                        return this.badReference.someValue;
+                    };
+                });
+                it('should confirm', function () {
+                    expect(this.throwError).toThrowAnyError();
+                    expect(this.badReference).toThrowAnyError();
+                });
             });
-            it('should work for array', function () {
-                expect([
-                    3, 
-                    4, 
-                    5
-                ]).toEndWith([
-                    4, 
-                    5
-                ]);
-            });
-        });
-        describe('non-matches', function () {
-            it('should work for string', function () {
-                expect([
-                    '1', 
-                    '2'
-                ]).not.toEndWith('3');
-            });
-            it('should work for array', function () {
-                expect([
-                    3, 
-                    4, 
-                    5
-                ]).not.toEndWith([
-                    3, 
-                    4
-                ]);
+            describe('when function does NOT error when invoked', function () {
+                beforeEach(function () {
+                    this.noErrors = function () { };
+                });
+                it('should deny', function () {
+                    expect(this.noErrors).not.toThrowAnyError();
+                });
             });
         });
     });
-});
-describe('toEachEndWith', function () {
-    describe('matches', function () {
-        it('should work for array with one element', function () {
-            expect([
-                'one'
-            ]).toEachEndWith('e');
-        });
-        it('should work for array with multiple elements', function () {
-            expect([
-                'one', 
-                'zwee', 
-                'three'
-            ]).toEachEndWith('e');
-        });
-    });
-    describe('non-matches', function () {
-        it('should work for array with one element', function () {
-            expect([
-                'one'
-            ]).not.toEachEndWith('o');
-        });
-        it('should work for array with multiple elements', function () {
-            expect([
-                'one', 
-                'zwei', 
-                'three'
-            ]).not.toEachEndWith('e');
-        });
-    });
-});
-describe('toSomeEndWith', function () {
-    describe('matches', function () {
-        it('should work for array with one element', function () {
-            expect([
-                'one'
-            ]).toSomeEndWith('e');
-        });
-        it('should work for array with multiple elements', function () {
-            expect([
-                'one', 
-                'zwee', 
-                'three'
-            ]).toSomeEndWith('ee');
-        });
-    });
-    describe('non-matches', function () {
-        it('should work for array with one element', function () {
-            expect([
-                'one'
-            ]).not.toSomeEndWith('o');
-        });
-        it('should work for array with multiple elements', function () {
-            expect([
-                'one', 
-                'zwei', 
-                'three'
-            ]).not.toSomeEndWith('a');
-        });
-    });
-});
-describe('toStartWith', function () {
-    describe('matches', function () {
-        it('should work for string', function () {
-            expect('abc').toStartWith('a');
-        });
-        it('should work for equal string', function () {
-            expect('abc').toStartWith('abc');
-        });
-    });
-    describe('non-matches', function () {
-        it('should work for string', function () {
-            expect('abc').not.toStartWith('d');
-        });
-        it('should work for equal string', function () {
-            expect('abc').not.toStartWith('abz');
-        });
-    });
-    describe('with array', function () {
-        describe('matches', function () {
-            it('should work for string', function () {
-                expect([
-                    '1', 
-                    '2'
-                ]).toStartWith('1');
-            });
-            it('should work for array', function () {
-                expect([
-                    3, 
-                    4, 
-                    5
-                ]).toStartWith([
-                    3, 
-                    4
-                ]);
-            });
-        });
-        describe('non-matches', function () {
-            it('should work for string', function () {
-                expect([
-                    '1', 
-                    '2'
-                ]).not.toStartWith('3');
-            });
-            it('should work for array', function () {
-                expect([
-                    3, 
-                    4, 
-                    5
-                ]).not.toStartWith([
-                    4, 
-                    5
-                ]);
+
+    describe('toThrowErrorOfType', function () {
+        describe('when supplied a function', function () {
+            describe('when function errors when invoked', function () {
+                beforeEach(function () {
+                    this.throwError = function () {
+                        throw new Error('wut?');
+                    };
+                    this.badReference = function () {
+                        return this.badReference.someValue;
+                    };
+                });
+                describe('when the error is of the expected type', function () {
+                    it('should confirm', function () {
+                        expect(this.throwError).toThrowErrorOfType('Error');
+                        expect(this.badReference).toThrowErrorOfType('ReferenceError');
+                    });
+                });
+                describe('when the error is NOT of the expected type', function () {
+                    it('should confirm', function () {
+                        expect(this.throwError).not.toThrowErrorOfType('ReferenceError');
+                        expect(this.badReference).not.toThrowErrorOfType('Error');
+                    });
+                });
             });
         });
     });
-});
-describe('toEachStartWith', function () {
-    describe('matches', function () {
-        it('should work for array with one element', function () {
-            expect([
-                'one'
-            ]).toEachStartWith('o');
-        });
-        it('should work for array with multiple elements', function () {
-            expect([
-                'one', 
-                'onetwo', 
-                'onethree'
-            ]).toEachStartWith('o');
-        });
-    });
-    describe('non-matches', function () {
-        it('should work for array with one element', function () {
-            expect([
-                'one'
-            ]).not.toEachStartWith('e');
-        });
-        it('should work for array with multiple elements', function () {
-            expect([
-                'one', 
-                'two', 
-                'onethree'
-            ]).not.toEachStartWith('o');
-        });
-    });
-});
-describe('toSomeStartWith', function () {
-    describe('matches', function () {
-        it('should work for array with one element', function () {
-            expect([
-                'one'
-            ]).toSomeStartWith('o');
-        });
-        it('should work for array with multiple elements', function () {
-            expect([
-                'one', 
-                'onetwo', 
-                'three'
-            ]).toSomeStartWith('one');
-        });
-    });
-    describe('non-matches', function () {
-        it('should work for array with one element', function () {
-            expect([
-                'one'
-            ]).not.toSomeStartWith('e');
-        });
-        it('should work for array with multiple elements', function () {
-            expect([
-                'one', 
-                'two', 
-                'onethree'
-            ]).not.toSomeStartWith('a');
-        });
-    });
-});
-describe('toStartWithEither', function () {
-    describe('matches', function () {
-        it('should work for two parameters', function () {
-            expect('one').toStartWithEither('two', 'one');
-        });
-        it('should work for three parameters', function () {
-            expect('one').toStartWithEither('two', 'one', 'three');
-        });
-        it('should work for multiple matches', function () {
-            expect('one').toStartWithEither('on', 'one', 'o');
-        });
-    });
-    describe('non-matches', function () {
-        it('should work for two elements', function () {
-            expect('one').not.toStartWithEither('e', 'a');
-        });
-        it('should work for three elements', function () {
-            expect('one').not.toStartWithEither('ne', 'ones', 'two');
-        });
-    });
-    describe('with array', function () {
-        describe('matches', function () {
-            it('should work for string', function () {
-                expect([
-                    '1', 
-                    '2'
-                ]).toStartWithEither('1', '2');
-            });
-            it('should work for array', function () {
-                expect([
-                    3, 
-                    4, 
-                    5
-                ]).toStartWithEither([
-                    4
-                ], [
-                    3, 
-                    4
-                ]);
-            });
-        });
-        describe('non-matches', function () {
-            it('should work for string', function () {
-                expect([
-                    '1', 
-                    '2'
-                ]).not.toStartWithEither('3');
-            });
-            it('should work for array', function () {
-                expect([
-                    3, 
-                    4, 
-                    5
-                ]).not.toStartWithEither([
-                    5, 
-                    6
-                ], [
-                    4, 
-                    5
-                ]);
-            });
-        });
-    });
+
 });
 
-describe('toThrowInstanceOf', function () {
-    describe('matches', function () {
-        it('should work for `Error`', function () {
-            expect(function () {
-                throw new Error();
-            }).toThrowInstanceOf(Error);
+describe('Numbers', function () {
+
+    describe('toBeNumber', function () {
+        describe('when invoked', function () {
+            describe('when subject IS a number', function () {
+                it('should confirm', function () {
+                    expect(1).toBeNumber();
+                    expect(1.11).toBeNumber();
+                    expect(1e3).toBeNumber();
+                    expect(0.11).toBeNumber();
+                    expect(-11).toBeNumber();
+                });
+            });
+            describe('when subject is NOT a number', function () {
+                it('should deny', function () {
+                    expect('1').not.toBeNumber();
+                    expect(NaN).not.toBeNumber();
+                });
+            });
         });
     });
+
+    describe('toBeCalculable', function () {
+        describe('when invoked', function () {
+            describe('when subject CAN be coerced to be used in mathematical operations', function () {
+                it('should confirm', function () {
+                    expect('1').toBeCalculable();
+                    expect('').toBeCalculable();
+                    expect(null).toBeCalculable();
+                });
+            });
+            describe('when subject can NOT be coerced by JavaScript to be used in mathematical operations', function () {
+                it('should deny', function () {
+                    expect({}).not.toBeCalculable();
+                    expect(NaN).not.toBeCalculable();
+                });
+            });
+        });
+    });
+
+    describe('toBeEvenNumber', function () {
+        describe('when invoked', function () {
+            describe('when subject IS an even number', function () {
+                it('should confirm', function () {
+                    expect(2).toBeEvenNumber();
+                });
+            });
+            describe('when subject is NOT an even number', function () {
+                it('should deny', function () {
+                    expect(1).not.toBeEvenNumber();
+                    expect(NaN).not.toBeEvenNumber();
+                });
+            });
+        });
+    });
+
+    describe('toBeOddNumber', function () {
+        describe('when invoked', function () {
+            describe('when subject IS an odd number', function () {
+                it('should confirm', function () {
+                    expect(1).toBeOddNumber();
+                });
+            });
+            describe('when subject is NOT an odd number', function () {
+                it('should deny', function () {
+                    expect(2).not.toBeOddNumber();
+                    expect(NaN).not.toBeOddNumber();
+                });
+            });
+        });
+    });
+
+    describe('toBeWithinRange', function () {
+        describe('when invoked', function () {
+            describe('when subject IS a number >= floor and <= ceiling', function () {
+                it('should confirm', function () {
+                    expect(0).toBeWithinRange(0, 2);
+                    expect(1).toBeWithinRange(0, 2);
+                    expect(2).toBeWithinRange(0, 2);
+                });
+            });
+            describe('when subject is NOT a number >= floor and <= ceiling', function () {
+                it('should deny', function () {
+                    expect(-3).not.toBeWithinRange(0, 2);
+                    expect(-2).not.toBeWithinRange(0, 2);
+                    expect(-1).not.toBeWithinRange(0, 2);
+                    expect(3).not.toBeWithinRange(0, 2);
+                    expect(NaN).not.toBeWithinRange(0, 2);
+                });
+            });
+        });
+    });
+
+    describe('toBeWholeNumber', function () {
+        describe('when invoked', function () {
+            describe('when subject IS a number with no positive decimal places', function () {
+                it('should confirm', function () {
+                    expect(1).toBeWholeNumber();
+                    expect(0).toBeWholeNumber();
+                    expect(0.0).toBeWholeNumber();
+                });
+            });
+            describe('when subject is NOT a number with no positive decimal places', function () {
+                it('should deny', function () {
+                    expect(NaN).not.toBeWholeNumber();
+                    expect(1.1).not.toBeWholeNumber();
+                    expect(0.1).not.toBeWholeNumber();
+                });
+            });
+        });
+    });
+
 });
-describe('toThrowStartsWith', function () {
-    describe('matches', function () {
-        it('should match the error string', function () {
-            expect(function () {
-                throw new Error('ooops');
-            }).toThrowStartsWith('ooops');
+
+describe('Objects', function () {
+
+    beforeEach(function () {
+        this.Foo = function () { };
+    });
+
+    describe('toBeObject', function () {
+        describe('when invoked', function () {
+            describe('when subject IS an Object', function () {
+                it('should confirm', function () {
+                    expect(new Object()).toBeObject();
+                    expect(new this.Foo()).toBeObject();
+                    expect({}).toBeObject();
+                });
+            });
+            describe('when subject is NOT an Object', function () {
+                it('should deny', function () {
+                    expect(null).not.toBeObject();
+                    expect(123).not.toBeObject();
+                    expect('[object Object]').not.toBeObject();
+                });
+            });
         });
     });
-    describe('non-matches', function () {
-        it('should mismatch the error string', function () {
-            expect(function () {
-                throw new Error('ooops');
-            }).not.toThrowStartsWith('1');
+
+    describe('toBeEmptyObject', function () {
+        describe('when invoked', function () {
+            describe('when subject IS an Object with no instance members', function () {
+                beforeEach(function () {
+                    this.Foo.prototype = {
+                        b: 2
+                    };
+                });
+                it('should confirm', function () {
+                    expect(new this.Foo()).toBeEmptyObject();
+                    expect({}).toBeEmptyObject();
+                });
+            });
+            describe('when subject is NOT an Object with no instance members', function () {
+                it('should deny', function () {
+                    expect({
+                        a: 1
+                    }).not.toBeEmptyObject();
+                    expect(null).not.toBeNonEmptyObject();
+                });
+            });
         });
     });
+
+    describe('toBeNonEmptyObject', function () {
+        describe('when invoked', function () {
+            describe('when subject IS an Object with at least one instance member', function () {
+                it('should confirm', function () {
+                    expect({
+                        a: 1
+                    }).toBeNonEmptyObject();
+                });
+            });
+            describe('when subject is NOT an Object with at least one instance member', function () {
+                beforeEach(function () {
+                    this.Foo.prototype = {
+                        b: 2
+                    };
+                });
+                it('should deny', function () {
+                    expect(new this.Foo()).not.toBeNonEmptyObject();
+                    expect({}).not.toBeNonEmptyObject();
+                    expect(null).not.toBeNonEmptyObject();
+                });
+            });
+        });
+    });
+
+    describe('toImplement', function () {
+        describe('when invoked', function () {
+            describe('when subject IS an Object containing all of the supplied members', function () {
+                it('should confirm', function () {
+                    expect({
+                        a: 1,
+                        b: 2
+                    }).toImplement({
+                        a: 1,
+                        b: 2
+                    });
+                    expect({
+                        a: 1,
+                        b: 2
+                    }).toImplement({
+                        a: 1
+                    });
+                });
+            });
+            describe('when subject is NOT an Object containing all of the supplied members', function () {
+                it('should deny', function () {
+                    expect({
+                        a: 1
+                    }).not.toImplement({
+                        c: 3
+                    });
+                    expect(null).not.toImplement({
+                        a: 1
+                    });
+                });
+            });
+        });
+    });
+
+    describe('toBeFunction', function () {
+        describe('when invoked', function () {
+            describe('when subject IS a function', function () {
+                it('should confirm', function () {
+                    expect(function () { }).toBeFunction();
+                });
+            });
+            describe('when subject is NOT a function', function () {
+                it('should deny', function () {
+                    expect(/regexp/).not.toBeFunction();
+                });
+            });
+        });
+    });
+
+});
+
+describe('Strings', function () {
+
+    describe('toBeEmptyString', function () {
+        describe('when invoked', function () {
+            describe('when subject IS a string with no characters', function () {
+                it('should confirm', function () {
+                    expect('').toBeEmptyString();
+                });
+            });
+            describe('when subject is NOT a string with no characters', function () {
+                it('should deny', function () {
+                    expect(' ').not.toBeEmptyString();
+                });
+            });
+        });
+    });
+
+    describe('toBeNonEmptyString', function () {
+        describe('when invoked', function () {
+            describe('when subject IS a string with at least one character', function () {
+                it('should confirm', function () {
+                    expect(' ').toBeNonEmptyString();
+                });
+            });
+            describe('when subject is NOT a string with at least one character', function () {
+                it('should deny', function () {
+                    expect('').not.toBeNonEmptyString();
+                    expect(null).not.toBeNonEmptyString();
+                });
+            });
+        });
+    });
+
+    describe('toBeString', function () {
+        describe('when invoked', function () {
+            describe('when subject IS a string of any length', function () {
+                it('should confirm', function () {
+                    expect('').toBeString();
+                    expect(' ').toBeString();
+                });
+            });
+            describe('when subject is NOT a string of any length', function () {
+                it('should deny', function () {
+                    expect(null).not.toBeString();
+                });
+            });
+        });
+    });
+
+    describe('toBeHtmlString', function () {
+        describe('when invoked', function () {
+            describe('when subject IS a string of HTML markup', function () {
+                beforeEach(function () {
+                    this.ngMultiLine = '';
+                    this.ngMultiLine += '<a data-ng-href="//www.google.com" data-ng-click="launchApp($event)" target="_blank" class="ng-binding" href="//www.google.com">';
+                    this.ngMultiLine += '\n';
+                    this.ngMultiLine += '  Watch with Google TV';
+                    this.ngMultiLine += '\n';
+                    this.ngMultiLine += '</a>';
+                    this.ngMultiLine += '\n';
+                });
+                it('should confirm', function () {
+                    expect('<element>text</element>').toBeHtmlString();
+                    expect('<a data-ng-href="//foo.com" data-ng-click="bar($event)">baz</a>').toBeHtmlString();
+                    expect('<div ng-if="foo > bar || bar < foo && baz == bar"></div>').toBeHtmlString();
+                    expect('<li ng-if="foo > bar || bar < foo && baz == bar">').toBeHtmlString();
+                    expect(this.ngMultiLine).toBeHtmlString();
+                });
+            });
+            describe('when subject is NOT a string of HTML markup', function () {
+                it('should deny', function () {
+                    expect('div').not.toBeHtmlString();
+                    expect(null).not.toBeHtmlString();
+                });
+            });
+        });
+    });
+
+    describe('toBeJsonString', function () {
+        describe('when invoked', function () {
+            describe('when subject IS a string of parseable JSON', function () {
+                it('should confirm', function () {
+                    expect('{}').toBeJsonString();
+                    expect('[]').toBeJsonString();
+                    expect('[1]').toBeJsonString();
+                });
+            });
+            describe('when subject is NOT a string of parseable JSON', function () {
+                it('should deny', function () {
+                    expect('[1,]').not.toBeJsonString();
+                    expect('<>').not.toBeJsonString();
+                    expect(null).not.toBeJsonString();
+                    expect('').not.toBeJsonString();
+                    expect(void (0)).not.toBeJsonString();
+                });
+            });
+        });
+    });
+
+    describe('toBeWhitespace', function () {
+        describe('when invoked', function () {
+            describe('when subject IS a string containing only tabs, spaces, returns etc', function () {
+                it('should confirm', function () {
+                    expect(' ').toBeWhitespace();
+                    expect('').toBeWhitespace();
+                });
+            });
+            describe('when subject is NOT a string containing only tabs, spaces, returns etc', function () {
+                it('should deny', function () {
+                    expect('has-no-whitespace').not.toBeWhitespace();
+                    expect('has whitespace').not.toBeWhitespace();
+                    expect(null).not.toBeWhitespace();
+                });
+            });
+        });
+    });
+
+    describe('toStartWith', function () {
+        describe('when invoked', function () {
+            describe('when subject is NOT an undefined or empty string', function () {
+                describe('when subject is a string whose leading characters match the expected string', function () {
+                    it('should confirm', function () {
+                        expect('jamie').toStartWith('jam');
+                    });
+                });
+                describe('when subject is a string whose leading characters DO NOT match the expected string', function () {
+                    it('should deny', function () {
+                        expect(' jamie').not.toStartWith('jam');
+                        expect('Jamie').not.toStartWith('jam');
+                    });
+                });
+            });
+            describe('when subject IS an undefined or empty string', function () {
+                it('should deny', function () {
+                    expect('').not.toStartWith('');
+                    expect(void (0)).not.toStartWith('');
+                    expect(void (0)).not.toStartWith('undefined');
+                    expect('undefined').not.toStartWith(void (0));
+                });
+            });
+        });
+    });
+
+    describe('toEndWith', function () {
+        describe('when invoked', function () {
+            describe('when subject is NOT an undefined or empty string', function () {
+                describe('when subject is a string whose trailing characters match the expected string', function () {
+                    it('should confirm', function () {
+                        expect('jamie').toEndWith('mie');
+                    });
+                });
+                describe('when subject is a string whose trailing characters DO NOT match the expected string', function () {
+                    it('should deny', function () {
+                        expect('jamie ').not.toEndWith('mie');
+                        expect('jamiE').not.toEndWith('mie');
+                    });
+                });
+            });
+            describe('when subject IS an undefined or empty string', function () {
+                it('should deny', function () {
+                    expect('').not.toEndWith('');
+                    expect(void (0)).not.toEndWith('');
+                    expect(void (0)).not.toEndWith('undefined');
+                    expect('undefined').not.toEndWith(void (0));
+                });
+            });
+        });
+    });
+
+    describe('toBeLongerThan', function () {
+        describe('when invoked', function () {
+            describe('when the subject and comparison ARE both strings', function () {
+                describe('when the subject IS longer than the comparision string', function () {
+                    it('should confirm', function () {
+                        expect('abc').toBeLongerThan('ab');
+                        expect('a').toBeLongerThan('');
+                    });
+                });
+                describe('when the subject is NOT longer than the comparision string', function () {
+                    it('should deny', function () {
+                        expect('ab').not.toBeLongerThan('abc');
+                        expect('').not.toBeLongerThan('a');
+                    });
+                });
+            });
+            describe('when the subject and comparison are NOT both strings', function () {
+                it('should deny (we are asserting the relative lengths of two strings)', function () {
+                    expect('truthy').not.toBeLongerThan(void (0));
+                    expect(void (0)).not.toBeLongerThan('truthy');
+                    expect('').not.toBeLongerThan(void (0));
+                    expect(void (0)).not.toBeLongerThan('');
+                });
+            });
+        });
+    });
+
+    describe('toBeShorterThan', function () {
+        describe('when invoked', function () {
+            describe('when the subject and comparison ARE both strings', function () {
+                describe('when the subject IS shorter than the comparision string', function () {
+                    it('should confirm', function () {
+                        expect('ab').toBeShorterThan('abc');
+                        expect('').toBeShorterThan('a');
+                    });
+                });
+                describe('when the subject is NOT shorter than the comparision string', function () {
+                    it('should deny', function () {
+                        expect('abc').not.toBeShorterThan('ab');
+                        expect('a').not.toBeShorterThan('');
+                    });
+                });
+            });
+            describe('when the subject and comparison are NOT both strings', function () {
+                it('should deny (we are asserting the relative lengths of two strings)', function () {
+                    expect('truthy').not.toBeShorterThan(void (0));
+                    expect(void (0)).not.toBeShorterThan('truthy');
+                    expect('').not.toBeShorterThan(void (0));
+                    expect(void (0)).not.toBeShorterThan('');
+                });
+            });
+        });
+    });
+
+    describe('toBeSameLengthAs', function () {
+        describe('when invoked', function () {
+            describe('when the subject and comparison ARE both strings', function () {
+                describe('when the subject IS the same length as the comparision string', function () {
+                    it('should confirm', function () {
+                        expect('ab').toBeSameLengthAs('ab');
+                    });
+                });
+                describe('when the subject is NOT the same length as the comparision string', function () {
+                    it('should deny', function () {
+                        expect('abc').not.toBeSameLengthAs('ab');
+                        expect('a').not.toBeSameLengthAs('');
+                        expect('').not.toBeSameLengthAs('a');
+                    });
+                });
+            });
+            describe('when the subject and comparison are NOT both strings', function () {
+                it('should deny (we are asserting the relative lengths of two strings)', function () {
+                    expect('truthy').not.toBeSameLengthAs(void (0));
+                    expect(void (0)).not.toBeSameLengthAs('truthy');
+                    expect('').not.toBeSameLengthAs(void (0));
+                    expect(void (0)).not.toBeSameLengthAs('');
+                });
+            });
+        });
+    });
+
 });
