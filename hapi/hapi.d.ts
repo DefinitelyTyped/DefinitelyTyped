@@ -17,8 +17,15 @@ declare module "hapi" {
 		[key: string]: T;
 	}
 
-	interface IPromise<T> {
+	interface IThenable<R> {
+		then<U>(onFulfilled?: (value: R) => U | IThenable<U>, onRejected?: (error: any) => U | IThenable<U>): IThenable<U>;
+		then<U>(onFulfilled?: (value: R) => U | IThenable<U>, onRejected?: (error: any) => void): IThenable<U>;
+	}
 
+	interface IPromise<R> extends IThenable<R> {
+		then<U>(onFulfilled?: (value: R) => U | IThenable<U>, onRejected?: (error: any) => U | IThenable<U>): IPromise<U>;
+		then<U>(onFulfilled?: (value: R) => U | IThenable<U>, onRejected?: (error: any) => void): IPromise<U>;
+		catch<U>(onRejected?: (error: any) => U | IThenable<U>): IPromise<U>;
 	}
 
 	/** Boom Module for errors. https://github.com/hapijs/boom
