@@ -7,29 +7,45 @@ interface ChartDataSet {
     label: string;
     fillColor: string;
     strokeColor: string;
+}
 
-    /* Line, Radar */
+interface LinearChartDataSet extends ChartDataSet {
     pointColor?: string;
     pointStrokeColor?: string;
     pointHighlightFill?: string;
     pointHighlightStroke?: string;
+    data: number[];
+}
 
-    /* Bar */
+interface LinearChartDataSetInternal extends LinearChartDataSet {
+    points: ChartElement[];
+}
+
+interface BarChartDataSet extends ChartDataSet {
     highlightFill?: string;
     highlightStroke?: string;
     data: number[];
 }
 
-interface LinearChartData {
-    labels: string[];
-    datasets: ChartDataSet[];
+interface BarChartDataSetInternal extends BarChartDataSet {
+    bars: ChartElement[];
 }
 
-interface CircularChartData {
-    value: number;
+interface CircularChartDataSet {
+    label?: string;
     color?: string;
     highlight?: string;
-    label?: string;
+    value: number;
+}
+
+interface LinearChartData {
+    labels: string[];
+    datasets: LinearChartDataSet[];
+}
+
+interface BarChartData {
+    labels: string[];
+    datasets: BarChartDataSet[];
 }
 
 interface ChartSettings {
@@ -55,6 +71,7 @@ interface ChartSettings {
     maintainAspectRatio: boolean;
     showTooltips: boolean;
     tooltipEvents: string[];
+    customTooltips: boolean | ((tooltip: any) => any);
     tooltipFillColor: string;
     tooltipFontFamily: string;
     tooltipFontSize: number;
@@ -76,13 +93,65 @@ interface ChartSettings {
 }
 
 interface ChartOptions {
+    animation?: boolean;
+    animationSteps?: number;
+    animationEasing?: string;
+    showScale?: boolean;
+    scaleOverride?: boolean;
+    scaleSteps?: number;
+    scaleStepWidth?: number;
+    scaleStartValue?: number;
+    scaleLineColor?: string;
+    scaleLineWidth?: number;
+    scaleShowLabels?: boolean;
+    scaleLabel?: string;
+    scaleIntegersOnly?: boolean;
+    scaleBeginAtZero?: boolean;
+    scaleFontFamily?: string;
+    scaleFontSize?: number;
+    scaleFontStyle?: string;
+    scaleFontColor?: string;
+    responsive?: boolean;
+    maintainAspectRatio?: boolean;
+    showTooltips?: boolean;
+    customTooltips?: boolean | ((tooltip: any) => any);
+    tooltipEvents?: string[];
+    tooltipFillColor?: string;
+    tooltipFontFamily?: string;
+    tooltipFontSize?: number;
+    tooltipFontStyle?: string;
+    tooltipFontColor?: string;
+    tooltipTitleFontFamily?: string;
+    tooltipTitleFontSize?: number;
+    tooltipTitleFontStyle?: string;
+    tooltipTitleFontColor?: string;
+    tooltipYPadding?: number;
+    tooltipXPadding?: number;
+    tooltipCaretSize?: number;
+    tooltipCornerRadius?: number;
+    tooltipXOffset?: number;
+    tooltipTemplate?: string;
+    multiTooltipTemplate?: string;
+    onAnimationProgress?: () => void;
+    onAnimationComplete?: () => void;
     scaleShowGridLines?: boolean;
     scaleGridLineColor?: string;
     scaleGridLineWidth?: number;
+    scaleShowHorizontalLines?: boolean;
+    scaleShowVerticalLines?: boolean;
+    bezierCurve?: boolean;
+    bezierCurveTension?: number;
+    pointDot?: boolean;
+    pointDotRadius?: number;
+    pointDotStrokeWidth?: number;
+    pointHitDetectionRadius?: number;
+    datasetStroke?: boolean;
+    datasetStrokeWidth?: number;
+    datasetFill?: boolean;
     legendTemplate?: string;
 }
 
-interface PointsAtEvent {
+interface ChartElement {
     value: number;
     label: string;
     datasetLabel: string;
@@ -104,98 +173,80 @@ interface ChartInstance {
 }
 
 interface LinearInstance extends ChartInstance {
-    getPointsAtEvent: (event: Event) => PointsAtEvent[];
+    getPointsAtEvent: (event: Event) => ChartElement[];
     update: () => void;
     addData: (valuesArray: number[], label: string) => void;
     removeData: () => void;
+    datasets: LinearChartDataSetInternal[];
+}
+
+interface BarInstance extends ChartInstance {
+    getBarsAtEvent: (event: Event) => ChartElement[];
+    update: () => void;
+    addData: (valuesArray: number[], label: string) => void;
+    removeData: () => void;
+    datasets: BarChartDataSetInternal[];
 }
 
 interface CircularInstance extends ChartInstance {
-    getSegmentsAtEvent: (event: Event) => {}[];
+    getSegmentsAtEvent: (event: Event) => ChartElement[];
     update: () => void;
-    addData: (valuesArray: CircularChartData, index?: number) => void;
-    removeData: (index: number) => void;
-    segments: Array<CircularChartData>;
+    addData: (valuesArray: CircularChartDataSet, index?: number) => void;
+    removeData: (index?: number) => void;
+    segments: ChartElement[];
 }
 
 interface LineChartOptions extends ChartOptions {
-    bezierCurve?: boolean;
-    bezierCurveTension?: number;
-    pointDot?: boolean;
-    pointDotRadius?: number;
-    pointDotStrokeWidth?: number;
-    pointHitDetectionRadius?: number;
-    datasetStroke?: boolean;
-    datasetStrokeWidth?: number;
-    datasetFill?: boolean;
 }
 
 interface BarChartOptions extends ChartOptions {
-    scaleBeginAtZero?: boolean;
     barShowStroke?: boolean;
     barStrokeWidth?: number;
     barValueSpacing?: number;
     barDatasetSpacing?: number;
 }
 
-interface RadarChartOptions {
+interface RadarChartOptions extends ChartOptions {
     scaleShowLine?: boolean;
     angleShowLineOut?: boolean;
-    scaleShowLabels?: boolean;
-    scaleBeginAtZero?: boolean;
     angleLineColor?: string;
     angleLineWidth?: number;
     pointLabelFontFamily?: string;
     pointLabelFontStyle?: string;
     pointLabelFontSize?: number;
     pointLabelFontColor?: string;
-    pointDot?: boolean;
-    pointDotRadius?: number;
-    pointDotStrokeWidth?: number;
-    pointHitDetectionRadius?: number;
-    datasetStroke?: boolean;
-    datasetStrokeWidth?: number;
-    datasetFill?: boolean;
-    legendTemplate?: string;
 }
 
-interface PolarAreaChartOptions {
+interface PolarAreaChartOptions extends ChartOptions {
     scaleShowLabelBackdrop?: boolean;
     scaleBackdropColor?: string;
-    scaleBeginAtZero?: boolean;
     scaleBackdropPaddingY?: number;
     scaleBackdropPaddingX?: number;
     scaleShowLine?: boolean;
     segmentShowStroke?: boolean;
     segmentStrokeColor?: string;
     segmentStrokeWidth?: number;
-    animationSteps?: number;
-    animationEasing?: string;
     animateRotate?: boolean;
     animateScale?: boolean;
-    legendTemplate?: string;
 }
 
-interface PieChartOptions {
+interface PieChartOptions extends ChartOptions {
     segmentShowStroke?: boolean;
     segmentStrokeColor?: string;
     segmentStrokeWidth?: number;
     percentageInnerCutout?: number;
-    animationSteps?: number;
-    animationEasing?: string;
     animateRotate?: boolean;
     animateScale?: boolean;
-    legendTemplate?: string;
 }
 
 interface Chart {
     Line(data: LinearChartData, options?: LineChartOptions): LinearInstance;
-    Bar(data: LinearChartData, options?: BarChartOptions): LinearInstance;
+    Bar(data: BarChartData, options?: BarChartOptions): BarInstance;
     Radar(data: LinearChartData, options?: RadarChartOptions): LinearInstance;
 
-    PolarArea(data: CircularChartData[], options?: PolarAreaChartOptions): CircularInstance;
-    Pie(data: CircularChartData[], options?: PieChartOptions): CircularInstance;
-    Doughnut(data: CircularChartData[], options?: PieChartOptions): CircularInstance;
+    PolarArea(data: CircularChartDataSet[], options?: PolarAreaChartOptions): CircularInstance;
+    Pie(data: CircularChartDataSet[], options?: PieChartOptions): CircularInstance;
+    Doughnut(data: CircularChartDataSet[], options?: PieChartOptions): CircularInstance;
 }
 
 declare var Chart: {

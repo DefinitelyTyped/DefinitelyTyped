@@ -25,6 +25,7 @@ Chart.defaults.global = {
     responsive: false,
     maintainAspectRatio: true,
     showTooltips: true,
+    customTooltips: false,
     tooltipEvents: ["mousemove", "touchstart", "touchmove"],
     tooltipFillColor: "rgba(0,0,0,0.8)",
     tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
@@ -42,63 +43,72 @@ Chart.defaults.global = {
     tooltipXOffset: 10,
     tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
     multiTooltipTemplate: "<%= value %>",
-    onAnimationProgress: function () { },
-    onAnimationComplete: function () { }
-}
+    onAnimationProgress: function(){},
+    onAnimationComplete: function(){}
+};
 
-var lineData: LinearChartData = {
-    labels: ['03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00'],
+var lineData = {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
     datasets: [
         {
-            label: 'Accepted',
-            fillColor: 'rgba(220,220,220,0.2)',
-            strokeColor: 'rgba(220,220,220,1)',
-            pointColor: 'rgba(220,220,220,1)',
-            pointStrokeColor: '#fff',
-            pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(220,220,220,1)',
+            label: "My First dataset",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
             data: [65, 59, 80, 81, 56, 55, 40]
         },
         {
-            label: 'Quarantined',
-            fillColor: 'rgba(151,187,205,0.2)',
-            strokeColor: 'rgba(151,187,205,1)',
-            pointColor: 'rgba(151,187,205,1)',
-            pointStrokeColor: '#fff',
-            pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(151,187,205,1)',
+            label: "My Second dataset",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
             data: [28, 48, 40, 19, 86, 27, 90]
         }
     ]
 };
 
-var myLineChart = new Chart(ctx).Line(lineData, {
-    scaleShowGridLines: true,
-    scaleGridLineColor: "rgba(0,0,0,.05)",
-    scaleGridLineWidth: 1,
-    bezierCurve: true,
-    bezierCurveTension: 0.4,
-    pointDot: true,
-    pointDotRadius: 4,
-    pointDotStrokeWidth: 1,
-    pointHitDetectionRadius: 20,
-    datasetStroke: true,
-    datasetStrokeWidth: 2,
-    datasetFill: true,
-    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
-});
+var lineOptions = {
+    scaleShowGridLines : true,
+    scaleGridLineColor : "rgba(0,0,0,.05)",
+    scaleGridLineWidth : 1,
+    scaleShowHorizontalLines: true,
+    scaleShowVerticalLines: true,
+    bezierCurve : true,
+    bezierCurveTension : 0.4,
+    pointDot : true,
+    pointDotRadius : 4,
+    pointDotStrokeWidth : 1,
+    pointHitDetectionRadius : 20,
+    datasetStroke : true,
+    datasetStrokeWidth : 2,
+    datasetFill : true,
+    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+};
 
-var myLineChartLegend: string = myLineChart.generateLegend();
-var myLineChartImage: string = myLineChart.toBase64Image();
-myLineChart.addData([1, 2, 3, 4, 5, 6, 7], 'new');
-myLineChart.clear();
-myLineChart.removeData();
-myLineChart.resize();
+var myLineChart = new Chart(ctx).Line(lineData, lineOptions);
+
+canvas.onclick = function(evt){
+    var activePoints = myLineChart.getPointsAtEvent(evt);
+};
+myLineChart.datasets[0].points[2].value = 50;
 myLineChart.update();
-myLineChart.stop();
-myLineChart.destroy();
+myLineChart.addData([40, 60], "August");
+myLineChart.removeData();
 
-var barData: LinearChartData = {
+myLineChart.clear();
+myLineChart.stop();
+myLineChart.resize();
+myLineChart.destroy();
+var myLineChartImage: string = myLineChart.toBase64Image();
+var myLineChartLegend: string = myLineChart.generateLegend();
+
+var barData = {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
     datasets: [
         {
@@ -120,29 +130,38 @@ var barData: LinearChartData = {
     ]
 };
 
-var myBarChart = new Chart(ctx).Bar(barData, {
-    scaleBeginAtZero: true,
-    scaleShowGridLines: true,
-    scaleGridLineColor: "rgba(0,0,0,.05)",
-    scaleGridLineWidth: 1,
-    barShowStroke: true,
-    barStrokeWidth: 2,
-    barValueSpacing: 5,
-    barDatasetSpacing: 1,
-    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
-});
+var barOptions = {
+    scaleBeginAtZero : true,
+    scaleShowGridLines : true,
+    scaleGridLineColor : "rgba(0,0,0,.05)",
+    scaleGridLineWidth : 1,
+    scaleShowHorizontalLines: true,
+    scaleShowVerticalLines: true,
+    barShowStroke : true,
+    barStrokeWidth : 2,
+    barValueSpacing : 5,
+    barDatasetSpacing : 1,
+    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+};
 
-var myBarChartLegend: string = myBarChart.generateLegend();
-var myBarChartImage: string = myBarChart.toBase64Image();
-myBarChart.addData([1, 2, 3, 4, 5, 6, 7], 'new');
-myBarChart.clear();
-myBarChart.removeData();
-myBarChart.resize();
+var myBarChart = new Chart(ctx).Bar(barData, barOptions);
+
+canvas.onclick = function(evt){
+    var activeBars = myBarChart.getBarsAtEvent(evt);
+};
+myBarChart.datasets[0].bars[2].value = 50;
 myBarChart.update();
-myBarChart.stop();
-myBarChart.destroy();
+myBarChart.addData([40, 60], "August");
+myBarChart.removeData();
 
-var radarData: LinearChartData = {
+myBarChart.clear();
+myBarChart.stop();
+myBarChart.resize();
+myBarChart.destroy();
+var myBarChartImage: string = myBarChart.toBase64Image();
+var myBarChartLegend: string = myBarChart.generateLegend();
+
+var radarData = {
     labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
     datasets: [
         {
@@ -168,41 +187,48 @@ var radarData: LinearChartData = {
     ]
 };
 
-var myRadarChart = new Chart(ctx).Radar(radarData, {
-    scaleShowLine: true,
-    angleShowLineOut: true,
-    scaleShowLabels: false,
-    scaleBeginAtZero: true,
-    angleLineColor: "rgba(0,0,0,.1)",
-    angleLineWidth: 1,
-    pointLabelFontFamily: "'Arial'",
-    pointLabelFontStyle: "normal",
-    pointLabelFontSize: 10,
-    pointLabelFontColor: "#666",
-    pointDot: true,
-    pointDotRadius: 3,
-    pointDotStrokeWidth: 1,
-    pointHitDetectionRadius: 20,
-    datasetStroke: true,
-    datasetStrokeWidth: 2,
-    datasetFill: true,
-    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
-});
+var radarOptions = {
+    scaleShowLine : true,
+    angleShowLineOut : true,
+    scaleShowLabels : false,
+    scaleBeginAtZero : true,
+    angleLineColor : "rgba(0,0,0,.1)",
+    angleLineWidth : 1,
+    pointLabelFontFamily : "'Arial'",
+    pointLabelFontStyle : "normal",
+    pointLabelFontSize : 10,
+    pointLabelFontColor : "#666",
+    pointDot : true,
+    pointDotRadius : 3,
+    pointDotStrokeWidth : 1,
+    pointHitDetectionRadius : 20,
+    datasetStroke : true,
+    datasetStrokeWidth : 2,
+    datasetFill : true,
+    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+};
 
-var myRadarChartLegend: string = myRadarChart.generateLegend();
-var myRadarChartImage: string = myRadarChart.toBase64Image();
-myRadarChart.addData([1, 2, 3, 4, 5, 6, 7], 'new');
-myRadarChart.clear();
-myRadarChart.removeData();
-myRadarChart.resize();
+var myRadarChart = new Chart(ctx).Radar(radarData, radarOptions);
+
+canvas.onclick = function(evt){
+    var activePoints = myRadarChart.getPointsAtEvent(evt);
+};
+myRadarChart.datasets[0].points[2].value = 50;
 myRadarChart.update();
-myRadarChart.stop();
-myRadarChart.destroy();
+myRadarChart.addData([40, 60], "Dancing");
+myRadarChart.removeData();
 
-var polarAreaData: CircularChartData[] = [
+myRadarChart.clear();
+myRadarChart.stop();
+myRadarChart.resize();
+myRadarChart.destroy();
+var myRadarChartImage: string = myRadarChart.toBase64Image();
+var myRadarChartLegend: string = myRadarChart.generateLegend();
+
+var polarAreaData = [
     {
         value: 300,
-        color: "#F7464A",
+        color:"#F7464A",
         highlight: "#FF5A5E",
         label: "Red"
     },
@@ -230,45 +256,58 @@ var polarAreaData: CircularChartData[] = [
         highlight: "#616774",
         label: "Dark Grey"
     }
-
 ];
 
-var myPolarAreaChart = new Chart(ctx).PolarArea(polarAreaData, {
-    scaleShowLabelBackdrop: true,
-    scaleBackdropColor: "rgba(255,255,255,0.75)",
-    scaleBeginAtZero: true,
-    scaleBackdropPaddingY: 2,
-    scaleBackdropPaddingX: 2,
-    scaleShowLine: true,
-    segmentShowStroke: true,
-    segmentStrokeColor: "#fff",
-    segmentStrokeWidth: 2,
-    animationSteps: 100,
-    animationEasing: "easeOutBounce",
-    animateRotate: true,
-    animateScale: false,
-    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-});
+var polarAreaOptions = {
+    scaleShowLabelBackdrop : true,
+    scaleBackdropColor : "rgba(255,255,255,0.75)",
+    scaleBeginAtZero : true,
+    scaleBackdropPaddingY : 2,
+    scaleBackdropPaddingX : 2,
+    scaleShowLine : true,
+    segmentShowStroke : true,
+    segmentStrokeColor : "#fff",
+    segmentStrokeWidth : 2,
+    animationSteps : 100,
+    animationEasing : "easeOutBounce",
+    animateRotate : true,
+    animateScale : false,
+    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+};
 
-var myPolarAreaChartLegend: string = myPolarAreaChart.generateLegend();
-var myPolarAreaChartImage: string = myPolarAreaChart.toBase64Image();
-myPolarAreaChart.addData({
-    value: 120,
-    color: "#4D5360",
-    highlight: "#616774",
-    label: "Dark Grey"
-}, 0);
-myPolarAreaChart.clear();
-myPolarAreaChart.removeData(0);
-myPolarAreaChart.resize();
+var myPolarAreaChart = new Chart(ctx).PolarArea(polarAreaData, polarAreaOptions);
+
+canvas.onclick = function(evt){
+    var activePoints = myPolarAreaChart.getSegmentsAtEvent(evt);
+};
+myPolarAreaChart.segments[1].value = 10;
 myPolarAreaChart.update();
-myPolarAreaChart.stop();
-myPolarAreaChart.destroy();
+myPolarAreaChart.addData({
+    value: 130,
+    color: "#B48EAD",
+    highlight: "#C69CBE",
+    label: "Purple"
+});
+myPolarAreaChart.addData({
+    value: 130,
+    color: "#B48EAD",
+    highlight: "#C69CBE",
+    label: "Purple"
+}, 0);
+myPolarAreaChart.removeData();
+myPolarAreaChart.removeData(0);
 
-var pieData: CircularChartData[] = [
+myRadarChart.clear();
+myRadarChart.stop();
+myRadarChart.resize();
+myRadarChart.destroy();
+var myRadarChartImage: string = myRadarChart.toBase64Image();
+var myRadarChartLegend: string = myRadarChart.generateLegend();
+
+var pieAndDoughnutData = [
     {
         value: 300,
-        color: "#F7464A",
+        color:"#F7464A",
         highlight: "#FF5A5E",
         label: "Red"
     },
@@ -286,58 +325,72 @@ var pieData: CircularChartData[] = [
     }
 ];
 
-// For a pie chart
-var myPieChart = new Chart(ctx).Pie(pieData, {
-    segmentShowStroke: true,
-    segmentStrokeColor: "#fff",
-    segmentStrokeWidth: 2,
-    percentageInnerCutout: 0,
-    animationSteps: 100,
-    animationEasing: "easeOutBounce",
-    animateRotate: true,
-    animateScale: false,
-    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-});
+var pieAndDoughnutOptions = {
+    segmentShowStroke : true,
+    segmentStrokeColor : "#fff",
+    segmentStrokeWidth : 2,
+    percentageInnerCutout : 50, // This is 0 for Pie charts
+    animationSteps : 100,
+    animationEasing : "easeOutBounce",
+    animateRotate : true,
+    animateScale : false,
+    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+};
 
-var myPieChartLegend: string = myPieChart.generateLegend();
-var myPieChartImage: string = myPieChart.toBase64Image();
-myPieChart.addData({
-    value: 120,
-    color: "#4D5360",
-    highlight: "#616774",
-    label: "Dark Grey"
-}, 0);
-myPieChart.clear();
-myPieChart.removeData(0);
-myPieChart.resize();
+var myPieChart = new Chart(ctx).Pie(pieAndDoughnutData, pieAndDoughnutOptions);
+
+canvas.onclick = function(evt){
+    var activePoints = myPieChart.getSegmentsAtEvent(evt);
+};
+myPieChart.segments[1].value = 10;
 myPieChart.update();
-myPieChart.stop();
-myPieChart.destroy();
-
-// And for a doughnut chart
-var myDoughnutChart = new Chart(ctx).Doughnut(pieData, {
-    segmentShowStroke: true,
-    segmentStrokeColor: "#fff",
-    segmentStrokeWidth: 2,
-    percentageInnerCutout: 50,
-    animationSteps: 100,
-    animationEasing: "easeOutBounce",
-    animateRotate: true,
-    animateScale: false,
-    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-}); 
-
-var myDoughnutChartLegend: string = myDoughnutChart.generateLegend();
-var myDoughnutChartImage: string = myDoughnutChart.toBase64Image();
 myPieChart.addData({
-    value: 120,
-    color: "#4D5360",
-    highlight: "#616774",
-    label: "Dark Grey"
+    value: 130,
+    color: "#B48EAD",
+    highlight: "#C69CBE",
+    label: "Purple"
+});
+myPieChart.addData({
+    value: 130,
+    color: "#B48EAD",
+    highlight: "#C69CBE",
+    label: "Purple"
 }, 0);
-myDoughnutChart.clear();
-myDoughnutChart.removeData(0);
-myDoughnutChart.resize();
+myPieChart.removeData();
+myPieChart.removeData(0);
+
+myPieChart.clear();
+myPieChart.stop();
+myPieChart.resize();
+myPieChart.destroy();
+var myPieChartImage: string = myPieChart.toBase64Image();
+var myPieChartLegend: string = myPieChart.generateLegend();
+
+var myDoughnutChart = new Chart(ctx).Doughnut(pieAndDoughnutData, pieAndDoughnutOptions);
+
+canvas.onclick = function(evt){
+    var activePoints = myDoughnutChart.getSegmentsAtEvent(evt);
+};
+myDoughnutChart.segments[1].value = 10;
 myDoughnutChart.update();
+myDoughnutChart.addData({
+    value: 130,
+    color: "#B48EAD",
+    highlight: "#C69CBE",
+    label: "Purple"
+});
+myDoughnutChart.addData({
+    value: 130,
+    color: "#B48EAD",
+    highlight: "#C69CBE",
+    label: "Purple"
+}, 0);
+myDoughnutChart.removeData();
+myDoughnutChart.removeData(0);
+
+myDoughnutChart.clear();
 myDoughnutChart.stop();
+myDoughnutChart.resize();
 myDoughnutChart.destroy();
+var myDoughnutChartImage: string = myDoughnutChart.toBase64Image();
+var myDoughnutChartLegend: string = myDoughnutChart.generateLegend();
