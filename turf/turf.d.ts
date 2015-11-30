@@ -11,7 +11,8 @@ declare module turf {
     //////////////////////////////////////////////////////
 
     /**
-    * Calculates a series of aggregations for a set of points within a set of polygons. Sum, average, count, min, max, and deviation are supported.
+    * Calculates a series of aggregations for a set of points within a set of polygons.
+    * Sum, average, count, min, max, and deviation are supported.
     * @param polygons Polygons with values on which to aggregate
     * @param points Points to be aggregated
     * @param aggregations An array of aggregation objects
@@ -106,7 +107,7 @@ declare module turf {
     * Takes a line and returns a point at a specified distance along the line.
     * @param line Input line
     * @param distance Distance along the line
-    * @param [units=miles] 'miles', 'feet', 'kilometers', 'meters', or 'degrees'
+    * @param [units=miles] 'miles', 'kilometers', 'radians' or 'degrees'
     * @returns Point along the line
     */
     function along(line: GeoJSON.Feature, distance: number, units?: string): GeoJSON.Feature;
@@ -141,27 +142,30 @@ declare module turf {
     function center(features: GeoJSON.FeatureCollection): GeoJSON.Feature;
 
     /**
-    * Takes one or more features and calculates the centroid using the arithmetic mean of all vertices. This lessens the effect of small islands and artifacts when calculating the centroid of a set of polygons.
+    * Takes one or more features and calculates the centroid using the arithmetic mean of all vertices.
+    * This lessens the effect of small islands and artifacts when calculating the centroid of a set of polygons.
     * @param features Input features
     * @returns The centroid of the input features
     */
     function centroid(features: GeoJSON.Feature | GeoJSON.FeatureCollection): GeoJSON.Feature;
 
     /**
-    * Takes a Point and calculates the location of a destination point given a distance in degrees, radians, miles, or kilometers; and bearing in degrees. This uses the Haversine formula to account for global curvature.
+    * Takes a Point and calculates the location of a destination point given a distance in degrees, radians, miles, or kilometers; and bearing in degrees.
+    * This uses the Haversine formula to account for global curvature.
     * @param start Starting point
     * @param distance Distance from the starting point
     * @param bearing Ranging from -180 and 180
-    * @param units 'miles', 'feet', 'kilometers', 'meters', or 'degrees'
+    * @param units 'miles', 'kilometers', 'radians', or 'degrees'
     * @returns Destination point
     */
     function destination(start: GeoJSON.Feature, distance: number, bearing: number, units: string): GeoJSON.Feature;
 
     /**
-    * Calculates the distance between two points in degress, radians, miles, or kilometers. This uses the Haversine formula to account for global curvature.
+    * Calculates the distance between two points in degress, radians, miles, or kilometers.
+    * This uses the Haversine formula to account for global curvature.
     * @param from Origin point
     * @param to Destination point
-    * @param [units=kilometers] 'miles', 'feet', 'kilometers', 'meters', or 'degrees'
+    * @param [units=kilometers] 'miles', 'kilometers', 'radians', or 'degrees'
     * @returns Distance between the two points
     */
     function distance(from: GeoJSON.Feature, to: GeoJSON.Feature, units?: string): number;
@@ -183,7 +187,7 @@ declare module turf {
     /**
     * Takes a line and measures its length in the specified units.
     * @param line Line to measure
-    * @param units 'miles', 'feet', 'kilometers', 'meters', or 'degrees'
+    * @param units 'miles', 'kilometers', 'radians', or 'degrees'
     * @returns Length of the input line
     */
     function lineDistance(line: GeoJSON.Feature, units: string): number;
@@ -197,7 +201,8 @@ declare module turf {
     function midpoint(pt1: GeoJSON.Feature, pt2: GeoJSON.Feature): GeoJSON.Feature;
 
     /**
-    * Takes a feature and returns a Point guaranteed to be on the surface of the feature. Given a Polygon, the point will be in the area of the polygon. Given a LineString, the point will be along the string. Given a Point, the point will the same as the input.
+    * Takes a feature and returns a Point guaranteed to be on the surface of the feature. Given a Polygon, the point will be in the area of the polygon.
+    * Given a LineString, the point will be along the string. Given a Point, the point will the same as the input.
     * @param input Any feature or set of features
     * @returns A point on the surface of input
     */
@@ -223,7 +228,8 @@ declare module turf {
     //////////////////////////////////////////////////////
 
     /**
-    * Takes a line and returns a curved version by applying a Bezier spline algorithm. The bezier spline implementation is by Leszek Rybicki.
+    * Takes a line and returns a curved version by applying a Bezier spline algorithm.
+    * The bezier spline implementation is by Leszek Rybicki.
     * @param line Input LineString
     * @param [resolution=10000] Time in milliseconds between points
     * @param [sharpness=0.85] A measure of how curvy the path should be between splines
@@ -235,7 +241,7 @@ declare module turf {
     * Calculates a buffer for input features for a given radius. Units supported are miles, kilometers, and degrees.
     * @param feature Input to be buffered
     * @param distance Distance to draw the buffer
-    * @param units 'miles', 'feet', 'kilometers', 'meters', or 'degrees'
+    * @param units 'miles', 'kilometers', 'radians', or 'degrees'
     * @returns Buffered features
     */
     function buffer(feature: GeoJSON.Feature | GeoJSON.FeatureCollection, distance: number, units: string): GeoJSON.Feature | GeoJSON.FeatureCollection;
@@ -254,7 +260,7 @@ declare module turf {
     * @param input Input points
     * @returns A convex hull
     */
-    function convex(points: GeoJSON.FeatureCollection): GeoJSON.Feature;
+    function convex(input: GeoJSON.FeatureCollection): GeoJSON.Feature;
 
     /**
     * Finds the difference between two polygons by clipping the second polygon from the first.
@@ -265,22 +271,27 @@ declare module turf {
     function difference(poly1: GeoJSON.Feature, poly2: GeoJSON.Feature): GeoJSON.Feature;
 
     /**
-    * Takes two polygons and finds their intersection. If they share a border, returns the border; if they don't intersect, returns undefined.
+    * Takes two polygons and finds their intersection.
+    *  If they share a border, returns the border; if they don't intersect, returns undefined.
     * @param poly1 The first polygon
     * @param poly2 The second polygon
-    * @returns If poly1 and poly2 overlap, returns a Polygon feature representing the area they overlap; if poly1 and poly2 do not overlap, returns undefined; if poly1 and poly2 share a border, a MultiLineString of the locations where their borders are shared
+    * @returns If poly1 and poly2 overlap, returns a Polygon feature representing the area they overlap;
+    * if poly1 and poly2 do not overlap, returns undefined;
+    * if poly1 and poly2 share a border, a MultiLineString of the locations where their borders are shared
     */
     function intersect(poly1: GeoJSON.Feature, poly2: GeoJSON.Feature): GeoJSON.Feature;
 
     /**
-    * Takes a set of polygons and returns a single merged polygon feature. If the input polygon features are not contiguous, this function returns a MultiPolygon feature.
+    * Takes a set of polygons and returns a single merged polygon feature.
+    * If the input polygon features are not contiguous, this function returns a MultiPolygon feature.
     * @param fc Input polygons
     * @returns Merged polygon or multipolygon
     */
     function merge(fc: GeoJSON.FeatureCollection): GeoJSON.Feature;
 
     /**
-    * Takes a LineString or Polygon and returns a simplified version. Internally uses simplify-js to perform simplification.
+    * Takes a LineString or Polygon and returns a simplified version.
+    * Internally uses simplify-js to perform simplification.
     * @param feature Feature to be simplified
     * @param tolerance Simplification tolerance
     * @param highQuality Whether or not to spend more time to create a higher-quality simplification with a different algorithm
@@ -289,7 +300,8 @@ declare module turf {
     function simplify(feature: GeoJSON.Feature | GeoJSON.FeatureCollection | GeoJSON.GeometryCollection, tolerance: number, highQuality: boolean): GeoJSON.Feature | GeoJSON.FeatureCollection | GeoJSON.GeometryCollection;
 
     /**
-    * Takes two polygons and returns a combined polygon. If the input polygons are not contiguous, this function returns a MultiPolygon feature.
+    * Takes two polygons and returns a combined polygon.
+    * If the input polygons are not contiguous, this function returns a MultiPolygon feature.
     * @param poly1 Input polygon
     * @param poly2 Another input polygon
     * @returns A combined Polygon or MultiPolygon feature
@@ -446,7 +458,8 @@ declare module turf {
     function isolines(points: GeoJSON.FeatureCollection, z: string, resolution: number, breaks: Array<number>): GeoJSON.FeatureCollection;
 
     /**
-    * Takes a triangular plane as a Polygon and a Point within that triangle and returns the z-value at that point. The Polygon needs to have properties a, b, and c that define the values at its three corners.
+    * Takes a triangular plane as a Polygon and a Point within that triangle and returns the z-value at that point.
+    * The Polygon needs to have properties a, b, and c that define the values at its three corners.
     * @param interpolatedPoint The Point for which a z-value will be calculated
     * @param triangle A Polygon feature with three vertices
     * @returns The z-value for interpolatedPoint
@@ -495,7 +508,8 @@ declare module turf {
     //////////////////////////////////////////////////////
 
     /**
-    * Takes a Point and a Polygon or MultiPolygon and determines if the point resides inside the polygon. The polygon can be convex or concave. The function accounts for holes.
+    * Takes a Point and a Polygon or MultiPolygon and determines if the point resides inside the polygon.
+    * The polygon can be convex or concave. The function accounts for holes.
     * @param point Input point
     * @param polygon Input polygon or multipolygon
     * @returns true if the Point is inside the Polygon; false if the Point is not inside the Polygon
