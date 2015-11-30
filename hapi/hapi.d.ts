@@ -7,10 +7,6 @@
 
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
-
-
-
 
 declare module "hapi" {
 	import http = require("http");
@@ -19,6 +15,10 @@ declare module "hapi" {
 
 	interface IDictionary<T> {
 		[key: string]: T;
+	}
+
+	interface IPromise<T> {
+
 	}
 
 	/** Boom Module for errors. https://github.com/hapijs/boom
@@ -234,12 +234,12 @@ declare module "hapi" {
 	When calling reply(), the framework waits until process.nextTick() to continue processing the request and transmit the response. This enables making changes to the returned response object before the response is sent. This means the framework will resume as soon as the handler method exits. To suspend this behavior, the returned response object supports the following methods: hold(), send() */
 	export interface IReply {
 		<T>(err: Error,
-		result?: string|number|boolean|Buffer|stream.Stream | Promise<T> | T,
+		result?: string|number|boolean|Buffer|stream.Stream | IPromise<T> | T,
 		/**  Note that when used to return both an error and credentials in the authentication methods, reply() must be called with three arguments function(err, null, data) where data is the additional authentication information. */
 		credentialData?: any
 		): IBoom;
 		/**  Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
-		<T>(result: string|number|boolean|Buffer|stream.Stream | Promise<T> | T): Response;
+		<T>(result: string|number|boolean|Buffer|stream.Stream | IPromise<T> | T): Response;
 
 		/** Returns control back to the framework without setting a response. If called in the handler, the response defaults to an empty payload with status code 200.
 		  * The data argument is only used for passing back authentication data and is ignored elsewhere. */
