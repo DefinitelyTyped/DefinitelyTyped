@@ -42,7 +42,7 @@ declare module IntroJs {
 
         refresh(): IntroJs;
 
-        setOption(option: string, value: string|number): IntroJs;
+        setOption(option: string, value: string|number|boolean): IntroJs;
         setOptions(options: Options): IntroJs;
 
         onexit(callback: Function): IntroJs;
