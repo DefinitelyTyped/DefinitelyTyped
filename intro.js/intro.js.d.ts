@@ -1,20 +1,13 @@
-// Type definitions for intro.js 1.0.0
+// Type definitions for intro.js 1.1.1
 // Project: https://github.com/usablica/intro.js
 // Definitions by: Maxime Fabre <https://github.com/anahkiasen/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module IntroJs {
-    enum Positions {
-        top,
-        left,
-        right,
-        bottom
-    }
-
     interface Step {
         intro: string;
         element?: string|HTMLElement;
-        position?: Positions;
+        position?: string;
     }
 
     interface Options {
