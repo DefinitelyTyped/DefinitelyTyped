@@ -6,7 +6,7 @@
 declare module IntroJs {
     interface Step {
         intro: string;
-        element?: string|HTMLElement;
+        element?: string|HTMLElement|Element;
         position?: string;
     }
 
