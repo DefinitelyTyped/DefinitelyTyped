@@ -1994,7 +1994,7 @@ declare module "sequelize" {
             INITIALLY_IMMEDIATE: DeferrableInitiallyImmediate;
             NOT: DeferrableNot;
             SET_DEFERRED: DeferrableSetDeferred;
-            SET_IMMEDIATE: DeferrableSetImmediate
+            SET_IMMEDIATE: DeferrableSetImmediate;
         }
 
         //
@@ -2028,7 +2028,7 @@ declare module "sequelize" {
             get( path : string ) : Array<ValidationErrorItem>;
             
             /** Array of ValidationErrorItem objects describing the validation errors */
-            errors : Array<ValidationErrorItem>
+            errors : Array<ValidationErrorItem>;
             
         }
 
