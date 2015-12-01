@@ -7,7 +7,7 @@
 
 declare namespace __React {
     interface PureRenderMixin extends Mixin<any, any> {}
-    
+
     namespace __Addons {
         export var PureRenderMixin: PureRenderMixin;
     }

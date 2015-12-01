@@ -616,7 +616,7 @@ declare module Mongo {
 		insert(doc: T, callback?: Function): string;
 		rawCollection(): any;
 		rawDatabase(): any;
-		remove(selector: Mongo.Selector | Mongo.ObjectID | string, callback?: Function): void;
+		remove(selector: Mongo.Selector | Mongo.ObjectID | string, callback?: Function): number;
 		update(selector: Mongo.Selector | Mongo.ObjectID | string, modifier: Mongo.Modifier, options?: {
 			multi?: boolean;
 			upsert?: boolean;

@@ -9,6 +9,7 @@
 /// <reference path="react-addons-test-utils.d.ts" />
 /// <reference path="react-addons-transition-group.d.ts" />
 /// <reference path="react-addons-update.d.ts" />
+
 import React = require("react");
 import ReactDOM = require("react-dom");
 import ReactDOMServer = require("react-dom/server");
@@ -90,28 +91,28 @@ class ModernComponent extends React.Component<Props, State>
 
     static propTypes: React.ValidationMap<Props> = {
         foo: React.PropTypes.number
-    }
+    };
 
     static contextTypes: React.ValidationMap<Context> = {
         someValue: React.PropTypes.string
-    }
+    };
 
     static childContextTypes: React.ValidationMap<ChildContext> = {
         someOtherValue: React.PropTypes.string
-    }
+    };
 
     context: Context;
 
     getChildContext() {
         return {
-            someOtherValue: 'foo'
-        }
+            someOtherValue: "foo"
+        };
     }
 
     state = {
         inputValue: this.context.someValue,
         seconds: this.props.foo
-    }
+    };
 
     reset() {
         this._myComponent.reset();
@@ -417,7 +418,7 @@ interface TimerState {
 class Timer extends React.Component<{}, TimerState> {
     state = {
         secondsElapsed: 0
-    }
+    };
     private _interval: number;
     tick() {
         this.setState((prevState, props) => ({
@@ -514,7 +515,7 @@ Perf.printDOM(measurements);
 // --------------------------------------------------------------------------
 React.createClass({
   mixins: [PureRenderMixin],
-  render: function() { return React.DOM.div(null) }
+  render: function() { return React.DOM.div(null); }
 });
 
 //

@@ -264,6 +264,7 @@ declare module Snap {
         undrag(onMove:  (dx: number, dy: number, event: MouseEvent) => void,
                onStart: (x: number, y: number, event: MouseEvent) => void,
                onEnd:   (event: MouseEvent) => void): Snap.Element;
+	undrag(): Snap.Element;
 	}
 
 	export interface Fragment {
