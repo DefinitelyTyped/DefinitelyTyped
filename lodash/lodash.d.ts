@@ -749,6 +749,81 @@ declare module _ {
         ): LoDashExplicitArrayWrapper<TValue>;
     }
 
+    //_.fill
+    interface LoDashStatic {
+        /**
+         * Fills elements of array with value from start up to, but not including, end.
+         *
+         * Note: This method mutates array.
+         *
+         * @param array The array to fill.
+         * @param value The value to fill array with.
+         * @param start The start position.
+         * @param end The end position.
+         * @return Returns array.
+         */
+        fill<T>(
+            array: any[],
+            value: T,
+            start?: number,
+            end?: number
+        ): T[];
+
+        /**
+         * @see _.fill
+         */
+        fill<T>(
+            array: List<any>,
+            value: T,
+            start?: number,
+            end?: number
+        ): List<T>;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.fill
+         */
+        fill<T>(
+            value: T,
+            start?: number,
+            end?: number
+        ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.fill
+         */
+        fill<T>(
+            value: T,
+            start?: number,
+            end?: number
+        ): LoDashImplicitObjectWrapper<List<T>>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.fill
+         */
+        fill<T>(
+            value: T,
+            start?: number,
+            end?: number
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.fill
+         */
+        fill<T>(
+            value: T,
+            start?: number,
+            end?: number
+        ): LoDashExplicitObjectWrapper<List<T>>;
+    }
+
     //_.findIndex
     interface LoDashStatic {
         /**
@@ -4578,55 +4653,6 @@ declare module _ {
         every<TObject extends {}>(
             predicate?: TObject
         ): LoDashExplicitWrapper<boolean>;
-    }
-
-    //_.fill
-    interface LoDashStatic {
-        /**
-         * Fills elements of array with value from start up to, but not including, end.
-         *
-         * Note: This method mutates array.
-         *
-         * @param array (Array): The array to fill.
-         * @param value (*): The value to fill array with.
-         * @param [start=0] (number): The start position.
-         * @param [end=array.length] (number): The end position.
-         * @return (Array): Returns array.
-         */
-        fill<TResult>(
-            array: any[],
-            value: any,
-            start?: number,
-            end?: number): TResult[];
-
-        /**
-         * @see _.fill
-         */
-        fill<TResult>(
-            array: List<any>,
-            value: any,
-            start?: number,
-            end?: number): List<TResult>;
-    }
-
-    interface LoDashImplicitArrayWrapper<T> {
-        /**
-         * @see _.fill
-         */
-        fill<TResult>(
-            value: TResult,
-            start?: number,
-            end?: number): LoDashImplicitArrayWrapper<TResult>;
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.fill
-         */
-        fill<TResult>(
-            value: TResult,
-            start?: number,
-            end?: number): LoDashImplicitObjectWrapper<List<TResult>>;
     }
 
     //_.filter
