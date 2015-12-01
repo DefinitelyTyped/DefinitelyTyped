@@ -1,10 +1,11 @@
 // Type definitions for RethinkDB v2.2.0
 // Project: http://rethinkdb.com/
 // Definitions by: Bazyli Brzóska <https://invent.life/>
-// Previous definitions by: Sean Hess <https://seanhess.github.io/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TODO: Make RArrayInterface generic
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Reference: http://www.rethinkdb.com/api/#js
+
+// Previous definitions by: Sean Hess <https://seanhess.github.io/>
+// TODO: Make RArrayInterface generic
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../bluebird/bluebird.d.ts" />

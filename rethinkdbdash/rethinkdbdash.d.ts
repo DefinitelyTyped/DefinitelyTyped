@@ -1,7 +1,7 @@
 // Type definitions for rethinkdbdash v2.2.5
 // Project: https://github.com/neumino/rethinkdbdash
 // Definitions by: Bazyli Brzóska <https://invent.life/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Reference: http://www.rethinkdb.com/api/#js
 
 /// <reference path="../node/node.d.ts" />
