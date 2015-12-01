@@ -4588,6 +4588,8 @@ declare module THREE {
             };
         };
 
+        shadowMap: WebGLShadowMapInstance;
+
         /**
          * Return the WebGL context.
          */
