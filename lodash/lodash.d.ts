@@ -10949,7 +10949,18 @@ declare module _ {
          * @param multiValue Allow multiple values per key.
          * @return Returns the new inverted object.
          */
-        invert<T extends {}, TResult extends {}>(object: T, multiValue?: boolean): TResult;
+        invert<T extends {}, TResult extends {}>(
+            object: T,
+            multiValue?: boolean
+        ): TResult;
+
+        /**
+         * @see _.invert
+         */
+        invert<TResult extends {}>(
+            object: Object,
+            multiValue?: boolean
+        ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -10957,6 +10968,13 @@ declare module _ {
          * @see _.invert
          */
         invert<TResult extends {}>(multiValue?: boolean): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.invert
+         */
+        invert<TResult extends {}>(multiValue?: boolean): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.keys
