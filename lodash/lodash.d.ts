@@ -4307,15 +4307,6 @@ declare module _ {
         /**
          * @see _.forEach
          */
-        each(
-            collection: string,
-            iteratee?: StringIterator<any>,
-            thisArg?: any
-        ): string;
-
-        /**
-         * @see _.forEach
-         */
         each<T>(
             collection: T[],
             iteratee?: ListIterator<T, any>,
@@ -4339,6 +4330,24 @@ declare module _ {
             iteratee?: DictionaryIterator<T, any>,
             thisArg?: any
         ): Dictionary<T>;
+
+        /**
+         * @see _.forEach
+         */
+        each<T extends {}>(
+            collection: T,
+            iteratee?: ObjectIterator<any, any>,
+            thisArgs?: any
+        ): T;
+
+        /**
+         * @see _.forEach
+         */
+        each<T extends {}, TValue>(
+            collection: T,
+            iteratee?: ObjectIterator<TValue, any>,
+            thisArgs?: any
+        ): T;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -4346,7 +4355,7 @@ declare module _ {
          * @see _.forEach
          */
         each(
-            iteratee: StringIterator<any>,
+            iteratee: ListIterator<string, any>,
             thisArg?: any
         ): LoDashImplicitWrapper<string>;
     }
@@ -4376,7 +4385,7 @@ declare module _ {
          * @see _.forEach
          */
         each(
-            iteratee: StringIterator<any>,
+            iteratee: ListIterator<string, any>,
             thisArg?: any
         ): LoDashExplicitWrapper<string>;
     }
@@ -4406,15 +4415,6 @@ declare module _ {
         /**
          * @see _.forEachRight
          */
-        eachRight(
-            collection: string,
-            iteratee?: StringIterator<any>,
-            thisArg?: any
-        ): string;
-
-        /**
-         * @see _.forEachRight
-         */
         eachRight<T>(
             collection: T[],
             iteratee?: ListIterator<T, any>,
@@ -4438,6 +4438,24 @@ declare module _ {
             iteratee?: DictionaryIterator<T, any>,
             thisArg?: any
         ): Dictionary<T>;
+
+        /**
+         * @see _.forEachRight
+         */
+        eachRight<T extends {}>(
+            collection: T,
+            iteratee?: ObjectIterator<any, any>,
+            thisArgs?: any
+        ): T;
+
+        /**
+         * @see _.forEachRight
+         */
+        eachRight<T extends {}, TValue>(
+            collection: T,
+            iteratee?: ObjectIterator<TValue, any>,
+            thisArgs?: any
+        ): T;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -4445,7 +4463,7 @@ declare module _ {
          * @see _.forEachRight
          */
         eachRight(
-            iteratee: StringIterator<any>,
+            iteratee: ListIterator<string, any>,
             thisArg?: any
         ): LoDashImplicitWrapper<string>;
     }
@@ -4475,7 +4493,7 @@ declare module _ {
          * @see _.forEachRight
          */
         eachRight(
-            iteratee: StringIterator<any>,
+            iteratee: ListIterator<string, any>,
             thisArg?: any
         ): LoDashExplicitWrapper<string>;
     }
@@ -5129,15 +5147,6 @@ declare module _ {
          * @param iteratee The function invoked per iteration.
          * @param thisArg The this binding of iteratee.
          */
-        forEach(
-            collection: string,
-            iteratee?: StringIterator<any>,
-            thisArg?: any
-        ): string;
-
-        /**
-         * @see _.forEach
-         */
         forEach<T>(
             collection: T[],
             iteratee?: ListIterator<T, any>,
@@ -5161,6 +5170,24 @@ declare module _ {
             iteratee?: DictionaryIterator<T, any>,
             thisArg?: any
         ): Dictionary<T>;
+
+        /**
+         * @see _.forEach
+         */
+        forEach<T extends {}>(
+            collection: T,
+            iteratee?: ObjectIterator<any, any>,
+            thisArgs?: any
+        ): T;
+
+        /**
+         * @see _.forEach
+         */
+        forEach<T extends {}, TValue>(
+            collection: T,
+            iteratee?: ObjectIterator<TValue, any>,
+            thisArgs?: any
+        ): T;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -5168,7 +5195,7 @@ declare module _ {
          * @see _.forEach
          */
         forEach(
-            iteratee: StringIterator<any>,
+            iteratee: ListIterator<string, any>,
             thisArg?: any
         ): LoDashImplicitWrapper<string>;
     }
@@ -5198,7 +5225,7 @@ declare module _ {
          * @see _.forEach
          */
         forEach(
-            iteratee: StringIterator<any>,
+            iteratee: ListIterator<string, any>,
             thisArg?: any
         ): LoDashExplicitWrapper<string>;
     }
@@ -5234,15 +5261,6 @@ declare module _ {
          * @param iteratee The function called per iteration.
          * @param thisArg The this binding of callback.
          */
-        forEachRight(
-            collection: string,
-            iteratee?: StringIterator<any>,
-            thisArg?: any
-        ): string;
-
-        /**
-         * @see _.forEachRight
-         */
         forEachRight<T>(
             collection: T[],
             iteratee?: ListIterator<T, any>,
@@ -5266,6 +5284,24 @@ declare module _ {
             iteratee?: DictionaryIterator<T, any>,
             thisArg?: any
         ): Dictionary<T>;
+
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight<T extends {}>(
+            collection: T,
+            iteratee?: ObjectIterator<any, any>,
+            thisArgs?: any
+        ): T;
+
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight<T extends {}, TValue>(
+            collection: T,
+            iteratee?: ObjectIterator<TValue, any>,
+            thisArgs?: any
+        ): T;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -5273,7 +5309,7 @@ declare module _ {
          * @see _.forEachRight
          */
         forEachRight(
-            iteratee: StringIterator<any>,
+            iteratee: ListIterator<string, any>,
             thisArg?: any
         ): LoDashImplicitWrapper<string>;
     }
@@ -5303,7 +5339,7 @@ declare module _ {
          * @see _.forEachRight
          */
         forEachRight(
-            iteratee: StringIterator<any>,
+            iteratee: ListIterator<string, any>,
             thisArg?: any
         ): LoDashExplicitWrapper<string>;
     }
