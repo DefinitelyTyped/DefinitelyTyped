@@ -212,7 +212,7 @@ declare namespace __React {
         displayName?: string;
         propTypes?: ValidationMap<any>;
         contextTypes?: ValidationMap<any>;
-        childContextTypes?: ValidationMap<any>
+        childContextTypes?: ValidationMap<any>;
 
         getDefaultProps?(): P;
         getInitialState?(): S;
@@ -591,7 +591,7 @@ declare namespace __React {
         x2?: number | string;
         x?: number | string;
         y1?: number | string;
-        y2?: number | string
+        y2?: number | string;
         y?: number | string;
     }
 
@@ -1021,7 +1021,7 @@ declare module "react/addons" {
         displayName?: string;
         propTypes?: ValidationMap<any>;
         contextTypes?: ValidationMap<any>;
-        childContextTypes?: ValidationMap<any>
+        childContextTypes?: ValidationMap<any>;
 
         getDefaultProps?(): P;
         getInitialState?(): S;
@@ -1399,7 +1399,7 @@ declare module "react/addons" {
         x2?: number | string;
         x?: number | string;
         y1?: number | string;
-        y2?: number | string
+        y2?: number | string;
         y?: number | string;
     }
 

@@ -6,11 +6,11 @@
 /// <reference path="../node/node.d.ts"/>
 
 declare module "gulp-typescript" {
-    function GulpTypescript(params: GulpTypescript.Params, filters?: GulpTypescript.FilterSettings, reporter?: GulpTypescript.Reporter): GulpTypescript.CompilationStream;
+    function GulpTypescript(params?: GulpTypescript.Params, filters?: GulpTypescript.FilterSettings, reporter?: GulpTypescript.Reporter): GulpTypescript.CompilationStream;
 
     module GulpTypescript {
-        export function createProject(params: Params): Project;
-        export function createProject(file: string, params: Params): Project;
+        export function createProject(params?: Params): Project;
+        export function createProject(file: string, params?: Params): Project;
         export function filter(filters: FilterSettings): CompilationStream;
         interface Params {
             declarationFiles?: boolean;

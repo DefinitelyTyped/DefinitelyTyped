@@ -5689,7 +5689,7 @@ declare module chrome.runtime {
      * URL to be opened after the extension is uninstalled. This URL must have an http: or https: scheme. Set an empty string to not open a new tab upon uninstallation. 
      * @param callback Called when the uninstall URL is set. If the given URL is invalid, runtime.lastError will be set. 
      */
-	export function setUninstallUrl(url: string, callback?: () => void): void;
+	export function setUninstallURL(url: string, callback?: () => void): void;
     /**
      * Open your Extension's options page, if possible.
      * The precise behavior may depend on your manifest's options_ui or options_page key, or what Chrome happens to support at the time. For example, the page may be opened in a new tab, within chrome://extensions, within an App, or it may just focus an open options page. It will never cause the caller page to reload.

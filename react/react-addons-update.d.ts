@@ -23,7 +23,7 @@ declare namespace __React {
         $unshift?: any[];
         $splice?: any[][];
     }
-    
+
     namespace __Addons {
         export function update(value: any[], spec: UpdateArraySpec): any[];
         export function update(value: {}, spec: UpdateSpec): any;
