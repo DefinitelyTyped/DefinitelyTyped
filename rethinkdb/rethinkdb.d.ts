@@ -8,7 +8,6 @@
 // TODO: Make RArrayInterface generic
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../bluebird/bluebird.d.ts" />
 
 declare module rethinkdb {
   // TODO: define union type shortcuts, like:

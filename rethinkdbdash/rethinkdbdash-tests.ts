@@ -1,8 +1,5 @@
 /// <reference path="rethinkdbdash.d.ts" />
 
-// import rConnect = require('rethinkdbdash');
-/// <reference path="../rethinkdb/rethinkdb.d.ts" />
-
 import * as rConnect from 'rethinkdbdash';
 var r = rConnect({db: 'test'});
 
