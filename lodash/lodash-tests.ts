@@ -4756,9 +4756,6 @@ source.addEventListener('message', <_.LoDashImplicitObjectWrapper<Function>>_(fu
     'maxWait': 1000
 }), false);
 
-var returnedDebounce = _.throttle(function (a: any) { return a * 5; }, 5);
-returnedThrottled(4);
-
 // _.defer
 module TestDefer {
     type SampleFunc = (a: number, b: string) => boolean;
@@ -4873,9 +4870,6 @@ result = <TestMemoizedResultFn>_.memoize<TestMemoizedResultFn>(testMemoizeFn, te
 result = <TestMemoizedResultFn>(_(testMemoizeFn).memoize<TestMemoizedResultFn>().value());
 result = <TestMemoizedResultFn>(_(testMemoizeFn).memoize<TestMemoizedResultFn>(testMemoizeResolverFn).value());
 
-var returnedMemoize = _.throttle(function (a: any) { return a * 5; }, 5);
-returnedMemoize(4);
-
 // _.modArgs
 module TestModArgs {
     type Func1 = (a: boolean) => boolean;
@@ -4970,9 +4964,6 @@ module TestOnce {
     }
 }
 
-var returnedOnce = _.throttle(function (a: any) { return a * 5; }, 5);
-returnedOnce(4);
-
 var greetPartial = function (greeting: string, name: string) { return greeting + ' ' + name; };
 var hi = _.partial(greetPartial, 'hi');
 hi('moe');
@@ -5037,15 +5028,49 @@ interface TestSpreadResultFn {
 result = <string>(_.spread<TestSpreadResultFn>(testSpreadFn))(['fred', 'hello']);
 result = <string>(_(testSpreadFn).spread<TestSpreadResultFn>().value())(['fred', 'hello']);
 
-var throttled = _.throttle(function () { }, 100);
-jQuery(window).on('scroll', throttled);
+// _.throttle
+module TestThrottle {
+    interface SampleFunc {
+        (n: number, s: string): boolean;
+    }
 
-jQuery('.interactive').on('click', _.throttle(function () { }, 300000, {
-    'trailing': false
-}));
+    interface Options {
+        leading?: boolean;
+        trailing?: boolean;
+    }
 
-var returnedThrottled = _.throttle(function (a: any) { return a * 5; }, 5);
-returnedThrottled(4);
+    interface ResultFunc {
+        (n: number, s: string): boolean;
+        cancel(): void;
+    }
+
+    let func: SampleFunc;
+    let options: Options;
+
+    {
+        let result: ResultFunc;
+
+        result = _.throttle<SampleFunc>(func);
+        result = _.throttle<SampleFunc>(func, 42);
+        result = _.throttle<SampleFunc>(func, 42, options);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<ResultFunc>;
+
+        result = _(func).throttle();
+        result = _(func).throttle(42);
+        result = _(func).throttle(42, options);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<ResultFunc>;
+
+        result = _(func).chain().throttle();
+        result = _(func).chain().throttle(42);
+        result = _(func).chain().throttle(42, options);
+    }
+}
 
 var helloWrap = function (name: string) { return 'hello ' + name; };
 var helloWrap2 = _.wrap(helloWrap, function (func) {
