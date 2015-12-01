@@ -4,10 +4,17 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module IntroJs {
+    enum Positions {
+        top,
+        left,
+        right,
+        bottom
+    }
+
     interface Step {
         intro: string;
         element?: string|HTMLElement|Element;
-        position?: string;
+        position?: string|Positions;
     }
 
     interface Options {
