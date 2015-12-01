@@ -92,6 +92,8 @@ declare module svgjs {
         center(x:number, y:number, anchor?:boolean):Element;
         cx(x:number, anchor?:boolean):Element;
         cy(y:number, anchor?:boolean):Element;
+        cx(): number;
+        cy(): number;
 
         size(w:number, h:number, anchor?:boolean):Element;
 
@@ -268,4 +270,8 @@ declare module svgjs {
         e?: number;
         f?: number;
     }
+}
+
+declare module "svg.js" {
+    export = svgjs
 }

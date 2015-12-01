@@ -120,6 +120,11 @@ function test_ajax() {
         alert("Data Saved: " + msg);
     });
     $.ajax({
+        method: "POST",
+        url: "some.php",
+        data: { name: "John", location: "Boston" }
+    });
+    $.ajax({
         url: "test.html",
         cache: false
     }).done(function (html) {
@@ -1129,6 +1134,13 @@ function test_jQuery_removeData() {
     jQuery.removeData(div, "test1");
     $("span:eq(2)").text("" + jQuery.data(div, "test1"));
     $("span:eq(3)").text("" + jQuery.data(div, "test2"));
+}
+
+function test_removeDataAll() {
+    var el = $("div");
+    el.data("test1", "VALUE-1");
+    el.data("test2", "VALUE-2");
+    el.removeData();
 }
 
 function test_dblclick() {
@@ -2511,10 +2523,10 @@ function test_jQuery() {
     $foo.triggerHandler('eventName');
     $("div > p").css("border", "1px solid gray");
     $("input:radio", document.forms[0]);
-	var xml: any;
+    var xml: any;
     $("div", xml.responseXML);
     $(document.body).css("background", "black");
-	var myForm: any;
+    var myForm: any;
     $(myForm.elements).hide();
     $('<p id="test">My <em>new</em> text</p>').appendTo('body');
     $('<img />');
@@ -2537,6 +2549,10 @@ function test_jQuery() {
         }
     }).appendTo("body");
     jQuery(function ($) {
+        // Your code using failsafe $ alias here...
+    });
+    jQuery(document).ready(function ($) {
+        // Your code using failsafe $ alias here...
     });
 }
 
@@ -3112,6 +3128,7 @@ function test_val() {
     $("#single").val("Single2");
     $("#multiple").val(["Multiple2", "Multiple3"]);
     $("input").val(["check1", "check2", "radio1"]);
+    $("input").val(1);
 }
 
 function test_selector() {
@@ -3201,6 +3218,10 @@ function test_not() {
     $("p").not("#selected");
 
     $("p").not($("div p.selected"));
+    
+    var el1 = $("<div/>")[0];
+    var el2 = $("<div/>")[0];
+    $("p").not([el1, el2]);
 }
 
 function test_EventIsNewable() {
@@ -3350,7 +3371,7 @@ function test_promise_then_change_type() {
 		var def = $.Deferred<any>();
 		var promise = def.promise(null);
 
-		def.rejectWith(this, new Error());
+		def.rejectWith(this, [new Error()]);
 
 		return promise;
 	}

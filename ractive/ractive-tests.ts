@@ -8,13 +8,19 @@ function test_transition() {
 	Ractive.transitions['myTransition'] = plugin;
 }
 
+var adaptor: Ractive.AdaptorPlugin;
+
+
 Ractive.defaults = {
 	template: '',
-	debug: true
 }
 
 var options: Ractive.NewOptions = {
+	adapt: ['myAdaptor', adaptor],
 	template: '',
+	data: {
+		someThing: 'value',
+	}
 };
 
 var r: Ractive.Ractive = new Ractive(options);

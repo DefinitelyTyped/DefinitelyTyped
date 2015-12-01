@@ -14,11 +14,11 @@ declare module tether {
         classes?: {[className: string]: boolean};
         classPrefix?: string;
         constraints?: ITetherConstraint[];
-        element?: Element | string | any /* JQuery */;
+        element?: HTMLElement | string | any /* JQuery */;
         enabled?: boolean;
         offset?: string;
         optimizations?: any;
-        target?: Element | string | any /* JQuery */;
+        target?: HTMLElement | string | any /* JQuery */;
         targetAttachment?: string;
         targetOffset?: string;
         targetModifier?: string;
@@ -29,7 +29,7 @@ declare module tether {
         outOfBoundsClass?: string;
         pin?: boolean | string[];
         pinnedClass?: string;
-        to?: string | Element | number[];
+        to?: string | HTMLElement | number[];
     }
 
     interface Tether {
