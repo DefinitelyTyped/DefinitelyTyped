@@ -11,9 +11,9 @@ declare module "wreck"
     import stream = require('stream');
 
 
-    interface IWreckObject
+    interface WreckObject
     {
-        defaults: (options: any) => IWreckObject;
+        defaults: (options: any) => WreckObject;
 
         request: (method: string, uri: string, options: any, callback?: (err: any, response: http.IncomingMessage) => void) => http.ClientRequest;
 
@@ -35,7 +35,7 @@ declare module "wreck"
         };
     }
 
-    var wreck: IWreckObject;
+    var wreck: WreckObject;
 
     export = wreck;
 }
