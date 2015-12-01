@@ -5,8 +5,8 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module AdmZip {
-    class ZipFile {
+declare module "adm-zip" {
+    class AdmZip {
         /**
          * Create a new, empty archive.
          */
@@ -28,7 +28,7 @@ declare module AdmZip {
          * @param entry ZipEntry object
          * @return Buffer or Null in case of error
          */
-        readFile(entry: IZipEntry): Buffer;
+        readFile(entry: AdmZip.IZipEntry): Buffer;
         /**
          * Asynchronous readFile
          * @param entry String with the full path of the entry
@@ -41,7 +41,7 @@ declare module AdmZip {
          * @param callback Called with a Buffer or Null in case of error
          * @return Buffer or Null in case of error
          */
-        readFileAsync(entry: IZipEntry, callback: (data: Buffer, err: string) => any): void;
+        readFileAsync(entry: AdmZip.IZipEntry, callback: (data: Buffer, err: string) => any): void;
         /**
          * Extracts the given entry from the archive and returns the content as
          * plain text in the given encoding
@@ -57,7 +57,7 @@ declare module AdmZip {
          * @param encoding Optional. If no encoding is specified utf8 is used
          * @return String
          */
-        readAsText(fileName: IZipEntry, encoding?: string): string;
+        readAsText(fileName: AdmZip.IZipEntry, encoding?: string): string;
         /**
          * Asynchronous readAsText
          * @param entry String with the full path of the entry
@@ -71,7 +71,7 @@ declare module AdmZip {
          * @param callback Called with the resulting string.
          * @param encoding Optional. If no encoding is specified utf8 is used
          */
-        readAsTextAsync(fileName: IZipEntry, callback: (data: string) => any, encoding?: string): void;
+        readAsTextAsync(fileName: AdmZip.IZipEntry, callback: (data: string) => any, encoding?: string): void;
         /**
          * Remove the entry from the file or the entry and all its nested directories
          * and files if the given entry is a directory
@@ -83,7 +83,7 @@ declare module AdmZip {
          * and files if the given entry is a directory
          * @param entry A ZipEntry object.
          */
-        deleteFile(entry: IZipEntry): void;
+        deleteFile(entry: AdmZip.IZipEntry): void;
         /**
          * Adds a comment to the zip. The zip must be rewritten after
          * adding the comment.
@@ -110,7 +110,7 @@ declare module AdmZip {
          * @param entry ZipEntry object.
          * @param comment The comment to add to the entry.
          */
-        addZipEntryComment(entry: IZipEntry, comment: string): void;
+        addZipEntryComment(entry: AdmZip.IZipEntry, comment: string): void;
         /**
          * Returns the comment of the specified entry.
          * @param entry String with the full path of the entry.
@@ -122,7 +122,7 @@ declare module AdmZip {
          * @param entry ZipEntry object.
          * @return String The comment of the specified entry.
          */
-        getZipEntryComment(entry: IZipEntry): string;
+        getZipEntryComment(entry: AdmZip.IZipEntry): string;
         /**
          * Updates the content of an existing entry inside the archive. The zip
          * must be rewritten after updating the content
@@ -136,7 +136,7 @@ declare module AdmZip {
          * @param entry ZipEntry object.
          * @param content The entry's new contents.
          */
-        updateFile(entry: IZipEntry, content: Buffer): void;
+        updateFile(entry: AdmZip.IZipEntry, content: Buffer): void;
         /**
          * Adds a file from the disk to the archive.
          * @param localPath Path to a file on disk.
@@ -167,14 +167,14 @@ declare module AdmZip {
          * Returns an array of ZipEntry objects representing the files and folders
          * inside the archive
          */
-        getEntries(): IZipEntry[];
+        getEntries(): AdmZip.IZipEntry[];
         /**
          * Returns a ZipEntry object representing the file or folder specified by
          * ``name``.
          * @param name Name of the file or folder to retrieve.
          * @return ZipEntry The entry corresponding to the name.
          */
-        getEntry(name: string): IZipEntry;
+        getEntry(name: string): AdmZip.IZipEntry;
         /**
          * Extracts the given entry to the given targetPath.
          * If the entry is a directory inside the archive, the entire directory and
@@ -203,7 +203,7 @@ declare module AdmZip {
          *   will be overwriten if this is true. Default is FALSE
          * @return Boolean
          */
-        extractEntryTo(entryPath: IZipEntry, targetPath: string, maintainEntryPath?: boolean, overwrite?: boolean): boolean;
+        extractEntryTo(entryPath: AdmZip.IZipEntry, targetPath: string, maintainEntryPath?: boolean, overwrite?: boolean): boolean;
         /**
          * Extracts the entire archive to the given location
          * @param targetPath Target location
@@ -225,76 +225,75 @@ declare module AdmZip {
         toBuffer(): Buffer;
     }
 
-    /**
-     * The ZipEntry is more than a structure representing the entry inside the
-     * zip file. Beside the normal attributes and headers a entry can have, the
-     * class contains a reference to the part of the file where the compressed
-     * data resides and decompresses it when requested. It also compresses the
-     * data and creates the headers required to write in the zip file.
-     */
-    interface IZipEntry {
+    module AdmZip {    
         /**
-         * Represents the full name and path of the file
+         * The ZipEntry is more than a structure representing the entry inside the
+         * zip file. Beside the normal attributes and headers a entry can have, the
+         * class contains a reference to the part of the file where the compressed
+         * data resides and decompresses it when requested. It also compresses the
+         * data and creates the headers required to write in the zip file.
          */
-        entryName: string;
-        rawEntryName: Buffer;
-        /**
-         * Extra data associated with this entry.
-         */
-        extra: Buffer;
-        /**
-         * Entry comment.
-         */
-        comment: string;
-        name: string;
-        /**
-         * Read-Only property that indicates the type of the entry.
-         */
-        isDirectory: boolean;
-        /**
-         * Get the header associated with this ZipEntry.
-         */
-        header: Buffer;
-        /**
-         * Retrieve the compressed data for this entry. Note that this may trigger
-         * compression if any properties were modified.
-         */
-        getCompressedData(): Buffer;
-        /**
-         * Asynchronously retrieve the compressed data for this entry. Note that
-         * this may trigger compression if any properties were modified.
-         */
-        getCompressedDataAsync(callback: (data: Buffer) => void): void;
-        /**
-         * Set the (uncompressed) data to be associated with this entry.
-         */
-        setData(value: string): void;
-        /**
-         * Set the (uncompressed) data to be associated with this entry.
-         */
-        setData(value: Buffer): void;
-        /**
-         * Get the decompressed data associated with this entry.
-         */
-        getData(): Buffer;
-        /**
-         * Asynchronously get the decompressed data associated with this entry.
-         */
-        getDataAsync(callback: (data: Buffer) => void): void;
-        /**
-         * Returns the CEN Entry Header to be written to the output zip file, plus
-         * the extra data and the entry comment.
-         */
-        packHeader(): Buffer;
-        /**
-         * Returns a nicely formatted string with the most important properties of
-         * the ZipEntry.
-         */
-        toString(): string;
+        interface IZipEntry {
+            /**
+             * Represents the full name and path of the file
+             */
+            entryName: string;
+            rawEntryName: Buffer;
+            /**
+             * Extra data associated with this entry.
+             */
+            extra: Buffer;
+            /**
+             * Entry comment.
+             */
+            comment: string;
+            name: string;
+            /**
+             * Read-Only property that indicates the type of the entry.
+             */
+            isDirectory: boolean;
+            /**
+             * Get the header associated with this ZipEntry.
+             */
+            header: Buffer;
+            /**
+             * Retrieve the compressed data for this entry. Note that this may trigger
+             * compression if any properties were modified.
+             */
+            getCompressedData(): Buffer;
+            /**
+             * Asynchronously retrieve the compressed data for this entry. Note that
+             * this may trigger compression if any properties were modified.
+             */
+            getCompressedDataAsync(callback: (data: Buffer) => void): void;
+            /**
+             * Set the (uncompressed) data to be associated with this entry.
+             */
+            setData(value: string): void;
+            /**
+             * Set the (uncompressed) data to be associated with this entry.
+             */
+            setData(value: Buffer): void;
+            /**
+             * Get the decompressed data associated with this entry.
+             */
+            getData(): Buffer;
+            /**
+             * Asynchronously get the decompressed data associated with this entry.
+             */
+            getDataAsync(callback: (data: Buffer) => void): void;
+            /**
+             * Returns the CEN Entry Header to be written to the output zip file, plus
+             * the extra data and the entry comment.
+             */
+            packHeader(): Buffer;
+            /**
+             * Returns a nicely formatted string with the most important properties of
+             * the ZipEntry.
+             */
+            toString(): string;
+        }
     }
-}
 
-declare module "adm-zip" {
-    import zipFile = AdmZip.ZipFile;
-    export = zipFile;
+    export = AdmZip;
 }

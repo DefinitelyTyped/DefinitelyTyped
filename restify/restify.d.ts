@@ -110,6 +110,7 @@ declare module "restify" {
     version ?: string;
     responseTimeHeader ?: string;
     responseTimeFormatter ?: (durationInMilliseconds: number) => any;
+    handleUpgrades ?: boolean;
   }
 
   interface ClientOptions {

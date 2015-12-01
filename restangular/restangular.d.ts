@@ -16,28 +16,17 @@ declare module 'restangular' {
 
 declare module restangular {
 
-  interface IPromise<T> extends ng.IPromise<T> {
+  interface IPromise<T> extends angular.IPromise<T> {
     call(methodName: string, params?: any): IPromise<T>;
     get(fieldName: string): IPromise<T>;
     $object: T;
 }
 
-  interface ICollectionPromise<T> extends ng.IPromise<T[]> {
+  interface ICollectionPromise<T> extends angular.IPromise<T[]> {
     push(object: any): ICollectionPromise<T>;
     call(methodName: string, params?: any): ICollectionPromise<T>;
     get(fieldName: string): ICollectionPromise<T>;
     $object: T[];
-  }
-
-  interface IRequestConfig {
-    params?: any;
-    headers?: any;
-    cache?: any;
-    withCredentials?: boolean;
-    data?: any;
-    transformRequest?: any;
-    transformResponse?: any;
-    timeout?: any; // number | promise
   }
 
   interface IResponse {
@@ -60,14 +49,14 @@ declare module restangular {
     addElementTransformer(route: string, isCollection: boolean, transformer: Function): void;
     setTransformOnlyServerElements(active: boolean): void;
     setOnElemRestangularized(callback: (elem: any, isCollection: boolean, what: string, restangular: IService) => any): void;
-    setResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: ng.IDeferred<any>) => any): void;
-    setResponseExtractor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: ng.IDeferred<any>) => any): void;
-    addResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: ng.IDeferred<any>) => any): void;
+    setResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): void;
+    setResponseExtractor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): void;
+    addResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): void;
     setRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): void;
     addRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): void;
-    setFullRequestInterceptor(fullRequestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: IRequestConfig) => {element: any; headers: any; params: any}): void;
-    addFullRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: IRequestConfig) => {headers: any; params: any; element: any; httpConfig: IRequestConfig}): void;
-    setErrorInterceptor(errorInterceptor: (response: IResponse, deferred: ng.IDeferred<any>) => any): void;
+    setFullRequestInterceptor(fullRequestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {element: any; headers: any; params: any}): void;
+    addFullRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {headers: any; params: any; element: any; httpConfig: angular.IRequestShortcutConfig}): void;
+    setErrorInterceptor(errorInterceptor: (response: IResponse, deferred: angular.IDeferred<any>) => any): void;
     setRestangularFields(fields: {[fieldName: string]: string}): void;
     setMethodOverriders(overriders: string[]): void;
     setJsonp(jsonp: boolean): void;
@@ -124,7 +113,7 @@ declare module restangular {
     clone(): IElement;
     plain(): any;
     plain<T>(): T;
-    withHttpConfig(httpConfig: IRequestConfig): IElement;
+    withHttpConfig(httpConfig: angular.IRequestShortcutConfig): IElement;
     save(queryParams?: any, headers?: any): IPromise<any>;
     getRestangularUrl(): string;
   }
@@ -139,7 +128,7 @@ declare module restangular {
     options(queryParams?: any, headers?: any): IPromise<any>;
     patch(queryParams?: any, headers?: any): IPromise<any>;
     putElement(idx: any, params: any, headers: any): IPromise<any>;
-    withHttpConfig(httpConfig: IRequestConfig): ICollection;
+    withHttpConfig(httpConfig: angular.IRequestShortcutConfig): ICollection;
     clone(): ICollection;
     plain(): any;
     plain<T>(): T[];

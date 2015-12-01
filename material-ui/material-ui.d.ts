@@ -172,6 +172,7 @@ declare namespace __MaterialUI {
         interface CardActionsProps extends React.Props<CardActions> {
             expandable?: boolean;
             showExpandableButton?: boolean;
+            style?: React.CSSProperties;
         }
         export class CardActions extends React.Component<CardActionsProps, {}> {
         }
@@ -179,6 +180,7 @@ declare namespace __MaterialUI {
         interface CardExpandableProps extends React.Props<CardExpandable> {
             onExpanding?: (isExpanded: boolean) => void;
             expanded?: boolean;
+            style?: React.CSSProperties;
         }
         export class CardExpandable extends React.Component<CardExpandableProps, {}> {
         }
@@ -302,6 +304,7 @@ declare namespace __MaterialUI {
         size?: number;
         color?: string;
         innerStyle?: React.CSSProperties;
+        style?: React.CSSProperties;
 
     }
     export class CircularProgress extends React.Component<CircularProgressProps, {}> {
@@ -367,6 +370,7 @@ declare namespace __MaterialUI {
         actionFocus?: string;
         autoDetectWindowHeight?: boolean;
         autoScrollBodyContent?: boolean;
+        style?: React.CSSProperties;
         bodyStyle?: React.CSSProperties;
         contentClassName?: string;
         contentInnerStyle?: React.CSSProperties;
@@ -518,6 +522,7 @@ declare namespace __MaterialUI {
         menuItemClassName?: string;
         menuItemClassNameSubheader?: string;
         menuItemClassNameLink?: string;
+        style?: React.CSSProperties;
     }
     export class LeftNav extends React.Component<LeftNavProps, {}> {
     }
@@ -537,6 +542,7 @@ declare namespace __MaterialUI {
             subheader?: string;
             subheaderStyle?: React.CSSProperties;
             zDepth?: number;
+            style?: React.CSSProperties;
         }
         export class List extends React.Component<ListProps, {}> {
         }
@@ -568,6 +574,7 @@ declare namespace __MaterialUI {
             primaryText?: React.ReactNode;
             secondaryText?: React.ReactNode;
             secondaryTextLines?: number;
+            style?: React.CSSProperties;
         }
         export class ListItem extends React.Component<ListItemProps, {}> {
         }
@@ -593,6 +600,7 @@ declare namespace __MaterialUI {
             toggle?: boolean;
             onTouchTap?: TouchTapEventHandler;
             isDisabled?: boolean;
+            style?: React.CSSProperties;
 
             // for MenuItems.Types.NESTED
             items?: MenuItemRequest[];
@@ -609,6 +617,7 @@ declare namespace __MaterialUI {
             active?: boolean;
             onItemTap?: ItemTapEventHandler;
             menuItemStyle?: React.CSSProperties;
+            style?: React.CSSProperties;
         }
         export class Menu extends React.Component<MenuProps, {}> {
         }
@@ -628,6 +637,7 @@ declare namespace __MaterialUI {
             onToggle?: (e: React.MouseEvent, key: number, toggled: boolean) => void;
             selected?: boolean;
             active?: boolean;
+            style?: React.CSSProperties;
         }
         export class MenuItem extends React.Component<MenuItemProps, {}> {
             static Types: { LINK: string, SUBHEADER: string, NESTED: string, }
@@ -721,6 +731,7 @@ declare namespace __MaterialUI {
         size?: number;
         status?: string;
         top: number;
+        style?: React.CSSProperties;
     }
     export class RefreshIndicator extends React.Component<RefreshIndicatorProps, {}> {
     }
@@ -729,12 +740,14 @@ declare namespace __MaterialUI {
         interface CircleRippleProps extends React.Props<CircleRipple> {
             color?: string;
             opacity?: number;
+            style?: React.CSSProperties;
         }
         export class CircleRipple extends React.Component<CircleRippleProps, {}> {
         }
 
         interface FocusRippleProps extends React.Props<FocusRipple> {
             color?: string;
+            style?: React.CSSProperties;
             innerStyle?: React.CSSProperties;
             opacity?: number;
             show?: boolean;
@@ -746,6 +759,7 @@ declare namespace __MaterialUI {
             centerRipple?: boolean;
             color?: string;
             opacity?: number;
+            style?: React.CSSProperties;
         }
         export class TouchRipple extends React.Component<TouchRippleProps, {}> {
         }
@@ -798,6 +812,7 @@ declare namespace __MaterialUI {
         required?: boolean;
         step?: number;
         value?: number;
+        style?: React.CSSProperties;
     }
     export class Slider extends React.Component<SliderProps, {}> {
     }
@@ -806,6 +821,7 @@ declare namespace __MaterialUI {
         color?: string;
         hoverColor?: string;
         viewBox?: string;
+        style?: React.CSSProperties;
     }
     export class SvgIcon extends React.Component<SvgIconProps, {}> {
     }
@@ -1053,6 +1069,7 @@ declare namespace __MaterialUI {
                 backgroundColor?: string;
                 borderColor?: string;
             };
+            isRtl: boolean;
         }
 
         interface RawTheme {
@@ -1080,7 +1097,7 @@ declare namespace __MaterialUI {
         export var Transitions: Transitions;
 
         interface Typography {
-            textFullBlack:string;
+            textFullBlack: string;
             textDarkBlack: string;
             textLightBlack: string;
             textMinBlack: string;
@@ -1109,6 +1126,7 @@ declare namespace __MaterialUI {
         onShow?: () => void;
         onDismiss?: () => void;
         openOnMount?: boolean;
+        style?: React.CSSProperties;
     }
     export class Snackbar extends React.Component<SnackbarProps, {}> {
     }
@@ -1119,6 +1137,7 @@ declare namespace __MaterialUI {
             value?: string;
             selected?: boolean;
             width?: string;
+            style?: React.CSSProperties;
 
             // Called by Tabs component
             onActive?: (tab: Tab) => void;
@@ -1156,8 +1175,9 @@ declare namespace __MaterialUI {
             onCellHoverExit?: (row: number, column: number) => void;
             onRowHover?: (row: number) => void;
             onRowHoverExit?: (row: number) => void;
-            onRowSelection?: (selectedRows: number[])=> void;
+            onRowSelection?: (selectedRows: number[]) => void;
             selectable?: boolean;
+            style?: React.CSSProperties;
         }
         export class Table extends React.Component<TableProps, {}> {
         }
@@ -1172,17 +1192,19 @@ declare namespace __MaterialUI {
             onCellHoverExit?: (row: number, column: number) => void;
             onRowHover?: (row: number) => void;
             onRowHoverExit?: (row: number) => void;
-            onRowSelection?: (selectedRows: number[])=> void;
+            onRowSelection?: (selectedRows: number[]) => void;
             preScanRows?: boolean;
             selectable?: boolean;
             showRowHover?: boolean;
             stripedRows?: boolean;
+            style?: React.CSSProperties;
         }
         export class TableBody extends React.Component<TableBodyProps, {}> {
         }
 
         interface TableFooterProps extends React.Props<TableFooter> {
             adjustForCheckbox?: boolean;
+            style?: React.CSSProperties;
         }
         export class TableFooter extends React.Component<TableFooterProps, {}> {
         }
@@ -1193,15 +1215,17 @@ declare namespace __MaterialUI {
             enableSelectAll?: boolean;
             onSelectAll?: (event: React.MouseEvent) => void;
             selectAllSelected?: boolean;
+            style?: React.CSSProperties;
         }
         export class TableHeader extends React.Component<TableHeaderProps, {}> {
         }
 
         interface TableHeaderColumnProps extends React.Props<TableHeaderColumn> {
             columnNumber?: number;
-            onClick?:  (e: React.MouseEvent, column: number) => void;
+            onClick?: (e: React.MouseEvent, column: number) => void;
             tooltip?: string;
             tooltipStyle?: React.CSSProperties;
+            style?: React.CSSProperties;
         }
         export class TableHeaderColumn extends React.Component<TableHeaderColumnProps, {}> {
         }
@@ -1219,6 +1243,7 @@ declare namespace __MaterialUI {
             selectable?: boolean;
             selected?: boolean;
             striped?: boolean;
+            style?: React.CSSProperties;
         }
         export class TableRow extends React.Component<TableRowProps, {}> {
         }
@@ -1228,6 +1253,7 @@ declare namespace __MaterialUI {
             hoverable?: boolean;
             onHover?: (e: React.MouseEvent, column: number) => void;
             onHoverExit?: (e: React.MouseEvent, column: number) => void;
+            style?: React.CSSProperties;
         }
         export class TableRowColumn extends React.Component<TableRowColumnProps, {}> {
         }
@@ -1311,23 +1337,27 @@ declare namespace __MaterialUI {
 
     namespace Toolbar {
         interface ToolbarProps extends React.Props<Toolbar> {
+            style?: React.CSSProperties;
         }
         export class Toolbar extends React.Component<ToolbarProps, {}> {
         }
 
         interface ToolbarGroupProps extends React.Props<ToolbarGroup> {
             float?: string;
+            style?: React.CSSProperties;
         }
         export class ToolbarGroup extends React.Component<ToolbarGroupProps, {}> {
         }
 
         interface ToolbarSeparatorProps extends React.Props<ToolbarSeparator> {
+            style?: React.CSSProperties;
         }
         export class ToolbarSeparator extends React.Component<ToolbarSeparatorProps, {}> {
         }
 
         interface ToolbarTitleProps extends React.HTMLAttributes, React.Props<ToolbarTitle> {
-           text?: string;
+            text?: string;
+            style?: React.CSSProperties;
         }
         export class ToolbarTitle extends React.Component<ToolbarTitleProps, {}> {
         }
@@ -1349,9 +1379,9 @@ declare namespace __MaterialUI {
             color: string;
         }
         interface ColorManipulator {
-            fade(color: string, amount: string|number): string;
-            lighten(color: string, amount: string|number): string;
-            darken(color: string, amount: string|number): string;
+            fade(color: string, amount: string | number): string;
+            lighten(color: string, amount: string | number): string;
+            darken(color: string, amount: string | number): string;
             contrastRatio(background: string, foreground: string): number;
             contrastRatioLevel(background: string, foreground: string): ContrastLevel;
         }
@@ -1443,6 +1473,7 @@ declare namespace __MaterialUI {
             value?: string | Array<string>;
             width?: string | number;
             touchTapCloseDelay?: number;
+            style?: React.CSSProperties;
 
             onKeyboardFocus?: React.FocusEventHandler;
             onItemTouchTap?: (e: TouchTapEvent, item: React.ReactElement<any>) => void;
@@ -1462,6 +1493,7 @@ declare namespace __MaterialUI {
             value?: string | Array<string>;
             width?: string | number;
             zDepth?: number;
+            style?: React.CSSProperties;
         }
         export class Menu extends React.Component<MenuProps, {}>{
         }
@@ -1477,6 +1509,7 @@ declare namespace __MaterialUI {
             rightIcon?: React.ReactElement<any>;
             secondaryText?: React.ReactNode;
             value?: string;
+            style?: React.CSSProperties;
 
             onEscKeyDown?: React.KeyboardEventHandler;
             onItemTouchTap?: (e: TouchTapEvent, item: React.ReactElement<any>) => void;
