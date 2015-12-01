@@ -36,8 +36,10 @@ declare module "jsonwebtoken" {
     }
 
     export interface VerifyOptions {
+        algorithms?: string[];
         audience?: string;
         issuer?: string;
+        ignoreExpiration?: boolean;
         maxAge?: string;
     }
 
