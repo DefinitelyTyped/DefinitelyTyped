@@ -1131,14 +1131,28 @@ declare module _ {
         /**
          * @see _.flattenDeep
          */
-        flattenDeep<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+        flattenDeep<T>(): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.flattenDeep
          */
-        flattenDeep<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+        flattenDeep<T>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDeep<T>(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDeep<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.head
