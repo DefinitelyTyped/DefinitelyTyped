@@ -6,6 +6,7 @@ import * as React from "react";
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
 import Checkbox = require("material-ui/lib/checkbox");
 import Colors = require("material-ui/lib/styles/colors");
+import Spacing = require("material-ui/lib/styles/spacing");
 import AppBar = require("material-ui/lib/app-bar");
 import Badge = require("material-ui/lib/badge");
 import IconButton = require("material-ui/lib/icon-button");
@@ -488,7 +489,8 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
         element = <GridList
             cols={3}
             padding={50}
-            cellHeight={200} />;
+            cellHeight={200}
+            style={{ color: 'red' }} />;
             
         element = <GridTile
             title="GridTileTitle"
@@ -497,7 +499,8 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
             titlePosition="top"
             titleBackground="rgba(0, 0, 0, 0.4)"
             cols={2}
-            rows={1} >
+            rows={1}
+            style={{ color: 'red' }}>
             <h1>Children are Required!</h1>
             </GridTile>;
 
