@@ -6184,10 +6184,9 @@ module TestFindKey {
 
 // _.findLastKey
 module TestFindLastKey {
-    let result: string;
-
     {
         let predicateFn: (value: any, key?: string, object?: {}) => boolean;
+        let result: string;
 
         result = _.findLastKey<{a: string;}>({a: ''});
 
@@ -6214,12 +6213,37 @@ module TestFindLastKey {
 
     {
         let predicateFn: (value: string, key?: string, collection?: _.Dictionary<string>) => boolean;
+        let result: string;
 
         result = _.findLastKey<string, {a: string;}>({a: ''}, predicateFn);
         result = _.findLastKey<string, {a: string;}>({a: ''}, predicateFn, any);
 
         result = _<{a: string;}>({a: ''}).findLastKey<string>(predicateFn);
         result = _<{a: string;}>({a: ''}).findLastKey<string>(predicateFn, any);
+    }
+
+    {
+        let predicateFn: (value: any, key?: string, object?: {}) => boolean;
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _<{a: string;}>({a: ''}).chain().findLastKey();
+
+        result = _<{a: string;}>({a: ''}).chain().findLastKey(predicateFn);
+        result = _<{a: string;}>({a: ''}).chain().findLastKey(predicateFn, any);
+
+
+        result = _<{a: string;}>({a: ''}).chain().findLastKey('');
+        result = _<{a: string;}>({a: ''}).chain().findLastKey('', any);
+
+        result = _<{a: string;}>({a: ''}).chain().findLastKey<{a: number;}>({a: 42});
+    }
+
+    {
+        let predicateFn: (value: string, key?: string, collection?: _.Dictionary<string>) => boolean;
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _<{a: string;}>({a: ''}).chain().findLastKey<string>(predicateFn);
+        result = _<{a: string;}>({a: ''}).chain().findLastKey<string>(predicateFn, any);
     }
 }
 
