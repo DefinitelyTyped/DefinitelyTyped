@@ -1,7 +1,7 @@
 // Type definitions for jsSHA
 // Project: https://github.com/Caligatio/jsSHA
-// Definitions by: Tobias Kahlert <https://github.com/SrTobi>
-// Definitions: https://github.com/SrTobi/DefinitelyTyped
+// Definitions by: David Li <https://github.com/randombk>, Tobias Kahlert <https://github.com/SrTobi>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 declare module jsSHA {
