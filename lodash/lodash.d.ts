@@ -5291,130 +5291,257 @@ declare module _ {
     //_.groupBy
     interface LoDashStatic {
         /**
-        * Creates an object composed of keys generated from the results of running each element
-        * of a collection through the callback. The corresponding value of each key is an array
-        * of the elements responsible for generating the key. The callback is bound to thisArg
-        * and invoked with three arguments; (value, index|key, collection).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will
-        * return the property value of the given element.
-        * If an object is provided for callback the created "_.where" style callback will return
-        * true for elements that have the properties of the given object, else false
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return Returns the composed aggregate object.
-        **/
-        groupBy<T>(
-            collection: Array<T>,
-            callback?: ListIterator<T, any>,
-            thisArg?: any): Dictionary<T[]>;
-
-        /**
-        * @see _.groupBy
-        **/
-        groupBy<T>(
+         * Creates an object composed of keys generated from the results of running each element of collection through
+         * iteratee. The corresponding value of each key is an array of the elements responsible for generating the
+         * key. The iteratee is bound to thisArg and invoked with three arguments:
+         * (value, index|key, collection).
+         *
+         * If a property name is provided for iteratee the created _.property style callback returns the property
+         * value of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for iteratee the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns the composed aggregate object.
+         */
+        groupBy<T, TKey>(
             collection: List<T>,
-            callback?: ListIterator<T, any>,
-            thisArg?: any): Dictionary<T[]>;
+            iteratee?: ListIterator<T, TKey>,
+            thisArg?: any
+        ): Dictionary<T[]>;
 
         /**
-        * @see _.groupBy
-        * @param pluckValue _.pluck style callback
-        **/
+         * @see _.groupBy
+         */
         groupBy<T>(
-            collection: Array<T>,
-            pluckValue: string): Dictionary<T[]>;
+            collection: List<any>,
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): Dictionary<T[]>;
 
         /**
-        * @see _.groupBy
-        * @param pluckValue _.pluck style callback
-        **/
-        groupBy<T>(
-            collection: List<T>,
-            pluckValue: string): Dictionary<T[]>;
-
-        /**
-        * @see _.groupBy
-        * @param whereValue _.where style callback
-        **/
-        groupBy<W, T>(
-            collection: Array<T>,
-            whereValue: W): Dictionary<T[]>;
-
-        /**
-        * @see _.groupBy
-        * @param whereValue _.where style callback
-        **/
-        groupBy<W, T>(
-            collection: List<T>,
-            whereValue: W): Dictionary<T[]>;
-
-        /**
-        * @see _.groupBy
-        **/
-        groupBy<T>(
+         * @see _.groupBy
+         */
+        groupBy<T, TKey>(
             collection: Dictionary<T>,
-            callback?: DictionaryIterator<T, any>,
-            thisArg?: any): Dictionary<T[]>;
+            iteratee?: DictionaryIterator<T, TKey>,
+            thisArg?: any
+        ): Dictionary<T[]>;
 
         /**
-        * @see _.groupBy
-        * @param pluckValue _.pluck style callback
-        **/
-        groupBy<TValue>(
-            collection: Dictionary<TValue>,
-            pluckValue: string): Dictionary<TValue[]>;
+         * @see _.groupBy
+         */
+        groupBy<T>(
+            collection: Dictionary<any>,
+            iteratee?: DictionaryIterator<T, any>,
+            thisArg?: any
+        ): Dictionary<T[]>;
 
         /**
-        * @see _.groupBy
-        * @param whereValue _.where style callback
-        **/
-        groupBy<W, TValue>(
-            collection: Dictionary<TValue>,
-            whereValue: W): Dictionary<TValue[]>;
+         * @see _.groupBy
+         */
+        groupBy<T, TValue>(
+            collection: List<T>|Dictionary<T>,
+            iteratee?: string,
+            thisArg?: TValue
+        ): Dictionary<T[]>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<T>(
+            collection: List<T>|Dictionary<T>,
+            iteratee?: string,
+            thisArg?: any
+        ): Dictionary<T[]>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<TWhere, T>(
+            collection: List<T>|Dictionary<T>,
+            iteratee?: TWhere
+        ): Dictionary<T[]>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<T>(
+            collection: List<T>|Dictionary<T>,
+            iteratee?: Object
+        ): Dictionary<T[]>;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.groupBy
+         */
+        groupBy<TKey>(
+            iteratee?: ListIterator<T, TKey>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
-        * @see _.groupBy
-        **/
-        groupBy(
-            callback: ListIterator<T, any>,
-            thisArg?: any): _.LoDashImplicitObjectWrapper<_.Dictionary<T[]>>;
+         * @see _.groupBy
+         */
+        groupBy<TKey>(
+            iteratee?: ListIterator<T, TKey>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
-        * @see _.groupBy
-        **/
-        groupBy(
-            pluckValue: string): _.LoDashImplicitObjectWrapper<_.Dictionary<T[]>>;
+         * @see _.groupBy
+         */
+        groupBy<TValue>(
+            iteratee?: string,
+            thisArg?: TValue
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
-        * @see _.groupBy
-        **/
-        groupBy<W>(
-            whereValue: W): _.LoDashImplicitObjectWrapper<_.Dictionary<T[]>>;
+         * @see _.groupBy
+         */
+        groupBy<TWhere>(
+            iteratee?: TWhere
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.groupBy
-        **/
-        groupBy<TValue>(
-            callback: ListIterator<TValue, any>,
-            thisArg?: any): _.LoDashImplicitObjectWrapper<_.Dictionary<TValue[]>>;
+         * @see _.groupBy
+         */
+        groupBy<T, TKey>(
+            iteratee?: ListIterator<T, TKey>|DictionaryIterator<T, TKey>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
-        * @see _.groupBy
-        **/
-        groupBy<TValue>(
-            pluckValue: string): _.LoDashImplicitObjectWrapper<_.Dictionary<TValue[]>>;
+         * @see _.groupBy
+         */
+        groupBy<T>(
+            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
-        * @see _.groupBy
-        **/
-        groupBy<W, TValue>(
-            whereValue: W): _.LoDashImplicitObjectWrapper<_.Dictionary<TValue[]>>;
+         * @see _.groupBy
+         */
+        groupBy<T, TValue>(
+            iteratee?: string,
+            thisArg?: TValue
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<T>(
+            iteratee?: string,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<TWhere, T>(
+            iteratee?: TWhere
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<T>(
+            iteratee?: Object
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.groupBy
+         */
+        groupBy<TKey>(
+            iteratee?: ListIterator<T, TKey>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.groupBy
+         */
+        groupBy<TKey>(
+            iteratee?: ListIterator<T, TKey>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<TValue>(
+            iteratee?: string,
+            thisArg?: TValue
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<TWhere>(
+            iteratee?: TWhere
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.groupBy
+         */
+        groupBy<T, TKey>(
+            iteratee?: ListIterator<T, TKey>|DictionaryIterator<T, TKey>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<T>(
+            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<T, TValue>(
+            iteratee?: string,
+            thisArg?: TValue
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<T>(
+            iteratee?: string,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<TWhere, T>(
+            iteratee?: TWhere
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<T>(
+            iteratee?: Object
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
     }
 
     //_.include
