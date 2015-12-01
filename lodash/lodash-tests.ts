@@ -3396,21 +3396,154 @@ module TestForEachRight {
     }
 }
 
-result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function (num) { return Math.floor(num); });
-result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function (num) { return this.floor(num); }, Math);
-result = <_.Dictionary<string[]>>_.groupBy(['one', 'two', 'three'], 'length');
+// _.groupBy
+module TestGroupBy {
+    type SampleType = {a: number; b: string; c: boolean;};
 
-result = <_.Dictionary<number[]>>_.groupBy({ prop1: 4.2, prop2: 6.1, prop3: 6.4}, function (num) { return Math.floor(num); });
-result = <_.Dictionary<number[]>>_.groupBy({ prop1: 4.2, prop2: 6.1, prop3: 6.4}, function (num) { return this.floor(num); }, Math);
-result = <_.Dictionary<string[]>>_.groupBy({ prop1: 'one', prop2: 'two', prop3: 'three'}, 'length');
+    let array: SampleType[];
+    let list: _.List<SampleType>;
+    let dictionary: _.Dictionary<SampleType>;
 
-result = <_.Dictionary<number[]>>_([4.2, 6.1, 6.4]).groupBy(function (num) { return Math.floor(num); }).value();
-result = <_.Dictionary<number[]>>_([4.2, 6.1, 6.4]).groupBy(function (num) { return this.floor(num); }, Math).value();
-result = <_.Dictionary<string[]>>_(['one', 'two', 'three']).groupBy('length').value();
+    let stringIterator: (char: string, index: number, string: string) => number;
+    let listIterator: (value: SampleType, index: number, collection: _.List<SampleType>) => number;
+    let dictionaryIterator: (value: SampleType, key: string, collection: _.Dictionary<SampleType>) => number;
 
-result = <_.Dictionary<number[]>>_({ prop1: 4.2, prop2: 6.1, prop3: 6.4}).groupBy<number>(function (num) { return Math.floor(num); }).value();
-result = <_.Dictionary<number[]>>_({ prop1: 4.2, prop2: 6.1, prop3: 6.4}).groupBy<number>(function (num) { return this.floor(num); }, Math).value();
-result = <_.Dictionary<string[]>>_({ prop1: 'one', prop2: 'two', prop3: 'three'}).groupBy<string>('length').value();
+    {
+        let result: _.Dictionary<string[]>;
+
+        result = _.groupBy<string>('');
+        result = _.groupBy<string>('', stringIterator);
+        result = _.groupBy<string>('', stringIterator, any);
+        result = _.groupBy<string, number>('', stringIterator);
+        result = _.groupBy<string, number>('', stringIterator, any);
+    }
+
+    {
+        let result: _.Dictionary<SampleType[]>;
+
+        result = _.groupBy<SampleType>(array);
+        result = _.groupBy<SampleType>(array, listIterator);
+        result = _.groupBy<SampleType>(array, listIterator, any);
+        result = _.groupBy<SampleType>(array, '');
+        result = _.groupBy<SampleType>(array, '', any);
+        result = _.groupBy<SampleType>(array, {a: 42});
+
+        result = _.groupBy<SampleType, number>(array, listIterator);
+        result = _.groupBy<SampleType, number>(array, listIterator, any);
+        result = _.groupBy<SampleType, boolean>(array, '', true);
+        result = _.groupBy<{a: number}, SampleType>(array, {a: 42});
+
+        result = _.groupBy<SampleType>(list);
+        result = _.groupBy<SampleType>(list, listIterator);
+        result = _.groupBy<SampleType>(list, listIterator, any);
+        result = _.groupBy<SampleType>(list, '');
+        result = _.groupBy<SampleType>(list, '', any);
+        result = _.groupBy<SampleType>(list, {a: 42});
+
+        result = _.groupBy<SampleType, number>(list, listIterator);
+        result = _.groupBy<SampleType, number>(list, listIterator, any);
+        result = _.groupBy<SampleType, boolean>(list, '', true);
+        result = _.groupBy<{a: number}, SampleType>(list, {a: 42});
+
+        result = _.groupBy<SampleType>(dictionary);
+        result = _.groupBy<SampleType>(dictionary, dictionaryIterator);
+        result = _.groupBy<SampleType>(dictionary, dictionaryIterator, any);
+        result = _.groupBy<SampleType>(dictionary, '');
+        result = _.groupBy<SampleType>(dictionary, '', any);
+        result = _.groupBy<SampleType>(dictionary, {a: 42});
+
+        result = _.groupBy<SampleType, number>(dictionary, dictionaryIterator);
+        result = _.groupBy<SampleType, number>(dictionary, dictionaryIterator, any);
+        result = _.groupBy<SampleType, boolean>(dictionary, '', true);
+        result = _.groupBy<{a: number}, SampleType>(dictionary, {a: 42});
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<string[]>>;
+
+        result = _('').groupBy();
+        result = _('').groupBy<number>(stringIterator);
+        result = _('').groupBy<number>(stringIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<SampleType[]>>;
+
+        result = _(array).groupBy();
+        result = _(array).groupBy<number>(listIterator);
+        result = _(array).groupBy<number>(listIterator, any);
+        result = _(array).groupBy('');
+        result = _(array).groupBy<boolean>('', true);
+        result = _(array).groupBy<{a: number}>({a: 42});
+
+        result = _(list).groupBy<SampleType>();
+        result = _(list).groupBy<SampleType>(listIterator);
+        result = _(list).groupBy<SampleType>(listIterator, any);
+        result = _(list).groupBy<SampleType>('');
+        result = _(list).groupBy<SampleType>('', any);
+        result = _(list).groupBy<SampleType>({a: 42});
+
+        result = _(list).groupBy<SampleType, number>(listIterator);
+        result = _(list).groupBy<SampleType, number>(listIterator, any);
+        result = _(list).groupBy<SampleType, boolean>('', true);
+        result = _(list).groupBy<{a: number}, SampleType>({a: 42});
+
+        result = _(dictionary).groupBy<SampleType>();
+        result = _(dictionary).groupBy<SampleType>(dictionaryIterator);
+        result = _(dictionary).groupBy<SampleType>(dictionaryIterator, any);
+        result = _(dictionary).groupBy<SampleType>('');
+        result = _(dictionary).groupBy<SampleType>('', any);
+        result = _(dictionary).groupBy<SampleType>({a: 42});
+
+        result = _(dictionary).groupBy<SampleType, number>(dictionaryIterator);
+        result = _(dictionary).groupBy<SampleType, number>(dictionaryIterator, any);
+        result = _(dictionary).groupBy<SampleType, boolean>('', true);
+        result = _(dictionary).groupBy<{a: number}, SampleType>({a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<string[]>>;
+
+        result = _('').chain().groupBy();
+        result = _('').chain().groupBy<number>(stringIterator);
+        result = _('').chain().groupBy<number>(stringIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<SampleType[]>>;
+
+        result = _(array).chain().groupBy();
+        result = _(array).chain().groupBy<number>(listIterator);
+        result = _(array).chain().groupBy<number>(listIterator, any);
+        result = _(array).chain().groupBy('');
+        result = _(array).chain().groupBy<boolean>('', true);
+        result = _(array).chain().groupBy<{a: number}>({a: 42});
+
+        result = _(list).chain().groupBy<SampleType>();
+        result = _(list).chain().groupBy<SampleType>(listIterator);
+        result = _(list).chain().groupBy<SampleType>(listIterator, any);
+        result = _(list).chain().groupBy<SampleType>('');
+        result = _(list).chain().groupBy<SampleType>('', any);
+        result = _(list).chain().groupBy<SampleType>({a: 42});
+
+        result = _(list).chain().groupBy<SampleType, number>(listIterator);
+        result = _(list).chain().groupBy<SampleType, number>(listIterator, any);
+        result = _(list).chain().groupBy<SampleType, boolean>('', true);
+        result = _(list).chain().groupBy<{a: number}, SampleType>({a: 42});
+
+        result = _(dictionary).chain().groupBy<SampleType>();
+        result = _(dictionary).chain().groupBy<SampleType>(dictionaryIterator);
+        result = _(dictionary).chain().groupBy<SampleType>(dictionaryIterator, any);
+        result = _(dictionary).chain().groupBy<SampleType>('');
+        result = _(dictionary).chain().groupBy<SampleType>('', any);
+        result = _(dictionary).chain().groupBy<SampleType>({a: 42});
+
+        result = _(dictionary).chain().groupBy<SampleType, number>(dictionaryIterator);
+        result = _(dictionary).chain().groupBy<SampleType, number>(dictionaryIterator, any);
+        result = _(dictionary).chain().groupBy<SampleType, boolean>('', true);
+        result = _(dictionary).chain().groupBy<{a: number}, SampleType>({a: 42});
+    }
+}
 
 // _.include
 module TestInclude {
