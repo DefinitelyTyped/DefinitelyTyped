@@ -13,7 +13,7 @@ WordCloud.miniumFontSize = 20;
 var list = (function () {
   var string = 'Grumpy wizards make toxic brew for the evil Queen and Jack';
 
-  var list = [];
+  var list: WordCloud.ListEntry[] = [];
   string.split(' ').forEach(function(word) {
     list.push([word, word.length * 5]);
   });
