@@ -1,10 +1,9 @@
 /// <reference path="rethinkdb.d.ts" />
-/// <reference path="../node/node.d.ts" />
 
-import r = require("rethinkdb");
+import * as r from 'rethinkdb';
 
-var callback = (err, result) => { };
-var conn = <rethinkdb.RConnectionInterface>{};
+let callback = (err, result) => { };
+let conn = <rethinkdb.RConnectionInterface>{};
 
 // TESTS FOR: add //
 r.expr<number>(2).add(2).run(conn, callback)
@@ -753,30 +752,29 @@ r.table('marvel').map(
 
 /// DefinitelyTyped originals (with the corrected mistake of "between" after "filter"):
 
-r.connect({host:"localhost", port: 28015}, function(err, conn) {
-    console.log("HI", err, conn)
+r.connect({host: "localhost", port: 28015}, function(err, conn) {
+    console.log("Hi", err, conn);
     var testDb = r.db('test')
     testDb.tableCreate('users').run(conn, function(err, stuff) {
-        var users = testDb.table('users')
+        var users = testDb.table('users');
 
-        users.insert({name: "bob"}).run(conn, function() {})
+        users.insert({name: "bob"}).run(conn, function() {});
 
         users
-        .between("james", "beth")
-        .filter(function(doc?) {
-            return doc("henry").eq("bob")
-        })
-        .limit(4)
-        .run(conn, function() {
+          .between("james", "beth")
+          .filter(function(doc?) {
+              return doc("henry").eq("bob")
+          })
+          .limit(4)
+          .run(conn, function() {
 
-        })
-
-    })
-})
+        });
+    });
+});
 
 // use promises instead of callbacks
-r.connect({host:"localhost", port: 28015}).then(function(conn) {
-    console.log("HI", conn)
+r.connect({host: "localhost", port: 28015}).then(function(conn) {
+    console.log("Hi", conn)
     var testDb = r.db('test')
     testDb.tableCreate('users').run(conn).then(function(stuff) {
         var users = testDb.table('users')
@@ -784,12 +782,12 @@ r.connect({host:"localhost", port: 28015}).then(function(conn) {
         users.insert({name: "bob"}).run(conn, function() {})
 
         users
-        .between("james", "beth")
-        .filter(function(doc?) {
-            return doc("henry").eq("bob")
-        })
-        .limit(4)
-        .run(conn);
+          .between("james", "beth")
+          .filter(function(doc?) {
+              return doc("henry").eq("bob")
+          })
+          .limit(4)
+          .run(conn);
 
-    })
-})
+    });
+});

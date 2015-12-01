@@ -1,4 +1,4 @@
-// Type definitions for RethinkDB 2.2.0
+// Type definitions for RethinkDB v2.2.0
 // Project: http://rethinkdb.com/
 // Definitions by: Bazyli Brzóska <https://invent.life/>
 // Previous definitions by: Sean Hess <https://seanhess.github.io/>
@@ -6,7 +6,13 @@
 // TODO: Make RArrayInterface generic
 // Reference: http://www.rethinkdb.com/api/#js
 
+/// <reference path="../node/node.d.ts" />
+/// <reference path="../bluebird/bluebird.d.ts" />
+
 declare module rethinkdb {
+  // TODO: define union type shortcuts, like:
+  // type RNumber = number|RNumberInterface;
+  
   export interface RNumberInterface extends RValueInterface<number>, RRunableInterface<number> {
     /**
     * Sum two or more numbers, or concatenate two or more strings or arrays.
@@ -18,8 +24,6 @@ declare module rethinkdb {
     *
     * http://rethinkdb.com/api/javascript/add
     */
-    add(value, ...values):RNumberInterface;
-    add(value):RNumberInterface;
     add(number:number|RNumberInterface, ...numbers:Array<number>):RNumberInterface;
     add(number:number|RNumberInterface):RNumberInterface;
 
@@ -117,7 +121,6 @@ declare module rethinkdb {
     sub(number:number|RNumberInterface):RNumberInterface;
   }
   export interface RStringInterface extends RCoercable, RAnyInterface, RRunableInterface<string> {
-
     /**
     * Sum two or more numbers, or concatenate two or more strings or arrays.
     *
@@ -128,10 +131,8 @@ declare module rethinkdb {
     *
     * http://rethinkdb.com/api/javascript/add
     */
-    add(value, ...values):RStringInterface;
-    add(value):RStringInterface;
-    add(number:number|RNumberInterface, ...numbers:Array<number>):RStringInterface;
-    add(number:number|RNumberInterface):RStringInterface;
+    add(value:string, ...values:Array<string>):RStringInterface;
+    add(value:string):RStringInterface;
 
     /**
     * Lowercases a string.
@@ -178,7 +179,7 @@ declare module rethinkdb {
     *
     * http://rethinkdb.com/api/javascript/split
     */
-    split(separator?, max_splits?):RArrayInterface;
+    split(separator?:string, max_splits?:number):RArrayInterface;
 
     /**
     * Uppercases a string.
@@ -394,7 +395,6 @@ declare module rethinkdb {
     zip():RArrayInterface;
   }
   export interface RTimeInterface extends RValueInterface<Date>, RAnyInterface {
-
     /**
     * Sum two or more numbers, or concatenate two or more strings or arrays.
     *
@@ -405,6 +405,7 @@ declare module rethinkdb {
     *
     * http://rethinkdb.com/api/javascript/add
     */
+    add(...time:Array<RTimeInterface|Date>):RTimeInterface;
 
     /**
     * Return a new time object only based on the day, month and year (ie. the same day at 00:00).
@@ -959,13 +960,13 @@ declare module rethinkdb {
     *
     * http://rethinkdb.com/api/javascript/geojson
     */
-    geojson(geojson:Object):RGeometryInterface<Object>;
-    
+    geojson(geojson:Object|RObjectInterface<any>):RGeometryInterface<Object>;
     
     /**
     * Compute the distance between a point and another geometry object. At least one of the geometry objects specified must be a point.
     *
-    * geometry.distance(geometry[, {geoSystem: 'WGS84', unit: 'm'}]) → numberr.distance(geometry, geometry[, {geoSystem: 'WGS84', unit: 'm'}]) → number
+    * geometry.distance(geometry[, {geoSystem: 'WGS84', unit: 'm'}]) → number
+    * r.distance(geometry, geometry[, {geoSystem: 'WGS84', unit: 'm'}]) → number
     * **Example:** Compute the distance between two points on the Earth in kilometers.
     * 
     *     var point1 = r.point(-122.423246,37.779388);
@@ -988,7 +989,12 @@ declare module rethinkdb {
     *
     * http://rethinkdb.com/api/javascript/http
     */
-    http(url:string|RStringInterface, options?:{timeout:number, reattempts:number, redirects:number, verify:boolean, resultFormat:string})
+    http<T extends Object>(url:string|RStringInterface, options?:{timeout:number, reattempts:number, redirects:number, verify:boolean, resultFormat:string}):RObjectInterface<T>
+    http<T extends string>(url:string|RStringInterface, options?:{timeout:number, reattempts:number, redirects:number, verify:boolean, resultFormat:string}):RStringInterface
+    http<T extends boolean>(url:string|RStringInterface, options?:{timeout:number, reattempts:number, redirects:number, verify:boolean, resultFormat:string}):RBoolInterface
+    http<T extends Array<any>>(url:string|RStringInterface, options?:{timeout:number, reattempts:number, redirects:number, verify:boolean, resultFormat:string}):RArrayInterface
+    http<T extends number>(url:string|RStringInterface, options?:{timeout:number, reattempts:number, redirects:number, verify:boolean, resultFormat:string}):RNumberInterface
+    http<T extends Date>(url:string|RStringInterface, options?:{timeout:number, reattempts:number, redirects:number, verify:boolean, resultFormat:string}):RTimeInterface
 
     /**
     * Create a time object based on an ISO 8601 date-time string (e.g. '2013-01-01T01:01:01+00:00'). We support all valid ISO 8601 formats except for week dates. If you pass an ISO 8601 date-time without a time zone, you must specify the time zone with the `defaultTimezone` argument. Read more about the ISO 8601 format at [Wikipedia](http://en.wikipedia.org/wiki/ISO_8601).
@@ -1025,7 +1031,9 @@ declare module rethinkdb {
     *
     * http://rethinkdb.com/api/javascript/json
     */
-    json(json_string:string|RStringInterface):RValueInterface<Object>;
+    json<T extends Object>(json_string:string|RStringInterface):RObjectInterface<T>;
+    json<T>(json_string:string|RStringInterface):RValueInterface<T>;
+    // TODO: add more... <T>
 
     /**
     * Construct a geometry object of type Line. The line can be specified in one of two ways:
@@ -1173,7 +1181,7 @@ declare module rethinkdb {
     /**
     * Returns the currently visited document.
     *
-    * r.row → value // TODO: BUG
+    * r.row → value // TODO: BUG in the docs?
     * **Example:** Get all users whose age is greater than 5.
     * 
     *     r.table('users').filter(r.row('age').gt(5)).run(conn, callback)
@@ -1238,14 +1246,16 @@ declare module rethinkdb {
     /**
     * Wait for a table or all the tables in a database to be ready. A table may be temporarily unavailable after creation, rebalancing or reconfiguring. The `wait` command blocks until the given table (or database) is fully up to date.
     *
-    * table.wait([{waitFor: 'ready_for_writes', timeout: <sec>}]) → objectdatabase.wait([{waitFor: 'ready_for_writes', timeout: <sec>}]) → objectr.wait([{waitFor: 'ready_for_writes', timeout: <sec>}]) → object</sec></sec></sec>
+    * table.wait([{waitFor: 'ready_for_writes', timeout: <sec>}]) → object
+    * database.wait([{waitFor: 'ready_for_writes', timeout: <sec>}]) → object
+    * r.wait([{waitFor: 'ready_for_writes', timeout: <sec>}]) → object</sec></sec></sec>
     * **Example:** Wait for a table to be ready.
     * 
     *     > r.table('superheroes').wait().run(conn, callback);
     *
     * http://rethinkdb.com/api/javascript/wait
     */
-    wait(options?:{ waitFor?, timeout? }):RObjectInterface<any>;
+    wait(options?:{ waitFor?:string, timeout?:number }):RObjectInterface<any>;
     
     /**
     * Compute the logical "and" of one or more values.
@@ -1642,7 +1652,7 @@ declare module rethinkdb {
     *
     * http://rethinkdb.com/api/javascript/has_fields
     */
-    hasFields(...selectors:Array<string>):RStreamInterface<RemoteT>;
+    hasFields(...selectors:Array<string|RStringInterface>):RStreamInterface<RemoteT>;
 
     /**
     * Tests whether a geometry object is completely contained within another. When applied to a sequence of geometry objects, `includes` acts as a [filter](/api/javascript/filter), returning a sequence of objects from the sequence that include the argument.
@@ -2739,7 +2749,7 @@ declare module rethinkdb {
     */
     toGeojson():RObjectInterface<any>;
   }
-  export interface RCursorInterface<RemoteT> {
+  export interface RCursorInterface<RemoteT> extends NodeJS.EventEmitter {
     /**
     * Close a cursor. Closing a cursor cancels the corresponding query and frees the memory associated with the open request.
     *
@@ -3255,7 +3265,7 @@ declare module rethinkdb {
     host?:string; 
     readMode?, timeFormat?, profile?, durability?, groupFormat?, noreply?, db?, arrayLimit?, binaryFormat?, minBatchRows?, maxBatchRows?, maxBatchBytes?, maxBatchSeconds?, firstBatchScaledownFactor?
   }
-  export interface RRunableInterface<T> extends PromiseLike<T> {
+  export interface RRunableInterface<T> {
     run(connection:RConnectionInterface, cb:CallbackFunction<T>):void;
     run(connection:RConnectionInterface, options:RConnectionOptionsInterface, cb:CallbackFunction<T>):void;
     run(connection:RConnectionInterface, options?:RConnectionOptionsInterface):Promise<T>;
