@@ -4,17 +4,10 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module IntroJs {
-    enum Positions {
-        top,
-        left,
-        right,
-        bottom
-    }
-
     interface Step {
         intro: string;
-        element?: string|HTMLElement|Element;
-        position?: string|Positions;
+        element?: string | HTMLElement | Element;
+        position?: string;
     }
 
     interface Options {
@@ -49,7 +42,7 @@ declare module IntroJs {
 
         refresh(): IntroJs;
 
-        setOption(option: string, value: string|number|boolean): IntroJs;
+        setOption(option: string, value: string | number | boolean): IntroJs;
         setOptions(options: Options): IntroJs;
 
         onexit(callback: Function): IntroJs;

@@ -11,11 +11,11 @@ intro.setOptions({
             intro: "Hello world!"
         },
         {
-            element: document.querySelector('#step1') as HTMLElement,
+            element: document.querySelector('#step1'),
             intro  : "This is a tooltip."
         },
         {
-            element : document.querySelectorAll('#step2')[0] as HTMLElement,
+            element : document.querySelectorAll('#step2')[0],
             intro   : "Ok, wasn't that fun?",
             position: 'right'
         },
