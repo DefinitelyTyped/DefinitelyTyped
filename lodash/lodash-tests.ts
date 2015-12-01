@@ -453,13 +453,58 @@ module TestDropWhile {
 }
 
 // _.fill
-var testFillArray = [1, 2, 3];
-var testFillList: _.List<number> = {0: 1, 1: 2, 2: 3, length: 3};
+module TestFill {
+    let array: number[];
+    let list: _.List<number>;
 
-result = <string[]>_.fill<string>(testFillArray, 'a', 0, 3);
-result = <_.List<string>>_.fill<string>(testFillList, 'a', 0, 3);
-result = <number[]>_(testFillArray).fill<number>(0, 0, 3).value();
-result = <_.List<number>>_(testFillList).fill<number>(0, 0, 3).value();
+    {
+        let result: number[];
+
+        result = _.fill<number>(array, 42);
+        result = _.fill<number>(array, 42, 0);
+        result = _.fill<number>(array, 42, 0, 10);
+    }
+
+    {
+        let result: _.List<number>;
+
+        result = _.fill<number>(list, 42);
+        result = _.fill<number>(list, 42, 0);
+        result = _.fill<number>(list, 42, 0, 10);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<number>;
+
+        result = _(array).fill<number>(42);
+        result = _(array).fill<number>(42, 0);
+        result = _(array).fill<number>(42, 0, 10);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.List<number>>;
+
+        result = _(list).fill<number>(42);
+        result = _(list).fill<number>(42, 0);
+        result = _(list).fill<number>(42, 0, 10);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<number>;
+
+        result = _(array).chain().fill<number>(42);
+        result = _(array).chain().fill<number>(42, 0);
+        result = _(array).chain().fill<number>(42, 0, 10);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.List<number>>;
+
+        result = _(list).chain().fill<number>(42);
+        result = _(list).chain().fill<number>(42, 0);
+        result = _(list).chain().fill<number>(42, 0, 10);
+    }
+}
 
 // _.findIndex
 module TestFindIndex {
@@ -615,18 +660,40 @@ module TestFlattenDeep {
 
         result = _.flattenDeep<TResult>(recursiveArray);
         result = _.flattenDeep<TResult>(listOfMaybeRecursiveArraysOrValues);
-
-        result = _(recursiveArray).flattenDeep<TResult>().value();
-
-        result = _(listOfMaybeRecursiveArraysOrValues).flattenDeep<TResult>().value();
     }
 
     {
-        let result: any;
+        let result: any[];
 
         result = _.flattenDeep<TResult>(recursiveList);
+    }
 
-        result = _(recursiveList).flattenDeep().value();
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(recursiveArray).flattenDeep<TResult>();
+
+        result = _(listOfMaybeRecursiveArraysOrValues).flattenDeep<TResult>();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<any>;
+
+        result = _(recursiveList).flattenDeep();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(recursiveArray).chain().flattenDeep<TResult>();
+
+        result = _(listOfMaybeRecursiveArraysOrValues).chain().flattenDeep<TResult>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<any>;
+
+        result = _(recursiveList).chain().flattenDeep();
     }
 }
 
@@ -1164,17 +1231,86 @@ module TestSlice {
 
 // _.sortedIndex
 module TestSortedIndex {
-    result = <number>_.sortedIndex([20, 30, 50], 40);
-    result = <number>_.sortedIndex([{ 'x': 20 }, { 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
-    var sortedIndexDict: { wordToNumber: { [idx: string]: number } } = {
-        'wordToNumber': { 'twenty': 20, 'thirty': 30, 'fourty': 40, 'fifty': 50 }
-    };
-    result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word: string) {
-        return sortedIndexDict.wordToNumber[word];
-    });
-    result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word: string) {
-        return this.wordToNumber[word];
-    }, sortedIndexDict);
+    type SampleType = {a: number; b: string; c: boolean;};
+
+    let array: SampleType[];
+    let list: _.List<SampleType>;
+
+    let value: SampleType;
+
+    let stringIterator: (x: string) => number;
+    let arrayIterator: (x: SampleType) => number;
+    let listIterator: (x: SampleType) => number;
+
+    {
+        let result: number;
+
+        result = _.sortedIndex<string>('', '');
+        result = _.sortedIndex<string>('', '', stringIterator);
+        result = _.sortedIndex<string>('', '', stringIterator, any);
+        result = _.sortedIndex<string, number>('', '', stringIterator);
+        result = _.sortedIndex<string, number>('', '', stringIterator, any);
+
+        result = _.sortedIndex<SampleType>(array, value);
+        result = _.sortedIndex<SampleType>(array, value, arrayIterator);
+        result = _.sortedIndex<SampleType>(array, value, arrayIterator, any);
+        result = _.sortedIndex<SampleType>(array, value, '');
+        result = _.sortedIndex<SampleType>(array, value, {a: 42});
+        result = _.sortedIndex<SampleType, number>(array, value, arrayIterator);
+        result = _.sortedIndex<SampleType, number>(array, value, arrayIterator, any);
+        result = _.sortedIndex<{a: number}, SampleType>(array, value, {a: 42});
+
+        result = _.sortedIndex<SampleType>(list, value);
+        result = _.sortedIndex<SampleType>(list, value, listIterator);
+        result = _.sortedIndex<SampleType>(list, value, listIterator, any);
+        result = _.sortedIndex<SampleType>(list, value, '');
+        result = _.sortedIndex<SampleType>(list, value, {a: 42});
+        result = _.sortedIndex<SampleType, number>(list, value, listIterator);
+        result = _.sortedIndex<SampleType, number>(list, value, listIterator, any);
+        result = _.sortedIndex<{a: number}, SampleType>(list, value, {a: 42});
+
+        result = _('').sortedIndex('');
+        result = _('').sortedIndex<number>('', stringIterator);
+        result = _('').sortedIndex<number>('', stringIterator, any);
+
+        result = _(array).sortedIndex(value);
+        result = _(array).sortedIndex<number>(value, arrayIterator);
+        result = _(array).sortedIndex<number>(value, arrayIterator, any);
+        result = _(array).sortedIndex(value, '');
+        result = _(array).sortedIndex<{a: number}>(value, {a: 42});
+
+        result = _(list).sortedIndex<SampleType>(value);
+        result = _(list).sortedIndex<SampleType>(value, listIterator);
+        result = _(list).sortedIndex<SampleType>(value, listIterator, any);
+        result = _(list).sortedIndex<SampleType>(value, '');
+        result = _(list).sortedIndex<SampleType>(value, {a: 42});
+        result = _(list).sortedIndex<SampleType, number>(value, listIterator);
+        result = _(list).sortedIndex<SampleType, number>(value, listIterator, any);
+        result = _(list).sortedIndex<{a: number}, SampleType>(value, {a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _('').chain().sortedIndex('');
+        result = _('').chain().sortedIndex<number>('', stringIterator);
+        result = _('').chain().sortedIndex<number>('', stringIterator, any);
+
+        result = _(array).chain().sortedIndex(value);
+        result = _(array).chain().sortedIndex<number>(value, arrayIterator);
+        result = _(array).chain().sortedIndex<number>(value, arrayIterator, any);
+        result = _(array).chain().sortedIndex(value, '');
+        result = _(array).chain().sortedIndex<{a: number}>(value, {a: 42});
+
+        result = _(list).chain().sortedIndex<SampleType>(value);
+        result = _(list).chain().sortedIndex<SampleType>(value, listIterator);
+        result = _(list).chain().sortedIndex<SampleType>(value, listIterator, any);
+        result = _(list).chain().sortedIndex<SampleType>(value, '');
+        result = _(list).chain().sortedIndex<SampleType>(value, {a: 42});
+        result = _(list).chain().sortedIndex<SampleType, number>(value, listIterator);
+        result = _(list).chain().sortedIndex<SampleType, number>(value, listIterator, any);
+        result = _(list).chain().sortedIndex<{a: number}, SampleType>(value, {a: 42});
+    }
 }
 
 // _.sortedLastIndex
@@ -3396,21 +3532,154 @@ module TestForEachRight {
     }
 }
 
-result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function (num) { return Math.floor(num); });
-result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function (num) { return this.floor(num); }, Math);
-result = <_.Dictionary<string[]>>_.groupBy(['one', 'two', 'three'], 'length');
+// _.groupBy
+module TestGroupBy {
+    type SampleType = {a: number; b: string; c: boolean;};
 
-result = <_.Dictionary<number[]>>_.groupBy({ prop1: 4.2, prop2: 6.1, prop3: 6.4}, function (num) { return Math.floor(num); });
-result = <_.Dictionary<number[]>>_.groupBy({ prop1: 4.2, prop2: 6.1, prop3: 6.4}, function (num) { return this.floor(num); }, Math);
-result = <_.Dictionary<string[]>>_.groupBy({ prop1: 'one', prop2: 'two', prop3: 'three'}, 'length');
+    let array: SampleType[];
+    let list: _.List<SampleType>;
+    let dictionary: _.Dictionary<SampleType>;
 
-result = <_.Dictionary<number[]>>_([4.2, 6.1, 6.4]).groupBy(function (num) { return Math.floor(num); }).value();
-result = <_.Dictionary<number[]>>_([4.2, 6.1, 6.4]).groupBy(function (num) { return this.floor(num); }, Math).value();
-result = <_.Dictionary<string[]>>_(['one', 'two', 'three']).groupBy('length').value();
+    let stringIterator: (char: string, index: number, string: string) => number;
+    let listIterator: (value: SampleType, index: number, collection: _.List<SampleType>) => number;
+    let dictionaryIterator: (value: SampleType, key: string, collection: _.Dictionary<SampleType>) => number;
 
-result = <_.Dictionary<number[]>>_({ prop1: 4.2, prop2: 6.1, prop3: 6.4}).groupBy<number>(function (num) { return Math.floor(num); }).value();
-result = <_.Dictionary<number[]>>_({ prop1: 4.2, prop2: 6.1, prop3: 6.4}).groupBy<number>(function (num) { return this.floor(num); }, Math).value();
-result = <_.Dictionary<string[]>>_({ prop1: 'one', prop2: 'two', prop3: 'three'}).groupBy<string>('length').value();
+    {
+        let result: _.Dictionary<string[]>;
+
+        result = _.groupBy<string>('');
+        result = _.groupBy<string>('', stringIterator);
+        result = _.groupBy<string>('', stringIterator, any);
+        result = _.groupBy<string, number>('', stringIterator);
+        result = _.groupBy<string, number>('', stringIterator, any);
+    }
+
+    {
+        let result: _.Dictionary<SampleType[]>;
+
+        result = _.groupBy<SampleType>(array);
+        result = _.groupBy<SampleType>(array, listIterator);
+        result = _.groupBy<SampleType>(array, listIterator, any);
+        result = _.groupBy<SampleType>(array, '');
+        result = _.groupBy<SampleType>(array, '', any);
+        result = _.groupBy<SampleType>(array, {a: 42});
+
+        result = _.groupBy<SampleType, number>(array, listIterator);
+        result = _.groupBy<SampleType, number>(array, listIterator, any);
+        result = _.groupBy<SampleType, boolean>(array, '', true);
+        result = _.groupBy<{a: number}, SampleType>(array, {a: 42});
+
+        result = _.groupBy<SampleType>(list);
+        result = _.groupBy<SampleType>(list, listIterator);
+        result = _.groupBy<SampleType>(list, listIterator, any);
+        result = _.groupBy<SampleType>(list, '');
+        result = _.groupBy<SampleType>(list, '', any);
+        result = _.groupBy<SampleType>(list, {a: 42});
+
+        result = _.groupBy<SampleType, number>(list, listIterator);
+        result = _.groupBy<SampleType, number>(list, listIterator, any);
+        result = _.groupBy<SampleType, boolean>(list, '', true);
+        result = _.groupBy<{a: number}, SampleType>(list, {a: 42});
+
+        result = _.groupBy<SampleType>(dictionary);
+        result = _.groupBy<SampleType>(dictionary, dictionaryIterator);
+        result = _.groupBy<SampleType>(dictionary, dictionaryIterator, any);
+        result = _.groupBy<SampleType>(dictionary, '');
+        result = _.groupBy<SampleType>(dictionary, '', any);
+        result = _.groupBy<SampleType>(dictionary, {a: 42});
+
+        result = _.groupBy<SampleType, number>(dictionary, dictionaryIterator);
+        result = _.groupBy<SampleType, number>(dictionary, dictionaryIterator, any);
+        result = _.groupBy<SampleType, boolean>(dictionary, '', true);
+        result = _.groupBy<{a: number}, SampleType>(dictionary, {a: 42});
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<string[]>>;
+
+        result = _('').groupBy();
+        result = _('').groupBy<number>(stringIterator);
+        result = _('').groupBy<number>(stringIterator, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<SampleType[]>>;
+
+        result = _(array).groupBy();
+        result = _(array).groupBy<number>(listIterator);
+        result = _(array).groupBy<number>(listIterator, any);
+        result = _(array).groupBy('');
+        result = _(array).groupBy<boolean>('', true);
+        result = _(array).groupBy<{a: number}>({a: 42});
+
+        result = _(list).groupBy<SampleType>();
+        result = _(list).groupBy<SampleType>(listIterator);
+        result = _(list).groupBy<SampleType>(listIterator, any);
+        result = _(list).groupBy<SampleType>('');
+        result = _(list).groupBy<SampleType>('', any);
+        result = _(list).groupBy<SampleType>({a: 42});
+
+        result = _(list).groupBy<SampleType, number>(listIterator);
+        result = _(list).groupBy<SampleType, number>(listIterator, any);
+        result = _(list).groupBy<SampleType, boolean>('', true);
+        result = _(list).groupBy<{a: number}, SampleType>({a: 42});
+
+        result = _(dictionary).groupBy<SampleType>();
+        result = _(dictionary).groupBy<SampleType>(dictionaryIterator);
+        result = _(dictionary).groupBy<SampleType>(dictionaryIterator, any);
+        result = _(dictionary).groupBy<SampleType>('');
+        result = _(dictionary).groupBy<SampleType>('', any);
+        result = _(dictionary).groupBy<SampleType>({a: 42});
+
+        result = _(dictionary).groupBy<SampleType, number>(dictionaryIterator);
+        result = _(dictionary).groupBy<SampleType, number>(dictionaryIterator, any);
+        result = _(dictionary).groupBy<SampleType, boolean>('', true);
+        result = _(dictionary).groupBy<{a: number}, SampleType>({a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<string[]>>;
+
+        result = _('').chain().groupBy();
+        result = _('').chain().groupBy<number>(stringIterator);
+        result = _('').chain().groupBy<number>(stringIterator, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<SampleType[]>>;
+
+        result = _(array).chain().groupBy();
+        result = _(array).chain().groupBy<number>(listIterator);
+        result = _(array).chain().groupBy<number>(listIterator, any);
+        result = _(array).chain().groupBy('');
+        result = _(array).chain().groupBy<boolean>('', true);
+        result = _(array).chain().groupBy<{a: number}>({a: 42});
+
+        result = _(list).chain().groupBy<SampleType>();
+        result = _(list).chain().groupBy<SampleType>(listIterator);
+        result = _(list).chain().groupBy<SampleType>(listIterator, any);
+        result = _(list).chain().groupBy<SampleType>('');
+        result = _(list).chain().groupBy<SampleType>('', any);
+        result = _(list).chain().groupBy<SampleType>({a: 42});
+
+        result = _(list).chain().groupBy<SampleType, number>(listIterator);
+        result = _(list).chain().groupBy<SampleType, number>(listIterator, any);
+        result = _(list).chain().groupBy<SampleType, boolean>('', true);
+        result = _(list).chain().groupBy<{a: number}, SampleType>({a: 42});
+
+        result = _(dictionary).chain().groupBy<SampleType>();
+        result = _(dictionary).chain().groupBy<SampleType>(dictionaryIterator);
+        result = _(dictionary).chain().groupBy<SampleType>(dictionaryIterator, any);
+        result = _(dictionary).chain().groupBy<SampleType>('');
+        result = _(dictionary).chain().groupBy<SampleType>('', any);
+        result = _(dictionary).chain().groupBy<SampleType>({a: 42});
+
+        result = _(dictionary).chain().groupBy<SampleType, number>(dictionaryIterator);
+        result = _(dictionary).chain().groupBy<SampleType, number>(dictionaryIterator, any);
+        result = _(dictionary).chain().groupBy<SampleType, boolean>('', true);
+        result = _(dictionary).chain().groupBy<{a: number}, SampleType>({a: 42});
+    }
+}
 
 // _.include
 module TestInclude {
@@ -4487,11 +4756,39 @@ source.addEventListener('message', <_.LoDashImplicitObjectWrapper<Function>>_(fu
     'maxWait': 1000
 }), false);
 
-var returnedDebounce = _.throttle(function (a: any) { return a * 5; }, 5);
-returnedThrottled(4);
+// _.defer
+module TestDefer {
+    type SampleFunc = (a: number, b: string) => boolean;
 
-result = <number>_.defer(function () { console.log('deferred'); });
-result = <_.LoDashImplicitWrapper<number>>_(function () { console.log('deferred'); }).defer();
+    let func: SampleFunc;
+
+    {
+        let result: number;
+
+        result = _.defer<SampleFunc>(func);
+        result = _.defer<SampleFunc>(func, any);
+        result = _.defer<SampleFunc>(func, any, any);
+        result = _.defer<SampleFunc>(func, any, any, any);
+    }
+
+    {
+        let result: _.LoDashImplicitWrapper<number>;
+
+        result = _(func).defer();
+        result = _(func).defer(any);
+        result = _(func).defer(any, any);
+        result = _(func).defer(any, any, any);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(func).chain().defer();
+        result = _(func).chain().defer(any);
+        result = _(func).chain().defer(any, any);
+        result = _(func).chain().defer(any, any, any);
+    }
+}
 
 // _.delay
 module TestDelay {
@@ -4572,9 +4869,6 @@ result = <TestMemoizedResultFn>_.memoize<TestMemoizedResultFn>(testMemoizeFn);
 result = <TestMemoizedResultFn>_.memoize<TestMemoizedResultFn>(testMemoizeFn, testMemoizeResolverFn);
 result = <TestMemoizedResultFn>(_(testMemoizeFn).memoize<TestMemoizedResultFn>().value());
 result = <TestMemoizedResultFn>(_(testMemoizeFn).memoize<TestMemoizedResultFn>(testMemoizeResolverFn).value());
-
-var returnedMemoize = _.throttle(function (a: any) { return a * 5; }, 5);
-returnedMemoize(4);
 
 // _.modArgs
 module TestModArgs {
@@ -4670,9 +4964,6 @@ module TestOnce {
     }
 }
 
-var returnedOnce = _.throttle(function (a: any) { return a * 5; }, 5);
-returnedOnce(4);
-
 var greetPartial = function (greeting: string, name: string) { return greeting + ' ' + name; };
 var hi = _.partial(greetPartial, 'hi');
 hi('moe');
@@ -4737,15 +5028,49 @@ interface TestSpreadResultFn {
 result = <string>(_.spread<TestSpreadResultFn>(testSpreadFn))(['fred', 'hello']);
 result = <string>(_(testSpreadFn).spread<TestSpreadResultFn>().value())(['fred', 'hello']);
 
-var throttled = _.throttle(function () { }, 100);
-jQuery(window).on('scroll', throttled);
+// _.throttle
+module TestThrottle {
+    interface SampleFunc {
+        (n: number, s: string): boolean;
+    }
 
-jQuery('.interactive').on('click', _.throttle(function () { }, 300000, {
-    'trailing': false
-}));
+    interface Options {
+        leading?: boolean;
+        trailing?: boolean;
+    }
 
-var returnedThrottled = _.throttle(function (a: any) { return a * 5; }, 5);
-returnedThrottled(4);
+    interface ResultFunc {
+        (n: number, s: string): boolean;
+        cancel(): void;
+    }
+
+    let func: SampleFunc;
+    let options: Options;
+
+    {
+        let result: ResultFunc;
+
+        result = _.throttle<SampleFunc>(func);
+        result = _.throttle<SampleFunc>(func, 42);
+        result = _.throttle<SampleFunc>(func, 42, options);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<ResultFunc>;
+
+        result = _(func).throttle();
+        result = _(func).throttle(42);
+        result = _(func).throttle(42, options);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<ResultFunc>;
+
+        result = _(func).chain().throttle();
+        result = _(func).chain().throttle(42);
+        result = _(func).chain().throttle(42, options);
+    }
+}
 
 var helloWrap = function (name: string) { return 'hello ' + name; };
 var helloWrap2 = _.wrap(helloWrap, function (func) {
@@ -5092,10 +5417,25 @@ result = <boolean>_(Array.prototype.push).isNative();
 }
 
 // _.isNull
-result = <boolean>_.isNull(any);
-result = <boolean>_(1).isNull();
-result = <boolean>_<any>([]).isNull();
-result = <boolean>_({}).isNull();
+module TestIsNull {
+    {
+        let result: boolean;
+
+        result = _.isNull(any);
+
+        result = _(1).isNull();
+        result = _<any>([]).isNull();
+        result = _({}).isNull();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isNull();
+        result = _<any>([]).chain().isNull();
+        result = _({}).chain().isNull();
+    }
+}
 
 // _.isNumber
 result = <boolean>_.isNumber(any);
@@ -6117,10 +6457,9 @@ module TestFindKey {
 
 // _.findLastKey
 module TestFindLastKey {
-    let result: string;
-
     {
         let predicateFn: (value: any, key?: string, object?: {}) => boolean;
+        let result: string;
 
         result = _.findLastKey<{a: string;}>({a: ''});
 
@@ -6147,12 +6486,37 @@ module TestFindLastKey {
 
     {
         let predicateFn: (value: string, key?: string, collection?: _.Dictionary<string>) => boolean;
+        let result: string;
 
         result = _.findLastKey<string, {a: string;}>({a: ''}, predicateFn);
         result = _.findLastKey<string, {a: string;}>({a: ''}, predicateFn, any);
 
         result = _<{a: string;}>({a: ''}).findLastKey<string>(predicateFn);
         result = _<{a: string;}>({a: ''}).findLastKey<string>(predicateFn, any);
+    }
+
+    {
+        let predicateFn: (value: any, key?: string, object?: {}) => boolean;
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _<{a: string;}>({a: ''}).chain().findLastKey();
+
+        result = _<{a: string;}>({a: ''}).chain().findLastKey(predicateFn);
+        result = _<{a: string;}>({a: ''}).chain().findLastKey(predicateFn, any);
+
+
+        result = _<{a: string;}>({a: ''}).chain().findLastKey('');
+        result = _<{a: string;}>({a: ''}).chain().findLastKey('', any);
+
+        result = _<{a: string;}>({a: ''}).chain().findLastKey<{a: number;}>({a: 42});
+    }
+
+    {
+        let predicateFn: (value: string, key?: string, collection?: _.Dictionary<string>) => boolean;
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _<{a: string;}>({a: ''}).chain().findLastKey<string>(predicateFn);
+        result = _<{a: string;}>({a: ''}).chain().findLastKey<string>(predicateFn, any);
     }
 }
 
@@ -6399,12 +6763,30 @@ module TestHas {
 }
 
 // _.invert
-{
-    let result: TResult;
-    result = _.invert<Object, TResult>({});
-    result = _.invert<Object, TResult>({}, true);
-    result = _({}).invert<TResult>().value();
-    result = _({}).invert<TResult>(true).value();
+module TestInvert {
+    {
+        let result: TResult;
+
+        result = _.invert<Object, TResult>({});
+        result = _.invert<Object, TResult>({}, true);
+
+        result = _.invert<TResult>({});
+        result = _.invert<TResult>({}, true);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<TResult>;
+
+        result = _({}).invert<TResult>();
+        result = _({}).invert<TResult>(true);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<TResult>;
+
+        result = _({}).chain().invert<TResult>();
+        result = _({}).chain().invert<TResult>(true);
+    }
 }
 
 // _.keys
