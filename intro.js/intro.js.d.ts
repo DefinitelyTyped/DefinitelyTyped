@@ -14,7 +14,7 @@ declare module IntroJs {
     interface Step {
         intro: string;
         element?: string|HTMLElement;
-        position?: Positions;
+        position?: string|Positions;
     }
 
     interface Options {
