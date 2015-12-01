@@ -1063,29 +1063,5 @@ declare module google {
         }
 
         //#endregion
-        //#region Formats
-        export class DateFormat {
-            constructor(options?: Object);
-            public format(dataTable: google.visualization.DataTable, columnIndex: number): string;
-            public formatValue(value: any): string;
-        }
-
-        export class NumberFormat {
-            constructor(options?: INumberFormatOptions);
-            public format(dataTable: google.visualization.DataTable, columnIndex: number): string;
-            public formatValue(value: any): string;
-        }
-
-        export interface INumberFormatOptions {
-            decimalSymbol?: string;
-            fractionDigits?: number;
-            groupingSymbol?: string;
-            negativeColor?: string;
-            negativeParens?: boolean;
-            pattern?: string;
-            prefix?: string;
-            suffix?: string;
-        }
-        //#endregion
     }
 }
