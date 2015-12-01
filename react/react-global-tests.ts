@@ -206,7 +206,7 @@ var divStyle: React.CSSProperties = { // CSSProperties
     flex: "1 1 main-size",
     backgroundImage: "url('hello.png')"
 };
-var htmlAttr: React.HTMLProps = {
+var htmlAttr: React.HTMLProps<any> = {
     key: 36,
     ref: "htmlComponent",
     children: children,
