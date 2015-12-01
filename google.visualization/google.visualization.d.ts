@@ -1,6 +1,6 @@
 // Type definitions for Google Visualisation Apis
 // Project: https://developers.google.com/chart/
-// Definitions by: Dan Ludwig <https://github.com/danludwig> and Michael James <https://github.com/mjjames> 
+// Definitions by: Dan Ludwig <https://github.com/danludwig>, Michael James <https://github.com/mjjames> 
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module google {
