@@ -4,7 +4,7 @@ import Promise = require('tspromise');
 
 var MyFuncFunc = Promise.async((a: boolean, b: number) => {
 	console.log('[a] ' + a);
-	yield(Promise.waitAsync(1000));
+	// NOTE( https://github.com/borisyankov/DefinitelyTyped/pull/5590 ) yield(Promise.waitAsync(1000));
 	console.log('[b]' + b);
 });
 

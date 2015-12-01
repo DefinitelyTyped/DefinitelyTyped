@@ -24,7 +24,7 @@ ipc.send('asynchronous-message', 'ping');
 
 var BrowserWindow: typeof GitHubElectron.BrowserWindow = remote.require('browser-window');
 var win = new BrowserWindow({ width: 800, height: 600 });
-win.loadUrl('https://github.com');
+win.loadURL('https://github.com');
 
 remote.getCurrentWindow().on('close', () => {
 	// blabla...
@@ -66,7 +66,7 @@ console.log(Clipboard.readText('selection'));
 CrashReporter.start({
 	productName: 'YourName',
 	companyName: 'YourCompany',
-	submitUrl: 'https://your-domain.com/url-to-submit',
+	submitURL: 'https://your-domain.com/url-to-submit',
 	autoSubmit: true
 });
 

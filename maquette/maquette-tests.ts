@@ -51,6 +51,8 @@ var result = cache.result([1], calculate);
 
 // h
 
+h("div",{onclick: (ev:MouseEvent) => true})
+
 var vnode = h("div", [
   "text",
   null,
@@ -64,20 +66,28 @@ var vnode = h("div", [
 
 // mapping
 
-var createTarget = function(source:any) {
+interface Target {
+  source: number;
+  updateCount: number;
+  alreadyPresent: boolean;
+}
+
+var createTarget = function(source:number): Target {
   return {
     source: source,
-    updateCount: 0
+    updateCount: 0,
+    alreadyPresent: false
   };
 };
 
-var updateTarget = function(source: any, target:any) {
+var updateTarget = function(source: number, target:Target) {
+  target.updateCount++;
 };
 
 var permutations = [[1,2], [2,1]];
 for (var i=0;i<permutations.length;i++) {
   for (var j=0;j<permutations.length;j++) {
-    var mapping = maquette.createMapping(function(key){return key;}, createTarget, updateTarget);
+    var mapping = maquette.createMapping(function(source){return source;}, createTarget, updateTarget);
     mapping.map(permutations[i]);
     mapping.results.forEach(function(target) {target.alreadyPresent = true;});
     mapping.map(permutations[j]);

@@ -28,7 +28,8 @@ declare module angular.material {
 
     interface IPresetDialog<T> {
         title(title: string): T;
-        content(content: string): T;
+        textContent(textContent: string): T;
+        htmlContent(htmlContent: string): T;
         ok(ok: string): T;
         theme(theme: string): T;
         templateUrl(templateUrl?: string): T;
@@ -122,6 +123,7 @@ declare module angular.material {
         theme(theme: string): T;
         hideDelay(delay: number): T;
         position(position: string): T;
+        parent(parent?: string|Element|JQuery): T; // default: root node
     }
 
     interface ISimpleToastPreset extends IToastPreset<ISimpleToastPreset> {
@@ -144,7 +146,7 @@ declare module angular.material {
 
     interface IToastService {
         show(optionsOrPreset: IToastOptions|IToastPreset<any>): angular.IPromise<any>;
-        showSimple(): angular.IPromise<any>;
+        showSimple(content: string): angular.IPromise<any>;
         simple(): ISimpleToastPreset;
         build(): IToastPreset<any>;
         updateContent(): void;
@@ -219,5 +221,20 @@ declare module angular.material {
         extendPalette(name: string, palette: IPalette): IPalette;
         setDefaultTheme(theme: string): void;
         alwaysWatchTheme(alwaysWatch: boolean): void;
+    }
+    
+    interface IDateLocaleProvider {
+        months: string[];
+        shortMonths: string[];
+        days: string[];
+        shortDays: string[];
+        dates: string[];
+        firstDayOfWeek: number;
+        parseDate(dateString: string): Date;
+        formatDate(date: Date): string;
+        monthHeaderFormatter(date: Date): string;
+        weekNumberFormatter(weekNumber: number): string;
+        msgCalendar: string;
+        msgOpenCalendar: string;
     }
 }

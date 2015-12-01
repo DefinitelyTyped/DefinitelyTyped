@@ -35,6 +35,21 @@ app.on('window-all-closed', () => {
 		app.quit();
 });
 
+// Check single instance app
+var shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) {
+  // Someone tried to run a second instance, we should focus our window
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+  }
+  return true;
+});
+
+if (shouldQuit) {
+  app.quit();
+  process.exit(0);
+}
+
 // This method will be called when Electron has done everything
 // initialization and ready for creating browser windows.
 app.on('ready', () => {
@@ -42,8 +57,17 @@ app.on('ready', () => {
 	mainWindow = new BrowserWindow({ width: 800, height: 600 });
 
 	// and load the index.html of the app.
-	mainWindow.loadUrl(`file://${__dirname}/index.html`);
+	mainWindow.loadURL(`file://${__dirname}/index.html`);
+	mainWindow.loadURL('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
+	mainWindow.webContents.loadURL('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
 
+	mainWindow.webContents.openDevTools();
+	mainWindow.webContents.toggleDevTools();
+	mainWindow.webContents.openDevTools({detach: true});
+	mainWindow.webContents.closeDevTools();
+	mainWindow.webContents.addWorkSpace('/path/to/workspace');
+	mainWindow.webContents.removeWorkSpace('/path/to/workspace');
+	var opened: boolean = mainWindow.webContents.isDevToolsOpened()
 	// Emitted when the window is closed.
 	mainWindow.on('closed', () => {
 		// Dereference the window object, usually you would store windows
@@ -51,6 +75,35 @@ app.on('ready', () => {
 		// when you should delete the corresponding element.
 		mainWindow = null;
 	});
+
+	mainWindow.print({silent: true, printBackground: false});
+	mainWindow.webContents.print({silent: true, printBackground: false});
+	mainWindow.print();
+	mainWindow.webContents.print();
+
+	mainWindow.print({silent: true, printBackground: false});
+	mainWindow.webContents.print({silent: true, printBackground: false});
+	mainWindow.print();
+	mainWindow.webContents.print();
+
+	mainWindow.printToPDF({
+		marginsType: 1,
+		pageSize: 'A3',
+		printBackground: true,
+		printSelectionOnly: true,
+		landscape: true,
+	}, (error: Error, data: Buffer) => {});
+
+	mainWindow.webContents.printToPDF({
+		marginsType: 1,
+		pageSize: 'A3',
+		printBackground: true,
+		printSelectionOnly: true,
+		landscape: true,
+	}, (error: Error, data: Buffer) => {});
+
+	mainWindow.printToPDF({}, (err, data) => {});
+	mainWindow.webContents.printToPDF({}, (err, data) => {});
 });
 
 // Desktop environment integration
@@ -100,7 +153,7 @@ var onlineStatusWindow: GitHubElectron.BrowserWindow;
 
 app.on('ready', () => {
 	onlineStatusWindow = new BrowserWindow({ width: 0, height: 0, show: false });
-	onlineStatusWindow.loadUrl(`file://${__dirname}/online-status.html`);
+	onlineStatusWindow.loadURL(`file://${__dirname}/online-status.html`);
 });
 
 ipc.on('online-status-changed', (event: any, status: any) => {
@@ -111,8 +164,12 @@ ipc.on('online-status-changed', (event: any, status: any) => {
 // https://github.com/atom/electron/blob/master/docs/api/synopsis.md
 
 app.on('ready', () => {
-	window = new BrowserWindow({ width: 800, height: 600 });
-	window.loadUrl('https://github.com');
+	window = new BrowserWindow({
+		width: 800,
+		height: 600, 
+		'title-bar-style': 'hidden-inset',
+	});
+	window.loadURL('https://github.com');
 });
 
 // Supported Chrome command line switches
@@ -126,7 +183,7 @@ app.commandLine.appendSwitch('vmodule', 'console=0');
 // auto-updater
 // https://github.com/atom/electron/blob/master/docs/api/auto-updater.md
 
-AutoUpdater.setFeedUrl('http://mycompany.com/myapp/latest?version=' + app.getVersion());
+AutoUpdater.setFeedURL('http://mycompany.com/myapp/latest?version=' + app.getVersion());
 
 // browser-window
 // https://github.com/atom/electron/blob/master/docs/api/browser-window.md
@@ -136,7 +193,7 @@ win.on('closed', () => {
 	win = null;
 });
 
-win.loadUrl('https://github.com');
+win.loadURL('https://github.com');
 win.show();
 
 // content-tracing
@@ -291,7 +348,7 @@ var template = [
 			{
 				label: 'Toggle DevTools',
 				accelerator: 'Alt+Command+I',
-				click: () => { BrowserWindow.getFocusedWindow().toggleDevTools(); }
+				click: () => { BrowserWindow.getFocusedWindow().webContents.toggleDevTools(); }
 			}
 		]
 	},
@@ -377,6 +434,7 @@ app.on('ready', () => {
 	]);
 	appIcon.setToolTip('This is my application.');
 	appIcon.setContextMenu(contextMenu);
+	appIcon.setImage('/path/to/new/icon');
 });
 
 // clipboard
@@ -392,7 +450,7 @@ console.log(Clipboard.readText('selection'));
 CrashReporter.start({
 	productName: 'YourName',
 	companyName: 'YourCompany',
-	submitUrl: 'https://your-domain.com/url-to-submit',
+	submitURL: 'https://your-domain.com/url-to-submit',
 	autoSubmit: true
 });
 
