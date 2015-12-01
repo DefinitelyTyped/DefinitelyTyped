@@ -49,8 +49,8 @@ interface JWPlayer {
 	onResize(callback: () => void): void;
 	onQualityChange(callback: () => void): void;
 	onQualityLevels(callback: () => void): void;
-	onSeek(callback: () => void): void;
-	onTime(callback: () => void): void;
+	onSeek(callback: (event: JWSeekEvent) => void): JWPlayer;
+    onTime(callback: (event: JWTimeEvent) => void): JWPlayer;
 	onVolume(callback: () => void): void;
 	pause(): void;
 	play(): void;
@@ -71,6 +71,16 @@ interface JWPlayer {
 
 interface JWPlayerStatic {
 	(id: string): JWPlayer;
+}
+
+interface JWTimeEvent {
+    duration: number;
+    position: number;
+}
+
+interface JWSeekEvent {
+    position: number;
+    offset: number;
 }
 
 declare var jwplayer:JWPlayerStatic;
