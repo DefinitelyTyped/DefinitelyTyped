@@ -4,7 +4,8 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module EventEmitter3 {
-    export class EventEmitter {
+    // __Base is hack for https://github.com/Microsoft/TypeScript/issues/3602
+    class __Base {
         /**
          * Minimal EventEmitter interface that is molded against the Node.js
          * EventEmitter interface.
@@ -13,7 +14,7 @@ declare module EventEmitter3 {
          * @api public
          */
         constructor();
-        
+
         /**
          * Return a list of assigned event listeners.
          *
@@ -22,7 +23,7 @@ declare module EventEmitter3 {
          * @api public
          */
         listeners(event: string): Function[];
-        
+
         /**
          * Emit an event to all registered event listeners.
          *
@@ -31,7 +32,7 @@ declare module EventEmitter3 {
          * @api public
          */
         emit(event: string, ...args: any[]): boolean;
-        
+
         /**
          * Register a new EventListener for the given event.
          *
@@ -41,7 +42,7 @@ declare module EventEmitter3 {
          * @api public
          */
         on(event: string, fn: Function, context?: any): EventEmitter;
-        
+
         /**
          * Add an EventListener that's only called once.
          *
@@ -51,7 +52,7 @@ declare module EventEmitter3 {
          * @api public
          */
         once(event: string, fn: Function, context?: any): EventEmitter;
-        
+
         /**
          * Remove event listeners.
          *
@@ -61,7 +62,7 @@ declare module EventEmitter3 {
          * @api public
          */
         removeListener(event: string, fn: Function, once?: boolean): EventEmitter;
-        
+
         /**
          * Remove all listeners or only the listeners for the specified event.
          *
@@ -69,25 +70,26 @@ declare module EventEmitter3 {
          * @api public
          */
         removeAllListeners(event: string): EventEmitter;
-        
+
         //
         // Alias methods names because people roll like that.
         //
         off(event: string, fn: Function, once?: boolean): EventEmitter;
         addListener(event: string, fn: Function, context?: any): EventEmitter;
-        
+
         //
         // This function doesn't apply anymore.
         //
         setMaxListeners(): EventEmitter;
     }
+    export class EventEmitter extends __Base { }
     export module EventEmitter {
         //
         // Expose the module.
         //
-        export class EventEmitter extends EventEmitter3.EventEmitter {}
-        export class EventEmitter2 extends EventEmitter3.EventEmitter {}
-        export class EventEmitter3 extends EventEmitter3.EventEmitter {}
+        export class EventEmitter extends __Base {}
+        export class EventEmitter2 extends __Base {}
+        export class EventEmitter3 extends __Base {}
     }
 }
 

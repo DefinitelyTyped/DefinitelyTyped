@@ -173,7 +173,7 @@ interface ResourceResponse {
 interface ResourceRequest {
 	id: number;
 	method: string;
-	ur: string;
+	url: string;
 	time: Date;
 	headers: { [name: string]: string; };
 }
@@ -301,4 +301,8 @@ interface Cookie {
 	name: string;
 	value: string;
 	domain?: string;
+}
+
+declare module "webpage" {
+	export function create(): WebPage;
 }

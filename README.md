@@ -1,5 +1,7 @@
 # DefinitelyTyped [![Build Status](https://travis-ci.org/borisyankov/DefinitelyTyped.png?branch=master)](https://travis-ci.org/borisyankov/DefinitelyTyped)
 
+[![Join the chat at https://gitter.im/borisyankov/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/borisyankov/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 > The repository for *high quality* TypeScript type definitions.
 
 For more information see the [definitelytyped.org](http://definitelytyped.org) website.
@@ -14,7 +16,7 @@ Include a line like this:
 
 ## Contributions
 
-DefinitelyTyped only works because of contributions by users like you! 
+DefinitelyTyped only works because of contributions by users like you!
 
 Please see the [contribution guide](http://definitelytyped.org/guides/contributing.html) on how to contribute to DefinitelyTyped.
 
@@ -32,7 +34,7 @@ Please see the [contribution guide](http://definitelytyped.org/guides/contributi
 
 Here is are the [currently requested definitions](https://github.com/borisyankov/DefinitelyTyped/labels/Definition%3ARequest).
 
-## Licence
+## License
 
 This project is licensed under the MIT license.
 
