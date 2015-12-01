@@ -3,7 +3,7 @@
 // Definitions by: Joe Skeen <http://github.com/joeskeen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function WordCloud(elements: HTMLElement | HTMLElement[], options: WordCloud.Options);
+declare function WordCloud(elements: HTMLElement | HTMLElement[], options: WordCloud.Options): void;
 
 declare namespace WordCloud {
 	var isSupported: boolean;
@@ -14,7 +14,7 @@ declare namespace WordCloud {
 		 * List of words/text to paint on the canvas in a 2-d array, in the form of [word, size], 
 		 * e.g. [['foo', 12] , ['bar', 6]]. 
 		 */
-		list?: Array<[string, number]> | any[];
+		list?: Array<ListEntry> | any[];
 		/** font to use. */
 		fontFamily?: string;
 		/** font weight to use, e.g. normal, bold or 600 */
@@ -84,12 +84,22 @@ declare namespace WordCloud {
 		 * arugments callback(item, dimension, event), where event is the original mousemove event. This only will work
 		 * on HTML5 canvas word clouds. 
 		 */
-		hover?;
+		hover?: EventCallback;
 		/** 
 		 * callback to call when the user clicks on a word. The callback will take arugments 
 		 * callback(item, dimension,  event), where event is the original click event. This only will work on HTML5
 		 * canvas word clouds. 
 		 */
-		click?;
+		click?: EventCallback;
 	}
+	
+	interface Dimension {
+		x: number;
+		y: number;
+		w: number;
+		h: number;
+	}
+	
+	type ListEntry = [string, number];
+	type EventCallback = (item: ListEntry, dimension: Dimension, event: MouseEvent) => void;
 }
