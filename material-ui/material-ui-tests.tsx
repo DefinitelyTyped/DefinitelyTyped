@@ -218,6 +218,12 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
             The actions in this window were passed in as an array of react objects.
             </Dialog>;
 
+        element = <Dialog
+            open={false}
+            defaultOpen
+            onRequestClose={(clicked: boolean) => console.log('requested')}>
+            <p>Tests for some new props</p>
+            </Dialog>;
 
         // "http://material-ui.com/#/components/dropdown-menu"
         let menuItems = [

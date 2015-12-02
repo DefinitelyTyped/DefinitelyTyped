@@ -377,16 +377,20 @@ declare namespace __MaterialUI {
         contentStyle?: React.CSSProperties;
         modal?: boolean;
         openImmediately?: boolean;
+        open?: boolean;
+        defaultOpen?: boolean;
         repositionOnUpdate?: boolean;
         title?: React.ReactNode;
 
         onClickAway?: () => void;
         onDismiss?: () => void;
         onShow?: () => void;
+        onRequestClose?: (buttonClicked: boolean) => void;
     }
     export class Dialog extends React.Component<DialogProps, {}> {
         dismiss(): void;
         show(): void;
+        isOpen(): boolean;
     }
 
     interface DropDownIconProps extends React.Props<DropDownIcon> {
@@ -567,6 +571,7 @@ declare namespace __MaterialUI {
             nestedItems?: React.ReactElement<any>[];
             onKeyboardFocus?: React.FocusEventHandler;
             onNestedListToggle?: (item: ListItem) => void;
+            onClick?: React.MouseEventHandler;
             rightAvatar?: React.ReactElement<any>;
             rightIcon?: React.ReactElement<any>;
             rightIconButton?: React.ReactElement<any>;
