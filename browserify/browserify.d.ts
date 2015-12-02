@@ -1,6 +1,6 @@
 // Type definitions for browserify v12.0.1
 // Project: https://github.com/substack/node-browserify
-// Definitions by: Jascha Ephraim <https://github.com/jaschaephraim/>
+// Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar/>, Jascha Ephraim <https://github.com/jaschaephraim/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
