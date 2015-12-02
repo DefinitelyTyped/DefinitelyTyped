@@ -3,8 +3,8 @@
 // Definitions by: Aviel Fedida <https://github.com/avielfedida/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface IHighlighter {
+interface highlighter {
 	lateInit(delay?: number): void;
 }
 
-declare var Highlighter: IHighlighter;
+declare var Highlighter: highlighter;
