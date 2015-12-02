@@ -3,7 +3,7 @@
 // Definitions by: Lars Michaelis and Stephan Zerhusen <https://github.com/ButterFaces/ButterFaces>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "jsf" {
+declare module jsf {
    module ajax {
 
       interface RequestData {
