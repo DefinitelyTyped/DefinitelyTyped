@@ -571,6 +571,7 @@ declare namespace __MaterialUI {
             nestedItems?: React.ReactElement<any>[];
             onKeyboardFocus?: React.FocusEventHandler;
             onNestedListToggle?: (item: ListItem) => void;
+            onClick?: React.MouseEventHandler;
             rightAvatar?: React.ReactElement<any>;
             rightIcon?: React.ReactElement<any>;
             rightIconButton?: React.ReactElement<any>;
