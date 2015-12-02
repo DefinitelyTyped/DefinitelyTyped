@@ -4,13 +4,13 @@ function callbackWithoutData() {
 
 }
 
-function callback(data: jsf.ajax.RequestData) {
+function callback(data:jsf.ajax.RequestData) {
 
 }
 
 class RequestOptionsImpl implements jsf.ajax.RequestOptions {
     execute = "@all";
-    render =  "@none";
+    render = "@none";
 }
 
 
@@ -24,4 +24,4 @@ jsf.ajax.request("someSource");
 jsf.ajax.request("someSource", "change");
 jsf.ajax.request("someSource", "change", new RequestOptionsImpl());
 
-jsf.ajax.response("someRequestObject", "someContextObject");
+jsf.ajax.response("someRequestObject", {context: "someContextObject"});
