@@ -5706,12 +5706,12 @@ declare module "sequelize" {
             /**
              * Commit the transaction
              */
-            commit() : Transaction;
+            commit() : Promise<void>;
 
             /**
              * Rollback (abort) the transaction
              */
-            rollback() : Transaction;
+            rollback() : Promise<void>;
 
         }
 
