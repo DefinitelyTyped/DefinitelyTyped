@@ -9,19 +9,19 @@
 declare module Foundation {
 
     // http://foundation.zurb.com/sites/docs/abide.html#javascript-reference
-    export interface Abide {
-        requiredCheck: (element:Object) => boolean;
-        findLabel: (element:Object) => boolean;
-        addErrorClasses: (element:Object) => void;
-        removeErrorClasses: (element:Object) => void;
-        validateInput: (element:Object, form:Object) => void;
-        validateForm: (element:Object) => void;
-        validateText: (element:Object) => boolean;
-        validateRadio: (group:String) => boolean;
-        resetform: ($form:Object) => void;
+    interface Abide {
+        requiredCheck(element:Object): boolean;
+        findLabel(element:Object): boolean;
+        addErrorClasses(element:Object): void;
+        removeErrorClasses(element:Object): void;
+        validateInput(element:Object, form:Object): void;
+        validateForm(element:Object): void;
+        validateText(element:Object): boolean;
+        validateRadio(group:String): boolean;
+        resetform($form:Object): void;
     }
 
-    interface IAbidePaterns {
+    export interface IAbidePatterns {
         alpha?: RegExp;
         alpha_numeric?: RegExp;
         integer?: RegExp;
@@ -40,17 +40,17 @@ declare module Foundation {
         color?: RegExp;
     }
 
-    interface IAbideOptions {
+    export interface IAbideOptions {
         slideSpeed?: number
         multiOpen?: boolean;
     }
 
     // http://foundation.zurb.com/sites/docs/accordion.html#javascript-reference
     export interface Accordion {
-        toggle: ($target:JQuery) => void;
-        down: ($target:JQuery, firstTime:boolean) => void;
-        up: ($target:JQuery) => void;
-        destroy: () => void;
+        toggle($target:JQuery): void;
+        down($target:JQuery, firstTime:boolean): void;
+        up($target:JQuery): void;
+        destroy(): void;
     }
 
     interface IAccordionOptions {
@@ -60,18 +60,18 @@ declare module Foundation {
 
     // http://foundation.zurb.com/sites/docs/accordion-menu.html#javascript-reference
     export interface AccordionMenu {
-        toggle: ($target:JQuery) => void;
-        down: ($target:JQuery, firstTime:boolean) => void;
-        up: ($target:JQuery) => void;
-        destroy: () => void;
+        toggle($target:JQuery): void;
+        down($target:JQuery, firstTime:boolean): void;
+        up($target:JQuery): void;
+        destroy(): void;
     }
 
     // http://foundation.zurb.com/sites/docs/drilldown-menu.html#javascript-reference
     export interface Drilldown {
-        _hideAll: ($elem:JQuery) => void;
-        _show: ($elem:JQuery) => void;
-        _hide: ($elem:JQuery) => void;
-        destroy: () => void;
+        _hideAll($elem:JQuery): void;
+        _show($elem:JQuery): void;
+        _hide($elem:JQuery): void;
+        destroy(): void;
     }
 
     interface IDrilldownOptions {
@@ -82,11 +82,11 @@ declare module Foundation {
 
     // http://foundation.zurb.com/sites/docs/dropdown.html#javascript-reference
     export interface Dropdown {
-        getPositionClass: () => String;
-        open: () => void;
-        close: () => void;
-        toggle: () => void;
-        destroy: () => void;
+        getPositionClass(): String;
+        open(): void;
+        close(): void;
+        toggle(): void;
+        destroy(): void;
     }
 
     interface IDropdownOptions {
@@ -101,7 +101,7 @@ declare module Foundation {
 
     // http://foundation.zurb.com/sites/docs/dropdown-menu.html#javascript-reference
     export interface DropdownMenu {
-        destroy: () => void;
+        destroy(): void;
     }
 
     interface IDropdownMenuOptions {
@@ -117,9 +117,9 @@ declare module Foundation {
 
     // http://foundation.zurb.com/sites/docs/equalizer.html#javascript-reference
     export interface Equalizer {
-        getHeights: (element:Object) => Array<any>;
-        applyHeight: ($eqParent:Object, heights:Array) => void;
-        destroy: () => void;
+        getHeights(element:Object): Array<any>;
+        applyHeight($eqParent:Object, heights:Array): void;
+        destroy(): void;
     }
 
     interface IEqualizerOptions {
@@ -129,8 +129,8 @@ declare module Foundation {
 
     // http://foundation.zurb.com/sites/docs/interchange.html#javascript-reference
     export interface Interchange {
-        replace: (path:String) => void;
-        destroy: () => void;
+        replace(path:String): void;
+        destroy(): void;
     }
 
     interface IInterchangeOptions {
@@ -139,9 +139,9 @@ declare module Foundation {
 
     // http://foundation.zurb.com/sites/docs/magellan.html#javascript-reference
     export interface Magellan {
-        calcPoints: () => void;
-        reflow: () => void;
-        destroy: () => void;
+        calcPoints(): void;
+        reflow(): void;
+        destroy(): void;
     }
 
     interface IMagellanOptions {
@@ -154,10 +154,10 @@ declare module Foundation {
 
     // http://foundation.zurb.com/sites/docs/offcanvas.html#javascript-reference
     export interface OffCanvas {
-        open: (event:Object, trigger:JQuery) => void;
-        toggle: (event:Object, trigger:JQuery) => void;
-        close: () => void;
-        destroy: () => void;
+        open(event:Object, trigger:JQuery): void;
+        toggle(event:Object, trigger:JQuery): void;
+        close(): void;
+        destroy(): void;
     }
 
     interface IOffCanvasOptions {
@@ -173,9 +173,9 @@ declare module Foundation {
 
     // http://foundation.zurb.com/sites/docs/orbit.html#javascript-reference
     export interface Orbit {
-        changeSlide: (isLTR:boolean, chosenSlide?:Object, idx?:number) => void;
-        geoSync: () => void;
-        destroy: () => void;
+        changeSlide(isLTR:boolean, chosenSlide?:Object, idx?:number): void;
+        geoSync(): void;
+        destroy(): void;
     }
 
     interface IOrbitOptions {
@@ -200,10 +200,10 @@ declare module Foundation {
 
     // http://foundation.zurb.com/sites/docs/reveal.html#javascript-reference
     export interface Reveal {
-        open: () => void;
-        toggle: () => void;
-        close: () => void;
-        destroy: () => void;
+        open(): void;
+        toggle(): void;
+        close(): void;
+        destroy(): void;
     }
 
     interface IRevealOptions {
@@ -224,7 +224,7 @@ declare module Foundation {
 
     // http://foundation.zurb.com/sites/docs/slider.html#javascript-reference
     export interface Slider {
-        destroy: () => void;
+        destroy(): void;
     }
 
     interface ISliderOptions {
@@ -246,10 +246,10 @@ declare module Foundation {
 
     // http://foundation.zurb.com/sites/docs/sticky.html#javascript-reference
     export interface Sticky {
-        _pauseListeners: (scrollListener:String) => void;
-        _calc: (checkSizes:boolean, scroll:number) => void;
-        destroy: () => void;
-        emCalc: (number:any) => void;
+        _pauseListeners(scrollListener:String): void;
+        _calc(checkSizes:boolean, scroll:number): void;
+        destroy(): void;
+        emCalc(number:any): void;
     }
 
     interface IStickyOptions {
@@ -268,9 +268,9 @@ declare module Foundation {
 
     // http://foundation.zurb.com/sites/docs/tabs.html#javascript-reference
     export interface Tabs {
-        _handleTabChange: ($target:JQuery) => void;
-        selectTab: ($target:JQuery) => void;
-        destroy: () => void;
+        _handleTabChange($target:JQuery): void;
+        selectTab($target:JQuery): void;
+        destroy(): void;
     }
 
     interface ITabsOptions {
@@ -279,8 +279,8 @@ declare module Foundation {
 
     // http://foundation.zurb.com/sites/docs/toggler.html#javascript-reference
     export interface Toggler {
-        toggle: () => void;
-        destroy: () => void;
+        toggle(): void;
+        destroy(): void;
     }
 
     interface ITogglerOptions {
@@ -289,10 +289,10 @@ declare module Foundation {
 
     // http://foundation.zurb.com/sites/docs/tooltip.html#javascript-reference
     export interface Tooltip {
-        show: () => void;
-        hide: () =>void;
-        toggle: () => void;
-        destroy: () => void;
+        show(): void;
+        hide() =>void;
+        toggle(): void;
+        destroy(): void;
     }
 
     interface ITooltipOptions {
@@ -316,26 +316,26 @@ declare module Foundation {
     // ---------
 
     export interface Box {
-        ImNotTouchingYou: (element:Object, parent?:Object, lrOnly?:boolean, tbOnly?:boolean) => boolean;
-        GetDimensions: (element:Object) => Object;
-        GetOffsets: (element:Object, anchor:Object, position:String, vOffset:number, hOffset:number, isOverflow:boolean) => Object;
+        ImNotTouchingYou(element:Object, parent?:Object, lrOnly?:boolean, tbOnly?:boolean): boolean;
+        GetDimensions(element:Object): Object;
+        GetOffsets(element:Object, anchor:Object, position:String, vOffset:number, hOffset:number, isOverflow:boolean): Object;
     }
 
     export interface KeyBoard {
-        parseKey: (event:any) => String;
-        findFocusable: ($element:Object) => Object;
+        parseKey(event:any): String;
+        findFocusable($element:Object): Object;
     }
 
     export interface MediaQuery {
-        get: (size:String) => String;
-        atLeast: (size:String) => boolean;
+        get(size:String): String;
+        atLeast(size:String): boolean;
         queries:Array<any>;
         current:any;
     }
 
     export interface Motion {
-        animateIn: (element:Object, animation:any, cb:Function) => void;
-        animateOut: (element:Object, animation:any, cb:Function) => void;
+        animateIn(element:Object, animation:any, cb:Function): void;
+        animateOut(element:Object, animation:any, cb:Function): void;
     }
 
     interface Move {
@@ -347,9 +347,9 @@ declare module Foundation {
     }
 
     export interface Timer {
-        start: () => void;
-        restart: () => void;
-        pause: () => void;
+        start(): void;
+        restart(): void;
+        pause(): void;
     }
 
     interface Touch {
@@ -360,67 +360,55 @@ declare module Foundation {
         // TODO :extension on jQuery
     }
 
-    export interface InterChange {
-        destroy: () => void;
-    }
-    interface IInterChangeOptions {
-        rules         ?: Array<String>;
-    }
-    interface ITooltipOptions {
-        hoverDelay          ?: number;
-        fadeInDuration      ?: number;
-        fadeOutDuration     ?: number;
-        disableHover        ?: boolean;
-        templateClasses     ?: String;
-        tooltipClass        ?: String;
-        triggerClass        ?: String;
-        showOn              ?: String;
-        template            ?: String;
-        tipText             ?: String;
-        clickOpenr          ?: boolean;
-        positionClass       ?: String;
-        vOffset             ?: number;
-        hOffset             ?: number;
-    }
-
     interface FoundationStatic {
         version : String;
 
-        rtl: () => boolean;
-        plugin: (plugin:Object, name:String) => void;
-        registerPlugin: (plugin:Object) => void;
-        unregisterPlugin: (plugin:Object) => void;
-        GetYoDigits: (length:number, namespace?:String) => String;
-        reflow: (elem:Object, plugins?:Array<String>|String) => void;
-        getFnName: (fofn:String) => String;
-        transitionend: () => String;
+        rtl(): boolean;
+        plugin(plugin:Object, name:String): void;
+        registerPlugin(plugin:Object): void;
+        unregisterPlugin(plugin:Object): void;
+        GetYoDigits(length:number, namespace?:String): String;
+        reflow(elem:Object, plugins?:Array<String>|String): void;
+        getFnName(fn:String): String;
+        transitionend(): String;
 
         util : {
-            throttle(func:(...args:any[]) => any, delay:number) : (...args:any[]) => any;
+            throttle(func:(...args:any[]) => any, delay:number) (...args:any[]) => any;
         };
-        onImagesLoaded: (images:Object, cb:Function) => void;
+        onImagesLoaded(images:Object, cb:Function): void;
 
-        Abide: (element:Object, options:IAbideOptions) => void;
-        Accordion: (element:Object, options:IAccordionOptions) => void;
-        Dropdown: (element:Object, options:IDropdownOptions) => void;
-        DropdownMenu: (element:Object, options:IDropdownMenuOptions) => void;
-        Equalizer: (element:Object, options:IEqualizerOptions) => void;
-        Interchange: (element:Object, options:IInterChangeOptions) => void;
-        Magellan: (element:Object, options:IMagellanOptions) => void;
-        OffCanvas: (element:Object, options:IOffCanvasOptions) => void;
-        Orbit: (element:Object, options:IOrbitOptions) => void;
-        Reveal: (element:Object, options:IRevealOptions) => void;
-        Slider: (element:Object, options:ISliderOptions) => void;
-        Sticky: (element:Object, options:IStickyOptions) => void;
-        Tabs: (element:Object, options:ITabsOptions) => void;
-        Toggler: (element:Object, options:ITogglerOptions) => void;
-        Tooltip: (element:Object, options:ITooltipOptions) => void;
+        Abide(element:Object, options?:IAbideOptions): Foundation.Abide;
+        Accordion(element:Object, options?:IAccordionOptions): Foundation.Accordion;
+        Dropdown(element:Object, options?:IDropdownOptions): Foundation.Dropdown;
+        DropdownMenu(element:Object, options?:IDropdownMenuOptions): Foundation.DropdownMenu;
+        Equalizer(element:Object, options?:IEqualizerOptions): Foundation.Equalizer;
+        Interchange(element:Object, options?:IInterChangeOptions): Foundation.Interchange;
+        Magellan(element:Object, options?:IMagellanOptions): Foundation.Magellan;
+        OffCanvas(element:Object, options?:IOffCanvasOptions): Foundation.OffCanvas;
+        Orbit(element:Object, options?:IOrbitOptions): Foundation.Orbit;
+        Reveal(element:Object, options?:IRevealOptions): Foundation.Reveal;
+        Slider(element:Object, options?:ISliderOptions): Foundation.Slider;
+        Sticky(element:Object, options?:IStickyOptions): Foundation.Sticky;
+        Tabs(element:Object, options?:ITabsOptions): Foundation.Tabs;
+        Toggler(element:Object, options?:ITogglerOptions): Foundation.Toggler;
+        Tooltip(element:Object, options?:ITooltipOptions): Foundation.Tooltip;
+
+        // utils
+        Box: Foundation.Box;
+        KeyBoard: Foundation.Box;
+        MediaQuery: Foundation.MediaQuery;
+        Motion: Foundation.Motion;
+        Move: Foundation.Move;
+        Nest: Foundation.Nest;
+        Timer: Foundation.Timer;
+        Touch: Foundation.Touch;
+        Triggers: Foundation.Triggers;
 
     }
 }
 
 interface JQuery {
-    foundation(method:String|Array<any>) : JQuery;
+    foundation(method?:String|Array<any>) : JQuery;
 }
 
 declare var Foundation:Foundation.FoundationStatic;
