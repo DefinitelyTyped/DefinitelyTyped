@@ -1,6 +1,6 @@
 /// <reference path="google-maps.d.ts" />
 
-var GoogleMapsLoader = require('google-maps');
+import GoogleMapsLoader = require('google-maps');
  
 GoogleMapsLoader.load(function(google) {
     new google.maps.Map(el, options);
