@@ -21,7 +21,7 @@ interface ExphbsOptions {
     handlebars?: any;
     extname?: string;
     layoutsDir?: string;
-    partialsDir?: string;
+    partialsDir?: any;
     defaultLayout?: string;
     helpers?: any;
     compilerOptions?: any;

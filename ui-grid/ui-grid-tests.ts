@@ -130,3 +130,14 @@ anotherGridInstance.scrollTo(rowEntityToScrollTo, columnDefToScrollTo);
 
 var selectedRowEntities: Array<IMyEntity> = gridApi.selection.getSelectedRows();
 var selectedGridRows: Array<uiGrid.IGridRow> = gridApi.selection.getSelectedGridRows();
+
+gridApi.expandable.on.rowExpandedStateChanged(null, (row) => {
+    if (row.isExpanded) {
+        console.log('expanded', row.entity);
+    } else {
+        gridApi.expandable.toggleRowExpansion(row.entity);
+    }
+});
+gridApi.expandable.expandAllRows();
+gridApi.expandable.collapseAllRows();
+gridApi.expandable.toggleAllRows();

@@ -10620,3 +10620,7 @@ declare module WinJS.Utilities.Scheduler {
     //#endregion Functions
 
 }
+
+declare module 'winjs' {
+    export = WinJS;
+}

@@ -1,11 +1,13 @@
 /// <reference path="react-redux.d.ts" />
 /// <reference path="../react/react.d.ts"/>
+/// <reference path="../react/react-dom.d.ts"/>
 /// <reference path="../redux/redux.d.ts" />
-/// <reference path="../react-router/react-router.d.ts" />
+/// <reference path="../react-router/react-router-0.13.3.d.ts" />
 /// <reference path="../object-assign/object-assign.d.ts" />
 
 import { Component, ReactElement } from 'react';
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import * as Router from 'react-router';
 import { Route, RouterState } from 'react-router';
 import { Store, Dispatch, bindActionCreators } from 'redux';
@@ -65,7 +67,7 @@ class App extends Component<any, any> {
 
 const targetEl = document.getElementById('root');
 
-React.render((
+ReactDOM.render((
     <Provider store={store}>
         {() => <App />}
     </Provider>
@@ -100,7 +102,7 @@ declare var addTodo: () => { type: string; };
 declare var todoActionCreators: { [type: string]: (...args: any[]) => any; };
 declare var counterActionCreators: { [type: string]: (...args: any[]) => any; };
 
-React.render(
+ReactDOM.render(
   <Provider store={store}>
     {() => <MyRootComponent />}
   </Provider>,
@@ -108,7 +110,7 @@ React.render(
 );
 
 Router.run(routes, Router.HistoryLocation, (Handler, routerState) => { // note "routerState" here
-    React.render(
+    ReactDOM.render(
         <Provider store={store}>
             {/*
              //TODO: error TS2339: Property 'routerState' does not exist on type 'RouteProp'.
@@ -121,7 +123,7 @@ Router.run(routes, Router.HistoryLocation, (Handler, routerState) => { // note "
 
 //TODO: for React Router 1.0
 //TODO: error TS2604: JSX element type 'Router' does not have any construct or call signatures.
-//React.render(
+//ReactDOM.render(
 //    <Provider store={store}>
 //        {() => <Router history={history}>...</Router>}
 //    </Provider>,
