@@ -92,6 +92,7 @@ declare module Sinon {
         resetBehavior(): void;
         returns(obj: any): SinonStub;
         returnsArg(index: number): SinonStub;
+        returnsThis(): SinonStub;
         throws(type?: string): SinonStub;
         throws(obj: any): SinonStub;
         callsArg(index: number): SinonStub;
@@ -264,6 +265,7 @@ declare module Sinon {
         fakeHTTPMethods: boolean;
         getHTTPMethod: (request: SinonFakeXMLHttpRequest) => string;
         requests: SinonFakeXMLHttpRequest[];
+        respondImmediately: boolean;
 
         // Methods
         respondWith(body: string): void;

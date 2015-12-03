@@ -1363,9 +1363,9 @@ interface JQuery {
     /**
      * Set the value of each element in the set of matched elements.
      *
-     * @param value A string of text or an array of strings corresponding to the value of each matched element to set as selected/checked.
+     * @param value A string of text, an array of strings or number corresponding to the value of each matched element to set as selected/checked.
      */
-    val(value: string|string[]): JQuery;
+    val(value: string|string[]|number): JQuery;
     /**
      * Set the value of each element in the set of matched elements.
      *
@@ -1581,6 +1581,10 @@ interface JQuery {
      * @param list An array of strings naming the pieces of data to delete.
      */
     removeData(list: string[]): JQuery;
+    /**
+     * Remove all previously-stored piece of data.
+     */
+    removeData(): JQuery;
 
     /**
      * Return a Promise object to observe when all actions of a certain type bound to the collection, queued or not, have finished.
@@ -3046,7 +3050,7 @@ interface JQuery {
      * 
      * @param elements One or more DOM elements to remove from the matched set.
      */
-    not(...elements: Element[]): JQuery;
+    not(elements: Element|Element[]): JQuery;
     /**
      * Remove elements from the set of matched elements.
      * 

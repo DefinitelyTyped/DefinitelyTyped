@@ -155,7 +155,7 @@ declare module commander {
          * @return {Command} for chaining
          * @api public
          */
-        option(flags:string, description?:string, fn?:(arg1:any, arg2:any)=>void, defaultValue?:any):ICommand;
+        option(flags:string, description?:string, fn?:((arg1:any, arg2:any)=>void)|RegExp, defaultValue?:any):ICommand;
         option(flags:string, description?:string, defaultValue?:any):ICommand;
 
         /**

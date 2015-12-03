@@ -17,6 +17,7 @@ $('#myModal').modal('toggle');
 $('.dropdown-toggle').dropdown();
 
 $('#navbar').scrollspy();
+$('body').scrollspy({ target: '#navbar-example' });
 
 $('#element').tooltip('show');
 

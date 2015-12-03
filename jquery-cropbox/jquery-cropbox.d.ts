@@ -103,6 +103,7 @@ declare module jQueryCropBox {
          * Remove the cropbox functionality from the image.      
          */
         remove(): void;
+
         /**
              * Attach an event handler function for one event on the Crop Box      
              */

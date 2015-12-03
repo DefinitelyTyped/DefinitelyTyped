@@ -11,6 +11,8 @@ interface PNotifyStack {
     push?: string;
     spacing1?: number;
     spacing2?: number;
+    firstpos1?: number;
+    firstpos2?: number;
     context?: JQuery
 }
 

@@ -639,7 +639,7 @@ declare module "child_process" {
         env?: any;
         encoding?: string;
         timeout?: number;
-        maxBuffer?: string;
+        maxBuffer?: number;
         killSignal?: string;
     }, callback: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function fork(modulePath: string, args?: string[], options?: {
@@ -651,21 +651,7 @@ declare module "child_process" {
 
 declare module "url" {
     export interface Url {
-        href: string;
-        protocol: string;
-        auth: string;
-        hostname: string;
-        port: string;
-        host: string;
-        pathname: string;
-        search: string;
-        query: any; // string | Object
-        slashes: boolean;
-        hash?: string;
-        path?: string;
-    }
-
-    export interface UrlOptions {
+        href?: string;
         protocol?: string;
         auth?: string;
         hostname?: string;
@@ -673,13 +659,14 @@ declare module "url" {
         host?: string;
         pathname?: string;
         search?: string;
-        query?: any;
+        query?: any; // string | Object
+        slashes?: boolean;
         hash?: string;
         path?: string;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean , slashesDenoteHost?: boolean ): Url;
-    export function format(url: UrlOptions): string;
+    export function format(url: Url): string;
     export function resolve(from: string, to: string): string;
 }
 
@@ -749,10 +736,10 @@ declare module "net" {
     }
     export function createServer(connectionListener?: (socket: Socket) =>void ): Server;
     export function createServer(options?: { allowHalfOpen?: boolean; }, connectionListener?: (socket: Socket) =>void ): Server;
-    export function connect(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
+    export function connect(options: { port: number, host?: string, localAddress? : string, allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
     export function connect(port: number, host?: string, connectionListener?: Function): Socket;
     export function connect(path: string, connectionListener?: Function): Socket;
-    export function createConnection(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
+    export function createConnection(options: { port: number, host?: string, localAddress? : string, allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
     export function createConnection(port: number, host?: string, connectionListener?: Function): Socket;
     export function createConnection(path: string, connectionListener?: Function): Socket;
     export function isIP(input: string): number;
@@ -1097,6 +1084,7 @@ declare module "crypto" {
     interface Verify extends NodeJS.WritableStream {
         update(data: any): void;
         verify(object: string, signature: string, signature_format?: string): boolean;
+        objectMode?: boolean;
     }
     export function createDiffieHellman(prime_length: number): DiffieHellman;
     export function createDiffieHellman(prime: number, encoding?: string): DiffieHellman;
@@ -1151,6 +1139,7 @@ declare module "stream" {
     export interface WritableOptions {
         highWaterMark?: number;
         decodeStrings?: boolean;
+        objectMode?: boolean;
     }
 
     export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
