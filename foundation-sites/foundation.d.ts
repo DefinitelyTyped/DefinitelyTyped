@@ -1,7 +1,6 @@
 // Type definitions for Foundation Sites v6.0.4
 // Project: http://foundation.zurb.com/
 // Definitions by: Sam Vloeberghs <https://github.com/samvloeberghs/>
-// Definitions by: Michał Wrześniewski <https://github.com/wrzesm01/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
@@ -18,10 +17,10 @@ declare module Foundation {
         validateForm(element:Object): void;
         validateText(element:Object): boolean;
         validateRadio(group:String): boolean;
-        resetform($form:Object): void;
+        resetForm($form:Object): void;
     }
 
-    export interface IAbidePatterns {
+    interface IAbidePatterns {
         alpha?: RegExp;
         alpha_numeric?: RegExp;
         integer?: RegExp;
@@ -40,8 +39,8 @@ declare module Foundation {
         color?: RegExp;
     }
 
-    export interface IAbideOptions {
-        slideSpeed?: number
+    interface IAbideOptions {
+        slideSpeed?: number;
         multiOpen?: boolean;
         patters?: Foundation.IAbidePatterns;
     }
@@ -54,7 +53,7 @@ declare module Foundation {
         destroy(): void;
     }
 
-    export interface IAccordionOptions {
+    interface IAccordionOptions {
         slideSpeed?: number
         multiOpen?: boolean;
     }
@@ -67,7 +66,7 @@ declare module Foundation {
         destroy(): void;
     }
 
-    export interface IAccordionMenuOptions {
+    interface IAccordionMenuOptions {
         slideSpeed?: number;
         multiOpen?: boolean;
     }
@@ -80,7 +79,7 @@ declare module Foundation {
         destroy(): void;
     }
 
-    export interface IDrilldownOptions {
+    interface IDrilldownOptions {
         backButton?: String;
         wrapper?: String
         closeOnClick?: boolean
@@ -95,7 +94,7 @@ declare module Foundation {
         destroy(): void;
     }
 
-    export interface IDropdownOptions {
+    interface IDropdownOptions {
         hoverDelay?: number;
         hover?: boolean;
         vOffset?: number;
@@ -110,7 +109,7 @@ declare module Foundation {
         destroy(): void;
     }
 
-    export interface IDropdownMenuOptions {
+    interface IDropdownMenuOptions {
         disableHover?: boolean;
         autoclose?: boolean;
         hoverDelay?: number;
@@ -128,7 +127,7 @@ declare module Foundation {
         destroy(): void;
     }
 
-    export interface IEqualizerOptions {
+    interface IEqualizerOptions {
         equalizeOnStack?: boolean;
         throttleInterval?: number;
     }
@@ -139,7 +138,7 @@ declare module Foundation {
         destroy(): void;
     }
 
-    export interface IInterchangeOptions {
+    interface IInterchangeOptions {
         rules?: Array<any>
     }
 
@@ -150,7 +149,7 @@ declare module Foundation {
         destroy(): void;
     }
 
-    export interface IMagellanOptions {
+    interface IMagellanOptions {
         animationDuration?: number;
         animationEasing?: String;
         threshold?: number;
@@ -166,7 +165,7 @@ declare module Foundation {
         destroy(): void;
     }
 
-    export interface IOffCanvasOptions {
+    interface IOffCanvasOptions {
         closeOnClick?: boolean;
         transitionTime?: number;
         position?: String;
@@ -184,7 +183,7 @@ declare module Foundation {
         destroy(): void;
     }
 
-    export interface IOrbitOptions {
+    interface IOrbitOptions {
         bullets?: boolean;
         navButtons?: boolean;
         animInFromRight?: String;
@@ -212,7 +211,7 @@ declare module Foundation {
         destroy(): void;
     }
 
-    export interface IRevealOptions {
+    interface IRevealOptions {
         animationIn?: String;
         animationOut?: String;
         showDelay?: number;
@@ -233,7 +232,7 @@ declare module Foundation {
         destroy(): void;
     }
 
-    export interface ISliderOptions {
+    interface ISliderOptions {
         start?: number;
         end?: number;
         step?: number;
@@ -258,7 +257,7 @@ declare module Foundation {
         emCalc(number:any): void;
     }
 
-    export interface IStickyOptions {
+    interface IStickyOptions {
         container?: String;
         stickTo?: String;
         anchor?: String;
@@ -279,7 +278,7 @@ declare module Foundation {
         destroy(): void;
     }
 
-    export interface ITabsOptions {
+    interface ITabsOptions {
         animate?: boolean;
     }
 
@@ -289,7 +288,7 @@ declare module Foundation {
         destroy(): void;
     }
 
-    export interface ITogglerOptions {
+    interface ITogglerOptions {
         animate?: boolean;
     }
 
@@ -301,7 +300,7 @@ declare module Foundation {
         destroy(): void;
     }
 
-    export interface ITooltipOptions {
+    interface ITooltipOptions {
         hoverDelay?: number;
         fadeInDuration?: number;
         fadeOutDuration?: number;
@@ -381,7 +380,7 @@ declare module Foundation {
         transitionend(): String;
 
         util : {
-            throttle(func:(...args:any[]) => any, delay:number) (...args:any[]) => any;
+            throttle(func:(...args:any[]) => any, delay:number): (...args:any[]) => any;
         };
         onImagesLoaded(images:Object, cb:Function): void;
 
@@ -415,6 +414,7 @@ declare module Foundation {
         Triggers: Foundation.Triggers;
 
     }
+
 }
 
 interface JQuery {
@@ -422,3 +422,7 @@ interface JQuery {
 }
 
 declare var Foundation:Foundation.FoundationStatic;
+
+declare module "Foundation" {
+    export = Foundation;
+}
