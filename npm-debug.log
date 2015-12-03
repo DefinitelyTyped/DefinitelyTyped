@@ -1,0 +1,45 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/Cellar/node/4.2.1/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'run',
+1 verbose cli   'test' ]
+2 info using npm@3.3.9
+3 info using node@v4.2.1
+4 verbose run-script [ 'pretest', 'test', 'posttest' ]
+5 info lifecycle DefinitelyTyped@0.0.1~pretest: DefinitelyTyped@0.0.1
+6 silly lifecycle DefinitelyTyped@0.0.1~pretest: no script for pretest, continuing
+7 info lifecycle DefinitelyTyped@0.0.1~test: DefinitelyTyped@0.0.1
+8 verbose lifecycle DefinitelyTyped@0.0.1~test: unsafe-perm in lifecycle true
+9 verbose lifecycle DefinitelyTyped@0.0.1~test: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Volumes/Data/Kwerri/playground/DefinitelyTyped/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin
+10 verbose lifecycle DefinitelyTyped@0.0.1~test: CWD: /Volumes/Data/Kwerri/playground/DefinitelyTyped
+11 silly lifecycle DefinitelyTyped@0.0.1~test: Args: [ '-c', 'dt --changes' ]
+12 silly lifecycle DefinitelyTyped@0.0.1~test: Returned: code: 1  signal: null
+13 info lifecycle DefinitelyTyped@0.0.1~test: Failed to exec test script
+14 verbose stack Error: DefinitelyTyped@0.0.1 test: `dt --changes`
+14 verbose stack Exit status 1
+14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:233:16)
+14 verbose stack     at emitTwo (events.js:87:13)
+14 verbose stack     at EventEmitter.emit (events.js:172:7)
+14 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:24:14)
+14 verbose stack     at emitTwo (events.js:87:13)
+14 verbose stack     at ChildProcess.emit (events.js:172:7)
+14 verbose stack     at maybeClose (internal/child_process.js:818:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+15 verbose pkgid DefinitelyTyped@0.0.1
+16 verbose cwd /Volumes/Data/Kwerri/playground/DefinitelyTyped
+17 error Darwin 15.0.0
+18 error argv "/usr/local/Cellar/node/4.2.1/bin/node" "/usr/local/bin/npm" "run" "test"
+19 error node v4.2.1
+20 error npm  v3.3.9
+21 error code ELIFECYCLE
+22 error DefinitelyTyped@0.0.1 test: `dt --changes`
+22 error Exit status 1
+23 error Failed at the DefinitelyTyped@0.0.1 test script 'dt --changes'.
+23 error This is most likely a problem with the DefinitelyTyped package,
+23 error not with npm itself.
+23 error Tell the author that this fails on your system:
+23 error     dt --changes
+23 error You can get their info via:
+23 error     npm owner ls DefinitelyTyped
+23 error There is likely additional logging output above.
+24 verbose exit [ 1, true ]
