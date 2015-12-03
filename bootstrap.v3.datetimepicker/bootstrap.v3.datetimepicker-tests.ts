@@ -6,17 +6,17 @@ function test_cases() {
     $('#datetimepicker').datetimepicker({
         pickDate: false
     });
-	$('#datetimepicker').datetimepicker({
+    $('#datetimepicker').datetimepicker({
         pickTime: false
     });
-	$('#datetimepicker').datetimepicker({
+    $('#datetimepicker').datetimepicker({
         minDate: '2012-12-31'
     });
-	
-	$('#datetimepicker').data("DateTimePicker").setMaxDate('2012-12-31');
-	
-	var startDate = new Date(2012, 1, 20);
-    var endDate = new Date(2012, 1, 25);
+
+    $('#datetimepicker').data("DateTimePicker").maxDate('2012-12-31');
+
+    var startDate = moment(new Date(2012, 1, 20));
+    var endDate = moment(new Date(2012, 1, 25));
     $('#datetimepicker2')
         .datetimepicker()
         .on("dp.change", function (ev) {

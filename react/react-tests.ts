@@ -1,11 +1,32 @@
 /// <reference path="react.d.ts" />
+/// <reference path="react-dom.d.ts" />
+/// <reference path="react-addons-create-fragment.d.ts" />
+/// <reference path="react-addons-css-transition-group.d.ts" />
+/// <reference path="react-addons-linked-state-mixin.d.ts" />
+/// <reference path="react-addons-perf.d.ts" />
+/// <reference path="react-addons-pure-render-mixin.d.ts" />
+/// <reference path="react-addons-shallow-compare.d.ts" />
+/// <reference path="react-addons-test-utils.d.ts" />
+/// <reference path="react-addons-transition-group.d.ts" />
+/// <reference path="react-addons-update.d.ts" />
+
 import React = require("react");
+import ReactDOM = require("react-dom");
+import ReactDOMServer = require("react-dom/server");
+import createFragment = require("react-addons-create-fragment");
+import CSSTransitionGroup = require("react-addons-css-transition-group");
+import LinkedStateMixin = require("react-addons-linked-state-mixin");
+import Perf = require("react-addons-perf");
+import PureRenderMixin = require("react-addons-pure-render-mixin");
+import shallowCompare = require("react-addons-shallow-compare");
+import TestUtils = require("react-addons-test-utils");
+import TransitionGroup = require("react-addons-transition-group");
+import update = require("react-addons-update");
 
 interface Props extends React.Props<MyComponent> {
     hello: string;
     world?: string;
     foo: number;
-    bar: boolean;
 }
 
 interface State {
@@ -29,8 +50,7 @@ var props: Props = {
     key: 42,
     ref: "myComponent42",
     hello: "world",
-    foo: 42,
-    bar: true
+    foo: 42
 };
 
 var container: Element;
@@ -42,11 +62,10 @@ var container: Element;
 var ClassicComponent: React.ClassicComponentClass<Props> =
     React.createClass<Props, State>({
         getDefaultProps() {
-            return <Props>{
+            return {
                 hello: undefined,
                 world: "peace",
-                foo: undefined,
-                bar: undefined,
+                foo: undefined
             };
         },
         getInitialState() {
@@ -68,58 +87,82 @@ var ClassicComponent: React.ClassicComponentClass<Props> =
     });
 
 class ModernComponent extends React.Component<Props, State>
-    implements React.ChildContextProvider<ChildContext> {
-    
+    implements MyComponent, React.ChildContextProvider<ChildContext> {
+
     static propTypes: React.ValidationMap<Props> = {
         foo: React.PropTypes.number
-    }
-    
+    };
+
     static contextTypes: React.ValidationMap<Context> = {
         someValue: React.PropTypes.string
-    }
-    
+    };
+
     static childContextTypes: React.ValidationMap<ChildContext> = {
         someOtherValue: React.PropTypes.string
-    }
-    
-    static defaultProps: Props;
-    
+    };
+
     context: Context;
-    
+
     getChildContext() {
         return {
-            someOtherValue: 'foo'
-        }
+            someOtherValue: "foo"
+        };
     }
-    
+
     state = {
         inputValue: this.context.someValue,
         seconds: this.props.foo
-    }
-    
+    };
+
     reset() {
+        this._myComponent.reset();
         this.setState({
             inputValue: this.context.someValue,
             seconds: this.props.foo
         });
     }
 
-    private _input: React.HTMLComponent;
-    
+    private _myComponent: MyComponent;
+    private _input: HTMLInputElement;
+
     render() {
         return React.DOM.div(null,
             React.DOM.input({
-                ref: input => this._input = input,
+                ref: input => this._input = <HTMLInputElement>input,
                 value: this.state.inputValue
             }));
     }
+
+    shouldComponentUpdate(nextProps: Props, nextState: State, nextContext: any): boolean {
+        return shallowCompare(this, nextProps, nextState);
+    }
 }
+
+interface SCProps extends React.Props<{}> {
+    foo?: number;
+}
+
+var StatelessComponent = (props: SCProps) => {
+    return React.DOM.div(null, props.foo);
+};
+
+// Must explicitly type-annotate to add defaultProps/contextTypes
+var StatelessComponent2: React.StatelessComponent<SCProps> =
+    (props: SCProps) => React.DOM.div(null, props.foo);
+StatelessComponent2.defaultProps = {
+    foo: 42
+};
 
 // React.createFactory
 var factory: React.Factory<Props> =
     React.createFactory(ModernComponent);
 var factoryElement: React.ReactElement<Props> =
     factory(props);
+
+var statelessFactory: React.Factory<SCProps> =
+    React.createFactory(StatelessComponent);
+var statelessElement: React.ReactElement<SCProps> =
+    statelessFactory(props);
 
 var classicFactory: React.ClassicFactory<Props> =
     React.createFactory(ClassicComponent);
@@ -134,36 +177,39 @@ var domFactoryElement: React.DOMElement<any> =
 // React.createElement
 var element: React.ReactElement<Props> =
     React.createElement(ModernComponent, props);
+var statelessElement: React.ReactElement<SCProps> =
+    React.createElement(StatelessComponent, props);
 var classicElement: React.ClassicElement<Props> =
     React.createElement(ClassicComponent, props);
-var domElement: React.HTMLElement =
+var domElement: React.ReactHTMLElement =
     React.createElement("div");
 
 // React.cloneElement
 var clonedElement: React.ReactElement<Props> =
     React.cloneElement(element, props);
+var clonedStatelessElement: React.ReactElement<SCProps> =
+    React.cloneElement(statelessElement, props);
 var clonedClassicElement: React.ClassicElement<Props> =
     React.cloneElement(classicElement, props);
-var clonedDOMElement: React.HTMLElement =
+var clonedDOMElement: React.ReactHTMLElement =
     React.cloneElement(domElement);
 
 // React.render
 var component: React.Component<Props, any> =
-    React.render(element, container);
+    ReactDOM.render(element, container);
 var classicComponent: React.ClassicComponent<Props, any> =
-    React.render(classicElement, container);
-var domComponent: React.DOMComponent<any> =
-    React.render(domElement, container);
+    ReactDOM.render(classicElement, container);
+var domComponent: Element =
+    ReactDOM.render(domElement, container);
 
 // Other Top-Level API
-var unmounted: boolean = React.unmountComponentAtNode(container);
-var str: string = React.renderToString(element);
-var markup: string = React.renderToStaticMarkup(element);
+var unmounted: boolean = ReactDOM.unmountComponentAtNode(container);
+var str: string = ReactDOMServer.renderToString(element);
+var markup: string = ReactDOMServer.renderToStaticMarkup(element);
 var notValid: boolean = React.isValidElement(props); // false
 var isValid = React.isValidElement(element); // true
-React.initializeTouchEvents(true);
-var domNode: Element = React.findDOMNode(component);
-domNode = React.findDOMNode(domNode);
+var domNode: Element = ReactDOM.findDOMNode(component);
+domNode = ReactDOM.findDOMNode(domNode);
 
 //
 // React Elements
@@ -191,15 +237,41 @@ component.setState({ inputValue: "!!!" });
 component.forceUpdate();
 
 // classic
-var htmlElement: Element = classicComponent.getDOMNode();
-var divElement: HTMLDivElement = classicComponent.getDOMNode<HTMLDivElement>();
 var isMounted: boolean = classicComponent.isMounted();
-classicComponent.setProps(elementProps);
-classicComponent.replaceProps(props);
 classicComponent.replaceState({ inputValue: "???", seconds: 60 });
 
 var myComponent = <MyComponent>component;
 myComponent.reset();
+
+//
+// Refs
+// NB: to infer the correct type for callback refs, your component's Props
+// interface must extend React.Props<T> where T is your component type (or
+// an interface that it implements).
+// --------------------------------------------------------------------------
+
+interface RCProps extends React.Props<RefComponent> {
+}
+
+class RefComponent extends React.Component<RCProps, {}> {
+    static create = React.createFactory(RefComponent);
+    refMethod() {
+    }
+}
+
+var componentRef: RefComponent;
+RefComponent.create({ ref: "componentRef" });
+// type of c should be inferred
+RefComponent.create({ ref: c => componentRef = c });
+componentRef.refMethod();
+
+var domNodeRef: Element;
+React.DOM.div({ ref: "domRef" });
+// type of node should be inferred
+React.DOM.div({ ref: node => domNodeRef = node });
+
+var inputNodeRef: HTMLInputElement;
+React.DOM.input({ ref: node => inputNodeRef = <HTMLInputElement>node });
 
 //
 // Attributes
@@ -210,7 +282,7 @@ var divStyle: React.CSSProperties = { // CSSProperties
     flex: "1 1 main-size",
     backgroundImage: "url('hello.png')"
 };
-var htmlAttr: React.HTMLAttributes = {
+var htmlAttr: React.HTMLProps<HTMLElement> = {
     key: 36,
     ref: "htmlComponent",
     children: children,
@@ -329,11 +401,12 @@ var ContextTypesSpecification: React.ComponentSpec<any, any> = {
 // React.Children
 // --------------------------------------------------------------------------
 
-var childMap: { [key: string]: number } =
+var mappedChildrenArray: number[] =
     React.Children.map<number>(children, (child) => { return 42; });
 React.Children.forEach(children, (child) => {});
 var nChildren: number = React.Children.count(children);
 var onlyChild = React.Children.only([null, [[["Hallo"], true]], false]);
+var childrenToArray: React.ReactChild[] = React.Children.toArray(children);
 
 //
 // Example from http://facebook.github.io/react/
@@ -345,7 +418,7 @@ interface TimerState {
 class Timer extends React.Component<{}, TimerState> {
     state = {
         secondsElapsed: 0
-    }
+    };
     private _interval: number;
     tick() {
         this.setState((prevState, props) => ({
@@ -366,5 +439,121 @@ class Timer extends React.Component<{}, TimerState> {
         );
     }
 }
-React.render(React.createElement(Timer), container);
+ReactDOM.render(React.createElement(Timer), container);
 
+//
+// createFragment addon
+// --------------------------------------------------------------------------
+createFragment({
+    a: React.DOM.div(),
+    b: ["a", false, React.createElement("span")]
+});
+
+//
+// CSSTransitionGroup addon
+// --------------------------------------------------------------------------
+React.createFactory(CSSTransitionGroup)({
+    component: React.createClass({
+        render: (): React.ReactElement<any> => null
+    }),
+    childFactory: (c) => c,
+    transitionName: "transition",
+    transitionAppear: false,
+    transitionEnter: true,
+    transitionLeave: true
+});
+
+React.createFactory(CSSTransitionGroup)({
+    transitionName: {
+        enter: "enter",
+        enterActive: "enterActive",
+        leave: "leave",
+        leaveActive: "leaveActive",
+        appear: "appear",
+        appearActive: "appearActive"
+    }
+});
+
+//
+// LinkedStateMixin addon
+// --------------------------------------------------------------------------
+React.createClass({
+    mixins: [LinkedStateMixin],
+    getInitialState: function() {
+        return {
+            isChecked: false,
+            message: "hello!"
+        };
+    },
+    render: function() {
+        return React.DOM.div(null,
+            React.DOM.input({
+                type: "checkbox",
+                checkedLink: this.linkState("isChecked")
+            }),
+            React.DOM.input({
+                type: "text",
+                valueLink: this.linkState("message")
+            })
+        );
+    }
+});
+
+//
+// Perf addon
+// --------------------------------------------------------------------------
+Perf.start();
+Perf.stop();
+var measurements = Perf.getLastMeasurements();
+Perf.printInclusive(measurements);
+Perf.printExclusive(measurements);
+Perf.printWasted(measurements);
+Perf.printDOM(measurements);
+
+//
+// PureRenderMixin addon
+// --------------------------------------------------------------------------
+React.createClass({
+  mixins: [PureRenderMixin],
+  render: function() { return React.DOM.div(null); }
+});
+
+//
+// TestUtils addon
+// --------------------------------------------------------------------------
+var node: Element;
+TestUtils.Simulate.click(node);
+TestUtils.Simulate.change(node);
+TestUtils.Simulate.keyDown(node, { key: "Enter" });
+
+var renderer: React.ShallowRenderer =
+    TestUtils.createRenderer();
+renderer.render(React.createElement(Timer));
+var output: React.ReactElement<React.Props<Timer>> =
+    renderer.getRenderOutput();
+
+//
+// TransitionGroup addon
+// --------------------------------------------------------------------------
+React.createFactory(TransitionGroup)({ component: "div" });
+
+//
+// update addon
+// --------------------------------------------------------------------------
+{
+// These are copied from https://facebook.github.io/react/docs/update.html
+let initialArray = [1, 2, 3];
+let newArray = update(initialArray, {$push: [4]}); // => [1, 2, 3, 4]
+
+let collection = [1, 2, {a: [12, 17, 15]}];
+let newCollection = update(collection, {2: {a: {$splice: [[1, 1, 13, 14]]}}});
+// => [1, 2, {a: [12, 13, 14, 15]}]
+
+let obj = {a: 5, b: 3};
+let newObj = update(obj, {b: {$apply: function(x) {return x * 2;}}});
+// => {a: 5, b: 6}
+let newObj2 = update(obj, {b: {$set: obj.b * 2}});
+
+let objShallow = {a: 5, b: 3};
+let newObjShallow = update(obj, {$merge: {b: 6, c: 7}}); // => {a: 5, b: 6, c: 7}
+}

@@ -590,6 +590,7 @@ declare module JQueryUI {
         resize?: ResizableEvent;
         start?: ResizableEvent;
         stop?: ResizableEvent;
+        create?: ResizableEvents;
     }
 
     interface Resizable extends Widget, ResizableOptions {
