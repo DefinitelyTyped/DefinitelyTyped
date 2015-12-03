@@ -38,5 +38,5 @@ function pluginList() {
 
 pluginList().forEach((value:String) => {
     Foundation[value].($('.selector'));
-    Foundation[value].($('.selector'), {}, []);
+    Foundation[value].($('.selector'), {});
 });
