@@ -11,7 +11,10 @@ $(document).foundation();
 $(document).foundation('method');
 $(document).foundation(['method', 'method2']);
 
-function pluginList(){
+function pluginList() {
+
+    'use strict';
+
     return [
         'Abide',
         'Accordion',
