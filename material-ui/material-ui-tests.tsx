@@ -1,10 +1,13 @@
 ///<reference path='../react/react.d.ts' />
+///<reference path='../react/react-addons-linked-state-mixin.d.ts' />
 ///<reference path='material-ui.d.ts' />
 
-import * as React from "react/addons";
+import * as React from "react";
+import * as LinkedStateMixin from "react-addons-linked-state-mixin";
 import Checkbox = require("material-ui/lib/checkbox");
 import Colors = require("material-ui/lib/styles/colors");
 import AppBar = require("material-ui/lib/app-bar");
+import Badge = require("material-ui/lib/badge");
 import IconButton = require("material-ui/lib/icon-button");
 import FlatButton = require("material-ui/lib/flat-button");
 import Avatar = require("material-ui/lib/avatar");
@@ -14,6 +17,7 @@ import RaisedButton = require("material-ui/lib/raised-button");
 import FloatingActionButton = require("material-ui/lib/floating-action-button");
 import Card = require("material-ui/lib/card/card");
 import CardHeader = require("material-ui/lib/card/card-header");
+import DatePicker = require("material-ui/lib/date-picker/date-picker");
 import CardText = require("material-ui/lib/card/card-text");
 import CardActions = require("material-ui/lib/card/card-actions");
 import Dialog = require("material-ui/lib/dialog");
@@ -28,6 +32,9 @@ import Menu = require('material-ui/lib/menus/menu');
 import MenuItem = require('material-ui/lib/menus/menu-item');
 import MenuDivider = require('material-ui/lib/menus/menu-divider');
 import ThemeManager = require('material-ui/lib/styles/theme-manager');
+import GridList = require('material-ui/lib/grid-list/grid-list');
+import GridTile = require('material-ui/lib/grid-list/grid-tile');
+
 
 import NavigationClose = require("material-ui/lib/svg-icon");  // TODO: Should actually import the actual "material-ui/lib/svg-icons/navigation/close", but they aren't defined yet.
 import FileFolder = require("material-ui/lib/svg-icon");  // TODO: Should actually import the actual "material-ui/lib/svg-icons/file/folder", but they aren't defined yet.
@@ -126,6 +133,17 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
             backgroundColor={Colors.purple500}>
             </Avatar>
 
+        // "http://material-ui.com/#/components/badge"
+        element = <Badge badgeContent={<span>Hello</span>}>
+                    <Avatar color={Colors.deepOrange300} />
+                  </Badge>;
+        element = <Badge
+                    primary
+                    badgeContent={<span>Hello</span>}
+                    badgeStyle={{height: '24px', width: '24px'}}
+                  >
+                    This text has a badge!
+                  </Badge>;
 
         // "http://material-ui.com/#/components/buttons"
         element = <FlatButton linkButton={true} href="https://github.com/callemall/material-ui" secondary={true} label="GitHub">
@@ -160,7 +178,10 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
             </Card>;
 
         // "http://material-ui.com/#/components/date-picker"
-
+        element = <DatePicker
+            floatingLabelText="Floating Label Text" />;
+        element = <DatePicker
+            hintText="Hint Text" />;
 
         // "http://material-ui.com/#/components/dialog"
         let standardActions = [
@@ -456,12 +477,29 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
             hintText="Password Field"
             floatingLabelText="Password"
             type="password" />;
-
+            
 
         // "http://material-ui.com/#/components/time-picker"
 
 
         // "http://material-ui.com/#/components/toolbars"
+        
+        // "http://material-ui.com/#/components/grid-list"
+        element = <GridList
+            cols={3}
+            padding={50}
+            cellHeight={200} />;
+            
+        element = <GridTile
+            title="GridTileTitle"
+            actionIcon={<h1>GridTile</h1>}
+            actionPosition="left"
+            titlePosition="top"
+            titleBackground="rgba(0, 0, 0, 0.4)"
+            cols={2}
+            rows={1} >
+            <h1>Children are Required!</h1>
+            </GridTile>;
 
         return element;
     }

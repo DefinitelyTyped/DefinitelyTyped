@@ -31,7 +31,7 @@ declare module 'jsnox' {
          * @param children A single React node (string or ReactElement) or array of nodes.
          * Note that unlike with React itself, multiple children must be placed into an array. 
          */
-        (specString: string, children: React.ReactNode): React.HTMLComponent
+        <P>(specString: string, children: React.ReactNode): React.DOMElement<P>
 
         /**
          * Renders an HTML element from the given spec string, with optional props 
@@ -42,7 +42,7 @@ declare module 'jsnox' {
          * @param children A single React node (string or ReactElement) or array of nodes.
          * Note that unlike with React itself, multiple children must be placed into an array. 
          */
-        (specString: string, props?: React.HTMLAttributes, children?: React.ReactNode): React.HTMLComponent
+        <P>(specString: string, props?: React.HTMLAttributes, children?: React.ReactNode): React.DOMElement<P>
 
 
         /**

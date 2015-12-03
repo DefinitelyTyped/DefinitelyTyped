@@ -56,6 +56,7 @@ declare module L {
 		className?: string;
 		clickable?: boolean;
 		direction?: string; // 'left' | 'right' | 'auto';
+		pane?: string;
 		noHide?: boolean;
 		offset?: Point;
 		opacity?: number;
