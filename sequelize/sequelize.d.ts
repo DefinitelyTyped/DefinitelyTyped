@@ -19,12 +19,13 @@ declare module "sequelize" {
         //
         //  https://github.com/sequelize/sequelize/tree/v3.4.1/lib/associations
         //
-        
+
+
         /**
          * The options for the getAssociation mixin of the belongsTo association.
          * @see BelongsToGetAssociationMixin
          */
-        interface BelongsToGetAssociationMixinOptions extends Transactable {
+        interface BelongsToGetAssociationMixinOptions {
             /**
              * Apply a scope on the related model, or remove its default scope by passing false.
              */
@@ -61,7 +62,7 @@ declare module "sequelize" {
          * The options for the setAssociation mixin of the belongsTo association.
          * @see BelongsToSetAssociationMixin
          */
-        interface BelongsToSetAssociationMixinOptions extends Transactable {
+        interface BelongsToSetAssociationMixinOptions {
             /**
              * Skip saving this after setting the foreign key if false.
              */
@@ -102,7 +103,7 @@ declare module "sequelize" {
          * The options for the createAssociation mixin of the belongsTo association.
          * @see BelongsToCreateAssociationMixin
          */
-        interface BelongsToCreateAssociationMixinOptions extends Transactable { }
+        interface BelongsToCreateAssociationMixinOptions { }
 
         /**
          * The createAssociation mixin applied to models with belongsTo.
@@ -138,7 +139,7 @@ declare module "sequelize" {
          * The options for the getAssociation mixin of the hasOne association.
          * @see HasOneGetAssociationMixin
          */
-        interface HasOneGetAssociationMixinOptions extends Transactable {
+        interface HasOneGetAssociationMixinOptions {
             /**
              * Apply a scope on the related model, or remove its default scope by passing false.
              */
@@ -175,7 +176,7 @@ declare module "sequelize" {
          * The options for the setAssociation mixin of the hasOne association.
          * @see HasOneSetAssociationMixin
          */
-        interface HasOneSetAssociationMixinOptions extends Transactable {
+        interface HasOneSetAssociationMixinOptions {
             /**
              * Skip saving this after setting the foreign key if false.
              */
@@ -216,7 +217,7 @@ declare module "sequelize" {
          * The options for the createAssociation mixin of the hasOne association.
          * @see HasOneCreateAssociationMixin
          */
-        interface HasOneCreateAssociationMixinOptions extends Transactable { }
+        interface HasOneCreateAssociationMixinOptions { }
 
         /**
          * The createAssociation mixin applied to models with hasOne.
@@ -252,7 +253,7 @@ declare module "sequelize" {
          * The options for the getAssociations mixin of the hasMany association.
          * @see HasManyGetAssociationsMixin
          */
-        interface HasManyGetAssociationsMixinOptions extends Transactable {
+        interface HasManyGetAssociationsMixinOptions {
 
             /**
              * An optional where clause to limit the associated models.
@@ -302,7 +303,7 @@ declare module "sequelize" {
          * The options for the setAssociations mixin of the hasMany association.
          * @see HasManySetAssociationsMixin
          */
-        interface HasManySetAssociationsMixinOptions extends Transactable {
+        interface HasManySetAssociationsMixinOptions {
 
             /**
              * Run validation for the join model.
@@ -352,7 +353,7 @@ declare module "sequelize" {
          * The options for the addAssociations mixin of the hasMany association.
          * @see HasManyAddAssociationsMixin
          */
-        interface HasManyAddAssociationsMixinOptions extends Transactable {
+        interface HasManyAddAssociationsMixinOptions {
 
             /**
              * Run validation for the join model.
@@ -401,7 +402,7 @@ declare module "sequelize" {
          * The options for the addAssociation mixin of the hasMany association.
          * @see HasManyAddAssociationMixin
          */
-        interface HasManyAddAssociationMixinOptions extends Transactable {
+        interface HasManyAddAssociationMixinOptions {
 
             /**
              * Run validation for the join model.
@@ -450,7 +451,7 @@ declare module "sequelize" {
          * The options for the createAssociation mixin of the hasMany association.
          * @see HasManyCreateAssociationMixin
          */
-        interface HasManyCreateAssociationMixinOptions extends Transactable { }
+        interface HasManyCreateAssociationMixinOptions { }
 
         /**
          * The createAssociation mixin applied to models with hasMany.
@@ -493,7 +494,7 @@ declare module "sequelize" {
          * The options for the removeAssociation mixin of the hasMany association.
          * @see HasManyRemoveAssociationMixin
          */
-        interface HasManyRemoveAssociationMixinOptions extends Transactable { }
+        interface HasManyRemoveAssociationMixinOptions { }
 
         /**
          * The removeAssociation mixin applied to models with hasMany.
@@ -536,7 +537,7 @@ declare module "sequelize" {
          * The options for the removeAssociations mixin of the hasMany association.
          * @see HasManyRemoveAssociationsMixin
          */
-        interface HasManyRemoveAssociationsMixinOptions extends Transactable { }
+        interface HasManyRemoveAssociationsMixinOptions { }
 
         /**
          * The removeAssociations mixin applied to models with hasMany.
@@ -579,7 +580,7 @@ declare module "sequelize" {
          * The options for the hasAssociation mixin of the hasMany association.
          * @see HasManyHasAssociationMixin
          */
-        interface HasManyHasAssociationMixinOptions extends Transactable { }
+        interface HasManyHasAssociationMixinOptions { }
 
         /**
          * The hasAssociation mixin applied to models with hasMany.
@@ -622,7 +623,7 @@ declare module "sequelize" {
          * The options for the hasAssociations mixin of the hasMany association.
          * @see HasManyHasAssociationsMixin
          */
-        interface HasManyHasAssociationsMixinOptions extends Transactable { }
+        interface HasManyHasAssociationsMixinOptions { }
 
         /**
          * The removeAssociations mixin applied to models with hasMany.
@@ -665,7 +666,7 @@ declare module "sequelize" {
          * The options for the countAssociations mixin of the hasMany association.
          * @see HasManyCountAssociationsMixin
          */
-        interface HasManyCountAssociationsMixinOptions extends Transactable {
+        interface HasManyCountAssociationsMixinOptions {
 
             /**
              * An optional where clause to limit the associated models.
@@ -715,7 +716,7 @@ declare module "sequelize" {
          * The options for the getAssociations mixin of the belongsToMany association.
          * @see BelongsToManyGetAssociationsMixin
          */
-        interface BelongsToManyGetAssociationsMixinOptions extends Transactable {
+        interface BelongsToManyGetAssociationsMixinOptions {
 
             /**
              * An optional where clause to limit the associated models.
@@ -765,7 +766,7 @@ declare module "sequelize" {
          * The options for the setAssociations mixin of the belongsToMany association.
          * @see BelongsToManySetAssociationsMixin
          */
-        interface BelongsToManySetAssociationsMixinOptions extends Transactable {
+        interface BelongsToManySetAssociationsMixinOptions {
 
             /**
              * Run validation for the join model.
@@ -815,7 +816,7 @@ declare module "sequelize" {
          * The options for the addAssociations mixin of the belongsToMany association.
          * @see BelongsToManyAddAssociationsMixin
          */
-        interface BelongsToManyAddAssociationsMixinOptions extends Transactable {
+        interface BelongsToManyAddAssociationsMixinOptions {
 
             /**
              * Run validation for the join model.
@@ -864,7 +865,7 @@ declare module "sequelize" {
          * The options for the addAssociation mixin of the belongsToMany association.
          * @see BelongsToManyAddAssociationMixin
          */
-        interface BelongsToManyAddAssociationMixinOptions extends Transactable {
+        interface BelongsToManyAddAssociationMixinOptions {
 
             /**
              * Run validation for the join model.
@@ -913,7 +914,7 @@ declare module "sequelize" {
          * The options for the createAssociation mixin of the belongsToMany association.
          * @see BelongsToManyCreateAssociationMixin
          */
-        interface BelongsToManyCreateAssociationMixinOptions extends Transactable { }
+        interface BelongsToManyCreateAssociationMixinOptions { }
 
         /**
          * The createAssociation mixin applied to models with belongsToMany.
@@ -956,7 +957,7 @@ declare module "sequelize" {
          * The options for the removeAssociation mixin of the belongsToMany association.
          * @see BelongsToManyRemoveAssociationMixin
          */
-        interface BelongsToManyRemoveAssociationMixinOptions extends Transactable { }
+        interface BelongsToManyRemoveAssociationMixinOptions { }
 
         /**
          * The removeAssociation mixin applied to models with belongsToMany.
@@ -999,7 +1000,7 @@ declare module "sequelize" {
          * The options for the removeAssociations mixin of the belongsToMany association.
          * @see BelongsToManyRemoveAssociationsMixin
          */
-        interface BelongsToManyRemoveAssociationsMixinOptions extends Transactable { }
+        interface BelongsToManyRemoveAssociationsMixinOptions { }
 
         /**
          * The removeAssociations mixin applied to models with belongsToMany.
@@ -1042,7 +1043,7 @@ declare module "sequelize" {
          * The options for the hasAssociation mixin of the belongsToMany association.
          * @see BelongsToManyHasAssociationMixin
          */
-        interface BelongsToManyHasAssociationMixinOptions extends Transactable { }
+        interface BelongsToManyHasAssociationMixinOptions { }
 
         /**
          * The hasAssociation mixin applied to models with belongsToMany.
@@ -1085,7 +1086,7 @@ declare module "sequelize" {
          * The options for the hasAssociations mixin of the belongsToMany association.
          * @see BelongsToManyHasAssociationsMixin
          */
-        interface BelongsToManyHasAssociationsMixinOptions extends Transactable { }
+        interface BelongsToManyHasAssociationsMixinOptions { }
 
         /**
          * The removeAssociations mixin applied to models with belongsToMany.
@@ -1128,7 +1129,7 @@ declare module "sequelize" {
          * The options for the countAssociations mixin of the belongsToMany association.
          * @see BelongsToManyCountAssociationsMixin
          */
-        interface BelongsToManyCountAssociationsMixinOptions extends Transactable {
+        interface BelongsToManyCountAssociationsMixinOptions {
 
             /**
              * An optional where clause to limit the associated models.
@@ -2537,7 +2538,7 @@ declare module "sequelize" {
         /**
          * Options used for Instance.increment method
          */
-        interface InstanceIncrementDecrementOptions extends Transactable {
+        interface InstanceIncrementDecrementOptions {
 
             /**
              * The number to increment by
@@ -2552,28 +2553,38 @@ declare module "sequelize" {
             logging? : boolean | Function;
 
             /**
+             * Transaction to run query under
+             */
+            transaction? : Transaction;
+
+            /**
              * A hash of attributes to describe your search. See above for examples.
              */
             where? : WhereOptions | Array<col | and | or | string>;
-            
+
         }
 
         /**
          * Options used for Instance.restore method
          */
-        interface InstanceRestoreOptions extends Transactable {
+        interface InstanceRestoreOptions {
 
             /**
              * A function that gets executed while running the query to log the sql.
              */
             logging? : boolean | Function;
-            
+
+            /**
+             * Transaction to run query under
+             */
+            transaction? : Transaction;
+
         }
 
         /**
          * Options used for Instance.destroy method
          */
-        interface InstanceDestroyOptions extends Transactable {
+        interface InstanceDestroyOptions {
 
             /**
              * If set to true, paranoid models will actually be deleted
@@ -2584,7 +2595,12 @@ declare module "sequelize" {
              * A function that gets executed while running the query to log the sql.
              */
             logging? : boolean | Function;
-            
+
+            /**
+             * Transaction to run the query in
+             */
+            transaction? : Transaction;
+
         }
 
         /**
@@ -2619,7 +2635,7 @@ declare module "sequelize" {
         /**
          * Options used for Instance.save method
          */
-        interface InstanceSaveOptions extends Transactable {
+        interface InstanceSaveOptions {
 
             /**
              * An optional array of strings, representing database columns. If fields is provided, only those columns
@@ -2645,7 +2661,12 @@ declare module "sequelize" {
              * A function that gets executed while running the query to log the sql.
              */
             logging? : boolean | Function;
-            
+
+            /**
+             * Transaction to run the query in
+             */
+            transaction? : Transaction;
+
         }
 
         /**
@@ -3070,7 +3091,7 @@ declare module "sequelize" {
          *
          * A hash of options to describe the scope of the search
          */
-        interface FindOptions extends Transactable {
+        interface FindOptions {
 
             /**
              * A hash of attributes to describe your search. See above for examples.
@@ -3118,6 +3139,11 @@ declare module "sequelize" {
             offset?: number;
 
             /**
+             * Transaction to run query under
+             */
+            transaction? : Transaction;
+
+            /**
              * Lock the selected rows. Possible options are transaction.LOCK.UPDATE and transaction.LOCK.SHARE.
              * Postgres also supports transaction.LOCK.KEY_SHARE, transaction.LOCK.NO_KEY_UPDATE and specific model
              * locks with joins. See [transaction.LOCK for an example](transaction#lock)
@@ -3144,7 +3170,7 @@ declare module "sequelize" {
         /**
          * Options for Model.count method
          */
-        interface CountOptions extends Transactable {
+        interface CountOptions {
 
             /**
              * A hash of search attributes.
@@ -3177,7 +3203,8 @@ declare module "sequelize" {
              * A function that gets executed while running the query to log the sql.
              */
             logging? : boolean | Function;
-            
+
+            transaction?: Transaction;
         }
 
         /**
@@ -3207,7 +3234,7 @@ declare module "sequelize" {
         /**
          * Options for Model.create method
          */
-        interface CreateOptions extends BuildOptions, Transactable {
+        interface CreateOptions extends BuildOptions {
 
             /**
              * If set, only columns matching those in fields will be saved
@@ -3220,6 +3247,11 @@ declare module "sequelize" {
             onDuplicate? : string;
 
             /**
+             * Transaction to run query under
+             */
+            transaction? : Transaction;
+
+            /**
              * A function that gets executed while running the query to log the sql.
              */
             logging? : boolean | Function;
@@ -3227,13 +3259,12 @@ declare module "sequelize" {
             silent? : boolean;
 
             returning? : boolean;
-            
         }
 
         /**
          * Options for Model.findOrInitialize method
          */
-        interface FindOrInitializeOptions<TAttributes> extends Transactable {
+        interface FindOrInitializeOptions<TAttributes> {
 
             /**
              * A hash of search attributes.
@@ -3244,6 +3275,11 @@ declare module "sequelize" {
              * Default values to use if building a new instance
              */
             defaults? : TAttributes;
+
+            /**
+             * Transaction to run query under
+             */
+            transaction? : Transaction;
 
             /**
              * A function that gets executed while running the query to log the sql.
@@ -3277,7 +3313,7 @@ declare module "sequelize" {
         /**
          * Options for Model.bulkCreate method
          */
-        interface BulkCreateOptions extends Transactable {
+        interface BulkCreateOptions {
 
             /**
              * Fields to insert (defaults to all fields)
@@ -3315,6 +3351,11 @@ declare module "sequelize" {
             updateOnDuplicate? : Array<string>;
 
             /**
+             * Transaction to run query under
+             */
+            transaction? : Transaction;
+
+            /**
              * A function that gets executed while running the query to log the sql.
              */
             logging? : boolean | Function;
@@ -3324,7 +3365,12 @@ declare module "sequelize" {
         /**
          * The options passed to Model.destroy in addition to truncate
          */
-        interface TruncateOptions extends Transactable {
+        interface TruncateOptions {
+
+            /**
+             * Transaction to run query under
+             */
+            transaction? : Transaction;
 
             /**
              * Only used in conjuction with TRUNCATE. Truncates  all tables that have foreign-key references to the
@@ -3383,7 +3429,7 @@ declare module "sequelize" {
         /**
          * Options for Model.restore
          */
-        interface RestoreOptions extends Transactable {
+        interface RestoreOptions {
 
             /**
              * Filter the restore
@@ -3411,12 +3457,17 @@ declare module "sequelize" {
              */
             logging? : boolean | Function;
 
+            /**
+             * Transaction to run query under
+             */
+            transaction? : Transaction;
+
         }
 
         /**
          * Options used for Model.update
          */
-        interface UpdateOptions extends Transactable {
+        interface UpdateOptions {
 
             /**
              * Options to describe the scope of the search.
@@ -3472,6 +3523,11 @@ declare module "sequelize" {
              * A function that gets executed while running the query to log the sql.
              */
             logging? : boolean | Function;
+
+            /**
+             * Transaction to run query under
+             */
+            transaction? : Transaction;
 
         }
 
@@ -4366,13 +4422,18 @@ declare module "sequelize" {
          *
          * @see Options
          */
-        interface QueryOptions extends Transactable {
+        interface QueryOptions {
 
             /**
              * If true, sequelize will not try to format the results of the query, or build an instance of a model from
              * the result
              */
             raw?: boolean;
+
+            /**
+             * The transaction that the query should be executed under
+             */
+            transaction?: Transaction;
 
             /**
              * The type of query you are executing. The query type affects how results are formatted before they are
@@ -5777,18 +5838,7 @@ declare module "sequelize" {
              * A function that gets executed while running the query to log the sql.
              */
             logging?: Function;
-        }
-        
-        /**
-         * An interface that allows an item to support working under a transaction
-         * 
-         * @param transaction Transaction The optional transaction to run under
-         */
-        interface Transactable {
-            /**
-             * Transaction to run query under
-             */
-            transaction?: Transaction;
+
         }
 
         //
