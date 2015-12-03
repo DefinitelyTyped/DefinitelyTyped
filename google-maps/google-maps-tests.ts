@@ -3,7 +3,7 @@
 import GoogleMapsLoader = require('google-maps');
  
 GoogleMapsLoader.load(function(google) {
-    new google.maps.Map(el, options);
+    var loadedMap = google.maps.Map;
 });
 
 GoogleMapsLoader.KEY = 'qwertyuiopasdfghjklzxcvbnm';
@@ -11,7 +11,7 @@ GoogleMapsLoader.KEY = 'qwertyuiopasdfghjklzxcvbnm';
 GoogleMapsLoader.CLIENT = 'yourclientkey';
 GoogleMapsLoader.VERSION = '3.14';
 
-GoogleMapsLoader.SENSOR = true
+GoogleMapsLoader.SENSOR = true;
 
 GoogleMapsLoader.LIBRARIES = ['geometry', 'places'];
 
@@ -22,5 +22,6 @@ GoogleMapsLoader.release(function() {
 });
 
 GoogleMapsLoader.onLoad(function(google) {
+    var loadedMap = google.maps.Map;
     console.log('I just loaded google maps api');
 });
