@@ -344,3 +344,4 @@ $(document).foundation("reflow");
 plugin_list().forEach((plugin) => $(document).foundation(plugin, "reflow"));
 
 $(document).foundation("slider", "set_value", 100);
+Foundatio
