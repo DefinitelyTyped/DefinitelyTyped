@@ -118,7 +118,7 @@ declare module Foundation {
     // http://foundation.zurb.com/sites/docs/equalizer.html#javascript-reference
     export interface Equalizer {
         getHeights: (element:Object) => Array<any>;
-        applyHeight: ($eqParent:Object, heights:Array) => void;
+        applyHeight: ($eqParent:Object, heights:Array<any>) => void;
         destroy: () => void;
     }
 
