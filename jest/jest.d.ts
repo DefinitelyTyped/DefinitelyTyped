@@ -3,21 +3,29 @@
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../node/node.d.ts" />
+
 declare function afterEach(fn: jest.EmptyFunction): void;
 declare function beforeEach(fn: jest.EmptyFunction): void;
 declare function describe(name: string, fn: jest.EmptyFunction): void;
 declare var it: jest.It;
 declare function pit(name: string, fn: jest.EmptyFunction): void;
-declare var require: jest.Require;
+
 declare function xdescribe(name: string, fn: jest.EmptyFunction): void;
 declare function xit(name: string, fn: jest.EmptyFunction): void;
 
 declare function expect(actual: any): jest.Matchers;
 
+interface NodeRequire {
+    requireActual(moduleName: string): any;
+}
+
 declare module jest {
+    function addMatchers(matchers: CustomMatcherFactories): void;
     function autoMockOff(): void;
     function autoMockOn(): void;
     function clearAllTimers(): void;
+    function currentTestPath(): string;
     function dontMock(moduleName: string): void;
     function genMockFromModule<T>(moduleName: string): Mock<T>;
     function genMockFunction<T>(): Mock<T>;
@@ -40,6 +48,7 @@ declare module jest {
         toBeFalsy(): boolean;
         toBeTruthy(): boolean;
         toBeNull(): boolean;
+        toBeDefined(): boolean;
         toBeUndefined(): boolean;
         toMatch(expected: RegExp): boolean;
         toContain(expected: string): boolean;
@@ -56,14 +65,9 @@ declare module jest {
         only(name: string, fn: EmptyFunction): void;
     }
 
-    interface Require {
-        (moduleName: string): any;
-        requireActual(moduleName: string): any;
-    }
-
     interface Mock<T> {
-        new(): T;
-        (...args:any[]): any; // TODO please fix this line! added for TypeScript 1.1.0-1 https://github.com/borisyankov/DefinitelyTyped/pull/2932
+        new (): T;
+        (...args: any[]): any; // TODO please fix this line! added for TypeScript 1.1.0-1 https://github.com/borisyankov/DefinitelyTyped/pull/2932
         mock: MockContext<T>;
         mockClear(): void;
         mockImplementation(fn: Function): Mock<T>;
@@ -76,5 +80,45 @@ declare module jest {
     interface MockContext<T> {
         calls: any[][];
         instances: T[];
+    }
+
+    // taken from Jasmine since addMatchers calls into the jasmine api
+    interface CustomMatcherFactories {
+        [index: string]: CustomMatcherFactory;
+    }
+
+    // taken from Jasmine since addMatchers calls into the jasmine api
+    interface CustomMatcherFactory {
+        (util: MatchersUtil, customEqualityTesters: Array<CustomEqualityTester>): CustomMatcher;
+    }
+
+    // taken from Jasmine since addMatchers calls into the jasmine api
+    interface MatchersUtil {
+        equals(a: any, b: any, customTesters?: Array<CustomEqualityTester>): boolean;
+        contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: Array<CustomEqualityTester>): boolean;
+        buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: Array<any>): string;
+    }
+
+    // taken from Jasmine since addMatchers calls into the jasmine api
+    interface CustomEqualityTester {
+        (first: any, second: any): boolean;
+    }
+
+    // taken from Jasmine since addMatchers calls into the jasmine api
+    interface CustomMatcher {
+        compare<T>(actual: T, expected: T): CustomMatcherResult;
+        compare(actual: any, expected: any): CustomMatcherResult;
+    }
+
+    // taken from Jasmine since addMatchers calls into the jasmine api
+    interface CustomMatcherResult {
+        pass: boolean;
+        message: string;
+    }
+
+    // taken from Jasmine which takes from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
+    interface ArrayLike<T> {
+        length: number;
+        [n: number]: T;
     }
 }

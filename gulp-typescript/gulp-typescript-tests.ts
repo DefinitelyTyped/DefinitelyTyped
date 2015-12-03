@@ -54,3 +54,9 @@ gulp.task('scripts', function () {
     return gulp.src('lib/*.ts')
         .pipe(typescript(tsProject, undefined, typescript.reporter.fullReporter()));
 });
+
+gulp.task('default', function () {
+    return gulp.src('src/**/*.ts')
+        .pipe(typescript())
+        .pipe(gulp.dest('built/local'));
+});
