@@ -43,45 +43,51 @@ declare module Foundation {
     export interface IAbideOptions {
         slideSpeed?: number
         multiOpen?: boolean;
+        patters?: Foundation.IAbidePatterns;
     }
 
     // http://foundation.zurb.com/sites/docs/accordion.html#javascript-reference
-    export interface Accordion {
+    interface Accordion {
         toggle($target:JQuery): void;
         down($target:JQuery, firstTime:boolean): void;
         up($target:JQuery): void;
         destroy(): void;
     }
 
-    interface IAccordionOptions {
+    export interface IAccordionOptions {
         slideSpeed?: number
         multiOpen?: boolean;
     }
 
     // http://foundation.zurb.com/sites/docs/accordion-menu.html#javascript-reference
-    export interface AccordionMenu {
+    interface AccordionMenu {
         toggle($target:JQuery): void;
         down($target:JQuery, firstTime:boolean): void;
         up($target:JQuery): void;
         destroy(): void;
     }
 
+    export interface IAccordionMenuOptions {
+        slideSpeed?: number;
+        multiOpen?: boolean;
+    }
+
     // http://foundation.zurb.com/sites/docs/drilldown-menu.html#javascript-reference
-    export interface Drilldown {
+    interface Drilldown {
         _hideAll($elem:JQuery): void;
         _show($elem:JQuery): void;
         _hide($elem:JQuery): void;
         destroy(): void;
     }
 
-    interface IDrilldownOptions {
+    export interface IDrilldownOptions {
         backButton?: String;
         wrapper?: String
         closeOnClick?: boolean
     }
 
     // http://foundation.zurb.com/sites/docs/dropdown.html#javascript-reference
-    export interface Dropdown {
+    interface Dropdown {
         getPositionClass(): String;
         open(): void;
         close(): void;
@@ -89,7 +95,7 @@ declare module Foundation {
         destroy(): void;
     }
 
-    interface IDropdownOptions {
+    export interface IDropdownOptions {
         hoverDelay?: number;
         hover?: boolean;
         vOffset?: number;
@@ -100,11 +106,11 @@ declare module Foundation {
     }
 
     // http://foundation.zurb.com/sites/docs/dropdown-menu.html#javascript-reference
-    export interface DropdownMenu {
+    interface DropdownMenu {
         destroy(): void;
     }
 
-    interface IDropdownMenuOptions {
+    export interface IDropdownMenuOptions {
         disableHover?: boolean;
         autoclose?: boolean;
         hoverDelay?: number;
@@ -116,35 +122,35 @@ declare module Foundation {
     }
 
     // http://foundation.zurb.com/sites/docs/equalizer.html#javascript-reference
-    export interface Equalizer {
+    interface Equalizer {
         getHeights(element:Object): Array<any>;
-        applyHeight($eqParent:Object, heights:Array): void;
+        applyHeight($eqParent:Object, heights:Array<any>): void;
         destroy(): void;
     }
 
-    interface IEqualizerOptions {
+    export interface IEqualizerOptions {
         equalizeOnStack?: boolean;
         throttleInterval?: number;
     }
 
     // http://foundation.zurb.com/sites/docs/interchange.html#javascript-reference
-    export interface Interchange {
+    interface Interchange {
         replace(path:String): void;
         destroy(): void;
     }
 
-    interface IInterchangeOptions {
+    export interface IInterchangeOptions {
         rules?: Array<any>
     }
 
     // http://foundation.zurb.com/sites/docs/magellan.html#javascript-reference
-    export interface Magellan {
+    interface Magellan {
         calcPoints(): void;
         reflow(): void;
         destroy(): void;
     }
 
-    interface IMagellanOptions {
+    export interface IMagellanOptions {
         animationDuration?: number;
         animationEasing?: String;
         threshold?: number;
@@ -153,14 +159,14 @@ declare module Foundation {
     }
 
     // http://foundation.zurb.com/sites/docs/offcanvas.html#javascript-reference
-    export interface OffCanvas {
+    interface OffCanvas {
         open(event:Object, trigger:JQuery): void;
         toggle(event:Object, trigger:JQuery): void;
         close(): void;
         destroy(): void;
     }
 
-    interface IOffCanvasOptions {
+    export interface IOffCanvasOptions {
         closeOnClick?: boolean;
         transitionTime?: number;
         position?: String;
@@ -172,13 +178,13 @@ declare module Foundation {
     }
 
     // http://foundation.zurb.com/sites/docs/orbit.html#javascript-reference
-    export interface Orbit {
+    interface Orbit {
         changeSlide(isLTR:boolean, chosenSlide?:Object, idx?:number): void;
         geoSync(): void;
         destroy(): void;
     }
 
-    interface IOrbitOptions {
+    export interface IOrbitOptions {
         bullets?: boolean;
         navButtons?: boolean;
         animInFromRight?: String;
@@ -199,14 +205,14 @@ declare module Foundation {
     }
 
     // http://foundation.zurb.com/sites/docs/reveal.html#javascript-reference
-    export interface Reveal {
+    interface Reveal {
         open(): void;
         toggle(): void;
         close(): void;
         destroy(): void;
     }
 
-    interface IRevealOptions {
+    export interface IRevealOptions {
         animationIn?: String;
         animationOut?: String;
         showDelay?: number;
@@ -223,11 +229,11 @@ declare module Foundation {
     }
 
     // http://foundation.zurb.com/sites/docs/slider.html#javascript-reference
-    export interface Slider {
+    interface Slider {
         destroy(): void;
     }
 
-    interface ISliderOptions {
+    export interface ISliderOptions {
         start?: number;
         end?: number;
         step?: number;
@@ -245,14 +251,14 @@ declare module Foundation {
     }
 
     // http://foundation.zurb.com/sites/docs/sticky.html#javascript-reference
-    export interface Sticky {
+    interface Sticky {
         _pauseListeners(scrollListener:String): void;
         _calc(checkSizes:boolean, scroll:number): void;
         destroy(): void;
         emCalc(number:any): void;
     }
 
-    interface IStickyOptions {
+    export interface IStickyOptions {
         container?: String;
         stickTo?: String;
         anchor?: String;
@@ -267,35 +273,35 @@ declare module Foundation {
     }
 
     // http://foundation.zurb.com/sites/docs/tabs.html#javascript-reference
-    export interface Tabs {
+    interface Tabs {
         _handleTabChange($target:JQuery): void;
         selectTab($target:JQuery): void;
         destroy(): void;
     }
 
-    interface ITabsOptions {
+    export interface ITabsOptions {
         animate?: boolean;
     }
 
     // http://foundation.zurb.com/sites/docs/toggler.html#javascript-reference
-    export interface Toggler {
+    interface Toggler {
         toggle(): void;
         destroy(): void;
     }
 
-    interface ITogglerOptions {
+    export interface ITogglerOptions {
         animate?: boolean;
     }
 
     // http://foundation.zurb.com/sites/docs/tooltip.html#javascript-reference
-    export interface Tooltip {
+    interface Tooltip {
         show(): void;
-        hide() =>void;
+        hide(): void;
         toggle(): void;
         destroy(): void;
     }
 
-    interface ITooltipOptions {
+    export interface ITooltipOptions {
         hoverDelay?: number;
         fadeInDuration?: number;
         fadeOutDuration?: number;
@@ -315,25 +321,25 @@ declare module Foundation {
     // Utilities
     // ---------
 
-    export interface Box {
+    interface Box {
         ImNotTouchingYou(element:Object, parent?:Object, lrOnly?:boolean, tbOnly?:boolean): boolean;
         GetDimensions(element:Object): Object;
         GetOffsets(element:Object, anchor:Object, position:String, vOffset:number, hOffset:number, isOverflow:boolean): Object;
     }
 
-    export interface KeyBoard {
+    interface KeyBoard {
         parseKey(event:any): String;
         findFocusable($element:Object): Object;
     }
 
-    export interface MediaQuery {
+    interface MediaQuery {
         get(size:String): String;
         atLeast(size:String): boolean;
         queries:Array<any>;
         current:any;
     }
 
-    export interface Motion {
+    interface Motion {
         animateIn(element:Object, animation:any, cb:Function): void;
         animateOut(element:Object, animation:any, cb:Function): void;
     }
@@ -344,9 +350,11 @@ declare module Foundation {
 
     interface Nest {
         // TODO
+        //Feather: function(menu, type)
+        // Burn: function(menu, type){
     }
 
-    export interface Timer {
+    interface Timer {
         start(): void;
         restart(): void;
         pause(): void;
@@ -379,10 +387,12 @@ declare module Foundation {
 
         Abide(element:Object, options?:IAbideOptions): Foundation.Abide;
         Accordion(element:Object, options?:IAccordionOptions): Foundation.Accordion;
+        AccordionMenu(element:Object, options?:IAccordionMenuOptions): Foundation.AccordionMenu;
+        DrillDown(element:Object, options?:IDrilldownOptions): Foundation.Drilldown;
         Dropdown(element:Object, options?:IDropdownOptions): Foundation.Dropdown;
         DropdownMenu(element:Object, options?:IDropdownMenuOptions): Foundation.DropdownMenu;
         Equalizer(element:Object, options?:IEqualizerOptions): Foundation.Equalizer;
-        Interchange(element:Object, options?:IInterChangeOptions): Foundation.Interchange;
+        Interchange(element:Object, options?:IInterchangeOptions): Foundation.Interchange;
         Magellan(element:Object, options?:IMagellanOptions): Foundation.Magellan;
         OffCanvas(element:Object, options?:IOffCanvasOptions): Foundation.OffCanvas;
         Orbit(element:Object, options?:IOrbitOptions): Foundation.Orbit;
@@ -395,7 +405,7 @@ declare module Foundation {
 
         // utils
         Box: Foundation.Box;
-        KeyBoard: Foundation.Box;
+        KeyBoard: Foundation.KeyBoard;
         MediaQuery: Foundation.MediaQuery;
         Motion: Foundation.Motion;
         Move: Foundation.Move;
