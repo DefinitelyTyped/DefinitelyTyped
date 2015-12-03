@@ -170,6 +170,30 @@ QUnit.module("module A", {
     }
 });
 
+QUnit.module("module with async setup and teardown", {
+    setup: function (assert) {
+        var done = assert.async();
+        setTimeout(function () {
+            // prepare something for all following tests
+        });
+    },
+    teardown: function (assert) {
+        // clean up after each test
+    }
+});
+
+QUnit.module("module with async setup and teardown", {
+    beforeEach: function (assert: QUnitAssert) {
+        var done = assert.async();
+        setTimeout(function () {
+            // prepare something for all following tests
+        });
+    },
+    afterEach: function () {
+        // clean up after each test
+    }
+});
+
 QUnit.test("a test", function (assert) {
 
     function square(x) {
