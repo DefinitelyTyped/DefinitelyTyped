@@ -1,6 +1,6 @@
 // Type definitions for google-maps 3.1.0
 // Project: https://www.npmjs.com/package/google-maps
-// Definitions by: Deividas Bakanas <deividas@quatrodev.com>, Giedrius Grabauskas <giedrius@quatrodev.com>
+// Definitions by: Deividas Bakanas <https://github.com/DeividasBakanas>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../googlemaps/google.maps.d.ts" />
