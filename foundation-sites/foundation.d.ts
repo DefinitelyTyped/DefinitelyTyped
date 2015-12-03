@@ -344,6 +344,8 @@ declare module Foundation {
 
     interface Nest {
         // TODO
+        //Feather: function(menu, type)
+        // Burn: function(menu, type){
     }
 
     export interface Timer {
@@ -360,28 +362,11 @@ declare module Foundation {
         // TODO :extension on jQuery
     }
 
-    export interface InterChange {
-        destroy: () => void;
-    }
+
     interface IInterChangeOptions {
-        rules         ?: Array<String>;
+        rules ?: Array<any>;
     }
-    interface ITooltipOptions {
-        hoverDelay          ?: number;
-        fadeInDuration      ?: number;
-        fadeOutDuration     ?: number;
-        disableHover        ?: boolean;
-        templateClasses     ?: String;
-        tooltipClass        ?: String;
-        triggerClass        ?: String;
-        showOn              ?: String;
-        template            ?: String;
-        tipText             ?: String;
-        clickOpenr          ?: boolean;
-        positionClass       ?: String;
-        vOffset             ?: number;
-        hOffset             ?: number;
-    }
+
 
     interface FoundationStatic {
         version : String;
