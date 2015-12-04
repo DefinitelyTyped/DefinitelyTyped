@@ -43,7 +43,7 @@ declare module angular.route {
          *
          * @param newParams Object.<string, string> mapping of URL parameter names to values
          */
-        updateParams(newParams:{[key:string]:string});
+        updateParams(newParams:{[key:string]:string}): void;
 
     }
 
