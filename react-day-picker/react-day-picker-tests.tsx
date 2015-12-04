@@ -20,3 +20,17 @@ function MyComponent() {
 }
 DayPicker2.DateUtils.clone(new Date());
 DayPicker2.DateUtils.isDayInRange(new Date(), { from: new Date() });
+
+// test interface for captionElement prop
+interface MyCaptionProps extends ReactDayPicker.CaptionElementProps { }
+class Caption extends React.Component<MyCaptionProps, {}> {
+    render() {
+        const { date, locale, localeUtils, onClick } = this.props;
+        return (
+            <div className="DayPicker-Caption" onClick={ onClick }>
+              { localeUtils.formatMonthTitle(date, locale) }
+            </div>
+        );
+    }
+}
+<DayPicker captionElement={<Caption/>}/>
