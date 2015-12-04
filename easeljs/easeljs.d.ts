@@ -825,7 +825,7 @@ declare module createjs {
         timeSlice: number;
 
         // methods
-        addAnimation(name: string, frames: number[], next?: string, frequency?: number): void;
+        addAnimation(name: string, frames: number[], next?: string|boolean, frequency?: number): void;
         addFrame(source: DisplayObject, sourceRect?: Rectangle, scale?: number, setupFunction?: () => any, setupData?: Object): number;
         addMovieClip(source: MovieClip, sourceRect?: Rectangle, scale?: number, setupFunction?: () => any, setupData?: Object, labelFunction?: () => any): void;
         build(): SpriteSheet;

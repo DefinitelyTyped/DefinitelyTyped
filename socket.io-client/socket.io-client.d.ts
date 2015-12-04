@@ -458,7 +458,7 @@ declare module SocketIOClient {
 		 * How many reconnection attempts should we try?
 		 * @default Infinity
 		 */
-		reconnectionAttempts?: boolean;
+		reconnectionAttempts?: number;
 		
 		/**
 		 * The time delay in milliseconds between reconnection attempts

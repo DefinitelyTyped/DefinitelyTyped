@@ -48,7 +48,7 @@ import { Observable, ObservablePool, Stream, Property, Event, Emitter } from 'ke
 {
 	let property01: Property<number, void> = Kefir.constant(1);
 	let property02: Property<void, number> = Kefir.constantError(1);
-	let property03: Property<number, void> = Kefir.fromPromise<number, void>(new Promise<number>(fulfill => fulfill(1)));
+	//let property03: Property<number, void> = Kefir.fromPromise<number, void>(new Promise<number>(fulfill => fulfill(1)));
 }
 
 // Convert observables
@@ -69,7 +69,7 @@ import { Observable, ObservablePool, Stream, Property, Event, Emitter } from 'ke
 	Kefir.sequentially(1000, [1, 2]).offAny(event => console.log('event:', event));
 	Kefir.sequentially(1000, [1, 2]).log('my stream');
 	Kefir.sequentially(1000, [1, 2]).offLog('my stream');
-	Kefir.sequentially(1000, [1, 2]).toPromise().then(x => console.log('fulfilled with:', x));
+	Kefir.sequentially(1000, [1, 2]).toPromise().then((x: number) => console.log('fulfilled with:', x));
 }
 
 // Modify an observable
