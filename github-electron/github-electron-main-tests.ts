@@ -125,7 +125,40 @@ var dockMenu = Menu.buildFromTemplate([
 			<GitHubElectron.MenuItemOptions>{ label: 'Pro' }
 		]
 	},
-	<GitHubElectron.MenuItemOptions>{ label: 'New Command...' }
+	<GitHubElectron.MenuItemOptions>{ label: 'New Command...' },
+	<GitHubElectron.MenuItemOptions>{
+		label: 'Edit',
+		submenu: [
+			{
+				label: 'Undo',
+				accelerator: 'CmdOrCtrl+Z',
+				role: 'undo'
+			},
+			{
+				label: 'Redo',
+				accelerator: 'Shift+CmdOrCtrl+Z',
+				role: 'redo'
+			},
+			{
+				type: 'separator'
+			},
+			{
+				label: 'Cut',
+				accelerator: 'CmdOrCtrl+X',
+				role: 'cut'
+			},
+			{
+				label: 'Copy',
+				accelerator: 'CmdOrCtrl+C',
+				role: 'copy'
+			},
+			{
+				label: 'Paste',
+				accelerator: 'CmdOrCtrl+V',
+				role: 'paste'
+			},
+		]
+	},
 ]);
 app.dock.setMenu(dockMenu);
 
