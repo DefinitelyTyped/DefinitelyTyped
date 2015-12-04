@@ -20,24 +20,24 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	/**
 	 * Create a new promise. The passed in function will receive functions `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
 	 */
-	constructor(callback: (resolve: (thenableOrResult: R | Promise.Thenable<R>) => void, reject: (error: any) => void) => void);
+	constructor(callback: (resolve: (thenableOrResult?: R | Promise.Thenable<R>) => void, reject: (error: any) => void) => void);
 
 	/**
 	 * Promises/A+ `.then()` with progress handler. Returns a new promise chained from this promise. The new promise will be rejected or resolved dedefer on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
 	 */
-	then<U>(onFulfill: (value: R) => U|Promise.Thenable<U>, onReject: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
-	then<U>(onFulfill: (value: R) => U|Promise.Thenable<U>, onReject?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
+	then<U>(onFulfill: (value: R) => U|Promise.Thenable<U>, onReject?: (error: any) => U|Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
+	then<U>(onFulfill: (value: R) => U|Promise.Thenable<U>, onReject?: (error: any) => void|Promise.Thenable<void>, onProgress?: (note: any) => any): Promise<U>;
 
 	/**
 	 * This is a catch-all exception handler, shortcut for calling `.then(null, handler)` on this promise. Any exception happening in a `.then`-chain will propagate to nearest `.catch` handler.
 	 *
 	 * Alias `.caught();` for compatibility with earlier ECMAScript version.
 	 */
-	catch<U>(onReject?: (error: any) => Promise.Thenable<U>): Promise<U>;
-	caught<U>(onReject?: (error: any) => Promise.Thenable<U>): Promise<U>;
+	catch(onReject?: (error: any) => R|Promise.Thenable<R>|void|Promise.Thenable<void>): Promise<R>;
+	caught(onReject?: (error: any) => R|Promise.Thenable<R>|void|Promise.Thenable<void>): Promise<R>;
 
-	catch<U>(onReject?: (error: any) => U): Promise<U>;
-	caught<U>(onReject?: (error: any) => U): Promise<U>;
+	catch<U>(onReject?: (error: any) => U|Promise.Thenable<U>): Promise<U|R>;
+	caught<U>(onReject?: (error: any) => U|Promise.Thenable<U>): Promise<U|R>;
 
 	/**
 	 * This extends `.catch` to work more like catch-clauses in languages like Java or C#. Instead of manually checking `instanceof` or `.name === "SomeError"`, you may specify a number of error constructors which are eligible for this catch handler. The catch handler that is first met that has eligible constructors specified, is the one that will be called.
@@ -46,17 +46,18 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	 *
 	 * Alias `.caught();` for compatibility with earlier ECMAScript version.
 	 */
-	catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => Promise.Thenable<U>): Promise<U>;
-	caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => Promise.Thenable<U>): Promise<U>;
+	catch(predicate: (error: any) => boolean, onReject: (error: any) => R|Promise.Thenable<R>|void|Promise.Thenable<void>): Promise<R>;
+	caught(predicate: (error: any) => boolean, onReject: (error: any) => R|Promise.Thenable<R>|void|Promise.Thenable<void>): Promise<R>;
 
-	catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U): Promise<U>;
-	caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => U): Promise<U>;
+	catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U|Promise.Thenable<U>): Promise<U|R>;
+	caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => U|Promise.Thenable<U>): Promise<U|R>;
 
-	catch<U>(ErrorClass: Function, onReject: (error: any) => Promise.Thenable<U>): Promise<U>;
-	caught<U>(ErrorClass: Function, onReject: (error: any) => Promise.Thenable<U>): Promise<U>;
+	catch(ErrorClass: Function, onReject: (error: any) => R|Promise.Thenable<R>|void|Promise.Thenable<void>): Promise<R>;
+	caught(ErrorClass: Function, onReject: (error: any) => R|Promise.Thenable<R>|void|Promise.Thenable<void>): Promise<R>;
 
-	catch<U>(ErrorClass: Function, onReject: (error: any) => U): Promise<U>;
-	caught<U>(ErrorClass: Function, onReject: (error: any) => U): Promise<U>;
+	catch<U>(ErrorClass: Function, onReject: (error: any) => U|Promise.Thenable<U>): Promise<U|R>;
+	caught<U>(ErrorClass: Function, onReject: (error: any) => U|Promise.Thenable<U>): Promise<U|R>;
+
 
 	/**
 	 * Like `.catch` but instead of catching all types of exceptions, it only catches those that don't originate from thrown errors but rather from explicit rejections.
@@ -133,7 +134,7 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	 * Promises are by default not cancellable. Use `.cancellable()` to mark a promise as cancellable.
 	 */
 	// TODO what to do with this?
-	cancel<U>(): Promise<U>;
+	cancel<U>(reason?: any): Promise<U>;
 
 	/**
 	 * Like `.then()`, but cancellation of the the returned promise or any of its descendant will not propagate cancellation to this promise or this promise's ancestors.
@@ -329,6 +330,11 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	filter<U>(filterer: (item: U, index: number, arrayLength: number) => boolean, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
 	/**
+	 * Same as calling ``Promise.each(thisPromise, iterator)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
+	 */
+	each<R, U>(iterator: (item: R, index: number, arrayLength: number) => U | Promise.Thenable<U>): Promise<R[]>;
+
+	/**
 	 * Start the chain of promises with `Promise.try`. Any synchronous exceptions will be turned into rejections on the returned promise.
 	 *
 	 * Note about second argument: if it's specifically a true array, its values become respective arguments for the function call. Otherwise it is passed as is as the first argument for the function call.
@@ -421,7 +427,7 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	/**
 	 * Returns a promise that is resolved by a node style callback function.
 	 */
-	static fromNode(resolver: (callback: (err: any, result: any) => void) => void): Promise<any>;
+	static fromNode(resolver: (callback: (err: any, result?: any) => void) => void): Promise<any>;
 
 	/**
 	 * Returns a function that can use `yield` to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
@@ -459,6 +465,11 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	static all<R>(values: Promise.Thenable<R[]>): Promise<R[]>;
 	// array with promises of value
 	static all<R>(values: Promise.Thenable<R>[]): Promise<R[]>;
+    // array with promises of different types
+	static all<T1, T2>(values: [Promise.Thenable<T1>, Promise.Thenable<T2>]): Promise<[T1, T2]>;
+	static all<T1, T2, T3>(values: [Promise.Thenable<T1>, Promise.Thenable<T2>, Promise.Thenable<T3>]): Promise<[T1, T2, T3]>;
+	static all<T1, T2, T3, T4>(values: [Promise.Thenable<T1>, Promise.Thenable<T2>, Promise.Thenable<T3>, Promise.Thenable<T4>]): Promise<[T1, T2, T3, T4]>;
+	static all<T1, T2, T3, T4, T5>(values: [Promise.Thenable<T1>, Promise.Thenable<T2>, Promise.Thenable<T3>, Promise.Thenable<T4>, Promise.Thenable<T5>]): Promise<[T1, T2, T3, T4, T5]>;
 	// array with values
 	static all<R>(values: R[]): Promise<R[]>;
 
@@ -607,6 +618,18 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	// array with values
 	static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>, option?: Promise.ConcurrencyOption): Promise<R[]>;
 	static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => boolean, option?: Promise.ConcurrencyOption): Promise<R[]>;
+
+	/**
+	 * Iterate over an array, or a promise of an array, which contains promises (or a mix of promises and values) with the given iterator function with the signature (item, index, value) where item is the resolved value of a respective promise in the input array. Iteration happens serially. If any promise in the input array is rejected the returned promise is rejected as well.
+	 *
+	 * Resolves to the original array unmodified, this method is meant to be used for side effects. If the iterator function returns a promise or a thenable, the result for the promise is awaited for before continuing with next iteration.
+	 */
+	// promise of array with promises of value
+	static each<R, U>(values: Promise.Thenable<Promise.Thenable<R>[]>, iterator: (item: R, index: number, arrayLength: number) => U | Promise.Thenable<U>): Promise<R[]>;
+	// array with promises of value
+	static each<R, U>(values: Promise.Thenable<R>[], iterator: (item: R, index: number, arrayLength: number) => U | Promise.Thenable<U>): Promise<R[]>;
+	// array with values OR promise of array with values
+	static each<R, U>(values: R[] | Promise.Thenable<R[]>, iterator: (item: R, index: number, arrayLength: number) => U | Promise.Thenable<U>): Promise<R[]>;
 }
 
 declare module Promise {
@@ -649,8 +672,8 @@ declare module Promise {
 	export function OperationalError(): OperationalError;
 
 	export interface Thenable<R> {
-		then<U>(onFulfilled: (value: R) => U|Thenable<U>, onRejected: (error: any) => Thenable<U>): Thenable<U>;
-		then<U>(onFulfilled: (value: R) => U|Thenable<U>, onRejected?: (error: any) => U): Thenable<U>;
+		then<U>(onFulfilled: (value: R) => U|Thenable<U>, onRejected?: (error: any) => U|Thenable<U>): Thenable<U>;
+		then<U>(onFulfilled: (value: R) => U|Thenable<U>, onRejected?: (error: any) => void|Thenable<void>): Thenable<U>;
 	}
 
 	export interface Resolver<R> {

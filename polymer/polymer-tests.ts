@@ -63,7 +63,7 @@ var el2 = document.createElement('my-element');
 class MyElement2 {
   is: string;
 
-  registered() {
+  beforeRegister() {
     this.is = "my-element2";
   }
 }
@@ -74,7 +74,7 @@ Polymer(MyElement2);
 class MyElement3 implements polymer.Base {
   is: string;
 
-  registered() {
+  beforeRegister() {
     this.is = "my-element3";
   }
 }

@@ -807,7 +807,7 @@ declare module d3 {
     interface Transition<Datum> {
 
         transition(): Transition<Datum>;
-        
+
         delay(): number;
         delay(delay: number): Transition<Datum>;
         delay(delay: (datum: Datum, index: number, outerIndex: number) => number): Transition<Datum>;
@@ -920,16 +920,33 @@ declare module d3 {
         export function flush(): void;
     }
 
-    /**
-     * Interface for any and all d3 events.
-     */
-    interface Event extends KeyboardEvent, MouseEvent {
-    }
+	 interface BaseEvent {
+		 type: string;
+		 sourceEvent?: Event;
+	 }
+
+	 /**
+	  * Define a D3-specific ZoomEvent per https://github.com/mbostock/d3/wiki/Zoom-Behavior#event
+	  */
+	 interface ZoomEvent extends BaseEvent {
+		 scale: number;
+		 translate: [number, number];
+	 }
+
+	 /**
+	  * Define a D3-specific DragEvent per https://github.com/mbostock/d3/wiki/Drag-Behavior#on
+	  */
+	 interface DragEvent extends BaseEvent {
+		 x: number;
+		 y: number;
+		 dx: number;
+		 dy: number;
+	 }
 
     /**
      * The current event's value. Use this variable in a handler registered with `selection.on`.
      */
-    export var event: Event;
+    export var event: Event | BaseEvent;
 
     /**
      * Returns the x and y coordinates of the mouse relative to the provided container element, using d3.event for the mouse's position on the page.
@@ -1785,6 +1802,10 @@ declare module d3 {
         export module format {
             export function multi(formats: Array<[string, (d: Date) => boolean|number]>): Format;
             export function utc(specifier: string): Format;
+            module utc {
+                export function multi(formats: Array<[string, (d: Date) => boolean|number]>): Format;
+            }
+
             export var iso: Format;
         }
 
@@ -2676,24 +2697,24 @@ declare module d3 {
         response(): (request: XMLHttpRequest) => any;
         response(value: (request: XMLHttpRequest) => any): DsvXhr<T>;
 
-        get(callback?: (err: any, data: T) => void): DsvXhr<T>;
-        post(data?: any, callback?: (err: any, data: T) => void): DsvXhr<T>;
-        post(callback: (err: any, data: T) => void): DsvXhr<T>;
+        get(callback?: (err: XMLHttpRequest, data: T[]) => void): DsvXhr<T>;
+        post(data?: any, callback?: (err: XMLHttpRequest, data: T[]) => void): DsvXhr<T>;
+        post(callback: (err: XMLHttpRequest, data: T[]) => void): DsvXhr<T>;
 
-        send(method: string, data?: any, callback?: (err: any, data: T) => void): DsvXhr<T>;
-        send(method: string, callback: (err: any, data: T) => void): DsvXhr<T>;
+        send(method: string, data?: any, callback?: (err: XMLHttpRequest, data: T[]) => void): DsvXhr<T>;
+        send(method: string, callback: (err: XMLHttpRequest, data: T[]) => void): DsvXhr<T>;
 
         abort(): DsvXhr<T>;
 
         on(type: "beforesend"): (request: XMLHttpRequest) => void;
         on(type: "progress"): (request: XMLHttpRequest) => void;
-        on(type: "load"): (response: T) => void;
+        on(type: "load"): (response: T[]) => void;
         on(type: "error"): (err: any) => void;
         on(type: string): (...args: any[]) => void;
 
         on(type: "beforesend", listener: (request: XMLHttpRequest) => void): DsvXhr<T>;
         on(type: "progress", listener: (request: XMLHttpRequest) => void): DsvXhr<T>;
-        on(type: "load", listener: (response: T) => void): DsvXhr<T>;
+        on(type: "load", listener: (response: T[]) => void): DsvXhr<T>;
         on(type: "error", listener: (err: any) => void): DsvXhr<T>;
         on(type: string, listener: (...args: any[]) => void): DsvXhr<T>;
     }
@@ -3230,7 +3251,7 @@ declare module d3 {
         export function delaunay(vertices: Array<[number, number]>): Array<[[number, number], [number, number], [number, number]]>;
 
         export function quadtree(): Quadtree<[number, number]>;
-        export function quadtree<T>(): Quadtree<T>;
+        export function quadtree<T>(nodes: T[], x1?: number, y1?: number, x2?: number, y2?: number): quadtree.Quadtree<T>;
 
         module quadtree {
             interface Node<T> {

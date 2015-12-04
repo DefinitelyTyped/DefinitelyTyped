@@ -231,7 +231,7 @@ declare module observejs {
 	}
 }
 
-declare module "observejs" {
+declare module "observe-js" {
 	var PathObserver: typeof observejs.PathObserver;
 	var ArrayObserver: typeof observejs.ArrayObserver;
 	var ObjectObserver: typeof observejs.ObjectObserver;

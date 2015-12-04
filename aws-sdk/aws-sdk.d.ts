@@ -30,6 +30,16 @@ declare module "aws-sdk" {
 		xhrAsync?: boolean;
 		xhrWithCredentials?: boolean;
 	}
+	
+	export class Endpoint {
+		constructor(endpoint:string);
+		
+		host:string;
+		hostname:string;
+		href:string;
+		port:number;
+		protocol:string;
+	}
 
 	export interface Services {
 		autoscaling?: any;
@@ -99,7 +109,25 @@ declare module "aws-sdk" {
 
 	export class SQS {
 		constructor(options?: any);
-		public client: Sqs.Client;
+		endpoint:Endpoint;
+		
+		addPermission(params: SQS.AddPermissionParams, callback: (err:Error, data:any) => void): void;
+		changeMessageVisibility(params: SQS.ChangeMessageVisibilityParams, callback: (err:Error, data:any) => void): void;
+		changeMessageVisibilityBatch(params: SQS.ChangeMessageVisibilityBatchParams, callback: (err:Error, data:SQS.ChangeMessageVisibilityBatchResponse) => void): void;
+		createQueue(params: SQS.CreateQueueParams, callback: (err: Error, data: SQS.CreateQueueResult) => void): void;
+		deleteMessage(params: SQS.DeleteMessageParams, callback: (err: Error, data: any) => void): void;
+		deleteMessageBatch(params: SQS.DeleteMessageBatchParams, callback: (err: Error, data: SQS.DeleteMessageBatchResult) => void): void;
+		deleteQueue(params: { QueueUrl: string; }, callback: (err: Error, data: any) => void): void;
+		getQueueAttributes(params: SQS.GetQueueAttributesParams, callback: (err: Error, data: SQS.GetQueueAttributesResult) => void): void;
+		getQueueUrl(params: SQS.GetQueueUrlParams, callback: (err: Error, data: { QueueUrl: string; }) => void): void;
+		listDeadLetterSourceQueues(params: {QueueUrl:string}, callback: (err: Error, data: {queueUrls: string[]}) => void): void;
+		listQueues(params: {QueueNamePrefix?:string}, callback: (err: Error, data: {QueueUrls: string[]}) => void): void;
+		purgeQueue(params: {QueueUrl: string}, callback: (err: Error, data: any) => void): void;
+		receiveMessage(params: SQS.ReceiveMessageParams, callback: (err: Error, data: SQS.ReceiveMessageResult) => void): void;
+		removePermission(params: {QueueUrl: string, Label: string}, callback: (err: Error, data: any) => void): void;
+		sendMessage(params: SQS.SendMessageParams, callback: (err: Error, data: SQS.SendMessageResult) => void): void;
+		sendMessageBatch(params: SQS.SendMessageBatchParams, callback: (err: Error, data: SQS.SendMessageBatchResult) => void): void;
+		setQueueAttributes(params: SQS.SetQueueAttributesParams, callback: (err: Error, data: any) => void): void;			
 	}
 
 	export class SES {
@@ -126,36 +154,77 @@ declare module "aws-sdk" {
 		constructor(options?: any);
 	}
 
-	export module Sqs {
-
-		export interface Client {
-			config: ClientConfig;
-
-			sendMessage(params: SendMessageRequest, callback: (err: any, data: SendMessageResult) => void): void;
-			sendMessageBatch(params: SendMessageBatchRequest, callback: (err: any, data: SendMessageBatchResult) => void): void;
-			receiveMessage(params: ReceiveMessageRequest, callback: (err: any, data: ReceiveMessageResult) => void): void;
-			deleteMessage(params: DeleteMessageRequest, callback: (err: any, data: any) => void): void;
-			deleteMessageBatch(params: DeleteMessageBatchRequest, callback: (err: any, data: DeleteMessageBatchResult) => void): void;
-			createQueue(params: CreateQueueRequest, callback: (err: any, data: CreateQueueResult) => void): void;
-			deleteQueue(params: DeleteQueueRequest, callback: (err: any, data: any) => void): void;
+	export module SQS {
+		
+		export interface SqsOptions {
+			params?: any;
+			endpoint?: string;
+			accessKeyId?: string;
+			secretAccessKey?: string;
+			sessionToken?: Credentials;
+			credentials?: Credentials;
+			credentialProvider?: any;
+			region?: string;
+			maxRetries?: number;
+			maxRedirects?: number;
+			sslEnabled?: boolean;
+			paramValidation?: boolean;
+			computeChecksums?: boolean;
+			convertResponseTypes?: boolean;
+			correctClockSkew?: boolean;
+			s3ForcePathStyle?: boolean;
+			s3BucketEndpoint?: boolean;
+			httpOptions?: HttpOptions;
+			apiVersion?: string;
+			apiVersions?: { [serviceName:string]: string};
+			logger?: Logger;
+			systemClockOffset?: number;
+			signatureVersion?: string;
+			signatureCache?: boolean;
+		}
+		
+		export interface AddPermissionParams {
+			QueueUrl: string;
+			Label: string;
+			AWSAccountIds:string[];
+			Actions:string[];
+		}
+		
+		export interface ChangeMessageVisibilityParams { 
+			QueueUrl: string, 
+			ReceiptHandle: string, 
+			VisibilityTimeout: number 
+		}
+		
+		export interface ChangeMessageVisibilityBatchParams { 
+			QueueUrl: string, 
+			Entries: { Id: string; ReceiptHandle: string; VisibilityTimeout?: number; }[]
+		}
+		
+		export interface ChangeMessageVisibilityBatchResponse {
+			Successful: { Id:string }[];
+			Failed: BatchResultErrorEntry[];
 		}
 
-		export interface SendMessageRequest {
-			QueueUrl?: string;
-			MessageBody?: string;
+		export interface SendMessageParams {
+			QueueUrl: string;
+			MessageBody: string;
 			DelaySeconds?: number;
+			MessageAttributes?: { [name:string]: MessageAttribute; }
 		}
 
-		export interface ReceiveMessageRequest {
-			QueueUrl?: string;
+		export interface ReceiveMessageParams {
+			QueueUrl: string;
 			MaxNumberOfMessages?: number;
 			VisibilityTimeout?: number;
 			AttributeNames?: string[];
+			MessageAttributeNames?: string[];
+			WaitTimeSeconds?:number;
 		}
 
-		export interface DeleteMessageBatchRequest {
-			QueueUrl?: string;
-			Entries?: DeleteMessageBatchRequestEntry[];
+		export interface DeleteMessageBatchParams {
+			QueueUrl: string;
+			Entries: DeleteMessageBatchRequestEntry[];
 		}
 
 		export interface DeleteMessageBatchRequestEntry {
@@ -163,84 +232,116 @@ declare module "aws-sdk" {
 			ReceiptHandle: string;
 		}
 
-		export interface DeleteMessageRequest {
-			QueueUrl?: string;
-			ReceiptHandle?: string;
+		export interface DeleteMessageParams {
+			QueueUrl: string;
+			ReceiptHandle: string;
 		}
 
-		export class Attribute {
-			Name: string;
-			Value: string;
+		export interface SendMessageBatchParams {
+			QueueUrl: string;
+			Entries: SendMessageBatchRequestEntry[];
 		}
 
-		export interface SendMessageBatchRequest {
-			QueueUrl?: string;
-			Entries?: SendMessageBatchRequestEntry[];
-		}
-
-		export class SendMessageBatchRequestEntry {
+		export interface SendMessageBatchRequestEntry {
 			Id: string;
 			MessageBody: string;
-			DelaySeconds: number;
-		}
-
-		export interface CreateQueueRequest {
-			QueueName?: string;
-			DefaultVisibilityTimeout?: number;
 			DelaySeconds?: number;
-			Attributes?: Attribute[];
+			MessageAttributes?: { [name:string]: MessageAttribute; }
 		}
 
-		export interface DeleteQueueRequest {
-			QueueUrl?: string;
+		export interface CreateQueueParams {
+			QueueName: string;
+			Attributes: QueueAttributes;
 		}
-
-		export class SendMessageResult {
+		
+		export interface QueueAttributes {
+			[name:string]: any;
+			DelaySeconds?: number;
+			MaximumMessageSize?: number;
+			MessageRetentionPeriod?: number;
+			Policy?: any;
+			ReceiveMessageWaitTimeSeconds?: number;
+			VisibilityTimeout?: number;
+			RedrivePolicy?: any;
+		}
+		
+		export interface GetQueueAttributesParams {
+			QueueUrl: string;
+			AttributeNames: string[];
+		}
+		
+		export interface GetQueueAttributesResult {
+			Attributes: {[name:string]: string};
+		}
+		
+		export interface GetQueueUrlParams {
+			QueueName: string;
+			QueueOwnerAWSAccountId?: string;
+		}
+		
+		export interface SendMessageResult {
 			MessageId: string;
 			MD5OfMessageBody: string;
+			MD5OfMessageAttributes: string;
 		}
 
-		export class ReceiveMessageResult {
+		export interface ReceiveMessageResult {
 			Messages: Message[];
 		}
 
-		export class Message {
+		export interface Message {
 			MessageId: string;
 			ReceiptHandle: string;
 			MD5OfBody: string;
 			Body: string;
-			Attributes: Attribute[];
+			Attributes: { [name:string]:any };
+			MD5OfMessageAttributes:string;
+			MessageAttributes: { [name:string]: MessageAttribute; }
 		}
 
-		export class DeleteMessageBatchResult {
+		export interface MessageAttribute {
+			StringValue?: string;
+			BinaryValue?: any; //(Buffer, Typed Array, Blob, String) 
+			StringListValues?: string[];
+			BinaryListValues?: any[];
+			DataType: string;
+		}
+				
+		export interface DeleteMessageBatchResult {
 			Successful: DeleteMessageBatchResultEntry[];
 			Failed: BatchResultErrorEntry[];
 		}
 
-		export class DeleteMessageBatchResultEntry {
+		export interface DeleteMessageBatchResultEntry {
 			Id: string;
 		}
 
-		export class BatchResultErrorEntry {
+		export interface BatchResultErrorEntry {
 			Id: string;
 			Code: string;
-			Message: string;
-			SenderFault: string;
+			Message?: string;
+			SenderFault: boolean;
 		}
 
-		export class SendMessageBatchResult {
+		export interface SendMessageBatchResult {
 			Successful: SendMessageBatchResultEntry[];
 			Failed: BatchResultErrorEntry[];
 		}
 
-		export class SendMessageBatchResultEntry {
+		export interface SendMessageBatchResultEntry {
 			Id: string;
 			MessageId: string;
 			MD5OfMessageBody: string;
+			MD5OfMessageAttributes:string;
 		}
 
-		export class CreateQueueResult {
+		export interface CreateQueueResult {
 			QueueUrl: string;
+		}
+		
+		export interface SetQueueAttributesParams {
+			QueueUrl: string;
+			Attributes: QueueAttributes;
 		}
 
 	}

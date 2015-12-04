@@ -72,14 +72,16 @@ declare namespace Parse {
         then<U>(resolvedCallback: (value: T) => U, rejectedCallback?: (reason: any) => U): IPromise<U>;
     }
 
-    interface Promise<T> {
+    class Promise<T> {
+
+        static as<U>(resolvedValue: U): Promise<U>;
+        static error<U>(error: U): Promise<U>;
+        static is(possiblePromise: any): Boolean;
+        static when(promises: Promise<any>[]): Promise<any>;
 
         always(callback: Function): Promise<T>;
-        as(): Promise<T>;
         done(callback: Function): Promise<T>;
-        error(): Promise<T>;
         fail(callback: Function): Promise<T>;
-        is(): Promise<T>;
         reject(error: any): void;
         resolve(result: any): void;
         then<U>(resolvedCallback: (value: T) => Promise<U>,
@@ -88,8 +90,6 @@ declare namespace Parse {
             rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
         then<U>(resolvedCallback: (value: T) => U,
             rejectedCallback?: (reason: any) => U): IPromise<T>;
-
-        when(promises: Promise<T>[]): Promise<T>;
     }
 
     interface IBaseObject {
@@ -1050,11 +1050,11 @@ declare namespace Parse {
 
 }
 
-declare module "parse" {
-    var type: typeof Parse;
-    var subType: {
-        Parse: typeof type;
-    }
+declare module "parse/node" {
+    export = { Parse };
+}
 
-    export = subType;
+declare module "parse" {
+    import parse = require("parse/node");
+    export = parse
 }

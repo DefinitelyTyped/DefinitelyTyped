@@ -20,5 +20,7 @@ module Analytics {
             $analyticsProvider.registerPageTrack((path:string, locationObj:angular.ILocationService) => {
                 console.log("viewed " + path);
             });
+            
+            $analyticsProvider.settings.pageTracking.basePath = "/my/base/path";        
         }]);
 }
