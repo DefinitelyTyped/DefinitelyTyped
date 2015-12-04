@@ -849,7 +849,7 @@ declare module google.maps {
         formatted_address: string;
         geometry: GeocoderGeometry;
         partial_match: boolean;
-        postcode_localities: string[]        
+        postcode_localities: string[];        
         types: string[];
     }
 
@@ -1338,6 +1338,7 @@ declare module google.maps {
         lightness?: number;
         saturation?: number;
         visibility?: string;
+        weight?: number;
     }
 
     /***** Layers *****/
@@ -1821,7 +1822,7 @@ declare module google.maps {
             matched_substrings: PredictionSubstring[];
             place_id: string;
             terms: PredictionTerm[];
-            types: string[]
+            types: string[];
         }
         
         export interface PredictionTerm {
@@ -1956,6 +1957,7 @@ declare module google.maps {
             bounds?: LatLngBounds;
             input?: string;
             location?: LatLng;
+            offset?: number;
             radius?: number;
         }
 

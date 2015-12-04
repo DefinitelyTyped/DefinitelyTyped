@@ -813,7 +813,7 @@ var customMatchers: jasmine.CustomMatcherFactories = {
                 if (expected === undefined) {
                     expected = '';
                 }
-                var result: jasmine.CustomMatcherResult = { pass: false, message: ''};
+                var result: jasmine.CustomMatcherResult = { pass: false };
 
                 result.pass = util.equals(actual.hyuk, "gawrsh" + expected, customEqualityTesters);
 
