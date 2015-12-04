@@ -2697,24 +2697,24 @@ declare module d3 {
         response(): (request: XMLHttpRequest) => any;
         response(value: (request: XMLHttpRequest) => any): DsvXhr<T>;
 
-        get(callback?: (err: any, data: T) => void): DsvXhr<T>;
-        post(data?: any, callback?: (err: any, data: T) => void): DsvXhr<T>;
-        post(callback: (err: any, data: T) => void): DsvXhr<T>;
+        get(callback?: (err: XMLHttpRequest, data: T[]) => void): DsvXhr<T>;
+        post(data?: any, callback?: (err: XMLHttpRequest, data: T[]) => void): DsvXhr<T>;
+        post(callback: (err: XMLHttpRequest, data: T[]) => void): DsvXhr<T>;
 
-        send(method: string, data?: any, callback?: (err: any, data: T) => void): DsvXhr<T>;
-        send(method: string, callback: (err: any, data: T) => void): DsvXhr<T>;
+        send(method: string, data?: any, callback?: (err: XMLHttpRequest, data: T[]) => void): DsvXhr<T>;
+        send(method: string, callback: (err: XMLHttpRequest, data: T[]) => void): DsvXhr<T>;
 
         abort(): DsvXhr<T>;
 
         on(type: "beforesend"): (request: XMLHttpRequest) => void;
         on(type: "progress"): (request: XMLHttpRequest) => void;
-        on(type: "load"): (response: T) => void;
+        on(type: "load"): (response: T[]) => void;
         on(type: "error"): (err: any) => void;
         on(type: string): (...args: any[]) => void;
 
         on(type: "beforesend", listener: (request: XMLHttpRequest) => void): DsvXhr<T>;
         on(type: "progress", listener: (request: XMLHttpRequest) => void): DsvXhr<T>;
-        on(type: "load", listener: (response: T) => void): DsvXhr<T>;
+        on(type: "load", listener: (response: T[]) => void): DsvXhr<T>;
         on(type: "error", listener: (err: any) => void): DsvXhr<T>;
         on(type: string, listener: (...args: any[]) => void): DsvXhr<T>;
     }
