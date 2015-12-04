@@ -1,11 +1,11 @@
-// Type definitions for Node.js v0.12.0
+// Type definitions for Node.js v4.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/borisyankov/DefinitelyTyped>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /************************************************
 *                                               *
-*               Node.js v0.12.0 API             *
+*               Node.js v4.x API                *
 *                                               *
 ************************************************/
 
@@ -431,6 +431,21 @@ declare module "http" {
     import * as net from "net";
     import * as stream from "stream";
 
+    export interface RequestOptions {
+        protocol?: string;
+        host?: string;
+        hostname?: string;
+        family?: number;
+        port?: number
+        localAddress?: string;
+        socketPath?: string;
+        method?: string;
+        path?: string;
+        headers?: { [key: string]: any };
+        auth?: string;
+        agent?: Agent;
+    }
+
     export interface Server extends events.EventEmitter {
         listen(port: number, hostname?: string, backlog?: number, callback?: Function): Server;
         listen(port: number, hostname?: string, callback?: Function): Server;
@@ -568,7 +583,7 @@ declare module "http" {
     };
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) =>void ): Server;
     export function createClient(port?: number, host?: string): any;
-    export function request(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
@@ -718,15 +733,7 @@ declare module "https" {
         SNICallback?: (servername: string) => any;
     }
 
-    export interface RequestOptions {
-        host?: string;
-        hostname?: string;
-        port?: number;
-        path?: string;
-        method?: string;
-        headers?: any;
-        auth?: string;
-        agent?: any;
+    export interface RequestOptions extends http.RequestOptions{
         pfx?: any;
         key?: any;
         passphrase?: string;
@@ -734,6 +741,7 @@ declare module "https" {
         ca?: any;
         ciphers?: string;
         rejectUnauthorized?: boolean;
+        secureProtocol?: string;
     }
 
     export interface Agent {
@@ -1800,6 +1808,8 @@ declare module "assert" {
         export function notDeepEqual(acutal: any, expected: any, message?: string): void;
         export function strictEqual(actual: any, expected: any, message?: string): void;
         export function notStrictEqual(actual: any, expected: any, message?: string): void;
+        export function deepStrictEqual(actual: any, expected: any, message?: string): void;
+        export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
         export var throws: {
             (block: Function, message?: string): void;
             (block: Function, error: Function, message?: string): void;

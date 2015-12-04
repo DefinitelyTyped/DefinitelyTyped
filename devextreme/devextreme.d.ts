@@ -1,4 +1,4 @@
-// Type definitions for DevExtreme 15.1.7
+// Type definitions for DevExtreme 15.1.8
 // Project: http://js.devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -35,7 +35,7 @@ declare module DevExpress {
             brokenRules: any[];
             validators: IValidator[];
         }
-        export interface GroupConfig extends EventsMixin<GroupConfig> {
+        export interface GroupConfig extends EventsMixin<GroupConfig>  {
             group: any;
             validators: IValidator[];
             validate(): ValidationGroupValidationResult;
@@ -56,7 +56,7 @@ declare module DevExpress {
         /** Validates the rules that are defined within the dxValidator objects that are registered for the specified ViewModel. */
         export function validateModel(model: Object): ValidationGroupValidationResult;
         /** Registers all the dxValidator objects by which the fields of the specified ViewModel are extended. */
-        export function registerModelForValidation(model: Object): void;
+        export function registerModelForValidation(model: Object) : void;
     }
     export var hardwareBackButton: JQueryCallback;
     /** Processes the hardware back button click. */
@@ -223,10 +223,14 @@ declare module DevExpress {
         endUpdate(): void;
         /** Returns an instance of this component class. */
         instance(): Component;
-        /** Sets one or more options of this component. */
-        option(options: Object): void;
         /** Returns the configuration options of this component. */
-        option(): Object;
+        option(): {
+            [optionKey: string]: any;
+        };
+        /** Sets one or more options of this component. */
+        option(options: {
+            [optionKey: string]: any;
+        }): void;
         /** Gets the value of the specified configuration option of this component. */
         option(optionName: string): any;
         /** Sets a value to the specified configuration option of this component. */
@@ -1384,11 +1388,11 @@ declare module DevExpress.ui {
         };
         /** A handler for the click event. */
         onClick?: any;
-        clickAction?: any;
+            clickAction?: any;
         /** Specifies whether or not map widget controls are available. */
         controls?: boolean;
         /** Specifies the height of the widget. */
-        height?: number;
+        height?: any;
         /** A key used to authenticate the application within the required map provider. */
         key?: {
             /** A key used to authenticate the application within the "Bing" map provider. */
@@ -1400,31 +1404,31 @@ declare module DevExpress.ui {
         }
         /** A handler for the markerAdded event. */
         onMarkerAdded?: Function;
-        markerAddedAction?: Function;
+            markerAddedAction?: Function;
         /** A URL pointing to the custom icon to be used for map markers. */
         markerIconSrc?: string;
         /** A handler for the markerRemoved event. */
         onMarkerRemoved?: Function;
-        markerRemovedAction?: Function;
+            markerRemovedAction?: Function;
         /** An array of markers displayed on a map. */
         markers?: Array<any>;
         /** The name of the current map data provider. */
         provider?: string;
         /** A handler for the ready event. */
         onReady?: Function;
-        readyAction?: Function;
+            readyAction?: Function;
         /** A handler for the routeAdded event. */
         onRouteAdded?: Function;
-        routeAddedAction?: Function;
+            routeAddedAction?: Function;
         /** A handler for the routeRemoved event. */
         onRouteRemoved?: Function;
-        routeRemovedAction?: Function;
+            routeRemovedAction?: Function;
         /** An array of routes shown on the map. */
         routes?: Array<any>;
         /** The type of a map to display. */
         type?: string;
         /** Specifies the width of the widget. */
-        width?: number;
+        width?: any;
         /** The zoom level of the map. */
         zoom?: number;
     }
@@ -1435,7 +1439,7 @@ declare module DevExpress.ui {
         /** Adds a marker to the map. */
         addMarker(markerOptions: Object): JQueryPromise<Object>;
         /** Adds a route to the map. */
-        addRoute(options: Object): JQueryPromise<Object>;
+        addRoute(routeOptions: Object): JQueryPromise<Object>;
         /** Removes a marker from the map. */
         removeMarker(marker: Object): JQueryPromise<void>;
         /** Removes a route from the map. */
@@ -1787,7 +1791,7 @@ declare module DevExpress.ui {
         interval?: number;
         /** Specifies the maximum zoom level of a calendar, which is used to pick the date. */
         maxZoomLevel?: string;
-        /** Specifies the minimal zoom level of a calendar, which is used to pick the date. */
+	/** Specifies the minimal zoom level of a calendar, which is used to pick the date. */
         minZoomLevel?: string;
         /** Specifies the type of date/time picker. */
         pickerType?: string;
@@ -1825,8 +1829,8 @@ declare module DevExpress.ui {
         maxZoomLevel?: string;
         /** Specifies the minimum zoom level of the calendar. */
         minZoomLevel?: string;
-        /** The template to be used for rendering calendar cells. */
-        cellTemplate?: any;
+		/** The template to be used for rendering calendar cells. */
+		cellTemplate?: any;
     }
     /** A calendar widget. */
     export class dxCalendar extends Editor {
@@ -1976,6 +1980,8 @@ declare module DevExpress.ui {
         onProgress?: Function;
         /** A handler for the uploadError event. */
         onUploadError?: Function;
+        /** A handler for the valueChanged event. */
+        onValueChanged?: Function;
     }
     /** A widget used to select and upload a file or multiple files. */
     export class dxFileUploader extends Editor {
@@ -2145,6 +2151,11 @@ interface JQuery {
     dxSelectBox(options: string): any;
     dxSelectBox(options: string, ...params: any[]): any;
     dxSelectBox(options: DevExpress.ui.dxSelectBoxOptions): JQuery;
+    dxTagBox(): JQuery;
+    dxTagBox(options: "instance"): DevExpress.ui.dxTagBox;
+    dxTagBox(options: string): any;
+    dxTagBox(options: string, ...params: any[]): any;
+    dxTagBox(options: DevExpress.ui.dxTagBoxOptions): JQuery;
     dxScrollView(): JQuery;
     dxScrollView(options: "instance"): DevExpress.ui.dxScrollView;
     dxScrollView(options: string): any;
@@ -3036,9 +3047,6 @@ declare module DevExpress.ui {
         showInColumnChooser?: boolean;
         /** Specifies the identifier of the column. */
         name?: string;
-        // NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
-        text?: string;
-        value?: any;
     }
     export interface dxDataGridOptions extends WidgetOptions {
         /** Specifies whether the outer borders of the grid are visible or not. */
@@ -4291,16 +4299,16 @@ declare module DevExpress.viz.core {
         }) => void;
         /** A handler for the incidentOccurred event. */
         onIncidentOccurred?: (
-        component: BaseWidget,
-        element: Element,
-        target: {
-            id: string;
-            type: string;
-            args: any;
-            text: string;
-            widget: string;
-            version: string;
-        }
+            component: BaseWidget,
+            element: Element,
+            target: {
+                id: string;
+                type: string;
+                args: any;
+                text: string;
+                widget: string;
+                version: string;
+            }
         ) => void;
         /** Notifies a widget that it is embedded into an HTML page that uses a path modifier. */
         pathModified?: boolean;
@@ -5194,9 +5202,9 @@ declare module DevExpress.viz.charts {
     export interface BaseChartOptions<TPoint> extends viz.core.BaseWidgetOptions {
         /** Specifies adaptive layout options. */
         adaptiveLayout?: {
-            /** Specifies the width of the widget container that is small enough for the layout to begin adapting. */
+            /** Specifies the width of the widget that is small enough for the layout to begin adapting. */
             width?: number;
-            /** Specifies the height of the widget container that is small enough for the layout to begin adapting. */
+            /** Specifies the height of the widget that is small enough for the layout to begin adapting. */
             height?: number;
             /** Specifies whether or not point labels can be hidden when the layout is adapting. */
             keepLabels?: boolean;
@@ -6049,8 +6057,8 @@ declare module DevExpress.viz.rangeSelector {
             useTicksAutoArrangement?: boolean;
             /** Specifies the type of values on the scale. */
             valueType?: string;
-            /** Specifies the order of arguments on a discrete scale. */
-            categories?: Array<any>;
+			/** Specifies the order of arguments on a discrete scale. */
+			categories?: Array<any>;
         };
         /** Specifies the range to be selected when displaying the dxRangeSelector. */
         selectedRange?: {
@@ -6351,9 +6359,9 @@ declare module DevExpress.viz.map {
         centerChanged?: (center: Array<number>) => void;
         /** A handler for the centerChanged event. */
         onCenterChanged?: (e: {
-            center: Array<number>;
-            component: dxVectorMap;
-            element: Element;
+			center: Array<number>;
+			component: dxVectorMap;
+			element: Element;
         }) => void;
         /** A handler for the tooltipShown event. */
         onTooltipShown?: (e: {

@@ -24,9 +24,9 @@ declare module GitHubElectron {
 		 */
 		static createFromBuffer(buffer: Buffer, scaleFactor?: number): NativeImage;
 		/**
-		 * Creates a new NativeImage instance from dataUrl
+		 * Creates a new NativeImage instance from dataURL
 		 */
-		static createFromDataUrl(dataUrl: string): NativeImage;
+		static createFromDataURL(dataURL: string): NativeImage;
 		/**
 		 * @returns Buffer Contains the image's PNG encoded data.
 		 */
@@ -38,7 +38,7 @@ declare module GitHubElectron {
 		/**
 		 * @returns string The data URL of the image.
 		 */
-		toDataUrl(): string;
+		toDataURL(): string;
 		/**
 		 * @returns boolean Whether the image is empty.
 		 */
@@ -343,27 +343,6 @@ declare module GitHubElectron {
 		 * @returns Whether the window's document has been edited.
 		 */
 		isDocumentEdited(): boolean;
-		/**
-		 * Opens the developer tools.
-		 */
-		openDevTools(options?: {
-			/**
-			 * Opens devtools in a new window.
-			 */
-			detach?: boolean;
-		}): void;
-		/**
-		 * Closes the developer tools.
-		 */
-		closeDevTools(): void;
-		/**
-		 * Returns whether the developer tools are opened.
-		 */
-		isDevToolsOpened(): boolean;
-		/**
-		 * Toggle the developer tools.
-		 */
-		toggleDevTools(): void;
 		reloadIgnoringCache(): void;
 		/**
 		 * Starts inspecting element at position (x, y).
@@ -398,9 +377,9 @@ declare module GitHubElectron {
 			landscape?: boolean;
 		}, callback: (error: Error, data: Buffer) => void): void;
 		/**
-		 * Same with webContents.loadUrl(url).
+		 * Same with webContents.loadURL(url).
 		 */
-		loadUrl(url: string, options?: {
+		loadURL(url: string, options?: {
 			httpReferrer?: string;
 			userAgent?: string;
 		}): void;
@@ -541,14 +520,14 @@ declare module GitHubElectron {
 		 * Loads the url in the window.
 		 * @param url Must contain the protocol prefix (e.g., the http:// or file://).
 		 */
-		loadUrl(url: string, options?: {
+		loadURL(url: string, options?: {
 			httpReferrer?: string;
 			userAgent?: string;
 		}): void;
 		/**
 		 * @returns The URL of current web page.
 		 */
-		getUrl(): string;
+		getURL(): string;
 		/**
 		 * @returns The title of web page.
 		 */
@@ -731,6 +710,35 @@ declare module GitHubElectron {
 		 *   data Buffer - PDF file content
 		 */
 		callback: (error: Error, data: Buffer) => void): void;
+		/**
+		 * Adds the specified path to DevTools workspace.
+		 */
+		addWorkSpace(path: string): void;
+		/**
+		 * Removes the specified path from DevTools workspace.
+		 */
+		removeWorkSpace(path: string): void;
+		/**
+		 * Opens the developer tools.
+		 */
+		openDevTools(options?: {
+			/**
+			 * Opens devtools in a new window.
+			 */
+			detach?: boolean;
+		}): void;
+		/**
+		 * Closes the developer tools.
+		 */
+		closeDevTools(): void;
+		/**
+		 * Returns whether the developer tools are opened.
+		 */
+		isDevToolsOpened(): boolean;
+		/**
+		 * Toggle the developer tools.
+		 */
+		toggleDevTools(): void;
 		/**
 		 * Send args.. to the web page via channel in asynchronous message, the web page
 		 * can handle it by listening to the channel event of ipc module.
@@ -1108,9 +1116,9 @@ declare module GitHubElectron {
 		 * Set the url and initialize the auto updater.
 		 * The url cannot be changed once it is set.
 		 */
-		setFeedUrl(url: string): void;
+		setFeedURL(url: string): void;
 		/**
-		 * Ask the server whether there is an update, you have to call setFeedUrl
+		 * Ask the server whether there is an update, you have to call setFeedURL
 		 * before using this API
 		 */
 		checkForUpdates(): any;
@@ -1305,7 +1313,7 @@ declare module GitHubElectron {
 		* URL that crash reports would be sent to as POST.
 		* Default: http://54.249.141.255:1127/post
 		*/
-		submitUrl?: string;
+		submitURL?: string;
 		/**
 		* Send the crash report without user interaction.
 		* Default: true.

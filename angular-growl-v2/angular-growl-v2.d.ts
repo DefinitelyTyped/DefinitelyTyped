@@ -1,4 +1,4 @@
-// Type definitions for Angular Growl 2 v.0.7.3
+// Type definitions for Angular Growl 2 v.0.7.5
 // Project: http://janstevens.github.io/angular-growl-2
 // Definitions by: Tadeusz Hucal <https://github.com/mkp05>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -54,73 +54,73 @@ declare module angular.growl {
          * Set default TTL settings.
          * @param ttl configuration of TTL for different type of message
          */
-        globalTimeToLive(ttl: IGrowlTTLConfig): void;
+        globalTimeToLive(ttl: IGrowlTTLConfig): IGrowlProvider;
         /**
          * Set default TTL settings.
          * @param ttl ttl in milliseconds
          */
-        globalTimeToLive(ttl: number): void;
+        globalTimeToLive(ttl: number): IGrowlProvider;
         /**
          * Set default setting for disabling close button.
          * @param disableCloseButton
          */
-        globalDisableCloseButton(disableCloseButton: boolean): void;
+        globalDisableCloseButton(disableCloseButton: boolean): IGrowlProvider;
         /**
          * Set default setting for disabling icons.
          * @param disableIcons
          */
-        globalDisableIcons(disableIcons: boolean): void;
+        globalDisableIcons(disableIcons: boolean): IGrowlProvider;
         /**
          * Set reversing order of displaying new messages.
          * @param reverseOrder
          */
-        globalReversedOrder(reverseOrder: boolean): void
+        globalReversedOrder(reverseOrder: boolean): IGrowlProvider;
         /**
          * Set default setting for displaying message disappear countdown.
          * @param disableCountDown
          */
-        globalDisableCountDown(disableCountDown: boolean): void;
+        globalDisableCountDown(disableCountDown: boolean): IGrowlProvider;
         /**
          * Set default allowance for inline messages.
          * @param inline
          */
-        globalInlineMessages(inline: boolean): void;
+        globalInlineMessages(inline: boolean): IGrowlProvider;
         /**
          * Set default message position.
          * @param position
          */
-        globalPosition(position: string): void;
+        globalPosition(position: string): IGrowlProvider;
         /**
          * Enable/disable displaying only unique messages.
          * @param onlyUniqueMessages
          */
-        onlyUniqueMessages(onlyUniqueMessages: boolean): void;
+        onlyUniqueMessages(onlyUniqueMessages: boolean): IGrowlProvider;
 
         /**
          * Set key where messages are stored (for http interceptor).
          * @param messageVariableKey
          */
-        messagesKey(messageKey: string): void;
+        messagesKey(messageKey: string): IGrowlProvider;
         /**
          * Set key where message text is stored (for http interceptor).
          * @param messageVariableKey
          */
-        messageTextKey(messageTextKey: string): void;
+        messageTextKey(messageTextKey: string): IGrowlProvider;
         /**
          * Set key where title of message is stored (for http interceptor).
          * @param messageVariableKey
          */
-        messageTitleKey(messageTitleKey: string): void;
+        messageTitleKey(messageTitleKey: string): IGrowlProvider;
         /**
          * Set key where severity of message is stored (for http interceptor).
          * @param messageVariableKey
          */
-        messageSeverityKey(messageSeverityKey: string): void;
+        messageSeverityKey(messageSeverityKey: string): IGrowlProvider;
         /**
          * Set key where variables for message are stored (for http interceptor).
          * @param messageVariableKey
          */
-        messageVariableKey(messageVariableKey: string): void;
+        messageVariableKey(messageVariableKey: string): IGrowlProvider;
     }
 
     /**
@@ -210,5 +210,40 @@ declare module angular.growl {
          * Get current messages position.
          */
         position(): string;
+    }
+
+    /**
+     * GrowlMessages service.
+     */
+    interface IGrowlMessagesService {
+        /**
+         * Initialize a directive
+         * We look at the preloaded directive and use this else we
+         * create a new blank object
+         * @param referenceId
+         * @param limitMessages
+         */
+        initDirective(referenceId: number, limitMessages: number): ng.IDirective;
+
+        /**
+         * Get current messages
+         */
+        getAllMessages(referenceId?: number): IGrowlMessage[];
+
+        /**
+         * Destroy all messages
+         */
+        destroyAllMessages(referenceId?: number): void;
+
+        /**
+         * Add a message
+         */
+        addMessage(message: IGrowlMessage): IGrowlMessage;
+
+        /**
+         * Delete a message
+         */
+        deleteMessage(message: IGrowlMessage): void;
+
     }
 }

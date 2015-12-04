@@ -1558,6 +1558,18 @@ declare module uiGrid {
              */
             (row: IGridRowOf<TEntity>): void;
         }
+        
+        /**
+         * GridRow settings for expandable
+         */
+        export interface IGridRow {
+            /**
+             * If set to true, the row is expanded and the expanded view is visible
+             * Defaults to false
+             * @default false
+             */
+            isExpanded?: boolean;
+        }
     }
 
     export module exporter {
@@ -3418,7 +3430,7 @@ declare module uiGrid {
     }
     export type IGridRow = IGridRowOf<any>;
     export interface IGridRowOf<TEntity> extends cellNav.IGridRow, edit.IGridRow, exporter.IGridRow, 
-        selection.IGridRow {
+        selection.IGridRow, expandable.IGridRow {
         /** A reference to an item in gridOptions.data[] */
         entity: TEntity;
         /** A reference back to the grid */
@@ -3527,6 +3539,8 @@ declare module uiGrid {
         filter?: IFilterOptions;
         /** Filters for this column. Includes 'term' property bound to filter input elements */
         filters?: Array<IFilterOptions>;
+        /** Reference to grid containing the column */
+        grid: IGridInstanceOf<TEntity>;
         name?: string;
         /** Sort on this column */
         sort?: ISortInfo;
@@ -3843,7 +3857,7 @@ declare module uiGrid {
          * defaults to uiGridConstants.filter.INPUT, which gives a text box. If set to uiGridConstants.filter.SELECT
          * then a select box will be shown with options selectOptions
          */
-        type?: number;
+        type?: number | string;
         /**
          * options in the format [{ value: 1, label: 'male' }]. No i18n filter is provided, you need to perform the i18n
          * on the values before you provide them
@@ -3856,7 +3870,7 @@ declare module uiGrid {
         disableCancelButton?: boolean;
     }
     export interface ISelectOption {
-        value: number;
+        value: number | string;
         label: string;
     }
 
