@@ -9,7 +9,7 @@ declare module FoundationSites {
 
     // http://foundation.zurb.com/sites/docs/abide.html#javascript-reference
     interface Abide {
-        requiredCheck(element:Object): boolean;
+        requiredChedck(element:Object): boolean;
         findLabel(element:Object): boolean;
         addErrorClasses(element:Object): void;
         removeErrorClasses(element:Object): void;

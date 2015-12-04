@@ -7,90 +7,93 @@
 /// <reference path="foundation.d.ts" />
 
 $(document).foundation();
-$(document).foundation('method');
+$(document).foundation('method5');
 $(document).foundation(['method', 'method2']);
 
-function pluginList() {
+Foundation.Abide($('.selector'));
+Foundation.Abide($('.selector'), {});
 
-    'use strict';
+Foundation.Accordion($('.selector'));
+Foundation.Accordion($('.selector'), {});
 
-    return [
-        'Abide',
-        'Accordion',
-        'AccordionMenu',
-        'DrillDown',
-        'Dropdown',
-        'DropdownMenu',
-        'Equalizer',
-        'Interchange',
-        'Magellan',
-        'OffCanvas',
-        'Orbit',
-        'Reveal',
-        'Slider',
-        'Sticky',
-        'Tabs',
-        'Toggler',
-        'Tooltip'
-    ];
-}
+Foundation.AccordionMenu($('.selector'));
+Foundation.AccordionMenu($('.selector'), {});
 
-pluginList().forEach((value:string) => {
-    Foundation[value]($('.selector'));
-    Foundation[value]($('.selector'), {});
-});
+Foundation.DrillDown($('.selector'));
+Foundation.DrillDown($('.selector'), {});
+
+Foundation.Dropdown($('.selector'));
+Foundation.Dropdown($('.selector'), {});
+
+Foundation.DropdownMenu($('.selector'));
+Foundation.DropdownMenu($('.selector'), {});
+
+Foundation.Equalizer($('.selector'));
+Foundation.Equalizer($('.selector'), {});
+
+Foundation.Interchange($('.selector'));
+Foundation.Interchange($('.selector'), {});
+
+Foundation.Magellan($('.selector'));
+Foundation.Magellan($('.selector'), {});
+
+Foundation.OffCanvas($('.selector'));
+Foundation.OffCanvas($('.selector'), {});
+
+Foundation.Orbit($('.selector'));
+Foundation.Orbit($('.selector'), {});
+
+Foundation.Reveal($('.selector'));
+Foundation.Reveal($('.selector'), {});
+
+Foundation.Slider($('.selector'));
+Foundation.Slider($('.selector'), {});
+
+Foundation.Sticky($('.selector'));
+Foundation.Sticky($('.selector'), {});
+
+Foundation.Tabs($('.selector'));
+Foundation.Tabs($('.selector'), {});
+
+Foundation.Toggler($('.selector'));
+Foundation.Toggler($('.selector'), {});
+
+Foundation.Tooltip($('.selector'));
+Foundation.Tooltip($('.selector'), {});
 
 /*
- Foundation.Abide($('.selector'));
- Foundation.Abide($('.selector'), {});
+ TODO: fix this:
+ error TS7017: Index signature of object type implicitly has an 'any' type.
 
- Foundation.Accordion($('.selector'));
- Foundation.Accordion($('.selector'), {});
+ function pluginList() {
 
- Foundation.AccordionMenu($('.selector'));
- Foundation.AccordionMenu($('.selector'), {});
+ 'use strict';
 
- Foundation.DrillDown($('.selector'));
- Foundation.DrillDown($('.selector'), {});
+ return [
+ 'Abide',
+ 'Accordion',
+ 'AccordionMenu',
+ 'DrillDown',
+ 'Dropdown',
+ 'DropdownMenu',
+ 'Equalizer',
+ 'Interchange',
+ 'Magellan',
+ 'OffCanvas',
+ 'Orbit',
+ 'Reveal',
+ 'Slider',
+ 'Sticky',
+ 'Tabs',
+ 'Toggler',
+ 'Tooltip'
+ ];
+ }
 
- Foundation.Dropdown($('.selector'));
- Foundation.Dropdown($('.selector'), {});
-
- Foundation.DropdownMenu($('.selector'));
- Foundation.DropdownMenu($('.selector'), {});
-
- Foundation.Equalizer($('.selector'));
- Foundation.Equalizer($('.selector'), {});
-
- Foundation.Interchange($('.selector'));
- Foundation.Interchange($('.selector'), {});
-
- Foundation.Magellan($('.selector'));
- Foundation.Magellan($('.selector'), {});
-
- Foundation.OffCanvas($('.selector'));
- Foundation.OffCanvas($('.selector'), {});
-
- Foundation.Orbit($('.selector'));
- Foundation.Orbit($('.selector'), {});
-
- Foundation.Reveal($('.selector'));
- Foundation.Reveal($('.selector'), {});
-
- Foundation.Slider($('.selector'));
- Foundation.Slider($('.selector'), {});
-
- Foundation.Sticky($('.selector'));
- Foundation.Sticky($('.selector'), {});
-
- Foundation.Tabs($('.selector'));
- Foundation.Tabs($('.selector'), {});
-
- Foundation.Toggler($('.selector'));
- Foundation.Toggler($('.selector'), {});
-
- Foundation.Tooltip($('.selector'));
- Foundation.Tooltip($('.selector'), {});
+ pluginList().forEach((value:string) => {
+ Foundation[value]($('.selector'));
+ Foundation[value]($('.selector'), {});
+ });
  */
 
 
