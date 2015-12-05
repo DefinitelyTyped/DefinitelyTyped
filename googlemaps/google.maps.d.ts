@@ -959,7 +959,7 @@ declare module google.maps {
     export interface TransitFare { }
 
     export interface DirectionsWaypoint {
-        location: LatLng|string;
+        location: LatLng|LatLngLiteral|string;
         stopover: boolean;
     }
 
