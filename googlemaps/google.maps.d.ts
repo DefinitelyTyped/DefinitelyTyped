@@ -911,10 +911,10 @@ declare module google.maps {
         avoidFerries?: boolean;
         avoidHighways?: boolean;
         avoidTolls?: boolean;
-        destination?: LatLng|string;
+        destination?: LatLng|LatLngLiteral|string;
         durationInTraffic?: boolean;
         optimizeWaypoints?: boolean;
-        origin?: LatLng|string;
+        origin?: LatLng|LatLngLiteral|string;
         provideRouteAlternatives?: boolean;
         region?: string;
         transitOptions?: TransitOptions;
