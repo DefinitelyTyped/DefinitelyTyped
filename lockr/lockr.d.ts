@@ -3,10 +3,10 @@
 // Definitions by: Dror Weiss <https://github.com/droritos>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare var Lockr: lockr.ILockrStatic;
+declare var Lockr: lockr.LockrStatic;
 
 declare module lockr {
-    interface ILockrStatic {
+    interface LockrStatic {
 
         /**
          * The prefix used by lockr.
