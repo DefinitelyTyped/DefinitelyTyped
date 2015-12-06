@@ -852,26 +852,26 @@ declare module "child_process" {
         stdio?: any;
         customFds?: any;
         env?: any;
-        encoding?: string;
+        encoding?: string; /// default: 'utf8'. Use 'buffer' to get a Buffer result instead of a string
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
-    }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function exec(command: string, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    }, callback?: (error: Error, stdout: string|Buffer, stderr: string | Buffer) =>void ): ChildProcess;
+    export function exec(command: string, callback?: (error: Error, stdout: string | Buffer, stderr: string | Buffer) =>void ): ChildProcess;
     export function execFile(file: string,
-        callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+        callback?: (error: Error, stdout: string | Buffer, stderr: string | Buffer) =>void ): ChildProcess;
     export function execFile(file: string, args?: string[],
-        callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+        callback?: (error: Error, stdout: string | Buffer, stderr: string | Buffer) =>void ): ChildProcess;
     export function execFile(file: string, args?: string[], options?: {
         cwd?: string;
         stdio?: any;
         customFds?: any;
         env?: any;
-        encoding?: string;
+        encoding?: string; /// default: 'utf8'. Use 'buffer' to get a Buffer result instead of a string
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
-    }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    }, callback?: (error: Error, stdout: string | Buffer, stderr: string | Buffer) =>void ): ChildProcess;
     export function fork(modulePath: string, args?: string[], options?: {
         cwd?: string;
         env?: any;
@@ -1486,8 +1486,8 @@ declare module "path" {
 
 declare module "string_decoder" {
     export interface NodeStringDecoder {
-        write(buffer: Buffer): string;
-        detectIncompleteChar(buffer: Buffer): number;
+        write(buffer: Buffer | string): string;
+        detectIncompleteChar(buffer: Buffer | string): number;
     }
     export var StringDecoder: {
         new (encoding: string): NodeStringDecoder;

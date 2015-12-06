@@ -411,3 +411,40 @@ rl.question("do you like typescript?", function(answer: string) {
 
 childProcess.exec("echo test");
 childProcess.spawnSync("echo test");
+
+//////////////////////////////////////////////////////////////////
+/// Check for exec / execFile result type, in case spec changes///
+/// https://github.com/nodejs/node/issues/3389                 ///
+//////////////////////////////////////////////////////////////////
+
+function execFileTest(opt:Object,cb:(stdout:any)=>void) {
+  childProcess.execFile('/bin/echo', ['test'], opt,
+  (error, stdout, stderr) => {
+    assert(!error);
+    return cb(stdout);
+  });
+}
+
+function execTest(opt:Object,cb:(stdout:any)=>void) {
+  childProcess.exec('/bin/echo', opt,
+  (error, stdout, stderr) => {
+    assert(!error);
+    return cb(stdout);
+  });
+}
+
+[execFileTest,execTest].forEach(test=>{
+  test({}, stdout => {
+    assert.equal(typeof stdout, 'string', 'Default encoding is utf8, should return a string');
+  });
+
+  test({encoding:'utf8'}, stdout => {
+    assert.equal(typeof stdout, 'string', 'Encoding is explicitly set as utf8, should return a string');
+  });
+
+  test({encoding:'buffer'}, stdout => {
+    assert.equal(typeof stdout, 'object', 'Encoding set as "buffer", should return an object');
+    assert.equal(Object.getPrototypeOf(stdout).constructor.name, 'Buffer',
+      'Encoding set as "buffer", result\'s constructor should be named Buffer');
+  });
+})
