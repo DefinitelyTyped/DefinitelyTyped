@@ -11771,9 +11771,9 @@ declare module _ {
          * @param predicate The function invoked per iteration or property names to pick, specified as individual
          * property names or arrays of property names.
          * @param thisArg The this binding of predicate.
-         * @return An object composed of the picked properties.
+         * @return Returns the new object.
          */
-        pick<TResult extends Object, T extends Object>(
+        pick<TResult extends {}, T extends {}>(
             object: T,
             predicate: ObjectIterator<any, boolean>,
             thisArg?: any
@@ -11782,9 +11782,9 @@ declare module _ {
         /**
          * @see _.pick
          */
-        pick<TResult extends Object, T extends Object>(
+        pick<TResult extends {}, T extends {}>(
             object: T,
-            ...predicate: Array<string|number|boolean|Array<string|number|boolean>>
+            ...predicate: (StringRepresentable|StringRepresentable[])[]
         ): TResult;
     }
 
@@ -11792,7 +11792,7 @@ declare module _ {
         /**
          * @see _.pick
          */
-        pick<TResult extends Object>(
+        pick<TResult extends {}>(
             predicate: ObjectIterator<any, boolean>,
             thisArg?: any
         ): LoDashImplicitObjectWrapper<TResult>;
@@ -11800,9 +11800,26 @@ declare module _ {
         /**
          * @see _.pick
          */
-        pick<TResult extends Object>(
-            ...predicate: Array<string|number|boolean|Array<string|number|boolean>>
+        pick<TResult extends {}>(
+            ...predicate: (StringRepresentable|StringRepresentable[])[]
         ): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.pick
+         */
+        pick<TResult extends {}>(
+            predicate: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.pick
+         */
+        pick<TResult extends {}>(
+            ...predicate: (StringRepresentable|StringRepresentable[])[]
+        ): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.result
