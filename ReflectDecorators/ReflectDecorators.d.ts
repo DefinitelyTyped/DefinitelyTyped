@@ -1,6 +1,6 @@
 // Type definitions for ReflectDecorators 0.1.2
 // Project: https://github.com/rbuckton/ReflectDecorators
-// Definitions by: Dror Weiss <https://github.com/Droritos>
+// Definitions by: https://github.com/rbuckton/ReflectDecorators
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /*! *****************************************************************************
