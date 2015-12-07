@@ -421,7 +421,7 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	 * Note that the original methods on the object are not overwritten but new methods are created with the `Async`-postfix. For example, if you `promisifyAll()` the node.js `fs` object use `fs.statAsync()` to call the promisified `stat` method.
 	 */
 	// TODO how to model promisifyAll?
-	static promisifyAll(target: Object, options?: Promise.PromisifyAllOptions): Object;
+	static promisifyAll(target: Object, options?: Promise.PromisifyAllOptions): any;
 
 
 	/**
