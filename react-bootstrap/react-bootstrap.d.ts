@@ -475,6 +475,15 @@ declare module "react-bootstrap" {
     interface NavBrandClass extends  React.ComponentClass<NavbarProps> { }
     var NavBrand: NavBrandClass;
 
+    // <NavbarHeader />
+    // ----------------------------------------
+    interface NavbarHeaderProps {
+
+    }
+    interface NavbarHeader extends React.ReactElement<NavbarProps> { }
+    interface NavbarHeaderClass extends  React.ComponentClass<NavbarProps> { }
+    var NavbarHeader: NavbarHeaderClass;
+
 
     // <NavDropdown />
     // ----------------------------------------
