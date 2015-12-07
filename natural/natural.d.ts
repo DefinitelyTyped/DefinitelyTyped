@@ -63,6 +63,9 @@ declare module "natural" {
   var PorterStemmerPt: {
     stem(token: string): string;
   }
+  var LancasterStemmer: {
+    stem(token: string): string;
+  }
 
   interface BayesClassifierCallback { (err: any, classifier: any): void }
   class BayesClassifier {
