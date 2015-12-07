@@ -870,6 +870,8 @@ declare namespace __MaterialUI {
             desktopSubheaderHeight?: number;
             desktopToolbarHeight?: number;
         }
+        export var Spacing: Spacing;
+
         interface ThemePalette {
             primary1Color?: string;
             primary2Color?: string;
@@ -1532,6 +1534,7 @@ declare namespace __MaterialUI {
             cols?: number;
             padding?: number;
             cellHeight?: number;
+            style?: React.CSSProperties;
         }
         
         export class GridList extends React.Component<GridListProps, {}>{
@@ -1547,6 +1550,7 @@ declare namespace __MaterialUI {
             cols?: number;
             rows?: number;
             rootClass?: string | __React.Component<any,any>;
+            style?: React.CSSProperties;
         }
         
         export class GridTile extends React.Component<GridTileProps, {}>{
