@@ -11979,7 +11979,8 @@ declare module _ {
          * @param object The object to query.
          * @return Returns an array of property values.
          */
-        values<T>(object?: any): T[];
+        values<T>(object?: { [idx: number]: T }): T[];
+        values<T>(object?: { [idx: string]: T }): T[];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
