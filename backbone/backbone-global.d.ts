@@ -41,7 +41,12 @@ declare module Backbone {
         parse?: any;
     }
 
-    interface PersistenceOptions extends JQueryAjaxSettings {
+    interface PersistenceOptions {
+        url?: string;
+        data?: any;
+        beforeSend?: (jqxhr: JQueryXHR) => void;
+        success?: (modelOrCollection?: any, response?: any, options?: any) => void;
+        error?: (modelOrCollection?: any, jqxhr?: JQueryXHR, options?: any) => void;
     }
 
     interface ModelSetOptions extends Silenceable, Validable {
