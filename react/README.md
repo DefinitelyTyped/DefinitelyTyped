@@ -1,5 +1,5 @@
-# React v0.13.3 Type Definitions
+# React v0.14.2 Type Definitions
 
-This folder contains the following `.d.ts` files:
-* `react.d.ts` declares the module `"react"` and `"react/addons"`
-* `react-global.d.ts` declares the global namespace `React` (only include this if you are actually using the global `React`)
+If you are using modules you should use `react.d.ts`, `react-dom.d.ts` and any of the `react-addon-*.d.ts` definition files.
+
+If you are using the global `React` variable, you should use `react-global.d.ts`.

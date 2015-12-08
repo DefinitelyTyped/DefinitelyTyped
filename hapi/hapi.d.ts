@@ -7,10 +7,6 @@
 
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../bluebird/bluebird.d.ts" />
-
-
-
 
 declare module "hapi" {
 	import http = require("http");
@@ -19,6 +15,17 @@ declare module "hapi" {
 
 	interface IDictionary<T> {
 		[key: string]: T;
+	}
+
+	interface IThenable<R> {
+		then<U>(onFulfilled?: (value: R) => U | IThenable<U>, onRejected?: (error: any) => U | IThenable<U>): IThenable<U>;
+		then<U>(onFulfilled?: (value: R) => U | IThenable<U>, onRejected?: (error: any) => void): IThenable<U>;
+	}
+
+	interface IPromise<R> extends IThenable<R> {
+		then<U>(onFulfilled?: (value: R) => U | IThenable<U>, onRejected?: (error: any) => U | IThenable<U>): IPromise<U>;
+		then<U>(onFulfilled?: (value: R) => U | IThenable<U>, onRejected?: (error: any) => void): IPromise<U>;
+		catch<U>(onRejected?: (error: any) => U | IThenable<U>): IPromise<U>;
 	}
 
 	/** Boom Module for errors. https://github.com/hapijs/boom
@@ -234,12 +241,12 @@ declare module "hapi" {
 	When calling reply(), the framework waits until process.nextTick() to continue processing the request and transmit the response. This enables making changes to the returned response object before the response is sent. This means the framework will resume as soon as the handler method exits. To suspend this behavior, the returned response object supports the following methods: hold(), send() */
 	export interface IReply {
 		<T>(err: Error,
-		result?: string|number|boolean|Buffer|stream.Stream | Promise<T> | T,
+		result?: string|number|boolean|Buffer|stream.Stream | IPromise<T> | T,
 		/**  Note that when used to return both an error and credentials in the authentication methods, reply() must be called with three arguments function(err, null, data) where data is the additional authentication information. */
 		credentialData?: any
 		): IBoom;
 		/**  Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
-		<T>(result: string|number|boolean|Buffer|stream.Stream | Promise<T> | T): Response;
+		<T>(result: string|number|boolean|Buffer|stream.Stream | IPromise<T> | T): Response;
 
 		/** Returns control back to the framework without setting a response. If called in the handler, the response defaults to an empty payload with status code 200.
 		  * The data argument is only used for passing back authentication data and is ignored elsewhere. */
@@ -897,22 +904,32 @@ declare module "hapi" {
 
 
 	export interface IServerInject {
-		(options: {
+		(options: string | {
 			/**  the request HTTP method (e.g. 'POST'). Defaults to 'GET'.*/
 			method: string;
 			/** the request URL. If the URI includes an authority (e.g. 'example.com:8080'), it is used to automatically set an HTTP 'Host' header, unless one was specified in headers.*/
 			url: string;
 			/** an object with optional request headers where each key is the header name and the value is the header content. Defaults to no additions to the default Shot headers.*/
-			headers: IDictionary<string>;
-			/**- an optional string or buffer containing the request payload (object must be manually converted to a string first). Defaults to no payload. Note that payload processing defaults to 'application/json' if no 'Content-Type' header provided.*/
-			payload: string|Buffer;
-			/**an optional credentials object containing authentication information. The credentials are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Defaults to no credentials.*/
-			credentials: any;
+			headers?: IDictionary<string>;
+			/** n optional string, buffer or object containing the request payload. In case of an object it will be converted to a string for you. Defaults to no payload. Note that payload processing defaults to 'application/json' if no 'Content-Type' header provided.*/
+			payload?: string|{}|Buffer;
+			/** an optional credentials object containing authentication information. The credentials are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Defaults to no credentials.*/
+			credentials?: any;
+			/** an optional artifacts object containing authentication artifact information. The artifacts are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Ignored if set without credentials. Defaults to no artifacts.*/
+			artifacts?: any;
+			/** sets the initial value of request.app*/
+			app?: any;
+			/** sets the initial value of request.plugins*/
+			plugins?: any;
+			/** allows access to routes with config.isInternal set to true. Defaults to false.*/
+			allowInternals?: boolean;
+			/** sets the remote address for the incoming connection.*/
+			remoteAddress?: boolean;
 			/**object with options used to simulate client request stream conditions for testing:
 			error - if true, emits an 'error' event after payload transmission (if any). Defaults to false.
 			close - if true, emits a 'close' event after payload transmission (if any). Defaults to false.
 			end - if false, does not end the stream. Defaults to true.*/
-			simulate: {
+			simulate?: {
 				error: boolean;
 				close: boolean;
 				end: boolean;

@@ -13,16 +13,12 @@ declare module JSData {
     }
 
     interface DS {
-
-        bindAll<T>(resourceName:string, params:DSFilterParams, scope:ng.IScope, expr:string, cb?:(err:DSError, items:Array<T>)=>void):Function;
-
-        bindOne<T>(resourceName:string, id:string | number, scope:ng.IScope, expr:string, cb?:(err:DSError, item:T)=>void):Function;
+        bindAll<T>(resourceName:string, params:DSFilterParams, scope:ng.IScope, expr:string, cb?:(err:DSError, items:Array<T & DSInstanceShorthands<T>>)=>void):Function;
+        bindOne<T>(resourceName:string, id:string | number, scope:ng.IScope, expr:string, cb?:(err:DSError, item:T & DSInstanceShorthands<T>)=>void):Function;
     }
 
     interface DSResourceDefinition<T> {
-
-        bindAll<T>(params:DSFilterParams, scope:ng.IScope, expr:string, cb?:(err:DSError, items:Array<T>)=>void):Function;
-
-        bindOne<T>(id:string | number, scope:ng.IScope, expr:string, cb?:(err:DSError, item:T)=>void):Function;
+        bindAll(params:DSFilterParams, scope:ng.IScope, expr:string, cb?:(err:DSError, items:Array<T & DSInstanceShorthands<T>>)=>void):Function;
+        bindOne(id:string | number, scope:ng.IScope, expr:string, cb?:(err:DSError, item:T & DSInstanceShorthands<T>)=>void):Function;
     }
 }

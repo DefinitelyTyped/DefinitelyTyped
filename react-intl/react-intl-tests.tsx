@@ -1,138 +1,168 @@
 /**
- * Created by Bruno Grieder
+ * Created by Bruno Grieder and Christian Droulers
  */
 
-///<reference path='../react/react.d.ts' />
-///<reference path='../react-mixin/react-mixin.d.ts' />
-///<reference path='../react-intl/react-intl.d.ts' />
-
-import * as React from 'react'
-
-import * as reactMixin from 'react-mixin'
-import {IntlMixin, IntlComponent, FormattedNumber, FormattedMessage, FormattedDate} from 'react-intl'
+///<reference path="../react/react.d.ts" />
+///<reference path="../react-mixin/react-mixin.d.ts" />
+///<reference path="./react-intl.d.ts" />
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-// This class does not use the mixin and react-mixin is not required
-// The MESSAGES are maintained in the file
-// To use it call <I18nDirect locales={['en-US']}/>
-//
-////////////////////////////////////////////////////////////////////////////
+import * as React from "react"
 
+import * as reactMixin from "react-mixin"
+import {
+IntlProvider,
+InjectedIntlProps,
+addLocaleData,
+hasLocaleData,
+injectIntl,
+intlShape,
+defineMessages,
+FormattedRelative,
+FormattedMessage,
+FormattedHTMLMessage,
+FormattedNumber,
+FormattedPlural,
+FormattedDate,
+FormattedTime
+} from "react-intl"
+import reactIntlEn = require("react-intl/lib/locale-data/en");
 
-const MESSAGES: {[key: string] : { [lang: string]: string }} = {
+addLocaleData(reactIntlEn);
+console.log(hasLocaleData("en"));
 
-    Sorry: {
-        'en-US': 'Sorry {name}',
-        'fr-FR': 'Désolé {name}'
+interface SomeComponentProps extends InjectedIntlProps {
+
+}
+
+class SomeComponent extends React.Component<SomeComponentProps, {}> {
+    static propTypes: React.ValidationMap<any> = {
+        intl: intlShape.isRequired
+    };
+    public render(): React.ReactElement<{}> {
+        const formattedDate = this.props.formatDate(new Date(), { format: "short" });
+        const formattedTime = this.props.formatTime(new Date(), { format: "short" });
+        const formattedRelative = this.props.formatRelative(new Date().getTime(), { format: "short" });
+        const formattedNumber = this.props.formatNumber(123, { format: "short" });
+        const formattedPlural = this.props.formatPlural(1, { one: "hai!" });
+        const formattedMessage = this.props.formatMessage({ id: "hello", defaultMessage: "Hello {name}!" }, { name: "Roger" });
+        const formattedHTMLMessage = this.props.formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{name}</strong>!" }, { name: "Roger" });
+        return <div>
+            <FormattedRelative
+                value={new Date().getTime() }
+                units="hour"
+                style="numeric"
+                format="yyyy-MM-dd"
+                updateInterval={123}
+                initialNow={new Date() } />
+
+            <FormattedMessage
+                id="test"
+                description="Test"
+                defaultMessage="Hi, {name}!"
+                values={{ name: "bob" }}
+                tagName="div" />
+
+            <FormattedHTMLMessage
+                id="test"
+                description="Test"
+                defaultMessage="Hi, {name}!"
+                values={{ name: "bob" }}
+                tagName="div" />
+
+            <FormattedHTMLMessage
+                id="test"
+                description="Test"
+                defaultMessage="Hi, {name}!"
+                values={{ name: "bob" }}
+                tagName="div" />
+
+            <FormattedNumber
+                value={123456.78}
+                format="N"
+                localeMatcher="lookup"
+                style="currency"
+                currency="USD"
+                currencyDisplay="name"
+                useGrouping={false}
+                minimumIntegerDigits={1}
+                minimumFractionDigits={1}
+                minimumSignificantDigits={2}
+                maximumFractionDigits={3}
+                maximumSignificantDigits={3} />
+
+            <FormattedPlural
+                style="cardinal"
+                value={3}
+                other="hai?"
+                zero="no hai"
+                one="hai"
+                two="hai2"
+                few="haifew"
+                many="haiku" />
+
+            <FormattedDate
+                value={new Date() }
+                format="short"
+                localeMatcher="best fit"
+                formatMatcher="basic"
+                timeZone="EDT"
+                hour12={false}
+                weekday="short"
+                era="short"
+                year="2-digit"
+                month="2-digit"
+                day="2-digit"
+                hour="2-digit"
+                minute="2-digit"
+                second="2-digit"
+                timeZoneName="short" />
+
+            <FormattedTime
+                value={new Date() }
+                format="short"
+                localeMatcher="best fit"
+                formatMatcher="basic"
+                timeZone="EDT"
+                hour12={false}
+                weekday="short"
+                era="short"
+                year="2-digit"
+                month="2-digit"
+                day="2-digit"
+                hour="2-digit"
+                minute="2-digit"
+                second="2-digit"
+                timeZoneName="short" />
+
+            <FormattedNumber value={123}>
+                {(formattedNum: string) => (
+                    <span className="number">{formattedNum}</span>
+                ) }
+                </FormattedNumber>
+            </div>
     }
 }
 
+class TestApp extends React.Component<{}, {}> {
+    public render(): React.ReactElement<{}> {
+        const definedMessages = defineMessages({
+            "sup": {
+                id: "sup",
+                defaultMessage: "Hai mom"
+            }
+        });
 
-module I18nDirect {
-
-    export interface Props extends IntlComponent.Props {}
-}
-
-class I18nDirect extends React.Component<I18nDirect.Props, any> {
-
-    private _currentLocale: string
-    private _messages: {[key: string]: string}
-
-    constructor( props: I18nDirect.Props ) {
-        super( props )
-    }
-
-
-    render() {
-
-        return (
-
-            <ul>
-                <li>FormattedNumber:&nbsp;
-                    <FormattedNumber value={99.95} style="currency" currency="USD"/>
-                </li>
-                <li>FormattedMessage:&nbsp;
-                    <FormattedMessage message={this._messages['Sorry']} name='Dave'/>
-                </li>
-                <li>FormattedDate:&nbsp;
-                    <FormattedDate value={new Date()}/>
-                </li>
-            </ul>
-
-        )
-    }
-
-    componentWillReceiveProps( nextProps: I18nDirect.Props ) {
-        this.compileMessages(nextProps)
-    }
-
-    componentWillMount() {
-        this.compileMessages(this.props)
-    }
-
-
-    private compileMessages = (props: I18nDirect.Props): void => {
-
-        let locale: string = ( props.locales && props.locales[ 0 ] ) || 'en-US'
-
-        if (this._currentLocale !== locale) {
-
-            this._messages = Object.keys( MESSAGES ).reduce(
-                ( dic , key ) => {
-                    dic[ key ] = MESSAGES[ key ][ locale ]
-                    return dic
-                },
-                {} as { [key: string]: string; }
-            )
+        const messages = {
+            "hello": "Hello, {name}!"
         }
-    }
-
-}
-
-///////////////////////////////////////////////////////////////////////////
-//
-// This class uses the mixin and react-mixin is
-// The MESSAGES are passed from messages property of the props
-// To use it call <I18nMixin {...props}/>
-//
-////////////////////////////////////////////////////////////////////////////
-
-
-module I18nMixin {
-
-    export interface Props extends IntlComponent.Props {}
-}
-
-@reactMixin.decorate( IntlMixin )
-class I18nMixin extends React.Component<I18nMixin.Props, any> implements IntlComponent {
-
-    private _currentLocale: string
-
-    constructor( props: I18nMixin.Props ) {
-        super( props )
-    }
-
-    //Expose the method provided by the Mixin
-    getIntlMessage: (key: string) => string =  this['getIntlMessage']
-
-
-    render() {
-
-        return (
-
-            <ul>
-                <li>FormattedNumber:
-                    <FormattedNumber value={99.95} style="currency" currency="USD"/>
-                </li>
-                <li>FormattedMessage:
-                    <FormattedMessage message={this.getIntlMessage('Sorry')} name='Dave'/> {/* this uses the mixin */}
-                </li>
-            </ul>
-
-        )
+        return (<IntlProvider locale="en" formats={{}} messages={messages} defaultLocale="en" defaultFormats={messages}>
+            <SomeComponent />
+            </IntlProvider>)
     }
 }
 
-export { I18nDirect, I18nMixin }
+export default {
+    TestApp,
+    SomeComponent: injectIntl(SomeComponent)
+}

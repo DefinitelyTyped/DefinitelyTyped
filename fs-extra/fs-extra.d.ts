@@ -167,6 +167,15 @@ declare module "fs-extra" {
 	export function exists(path: string, callback?: (exists: boolean) => void ): void;
 	export function existsSync(path: string): boolean;
     export function ensureDir(path: string, cb: (err: Error) => void): void;
+    export function ensureDirSync(path: string): void;
+	export function ensureFile(path: string, cb: (err: Error) => void): void;
+	export function ensureFileSync(path: string): void;
+	export function ensureLink(path: string, cb: (err: Error) => void): void;
+	export function ensureLinkSync(path: string): void;
+	export function ensureSymlink(path: string, cb: (err: Error) => void): void;
+	export function ensureSymlinkSync(path: string): void;
+    export function emptyDir(path: string, callback?: (err: Error) => void): void;
+    export function emptyDirSync(path: string): boolean;
 
 	export interface OpenOptions {
 		encoding?: string;
@@ -192,4 +201,5 @@ declare module "fs-extra" {
 	}
 	export function createReadStream(path: string, options?: ReadStreamOptions): ReadStream;
 	export function createWriteStream(path: string, options?: WriteStreamOptions): WriteStream;
+	export function createOutputStream(path: string, options?: WriteStreamOptions): WriteStream;
 }
