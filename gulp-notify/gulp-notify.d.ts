@@ -64,7 +64,7 @@ declare module "gulp-notify" {
          * 
          * See notify.withReporter for syntactic sugar.
          */
-        notifier?: (options, callback) => void;
+        notifier?: (options: GulpNotifyOptions, callback: () => void) => void;
 
         /**
          * If the wait option is set to true, the notifier will tigger events click or timeout, whether the user clicks the notification or it times out. You listen to these events on the main notify object, not the produces stream.
@@ -77,7 +77,7 @@ declare module "gulp-notify" {
         /**
          * If the wait option is set to true, the notifier will tigger events click or timeout, whether the user clicks the notification or it times out. You listen to these events on the main notify object, not the produces stream.
          */
-        function on(event: string, callback: (notificationOptions?: Object) => void): void;
+        function on(event: string, callback: (notificationOptions?: GulpNotifyOptions) => void): void;
 
         /**
          * Wraps options.notifier to return a new notify-function only using the passed in reporter.
@@ -88,7 +88,7 @@ declare module "gulp-notify" {
         /**
          * The exact same API as using notify(), but where a vinyl File is passed, the error object is passed instead.
          */
-        function onError(param: string | { (error: Error): string } | GulpNotifyOptions): NodeJS.ReadWriteStream;
+        function onError(param: string | { (error: Error): string } | GulpNotifyOptions): Function;
 
         /**
          * Type: Integer Default: 2
