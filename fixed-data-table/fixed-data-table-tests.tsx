@@ -2,7 +2,7 @@
 /// <reference path="../react/react.d.ts"/>
 
 import * as React from "react";
-import {Table, Cell, Column} from "fixed-data-table";
+import {Table, Cell, Column, CellProps} from "fixed-data-table";
 
 // create your Table
 class MyTable1 extends React.Component<{}, {}> {
@@ -68,7 +68,7 @@ class MyTable3 extends React.Component<{}, MyTable3State> {
                 height={500}>
                 <Column
                     header={<Cell>Name</Cell>}
-                    cell={(props: any) => (
+                    cell={(props: CellProps) => (
                             <Cell {...props}>
                                 {this.state.myTableData[props.rowIndex].name}
                             </Cell>
@@ -85,7 +85,7 @@ interface RowData {
     [field: string]: string;
 }
 
-interface MyCellProps {
+interface MyCellProps extends CellProps {
     rowIndex?: number;
     field: string;
     data: RowData[];
