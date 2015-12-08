@@ -21,7 +21,7 @@ interface ExphbsOptions {
     handlebars?: any;
     extname?: string;
     layoutsDir?: string;
-    partialsDir?: string;
+    partialsDir?: any;
     defaultLayout?: string;
     helpers?: any;
     compilerOptions?: any;
@@ -37,7 +37,7 @@ interface Exphbs {
     getTemplate(filePath: string, options?: PartialTemplateOptions): Promise<Function>;
     getTemplates(dirPath: string, options?: PartialTemplateOptions): Promise<Object>;
     render(filePath: string, context: Object, options?: RenderOptions): Promise<string>;
-    renderView(viewPath: string, optionsOrCallback?: any, callback?: () => string): void;
+    renderView(viewPath: string, optionsOrCallback: any, callback?: () => string): void;
 }
 
 declare module "express-handlebars" {

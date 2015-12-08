@@ -165,6 +165,12 @@ declare module angular {
             dot: number;
             codeName: string;
         };
+        
+        /**
+         * If window.name contains prefix NG_DEFER_BOOTSTRAP! when angular.bootstrap is called, the bootstrap process will be paused until angular.resumeBootstrap() is called.
+         * @param extraModules An optional array of modules that should be added to the original list of modules that the app was about to be bootstrapped with.
+         */
+        resumeBootstrap?(extraModules?: string[]): ng.auto.IInjectorService;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -615,7 +621,7 @@ declare module angular {
     // see http://docs.angularjs.org/api/ng.$interval
     ///////////////////////////////////////////////////////////////////////////
     interface IIntervalService {
-        (func: Function, delay: number, count?: number, invokeApply?: boolean): IPromise<any>;
+        (func: Function, delay: number, count?: number, invokeApply?: boolean, ...args: any[]): IPromise<any>;
         cancel(promise: IPromise<any>): boolean;
     }
 
@@ -774,7 +780,7 @@ declare module angular {
          * @param reverse Reverse the order of the array.
          * @return Reverse the order of the array.
          */
-        <T>(array: T[], expression: string|string[]|((value: T) => any)|((value: T) => any)[], reverse?: boolean): T[];
+        <T>(array: T[], expression: string|((value: T) => any)|(((value: T) => any)|string)[], reverse?: boolean): T[];
     }
 
     /**
@@ -1660,6 +1666,7 @@ declare module angular {
         restrict?: string;
         scope?: any;
         template?: any;
+        templateNamespace?: string;
         templateUrl?: any;
         terminal?: boolean;
         transclude?: any;

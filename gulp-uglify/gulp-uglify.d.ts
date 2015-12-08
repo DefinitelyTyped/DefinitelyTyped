@@ -170,6 +170,6 @@ declare module "gulp-uglify" {
          */
         comments_before: string[];
     }
-
+    namespace GulpUglify {}
     export = GulpUglify;
 }
