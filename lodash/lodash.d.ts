@@ -2156,71 +2156,222 @@ declare module _ {
     //_.sortedLastIndex
     interface LoDashStatic {
         /**
-        * Uses a binary search to determine the highest index at which a value should be inserted
-        * into a given sorted array in order to maintain the sort order of the array. If a callback
-        * is provided it will be executed for value and each element of array to compute their sort
-        * ranking. The callback is bound to thisArg and invoked with one argument; (value).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will
-        * return the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return
-        * true for elements that have the properties of the given object, else false.
-        * @param array The sorted list.
-        * @param value The value to determine its index within `list`.
-        * @param callback Iterator to compute the sort ranking of each value, optional.
-        * @return The index at which value should be inserted into array.
-        **/
-        sortedLastIndex<T, TSort>(
-            array: Array<T>,
-            value: T,
-            callback?: (x: T) => TSort,
-            thisArg?: any): number;
-
-        /**
-        * @see _.sortedLastIndex
-        **/
+         * This method is like _.sortedIndex except that it returns the highest index at which value should be
+         * inserted into array in order to maintain its sort order.
+         *
+         * @param array The sorted array to inspect.
+         * @param value The value to evaluate.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns the index at which value should be inserted into array.
+         */
         sortedLastIndex<T, TSort>(
             array: List<T>,
             value: T,
-            callback?: (x: T) => TSort,
-            thisArg?: any): number;
+            iteratee?: (x: T) => TSort,
+            thisArg?: any
+        ): number;
 
         /**
-        * @see _.sortedLastIndex
-        * @param pluckValue the _.pluck style callback
-        **/
-        sortedLastIndex<T>(
-            array: Array<T>,
-            value: T,
-            pluckValue: string): number;
-
-        /**
-        * @see _.sortedLastIndex
-        * @param pluckValue the _.pluck style callback
-        **/
+         * @see _.sortedLastIndex
+         */
         sortedLastIndex<T>(
             array: List<T>,
             value: T,
-            pluckValue: string): number;
+            iteratee?: (x: T) => any,
+            thisArg?: any
+        ): number;
 
         /**
-        * @see _.sortedLastIndex
-        * @param pluckValue the _.where style callback
-        **/
-        sortedLastIndex<W, T>(
-            array: Array<T>,
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T>(
+            array: List<T>,
             value: T,
-            whereValue: W): number;
+            iteratee: string
+        ): number;
 
         /**
-        * @see _.sortedLastIndex
-        * @param pluckValue the _.where style callback
-        **/
+         * @see _.sortedLastIndex
+         */
         sortedLastIndex<W, T>(
             array: List<T>,
             value: T,
-            whereValue: W): number;
+            iteratee: W
+        ): number;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T>(
+            array: List<T>,
+            value: T,
+            iteratee: Object
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<TSort>(
+            value: string,
+            iteratee?: (x: string) => TSort,
+            thisArg?: any
+        ): number;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<TSort>(
+            value: T,
+            iteratee?: (x: T) => TSort,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex(
+            value: T,
+            iteratee: string
+        ): number;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<W>(
+            value: T,
+            iteratee: W
+        ): number;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T, TSort>(
+            value: T,
+            iteratee?: (x: T) => TSort,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T>(
+            value: T,
+            iteratee?: (x: T) => any,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T>(
+            value: T,
+            iteratee: string
+        ): number;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<W, T>(
+            value: T,
+            iteratee: W
+        ): number;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T>(
+            value: T,
+            iteratee: Object
+        ): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<TSort>(
+            value: string,
+            iteratee?: (x: string) => TSort,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<TSort>(
+            value: T,
+            iteratee?: (x: T) => TSort,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex(
+            value: T,
+            iteratee: string
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<W>(
+            value: T,
+            iteratee: W
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T, TSort>(
+            value: T,
+            iteratee?: (x: T) => TSort,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T>(
+            value: T,
+            iteratee?: (x: T) => any,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T>(
+            value: T,
+            iteratee: string
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<W, T>(
+            value: T,
+            iteratee: W
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T>(
+            value: T,
+            iteratee: Object
+        ): LoDashExplicitWrapper<number>;
     }
 
     //_.tail
@@ -9272,7 +9423,9 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is NaN.
+         *
          * Note: This method is not the same as isNaN which returns true for undefined and other non-numeric values.
+         *
          * @param value The value to check.
          * @return Returns true if value is NaN, else false.
          */
@@ -9284,6 +9437,13 @@ declare module _ {
          * @see _.isNaN
          */
         isNaN(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isNaN
+         */
+        isNaN(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isNative
