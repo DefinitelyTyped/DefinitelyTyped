@@ -37,5 +37,5 @@ gulp.task('notify3', function() {
 		.pipe(custom("This is a message."))
 		.on("error", notify.onError((error: Error) => {
 			return "Message to the notifier: " + error.message;
-		});
+		}));
 });
