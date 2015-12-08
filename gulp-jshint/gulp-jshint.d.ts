@@ -23,7 +23,7 @@ declare module "gulp-jshint" {
     }
 
     namespace GulpJSHint { 
-        function reporter(kind: (string | Object));
+        function reporter(kind: (string | Object)): NodeJS.ReadWriteStream;
     }
     export = GulpJSHint;
 }

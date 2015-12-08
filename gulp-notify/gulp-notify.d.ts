@@ -88,7 +88,7 @@ declare module "gulp-notify" {
         /**
          * The exact same API as using notify(), but where a vinyl File is passed, the error object is passed instead.
          */
-        function onError(param: string | (error: Error): string | GulpNotifyOptions): NodeJS.ReadWriteStream;
+        function onError(param: string | { (error: Error): string } | GulpNotifyOptions): NodeJS.ReadWriteStream;
 
         /**
          * Type: Integer Default: 2
