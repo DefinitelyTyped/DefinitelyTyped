@@ -19,7 +19,7 @@ declare module Chai {
         use(fn: (chai: any, utils: any) => void): any;
         assert: AssertStatic;
         config: Config;
-        AssertionError: AssertionError;
+        AssertionError: typeof AssertionError;
     }
 
     export interface ExpectStatic extends AssertionStatic {
