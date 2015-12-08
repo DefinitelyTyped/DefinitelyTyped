@@ -26,8 +26,15 @@ declare module "gulp-typescript" {
             typescript?: any;
         }
 
+        interface TsConfig {
+            files?: string[];
+            exclude?: string[];
+            compilerOptions?: any;
+        }
+
         interface Project {
-            src(): NodeJS.ReadWriteStream
+            config: TsConfig;
+            src(): NodeJS.ReadWriteStream;
         }
 
         interface FilterSettings {
