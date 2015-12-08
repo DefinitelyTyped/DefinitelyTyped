@@ -23,7 +23,7 @@ declare module "gulp-jshint" {
     }
 
     namespace GulpJSHint { 
-        declare function reporter(kind: (string | Object));
+        function reporter(kind: (string | Object));
     }
     export = GulpJSHint;
 }
