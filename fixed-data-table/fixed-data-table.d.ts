@@ -284,13 +284,13 @@ declare module FixedDataTable {
           * 
           * If you pass in a function, you will receive the same props object as the first argument.
           */
-        header?: any;
+        header?: string | __React.ReactElement<any> | ((props: CellProps) => (string | __React.ReactElement<any>));
        
         /**
           * This is the body cell that will be cloned for this
           * column. This can either be a string a React element,
           * or a function that generates a React Element. Passing
-          * in a string will render a default header cell with that
+          * in a string will render a default cell with that
           * string. By default, the React element passed in can
           * expect to receive the following props:
           * 
@@ -308,7 +308,7 @@ declare module FixedDataTable {
           * If you pass in a function, you will receive the same
           * props object as the first argument.
           */
-        cell?: any;
+        cell?: string | __React.ReactElement<any> | ((props: CellProps) => (string | __React.ReactElement<any>));
  
          /**
           * The footer cell for this column. This can either be a
@@ -331,7 +331,7 @@ declare module FixedDataTable {
           * If you pass in a function, you will receive the same
           * props object as the first argument.
           */
-        footer?: any;
+        footer?: string | __React.ReactElement<any> | ((props: CellProps) => (string | __React.ReactElement<any>));
 
         /**
           * This is used to uniquely identify the column, and is not
@@ -433,7 +433,7 @@ declare module FixedDataTable {
           * If you pass in a function, you will receive the same props
           * object as the first argument.
           */
-	    header: any;
+	    header: string | __React.ReactElement<any> | ((props: CellProps) => (string | __React.ReactElement<any>));
     }
     
     /**
@@ -460,6 +460,11 @@ declare module FixedDataTable {
      */
     export interface CellProps {
         /**
+         * The row index of the cell.
+         */
+        rowIndex?: number
+
+        /**
          * Outer height of the cell.
          */
         height?: number;
@@ -472,7 +477,7 @@ declare module FixedDataTable {
         /**
          * Optional prop that if specified on the Column will be
          * passed to the cell. It can be used to uniquely identify
-         *  which column is the cell is in.
+         * which column is the cell is in.
          */
         columnKey?: string | number;
     }
