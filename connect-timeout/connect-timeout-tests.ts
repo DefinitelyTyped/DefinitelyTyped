@@ -19,7 +19,7 @@ app.use(haltOnTimedout);
 
 // Add your routes here, etc.
 
-function haltOnTimedout(req, res, next) {
+function haltOnTimedout(req: express.Request, res: express.Response, next: Function) {
     if (!req.timedout) {
         next();
     }

@@ -1,6 +1,6 @@
 // Type definitions for connect-timeout
 // Project: https://github.com/expressjs/timeout
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher/>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
