@@ -312,6 +312,13 @@ declare module "browser-sync" {
             fn: (match: string) => string;
         }
 
+        type MatchTest = (string | RegExp | ((testString: string) => boolean));
+
+        interface StreamOptions {
+            once?: boolean;
+            match?: MatchTest | MatchTest[];
+        }
+
         interface BrowserSyncStatic extends BrowserSyncInstance {
             /**
              * Start the Browsersync service. This will launch a server, proxy or start the snippet mode
@@ -367,7 +374,7 @@ declare module "browser-sync" {
              * The stream method returns a transform stream and can act once or on many files.
              * @param opts Configuration for the stream method
              */
-            stream(opts?: { once?: boolean, match?: string | RegExp | ((testString: string) => boolean) | (string | RegExp | ((testString: string) => boolean))[] }): NodeJS.ReadWriteStream;
+            stream(opts?: StreamOptions): NodeJS.ReadWriteStream;
             /**
              * Helper method for browser notifications
              * @param message Can be a simple message such as 'Connected' or HTML
