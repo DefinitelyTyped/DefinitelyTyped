@@ -192,94 +192,28 @@ declare module GitHubElectron {
 		RequestStringJob: typeof RequestStringJob;
 		RequestBufferJob: typeof RequestBufferJob;
 	}
-}
 
-declare module 'app' {
-	var _app: GitHubElectron.App;
-	export = _app;
-}
-
-declare module 'auto-updater' {
-	var _autoUpdater: GitHubElectron.AutoUpdater;
-	export = _autoUpdater;
-}
-
-declare module 'browser-window' {
-	var BrowserWindow: typeof GitHubElectron.BrowserWindow;
-	export = BrowserWindow;
-}
-
-declare module 'content-tracing' {
-	var contentTracing: GitHubElectron.ContentTracing
-	export = contentTracing;
-}
-
-declare module 'dialog' {
-	var dialog: GitHubElectron.Dialog
-	export = dialog;
-}
-
-declare module 'global-shortcut' {
-	var globalShortcut: GitHubElectron.GlobalShortcut;
-	export = globalShortcut;
-}
-
-declare module 'ipc' {
-	var ipc: NodeJS.EventEmitter;
-	export = ipc;
-}
-
-declare module 'menu' {
-	var Menu: typeof GitHubElectron.Menu;
-	export = Menu;
-}
-
-declare module 'menu-item' {
-	var MenuItem: typeof GitHubElectron.MenuItem;
-	export = MenuItem;
-}
-
-declare module 'power-monitor' {
-	var powerMonitor: NodeJS.EventEmitter;
-	export = powerMonitor;
-}
-
-declare module 'protocol' {
-	var protocol: GitHubElectron.Protocol;
-	export = protocol;
-}
-
-declare module 'tray' {
-	var Tray: typeof GitHubElectron.Tray;
-	export = Tray;
+	interface Electron {
+		app: GitHubElectron.App;
+		autoUpdater: GitHubElectron.AutoUpdater;
+		BrowserWindow: typeof GitHubElectron.BrowserWindow;
+		contentTracing: GitHubElectron.ContentTracing;
+		dialog: GitHubElectron.Dialog;
+		globalShortcut: GitHubElectron.GlobalShortcut;
+		ipcMain: NodeJS.EventEmitter;
+		Menu: typeof GitHubElectron.Menu;
+		MenuItem: typeof GitHubElectron.MenuItem;
+		powerMonitor: NodeJS.EventEmitter;
+		protocol: GitHubElectron.Protocol;
+		Tray: typeof GitHubElectron.Tray;
+	}
 }
 
 declare module 'electron' {
-	export var app: GitHubElectron.App;
-	export var autoUpdater: GitHubElectron.AutoUpdater;
-	export var BrowserWindow: typeof GitHubElectron.BrowserWindow;
-	export var contentTracing: GitHubElectron.ContentTracing;
-	export var dialog: GitHubElectron.Dialog;
-	export var globalShortcut: GitHubElectron.GlobalShortcut;
-	export var ipcMain: NodeJS.EventEmitter;
-	export var Menu: typeof GitHubElectron.Menu;
-	export var MenuItem: typeof GitHubElectron.MenuItem;
-	export var powerMonitor: NodeJS.EventEmitter;
-	export var protocol: GitHubElectron.Protocol;
-	export var Tray: typeof GitHubElectron.Tray;
+	var electron: GitHubElectron.Electron;
+	export = electron;
 }
 
 interface NodeRequireFunction {
-	(id: 'app'): GitHubElectron.App
-	(id: 'auto-updater'): GitHubElectron.AutoUpdater
-	(id: 'browser-window'): typeof GitHubElectron.BrowserWindow
-	(id: 'content-tracing'): GitHubElectron.ContentTracing
-	(id: 'dialog'): GitHubElectron.Dialog
-	(id: 'global-shortcut'): GitHubElectron.GlobalShortcut
-	(id: 'ipc'): NodeJS.EventEmitter
-	(id: 'menu'): typeof GitHubElectron.Menu
-	(id: 'menu-item'): typeof GitHubElectron.MenuItem
-	(id: 'power-monitor'): NodeJS.EventEmitter
-	(id: 'protocol'): GitHubElectron.Protocol
-	(id: 'tray'): typeof GitHubElectron.Tray
+	(id: 'electron'): GitHubElectron.Electron;
 }
