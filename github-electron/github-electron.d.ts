@@ -451,50 +451,50 @@ declare module GitHubElectron {
 	// http://electron.atom.io/docs/v0.29.0/api/browser-window/
 	interface BrowserWindowOptions extends Rectangle {
 		show?: boolean;
-		'use-content-size'?: boolean;
+		useContentSize?: boolean;
 		center?: boolean;
-		'min-width'?: number;
-		'min-height'?: number;
-		'max-width'?: number;
-		'max-height'?: number;
+		minWidth?: number;
+		minHeight?: number;
+		maxWidth?: number;
+		maxHeight?: number;
 		resizable?: boolean;
-		'always-on-top'?: boolean;
+		alwaysOnTop?: boolean;
 		fullscreen?: boolean;
-		'skip-taskbar'?: boolean;
-		'zoom-factor'?: number;
+		skipTaskbar?: boolean;
+		zoomFactor?: number;
 		kiosk?: boolean;
 		title?: string;
 		icon?: NativeImage|string;
 		frame?: boolean;
-		'node-integration'?: boolean;
-		'accept-first-mouse'?: boolean;
-		'disable-auto-hide-cursor'?: boolean;
-		'auto-hide-menu-bar'?: boolean;
-		'enable-larger-than-screen'?: boolean;
-		'dark-theme'?: boolean;
+		nodeIntegration?: boolean;
+		acceptFirstMouse?: boolean;
+		disableAutoHideCursor?: boolean;
+		autoHideMenuBar?: boolean;
+		enableLargerThanScreen?: boolean;
+		darkTheme?: boolean;
 		preload?: string;
 		transparent?: boolean;
 		type?: string;
-		'standard-window'?: boolean;
-		'web-preferences'?: any; // Object
+		standardWindow?: boolean;
+		webPreferences?: any; // Object
 		javascript?: boolean;
-		'web-security'?: boolean;
+		webSecurity?: boolean;
 		images?: boolean;
 		java?: boolean;
-		'text-areas-are-resizable'?: boolean;
+		textAreasAreResizable?: boolean;
 		webgl?: boolean;
 		webaudio?: boolean;
 		plugins?: boolean;
-		'extra-plugin-dirs'?: string[];
-		'experimental-features'?: boolean;
-		'experimental-canvas-features'?: boolean;
-		'subpixel-font-scaling'?: boolean;
-		'overlay-scrollbars'?: boolean;
-		'overlay-fullscreen-video'?: boolean;
-		'shared-worker'?: boolean;
-		'direct-write'?: boolean;
-		'page-visibility'?: boolean;
-		'title-bar-style'?: string;
+		extraPluginDirs?: string[];
+		experimentalFeatures?: boolean;
+		experimentalCanvasFeatures?: boolean;
+		subpixelFontScaling?: boolean;
+		overlayScrollbars?: boolean;
+		overlayFullscreenVideo?: boolean;
+		sharedWorker?: boolean;
+		directWrite?: boolean;
+		pageVisibility?: boolean;
+		titleBarStyle?: string;
 	}
 
 	interface Rectangle {
