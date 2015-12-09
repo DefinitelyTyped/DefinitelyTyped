@@ -1404,39 +1404,14 @@ declare module GitHubElectron {
 		 */
 		beep(): void;
 	}
-}
 
-declare module 'clipboard' {
-	var clipboard: GitHubElectron.Clipboard;
-	export = clipboard;
-}
-
-declare module 'crash-reporter' {
-	var crashReporter: GitHubElectron.CrashReporter;
-	export = crashReporter;
-}
-
-declare module 'native-image' {
-	var nativeImage: typeof GitHubElectron.NativeImage;
-	export = nativeImage;
-}
-
-declare module 'screen' {
-	var screen: GitHubElectron.Screen;
-	export = screen;
-}
-
-declare module 'shell' {
-	var shell: GitHubElectron.Shell;
-	export = shell;
-}
-
-declare module 'electron' {
-	export var clipboard: GitHubElectron.Clipboard;
-	export var crashReporter: GitHubElectron.CrashReporter;
-	export var nativeImage: GitHubElectron.NativeImage;
-	export var screen: GitHubElectron.Screen;
-	export var shell: GitHubElectron.Shell;
+	interface Electron {
+		clipboard: GitHubElectron.Clipboard;
+		crashReporter: GitHubElectron.CrashReporter;
+		nativeImage: GitHubElectron.NativeImage;
+		screen: GitHubElectron.Screen;
+		shell: GitHubElectron.Shell;
+	}
 }
 
 interface Window {
