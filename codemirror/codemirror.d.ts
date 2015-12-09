@@ -390,6 +390,9 @@ declare module CodeMirror {
         The handler may mess with the style of the resulting element, or add event handlers, but should not try to change the state of the editor. */
         on(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: number, element: HTMLElement) => void ): void;
         off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: number, element: HTMLElement) => void ): void;
+
+        /** Expose the state object, so that the Editor.state.completionActive property is reachable*/
+        state: any;
     }
 
     interface EditorFromTextArea extends Editor {
@@ -589,6 +592,8 @@ declare module CodeMirror {
         /** The reverse of posFromIndex. */
         indexFromPos(object: CodeMirror.Position): number;
 
+        /** Expose the state object, so that the Doc.state.completionActive property is reachable*/
+        state: any;
     }
 
     interface LineHandle {
