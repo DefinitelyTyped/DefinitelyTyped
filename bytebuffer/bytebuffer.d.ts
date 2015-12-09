@@ -5,6 +5,7 @@
 // Definitions by: SINTEF-9012 <http://github.com/SINTEF-9012>
 
 /// <reference path="../long/long.d.ts" />
+/// <reference path="../node/node.d.ts"/>
 
 declare class ByteBuffer
 {
