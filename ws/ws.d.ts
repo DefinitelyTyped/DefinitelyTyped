@@ -6,9 +6,9 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module "ws" {
-    import events = require('events');
-    import http   = require('http');
-    import net    = require('net');
+    import * as events from 'events';
+    import * as http from 'http';
+    import * as net from 'net';
 
     class WebSocket extends events.EventEmitter {
         static CONNECTING: number;

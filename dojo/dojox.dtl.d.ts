@@ -1219,7 +1219,7 @@ declare module dojox {
              * serialization.
              * 
              */
-             toString(): String
+             toString(): string
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -1823,7 +1823,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String
+            toString(): string
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -4047,4 +4047,213 @@ declare module dojox {
 
     }
 
+}
+
+declare module "dojox/dtl" {
+    var exp: dojox.dtl
+    export=exp;
+}
+declare module "dojox/dtl/_Templated" {
+    var exp: dojox.dtl._Templated
+    export=exp;
+}
+declare module "dojox/dtl/Context" {
+    var exp: dojox.dtl.Context
+    export=exp;
+}
+declare module "dojox/dtl/_DomTemplated" {
+    var exp: dojox.dtl._DomTemplated
+    export=exp;
+}
+declare module "dojox/dtl/DomInline" {
+    var exp: dojox.dtl.DomInline
+    export=exp;
+}
+declare module "dojox/dtl/Inline" {
+    var exp: dojox.dtl.Inline
+    export=exp;
+}
+declare module "dojox/dtl/_base" {
+    var exp: dojox.dtl._base
+    export=exp;
+}
+declare module "dojox/dtl/_base._base" {
+    var exp: dojox.dtl._base._base
+    export=exp;
+}
+declare module "dojox/dtl/_base.BOOLS" {
+    var exp: dojox.dtl._base.BOOLS
+    export=exp;
+}
+declare module "dojox/dtl/_base.data" {
+    var exp: dojox.dtl._base.data
+    export=exp;
+}
+declare module "dojox/dtl/_base.date" {
+    var exp: dojox.dtl._base.date
+    export=exp;
+}
+declare module "dojox/dtl/_base.dates" {
+    var exp: dojox.dtl._base.dates
+    export=exp;
+}
+declare module "dojox/dtl/_base.dijit" {
+    var exp: dojox.dtl._base.dijit
+    export=exp;
+}
+declare module "dojox/dtl/_base.html" {
+    var exp: dojox.dtl._base.html
+    export=exp;
+}
+declare module "dojox/dtl/_base.htmlstrings" {
+    var exp: dojox.dtl._base.htmlstrings
+    export=exp;
+}
+declare module "dojox/dtl/_base.dom" {
+    var exp: dojox.dtl._base.dom
+    export=exp;
+}
+declare module "dojox/dtl/_base.integers" {
+    var exp: dojox.dtl._base.integers
+    export=exp;
+}
+declare module "dojox/dtl/_base.logic" {
+    var exp: dojox.dtl._base.logic
+    export=exp;
+}
+declare module "dojox/dtl/_base.loader" {
+    var exp: dojox.dtl._base.loader
+    export=exp;
+}
+declare module "dojox/dtl/_base.loop" {
+    var exp: dojox.dtl._base.loop
+    export=exp;
+}
+declare module "dojox/dtl/_base.misc" {
+    var exp: dojox.dtl._base.misc
+    export=exp;
+}
+declare module "dojox/dtl/_base.objects" {
+    var exp: dojox.dtl._base.objects
+    export=exp;
+}
+declare module "dojox/dtl/_base.strings" {
+    var exp: dojox.dtl._base.strings
+    export=exp;
+}
+declare module "dojox/dtl/_base.register" {
+    var exp: dojox.dtl._base.register
+    export=exp;
+}
+declare module "dojox/dtl/_base.text" {
+    var exp: dojox.dtl._base.text
+    export=exp;
+}
+declare module "dojox/dtl/dom" {
+    var exp: dojox.dtl.dom
+    export=exp;
+}
+declare module "dojox/dtl/dom._uppers" {
+    var exp: dojox.dtl.dom._uppers
+    export=exp;
+}
+declare module "dojox/dtl/dom._attributes" {
+    var exp: dojox.dtl.dom._attributes
+    export=exp;
+}
+declare module "dojox/dtl/contrib/data" {
+    var exp: dojox.dtl.contrib.data
+    export=exp;
+}
+declare module "dojox/dtl/contrib/objects" {
+    var exp: dojox.dtl.contrib.objects
+    export=exp;
+}
+declare module "dojox/dtl/contrib/dom" {
+    var exp: dojox.dtl.contrib.dom
+    export=exp;
+}
+declare module "dojox/dtl/contrib/dijit" {
+    var exp: dojox.dtl.contrib.dijit
+    export=exp;
+}
+declare module "dojox/dtl/ext-dojo/NodeList" {
+    var exp: dojox.dtl.ext_dojo.NodeList
+    export=exp;
+}
+declare module "dojox/dtl/ext-dojo/NodeList._nodeDataCache" {
+    var exp: dojox.dtl.ext_dojo.NodeList._nodeDataCache
+    export=exp;
+}
+declare module "dojox/dtl/filter/dates" {
+    var exp: dojox.dtl.filter.dates
+    export=exp;
+}
+declare module "dojox/dtl/filter/htmlstrings" {
+    var exp: dojox.dtl.filter.htmlstrings
+    export=exp;
+}
+declare module "dojox/dtl/filter/integers" {
+    var exp: dojox.dtl.filter.integers
+    export=exp;
+}
+declare module "dojox/dtl/filter/logic" {
+    var exp: dojox.dtl.filter.logic
+    export=exp;
+}
+declare module "dojox/dtl/filter/misc" {
+    var exp: dojox.dtl.filter.misc
+    export=exp;
+}
+declare module "dojox/dtl/filter/misc._phone2numeric" {
+    var exp: dojox.dtl.filter.misc._phone2numeric
+    export=exp;
+}
+declare module "dojox/dtl/filter/lists" {
+    var exp: dojox.dtl.filter.lists
+    export=exp;
+}
+declare module "dojox/dtl/filter/strings" {
+    var exp: dojox.dtl.filter.strings
+    export=exp;
+}
+declare module "dojox/dtl/filter/strings._strings" {
+    var exp: dojox.dtl.filter.strings._strings
+    export=exp;
+}
+declare module "dojox/dtl/filter/strings._truncate_singlets" {
+    var exp: dojox.dtl.filter.strings._truncate_singlets
+    export=exp;
+}
+declare module "dojox/dtl/render/html" {
+    var exp: dojox.dtl.render.html
+    export=exp;
+}
+declare module "dojox/dtl/render/dom" {
+    var exp: dojox.dtl.render.dom
+    export=exp;
+}
+declare module "dojox/dtl/tag/date" {
+    var exp: dojox.dtl.tag.date
+    export=exp;
+}
+declare module "dojox/dtl/tag/loader" {
+    var exp: dojox.dtl.tag.loader
+    export=exp;
+}
+declare module "dojox/dtl/tag/logic" {
+    var exp: dojox.dtl.tag.logic
+    export=exp;
+}
+declare module "dojox/dtl/tag/loop" {
+    var exp: dojox.dtl.tag.loop
+    export=exp;
+}
+declare module "dojox/dtl/tag/misc" {
+    var exp: dojox.dtl.tag.misc
+    export=exp;
+}
+declare module "dojox/dtl/utils/date" {
+    var exp: dojox.dtl.utils.date
+    export=exp;
 }

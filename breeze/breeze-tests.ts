@@ -1,13 +1,7 @@
-// Type definitions for Breeze 1.4.1
-// Project: http://www.breezejs.com/
-// Definitions by: IdeaBlade <https://github.com/IdeaBlade/Breeze/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped  
-
 /// <reference path="breeze.d.ts" />
 
 import core = breeze.core;
 import config = breeze.config;
-
 
 function test_dataType() {
     var typ = breeze.DataType.DateTime;
@@ -17,7 +11,7 @@ function test_dataType() {
     var x = typ.parentEnum === <breeze.core.IEnum> breeze.DataType;
     var isFalse = breeze.DataType.contains(breeze.DataType.Double);
     var dt = breeze.DataType.fromName("Decimal");
-    
+
 }
 
 function test_dataProperty() {
@@ -39,7 +33,7 @@ function test_dataService() {
     var em = new breeze.EntityManager({
         dataService: ds
     });
-    
+
 }
 
 function test_entityAspect() {
@@ -50,9 +44,9 @@ function test_entityAspect() {
     var orderDateErrors = order.entityAspect.getValidationErrors("OrderDate");
     var orderDateProperty = order.entityType.getProperty("OrderDate");
     var orderDateErrors = order.entityAspect.getValidationErrors(orderDateProperty);
-    order.entityAspect.loadNavigationProperty("Orders").then(function (data) {
+    order.entityAspect.loadNavigationProperty("Orders").then(function (data: breeze.QueryResult) {
         var orders = data.results;
-    }).fail(function (exception) { });
+    }).catch(function (exception) { });
     order.entityAspect.rejectChanges();
     order.entityAspect.setDeleted();
     order.entityAspect.setModified();
@@ -75,7 +69,7 @@ function test_entityAspect() {
         var errorsAdded = validationChangeArgs.added;
         var errorsCleared = validationChangeArgs.removed;
     });
-    
+
 }
 
 function test_entityKey() {
@@ -109,7 +103,7 @@ function test_metadataStore() {
     var ms = new breeze.MetadataStore();
     ms.fetchMetadata("breeze/NorthwindIBModel")
         .then(function (rawMetadata) { })
-        .fail(function (exception) { });
+        .catch(function (exception) { });
     var odType = em1.metadataStore.getEntityType("OrderDetail");
     var badType = em1.metadataStore.getEntityType("Foo", false);
     var allTypes = em1.metadataStore.getEntityTypes();
@@ -138,7 +132,7 @@ function test_entityManager() {
         serviceName: "breeze/NorthwindIBModel",
         metadataStore: metadataStore
     });
-    
+
     return new breeze.QueryOptions({
         mergeStrategy: null,
         fetchStrategy: this.fetchStrategy
@@ -163,7 +157,7 @@ function test_entityManager() {
 
     var cust2 = em1.createEntity("Customer", { companyName: "foo" });
     var cust3 = em1.createEntity("foo", { xxx: 3 }, breeze.EntityState.Added);
-    
+
     em1.attachEntity(cust1, breeze.EntityState.Added);
     em1.clear();
     var em2 = em1.createEmptyCopy();
@@ -172,14 +166,14 @@ function test_entityManager() {
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders");
     em.executeQuery(query)
-      .then(function (data) {
+      .then(function (data: breeze.QueryResult) {
           var orders = data.results;
-      }).fail(function (err) {
+      }).catch(function (err) {
       });
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders");
     em.executeQuery(query,
-       function (data) {
+       function (data: breeze.QueryResult) {
            var orders = data.results;
        },
        function (err) {
@@ -187,9 +181,9 @@ function test_entityManager() {
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders").using(em);
     query.execute()
-      .then(function (data) {
+      .then(function (data: breeze.QueryResult) {
           var orders = data.results;
-      }).fail(function (err) {
+      }).catch(function (err) {
       });
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders");
@@ -197,9 +191,9 @@ function test_entityManager() {
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders").using(breeze.FetchStrategy.FromLocalCache);
     em.executeQuery(query)
-      .then(function (data) {
+      .then(function (data: breeze.QueryResult) {
           var orders = data.results;
-      }).fail(function (err) {
+      }).catch(function (err) {
       });
     var bundle = em1.exportEntities();
     window.localStorage.setItem("myEntityManager", bundle);
@@ -217,7 +211,7 @@ function test_entityManager() {
        .then(function () {
            var metadataStore = em1.metadataStore;
        })
-       .fail(function (exception) {
+       .catch(function (exception) {
        });
     var employeeType = em1.metadataStore.getEntityType("Employee");
     var employeeKey = new breeze.EntityKey(<breeze.EntityType> employeeType, 1);
@@ -228,7 +222,7 @@ function test_entityManager() {
     var custumer = custType.createEntity();
     var customerId = em.generateTempKeyValue(custumer);
     em1.saveChanges()
-        .then(function (data) {
+        .then(function (data: breeze.SaveResult) {
             var sameCust1 = data.entities[0];
         });
     var changedEntities = em1.getChanges();
@@ -252,7 +246,7 @@ function test_entityManager() {
     var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
     var orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
     if (em1.hasChanges([custType, orderType])) { };
-    
+
     var bundle = em1.exportEntities();
     window.localStorage.setItem("myEntityManager", bundle);
     var bundleFromStorage = window.localStorage.getItem("myEntityManager");
@@ -263,22 +257,22 @@ function test_entityManager() {
         metadataStore: em1.metadataStore
     });
     em2.importEntities(bundle);
-    var bundle = em1.exportEntities();
-    em2.importEntities(bundle, { mergeStrategy: breeze.MergeStrategy.PreserveChanges });
-    em.saveChanges().then(function (saveResult) {
+    var bundle2 = em1.exportEntities(null, { asString: true, includeMetadata: true });
+    em2.importEntities(bundle2, { mergeStrategy: breeze.MergeStrategy.PreserveChanges });
+    em.saveChanges().then(function (saveResult: breeze.SaveResult) {
         var savedEntities = saveResult.entities;
         var keyMappings = saveResult.keyMappings;
-    }).fail(function (e) {
+    }).catch(function (e) {
     });
     var saveOptions = new breeze.SaveOptions({ allowConcurrentSaves: true });
     var entitiesToSave: breeze.Entity[];
-    em.saveChanges(entitiesToSave, saveOptions).then(function (saveResult) {
+    em.saveChanges(entitiesToSave, saveOptions).then(function (saveResult: breeze.SaveResult) {
         var savedEntities = saveResult.entities;
         var keyMappings = saveResult.keyMappings;
-    }).fail(function (e) {
+    }).catch(function (e) {
     });
     em.saveChanges(entitiesToSave, null,
-        function (saveResult) {
+        function (saveResult: breeze.SaveResult) {
             var savedEntities = saveResult.entities;
             var keyMappings = saveResult.keyMappings;
         }, function (e) { }
@@ -307,21 +301,21 @@ function test_entityQuery() {
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders").using(em);
     query.execute()
-        .then(function (data) { })
-        .fail(function (err) { });
+        .then(function (data: breeze.QueryResult) { })
+        .catch(function (err) { });
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders").using(em);
     query.execute(
-       function (data) {
+       function (data: breeze.QueryResult) {
            var orders = data.results;
        },
        function (err) { });
     var em = new breeze.EntityManager(serviceName);
     var query = new breeze.EntityQuery("Orders");
     em.executeQuery(query)
-      .then(function (data) {
+      .then(function (data: breeze.QueryResult) {
           var orders = data.results;
-      }).fail(function (err) {
+      }).catch(function (err) {
       });
     var query = new breeze.EntityQuery("Orders").using(em);
     var orders = query.executeLocally();
@@ -409,6 +403,13 @@ function test_entityQuery() {
     var query = new breeze.EntityQuery("Customers")
         .where("toUpper(substring(CompanyName, 1, 2))", breeze.FilterQueryOp.Equals, "OM");
     var q2 = query.toType("foo").orderBy("foo2");
+
+    var pred = new breeze.Predicate('items', 'any', 'serialNumber', 'contains', '12345');
+    var pred = new breeze.Predicate('items', breeze.FilterQueryOp.Any, 'serialNumber', breeze.FilterQueryOp.Contains, '12345');
+    var pred = breeze.Predicate.create('items', 'any', 'serialNumber', 'contains', '12345');
+    var pred = breeze.Predicate.create('items', breeze.FilterQueryOp.Any, 'serialNumber', breeze.FilterQueryOp.Contains, '12345');
+
+    var json = query.toJSON();
 }
 
 function test_entityState() {
@@ -433,7 +434,7 @@ function test_entityState() {
     return es === breeze.EntityState.Unchanged;
     var es = anEntity.entityAspect.entityState;
     return es.isUnchangedOrModified();
-    
+
     return es === breeze.EntityState.Unchanged || es === breeze.EntityState.Modified;
 }
 
@@ -442,12 +443,14 @@ function test_entityType() {
     var myEntityType: breeze.EntityType;
     var dataProperty1: breeze.DataProperty, dataProperty2: breeze.DataProperty, navigationProperty1: breeze.DataProperty;
     var em1: breeze.EntityManager;
+    /* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
     var entityManager = new breeze.EntityType({
         metadataStore: myMetadataStore,
         serviceName: "breeze/NorthwindIBModel",
         name: "person",
         namespace: "myAppNamespace"
     });
+     */
     myEntityType.addProperty(dataProperty1);
     myEntityType.addProperty(dataProperty2);
     myEntityType.addProperty(navigationProperty1);
@@ -487,55 +490,53 @@ function test_entityType() {
 }
 
 //function test_enum() {
-// var prototype = {
-// nextDay: function () {
-// var nextIndex = (this.dayIndex + 1) % 7;
-// return DayOfWeek.getSymbols()[nextIndex];
-// }
-// };
-// var DayOfWeek = new core.Enum("DayOfWeek", prototype);
-// DayOfWeek.Monday = DayOfWeek.addSymbol({ dayIndex: 0 });
-// var symbol = DayOfWeek.Friday;
-// if (DayOfWeek.contains(symbol)) { }
-// var dayOfWeek = DayOfWeek.from("Thursday");
-// var symbols = DayOfWeek.getNames();
-// var symbols = DayOfWeek.getSymbols();
-// if (core.Enum.isSymbol(DayOfWeek.Wednesday)) { };
-// DayOfWeek.seal();
-// var name = DayOfWeek.Monday.getName();
-// var name = DayOfWeek.Monday.toString();
+//    var prototype = {
+//        nextDay: function () {
+//            var nextIndex = (this.dayIndex + 1) % 7;
+//            return DayOfWeek.getSymbols()[nextIndex];
+//        }
+//    };
+//    var DayOfWeek = new core.Enum("DayOfWeek", prototype);
+//    DayOfWeek.Monday = DayOfWeek.addSymbol({ dayIndex: 0 });
+//    var symbol = DayOfWeek.Friday;
+//    if (DayOfWeek.contains(symbol)) { }
+//    var dayOfWeek = DayOfWeek.from("Thursday");
+//    var symbols = DayOfWeek.getNames();
+//    var symbols = DayOfWeek.getSymbols();
+//    if (core.Enum.isSymbol(DayOfWeek.Wednesday)) { };
+//    DayOfWeek.seal();
+//    var name = DayOfWeek.Monday.getName();
+//    var name = DayOfWeek.Monday.toString();
 
 
-// var prototype = {
-// nextDay: function () {
-// var nextIndex = (this.dayIndex + 1) % 7;
-// return DayOfWeek.getSymbols()[nextIndex];
-// }
-// };
-// var DayOfWeek = new core.Enum("DayOfWeek", prototype);
-// DayOfWeek.Monday = DayOfWeek.addSymbol({ dayIndex: 0 });
-// DayOfWeek.Tuesday = DayOfWeek.addSymbol({ dayIndex: 1 });
-// DayOfWeek.Wednesday = DayOfWeek.addSymbol({ dayIndex: 2 });
-// DayOfWeek.Thursday = DayOfWeek.addSymbol({ dayIndex: 3 });
-// DayOfWeek.Friday = DayOfWeek.addSymbol({ dayIndex: 4 });
-// DayOfWeek.Saturday = DayOfWeek.addSymbol({ dayIndex: 5, isWeekend: true });
-// DayOfWeek.Sunday = DayOfWeek.addSymbol({ dayIndex: 6, isWeekend: true });
-// DayOfWeek.seal();
-// DayOfWeek.Monday.nextDay() === DayOfWeek.Tuesday;
-// DayOfWeek.Sunday.nextDay() === DayOfWeek.Monday;
-// DayOfWeek.Tuesday.isWeekend === undefined;
-// DayOfWeek.Saturday.isWeekend == true;
-// DayOfWeek instanceof core.Enum;
-// core.Enum.isSymbol(DayOfWeek.Wednesday);
-// DayOfWeek.contains(DayOfWeek.Thursday);
-// DayOfWeek.Tuesday.parentEnum == DayOfWeek;
-// DayOfWeek.getSymbols().length === 7;
-// DayOfWeek.Friday.toString() === "Friday";
+//    var prototype = {
+//        nextDay: function () {
+//            var nextIndex = (this.dayIndex + 1) % 7;
+//            return DayOfWeek.getSymbols()[nextIndex];
+//        }
+//    };
+//    var DayOfWeek = new core.Enum("DayOfWeek", prototype);
+//    DayOfWeek.Monday = DayOfWeek.addSymbol({ dayIndex: 0 });
+//    DayOfWeek.Tuesday = DayOfWeek.addSymbol({ dayIndex: 1 });
+//    DayOfWeek.Wednesday = DayOfWeek.addSymbol({ dayIndex: 2 });
+//    DayOfWeek.Thursday = DayOfWeek.addSymbol({ dayIndex: 3 });
+//    DayOfWeek.Friday = DayOfWeek.addSymbol({ dayIndex: 4 });
+//    DayOfWeek.Saturday = DayOfWeek.addSymbol({ dayIndex: 5, isWeekend: true });
+//    DayOfWeek.Sunday = DayOfWeek.addSymbol({ dayIndex: 6, isWeekend: true });
+//    DayOfWeek.seal();
+//    DayOfWeek.Monday.nextDay() === DayOfWeek.Tuesday;
+//    DayOfWeek.Sunday.nextDay() === DayOfWeek.Monday;
+//    DayOfWeek.Tuesday.isWeekend === undefined;
+//    DayOfWeek.Saturday.isWeekend == true;
+//    DayOfWeek instanceof core.Enum;
+//    core.Enum.isSymbol(DayOfWeek.Wednesday);
+//    DayOfWeek.contains(DayOfWeek.Thursday);
+//    DayOfWeek.Tuesday.parentEnum == DayOfWeek;
+//    DayOfWeek.getSymbols().length === 7;
+//    DayOfWeek.Friday.toString() === "Friday";
 //}
-
-interface CustomEntityManager extends breeze.EntityManager
-{
-	customTag: string;
+interface CustomEntityManager extends breeze.EntityManager {
+    customTag: string;
 }
 
 function test_event() {
@@ -699,14 +700,12 @@ function test_validationOptions() {
     var newOptions = validationOptions.using({ validateOnQuery: true, validateOnSave: false });
 }
 
-interface NumericRange
-{
-	max: number;
+interface NumericRange{
+    max: number;
 	min: number;
 }
 
-interface NumericRangeValidatorFunctionContext extends breeze.ValidatorFunctionContext, NumericRange
-{
+interface NumericRangeValidatorFunctionContext extends breeze.ValidatorFunctionContext, NumericRange {
 }
 
 function test_validator() {
@@ -726,7 +725,7 @@ function test_validator() {
         var re = /^\d{5}([\-]\d{4})?$/;
         return (re.test(value));
     }
-    valFn = function (v: any) {
+    var valFn = function (v: any) {
         if (v.getProperty("Country") === "USA") {
             var postalCode = v.getProperty("PostalCode");
             return isValidZipCode(postalCode);
@@ -762,9 +761,11 @@ function test_validator() {
     orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
     var orderDateProperty = orderType.getProperty("OrderDate");
     orderDateProperty.validators.push(breeze.Validator.date());
+    /* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
     var v0 = breeze.Validator.maxLength({ maxLength: 5, displayName: "City" });
     v0.validate("adasdfasdf");
     var errMessage = v0.getMessage();
+     */
     custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
     var customerIdProperty = custType.getProperty("CustomerID");
     customerIdProperty.validators.push(breeze.Validator.guid());
@@ -791,6 +792,7 @@ function test_validator() {
     regionProperty.validators.push(breeze.Validator.string());
     custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
      regionProperty = custType.getProperty("Region");
+    /* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
     regionProperty.validators.push(breeze.Validator.stringLength({ minLength: 2, maxLength: 5 }));
     var validator = breeze.Validator.maxLength({ maxLength: 5, displayName: "City" });
     var result = validator.validate("asdf");
@@ -799,7 +801,8 @@ function test_validator() {
     var errMsg = result.errorMessage;
     var context = result.context;
     var sameValidator = result.validator;
-    valFn = function (v: any) {
+     */
+    var valFn = function (v: any) {
         if (v == null) return true;
         return (v.substr(0,2) === "US");
     };
@@ -808,6 +811,8 @@ function test_validator() {
 
     breeze.Validator.register(countryValidator);
     breeze.Validator.registerFactory(() => countryValidator, "country");
+
+    var urlValidator = breeze.Validator.url({ messageTemplate: 'u got that wrong' });
 }
 
 function test_demo() {
@@ -817,7 +822,7 @@ function test_demo() {
     var query = new breeze.EntityQuery()
         .from("Employees");
 
-    manager.executeQuery(query).then(function (data) { });
+    manager.executeQuery(query).then(function (data: breeze.QueryResult) { });
 }
 
 function test_corefns() {

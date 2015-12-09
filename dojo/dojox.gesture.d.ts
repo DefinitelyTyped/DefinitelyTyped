@@ -99,3 +99,9 @@ declare module dojox {
     }
 
 }
+
+
+declare module "dojox/gesture/Base" {
+    var exp: dojox.gesture.Base
+    export=exp;
+}

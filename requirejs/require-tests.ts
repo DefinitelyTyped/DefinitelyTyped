@@ -41,3 +41,11 @@ require(['main'], (main: any, $: any, _: any, Backbone: any) => {
 var recOne = require.config({ baseUrl: 'js' });
 recOne(['core'], function (core: any) {/*some code*/});
 
+// Tests for 'module' magic module typings
+// (Using 'module' only actually makes sense in an external module)
+
+import module = require('module');
+
+var moduleConfig: any = module.config();
+var moduleId: string = module.id;
+var moduleUri: string = module.uri;

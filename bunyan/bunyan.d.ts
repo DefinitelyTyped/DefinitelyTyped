@@ -6,9 +6,7 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module "bunyan" {
-    import events = require('events');
-    import EventEmitter = events.EventEmitter;
-    import WritableStream = NodeJS.WritableStream;
+    import { EventEmitter } from 'events';
 
     class Logger extends EventEmitter {
         constructor(options:LoggerOptions);
@@ -18,8 +16,9 @@ declare module "bunyan" {
         child(obj:Object, simple?:boolean):Logger;
         reopenFileStreams():void;
 
-        level(value:any /* number | string */):void;
-        levels(name:any /* number | string */, value:any /* number | string */):void;
+        level():string|number;
+        level(value: number | string):void;
+        levels(name: number | string, value: number | string):void;
 
         trace(error:Error, format?:any, ...params:any[]):void;
         trace(buffer:Buffer, format?:any, ...params:any[]):void;
@@ -50,8 +49,8 @@ declare module "bunyan" {
     interface LoggerOptions {
         name: string;
         streams?: Stream[];
-        level?: string;
-        stream?: WritableStream;
+        level?: string | number;
+        stream?: NodeJS.WritableStream;
         serializers?: Serializers;
         src?: boolean;
     }
@@ -62,10 +61,12 @@ declare module "bunyan" {
 
     interface Stream {
         type?: string;
-        level?: any; // number | string
+        level?: number | string;
         path?: string;
-        stream?: WritableStream;
+        stream?: NodeJS.WritableStream | Stream;
         closeOnExit?: boolean;
+        period?: string;
+        count?: number;
     }
 
     export var stdSerializers:Serializers;
@@ -77,7 +78,7 @@ declare module "bunyan" {
     export var ERROR:number;
     export var FATAL:number;
 
-    export function resolveLevel(value:any /* number | string */):number;
+    export function resolveLevel(value: number | string):number;
 
     export function createLogger(options:LoggerOptions):Logger;
 

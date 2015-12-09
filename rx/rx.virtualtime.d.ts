@@ -6,9 +6,8 @@
 ///<reference path="rx.d.ts" />
 
 declare module Rx {
-    // Virtual IScheduler
-	export /*abstract*/ class VirtualTimeScheduler<TAbsolute, TRelative> extends Scheduler {
-		constructor(initialClock: TAbsolute, comparer: (first: TAbsolute, second: TAbsolute) => number);
+	export interface VirtualTimeScheduler<TAbsolute, TRelative> extends Scheduler {
+		//protected constructor(initialClock: TAbsolute, comparer: (first: TAbsolute, second: TAbsolute) => number);
 
 		advanceBy(time: TRelative): void;
 		advanceTo(time: TAbsolute): void;
@@ -29,9 +28,12 @@ declare module Rx {
 		/* protected */ getNext(): internals.ScheduledItem<TAbsolute>;
 	}
 
-	export class HistoricalScheduler extends VirtualTimeScheduler<number, number> {
-		constructor(initialClock: number, comparer: (first: number, second: number) => number);
+	export interface HistoricalScheduler extends VirtualTimeScheduler<number, number> {
 	}
+
+	export var HistoricalScheduler: {
+		new (initialClock: number, comparer: (first: number, second: number) => number): HistoricalScheduler;
+	};
 }
 
 declare module "rx.virtualtime" {

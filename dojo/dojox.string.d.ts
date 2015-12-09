@@ -269,3 +269,24 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/string/tokenize" {
+    var exp: dojox.string_.tokenize
+    export=exp;
+}
+declare module "dojox/string/sprintf" {
+    var exp: dojox.string_.sprintf
+    export=exp;
+}
+declare module "dojox/string/Builder" {
+    var exp: dojox.string_.Builder
+    export=exp;
+}
+declare module "dojox/string/BidiComplex" {
+    var exp: dojox.string_.BidiComplex
+    export=exp;
+}
+declare module "dojox/string/BidiEngine" {
+    var exp: dojox.string_.BidiEngine
+    export=exp;
+}

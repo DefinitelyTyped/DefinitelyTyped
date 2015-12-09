@@ -61,7 +61,7 @@
 
         // Plane
 
-        var geometry2 = new THREE.PlaneGeometry(200, 200);
+        var geometry2 = new THREE.PlaneBufferGeometry(200, 200);
         geometry2.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2));
 
         var material = new THREE.MeshBasicMaterial({ color: 0xe0e0e0, overdraw: 0.5 });
@@ -71,8 +71,8 @@
 
         renderer = new THREE.CanvasRenderer();
         renderer.setClearColor(0xf0f0f0);
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
-
         container.appendChild(renderer.domElement);
 
         stats = new Stats();

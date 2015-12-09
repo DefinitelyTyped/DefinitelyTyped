@@ -159,3 +159,40 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/collections" {
+    var exp: dojox.collections
+    export=exp;
+}
+declare module "dojox/collections/ArrayList" {
+    var exp: dojox.collections.ArrayList
+    export=exp;
+}
+declare module "dojox/collections/BinaryTree" {
+    var exp: dojox.collections.BinaryTree
+    export=exp;
+}
+declare module "dojox/collections/BinaryTree.TraversalMethods" {
+    var exp: dojox.collections.BinaryTree.TraversalMethods
+    export=exp;
+}
+declare module "dojox/collections/Dictionary" {
+    var exp: dojox.collections.Dictionary
+    export=exp;
+}
+declare module "dojox/collections/Queue" {
+    var exp: dojox.collections.Queue
+    export=exp;
+}
+declare module "dojox/collections/Stack" {
+    var exp: dojox.collections.Stack
+    export=exp;
+}
+declare module "dojox/collections/SortedList" {
+    var exp: dojox.collections.SortedList
+    export=exp;
+}
+declare module "dojox/collections/_base" {
+    var exp: dojox.collections._base
+    export=exp;
+}

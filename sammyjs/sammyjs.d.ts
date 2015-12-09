@@ -120,7 +120,8 @@ declare module Sammy {
         trigger(name: string, data?: any): Application;
         unload(): Application;
         use(...params: any[]): void;
-
+	last_location: string[];
+	
         // Features provided by oauth2 plugin 
         oauthorize: string;
         requireOAuth();
@@ -273,6 +274,10 @@ declare module Sammy {
         isAvailable(type);
         Template(app, method_alias);
 	}
+}
+
+declare module "sammy" {
+    export = Sammy;
 }
 
 interface JQueryStatic {

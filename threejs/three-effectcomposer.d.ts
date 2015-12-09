@@ -21,7 +21,7 @@ declare module THREE {
 		swapBuffers(): void;
 		addPass(pass: any): void;
 		insertPass(pass: any, index: number): void;
-		render(delta: number): void;
+		render(delta?: number): void;
 		reset(renderTarget?: WebGLRenderTarget): void;
 		setSize( width: number, height: number ): void;
 	}

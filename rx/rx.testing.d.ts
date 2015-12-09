@@ -7,9 +7,7 @@
 ///<reference path="rx.virtualtime.d.ts" />
 
 declare module Rx {
-	export class TestScheduler extends VirtualTimeScheduler<number, number> {
-		constructor();
-
+	export interface TestScheduler extends VirtualTimeScheduler<number, number> {
 		createColdObservable<T>(...records: Recorded[]): Observable<T>;
 		createHotObservable<T>(...records: Recorded[]): Observable<T>;
 		createObserver<T>(): MockObserver<T>;
@@ -18,6 +16,10 @@ declare module Rx {
 		startWithDispose<T>(create: () => Observable<T>, disposedAt: number): MockObserver<T>;
 		startWithCreate<T>(create: () => Observable<T>): MockObserver<T>;
 	}
+
+	export var TestScheduler: {
+		new (): TestScheduler;
+	};
 
 	export class Recorded {
 		constructor(time: number, value: any, equalityComparer?: (x: any, y: any) => boolean);

@@ -75,7 +75,7 @@ false
 false.should.be.false;
 (0).should.not.be.false;
 
-var args = (a: string, b: string, c: string) => { return arguments; };
+var args = function (a: string, b: string, c: string) { return arguments; };
 args.should.be.arguments;
 ['a'].should.not.be.arguments;
 

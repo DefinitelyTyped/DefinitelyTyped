@@ -8,6 +8,12 @@ module SigmaJsTests {
         }
     });
 
+    s.settings({
+      maxNodeSize: 10
+    });
+
+    s.settings("maxNodeSize");
+
     s.addRenderer({
         type: 'canvas',
         container: container
@@ -16,6 +22,14 @@ module SigmaJsTests {
     s.bind('clickNode', (e) => {
         s.refresh();
     });
+
+    sigma.canvas.edges['def'] = function() {};
+    sigma.svg.nodes['def'] = {create: (obj: SigmaJs.Node) => { return new Element(); },
+                       update: (obj: SigmaJs.Node) => { return; }};
+    sigma.svg.edges['def'] = {create: (obj: SigmaJs.Edge) => { return new Element(); },
+                              update: (obj: SigmaJs.Edge) => { return; }};
+    sigma.svg.edges.labels['def'] = {create: (obj: SigmaJs.Edge) => { return new Element(); },
+                                     update: (obj: SigmaJs.Edge) => { return; }};
 
     var N = 100;
     var E = 500;

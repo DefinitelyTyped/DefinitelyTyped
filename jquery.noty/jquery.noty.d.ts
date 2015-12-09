@@ -47,7 +47,6 @@ interface NotyCallbackOptions {
 }
 
 interface NotyStatic {
-
 	(notyOptions: NotyOptions);
 	defaults: NotyOptions;
 
@@ -57,23 +56,27 @@ interface NotyStatic {
 	closeAll();
 	setText(id: any, text: string);
 	setType(id: any, type: string);
+}
 
+interface Noty {
+    (notyOptions: NotyOptions);
+
+    show();
+    close();
+    setText(text: string);
+    setType(type: string);
+    setTimeout(timeout: number);
+
+    closed: boolean;
+    shown: boolean;
 }
 
 interface JQueryStatic {
 	noty: NotyStatic;
 }
 
-declare var noty: {
-
-	(notyOptions: NotyOptions);
-
-	show();
-	close();
-	setText(text: string);
-	setType(type: string);
-	setTimeout(timeout: number);
-
-	closed: boolean;
-	shown: boolean;
+interface JQuery {
+    noty: Noty;
 }
+
+declare var noty: Noty;

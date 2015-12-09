@@ -45,6 +45,7 @@ declare module "sockjs" {
         prefix: string;
         protocol: string;
         readyState: number;
+        id: string;
 
         close(code?: string, reason?: string): boolean;
         destroy(): void;
