@@ -92,31 +92,19 @@ declare module GitHubElectron {
 		 */
 		registerURLSchemeAsSecure(scheme: string): void;
 	}
-}
 
-declare module 'ipc' {
-	var inProcess: GitHubElectron.InProcess;
-	export = inProcess;
-}
-
-declare module 'remote' {
-	var remote: GitHubElectron.Remote;
-	export = remote;
-}
-
-declare module 'web-frame' {
-	var webframe: GitHubElectron.WebFrame;
-	export = webframe;
+	export interface Electron {
+		remote: GitHubElectron.Remote;
+		ipcRenderer: GitHubElectron.InProcess;
+		webFrame: GitHubElectron.WebFrame;
+	}
 }
 
 declare module 'electron' {
-	var remote: GitHubElectron.Remote;
-	var ipcRenderer: GitHubElectron.InProcess;
-	var webFrame: GitHubElectron.WebFrame;
+	var electron: GitHubElectron.Electron;
+	export = electron;
 }
 
 interface NodeRequireFunction {
-	(id: 'ipc'): GitHubElectron.InProcess
-	(id: 'remote'): GitHubElectron.Remote
-	(id: 'web-frame'): GitHubElectron.WebFrame
+	(id: 'electron'): GitHubElectron.Electron;
 }
