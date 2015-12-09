@@ -3949,6 +3949,11 @@ declare module "sequelize" {
              * We don't have a definition for the QueryGenerator, because I doubt it is commonly in use separately.
              */
             QueryGenerator: any;
+            
+            /**
+             * Returns the current sequelize instance.
+             */
+            sequelize: Sequelize;
 
             /**
              * Queries the schema (table list).
