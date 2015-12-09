@@ -11842,54 +11842,62 @@ declare module _ {
     //_.omit
     interface LoDashStatic {
         /**
-        * Creates a shallow clone of object excluding the specified properties. Property names may be
-        * specified as individual arguments or as arrays of property names. If a callback is provided
-        * it will be executed for each property of object omitting the properties the callback returns
-        * truey for. The callback is bound to thisArg and invoked with three arguments; (value, key,
-        * object).
-        * @param object The source object.
-        * @param keys The properties to omit.
-        * @return An object without the omitted properties.
-        **/
-        omit<Omitted, T>(
+         * The opposite of _.pick; this method creates an object composed of the own and inherited enumerable
+         * properties of object that are not omitted.
+         *
+         * @param object The source object.
+         * @param predicate The function invoked per iteration or property names to omit, specified as individual
+         * property names or arrays of property names.
+         * @param thisArg The this binding of predicate.
+         * @return Returns the new object.
+         */
+        omit<TResult extends {}, T extends {}>(
             object: T,
-            ...keys: string[]): Omitted;
+            predicate: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): TResult;
 
         /**
-        * @see _.omit
-        **/
-        omit<Omitted, T>(
+         * @see _.omit
+         */
+        omit<TResult extends {}, T extends {}>(
             object: T,
-            keys: string[]): Omitted;
-
-        /**
-        * @see _.omit
-        **/
-        omit<Omitted, T>(
-            object: T,
-            callback: ObjectIterator<any, boolean>,
-            thisArg?: any): Omitted;
+            ...predicate: (StringRepresentable|StringRepresentable[])[]
+        ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.omit
-        **/
-        omit<Omitted>(
-            ...keys: string[]): LoDashImplicitObjectWrapper<Omitted>;
+         * @see _.omit
+         */
+        omit<TResult extends {}>(
+            predicate: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<TResult>;
 
         /**
-        * @see _.omit
-        **/
-        omit<Omitted>(
-            keys: string[]): LoDashImplicitObjectWrapper<Omitted>;
+         * @see _.omit
+         */
+        omit<TResult extends {}>(
+            ...predicate: (StringRepresentable|StringRepresentable[])[]
+        ): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.omit
+         */
+        omit<TResult extends {}>(
+            predicate: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
-        * @see _.omit
-        **/
-        omit<Omitted>(
-            callback: ObjectIterator<any, boolean>,
-            thisArg?: any): LoDashImplicitObjectWrapper<Omitted>;
+         * @see _.omit
+         */
+        omit<TResult extends {}>(
+            ...predicate: (StringRepresentable|StringRepresentable[])[]
+        ): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.pairs
