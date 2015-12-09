@@ -1,7 +1,7 @@
-// Type definitions for Electron 0.25.2 (shared between main and rederer processes)
+// Type definitions for Electron v0.35.0
 // Project: http://electron.atom.io/
-// Definitions by: jedmao <https://github.com/jedmao/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
