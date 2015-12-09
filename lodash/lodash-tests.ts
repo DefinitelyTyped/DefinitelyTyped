@@ -7073,19 +7073,43 @@ module TestFunctions {
     }
 }
 
-interface HasName {
-    name: string;
+// _.omit
+module TestOmit {
+    let predicate: (element: any, key: string, collection: any) => boolean;
+
+    {
+        let result: TResult;
+
+        result = _.omit<TResult, Object>({}, 'a');
+        result = _.omit<TResult, Object>({}, 0, 'a');
+        result = _.omit<TResult, Object>({}, true, 0, 'a');
+        result = _.omit<TResult, Object>({}, ['b', 1, false], true, 0, 'a');
+        result = _.omit<TResult, Object>({}, predicate);
+        result = _.omit<TResult, Object>({}, predicate, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<TResult>;
+
+        result = _({}).omit<TResult>('a');
+        result = _({}).omit<TResult>(0, 'a');
+        result = _({}).omit<TResult>(true, 0, 'a');
+        result = _({}).omit<TResult>(['b', 1, false], true, 0, 'a');
+        result = _({}).omit<TResult>(predicate);
+        result = _({}).omit<TResult>(predicate, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<TResult>;
+
+        result = _({}).chain().omit<TResult>('a');
+        result = _({}).chain().omit<TResult>(0, 'a');
+        result = _({}).chain().omit<TResult>(true, 0, 'a');
+        result = _({}).chain().omit<TResult>(['b', 1, false], true, 0, 'a');
+        result = _({}).chain().omit<TResult>(predicate);
+        result = _({}).chain().omit<TResult>(predicate, any);
+    }
 }
-result = <HasName>_.omit({ 'name': 'moe', 'age': 40 }, 'age');
-result = <HasName>_.omit({ 'name': 'moe', 'age': 40 }, ['age']);
-result = <HasName>_.omit({ 'name': 'moe', 'age': 40 }, function (value) {
-    return typeof value == 'number';
-});
-result = <HasName>_({ 'name': 'moe', 'age': 40 }).omit('age').value();
-result = <HasName>_({ 'name': 'moe', 'age': 40 }).omit(['age']).value();
-result = <HasName>_({ 'name': 'moe', 'age': 40 }).omit(function (value) {
-    return typeof value == 'number';
-}).value();
 
 // _.pairs
 module TestPairs {
