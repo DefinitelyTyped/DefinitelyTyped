@@ -109,6 +109,12 @@ declare module 'web-frame' {
 	export = webframe;
 }
 
+declare module 'electron' {
+	var remote: GitHubElectron.Remote;
+	var ipcRenderer: GitHubElectron.InProcess;
+	var webFrame: GitHubElectron.WebFrame;
+}
+
 interface NodeRequireFunction {
 	(id: 'ipc'): GitHubElectron.InProcess
 	(id: 'remote'): GitHubElectron.Remote
