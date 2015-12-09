@@ -447,6 +447,28 @@ declare module GitHubElectron {
 		isVisibleOnAllWorkspaces(): boolean;
 	}
 
+	interface WebPreferences {
+		nodeIntegration?: boolean;
+		preload?: string;
+		partition: string;
+		zoomFactor: number;
+		javascript: boolean;
+		webSecurity: boolean;
+		allowDisplayingInsecureContent: boolean;
+		allowRunningInsecureContent: boolean;
+		images: boolean;
+		textAreasAreResizable: boolean;
+		webgl?: boolean;
+		webaudio?: boolean;
+		plugins?: boolean;
+		experimentalFeatures?: boolean;
+		experimentalCanvasFeatures?: boolean;
+		overlayScrollbars?: boolean;
+		sharedWorker?: boolean;
+		directWrite?: boolean;
+		pageVisibility?: boolean;
+	}
+
 	// Includes all options BrowserWindow can take as of this writing
 	// http://electron.atom.io/docs/v0.29.0/api/browser-window/
 	interface BrowserWindowOptions extends Rectangle {
@@ -466,7 +488,6 @@ declare module GitHubElectron {
 		title?: string;
 		icon?: NativeImage|string;
 		frame?: boolean;
-		nodeIntegration?: boolean;
 		acceptFirstMouse?: boolean;
 		disableAutoHideCursor?: boolean;
 		autoHideMenuBar?: boolean;
@@ -476,24 +497,12 @@ declare module GitHubElectron {
 		transparent?: boolean;
 		type?: string;
 		standardWindow?: boolean;
-		webPreferences?: any; // Object
-		javascript?: boolean;
-		webSecurity?: boolean;
-		images?: boolean;
+		webPreferences?: WebPreferences;
 		java?: boolean;
 		textAreasAreResizable?: boolean;
-		webgl?: boolean;
-		webaudio?: boolean;
-		plugins?: boolean;
 		extraPluginDirs?: string[];
-		experimentalFeatures?: boolean;
-		experimentalCanvasFeatures?: boolean;
 		subpixelFontScaling?: boolean;
-		overlayScrollbars?: boolean;
 		overlayFullscreenVideo?: boolean;
-		sharedWorker?: boolean;
-		directWrite?: boolean;
-		pageVisibility?: boolean;
 		titleBarStyle?: string;
 	}
 
