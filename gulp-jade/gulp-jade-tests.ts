@@ -2,7 +2,7 @@
 /// <reference path="./gulp-jade.d.ts"/>
 
 import * as gulp from 'gulp';
-import jade from 'gulp-jade';
+import * as jade from 'gulp-jade';
 
 gulp.task('jade', () => {
   gulp.src('src/**/*.jade')
