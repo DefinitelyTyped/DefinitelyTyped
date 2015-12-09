@@ -91,7 +91,7 @@ declare class ByteBuffer
     /**
      * Data view to manipulate the backing buffer. Becomes null if the backing buffer has a capacity of 0.
      */
-    view: DataView;    
+    view: DataView;
 
     /**
      * Allocates a new ByteBuffer backed by a buffer of the specified capacity.
@@ -170,7 +170,7 @@ declare class ByteBuffer
      * @param littleEndian Whether to use little or big endian byte order. Defaults to ByteBuffer.DEFAULT_ENDIAN.
      * @param noAssert Whether to skip assertions of offsets and values. Defaults to ByteBuffer.DEFAULT_NOASSERT.
      */
-    static wrap( buffer: ByteBuffer | ArrayBuffer | Uint8Array | string, enc?: string | boolean, littleEndian?: boolean, noAssert?: boolean ): ByteBuffer;
+    static wrap( buffer: Buffer | ByteBuffer | ArrayBuffer | Uint8Array | string, enc?: string | boolean, littleEndian?: boolean, noAssert?: boolean ): ByteBuffer;
 
     /**
      * Decodes a zigzag encoded signed 32bit integer.
@@ -424,7 +424,7 @@ declare class ByteBuffer
 
     /**
      * Resizes this ByteBuffer to be backed by a buffer of at least the given capacity. Will do nothing if already that large or larger.
-     */ 
+     */
     resize( capacity: number ): ByteBuffer;
 
     /**
