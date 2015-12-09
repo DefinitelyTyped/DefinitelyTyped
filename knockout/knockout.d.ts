@@ -562,6 +562,7 @@ declare module KnockoutComponentTypes {
     }
 
     interface ComponentConfig {
+        viewModel?: ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
         template: any;
         createViewModel?: any;
     }
