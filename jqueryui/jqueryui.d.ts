@@ -362,7 +362,8 @@ declare module JQueryUI {
         title?: string;
         width?: any; // number or string
         zIndex?: number;
-
+		
+		open?: DialogEvent;
         close?: DialogEvent;
     }
 
