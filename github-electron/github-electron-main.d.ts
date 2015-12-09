@@ -254,6 +254,21 @@ declare module 'tray' {
 	export = Tray;
 }
 
+declare module 'electron' {
+	export var app: GitHubElectron.App;
+	export var autoUpdater: GitHubElectron.AutoUpdater;
+	export var BrowserWindow: typeof GitHubElectron.BrowserWindow;
+	export var contentTracing: GitHubElectron.ContentTracing;
+	export var dialog: GitHubElectron.Dialog;
+	export var globalShortcut: GitHubElectron.GlobalShortcut;
+	export var ipcMain: NodeJS.EventEmitter;
+	export var Menu: typeof GitHubElectron.Menu;
+	export var MenuItem: typeof GitHubElectron.MenuItem;
+	export var powerMonitor: NodeJS.EventEmitter;
+	export var protocol: GitHubElectron.Protocol;
+	export var Tray: typeof GitHubElectron.Tray;
+}
+
 interface NodeRequireFunction {
 	(id: 'app'): GitHubElectron.App
 	(id: 'auto-updater'): GitHubElectron.AutoUpdater
