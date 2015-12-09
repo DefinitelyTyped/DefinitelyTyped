@@ -19,7 +19,16 @@ declare module Microsoft.WindowsAzure {
         logout(): void;
         getTable(tableName: string): MobileServiceTable;
         withFilter(serviceFilter: (request: any, next: (request: any, callback: (error:any, response: any) => void ) => void, callback: (error: any, response: any) => void ) => void ) : MobileServiceClient;
+        invokeApi(apiName: string, options?:InvokeApiOptions): asyncPromise;
     }
+    
+    interface InvokeApiOptions
+	{
+		method?: string;
+		body?: any;
+		headers?: Object;
+		parameters?: Object;
+	}
     
     // User object based on Microsoft Azure documentation: http://msdn.microsoft.com/en-us/library/windowsazure/jj554220.aspx
     interface User {

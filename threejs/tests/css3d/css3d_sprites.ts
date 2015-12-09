@@ -27,16 +27,16 @@
 
         scene = new THREE.Scene();
 
-        var image = document.createElement( 'img' );
-        image.addEventListener( 'load', function ( event ) {
+        var image = document.createElement('img');
+        image.addEventListener('load', function (event) {
 
-            for ( var i = 0; i < particlesTotal; i ++ ) {
+            for (var i = 0; i < particlesTotal; i++) {
 
-                var object = new THREE.CSS3DSprite( image.cloneNode() );
+                var object = new THREE.CSS3DSprite(image.cloneNode());
                 object.position.x = Math.random() * 4000 - 2000,
                 object.position.y = Math.random() * 4000 - 2000,
                 object.position.z = Math.random() * 4000 - 2000
-                scene.add(object);
+						scene.add(object);
 
                 objects.push(object);
 

@@ -3,6 +3,8 @@
 // Definitions by: Dave McKeown <http://github.com/davemckeown>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path='../node/node.d.ts' />
+
 interface EventEmitter {}
 
 declare module 'zmq' {
@@ -83,7 +85,7 @@ declare module 'zmq' {
          * @param addr Socket address
          * @param cb Bind callback
          */
-        bind(addr: string, callback: (error: string) => void ): Socket;
+        bind(addr: string, callback?: (error: string) => void ): Socket;
 
         /**
          * Sync bind.
@@ -91,6 +93,23 @@ declare module 'zmq' {
          * @param addr Socket address
          */
         bindSync(addr: string): Socket;
+
+        /**
+         * Async unbind.
+         *
+         * Emits the "unbind" event.
+         *
+         * @param addr Socket address
+         * @param cb Unind callback
+         */
+        unbind(addr: string, callback?: (error: string) => void ): Socket;
+
+        /**
+         * Sync unbind.
+         *
+         * @param addr Socket address
+         */
+        unbindSync(addr: string): Socket;
 
         /**
          * Connect to `addr`.
@@ -131,10 +150,10 @@ declare module 'zmq' {
         /**
          * Send the given `msg`.
          *
-         * @param msg The message
-         * @param flags Message flags
+         * @param msg {Buffer} The message
+         * @param flags {number} Optional message flags
          */
-        send(msg: ArrayBuffer, flags?: number): Socket;
+        send(msg: Buffer, flags?: number): Socket;
 
         /**
         * Send the given `msg`.
@@ -145,10 +164,25 @@ declare module 'zmq' {
         send(msg: any[], flags?: number): Socket;
 
         /**
+        * Enable monitoring of a Socket
+        *
+        * @param {Number} timer interval in ms > 0 or Undefined for default
+        * @return {Socket} for chaining
+        */
+        monitor(interval?: number): Socket;
+
+        /**
          * Close the socket.
          *
          */
         close(): Socket;
+
+        /**
+         * Socket event
+         * @param eventName {string}
+         * @param callback {Function}
+         */
+        on(eventName: string, callback: (...buffer: Buffer[]) => void): void;
 
         // Socket Options
         _fd: any;
@@ -180,6 +214,5 @@ declare module 'zmq' {
     function socket(type: string, options?: any): Socket;
     function socket(type: number, options?: any): Socket;
     function createSocket(type: string, options?: any): Socket;
-
 
 }

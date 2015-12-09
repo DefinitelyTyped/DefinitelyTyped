@@ -21,5 +21,10 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', function (err, db) {
             // Let's close the db
             db.close();
         });
+
+        // Get some statistics
+        collection.stats(function (err, stats) {
+            console.log(stats.count + " documents");
+        });
     });
 })

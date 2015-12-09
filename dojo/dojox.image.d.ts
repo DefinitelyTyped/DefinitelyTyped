@@ -789,7 +789,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -1828,7 +1828,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -2615,7 +2615,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -2759,4 +2759,37 @@ declare module dojox {
 
     }
 
+}
+
+declare module "dojox/image" {
+    var exp: dojox.image
+    export=exp;
+}
+declare module "dojox/image/FlickrBadge" {
+    var exp: dojox.image.FlickrBadge
+    export=exp;
+}
+declare module "dojox/image/Lightbox" {
+    var exp: dojox.image.Lightbox
+    export=exp;
+}
+declare module "dojox/image/Lightbox.LightboxDialog" {
+    var exp: dojox.image.Lightbox.LightboxDialog
+    export=exp;
+}
+declare module "dojox/image/LightboxNano" {
+    var exp: dojox.image.LightboxNano
+    export=exp;
+}
+declare module "dojox/image/Badge" {
+    var exp: dojox.image.Badge
+    export=exp;
+}
+declare module "dojox/image/Magnifier" {
+    var exp: dojox.image.Magnifier
+    export=exp;
+}
+declare module "dojox/image/MagnifierLite" {
+    var exp: dojox.image.MagnifierLite
+    export=exp;
 }

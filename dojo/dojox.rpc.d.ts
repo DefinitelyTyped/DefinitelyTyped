@@ -267,3 +267,31 @@ declare module dojox {
     }
 
 }
+declare module "dojox/rpc/Rest" {
+    var exp: dojox.rpc.Rest
+    export=exp;
+}
+declare module "dojox/rpc/Rest._index" {
+    var exp: dojox.rpc.Rest._index
+    export=exp;
+}
+declare module "dojox/rpc/Rest._timeStamps" {
+    var exp: dojox.rpc.Rest._timeStamps
+    export=exp;
+}
+declare module "dojox/rpc/OfflineRest" {
+    var exp: dojox.rpc.OfflineRest
+    export=exp;
+}
+declare module "dojox/rpc/JsonRest" {
+    var exp: dojox.rpc.JsonRest
+    export=exp;
+}
+declare module "dojox/rpc/JsonRest.services" {
+    var exp: dojox.rpc.JsonRest.services
+    export=exp;
+}
+declare module "dojox/rpc/JsonRest.schemas" {
+    var exp: dojox.rpc.JsonRest.schemas
+    export=exp;
+}

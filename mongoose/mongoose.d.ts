@@ -6,13 +6,13 @@
 ///<reference path="../node/node.d.ts" />
 
 declare module "mongoose" {
-  function connect(uri: string, options?: ConnectionOption, callback?: (err: any) => void): Mongoose;
+  function connect(uri: string, options?: ConnectionOptions , callback?: (err: any) => void): Mongoose;
   function createConnection(): Connection;
-  function createConnection(uri: string, options?: ConnectionOption): Connection;
-  function createConnection(host: string, database_name: string, port?: number, options?: ConnectionOption): Connection;
+  function createConnection(uri: string, options?: ConnectionOptions): Connection;
+  function createConnection(host: string, database_name: string, port?: number, options?: ConnectionOptions): Connection;
   function disconnect(callback?: (err?: any) => void): Mongoose;
 
-  function model<T extends Document>(name: string, schema: Schema, collection?: string, skipInit?: boolean): Model<T>;
+  function model<T extends Document>(name: string, schema?: Schema, collection?: string, skipInit?: boolean): Model<T>;
   function modelNames(): string[];
   function plugin(plugin: (schema: Schema, options?: Object) => void, options?: Object): Mongoose;
 
@@ -25,13 +25,13 @@ declare module "mongoose" {
   var connection: Connection;
 
   export class Mongoose {
-    connect(uri: string, options?: ConnectionOption, callback?: (err: any) => void): Mongoose;
+    connect(uri: string, options?: ConnectOpenOptionsBase, callback?: (err: any) => void): Mongoose;
     createConnection(): Connection;
     createConnection(uri: string, options?: Object): Connection;
-    createConnection(host: string, database_name: string, port?: number, options?: ConnectionOption): Connection;
+    createConnection(host: string, database_name: string, port?: number, options?: ConnectOpenOptionsBase): Connection;
     disconnect(callback?: (err?: any) => void): Mongoose;
     get(key: string): any;
-    model<T extends Document>(name: string, schema: Schema, collection?: string, skipInit?: boolean): Model<T>;
+    model<T extends Document>(name: string, schema?: Schema, collection?: string, skipInit?: boolean): Model<T>;
     modelNames(): string[];
     plugin(plugin: (schema: Schema, options?: Object) => void, options?: Object): Mongoose;
     set(key: string, value: any): void;
@@ -47,25 +47,68 @@ declare module "mongoose" {
 
     close(callback?: (err: any) => void): Connection;
     collection(name: string, options?: Object): Collection;
-    model<T extends Document>(name: string, schema: Schema, collection?: string): Model<T>;
+    model<T extends Document>(name: string, schema?: Schema, collection?: string): Model<T>;
     modelNames(): string[];
-    open(host: string, database?: string, port?: number, options?: ConnectionOption, callback?: (err: any) => void): Connection;
-    openSet(uris: string, database?: string, options?: ConnectionSetOption, callback?: (err: any) => void): Connection;
+    open(host: string, database?: string, port?: number, options?: OpenSetConnectionOptions, callback?: (err: any) => void): Connection;
+    openSet(uris: string, database?: string, options?: OpenSetConnectionOptions, callback?: (err: any) => void): Connection;
 
     db: any;
     collections: {[index: string]: Collection};
     readyState: number;
   }
-  export interface ConnectionOption {
+
+  export interface ConnectOpenOptionsBase {
     db?: any;
     server?: any;
     replset?: any;
+    /** Username for authentication if not supplied in the URI. */
     user?: string;
+    /** Password for authentication if not supplied in the URI. */
     pass?: string;
+    /** Options for authentication */
     auth?: any;
   }
-  export interface ConnectionSetOption extends ConnectionOption {
-    mongos?: boolean;
+
+  export interface ConnectionOptions extends ConnectOpenOptionsBase {
+    /** Passed to the underlying driver's Mongos instance. */
+    mongos?: MongosOptions;
+  }
+
+  interface OpenSetConnectionOptions extends ConnectOpenOptionsBase {
+      /** If true, enables High Availability support for mongos */
+      mongos?: boolean;
+  }
+
+  interface MongosOptions {
+      /** Turn on high availability monitoring. (default: true) */
+      ha?: boolean;
+      /** Time between each replicaset status check. (default: 5000) */
+      haInterval?: number;
+      /**
+       * Number of connections in the connection pool for each
+       * server instance. (default: 5 (for legacy reasons)) */
+      poolSize?: number;
+      /**
+       * Use ssl connection (needs to have a mongod server with
+       * ssl support). (default: false).
+       */
+      ssl?: boolean;
+      /**
+       * Validate mongod server certificate against ca
+       * (needs to have a mongod server with ssl support, 2.4 or higher)
+       * (default: true)
+       */
+      sslValidate?: boolean;
+      /** Turn on high availability monitoring. */
+      sslCA?: (Buffer|string)[];
+      sslKey?: Buffer|string;
+      sslPass?: Buffer|string;
+      socketOptions?: {
+          noDelay?: boolean;
+          keepAlive?: number;
+          connectionTimeoutMS?: number;
+          socketTimeoutMS?: number;
+      };
   }
 
   export interface Collection {
@@ -78,7 +121,15 @@ declare module "mongoose" {
     set(fn: Function): VirtualType;
   }
   export module Types {
-    export class ObjectId {}
+    export class ObjectId {
+      constructor(id?: string|number);
+      toHexString(): string;
+      equals(other: ObjectId): boolean;
+      getTimestamp(): Date;
+      isValid(): boolean;
+      static createFromTime(time: number): ObjectId;
+      static createFromHexString(hexString: string): ObjectId;
+    }
   }
 
   export class Schema {
@@ -126,8 +177,8 @@ declare module "mongoose" {
     versionKey?: boolean;
   }
 
-  export interface Model<T extends Document> {
-    new(doc: Object): T;
+  export interface Model<T extends Document> extends NodeJS.EventEmitter {
+    new(doc?: Object): T;
 
     aggregate(...aggregations: Object[]): Aggregate<T[]>;
     aggregate(aggregation: Object, callback: (err: any, res: T[]) => void): Promise<T[]>;
@@ -135,7 +186,7 @@ declare module "mongoose" {
     aggregate(aggregation1: Object, aggregation2: Object, aggregation3: Object, callback: (err: any, res: T[]) => void): Promise<T[]>;
     count(conditions: Object, callback?: (err: any, count: number) => void): Query<number>;
 
-    create(doc: Object, fn?: (err: any, res: T) => void): Promise<T[]>;
+    create(doc: Object, fn?: (err: any, res: T) => void): Promise<T>;
     create(doc1: Object, doc2: Object, fn?: (err: any, res1: T, res2: T) => void): Promise<T[]>;
     create(doc1: Object, doc2: Object, doc3: Object, fn?: (err: any, res1: T, res2: T, res3: T) => void): Promise<T[]>;
     discriminator<U extends Document>(name: string, schema: Schema): Model<U>;
@@ -372,7 +423,7 @@ declare module "mongoose" {
 
   export interface Document {
     id?: string;
-    _id: string;
+    _id: Types.ObjectId;
 
     equals(doc: Document): boolean;
     get(path: string, type?: new(...args: any[]) => any): any;
@@ -450,4 +501,3 @@ declare module "mongoose" {
   }
 
 }
-

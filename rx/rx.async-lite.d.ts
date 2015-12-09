@@ -6,6 +6,13 @@
 ///<reference path="rx-lite.d.ts"/>
 
 declare module Rx {
+	export module config {
+		/**
+		* Configuration option to determine whether to use native events only
+		*/
+		export var useNativeEvents: boolean;
+	}
+
     interface ObservableStatic {
 		/**
 		* Invokes the asynchronous function, surfacing the result through an observable sequence.
@@ -60,6 +67,7 @@ declare module Rx {
 
 		fromEvent<T>(element: NodeList, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
 		fromEvent<T>(element: Node, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
-        fromEventPattern<T>(addHandler: (handler: Function) => void, removeHandler: (handler: Function) => void, selector?: (arguments: any[])=>T): Observable<T>;
+		fromEvent<T>(element: {on: (name: string, cb: (e: any) => any) => void; off: (name: string, cb: (e: any) => any) => void}, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
+		fromEventPattern<T>(addHandler: (handler: Function) => void, removeHandler: (handler: Function) => void, selector?: (arguments: any[])=>T): Observable<T>;
 	}
 }

@@ -12020,3 +12020,116 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/lang/observable" {
+    var exp: dojox.lang.observable
+    export=exp;
+}
+declare module "dojox/lang/aspect" {
+    var exp: dojox.lang.aspect
+    export=exp;
+}
+declare module "dojox/lang/aspect/memoizerGuard" {
+    var exp: dojox.lang.aspect.memoizerGuard
+    export=exp;
+}
+declare module "dojox/lang/aspect/memoizer" {
+    var exp: dojox.lang.aspect.memoizer
+    export=exp;
+}
+declare module "dojox/lang/aspect/counter" {
+    var exp: dojox.lang.aspect.counter
+    export=exp;
+}
+declare module "dojox/lang/aspect/cflow" {
+    var exp: dojox.lang.aspect.cflow
+    export=exp;
+}
+declare module "dojox/lang/aspect/timer" {
+    var exp: dojox.lang.aspect.timer
+    export=exp;
+}
+declare module "dojox/lang/aspect/profiler" {
+    var exp: dojox.lang.aspect.profiler
+    export=exp;
+}
+declare module "dojox/lang/aspect/tracer" {
+    var exp: dojox.lang.aspect.tracer
+    export=exp;
+}
+declare module "dojox/lang/async" {
+    var exp: dojox.lang.async
+    export=exp;
+}
+declare module "dojox/lang/async/event" {
+    var exp: dojox.lang.async.event
+    export=exp;
+}
+declare module "dojox/lang/async/timeout" {
+    var exp: dojox.lang.async.timeout
+    export=exp;
+}
+declare module "dojox/lang/async/topic" {
+    var exp: dojox.lang.async.topic
+    export=exp;
+}
+declare module "dojox/lang/functional" {
+    var exp: dojox.lang.functional
+    export=exp;
+}
+declare module "dojox/lang/functional/listcomp" {
+    var exp: dojox.lang.functional.listcomp
+    export=exp;
+}
+declare module "dojox/lang/functional/object" {
+    var exp: dojox.lang.functional.object
+    export=exp;
+}
+declare module "dojox/lang/functional/zip" {
+    var exp: dojox.lang.functional.zip
+    export=exp;
+}
+declare module "dojox/lang/functional/array" {
+    var exp: dojox.lang.functional.array
+    export=exp;
+}
+declare module "dojox/lang/functional/lambda" {
+    var exp: dojox.lang.functional.lambda
+    export=exp;
+}
+declare module "dojox/lang/functional/reversed" {
+    var exp: dojox.lang.functional.reversed
+    export=exp;
+}
+declare module "dojox/lang/functional/sequence" {
+    var exp: dojox.lang.functional.sequence
+    export=exp;
+}
+declare module "dojox/lang/utils" {
+    var exp: dojox.lang.utils
+    export=exp;
+}
+declare module "dojox/lang/oo/mixin" {
+    var exp: dojox.lang.oo.mixin
+    export=exp;
+}
+declare module "dojox/lang/oo/Filter" {
+    var exp: dojox.lang.oo.Filter
+    export=exp;
+}
+declare module "dojox/lang/oo/Decorator" {
+    var exp: dojox.lang.oo.Decorator
+    export=exp;
+}
+declare module "dojox/lang/oo/rearrange" {
+    var exp: dojox.lang.oo.rearrange
+    export=exp;
+}
+declare module "dojox/lang/oo/aop" {
+    var exp: dojox.lang.oo.aop
+    export=exp;
+}
+declare module "dojox/lang/oo/general" {
+    var exp: dojox.lang.oo.general
+    export=exp;
+}

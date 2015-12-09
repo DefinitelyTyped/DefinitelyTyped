@@ -5,6 +5,17 @@
 
 interface NodeBuffer { }
 
+interface SubnetInfo {
+    networkAddress: string;
+    firstAddress: string;
+    lastAddress: string;
+    broadcastAddress: string;
+    subnetMask: string;
+    subnetMaskLength: number;
+    numHosts: number;
+    length: number;
+}
+
 declare module "ip" {
     /**
      * Check two IP address are the same.
@@ -88,4 +99,17 @@ declare module "ip" {
      * Convert an IPv4 IP address from its the long numeric value to a string.
      **/
     export function fromLong(ip: number): string;
+
+    /**
+     * Get the subnet information.
+     * @param ip IP address.
+     * @param subnet Subnet address.
+     */
+    export function subnet(ip: string, subnet: string): SubnetInfo;
+
+    /**
+     * Get the subnet information.
+     * @param cidr CIDR address.
+     */
+    export function cidrSubnet(cidr: string): SubnetInfo;
 }

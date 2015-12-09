@@ -7,7 +7,7 @@ declare function writeDataToLogFile(fileWriter:FileWriterSync): void;
 
 function useAsyncFS(fs:FileSystem):void {
   // see getAsText example in [FILE-API-ED].
-  fs.root.getFile("already_there.txt", null, function (f:FileEntry): void{
+  fs.root.getFile("already_there.txt", null, function (f): void{
 
     // In the example of the specification, there is a following code:
     // 
@@ -19,7 +19,7 @@ function useAsyncFS(fs:FileSystem):void {
   });
 
   // But now we can also write to the file; see [FILE-WRITER-ED].
-  fs.root.getFile("logFile", {create: true}, function (f:FileEntry): void{
+  fs.root.getFile("logFile", {create: true}, function (f): void{
     f.createWriter(writeDataToLogFile);
   });
 }

@@ -1151,3 +1151,12 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/NodeList/delegate" {
+    var exp: dojox.NodeList.delegate
+    export=exp;
+}
+declare module "dojox/NodeList/delegate._nodeDataCache" {
+    var exp: dojox.NodeList.delegate._nodeDataCache
+    export=exp;
+}
