@@ -3,14 +3,44 @@
 // Definitions by: Tim Perry <https://github.com/pimterry>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface TourDefinition {
+declare type CallbackNameNamesOrDefinition = string | string[] | (() => void);
+
+interface HopscotchConfiguration {
+  bubbleWidth?: number;
+  buddleHeight?: number;
+
+  smoothScroll?: boolean;
+  scrollDuration?: number;
+  scrollTopMargin?: number;
+
+  showCloseButton?: boolean;
+  showNextButton?: boolean;
+  showPrevButton?: boolean;
+
+  arrowWidth?: number;
+  skipIfNoElement?: boolean;
+  nextOnTargetClick?: boolean;
+
+  onNext?:  CallbackNameNamesOrDefinition;
+  onPrev?:  CallbackNameNamesOrDefinition;
+  onStart?: CallbackNameNamesOrDefinition;
+  onEnd?:   CallbackNameNamesOrDefinition;
+  onClose?: CallbackNameNamesOrDefinition;
+  onError?: CallbackNameNamesOrDefinition;
+               
+  i18n?: {
+    nextBtn?: string;
+    prevBtn?: string;
+    doneBtn?: string;
+    skipBtn?: string;
+    closeTooltip?: string;
+    stepNums?: string[];
+  }
+}
+
+interface TourDefinition extends HopscotchConfiguration {
   id: string;
   steps: StepDefinition[];
-
-  skipIfNoElement: boolean;
-
-  onEnd: () => void;
-  onClose: () => void;
 }
 
 interface StepDefinition {
@@ -20,22 +50,51 @@ interface StepDefinition {
   title?: string;
   content?: string;
 
+  width?: number;
+  padding?: number;
+
   xOffset?: number;
   yOffset?: number;
   arrowOffset?: number;
 
-  height?: number;
-  width?: number;
+  delay?: number;
+  zIndex?: number;
 
-  multipage?: boolean;
   showNextButton?: boolean;
+  showPrevButton?: boolean;
+  showCTAButton?: boolean;
+
+  ctaLabel?: string;
+  multipage?: boolean;
+  showSkip?: boolean;
+  fixedElement?: boolean;
   nextOnTargetClick?: boolean;
 
-  onShow?: () => void;
+  onPrev?: CallbackNameNamesOrDefinition;
+  onNext?: CallbackNameNamesOrDefinition;
+  onShow?: CallbackNameNamesOrDefinition;
+  onCTA?:  CallbackNameNamesOrDefinition;
 }
 
 interface HopscotchStatic {
   startTour(tour: TourDefinition, stepNum?: number): void;
+  showStep(id: number): void;
+  prevStep(): void;
+  nextStep(): void;
+  endTour(clearCookie: boolean): void;
+  configure(options: HopscotchConfiguration): void;
+  getCurrTour(): TourDefinition;
+  getCurrStepNum(): number;
+  getState(): string;
+
+  listen(eventName: string, callback: () => void): void; 
+  unlisten(eventName: string, callback: () => void): void; 
+  removeCallbacks(eventName?: string, tourOnly?: boolean): void;
+
+  registerHelper(id: string, helper: (...args: any[]) => void): void;
+
+  resetDefaultI18N(): void;
+  resetDefaultOptions(): void;
 }
 
 declare var hopscotch: HopscotchStatic;
