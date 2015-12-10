@@ -1672,12 +1672,12 @@ declare module "crypto" {
     export function pseudoRandomBytes(size: number, callback: (err: Error, buf: Buffer) =>void ): void;
     export interface RsaPublicKey {
         key: string;
-        padding: any;
+        padding?: any;
     }
     export interface RsaPrivateKey {
         key: string;
-        passphrase: string,
-        padding: any;
+        passphrase?: string,
+        padding?: any;
     }
     export function publicEncrypt(public_key: string|RsaPublicKey, buffer: Buffer): Buffer
     export function privateDecrypt(private_key: string|RsaPrivateKey, buffer: Buffer): Buffer
