@@ -16,14 +16,14 @@ interface Socketty {
      * @param callback The callback to be run when the connection is open
      * @return A Socket
      */
-    connect(url: string, callback: (SockettySocket) => void): SockettySocket;
+    connect(url: string, callback: (socket: SockettySocket) => void): SockettySocket;
 
     /**
      * Create a socketty server.
      * @param httpServer The HTTP server to use
      * @return A socketty server
      */
-    createServer(httpServer: any): void;
+    createServer(httpServer: any): SockettyServer;
 }
 
 interface SockettySocket {
@@ -32,7 +32,7 @@ interface SockettySocket {
      * @param action The action to listen to
      * @param callback A callback to be run when the action is fired
      */
-    on(action: string, callback: (any?) => void): void;
+    on(action: string, callback: (message?: any) => void): void;
 
     /**
      * Send an action, as well as an optional message.
@@ -53,5 +53,5 @@ interface SockettyServer {
      * Specify a callback to be run when a new socket connects to the server.
      * @param callback The callback
      */
-    connection(callback: (SockettySocket) => void): void;
+    connection(callback: (socket: SockettySocket) => void): void;
 }
