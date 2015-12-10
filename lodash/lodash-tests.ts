@@ -5337,20 +5337,33 @@ result = <boolean>_({}).isArray();
 }
 
 // _.isBoolean
-result = <boolean>_.isBoolean(any);
-result = <boolean>_(1).isBoolean();
-result = <boolean>_<any>([]).isBoolean();
-result = <boolean>_({}).isBoolean();
-{
-    let value: number[]|boolean = [1, 3, 5];
-    if (_.isBoolean(value)) {
-        let b: boolean = value;
-        // compile error
-        // let length: number = value.length;
-    } else {
-        let length: number = value.length;
-        // compile error
-        // let b: boolean = value;
+module TestIsBoolean {
+    {
+        let value: number|boolean;
+
+        if (_.isBoolean(value)) {
+            let result: boolean = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isBoolean(any);
+        result = _(1).isBoolean();
+        result = _<any>([]).isBoolean();
+        result = _({}).isBoolean();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isBoolean();
+        result = _<any>([]).chain().isBoolean();
+        result = _({}).chain().isBoolean();
     }
 }
 
