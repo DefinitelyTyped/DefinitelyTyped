@@ -14,6 +14,7 @@ import * as querystring from "querystring";
 import * as path from "path";
 import * as readline from "readline";
 import * as childProcess from "child_process";
+import * as os from "os";
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -411,3 +412,49 @@ rl.question("do you like typescript?", function(answer: string) {
 
 childProcess.exec("echo test");
 childProcess.spawnSync("echo test");
+
+////////////////////////////////////////////////////
+/// os tests : https://nodejs.org/api/os.html
+////////////////////////////////////////////////////
+
+module os_tests {
+    {
+        let result: string;
+
+        result = os.tmpdir();
+        result = os.homedir();
+        result = os.endianness();
+        result = os.hostname();
+        result = os.type();
+        result = os.platform();
+        result = os.arch();
+        result = os.release();
+        result = os.EOL;
+    }
+
+    {
+        let result: number;
+
+        result = os.uptime();
+        result = os.totalmem();
+        result = os.freemem();
+    }
+
+    {
+        let result: number[];
+
+        result = os.loadavg();
+    }
+
+    {
+        let result: os.CpuInfo[];
+
+        result = os.cpus();
+    }
+
+    {
+        let result: {[index: string]: os.NetworkInterfaceInfo[]};
+
+        result = os.networkInterfaces();
+    }
+}
