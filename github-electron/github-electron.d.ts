@@ -880,6 +880,10 @@ declare module GitHubElectron {
 		 * a given menu.
 		 */
 		position?: string;
+		/**
+		 * Define the action of the menu item, when specified the click property will be ignored
+		 */
+		role?: string;
 	}
 
 	class BrowserWindowProxy {
