@@ -4658,22 +4658,31 @@ module TestBackflow {
 }
 
 // _.before
-var testBeforeFn = ((n: number) => () => ++n)(0);
-var testBeforeResultFn = <() => number>_.before<() => number>(3, testBeforeFn);
-result = <number>testBeforeResultFn();
-// → 1
-result = <number>testBeforeResultFn();
-// → 2
-result = <number>testBeforeResultFn();
-// → 2
-var testBeforeFn = ((n: number) => () => ++n)(0);
-var testBeforeResultFn = <() => number>_(3).before<() => number>(testBeforeFn);
-result = <number>testBeforeResultFn();
-// → 1
-result = <number>testBeforeResultFn();
-// → 2
-result = <number>testBeforeResultFn();
-// → 2
+module TestBefore {
+    interface Func {
+        (a: string, b: number): boolean;
+    }
+
+    let func: Func;
+
+    {
+        let result: Func;
+
+        _.before(42, func);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<Func>;
+
+        _(42).before(func);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<Func>;
+
+        _(42).chain().before(func);
+    }
+}
 
 var funcBind = function(greeting: string, punctuation: string) { return greeting + ' ' + this.user + punctuation; };
 var funcBound1: (punctuation: string) => any = _.bind(funcBind, { 'name': 'moe' }, 'hi');
