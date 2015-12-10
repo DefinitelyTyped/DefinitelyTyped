@@ -13,7 +13,7 @@ interface Thenable<R> {
 declare class Dexie {
     constructor(databaseName: string);
 
-    constructor(databaseName: string, options: { addons: Array<(db: Dexie) => void> });
+    constructor(databaseName: string, options: { addons: Array<(db: Dexie) => void> });b
 
     name: string;
     tables: Dexie.Table<any, any>[];
@@ -40,7 +40,7 @@ declare class Dexie {
     
     static delete(databaseName : string): Dexie.Promise<void>;
     
-    static exists(databaseName : string): Dexie.Promise<bool>;
+    static exists(databaseName : string): Dexie.Promise<boolean>;
 
     version(versionNumber: number): Dexie.Version;
 
