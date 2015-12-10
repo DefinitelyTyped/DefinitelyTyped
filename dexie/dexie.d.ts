@@ -13,7 +13,7 @@ interface Thenable<R> {
 declare class Dexie {
     constructor(databaseName: string);
 
-    constructor(databaseName: string, options: { addons: Array<(db: Dexie) => void> });b
+    constructor(databaseName: string, options: { addons: Array<(db: Dexie) => void> });
 
     name: string;
     tables: Dexie.Table<any, any>[];
