@@ -64,6 +64,7 @@ interface ShouldAssertion {
   contain(obj: any): ShouldAssertion;
   containEql(obj: any): ShouldAssertion;
   containDeep(obj: any): ShouldAssertion;
+  containDeepOrdered(obj: any): ShouldAssertion;
   keys(...allKeys: string[]): ShouldAssertion;
   keys(allKeys: string[]): ShouldAssertion;
   header(field: string, val?: string): ShouldAssertion;
