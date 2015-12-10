@@ -8491,6 +8491,7 @@ declare module _ {
         /**
          * Creates a function that returns the result of invoking the provided functions with the this binding of the
          * created function, where each successive invocation is supplied the return value of the previous.
+         *
          * @param funcs Functions to invoke.
          * @return Returns the new function.
          */
@@ -8500,8 +8501,15 @@ declare module _ {
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.flow
-         **/
+         */
         flow<TResult extends Function>(...funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.flow
+         */
+        flow<TResult extends Function>(...funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.flowRight
