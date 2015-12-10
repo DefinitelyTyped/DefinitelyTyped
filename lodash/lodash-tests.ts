@@ -5018,17 +5018,38 @@ module TestModArgs {
 }
 
 // _.negate
-interface TestNegatePredicate {
-    (a1: number, a2: number): boolean;
+module TestNegate {
+    interface PredicateFn {
+        (a1: number, a2: number): boolean;
+    }
+
+    interface ResultFn {
+        (a1: number, a2: number): boolean;
+    }
+
+    var predicate = (a1: number, a2: number) => a1 > a2;
+
+    {
+        let result: ResultFn;
+
+        result = _.negate<PredicateFn>(predicate);
+        result = _.negate<PredicateFn, ResultFn>(predicate);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<ResultFn>;
+
+        result = _(predicate).negate();
+        result = _(predicate).negate<ResultFn>();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<ResultFn>;
+
+        result = _(predicate).chain().negate();
+        result = _(predicate).chain().negate<ResultFn>();
+    }
 }
-interface TestNegateResult {
-    (a1: number, a2: number): boolean;
-}
-var testNegatePredicate = (a1: number, a2: number) => a1 > a2;
-result = <TestNegateResult>_.negate<TestNegatePredicate>(testNegatePredicate);
-result = <TestNegateResult>_.negate<TestNegatePredicate, TestNegateResult>(testNegatePredicate);
-result = <TestNegateResult>_(testNegatePredicate).negate().value();
-result = <TestNegateResult>_(testNegatePredicate).negate<TestNegateResult>().value();
 
 // _.once
 module TestOnce {
