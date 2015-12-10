@@ -117,7 +117,7 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	 * Returns back this promise instead of creating a new one. If the `callback` argument is not a function, this method does not do anything.
 	 */
 	nodeify(callback: (err: any, value?: R) => void, options?: Promise.SpreadOption): Promise<R>;
-	nodeify(...sink: any[]): void;
+	nodeify(...sink: any[]): Promise<R>;
 
 	/**
 	 * Marks this promise as cancellable. Promises by default are not cancellable after v0.11 and must be marked as such for `.cancel()` to have any effect. Marking a promise as cancellable is infectious and you don't need to remark any descendant promise.
