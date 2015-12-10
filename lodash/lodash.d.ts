@@ -8621,6 +8621,7 @@ declare module _ {
         /**
          * Creates a function that negates the result of the predicate func. The func predicate is invoked with
          * the this binding and arguments of the created function.
+         *
          * @param predicate The predicate to negate.
          * @return Returns the new function.
          */
@@ -8642,6 +8643,18 @@ declare module _ {
          * @see _.negate
          */
         negate<TResult extends Function>(): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.negate
+         */
+        negate(): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+
+        /**
+         * @see _.negate
+         */
+        negate<TResult extends Function>(): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.once
