@@ -60,3 +60,7 @@ gulp.task('default', function () {
         .pipe(typescript())
         .pipe(gulp.dest('built/local'));
 });
+
+var compilerOptions = tsProject.config.compilerOptions;
+var exclude         = tsProject.config.exclude;
+var files           = tsProject.config.files;
