@@ -13,9 +13,12 @@ declare module 'request-promise' {
     import http = require('http');
         
     interface RequestPromise extends request.Request {
-        then(onFulfilled: Function, onRejected?: Function): Promise<any>;
-        catch(onRejected: Function): Promise<any>;
-        finally(onFinished: Function): Promise<any>;
+        then<TResult>(onfulfilled?: (value: any) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => TResult | PromiseLike<TResult>): Promise<TResult>;
+        then<TResult>(onfulfilled?: (value: any) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => void): Promise<TResult>;
+        catch(onrejected?: (reason: any) => any | PromiseLike<any>): Promise<any>;
+        catch(onrejected?: (reason: any) => void): Promise<any>;
+        finally<TResult>(handler: () => PromiseLike<TResult>): Promise<any>;
+        finally<TResult>(handler: () => TResult): Promise<any>;
         promise(): Promise<any>;
     }
     
