@@ -49,7 +49,7 @@ declare module JQueryUI {
         delay?: number;
         disabled?: boolean;
         minLength?: number;
-        position?: string;
+        position?: any; // object
         source?: any; // [], string or ()
     }
 
