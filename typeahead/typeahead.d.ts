@@ -399,6 +399,8 @@ declare module Bloodhound {
          * @returns A JqueryAjaxSettings object.
          */
         prepare?: (query: string, settings: JQueryAjaxSettings) => JQueryAjaxSettings;
+        
+        transform: (reponse: any) => any;
     }
 
     /**
