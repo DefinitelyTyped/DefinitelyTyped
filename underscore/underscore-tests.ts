@@ -17,9 +17,135 @@ var list = [[0, 1], [2, 3], [4, 5]];
 //var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
 var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
-var even = _.find([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
+module TestFind {
+	let array: {a: string}[] = [{a: 'a'}, {a: 'b'}];
+	let list: _.List<{a: string}> = {0: {a: 'a'}, 1: {a: 'b'}, length: 2};
+	let dict: _.Dictionary<{a: string}> = {a: {a: 'a'}, b: {a: 'b'}};
+	let context = {};
 
-var firstCapitalLetter = _.find({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
+	{
+		let iterator = (value: {a: string}, index: number, list: _.List<{a: string}>) => value.a === 'b';
+		let result: {a: string};
+
+		result = _.find<{a: string}>(array, iterator);
+		result = _.find<{a: string}>(array, iterator, context);
+		result = _.find<{a: string}, {a: string}>(array, {a: 'b'});
+		result = _.find<{a: string}>(array, 'a');
+
+		result = _(array).find<{a: string}>(iterator);
+		result = _(array).find<{a: string}>(iterator, context);
+		result = _(array).find<{a: string}, {a: string}>({a: 'b'});
+		result = _(array).find<{a: string}>('a');
+
+		result = _(array).chain().find<{a: string}>(iterator).value();
+		result = _(array).chain().find<{a: string}>(iterator, context).value();
+		result = _(array).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
+		result = _(array).chain().find<{a: string}>('a').value();
+
+		result = _.find<{a: string}>(list, iterator);
+		result = _.find<{a: string}>(list, iterator, context);
+		result = _.find<{a: string}, {a: string}>(list, {a: 'b'});
+		result = _.find<{a: string}>(list, 'a');
+
+		result = _(list).find<{a: string}>(iterator);
+		result = _(list).find<{a: string}>(iterator, context);
+		result = _(list).find<{a: string}, {a: string}>({a: 'b'});
+		result = _(list).find<{a: string}>('a');
+
+		result = _(list).chain().find<{a: string}>(iterator).value();
+		result = _(list).chain().find<{a: string}>(iterator, context).value();
+		result = _(list).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
+		result = _(list).chain().find<{a: string}>('a').value();
+
+		result = _.detect<{a: string}>(array, iterator);
+		result = _.detect<{a: string}>(array, iterator, context);
+		result = _.detect<{a: string}, {a: string}>(array, {a: 'b'});
+		result = _.detect<{a: string}>(array, 'a');
+
+		result = _(array).detect<{a: string}>(iterator);
+		result = _(array).detect<{a: string}>(iterator, context);
+		result = _(array).detect<{a: string}, {a: string}>({a: 'b'});
+		result = _(array).detect<{a: string}>('a');
+
+		result = _(array).chain().detect<{a: string}>(iterator).value();
+		result = _(array).chain().detect<{a: string}>(iterator, context).value();
+		result = _(array).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
+		result = _(array).chain().detect<{a: string}>('a').value();
+
+		result = _.detect<{a: string}>(list, iterator);
+		result = _.detect<{a: string}>(list, iterator, context);
+		result = _.detect<{a: string}, {a: string}>(list, {a: 'b'});
+		result = _.detect<{a: string}>(list, 'a');
+
+		result = _(list).detect<{a: string}>(iterator);
+		result = _(list).detect<{a: string}>(iterator, context);
+		result = _(list).detect<{a: string}, {a: string}>({a: 'b'});
+		result = _(list).detect<{a: string}>('a');
+
+		result = _(list).chain().detect<{a: string}>(iterator).value();
+		result = _(list).chain().detect<{a: string}>(iterator, context).value();
+		result = _(list).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
+		result = _(list).chain().detect<{a: string}>('a').value();
+	}
+
+	{
+		let iterator = (element: {a: string}, key: string, list: _.Dictionary<{a: string}>) => element.a === 'b';
+		let result: {a: string};
+
+		result = _.find<{a: string}>(dict, iterator);
+		result = _.find<{a: string}>(dict, iterator, context);
+		result = _.find<{a: string}, {a: string}>(dict, {a: 'b'});
+		result = _.find<{a: string}>(dict, 'a');
+
+		result = _(dict).find<{a: string}>(iterator);
+		result = _(dict).find<{a: string}>(iterator, context);
+		result = _(dict).find<{a: string}, {a: string}>({a: 'b'});
+		result = _(dict).find<{a: string}>('a');
+
+		result = _(dict).chain().find<{a: string}>(iterator).value();
+		result = _(dict).chain().find<{a: string}>(iterator, context).value();
+		result = _(dict).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
+		result = _(dict).chain().find<{a: string}>('a').value();
+
+		result = _.detect<{a: string}>(dict, iterator);
+		result = _.detect<{a: string}>(dict, iterator, context);
+		result = _.detect<{a: string}, {a: string}>(dict, {a: 'b'});
+		result = _.detect<{a: string}>(dict, 'a');
+
+		result = _(dict).detect<{a: string}>(iterator);
+		result = _(dict).detect<{a: string}>(iterator, context);
+		result = _(dict).detect<{a: string}, {a: string}>({a: 'b'});
+		result = _(dict).detect<{a: string}>('a');
+
+		result = _(dict).chain().detect<{a: string}>(iterator).value();
+		result = _(dict).chain().detect<{a: string}>(iterator, context).value();
+		result = _(dict).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
+		result = _(dict).chain().detect<{a: string}>('a').value();
+	}
+
+	{
+		let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
+		let result: string;
+
+		result = _.find<string>('abc', iterator);
+		result = _.find<string>('abc', iterator, context);
+
+		result = _('abc').find<string>(iterator);
+		result = _('abc').find<string>(iterator, context);
+
+		result = _('abc').chain().find<string>(iterator).value();
+		result = _('abc').chain().find<string>(iterator, context).value();
+
+		result = _.detect<string>('abc', iterator);
+		result = _.detect<string>('abc', iterator, context);
+
+		result = _('abc').detect<string>(iterator);
+		result = _('abc').detect<string>(iterator, context);
+
+		result = _('abc').chain().detect<string>(iterator).value();
+		result = _('abc').chain().detect<string>(iterator, context).value();
+	}
+}
 
 var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
@@ -177,6 +303,8 @@ _.pairs({ one: 1, two: 2, three: 3 });
 _.invert({ Moe: "Moses", Larry: "Louis", Curly: "Jerome" });
 _.functions(_);
 _.extend({ name: 'moe' }, { age: 50 });
+_.extendOwn({ name: 'moe'}, { age: 50 });
+_.assign({ name: 'moe'}, { age: 50 });
 _.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
@@ -291,17 +419,18 @@ _.result(object, 'stuff');
 var compiled = _.template("hello: <%= name %>");
 compiled({ name: 'moe' });
 var list2 = "<% _.each(people, function(name) { %> <li><%= name %></li> <% }); %>";
-_.template(list2, { people: ['moe', 'curly', 'larry'] });
+_.template(list2)({ people: ['moe', 'curly', 'larry'] });
 var template = _.template("<b><%- value %></b>");
 template({ value: '<script>' });
 var compiled2 = _.template("<% print('Hello ' + epithet); %>");
 compiled2({ epithet: "stooge" });
+var oldTemplateSettings = _.templateSettings;
 _.templateSettings = {
 	interpolate: /\{\{(.+?)\}\}/g
 };
 var template2 = _.template("Hello {{ name }}!");
 template2({ name: "Mustache" });
-_.template("Using 'with': <%= data.answer %>", { variable: 'data' });
+_.template("Using 'with': <%= data.answer %>", oldTemplateSettings)({ variable: 'data' });
 
 
 _(['test', 'test']).pick(['test2', 'test2']);

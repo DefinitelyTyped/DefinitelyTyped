@@ -125,7 +125,8 @@ declare module Foundation {
             timer? : string;
             tip? : string;
             wrapper? : string;
-            button? : string;
+            button?: string;
+            prev_button?: string;
             modal? : string;
             expose? : string;
             expose_cover? : string;
@@ -303,6 +304,16 @@ declare module Foundation {
             add_custom_rule(rule : string, media : string) : void;
             image_loaded(images : JQuery, callback : (...args : any[]) => any) : void;
             random_str(length? : number) : string;
+            is_small_only(): boolean;
+            is_small_up(): boolean;
+            is_medium_only(): boolean;
+            is_medium_up(): boolean;
+            is_large_only(): boolean;
+            is_large_up(): boolean;
+            is_xlarge_only(): boolean;
+            is_xlarge_up(): boolean;
+            is_xxlarge_only(): boolean;
+            is_xxlarge_up(): boolean;
         };
     }
 }

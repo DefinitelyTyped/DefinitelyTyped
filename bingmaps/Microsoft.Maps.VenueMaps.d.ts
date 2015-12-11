@@ -11,20 +11,23 @@ declare module Microsoft.Maps.VenueMaps {
         eventArgs: MouseEventArgs;
     }
 
+    export interface PrimitiveResponse {
+        eventArgs: Primitive;
+    }
+
     export interface Directory {
 
         addToDOM(div: HTMLElement, sortOrder: DirectorySortOrder, to_group_or_not: DirectoryGrouping): void;
         createUIElements(): void;
-        handleMouseClick(response: MouseResponse): void;
-        handleMouseOut(response: MouseResponse): void;
-        handleMouseOver(response: MouseResponse): void;
+        handleMouseClick(e: (response: MouseResponse) => void): void;
+        handleMouseClick(e: (response: PrimitiveResponse) => void): void;
+        handleMouseOut(e: (response: MouseResponse) => void): void;
+        handleMouseOut(e: (response: PrimitiveResponse) => void): void;
+        handleMouseOver(e: (response: MouseResponse) => void): void;
+        handleMouseOver(e: (response: PrimitiveResponse) => void): void;
         isInDOM(): boolean;
         removeFromDOM(): void;
         setHeight(height: number): void;
-
-        click: (eventArgs: MouseEventArgs) => any;
-        mouseOut: (eventArgs: MouseEventArgs) => any;
-        mouseOver: (eventArgs: MouseEventArgs) => any;
     }
 
     export enum DirectoryGrouping {
@@ -67,10 +70,10 @@ declare module Microsoft.Maps.VenueMaps {
     }
 
     export interface NearbyVenueOptions {
-        callback: (maps: Array<VenueMap>) => any;
-        location: Location;
-        map: Map;
-        radius: number;
+        callback?: (maps: Array<VenueMap>) => any;
+        location?: Location;
+        map?: Map;
+        radius?: number;
     }
 
     export interface Polygon {
@@ -116,12 +119,6 @@ declare module Microsoft.Maps.VenueMaps {
         hide(): void;
         setActiveFloor(floor: string): void;
         show(): void;
-
-        click: (eventArgs: Primitive) => any;
-        close: () => any;
-        footprintclick: (eventArgs: Primitive) => any;
-        mouseout: (eventArgs: Primitive) => any;
-        mouseover: (eventArgs: Primitive) => any;
     }
 
     export interface VenueMapCreationOptions {
@@ -138,4 +135,4 @@ declare module Microsoft.Maps.VenueMaps {
         getNearbyVenues(options: NearbyVenueOptions): void;
     }
 
-} 
+}

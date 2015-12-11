@@ -27,6 +27,7 @@ interface Auth0LockOptions {
     forceJSONP?: boolean;
     gravatar?: boolean;
     integratedWindowsLogin?: boolean;
+    icon?: string;
     loginAfterSignup?: boolean;
     popup?: boolean;
     popupOptions?: Auth0LockPopupOptions;
@@ -71,6 +72,8 @@ interface Auth0LockStatic {
 
     hide(callback: () => void): void;
     logout(callback: () => void): void;
+
+    getClient(): Auth0Static;
 }
 
 declare var Auth0Lock: Auth0LockStatic;

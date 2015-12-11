@@ -6,7 +6,7 @@
 
 declare module BigJsLibrary {
 
-    export enum RoundingMode {
+    export const enum RoundingMode {
         RoundTowardsZero = 0,
         RoundTowardsNearestAwayFromZero = 1,
         RoundTowardsNearestTowardsEven = 2,
@@ -198,6 +198,11 @@ declare module BigJsLibrary {
         /** sign (-1 or 1) */
         s: number;
     }
+}
+
+declare module "big.js" {
+    var bigjs : BigJsLibrary.BigJS;
+    export = bigjs;
 }
 
 declare var Big: BigJsLibrary.BigJS;

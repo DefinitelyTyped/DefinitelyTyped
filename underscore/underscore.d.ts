@@ -257,6 +257,20 @@ interface UnderscoreStatic {
 	/**
 	* @see _.find
 	**/
+	find<T, U extends {}>(
+		object: _.List<T>|_.Dictionary<T>,
+		iterator: U): T;
+
+	/**
+	* @see _.find
+	**/
+	find<T>(
+		object: _.List<T>|_.Dictionary<T>,
+		iterator: string): T;
+
+	/**
+	* @see _.find
+	**/
 	detect<T>(
 		list: _.List<T>,
 		iterator: _.ListIterator<T, boolean>,
@@ -269,6 +283,20 @@ interface UnderscoreStatic {
 		object: _.Dictionary<T>,
 		iterator: _.ObjectIterator<T, boolean>,
         context?: any): T;
+
+	/**
+	* @see _.find
+	**/
+	detect<T, U extends {}>(
+		object: _.List<T>|_.Dictionary<T>,
+		iterator: U): T;
+
+	/**
+	* @see _.find
+	**/
+	detect<T>(
+		object: _.List<T>|_.Dictionary<T>,
+		iterator: string): T;
 
     /**
 	* Looks through each value in the list, returning the index of the first one that passes a truth
@@ -1237,6 +1265,20 @@ interface UnderscoreStatic {
 		...sources: any[]): any;
 
 	/**
+	* Like extend, but only copies own properties over to the destination object. (alias: assign)
+	*/
+	extendOwn(
+		destination: any,
+		...source: any[]): any;
+		
+	/**
+	* Like extend, but only copies own properties over to the destination object. (alias: extendOwn)
+	*/
+	assign(
+		destination: any,
+		...source: any[]): any;
+
+	/**
 	* Return a copy of the object, filtered to only have values for the whitelisted keys
 	* (or array of valid keys).
 	* @param object Object to strip unwanted key/value pairs.
@@ -1600,13 +1642,6 @@ interface UnderscoreStatic {
 	**/
 	chain<T>(obj: T[]): _Chain<T>;
 	chain<T extends {}>(obj: T): _Chain<T>;
-
-	/**
-	* Extracts the value of a wrapped object.
-	* @param obj Wrapped object to extract the value from.
-	* @return Value of `obj`.
-	**/
-	value<T, TResult>(obj: T): TResult;
 }
 
 interface Underscore<T> {
@@ -1689,12 +1724,32 @@ interface Underscore<T> {
 	* Wrapped type `any[]`.
 	* @see _.find
 	**/
-	find(iterator: _.ListIterator<T, boolean>, context?: any): T;
+	find<T>(iterator: _.ListIterator<T, boolean>|_.ObjectIterator<T, boolean>, context?: any): T;
 
 	/**
 	* @see _.find
 	**/
-	detect(iterator: _.ListIterator<T, boolean>, context?: any): T;
+	find<T, U extends {}>(interator: U): T;
+
+	/**
+	* @see _.find
+	**/
+	find<T>(interator: string): T;
+
+	/**
+	* @see _.find
+	**/
+	detect<T>(iterator: _.ListIterator<T, boolean>|_.ObjectIterator<T, boolean>, context?: any): T;
+
+	/**
+	* @see _.find
+	**/
+	detect<T, U extends {}>(interator?: U): T;
+
+	/**
+	* @see _.find
+	**/
+	detect<T>(interator?: string): T;
 
 	/**
 	* Wrapped type `any[]`.
@@ -2212,8 +2267,8 @@ interface Underscore<T> {
 	* Wrapped type `object`.
 	* @see _.pick
 	**/
-	pick(...keys: string[]): any;
-	pick(keys: string[]): any;
+	pick(...keys: any[]): any;
+	pick(keys: any[]): any;
 	pick(fn: (value: any, key: any, object: any) => any): any;
 
 	/**
@@ -2449,7 +2504,8 @@ interface Underscore<T> {
 
 	/**
 	* Wrapped type `any`.
-	* @see _.value
+	* Extracts the value of a wrapped object.
+	* @return Value of the wrapped object.
 	**/
 	value<TResult>(): TResult;
 }
@@ -2546,12 +2602,32 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.find
 	**/
-	find(iterator: _.ListIterator<T, boolean>, context?: any): _ChainSingle<T>;
+	find<T>(iterator: _.ListIterator<T, boolean>|_.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T>;
 
 	/**
 	* @see _.find
 	**/
-	detect(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+	find<T, U extends {}>(interator: U): _ChainSingle<T>;
+
+	/**
+	* @see _.find
+	**/
+	find<T>(interator: string): _ChainSingle<T>;
+
+	/**
+	* @see _.find
+	**/
+	detect<T>(iterator: _.ListIterator<T, boolean>|_.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T>;
+
+	/**
+	* @see _.find
+	**/
+	detect<T, U extends {}>(interator: U): _ChainSingle<T>;
+
+	/**
+	* @see _.find
+	**/
+	detect<T>(interator: string): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
@@ -2833,7 +2909,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.partition
 	**/
-	partition(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T[][]>;
+	partition(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T[]>;
 
 	/**
 	* Wrapped type `any[][]`.
@@ -3069,7 +3145,8 @@ interface _Chain<T> {
 	* Wrapped type `object`.
 	* @see _.pick
 	**/
-	pick(...keys: string[]): _Chain<T>;
+	pick(...keys: any[]): _Chain<T>;
+	pick(keys: any[]): _Chain<T>;
 	pick(fn: (value: any, key: any, object: any) => any): _Chain<T>;
 
 	/**

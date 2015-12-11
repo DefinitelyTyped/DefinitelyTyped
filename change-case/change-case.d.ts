@@ -34,4 +34,6 @@ declare module "change-case" {
     function isLowerCase(s: string): boolean;
     function ucFirst(s: string): string;
     function upperCaseFirst(s: string): string;
+    function lcFirst(s: string): string;
+    function lowerCaseFirst(s: string): string;
 }

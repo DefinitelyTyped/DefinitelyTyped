@@ -65,8 +65,8 @@ declare module vuejs {
      * http://vuejs.org/api/instance-properties.html
      */
     $el: HTMLElement;
-    $data: {};
-    $options: {};
+    $data: any;
+    $options: any;
     $parent: Vue;
     $root: Vue;
     $: {};
@@ -120,7 +120,7 @@ declare module vuejs {
      * http://vuejs.org/api/global-api.html
      */
     static config: VueConfig;
-    static extend(options: {}): Vue;
+    static extend(options: {}): typeof Vue;
     static directive(id: string, definition?: {}): void;
     static directive(id: string, definition?: VueCallback): void;
     static filter(id: string, definition?: FilterCallback): void;

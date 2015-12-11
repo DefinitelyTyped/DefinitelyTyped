@@ -47,6 +47,7 @@ declare module jasmine {
 
     function any(aclass: any): Any;
     function anything(): Any;
+    function arrayContaining(sample: any[]): ArrayContaining;
     function objectContaining(sample: any): ObjectContaining;
     function createSpy(name: string, originalFn?: Function): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
@@ -57,7 +58,7 @@ declare module jasmine {
     function addMatchers(matchers: CustomMatcherFactories): void;
     function stringMatching(str: string): Any;
     function stringMatching(str: RegExp): Any;
-    
+
     interface Any {
 
         new (expectedClass: any): any;
@@ -70,6 +71,13 @@ declare module jasmine {
     interface ArrayLike<T> {
         length: number;
         [n: number]: T;
+    }
+
+    interface ArrayContaining {
+        new (sample: any[]): any;
+
+        asymmetricMatch(other: any): boolean;
+        jasmineToString(): string;
     }
 
     interface ObjectContaining {
@@ -99,6 +107,7 @@ declare module jasmine {
         uninstall(): void;
         /** Calls to any registered callback are triggered when the clock is ticked forward via the jasmine.clock().tick function, which takes a number of milliseconds. */
         tick(ms: number): void;
+        mockDate(date?: Date): void;
     }
 
     interface CustomEqualityTester {
@@ -120,7 +129,7 @@ declare module jasmine {
 
     interface CustomMatcherResult {
         pass: boolean;
-        message: string;
+        message?: string;
     }
 
     interface MatchersUtil {
@@ -270,25 +279,25 @@ declare module jasmine {
         isNot?: boolean;
         message(): any;
 
-        toBe(expected: any): boolean;
-        toEqual(expected: any): boolean;
-        toMatch(expected: any): boolean;
-        toBeDefined(): boolean;
-        toBeUndefined(): boolean;
-        toBeNull(): boolean;
+        toBe(expected: any, expectationFailOutput?: any): boolean;
+        toEqual(expected: any, expectationFailOutput?: any): boolean;
+        toMatch(expected: any, expectationFailOutput?: any): boolean;
+        toBeDefined(expectationFailOutput?: any): boolean;
+        toBeUndefined(expectationFailOutput?: any): boolean;
+        toBeNull(expectationFailOutput?: any): boolean;
         toBeNaN(): boolean;
-        toBeTruthy(): boolean;
-        toBeFalsy(): boolean;
+        toBeTruthy(expectationFailOutput?: any): boolean;
+        toBeFalsy(expectationFailOutput?: any): boolean;
         toHaveBeenCalled(): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
-        toContain(expected: any): boolean;
-        toBeLessThan(expected: any): boolean;
-        toBeGreaterThan(expected: any): boolean;
-        toBeCloseTo(expected: any, precision: any): boolean;
+        toContain(expected: any, expectationFailOutput?: any): boolean;
+        toBeLessThan(expected: any, expectationFailOutput?: any): boolean;
+        toBeGreaterThan(expected: any, expectationFailOutput?: any): boolean;
+        toBeCloseTo(expected: any, precision: any, expectationFailOutput?: any): boolean;
         toContainHtml(expected: string): boolean;
         toContainText(expected: string): boolean;
         toThrow(expected?: any): boolean;
-        toThrowError(expected?: any): boolean;
+        toThrowError(expected?: any, message?: string): boolean;
         not: Matchers;
 
         Any: Any;
@@ -433,13 +442,20 @@ declare module jasmine {
         /** By chaining the spy with calls.allArgs(), will return the arguments to all calls **/
         allArgs(): any[];
         /** By chaining the spy with calls.all(), will return the context (the this) and arguments passed all calls **/
-        all(): any;
+        all(): CallInfo[];
         /** By chaining the spy with calls.mostRecent(), will return the context (the this) and arguments for the most recent call **/
-        mostRecent(): any;
+        mostRecent(): CallInfo;
         /** By chaining the spy with calls.first(), will return the context (the this) and arguments for the first call **/
-        first(): any;
+        first(): CallInfo;
         /** By chaining the spy with calls.reset(), will clears all tracking for a spy **/
         reset(): void;
+    }
+
+    interface CallInfo {
+        /** The context (the this) for the call */
+        object: any;
+        /** All arguments passed to the call */
+        args: any[];
     }
 
     interface Util {
