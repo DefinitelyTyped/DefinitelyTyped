@@ -1,6 +1,13 @@
 /// <reference path="./browser-sync.d.ts"/>
 import browserSync = require("browser-sync");
 
+(() => {
+    //make sure that the interfaces are correctly exposed
+    var bsInstance: browserSync.BrowserSyncInstance;
+    var bsStatic: browserSync.BrowserSyncStatic;
+    var opts: browserSync.Options;
+})();
+
 browserSync({
     server: {
         baseDir: "./"
@@ -78,5 +85,13 @@ bs.init({
 });
 
 bs.reload();
-
-
+ 
+function browserSyncInit(): browserSync.BrowserSyncInstance {
+    var browser = browserSync.create();
+    browser.init();
+    console.log(browser.name);
+    console.log(browserSync.name);
+    return browser;
+}
+var browser = browserSyncInit();
+browser.exit();

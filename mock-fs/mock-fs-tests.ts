@@ -50,7 +50,7 @@ function d() {
 function e() {
 	mock({
 		'some/dir': mock.directory({
-			mode: 0755,
+			mode: parseInt("0755", 8),
 			items: {
 				file1: 'file one content',
 				file2: new Buffer([8, 6, 7, 5, 3, 0, 9])

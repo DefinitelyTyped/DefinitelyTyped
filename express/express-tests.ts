@@ -1,6 +1,6 @@
 /// <reference path="express.d.ts" />
 
-import express = require('express');
+import * as express from 'express';
 var app = express();
 
 app.engine('jade', require('jade').__express);

@@ -32,7 +32,7 @@ interface Contacts {
      */
     find(fields: string[],
         onSuccess: (contacts: Contact[]) => void,
-        onError: (error: ContactError) => void,
+        onError?: (error: ContactError) => void,
         options?: ContactFindOptions): void;
     /**
      * The navigator.contacts.pickContact method launches the Contact Picker to select a single contact.

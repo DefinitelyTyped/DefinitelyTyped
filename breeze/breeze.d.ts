@@ -459,6 +459,7 @@ declare module breeze {
     interface EntityManagerProperties {
         serviceName?: string;
         dataService?: DataService;
+        metadataStore?: MetadataStore;
         queryOptions?: QueryOptions;
         saveOptions?: SaveOptions;
         validationOptions?: ValidationOptions;
@@ -856,7 +857,7 @@ declare module breeze {
         tag: Object;
         static defaultInstance: SaveOptions;
 
-        constructor(config?: { allowConcurrentSaves?: boolean; });
+        constructor(config?: { allowConcurrentSaves?: boolean; resourceName?: string; dataService?: DataService; tag?: any});
 
         setAsDefault(): SaveOptions;
         using(config: SaveOptionsConfiguration): SaveOptions;

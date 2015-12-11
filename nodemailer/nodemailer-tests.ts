@@ -11,6 +11,20 @@ var transporter: nodemailer.Transporter = nodemailer.createTransport({
     }
 });
 
+// create reusable transporter object using SMTP transport and set default values for mail options.
+transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'gmail.user@gmail.com',
+        pass: 'userpass'
+    }
+}, {
+    from: 'sender@address',
+    headers: {
+        'My-Awesome-Header': '123'
+    }
+});
+
 // setup e-mail data with unicode symbols
 var mailOptions: nodemailer.SendMailOptions = {
     from: 'Fred Foo ✔ <foo@blurdybloop.com>', // sender address
@@ -24,5 +38,3 @@ var mailOptions: nodemailer.SendMailOptions = {
 transporter.sendMail(mailOptions, (error: Error, info: nodemailer.SentMessageInfo): void => {
 	// nothing
 });
-
-
