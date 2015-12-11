@@ -36,5 +36,7 @@ declare module 'gulp-babel' {
 		retainLines?: boolean
 	}): NodeJS.ReadWriteStream;
 
+	module babel { }
+
 	export = babel;
 }
