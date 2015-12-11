@@ -1650,7 +1650,7 @@ declare module angular {
             templateElement: IAugmentedJQuery,
             templateAttributes: IAttributes,
             transclude: ITranscludeFunction
-        ): IDirectivePrePost;
+        ): void | IDirectivePrePost;
     }
 
     interface IDirective {
