@@ -10,15 +10,15 @@
  */
 
 /// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="../moment/moment.d.ts"/>
 
 declare module BootstrapV3DatetimePicker {
-    interface DatetimepickerChangeEventObject extends JQueryEventObject {
-        date: any;
-        oldDate: any;
+    interface DatetimepickerChangeEventObject extends DatetimepickerEventObject {
+        oldDate: moment.Moment;
     }
 
     interface DatetimepickerEventObject extends JQueryEventObject {
-        date: any;
+        date: moment.Moment;
     }
 
     interface DatetimepickerIcons {
@@ -35,33 +35,39 @@ declare module BootstrapV3DatetimePicker {
         useSeconds?: boolean;
         useCurrent?: boolean;
         minuteStepping?: number;
-        minDate?: any;
-        maxDate?: any;
+        minDate?: moment.Moment | Date | string;
+        maxDate?: moment.Moment | Date | string;
         showToday?: boolean;
         collapse?: boolean;
         language?: string;
-        defaultDate?: string;
-        disabledDates?: Array<any>;
-        enabledDates?: Array<any>;
+        defaultDate?: moment.Moment | Date | string;
+        disabledDates?: Array<moment.Moment | Date | string>;
+        enabledDates?: Array<moment.Moment | Date | string>;
         icons?: DatetimepickerIcons;
         useStrict?: boolean;
         direction?: string;
         sideBySide?: boolean;
-        daysOfWeekDisabled?: Array<any>;
+        daysOfWeekDisabled?: Array<number>;
         calendarWeeks?: boolean;
         format?: string | boolean;
         locale?: string;
         showTodayButton?: boolean;
+        viewMode?: string;
+        inline?: boolean;
+        toolbarPlacement?: string;
+        showClear?: boolean;
     }
 
     interface Datetimepicker {
-        setDate(date: any): void;
-        setMinDate(date: any): void;
-        setMaxDate(date: any): void;
+        date(date: moment.Moment | Date | string): void;
+        date(): moment.Moment;
+        minDate(date: moment.Moment | Date | string): void;
+        minDate(): moment.Moment | boolean;
+        maxDate(date: moment.Moment | Date | string): void;
+        maxDate(): moment.Moment | boolean;
         show(): void;
         disable(): void;
         enable(): void;
-        getDate(): void;
     }
 
 }
