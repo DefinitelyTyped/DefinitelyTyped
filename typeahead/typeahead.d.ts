@@ -165,7 +165,7 @@ declare module Twitter.Typeahead {
          * cb can be invoked synchronously or asynchronously.
          *
           */
-        source: ((query: string, syncResults: (result: Array<any>) => void, asyncResults?: (result: Array<any>) => void) => void);
+        source: ((query: string, syncResults: (result: Array<any>) => void, asyncResults?: (result: Array<any>) => void) => void) | Bloodhound<any>;
 
         /**
           * The name of the dataset.
