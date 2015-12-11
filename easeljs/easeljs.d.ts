@@ -344,6 +344,7 @@ declare module createjs {
         quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): Graphics;
         rect(x: number, y: number, w: number, h: number): Graphics;
         setStrokeStyle(thickness: number, caps?: string | number, joints?: string | number, miterLimit?: number, ignoreScale?: boolean): Graphics;
+        setStrokeDash(segments?: number[], offset?: number): Graphics;
         store(): Graphics;
         toString(): string;
         unstore(): Graphics;
@@ -377,6 +378,7 @@ declare module createjs {
         qt(cpx: number, cpy: number, x: number, y: number): Graphics;
         r(x: number, y: number, w: number, h: number): Graphics;
         ss(thickness: number, caps?: string | number, joints?: string | number, miterLimit?: number, ignoreScale?: boolean): Graphics;
+        sd(segments?: number[], offset?: number): Graphics;
     }
 
 
