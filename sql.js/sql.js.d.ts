@@ -1,15 +1,11 @@
-
-// Type definitions for sql.js (Sep. 6 2015 snapshot)
+// Type definitions for sql.js
 // Project: https://github.com/kripken/sql.js
 // Definitions by: George Wu <https://github.com/Hozuki/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module "sql.js" {
+/// <reference path="../node/node.d.ts" />
 
-    type SQLValue = number | string | Uint8Array;
-    type KeyValueObject = { [key: string]: SQLValue };
-    type SQLValueObject = { [columnName: string]: SQLValue };
-    type DataRow = SQLValue[];
+declare module "sql.js" {
 
     class Database {
         constructor(data: Buffer);
@@ -17,18 +13,18 @@ declare module "sql.js" {
         constructor(data: number[]);
 
         run(sql: string): Database;
-        run(sql: string, params: KeyValueObject): Database;
-        run(sql: string, params: SQLValue[]): Database;
+        run(sql: string, params: { [key: string]: number | string | Uint8Array }): Database;
+        run(sql: string, params: (number | string | Uint8Array)[]): Database;
 
         exec(sql: string): QueryResults[];
 
-        each(sql: string, callback: (obj: SQLValueObject) => void, done: () => void): void;
-        each(sql: string, params: KeyValueObject, callback: (obj: SQLValueObject) => void, done: () => void): void;
-        each(sql: string, params: SQLValue[], callback: (obj: SQLValueObject) => void, done: () => void): void;
+        each(sql: string, callback: (obj: { [columnName: string]: number | string | Uint8Array }) => void, done: () => void): void;
+        each(sql: string, params: { [key: string]: number | string | Uint8Array }, callback: (obj: { [columnName: string]: number | string | Uint8Array }) => void, done: () => void): void;
+        each(sql: string, params: (number | string | Uint8Array)[], callback: (obj: { [columnName: string]: number | string | Uint8Array }) => void, done: () => void): void;
 
         prepare(sql: string): Statement;
-        prepare(sql: string, params: KeyValueObject): Statement;
-        prepare(sql: string, params: SQLValue[]): Statement;
+        prepare(sql: string, params: { [key: string]: number | string | Uint8Array }): Statement;
+        prepare(sql: string, params: (number | string | Uint8Array)[]): Statement;
 
         export(): Uint8Array;
 
@@ -37,24 +33,24 @@ declare module "sql.js" {
 
     class Statement {
         bind(): boolean;
-        bind(values: KeyValueObject): boolean;
-        bind(values: SQLValue[]): boolean;
+        bind(values: { [key: string]: number | string | Uint8Array }): boolean;
+        bind(values: (number | string | Uint8Array)[]): boolean;
 
         step(): boolean;
 
-        get(): DataRow;
-        get(params: KeyValueObject): DataRow;
-        get(params: SQLValue[]): DataRow;
+        get(): (number | string | Uint8Array)[];
+        get(params: { [key: string]: number | string | Uint8Array }): (number | string | Uint8Array)[];
+        get(params: (number | string | Uint8Array)[]): (number | string | Uint8Array)[];
 
         getColumnNames(): string[];
 
-        getAsObject(): SQLValueObject;
-        getAsObject(params: KeyValueObject): SQLValueObject;
-        getAsObject(params: SQLValue[]): SQLValueObject;
+        getAsObject(): { [columnName: string]: number | string | Uint8Array };
+        getAsObject(params: { [key: string]: number | string | Uint8Array }): { [columnName: string]: number | string | Uint8Array };
+        getAsObject(params: (number | string | Uint8Array)[]): { [columnName: string]: number | string | Uint8Array };
 
         run(): void;
-        run(values: KeyValueObject): void;
-        run(values: SQLValue[]): void;
+        run(values: { [key: string]: number | string | Uint8Array }): void;
+        run(values: (number | string | Uint8Array)[]): void;
 
         reset(): void;
 
@@ -65,7 +61,7 @@ declare module "sql.js" {
 
     interface QueryResults {
         columns: string[];
-        values: DataRow[];
+        values: (number | string | Uint8Array)[][];
     }
 
 }
