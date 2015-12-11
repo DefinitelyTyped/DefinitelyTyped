@@ -6,14 +6,10 @@
 //
 
 var substringMatcher = function (strs: any) {
-    return function findMatches(q: any, cb: any) {
-        var matches: any, substrRegex: any;
-
-        // an array that will be populated with substring matches
-        matches = [];
-
+    return function findMatches(q: string, syncResults: (x: Array<any>) => void) {
+        var matches: Array<{ value: string }> = [];
         // regex used to determine if a string contains the substring `q`
-        substrRegex = new RegExp(q, 'i');
+        var substrRegex = new RegExp(q, 'i');
 
         // iterate through the pool of strings and for any string that
         // contains the substring `q`, add it to the `matches` array
@@ -25,7 +21,7 @@ var substringMatcher = function (strs: any) {
             }
         });
 
-        cb(matches);
+        syncResults(matches);
     }
 }
 
@@ -46,14 +42,14 @@ function test_method_names() {
     $('#the-basics .typeahead').typeahead('open');
     $('#the-basics .typeahead').typeahead('close');
     $('#the-basics .typeahead').typeahead('val');
-    $('#the-basics .typeahead').typeahead('val', 'test value');    
+    $('#the-basics .typeahead').typeahead('val', 'test value');
 }
 
 
 function test_options() {
 
     var dataSets: Twitter.Typeahead.Dataset[] = [];
-    
+
     function with_empty_options() {
         $('#the-basics .typeahead').typeahead({}, dataSets);
     }
@@ -72,10 +68,10 @@ function test_options() {
 
     function with_all_options() {
         $('#the-basics .typeahead').typeahead({
-                hint: true,
-                highlight: true,
-                minLength: 1
-            },
+            hint: true,
+            highlight: true,
+            minLength: 1
+        },
             dataSets
         );
     }
@@ -101,41 +97,41 @@ function test_datasets_array() {
 
     function with_displayKey_option() {
         $('#the-basics .typeahead').typeahead(options, [{
-                displayKey: 'value',
-                source: substringMatcher(states)
-            }]
+            display: 'value',
+            source: substringMatcher(states)
+        }]
         );
     }
 
     function with_templates_option() {
         $('#the-basics .typeahead').typeahead(options, [{
-                templates: {},
-                source: substringMatcher(states)
-            }]
+            templates: {},
+            source: substringMatcher(states)
+        }]
         );
     }
 
     function with_all_options() {
         $('#the-basics .typeahead').typeahead(options, [{
-                name: 'states',
-                displayKey: 'value',
-                templates: {},
-                source: substringMatcher(states)
-            }]
+            name: 'states',
+            display: 'value',
+            templates: {},
+            source: substringMatcher(states)
+        }]
         );
     }
 
     function with_multiple_datasets() {
         $('#the-basics .typeahead').typeahead(options, [
-             {
+            {
                 name: 'states',
-                displayKey: 'value',
+                display: 'value',
                 templates: {},
                 source: substringMatcher(states)
             },
             {
                 name: 'states alternative',
-                displayKey: 'value',
+                display: 'value',
                 templates: {},
                 source: substringMatcher(states)
             }
@@ -165,7 +161,7 @@ function test_datasets_objects() {
     function with_displayKey_option() {
         $('#the-basics .typeahead').typeahead(options,
             {
-                displayKey: 'value',
+                display: 'value',
                 source: substringMatcher(states)
             }
         );
@@ -184,7 +180,7 @@ function test_datasets_objects() {
         $('#the-basics .typeahead').typeahead(options,
             {
                 name: 'states',
-                displayKey: 'value',
+                display: x => x.value,
                 templates: {},
                 source: substringMatcher(states)
             }
@@ -192,16 +188,16 @@ function test_datasets_objects() {
     }
 
     function with_multiple_objects() {
-        $('#the-basics .typeahead').typeahead(options, 
+        $('#the-basics .typeahead').typeahead(options,
             {
                 name: 'states',
-                displayKey: 'value',
+                display: 'value',
                 templates: {},
                 source: substringMatcher(states)
             },
             {
                 name: 'states alternative',
-                displayKey: 'value',
+                display: 'value',
                 templates: {},
                 source: substringMatcher(states)
             }
@@ -231,7 +227,7 @@ function test_dataset_templates() {
         $('#the-basics .typeahead').typeahead(options, {
             source: substringMatcher(states),
             templates: {
-                empty: function(context: any) {
+                empty: function (context: any) {
                     return context.name;
                 }
             }
@@ -249,7 +245,7 @@ function test_dataset_templates() {
         $('#the-basics .typeahead').typeahead(options, {
             source: substringMatcher(states),
             templates: {
-                footer: function(context: any) {
+                footer: function (context: any) {
                     return context.name;
                 }
             }
@@ -267,7 +263,7 @@ function test_dataset_templates() {
         $('#the-basics .typeahead').typeahead(options, {
             source: substringMatcher(states),
             templates: {
-                header: function(context: any) {
+                header: function (context: any) {
                     return context.name;
                 }
             }
@@ -277,8 +273,8 @@ function test_dataset_templates() {
     function with_suggestion_option() {
         $('#the-basics .typeahead').typeahead(options, {
             source: substringMatcher(states),
-            templates: {               
-                suggestion: function(context) {
+            templates: {
+                suggestion: function (context) {
                     return context.name;
                 }
             }
@@ -289,13 +285,13 @@ function test_dataset_templates() {
         $('#the-basics .typeahead').typeahead(options, {
             source: substringMatcher(states),
             templates: {
-                empty: 'no results',        
+                empty: 'no results',
                 footer: 'custom footer',
                 header: 'custom header',
-                suggestion: function(context) {
+                suggestion: function (context) {
                     return context.name;
                 }
-            }
+            },
         });
     }
 }

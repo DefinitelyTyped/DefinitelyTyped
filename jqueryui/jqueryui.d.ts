@@ -362,7 +362,8 @@ declare module JQueryUI {
         title?: string;
         width?: any; // number or string
         zIndex?: number;
-
+		
+		open?: DialogEvent;
         close?: DialogEvent;
     }
 
@@ -590,6 +591,7 @@ declare module JQueryUI {
         resize?: ResizableEvent;
         start?: ResizableEvent;
         stop?: ResizableEvent;
+        create?: ResizableEvents;
     }
 
     interface Resizable extends Widget, ResizableOptions {

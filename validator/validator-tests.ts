@@ -19,6 +19,8 @@ validator.isURL("sample");
 
 validator.isFQDN("sample");
 
+validator.isMACAddress("sample");
+
 validator.isIP("sample");
 
 validator.isAlpha("sample");

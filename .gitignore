@@ -13,6 +13,7 @@
 *.map
 *.swp
 .DS_Store
+npm-debug.log
 
 _Resharper.DefinitelyTyped
 bin
