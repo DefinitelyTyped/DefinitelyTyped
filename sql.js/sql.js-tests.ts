@@ -59,7 +59,7 @@ var selectRecordsStatement =
 	"SELECT * FROM test_table;";
 db.each(
 	selectRecordsStatement,
-	(obj: SQL.SQLValueObject): void => {
+	(obj: { [columnName: string]: number | string | Uint8Array }): void => {
 		console.log(obj);
 	},
 	(): void => {
