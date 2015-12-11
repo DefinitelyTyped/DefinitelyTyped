@@ -1,8 +1,3 @@
-// Type definitions for PolymerTS 0.1.17
-// Project: https://github.com/nippur72/PolymerTS
-// Definitions by: Louis Grignon <https://github.com/lgrignon/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-
 declare module polymer {
     class PolymerBase extends HTMLElement {
         $: any;
@@ -93,7 +88,7 @@ declare module polymer {
         type?: any;
         value?: any;
         reflectToAttribute?: boolean;
-        readonly?: boolean;
+        readOnly?: boolean;
         notify?: boolean;
         computed?: string;
         observer?: string;
