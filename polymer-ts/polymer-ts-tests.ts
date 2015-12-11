@@ -21,18 +21,4 @@ namespace Components {
 	}
 
 	polymer.createElement(TestComponent);
-	
-	@component('test-annotated')
-	export class AnnotatedComponent extends polymer.Base {
-
-		public field: string = 'xx';
-		
-		constructor() {
-			super();
-		}
-
-        public ready(): void {
-			console.log('annotated ready');
-        }
-	}
 }
