@@ -6,13 +6,35 @@
 /// <reference path="../angularjs/angular.d.ts" />
 
 
-declare module angular {
+declare module angular.loadingBar {
 
 	interface IRequestShortcutConfig {
 		/**
 		 * Indicates that the loading bar should be hidden.
 		 */
 		ignoreLoadingBar?: boolean;
+	}
+
+	interface ILoadingBarProvider{
+		/**
+		* Turn the spinner on or off
+		*/
+		includeSpinner?: boolean;
+
+		/**
+		* Turn the loading bar on or off
+		*/
+		includeBar?: boolean;
+
+		/**
+		* HTML template
+		*/
+		spinnerTemplate?: string;
+
+		/**
+		* Latency Threshold
+		*/
+		latencyThreshold?: number;
 	}
 
 }
