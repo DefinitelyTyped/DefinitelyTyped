@@ -9,23 +9,23 @@
 /// <reference path="../es6-promise/es6-promise.d.ts" />
 
 interface ConstrainBooleanParameters {
-    exact: boolean;
-    ideal: boolean;
+    exact?: boolean;
+    ideal?: boolean;
 }
 
 interface NumberRange {
-    max: number;
-    min: number;
+    max?: number;
+    min?: number;
 }
 
 interface ConstrainNumberRange extends NumberRange {
-    exact: number;
-    ideal: number;
+    exact?: number;
+    ideal?: number;
 }
 
 interface ConstrainStringParameters {
-    exact: string | string[];
-    ideal: string | string[];
+    exact?: string | string[];
+    ideal?: string | string[];
 }
 
 interface MediaStreamConstraints {
@@ -63,38 +63,38 @@ interface MediaTrackConstraintSet {
 }
 
 interface MediaTrackSupportedConstraints {
-    width: boolean;
-    height: boolean;
-    aspectRatio: boolean;
-    frameRate: boolean;
-    facingMode: boolean;
-    volume: boolean;
-    sampleRate: boolean;
-    sampleSize: boolean;
-    echoCancellation: boolean;
-    latency: boolean;
-    deviceId: boolean;
-    groupId: boolean;
+    width?: boolean;
+    height?: boolean;
+    aspectRatio?: boolean;
+    frameRate?: boolean;
+    facingMode?: boolean;
+    volume?: boolean;
+    sampleRate?: boolean;
+    sampleSize?: boolean;
+    echoCancellation?: boolean;
+    latency?: boolean;
+    deviceId?: boolean;
+    groupId?: boolean;
 }
 
 interface MediaStream extends EventTarget {
     id: string;
     active: boolean;
-    
+
     onactive: EventListener;
     oninactive: EventListener;
     onaddtrack: (event: MediaStreamTrackEvent) => any;
     onremovetrack: (event: MediaStreamTrackEvent) => any;
-    
+
     clone(): MediaStream;
     stop(): void;
-    
+
     getAudioTracks(): MediaStreamTrack[];
     getVideoTracks(): MediaStreamTrack[];
     getTracks(): MediaStreamTrack[];
-    
+
     getTrackById(trackId: string): MediaStreamTrack;
-    
+
     addTrack(track: MediaStreamTrack): void;
     removeTrack(track: MediaStreamTrack): void;
 }
@@ -116,16 +116,16 @@ interface MediaStreamTrack extends EventTarget {
     muted: boolean;
     remote: boolean;
     readyState: MediaStreamTrackState;
-    
+
     onmute: EventListener;
     onunmute: EventListener;
     onended: EventListener;
     onoverconstrained: EventListener;
-    
+
     clone(): MediaStreamTrack;
-    
+
     stop(): void;
-    
+
     getCapabilities(): MediaTrackCapabilities;
     getConstraints(): MediaTrackConstraints;
     getSettings(): MediaTrackSettings;
@@ -176,13 +176,13 @@ interface NavigatorGetUserMedia {
 
 interface Navigator {
     getUserMedia: NavigatorGetUserMedia;
-    
+
     webkitGetUserMedia: NavigatorGetUserMedia;
-    
+
     mozGetUserMedia: NavigatorGetUserMedia;
-    
+
     msGetUserMedia: NavigatorGetUserMedia;
-    
+
     mediaDevices: MediaDevices;
 }
 
