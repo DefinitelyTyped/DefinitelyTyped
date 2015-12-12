@@ -343,6 +343,7 @@ declare module ionic {
             select(index: number): void;
             selectedIndex(): number;
             $getByHandle(handle: string): IonicTabsDelegate;
+            showBar(show?: boolean): boolean;
         }
     }
     module utility {
