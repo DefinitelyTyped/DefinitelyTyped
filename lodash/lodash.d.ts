@@ -8048,20 +8048,31 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Creates a function that invokes func, with the this binding and arguments of the created function, while
-         * it is called less than n times. Subsequent calls to the created function return the result of the last func
+         * it’s called less than n times. Subsequent calls to the created function return the result of the last func
          * invocation.
+         *
          * @param n The number of calls at which func is no longer invoked.
          * @param func The function to restrict.
          * @return Returns the new restricted function.
          */
-        before<TFunc extends Function>(n: number, func: TFunc): TFunc;
+        before<TFunc extends Function>(
+            n: number,
+            func: TFunc
+        ): TFunc;
     }
 
     interface LoDashImplicitWrapper<T> {
         /**
-         * @sed _.before
-         */
-        before<TFunc extends Function>(func: TFunc): TFunc;
+         * @see _.before
+         **/
+        before<TFunc extends Function>(func: TFunc): LoDashImplicitObjectWrapper<TFunc>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.before
+         **/
+        before<TFunc extends Function>(func: TFunc): LoDashExplicitObjectWrapper<TFunc>;
     }
 
     //_.bind
@@ -8369,54 +8380,69 @@ declare module _ {
     }
 
     //_.debounce
+    interface DebounceSettings {
+        /**
+         * Specify invoking on the leading edge of the timeout.
+         */
+        leading?: boolean;
+
+        /**
+         * The maximum time func is allowed to be delayed before it’s invoked.
+         */
+        maxWait?: number;
+
+        /**
+         * Specify invoking on the trailing edge of the timeout.
+         */
+        trailing?: boolean;
+    }
+
     interface LoDashStatic {
         /**
-        * Creates a function that will delay the execution of func until after wait milliseconds have
-        * elapsed since the last time it was invoked. Provide an options object to indicate that func
-        * should be invoked on the leading and/or trailing edge of the wait timeout. Subsequent calls
-        * to the debounced function will return the result of the last func call.
-        *
-        * Note: If leading and trailing options are true func will be called on the trailing edge of
-        * the timeout only if the the debounced function is invoked more than once during the wait
-        * timeout.
-        * @param func The function to debounce.
-        * @param wait The number of milliseconds to delay.
-        * @param options The options object.
-        * @param options.leading Specify execution on the leading edge of the timeout.
-        * @param options.maxWait The maximum time func is allowed to be delayed before it's called.
-        * @param options.trailing Specify execution on the trailing edge of the timeout.
-        * @return The new debounced function.
-        **/
+         * Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since
+         * the last time the debounced function was invoked. The debounced function comes with a cancel method to
+         * cancel delayed invocations. Provide an options object to indicate that func should be invoked on the
+         * leading and/or trailing edge of the wait timeout. Subsequent calls to the debounced function return the
+         * result of the last func invocation.
+         *
+         * Note: If leading and trailing options are true, func is invoked on the trailing edge of the timeout only
+         * if the the debounced function is invoked more than once during the wait timeout.
+         *
+         * See David Corbacho’s article for details over the differences between _.debounce and _.throttle.
+         *
+         * @param func The function to debounce.
+         * @param wait The number of milliseconds to delay.
+         * @param options The options object.
+         * @param options.leading Specify invoking on the leading edge of the timeout.
+         * @param options.maxWait The maximum time func is allowed to be delayed before it’s invoked.
+         * @param options.trailing Specify invoking on the trailing edge of the timeout.
+         * @return Returns the new debounced function.
+         */
         debounce<T extends Function>(
             func: T,
-            wait: number,
-            options?: DebounceSettings): T;
+            wait?: number,
+            options?: DebounceSettings
+        ): T & Cancelable;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.debounce
-        **/
+         * @see _.debounce
+         */
         debounce(
-            wait: number,
-            options?: DebounceSettings): LoDashImplicitObjectWrapper<Function>;
+            wait?: number,
+            options?: DebounceSettings
+        ): LoDashImplicitObjectWrapper<T & Cancelable>;
     }
 
-    interface DebounceSettings {
+    interface LoDashExplicitObjectWrapper<T> {
         /**
-        * Specify execution on the leading edge of the timeout.
-        **/
-        leading?: boolean;
-
-        /**
-        * The maximum time func is allowed to be delayed before it's called.
-        **/
-        maxWait?: number;
-
-        /**
-        * Specify execution on the trailing edge of the timeout.
-        **/
-        trailing?: boolean;
+         * @see _.debounce
+         */
+        debounce(
+            wait?: number,
+            options?: DebounceSettings
+        ): LoDashExplicitObjectWrapper<T & Cancelable>;
     }
 
     //_.defer
@@ -8491,6 +8517,7 @@ declare module _ {
         /**
          * Creates a function that returns the result of invoking the provided functions with the this binding of the
          * created function, where each successive invocation is supplied the return value of the previous.
+         *
          * @param funcs Functions to invoke.
          * @return Returns the new function.
          */
@@ -8500,8 +8527,15 @@ declare module _ {
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.flow
-         **/
+         */
         flow<TResult extends Function>(...funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.flow
+         */
+        flow<TResult extends Function>(...funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.flowRight
@@ -8613,6 +8647,7 @@ declare module _ {
         /**
          * Creates a function that negates the result of the predicate func. The func predicate is invoked with
          * the this binding and arguments of the created function.
+         *
          * @param predicate The predicate to negate.
          * @return Returns the new function.
          */
@@ -8634,6 +8669,18 @@ declare module _ {
          * @see _.negate
          */
         negate<TResult extends Function>(): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.negate
+         */
+        negate(): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+
+        /**
+         * @see _.negate
+         */
+        negate<TResult extends Function>(): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.once
@@ -9212,9 +9259,10 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is classified as a boolean primitive or object.
+         *
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
-         **/
+         */
         isBoolean(value?: any): value is boolean;
     }
 
@@ -9223,6 +9271,13 @@ declare module _ {
          * @see _.isBoolean
          */
         isBoolean(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isBoolean
+         */
+        isBoolean(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isDate
@@ -11842,54 +11897,62 @@ declare module _ {
     //_.omit
     interface LoDashStatic {
         /**
-        * Creates a shallow clone of object excluding the specified properties. Property names may be
-        * specified as individual arguments or as arrays of property names. If a callback is provided
-        * it will be executed for each property of object omitting the properties the callback returns
-        * truey for. The callback is bound to thisArg and invoked with three arguments; (value, key,
-        * object).
-        * @param object The source object.
-        * @param keys The properties to omit.
-        * @return An object without the omitted properties.
-        **/
-        omit<Omitted, T>(
+         * The opposite of _.pick; this method creates an object composed of the own and inherited enumerable
+         * properties of object that are not omitted.
+         *
+         * @param object The source object.
+         * @param predicate The function invoked per iteration or property names to omit, specified as individual
+         * property names or arrays of property names.
+         * @param thisArg The this binding of predicate.
+         * @return Returns the new object.
+         */
+        omit<TResult extends {}, T extends {}>(
             object: T,
-            ...keys: string[]): Omitted;
+            predicate: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): TResult;
 
         /**
-        * @see _.omit
-        **/
-        omit<Omitted, T>(
+         * @see _.omit
+         */
+        omit<TResult extends {}, T extends {}>(
             object: T,
-            keys: string[]): Omitted;
-
-        /**
-        * @see _.omit
-        **/
-        omit<Omitted, T>(
-            object: T,
-            callback: ObjectIterator<any, boolean>,
-            thisArg?: any): Omitted;
+            ...predicate: (StringRepresentable|StringRepresentable[])[]
+        ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.omit
-        **/
-        omit<Omitted>(
-            ...keys: string[]): LoDashImplicitObjectWrapper<Omitted>;
+         * @see _.omit
+         */
+        omit<TResult extends {}>(
+            predicate: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<TResult>;
 
         /**
-        * @see _.omit
-        **/
-        omit<Omitted>(
-            keys: string[]): LoDashImplicitObjectWrapper<Omitted>;
+         * @see _.omit
+         */
+        omit<TResult extends {}>(
+            ...predicate: (StringRepresentable|StringRepresentable[])[]
+        ): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.omit
+         */
+        omit<TResult extends {}>(
+            predicate: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
-        * @see _.omit
-        **/
-        omit<Omitted>(
-            callback: ObjectIterator<any, boolean>,
-            thisArg?: any): LoDashImplicitObjectWrapper<Omitted>;
+         * @see _.omit
+         */
+        omit<TResult extends {}>(
+            ...predicate: (StringRepresentable|StringRepresentable[])[]
+        ): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.pairs
@@ -11931,9 +11994,9 @@ declare module _ {
          * @param predicate The function invoked per iteration or property names to pick, specified as individual
          * property names or arrays of property names.
          * @param thisArg The this binding of predicate.
-         * @return An object composed of the picked properties.
+         * @return Returns the new object.
          */
-        pick<TResult extends Object, T extends Object>(
+        pick<TResult extends {}, T extends {}>(
             object: T,
             predicate: ObjectIterator<any, boolean>,
             thisArg?: any
@@ -11942,9 +12005,9 @@ declare module _ {
         /**
          * @see _.pick
          */
-        pick<TResult extends Object, T extends Object>(
+        pick<TResult extends {}, T extends {}>(
             object: T,
-            ...predicate: Array<string|number|boolean|Array<string|number|boolean>>
+            ...predicate: (StringRepresentable|StringRepresentable[])[]
         ): TResult;
     }
 
@@ -11952,7 +12015,7 @@ declare module _ {
         /**
          * @see _.pick
          */
-        pick<TResult extends Object>(
+        pick<TResult extends {}>(
             predicate: ObjectIterator<any, boolean>,
             thisArg?: any
         ): LoDashImplicitObjectWrapper<TResult>;
@@ -11960,9 +12023,26 @@ declare module _ {
         /**
          * @see _.pick
          */
-        pick<TResult extends Object>(
-            ...predicate: Array<string|number|boolean|Array<string|number|boolean>>
+        pick<TResult extends {}>(
+            ...predicate: (StringRepresentable|StringRepresentable[])[]
         ): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.pick
+         */
+        pick<TResult extends {}>(
+            predicate: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.pick
+         */
+        pick<TResult extends {}>(
+            ...predicate: (StringRepresentable|StringRepresentable[])[]
+        ): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.result

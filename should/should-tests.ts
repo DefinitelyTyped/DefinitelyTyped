@@ -172,3 +172,10 @@ obj.should.have.keys('foo', 'bar');
 obj.should.have.keys(['foo', 'bar']);
 
 (1).should.eql(0, 'some useful description');
+
+[ 1, 2, 3].should.containDeepOrdered([1, 2]);
+[ 1, 2, [ 1, 2, 3 ]].should.containDeepOrdered([ 1, [ 2, 3 ]]);
+
+({ a: 10, b: { c: 10, d: [1, 2, 3] }}).should.containDeepOrdered({a: 10});
+({ a: 10, b: { c: 10, d: [1, 2, 3] }}).should.containDeepOrdered({b: {c: 10}});
+({ a: 10, b: { c: 10, d: [1, 2, 3] }}).should.containDeepOrdered({b: {d: [1, 3]}});

@@ -54,6 +54,8 @@ declare module BootstrapV3DatetimePicker {
         showTodayButton?: boolean;
         viewMode?: string;
         inline?: boolean;
+        toolbarPlacement?: string;
+        showClear?: boolean;
     }
 
     interface Datetimepicker {

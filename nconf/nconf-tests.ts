@@ -48,6 +48,8 @@ p = nconf.use(str, opts);
 p = nconf.defaults();
 p = nconf.defaults(opts);
 
+p = nconf.defaults({foo: 'bar'});
+
 nconf.init();
 nconf.init(opts);
 
