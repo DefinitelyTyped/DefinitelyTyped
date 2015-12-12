@@ -9434,9 +9434,10 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is classified as a Function object.
+         *
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
-         **/
+         */
         isFunction(value?: any): value is Function;
     }
 
@@ -9445,6 +9446,13 @@ declare module _ {
          * @see _.isFunction
          */
         isFunction(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isFunction
+         */
+        isFunction(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isMatch
