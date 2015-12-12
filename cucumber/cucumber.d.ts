@@ -31,7 +31,7 @@ declare module cucumber {
 	}
 
 	interface HookScenario{
-		attach(text: string, mimeType?: string, callback?: (err?) => void): void;
+		attach(text: string, mimeType?: string, callback?: (err?:any) => void): void;
 		isFailed() : boolean;
 	}
 	
@@ -48,7 +48,7 @@ declare module cucumber {
 		After(code: HookCode): void;
 		Around(code: AroundCode):void;
 		setDefaultTimeout(time:number): void;
-		registerHandler(handlerOption:string, code:(event, callback:CallbackStepDefinition) =>void): void;
+		registerHandler(handlerOption:string, code:(event:any, callback:CallbackStepDefinition) =>void): void;
 	}
 }
 
