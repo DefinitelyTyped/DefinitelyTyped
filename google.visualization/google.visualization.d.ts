@@ -364,7 +364,8 @@ declare module google {
         // https://google-developers.appspot.com/chart/interactive/docs/animation
         export interface TransitionAnimation {
             duration?: number;
-            easing?: string; // linear, in, out, inAndOut
+            easing?: string; // linear, in, out, inAndOut,
+            startup?: boolean;
         }
 
         export interface ChartAxis {
