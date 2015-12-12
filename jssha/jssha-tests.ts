@@ -47,3 +47,10 @@ let hmac5:string = shaObj1.getHMAC("HEX", { outputUpper: true, b64Pad: '=' });
 	shaObj.update("This is a test");
 	let hmac = shaObj.getHMAC("HEX");
 }
+
+// Browser global test
+{
+	var shaObj = new jsSHA("SHA-512", "TEXT");
+	shaObj.update("This is a test");
+	var hash = shaObj.getHash("HEX");
+}
