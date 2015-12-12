@@ -144,7 +144,7 @@ declare module angular.resource {
     /**
      * Really just a regular Array object with $promise and $resolve attached to it
      */
-    interface IResourceArray<T> extends Array<T> {
+    interface IResourceArray<T> extends Array<T & IResource<T>> {
         /** the promise of the original server interaction that created this collection. **/
         $promise : angular.IPromise<IResourceArray<T>>;
         $resolved : boolean;
