@@ -1,4 +1,4 @@
-/// <reference path="./cucumber.d.ts" />
+/// <reference path="cucumber.d.ts" />
 
 function StepSample() {
 	type Callback = cucumber.CallbackStepDefinition;
@@ -19,7 +19,7 @@ function StepSample() {
 		callback();
 	});
 	
-	step.Given(/^I am on the Cucumber.js GitHub repository$/, function(callback) {
+	step.Given(/^I am on the Cucumber.js GitHub repository$/, function(callback:Callback) {
 		this.visit('https://github.com/cucumber/cucumber-js', callback);
 	});
 
@@ -27,7 +27,7 @@ function StepSample() {
 		callback.pending();
 	});
 
-	step.Then(/^I should see "(.*)" as the page title$/, { timeout:60*1000}, function(title:string, callback) {
+	step.Then(/^I should see "(.*)" as the page title$/, { timeout:60*1000}, function(title:string, callback:Callback) {
 		var pageTitle = this.browser.text('title');
 
 		if (title === pageTitle) {
