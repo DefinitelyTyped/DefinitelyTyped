@@ -21,7 +21,7 @@ declare module angulartics {
 
     interface IAnalyticsServiceProvider extends angular.IServiceProvider {
         virtualPageviews(value: boolean): void;
-        excludeRoutes(value: string[]):void;
+        excludeRoutes(value: string[]): void;
         firstPageview(value: boolean): void;
         withBase(value: boolean): void;
         withAutoBase(value: boolean): void;
