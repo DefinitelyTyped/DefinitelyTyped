@@ -5444,17 +5444,34 @@ module TestIsBoolean {
 }
 
 // _.isDate
-result = <boolean>_.isDate(any);
-result = <boolean>_(42).isDate();
-result = <boolean>_<any>([]).isDate();
-result = <boolean>_({}).isDate();
-{
-  let value: Date|string = "foo";
-  if (_.isDate(value)) {
-    value.toTimeString();
-  } else {
-    value.charAt(0);
-  }
+module TestIsBoolean {
+    {
+        let value: number|Date;
+
+        if (_.isDate(value)) {
+            let result: Date = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isDate(any);
+        result = _(42).isDate();
+        result = _<any>([]).isDate();
+        result = _({}).isDate();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(42).chain().isDate();
+        result = _<any>([]).chain().isDate();
+        result = _({}).chain().isDate();
+    }
 }
 
 // _.isElement
