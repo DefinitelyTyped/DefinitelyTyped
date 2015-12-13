@@ -345,7 +345,7 @@ declare module fabric {
      * @param eventName Event name (eg. 'after:render') or object with key/value pairs (eg. {'after:render': handler, 'selection:cleared': handler})
      * @param handler Function to be deleted from EventListeners
      */
-    off(eventName: string|any, handler: (e: IEvent) => any): T;
+    off(eventName?: string|any, handler?: (e: IEvent) => any): T;
   }
 
   // animation mixin
