@@ -188,6 +188,11 @@ declare module Twitter.Typeahead {
           */
         templates?: Templates;
         async?: boolean;
+        
+        /**
+         * The max number of suggestions to be displayed. Defaults to 5.
+         */
+        limit?: number
     }
 
 
