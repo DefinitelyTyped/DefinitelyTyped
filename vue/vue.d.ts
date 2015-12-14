@@ -101,16 +101,16 @@ declare module vuejs {
     /**
      * DOM
      */
-    $appendTo(element: any, callback?: Function): Vue;// element or selector
-    $prependTo(element: any, callback?: Function): Vue;// element or selector
-    $before(element: any, callback?: Function): Vue;// element or selector
-    $after(element: any, callback?: Function): Vue;// element or selector
+    $appendTo(element: VueElement, callback?: Function): Vue;
+    $prependTo(element: VueElement, callback?: Function): Vue;
+    $before(element: VueElement, callback?: Function): Vue;
+    $after(element: VueElement, callback?: Function): Vue;
     $remove(callback?: Function): Vue;
 
     /**
      * Lifecycle
      */
-    $mount(element?: any): Vue;// element or selector
+    $mount(element?: VueElement): Vue;
     $destroy(remove?: boolean): void;
     $compile(element: HTMLElement): VueCallback;// returns a decompile function
     $addChild(options?: {}, constructor?: Function): Vue;
@@ -162,6 +162,9 @@ declare module vuejs {
   interface FilterCallback {
     (value:{},begin?:{},end?:{}): {};
   }
+
+  // HTMLElement or selector(string)
+  type VueElement = HTMLElement|string;
 }
 import Vue = vuejs.Vue;
 
