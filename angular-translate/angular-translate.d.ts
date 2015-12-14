@@ -108,3 +108,11 @@ declare module angular.translate {
         useLoaderCache(cache?: any): ITranslateProvider;
     }
 }
+
+declare module angular {
+    interface IFilterService {
+        (name:'translate'): {
+            (translationId: string, interpolateParams?: any, interpolation?: string): string;
+        };
+    }
+}

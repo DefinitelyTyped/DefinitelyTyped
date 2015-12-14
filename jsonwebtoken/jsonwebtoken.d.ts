@@ -22,8 +22,13 @@ declare module "jsonwebtoken" {
          * - none:     No digital signature or MAC value included
          */
         algorithm?: string;
-        /** @member {number} - Lifetime for the token in minutes */
+        /** 
+         *@deprecated - see expiresIn
+         *@member {number} - Lifetime for the token in minutes 
+         */
         expiresInMinutes?: number;
+        /** @member {string} - Lifetime for the token expressed in a string describing a time span [rauchg/ms](https://github.com/rauchg/ms.js). Eg: `60`, `"2 days"`, `"10h"`, `"7d"` */
+        expiresIn?: string;
         audience?: string;
         subject?: string;
         issuer?: string;
@@ -31,8 +36,11 @@ declare module "jsonwebtoken" {
     }
 
     export interface VerifyOptions {
+        algorithms?: string[];
         audience?: string;
         issuer?: string;
+        ignoreExpiration?: boolean;
+        maxAge?: string;
     }
 
     export interface VerifyCallbak {

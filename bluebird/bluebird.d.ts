@@ -20,14 +20,14 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	/**
 	 * Create a new promise. The passed in function will receive functions `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
 	 */
-	constructor(callback: (resolve: (thenableOrResult: R | Promise.Thenable<R>) => void, reject: (error: any) => void) => void);
+	constructor(callback: (resolve: (thenableOrResult?: R | Promise.Thenable<R>) => void, reject: (error: any) => void) => void);
 
 	/**
 	 * Promises/A+ `.then()` with progress handler. Returns a new promise chained from this promise. The new promise will be rejected or resolved dedefer on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
 	 */
 	then<U>(onFulfill: (value: R) => U|Promise.Thenable<U>, onReject?: (error: any) => U|Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
 	then<U>(onFulfill: (value: R) => U|Promise.Thenable<U>, onReject?: (error: any) => void|Promise.Thenable<void>, onProgress?: (note: any) => any): Promise<U>;
-	
+
 	/**
 	 * This is a catch-all exception handler, shortcut for calling `.then(null, handler)` on this promise. Any exception happening in a `.then`-chain will propagate to nearest `.catch` handler.
 	 *
@@ -117,7 +117,7 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	 * Returns back this promise instead of creating a new one. If the `callback` argument is not a function, this method does not do anything.
 	 */
 	nodeify(callback: (err: any, value?: R) => void, options?: Promise.SpreadOption): Promise<R>;
-	nodeify(...sink: any[]): void;
+	nodeify(...sink: any[]): Promise<R>;
 
 	/**
 	 * Marks this promise as cancellable. Promises by default are not cancellable after v0.11 and must be marked as such for `.cancel()` to have any effect. Marking a promise as cancellable is infectious and you don't need to remark any descendant promise.
@@ -134,7 +134,7 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	 * Promises are by default not cancellable. Use `.cancellable()` to mark a promise as cancellable.
 	 */
 	// TODO what to do with this?
-	cancel<U>(): Promise<U>;
+	cancel<U>(reason?: any): Promise<U>;
 
 	/**
 	 * Like `.then()`, but cancellation of the the returned promise or any of its descendant will not propagate cancellation to this promise or this promise's ancestors.
@@ -421,7 +421,7 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	 * Note that the original methods on the object are not overwritten but new methods are created with the `Async`-postfix. For example, if you `promisifyAll()` the node.js `fs` object use `fs.statAsync()` to call the promisified `stat` method.
 	 */
 	// TODO how to model promisifyAll?
-	static promisifyAll(target: Object, options?: Promise.PromisifyAllOptions): Object;
+	static promisifyAll(target: Object, options?: Promise.PromisifyAllOptions): any;
 
 
 	/**

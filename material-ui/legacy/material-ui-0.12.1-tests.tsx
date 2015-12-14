@@ -1,4 +1,4 @@
-///<reference path='../../react/react.d.ts' />
+///<reference path='../../react/react-0.13.3.d.ts' />
 ///<reference path='material-ui-0.12.1.d.ts' />
 
 import * as React from "react/addons";

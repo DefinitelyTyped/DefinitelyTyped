@@ -89,6 +89,9 @@ resource = resourceClass.save({ key: 'value' }, { key: 'value' }, function () { 
 
 var promise : angular.IPromise<IMyResource>;
 var arrayPromise : angular.IPromise<IMyResource[]>;
+var json: {
+  [index: string]: any;
+};
 
 promise = resource.$delete();
 promise = resource.$delete({ key: 'value' });
@@ -126,6 +129,8 @@ promise = resource.$save({ key: 'value' }, function () { });
 promise = resource.$save(function () { });
 promise = resource.$save(function () { }, function () { });
 promise = resource.$save({ key: 'value' }, function () { }, function () { });
+
+json    = resource.toJSON();
 
 ///////////////////////////////////////
 // IResourceService
