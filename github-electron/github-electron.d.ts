@@ -70,9 +70,11 @@ declare module GitHubElectron {
 		once(event: string, listener: Function): Screen;
 		removeListener(event: string, listener: Function): Screen;
 		removeAllListeners(event?: string): Screen;
-		setMaxListeners(n: number): void;
+		setMaxListeners(n: number): Screen;
+		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
 		/**
 		 * @returns The current absolute position of the mouse pointer.
 		 */
@@ -108,9 +110,11 @@ declare module GitHubElectron {
 		once(event: string, listener: Function): WebContents;
 		removeListener(event: string, listener: Function): WebContents;
 		removeAllListeners(event?: string): WebContents;
-		setMaxListeners(n: number): void;
+		setMaxListeners(n: number): WebContents;
+		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
 		constructor(options?: BrowserWindowOptions);
 		/**
 		 * @returns All opened browser windows.
@@ -522,9 +526,11 @@ declare module GitHubElectron {
 		once(event: string, listener: Function): WebContents;
 		removeListener(event: string, listener: Function): WebContents;
 		removeAllListeners(event?: string): WebContents;
-		setMaxListeners(n: number): void;
+		setMaxListeners(n: number): WebContents;
+		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
 		/**
 		 * Loads the url in the window.
 		 * @param url Must contain the protocol prefix (e.g., the http:// or file://).
@@ -930,9 +936,11 @@ declare module GitHubElectron {
 		once(event: string, listener: Function): App;
 		removeListener(event: string, listener: Function): App;
 		removeAllListeners(event?: string): App;
-		setMaxListeners(n: number): void;
+		setMaxListeners(n: number): App;
+		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
 		/**
 		 * Try to close all windows. The before-quit event will first be emitted.
 		 * If all windows are successfully closed, the will-quit event will be emitted
@@ -1122,9 +1130,11 @@ declare module GitHubElectron {
 		once(event: string, listener: Function): AutoUpdater;
 		removeListener(event: string, listener: Function): AutoUpdater;
 		removeAllListeners(event?: string): AutoUpdater;
-		setMaxListeners(n: number): void;
+		setMaxListeners(n: number): AutoUpdater;
+		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
 		/**
 		 * Set the url and initialize the auto updater.
 		 * The url cannot be changed once it is set.
@@ -1232,9 +1242,11 @@ declare module GitHubElectron {
 		once(event: string, listener: Function): Tray;
 		removeListener(event: string, listener: Function): Tray;
 		removeAllListeners(event?: string): Tray;
-		setMaxListeners(n: number): void;
+		setMaxListeners(n: number): Tray;
+		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
 		/**
 		 * Creates a new tray icon associated with the image.
 		 */
@@ -1426,9 +1438,11 @@ declare module GitHubElectron {
 		once(event: string, listener: Function): IpcRenderer;
 		removeListener(event: string, listener: Function): IpcRenderer;
 		removeAllListeners(event?: string): IpcRenderer;
-		setMaxListeners(n: number): void;
+		setMaxListeners(n: number): IpcRenderer;
+		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
 		/**
 		 * Send ...args to the renderer via channel in asynchronous message, the main
 		 * process can handle it by listening to the channel event of ipc module.

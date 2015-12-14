@@ -52,9 +52,11 @@ declare module Steam {
         once(event: string, listener: Function): NodeJS.EventEmitter;
         removeListener(event: string, listener: Function): NodeJS.EventEmitter;
         removeAllListeners(event?: string): NodeJS.EventEmitter;
-        setMaxListeners(n: number): void;
+        setMaxListeners(n: number): NodeJS.EventEmitter;
+        getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
+        listenerCount(type: string): number;
     }
 }
 
