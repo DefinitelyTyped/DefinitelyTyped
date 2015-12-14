@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "email-addresses" {
-    export function parseOneAddress(opts: any): Object;
-    export function parseAddressList(opts: any): Object;
+    function parseOneAddress(opts: any): Object;
+    function parseAddressList(opts: any): Object;
 }
