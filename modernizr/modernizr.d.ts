@@ -114,3 +114,7 @@ interface ModernizrStatic {
 }
 
 declare var Modernizr: ModernizrStatic;
+
+declare module "modernizr" {
+    export = Modernizr;
+}
