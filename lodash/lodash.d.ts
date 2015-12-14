@@ -749,6 +749,81 @@ declare module _ {
         ): LoDashExplicitArrayWrapper<TValue>;
     }
 
+    //_.fill
+    interface LoDashStatic {
+        /**
+         * Fills elements of array with value from start up to, but not including, end.
+         *
+         * Note: This method mutates array.
+         *
+         * @param array The array to fill.
+         * @param value The value to fill array with.
+         * @param start The start position.
+         * @param end The end position.
+         * @return Returns array.
+         */
+        fill<T>(
+            array: any[],
+            value: T,
+            start?: number,
+            end?: number
+        ): T[];
+
+        /**
+         * @see _.fill
+         */
+        fill<T>(
+            array: List<any>,
+            value: T,
+            start?: number,
+            end?: number
+        ): List<T>;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.fill
+         */
+        fill<T>(
+            value: T,
+            start?: number,
+            end?: number
+        ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.fill
+         */
+        fill<T>(
+            value: T,
+            start?: number,
+            end?: number
+        ): LoDashImplicitObjectWrapper<List<T>>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.fill
+         */
+        fill<T>(
+            value: T,
+            start?: number,
+            end?: number
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.fill
+         */
+        fill<T>(
+            value: T,
+            start?: number,
+            end?: number
+        ): LoDashExplicitObjectWrapper<List<T>>;
+    }
+
     //_.findIndex
     interface LoDashStatic {
         /**
@@ -1131,14 +1206,28 @@ declare module _ {
         /**
          * @see _.flattenDeep
          */
-        flattenDeep<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+        flattenDeep<T>(): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.flattenDeep
          */
-        flattenDeep<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+        flattenDeep<T>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDeep<T>(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDeep<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.head
@@ -1842,141 +1931,447 @@ declare module _ {
     //_.sortedIndex
     interface LoDashStatic {
         /**
-        * Uses a binary search to determine the smallest index at which a value should be inserted
-        * into a given sorted array in order to maintain the sort order of the array. If a callback
-        * is provided it will be executed for value and each element of array to compute their sort
-        * ranking. The callback is bound to thisArg and invoked with one argument; (value).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will
-        * return the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return
-        * true for elements that have the properties of the given object, else false.
-        * @param array The sorted list.
-        * @param value The value to determine its index within `list`.
-        * @param callback Iterator to compute the sort ranking of each value, optional.
-        * @return The index at which value should be inserted into array.
-        **/
-        sortedIndex<T, TSort>(
-            array: Array<T>,
-            value: T,
-            callback?: (x: T) => TSort,
-            thisArg?: any): number;
-
-        /**
-        * @see _.sortedIndex
-        **/
+         * Uses a binary search to determine the lowest index at which value should be inserted into array in order to maintain its sort order. If an iteratee function is provided it’s invoked for value and each element of array to compute their sort ranking. The iteratee is bound to thisArg and invoked with one argument; (value).
+         *
+         * If a property name is provided for iteratee the created _.property style callback returns the property value of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for elements that have a matching property value, else false.
+         *
+         * If an object is provided for iteratee the created _.matches style callback returns true for elements that have the properties of the given object, else false.
+         *
+         * @param array The sorted array to inspect.
+         * @param value The value to evaluate.
+         * @param iteratee The function invoked per iteration.
+         * @return The this binding of iteratee.
+         */
         sortedIndex<T, TSort>(
             array: List<T>,
             value: T,
-            callback?: (x: T) => TSort,
-            thisArg?: any): number;
+            iteratee?: (x: T) => TSort,
+            thisArg?: any
+        ): number;
 
         /**
-        * @see _.sortedIndex
-        * @param pluckValue the _.pluck style callback
-        **/
-        sortedIndex<T>(
-            array: Array<T>,
-            value: T,
-            pluckValue: string): number;
-
-        /**
-        * @see _.sortedIndex
-        * @param pluckValue the _.pluck style callback
-        **/
+         * @see _.sortedIndex
+         */
         sortedIndex<T>(
             array: List<T>,
             value: T,
-            pluckValue: string): number;
+            iteratee?: (x: T) => any,
+            thisArg?: any
+        ): number;
 
         /**
-        * @see _.sortedIndex
-        * @param pluckValue the _.where style callback
-        **/
-        sortedIndex<W, T>(
-            array: Array<T>,
+         * @see _.sortedIndex
+         */
+        sortedIndex<T>(
+            array: List<T>,
             value: T,
-            whereValue: W): number;
+            iteratee: string
+        ): number;
 
         /**
-        * @see _.sortedIndex
-        * @param pluckValue the _.where style callback
-        **/
+         * @see _.sortedIndex
+         */
         sortedIndex<W, T>(
             array: List<T>,
             value: T,
-            whereValue: W): number;
+            iteratee: W
+        ): number;
+
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex<T>(
+            array: List<T>,
+            value: T,
+            iteratee: Object
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex<TSort>(
+            value: string,
+            iteratee?: (x: string) => TSort,
+            thisArg?: any
+        ): number;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex<TSort>(
+            value: T,
+            iteratee?: (x: T) => TSort,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex(
+            value: T,
+            iteratee: string
+        ): number;
+
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex<W>(
+            value: T,
+            iteratee: W
+        ): number;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex<T, TSort>(
+            value: T,
+            iteratee?: (x: T) => TSort,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex<T>(
+            value: T,
+            iteratee?: (x: T) => any,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex<T>(
+            value: T,
+            iteratee: string
+        ): number;
+
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex<W, T>(
+            value: T,
+            iteratee: W
+        ): number;
+
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex<T>(
+            value: T,
+            iteratee: Object
+        ): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex<TSort>(
+            value: string,
+            iteratee?: (x: string) => TSort,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex<TSort>(
+            value: T,
+            iteratee?: (x: T) => TSort,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex(
+            value: T,
+            iteratee: string
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex<W>(
+            value: T,
+            iteratee: W
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex<T, TSort>(
+            value: T,
+            iteratee?: (x: T) => TSort,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex<T>(
+            value: T,
+            iteratee?: (x: T) => any,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex<T>(
+            value: T,
+            iteratee: string
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex<W, T>(
+            value: T,
+            iteratee: W
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedIndex
+         */
+        sortedIndex<T>(
+            value: T,
+            iteratee: Object
+        ): LoDashExplicitWrapper<number>;
     }
 
     //_.sortedLastIndex
     interface LoDashStatic {
         /**
-        * Uses a binary search to determine the highest index at which a value should be inserted
-        * into a given sorted array in order to maintain the sort order of the array. If a callback
-        * is provided it will be executed for value and each element of array to compute their sort
-        * ranking. The callback is bound to thisArg and invoked with one argument; (value).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will
-        * return the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return
-        * true for elements that have the properties of the given object, else false.
-        * @param array The sorted list.
-        * @param value The value to determine its index within `list`.
-        * @param callback Iterator to compute the sort ranking of each value, optional.
-        * @return The index at which value should be inserted into array.
-        **/
-        sortedLastIndex<T, TSort>(
-            array: Array<T>,
-            value: T,
-            callback?: (x: T) => TSort,
-            thisArg?: any): number;
-
-        /**
-        * @see _.sortedLastIndex
-        **/
+         * This method is like _.sortedIndex except that it returns the highest index at which value should be
+         * inserted into array in order to maintain its sort order.
+         *
+         * @param array The sorted array to inspect.
+         * @param value The value to evaluate.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns the index at which value should be inserted into array.
+         */
         sortedLastIndex<T, TSort>(
             array: List<T>,
             value: T,
-            callback?: (x: T) => TSort,
-            thisArg?: any): number;
+            iteratee?: (x: T) => TSort,
+            thisArg?: any
+        ): number;
 
         /**
-        * @see _.sortedLastIndex
-        * @param pluckValue the _.pluck style callback
-        **/
-        sortedLastIndex<T>(
-            array: Array<T>,
-            value: T,
-            pluckValue: string): number;
-
-        /**
-        * @see _.sortedLastIndex
-        * @param pluckValue the _.pluck style callback
-        **/
+         * @see _.sortedLastIndex
+         */
         sortedLastIndex<T>(
             array: List<T>,
             value: T,
-            pluckValue: string): number;
+            iteratee?: (x: T) => any,
+            thisArg?: any
+        ): number;
 
         /**
-        * @see _.sortedLastIndex
-        * @param pluckValue the _.where style callback
-        **/
-        sortedLastIndex<W, T>(
-            array: Array<T>,
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T>(
+            array: List<T>,
             value: T,
-            whereValue: W): number;
+            iteratee: string
+        ): number;
 
         /**
-        * @see _.sortedLastIndex
-        * @param pluckValue the _.where style callback
-        **/
+         * @see _.sortedLastIndex
+         */
         sortedLastIndex<W, T>(
             array: List<T>,
             value: T,
-            whereValue: W): number;
+            iteratee: W
+        ): number;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T>(
+            array: List<T>,
+            value: T,
+            iteratee: Object
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<TSort>(
+            value: string,
+            iteratee?: (x: string) => TSort,
+            thisArg?: any
+        ): number;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<TSort>(
+            value: T,
+            iteratee?: (x: T) => TSort,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex(
+            value: T,
+            iteratee: string
+        ): number;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<W>(
+            value: T,
+            iteratee: W
+        ): number;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T, TSort>(
+            value: T,
+            iteratee?: (x: T) => TSort,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T>(
+            value: T,
+            iteratee?: (x: T) => any,
+            thisArg?: any
+        ): number;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T>(
+            value: T,
+            iteratee: string
+        ): number;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<W, T>(
+            value: T,
+            iteratee: W
+        ): number;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T>(
+            value: T,
+            iteratee: Object
+        ): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<TSort>(
+            value: string,
+            iteratee?: (x: string) => TSort,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<TSort>(
+            value: T,
+            iteratee?: (x: T) => TSort,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex(
+            value: T,
+            iteratee: string
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<W>(
+            value: T,
+            iteratee: W
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T, TSort>(
+            value: T,
+            iteratee?: (x: T) => TSort,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T>(
+            value: T,
+            iteratee?: (x: T) => any,
+            thisArg?: any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T>(
+            value: T,
+            iteratee: string
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<W, T>(
+            value: T,
+            iteratee: W
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedLastIndex
+         */
+        sortedLastIndex<T>(
+            value: T,
+            iteratee: Object
+        ): LoDashExplicitWrapper<number>;
     }
 
     //_.tail
@@ -3793,7 +4188,7 @@ declare module _ {
          */
         at<T>(
             collection: List<T>|Dictionary<T>,
-            ...props: Array<number|string|Array<number|string>>
+            ...props: (number|string|(number|string)[])[]
         ): T[];
     }
 
@@ -3801,14 +4196,28 @@ declare module _ {
         /**
          * @see _.at
          */
-        at(...props: Array<number|string|Array<number|string>>): LoDashImplicitArrayWrapper<T>;
+        at(...props: (number|string|(number|string)[])[]): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.at
          */
-        at<TResult>(...props: Array<number|string|Array<number|string>>): LoDashImplicitArrayWrapper<TResult>;
+        at<T>(...props: (number|string|(number|string)[])[]): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.at
+         */
+        at(...props: (number|string|(number|string)[])[]): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.at
+         */
+        at<T>(...props: (number|string|(number|string)[])[]): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.collect
@@ -4204,15 +4613,6 @@ declare module _ {
         /**
          * @see _.forEach
          */
-        each(
-            collection: string,
-            iteratee?: StringIterator<any>,
-            thisArg?: any
-        ): string;
-
-        /**
-         * @see _.forEach
-         */
         each<T>(
             collection: T[],
             iteratee?: ListIterator<T, any>,
@@ -4236,6 +4636,24 @@ declare module _ {
             iteratee?: DictionaryIterator<T, any>,
             thisArg?: any
         ): Dictionary<T>;
+
+        /**
+         * @see _.forEach
+         */
+        each<T extends {}>(
+            collection: T,
+            iteratee?: ObjectIterator<any, any>,
+            thisArgs?: any
+        ): T;
+
+        /**
+         * @see _.forEach
+         */
+        each<T extends {}, TValue>(
+            collection: T,
+            iteratee?: ObjectIterator<TValue, any>,
+            thisArgs?: any
+        ): T;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -4243,7 +4661,7 @@ declare module _ {
          * @see _.forEach
          */
         each(
-            iteratee: StringIterator<any>,
+            iteratee: ListIterator<string, any>,
             thisArg?: any
         ): LoDashImplicitWrapper<string>;
     }
@@ -4273,7 +4691,7 @@ declare module _ {
          * @see _.forEach
          */
         each(
-            iteratee: StringIterator<any>,
+            iteratee: ListIterator<string, any>,
             thisArg?: any
         ): LoDashExplicitWrapper<string>;
     }
@@ -4303,15 +4721,6 @@ declare module _ {
         /**
          * @see _.forEachRight
          */
-        eachRight(
-            collection: string,
-            iteratee?: StringIterator<any>,
-            thisArg?: any
-        ): string;
-
-        /**
-         * @see _.forEachRight
-         */
         eachRight<T>(
             collection: T[],
             iteratee?: ListIterator<T, any>,
@@ -4335,6 +4744,24 @@ declare module _ {
             iteratee?: DictionaryIterator<T, any>,
             thisArg?: any
         ): Dictionary<T>;
+
+        /**
+         * @see _.forEachRight
+         */
+        eachRight<T extends {}>(
+            collection: T,
+            iteratee?: ObjectIterator<any, any>,
+            thisArgs?: any
+        ): T;
+
+        /**
+         * @see _.forEachRight
+         */
+        eachRight<T extends {}, TValue>(
+            collection: T,
+            iteratee?: ObjectIterator<TValue, any>,
+            thisArgs?: any
+        ): T;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -4342,7 +4769,7 @@ declare module _ {
          * @see _.forEachRight
          */
         eachRight(
-            iteratee: StringIterator<any>,
+            iteratee: ListIterator<string, any>,
             thisArg?: any
         ): LoDashImplicitWrapper<string>;
     }
@@ -4372,7 +4799,7 @@ declare module _ {
          * @see _.forEachRight
          */
         eachRight(
-            iteratee: StringIterator<any>,
+            iteratee: ListIterator<string, any>,
             thisArg?: any
         ): LoDashExplicitWrapper<string>;
     }
@@ -4550,55 +4977,6 @@ declare module _ {
         every<TObject extends {}>(
             predicate?: TObject
         ): LoDashExplicitWrapper<boolean>;
-    }
-
-    //_.fill
-    interface LoDashStatic {
-        /**
-         * Fills elements of array with value from start up to, but not including, end.
-         *
-         * Note: This method mutates array.
-         *
-         * @param array (Array): The array to fill.
-         * @param value (*): The value to fill array with.
-         * @param [start=0] (number): The start position.
-         * @param [end=array.length] (number): The end position.
-         * @return (Array): Returns array.
-         */
-        fill<TResult>(
-            array: any[],
-            value: any,
-            start?: number,
-            end?: number): TResult[];
-
-        /**
-         * @see _.fill
-         */
-        fill<TResult>(
-            array: List<any>,
-            value: any,
-            start?: number,
-            end?: number): List<TResult>;
-    }
-
-    interface LoDashImplicitArrayWrapper<T> {
-        /**
-         * @see _.fill
-         */
-        fill<TResult>(
-            value: TResult,
-            start?: number,
-            end?: number): LoDashImplicitArrayWrapper<TResult>;
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.fill
-         */
-        fill<TResult>(
-            value: TResult,
-            start?: number,
-            end?: number): LoDashImplicitObjectWrapper<List<TResult>>;
     }
 
     //_.filter
@@ -5075,15 +5453,6 @@ declare module _ {
          * @param iteratee The function invoked per iteration.
          * @param thisArg The this binding of iteratee.
          */
-        forEach(
-            collection: string,
-            iteratee?: StringIterator<any>,
-            thisArg?: any
-        ): string;
-
-        /**
-         * @see _.forEach
-         */
         forEach<T>(
             collection: T[],
             iteratee?: ListIterator<T, any>,
@@ -5107,6 +5476,24 @@ declare module _ {
             iteratee?: DictionaryIterator<T, any>,
             thisArg?: any
         ): Dictionary<T>;
+
+        /**
+         * @see _.forEach
+         */
+        forEach<T extends {}>(
+            collection: T,
+            iteratee?: ObjectIterator<any, any>,
+            thisArgs?: any
+        ): T;
+
+        /**
+         * @see _.forEach
+         */
+        forEach<T extends {}, TValue>(
+            collection: T,
+            iteratee?: ObjectIterator<TValue, any>,
+            thisArgs?: any
+        ): T;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -5114,7 +5501,7 @@ declare module _ {
          * @see _.forEach
          */
         forEach(
-            iteratee: StringIterator<any>,
+            iteratee: ListIterator<string, any>,
             thisArg?: any
         ): LoDashImplicitWrapper<string>;
     }
@@ -5144,7 +5531,7 @@ declare module _ {
          * @see _.forEach
          */
         forEach(
-            iteratee: StringIterator<any>,
+            iteratee: ListIterator<string, any>,
             thisArg?: any
         ): LoDashExplicitWrapper<string>;
     }
@@ -5180,15 +5567,6 @@ declare module _ {
          * @param iteratee The function called per iteration.
          * @param thisArg The this binding of callback.
          */
-        forEachRight(
-            collection: string,
-            iteratee?: StringIterator<any>,
-            thisArg?: any
-        ): string;
-
-        /**
-         * @see _.forEachRight
-         */
         forEachRight<T>(
             collection: T[],
             iteratee?: ListIterator<T, any>,
@@ -5212,6 +5590,24 @@ declare module _ {
             iteratee?: DictionaryIterator<T, any>,
             thisArg?: any
         ): Dictionary<T>;
+
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight<T extends {}>(
+            collection: T,
+            iteratee?: ObjectIterator<any, any>,
+            thisArgs?: any
+        ): T;
+
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight<T extends {}, TValue>(
+            collection: T,
+            iteratee?: ObjectIterator<TValue, any>,
+            thisArgs?: any
+        ): T;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -5219,7 +5615,7 @@ declare module _ {
          * @see _.forEachRight
          */
         forEachRight(
-            iteratee: StringIterator<any>,
+            iteratee: ListIterator<string, any>,
             thisArg?: any
         ): LoDashImplicitWrapper<string>;
     }
@@ -5249,7 +5645,7 @@ declare module _ {
          * @see _.forEachRight
          */
         forEachRight(
-            iteratee: StringIterator<any>,
+            iteratee: ListIterator<string, any>,
             thisArg?: any
         ): LoDashExplicitWrapper<string>;
     }
@@ -5277,130 +5673,257 @@ declare module _ {
     //_.groupBy
     interface LoDashStatic {
         /**
-        * Creates an object composed of keys generated from the results of running each element
-        * of a collection through the callback. The corresponding value of each key is an array
-        * of the elements responsible for generating the key. The callback is bound to thisArg
-        * and invoked with three arguments; (value, index|key, collection).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will
-        * return the property value of the given element.
-        * If an object is provided for callback the created "_.where" style callback will return
-        * true for elements that have the properties of the given object, else false
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return Returns the composed aggregate object.
-        **/
-        groupBy<T>(
-            collection: Array<T>,
-            callback?: ListIterator<T, any>,
-            thisArg?: any): Dictionary<T[]>;
-
-        /**
-        * @see _.groupBy
-        **/
-        groupBy<T>(
+         * Creates an object composed of keys generated from the results of running each element of collection through
+         * iteratee. The corresponding value of each key is an array of the elements responsible for generating the
+         * key. The iteratee is bound to thisArg and invoked with three arguments:
+         * (value, index|key, collection).
+         *
+         * If a property name is provided for iteratee the created _.property style callback returns the property
+         * value of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for iteratee the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns the composed aggregate object.
+         */
+        groupBy<T, TKey>(
             collection: List<T>,
-            callback?: ListIterator<T, any>,
-            thisArg?: any): Dictionary<T[]>;
+            iteratee?: ListIterator<T, TKey>,
+            thisArg?: any
+        ): Dictionary<T[]>;
 
         /**
-        * @see _.groupBy
-        * @param pluckValue _.pluck style callback
-        **/
+         * @see _.groupBy
+         */
         groupBy<T>(
-            collection: Array<T>,
-            pluckValue: string): Dictionary<T[]>;
+            collection: List<any>,
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): Dictionary<T[]>;
 
         /**
-        * @see _.groupBy
-        * @param pluckValue _.pluck style callback
-        **/
-        groupBy<T>(
-            collection: List<T>,
-            pluckValue: string): Dictionary<T[]>;
-
-        /**
-        * @see _.groupBy
-        * @param whereValue _.where style callback
-        **/
-        groupBy<W, T>(
-            collection: Array<T>,
-            whereValue: W): Dictionary<T[]>;
-
-        /**
-        * @see _.groupBy
-        * @param whereValue _.where style callback
-        **/
-        groupBy<W, T>(
-            collection: List<T>,
-            whereValue: W): Dictionary<T[]>;
-
-        /**
-        * @see _.groupBy
-        **/
-        groupBy<T>(
+         * @see _.groupBy
+         */
+        groupBy<T, TKey>(
             collection: Dictionary<T>,
-            callback?: DictionaryIterator<T, any>,
-            thisArg?: any): Dictionary<T[]>;
+            iteratee?: DictionaryIterator<T, TKey>,
+            thisArg?: any
+        ): Dictionary<T[]>;
 
         /**
-        * @see _.groupBy
-        * @param pluckValue _.pluck style callback
-        **/
-        groupBy<TValue>(
-            collection: Dictionary<TValue>,
-            pluckValue: string): Dictionary<TValue[]>;
+         * @see _.groupBy
+         */
+        groupBy<T>(
+            collection: Dictionary<any>,
+            iteratee?: DictionaryIterator<T, any>,
+            thisArg?: any
+        ): Dictionary<T[]>;
 
         /**
-        * @see _.groupBy
-        * @param whereValue _.where style callback
-        **/
-        groupBy<W, TValue>(
-            collection: Dictionary<TValue>,
-            whereValue: W): Dictionary<TValue[]>;
+         * @see _.groupBy
+         */
+        groupBy<T, TValue>(
+            collection: List<T>|Dictionary<T>,
+            iteratee?: string,
+            thisArg?: TValue
+        ): Dictionary<T[]>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<T>(
+            collection: List<T>|Dictionary<T>,
+            iteratee?: string,
+            thisArg?: any
+        ): Dictionary<T[]>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<TWhere, T>(
+            collection: List<T>|Dictionary<T>,
+            iteratee?: TWhere
+        ): Dictionary<T[]>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<T>(
+            collection: List<T>|Dictionary<T>,
+            iteratee?: Object
+        ): Dictionary<T[]>;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.groupBy
+         */
+        groupBy<TKey>(
+            iteratee?: ListIterator<T, TKey>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
-        * @see _.groupBy
-        **/
-        groupBy(
-            callback: ListIterator<T, any>,
-            thisArg?: any): _.LoDashImplicitObjectWrapper<_.Dictionary<T[]>>;
+         * @see _.groupBy
+         */
+        groupBy<TKey>(
+            iteratee?: ListIterator<T, TKey>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
-        * @see _.groupBy
-        **/
-        groupBy(
-            pluckValue: string): _.LoDashImplicitObjectWrapper<_.Dictionary<T[]>>;
+         * @see _.groupBy
+         */
+        groupBy<TValue>(
+            iteratee?: string,
+            thisArg?: TValue
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
-        * @see _.groupBy
-        **/
-        groupBy<W>(
-            whereValue: W): _.LoDashImplicitObjectWrapper<_.Dictionary<T[]>>;
+         * @see _.groupBy
+         */
+        groupBy<TWhere>(
+            iteratee?: TWhere
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.groupBy
-        **/
-        groupBy<TValue>(
-            callback: ListIterator<TValue, any>,
-            thisArg?: any): _.LoDashImplicitObjectWrapper<_.Dictionary<TValue[]>>;
+         * @see _.groupBy
+         */
+        groupBy<T, TKey>(
+            iteratee?: ListIterator<T, TKey>|DictionaryIterator<T, TKey>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
-        * @see _.groupBy
-        **/
-        groupBy<TValue>(
-            pluckValue: string): _.LoDashImplicitObjectWrapper<_.Dictionary<TValue[]>>;
+         * @see _.groupBy
+         */
+        groupBy<T>(
+            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
-        * @see _.groupBy
-        **/
-        groupBy<W, TValue>(
-            whereValue: W): _.LoDashImplicitObjectWrapper<_.Dictionary<TValue[]>>;
+         * @see _.groupBy
+         */
+        groupBy<T, TValue>(
+            iteratee?: string,
+            thisArg?: TValue
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<T>(
+            iteratee?: string,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<TWhere, T>(
+            iteratee?: TWhere
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<T>(
+            iteratee?: Object
+        ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.groupBy
+         */
+        groupBy<TKey>(
+            iteratee?: ListIterator<T, TKey>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.groupBy
+         */
+        groupBy<TKey>(
+            iteratee?: ListIterator<T, TKey>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<TValue>(
+            iteratee?: string,
+            thisArg?: TValue
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<TWhere>(
+            iteratee?: TWhere
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.groupBy
+         */
+        groupBy<T, TKey>(
+            iteratee?: ListIterator<T, TKey>|DictionaryIterator<T, TKey>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<T>(
+            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<T, TValue>(
+            iteratee?: string,
+            thisArg?: TValue
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<T>(
+            iteratee?: string,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<TWhere, T>(
+            iteratee?: TWhere
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+
+        /**
+         * @see _.groupBy
+         */
+        groupBy<T>(
+            iteratee?: Object
+        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
     }
 
     //_.include
@@ -7525,20 +8048,31 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Creates a function that invokes func, with the this binding and arguments of the created function, while
-         * it is called less than n times. Subsequent calls to the created function return the result of the last func
+         * it’s called less than n times. Subsequent calls to the created function return the result of the last func
          * invocation.
+         *
          * @param n The number of calls at which func is no longer invoked.
          * @param func The function to restrict.
          * @return Returns the new restricted function.
          */
-        before<TFunc extends Function>(n: number, func: TFunc): TFunc;
+        before<TFunc extends Function>(
+            n: number,
+            func: TFunc
+        ): TFunc;
     }
 
     interface LoDashImplicitWrapper<T> {
         /**
-         * @sed _.before
-         */
-        before<TFunc extends Function>(func: TFunc): TFunc;
+         * @see _.before
+         **/
+        before<TFunc extends Function>(func: TFunc): LoDashImplicitObjectWrapper<TFunc>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.before
+         **/
+        before<TFunc extends Function>(func: TFunc): LoDashExplicitObjectWrapper<TFunc>;
     }
 
     //_.bind
@@ -7846,75 +8380,99 @@ declare module _ {
     }
 
     //_.debounce
+    interface DebounceSettings {
+        /**
+         * Specify invoking on the leading edge of the timeout.
+         */
+        leading?: boolean;
+
+        /**
+         * The maximum time func is allowed to be delayed before it’s invoked.
+         */
+        maxWait?: number;
+
+        /**
+         * Specify invoking on the trailing edge of the timeout.
+         */
+        trailing?: boolean;
+    }
+
     interface LoDashStatic {
         /**
-        * Creates a function that will delay the execution of func until after wait milliseconds have
-        * elapsed since the last time it was invoked. Provide an options object to indicate that func
-        * should be invoked on the leading and/or trailing edge of the wait timeout. Subsequent calls
-        * to the debounced function will return the result of the last func call.
-        *
-        * Note: If leading and trailing options are true func will be called on the trailing edge of
-        * the timeout only if the the debounced function is invoked more than once during the wait
-        * timeout.
-        * @param func The function to debounce.
-        * @param wait The number of milliseconds to delay.
-        * @param options The options object.
-        * @param options.leading Specify execution on the leading edge of the timeout.
-        * @param options.maxWait The maximum time func is allowed to be delayed before it's called.
-        * @param options.trailing Specify execution on the trailing edge of the timeout.
-        * @return The new debounced function.
-        **/
+         * Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since
+         * the last time the debounced function was invoked. The debounced function comes with a cancel method to
+         * cancel delayed invocations. Provide an options object to indicate that func should be invoked on the
+         * leading and/or trailing edge of the wait timeout. Subsequent calls to the debounced function return the
+         * result of the last func invocation.
+         *
+         * Note: If leading and trailing options are true, func is invoked on the trailing edge of the timeout only
+         * if the the debounced function is invoked more than once during the wait timeout.
+         *
+         * See David Corbacho’s article for details over the differences between _.debounce and _.throttle.
+         *
+         * @param func The function to debounce.
+         * @param wait The number of milliseconds to delay.
+         * @param options The options object.
+         * @param options.leading Specify invoking on the leading edge of the timeout.
+         * @param options.maxWait The maximum time func is allowed to be delayed before it’s invoked.
+         * @param options.trailing Specify invoking on the trailing edge of the timeout.
+         * @return Returns the new debounced function.
+         */
         debounce<T extends Function>(
             func: T,
-            wait: number,
-            options?: DebounceSettings): T;
+            wait?: number,
+            options?: DebounceSettings
+        ): T & Cancelable;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.debounce
-        **/
+         * @see _.debounce
+         */
         debounce(
-            wait: number,
-            options?: DebounceSettings): LoDashImplicitObjectWrapper<Function>;
+            wait?: number,
+            options?: DebounceSettings
+        ): LoDashImplicitObjectWrapper<T & Cancelable>;
     }
 
-    interface DebounceSettings {
+    interface LoDashExplicitObjectWrapper<T> {
         /**
-        * Specify execution on the leading edge of the timeout.
-        **/
-        leading?: boolean;
-
-        /**
-        * The maximum time func is allowed to be delayed before it's called.
-        **/
-        maxWait?: number;
-
-        /**
-        * Specify execution on the trailing edge of the timeout.
-        **/
-        trailing?: boolean;
+         * @see _.debounce
+         */
+        debounce(
+            wait?: number,
+            options?: DebounceSettings
+        ): LoDashExplicitObjectWrapper<T & Cancelable>;
     }
 
     //_.defer
     interface LoDashStatic {
         /**
-        * Defers executing the func function until the current call stack has cleared. Additional
-        * arguments will be provided to func when it is invoked.
-        * @param func The function to defer.
-        * @param args Arguments to invoke the function with.
-        * @return The timer id.
-        **/
-        defer(
-            func: Function,
-            ...args: any[]): number;
+         * Defers invoking the func until the current call stack has cleared. Any additional arguments are provided to
+         * func when it’s invoked.
+         *
+         * @param func The function to defer.
+         * @param args The arguments to invoke the function with.
+         * @return Returns the timer id.
+         */
+        defer<T extends Function>(
+            func: T,
+            ...args: any[]
+        ): number;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.defer
-        **/
+         * @see _.defer
+         */
         defer(...args: any[]): LoDashImplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.defer
+         */
+        defer(...args: any[]): LoDashExplicitWrapper<number>;
     }
 
     //_.delay
@@ -7959,6 +8517,7 @@ declare module _ {
         /**
          * Creates a function that returns the result of invoking the provided functions with the this binding of the
          * created function, where each successive invocation is supplied the return value of the previous.
+         *
          * @param funcs Functions to invoke.
          * @return Returns the new function.
          */
@@ -7968,8 +8527,15 @@ declare module _ {
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.flow
-         **/
+         */
         flow<TResult extends Function>(...funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.flow
+         */
+        flow<TResult extends Function>(...funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.flowRight
@@ -8081,6 +8647,7 @@ declare module _ {
         /**
          * Creates a function that negates the result of the predicate func. The func predicate is invoked with
          * the this binding and arguments of the created function.
+         *
          * @param predicate The predicate to negate.
          * @return Returns the new function.
          */
@@ -8102,6 +8669,18 @@ declare module _ {
          * @see _.negate
          */
         negate<TResult extends Function>(): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.negate
+         */
+        negate(): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+
+        /**
+         * @see _.negate
+         */
+        negate<TResult extends Function>(): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.once
@@ -8345,39 +8924,60 @@ declare module _ {
 
 
     //_.throttle
-    interface LoDashStatic {
-        /**
-        * Creates a function that, when executed, will only call the func function at most once per
-        * every wait milliseconds. Provide an options object to indicate that func should be invoked
-        * on the leading and/or trailing edge of the wait timeout. Subsequent calls to the throttled
-        * function will return the result of the last func call.
-        *
-        * Note: If leading and trailing options are true func will be called on the trailing edge of
-        * the timeout only if the the throttled function is invoked more than once during the wait timeout.
-        * @param func The function to throttle.
-        * @param wait The number of milliseconds to throttle executions to.
-        * @param options The options object.
-        * @param options.leading Specify execution on the leading edge of the timeout.
-        * @param options.trailing Specify execution on the trailing edge of the timeout.
-        * @return The new throttled function.
-        **/
-        throttle<T extends Function>(
-            func: T,
-            wait: number,
-            options?: ThrottleSettings): T;
-    }
-
     interface ThrottleSettings {
-
         /**
-        * If you'd like to disable the leading-edge call, pass this as false.
-        **/
+         * If you'd like to disable the leading-edge call, pass this as false.
+         */
         leading?: boolean;
 
         /**
-        * If you'd like to disable the execution on the trailing-edge, pass false.
-        **/
+         * If you'd like to disable the execution on the trailing-edge, pass false.
+         */
         trailing?: boolean;
+    }
+
+    interface LoDashStatic {
+        /**
+         * Creates a throttled function that only invokes func at most once per every wait milliseconds. The throttled
+         * function comes with a cancel method to cancel delayed invocations. Provide an options object to indicate
+         * that func should be invoked on the leading and/or trailing edge of the wait timeout. Subsequent calls to
+         * the throttled function return the result of the last func call.
+         *
+         * Note: If leading and trailing options are true, func is invoked on the trailing edge of the timeout only if
+         * the the throttled function is invoked more than once during the wait timeout.
+         *
+         * @param func The function to throttle.
+         * @param wait The number of milliseconds to throttle invocations to.
+         * @param options The options object.
+         * @param options.leading Specify invoking on the leading edge of the timeout.
+         * @param options.trailing Specify invoking on the trailing edge of the timeout.
+         * @return Returns the new throttled function.
+         */
+        throttle<T extends Function>(
+            func: T,
+            wait?: number,
+            options?: ThrottleSettings
+        ): T & Cancelable;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.throttle
+         */
+        throttle(
+            wait?: number,
+            options?: ThrottleSettings
+        ): LoDashImplicitObjectWrapper<T & Cancelable>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.throttle
+         */
+        throttle(
+            wait?: number,
+            options?: ThrottleSettings
+        ): LoDashExplicitObjectWrapper<T & Cancelable>;
     }
 
     //_.wrap
@@ -8659,9 +9259,10 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is classified as a boolean primitive or object.
+         *
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
-         **/
+         */
         isBoolean(value?: any): value is boolean;
     }
 
@@ -8670,6 +9271,13 @@ declare module _ {
          * @see _.isBoolean
          */
         isBoolean(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isBoolean
+         */
+        isBoolean(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isDate
@@ -8693,6 +9301,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is a DOM element.
+         *
          * @param value The value to check.
          * @return Returns true if value is a DOM element, else false.
          */
@@ -8704,6 +9313,13 @@ declare module _ {
          * @see _.isElement
          */
         isElement(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isElement
+         */
+        isElement(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isEmpty
@@ -8862,7 +9478,9 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is NaN.
+         *
          * Note: This method is not the same as isNaN which returns true for undefined and other non-numeric values.
+         *
          * @param value The value to check.
          * @return Returns true if value is NaN, else false.
          */
@@ -8874,6 +9492,13 @@ declare module _ {
          * @see _.isNaN
          */
         isNaN(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isNaN
+         */
+        isNaN(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isNative
@@ -8897,9 +9522,10 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is null.
+         *
          * @param value The value to check.
          * @return Returns true if value is null, else false.
-         **/
+         */
         isNull(value?: any): boolean;
     }
 
@@ -8908,6 +9534,13 @@ declare module _ {
          * see _.isNull
          */
         isNull(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * see _.isNull
+         */
+        isNull(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isNumber
@@ -9005,6 +9638,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is classified as a typed array.
+         *
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          */
@@ -9016,6 +9650,13 @@ declare module _ {
          * see _.isTypedArray
          */
         isTypedArray(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * see _.isTypedArray
+         */
+        isTypedArray(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isUndefined
@@ -10396,6 +11037,39 @@ declare module _ {
         ): string;
     }
 
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.findKey
+         */
+        findKey<TValues>(
+            predicate?: DictionaryIterator<TValues, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<string>;
+
+        /**
+         * @see _.findKey
+         */
+        findKey(
+            predicate?: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<string>;
+
+        /**
+         * @see _.findKey
+         */
+        findKey(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitWrapper<string>;
+
+        /**
+         * @see _.findKey
+         */
+        findKey<TWhere extends Dictionary<any>>(
+            predicate?: TWhere
+        ): LoDashExplicitWrapper<string>;
+    }
+
     //_.findLastKey
     interface LoDashStatic {
         /**
@@ -10479,6 +11153,39 @@ declare module _ {
         findLastKey<TWhere extends Dictionary<any>>(
             predicate?: TWhere
         ): string;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.findLastKey
+         */
+        findLastKey<TValues>(
+            predicate?: DictionaryIterator<TValues, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<string>;
+
+        /**
+         * @see _.findLastKey
+         */
+        findLastKey(
+            predicate?: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): LoDashExplicitWrapper<string>;
+
+        /**
+         * @see _.findLastKey
+         */
+        findLastKey(
+            predicate?: string,
+            thisArg?: any
+        ): LoDashExplicitWrapper<string>;
+
+        /**
+         * @see _.findLastKey
+         */
+        findLastKey<TWhere extends Dictionary<any>>(
+            predicate?: TWhere
+        ): LoDashExplicitWrapper<string>;
     }
 
     //_.forIn
@@ -10760,7 +11467,18 @@ declare module _ {
          * @param multiValue Allow multiple values per key.
          * @return Returns the new inverted object.
          */
-        invert<T extends {}, TResult extends {}>(object: T, multiValue?: boolean): TResult;
+        invert<T extends {}, TResult extends {}>(
+            object: T,
+            multiValue?: boolean
+        ): TResult;
+
+        /**
+         * @see _.invert
+         */
+        invert<TResult extends {}>(
+            object: Object,
+            multiValue?: boolean
+        ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -10770,10 +11488,19 @@ declare module _ {
         invert<TResult extends {}>(multiValue?: boolean): LoDashImplicitObjectWrapper<TResult>;
     }
 
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.invert
+         */
+        invert<TResult extends {}>(multiValue?: boolean): LoDashExplicitObjectWrapper<TResult>;
+    }
+
     //_.keys
     interface LoDashStatic {
         /**
          * Creates an array of the own enumerable property names of object.
+         *
+         * Note: Non-object values are coerced to objects. See the ES spec for more details.
          *
          * @param object The object to query.
          * @return Returns the array of property names.
@@ -10799,17 +11526,27 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Creates an array of the own and inherited enumerable property names of object.
+         *
+         * Note: Non-object values are coerced to objects.
+         *
          * @param object The object to query.
          * @return An array of property names.
-         **/
+         */
         keysIn(object?: any): string[];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.keysIn
-         **/
-        keysIn(): LoDashImplicitArrayWrapper<string>
+         */
+        keysIn(): LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.keysIn
+         */
+        keysIn(): LoDashExplicitArrayWrapper<string>;
     }
 
     //_.mapKeys
@@ -11160,54 +11897,62 @@ declare module _ {
     //_.omit
     interface LoDashStatic {
         /**
-        * Creates a shallow clone of object excluding the specified properties. Property names may be
-        * specified as individual arguments or as arrays of property names. If a callback is provided
-        * it will be executed for each property of object omitting the properties the callback returns
-        * truey for. The callback is bound to thisArg and invoked with three arguments; (value, key,
-        * object).
-        * @param object The source object.
-        * @param keys The properties to omit.
-        * @return An object without the omitted properties.
-        **/
-        omit<Omitted, T>(
+         * The opposite of _.pick; this method creates an object composed of the own and inherited enumerable
+         * properties of object that are not omitted.
+         *
+         * @param object The source object.
+         * @param predicate The function invoked per iteration or property names to omit, specified as individual
+         * property names or arrays of property names.
+         * @param thisArg The this binding of predicate.
+         * @return Returns the new object.
+         */
+        omit<TResult extends {}, T extends {}>(
             object: T,
-            ...keys: string[]): Omitted;
+            predicate: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): TResult;
 
         /**
-        * @see _.omit
-        **/
-        omit<Omitted, T>(
+         * @see _.omit
+         */
+        omit<TResult extends {}, T extends {}>(
             object: T,
-            keys: string[]): Omitted;
-
-        /**
-        * @see _.omit
-        **/
-        omit<Omitted, T>(
-            object: T,
-            callback: ObjectIterator<any, boolean>,
-            thisArg?: any): Omitted;
+            ...predicate: (StringRepresentable|StringRepresentable[])[]
+        ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.omit
-        **/
-        omit<Omitted>(
-            ...keys: string[]): LoDashImplicitObjectWrapper<Omitted>;
+         * @see _.omit
+         */
+        omit<TResult extends {}>(
+            predicate: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<TResult>;
 
         /**
-        * @see _.omit
-        **/
-        omit<Omitted>(
-            keys: string[]): LoDashImplicitObjectWrapper<Omitted>;
+         * @see _.omit
+         */
+        omit<TResult extends {}>(
+            ...predicate: (StringRepresentable|StringRepresentable[])[]
+        ): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.omit
+         */
+        omit<TResult extends {}>(
+            predicate: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
-        * @see _.omit
-        **/
-        omit<Omitted>(
-            callback: ObjectIterator<any, boolean>,
-            thisArg?: any): LoDashImplicitObjectWrapper<Omitted>;
+         * @see _.omit
+         */
+        omit<TResult extends {}>(
+            ...predicate: (StringRepresentable|StringRepresentable[])[]
+        ): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.pairs
@@ -11249,9 +11994,9 @@ declare module _ {
          * @param predicate The function invoked per iteration or property names to pick, specified as individual
          * property names or arrays of property names.
          * @param thisArg The this binding of predicate.
-         * @return An object composed of the picked properties.
+         * @return Returns the new object.
          */
-        pick<TResult extends Object, T extends Object>(
+        pick<TResult extends {}, T extends {}>(
             object: T,
             predicate: ObjectIterator<any, boolean>,
             thisArg?: any
@@ -11260,9 +12005,9 @@ declare module _ {
         /**
          * @see _.pick
          */
-        pick<TResult extends Object, T extends Object>(
+        pick<TResult extends {}, T extends {}>(
             object: T,
-            ...predicate: Array<string|number|boolean|Array<string|number|boolean>>
+            ...predicate: (StringRepresentable|StringRepresentable[])[]
         ): TResult;
     }
 
@@ -11270,7 +12015,7 @@ declare module _ {
         /**
          * @see _.pick
          */
-        pick<TResult extends Object>(
+        pick<TResult extends {}>(
             predicate: ObjectIterator<any, boolean>,
             thisArg?: any
         ): LoDashImplicitObjectWrapper<TResult>;
@@ -11278,9 +12023,26 @@ declare module _ {
         /**
          * @see _.pick
          */
-        pick<TResult extends Object>(
-            ...predicate: Array<string|number|boolean|Array<string|number|boolean>>
+        pick<TResult extends {}>(
+            ...predicate: (StringRepresentable|StringRepresentable[])[]
         ): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.pick
+         */
+        pick<TResult extends {}>(
+            predicate: ObjectIterator<any, boolean>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.pick
+         */
+        pick<TResult extends {}>(
+            ...predicate: (StringRepresentable|StringRepresentable[])[]
+        ): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.result
@@ -11477,18 +12239,26 @@ declare module _ {
     //_.valuesIn
     interface LoDashStatic {
         /**
-        * Creates an array of the own and inherited enumerable property values of object.
-        * @param object The object to query.
-        * @return Returns the array of property values.
-        **/
+         * Creates an array of the own and inherited enumerable property values of object.
+         *
+         * @param object The object to query.
+         * @return Returns the array of property values.
+         */
         valuesIn<T>(object?: any): T[];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.valuesIn
-        **/
-        valuesIn<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+         * @see _.valuesIn
+         */
+        valuesIn<T>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.valuesIn
+         */
+        valuesIn<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
     /**********
@@ -12993,6 +13763,10 @@ declare module _ {
 
     interface StringRepresentable {
         toString(): string;
+    }
+
+    interface Cancelable {
+        cancel(): void;
     }
 }
 

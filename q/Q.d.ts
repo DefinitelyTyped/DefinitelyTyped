@@ -20,7 +20,7 @@ declare module Q {
 
     interface Deferred<T> {
         promise: Promise<T>;
-        resolve(value: T): void;
+        resolve(value?: T): void;
         reject(reason: any): void;
         notify(value: any): void;
         makeNodeResolver(): (reason: any, value: T) => void;
@@ -206,6 +206,11 @@ declare module Q {
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
     export function all<T>(promises: IPromise<T>[]): Promise<T[]>;
+    
+    /**
+    * Returns a promise for the first of an array of promises to become settled.
+    */
+    export function race<T>(promises: IPromise<T>[]): Promise<T>;
 
     /**
      * Returns a promise that is fulfilled with an array of promise state snapshots, but only after all the original promises have settled, i.e. become either fulfilled or rejected.

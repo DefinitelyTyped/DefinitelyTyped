@@ -60,7 +60,7 @@ interface SignalR {
 
     starting(handler: () => void ): SignalR;
     received(handler: (data: any) => void ): SignalR;
-    error(handler: (error: string) => void ): SignalR;
+    error(handler: (error: Error) => void ): SignalR;
     stateChanged(handler: (change: SignalRStateChange) => void ): SignalR;
     disconnected(handler: () => void ): SignalR;
     connectionSlow(handler: () => void ): SignalR;

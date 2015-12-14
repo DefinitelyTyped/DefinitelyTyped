@@ -1,6 +1,6 @@
-// Type definitions for tape v2.12.3
+// Type definitions for tape v4.2.2
 // Project: https://github.com/substack/tape
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Haoqun Jiang <https://github.com/sodatea>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
@@ -9,13 +9,34 @@ declare module 'tape' {
 	export = tape;
 
 	/**
-	 * Create a new test with an optional name string. cb(t) fires with the new test object t once all preceeding tests have finished. Tests execute serially.
+	 * Create a new test with an optional name string and optional opts object.
+	 * cb(t) fires with the new test object t once all preceeding tests have finished.
+	 * Tests execute serially.
 	 */
 	function tape(name: string, cb: tape.TestCase): void;
+	function tape(name: string, opts: tape.TestOptions, cb: tape.TestCase): void;
+	function tape(cb: tape.TestCase): void;
+	function tape(opts: tape.TestOptions, cb: tape.TestCase): void;
+
 	module tape {
 
 		interface TestCase {
 			(test: Test): void;
+		}
+
+		/**
+		 * Available opts options for the tape function.
+		 */
+		interface TestOptions {
+			skip?: boolean;		// See tape.skip.
+			timeout?: number;	// Set a timeout for the test, after which it will fail. See tape.timeoutAfter.
+		}
+
+		/**
+		 * Options for the createStream function.
+		 */
+		interface StreamOptions {
+			objectMode?: boolean;
 		}
 
 		/**
@@ -24,7 +45,7 @@ declare module 'tape' {
 		export function skip(name: string, cb: tape.TestCase): void;
 
 		/**
-		 * Like test(name, cb) except if you use .only this is the only test case that will run for the entire process, all other test cases using tape will be ignored
+		 * Like test(name, cb) except if you use .only this is the only test case that will run for the entire process, all other test cases using tape will be ignored.
 		 */
 		export function only(name: string, cb: tape.TestCase): void;
 
@@ -34,24 +55,29 @@ declare module 'tape' {
 		export function createHarness(): typeof tape;
 		/**
 		 * Create a stream of output, bypassing the default output stream that writes messages to console.log().
+		 * By default stream will be a text stream of TAP output, but you can get an object stream instead by setting opts.objectMode to true.
 		 */
-		export function createStream(opts?: any): NodeJS.ReadableStream;
+		export function createStream(opts?: tape.StreamOptions): NodeJS.ReadableStream;
 
 		interface Test {
 			/**
-			 * Create a subtest with a new test handle st from cb(st) inside the current test  cb(st) will only fire when t finishes. Additional tests queued up after t will not be run until all subtests finish.
+			 * Create a subtest with a new test handle st from cb(st) inside the current test.
+			 * cb(st) will only fire when t finishes.
+			 * Additional tests queued up after t will not be run until all subtests finish.
 			 */
 			test(name: string, cb: tape.TestCase): void;
 
 			/**
-			 * Declare that n assertions should be run. end() will be called automatically after the nth assertion. If there are any more assertions after the nth, or after end() is called, they will generate errors.
+			 * Declare that n assertions should be run. end() will be called automatically after the nth assertion.
+			 * If there are any more assertions after the nth, or after end() is called, they will generate errors.
 			 */
 			plan(n: number): void;
 
 			/**
 			 * Declare the end of a test explicitly.
+			 * If err is passed in t.end will assert that it is falsey.
 			 */
-			end(): void;
+			end(err?: any): void;
 
 			/**
 			 * Generate a failing assertion with a message msg.
@@ -62,6 +88,11 @@ declare module 'tape' {
 			 * Generate a passing assertion with a message msg.
 			 */
 			pass(msg?: string): void;
+
+			/**
+			 * Automatically timeout the test after X ms.
+			 */
+			timeoutAfter(ms: number): void;
 
 			/**
 			 * Generate an assertion that will be skipped over.
@@ -83,7 +114,8 @@ declare module 'tape' {
 			notok(value: any, msg?: string): void;
 
 			/**
-			 * Assert that err is falsy. If err is non-falsy, use its err.message as the description message.
+			 * Assert that err is falsy.
+			 * If err is non-falsy, use its err.message as the description message.
 			 */
 			error(err: any, msg?: string): void;
 			ifError(err: any, msg?: string): void;
@@ -149,13 +181,22 @@ declare module 'tape' {
 
 			/**
 			 * Assert that the function call fn() throws an exception.
+			 * expected, if present, must be a RegExp or Function, which is used to test the exception object.
 			 */
-			throws(fn: () => void, expected: any, msg?: string): void;
+			throws(fn: () => void, msg?: string): void;
+			throws(fn: () => void, exceptionExpected: RegExp | (() => void), msg?: string): void;
 
 			/**
 			 * Assert that the function call fn() does not throw an exception.
 			 */
-			doesNotThrow(fn: () => void, expected: any, msg?: string): void;
+			doesNotThrow(fn: () => void, msg?: string): void;
+			doesNotThrow(fn: () => void, exceptionExpected: RegExp | (() => void), msg?: string): void;
+
+			/**
+			 * Print a message without breaking the tap output.
+			 * (Useful when using e.g. tap-colorize where output is buffered & console.log will print in incorrect order vis-a-vis tap output.)
+			 */
+			comment(msg: string): void;
 		}
 	}
 }

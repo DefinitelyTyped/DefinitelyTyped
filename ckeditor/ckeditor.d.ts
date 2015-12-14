@@ -1139,4 +1139,12 @@ declare module CKEDITOR {
         function isTabEnabled(editor: editor, dialogName: string, tabName: string): boolean;
         function okButton(): void;
     }
+
+    module lang {
+        var languages: any;
+        var rtl: any;
+
+        function load(languageCode: string, defaultLanguage: string, callback: Function): void;
+        function detect(defaultLanguage: string, probeLanguage: string): string;
+    }
 }
