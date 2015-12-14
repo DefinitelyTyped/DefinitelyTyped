@@ -407,7 +407,7 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	 *
 	 * If you pass a `receiver`, the `nodeFunction` will be called as a method on the `receiver`.
 	 */
-	static promisify<T>(func: (callback: (err:any, result: T) => void) => void, receiver?: any): () => Promise<T>;
+	static promisify<T>(func: (callback: (err: any, result: T) => void) => void, receiver?: any): () => Promise<T>;
 	static promisify<T, A1>(func: (arg1: A1, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1) => Promise<T>;
 	static promisify<T, A1, A2>(func: (arg1: A1, arg2: A2, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1, arg2: A2) => Promise<T>;
 	static promisify<T, A1, A2, A3>(func: (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1, arg2: A2, arg3: A3) => Promise<T>;
@@ -542,12 +542,22 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	// array with values
 	static some<R>(values: R[], count: number): Promise<R[]>;
 
+
 	/**
-	 * Like `Promise.all()` but instead of having to pass an array, the array is generated from the passed variadic arguments.
+	 * Promise.join(Promise|Thenable|value promises..., Function handler) -> Promise
+
+For coordinating multiple concurrent discrete promises. While .all() is good for handling a dynamically sized list of uniform promises, Promise.join is much easier (and more performant) to use when you have a fixed amount of discrete promises that you want to coordinate concurrently
+	Note: In 1.x and 0.x Promise.join used to be a Promise.all that took the values in as arguments instead in an array. This behavior has been deprecated but is still supported partially - when the last argument is an immediate function value the new semantics will apply
 	 */
-	// variadic array with promises of value
+	static join<P1, P2, U>(p1: Promise.Thenable<P1>, p2: Promise.Thenable<P2>, handler: (arg1: P1, arg2: P2) => Promise.Thenable<U> | U): Promise<U>
+	static join<P1, P2, P3, U>(p1: Promise.Thenable<P1>, p2: Promise.Thenable<P2>, p3: Promise.Thenable<P3>, handler: (arg1: P1, arg2: P2, arg3: P3) => Promise.Thenable<U> | U): Promise<U>
+	static join<P1, P2, P3, P4, U>(p1: Promise.Thenable<P1>, p2: Promise.Thenable<P2>, p3: Promise.Thenable<P3>, p4: Promise.Thenable<P4>, handler: (arg1: P1, arg2: P2, arg3: P3, arg4: P4) => Promise.Thenable<U> | U): Promise<U>
+
+	/** // variadic array with promises of value
+	Note: In 1.x and 0.x Promise.join used to be a Promise.all that took the values in as arguments instead in an array. This behavior has been deprecated but is still supported partially - when the last argument is an immediate function value the new semantics will apply  */
 	static join<R>(...values: Promise.Thenable<R>[]): Promise<R[]>;
-	// variadic array with values
+	/** // variadic array with promises of value
+	Note: In 1.x and 0.x Promise.join used to be a Promise.all that took the values in as arguments instead in an array. This behavior has been deprecated but is still supported partially - when the last argument is an immediate function value the new semantics will apply  */
 	static join<R>(...values: R[]): Promise<R[]>;
 
 	/**
