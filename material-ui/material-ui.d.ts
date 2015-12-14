@@ -835,6 +835,7 @@ declare namespace __MaterialUI {
         export import NavigationMenu = __MaterialUI.NavigationMenu;
         export import NavigationChevronLeft = __MaterialUI.NavigationChevronLeft;
         export import NavigationChevronRight = __MaterialUI.NavigationChevronRight;
+		export import NavigationMore = __MaterialUI.NavigationMoreVert;
     }
 
     interface NavigationMenuProps extends React.Props<NavigationMenu> {
@@ -851,6 +852,11 @@ declare namespace __MaterialUI {
     }
     export class NavigationChevronRight extends React.Component<NavigationChevronRightProps, {}> {
     }
+	
+	interface NavigationMoreVertProps extends React.Props<NavigationMoreVert> {
+    }
+    export class NavigationMoreVert extends React.Component<NavigationMoreVertProps, {}> {
+    }
 
     export namespace Styles {
         interface AutoPrefix {
@@ -861,6 +867,7 @@ declare namespace __MaterialUI {
         }
         export var AutoPrefix: AutoPrefix;
 
+        interface Spacing {
         interface Spacing {
             iconSize?: number;
 
@@ -1800,6 +1807,11 @@ declare module 'material-ui/lib/slider' {
 declare module 'material-ui/lib/svg-icon' {
     import SvgIcon = __MaterialUI.SvgIcon;
     export = SvgIcon;
+}
+
+declare module 'material-ui/lib/svg-icons/navigation/more-vert' {
+    import NavigationMoreVert = __MaterialUI.NavigationMoreVert;
+    export = NavigationMoreVert;
 }
 
 declare module 'material-ui/lib/svg-icons/navigation/menu' {
