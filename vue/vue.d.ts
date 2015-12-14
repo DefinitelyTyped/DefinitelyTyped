@@ -9,7 +9,7 @@ declare module vuejs {
      * The Vue Constructor
      * http://vuejs.org/api/index.html
      */
-    constructor(options?: {});
+    constructor(options?: VueOptions);
 
     /**
      * Options
@@ -19,15 +19,17 @@ declare module vuejs {
      * Data
      * http://vuejs.org/api/options.html#Data
      */
-    data: {};
-    methods: {};
-    computed: {};
-    paramAttributes:{}[];
+    data: Object | Function;
+    props: Object | Array<string>;    
+    computed: Object;    
+    methods: Object;
+    watch: Object;
+
     /**
      * DOM
      * http://vuejs.org/api/options.html#DOM
      */
-    el: {};
+    el: string | HTMLElement | Function;
     template: string;
     replace: boolean;
     /**
@@ -46,19 +48,20 @@ declare module vuejs {
      * Assets
      * http://vuejs.org/api/options.html#Assets
      */
-    directives: {};
-    filters: {};
-    components: {};
-    partials: {};
-    transitions: {};
+    directives: Object;
+    elementDirectives: Object;
+    filters: Object;
+    components: Object;
+    transitions: Object;    
+    partials: Object;
+
     /**
      * Others
      * http://vuejs.org/api/options.html#Others
      */
-    inherit: boolean;
-    events: {};
-    watch: {};
-    mixins:{}[];
+    parent: Vue;
+    events: Object;
+    mixins: Array<Object>;
     name: string;
     /**
      * Instance Properties
@@ -113,14 +116,14 @@ declare module vuejs {
     $mount(element?: any): Vue;// element or selector
     $destroy(remove?: boolean): void;
     $compile(element: HTMLElement): VueCallback;// returns a decompile function
-    $addChild(options?: {}, constructor?: Function): Vue;
+    $addChild(options?: VueOptions, constructor?: Function): Vue;
 
     /**
      * Global Api
      * http://vuejs.org/api/global-api.html
      */
     static config: VueConfig;
-    static extend(options: {}): typeof Vue;
+    static extend(options: VueOptions): typeof Vue;
     static directive(id: string, definition?: {}): void;
     static directive(id: string, definition?: VueCallback): void;
     static filter(id: string, definition?: FilterCallback): void;
@@ -137,9 +140,65 @@ declare module vuejs {
     /**
      * exports members.
      */
-    _init(options: {}): void;
+    _init(options: VueOptions): void;
     _cleanup(): void;
     // static require(module:string) : void;
+  }
+
+  interface VueOptions {
+
+    /**
+     * Options
+     * http://vuejs.org/api/options.html
+     */
+    /**
+     * Data
+     * http://vuejs.org/api/options.html#Data
+     */
+    data?: Object | Function;
+    props?: Object | Array<string>;    
+    computed?: Object;    
+    methods?: Object;
+    watch?: Object;
+
+    /**
+     * DOM
+     * http://vuejs.org/api/options.html#DOM
+     */
+    el?: string | HTMLElement | Function;
+    template?: string;
+    replace?: boolean;
+    /**
+     * Lifecycle
+     * http://vuejs.org/api/options.html#Lifecycle
+     */
+    created?: VueCallback;
+    beforeCompile?: VueCallback;
+    compiled?: VueCallback;
+    ready?: VueCallback;
+    attached?: VueCallback;
+    detached?: VueCallback;
+    beforeDestroy?: VueCallback;
+    destroyed?: VueCallback;
+    /**
+     * Assets
+     * http://vuejs.org/api/options.html#Assets
+     */
+    directives?: Object;
+    elementDirectives?: Object;
+    filters?: Object;
+    components?: Object;
+    transitions?: Object;    
+    partials?: Object;
+
+    /**
+     * Others
+     * http://vuejs.org/api/options.html#Others
+     */
+    parent?: Vue;
+    events?: Object;
+    mixins?: Array<Object>;
+    name?: string;      
   }
 
   class VueConfig {
@@ -150,6 +209,7 @@ declare module vuejs {
     interpolate: boolean;
     async: boolean;
     delimiters: string[];
+    convertAllProperties: boolean;
   }
 
   interface ValueCallback {
