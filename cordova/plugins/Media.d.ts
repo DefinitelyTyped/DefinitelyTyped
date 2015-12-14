@@ -38,7 +38,7 @@ interface Media {
     /** Returns the duration of an audio file in seconds. If the duration is unknown, it returns a value of -1. */
     getDuration(): number;
     /** Starts or resumes playing an audio file. */
-    play(): void;
+    play(iosPlayOptions?: IosPlayOptions): void;
     /** Pauses playing an audio file. */
     pause(): void;
     /**
@@ -70,4 +70,12 @@ interface Media {
     position: number;
     /** The duration of the media, in seconds. */
     duration: number;
+}
+/**
+ *  iOS optional parameters for media.play
+ *  See https://github.com/apache/cordova-plugin-media#ios-quirks
+ */
+interface IosPlayOptions {
+    numberOfLoops?: number;
+    playAudioWhenScreenIsLocked?: boolean;
 }
