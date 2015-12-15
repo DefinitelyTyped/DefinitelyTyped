@@ -23,6 +23,10 @@ class DialogTestController {
 			name: "login-popup"
 		});
 
+		loginDialog.closePromise.then((result) => {
+			var val: any = result.value;
+		});
+
 		if (loginDialog.id === "login-popup") {
 			loginDialog.close("closing");
 		}

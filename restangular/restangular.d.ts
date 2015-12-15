@@ -43,6 +43,7 @@ declare module restangular {
   interface IResponse {
     status: number;
     data: any;
+    headers(name: string): string;
     config: {
         method: string;
         url: string;

@@ -1,4 +1,4 @@
-﻿// Type definitions for Pixi.js 3.0.7
+﻿// Type definitions for Pixi.js 3.0.9 dev
 // Project: https://github.com/GoodBoyDigital/pixi.js/
 // Definitions by: clark-stevenson <https://github.com/pixijs/pixi-typescript>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -10,7 +10,7 @@ declare class PIXI {
     static RAD_TO_DEG: number;
     static DEG_TO_RAD: number;
     static TARGET_FPMS: number;
-    static RENDER_TYPE: {
+    static RENDERER_TYPE: {
         UNKNOWN: number;
         WEBGL: number;
         CANVAS: number;
@@ -155,6 +155,8 @@ declare module PIXI {
         toGlobal(position: Point): Point;
         toLocal(position: Point, from?: DisplayObject): Point;
         generateTexture(renderer: CanvasRenderer | WebGLRenderer, scaleMode: number, resolution: number): Texture;
+        setParent(container: Container): Container;
+        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, pivotX?: number, pivotY?: number): DisplayObject;
         destroy(): void;
         getChildByName(name: string): DisplayObject;
         getGlobalPosition(point: Point): Point;
@@ -290,7 +292,7 @@ declare module PIXI {
         drawRoundedRect(x: number, y: number, width: number, height: number, radius: number): Graphics;
         drawCircle(x: number, y: number, radius: number): Graphics;
         drawEllipse(x: number, y: number, width: number, height: number): Graphics;
-        drawPolygon(path: number[]| Point[]): Graphics;
+        drawPolygon(path: number[] | Point[]): Graphics;
         clear(): Graphics;
         //todo
         generateTexture(renderer: WebGLRenderer | CanvasRenderer, resolution?: number, scaleMode?: number): Texture;
@@ -344,6 +346,8 @@ declare module PIXI {
         identity(): Matrix;
         clone(): Matrix;
         copy(matrix: Matrix): Matrix;
+        set(a: number, b: number, c: number, d: number, tx: number, ty: number): Matrix;
+        setTransform(a: number, b: number, c: number, d: number, sr: number, cr: number, cy: number, sy: number, nsx: number, cs: number): PIXI.Matrix;
 
         static IDENTITY: Matrix;
         static TEMP_MATRIX: Matrix;
@@ -444,6 +448,7 @@ declare module PIXI {
         rotation?: boolean;
         uvs?: boolean;
         alpha?: boolean;
+
     }
     export class ParticleContainer extends Container {
 
@@ -451,8 +456,11 @@ declare module PIXI {
 
         protected _maxSize: number;
         protected _batchSize: number;
+        protected _properties: boolean[];
+        protected _buffers: WebGLBuffer[];
+        protected _bufferToUpdate: number;
 
-        protected onChildrenChange: () => void;
+        protected onChildrenChange: (smallestChildIndex?: number) => void;
 
         interactiveChildren: boolean;
         blendMode: number;
@@ -492,18 +500,17 @@ declare module PIXI {
     //renderers
 
     export interface RendererOptions {
+
         view?: HTMLCanvasElement;
         transparent?: boolean
         antialias?: boolean;
         resolution?: number;
+        clearBeforeRendering?: boolean;
         preserveDrawingBuffer?: boolean;
         forceFXAA?: boolean;
         roundPixels?: boolean;
-
-        autoResize?: boolean;
         backgroundColor?: number;
-        blendModes?: { [s: string]: any; };
-        clearBeforeRender?: boolean;
+
     }
     export class SystemRenderer extends EventEmitter {
 
@@ -525,6 +532,7 @@ declare module PIXI {
         blendModes: any; //todo?
         preserveDrawingBuffer: boolean;
         clearBeforeRender: boolean;
+        roundPixels: boolean;
         backgroundColor: number;
 
         render(object: DisplayObject): void;
@@ -543,8 +551,6 @@ declare module PIXI {
         refresh: boolean;
         maskManager: CanvasMaskManager;
         roundPixels: boolean;
-        currentScaleMode: number;
-        currentBlendMode: number;
         smoothProperty: string;
 
         render(object: DisplayObject): void;
@@ -612,6 +618,7 @@ declare module PIXI {
         protected _createContext(): void;
         protected handleContextLost: (event: WebGLContextEvent) => void;
         protected _mapGlModes(): void;
+        protected _managedTextures: Texture[];
 
         constructor(width?: number, height?: number, options?: RendererOptions);
 
@@ -629,7 +636,7 @@ declare module PIXI {
         setObjectRenderer(objectRenderer: ObjectRenderer): void;
         setRenderTarget(renderTarget: RenderTarget): void;
         updateTexture(texture: BaseTexture | Texture): BaseTexture | Texture;
-        destroyTexture(texture: BaseTexture | Texture): void;
+        destroyTexture(texture: BaseTexture | Texture, _skipRemove?: boolean): void;
 
     }
     export class AbstractFilter {
@@ -764,7 +771,7 @@ declare module PIXI {
         fragmentSrc: string;
 
         init(): void;
-        cacheUniformLocations(keys: string): void;
+        cachUniformLocations(keys: string): void;
         cacheAttributeLocations(keys: string): void;
         compile(): WebGLProgram;
         syncUniform(uniform: any): void;
@@ -841,6 +848,7 @@ declare module PIXI {
 
         map(rect: Rectangle, rect2: Rectangle): void;
         upload(): void;
+        destroy(): void;
 
     }
 
@@ -954,7 +962,7 @@ declare module PIXI {
         static fromImage(imageUrl: string, crossorigin?: boolean, scaleMode?: number): BaseTexture;
         static fromCanvas(canvas: HTMLCanvasElement, scaleMode?: number): BaseTexture;
 
-        protected _glTextures: any[];
+        protected _glTextures: any;
 
         protected _sourceLoaded(): void;
 
@@ -969,7 +977,7 @@ declare module PIXI {
         scaleMode: number;
         hasLoaded: boolean;
         isLoading: boolean;
-        source: HTMLImageElement | HTMLCanvasElement;
+        source: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement;
         premultipliedAlpha: boolean;
         imageUrl: string;
         isPowerOfTwo: boolean;
@@ -1072,10 +1080,9 @@ declare module PIXI {
     export class VideoBaseTexture extends BaseTexture {
 
         static fromVideo(video: HTMLVideoElement, scaleMode?: number): VideoBaseTexture;
-        static fromUrl(videoSrc: string | any | string[]| any[]): VideoBaseTexture;
+        static fromUrl(videoSrc: string | any | string[] | any[]): VideoBaseTexture;
 
         protected _loaded: boolean;
-
         protected _onUpdate(): void;
         protected _onPlayStart(): void;
         protected _onPlayStop(): void;
@@ -1096,11 +1103,11 @@ declare module PIXI {
         static uuid(): number;
         static hex2rgb(hex: number, out?: number[]): number[];
         static hex2String(hex: number): string;
-        static rbg2hex(rgb: Number[]): number;
+        static rgb2hex(rgb: Number[]): number;
         static canUseNewCanvasBlendModel(): boolean;
         static getNextPowerOfTwo(number: number): number;
         static isPowerOfTwo(width: number, height: number): boolean;
-        static getResolutionOfUrl(url: string): boolean;
+        static getResolutionOfUrl(url: string): number;
         static sayHello(type: string): void;
         static isWebGLSupported(): boolean;
         static sign(n: number): number;
@@ -1147,6 +1154,7 @@ declare module PIXI {
             textWidth: number;
             textHeight: number;
             maxWidth: number;
+            maxLineHeight: number;
             dirty: boolean;
 
             tint: number;
@@ -1165,7 +1173,8 @@ declare module PIXI {
             static fromFrames(frame: string[]): MovieClip;
             static fromImages(images: string[]): MovieClip;
 
-            protected _textures: Texture;
+            protected _textures: Texture[];
+            protected _durations: number[];
             protected _currentTime: number;
 
             protected update(deltaTime: number): void;
@@ -1527,6 +1536,10 @@ declare module PIXI {
             xhrType?: string;
 
         }
+        export interface ResourceDictionary {
+
+            [index: string]: PIXI.loaders.Resource;
+        }
         export class Loader extends EventEmitter {
 
             constructor(baseUrl?: string, concurrency?: number);
@@ -1534,7 +1547,7 @@ declare module PIXI {
             baseUrl: string;
             progress: number;
             loading: boolean;
-            resources: Resource[];
+            resources: ResourceDictionary;
 
             add(name: string, url: string, options?: LoaderOptions, cb?: () => void): Loader;
             add(url: string, options?: LoaderOptions, cb?: () => void): Loader;
@@ -1633,6 +1646,7 @@ declare module PIXI {
             blendMode: number;
             canvasPadding: number;
             drawMode: number;
+            shader: Shader;
 
             getBounds(matrix?: Matrix): Rectangle;
             containsPoint(point: Point): boolean;
@@ -1660,6 +1674,15 @@ declare module PIXI {
             refresh(): void;
 
         }
+        export class Plane extends Mesh {
+
+            segmentsX: number;
+            segmentsY: number;
+
+            constructor(texture: Texture, segmentsX?: number, segmentsY?: number);
+
+        }
+
 
         export class MeshRenderer extends ObjectRenderer {
 
