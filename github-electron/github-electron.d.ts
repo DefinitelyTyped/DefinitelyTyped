@@ -450,14 +450,14 @@ declare module GitHubElectron {
 	interface WebPreferences {
 		nodeIntegration?: boolean;
 		preload?: string;
-		partition: string;
-		zoomFactor: number;
-		javascript: boolean;
-		webSecurity: boolean;
-		allowDisplayingInsecureContent: boolean;
-		allowRunningInsecureContent: boolean;
-		images: boolean;
-		textAreasAreResizable: boolean;
+		partition?: string;
+		zoomFactor?: number;
+		javascript?: boolean;
+		webSecurity?: boolean;
+		allowDisplayingInsecureContent?: boolean;
+		allowRunningInsecureContent?: boolean;
+		images?: boolean;
+		textAreasAreResizable?: boolean;
 		webgl?: boolean;
 		webaudio?: boolean;
 		plugins?: boolean;
