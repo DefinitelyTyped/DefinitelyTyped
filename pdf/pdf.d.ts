@@ -221,22 +221,22 @@ interface PDFPageProxy {
 	/**
 	 * Page number of the page.  First page is 1.
 	 **/
-	pageNumber(): number;
+	pageNumber: number;
 
 	/**
 	 * The number of degrees the page is rotated clockwise.
 	 **/
-	rotate(): number;
+	rotate: number;
 
 	/**
 	 * The reference that points to this page.
 	 **/
-	ref(): PDFRef;
+	ref: PDFRef;
 
 	/**
 	 * @return An array of the visible portion of the PDF page in the user space units - [x1, y1, x2, y2].
 	 **/
-	view(): number[];
+	view: number[];
 
 	/**
 	 * @param scale The desired scale of the viewport.
@@ -307,9 +307,121 @@ interface PDFJSStatic {
 	maxImageSize: number;
 
 	/**
+	 * The url of where the predefined Adobe CMaps are located. Include trailing
+	 * slash.
+	 */
+	cMapUrl: string;
+
+	/**
+	 * Specifies if CMaps are binary packed.
+	 */
+	cMapPacked: boolean;
+
+	/**
 	 * By default fonts are converted to OpenType fonts and loaded via font face rules.  If disabled, the font will be rendered using a built in font renderer that constructs the glyphs with primitive path commands.
 	 **/
 	disableFontFace: boolean;
+
+	/**
+	 * Path for image resources, mainly for annotation icons. Include trailing
+	 * slash.
+	 */
+	imageResourcesPath: string;
+
+	/**
+	 * Disable the web worker and run all code on the main thread. This will happen
+	 * automatically if the browser doesn't support workers or sending typed arrays
+	 * to workers.
+	 */
+	disableWorker: boolean;
+
+	/**
+	 * Path and filename of the worker file. Required when the worker is enabled in
+	 * development mode. If unspecified in the production build, the worker will be
+	 * loaded based on the location of the pdf.js file.
+	 */
+	workerSrc: string;
+
+	/**
+	 * Disable range request loading of PDF files. When enabled and if the server
+	 * supports partial content requests then the PDF will be fetched in chunks.
+	 * Enabled (false) by default.
+	 */
+	disableRange: boolean;
+
+	/**
+	 * Disable streaming of PDF file data. By default PDF.js attempts to load PDF
+	 * in chunks. This default behavior can be disabled.
+	 */
+	disableStream: boolean;
+
+	/**
+	 * Disable pre-fetching of PDF file data. When range requests are enabled PDF.js
+	 * will automatically keep fetching more data even if it isn't needed to display
+	 * the current page. This default behavior can be disabled.
+	 *
+	 * NOTE: It is also necessary to disable streaming, see above,
+	 *       in order for disabling of pre-fetching to work correctly.
+	 */
+	disableAutoFetch: boolean;
+
+	/**
+	 * Enables special hooks for debugging PDF.js.
+	 */
+	pdfBug: boolean;
+
+	/**
+	 * Enables transfer usage in postMessage for ArrayBuffers.
+	 */
+	postMessageTransfers: boolean;
+
+	/**
+	 * Disables URL.createObjectURL usage.
+	 */
+	disableCreateObjectURL: boolean;
+
+	/**
+	 * Disables WebGL usage.
+	 */
+	disableWebGL: boolean;
+
+	/**
+	 * Disables fullscreen support, and by extension Presentation Mode,
+	 * in browsers which support the fullscreen API.
+	 */
+	disableFullscreen: boolean;
+
+	/**
+	 * Enables CSS only zooming.
+	 */
+	useOnlyCssZoom: boolean;
+
+	/**
+	 * Controls the logging level.
+	 * The constants from PDFJS.VERBOSITY_LEVELS should be used:
+	 * - errors
+	 * - warnings [default]
+	 * - infos
+	 */
+	verbosity: number;
+
+	/**
+	 * The maximum supported canvas size in total pixels e.g. width * height.
+	 * The default value is 4096 * 4096. Use -1 for no limit.
+	 */
+	maxCanvasPixels: number;
+
+	/**
+	 * Opens external links in a new window if enabled. The default behavior opens
+	 * external links in the PDF.js window.
+	 */
+	openExternalLinksInNewWindow: boolean;
+
+	/**
+	 * Determines if we can eval strings as JS. Primarily used to improve
+	 * performance for font rendering.
+	 */
+	isEvalSupported: boolean;
 
 	/**
 	 * This is the main entry point for loading a PDF and interacting with it.

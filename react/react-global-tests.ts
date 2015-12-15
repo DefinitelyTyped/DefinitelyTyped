@@ -68,34 +68,34 @@ var ClassicComponent: React.ClassicComponentClass<Props> =
 
 class ModernComponent extends React.Component<Props, State>
     implements React.ChildContextProvider<ChildContext> {
-    
+
     static propTypes: React.ValidationMap<Props> = {
         foo: React.PropTypes.number
-    }
-    
+    };
+
     static contextTypes: React.ValidationMap<Context> = {
         someValue: React.PropTypes.string
-    }
-    
+    };
+
     static childContextTypes: React.ValidationMap<ChildContext> = {
         someOtherValue: React.PropTypes.string
-    }
-    
+    };
+
     static defaultProps: Props;
-    
+
     context: Context;
-    
+
     getChildContext() {
         return {
-            someOtherValue: 'foo'
-        }
+            someOtherValue: "foo"
+        };
     }
-    
+
     state = {
         inputValue: this.context.someValue,
         seconds: this.props.foo
-    }
-    
+    };
+
     reset() {
         this.setState({
             inputValue: this.context.someValue,
@@ -104,7 +104,7 @@ class ModernComponent extends React.Component<Props, State>
     }
 
     private _input: HTMLInputElement;
-    
+
     render() {
         return React.DOM.div(null,
             React.DOM.input({
@@ -206,7 +206,7 @@ var divStyle: React.CSSProperties = { // CSSProperties
     flex: "1 1 main-size",
     backgroundImage: "url('hello.png')"
 };
-var htmlAttr: React.HTMLProps = {
+var htmlAttr: React.HTMLProps<any> = {
     key: 36,
     ref: "htmlComponent",
     children: children,
@@ -342,7 +342,7 @@ interface TimerState {
 class Timer extends React.Component<{}, TimerState> {
     state = {
         secondsElapsed: 0
-    }
+    };
     private _interval: number;
     tick() {
         this.setState((prevState, props) => ({
@@ -392,7 +392,7 @@ React.createFactory(React.addons.CSSTransitionGroup)({
 // --------------------------------------------------------------------------
 React.createClass({
   mixins: [React.addons.LinkedStateMixin],
-  render: function() { return React.DOM.div(null) }
+  render: function() { return React.DOM.div(null); }
 });
 
 //
@@ -411,7 +411,7 @@ React.addons.Perf.printDOM(measurements);
 // --------------------------------------------------------------------------
 React.createClass({
   mixins: [React.addons.PureRenderMixin],
-  render: function() { return React.DOM.div(null) }
+  render: function() { return React.DOM.div(null); }
 });
 
 //
@@ -427,7 +427,7 @@ var renderer: React.ShallowRenderer =
 renderer.render(React.createElement(Timer));
 var output: React.ReactElement<React.Props<Timer>> =
     renderer.getRenderOutput();
-    
+
 //
 // TransitionGroup addon
 // --------------------------------------------------------------------------
@@ -437,7 +437,7 @@ React.createFactory(React.addons.TransitionGroup)({ component: "div" });
 // update addon
 // --------------------------------------------------------------------------
 {
-// These are copied from https://facebook.github.io/react/docs/update.html   
+// These are copied from https://facebook.github.io/react/docs/update.html
 let initialArray = [1, 2, 3];
 let newArray = React.addons.update(initialArray, {$push: [4]}); // => [1, 2, 3, 4]
 

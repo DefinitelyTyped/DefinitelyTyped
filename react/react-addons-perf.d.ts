@@ -26,7 +26,7 @@ declare namespace __React {
         };
         totalTime: number;
     }
-    
+
     namespace __Addons {
         namespace Perf {
             export function start(): void;
