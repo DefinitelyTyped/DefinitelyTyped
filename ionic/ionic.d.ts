@@ -102,14 +102,17 @@ declare module ionic {
         interface IonicActionSheetService {
             show(options: IonicActionSheetOptions): ()=>void;
         }
+        interface IonicActionSheetButton {
+            text: string;
+        }
         interface IonicActionSheetOptions {
-            buttons?: Array<any>;
+            buttons?: Array<IonicActionSheetButton>;
             titleText?: string;
             cancelText?: string;
             destructiveText?: string;
             cancel?: ()=>any;
-            buttonClicked?: (index: any)=>any;
-            destructiveButtonClicked?: ()=>any;
+            buttonClicked?: (index: number)=>boolean;
+            destructiveButtonClicked?: ()=>boolean;
             cancelOnStateChange?: boolean;
             cssClass?: string;
         }
@@ -246,10 +249,13 @@ declare module ionic {
         interface IonicPopupService {
             show(options: IonicPopupFullOptions): IonicPopupPromise;
             alert(options: IonicPopupAlertOptions): IonicPopupPromise;
-            confirm(options: IonicPopupConfirmOptions): IonicPopupPromise;
+            confirm(options: IonicPopupConfirmOptions): IonicPopupConfirmPromise;
             prompt(options: IonicPopupPromptOptions): IonicPopupPromise;
         }
 
+        interface IonicPopupConfirmPromise extends ng.IPromise<boolean> {
+            close(value?: boolean): void;
+        }
         interface IonicPopupPromise extends ng.IPromise<any> {
             close(value?: any): any;
         }
@@ -337,6 +343,7 @@ declare module ionic {
             select(index: number): void;
             selectedIndex(): number;
             $getByHandle(handle: string): IonicTabsDelegate;
+            showBar(show?: boolean): boolean;
         }
     }
     module utility {

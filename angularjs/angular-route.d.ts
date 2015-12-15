@@ -35,6 +35,16 @@ declare module angular.route {
         // May not always be available. For instance, current will not be available
         // to a controller that was not initialized as a result of a route maching.
         current?: ICurrentRoute;
+        
+        /**
+         * Causes $route service to update the current URL, replacing current route parameters with those specified in newParams.
+         * Provided property names that match the route's path segment definitions will be interpolated into the
+         * location's path, while remaining properties will be treated as query params.
+         *
+         * @param newParams Object.<string, string> mapping of URL parameter names to values
+         */
+        updateParams(newParams:{[key:string]:string}): void;
+
     }
 
 

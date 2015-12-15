@@ -87,6 +87,11 @@ declare module "restify" {
     head(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): any;
     head(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): any;
 
+    opts(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): any;
+    opts(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): any;
+    opts(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): any;
+    opts(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): any;
+	
     name: string;
     version: string;
     log: Object;
@@ -110,6 +115,7 @@ declare module "restify" {
     version ?: string;
     responseTimeHeader ?: string;
     responseTimeFormatter ?: (durationInMilliseconds: number) => any;
+    handleUpgrades ?: boolean;
   }
 
   interface ClientOptions {

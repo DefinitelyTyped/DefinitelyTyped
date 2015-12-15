@@ -41,9 +41,7 @@ declare module CodeMirror {
         off(eventName: string, handler: (doc: CodeMirror.Doc, event: any) => void): void;
     }
 
-    /** Extend CodeMirror.Doc with a state object, so that the Doc.state.completionActive property is reachable*/
     interface Doc {
-        state: any;
         showHint: (options: ShowHintOptions) => void;
     }
 

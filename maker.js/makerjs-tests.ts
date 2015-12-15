@@ -40,6 +40,8 @@ function test() {
 	function testExporter() {
 		new makerjs.exporter.Exporter({});
 		makerjs.exporter.toDXF(model);
+		makerjs.exporter.toOpenJsCad(model);
+		makerjs.exporter.toSTL(model);
 		makerjs.exporter.toSVG(model);
 		makerjs.exporter.tryGetModelUnits(model);
 	}
@@ -66,12 +68,17 @@ function test() {
 	function testModel(){
 		makerjs.model.combine(model, model, true, false, true, false);
 		makerjs.model.convertUnits(model, makerjs.unitType.Centimeter);
+		makerjs.model.countChildModels(model);
+		makerjs.model.detachLoop(model);
+		makerjs.model.findLoops(model);
 		makerjs.model.getSimilarPathId(model, 'foo');
+		makerjs.model.isPathInsideModel(paths.line, model);
 		makerjs.model.mirror(model, false, true);
 		makerjs.model.move(makerjs.model.originate(model, [9,9]), [0,0]);
 		makerjs.model.moveRelative(model, [1,1]);
 		makerjs.model.originate(model);
 		makerjs.model.rotate(makerjs.model.scale(model, 6), 45, [0,0]);
+		makerjs.model.scale(model, 7);
 		makerjs.model.walkPaths(model, (modelContext: MakerJs.IModel, pathId: string, pathContext: MakerJs.IPath) => {});
 	}
 
@@ -80,6 +87,7 @@ function test() {
 			new makerjs.models.BoltCircle(7, 7, 7, 7),
 			new makerjs.models.BoltRectangle(2, 2, 2),
 			new makerjs.models.ConnectTheDots(true, [ [0,0], [1,1] ]),
+			new makerjs.models.Dome(5, 7),
 			new makerjs.models.Oval(7, 7),
 			new makerjs.models.OvalArc(6, 4, 2, 12),
 			new makerjs.models.Polygon(7, 5),
@@ -141,7 +149,9 @@ function test() {
 		makerjs.point.middle(paths.line);
 		makerjs.point.mirror(p1, true, false);
 		makerjs.point.rotate(p1, 5, p2);
+		makerjs.point.rounded(p1);
 		makerjs.point.scale(p2, 8);
+		makerjs.point.serialize(p1);
 		makerjs.point.subtract(p2, p1);
 		makerjs.point.zero();
 	}
