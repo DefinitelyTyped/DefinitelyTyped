@@ -9,7 +9,8 @@ function TestConfig() {
 
 function TestCtorOverloads() {
 	let noParam: mock.ProtractorHttpMock = mock();
-	let emptyArray: mock.ProtractorHttpMock = mock([]);
+    let emptyArray: mock.ProtractorHttpMock = mock([]);
+    let mockFiles: mock.ProtractorHttpMock = mock(['mock1', 'mock2']);
 	let skipDefaults: mock.ProtractorHttpMock = mock([], true);
 
 	let del: mock.requests.Delete<number> = {

@@ -9,15 +9,22 @@ declare module mock {
     interface ProtractorHttpMock {
         /**
          * Instantiate mock module. This must be done before the browser connects.
-         * 
+         *
          * @param mocks An array of mock modules to load into the application.
          * @param skipDefaults Set true to skip loading of default mocks.
          */
         <T>(mocks?: Array<requests.BaseRequest<T>>, skipDefaults?: boolean): ProtractorHttpMock;
 
         /**
+         * Instantiate mock modules from files. This must be done before the browser connects.
+         *
+         * @param mocks An array of mock module names relative to the rootDirectory configuration.
+         */
+        (mocks: Array<string>): ProtractorHttpMock;
+
+        /**
          * Clean up.
-         * Typically done in the afterEach call to ensure the teardown 
+         * Typically done in the afterEach call to ensure the teardown
          * is executed regardless of what happens in the test execution.
          */
         teardown(): void;
@@ -35,7 +42,7 @@ declare module mock {
         clearRequests(): webdriver.promise.Promise<boolean>;
 
         /**
-         * Module configuration to setup 
+         * Module configuration to setup
          */
         config: {
             /**
@@ -51,7 +58,7 @@ declare module mock {
             protractorConfig?: string;
         };
     }
-    
+
     /**
      * Matched request.
      */
