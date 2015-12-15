@@ -106,6 +106,11 @@ declare module "express" {
             use(handler: ErrorRequestHandler): T;
             use(path: string, ...handler: RequestHandler[]): T;
             use(path: string, handler: ErrorRequestHandler): T;
+            use(path: string[], ...handler: RequestHandler[]): T;
+            use(path: string[], handler: ErrorRequestHandler): T;
+            use(path: RegExp, ...handler: RequestHandler[]): T;
+            use(path: RegExp, handler: ErrorRequestHandler): T;
+            use(path:string, router:Router): T;
         }
 
         export function Router(options?: any): Router;
@@ -410,6 +415,10 @@ declare module "express" {
             originalUrl: string;
 
             url: string;
+            
+            baseUrl: string;
+            
+            app: Application;
         }
 
         interface MediaType {

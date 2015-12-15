@@ -1,4 +1,4 @@
-// Type definitions for Spin.js 1.3.1
+// Type definitions for Spin.js 2.3.2
 // Project: http://fgnass.github.com/spin.js/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -21,6 +21,10 @@ interface SpinnerOptions {
     zIndex?: number; // The z-index (defaults to 2000000000)
     top?: string; // Top position relative to parent in px
     left?: string; // Left position relative to parent in px
+    scale?: number; // Scales overall size of the spinner
+    opacity?: number; // Opacity of the lines
+    fps?: number; // Frames per second when using setTimeout() as a fallback for CSS
+    position?: string; // Element positioning
 }
 
 

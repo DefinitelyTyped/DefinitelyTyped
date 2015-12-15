@@ -297,6 +297,18 @@ declare module AngularFormly {
 			bound?: any;
 			expression?: any;
 			value?: any;
+			[key: string]: any;
+		};
+
+
+		/**
+		 * This allows you to place attributes with string values on the ng-model element.
+		 * Easy to use alternative to ngModelAttrs option.
+		 *
+		 * see http://docs.angular-formly.com/docs/field-configuration-object#ngmodelelattrs-object
+		 */
+		ngModelElAttrs?: {
+			[key: string]: string;
 		};
 
 

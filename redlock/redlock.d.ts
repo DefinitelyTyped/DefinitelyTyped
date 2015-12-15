@@ -39,7 +39,6 @@ declare module RedlockTypes {
 		servers: any[]; // array of redis.RedisClient
 
 		constructor(clients: any[], options?: RedlockOptions);
-		//new (clients: any[], options?: IRedlockOptions);
 
 		acquire(resource: string, ttl: number, callback?: NodeifyCallback<Lock>): Promise<Lock>;
 		lock(resource: string, ttl: number, callback?: NodeifyCallback<Lock>): Promise<Lock>;

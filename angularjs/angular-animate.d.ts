@@ -26,15 +26,15 @@ declare module angular.animate {
      * AnimateService
      * see http://docs.angularjs.org/api/ngAnimate/service/$animate
      */
-    interface IAnimateService extends angular.IAnimateService {
+    interface IAnimateService {
         /**
         * Globally enables / disables animations.
         *
-        * @param value If provided then set the animation on or off.
         * @param element If provided then the element will be used to represent the enable/disable operation.
+        * @param value If provided then set the animation on or off.
         * @returns current animation state
         */
-        enabled(value?: boolean, element?: JQuery): boolean;
+        enabled(element?: JQuery, value?: boolean): boolean;
 
         /**
          * Performs an inline animation on the element.
@@ -121,7 +121,7 @@ declare module angular.animate {
     }
 
     /**
-     * AngularProvider
+     * AnimateProvider
      * see http://docs.angularjs.org/api/ngAnimate/provider/$animateProvider
      */
     interface IAnimateProvider {

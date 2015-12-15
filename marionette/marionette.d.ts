@@ -1216,6 +1216,8 @@ declare module Marionette {
      */
     class Application extends Backbone.Events {
 
+        constructor(options?: any);
+
         /**
          * The Event Aggregator is available through this property. It is 
          * convenient for passively sharing information between pieces of your 
