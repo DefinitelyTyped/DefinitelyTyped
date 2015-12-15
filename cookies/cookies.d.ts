@@ -20,7 +20,7 @@ declare module "cookies" {
          * Cookie header in the request. If such a cookie exists,
          * its value is returned. Otherwise, nothing is returned.
          */
-        get(name: string, opts?: IOptions): string;
+        get(name: string, opts: IOptions): string;
         
         /**
          * This sets the given cookie in the response and returns 
@@ -33,7 +33,7 @@ declare module "cookies" {
          * the current context to allow chaining.If the value is omitted, 
          * an outbound header with an expired date is used to delete the cookie.
          */
-        set(name: string, value: string, opts?: IOptions): ICookies;
+        set(name: string, value: string, opts: IOptions): ICookies;
     }
 
     interface IOptions {
