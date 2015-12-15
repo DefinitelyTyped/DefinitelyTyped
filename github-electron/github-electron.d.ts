@@ -1700,7 +1700,7 @@ declare module GitHubElectron {
 	interface Electron {
 		clipboard: GitHubElectron.Clipboard;
 		crashReporter: GitHubElectron.CrashReporter;
-		nativeImage: GitHubElectron.NativeImage;
+		nativeImage: typeof GitHubElectron.NativeImage;
 		screen: GitHubElectron.Screen;
 		shell: GitHubElectron.Shell;
 		remote: GitHubElectron.Remote;
