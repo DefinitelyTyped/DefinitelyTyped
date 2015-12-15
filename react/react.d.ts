@@ -124,6 +124,7 @@ declare namespace __React {
         props: P;
         state: S;
         context: {};
+        isMounted(): boolean;
         refs: {
             [key: string]: ReactInstance
         };
