@@ -9285,8 +9285,9 @@ declare module _ {
         /**
          * Checks if value is classified as a Date object.
          * @param value The value to check.
+         *
          * @return Returns true if value is correctly classified, else false.
-         **/
+         */
         isDate(value?: any): value is Date;
     }
 
@@ -9295,6 +9296,13 @@ declare module _ {
          * @see _.isDate
          */
         isDate(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isDate
+         */
+        isDate(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isElement
