@@ -5,6 +5,10 @@
 
 /// <reference path="angular.d.ts" />
 
+declare module 'angular-resource' {
+    var _: string;
+    export = _;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // ngResource module (angular-resource.js)
