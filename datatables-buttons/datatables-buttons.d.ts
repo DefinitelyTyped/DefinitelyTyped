@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="jquery.dataTables.d.ts"/>
+/// <reference path="../jquery.dataTables/jquery.dataTables.d.ts"/>
 
 declare module DataTables {
     export interface Settings {       
