@@ -14,7 +14,7 @@ declare module "redux-devtools" {
   }
 
   export function createDevTools(el: React.ReactElement<any>): IDevTools
-  export function persistState(debugSessionKey: () => string): Function
+  export function persistState(debugSessionKey: string): Function
 
   var factory: { instrument(): Function }
 
