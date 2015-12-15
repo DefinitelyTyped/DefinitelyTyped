@@ -1227,7 +1227,7 @@ declare module THREE {
          */
         computeBoundingSphere(): void;
 
-        merge( geometry: Geometry, matrix: Matrix, materialIndexOffset: number): void;
+        merge( geometry: Geometry, matrix: Matrix, materialIndexOffset?: number): void;
 
         mergeMesh( mesh: Mesh ): void;
 
@@ -1677,7 +1677,7 @@ declare module THREE {
      * Abstract base class for lights.
      */
     export class Light extends Object3D {
-        constructor(hex?: number);
+        constructor(hex?: number|string);
 
         color: Color;
         receiveShadow: boolean;
@@ -1727,7 +1727,7 @@ declare module THREE {
          * This creates a Ambientlight with a color.
          * @param hex Numeric value of the RGB component of the color.
          */
-        constructor(hex?: number);
+        constructor(hex?: number|string);
 
         clone(recursive?: boolean): AmbientLight;
         copy(source: AmbientLight): AmbientLight;
@@ -1746,7 +1746,7 @@ declare module THREE {
      */
     export class DirectionalLight extends Light {
 
-        constructor(hex?: number, intensity?: number);
+        constructor(hex?: number|string, intensity?: number);
 
         /**
          * Target used for shadow camera orientation.
@@ -1766,7 +1766,7 @@ declare module THREE {
     }
 
     export class HemisphereLight extends Light {
-        constructor(skyColorHex?: number, groundColorHex?: number, intensity?: number);
+        constructor(skyColorHex?: number|string, groundColorHex?: number|string, intensity?: number);
 
         groundColor: Color;
         intensity: number;
@@ -1784,7 +1784,7 @@ declare module THREE {
      * scene.add( light );
      */
     export class PointLight extends Light {
-        constructor(hex?: number, intensity?: number, distance?: number, decay?: number);
+        constructor(hex?: number|string, intensity?: number, distance?: number, decay?: number);
 
         /*
          * Light's intensity.
@@ -1810,7 +1810,7 @@ declare module THREE {
      * A point light that can cast shadow in one direction.
      */
     export class SpotLight extends Light {
-        constructor(hex?: number, intensity?: number, distance?: number, angle?: number, exponent?: number, decay?: number);
+        constructor(hex?: number|string, intensity?: number, distance?: number, angle?: number, exponent?: number, decay?: number);
 
         /**
          * Spotlight focus points at target.position.
@@ -2244,7 +2244,7 @@ declare module THREE {
     }
 
     export interface LineBasicMaterialParameters extends MaterialParameters {
-        color?: number;
+        color?: number|string;
         linewidth?: number;
         linecap?: string;
         linejoin?: string;
@@ -2267,7 +2267,7 @@ declare module THREE {
     }
 
     export interface LineDashedMaterialParameters extends MaterialParameters {
-        color?: number;
+        color?: number|string;
         linewidth?: number;
         scale?: number;
         dashSize?: number;
@@ -2295,7 +2295,7 @@ declare module THREE {
      * parameters is an object with one or more properties defining the material's appearance.
      */
     export interface MeshBasicMaterialParameters extends MaterialParameters{
-        color?: number;
+        color?: number|string;
         opacity?: number;
         map?: Texture;
         aoMap?: Texture;
@@ -2361,7 +2361,7 @@ declare module THREE {
     }
 
     export interface MeshLambertMaterialParameters extends MaterialParameters{
-        color?: number;
+        color?: number|string;
         emissive?: number;
         opacity?: number;
         map?: Texture;
@@ -2433,7 +2433,7 @@ declare module THREE {
 
     export interface MeshPhongMaterialParameters extends MaterialParameters {
         /** geometry color in hexadecimal. Default is 0xffffff. */
-        color?: number;
+        color?: number | string;
         emissive?: number;
         specular?: number;
         shininess?: number;
@@ -2461,7 +2461,7 @@ declare module THREE {
         blending?: Blending;
         depthTest?: boolean;
         depthWrite?: boolean;
-        wireframe?: string;
+        wireframe?: boolean;
         wireframeLinewidth?: number;
         vertexColors?: Colors;
         skinning?: boolean;
@@ -2528,7 +2528,7 @@ declare module THREE {
     }
 
     export interface PointsMaterialParameters extends MaterialParameters{
-        color?: number;
+        color?: number|string;
         opacity?: number;
         map?: Texture;
         size?: number;
@@ -2604,7 +2604,7 @@ declare module THREE {
     }
 
     export interface SpriteMaterialParameters extends MaterialParameters {
-        color?: number;
+        color?: number|string;
         opacity?: number;
         map?: Texture;
         blending?: Blending;
@@ -4470,6 +4470,11 @@ declare module THREE {
         clearAlpha?: number;
 
         devicePixelRatio?: number;
+
+        /**
+         * default is false.
+         */
+        logarithmicDepthBuffer?: boolean;
     }
 
 
@@ -5106,7 +5111,7 @@ declare module THREE {
      * This class contains the parameters that define linear fog, i.e., that grows exponentially denser with the distance.
      */
     export class FogExp2 implements IFog {
-        constructor(hex: number, density?: number);
+        constructor(hex: number|string, density?: number);
 
         name: string;
         color: Color;
