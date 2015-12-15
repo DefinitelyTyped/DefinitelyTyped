@@ -61,6 +61,12 @@ declare module angular.dialog {
 		 * It will be appended with the "ngdialog" class e.g. className is "default-theme flat-ui" it will be class="ngdialog default-theme flat-ui".
 		 */
 		className?: string;
+
+		/**
+		 *  If true then animation for the dialog will be disabled, default false.
+		 */
+		disableAnimation?: boolean;
+
 		/**
 		 * If false it allows to hide overlay div behind the modals, default true.
 		 */
@@ -106,5 +112,9 @@ declare module angular.dialog {
 		 * Scope object that will be passed to dialog. If you use controller with separate $scope service this object will be passed to $scope.$parent param.
 		 */
 		scope?: ng.IScope;
+		/**
+		 * Any serializable data that you want to be stored in the controller's dialog scope.
+		 */
+		data?: string|Object|any[];
 	}
 }
