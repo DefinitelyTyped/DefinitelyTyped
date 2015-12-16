@@ -1,6 +1,8 @@
 /// <reference path="sequelize.d.ts" />
+/// <reference path="../bluebird/bluebird-node.d.ts" />
 
 import Sequelize = require("sequelize");
+import Promise = require("bluebird");
 
 //
 //  Fixtures
