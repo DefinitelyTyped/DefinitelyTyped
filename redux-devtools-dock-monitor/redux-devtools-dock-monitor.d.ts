@@ -55,9 +55,5 @@ declare module "redux-devtools-dock-monitor" {
     defaultIsVisible?: boolean
   }
 
-  class DockMonitor extends React.Component<IDockMonitorProps, any> {
-  }
-
-  let dockMonitor: (new () => DockMonitor)
-  export = dockMonitor
+  export default class DockMonitor extends React.Component<IDockMonitorProps, any> {}
 }

@@ -2,6 +2,6 @@
 /// <reference path="./redux-devtools-log-monitor.d.ts" />
 
 import * as React from 'react'
-import * as LogMonitor from 'redux-devtools-log-monitor'
+import LogMonitor from 'redux-devtools-log-monitor'
 
 let logMonitor = <LogMonitor />
