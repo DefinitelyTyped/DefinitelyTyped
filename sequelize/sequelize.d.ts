@@ -6,10 +6,12 @@
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
 /// <reference path="../lodash/lodash.d.ts" />
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../bluebird/bluebird-node.d.ts" />
 /// <reference path="../validator/validator.d.ts" />
 
 declare module "sequelize" {
+
+    import Promise = require('bluebird');
 
     module sequelize {
 
@@ -2026,10 +2028,10 @@ declare module "sequelize" {
              * @param path The path to be checked for error items
              */
             get( path : string ) : Array<ValidationErrorItem>;
-            
+
             /** Array of ValidationErrorItem objects describing the validation errors */
             errors : Array<ValidationErrorItem>;
-            
+
         }
 
         interface ValidationErrorItem extends BaseError {
@@ -2044,19 +2046,19 @@ declare module "sequelize" {
              * @param value The value that generated the error
              */
             new ( message : string, type : string, path : string, value : string ) : ValidationErrorItem;
-            
+
             /** An error message */
             message : string;
-            
+
             /** The type of the validation error */
             type : string;
-            
+
             /** The field that triggered the validation error */
             path : string;
-            
+
             /** The value that generated the error */
             value : string;
-            
+
         }
 
         interface DatabaseError extends BaseError {
@@ -3949,7 +3951,7 @@ declare module "sequelize" {
              * We don't have a definition for the QueryGenerator, because I doubt it is commonly in use separately.
              */
             QueryGenerator: any;
-            
+
             /**
              * Returns the current sequelize instance.
              */
@@ -5462,7 +5464,7 @@ declare module "sequelize" {
              *
              * @param path The path to the file that holds the model you want to import. If the part is relative, it
              *     will be resolved relatively to the calling file
-             * 
+             *
              * @param defineFunction An optional function that provides model definitions. Useful if you do not
              *     want to use the module root as the define function
              */
