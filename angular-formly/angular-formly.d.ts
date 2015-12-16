@@ -72,7 +72,7 @@ declare module AngularFormly {
 
 	interface ISelectOption {
 		name: string;
-		value: string;
+		value?: string;
 		group?: string;
 	}
 
@@ -110,7 +110,7 @@ declare module AngularFormly {
 		[key: string]: any;
 
 		// types for select/radio fields
-		options?: ISelectOption | any;
+		options?: Array<ISelectOption>;
 		groupProp?: string;  // default: group
 		valueProp?: string;  // default: value
 		labelProp?: string;  // default: name
