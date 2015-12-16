@@ -66,7 +66,7 @@ interface StripeCardData {
 
 interface StripeBankAccount
 {
-    createToken(params: StripeBankTokenParams, stripeResponseHandler: (response: StripeBankTokenResponse) => void): void;
+    createToken(params: StripeBankTokenParams, stripeResponseHandler: (status:number, response: StripeBankTokenResponse) => void): void;
     validateRoutingNumber(routingNumber: number | string, countryCode: string): boolean;
     validateAccountNumber(accountNumber: number | string, countryCode: string): boolean;
 }
