@@ -182,6 +182,13 @@ declare module angular {
         animation(name: string, inlineAnnotatedFunction: any[]): IModule;
         animation(object: Object): IModule;
         /**
+         * Use this method to register a component.
+         *
+         * @param name The name of the component.
+         * @param options A definition object passed into the component.
+         */
+        component(name: string, options: IComponentOptions): IModule;
+        /**
          * Use this method to register work which needs to be performed on module loading.
          *
          * @param configFn Execute this function on module load. Useful for service configuration.
@@ -1618,6 +1625,23 @@ declare module angular {
          * @type {number}
          */
         totalPendingRequests: number;
+    }
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // Component
+    // see http://angularjs.blogspot.com.br/2015/11/angularjs-15-beta2-and-14-releases.html
+    // and http://toddmotto.com/exploring-the-angular-1-5-component-method/
+    ///////////////////////////////////////////////////////////////////////////
+    
+    interface IComponentOptions {
+        bindings?: Object,
+        controller: Function|string,
+        controllerAs?: string,
+        isolate?: boolean,
+        restrict?: string,
+        template?: Array<string>|Function,
+        templateUrl?: string,
+        transclude?: boolean
     }
 
     ///////////////////////////////////////////////////////////////////////////
