@@ -1718,7 +1718,7 @@ declare module GitHubElectron {
 		powerMonitor: NodeJS.EventEmitter;
 		protocol: GitHubElectron.Protocol;
 		Tray: typeof GitHubElectron.Tray;
-		hideInternalModules(): any;
+		hideInternalModules(): void;
 	}
 }
 
