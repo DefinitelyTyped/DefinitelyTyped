@@ -1,6 +1,6 @@
 /// <reference path="debounce.d.ts" />
 
-import debounce = require("debounce");
+import debounce from "debounce";
 
 const doThings = () => 1;
 
