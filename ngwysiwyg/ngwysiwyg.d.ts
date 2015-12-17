@@ -3,12 +3,14 @@
 // Definitions by: Patrick Mac Kay <https://github.com/patrick-mackay>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface ngWYSIWYGToolbar {
-    name: string;
-    items: string[];
-}
+declare module ngWYSIWYG {
+    export interface Toolbar {
+        name: string;
+        items: string[];
+    }
 
-interface ngWYSIWYGConfig {
-    sanitize: boolean;
-    toolbar: ngWYSIWYGToolbar[]
+    export interface Config {
+        sanitize: boolean;
+        toolbar?: Toolbar[];
+    }
 }
