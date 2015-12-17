@@ -31,5 +31,6 @@ declare namespace __React {
 }
 
 declare module "react-addons-update" {
-    export = __React.__Addons.update;
+    import ReactUpdate = __React.__Addons.update;
+    export = ReactUpdate;
 }
