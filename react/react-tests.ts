@@ -146,9 +146,10 @@ var StatelessComponent = (props: SCProps) => {
     return React.DOM.div(null, props.foo);
 };
 
-// Must explicitly type-annotate to add defaultProps/contextTypes
+// Must explicitly type-annotate to add displayName/defaultProps/contextTypes
 var StatelessComponent2: React.StatelessComponent<SCProps> =
     (props: SCProps) => React.DOM.div(null, props.foo);
+StatelessComponent2.displayName = "StatelessComponent2";
 StatelessComponent2.defaultProps = {
     foo: 42
 };
@@ -405,7 +406,8 @@ var mappedChildrenArray: number[] =
     React.Children.map<number>(children, (child) => { return 42; });
 React.Children.forEach(children, (child) => {});
 var nChildren: number = React.Children.count(children);
-var onlyChild = React.Children.only([null, [[["Hallo"], true]], false]);
+var onlyChild: React.ReactElement<any> = React.Children.only(React.DOM.div()); // ok
+onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
 var childrenToArray: React.ReactChild[] = React.Children.toArray(children);
 
 //
@@ -521,7 +523,10 @@ React.createClass({
 //
 // TestUtils addon
 // --------------------------------------------------------------------------
-var node: Element;
+
+var inst: ModernComponent = TestUtils.renderIntoDocument<ModernComponent>(element);
+var node: Element = TestUtils.renderIntoDocument(React.DOM.div());
+
 TestUtils.Simulate.click(node);
 TestUtils.Simulate.change(node);
 TestUtils.Simulate.keyDown(node, { key: "Enter" });
