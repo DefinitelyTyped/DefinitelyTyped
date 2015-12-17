@@ -453,7 +453,7 @@ declare module "http" {
         path?: string;
         headers?: { [key: string]: any };
         auth?: string;
-        agent?: Agent;
+        agent?: Agent|boolean;
     }
 
     export interface Server extends events.EventEmitter {
