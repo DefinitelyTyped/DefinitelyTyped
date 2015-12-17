@@ -75,13 +75,8 @@ interface StripeBankTokenParams
 {
     country: string;
     currency: string;
+    account_number: number | string;
     routing_number?: number | string;
-    account_number?: number | string;
-    transit_number?: number | string;
-    institution_number?: number | string;
-    bsb?: number | string;
-    sort_code?: string;
-    iban?: string;
 }
 
 interface StripeBankTokenResponse
