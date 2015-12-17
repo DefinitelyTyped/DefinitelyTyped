@@ -1,13 +1,22 @@
 // Type definitions for jsSHA
 // Project: https://github.com/Caligatio/jsSHA
-// Definitions by: David Li <https://github.com/randombk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: David Li <https://github.com/randombk>, Tobias Kahlert <https://github.com/SrTobi>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 declare module jsSHA {
+    
+    export interface EncodingOptions {
+        encoding? : string;
+    }
+    
+    export interface Options extends EncodingOptions {
+        numRounds? : number;
+    }
+    
     export interface OutputFormatOptions {
-        outputUpper : boolean;
-        b64Pad : string;
+        outputUpper? : boolean;
+        b64Pad? : string;
     }
 
     export interface jsSHA {
@@ -15,47 +24,58 @@ declare module jsSHA {
          * jsSHA is the workhorse of the library.  Instantiate it with the string to
          * be hashed as the parameter
          *
-         * @constructor
-         * @this {jsSHA}
-         * @param {string} srcString The string to be hashed
-         * @param {string} inputFormat The format of srcString, HEX, TEXT, B64, or BYTES
-         * @param {string=} encoding The text encoding to use to encode the source
-         *   string
+         * @param {string} variant The desired SHA variant (SHA-1, SHA-224, SHA-256,
+         *   SHA-384, or SHA-512)
+         * @param {string} inputFormat The format of srcString: HEX, TEXT, B64, or BYTES
+         * @param {{encoding: (string|undefined), numRounds: (string|undefined)}=}
+         *   options Optional values
          */
-        new (srcString:string, inputFormat:string, encoding?:string):jsSHA;
+        new (variant:string, inputFormat:string, options?:Options):jsSHA;
 
         /**
-         * Returns the desired SHA hash of the string specified at instantiation
-         * using the specified parameters
-         *
-         * @param {string} variant The desired SHA variant (SHA-1, SHA-224,
-         *   SHA-256, SHA-384, or SHA-512)
-         * @param {string} format The desired output formatting (B64, HEX, or BYTES)
-         * @param {number=} numRounds The number of rounds of hashing to be
-         *   executed
-         * @param {{outputUpper : boolean, b64Pad : string}=} outputFormatOpts
-         *   Hash list of output formatting options
-         * @return {string} The string representation of the hash in the format
-         *   specified
-         */
-        getHash(variant:string, format:string, numRounds?:number, outputFormatOpts?:OutputFormatOptions):string;
+		 * Sets the HMAC key for an eventual getHMAC call.  Must be called
+		 * immediately after jsSHA object instantiation
+		 *
+		 * @param {string} key The key used to calculate the HMAC
+		 * @param {string} inputFormat The format of key, HEX, TEXT, B64, or BYTES
+		 * @param {{encoding : (string|undefined)}=} encodingOpts Associative array
+		 *   of input format options
+		 */
+        setHMACKey(key:string, inputFormat:string, encodingOpts?:EncodingOptions):void;
+        
+        /**
+		 * Takes strString and hashes as many blocks as possible.  Stores the
+		 * rest for either a future update or getHash call.
+		 *
+		 * @param {string} srcString The string to be hashed
+		 */
+        update(srcString:string):void;
+
 
         /**
-         * Returns the desired HMAC of the string specified at instantiation
-         * using the key and variant parameter
-         *
-         * @param {string} key The key used to calculate the HMAC
-         * @param {string} inputFormat The format of key, HEX, TEXT, B64, or BYTES
-         * @param {string} variant The desired SHA variant (SHA-1, SHA-224,
-         *   SHA-256, SHA-384, or SHA-512)
-         * @param {string} outputFormat The desired output formatting
-         *   (B64, HEX, or BYTES)
-         * @param {{outputUpper : boolean, b64Pad : string}=} outputFormatOpts
-         *   associative array of output formatting options
-         * @return {string} The string representation of the hash in the format
-         *   specified
-         */
-        getHMAC(key:string, inputFormat:string, variant:string, outputFormat:string, outputFormatOpts?:OutputFormatOptions):string;
+		 * Returns the desired SHA hash of the string specified at instantiation
+		 * using the specified parameters
+		 *
+		 * @param {string} format The desired output formatting (B64, HEX, or BYTES)
+		 * @param {{outputUpper : (boolean|undefined), b64Pad : (string|undefined)}=}
+		 *   outputFormatOpts Hash list of output formatting options
+		 * @return {string} The string representation of the hash in the format
+		 *   specified
+		 */
+        getHash(format:string, outputFormatOpts?:OutputFormatOptions):string;
+
+        /**
+		 * Returns the the HMAC in the specified format using the key given by
+		 * a previous setHMACKey call.
+		 *
+		 * @param {string} format The desired output formatting
+		 *   (B64, HEX, or BYTES)
+		 * @param {{outputUpper : (boolean|undefined), b64Pad : (string|undefined)}=}
+		 *   outputFormatOpts associative array of output formatting options
+		 * @return {string} The string representation of the hash in the format
+		 *   specified
+		 */
+        getHMAC(format:string, outputFormatOpts?:OutputFormatOptions):string;
     }
 }
 

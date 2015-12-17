@@ -1,4 +1,4 @@
-// Type definitions for material-ui v0.13.1
+// Type definitions for material-ui v0.13.4
 // Project: https://github.com/callemall/material-ui
 // Definitions by: Nathan Brown <https://github.com/ngbrown>, Oliver Herrmann <https://github.com/herrmanno>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -379,14 +379,18 @@ declare namespace __MaterialUI {
         openImmediately?: boolean;
         repositionOnUpdate?: boolean;
         title?: React.ReactNode;
+        defaultOpen?: boolean;
+        open?: boolean;
 
         onClickAway?: () => void;
         onDismiss?: () => void;
         onShow?: () => void;
+        onRequestClose?: (buttonClicked: boolean) => void;
     }
     export class Dialog extends React.Component<DialogProps, {}> {
         dismiss(): void;
         show(): void;
+        isOpen(): boolean;
     }
 
     interface DropDownIconProps extends React.Props<DropDownIcon> {
@@ -567,6 +571,7 @@ declare namespace __MaterialUI {
             nestedItems?: React.ReactElement<any>[];
             onKeyboardFocus?: React.FocusEventHandler;
             onNestedListToggle?: (item: ListItem) => void;
+            onClick?: React.MouseEventHandler;
             rightAvatar?: React.ReactElement<any>;
             rightIcon?: React.ReactElement<any>;
             rightIconButton?: React.ReactElement<any>;
@@ -870,6 +875,8 @@ declare namespace __MaterialUI {
             desktopSubheaderHeight?: number;
             desktopToolbarHeight?: number;
         }
+        export var Spacing: Spacing;
+
         interface ThemePalette {
             primary1Color?: string;
             primary2Color?: string;
@@ -1532,6 +1539,7 @@ declare namespace __MaterialUI {
             cols?: number;
             padding?: number;
             cellHeight?: number;
+            style?: React.CSSProperties;
         }
         
         export class GridList extends React.Component<GridListProps, {}>{
@@ -1547,6 +1555,7 @@ declare namespace __MaterialUI {
             cols?: number;
             rows?: number;
             rootClass?: string | __React.Component<any,any>;
+            style?: React.CSSProperties;
         }
         
         export class GridTile extends React.Component<GridTileProps, {}>{

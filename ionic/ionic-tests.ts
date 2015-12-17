@@ -360,6 +360,8 @@ class IonicTestController {
         this.$ionicTabsDelegate.select(1);
         var selectedIndex: number = this.$ionicTabsDelegate.selectedIndex();
         var ionicTabsDelegate: ionic.tabs.IonicTabsDelegate = this.$ionicTabsDelegate.$getByHandle("handle");
+        this.$ionicTabsDelegate.showBar(true);
+        var isBarShown: boolean = this.$ionicTabsDelegate.showBar();
     }
     private testUtility(): void {
         var {top: number, left: number, width: number, height: number} = this.$ionicPositionService.position(angular.element("body"));

@@ -516,7 +516,7 @@ declare module L {
         function (options?: ControlOptions): Control;
     }
 
-    namespace control {
+    export namespace control {
 
         /**
           * Creates a zoom control.
@@ -2441,6 +2441,12 @@ declare namespace L {
           */
         options: Map.MapOptions;
 
+        /**
+          * Iterates over the layers of the map, optionally specifying context 
+		  * of the iterator function.
+          */
+        eachLayer(fn: (layer: ILayer) => void, context?: any): Map;
+
         ////////////////
         ////////////////
         addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): Map;
@@ -3261,7 +3267,7 @@ declare namespace L {
         off(eventMap?: any, context?: any): Path;
     }
 
-    namespace Path {
+    export namespace Path {
         /**
           * True if SVG is used for vector rendering (true for most modern browsers).
           */

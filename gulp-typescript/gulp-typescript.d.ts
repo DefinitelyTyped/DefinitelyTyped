@@ -20,14 +20,32 @@ declare module "gulp-typescript" {
             noImplicitAny?: boolean;
             noLib?: boolean;
             removeComments?: boolean;
-            sourceRoot?: string;
+            sourceRoot?: string; // use gulp-sourcemaps instead
             sortOutput?: boolean;
             target?: string;
             typescript?: any;
+            outFile?: string;
+            outDir?: string;
+            suppressImplicitAnyIndexErrors?: boolean;
+            jsx?: string;
+            declaration?: boolean;
+            emitDecoratorMetadata?: boolean;
+            experimentalAsyncFunctions?: boolean;
+            moduleResolution?: string;
+            noEmitHelpers?: boolean;
+            preserveConstEnums?: boolean;
+            isolatedModules?: boolean;
+        }
+
+        interface TsConfig {
+            files?: string[];
+            exclude?: string[];
+            compilerOptions?: any;
         }
 
         interface Project {
-            src(): NodeJS.ReadWriteStream
+            config: TsConfig;
+            src(): NodeJS.ReadWriteStream;
         }
 
         interface FilterSettings {

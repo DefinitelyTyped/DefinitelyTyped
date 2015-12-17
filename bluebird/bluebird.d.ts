@@ -117,7 +117,7 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	 * Returns back this promise instead of creating a new one. If the `callback` argument is not a function, this method does not do anything.
 	 */
 	nodeify(callback: (err: any, value?: R) => void, options?: Promise.SpreadOption): Promise<R>;
-	nodeify(...sink: any[]): void;
+	nodeify(...sink: any[]): Promise<R>;
 
 	/**
 	 * Marks this promise as cancellable. Promises by default are not cancellable after v0.11 and must be marked as such for `.cancel()` to have any effect. Marking a promise as cancellable is infectious and you don't need to remark any descendant promise.
@@ -421,7 +421,7 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	 * Note that the original methods on the object are not overwritten but new methods are created with the `Async`-postfix. For example, if you `promisifyAll()` the node.js `fs` object use `fs.statAsync()` to call the promisified `stat` method.
 	 */
 	// TODO how to model promisifyAll?
-	static promisifyAll(target: Object, options?: Promise.PromisifyAllOptions): Object;
+	static promisifyAll(target: Object, options?: Promise.PromisifyAllOptions): any;
 
 
 	/**

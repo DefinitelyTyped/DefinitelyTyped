@@ -1315,17 +1315,86 @@ module TestSortedIndex {
 
 // _.sortedLastIndex
 module TestSortedLastIndex {
-    result = <number>_.sortedLastIndex([20, 30, 50], 40);
-    result = <number>_.sortedLastIndex([{ 'x': 20 }, { 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
-    var sortedLastIndexDict: { wordToNumber: { [idx: string]: number } } = {
-        'wordToNumber': { 'twenty': 20, 'thirty': 30, 'fourty': 40, 'fifty': 50 }
-    };
-    result = <number>_.sortedLastIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word: string) {
-        return sortedLastIndexDict.wordToNumber[word];
-    });
-    result = <number>_.sortedLastIndex(['twenty', 'thirty', 'fifty'], 'fourty', function (word: string) {
-        return this.wordToNumber[word];
-    }, sortedLastIndexDict);
+    type SampleType = {a: number; b: string; c: boolean;};
+
+    let array: SampleType[];
+    let list: _.List<SampleType>;
+
+    let value: SampleType;
+
+    let stringIterator: (x: string) => number;
+    let arrayIterator: (x: SampleType) => number;
+    let listIterator: (x: SampleType) => number;
+
+    {
+        let result: number;
+
+        result = _.sortedLastIndex<string>('', '');
+        result = _.sortedLastIndex<string>('', '', stringIterator);
+        result = _.sortedLastIndex<string>('', '', stringIterator, any);
+        result = _.sortedLastIndex<string, number>('', '', stringIterator);
+        result = _.sortedLastIndex<string, number>('', '', stringIterator, any);
+
+        result = _.sortedLastIndex<SampleType>(array, value);
+        result = _.sortedLastIndex<SampleType>(array, value, arrayIterator);
+        result = _.sortedLastIndex<SampleType>(array, value, arrayIterator, any);
+        result = _.sortedLastIndex<SampleType>(array, value, '');
+        result = _.sortedLastIndex<SampleType>(array, value, {a: 42});
+        result = _.sortedLastIndex<SampleType, number>(array, value, arrayIterator);
+        result = _.sortedLastIndex<SampleType, number>(array, value, arrayIterator, any);
+        result = _.sortedLastIndex<{a: number}, SampleType>(array, value, {a: 42});
+
+        result = _.sortedLastIndex<SampleType>(list, value);
+        result = _.sortedLastIndex<SampleType>(list, value, listIterator);
+        result = _.sortedLastIndex<SampleType>(list, value, listIterator, any);
+        result = _.sortedLastIndex<SampleType>(list, value, '');
+        result = _.sortedLastIndex<SampleType>(list, value, {a: 42});
+        result = _.sortedLastIndex<SampleType, number>(list, value, listIterator);
+        result = _.sortedLastIndex<SampleType, number>(list, value, listIterator, any);
+        result = _.sortedLastIndex<{a: number}, SampleType>(list, value, {a: 42});
+
+        result = _('').sortedLastIndex('');
+        result = _('').sortedLastIndex<number>('', stringIterator);
+        result = _('').sortedLastIndex<number>('', stringIterator, any);
+
+        result = _(array).sortedLastIndex(value);
+        result = _(array).sortedLastIndex<number>(value, arrayIterator);
+        result = _(array).sortedLastIndex<number>(value, arrayIterator, any);
+        result = _(array).sortedLastIndex(value, '');
+        result = _(array).sortedLastIndex<{a: number}>(value, {a: 42});
+
+        result = _(list).sortedLastIndex<SampleType>(value);
+        result = _(list).sortedLastIndex<SampleType>(value, listIterator);
+        result = _(list).sortedLastIndex<SampleType>(value, listIterator, any);
+        result = _(list).sortedLastIndex<SampleType>(value, '');
+        result = _(list).sortedLastIndex<SampleType>(value, {a: 42});
+        result = _(list).sortedLastIndex<SampleType, number>(value, listIterator);
+        result = _(list).sortedLastIndex<SampleType, number>(value, listIterator, any);
+        result = _(list).sortedLastIndex<{a: number}, SampleType>(value, {a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _('').chain().sortedLastIndex('');
+        result = _('').chain().sortedLastIndex<number>('', stringIterator);
+        result = _('').chain().sortedLastIndex<number>('', stringIterator, any);
+
+        result = _(array).chain().sortedLastIndex(value);
+        result = _(array).chain().sortedLastIndex<number>(value, arrayIterator);
+        result = _(array).chain().sortedLastIndex<number>(value, arrayIterator, any);
+        result = _(array).chain().sortedLastIndex(value, '');
+        result = _(array).chain().sortedLastIndex<{a: number}>(value, {a: 42});
+
+        result = _(list).chain().sortedLastIndex<SampleType>(value);
+        result = _(list).chain().sortedLastIndex<SampleType>(value, listIterator);
+        result = _(list).chain().sortedLastIndex<SampleType>(value, listIterator, any);
+        result = _(list).chain().sortedLastIndex<SampleType>(value, '');
+        result = _(list).chain().sortedLastIndex<SampleType>(value, {a: 42});
+        result = _(list).chain().sortedLastIndex<SampleType, number>(value, listIterator);
+        result = _(list).chain().sortedLastIndex<SampleType, number>(value, listIterator, any);
+        result = _(list).chain().sortedLastIndex<{a: number}, SampleType>(value, {a: 42});
+    }
 }
 
 // _.tail
@@ -4589,22 +4658,31 @@ module TestBackflow {
 }
 
 // _.before
-var testBeforeFn = ((n: number) => () => ++n)(0);
-var testBeforeResultFn = <() => number>_.before<() => number>(3, testBeforeFn);
-result = <number>testBeforeResultFn();
-// → 1
-result = <number>testBeforeResultFn();
-// → 2
-result = <number>testBeforeResultFn();
-// → 2
-var testBeforeFn = ((n: number) => () => ++n)(0);
-var testBeforeResultFn = <() => number>_(3).before<() => number>(testBeforeFn);
-result = <number>testBeforeResultFn();
-// → 1
-result = <number>testBeforeResultFn();
-// → 2
-result = <number>testBeforeResultFn();
-// → 2
+module TestBefore {
+    interface Func {
+        (a: string, b: number): boolean;
+    }
+
+    let func: Func;
+
+    {
+        let result: Func;
+
+        _.before(42, func);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<Func>;
+
+        _(42).before(func);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<Func>;
+
+        _(42).chain().before(func);
+    }
+}
 
 var funcBind = function(greeting: string, punctuation: string) { return greeting + ' ' + this.user + punctuation; };
 var funcBound1: (punctuation: string) => any = _.bind(funcBind, { 'name': 'moe' }, 'hi');
@@ -4733,28 +4811,50 @@ curryResult7 = _.curryRight(testCurry2)(true)(2);
 curryResult8 = _.curryRight(testCurry2)(true);
 curryResult9 = _.curryRight(testCurry2);
 
-declare var source: any;
-result = <Function>_.debounce(function () { }, 150);
+// _.debounce
+module TestDebounce {
+    interface SampleFunc {
+        (n: number, s: string): boolean;
+    }
 
-jQuery('#postbox').on('click', <Function>_.debounce(function () { }, 300, {
-    'leading': true,
-    'trailing': false
-}));
+    interface Options {
+        leading?: boolean;
+        maxWait?: number;
+        trailing?: boolean;
+    }
 
-source.addEventListener('message', <Function>_.debounce(function () { }, 250, {
-    'maxWait': 1000
-}), false);
+    interface ResultFunc {
+        (n: number, s: string): boolean;
+        cancel(): void;
+    }
 
-result = <_.LoDashImplicitObjectWrapper<Function>>_(function () { }).debounce(150);
+    let func: SampleFunc;
+    let options: Options;
 
-jQuery('#postbox').on('click', <_.LoDashImplicitObjectWrapper<Function>>_(function () { }).debounce(300, {
-    'leading': true,
-    'trailing': false
-}));
+    {
+        let result: ResultFunc;
 
-source.addEventListener('message', <_.LoDashImplicitObjectWrapper<Function>>_(function () { }).debounce(250, {
-    'maxWait': 1000
-}), false);
+        result = _.debounce<SampleFunc>(func);
+        result = _.debounce<SampleFunc>(func, 42);
+        result = _.debounce<SampleFunc>(func, 42, options);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<ResultFunc>;
+
+        result = _(func).debounce();
+        result = _(func).debounce(42);
+        result = _(func).debounce(42, options);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<ResultFunc>;
+
+        result = _(func).chain().debounce();
+        result = _(func).chain().debounce(42);
+        result = _(func).chain().debounce(42, options);
+    }
+}
 
 // _.defer
 module TestDefer {
@@ -4822,10 +4922,34 @@ module TestDelay {
 }
 
 // _.flow
-var testFlowSquareFn = (n: number) => n * n;
-var testFlowAddFn = (n: number, m: number) => n + m;
-result = <number>_.flow<(n: number, m: number) => number>(testFlowAddFn, testFlowSquareFn)(1, 2);
-result = <number>_(testFlowAddFn).flow<(n: number, m: number) => number>(testFlowSquareFn).value()(1, 2);
+module TestFlow {
+    let Fn1: (n: number) => number;
+    let Fn2: (m: number, n: number) => number;
+
+    {
+        let result: (m: number, n: number) => number;
+
+        result = _.flow<(m: number, n: number) => number>(Fn1, Fn2);
+        result = _.flow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _.flow<(m: number, n: number) => number>(Fn1, Fn1, Fn1, Fn2);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(m: number, n: number) => number>;
+
+        result = _(Fn1).flow<(m: number, n: number) => number>(Fn2);
+        result = _(Fn1).flow<(m: number, n: number) => number>(Fn1, Fn2);
+        result = _(Fn1).flow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(m: number, n: number) => number>;
+
+        result = _(Fn1).chain().flow<(m: number, n: number) => number>(Fn2);
+        result = _(Fn1).chain().flow<(m: number, n: number) => number>(Fn1, Fn2);
+        result = _(Fn1).chain().flow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+    }
+}
 
 // _.flowRight
 module TestFlowRight {
@@ -4925,17 +5049,38 @@ module TestModArgs {
 }
 
 // _.negate
-interface TestNegatePredicate {
-    (a1: number, a2: number): boolean;
+module TestNegate {
+    interface PredicateFn {
+        (a1: number, a2: number): boolean;
+    }
+
+    interface ResultFn {
+        (a1: number, a2: number): boolean;
+    }
+
+    var predicate = (a1: number, a2: number) => a1 > a2;
+
+    {
+        let result: ResultFn;
+
+        result = _.negate<PredicateFn>(predicate);
+        result = _.negate<PredicateFn, ResultFn>(predicate);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<ResultFn>;
+
+        result = _(predicate).negate();
+        result = _(predicate).negate<ResultFn>();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<ResultFn>;
+
+        result = _(predicate).chain().negate();
+        result = _(predicate).chain().negate<ResultFn>();
+    }
 }
-interface TestNegateResult {
-    (a1: number, a2: number): boolean;
-}
-var testNegatePredicate = (a1: number, a2: number) => a1 > a2;
-result = <TestNegateResult>_.negate<TestNegatePredicate>(testNegatePredicate);
-result = <TestNegateResult>_.negate<TestNegatePredicate, TestNegateResult>(testNegatePredicate);
-result = <TestNegateResult>_(testNegatePredicate).negate().value();
-result = <TestNegateResult>_(testNegatePredicate).negate<TestNegateResult>().value();
 
 // _.once
 module TestOnce {
@@ -5268,35 +5413,65 @@ result = <boolean>_({}).isArray();
 }
 
 // _.isBoolean
-result = <boolean>_.isBoolean(any);
-result = <boolean>_(1).isBoolean();
-result = <boolean>_<any>([]).isBoolean();
-result = <boolean>_({}).isBoolean();
-{
-    let value: number[]|boolean = [1, 3, 5];
-    if (_.isBoolean(value)) {
-        let b: boolean = value;
-        // compile error
-        // let length: number = value.length;
-    } else {
-        let length: number = value.length;
-        // compile error
-        // let b: boolean = value;
+module TestIsBoolean {
+    {
+        let value: number|boolean;
+
+        if (_.isBoolean(value)) {
+            let result: boolean = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isBoolean(any);
+        result = _(1).isBoolean();
+        result = _<any>([]).isBoolean();
+        result = _({}).isBoolean();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isBoolean();
+        result = _<any>([]).chain().isBoolean();
+        result = _({}).chain().isBoolean();
     }
 }
 
 // _.isDate
-result = <boolean>_.isDate(any);
-result = <boolean>_(42).isDate();
-result = <boolean>_<any>([]).isDate();
-result = <boolean>_({}).isDate();
-{
-  let value: Date|string = "foo";
-  if (_.isDate(value)) {
-    value.toTimeString();
-  } else {
-    value.charAt(0);
-  }
+module TestIsBoolean {
+    {
+        let value: number|Date;
+
+        if (_.isDate(value)) {
+            let result: Date = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isDate(any);
+        result = _(42).isDate();
+        result = _<any>([]).isDate();
+        result = _({}).isDate();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(42).chain().isDate();
+        result = _<any>([]).chain().isDate();
+        result = _({}).chain().isDate();
+    }
 }
 
 // _.isElement
@@ -5374,17 +5549,34 @@ result = <boolean>_<any>([]).isFinite();
 result = <boolean>_({}).isFinite();
 
 // _.isFunction
-result = <boolean>_.isFunction(any);
-result = <boolean>_(1).isFunction();
-result = <boolean>_<any>([]).isFunction();
-result = <boolean>_({}).isFunction();
-{
-  let value: Function|string = "foo";
-  if (_.isFunction(value)) {
-    value();
-  } else {
-    let result: string = value;
-  }
+module TestIsFunction {
+    {
+        let value: number|Function;
+
+        if (_.isFunction(value)) {
+            let result: Function = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isFunction(any);
+        result = _(1).isFunction();
+        result = _<any>([]).isFunction();
+        result = _({}).isFunction();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isFunction();
+        result = _<any>([]).chain().isFunction();
+        result = _({}).chain().isFunction();
+    }
 }
 
 // _.isMatch
@@ -5397,12 +5589,25 @@ result = <boolean>_({}).isMatch({}, testIsMatchCustiomizerFn);
 result = <boolean>_({}).isMatch({}, testIsMatchCustiomizerFn, {});
 
 // _.isNaN
-result = <boolean>_.isNaN(NaN);
-result = <boolean>_.isNaN(new Number(NaN));
-result = <boolean>_.isNaN(undefined);
-result = <boolean>_(NaN).isNaN();
-result = <boolean>_(new Number(NaN)).isNaN();
-result = <boolean>_(undefined).isNaN();
+module TestIsNaN {
+    {
+        let result: boolean;
+
+        result = _.isNaN(any);
+
+        result = _(1).isNaN();
+        result = _<any>([]).isNaN();
+        result = _({}).isNaN();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isNaN();
+        result = _<any>([]).chain().isNaN();
+        result = _({}).chain().isNaN();
+    }
+}
 
 // _.isNative
 result = <boolean>_.isNative(Array.prototype.push);
@@ -5464,18 +5669,34 @@ result = <boolean>_<any>([]).isPlainObject();
 result = <boolean>_({}).isPlainObject();
 
 // _.isRegExp
-result = <boolean>_.isRegExp(any);
-result = <boolean>_(1).isRegExp();
-result = <boolean>_<any>([]).isRegExp();
-result = <boolean>_({}).isRegExp();
-{
-  let value: RegExp|string = /^foo$/g;
-  if (_.isRegExp(value)) {
-    let regex: RegExp = value;
-    let index: number = value.exec("foo").index;
-  } else {
-    let result: string = value;
-  }
+module TestIsRegExp {
+    {
+        let value: number|RegExp;
+
+        if (_.isRegExp(value)) {
+            let result: RegExp = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isRegExp(any);
+        result = _(1).isRegExp();
+        result = _<any>([]).isRegExp();
+        result = _({}).isRegExp();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isRegExp();
+        result = _<any>([]).chain().isRegExp();
+        result = _({}).chain().isRegExp();
+    }
 }
 
 // _.isString
@@ -6991,19 +7212,43 @@ module TestFunctions {
     }
 }
 
-interface HasName {
-    name: string;
+// _.omit
+module TestOmit {
+    let predicate: (element: any, key: string, collection: any) => boolean;
+
+    {
+        let result: TResult;
+
+        result = _.omit<TResult, Object>({}, 'a');
+        result = _.omit<TResult, Object>({}, 0, 'a');
+        result = _.omit<TResult, Object>({}, true, 0, 'a');
+        result = _.omit<TResult, Object>({}, ['b', 1, false], true, 0, 'a');
+        result = _.omit<TResult, Object>({}, predicate);
+        result = _.omit<TResult, Object>({}, predicate, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<TResult>;
+
+        result = _({}).omit<TResult>('a');
+        result = _({}).omit<TResult>(0, 'a');
+        result = _({}).omit<TResult>(true, 0, 'a');
+        result = _({}).omit<TResult>(['b', 1, false], true, 0, 'a');
+        result = _({}).omit<TResult>(predicate);
+        result = _({}).omit<TResult>(predicate, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<TResult>;
+
+        result = _({}).chain().omit<TResult>('a');
+        result = _({}).chain().omit<TResult>(0, 'a');
+        result = _({}).chain().omit<TResult>(true, 0, 'a');
+        result = _({}).chain().omit<TResult>(['b', 1, false], true, 0, 'a');
+        result = _({}).chain().omit<TResult>(predicate);
+        result = _({}).chain().omit<TResult>(predicate, any);
+    }
 }
-result = <HasName>_.omit({ 'name': 'moe', 'age': 40 }, 'age');
-result = <HasName>_.omit({ 'name': 'moe', 'age': 40 }, ['age']);
-result = <HasName>_.omit({ 'name': 'moe', 'age': 40 }, function (value) {
-    return typeof value == 'number';
-});
-result = <HasName>_({ 'name': 'moe', 'age': 40 }).omit('age').value();
-result = <HasName>_({ 'name': 'moe', 'age': 40 }).omit(['age']).value();
-result = <HasName>_({ 'name': 'moe', 'age': 40 }).omit(function (value) {
-    return typeof value == 'number';
-}).value();
 
 // _.pairs
 module TestPairs {
@@ -7047,18 +7292,41 @@ module TestPairs {
 }
 
 // _.pick
-interface TestPickFn {
-    (element: any, key: string, collection: any): boolean;
-}
-{
-    let testPickFn: TestPickFn;
-    let result: TResult;
-    result = _.pick<TResult, Object>({}, 0, '1', true, [2], ['3'], [true], [4, '5', true]);
-    result = _.pick<TResult, Object>({}, testPickFn);
-    result = _.pick<TResult, Object>({}, testPickFn, any);
-    result = _({}).pick<TResult>(0, '1', true, [2], ['3'], [true], [4, '5', true]).value();
-    result = _({}).pick<TResult>(testPickFn).value();
-    result = _({}).pick<TResult>(testPickFn, any).value();
+module TestPick {
+    let predicate: (element: any, key: string, collection: any) => boolean;
+
+    {
+        let result: TResult;
+
+        result = _.pick<TResult, Object>({}, 'a');
+        result = _.pick<TResult, Object>({}, 0, 'a');
+        result = _.pick<TResult, Object>({}, true, 0, 'a');
+        result = _.pick<TResult, Object>({}, ['b', 1, false], true, 0, 'a');
+        result = _.pick<TResult, Object>({}, predicate);
+        result = _.pick<TResult, Object>({}, predicate, any);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<TResult>;
+
+        result = _({}).pick<TResult>('a');
+        result = _({}).pick<TResult>(0, 'a');
+        result = _({}).pick<TResult>(true, 0, 'a');
+        result = _({}).pick<TResult>(['b', 1, false], true, 0, 'a');
+        result = _({}).pick<TResult>(predicate);
+        result = _({}).pick<TResult>(predicate, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<TResult>;
+
+        result = _({}).chain().pick<TResult>('a');
+        result = _({}).chain().pick<TResult>(0, 'a');
+        result = _({}).chain().pick<TResult>(true, 0, 'a');
+        result = _({}).chain().pick<TResult>(['b', 1, false], true, 0, 'a');
+        result = _({}).chain().pick<TResult>(predicate);
+        result = _({}).chain().pick<TResult>(predicate, any);
+    }
 }
 
 // _.result
