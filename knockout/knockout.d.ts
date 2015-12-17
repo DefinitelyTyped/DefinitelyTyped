@@ -535,6 +535,10 @@ interface KnockoutStatic {
     };
 
     components: KnockoutComponents;
+	
+	options: {
+		deferUpdates: boolean;
+	}
 }
 
 interface KnockoutBindingProvider {
