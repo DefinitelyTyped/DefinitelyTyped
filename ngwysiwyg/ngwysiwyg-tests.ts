@@ -2,7 +2,7 @@
 
 //import ngWYSIWYG = require("ngWYSIWYG");
 
-var options: ngWYSIWYGConfig = {
+var complete: ngWYSIWYG.Config = {
     sanitize: false,
     toolbar: [
         { name: "basicStyling", items: ["bold", "italic", "underline", "strikethrough", "subscript", "superscript", "-", "leftAlign", "centerAlign", "rightAlign", "blockJustify", "-"] },
@@ -13,4 +13,8 @@ var options: ngWYSIWYGConfig = {
         { name: "tools", items: ["print", "-"] },
         { name: "styling", items: ["font", "size", "format"] },
     ]
+};
+
+var partial: ngWYSIWYG.Config = {
+    sanitize: false
 };
