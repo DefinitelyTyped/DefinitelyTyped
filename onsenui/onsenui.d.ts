@@ -634,7 +634,7 @@ interface TabbarView {
      * @return {Number} The index of the currently active tab
      * @description Returns tab index on current active tab. If active tab is not found, returns -1
      */
-    getActiveTab(): number;
+    getActiveTabIndex(): number;
     /**
      * @param {String} url Page URL. Can be either an HTML document or an <code>&lt;ons-template&gt;</code>
      * @description Displays a new page without changing the active index
