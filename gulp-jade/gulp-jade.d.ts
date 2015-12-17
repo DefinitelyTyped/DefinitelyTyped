@@ -27,7 +27,7 @@ declare module "gulp-jade" {
         * If a string is specified, that will be used as 
         * indentation instead (e.g. '\t').
         */
-        pretty?: any;
+        pretty?: boolean|string;
         
         /**
         * Use a self namespace to hold the locals (false by default)
