@@ -3,25 +3,6 @@
 // Definitions by: Aram Taieb <https://github.com/afromogli/>
 // Definitions: https://github.com/afromogli/DefinitelyTyped
 
-enum DateFormatStyle {
-    full = <any>"full",
-    long = <any>"long",
-    medium = <any>"medium",
-    short = <any>"short"
-}
-
-enum NumberFormatStyle {
-    decimal = <any>"decimal",
-    percent = <any>"percent"
-}
-
-enum CurrencyFormatStyle {
-    symbol = <any>"symbol",
-    accounting = <any>"accounting",
-    code = <any>"code",
-    name = <any>"name"
-}
-
 interface NumberFormatterOptions {
    minimumIntegerDigits?: number;
    minimumFractionDigits?: number;
@@ -30,19 +11,19 @@ interface NumberFormatterOptions {
    maximumSignificantDigits?: number;
    round?: string;
    useGrouping?: boolean;
-   style?: NumberFormatStyle;
+   style?: string;
 }
 
 interface DateFormatterOptions {
     skeleton?: string;
-    date?: DateFormatStyle;
-    time?: DateFormatStyle;
-    datetime?: DateFormatStyle;
+    date?: string;
+    time?: string;
+    datetime?: string;
     raw?: string;
 }
 
 interface CurrencyFormatterOptions {
-    style?: CurrencyFormatStyle;
+    style?: string;
 }
 
 interface CldrAttributes {
