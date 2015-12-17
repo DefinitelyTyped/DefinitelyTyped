@@ -83,6 +83,7 @@ interface StripeBankTokenResponse
 {
     id: string;
     bank_account: {
+        id: string;
         country: string;
         bank_name: string;
         last4: number;
