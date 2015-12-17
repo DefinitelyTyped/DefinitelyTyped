@@ -198,6 +198,13 @@ var ctx: tls.SecureContext = tls.createSecureContext({
 });
 var blah = ctx.context;
 
+var tlsOpts: tls.TlsOptions = {
+	host: "127.0.0.1",
+	port: 55
+};
+var tlsSocket = tls.connect(tlsOpts);
+
+
 ////////////////////////////////////////////////////
 
 // Make sure .listen() and .close() retuern a Server instance
