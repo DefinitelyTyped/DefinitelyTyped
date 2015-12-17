@@ -9,6 +9,8 @@
 /// <reference path='../es6-promise/es6-promise.d.ts' />
 
 declare module "mongodb" {
+  import {EventEmitter} from 'events';
+  import {Promise} from 'es6-promise';
 
   // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html
   export class MongoClient {
@@ -25,29 +27,29 @@ declare module "mongodb" {
     connect(uri: string, options: any, callback: MongoCallback<Db>): void;
   }
 
-  // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
-  export class Server {
+  // Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
+  export class Server extends EventEmitter {
     constructor(host: string, port: number, options?: ServerOptions);
 
     public connections(): Array<any>;
   }
   
-  // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/ReplSet.html
-  export class ReplSet {
+  // Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/ReplSet.html
+  export class ReplSet extends EventEmitter {
     constructor(servers: Array<Server>, options?: ReplSetOptions);
 
     public connections(): Array<any>;
   }
   
-  // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/ReplSet.html
-  export class Mongos {
+  // Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/ReplSet.html
+  export class Mongos extends EventEmitter {
     constructor(servers: Array<Server>, options?: MongosOptions);
 
     public connections(): Array<any>;
   }
 
   // Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/db.html
-  export class Db {
+  export class Db extends EventEmitter {
     constructor(databaseName: string, serverConfig: Server | ReplSet | Mongos, options?: DbCreateOptions);
 
     public serverConfig: Server | ReplSet | Mongos;
@@ -58,83 +60,95 @@ declare module "mongodb" {
     public slaveOk: boolean;
     public writeConcern: Object;
 
-
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#addUser
+    public addUser(username: string, password: string): Promise<Object>;
+    public addUser(username: string, password: string, callback: MongoCallback<Object>): void;
+    public addUser(username: string, password: string, options: { w?: number | string, wtimeout?: number, j?: boolean, customData?: Object, roles?: Object[] }): Promise<Object>;
+    public addUser(username: string, password: string, options: { w?: number | string, wtimeout?: number, j?: boolean, customData?: Object, roles?: Object[] }, callback: MongoCallback<Object>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#admin
+    public admin(): Admin;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#authenticate
+    public authenticate(userName: string, password: string): Promise<Object>;
+    public authenticate(userName: string, password: string, callback: MongoCallback<Object>): void;
+    public authenticate(userName: string, password: string, options: { authMechanism: string }): Promise<Object>;
+    public authenticate(userName: string, password: string, options: { authMechanism: string }, callback: MongoCallback<Object>): void;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#close
+    public close(): Promise<void>;
+    public close(callback: MongoCallback<void>): void;
+    public close(forceClose: boolean): Promise<void>;
+    public close(forceClose: boolean, callback: MongoCallback<void>): void;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#collection
+    public collection(name: string): Collection;
+    public collection(name: string, callback: MongoCallback<Collection>): Collection;
+    public collection(name: string, options: MongoCollectionOptions, callback: MongoCallback<Collection>): Collection;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#collections
+    public collections(): Promise<Collection[]>;
+    public collections(callback: MongoCallback<Collection[]>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#command
+    public command(command: Object): Promise<Object>;
+    public command(command: Object, callback?: MongoCallback<Object>): void;
+    public command(command: Object, options: { readPreference: ReadPreference | string }): Promise<Object>;
+    public command(command: Object, options: { readPreference: ReadPreference | string }, callback: MongoCallback<Object>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#createCollection
+    public createCollection(name: string): Promise<Collection>;
+    public createCollection(name: string, callback: MongoCallback<Collection>): void;
+    public createCollection(name: string, options: CollectionCreateOptions): Promise<Collection>;
+    public createCollection(name: string, options: CollectionCreateOptions, callback: MongoCallback<Collection>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#createIndex
+    public createIndex(name: string, fieldOrSpec: string | Object): Promise<Object>;
+    public createIndex(name: string, fieldOrSpec: string | Object, callback: MongoCallback<Object>): void;
+    public createIndex(name: string, fieldOrSpec: string | Object, options: IndexOptions): Promise<Object>;
+    public createIndex(name: string, fieldOrSpec: string | Object, options: IndexOptions, callback: MongoCallback<Object>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#db
     public db(dbName: string): Db;
-
-    public open(callback: (err: Error, db: Db) => void): void;
-    public close(forceClose?: boolean, callback?: (err: Error, result: any) => void): void;
-    public admin(callback: (err: Error, result: any) => void): any;
-    public collectionsInfo(collectionName: string, callback?: (err: Error, result: any) => void): void;
-    public collectionNames(collectionName: string, options: any, callback?: (err: Error, result: any) => void): void;
-
-    public collection(collectionName: string): Collection;
-    public collection(collectionName: string, callback: (err: Error, collection: Collection) => void): Collection;
-    public collection(collectionName: string, options: MongoCollectionOptions, callback: (err: Error, collection: Collection) => void): Collection;
-
-    public collections(callback: (err: Error, collections: Collection[]) => void): void;
-    public eval(code: any, parameters: any[], options?: any, callback?: (err: Error, result: any) => void): void;
-    //public dereference(dbRef: DbRef, callback: (err: Error, result: any) => void): void;
-
-    public logout(options: any, callback?: (err: Error, result: any) => void): void;
-    public logout(callback: (err: Error, result: any) => void): void;
-
-    public authenticate(userName: string, password: string, callback?: (err: Error, result: any) => void): void;
-    public authenticate(userName: string, password: string, options: any, callback?: (err: Error, result: any) => void): void;
-
-    public addUser(username: string, password: string, callback?: (err: Error, result: any) => void): void;
-    public addUser(username: string, password: string, options: any, callback?: (err: Error, result: any) => void): void;
-
-    public removeUser(username: string, callback?: (err: Error, result: any) => void): void;
-    public removeUser(username: string, options: any, callback?: (err: Error, result: any) => void): void;
-
-    public createCollection(collectionName: string, callback?: (err: Error, result: Collection) => void): void;
-    public createCollection(collectionName: string, options: CollectionCreateOptions, callback?: (err: Error, result: any) => void): void;
-
-    public command(selector: Object, callback?: (err: Error, result: any) => void): void;
-    public command(selector: Object, options: any, callback?: (err: Error, result: any) => void): void;
-
-    public dropCollection(collectionName: string, callback?: (err: Error, result: any) => void): void;
-    public renameCollection(fromCollection: string, toCollection: string, callback?: (err: Error, result: any) => void): void;
-
-    public lastError(options: Object, connectionOptions: any, callback: (err: Error, result: any) => void): void;
-    public previousError(options: Object, callback: (err: Error, result: any) => void): void;
-
-    // error = lastError
-    // lastStatus = lastError
-
-    public executeDbCommand(command_hash: any, callback?: (err: Error, result: any) => void): void;
-    public executeDbCommand(command_hash: any, options: any, callback?: (err: Error, result: any) => void): void;
-
-    public executeDbAdminCommand(command_hash: any, callback?: (err: Error, result: any) => void): void;
-    public executeDbAdminCommand(command_hash: any, options: any, callback?: (err: Error, result: any) => void): void;
-
-    public resetErrorHistory(callback?: (err: Error, result: any) => void): void;
-    public resetErrorHistory(options: any, callback?: (err: Error, result: any) => void): void;
-
-    public createIndex(collectionName: any, fieldOrSpec: any, options: IndexOptions, callback: Function): void;
-    public ensureIndex(collectionName: any, fieldOrSpec: any, options: IndexOptions, callback: Function): void;
-
-    public cursorInfo(options: any, callback: Function): void;
-
-    public dropIndex(collectionName: string, indexName: string, callback: Function): void;
-    public reIndex(collectionName: string, callback: Function): void;
-    public indexInformation(collectionName: string, options: any, callback: Function): void;
-    public dropDatabase(callback: (err: Error, result: any) => void): void;
-
-    public stats(options: any, callback: Function): void;
-    public _registerHandler(db_command: any, raw: any, connection: any, exhaust: any, callback: Function): void;
-    public _reRegisterHandler(newId: any, object: any, callback: Function): void;
-    public _callHandler(id: any, document: any, err: any): any;
-    public _hasHandler(id: any): any;
-    public _removeHandler(id: any): any;
-    public _findHandler(id: any): { id: string; callback: Function; };
-    public __executeQueryCommand(self: any, db_command: any, options: any, callback: any): void;
-
-    public DEFAULT_URL: string;
-
-    public connect(url: string, options: { uri_decode_auth?: boolean; }, callback: (err: Error, result: any) => void): void;
-
-    public addListener(event: string, handler: (param: any) => any): any;
+    public db(dbName: string, options: { noListener?: boolean, returnNonCachedInstance?: boolean }): Db;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#dropCollection
+    public dropCollection(name: string): Promise<Object>;
+    public dropCollection(name: string, callback: MongoCallback<Object>): void;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#dropDatabase
+    public dropDatabase(): Promise<Object>;
+    public dropDatabase(callback: MongoCallback<Object>): void;
+    
+    //deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#ensureIndex
+    //public ensureIndex(collectionName: any, fieldOrSpec: any, options: IndexOptions, callback: Function): void;
+    //deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#eval
+    //public eval(code: any, parameters: any[], options?: any, callback?: MongoCallback<Object>): void;
+    
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#executeDbAdminCommand
+    public executeDbAdminCommand(command: Object): Promise<Object>;
+    public executeDbAdminCommand(command: Object, callback: MongoCallback<Object>): void;
+    public executeDbAdminCommand(command: Object, options: { readPreference?: ReadPreference | string, maxTimeMS?: number }): Promise<Object>;
+    public executeDbAdminCommand(command: Object, options: { readPreference?: ReadPreference | string, maxTimeMS?: number }, callback: MongoCallback<Object>): void;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#indexInformation
+    public indexInformation(name: string): Promise<Object>;
+    public indexInformation(name: string, callback: MongoCallback<Object>): void;
+    public indexInformation(name: string, options: { full?: boolean, readPreference?: ReadPreference | string }): Promise<Object>;
+    public indexInformation(name: string, options: { full?: boolean, readPreference?: ReadPreference | string }, callback: MongoCallback<Object>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#listCollections
+    public listCollections(filter: Object, options?: { batchSize?: number, readPreference?: ReadPreference | string }): CommandCursor;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#logout
+    public logout(): Promise<Object>;
+    public logout(callback: MongoCallback<Object>): void;
+    public logout(options: { dbName?: string }): Promise<Object>;
+    public logout(options: { dbName?: string }, callback: MongoCallback<Object>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#open
+    public open(): Promise<Db>;
+    public open(callback: MongoCallback<Db>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#removeUser
+    public removeUser(username: string): Promise<Object>;
+    public removeUser(username: string, callback: MongoCallback<Object>): void;
+    public removeUser(username: string, options: { w?: number | string, wtimeout?: number, j?: boolean }): Promise<Object>;
+    public removeUser(username: string, options: { w?: number | string, wtimeout?: number, j?: boolean }, callback: MongoCallback<Object>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#renameCollection
+    public renameCollection(fromCollection: string, toCollection: string): Promise<Collection>;
+    public renameCollection(fromCollection: string, toCollection: string, callback: MongoCallback<Collection>): void;
+    public renameCollection(fromCollection: string, toCollection: string, options: { dropTarget?: boolean }): Promise<Collection>;
+    public renameCollection(fromCollection: string, toCollection: string, options: { dropTarget?: boolean }, callback: MongoCallback<Collection>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#stats
+    public stats(): Promise<Object>;;
+    public stats(callback: MongoCallback<Object>): void;
+    public stats(options: { scale?: number }): Promise<Object>;;
+    public stats(options: { scale?: number }, callback: MongoCallback<Object>): void;
   }
 
   // Class documentation : http://mongodb.github.io/node-mongodb-native/api-bson-generated/objectid.html
@@ -255,8 +269,7 @@ declare module "mongodb" {
     createPk: () => number;
   }
 
-  // See : http://mongodb.github.io/node-mongodb-native/api-generated/db.html
-  // Current definition by documentation version 1.3.13 (28.08.2013)
+  // See : http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html
   export interface DbCreateOptions {
     authSource?: string;
     //  the write concern for the operation where < 1 is no acknowlegement of write and w >= 1, w = ‘majority’ or tag acknowledges the write.
@@ -282,7 +295,8 @@ declare module "mongodb" {
     promiseLibrary?: Object;
     readConcern?: Object;
   }
-
+  
+  // See http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html
   export class ReadPreference {
     constructor(mode: string, tags: Object);
     public static PRIMARY: string;
@@ -290,25 +304,25 @@ declare module "mongodb" {
     public static SECONDARY: string;
     public static SECONDARY_PREFERRED: string;
     public static NEAREST: string;
+    public isValid(mode: string): boolean;
+    public static isValid(mode: string): boolean;
   }
 
   // See : http://mongodb.github.io/node-mongodb-native/api-generated/collection.html
   // Current definition by documentation version 1.3.13 (28.08.2013)
   export interface CollectionCreateOptions {
-    // the prefered read preference. use 'ReadPreference' class.
-    readPreference?: string;
-
-    // Allow reads from secondaries. default:false.
-    slaveOk?: boolean;
-
-    // serialize functions on the document. default:false.
-    serializeFunctions?: boolean;
-
-    // perform all operations using raw bson objects. default:false.
+    w?: number | string;
+    wtimeout?: number;
+    j?: boolean;
     raw?: boolean;
-
-    // object overriding the basic ObjectID primary key generation.
-    pkFactory?: PKFactory;
+    pkFactory?: Object;
+    readPreference?: ReadPreference | string;
+    serializeFunctions?: boolean;
+    strict?: boolean;
+    capped?: boolean;
+    size?: number;
+    max?: number;
+    autoIndexId?: boolean;
   }
 
   // Documentation: http://docs.mongodb.org/manual/reference/command/collStats/
@@ -495,10 +509,9 @@ declare module "mongodb" {
   }
 
   export interface IndexOptions {
-    w?: any;
+    w?: number | string;
     wtimeout?: number;
-    fsync?: boolean;
-    journal?: boolean;
+    j?: boolean;
     unique?: boolean;
     sparse?: boolean;
     background?: boolean;
@@ -583,12 +596,15 @@ declare module "mongodb" {
   }
 
   export interface MongoCollectionOptions {
-    safe?: any;
-    serializeFunctions?: any;
-    strict?: boolean;
+    w?: number | string;
+    wtimeout?: number;
+    j?: boolean;
     raw?: boolean;
-    pkFactory?: any;
-    readPreference?: string;
+    pkFactory?: Object;
+    readPreference?: ReadPreference | string;
+    serializeFunctions?: boolean;
+    strict?: boolean;
+    readConcern?: { level: Object };
   }
 
   export interface MongoCallback<T> {
@@ -599,5 +615,18 @@ declare module "mongodb" {
   export class MongoError extends Error {
     constructor(message: string);
     static create(options: Object): MongoError;
+  }
+  // http://mongodb.github.io/node-mongodb-native/2.1/api/Admin.html
+  export class Admin {
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/Admin.html#addUser
+    public addUser(username: string, password: string): Promise<Object>;
+    public addUser(username: string, password: string, callback: MongoCallback<Object>): void;
+    public addUser(username: string, password: string, options: { w?: number | string, wtimeout?: number, j?: boolean, fsync: boolean, customData?: Object, roles?: Array<Object> }): Promise<Object>;
+    public addUser(username: string, password: string, options: { w?: number | string, wtimeout?: number, j?: boolean, fsync: boolean, customData?: Object, roles?: Array<Object> }, callback: MongoCallback<Object>): void;
+  }
+  
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html
+  export class CommandCursor {
+
   }
 }
