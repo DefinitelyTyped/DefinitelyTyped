@@ -21,10 +21,18 @@ db.open({
     server = s;
 });
 
+var peopleStore = server['people'];
+
 /* General server/store methods */
 
 // Adding items
 server.add('people', {
+    firstName: 'Aaron',
+    lastName: 'Powell',
+    answer: 42
+}).then(function (item) { });
+
+peopleStore.add({ 
     firstName: 'Aaron',
     lastName: 'Powell',
     answer: 42
@@ -37,16 +45,25 @@ server.update('people', {
     answer: 42
 }).then(function (item) { });
 
+peopleStore.update({
+    firstName: 'Aaron',
+    lastName: 'Powell',
+    answer: 42
+}).then(function (item) { });
+
 // Removing
 server.remove('people', 1).then(function (key) { });
+peopleStore.remove(1).then(function (key) { });
 
 // Clearing
 server.clear('people').then(function() { });
+peopleStore.clear().then(function() { });
 
 // Fetching
 
 // Getting a single object by ID
 server.get('people', 5).then(function (results) { });
+peopleStore.get(5).then(function (results) { });
 
 // Querying all objects
 server.query('people')
@@ -54,8 +71,18 @@ server.query('people')
     .execute()
     .then(function (results) { });
 
+peopleStore.query()
+    .all()
+    .execute()
+    .then(function (results) { });
+
 // Querying using indexes
 server.query('people', 'specialProperty')
+    .all()
+    .execute()
+    .then(function (results) { });
+    
+ peopleStore.query('specialProperty')
     .all()
     .execute()
     .then(function (results) { });
@@ -68,6 +95,11 @@ server.query('people')
 
 // Filter with function
 server.query('people')
+    .filter(function(person) { return person.group === 'hipster'; })
+    .execute()
+    .then(function (results) { });
+    
+peopleStore.query('people')
     .filter(function(person) { return person.group === 'hipster'; })
     .execute()
     .then(function (results) { });

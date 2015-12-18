@@ -60,8 +60,12 @@ interface DbJsKeyValuePair<TKey, TValue> {
     item: TValue;
 }
 
-interface DbJsServer {
+interface DbJsBaseServer {
     getIndexedDB(): IDBDatabase;
+    close(): void;
+}
+
+interface DbJsGlobalServer {
     add<T>(table: string, entity: T): Promise<T>;
     add<T>(table: string, ...entities: T[]): Promise<T[]>;
     add<TKey, TValue>(table: string, entity: DbJsKeyValuePair<TKey, TValue>): Promise<DbJsKeyValuePair<TKey, TValue>>;
@@ -73,13 +77,37 @@ interface DbJsServer {
     remove<T>(table: string, key: T): Promise<T>;
     remove<T>(table: string, ...keys: T[]): Promise<T[]>;
     clear(table: string): Promise<void>;
-    close(): void;
     get<T>(table: string, key: any): Promise<T>;
     query<T>(table: string): DbJsIndexQuery<T>;
     query<T>(table: string, index: string): DbJsIndexQuery<T>;
     count(table: string, key: any): number;
     count(table: string, key: any): number;
 }
+
+interface DbJsGlobalServerStores {
+    [storeName: string]: DbJsObjectStoreServer
+}
+
+interface DbJsObjectStoreServer {
+    add<T>(entity: T): Promise<T>;
+    add<T>(...entities: T[]): Promise<T[]>;
+    add<TKey, TValue>(entity: DbJsKeyValuePair<TKey, TValue>): Promise<DbJsKeyValuePair<TKey, TValue>>;
+    add<TKey, TValue>(...entities: DbJsKeyValuePair<TKey, TValue>[]): Promise<DbJsKeyValuePair<TKey, TValue>[]>;
+    update<T>(entity: T): Promise<T>;
+    update<T>(...entities: T[]): Promise<T[]>;
+    update<TKey, TValue>(entity: DbJsKeyValuePair<TKey, TValue>): Promise<DbJsKeyValuePair<TKey, TValue>>;
+    update<TKey, TValue>(...entities: DbJsKeyValuePair<TKey, TValue>[]): Promise<DbJsKeyValuePair<TKey, TValue>[]>;
+    remove<T>(key: T): Promise<T>;
+    remove<T>(...keys: T[]): Promise<T[]>;
+    clear(): Promise<void>;
+    get<T>(key: any): Promise<T>;
+    query<T>(): DbJsIndexQuery<T>;
+    query<T>(index: string): DbJsIndexQuery<T>;
+    count(table: string, key: any): number;
+    count(table: string, key: any): number;
+}
+
+declare type DbJsServer = DbJsGlobalServer & DbJsGlobalServerStores;
 
 declare module "db" {
     var db: DbJsStatic;
