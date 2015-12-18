@@ -28,6 +28,7 @@ declare module yo {
         composeWith(namespace: string, options: any, settings?: IComposeSetting): IYeomanGenerator;
         defaultFor(name: string): void;
         destinationRoot(rootPath: string): string;
+        destinationPath(file: string): string;
         determineAppname(): void;
         getCollisionFilter(): (output: any) => void;
         hookFor(name: string, config: IHookConfig): void;
@@ -37,6 +38,7 @@ declare module yo {
         run(args: any, callback?: Function): void;
         runHooks(callback?: Function): void;
         sourceRoot(rootPath: string): string;
+        templatePath(file: string): string;
         addListener(event: string, listener: Function): NodeJS.EventEmitter;
         on(event: string, listener: Function): NodeJS.EventEmitter;
         once(event: string, listener: Function): NodeJS.EventEmitter;
@@ -49,18 +51,30 @@ declare module yo {
         async(): any;
         prompt(opt?:IPromptOptions, callback?:(answers:any)=>void) :void;
         log(message: string) : void;
-        npmInstall(packages: string[], options?:any) :void;
+        npmInstall(packages: string[], options?: any, cb?: Function) :void;
+        installDependencies(): void;
+        spawnCommand(name: string, args?: string[]): void;
 
         appname: string;
         gruntfile: IGruntFileStatic;
+        options: { [key: string]: any };
     }
+
+    export interface IChoice {
+        name: string;
+        value: string;
+        short?: string;
+    }
+
     export interface IPromptOptions{
-        type:string;
-        name:string;
-        message:string;
-        default:string;
+        type: string;
+        name: string;
+        message: string;
+        choices?: string[] | Function | IChoice[];
+        default?: string;
+        store?: boolean;
     }
-    
+
     export interface IGruntFileStatic {
         loadNpmTasks(pluginName: string): void;
         insertConfig(name:string, config:any):void;
@@ -70,11 +84,11 @@ declare module yo {
     }
 
     export interface IArgumentConfig {
-        desc: string;
-        required: boolean;
-        optional: boolean;
-        type: any;
-        defaults: any;
+        desc?: string;
+        required?: boolean;
+        optional?: boolean;
+        type?: any;
+        defaults?: any;
     }
 
     export interface IComposeSetting {
