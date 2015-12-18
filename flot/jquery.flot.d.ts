@@ -92,6 +92,8 @@ declare module jquery.flot {
     interface axisOptions {
         show?: boolean;            // null or true/false
         position?: string;      // "bottom" or "top" or "left" or "right"
+        mode?: string;          // "time"
+        monthNames?: string[];  // array of month names
 
         color?: any;            // null or color spec
         tickColor?: any;        // null or color spec
