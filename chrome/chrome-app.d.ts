@@ -24,10 +24,12 @@ declare module chrome.app.runtime {
 
     interface LaunchedEvent {
         addListener(callback: (launchData: LaunchData) => void): void;
+        removeListener(callback: Function): void;
     }
 
     interface RestartedEvent {
         addListener(callback: () => void): void;
+        removeListener(callback: Function): void;
     }
 
     var onLaunched: LaunchedEvent;
@@ -138,7 +140,7 @@ declare module chrome.app.window {
 
     interface WindowEvent {
         addListener(callback: () => void): void;
-        removeListener(callback: () => void): void;
+        removeListener(callback: Function): void;
     }
 
     var onBoundsChanged: WindowEvent;

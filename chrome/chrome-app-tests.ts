@@ -15,11 +15,13 @@ var createOptions: cwindow.CreateWindowOptions = {
 };
 
 //Create new window on app launch
-chrome.app.runtime.onLaunched.addListener(function (launchData: runtime.LaunchData) {
+var onLaunchedListener = function (launchData: runtime.LaunchData) {
     chrome.app.window.create('app/url', createOptions, function (created_window: cwindow.AppWindow) {
         return;
     });
-});
+};
+chrome.app.runtime.onLaunched.addListener(onLaunchedListener);
+chrome.app.runtime.onLaunched.removeListener(onLaunchedListener);
 
 chrome.app.runtime.onRestarted.addListener(function () { return; });
 
