@@ -205,6 +205,8 @@ declare module yo {
     var file: any;
     var assert: IAssert;
     var test: ITestHelper;
+
+    // "generators" is deprecated
     module generators {
 
         export class NamedBase extends YeomanGeneratorBase implements INamedBase {
@@ -214,6 +216,14 @@ declare module yo {
         export class Base extends NamedBase implements IBase {
             static extend(protoProps: IQueueProps, staticProps?: any): IYeomanGenerator;
         }
+    }
+
+    export class NamedBase extends YeomanGeneratorBase implements INamedBase {
+        constructor(args: string | string[], options: any);
+    }
+
+    export class Base extends NamedBase implements IBase {
+        static extend(protoProps: IQueueProps, staticProps?: any): IYeomanGenerator;
     }
 }
 
