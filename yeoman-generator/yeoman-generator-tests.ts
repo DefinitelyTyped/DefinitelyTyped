@@ -112,3 +112,67 @@ runContext.inDir('dirPath')
   .withGenerators(['deps', 'deps'])
   .withOptions('opts')
   .withPrompts('answers');
+
+// http://yeoman.io/generator/Base.html#destinationPath
+generator.destinationPath() === 'string';
+generator.destinationPath('path1') === 'string';
+generator.destinationPath('path1', 'path2') === 'string';
+generator.destinationPath('path1', 'path2', 'path3') === 'string';
+
+// http://yeoman.io/generator/Base.html#templatePath
+generator.templatePath() === 'string';
+generator.templatePath('path1') === 'string';
+generator.templatePath('path1', 'path2') === 'string';
+generator.templatePath('path1', 'path2', 'path3') === 'string';
+
+// http://yeoman.io/generator/Base.html#npmInstall
+generator.npmInstall();
+generator.npmInstall('pkg');
+generator.npmInstall([ 'pkg1', 'pkg2' ]);
+generator.npmInstall('pkg', {});
+generator.npmInstall('pkg', {}, () => {});
+
+// http://yeoman.io/generator/Base.html#installDependencies
+generator.installDependencies();
+generator.installDependencies({});
+generator.installDependencies({ npm: true });
+generator.installDependencies({ bower: true });
+generator.installDependencies({ skipMessage: true });
+generator.installDependencies({ callback: () => {} });
+
+// http://yeoman.io/generator/Base.html#spawnCommand
+generator.spawnCommand('command', []);
+generator.spawnCommand('command', [ '-arg' ]);
+generator.spawnCommand('command', [], {});
+
+// http://yeoman.io/generator/Base.html#spawnCommandSync
+generator.spawnCommandSync('command', []);
+generator.spawnCommandSync('command', [ '-arg' ]);
+generator.spawnCommandSync('command', [], {});
+
+// http://yeoman.io/generator/Base.html#option
+generator.options['opt'] === 'string';
+
+// http://yeoman.io/generator/Base.html#prompt
+// https://github.com/SBoudrias/Inquirer.js
+generator.prompt({ name: 'Name', message: 'Message' }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: (answers) => 'Message' }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', choices: [ 'c1', 'c2' ] }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', choices: [ { name: 'Choice 1', value: 'c1' } ] }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', choices: (answers) => [ 'c1', 'c2' ] }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', choices: (answers) => [ { name: 'Choice 1', value: 'c1' } ] }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', choices: (answers) => [ { name: 'Choice 1', value: 'c1', short: '1' } ] }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', default: 'string' }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', default: 10 }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', default: [ 'string' ] }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', default: [ 10 ] }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', default: (answers) => [ 'string' ] }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', default: (answers) => [ 10 ] }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', default: (answers) => 'string' }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', default: (answers) => 10 }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', type: "list" }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', validate: (input) => true }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', validate: (input) => "Error" }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', filter: (input) => input }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', when: (answers) => true }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: '', when: true }, (answer) => {}); 
