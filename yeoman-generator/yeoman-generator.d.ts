@@ -10,6 +10,7 @@ declare module yo {
         composeWith(namespace: string, options: any, settings?: IComposeSetting): IYeomanGenerator;
         defaultFor(name: string): void;
         destinationRoot(rootPath: string): string;
+        destinationPath(...path: string[]): string;
         determineAppname(): void;
         getCollisionFilter(): (output: any) => void;
         hookFor(name: string, config: IHookConfig): void;
@@ -19,8 +20,13 @@ declare module yo {
         run(args: any, callback?: Function): void;
         runHooks(callback?: Function): void;
         sourceRoot(rootPath: string): string;
-
-
+        templatePath(...path: string[]): string;
+        prompt(opt: IPromptOptions | IPromptOptions[], callback: (answers: any) => void): void;
+        npmInstall(packages?: string[] | string, options?: any, cb?: Function): void;
+        installDependencies(options?: IInstallDependencyOptions): void;
+        spawnCommand(name: string, args?: string[], options?: Object): void;
+        spawnCommandSync(name: string, args?: string[], options?: Object): void;
+        options: { [key: string]: any };
     }
 
     export class YeomanGeneratorBase implements IYeomanGenerator, NodeJS.EventEmitter {
@@ -28,7 +34,7 @@ declare module yo {
         composeWith(namespace: string, options: any, settings?: IComposeSetting): IYeomanGenerator;
         defaultFor(name: string): void;
         destinationRoot(rootPath: string): string;
-        destinationPath(file: string): string;
+        destinationPath(...path: string[]): string;
         determineAppname(): void;
         getCollisionFilter(): (output: any) => void;
         hookFor(name: string, config: IHookConfig): void;
@@ -38,7 +44,7 @@ declare module yo {
         run(args: any, callback?: Function): void;
         runHooks(callback?: Function): void;
         sourceRoot(rootPath: string): string;
-        templatePath(file: string): string;
+        templatePath(...path: string[]): string;
         addListener(event: string, listener: Function): NodeJS.EventEmitter;
         on(event: string, listener: Function): NodeJS.EventEmitter;
         once(event: string, listener: Function): NodeJS.EventEmitter;
@@ -49,15 +55,23 @@ declare module yo {
         emit(event: string, ...args: any[]): boolean;
 
         async(): any;
-        prompt(opt?:IPromptOptions, callback?:(answers:any)=>void) :void;
+        prompt(opt: IPromptOptions | IPromptOptions[], callback: (answers: any) => void): void;
         log(message: string) : void;
         npmInstall(packages: string[], options?: any, cb?: Function) :void;
-        installDependencies(): void;
-        spawnCommand(name: string, args?: string[]): void;
+        installDependencies(options?: IInstallDependencyOptions): void;
+        spawnCommand(name: string, args?: string[], options?: Object): void;
+        spawnCommandSync(name: string, args?: string[], options?: Object): void;
 
         appname: string;
         gruntfile: IGruntFileStatic;
         options: { [key: string]: any };
+    }
+
+    export interface IInstallDependencyOptions {
+        npm?: boolean;
+        bower?: boolean;
+        skipMessage?: boolean;
+        callback?: Function;
     }
 
     export interface IChoice {
@@ -67,11 +81,14 @@ declare module yo {
     }
 
     export interface IPromptOptions{
-        type: string;
+        type?: string;
         name: string;
-        message: string;
-        choices?: string[] | Function | IChoice[];
-        default?: string;
+        message: string | ((answers: Object) => string);
+        choices?: string[] | IChoice[] | ((answers: Object) => (string[] | IChoice[]));
+        default?: string | number | string[] | number[] | ((answers: Object) => (string | number | string[] | number[]));
+        validate?: ((input: any) => boolean | string);
+        filter?: ((input: any) => any);
+        when?: ((answers: Object) => boolean) | boolean;
         store?: boolean;
     }
 
@@ -84,10 +101,10 @@ declare module yo {
     }
 
     export interface IArgumentConfig {
-        desc?: string;
+        desc: string;
         required?: boolean;
         optional?: boolean;
-        type?: any;
+        type: any;
         defaults?: any;
     }
 
