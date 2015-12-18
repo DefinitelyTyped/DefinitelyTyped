@@ -6,7 +6,7 @@
 /// <reference path="../express/express.d.ts" />
 
 declare module "errorhandler" {
-    import express = require('express');
+    import * as express from 'express';
 
     function errorHandler(options?: errorHandler.Options): express.ErrorRequestHandler;
 

@@ -1,8 +1,8 @@
 /// <reference path="http-errors.d.ts" />
 /// <reference path="../express/express.d.ts" />
 
-import createError = require('http-errors');
-import express = require('express');
+import * as createError from 'http-errors';
+import * as express from 'express';
 
 var app = express();
 

@@ -1,7 +1,7 @@
 /// <reference path="api-error-handler.d.ts" />
 
-import errorHandler = require('api-error-handler');
-import express = require('express');
+import * as errorHandler from 'api-error-handler';
+import * as express from 'express';
 
 var api = express.Router();
 api.get('/users/:userid', function (req, res, next) {
