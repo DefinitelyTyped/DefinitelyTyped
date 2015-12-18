@@ -1,10 +1,9 @@
-// Type definitions for chai 3.4.0
+// Type definitions for chai 3.2.0
 // Project: http://chaijs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao/>,
 //                 Bart van der Schoor <https://github.com/Bartvds>,
 //                 Andrew Brown <https://github.com/AGBrown>,
-//                 Olivier Chevet <https://github.com/olivr70>,
-//                 Matt Wistrand <https://github.com/mwistrand>
+//                 Olivier Chevet <https://github.com/olivr70>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // <reference path="../assertion-error/assertion-error.d.ts"/>
@@ -98,8 +97,7 @@ declare module Chai {
         itself: Assertion;
         satisfy: Satisfy;
         satisfies: Satisfy;
-        closeTo: CloseTo;
-        approximately: CloseTo;
+        closeTo(expected: number, delta: number, message?: string): Assertion;
         members: Members;
         increase: PropertyChange;
         increases: PropertyChange;
@@ -110,7 +108,7 @@ declare module Chai {
         extensible: Assertion;
         sealed: Assertion;
         frozen: Assertion;
-        oneOf(list: any[], message?: string): Assertion;
+
     }
 
     interface LanguageChains {
@@ -155,10 +153,6 @@ declare module Chai {
 
     interface InstanceOf {
         (constructor: Object, message?: string): Assertion;
-    }
-
-    interface CloseTo {
-        (expected: number, delta: number, message?: string): Assertion;
     }
 
     interface Deep {
@@ -265,9 +259,6 @@ declare module Chai {
         isTrue(val: any, msg?: string): void;
         isFalse(val: any, msg?: string): void;
 
-        isNotTrue(val: any, msg?: string): void;
-        isNotFalse(val: any, msg?: string): void;
-
         isNull(val: any, msg?: string): void;
         isNotNull(val: any, msg?: string): void;
 
@@ -279,9 +270,6 @@ declare module Chai {
 
         isAbove(val: number, abv: number, msg?: string): void;
         isBelow(val: number, blw: number, msg?: string): void;
-
-        isAtLeast(val: number, atlst: number, msg?: string): void;
-        isAtMost(val: number, atmst: number, msg?: string): void;
 
         isFunction(val: any, msg?: string): void;
         isNotFunction(val: any, msg?: string): void;
@@ -351,7 +339,6 @@ declare module Chai {
 
         operator(val: any, operator: string, val2: any, msg?: string): void;
         closeTo(act: number, exp: number, delta: number, msg?: string): void;
-        approximately(act: number, exp: number, delta: number, msg?: string): void;
 
         sameMembers(set1: any[], set2: any[], msg?: string): void;
         sameDeepMembers(set1: any[], set2: any[], msg?: string): void;
@@ -374,7 +361,7 @@ declare module Chai {
         isNotFrozen(obj: Object, msg?: string): void;
         notFrozen(obj: Object, msg?: string): void;
 
-        oneOf(inList: any, list: any[], msg?: string): void;
+
     }
 
     export interface Config {
