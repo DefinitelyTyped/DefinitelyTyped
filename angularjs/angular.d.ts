@@ -1,6 +1,6 @@
-// Type definitions for Angular JS 1.4+
+// Type definitions for Angular JS 1.5.0.RC
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>
+// Definitions by: David Reher <http://github.com/davidreher>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -219,7 +219,17 @@ declare module angular {
          * @param controllerConstructor Controller constructor fn (optionally decorated with DI annotations in the array notation).
          */
         controller(name: string, inlineAnnotatedConstructor: any[]): IModule;
-        controller(object: Object): IModule;
+        controller(object: Object): IModule;      
+         /**
+          * Register a component definition with the compiler. This is short for registering a specific subset of directives
+          * which represents actual UI components in your application. Component definitions are very simple and do not
+          * require the complexity behind defining directives. Component definitions usually consist only of the template and
+          * the controller backing it. In order to make the definition easier, components enforce best practices like
+          * controllerAs and default behaviors like scope isolation, restrict to elements and allow transclusion.
+          * @param name Name of the component in camel-case (i.e. myComp which will match as my-comp)
+          * @param options Component definition object (a simplified directive definition object)
+          */
+        component(name: string, options: IComponent): IModule;
         /**
          * Register a new directive with the compiler.
          *
@@ -1618,6 +1628,58 @@ declare module angular {
          * @type {number}
          */
         totalPendingRequests: number;
+    }
+    
+    
+    /**
+     * Component definition object (a simplified directive definition object)
+     */
+    interface IComponent {
+        /**
+         * Controller constructor function that should be associated with newly created scope or the name of a registered
+         * controller if passed as a string. Empty function by default.
+         */
+        controller?: string | Function;
+        /**
+         * An identifier name for a reference to the controller. If present, the controller will be published to scope under
+         * the controllerAs name. If not present, this will default to be the same as the component name.
+         */
+        controllerAs?: string;
+        /**
+         * html template as a string or a function that returns an html template as a string which should be used as the
+         * contents of this component. Empty string by default.
+         * If template is a function, then it is injected with the following locals:
+         * $element - Current element
+         * $attrs - Current attributes object for the element
+         */
+        template?: string | Function;
+        /**
+         * path or function that returns a path to an html template that should be used as the contents of this component.
+         * If templateUrl is a function, then it is injected with the following locals:
+         * $element - Current element
+         * $attrs - Current attributes object for the element
+         */
+        templateUrl?: string | Function;
+        /**
+         * Define DOM attribute binding to component properties. Component properties are always bound to the component
+         * controller and not to the scope.
+         */
+        bindings?: any;
+        /**
+         * Whether transclusion is enabled. Enabled by default.
+         */
+        transclude?: boolean;
+        /**
+         * Whether the new scope is isolated. Isolated by default.
+         */
+        isolate?: boolean;
+        /**
+         * String of subset of EACM which restricts the component to specific directive declaration style. If omitted,
+         * this defaults to 'E'.
+         */
+        restrict?: string;
+        $canActivate?: Function;
+        $routeConfig?: Function;
     }
 
     ///////////////////////////////////////////////////////////////////////////
