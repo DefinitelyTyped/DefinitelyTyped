@@ -249,7 +249,7 @@ declare module FixedDataTable {
     /**
      * Component that defines the attributes of table column.
      */
-    interface ColumnProps {
+    interface ColumnProps extends __React.Props<Column> {
         /**
           * The horizontal alignment of the table cell content.
           * 
