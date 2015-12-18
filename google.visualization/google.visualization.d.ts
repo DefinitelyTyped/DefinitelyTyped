@@ -365,6 +365,7 @@ declare module google {
         export interface TransitionAnimation {
             duration?: number;
             easing?: string; // linear, in, out, inAndOut
+            startup?: boolean;
         }
 
         export interface ChartAxis {

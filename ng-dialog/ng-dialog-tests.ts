@@ -20,6 +20,8 @@ class DialogTestController {
 			template: "login.html",
 			className: "default flat-ui",
 			closeByEscape: false,
+			data: "string",
+			disableAnimation: false,
 			name: "login-popup"
 		});
 
