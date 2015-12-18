@@ -9582,9 +9582,10 @@ declare module _ {
         /**
          * Checks if value is the language type of Object. (e.g. arrays, functions, objects, regexes, new Number(0),
          * and new String(''))
+         *
          * @param value The value to check.
          * @return Returns true if value is an object, else false.
-         **/
+         */
         isObject(value?: any): boolean;
     }
 
@@ -9593,6 +9594,13 @@ declare module _ {
          * see _.isObject
          */
         isObject(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * see _.isObject
+         */
+        isObject(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isPlainObject
