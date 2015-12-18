@@ -143,26 +143,20 @@ class MyTable4 extends React.Component<{}, MyTable4State> {
                 headerHeight={50}
                 width={1000}
                 height={500}>
-                <Column
-                    header={<Cell>Name</Cell>}
-                    cell={
-                        <MyTextCell
-                            data={this.state.tableData}
-                            field="name"
-                        />
-                    }
-                width={200}/>
-
-                <Column
-                    header={<Cell>Email</Cell>}
-                    cell={
-                        <MyLinkCell
-                            data={this.state.tableData}
-                            field="email"
-                        />
-                    }
-                    width={200}
-                />
+                {
+                    ["name", "email"].map(field =>
+                        <Column
+                            key={field}
+                            header={<Cell>{field}</Cell>}
+                            cell={
+                                <MyTextCell
+                                    data={this.state.tableData}
+                                    field={field}
+                                />
+                            }
+                            width={200}/>
+                     )
+                }
             </Table>
         );
     }
