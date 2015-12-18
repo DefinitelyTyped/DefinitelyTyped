@@ -16,15 +16,13 @@ declare module "mongodb" {
   export class MongoClient {
     constructor();
 
-    static connect(uri: string): Promise<Db>;
     static connect(uri: string, callback: MongoCallback<Db>): void;
-    static connect(uri: string, options: any): Promise<Db>;
-    static connect(uri: string, options: any, callback: MongoCallback<Db>): void;
+    static connect(uri: string, options?: MongoClientOptions): Promise<Db>;
+    static connect(uri: string, options: MongoClientOptions, callback: MongoCallback<Db>): void;
 
-    connect(uri: string): Promise<Db>;
     connect(uri: string, callback: MongoCallback<Db>): void;
-    connect(uri: string, options: any): Promise<Db>;
-    connect(uri: string, options: any, callback: MongoCallback<Db>): void;
+    connect(uri: string, options?: MongoClientOptions): Promise<Db>;
+    connect(uri: string, options: MongoClientOptions, callback: MongoCallback<Db>): void;
   }
 
   // Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
@@ -55,25 +53,22 @@ declare module "mongodb" {
     public serverConfig: Server | ReplSet | Mongos;
     public bufferMaxEntries: number;
     public databaseName: string;
-    public options: Object;
+    public options: any;
     public native_parser: boolean;
     public slaveOk: boolean;
-    public writeConcern: Object;
+    public writeConcern: any;
 
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#addUser
-    public addUser(username: string, password: string): Promise<Object>;
-    public addUser(username: string, password: string, callback: MongoCallback<Object>): void;
-    public addUser(username: string, password: string, options: { w?: number | string, wtimeout?: number, j?: boolean, customData?: Object, roles?: Object[] }): Promise<Object>;
-    public addUser(username: string, password: string, options: { w?: number | string, wtimeout?: number, j?: boolean, customData?: Object, roles?: Object[] }, callback: MongoCallback<Object>): void;
+    public addUser(username: string, password: string, callback: MongoCallback<any>): void;
+    public addUser(username: string, password: string, options?: { w?: number | string, wtimeout?: number, j?: boolean, customData?: Object, roles?: Object[] }): Promise<any>;
+    public addUser(username: string, password: string, options: { w?: number | string, wtimeout?: number, j?: boolean, customData?: Object, roles?: Object[] }, callback: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#admin
     public admin(): Admin;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#authenticate
-    public authenticate(userName: string, password: string): Promise<Object>;
-    public authenticate(userName: string, password: string, callback: MongoCallback<Object>): void;
-    public authenticate(userName: string, password: string, options: { authMechanism: string }): Promise<Object>;
-    public authenticate(userName: string, password: string, options: { authMechanism: string }, callback: MongoCallback<Object>): void;
+    public authenticate(userName: string, password: string, callback: MongoCallback<any>): void;
+    public authenticate(userName: string, password: string, options?: { authMechanism: string }): Promise<any>;
+    public authenticate(userName: string, password: string, options: { authMechanism: string }, callback: MongoCallback<any>): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#close
-    public close(): Promise<void>;
     public close(callback: MongoCallback<void>): void;
     public close(forceClose: boolean): Promise<void>;
     public close(forceClose: boolean, callback: MongoCallback<void>): void;
@@ -85,123 +80,122 @@ declare module "mongodb" {
     public collections(): Promise<Collection[]>;
     public collections(callback: MongoCallback<Collection[]>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#command
-    public command(command: Object): Promise<Object>;
-    public command(command: Object, callback?: MongoCallback<Object>): void;
-    public command(command: Object, options: { readPreference: ReadPreference | string }): Promise<Object>;
-    public command(command: Object, options: { readPreference: ReadPreference | string }, callback: MongoCallback<Object>): void;
+    public command(command: Object, callback?: MongoCallback<any>): void;
+    public command(command: Object, options?: { readPreference: ReadPreference | string }): Promise<any>;
+    public command(command: Object, options: { readPreference: ReadPreference | string }, callback: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#createCollection
-    public createCollection(name: string): Promise<Collection>;
     public createCollection(name: string, callback: MongoCallback<Collection>): void;
-    public createCollection(name: string, options: CollectionCreateOptions): Promise<Collection>;
+    public createCollection(name: string, options?: CollectionCreateOptions): Promise<Collection>;
     public createCollection(name: string, options: CollectionCreateOptions, callback: MongoCallback<Collection>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#createIndex
-    public createIndex(name: string, fieldOrSpec: string | Object): Promise<Object>;
-    public createIndex(name: string, fieldOrSpec: string | Object, callback: MongoCallback<Object>): void;
-    public createIndex(name: string, fieldOrSpec: string | Object, options: IndexOptions): Promise<Object>;
-    public createIndex(name: string, fieldOrSpec: string | Object, options: IndexOptions, callback: MongoCallback<Object>): void;
+    public createIndex(name: string, fieldOrSpec: string | Object, callback: MongoCallback<any>): void;
+    public createIndex(name: string, fieldOrSpec: string | Object, options?: IndexOptions): Promise<any>;
+    public createIndex(name: string, fieldOrSpec: string | Object, options: IndexOptions, callback: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#db
     public db(dbName: string): Db;
     public db(dbName: string, options: { noListener?: boolean, returnNonCachedInstance?: boolean }): Db;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#dropCollection
-    public dropCollection(name: string): Promise<Object>;
-    public dropCollection(name: string, callback: MongoCallback<Object>): void;
+    public dropCollection(name: string): Promise<any>;
+    public dropCollection(name: string, callback: MongoCallback<any>): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#dropDatabase
-    public dropDatabase(): Promise<Object>;
-    public dropDatabase(callback: MongoCallback<Object>): void;
+    public dropDatabase(): Promise<any>;
+    public dropDatabase(callback: MongoCallback<any>): void;
     
     //deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#ensureIndex
     //public ensureIndex(collectionName: any, fieldOrSpec: any, options: IndexOptions, callback: Function): void;
     //deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#eval
-    //public eval(code: any, parameters: any[], options?: any, callback?: MongoCallback<Object>): void;
+    //public eval(code: any, parameters: any[], options?: any, callback?: MongoCallback<any>): void;
     
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#executeDbAdminCommand
-    public executeDbAdminCommand(command: Object): Promise<Object>;
-    public executeDbAdminCommand(command: Object, callback: MongoCallback<Object>): void;
-    public executeDbAdminCommand(command: Object, options: { readPreference?: ReadPreference | string, maxTimeMS?: number }): Promise<Object>;
-    public executeDbAdminCommand(command: Object, options: { readPreference?: ReadPreference | string, maxTimeMS?: number }, callback: MongoCallback<Object>): void;
+    public executeDbAdminCommand(command: Object, callback: MongoCallback<any>): void;
+    public executeDbAdminCommand(command: Object, options?: { readPreference?: ReadPreference | string, maxTimeMS?: number }): Promise<any>;
+    public executeDbAdminCommand(command: Object, options: { readPreference?: ReadPreference | string, maxTimeMS?: number }, callback: MongoCallback<any>): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#indexInformation
-    public indexInformation(name: string): Promise<Object>;
-    public indexInformation(name: string, callback: MongoCallback<Object>): void;
-    public indexInformation(name: string, options: { full?: boolean, readPreference?: ReadPreference | string }): Promise<Object>;
-    public indexInformation(name: string, options: { full?: boolean, readPreference?: ReadPreference | string }, callback: MongoCallback<Object>): void;
+    public indexInformation(name: string, callback: MongoCallback<any>): void;
+    public indexInformation(name: string, options?: { full?: boolean, readPreference?: ReadPreference | string }): Promise<any>;
+    public indexInformation(name: string, options: { full?: boolean, readPreference?: ReadPreference | string }, callback: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#listCollections
     public listCollections(filter: Object, options?: { batchSize?: number, readPreference?: ReadPreference | string }): CommandCursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#logout
-    public logout(): Promise<Object>;
-    public logout(callback: MongoCallback<Object>): void;
-    public logout(options: { dbName?: string }): Promise<Object>;
-    public logout(options: { dbName?: string }, callback: MongoCallback<Object>): void;
+    public logout(callback: MongoCallback<any>): void;
+    public logout(options?: { dbName?: string }): Promise<any>;
+    public logout(options: { dbName?: string }, callback: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#open
     public open(): Promise<Db>;
     public open(callback: MongoCallback<Db>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#removeUser
-    public removeUser(username: string): Promise<Object>;
-    public removeUser(username: string, callback: MongoCallback<Object>): void;
-    public removeUser(username: string, options: { w?: number | string, wtimeout?: number, j?: boolean }): Promise<Object>;
-    public removeUser(username: string, options: { w?: number | string, wtimeout?: number, j?: boolean }, callback: MongoCallback<Object>): void;
+    public removeUser(username: string, callback: MongoCallback<any>): void;
+    public removeUser(username: string, options?: { w?: number | string, wtimeout?: number, j?: boolean }): Promise<any>;
+    public removeUser(username: string, options: { w?: number | string, wtimeout?: number, j?: boolean }, callback: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#renameCollection
-    public renameCollection(fromCollection: string, toCollection: string): Promise<Collection>;
     public renameCollection(fromCollection: string, toCollection: string, callback: MongoCallback<Collection>): void;
-    public renameCollection(fromCollection: string, toCollection: string, options: { dropTarget?: boolean }): Promise<Collection>;
+    public renameCollection(fromCollection: string, toCollection: string, options?: { dropTarget?: boolean }): Promise<Collection>;
     public renameCollection(fromCollection: string, toCollection: string, options: { dropTarget?: boolean }, callback: MongoCallback<Collection>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#stats
-    public stats(): Promise<Object>;;
-    public stats(callback: MongoCallback<Object>): void;
-    public stats(options: { scale?: number }): Promise<Object>;;
-    public stats(options: { scale?: number }, callback: MongoCallback<Object>): void;
+    public stats(callback: MongoCallback<any>): void;
+    public stats(options?: { scale?: number }): Promise<any>;;
+    public stats(options: { scale?: number }, callback: MongoCallback<any>): void;
   }
 
-  // Class documentation : http://mongodb.github.io/node-mongodb-native/api-bson-generated/objectid.html
-  // Last update: doc. version 1.3.13 (28.08.2013)
+  // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/ObjectID.html
   export class ObjectID {
-    constructor(s?: string);
+    constructor(s?: string | number);
 
-    // Returns the ObjectID id as a 24 byte hex string representation
-    public toHexString(): string;
-
-    // Compares the equality of this ObjectID with otherID.
-    public equals(otherID: ObjectID): boolean;
-
-    // Returns the generation date (accurate up to the second) that this ID was generated.
-    public getTimestamp(): Date;
-
-    // Creates an ObjectID from a second based number, with the rest of the ObjectID zeroed out. Used for comparisons or sorting the ObjectID.
-    // time – an integer number representing a number of seconds.
-    public static createFromTime(time: number): ObjectID;
-
+    public generationTime: number;
+    
     // Creates an ObjectID from a hex string representation of an ObjectID.
     // hexString – create a ObjectID from a passed in 24 byte hexstring.
     public static createFromHexString(hexString: string): ObjectID;
-    
+    // Creates an ObjectID from a second based number, with the rest of the ObjectID zeroed out. Used for comparisons or sorting the ObjectID.
+    // time – an integer number representing a number of seconds.
+    public static createFromTime(time: number): ObjectID;
     // Checks if a value is a valid bson ObjectId
     // id - Value to be checked
-    public static isValid(id: string): Boolean;
-    
+    public static isValid(id: string | number): boolean;
+    //Compares the equality of this ObjectID with otherID.
+    public equals(otherID: ObjectID): boolean;
     // Generate a 12 byte id string used in ObjectID's
     // time - optional parameter allowing to pass in a second based timestamp
     public generate(time?: number): string;
+    // Returns the generation date (accurate up to the second) that this ID was generated.
+    public getTimestamp(): Date;
+    // Returns the ObjectID id as a 24 byte hex string representation
+    public toHexString(): string;
   }
 
-  // Class documentation : http://mongodb.github.io/node-mongodb-native/api-bson-generated/binary.html
+  // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Binary.html
   export class Binary {
     constructor(buffer: Buffer, subType?: number);
 
-    // Updates this binary with byte_value
-    put(byte_value: any): void;
-
-    // Writes a buffer or string to the binary
-    write(buffer: any, offset: number): void;
-
-    // Reads length bytes starting at position.
-    read(position: number, length: number): Buffer;
-
-    // Returns the value of this binary as a string.
-    value(): string;
+    public static SUBTYPE_BYTE_ARRAY: number;
+    public static SUBTYPE_DEFAULT: number;
+    public static SUBTYPE_FUNCTION: number;
+    public static SUBTYPE_MD5: number;
+    public static SUBTYPE_USER_DEFINED: number;
+    public static SUBTYPE_UUID: number;
+    public static SUBTYPE_UUID_OLD: number;
 
     // The length of the binary.
     length(): number;
+    // Updates this binary with byte_value
+    put(byte_value: number | string): void;
+    // Reads length bytes starting at position.
+    read(position: number, length: number): Buffer;
+    // Returns the value of this binary as a string.
+    value(): string;
+    // Writes a buffer or string to the binary
+    write(buffer: Buffer | string, offset: number): void;
   }
-
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html#.connect
+  export interface MongoClientOptions {
+    uri_decode_auth?: boolean;
+    db?: DbCreateOptions;
+    server?: ServerOptions;
+    replSet?: ReplSetOptions;
+    mongos?: MongosOptions;
+    promiseLibrary?: Object;
+  }
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
   export interface SocketOptions {
     // Reconnect on error. default:false
     autoReconnect?: boolean;
@@ -214,9 +208,8 @@ declare module "mongodb" {
     // TCP Socket timeout setting. default 0
     socketTimeoutMS?: number;
   }
-
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
   export interface ServerOptions {
-    
     // - specify the number of connections in the pool default:5
     poolSize?: number;
     ssl?: boolean;
@@ -230,7 +223,7 @@ declare module "mongodb" {
     reconnectTries?: number;
     reconnectInterval?: number;
   }
-
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/ReplSet.html
   export interface ReplSetOptions {
     ha?: boolean;
     haInterval?: number;
@@ -248,7 +241,7 @@ declare module "mongodb" {
     sslPass?: Buffer | string;
     socketOptions?: SocketOptions;
   }
-
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/Mongos.html
   export interface MongosOptions {
     ha?: boolean;
     haInterval?: number;
@@ -293,12 +286,14 @@ declare module "mongodb" {
     // custom primary key factory to generate _id values (see Custom primary keys).
     pkFactory?: PKFactory;
     promiseLibrary?: Object;
-    readConcern?: Object;
+    readConcern?: { level?: Object };
   }
   
   // See http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html
   export class ReadPreference {
     constructor(mode: string, tags: Object);
+    mode: string;
+    tags: any;
     public static PRIMARY: string;
     public static PRIMARY_PREFERRED: string;
     public static SECONDARY: string;
@@ -329,51 +324,213 @@ declare module "mongodb" {
   export interface CollStats {
     // Namespace.
     ns: string;
-
     // Number of documents.
     count: number;
-
     // Collection size in bytes.
     size: number;
-
     // Average object size in bytes.
     avgObjSize: number;
-
     // (Pre)allocated space for the collection in bytes.
     storageSize: number;
-
     // Number of extents (contiguously allocated chunks of datafile space).
     numExtents: number;
-
     // Number of indexes.
     nindexes: number;
-
     // Size of the most recently created extent in bytes.
     lastExtentSize: number;
-
     // Padding can speed up updates if documents grow.
     paddingFactor: number;
-    flags: number;
-
+    userFlags: number;
     // Total index size in bytes.
     totalIndexSize: number;
-
     // Size of specific indexes in bytes.
     indexSizes: {
       _id_: number;
       username: number;
     };
+    capped: boolean;
+    maxSize: boolean;
+    wiredTiger: any;
+    indexDetails: any;
+  }
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#aggregate
+  export interface CollectionAggrigationOptions {
+    readPreference?: ReadPreference | string;
+    // Return the query as cursor, on 2.6 > it returns as a real cursor
+    // on pre 2.6 it returns as an emulated cursor.
+    cursor?: { batchSize: number };
+    // Explain returns the aggregation execution plan (requires mongodb 2.6 >).
+    explain?: boolean;
+    // lets the server know if it can use disk to store
+    // temporary results for the aggregation (requires mongodb 2.6 >).
+    allowDiskUse?: boolean;
+    // specifies a cumulative time limit in milliseconds for processing operations
+    // on the cursor. MongoDB interrupts the operation at the earliest following interrupt point.
+    maxTimeMS?: boolean;
+    // Allow driver to bypass schema validation in MongoDB 3.2 or higher.
+    bypassDocumentValidation?: boolean;
   }
 
-  // Documentation : http://mongodb.github.io/node-mongodb-native/api-generated/collection.html
-  export interface Collection {
-    new (db: Db, collectionName: string, pkFactory?: Object, options?: CollectionCreateOptions): Collection; // is this right?
+  export interface CollectionInsertOptions {
+    // The write concern.
+    w?: number | string;
+    // The write concern timeout.
+    wtimeout?: number;
+    // Specify a journal write concern.
+    j?: boolean;
+    // Serialize functions on any object.
+    serializeFunctions?: boolean;
+
+    forceServerObjectId?: boolean;
+    // Allow driver to bypass schema validation in MongoDB 3.2 or higher.
+    bypassDocumentValidation?: boolean;
+  }
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#bulkWrite
+  export interface CollectionBluckWriteOptions {
+    // The write concern.
+    w?: number | string;
+    // The write concern timeout.
+    wtimeout?: number;
+    // Specify a journal write concern.
+    j?: boolean;
+    // Serialize functions on any object.
+    serializeFunctions?: boolean;
+    // Execute write operation in ordered or unordered fashion.
+    ordered?: boolean;
+    // Allow driver to bypass schema validation in MongoDB 3.2 or higher.
+    bypassDocumentValidation?: boolean;
+  }
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~BulkWriteOpResult
+  export interface BulkWriteOpResultObject {
+    insertedCount?: number;
+    matchedCount?: number;
+    modifiedCount?: number;
+    deletedCount?: number;
+    upsertedCount?: number;
+    insertedIds?: any;
+    upsertedIds?: any;
+    result?: any;
+  }
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#count
+  export interface MongoCountPreferences {
+    // The limit of documents to count.
+    limit?: number;
+    // The number of documents to skip for the count.
+    skip?: boolean;
+    // An index name hint for the query.
+    hint?: string;
+    // The preferred read preference
+    readPreference?: ReadPreference | string;
+  }
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~deleteWriteOpResult
+  
+  export interface deleteWriteOpResultObject {
+    //The raw result returned from MongoDB, field will vary depending on server version.
+    result: { 	
+      //Is 1 if the command executed correctly.
+      ok?: number;
+      //The total count of documents deleted.
+      n?: number;
+    }
+    //The connection object used for the operation.
+    connection?: any;
+    //The number of documents deleted.
+    deletedCount?: number;
+  }
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~findAndModifyWriteOpResult
+  export interface findAndModifyWriteOpResultObject {
+    //Document returned from findAndModify command.
+    value?: any;
+    //The raw lastErrorObject returned from the command.
+    lastErrorObject?: any;
+    //Is 1 if the command executed correctly.
+    ok?: number;
+  }
+  export interface findOneAndReplaceOption {
+    projection?: Object;
+    sort?: Object;
+    maxTimeMS?: number;
+    upsert?: boolean;
+    returnOriginal?: boolean;
+  }
+  // Documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html
+  export class Collection {
+    //Internal type
+    //constructor (db: Db, collectionName: string, pkFactory?: Object, options?: CollectionCreateOptions)
+    
+    // Get the collection name.
+    collectionName: string;
+    // Get the full collection namespace.
+    namespace: string;
+    // The current write concern values.
+    writeConcern: any;
+    // The current read concern values.
+    readConcern: any;
+    // Get current index hint for collection.
+    hint: any;
+    
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#aggregate
+    aggregate(pipeline: Object[], callback: MongoCallback<any>): void | AggregationCursor;
+    aggregate(pipeline: Object[], options: CollectionAggrigationOptions, callback: MongoCallback<any>): void | AggregationCursor;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#bulkWrite
+    bulkWrite(operations: Object[], callback: MongoCallback<BulkWriteOpResultObject>): void
+    bulkWrite(operations: Object[], options?: CollectionBluckWriteOptions): Promise<BulkWriteOpResultObject>
+    bulkWrite(operations: Object[], options: CollectionBluckWriteOptions, callback: MongoCallback<BulkWriteOpResultObject>): void
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#count
+    count(query: Object, callback: MongoCallback<number>): void;
+    count(query: Object, options?: MongoCountPreferences): Promise<number>;
+    count(query: Object, options: MongoCountPreferences, callback: MongoCallback<number>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#createIndex
+    createIndex(fieldOrSpec: string | any, callback: MongoCallback<string>): void;
+    createIndex(fieldOrSpec: string | any, options?: IndexOptions): Promise<string>;
+    createIndex(fieldOrSpec: string | any, options: IndexOptions, callback: MongoCallback<string>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#createIndexes and http://docs.mongodb.org/manual/reference/command/createIndexes/
+    createIndexes(indexSpecs: Object[]): Promise<any>;
+    createIndexes(indexSpecs: Object[], callback: MongoCallback<any>)
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#deleteMany
+    deleteMany(filter: Object, callback: MongoCallback<deleteWriteOpResultObject>): void;
+    deleteMany(filter: Object, options?: { w?: number | string, wtimmeout?: number, j?: boolean }): Promise<deleteWriteOpResultObject>;
+    deleteMany(filter: Object, options: { w?: number | string, wtimmeout?: number, j?: boolean }, callback: MongoCallback<deleteWriteOpResultObject>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#deleteOne
+    deleteMany(filter: Object, callback: MongoCallback<deleteWriteOpResultObject>): void;
+    deleteMany(filter: Object, options?: { w?: number | string, wtimmeout?: number, j?: boolean, bypassDocumentValidation?: boolean }): Promise<deleteWriteOpResultObject>;
+    deleteMany(filter: Object, options: { w?: number | string, wtimmeout?: number, j?: boolean, bypassDocumentValidation?: boolean }, callback: MongoCallback<deleteWriteOpResultObject>)
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#distinct
+    distinct(key: string, query: Object, callback: MongoCallback<any>): void
+    distinct(key: string, query: Object, options?: { readPreference?: ReadPreference | string }): Promise<any>;
+    distinct(key: string, query: Object, options: { readPreference?: ReadPreference | string }, callback: MongoCallback<any>): void
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#drop
+    drop(): Promise<any>;
+    drop(callback: MongoCallback<any>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#dropIndex
+    dropIndex(indexName: string, callback: MongoCallback<any>): void;
+    dropIndex(indexName: string, options?: { w?: number | string, wtimmeout?: number, j?: boolean }): Promise<any>;
+    dropIndex(indexName: string, options: { w?: number | string, wtimmeout?: number, j?: boolean }, callback: MongoCallback<any>): void;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#dropIndexes
+    dropIndexes(): Promise<any>;
+    dropIndexes(callback?: MongoCallback<any>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#find
+    find(query: Object): Cursor;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOneAndDelete
+    findOneAndDelete(filter: Object, callback: MongoCallback<findAndModifyWriteOpResultObject>): void;
+    findOneAndDelete(filter: Object, options?: { projection?: Object, sort?: Object, maxTimeMS?: number }): Promise<findAndModifyWriteOpResultObject>;
+    findOneAndDelete(filter: Object, options: { projection?: Object, sort?: Object, maxTimeMS?: number }, callback: MongoCallback<findAndModifyWriteOpResultObject>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOneAndReplace
+    findOneAndReplace(filter: Object, replacement: Object, callback: MongoCallback<findAndModifyWriteOpResultObject>): void;
+    findOneAndReplace(filter: Object, replacement: Object, options?: findOneAndReplaceOption): Promise<findAndModifyWriteOpResultObject>;
+    findOneAndReplace(filter: Object, replacement: Object, options: findOneAndReplaceOption, callback: MongoCallback<findAndModifyWriteOpResultObject>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOneAndUpdate
+    findOneAndUpdate(filter: Object, update: Object, callback: MongoCallback<findAndModifyWriteOpResultObject>): void;
+    findOneAndUpdate(filter: Object, update: Object, options?: findOneAndReplaceOption): Promise<findAndModifyWriteOpResultObject>;
+    findOneAndUpdate(filter: Object, update: Object, options: findOneAndReplaceOption, callback: MongoCallback<findAndModifyWriteOpResultObject>): void;
+    
+    
     /**
      * @deprecated use insertOne or insertMany
      * Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#insert
      */
-    insert(query: any, callback: (err: Error, result: any) => void): void;
-    insert(query: any, options: { safe?: any; continueOnError?: boolean; keepGoing?: boolean; serializeFunctions?: boolean; }, callback: (err: Error, result: any) => void): void;
+    //insert(query: any, callback: (err: Error, result: any) => void): void;
+    //insert(query: any, options: { safe?: any; continueOnError?: boolean; keepGoing?: boolean; serializeFunctions?: boolean; }, callback: (err: Error, result: any) => void): void;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#insertOne
     insertOne(doc: any, callback: (err: Error, result: any) => void): void;
@@ -465,8 +622,7 @@ declare module "mongodb" {
     findOne(selector: Object, fields: any, skip: number, limit: number, callback?: (err: Error, result: any) => void): Cursor;
     findOne(selector: Object, fields: any, skip: number, limit: number, timeout: number, callback?: (err: Error, result: any) => void): Cursor;
 
-    createIndex(fieldOrSpec: any, callback: (err: Error, indexName: string) => void): void;
-    createIndex(fieldOrSpec: any, options: IndexOptions, callback: (err: Error, indexName: string) => void): void;
+
 
     ensureIndex(fieldOrSpec: any, callback: (err: Error, indexName: string) => void): void;
     ensureIndex(fieldOrSpec: any, options: IndexOptions, callback: (err: Error, indexName: string) => void): void;
@@ -481,18 +637,17 @@ declare module "mongodb" {
     group(keys: Object, condition: Object, initial: Object, reduce: Function, finalize: Function, command: boolean, options: { readPreference: string }, callback: Function): void;
     options(callback: Function): void;
     isCapped(callback: Function): void;
-    indexExists(indexes: string, callback: Function): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#indexExists
+    indexExists(indexes: string | string[]): Promise<boolean>;
+    indexExists(indexes: string | string[], callback: MongoCallback<boolean>): void;
     geoNear(x: number, y: number, callback: Function): void;
     geoNear(x: number, y: number, options: Object, callback: Function): void;
     geoHaystackSearch(x: number, y: number, callback: Function): void;
     geoHaystackSearch(x: number, y: number, options: Object, callback: Function): void;
     indexes(callback: Function): void;
-    aggregate(pipeline: any[], callback: (err: Error, results: any) => void): void;
-    aggregate(pipeline: any[], options: { readPreference: string }, callback: (err: Error, results: any) => void): void;
+
     stats(options: { readPreference: string; scale: number }, callback: (err: Error, results: CollStats) => void): void;
     stats(callback: (err: Error, results: CollStats) => void): void;
-
-    hint: any;
   }
 
   export interface MapReduceOptions {
@@ -509,17 +664,31 @@ declare module "mongodb" {
   }
 
   export interface IndexOptions {
+    // The write concern.
     w?: number | string;
+    // The write concern timeout.
     wtimeout?: number;
+    // Specify a journal write concern.
     j?: boolean;
+    // Creates an unique index.
     unique?: boolean;
+    // Creates a sparse index.
     sparse?: boolean;
+    // Creates the index in the background, yielding whenever possible.
     background?: boolean;
+    // A unique index cannot be created on a key that has pre-existing duplicate values.
+    // If you would like to create the index anyway, keeping the first document the database indexes and
+    // deleting all subsequent documents that have duplicate value
     dropDups?: boolean;
+    // For geo spatial indexes set the lower bound for the co-ordinates.
     min?: number;
+    // For geo spatial indexes set the high bound for the co-ordinates.
     max?: number;
+    // Specify the format version of the indexes.
     v?: number;
+    // Allows you to expire data on indexes applied to a data (MongoDB 2.2 or higher)
     expireAfterSeconds?: number;
+    // Override the auto generated index name (useful if the resulting name is larger than 128 bytes)
     name?: string;
   }
 
@@ -627,6 +796,12 @@ declare module "mongodb" {
   
   //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html
   export class CommandCursor {
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#toArray
+    public toArray(): Promise<any[]>;
+    public toArray(callback: MongoCallback<any[]>): void;
+  }
+
+  export class AggregationCursor {
 
   }
 }
