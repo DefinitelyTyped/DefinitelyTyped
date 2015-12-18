@@ -176,7 +176,6 @@ declare namespace ReactBootstrap {
         public static Toggle: typeof DropdownToggle;
     }
 
-
     // <DropdownButton />
     interface DropdownButtonBaseProps extends DropdownBaseProps {
         bsSize?: Sizes;
@@ -237,7 +236,6 @@ declare namespace ReactBootstrap {
     }
     class MenuItem extends React.Component<MenuItemProps, {}> { }
 
-
     // <Panel />
     interface PanelProps extends TransitionCallbacks, React.HTMLProps<Panel> {
         bsClass?: string;
@@ -245,7 +243,7 @@ declare namespace ReactBootstrap {
         bsStyle?: string;
         collapsible?: boolean;
         defaultExpanded?: boolean;
-        eventKey?: any;
+        eventKey?: Object;
         expanded?: boolean;
         footer?: React.ReactNode;
         header?: React.ReactNode;
@@ -853,7 +851,6 @@ declare namespace ReactBootstrap {
     type InputGroup = React.Component<InputGroupProps, {}>;
     var InputGroup: InputGroupClass;
 
-
     // <InputGroup.Addon />
     interface InputGroupAddonProps extends React.HTMLProps<InputGroupAddon> { }
     type InputGroupAddon = React.ClassicComponent<InputGroupAddonProps, {}>;
@@ -898,7 +895,7 @@ declare namespace ReactBootstrap {
         componentClass?: React.ReactType;
         id?: string;
         type?: string;
-    }
+	}
     interface FormControlClass extends React.ClassicComponentClass<FormControlProps> {
         Feedback: typeof FormControlFeedback;
         Static: typeof FormControlStatic;
@@ -936,7 +933,6 @@ declare namespace ReactBootstrap {
         validationState?: "success" | "warning" | "error";
     }
     class Radio extends React.Component<RadioProps, {}> { }
-
 
     // <Portal />
     interface PortalProps extends React.Props<Portal> {
