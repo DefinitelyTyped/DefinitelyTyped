@@ -84,7 +84,7 @@ declare module yo {
         type?: string;
         name: string;
         message: string | ((answers: Object) => string);
-        choices?: string[] | IChoice[] | ((answers: Object) => (string[] | IChoice[]));
+        choices?: any[] | ((answers: Object) => any);
         default?: string | number | string[] | number[] | ((answers: Object) => (string | number | string[] | number[]));
         validate?: ((input: any) => boolean | string);
         filter?: ((input: any) => any);
