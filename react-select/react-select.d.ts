@@ -16,13 +16,12 @@ declare module "react-select" {
     
     interface Option{
         label : string;
-        value : any;
+        value : string;
     }
     
     interface ReactSelectProps extends React.Props<ReactSelectClass>{
         addLabelText? : string;
         allowCreate? : boolean;
-        asyncOptions? : ()=>any;
         autoload? : boolean;
         backspaceRemoves? : boolean;
         cacheAsyncResults? : boolean;
@@ -32,17 +31,17 @@ declare module "react-select" {
         clearValueText? : string;
         delimiter? : string;
         disabled? : boolean;
-        filterOption? : (option,filterString : string)=>any;
-        filterOptions? : (options:Array<any>,filterString : string,values : Array<any>)=>any;
+        filterOption? : (option : Option,filterString : string)=>Option;
+        filterOptions? : (options:Array<Option>,filterString : string,values : Array<Object>)=>Array<Option>;
         ignoreCase? : boolean; // default true	whether to perform case-insensitive filtering
-        inputProps? : any;
+        inputProps? : Object;
         isLoading? : boolean;
         labelKey? : string;
         matchPos? : string;
         matchProp? : string;
         multi? : boolean;
         name? : string;
-        newOptionCreator? : ()=>any;
+        newOptionCreator? : ()=>Option;
         noResultsText? : string;
         onBlur? : (event)=>void;
         onChange? : (newValue)=>void;
