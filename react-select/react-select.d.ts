@@ -1,3 +1,8 @@
+// Type definitions for react-select v0.9.10
+// Project: https://github.com/JedWatson/react-select
+// Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 ///<reference path="../react/react.d.ts"/>
 
 // Typings for https://github.com/JedWatson/react-select
