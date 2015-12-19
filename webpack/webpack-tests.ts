@@ -232,6 +232,33 @@ configuration = {
 
 configuration = { output: { chunkFilename: "[chunkhash].bundle.js" } };
 
+//
+// https://webpack.github.io/docs/configuration.html
+//
+
+configuration = {
+    entry: [
+        "./entry1",
+        "./entry2"
+    ]
+};
+
+configuration = {
+    devtool: "#inline-source-map"
+};
+
+loader = {
+    test: /\.jsx$/,
+    include: [
+        path.resolve(__dirname, "app/src"),
+        path.resolve(__dirname, "app/test")
+    ],
+    exclude: [
+        path.resolve(__dirname, "node_modules")
+    ],
+    loader: "babel-loader"
+};
+
 declare var require: any;
 declare var path: any;
 configuration = {
