@@ -43,11 +43,11 @@ declare module "react-select" {
         name? : string;
         newOptionCreator? : ()=>Option;
         noResultsText? : string;
-        onBlur? : (event)=>void;
-        onChange? : (newValue)=>void;
-        onFocus? : (event)=>void;
-        onInputChange? : (inputValue)=>void;
-        onOptionLabelClick? : (value, event)=>void;
+        onBlur? : (event : Event)=>void;
+        onChange? : (newValue : string)=>void;
+        onFocus? : (event : Event)=>void;
+        onInputChange? : (inputValue : string)=>void;
+        onOptionLabelClick? : (value : string, event : Event)=>void;
         optionRenderer? : ()=>void;
         options? : Array<Option>;
         placeholder? : string;
