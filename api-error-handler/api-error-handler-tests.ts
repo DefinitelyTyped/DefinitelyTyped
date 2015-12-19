@@ -9,3 +9,5 @@ api.get('/users/:userid', function (req, res, next) {
 });
 
 api.use(errorHandler());
+
+let res: errorHandler.Response;
