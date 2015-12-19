@@ -67,3 +67,5 @@ var err = new createError['404']();
 
 //createError['404'](); // TypeScript should fail with "Did you mean to include 'new'?"
 //new createError(); // TypeScript should fail with "Only a void function can be called with the 'new' keyword"
+
+let error: createError.HttpError;
