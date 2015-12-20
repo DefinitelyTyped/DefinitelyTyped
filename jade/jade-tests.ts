@@ -1,6 +1,6 @@
 /// <reference path="jade.d.ts"/>
 
-import jade from 'jade';
+import jade = require('jade');
 
 jade.compile("b")();
 jade.compileFile("foo.jade", {})();
