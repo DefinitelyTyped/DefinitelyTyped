@@ -504,7 +504,7 @@ declare module "mongodb" {
   //http://mongodb.github.io/node-mongodb-native/2.1/api/MinKey.html
   export class MinKey { }
   
-//http://mongodb.github.io/node-mongodb-native/2.1/api/Timestamp.html
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/Timestamp.html
   export class Timestamp {
     constructor(low: number, high: number);
 
@@ -581,7 +581,7 @@ declare module "mongodb" {
     createIndex(fieldOrSpec: string | any, options: IndexOptions, callback: MongoCallback<string>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#createIndexes and http://docs.mongodb.org/manual/reference/command/createIndexes/
     createIndexes(indexSpecs: Object[]): Promise<any>;
-    createIndexes(indexSpecs: Object[], callback: MongoCallback<any>)
+    createIndexes(indexSpecs: Object[], callback: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#deleteMany
     deleteMany(filter: Object, callback: MongoCallback<DeleteWriteOpResultObject>): void;
     deleteMany(filter: Object, options?: CollectionOptions): Promise<DeleteWriteOpResultObject>;
@@ -589,7 +589,7 @@ declare module "mongodb" {
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#deleteOne
     deleteOne(filter: Object, callback: MongoCallback<DeleteWriteOpResultObject>): void;
     deleteOne(filter: Object, options?: { w?: number | string, wtimmeout?: number, j?: boolean, bypassDocumentValidation?: boolean }): Promise<DeleteWriteOpResultObject>;
-    deleteOne(filter: Object, options: { w?: number | string, wtimmeout?: number, j?: boolean, bypassDocumentValidation?: boolean }, callback: MongoCallback<DeleteWriteOpResultObject>)
+    deleteOne(filter: Object, options: { w?: number | string, wtimmeout?: number, j?: boolean, bypassDocumentValidation?: boolean }, callback: MongoCallback<DeleteWriteOpResultObject>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#distinct
     distinct(key: string, query: Object, callback: MongoCallback<any>): void
     distinct(key: string, query: Object, options?: { readPreference?: ReadPreference | string }): Promise<any>;
@@ -1099,7 +1099,7 @@ declare module "mongodb" {
     next(): Promise<CursorResult>;
     next(callback: MongoCallback<CursorResult>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#pause
-    pause();
+    pause(): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#pipe
     pipe(destination: Writable, options?: Object): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#project
@@ -1193,7 +1193,7 @@ declare module "mongodb" {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#out
     out(destination: string): AggregationCursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#pause
-    pause();
+    pause(): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#pipe
     pipe(destination: Writable, options?: Object): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#project
@@ -1220,7 +1220,7 @@ declare module "mongodb" {
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#unshift
     unshift(stream: Buffer | string): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#unwind
-    unwind(field: string)
+    unwind(field: string): AggregationCursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#wrap
     wrap(stream: Stream): void;
   }
@@ -1244,7 +1244,7 @@ declare module "mongodb" {
     next(): Promise<AggregationCursorResult>;
     next(callback: MongoCallback<AggregationCursorResult>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#pause
-    pause();
+    pause(): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#pipe
     pipe(destination: Writable, options?: Object): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#read
