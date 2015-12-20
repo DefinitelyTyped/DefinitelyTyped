@@ -6,7 +6,7 @@
 /// <reference path="../angularjs/angular.d.ts" />
 
 
-declare module angular.loadingBar {
+declare module angular {
 
 	interface IRequestShortcutConfig {
 		/**
@@ -14,7 +14,10 @@ declare module angular.loadingBar {
 		 */
 		ignoreLoadingBar?: boolean;
 	}
+}
 
+declare module angular.loadingBar {
+	
 	interface ILoadingBarProvider{
 		/**
 		* Turn the spinner on or off
