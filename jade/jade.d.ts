@@ -15,5 +15,5 @@ declare module 'jade' {
         function render(template: string, options?: any): string;
         function renderFile(path: string, options?: any): string;
     }
-    export default jade;
+    export = jade;
 }
