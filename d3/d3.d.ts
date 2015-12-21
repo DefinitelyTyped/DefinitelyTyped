@@ -3,7 +3,7 @@
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module d3 {
+declare module __d3 {
     /**
      * The current version of D3.js.
      */
@@ -1332,7 +1332,7 @@ declare module d3 {
         sortValues(comparator: (a: T, b: T) => number): Nest<T>;
         rollup<U>(func: (values: T[]) => U): Nest<T>;
         map(array: T[]): { [key: string]: any };
-        map(array: T[], mapType: typeof d3.map): Map<any>;
+        map(array: T[], mapType: typeof __d3.map): Map<any>;
         entries(array: T[]): { key: string; values: any }[];
     }
 
@@ -3314,5 +3314,5 @@ declare module d3 {
 interface TouchList { }
 
 declare module 'd3' {
-    export = d3;
+    export default __d3;
 }

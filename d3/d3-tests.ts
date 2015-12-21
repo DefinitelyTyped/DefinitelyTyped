@@ -5,6 +5,8 @@ interface TestPieChartData {
     population: number;
     age: string;
 }
+
+import d3 from "d3";
 function testPieChart() {
     var width = 960,
     height = 500,
