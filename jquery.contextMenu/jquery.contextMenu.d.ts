@@ -4,9 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
-
-interface JQueryContextMenuOptions {
-    selector: string;
+interface JQueryContextMenuOptionsBase {
     appendTo?: string;
     trigger?: string;
     autoHide?: boolean;
@@ -30,8 +28,18 @@ interface JQueryContextMenuOptions {
     className?: string;
 }
 
+interface JQueryContextMenuOptions extends JQueryContextMenuOptionsBase {
+    selector: string;
+}
+
+interface JQueryContextMenuTriggerOptions {
+    selector: string;
+    build: (trigger: JQuery, event: JQueryMouseEventObject) => JQueryContextMenuOptionsBase;    
+}
+
 interface JQueryStatic {
     contextMenu(options?: JQueryContextMenuOptions): JQuery;
+    contextMenu(options?: JQueryContextMenuTriggerOptions): JQuery;
     contextMenu(type: string, selector?: any): JQuery;
 }
 
