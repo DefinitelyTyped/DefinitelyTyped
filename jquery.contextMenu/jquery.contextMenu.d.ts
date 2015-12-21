@@ -34,6 +34,7 @@ interface JQueryContextMenuOptions extends JQueryContextMenuOptionsBase {
 
 interface JQueryContextMenuTriggerOptions {
     selector: string;
+    trigger?: string;
     build: (trigger: JQuery, event: JQueryMouseEventObject) => JQueryContextMenuOptionsBase;    
 }
 
