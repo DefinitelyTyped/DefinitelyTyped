@@ -49,8 +49,8 @@ function test() {
 	function testKit() {
 		makerjs.kit.construct(null, null);
 		makerjs.kit.getParameterValues(null);
-		(<MakerJs.kit.IMetaParameter>{}).max;
-		(<MakerJs.kit.IKit>{}).metaParameters;
+		(<MakerJs.IMetaParameter>{}).max;
+		(<MakerJs.IKit>{}).metaParameters;
 	}
 	
 	function testMeasure() {
