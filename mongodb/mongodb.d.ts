@@ -175,7 +175,7 @@ declare module "mongodb" {
     authenticate(userName: string, password: string, options: { authMechanism: string }, callback: MongoCallback<any>): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#close
     close(callback: MongoCallback<void>): void;
-    close(forceClose: boolean): Promise<void>;
+    close(forceClose?: boolean): Promise<void>;
     close(forceClose: boolean, callback: MongoCallback<void>): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#collection
     collection(name: string): Collection;
