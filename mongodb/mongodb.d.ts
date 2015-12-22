@@ -1,6 +1,7 @@
 // Type definitions for MongoDB v2.1
 // Project: https://github.com/mongodb/node-mongodb-native/tree/2.1
-// Definitions by: Federico Caselli <https://github.com/CaselIT> also thanks to Andrew <https://github.com/Think7> 
+// Definitions by: Federico Caselli <https://github.com/CaselIT> 
+//   also thanks to Andrew < https://github.com/Think7> 
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // Documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/
@@ -10,8 +11,7 @@
 
 declare module "mongodb" {
   import {EventEmitter} from 'events';
-  import {Promise} from 'es6-promise';
-
+  
   // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html
   export class MongoClient {
     constructor();
@@ -649,9 +649,9 @@ declare module "mongodb" {
     insertMany(docs: Object[], options?: CollectionInsertManyOptions): Promise<InsertWriteOpResult>;
     insertMany(docs: Object[], options: CollectionInsertManyOptions, callback: MongoCallback<InsertWriteOpResult>): void
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#insertOne
-    insertMany(docs: Object[], callback: MongoCallback<InsertOneWriteOpResult>): void
-    insertMany(docs: Object[], options?: CollectionInsertOneOptions): Promise<InsertOneWriteOpResult>;
-    insertMany(docs: Object[], options: CollectionInsertOneOptions, callback: MongoCallback<InsertOneWriteOpResult>): void
+    insertOne(docs: Object, callback: MongoCallback<InsertOneWriteOpResult>): void
+    insertOne(docs: Object, options?: CollectionInsertOneOptions): Promise<InsertOneWriteOpResult>;
+    insertOne(docs: Object, options: CollectionInsertOneOptions, callback: MongoCallback<InsertOneWriteOpResult>): void
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#isCapped
     isCapped(): Promise<any>;
     isCapped(callback: MongoCallback<any>): void;
@@ -1075,8 +1075,8 @@ declare module "mongodb" {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#forEach
     forEach(iterator: IteratorCallback, callback: EndCallback): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#hasNext
-    hasNext(): Promise<CursorResult>;
-    hasNext(callback: MongoCallback<CursorResult>): void;
+    hasNext(): Promise<boolean>;
+    hasNext(callback: MongoCallback<boolean>): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#hint
     hint(hint: Object): Cursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#isClosed
@@ -1129,8 +1129,8 @@ declare module "mongodb" {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#stream
     stream(options?: { transform?: Function }): Cursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#toArray
-    toArray(): Promise<Object[]>;
-    toArray(callback: MongoCallback<Object[]>): void;
+    toArray(): Promise<any[]>;
+    toArray(callback: MongoCallback<any[]>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#unpipe
     unpipe(destination?: Writable): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#unshift
