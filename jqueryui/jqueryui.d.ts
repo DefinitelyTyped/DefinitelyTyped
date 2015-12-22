@@ -1804,3 +1804,36 @@ interface JQueryStatic {
     widget: JQueryUI.Widget;
     Widget: JQueryUI.Widget;
 }
+
+interface JQueryEasingFunctions {
+    easeInQuad: JQueryEasingFunction;
+    easeOutQuad: JQueryEasingFunction;
+    easeInOutQuad: JQueryEasingFunction;
+    easeInCubic: JQueryEasingFunction;
+    easeOutCubic: JQueryEasingFunction;
+    easeInOutCubic: JQueryEasingFunction;
+    easeInQuart: JQueryEasingFunction;
+    easeOutQuart: JQueryEasingFunction;
+    easeInOutQuart: JQueryEasingFunction;
+    easeInQuint: JQueryEasingFunction;
+    easeOutQuint: JQueryEasingFunction;
+    easeInOutQuint: JQueryEasingFunction;
+    easeInExpo: JQueryEasingFunction;
+    easeOutExpo: JQueryEasingFunction;
+    easeInOutExpo: JQueryEasingFunction;
+    easeInSine: JQueryEasingFunction;
+    easeOutSine: JQueryEasingFunction;
+    easeInOutSine: JQueryEasingFunction;
+    easeInCirc: JQueryEasingFunction;
+    easeOutCirc: JQueryEasingFunction;
+    easeInOutCirc: JQueryEasingFunction;
+    easeInElastic: JQueryEasingFunction;
+    easeOutElastic: JQueryEasingFunction;
+    easeInOutElastic: JQueryEasingFunction;
+    easeInBack: JQueryEasingFunction;
+    easeOutBack: JQueryEasingFunction;
+    easeInOutBack: JQueryEasingFunction;
+    easeInBounce: JQueryEasingFunction;
+    easeOutBounce: JQueryEasingFunction;
+    easeInOutBounce: JQueryEasingFunction;
+}
