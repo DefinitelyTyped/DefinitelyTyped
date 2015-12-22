@@ -22,7 +22,7 @@ interface PromiseConstructor {
     /**
      * Create a new promise. The passed in function will receive functions `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
      */
-    new <T>(callback: (resolve: (thenableOrResult?: T | Promise.Thenable<T>) => void, reject: (error: any) => void) => void): Promise<T>;
+    new <T>(callback: (resolve: (thenableOrResult?: T | PromiseLike<T>) => void, reject: (error: any) => void) => void): Promise<T>;
 
     // Ideally, we'd define e.g. "export class RangeError extends Error {}",
     // but as Error is defined as an interface (not a class), TypeScript doesn't
@@ -51,10 +51,10 @@ interface PromiseConstructor {
      *
      * Alias for `attempt();` for compatibility with earlier ECMAScript version.
      */
-    try<T>(fn: () => Promise.Thenable<T>, args?: any[], ctx?: any): Promise<T>;
+    try<T>(fn: () => PromiseLike<T>, args?: any[], ctx?: any): Promise<T>;
     try<T>(fn: () => T, args?: any[], ctx?: any): Promise<T>;
 
-    attempt<T>(fn: () => Promise.Thenable<T>, args?: any[], ctx?: any): Promise<T>;
+    attempt<T>(fn: () => PromiseLike<T>, args?: any[], ctx?: any): Promise<T>;
     attempt<T>(fn: () => T, args?: any[], ctx?: any): Promise<T>;
 
     /**
@@ -67,7 +67,7 @@ interface PromiseConstructor {
      * Create a promise that is resolved with the given `value`. If `value` is a thenable or promise, the returned promise will assume its state.
      */
     resolve(): Promise<void>;
-    resolve<T>(value: Promise.Thenable<T>): Promise<T>;
+    resolve<T>(value: PromiseLike<T>): Promise<T>;
     resolve<T>(value: T): Promise<T>;
 
     /**
@@ -84,7 +84,7 @@ interface PromiseConstructor {
     /**
      * Cast the given `value` to a trusted promise. If `value` is already a trusted `Promise`, it is returned as is. If `value` is not a thenable, a fulfilled is: Promise returned with `value` as its fulfillment value. If `value` is a thenable (Promise-like object, like those returned by jQuery's `$.ajax`), returns a trusted that: Promise assimilates the state of the thenable.
      */
-    cast<T>(value: Promise.Thenable<T>): Promise<T>;
+    cast<T>(value: PromiseLike<T>): Promise<T>;
     cast<T>(value: T): Promise<T>;
 
     /**
@@ -106,7 +106,7 @@ interface PromiseConstructor {
      * Returns a promise that will be fulfilled with `value` (or `undefined`) after given `ms` milliseconds. If `value` is a promise, the delay will start counting down when it is fulfilled and the returned promise will be fulfilled with the fulfillment value of the `value` promise.
      */
     // TODO enable more overloads
-    delay<T>(value: Promise.Thenable<T>, ms: number): Promise<T>;
+    delay<T>(value: PromiseLike<T>, ms: number): Promise<T>;
     delay<T>(value: T, ms: number): Promise<T>;
     delay(ms: number): Promise<void>;
 
@@ -170,16 +170,16 @@ interface PromiseConstructor {
      */
     // TODO enable more overloads
     // promise of array with promises of value
-    all<T>(values: Promise.Thenable<Promise.Thenable<T>[]>): Promise<T[]>;
+    all<T>(values: PromiseLike<PromiseLike<T>[]>): Promise<T[]>;
     // promise of array with values
-    all<T>(values: Promise.Thenable<T[]>): Promise<T[]>;
+    all<T>(values: PromiseLike<T[]>): Promise<T[]>;
     // array with promises of value
-    all<T>(values: Promise.Thenable<T>[]): Promise<T[]>;
+    all<T>(values: PromiseLike<T>[]): Promise<T[]>;
     // array with promises of different types
-    all<T1, T2>(values: [Promise.Thenable<T1>, Promise.Thenable<T2>]): Promise<[T1, T2]>;
-    all<T1, T2, T3>(values: [Promise.Thenable<T1>, Promise.Thenable<T2>, Promise.Thenable<T3>]): Promise<[T1, T2, T3]>;
-    all<T1, T2, T3, T4>(values: [Promise.Thenable<T1>, Promise.Thenable<T2>, Promise.Thenable<T3>, Promise.Thenable<T4>]): Promise<[T1, T2, T3, T4]>;
-    all<T1, T2, T3, T4, T5>(values: [Promise.Thenable<T1>, Promise.Thenable<T2>, Promise.Thenable<T3>, Promise.Thenable<T4>, Promise.Thenable<T5>]): Promise<[T1, T2, T3, T4, T5]>;
+    all<T1, T2>(values: [PromiseLike<T1>, PromiseLike<T2>]): Promise<[T1, T2]>;
+    all<T1, T2, T3>(values: [PromiseLike<T1>, PromiseLike<T2>, PromiseLike<T3>]): Promise<[T1, T2, T3]>;
+    all<T1, T2, T3, T4>(values: [PromiseLike<T1>, PromiseLike<T2>, PromiseLike<T3>, PromiseLike<T4>]): Promise<[T1, T2, T3, T4]>;
+    all<T1, T2, T3, T4, T5>(values: [PromiseLike<T1>, PromiseLike<T2>, PromiseLike<T3>, PromiseLike<T4>, PromiseLike<T5>]): Promise<[T1, T2, T3, T4, T5]>;
     // array with values
     all<T>(values: T[]): Promise<T[]>;
 
@@ -202,11 +202,11 @@ interface PromiseConstructor {
      * *original: The array is not modified. The input array sparsity is retained in the resulting array.*
      */
     // promise of array with promises of value
-    settle<T>(values: Promise.Thenable<Promise.Thenable<T>[]>): Promise<Promise.Inspection<T>[]>;
+    settle<T>(values: PromiseLike<PromiseLike<T>[]>): Promise<Promise.Inspection<T>[]>;
     // promise of array with values
-    settle<T>(values: Promise.Thenable<T[]>): Promise<Promise.Inspection<T>[]>;
+    settle<T>(values: PromiseLike<T[]>): Promise<Promise.Inspection<T>[]>;
     // array with promises of value
-    settle<T>(values: Promise.Thenable<T>[]): Promise<Promise.Inspection<T>[]>;
+    settle<T>(values: PromiseLike<T>[]): Promise<Promise.Inspection<T>[]>;
     // array with values
     settle<T>(values: T[]): Promise<Promise.Inspection<T>[]>;
 
@@ -214,11 +214,11 @@ interface PromiseConstructor {
      * Like `Promise.some()`, with 1 as `count`. However, if the promise fulfills, the fulfillment value is not an array of 1 but the value directly.
      */
     // promise of array with promises of value
-    any<T>(values: Promise.Thenable<Promise.Thenable<T>[]>): Promise<T>;
+    any<T>(values: PromiseLike<PromiseLike<T>[]>): Promise<T>;
     // promise of array with values
-    any<T>(values: Promise.Thenable<T[]>): Promise<T>;
+    any<T>(values: PromiseLike<T[]>): Promise<T>;
     // array with promises of value
-    any<T>(values: Promise.Thenable<T>[]): Promise<T>;
+    any<T>(values: PromiseLike<T>[]): Promise<T>;
     // array with values
     any<T>(values: T[]): Promise<T>;
 
@@ -228,11 +228,11 @@ interface PromiseConstructor {
      * **Note** If you pass empty array or a sparse array with no values, or a promise/thenable for such, it will be forever pending.
      */
     // promise of array with promises of value
-    race<T>(values: Promise.Thenable<Promise.Thenable<T>[]>): Promise<T>;
+    race<T>(values: PromiseLike<PromiseLike<T>[]>): Promise<T>;
     // promise of array with values
-    race<T>(values: Promise.Thenable<T[]>): Promise<T>;
+    race<T>(values: PromiseLike<T[]>): Promise<T>;
     // array with promises of value
-    race<T>(values: Promise.Thenable<T>[]): Promise<T>;
+    race<T>(values: PromiseLike<T>[]): Promise<T>;
     // array with values
     race<T>(values: T[]): Promise<T>;
 
@@ -244,11 +244,11 @@ interface PromiseConstructor {
      * *The original array is not modified.*
      */
     // promise of array with promises of value
-    some<T>(values: Promise.Thenable<Promise.Thenable<T>[]>, count: number): Promise<T[]>;
+    some<T>(values: PromiseLike<PromiseLike<T>[]>, count: number): Promise<T[]>;
     // promise of array with values
-    some<T>(values: Promise.Thenable<T[]>, count: number): Promise<T[]>;
+    some<T>(values: PromiseLike<T[]>, count: number): Promise<T[]>;
     // array with promises of value
-    some<T>(values: Promise.Thenable<T>[], count: number): Promise<T[]>;
+    some<T>(values: PromiseLike<T>[], count: number): Promise<T[]>;
     // array with values
     some<T>(values: T[], count: number): Promise<T[]>;
 
@@ -256,7 +256,7 @@ interface PromiseConstructor {
      * Like `Promise.all()` but instead of having to pass an array, the array is generated from the passed variadic arguments.
      */
     // variadic array with promises of value
-    join<T>(...values: Promise.Thenable<T>[]): Promise<T[]>;
+    join<T>(...values: PromiseLike<T>[]): Promise<T[]>;
     // variadic array with values
     join<T>(...values: T[]): Promise<T[]>;
 
@@ -268,19 +268,19 @@ interface PromiseConstructor {
      * *The original array is not modified.*
      */
     // promise of array with promises of value
-    map<T, U>(values: Promise.Thenable<Promise.Thenable<T>[]>, mapper: (item: T, index: number, arrayLength: number) => Promise.Thenable<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
-    map<T, U>(values: Promise.Thenable<Promise.Thenable<T>[]>, mapper: (item: T, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
+    map<T, U>(values: PromiseLike<PromiseLike<T>[]>, mapper: (item: T, index: number, arrayLength: number) => PromiseLike<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
+    map<T, U>(values: PromiseLike<PromiseLike<T>[]>, mapper: (item: T, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
     // promise of array with values
-    map<T, U>(values: Promise.Thenable<T[]>, mapper: (item: T, index: number, arrayLength: number) => Promise.Thenable<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
-    map<T, U>(values: Promise.Thenable<T[]>, mapper: (item: T, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
+    map<T, U>(values: PromiseLike<T[]>, mapper: (item: T, index: number, arrayLength: number) => PromiseLike<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
+    map<T, U>(values: PromiseLike<T[]>, mapper: (item: T, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
     // array with promises of value
-    map<T, U>(values: Promise.Thenable<T>[], mapper: (item: T, index: number, arrayLength: number) => Promise.Thenable<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
-    map<T, U>(values: Promise.Thenable<T>[], mapper: (item: T, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
+    map<T, U>(values: PromiseLike<T>[], mapper: (item: T, index: number, arrayLength: number) => PromiseLike<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
+    map<T, U>(values: PromiseLike<T>[], mapper: (item: T, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
     // array with values
-    map<T, U>(values: T[], mapper: (item: T, index: number, arrayLength: number) => Promise.Thenable<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
+    map<T, U>(values: T[], mapper: (item: T, index: number, arrayLength: number) => PromiseLike<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
     map<T, U>(values: T[], mapper: (item: T, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
     /**
@@ -291,19 +291,19 @@ interface PromiseConstructor {
      * *The original array is not modified. If no `intialValue` is given and the array doesn't contain at least 2 items, the callback will not be called and `undefined` is returned. If `initialValue` is given and the array doesn't have at least 1 item, `initialValue` is returned.*
      */
     // promise of array with promises of value
-    reduce<T, U>(values: Promise.Thenable<Promise.Thenable<T>[]>, reducer: (total: U, current: T, index: number, arrayLength: number) => Promise.Thenable<U>, initialValue?: U): Promise<U>;
-    reduce<T, U>(values: Promise.Thenable<Promise.Thenable<T>[]>, reducer: (total: U, current: T, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
+    reduce<T, U>(values: PromiseLike<PromiseLike<T>[]>, reducer: (total: U, current: T, index: number, arrayLength: number) => PromiseLike<U>, initialValue?: U): Promise<U>;
+    reduce<T, U>(values: PromiseLike<PromiseLike<T>[]>, reducer: (total: U, current: T, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
 
     // promise of array with values
-    reduce<T, U>(values: Promise.Thenable<T[]>, reducer: (total: U, current: T, index: number, arrayLength: number) => Promise.Thenable<U>, initialValue?: U): Promise<U>;
-    reduce<T, U>(values: Promise.Thenable<T[]>, reducer: (total: U, current: T, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
+    reduce<T, U>(values: PromiseLike<T[]>, reducer: (total: U, current: T, index: number, arrayLength: number) => PromiseLike<U>, initialValue?: U): Promise<U>;
+    reduce<T, U>(values: PromiseLike<T[]>, reducer: (total: U, current: T, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
 
     // array with promises of value
-    reduce<T, U>(values: Promise.Thenable<T>[], reducer: (total: U, current: T, index: number, arrayLength: number) => Promise.Thenable<U>, initialValue?: U): Promise<U>;
-    reduce<T, U>(values: Promise.Thenable<T>[], reducer: (total: U, current: T, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
+    reduce<T, U>(values: PromiseLike<T>[], reducer: (total: U, current: T, index: number, arrayLength: number) => PromiseLike<U>, initialValue?: U): Promise<U>;
+    reduce<T, U>(values: PromiseLike<T>[], reducer: (total: U, current: T, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
 
     // array with values
-    reduce<T, U>(values: T[], reducer: (total: U, current: T, index: number, arrayLength: number) => Promise.Thenable<U>, initialValue?: U): Promise<U>;
+    reduce<T, U>(values: T[], reducer: (total: U, current: T, index: number, arrayLength: number) => PromiseLike<U>, initialValue?: U): Promise<U>;
     reduce<T, U>(values: T[], reducer: (total: U, current: T, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
 
     /**
@@ -314,19 +314,19 @@ interface PromiseConstructor {
      * *The original array is not modified.
      */
     // promise of array with promises of value
-    filter<T>(values: Promise.Thenable<Promise.Thenable<T>[]>, filterer: (item: T, index: number, arrayLength: number) => Promise.Thenable<boolean>, option?: Promise.ConcurrencyOption): Promise<T[]>;
-    filter<T>(values: Promise.Thenable<Promise.Thenable<T>[]>, filterer: (item: T, index: number, arrayLength: number) => boolean, option?: Promise.ConcurrencyOption): Promise<T[]>;
+    filter<T>(values: PromiseLike<PromiseLike<T>[]>, filterer: (item: T, index: number, arrayLength: number) => PromiseLike<boolean>, option?: Promise.ConcurrencyOption): Promise<T[]>;
+    filter<T>(values: PromiseLike<PromiseLike<T>[]>, filterer: (item: T, index: number, arrayLength: number) => boolean, option?: Promise.ConcurrencyOption): Promise<T[]>;
 
     // promise of array with values
-    filter<T>(values: Promise.Thenable<T[]>, filterer: (item: T, index: number, arrayLength: number) => Promise.Thenable<boolean>, option?: Promise.ConcurrencyOption): Promise<T[]>;
-    filter<T>(values: Promise.Thenable<T[]>, filterer: (item: T, index: number, arrayLength: number) => boolean, option?: Promise.ConcurrencyOption): Promise<T[]>;
+    filter<T>(values: PromiseLike<T[]>, filterer: (item: T, index: number, arrayLength: number) => PromiseLike<boolean>, option?: Promise.ConcurrencyOption): Promise<T[]>;
+    filter<T>(values: PromiseLike<T[]>, filterer: (item: T, index: number, arrayLength: number) => boolean, option?: Promise.ConcurrencyOption): Promise<T[]>;
 
     // array with promises of value
-    filter<T>(values: Promise.Thenable<T>[], filterer: (item: T, index: number, arrayLength: number) => Promise.Thenable<boolean>, option?: Promise.ConcurrencyOption): Promise<T[]>;
-    filter<T>(values: Promise.Thenable<T>[], filterer: (item: T, index: number, arrayLength: number) => boolean, option?: Promise.ConcurrencyOption): Promise<T[]>;
+    filter<T>(values: PromiseLike<T>[], filterer: (item: T, index: number, arrayLength: number) => PromiseLike<boolean>, option?: Promise.ConcurrencyOption): Promise<T[]>;
+    filter<T>(values: PromiseLike<T>[], filterer: (item: T, index: number, arrayLength: number) => boolean, option?: Promise.ConcurrencyOption): Promise<T[]>;
 
     // array with values
-    filter<T>(values: T[], filterer: (item: T, index: number, arrayLength: number) => Promise.Thenable<boolean>, option?: Promise.ConcurrencyOption): Promise<T[]>;
+    filter<T>(values: T[], filterer: (item: T, index: number, arrayLength: number) => PromiseLike<boolean>, option?: Promise.ConcurrencyOption): Promise<T[]>;
     filter<T>(values: T[], filterer: (item: T, index: number, arrayLength: number) => boolean, option?: Promise.ConcurrencyOption): Promise<T[]>;
 
     /**
@@ -335,30 +335,30 @@ interface PromiseConstructor {
      * Resolves to the original array unmodified, this method is meant to be used for side effects. If the iterator function returns a promise or a thenable, the result for the promise is awaited for before continuing with next iteration.
      */
     // promise of array with promises of value
-    each<T, U>(values: Promise.Thenable<Promise.Thenable<T>[]>, iterator: (item: T, index: number, arrayLength: number) => U | Promise.Thenable<U>): Promise<T[]>;
+    each<T, U>(values: PromiseLike<PromiseLike<T>[]>, iterator: (item: T, index: number, arrayLength: number) => U | PromiseLike<U>): Promise<T[]>;
     // array with promises of value
-    each<T, U>(values: Promise.Thenable<T>[], iterator: (item: T, index: number, arrayLength: number) => U | Promise.Thenable<U>): Promise<T[]>;
+    each<T, U>(values: PromiseLike<T>[], iterator: (item: T, index: number, arrayLength: number) => U | PromiseLike<U>): Promise<T[]>;
     // array with values OR promise of array with values
-    each<T, U>(values: T[] | Promise.Thenable<T[]>, iterator: (item: T, index: number, arrayLength: number) => U | Promise.Thenable<U>): Promise<T[]>;
+    each<T, U>(values: T[] | PromiseLike<T[]>, iterator: (item: T, index: number, arrayLength: number) => U | PromiseLike<U>): Promise<T[]>;
 }
 
-interface Promise<T> extends Promise.Thenable<T>, Promise.Inspection<T> {
+interface Promise<T> extends PromiseLike<T>, Promise.Inspection<T> {
     /**
      * Promises/A+ `.then()` with progress handler. Returns a new promise chained from this promise. The new promise will be rejected or resolved dedefer on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
      */
-    then<U>(onFulfill: (value: T) => U | Promise.Thenable<U>, onReject?: (error: any) => U | Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
-    then<U>(onFulfill: (value: T) => U | Promise.Thenable<U>, onReject?: (error: any) => void | Promise.Thenable<void>, onProgress?: (note: any) => any): Promise<U>;
+    then<U>(onFulfill: (value: T) => U | PromiseLike<U>, onReject?: (error: any) => U | PromiseLike<U>, onProgress?: (note: any) => any): Promise<U>;
+    then<U>(onFulfill: (value: T) => U | PromiseLike<U>, onReject?: (error: any) => void | PromiseLike<void>, onProgress?: (note: any) => any): Promise<U>;
 
     /**
      * This is a catch-all exception handler, shortcut for calling `.then(null, handler)` on this promise. Any exception happening in a `.then`-chain will propagate to nearest `.catch` handler.
      *
      * Alias `.caught();` for compatibility with earlier ECMAScript version.
      */
-    catch(onReject?: (error: any) => T | Promise.Thenable<T> | void | Promise.Thenable<void>): Promise<T>;
-    caught(onReject?: (error: any) => T | Promise.Thenable<T> | void | Promise.Thenable<void>): Promise<T>;
+    catch(onReject?: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Promise<T>;
+    caught(onReject?: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Promise<T>;
 
-    catch<U>(onReject?: (error: any) => U | Promise.Thenable<U>): Promise<U | T>;
-    caught<U>(onReject?: (error: any) => U | Promise.Thenable<U>): Promise<U | T>;
+    catch<U>(onReject?: (error: any) => U | PromiseLike<U>): Promise<U | T>;
+    caught<U>(onReject?: (error: any) => U | PromiseLike<U>): Promise<U | T>;
 
     /**
      * This extends `.catch` to work more like catch-clauses in languages like Java or C#. Instead of manually checking `instanceof` or `.name === "SomeError"`, you may specify a number of error constructors which are eligible for this catch handler. The catch handler that is first met that has eligible constructors specified, is the one that will be called.
@@ -367,23 +367,23 @@ interface Promise<T> extends Promise.Thenable<T>, Promise.Inspection<T> {
      *
      * Alias `.caught();` for compatibility with earlier ECMAScript version.
      */
-    catch(predicate: (error: any) => boolean, onReject: (error: any) => T | Promise.Thenable<T> | void | Promise.Thenable<void>): Promise<T>;
-    caught(predicate: (error: any) => boolean, onReject: (error: any) => T | Promise.Thenable<T> | void | Promise.Thenable<void>): Promise<T>;
+    catch(predicate: (error: any) => boolean, onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Promise<T>;
+    caught(predicate: (error: any) => boolean, onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Promise<T>;
 
-    catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | Promise.Thenable<U>): Promise<U | T>;
-    caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | Promise.Thenable<U>): Promise<U | T>;
+    catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | PromiseLike<U>): Promise<U | T>;
+    caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | PromiseLike<U>): Promise<U | T>;
 
-    catch(ErrorClass: Function, onReject: (error: any) => T | Promise.Thenable<T> | void | Promise.Thenable<void>): Promise<T>;
-    caught(ErrorClass: Function, onReject: (error: any) => T | Promise.Thenable<T> | void | Promise.Thenable<void>): Promise<T>;
+    catch(ErrorClass: Function, onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Promise<T>;
+    caught(ErrorClass: Function, onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Promise<T>;
 
-    catch<U>(ErrorClass: Function, onReject: (error: any) => U | Promise.Thenable<U>): Promise<U | T>;
-    caught<U>(ErrorClass: Function, onReject: (error: any) => U | Promise.Thenable<U>): Promise<U | T>;
+    catch<U>(ErrorClass: Function, onReject: (error: any) => U | PromiseLike<U>): Promise<U | T>;
+    caught<U>(ErrorClass: Function, onReject: (error: any) => U | PromiseLike<U>): Promise<U | T>;
 
 
     /**
      * Like `.catch` but instead of catching all types of exceptions, it only catches those that don't originate from thrown errors but rather from explicit rejections.
      */
-    error<U>(onReject: (reason: any) => Promise.Thenable<U>): Promise<U>;
+    error<U>(onReject: (reason: any) => PromiseLike<U>): Promise<U>;
     error<U>(onReject: (reason: any) => U): Promise<U>;
 
     /**
@@ -391,10 +391,10 @@ interface Promise<T> extends Promise.Thenable<T>, Promise.Inspection<T> {
      *
      * Alias `.lastly();` for compatibility with earlier ECMAScript version.
      */
-    finally<U>(handler: () => Promise.Thenable<U>): Promise<T>;
+    finally<U>(handler: () => PromiseLike<U>): Promise<T>;
     finally<U>(handler: () => U): Promise<T>;
 
-    lastly<U>(handler: () => Promise.Thenable<U>): Promise<T>;
+    lastly<U>(handler: () => PromiseLike<U>): Promise<T>;
     lastly<U>(handler: () => U): Promise<T>;
 
     /**
@@ -405,15 +405,15 @@ interface Promise<T> extends Promise.Thenable<T>, Promise.Inspection<T> {
     /**
      * Like `.then()`, but any unhandled rejection that ends up here will be thrown as an error.
      */
-    done<U>(onFulfilled: (value: T) => Promise.Thenable<U>, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): void;
-    done<U>(onFulfilled: (value: T) => Promise.Thenable<U>, onRejected?: (error: any) => U, onProgress?: (note: any) => any): void;
-    done<U>(onFulfilled: (value: T) => U, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): void;
+    done<U>(onFulfilled: (value: T) => PromiseLike<U>, onRejected: (error: any) => PromiseLike<U>, onProgress?: (note: any) => any): void;
+    done<U>(onFulfilled: (value: T) => PromiseLike<U>, onRejected?: (error: any) => U, onProgress?: (note: any) => any): void;
+    done<U>(onFulfilled: (value: T) => U, onRejected: (error: any) => PromiseLike<U>, onProgress?: (note: any) => any): void;
     done<U>(onFulfilled?: (value: T) => U, onRejected?: (error: any) => U, onProgress?: (note: any) => any): void;
 
     /**
      * Like `.finally()`, but not called for rejections.
      */
-    tap<U>(onFulFill: (value: T) => Promise.Thenable<U>): Promise<T>;
+    tap<U>(onFulFill: (value: T) => PromiseLike<U>): Promise<T>;
     tap<U>(onFulfill: (value: T) => U): Promise<T>;
 
     /**
@@ -460,9 +460,9 @@ interface Promise<T> extends Promise.Thenable<T>, Promise.Inspection<T> {
     /**
      * Like `.then()`, but cancellation of the the returned promise or any of its descendant will not propagate cancellation to this promise or this promise's ancestors.
      */
-    fork<U>(onFulfilled: (value: T) => Promise.Thenable<U>, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
-    fork<U>(onFulfilled: (value: T) => Promise.Thenable<U>, onRejected?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
-    fork<U>(onFulfilled: (value: T) => U, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
+    fork<U>(onFulfilled: (value: T) => PromiseLike<U>, onRejected: (error: any) => PromiseLike<U>, onProgress?: (note: any) => any): Promise<U>;
+    fork<U>(onFulfilled: (value: T) => PromiseLike<U>, onRejected?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
+    fork<U>(onFulfilled: (value: T) => U, onRejected: (error: any) => PromiseLike<U>, onProgress?: (note: any) => any): Promise<U>;
     fork<U>(onFulfilled?: (value: T) => U, onRejected?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
 
     /**
@@ -584,13 +584,13 @@ interface Promise<T> extends Promise.Thenable<T>, Promise.Inspection<T> {
      * Like calling `.then`, but the fulfillment value or rejection reason is assumed to be an array, which is flattened to the formal parameters of the handlers.
      */
     // TODO how to model instance.spread()? like Q?
-    spread<U>(onFulfill: Function, onReject?: (reason: any) => Promise.Thenable<U>): Promise<U>;
+    spread<U>(onFulfill: Function, onReject?: (reason: any) => PromiseLike<U>): Promise<U>;
     spread<U>(onFulfill: Function, onReject?: (reason: any) => U): Promise<U>;
     /*
      // TODO or something like this?
-     spread<U, W>(onFulfill: (...values: W[]) => Promise.Thenable<U>, onReject?: (reason: any) => Promise.Thenable<U>): Promise<U>;
-     spread<U, W>(onFulfill: (...values: W[]) => Promise.Thenable<U>, onReject?: (reason: any) => U): Promise<U>;
-     spread<U, W>(onFulfill: (...values: W[]) => U, onReject?: (reason: any) => Promise.Thenable<U>): Promise<U>;
+     spread<U, W>(onFulfill: (...values: W[]) => PromiseLike<U>, onReject?: (reason: any) => PromiseLike<U>): Promise<U>;
+     spread<U, W>(onFulfill: (...values: W[]) => PromiseLike<U>, onReject?: (reason: any) => U): Promise<U>;
+     spread<U, W>(onFulfill: (...values: W[]) => U, onReject?: (reason: any) => PromiseLike<U>): Promise<U>;
      spread<U, W>(onFulfill: (...values: W[]) => U, onReject?: (reason: any) => U): Promise<U>;
      */
     /**
@@ -633,27 +633,27 @@ interface Promise<T> extends Promise.Thenable<T>, Promise.Inspection<T> {
      * Same as calling `Promise.map(thisPromise, mapper)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
      */
     // TODO type inference from array-resolving promise?
-    map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => Promise.Thenable<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
+    map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => PromiseLike<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
     map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
     /**
      * Same as calling `Promise.reduce(thisPromise, Function reducer, initialValue)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
      */
     // TODO type inference from array-resolving promise?
-    reduce<Q, U>(reducer: (memo: U, item: Q, index: number, arrayLength: number) => Promise.Thenable<U>, initialValue?: U): Promise<U>;
+    reduce<Q, U>(reducer: (memo: U, item: Q, index: number, arrayLength: number) => PromiseLike<U>, initialValue?: U): Promise<U>;
     reduce<Q, U>(reducer: (memo: U, item: Q, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
 
     /**
      * Same as calling ``Promise.filter(thisPromise, filterer)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
      */
     // TODO type inference from array-resolving promise?
-    filter<U>(filterer: (item: U, index: number, arrayLength: number) => Promise.Thenable<boolean>, options?: Promise.ConcurrencyOption): Promise<U[]>;
+    filter<U>(filterer: (item: U, index: number, arrayLength: number) => PromiseLike<boolean>, options?: Promise.ConcurrencyOption): Promise<U[]>;
     filter<U>(filterer: (item: U, index: number, arrayLength: number) => boolean, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
     /**
      * Same as calling ``Promise.each(thisPromise, iterator)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
      */
-    each<T, U>(iterator: (item: T, index: number, arrayLength: number) => U | Promise.Thenable<U>): Promise<T[]>;
+    each<T, U>(iterator: (item: T, index: number, arrayLength: number) => U | PromiseLike<U>): Promise<T[]>;
 }
 
 /**
@@ -684,12 +684,7 @@ declare namespace Promise {
         suffix?: string;
         filter?: (name: string, func: Function, target?: any, passesDefaultFilter?: boolean) => boolean;
         // The promisifier gets a reference to the original method and should return a function which returns a promise
-        promisifier?: (originalMethod: Function) => () => Thenable<any>;
-    }
-
-    export interface Thenable<T> {
-        then<U>(onFulfilled: (value: T) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
-        then<U>(onFulfilled: (value: T) => U | Thenable<U>, onRejected?: (error: any) => void | Thenable<void>): Thenable<U>;
+        promisifier?: (originalMethod: Function) => () => PromiseLike<any>;
     }
 
     export interface Resolver<T> {
