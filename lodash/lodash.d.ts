@@ -9243,9 +9243,10 @@ declare module _ {
         /**
          * Checks if value is classified as an Array object.
          * @param value The value to check.
+         *
          * @return Returns true if value is correctly classified, else false.
-         **/
-        isArray(value?: any): value is any[];
+         */
+        isArray<T>(value?: any): value is T[];
     }
 
     interface LoDashImplicitWrapperBase<T,TWrapper> {
@@ -9253,6 +9254,13 @@ declare module _ {
          * @see _.isArray
          */
         isArray(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T,TWrapper> {
+        /**
+         * @see _.isArray
+         */
+        isArray(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isBoolean
