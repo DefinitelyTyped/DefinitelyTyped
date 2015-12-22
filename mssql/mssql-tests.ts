@@ -3,6 +3,10 @@
 
 import sql = require('mssql');
 
+interface Entity{
+  value: number;
+}
+
 var config: sql.config = {
     user: 'user',
     password: 'password',
@@ -30,6 +34,18 @@ var connection: sql.Connection = new sql.Connection(config, function (err: any) 
             }
             // checking to see if the articles returned as at least one.
             else if (recordSet.length > 0) {
+            }
+        });
+
+        getArticlesQuery = "SELECT 1 as value FROM TABLE";
+
+        requestQuery.query<Entity>(getArticlesQuery, function (err, recordSet) {
+            if (err) {
+                console.error('Error happened calling Query: ' + err.name + " " + err.message);
+
+            }
+            // checking to see if the articles returned as at least one.
+            else if (recordSet.length > 0 && recordSet[0].value) {
             }
         });
 
@@ -109,8 +125,10 @@ function test_promise_returns() {
 
     var request = new sql.Request();
     request.batch('create procedure #temporary as select * from table').then((recordset) => { });
+    request.batch<Entity>('create procedure #temporary as select * from table;select 1 as value').then((recordset) => { });
     request.bulk(new sql.Table("table_name")).then(() => { });
     request.query('SELECT 1').then((recordset) => { });
+    request.query<Entity>('SELECT 1 as value').then(res => {    });
     request.execute('procedure_name').then((recordset) => { });
 }
 
@@ -120,7 +138,7 @@ function test_request_constructor() {
     var connection: sql.Connection = new sql.Connection(config);
     var preparedStatment = new sql.PreparedStatement(connection);
     var transaction = new sql.Transaction(connection);
-    
+
     var request1 = new sql.Request(connection);
     var request2 = new sql.Request(preparedStatment);
     var request3 = new sql.Request(transaction);
