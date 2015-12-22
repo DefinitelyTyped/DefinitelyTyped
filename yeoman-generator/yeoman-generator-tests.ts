@@ -35,6 +35,7 @@ var compose = generator.composeWith('namespace', 'any', {
 });
 
 compose.defaultFor('name');
+compose.destinationRoot() === 'string';
 compose.destinationRoot('rootPath') === 'string';
 compose.determineAppname();
 compose.getCollisionFilter()('output');
@@ -59,7 +60,8 @@ compose.run('args', () => {
 compose.runHooks(() => {
   return;
 });
-returnString = compose.sourceRoot('rootPath') === 'string';
+compose.sourceRoot('rootPath') === 'string';
+compose.sourceRoot() === 'string';
 
 var assert = yeoman.assert;
 
@@ -176,3 +178,25 @@ generator.prompt({ name: 'Name', message: '', validate: (input) => "Error" }, (a
 generator.prompt({ name: 'Name', message: '', filter: (input) => input }, (answer) => {}); 
 generator.prompt({ name: 'Name', message: '', when: (answers) => true }, (answer) => {}); 
 generator.prompt({ name: 'Name', message: '', when: true }, (answer) => {}); 
+
+// http://yeoman.io/generator/Base.html
+// https://github.com/SBoudrias/mem-fs-editor
+generator.fs.read("file") === "string";
+generator.fs.read("file", {}) === "string";
+generator.fs.readJSON("file") === {};
+generator.fs.readJSON("file", {}) === {};
+generator.fs.write("file", "contents");
+generator.fs.writeJSON("file", {});
+generator.fs.writeJSON("file", {}, () => {});
+generator.fs.writeJSON("file", {}, () => {}, 2);
+generator.fs.delete("file");
+generator.fs.delete("file", {});
+generator.fs.copy("from", "to");
+generator.fs.copy("from", "to", {});
+generator.fs.copyTpl("from", "to", {});
+generator.fs.copyTpl("from", "to", {}, {});
+generator.fs.move("from", "to");
+generator.fs.move("from", "to", {});
+generator.fs.exists("file") === true;
+generator.fs.commit(() => {});
+generator.fs.commit([], () => {});
