@@ -1535,6 +1535,8 @@ declare module "tls" {
     var CLIENT_RENEG_WINDOW: number;
 
     export interface TlsOptions {
+        host?: string;
+        port?: number;
         pfx?: any;   //string or buffer
         key?: any;   //string or buffer
         passphrase?: string;
