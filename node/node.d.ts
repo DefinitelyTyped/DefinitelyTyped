@@ -907,7 +907,11 @@ declare module "child_process" {
     export function fork(modulePath: string, args?: string[], options?: {
         cwd?: string;
         env?: any;
-        encoding?: string;
+        execPath?: string;
+        execArgv?: string[];
+        silent?: boolean;
+        uid?: number;
+        gid?: number;
     }): ChildProcess;
     export function spawnSync(command: string, args?: string[], options?: {
         cwd?: string;
