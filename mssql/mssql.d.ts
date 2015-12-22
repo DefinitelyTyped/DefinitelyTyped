@@ -7,7 +7,7 @@
 /// <reference path="../es6-promise/es6-promise.d.ts" />
 
 declare module "mssql" {
-    import events = require('events'); 
+    import events = require('events');
 
     type sqlTypeWithNoParams       = { type: sqlTypeFactoryWithNoParams }
     type sqlTypeWithLength         = { type: sqlTypeFactoryWithLength, length: number }
@@ -206,9 +206,13 @@ declare module "mssql" {
         public output(name: string, type: any, value?: any): void;
         public pipe(stream: NodeJS.WritableStream): void;
         public query(command: string): Promise<void>;
+        public query<Entity>(command: string): Promise<Entity[]>;
         public query(command: string, callback: (err?: any, recordset?: any) => void): void;
+        public query<Entity>(command: string, callback: (err?: any, recordset?: Entity[]) => void): void;
         public batch(batch: string): Promise<recordSet>;
+        public batch<Entity>(batch: string): Promise<Entity[]>;
         public batch(batch: string, callback: (err?: any, recordset?: any) => void): void;
+        public batch<Entity>(batch: string, callback: (err?: any, recordset?: Entity[]) => void): void;
         public bulk(table: Table): Promise<void>;
         public bulk(table: Table, callback: (err: any, rowCount: any) => void): void;
         public cancel(): void;
