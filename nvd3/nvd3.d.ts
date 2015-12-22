@@ -1,6 +1,6 @@
 // Type definitions for nvd3 1.8.1
 // Project: https://github.com/novus/nvd3
-// Definitions by: Maxime LUCE <https://github.com/PjMitchell/>
+// Definitions by: Peter Mitchell <https://github.com/PjMitchell/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../d3/d3.d.ts" />
@@ -19,29 +19,29 @@ declare module nv {
 		bottom?: number
 	}
 	
-	interface Legend extends Chart<Legend> {
+	interface Legend extends Chart {
 		key(): any;
-		key(value: any): Legend;
+		key(value: any): this;
 		align(): boolean;
-		align(value: boolean): Legend;		
+        align(value: boolean): this;		
 		maxKeyLength(): number;
-		maxKeyLength(value: number): Legend;
+        maxKeyLength(value: number): this;
 		rightAlign(): boolean;
-		rightAlign(value: boolean): Legend;
+        rightAlign(value: boolean): this;
 		//define how much space between legend items. - recommend 32 for furious version
 		padding(): number;
 		//define how much space between legend items. - recommend 32 for furious version
-		padding(value: number): Legend;
+        padding(value: number): this;
 		//If true, legend will update data.disabled and trigger a 'stateChange' dispatch.
 		updateState(): boolean;
 		//If true, legend will update data.disabled and trigger a 'stateChange' dispatch.
-		updateState(value: boolean): Legend;
+        updateState(value: boolean): this;
 		//If true, clicking legend items will cause it to behave like a radio button. (only one can be selected at 	
 		radioButtonMode(): boolean;
 		//If true, clicking legend items will cause it to behave like a radio button. (only one can be selected at 
-		radioButtonMode(value: boolean): Legend;
+        radioButtonMode(value: boolean): this;
 		expanded(): boolean;
-		expanded(value: boolean): Legend;
+        expanded(value: boolean): this;
 		//Options are "classic" and "furious"
 		vers(): string;
 		//Options are "classic" and "furious"
@@ -112,117 +112,118 @@ declare module nv {
 	}
 	
 	interface ChartBase {
-		update(): void;
-		interactiveLayer :InteractiveLayer;
 		
-		(transition: d3.Transition<any[]>, ...args: any[]) :any;
-		(selection: d3.Selection<any[]>, ...args: any[]) :any;
-		(transition: d3.Transition<any>, ...args: any[]) :any;
-		(selection: d3.Selection<any>, ...args: any[]) :any;
 	}
 	
-	interface Chart<TChart extends ChartBase> extends ChartBase {
+	interface Chart {
 		margin() : Margin;
-		margin(value: Margin) : TChart;
+		margin(value: Margin) : this;
 		width(): number;
-		width(value: number) : TChart;
+		width(value: number) : this;
 		height(): number;
-		height(value: number) : TChart;		
-		color(value:string[]) : TChart;	
-		color(value:string) : TChart;	
-		dispatch : d3.Dispatch;
+		height(value: number) : this;		
+		color(value:string[]) : this;	
+		color(value:string) : this;	
+        dispatch: d3.Dispatch;
+
+        update(): void;
+        interactiveLayer: InteractiveLayer;
+
+        (transition: d3.Transition<any[]>, ...args: any[]): any;
+        (selection: d3.Selection<any[]>, ...args: any[]): any;
+        (transition: d3.Transition<any>, ...args: any[]): any;
+        (selection: d3.Selection<any>, ...args: any[]): any;
 
 	}
 	
-	interface TwoDimensionalChart<TChart  extends ChartBase> extends Chart<TChart>
+	interface TwoDimensionalChart extends Chart
 	{
 		xAxis : NvAxis;
 		yAxis : NvAxis;
-		x(func: (any)=> any) : TChart;
-		y(func: (any)=> any) : TChart;
-		xScale(scale: d3.time.Scale<number, number>) : TChart;
+		x(func: (any)=> any) : this;
+        y(func: (any) => any): this;
+        xScale(scale: d3.time.Scale<number, number>): this;
 		xScale() : d3.time.Scale<number, number>;
-		yScale(scale: d3.time.Scale<number, number>) : TChart;
+        yScale(scale: d3.time.Scale<number, number>): this;
 		yScale() : d3.time.Scale<number, number>
-		forceX([xMin, xMax] : [number,number]) : TChart;
-		forceY([xMin, xMax] : [number,number]) : TChart;
+        forceX([xMin, xMax]: [number, number]): this;
+        forceY([xMin, xMax]: [number, number]): this;
 		
 	}
 	
-	interface HistoricalBarBase<TChart  extends ChartBase> extends TwoDimensionalChart<TChart>{
+	interface HistoricalBarBase extends TwoDimensionalChart{
 		
 		
 	}
 	
-	interface HistoricalBar extends HistoricalBarBase<HistoricalBar>{
+	interface HistoricalBar extends HistoricalBarBase{
 		
 	}
 	
-	interface HistoricalBarChart extends HistoricalBarBase<HistoricalBarChart>{
+	interface HistoricalBarChart extends HistoricalBarBase{
 		bars: HistoricalBar;
 		legend: Legend;
 		noData(): any //todo;
-		noData(value: any): HistoricalBarChart //todo;
+		noData(value: any): this //todo;
 		defaultState(): any //todo;
-		defaultState(value: any): HistoricalBarChart //todo;
+        defaultState(value: any): this //todo;
 		showXAxis(): boolean //todo;
-		showXAxis(value: boolean): HistoricalBarChart //todo;
+        showXAxis(value: boolean): this //todo;
 		showLegend(): boolean //todo;
-		showLegend(value: boolean): HistoricalBarChart //todo;
+        showLegend(value: boolean): this //todo;
 		showYAxis(): boolean //todo;
-		showYAxis(value: boolean): HistoricalBarChart //todo;
+        showYAxis(value: boolean): this //todo;
 		rightAlignYAxis(): boolean //todo;
-		rightAlignYAxis(value: boolean): HistoricalBarChart //todo;
-		useInteractiveGuideline(value : boolean) : HistoricalBarChart;
-		duration(value: number) : HistoricalBarChart;
-		interactiveLayer :InteractiveLayer;
+        rightAlignYAxis(value: boolean): this //todo;
+        useInteractiveGuideline(value: boolean): this;
+        duration(value: number): this;
 	}
 	
 	
 	
 
 	
-	interface BoxPlotChart extends TwoDimensionalChart<BoxPlotChart>{
-		useInteractiveGuideline(value : boolean) : BoxPlotChart;
-		duration(value: number) : BoxPlotChart;
+	interface BoxPlotChart extends TwoDimensionalChart{
+		useInteractiveGuideline(value : boolean) : this;
+        duration(value: number): this;
 		
-		staggerLabels(value : boolean) : BoxPlotChart; 
-		maxBoxWidth(value: number) : BoxPlotChart; 
-		yDomain([xMin, xMax] : [number,number]): BoxPlotChart; 
-		xDomain([xMin, xMax] : [number,number]): BoxPlotChart;
+        staggerLabels(value: boolean): this; 
+        maxBoxWidth(value: number): this; 
+        yDomain([xMin, xMax]: [number, number]): this; 
+        xDomain([xMin, xMax]: [number, number]): this;
 		showXAxis(): boolean //todo;
-		showXAxis(value: boolean): BoxPlotChart //todo;
+        showXAxis(value: boolean): this //todo;
 		showYAxis(): boolean //todo;
-		showYAxis(value: boolean): BoxPlotChart //todo;
+        showYAxis(value: boolean): this //todo;
 		rightAlignYAxis(): boolean //todo;
-		rightAlignYAxis(value: boolean): BoxPlotChart //todo;
+        rightAlignYAxis(value: boolean): this //todo;
 	}
 	
-	interface BulletBase<TBullet extends ChartBase> extends Chart<TBullet> {
+	interface BulletBase extends Chart {
 		orient(): string;
-		orient(orientation: string): TBullet;
+        orient(orientation: string): this;
 		tickFormat(): (t: any) => string;
-		tickFormat(format: (t: any) => string): TBullet;
+        tickFormat(format: (t: any) => string): this;
 		tickFormat(format:string): NvAxis;	
-		tickFormat(format: (t: any, i: any) => string): TBullet;
-		forceX([xMin, xMax] : [number,number]) : TBullet;
+        tickFormat(format: (t: any, i: any) => string): this;
+        forceX([xMin, xMax]: [number, number]): this;
 		ranges(): any //todo;
-		ranges(value: any): TBullet //todo;
+        ranges(value: any): this //todo;
 		markers(): any //todo;
-		markers(value: any): TBullet //todo;
+        markers(value: any): this //todo;
 		measures(): any //todo;
-		measures(value: any): TBullet //todo;
+        measures(value: any): this //todo;
 	}
 	
-	interface Bullet extends BulletBase<Bullet>{
+	interface Bullet extends BulletBase{
 		
 	}
-	interface BulletChart extends BulletBase<Bullet>{
+	interface BulletChart extends BulletBase{
 		bullet: Bullet
 		ticks(): any //todo;
-		ticks(value: any): BulletChart //todo;
+		ticks(value: any): this //todo;
 		noData(): any //todo;
-		noData(value: any): BulletChart //todo;
+		noData(value: any): this //todo;
 	}
 	interface Models{
 		historicalBar(): HistoricalBar;
@@ -235,9 +236,9 @@ declare module nv {
 		tooltip(): Tooltip;
 	}
 	
-	interface ChartFactory<T extends ChartBase> {
-		generate: ()=> Chart<T>;
-		callback?: (chart:Chart<T>)=> void;
+    interface ChartFactory<TChart extends Chart> {
+        generate: () => TChart;
+        callback?: (chart: TChart)=> void;
 	}
 	
 
@@ -245,8 +246,8 @@ declare module nv {
 		models: Models;
 		tooltip: Tooltip;
 		utils: Utils;
-		addGraph<T extends ChartBase>(factory: ChartFactory<T>);
-		addGraph<T extends ChartBase>(generate : ()=> Chart<T>, callBack?: (chart:Chart<T>)=> void) ;
+        addGraph<TChart extends Chart>(factory: ChartFactory<TChart>);
+        addGraph<TChart extends Chart>(generate: () => TChart, callBack?: (chart: TChart)=> void) ;
 	}
 }
 declare var nv : nv.nvStatic;
