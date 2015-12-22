@@ -9,7 +9,7 @@ declare module yo {
         argument(name: string, config: IArgumentConfig): void;
         composeWith(namespace: string, options: any, settings?: IComposeSetting): IYeomanGenerator;
         defaultFor(name: string): void;
-        destinationRoot(rootPath: string): string;
+        destinationRoot(rootPath?: string): string;
         destinationPath(...path: string[]): string;
         determineAppname(): void;
         getCollisionFilter(): (output: any) => void;
@@ -19,7 +19,7 @@ declare module yo {
         run(args?: any): void;
         run(args: any, callback?: Function): void;
         runHooks(callback?: Function): void;
-        sourceRoot(rootPath: string): string;
+        sourceRoot(rootPath?: string): string;
         templatePath(...path: string[]): string;
         prompt(opt: IPromptOptions | IPromptOptions[], callback: (answers: any) => void): void;
         npmInstall(packages?: string[] | string, options?: any, cb?: Function): void;
@@ -27,13 +27,14 @@ declare module yo {
         spawnCommand(name: string, args?: string[], options?: Object): void;
         spawnCommandSync(name: string, args?: string[], options?: Object): void;
         options: { [key: string]: any };
+        fs: IMemFsEditor;
     }
 
     export class YeomanGeneratorBase implements IYeomanGenerator, NodeJS.EventEmitter {
         argument(name: string, config: IArgumentConfig): void;
         composeWith(namespace: string, options: any, settings?: IComposeSetting): IYeomanGenerator;
         defaultFor(name: string): void;
-        destinationRoot(rootPath: string): string;
+        destinationRoot(rootPath?: string): string;
         destinationPath(...path: string[]): string;
         determineAppname(): void;
         getCollisionFilter(): (output: any) => void;
@@ -43,7 +44,7 @@ declare module yo {
         run(args?: any): void;
         run(args: any, callback?: Function): void;
         runHooks(callback?: Function): void;
-        sourceRoot(rootPath: string): string;
+        sourceRoot(rootPath?: string): string;
         templatePath(...path: string[]): string;
         addListener(event: string, listener: Function): NodeJS.EventEmitter;
         on(event: string, listener: Function): NodeJS.EventEmitter;
@@ -65,6 +66,21 @@ declare module yo {
         appname: string;
         gruntfile: IGruntFileStatic;
         options: { [key: string]: any };
+        fs: IMemFsEditor;
+    }
+
+    export interface IMemFsEditor {
+        read(filepath: string, options?: Object): string;
+        readJSON(filepath: string, defaults?: Object): Object;
+        write(filepath: string, contents: string): void;
+        writeJSON(filepath: string, contents: Object, replacer?: Function, space?: number): void;
+        delete(filepath: string, options?: Object): void;
+        copy(from: string, to: string, options?: Object): void;
+        copyTpl(from: string, to: string, context: Object, options?: Object): void;
+        move(from: string, to: string, options?: Object): void;
+        exists(filepath: string): boolean;
+        commit(callback: Function): void;
+        commit(filters: any[], callback: Function): void;
     }
 
     export interface IInstallDependencyOptions {
