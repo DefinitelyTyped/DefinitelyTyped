@@ -1705,7 +1705,7 @@ declare module angular {
      * bootstrap(AppCmp, ROUTER_PROVIDERS);
      * ```
      */
-    abstract class Instruction {
+    interface Instruction {
 
         get urlPath(): string;
 
@@ -1748,11 +1748,8 @@ declare module angular {
      * <router-outlet></router-outlet>
      * ```
      */
-    class RouterOutlet {
+    interface RouterOutlet {
         name: string;
-
-        constructor(private _elementRef: any, private _loader: any,
-                    private _parentRouter: Router, nameAttr: string);
 
         /**
          * Called by the Router to instantiate a new component during the commit phase of a navigation.
@@ -1796,7 +1793,7 @@ declare module angular {
         routerCanReuse(nextInstruction: ComponentInstruction): Promise<boolean>;
     }
 
-    class RouteRegistry {
+    interface RouteRegistry {
         /**
          * Given a component and a configuration object, add the route to this registry
          */
@@ -1844,11 +1841,12 @@ declare module angular {
      * `Instruction`.
      * The router uses the `RouteRegistry` to get an `Instruction`.
      */
-    class Router {
+    interface Router {
         navigating: boolean;
         lastNavigationAttempt: string;
-
-        constructor(public registry: RouteRegistry, public parent: Router, public hostComponent: any);
+        registry: RouteRegistry;
+        parent: Router;
+        hostComponent: any;
 
         /**
          * Constructs a child router. You probably don't need to use this unless you're writing a reusable
@@ -1962,9 +1960,8 @@ declare module angular {
      * RouteData is an immutable map of additional data you can configure in your Route.
      * You can inject RouteData into the constructor of a component to use it.
      */
-    class RouteData {
-        constructor(public data?: {[key: string]: any});
-
+    interface RouteData {
+        data: {[key: string]: any});
         get(key: string): any;
     }
 
@@ -1981,13 +1978,16 @@ declare module angular {
      *
      * You should not modify this object. It should be treated as immutable.
      */
-    class ComponentInstruction {
+    interface ComponentInstruction {
         reuse: boolean;
         routeData: RouteData;
-
-        constructor(public urlPath: string, public urlParams: string[], data: RouteData,
-                    public componentType, public terminal: boolean, public specificity: number,
-                    public params?: {[key: string]: any});
+        urlPath: string;
+        urlParams: string[];
+        data: RouteData;
+        componentType: any;
+        terminal: boolean;
+        specificity: number;
+        params: {[key: string]: any};
     }
     
     
