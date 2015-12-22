@@ -1,83 +1,97 @@
-///<reference path="../typings/react-bootstrap/react-bootstrap.d.ts"/>
+///<reference path="./react/react.d.ts"/>
+declare module 'react-bootstrap-validation' { 
+    import React = require("react");
 
-declare module  ReactBootstrapValidation{
+    // Form component
+    var Form: FormClass;
+    interface Form extends React.ReactElement<FormProps> { }
+    interface FormClass extends React.ComponentClass<FormProps> { }
+    interface FormProps extends React.Props<FormClass> {
+        
+        validateOne?: any;
+        validateAll?: any;
+        errorHelp?: string | any; 
+        validationEvent?: string; //Input event that triggers field validation. Can be one of onChange, onBlur or onFocus. Default value is onChange.
+        onValidSubmit: any;
+        id?: string | any;
+    }
+
+    // Validated Input
+    var ValidatedInput: ValidatedInputClass;
+    interface ValidatedInput extends React.ReactElement<ValidatedInputProps> { }
+    interface ValidatedInputClass extends React.ComponentClass<ValidatedInputProps> { }
+    interface ValidatedInputProps extends React.Props<ValidatedInputClass> {
+        name: string;
+        validationEvent?: string;
+        validate: any;
+        type: any;
+        label: any;
+        errorHelp: any;
+        id?: string | number;
+        placeholder?: string;
+    }
+
+    // Radio Component
+    var Radio: RadioClass;
+    interface Radio extends React.ReactElement<RadioProps> { }
+    interface RadioClass extends React.ComponentClass<RadioProps> { }
+    interface RadioProps extends ValidatedInputProps {
+    }
+
+    // Radio Group Component
+    var RadioGroup: RadioGroupClass;
+    interface RadioGroup extends React.ReactElement<RadioGroupProps> { }
+    interface RadioGroupClass extends React.ComponentClass<RadioGroupProps> { }
+    interface RadioGroupProps extends ValidatedInputProps {
+        validationEvent: any;
+    }
+
+
+    // Validator Component
+    var Validator: ValidatorClass;
+    interface Validator extends React.ReactElement<ValidatorProps> { }
+    interface ValidatorClass extends React.ComponentClass<ValidatorProps> { }
+    interface ValidatorProps extends React.Props<ValidatorClass>  {
+        validationEvent: any;
+    }
+
     
-    export interface Form {
-         model;
-         validateOne: any;
-         validateAll: any;
-         errorHelp: string | any;
-         validationEvent: string;
-         onValidSubmit: any;
+// TODO: Map out the following items below
+    //var FileValidator: FileValidatorClass;
+    //interface FileValidatorClass extends ValidatedInputClass {
+    //     ref: any;
+    //     name: any;
+    //     type :any;
+    //     label:any;
+    //     multiple: any;
+    //     validate: any;
 
-     }
-    export interface ValidatedInput 
-     {
+    //     isEmpty(files: FileList);
 
-         name: string;
-         validationEvent: string;
-         validate: any;
+    //     /// Returns true if there are no files in file list.
+    //     isSingle(files: FileList);
 
-         type: any;
-         label: any;
-         errorHelp: any;
-     }
+    //     // Returns true if files count equals to 1.
+    //     isMultiple(files: FileList);
 
-    export interface Radio extends ValidatedInput {
+    //     //Returns true if files count is more than 1.
+    //     isFilesCount(files: FileList, min: Number, max:Array<Number> );
 
-     }
+    //     //Returns true if files count is within allowed range.If max is not supplied, checks if files count equals min.
+    //     isTotalSize(files: FileList, min: Number, max: Array<Number>);
 
+    //     //Returns true if total size of all files is within allowed range.
+    //     isEachFileSize(files: FileList, min: Number, max: Array<Number>);
 
-    export interface RadioGroup extends  ValidatedInput {
-         validationEvent: any;
-     }
+    //     //Returns true if each file's size is within allowed range.
+    //     isExtension(files: FileList, extensions: Array<any>);
 
-    export interface Validator {
+    //     //Returns true if each file's extension is in the extensions array.
+    //     isType(files: FileList, types: Array<any>);
+    // }
 
-         required(val: String);
-         //Returns true if the value is not null.Can be used as an alias to !isNull validation rule.
-         isChecked(val: String);
+    //var InputContainer: InputContainerClass;
+    //interface InputContainerClass extends ValidatedInputClass{
 
-     }
-
-    export interface FileValidator extends Validator {
-         ref: any;
-         name: any;
-         type :any;
-         label:any;
-         multiple: any;
-         validate: any;
-
-         isEmpty(files: FileList);
-
-         /// Returns true if there are no files in file list.
-         isSingle(files: FileList);
-
-         // Returns true if files count equals to 1.
-         isMultiple(files: FileList);
-
-         //Returns true if files count is more than 1.
-         isFilesCount(files: FileList, min: Number, max:Array<Number> );
-
-         //Returns true if files count is within allowed range.If max is not supplied, checks if files count equals min.
-         isTotalSize(files: FileList, min: Number, max: Array<Number>);
-
-         //Returns true if total size of all files is within allowed range.
-         isEachFileSize(files: FileList, min: Number, max: Array<Number>);
-
-         //Returns true if each file's size is within allowed range.
-         isExtension(files: FileList, extensions: Array<any>);
-
-         //Returns true if each file's extension is in the extensions array.
-         isType(files: FileList, types: Array<any>);
-     }
-
-    export interface InputContainer {
-
-     }
+    // }
  }
-
-
-declare module 'react-bootstrap-validation' {
-    export = ReactBootstrapValidation;
-}
