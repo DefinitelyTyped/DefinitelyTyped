@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module PrettyJSON {
+declare module prettyjson {
 
   /**
    * Defines prettyjson version
@@ -14,13 +14,13 @@ declare module PrettyJSON {
   /**
    * Render pretty json.
    *
-   * @param data {Object} Data to prettify.
+   * @param data {any} Data to prettify.
    * @param options {IOptions} Hash with different options to configure the renderer.
    * @param indentation {number} Indentation size.
    *
    * @return {string} pretty serialized json data ready to display.
      */
-  export function render(data: Object, options?: IOptions, indentation?: number): string;
+  export function render(data: any, options?: IOptions, indentation?: number): string;
 
   /**
    * Render pretty json from a string.
@@ -52,8 +52,4 @@ declare module PrettyJSON {
 
     defaultIndentation ?: number;
   }
-}
-
-declare module "prettyjson" {
-    export = PrettyJSON;
 }
