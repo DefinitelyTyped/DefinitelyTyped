@@ -233,6 +233,16 @@ module http_tests {
 	});
 
 	var agent: http.Agent = http.globalAgent;
+	
+	http.request({
+		agent: false
+	});
+	http.request({
+		agent: agent
+	});
+	http.request({
+		agent: undefined
+	});
 }
 
 ////////////////////////////////////////////////////
