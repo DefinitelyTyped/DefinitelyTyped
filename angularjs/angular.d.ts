@@ -897,7 +897,7 @@ declare module angular {
     }
 
     interface ICompiledExpression {
-        (context: any, locals?: any): any;
+        (context?: any, locals?: any): any;
 
         literal: boolean;
         constant: boolean;
