@@ -2694,9 +2694,11 @@ module TestAny {
     let array: TResult[];
     let list: _.List<TResult>;
     let dictionary: _.Dictionary<TResult>;
+    let numericDictionary: _.NumericDictionary<TResult>;
 
     let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
     let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean;
+    let numericDictionaryIterator: (value: TResult, key: number, collection: _.NumericDictionary<TResult>) => boolean;
 
     {
         let result: boolean;
@@ -2719,6 +2721,12 @@ module TestAny {
         result = _.any<TResult>(dictionary, '');
         result = _.any<{a: number}, TResult>(dictionary, {a: 42});
 
+        result = _.any<TResult>(numericDictionary);
+        result = _.any<TResult>(numericDictionary, numericDictionaryIterator);
+        result = _.any<TResult>(numericDictionary, numericDictionaryIterator, any);
+        result = _.any<TResult>(numericDictionary, '');
+        result = _.any<{a: number}, TResult>(numericDictionary, {a: 42});
+
         result = _(array).any();
         result = _(array).any(listIterator);
         result = _(array).any(listIterator, any);
@@ -2736,6 +2744,12 @@ module TestAny {
         result = _(dictionary).any<TResult>(dictionaryIterator, any);
         result = _(dictionary).any('');
         result = _(dictionary).any<{a: number}>({a: 42});
+
+        result = _(numericDictionary).any<TResult>();
+        result = _(numericDictionary).any<TResult>(numericDictionaryIterator);
+        result = _(numericDictionary).any<TResult>(numericDictionaryIterator, any);
+        result = _(numericDictionary).any('');
+        result = _(numericDictionary).any<{a: number}>({a: 42});
     }
 
     {
@@ -2758,6 +2772,12 @@ module TestAny {
         result = _(dictionary).chain().any<TResult>(dictionaryIterator, any);
         result = _(dictionary).chain().any('');
         result = _(dictionary).chain().any<{a: number}>({a: 42});
+
+        result = _(numericDictionary).chain().any<TResult>();
+        result = _(numericDictionary).chain().any<TResult>(numericDictionaryIterator);
+        result = _(numericDictionary).chain().any<TResult>(numericDictionaryIterator, any);
+        result = _(numericDictionary).chain().any('');
+        result = _(numericDictionary).chain().any<{a: number}>({a: 42});
     }
 }
 
@@ -4378,9 +4398,11 @@ module TestSome {
     let array: TResult[];
     let list: _.List<TResult>;
     let dictionary: _.Dictionary<TResult>;
+    let numericDictionary: _.NumericDictionary<TResult>;
 
     let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
     let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean;
+    let numericDictionaryIterator: (value: TResult, key: number, collection: _.NumericDictionary<TResult>) => boolean;
 
     {
         let result: boolean;
@@ -4403,6 +4425,12 @@ module TestSome {
         result = _.some<TResult>(dictionary, '');
         result = _.some<{a: number}, TResult>(dictionary, {a: 42});
 
+        result = _.some<TResult>(numericDictionary);
+        result = _.some<TResult>(numericDictionary, numericDictionaryIterator);
+        result = _.some<TResult>(numericDictionary, numericDictionaryIterator, any);
+        result = _.some<TResult>(numericDictionary, '');
+        result = _.some<{a: number}, TResult>(numericDictionary, {a: 42});
+
         result = _(array).some();
         result = _(array).some(listIterator);
         result = _(array).some(listIterator, any);
@@ -4420,6 +4448,12 @@ module TestSome {
         result = _(dictionary).some<TResult>(dictionaryIterator, any);
         result = _(dictionary).some('');
         result = _(dictionary).some<{a: number}>({a: 42});
+
+        result = _(numericDictionary).some<TResult>();
+        result = _(numericDictionary).some<TResult>(numericDictionaryIterator);
+        result = _(numericDictionary).some<TResult>(numericDictionaryIterator, any);
+        result = _(numericDictionary).some('');
+        result = _(numericDictionary).some<{a: number}>({a: 42});
     }
 
     {
@@ -4442,6 +4476,12 @@ module TestSome {
         result = _(dictionary).chain().some<TResult>(dictionaryIterator, any);
         result = _(dictionary).chain().some('');
         result = _(dictionary).chain().some<{a: number}>({a: 42});
+
+        result = _(numericDictionary).chain().some<TResult>();
+        result = _(numericDictionary).chain().some<TResult>(numericDictionaryIterator);
+        result = _(numericDictionary).chain().some<TResult>(numericDictionaryIterator, any);
+        result = _(numericDictionary).chain().some('');
+        result = _(numericDictionary).chain().some<{a: number}>({a: 42});
     }
 }
 
