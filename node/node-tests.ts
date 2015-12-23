@@ -239,16 +239,47 @@ ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: numb
 });
 
 ////////////////////////////////////////////////////
-///Querystring tests : https://gist.github.com/musubu/2202583
+///Querystring tests : https://nodejs.org/api/querystring.html
 ////////////////////////////////////////////////////
 
-var original: string = 'http://example.com/product/abcde.html';
-var escaped: string = querystring.escape(original);
-console.log(escaped);
-// http%3A%2F%2Fexample.com%2Fproduct%2Fabcde.html
-var unescaped: string = querystring.unescape(escaped);
-console.log(unescaped);
-// http://example.com/product/abcde.html
+module querystring_tests {
+    type SampleObject = {a: string; b: number;}
+
+    {
+        let obj: SampleObject;
+        let sep: string;
+        let eq: string;
+        let options: querystring.StringifyOptions;
+        let result: string;
+
+        result = querystring.stringify<SampleObject>(obj);
+        result = querystring.stringify<SampleObject>(obj, sep);
+        result = querystring.stringify<SampleObject>(obj, sep, eq);
+        result = querystring.stringify<SampleObject>(obj, sep, eq);
+        result = querystring.stringify<SampleObject>(obj, sep, eq, options);
+    }
+
+    {
+        let str: string;
+        let sep: string;
+        let eq: string;
+        let options: querystring.ParseOptions;
+        let result: SampleObject;
+
+        result = querystring.parse<SampleObject>(str);
+        result = querystring.parse<SampleObject>(str, sep);
+        result = querystring.parse<SampleObject>(str, sep, eq);
+        result = querystring.parse<SampleObject>(str, sep, eq, options);
+    }
+
+    {
+        let str: string;
+        let result: string;
+
+        result = querystring.escape(str);
+        result = querystring.unescape(str);
+    }
+}
 
 ////////////////////////////////////////////////////
 /// path tests : http://nodejs.org/api/path.html

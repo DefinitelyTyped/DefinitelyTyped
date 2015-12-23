@@ -1959,7 +1959,7 @@ declare module THREE {
         constructor(manager?: LoadingManager);
 
         manager: LoadingManager;
-        load(url: string, onLoad: (texture: CubeTexture) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
+        load(urls: Array<string>, onLoad?: (texture: CubeTexture) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
         setCrossOrigin(crossOrigin: string): void;
 
     }
@@ -2076,7 +2076,7 @@ declare module THREE {
          *
          * @param url
          */
-        load(url: string, onLoad: (texture: Texture) => void): Texture;
+        load(url: string, onLoad?: (texture: Texture) => void): Texture;
         setCrossOrigin(crossOrigin: string): void;
     }
 

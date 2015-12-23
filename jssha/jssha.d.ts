@@ -79,7 +79,7 @@ declare module jsSHA {
     }
 }
 
+declare var jsSHA: jsSHA.jsSHA;
 declare module 'jssha' {
-	var jsSHA: jsSHA.jsSHA;
     export = jsSHA;
 }
