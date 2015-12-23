@@ -4062,7 +4062,16 @@ declare module _ {
          * @see _.some
          */
         any<T>(
-            collection: List<T>|Dictionary<T>,
+            collection: NumericDictionary<T>,
+            predicate?: NumericDictionaryIterator<T, boolean>,
+            thisArg?: any
+        ): boolean;
+
+        /**
+         * @see _.some
+         */
+        any<T>(
+            collection: List<T>|Dictionary<T>|NumericDictionary<T>,
             predicate?: string,
             thisArg?: any
         ): boolean;
@@ -4071,7 +4080,7 @@ declare module _ {
          * @see _.some
          */
         any<TObject extends {}, T>(
-            collection: List<T>|Dictionary<T>,
+            collection: List<T>|Dictionary<T>|NumericDictionary<T>,
             predicate?: TObject
         ): boolean;
     }
@@ -4081,7 +4090,7 @@ declare module _ {
          * @see _.some
          */
         any(
-            predicate?: ListIterator<T, boolean>,
+            predicate?: ListIterator<T, boolean>|NumericDictionaryIterator<T, boolean>,
             thisArg?: any
         ): boolean;
 
@@ -4106,7 +4115,7 @@ declare module _ {
          * @see _.some
          */
         any<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>,
             thisArg?: any
         ): boolean;
 
@@ -4131,7 +4140,7 @@ declare module _ {
          * @see _.some
          */
         any(
-            predicate?: ListIterator<T, boolean>,
+            predicate?: ListIterator<T, boolean>|NumericDictionaryIterator<T, boolean>,
             thisArg?: any
         ): LoDashExplicitWrapper<boolean>;
 
@@ -4156,7 +4165,7 @@ declare module _ {
          * @see _.some
          */
         any<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>,
             thisArg?: any
         ): LoDashExplicitWrapper<boolean>;
 
@@ -7477,7 +7486,16 @@ declare module _ {
          * @see _.some
          */
         some<T>(
-            collection: List<T>|Dictionary<T>,
+            collection: NumericDictionary<T>,
+            predicate?: NumericDictionaryIterator<T, boolean>,
+            thisArg?: any
+        ): boolean;
+
+        /**
+         * @see _.some
+         */
+        some<T>(
+            collection: List<T>|Dictionary<T>|NumericDictionary<T>,
             predicate?: string,
             thisArg?: any
         ): boolean;
@@ -7486,7 +7504,7 @@ declare module _ {
          * @see _.some
          */
         some<TObject extends {}, T>(
-            collection: List<T>|Dictionary<T>,
+            collection: List<T>|Dictionary<T>|NumericDictionary<T>,
             predicate?: TObject
         ): boolean;
     }
@@ -7496,7 +7514,7 @@ declare module _ {
          * @see _.some
          */
         some(
-            predicate?: ListIterator<T, boolean>,
+            predicate?: ListIterator<T, boolean>|NumericDictionaryIterator<T, boolean>,
             thisArg?: any
         ): boolean;
 
@@ -7521,7 +7539,7 @@ declare module _ {
          * @see _.some
          */
         some<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>,
             thisArg?: any
         ): boolean;
 
@@ -7546,7 +7564,7 @@ declare module _ {
          * @see _.some
          */
         some(
-            predicate?: ListIterator<T, boolean>,
+            predicate?: ListIterator<T, boolean>|NumericDictionaryIterator<T, boolean>,
             thisArg?: any
         ): LoDashExplicitWrapper<boolean>;
 
@@ -7571,7 +7589,7 @@ declare module _ {
          * @see _.some
          */
         some<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>,
             thisArg?: any
         ): LoDashExplicitWrapper<boolean>;
 
@@ -13751,6 +13769,10 @@ declare module _ {
         (value: T, key?: string, collection?: Dictionary<T>): TResult;
     }
 
+    interface NumericDictionaryIterator<T, TResult> {
+        (value: T, key?: number, collection?: Dictionary<T>): TResult;
+    }
+
     interface ObjectIterator<T, TResult> {
         (element: T, key?: string, collection?: any): TResult;
     }
@@ -13783,6 +13805,10 @@ declare module _ {
 
     interface Dictionary<T> {
         [index: string]: T;
+    }
+
+    interface NumericDictionary<T> {
+        [index: number]: T;
     }
 
     interface StringRepresentable {
