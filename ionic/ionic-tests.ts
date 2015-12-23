@@ -149,6 +149,7 @@ class IonicTestController {
         ionicModalController.initialize(modalOptions);
         ionicModalController.show().then(() => console.log("shown modal"))
         ionicModalController.hide().then(() => console.log("hid modal"))
+        ionicModalController.remove().then(() => console.log("removed modal"))
         var isShown: boolean = ionicModalController.isShown();
 
         this.$ionicModal.fromTemplateUrl("templateUrl", modalOptions)
