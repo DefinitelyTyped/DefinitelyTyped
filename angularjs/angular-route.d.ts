@@ -114,6 +114,12 @@ declare module angular.route {
          * This option defaults to false. If the option is set to true, then the particular route can be matched without being case sensitive
          */
         caseInsensitiveMatch?: boolean;
+        /**
+         * Used in conjunction with angularjs-oauth2 https://github.com/JamesRandall/AngularJS-OAuth2
+         *
+         * This option is used to lock pages that require a token
+         */
+        requireToken?: boolean,
     }
 
     // see http://docs.angularjs.org/api/ng.$route#current
