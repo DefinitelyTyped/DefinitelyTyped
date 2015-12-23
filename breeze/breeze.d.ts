@@ -392,7 +392,7 @@ declare module breeze {
         constructor(config?: EntityManagerOptions);
         constructor(config?: string);
 
-		acceptChanges();
+		acceptChanges(): void;
         addEntity(entity: Entity): Entity;
         attachEntity(entity: Entity, entityState?: EntityStateSymbol, mergeStrategy?: MergeStrategySymbol): Entity;
         clear(): void;
