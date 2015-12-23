@@ -1,5 +1,5 @@
 /// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="jquery.raty.d.ts" />
+/// <reference path="raty.d.ts" />
 
 //set a score
 $("#ratyDiv").raty('score',1); 
