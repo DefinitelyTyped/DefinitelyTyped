@@ -230,7 +230,7 @@ module UrlRouterProviderTests {
         // this allows you to configure custom behavior in between
         // location changes and route synchronization:
         $urlRouterProvider.deferIntercept();
-    }).run(($rootScope: ng.IRootScopeService, $urlRouter: ng.ui.IUrlRouterService, UserService: ITestUserService) => {
+    }).run(($rootScope: ng.IRootScopeService, $urlRouter: ng.ui.IUrlRouterService, UserService: ITestUserService, $urlMatcher: ng.ui.IUrlMatcher) => {
         $rootScope.$on('$locationChangeSuccess', e => {
             // UserService is an example service for managing user state
             if (UserService.isLoggedIn()) return;
@@ -245,6 +245,18 @@ module UrlRouterProviderTests {
         });
 
         // Configures $urlRouter's listener *after* your custom listener
-        $urlRouter.listen();
+        var listen: Function = $urlRouter.listen();
+
+        var href: string;
+        href = $urlRouter.href($urlMatcher);
+        href = $urlRouter.href($urlMatcher, {});
+        href = $urlRouter.href($urlMatcher, {}, {});
+
+        $urlRouter.update();
+        $urlRouter.update(false);
+
+        $urlRouter.push($urlMatcher);
+        $urlRouter.push($urlMatcher, {});
+        $urlRouter.push($urlMatcher, {}, {});
     });
 }
