@@ -8588,24 +8588,35 @@ declare module _ {
     //_.bindAll
     interface LoDashStatic {
         /**
-        * Binds methods of an object to the object itself, overwriting the existing method. Method
-        * names may be specified as individual arguments or as arrays of method names. If no method
-        * names are provided all the function properties of object will be bound.
-        * @param object The object to bind and assign the bound methods to.
-        * @param methodNames The object method names to bind, specified as individual method names
-        * or arrays of method names.
-        * @return object
-        **/
+         * Binds methods of an object to the object itself, overwriting the existing method. Method names may be
+         * specified as individual arguments or as arrays of method names. If no method names are provided all
+         * enumerable function properties, own and inherited, of object are bound.
+         *
+         * Note: This method does not set the "length" property of bound functions.
+         *
+         * @param object The object to bind and assign the bound methods to.
+         * @param methodNames The object method names to bind, specified as individual method names or arrays of
+         * method names.
+         * @return Returns object.
+         */
         bindAll<T>(
             object: T,
-            ...methodNames: string[]): T;
+            ...methodNames: (string|string[])[]
+        ): T;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.bindAll
-        **/
-        bindAll(...methodNames: string[]): LoDashImplicitWrapper<T>;
+         * @see _.bindAll
+         */
+        bindAll(...methodNames: (string|string[])[]): LoDashImplicitObjectWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.bindAll
+         */
+        bindAll(...methodNames: (string|string[])[]): LoDashExplicitObjectWrapper<T>;
     }
 
     //_.bindKey
