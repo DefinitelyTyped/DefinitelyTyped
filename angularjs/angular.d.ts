@@ -1634,13 +1634,13 @@ declare module angular {
     ///////////////////////////////////////////////////////////////////////////
     
     interface IComponentOptions {
-        bindings?: Object,
-        controller: Function|string,
-        controllerAs?: string,
-        isolate?: boolean,
-        restrict?: string,
-        template?: Array<string>|Function,
-        templateUrl?: string,
+        bindings?: Object;
+        controller: Function|string;
+        controllerAs?: string;
+        isolate?: boolean;
+        restrict?: string;
+        template?: Array<string>|Function;
+        templateUrl?: string;
         transclude?: boolean
     }
 
