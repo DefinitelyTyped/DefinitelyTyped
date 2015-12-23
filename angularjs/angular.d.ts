@@ -165,7 +165,7 @@ declare module angular {
             dot: number;
             codeName: string;
         };
-        
+
         /**
          * If window.name contains prefix NG_DEFER_BOOTSTRAP! when angular.bootstrap is called, the bootstrap process will be paused until angular.resumeBootstrap() is called.
          * @param extraModules An optional array of modules that should be added to the original list of modules that the app was about to be bootstrapped with.
@@ -1626,22 +1626,22 @@ declare module angular {
          */
         totalPendingRequests: number;
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // Component
     // see http://angularjs.blogspot.com.br/2015/11/angularjs-15-beta2-and-14-releases.html
     // and http://toddmotto.com/exploring-the-angular-1-5-component-method/
     ///////////////////////////////////////////////////////////////////////////
-    
+
     interface IComponentOptions {
-        bindings?: Object,
-        controller: Function|string,
-        controllerAs?: string,
-        isolate?: boolean,
-        restrict?: string,
-        template?: Array<string>|Function,
-        templateUrl?: string,
-        transclude?: boolean
+        bindings?: Object;
+        controller: Function|string;
+        controllerAs?: string;
+        isolate?: boolean;
+        restrict?: string;
+        template?: Array<string>|Function;
+        templateUrl?: string;
+        transclude?: boolean;
     }
 
     ///////////////////////////////////////////////////////////////////////////
