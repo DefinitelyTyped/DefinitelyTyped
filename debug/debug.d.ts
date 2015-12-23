@@ -1,7 +1,6 @@
 // Type definitions for debug
 // Project: https://github.com/visionmedia/debug
-// Definitions by: Seon-Wook Park <https://github.com/swook>
-// Definitions by: Gal Talmor <https://github.com/galtalmor>
+// Definitions by: Seon-Wook Park <https://github.com/swook>, Gal Talmor <https://github.com/galtalmor>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare var debug:debug.IDebug;
