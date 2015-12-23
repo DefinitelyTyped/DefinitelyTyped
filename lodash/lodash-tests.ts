@@ -6103,10 +6103,25 @@ module TestIsTypedArray {
 }
 
 // _.isUndefined
-result = <boolean>_.isUndefined(any);
-result = <boolean>_(1).isUndefined();
-result = <boolean>_<any>([]).isUndefined();
-result = <boolean>_({}).isUndefined();
+module TestIsUndefined {
+    {
+        let result: boolean;
+
+        result = _.isUndefined(any);
+
+        result = _(1).isUndefined();
+        result = _<any>([]).isUndefined();
+        result = _({}).isUndefined();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isUndefined();
+        result = _<any>([]).chain().isUndefined();
+        result = _({}).chain().isUndefined();
+    }
+}
 
 // _.lt
 module TestLt {
