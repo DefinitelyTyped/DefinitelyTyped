@@ -179,6 +179,8 @@ var mod = angular.module('tests', []);
 mod.controller('name', function ($scope: ng.IScope) { })
 mod.controller('name', ['$scope', <any>function ($scope: ng.IScope) { }])
 mod.controller(My.Namespace);
+mod.component('name', {});
+mod.component('name', {template: '<p>Hello World</p>'});
 mod.directive('name', <any>function ($scope: ng.IScope) { })
 mod.directive('name', ['$scope', <any>function ($scope: ng.IScope) { }])
 mod.directive(My.Namespace);
