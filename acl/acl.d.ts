@@ -3,7 +3,7 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path='../es6-promise/es6-promise.d.ts' />
+/// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path='../node/node.d.ts'/>
 
 /// <reference path='../redis/redis.d.ts'/>
@@ -11,7 +11,7 @@
 
 declare module "acl" {
   import http = require('http');
-  import Promise = require("es6-promise");
+  import Promise = require("bluebird");
 
   type strings = string|string[];
   type Value = string|number;
