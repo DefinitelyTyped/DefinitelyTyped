@@ -1312,7 +1312,7 @@ declare module GitHubElectron {
 		 */
 		read(format: string, type?: string): any;
 	}
-	
+
 	interface CrashReporterStartOptions {
 		/**
 		* Default: Electron
@@ -1343,7 +1343,7 @@ declare module GitHubElectron {
 		*/
 		extra?: {}
 	}
-	
+
 	interface CrashReporterPayload extends Object {
 		/**
 		* E.g., "electron-crash-service".
@@ -1383,17 +1383,17 @@ declare module GitHubElectron {
 		*/
 		upload_file_minidump: File;
 	}
-	
+
 	interface CrashReporter {
 		start(options?: CrashReporterStartOptions): void;
-	
+
 		/**
 		 * @returns The date and ID of the last crash report. When there was no crash report
 		 * sent or the crash reporter is not started, null will be returned.
 		 */
 		getLastCrashReport(): CrashReporterPayload;
 	}
-	
+
 	interface Shell{
 		/**
 		 * Show the given file in a file manager. If possible, select the file.
@@ -1469,7 +1469,7 @@ declare module GitHubElectron {
 		 */
 		process: any;
 	}
-	
+
 	interface WebFrame {
 		/**
 		 * Changes the zoom factor to the specified factor, zoom factor is
@@ -1588,7 +1588,7 @@ declare module GitHubElectron {
 		ENABLE_SAMPLING: number;
 		RECORD_CONTINUOUSLY: number;
 	}
-	
+
 	interface Dialog {
 		/**
 		 * @param callback If supplied, the API call will be asynchronous.
@@ -1608,7 +1608,7 @@ declare module GitHubElectron {
 		 * @returns The index of the clicked button.
 		 */
 		showMessageBox: typeof GitHubElectron.Dialog.showMessageBox;
-	
+
 		/**
 		 * Runs a modal dialog that shows an error message. This API can be called safely
 		 * before the ready event of app module emits, it is usually used to report errors
@@ -1616,7 +1616,7 @@ declare module GitHubElectron {
 		 */
 		showErrorBox(title: string, content: string): void;
 	}
-	
+
 	interface GlobalShortcut {
 		/**
 		 * Registers a global shortcut of accelerator.
@@ -1643,14 +1643,14 @@ declare module GitHubElectron {
 		 */
 		unregisterAll(): void;
 	}
-	
+
 	class RequestFileJob {
 		/**
 		* Create a request job which would query a file of path and set corresponding mime types.
 		*/
 		constructor(path: string);
 	}
-	
+
 	class RequestStringJob {
 		/**
 		* Create a request job which sends a string as response.
@@ -1667,7 +1667,7 @@ declare module GitHubElectron {
 			data?: string;
 		});
 	}
-	
+
 	class RequestBufferJob {
 		/**
 		* Create a request job which accepts a buffer and sends a string as response.
@@ -1684,7 +1684,7 @@ declare module GitHubElectron {
 			data?: Buffer;
 		});
 	}
-	
+
 	interface Protocol {
 		registerProtocol(scheme: string, handler: (request: any) => void): void;
 		unregisterProtocol(scheme: string): void;
@@ -1718,6 +1718,7 @@ declare module GitHubElectron {
 		powerMonitor: NodeJS.EventEmitter;
 		protocol: GitHubElectron.Protocol;
 		Tray: typeof GitHubElectron.Tray;
+		hideInternalModules(): void;
 	}
 }
 
