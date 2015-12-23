@@ -5989,10 +5989,24 @@ result = <boolean>_({}).isNumber();
 }
 
 // _.isObject
-result = <boolean>_.isObject(any);
-result = <boolean>_(1).isObject();
-result = <boolean>_<any>([]).isObject();
-result = <boolean>_({}).isObject();
+module TestIsObject {
+    {
+        let result: boolean;
+
+        result = _.isObject(any);
+        result = _(1).isObject();
+        result = _<any>([]).isObject();
+        result = _({}).isObject();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isObject();
+        result = _<any>([]).chain().isObject();
+        result = _({}).chain().isObject();
+    }
+}
 
 // _.isPlainObject
 result = <boolean>_.isPlainObject(any);
