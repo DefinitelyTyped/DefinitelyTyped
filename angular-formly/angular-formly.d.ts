@@ -70,6 +70,11 @@ declare module AngularFormly {
 		postWrapper?: ITemplateManipulator[];
 	}
 
+	interface ISelectOption {
+		name: string;
+		value?: string;
+		group?: string;
+	}
 
 	/**
 	 * see http://docs.angular-formly.com/docs/ngmodelattrstemplatemanipulator
@@ -103,6 +108,12 @@ declare module AngularFormly {
 		label?: string;
 		description?: string;
 		[key: string]: any;
+
+		// types for select/radio fields
+		options?: Array<ISelectOption>;
+		groupProp?: string;  // default: group
+		valueProp?: string;  // default: value
+		labelProp?: string;  // default: name
 
 	}
 
