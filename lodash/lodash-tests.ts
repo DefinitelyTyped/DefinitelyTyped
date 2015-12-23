@@ -5027,16 +5027,43 @@ var addTwoNumbers = function (x: number, y: number) { return x + y };
 var plusTwo = _.bind(addTwoNumbers, null, 2);
 plusTwo(100);
 
-var view = {
-    'label': 'docs',
-    'onClick': function () { console.log('clicked ' + this.label); }
-};
+// _.bindAll
+module TestBindAll {
+    interface SampleObject {
+        a: Function;
+        b: Function;
+        c: Function;
+    }
 
-view = _.bindAll(view);
-jQuery('#docs').on('click', view.onClick);
+    let object: SampleObject;
 
-view = _(view).bindAll().value();
-jQuery('#docs').on('click', view.onClick);
+    {
+        let result: SampleObject;
+
+        result = _.bindAll<SampleObject>(object);
+        result = _.bindAll<SampleObject>(object, 'c');
+        result = _.bindAll<SampleObject>(object, ['b'], 'c');
+        result = _.bindAll<SampleObject>(object, 'a', ['b'], 'c');
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<SampleObject>;
+
+        result = _(object).bindAll();
+        result = _(object).bindAll('c');
+        result = _(object).bindAll(['b'], 'c');
+        result = _(object).bindAll('a', ['b'], 'c');
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<SampleObject>;
+
+        result = _(object).chain().bindAll();
+        result = _(object).chain().bindAll('c');
+        result = _(object).chain().bindAll(['b'], 'c');
+        result = _(object).chain().bindAll('a', ['b'], 'c');
+    }
+}
 
 var objectBindKey = {
     'name': 'moe',
