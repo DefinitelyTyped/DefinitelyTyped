@@ -1,7 +1,7 @@
 // Type definitions for bcrypt-nodejs
 // Project: https://github.com/shaneGirish/bcrypt-nodejs
 // Definitions by: David Broder-Rodgers <https://github.com/DavidBR-SW/>
-// Definitions: https://github.com/DavidBR-SW/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "bcrypt-nodejs" {
     /**
