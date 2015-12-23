@@ -1,4 +1,4 @@
-/// <reference path="./through2.d.ts" />
+/// <reference path="./through2-0.4.2.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
 import through2 = require('through2');
@@ -22,12 +22,6 @@ rws = through2(function (entry: any, enc: string, callback: () => void) {
 
 });
 
-rws = through2(function (entry: any, enc: string, callback: (error: any, data?: any) => void) {
-	callback(null, 'foo');
-}, (flushCallback: () => void) => {
-	flushCallback();
-});
-
 rws = through2(function (entry: any, enc: string, callback: () => void) {
 	this.push('foo');
 	callback();
@@ -48,8 +42,3 @@ rws = through2.obj(function (entry: any, enc: string, callback: () => void) {
 	callback();
 });
 
-rws = through2.obj(function (entry: any, enc: string, callback: (err: any) => void) {
-	callback('Oups!');
-}, (flashCallback) => {
-	flashCallback();
-});
