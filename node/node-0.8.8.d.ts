@@ -150,7 +150,7 @@ interface NodeProcess extends EventEmitter {
         visibility: string;
     };
     };
-    kill(pid: number, signal?: string): void;
+    kill(pid:number, signal?: string|number): void;
     pid: number;
     title: string;
     arch: string;
