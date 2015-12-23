@@ -33,6 +33,54 @@ assert.doesNotThrow(() => {
 }, undefined, "What the...*crunch*");
 
 ////////////////////////////////////////////////////
+/// Events tests : http://nodejs.org/api/events.html
+////////////////////////////////////////////////////
+
+module events_tests {
+    let emitter: events.EventEmitter;
+    let event: string;
+    let listener: Function;
+    let any: any;
+
+    {
+        let result: events.EventEmitter;
+
+        result = emitter.addListener(event, listener);
+        result = emitter.on(event, listener);
+        result = emitter.once(event, listener);
+        result = emitter.removeListener(event, listener);
+        result = emitter.removeAllListeners();
+        result = emitter.removeAllListeners(event);
+        result = emitter.setMaxListeners(42);
+    }
+
+    {
+        let result: number;
+
+        result = events.EventEmitter.defaultMaxListeners;
+        result = events.EventEmitter.listenerCount(emitter, event); // deprecated
+
+        result = emitter.getMaxListeners();
+        result = emitter.listenerCount(event);
+    }
+
+    {
+        let result: Function[];
+
+        result = emitter.listeners(event);
+    }
+
+    {
+        let result: boolean;
+
+        result = emitter.emit(event);
+        result = emitter.emit(event, any);
+        result = emitter.emit(event, any, any);
+        result = emitter.emit(event, any, any, any);
+    }
+}
+
+////////////////////////////////////////////////////
 /// File system tests : http://nodejs.org/api/fs.html
 ////////////////////////////////////////////////////
 fs.writeFile("thebible.txt",
