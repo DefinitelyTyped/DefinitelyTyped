@@ -10018,6 +10018,7 @@ declare module _ {
         /**
          * Checks if value is a native function.
          * @param value The value to check.
+         *
          * @retrun Returns true if value is a native function, else false.
          */
         isNative(value: any): value is Function;
@@ -10028,6 +10029,13 @@ declare module _ {
          * see _.isNative
          */
         isNative(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * see _.isNative
+         */
+        isNative(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isNull

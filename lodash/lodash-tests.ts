@@ -5969,15 +5969,35 @@ module TestIsNaN {
 }
 
 // _.isNative
-result = <boolean>_.isNative(Array.prototype.push);
-result = <boolean>_(Array.prototype.push).isNative();
-{
-  let value: Function|string = "foo";
-  if (_.isNative(value)) {
-    value();
-  } else {
-    let result: string = value;
-  }
+module TestIsNull {
+    {
+        let value: number|Function;
+
+        if (_.isNative(value)) {
+            let result: Function = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isNative(any);
+
+        result = _(1).isNative();
+        result = _<any>([]).isNative();
+        result = _({}).isNative();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isNative();
+        result = _<any>([]).chain().isNative();
+        result = _({}).chain().isNative();
+    }
 }
 
 // _.isNull
