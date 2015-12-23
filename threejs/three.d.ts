@@ -4666,7 +4666,7 @@ declare module THREE {
 
         /**
          * Tells the renderer to clear its color, depth or stencil drawing buffer(s).
-         * If no parameters are passed, no buffer will be cleared.
+         * Arguments default to true
          */
         clear(color?: boolean, depth?: boolean, stencil?: boolean): void;
 
