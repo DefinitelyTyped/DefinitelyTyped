@@ -119,7 +119,7 @@ declare module angular.route {
          *
          * This option is used to lock pages that require a token
          */
-        requireToken?: boolean,
+        requireToken?: boolean;
     }
 
     // see http://docs.angularjs.org/api/ng.$route#current
