@@ -6,7 +6,7 @@
 easystarjs.d.ts may be freely distributed under the MIT license.
 */
 
-declare module "easystarjs"
+declare module easystarjs
 {
     class js
     {
