@@ -174,6 +174,7 @@ declare module ionic {
             initialize(options: IonicModalOptions): void;
             show(): ng.IPromise<void>;
             hide(): ng.IPromise<void>;
+            remove(): ng.IPromise<void>;
             isShown(): boolean;
         }
 
@@ -343,6 +344,7 @@ declare module ionic {
             select(index: number): void;
             selectedIndex(): number;
             $getByHandle(handle: string): IonicTabsDelegate;
+            showBar(show?: boolean): boolean;
         }
     }
     module utility {

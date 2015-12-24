@@ -6,7 +6,8 @@
 declare module "webpack" {
     namespace webpack {
         interface Configuration {
-            entry?: string|Entry;
+            entry?: string|string[]|Entry;
+            devtool?: string;
             output?: Output;
             module?: Module;
             plugins?: (Plugin|Function)[];
@@ -28,6 +29,8 @@ declare module "webpack" {
         }
 
         interface Loader {
+            exclude?: string[];
+            include?: string[];
             test: RegExp;
             loader?: string;
             loaders?: string[];

@@ -19,6 +19,8 @@ import {
 	shell
 } from 'electron';
 
+require('electron').hideInternalModules();
+
 import path = require('path');
 
 // Quick start
@@ -201,7 +203,7 @@ ipcMain.on('online-status-changed', (event: any, status: any) => {
 app.on('ready', () => {
 	window = new BrowserWindow({
 		width: 800,
-		height: 600, 
+		height: 600,
 		titleBarStyle: 'hidden-inset',
 	});
 	window.loadURL('https://github.com');

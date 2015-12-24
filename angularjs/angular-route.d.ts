@@ -128,6 +128,12 @@ declare module angular.route {
     }
 
     interface IRouteProvider extends IServiceProvider {
+		/**
+         * Match routes without being case sensitive
+         *
+         * This option defaults to false. If the option is set to true, then the particular route can be matched without being case sensitive
+         */
+        caseInsensitiveMatch?: boolean;
         /**
          * Sets route definition that will be used on route change when no other route definition is matched.
          *
