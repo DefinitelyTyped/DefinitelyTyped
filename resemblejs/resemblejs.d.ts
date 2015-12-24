@@ -5,7 +5,14 @@
 
 declare namespace Resemble {
   interface ResembleStatic {
+    /**
+     * Retrieve basic analysis on one image (add compareTo to compare with another).
+     */
     (image: string|ImageData): ResembleAnalysis;
+
+    /**
+     * Set the resemblance image output style
+     */
     outputSettings(settings: OutputSettings): ResembleStatic;
   }
 
@@ -21,7 +28,14 @@ declare namespace Resemble {
   }
 
   interface ResembleAnalysis {
+    /**
+     * Run the analysis and get the result
+     */
     onComplete(callback: (result: ResembleAnalysisResult) => void): void;
+
+    /**
+     * Compare this image to another image, to get resemblance data
+     */ 
     compareTo(fileData: string|ImageData): ResembleComparison;
   }
 
@@ -33,6 +47,14 @@ declare namespace Resemble {
   }
 
   interface ResembleComparison {
+    /**
+     * Run the analysis and get the result
+     */
+    onComplete(callback: (result: ResembleAnalysisResult) => void): void;
+
+    /**
+     * Run the analysis and get the comparison result
+     */
     onComplete(callback: (result: ResembleComparisonResult) => void): void;
 
     ignoreNothing(): ResembleComparison;
