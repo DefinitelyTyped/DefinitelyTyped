@@ -6010,6 +6010,11 @@ interface HighchartsStatic {
     getOptions(): HighchartsOptions;
 
     map(array: any[], fn: Function): any[];
+	
+	/**
+     * Use this object to set the theme globally for all charts
+     */
+	theme: HighchartsGlobalOptions;
 }
 
 declare var Highcharts: HighchartsStatic;
