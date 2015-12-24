@@ -66,6 +66,15 @@ var connection: sql.Connection = new sql.Connection(config, function (err: any) 
             }
         });
 
+        requestStoredProcedure.execute<Entity>('StoredProcedureName', function (err, recordsets, returnValue) {
+            if (err != null) {
+                console.error('Error happened calling Query: ' + err.name + " " + err.message);
+            }
+            else {
+                console.info(returnValue);
+            }
+        });
+
         var requestStoredProcedureWithOutput = new sql.Request(connection);
         var testId: number = 0;
         var testString: string = 'test';
@@ -83,6 +92,15 @@ var connection: sql.Connection = new sql.Connection(config, function (err: any) 
         requestStoredProcedureWithOutput.input("name", sql.DateTime2(5), new Date());     // datetime2(5)
 
         requestStoredProcedure.execute('StoredProcedureName', function (err, recordsets, returnValue) {
+            if (err != null) {
+                console.error('Error happened calling Query: ' + err.name + " " + err.message);
+            }
+            else {
+                console.info(requestStoredProcedureWithOutput.parameters['output'].value);
+            }
+        });
+
+        requestStoredProcedure.execute<Entity>('StoredProcedureName', function (err, recordsets, returnValue) {
             if (err != null) {
                 console.error('Error happened calling Query: ' + err.name + " " + err.message);
             }

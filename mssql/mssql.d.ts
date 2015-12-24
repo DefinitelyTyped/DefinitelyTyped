@@ -200,7 +200,7 @@ declare module "mssql" {
         public constructor(transaction: Transaction);
         public constructor(preparedStatement: PreparedStatement);
         public execute(procedure: string): Promise<recordSet>;
-        public execute(procedure: string, callback: (err?: any, recordsets?: any, returnValue?: any) => void): void;
+        public execute<Entity>(procedure: string, callback: (err?: any, recordsets?: Entity[], returnValue?: any) => void): void;
         public input(name: string, value: any): void;
         public input(name: string, type: any, value: any): void;
         public output(name: string, type: any, value?: any): void;
@@ -258,7 +258,9 @@ declare module "mssql" {
         public prepare(statement?: string): Promise<void>;
         public prepare(statement?: string, callback?: (err?: any) => void): void;
         public execute(values: Object): Promise<recordSet>;
+        public execute<Entity>(values: Object): Promise<Entity[]>;
         public execute(values: Object, callback: (err: any, recordSet: recordSet) => void): void;
+        public execute<Entity>(values: Object, callback: (err: any, recordSet: Entity[]) => void): void;
         public unprepare(): Promise<void>;
         public unprepare(callback: (err?: any) => void): void;
     }
