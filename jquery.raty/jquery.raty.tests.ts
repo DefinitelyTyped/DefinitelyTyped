@@ -43,7 +43,7 @@ $element.raty({
   starType: 'img',
 });
 
-$element.raty('score');
+var score: number = $element.raty('score');
 $element.raty('score', 4);
 $element.raty('click', 2);
 $element.raty('readOnly', true);
