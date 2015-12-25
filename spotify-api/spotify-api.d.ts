@@ -1,6 +1,6 @@
 // Type definitions for The Spotify Web API v1.0
 // Project: https://developer.spotify.com/web-api/
-// Definitions by: Niels Kristian Hansen Skovmand, https://github.com/skovmand
+// Definitions by: Niels Kristian Hansen Skovmand https://github.com/skovmand
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module SpotifyApi {
