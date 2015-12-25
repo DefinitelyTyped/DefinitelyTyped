@@ -266,6 +266,7 @@ interface JQuery {
 	dropzone(options:DropzoneOptions): Dropzone;
 }
 
+declare var DropZone: typeof Dropzone;
 declare module "dropzone" {
-	export = Dropzone;
+	export = DropZone;
 }
