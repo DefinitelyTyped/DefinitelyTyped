@@ -1,6 +1,7 @@
 // React-Bootstrap Test
 // ================================================================================
 ///<reference path="react-bootstrap.d.ts"/>
+///<reference path="react-router-bootstrap.d.ts"/>
 ///<reference path="../react/react.d.ts"/>
 
 // Imports
@@ -8,6 +9,7 @@
 import * as React from 'react';
 import { Component, CSSProperties } from 'react';
 import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput } from 'react-bootstrap';
+import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 
 
 export class ReactBootstrapTest extends Component<any, any> {
@@ -891,6 +893,11 @@ export class ReactBootstrapTest extends Component<any, any> {
                       </Col>
                     </Row>
                   </Input>
+                </div>
+                
+                <div style={style}>
+                    <LinkContainer to="/page"><Button>Link</Button></LinkContainer>
+                    <IndexLinkContainer to="/index"><Button>Link</Button></IndexLinkContainer>
                 </div>
             </div>
         );
