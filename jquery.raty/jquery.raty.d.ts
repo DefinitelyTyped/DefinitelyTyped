@@ -1,4 +1,5 @@
 // Type definitions for jQuery.raty 2.7.0
+// Project: https://github.com/wbotelhos/raty
 // Definitions by: Matt Wheatley <http://github.com/terrawheat>
 /// <reference path="../jquery/jquery.d.ts"/>
 
@@ -12,7 +13,7 @@ interface JQuery {
   raty(method: 'readonly', on: boolean): void;
   raty(method: 'cancel', on: boolean): void;
   raty(method: 'reload'): void;
-  raty(method: 'set', options: JQueryRatyOptions);
+  raty(method: 'set', options: JQueryRatyOptions): void;
   raty(method: 'destroy'): JQuery;
   raty(method: 'move', number: number): void;
 }
