@@ -1,8 +1,8 @@
 /// <reference path="./rcloader.d.ts" />
 
-import rcloader = require("rcloader");
+import RcLoader = require("rcloader");
 
-const rcLoader = new rcloader.RcLoader(".configfilename", {
+const rcLoader = new RcLoader(".configfilename", {
     lookup: true
 });
 
