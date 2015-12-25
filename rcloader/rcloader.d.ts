@@ -9,8 +9,10 @@ declare module "rcloader" {
         lookup?: boolean;
     }
 
-    export class RcLoader {
+    class RcLoader {
         constructor(configfilename: string, options: string | Options);
         for(path: string, callback?: (error: any, fileOpts: any) => void): void;
     }
+
+    export = RcLoader;
 }
