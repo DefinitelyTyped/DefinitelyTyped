@@ -10075,7 +10075,9 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is classified as a Number primitive or object.
+         *
          * Note: To exclude Infinity, -Infinity, and NaN, which are classified as numbers, use the _.isFinite method.
+         *
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          */
@@ -10087,6 +10089,13 @@ declare module _ {
          * see _.isNumber
          */
         isNumber(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * see _.isNumber
+         */
+        isNumber(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isObject
