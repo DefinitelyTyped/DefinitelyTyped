@@ -6,7 +6,8 @@ interface JQuery {
   raty(): JQuery;
   raty(options: JQueryRatyOptions): JQuery;
   raty(method: string, parameter: any): any;
-  raty(method: 'score', score: number): number;
+  raty(method: 'score'): number;
+  raty(method: 'score', score: number): void;
   raty(method: 'click', star: number): void;
   raty(method: 'readonly', on: boolean): void;
   raty(method: 'cancel', on: boolean): void;
