@@ -3,6 +3,13 @@
 // Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// Release comments:
+// -----------------
+// TrackObjects and AlbumObjects is specified in the docs as always having the available_markets property, 
+// but when it is sent in https://developer.spotify.com/web-api/console/get-current-user-saved-tracks
+// the available_markets are missing. Therefore it is marked as optional in this source code.
+
+
 declare module SpotifyApi {
 
     // 
@@ -106,7 +113,7 @@ declare module SpotifyApi {
      * GET /v1/artists/{id}/related-artists
      */
     interface ArtistsRelatedArtistsResponse {
-        artists: PagingObject<ArtistObjectFull>
+        artists: ArtistObjectFull[]
     }
 
     /**
@@ -114,7 +121,7 @@ declare module SpotifyApi {
      * GET /v1/browse/featured-playlists
      */
     interface ListOfFeaturedPlaylistsResponse {
-        message: string,
+        message?: string,
         playlists: PagingObject<PlaylistObjectSimplified>
     } 
 
@@ -123,7 +130,7 @@ declare module SpotifyApi {
      * GET /v1/browse/new-releases
      */
     interface ListOfNewReleasesResponse {
-        message: string,
+        message?: string,
         albums: PagingObject<AlbumObjectSimplified>
     }
 
@@ -160,7 +167,7 @@ declare module SpotifyApi {
      * GET /v1/me/following?type=artist
      */
     interface UsersFollowedArtistsResponse {
-        artists: PagingObject<ArtistObjectFull>
+        artists: CursorBasedPagingObject<ArtistObjectFull>
     }
 
     /**
@@ -185,7 +192,7 @@ declare module SpotifyApi {
      * Follow a Playlist
      * PUT /v1/users/{owner_id}/playlists/{playlist_id}/followers
      */
-    interface FollowAPlaylistReponse extends VoidResponse {}
+    interface FollowPlaylistReponse extends VoidResponse {}
 
     /**
      * Unfollow a Playlist
@@ -233,7 +240,7 @@ declare module SpotifyApi {
      * Remove Albums for Current User   
      * DELETE /v1/me/albums?ids={ids}
      */
-    interface RemoveAlbumsForCurrentUserResponse extends VoidResponse {}
+    interface RemoveAlbumsForUserResponse extends VoidResponse {}
 
     /**
      * Check user's saved albums   
@@ -321,7 +328,7 @@ declare module SpotifyApi {
      * Create a Playlist   
      * POST /v1/users/{user_id}/playlists
      */
-    interface CreateAPlaylistResponse extends PlaylistObjectFull {}
+    interface CreatePlaylistResponse extends PlaylistObjectFull {}
 
     /**
      * Change a Playlist’s Details   
@@ -379,7 +386,6 @@ declare module SpotifyApi {
         items: T[],
         limit: number,
         next: string,
-        offset: number,
         total: number
     }
 
@@ -389,6 +395,7 @@ declare module SpotifyApi {
      */
     interface PagingObject<T> extends BasePagingObject<T> {
         previous: string,
+        offset: number
     }
 
     /**
@@ -426,7 +433,7 @@ declare module SpotifyApi {
      */
     interface AlbumObjectSimplified {
         album_type: string,
-        available_markets: string[],
+        available_markets?: string[],
         external_urls: ExternalUrlObject,
         href: string,
         id: string,
@@ -622,7 +629,7 @@ declare module SpotifyApi {
      */
     interface TrackObjectSimplified {
         artists: ArtistObjectSimplified[],
-        available_markets: string[],
+        available_markets?: string[],
         disc_number: number,
         duration_ms: number,
         explicit: boolean,
