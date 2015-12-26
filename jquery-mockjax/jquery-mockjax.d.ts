@@ -10,6 +10,7 @@ interface MockJaxSettings {
     data?: any;
     type?: string;
     headers?: any;
+    logging?: boolean;
     status?: number;
     statusText?: string;
     responseTime?: number;
@@ -19,6 +20,7 @@ interface MockJaxSettings {
     responseText?: string;
     responseXml?: string;
     proxy?: string;
+    proxyType?: string;
     lastModified?: string;
     etag?: string;
     onAfterSuccess?: Function;
@@ -37,4 +39,5 @@ interface MockJaxStatic {
 
 interface JQueryStatic {
     mockjax: MockJaxStatic;
+    mockjaxSettings: MockJaxSettings;
 }
