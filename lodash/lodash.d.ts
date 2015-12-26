@@ -9928,11 +9928,13 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is a finite primitive number.
+         *
          * Note: This method is based on Number.isFinite.
+         *
          * @param value The value to check.
          * @return Returns true if value is a finite number, else false.
-         **/
-        isFinite(value?: any): value is number;
+         */
+        isFinite(value?: any): boolean;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -9940,6 +9942,13 @@ declare module _ {
          * @see _.isFinite
          */
         isFinite(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isFinite
+         */
+        isFinite(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isFunction
