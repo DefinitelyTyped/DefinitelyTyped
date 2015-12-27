@@ -1388,6 +1388,14 @@ interface UnderscoreStatic {
 	isEmpty(object: any): boolean;
 
 	/**
+	* Returns true if the keys and values in `properties` matches with the `object` properties.
+	* @param object Object to be compared with `properties`.
+	* @param properties Properties be compared with `object`
+	* @return True if `object` has matching keys and values, otherwise false.
+	**/
+	isMatch(object:any, properties:any): boolean;
+
+	/**
 	* Returns true if object is a DOM element.
 	* @param object Check if this object is a DOM element.
 	* @return True if `object` is a DOM element, otherwise false.
@@ -2326,6 +2334,12 @@ interface Underscore<T> {
 	* @see _.isEmpty
 	**/
 	isEmpty(): boolean;
+	
+	/**
+	* Wrapped type `object`.
+	* @see _.isMatch
+	**/
+	isMatch(): boolean;	
 
 	/**
 	* Wrapped type `object`.
@@ -3204,6 +3218,12 @@ interface _Chain<T> {
 	* @see _.isEmpty
 	**/
 	isEmpty(): _Chain<T>;
+	
+	/**
+	* Wrapped type `object`.
+	* @see _.isMatch
+	**/
+	isMatch(): _Chain<T>;
 
 	/**
 	* Wrapped type `object`.
