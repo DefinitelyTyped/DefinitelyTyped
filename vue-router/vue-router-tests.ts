@@ -19,6 +19,10 @@ namespace TestBasic {
     });
 
     var App = Vue.extend({});
+    var app = new App();
+    app.$on("some event", function() {
+        var name: string = app.$route.name;
+    });
 
     var router = new VueRouter<typeof App.prototype>();
 
