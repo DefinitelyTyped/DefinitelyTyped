@@ -165,7 +165,7 @@ declare module angular {
             dot: number;
             codeName: string;
         };
-        
+
         /**
          * If window.name contains prefix NG_DEFER_BOOTSTRAP! when angular.bootstrap is called, the bootstrap process will be paused until angular.resumeBootstrap() is called.
          * @param extraModules An optional array of modules that should be added to the original list of modules that the app was about to be bootstrapped with.
@@ -181,6 +181,13 @@ declare module angular {
         animation(name: string, animationFactory: Function): IModule;
         animation(name: string, inlineAnnotatedFunction: any[]): IModule;
         animation(object: Object): IModule;
+        /**
+         * Use this method to register a component.
+         *
+         * @param name The name of the component.
+         * @param options A definition object passed into the component.
+         */
+        component(name: string, options: IComponentOptions): IModule;
         /**
          * Use this method to register work which needs to be performed on module loading.
          *
@@ -1618,6 +1625,29 @@ declare module angular {
          * @type {number}
          */
         totalPendingRequests: number;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Component
+    // see http://angularjs.blogspot.com.br/2015/11/angularjs-15-beta2-and-14-releases.html
+    // and http://toddmotto.com/exploring-the-angular-1-5-component-method/
+    ///////////////////////////////////////////////////////////////////////////
+
+    interface IComponentOptions {
+        bindings?: Object;
+        controller?: string | Function;
+        controllerAs?: string;
+        isolate?: boolean;
+        template?: string | IComponentTemplateFn;
+        templateUrl?: string | IComponentTemplateFn;
+        transclude?: boolean;
+        restrict?: string;
+        $canActivate?: Function;
+        $routeConfig?: Object;
+    }
+
+    interface IComponentTemplateFn {
+        ( $element?: IAugmentedJQuery, $attrs?: IAttributes ): string;
     }
 
     ///////////////////////////////////////////////////////////////////////////
