@@ -200,8 +200,9 @@ class IonicTestController {
         };
         var ionicPopoverController: ionic.popover.IonicPopoverController = this.$ionicPopover.fromTemplate("template", popoverOptions);
         ionicPopoverController.initialize(popoverOptions);
-        ionicPopoverController.show(angular.element("body")).then(() => console.log("shown popover"))
-        ionicPopoverController.hide().then(() => console.log("hid popover"))
+        ionicPopoverController.show(angular.element("body")).then(() => console.log("shown popover"));
+        ionicPopoverController.hide().then(() => console.log("hid popover"));
+        ionicPopoverController.remove().then(() => console.log("removed popover"));
         var isShown: boolean = ionicPopoverController.isShown();
 
         this.$ionicPopover.fromTemplateUrl("templateUrl", popoverOptions)
