@@ -6111,17 +6111,34 @@ module TestIsRegExp {
 }
 
 // _.isString
-result = <boolean>_.isString(any);
-result = <boolean>_(1).isString();
-result = <boolean>_<any>([]).isString();
-result = <boolean>_({}).isString();
-{
-  let value: string|number = "foo";
-  if (_.isString(value)) {
-    let result: string = value;
-  } else {
-    let result: number = value * 42;
-  }
+module TestIsString {
+    {
+        let value: number|string;
+
+        if (_.isString(value)) {
+            let result: string = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isString(any);
+        result = _(1).isString();
+        result = _<any>([]).isString();
+        result = _({}).isString();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isString();
+        result = _<any>([]).chain().isString();
+        result = _({}).chain().isString();
+    }
 }
 
 // _.isTypedArray
