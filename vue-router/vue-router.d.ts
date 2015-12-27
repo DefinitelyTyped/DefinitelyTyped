@@ -75,6 +75,10 @@ declare namespace vuerouter {
 }
 
 declare namespace vuejs {
+    interface Vue {
+        $route: vuerouter.$route<any, any, any>;
+    }
+
     interface ComponentOption {
         route?: vuerouter.TransitionHook<any, any, any, any, any>;
     }
