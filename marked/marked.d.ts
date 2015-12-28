@@ -95,7 +95,7 @@ interface MarkedRenderer {
 }
 
 interface MarkedParser {
-    parse(source: string): string
+    parse(source: any[]): string
 }
 
 interface MarkedOptions {
