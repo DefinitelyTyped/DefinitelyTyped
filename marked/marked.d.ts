@@ -61,7 +61,11 @@ interface MarkedStatic {
     setOptions(options: MarkedOptions): MarkedStatic;
     
     Renderer: {
-        new(): MarkedRenderer
+        new(): MarkedRenderer;
+    }
+    
+    Parser: {
+        new(options: MarkedOptions): MarkedParser;
     }
 }
 
@@ -88,6 +92,10 @@ interface MarkedRenderer {
     link(href: string, title: string, text: string): any;
     image(href: string, title: string, text: string): any;
     text(text: string): any;
+}
+
+interface MarkedParser {
+    parse(source: string): string
 }
 
 interface MarkedOptions {
