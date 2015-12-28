@@ -1491,7 +1491,7 @@ declare namespace __MaterialUI {
         style?: React.CSSProperties;
     }
     export class LeftNav extends React.Component<LeftNavProps, {}> {
-      toggle();
+      toggle(): void;
     }
 
     interface LinearProgressProps extends React.Props<LinearProgress> {
