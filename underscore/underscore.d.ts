@@ -1226,6 +1226,13 @@ interface UnderscoreStatic {
 	**/
 	keys(object: any): string[];
 
+    /**
+	* Retrieve all the names of object's own and inherited properties.
+	* @param object Retrieve the key or property names from this object.
+	* @return List of all the property names on `object`.
+	**/
+	allKeys(object: any): string[];
+
 	/**
 	* Return all of the values of the object's properties.
 	* @param object Retrieve the values of all the properties on this object.
@@ -2301,6 +2308,12 @@ interface Underscore<T> {
 	**/
 	keys(): string[];
 
+    /**
+	* Wrapped type `object`.
+	* @see _.allKeys
+	**/
+    allKeys(): string[];
+
 	/**
 	* Wrapped type `object`.
 	* @see _.values
@@ -3212,6 +3225,12 @@ interface _Chain<T> {
 	* @see _.keys
 	**/
 	keys(): _Chain<string>;
+
+    /**
+	* Wrapped type `object`.
+	* @see _.allKeys
+	**/
+	allKeys(): _Chain<string>;
 
 	/**
 	* Wrapped type `object`.
