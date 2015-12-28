@@ -9928,11 +9928,13 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is a finite primitive number.
+         *
          * Note: This method is based on Number.isFinite.
+         *
          * @param value The value to check.
          * @return Returns true if value is a finite number, else false.
-         **/
-        isFinite(value?: any): value is number;
+         */
+        isFinite(value?: any): boolean;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -9940,6 +9942,13 @@ declare module _ {
          * @see _.isFinite
          */
         isFinite(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isFinite
+         */
+        isFinite(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isFunction
@@ -10075,7 +10084,9 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is classified as a Number primitive or object.
+         *
          * Note: To exclude Infinity, -Infinity, and NaN, which are classified as numbers, use the _.isFinite method.
+         *
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          */
@@ -10087,6 +10098,13 @@ declare module _ {
          * see _.isNumber
          */
         isNumber(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * see _.isNumber
+         */
+        isNumber(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isObject
@@ -10165,9 +10183,10 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is classified as a String primitive or object.
+         *
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
-         **/
+         */
         isString(value?: any): value is string;
     }
 
@@ -10176,6 +10195,13 @@ declare module _ {
          * see _.isString
          */
         isString(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * see _.isString
+         */
+        isString(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isTypedArray
