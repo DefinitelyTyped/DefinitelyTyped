@@ -5920,10 +5920,24 @@ result = <boolean>_({}).isError();
 }
 
 // _.isFinite
-result = <boolean>_.isFinite(any);
-result = <boolean>_(1).isFinite();
-result = <boolean>_<any>([]).isFinite();
-result = <boolean>_({}).isFinite();
+module TestIsFinite {
+    {
+        let result: boolean;
+
+        result = _.isFinite(any);
+        result = _(1).isFinite();
+        result = _<any>([]).isFinite();
+        result = _({}).isFinite();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isFinite();
+        result = _<any>([]).chain().isFinite();
+        result = _({}).chain().isFinite();
+    }
+}
 
 // _.isFunction
 module TestIsFunction {
