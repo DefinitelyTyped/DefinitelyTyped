@@ -1,6 +1,6 @@
 // Type definitions for spotify-web-api-js
 // Project: https://github.com/JMPerez/spotify-web-api-js
-// Definitions by: Niels Kristian Hansen Skovmand, https://github.com/skovmand
+// Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../spotify-api/spotify-api.d.ts" />
