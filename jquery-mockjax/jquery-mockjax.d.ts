@@ -5,11 +5,15 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
+interface MockJaxSettingsHeaders {
+    [key: string]: string;
+}
+
 interface MockJaxSettings {
     url?: string | RegExp;
     data?: any;
     type?: string;
-    headers?: any;
+    headers?: MockJaxSettingsHeaders;
     logging?: boolean;
     status?: number;
     statusText?: string;
@@ -17,7 +21,7 @@ interface MockJaxSettings {
     isTimeout?: boolean;
     contentType?: string;
     response?: (settings: any) => void;
-    responseText?: string;
+    responseText?: string | Object;
     responseXml?: string;
     proxy?: string;
     proxyType?: string;
