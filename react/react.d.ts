@@ -1822,7 +1822,7 @@ declare namespace __React {
         vocab?: string;
 
         // Non-standard Attributes
-        autoCapitalize?: boolean;
+        autoCapitalize?: string;
         autoCorrect?: string;
         autoSave?: string;
         color?: string;
