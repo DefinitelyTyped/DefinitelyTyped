@@ -1647,9 +1647,10 @@ interface UnderscoreStatic {
 	* If the value of the named property is a function then invoke it; otherwise, return it.
 	* @param object Object to maybe invoke function `property` on.
 	* @param property The function by name to invoke on `object`.
+    * @param defaultValue The value to be returned in case `property` doesn't exist or is undefined.
 	* @return The result of invoking the function `property` on `object.
 	**/
-	result(object: any, property: string): any;
+	result(object: any, property: string, defaultValue?:any): any;
 
 	/**
 	* Compiles JavaScript templates into functions that can be evaluated for rendering. Useful
@@ -2561,7 +2562,7 @@ interface Underscore<T> {
 	* Wrapped type `object`.
 	* @see _.result
 	**/
-	result(property: string): any;
+	result(property: string, defaultValue?:any): any;
 
 	/**
 	* Wrapped type `string`.
@@ -3467,7 +3468,7 @@ interface _Chain<T> {
 	* Wrapped type `object`.
 	* @see _.result
 	**/
-	result(property: string): _Chain<T>;
+	result(property: string, defaultValue?:any): _Chain<T>;
 
 	/**
 	* Wrapped type `string`.
