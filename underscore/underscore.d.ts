@@ -973,24 +973,24 @@ interface UnderscoreStatic {
 		from?: number): number;
 		
 	/**
-	 * Returns the first index of an element in `array` where the predicate truth test passes
-	 * @param array The array to search for the index of the first element where the predicate truth test passes.
-	 * @param predicate Predicate function.
-	 * @param context `this` object in `predicate`, optional.
-	 * @return Returns the index of an element in `array` where the predicate truth test passes or -1.`
-	 **/
+	* Returns the first index of an element in `array` where the predicate truth test passes
+	* @param array The array to search for the index of the first element where the predicate truth test passes.
+	* @param predicate Predicate function.
+	* @param context `this` object in `predicate`, optional.
+	* @return Returns the index of an element in `array` where the predicate truth test passes or -1.`
+	**/
 	findIndex<T>(
 		array: _.List<T>,
 		predicate: _.ListIterator<T, boolean>,
 		context?: any): number;
 		
 	/**
-	 * Returns the last index of an element in `array` where the predicate truth test passes
-	 * @param array The array to search for the index of the last element where the predicate truth test passes.
-	 * @param predicate Predicate function.
-	 * @param context `this` object in `predicate`, optional.
-	 * @return Returns the index of an element in `array` where the predicate truth test passes or -1.`
-	 **/
+	* Returns the last index of an element in `array` where the predicate truth test passes
+	* @param array The array to search for the index of the last element where the predicate truth test passes.
+	* @param predicate Predicate function.
+	* @param context `this` object in `predicate`, optional.
+	* @return Returns the index of an element in `array` where the predicate truth test passes or -1.`
+	**/
 	findLastIndex<T>(
 		array: _.List<T>,
 		predicate: _.ListIterator<T, boolean>,
@@ -2178,13 +2178,13 @@ interface Underscore<T> {
 	lastIndexOf(value: T, from?: number): number;
 
 	/**
-	 * @see _.findIndex
-	 **/
+	* @see _.findIndex
+	**/
 	findIndex<T>(array: _.List<T>, predicate: _.ListIterator<T, boolean>, context?: any): number;
 
 	/**
-	 * @see _.findLastIndex
-	 **/
+	* @see _.findLastIndex
+	**/
 	findLastIndex<T>(array: _.List<T>, predicate: _.ListIterator<T, boolean>, context?: any): number;
 
 	/**
@@ -3096,13 +3096,13 @@ interface _Chain<T> {
 	lastIndexOf(value: T, from?: number): _ChainSingle<T>;
 
 	/**
-	 * @see _.findIndex
-	 **/
+	* @see _.findIndex
+	**/
 	findIndex<T>(predicate: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
 
 	/**
-	 * @see _.findLastIndex
-	 **/
+	* @see _.findLastIndex
+	**/
 	findLastIndex<T>(predicate: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
 
 	/**
