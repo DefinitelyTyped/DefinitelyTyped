@@ -900,6 +900,16 @@ interface UnderscoreStatic {
 	**/
 	zip(...arrays: any[]): any[];
 
+    /**
+    * The opposite of zip. Given a number of arrays, returns a series of new arrays, the first 
+    * of which contains all of the first elements in the input arrays, the second of which
+    * contains all of the second elements, and so on. Use with apply to pass in an array 
+    * of arrays
+    * @param arrays The arrays to unzip.
+    * @return Unzipped version of `arrays`.      
+    **/
+    unzip(...arrays: any[][]): any[][];
+
 	/**
 	* Converts arrays into objects. Pass either a single list of [key, value] pairs, or a
 	* list of keys, and a list of values.
@@ -2118,6 +2128,12 @@ interface Underscore<T> {
 	**/
 	zip(...arrays: any[][]): any[][];
 
+    /**
+	* Wrapped type `any[][]`.
+	* @see _.unzip
+	**/
+	unzip(...arrays: any[][]): any[][];
+
 	/**
 	* Wrapped type `any[][]`.
 	* @see _.object
@@ -3017,6 +3033,12 @@ interface _Chain<T> {
 	* @see _.zip
 	**/
 	zip(...arrays: any[][]): _Chain<T>;
+
+    /**
+	* Wrapped type `any[][]`.
+	* @see _.unzip
+	**/
+	unzip(...arrays: any[][]): _Chain<T>;
 
 	/**
 	* Wrapped type `any[][]`.
