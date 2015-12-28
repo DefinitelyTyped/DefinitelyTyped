@@ -1454,6 +1454,13 @@ interface UnderscoreStatic {
 	* @return True if `object` is a Function, otherwise false.
 	**/
 	isFunction(object: any): boolean;
+    
+    /**
+	* Returns true if object inherits from an Error.
+	* @param object Check if this object is an Error.
+	* @return True if `object` is a Error, otherwise false.
+	**/
+    isError(object:any): boolean;
 
 	/**
 	* Returns true if object is a String.
@@ -2404,6 +2411,12 @@ interface Underscore<T> {
 	* @see _.isFunction
 	**/
 	isFunction(): boolean;
+    
+    /**
+	* Wrapped type `object`.
+	* @see _.isError
+	**/
+	isError(): boolean;
 
 	/**
 	* Wrapped type `object`.
@@ -3298,6 +3311,12 @@ interface _Chain<T> {
 	* @see _.isFunction
 	**/
 	isFunction(): _Chain<T>;
+
+    /**
+	* Wrapped type `object`.
+	* @see _.isError
+	**/
+	isError(): _Chain<T>;
 
 	/**
 	* Wrapped type `object`.
