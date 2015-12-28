@@ -87,6 +87,7 @@ interface MarkedRenderer {
     del(text: string): any;
     link(href: string, title: string, text: string): any;
     image(href: string, title: string, text: string): any;
+    text(text: string): any;
 }
 
 interface MarkedOptions {
