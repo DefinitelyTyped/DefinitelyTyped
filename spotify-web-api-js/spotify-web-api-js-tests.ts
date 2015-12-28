@@ -1,6 +1,6 @@
 // Test for the type definitions for spotify-web-api-js
 // Project: https://github.com/JMPerez/spotify-web-api-js
-// Definitions by: Niels Kristian Hansen Skovmand, https://github.com/skovmand
+// Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // This test-file assumes the following two d.ts files to be present.
