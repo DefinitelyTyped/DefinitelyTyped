@@ -5987,7 +5987,7 @@ module TestIsNaN {
 }
 
 // _.isNative
-module TestIsNull {
+module TestIsNative {
     {
         let value: number|Function;
 
@@ -6040,17 +6040,35 @@ module TestIsNull {
 }
 
 // _.isNumber
-result = <boolean>_.isNumber(any);
-result = <boolean>_(1).isNumber();
-result = <boolean>_<any>([]).isNumber();
-result = <boolean>_({}).isNumber();
-{
-  let value: number|string = "foo";
-  if (_.isNumber(value)) {
-    let result: number = value * 42;
-  } else {
-    let result: string = value;
-  }
+module TestIsNumber {
+    {
+        let value: string|number;
+
+        if (_.isNumber(value)) {
+            let result: number = value;
+        }
+        else {
+            let result: string = value;
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isNumber(any);
+
+        result = _(1).isNumber();
+        result = _<any>([]).isNumber();
+        result = _({}).isNumber();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isNumber();
+        result = _<any>([]).chain().isNumber();
+        result = _({}).chain().isNumber();
+    }
 }
 
 // _.isObject
