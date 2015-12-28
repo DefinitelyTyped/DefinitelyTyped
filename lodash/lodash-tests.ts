@@ -5736,21 +5736,34 @@ module TestGte {
 }
 
 // _.isArguments
-result = <boolean>_.isArguments(any);
-result = <boolean>_(1).isArguments();
-result = <boolean>_<any>([]).isArguments();
-result = <boolean>_({}).isArguments();
-{
-  let value: IArguments|number = 42;
-  if (_.isArguments(value)) {
-    let length: number = value.length;
-    // compile error
-    // let i: number = value + 1;
-  } else {
-    let i: number = value + 1;
-    // compile error
-    // let length: number = value.length;
-  }
+module TestisArguments {
+    {
+        let value: number|IArguments;
+
+        if (_.isArguments(value)) {
+            let result: IArguments = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isArguments(any);
+        result = _(1).isArguments();
+        result = _<any>([]).isArguments();
+        result = _({}).isArguments();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isArguments();
+        result = _<any>([]).chain().isArguments();
+        result = _({}).chain().isArguments();
+    }
 }
 
 // _.isArray

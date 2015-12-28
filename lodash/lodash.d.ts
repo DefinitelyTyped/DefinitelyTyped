@@ -9721,6 +9721,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Checks if value is classified as an arguments object.
+         *
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          */
@@ -9732,6 +9733,13 @@ declare module _ {
          * @see _.isArguments
          */
         isArguments(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isArguments
+         */
+        isArguments(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isArray
