@@ -105,13 +105,13 @@ declare module 'parsimmon' {
 		export function seq<U>(...parsers: Parser<U>[]): Parser<U[]>;
 		export function seq(...parsers: Parser<any>[]): Parser<any[]>;
 
-		export type successFunctionType<U> = (index: number, result: U) => Result<U>;
-		export type failureFunctionType<U> = (index: number, msg: string) => Result<U>;
-		export type parseFunctionType<U> = (stream: StreamType, index: number) => Result<U>;
+		export type SuccessFunctionType<U> = (index: number, result: U) => Result<U>;
+		export type FailureFunctionType<U> = (index: number, msg: string) => Result<U>;
+		export type ParseFunctionType<U> = (stream: StreamType, index: number) => Result<U>;
 		/*
 		 allows to add custom primitive parsers.
 		 */
-		export function custom<U>(parsingFunction: (success: successFunctionType<U>, failure: failureFunctionType<U>) => parseFunctionType<U>): Parser<U>;
+		export function custom<U>(parsingFunction: (success: SuccessFunctionType<U>, failure: FailureFunctionType<U>) => ParseFunctionType<U>): Parser<U>;
 
 		/*
 		 accepts a variable number of parsers, and yields the value of the first one that succeeds, backtracking in between.
