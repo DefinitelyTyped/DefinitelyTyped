@@ -1405,6 +1405,13 @@ interface UnderscoreStatic {
 	**/
 	property(key: string): (object: Object) => any;
 
+    /**
+	* Returns a function that will itself return the value of a object key property.
+	* @param key The object to get the property value from.
+	* @return Function which accept a key property in `object` and returns its value.
+	**/
+    propertyOf(object: Object): (key: string) => any;
+
 	/**
 	* Performs an optimized deep comparison between the two objects,
 	* to determine if they should be considered equal.
@@ -2380,6 +2387,12 @@ interface Underscore<T> {
 	* @see _.property
 	**/
 	property(): (object: Object) => any;
+    
+    /**
+	* Wrapped type `object`.
+	* @see _.propertyOf
+	**/
+	propertyOf(): (key: string) => any;
 
 	/**
 	* Wrapped type `object`.
@@ -3286,6 +3299,12 @@ interface _Chain<T> {
 	* @see _.property
 	**/
 	property(): _Chain<T>;
+    
+    /**
+	* Wrapped type `object`.
+	* @see _.propertyOf
+	**/
+	propertyOf(): _Chain<T>;
 
 	/**
 	* Wrapped type `object`.
