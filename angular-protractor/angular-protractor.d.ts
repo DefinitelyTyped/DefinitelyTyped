@@ -1806,6 +1806,16 @@ declare module protractor {
         * @return {Protractor} a protractor instance.
         */
         forkNewDriverInstance(opt_useSameUrl?: boolean, opt_copyMockModules?: boolean): Protractor;
+
+        /**
+        * Get the processed configuration object that is currently being run. This will contain
+        * the specs and capabilities properties of the current runner instance.
+        *
+        * Set by the runner.
+        *
+        * @return {webdriver.promise.Promise<any>} A promise which resolves to the capabilities object.
+        */
+        getProcessedConfig(): webdriver.promise.Promise<any>;
     }
 
     /**
