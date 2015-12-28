@@ -3,7 +3,6 @@
 // Definitions by: William Orr <https://github.com/worr>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-
 interface MarkedStatic {
     /**
      * Compiles markdown to HTML.
@@ -60,6 +59,34 @@ interface MarkedStatic {
      * @param options Hash of options
      */
     setOptions(options: MarkedOptions): MarkedStatic;
+    
+    Renderer: {
+        new(): MarkedRenderer
+    }
+}
+
+interface MarkedRenderer {
+    code(code: string, language: string): any;
+    blockquote(quote: string): any;
+    html(html: string): any;
+    heading(text: string, level: number): any;
+    hr(): any;
+    list(body: string, ordered: boolean): any;
+    listitem(text: string): any;
+    paragraph(text: string): any;
+    table(header: string, body: string): any;
+    tablerow(content: string): any;
+    tablecell(content: string, flags: {
+        header: boolean,
+        align: string
+    }): any;
+    strong(text: string): any;
+    em(text: string): any;
+    codespan(code: string): any;
+    br(): any;
+    del(text: string): any;
+    link(href: string, title: string, text: string): any;
+    image(href: string, title: string, text: string): any;
 }
 
 interface MarkedOptions {
@@ -68,7 +95,7 @@ interface MarkedOptions {
      *
      * An object containing functions to render tokens to HTML.
      */
-    renderer?: Object; 
+    renderer?: MarkedRenderer; 
 
     /**
      * Enable GitHub flavored markdown.
