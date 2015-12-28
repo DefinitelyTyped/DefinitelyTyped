@@ -4,45 +4,44 @@
 
 import * as React from "react";
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
-import Checkbox = require("material-ui/lib/checkbox");
-import Colors = require("material-ui/lib/styles/colors");
-import Spacing = require("material-ui/lib/styles/spacing");
-import AppBar = require("material-ui/lib/app-bar");
-import Badge = require("material-ui/lib/badge");
-import IconButton = require("material-ui/lib/icon-button");
-import FlatButton = require("material-ui/lib/flat-button");
-import Avatar = require("material-ui/lib/avatar");
-import FontIcon = require("material-ui/lib/font-icon");
-import Typography = require("material-ui/lib/styles/typography");
-import RaisedButton = require("material-ui/lib/raised-button");
-import FloatingActionButton = require("material-ui/lib/floating-action-button");
-import Card = require("material-ui/lib/card/card");
-import CardHeader = require("material-ui/lib/card/card-header");
-import DatePicker = require("material-ui/lib/date-picker/date-picker");
-import CardText = require("material-ui/lib/card/card-text");
-import CardActions = require("material-ui/lib/card/card-actions");
-import Dialog = require("material-ui/lib/dialog");
-import DropDownMenu = require("material-ui/lib/drop-down-menu");
-import RadioButtonGroup = require("material-ui/lib/radio-button-group");
-import RadioButton = require("material-ui/lib/radio-button");
-import Toggle = require("material-ui/lib/toggle");
-import TextField = require("material-ui/lib/text-field");
-import SelectField = require("material-ui/lib/select-field");
-import IconMenu = require("material-ui/lib/menus/icon-menu");
-import Menu = require('material-ui/lib/menus/menu');
-import MenuItem = require('material-ui/lib/menus/menu-item');
-import MenuDivider = require('material-ui/lib/menus/menu-divider');
-import ThemeManager = require('material-ui/lib/styles/theme-manager');
-import GridList = require('material-ui/lib/grid-list/grid-list');
-import GridTile = require('material-ui/lib/grid-list/grid-tile');
+import Checkbox from "material-ui/lib/checkbox";
+import Colors from "material-ui/lib/styles/colors";
+import Spacing from "material-ui/lib/styles/spacing";
+import AppBar from "material-ui/lib/app-bar";
+import Badge from "material-ui/lib/badge";
+import IconButton from "material-ui/lib/icon-button";
+import FlatButton from "material-ui/lib/flat-button";
+import Avatar from "material-ui/lib/avatar";
+import FontIcon from "material-ui/lib/font-icon";
+import Typography from "material-ui/lib/styles/typography";
+import RaisedButton from "material-ui/lib/raised-button";
+import FloatingActionButton from "material-ui/lib/floating-action-button";
+import Card from "material-ui/lib/card/card";
+import CardHeader from "material-ui/lib/card/card-header";
+import DatePicker from "material-ui/lib/date-picker/date-picker";
+import CardText from "material-ui/lib/card/card-text";
+import CardActions from "material-ui/lib/card/card-actions";
+import Dialog from "material-ui/lib/dialog";
+import DropDownMenu from "material-ui/lib/drop-down-menu";
+import RadioButtonGroup from "material-ui/lib/radio-button-group";
+import RadioButton from "material-ui/lib/radio-button";
+import Toggle from "material-ui/lib/toggle";
+import TextField from "material-ui/lib/text-field";
+import SelectField from "material-ui/lib/select-field";
+import IconMenu from "material-ui/lib/menus/icon-menu";
+import Menu from 'material-ui/lib/menus/menu';
+import MenuItem from 'material-ui/lib/menus/menu-item';
+import Divider from 'material-ui/lib/divider';
+import ThemeManager from 'material-ui/lib/styles/theme-manager';
+import GridList from 'material-ui/lib/grid-list/grid-list';
+import GridTile from 'material-ui/lib/grid-list/grid-tile';
 
-
-import NavigationClose = require("material-ui/lib/svg-icon");  // TODO: Should actually import the actual "material-ui/lib/svg-icons/navigation/close", but they aren't defined yet.
-import FileFolder = require("material-ui/lib/svg-icon");  // TODO: Should actually import the actual "material-ui/lib/svg-icons/file/folder", but they aren't defined yet.
-import ToggleStar = require("material-ui/lib/svg-icon");  // TODO: Should actually import the actual "material-ui/lib/svg-icons/toggle/star", but they aren't defined yet.
-import ActionGrade = require("material-ui/lib/svg-icon");  // TODO: Should actually import the actual "material-ui/lib/svg-icons/action/grade", but they aren't defined yet.
-import ToggleStarBorder = require("material-ui/lib/svg-icon");  // TODO: Should actually import the actual "material-ui/lib/svg-icons/toggle/star-border", but they aren't defined yet.
-import ArrowDropRight = require("material-ui/lib/svg-icon");  // TODO: Should actually import the actual "material-ui/lib/svg-icons/toggle/star-border", but they aren't defined yet.
+import NavigationClose from "material-ui/lib/svg-icon";  // TODO: Should actually import the actual "material-ui/lib/svg-icons/navigation/close", but they aren't defined yet.
+import FileFolder from "material-ui/lib/svg-icon";  // TODO: Should actually import the actual "material-ui/lib/svg-icons/file/folder", but they aren't defined yet.
+import ToggleStar from "material-ui/lib/svg-icon";  // TODO: Should actually import the actual "material-ui/lib/svg-icons/toggle/star", but they aren't defined yet.
+import ActionGrade from "material-ui/lib/svg-icon";  // TODO: Should actually import the actual "material-ui/lib/svg-icons/action/grade", but they aren't defined yet.
+import ToggleStarBorder from "material-ui/lib/svg-icon";  // TODO: Should actually import the actual "material-ui/lib/svg-icons/toggle/star-border", but they aren't defined yet.
+import ArrowDropRight from "material-ui/lib/svg-icon";  // TODO: Should actually import the actual "material-ui/lib/svg-icons/toggle/star-border", but they aren't defined yet.
 
 type CheckboxProps = __MaterialUI.CheckboxProps;
 type MuiTheme = __MaterialUI.Styles.MuiTheme;
@@ -297,13 +296,13 @@ class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implemen
                 <MenuItem primaryText="Strikethrough" secondaryText="Alt+Shift+5" />
                 <MenuItem primaryText="Superscript" secondaryText="&#8984;." />
                 <MenuItem primaryText="Subscript" secondaryText="&#8984;," />
-                <MenuDivider />
+                <Divider />
                 <MenuItem primaryText="Paragraph styles" rightIcon={<ArrowDropRight />} />
                 <MenuItem primaryText="Align" rightIcon={<ArrowDropRight />} />
                 <MenuItem primaryText="Line spacing" rightIcon={<ArrowDropRight />} />
                 <MenuItem primaryText="Numbered list" rightIcon={<ArrowDropRight />} />
                 <MenuItem primaryText="List options" rightIcon={<ArrowDropRight />} />
-                <MenuDivider />
+                <Divider />
                 <MenuItem primaryText="Clear formatting" secondaryText="&#8984;/" />
             </Menu>;
 
