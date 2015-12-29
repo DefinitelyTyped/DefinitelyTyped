@@ -1,7 +1,6 @@
-// Type definitions for MongoDB
+// Type definitions for MongoDB Native Driver 2.0.42
 // Project: https://github.com/mongodb/node-mongodb-native
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Andrew Ialacci <https://github.com/Think7>
 
 // Documentation : http://mongodb.github.io/node-mongodb-native/
 
@@ -29,7 +28,7 @@ declare module "mongodb" {
     export type ObjectArray = DocumentArray;
     export type CollectionArray = Array<Collection>;
 
-    // TODO: Implement these... Halp!
+    // TODO: Implement / type these... Halp!
     export class Writable {}
     export class Stream {}
     export class Mongos {}
@@ -43,8 +42,8 @@ declare module "mongodb" {
     }
 
     export class ReadPreference {
-        private _mode: string;
-        private _tags: Object;
+        private mode: string;
+        private tags: Object;
         constructor(mode: string, tags: Object);
     }
 
@@ -443,7 +442,6 @@ declare module "mongodb" {
         public nUpserted: number;
         public nModified: number;
         public nRemoved: number;
-
         public getInsertedIds(): ObjectArray;
         public getLastOp: Object;
         public getRawResponse(): Object;
@@ -454,7 +452,6 @@ declare module "mongodb" {
         public getWriteErrorCount(): number;
         public getWriteErrors(): ObjectArray;
         public hasWriteErrors(): boolean;
-
     }
 
     export interface UnorderedBulkOperationExecuteOptions {
@@ -471,14 +468,12 @@ declare module "mongodb" {
     export class UnorderedBulkOperation {
         public execute(options?: UnorderedBulkOperationExecuteOptions): Promise<BulkWriteResult>;
         public execute(options: UnorderedBulkOperationExecuteOptions, callback: UnorderedBulkOperationResultCallback): void;
-
         public find(query: Object): FindOperatorsUnordered;
         public insert(): UnorderedBulkOperation;
     }
 
     export class FindOperatorsUnordered {
         public length(): number;
-
         public remove(): UnorderedBulkOperation
         public removeOne(): UnorderedBulkOperation;
         public replaceOne(doc: Object): UnorderedBulkOperation;
@@ -488,13 +483,6 @@ declare module "mongodb" {
     }
 
     export class Collection {
-
-        private _collectionName: string;
-        private _namespace: string;
-        private _writeConcern: Object;
-        private _readConcern: Object;
-        private _hint: Object;
-
         // Get the collection name.
         private collectionName: string;
         // Get the full collection namespace.
@@ -642,10 +630,7 @@ declare module "mongodb" {
         public stats(options: {scale: number}, callback: MongoResultCallback): void;
     }
 
-
-
     // Database / Db
-
     export interface PKFactory {
         counter: number;
         createPk: () => number;
@@ -724,13 +709,13 @@ declare module "mongodb" {
     }
 
     export class Db {
-        private _serverConfig: Server | ReplSet | Mongos;
-        private _bufferMaxEntries: number;
-        private _databaseName: string;
-        private _options: Object;
-        private _native_parser: boolean;
-        private _slaveOk: boolean;
-        private _writeConcern: Object;
+        private serverConfig: Server | ReplSet | Mongos;
+        private bufferMaxEntries: number;
+        private databaseName: string;
+        private options: Object;
+        private native_parser: boolean;
+        private slaveOk: boolean;
+        private writeConcern: Object;
 
         constructor(databaseName: string, topology: Server | Mongos | ReplSet, options: Object);
 
@@ -799,6 +784,10 @@ declare module "mongodb" {
         public stats(options: {scale: number}, callback: MongoResultCallback): void
     }
 }
+
+
+
+/* ---------- OLD DEFS FOR REFERENCE ---------- */
 
 //
 //declare module "mongodb" {
