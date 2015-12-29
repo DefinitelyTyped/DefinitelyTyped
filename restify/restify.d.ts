@@ -16,6 +16,11 @@ declare module "restify" {
     family: string;
     address: string;
   }
+  
+  interface requestFileInterface {
+      path: string;
+      type: string;
+  }
 
   interface Request extends http.ServerRequest {
     header: (key: string, defaultValue?: string) => any;
@@ -34,6 +39,7 @@ declare module "restify" {
     params: any;
 
     body?: any; //available when bodyParser plugin is used
+    files?: { [name: string]: requestFileInterface };
     isSecure: () => boolean;
   }
 
