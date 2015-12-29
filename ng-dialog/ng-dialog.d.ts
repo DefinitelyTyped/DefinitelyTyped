@@ -79,6 +79,17 @@ declare module angular.dialog {
          * For dialogs opened with the openConfirm() method the value is used as the reject reason.
          */
         closeThisDialog(value?:any): void;
+
+        /**
+         * Any serializable data that you want to be stored in the controller's dialog scope.
+         * From version 0.3.6 $scope.ngDialogData keeps references to the objects instead of copying them.
+         */
+        ngDialogData : {};
+
+        /**
+         * The id of the dialog. If you you ngDialogData, it'll be also available under ngDialogData.ngDialogId
+         */
+        ngDialogId : string;
     }
 
     interface IDialogOpenConfirmScope extends IDialogOpenScope {
