@@ -61,4 +61,4 @@ angular
         toastr.info('I am totally custom!', 'Happy toast', {
             iconClass: 'toast-pink'
         });
-    });;
+    });
