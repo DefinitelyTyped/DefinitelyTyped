@@ -698,9 +698,11 @@ declare module Stylus {
         once(event: string, listener: Function): Renderer;
         removeListener(event: string, listener: Function): Renderer;
         removeAllListeners(event?: string): Renderer;
-        setMaxListeners(n: number): void;
+        setMaxListeners(n: number): Renderer;
+        getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
+        listenerCount(type: string): number;
         //#endregion
     }
 

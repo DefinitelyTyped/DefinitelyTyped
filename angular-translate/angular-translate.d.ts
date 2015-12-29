@@ -6,8 +6,8 @@
 /// <reference path="../angularjs/angular.d.ts" />
 
 declare module "angular-translate" {
-    var _: string;
-    export = _;
+    import ngt = angular.translate;
+    export = ngt;
 }
 
 declare module angular.translate {
@@ -106,5 +106,13 @@ declare module angular.translate {
         registerAvailableLanguageKeys(): string[];
         registerAvailableLanguageKeys(languageKeys: string[], aliases?: ILanguageKeyAlias): ITranslateProvider;
         useLoaderCache(cache?: any): ITranslateProvider;
+    }
+}
+
+declare module angular {
+    interface IFilterService {
+        (name:'translate'): {
+            (translationId: string, interpolateParams?: any, interpolation?: string): string;
+        };
     }
 }

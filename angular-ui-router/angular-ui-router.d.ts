@@ -5,10 +5,27 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-// Support for AMD require
+// Support for AMD require and CommonJS
 declare module 'angular-ui-router' {
-    var _: string;
-    export = _;
+    // Since angular-ui-router adds providers for a bunch of
+    // injectable dependencies, it doesn't really return any
+    // actual data except the plain string 'ui.router'.
+    //
+    // As such, I don't think anybody will ever use the actual
+    // default value of the module.  So I've only included the
+    // the types. (@xogeny)
+    export type IState = angular.ui.IState;
+    export type IStateProvider = angular.ui.IStateProvider;
+    export type IUrlMatcher = angular.ui.IUrlMatcher;
+    export type IUrlRouterProvider = angular.ui.IUrlRouterProvider;
+    export type IStateOptions = angular.ui.IStateOptions;
+    export type IHrefOptions = angular.ui.IHrefOptions;
+    export type IStateService = angular.ui.IStateService;
+    export type IResolvedState = angular.ui.IResolvedState;
+    export type IStateParamsService = angular.ui.IStateParamsService;
+    export type IUrlRouterService = angular.ui.IUrlRouterService;
+    export type IUiViewScrollProvider = angular.ui.IUiViewScrollProvider;
+    export type IType = angular.ui.IType;
 }
 
 declare module angular.ui {
@@ -283,7 +300,10 @@ declare module angular.ui {
     	 *
     	 */
         sync(): void;
-        listen(): void;
+        listen(): Function;
+        href(urlMatcher: IUrlMatcher, params?: IStateParamsService, options?: IHrefOptions): string;
+        update(read?: boolean): void;
+        push(urlMatcher: IUrlMatcher, params?: IStateParamsService, options?: IHrefOptions): void;
     }
 
     interface IUiViewScrollProvider {

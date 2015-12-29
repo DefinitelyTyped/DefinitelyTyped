@@ -85,15 +85,15 @@ var bazProm: Promise<Baz>;
 
 // - - - - - - - - - - - - - - - - -
 
-var numThen: Promise.Thenable<number>;
-var strThen: Promise.Thenable<string>;
-var anyThen: Promise.Thenable<any>;
-var boolThen: Promise.Thenable<boolean>;
-var objThen: Promise.Thenable<Object>;
-var voidThen: Promise.Thenable<void>;
+var numThen: PromiseLike<number>;
+var strThen: PromiseLike<string>;
+var anyThen: PromiseLike<any>;
+var boolThen: PromiseLike<boolean>;
+var objThen: PromiseLike<Object>;
+var voidThen: PromiseLike<void>;
 
-var fooThen: Promise.Thenable<Foo>;
-var barThen: Promise.Thenable<Bar>;
+var fooThen: PromiseLike<Foo>;
+var barThen: PromiseLike<Bar>;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -106,12 +106,12 @@ var barArrProm: Promise<Bar[]>;
 
 // - - - - - - - - - - - - - - - - -
 
-var numArrThen: Promise.Thenable<number[]>;
-var strArrThen: Promise.Thenable<string[]>;
-var anyArrThen: Promise.Thenable<any[]>;
+var numArrThen: PromiseLike<number[]>;
+var strArrThen: PromiseLike<string[]>;
+var anyArrThen: PromiseLike<any[]>;
 
-var fooArrThen: Promise.Thenable<Foo[]>;
-var barArrThen: Promise.Thenable<Bar[]>;
+var fooArrThen: PromiseLike<Foo[]>;
+var barArrThen: PromiseLike<Bar[]>;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -124,18 +124,18 @@ var barPromArr: Promise<Bar>[];
 
 // - - - - - - - - - - - - - - - - -
 
-var numThenArr: Promise.Thenable<number>[];
-var strThenArr: Promise.Thenable<string>[];
-var anyThenArr: Promise.Thenable<any>[];
+var numThenArr: PromiseLike<number>[];
+var strThenArr: PromiseLike<string>[];
+var anyThenArr: PromiseLike<any>[];
 
-var fooThenArr: Promise.Thenable<Foo>[];
-var barThenArr: Promise.Thenable<Bar>[];
+var fooThenArr: PromiseLike<Foo>[];
+var barThenArr: PromiseLike<Bar>[];
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // booya!
-var fooThenArrThen: Promise.Thenable<Promise.Thenable<Foo>[]>;
-var barThenArrThen: Promise.Thenable<Promise.Thenable<Bar>[]>;
+var fooThenArrThen: PromiseLike<PromiseLike<Foo>[]>;
+var barThenArrThen: PromiseLike<PromiseLike<Bar>[]>;
 
 var fooResolver: Promise.Resolver<Foo>;
 var barResolver: Promise.Resolver<Bar>;
@@ -607,19 +607,19 @@ Promise.all([fooProm, barProm, fooProm]).then(result => {
 
 //TODO fix collection inference
 
-barArrProm = fooProm.map<Foo, Bar>((item: Foo, index: number, arrayLength: number) => {
+barArrProm = fooArrProm.map<Foo, Bar>((item: Foo, index: number, arrayLength: number) => {
 	return bar;
 });
-barArrProm = fooProm.map<Foo, Bar>((item: Foo) => {
+barArrProm = fooArrProm.map<Foo, Bar>((item: Foo) => {
 	return bar;
 });
 
-barArrProm = fooProm.map<Foo, Bar>((item: Foo, index: number, arrayLength: number) => {
+barArrProm = fooArrProm.map<Foo, Bar>((item: Foo, index: number, arrayLength: number) => {
 	return bar;
 }, {
 	concurrency: 1
 });
-barArrProm = fooProm.map<Foo, Bar>((item: Foo) => {
+barArrProm = fooArrProm.map<Foo, Bar>((item: Foo) => {
 	return bar;
 }, {
 	concurrency: 1
@@ -627,10 +627,20 @@ barArrProm = fooProm.map<Foo, Bar>((item: Foo) => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-barProm = fooProm.reduce<Foo, Bar>((memo: Bar, item: Foo, index: number, arrayLength: number) => {
+barArrProm = fooArrProm.mapSeries<Foo, Bar>((item: Foo, index: number, arrayLength: number) => {
+	return bar;
+});
+barArrProm = fooArrProm.mapSeries<Foo, Bar>((item: Foo) => {
+	return bar;
+});
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+barProm = fooArrProm.reduce<Foo, Bar>((memo: Bar, item: Foo, index: number, arrayLength: number) => {
 	return memo;
 });
-barProm = fooProm.reduce<Foo, Bar>((memo: Bar, item: Foo) => {
+barProm = fooArrProm.reduce<Foo, Bar>((memo: Bar, item: Foo) => {
 	return memo;
 }, bar);
 
@@ -1007,6 +1017,81 @@ barArrProm = Promise.map(fooArr, (item: Foo, index: number, arrayLength: number)
 }, {
 	concurrency: 1
 });
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// mapSeries()
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// fooThenArrThen
+
+barArrProm = Promise.mapSeries(fooThenArrThen, (item: Foo) => {
+	return bar;
+});
+barArrProm = Promise.mapSeries(fooThenArrThen, (item: Foo) => {
+	return barThen;
+});
+barArrProm = Promise.mapSeries(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
+	return bar;
+});
+barArrProm = Promise.mapSeries(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
+	return barThen;
+});
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// fooArrThen
+
+barArrProm = Promise.mapSeries(fooArrThen, (item: Foo) => {
+	return bar;
+});
+barArrProm = Promise.mapSeries(fooArrThen, (item: Foo) => {
+	return barThen;
+});
+barArrProm = Promise.mapSeries(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
+	return bar;
+});
+barArrProm = Promise.mapSeries(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
+	return barThen;
+});
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// fooThenArr
+
+barArrProm = Promise.mapSeries(fooThenArr, (item: Foo) => {
+	return bar;
+});
+barArrProm = Promise.mapSeries(fooThenArr, (item: Foo) => {
+	return barThen;
+});
+barArrProm = Promise.mapSeries(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
+	return bar;
+});
+barArrProm = Promise.mapSeries(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
+	return barThen;
+});
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// fooArr
+
+barArrProm = Promise.mapSeries(fooArr, (item: Foo) => {
+	return bar;
+});
+barArrProm = Promise.mapSeries(fooArr, (item: Foo) => {
+	return barThen;
+});
+barArrProm = Promise.mapSeries(fooArr, (item: Foo, index: number, arrayLength: number) => {
+	return bar;
+});
+barArrProm = Promise.mapSeries(fooArr, (item: Foo, index: number, arrayLength: number) => {
+	return barThen;
+});
+
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

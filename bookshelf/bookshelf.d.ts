@@ -11,7 +11,7 @@ declare module 'bookshelf' {
 	import knex = require('knex');
 	import Promise = require('bluebird');
 	import Lodash = require('lodash');
-	
+
 	interface Bookshelf extends Bookshelf.Events<any> {
 		VERSION : string;
 		knex : knex;
@@ -20,9 +20,9 @@ declare module 'bookshelf' {
 
 		transaction<T>(callback : (transaction : knex.Transaction) => T) : Promise<T>;
 	}
-	
+
 	function Bookshelf(knex : knex) : Bookshelf;
-	
+
 	namespace Bookshelf {
 		abstract class Events<T> {
 			on(event? : string, callback? : EventFunction<T>, context? : any) : void;
@@ -31,20 +31,20 @@ declare module 'bookshelf' {
 			triggerThen(name : string, ...args : any[]) : Promise<any>;
 			once(event : string, callback : EventFunction<T>, context? : any) : void;
 		}
-		
+
 		interface IModelBase {
 			/** Should be declared as a getter instead of a plain property. */
 			hasTimestamps? : boolean|string[];
 			/** Should be declared as a getter instead of a plain property. Should be required, but cannot have abstract properties yet. */
 			tableName? : string;
 		}
-		
+
 		abstract class ModelBase<T extends Model<any>> extends Events<T|Collection<T>> implements IModelBase {
 			/** If overriding, must use a getter instead of a plain property. */
 			idAttribute : string;
-			
+
 			constructor(attributes? : any, options? : ModelOptions);
-			
+
 			clear() : T;
 			clone() : T;
 			escape(attribute : string) : string;
@@ -63,7 +63,7 @@ declare module 'bookshelf' {
 			timestamp(options? : TimestampOptions) : any;
 			toJSON(options? : SerializeOptions) : any;
 			unset(attribute : string) : T;
-			
+
 			// lodash methods
 			invert<R extends {}>() : R;
 			keys() : string[];
@@ -74,7 +74,7 @@ declare module 'bookshelf' {
 			pick<R extends {}>(...attributes : string[]) : R;
 			values() : any[];
 		}
-		
+
 		class Model<T extends Model<any>> extends ModelBase<T> {
 			static collection<T extends Model<any>>(models? : T[], options? : CollectionOptions<T>) : Collection<T>;
 			static count(column? : string, options? : SyncOptions) : Promise<number>;
@@ -83,7 +83,7 @@ declare module 'bookshelf' {
 			static fetchAll<T extends Model<any>>() : Promise<Collection<T>>;
 			/** @deprecated should use `new` objects instead. */
 			static forge<T>(attributes? : any, options? : ModelOptions) : T;
-			
+
 			belongsTo<R extends Model<any>>(target : {new(...args : any[]) : R}, foreignKey? : string) : R;
 			belongsToMany<R extends Model<any>>(target : {new(...args : any[]) : R}, table? : string, foreignKey? : string, otherKey? : string) : Collection<R>;
 			count(column? : string, options? : SyncOptions) : Promise<number>;
@@ -109,7 +109,7 @@ declare module 'bookshelf' {
 			where(properties : {[key : string] : any}) : T;
 			where(key : string, operatorOrValue : string|number|boolean, valueIfOperator? : string|number|boolean) : T;
 		}
-		
+
 		abstract class CollectionBase<T extends Model<any>> extends Events<T> {
 			add(models : T[]|{[key : string] : any}[], options? : CollectionAddOptions) : Collection<T>;
 			at(index : number) : T;
@@ -133,7 +133,7 @@ declare module 'bookshelf' {
 			toJSON(options? : SerializeOptions) : any;
 			unshift(model : any, options? : CollectionAddOptions) : void;
 			where(match : {[key : string] : any}, firstOnly : boolean) : T|Collection<T>;
-			
+
 			// lodash methods
 			all(predicate? : Lodash.ListIterator<T, boolean>|Lodash.DictionaryIterator<T, boolean>|string, thisArg? : any) : boolean;
 			all<R extends {}>(predicate? : R) : boolean;
@@ -200,13 +200,13 @@ declare module 'bookshelf' {
 			toArray() : T[];
 			without(...values : any[]) : T[];
 		}
-		
+
 		class Collection<T extends Model<any>> extends CollectionBase<T> {
 			/** @deprecated use Typescript classes */
 			static extend<T>(prototypeProperties? : any, classProperties? : any) : Function;
 			/** @deprecated should use `new` objects instead. */
 			static forge<T>(attributes? : any, options? : ModelOptions) : T;
-			
+
 			attach(ids : any[], options? : SyncOptions) : Promise<Collection<T>>;
 			count(column? : string, options? : SyncOptions) : Promise<number>;
 			create(model : {[key : string] : any}, options? : CollectionCreateOptions) : Promise<T>;
@@ -222,92 +222,92 @@ declare module 'bookshelf' {
 			updatePivot(attributes : any, options? : PivotOptions) : Promise<number>;
 			withPivot(columns : string[]) : Collection<T>;
 		}
-		
+
 		interface ModelOptions {
 			tableName? : string;
 			hasTimestamps? : boolean;
 			parse? : boolean;
 		}
-		
+
 		interface LoadOptions extends SyncOptions {
 			withRelated: string|any|any[];
 		}
-		
+
 		interface FetchOptions extends SyncOptions {
 			require? : boolean;
 			columns? : string|string[];
 			withRelated? : string|any|any[];
 		}
-		
+
 		interface FetchAllOptions extends SyncOptions {
 			require? : boolean;
 		}
-		
+
 		interface SaveOptions extends SyncOptions {
 			method? : string;
 			defaults? : string;
 			patch? : boolean;
 			require? : boolean;
 		}
-		
+
 		interface SerializeOptions {
 			shallow? : boolean;
 			omitPivot? : boolean;
 		}
-		
+
 		interface SetOptions {
 			unset? : boolean;
 		}
-		
+
 		interface TimestampOptions {
 			method? : string;
 		}
-		
+
 		interface SyncOptions {
 			transacting? : knex.Transaction;
 			debug? : boolean;
 		}
-		
+
 		interface CollectionOptions<T> {
 			comparator? : boolean|string|((a : T, b : T) => number);
 		}
-		
+
 		interface CollectionAddOptions extends EventOptions {
 			at? : number;
 			merge? : boolean;
 		}
-		
+
 		interface CollectionFetchOptions {
 			require? : boolean;
 			withRelated? : string|string[];
 		}
-		
+
 		interface CollectionFetchOneOptions {
 			require? : boolean;
 			columns? : string|string[];
 		}
-		
+
 		interface CollectionSetOptions extends EventOptions {
 			add? : boolean;
 			remove? : boolean;
 			merge?: boolean;
 		}
-		
+
 		interface PivotOptions {
 			query? : Function|any;
 			require? : boolean;
 		}
-		
+
 		interface EventOptions {
 			silent? : boolean;
 		}
-		
+
 		interface EventFunction<T> {
 			(model: T, attrs: any, options: any) : Promise<any>|void;
 		}
-		
+
 		interface CollectionCreateOptions extends ModelOptions, SyncOptions, CollectionAddOptions, SaveOptions {}
 	}
-	
+
 	export = Bookshelf;
 }
