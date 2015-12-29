@@ -22,7 +22,7 @@ declare module angular.translate {
 
     interface IStorage {
         get(name: string): string;
-        set(name: string, value: string): void;
+        put(name: string, value: string): void;
     }
 
     interface IStaticFilesLoaderOptions {
