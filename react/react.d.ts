@@ -27,7 +27,7 @@ declare namespace __React {
         ref: string | ((element: Element) => any);
     }
 
-    interface ReactHTMLElement extends DOMElement<HTMLProps> {
+    interface ReactHTMLElement extends DOMElement<HTMLProps<HTMLElement>> {
         ref: string | ((element: HTMLElement) => any);
     }
 
@@ -51,7 +51,7 @@ declare namespace __React {
         (props?: P, ...children: ReactNode[]): DOMElement<P>;
     }
 
-    type HTMLFactory = DOMFactory<HTMLProps>;
+    type HTMLFactory = DOMFactory<HTMLProps<HTMLElement>>;
     type SVGFactory = DOMFactory<SVGProps>;
 
     //
@@ -323,7 +323,7 @@ declare namespace __React {
         ref?: string | ((component: T) => any);
     }
 
-    interface HTMLProps extends HTMLAttributes, Props<HTMLElement> {
+    interface HTMLProps<T> extends HTMLAttributes, Props<T> {
     }
 
     interface SVGProps extends SVGAttributes, Props<SVGElement> {
@@ -1146,6 +1146,11 @@ declare namespace __React {
         maxWidth?: any;
 
         /**
+         * Sets the minimum height for an element. It prevents the height of the element to be smaller than the specified value. The value of min-height overrides both max-height and height.
+         */
+        minHeight?: any;
+
+        /**
          * Sets the minimum width of an element. It limits the width property to be not smaller than the value specified in min-width.
          */
         minWidth?: any;
@@ -1817,7 +1822,7 @@ declare namespace __React {
         vocab?: string;
 
         // Non-standard Attributes
-        autoCapitalize?: boolean;
+        autoCapitalize?: string;
         autoCorrect?: string;
         autoSave?: string;
         color?: string;
@@ -1864,6 +1869,7 @@ declare namespace __React {
         stroke?: string;
         strokeDasharray?: string;
         strokeLinecap?: string;
+        strokeMiterlimit?: string;
         strokeOpacity?: number | string;
         strokeWidth?: number | string;
         textAnchor?: string;
@@ -2116,122 +2122,132 @@ declare namespace JSX {
     }
     interface ElementAttributesProperty { props: {}; }
 
+    interface IntrinsicAttributes {
+        key?: string | number;
+    }
+
+    interface IntrinsicClassAttributes<T> {
+        ref?: string | ((classInstance: T) => void);
+    }
+
     interface IntrinsicElements {
         // HTML
-        a: React.HTMLProps;
-        abbr: React.HTMLProps;
-        address: React.HTMLProps;
-        area: React.HTMLProps;
-        article: React.HTMLProps;
-        aside: React.HTMLProps;
-        audio: React.HTMLProps;
-        b: React.HTMLProps;
-        base: React.HTMLProps;
-        bdi: React.HTMLProps;
-        bdo: React.HTMLProps;
-        big: React.HTMLProps;
-        blockquote: React.HTMLProps;
-        body: React.HTMLProps;
-        br: React.HTMLProps;
-        button: React.HTMLProps;
-        canvas: React.HTMLProps;
-        caption: React.HTMLProps;
-        cite: React.HTMLProps;
-        code: React.HTMLProps;
-        col: React.HTMLProps;
-        colgroup: React.HTMLProps;
-        data: React.HTMLProps;
-        datalist: React.HTMLProps;
-        dd: React.HTMLProps;
-        del: React.HTMLProps;
-        details: React.HTMLProps;
-        dfn: React.HTMLProps;
-        dialog: React.HTMLProps;
-        div: React.HTMLProps;
-        dl: React.HTMLProps;
-        dt: React.HTMLProps;
-        em: React.HTMLProps;
-        embed: React.HTMLProps;
-        fieldset: React.HTMLProps;
-        figcaption: React.HTMLProps;
-        figure: React.HTMLProps;
-        footer: React.HTMLProps;
-        form: React.HTMLProps;
-        h1: React.HTMLProps;
-        h2: React.HTMLProps;
-        h3: React.HTMLProps;
-        h4: React.HTMLProps;
-        h5: React.HTMLProps;
-        h6: React.HTMLProps;
-        head: React.HTMLProps;
-        header: React.HTMLProps;
-        hr: React.HTMLProps;
-        html: React.HTMLProps;
-        i: React.HTMLProps;
-        iframe: React.HTMLProps;
-        img: React.HTMLProps;
-        input: React.HTMLProps;
-        ins: React.HTMLProps;
-        kbd: React.HTMLProps;
-        keygen: React.HTMLProps;
-        label: React.HTMLProps;
-        legend: React.HTMLProps;
-        li: React.HTMLProps;
-        link: React.HTMLProps;
-        main: React.HTMLProps;
-        map: React.HTMLProps;
-        mark: React.HTMLProps;
-        menu: React.HTMLProps;
-        menuitem: React.HTMLProps;
-        meta: React.HTMLProps;
-        meter: React.HTMLProps;
-        nav: React.HTMLProps;
-        noscript: React.HTMLProps;
-        object: React.HTMLProps;
-        ol: React.HTMLProps;
-        optgroup: React.HTMLProps;
-        option: React.HTMLProps;
-        output: React.HTMLProps;
-        p: React.HTMLProps;
-        param: React.HTMLProps;
-        picture: React.HTMLProps;
-        pre: React.HTMLProps;
-        progress: React.HTMLProps;
-        q: React.HTMLProps;
-        rp: React.HTMLProps;
-        rt: React.HTMLProps;
-        ruby: React.HTMLProps;
-        s: React.HTMLProps;
-        samp: React.HTMLProps;
-        script: React.HTMLProps;
-        section: React.HTMLProps;
-        select: React.HTMLProps;
-        small: React.HTMLProps;
-        source: React.HTMLProps;
-        span: React.HTMLProps;
-        strong: React.HTMLProps;
-        style: React.HTMLProps;
-        sub: React.HTMLProps;
-        summary: React.HTMLProps;
-        sup: React.HTMLProps;
-        table: React.HTMLProps;
-        tbody: React.HTMLProps;
-        td: React.HTMLProps;
-        textarea: React.HTMLProps;
-        tfoot: React.HTMLProps;
-        th: React.HTMLProps;
-        thead: React.HTMLProps;
-        time: React.HTMLProps;
-        title: React.HTMLProps;
-        tr: React.HTMLProps;
-        track: React.HTMLProps;
-        u: React.HTMLProps;
-        ul: React.HTMLProps;
-        "var": React.HTMLProps;
-        video: React.HTMLProps;
-        wbr: React.HTMLProps;
+        a: React.HTMLProps<HTMLAnchorElement>;
+        abbr: React.HTMLProps<HTMLElement>;
+        address: React.HTMLProps<HTMLElement>;
+        area: React.HTMLProps<HTMLAreaElement>;
+        article: React.HTMLProps<HTMLElement>;
+        aside: React.HTMLProps<HTMLElement>;
+        audio: React.HTMLProps<HTMLAudioElement>;
+        b: React.HTMLProps<HTMLElement>;
+        base: React.HTMLProps<HTMLBaseElement>;
+        bdi: React.HTMLProps<HTMLElement>;
+        bdo: React.HTMLProps<HTMLElement>;
+        big: React.HTMLProps<HTMLElement>;
+        blockquote: React.HTMLProps<HTMLElement>;
+        body: React.HTMLProps<HTMLBodyElement>;
+        br: React.HTMLProps<HTMLBRElement>;
+        button: React.HTMLProps<HTMLButtonElement>;
+        canvas: React.HTMLProps<HTMLCanvasElement>;
+        caption: React.HTMLProps<HTMLElement>;
+        cite: React.HTMLProps<HTMLElement>;
+        code: React.HTMLProps<HTMLElement>;
+        col: React.HTMLProps<HTMLTableColElement>;
+        colgroup: React.HTMLProps<HTMLTableColElement>;
+        data: React.HTMLProps<HTMLElement>;
+        datalist: React.HTMLProps<HTMLDataListElement>;
+        dd: React.HTMLProps<HTMLElement>;
+        del: React.HTMLProps<HTMLElement>;
+        details: React.HTMLProps<HTMLElement>;
+        dfn: React.HTMLProps<HTMLElement>;
+        dialog: React.HTMLProps<HTMLElement>;
+        div: React.HTMLProps<HTMLDivElement>;
+        dl: React.HTMLProps<HTMLDListElement>;
+        dt: React.HTMLProps<HTMLElement>;
+        em: React.HTMLProps<HTMLElement>;
+        embed: React.HTMLProps<HTMLEmbedElement>;
+        fieldset: React.HTMLProps<HTMLFieldSetElement>;
+        figcaption: React.HTMLProps<HTMLElement>;
+        figure: React.HTMLProps<HTMLElement>;
+        footer: React.HTMLProps<HTMLElement>;
+        form: React.HTMLProps<HTMLFormElement>;
+        h1: React.HTMLProps<HTMLHeadingElement>;
+        h2: React.HTMLProps<HTMLHeadingElement>;
+        h3: React.HTMLProps<HTMLHeadingElement>;
+        h4: React.HTMLProps<HTMLHeadingElement>;
+        h5: React.HTMLProps<HTMLHeadingElement>;
+        h6: React.HTMLProps<HTMLHeadingElement>;
+        head: React.HTMLProps<HTMLHeadElement>;
+        header: React.HTMLProps<HTMLElement>;
+        hr: React.HTMLProps<HTMLHRElement>;
+        html: React.HTMLProps<HTMLHtmlElement>;
+        i: React.HTMLProps<HTMLElement>;
+        iframe: React.HTMLProps<HTMLIFrameElement>;
+        img: React.HTMLProps<HTMLImageElement>;
+        input: React.HTMLProps<HTMLInputElement>;
+        ins: React.HTMLProps<HTMLModElement>;
+        kbd: React.HTMLProps<HTMLElement>;
+        keygen: React.HTMLProps<HTMLElement>;
+        label: React.HTMLProps<HTMLLabelElement>;
+        legend: React.HTMLProps<HTMLLegendElement>;
+        li: React.HTMLProps<HTMLLIElement>;
+        link: React.HTMLProps<HTMLLinkElement>;
+        main: React.HTMLProps<HTMLElement>;
+        map: React.HTMLProps<HTMLMapElement>;
+        mark: React.HTMLProps<HTMLElement>;
+        menu: React.HTMLProps<HTMLElement>;
+        menuitem: React.HTMLProps<HTMLElement>;
+        meta: React.HTMLProps<HTMLMetaElement>;
+        meter: React.HTMLProps<HTMLElement>;
+        nav: React.HTMLProps<HTMLElement>;
+        noscript: React.HTMLProps<HTMLElement>;
+        object: React.HTMLProps<HTMLObjectElement>;
+        ol: React.HTMLProps<HTMLOListElement>;
+        optgroup: React.HTMLProps<HTMLOptGroupElement>;
+        option: React.HTMLProps<HTMLOptionElement>;
+        output: React.HTMLProps<HTMLElement>;
+        p: React.HTMLProps<HTMLParagraphElement>;
+        param: React.HTMLProps<HTMLParamElement>;
+        picture: React.HTMLProps<HTMLElement>;
+        pre: React.HTMLProps<HTMLPreElement>;
+        progress: React.HTMLProps<HTMLProgressElement>;
+        q: React.HTMLProps<HTMLQuoteElement>;
+        rp: React.HTMLProps<HTMLElement>;
+        rt: React.HTMLProps<HTMLElement>;
+        ruby: React.HTMLProps<HTMLElement>;
+        s: React.HTMLProps<HTMLElement>;
+        samp: React.HTMLProps<HTMLElement>;
+        script: React.HTMLProps<HTMLElement>;
+        section: React.HTMLProps<HTMLElement>;
+        select: React.HTMLProps<HTMLSelectElement>;
+        small: React.HTMLProps<HTMLElement>;
+        source: React.HTMLProps<HTMLSourceElement>;
+        span: React.HTMLProps<HTMLSpanElement>;
+        strong: React.HTMLProps<HTMLElement>;
+        style: React.HTMLProps<HTMLStyleElement>;
+        sub: React.HTMLProps<HTMLElement>;
+        summary: React.HTMLProps<HTMLElement>;
+        sup: React.HTMLProps<HTMLElement>;
+        table: React.HTMLProps<HTMLTableElement>;
+        tbody: React.HTMLProps<HTMLTableSectionElement>;
+        td: React.HTMLProps<HTMLTableDataCellElement>;
+        textarea: React.HTMLProps<HTMLTextAreaElement>;
+        tfoot: React.HTMLProps<HTMLTableSectionElement>;
+        th: React.HTMLProps<HTMLTableHeaderCellElement>;
+        thead: React.HTMLProps<HTMLTableSectionElement>;
+        time: React.HTMLProps<HTMLElement>;
+        title: React.HTMLProps<HTMLTitleElement>;
+        tr: React.HTMLProps<HTMLTableRowElement>;
+        track: React.HTMLProps<HTMLTrackElement>;
+        u: React.HTMLProps<HTMLElement>;
+        ul: React.HTMLProps<HTMLUListElement>;
+        "var": React.HTMLProps<HTMLElement>;
+        video: React.HTMLProps<HTMLVideoElement>;
+        wbr: React.HTMLProps<HTMLElement>;
 
         // SVG
+        svg: React.SVGProps;
+
         circle: React.SVGProps;
         defs: React.SVGProps;
         ellipse: React.SVGProps;
@@ -2247,7 +2263,6 @@ declare namespace JSX {
         radialGradient: React.SVGProps;
         rect: React.SVGProps;
         stop: React.SVGProps;
-        svg: React.SVGProps;
         text: React.SVGProps;
         tspan: React.SVGProps;
     }

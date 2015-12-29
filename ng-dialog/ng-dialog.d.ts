@@ -84,7 +84,7 @@ declare module angular.dialog {
 		 * Any serializable data that you want to be stored in the controller's dialog scope.
 		 * From version 0.3.6 $scope.ngDialogData keeps references to the objects instead of copying them.
 		 */
-		ngDialogData : {};
+		ngDialogData : string | {} | any[];
 
 		/**
 		 * The id of the dialog. If you you ngDialogData, it'll be also available under ngDialogData.ngDialogId
@@ -136,10 +136,10 @@ declare module angular.dialog {
 		closeByDocument?: boolean;
 
 		/**
+		 * Listens for $locationChangeSuccess event and closes open dialogs if true (also handles the ui.router $stateChangeSuccess event if ui.router is used)
 		 * default : false
 		 */
 		closeByNavigation?: boolean;
-
 
 		/**
 		 * If true allows to use plain string as template, default false.

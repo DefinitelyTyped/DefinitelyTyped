@@ -1304,7 +1304,7 @@ interface HighchartsChartOptions3dFrame {
      * @default 'transparent'
      * @since 4.0
      */
-    color?: string | HighchartsGradient,
+    color?: string | HighchartsGradient;
     /**
      * Thickness of the panel.
      * @default 1

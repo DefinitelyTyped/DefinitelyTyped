@@ -9,7 +9,8 @@ declare module yo {
         argument(name: string, config: IArgumentConfig): void;
         composeWith(namespace: string, options: any, settings?: IComposeSetting): IYeomanGenerator;
         defaultFor(name: string): void;
-        destinationRoot(rootPath: string): string;
+        destinationRoot(rootPath?: string): string;
+        destinationPath(...path: string[]): string;
         determineAppname(): void;
         getCollisionFilter(): (output: any) => void;
         hookFor(name: string, config: IHookConfig): void;
@@ -18,16 +19,23 @@ declare module yo {
         run(args?: any): void;
         run(args: any, callback?: Function): void;
         runHooks(callback?: Function): void;
-        sourceRoot(rootPath: string): string;
-
-
+        sourceRoot(rootPath?: string): string;
+        templatePath(...path: string[]): string;
+        prompt(opt: IPromptOptions | IPromptOptions[], callback: (answers: any) => void): void;
+        npmInstall(packages?: string[] | string, options?: any, cb?: Function): void;
+        installDependencies(options?: IInstallDependencyOptions): void;
+        spawnCommand(name: string, args?: string[], options?: Object): void;
+        spawnCommandSync(name: string, args?: string[], options?: Object): void;
+        options: { [key: string]: any };
+        fs: IMemFsEditor;
     }
 
     export class YeomanGeneratorBase implements IYeomanGenerator, NodeJS.EventEmitter {
         argument(name: string, config: IArgumentConfig): void;
         composeWith(namespace: string, options: any, settings?: IComposeSetting): IYeomanGenerator;
         defaultFor(name: string): void;
-        destinationRoot(rootPath: string): string;
+        destinationRoot(rootPath?: string): string;
+        destinationPath(...path: string[]): string;
         determineAppname(): void;
         getCollisionFilter(): (output: any) => void;
         hookFor(name: string, config: IHookConfig): void;
@@ -36,31 +44,72 @@ declare module yo {
         run(args?: any): void;
         run(args: any, callback?: Function): void;
         runHooks(callback?: Function): void;
-        sourceRoot(rootPath: string): string;
+        sourceRoot(rootPath?: string): string;
+        templatePath(...path: string[]): string;
         addListener(event: string, listener: Function): NodeJS.EventEmitter;
         on(event: string, listener: Function): NodeJS.EventEmitter;
         once(event: string, listener: Function): NodeJS.EventEmitter;
         removeListener(event: string, listener: Function): NodeJS.EventEmitter;
         removeAllListeners(event?: string): NodeJS.EventEmitter;
-        setMaxListeners(n: number): void;
+        setMaxListeners(n: number): NodeJS.EventEmitter;
+        getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
+        listenerCount(type: string): number;
 
         async(): any;
-        prompt(opt?:IPromptOptions, callback?:(answers:any)=>void) :void;
+        prompt(opt: IPromptOptions | IPromptOptions[], callback: (answers: any) => void): void;
         log(message: string) : void;
-        npmInstall(packages: string[], options?:any) :void;
+        npmInstall(packages: string[], options?: any, cb?: Function) :void;
+        installDependencies(options?: IInstallDependencyOptions): void;
+        spawnCommand(name: string, args?: string[], options?: Object): void;
+        spawnCommandSync(name: string, args?: string[], options?: Object): void;
 
         appname: string;
         gruntfile: IGruntFileStatic;
+        options: { [key: string]: any };
+        fs: IMemFsEditor;
     }
+
+    export interface IMemFsEditor {
+        read(filepath: string, options?: Object): string;
+        readJSON(filepath: string, defaults?: Object): Object;
+        write(filepath: string, contents: string): void;
+        writeJSON(filepath: string, contents: Object, replacer?: Function, space?: number): void;
+        delete(filepath: string, options?: Object): void;
+        copy(from: string, to: string, options?: Object): void;
+        copyTpl(from: string, to: string, context: Object, options?: Object): void;
+        move(from: string, to: string, options?: Object): void;
+        exists(filepath: string): boolean;
+        commit(callback: Function): void;
+        commit(filters: any[], callback: Function): void;
+    }
+
+    export interface IInstallDependencyOptions {
+        npm?: boolean;
+        bower?: boolean;
+        skipMessage?: boolean;
+        callback?: Function;
+    }
+
+    export interface IChoice {
+        name: string;
+        value: string;
+        short?: string;
+    }
+
     export interface IPromptOptions{
-        type:string;
-        name:string;
-        message:string;
-        default:string;
+        type?: string;
+        name: string;
+        message: string | ((answers: Object) => string);
+        choices?: any[] | ((answers: Object) => any);
+        default?: string | number | string[] | number[] | ((answers: Object) => (string | number | string[] | number[]));
+        validate?: ((input: any) => boolean | string);
+        filter?: ((input: any) => any);
+        when?: ((answers: Object) => boolean) | boolean;
+        store?: boolean;
     }
-    
+
     export interface IGruntFileStatic {
         loadNpmTasks(pluginName: string): void;
         insertConfig(name:string, config:any):void;
@@ -71,10 +120,10 @@ declare module yo {
 
     export interface IArgumentConfig {
         desc: string;
-        required: boolean;
-        optional: boolean;
+        required?: boolean;
+        optional?: boolean;
         type: any;
-        defaults: any;
+        defaults?: any;
     }
 
     export interface IComposeSetting {
@@ -174,6 +223,8 @@ declare module yo {
     var file: any;
     var assert: IAssert;
     var test: ITestHelper;
+
+    // "generators" is deprecated
     module generators {
 
         export class NamedBase extends YeomanGeneratorBase implements INamedBase {
@@ -183,6 +234,14 @@ declare module yo {
         export class Base extends NamedBase implements IBase {
             static extend(protoProps: IQueueProps, staticProps?: any): IYeomanGenerator;
         }
+    }
+
+    export class NamedBase extends YeomanGeneratorBase implements INamedBase {
+        constructor(args: string | string[], options: any);
+    }
+
+    export class Base extends NamedBase implements IBase {
+        static extend(protoProps: IQueueProps, staticProps?: any): IYeomanGenerator;
     }
 }
 

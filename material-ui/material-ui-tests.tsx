@@ -6,6 +6,7 @@ import * as React from "react";
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
 import Checkbox = require("material-ui/lib/checkbox");
 import Colors = require("material-ui/lib/styles/colors");
+import Spacing = require("material-ui/lib/styles/spacing");
 import AppBar = require("material-ui/lib/app-bar");
 import Badge = require("material-ui/lib/badge");
 import IconButton = require("material-ui/lib/icon-button");
@@ -47,7 +48,13 @@ type CheckboxProps = __MaterialUI.CheckboxProps;
 type MuiTheme = __MaterialUI.Styles.MuiTheme;
 type TouchTapEvent = __MaterialUI.TouchTapEvent;
 
-class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedStateMixin {
+interface MaterialUiTestsState {
+    showDialogStandardActions: boolean;
+    showDialogCustomActions: boolean;
+    showDialogScrollable: boolean;
+}
+
+class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implements React.LinkedStateMixin {
 
     // injected with mixin
     linkState: <T>(key: string) => React.ReactLink<T>;
@@ -59,6 +66,8 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
     private formEventHandler(e: React.FormEvent) {
     }
     private selectFieldChangeHandler(e: TouchTapEvent, si: number, mi: any) {
+    }
+    private handleRequestClose(buttonClicked: boolean) {
     }
 
     render() {
@@ -193,7 +202,8 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
             title="Dialog With Standard Actions"
             actions={standardActions}
             actionFocus="submit"
-            modal={true}>
+            open={this.state.showDialogStandardActions}
+            onRequestClose={this.handleRequestClose}>
             The actions in this window are created from the json that's passed in.
             </Dialog>;
 
@@ -212,10 +222,21 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
         element = <Dialog
             title="Dialog With Custom Actions"
             actions={customActions}
-            modal={false}
-            autoDetectWindowHeight={true}
-            autoScrollBodyContent={true}>
+            open={this.state.showDialogCustomActions}
+            onRequestClose={this.handleRequestClose}>
             The actions in this window were passed in as an array of react objects.
+            </Dialog>;
+
+        element = <Dialog
+                title="Dialog With Scrollable Content"
+                actions={customActions}
+                autoDetectWindowHeight={true}
+                autoScrollBodyContent={true}
+                open={this.state.showDialogScrollable}
+                onRequestClose={this.handleRequestClose}>
+                <div style={{ height: '1000px' }}>
+                  Really long content
+                </div>
             </Dialog>;
 
 
@@ -488,7 +509,8 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
         element = <GridList
             cols={3}
             padding={50}
-            cellHeight={200} />;
+            cellHeight={200}
+            style={{ color: 'red' }} />;
             
         element = <GridTile
             title="GridTileTitle"
@@ -497,7 +519,8 @@ class MaterialUiTests extends React.Component<{}, {}> implements React.LinkedSta
             titlePosition="top"
             titleBackground="rgba(0, 0, 0, 0.4)"
             cols={2}
-            rows={1} >
+            rows={1}
+            style={{ color: 'red' }}>
             <h1>Children are Required!</h1>
             </GridTile>;
 

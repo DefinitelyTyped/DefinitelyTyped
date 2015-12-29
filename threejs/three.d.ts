@@ -1959,7 +1959,7 @@ declare module THREE {
         constructor(manager?: LoadingManager);
 
         manager: LoadingManager;
-        load(url: string, onLoad: (texture: CubeTexture) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
+        load(urls: Array<string>, onLoad?: (texture: CubeTexture) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
         setCrossOrigin(crossOrigin: string): void;
 
     }
@@ -2076,7 +2076,7 @@ declare module THREE {
          *
          * @param url
          */
-        load(url: string, onLoad: (texture: Texture) => void): Texture;
+        load(url: string, onLoad?: (texture: Texture) => void): Texture;
         setCrossOrigin(crossOrigin: string): void;
     }
 
@@ -4588,6 +4588,8 @@ declare module THREE {
             };
         };
 
+        shadowMap: WebGLShadowMapInstance;
+
         /**
          * Return the WebGL context.
          */
@@ -4664,7 +4666,7 @@ declare module THREE {
 
         /**
          * Tells the renderer to clear its color, depth or stencil drawing buffer(s).
-         * If no parameters are passed, no buffer will be cleared.
+         * Arguments default to true
          */
         clear(color?: boolean, depth?: boolean, stencil?: boolean): void;
 

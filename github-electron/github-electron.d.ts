@@ -1,7 +1,7 @@
-// Type definitions for Electron 0.25.2 (shared between main and rederer processes)
+// Type definitions for Electron v0.35.0
 // Project: http://electron.atom.io/
-// Definitions by: jedmao <https://github.com/jedmao/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -70,9 +70,11 @@ declare module GitHubElectron {
 		once(event: string, listener: Function): Screen;
 		removeListener(event: string, listener: Function): Screen;
 		removeAllListeners(event?: string): Screen;
-		setMaxListeners(n: number): void;
+		setMaxListeners(n: number): Screen;
+		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
 		/**
 		 * @returns The current absolute position of the mouse pointer.
 		 */
@@ -108,9 +110,11 @@ declare module GitHubElectron {
 		once(event: string, listener: Function): WebContents;
 		removeListener(event: string, listener: Function): WebContents;
 		removeAllListeners(event?: string): WebContents;
-		setMaxListeners(n: number): void;
+		setMaxListeners(n: number): WebContents;
+		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
 		constructor(options?: BrowserWindowOptions);
 		/**
 		 * @returns All opened browser windows.
@@ -447,54 +451,63 @@ declare module GitHubElectron {
 		isVisibleOnAllWorkspaces(): boolean;
 	}
 
+	interface WebPreferences {
+		nodeIntegration?: boolean;
+		preload?: string;
+		partition?: string;
+		zoomFactor?: number;
+		javascript?: boolean;
+		webSecurity?: boolean;
+		allowDisplayingInsecureContent?: boolean;
+		allowRunningInsecureContent?: boolean;
+		images?: boolean;
+		textAreasAreResizable?: boolean;
+		webgl?: boolean;
+		webaudio?: boolean;
+		plugins?: boolean;
+		experimentalFeatures?: boolean;
+		experimentalCanvasFeatures?: boolean;
+		overlayScrollbars?: boolean;
+		sharedWorker?: boolean;
+		directWrite?: boolean;
+		pageVisibility?: boolean;
+	}
+
 	// Includes all options BrowserWindow can take as of this writing
 	// http://electron.atom.io/docs/v0.29.0/api/browser-window/
 	interface BrowserWindowOptions extends Rectangle {
 		show?: boolean;
-		'use-content-size'?: boolean;
+		useContentSize?: boolean;
 		center?: boolean;
-		'min-width'?: number;
-		'min-height'?: number;
-		'max-width'?: number;
-		'max-height'?: number;
+		minWidth?: number;
+		minHeight?: number;
+		maxWidth?: number;
+		maxHeight?: number;
 		resizable?: boolean;
-		'always-on-top'?: boolean;
+		alwaysOnTop?: boolean;
 		fullscreen?: boolean;
-		'skip-taskbar'?: boolean;
-		'zoom-factor'?: number;
+		skipTaskbar?: boolean;
+		zoomFactor?: number;
 		kiosk?: boolean;
 		title?: string;
 		icon?: NativeImage|string;
 		frame?: boolean;
-		'node-integration'?: boolean;
-		'accept-first-mouse'?: boolean;
-		'disable-auto-hide-cursor'?: boolean;
-		'auto-hide-menu-bar'?: boolean;
-		'enable-larger-than-screen'?: boolean;
-		'dark-theme'?: boolean;
+		acceptFirstMouse?: boolean;
+		disableAutoHideCursor?: boolean;
+		autoHideMenuBar?: boolean;
+		enableLargerThanScreen?: boolean;
+		darkTheme?: boolean;
 		preload?: string;
 		transparent?: boolean;
 		type?: string;
-		'standard-window'?: boolean;
-		'web-preferences'?: any; // Object
-		javascript?: boolean;
-		'web-security'?: boolean;
-		images?: boolean;
+		standardWindow?: boolean;
+		webPreferences?: WebPreferences;
 		java?: boolean;
-		'text-areas-are-resizable'?: boolean;
-		webgl?: boolean;
-		webaudio?: boolean;
-		plugins?: boolean;
-		'extra-plugin-dirs'?: string[];
-		'experimental-features'?: boolean;
-		'experimental-canvas-features'?: boolean;
-		'subpixel-font-scaling'?: boolean;
-		'overlay-scrollbars'?: boolean;
-		'overlay-fullscreen-video'?: boolean;
-		'shared-worker'?: boolean;
-		'direct-write'?: boolean;
-		'page-visibility'?: boolean;
-		'title-bar-style'?: string;
+		textAreasAreResizable?: boolean;
+		extraPluginDirs?: string[];
+		subpixelFontScaling?: boolean;
+		overlayFullscreenVideo?: boolean;
+		titleBarStyle?: string;
 	}
 
 	interface Rectangle {
@@ -513,9 +526,11 @@ declare module GitHubElectron {
 		once(event: string, listener: Function): WebContents;
 		removeListener(event: string, listener: Function): WebContents;
 		removeAllListeners(event?: string): WebContents;
-		setMaxListeners(n: number): void;
+		setMaxListeners(n: number): WebContents;
+		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
 		/**
 		 * Loads the url in the window.
 		 * @param url Must contain the protocol prefix (e.g., the http:// or file://).
@@ -880,6 +895,10 @@ declare module GitHubElectron {
 		 * a given menu.
 		 */
 		position?: string;
+		/**
+		 * Define the action of the menu item, when specified the click property will be ignored
+		 */
+		role?: string;
 	}
 
 	class BrowserWindowProxy {
@@ -917,9 +936,11 @@ declare module GitHubElectron {
 		once(event: string, listener: Function): App;
 		removeListener(event: string, listener: Function): App;
 		removeAllListeners(event?: string): App;
-		setMaxListeners(n: number): void;
+		setMaxListeners(n: number): App;
+		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
 		/**
 		 * Try to close all windows. The before-quit event will first be emitted.
 		 * If all windows are successfully closed, the will-quit event will be emitted
@@ -1100,7 +1121,7 @@ declare module GitHubElectron {
 			 * Note: This API is only available on Mac.
 			 */
 			setMenu(menu: Menu): void;
-		}
+		};
 	}
 
 	class AutoUpdater implements NodeJS.EventEmitter {
@@ -1109,9 +1130,11 @@ declare module GitHubElectron {
 		once(event: string, listener: Function): AutoUpdater;
 		removeListener(event: string, listener: Function): AutoUpdater;
 		removeAllListeners(event?: string): AutoUpdater;
-		setMaxListeners(n: number): void;
+		setMaxListeners(n: number): AutoUpdater;
+		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
 		/**
 		 * Set the url and initialize the auto updater.
 		 * The url cannot be changed once it is set.
@@ -1219,9 +1242,11 @@ declare module GitHubElectron {
 		once(event: string, listener: Function): Tray;
 		removeListener(event: string, listener: Function): Tray;
 		removeAllListeners(event?: string): Tray;
-		setMaxListeners(n: number): void;
+		setMaxListeners(n: number): Tray;
+		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
 		/**
 		 * Creates a new tray icon associated with the image.
 		 */
@@ -1299,7 +1324,7 @@ declare module GitHubElectron {
 		 */
 		read(format: string, type?: string): any;
 	}
-	
+
 	interface CrashReporterStartOptions {
 		/**
 		* Default: Electron
@@ -1328,9 +1353,9 @@ declare module GitHubElectron {
 		* Only string properties are send correctly.
 		* Nested objects are not supported.
 		*/
-		extra?: {}
+		extra?: {};
 	}
-	
+
 	interface CrashReporterPayload extends Object {
 		/**
 		* E.g., "electron-crash-service".
@@ -1370,18 +1395,18 @@ declare module GitHubElectron {
 		*/
 		upload_file_minidump: File;
 	}
-	
+
 	interface CrashReporter {
 		start(options?: CrashReporterStartOptions): void;
-	
+
 		/**
 		 * @returns The date and ID of the last crash report. When there was no crash report
 		 * sent or the crash reporter is not started, null will be returned.
 		 */
 		getLastCrashReport(): CrashReporterPayload;
 	}
-	
-	interface Shell{
+
+	interface Shell {
 		/**
 		 * Show the given file in a file manager. If possible, select the file.
 		 */
@@ -1404,31 +1429,375 @@ declare module GitHubElectron {
 		 */
 		beep(): void;
 	}
-}
 
-declare module 'clipboard' {
-	var clipboard: GitHubElectron.Clipboard
-	export = clipboard;
-}
+	// Type definitions for renderer process
 
-declare module 'crash-reporter' {
-	var crashReporter: GitHubElectron.CrashReporter
-	export = crashReporter;
-}
+	export class IpcRenderer implements NodeJS.EventEmitter {
+		addListener(event: string, listener: Function): IpcRenderer;
+		on(event: string, listener: Function): IpcRenderer;
+		once(event: string, listener: Function): IpcRenderer;
+		removeListener(event: string, listener: Function): IpcRenderer;
+		removeAllListeners(event?: string): IpcRenderer;
+		setMaxListeners(n: number): IpcRenderer;
+		getMaxListeners(): number;
+		listeners(event: string): Function[];
+		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
+		/**
+		 * Send ...args to the renderer via channel in asynchronous message, the main
+		 * process can handle it by listening to the channel event of ipc module.
+		 */
+		send(channel: string, ...args: any[]): void;
+		/**
+		 * Send ...args to the renderer via channel in synchronous message, and returns
+		 * the result sent from main process. The main process can handle it by listening
+		 * to the channel event of ipc module, and returns by setting event.returnValue.
+		 * Note: Usually developers should never use this API, since sending synchronous
+		 * message would block the whole renderer process.
+		 * @returns The result sent from the main process.
+		 */
+		sendSync(channel: string, ...args: any[]): string;
+		/**
+		 * Like ipc.send but the message will be sent to the host page instead of the main process.
+		 * This is mainly used by the page in <webview> to communicate with host page.
+		 */
+		sendToHost(channel: string, ...args: any[]): void;
+	}
 
-declare module 'native-image' {
-	var nativeImage: typeof GitHubElectron.NativeImage;
-	export = nativeImage;
-}
+	interface Remote extends CommonElectron {
+		/**
+		 * @returns The object returned by require(module) in the main process.
+		 */
+		require(module: string): any;
+		/**
+		 * @returns The BrowserWindow object which this web page belongs to.
+		 */
+		getCurrentWindow(): BrowserWindow;
+		/**
+		 * @returns The global variable of name (e.g. global[name]) in the main process.
+		 */
+		getGlobal(name: string): any;
+		/**
+		 * Returns the process object in the main process. This is the same as
+		 * remote.getGlobal('process'), but gets cached.
+		 */
+		process: NodeJS.Process;
+	}
 
-declare module 'screen' {
-	var screen: GitHubElectron.Screen;
-	export = screen;
-}
+	interface WebFrame {
+		/**
+		 * Changes the zoom factor to the specified factor, zoom factor is
+		 * zoom percent / 100, so 300% = 3.0.
+		 */
+		setZoomFactor(factor: number): void;
+		/**
+		 * @returns The current zoom factor.
+		 */
+		getZoomFactor(): number;
+		/**
+		 * Changes the zoom level to the specified level, 0 is "original size", and each
+		 * increment above or below represents zooming 20% larger or smaller to default
+		 * limits of 300% and 50% of original size, respectively.
+		 */
+		setZoomLevel(level: number): void;
+		/**
+		 * @returns The current zoom level.
+		 */
+		getZoomLevel(): number;
+		/**
+		 * Sets a provider for spell checking in input fields and text areas.
+		 */
+		setSpellCheckProvider(language: string, autoCorrectWord: boolean, provider: {
+			/**
+			 * @returns Whether the word passed is correctly spelled.
+			 */
+			spellCheck: (text: string) => boolean;
+		}): void;
+		/**
+		 * Sets the scheme as secure scheme. Secure schemes do not trigger mixed content
+		 * warnings. For example, https and data are secure schemes because they cannot be
+		 * corrupted by active network attackers.
+		 */
+		registerURLSchemeAsSecure(scheme: string): void;
+	}
 
-declare module 'shell' {
-	var shell: GitHubElectron.Shell;
-	export = shell;
+	// Type definitions for main process
+
+	interface ContentTracing {
+		/**
+		 * Get a set of category groups. The category groups can change as new code paths are reached.
+		 * @param callback Called once all child processes have acked to the getCategories request.
+		 */
+		getCategories(callback: (categoryGroups: any[]) => void): void;
+		/**
+		 * Start recording on all processes. Recording begins immediately locally, and asynchronously
+		 * on child processes as soon as they receive the EnableRecording request.
+		 * @param categoryFilter A filter to control what category groups should be traced.
+		 * A filter can have an optional "-" prefix to exclude category groups that contain
+		 * a matching category. Having both included and excluded category patterns in the
+		 * same list would not be supported.
+		 * @param options controls what kind of tracing is enabled, it could be a OR-ed
+		 * combination of tracing.DEFAULT_OPTIONS, tracing.ENABLE_SYSTRACE, tracing.ENABLE_SAMPLING
+		 * and tracing.RECORD_CONTINUOUSLY.
+		 * @param callback Called once all child processes have acked to the startRecording request.
+		 */
+		startRecording(categoryFilter: string, options: number, callback: Function): void;
+		/**
+		 * Stop recording on all processes. Child processes typically are caching trace data and
+		 * only rarely flush and send trace data back to the main process. That is because it may
+		 * be an expensive operation to send the trace data over IPC, and we would like to avoid
+		 * much runtime overhead of tracing. So, to end tracing, we must asynchronously ask all
+		 * child processes to flush any pending trace data.
+		 * @param resultFilePath Trace data will be written into this file if it is not empty,
+		 * or into a temporary file.
+		 * @param callback Called once all child processes have acked to the stopRecording request.
+		 */
+		stopRecording(resultFilePath: string, callback:
+			/**
+			 * @param filePath A file that contains the traced data.
+			 */
+			(filePath: string) => void
+			): void;
+		/**
+		 * Start monitoring on all processes. Monitoring begins immediately locally, and asynchronously
+		 * on child processes as soon as they receive the startMonitoring request.
+		 * @param callback Called once all child processes have acked to the startMonitoring request.
+		 */
+		startMonitoring(categoryFilter: string, options: number, callback: Function): void;
+		/**
+		 * Stop monitoring on all processes.
+		 * @param callback Called once all child processes have acked to the stopMonitoring request.
+		 */
+		stopMonitoring(callback: Function): void;
+		/**
+		 * Get the current monitoring traced data. Child processes typically are caching trace data
+		 * and only rarely flush and send trace data back to the main process. That is because it may
+		 * be an expensive operation to send the trace data over IPC, and we would like to avoid much
+		 * runtime overhead of tracing. So, to end tracing, we must asynchronously ask all child
+		 * processes to flush any pending trace data.
+		 * @param callback Called once all child processes have acked to the captureMonitoringSnapshot request.
+		 */
+		captureMonitoringSnapshot(resultFilePath: string, callback:
+			/**
+			 * @param filePath A file that contains the traced data
+			 * @returns {}
+			 */
+			(filePath: string) => void
+			): void;
+		/**
+		 * Get the maximum across processes of trace buffer percent full state.
+		 * @param callback Called when the TraceBufferUsage value is determined.
+		 */
+		getTraceBufferUsage(callback: Function): void;
+		/**
+		 * @param callback Called every time the given event occurs on any process.
+		 */
+		setWatchEvent(categoryName: string, eventName: string, callback: Function): void;
+		/**
+		 * Cancel the watch event. If tracing is enabled, this may race with the watch event callback.
+		 */
+		cancelWatchEvent(): void;
+		DEFAULT_OPTIONS: number;
+		ENABLE_SYSTRACE: number;
+		ENABLE_SAMPLING: number;
+		RECORD_CONTINUOUSLY: number;
+	}
+
+	interface Dialog {
+		/**
+		 * @param callback If supplied, the API call will be asynchronous.
+		 * @returns On success, returns an array of file paths chosen by the user,
+		 * otherwise returns undefined.
+		 */
+		showOpenDialog: typeof GitHubElectron.Dialog.showOpenDialog;
+		/**
+		 * @param callback If supplied, the API call will be asynchronous.
+		 * @returns On success, returns the path of file chosen by the user, otherwise
+		 * returns undefined.
+		 */
+		showSaveDialog: typeof GitHubElectron.Dialog.showSaveDialog;
+		/**
+		 * Shows a message box. It will block until the message box is closed. It returns .
+		 * @param callback If supplied, the API call will be asynchronous.
+		 * @returns The index of the clicked button.
+		 */
+		showMessageBox: typeof GitHubElectron.Dialog.showMessageBox;
+
+		/**
+		 * Runs a modal dialog that shows an error message. This API can be called safely
+		 * before the ready event of app module emits, it is usually used to report errors
+		 * in early stage of startup.
+		 */
+		showErrorBox(title: string, content: string): void;
+	}
+
+	interface GlobalShortcut {
+		/**
+		 * Registers a global shortcut of accelerator.
+		 * @param accelerator Represents a keyboard shortcut. It can contain modifiers
+		 * and key codes, combined by the "+" character.
+		 * @param callback Called when the registered shortcut is pressed by the user.
+		 * @returns {}
+		 */
+		register(accelerator: string, callback: Function): void;
+		/**
+		 * @param accelerator Represents a keyboard shortcut. It can contain modifiers
+		 * and key codes, combined by the "+" character.
+		 * @returns Whether the accelerator is registered.
+		 */
+		isRegistered(accelerator: string): boolean;
+		/**
+		 * Unregisters the global shortcut of keycode.
+		 * @param accelerator Represents a keyboard shortcut. It can contain modifiers
+		 * and key codes, combined by the "+" character.
+		 */
+		unregister(accelerator: string): void;
+		/**
+		 * Unregisters all the global shortcuts.
+		 */
+		unregisterAll(): void;
+	}
+
+	class RequestFileJob {
+		/**
+		* Create a request job which would query a file of path and set corresponding mime types.
+		*/
+		constructor(path: string);
+	}
+
+	class RequestStringJob {
+		/**
+		* Create a request job which sends a string as response.
+		*/
+		constructor(options?: {
+			/**
+			* Default is "text/plain".
+			*/
+			mimeType?: string;
+			/**
+			* Default is "UTF-8".
+			*/
+			charset?: string;
+			data?: string;
+		});
+	}
+
+	class RequestBufferJob {
+		/**
+		* Create a request job which accepts a buffer and sends a string as response.
+		*/
+		constructor(options?: {
+			/**
+				* Default is "application/octet-stream".
+				*/
+			mimeType?: string;
+			/**
+				* Default is "UTF-8".
+				*/
+			encoding?: string;
+			data?: Buffer;
+		});
+	}
+
+	interface Protocol {
+		registerProtocol(scheme: string, handler: (request: any) => void): void;
+		unregisterProtocol(scheme: string): void;
+		isHandledProtocol(scheme: string): boolean;
+		interceptProtocol(scheme: string, handler: (request: any) => void): void;
+		uninterceptProtocol(scheme: string): void;
+		RequestFileJob: typeof RequestFileJob;
+		RequestStringJob: typeof RequestStringJob;
+		RequestBufferJob: typeof RequestBufferJob;
+	}
+
+	interface PowerSaveBlocker {
+		start(type: string): number;
+		stop(id: number): void;
+		isStarted(id: number): boolean;
+	}
+
+	interface ClearStorageDataOptions {
+		origin?: string;
+		storages?: string[];
+		quotas?: string[];
+	}
+
+	interface NetworkEmulationOptions {
+		offline?: boolean;
+		latency?: number;
+		downloadThroughput?: number;
+		uploadThroughput?: number;
+	}
+
+	interface CertificateVerifyProc {
+		(hostname: string, cert: any, callback: (accepted: boolean) => any): any;
+	}
+
+	class Session {
+		static fromPartition(partition: string): Session;
+		static defaultSession: Session;
+
+		cookies: any;
+		clearCache(callback: Function): void;
+		clearStorageData(callback: Function): void;
+		clearStorageData(options: ClearStorageDataOptions, callback: Function): void;
+		setProxy(config: string, callback: Function): void;
+		resolveProxy(url: URL, callback: (proxy: any) => any): void;
+		setDownloadPath(path: string): void;
+		enableNetworkEmulation(options: NetworkEmulationOptions): void;
+		disableNetworkEmulation(): void;
+		setCertificateVerifyProc(proc: CertificateVerifyProc): void;
+		webRequest: any;
+	}
+
+	interface CommonElectron {
+		clipboard: GitHubElectron.Clipboard;
+		crashReporter: GitHubElectron.CrashReporter;
+		nativeImage: typeof GitHubElectron.NativeImage;
+		shell: GitHubElectron.Shell;
+
+		app: GitHubElectron.App;
+		autoUpdater: GitHubElectron.AutoUpdater;
+		BrowserWindow: typeof GitHubElectron.BrowserWindow;
+		contentTracing: GitHubElectron.ContentTracing;
+		dialog: GitHubElectron.Dialog;
+		ipcMain: NodeJS.EventEmitter;
+		globalShortcut: GitHubElectron.GlobalShortcut;
+		Menu: typeof GitHubElectron.Menu;
+		MenuItem: typeof GitHubElectron.MenuItem;
+		powerMonitor: NodeJS.EventEmitter;
+		powerSaveBlocker: GitHubElectron.PowerSaveBlocker;
+		protocol: GitHubElectron.Protocol;
+		screen: GitHubElectron.Screen;
+		session: GitHubElectron.Session;
+		Tray: typeof GitHubElectron.Tray;
+		hideInternalModules(): void;
+	}
+
+	interface DesktopCapturerOptions {
+		types?: string[];
+		thumbnailSize?: {
+			width: number;
+			height: number;
+		};
+	}
+
+	interface DesktopCapturerSource {
+		id: string;
+		name: string;
+		thumbnail: NativeImage;
+	}
+
+	interface DesktopCapturer {
+		getSources(options: any, callback: (error: Error, sources: DesktopCapturerSource[]) => any): void;
+	}
+
+	interface Electron extends CommonElectron {
+		desktopCapturer: GitHubElectron.DesktopCapturer;
+		ipcRenderer: GitHubElectron.IpcRenderer;
+		remote: GitHubElectron.Remote;
+		webFrame: GitHubElectron.WebFrame;
+	}
 }
 
 interface Window {
@@ -1446,10 +1815,11 @@ interface File {
 	path: string;
 }
 
+declare module 'electron' {
+	var electron: GitHubElectron.Electron;
+	export = electron;
+}
+
 interface NodeRequireFunction {
-	(id: 'clipboard'): GitHubElectron.Clipboard
-	(id: 'crash-reporter'): GitHubElectron.CrashReporter
-	(id: 'native-image'): typeof GitHubElectron.NativeImage
-	(id: 'screen'): GitHubElectron.Screen
-	(id: 'shell'): GitHubElectron.Shell
+	(id: 'electron'): GitHubElectron.Electron;
 }
