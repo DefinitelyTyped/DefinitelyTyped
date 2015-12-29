@@ -20,8 +20,8 @@ declare module angular.dialog {
 
 	interface IDialogService {
 		getDefaults(): IDialogOptions;
-		open(options:IDialogOpenOptions): IDialogOpenResult;
-		openConfirm(options:IDialogOpenConfirmOptions): IPromise<any>;
+		open(options: IDialogOpenOptions): IDialogOpenResult;
+		openConfirm(options: IDialogOpenConfirmOptions): IPromise<any>;
 
 		/**
 		 * Determine whether the specified dialog is open or not.
