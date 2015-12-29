@@ -15,7 +15,7 @@ declare module angular.locker {
         (current: any): any
     }
 
-    interface ILockerRepository {
+    interface ILockerService {
         /**
         * Add an item to storage if it doesn't already exist
         *
@@ -85,14 +85,14 @@ declare module angular.locker {
         *
         * @param  {String}  key  The key to remove
         */
-        forget(key: string): void;
+        forget(key: string): ILockerService;
         /**
         * Remove specified item(s) from storage
         *
         * @param  {Array}  keys  The array of keys to remove
         *
         */
-        forget(keys: Array<string>): void;
+        forget(keys: Array<string>): ILockerService;
         /**
         * Retrieve the specified item from storage and then remove it
         *
@@ -100,9 +100,6 @@ declare module angular.locker {
         * @param  {Mixed}   def  The default value if it does not exist
         */
         pull(key: string | Array<string>, defaultValue?: any): any;
-    }
-
-    interface ILockerService extends ILockerRepository {
         /**
         * Bind a storage key to a $scope property
         *
@@ -136,7 +133,7 @@ declare module angular.locker {
         *
         * @param  {String}  namespace  The namespace to switch to
         */
-        'namespace'(name: string): ILockerRepository;
+        'namespace'(name: string): ILockerService;
         /**
         * Check browser support
         *
@@ -151,7 +148,7 @@ declare module angular.locker {
         * @param  {Object}  $scope  The angular $scope object
         * @param  {String}  key     The key to remove from bindings
         */
-        unbind(scope: IScope, property: string): void;
+        unbind(scope: IScope, property: string): ILockerService;
     }
 
     interface ILockerSettings {
@@ -159,7 +156,7 @@ declare module angular.locker {
         'namespace'?: string | boolean;
         separator?: string;
         eventsEnabled?: boolean;
-        extend?: any;
+        extend?: Object;
     }
 
     interface ILockerProvider extends angular.IServiceProvider {

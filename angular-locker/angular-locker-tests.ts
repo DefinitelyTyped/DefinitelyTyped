@@ -3,13 +3,13 @@
 
 angular
 .module('angular-locker-tests', ['angular-locker'])
-.config(['lockerProvider', function config(lockerProvider) {
+.config(['lockerProvider', function config(lockerProvider: angular.locker.ILockerProvider) {
     let lockerSettings: angular.locker.ILockerSettings = {
         driver: 'session',
         namespace: 'myApp',
         separator: '.',
         eventsEnabled: true,
-        extend: {}
+        extend: <any>{}
     };
 
     lockerProvider.defaults(lockerSettings);
@@ -38,7 +38,7 @@ angular
     locker.put('someKey', ['foo', 'bar']);
 
     //The current value will be passed into the function so you can perform logic on the current value, before returning it. e.g.
-    locker.put('someKey', function(current) {
+    locker.put('someKey', function(current: any) {
         current.push('baz');
 
         return current;
@@ -47,7 +47,7 @@ angular
     locker.get('someKey'); // = ['foo', 'bar', 'baz']
 
     // given locker.get('foo') is not defined
-    locker.put('foo', function (current) {
+    locker.put('foo', function (current: any) {
         // current will equal 'bar'
     }, 'bar');
 
