@@ -41,8 +41,8 @@ declare module "restify" {
     header: (key: string, value ?: any) => any;
     cache: (type?: any, options?: Object) => any;
     status: (code: number) => any;
-    send: (status?: any, body?: any) => any;
-    json: (status?: any, body?: any) => any;
+    send: (status?: any, body?: any, headers?: { [header: string]: string }) => any;
+    json: (status?: any, body?: any, headers?: { [header: string]: string }) => any;
     code: number;
     contentLength: number;
     charSet(value: string): void;
