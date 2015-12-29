@@ -28,15 +28,15 @@ declare module angular.dialog {
 		 * @param id Dialog id to check for.
 		 * @returns {boolean} Indicating whether it exists or not.
 		 */
-		isOpen(id:string): boolean;
-		close(id:string, value?:any): void;
-		closeAll(value?:any): void;
+		isOpen(id: string): boolean;
+		close(id: string, value?: any): void;
+		closeAll(value?: any): void;
 		getOpenDialogs(): string[];
 	}
 
 	interface IDialogOpenResult {
 		id: string;
-		close: (value?:any) => void;
+		close: (value?: any) => void;
 		closePromise: IPromise<IDialogClosePromise>;
 	}
 
@@ -51,14 +51,14 @@ declare module angular.dialog {
 		 * @param defaultOptions
 		 * @returns {}
 		 */
-		setDefaults(defaultOptions:IDialogOptions): void;
+		setDefaults(defaultOptions: IDialogOptions): void;
 
 		/**
 		 * Adds an additional listener on every $locationChangeSuccess event and gets update version of html into dialog.
 		 * May be useful in some rare cases when you're dependant on DOM changes, defaults to false.
 		 * @param {boolean} force
 		 */
-		setForceHtmlReload(force:boolean) : void;
+		setForceHtmlReload(force: boolean) : void;
 
 		/**
 		 * Adds additional listener on every $locationChangeSuccess event and gets updated version of body into dialog.
@@ -66,7 +66,7 @@ declare module angular.dialog {
 		 * config as provider instance:
 		 * @param {boolean} force
 		 */
-		setForceBodyReload(force:boolean) : void;
+		setForceBodyReload(force: boolean) : void;
 	}
 
 	/**
@@ -78,7 +78,7 @@ declare module angular.dialog {
 		 * @param value Any value passed to this function will be attached to the object which resolves on the close promise for this dialog.
 		 * For dialogs opened with the openConfirm() method the value is used as the reject reason.
 		 */
-		closeThisDialog(value?:any): void;
+		closeThisDialog(value?: any): void;
 
 		/**
 		 * Any serializable data that you want to be stored in the controller's dialog scope.
@@ -99,7 +99,7 @@ declare module angular.dialog {
 		 * The function accepts a single optional parameter which is used as the value of the resolved promise.
 		 * @param {any} [value] - The value with which the promise will resolve
 		 */
-		confirm(value?:any)
+		confirm(value?: any)
 	}
 
 	interface IDialogOptions {
@@ -163,13 +163,13 @@ declare module angular.dialog {
 		/**
 		 * Pass false to disable template caching. Useful for developing purposes, default is true.
 		 */
-		cache? : boolean;
+		cache?: boolean;
 
 		/**
 		 * Specify your element where to append dialog instance, accepts selector string (e.g. #yourId, .yourClass).
 		 * If not specified appends dialog to body as default behavior.
 		 */
-		appendTo? : string;
+		appendTo?: string;
 
 		/**
 		 * When true, ensures that the focused element remains within the dialog to conform to accessibility recommendations.
@@ -181,7 +181,7 @@ declare module angular.dialog {
 		 * When true, closing the dialog restores focus to the element that launched it. Designed to improve keyboard
 		 * accessibility. Default value is true
 		 */
-		preserveFocus? : boolean;
+		preserveFocus?: boolean;
 
 		/**
 		 * When true, automatically selects appropriate values for any unspecified accessibility attributes. Default value is true
@@ -191,7 +191,7 @@ declare module angular.dialog {
 		/**
 		 * Specifies the value for the role attribute that should be applied to the dialog element. Default value is null (unspecified)
 		 */
-		ariaRole? : string;
+		ariaRole?: string;
 
 		/**
 		 * Specifies the value for the aria-labelledby attribute that should be applied to the dialog element.
@@ -241,16 +241,16 @@ declare module angular.dialog {
 		 * are promises, ngDialog will wait for them all to be resolved or one to be rejected before the controller
 		 * is instantiated.
 		 */
-		resolve? : {[key : string] : string | Function};
+		resolve?: {[key : string] : string | Function};
 
 		/**
 		 * Any serializable data that you want to be stored in the controller's dialog scope. ($scope.ngDialogData).
 		 * From version 0.3.6 $scope.ngDialogData keeps references to the objects instead of copying them.
 		 */
-		data? : string | {} | any[];
+		data?: string | {} | any[];
 	}
 
 	interface IDialogOpenConfirmOptions extends IDialogOpenOptions {
-		scope? : IDialogOpenConfirmScope;
+		scope?: IDialogOpenConfirmScope;
 	}
 }
