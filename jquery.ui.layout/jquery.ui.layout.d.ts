@@ -4,6 +4,9 @@
 // Definitions updated by: Douglas Armstrong <https://github.com/drarmstr>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="../jqueryui/jqueryui.d.ts"/>
+
 declare module JQueryUILayout {
 
     interface PaneOptions {
