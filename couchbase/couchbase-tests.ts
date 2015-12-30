@@ -1,21 +1,25 @@
 /// <reference path="couchbase.d.ts"/>
 
 import couchbase = require('couchbase');
-var db = new couchbase.Connection({ bucket: "default" }, function (err) {
-    if (err) throw err;
+import Cluster = couchbase.Cluster;
+import ViewQuery = couchbase.ViewQuery;
+import Errors = couchbase.errors;
 
-	// TS 0.9.5 bug https://typescript.codeplex.com/workitem/2035, todo: remove cast after fix
-	(<couchbase.Connection>db).set('testdoc', { name: 'Frank' }, function (err, result) {
-		if (err) throw err;
+var cluster = new Cluster('my_connection_string');
+var clusterManager = cluster.manager();
+var bucket = cluster.openBucket('my_bucket');
+var bucketManager = bucket.manager();
 
-	    var s: string = err.message;
+var query = ViewQuery.from('users', 'date')
+    .group_level(2)
+    .stale(ViewQuery.Update.BEFORE)
+    .limit(5)
+    .range([2015, 1, 2, 13, 56, 0], [2015, 1, 2, 16, 43, 57], true);
 
-		// TS 0.9.5 bug https://typescript.codeplex.com/workitem/2035, todo: remove cast after fix
-		(<couchbase.Connection>db).get('testdoc', function (err, result) {
-            if (err) throw err;
-
-            console.log(result.value);
-            // {name: Frank}
-        });
-    });
+bucket.query(query, (err, result) => {
+    if (err != null && err.code === Errors.genericError) {
+        // do something
+    } else {
+        // do something
+    }
 });
