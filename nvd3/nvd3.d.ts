@@ -61,13 +61,13 @@ declare module nv {
     }
 
     interface Nvd3TooltipStatic {
-        show([left, top]: [number, number], content: string, gravity?: string) //todo sort out use on nv.tooltip.
+        show([left, top]: [number, number], content: string, gravity?: string): void; //todo sort out use on nv.tooltip.
         cleanup(): void; //todo sort out use on nv.tooltip.
     }
 
     interface Nvd3Element {
         dispatch: d3.Dispatch;
-        options(options: any)
+        options(options: any): this;
         update(): void;
         (transition: d3.Transition<any[]>, ...args: any[]): any;
         (selection: d3.Selection<any[]>, ...args: any[]): any;
@@ -1168,10 +1168,10 @@ id(value: number|string): this;
         showLastValue(value: boolean): this;
         xTickFormat(format: (d: any) => string): this;
         xTickFormat(format: string): this;
-        xTickFormat(format: (d: any, i: any) => string);
+        xTickFormat(format: (d: any, i: any) => string) : this;
         yTickFormat(format: (d: any) => string): this;
         yTickFormat(format: string): this;
-        yTickFormat(format: (d: any, i: any) => string);
+        yTickFormat(format: (d: any, i: any) => string) :this;
     }
 
     interface StackedArea extends Scatter {
@@ -1490,7 +1490,7 @@ id(value: number|string): this;
         high(): (d: any) => number;
         high(func: (d: any) => number): this;
         id(): any;
-        id(value: number|string): this; this;
+        id(value: number|string): this; 
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
         interactive(): boolean;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
@@ -3340,8 +3340,8 @@ id(value: number|string): this;
         /*stores some statistics and potential error messages*/
         logs: any;
 
-        addGraph<TChart extends Nvd3Element>(factory: ChartFactory<TChart>);
-        addGraph<TChart extends Nvd3Element>(generate: () => TChart, callBack?: (chart: TChart) => void);
+        addGraph<TChart extends Nvd3Element>(factory: ChartFactory<TChart>): void;
+        addGraph<TChart extends Nvd3Element>(generate: () => TChart, callBack?: (chart: TChart) => void): void;
 
 
         log(topic: string, value?: string): string //returns last argument
