@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../spotify-api/spotify-api.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts"/>
 
 /**
  * Declare SpotifyWebApi variable, sincle that is the name of the function in spotify-web-api-js.
