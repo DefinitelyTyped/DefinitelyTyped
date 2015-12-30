@@ -1632,7 +1632,6 @@ declare module angular {
     // see http://angularjs.blogspot.com.br/2015/11/angularjs-15-beta2-and-14-releases.html
     // and http://toddmotto.com/exploring-the-angular-1-5-component-method/
     ///////////////////////////////////////////////////////////////////////////
-
     /**
      * Runtime representation a type that a Component or other object is instances of.
      *
@@ -1726,6 +1725,10 @@ declare module angular {
         restrict?: string;
         $canActivate?: () => boolean;
         $routeConfig?: RouteDefinition[];
+    }
+
+    interface IComponentTemplateFn {
+        ( $element?: IAugmentedJQuery, $attrs?: IAttributes ): string;
     }
 
     ///////////////////////////////////////////////////////////////////////////

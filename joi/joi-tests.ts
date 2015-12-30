@@ -579,7 +579,9 @@ objSchema = objSchema.without(str, strArr);
 objSchema = objSchema.rename(str, str);
 objSchema = objSchema.rename(str, str, renOpts);
 
+objSchema = objSchema.assert(str, schema);
 objSchema = objSchema.assert(str, schema, str);
+objSchema = objSchema.assert(ref, schema);
 objSchema = objSchema.assert(ref, schema, str);
 
 objSchema = objSchema.unknown();
