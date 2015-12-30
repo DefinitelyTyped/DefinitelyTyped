@@ -70,28 +70,28 @@ interface MarkedStatic {
 }
 
 interface MarkedRenderer {
-    code(code: string, language: string): any;
-    blockquote(quote: string): any;
-    html(html: string): any;
-    heading(text: string, level: number): any;
-    hr(): any;
-    list(body: string, ordered: boolean): any;
-    listitem(text: string): any;
-    paragraph(text: string): any;
-    table(header: string, body: string): any;
-    tablerow(content: string): any;
+    code(code: string, language: string): string;
+    blockquote(quote: string): string;
+    html(html: string): string;
+    heading(text: string, level: number): string;
+    hr(): string;
+    list(body: string, ordered: boolean): string;
+    listitem(text: string): string;
+    paragraph(text: string): string;
+    table(header: string, body: string): string;
+    tablerow(content: string): string;
     tablecell(content: string, flags: {
         header: boolean,
         align: string
-    }): any;
-    strong(text: string): any;
-    em(text: string): any;
-    codespan(code: string): any;
-    br(): any;
-    del(text: string): any;
-    link(href: string, title: string, text: string): any;
-    image(href: string, title: string, text: string): any;
-    text(text: string): any;
+    }): string;
+    strong(text: string): string;
+    em(text: string): string;
+    codespan(code: string): string;
+    br(): string;
+    del(text: string): string;
+    link(href: string, title: string, text: string): string;
+    image(href: string, title: string, text: string): string;
+    text(text: string): string;
 }
 
 interface MarkedParser {
