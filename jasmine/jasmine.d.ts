@@ -129,7 +129,7 @@ declare module jasmine {
 
     interface CustomMatcherResult {
         pass: boolean;
-        message: string;
+        message?: string;
     }
 
     interface MatchersUtil {
@@ -281,7 +281,7 @@ declare module jasmine {
 
         toBe(expected: any, expectationFailOutput?: any): boolean;
         toEqual(expected: any, expectationFailOutput?: any): boolean;
-        toMatch(expected: any, expectationFailOutput?: any): boolean;
+        toMatch(expected: string | RegExp, expectationFailOutput?: any): boolean;
         toBeDefined(expectationFailOutput?: any): boolean;
         toBeUndefined(expectationFailOutput?: any): boolean;
         toBeNull(expectationFailOutput?: any): boolean;
@@ -291,13 +291,12 @@ declare module jasmine {
         toHaveBeenCalled(): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
         toContain(expected: any, expectationFailOutput?: any): boolean;
-        toBeLessThan(expected: any, expectationFailOutput?: any): boolean;
-        toBeGreaterThan(expected: any, expectationFailOutput?: any): boolean;
-        toBeCloseTo(expected: any, precision: any, expectationFailOutput?: any): boolean;
-        toContainHtml(expected: string): boolean;
-        toContainText(expected: string): boolean;
+        toBeLessThan(expected: number, expectationFailOutput?: any): boolean;
+        toBeGreaterThan(expected: number, expectationFailOutput?: any): boolean;
+        toBeCloseTo(expected: number, precision: any, expectationFailOutput?: any): boolean;
         toThrow(expected?: any): boolean;
-        toThrowError(expected?: any, message?: string): boolean;
+        toThrowError(message?: string | RegExp): boolean;
+        toThrowError(expected?: Error, message?: string | RegExp): boolean;
         not: Matchers;
 
         Any: Any;

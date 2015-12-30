@@ -1,11 +1,11 @@
-// Type definitions for Node.js v0.12.0
+// Type definitions for Node.js v4.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/borisyankov/DefinitelyTyped>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /************************************************
 *                                               *
-*               Node.js v0.12.0 API             *
+*               Node.js v4.x API                *
 *                                               *
 ************************************************/
 
@@ -173,9 +173,11 @@ declare module NodeJS {
         once(event: string, listener: Function): EventEmitter;
         removeListener(event: string, listener: Function): EventEmitter;
         removeAllListeners(event?: string): EventEmitter;
-        setMaxListeners(n: number): void;
+        setMaxListeners(n: number): EventEmitter;
+        getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
+        listenerCount(type: string): number;
     }
 
     export interface ReadableStream extends EventEmitter {
@@ -256,7 +258,7 @@ declare module NodeJS {
                 visibility: string;
             };
         };
-        kill(pid: number, signal?: string): void;
+        kill(pid:number, signal?: string|number): void;
         pid: number;
         title: string;
         arch: string;
@@ -334,6 +336,7 @@ declare module NodeJS {
         undefined: typeof undefined;
         unescape: (str: string) => string;
         gc: () => void;
+        v8debug?: any;
     }
 
     export interface Timer {
@@ -404,31 +407,60 @@ declare module "buffer" {
 }
 
 declare module "querystring" {
-    export function stringify(obj: any, sep?: string, eq?: string): string;
-    export function parse(str: string, sep?: string, eq?: string, options?: { maxKeys?: number; }): any;
+    export interface StringifyOptions {
+        encodeURIComponent?: Function;
+    }
+
+    export interface ParseOptions {
+        maxKeys?: number;
+        decodeURIComponent?: Function;
+    }
+
+    export function stringify<T>(obj: T, sep?: string, eq?: string, options?: StringifyOptions): string;
+    export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): any;
+    export function parse<T extends {}>(str: string, sep?: string, eq?: string, options?: ParseOptions): T;
     export function escape(str: string): string;
     export function unescape(str: string): string;
 }
 
 declare module "events" {
     export class EventEmitter implements NodeJS.EventEmitter {
-        static listenerCount(emitter: EventEmitter, event: string): number;
+        static EventEmitter: EventEmitter;
+        static listenerCount(emitter: EventEmitter, event: string): number; // deprecated
+        static defaultMaxListeners: number;
 
         addListener(event: string, listener: Function): EventEmitter;
         on(event: string, listener: Function): EventEmitter;
         once(event: string, listener: Function): EventEmitter;
         removeListener(event: string, listener: Function): EventEmitter;
         removeAllListeners(event?: string): EventEmitter;
-        setMaxListeners(n: number): void;
+        setMaxListeners(n: number): EventEmitter;
+        getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
-   }
+        listenerCount(type: string): number;
+    }
 }
 
 declare module "http" {
     import * as events from "events";
     import * as net from "net";
     import * as stream from "stream";
+
+    export interface RequestOptions {
+        protocol?: string;
+        host?: string;
+        hostname?: string;
+        family?: number;
+        port?: number
+        localAddress?: string;
+        socketPath?: string;
+        method?: string;
+        path?: string;
+        headers?: { [key: string]: any };
+        auth?: string;
+        agent?: Agent|boolean;
+    }
 
     export interface Server extends events.EventEmitter {
         listen(port: number, hostname?: string, backlog?: number, callback?: Function): Server;
@@ -458,6 +490,7 @@ declare module "http" {
         writeHead(statusCode: number, headers?: any): void;
         statusCode: number;
         statusMessage: string;
+        headersSent: boolean;
         setHeader(name: string, value: string): void;
         sendDate: boolean;
         getHeader(name: string): string;
@@ -567,7 +600,7 @@ declare module "http" {
     };
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) =>void ): Server;
     export function createClient(port?: number, host?: string): any;
-    export function request(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
@@ -682,7 +715,29 @@ declare module "zlib" {
 }
 
 declare module "os" {
+    export interface CpuInfo {
+        model: string;
+        speed: number;
+        times: {
+            user: number;
+            nice: number;
+            sys: number;
+            idle: number;
+            irq: number;
+        }
+    }
+
+    export interface NetworkInterfaceInfo {
+        address: string;
+        netmask: string;
+        family: string;
+        mac: string;
+        internal: boolean;
+    }
+
     export function tmpdir(): string;
+    export function homedir(): string;
+    export function endianness(): string;
     export function hostname(): string;
     export function type(): string;
     export function platform(): string;
@@ -692,8 +747,8 @@ declare module "os" {
     export function loadavg(): number[];
     export function totalmem(): number;
     export function freemem(): number;
-    export function cpus(): { model: string; speed: number; times: { user: number; nice: number; sys: number; idle: number; irq: number; }; }[];
-    export function networkInterfaces(): any;
+    export function cpus(): CpuInfo[];
+    export function networkInterfaces(): {[index: string]: NetworkInterfaceInfo[]};
     export var EOL: string;
 }
 
@@ -717,15 +772,7 @@ declare module "https" {
         SNICallback?: (servername: string) => any;
     }
 
-    export interface RequestOptions {
-        host?: string;
-        hostname?: string;
-        port?: number;
-        path?: string;
-        method?: string;
-        headers?: any;
-        auth?: string;
-        agent?: any;
+    export interface RequestOptions extends http.RequestOptions{
         pfx?: any;
         key?: any;
         passphrase?: string;
@@ -733,6 +780,7 @@ declare module "https" {
         ca?: any;
         ciphers?: string;
         rejectUnauthorized?: boolean;
+        secureProtocol?: string;
     }
 
     export interface Agent {
@@ -757,7 +805,7 @@ declare module "punycode" {
     export function toASCII(domain: string): string;
     export var ucs2: ucs2;
     interface ucs2 {
-        decode(string: string): string;
+        decode(string: string): number[];
         encode(codePoints: number[]): string;
     }
     export var version: any;
@@ -785,22 +833,49 @@ declare module "readline" {
     import * as events from "events";
     import * as stream from "stream";
 
+    export interface Key {
+        sequence?: string;
+        name?: string;
+        ctrl?: boolean;
+        meta?: boolean;
+        shift?: boolean;
+    }
+
     export interface ReadLine extends events.EventEmitter {
         setPrompt(prompt: string): void;
         prompt(preserveCursor?: boolean): void;
-        question(query: string, callback: Function): void;
-        pause(): void;
-        resume(): void;
+        question(query: string, callback: (answer: string) => void): void;
+        pause(): ReadLine;
+        resume(): ReadLine;
         close(): void;
-        write(data: any, key?: any): void;
+        write(data: string|Buffer, key?: Key): void;
     }
+
+    export interface Completer {
+        (line: string): CompleterResult;
+        (line: string, callback: (err: any, result: CompleterResult) => void): any;
+    }
+
+    export interface CompleterResult {
+        completions: string[];
+        line: string;
+    }
+
     export interface ReadLineOptions {
         input: NodeJS.ReadableStream;
-        output: NodeJS.WritableStream;
-        completer?: Function;
+        output?: NodeJS.WritableStream;
+        completer?: Completer;
         terminal?: boolean;
+        historySize?: number;
     }
+
+    export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer, terminal?: boolean): ReadLine;
     export function createInterface(options: ReadLineOptions): ReadLine;
+
+    export function cursorTo(stream: NodeJS.WritableStream, x: number, y: number): void;
+    export function moveCursor(stream: NodeJS.WritableStream, dx: number|string, dy: number|string): void;
+    export function clearLine(stream: NodeJS.WritableStream, dir: number): void;
+    export function clearScreenDown(stream: NodeJS.WritableStream): void;
 }
 
 declare module "vm" {
@@ -866,7 +941,11 @@ declare module "child_process" {
     export function fork(modulePath: string, args?: string[], options?: {
         cwd?: string;
         env?: any;
-        encoding?: string;
+        execPath?: string;
+        execArgv?: string[];
+        silent?: boolean;
+        uid?: number;
+        gid?: number;
     }): ChildProcess;
     export function spawnSync(command: string, args?: string[], options?: {
         cwd?: string;
@@ -916,21 +995,7 @@ declare module "child_process" {
 
 declare module "url" {
     export interface Url {
-        href: string;
-        protocol: string;
-        auth: string;
-        hostname: string;
-        port: string;
-        host: string;
-        pathname: string;
-        search: string;
-        query: any; // string | Object
-        slashes: boolean;
-        hash?: string;
-        path?: string;
-    }
-
-    export interface UrlOptions {
+        href?: string;
         protocol?: string;
         auth?: string;
         hostname?: string;
@@ -938,13 +1003,14 @@ declare module "url" {
         host?: string;
         pathname?: string;
         search?: string;
-        query?: any;
+        query?: any; // string | Object
+        slashes?: boolean;
         hash?: string;
         path?: string;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean , slashesDenoteHost?: boolean ): Url;
-    export function format(url: UrlOptions): string;
+    export function format(url: Url): string;
     export function resolve(from: string, to: string): string;
 }
 
@@ -1020,10 +1086,10 @@ declare module "net" {
     }
     export function createServer(connectionListener?: (socket: Socket) =>void ): Server;
     export function createServer(options?: { allowHalfOpen?: boolean; }, connectionListener?: (socket: Socket) =>void ): Server;
-    export function connect(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
+    export function connect(options: { port: number, host?: string, localAddress? : string, localPort? : string, family? : number, allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
     export function connect(port: number, host?: string, connectionListener?: Function): Socket;
     export function connect(path: string, connectionListener?: Function): Socket;
-    export function createConnection(options: { allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
+    export function createConnection(options: { port: number, host?: string, localAddress? : string, localPort? : string, family? : number, allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
     export function createConnection(port: number, host?: string, connectionListener?: Function): Socket;
     export function createConnection(path: string, connectionListener?: Function): Socket;
     export function isIP(input: string): number;
@@ -1507,6 +1573,8 @@ declare module "tls" {
     var CLIENT_RENEG_WINDOW: number;
 
     export interface TlsOptions {
+        host?: string;
+        port?: number;
         pfx?: any;   //string or buffer
         key?: any;   //string or buffer
         passphrase?: string;
@@ -1666,10 +1734,10 @@ declare module "crypto" {
         setPrivateKey(public_key: string, encoding?: string): void;
     }
     export function getDiffieHellman(group_name: string): DiffieHellman;
-    export function pbkdf2(password: string, salt: string, iterations: number, keylen: number, callback: (err: Error, derivedKey: Buffer) => any): void;
-    export function pbkdf2(password: string, salt: string, iterations: number, keylen: number, digest: string, callback: (err: Error, derivedKey: Buffer) => any): void;
-    export function pbkdf2Sync(password: string, salt: string, iterations: number, keylen: number) : Buffer;
-    export function pbkdf2Sync(password: string, salt: string, iterations: number, keylen: number, digest: string) : Buffer;
+    export function pbkdf2(password: string|Buffer, salt: string|Buffer, iterations: number, keylen: number, callback: (err: Error, derivedKey: Buffer) => any): void;
+    export function pbkdf2(password: string|Buffer, salt: string|Buffer, iterations: number, keylen: number, digest: string, callback: (err: Error, derivedKey: Buffer) => any): void;
+    export function pbkdf2Sync(password: string|Buffer, salt: string|Buffer, iterations: number, keylen: number) : Buffer;
+    export function pbkdf2Sync(password: string|Buffer, salt: string|Buffer, iterations: number, keylen: number, digest: string) : Buffer;
     export function randomBytes(size: number): Buffer;
     export function randomBytes(size: number, callback: (err: Error, buf: Buffer) =>void ): void;
     export function pseudoRandomBytes(size: number): Buffer;
@@ -1679,7 +1747,7 @@ declare module "crypto" {
 declare module "stream" {
     import * as events from "events";
 
-    export interface Stream extends events.EventEmitter {
+    export class Stream extends events.EventEmitter {
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
     }
 
@@ -1812,6 +1880,8 @@ declare module "assert" {
         export function notDeepEqual(acutal: any, expected: any, message?: string): void;
         export function strictEqual(actual: any, expected: any, message?: string): void;
         export function notStrictEqual(actual: any, expected: any, message?: string): void;
+        export function deepStrictEqual(actual: any, expected: any, message?: string): void;
+        export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
         export var throws: {
             (block: Function, message?: string): void;
             (block: Function, error: Function, message?: string): void;

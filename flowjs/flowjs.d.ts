@@ -44,7 +44,7 @@ declare module flowjs {
         uploadMethod?: string;
         allowDuplicateUploads?: boolean;
         prioritizeFirstAndLastChunk?: boolean;
-        testchunks?: boolean;
+        testChunks?: boolean;
         preprocess?: Function;
         initFileFn?: Function;
         generateUniqueIdentifier?: Function;

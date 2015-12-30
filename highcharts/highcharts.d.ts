@@ -3,8 +3,6 @@
 // Definitions by: Damiano Gambarotto <http://github.com/damianog>, Dan Lewi Harkestad <http://github.com/baltie>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path='../jquery/jquery.d.ts' />
-
 interface HighchartsPosition {
     align?: string;
     verticalAlign?: string;
@@ -1306,7 +1304,7 @@ interface HighchartsChartOptions3dFrame {
      * @default 'transparent'
      * @since 4.0
      */
-    color?: string | HighchartsGradient,
+    color?: string | HighchartsGradient;
     /**
      * Thickness of the panel.
      * @default 1
@@ -1715,6 +1713,7 @@ interface HighchartsCSSObject {
     color?: string;
     cursor?: string;
     font?: string;
+    fontFamily?: string;
     fontSize?: string;
     fontWeight?: string;
     left?: string;

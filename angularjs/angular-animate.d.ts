@@ -121,7 +121,7 @@ declare module angular.animate {
     }
 
     /**
-     * AngularProvider
+     * AnimateProvider
      * see http://docs.angularjs.org/api/ngAnimate/provider/$animateProvider
      */
     interface IAnimateProvider {

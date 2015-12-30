@@ -73,8 +73,8 @@ declare module SourceMap {
         constructor(line: number, column: number, source: string);
         constructor(line: number, column: number, source: string, chunk?: string, name?: string);
         public static fromStringWithSourceMap(code: string, sourceMapConsumer: SourceMapConsumer, relativePath?: string): SourceNode;
-        public add(chunk: string): void;
-        public prepend(chunk: string): void;
+        public add(chunk: any): SourceNode;
+        public prepend(chunk: any): SourceNode;
         public setSourceContent(sourceFile: string, sourceContent: string): void;
         public walk(fn: (chunk: string, mapping: MappedPosition) => void): void;
         public walkSourceContents(fn: (file: string, content: string) => void): void;

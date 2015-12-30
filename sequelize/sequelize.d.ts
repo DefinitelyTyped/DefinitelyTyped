@@ -1994,7 +1994,7 @@ declare module "sequelize" {
             INITIALLY_IMMEDIATE: DeferrableInitiallyImmediate;
             NOT: DeferrableNot;
             SET_DEFERRED: DeferrableSetDeferred;
-            SET_IMMEDIATE: DeferrableSetImmediate
+            SET_IMMEDIATE: DeferrableSetImmediate;
         }
 
         //
@@ -2007,7 +2007,7 @@ declare module "sequelize" {
         /**
          * The Base Error all Sequelize Errors inherit from.
          */
-        interface BaseError extends ErrorConstructor { }
+        interface BaseError extends Error, ErrorConstructor { }
 
         interface ValidationError extends BaseError {
 
@@ -2026,7 +2026,10 @@ declare module "sequelize" {
              * @param path The path to be checked for error items
              */
             get( path : string ) : Array<ValidationErrorItem>;
-
+            
+            /** Array of ValidationErrorItem objects describing the validation errors */
+            errors : Array<ValidationErrorItem>;
+            
         }
 
         interface ValidationErrorItem extends BaseError {
@@ -2041,7 +2044,19 @@ declare module "sequelize" {
              * @param value The value that generated the error
              */
             new ( message : string, type : string, path : string, value : string ) : ValidationErrorItem;
-
+            
+            /** An error message */
+            message : string;
+            
+            /** The type of the validation error */
+            type : string;
+            
+            /** The field that triggered the validation error */
+            path : string;
+            
+            /** The value that generated the error */
+            value : string;
+            
         }
 
         interface DatabaseError extends BaseError {
@@ -2790,7 +2805,7 @@ declare module "sequelize" {
              *
              * @param options.skip An array of strings. All properties that are in this array will not be validated
              */
-            validate( options? : { skip?: Array<string> } ) : Promise<void>;
+            validate( options? : { skip?: Array<string> } ) : Promise<ValidationError>;
 
             /**
              * This is the same as calling `set` and then calling `save`.
@@ -3934,6 +3949,11 @@ declare module "sequelize" {
              * We don't have a definition for the QueryGenerator, because I doubt it is commonly in use separately.
              */
             QueryGenerator: any;
+            
+            /**
+             * Returns the current sequelize instance.
+             */
+            sequelize: Sequelize;
 
             /**
              * Queries the schema (table list).
@@ -5442,8 +5462,11 @@ declare module "sequelize" {
              *
              * @param path The path to the file that holds the model you want to import. If the part is relative, it
              *     will be resolved relatively to the calling file
+             * 
+             * @param defineFunction An optional function that provides model definitions. Useful if you do not
+             *     want to use the module root as the define function
              */
-            import<TInstance, TAttributes>( path : string ) : Model<TInstance, TAttributes>;
+            import<TInstance, TAttributes>( path : string, defineFunction? : (sequelize: Sequelize, dataTypes: DataTypes) => Model<TInstance, TAttributes> ) : Model<TInstance, TAttributes>;
 
             /**
              * Execute a query on the DB, with the posibility to bypass all the sequelize goodness.
@@ -5568,7 +5591,7 @@ declare module "sequelize" {
              * @param options Query Options for authentication
              */
             authenticate( options? : QueryOptions ) : Promise<void>;
-            validate( options? : QueryOptions ) : Promise<void>;
+            validate( options? : QueryOptions ) : Promise<ValidationError>;
 
             /**
              * Start a transaction. When using transactions, you should pass the transaction in the options argument
@@ -5688,12 +5711,12 @@ declare module "sequelize" {
             /**
              * Commit the transaction
              */
-            commit() : Transaction;
+            commit() : Promise<void>;
 
             /**
              * Rollback (abort) the transaction
              */
-            rollback() : Transaction;
+            rollback() : Promise<void>;
 
         }
 

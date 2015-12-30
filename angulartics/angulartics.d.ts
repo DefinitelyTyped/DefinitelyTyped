@@ -1,4 +1,4 @@
-// Type definitions for Angulartics v0.19.2
+// Type definitions for Angulartics v0.20.2
 // Project: http://luisfarzati.github.io/angulartics/
 // Definitions by: Steven Fan <https://github.com/stevenfan>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -21,6 +21,7 @@ declare module angulartics {
 
     interface IAnalyticsServiceProvider extends angular.IServiceProvider {
         virtualPageviews(value: boolean): void;
+        excludeRoutes(value: string[]): void;
         firstPageview(value: boolean): void;
         withBase(value: boolean): void;
         withAutoBase(value: boolean): void;

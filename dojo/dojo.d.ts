@@ -100,14 +100,14 @@ declare module dojo {
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            get(url: String, options: dojo.request.iframe.__BaseOptions): dojo.request.__Promise;
+            get(url: String, options?: dojo.request.iframe.__BaseOptions): dojo.request.__Promise;
             /**
              * Send an HTTP POST request using an iframe element with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            post(url: String, options: dojo.request.iframe.__BaseOptions): dojo.request.__Promise;
+            post(url: String, options?: dojo.request.iframe.__BaseOptions): dojo.request.__Promise;
             /**
              * 
              * @param _iframe             
@@ -295,28 +295,28 @@ declare module dojo {
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            del(url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise;
+            del(url: String, options?: dojo.request.node.__BaseOptions): dojo.request.__Promise;
             /**
              * Send an HTTP GET request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            get(url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise;
+            get(url: String, options?: dojo.request.node.__BaseOptions): dojo.request.__Promise;
             /**
              * Send an HTTP POST request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            post(url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise;
+            post(url: String, options?: dojo.request.node.__BaseOptions): dojo.request.__Promise;
             /**
              * Send an HTTP PUT request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            put(url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise;
+            put(url: String, options?: dojo.request.node.__BaseOptions): dojo.request.__Promise;
         }
 
         module node {
@@ -497,7 +497,7 @@ declare module dojo {
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            get(url: String, options: dojo.request.script.__BaseOptions): dojo.request.__Promise;
+            get(url: String, options?: dojo.request.script.__BaseOptions): dojo.request.__Promise;
         }
 
         module script {
@@ -657,28 +657,28 @@ declare module dojo {
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            del(url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
+            del(url: String, options?: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
             /**
              * Send an HTTP GET request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            get(url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
+            get(url: String, options?: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
             /**
              * Send an HTTP POST request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            post(url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
+            post(url: String, options?: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
             /**
              * Send an HTTP PUT request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            put(url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
+            put(url: String, options?: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
         }
 
         module xhr {
@@ -952,7 +952,7 @@ declare module dojo {
              * @param reason A message that may be sent to the deferred's canceler,explaining why it's being canceled.             
              * @param strict               OptionalIf strict, will throw an error if the deferred has alreadybeen fulfilled and consequently cannot be canceled.             
              */
-            cancel(reason: any, strict: boolean): any;
+            cancel(reason: any, strict?: boolean): any;
             /**
              * Checks whether the promise has been canceled.
              * 
@@ -1067,7 +1067,7 @@ declare module dojo {
              * @param type               OptionalThe event to listen for. Events emitted: "start", "send","load", "error", "done", "stop".             
              * @param listener               OptionalA callback to be run when an event happens.             
              */
-            notify(type: String, listener: Function): any;
+            notify(type?: String, listener?: Function): any;
             /**
              * 
              * @param url             
@@ -1117,7 +1117,7 @@ declare module dojo {
          * @param directReturn               OptionalIf directReturn is true, the value passed in for wrap will bereturned instead of being called. Alternately, theAdapterRegistry can be set globally to "return not call" usingthe returnWrappers property. Either way, this behavior allowsthe registry to act as a "search" function instead of afunction interception library.             
          * @param override               OptionalIf override is given and true, the check function will be givenhighest priority. Otherwise, it will be the lowest priorityadapter.             
          */
-        register(name: String, check: Function, wrap: Function, directReturn: boolean, override: boolean): void;
+        register(name: String, check: Function, wrap: Function, directReturn?: boolean, override?: boolean): void;
         /**
          * Remove a named adapter from the registry
          * 
@@ -1310,7 +1310,7 @@ declare module dojo {
          * @param now               OptionalOptional. Omit if test is not a function. Provides a way to immediatelyrun the test and cache the result.             
          * @param force               OptionalOptional. If the test already exists and force is truthy, then the existingtest will be replaced; otherwise, add does not replace an existing test (thatis, by default, the first test advice wins).             
          */
-        add(name: String, test: Function, now: boolean, force: boolean): any;
+        add(name: String, test: Function, now?: boolean, force?: boolean): any;
         /**
          * Register a new feature test for some named feature.
          * 
@@ -1319,7 +1319,7 @@ declare module dojo {
          * @param now               OptionalOptional. Omit if test is not a function. Provides a way to immediatelyrun the test and cache the result.             
          * @param force               OptionalOptional. If the test already exists and force is truthy, then the existingtest will be replaced; otherwise, add does not replace an existing test (thatis, by default, the first test advice wins).             
          */
-        add(name: number, test: Function, now: boolean, force: boolean): any;
+        add(name: number, test: Function, now?: boolean, force?: boolean): any;
         /**
          * Deletes the contents of the element passed to test functions.
          * 
@@ -1833,7 +1833,7 @@ declare module dojo {
          * @param reason A message that may be sent to the deferred's canceler,explaining why it's being canceled.             
          * @param strict               OptionalIf strict, will throw an error if the deferred has alreadybeen fulfilled and consequently cannot be canceled.             
          */
-        cancel(reason: any, strict: boolean): any;
+        cancel(reason: any, strict?: boolean): any;
         /**
          * Checks whether the deferred has been canceled.
          * 
@@ -1863,7 +1863,7 @@ declare module dojo {
          * @param update The progress update. Passed to progbacks.             
          * @param strict               OptionalIf strict, will throw an error if the deferred has alreadybeen fulfilled and consequently no progress can be emitted.             
          */
-        progress(update: any, strict: boolean): dojo.promise.Promise<any>;
+        progress(update: any, strict?: boolean): dojo.promise.Promise<any>;
         /**
          * Reject the deferred.
          * Reject the deferred, putting it in an error state.
@@ -1871,7 +1871,7 @@ declare module dojo {
          * @param error The error result of the deferred. Passed to errbacks.             
          * @param strict               OptionalIf strict, will throw an error if the deferred has alreadybeen fulfilled and consequently cannot be rejected.             
          */
-        reject(error: any, strict: boolean): any;
+        reject(error: any, strict?: boolean): any;
         /**
          * Resolve the deferred.
          * Resolve the deferred, putting it in a success state.
@@ -1889,7 +1889,7 @@ declare module dojo {
          * @param errback               OptionalCallback to be invoked when the promise is rejected.Receives the rejection error.             
          * @param progback               OptionalCallback to be invoked when the promise emits a progressupdate. Receives the progress update.             
          */
-        then(callback: Function, errback: Function, progback: Function): dojo.promise.Promise<any>;
+        then(callback?: Function, errback?: Function, progback?: Function): dojo.promise.Promise<any>;
         /**
          * 
          */
@@ -1971,7 +1971,7 @@ declare module dojo {
          * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
          * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property             
          */
-        addContent(content: String, position: String): Function;
+        addContent(content: String, position?: String): Function;
         /**
          * add a node, NodeList or some HTML as a string to every item in the
          * list.  Returns the original list.
@@ -1983,7 +1983,7 @@ declare module dojo {
          * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
          * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property             
          */
-        addContent(content: HTMLElement, position: String): Function;
+        addContent(content: HTMLElement, position?: String): Function;
         /**
          * add a node, NodeList or some HTML as a string to every item in the
          * list.  Returns the original list.
@@ -1995,7 +1995,7 @@ declare module dojo {
          * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
          * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property             
          */
-        addContent(content: Object, position: String): Function;
+        addContent(content: Object, position?: String): Function;
         /**
          * add a node, NodeList or some HTML as a string to every item in the
          * list.  Returns the original list.
@@ -2007,7 +2007,7 @@ declare module dojo {
          * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
          * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property             
          */
-        addContent(content:  dojo.NodeList, position: String): Function;
+        addContent(content:  dojo.NodeList, position?: String): Function;
         /**
          * add a node, NodeList or some HTML as a string to every item in the
          * list.  Returns the original list.
@@ -2019,7 +2019,7 @@ declare module dojo {
          * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
          * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property             
          */
-        addContent(content: String, position: number): Function;
+        addContent(content: String, position?: number): Function;
         /**
          * add a node, NodeList or some HTML as a string to every item in the
          * list.  Returns the original list.
@@ -2031,7 +2031,7 @@ declare module dojo {
          * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
          * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property             
          */
-        addContent(content: HTMLElement, position: number): Function;
+        addContent(content: HTMLElement, position?: number): Function;
         /**
          * add a node, NodeList or some HTML as a string to every item in the
          * list.  Returns the original list.
@@ -2043,7 +2043,7 @@ declare module dojo {
          * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
          * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property             
          */
-        addContent(content: Object, position: number): Function;
+        addContent(content: Object, position?: number): Function;
         /**
          * add a node, NodeList or some HTML as a string to every item in the
          * list.  Returns the original list.
@@ -2055,7 +2055,7 @@ declare module dojo {
          * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
          * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property             
          */
-        addContent(content:  dojo.NodeList, position: number): Function;
+        addContent(content:  dojo.NodeList, position?: number): Function;
         /**
          * places any/all elements in queryOrListOrNode at a
          * position relative to the first element in this list.
@@ -2064,7 +2064,7 @@ declare module dojo {
          * @param queryOrListOrNode a DOM node or a query string or a query result.Represents the nodes to be adopted relative to thefirst element of this NodeList.             
          * @param position               Optionalcan be one of:"last" (default)"first""before""after""only""replace"or an offset in the childNodes property             
          */
-        adopt(queryOrListOrNode: String, position: String): any;
+        adopt(queryOrListOrNode: String, position?: String): any;
         /**
          * places any/all elements in queryOrListOrNode at a
          * position relative to the first element in this list.
@@ -2073,7 +2073,7 @@ declare module dojo {
          * @param queryOrListOrNode a DOM node or a query string or a query result.Represents the nodes to be adopted relative to thefirst element of this NodeList.             
          * @param position               Optionalcan be one of:"last" (default)"first""before""after""only""replace"or an offset in the childNodes property             
          */
-        adopt(queryOrListOrNode: any[], position: String): any;
+        adopt(queryOrListOrNode: any[], position?: String): any;
         /**
          * places any/all elements in queryOrListOrNode at a
          * position relative to the first element in this list.
@@ -2082,7 +2082,7 @@ declare module dojo {
          * @param queryOrListOrNode a DOM node or a query string or a query result.Represents the nodes to be adopted relative to thefirst element of this NodeList.             
          * @param position               Optionalcan be one of:"last" (default)"first""before""after""only""replace"or an offset in the childNodes property             
          */
-        adopt(queryOrListOrNode: HTMLElement, position: String): any;
+        adopt(queryOrListOrNode: HTMLElement, position?: String): any;
         /**
          * Places the content after every node in the NodeList.
          * The content will be cloned if the length of NodeList
@@ -2128,14 +2128,14 @@ declare module dojo {
          * @param onEnd               OptionalA function to be called when the animation ends             
          * @param delay               Optionalhow long to delay playing the returned animation             
          */
-        anim(properties: Object, duration: number, easing: Function, onEnd: Function, delay: number): any;
+        anim(properties: Object, duration?: number, easing?: Function, onEnd?: Function, delay?: number): any;
         /**
          * Animate all elements of this NodeList across the properties specified.
          * syntax identical to dojo.animateProperty
          * 
          * @param args               OptionalAdditional dojo/_base/fx.Animation arguments to mix into this set with the addition ofan auto parameter.             
          */
-        animateProperty(args: Object): any;
+        animateProperty(args?: Object): any;
         /**
          * appends the content to every node in the NodeList.
          * The content will be cloned if the length of NodeList
@@ -2187,7 +2187,7 @@ declare module dojo {
          * @param property the attribute to get/set             
          * @param value               Optionaloptional. The value to set the property to             
          */
-        attr(property: String, value: String): any;
+        attr(property: String, value?: String): any;
         /**
          * Places the content before every node in the NodeList.
          * The content will be cloned if the length of NodeList
@@ -2223,7 +2223,7 @@ declare module dojo {
          * 
          * @param query               Optionala CSS selector.             
          */
-        children(query: String): any;
+        children(query?: String): any;
         /**
          * Clones all the nodes in this NodeList and returns them as a new NodeList.
          * Only the DOM nodes are cloned, not any attached event handlers.
@@ -2239,7 +2239,7 @@ declare module dojo {
          * @param query a CSS selector.             
          * @param root               OptionalIf specified, query is relative to "root" rather than document body.             
          */
-        closest(query: String, root: String): any;
+        closest(query: String, root?: String): any;
         /**
          * Returns closest parent that matches query, including current node in this
          * dojo/NodeList if it matches the query.
@@ -2249,7 +2249,7 @@ declare module dojo {
          * @param query a CSS selector.             
          * @param root               OptionalIf specified, query is relative to "root" rather than document body.             
          */
-        closest(query: String, root: HTMLElement): any;
+        closest(query: String, root?: HTMLElement): any;
         /**
          * Returns a new NodeList comprised of items in this NodeList
          * as well as items passed in as parameters
@@ -2271,7 +2271,7 @@ declare module dojo {
          * @param objOrFunc if 2 arguments are passed (methodName, objOrFunc), objOrFunc shouldreference a function or be the name of the function in the globalnamespace to attach. If 3 arguments are provided(methodName, objOrFunc, funcName), objOrFunc must be the scope tolocate the bound function in             
          * @param funcName               Optionaloptional. A string naming the function in objOrFunc to bind to theevent. May also be a function reference.             
          */
-        connect(methodName: String, objOrFunc: Object, funcName: String): void;
+        connect(methodName: String, objOrFunc: Object, funcName?: String): void;
         /**
          * Attach event handlers to every item of the NodeList. Uses dojo.connect()
          * so event properties are normalized.
@@ -2282,7 +2282,7 @@ declare module dojo {
          * @param objOrFunc if 2 arguments are passed (methodName, objOrFunc), objOrFunc shouldreference a function or be the name of the function in the globalnamespace to attach. If 3 arguments are provided(methodName, objOrFunc, funcName), objOrFunc must be the scope tolocate the bound function in             
          * @param funcName               Optionaloptional. A string naming the function in objOrFunc to bind to theevent. May also be a function reference.             
          */
-        connect(methodName: String, objOrFunc: Function, funcName: String): void;
+        connect(methodName: String, objOrFunc: Function, funcName?: String): void;
         /**
          * Attach event handlers to every item of the NodeList. Uses dojo.connect()
          * so event properties are normalized.
@@ -2293,7 +2293,7 @@ declare module dojo {
          * @param objOrFunc if 2 arguments are passed (methodName, objOrFunc), objOrFunc shouldreference a function or be the name of the function in the globalnamespace to attach. If 3 arguments are provided(methodName, objOrFunc, funcName), objOrFunc must be the scope tolocate the bound function in             
          * @param funcName               Optionaloptional. A string naming the function in objOrFunc to bind to theevent. May also be a function reference.             
          */
-        connect(methodName: String, objOrFunc: String, funcName: String): void;
+        connect(methodName: String, objOrFunc: String, funcName?: String): void;
         /**
          * Deprecated: Use position() for border-box x/y/w/h
          * or marginBox() for margin-box w/h/l/t.
@@ -2317,7 +2317,7 @@ declare module dojo {
          * @param key               OptionalIf an object, act as a setter and iterate over said object setting data items as defined.If a string, and value present, set the data for defined key to valueIf a string, and value absent, act as a getter, returning the data associated with said key             
          * @param value               OptionalThe value to set for said key, provided key is a string (and not an object)             
          */
-        data(key: Object, value: any): any;
+        data(key?: Object, value?: any): any;
         /**
          * stash or get some arbitrary data on/from these nodes.
          * Stash or get some arbitrary data on/from these nodes. This private _data function is
@@ -2332,7 +2332,7 @@ declare module dojo {
          * @param key               OptionalIf an object, act as a setter and iterate over said object setting data items as defined.If a string, and value present, set the data for defined key to valueIf a string, and value absent, act as a getter, returning the data associated with said key             
          * @param value               OptionalThe value to set for said key, provided key is a string (and not an object)             
          */
-        data(key: String, value: any): any;
+        data(key?: String, value?: any): any;
         /**
          * Monitor nodes in this NodeList for [bubbled] events on nodes that match selector.
          * Calls fn(evt) for those events, where (inside of fn()), this == the node
@@ -2413,19 +2413,19 @@ declare module dojo {
          * @param callback the callback             
          * @param thisObject               Optionalthe context             
          */
-        every(callback: Function, thisObject: Object): any;
+        every(callback: Function, thisObject?: Object): any;
         /**
          * fade in all elements of this NodeList via dojo.fadeIn
          * 
          * @param args               OptionalAdditional dojo/_base/fx.Animation arguments to mix into this set with the addition ofan auto parameter.             
          */
-        fadeIn(args: Object): any;
+        fadeIn(args?: Object): any;
         /**
          * fade out all elements of this NodeList via dojo.fadeOut
          * 
          * @param args               OptionalAdditional dojo/_base/fx.Animation arguments to mix into this set with the addition ofan auto parameter.             
          */
-        fadeOut(args: Object): any;
+        fadeOut(args?: Object): any;
         /**
          * "masks" the built-in javascript filter() method (supported
          * in Dojo via dojo.filter) to support passing a simple
@@ -2477,7 +2477,7 @@ declare module dojo {
          * 
          * @param value               Optional            
          */
-        html(value: String): any;
+        html(value?: String): any;
         /**
          * allows setting the innerHTML of each node in the NodeList,
          * if there is a value passed in, otherwise, reads the innerHTML value of the first node.
@@ -2495,7 +2495,7 @@ declare module dojo {
          * 
          * @param value               Optional            
          */
-        html(value: HTMLElement): any;
+        html(value?: HTMLElement): any;
         /**
          * allows setting the innerHTML of each node in the NodeList,
          * if there is a value passed in, otherwise, reads the innerHTML value of the first node.
@@ -2513,7 +2513,7 @@ declare module dojo {
          * 
          * @param value               Optional            
          */
-        html(value: NodeList): any;
+        html(value?: NodeList): any;
         /**
          * see dojo/_base/array.indexOf(). The primary difference is that the acted-on
          * array is implicitly this NodeList
@@ -2542,7 +2542,7 @@ declare module dojo {
          * 
          * @param value               Optional            
          */
-        innerHTML(value: String): any;
+        innerHTML(value?: String): any;
         /**
          * allows setting the innerHTML of each node in the NodeList,
          * if there is a value passed in, otherwise, reads the innerHTML value of the first node.
@@ -2560,7 +2560,7 @@ declare module dojo {
          * 
          * @param value               Optional            
          */
-        innerHTML(value: HTMLElement): any;
+        innerHTML(value?: HTMLElement): any;
         /**
          * allows setting the innerHTML of each node in the NodeList,
          * if there is a value passed in, otherwise, reads the innerHTML value of the first node.
@@ -2578,7 +2578,7 @@ declare module dojo {
          * 
          * @param value               Optional            
          */
-        innerHTML(value: NodeList): any;
+        innerHTML(value?: NodeList): any;
         /**
          * The nodes in this NodeList will be placed after the nodes
          * matched by the query passed to insertAfter.
@@ -2607,7 +2607,7 @@ declare module dojo {
          * @param declaredClass             
          * @param properties               Optional            
          */
-        instantiate(declaredClass: String, properties: Object): any;
+        instantiate(declaredClass: String, properties?: Object): any;
         /**
          * Create a new instance of a specified class, using the
          * specified properties and each node in the NodeList as a
@@ -2616,7 +2616,7 @@ declare module dojo {
          * @param declaredClass             
          * @param properties               Optional            
          */
-        instantiate(declaredClass: Object, properties: Object): any;
+        instantiate(declaredClass: Object, properties?: Object): any;
         /**
          * Returns the last node in this dojo/NodeList as a dojo/NodeList.
          * .end() can be used on the returned dojo/NodeList to get back to the
@@ -2634,7 +2634,7 @@ declare module dojo {
          * @param value The value to search for.             
          * @param fromIndex               OptionalThe location to start searching from. Optional. Defaults to 0.             
          */
-        lastIndexOf(value: Object, fromIndex: number): any;
+        lastIndexOf(value: Object, fromIndex?: number): any;
         /**
          * see dojo/_base/array.map(). The primary difference is that the acted-on
          * array is implicitly this NodeList and the return is a
@@ -2643,7 +2643,7 @@ declare module dojo {
          * @param func             
          * @param obj               Optional            
          */
-        map(func: Function, obj: Function): any;
+        map(func: Function, obj?: Function): any;
         /**
          * Returns margin-box size of nodes
          * 
@@ -2657,7 +2657,7 @@ declare module dojo {
          * 
          * @param query               Optionala CSS selector.             
          */
-        next(query: String): any;
+        next(query?: String): any;
         /**
          * Returns all sibling elements that come after the nodes in this dojo/NodeList.
          * Optionally takes a query to filter the sibling elements.
@@ -2666,7 +2666,7 @@ declare module dojo {
          * 
          * @param query               Optionala CSS selector.             
          */
-        nextAll(query: String): any;
+        nextAll(query?: String): any;
         /**
          * Returns the odd nodes in this dojo/NodeList as a dojo/NodeList.
          * .end() can be used on the returned dojo/NodeList to get back to the
@@ -2687,7 +2687,7 @@ declare module dojo {
          * 
          * @param filter               OptionalCSS selector like ".foo" or "div > span"             
          */
-        orphan(filter: String): any;
+        orphan(filter?: String): any;
         /**
          * Returns immediate parent elements for nodes in this dojo/NodeList.
          * Optionally takes a query to filter the parent elements.
@@ -2696,7 +2696,7 @@ declare module dojo {
          * 
          * @param query               Optionala CSS selector.             
          */
-        parent(query: String): any;
+        parent(query?: String): any;
         /**
          * Returns all parent elements for nodes in this dojo/NodeList.
          * Optionally takes a query to filter the child elements.
@@ -2705,7 +2705,7 @@ declare module dojo {
          * 
          * @param query               Optionala CSS selector.             
          */
-        parents(query: String): any;
+        parents(query?: String): any;
         /**
          * places elements of this node list relative to the first element matched
          * by queryOrNode. Returns the original NodeList. See: dojo/dom-construct.place
@@ -2774,7 +2774,7 @@ declare module dojo {
          * 
          * @param query               Optionala CSS selector.             
          */
-        prev(query: String): any;
+        prev(query?: String): any;
         /**
          * Returns all sibling elements that come before the nodes in this dojo/NodeList.
          * Optionally takes a query to filter the sibling elements.
@@ -2785,7 +2785,7 @@ declare module dojo {
          * 
          * @param query               Optionala CSS selector.             
          */
-        prevAll(query: String): any;
+        prevAll(query?: String): any;
         /**
          * Returns a new list whose members match the passed query,
          * assuming elements of the current NodeList as the root for
@@ -2800,7 +2800,7 @@ declare module dojo {
          * 
          * @param filter               OptionalCSS selector like ".foo" or "div > span"             
          */
-        remove(filter: String): any;
+        remove(filter?: String): any;
         /**
          * Removes an attribute from each node in the list.
          * 
@@ -2812,7 +2812,7 @@ declare module dojo {
          * 
          * @param className               OptionalAn optional String class name to remove, or several space-separatedclass names, or an array of class names. If omitted, all class nameswill be deleted.             
          */
-        removeClass(className: String): any;
+        removeClass(className?: String): any;
         /**
          * removes the specified class from every node in the list
          * 
@@ -2832,7 +2832,7 @@ declare module dojo {
          * 
          * @param key               OptionalIf omitted, clean all data for this node.If passed, remove the data item found at key             
          */
-        removeData(key: String): void;
+        removeData(key?: String): void;
         /**
          * replaces nodes matched by the query passed to replaceAll with the nodes
          * in this NodeList.
@@ -2850,7 +2850,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replaceClass(addClassStr: String, removeClassStr: String): void;
+        replaceClass(addClassStr: String, removeClassStr?: String): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling removeClass() and addClass()
@@ -2858,7 +2858,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replaceClass(addClassStr: any[], removeClassStr: String): void;
+        replaceClass(addClassStr: any[], removeClassStr?: String): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling removeClass() and addClass()
@@ -2866,7 +2866,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replaceClass(addClassStr: String, removeClassStr: any[]): void;
+        replaceClass(addClassStr: String, removeClassStr?: any[]): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling removeClass() and addClass()
@@ -2874,7 +2874,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replaceClass(addClassStr: any[], removeClassStr: any[]): void;
+        replaceClass(addClassStr: any[], removeClassStr?: any[]): void;
         /**
          * Replaces each node in ths NodeList with the content passed to replaceWith.
          * The content will be cloned if the length of NodeList
@@ -2910,7 +2910,7 @@ declare module dojo {
          * 
          * @param query               Optionala CSS selector.             
          */
-        siblings(query: String): any;
+        siblings(query?: String): any;
         /**
          * Returns a new NodeList, maintaining this one in place
          * This method behaves exactly like the Array.slice method
@@ -2921,13 +2921,13 @@ declare module dojo {
          * @param begin Can be a positive or negative integer, with positiveintegers noting the offset to begin at, and negativeintegers denoting an offset from the end (i.e., to the leftof the end)             
          * @param end               OptionalOptional parameter to describe what position relative tothe NodeList's zero index to end the slice at. Like begin,can be positive or negative.             
          */
-        slice(begin: number, end: number): any;
+        slice(begin: number, end?: number): any;
         /**
          * slide all elements of the node list to the specified place via dojo/fx.slideTo()
          * 
          * @param args               OptionalAdditional dojo/_base/fx.Animation arguments to mix into this set with the addition ofan auto parameter.             
          */
-        slideTo(args: Object): any;
+        slideTo(args?: Object): any;
         /**
          * Takes the same structure of arguments and returns as
          * dojo/_base/array.some() with the caveat that the passed array is
@@ -2938,7 +2938,7 @@ declare module dojo {
          * @param callback the callback             
          * @param thisObject               Optionalthe context             
          */
-        some(callback: Function, thisObject: Object): any;
+        some(callback: Function, thisObject?: Object): any;
         /**
          * Returns a new NodeList, manipulating this NodeList based on
          * the arguments passed, potentially splicing in new elements
@@ -2954,14 +2954,14 @@ declare module dojo {
          * @param howmany               OptionalOptional parameter to describe what position relative tothe NodeList's zero index to end the slice at. Like begin,can be positive or negative.             
          * @param item               OptionalAny number of optional parameters may be passed in to bespliced into the NodeList             
          */
-        splice(index: number, howmany: number, item: Object[]): any;
+        splice(index: number, howmany?: number, item?: Object[]): any;
         /**
          * gets or sets the CSS property for every element in the NodeList
          * 
          * @param property the CSS property to get/set, in JavaScript notation("lineHieght" instead of "line-height")             
          * @param value               Optionaloptional. The value to set the property to             
          */
-        style(property: String, value: String): any;
+        style(property: String, value?: String): any;
         /**
          * allows setting the text value of each node in the NodeList,
          * if there is a value passed in, otherwise, returns the text value for all the
@@ -2977,7 +2977,7 @@ declare module dojo {
          * @param className the CSS class to add             
          * @param condition               OptionalIf passed, true means to add the class, false means to remove.             
          */
-        toggleClass(className: String, condition: boolean): void;
+        toggleClass(className: String, condition?: boolean): void;
         /**
          * Animate the effect of adding or removing a class to all nodes in this list.
          * see dojox.fx.toggleClass
@@ -3014,13 +3014,13 @@ declare module dojo {
          * 
          * @param args               OptionalAdditional dojo/_base/fx.Animation arguments to mix into this set with the addition ofan auto parameter.             
          */
-        wipeIn(args: Object): any;
+        wipeIn(args?: Object): any;
         /**
          * wipe out all elements of this NodeList via dojo/fx.wipeOut()
          * 
          * @param args               OptionalAdditional dojo/_base/fx.Animation arguments to mix into this set with the addition ofan auto parameter.             
          */
-        wipeOut(args: Object): any;
+        wipeOut(args?: Object): any;
         /**
          * Wrap each node in the NodeList with html passed to wrap.
          * html will be cloned if the NodeList has more than one
@@ -3112,7 +3112,7 @@ declare module dojo {
          * 
          * @param params               Optional            
          */
-        postscript(params: Object): void;
+        postscript(params?: Object): void;
         /**
          * Set a property on a Stateful instance
          * Sets named properties on a stateful object and notifies any watchers of
@@ -3325,7 +3325,7 @@ declare module dojo {
                  * @param mixins Specifies a list of bases (the left-most one is the most deepestbase).             
                  * @param props               OptionalAn optional object whose properties are copied to the created prototype.             
                  */
-                createSubclass(mixins: Function[], props: Object): dojo._base.declare.__DeclareCreatedObject;
+                createSubclass(mixins: Function[], props?: Object): dojo._base.declare.__DeclareCreatedObject;
                 /**
                  * Adds all properties and methods of source to constructor's
                  * prototype, making them available to all instances created with
@@ -3351,7 +3351,7 @@ declare module dojo {
                  * @param name               OptionalThe optional method name. Should be the same as the caller'sname. Usually "name" is specified in complex dynamic cases, whenthe calling method was dynamically added, undecorated bydeclare(), and it cannot be determined.             
                  * @param args The caller supply this argument, which should be the original"arguments".             
                  */
-                getInherited(name: String, args: Object): any;
+                getInherited(name?: String, args?: Object): any;
                 /**
                  * Calls a super method.
                  * This method is used inside method of classes produced with
@@ -3382,7 +3382,7 @@ declare module dojo {
                  * @param args The caller supply this argument, which should be the original"arguments".             
                  * @param newArgs               OptionalIf "true", the found function will be returned withoutexecuting it.If Array, it will be used to call a super method. Otherwise"args" will be used.             
                  */
-                inherited(name: String, args: Object, newArgs: Object): any;
+                inherited(name?: String, args?: Object, newArgs?: Object): any;
                 /**
                  * Checks the inheritance chain to see if it is inherited from this
                  * class.
@@ -3476,7 +3476,7 @@ declare module dojo {
              * @param callback               OptionalThe callback attached to this deferred object.             
              * @param errback               OptionalThe error callback attached to this deferred object.             
              */
-            addCallbacks(callback: Function, errback: Function): any;
+            addCallbacks(callback?: Function, errback?: Function): any;
             /**
              * Adds error callback for this deferred instance.
              * 
@@ -3557,7 +3557,7 @@ declare module dojo {
              * @param errorCallback               Optional            
              * @param progressCallback               Optional            
              */
-            then(resolvedCallback: Function, errorCallback: Function, progressCallback: Function): any;
+            then(resolvedCallback?: Function, errorCallback?: Function, progressCallback?: Function): any;
             /**
              * Transparently applies callbacks to values and/or promises.
              * Accepts promises but also transparently handles non-promises. If no
@@ -3574,7 +3574,7 @@ declare module dojo {
              * @param errback               OptionalCallback to be invoked when the promise is rejected.             
              * @param progback               OptionalCallback to be invoked when the promise emits a progress update.             
              */
-            when(valueOrPromise: any, callback: Function, errback: Function, progback: Function): any;
+            when(valueOrPromise?: any, callback?: Function, errback?: Function, progback?: Function): any;
         }
 
         module Deferred {
@@ -3739,7 +3739,7 @@ declare module dojo {
              * @param formNode             
              * @param prettyPrint               Optional            
              */
-            formToJson(formNode: HTMLElement, prettyPrint: boolean): any;
+            formToJson(formNode: HTMLElement, prettyPrint?: boolean): any;
             /**
              * Create a serialized JSON string from a form node or string
              * ID identifying the form to serialize
@@ -3747,7 +3747,7 @@ declare module dojo {
              * @param formNode             
              * @param prettyPrint               Optional            
              */
-            formToJson(formNode: String, prettyPrint: boolean): any;
+            formToJson(formNode: String, prettyPrint?: boolean): any;
             /**
              * Serialize a form node to a JavaScript object.
              * Returns the values encoded in an HTML form as
@@ -4115,7 +4115,7 @@ declare module dojo {
              * @param weight             
              * @param obj               Optional            
              */
-            blendColors(start: dojo._base.Color, end: dojo._base.Color, weight: number, obj: dojo._base.Color): any;
+            blendColors(start: dojo._base.Color, end: dojo._base.Color, weight: number, obj?: dojo._base.Color): any;
             /**
              * Builds a Color from a 3 or 4 element array, mapping each
              * element in sequence to the rgb(a) values of the color.
@@ -4123,7 +4123,7 @@ declare module dojo {
              * @param a             
              * @param obj               Optional            
              */
-            fromArray(a: any[], obj: dojo._base.Color): any;
+            fromArray(a: any[], obj?: dojo._base.Color): any;
             /**
              * Converts a hex string with a '#' prefix to a color object.
              * Supports 12-bit #rgb shorthand. Optionally accepts a
@@ -4132,7 +4132,7 @@ declare module dojo {
              * @param color             
              * @param obj               Optional            
              */
-            fromHex(color: String, obj: dojo._base.Color): any;
+            fromHex(color: String, obj?: dojo._base.Color): any;
             /**
              * get rgb(a) array from css-style color declarations
              * this function can handle all 4 CSS3 Color Module formats: rgb,
@@ -4141,7 +4141,7 @@ declare module dojo {
              * @param color             
              * @param obj               Optional            
              */
-            fromRgb(color: String, obj: dojo._base.Color): any;
+            fromRgb(color: String, obj?: dojo._base.Color): any;
             /**
              * Parses str for a color value. Accepts hex, rgb, and rgba
              * style color values.
@@ -4153,14 +4153,14 @@ declare module dojo {
              * @param str             
              * @param obj               Optional            
              */
-            fromString(str: String, obj: dojo._base.Color): any;
+            fromString(str: String, obj?: dojo._base.Color): any;
             /**
              * creates a greyscale color with an optional alpha
              * 
              * @param g             
              * @param a               Optional            
              */
-            makeGrey(g: number, a: number): void;
+            makeGrey(g: number, a?: number): void;
             /**
              * makes sure that the object has correct attributes
              * 
@@ -4205,7 +4205,7 @@ declare module dojo {
              * 
              * @param includeAlpha               Optional            
              */
-            toCss(includeAlpha: boolean): String;
+            toCss(includeAlpha?: boolean): String;
             /**
              * Returns a CSS color string in hexadecimal representation
              * 
@@ -5051,7 +5051,7 @@ declare module dojo {
              * @param thisObject               Optionalmay be used to scope the call to callback             
              * @param Ctr             
              */
-            map(arr: any[], callback: Function, thisObject: Object, Ctr: any): any[];
+            map(arr: any[], callback: Function, thisObject?: Object, Ctr?: any): any[];
             /**
              * applies callback to each element of arr and returns
              * an Array with the results
@@ -5066,7 +5066,7 @@ declare module dojo {
              * @param thisObject               Optionalmay be used to scope the call to callback             
              * @param Ctr             
              */
-            map(arr: String, callback: Function, thisObject: Object, Ctr: any): any[];
+            map(arr: String, callback: Function, thisObject?: Object, Ctr?: any): any[];
             /**
              * applies callback to each element of arr and returns
              * an Array with the results
@@ -5081,7 +5081,7 @@ declare module dojo {
              * @param thisObject               Optionalmay be used to scope the call to callback             
              * @param Ctr             
              */
-            map(arr: any[], callback: String, thisObject: Object, Ctr: any): any[];
+            map(arr: any[], callback: String, thisObject?: Object, Ctr?: any): any[];
             /**
              * applies callback to each element of arr and returns
              * an Array with the results
@@ -5096,7 +5096,7 @@ declare module dojo {
              * @param thisObject               Optionalmay be used to scope the call to callback             
              * @param Ctr             
              */
-            map(arr: String, callback: String, thisObject: Object, Ctr: any): any[];
+            map(arr: String, callback: String, thisObject?: Object, Ctr?: any): any[];
             /**
              * Determines whether or not any item in arr satisfies the
              * condition implemented by callback.
@@ -5206,7 +5206,7 @@ declare module dojo {
              * @param method A function reference, or name of a function in context.The function identified by method fires after event does.method receives the same arguments as the event.See context argument comments for information on method's scope.             
              * @param dontFix               OptionalIf obj is a DOM node, set dontFix to true to prevent delegationof this connection to the DOM event manager.             
              */
-            connect(obj: Object, event: String, context: Object, method: String, dontFix: boolean): any;
+            connect(obj: Object, event: String, context: Object, method: String, dontFix?: boolean): any;
             /**
              * dojo.connect is a deprecated event handling and delegation method in
              * Dojo. It allows one function to "listen in" on the execution of
@@ -5246,7 +5246,7 @@ declare module dojo {
              * @param method A function reference, or name of a function in context.The function identified by method fires after event does.method receives the same arguments as the event.See context argument comments for information on method's scope.             
              * @param dontFix               OptionalIf obj is a DOM node, set dontFix to true to prevent delegationof this connection to the DOM event manager.             
              */
-            connect(obj: Object, event: String, context: any, method: String, dontFix: boolean): any;
+            connect(obj: Object, event: String, context: any, method: String, dontFix?: boolean): any;
             /**
              * dojo.connect is a deprecated event handling and delegation method in
              * Dojo. It allows one function to "listen in" on the execution of
@@ -5286,7 +5286,7 @@ declare module dojo {
              * @param method A function reference, or name of a function in context.The function identified by method fires after event does.method receives the same arguments as the event.See context argument comments for information on method's scope.             
              * @param dontFix               OptionalIf obj is a DOM node, set dontFix to true to prevent delegationof this connection to the DOM event manager.             
              */
-            connect(obj: Object, event: String, context: Object, method: Function, dontFix: boolean): any;
+            connect(obj: Object, event: String, context: Object, method: Function, dontFix?: boolean): any;
             /**
              * dojo.connect is a deprecated event handling and delegation method in
              * Dojo. It allows one function to "listen in" on the execution of
@@ -5326,7 +5326,7 @@ declare module dojo {
              * @param method A function reference, or name of a function in context.The function identified by method fires after event does.method receives the same arguments as the event.See context argument comments for information on method's scope.             
              * @param dontFix               OptionalIf obj is a DOM node, set dontFix to true to prevent delegationof this connection to the DOM event manager.             
              */
-            connect(obj: Object, event: String, context: any, method: Function, dontFix: boolean): any;
+            connect(obj: Object, event: String, context: any, method: Function, dontFix?: boolean): any;
             /**
              * Ensure that every time obj.event() is called, a message is published
              * on the topic. Returns a handle which can be passed to
@@ -5357,7 +5357,7 @@ declare module dojo {
              * @param topic The name of the topic to publish.             
              * @param args               OptionalAn array of arguments. The arguments will be appliedto each topic subscriber (as first class parameters, via apply).             
              */
-            publish(topic: String, args: any[]): any;
+            publish(topic: String, args?: any[]): any;
             /**
              * Attach a listener to a named topic. The listener function is invoked whenever the
              * named topic is published (see: dojo.publish).
@@ -5367,7 +5367,7 @@ declare module dojo {
              * @param context               OptionalScope in which method will be invoked, or null for default scope.             
              * @param method The name of a function in context, or a function reference. This is the function thatis invoked when topic is published.             
              */
-            subscribe(topic: String, context: Object, method: String): any;
+            subscribe(topic: String, context?: Object, method?: String): any;
             /**
              * Attach a listener to a named topic. The listener function is invoked whenever the
              * named topic is published (see: dojo.publish).
@@ -5377,7 +5377,7 @@ declare module dojo {
              * @param context               OptionalScope in which method will be invoked, or null for default scope.             
              * @param method The name of a function in context, or a function reference. This is the function thatis invoked when topic is published.             
              */
-            subscribe(topic: String, context: Object, method: Function): any;
+            subscribe(topic: String, context?: Object, method?: Function): any;
             /**
              * Remove a topic listener.
              * 
@@ -5469,7 +5469,7 @@ declare module dojo {
              * @param onEnd               OptionalA function to be called when the animation finishesrunning.             
              * @param delay               OptionalThe number of milliseconds to delay beginning theanimation by. The default is 0.             
              */
-            anim  (node: HTMLElement, properties: Object, duration: number, easing: Function, onEnd: Function, delay: number): any ;
+            anim  (node: HTMLElement, properties: Object, duration?: number, easing?: Function, onEnd?: Function, delay?: number): any ;
             /**
              * A simpler interface to animateProperty(), also returns
              * an instance of Animation but begins the animation
@@ -5490,7 +5490,7 @@ declare module dojo {
              * @param onEnd               OptionalA function to be called when the animation finishesrunning.             
              * @param delay               OptionalThe number of milliseconds to delay beginning theanimation by. The default is 0.             
              */
-            anim  (node: String, properties: Object, duration: number, easing: Function, onEnd: Function, delay: number): any ;
+            anim  (node: String, properties: Object, duration?: number, easing?: Function, onEnd?: Function, delay?: number): any ;
             /**
              * Returns an animation that will transition the properties of
              * node defined in args depending how they are defined in
@@ -5502,7 +5502,7 @@ declare module dojo {
              * 
              * @param args An object with the following properties:properties (Object, optional): A hash map of style properties to Objects describing the transition,such as the properties of _Line with an additional 'units' propertynode (DOMNode|String): The node referenced in the animationduration (Integer, optional): Duration of the animation in milliseconds.easing (Function, optional): An easing function.            
              */
-            animateProperty  (args: Object): any ;
+            animateProperty  (args?: Object): any ;
             
             /**
              * Returns an animation that will fade node defined in 'args' from
@@ -5584,7 +5584,7 @@ declare module dojo {
              * @param name Path to an object, in the form "A.B.C".             
              * @param obj               OptionalObject to use as root of path. Defaults to'dojo.global'. Null may be passed.             
              */
-            exists(name: String, obj: Object): boolean;
+            exists(name: String, obj?: Object): boolean;
             /**
              * Adds all properties and methods of props to constructor's
              * prototype, making them available to all instances created with
@@ -5603,7 +5603,7 @@ declare module dojo {
              * @param create               OptionalOptional. Defaults to false. If true, Objects will becreated at any point along the 'path' that is undefined.             
              * @param context               OptionalOptional. Object to use as root of path. Defaults to'dojo.global'. Null may be passed.             
              */
-            getObject(name: String, create: boolean, context: Object): any;
+            getObject(name: String, create?: boolean, context?: Object): any;
             /**
              * Returns a function that will only ever execute in the a given scope.
              * This allows for easy use of object member functions
@@ -5715,7 +5715,7 @@ declare module dojo {
              * @param map If an object, it is used as a dictionary to look up substitutions.If a function, it is called for every substitution with following parameters:a whole match, a name, an offset, and the whole templatestring (see https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/String/replacefor more details).             
              * @param pattern               OptionalOptional regular expression objects that overrides the default pattern.Must be global and match one item. The default is: /{([^}]+)}/g,which matches patterns like that: "{xxx}", where "xxx" is any sequenceof characters, which doesn't include "}".             
              */
-            replace(tmpl: String, map: Object, pattern: RegExp): String;
+            replace(tmpl: String, map: Object, pattern?: RegExp): String;
             /**
              * Performs parameterized substitutions on a string. Throws an
              * exception if any parameter is unmatched.
@@ -5724,7 +5724,7 @@ declare module dojo {
              * @param map If an object, it is used as a dictionary to look up substitutions.If a function, it is called for every substitution with following parameters:a whole match, a name, an offset, and the whole templatestring (see https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/String/replacefor more details).             
              * @param pattern               OptionalOptional regular expression objects that overrides the default pattern.Must be global and match one item. The default is: /{([^}]+)}/g,which matches patterns like that: "{xxx}", where "xxx" is any sequenceof characters, which doesn't include "}".             
              */
-            replace(tmpl: String, map: Function, pattern: RegExp): String;
+            replace(tmpl: String, map: Function, pattern?: RegExp): String;
             /**
              * Set a property from a dot-separated string, such as "A.B.C"
              * Useful for longer api chains where you have to test each object in
@@ -5736,7 +5736,7 @@ declare module dojo {
              * @param value value or object to place at location given by name             
              * @param context               OptionalOptional. Object to use as root of path. Defaults todojo.global.             
              */
-            setObject(name: String, value: any, context: Object): any;
+            setObject(name: String, value: any, context?: Object): any;
             /**
              * Trims whitespace from both sides of the string
              * This version of trim() was selected for inclusion into the base due
@@ -5779,7 +5779,7 @@ declare module dojo {
              * @param obj               Optional            
              * @param functionName               Optional            
              */
-            addOnUnload(obj: Object, functionName: String): void;
+            addOnUnload(obj?: Object, functionName?: String): void;
             /**
              * registers a function to be triggered when the page unloads.
              * The first time that addOnUnload is called Dojo will
@@ -5802,7 +5802,7 @@ declare module dojo {
              * @param obj               Optional            
              * @param functionName               Optional            
              */
-            addOnUnload(obj: Function, functionName: String): void;
+            addOnUnload(obj?: Function, functionName?: String): void;
             /**
              * registers a function to be triggered when the page unloads.
              * The first time that addOnUnload is called Dojo will
@@ -5825,7 +5825,7 @@ declare module dojo {
              * @param obj               Optional            
              * @param functionName               Optional            
              */
-            addOnUnload(obj: Object, functionName: Function): void;
+            addOnUnload(obj?: Object, functionName?: Function): void;
             /**
              * registers a function to be triggered when the page unloads.
              * The first time that addOnUnload is called Dojo will
@@ -5848,7 +5848,7 @@ declare module dojo {
              * @param obj               Optional            
              * @param functionName               Optional            
              */
-            addOnUnload(obj: Function, functionName: Function): void;
+            addOnUnload(obj?: Function, functionName?: Function): void;
             /**
              * registers a function to be triggered when window.onunload
              * fires.
@@ -5866,7 +5866,7 @@ declare module dojo {
              * @param obj               Optional            
              * @param functionName               Optional            
              */
-            addOnWindowUnload(obj: Object, functionName: String): void;
+            addOnWindowUnload(obj?: Object, functionName?: String): void;
             /**
              * registers a function to be triggered when window.onunload
              * fires.
@@ -5884,7 +5884,7 @@ declare module dojo {
              * @param obj               Optional            
              * @param functionName               Optional            
              */
-            addOnWindowUnload(obj: Function, functionName: String): void;
+            addOnWindowUnload(obj?: Function, functionName?: String): void;
             /**
              * registers a function to be triggered when window.onunload
              * fires.
@@ -5902,7 +5902,7 @@ declare module dojo {
              * @param obj               Optional            
              * @param functionName               Optional            
              */
-            addOnWindowUnload(obj: Object, functionName: Function): void;
+            addOnWindowUnload(obj?: Object, functionName?: Function): void;
             /**
              * registers a function to be triggered when window.onunload
              * fires.
@@ -5920,7 +5920,7 @@ declare module dojo {
              * @param obj               Optional            
              * @param functionName               Optional            
              */
-            addOnWindowUnload(obj: Function, functionName: Function): void;
+            addOnWindowUnload(obj?: Function, functionName?: Function): void;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/window.html
@@ -5946,7 +5946,7 @@ declare module dojo {
              * 
              * @param doc               Optional            
              */
-            body(doc: HTMLDocument): any;
+            body(doc?: HTMLDocument): any;
             /**
              * changes the behavior of many core Dojo functions that deal with
              * namespace and DOM lookup, changing them to work in a new global
@@ -5970,7 +5970,7 @@ declare module dojo {
              * @param thisObject               Optional            
              * @param cbArguments               Optional            
              */
-            withDoc(documentObject: HTMLDocument, callback: Function, thisObject: Object, cbArguments: any[]): any;
+            withDoc(documentObject: HTMLDocument, callback: Function, thisObject?: Object, cbArguments?: any[]): any;
             /**
              * Invoke callback with globalObject as dojo.global and
              * globalObject.document as dojo.doc.
@@ -5985,7 +5985,7 @@ declare module dojo {
              * @param thisObject               Optional            
              * @param cbArguments               Optional            
              */
-            withGlobal(globalObject: Object, callback: Function, thisObject: Object, cbArguments: any[]): any;
+            withGlobal(globalObject: Object, callback: Function, thisObject?: Object, cbArguments?: any[]): any;
         }
         module window {
             /**
@@ -6335,7 +6335,7 @@ declare module dojo {
              * 
              * @param returnWrappers               Optional            
              */
-            AdapterRegistry(returnWrappers: boolean): void;
+            AdapterRegistry(returnWrappers?: boolean): void;
             /**
              * Adds the specified classes to the end of the class list on the
              * passed node. Will not re-apply duplicate classes.
@@ -6379,7 +6379,7 @@ declare module dojo {
              * @param context The context in which to run execute callback, or a callback if not using context             
              * @param callback               OptionalThe function to execute.             
              */
-            addOnLoad(priority: number, context: any, callback: Function): void;
+            addOnLoad(priority: number, context: any, callback?: Function): void;
             /**
              * registers a function to be triggered when the page unloads.
              * The first time that addOnUnload is called Dojo will
@@ -6402,7 +6402,7 @@ declare module dojo {
              * @param obj               Optional            
              * @param functionName               Optional            
              */
-            addOnUnload(obj: Object, functionName: String): void;
+            addOnUnload(obj?: Object, functionName?: String): void;
             /**
              * registers a function to be triggered when the page unloads.
              * The first time that addOnUnload is called Dojo will
@@ -6425,7 +6425,7 @@ declare module dojo {
              * @param obj               Optional            
              * @param functionName               Optional            
              */
-            addOnUnload(obj: Function, functionName: String): void;
+            addOnUnload(obj?: Function, functionName?: String): void;
             /**
              * registers a function to be triggered when the page unloads.
              * The first time that addOnUnload is called Dojo will
@@ -6448,7 +6448,7 @@ declare module dojo {
              * @param obj               Optional            
              * @param functionName               Optional            
              */
-            addOnUnload(obj: Object, functionName: Function): void;
+            addOnUnload(obj?: Object, functionName?: Function): void;
             /**
              * registers a function to be triggered when the page unloads.
              * The first time that addOnUnload is called Dojo will
@@ -6471,7 +6471,7 @@ declare module dojo {
              * @param obj               Optional            
              * @param functionName               Optional            
              */
-            addOnUnload(obj: Function, functionName: Function): void;
+            addOnUnload(obj?: Function, functionName?: Function): void;
             /**
              * registers a function to be triggered when window.onunload fires.
              * Be careful trying to modify the DOM or access JavaScript properties
@@ -6482,7 +6482,7 @@ declare module dojo {
              * @param obj               Optional            
              * @param functionName               Optional            
              */
-            addOnWindowUnload(obj: Object, functionName: String): void;
+            addOnWindowUnload(obj?: Object, functionName?: String): void;
             /**
              * registers a function to be triggered when window.onunload fires.
              * Be careful trying to modify the DOM or access JavaScript properties
@@ -6514,7 +6514,7 @@ declare module dojo {
              * @param onEnd               OptionalA function to be called when the animation finishesrunning.             
              * @param delay               OptionalThe number of milliseconds to delay beginning theanimation by. The default is 0.             
              */
-            anim(node: HTMLElement, properties: Object, duration: number, easing: Function, onEnd: Function, delay: number): any;
+            anim(node: HTMLElement, properties: Object, duration?: number, easing?: Function, onEnd?: Function, delay?: number): any;
             /**
              * A simpler interface to animateProperty(), also returns
              * an instance of Animation but begins the animation
@@ -6535,7 +6535,7 @@ declare module dojo {
              * @param onEnd               OptionalA function to be called when the animation finishesrunning.             
              * @param delay               OptionalThe number of milliseconds to delay beginning theanimation by. The default is 0.             
              */
-            anim(node: String, properties: Object, duration: number, easing: Function, onEnd: Function, delay: number): any;
+            anim(node: String, properties: Object, duration?: number, easing?: Function, onEnd?: Function, delay?: number): any;
             /**
              * Returns an animation that will transition the properties of
              * node defined in args depending how they are defined in
@@ -6584,7 +6584,7 @@ declare module dojo {
              * @param name the name of the attribute to get or set.             
              * @param value               OptionalThe value to set for the attribute             
              */
-            attr(node: HTMLElement, name: String, value: String): any;
+            attr(node: HTMLElement, name: String, value?: String): any;
             /**
              * Gets or sets an attribute on an HTML element.
              * Handles normalized getting and setting of attributes on DOM
@@ -6608,7 +6608,7 @@ declare module dojo {
              * @param name the name of the attribute to get or set.             
              * @param value               OptionalThe value to set for the attribute             
              */
-            attr(node: String, name: String, value: String): any;
+            attr(node: String, name: String, value?: String): any;
             /**
              * Gets or sets an attribute on an HTML element.
              * Handles normalized getting and setting of attributes on DOM
@@ -6632,7 +6632,7 @@ declare module dojo {
              * @param name the name of the attribute to get or set.             
              * @param value               OptionalThe value to set for the attribute             
              */
-            attr(node: HTMLElement, name: Object, value: String): any;
+            attr(node: HTMLElement, name: Object, value?: String): any;
             /**
              * Gets or sets an attribute on an HTML element.
              * Handles normalized getting and setting of attributes on DOM
@@ -6656,7 +6656,7 @@ declare module dojo {
              * @param name the name of the attribute to get or set.             
              * @param value               OptionalThe value to set for the attribute             
              */
-            attr(node: String, name: Object, value: String): any;
+            attr(node: String, name: Object, value?: String): any;
             /**
              * Blend colors end and start with weight from 0 to 1, 0.5 being a 50/50 blend,
              * can reuse a previously allocated Color object for the result
@@ -6666,13 +6666,13 @@ declare module dojo {
              * @param weight             
              * @param obj               Optional            
              */
-            blendColors(start: dojo._base.Color, end: dojo._base.Color, weight: number, obj: dojo._base.Color): any;
+            blendColors(start: dojo._base.Color, end: dojo._base.Color, weight: number, obj?: dojo._base.Color): any;
             /**
              * Return the body element of the specified document or of dojo/_base/window::doc.
              * 
              * @param doc               Optional            
              */
-            body(doc: HTMLDocument): any;
+            body(doc?: HTMLDocument): any;
             /**
              * Returns DOM node with matching id attribute or falsy value (ex: null or undefined)
              * if not found.  If id is a DomNode, this function is a no-op.
@@ -6680,7 +6680,7 @@ declare module dojo {
              * @param id A string to match an HTML id attribute or a reference to a DOM Node             
              * @param doc               OptionalDocument to work in. Defaults to the current value ofdojo/_base/window.doc.  Can be used to retrievenode references from other documents.             
              */
-            byId(id: String, doc: HTMLDocument): any;
+            byId(id: String, doc?: HTMLDocument): any;
             /**
              * Returns DOM node with matching id attribute or falsy value (ex: null or undefined)
              * if not found.  If id is a DomNode, this function is a no-op.
@@ -6688,7 +6688,7 @@ declare module dojo {
              * @param id A string to match an HTML id attribute or a reference to a DOM Node             
              * @param doc               OptionalDocument to work in. Defaults to the current value ofdojo/_base/window.doc.  Can be used to retrievenode references from other documents.             
              */
-            byId(id: HTMLElement, doc: HTMLDocument): any;
+            byId(id: HTMLElement, doc?: HTMLDocument): any;
             /**
              * A getter and setter for storing the string content associated with the
              * module and url arguments.
@@ -6708,7 +6708,7 @@ declare module dojo {
              * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.             
              * @param value               OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.             
              */
-            cache(module: String, url: String, value: String): any;
+            cache(module: String, url: String, value?: String): any;
             /**
              * A getter and setter for storing the string content associated with the
              * module and url arguments.
@@ -6728,7 +6728,7 @@ declare module dojo {
              * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.             
              * @param value               OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.             
              */
-            cache(module: Object, url: String, value: String): any;
+            cache(module: Object, url: String, value?: String): any;
             /**
              * A getter and setter for storing the string content associated with the
              * module and url arguments.
@@ -6748,7 +6748,7 @@ declare module dojo {
              * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.             
              * @param value               OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.             
              */
-            cache(module: String, url: String, value: Object): any;
+            cache(module: String, url: String, value?: Object): any;
             /**
              * A getter and setter for storing the string content associated with the
              * module and url arguments.
@@ -6768,7 +6768,7 @@ declare module dojo {
              * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.             
              * @param value               OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.             
              */
-            cache(module: Object, url: String, value: Object): any;
+            cache(module: Object, url: String, value?: Object): any;
             /**
              * 
              */
@@ -6804,7 +6804,7 @@ declare module dojo {
              * @param a             
              * @param obj               Optional            
              */
-            colorFromArray(a: any[], obj: dojo._base.Color): any;
+            colorFromArray(a: any[], obj?: dojo._base.Color): any;
             /**
              * Converts a hex string with a '#' prefix to a color object.
              * Supports 12-bit #rgb shorthand. Optionally accepts a
@@ -6813,7 +6813,7 @@ declare module dojo {
              * @param color             
              * @param obj               Optional            
              */
-            colorFromHex(color: String, obj: dojo._base.Color): any;
+            colorFromHex(color: String, obj?: dojo._base.Color): any;
             /**
              * get rgb(a) array from css-style color declarations
              * this function can handle all 4 CSS3 Color Module formats: rgb,
@@ -6822,7 +6822,7 @@ declare module dojo {
              * @param color             
              * @param obj               Optional            
              */
-            colorFromRgb(color: String, obj: dojo._base.Color): any;
+            colorFromRgb(color: String, obj?: dojo._base.Color): any;
             /**
              * Parses str for a color value. Accepts hex, rgb, and rgba
              * style color values.
@@ -6834,7 +6834,7 @@ declare module dojo {
              * @param str             
              * @param obj               Optional            
              */
-            colorFromString(str: String, obj: dojo._base.Color): any;
+            colorFromString(str: String, obj?: dojo._base.Color): any;
             /**
              * dojo.connect is a deprecated event handling and delegation method in
              * Dojo. It allows one function to "listen in" on the execution of
@@ -6874,7 +6874,7 @@ declare module dojo {
              * @param method A function reference, or name of a function in context.The function identified by method fires after event does.method receives the same arguments as the event.See context argument comments for information on method's scope.             
              * @param dontFix               OptionalIf obj is a DOM node, set dontFix to true to prevent delegationof this connection to the DOM event manager.             
              */
-            connect(obj: Object, event: String, context: Object, method: String, dontFix: boolean): any;
+            connect(obj: Object, event: String, context: Object, method: String, dontFix?: boolean): any;
             /**
              * dojo.connect is a deprecated event handling and delegation method in
              * Dojo. It allows one function to "listen in" on the execution of
@@ -6914,7 +6914,7 @@ declare module dojo {
              * @param method A function reference, or name of a function in context.The function identified by method fires after event does.method receives the same arguments as the event.See context argument comments for information on method's scope.             
              * @param dontFix               OptionalIf obj is a DOM node, set dontFix to true to prevent delegationof this connection to the DOM event manager.             
              */
-            connect(obj: Object, event: String, context: any, method: String, dontFix: boolean): any;
+            connect(obj: Object, event: String, context: any, method: String, dontFix?: boolean): any;
             /**
              * dojo.connect is a deprecated event handling and delegation method in
              * Dojo. It allows one function to "listen in" on the execution of
@@ -6954,7 +6954,7 @@ declare module dojo {
              * @param method A function reference, or name of a function in context.The function identified by method fires after event does.method receives the same arguments as the event.See context argument comments for information on method's scope.             
              * @param dontFix               OptionalIf obj is a DOM node, set dontFix to true to prevent delegationof this connection to the DOM event manager.             
              */
-            connect(obj: Object, event: String, context: Object, method: Function, dontFix: boolean): any;
+            connect(obj: Object, event: String, context: Object, method: Function, dontFix?: boolean): any;
             /**
              * dojo.connect is a deprecated event handling and delegation method in
              * Dojo. It allows one function to "listen in" on the execution of
@@ -6994,7 +6994,7 @@ declare module dojo {
              * @param method A function reference, or name of a function in context.The function identified by method fires after event does.method receives the same arguments as the event.See context argument comments for information on method's scope.             
              * @param dontFix               OptionalIf obj is a DOM node, set dontFix to true to prevent delegationof this connection to the DOM event manager.             
              */
-            connect(obj: Object, event: String, context: any, method: Function, dontFix: boolean): any;
+            connect(obj: Object, event: String, context: any, method: Function, dontFix?: boolean): any;
             /**
              * Getter/setter for the content-box of node.
              * Returns an object in the expected format of box (regardless if box is passed).
@@ -7011,7 +7011,7 @@ declare module dojo {
              * @param node id or reference to DOM Node to get/set box for             
              * @param box               OptionalIf passed, denotes that dojo.contentBox() shouldupdate/set the content box for node. Box is an object in theabove format, but only w (width) and h (height) are supported.All properties are optional if passed.             
              */
-            contentBox(node: HTMLElement, box: Object): any;
+            contentBox(node: HTMLElement, box?: Object): any;
             /**
              * Getter/setter for the content-box of node.
              * Returns an object in the expected format of box (regardless if box is passed).
@@ -7028,7 +7028,7 @@ declare module dojo {
              * @param node id or reference to DOM Node to get/set box for             
              * @param box               OptionalIf passed, denotes that dojo.contentBox() shouldupdate/set the content box for node. Box is an object in theabove format, but only w (width) and h (height) are supported.All properties are optional if passed.             
              */
-            contentBox(node: String, box: Object): any;
+            contentBox(node: String, box?: Object): any;
             /**
              * Get or set a cookie.
              * If one argument is passed, returns the value of the cookie
@@ -7038,7 +7038,7 @@ declare module dojo {
              * @param value               OptionalValue for the cookie             
              * @param props               OptionalProperties for the cookie             
              */
-            cookie(name: String, value: String, props: Object): any;
+            cookie(name: String, value?: String, props?: Object): any;
             /**
              * Deprecated: Use position() for border-box x/y/w/h
              * or marginBox() for margin-box w/h/l/t.
@@ -7057,7 +7057,7 @@ declare module dojo {
              * @param node             
              * @param includeScroll               Optional            
              */
-            coords(node: HTMLElement, includeScroll: boolean): any;
+            coords(node: HTMLElement, includeScroll?: boolean): any;
             /**
              * Deprecated: Use position() for border-box x/y/w/h
              * or marginBox() for margin-box w/h/l/t.
@@ -7076,7 +7076,7 @@ declare module dojo {
              * @param node             
              * @param includeScroll               Optional            
              */
-            coords(node: String, includeScroll: boolean): any;
+            coords(node: String, includeScroll?: boolean): any;
             /**
              * Create an element, allowing for optional attribute decoration
              * and placement.
@@ -7095,7 +7095,7 @@ declare module dojo {
              * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
              * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
              */
-            create(tag: HTMLElement, attrs: Object, refNode: HTMLElement, pos: String): any;
+            create(tag: HTMLElement, attrs: Object, refNode?: HTMLElement, pos?: String): any;
             /**
              * Create an element, allowing for optional attribute decoration
              * and placement.
@@ -7114,7 +7114,7 @@ declare module dojo {
              * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
              * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
              */
-            create(tag: String, attrs: Object, refNode: HTMLElement, pos: String): any;
+            create(tag: String, attrs: Object, refNode?: HTMLElement, pos?: String): any;
             /**
              * Create an element, allowing for optional attribute decoration
              * and placement.
@@ -7133,7 +7133,7 @@ declare module dojo {
              * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
              * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
              */
-            create(tag: HTMLElement, attrs: Object, refNode: String, pos: String): any;
+            create(tag: HTMLElement, attrs: Object, refNode?: String, pos?: String): any;
             /**
              * Create an element, allowing for optional attribute decoration
              * and placement.
@@ -7152,7 +7152,7 @@ declare module dojo {
              * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
              * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
              */
-            create(tag: String, attrs: Object, refNode: String, pos: String): any;
+            create(tag: String, attrs: Object, refNode?: String, pos?: String): any;
             /**
              * Create a feature-rich constructor from compact notation.
              * Create a constructor using a compact notation for inheritance and
@@ -7364,7 +7364,7 @@ declare module dojo {
              * @param consumeErrors               Optional            
              * @param canceller               OptionalA deferred canceller function, see dojo.Deferred             
              */
-            DeferredList(list: any[], fireOnOneCallback: boolean, fireOnOneErrback: boolean, consumeErrors: boolean, canceller: Function): void;
+            DeferredList(list: any[], fireOnOneCallback?: boolean, fireOnOneErrback?: boolean, consumeErrors?: boolean, canceller?: Function): void;
             /**
              * Log a debug message to indicate that a behavior has been
              * deprecated.
@@ -7373,7 +7373,7 @@ declare module dojo {
              * @param extra               OptionalText to append to the message. Often provides advice on anew function or facility to achieve the same goal duringthe deprecation period.             
              * @param removal               OptionalText to indicate when in the future the behavior will beremoved. Usually a version number.             
              */
-            deprecated(behaviour: String, extra: String, removal: String): void;
+            deprecated(behaviour: String, extra?: String, removal?: String): void;
             /**
              * 
              * @param node             
@@ -7391,7 +7391,7 @@ declare module dojo {
              * 
              * @param doc               OptionalOptional document to query.   If unspecified, use win.doc.             
              */
-            docScroll(doc: HTMLDocument): Object;
+            docScroll(doc?: HTMLDocument): Object;
             /**
              * 
              * @param node             
@@ -7431,7 +7431,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            every(arr: any[], callback: Function, thisObject: Object): boolean;
+            every(arr: any[], callback: Function, thisObject?: Object): boolean;
             /**
              * Determines whether or not every item in arr satisfies the
              * condition implemented by callback.
@@ -7445,7 +7445,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            every(arr: String, callback: Function, thisObject: Object): boolean;
+            every(arr: String, callback: Function, thisObject?: Object): boolean;
             /**
              * Determines whether or not every item in arr satisfies the
              * condition implemented by callback.
@@ -7459,7 +7459,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            every(arr: any[], callback: String, thisObject: Object): boolean;
+            every(arr: any[], callback: String, thisObject?: Object): boolean;
             /**
              * Determines whether or not every item in arr satisfies the
              * condition implemented by callback.
@@ -7473,7 +7473,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            every(arr: String, callback: String, thisObject: Object): boolean;
+            every(arr: String, callback: String, thisObject?: Object): boolean;
             /**
              * 
              * @param exitcode             
@@ -7490,7 +7490,7 @@ declare module dojo {
              * @param moduleName The name of a module, or the name of a module file or a specificfunction             
              * @param extra               Optionalsome additional message for the user             
              */
-            experimental(moduleName: String, extra: String): void;
+            experimental(moduleName: String, extra?: String): void;
             /**
              * Returns an animation that will fade node defined in 'args' from
              * its current opacity to fully opaque.
@@ -7538,7 +7538,7 @@ declare module dojo {
              * @param callback a function that is invoked with three arguments (item,index, array). The return of this function is expected tobe a boolean which determines whether the passed-in itemwill be included in the returned array.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            filter(arr: any[], callback: Function, thisObject: Object): any[];
+            filter(arr: any[], callback: Function, thisObject?: Object): any[];
             /**
              * Returns a new Array with those items from arr that match the
              * condition implemented by callback.
@@ -7552,7 +7552,7 @@ declare module dojo {
              * @param callback a function that is invoked with three arguments (item,index, array). The return of this function is expected tobe a boolean which determines whether the passed-in itemwill be included in the returned array.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            filter(arr: any[], callback: String, thisObject: Object): any[];
+            filter(arr: any[], callback: String, thisObject?: Object): any[];
             /**
              * normalizes properties on the event object including event
              * bubbling methods, keystroke normalization, and x/y positions
@@ -7570,7 +7570,7 @@ declare module dojo {
              * @param scrollLeft             
              * @param doc               OptionalOptional document to query.   If unspecified, use win.doc.             
              */
-            fixIeBiDiScrollLeft(scrollLeft: number, doc: HTMLDocument): number;
+            fixIeBiDiScrollLeft(scrollLeft: number, doc?: HTMLDocument): number;
             /**
              * for every item in arr, callback is invoked. Return values are ignored.
              * If you want to break out of the loop, consider using array.every() or array.some().
@@ -7585,7 +7585,7 @@ declare module dojo {
              * @param callback             
              * @param thisObject               Optional            
              */
-            forEach(arr: any[], callback: Function, thisObject: Object): void;
+            forEach(arr: any[], callback: Function, thisObject?: Object): void;
             /**
              * for every item in arr, callback is invoked. Return values are ignored.
              * If you want to break out of the loop, consider using array.every() or array.some().
@@ -7600,7 +7600,7 @@ declare module dojo {
              * @param callback             
              * @param thisObject               Optional            
              */
-            forEach(arr: String, callback: Function, thisObject: Object): void;
+            forEach(arr: String, callback: Function, thisObject?: Object): void;
             /**
              * for every item in arr, callback is invoked. Return values are ignored.
              * If you want to break out of the loop, consider using array.every() or array.some().
@@ -7615,7 +7615,7 @@ declare module dojo {
              * @param callback             
              * @param thisObject               Optional            
              */
-            forEach(arr: any[], callback: String, thisObject: Object): void;
+            forEach(arr: any[], callback: String, thisObject?: Object): void;
             /**
              * for every item in arr, callback is invoked. Return values are ignored.
              * If you want to break out of the loop, consider using array.every() or array.some().
@@ -7630,7 +7630,7 @@ declare module dojo {
              * @param callback             
              * @param thisObject               Optional            
              */
-            forEach(arr: String, callback: String, thisObject: Object): void;
+            forEach(arr: String, callback: String, thisObject?: Object): void;
             /**
              * Create a serialized JSON string from a form node or string
              * ID identifying the form to serialize
@@ -7638,7 +7638,7 @@ declare module dojo {
              * @param formNode             
              * @param prettyPrint               Optional            
              */
-            formToJson(formNode: HTMLElement, prettyPrint: boolean): String;
+            formToJson(formNode: HTMLElement, prettyPrint?: boolean): String;
             /**
              * Create a serialized JSON string from a form node or string
              * ID identifying the form to serialize
@@ -7646,7 +7646,7 @@ declare module dojo {
              * @param formNode             
              * @param prettyPrint               Optional            
              */
-            formToJson(formNode: String, prettyPrint: boolean): String;
+            formToJson(formNode: String, prettyPrint?: boolean): String;
             /**
              * Serialize a form node to a JavaScript object.
              * Returns the values encoded in an HTML form as
@@ -7721,7 +7721,7 @@ declare module dojo {
              * @param node             
              * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
              */
-            getBorderExtents(node: HTMLElement, computedStyle: Object): Object;
+            getBorderExtents(node: HTMLElement, computedStyle?: Object): Object;
             /**
              * Returns a "computed style" object.
              * Gets a "computed style" object which can be used to gather
@@ -7748,7 +7748,7 @@ declare module dojo {
              * @param node             
              * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
              */
-            getContentBox(node: HTMLElement, computedStyle: Object): Object;
+            getContentBox(node: HTMLElement, computedStyle?: Object): Object;
             /**
              * returns the offset in x and y from the document body to the
              * visual edge of the page for IE
@@ -7768,7 +7768,7 @@ declare module dojo {
              * 
              * @param doc               OptionalOptional document to query.   If unspecified, use win.doc.             
              */
-            getIeDocumentElementOffset(doc: HTMLDocument): Object;
+            getIeDocumentElementOffset(doc?: HTMLDocument): Object;
             /**
              * 
              * @param moduleName             
@@ -7783,7 +7783,7 @@ declare module dojo {
              * @param node             
              * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
              */
-            getMarginBox(node: HTMLElement, computedStyle: Object): Object;
+            getMarginBox(node: HTMLElement, computedStyle?: Object): Object;
             /**
              * returns object with properties useful for box fitting with
              * regards to box margins (i.e., the outer-box).
@@ -7798,7 +7798,7 @@ declare module dojo {
              * @param node             
              * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
              */
-            getMarginExtents(node: HTMLElement, computedStyle: Object): Object;
+            getMarginExtents(node: HTMLElement, computedStyle?: Object): Object;
             /**
              * returns an object that encodes the width and height of
              * the node's margin box
@@ -7806,7 +7806,7 @@ declare module dojo {
              * @param node             
              * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
              */
-            getMarginSize(node: HTMLElement, computedStyle: Object): Object;
+            getMarginSize(node: HTMLElement, computedStyle?: Object): Object;
             /**
              * returns an object that encodes the width and height of
              * the node's margin box
@@ -7814,7 +7814,7 @@ declare module dojo {
              * @param node             
              * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
              */
-            getMarginSize(node: String, computedStyle: Object): Object;
+            getMarginSize(node: String, computedStyle?: Object): Object;
             /**
              * Returns an effective value of a property or an attribute.
              * 
@@ -7842,7 +7842,7 @@ declare module dojo {
              * @param node             
              * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
              */
-            getPadBorderExtents(node: HTMLElement, computedStyle: Object): Object;
+            getPadBorderExtents(node: HTMLElement, computedStyle?: Object): Object;
             /**
              * Returns object with special values specifically useful for node
              * fitting.
@@ -7860,7 +7860,7 @@ declare module dojo {
              * @param node             
              * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
              */
-            getPadExtents(node: HTMLElement, computedStyle: Object): Object;
+            getPadExtents(node: HTMLElement, computedStyle?: Object): Object;
             /**
              * Gets a property on an HTML element.
              * Handles normalized getting of properties on DOM nodes.
@@ -7890,7 +7890,7 @@ declare module dojo {
              * @param node id or reference to node to get style for             
              * @param name               Optionalthe style property to get             
              */
-            getStyle(node: HTMLElement, name: String): any;
+            getStyle(node: HTMLElement, name?: String): any;
             /**
              * Accesses styles on a node.
              * Getting the style value uses the computed style for the node, so the value
@@ -7904,7 +7904,7 @@ declare module dojo {
              * @param node id or reference to node to get style for             
              * @param name               Optionalthe style property to get             
              */
-            getStyle(node: String, name: String): any;
+            getStyle(node: String, name?: String): any;
             /**
              * Returns true if the requested attribute is specified on the
              * given element, and false otherwise.
@@ -7947,7 +7947,7 @@ declare module dojo {
              * @param hash               Optionalthe hash is set - #string.             
              * @param replace               OptionalIf true, updates the hash value in the current historystate instead of creating a new history state.             
              */
-            hash(hash: String, replace: boolean): any;
+            hash(hash?: String, replace?: boolean): any;
             /**
              * locates the first index of the provided value in the
              * passed array. If the value is not found, -1 is returned.
@@ -7964,13 +7964,13 @@ declare module dojo {
              * @param fromIndex               Optional            
              * @param findLast               OptionalMakes indexOf() work like lastIndexOf().  Used internally; not meant for external usage.             
              */
-            indexOf(arr: any[], value: Object, fromIndex: number, findLast: boolean): number;
+            indexOf(arr: any[], value: Object, fromIndex?: number, findLast?: boolean): number;
             /**
              * Returns true if the current language is left-to-right, and false otherwise.
              * 
              * @param doc               OptionalOptional document to query.   If unspecified, use win.doc.             
              */
-            isBodyLtr(doc: HTMLDocument): boolean;
+            isBodyLtr(doc?: HTMLDocument): boolean;
             /**
              * Returns true if node is a descendant of ancestor
              * 
@@ -8014,7 +8014,7 @@ declare module dojo {
              * @param value             
              * @param fromIndex               Optional            
              */
-            lastIndexOf(arr: any, value: any, fromIndex: number): number;
+            lastIndexOf(arr: any, value: any, fromIndex?: number): number;
             /**
              * 
              * @param f             
@@ -8093,7 +8093,7 @@ declare module dojo {
              * @param node id or reference to DOM Node to get/set box for             
              * @param box               OptionalIf passed, denotes that dojo.marginBox() shouldupdate/set the margin box for node. Box is an object in theabove format. All properties are optional if passed.             
              */
-            marginBox(node: HTMLElement, box: Object): any;
+            marginBox(node: HTMLElement, box?: Object): any;
             /**
              * Getter/setter for the margin-box of node.
              * Getter/setter for the margin-box of node.
@@ -8107,14 +8107,14 @@ declare module dojo {
              * @param node id or reference to DOM Node to get/set box for             
              * @param box               OptionalIf passed, denotes that dojo.marginBox() shouldupdate/set the margin box for node. Box is an object in theabove format. All properties are optional if passed.             
              */
-            marginBox(node: String, box: Object): any;
+            marginBox(node: String, box?: Object): any;
             /**
              * Returns a URL relative to a module.
              * 
              * @param module dojo/dom-class             
              * @param url               Optional            
              */
-            moduleUrl(module: String, url: String): String;
+            moduleUrl(module: String, url?: String): String;
             /**
              * Array-like object which adds syntactic
              * sugar for chaining, common iteration operations, animation, and
@@ -8145,7 +8145,7 @@ declare module dojo {
              * @param refNode id or node reference to use as basis for placement             
              * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
              */
-            place(node: HTMLElement, refNode: HTMLElement, position: String): HTMLElement;
+            place(node: HTMLElement, refNode: HTMLElement, position?: String): HTMLElement;
             /**
              * Attempt to insert node into the DOM, choosing from various positioning options.
              * Returns the first argument resolved to a DOM node.
@@ -8154,7 +8154,7 @@ declare module dojo {
              * @param refNode id or node reference to use as basis for placement             
              * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
              */
-            place(node: String, refNode: HTMLElement, position: String): HTMLElement;
+            place(node: String, refNode: HTMLElement, position?: String): HTMLElement;
             /**
              * Attempt to insert node into the DOM, choosing from various positioning options.
              * Returns the first argument resolved to a DOM node.
@@ -8163,7 +8163,7 @@ declare module dojo {
              * @param refNode id or node reference to use as basis for placement             
              * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
              */
-            place(node: HTMLElement, refNode: String, position: String): HTMLElement;
+            place(node: HTMLElement, refNode: String, position?: String): HTMLElement;
             /**
              * Attempt to insert node into the DOM, choosing from various positioning options.
              * Returns the first argument resolved to a DOM node.
@@ -8172,7 +8172,7 @@ declare module dojo {
              * @param refNode id or node reference to use as basis for placement             
              * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
              */
-            place(node: String, refNode: String, position: String): HTMLElement;
+            place(node: String, refNode: String, position?: String): HTMLElement;
             /**
              * Attempt to insert node into the DOM, choosing from various positioning options.
              * Returns the first argument resolved to a DOM node.
@@ -8181,7 +8181,7 @@ declare module dojo {
              * @param refNode id or node reference to use as basis for placement             
              * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
              */
-            place(node: HTMLElement, refNode: HTMLElement, position: number): HTMLElement;
+            place(node: HTMLElement, refNode: HTMLElement, position?: number): HTMLElement;
             /**
              * Attempt to insert node into the DOM, choosing from various positioning options.
              * Returns the first argument resolved to a DOM node.
@@ -8190,7 +8190,7 @@ declare module dojo {
              * @param refNode id or node reference to use as basis for placement             
              * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
              */
-            place(node: String, refNode: HTMLElement, position: number): HTMLElement;
+            place(node: String, refNode: HTMLElement, position?: number): HTMLElement;
             /**
              * Attempt to insert node into the DOM, choosing from various positioning options.
              * Returns the first argument resolved to a DOM node.
@@ -8199,7 +8199,7 @@ declare module dojo {
              * @param refNode id or node reference to use as basis for placement             
              * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
              */
-            place(node: HTMLElement, refNode: String, position: number): HTMLElement;
+            place(node: HTMLElement, refNode: String, position?: number): HTMLElement;
             /**
              * Attempt to insert node into the DOM, choosing from various positioning options.
              * Returns the first argument resolved to a DOM node.
@@ -8208,7 +8208,7 @@ declare module dojo {
              * @param refNode id or node reference to use as basis for placement             
              * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
              */
-            place(node: String, refNode: String, position: number): HTMLElement;
+            place(node: String, refNode: String, position?: number): HTMLElement;
             /**
              * require one or more modules based on which host environment
              * Dojo is currently operating in
@@ -8247,7 +8247,7 @@ declare module dojo {
              * @param node             
              * @param includeScroll               Optional            
              */
-            position(node: HTMLElement, includeScroll: boolean): Object;
+            position(node: HTMLElement, includeScroll?: boolean): Object;
             /**
              * Gets the position and size of the passed element relative to
              * the viewport (if includeScroll==false), or relative to the
@@ -8263,7 +8263,7 @@ declare module dojo {
              * @param node             
              * @param includeScroll               Optional            
              */
-            position(node: String, includeScroll: boolean): Object;
+            position(node: String, includeScroll?: boolean): Object;
             /**
              * Gets or sets a property on an HTML element.
              * Handles normalized getting and setting of properties on DOM
@@ -8287,7 +8287,7 @@ declare module dojo {
              * @param name the name of the property to get or set.             
              * @param value               OptionalThe value to set for the property             
              */
-            prop(node: HTMLElement, name: String, value: String): any;
+            prop(node: HTMLElement, name: String, value?: String): any;
             /**
              * Gets or sets a property on an HTML element.
              * Handles normalized getting and setting of properties on DOM
@@ -8311,7 +8311,7 @@ declare module dojo {
              * @param name the name of the property to get or set.             
              * @param value               OptionalThe value to set for the property             
              */
-            prop(node: String, name: String, value: String): any;
+            prop(node: String, name: String, value?: String): any;
             /**
              * Gets or sets a property on an HTML element.
              * Handles normalized getting and setting of properties on DOM
@@ -8335,7 +8335,7 @@ declare module dojo {
              * @param name the name of the property to get or set.             
              * @param value               OptionalThe value to set for the property             
              */
-            prop(node: HTMLElement, name: Object, value: String): any;
+            prop(node: HTMLElement, name: Object, value?: String): any;
             /**
              * Gets or sets a property on an HTML element.
              * Handles normalized getting and setting of properties on DOM
@@ -8359,7 +8359,7 @@ declare module dojo {
              * @param name the name of the property to get or set.             
              * @param value               OptionalThe value to set for the property             
              */
-            prop(node: String, name: Object, value: String): any;
+            prop(node: String, name: Object, value?: String): any;
             /**
              * 
              * @param mid             
@@ -8389,7 +8389,7 @@ declare module dojo {
              * @param g               OptionalThe global context. If a string, the id of the frame tosearch for a context and document.             
              * @param d               OptionalThe document element to execute subsequent code with.             
              */
-            pushContext(g: Object, d: HTMLDocument): void;
+            pushContext(g?: Object, d?: HTMLDocument): void;
             /**
              * causes subsequent calls to Dojo methods to assume the
              * passed object and, optionally, document as the default
@@ -8414,7 +8414,7 @@ declare module dojo {
              * @param g               OptionalThe global context. If a string, the id of the frame tosearch for a context and document.             
              * @param d               OptionalThe document element to execute subsequent code with.             
              */
-            pushContext(g: String, d: HTMLDocument): void;
+            pushContext(g?: String, d?: HTMLDocument): void;
             /**
              * Create an object representing a de-serialized query section of a
              * URL. Query keys with multiple values are returned in an array.
@@ -8447,7 +8447,7 @@ declare module dojo {
              * @param context The context in which to run execute callback, or a callback if not using context             
              * @param callback               OptionalThe function to execute.             
              */
-            ready(priority: number, context: any, callback: Function): void;
+            ready(priority: number, context: any, callback?: Function): void;
             /**
              * Maps a module name to a path
              * An unregistered module is given the default path of ../[module],
@@ -8480,7 +8480,7 @@ declare module dojo {
              * @param node String ID or DomNode reference to remove the class from.             
              * @param classStr               OptionalAn optional String class name to remove, or several space-separatedclass names, or an array of class names. If omitted, all class nameswill be deleted.             
              */
-            removeClass(node: String, classStr: String): void;
+            removeClass(node: String, classStr?: String): void;
             /**
              * Removes the specified classes from node. No contains()
              * check is required.
@@ -8488,7 +8488,7 @@ declare module dojo {
              * @param node String ID or DomNode reference to remove the class from.             
              * @param classStr               OptionalAn optional String class name to remove, or several space-separatedclass names, or an array of class names. If omitted, all class nameswill be deleted.             
              */
-            removeClass(node: HTMLElement, classStr: String): void;
+            removeClass(node: HTMLElement, classStr?: String): void;
             /**
              * Removes the specified classes from node. No contains()
              * check is required.
@@ -8496,7 +8496,7 @@ declare module dojo {
              * @param node String ID or DomNode reference to remove the class from.             
              * @param classStr               OptionalAn optional String class name to remove, or several space-separatedclass names, or an array of class names. If omitted, all class nameswill be deleted.             
              */
-            removeClass(node: String, classStr: any[]): void;
+            removeClass(node: String, classStr?: any[]): void;
             /**
              * Removes the specified classes from node. No contains()
              * check is required.
@@ -8504,7 +8504,7 @@ declare module dojo {
              * @param node String ID or DomNode reference to remove the class from.             
              * @param classStr               OptionalAn optional String class name to remove, or several space-separatedclass names, or an array of class names. If omitted, all class nameswill be deleted.             
              */
-            removeClass(node: HTMLElement, classStr: any[]): void;
+            removeClass(node: HTMLElement, classStr?: any[]): void;
             /**
              * Replaces one or more classes on a node if not present.
              * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -8513,7 +8513,7 @@ declare module dojo {
              * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
              * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
              */
-            replaceClass(node: String, addClassStr: String, removeClassStr: String): void;
+            replaceClass(node: String, addClassStr: String, removeClassStr?: String): void;
             /**
              * Replaces one or more classes on a node if not present.
              * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -8522,7 +8522,7 @@ declare module dojo {
              * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
              * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
              */
-            replaceClass(node: HTMLElement, addClassStr: String, removeClassStr: String): void;
+            replaceClass(node: HTMLElement, addClassStr: String, removeClassStr?: String): void;
             /**
              * Replaces one or more classes on a node if not present.
              * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -8531,7 +8531,7 @@ declare module dojo {
              * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
              * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
              */
-            replaceClass(node: String, addClassStr: any[], removeClassStr: String): void;
+            replaceClass(node: String, addClassStr: any[], removeClassStr?: String): void;
             /**
              * Replaces one or more classes on a node if not present.
              * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -8540,7 +8540,7 @@ declare module dojo {
              * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
              * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
              */
-            replaceClass(node: HTMLElement, addClassStr: any[], removeClassStr: String): void;
+            replaceClass(node: HTMLElement, addClassStr: any[], removeClassStr?: String): void;
             /**
              * Replaces one or more classes on a node if not present.
              * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -8549,7 +8549,7 @@ declare module dojo {
              * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
              * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
              */
-            replaceClass(node: String, addClassStr: String, removeClassStr: any[]): void;
+            replaceClass(node: String, addClassStr: String, removeClassStr?: any[]): void;
             /**
              * Replaces one or more classes on a node if not present.
              * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -8558,7 +8558,7 @@ declare module dojo {
              * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
              * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
              */
-            replaceClass(node: HTMLElement, addClassStr: String, removeClassStr: any[]): void;
+            replaceClass(node: HTMLElement, addClassStr: String, removeClassStr?: any[]): void;
             /**
              * Replaces one or more classes on a node if not present.
              * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -8567,7 +8567,7 @@ declare module dojo {
              * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
              * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
              */
-            replaceClass(node: String, addClassStr: any[], removeClassStr: any[]): void;
+            replaceClass(node: String, addClassStr: any[], removeClassStr?: any[]): void;
             /**
              * Replaces one or more classes on a node if not present.
              * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -8576,7 +8576,7 @@ declare module dojo {
              * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
              * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
              */
-            replaceClass(node: HTMLElement, addClassStr: any[], removeClassStr: any[]): void;
+            replaceClass(node: HTMLElement, addClassStr: any[], removeClassStr?: any[]): void;
             /**
              * loads a Javascript module from the appropriate URI
              * Modules are loaded via dojo.require by using one of two loaders: the normal loader
@@ -8640,7 +8640,7 @@ declare module dojo {
              * @param moduleName             
              * @param omitModuleCheck               Optional            
              */
-            requireAfterIf(condition: boolean, moduleName: String, omitModuleCheck: boolean): void;
+            requireAfterIf(condition: boolean, moduleName: String, omitModuleCheck?: boolean): void;
             /**
              * If the condition is true then call dojo.require() for the specified
              * resource
@@ -8649,14 +8649,14 @@ declare module dojo {
              * @param moduleName             
              * @param omitModuleCheck               Optional            
              */
-            requireIf(condition: boolean, moduleName: String, omitModuleCheck: boolean): void;
+            requireIf(condition: boolean, moduleName: String, omitModuleCheck?: boolean): void;
             /**
              * 
              * @param moduleName             
              * @param bundleName             
              * @param locale               Optional            
              */
-            requireLocalization(moduleName: String, bundleName: String, locale: String): void;
+            requireLocalization(moduleName: String, bundleName: String, locale?: String): void;
             /**
              * Mix in properties skipping a constructor and decorating functions
              * like it is done by declare().
@@ -8693,7 +8693,7 @@ declare module dojo {
              * @param name the name of the attribute to set, or a hash of key-value pairs to set.             
              * @param value               Optionalthe value to set for the attribute, if the name is a string.             
              */
-            setAttr(node: HTMLElement, name: String, value: String): any;
+            setAttr(node: HTMLElement, name: String, value?: String): any;
             /**
              * Sets an attribute on an HTML element.
              * Handles normalized setting of attributes on DOM Nodes.
@@ -8712,7 +8712,7 @@ declare module dojo {
              * @param name the name of the attribute to set, or a hash of key-value pairs to set.             
              * @param value               Optionalthe value to set for the attribute, if the name is a string.             
              */
-            setAttr(node: String, name: String, value: String): any;
+            setAttr(node: String, name: String, value?: String): any;
             /**
              * Sets an attribute on an HTML element.
              * Handles normalized setting of attributes on DOM Nodes.
@@ -8731,7 +8731,7 @@ declare module dojo {
              * @param name the name of the attribute to set, or a hash of key-value pairs to set.             
              * @param value               Optionalthe value to set for the attribute, if the name is a string.             
              */
-            setAttr(node: HTMLElement, name: Object, value: String): any;
+            setAttr(node: HTMLElement, name: Object, value?: String): any;
             /**
              * Sets an attribute on an HTML element.
              * Handles normalized setting of attributes on DOM Nodes.
@@ -8750,7 +8750,7 @@ declare module dojo {
              * @param name the name of the attribute to set, or a hash of key-value pairs to set.             
              * @param value               Optionalthe value to set for the attribute, if the name is a string.             
              */
-            setAttr(node: String, name: Object, value: String): any;
+            setAttr(node: String, name: Object, value?: String): any;
             /**
              * Sets the size of the node's contents, irrespective of margins,
              * padding, or borders.
@@ -8759,7 +8759,7 @@ declare module dojo {
              * @param box hash with optional "w", and "h" properties for "width", and "height"respectively. All specified properties should have numeric values in whole pixels.             
              * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
              */
-            setContentSize(node: HTMLElement, box: Object, computedStyle: Object): void;
+            setContentSize(node: HTMLElement, box: Object, computedStyle?: Object): void;
             /**
              * changes the behavior of many core Dojo functions that deal with
              * namespace and DOM lookup, changing them to work in a new global
@@ -8781,7 +8781,7 @@ declare module dojo {
              * @param box hash with optional "l", "t", "w", and "h" properties for "left", "right", "width", and "height"respectively. All specified properties should have numeric values in whole pixels.             
              * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
              */
-            setMarginBox(node: HTMLElement, box: Object, computedStyle: Object): void;
+            setMarginBox(node: HTMLElement, box: Object, computedStyle?: Object): void;
             /**
              * Sets a property on an HTML element.
              * Handles normalized setting of properties on DOM nodes.
@@ -8800,7 +8800,7 @@ declare module dojo {
              * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
              * @param value               OptionalThe value to set for the property             
              */
-            setProp(node: HTMLElement, name: String, value: String): any;
+            setProp(node: HTMLElement, name: String, value?: String): any;
             /**
              * Sets a property on an HTML element.
              * Handles normalized setting of properties on DOM nodes.
@@ -8819,7 +8819,7 @@ declare module dojo {
              * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
              * @param value               OptionalThe value to set for the property             
              */
-            setProp(node: String, name: String, value: String): any;
+            setProp(node: String, name: String, value?: String): any;
             /**
              * Sets a property on an HTML element.
              * Handles normalized setting of properties on DOM nodes.
@@ -8838,7 +8838,7 @@ declare module dojo {
              * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
              * @param value               OptionalThe value to set for the property             
              */
-            setProp(node: HTMLElement, name: Object, value: String): any;
+            setProp(node: HTMLElement, name: Object, value?: String): any;
             /**
              * Sets a property on an HTML element.
              * Handles normalized setting of properties on DOM nodes.
@@ -8857,7 +8857,7 @@ declare module dojo {
              * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
              * @param value               OptionalThe value to set for the property             
              */
-            setProp(node: String, name: Object, value: String): any;
+            setProp(node: String, name: Object, value?: String): any;
             /**
              * 
              * @param node             
@@ -8871,7 +8871,7 @@ declare module dojo {
              * @param name the style property to set in DOM-accessor format("borderWidth", not "border-width") or an object with key/valuepairs suitable for setting each property.             
              * @param value               OptionalIf passed, sets value on the node for style, handlingcross-browser concerns.  When setting a pixel value,be sure to include "px" in the value. For instance, top: "200px".Otherwise, in some cases, some browsers will not apply the style.             
              */
-            setStyle(node: HTMLElement, name: String, value: String): String;
+            setStyle(node: HTMLElement, name: String, value?: String): String;
             /**
              * Sets styles on a node.
              * 
@@ -8879,7 +8879,7 @@ declare module dojo {
              * @param name the style property to set in DOM-accessor format("borderWidth", not "border-width") or an object with key/valuepairs suitable for setting each property.             
              * @param value               OptionalIf passed, sets value on the node for style, handlingcross-browser concerns.  When setting a pixel value,be sure to include "px" in the value. For instance, top: "200px".Otherwise, in some cases, some browsers will not apply the style.             
              */
-            setStyle(node: String, name: String, value: String): String;
+            setStyle(node: String, name: String, value?: String): String;
             /**
              * Sets styles on a node.
              * 
@@ -8887,7 +8887,7 @@ declare module dojo {
              * @param name the style property to set in DOM-accessor format("borderWidth", not "border-width") or an object with key/valuepairs suitable for setting each property.             
              * @param value               OptionalIf passed, sets value on the node for style, handlingcross-browser concerns.  When setting a pixel value,be sure to include "px" in the value. For instance, top: "200px".Otherwise, in some cases, some browsers will not apply the style.             
              */
-            setStyle(node: HTMLElement, name: Object, value: String): String;
+            setStyle(node: HTMLElement, name: Object, value?: String): String;
             /**
              * Sets styles on a node.
              * 
@@ -8895,7 +8895,7 @@ declare module dojo {
              * @param name the style property to set in DOM-accessor format("borderWidth", not "border-width") or an object with key/valuepairs suitable for setting each property.             
              * @param value               OptionalIf passed, sets value on the node for style, handlingcross-browser concerns.  When setting a pixel value,be sure to include "px" in the value. For instance, top: "200px".Otherwise, in some cases, some browsers will not apply the style.             
              */
-            setStyle(node: String, name: Object, value: String): String;
+            setStyle(node: String, name: Object, value?: String): String;
             /**
              * Determines whether or not any item in arr satisfies the
              * condition implemented by callback.
@@ -8909,7 +8909,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            some(arr: any[], callback: Function, thisObject: Object): boolean;
+            some(arr: any[], callback: Function, thisObject?: Object): boolean;
             /**
              * Determines whether or not any item in arr satisfies the
              * condition implemented by callback.
@@ -8923,7 +8923,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            some(arr: String, callback: Function, thisObject: Object): boolean;
+            some(arr: String, callback: Function, thisObject?: Object): boolean;
             /**
              * Determines whether or not any item in arr satisfies the
              * condition implemented by callback.
@@ -8937,7 +8937,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            some(arr: any[], callback: String, thisObject: Object): boolean;
+            some(arr: any[], callback: String, thisObject?: Object): boolean;
             /**
              * Determines whether or not any item in arr satisfies the
              * condition implemented by callback.
@@ -8951,7 +8951,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            some(arr: String, callback: String, thisObject: Object): boolean;
+            some(arr: String, callback: String, thisObject?: Object): boolean;
             /**
              * 
              */
@@ -8979,7 +8979,7 @@ declare module dojo {
              * @param name               Optionalthe style property to set in DOM-accessor format("borderWidth", not "border-width") or an object with key/valuepairs suitable for setting each property.             
              * @param value               OptionalIf passed, sets value on the node for style, handlingcross-browser concerns.  When setting a pixel value,be sure to include "px" in the value. For instance, top: "200px".Otherwise, in some cases, some browsers will not apply the style.             
              */
-            style(node: HTMLElement, name: String, value: String): any;
+            style(node: HTMLElement, name?: String, value?: String): any;
             /**
              * Accesses styles on a node. If 2 arguments are
              * passed, acts as a getter. If 3 arguments are passed, acts
@@ -8996,7 +8996,7 @@ declare module dojo {
              * @param name               Optionalthe style property to set in DOM-accessor format("borderWidth", not "border-width") or an object with key/valuepairs suitable for setting each property.             
              * @param value               OptionalIf passed, sets value on the node for style, handlingcross-browser concerns.  When setting a pixel value,be sure to include "px" in the value. For instance, top: "200px".Otherwise, in some cases, some browsers will not apply the style.             
              */
-            style(node: String, name: String, value: String): any;
+            style(node: String, name?: String, value?: String): any;
             /**
              * Accesses styles on a node. If 2 arguments are
              * passed, acts as a getter. If 3 arguments are passed, acts
@@ -9013,7 +9013,7 @@ declare module dojo {
              * @param name               Optionalthe style property to set in DOM-accessor format("borderWidth", not "border-width") or an object with key/valuepairs suitable for setting each property.             
              * @param value               OptionalIf passed, sets value on the node for style, handlingcross-browser concerns.  When setting a pixel value,be sure to include "px" in the value. For instance, top: "200px".Otherwise, in some cases, some browsers will not apply the style.             
              */
-            style(node: HTMLElement, name: Object, value: String): any;
+            style(node: HTMLElement, name?: Object, value?: String): any;
             /**
              * Accesses styles on a node. If 2 arguments are
              * passed, acts as a getter. If 3 arguments are passed, acts
@@ -9030,14 +9030,14 @@ declare module dojo {
              * @param name               Optionalthe style property to set in DOM-accessor format("borderWidth", not "border-width") or an object with key/valuepairs suitable for setting each property.             
              * @param value               OptionalIf passed, sets value on the node for style, handlingcross-browser concerns.  When setting a pixel value,be sure to include "px" in the value. For instance, top: "200px".Otherwise, in some cases, some browsers will not apply the style.             
              */
-            style(node: String, name: Object, value: String): any;
+            style(node: String, name?: Object, value?: String): any;
             /**
              * instantiates an HTML fragment returning the corresponding DOM.
              * 
              * @param frag the HTML fragment             
              * @param doc               Optionaloptional document to use when creating DOM nodes, defaults todojo/_base/window.doc if not specified.             
              */
-            toDom(frag: String, doc: HTMLDocument): any;
+            toDom(frag: String, doc?: HTMLDocument): any;
             /**
              * Adds a class to node if not present, or removes if present.
              * Pass a boolean condition if you want to explicitly add or remove.
@@ -9089,7 +9089,7 @@ declare module dojo {
              * @param it an object to be serialized. Objects may define their ownserialization via a special "json" or "json" functionproperty. If a specialized serializer has been defined, it willbe used as a fallback.Note that in 1.6, toJson would serialize undefined, but this no longer supportedsince it is not supported by native JSON serializer.             
              * @param prettyPrint               Optionalif true, we indent objects and arrays to make the output prettier.The variable dojo.toJsonIndentStr is used as the indent string --to use something other than the default (tab), change that variablebefore calling dojo.toJson().Note that if native JSON support is available, it will be used for serialization,and native implementations vary on the exact spacing used in pretty printing.             
              */
-            toJson(it: Object, prettyPrint: boolean): any;
+            toJson(it: Object, prettyPrint?: boolean): any;
             /**
              * converts style value to pixels on IE or return a numeric value.
              * 
@@ -9119,7 +9119,7 @@ declare module dojo {
              * @param errback               OptionalCallback to be invoked when the promise is rejected.             
              * @param progback               OptionalCallback to be invoked when the promise emits a progress update.             
              */
-            when(valueOrPromise: any, callback: Function, errback: Function, progback: Function): dojo.promise.Promise<any>;
+            when(valueOrPromise: any, callback?: Function, errback?: Function, progback?: Function): dojo.promise.Promise<any>;
             /**
              * signal fired by impending window destruction. You may use
              * dojo.addOnWIndowUnload() or dojo.connect() to this method to perform
@@ -9139,7 +9139,7 @@ declare module dojo {
              * @param thisObject               Optional            
              * @param cbArguments               Optional            
              */
-            withDoc(documentObject: HTMLDocument, callback: Function, thisObject: Object, cbArguments: any[]): any;
+            withDoc(documentObject: HTMLDocument, callback: Function, thisObject?: Object, cbArguments?: any[]): any;
             /**
              * Invoke callback with globalObject as dojo.global and
              * globalObject.document as dojo.doc.
@@ -9154,7 +9154,7 @@ declare module dojo {
              * @param thisObject               Optional            
              * @param cbArguments               Optional            
              */
-            withGlobal(globalObject: Object, callback: Function, thisObject: Object, cbArguments: any[]): any;
+            withGlobal(globalObject: Object, callback: Function, thisObject?: Object, cbArguments?: any[]): any;
             /**
              * 
              * @param method             
@@ -9545,7 +9545,7 @@ declare module dojo {
                  * 
                  * @param params               Optional            
                  */
-                postscript(params: Object): void;
+                postscript(params?: Object): void;
                 /**
                  * Set a property on a Stateful instance
                  * Sets named properties on a stateful object and notifies any watchers of
@@ -9787,7 +9787,7 @@ declare module dojo {
                  * @param g             
                  * @param a               Optional            
                  */
-                makeGrey(g: number, a: number): void;
+                makeGrey(g: number, a?: number): void;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.config.html
@@ -10109,7 +10109,7 @@ declare module dojo {
                  * @param date2               OptionalDate object.  If not specified, the current Date is used.             
                  * @param portion               OptionalA string indicating the "date" or "time" portion of a Date object.Compares both "date" and "time" by default.  One of the following:"date", "time", "datetime"             
                  */
-                compare(date1: Date, date2: Date, portion: String): number;
+                compare(date1: Date, date2?: Date, portion?: String): number;
                 /**
                  * Get the difference in a specific unit of time (e.g., number of
                  * months, weeks, days, etc.) between two dates, rounded to the
@@ -10119,7 +10119,7 @@ declare module dojo {
                  * @param date2               OptionalDate object.  If not specified, the current Date is used.             
                  * @param interval               OptionalA string representing the interval.  One of the following:"year", "month", "day", "hour", "minute", "second","millisecond", "quarter", "week", "weekday"Defaults to "day".             
                  */
-                difference(date1: Date, date2: Date, interval: String): any;
+                difference(date1: Date, date2?: Date, interval?: String): any;
                 /**
                  * Returns the number of days in the month used by dateObject
                  * 
@@ -10224,7 +10224,7 @@ declare module dojo {
                  * @param expression             
                  * @param options               OptionalAn object with the following properties:type (String, optional): Should not be set.  Value is assumed to be currency.currency (String, optional): an ISO4217 currency code, a three letter sequence like "USD".For use with dojo.currency only.symbol (String, optional): localized currency symbol. The default will be looked up in table of supported currencies in dojo.cldrA ISO4217 currency code will be used if not found.places (Number, optional): fixed number of decimal places to accept.  The default is determined based on which currency is used.fractional (Boolean|Array, optional): Whether to include the fractional portion, where the number of decimal places are implied by the currencyor explicit 'places' parameter.  The value [true,false] makes the fractional portion optional.By default for currencies, it the fractional portion is optional.pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.  Literal characters in patterns are not supported.locale (String, optional): override the locale used to determine formatting rulesstrict (Boolean, optional): strict parsing, false by default.  Strict parsing requires input as produced by the format() method.Non-strict is more permissive, e.g. flexible on white space, omitting thousands separators            
                  */
-                parse(expression: String, options: Object): any;
+                parse(expression: String, options?: Object): any;
                 /**
                  * 
                  * @param options               OptionalAn object with the following properties:pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.type (String, optional): choose a format type based on the locale from the following:decimal, scientific (not yet supported), percent, currency. decimal by default.locale (String, optional): override the locale used to determine formatting rulesstrict (Boolean, optional): strict parsing, false by default.  Strict parsing requires input as produced by the format() method.Non-strict is more permissive, e.g. flexible on white space, omitting thousands separatorsplaces (Number|String, optional): number of decimal places to accept: Infinity, a positive number, ora range "n,m".  Defined by pattern or Infinity if pattern not provided.            
@@ -10516,7 +10516,7 @@ declare module dojo {
                  * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
                  * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
                  */
-                set(node: HTMLElement, cont: String, params: Object): any;
+                set(node: HTMLElement, cont: String, params?: Object): any;
                 /**
                  * inserts (replaces) the given content into the given node. dojo/dom-construct.place(cont, node, "only")
                  * may be a better choice for simple HTML insertion.
@@ -10533,7 +10533,7 @@ declare module dojo {
                  * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
                  * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
                  */
-                set(node: HTMLElement, cont: HTMLElement, params: Object): any;
+                set(node: HTMLElement, cont: HTMLElement, params?: Object): any;
                 /**
                  * inserts (replaces) the given content into the given node. dojo/dom-construct.place(cont, node, "only")
                  * may be a better choice for simple HTML insertion.
@@ -10550,7 +10550,7 @@ declare module dojo {
                  * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
                  * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
                  */
-                set(node: HTMLElement, cont: NodeList, params: Object): any;
+                set(node: HTMLElement, cont: NodeList, params?: Object): any;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.io.html
@@ -11081,7 +11081,7 @@ declare module dojo {
                  * @param re A function. Takes one parameter and converts it to a regularexpression.             
                  * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression. Defaults to false             
                  */
-                buildGroupRE(arr: Object, re: Function, nonCapture: boolean): any;
+                buildGroupRE(arr: Object, re: Function, nonCapture?: boolean): any;
                 /**
                  * Builds a regular expression that groups subexpressions
                  * A utility function used by some of the RE generators. The
@@ -11094,21 +11094,21 @@ declare module dojo {
                  * @param re A function. Takes one parameter and converts it to a regularexpression.             
                  * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression. Defaults to false             
                  */
-                buildGroupRE(arr: any[], re: Function, nonCapture: boolean): any;
+                buildGroupRE(arr: any[], re: Function, nonCapture?: boolean): any;
                 /**
                  * Adds escape sequences for special characters in regular expressions
                  * 
                  * @param str             
                  * @param except               Optionala String with special characters to be left unescaped             
                  */
-                escapeString(str: String, except: String): any;
+                escapeString(str: String, except?: String): any;
                 /**
                  * adds group match to expression
                  * 
                  * @param expression             
                  * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression.             
                  */
-                group(expression: String, nonCapture: boolean): String;
+                group(expression: String, nonCapture?: boolean): String;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.number.html
@@ -11128,7 +11128,7 @@ declare module dojo {
                  * @param value the number to be formatted             
                  * @param options               OptionalAn object with the following properties:pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.  Literal characters in patterns are not supported.type (String, optional): choose a format type based on the locale from the following:decimal, scientific (not yet supported), percent, currency. decimal by default.places (Number, optional): fixed number of decimal places to show.  This overrides anyinformation in the provided pattern.round (Number, optional): 5 rounds to nearest .5; 0 rounds to nearest whole (default). -1means do not round.locale (String, optional): override the locale used to determine formatting rulesfractional (Boolean, optional): If false, show no decimal places, overriding places and pattern settings.            
                  */
-                format(value: number, options: Object): any;
+                format(value: number, options?: Object): any;
                 /**
                  * Convert a properly formatted string to a primitive Number, using
                  * locale-specific settings.
@@ -11141,7 +11141,7 @@ declare module dojo {
                  * @param expression A string representation of a Number             
                  * @param options               OptionalAn object with the following properties:pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.  Literal characters in patterns are not supported.type (String, optional): choose a format type based on the locale from the following:decimal, scientific (not yet supported), percent, currency. decimal by default.locale (String, optional): override the locale used to determine formatting rulesstrict (Boolean, optional): strict parsing, false by default.  Strict parsing requires input as produced by the format() method.Non-strict is more permissive, e.g. flexible on white space, omitting thousands separatorsfractional (Boolean|Array, optional): Whether to include the fractional portion, where the number of decimal places are implied by patternor explicit 'places' parameter.  The value [true,false] makes the fractional portion optional.            
                  */
-                parse(expression: String, options: Object): number;
+                parse(expression: String, options?: Object): number;
                 /**
                  * Builds the regular needed to parse a number
                  * Returns regular expression with positive and negative match, group
@@ -11161,7 +11161,7 @@ declare module dojo {
                  * @param places               OptionalThe number of decimal places where rounding takes place.  Defaults to 0 for whole rounding.Must be non-negative.             
                  * @param increment               OptionalRounds next place to nearest value of increment/10.  10 by default.             
                  */
-                round(value: number, places: number, increment: number): number;
+                round(value: number, places?: number, increment?: number): number;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.scopeMap.html
@@ -11511,7 +11511,7 @@ declare module dojo {
                  * @param ch               Optionalcharacter to pad, defaults to '0'             
                  * @param end               Optionaladds padding at the end if true, otherwise pads at start             
                  */
-                pad(text: String, size: number, ch: String, end: boolean): number;
+                pad(text: String, size: number, ch?: String, end?: boolean): number;
                 /**
                  * Efficiently replicate a string n times.
                  * 
@@ -11528,7 +11528,7 @@ declare module dojo {
                  * @param transform               Optionala function to process all parameters before substitution takesplace, e.g. mylib.encodeXML             
                  * @param thisObject               Optionalwhere to look for optional format function; default to the globalnamespace             
                  */
-                substitute(template: String, map: Object, transform: Function, thisObject: Object): any;
+                substitute(template: String, map: Object, transform?: Function, thisObject?: Object): any;
                 /**
                  * Performs parameterized substitutions on a string. Throws an
                  * exception if any parameter is unmatched.
@@ -11538,7 +11538,7 @@ declare module dojo {
                  * @param transform               Optionala function to process all parameters before substitution takesplace, e.g. mylib.encodeXML             
                  * @param thisObject               Optionalwhere to look for optional format function; default to the globalnamespace             
                  */
-                substitute(template: String, map: any[], transform: Function, thisObject: Object): any;
+                substitute(template: String, map: any[], transform?: Function, thisObject?: Object): any;
                 /**
                  * Trims whitespace from both sides of the string
                  * This version of trim() was taken from Steven Levithan's blog.
@@ -11677,14 +11677,14 @@ declare module dojo {
                  * 
                  * @param doc               Optional            
                  */
-                getBox(doc: HTMLDocument): Object;
+                getBox(doc?: HTMLDocument): Object;
                 /**
                  * Scroll the passed node into view using minimal movement, if it is not already.
                  * 
                  * @param node             
                  * @param pos               Optional            
                  */
-                scrollIntoView(node: HTMLElement, pos: Object): void;
+                scrollIntoView(node: HTMLElement, pos?: Object): void;
             }
         }
 
@@ -11725,7 +11725,7 @@ declare module dojo {
              * 
              * @param locale               Optional            
              */
-            getFirstDayOfWeek(locale: String): number;
+            getFirstDayOfWeek(locale?: String): number;
             /**
              * Returns a hash containing the start and end days of the weekend
              * Returns a hash containing the start and end days of the weekend according to local custom using locale,
@@ -11734,7 +11734,7 @@ declare module dojo {
              * 
              * @param locale               Optional            
              */
-            getWeekend(locale: String): Object;
+            getWeekend(locale?: String): Object;
         }
     }
 
@@ -11804,13 +11804,13 @@ declare module dojo {
              * 
              * @param request               Optional            
              */
-            close(request: dojo.data.api.Request ): void;
+            close(request?: dojo.data.api.Request ): void;
             /**
              * See dojo/data/api/Read.close()
              * 
              * @param request               Optional            
              */
-            close(request: Object): void;
+            close(request?: Object): void;
             /**
              * See dojo/data/api/Read.containsValue()
              * 
@@ -11927,7 +11927,7 @@ declare module dojo {
              * @param attribute             
              * @param defaultValue               Optional            
              */
-            getValue(item: dojo.data.api.Item, attribute: String, defaultValue: any): any;
+            getValue(item: dojo.data.api.Item, attribute: String, defaultValue?: any): any;
             /**
              * See dojo/data/api/Read.getValues()
              * 
@@ -12079,7 +12079,7 @@ declare module dojo {
              * @param property property to look up value for             
              * @param defaultValue               Optionalthe default value             
              */
-            getValue(item: Object, property: String, defaultValue: any): any;
+            getValue(item: Object, property: String, defaultValue?: any): any;
             /**
              * Gets the value of an item's 'property' and returns
              * it. If this value is an array it is just returned,
@@ -12260,7 +12260,7 @@ declare module dojo {
              * 
              * @param request               Optional            
              */
-            close(request: Object): void;
+            close(request?: Object): void;
             /**
              * See dojo/data/api/Read.containsValue()
              * 
@@ -12383,7 +12383,7 @@ declare module dojo {
              * @param attribute             
              * @param defaultValue               Optional            
              */
-            getValue(item: dojo.data.api.Item, attribute: String, defaultValue: any): any;
+            getValue(item: dojo.data.api.Item, attribute: String, defaultValue?: any): any;
             /**
              * See dojo/data/api/Read.getValues()
              * 
@@ -12403,7 +12403,7 @@ declare module dojo {
              * 
              * @param item               Optional            
              */
-            isDirty(item: any): any;
+            isDirty(item?: any): any;
             /**
              * See dojo/data/api/Read.isItem()
              * 
@@ -12428,7 +12428,7 @@ declare module dojo {
              * @param keywordArgs               Optional            
              * @param parentInfo               Optional            
              */
-            newItem(keywordArgs: Object, parentInfo: Object): Object;
+            newItem(keywordArgs?: Object, parentInfo?: Object): Object;
             /**
              * 
              * @param type             
@@ -12481,7 +12481,7 @@ declare module dojo {
              * @param newItem             
              * @param parentInfo               Optional            
              */
-            onNew(newItem: dojo.data.api.Item, parentInfo: Object): void;
+            onNew(newItem: dojo.data.api.Item, parentInfo?: Object): void;
             /**
              * See dojo/data/api/Notification.onSet()
              * 
@@ -12553,7 +12553,7 @@ declare module dojo {
                  * 
                  * @param request               OptionalAn instance of a request for the store to use to identify what to close out.If no request is passed, then the store should clear all internal caches (if any)and close out all 'open' connections.  It does not render the store unusable fromthere on, it merely cleans out any current data and resets the store to initialstate.             
                  */
-                close(request: dojo.data.api.Request ): void;
+                close(request?: dojo.data.api.Request ): void;
                 /**
                  * The close() method is intended for instructing the store to 'close' out
                  * any information associated with a particular request.
@@ -12566,7 +12566,7 @@ declare module dojo {
                  * 
                  * @param request               OptionalAn instance of a request for the store to use to identify what to close out.If no request is passed, then the store should clear all internal caches (if any)and close out all 'open' connections.  It does not render the store unusable fromthere on, it merely cleans out any current data and resets the store to initialstate.             
                  */
-                close(request: Object): void;
+                close(request?: Object): void;
                 /**
                  * Returns true if the given value is one of the values that getValues()
                  * would return.
@@ -12684,7 +12684,7 @@ declare module dojo {
                  * @param attribute The attribute to access represented as a string.             
                  * @param defaultValue               OptionalOptional.  A default value to use for the getValue return in the attribute does not exist or has no value.             
                  */
-                getValue(item: dojo.data.api.Item, attribute: String, defaultValue: any): any;
+                getValue(item: dojo.data.api.Item, attribute: String, defaultValue?: any): any;
                 /**
                  * This getValues() method works just like the getValue() method, but getValues()
                  * always returns an array rather than a single attribute value.  The array
@@ -12794,7 +12794,7 @@ declare module dojo {
                  * 
                  * @param request               OptionalAn instance of a request for the store to use to identify what to close out.If no request is passed, then the store should clear all internal caches (if any)and close out all 'open' connections.  It does not render the store unusable fromthere on, it merely cleans out any current data and resets the store to initialstate.             
                  */
-                close(request: dojo.data.api.Request ): void;
+                close(request?: dojo.data.api.Request ): void;
                 /**
                  * The close() method is intended for instructing the store to 'close' out
                  * any information associated with a particular request.
@@ -12807,7 +12807,7 @@ declare module dojo {
                  * 
                  * @param request               OptionalAn instance of a request for the store to use to identify what to close out.If no request is passed, then the store should clear all internal caches (if any)and close out all 'open' connections.  It does not render the store unusable fromthere on, it merely cleans out any current data and resets the store to initialstate.             
                  */
-                close(request: Object): void;
+                close(request?: Object): void;
                 /**
                  * Returns true if the given value is one of the values that getValues()
                  * would return.
@@ -12894,7 +12894,7 @@ declare module dojo {
                  * @param attribute The attribute to access represented as a string.             
                  * @param defaultValue               OptionalOptional.  A default value to use for the getValue return in the attribute does not exist or has no value.             
                  */
-                getValue(item: dojo.data.api.Item, attribute: String, defaultValue: any): any;
+                getValue(item: dojo.data.api.Item, attribute: String, defaultValue?: any): any;
                 /**
                  * This getValues() method works just like the getValue() method, but getValues()
                  * always returns an array rather than a single attribute value.  The array
@@ -12961,7 +12961,7 @@ declare module dojo {
                  * @param newItem The item created.             
                  * @param parentInfo               OptionalAn optional javascript object that is passed when the item created was placed in the storehierarchy as a value f another item's attribute, instead of a root level item.  Note that if thisfunction is invoked with a value for parentInfo, then onSet is not invoked stating the attribute ofthe parent item was modified.  This is to avoid getting two notification  events occurring when a new itemwith a parent is created.  The structure passed in is as follows:{    item: someItem,                         //The parent item    attribute:  "attribute-name-string",    //The attribute the new item was assigned to.    oldValue: something //Whatever was the previous value for the attribute.                //If it is a single-value attribute only, then this value will be a single value.                //If it was a multi-valued attribute, then this will be an array of all the values minus the new one.    newValue: something //The new value of the attribute.  In the case of single value calls, such as setValue, this value will be                //generally be an atomic value of some sort (string, int, etc, object).  In the case of multi-valued attributes,                //it will be an array.}             
                  */
-                onNew(newItem: dojo.data.api.Item, parentInfo: Object): any;
+                onNew(newItem: dojo.data.api.Item, parentInfo?: Object): any;
                 /**
                  * This function is called any time an item is modified via setValue, setValues, unsetAttribute, etc.
                  * This function is called any time an item is modified via setValue, setValues, unsetAttribute, etc.
@@ -13038,7 +13038,7 @@ declare module dojo {
                  * 
                  * @param request               OptionalAn instance of a request for the store to use to identify what to close out.If no request is passed, then the store should clear all internal caches (if any)and close out all 'open' connections.  It does not render the store unusable fromthere on, it merely cleans out any current data and resets the store to initialstate.             
                  */
-                close(request: dojo.data.api.Request ): void;
+                close(request?: dojo.data.api.Request ): void;
                 /**
                  * The close() method is intended for instructing the store to 'close' out
                  * any information associated with a particular request.
@@ -13051,7 +13051,7 @@ declare module dojo {
                  * 
                  * @param request               OptionalAn instance of a request for the store to use to identify what to close out.If no request is passed, then the store should clear all internal caches (if any)and close out all 'open' connections.  It does not render the store unusable fromthere on, it merely cleans out any current data and resets the store to initialstate.             
                  */
-                close(request: Object): void;
+                close(request?: Object): void;
                 /**
                  * Returns true if the given value is one of the values that getValues()
                  * would return.
@@ -13146,7 +13146,7 @@ declare module dojo {
                  * @param attribute The attribute to access represented as a string.             
                  * @param defaultValue               OptionalOptional.  A default value to use for the getValue return in the attribute does not exist or has no value.             
                  */
-                getValue(item: dojo.data.api.Item, attribute: String, defaultValue: any): any;
+                getValue(item: dojo.data.api.Item, attribute: String, defaultValue?: any): any;
                 /**
                  * This getValues() method works just like the getValue() method, but getValues()
                  * always returns an array rather than a single attribute value.  The array
@@ -13218,7 +13218,7 @@ declare module dojo {
                  * 
                  * @param request               OptionalAn instance of a request for the store to use to identify what to close out.If no request is passed, then the store should clear all internal caches (if any)and close out all 'open' connections.  It does not render the store unusable fromthere on, it merely cleans out any current data and resets the store to initialstate.             
                  */
-                close(request: dojo.data.api.Request ): void;
+                close(request?: dojo.data.api.Request ): void;
                 /**
                  * The close() method is intended for instructing the store to 'close' out
                  * any information associated with a particular request.
@@ -13231,7 +13231,7 @@ declare module dojo {
                  * 
                  * @param request               OptionalAn instance of a request for the store to use to identify what to close out.If no request is passed, then the store should clear all internal caches (if any)and close out all 'open' connections.  It does not render the store unusable fromthere on, it merely cleans out any current data and resets the store to initialstate.             
                  */
-                close(request: Object): void;
+                close(request?: Object): void;
                 /**
                  * Returns true if the given value is one of the values that getValues()
                  * would return.
@@ -13324,7 +13324,7 @@ declare module dojo {
                  * @param attribute The attribute to access represented as a string.             
                  * @param defaultValue               OptionalOptional.  A default value to use for the getValue return in the attribute does not exist or has no value.             
                  */
-                getValue(item: dojo.data.api.Item, attribute: String, defaultValue: any): any;
+                getValue(item: dojo.data.api.Item, attribute: String, defaultValue?: any): any;
                 /**
                  * This getValues() method works just like the getValue() method, but getValues()
                  * always returns an array rather than a single attribute value.  The array
@@ -13353,7 +13353,7 @@ declare module dojo {
                  * 
                  * @param item               OptionalThe item to check.             
                  */
-                isDirty(item: any): void;
+                isDirty(item?: any): void;
                 /**
                  * Returns true if something is an item and came from the store instance.
                  * Returns false if something is a literal, an item from another store instance,
@@ -13396,7 +13396,7 @@ declare module dojo {
                  * @param keywordArgs               OptionalA javascript object defining the initial content of the item as a set of JavaScript 'property name: value' pairs.             
                  * @param parentInfo               OptionalAn optional javascript object defining what item is the parent of this item (in a hierarchical store.  Not all stores do hierarchical items),and what attribute of that parent to assign the new item to.  If this is present, and the attribute specifiedis a multi-valued attribute, it will append this item into the array of values for that attribute.  The structureof the object is as follows:{    parent: someItem,    attribute: "attribute-name-string"}             
                  */
-                newItem(keywordArgs: Object, parentInfo: Object): void;
+                newItem(keywordArgs?: Object, parentInfo?: Object): void;
                 /**
                  * Discards any unsaved changes.
                  * Discards any unsaved changes.
@@ -13464,7 +13464,7 @@ declare module dojo {
                  * @param pattern A simple matching pattern to convert that follows basic rules:Means match anything, so ca* means match anything starting with ca? Means match single character.  So, b?b will match to bob and bab, and so on.\ is an escape character.  So for example, * means do not treat  as a match, but literal character .To use a \ as a character in the string, it must be escaped.  So in the pattern it should berepresented by \ to be treated as an ordinary \ character instead of an escape.             
                  * @param ignoreCase               OptionalAn optional flag to indicate if the pattern matching should be treated as case-sensitive or not when comparingBy default, it is assumed case sensitive.             
                  */
-                patternToRegExp(pattern: String, ignoreCase: boolean): any;
+                patternToRegExp(pattern: String, ignoreCase?: boolean): any;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/data/util/simpleFetch.html
@@ -13970,7 +13970,7 @@ declare module dojo {
              * @param keyPressed the "copy" key was pressed             
              * @param self               Optionaloptional flag that means that we are about to drop on itself             
              */
-            copyState(keyPressed: boolean, self: boolean): any;
+            copyState(keyPressed: boolean, self?: boolean): any;
             /**
              * creator function, dummy at the moment
              * 
@@ -14005,7 +14005,7 @@ declare module dojo {
              * @param f             
              * @param o               Optional            
              */
-            forInItems(f: Function, o: Object): String;
+            forInItems(f: Function, o?: Object): String;
             /**
              * iterates over selected items;
              * see dojo/dnd/Container.forInItems() for details
@@ -14013,7 +14013,7 @@ declare module dojo {
              * @param f             
              * @param o               Optional            
              */
-            forInSelectedItems(f: Function, o: Object): void;
+            forInSelectedItems(f: Function, o?: Object): void;
             /**
              * returns a list (an array) of all valid child nodes
              * 
@@ -14475,7 +14475,7 @@ declare module dojo {
              * @param f             
              * @param o               Optional            
              */
-            forInItems(f: Function, o: Object): String;
+            forInItems(f: Function, o?: Object): String;
             /**
              * iterates over selected items;
              * see dojo/dnd/Container.forInItems() for details
@@ -14483,7 +14483,7 @@ declare module dojo {
              * @param f             
              * @param o               Optional            
              */
-            forInSelectedItems(f: Function, o: Object): void;
+            forInSelectedItems(f: Function, o?: Object): void;
             /**
              * returns a list (an array) of all valid child nodes
              * 
@@ -14823,7 +14823,7 @@ declare module dojo {
              * @param keyPressed the "copy" key was pressed             
              * @param self               Optionaloptional flag that means that we are about to drop on itself             
              */
-            copyState(keyPressed: boolean, self: boolean): any;
+            copyState(keyPressed: boolean, self?: boolean): any;
             /**
              * creator function, dummy at the moment
              * 
@@ -14858,7 +14858,7 @@ declare module dojo {
              * @param f             
              * @param o               Optional            
              */
-            forInItems(f: Function, o: Object): String;
+            forInItems(f: Function, o?: Object): String;
             /**
              * iterates over selected items;
              * see dojo/dnd/Container.forInItems() for details
@@ -14866,7 +14866,7 @@ declare module dojo {
              * @param f             
              * @param o               Optional            
              */
-            forInSelectedItems(f: Function, o: Object): void;
+            forInSelectedItems(f: Function, o?: Object): void;
             /**
              * returns a list (an array) of all valid child nodes
              * 
@@ -15147,7 +15147,7 @@ declare module dojo {
              * @param keyPressed the "copy" key was pressed             
              * @param self               Optionaloptional flag that means that we are about to drop on itself             
              */
-            copyState(keyPressed: boolean, self: boolean): any;
+            copyState(keyPressed: boolean, self?: boolean): any;
             /**
              * creator function, dummy at the moment
              * 
@@ -15182,7 +15182,7 @@ declare module dojo {
              * @param f             
              * @param o               Optional            
              */
-            forInItems(f: Function, o: Object): String;
+            forInItems(f: Function, o?: Object): String;
             /**
              * iterates over selected items;
              * see dojo/dnd/Container.forInItems() for details
@@ -15190,7 +15190,7 @@ declare module dojo {
              * @param f             
              * @param o               Optional            
              */
-            forInSelectedItems(f: Function, o: Object): void;
+            forInSelectedItems(f: Function, o?: Object): void;
             /**
              * returns a list (an array) of all valid child nodes
              * 
@@ -15417,7 +15417,7 @@ declare module dojo {
              * 
              * @param doc               Optional            
              */
-            getViewport(doc: HTMLDocument): Object;
+            getViewport(doc?: HTMLDocument): Object;
         }
         module autoscroll {
             /**
@@ -16138,7 +16138,7 @@ declare module dojo {
              * @param reason A message that may be sent to the deferred's canceler,explaining why it's being canceled.             
              * @param strict               OptionalIf strict, will throw an error if the deferred has alreadybeen fulfilled and consequently cannot be canceled.             
              */
-            cancel(reason: any, strict: boolean): any;
+            cancel(reason: any, strict?: boolean): any;
             /**
              * Checks whether the promise has been canceled.
              * 
@@ -16164,7 +16164,7 @@ declare module dojo {
              * 
              * @param errback               OptionalCallback to be invoked when the promise is rejected.             
              */
-            otherwise<U>(errback: Callback<any, U>): Promise<U>;
+            otherwise<U>(errback?: Callback<any, U>): Promise<U>;
             /**
              * Add new callbacks to the promise.
              * Add new callbacks to the deferred. Callbacks can be added
@@ -16174,7 +16174,7 @@ declare module dojo {
              * @param errback               OptionalCallback to be invoked when the promise is rejected.Receives the rejection error.             
              * @param progback               OptionalCallback to be invoked when the promise emits a progressupdate. Receives the progress update.             
              */
-            then<U>(callback: Callback<T, U>, errback?: Callback<any, U>, progback?: Callback<any, U>): Promise<U>;
+            then<U>(callback?: Callback<T, U>, errback?: Callback<any, U>, progback?: Callback<any, U>): Promise<U>;
             /**
              * 
              */
@@ -16633,7 +16633,7 @@ declare module dojo {
              * @param filter             
              * @param root               Optional            
              */
-            filter(nodeList: HTMLElement[], filter: String, root: String): void;
+            filter(nodeList: HTMLElement[], filter: String, root?: String): void;
             /**
              * function for filtering a NodeList based on a selector, optimized for simple selectors
              * 
@@ -16641,7 +16641,7 @@ declare module dojo {
              * @param filter             
              * @param root               Optional            
              */
-            filter(nodeList: HTMLElement[], filter: String, root: HTMLElement): void;
+            filter(nodeList: HTMLElement[], filter: String, root?: HTMLElement): void;
         }
 
         module acme {
@@ -16721,7 +16721,7 @@ declare module dojo {
              * @param object The object to add to the store.             
              * @param directives               OptionalAny additional parameters needed to describe how the add should be performed.             
              */
-            add(object: Object, directives: any): number;
+            add(object: Object, directives?: any): number;
             /**
              * Remove the object with the given id from the underlying caching store.
              * 
@@ -16741,7 +16741,7 @@ declare module dojo {
              * @param parent The object to find the children of.             
              * @param options               OptionalAdditional options to apply to the retrieval of the children.             
              */
-            getChildren(parent: Object, options: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
+            getChildren(parent: Object, options?: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
             /**
              * Returns an object's identity
              * 
@@ -16761,21 +16761,21 @@ declare module dojo {
              * @param object The object to put to the store.             
              * @param directives               OptionalAny additional parameters needed to describe how the put should be performed.             
              */
-            put(object: Object, directives: dojo.store.api.Store.PutDirectives): number;
+            put(object: Object, directives?: dojo.store.api.Store.PutDirectives): number;
             /**
              * Query the underlying master store and cache any results.
              * 
              * @param query The object or string containing query information. Dependent on the query engine used.             
              * @param directives               OptionalAn optional keyword arguments object with additional parameters describing the query.             
              */
-            query(query: Object, directives: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
+            query(query: Object, directives?: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
             /**
              * Query the underlying master store and cache any results.
              * 
              * @param query The object or string containing query information. Dependent on the query engine used.             
              * @param directives               OptionalAn optional keyword arguments object with additional parameters describing the query.             
              */
-            query(query: String, directives: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
+            query(query: String, directives?: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
             /**
              * Remove the object with the specific id.
              * 
@@ -16836,7 +16836,7 @@ declare module dojo {
              * @param parent The object to find the children of.             
              * @param options               OptionalAdditional options to apply to the retrieval of the children.             
              */
-            getChildren(parent: Object, options: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
+            getChildren(parent: Object, options?: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
             /**
              * Fetch the identity for the given object.
              * 
@@ -16856,21 +16856,21 @@ declare module dojo {
              * @param object The object to store.             
              * @param options               OptionalAdditional metadata for storing the data.  Includes a reference to an idthat the object may be stored with (i.e. { id: "foo" }).             
              */
-            put(object: Object, options: Object): void;
+            put(object: Object, options?: Object): void;
             /**
              * Queries the store for objects.
              * 
              * @param query The query to use for retrieving objects from the store             
              * @param options               OptionalOptional options object as used by the underlying dojo.data Store.             
              */
-            query(query: Object, options: Object): any;
+            query(query: Object, options?: Object): any;
             /**
              * Defines the query engine to use for querying the data store
              * 
              * @param query An object hash with fields that may match fields of items in the store.Values in the hash will be compared by normal == operator, but regular expressionsor any object that provides a test() method are also supported and can beused to match strings by more complex expressions(and then the regex's or object's test() method will be used to match values).             
              * @param options               OptionalAn object that contains optional information such as sort, start, and count.             
              */
-            queryEngine(query: Object, options: dojo.store.api.Store.QueryOptions): any;
+            queryEngine(query: Object, options?: dojo.store.api.Store.QueryOptions): any;
             /**
              * Deletes an object by its identity.
              * 
@@ -16917,7 +16917,7 @@ declare module dojo {
              * @param object The object to store.             
              * @param options               OptionalAdditional metadata for storing the data.  Includes an "id"property if a specific id is to be used.             
              */
-            add(object: Object, options: dojo.store.api.Store.PutDirectives): any;
+            add(object: Object, options?: dojo.store.api.Store.PutDirectives): any;
             /**
              * Retrieves an object by its identity
              * 
@@ -16930,7 +16930,7 @@ declare module dojo {
              * @param parent The object to find the children of.             
              * @param options               OptionalAdditional options to apply to the retrieval of the children.             
              */
-            getChildren(parent: Object, options: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
+            getChildren(parent: Object, options?: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
             /**
              * Returns an object's identity
              * 
@@ -16950,21 +16950,21 @@ declare module dojo {
              * @param object The object to store.             
              * @param options               OptionalAdditional metadata for storing the data.  Includes an "id"property if a specific id is to be used.             
              */
-            put(object: Object, options: dojo.store.api.Store.PutDirectives): any;
+            put(object: Object, options?: dojo.store.api.Store.PutDirectives): any;
             /**
              * Queries the store for objects.
              * 
              * @param query The query to use for retrieving objects from the store.             
              * @param options               OptionalThe optional arguments to apply to the resultset.             
              */
-            query(query: Object, options: dojo.store.api.Store.QueryOptions): any;
+            query(query: Object, options?: dojo.store.api.Store.QueryOptions): any;
             /**
              * Defines the query engine to use for querying the data store
              * 
              * @param query An object hash with fields that may match fields of items in the store.Values in the hash will be compared by normal == operator, but regular expressionsor any object that provides a test() method are also supported and can beused to match strings by more complex expressions(and then the regex's or object's test() method will be used to match values).             
              * @param options               OptionalAn object that contains optional information such as sort, start, and count.             
              */
-            queryEngine(query: Object, options: dojo.store.api.Store.QueryOptions): any;
+            queryEngine(query: Object, options?: dojo.store.api.Store.QueryOptions): any;
             /**
              * Deletes an object by its identity
              * 
@@ -17055,7 +17055,7 @@ declare module dojo {
              * @param object The object to store.             
              * @param options               OptionalAdditional metadata for storing the data.  Includes an "id"property if a specific id is to be used.             
              */
-            add(object: Object, options: Object): any;
+            add(object: Object, options?: Object): any;
             /**
              * Retrieves an object by its identity. This will trigger a GET request to the server using
              * the url this.target + id.
@@ -17070,7 +17070,7 @@ declare module dojo {
              * @param parent The object to find the children of.             
              * @param options               OptionalAdditional options to apply to the retrieval of the children.             
              */
-            getChildren(parent: Object, options: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
+            getChildren(parent: Object, options?: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
             /**
              * Returns an object's identity
              * 
@@ -17091,7 +17091,7 @@ declare module dojo {
              * @param object The object to store.             
              * @param options               OptionalAdditional metadata for storing the data.  Includes an "id"property if a specific id is to be used.             
              */
-            put(object: Object, options: Object): any;
+            put(object: Object, options?: Object): any;
             /**
              * Queries the store for objects. This will trigger a GET request to the server, with the
              * query added as a query string.
@@ -17099,7 +17099,7 @@ declare module dojo {
              * @param query The query to use for retrieving objects from the store.             
              * @param options               OptionalThe optional arguments to apply to the resultset.             
              */
-            query(query: Object, options: Object): any;
+            query(query: Object, options?: Object): any;
             /**
              * Deletes an object by its identity. This will trigger a DELETE request to the server.
              * 
@@ -17163,7 +17163,7 @@ declare module dojo {
                  * @param object The object to store.             
                  * @param directives               OptionalAdditional directives for creating objects.             
                  */
-                add(object: Object, directives: dojo.store.api.Store.PutDirectives): any;
+                add(object: Object, directives?: dojo.store.api.Store.PutDirectives): any;
                 /**
                  * Retrieves an object by its identity
                  * 
@@ -17176,7 +17176,7 @@ declare module dojo {
                  * @param parent The object to find the children of.             
                  * @param options               OptionalAdditional options to apply to the retrieval of the children.             
                  */
-                getChildren(parent: Object, options: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
+                getChildren(parent: Object, options?: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
                 /**
                  * Returns an object's identity
                  * 
@@ -17196,7 +17196,7 @@ declare module dojo {
                  * @param object The object to store.             
                  * @param directives               OptionalAdditional directives for storing objects.             
                  */
-                put(object: Object, directives: dojo.store.api.Store.PutDirectives): any;
+                put(object: Object, directives?: dojo.store.api.Store.PutDirectives): any;
                 /**
                  * 
                  */
@@ -17208,7 +17208,7 @@ declare module dojo {
                  * @param query The query to use for retrieving objects from the store.             
                  * @param options The optional arguments to apply to the resultset.             
                  */
-                query(query: String, options: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
+                query(query: String, options?: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
                 /**
                  * Queries the store for objects. This does not alter the store, but returns a
                  * set of data from the store.
@@ -17216,7 +17216,7 @@ declare module dojo {
                  * @param query The query to use for retrieving objects from the store.             
                  * @param options The optional arguments to apply to the resultset.             
                  */
-                query(query: Object, options: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
+                query(query: Object, options?: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
                 /**
                  * Queries the store for objects. This does not alter the store, but returns a
                  * set of data from the store.
@@ -17224,7 +17224,7 @@ declare module dojo {
                  * @param query The query to use for retrieving objects from the store.             
                  * @param options The optional arguments to apply to the resultset.             
                  */
-                query(query: Function, options: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
+                query(query: Function, options?: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
                 /**
                  * 
                  */
@@ -17520,7 +17520,7 @@ declare module dojo {
          * @param date2               OptionalDate object.  If not specified, the current Date is used.             
          * @param portion               OptionalA string indicating the "date" or "time" portion of a Date object.Compares both "date" and "time" by default.  One of the following:"date", "time", "datetime"             
          */
-        compare(date1: Date, date2: Date, portion: String): number;
+        compare(date1: Date, date2?: Date, portion?: String): number;
         /**
          * Get the difference in a specific unit of time (e.g., number of
          * months, weeks, days, etc.) between two dates, rounded to the
@@ -17530,7 +17530,7 @@ declare module dojo {
          * @param date2               OptionalDate object.  If not specified, the current Date is used.             
          * @param interval               OptionalA string representing the interval.  One of the following:"year", "month", "day", "hour", "minute", "second","millisecond", "quarter", "week", "weekday"Defaults to "day".             
          */
-        difference(date1: Date, date2: Date, interval: String): any;
+        difference(date1: Date, date2?: Date, interval?: String): any;
         /**
          * Returns the number of days in the month used by dateObject
          * 
@@ -17594,7 +17594,7 @@ declare module dojo {
              * @param formattedString A string such as 2005-06-30T08:05:00-07:00 or 2005-06-30 or T08:05:00             
              * @param defaultTime               OptionalUsed for defaults for fields omitted in the formattedString.Uses 1970-01-01T00:00:00.0Z by default.             
              */
-            fromISOString(formattedString: String, defaultTime: number): any;
+            fromISOString(formattedString: String, defaultTime?: number): any;
             /**
              * Format a Date object as a string according a subset of the ISO-8601 standard
              * When options.selector is omitted, output follows RFC3339
@@ -17604,7 +17604,7 @@ declare module dojo {
              * @param dateObject A Date object             
              * @param options               OptionalAn object with the following properties:selector (String): "date" or "time" for partial formatting of the Date object.Both date and time will be formatted by default.zulu (Boolean): if true, UTC/GMT is used for a timezonemilliseconds (Boolean): if true, output milliseconds            
              */
-            toISOString(dateObject: Date, options: Object): any;
+            toISOString(dateObject: Date, options?: Object): any;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/date/locale.html
@@ -17640,7 +17640,7 @@ declare module dojo {
              * @param dateObject the date and/or time to be formatted.  If a time only is formatted,the values in the year, month, and day fields are irrelevant.  Theopposite is true when formatting only dates.             
              * @param options               OptionalAn object with the following properties:selector (String): choice of 'time','date' (default: date and time)formatLength (String): choice of long, short, medium or full (plus any custom additions).  Defaults to 'short'datePattern (String): override pattern with this stringtimePattern (String): override pattern with this stringam (String): override strings for am in timespm (String): override strings for pm in timeslocale (String): override the locale used to determine formatting rulesfullYear (Boolean): (format only) use 4 digit years whenever 2 digit years are called forstrict (Boolean): (parse only) strict parsing, off by default            
              */
-            format(dateObject: Date, options: Object): any;
+            format(dateObject: Date, options?: Object): any;
             /**
              * Used to get localized strings from dojo.cldr for day or month names.
              * 
@@ -17649,14 +17649,14 @@ declare module dojo {
              * @param context               Optional'standAlone' || 'format' (default)             
              * @param locale               Optionaloverride locale used to find the names             
              */
-            getNames(item: String, type: String, context: String, locale: String): any;
+            getNames(item: String, type: String, context?: String, locale?: String): any;
             /**
              * Determines if the date falls on a weekend, according to local custom.
              * 
              * @param dateObject               Optional            
              * @param locale               Optional            
              */
-            isWeekend(dateObject: Date, locale: String): boolean;
+            isWeekend(dateObject?: Date, locale?: String): boolean;
             /**
              * Convert a properly formatted string to a primitive Date object,
              * using locale-specific settings.
@@ -17676,13 +17676,13 @@ declare module dojo {
              * @param value A string representation of a date             
              * @param options               OptionalAn object with the following properties:selector (String): choice of 'time','date' (default: date and time)formatLength (String): choice of long, short, medium or full (plus any custom additions).  Defaults to 'short'datePattern (String): override pattern with this stringtimePattern (String): override pattern with this stringam (String): override strings for am in timespm (String): override strings for pm in timeslocale (String): override the locale used to determine formatting rulesfullYear (Boolean): (format only) use 4 digit years whenever 2 digit years are called forstrict (Boolean): (parse only) strict parsing, off by default            
              */
-            parse(value: String, options: Object): any;
+            parse(value: String, options?: Object): any;
             /**
              * Builds the regular needed to parse a localized date
              * 
              * @param options               OptionalAn object with the following properties:selector (String): choice of 'time','date' (default: date and time)formatLength (String): choice of long, short, medium or full (plus any custom additions).  Defaults to 'short'datePattern (String): override pattern with this stringtimePattern (String): override pattern with this stringam (String): override strings for am in timespm (String): override strings for pm in timeslocale (String): override the locale used to determine formatting rulesfullYear (Boolean): (format only) use 4 digit years whenever 2 digit years are called forstrict (Boolean): (parse only) strict parsing, off by default            
              */
-            regexp(options: Object): any;
+            regexp(options?: Object): any;
         }
         module locale {
             /**
@@ -17842,7 +17842,7 @@ declare module dojo {
              * 
              * @param delay               OptionalAmount of time to stall playing the hide animation             
              */
-            hide(delay: number): any;
+            hide(delay?: number): any;
             /**
              * The function that returns the dojo.Animation to hide the node
              * 
@@ -17854,7 +17854,7 @@ declare module dojo {
              * 
              * @param delay               OptionalAmount of time to stall playing the show animation             
              */
-            show(delay: number): any;
+            show(delay?: number): any;
             /**
              * The function that returns the dojo.Animation to show the node
              * 
@@ -17893,7 +17893,7 @@ declare module dojo {
              * 
              * @param n               Optional            
              */
-            backIn(n: number): number;
+            backIn(n?: number): number;
             /**
              * An easing function combining the effects of backIn and backOut
              * An easing function combining the effects of backIn and backOut.
@@ -17902,7 +17902,7 @@ declare module dojo {
              * 
              * @param n               Optional            
              */
-            backInOut(n: number): number;
+            backInOut(n?: number): number;
             /**
              * An easing function that pops past the range briefly, and slowly comes back.
              * An easing function that pops past the range briefly, and slowly comes back.
@@ -17912,55 +17912,55 @@ declare module dojo {
              * 
              * @param n               Optional            
              */
-            backOut(n: number): number;
+            backOut(n?: number): number;
             /**
              * An easing function that 'bounces' near the beginning of an Animation
              * 
              * @param n               Optional            
              */
-            bounceIn(n: number): number;
+            bounceIn(n?: number): number;
             /**
              * An easing function that 'bounces' at the beginning and end of the Animation
              * 
              * @param n               Optional            
              */
-            bounceInOut(n: number): number;
+            bounceInOut(n?: number): number;
             /**
              * An easing function that 'bounces' near the end of an Animation
              * 
              * @param n               Optional            
              */
-            bounceOut(n: number): number;
+            bounceOut(n?: number): number;
             /**
              * 
              * @param n               Optional            
              */
-            circIn(n: number): number;
+            circIn(n?: number): number;
             /**
              * 
              * @param n               Optional            
              */
-            circInOut(n: number): number;
+            circInOut(n?: number): number;
             /**
              * 
              * @param n               Optional            
              */
-            circOut(n: number): any;
+            circOut(n?: number): any;
             /**
              * 
              * @param n               Optional            
              */
-            cubicIn(n: number): any;
+            cubicIn(n?: number): any;
             /**
              * 
              * @param n               Optional            
              */
-            cubicInOut(n: number): number;
+            cubicInOut(n?: number): number;
             /**
              * 
              * @param n               Optional            
              */
-            cubicOut(n: number): number;
+            cubicOut(n?: number): number;
             /**
              * An easing function the elastically snaps from the start value
              * An easing function the elastically snaps from the start value
@@ -17970,7 +17970,7 @@ declare module dojo {
              * 
              * @param n               Optional            
              */
-            elasticIn(n: number): number;
+            elasticIn(n?: number): number;
             /**
              * An easing function that elasticly snaps around the value, near
              * the beginning and end of the Animation.
@@ -17982,7 +17982,7 @@ declare module dojo {
              * 
              * @param n               Optional            
              */
-            elasticInOut(n: number): number;
+            elasticInOut(n?: number): number;
             /**
              * An easing function that elasticly snaps around the target value,
              * near the end of the Animation
@@ -17994,88 +17994,88 @@ declare module dojo {
              * 
              * @param n               Optional            
              */
-            elasticOut(n: number): number;
+            elasticOut(n?: number): number;
             /**
              * 
              * @param n               Optional            
              */
-            expoIn(n: number): any;
+            expoIn(n?: number): any;
             /**
              * 
              * @param n               Optional            
              */
-            expoInOut(n: number): number;
+            expoInOut(n?: number): number;
             /**
              * 
              * @param n               Optional            
              */
-            expoOut(n: number): number;
+            expoOut(n?: number): number;
             /**
              * A linear easing function
              * 
              * @param n               Optional            
              */
-            linear(n: number): number;
+            linear(n?: number): number;
             /**
              * 
              * @param n               Optional            
              */
-            quadIn(n: number): any;
+            quadIn(n?: number): any;
             /**
              * 
              * @param n               Optional            
              */
-            quadInOut(n: number): number;
+            quadInOut(n?: number): number;
             /**
              * 
              * @param n               Optional            
              */
-            quadOut(n: number): number;
+            quadOut(n?: number): number;
             /**
              * 
              * @param n               Optional            
              */
-            quartIn(n: number): any;
+            quartIn(n?: number): any;
             /**
              * 
              * @param n               Optional            
              */
-            quartInOut(n: number): number;
+            quartInOut(n?: number): number;
             /**
              * 
              * @param n               Optional            
              */
-            quartOut(n: number): number;
+            quartOut(n?: number): number;
             /**
              * 
              * @param n               Optional            
              */
-            quintIn(n: number): any;
+            quintIn(n?: number): any;
             /**
              * 
              * @param n               Optional            
              */
-            quintInOut(n: number): number;
+            quintInOut(n?: number): number;
             /**
              * 
              * @param n               Optional            
              */
-            quintOut(n: number): number;
+            quintOut(n?: number): number;
             /**
              * 
              * @param n               Optional            
              */
-            sineIn(n: number): number;
+            sineIn(n?: number): number;
             /**
              * 
              * @param n               Optional            
              */
-            sineInOut(n: number): number;
+            sineInOut(n?: number): number;
             /**
              * 
              * @param n               Optional            
              */
-            sineOut(n: number): any;
+            sineOut(n?: number): any;
         }
     }
 
@@ -18242,7 +18242,7 @@ declare module dojo {
          * @param advice This is function to be called after the original method             
          * @param receiveArguments               OptionalIf this is set to true, the advice function receives the original arguments (from when the original mehtodwas called) rather than the return value of the original/previous method.             
          */
-        after(target: Object, methodName: String, advice: Function, receiveArguments: boolean): any;
+        after(target: Object, methodName: String, advice: Function, receiveArguments?: boolean): any;
         /**
          * The "around" export of the aspect module is a function that can be used to attach
          * "around" advice to a method. The advisor function is immediately executed when
@@ -18419,18 +18419,18 @@ declare module dojo {
          * @param value the number to be formatted.             
          * @param options               Optional            
          */
-        format(value: number, options: dojo.currency.__FormatOptions): any;
+        format(value: number, options?: dojo.currency.__FormatOptions): any;
         /**
          * 
          * @param expression             
          * @param options               OptionalAn object with the following properties:type (String, optional): Should not be set.  Value is assumed to be currency.currency (String, optional): an ISO4217 currency code, a three letter sequence like "USD".For use with dojo.currency only.symbol (String, optional): localized currency symbol. The default will be looked up in table of supported currencies in dojo.cldrA ISO4217 currency code will be used if not found.places (Number, optional): fixed number of decimal places to accept.  The default is determined based on which currency is used.fractional (Boolean|Array, optional): Whether to include the fractional portion, where the number of decimal places are implied by the currencyor explicit 'places' parameter.  The value [true,false] makes the fractional portion optional.By default for currencies, it the fractional portion is optional.pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.  Literal characters in patterns are not supported.locale (String, optional): override the locale used to determine formatting rulesstrict (Boolean, optional): strict parsing, false by default.  Strict parsing requires input as produced by the format() method.Non-strict is more permissive, e.g. flexible on white space, omitting thousands separators            
          */
-        parse(expression: String, options: Object): any;
+        parse(expression: String, options?: Object): any;
         /**
          * 
          * @param options               OptionalAn object with the following properties:pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.type (String, optional): choose a format type based on the locale from the following:decimal, scientific (not yet supported), percent, currency. decimal by default.locale (String, optional): override the locale used to determine formatting rulesstrict (Boolean, optional): strict parsing, false by default.  Strict parsing requires input as produced by the format() method.Non-strict is more permissive, e.g. flexible on white space, omitting thousands separatorsplaces (Number|String, optional): number of decimal places to accept: Infinity, a positive number, ora range "n,m".  Defined by pattern or Infinity if pattern not provided.            
          */
-        regexp(options: Object): any;
+        regexp(options?: Object): any;
     }
     module currency {
         /**
@@ -18685,7 +18685,7 @@ declare module dojo {
          * @param name the name of the attribute to set, or a hash of key-value pairs to set.             
          * @param value               Optionalthe value to set for the attribute, if the name is a string.             
          */
-        set(node: HTMLElement, name: String, value: String): any;
+        set(node: HTMLElement, name: String, value?: String): any;
         /**
          * Sets an attribute on an HTML element.
          * Handles normalized setting of attributes on DOM Nodes.
@@ -18704,7 +18704,7 @@ declare module dojo {
          * @param name the name of the attribute to set, or a hash of key-value pairs to set.             
          * @param value               Optionalthe value to set for the attribute, if the name is a string.             
          */
-        set(node: String, name: String, value: String): any;
+        set(node: String, name: String, value?: String): any;
         /**
          * Sets an attribute on an HTML element.
          * Handles normalized setting of attributes on DOM Nodes.
@@ -18723,7 +18723,7 @@ declare module dojo {
          * @param name the name of the attribute to set, or a hash of key-value pairs to set.             
          * @param value               Optionalthe value to set for the attribute, if the name is a string.             
          */
-        set(node: HTMLElement, name: Object, value: String): any;
+        set(node: HTMLElement, name: Object, value?: String): any;
         /**
          * Sets an attribute on an HTML element.
          * Handles normalized setting of attributes on DOM Nodes.
@@ -18742,7 +18742,7 @@ declare module dojo {
          * @param name the name of the attribute to set, or a hash of key-value pairs to set.             
          * @param value               Optionalthe value to set for the attribute, if the name is a string.             
          */
-        set(node: String, name: Object, value: String): any;
+        set(node: String, name: Object, value?: String): any;
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/dom-class.html
@@ -18806,7 +18806,7 @@ declare module dojo {
          * @param node String ID or DomNode reference to remove the class from.             
          * @param classStr               OptionalAn optional String class name to remove, or several space-separatedclass names, or an array of class names. If omitted, all class nameswill be deleted.             
          */
-        remove(node: String, classStr: String): void;
+        remove(node: String, classStr?: String): void;
         /**
          * Removes the specified classes from node. No contains()
          * check is required.
@@ -18814,7 +18814,7 @@ declare module dojo {
          * @param node String ID or DomNode reference to remove the class from.             
          * @param classStr               OptionalAn optional String class name to remove, or several space-separatedclass names, or an array of class names. If omitted, all class nameswill be deleted.             
          */
-        remove(node: HTMLElement, classStr: String): void;
+        remove(node: HTMLElement, classStr?: String): void;
         /**
          * Removes the specified classes from node. No contains()
          * check is required.
@@ -18822,7 +18822,7 @@ declare module dojo {
          * @param node String ID or DomNode reference to remove the class from.             
          * @param classStr               OptionalAn optional String class name to remove, or several space-separatedclass names, or an array of class names. If omitted, all class nameswill be deleted.             
          */
-        remove(node: String, classStr: any[]): void;
+        remove(node: String, classStr?: any[]): void;
         /**
          * Removes the specified classes from node. No contains()
          * check is required.
@@ -18830,7 +18830,7 @@ declare module dojo {
          * @param node String ID or DomNode reference to remove the class from.             
          * @param classStr               OptionalAn optional String class name to remove, or several space-separatedclass names, or an array of class names. If omitted, all class nameswill be deleted.             
          */
-        remove(node: HTMLElement, classStr: any[]): void;
+        remove(node: HTMLElement, classStr?: any[]): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -18839,7 +18839,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replace(node: String, addClassStr: String, removeClassStr: String): void;
+        replace(node: String, addClassStr: String, removeClassStr?: String): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -18848,7 +18848,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replace(node: HTMLElement, addClassStr: String, removeClassStr: String): void;
+        replace(node: HTMLElement, addClassStr: String, removeClassStr?: String): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -18857,7 +18857,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replace(node: String, addClassStr: any[], removeClassStr: String): void;
+        replace(node: String, addClassStr: any[], removeClassStr?: String): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -18866,7 +18866,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replace(node: HTMLElement, addClassStr: any[], removeClassStr: String): void;
+        replace(node: HTMLElement, addClassStr: any[], removeClassStr?: String): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -18875,7 +18875,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replace(node: String, addClassStr: String, removeClassStr: any[]): void;
+        replace(node: String, addClassStr: String, removeClassStr?: any[]): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -18884,7 +18884,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replace(node: HTMLElement, addClassStr: String, removeClassStr: any[]): void;
+        replace(node: HTMLElement, addClassStr: String, removeClassStr?: any[]): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -18893,7 +18893,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replace(node: String, addClassStr: any[], removeClassStr: any[]): void;
+        replace(node: String, addClassStr: any[], removeClassStr?: any[]): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -18902,7 +18902,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replace(node: HTMLElement, addClassStr: any[], removeClassStr: any[]): void;
+        replace(node: HTMLElement, addClassStr: any[], removeClassStr?: any[]): void;
         /**
          * Adds a class to node if not present, or removes if present.
          * Pass a boolean condition if you want to explicitly add or remove.
@@ -18912,7 +18912,7 @@ declare module dojo {
          * @param classStr A String class name to toggle, or several space-separated class names,or an array of class names.             
          * @param condition               OptionalIf passed, true means to add the class, false means to remove.Otherwise dojo.hasClass(node, classStr) is used to detect the class presence.             
          */
-        toggle(node: String, classStr: String, condition: boolean): boolean;
+        toggle(node: String, classStr: String, condition?: boolean): boolean;
         /**
          * Adds a class to node if not present, or removes if present.
          * Pass a boolean condition if you want to explicitly add or remove.
@@ -18922,7 +18922,7 @@ declare module dojo {
          * @param classStr A String class name to toggle, or several space-separated class names,or an array of class names.             
          * @param condition               OptionalIf passed, true means to add the class, false means to remove.Otherwise dojo.hasClass(node, classStr) is used to detect the class presence.             
          */
-        toggle(node: HTMLElement, classStr: String, condition: boolean): boolean;
+        toggle(node: HTMLElement, classStr: String, condition?: boolean): boolean;
         /**
          * Adds a class to node if not present, or removes if present.
          * Pass a boolean condition if you want to explicitly add or remove.
@@ -18932,7 +18932,7 @@ declare module dojo {
          * @param classStr A String class name to toggle, or several space-separated class names,or an array of class names.             
          * @param condition               OptionalIf passed, true means to add the class, false means to remove.Otherwise dojo.hasClass(node, classStr) is used to detect the class presence.             
          */
-        toggle(node: String, classStr: any[], condition: boolean): boolean;
+        toggle(node: String, classStr: any[], condition?: boolean): boolean;
         /**
          * Adds a class to node if not present, or removes if present.
          * Pass a boolean condition if you want to explicitly add or remove.
@@ -18942,7 +18942,7 @@ declare module dojo {
          * @param classStr A String class name to toggle, or several space-separated class names,or an array of class names.             
          * @param condition               OptionalIf passed, true means to add the class, false means to remove.Otherwise dojo.hasClass(node, classStr) is used to detect the class presence.             
          */
-        toggle(node: HTMLElement, classStr: any[], condition: boolean): boolean;
+        toggle(node: HTMLElement, classStr: any[], condition?: boolean): boolean;
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/dom-form.html
@@ -18978,7 +18978,7 @@ declare module dojo {
          * @param formNode             
          * @param prettyPrint               Optional            
          */
-        toJson(formNode: HTMLElement, prettyPrint: boolean): String;
+        toJson(formNode: HTMLElement, prettyPrint?: boolean): String;
         /**
          * Create a serialized JSON string from a form node or string
          * ID identifying the form to serialize
@@ -18986,7 +18986,7 @@ declare module dojo {
          * @param formNode             
          * @param prettyPrint               Optional            
          */
-        toJson(formNode: String, prettyPrint: boolean): String;
+        toJson(formNode: String, prettyPrint?: boolean): String;
         /**
          * Serialize a form node to a JavaScript object.
          * Returns the values encoded in an HTML form as
@@ -19046,7 +19046,7 @@ declare module dojo {
          * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
          * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
          */
-        create(tag: HTMLElement, attrs: Object, refNode: HTMLElement, pos: String): any;
+        create(tag: HTMLElement, attrs: Object, refNode?: HTMLElement, pos?: String): any;
         /**
          * Create an element, allowing for optional attribute decoration
          * and placement.
@@ -19065,7 +19065,7 @@ declare module dojo {
          * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
          * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
          */
-        create(tag: String, attrs: Object, refNode: HTMLElement, pos: String): any;
+        create(tag: String, attrs: Object, refNode?: HTMLElement, pos?: String): any;
         /**
          * Create an element, allowing for optional attribute decoration
          * and placement.
@@ -19084,7 +19084,7 @@ declare module dojo {
          * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
          * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
          */
-        create(tag: HTMLElement, attrs: Object, refNode: String, pos: String): any;
+        create(tag: HTMLElement, attrs: Object, refNode?: String, pos?: String): any;
         /**
          * Create an element, allowing for optional attribute decoration
          * and placement.
@@ -19103,7 +19103,7 @@ declare module dojo {
          * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
          * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
          */
-        create(tag: String, attrs: Object, refNode: String, pos: String): any;
+        create(tag: String, attrs: Object, refNode?: String, pos?: String): any;
         /**
          * Removes a node from its parent, clobbering it and all of its
          * children.
@@ -19142,7 +19142,7 @@ declare module dojo {
          * @param refNode id or node reference to use as basis for placement             
          * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
          */
-        place(node: HTMLElement, refNode: HTMLElement, position: String): HTMLElement;
+        place(node: HTMLElement, refNode: HTMLElement, position?: String): HTMLElement;
         /**
          * Attempt to insert node into the DOM, choosing from various positioning options.
          * Returns the first argument resolved to a DOM node.
@@ -19151,7 +19151,7 @@ declare module dojo {
          * @param refNode id or node reference to use as basis for placement             
          * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
          */
-        place(node: String, refNode: HTMLElement, position: String): HTMLElement;
+        place(node: String, refNode: HTMLElement, position?: String): HTMLElement;
         /**
          * Attempt to insert node into the DOM, choosing from various positioning options.
          * Returns the first argument resolved to a DOM node.
@@ -19160,7 +19160,7 @@ declare module dojo {
          * @param refNode id or node reference to use as basis for placement             
          * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
          */
-        place(node: HTMLElement, refNode: String, position: String): HTMLElement;
+        place(node: HTMLElement, refNode: String, position?: String): HTMLElement;
         /**
          * Attempt to insert node into the DOM, choosing from various positioning options.
          * Returns the first argument resolved to a DOM node.
@@ -19169,7 +19169,7 @@ declare module dojo {
          * @param refNode id or node reference to use as basis for placement             
          * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
          */
-        place(node: String, refNode: String, position: String): HTMLElement;
+        place(node: String, refNode: String, position?: String): HTMLElement;
         /**
          * Attempt to insert node into the DOM, choosing from various positioning options.
          * Returns the first argument resolved to a DOM node.
@@ -19178,7 +19178,7 @@ declare module dojo {
          * @param refNode id or node reference to use as basis for placement             
          * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
          */
-        place(node: HTMLElement, refNode: HTMLElement, position: number): HTMLElement;
+        place(node: HTMLElement, refNode: HTMLElement, position?: number): HTMLElement;
         /**
          * Attempt to insert node into the DOM, choosing from various positioning options.
          * Returns the first argument resolved to a DOM node.
@@ -19187,7 +19187,7 @@ declare module dojo {
          * @param refNode id or node reference to use as basis for placement             
          * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
          */
-        place(node: String, refNode: HTMLElement, position: number): HTMLElement;
+        place(node: String, refNode: HTMLElement, position?: number): HTMLElement;
         /**
          * Attempt to insert node into the DOM, choosing from various positioning options.
          * Returns the first argument resolved to a DOM node.
@@ -19196,7 +19196,7 @@ declare module dojo {
          * @param refNode id or node reference to use as basis for placement             
          * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
          */
-        place(node: HTMLElement, refNode: String, position: number): HTMLElement;
+        place(node: HTMLElement, refNode: String, position?: number): HTMLElement;
         /**
          * Attempt to insert node into the DOM, choosing from various positioning options.
          * Returns the first argument resolved to a DOM node.
@@ -19205,14 +19205,14 @@ declare module dojo {
          * @param refNode id or node reference to use as basis for placement             
          * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
          */
-        place(node: String, refNode: String, position: number): HTMLElement;
+        place(node: String, refNode: String, position?: number): HTMLElement;
         /**
          * instantiates an HTML fragment returning the corresponding DOM.
          * 
          * @param frag the HTML fragment             
          * @param doc               Optionaloptional document to use when creating DOM nodes, defaults todojo/_base/window.doc if not specified.             
          */
-        toDom(frag: String, doc: HTMLDocument): any;
+        toDom(frag: String, doc?: HTMLDocument): any;
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/dom-prop.html
@@ -19258,7 +19258,7 @@ declare module dojo {
          * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
          * @param value               OptionalThe value to set for the property             
          */
-        set(node: HTMLElement, name: String, value: String): any;
+        set(node: HTMLElement, name: String, value?: String): any;
         /**
          * Sets a property on an HTML element.
          * Handles normalized setting of properties on DOM nodes.
@@ -19277,7 +19277,7 @@ declare module dojo {
          * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
          * @param value               OptionalThe value to set for the property             
          */
-        set(node: String, name: String, value: String): any;
+        set(node: String, name: String, value?: String): any;
         /**
          * Sets a property on an HTML element.
          * Handles normalized setting of properties on DOM nodes.
@@ -19296,7 +19296,7 @@ declare module dojo {
          * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
          * @param value               OptionalThe value to set for the property             
          */
-        set(node: HTMLElement, name: Object, value: String): any;
+        set(node: HTMLElement, name: Object, value?: String): any;
         /**
          * Sets a property on an HTML element.
          * Handles normalized setting of properties on DOM nodes.
@@ -19315,7 +19315,7 @@ declare module dojo {
          * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
          * @param value               OptionalThe value to set for the property             
          */
-        set(node: String, name: Object, value: String): any;
+        set(node: String, name: Object, value?: String): any;
     }
     module dom_prop {
         /**
@@ -19414,28 +19414,28 @@ declare module dojo {
          * @param name             
          * @param value               Optional            
          */
-        set(node: HTMLElement, name: String, value: String): any;
+        set(node: HTMLElement, name: String, value?: String): any;
         /**
          * 
          * @param node             
          * @param name             
          * @param value               Optional            
          */
-        set(node: String, name: String, value: String): any;
+        set(node: String, name: String, value?: String): any;
         /**
          * 
          * @param node             
          * @param name             
          * @param value               Optional            
          */
-        set(node: HTMLElement, name: Object, value: String): any;
+        set(node: HTMLElement, name: Object, value?: String): any;
         /**
          * 
          * @param node             
          * @param name             
          * @param value               Optional            
          */
-        set(node: String, name: Object, value: String): any;
+        set(node: String, name: Object, value?: String): any;
         /**
          * converts style value to pixels on IE or return a numeric value.
          * 
@@ -19460,7 +19460,7 @@ declare module dojo {
          * 
          * @param doc               OptionalOptional document to query.   If unspecified, use win.doc.             
          */
-        docScroll(doc: HTMLDocument): Object;
+        docScroll(doc?: HTMLDocument): Object;
         /**
          * In RTL direction, scrollLeft should be a negative value, but IE
          * returns a positive one. All codes using documentElement.scrollLeft
@@ -19470,7 +19470,7 @@ declare module dojo {
          * @param scrollLeft             
          * @param doc               OptionalOptional document to query.   If unspecified, use win.doc.             
          */
-        fixIeBiDiScrollLeft(scrollLeft: number, doc: HTMLDocument): number;
+        fixIeBiDiScrollLeft(scrollLeft: number, doc?: HTMLDocument): number;
         /**
          * returns an object with properties useful for noting the border
          * dimensions.
@@ -19484,7 +19484,7 @@ declare module dojo {
          * @param node             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        getBorderExtents(node: HTMLElement, computedStyle: Object): Object;
+        getBorderExtents(node: HTMLElement, computedStyle?: Object): Object;
         /**
          * Returns an object that encodes the width, height, left and top
          * positions of the node's content box, irrespective of the
@@ -19493,7 +19493,7 @@ declare module dojo {
          * @param node             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        getContentBox(node: HTMLElement, computedStyle: Object): Object;
+        getContentBox(node: HTMLElement, computedStyle?: Object): Object;
         /**
          * returns the offset in x and y from the document body to the
          * visual edge of the page for IE
@@ -19513,7 +19513,7 @@ declare module dojo {
          * 
          * @param doc               OptionalOptional document to query.   If unspecified, use win.doc.             
          */
-        getIeDocumentElementOffset(doc: HTMLDocument): Object;
+        getIeDocumentElementOffset(doc?: HTMLDocument): Object;
         /**
          * returns an object that encodes the width, height, left and top
          * positions of the node's margin box.
@@ -19521,7 +19521,7 @@ declare module dojo {
          * @param node             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        getMarginBox(node: HTMLElement, computedStyle: Object): Object;
+        getMarginBox(node: HTMLElement, computedStyle?: Object): Object;
         /**
          * returns object with properties useful for box fitting with
          * regards to box margins (i.e., the outer-box).
@@ -19536,7 +19536,7 @@ declare module dojo {
          * @param node             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        getMarginExtents(node: HTMLElement, computedStyle: Object): Object;
+        getMarginExtents(node: HTMLElement, computedStyle?: Object): Object;
         /**
          * returns an object that encodes the width and height of
          * the node's margin box
@@ -19544,7 +19544,7 @@ declare module dojo {
          * @param node             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        getMarginSize(node: HTMLElement, computedStyle: Object): Object;
+        getMarginSize(node: HTMLElement, computedStyle?: Object): Object;
         /**
          * returns an object that encodes the width and height of
          * the node's margin box
@@ -19552,7 +19552,7 @@ declare module dojo {
          * @param node             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        getMarginSize(node: String, computedStyle: Object): Object;
+        getMarginSize(node: String, computedStyle?: Object): Object;
         /**
          * Returns object with properties useful for box fitting with
          * regards to padding.
@@ -19566,7 +19566,7 @@ declare module dojo {
          * @param node             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        getPadBorderExtents(node: HTMLElement, computedStyle: Object): Object;
+        getPadBorderExtents(node: HTMLElement, computedStyle?: Object): Object;
         /**
          * Returns object with special values specifically useful for node
          * fitting.
@@ -19584,13 +19584,13 @@ declare module dojo {
          * @param node             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        getPadExtents(node: HTMLElement, computedStyle: Object): Object;
+        getPadExtents(node: HTMLElement, computedStyle?: Object): Object;
         /**
          * Returns true if the current language is left-to-right, and false otherwise.
          * 
          * @param doc               OptionalOptional document to query.   If unspecified, use win.doc.             
          */
-        isBodyLtr(doc: HTMLDocument): boolean;
+        isBodyLtr(doc?: HTMLDocument): boolean;
         /**
          * Normalizes the geometry of a DOM event, normalizing the pageX, pageY,
          * offsetX, offsetY, layerX, and layerX properties
@@ -19638,7 +19638,7 @@ declare module dojo {
          * @param box hash with optional "w", and "h" properties for "width", and "height"respectively. All specified properties should have numeric values in whole pixels.             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        setContentSize(node: HTMLElement, box: Object, computedStyle: Object): void;
+        setContentSize(node: HTMLElement, box: Object, computedStyle?: Object): void;
         /**
          * sets the size of the node's margin box and placement
          * (left/top), irrespective of box model. Think of it as a
@@ -19649,7 +19649,7 @@ declare module dojo {
          * @param box hash with optional "l", "t", "w", and "h" properties for "left", "right", "width", and "height"respectively. All specified properties should have numeric values in whole pixels.             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        setMarginBox(node: HTMLElement, box: Object, computedStyle: Object): void;
+        setMarginBox(node: HTMLElement, box: Object, computedStyle?: Object): void;
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/gears.html
@@ -19698,7 +19698,7 @@ declare module dojo {
          * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
          * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
          */
-        set(node: HTMLElement, cont: String, params: Object): any;
+        set(node: HTMLElement, cont: String, params?: Object): any;
         /**
          * inserts (replaces) the given content into the given node. dojo/dom-construct.place(cont, node, "only")
          * may be a better choice for simple HTML insertion.
@@ -19715,7 +19715,7 @@ declare module dojo {
          * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
          * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
          */
-        set(node: HTMLElement, cont: HTMLElement, params: Object): any;
+        set(node: HTMLElement, cont: HTMLElement, params?: Object): any;
         /**
          * inserts (replaces) the given content into the given node. dojo/dom-construct.place(cont, node, "only")
          * may be a better choice for simple HTML insertion.
@@ -19732,7 +19732,7 @@ declare module dojo {
          * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
          * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
          */
-        set(node: HTMLElement, cont: NodeList, params: Object): any;
+        set(node: HTMLElement, cont: NodeList, params?: Object): any;
     }
     module html {
         /**
@@ -19800,21 +19800,21 @@ declare module dojo {
              * @param cont               OptionalAn html string, node or enumerable list of nodes for insertion into the domIf not provided, the object's content property will be used             
              * @param params               Optional            
              */
-            set(cont: String, params: Object): any;
+            set(cont: String, params?: Object): any;
             /**
              * front-end to the set-content sequence
              * 
              * @param cont               OptionalAn html string, node or enumerable list of nodes for insertion into the domIf not provided, the object's content property will be used             
              * @param params               Optional            
              */
-            set(cont: HTMLElement, params: Object): any;
+            set(cont: HTMLElement, params?: Object): any;
             /**
              * front-end to the set-content sequence
              * 
              * @param cont               OptionalAn html string, node or enumerable list of nodes for insertion into the domIf not provided, the object's content property will be used             
              * @param params               Optional            
              */
-            set(cont: NodeList, params: Object): any;
+            set(cont: NodeList, params?: Object): any;
             /**
              * sets the content on the node
              * 
@@ -20473,7 +20473,7 @@ declare module dojo {
          * @param expression A string representation of a Number             
          * @param options               OptionalAn object with the following properties:pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.  Literal characters in patterns are not supported.type (String, optional): choose a format type based on the locale from the following:decimal, scientific (not yet supported), percent, currency. decimal by default.locale (String, optional): override the locale used to determine formatting rulesstrict (Boolean, optional): strict parsing, false by default.  Strict parsing requires input as produced by the format() method.Non-strict is more permissive, e.g. flexible on white space, omitting thousands separatorsfractional (Boolean|Array, optional): Whether to include the fractional portion, where the number of decimal places are implied by patternor explicit 'places' parameter.  The value [true,false] makes the fractional portion optional.            
          */
-        parse(expression: String, options: Object): number;
+        parse(expression: String, options?: Object): number;
         /**
          * Builds the regular needed to parse a number
          * Returns regular expression with positive and negative match, group
@@ -20493,7 +20493,7 @@ declare module dojo {
          * @param places               OptionalThe number of decimal places where rounding takes place.  Defaults to 0 for whole rounding.Must be non-negative.             
          * @param increment               OptionalRounds next place to nearest value of increment/10.  10 by default.             
          */
-        round(value: number, places: number, increment: number): number;
+        round(value: number, places?: number, increment?: number): number;
     }
     module number_ {
         /**
@@ -20738,7 +20738,7 @@ declare module dojo {
          * @param scripts               OptionalArray of <script type="dojo//"> DOMNodes.  If not specified, will search for <script> tags inside node.             
          * @param inherited               OptionalSettings from dir=rtl or lang=... on a node above this node.   Overrides options.inherited.             
          */
-        construct(ctor: Function, node: HTMLElement, mixin: Object, options: Object, scripts: HTMLElement[], inherited: Object): any;
+        construct(ctor: Function, node: HTMLElement, mixin?: Object, options?: Object, scripts?: HTMLElement[], inherited?: Object): any;
         /**
          * Takes array of nodes, and turns them into class instances and
          * potentially calls a startup method to allow them to connect with
@@ -20748,7 +20748,7 @@ declare module dojo {
          * @param mixin               OptionalAn object that will be mixed in with each node in the array.Values in the mixin will override values in the node, if theyexist.             
          * @param options               OptionalAn object used to hold kwArgs for instantiation.See parse.options argument for details.             
          */
-        instantiate(nodes: any[], mixin: Object, options: Object): any;
+        instantiate(nodes: any[], mixin?: Object, options?: Object): any;
         /**
          * Scan the DOM for class instances, and instantiate them.
          * Search specified node (or root node) recursively for class instances,
@@ -20770,7 +20770,7 @@ declare module dojo {
          * @param rootNode               OptionalA default starting root node from which to start the parsing. Can beomitted, defaulting to the entire document. If omitted, the optionsobject can be passed in this place. If the options object has arootNode member, that is used.             
          * @param options               OptionalA hash of options.noStart: Boolean?:  when set will prevent the parser from calling .startup()  when locating the nodes.rootNode: DomNode?:  identical to the function's rootNode argument, though  allowed to be passed in via this `options object.template: Boolean:  If true, ignores ContentPane's stopParser flag and parses contents inside of  a ContentPane inside of a template.   This allows dojoAttachPoint on widgets/nodes  nested inside the ContentPane to work.inherited: Object:  Hash possibly containing dir and lang settings to be applied to  parsed widgets, unless there's another setting on a sub-node that overridesscope: String:  Root for attribute names to search for.   If scopeName is dojo,  will search for data-dojo-type (or dojoType).   For backwards compatibility  reasons defaults to dojo._scopeName (which is "dojo" except when  multi-version support is used, when it will be something like dojo16, dojo20, etc.)propsThis: Object:  If specified, "this" referenced from data-dojo-props will refer to propsThis.  Intended for use from the widgets-in-template feature of dijit._WidgetsInTemplateMixincontextRequire: Function:  If specified, this require is utilised for looking resolving modules instead of the  dojo/parser context require().  Intended for use from the widgets-in-template feature of  dijit._WidgetsInTemplateMixin.             
          */
-        parse(rootNode: HTMLElement, options: Object): any;
+        parse(rootNode?: HTMLElement, options?: Object): any;
         /**
          * Scan a DOM tree and return an array of objects representing the DOMNodes
          * that need to be turned into widgets.
@@ -20786,7 +20786,7 @@ declare module dojo {
          * @param root               OptionalA default starting root node from which to start the parsing. Can beomitted, defaulting to the entire document. If omitted, the optionsobject can be passed in this place. If the options object has arootNode member, that is used.             
          * @param options a kwArgs options object, see parse() for details             
          */
-        scan(root: HTMLElement, options: Object): dojo.promise.Promise<any>;
+        scan(root?: HTMLElement, options?: Object): dojo.promise.Promise<any>;
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/regexp.html
@@ -20807,7 +20807,7 @@ declare module dojo {
          * @param re A function. Takes one parameter and converts it to a regularexpression.             
          * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression. Defaults to false             
          */
-        buildGroupRE(arr: Object, re: Function, nonCapture: boolean): any;
+        buildGroupRE(arr: Object, re: Function, nonCapture?: boolean): any;
         /**
          * Builds a regular expression that groups subexpressions
          * A utility function used by some of the RE generators. The
@@ -20820,21 +20820,21 @@ declare module dojo {
          * @param re A function. Takes one parameter and converts it to a regularexpression.             
          * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression. Defaults to false             
          */
-        buildGroupRE(arr: any[], re: Function, nonCapture: boolean): any;
+        buildGroupRE(arr: any[], re: Function, nonCapture?: boolean): any;
         /**
          * Adds escape sequences for special characters in regular expressions
          * 
          * @param str             
          * @param except               Optionala String with special characters to be left unescaped             
          */
-        escapeString(str: String, except: String): any;
+        escapeString(str: String, except?: String): any;
         /**
          * adds group match to expression
          * 
          * @param expression             
          * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression.             
          */
-        group(expression: String, nonCapture: boolean): String;
+        group(expression: String, nonCapture?: boolean): String;
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/require.html
@@ -20888,7 +20888,7 @@ declare module dojo {
          * @param charOrCode char/JS keyCode/dojo.keys.* constant for the key you want to hold downWarning: holding down a shifted key, like 'A', can have unpredictable results.             
          * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
          */
-        keyDown(charOrCode: number, delay: number): void;
+        keyDown(charOrCode: number, delay?: number): void;
         /**
          * Types a key combination, like SHIFT-TAB.
          * Types a key combination, like SHIFT-TAB.
@@ -20906,7 +20906,7 @@ declare module dojo {
          * @param charOrCode char/JS keyCode/dojo.keys.* constant for the key you want to releaseWarning: releasing a shifted key, like 'A', can have unpredictable results.             
          * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
          */
-        keyUp(charOrCode: number, delay: number): void;
+        keyUp(charOrCode: number, delay?: number): void;
         /**
          * 
          */
@@ -20920,7 +20920,7 @@ declare module dojo {
          * @param buttons             
          * @param delay               Optional            
          */
-        mouseClick(buttons: Object, delay: number): void;
+        mouseClick(buttons: Object, delay?: number): void;
         /**
          * Moves the mouse to the specified x,y offset relative to the viewport.
          * 
@@ -20990,7 +20990,7 @@ declare module dojo {
          * @param buttons JSON object that represents all of the mouse buttons being pressed.It takes the following Boolean attributes:leftmiddleright             
          * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
          */
-        mousePress(buttons: Object, delay: number): void;
+        mousePress(buttons: Object, delay?: number): void;
         /**
          * Releases mouse buttons.
          * Releases the mouse buttons you pass as true.
@@ -21001,7 +21001,7 @@ declare module dojo {
          * @param buttons             
          * @param delay               Optional            
          */
-        mouseRelease(buttons: Object, delay: number): void;
+        mouseRelease(buttons: Object, delay?: number): void;
         /**
          * Spins the mouse wheel.
          * Spins the wheel wheelAmt "notches."
@@ -21015,7 +21015,7 @@ declare module dojo {
          * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:    robot.mouseClick({left: true}, 100) // first call; wait 100ms    robot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
          * @param duration               OptionalApproximate time Robot will spend moving the mouseBy default, the Robot will wheel the mouse as fast as possible.             
          */
-        mouseWheel(wheelAmt: number, delay: number, duration: number): void;
+        mouseWheel(wheelAmt: number, delay?: number, duration?: number): void;
         /**
          * Scroll the passed node into view, if it is not.
          * 
@@ -21044,7 +21044,7 @@ declare module dojo {
          * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
          * @param duration               OptionalDelay to wait after firing.             
          */
-        sequence(f: Function, delay: number, duration: number): void;
+        sequence(f: Function, delay?: number, duration?: number): void;
         /**
          * Set clipboard content.
          * Set data as clipboard content, overriding anything already there. The
@@ -21053,7 +21053,7 @@ declare module dojo {
          * @param data New clipboard content to set             
          * @param format               OptionalSet this to "text/html" to put richtext to the clipboard.Otherwise, data is treated as plaintext. By default, plaintextis used.             
          */
-        setClipboard(data: String, format: String): void;
+        setClipboard(data: String, format?: String): void;
         /**
          * 
          */
@@ -21066,7 +21066,7 @@ declare module dojo {
          * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
          * @param duration               OptionalTime, in milliseconds, to spend pressing all of the keys.The default is (string length)*50 ms.             
          */
-        typeKeys(chars: String, delay: number, duration: number): void;
+        typeKeys(chars: String, delay?: number, duration?: number): void;
         /**
          * Types a string of characters in order, or types a dojo.keys.* constant.
          * Types a string of characters in order, or types a dojo.keys.* constant.
@@ -21075,7 +21075,7 @@ declare module dojo {
          * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
          * @param duration               OptionalTime, in milliseconds, to spend pressing all of the keys.The default is (string length)*50 ms.             
          */
-        typeKeys(chars: number, delay: number, duration: number): void;
+        typeKeys(chars: number, delay?: number, duration?: number): void;
         /**
          * Notifies DOH that the doh.robot is about to make a page change in the application it is driving,
          * returning a doh.Deferred object the user should return in their runTest function as part of a DOH test.
@@ -21134,7 +21134,7 @@ declare module dojo {
          * @param charOrCode char/JS keyCode/dojo.keys.* constant for the key you want to hold downWarning: holding down a shifted key, like 'A', can have unpredictable results.             
          * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
          */
-        keyDown(charOrCode: number, delay: number): void;
+        keyDown(charOrCode: number, delay?: number): void;
         /**
          * Types a key combination, like SHIFT-TAB.
          * Types a key combination, like SHIFT-TAB.
@@ -21152,7 +21152,7 @@ declare module dojo {
          * @param charOrCode char/JS keyCode/dojo.keys.* constant for the key you want to releaseWarning: releasing a shifted key, like 'A', can have unpredictable results.             
          * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
          */
-        keyUp(charOrCode: number, delay: number): void;
+        keyUp(charOrCode: number, delay?: number): void;
         /**
          * 
          */
@@ -21166,7 +21166,7 @@ declare module dojo {
          * @param buttons             
          * @param delay               Optional            
          */
-        mouseClick(buttons: Object, delay: number): void;
+        mouseClick(buttons: Object, delay?: number): void;
         /**
          * Moves the mouse to the specified x,y offset relative to the viewport.
          * 
@@ -21236,7 +21236,7 @@ declare module dojo {
          * @param buttons JSON object that represents all of the mouse buttons being pressed.It takes the following Boolean attributes:leftmiddleright             
          * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
          */
-        mousePress(buttons: Object, delay: number): void;
+        mousePress(buttons: Object, delay?: number): void;
         /**
          * Releases mouse buttons.
          * Releases the mouse buttons you pass as true.
@@ -21247,7 +21247,7 @@ declare module dojo {
          * @param buttons             
          * @param delay               Optional            
          */
-        mouseRelease(buttons: Object, delay: number): void;
+        mouseRelease(buttons: Object, delay?: number): void;
         /**
          * Spins the mouse wheel.
          * Spins the wheel wheelAmt "notches."
@@ -21290,7 +21290,7 @@ declare module dojo {
          * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
          * @param duration               OptionalDelay to wait after firing.             
          */
-        sequence(f: Function, delay: number, duration: number): void;
+        sequence(f: Function, delay?: number, duration?: number): void;
         /**
          * Set clipboard content.
          * Set data as clipboard content, overriding anything already there. The
@@ -21299,7 +21299,7 @@ declare module dojo {
          * @param data New clipboard content to set             
          * @param format               OptionalSet this to "text/html" to put richtext to the clipboard.Otherwise, data is treated as plaintext. By default, plaintextis used.             
          */
-        setClipboard(data: String, format: String): void;
+        setClipboard(data: String, format?: String): void;
         /**
          * 
          */
@@ -21312,7 +21312,7 @@ declare module dojo {
          * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
          * @param duration               OptionalTime, in milliseconds, to spend pressing all of the keys.The default is (string length)*50 ms.             
          */
-        typeKeys(chars: String, delay: number, duration: number): void;
+        typeKeys(chars: String, delay?: number, duration?: number): void;
         /**
          * Types a string of characters in order, or types a dojo.keys.* constant.
          * Types a string of characters in order, or types a dojo.keys.* constant.
@@ -21321,7 +21321,7 @@ declare module dojo {
          * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
          * @param duration               OptionalTime, in milliseconds, to spend pressing all of the keys.The default is (string length)*50 ms.             
          */
-        typeKeys(chars: number, delay: number, duration: number): void;
+        typeKeys(chars: number, delay?: number, duration?: number): void;
         /**
          * Notifies DOH that the doh.robot is about to make a page change in the application it is driving,
          * returning a doh.Deferred object the user should return in their runTest function as part of a DOH test.
@@ -21683,7 +21683,7 @@ declare module dojo {
          * @param context The context in which to run execute callback, or a callback if not using context             
          * @param callback               OptionalThe function to execute.             
          */
-        addOnLoad(priority: number, context: any, callback: Function): void;
+        addOnLoad(priority: number, context: any, callback?: Function): void;
         /**
          * registers a function to be triggered when the page unloads.
          * The first time that addOnUnload is called Dojo will
@@ -21706,7 +21706,7 @@ declare module dojo {
          * @param obj               Optional            
          * @param functionName               Optional            
          */
-        addOnUnload(obj: Object, functionName: String): void;
+        addOnUnload(obj?: Object, functionName?: String): void;
         /**
          * registers a function to be triggered when the page unloads.
          * The first time that addOnUnload is called Dojo will
@@ -21729,7 +21729,7 @@ declare module dojo {
          * @param obj               Optional            
          * @param functionName               Optional            
          */
-        addOnUnload(obj: Function, functionName: String): void;
+        addOnUnload(obj?: Function, functionName?: String): void;
         /**
          * registers a function to be triggered when the page unloads.
          * The first time that addOnUnload is called Dojo will
@@ -21752,7 +21752,7 @@ declare module dojo {
          * @param obj               Optional            
          * @param functionName               Optional            
          */
-        addOnUnload(obj: Object, functionName: Function): void;
+        addOnUnload(obj?: Object, functionName?: Function): void;
         /**
          * registers a function to be triggered when the page unloads.
          * The first time that addOnUnload is called Dojo will
@@ -21775,7 +21775,7 @@ declare module dojo {
          * @param obj               Optional            
          * @param functionName               Optional            
          */
-        addOnUnload(obj: Function, functionName: Function): void;
+        addOnUnload(obj?: Function, functionName?: Function): void;
         /**
          * registers a function to be triggered when window.onunload fires.
          * Be careful trying to modify the DOM or access JavaScript properties
@@ -21786,7 +21786,7 @@ declare module dojo {
          * @param obj               Optional            
          * @param functionName               Optional            
          */
-        addOnWindowUnload(obj: Object, functionName: String): void;
+        addOnWindowUnload(obj?: Object, functionName?: String): void;
         /**
          * registers a function to be triggered when window.onunload fires.
          * Be careful trying to modify the DOM or access JavaScript properties
@@ -21797,7 +21797,7 @@ declare module dojo {
          * @param obj               Optional            
          * @param functionName               Optional            
          */
-        addOnWindowUnload(obj: Object, functionName: Function): void;
+        addOnWindowUnload(obj?: Object, functionName?: Function): void;
         /**
          * A simpler interface to animateProperty(), also returns
          * an instance of Animation but begins the animation
@@ -21818,7 +21818,7 @@ declare module dojo {
          * @param onEnd               OptionalA function to be called when the animation finishesrunning.             
          * @param delay               OptionalThe number of milliseconds to delay beginning theanimation by. The default is 0.             
          */
-        anim(node: HTMLElement, properties: Object, duration: number, easing: Function, onEnd: Function, delay: number): any;
+        anim(node: HTMLElement, properties: Object, duration?: number, easing?: Function, onEnd?: Function, delay?: number): any;
         /**
          * A simpler interface to animateProperty(), also returns
          * an instance of Animation but begins the animation
@@ -21839,7 +21839,7 @@ declare module dojo {
          * @param onEnd               OptionalA function to be called when the animation finishesrunning.             
          * @param delay               OptionalThe number of milliseconds to delay beginning theanimation by. The default is 0.             
          */
-        anim(node: String, properties: Object, duration: number, easing: Function, onEnd: Function, delay: number): any;
+        anim(node: String, properties: Object, duration?: number, easing?: Function, onEnd?: Function, delay?: number): any;
         /**
          * Returns an animation that will transition the properties of
          * node defined in args depending how they are defined in
@@ -21888,7 +21888,7 @@ declare module dojo {
          * @param name the name of the attribute to get or set.             
          * @param value               OptionalThe value to set for the attribute             
          */
-        attr(node: HTMLElement, name: String, value: String): any;
+        attr(node: HTMLElement, name: String, value?: String): any;
         /**
          * Gets or sets an attribute on an HTML element.
          * Handles normalized getting and setting of attributes on DOM
@@ -21912,7 +21912,7 @@ declare module dojo {
          * @param name the name of the attribute to get or set.             
          * @param value               OptionalThe value to set for the attribute             
          */
-        attr(node: String, name: String, value: String): any;
+        attr(node: String, name: String, value?: String): any;
         /**
          * Gets or sets an attribute on an HTML element.
          * Handles normalized getting and setting of attributes on DOM
@@ -21936,7 +21936,7 @@ declare module dojo {
          * @param name the name of the attribute to get or set.             
          * @param value               OptionalThe value to set for the attribute             
          */
-        attr(node: HTMLElement, name: Object, value: String): any;
+        attr(node: HTMLElement, name: Object, value?: String): any;
         /**
          * Gets or sets an attribute on an HTML element.
          * Handles normalized getting and setting of attributes on DOM
@@ -21960,7 +21960,7 @@ declare module dojo {
          * @param name the name of the attribute to get or set.             
          * @param value               OptionalThe value to set for the attribute             
          */
-        attr(node: String, name: Object, value: String): any;
+        attr(node: String, name: Object, value?: String): any;
         /**
          * Blend colors end and start with weight from 0 to 1, 0.5 being a 50/50 blend,
          * can reuse a previously allocated Color object for the result
@@ -21970,13 +21970,13 @@ declare module dojo {
          * @param weight             
          * @param obj               Optional            
          */
-        blendColors(start: dojo._base.Color, end: dojo._base.Color, weight: number, obj: dojo._base.Color): any;
+        blendColors(start: dojo._base.Color, end: dojo._base.Color, weight: number, obj?: dojo._base.Color): any;
         /**
          * Return the body element of the specified document or of dojo/_base/window::doc.
          * 
          * @param doc               Optional            
          */
-        body(doc: HTMLDocument): any;
+        body(doc?: HTMLDocument): any;
         /**
          * Returns DOM node with matching id attribute or falsy value (ex: null or undefined)
          * if not found.  If id is a DomNode, this function is a no-op.
@@ -21984,7 +21984,7 @@ declare module dojo {
          * @param id A string to match an HTML id attribute or a reference to a DOM Node             
          * @param doc               OptionalDocument to work in. Defaults to the current value ofdojo/_base/window.doc.  Can be used to retrievenode references from other documents.             
          */
-        byId(id: String, doc: HTMLDocument): any;
+        byId(id: String, doc?: HTMLDocument): any;
         /**
          * Returns DOM node with matching id attribute or falsy value (ex: null or undefined)
          * if not found.  If id is a DomNode, this function is a no-op.
@@ -21992,7 +21992,7 @@ declare module dojo {
          * @param id A string to match an HTML id attribute or a reference to a DOM Node             
          * @param doc               OptionalDocument to work in. Defaults to the current value ofdojo/_base/window.doc.  Can be used to retrievenode references from other documents.             
          */
-        byId(id: HTMLElement, doc: HTMLDocument): any;
+        byId(id: HTMLElement, doc?: HTMLDocument): any;
         /**
          * A getter and setter for storing the string content associated with the
          * module and url arguments.
@@ -22012,7 +22012,7 @@ declare module dojo {
          * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.             
          * @param value               OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.             
          */
-        cache(module: String, url: String, value: String): any;
+        cache(module: String, url: String, value?: String): any;
         /**
          * A getter and setter for storing the string content associated with the
          * module and url arguments.
@@ -22032,7 +22032,7 @@ declare module dojo {
          * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.             
          * @param value               OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.             
          */
-        cache(module: Object, url: String, value: String): any;
+        cache(module: Object, url: String, value?: String): any;
         /**
          * A getter and setter for storing the string content associated with the
          * module and url arguments.
@@ -22052,7 +22052,7 @@ declare module dojo {
          * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.             
          * @param value               OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.             
          */
-        cache(module: String, url: String, value: Object): any;
+        cache(module: String, url: String, value?: Object): any;
         /**
          * A getter and setter for storing the string content associated with the
          * module and url arguments.
@@ -22072,7 +22072,7 @@ declare module dojo {
          * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.             
          * @param value               OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.             
          */
-        cache(module: Object, url: String, value: Object): any;
+        cache(module: Object, url: String, value?: Object): any;
         /**
          * 
          */
@@ -22108,7 +22108,7 @@ declare module dojo {
          * @param a             
          * @param obj               Optional            
          */
-        colorFromArray(a: any[], obj: dojo._base.Color): any;
+        colorFromArray(a: any[], obj?: dojo._base.Color): any;
         /**
          * Converts a hex string with a '#' prefix to a color object.
          * Supports 12-bit #rgb shorthand. Optionally accepts a
@@ -22117,7 +22117,7 @@ declare module dojo {
          * @param color             
          * @param obj               Optional            
          */
-        colorFromHex(color: String, obj: dojo._base.Color): any;
+        colorFromHex(color: String, obj?: dojo._base.Color): any;
         /**
          * get rgb(a) array from css-style color declarations
          * this function can handle all 4 CSS3 Color Module formats: rgb,
@@ -22126,7 +22126,7 @@ declare module dojo {
          * @param color             
          * @param obj               Optional            
          */
-        colorFromRgb(color: String, obj: dojo._base.Color): any;
+        colorFromRgb(color: String, obj?: dojo._base.Color): any;
         /**
          * Parses str for a color value. Accepts hex, rgb, and rgba
          * style color values.
@@ -22138,7 +22138,7 @@ declare module dojo {
          * @param str             
          * @param obj               Optional            
          */
-        colorFromString(str: String, obj: dojo._base.Color): any;
+        colorFromString(str: String, obj?: dojo._base.Color): any;
         /**
          * dojo.connect is a deprecated event handling and delegation method in
          * Dojo. It allows one function to "listen in" on the execution of
@@ -22178,7 +22178,7 @@ declare module dojo {
          * @param method A function reference, or name of a function in context.The function identified by method fires after event does.method receives the same arguments as the event.See context argument comments for information on method's scope.             
          * @param dontFix               OptionalIf obj is a DOM node, set dontFix to true to prevent delegationof this connection to the DOM event manager.             
          */
-        connect(obj: Object, event: String, context: Object, method: String, dontFix: boolean): any;
+        connect(obj: Object, event: String, context: Object, method: String, dontFix?: boolean): any;
         /**
          * dojo.connect is a deprecated event handling and delegation method in
          * Dojo. It allows one function to "listen in" on the execution of
@@ -22218,7 +22218,7 @@ declare module dojo {
          * @param method A function reference, or name of a function in context.The function identified by method fires after event does.method receives the same arguments as the event.See context argument comments for information on method's scope.             
          * @param dontFix               OptionalIf obj is a DOM node, set dontFix to true to prevent delegationof this connection to the DOM event manager.             
          */
-        connect(obj: Object, event: String, context: any, method: String, dontFix: boolean): any;
+        connect(obj: Object, event: String, context: any, method: String, dontFix?: boolean): any;
         /**
          * dojo.connect is a deprecated event handling and delegation method in
          * Dojo. It allows one function to "listen in" on the execution of
@@ -22258,7 +22258,7 @@ declare module dojo {
          * @param method A function reference, or name of a function in context.The function identified by method fires after event does.method receives the same arguments as the event.See context argument comments for information on method's scope.             
          * @param dontFix               OptionalIf obj is a DOM node, set dontFix to true to prevent delegationof this connection to the DOM event manager.             
          */
-        connect(obj: Object, event: String, context: Object, method: Function, dontFix: boolean): any;
+        connect(obj: Object, event: String, context: Object, method: Function, dontFix?: boolean): any;
         /**
          * dojo.connect is a deprecated event handling and delegation method in
          * Dojo. It allows one function to "listen in" on the execution of
@@ -22298,7 +22298,7 @@ declare module dojo {
          * @param method A function reference, or name of a function in context.The function identified by method fires after event does.method receives the same arguments as the event.See context argument comments for information on method's scope.             
          * @param dontFix               OptionalIf obj is a DOM node, set dontFix to true to prevent delegationof this connection to the DOM event manager.             
          */
-        connect(obj: Object, event: String, context: any, method: Function, dontFix: boolean): any;
+        connect(obj: Object, event: String, context: any, method: Function, dontFix?: boolean): any;
         /**
          * Getter/setter for the content-box of node.
          * Returns an object in the expected format of box (regardless if box is passed).
@@ -22315,7 +22315,7 @@ declare module dojo {
          * @param node id or reference to DOM Node to get/set box for             
          * @param box               OptionalIf passed, denotes that dojo.contentBox() shouldupdate/set the content box for node. Box is an object in theabove format, but only w (width) and h (height) are supported.All properties are optional if passed.             
          */
-        contentBox(node: HTMLElement, box: Object): any;
+        contentBox(node: HTMLElement, box?: Object): any;
         /**
          * Getter/setter for the content-box of node.
          * Returns an object in the expected format of box (regardless if box is passed).
@@ -22332,7 +22332,7 @@ declare module dojo {
          * @param node id or reference to DOM Node to get/set box for             
          * @param box               OptionalIf passed, denotes that dojo.contentBox() shouldupdate/set the content box for node. Box is an object in theabove format, but only w (width) and h (height) are supported.All properties are optional if passed.             
          */
-        contentBox(node: String, box: Object): any;
+        contentBox(node: String, box?: Object): any;
         /**
          * Get or set a cookie.
          * If one argument is passed, returns the value of the cookie
@@ -22342,7 +22342,7 @@ declare module dojo {
          * @param value               OptionalValue for the cookie             
          * @param props               OptionalProperties for the cookie             
          */
-        cookie(name: String, value: String, props: Object): any;
+        cookie(name: String, value?: String, props?: Object): any;
         /**
          * Deprecated: Use position() for border-box x/y/w/h
          * or marginBox() for margin-box w/h/l/t.
@@ -22361,7 +22361,7 @@ declare module dojo {
          * @param node             
          * @param includeScroll               Optional            
          */
-        coords(node: HTMLElement, includeScroll: boolean): any;
+        coords(node: HTMLElement, includeScroll?: boolean): any;
         /**
          * Deprecated: Use position() for border-box x/y/w/h
          * or marginBox() for margin-box w/h/l/t.
@@ -22380,7 +22380,7 @@ declare module dojo {
          * @param node             
          * @param includeScroll               Optional            
          */
-        coords(node: String, includeScroll: boolean): any;
+        coords(node: String, includeScroll?: boolean): any;
         /**
          * Create an element, allowing for optional attribute decoration
          * and placement.
@@ -22399,7 +22399,7 @@ declare module dojo {
          * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
          * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
          */
-        create(tag: HTMLElement, attrs: Object, refNode: HTMLElement, pos: String): any;
+        create(tag: HTMLElement, attrs: Object, refNode?: HTMLElement, pos?: String): any;
         /**
          * Create an element, allowing for optional attribute decoration
          * and placement.
@@ -22418,7 +22418,7 @@ declare module dojo {
          * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
          * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
          */
-        create(tag: String, attrs: Object, refNode: HTMLElement, pos: String): any;
+        create(tag: String, attrs: Object, refNode?: HTMLElement, pos?: String): any;
         /**
          * Create an element, allowing for optional attribute decoration
          * and placement.
@@ -22437,7 +22437,7 @@ declare module dojo {
          * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
          * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
          */
-        create(tag: HTMLElement, attrs: Object, refNode: String, pos: String): any;
+        create(tag: HTMLElement, attrs: Object, refNode?: String, pos?: String): any;
         /**
          * Create an element, allowing for optional attribute decoration
          * and placement.
@@ -22456,7 +22456,7 @@ declare module dojo {
          * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
          * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
          */
-        create(tag: String, attrs: Object, refNode: String, pos: String): any;
+        create(tag: String, attrs: Object, refNode?: String, pos?: String): any;
         /**
          * Create a feature-rich constructor from compact notation.
          * Create a constructor using a compact notation for inheritance and
@@ -22668,7 +22668,7 @@ declare module dojo {
          * @param consumeErrors               Optional            
          * @param canceller               OptionalA deferred canceller function, see dojo.Deferred             
          */
-        DeferredList(list: any[], fireOnOneCallback: boolean, fireOnOneErrback: boolean, consumeErrors: boolean, canceller: Function): void;
+        DeferredList(list: any[], fireOnOneCallback?: boolean, fireOnOneErrback?: boolean, consumeErrors?: boolean, canceller?: Function): void;
         /**
          * Log a debug message to indicate that a behavior has been
          * deprecated.
@@ -22677,7 +22677,7 @@ declare module dojo {
          * @param extra               OptionalText to append to the message. Often provides advice on anew function or facility to achieve the same goal duringthe deprecation period.             
          * @param removal               OptionalText to indicate when in the future the behavior will beremoved. Usually a version number.             
          */
-        deprecated(behaviour: String, extra: String, removal: String): void;
+        deprecated(behaviour: String, extra?: String, removal?: String): void;
         /**
          * 
          * @param node             
@@ -22695,7 +22695,7 @@ declare module dojo {
          * 
          * @param doc               OptionalOptional document to query.   If unspecified, use win.doc.             
          */
-        docScroll(doc: HTMLDocument): Object;
+        docScroll(doc?: HTMLDocument): Object;
         /**
          * 
          * @param node             
@@ -22735,7 +22735,7 @@ declare module dojo {
          * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
          * @param thisObject               Optionalmay be used to scope the call to callback             
          */
-        every(arr: any[], callback: Function, thisObject: Object): boolean;
+        every(arr: any[], callback: Function, thisObject?: Object): boolean;
         /**
          * Determines whether or not every item in arr satisfies the
          * condition implemented by callback.
@@ -22749,7 +22749,7 @@ declare module dojo {
          * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
          * @param thisObject               Optionalmay be used to scope the call to callback             
          */
-        every(arr: String, callback: Function, thisObject: Object): boolean;
+        every(arr: String, callback: Function, thisObject?: Object): boolean;
         /**
          * Determines whether or not every item in arr satisfies the
          * condition implemented by callback.
@@ -22763,7 +22763,7 @@ declare module dojo {
          * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
          * @param thisObject               Optionalmay be used to scope the call to callback             
          */
-        every(arr: any[], callback: String, thisObject: Object): boolean;
+        every(arr: any[], callback: String, thisObject?: Object): boolean;
         /**
          * Determines whether or not every item in arr satisfies the
          * condition implemented by callback.
@@ -22777,7 +22777,7 @@ declare module dojo {
          * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
          * @param thisObject               Optionalmay be used to scope the call to callback             
          */
-        every(arr: String, callback: String, thisObject: Object): boolean;
+        every(arr: String, callback: String, thisObject?: Object): boolean;
         /**
          * 
          * @param exitcode             
@@ -22794,7 +22794,7 @@ declare module dojo {
          * @param moduleName The name of a module, or the name of a module file or a specificfunction             
          * @param extra               Optionalsome additional message for the user             
          */
-        experimental(moduleName: String, extra: String): void;
+        experimental(moduleName: String, extra?: String): void;
         /**
          * Returns an animation that will fade node defined in 'args' from
          * its current opacity to fully opaque.
@@ -22842,7 +22842,7 @@ declare module dojo {
          * @param callback a function that is invoked with three arguments (item,index, array). The return of this function is expected tobe a boolean which determines whether the passed-in itemwill be included in the returned array.             
          * @param thisObject               Optionalmay be used to scope the call to callback             
          */
-        filter(arr: any[], callback: Function, thisObject: Object): any[];
+        filter(arr: any[], callback: Function, thisObject?: Object): any[];
         /**
          * Returns a new Array with those items from arr that match the
          * condition implemented by callback.
@@ -22856,7 +22856,7 @@ declare module dojo {
          * @param callback a function that is invoked with three arguments (item,index, array). The return of this function is expected tobe a boolean which determines whether the passed-in itemwill be included in the returned array.             
          * @param thisObject               Optionalmay be used to scope the call to callback             
          */
-        filter(arr: any[], callback: String, thisObject: Object): any[];
+        filter(arr: any[], callback: String, thisObject?: Object): any[];
         /**
          * normalizes properties on the event object including event
          * bubbling methods, keystroke normalization, and x/y positions
@@ -22874,7 +22874,7 @@ declare module dojo {
          * @param scrollLeft             
          * @param doc               OptionalOptional document to query.   If unspecified, use win.doc.             
          */
-        fixIeBiDiScrollLeft(scrollLeft: number, doc: HTMLDocument): number;
+        fixIeBiDiScrollLeft(scrollLeft: number, doc?: HTMLDocument): number;
         /**
          * for every item in arr, callback is invoked. Return values are ignored.
          * If you want to break out of the loop, consider using array.every() or array.some().
@@ -22889,7 +22889,7 @@ declare module dojo {
          * @param callback             
          * @param thisObject               Optional            
          */
-        forEach(arr: any[], callback: Function, thisObject: Object): void;
+        forEach(arr: any[], callback: Function, thisObject?: Object): void;
         /**
          * for every item in arr, callback is invoked. Return values are ignored.
          * If you want to break out of the loop, consider using array.every() or array.some().
@@ -22904,7 +22904,7 @@ declare module dojo {
          * @param callback             
          * @param thisObject               Optional            
          */
-        forEach(arr: String, callback: Function, thisObject: Object): void;
+        forEach(arr: String, callback: Function, thisObject?: Object): void;
         /**
          * for every item in arr, callback is invoked. Return values are ignored.
          * If you want to break out of the loop, consider using array.every() or array.some().
@@ -22919,7 +22919,7 @@ declare module dojo {
          * @param callback             
          * @param thisObject               Optional            
          */
-        forEach(arr: any[], callback: String, thisObject: Object): void;
+        forEach(arr: any[], callback: String, thisObject?: Object): void;
         /**
          * for every item in arr, callback is invoked. Return values are ignored.
          * If you want to break out of the loop, consider using array.every() or array.some().
@@ -22934,7 +22934,7 @@ declare module dojo {
          * @param callback             
          * @param thisObject               Optional            
          */
-        forEach(arr: String, callback: String, thisObject: Object): void;
+        forEach(arr: String, callback: String, thisObject?: Object): void;
         /**
          * Create a serialized JSON string from a form node or string
          * ID identifying the form to serialize
@@ -22942,7 +22942,7 @@ declare module dojo {
          * @param formNode             
          * @param prettyPrint               Optional            
          */
-        formToJson(formNode: HTMLElement, prettyPrint: boolean): String;
+        formToJson(formNode: HTMLElement, prettyPrint?: boolean): String;
         /**
          * Create a serialized JSON string from a form node or string
          * ID identifying the form to serialize
@@ -22950,7 +22950,7 @@ declare module dojo {
          * @param formNode             
          * @param prettyPrint               Optional            
          */
-        formToJson(formNode: String, prettyPrint: boolean): String;
+        formToJson(formNode: String, prettyPrint?: boolean): String;
         /**
          * Serialize a form node to a JavaScript object.
          * Returns the values encoded in an HTML form as
@@ -23025,7 +23025,7 @@ declare module dojo {
          * @param node             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        getBorderExtents(node: HTMLElement, computedStyle: Object): Object;
+        getBorderExtents(node: HTMLElement, computedStyle?: Object): Object;
         /**
          * Returns a "computed style" object.
          * Gets a "computed style" object which can be used to gather
@@ -23052,7 +23052,7 @@ declare module dojo {
          * @param node             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        getContentBox(node: HTMLElement, computedStyle: Object): Object;
+        getContentBox(node: HTMLElement, computedStyle?: Object): Object;
         /**
          * returns the offset in x and y from the document body to the
          * visual edge of the page for IE
@@ -23072,7 +23072,7 @@ declare module dojo {
          * 
          * @param doc               OptionalOptional document to query.   If unspecified, use win.doc.             
          */
-        getIeDocumentElementOffset(doc: HTMLDocument): Object;
+        getIeDocumentElementOffset(doc?: HTMLDocument): Object;
         /**
          * 
          * @param moduleName             
@@ -23087,7 +23087,7 @@ declare module dojo {
          * @param node             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        getMarginBox(node: HTMLElement, computedStyle: Object): Object;
+        getMarginBox(node: HTMLElement, computedStyle?: Object): Object;
         /**
          * returns object with properties useful for box fitting with
          * regards to box margins (i.e., the outer-box).
@@ -23102,7 +23102,7 @@ declare module dojo {
          * @param node             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        getMarginExtents(node: HTMLElement, computedStyle: Object): Object;
+        getMarginExtents(node: HTMLElement, computedStyle?: Object): Object;
         /**
          * returns an object that encodes the width and height of
          * the node's margin box
@@ -23110,7 +23110,7 @@ declare module dojo {
          * @param node             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        getMarginSize(node: HTMLElement, computedStyle: Object): Object;
+        getMarginSize(node: HTMLElement, computedStyle?: Object): Object;
         /**
          * returns an object that encodes the width and height of
          * the node's margin box
@@ -23118,7 +23118,7 @@ declare module dojo {
          * @param node             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        getMarginSize(node: String, computedStyle: Object): Object;
+        getMarginSize(node: String, computedStyle?: Object): Object;
         /**
          * Returns an effective value of a property or an attribute.
          * 
@@ -23146,7 +23146,7 @@ declare module dojo {
          * @param node             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        getPadBorderExtents(node: HTMLElement, computedStyle: Object): Object;
+        getPadBorderExtents(node: HTMLElement, computedStyle?: Object): Object;
         /**
          * Returns object with special values specifically useful for node
          * fitting.
@@ -23164,7 +23164,7 @@ declare module dojo {
          * @param node             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        getPadExtents(node: HTMLElement, computedStyle: Object): Object;
+        getPadExtents(node: HTMLElement, computedStyle?: Object): Object;
         /**
          * Gets a property on an HTML element.
          * Handles normalized getting of properties on DOM nodes.
@@ -23194,7 +23194,7 @@ declare module dojo {
          * @param node id or reference to node to get style for             
          * @param name               Optionalthe style property to get             
          */
-        getStyle(node: HTMLElement, name: String): any;
+        getStyle(node: HTMLElement, name?: String): any;
         /**
          * Accesses styles on a node.
          * Getting the style value uses the computed style for the node, so the value
@@ -23208,7 +23208,7 @@ declare module dojo {
          * @param node id or reference to node to get style for             
          * @param name               Optionalthe style property to get             
          */
-        getStyle(node: String, name: String): any;
+        getStyle(node: String, name?: String): any;
         /**
          * Returns true if the requested attribute is specified on the
          * given element, and false otherwise.
@@ -23251,7 +23251,7 @@ declare module dojo {
          * @param hash               Optionalthe hash is set - #string.             
          * @param replace               OptionalIf true, updates the hash value in the current historystate instead of creating a new history state.             
          */
-        hash(hash: String, replace: boolean): any;
+        hash(hash?: String, replace?: boolean): any;
         /**
          * locates the first index of the provided value in the
          * passed array. If the value is not found, -1 is returned.
@@ -23268,13 +23268,13 @@ declare module dojo {
          * @param fromIndex               Optional            
          * @param findLast               OptionalMakes indexOf() work like lastIndexOf().  Used internally; not meant for external usage.             
          */
-        indexOf(arr: any[], value: Object, fromIndex: number, findLast: boolean): number;
+        indexOf(arr: any[], value: Object, fromIndex?: number, findLast?: boolean): number;
         /**
          * Returns true if the current language is left-to-right, and false otherwise.
          * 
          * @param doc               OptionalOptional document to query.   If unspecified, use win.doc.             
          */
-        isBodyLtr(doc: HTMLDocument): boolean;
+        isBodyLtr(doc?: HTMLDocument): boolean;
         /**
          * Returns true if node is a descendant of ancestor
          * 
@@ -23318,7 +23318,7 @@ declare module dojo {
          * @param value             
          * @param fromIndex               Optional            
          */
-        lastIndexOf(arr: any, value: any, fromIndex: number): number;
+        lastIndexOf(arr: any, value: any, fromIndex?: number): number;
         /**
          * 
          * @param f             
@@ -23397,7 +23397,7 @@ declare module dojo {
          * @param node id or reference to DOM Node to get/set box for             
          * @param box               OptionalIf passed, denotes that dojo.marginBox() shouldupdate/set the margin box for node. Box is an object in theabove format. All properties are optional if passed.             
          */
-        marginBox(node: HTMLElement, box: Object): any;
+        marginBox(node: HTMLElement, box?: Object): any;
         /**
          * Getter/setter for the margin-box of node.
          * Getter/setter for the margin-box of node.
@@ -23411,14 +23411,14 @@ declare module dojo {
          * @param node id or reference to DOM Node to get/set box for             
          * @param box               OptionalIf passed, denotes that dojo.marginBox() shouldupdate/set the margin box for node. Box is an object in theabove format. All properties are optional if passed.             
          */
-        marginBox(node: String, box: Object): any;
+        marginBox(node: String, box?: Object): any;
         /**
          * Returns a URL relative to a module.
          * 
          * @param module dojo/dom-class             
          * @param url               Optional            
          */
-        moduleUrl(module: String, url: String): String;
+        moduleUrl(module: String, url?: String): String;
         /**
          * Array-like object which adds syntactic
          * sugar for chaining, common iteration operations, animation, and
@@ -23449,7 +23449,7 @@ declare module dojo {
          * @param refNode id or node reference to use as basis for placement             
          * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
          */
-        place(node: HTMLElement, refNode: HTMLElement, position: String): HTMLElement;
+        place(node: HTMLElement, refNode: HTMLElement, position?: String): HTMLElement;
         /**
          * Attempt to insert node into the DOM, choosing from various positioning options.
          * Returns the first argument resolved to a DOM node.
@@ -23458,7 +23458,7 @@ declare module dojo {
          * @param refNode id or node reference to use as basis for placement             
          * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
          */
-        place(node: String, refNode: HTMLElement, position: String): HTMLElement;
+        place(node: String, refNode: HTMLElement, position?: String): HTMLElement;
         /**
          * Attempt to insert node into the DOM, choosing from various positioning options.
          * Returns the first argument resolved to a DOM node.
@@ -23467,7 +23467,7 @@ declare module dojo {
          * @param refNode id or node reference to use as basis for placement             
          * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
          */
-        place(node: HTMLElement, refNode: String, position: String): HTMLElement;
+        place(node: HTMLElement, refNode: String, position?: String): HTMLElement;
         /**
          * Attempt to insert node into the DOM, choosing from various positioning options.
          * Returns the first argument resolved to a DOM node.
@@ -23476,7 +23476,7 @@ declare module dojo {
          * @param refNode id or node reference to use as basis for placement             
          * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
          */
-        place(node: String, refNode: String, position: String): HTMLElement;
+        place(node: String, refNode: String, position?: String): HTMLElement;
         /**
          * Attempt to insert node into the DOM, choosing from various positioning options.
          * Returns the first argument resolved to a DOM node.
@@ -23485,7 +23485,7 @@ declare module dojo {
          * @param refNode id or node reference to use as basis for placement             
          * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
          */
-        place(node: HTMLElement, refNode: HTMLElement, position: number): HTMLElement;
+        place(node: HTMLElement, refNode: HTMLElement, position?: number): HTMLElement;
         /**
          * Attempt to insert node into the DOM, choosing from various positioning options.
          * Returns the first argument resolved to a DOM node.
@@ -23494,7 +23494,7 @@ declare module dojo {
          * @param refNode id or node reference to use as basis for placement             
          * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
          */
-        place(node: String, refNode: HTMLElement, position: number): HTMLElement;
+        place(node: String, refNode: HTMLElement, position?: number): HTMLElement;
         /**
          * Attempt to insert node into the DOM, choosing from various positioning options.
          * Returns the first argument resolved to a DOM node.
@@ -23503,7 +23503,7 @@ declare module dojo {
          * @param refNode id or node reference to use as basis for placement             
          * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
          */
-        place(node: HTMLElement, refNode: String, position: number): HTMLElement;
+        place(node: HTMLElement, refNode: String, position?: number): HTMLElement;
         /**
          * Attempt to insert node into the DOM, choosing from various positioning options.
          * Returns the first argument resolved to a DOM node.
@@ -23512,7 +23512,7 @@ declare module dojo {
          * @param refNode id or node reference to use as basis for placement             
          * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
          */
-        place(node: String, refNode: String, position: number): HTMLElement;
+        place(node: String, refNode: String, position?: number): HTMLElement;
         /**
          * require one or more modules based on which host environment
          * Dojo is currently operating in
@@ -23567,7 +23567,7 @@ declare module dojo {
          * @param node             
          * @param includeScroll               Optional            
          */
-        position(node: String, includeScroll: boolean): Object;
+        position(node: String, includeScroll?: boolean): Object;
         /**
          * Gets or sets a property on an HTML element.
          * Handles normalized getting and setting of properties on DOM
@@ -23591,7 +23591,7 @@ declare module dojo {
          * @param name the name of the property to get or set.             
          * @param value               OptionalThe value to set for the property             
          */
-        prop(node: HTMLElement, name: String, value: String): any;
+        prop(node: HTMLElement, name: String, value?: String): any;
         /**
          * Gets or sets a property on an HTML element.
          * Handles normalized getting and setting of properties on DOM
@@ -23615,7 +23615,7 @@ declare module dojo {
          * @param name the name of the property to get or set.             
          * @param value               OptionalThe value to set for the property             
          */
-        prop(node: String, name: String, value: String): any;
+        prop(node: String, name: String, value?: String): any;
         /**
          * Gets or sets a property on an HTML element.
          * Handles normalized getting and setting of properties on DOM
@@ -23639,7 +23639,7 @@ declare module dojo {
          * @param name the name of the property to get or set.             
          * @param value               OptionalThe value to set for the property             
          */
-        prop(node: HTMLElement, name: Object, value: String): any;
+        prop(node: HTMLElement, name: Object, value?: String): any;
         /**
          * Gets or sets a property on an HTML element.
          * Handles normalized getting and setting of properties on DOM
@@ -23663,7 +23663,7 @@ declare module dojo {
          * @param name the name of the property to get or set.             
          * @param value               OptionalThe value to set for the property             
          */
-        prop(node: String, name: Object, value: String): any;
+        prop(node: String, name: Object, value?: String): any;
         /**
          * 
          * @param mid             
@@ -23693,7 +23693,7 @@ declare module dojo {
          * @param g               OptionalThe global context. If a string, the id of the frame tosearch for a context and document.             
          * @param d               OptionalThe document element to execute subsequent code with.             
          */
-        pushContext(g: Object, d: HTMLDocument): void;
+        pushContext(g?: Object, d?: HTMLDocument): void;
         /**
          * causes subsequent calls to Dojo methods to assume the
          * passed object and, optionally, document as the default
@@ -23718,7 +23718,7 @@ declare module dojo {
          * @param g               OptionalThe global context. If a string, the id of the frame tosearch for a context and document.             
          * @param d               OptionalThe document element to execute subsequent code with.             
          */
-        pushContext(g: String, d: HTMLDocument): void;
+        pushContext(g?: String, d?: HTMLDocument): void;
         /**
          * Create an object representing a de-serialized query section of a
          * URL. Query keys with multiple values are returned in an array.
@@ -23784,7 +23784,7 @@ declare module dojo {
          * @param node String ID or DomNode reference to remove the class from.             
          * @param classStr               OptionalAn optional String class name to remove, or several space-separatedclass names, or an array of class names. If omitted, all class nameswill be deleted.             
          */
-        removeClass(node: String, classStr: String): void;
+        removeClass(node: String, classStr?: String): void;
         /**
          * Removes the specified classes from node. No contains()
          * check is required.
@@ -23792,7 +23792,7 @@ declare module dojo {
          * @param node String ID or DomNode reference to remove the class from.             
          * @param classStr               OptionalAn optional String class name to remove, or several space-separatedclass names, or an array of class names. If omitted, all class nameswill be deleted.             
          */
-        removeClass(node: HTMLElement, classStr: String): void;
+        removeClass(node: HTMLElement, classStr?: String): void;
         /**
          * Removes the specified classes from node. No contains()
          * check is required.
@@ -23800,7 +23800,7 @@ declare module dojo {
          * @param node String ID or DomNode reference to remove the class from.             
          * @param classStr               OptionalAn optional String class name to remove, or several space-separatedclass names, or an array of class names. If omitted, all class nameswill be deleted.             
          */
-        removeClass(node: String, classStr: any[]): void;
+        removeClass(node: String, classStr?: any[]): void;
         /**
          * Removes the specified classes from node. No contains()
          * check is required.
@@ -23808,7 +23808,7 @@ declare module dojo {
          * @param node String ID or DomNode reference to remove the class from.             
          * @param classStr               OptionalAn optional String class name to remove, or several space-separatedclass names, or an array of class names. If omitted, all class nameswill be deleted.             
          */
-        removeClass(node: HTMLElement, classStr: any[]): void;
+        removeClass(node: HTMLElement, classStr?: any[]): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -23817,7 +23817,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replaceClass(node: String, addClassStr: String, removeClassStr: String): void;
+        replaceClass(node: String, addClassStr: String, removeClassStr?: String): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -23826,7 +23826,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replaceClass(node: HTMLElement, addClassStr: String, removeClassStr: String): void;
+        replaceClass(node: HTMLElement, addClassStr: String, removeClassStr?: String): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -23835,7 +23835,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replaceClass(node: String, addClassStr: any[], removeClassStr: String): void;
+        replaceClass(node: String, addClassStr: any[], removeClassStr?: String): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -23844,7 +23844,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replaceClass(node: HTMLElement, addClassStr: any[], removeClassStr: String): void;
+        replaceClass(node: HTMLElement, addClassStr: any[], removeClassStr?: String): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -23853,7 +23853,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replaceClass(node: String, addClassStr: String, removeClassStr: any[]): void;
+        replaceClass(node: String, addClassStr: String, removeClassStr?: any[]): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -23862,7 +23862,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replaceClass(node: HTMLElement, addClassStr: String, removeClassStr: any[]): void;
+        replaceClass(node: HTMLElement, addClassStr: String, removeClassStr?: any[]): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -23871,7 +23871,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replaceClass(node: String, addClassStr: any[], removeClassStr: any[]): void;
+        replaceClass(node: String, addClassStr: any[], removeClassStr?: any[]): void;
         /**
          * Replaces one or more classes on a node if not present.
          * Operates more quickly than calling dojo.removeClass and dojo.addClass
@@ -23880,7 +23880,7 @@ declare module dojo {
          * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.             
          * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.             
          */
-        replaceClass(node: HTMLElement, addClassStr: any[], removeClassStr: any[]): void;
+        replaceClass(node: HTMLElement, addClassStr: any[], removeClassStr?: any[]): void;
         /**
          * loads a Javascript module from the appropriate URI
          * Modules are loaded via dojo.require by using one of two loaders: the normal loader
@@ -23935,7 +23935,7 @@ declare module dojo {
          * @param moduleName module name to load, using periods for separators, e.g. "dojo.date.locale".  Module paths are de-referenced by dojo'sinternal mapping of locations to names and are disambiguated bylongest prefix. See dojo.registerModulePath() for details onregistering new modules.             
          * @param omitModuleCheck               Optionalif true, omitModuleCheck skips the step of ensuring that theloaded file actually defines the symbol it is referenced by.For example if it called as dojo.require("a.b.c") and thefile located at a/b/c.js does not define an object a.b.c,and exception will be throws whereas no exception is raisedwhen called as dojo.require("a.b.c", true)             
          */
-        require(moduleName: String, omitModuleCheck: boolean): any;
+        require(moduleName: String, omitModuleCheck?: boolean): any;
         /**
          * If the condition is true then call dojo.require() for the specified
          * resource
@@ -23944,7 +23944,7 @@ declare module dojo {
          * @param moduleName             
          * @param omitModuleCheck               Optional            
          */
-        requireAfterIf(condition: boolean, moduleName: String, omitModuleCheck: boolean): void;
+        requireAfterIf(condition: boolean, moduleName: String, omitModuleCheck?: boolean): void;
         /**
          * If the condition is true then call dojo.require() for the specified
          * resource
@@ -23953,14 +23953,14 @@ declare module dojo {
          * @param moduleName             
          * @param omitModuleCheck               Optional            
          */
-        requireIf(condition: boolean, moduleName: String, omitModuleCheck: boolean): void;
+        requireIf(condition: boolean, moduleName: String, omitModuleCheck?: boolean): void;
         /**
          * 
          * @param moduleName             
          * @param bundleName             
          * @param locale               Optional            
          */
-        requireLocalization(moduleName: String, bundleName: String, locale: String): void;
+        requireLocalization(moduleName: String, bundleName: String, locale?: String): void;
         /**
          * Mix in properties skipping a constructor and decorating functions
          * like it is done by declare().
@@ -23997,7 +23997,7 @@ declare module dojo {
          * @param name the name of the attribute to set, or a hash of key-value pairs to set.             
          * @param value               Optionalthe value to set for the attribute, if the name is a string.             
          */
-        setAttr(node: HTMLElement, name: String, value: String): any;
+        setAttr(node: HTMLElement, name: String, value?: String): any;
         /**
          * Sets an attribute on an HTML element.
          * Handles normalized setting of attributes on DOM Nodes.
@@ -24016,7 +24016,7 @@ declare module dojo {
          * @param name the name of the attribute to set, or a hash of key-value pairs to set.             
          * @param value               Optionalthe value to set for the attribute, if the name is a string.             
          */
-        setAttr(node: String, name: String, value: String): any;
+        setAttr(node: String, name: String, value?: String): any;
         /**
          * Sets an attribute on an HTML element.
          * Handles normalized setting of attributes on DOM Nodes.
@@ -24035,7 +24035,7 @@ declare module dojo {
          * @param name the name of the attribute to set, or a hash of key-value pairs to set.             
          * @param value               Optionalthe value to set for the attribute, if the name is a string.             
          */
-        setAttr(node: HTMLElement, name: Object, value: String): any;
+        setAttr(node: HTMLElement, name: Object, value?: String): any;
         /**
          * Sets an attribute on an HTML element.
          * Handles normalized setting of attributes on DOM Nodes.
@@ -24054,7 +24054,7 @@ declare module dojo {
          * @param name the name of the attribute to set, or a hash of key-value pairs to set.             
          * @param value               Optionalthe value to set for the attribute, if the name is a string.             
          */
-        setAttr(node: String, name: Object, value: String): any;
+        setAttr(node: String, name: Object, value?: String): any;
         /**
          * Sets the size of the node's contents, irrespective of margins,
          * padding, or borders.
@@ -24063,7 +24063,7 @@ declare module dojo {
          * @param box hash with optional "w", and "h" properties for "width", and "height"respectively. All specified properties should have numeric values in whole pixels.             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        setContentSize(node: HTMLElement, box: Object, computedStyle: Object): void;
+        setContentSize(node: HTMLElement, box: Object, computedStyle?: Object): void;
         /**
          * changes the behavior of many core Dojo functions that deal with
          * namespace and DOM lookup, changing them to work in a new global
@@ -24085,7 +24085,7 @@ declare module dojo {
          * @param box hash with optional "l", "t", "w", and "h" properties for "left", "right", "width", and "height"respectively. All specified properties should have numeric values in whole pixels.             
          * @param computedStyle               OptionalThis parameter accepts computed styles object.If this parameter is omitted, the functions will calldojo/dom-style.getComputedStyle to get one. It is a better way, callingdojo/dom-style.getComputedStyle once, and then pass the reference to thiscomputedStyle parameter. Wherever possible, reuse the returnedobject of dojo/dom-style.getComputedStyle().             
          */
-        setMarginBox(node: HTMLElement, box: Object, computedStyle: Object): void;
+        setMarginBox(node: HTMLElement, box: Object, computedStyle?: Object): void;
         /**
          * Sets a property on an HTML element.
          * Handles normalized setting of properties on DOM nodes.
@@ -24104,7 +24104,7 @@ declare module dojo {
          * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
          * @param value               OptionalThe value to set for the property             
          */
-        setProp(node: HTMLElement, name: String, value: String): any;
+        setProp(node: HTMLElement, name: String, value?: String): any;
         /**
          * Sets a property on an HTML element.
          * Handles normalized setting of properties on DOM nodes.
@@ -24123,7 +24123,7 @@ declare module dojo {
          * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
          * @param value               OptionalThe value to set for the property             
          */
-        setProp(node: String, name: String, value: String): any;
+        setProp(node: String, name: String, value?: String): any;
         /**
          * Sets a property on an HTML element.
          * Handles normalized setting of properties on DOM nodes.
@@ -24142,7 +24142,7 @@ declare module dojo {
          * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
          * @param value               OptionalThe value to set for the property             
          */
-        setProp(node: HTMLElement, name: Object, value: String): any;
+        setProp(node: HTMLElement, name: Object, value?: String): any;
         /**
          * Sets a property on an HTML element.
          * Handles normalized setting of properties on DOM nodes.
@@ -24161,7 +24161,7 @@ declare module dojo {
          * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
          * @param value               OptionalThe value to set for the property             
          */
-        setProp(node: String, name: Object, value: String): any;
+        setProp(node: String, name: Object, value?: String): any;
         /**
          * 
          * @param node             
@@ -24175,7 +24175,7 @@ declare module dojo {
          * @param name the style property to set in DOM-accessor format("borderWidth", not "border-width") or an object with key/valuepairs suitable for setting each property.             
          * @param value               OptionalIf passed, sets value on the node for style, handlingcross-browser concerns.  When setting a pixel value,be sure to include "px" in the value. For instance, top: "200px".Otherwise, in some cases, some browsers will not apply the style.             
          */
-        setStyle(node: HTMLElement, name: String, value: String): String;
+        setStyle(node: HTMLElement, name: String, value?: String): String;
         /**
          * Sets styles on a node.
          * 
@@ -24183,7 +24183,7 @@ declare module dojo {
          * @param name the style property to set in DOM-accessor format("borderWidth", not "border-width") or an object with key/valuepairs suitable for setting each property.             
          * @param value               OptionalIf passed, sets value on the node for style, handlingcross-browser concerns.  When setting a pixel value,be sure to include "px" in the value. For instance, top: "200px".Otherwise, in some cases, some browsers will not apply the style.             
          */
-        setStyle(node: String, name: String, value: String): String;
+        setStyle(node: String, name: String, value?: String): String;
         /**
          * Sets styles on a node.
          * 
@@ -24191,7 +24191,7 @@ declare module dojo {
          * @param name the style property to set in DOM-accessor format("borderWidth", not "border-width") or an object with key/valuepairs suitable for setting each property.             
          * @param value               OptionalIf passed, sets value on the node for style, handlingcross-browser concerns.  When setting a pixel value,be sure to include "px" in the value. For instance, top: "200px".Otherwise, in some cases, some browsers will not apply the style.             
          */
-        setStyle(node: HTMLElement, name: Object, value: String): String;
+        setStyle(node: HTMLElement, name: Object, value?: String): String;
         /**
          * Sets styles on a node.
          * 
@@ -24199,7 +24199,7 @@ declare module dojo {
          * @param name the style property to set in DOM-accessor format("borderWidth", not "border-width") or an object with key/valuepairs suitable for setting each property.             
          * @param value               OptionalIf passed, sets value on the node for style, handlingcross-browser concerns.  When setting a pixel value,be sure to include "px" in the value. For instance, top: "200px".Otherwise, in some cases, some browsers will not apply the style.             
          */
-        setStyle(node: String, name: Object, value: String): String;
+        setStyle(node: String, name: Object, value?: String): String;
         /**
          * Determines whether or not any item in arr satisfies the
          * condition implemented by callback.
@@ -24213,7 +24213,7 @@ declare module dojo {
          * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
          * @param thisObject               Optionalmay be used to scope the call to callback             
          */
-        some(arr: any[], callback: Function, thisObject: Object): boolean;
+        some(arr: any[], callback: Function, thisObject?: Object): boolean;
         /**
          * Determines whether or not any item in arr satisfies the
          * condition implemented by callback.
@@ -24227,7 +24227,7 @@ declare module dojo {
          * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
          * @param thisObject               Optionalmay be used to scope the call to callback             
          */
-        some(arr: String, callback: Function, thisObject: Object): boolean;
+        some(arr: String, callback: Function, thisObject?: Object): boolean;
         /**
          * Determines whether or not any item in arr satisfies the
          * condition implemented by callback.
@@ -24241,7 +24241,7 @@ declare module dojo {
          * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
          * @param thisObject               Optionalmay be used to scope the call to callback             
          */
-        some(arr: any[], callback: String, thisObject: Object): boolean;
+        some(arr: any[], callback: String, thisObject?: Object): boolean;
         /**
          * Determines whether or not any item in arr satisfies the
          * condition implemented by callback.
@@ -24255,7 +24255,7 @@ declare module dojo {
          * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
          * @param thisObject               Optionalmay be used to scope the call to callback             
          */
-        some(arr: String, callback: String, thisObject: Object): boolean;
+        some(arr: String, callback: String, thisObject?: Object): boolean;
         /**
          * 
          */
@@ -24283,7 +24283,7 @@ declare module dojo {
          * @param name               Optionalthe style property to set in DOM-accessor format("borderWidth", not "border-width") or an object with key/valuepairs suitable for setting each property.             
          * @param value               OptionalIf passed, sets value on the node for style, handlingcross-browser concerns.  When setting a pixel value,be sure to include "px" in the value. For instance, top: "200px".Otherwise, in some cases, some browsers will not apply the style.             
          */
-        style(node: HTMLElement, name: String, value: String): any;
+        style(node: HTMLElement, name?: String, value?: String): any;
         /**
          * Accesses styles on a node. If 2 arguments are
          * passed, acts as a getter. If 3 arguments are passed, acts
@@ -24300,7 +24300,7 @@ declare module dojo {
          * @param name               Optionalthe style property to set in DOM-accessor format("borderWidth", not "border-width") or an object with key/valuepairs suitable for setting each property.             
          * @param value               OptionalIf passed, sets value on the node for style, handlingcross-browser concerns.  When setting a pixel value,be sure to include "px" in the value. For instance, top: "200px".Otherwise, in some cases, some browsers will not apply the style.             
          */
-        style(node: String, name: String, value: String): any;
+        style(node: String, name?: String, value?: String): any;
         /**
          * Accesses styles on a node. If 2 arguments are
          * passed, acts as a getter. If 3 arguments are passed, acts
@@ -24317,7 +24317,7 @@ declare module dojo {
          * @param name               Optionalthe style property to set in DOM-accessor format("borderWidth", not "border-width") or an object with key/valuepairs suitable for setting each property.             
          * @param value               OptionalIf passed, sets value on the node for style, handlingcross-browser concerns.  When setting a pixel value,be sure to include "px" in the value. For instance, top: "200px".Otherwise, in some cases, some browsers will not apply the style.             
          */
-        style(node: HTMLElement, name: Object, value: String): any;
+        style(node: HTMLElement, name?: Object, value?: String): any;
         /**
          * Accesses styles on a node. If 2 arguments are
          * passed, acts as a getter. If 3 arguments are passed, acts
@@ -24334,14 +24334,14 @@ declare module dojo {
          * @param name               Optionalthe style property to set in DOM-accessor format("borderWidth", not "border-width") or an object with key/valuepairs suitable for setting each property.             
          * @param value               OptionalIf passed, sets value on the node for style, handlingcross-browser concerns.  When setting a pixel value,be sure to include "px" in the value. For instance, top: "200px".Otherwise, in some cases, some browsers will not apply the style.             
          */
-        style(node: String, name: Object, value: String): any;
+        style(node: String, name?: Object, value?: String): any;
         /**
          * instantiates an HTML fragment returning the corresponding DOM.
          * 
          * @param frag the HTML fragment             
          * @param doc               Optionaloptional document to use when creating DOM nodes, defaults todojo/_base/window.doc if not specified.             
          */
-        toDom(frag: String, doc: HTMLDocument): any;
+        toDom(frag: String, doc?: HTMLDocument): any;
         /**
          * Adds a class to node if not present, or removes if present.
          * Pass a boolean condition if you want to explicitly add or remove.
@@ -24351,7 +24351,7 @@ declare module dojo {
          * @param classStr A String class name to toggle, or several space-separated class names,or an array of class names.             
          * @param condition               OptionalIf passed, true means to add the class, false means to remove.Otherwise dojo.hasClass(node, classStr) is used to detect the class presence.             
          */
-        toggleClass(node: String, classStr: String, condition: boolean): boolean;
+        toggleClass(node: String, classStr: String, condition?: boolean): boolean;
         /**
          * Adds a class to node if not present, or removes if present.
          * Pass a boolean condition if you want to explicitly add or remove.
@@ -24361,7 +24361,7 @@ declare module dojo {
          * @param classStr A String class name to toggle, or several space-separated class names,or an array of class names.             
          * @param condition               OptionalIf passed, true means to add the class, false means to remove.Otherwise dojo.hasClass(node, classStr) is used to detect the class presence.             
          */
-        toggleClass(node: HTMLElement, classStr: String, condition: boolean): boolean;
+        toggleClass(node: HTMLElement, classStr: String, condition?: boolean): boolean;
         /**
          * Adds a class to node if not present, or removes if present.
          * Pass a boolean condition if you want to explicitly add or remove.
@@ -24371,7 +24371,7 @@ declare module dojo {
          * @param classStr A String class name to toggle, or several space-separated class names,or an array of class names.             
          * @param condition               OptionalIf passed, true means to add the class, false means to remove.Otherwise dojo.hasClass(node, classStr) is used to detect the class presence.             
          */
-        toggleClass(node: String, classStr: any[], condition: boolean): boolean;
+        toggleClass(node: String, classStr: any[], condition?: boolean): boolean;
         /**
          * Adds a class to node if not present, or removes if present.
          * Pass a boolean condition if you want to explicitly add or remove.
@@ -24381,7 +24381,7 @@ declare module dojo {
          * @param classStr A String class name to toggle, or several space-separated class names,or an array of class names.             
          * @param condition               OptionalIf passed, true means to add the class, false means to remove.Otherwise dojo.hasClass(node, classStr) is used to detect the class presence.             
          */
-        toggleClass(node: HTMLElement, classStr: any[], condition: boolean): boolean;
+        toggleClass(node: HTMLElement, classStr: any[], condition?: boolean): boolean;
         /**
          * Returns a JSON serialization of an object.
          * Returns a JSON serialization of an object.
@@ -24393,7 +24393,7 @@ declare module dojo {
          * @param it an object to be serialized. Objects may define their ownserialization via a special "json" or "json" functionproperty. If a specialized serializer has been defined, it willbe used as a fallback.Note that in 1.6, toJson would serialize undefined, but this no longer supportedsince it is not supported by native JSON serializer.             
          * @param prettyPrint               Optionalif true, we indent objects and arrays to make the output prettier.The variable dojo.toJsonIndentStr is used as the indent string --to use something other than the default (tab), change that variablebefore calling dojo.toJson().Note that if native JSON support is available, it will be used for serialization,and native implementations vary on the exact spacing used in pretty printing.             
          */
-        toJson(it: Object, prettyPrint: boolean): any;
+        toJson(it: Object, prettyPrint?: boolean): any;
         /**
          * converts style value to pixels on IE or return a numeric value.
          * 
@@ -24423,7 +24423,7 @@ declare module dojo {
          * @param errback               OptionalCallback to be invoked when the promise is rejected.             
          * @param progback               OptionalCallback to be invoked when the promise emits a progress update.             
          */
-        when(valueOrPromise: any, callback: Function, errback: Function, progback: Function): dojo.promise.Promise<any>;
+        when(valueOrPromise: any, callback?: Function, errback?: Function, progback?: Function): dojo.promise.Promise<any>;
         /**
          * signal fired by impending window destruction. You may use
          * dojo.addOnWIndowUnload() or dojo.connect() to this method to perform
@@ -24443,7 +24443,7 @@ declare module dojo {
          * @param thisObject               Optional            
          * @param cbArguments               Optional            
          */
-        withDoc(documentObject: HTMLDocument, callback: Function, thisObject: Object, cbArguments: any[]): any;
+        withDoc(documentObject: HTMLDocument, callback: Function, thisObject?: Object, cbArguments?: any[]): any;
         /**
          * Invoke callback with globalObject as dojo.global and
          * globalObject.document as dojo.doc.
@@ -24458,7 +24458,7 @@ declare module dojo {
          * @param thisObject               Optional            
          * @param cbArguments               Optional            
          */
-        withGlobal(globalObject: Object, callback: Function, thisObject: Object, cbArguments: any[]): any;
+        withGlobal(globalObject: Object, callback: Function, thisObject?: Object, cbArguments?: any[]): any;
         /**
          * 
          * @param method             
@@ -24849,7 +24849,7 @@ declare module dojo {
              * 
              * @param params               Optional            
              */
-            postscript(params: Object): void;
+            postscript(params?: Object): void;
             /**
              * Set a property on a Stateful instance
              * Sets named properties on a stateful object and notifies any watchers of
@@ -24981,7 +24981,7 @@ declare module dojo {
              * @param g             
              * @param a               Optional            
              */
-            makeGrey(g: number, a: number): void;
+            makeGrey(g: number, a?: number): void;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.back.html
@@ -25383,7 +25383,7 @@ declare module dojo {
              * @param date2               OptionalDate object.  If not specified, the current Date is used.             
              * @param portion               OptionalA string indicating the "date" or "time" portion of a Date object.Compares both "date" and "time" by default.  One of the following:"date", "time", "datetime"             
              */
-            compare(date1: Date, date2: Date, portion: String): number;
+            compare(date1: Date, date2?: Date, portion?: String): number;
             /**
              * Get the difference in a specific unit of time (e.g., number of
              * months, weeks, days, etc.) between two dates, rounded to the
@@ -25393,7 +25393,7 @@ declare module dojo {
              * @param date2               OptionalDate object.  If not specified, the current Date is used.             
              * @param interval               OptionalA string representing the interval.  One of the following:"year", "month", "day", "hour", "minute", "second","millisecond", "quarter", "week", "weekday"Defaults to "day".             
              */
-            difference(date1: Date, date2: Date, interval: String): any;
+            difference(date1: Date, date2?: Date, interval?: String): any;
             /**
              * Returns the number of days in the month used by dateObject
              * 
@@ -25446,13 +25446,13 @@ declare module dojo {
              * @param value the number to be formatted.             
              * @param options               Optional            
              */
-            format(value: number, options: dojo.currency.__FormatOptions): any;
+            format(value: number, options?: dojo.currency.__FormatOptions): any;
             /**
              * 
              * @param expression             
              * @param options               OptionalAn object with the following properties:type (String, optional): Should not be set.  Value is assumed to be currency.currency (String, optional): an ISO4217 currency code, a three letter sequence like "USD".For use with dojo.currency only.symbol (String, optional): localized currency symbol. The default will be looked up in table of supported currencies in dojo.cldrA ISO4217 currency code will be used if not found.places (Number, optional): fixed number of decimal places to accept.  The default is determined based on which currency is used.fractional (Boolean|Array, optional): Whether to include the fractional portion, where the number of decimal places are implied by the currencyor explicit 'places' parameter.  The value [true,false] makes the fractional portion optional.By default for currencies, it the fractional portion is optional.pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.  Literal characters in patterns are not supported.locale (String, optional): override the locale used to determine formatting rulesstrict (Boolean, optional): strict parsing, false by default.  Strict parsing requires input as produced by the format() method.Non-strict is more permissive, e.g. flexible on white space, omitting thousands separators            
              */
-            parse(expression: String, options: Object): any;
+            parse(expression: String, options?: Object): any;
             /**
              * 
              * @param options               OptionalAn object with the following properties:pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.type (String, optional): choose a format type based on the locale from the following:decimal, scientific (not yet supported), percent, currency. decimal by default.locale (String, optional): override the locale used to determine formatting rulesstrict (Boolean, optional): strict parsing, false by default.  Strict parsing requires input as produced by the format() method.Non-strict is more permissive, e.g. flexible on white space, omitting thousands separatorsplaces (Number|String, optional): number of decimal places to accept: Infinity, a positive number, ora range "n,m".  Defined by pattern or Infinity if pattern not provided.            
@@ -25836,7 +25836,7 @@ declare module dojo {
              * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
              * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
              */
-            set(node: HTMLElement, cont: String, params: Object): any;
+            set(node: HTMLElement, cont: String, params?: Object): any;
             /**
              * inserts (replaces) the given content into the given node. dojo/dom-construct.place(cont, node, "only")
              * may be a better choice for simple HTML insertion.
@@ -25853,7 +25853,7 @@ declare module dojo {
              * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
              * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
              */
-            set(node: HTMLElement, cont: HTMLElement, params: Object): any;
+            set(node: HTMLElement, cont: HTMLElement, params?: Object): any;
             /**
              * inserts (replaces) the given content into the given node. dojo/dom-construct.place(cont, node, "only")
              * may be a better choice for simple HTML insertion.
@@ -25870,7 +25870,7 @@ declare module dojo {
              * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
              * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
              */
-            set(node: HTMLElement, cont: NodeList, params: Object): any;
+            set(node: HTMLElement, cont: NodeList, params?: Object): any;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.dojox.html
@@ -26338,7 +26338,7 @@ declare module dojo {
              * @param re A function. Takes one parameter and converts it to a regularexpression.             
              * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression. Defaults to false             
              */
-            buildGroupRE(arr: Object, re: Function, nonCapture: boolean): any;
+            buildGroupRE(arr: Object, re: Function, nonCapture?: boolean): any;
             /**
              * Builds a regular expression that groups subexpressions
              * A utility function used by some of the RE generators. The
@@ -26351,21 +26351,21 @@ declare module dojo {
              * @param re A function. Takes one parameter and converts it to a regularexpression.             
              * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression. Defaults to false             
              */
-            buildGroupRE(arr: any[], re: Function, nonCapture: boolean): any;
+            buildGroupRE(arr: any[], re: Function, nonCapture?: boolean): any;
             /**
              * Adds escape sequences for special characters in regular expressions
              * 
              * @param str             
              * @param except               Optionala String with special characters to be left unescaped             
              */
-            escapeString(str: String, except: String): any;
+            escapeString(str: String, except?: String): any;
             /**
              * adds group match to expression
              * 
              * @param expression             
              * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression.             
              */
-            group(expression: String, nonCapture: boolean): String;
+            group(expression: String, nonCapture?: boolean): String;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.mouseButtons.html
@@ -26451,7 +26451,7 @@ declare module dojo {
              * @param value the number to be formatted             
              * @param options               OptionalAn object with the following properties:pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.  Literal characters in patterns are not supported.type (String, optional): choose a format type based on the locale from the following:decimal, scientific (not yet supported), percent, currency. decimal by default.places (Number, optional): fixed number of decimal places to show.  This overrides anyinformation in the provided pattern.round (Number, optional): 5 rounds to nearest .5; 0 rounds to nearest whole (default). -1means do not round.locale (String, optional): override the locale used to determine formatting rulesfractional (Boolean, optional): If false, show no decimal places, overriding places and pattern settings.            
              */
-            format(value: number, options: Object): any;
+            format(value: number, options?: Object): any;
             /**
              * Convert a properly formatted string to a primitive Number, using
              * locale-specific settings.
@@ -26464,7 +26464,7 @@ declare module dojo {
              * @param expression A string representation of a Number             
              * @param options               OptionalAn object with the following properties:pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.  Literal characters in patterns are not supported.type (String, optional): choose a format type based on the locale from the following:decimal, scientific (not yet supported), percent, currency. decimal by default.locale (String, optional): override the locale used to determine formatting rulesstrict (Boolean, optional): strict parsing, false by default.  Strict parsing requires input as produced by the format() method.Non-strict is more permissive, e.g. flexible on white space, omitting thousands separatorsfractional (Boolean|Array, optional): Whether to include the fractional portion, where the number of decimal places are implied by patternor explicit 'places' parameter.  The value [true,false] makes the fractional portion optional.            
              */
-            parse(expression: String, options: Object): number;
+            parse(expression: String, options?: Object): number;
             /**
              * Builds the regular needed to parse a number
              * Returns regular expression with positive and negative match, group
@@ -26472,7 +26472,7 @@ declare module dojo {
              * 
              * @param options               OptionalAn object with the following properties:pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.type (String, optional): choose a format type based on the locale from the following:decimal, scientific (not yet supported), percent, currency. decimal by default.locale (String, optional): override the locale used to determine formatting rulesstrict (Boolean, optional): strict parsing, false by default.  Strict parsing requires input as produced by the format() method.Non-strict is more permissive, e.g. flexible on white space, omitting thousands separatorsplaces (Number|String, optional): number of decimal places to accept: Infinity, a positive number, ora range "n,m".  Defined by pattern or Infinity if pattern not provided.            
              */
-            regexp(options: Object): any;
+            regexp(options?: Object): any;
             /**
              * Rounds to the nearest value with the given number of decimal places, away from zero
              * Rounds to the nearest value with the given number of decimal places, away from zero if equal.
@@ -26484,7 +26484,7 @@ declare module dojo {
              * @param places               OptionalThe number of decimal places where rounding takes place.  Defaults to 0 for whole rounding.Must be non-negative.             
              * @param increment               OptionalRounds next place to nearest value of increment/10.  10 by default.             
              */
-            round(value: number, places: number, increment: number): number;
+            round(value: number, places?: number, increment?: number): number;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.keys.html
@@ -26815,7 +26815,7 @@ declare module dojo {
              * @param ch               Optionalcharacter to pad, defaults to '0'             
              * @param end               Optionaladds padding at the end if true, otherwise pads at start             
              */
-            pad(text: String, size: number, ch: String, end: boolean): number;
+            pad(text: String, size: number, ch?: String, end?: boolean): number;
             /**
              * Efficiently replicate a string n times.
              * 
@@ -26832,7 +26832,7 @@ declare module dojo {
              * @param transform               Optionala function to process all parameters before substitution takesplace, e.g. mylib.encodeXML             
              * @param thisObject               Optionalwhere to look for optional format function; default to the globalnamespace             
              */
-            substitute(template: String, map: Object, transform: Function, thisObject: Object): any;
+            substitute(template: String, map: Object, transform?: Function, thisObject?: Object): any;
             /**
              * Performs parameterized substitutions on a string. Throws an
              * exception if any parameter is unmatched.
@@ -26842,7 +26842,7 @@ declare module dojo {
              * @param transform               Optionala function to process all parameters before substitution takesplace, e.g. mylib.encodeXML             
              * @param thisObject               Optionalwhere to look for optional format function; default to the globalnamespace             
              */
-            substitute(template: String, map: any[], transform: Function, thisObject: Object): any;
+            substitute(template: String, map: any[], transform?: Function, thisObject?: Object): any;
             /**
              * Trims whitespace from both sides of the string
              * This version of trim() was taken from Steven Levithan's blog.
@@ -26981,7 +26981,7 @@ declare module dojo {
              * 
              * @param doc               Optional            
              */
-            getBox(doc: HTMLDocument): Object;
+            getBox(doc?: HTMLDocument): Object;
             /**
              * Scroll the passed node into view using minimal movement, if it is not already.
              * 
@@ -27009,7 +27009,7 @@ declare module dojo {
          * @param ch               Optionalcharacter to pad, defaults to '0'             
          * @param end               Optionaladds padding at the end if true, otherwise pads at start             
          */
-        pad(text: String, size: number, ch: String, end: boolean): number;
+        pad(text: String, size: number, ch?: String, end?: boolean): number;
         /**
          * Efficiently replicate a string n times.
          * 
@@ -27026,7 +27026,7 @@ declare module dojo {
          * @param transform               Optionala function to process all parameters before substitution takesplace, e.g. mylib.encodeXML             
          * @param thisObject               Optionalwhere to look for optional format function; default to the globalnamespace             
          */
-        substitute(template: String, map: Object, transform: Function, thisObject: Object): any;
+        substitute(template: String, map: Object, transform?: Function, thisObject?: Object): any;
         /**
          * Performs parameterized substitutions on a string. Throws an
          * exception if any parameter is unmatched.
@@ -27036,7 +27036,7 @@ declare module dojo {
          * @param transform               Optionala function to process all parameters before substitution takesplace, e.g. mylib.encodeXML             
          * @param thisObject               Optionalwhere to look for optional format function; default to the globalnamespace             
          */
-        substitute(template: String, map: any[], transform: Function, thisObject: Object): any;
+        substitute(template: String, map: any[], transform?: Function, thisObject?: Object): any;
         /**
          * Trims whitespace from both sides of the string
          * This version of trim() was taken from Steven Levithan's blog.
@@ -27137,7 +27137,7 @@ declare module dojo {
          * 
          * @param doc               Optional            
          */
-        getBox(doc: HTMLDocument): Object;
+        getBox(doc?: HTMLDocument): Object;
         /**
          * Scroll the passed node into view using minimal movement, if it is not already.
          * 

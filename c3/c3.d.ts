@@ -177,7 +177,7 @@ declare module c3 {
                  * Set threshold to show/hide labels.
                  */
                 threshold?: number
-            },
+            };
             /**
              * Enable or disable expanding pie pieces.
              */
@@ -198,7 +198,7 @@ declare module c3 {
                  * Set threshold to show/hide labels.
                  */
                 threshold?: number
-            },
+            };
             /**
              * Enable or disable expanding pie pieces.
              */
@@ -223,7 +223,7 @@ declare module c3 {
                  * Set formatter for the label on gauge.
                  */
                 format?: (value: any, ratio: number) => string;
-            },
+            };
             /**
              * Enable or disable expanding gauge.
              */
@@ -686,7 +686,7 @@ declare module c3 {
         /**
          * Set custom position for the tooltip. This option can be used to modify the tooltip position by returning object that has top and left.
          */
-        position?: (data: any, width: number, height: number, element: any) => { top: number, left: number };
+        position?: (data: any, width: number, height: number, element: any) => { top: number; left: number };
         /**
          * Set custom HTML for the tooltip.
          * Specified function receives data, defaultTitleFormat, defaultValueFormat and color of the data point to show. If tooltip.grouped is true, data includes multiple data points.
@@ -909,7 +909,7 @@ declare module c3 {
              * Remove regions. This API removes regions.
              * @param args This argument should include classes. If classes is given, the regions that have one of the specified classes will be removed. If args is not given, all of regions will be removed.
              */
-            remove(args?: { value?: number | string, class?: string }): void;
+            remove(args?: { value?: number | string; class?: string }): void;
         };
 
         data: {
@@ -995,7 +995,7 @@ declare module c3 {
              * Get and set axis min and max value.
              * @param range If range is given, specified axis' min and max value will be updated. If no argument is given, the current min and max values for each axis will be returned.
              */
-            range(range?: { min?: number | { [key: string]: number }, max?: number | { [key: string]: number } }): { min: number | { [key: string]: number }, max: number | { [key: string]: number } }
+            range(range?: { min?: number | { [key: string]: number }; max?: number | { [key: string]: number } }): { min: number | { [key: string]: number }; max: number | { [key: string]: number } }
         };
 
         legend: {
@@ -1034,7 +1034,7 @@ declare module c3 {
          * Resize the chart. If no size is specified it will resize to fit.
          * @param size This argument should include width and height in pixels.
          */
-        resize(size?: { width?: number, height?: number }): void;
+        resize(size?: { width?: number; height?: number }): void;
 
         /**
          * Force to redraw.
@@ -1062,8 +1062,12 @@ declare module c3 {
          * Remove x/y grid lines. This API removes x/y grid lines.
          * @param args This argument should include value or class. If value is given, the x/y grid lines that have specified x/y value will be removed. If class is given, the x/y grid lines that have specified class will be removed. If args is not given, all of x/y grid lines will be removed.
          */
-        remove(args?: { class?: string, value?: number | string }): void;
+        remove(args?: { class?: string; value?: number | string }): void;
     }
 
     export function generate(config: ChartConfiguration): ChartAPI;
+}
+
+declare module "c3" {
+    export = c3;
 }

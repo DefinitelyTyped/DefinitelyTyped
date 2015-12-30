@@ -232,6 +232,33 @@ configuration = {
 
 configuration = { output: { chunkFilename: "[chunkhash].bundle.js" } };
 
+//
+// https://webpack.github.io/docs/configuration.html
+//
+
+configuration = {
+    entry: [
+        "./entry1",
+        "./entry2"
+    ]
+};
+
+configuration = {
+    devtool: "#inline-source-map"
+};
+
+loader = {
+    test: /\.jsx$/,
+    include: [
+        path.resolve(__dirname, "app/src"),
+        path.resolve(__dirname, "app/test")
+    ],
+    exclude: [
+        path.resolve(__dirname, "node_modules")
+    ],
+    loader: "babel-loader"
+};
+
 declare var require: any;
 declare var path: any;
 configuration = {
@@ -385,23 +412,4 @@ plugin = new webpack.HotModuleReplacementPlugin();
 plugin = new webpack.ExtendedAPIPlugin();
 plugin = new webpack.NoErrorsPlugin();
 plugin = new webpack.WatchIgnorePlugin(paths);
-
-//
-// http://webpack.github.io/docs/api-in-modules.html
-//
-
-interface SomeModule {
-    someMethod(): void;
-}
-
-let someModule: SomeModule = require('./someModule');
-someModule.someMethod();
-
-let context2 = require.context('./somePath', true);
-let contextModule: SomeModule = context2('./someModule');
-
-require(['./someModule', './otherModule'], (someModule: SomeModule, otherModule: any) => {
-
-});
-
 

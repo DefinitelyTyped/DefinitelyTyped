@@ -165,6 +165,12 @@ declare module angular {
             dot: number;
             codeName: string;
         };
+
+        /**
+         * If window.name contains prefix NG_DEFER_BOOTSTRAP! when angular.bootstrap is called, the bootstrap process will be paused until angular.resumeBootstrap() is called.
+         * @param extraModules An optional array of modules that should be added to the original list of modules that the app was about to be bootstrapped with.
+         */
+        resumeBootstrap?(extraModules?: string[]): ng.auto.IInjectorService;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -175,6 +181,13 @@ declare module angular {
         animation(name: string, animationFactory: Function): IModule;
         animation(name: string, inlineAnnotatedFunction: any[]): IModule;
         animation(object: Object): IModule;
+        /**
+         * Use this method to register a component.
+         *
+         * @param name The name of the component.
+         * @param options A definition object passed into the component.
+         */
+        component(name: string, options: IComponentOptions): IModule;
         /**
          * Use this method to register work which needs to be performed on module loading.
          *
@@ -615,12 +628,12 @@ declare module angular {
     // see http://docs.angularjs.org/api/ng.$interval
     ///////////////////////////////////////////////////////////////////////////
     interface IIntervalService {
-        (func: Function, delay: number, count?: number, invokeApply?: boolean): IPromise<any>;
+        (func: Function, delay: number, count?: number, invokeApply?: boolean, ...args: any[]): IPromise<any>;
         cancel(promise: IPromise<any>): boolean;
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // AngularProvider
+    // AnimateProvider
     // see http://docs.angularjs.org/api/ng/provider/$animateProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IAnimateProvider {
@@ -774,7 +787,7 @@ declare module angular {
          * @param reverse Reverse the order of the array.
          * @return Reverse the order of the array.
          */
-        <T>(array: T[], expression: string|string[]|((value: T) => any)|((value: T) => any)[], reverse?: boolean): T[];
+        <T>(array: T[], expression: string|((value: T) => any)|(((value: T) => any)|string)[], reverse?: boolean): T[];
     }
 
     /**
@@ -1390,7 +1403,7 @@ declare module angular {
     }
 
     // See the jsdoc for transformData() at https://github.com/angular/angular.js/blob/master/src/ng/http.js#L228
-    interface IHttpResquestTransformer {
+    interface IHttpRequestTransformer {
         (data: any, headersGetter: IHttpHeadersGetter): any;
     }
 
@@ -1427,7 +1440,7 @@ declare module angular {
          * headers and returns its transformed (typically serialized) version.
          * @see {@link https://docs.angularjs.org/api/ng/service/$http#transforming-requests-and-responses}
          */
-        transformRequest?: IHttpResquestTransformer |IHttpResquestTransformer[];
+        transformRequest?: IHttpRequestTransformer |IHttpRequestTransformer[];
 
         /**
          * Transform function or an array of such functions. The transform function takes the http response body and
@@ -1615,6 +1628,29 @@ declare module angular {
     }
 
     ///////////////////////////////////////////////////////////////////////////
+    // Component
+    // see http://angularjs.blogspot.com.br/2015/11/angularjs-15-beta2-and-14-releases.html
+    // and http://toddmotto.com/exploring-the-angular-1-5-component-method/
+    ///////////////////////////////////////////////////////////////////////////
+
+    interface IComponentOptions {
+        bindings?: Object;
+        controller?: string | Function;
+        controllerAs?: string;
+        isolate?: boolean;
+        template?: string | IComponentTemplateFn;
+        templateUrl?: string | IComponentTemplateFn;
+        transclude?: boolean;
+        restrict?: string;
+        $canActivate?: Function;
+        $routeConfig?: Object;
+    }
+
+    interface IComponentTemplateFn {
+        ( $element?: IAugmentedJQuery, $attrs?: IAttributes ): string;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
     // Directive
     // see http://docs.angularjs.org/api/ng.$compileProvider#directive
     // and http://docs.angularjs.org/guide/directive
@@ -1660,6 +1696,7 @@ declare module angular {
         restrict?: string;
         scope?: any;
         template?: any;
+        templateNamespace?: string;
         templateUrl?: any;
         terminal?: boolean;
         transclude?: any;

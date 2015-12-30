@@ -45,6 +45,7 @@ var openOpts: fs.OpenOptions;
 var watcher: fs.FSWatcher;
 var readStreeam: stream.Readable;
 var writeStream: stream.Writable;
+var outputStream: stream.Writable;
 
 fs.copy(src, dest, errorCallback);
 fs.copy(src, dest, (src: string) => {
@@ -150,7 +151,7 @@ strArr = fs.readdirSync(path);
 fs.close(fd, errorCallback);
 fs.closeSync(fd);
 fs.open(path, flags, modeStr, (err: Error, fd: number) => {
-    
+
 });
 num = fs.openSync(path, flags, modeStr);
 fs.utimes(path, atime, mtime, errorCallback);
@@ -217,6 +218,17 @@ fs.exists(path, (exists: boolean) => {
 });
 bool = fs.existsSync(path);
 
+fs.ensureDir(path, errorCallback);
+fs.ensureDirSync(path);
+fs.ensureFile(path, errorCallback);
+fs.ensureFileSync(path);
+fs.ensureLink(path, errorCallback);
+fs.ensureLinkSync(path);
+fs.ensureSymlink(path, errorCallback);
+fs.ensureSymlinkSync(path);
+fs.emptyDir(path, errorCallback);
+fs.emptyDirSync(path);
+
 readStreeam = fs.createReadStream(path);
 readStreeam = fs.createReadStream(path, {
 	flags: str,
@@ -227,6 +239,12 @@ readStreeam = fs.createReadStream(path, {
 });
 writeStream = fs.createWriteStream(path);
 writeStream = fs.createWriteStream(path, {
+	flags: str,
+	encoding: str,
+	string: str
+});
+outputStream = fs.createOutputStream(path);
+outputStream = fs.createOutputStream(path, {
 	flags: str,
 	encoding: str,
 	string: str
