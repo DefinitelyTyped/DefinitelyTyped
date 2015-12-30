@@ -5,6 +5,6 @@
 declare module "extend" {
 
     function extend(deepOrObject:boolean | Object, ...objectN: Object[]): any;
-    namespace extend {};
+    namespace extend {}
     export = extend;
 }
