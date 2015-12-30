@@ -174,6 +174,7 @@ declare module ionic {
             initialize(options: IonicModalOptions): void;
             show(): ng.IPromise<void>;
             hide(): ng.IPromise<void>;
+            remove(): ng.IPromise<void>;
             isShown(): boolean;
         }
 
@@ -237,6 +238,7 @@ declare module ionic {
             show($event?: any): ng.IPromise<any>;
             hide(): ng.IPromise<any>;
             isShown(): boolean;
+            remove(): ng.IPromise<any>;
         }
         interface IonicPopoverOptions {
             scope?: any;

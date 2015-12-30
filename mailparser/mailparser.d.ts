@@ -78,9 +78,11 @@ declare module 'mailparser' {
         once(event: string, listener: Function): EventEmitter;
         removeListener(event: string, listener: Function): EventEmitter;
         removeAllListeners(event?: string): EventEmitter;
-        setMaxListeners(n: number): void;
+        setMaxListeners(n: number): EventEmitter;
+        getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
+        listenerCount(type: string): number;
     }
 }
 

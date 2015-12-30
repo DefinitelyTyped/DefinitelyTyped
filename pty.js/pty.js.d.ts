@@ -85,9 +85,11 @@ declare module 'pty.js' {
         removeListener(event: string, listener: Function): NodeJS.EventEmitter;
         removeAllListeners(event?: string): NodeJS.EventEmitter;
         // NOTE: this method is not actually defined in pty.js
-        setMaxListeners(n: number): void;
+        setMaxListeners(n: number): NodeJS.EventEmitter;
+        getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
+        listenerCount(type: string): number;
     }
 
     /** 
