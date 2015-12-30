@@ -13,8 +13,8 @@ declare module "mongodb" {
   export class MongoClient{
     constructor(serverConfig: any, options: any);
 
-    static connect(uri: string, options: any, callback?: (err: Error, db: Db) => void): void;
     static connect(uri: string, callback?: (err: Error, db: Db) => void): void;
+    static connect(uri: string, options: any, callback?: (err: Error, db: Db) => void): void;
   }
 
   // Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/server.html
@@ -44,8 +44,8 @@ declare module "mongodb" {
     public eval(code: any, parameters: any[], options?: any, callback?: (err: Error, result: any) => void ): void;
     //public dereference(dbRef: DbRef, callback?: (err: Error, result: any) => void): void;
 
-    public logout(options: any, callback?: (err: Error, result: any) => void ): void;
     public logout(callback?: (err: Error, result: any) => void ): void;
+    public logout(options: any, callback?: (err: Error, result: any) => void ): void;
 
     public authenticate(userName: string, password: string, callback?: (err: Error, result: any) => void ): void;
     public authenticate(userName: string, password: string, options: any, callback?: (err: Error, result: any) => void ): void;
@@ -425,8 +425,8 @@ declare module "mongodb" {
     indexes(callback?: Function): void;
     aggregate(pipeline: any[], callback?: (err: Error, results: any) => void): void;
     aggregate(pipeline: any[], options: {readPreference: string}, callback?: (err: Error, results: any) => void): void;
-    stats(options: {readPreference: string; scale: number}, callback?: (err: Error, results: CollStats) => void): void;
     stats(callback?: (err: Error, results: CollStats) => void): void;
+    stats(options: {readPreference: string; scale: number}, callback?: (err: Error, results: CollStats) => void): void;
 
     hint: any;
   }
