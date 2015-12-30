@@ -1138,47 +1138,72 @@ declare module _ {
         first<TResult>(): TResult;
     }
 
-    interface MaybeNestedList<T> extends List<T|List<T>> { }
-    interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> { }
-    interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> { }
-    interface RecursiveList<T> extends List<T|RecursiveList<T>> { }
+    interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
+    interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
 
     //_.flatten
     interface LoDashStatic {
         /**
-         * Flattens a nested array a single level.
-         *
-         * _.flatten(x) is equivalent to _.flatten(x, false);
-         *
-         * @param array The array to flatten.
-         * @return `array` flattened.
-         **/
-        flatten<T>(array: MaybeNestedList<T>): T[];
-
-        /**
-         * Flattens a nested array. If isDeep is true the array is recursively flattened, otherwise it is only
+         * Flattens a nested array. If isDeep is true the array is recursively flattened, otherwise it’s only
          * flattened a single level.
          *
-         * If you know whether or not this should be recursively at compile time, you typically want to use a
-         * version without a boolean parameter (i.e. `_.flatten(x)` or `_.flattenDeep(x)`).
-         *
          * @param array The array to flatten.
-         * @param deep Specify a deep flatten.
-         * @return `array` flattened.
-         **/
-        flatten<T>(array: RecursiveList<T>, isDeep: boolean): List<T> | RecursiveList<T>;
+         * @param isDeep Specify a deep flatten.
+         * @return Returns the new flattened array.
+         */
+        flatten<T>(array: ListOfRecursiveArraysOrValues<T>, isDeep: boolean): T[];
+
+        /**
+         * @see _.flatten
+         */
+        flatten<T>(array: List<T|T[]>): T[];
+
+        /**
+         * @see _.flatten
+         */
+        flatten<T>(array: ListOfRecursiveArraysOrValues<T>): RecursiveArray<T>;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.flatten
+         */
+        flatten(): LoDashImplicitArrayWrapper<string>;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.flatten
-         **/
-        flatten<T>(): LoDashImplicitArrayWrapper<any>;
+         */
+        flatten<TResult>(isDeep?: boolean): LoDashImplicitArrayWrapper<TResult>;
+    }
 
+    interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.flatten
-         **/
-        flatten<T>(isShallow: boolean): LoDashImplicitArrayWrapper<any>;
+         */
+        flatten<TResult>(isDeep?: boolean): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.flatten
+         */
+        flatten(): LoDashExplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.flatten
+         */
+        flatten<TResult>(isDeep?: boolean): LoDashExplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.flatten
+         */
+        flatten<TResult>(isDeep?: boolean): LoDashExplicitArrayWrapper<TResult>;
     }
 
     //_.flattenDeep
@@ -1189,17 +1214,14 @@ declare module _ {
          * @param array The array to recursively flatten.
          * @return Returns the new flattened array.
          */
-        flattenDeep<T>(array: RecursiveArray<T>): T[];
-
-        /**
-         * @see _.flattenDeep
-         */
         flattenDeep<T>(array: ListOfRecursiveArraysOrValues<T>): T[];
+    }
 
+    interface LoDashImplicitWrapper<T> {
         /**
          * @see _.flattenDeep
          */
-        flattenDeep<T>(array: RecursiveList<T>): any[];
+        flattenDeep(): LoDashImplicitArrayWrapper<string>;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -1214,6 +1236,13 @@ declare module _ {
          * @see _.flattenDeep
          */
         flattenDeep<T>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDeep(): LoDashExplicitArrayWrapper<string>;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
