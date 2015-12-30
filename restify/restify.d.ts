@@ -21,6 +21,18 @@ declare module "restify" {
       path: string;
       type: string;
   }
+  
+  /**
+   * Comes from authorizationParser plugin
+   */
+  interface requestAuthorization {
+      scheme: string;
+      credentials: string;
+      basic?: {
+          username: string;
+          password: string;
+      }
+  }
 
   interface Request extends http.ServerRequest {
     header: (key: string, defaultValue?: string) => any;
@@ -37,10 +49,14 @@ declare module "restify" {
     secure: boolean;
     time: number;
     params: any;
-
-    body?: any; //available when bodyParser plugin is used
     files?: { [name: string]: requestFileInterface };
     isSecure: () => boolean;
+    /** available when bodyParser plugin is used */
+    body?: any;
+    /** available when authorizationParser plugin is used */
+    username?: string;
+    /** available when authorizationParser plugin is used */
+    authorization?: requestAuthorization;
   }
 
   interface Response extends http.ServerResponse {
