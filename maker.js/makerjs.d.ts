@@ -252,9 +252,22 @@ declare module MakerJs {
      */
     interface IPointMatchOptions {
         /**
-         * Optional exemplar of number of decimal places.
+         * Max distance to consider two points as the same.
          */
-        accuracy?: number;
+        pointMatchingDistance?: number;
+    }
+    /**
+     * Options to pass to model.combine.
+     */
+    interface ICombineOptions extends IPointMatchOptions {
+        /**
+         * Flag to remove paths which are not part of a loop.
+         */
+        trimDeadEnds?: boolean;
+        /**
+         * Point which is known to be outside of the model.
+         */
+        farPoint?: IPoint;
     }
     /**
      * Options to pass to model.findLoops.
@@ -343,6 +356,63 @@ declare module MakerJs {
      * Test to see if an object implements the required properties of a model.
      */
     function isModel(item: any): boolean;
+    /**
+     * Reference to a path id within a model.
+     */
+    interface IRefPathIdInModel {
+        modelContext: IModel;
+        pathId: string;
+    }
+    /**
+     * Path and its reference id within a model
+     */
+    interface IRefPathInModel extends IRefPathIdInModel {
+        pathContext: IPath;
+    }
+    /**
+     * Describes a parameter and its limits.
+     */
+    interface IMetaParameter {
+        /**
+         * Display text of the parameter.
+         */
+        title: string;
+        /**
+         * Type of the parameter. Currently supports "range".
+         */
+        type: string;
+        /**
+         * Optional minimum value of the range.
+         */
+        min?: number;
+        /**
+         * Optional maximum value of the range.
+         */
+        max?: number;
+        /**
+         * Optional step value between min and max.
+         */
+        step?: number;
+        /**
+         * Initial sample value for this parameter.
+         */
+        value: any;
+    }
+    /**
+     * An IKit is a model-producing class with some sample parameters. Think of it as a packaged model with instructions on how to best use it.
+     */
+    interface IKit {
+        /**
+         * The constructor. The kit must be "new-able" and it must produce an IModel.
+         * It can have any number of any type of parameters.
+         */
+        new (...args: any[]): IModel;
+        /**
+         * Attached to the constructor is a property named metaParameters which is an array of IMetaParameter objects.
+         * Each element of the array corresponds to a parameter of the constructor, in order.
+         */
+        metaParameters?: IMetaParameter[];
+    }
 }
 declare module MakerJs.angle {
     /**
@@ -352,7 +422,7 @@ declare module MakerJs.angle {
      * @param b Second angle.
      * @returns true if angles are the same, false if they are not
      */
-    function areEqual(angle1: number, angle2: number): boolean;
+    function areEqual(angle1: number, angle2: number, accuracy?: number): boolean;
     /**
      * Ensures an angle is not greater than 360
      *
@@ -439,7 +509,7 @@ declare module MakerJs.point {
      * @param b Second point.
      * @returns true if points are the same, false if they are not
      */
-    function areEqual(a: IPoint, b: IPoint): boolean;
+    function areEqual(a: IPoint, b: IPoint, withinDistance?: number): boolean;
     /**
      * Find out if two points are equal after rounding.
      *
@@ -449,6 +519,14 @@ declare module MakerJs.point {
      * @returns true if points are the same, false if they are not
      */
     function areEqualRounded(a: IPoint, b: IPoint, accuracy?: number): boolean;
+    /**
+     * Get the average of two points.
+     *
+     * @param a First point.
+     * @param b Second point.
+     * @returns New point object which is the average of a and b.
+     */
+    function average(a: IPoint, b: IPoint): IPoint;
     /**
      * Clone a point into a new point.
      *
@@ -567,7 +645,7 @@ declare module MakerJs.path {
      * @param b Second path.
      * @returns true if paths are the same, false if they are not
      */
-    function areEqual(path1: IPath, path2: IPath): boolean;
+    function areEqual(path1: IPath, path2: IPath, withinPointDistance?: number): boolean;
     /**
      * Create a clone of a path, mirrored on either or both x and y axes.
      *
@@ -699,10 +777,17 @@ declare module MakerJs.model {
      */
     function countChildModels(modelContext: IModel): number;
     /**
+     * Get an unused id in the models map with the same prefix.
+     *
+     * @param modelContext The model containing the models map.
+     * @param modelId The id to use directly (if unused), or as a prefix.
+     */
+    function getSimilarModelId(modelContext: IModel, modelId: string): string;
+    /**
      * Get an unused id in the paths map with the same prefix.
      *
      * @param modelContext The model containing the paths map.
-     * @param pathId The pathId to use directly (if unused), or as a prefix.
+     * @param pathId The id to use directly (if unused), or as a prefix.
      */
     function getSimilarPathId(modelContext: IModel, pathId: string): string;
     /**
@@ -782,7 +867,14 @@ declare module MakerJs.model {
      */
     function isPathInsideModel(pathContext: IPath, modelContext: IModel, farPoint?: IPoint): boolean;
     /**
-     * Combine 2 models. The models should be originated.
+     * Break a model's paths everywhere they intersect with another path.
+     *
+     * @param modelToBreak The model containing paths to be broken.
+     * @param modelToIntersect Optional model containing paths to look for intersection, or else the modelToBreak will be used.
+     */
+    function breakPathsAtIntersections(modelToBreak: IModel, modelToIntersect?: IModel): void;
+    /**
+     * Combine 2 models. The models should be originated, and every path within each model should be part of a loop.
      *
      * @param modelA First model to combine.
      * @param modelB Second model to combine.
@@ -793,7 +885,7 @@ declare module MakerJs.model {
      * @param keepDuplicates Flag to include paths which are duplicate in both models.
      * @param farPoint Optional point of reference which is outside the bounds of both models.
      */
-    function combine(modelA: IModel, modelB: IModel, includeAInsideB?: boolean, includeAOutsideB?: boolean, includeBInsideA?: boolean, includeBOutsideA?: boolean, keepDuplicates?: boolean, farPoint?: IPoint): void;
+    function combine(modelA: IModel, modelB: IModel, includeAInsideB?: boolean, includeAOutsideB?: boolean, includeBInsideA?: boolean, includeBOutsideA?: boolean, options?: ICombineOptions): void;
 }
 declare module MakerJs.units {
     /**
@@ -1004,50 +1096,6 @@ declare module MakerJs.path {
 }
 declare module MakerJs.kit {
     /**
-     * Describes a parameter and its limits.
-     */
-    interface IMetaParameter {
-        /**
-         * Display text of the parameter.
-         */
-        title: string;
-        /**
-         * Type of the parameter. Currently supports "range".
-         */
-        type: string;
-        /**
-         * Optional minimum value of the range.
-         */
-        min?: number;
-        /**
-         * Optional maximum value of the range.
-         */
-        max?: number;
-        /**
-         * Optional step value between min and max.
-         */
-        step?: number;
-        /**
-         * Initial sample value for this parameter.
-         */
-        value: any;
-    }
-    /**
-     * An IKit is a model-producing class with some sample parameters. Think of it as a packaged model with instructions on how to best use it.
-     */
-    interface IKit {
-        /**
-         * The constructor. The kit must be "new-able" and it must produce an IModel.
-         * It can have any number of any type of parameters.
-         */
-        new (...args: any[]): IModel;
-        /**
-         * Attached to the constructor is a property named metaParameters which is an array of IMetaParameter objects.
-         * Each element of the array corresponds to a parameter of the constructor, in order.
-         */
-        metaParameters?: IMetaParameter[];
-    }
-    /**
      * Helper function to use the JavaScript "apply" function in conjunction with the "new" keyword.
      *
      * @param ctor The constructor for the class which is an IKit.
@@ -1065,6 +1113,23 @@ declare module MakerJs.kit {
 }
 declare module MakerJs.model {
     /**
+     * @private
+     */
+    interface IPointMappedItem<T> {
+        averagePoint: IPoint;
+        item: T;
+    }
+    /**
+     * @private
+     */
+    class PointMap<T> {
+        matchingDistance: number;
+        list: IPointMappedItem<T>[];
+        constructor(matchingDistance?: number);
+        add(pointToAdd: IPoint, item: T): void;
+        find(pointToFind: IPoint, saveAverage: boolean): T;
+    }
+    /**
      * Find paths that have common endpoints and form loops.
      *
      * @param modelContext The model to search for loops.
@@ -1078,6 +1143,7 @@ declare module MakerJs.model {
      * @param loopToDetach The model to search for loops.
      */
     function detachLoop(loopToDetach: IModel): void;
+    function removeDeadEnds(modelContext: IModel, pointMatchingDistance?: number): void;
 }
 declare module MakerJs.exporter {
     /**
@@ -1247,7 +1313,7 @@ declare module MakerJs.models {
 declare module MakerJs.models {
     class OvalArc implements IModel {
         paths: IPathMap;
-        constructor(startAngle: number, endAngle: number, sweepRadius: number, slotRadius: number);
+        constructor(startAngle: number, endAngle: number, sweepRadius: number, slotRadius: number, selfIntersect?: boolean);
     }
 }
 declare module MakerJs.models {
@@ -1265,6 +1331,13 @@ declare module MakerJs.models {
     class SCurve implements IModel {
         paths: IPathMap;
         constructor(width: number, height: number);
+    }
+}
+declare module MakerJs.models {
+    class Slot implements IModel {
+        paths: IPathMap;
+        origin: IPoint;
+        constructor(origin: IPoint, endPoint: IPoint, radius: number);
     }
 }
 declare module MakerJs.models {
