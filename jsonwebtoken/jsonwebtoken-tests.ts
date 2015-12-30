@@ -57,6 +57,18 @@ jwt.verify(token, cert, { audience: 'urn:foo', issuer: 'urn:issuer' }, function(
   // if issuer mismatch, err == invalid issuer
 });
 
+// verify algorithm
+cert = fs.readFileSync('public.pem');  // get public key
+jwt.verify(token, cert, { algorithms: ['RS256'] }, function(err, decoded) {
+  // if algorithm mismatch, err == invalid algorithm
+});
+
+// verify without expiration check
+cert = fs.readFileSync('public.pem');  // get public key
+jwt.verify(token, cert, { ignoreExpiration: true }, function(err, decoded) {
+  // if ignoreExpration == false and token is expired, err == expired token
+});
+
 /**
  * jwt.decode
  * https://github.com/auth0/node-jsonwebtoken#jwtdecodetoken

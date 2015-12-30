@@ -9,6 +9,11 @@ declare module 'AngularFormly' {
 	export = AngularFormly;
 }
 
+declare module 'angular-formly' {
+	var angularFormlyDefaultExport: string;
+	export = angularFormlyDefaultExport;
+}
+
 declare module AngularFormly {
 
 
@@ -65,6 +70,11 @@ declare module AngularFormly {
 		postWrapper?: ITemplateManipulator[];
 	}
 
+	interface ISelectOption {
+		name: string;
+		value?: string;
+		group?: string;
+	}
 
 	/**
 	 * see http://docs.angular-formly.com/docs/ngmodelattrstemplatemanipulator
@@ -98,6 +108,12 @@ declare module AngularFormly {
 		label?: string;
 		description?: string;
 		[key: string]: any;
+
+		// types for select/radio fields
+		options?: Array<ISelectOption>;
+		groupProp?: string;  // default: group
+		valueProp?: string;  // default: value
+		labelProp?: string;  // default: name
 
 	}
 
@@ -297,6 +313,18 @@ declare module AngularFormly {
 			bound?: any;
 			expression?: any;
 			value?: any;
+			[key: string]: any;
+		};
+
+
+		/**
+		 * This allows you to place attributes with string values on the ng-model element.
+		 * Easy to use alternative to ngModelAttrs option.
+		 *
+		 * see http://docs.angular-formly.com/docs/field-configuration-object#ngmodelelattrs-object
+		 */
+		ngModelElAttrs?: {
+			[key: string]: string;
 		};
 
 

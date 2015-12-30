@@ -1,13 +1,16 @@
-﻿// Type definitions for SharePoint 2010 and 2013
-// Project: http://sptypescript.codeplex.com
+// Type definitions for SharePoint 2010 and 2013
+// Project: https://github.com/gandjustas/sptypescript
 // Definitions by: Stanislav Vyshchepan <http://blog.gandjustas.ru>, Andrey Markeev <http://markeev.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../microsoft-ajax/microsoft.ajax.d.ts" />
-
 declare var _spBodyOnLoadFunctions: Function[];
 declare var _spBodyOnLoadFunctionNames: string[];
 declare var _spBodyOnLoadCalled: boolean;
+declare function ExecuteOrDelayUntilBodyLoaded(initFunc: () => void): void;
+declare function ExecuteOrDelayUntilScriptLoaded(func: () => void, depScriptFileName: string): boolean;
+declare function ExecuteOrDelayUntilEventNotified(func: Function, eventName: string): boolean;
+declare var Strings:any;
 
 declare module SP {
     export class SOD {
@@ -1447,6 +1450,10 @@ declare module SPClientTemplates {
         static BuildLookupValuesAsString(choiceArray: ClientLookupValue[], isMultiLookup: boolean, setGroupDesc: boolean): string;
         static ParseURLValue(value: string): ClientUrlValue;
         static GetFormContextForCurrentField(context: RenderContext_Form): ClientFormContext;
+        /** Returns ";#" */
+        static UserLookupDelimitString: string;
+        /** Returns ";#" */
+        static UserMultiValueDelimitString:string;
     }
 
     export class ClientFormContext {
@@ -1576,6 +1583,7 @@ declare function SPFieldDateTime_Display(ctx: SPClientTemplates.RenderContext_Fi
 declare function SPFieldDateTime_Edit(ctx: SPClientTemplates.RenderContext_FieldInForm): string;
 declare function SPFieldUrl_Display(ctx: SPClientTemplates.RenderContext_FieldInForm): string;
 declare function SPFieldUrl_Edit(ctx: SPClientTemplates.RenderContext_FieldInForm): string;
+declare function SPFieldUser_Display(ctx: SPClientTemplates.RenderContext_FieldInForm): string;
 declare function SPFieldUserMulti_Display(ctx: SPClientTemplates.RenderContext_FieldInForm): string;
 declare function SPClientPeoplePickerCSRTemplate(ctx: SPClientTemplates.RenderContext_FieldInForm): string;
 declare function SPFieldLookup_Display(ctx: SPClientTemplates.RenderContext_FieldInForm): string;
@@ -2866,8 +2874,8 @@ declare module SP {
         get_hidden(): boolean;
         set_hidden(value: boolean): void;
         get_id(): SP.ContentTypeId;
-        get_jSLink(): string;
-        set_jSLink(value: string): void;
+        get_jsLink(): string;
+        set_jsLink(value: string): void;
         get_name(): string;
         set_name(value: string): void;
         get_newFormTemplateName(): string;
@@ -3091,8 +3099,8 @@ declare module SP {
         get_indexed(): boolean;
         set_indexed(value: boolean): void;
         get_internalName(): string;
-        get_jSLink(): string;
-        set_jSLink(value: string): void;
+        get_jsLink(): string;
+        set_jsLink(value: string): void;
         get_readOnlyField(): boolean;
         set_readOnlyField(value: boolean): void;
         get_required(): boolean;
@@ -4683,8 +4691,8 @@ declare module SP {
         set_includeRootFolder(value: boolean): void;
         get_viewJoins(): string;
         set_viewJoins(value: string): void;
-        get_jSLink(): string;
-        set_jSLink(value: string): void;
+        get_jsLink(): string;
+        set_jsLink(value: string): void;
         get_listViewXml(): string;
         set_listViewXml(value: string): void;
         get_method(): string;
@@ -7446,6 +7454,7 @@ declare module SPNotifications {
 declare class SPStatusNotificationData {
     constructor(text: string, subText: string, imageUrl: string, sip: string);
 }
+declare function RefreshCommandUI():void;
 
 declare module SP {
     export module UI {
@@ -8919,7 +8928,7 @@ declare module SP {
 
                 public getAllTerms(): NavigationTermCollection;
 
-                public findTermForUrl(usr: string): NavigationTerm;
+                public findTermForUrl(url: string): NavigationTerm;
 
                 static getAsResolvedByWeb(context: ClientContext, termSet: Taxonomy.TermSet, web: Web, siteMapProviderName: string): NavigationTermSet;
                 static getAsResolvedByView(context: ClientContext, termSet: Taxonomy.TermSet, view: NavigationTermSetView): NavigationTermSet;
@@ -9904,6 +9913,11 @@ declare module SP {
             data?: any;
             localized?: string;
         }
+        export enum SelectionTypeFlags {
+            MultipleCellRanges,
+            MultipleRowRanges,
+            MultipleColRanges
+        }
 
 
         export class JsGridControl {
@@ -10432,6 +10446,77 @@ declare module SP {
                 minRowHeight: number;
                 commandMgr: SP.JsGrid.CommandManager;
                 enabledRowHeaderAutoStates: SP.Utilities.Set;
+                tableViewParams: TableViewParameters;
+                bEnableDiffTracking: boolean;
+                isRTL: boolean;
+
+            }
+            export class TableViewParameters {
+                paneLayout: SP.JsGrid.PaneLayout;
+                defaultEditMode: SP.JsGrid.EditMode;
+                allowedSelectionTypes: SP.JsGrid.SelectionTypeFlags;
+
+                bMovableColumns: boolean;
+                bResizableColumns: boolean;
+                bHidableColumns: boolean;
+                bSortableColumns: boolean;
+                bAutoFilterableColumns: boolean;
+                bRowHeadersEnabled: boolean;
+                bRecordIndicatorCheckboxesEnabled: boolean;
+                bFillControlEnabled: boolean;
+                bEditingEnabled: boolean;
+                bNewRowEnabled: boolean;
+
+                checkSelectionCheckboxHiddenRecordKeys: string[];
+                checkSelectionCheckboxDisabledRecordKeys: string[];
+                checkSelectionCheckedRecordKeys: string[];
+
+                keyFieldName: string;
+                gridFieldMap: { [name: string]: GridField };
+
+                columns: ColumnInfoCollection;
+                messageOverrides: any; //TODO
+                operationalConstantsFieldKeyMap: any; //TODO
+
+                ganttParams: GanttParameters;
+                pivotedGridParams: PivotedGridParameters;
+                rowViewParams: RowViewParameters;
+            }
+            export class PivotedGridParameters {
+        	    //this.dateRange = null;
+             //   this.ganttBarStyles = null;
+             //   this.ganttZoomLevel = 3;
+             //   this.fnRenderGanttRow = null;
+             //   this.fnGetGanttBarDate = null;
+             //   this.fnGetGanttBarStyleIds = null;
+             //   this.fnGetPredecessors = null;
+             //   this.workDayStart = _spRegionalSettings.workDayStart;
+             //   this.workDayEnd = _spRegionalSettings.workDayEnd;
+             //   this.fieldKeyRedrawFilter = null;
+            }
+
+            export class GanttParameters {
+                columns: ColumnInfoCollection;
+            }
+
+            export class RowViewParameters {
+                hierarchyMode: SP.JsGrid.HierarchyMode;
+                view: any;
+
+                topViewIdx: number;
+
+
+                groupingLevel: any;
+                groupingRecordKeyPrefix: any;
+                autoFilterState: any;
+                unfilteredHierarchyMgr: any;
+                hierarchyDelayLoadKeys: any;
+                hierarchyState: any;
+                sortState: any;
+                filterState: any;
+                autoFilterEntries: any;
+                filteredDescCounts: any;
+
             }
         }
 
@@ -10738,15 +10823,15 @@ declare module SP {
         }
 
         export class GridField {
-            constructor(key: string, hasDataValue: boolean, hasLocalizedValue: boolean, textDirection: any, defaultCellStyleId: any, editMode: any, dateOnly: any, csrInfo: any);
+            constructor(key: string, hasDataValue: boolean, hasLocalizedValue: boolean, textDirection: TextDirection, defaultCellStyleId?: any, editMode?: EditMode, dateOnly?: boolean, csrInfo?: any);
             key: string;
             hasDataValue: boolean;
             hasLocalizedValue: boolean;
-            textDirection: any;
+            textDirection: TextDirection;
             dateOnly: boolean;
             csrInfo: any;
-            GetEditMode(): any;
-            SetEditMode(mode: any): void;
+            GetEditMode(): EditMode;
+            SetEditMode(mode: EditMode): void;
             GetDefaultCellStyleId(): any;
             CompareSingleDataEqual(dataValue1: any, dataValue2: any): boolean;
             GetPropType(): any;
@@ -10959,6 +11044,112 @@ declare module SP {
             IsCurrentlyUsingGridTextInputElement?(): boolean;
             SetSize?(width: number, height: number): void;
         }
+
+
+        export class StaticDataSource {
+            constructor(jsGridData: IGridData, optFnGetPropType?: Function);
+            AddColumn(gridField: SP.JsGrid.GridField, values: IValue[]):void;
+            RemoveColumn(fieldKey: string):void;
+            InitJsGridParams(optGridParams?: JsGridControl.Parameters): JsGridControl.Parameters;
+        }
+
+        export interface IGridData {
+            MetaData: IGridMetadata
+
+            Fields: IFieldInfo[];
+            Columns: IColumnInfo[];
+
+            LocalizedTable: any[];
+            UnlocalizedTable: any[];
+            ViewInfo: any[];
+
+            MultiValueSeparator?: string;
+            LookupTableInfo?: ILookupTableInfo[];
+            PivotedColumns?: ColumnInfo[];
+            PaneLayout?: PaneLayout;
+            GanttInfo?: any;
+            AutoFilterableColumns?: boolean;
+            AutoFilterState?: any;
+            SortState?: any[];
+            HierarchyState?: any;
+            TopRecord?: number;
+            RecordCount?: number;
+            AdditionalParams?: any;
+            CellStyles?: any;
+            GroupingGridRowStyleIds?: any[];
+            UnfilteredHierarchy?: any;
+            AutoFilterEntries?: any;
+
+            ViewDepKeys?: any[];
+        }
+
+        export interface IColumnInfo {
+            /** Column title */
+            name: string;
+            /** Column image URL.
+                If not null, the column header cell will show the image instead of title text.
+                If the title is defined at the same time as the imgSrc, the title will be shown as a tooltip. */
+            imgSrc?: string;
+            /** Column identifier */
+            columnKey: string;
+            /** Column identifier */
+            fieldKey: string;
+            /** Field keys of the fields, that are displayed in this column */
+            fieldKeys: string[];
+            /** Width of the column */
+            width: number;
+            /** true by default */
+            isVisible?: boolean;
+            /** true by default */
+            isHidable?: boolean;
+            /** true by default */
+            isResizable?: boolean;
+            /** true by default */
+            isSortable?: boolean;
+            /** true by default */
+            isAutoFilterable?: boolean;
+            /** false by default */
+            isFooter?: boolean;
+        }
+
+        export interface IGridMetadata {
+            KeyColumnName: string;
+            IsGanttEnabled?: boolean;
+            IsHierarchyEnabled?: boolean;
+            IsSorted?: boolean;
+            GroupingLevel?: number;
+            GroupingPrefix?: string;
+            RecordKeyHash?: string;
+            RecordKeyOrderChanged?: any;
+            GridOperationalConstantsFieldKeyMap?: { [index: number]: string };
+
+        }
+
+        export interface IFieldInfo {
+            fieldKey: string;
+            propertyTypeId: string;
+            editMode?: EditMode;
+            hasDataValue?: boolean;
+            hasLocalizedValue?: boolean;
+            multiValue?: boolean;
+            textDirection?: TextDirection;
+            dateOnly?: boolean;
+            defaultCellStyleId?: any;
+
+        }
+
+        export interface ILookupTableInfo {
+            id: string;
+            showImage?: boolean;
+            showText?: boolean;
+            limitToList?: boolean;
+            lookup: ILookupInfo[];
+        }
+        export interface ILookupInfo {
+            localString: string;
+            value: number;
+        }
+
 
     }
 

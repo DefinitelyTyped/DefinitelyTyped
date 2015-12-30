@@ -5,10 +5,27 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-// Support for AMD require
+// Support for AMD require and CommonJS
 declare module 'angular-ui-router' {
-    var _: string;
-    export = _;
+    // Since angular-ui-router adds providers for a bunch of
+    // injectable dependencies, it doesn't really return any
+    // actual data except the plain string 'ui.router'.
+    //
+    // As such, I don't think anybody will ever use the actual
+    // default value of the module.  So I've only included the
+    // the types. (@xogeny)
+    export type IState = angular.ui.IState;
+    export type IStateProvider = angular.ui.IStateProvider;
+    export type IUrlMatcher = angular.ui.IUrlMatcher;
+    export type IUrlRouterProvider = angular.ui.IUrlRouterProvider;
+    export type IStateOptions = angular.ui.IStateOptions;
+    export type IHrefOptions = angular.ui.IHrefOptions;
+    export type IStateService = angular.ui.IStateService;
+    export type IResolvedState = angular.ui.IResolvedState;
+    export type IStateParamsService = angular.ui.IStateParamsService;
+    export type IUrlRouterService = angular.ui.IUrlRouterService;
+    export type IUiViewScrollProvider = angular.ui.IUiViewScrollProvider;
+    export type IType = angular.ui.IType;
 }
 
 declare module angular.ui {
@@ -71,10 +88,16 @@ declare module angular.ui {
          * Arbitrary data object, useful for custom configuration.
          */
         data?: any;
+        
         /**
          * Boolean (default true). If false will not re-trigger the same state just because a search/query parameter has changed. Useful for when you'd like to modify $location.search() without triggering a reload.
          */
         reloadOnSearch?: boolean;
+        
+        /**
+         * Boolean (default true). If false will reload state on everytransitions. Useful for when you'd like to restore all data  to its initial state.
+         */
+        cache?: boolean;
     }
 
     interface IStateProvider extends angular.IServiceProvider {
@@ -229,10 +252,10 @@ declare module angular.ui {
          */
         go(to: string, params?: {}, options?: IStateOptions): angular.IPromise<any>;
         go(to: IState, params?: {}, options?: IStateOptions): angular.IPromise<any>;
-        transitionTo(state: string, params?: {}, updateLocation?: boolean): void;
-        transitionTo(state: IState, params?: {}, updateLocation?: boolean): void;
-        transitionTo(state: string, params?: {}, options?: IStateOptions): void;
-        transitionTo(state: IState, params?: {}, options?: IStateOptions): void;
+        transitionTo(state: string, params?: {}, updateLocation?: boolean): angular.IPromise<any>;
+        transitionTo(state: IState, params?: {}, updateLocation?: boolean): angular.IPromise<any>;
+        transitionTo(state: string, params?: {}, options?: IStateOptions): angular.IPromise<any>;
+        transitionTo(state: IState, params?: {}, options?: IStateOptions): angular.IPromise<any>;
         includes(state: string, params?: {}): boolean;
         is(state:string, params?: {}): boolean;
         is(state: IState, params?: {}): boolean;
@@ -244,10 +267,10 @@ declare module angular.ui {
         current: IState;
         /** A param object, e.g. {sectionId: section.id)}, that you'd like to test against the current active state. */
         params: IStateParamsService;
-        reload(): void;
+        reload(): angular.IPromise<any>;
 
         /** Currently pending transition. A promise that'll resolve or reject. */
-        transition: ng.IPromise<{}>;
+        transition: angular.IPromise<{}>;
 
         $current: IResolvedState;
     }
@@ -277,7 +300,10 @@ declare module angular.ui {
     	 *
     	 */
         sync(): void;
-        listen(): void;
+        listen(): Function;
+        href(urlMatcher: IUrlMatcher, params?: IStateParamsService, options?: IHrefOptions): string;
+        update(read?: boolean): void;
+        push(urlMatcher: IUrlMatcher, params?: IStateParamsService, options?: IHrefOptions): void;
     }
 
     interface IUiViewScrollProvider {

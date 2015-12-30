@@ -70,6 +70,10 @@ function test_before() {
     before(() => { });
 
     before((done) => { done(); });
+
+    before("my description", () => { });
+
+    before("my description", done => { });
 }
 
 function test_setup() {
@@ -82,6 +86,10 @@ function test_after() {
     after(() => { });
 
     after((done) => { done(); });
+
+    after("my description", () => { });
+
+    after("my description", done => { });
 }
 
 function test_teardown() {
@@ -94,6 +102,10 @@ function test_beforeEach() {
     beforeEach(() => { });
 
     beforeEach((done) => { done(); });
+
+    beforeEach("my description", () => { });
+
+    beforeEach("my description", done => { });
 }
 
 function test_suiteSetup() {
@@ -106,6 +118,10 @@ function test_afterEach() {
     afterEach(() => { });
 
     afterEach((done) => { done(); });
+
+    afterEach("my description", () => { });
+
+    afterEach("my description", done => { });
 }
 
 function test_suiteTeardown() {
@@ -248,4 +264,8 @@ function test_run_withOnComplete() {
     instance.run((failures: number): void => {
         console.log(failures);
     });
+}
+
+function test_throwError() {
+    mocha.throwError(new Error("I'm an error!"));
 }

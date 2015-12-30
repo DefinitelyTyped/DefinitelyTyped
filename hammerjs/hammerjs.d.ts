@@ -3,8 +3,6 @@
 // Definitions by: Philip Bulley <https://github.com/milkisevil/>, Han Lin Yap <https://github.com/codler>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../touch-events/touch-events.d.ts" />
-
 declare var Hammer:HammerStatic;
 
 declare module "hammerjs" {

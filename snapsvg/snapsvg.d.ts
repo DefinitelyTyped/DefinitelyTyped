@@ -15,7 +15,7 @@ declare module mina {
     }
 
     export interface AnimationDescriptor {
-		id: string;
+        id: string;
         start: number;
         end: number;
         b: number;
@@ -35,7 +35,7 @@ declare module mina {
         pause(): void;
         resume(): void;
         update(): void;
-	}
+    }
 
 	export function backin(n:number):number;
 	export function backout(n:number):number;
@@ -57,8 +57,9 @@ declare module Snap {
 	export var filter:Filter;
 	export var path:Path;
 
-	export function Matrix(a:number,b:number,c:number,d:number,e:number,f:number):Matrix;
-	export function Matrix(svgMatrix:SVGMatrix):Matrix;
+	export function Matrix():void;
+	export function matrix(a:number,b:number,c:number,d:number,e:number,f:number):Matrix;
+	export function matrix(svgMatrix:SVGMatrix):Matrix;
 
 	export function ajax(url:string,postData:string,callback:Function,scope?:Object):XMLHttpRequest;
 	export function ajax(url:string,postData:Object,callback:Function,scope?:Object):XMLHttpRequest;
@@ -264,6 +265,7 @@ declare module Snap {
         undrag(onMove:  (dx: number, dy: number, event: MouseEvent) => void,
                onStart: (x: number, y: number, event: MouseEvent) => void,
                onEnd:   (event: MouseEvent) => void): Snap.Element;
+	undrag(): Snap.Element;
 	}
 
 	export interface Fragment {

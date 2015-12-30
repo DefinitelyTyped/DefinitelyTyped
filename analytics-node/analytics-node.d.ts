@@ -65,6 +65,16 @@ declare module AnalyticsNode {
       anonymous_id?: string | number;
       integrations?: Integrations;
     }): Analytics;
+
+    /* Flush batched calls to make sure nothing is left in the queue */
+    flush(fn?: (err: Error, batch: {
+      batch: Array<{
+        type: string;
+      }>;
+      messageId: string;
+      sentAt: Date;
+      timestamp: Date;
+    }) => void): Analytics;
   }
 }
 

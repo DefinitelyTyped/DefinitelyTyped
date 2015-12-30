@@ -80,3 +80,12 @@ function testIntegrations(): void {
     }
   });
 }
+
+function testFlush(): void {
+  analytics.flush();
+  analytics.flush(function(err, batch) {
+    if (err) { alert("Oh nos!"); }
+    else { console.log(batch.batch[0].type); }
+  });
+}
+
