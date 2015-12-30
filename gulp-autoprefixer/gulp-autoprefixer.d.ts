@@ -14,5 +14,7 @@ declare module "gulp-autoprefixer" {
 
     function autoPrefixer(opts?: Options): NodeJS.ReadWriteStream;
 
+    namespace autoPrefixer {}
+
     export = autoPrefixer;
 }
