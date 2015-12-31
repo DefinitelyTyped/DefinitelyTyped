@@ -7,7 +7,7 @@
 
 declare namespace __Highcharts {
 
-var Highcharts: Static;
+var Chart: Chart;
 
 interface Position {
     align?: string;
