@@ -118,8 +118,9 @@ declare var Buffer: {
      * Returns true if {obj} is a Buffer
      *
      * @param obj object to test.
+     * @return {boolean}
      */
-    isBuffer(obj: any): obj is Buffer;
+    isBuffer(obj: any): boolean;
     /**
      * Returns true if {encoding} is a valid encoding argument.
      * Valid string encodings in Node 0.12: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
@@ -151,6 +152,96 @@ declare var Buffer: {
      * The same as buf1.compare(buf2).
      */
     compare(buf1: Buffer, buf2: Buffer): number;
+    /**
+     * Writes value to the buffer at the specified offset. Note, value must be a valid unsigned 8 bit integer.
+     * @param value Number
+     * @param offset Number
+     * @param noAssert Optional, default false
+     */
+    writeUInt8(value: number, offset: number, noAssert?: boolean): void;
+    /**
+     * Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid unsigned 16 bit integer.
+     * @param value Number
+     * @param offset Number
+     * @param noAssert Optional, default false
+     */
+    writeUInt16LE(value: number, offset: number, noAssert?: boolean): void;
+    writeUInt16BE(value: number, offset: number, noAssert?: boolean): void;
+    /**
+     * Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid unsigned 32 bit integer.
+     * @param value Number
+     * @param offset Number
+     * @param noAssert Optional, default false
+     */
+    writeUInt32LE(value: number, offset: number, noAssert?: boolean): void;
+    writeUInt32BE(value: number, offset: number, noAssert?: boolean): void;
+    /**
+     * Writes value to the buffer at the specified offset. Note, value must be a valid signed 8 bit integer.
+     * @param value Number
+     * @param offset Number
+     * @param noAssert Optional, default false
+     */
+    writeInt8(value: number, offset: number, noAssert?: boolean): void;
+    /**
+     * Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid signed 16 bit integer.
+     * @param value Number
+     * @param offset Number
+     * @param noAssert Optional, default false
+     */
+    writeInt16LE(value: number, offset: number, noAssert?: boolean): void;
+    writeInt16BE(value: number, offset: number, noAssert?: boolean): void;
+    /**
+     * Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid signed 32 bit integer.
+     * @param value Number
+     * @param offset Number
+     * @param noAssert Optional, default false
+     */
+    writeInt32LE(value: number, offset: number, noAssert?: boolean): void;
+    writeInt32BE(value: number, offset: number, noAssert?: boolean): void;
+    /**
+     * Writes value to the buffer at the specified offset with specified endian format. Note, behavior is unspecified if value is not a 32 bit float.
+     * @param value Number
+     * @param offset Number
+     * @param noAssert Optional, default false
+     */
+    writeFloatLE(value: number, offset: number, noAssert?: boolean): void;
+    writeFloatBE(value: number, offset: number, noAssert?: boolean): void;
+    /**
+     * Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid 64 bit double.
+     * @param value Number
+     * @param offset Number
+     * @param noAssert Optional, default false
+     */
+    writeDoubleLE(value: number, offset: number, noAssert?: boolean): void;
+    writeDoubleBE(value: number, offset: number, noAssert?: boolean): void;
+    /**
+     * Writes value to the buffer at the specified offset and byteLength. Supports up to 48 bits of accuracy.
+     * @param value Bytes to be written to buffer
+     * @param offset 0 <= offset <= buf.length
+     * @param byteLength number 0 < byteLength <= 6
+     * @param noAssert Default false
+     * @return number
+     */
+    writeUIntLe(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeUIntBe(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeIntLe(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeIntBe(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    /**
+     * A generalized version of all numeric read methods. Supports up to 48 bits of accuracy.
+     * @param offset 0 <= offset <= buf.length
+     * @param byteLength 0 < byteLength <= 6
+     * @param noAssert Default false
+     * @return number
+     */
+    readUIntLe(offset: number, byteLength: number, noAssert?: boolean): number;
+    readUIntBe(offset: number, byteLength: number, noAssert?: boolean): number;
+    readIntLe(offset: number, byteLength: number, noAssert?: boolean): number;
+    readIntBe(offset: number, byteLength: number, noAssert?: boolean): number;
+    readUInt8(offset: number, noAssert?: boolean) : number;
+    readUInt16LE(offset: number, noAssert?: boolean) : number;
+    readUInt16BE(offset: number, noAssert?: boolean) : number;
+    readUInt32LE(offset: number, noAssert?: boolean) : number;
+    readUInt32BE(offset: number, noAssert?: boolean) : number;
 };
 
 /************************************************
@@ -1017,6 +1108,7 @@ declare module "url" {
 declare module "dns" {
     export function lookup(domain: string, family: number, callback: (err: Error, address: string, family: number) =>void ): string;
     export function lookup(domain: string, callback: (err: Error, address: string, family: number) =>void ): string;
+    export function lookupService(address: string, port: number, callback: (err: any, hostname: string, service: string) =>void ): string;
     export function resolve(domain: string, rrtype: string, callback: (err: Error, addresses: string[]) =>void ): string[];
     export function resolve(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
     export function resolve4(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
