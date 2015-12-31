@@ -197,6 +197,17 @@ declare module 'couchbase' {
         certpath: string;
     }
 
+    interface CreateBucketOptions {
+        /**
+         * The bucket name
+         */
+        name?: string;
+        authType?: string,
+        bucketType?: string;
+        ramQuotaMB?: number;
+        replicaNumber?: number;
+    }
+
     /**
      * Class for performing management operations against a cluster.
      */
@@ -206,7 +217,7 @@ declare module 'couchbase' {
          * @param name 
          * @param callback 
          */
-        createBucket(name: string, callback: Function);
+        createBucket(name: string, callback: Function): void;
 
         /**
          * 
@@ -214,20 +225,20 @@ declare module 'couchbase' {
          * @param opts 
          * @param callback 
          */
-        createBucket(name: string, opts: any, callback: Function);
+        createBucket(name: string, opts: any, callback: Function): void;
 
         /**
          * 
          * @param callback 
          */
-        listBuckets(callback: Function);
+        listBuckets(callback: Function): void;
 
         /**
          * 
          * @param name 
          * @param callback 
          */
-        removeBucket(name: string, callback: Function);
+        removeBucket(name: string, callback: Function): void;
     }
 
     /**
@@ -244,17 +255,17 @@ declare module 'couchbase' {
         /**
          * The CAS value to check. If the item on the server contains a different CAS value, the operation will fail. Note that if this option is undefined, no comparison will be performed.
          */
-        cas: Bucket.CAS;
+        cas?: Bucket.CAS;
 
         /**
          * Ensures this operation is persisted to this many nodes.
          */
-        persist_to: number;
+        persist_to?: number;
 
         /**
          * 	Ensures this operation is replicated to this many nodes.
          */
-        replicate_to: number;
+        replicate_to?: number;
     }
 
     interface PrependOptions extends AppendOptions { }
@@ -265,7 +276,7 @@ declare module 'couchbase' {
         /**
          * Set the initial expiration time for the document. A value of 0 represents never expiring.
          */
-        expiry: number;
+        expiry?: number;
     }
 
     interface UpsertOptions extends ReplaceOptions { }
@@ -274,38 +285,38 @@ declare module 'couchbase' {
         /**
          * 	Ensures this operation is persisted to this many nodes.
          */
-        persist_to: number;
+        persist_to?: number;
 
         /**
          * Ensures this operation is replicated to this many nodes.
          */
-        replicate_to: number;
+        replicate_to?: number;
     }
 
     interface CounterOptions {
         /**
          * Sets the initial value for the document if it does not exist. Specifying a value of undefined will cause the operation to fail if the document does not exist, otherwise this value must be equal to or greater than 0.
          */
-        initial: number;
+        initial?: number;
 
         /**
          * Set the initial expiration time for the document. A value of 0 represents never expiring.
          */
-        expiry: number;
+        expiry?: number;
 
         /**
          * Ensures this operation is persisted to this many nodes
          */
-        persist_to: number;
+        persist_to?: number;
 
         /**
          * Ensures this operation is replicated to this many nodes
          */
-        replicate_to: number;
+        replicate_to?: number;
     }
 
     interface GetAndLockOptions {
-        lockTime: number;
+        lockTime?: number;
     }
 
     interface GetReplicaOptions {
@@ -313,7 +324,7 @@ declare module 'couchbase' {
         /**
          * The index for which replica you wish to retrieve this value from, or if undefined, use the value from the first server that replies.
          */
-        index: number;
+        index?: number;
     }
 
     interface InsertOptions {
@@ -321,17 +332,17 @@ declare module 'couchbase' {
         /**
          * Set the initial expiration time for the document. A value of 0 represents never expiring.
          */
-        expiry: number;
+        expiry?: number;
 
         /**
          * Ensures this operation is persisted to this many nodes.
          */
-        persist_to: number;
+        persist_to?: number;
 
         /**
          * 	Ensures this operation is replicated to this many nodes.
          */
-        replicate_to: number;
+        replicate_to?: number;
     }
 
     /**
@@ -343,20 +354,20 @@ declare module 'couchbase' {
          * Flushes the cluster, deleting all data stored within this bucket. Note that this method requires the Flush permission to be enabled on the bucket from the management console before it will work.
          * @param callback The callback function.
          */
-        flush(callback: Function);
+        flush(callback: Function): void;
 
         /**
          * Retrieves a specific design document from this bucket.
          * @param name 
          * @param callback The callback function.
          */
-        getDesignDocument(name: string, callback: Function);
+        getDesignDocument(name: string, callback: Function): void;
 
         /**
          * Retrieves a list of all design documents registered to a bucket.
          * @param callback The callback function.
          */
-        getDesignDocuments(callback: Function);
+        getDesignDocuments(callback: Function): void;
 
         /**
          * Registers a design document to this bucket, failing if it already exists.
@@ -365,7 +376,7 @@ declare module 'couchbase' {
          * @param callback The callback function.
          * @returns {} 
          */
-        insertDesignDocument(name: string, data: any, callback: Function);
+        insertDesignDocument(name: string, data: any, callback: Function): void;
 
         /**
          * Unregisters a design document from this bucket.
@@ -373,7 +384,7 @@ declare module 'couchbase' {
          * @param callback The callback function.
          * @returns {} 
          */
-        removeDesignDocument(name: string, callback: Function);
+        removeDesignDocument(name: string, callback: Function): void;
 
         /**
          * Registers a design document to this bucket, overwriting any existing design document that was previously registered.
@@ -382,7 +393,7 @@ declare module 'couchbase' {
          * @param callback The callback function.
          * @returns {} 
          */
-        upsertDesignDocument(name: string, data: any, callback: Function);
+        upsertDesignDocument(name: string, data: any, callback: Function): void;
     }
 
     /**
@@ -745,7 +756,7 @@ declare module 'couchbase' {
          * @param fragment The document's contents to append.
          * @param callback The callback function.
          */
-        append(key: any | Buffer, fragment: any, callback: Bucket.OpCallback);
+        append(key: any | Buffer, fragment: any, callback: Bucket.OpCallback): void;
 
         /**
          * 
@@ -754,7 +765,7 @@ declare module 'couchbase' {
          * @param options The options object.
          * @param callback The callback function.
          */
-        append(key: any | Buffer, fragment: any, options: AppendOptions, callback: Bucket.OpCallback);
+        append(key: any | Buffer, fragment: any, options: AppendOptions, callback: Bucket.OpCallback): void;
 
         /**
          * Increments or decrements a key's numeric value.
@@ -763,7 +774,7 @@ declare module 'couchbase' {
          * @param delta The amount to add or subtract from the counter value. This value may be any non-zero integer.
          * @param callback The callback function.
          */
-        counter(key: any | Buffer, delta: number, callback: Bucket.OpCallback);
+        counter(key: any | Buffer, delta: number, callback: Bucket.OpCallback): void;
         
         /**
          * 
@@ -772,7 +783,7 @@ declare module 'couchbase' {
          * @param options The options object.
          * @param callback The callback function.
          */
-        counter(key: any | Buffer, delta: number, options: CounterOptions, callback: Bucket.OpCallback);
+        counter(key: any | Buffer, delta: number, options: CounterOptions, callback: Bucket.OpCallback): void;
 
         /**
          * Shuts down this connection.
@@ -783,21 +794,21 @@ declare module 'couchbase' {
          * Enables N1QL support on the client. A cbq-server URI must be passed. This method will be deprecated in the future in favor of automatic configuration through the connected cluster.
          * @param hosts An array of host/port combinations which are N1QL servers attached to this cluster.
          */
-        enableN1ql(hosts: string | string[]);
+        enableN1ql(hosts: string | string[]): void;
 
         /**
          * Retrieves a document.
          * @param key The target document key.
          * @param callback The callback function.
          */
-        get(key: any | Buffer, callback: Bucket.OpCallback);
+        get(key: any | Buffer, callback: Bucket.OpCallback): void;
 
         /**
          * @param key The target document key.
          * @param options The options object.
          * @param callback The callback function.
          */
-        get(key: any | Buffer, options: any, callback: Bucket.OpCallback);
+        get(key: any | Buffer, options: any, callback: Bucket.OpCallback): void;
 
         /**
          * Lock the document on the server and retrieve it. When an document is locked, its CAS changes and subsequent operations on the document (without providing the current CAS) will fail until the lock is no longer held.
@@ -806,7 +817,7 @@ declare module 'couchbase' {
          * @param key The target document key.
          * @param callback The callback function.
          */
-        getAndLock(key: any, callback: Bucket.OpCallback);
+        getAndLock(key: any, callback: Bucket.OpCallback): void;
 
         /**
          * Lock the document on the server and retrieve it. When an document is locked, its CAS changes and subsequent operations on the document (without providing the current CAS) will fail until the lock is no longer held.
@@ -817,7 +828,7 @@ declare module 'couchbase' {
          * @param callback The callback function.
          * @returns {} 
          */
-        getAndLock(key: any, options: GetAndLockOptions, callback: Bucket.OpCallback);
+        getAndLock(key: any, options: GetAndLockOptions, callback: Bucket.OpCallback): void;
 
         /**
          * Retrieves a document and updates the expiry of the item at the same time.
@@ -826,7 +837,7 @@ declare module 'couchbase' {
          * @param options The options object.
          * @param callback The callback function.
          */
-        getAndTouch(key: any | Buffer, expiry: number, options: any, callback: Bucket.OpCallback);
+        getAndTouch(key: any | Buffer, expiry: number, options: any, callback: Bucket.OpCallback): void;
         
         /**
          * Retrieves a document and updates the expiry of the item at the same time.
@@ -834,21 +845,21 @@ declare module 'couchbase' {
          * @param expiry The expiration time to use. If a value of 0 is provided, then the current expiration time is cleared and the key is set to never expire. Otherwise, the key is updated to expire in the time provided (in seconds).
          * @param callback The callback function.
          */
-        getAndTouch(key: any | Buffer, expiry: number, callback: Bucket.OpCallback);
+        getAndTouch(key: any | Buffer, expiry: number, callback: Bucket.OpCallback): void;
 
         /**
          * Retrieves a list of keys
          * @param keys The target document keys.
          * @param callback The callback function.
          */
-        getMulti(key: any[] | Buffer[], callback: Bucket.MultiGetCallback);
+        getMulti(key: any[] | Buffer[], callback: Bucket.MultiGetCallback): void;
 
         /**
          * Get a document from a replica server in your cluster.
          * @param key The target document key.
          * @param callback The callback function.
          */
-        getReplica(key: any | Buffer, callback: Bucket.OpCallback);
+        getReplica(key: any | Buffer, callback: Bucket.OpCallback): void;
 
         /**
         * Get a document from a replica server in your cluster.
@@ -856,7 +867,7 @@ declare module 'couchbase' {
         * @param options The options object.
         * @param callback The callback function.
         */
-        getReplica(key: any | Buffer, options: GetReplicaOptions, callback: Bucket.OpCallback);
+        getReplica(key: any | Buffer, options: GetReplicaOptions, callback: Bucket.OpCallback): void;
 
         /**
          * Identical to Bucket#upsert but will fail if the document already exists.
@@ -864,7 +875,7 @@ declare module 'couchbase' {
          * @param value The document's contents.
          * @param callback The callback function.
          */
-        insert(key: any | Buffer, value: any, callback: Bucket.OpCallback);
+        insert(key: any | Buffer, value: any, callback: Bucket.OpCallback): void;
         
         /**
          * Identical to Bucket#upsert but will fail if the document already exists.
@@ -873,7 +884,7 @@ declare module 'couchbase' {
          * @param options The options object.
          * @param callback The callback function.
          */
-        insert(key: any | Buffer, value: any, options: InsertOptions, callback: Bucket.OpCallback);
+        insert(key: any | Buffer, value: any, options: InsertOptions, callback: Bucket.OpCallback): void;
 
         /**
          * Returns an instance of a BuckerManager for performing management operations against a bucket.
@@ -886,7 +897,7 @@ declare module 'couchbase' {
          * @param fragment The document's contents to prepend.
          * @param callback The callback function.
          */
-        prepend(key: any, fragment: any, callback: Bucket.OpCallback);
+        prepend(key: any, fragment: any, callback: Bucket.OpCallback): void;
 
         /**
          * Like Bucket#append, but prepends data to the existing value.
@@ -895,7 +906,7 @@ declare module 'couchbase' {
          * @param options The options object.
          * @param callback The callback function.
          */
-        prepend(key: any, fragment: any, options: PrependOptions, callback: Bucket.OpCallback);
+        prepend(key: any, fragment: any, options: PrependOptions, callback: Bucket.OpCallback): void;
 
         /**
          * Executes a previously prepared query object. This could be a ViewQuery or a N1qlQuery.
@@ -919,7 +930,7 @@ declare module 'couchbase' {
          * @param key The target document key.
          * @param callback The callback function.
          */
-        remove(key: any | Buffer, callback: Bucket.OpCallback);
+        remove(key: any | Buffer, callback: Bucket.OpCallback): void;
 
         /**
          * Deletes a document on the server.
@@ -927,7 +938,7 @@ declare module 'couchbase' {
          * @param options The options object.
          * @param callback The callback function.
          */
-        remove(key: any | Buffer, options: RemoveOptions, callback: Bucket.OpCallback);
+        remove(key: any | Buffer, options: RemoveOptions, callback: Bucket.OpCallback): void;
 
         /**
          * Identical to Bucket#upsert, but will only succeed if the document exists already (i.e. the inverse of Bucket#insert).
@@ -935,7 +946,7 @@ declare module 'couchbase' {
          * @param value The document's contents.
          * @param callback The callback function.
          */
-        replace(key: any | Buffer, value: any, callback: Bucket.OpCallback);
+        replace(key: any | Buffer, value: any, callback: Bucket.OpCallback): void;
 
         /**
          * Identical to Bucket#upsert, but will only succeed if the document exists already (i.e. the inverse of Bucket#insert).
@@ -944,14 +955,14 @@ declare module 'couchbase' {
          * @param options The options object.
          * @param callback The callback function.
          */
-        replace(key: any | Buffer, value: any, options: ReplaceOptions, callback: Bucket.OpCallback);
+        replace(key: any | Buffer, value: any, options: ReplaceOptions, callback: Bucket.OpCallback): void;
 
         /**
          * Configures a custom set of transcoder functions for encoding and decoding values that are being stored or retreived from the server.
          * @param encoder The function for encoding.
          * @param decoder The function for decoding.
          */
-        setTranscoder(encoder: Bucket.EncoderFunction, decoder: Bucket.DecoderFunction);
+        setTranscoder(encoder: Bucket.EncoderFunction, decoder: Bucket.DecoderFunction): void;
 
         /**
          * Update the document expiration time.
@@ -960,7 +971,7 @@ declare module 'couchbase' {
          * @param options The options object.
          * @param callback The callback function.
          */
-        touch(key: any | Buffer, expiry: number, options: TouchOptions, callback: Bucket.OpCallback);
+        touch(key: any | Buffer, expiry: number, options: TouchOptions, callback: Bucket.OpCallback): void;
 
         /**
          * Unlock a previously locked document on the server. See the Bucket#lock method for more details on locking.
@@ -968,7 +979,7 @@ declare module 'couchbase' {
          * @param cas The CAS value returned when the key was locked. This operation will fail if the CAS value provided does not match that which was the result of the original lock operation.
          * @param callback The callback function.
          */
-        unlock(key: any | Buffer, cas: Bucket.CAS, callback: Bucket.OpCallback);
+        unlock(key: any | Buffer, cas: Bucket.CAS, callback: Bucket.OpCallback): void;
 
         /**
          * Unlock a previously locked document on the server. See the Bucket#lock method for more details on locking.
@@ -977,7 +988,7 @@ declare module 'couchbase' {
          * @param options The options object.
          * @param callback The callback function.
          */
-        unlock(key: any | Buffer, cas: Bucket.CAS, options: any, callback: Bucket.OpCallback);
+        unlock(key: any | Buffer, cas: Bucket.CAS, options: any, callback: Bucket.OpCallback): void;
 
         /**
          * Stores a document to the bucket.
@@ -985,7 +996,7 @@ declare module 'couchbase' {
          * @param value The document's contents.
          * @param callback The callback function.
          */
-        upsert(key: any | Buffer, value: any, callback: Bucket.OpCallback);
+        upsert(key: any | Buffer, value: any, callback: Bucket.OpCallback): void;
 
         /**
          * Stores a document to the bucket.
@@ -994,7 +1005,7 @@ declare module 'couchbase' {
          * @param options The options object.
          * @param callback The callback function.
          */
-        upsert(key: any | Buffer, value: any, options: UpsertOptions, callback: Bucket.OpCallback);
+        upsert(key: any | Buffer, value: any, options: UpsertOptions, callback: Bucket.OpCallback): void;
     }
 
     module Bucket {
