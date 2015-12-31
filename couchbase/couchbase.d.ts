@@ -1019,7 +1019,7 @@ declare module 'couchbase' {
              * @param rows The rows returned from the query.
              * @param meta The metadata returned by the query.
              */
-            (error: CouchbaseError, rows: any[], meta: Bucket.ViewQueryResponse.Meta);
+            (error: CouchbaseError, rows: any[], meta: Bucket.ViewQueryResponse.Meta): void;
         }
 
         /**
@@ -1032,7 +1032,7 @@ declare module 'couchbase' {
              * @param error The error for the operation. This can either be an Error object or a value which evaluates to false (null, undefined, 0 or false).
              * @param result The result of the operation that was executed. This usually contains at least a cas property, and on some operations will contain a value property as well.
              */
-            (error: CouchbaseError | number, result: any);
+            (error: CouchbaseError | number, result: any): void;
         }
 
         /**
@@ -1044,7 +1044,7 @@ declare module 'couchbase' {
              * @param error The number of keys that failed to be retrieved. The precise errors are available by checking the error property of the individual documents.
              * @param results This is a map of keys to results. The result for each key will optionally contain an error if one occured, or if no error occured will contain the CAS and value of the document.
              */
-            (error: number, results: any[]);
+            (error: number, results: any[]): void;
         }
 
         /**
