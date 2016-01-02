@@ -18,7 +18,7 @@ declare module ngSignalr {
         connection: SignalR;
         proxy: HubProxy;
         
-        on(event: string, fn: ((...args: any[]) => void)): void;
+        on(event: string, fn: (...args: any[]) => void): void;
         invoke(method: string, ...args: any[]): JQueryDeferred<any>;
         disconnect(): void;
         connect(): JQueryPromise<any>;

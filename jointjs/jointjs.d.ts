@@ -110,7 +110,7 @@ declare module joint {
 
     module shapes {
         module basic {
-            class Generic extends joint.dia.Element {
+            class Generic extends dia.Element {
             }
             class Rect extends Generic {
             }

@@ -1,7 +1,8 @@
 // These are the examples from the node-mariasql README transposed to TypeScript
 // https://github.com/mscdex/node-mariasql
 
-/// <reference path="../node/node-0.10.d.ts" />
+/// <reference path="./mariasql.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 // Example 1 - SHOW DATABASES
 import util = require('util');

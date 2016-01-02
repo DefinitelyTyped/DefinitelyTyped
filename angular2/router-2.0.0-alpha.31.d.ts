@@ -8,7 +8,7 @@
 // Please do not create manual edits or send pull requests
 // modifying this file.
 // ***********************************************************
-///<reference path="./angular2.d.ts"/>
+///<reference path="./angular2-2.0.0-alpha.31.d.ts"/>
 
 
 

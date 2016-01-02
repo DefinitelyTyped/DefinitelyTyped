@@ -400,3 +400,16 @@ function test_view() {
     var model = Parse.User.current();
     var view = new Parse.View<Parse.User>();
 }
+
+function test_promise() {
+    let resolved = Parse.Promise.as(true);
+    let rejected = Parse.Promise.error("an error object");
+    Parse.Promise.when([resolved, rejected]).then(function() {
+        // success
+    }, function() {
+        // failed
+    });
+
+    // can check whether an object is a Parse.Promise object or not
+    Parse.Promise.is(resolved);
+}

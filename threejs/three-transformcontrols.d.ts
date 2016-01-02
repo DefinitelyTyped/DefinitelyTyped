@@ -12,7 +12,7 @@ declare module THREE {
 		object: Object3D;
 
 		update():void;
-		detach(object: Object3D): void;
+		detach(): void;
 		attach(object: Object3D): void;
 		setMode(mode: string): void;
 		setSnap(snap: any): void;

@@ -65,6 +65,8 @@ declare module "bunyan" {
         path?: string;
         stream?: NodeJS.WritableStream | Stream;
         closeOnExit?: boolean;
+        period?: string;
+        count?: number;
     }
 
     export var stdSerializers:Serializers;

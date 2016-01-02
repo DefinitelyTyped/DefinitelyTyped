@@ -50,7 +50,7 @@ myApp.config((RestangularProvider: restangular.IProvider) => {
 });
 
 
-interface MyAppScope extends ng.IScope {
+interface MyAppScope extends angular.IScope {
 	accounts: string[];
   allAccounts: any[];
   account: any;
@@ -92,7 +92,8 @@ myApp.controller('TestCtrl', (
   Restangular.setMethodOverriders(["put", "patch"]);
 
   Restangular.setErrorInterceptor(function (response) {
-      console.error('' + response.status + ' ' + response.data);
+      let location: string = response.headers('Location');
+      console.error('' + response.status + ' ' + response.data + ' ' + location);
   });
 
   Restangular.setRequestSuffix('.json');

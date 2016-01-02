@@ -22,9 +22,9 @@ class SimpleTestAllParams {
         this.element = $(".content");
 
         this.element.mCustomScrollbar({
-            set_width: false,
-            set_height: false,
-            horizontalScroll: false,
+            setWidth: false,
+            setHeight: false,
+            axis: "y",
             scrollInertia: 950,
             mouseWheel: true,
             mouseWheelPixels: "auto",

@@ -32,7 +32,7 @@ declare class AutoLaunch {
 	/**
 	 * Returns if auto start up is enabled
 	 */
-	isEnabled(callback?: (err: Error) => void): boolean;
+	isEnabled(callback: (enabled: boolean) => void): void;
 }
 
 declare module "auto-launch" {

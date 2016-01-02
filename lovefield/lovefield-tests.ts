@@ -8,8 +8,10 @@ function main(): void {
       addColumn('description', lf.Type.STRING).
       addColumn('deadline', lf.Type.DATE_TIME).
       addColumn('done', lf.Type.BOOLEAN).
-      addPrimaryKey(['id']).
-      addIndex('idxDeadline', ['deadline'], false, lf.Order.DESC);
+      addPrimaryKey(['id'], false).
+      addIndex('idxDeadline', ['deadline'], false, lf.Order.DESC).
+      addNullable(['deadline']).
+      addUnique('uq_description', ['description']);
 
   var todoDb: lf.Database = null;
   var itemSchema: lf.schema.Table = null;
@@ -43,6 +45,8 @@ function main(): void {
       }).then(
       function() {
         return todoDb.select(lf.fn.count()).from(itemSchema).exec();
+      }).then(function() {
+        return todoDb.export();
       });
 }
 

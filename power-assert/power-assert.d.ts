@@ -9,7 +9,7 @@
 /// <reference path="../power-assert-formatter/power-assert-formatter.d.ts" />
 
 declare function assert(value:any, message?:string):void;
-declare module assert {
+declare namespace assert {
     export class AssertionError implements Error {
         name:string;
         message:string;
@@ -62,5 +62,5 @@ declare module assert {
 }
 
 declare module "power-assert" {
-    export = assert;
+    export default assert;
 }

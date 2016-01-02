@@ -56,6 +56,7 @@ declare module "nock" {
 			reply(responseCode: number, body?: Object, headers?: Object): Scope;
 			reply(responseCode: number, callback: (uri: string, body: string) => string, headers?: Object): Scope;
 			replyWithFile(responseCode: number, fileName: string): Scope;
+			replyWithError(errorMessage: string): Scope;
 
 			defaultReplyHeaders(headers: Object): Scope;
 
