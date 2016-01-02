@@ -6,6 +6,7 @@
 // Documentation : http://mongodb.github.io/node-mongodb-native/
 
 /// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 declare module mongodb {
 
