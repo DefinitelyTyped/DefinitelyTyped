@@ -49,6 +49,10 @@ interface ShouldAssertion {
   matchEach(other: (val: any) => any, description?: string): ShouldAssertion;
   matchEach(regexp: RegExp, description?: string): ShouldAssertion;
   matchEach(other: any, description?: string): ShouldAssertion;
+  matchAny(other: {}, description?: string): ShouldAssertion;
+  matchAny(other: (val: any) => any, description?: string): ShouldAssertion;
+  matchAny(regexp: RegExp, description?: string): ShouldAssertion;
+  matchAny(other: any, description?: string): ShouldAssertion;
   length(n: number, description?: string): ShouldAssertion;
   property(name: string, description?: string): ShouldAssertion;
   property(name: string, val: any, description?: string): ShouldAssertion;
@@ -60,6 +64,7 @@ interface ShouldAssertion {
   contain(obj: any): ShouldAssertion;
   containEql(obj: any): ShouldAssertion;
   containDeep(obj: any): ShouldAssertion;
+  containDeepOrdered(obj: any): ShouldAssertion;
   keys(...allKeys: string[]): ShouldAssertion;
   keys(allKeys: string[]): ShouldAssertion;
   header(field: string, val?: string): ShouldAssertion;

@@ -3,7 +3,7 @@
 // Definitions by: Tom Crockett <http://github.com/pelotom>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Vega {
+declare namespace Vega {
 
   export interface Parse {
     spec(url: string, callback: (chart: (args: ViewArgs) => View) => void): void;
@@ -113,7 +113,7 @@ declare module Vega {
     reset(): Model;
   }
 
-  export module Runtime {
+  export namespace Runtime {
     export interface DataSets {
       [name: string]: Datum[];
     }
@@ -132,19 +132,6 @@ declare module Vega {
       marks: Mark[];
     }
 
-    export interface Mark {
-      // Stuff from Spec.Mark
-      type: string;
-      name?: string;
-      description?: string;
-      from?: Mark.From;
-      key?: string;
-      delay?: Properties;
-
-      // Runtime PropertySets
-      properties?: PropertySets;
-    }
-
     export interface PropertySets {
       enter?: Properties;
       exit?: Properties;
@@ -158,7 +145,7 @@ declare module Vega {
   }
 
   export interface Node {
-    def: Runtime.Mark;
+    def: Vega.Mark;
     marktype: string;
     interactive: boolean;
     items: Node[];
@@ -220,7 +207,9 @@ declare module Vega {
     * in some cases strict padding is not possible; for example, if the axis
     * labels are much larger than the data rectangle.
     */
-    padding?: any;
+    padding?: number | string | {
+        top: number; left: number; right: number; bottom: number
+    }; // string is "auto" or "strict"
     /**
     * Definitions of data to visualize.
     */
@@ -240,7 +229,7 @@ declare module Vega {
     /**
     * Graphical mark definitions.
     */
-    marks: Mark[];
+    marks: (Mark | GroupMark)[];
   }
 
   export interface Data {
@@ -278,16 +267,50 @@ declare module Vega {
     transform?: Data.Transform[];
   }
 
-  export module Data {
-    export interface Format {
+  export namespace Data {
+    export interface FormatBase {
       /**
       * The currently supported format types are json (JavaScript Object
       * Notation), csv (comma-separated values), tsv (tab-separated values),
       * topojson, and treejson.
       */
-      type?: string;
+      type: string;
       // TODO: fields for specific formats
     }
+
+    /**
+     * The JSON property containing the desired data.
+     * This parameter can be used when the loaded JSON file may have surrounding structure or meta-data.
+     * For example "property": "values.features" is equivalent to retrieving json.values.features from the
+     * loaded JSON object.
+     */
+    export interface JsonFormat extends FormatBase {
+      type: string; // "json"
+      property?: string;
+    }
+
+    export interface CsvOrTsvFormat extends FormatBase {
+      type: string; // "csv" | "tsv"
+      parse?: {
+       [propertyName: string]: string; // "number" | "boolean" | "date"
+      }
+    }
+
+    export interface TopoJsonFormat extends FormatBase {
+      type: string; // "topojson"
+      feature?: string;
+      mesh?: string;
+    }
+
+    export interface TreeJson extends FormatBase {
+      type: string; // "treejson"
+      children?: string;
+      parse?: {
+       [propertyName: string]: string; // "number" | "boolean" | "date"
+      }
+    }
+
+    export type Format = JsonFormat | CsvOrTsvFormat | TopoJsonFormat | TreeJson;
 
     export interface Transform {
       // TODO
@@ -316,7 +339,8 @@ declare module Vega {
 
     // -- Time/Quantitative scale properties
     clamp?: boolean;
-    nice?: any; // boolean for quantitative scales, string for time scales
+    /** boolean for quantitative scales, string for time scales */
+    nice?: boolean | string;
 
     // -- Quantitative scale properties
     exponent?: number;
@@ -345,9 +369,9 @@ declare module Vega {
     properties?: Axis.Properties
   }
 
-  export module Axis {
+  export namespace Axis {
     export interface Properties {
-      majorTicks?: PropertySet;
+      ticks?: PropertySet;
       minorTicks?: PropertySet;
       grid?: PropertySet;
       labels?: PropertySet;
@@ -362,22 +386,57 @@ declare module Vega {
 
   export interface Mark {
     // TODO docs
-    type: string;
+    // Stuff from Spec.Mark
+    type: string; // "rect" | "symbol" | "path" | "arc" | "area" | "line" | "rule" | "image" | "text" | "group"
     name?: string;
     description?: string;
     from?: Mark.From;
-    properties?: PropertySets;
     key?: string;
     delay?: ValueRef;
-    scales?: Scale[];
+    /**
+    * "linear-in" | "linear-out" | "linear-in-out" | "linear-out-in" | "quad-in" | "quad-out" | "quad-in-out" |
+    * "quad-out-in" | "cubic-in" | "cubic-out" | "cubic-in-out" | "cubic-out-in" | "sin-in" | "sin-out" | "sin-in-out" |
+    * "sin-out-in" | "exp-in" | "exp-out" | "exp-in-out" | "exp-out-in" | "circle-in" | "circle-out" | "circle-in-out" |
+    * "circle-out-in" | "bounce-in" | "bounce-out" | "bounce-in-out" | "bounce-out-in"
+    */
+    ease?: string;
+
+    interactive?: boolean;
+
+    // Runtime PropertySets
+    properties?: PropertySets;
   }
 
   export module Mark {
     export interface From {
       // TODO docs
       data?: string;
+      mark?: string;
       transform?: Data.Transform[];
     }
+  }
+
+  export interface GroupMark extends Mark {
+    type: string; // "group"
+    /**
+     * Scale transform definitions.
+     */
+    scales?: Scale[];
+    /**
+     * Axis definitions.
+     */
+    axes?: Axis[];
+    /**
+     * Legend definitions.
+     */
+    legends?: Legend[];
+    /**
+     * Groups differ from other mark types in their ability to contain children marks.
+     * Marks defined within a group mark can inherit data from their parent group.
+     * For inheritance to work each data element for a group must contain data elements of its own.
+     * This arrangement of nested data is typically achieved by facetting the data, such that each group-level data element includes its own array of sub-elements
+     */
+    marks?: (Mark | GroupMark)[];
   }
 
   export interface PropertySets {
@@ -454,9 +513,9 @@ declare module Vega {
   }
 }
 
-declare module vg {
+declare namespace vg {
   export var parse: Vega.Parse;
-  export module scene {
+  export namespace scene {
     export function item(mark: Vega.Node): Vega.Node;
   }
   

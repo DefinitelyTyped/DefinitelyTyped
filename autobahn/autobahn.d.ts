@@ -4,197 +4,266 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../when/when.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 declare module autobahn {
 
-	export class Session {
-		id: number;
-		realm: string;
-		isOpen: boolean;
-		features: any;
-		caller_disclose_me: boolean;
-		publisher_disclose_me: boolean;
-		subscriptions: ISubscription[][];
-		registrations: IRegistration[];
+    export class Session {
+        id: number;
+        realm: string;
+        isOpen: boolean;
+        features: any;
+        caller_disclose_me: boolean;
+        publisher_disclose_me: boolean;
+        subscriptions: ISubscription[][];
+        registrations: IRegistration[];
 
-		constructor(transport: ITransport, defer: DeferFactory, challenge: OnChallengeHandler);
+        constructor(transport: ITransport, defer: DeferFactory, challenge: OnChallengeHandler);
 
-		join(realm: string, authmethods: string[], authid: string): void;
+        join(realm: string, authmethods: string[], authid: string): void;
 
-		leave(reason: string, message: string): void;
+        leave(reason: string, message: string): void;
 
-		call<TResult>(procedure: string, args?: any[], kwargs?: any, options?: ICallOptions): When.Promise<TResult>;
+        call<TResult>(procedure: string, args?: any[], kwargs?: any, options?: ICallOptions): When.Promise<TResult>;
 
-		publish(topic: string, args?: any[], kwargs?: any, options?: IPublishOptions): When.Promise<IPublication>;
+        publish(topic: string, args?: any[], kwargs?: any, options?: IPublishOptions): When.Promise<IPublication>;
 
-		subscribe(topic: string, handler: SubscribeHandler, options?: ISubscribeOptions): When.Promise<ISubscription>;
+        subscribe(topic: string, handler: SubscribeHandler, options?: ISubscribeOptions): When.Promise<ISubscription>;
 
-		register(procedure: string, endpoint: RegisterEndpoint, options?: IRegisterOptions): When.Promise<IRegistration>;
+        register(procedure: string, endpoint: RegisterEndpoint, options?: IRegisterOptions): When.Promise<IRegistration>;
 
-		unsubscribe(subscription: ISubscription): When.Promise<any>;
+        unsubscribe(subscription: ISubscription): When.Promise<any>;
 
-		unregister(registration: IRegistration): When.Promise<any>;
+        unregister(registration: IRegistration): When.Promise<any>;
 
-		prefix(prefix: string, uri: string): void;
+        prefix(prefix: string, uri: string): void;
 
-		resolve(curie: string): string;
+        resolve(curie: string): string;
 
-		onjoin: (roleFeatures: any) => void;
-		onleave: (reason: string, details: any) => void;
-	}
+        onjoin: (roleFeatures: any) => void;
+        onleave: (reason: string, details: any) => void;
+    }
 
-	interface IInvocation {
-		caller?: number;
-		progress?: boolean;
-		procedure: string;
-	}
+    interface IInvocation {
+        caller?: number;
+        progress?: boolean;
+        procedure: string;
+    }
 
-	interface IEvent {
-		publication: number;
-		publisher?: number;
-		topic: string;
-	}
+    class Invocation implements IInvocation {
+        constructor(caller?: number, progress?: boolean, procedure?: string);
 
-	interface IResult {
-		args: any[];
-		kwargs: any;
-	}
+        procedure: string;
+    }
 
-	interface IError {
-		error: string;
-		args: any[];
-		kwargs: any;
-	}
+    interface IEvent {
+        publication: number;
+        publisher?: number;
+        topic: string;
+    }
 
-	type SubscribeHandler = (args?: any[], kwargs?: any, details?: IEvent) => void;
+    class Event implements IEvent {
+        constructor(publication?: number, publisher?: string, topic?: string);
 
-	interface ISubscription {
-		topic: string;
-		handler: SubscribeHandler;
-		options: ISubscribeOptions;
-		session: Session;
-		id: number;
-		active: boolean;
-		unsubscribe(): When.Promise<any>;
-	}
+        publication: number;
+        topic: string;
+    }
 
-	type RegisterEndpoint = (args?: any[], kwargs?: any, details?: IInvocation) => void;
+    interface IResult {
+        args: any[];
+        kwargs: any;
+    }
 
-	interface IRegistration {
-		procedure: string;
-		endpoint: RegisterEndpoint;
-		options: IRegisterOptions;
-		session: Session;
-		id: number;
-		active: boolean;
-		unregister(): When.Promise<any>;
-	}
+    class Result implements IResult {
+        constructor(args?: any[], kwargs?: any);
 
-	interface IPublication {
-		id: number;
-	}
+        args: any[];
+        kwargs: any;
+    }
 
-	interface ICallOptions {
-		timeout?: number;
-		receive_progress?: boolean;
-		disclose_me?: boolean;
-	}
+    interface IError {
+        error: string;
+        args: any[];
+        kwargs: any;
+    }
 
-	interface IPublishOptions {
-		exclude?: number[];
-		eligible?: number[];
-		disclose_me? : Boolean;
-	}
+    class Error implements IError {
+        constructor(error?: string, args?: any[], kwargs?: any);
 
-	interface ISubscribeOptions {
-		match? : string;
-	}
+        error: string;
+        args: any[];
+        kwargs: any;
+    }
 
-	interface IRegisterOptions {
-		disclose_caller?: boolean;
-	}
+    type SubscribeHandler = (args?: any[], kwargs?: any, details?: IEvent) => void;
 
-	export class Connection {
-		constructor(options?: IConnectionOptions);
+    interface ISubscription {
+        topic: string;
+        handler: SubscribeHandler;
+        options: ISubscribeOptions;
+        session: Session;
+        id: number;
+        active: boolean;
+        unsubscribe(): When.Promise<any>;
+    }
 
-		open(): void;
+    class Subscription implements ISubscription {
+        constructor(topic? : string, handler?: SubscribeHandler, options?: ISubscribeOptions, session?: Session, id?: number);
 
-		close(reason: string, message: string): void;
+        handler: SubscribeHandler;
 
-		onopen: (session: Session, details: any) => void;
-		onclose: (reason: string, details: any) => boolean;
-	}
+        unsubscribe(): When.Promise<any>;
 
-	interface ITransportDefinition {
-		url?: string;
-		protocols?: string[];
-		type: string;
-	}
+        topic: string;
+        options: ISubscribeOptions;
+        session: Session;
+        id: number;
+        active: boolean;
+    }
 
-	type DeferFactory = () => any;
+    type RegisterEndpoint = (args?: any[], kwargs?: any, details?: IInvocation) => void;
 
-	type OnChallengeHandler = (session: Session, method: string, extra: any) => When.Promise<string>;
+    interface IRegistration {
+        procedure: string;
+        endpoint: RegisterEndpoint;
+        options: IRegisterOptions;
+        session: Session;
+        id: number;
+        active: boolean;
+        unregister(): When.Promise<any>;
+    }
 
-	interface IConnectionOptions {
-		use_es6_promises?: boolean;
-		// use explicit deferred factory, e.g. jQuery.Deferred or Q.defer
-		use_deferred?: DeferFactory;
-		transports?: ITransportDefinition[];
-		retry_if_unreachable?: boolean;
-		max_retries?: number;
-		initial_retry_delay?: number;
-		max_retry_delay?: number;
-		retry_delay_growth?: number;
-		retry_delay_jitter?: number;
-		url?: string;
-		protocols?: string[];
-		onchallenge?: (session: Session, method: string, extra: any) => OnChallengeHandler;
-		realm?: string;
-		authmethods?: string[];
-		authid?: string;
-	}
+    class Registration implements IRegistration {
+        constructor(procedure?: string, endpoint?: RegisterEndpoint, options?: IRegisterOptions, session?: Session, id?: number);
 
-	interface ICloseEventDetails {
-		wasClean: boolean;
-		reason: string;
-		code: number;
-	}
+        endpoint: RegisterEndpoint;
 
-	interface ITransport {
-		onopen: () => void;
-		onmessage: (message: any[]) => void;
-		onclose: (details: ICloseEventDetails) => void;
+        unregister(): When.Promise<any>;
 
-		send(message: any[]): void;
-		close(errorCode: number, reason?: string): void;
-	}
+        procedure: string;
+        options: IRegisterOptions;
+        session: Session;
+        id: number;
+        active: boolean;
+    }
 
-	interface ITransportFactory {
-		//constructor(options: any);
-		type: string;
-		create(): ITransport;
-	}
+    interface IPublication {
+        id: number;
+    }
 
-	interface ITransports {
-		register(name: string, factory: any): void;
-		isRegistered(name: string): boolean;
-		get(name: string): any;
-		list(): any[];
-	}
+    class Publication implements IPublication {
+        constructor(id: number);
 
-	interface ILog {
-		debug(...args: any[]): void;
-	}
+        id: number;
+    }
 
-	interface IUtil {
-		assert(condition: boolean, message: string): void;
-	}
+    interface ICallOptions {
+        timeout?: number;
+        receive_progress?: boolean;
+        disclose_me?: boolean;
+    }
 
-	var util: IUtil;
-	var log: ILog;
-	var transports: ITransports;
+    interface IPublishOptions {
+        exclude?: number[];
+        eligible?: number[];
+        disclose_me?: Boolean;
+    }
+
+    interface ISubscribeOptions {
+        match?: string;
+    }
+
+    interface IRegisterOptions {
+        disclose_caller?: boolean;
+    }
+
+    export class Connection {
+        constructor(options?: IConnectionOptions);
+
+        open(): void;
+
+        close(reason: string, message: string): void;
+
+        onopen: (session: Session, details: any) => void;
+        onclose: (reason: string, details: any) => boolean;
+    }
+
+    interface ITransportDefinition {
+        url?: string;
+        protocols?: string[];
+        type: string;
+    }
+
+    type DeferFactory = () => JQueryPromise<any>;
+
+    type OnChallengeHandler = (session: Session, method: string, extra: any) => When.Promise<string>;
+
+    interface IConnectionOptions {
+        use_es6_promises?: boolean;
+        // use explicit deferred factory, e.g. jQuery.Deferred or Q.defer
+        use_deferred?: DeferFactory;
+        transports?: ITransportDefinition[];
+        retry_if_unreachable?: boolean;
+        max_retries?: number;
+        initial_retry_delay?: number;
+        max_retry_delay?: number;
+        retry_delay_growth?: number;
+        retry_delay_jitter?: number;
+        url?: string;
+        protocols?: string[];
+        onchallenge?: (session: Session, method: string, extra: any) => OnChallengeHandler;
+        realm?: string;
+        authmethods?: string[];
+        authid?: string;
+    }
+
+    interface ICloseEventDetails {
+        wasClean: boolean;
+        reason: string;
+        code: number;
+    }
+
+    interface ITransport {
+        onopen: () => void;
+        onmessage: (message: any[]) => void;
+        onclose: (details: ICloseEventDetails) => void;
+
+        send(message: any[]): void;
+        close(errorCode: number, reason?: string): void;
+    }
+
+    interface ITransportFactory {
+        // constructor(options: any);
+        type: string;
+        create(): ITransport;
+    }
+
+    interface ITransports {
+        register(name: string, factory: any): void;
+        isRegistered(name: string): boolean;
+        get(name: string): any;
+        list(): string[];
+    }
+
+    interface ILog {
+        debug(...args: any[]): void;
+    }
+
+    interface IUtil {
+        assert(condition: boolean, message: string): void;
+    }
+
+    interface IAuthCra {
+        derive_key(secret: string, salt: string, iterations: number, keylen: number): string;
+        sign(key: string, challenge: string): string;
+    }
+
+    var util: IUtil;
+    var log: ILog;
+    var transports: ITransports;
+    var auth_cra: IAuthCra;
 }
 
 declare module "autobahn" {
-	export = autobahn;
+    export = autobahn;
 }

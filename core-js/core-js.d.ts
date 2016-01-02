@@ -22,13 +22,13 @@ declare type PropertyKey = string | number | symbol;
 
 // #############################################################################################
 // ECMAScript 6: Object & Function
-// Modules: es6.object.assign, es6.object.is, es6.object.set-prototype-of, 
+// Modules: es6.object.assign, es6.object.is, es6.object.set-prototype-of,
 //          es6.object.to-string, es6.function.name and es6.function.has-instance.
 // #############################################################################################
- 
+
 interface ObjectConstructor {
     /**
-      * Copy the values of all of the enumerable own properties from one or more source objects to a 
+      * Copy the values of all of the enumerable own properties from one or more source objects to a
       * target object. Returns the target object.
       * @param target The target object to copy to.
       * @param sources One or more source objects to copy properties from.
@@ -57,10 +57,10 @@ interface Function {
       */
     name: string;
 
-    /** 
-      * Determines if a constructor object recognizes an object as one of the 
+    /**
+      * Determines if a constructor object recognizes an object as one of the
       * constructor’s instances.
-      * @param value The object to test. 
+      * @param value The object to test.
       */
     [Symbol.hasInstance](value: any): boolean;
 }
@@ -71,30 +71,25 @@ interface Function {
 //          and es6.array.find-index
 // #############################################################################################
 
-interface ArrayLike<T> {
-    length: number;
-    [n: number]: T;
-}
-
 interface Array<T> {
-    /** 
-      * Returns the value of the first element in the array where predicate is true, and undefined 
+    /**
+      * Returns the value of the first element in the array where predicate is true, and undefined
       * otherwise.
-      * @param predicate find calls predicate once for each element of the array, in ascending 
-      * order, until it finds one where predicate returns true. If such an element is found, find 
+      * @param predicate find calls predicate once for each element of the array, in ascending
+      * order, until it finds one where predicate returns true. If such an element is found, find
       * immediately returns that element value. Otherwise, find returns undefined.
-      * @param thisArg If provided, it will be used as the this value for each invocation of 
+      * @param thisArg If provided, it will be used as the this value for each invocation of
       * predicate. If it is not provided, undefined is used instead.
       */
     find(predicate: (value: T, index: number, obj: Array<T>) => boolean, thisArg?: any): T;
 
-    /** 
-      * Returns the index of the first element in the array where predicate is true, and undefined 
+    /**
+      * Returns the index of the first element in the array where predicate is true, and undefined
       * otherwise.
-      * @param predicate find calls predicate once for each element of the array, in ascending 
-      * order, until it finds one where predicate returns true. If such an element is found, find 
+      * @param predicate find calls predicate once for each element of the array, in ascending
+      * order, until it finds one where predicate returns true. If such an element is found, find
       * immediately returns that element value. Otherwise, find returns undefined.
-      * @param thisArg If provided, it will be used as the this value for each invocation of 
+      * @param thisArg If provided, it will be used as the this value for each invocation of
       * predicate. If it is not provided, undefined is used instead.
       */
     findIndex(predicate: (value: T) => boolean, thisArg?: any): number;
@@ -102,21 +97,21 @@ interface Array<T> {
     /**
       * Returns the this object after filling the section identified by start and end with value
       * @param value value to fill array section with
-      * @param start index to start filling the array at. If start is negative, it is treated as 
-      * length+start where length is the length of the array. 
-      * @param end index to stop filling the array at. If end is negative, it is treated as 
+      * @param start index to start filling the array at. If start is negative, it is treated as
+      * length+start where length is the length of the array.
+      * @param end index to stop filling the array at. If end is negative, it is treated as
       * length+end.
       */
     fill(value: T, start?: number, end?: number): T[];
 
-    /** 
+    /**
       * Returns the this object after copying a section of the array identified by start and end
       * to the same array starting at position target
-      * @param target If target is negative, it is treated as length+target where length is the 
-      * length of the array. 
-      * @param start If start is negative, it is treated as length+start. If end is negative, it 
+      * @param target If target is negative, it is treated as length+target where length is the
+      * length of the array.
+      * @param start If start is negative, it is treated as length+start. If end is negative, it
       * is treated as length+end.
-      * @param end If not specified, length of the this object is used as its default value. 
+      * @param end If not specified, length of the this object is used as its default value.
       */
     copyWithin(target: number, start: number, end?: number): T[];
 
@@ -161,47 +156,47 @@ interface ArrayConstructor {
 
 // #############################################################################################
 // ECMAScript 6: String & RegExp
-// Modules: es6.string.from-code-point, es6.string.raw, es6.string.code-point-at, 
-//          es6.string.ends-with, es6.string.includes, es6.string.repeat, 
+// Modules: es6.string.from-code-point, es6.string.raw, es6.string.code-point-at,
+//          es6.string.ends-with, es6.string.includes, es6.string.repeat,
 //          es6.string.starts-with, and es6.regexp
 // #############################################################################################
 
 interface String {
     /**
-      * Returns a nonnegative integer Number less than 1114112 (0x110000) that is the code point 
-      * value of the UTF-16 encoded code point starting at the string element at position pos in 
-      * the String resulting from converting this object to a String. 
-      * If there is no element at that position, the result is undefined. 
+      * Returns a nonnegative integer Number less than 1114112 (0x110000) that is the code point
+      * value of the UTF-16 encoded code point starting at the string element at position pos in
+      * the String resulting from converting this object to a String.
+      * If there is no element at that position, the result is undefined.
       * If a valid UTF-16 surrogate pair does not begin at pos, the result is the code unit at pos.
       */
     codePointAt(pos: number): number;
 
     /**
-      * Returns true if searchString appears as a substring of the result of converting this 
-      * object to a String, at one or more positions that are 
+      * Returns true if searchString appears as a substring of the result of converting this
+      * object to a String, at one or more positions that are
       * greater than or equal to position; otherwise, returns false.
-      * @param searchString search string 
+      * @param searchString search string
       * @param position If position is undefined, 0 is assumed, so as to search all of the String.
       */
     includes(searchString: string, position?: number): boolean;
 
     /**
-      * Returns true if the sequence of elements of searchString converted to a String is the 
-      * same as the corresponding elements of this object (converted to a String) starting at 
+      * Returns true if the sequence of elements of searchString converted to a String is the
+      * same as the corresponding elements of this object (converted to a String) starting at
       * endPosition – length(this). Otherwise returns false.
       */
     endsWith(searchString: string, endPosition?: number): boolean;
 
     /**
-      * Returns a String value that is made from count copies appended together. If count is 0, 
+      * Returns a String value that is made from count copies appended together. If count is 0,
       * T is the empty String is returned.
       * @param count number of copies to append
       */
     repeat(count: number): string;
 
     /**
-      * Returns true if the sequence of elements of searchString converted to a String is the 
-      * same as the corresponding elements of this object (converted to a String) starting at 
+      * Returns true if the sequence of elements of searchString converted to a String is the
+      * same as the corresponding elements of this object (converted to a String) starting at
       * position. Otherwise returns false.
       */
     startsWith(searchString: string, position?: number): boolean;
@@ -216,7 +211,7 @@ interface StringConstructor {
 
     /**
       * String.raw is intended for use as a tag function of a Tagged Template String. When called
-      * as such the first argument will be a well formed template call site object and the rest 
+      * as such the first argument will be a well formed template call site object and the rest
       * parameter will contain the substitution values.
       * @param template A well-formed template string call site representation.
       * @param substitutions A set of substitution values.
@@ -248,14 +243,14 @@ interface RegExp {
 interface NumberConstructor {
     /**
       * The value of Number.EPSILON is the difference between 1 and the smallest value greater than 1
-      * that is representable as a Number value, which is approximately: 
+      * that is representable as a Number value, which is approximately:
       * 2.2204460492503130808472633361816 x 10‍−‍16.
       */
     EPSILON: number;
 
     /**
       * Returns true if passed value is finite.
-      * Unlike the global isFininte, Number.isFinite doesn't forcibly convert the parameter to a 
+      * Unlike the global isFininte, Number.isFinite doesn't forcibly convert the parameter to a
       * number. Only finite values of the type number, result in true.
       * @param number A numeric value.
       */
@@ -268,7 +263,7 @@ interface NumberConstructor {
     isInteger(number: number): boolean;
 
     /**
-      * Returns a Boolean value that indicates whether a value is the reserved value NaN (not a 
+      * Returns a Boolean value that indicates whether a value is the reserved value NaN (not a
       * number). Unlike the global isNaN(), Number.isNaN() doesn't forcefully convert the parameter
       * to a number. Only values of the type number, that are also NaN, result in true.
       * @param number A numeric value.
@@ -281,30 +276,30 @@ interface NumberConstructor {
       */
     isSafeInteger(number: number): boolean;
 
-    /** 
-      * The value of the largest integer n such that n and n + 1 are both exactly representable as 
-      * a Number value. 
+    /**
+      * The value of the largest integer n such that n and n + 1 are both exactly representable as
+      * a Number value.
       * The value of Number.MIN_SAFE_INTEGER is 9007199254740991 2^53 − 1.
       */
     MAX_SAFE_INTEGER: number;
 
-    /** 
-      * The value of the smallest integer n such that n and n − 1 are both exactly representable as 
-      * a Number value. 
+    /**
+      * The value of the smallest integer n such that n and n − 1 are both exactly representable as
+      * a Number value.
       * The value of Number.MIN_SAFE_INTEGER is −9007199254740991 (−(2^53 − 1)).
       */
     MIN_SAFE_INTEGER: number;
 
     /**
-      * Converts a string to a floating-point number. 
-      * @param string A string that contains a floating-point number. 
+      * Converts a string to a floating-point number.
+      * @param string A string that contains a floating-point number.
       */
     parseFloat(string: string): number;
 
     /**
       * Converts A string to an integer.
       * @param s A string to convert into a number.
-      * @param radix A value between 2 and 36 that specifies the base of the number in numString. 
+      * @param radix A value between 2 and 36 that specifies the base of the number in numString.
       * If this argument is not supplied, strings with a prefix of '0x' are considered hexadecimal.
       * All other strings are considered decimal.
       */
@@ -350,7 +345,7 @@ interface Math {
     log1p(x: number): number;
 
     /**
-      * Returns the result of (e^x - 1) of x (e raised to the power of x, where e is the base of 
+      * Returns the result of (e^x - 1) of x (e raised to the power of x, where e is the base of
       * the natural logarithms).
       * @param x A numeric expression.
       */
@@ -436,8 +431,8 @@ interface Symbol {
 }
 
 interface SymbolConstructor {
-    /** 
-      * A reference to the prototype. 
+    /**
+      * A reference to the prototype.
       */
     prototype: Symbol;
 
@@ -448,14 +443,14 @@ interface SymbolConstructor {
     (description?: string|number): symbol;
 
     /**
-      * Returns a Symbol object from the global symbol registry matching the given key if found. 
+      * Returns a Symbol object from the global symbol registry matching the given key if found.
       * Otherwise, returns a new symbol with this key.
       * @param key key to search for.
       */
     for(key: string): symbol;
 
     /**
-      * Returns a key from the global symbol registry matching the given Symbol if found. 
+      * Returns a key from the global symbol registry matching the given Symbol if found.
       * Otherwise, returns a undefined.
       * @param sym Symbol to find the key for.
       */
@@ -463,72 +458,72 @@ interface SymbolConstructor {
 
     // Well-known Symbols
 
-    /** 
-      * A method that determines if a constructor object recognizes an object as one of the 
-      * constructor’s instances. Called by the semantics of the instanceof operator. 
+    /**
+      * A method that determines if a constructor object recognizes an object as one of the
+      * constructor’s instances. Called by the semantics of the instanceof operator.
       */
     hasInstance: symbol;
 
-    /** 
+    /**
       * A Boolean value that if true indicates that an object should flatten to its array elements
       * by Array.prototype.concat.
       */
     isConcatSpreadable: symbol;
 
-    /** 
-      * A method that returns the default iterator for an object. Called by the semantics of the 
+    /**
+      * A method that returns the default iterator for an object. Called by the semantics of the
       * for-of statement.
       */
     iterator: symbol;
 
     /**
-      * A regular expression method that matches the regular expression against a string. Called 
-      * by the String.prototype.match method. 
+      * A regular expression method that matches the regular expression against a string. Called
+      * by the String.prototype.match method.
       */
     match: symbol;
 
-    /** 
-      * A regular expression method that replaces matched substrings of a string. Called by the 
+    /**
+      * A regular expression method that replaces matched substrings of a string. Called by the
       * String.prototype.replace method.
       */
     replace: symbol;
 
     /**
-      * A regular expression method that returns the index within a string that matches the 
+      * A regular expression method that returns the index within a string that matches the
       * regular expression. Called by the String.prototype.search method.
       */
     search: symbol;
 
-    /** 
-      * A function valued property that is the constructor function that is used to create 
+    /**
+      * A function valued property that is the constructor function that is used to create
       * derived objects.
       */
     species: symbol;
 
     /**
-      * A regular expression method that splits a string at the indices that match the regular 
+      * A regular expression method that splits a string at the indices that match the regular
       * expression. Called by the String.prototype.split method.
       */
     split: symbol;
 
-    /** 
+    /**
       * A method that converts an object to a corresponding primitive value.Called by the ToPrimitive
       * abstract operation.
       */
     toPrimitive: symbol;
 
-    /** 
+    /**
       * A String value that is used in the creation of the default string description of an object.
       * Called by the built-in method Object.prototype.toString.
       */
     toStringTag: symbol;
 
-    /** 
-      * An Object whose own property names are property names that are excluded from the with 
+    /**
+      * An Object whose own property names are property names that are excluded from the with
       * environment bindings of the associated objects.
       */
     unscopables: symbol;
-    
+
     /**
       * Non-standard. Use simple mode for core-js symbols. See https://github.com/zloirock/core-js/#caveats-when-using-symbol-polyfill
       */
@@ -544,12 +539,12 @@ declare var Symbol: SymbolConstructor;
 
 interface Object {
     /**
-      * Determines whether an object has a property with the specified name. 
+      * Determines whether an object has a property with the specified name.
       * @param v A property name.
       */
     hasOwnProperty(v: PropertyKey): boolean;
 
-    /** 
+    /**
       * Determines whether a specified property is enumerable.
       * @param v A property name.
       */
@@ -564,17 +559,17 @@ interface ObjectConstructor {
     getOwnPropertySymbols(o: any): symbol[];
 
     /**
-      * Gets the own property descriptor of the specified object. 
-      * An own property descriptor is one that is defined directly on the object and is not 
-      * inherited from the object's prototype. 
+      * Gets the own property descriptor of the specified object.
+      * An own property descriptor is one that is defined directly on the object and is not
+      * inherited from the object's prototype.
       * @param o Object that contains the property.
       * @param p Name of the property.
     */
     getOwnPropertyDescriptor(o: any, propertyKey: PropertyKey): PropertyDescriptor;
 
     /**
-      * Adds a property to an object, or modifies attributes of an existing property. 
-      * @param o Object on which to add or modify the property. This can be a native JavaScript 
+      * Adds a property to an object, or modifies attributes of an existing property.
+      * @param o Object on which to add or modify the property. This can be a native JavaScript
       * object (that is, a user-defined object or a built in object) or a DOM object.
       * @param p The property name.
       * @param attributes Descriptor for the property. It can be for a data property or an accessor
@@ -693,17 +688,17 @@ interface Array<T> {
     /** Iterator */
     [Symbol.iterator](): IterableIterator<T>;
 
-    /** 
+    /**
       * Returns an array of key, value pairs for every entry in the array
       */
     entries(): IterableIterator<[number, T]>;
 
-    /** 
+    /**
       * Returns an list of keys in the array
       */
     keys(): IterableIterator<number>;
 
-    /** 
+    /**
       * Returns an list of values in the array
       */
     values(): IterableIterator<T>;
@@ -776,21 +771,21 @@ interface Promise<T> {
 }
 
 interface PromiseConstructor {
-    /** 
-      * A reference to the prototype. 
+    /**
+      * A reference to the prototype.
       */
     prototype: Promise<any>;
 
     /**
      * Creates a new Promise.
-     * @param executor A callback used to initialize the promise. This callback is passed two arguments: 
-     * a resolve callback used resolve the promise with a value or the result of another promise, 
+     * @param executor A callback used to initialize the promise. This callback is passed two arguments:
+     * a resolve callback used resolve the promise with a value or the result of another promise,
      * and a reject callback used to reject the promise with a provided reason or error.
      */
     new <T>(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): Promise<T>;
 
     /**
-     * Creates a Promise that is resolved with an array of results when all of the provided Promises 
+     * Creates a Promise that is resolved with an array of results when all of the provided Promises
      * resolve, or rejected when any Promise is rejected.
      * @param values An array of Promises.
      * @returns A new Promise.
@@ -798,7 +793,7 @@ interface PromiseConstructor {
     all<T>(values: Iterable<T | PromiseLike<T>>): Promise<T[]>;
 
     /**
-     * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved 
+     * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved
      * or rejected.
      * @param values An array of Promises.
      * @returns A new Promise.
@@ -859,7 +854,7 @@ declare module Reflect {
 
 // #############################################################################################
 // ECMAScript 7
-// Modules: es7.array.includes, es7.string.at, es7.string.lpad, es7.string.rpad, 
+// Modules: es7.array.includes, es7.string.at, es7.string.lpad, es7.string.rpad,
 //          es7.object.to-array, es7.object.get-own-property-descriptors, es7.regexp.escape,
 //          es7.map.to-json, and es7.set.to-json
 // #############################################################################################
@@ -918,14 +913,14 @@ interface ArrayConstructor {
       */
     join<T>(array: ArrayLike<T>, separator?: string): string;
     /**
-      * Reverses the elements in an Array. 
+      * Reverses the elements in an Array.
       */
     reverse<T>(array: ArrayLike<T>): T[];
     /**
       * Removes the first element from an array and returns it.
       */
     shift<T>(array: ArrayLike<T>): T;
-    /** 
+    /**
       * Returns a section of an array.
       * @param start The beginning of the specified portion of the array.
       * @param end The end of the specified portion of the array.
@@ -988,21 +983,21 @@ interface ArrayConstructor {
 
     /**
       * Performs the specified action for each element in an array.
-      * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the array. 
+      * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the array.
       * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
       */
     forEach<T>(array: ArrayLike<T>, callbackfn: (value: T, index: number, array: T[]) => void, thisArg?: any): void;
 
     /**
       * Calls a defined callback function on each element of an array, and returns an array that contains the results.
-      * @param callbackfn A function that accepts up to three arguments. The map method calls the callbackfn function one time for each element in the array. 
+      * @param callbackfn A function that accepts up to three arguments. The map method calls the callbackfn function one time for each element in the array.
       * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
       */
     map<T, U>(array: ArrayLike<T>, callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[];
 
     /**
-      * Returns the elements of an array that meet the condition specified in a callback function. 
-      * @param callbackfn A function that accepts up to three arguments. The filter method calls the callbackfn function one time for each element in the array. 
+      * Returns the elements of an array that meet the condition specified in a callback function.
+      * @param callbackfn A function that accepts up to three arguments. The filter method calls the callbackfn function one time for each element in the array.
       * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
       */
     filter<T>(array: ArrayLike<T>, callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): T[];
@@ -1021,53 +1016,53 @@ interface ArrayConstructor {
       */
     reduce<T>(array: ArrayLike<T>, callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
 
-    /** 
+    /**
       * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
-      * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array. 
+      * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.
       * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
       */
     reduceRight<T, U>(array: ArrayLike<T>, callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
 
-    /** 
+    /**
       * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
-      * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array. 
+      * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.
       * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
       */
     reduceRight<T>(array: ArrayLike<T>, callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
 
-    /** 
+    /**
       * Returns an array of key, value pairs for every entry in the array
       */
     entries<T>(array: ArrayLike<T>): IterableIterator<[number, T]>;
 
-    /** 
+    /**
       * Returns an list of keys in the array
       */
     keys<T>(array: ArrayLike<T>): IterableIterator<number>;
 
-    /** 
+    /**
       * Returns an list of values in the array
       */
     values<T>(array: ArrayLike<T>): IterableIterator<T>;
 
-    /** 
-      * Returns the value of the first element in the array where predicate is true, and undefined 
+    /**
+      * Returns the value of the first element in the array where predicate is true, and undefined
       * otherwise.
-      * @param predicate find calls predicate once for each element of the array, in ascending 
-      * order, until it finds one where predicate returns true. If such an element is found, find 
+      * @param predicate find calls predicate once for each element of the array, in ascending
+      * order, until it finds one where predicate returns true. If such an element is found, find
       * immediately returns that element value. Otherwise, find returns undefined.
-      * @param thisArg If provided, it will be used as the this value for each invocation of 
+      * @param thisArg If provided, it will be used as the this value for each invocation of
       * predicate. If it is not provided, undefined is used instead.
       */
     find<T>(array: ArrayLike<T>, predicate: (value: T, index: number, obj: Array<T>) => boolean, thisArg?: any): T;
 
-    /** 
-      * Returns the index of the first element in the array where predicate is true, and undefined 
+    /**
+      * Returns the index of the first element in the array where predicate is true, and undefined
       * otherwise.
-      * @param predicate find calls predicate once for each element of the array, in ascending 
-      * order, until it finds one where predicate returns true. If such an element is found, find 
+      * @param predicate find calls predicate once for each element of the array, in ascending
+      * order, until it finds one where predicate returns true. If such an element is found, find
       * immediately returns that element value. Otherwise, find returns undefined.
-      * @param thisArg If provided, it will be used as the this value for each invocation of 
+      * @param thisArg If provided, it will be used as the this value for each invocation of
       * predicate. If it is not provided, undefined is used instead.
       */
     findIndex<T>(array: ArrayLike<T>, predicate: (value: T) => boolean, thisArg?: any): number;
@@ -1075,21 +1070,21 @@ interface ArrayConstructor {
     /**
       * Returns the this object after filling the section identified by start and end with value
       * @param value value to fill array section with
-      * @param start index to start filling the array at. If start is negative, it is treated as 
-      * length+start where length is the length of the array. 
-      * @param end index to stop filling the array at. If end is negative, it is treated as 
+      * @param start index to start filling the array at. If start is negative, it is treated as
+      * length+start where length is the length of the array.
+      * @param end index to stop filling the array at. If end is negative, it is treated as
       * length+end.
       */
     fill<T>(array: ArrayLike<T>, value: T, start?: number, end?: number): T[];
 
-    /** 
+    /**
       * Returns the this object after copying a section of the array identified by start and end
       * to the same array starting at position target
-      * @param target If target is negative, it is treated as length+target where length is the 
-      * length of the array. 
-      * @param start If start is negative, it is treated as length+start. If end is negative, it 
+      * @param target If target is negative, it is treated as length+target where length is the
+      * length of the array.
+      * @param start If start is negative, it is treated as length+start. If end is negative, it
       * is treated as length+end.
-      * @param end If not specified, length of the this object is used as its default value. 
+      * @param end If not specified, length of the this object is used as its default value.
       */
     copyWithin<T>(array: ArrayLike<T>, target: number, start: number, end?: number): T[];
 
@@ -1113,7 +1108,7 @@ interface ObjectConstructor {
       * Non-standard.
       */
     classof(value: any): string;
-    
+
     /**
       * Non-standard.
       */
@@ -1477,13 +1472,13 @@ declare module core {
 }
 
 declare module "core-js" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/shim" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/core" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/core/$for" {
     import $for = core.$for;
@@ -2149,10 +2144,10 @@ declare module "core-js/fn/symbol/unscopables" {
     export = unscopables;
 }
 declare module "core-js/es5" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/es6" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/es6/array" {
     var Array: typeof core.Array;
@@ -2211,7 +2206,7 @@ declare module "core-js/es6/weak-set" {
     export = WeakSet;
 }
 declare module "core-js/es7" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/es7/array" {
     var Array: typeof core.Array;
@@ -2238,800 +2233,800 @@ declare module "core-js/es7/string" {
     export = String;
 }
 declare module "core-js/js" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/js/array" {
     var Array: typeof core.Array;
     export = Array;
 }
 declare module "core-js/web" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/web/dom" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/web/immediate" {
-    export = core; 
+    export = core;
 }
 declare module "core-js/web/timers" {
-    export = core; 
+    export = core;
 }
-declare module "core-js/libary" {
-    export = core; 
+declare module "core-js/library" {
+    export = core;
 }
-declare module "core-js/libary/shim" {
-    export = core; 
+declare module "core-js/library/shim" {
+    export = core;
 }
-declare module "core-js/libary/core" {
-    export = core; 
+declare module "core-js/library/core" {
+    export = core;
 }
-declare module "core-js/libary/core/$for" {
+declare module "core-js/library/core/$for" {
     import $for = core.$for;
     export = $for;
 }
-declare module "core-js/libary/core/_" {
+declare module "core-js/library/core/_" {
     var _: typeof core._;
     export = _;
 }
-declare module "core-js/libary/core/array" {
+declare module "core-js/library/core/array" {
     var Array: typeof core.Array;
     export = Array;
 }
-declare module "core-js/libary/core/date" {
+declare module "core-js/library/core/date" {
     var Date: typeof core.Date;
     export = Date;
 }
-declare module "core-js/libary/core/delay" {
+declare module "core-js/library/core/delay" {
     var delay: typeof core.delay;
     export = delay;
 }
-declare module "core-js/libary/core/dict" {
+declare module "core-js/library/core/dict" {
     var Dict: typeof core.Dict;
     export = Dict;
 }
-declare module "core-js/libary/core/function" {
+declare module "core-js/library/core/function" {
     var Function: typeof core.Function;
     export = Function;
 }
-declare module "core-js/libary/core/global" {
+declare module "core-js/library/core/global" {
     var global: typeof core.global;
     export = global;
 }
-declare module "core-js/libary/core/log" {
+declare module "core-js/library/core/log" {
     var log: typeof core.log;
     export = log;
 }
-declare module "core-js/libary/core/number" {
+declare module "core-js/library/core/number" {
     var Number: typeof core.Number;
     export = Number;
 }
-declare module "core-js/libary/core/object" {
+declare module "core-js/library/core/object" {
     var Object: typeof core.Object;
     export = Object;
 }
-declare module "core-js/libary/core/string" {
+declare module "core-js/library/core/string" {
     var String: typeof core.String;
     export = String;
 }
-declare module "core-js/libary/fn/$for" {
+declare module "core-js/library/fn/$for" {
     import $for = core.$for;
     export = $for;
 }
-declare module "core-js/libary/fn/_" {
+declare module "core-js/library/fn/_" {
     var _: typeof core._;
     export = _;
 }
-declare module "core-js/libary/fn/clear-immediate" {
+declare module "core-js/library/fn/clear-immediate" {
     var clearImmediate: typeof core.clearImmediate;
     export = clearImmediate;
 }
-declare module "core-js/libary/fn/delay" {
+declare module "core-js/library/fn/delay" {
     var delay: typeof core.delay;
     export = delay;
 }
-declare module "core-js/libary/fn/dict" {
+declare module "core-js/library/fn/dict" {
     var Dict: typeof core.Dict;
     export = Dict;
 }
-declare module "core-js/libary/fn/get-iterator" {
+declare module "core-js/library/fn/get-iterator" {
     var getIterator: typeof core.getIterator;
     export = getIterator;
 }
-declare module "core-js/libary/fn/global" {
+declare module "core-js/library/fn/global" {
     var global: typeof core.global;
     export = global;
 }
-declare module "core-js/libary/fn/is-iterable" {
+declare module "core-js/library/fn/is-iterable" {
     var isIterable: typeof core.isIterable;
     export = isIterable;
 }
-declare module "core-js/libary/fn/log" {
+declare module "core-js/library/fn/log" {
     var log: typeof core.log;
     export = log;
 }
-declare module "core-js/libary/fn/map" {
+declare module "core-js/library/fn/map" {
     var Map: typeof core.Map;
     export = Map;
 }
-declare module "core-js/libary/fn/promise" {
+declare module "core-js/library/fn/promise" {
     var Promise: typeof core.Promise;
     export = Promise;
 }
-declare module "core-js/libary/fn/set" {
+declare module "core-js/library/fn/set" {
     var Set: typeof core.Set;
     export = Set;
 }
-declare module "core-js/libary/fn/set-immediate" {
+declare module "core-js/library/fn/set-immediate" {
     var setImmediate: typeof core.setImmediate;
     export = setImmediate;
 }
-declare module "core-js/libary/fn/set-interval" {
+declare module "core-js/library/fn/set-interval" {
     var setInterval: typeof core.setInterval;
     export = setInterval;
 }
-declare module "core-js/libary/fn/set-timeout" {
+declare module "core-js/library/fn/set-timeout" {
     var setTimeout: typeof core.setTimeout;
     export = setTimeout;
 }
-declare module "core-js/libary/fn/weak-map" {
+declare module "core-js/library/fn/weak-map" {
     var WeakMap: typeof core.WeakMap;
     export = WeakMap;
 }
-declare module "core-js/libary/fn/weak-set" {
+declare module "core-js/library/fn/weak-set" {
     var WeakSet: typeof core.WeakSet;
     export = WeakSet;
 }
-declare module "core-js/libary/fn/array" {
+declare module "core-js/library/fn/array" {
     var Array: typeof core.Array;
     export = Array;
 }
-declare module "core-js/libary/fn/array/concat" {
+declare module "core-js/library/fn/array/concat" {
     var concat: typeof core.Array.concat;
     export = concat;
 }
-declare module "core-js/libary/fn/array/copy-within" {
+declare module "core-js/library/fn/array/copy-within" {
     var copyWithin: typeof core.Array.copyWithin;
     export = copyWithin;
 }
-declare module "core-js/libary/fn/array/entries" {
+declare module "core-js/library/fn/array/entries" {
     var entries: typeof core.Array.entries;
     export = entries;
 }
-declare module "core-js/libary/fn/array/every" {
+declare module "core-js/library/fn/array/every" {
     var every: typeof core.Array.every;
     export = every;
 }
-declare module "core-js/libary/fn/array/fill" {
+declare module "core-js/library/fn/array/fill" {
     var fill: typeof core.Array.fill;
     export = fill;
 }
-declare module "core-js/libary/fn/array/filter" {
+declare module "core-js/library/fn/array/filter" {
     var filter: typeof core.Array.filter;
     export = filter;
 }
-declare module "core-js/libary/fn/array/find" {
+declare module "core-js/library/fn/array/find" {
     var find: typeof core.Array.find;
     export = find;
 }
-declare module "core-js/libary/fn/array/find-index" {
+declare module "core-js/library/fn/array/find-index" {
     var findIndex: typeof core.Array.findIndex;
     export = findIndex;
 }
-declare module "core-js/libary/fn/array/for-each" {
+declare module "core-js/library/fn/array/for-each" {
     var forEach: typeof core.Array.forEach;
     export = forEach;
 }
-declare module "core-js/libary/fn/array/from" {
+declare module "core-js/library/fn/array/from" {
     var from: typeof core.Array.from;
     export = from;
 }
-declare module "core-js/libary/fn/array/includes" {
+declare module "core-js/library/fn/array/includes" {
     var includes: typeof core.Array.includes;
     export = includes;
 }
-declare module "core-js/libary/fn/array/index-of" {
+declare module "core-js/library/fn/array/index-of" {
     var indexOf: typeof core.Array.indexOf;
     export = indexOf;
 }
-declare module "core-js/libary/fn/array/join" {
+declare module "core-js/library/fn/array/join" {
     var join: typeof core.Array.join;
     export = join;
 }
-declare module "core-js/libary/fn/array/keys" {
+declare module "core-js/library/fn/array/keys" {
     var keys: typeof core.Array.keys;
     export = keys;
 }
-declare module "core-js/libary/fn/array/last-index-of" {
+declare module "core-js/library/fn/array/last-index-of" {
     var lastIndexOf: typeof core.Array.lastIndexOf;
     export = lastIndexOf;
 }
-declare module "core-js/libary/fn/array/map" {
+declare module "core-js/library/fn/array/map" {
     var map: typeof core.Array.map;
     export = map;
 }
-declare module "core-js/libary/fn/array/of" {
+declare module "core-js/library/fn/array/of" {
     var of: typeof core.Array.of;
     export = of;
 }
-declare module "core-js/libary/fn/array/pop" {
+declare module "core-js/library/fn/array/pop" {
     var pop: typeof core.Array.pop;
     export = pop;
 }
-declare module "core-js/libary/fn/array/push" {
+declare module "core-js/library/fn/array/push" {
     var push: typeof core.Array.push;
     export = push;
 }
-declare module "core-js/libary/fn/array/reduce" {
+declare module "core-js/library/fn/array/reduce" {
     var reduce: typeof core.Array.reduce;
     export = reduce;
 }
-declare module "core-js/libary/fn/array/reduce-right" {
+declare module "core-js/library/fn/array/reduce-right" {
     var reduceRight: typeof core.Array.reduceRight;
     export = reduceRight;
 }
-declare module "core-js/libary/fn/array/reverse" {
+declare module "core-js/library/fn/array/reverse" {
     var reverse: typeof core.Array.reverse;
     export = reverse;
 }
-declare module "core-js/libary/fn/array/shift" {
+declare module "core-js/library/fn/array/shift" {
     var shift: typeof core.Array.shift;
     export = shift;
 }
-declare module "core-js/libary/fn/array/slice" {
+declare module "core-js/library/fn/array/slice" {
     var slice: typeof core.Array.slice;
     export = slice;
 }
-declare module "core-js/libary/fn/array/some" {
+declare module "core-js/library/fn/array/some" {
     var some: typeof core.Array.some;
     export = some;
 }
-declare module "core-js/libary/fn/array/sort" {
+declare module "core-js/library/fn/array/sort" {
     var sort: typeof core.Array.sort;
     export = sort;
 }
-declare module "core-js/libary/fn/array/splice" {
+declare module "core-js/library/fn/array/splice" {
     var splice: typeof core.Array.splice;
     export = splice;
 }
-declare module "core-js/libary/fn/array/turn" {
+declare module "core-js/library/fn/array/turn" {
     var turn: typeof core.Array.turn;
     export = turn;
 }
-declare module "core-js/libary/fn/array/unshift" {
+declare module "core-js/library/fn/array/unshift" {
     var unshift: typeof core.Array.unshift;
     export = unshift;
 }
-declare module "core-js/libary/fn/array/values" {
+declare module "core-js/library/fn/array/values" {
     var values: typeof core.Array.values;
     export = values;
 }
-declare module "core-js/libary/fn/date" {
+declare module "core-js/library/fn/date" {
     var Date: typeof core.Date;
     export = Date;
 }
-declare module "core-js/libary/fn/date/add-locale" {
+declare module "core-js/library/fn/date/add-locale" {
     var addLocale: typeof core.addLocale;
     export = addLocale;
 }
-declare module "core-js/libary/fn/date/format" {
+declare module "core-js/library/fn/date/format" {
     var format: typeof core.Date.format;
     export = format;
 }
-declare module "core-js/libary/fn/date/formatUTC" {
+declare module "core-js/library/fn/date/formatUTC" {
     var formatUTC: typeof core.Date.formatUTC;
     export = formatUTC;
 }
-declare module "core-js/libary/fn/function" {
+declare module "core-js/library/fn/function" {
     var Function: typeof core.Function;
     export = Function;
 }
-declare module "core-js/libary/fn/function/has-instance" {
+declare module "core-js/library/fn/function/has-instance" {
     var hasInstance: (value: any) => boolean;
     export = hasInstance;
 }
-declare module "core-js/libary/fn/function/name" {
+declare module "core-js/library/fn/function/name" {
 }
-declare module "core-js/libary/fn/function/part" {
+declare module "core-js/library/fn/function/part" {
     var part: typeof core.Function.part;
     export = part;
 }
-declare module "core-js/libary/fn/math" {
+declare module "core-js/library/fn/math" {
     var Math: typeof core.Math;
     export = Math;
 }
-declare module "core-js/libary/fn/math/acosh" {
+declare module "core-js/library/fn/math/acosh" {
     var acosh: typeof core.Math.acosh;
     export = acosh;
 }
-declare module "core-js/libary/fn/math/asinh" {
+declare module "core-js/library/fn/math/asinh" {
     var asinh: typeof core.Math.asinh;
     export = asinh;
 }
-declare module "core-js/libary/fn/math/atanh" {
+declare module "core-js/library/fn/math/atanh" {
     var atanh: typeof core.Math.atanh;
     export = atanh;
 }
-declare module "core-js/libary/fn/math/cbrt" {
+declare module "core-js/library/fn/math/cbrt" {
     var cbrt: typeof core.Math.cbrt;
     export = cbrt;
 }
-declare module "core-js/libary/fn/math/clz32" {
+declare module "core-js/library/fn/math/clz32" {
     var clz32: typeof core.Math.clz32;
     export = clz32;
 }
-declare module "core-js/libary/fn/math/cosh" {
+declare module "core-js/library/fn/math/cosh" {
     var cosh: typeof core.Math.cosh;
     export = cosh;
 }
-declare module "core-js/libary/fn/math/expm1" {
+declare module "core-js/library/fn/math/expm1" {
     var expm1: typeof core.Math.expm1;
     export = expm1;
 }
-declare module "core-js/libary/fn/math/fround" {
+declare module "core-js/library/fn/math/fround" {
     var fround: typeof core.Math.fround;
     export = fround;
 }
-declare module "core-js/libary/fn/math/hypot" {
+declare module "core-js/library/fn/math/hypot" {
     var hypot: typeof core.Math.hypot;
     export = hypot;
 }
-declare module "core-js/libary/fn/math/imul" {
+declare module "core-js/library/fn/math/imul" {
     var imul: typeof core.Math.imul;
     export = imul;
 }
-declare module "core-js/libary/fn/math/log10" {
+declare module "core-js/library/fn/math/log10" {
     var log10: typeof core.Math.log10;
     export = log10;
 }
-declare module "core-js/libary/fn/math/log1p" {
+declare module "core-js/library/fn/math/log1p" {
     var log1p: typeof core.Math.log1p;
     export = log1p;
 }
-declare module "core-js/libary/fn/math/log2" {
+declare module "core-js/library/fn/math/log2" {
     var log2: typeof core.Math.log2;
     export = log2;
 }
-declare module "core-js/libary/fn/math/sign" {
+declare module "core-js/library/fn/math/sign" {
     var sign: typeof core.Math.sign;
     export = sign;
 }
-declare module "core-js/libary/fn/math/sinh" {
+declare module "core-js/library/fn/math/sinh" {
     var sinh: typeof core.Math.sinh;
     export = sinh;
 }
-declare module "core-js/libary/fn/math/tanh" {
+declare module "core-js/library/fn/math/tanh" {
     var tanh: typeof core.Math.tanh;
     export = tanh;
 }
-declare module "core-js/libary/fn/math/trunc" {
+declare module "core-js/library/fn/math/trunc" {
     var trunc: typeof core.Math.trunc;
     export = trunc;
 }
-declare module "core-js/libary/fn/number" {
+declare module "core-js/library/fn/number" {
     var Number: typeof core.Number;
     export = Number;
 }
-declare module "core-js/libary/fn/number/epsilon" {
+declare module "core-js/library/fn/number/epsilon" {
     var EPSILON: typeof core.Number.EPSILON;
     export = EPSILON;
 }
-declare module "core-js/libary/fn/number/is-finite" {
+declare module "core-js/library/fn/number/is-finite" {
     var isFinite: typeof core.Number.isFinite;
     export = isFinite;
 }
-declare module "core-js/libary/fn/number/is-integer" {
+declare module "core-js/library/fn/number/is-integer" {
     var isInteger: typeof core.Number.isInteger;
     export = isInteger;
 }
-declare module "core-js/libary/fn/number/is-nan" {
+declare module "core-js/library/fn/number/is-nan" {
     var isNaN: typeof core.Number.isNaN;
     export = isNaN;
 }
-declare module "core-js/libary/fn/number/is-safe-integer" {
+declare module "core-js/library/fn/number/is-safe-integer" {
     var isSafeInteger: typeof core.Number.isSafeInteger;
     export = isSafeInteger;
 }
-declare module "core-js/libary/fn/number/max-safe-integer" {
+declare module "core-js/library/fn/number/max-safe-integer" {
     var MAX_SAFE_INTEGER: typeof core.Number.MAX_SAFE_INTEGER;
     export = MAX_SAFE_INTEGER;
 }
-declare module "core-js/libary/fn/number/min-safe-interger" {
+declare module "core-js/library/fn/number/min-safe-interger" {
     var MIN_SAFE_INTEGER: typeof core.Number.MIN_SAFE_INTEGER;
     export = MIN_SAFE_INTEGER;
 }
-declare module "core-js/libary/fn/number/parse-float" {
+declare module "core-js/library/fn/number/parse-float" {
     var parseFloat: typeof core.Number.parseFloat;
     export = parseFloat;
 }
-declare module "core-js/libary/fn/number/parse-int" {
+declare module "core-js/library/fn/number/parse-int" {
     var parseInt: typeof core.Number.parseInt;
     export = parseInt;
 }
-declare module "core-js/libary/fn/number/random" {
+declare module "core-js/library/fn/number/random" {
     var random: typeof core.Number.random;
     export = random;
 }
-declare module "core-js/libary/fn/object" {
+declare module "core-js/library/fn/object" {
     var Object: typeof core.Object;
     export = Object;
 }
-declare module "core-js/libary/fn/object/assign" {
+declare module "core-js/library/fn/object/assign" {
     var assign: typeof core.Object.assign;
     export = assign;
 }
-declare module "core-js/libary/fn/object/classof" {
+declare module "core-js/library/fn/object/classof" {
     var classof: typeof core.Object.classof;
     export = classof;
 }
-declare module "core-js/libary/fn/object/create" {
+declare module "core-js/library/fn/object/create" {
     var create: typeof core.Object.create;
     export = create;
 }
-declare module "core-js/libary/fn/object/define" {
+declare module "core-js/library/fn/object/define" {
     var define: typeof core.Object.define;
     export = define;
 }
-declare module "core-js/libary/fn/object/define-properties" {
+declare module "core-js/library/fn/object/define-properties" {
     var defineProperties: typeof core.Object.defineProperties;
     export = defineProperties;
 }
-declare module "core-js/libary/fn/object/define-property" {
+declare module "core-js/library/fn/object/define-property" {
     var defineProperty: typeof core.Object.defineProperty;
     export = defineProperty;
 }
-declare module "core-js/libary/fn/object/entries" {
+declare module "core-js/library/fn/object/entries" {
     var entries: typeof core.Object.entries;
     export = entries;
 }
-declare module "core-js/libary/fn/object/freeze" {
+declare module "core-js/library/fn/object/freeze" {
     var freeze: typeof core.Object.freeze;
     export = freeze;
 }
-declare module "core-js/libary/fn/object/get-own-property-descriptor" {
+declare module "core-js/library/fn/object/get-own-property-descriptor" {
     var getOwnPropertyDescriptor: typeof core.Object.getOwnPropertyDescriptor;
     export = getOwnPropertyDescriptor;
 }
-declare module "core-js/libary/fn/object/get-own-property-descriptors" {
+declare module "core-js/library/fn/object/get-own-property-descriptors" {
     var getOwnPropertyDescriptors: typeof core.Object.getOwnPropertyDescriptors;
     export = getOwnPropertyDescriptors;
 }
-declare module "core-js/libary/fn/object/get-own-property-names" {
+declare module "core-js/library/fn/object/get-own-property-names" {
     var getOwnPropertyNames: typeof core.Object.getOwnPropertyNames;
     export = getOwnPropertyNames;
 }
-declare module "core-js/libary/fn/object/get-own-property-symbols" {
+declare module "core-js/library/fn/object/get-own-property-symbols" {
     var getOwnPropertySymbols: typeof core.Object.getOwnPropertySymbols;
     export = getOwnPropertySymbols;
 }
-declare module "core-js/libary/fn/object/get-prototype-of" {
+declare module "core-js/library/fn/object/get-prototype-of" {
     var getPrototypeOf: typeof core.Object.getPrototypeOf;
     export = getPrototypeOf;
 }
-declare module "core-js/libary/fn/object/is" {
+declare module "core-js/library/fn/object/is" {
     var is: typeof core.Object.is;
     export = is;
 }
-declare module "core-js/libary/fn/object/is-extensible" {
+declare module "core-js/library/fn/object/is-extensible" {
     var isExtensible: typeof core.Object.isExtensible;
     export = isExtensible;
 }
-declare module "core-js/libary/fn/object/is-frozen" {
+declare module "core-js/library/fn/object/is-frozen" {
     var isFrozen: typeof core.Object.isFrozen;
     export = isFrozen;
 }
-declare module "core-js/libary/fn/object/is-object" {
+declare module "core-js/library/fn/object/is-object" {
     var isObject: typeof core.Object.isObject;
     export = isObject;
 }
-declare module "core-js/libary/fn/object/is-sealed" {
+declare module "core-js/library/fn/object/is-sealed" {
     var isSealed: typeof core.Object.isSealed;
     export = isSealed;
 }
-declare module "core-js/libary/fn/object/keys" {
+declare module "core-js/library/fn/object/keys" {
     var keys: typeof core.Object.keys;
     export = keys;
 }
-declare module "core-js/libary/fn/object/make" {
+declare module "core-js/library/fn/object/make" {
     var make: typeof core.Object.make;
     export = make;
 }
-declare module "core-js/libary/fn/object/prevent-extensions" {
+declare module "core-js/library/fn/object/prevent-extensions" {
     var preventExtensions: typeof core.Object.preventExtensions;
     export = preventExtensions;
 }
-declare module "core-js/libary/fn/object/seal" {
+declare module "core-js/library/fn/object/seal" {
     var seal: typeof core.Object.seal;
     export = seal;
 }
-declare module "core-js/libary/fn/object/set-prototype-of" {
+declare module "core-js/library/fn/object/set-prototype-of" {
     var setPrototypeOf: typeof core.Object.setPrototypeOf;
     export = setPrototypeOf;
 }
-declare module "core-js/libary/fn/object/values" {
+declare module "core-js/library/fn/object/values" {
     var values: typeof core.Object.values;
     export = values;
 }
-declare module "core-js/libary/fn/reflect" {
+declare module "core-js/library/fn/reflect" {
     var Reflect: typeof core.Reflect;
     export = Reflect;
 }
-declare module "core-js/libary/fn/reflect/apply" {
+declare module "core-js/library/fn/reflect/apply" {
     var apply: typeof core.Reflect.apply;
     export = apply;
 }
-declare module "core-js/libary/fn/reflect/construct" {
+declare module "core-js/library/fn/reflect/construct" {
     var construct: typeof core.Reflect.construct;
     export = construct;
 }
-declare module "core-js/libary/fn/reflect/define-property" {
+declare module "core-js/library/fn/reflect/define-property" {
     var defineProperty: typeof core.Reflect.defineProperty;
     export = defineProperty;
 }
-declare module "core-js/libary/fn/reflect/delete-property" {
+declare module "core-js/library/fn/reflect/delete-property" {
     var deleteProperty: typeof core.Reflect.deleteProperty;
     export = deleteProperty;
 }
-declare module "core-js/libary/fn/reflect/enumerate" {
+declare module "core-js/library/fn/reflect/enumerate" {
     var enumerate: typeof core.Reflect.enumerate;
     export = enumerate;
 }
-declare module "core-js/libary/fn/reflect/get" {
+declare module "core-js/library/fn/reflect/get" {
     var get: typeof core.Reflect.get;
     export = get;
 }
-declare module "core-js/libary/fn/reflect/get-own-property-descriptor" {
+declare module "core-js/library/fn/reflect/get-own-property-descriptor" {
     var getOwnPropertyDescriptor: typeof core.Reflect.getOwnPropertyDescriptor;
     export = getOwnPropertyDescriptor;
 }
-declare module "core-js/libary/fn/reflect/get-prototype-of" {
+declare module "core-js/library/fn/reflect/get-prototype-of" {
     var getPrototypeOf: typeof core.Reflect.getPrototypeOf;
     export = getPrototypeOf;
 }
-declare module "core-js/libary/fn/reflect/has" {
+declare module "core-js/library/fn/reflect/has" {
     var has: typeof core.Reflect.has;
     export = has;
 }
-declare module "core-js/libary/fn/reflect/is-extensible" {
+declare module "core-js/library/fn/reflect/is-extensible" {
     var isExtensible: typeof core.Reflect.isExtensible;
     export = isExtensible;
 }
-declare module "core-js/libary/fn/reflect/own-keys" {
+declare module "core-js/library/fn/reflect/own-keys" {
     var ownKeys: typeof core.Reflect.ownKeys;
     export = ownKeys;
 }
-declare module "core-js/libary/fn/reflect/prevent-extensions" {
+declare module "core-js/library/fn/reflect/prevent-extensions" {
     var preventExtensions: typeof core.Reflect.preventExtensions;
     export = preventExtensions;
 }
-declare module "core-js/libary/fn/reflect/set" {
+declare module "core-js/library/fn/reflect/set" {
     var set: typeof core.Reflect.set;
     export = set;
 }
-declare module "core-js/libary/fn/reflect/set-prototype-of" {
+declare module "core-js/library/fn/reflect/set-prototype-of" {
     var setPrototypeOf: typeof core.Reflect.setPrototypeOf;
     export = setPrototypeOf;
 }
-declare module "core-js/libary/fn/regexp" {
+declare module "core-js/library/fn/regexp" {
     var RegExp: typeof core.RegExp;
     export = RegExp;
 }
-declare module "core-js/libary/fn/regexp/escape" {
+declare module "core-js/library/fn/regexp/escape" {
     var escape: typeof core.RegExp.escape;
     export = escape;
 }
-declare module "core-js/libary/fn/string" {
+declare module "core-js/library/fn/string" {
     var String: typeof core.String;
     export = String;
 }
-declare module "core-js/libary/fn/string/at" {
+declare module "core-js/library/fn/string/at" {
     var at: typeof core.String.at;
     export = at;
 }
-declare module "core-js/libary/fn/string/code-point-at" {
+declare module "core-js/library/fn/string/code-point-at" {
     var codePointAt: typeof core.String.codePointAt;
     export = codePointAt;
 }
-declare module "core-js/libary/fn/string/ends-with" {
+declare module "core-js/library/fn/string/ends-with" {
     var endsWith: typeof core.String.endsWith;
     export = endsWith;
 }
-declare module "core-js/libary/fn/string/escape-html" {
+declare module "core-js/library/fn/string/escape-html" {
     var escapeHTML: typeof core.String.escapeHTML;
     export = escapeHTML;
 }
-declare module "core-js/libary/fn/string/from-code-point" {
+declare module "core-js/library/fn/string/from-code-point" {
     var fromCodePoint: typeof core.String.fromCodePoint;
     export = fromCodePoint;
 }
-declare module "core-js/libary/fn/string/includes" {
+declare module "core-js/library/fn/string/includes" {
     var includes: typeof core.String.includes;
     export = includes;
 }
-declare module "core-js/libary/fn/string/lpad" {
+declare module "core-js/library/fn/string/lpad" {
     var lpad: typeof core.String.lpad;
     export = lpad;
 }
-declare module "core-js/libary/fn/string/raw" {
+declare module "core-js/library/fn/string/raw" {
     var raw: typeof core.String.raw;
     export = raw;
 }
-declare module "core-js/libary/fn/string/repeat" {
+declare module "core-js/library/fn/string/repeat" {
     var repeat: typeof core.String.repeat;
     export = repeat;
 }
-declare module "core-js/libary/fn/string/rpad" {
+declare module "core-js/library/fn/string/rpad" {
     var rpad: typeof core.String.rpad;
     export = rpad;
 }
-declare module "core-js/libary/fn/string/starts-with" {
+declare module "core-js/library/fn/string/starts-with" {
     var startsWith: typeof core.String.startsWith;
     export = startsWith;
 }
-declare module "core-js/libary/fn/string/unescape-html" {
+declare module "core-js/library/fn/string/unescape-html" {
     var unescapeHTML: typeof core.String.unescapeHTML;
     export = unescapeHTML;
 }
-declare module "core-js/libary/fn/symbol" {
+declare module "core-js/library/fn/symbol" {
     var Symbol: typeof core.Symbol;
     export = Symbol;
 }
-declare module "core-js/libary/fn/symbol/for" {
+declare module "core-js/library/fn/symbol/for" {
     var _for: typeof core.Symbol.for;
     export = _for;
 }
-declare module "core-js/libary/fn/symbol/has-instance" {
+declare module "core-js/library/fn/symbol/has-instance" {
     var hasInstance: typeof core.Symbol.hasInstance;
     export = hasInstance;
 }
-declare module "core-js/libary/fn/symbol/is-concat-spreadable" {
+declare module "core-js/library/fn/symbol/is-concat-spreadable" {
     var isConcatSpreadable: typeof core.Symbol.isConcatSpreadable;
     export = isConcatSpreadable;
 }
-declare module "core-js/libary/fn/symbol/iterator" {
+declare module "core-js/library/fn/symbol/iterator" {
     var iterator: typeof core.Symbol.iterator;
     export = iterator;
 }
-declare module "core-js/libary/fn/symbol/key-for" {
+declare module "core-js/library/fn/symbol/key-for" {
     var keyFor: typeof core.Symbol.keyFor;
     export = keyFor;
 }
-declare module "core-js/libary/fn/symbol/match" {
+declare module "core-js/library/fn/symbol/match" {
     var match: typeof core.Symbol.match;
     export = match;
 }
-declare module "core-js/libary/fn/symbol/replace" {
+declare module "core-js/library/fn/symbol/replace" {
     var replace: typeof core.Symbol.replace;
     export = replace;
 }
-declare module "core-js/libary/fn/symbol/search" {
+declare module "core-js/library/fn/symbol/search" {
     var search: typeof core.Symbol.search;
     export = search;
 }
-declare module "core-js/libary/fn/symbol/species" {
+declare module "core-js/library/fn/symbol/species" {
     var species: typeof core.Symbol.species;
     export = species;
 }
-declare module "core-js/libary/fn/symbol/split" {
+declare module "core-js/library/fn/symbol/split" {
     var split: typeof core.Symbol.split;
     export = split;
 }
-declare module "core-js/libary/fn/symbol/to-primitive" {
+declare module "core-js/library/fn/symbol/to-primitive" {
     var toPrimitive: typeof core.Symbol.toPrimitive;
     export = toPrimitive;
 }
-declare module "core-js/libary/fn/symbol/to-string-tag" {
+declare module "core-js/library/fn/symbol/to-string-tag" {
     var toStringTag: typeof core.Symbol.toStringTag;
     export = toStringTag;
 }
-declare module "core-js/libary/fn/symbol/unscopables" {
+declare module "core-js/library/fn/symbol/unscopables" {
     var unscopables: typeof core.Symbol.unscopables;
     export = unscopables;
 }
-declare module "core-js/libary/es5" {
-    export = core; 
+declare module "core-js/library/es5" {
+    export = core;
 }
-declare module "core-js/libary/es6" {
-    export = core; 
+declare module "core-js/library/es6" {
+    export = core;
 }
-declare module "core-js/libary/es6/array" {
+declare module "core-js/library/es6/array" {
     var Array: typeof core.Array;
     export = Array;
 }
-declare module "core-js/libary/es6/function" {
+declare module "core-js/library/es6/function" {
     var Function: typeof core.Function;
     export = Function;
 }
-declare module "core-js/libary/es6/map" {
+declare module "core-js/library/es6/map" {
     var Map: typeof core.Map;
     export = Map;
 }
-declare module "core-js/libary/es6/math" {
+declare module "core-js/library/es6/math" {
     var Math: typeof core.Math;
     export = Math;
 }
-declare module "core-js/libary/es6/number" {
+declare module "core-js/library/es6/number" {
     var Number: typeof core.Number;
     export = Number;
 }
-declare module "core-js/libary/es6/object" {
+declare module "core-js/library/es6/object" {
     var Object: typeof core.Object;
     export = Object;
 }
-declare module "core-js/libary/es6/promise" {
+declare module "core-js/library/es6/promise" {
     var Promise: typeof core.Promise;
     export = Promise;
 }
-declare module "core-js/libary/es6/reflect" {
+declare module "core-js/library/es6/reflect" {
     var Reflect: typeof core.Reflect;
     export = Reflect;
 }
-declare module "core-js/libary/es6/regexp" {
+declare module "core-js/library/es6/regexp" {
     var RegExp: typeof core.RegExp;
     export = RegExp;
 }
-declare module "core-js/libary/es6/set" {
+declare module "core-js/library/es6/set" {
     var Set: typeof core.Set;
     export = Set;
 }
-declare module "core-js/libary/es6/string" {
+declare module "core-js/library/es6/string" {
     var String: typeof core.String;
     export = String;
 }
-declare module "core-js/libary/es6/symbol" {
+declare module "core-js/library/es6/symbol" {
     var Symbol: typeof core.Symbol;
     export = Symbol;
 }
-declare module "core-js/libary/es6/weak-map" {
+declare module "core-js/library/es6/weak-map" {
     var WeakMap: typeof core.WeakMap;
     export = WeakMap;
 }
-declare module "core-js/libary/es6/weak-set" {
+declare module "core-js/library/es6/weak-set" {
     var WeakSet: typeof core.WeakSet;
     export = WeakSet;
 }
-declare module "core-js/libary/es7" {
-    export = core; 
+declare module "core-js/library/es7" {
+    export = core;
 }
-declare module "core-js/libary/es7/array" {
+declare module "core-js/library/es7/array" {
     var Array: typeof core.Array;
     export = Array;
 }
-declare module "core-js/libary/es7/map" {
+declare module "core-js/library/es7/map" {
     var Map: typeof core.Map;
     export = Map;
 }
-declare module "core-js/libary/es7/object" {
+declare module "core-js/library/es7/object" {
     var Object: typeof core.Object;
     export = Object;
 }
-declare module "core-js/libary/es7/regexp" {
+declare module "core-js/library/es7/regexp" {
     var RegExp: typeof core.RegExp;
     export = RegExp;
 }
-declare module "core-js/libary/es7/set" {
+declare module "core-js/library/es7/set" {
     var Set: typeof core.Set;
     export = Set;
 }
-declare module "core-js/libary/es7/string" {
+declare module "core-js/library/es7/string" {
     var String: typeof core.String;
     export = String;
 }
-declare module "core-js/libary/js" {
-    export = core; 
+declare module "core-js/library/js" {
+    export = core;
 }
-declare module "core-js/libary/js/array" {
+declare module "core-js/library/js/array" {
     var Array: typeof core.Array;
     export = Array;
 }
-declare module "core-js/libary/web" {
-    export = core; 
+declare module "core-js/library/web" {
+    export = core;
 }
-declare module "core-js/libary/web/dom" {
-    export = core; 
+declare module "core-js/library/web/dom" {
+    export = core;
 }
-declare module "core-js/libary/web/immediate" {
-    export = core; 
+declare module "core-js/library/web/immediate" {
+    export = core;
 }
-declare module "core-js/libary/web/timers" {
-    export = core; 
+declare module "core-js/library/web/timers" {
+    export = core;
 }

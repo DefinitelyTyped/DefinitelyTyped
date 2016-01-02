@@ -138,6 +138,7 @@ declare module chrome.app.window {
 
     interface WindowEvent {
         addListener(callback: () => void): void;
+        removeListener(callback: () => void): void;
     }
 
     var onBoundsChanged: WindowEvent;
