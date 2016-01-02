@@ -6,10 +6,27 @@
 declare module "webpack" {
     namespace webpack {
         interface Configuration {
+            context?: string;
             entry?: string|string[]|Entry;
             devtool?: string;
             output?: Output;
             module?: Module;
+            resolve?: Resolve;
+            resolveLoader?: ResolveLoader;
+            externals?: ExternalsElement|ExternalsElement[];
+            target?: string;
+            bail?: boolean;
+            profile?: boolean;
+            cache?: boolean|any;
+            watch?: boolean;
+            watchOptions?: WatchOptions;
+            debug?: boolean;
+            devServer?: any; // TODO: Type this
+            node?: Node;
+            amd?: { [moduleName: string]: boolean };
+            recordsPath?: string;
+            recordsInputPath?: string;
+            recordsOutputPath?: string;
             plugins?: (Plugin|Function)[];
         }
 
@@ -21,17 +38,87 @@ declare module "webpack" {
             path?: string;
             filename?: string;
             chunkFilename?: string;
+            sourceMapFilename?: string;
+            devtoolModuleFilenameTemplate?: string;
+            devtoolFallbackModuleFilenameTemplate?: string;
+            devtoolLineToLine?: boolean;
+            hotUpdateChunkFilename?: string;
+            hotUpdateMainFilename?: string;
             publicPath?: string;
+            jsonpFunction?: string;
+            hotUpdateFunction?: string;
+            pathinfo?: boolean;
+            library?: boolean;
+            libraryTarget?: string;
+            umdNamedDefine?: boolean;
+            sourcePrefix?: string;
+            crossOriginLoading?: string|boolean;
         }
 
         interface Module {
             loaders?: Loader[];
+            preLoaders?: Loader[];
+            postLoaders?: Loader[];
+            noParse?: RegExp|RegExp[];
+            unknownContextRequest?: string;
+            unknownContextRecursive?: boolean;
+            unknownContextRegExp?: RegExp;
+            unknownContextCritical?: boolean;
+            exprContextRequest?: string;
+            exprContextRegExp?: RegExp;
+            exprContextRecursive?: boolean;
+            exprContextCritical?: boolean;
+            wrappedContextRegExp?: RegExp;
+            wrappedContextRecursive?: boolean;
+            wrappedContextCritical?: boolean;
         }
 
+        interface Resolve {
+            alias: { [key: string]: string; };
+            root?: string|string[];
+            modulesDirectories?: string[];
+            fallback?: string|string[];
+            extensions?: string[];
+            packageMains?: (string|string[])[];
+            packageAlias?: (string|string[])[];
+            unsafeCache?: RegExp|RegExp[]|boolean;
+        }
+
+        interface ResolveLoader extends Resolve {
+            moduleTemplates?: string[];
+        }
+
+        type ExternalsElement = string|RegExp|ExternalsObjectElement|ExternalsFunctionElement;
+
+        interface ExternalsObjectElement {
+            [key: string]: boolean|string;
+        }
+
+        interface ExternalsFunctionElement {
+            (context: any, request: any, callback: (error: any, result: any) => void): any;
+        }
+
+        interface WatchOptions {
+            aggregateTimeout?: number;
+            poll?: boolean|number;
+        }
+
+        interface Node {
+            console?: boolean;
+            global?: boolean;
+            process?: boolean;
+            Buffer?: boolean;
+            __filename?: boolean|string;
+            __dirname?: boolean|string;
+            [nodeBuiltin: string]: boolean|string;
+        }
+
+        type LoaderCondition = string|RegExp|((absPath: string) => boolean);
+
         interface Loader {
-            exclude?: string[];
-            include?: string[];
-            test: RegExp;
+            exclude?: LoaderCondition|LoaderCondition[];
+            include?: LoaderCondition|LoaderCondition[];
+            test: LoaderCondition|LoaderCondition[];
             loader?: string;
             loaders?: string[];
             query?: {
