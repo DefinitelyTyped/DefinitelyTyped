@@ -196,6 +196,27 @@ function TestWebDriverUntilModule() {
     conditionWebElements = protractor.until.elementsLocated(by.className('class'));
 }
 
+function TestWebDriverExpectedConditionsModule() {
+    var conditionB: protractor.until.Condition<boolean>;
+    var el: protractor.ElementFinder = element(by.id('id'));
+
+    conditionB = protractor.ExpectedConditions.alertIsPresent();
+    conditionB = protractor.ExpectedConditions.elementToBeClickable(el);
+    conditionB = protractor.ExpectedConditions.textToBePresentInElement(el, 'text');
+    conditionB = protractor.ExpectedConditions.textToBePresentInElementValue(el, 'text');
+    conditionB = protractor.ExpectedConditions.titleContains('text');
+    conditionB = protractor.ExpectedConditions.titleIs('text');
+    conditionB = protractor.ExpectedConditions.presenceOf(el);
+    conditionB = protractor.ExpectedConditions.stalenessOf(el);
+    conditionB = protractor.ExpectedConditions.visibilityOf(el);
+    conditionB = protractor.ExpectedConditions.invisibilityOf(el);
+    conditionB = protractor.ExpectedConditions.elementToBeSelected(el);
+
+    conditionB = protractor.ExpectedConditions.not(protractor.ExpectedConditions.alertIsPresent());
+    conditionB = protractor.ExpectedConditions.and(protractor.ExpectedConditions.alertIsPresent(), protractor.ExpectedConditions.elementToBeClickable(el));
+    conditionB = protractor.ExpectedConditions.or(protractor.ExpectedConditions.alertIsPresent(), protractor.ExpectedConditions.elementToBeClickable(el));
+}
+
 function TestProtractor() {
     var ptor: protractor.Protractor;
     var driver: webdriver.WebDriver = new webdriver.Builder().
@@ -374,7 +395,7 @@ function TestElementArrayFinder() {
     var b: boolean = elementArrayFinder.isPending();
     var locator: webdriver.Locator = elementArrayFinder.locator();
 
-    var findersArray: protractor.ElementFinder[] = elementArrayFinder.asElementFinders_();
+    var findersArrayPromise: protractor.promise.Promise<protractor.ElementFinder[]> = elementArrayFinder.asElementFinders_();
 
     var driverElementArray: webdriver.WebElement[] = elementArrayFinder.getWebElements();
     var elementFinder: protractor.ElementFinder = elementArrayFinder.get(42);

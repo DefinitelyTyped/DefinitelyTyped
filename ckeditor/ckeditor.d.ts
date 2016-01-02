@@ -64,6 +64,7 @@ declare module CKEDITOR {
     var status: string;
     var timestamp: string;
     var version: string;
+    var config: config;
 
 
     // Methods
@@ -73,6 +74,7 @@ declare module CKEDITOR {
     function appendTo(element: string, config?: config, data?: string): editor;
     function appendTo(element: HTMLTextAreaElement, config?: config, data?: string): editor;
     function domReady(): void;
+    function dialogCommand(dialogName: string): void;
     function editorConfig(config: config): void;
     function getCss(): string;
     function getTemplate(name: string): template;
@@ -555,23 +557,34 @@ declare module CKEDITOR {
         groups?: string[];
     }
 
+          // Currently very incomplete. See here for all options that should be included:
+          // http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-fileTools_defaultFileName
     interface config {
+        allowedContent?: string | boolean;
+        colorButton_enableMore?: boolean;
+        colorButton_colors?: string;
+        contentsCss?: string | string[];
+        contentsLangDirection?: string;
+        customConfig?: string;
+        extraPlugins?: string;
+        font_names?: string;
+        font_defaultLabel?: string;
+        fontSize_sizes?: string;
+        fontSize_defaultLabel?: string;
+        height?: string | number;
+        language?: string;
+        on?: any;
+        plugins?: string;
+        startupFocus?: boolean;
         startupMode?: string;
         removeButtons?: string;
         removePlugins?: string;
         toolbar?: any;
         toolbarGroups?: toolbarGroups[];
+        toolbarLocation?: string;
+        readOnly?: boolean;
         skin?: string;
-        language?: string;
-        plugins?: string;
-        font_names?: string;
-        font_defaultLabel?: string;
-        fontSize_sizes?: string;
-        fontSize_defaultLabel?: string;
-        colorButton_enableMore?: boolean;
-        colorButton_colors?: string;
-        startupFocus?: boolean;
-        on?: any;
+        width?: string | number;
     }
 
 
@@ -628,7 +641,7 @@ declare module CKEDITOR {
                 data: Function;
                 defaults: Object;
                 dialog: String;
-                downcast: any; // should be string | Function
+                downcast: string | Function;
                 downcasts: Object;
                 draggable: boolean;
                 editables: Object;
@@ -643,16 +656,16 @@ declare module CKEDITOR {
                 styleToAllowedContentRules: Function;
                 styleableElements: string;
                 template: string;
-                upcast: any; // should be string | Function
+                upcast: string | Function;
                 upcasts: Object;
 
                 addClass(className: string): void;
                 applyStyle(style: any): void; // any should be CKEDITOR.style
                 capture(): void;
                 checkStyleActive(style: any): boolean; // any should be CKEDITOR.style
-                define(name: string, meta: {errorProof?: boolean}): void;
+                define(name: string, meta: { errorProof?: boolean }): void;
                 destroy(offline?: boolean): void;
-                destroyEditable(editableName:string, offline?: boolean): void;
+                destroyEditable(editableName: string, offline?: boolean): void;
                 edit(): boolean;
                 fire(eventName: string, data?: Object, editor?: editor): any; // should be boolean | Object
                 fireOnce(eventName: string, data?: Object, editor?: editor): any; // should be boolean | Object
@@ -670,7 +683,7 @@ declare module CKEDITOR {
                 removeClass(className: string): void;
                 removeListener(evnetName: string, listenerFunction: Function): void;
                 removeStyle(style: any): void; // any should be CKEDITOR.style
-                setData(keyOrData: any, value?: Object): IWidget; // any should be string | Object
+                setData(keyOrData: string | {}, value?: Object): IWidget;
                 setFocused(selected: boolean): IWidget;
                 setSelected(selected: boolean): IWidget;
                 toFeature(): any; // should be CKEDITOR.feature
@@ -685,7 +698,7 @@ declare module CKEDITOR {
                 data?: Function;
                 defaults?: Object;
                 dialog?: String;
-                downcast?: any; // should be string | Function
+                downcast?: string | Function;
                 downcasts?: Object;
                 draggable?: boolean;
                 edit?: Function;
@@ -701,7 +714,7 @@ declare module CKEDITOR {
                 styleToAllowedContentRules?: Function;
                 styleableElements?: string;
                 template?: string;
-                upcast?: any; // should be string | Function
+                upcast?: string | Function;
                 upcasts?: Object;
                 toFeature?(): any; // should be CKEDITOR.feature
             }
@@ -732,12 +745,13 @@ declare module CKEDITOR {
 
         interface IPluginDefinition {
             hidpi?: boolean;
-            lang?: any; // should be string | string[]
-            requires?: any; // should be string | string[]a
+            lang?: string | string[];
+            requires?: string | string[];
             afterInit?(editor: editor): any;
             beforeInit?(editor: editor): any;
             init?(editor: editor): any;
             onLoad?(): any;
+            icons?: string;
         }
 
         function add(name: string, definition?: IPluginDefinition): void;
@@ -926,6 +940,8 @@ declare module CKEDITOR {
             interface button extends uiElement {
                 disabled?: boolean;
                 label?: string;
+                command?: string;
+                toolbar?: string;
             }
 
 
@@ -1122,5 +1138,13 @@ declare module CKEDITOR {
         function getCurrent(): void;
         function isTabEnabled(editor: editor, dialogName: string, tabName: string): boolean;
         function okButton(): void;
+    }
+
+    module lang {
+        var languages: any;
+        var rtl: any;
+
+        function load(languageCode: string, defaultLanguage: string, callback: Function): void;
+        function detect(defaultLanguage: string, probeLanguage: string): string;
     }
 }

@@ -157,3 +157,19 @@ var FizzyText = function () {
 
     update();
 }
+// ------------ 11. Object Literal Tests
+() => {
+    var obj = {a:1,b:1};
+    var gui = new dat.GUI();
+    var controller = gui.add(obj, 'maxSize', 0, 10);
+
+    controller.onChange(function (value) {
+        // Fires on every change, drag, keypress, etc.
+    });
+
+    controller.onFinishChange(function (value) {
+        // Fires when a controller loses focus.
+        alert("The new value is " + value);
+    });
+}
+

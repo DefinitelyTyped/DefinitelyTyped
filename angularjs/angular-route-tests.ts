@@ -34,3 +34,7 @@ $routeProvider
     })
     .otherwise({ redirectTo: '/' })
     .otherwise({ redirectTo: ($routeParams?: ng.route.IRouteParamsService, $locationPath?: string, $locationSearch?: any) => "" });
+
+
+var current: ng.route.ICurrentRoute;
+current.locals['test-key'] = 'test-value';

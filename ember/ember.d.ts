@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../handlebars/handlebars.d.ts" />
+/// <reference path="../handlebars/handlebars-1.0.0.d.ts" />
 
 declare var Handlebars: HandlebarsStatic;
 
@@ -58,7 +58,7 @@ declare module EmberStates {
           @arg {String} label optional string for labeling the promise. Useful for tooling.
           @return {Promise}
          */
-        then(onFulfilled: Function, onRejected: Function, label?: string): Ember.RSVP.Promise;
+        then(onFulfilled: Function, onRejected?: Function, label?: string): Ember.RSVP.Promise;
 
         /**
           Forwards to the internal `promise` property which you can
@@ -349,6 +349,8 @@ interface CoreObjectArguments {
     Override to implement teardown.
     **/
     willDestroy?: Function;
+    
+    [propName: string]: any;
 }
 
 interface EnumerableConfigurationOptions {
@@ -998,7 +1000,7 @@ declare module Ember {
         @static
         @param {Object} [args] - Object containing values to use within the new class
         **/
-        static extend<T>(args ?: CoreObjectArguments): T;
+        static extend<T>(args?: CoreObjectArguments): T;
         /**
         Creates a new subclass.
         @method extend
@@ -1420,7 +1422,7 @@ declare module Ember {
         Creates an instance of the class.
         @param arguments A hash containing values with which to initialize the newly instantiated object.
         **/
-        static create<T extends Mixin>(args: {}): T;
+        static create<T extends Mixin>(...args: CoreObjectArguments[]): T;
         detect(obj: any): boolean;
         reopen<T extends Mixin>(args?: {}): T;
     }
@@ -2830,7 +2832,7 @@ declare module Ember {
     function compare(v: any, w: any): number;
     // ReSharper disable once DuplicatingLocalDeclaration
     var computed: {
-        (callback: Function): ComputedProperty;
+        (...args: any[]): ComputedProperty;
         alias(dependentKey: string): ComputedProperty;
         and(...args: string[]): ComputedProperty;
         any(...args: string[]): ComputedProperty;
@@ -2916,7 +2918,7 @@ declare module Ember {
     **/
     var none: typeof deprecateFunc;
     function normalizeTuple(target: any, path: string): any[];
-    function observer(func: Function, ...args: string[]): Function;
+    function observer(...args: any[]): Function;
     function observersFor(obj: any, path: string): any[];
     function onLoad(name: string, callback: Function): void;
     function oneWay(obj: any, to: string, from: string): Binding;

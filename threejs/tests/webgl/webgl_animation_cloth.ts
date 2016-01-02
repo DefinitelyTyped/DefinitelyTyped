@@ -107,7 +107,7 @@
         clothTexture.wrapS = clothTexture.wrapT = THREE.RepeatWrapping;
         clothTexture.anisotropy = 16;
 
-        var clothMaterial = new THREE.MeshPhongMaterial({ alphaTest: 0.5, ambient: 0xffffff, color: 0xffffff, specular: 0x030303, emissive: 0x111111, shiness: 10, map: clothTexture, side: THREE.DoubleSide });
+        var clothMaterial = new THREE.MeshPhongMaterial({ alphaTest: 0.5, color: 0xffffff, specular: 0x030303, emissive: 0x111111, shininess: 10, map: clothTexture, side: THREE.DoubleSide });
 
         // cloth geometry
         clothGeometry = new THREE.ParametricGeometry(clothFunction, cloth.w, cloth.h);
@@ -162,7 +162,7 @@
         // poles
 
         var poleGeo = new THREE.BoxGeometry(5, 375, 5);
-        var poleMat = new THREE.MeshPhongMaterial({ color: 0xffffff, specular: 0x111111, shiness: 100 });
+        var poleMat = new THREE.MeshPhongMaterial({ color: 0xffffff, specular: 0x111111, shininess: 100 });
 
         var mesh = new THREE.Mesh(poleGeo, poleMat);
         mesh.position.x = -125;

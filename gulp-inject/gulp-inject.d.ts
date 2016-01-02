@@ -22,8 +22,11 @@ declare module "gulp-inject" {
         ignorePath?: string | string[];
         relative?: boolean;
         addPrefix?: string;
+        addSuffix?: string;
         addRootSlash?: boolean;
         name?: string;
+        removeTags?: boolean;
+        empty?: boolean;
         starttag?: string | ITagFunction;
         endtag?: string | ITagFunction;
         transform?: ITransformFunction;

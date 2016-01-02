@@ -46,7 +46,7 @@ myapp.controller("MyController", ["$scope", "$firebase", '$FirebaseObject', '$Fi
 
         // AngularFireObject
         {
-            var obj = sync.$asObject();
+            var obj = $FirebaseObject(ref);
 
             // $id
             if (obj.$id !== ref.name()) throw "error";
@@ -63,7 +63,7 @@ myapp.controller("MyController", ["$scope", "$firebase", '$FirebaseObject', '$Fi
             });
 
             // $ref()
-            if (obj.$ref() !== sync) throw "error";
+            if (obj.$ref() !== ref) throw "error";
 
             // $bindTo()
             obj.$bindTo($scope, "data").then(function () {
@@ -92,10 +92,10 @@ myapp.controller("MyController", ["$scope", "$firebase", '$FirebaseObject', '$Fi
 
         // AngularFireArray
         {
-            var list = sync.$asArray();
+            var list = $FirebaseArray(ref);
 
             // $ref()
-            if (list.$ref() !== sync) throw "error";
+            if (list.$ref() !== ref) throw "error";
 
             // $add()
             list.$add({ foo: "foo value" });

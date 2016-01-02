@@ -67,6 +67,7 @@ declare module Rx {
 
 		fromEvent<T>(element: NodeList, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
 		fromEvent<T>(element: Node, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
-        fromEventPattern<T>(addHandler: (handler: Function) => void, removeHandler: (handler: Function) => void, selector?: (arguments: any[])=>T): Observable<T>;
+		fromEvent<T>(element: {on: (name: string, cb: (e: any) => any) => void; off: (name: string, cb: (e: any) => any) => void}, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
+		fromEventPattern<T>(addHandler: (handler: Function) => void, removeHandler: (handler: Function) => void, selector?: (arguments: any[])=>T): Observable<T>;
 	}
 }

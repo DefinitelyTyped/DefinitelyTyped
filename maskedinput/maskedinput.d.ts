@@ -47,9 +47,9 @@ interface MaskedInputDefaults {
 }
 
 interface JQueryStatic {
-    inputmask: MaskedInputStatic;
+    mask: MaskedInputStatic;
 }
 
 interface JQuery {
-    inputmask(mask: string, options?: JQueryMaskedInputOptions): JQuery;
+    mask(mask: string, options?: JQueryMaskedInputOptions): JQuery;
 }
