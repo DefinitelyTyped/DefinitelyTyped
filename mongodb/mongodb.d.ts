@@ -674,7 +674,7 @@ declare module mongodb {
         pipe(): void;
 
         // http://mongodb.github.io/node-mongodb-native/2.0/api/Cursor.html#project
-        project(value: number): Cursor;
+        project(value: any): this;
 
         // http://mongodb.github.io/node-mongodb-native/2.0/api/external-Readable.html#read
         read(size: number): string | Buffer | void;
@@ -870,6 +870,25 @@ declare module mongodb {
 
         // http://mongodb.github.io/node-mongodb-native/2.0/api/AggregationCursor.html#out
         out(destination: number): AggregationCursor;
+
+        // http://mongodb.github.io/node-mongodb-native/2.0/api/Cursor.html#returnKey
+        redact(document: any): AggregationCursor;
+
+        // http://mongodb.github.io/node-mongodb-native/2.0/api/AggregationCursor.html#rewind
+        rewind(): AggregationCursor;
+        
+        // http://mongodb.github.io/node-mongodb-native/2.0/api/AggregationCursor.html#skip
+        skip(value: number): AggregationCursor;
+        
+        // http://mongodb.github.io/node-mongodb-native/2.0/api/AggregationCursor.html#sort
+        sort(document: any): AggregationCursor;
+
+        // http://mongodb.github.io/node-mongodb-native/2.0/api/AggregationCursor.html#toArray
+        toArray(callback: AggregationCursorResultCallback<any>): void;
+        toArray(): Promise<any>;
+        
+        // http://mongodb.github.io/node-mongodb-native/2.0/api/AggregationCursor.html#unwind
+        unwind(field: number): AggregationCursor;
     }
 
     // Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/cursorstream.html
