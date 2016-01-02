@@ -1,6 +1,6 @@
 /// <reference path="globalize.d.ts" />
 
-Globalize.culture("fr");
+/*Globalize.culture("fr");
 console.log(Globalize.culture().name);
 
 Globalize.culture("fr-FR");
@@ -66,7 +66,7 @@ Globalize.format(new Date(2012, 1, 20), 'd');
 Globalize.format(new Date(2012, 1, 20), 'D');
 
 
-Globalize.cultures[ "default" ] = {
+Globalize.load[ "default" ] = {
     name: "English",
     englishName: "English",
     nativeName: "English",
@@ -132,4 +132,4 @@ Globalize.cultures[ "default" ] = {
         }
     },
     messages: {}
-}
+}*/

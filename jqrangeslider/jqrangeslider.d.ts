@@ -70,5 +70,5 @@ interface JQuery {
     dateRangeSlider(method: string): any;
     dateRangeSlider(method: string, value: Date): JQuery;
     dateRangeSlider(method: string, min: Date, max: Date): JQuery
-	dateRangeSlider(options?: JQRangeSliderOptions): JQuery;
+	dateRangeSlider(options?: JQDateRangeSliderOptions): JQuery;
 }

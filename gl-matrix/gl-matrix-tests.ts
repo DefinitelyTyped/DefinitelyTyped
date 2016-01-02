@@ -58,6 +58,7 @@ outStr = vec2.str(vecA);
 
 // vec3
 var matr: GLM.IArray;
+var q: GLM.IArray;
 
 vecA = [1, 2, 3]; 
 vecB = new Float32Array([4, 5, 6]);
@@ -102,8 +103,11 @@ out = vec3.rotateY(out, vecA, vecB, Math.PI);
 out = vec3.rotateZ(out, vecA, vecB, Math.PI);
 out = vec3.transformMat3(out, vecA, matr);
 
-matr = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 ]
+matr = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 ];
 out = vec3.transformMat4(out, vecA, matr);
+
+q = [1, 2, 3, 4];
+out = vec3.transformQuat(out, vecA, matr);
 
 out = vec3.forEach(vecArray, 0, 0, 0, vec3.normalize);
 outVal = vec3.angle(vecA, vecB);
@@ -237,9 +241,13 @@ out = mat3.normalFromMat4(out, matA);
 q = [ 0, -0.7071067811865475, 0, 0.7071067811865475 ];
 out = mat3.fromQuat(out, q);                    
 
+out = mat3.normalFromMat4(out, [ 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12, 13,14,15,16]);
 out = mat3.fromMat4(out, [ 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12, 13,14,15,16]);
 out = mat3.scale(out, matA, [2,2]);
 out = mat3.fromMat2d(out, [1, 2, 3, 4, 5, 6]);
+
+out = mat3.translate(out, matA, [1, 2, 3]);
+out = mat3.rotate(out, matA, Math.PI/2);
 
 // mat4
 matA = [1, 0, 0, 0,
@@ -324,6 +332,7 @@ outVal = quat.len(quatA);
 outVal = quat.squaredLength(quatA);
 outVal = quat.sqrLen(quatA);
 out = quat.normalize(out, quatA);
+outVal = quat.dot(out, quatA, quatB);
 out = quat.lerp(out, quatA, quatB, 0.5);
 out = quat.slerp(out, quatA, quatB, 0.5);
 out = quat.invert(out, quatA);

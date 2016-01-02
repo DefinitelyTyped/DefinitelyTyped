@@ -120,6 +120,11 @@ function test_ajax() {
         alert("Data Saved: " + msg);
     });
     $.ajax({
+        method: "POST",
+        url: "some.php",
+        data: { name: "John", location: "Boston" }
+    });
+    $.ajax({
         url: "test.html",
         cache: false
     }).done(function (html) {
@@ -1129,6 +1134,13 @@ function test_jQuery_removeData() {
     jQuery.removeData(div, "test1");
     $("span:eq(2)").text("" + jQuery.data(div, "test1"));
     $("span:eq(3)").text("" + jQuery.data(div, "test2"));
+}
+
+function test_removeDataAll() {
+    var el = $("div");
+    el.data("test1", "VALUE-1");
+    el.data("test2", "VALUE-2");
+    el.removeData();
 }
 
 function test_dblclick() {
@@ -3116,6 +3128,7 @@ function test_val() {
     $("#single").val("Single2");
     $("#multiple").val(["Multiple2", "Multiple3"]);
     $("input").val(["check1", "check2", "radio1"]);
+    $("input").val(1);
 }
 
 function test_selector() {
@@ -3205,6 +3218,10 @@ function test_not() {
     $("p").not("#selected");
 
     $("p").not($("div p.selected"));
+    
+    var el1 = $("<div/>")[0];
+    var el2 = $("<div/>")[0];
+    $("p").not([el1, el2]);
 }
 
 function test_EventIsNewable() {
@@ -3354,7 +3371,7 @@ function test_promise_then_change_type() {
 		var def = $.Deferred<any>();
 		var promise = def.promise(null);
 
-		def.rejectWith(this, new Error());
+		def.rejectWith(this, [new Error()]);
 
 		return promise;
 	}

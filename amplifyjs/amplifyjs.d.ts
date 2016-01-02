@@ -29,6 +29,7 @@ interface amplifyDecoders {
 
 interface amplifyAjaxSettings extends JQueryAjaxSettings  {
     cache?: any;
+    dataMap?: {} | ((data: any) => {});
     decoder?: any /* string or amplifyDecoder */;
 }
 
@@ -50,7 +51,7 @@ interface amplifyRequest {
     *   success (optional): Function to invoke on success.
     *   error (optional): Function to invoke on error.
     */
-    (settings: amplifyRequestSettings);
+    (settings: amplifyRequestSettings): any;
 
     /***
     * Define a resource.

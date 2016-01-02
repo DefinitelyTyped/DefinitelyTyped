@@ -467,7 +467,7 @@ var calendarCollection: Microsoft.Live.IObjectCollection<Microsoft.Live.ICalenda
 
 var newCalendar: Microsoft.Live.INewCalendar = {
     "name": "Summer Events",
-    "summary": "Things we are doing this summer."
+    "description": "Things we are doing this summer."
 };
 
 var newCalendarSub: Microsoft.Live.INewCalendarSubscription = {

@@ -1,4 +1,4 @@
-// Type definitions for Drop v0.5.7
+// Type definitions for Drop v1.3.0
 // Project: http://github.hubspot.com/drop/
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -22,9 +22,11 @@ declare module drop {
         content?: Element | string | ((drop?: Drop) => string) | ((drop?: Drop) => Element);
         position?: string;
         openOn?: string;
+        classes?: string;
         constrainToWindow?: boolean;
         constrainToScrollParent?: boolean;
         remove?: boolean;
+        beforeClose?: () => boolean;
         tetherOptions?: tether.ITetherOptions;
     }
 
@@ -36,6 +38,7 @@ declare module drop {
         close(): void;
         remove(): void;
         toggle(): void;
+        isOpened(): boolean;
         position(): void;
         destroy(): void;
         /*

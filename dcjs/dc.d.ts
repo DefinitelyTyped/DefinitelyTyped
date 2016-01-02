@@ -20,6 +20,21 @@ declare module DC {
         (t: T, r?: R): V;
     }
 
+    export interface IGetSetComputed<T, R, V> {
+        (): R;
+        (t: T): V;
+    }
+
+    export interface Scale<T> {
+        (x: any): T;
+
+        domain(values: any[]): Scale<T>;
+        domain(): any[];
+
+        range(values: T[]): Scale<T>;
+        range(): T[];
+    }
+
     export interface Accessor<T, V> {
         (datum: T, index?: number): V;
     }
@@ -86,7 +101,7 @@ declare module DC {
         clamp(n: number, min: number, max: number): number;
         uniqueId(): number;
         nameToId(name: string): string;
-        appendOrSelect(parent: D3.Selection, selector: string, tag: any): D3.Selection;
+        appendOrSelect(parent: d3.Selection<any>, selector: string, tag: any): d3.Selection<any>;
         safeNumber(n: any): number;
     }
 
@@ -108,15 +123,15 @@ declare module DC {
         minWidth: IGetSet<number, T>;
         minHeight: IGetSet<number, T>;
         dimension: IGetSet<any, T>;
-        data: IGetSet<(group: any) => Array<any>, T>;
+        data: IGetSetComputed<(group: any) => Array<any>, Array<any>, T>;
         group: IGetSet<any, T>;
         ordering: IGetSet<Accessor<any, any>, T>;
         filterAll(): void;
-        select(selector: D3.Selection|string): D3.Selection;
-        selectAll(selector: D3.Selection|string): D3.Selection;
-        anchor(anchor: BaseMixin<any>|D3.Selection|string, chartGroup?: string): D3.Selection;
+        select(selector: d3.Selection<any>|string): d3.Selection<any>;
+        selectAll(selector: d3.Selection<any>|string): d3.Selection<any>;
+        anchor(anchor: BaseMixin<any>|d3.Selection<any>|string, chartGroup?: string): d3.Selection<any>;
         anchorName(): string;
-        svg: IGetSet<D3.Selection, D3.Selection>;
+        svg: IGetSet<d3.Selection<any>, d3.Selection<any>>;
         resetSvg(): void;
         filterPrinter: IGetSet<(filters: Array<any>) => string, T>;
         turnOnControls(): void;
@@ -160,9 +175,9 @@ declare module DC {
     }
 
     export interface ColorMixin<T> {
-        colors: IGetSet<D3.Scale.GenericScale<any>|Array<string>, T>;
+        colors: IGetSet<Array<string> | Scale<string | d3.Color>, T>;
         ordinalColors(r: Array<string>): void;
-        linearColors(r: Array<number>): void;
+        linearColors(r: Array<string>): void;
         colorAccessor: IGetSet<Accessor<any, string>, T>;
         colorDomain: IGetSet<Array<any>, T>;
         calculateColorDomain(): void;
@@ -170,16 +185,16 @@ declare module DC {
         colorCalculator: IGetSet<Accessor<any, string>, T>;
     }
 
-    export interface CoordinateGridMixin<T> extends BaseMixin<T>, MarginMixin<T>, BaseMixin<T> {
+    export interface CoordinateGridMixin<T> extends BaseMixin<T>, MarginMixin<T>, ColorMixin<T> {
         rangeChart: IGetSet<BaseMixin<any>, T>;
         zoomScale: IGetSet<Array<any>, T>;
         zoomOutRestrict: IGetSet<boolean, T>;
-        g: IGetSet<D3.Selection, T>;
+        g: IGetSet<d3.Selection<any>, T>;
         mouseZoomable: IGetSet<boolean, T>;
-        chartBodyG(): D3.Selection;
-        x: IGetSet<D3.Scale.GenericScale<any>, T>;
+        chartBodyG(): d3.Selection<any>;
+        x: IGetSet<(n: any) => any, T>;
         xUnits: IGetSet<UnitFunction, T>;
-        xAxis: IGetSet<D3.Svg.Axis, T>;
+        xAxis: IGetSet<d3.svg.Axis, T>;
         elasticX: IGetSet<boolean, T>;
         xAxisPadding: IGetSet<number, T>;
         xUnitCount(): number;
@@ -187,8 +202,8 @@ declare module DC {
         isOrdinal(): boolean;
         xAxisLabel: IBiGetSet<string, number, T>;
         yAxisLabel: IBiGetSet<string, number, T>;
-        y: IGetSet<D3.Scale.GenericQuantitativeScale<any>, T>;
-        yAxis: IGetSet<D3.Svg.Axis, T>;
+        y: IGetSet<Scale<number>, T>;
+        yAxis: IGetSet<d3.svg.Axis, T>;
         elasticY: IGetSet<boolean, T>;
         renderHorizontalGridLines: IGetSet<boolean, T>;
         renderVerticalGridLines: IGetSet<boolean, T>;
@@ -209,7 +224,7 @@ declare module DC {
         hideStack(name: string): void;
         showStack(name: string): void;
         // title(stackName: string, titleFn: Accessor<any, T>);
-        stackLayout: IGetSet<D3.Layout.StackLayout, T>;
+        stackLayout: IGetSet<d3.layout.Stack<any[], any>, T>;
     }
 
     export interface CapMixin<T> {
@@ -219,7 +234,7 @@ declare module DC {
     }
 
     export interface BubbleMixin<T> extends ColorMixin<T> {
-        r: IGetSet<D3.Scale.GenericQuantitativeScale<any>, T>;
+        r: IGetSet<Scale<number>, T>;
         radiusValueAccessor: IGetSet<Accessor<any, number>, T>;
         minRadiusWithLabel: IGetSet<number, T>;
         maxBubbleRelativeSize: IGetSet<number, T>;
@@ -248,7 +263,7 @@ declare module DC {
         radius: number;
     }
 
-    export interface LineChart extends StackMixin<BarChart>, CoordinateGridMixin<BarChart> {
+    export interface LineChart extends StackMixin<LineChart>, CoordinateGridMixin<LineChart> {
         interpolate: IGetSet<string, LineChart>;
         tension: IGetSet<number, LineChart>;
         defined: IGetSet<Accessor<any, boolean>, LineChart>;
@@ -287,19 +302,21 @@ declare module DC {
         elasticRadius: IGetSet<boolean, BubbleChart>;
     }
 
-    export interface CompositeChart extends CoordinateGridMixin<CompositeChart> {
-        useRightAxisGridLines: IGetSet<boolean, CompositeChart>;
-        childOptions: IGetSet<any, CompositeChart>;
-        rightYAxisLabel: IGetSet<string, CompositeChart>;
-        compose: IGetSet<Array<BaseMixin<any>>, CompositeChart>;
+    export interface ICompositeChart<T> extends CoordinateGridMixin<T> {
+        useRightAxisGridLines: IGetSet<boolean, ICompositeChart<T>>;
+        childOptions: IGetSet<any, ICompositeChart<T>>;
+        rightYAxisLabel: IGetSet<string, ICompositeChart<T>>;
+        compose: IGetSet<Array<BaseMixin<any>>, ICompositeChart<T>>;
         children(): Array<BaseMixin<any>>;
-        shareColors: IGetSet<boolean, CompositeChart>;
-        shareTitle: IGetSet<boolean, CompositeChart>;
-        rightY: IGetSet<D3.Scale.GenericQuantitativeScale<any>, CompositeChart>;
-        rightYAxis: IGetSet<D3.Svg.Axis, CompositeChart>;
+        shareColors: IGetSet<boolean, ICompositeChart<T>>;
+        shareTitle: IGetSet<boolean, ICompositeChart<T>>;
+        rightY: IGetSet<(n: any) => any, ICompositeChart<T>>;
+        rightYAxis: IGetSet<d3.svg.Axis, ICompositeChart<T>>;
     }
 
-    export interface SeriesChart extends CompositeChart {
+    export interface CompositeChart extends ICompositeChart<CompositeChart> {}
+
+    export interface SeriesChart extends ICompositeChart<SeriesChart> {
         chart: IGetSet<(c: any) => BaseMixin<any>, SeriesChart>;
         seriesAccessor: IGetSet<Accessor<any, any>, SeriesChart>;
         seriesSort: IGetSet<(a: any, b: any) => number, SeriesChart>;
@@ -314,9 +331,9 @@ declare module DC {
 
     export interface GeoChoroplethChart extends ColorMixin<GeoChoroplethChart>, BaseMixin<GeoChoroplethChart> {
         overlayGeoJson(json: any, name: string, keyAccessor: Accessor<any, any>): void;
-        projection: IGetSet<D3.Geo.Projection, GeoChoroplethChart>;
+        projection: IGetSet<d3.geo.Projection, GeoChoroplethChart>;
         geoJsons(): Array<GeoChoroplethLayer>;
-        geoPath(): D3.Geo.Path;
+        geoPath(): d3.geo.Path;
         removeGeoJson(name: string): void;
     }
 
@@ -325,9 +342,9 @@ declare module DC {
     }
 
     export interface RowChart extends CapMixin<RowChart>, MarginMixin<RowChart>, ColorMixin<RowChart>, BaseMixin<RowChart> {
-        x: IGetSet<D3.Scale.GenericQuantitativeScale<any>, RowChart>;
+        x: IGetSet<Scale<number>, RowChart>;
         renderTitleLabel: IGetSet<boolean, RowChart>;
-        xAxis: IGetSet<D3.Svg.Axis, RowChart>;
+        xAxis: IGetSet<d3.svg.Axis, RowChart>;
         fixedBarHeight: IGetSet<number, RowChart>;
         gap: IGetSet<number, RowChart>;
         elasticX: IGetSet<boolean, RowChart>;
@@ -338,7 +355,7 @@ declare module DC {
 
     export interface ScatterPlot extends CoordinateGridMixin<ScatterPlot> {
         existenceAccessor: IGetSet<Accessor<any, boolean>, ScatterPlot>;
-        symbol: IGetSet<D3.Svg.Symbol, ScatterPlot>;
+        symbol: IGetSet<d3.svg.Symbol<any>, ScatterPlot>;
         symbolSize: IGetSet<number, ScatterPlot>;
         highlightedSize: IGetSet<number, ScatterPlot>;
         hiddenSize: IGetSet<number, ScatterPlot>;
@@ -392,7 +409,7 @@ declare module DC {
         renderAll(group?: string): void;
         redrawAll(group?: string): void;
         disableTransitions: boolean;
-        transition(selections: D3.Selection, duration: number, callback: (s: D3.Selection) => void): void;
+        transition(selections: d3.Selection<any>, duration: number, callback: (s: d3.Selection<any>) => void): void;
 
         units: Units;
         events: Events;

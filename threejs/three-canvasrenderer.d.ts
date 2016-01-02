@@ -8,7 +8,7 @@
 declare module THREE {
     export interface SpriteCanvasMaterialParameters extends MaterialParameters{
         color?: number;
-
+        program?: (context: any, color: Color) => void;
     }
 
     export class SpriteCanvasMaterial extends Material {

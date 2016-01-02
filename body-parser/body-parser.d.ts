@@ -6,7 +6,7 @@
 /// <reference path="../express/express.d.ts" />
 
 declare module "body-parser" {
-    import express = require('express');
+    import * as express from "express";
 
     /**
      * bodyParser: use individual json/urlencoded middlewares

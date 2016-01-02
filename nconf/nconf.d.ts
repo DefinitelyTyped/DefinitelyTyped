@@ -48,11 +48,12 @@ declare module "nconf" {
 		parse: (str: string) => any;
 	}
 
-	export interface IOptions {
-		type?: string;
+	export interface IOptions { 
+		[index: string]: any; 
 	}
 
-	export interface IFileOptions extends IOptions {
+	export interface IFileOptions {
+		type?: string;
 		file?: string;
 		dir?: string;
 		search?: boolean;

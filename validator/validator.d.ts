@@ -22,7 +22,7 @@ interface IEmailoptions {
   lowercase?: boolean
 }
 
-// callback type for #extend 
+// callback type for #extend
 interface IExtendCallback {
   (argv: string): any
 }
@@ -53,6 +53,9 @@ interface IValidatorStatic {
 
   // check if the string is a fully qualified domain name (e.g. domain.com).
   isFQDN(str: string, options?: IFQDNoptions): boolean;
+
+  // check if the string is a MAC address.
+  isMACAddress(str: string): boolean;
 
   // check if the string is an IP (version 4 or 6).
   isIP(str: string, version?: number): boolean;
@@ -177,7 +180,7 @@ interface IValidatorStatic {
   // remove characters that do not appear in the whitelist.
   whitelist(input: string, chars: string): string;
 
-  // remove characters that appear in the blacklist. 
+  // remove characters that appear in the blacklist.
   blacklist(input: string, chars: string): string;
 
   // canonicalize an email address.
