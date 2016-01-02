@@ -1,11 +1,12 @@
-﻿// Type definitions for jsurl 1.2.2
+﻿// Type definitions for jsurl 1.2.7
 // Project: https://github.com/Mikhus/jsurl
 // Definitions by: Alexey Gorshkov <https://github.com/agorshkov23>
 // Definitions: https://github.com/agorshkov23/DefinitelyTyped
 
-declare class Url {
-    constructor(url?: string);
-    query: any;
+declare class Url<T> {
+    constructor();
+    constructor(url: string);
+    query: T;
     protocol: string;
     user: string;
     pass: string;
@@ -14,5 +15,5 @@ declare class Url {
     path: string;
     hash: string;
     href: string;
-    toString(): string;
+    toString: () => string;
 }
