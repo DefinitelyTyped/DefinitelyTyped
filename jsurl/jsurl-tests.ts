@@ -1,10 +1,15 @@
 /// <reference path="jsurl.d.ts" />
 
-interface U2Model {
+interface UModel extends UrlQuery {
+    a: any;
+    b: string;
+}
+
+interface U2Model extends UrlQuery {
     a: any;
 }
 
-var u = new Url <any>(); // curent document URL will be used
+var u = new Url<UModel>(); // curent document URL will be used
 // or we can instantiate as
 var u2 = new Url<U2Model>("http://example.com/some/path?a=b&c=d#someAnchor");
 // it should support relative URLs also
@@ -48,7 +53,7 @@ alert(
     'path = ' + u.path + '\n' +
     'query = ' + u.query + '\n' +
     'hash = ' + u.hash
-    );
+);
 
 // Manipulating URL parts
 u.path = '/some/new/path'; // the way to change URL path

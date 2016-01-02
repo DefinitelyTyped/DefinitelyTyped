@@ -3,6 +3,10 @@
 // Definitions by: Alexey Gorshkov <https://github.com/agorshkov23>
 // Definitions: https://github.com/agorshkov23/DefinitelyTyped
 
+interface UrlQuery {
+    clear: () => void;
+}
+
 declare class Url<T> {
     constructor();
     constructor(url: string);
