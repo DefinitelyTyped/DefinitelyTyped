@@ -8561,28 +8561,58 @@ declare module _ {
     }
 
     //_.bind
-    interface LoDashStatic {
-        /**
-        * Creates a function that, when called, invokes func with the this binding of thisArg
-        * and prepends any additional bind arguments to those provided to the bound function.
-        * @param func The function to bind.
-        * @param thisArg The this binding of func.
-        * @param args Arguments to be partially applied.
-        * @return The new bound function.
-        **/
-        bind(
+    interface FunctionBind {
+        placeholder: any;
+
+        <T extends Function, TResult extends Function>(
+            func: T,
+            thisArg: any,
+            ...partials: any[]
+        ): TResult;
+
+        <TResult extends Function>(
             func: Function,
             thisArg: any,
-            ...args: any[]): (...args: any[]) => any;
+            ...partials: any[]
+        ): TResult;
+    }
+
+    interface LoDashStatic {
+        /**
+         * Creates a function that invokes func with the this binding of thisArg and prepends any additional _.bind
+         * arguments to those provided to the bound function.
+         *
+         * The _.bind.placeholder value, which defaults to _ in monolithic builds, may be used as a placeholder for
+         * partially applied arguments.
+         *
+         * Note: Unlike native Function#bind this method does not set the "length" property of bound functions.
+         *
+         * @param func The function to bind.
+         * @param thisArg The this binding of func.
+         * @param partials The arguments to be partially applied.
+         * @return Returns the new bound function.
+         */
+        bind: FunctionBind;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.bind
-        **/
-        bind(
+         * @see _.bind
+         */
+        bind<TResult extends Function>(
             thisArg: any,
-            ...args: any[]): LoDashImplicitObjectWrapper<(...args: any[]) => any>;
+            ...partials: any[]
+        ): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.bind
+         */
+        bind<TResult extends Function>(
+            thisArg: any,
+            ...partials: any[]
+        ): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.bindAll
