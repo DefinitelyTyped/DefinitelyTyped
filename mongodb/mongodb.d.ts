@@ -610,9 +610,10 @@ declare module mongodb {
         indexes(callback: MongoCallback<any>): void;
 
         // http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#aggregate
-        aggregate(pipeline: Array<any>, options?: CollectionAggregationOptions): Promise<any>;
+        aggregate(pipeline: Array<any>, options?: CollectionAggregationOptions): AggregationCursor;
         aggregate(pipeline: Array<any>, options: CollectionAggregationOptions, callback: MongoCallback<any>): void;
-
+        aggregate(): AggregationCursor;
+        
         // http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#stats
         stats(options: { scale: number }): Promise<any>;
         stats(options: { scale: number }, callback: MongoCallback<any>): void;
