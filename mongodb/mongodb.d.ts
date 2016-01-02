@@ -5,6 +5,8 @@
 
 // Documentation : http://mongodb.github.io/node-mongodb-native/
 
+/// <reference path="../bluebird/bluebird.d.ts" />
+
 declare module mongodb {
 
     export var ReadPreference: {
