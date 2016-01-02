@@ -36,12 +36,12 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import GridList from 'material-ui/lib/grid-list/grid-list';
 import GridTile from 'material-ui/lib/grid-list/grid-tile';
 
-import NavigationClose from "material-ui/lib/svg-icon";  // TODO: Should actually import the actual "material-ui/lib/svg-icons/navigation/close", but they aren't defined yet.
-import FileFolder from "material-ui/lib/svg-icon";  // TODO: Should actually import the actual "material-ui/lib/svg-icons/file/folder", but they aren't defined yet.
-import ToggleStar from "material-ui/lib/svg-icon";  // TODO: Should actually import the actual "material-ui/lib/svg-icons/toggle/star", but they aren't defined yet.
-import ActionGrade from "material-ui/lib/svg-icon";  // TODO: Should actually import the actual "material-ui/lib/svg-icons/action/grade", but they aren't defined yet.
-import ToggleStarBorder from "material-ui/lib/svg-icon";  // TODO: Should actually import the actual "material-ui/lib/svg-icons/toggle/star-border", but they aren't defined yet.
-import ArrowDropRight from "material-ui/lib/svg-icon";  // TODO: Should actually import the actual "material-ui/lib/svg-icons/toggle/star-border", but they aren't defined yet.
+import NavigationClose from "material-ui/lib/svg-icons/navigation/close";
+import FileFolder from "material-ui/lib/svg-icons/file/folder";
+import ToggleStar from "material-ui/lib/svg-icons/toggle/star";
+import ActionGrade from "material-ui/lib/svg-icons/action/grade";
+import ToggleStarBorder from "material-ui/lib/svg-icons/toggle/star-border";
+import ArrowDropRight from "material-ui/lib/svg-icons/navigation-arrow-drop-right";
 
 type CheckboxProps = __MaterialUI.CheckboxProps;
 type MuiTheme = __MaterialUI.Styles.MuiTheme;
@@ -497,20 +497,20 @@ class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implemen
             hintText="Password Field"
             floatingLabelText="Password"
             type="password" />;
-            
+
 
         // "http://material-ui.com/#/components/time-picker"
 
 
         // "http://material-ui.com/#/components/toolbars"
-        
+
         // "http://material-ui.com/#/components/grid-list"
         element = <GridList
             cols={3}
             padding={50}
             cellHeight={200}
             style={{ color: 'red' }} />;
-            
+
         element = <GridTile
             title="GridTileTitle"
             actionIcon={<h1>GridTile</h1>}
