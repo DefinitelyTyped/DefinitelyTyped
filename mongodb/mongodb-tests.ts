@@ -17,7 +17,7 @@ class MongoTester {
     }
 
     public connect(): Promise<boolean> {
-        return MongoDB.MongoClient.connect(this._dbURL).then((db) => {
+        return MongoDB.MongoClient.connect(this._dbURL).then((db: MongoDB.Db) => {
             this._dbHandle = db;
             this._collectionHandle = this._dbHandle.collection(this._collectionName);
             return Promise.resolve(true);
@@ -50,11 +50,11 @@ client.connect().then(() => {
 }).then(() => {
     console.log("Populated database...");
     return client.count();
-}).then((tCount) => {
+}).then((tCount: number) => {
     console.log("Counted", tCount, "docs!!!11");
     return client.cleanUp();
 }).then(() => {
     console.log("Finished & Cleaned!");
-}).catch((error) => {
+}).catch((error: Error) => {
     console.log(error);
 });
