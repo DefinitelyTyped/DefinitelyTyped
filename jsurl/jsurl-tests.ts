@@ -9,11 +9,15 @@ interface U2Model extends UrlQuery {
     a: any;
 }
 
+interface U3Model extends UrlQuery {
+    foo: string;
+}
+
 var u = new Url<UModel>(); // curent document URL will be used
 // or we can instantiate as
 var u2 = new Url<U2Model>("http://example.com/some/path?a=b&c=d#someAnchor");
 // it should support relative URLs also
-var u3 = new Url("/my/site/doc/path?foo=bar#baz");
+var u3 = new Url<U3Model>("/my/site/doc/path?foo=bar#baz");
 
 // get the value of some query string parameter
 alert(u2.query.a);
