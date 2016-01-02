@@ -1,30 +1,60 @@
-///<reference path="mongodb.d.ts"/>
 
-// Test source : https://github.com/mongodb/node-mongodb-native
-import mongodb = require('mongodb');
-var MongoClient = mongodb.MongoClient;
+/// <reference path="../es6-promise/es6-promise.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
-var format = require('util').format;
-MongoClient.connect('mongodb://127.0.0.1:27017/test', function (err, db) {
-    if (err) throw err;
+import MongoDB = require("mongodb");
+import Promise = require('bluebird');
 
-    var collection = db.collection('test_insert');
-    collection.insert({ a: 2 }, function (err, docs) {
+class MongoTester {
+    private _dbURL: string;
+    private _collectionName: string;
+    private _dbHandle: MongoDB.Db;
+    private _collectionHandle: MongoDB.Collection;
 
-        collection.count(function (err, count) {
-            console.log(format("count = %s", count));
+    constructor(dbURL: string, collectionName: string) {
+        this._dbURL = dbURL;
+        this._collectionName = collectionName;
+    }
+
+    public connect(): Promise<boolean> {
+        return MongoDB.MongoClient.connect(this._dbURL).then((db) => {
+            this._dbHandle = db;
+            this._collectionHandle = this._dbHandle.collection(this._collectionName);
+            return Promise.resolve(true);
         });
+    }
 
-        // Locate all the entries using find
-        collection.find().toArray(function (err, results) {
-            console.dir(results);
-            // Let's close the db
-            db.close();
-        });
+    public populate(): Promise<boolean> {
+        let testDocs = [ {msg: "Hello"}, {msg: "World"} ];
 
-        // Get some statistics
-        collection.stats(function (err, stats) {
-            console.log(stats.count + " documents");
+        return this._collectionHandle.insertMany(testDocs).then(() => {
+            return Promise.resolve(true);
         });
-    });
-})
+    }
+
+    public count(): Promise<number> {
+        return this._collectionHandle.count({});
+    }
+
+    public cleanUp(): Promise<boolean> {
+        return this._dbHandle.dropDatabase().then(() => {
+            return Promise.resolve(true);
+        });
+    }
+}
+
+let client = new MongoTester("mongodb://127.0.0.1:27017/test", "test_insert");
+client.connect().then(() => {
+    console.log("Connected...");
+    return client.populate();
+}).then(() => {
+    console.log("Populated database...");
+    return client.count();
+}).then((tCount) => {
+    console.log("Counted", tCount, "docs!!!11");
+    return client.cleanUp();
+}).then(() => {
+    console.log("Finished & Cleaned!");
+}).catch((error) => {
+    console.log(error);
+});
