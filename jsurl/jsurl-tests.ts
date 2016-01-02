@@ -1,8 +1,12 @@
 /// <reference path="jsurl.d.ts" />
 
-var u = new Url; // curent document URL will be used
+interface U2Model {
+    a: any;
+}
+
+var u = new Url <any>(); // curent document URL will be used
 // or we can instantiate as
-var u2 = new Url("http://example.com/some/path?a=b&c=d#someAnchor");
+var u2 = new Url<U2Model>("http://example.com/some/path?a=b&c=d#someAnchor");
 // it should support relative URLs also
 var u3 = new Url("/my/site/doc/path?foo=bar#baz");
 
@@ -55,13 +59,13 @@ var str = '<a href="' + u + '">My Cool Link</a>';
 
 // or use in DOM context
 var a = document.createElement('a');
-a.href = u;
+a.href = u.toString();
 a.innerHTML = 'test';
 document.body.appendChild(a);
 
 // Stringify
-u += '';
-String(u);
-u.toString();
+var su1 = u + '';
+var su2 = String(u);
+var su3 = u.toString();
 // NOTE, that usually it will be done automatically, so only in special
 //       cases direct stringify is required
