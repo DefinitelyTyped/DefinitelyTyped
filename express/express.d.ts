@@ -103,13 +103,13 @@ declare module "express" {
             route(path: string): IRoute;
 
             use(handler: RequestHandler | ErrorRequestHandler): T;
-            use(handler: RequestHandler, ...handlers: RequestHandler[]): T;
+            use(...handler: RequestHandler[]): T;
             use(path: string, handler: RequestHandler | ErrorRequestHandler): T;
-            use(path: string, handler: RequestHandler, ...handlers: RequestHandler[]): T;
+            use(path: string, ...handler: RequestHandler[]): T;
             use(path: string[], handler: RequestHandler | ErrorRequestHandler): T;
-            use(path: string[], handler: RequestHandler, ...handlers: RequestHandler[]): T;
+            use(path: string[], ...handler: RequestHandler[]): T;
             use(path: RegExp, handler: RequestHandler | ErrorRequestHandler): T;
-            use(path: RegExp, handler: RequestHandler, ...handlers: RequestHandler[]): T;
+            use(path: RegExp, ...handler: RequestHandler[]): T;
             use(path:string, router:Router): T;
         }
 
