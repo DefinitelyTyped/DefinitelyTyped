@@ -1193,8 +1193,12 @@ declare module GitHubElectron {
 			/**
 			 * File types that can be displayed, see dialog.showOpenDialog for an example.
 			 */
-			filters?: string[];
-		}, callback?: (fileName: string) => void): void;
+			 
+			filters?: {
+				name: string;
+				extensions: string[];
+			}[]
+		}, callback?: (fileName: string) => void): string;
 
 		/**
 		 * Shows a message box. It will block until the message box is closed. It returns .
