@@ -188,7 +188,7 @@ interface JQueryXHR extends XMLHttpRequest, JQueryPromise<any> {
     /**
      * A function to be called if the request fails.
      */
-    error(xhr: JQueryXHR, textStatus: string, errorThrown: string): void;
+    error(callback: (xhr: JQueryXHR, textStatus: string, errorThrown: string) => any): void;
 }
 
 /**
