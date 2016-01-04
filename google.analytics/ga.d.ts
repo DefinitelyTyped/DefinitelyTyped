@@ -42,6 +42,7 @@ declare module UniversalAnalytics {
     interface ga {
         l: number;
         q: any[];
+        (command:string, hitDetails:string, eventCategory:string, ...additionalParams:any[]): UniversalAnalytics.Tracker;
         (command: string, poly: string, opt_poly?: {}): UniversalAnalytics.Tracker;
         (command: string, trackingId: string, auto: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
         (command: string, hitDetails: {}): void;
