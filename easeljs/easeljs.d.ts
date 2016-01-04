@@ -161,8 +161,8 @@ declare module createjs {
         tickChildren: boolean;
 
         // methods
-        addChild(...child: DisplayObject[]): DisplayObject;
-        addChildAt(child: DisplayObject, index: number): DisplayObject; // add this for the common case
+        addChild<T extends DisplayObject>(child: T, ...restChildren: DisplayObject[]): T;
+        addChildAt<T extends DisplayObject>(child: T, index: number): T; // add this for the common case
         addChildAt(...childOrIndex: any[]): DisplayObject; // actually (...child: DisplayObject[], index: number)
         clone(recursive?: boolean): Container;
         contains(child: DisplayObject): boolean;
