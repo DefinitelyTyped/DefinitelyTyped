@@ -1,4 +1,4 @@
-// Type definitions for material-ui v0.13.4
+// Type definitions for material-ui v0.14.0
 // Project: https://github.com/callemall/material-ui
 // Definitions by: Nathan Brown <https://github.com/ngbrown>, Oliver Herrmann <https://github.com/herrmanno>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -1747,7 +1747,7 @@ declare namespace __MaterialUI {
         displayMember?: string;
         valueMember?: string;
         autoWidth?: boolean;
-        menuItems: Menu.MenuItemRequest[];
+        menuItems?: Menu.MenuItemRequest[];
         menuItemStyle?: React.CSSProperties;
         selectedIndex?: number;
         underlineStyle?: React.CSSProperties;
@@ -1756,9 +1756,9 @@ declare namespace __MaterialUI {
         style?: React.CSSProperties;
         disabled?: boolean;
         valueLink?: ReactLink<any>;
-        value?: number;
+        value?: any;
 
-        onChange?: Menu.ItemTapEventHandler;
+        onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
         onEnterKeyDown?: React.KeyboardEventHandler;
 
         // own properties
@@ -5191,7 +5191,7 @@ declare namespace __MaterialUI {
           labelStyle?: any;
           maxHeight?: number;
           menuStyle?: any;
-          onChange?: Menu.ItemTapEventHandler;
+          onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
           openImmediately?: boolean;
           style?: any;
           underlineStyle?:  any;
