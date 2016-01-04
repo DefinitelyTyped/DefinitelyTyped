@@ -8315,66 +8315,211 @@ declare module _ {
     //_.sortByOrder
     interface LoDashStatic {
         /**
-        * This method is like "_.sortByAll" except that it allows specifying the sort orders of the
-        * iteratees to sort by. If orders is unspecified, all values are sorted in ascending order.
-        * Otherwise, a value is sorted in ascending order if its corresponding order is "asc", and
-        * descending if "desc".
-        *
-        * If a property name is provided for an iteratee the created "_.property" style callback
-        * returns the property value of the given element.
-        *
-        * If an object is provided for an iteratee the created "_.matches" style callback returns
-        * true for elements that have the properties of the given object, else false.
-        *
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return A new array of sorted elements.
-        **/
-        sortByOrder<T>(
-            collection: Array<T>,
-            iteratees: (ListIterator<T, any>|string|Object)[],
-            orders?: boolean[]): T[];
+         * This method is like _.sortByAll except that it allows specifying the sort orders of the iteratees to sort
+         * by. If orders is unspecified, all values are sorted in ascending order. Otherwise, a value is sorted in
+         * ascending order if its corresponding order is "asc", and descending if "desc".
+         *
+         * If a property name is provided for an iteratee the created _.property style callback returns the property
+         * value of the given element.
+         *
+         * If an object is provided for an iteratee the created _.matches style callback returns true for elements
+         * that have the properties of the given object, else false.
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratees The iteratees to sort by.
+         * @param orders The sort orders of iteratees.
+         * @return Returns the new sorted array.
+         */
+        sortByOrder<W extends Object, T>(
+            collection: List<T>,
+            iteratees: ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): T[];
 
         /**
-        * @see _.sortByOrder
-        **/
+         * @see _.sortByOrder
+         */
         sortByOrder<T>(
             collection: List<T>,
-            iteratees: (ListIterator<T, any>|string|Object)[],
-            orders?: boolean[]): T[];
+            iteratees: ListIterator<T, any>|string|Object|(ListIterator<T, any>|string|Object)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): T[];
 
         /**
-        * @see _.sortByOrder
-        **/
-        sortByOrder<T>(
-            collection: Array<T>,
-            iteratees: (ListIterator<T, any>|string|Object)[],
-            orders?: string[]): T[];
+         * @see _.sortByOrder
+         */
+        sortByOrder<W extends Object, T>(
+            collection: NumericDictionary<T>,
+            iteratees: NumericDictionaryIterator<T, any>|string|W|(NumericDictionaryIterator<T, any>|string|W)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): T[];
 
         /**
-        * @see _.sortByOrder
-        **/
+         * @see _.sortByOrder
+         */
         sortByOrder<T>(
-            collection: List<T>,
-            iteratees: (ListIterator<T, any>|string|Object)[],
-            orders?: string[]): T[];
+            collection: NumericDictionary<T>,
+            iteratees: NumericDictionaryIterator<T, any>|string|Object|(NumericDictionaryIterator<T, any>|string|Object)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): T[];
+
+        /**
+         * @see _.sortByOrder
+         */
+        sortByOrder<W extends Object, T>(
+            collection: Dictionary<T>,
+            iteratees: DictionaryIterator<T, any>|string|W|(DictionaryIterator<T, any>|string|W)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): T[];
+
+        /**
+         * @see _.sortByOrder
+         */
+        sortByOrder<T>(
+            collection: Dictionary<T>,
+            iteratees: DictionaryIterator<T, any>|string|Object|(DictionaryIterator<T, any>|string|Object)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): T[];
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.sortByOrder
+         */
+        sortByOrder(
+            iteratees: ListIterator<T, any>|string|(ListIterator<T, any>|string)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
-        * @see _.sortByOrder
-        **/
-        sortByOrder(
-            iteratees: (ListIterator<T, any>|string|Object)[],
-            orders?: boolean[]): LoDashImplicitArrayWrapper<T>;
+         * @see _.sortByOrder
+         */
+        sortByOrder<W extends Object>(
+            iteratees: ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.sortByOrder
+         */
+        sortByOrder<W extends Object, T>(
+            iteratees: ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): LoDashImplicitArrayWrapper<T>;
 
         /**
-        * @see _.sortByOrder
-        **/
+         * @see _.sortByOrder
+         */
+        sortByOrder<T>(
+            iteratees: ListIterator<T, any>|string|Object|(ListIterator<T, any>|string|Object)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortByOrder
+         */
+        sortByOrder<W extends Object, T>(
+            iteratees: NumericDictionaryIterator<T, any>|string|W|(NumericDictionaryIterator<T, any>|string|W)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortByOrder
+         */
+        sortByOrder<T>(
+            iteratees: NumericDictionaryIterator<T, any>|string|Object|(NumericDictionaryIterator<T, any>|string|Object)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortByOrder
+         */
+        sortByOrder<W extends Object, T>(
+            iteratees: DictionaryIterator<T, any>|string|W|(DictionaryIterator<T, any>|string|W)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortByOrder
+         */
+        sortByOrder<T>(
+            iteratees: DictionaryIterator<T, any>|string|Object|(DictionaryIterator<T, any>|string|Object)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.sortByOrder
+         */
         sortByOrder(
-            iteratees: (ListIterator<T, any>|string|Object)[],
-            orders?: string[]): LoDashImplicitArrayWrapper<T>;
+            iteratees: ListIterator<T, any>|string|(ListIterator<T, any>|string)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.sortByOrder
+         */
+        sortByOrder<W extends Object>(
+            iteratees: ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.sortByOrder
+         */
+        sortByOrder<W extends Object, T>(
+            iteratees: ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortByOrder
+         */
+        sortByOrder<T>(
+            iteratees: ListIterator<T, any>|string|Object|(ListIterator<T, any>|string|Object)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortByOrder
+         */
+        sortByOrder<W extends Object, T>(
+            iteratees: NumericDictionaryIterator<T, any>|string|W|(NumericDictionaryIterator<T, any>|string|W)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortByOrder
+         */
+        sortByOrder<T>(
+            iteratees: NumericDictionaryIterator<T, any>|string|Object|(NumericDictionaryIterator<T, any>|string|Object)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortByOrder
+         */
+        sortByOrder<W extends Object, T>(
+            iteratees: DictionaryIterator<T, any>|string|W|(DictionaryIterator<T, any>|string|W)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortByOrder
+         */
+        sortByOrder<T>(
+            iteratees: DictionaryIterator<T, any>|string|Object|(DictionaryIterator<T, any>|string|Object)[],
+            orders?: boolean|string|(boolean|string)[]
+        ): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.where
