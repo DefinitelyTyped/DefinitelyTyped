@@ -181,7 +181,13 @@ declare module Twitter.Typeahead {
          * Defaults to value.
          */
         display?: string | ((obj: any) => string);
-
+        
+        /**
+         * Can be used in place of display above.
+         * 
+         */ 
+        displayKey?: string | ((obj: any) => string);
+        
         /**
          * A hash of templates to be used when rendering the dataset.
          * Note a precompiled template is a function that takes a JavaScript object as its first argument and returns a HTML string.
