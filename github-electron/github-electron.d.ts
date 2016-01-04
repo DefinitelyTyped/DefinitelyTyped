@@ -1464,6 +1464,24 @@ declare module GitHubElectron {
 		sendToHost(channel: string, ...args: any[]): void;
 	}
 
+	class IPCMain implements NodeJS.EventEmitter {
+		addListener(event: string, listener: Function): IPCMain;
+		once(event: string, listener: Function): IPCMain;
+		removeListener(event: string, listener: Function): IPCMain;
+		removeAllListeners(event?: string): IPCMain;
+		setMaxListeners(n: number): IPCMain;
+		getMaxListeners(): number;
+		listeners(event: string): Function[];
+		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
+		on(event: string, listener: (event: IPCMainEvent, ...args: any[]) => any): IPCMain;
+	}
+
+	interface IPCMainEvent {
+		returnValue?: any;
+		sender: WebContents;
+	}
+
 	interface Remote extends CommonElectron {
 		/**
 		 * @returns The object returned by require(module) in the main process.
@@ -1761,7 +1779,7 @@ declare module GitHubElectron {
 		BrowserWindow: typeof GitHubElectron.BrowserWindow;
 		contentTracing: GitHubElectron.ContentTracing;
 		dialog: GitHubElectron.Dialog;
-		ipcMain: NodeJS.EventEmitter;
+		ipcMain: GitHubElectron.IPCMain;
 		globalShortcut: GitHubElectron.GlobalShortcut;
 		Menu: typeof GitHubElectron.Menu;
 		MenuItem: typeof GitHubElectron.MenuItem;
