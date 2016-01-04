@@ -15,5 +15,7 @@ declare module "gulp-less" {
 
     function less(options?: IOptions): NodeJS.ReadWriteStream;
 
+    namespace less {}
+
     export = less;
 }
