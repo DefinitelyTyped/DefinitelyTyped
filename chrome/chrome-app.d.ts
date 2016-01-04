@@ -378,3 +378,16 @@ declare module chrome.sockets.tcpServer {
     var onAccept: Event<AcceptEventArgs>;
     var onAcceptError: Event<AcceptErrorEventArgs>;
 }
+
+////////////////////
+// System - Network
+////////////////////
+declare module chrome.system.network {
+    interface NetworkInterface {
+        name: string;
+        address: string;
+        prefixLength: number;
+    }
+
+    export function getNetworkInterfaces(callback: (networkInterfaces: NetworkInterface[]) => void): void;
+}
