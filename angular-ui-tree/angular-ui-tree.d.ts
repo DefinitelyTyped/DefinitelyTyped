@@ -54,6 +54,7 @@ declare module AngularUITree {
 
     interface ICallbacks {
         accept: IAcceptCallback;
+        dragStart: IDroppedCallback;
         dropped: IDroppedCallback;
     }
 
