@@ -1727,6 +1727,7 @@ declare namespace __React {
         download?: any;
         draggable?: boolean;
         encType?: string;
+        for?: string;
         form?: string;
         formAction?: string;
         formEncType?: string;
