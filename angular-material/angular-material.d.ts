@@ -16,6 +16,7 @@ declare module angular.material {
         targetEvent?: MouseEvent;
         resolve?: {[index: string]: angular.IPromise<any>}
         controllerAs?: string;
+        bindToController?: boolean;
         parent?: string|Element|JQuery; // default: root node
         disableParentScroll?: boolean; // default: true
     }
@@ -76,6 +77,7 @@ declare module angular.material {
         resolve?: {[index: string]: angular.IPromise<any>}
         controllerAs?: string;
         parent?: string|Element|JQuery; // default: root node
+        fullscreen?: boolean;
         onComplete?: Function;
     }
 
