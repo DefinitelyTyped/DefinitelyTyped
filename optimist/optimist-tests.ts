@@ -9,8 +9,8 @@ var num: number;
 var bool: boolean;
 var strArr: string[];
 
-var argv: optimist.Argv;
-var opt: optimist.Optimist;
+var argv: typeof optimist.argv;
+var opt: typeof optimist;
 
 argv = opt.argv;
 argv = opt.argv;
