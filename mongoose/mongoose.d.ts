@@ -212,8 +212,8 @@ declare module "mongoose" {
     findOneAndUpdate(cond: Object, update: Object, callback?: (err: any, res: T) => void): Query<T>;
     findOneAndUpdate(cond: Object, update: Object, options: FindAndUpdateOption, callback?: (err: any, res: T) => void): Query<T>;
 
-    geoNear(point: { type: string; coordinates: number[] }, options: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
-    geoNear(point: number[], options: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
+    geoNear(point: { type: string; coordinates: number[] }, options: Object, callback?: (err: any, res: T[], stats: any) => void): Query<T[]>;
+    geoNear(point: number[], options: Object, callback?: (err: any, res: T[], stats: any) => void): Query<T[]>;
     geoSearch(cond: Object, options: GeoSearchOption, callback?: (err: any, res: T[]) => void): Query<T[]>;
     increment(): T;
     mapReduce<K, V>(options: MapReduceOption<T, K, V>, callback?: (err: any, res: MapReduceResult<K, V>[]) => void): Promise<MapReduceResult<K, V>[]>;
