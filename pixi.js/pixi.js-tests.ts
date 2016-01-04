@@ -1,5 +1,4 @@
 ﻿/// <reference path="pixi.js.d.ts" />
-
 module basics {
 
     export class Basics {

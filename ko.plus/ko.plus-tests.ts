@@ -11,6 +11,9 @@
 
     Version 1.1 - added test for makeEditable
 
+    Version 1.2 - amended callback on commmand.fail() method - accepts response,
+                  status and message values
+ 
     Note: Typescript version 1.4 or higher is required for union types
     and type declarations
 */
@@ -29,8 +32,13 @@ function CommandTests() {
         .done((data: any) => {
         alert("success");
     })
-        .fail((error: string) => {
-        alert(error);
+        .fail((response) => {
+        // dummy
+        return false;
+    })
+        .fail((response, status, message) => {
+        // fail has response, error and text
+        alert(status + message);
     });
 
     // initialize command with options (action only)
@@ -43,6 +51,8 @@ function CommandTests() {
         action: () => { return "Hello cmd4"; }
     });
 
+    // initialize command with action with typed argument
+    var cmd5 = ko.command((message: string) => { return message; });
 
     // test execute the command
     cmd1();

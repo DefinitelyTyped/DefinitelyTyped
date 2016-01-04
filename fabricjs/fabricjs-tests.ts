@@ -34,8 +34,8 @@ function sample1() {
 
 function sample2() {
 
-  var dot, i,
-    t1, t2,
+  var dot: fabric.ICircle, i: number,
+    t1: number, t2: number,
     startTimer = function() {
       t1 = new Date().getTime();
       return t1;
@@ -89,16 +89,16 @@ function sample2() {
 
 function sample3() {
 
-  var $ = function(id) { return document.getElementById(id) };
+  var $: (id: string) => HTMLElement = function(id: string) { return document.getElementById(id) };
 
-  function applyFilter(index, filter) {
-    var obj = <fabric.IImage>canvas.getActiveObject();
+  function applyFilter(index: number, filter: any) {
+    var obj: fabric.IImage = <fabric.IImage>canvas.getActiveObject();
     obj.filters[index] = filter;
     obj.applyFilters(canvas.renderAll.bind(canvas));
   }
 
-  function applyFilterValue(index, prop, value) {
-    var obj = <fabric.IImage>canvas.getActiveObject();
+  function applyFilterValue(index: number, prop: string, value: any) {
+    var obj: fabric.IImage = <fabric.IImage>canvas.getActiveObject();
     if (obj.filters[index]) {
       obj.filters[index][prop] = value;
       obj.applyFilters(canvas.renderAll.bind(canvas));
@@ -214,7 +214,7 @@ function sample3() {
 function sample4() {
 
   var canvas = new fabric.Canvas('c');
-  var $ = function(id) { return document.getElementById(id); };
+  var $: (id: string) => HTMLElement = function(id: string) { return document.getElementById(id); };
 
   var rect = new fabric.Rect({
     width: 100,
@@ -339,10 +339,10 @@ function sample6() {
     canvas.centerObject(obj);
     canvas.add(obj);
 
-    canvas.add(obj.clone(() => {}).set({ left: 100, top: 100, angle: -15 }));
-    canvas.add(obj.clone(() => {}).set({ left: 480, top: 100, angle: 15 }));
-    canvas.add(obj.clone(() => {}).set({ left: 100, top: 400, angle: -15 }));
-    canvas.add(obj.clone(() => {}).set({ left: 480, top: 400, angle: 15 }));
+    canvas.add(obj.clone(() => { }).set({ left: 100, top: 100, angle: -15 }));
+    canvas.add(obj.clone(() => { }).set({ left: 480, top: 100, angle: 15 }));
+    canvas.add(obj.clone(() => { }).set({ left: 100, top: 400, angle: -15 }));
+    canvas.add(obj.clone(() => { }).set({ left: 480, top: 400, angle: 15 }));
 
     canvas.on('mouse:move', function(options) {
       var p = canvas.getPointer(options.e);
@@ -456,7 +456,7 @@ function sample8() {
       top = fabric.util.getRandomInt(0 + offset, 500 - offset),
       angle = fabric.util.getRandomInt(-20, 40),
       width = fabric.util.getRandomInt(30, 50),
-      opacity = (function(min, max) { return Math.random() * (max - min) + min; })(0.5, 1);
+      opacity = (function(min: number, max: number) { return Math.random() * (max - min) + min; })(0.5, 1);
 
 
     switch (className) {
@@ -522,7 +522,7 @@ function sample8() {
         break;
 
       case 'shape':
-        var id = element.id, match;
+        var id: any = element.id, match: RegExpExecArray;
         if (match = /\d+$/.exec(id)) {
           fabric.loadSVGFromURL('../assets/' + match[0] + '.svg', function(objects, options) {
             var loadedObject = fabric.util.groupSVGElements(objects, options);
@@ -586,7 +586,7 @@ function sample8() {
     }
   };
 
-  var supportsInputOfType = function(type) {
+  var supportsInputOfType = function(type: string) {
     return function() {
       var el = <HTMLInputElement>document.createElement('input');
       try {
@@ -746,7 +746,7 @@ function sample8() {
   canvas.on('object:selected', onObjectSelected);
   canvas.on('group:selected', onObjectSelected);
 
-  function onObjectSelected(e) {
+  function onObjectSelected(e: fabric.IEvent) {
     var selectedObject = e.target;
 
     for (var i = activeObjectButtons.length; i--;) {
@@ -1033,7 +1033,7 @@ function sample8() {
       };
 
       canvas.on('object:selected', function(e: fabric.IEvent) {
-        slider.value = String((<fabric.IText>e.target).lineHeight );
+        slider.value = String((<fabric.IText>e.target).lineHeight);
       });
     })();
   }
@@ -1050,6 +1050,6 @@ function sample8() {
 
 function sample9() {
   var canvas = new fabric.Canvas('c');
-  canvas.setBackgroundImage('yolo.jpg',() => { "a" }, { opacity: 45 });
-  canvas.setBackgroundImage('yolo.jpg',() => { "a" });
+  canvas.setBackgroundImage('yolo.jpg', () => { "a" }, { opacity: 45 });
+  canvas.setBackgroundImage('yolo.jpg', () => { "a" });
 }

@@ -78,7 +78,7 @@ declare module PeerJs{
          * @param id The brokering ID of the remote peer (their peer.id).
          * @param options for specifying details about Peer Connection
          */
-        connect(id: string, options?: PeerJs.PeerJSOption): PeerJs.DataConnection;
+        connect(id: string, options?: PeerJs.PeerConnectOption): PeerJs.DataConnection;
         /**
          * Connects to the remote peer specified by id and returns a data connection.
          * @param id The brokering ID of the remote peer (their peer.id).

@@ -101,6 +101,29 @@ when.settle<number>([when(1), when(2), when.reject(new Error("Foo"))]).then(desc
 	return descriptors.filter(d => d.state === 'rejected').reduce((r, d) => r + d.value, 0);
 });
 
+/* when.iterate(f, predicate, handler, seed) */
+
+when.iterate(function (x) {
+	return x + 1;
+}, function (x) {
+	// Stop when x >= 100000000000
+	return x >= 100000000000;
+}, function (x) {
+	console.log(x);
+}, 0).done(function (x) {
+	console.log(x === 100000000000);
+}, function (err) {
+	console.log(err);
+});
+
+when.unfold(function (x) {
+	return [{foo: 'bar'}, x + 1];
+}, function (x) {
+	return x < 10;
+}, function (y) {
+	delete y.foo;
+}, 0);
+
 /* when.promise(resolver) */
 
 promise = when.promise<number>(resolve => resolve(5));
@@ -356,6 +379,10 @@ example = function () {
 /* node.apply */
 
 promise = nodefn.apply(nodeFn2, [1, '2']);
+
+example = function() {
+	nodefn.apply(fs.read, arguments);
+}
 
 example = function () {
 	var loadPasswd = nodefn.apply(fs.readFile, ['/etc/passwd']);

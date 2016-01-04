@@ -31,5 +31,7 @@ declare module 'gulp-minify-html' {
 
     function minifyHtml(options?: IOptions): NodeJS.ReadWriteStream;
 
+    namespace minifyHtml {}
+
     export = minifyHtml;
 }

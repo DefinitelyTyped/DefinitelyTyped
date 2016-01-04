@@ -10,6 +10,6 @@
 ///<reference path="rx.backpressure-lite.d.ts" />
 ///<reference path="rx.coincidence-lite.d.ts" />
 
-declare module "rx.lite" {
+declare module "rx-lite" {
 	export = Rx;
 }

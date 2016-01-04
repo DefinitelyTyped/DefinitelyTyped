@@ -68,6 +68,8 @@ interface MomentTimezone {
     }): void;
 
     names(): string[];
+
+    setDefault(timezone: string): void;
 }
 
 declare module 'moment-timezone' {

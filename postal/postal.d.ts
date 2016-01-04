@@ -15,36 +15,36 @@ interface IResolver {
 	purge(options?: {topic?: string, binding?: string, compact?: boolean}): void;
 }
 
-interface ICallback {
-	(data: any, envelope: IEnvelope): void
+interface ICallback<T> {
+	(data: T, envelope: IEnvelope<T>): void
 }
 
-interface ISubscriptionDefinition {
+interface ISubscriptionDefinition<T> {
 	channel: string;
 	topic: string;
-	callback: ICallback;
+	callback: ICallback<T>;
 
 	// after and before lack documentation
 
-	constraint(predicateFn: (data: any, envelope: IEnvelope) => boolean): ISubscriptionDefinition;
-	constraints(predicateFns: ((data: any, envelope: IEnvelope) => boolean)[]): ISubscriptionDefinition;
-	context(theContext: any): ISubscriptionDefinition;
-	debounce(interval: number): ISubscriptionDefinition;
-	defer(): ISubscriptionDefinition;
-	delay(waitTime: number): ISubscriptionDefinition;
-	disposeAfter(maxCalls: number): ISubscriptionDefinition;
-	distinct(): ISubscriptionDefinition;
-	distinctUntilChanged(): ISubscriptionDefinition;
-	logError(): ISubscriptionDefinition;
-	once(): ISubscriptionDefinition;
-	throttle(interval: number): ISubscriptionDefinition;
-	subscribe(callback: ICallback): ISubscriptionDefinition;
+	constraint(predicateFn: (data: T, envelope: IEnvelope<T>) => boolean): ISubscriptionDefinition<T>;
+	constraints(predicateFns: ((data: T, envelope: IEnvelope<T>) => boolean)[]): ISubscriptionDefinition<T>;
+	context(theContext: any): ISubscriptionDefinition<T>;
+	debounce(interval: number): ISubscriptionDefinition<T>;
+	defer(): ISubscriptionDefinition<T>;
+	delay(waitTime: number): ISubscriptionDefinition<T>;
+	disposeAfter(maxCalls: number): ISubscriptionDefinition<T>;
+	distinct(): ISubscriptionDefinition<T>;
+	distinctUntilChanged(): ISubscriptionDefinition<T>;
+	logError(): ISubscriptionDefinition<T>;
+	once(): ISubscriptionDefinition<T>;
+	throttle(interval: number): ISubscriptionDefinition<T>;
+	subscribe(callback: ICallback<T>): ISubscriptionDefinition<T>;
 	unsubscribe(): void;
 }
 
-interface IEnvelope {
+interface IEnvelope<T> {
 	topic: string;
-	data?: any;
+	data?: T;
 
 	/*Uses DEFAULT_CHANNEL if no channel is provided*/
 	channel?: string;
@@ -53,10 +53,10 @@ interface IEnvelope {
 }
 
 
-interface IChannelDefinition {
-	subscribe(topic: string, callback: ICallback): ISubscriptionDefinition;
+interface IChannelDefinition<T> {
+	subscribe(topic: string, callback: ICallback<T>): ISubscriptionDefinition<T>;
 
-	publish(topic: string, data?: any): void;
+	publish(topic: string, data?: T): void;
 
 	channel: string;
 }
@@ -73,24 +73,24 @@ interface IDestinationArg {
 
 interface IPostal {
 	subscriptions: {};
-	wiretaps: ICallback[];
+	wiretaps: ICallback<any>[];
 
-	addWireTap(callback: ICallback): () => void;
+	addWireTap(callback: ICallback<any>): () => void;
 
-	channel(name?: string): IChannelDefinition;
+	channel<T>(name?: string): IChannelDefinition<T>;
 
-	getSubscribersFor(): ISubscriptionDefinition[];
-	getSubscribersFor(options: {channel?: string, topic?: string, context?: any}): ISubscriptionDefinition[];
-	getSubscribersFor(predicateFn: (sub: ISubscriptionDefinition) => boolean): ISubscriptionDefinition[];
+	getSubscribersFor(): ISubscriptionDefinition<any>[];
+	getSubscribersFor(options: {channel?: string, topic?: string, context?: any}): ISubscriptionDefinition<any>[];
+	getSubscribersFor(predicateFn: (sub: ISubscriptionDefinition<any>) => boolean): ISubscriptionDefinition<any>[];
 
 	linkChannels(source: ISourceArg | ISourceArg[], destination: IDestinationArg | IDestinationArg[]): void;
 
-	publish(envelope: IEnvelope): void;
+	publish(envelope: IEnvelope<any>): void;
 
 	reset(): void;
 
-	subscribe(options: {channel?: string, topic: string, callback: ICallback}): ISubscriptionDefinition;
-	unsubscribe(sub: ISubscriptionDefinition): void;
+	subscribe(options: {channel?: string, topic: string, callback: ICallback<any>}): ISubscriptionDefinition<any>;
+	unsubscribe(sub: ISubscriptionDefinition<any>): void;
 	unsubscribeFor(): void;
 	unsubscribeFor(options: {channel?: string, topic?: string, context?: any}): void;
 

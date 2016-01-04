@@ -302,3 +302,7 @@ interface Cookie {
 	value: string;
 	domain?: string;
 }
+
+declare module "webpage" {
+	export function create(): WebPage;
+}

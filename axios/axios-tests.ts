@@ -16,3 +16,13 @@ axios<Repository>({
     method: HttpMethod[HttpMethod.GET],
     headers: {},
 }).then(r => console.log("ID:" + r.data.id + " Name: " + r.data.name));
+
+axios.post("http://example.com/", {}, {
+    transformRequest: (data: any) => data
+});
+
+axios.post("http://example.com/", {}, {
+    transformRequest: [
+        (data: any) => data
+    ]
+});
