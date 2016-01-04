@@ -1,1 +1,1 @@
-/// <reference path="babylonjs.d.ts" />
+/// <reference path="babylon.d.ts" />
