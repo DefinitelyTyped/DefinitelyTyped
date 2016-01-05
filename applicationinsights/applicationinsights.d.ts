@@ -1,4 +1,4 @@
-// Type definitions for Application Insights v0.15.7
+// Type definitions for Application Insights v0.15.8
 // Project: https://github.com/Microsoft/ApplicationInsights-node.js
 // Definitions by: Scott Southwood <https://github.com/scsouthw/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -358,7 +358,7 @@ interface Client {
     /**
      * Immediately send all queued telemetry.
      */
-    sendPendingData(): void;
+    sendPendingData(callback?: (response: string) => void): void;
     getEnvelope(data: ContractsModule.Data<ContractsModule.Domain>, tagOverrides?: {
         [key: string]: string;
     }): ContractsModule.Envelope;
