@@ -17,9 +17,135 @@ var list = [[0, 1], [2, 3], [4, 5]];
 //var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
 var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
-var even = _.find([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
+module TestFind {
+	let array: {a: string}[] = [{a: 'a'}, {a: 'b'}];
+	let list: _.List<{a: string}> = {0: {a: 'a'}, 1: {a: 'b'}, length: 2};
+	let dict: _.Dictionary<{a: string}> = {a: {a: 'a'}, b: {a: 'b'}};
+	let context = {};
 
-var firstCapitalLetter = _.find({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
+	{
+		let iterator = (value: {a: string}, index: number, list: _.List<{a: string}>) => value.a === 'b';
+		let result: {a: string};
+
+		result = _.find<{a: string}>(array, iterator);
+		result = _.find<{a: string}>(array, iterator, context);
+		result = _.find<{a: string}, {a: string}>(array, {a: 'b'});
+		result = _.find<{a: string}>(array, 'a');
+
+		result = _(array).find<{a: string}>(iterator);
+		result = _(array).find<{a: string}>(iterator, context);
+		result = _(array).find<{a: string}, {a: string}>({a: 'b'});
+		result = _(array).find<{a: string}>('a');
+
+		result = _(array).chain().find<{a: string}>(iterator).value();
+		result = _(array).chain().find<{a: string}>(iterator, context).value();
+		result = _(array).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
+		result = _(array).chain().find<{a: string}>('a').value();
+
+		result = _.find<{a: string}>(list, iterator);
+		result = _.find<{a: string}>(list, iterator, context);
+		result = _.find<{a: string}, {a: string}>(list, {a: 'b'});
+		result = _.find<{a: string}>(list, 'a');
+
+		result = _(list).find<{a: string}>(iterator);
+		result = _(list).find<{a: string}>(iterator, context);
+		result = _(list).find<{a: string}, {a: string}>({a: 'b'});
+		result = _(list).find<{a: string}>('a');
+
+		result = _(list).chain().find<{a: string}>(iterator).value();
+		result = _(list).chain().find<{a: string}>(iterator, context).value();
+		result = _(list).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
+		result = _(list).chain().find<{a: string}>('a').value();
+
+		result = _.detect<{a: string}>(array, iterator);
+		result = _.detect<{a: string}>(array, iterator, context);
+		result = _.detect<{a: string}, {a: string}>(array, {a: 'b'});
+		result = _.detect<{a: string}>(array, 'a');
+
+		result = _(array).detect<{a: string}>(iterator);
+		result = _(array).detect<{a: string}>(iterator, context);
+		result = _(array).detect<{a: string}, {a: string}>({a: 'b'});
+		result = _(array).detect<{a: string}>('a');
+
+		result = _(array).chain().detect<{a: string}>(iterator).value();
+		result = _(array).chain().detect<{a: string}>(iterator, context).value();
+		result = _(array).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
+		result = _(array).chain().detect<{a: string}>('a').value();
+
+		result = _.detect<{a: string}>(list, iterator);
+		result = _.detect<{a: string}>(list, iterator, context);
+		result = _.detect<{a: string}, {a: string}>(list, {a: 'b'});
+		result = _.detect<{a: string}>(list, 'a');
+
+		result = _(list).detect<{a: string}>(iterator);
+		result = _(list).detect<{a: string}>(iterator, context);
+		result = _(list).detect<{a: string}, {a: string}>({a: 'b'});
+		result = _(list).detect<{a: string}>('a');
+
+		result = _(list).chain().detect<{a: string}>(iterator).value();
+		result = _(list).chain().detect<{a: string}>(iterator, context).value();
+		result = _(list).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
+		result = _(list).chain().detect<{a: string}>('a').value();
+	}
+
+	{
+		let iterator = (element: {a: string}, key: string, list: _.Dictionary<{a: string}>) => element.a === 'b';
+		let result: {a: string};
+
+		result = _.find<{a: string}>(dict, iterator);
+		result = _.find<{a: string}>(dict, iterator, context);
+		result = _.find<{a: string}, {a: string}>(dict, {a: 'b'});
+		result = _.find<{a: string}>(dict, 'a');
+
+		result = _(dict).find<{a: string}>(iterator);
+		result = _(dict).find<{a: string}>(iterator, context);
+		result = _(dict).find<{a: string}, {a: string}>({a: 'b'});
+		result = _(dict).find<{a: string}>('a');
+
+		result = _(dict).chain().find<{a: string}>(iterator).value();
+		result = _(dict).chain().find<{a: string}>(iterator, context).value();
+		result = _(dict).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
+		result = _(dict).chain().find<{a: string}>('a').value();
+
+		result = _.detect<{a: string}>(dict, iterator);
+		result = _.detect<{a: string}>(dict, iterator, context);
+		result = _.detect<{a: string}, {a: string}>(dict, {a: 'b'});
+		result = _.detect<{a: string}>(dict, 'a');
+
+		result = _(dict).detect<{a: string}>(iterator);
+		result = _(dict).detect<{a: string}>(iterator, context);
+		result = _(dict).detect<{a: string}, {a: string}>({a: 'b'});
+		result = _(dict).detect<{a: string}>('a');
+
+		result = _(dict).chain().detect<{a: string}>(iterator).value();
+		result = _(dict).chain().detect<{a: string}>(iterator, context).value();
+		result = _(dict).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
+		result = _(dict).chain().detect<{a: string}>('a').value();
+	}
+
+	{
+		let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
+		let result: string;
+
+		result = _.find<string>('abc', iterator);
+		result = _.find<string>('abc', iterator, context);
+
+		result = _('abc').find<string>(iterator);
+		result = _('abc').find<string>(iterator, context);
+
+		result = _('abc').chain().find<string>(iterator).value();
+		result = _('abc').chain().find<string>(iterator, context).value();
+
+		result = _.detect<string>('abc', iterator);
+		result = _.detect<string>('abc', iterator, context);
+
+		result = _('abc').detect<string>(iterator);
+		result = _('abc').detect<string>(iterator, context);
+
+		result = _('abc').chain().detect<string>(iterator).value();
+		result = _('abc').chain().detect<string>(iterator, context).value();
+	}
+}
 
 var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 

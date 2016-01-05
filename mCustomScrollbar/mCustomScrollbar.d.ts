@@ -10,15 +10,27 @@ declare module MCustomScrollbar {
         /**
         * Set the width of your content (overwrites CSS width), value in pixels (integer) or percentage (string)
         */
-        set_width?: any;
+        setWidth?: any;
         /**
         * Set the height of your content (overwirtes CSS height), value in pixels (integer) or percentage (string)
         */
-        set_height?: any;
+        setHeight?: any;
         /**
-        * Add horizontal scrollbar (default is vertical), value: true, false
+         * Define content’s scrolling axis (the type of scrollbars added to the element: vertical and/of horizontal).
+         * Available values: "y", "x", "yx". y -vertical, x - horizontal
+         */
+        axis?: string;
+        /**
+        * Always keep scrollbar(s) visible, even when there’s nothing to scroll.
+        * 0 – disable (default)
+        * 1 – keep dragger rail visible
+        * 2 – keep all scrollbar components (dragger, rail, buttons etc.) visible
         */
-        horizontalScroll?: boolean;
+        alwaysShowScrollbar?: number;
+        /**
+        * Enable or disable auto-expanding the scrollbar when cursor is over or dragging the scrollbar.
+        */
+        autoExpandScrollbar?: boolean;
         /**
         * Scrolling inertia (easing), value in milliseconds (0 for no scrolling inertia)
         */
@@ -119,6 +131,12 @@ declare module MCustomScrollbar {
             * User defined callback function, triggered while scrolling
             */
             whileScrolling?: () => void;
+            /**
+            * Set the behavior of calling onTotalScroll and onTotalScrollBack offsets.
+            * By default, callback offsets will trigger repeatedly while content is scrolling within the offsets.
+            * Set alwaysTriggerOffsets: false when you need to trigger onTotalScroll and onTotalScrollBack callbacks once, each time scroll end or beginning is reached.
+            */
+            alwaysTriggerOffsets?: boolean;
         }
     /**
     * Set a scrollbar ready-to-use theme. See themes demo for all themes - http://manos.malihu.gr/tuts/custom-scrollbar-plugin/scrollbar_themes_demo.html
@@ -132,9 +150,17 @@ declare module MCustomScrollbar {
         */
         scrollInertia?: number;
         /**
+        * Scroll-to animation easing, values: "linear", "easeOut", "easeInOut". 
+        */
+        scrollEasing?: string;
+        /**
         * Scroll scrollbar dragger (instead of content) to a number of pixels, values: true, false
         */
         moveDragger?: boolean;
+        /**
+        * Set a timeout for the method (the default timeout is 60 ms in order to work with automatic scrollbar update), value in milliseconds.
+        */
+        timeout?: number;
         /**
         * Trigger user defined callback after scroll-to completes, value: true, false
         */

@@ -1,4 +1,4 @@
-// Type definitions for Angular Material 0.10.1-rc1+ (angular.material module)
+// Type definitions for Angular Material 1.0.0-rc5+ (angular.material module)
 // Project: https://github.com/angular/material
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -28,7 +28,8 @@ declare module angular.material {
 
     interface IPresetDialog<T> {
         title(title: string): T;
-        content(content: string): T;
+        textContent(textContent: string): T;
+        htmlContent(htmlContent: string): T;
         ok(ok: string): T;
         theme(theme: string): T;
         templateUrl(templateUrl?: string): T;
@@ -82,7 +83,7 @@ declare module angular.material {
         show(dialog: IDialogOptions|IAlertDialog|IConfirmDialog): angular.IPromise<any>;
         confirm(): IConfirmDialog;
         alert(): IAlertDialog;
-        hide(response?: any): void;
+        hide(response?: any): angular.IPromise<any>;
         cancel(response?: any): void;
     }
 
@@ -115,7 +116,7 @@ declare module angular.material {
     }
 
     interface IToastPreset<T> {
-        content(content: string): T;
+        textContent(content: string): T;
         action(action: string): T;
         highlightAction(highlightAction: boolean): T;
         capsule(capsule: boolean): T;

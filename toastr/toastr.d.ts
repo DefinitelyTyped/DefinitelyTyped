@@ -113,21 +113,26 @@ interface ToastrOptions {
 	* Set newest toast to appear on top
 	**/
 	newestOnTop?: boolean;
-
-    /**
-     * Rather than having identical toasts stack, set the preventDuplicates property to true. Duplicates are matched to the previous toast based on their message content.
-     */
-    preventDuplicates?: boolean;
-
-    /**
-     * Visually indicates how long before a toast expires.
-     */
-    progressBar?: boolean;
-    
+	/**
+	* The element to put the toastr container
+	**/
+	target?: string;
+	/**
+	* Rather than having identical toasts stack, set the preventDuplicates property to true. Duplicates are matched to the previous toast based on their message content.
+	*/
+	preventDuplicates?: boolean;
+	/**
+	* Visually indicates how long before a toast expires.
+	*/
+	progressBar?: boolean;
 	/**
 	* Function to execute on toast click
 	*/
 	onclick?: () => void;
+	/**
+	* Set if toastr should parse containing html 
+	**/
+	allowHtml?: boolean;
 }
 
 interface ToastrDisplayMethod {

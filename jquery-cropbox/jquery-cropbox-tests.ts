@@ -37,3 +37,9 @@ cropboxWithOptions.update();
 cropboxWithOptions.getDataURL();
 cropboxWithOptions.getBlob();
 cropboxWithOptions.remove();
+
+cropboxWithOptions.on("cropbox",(e: Event, data: any, img: jQueryCropBox.Cropbox) => {
+   
+   //DoStuff 
+    
+});

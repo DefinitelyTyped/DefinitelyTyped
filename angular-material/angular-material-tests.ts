@@ -44,10 +44,16 @@ myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.
         });
     };
     $scope['alertDialog'] = () => {
-        $mdDialog.show($mdDialog.alert().content('Alert!'));
+        $mdDialog.show($mdDialog.alert().textContent('Alert!'));
+    };
+    $scope['alertDialog'] = () => {
+        $mdDialog.show($mdDialog.alert().htmlContent('<span>Alert!</span>'));
     };
     $scope['confirmDialog'] = () => {
-        $mdDialog.show($mdDialog.confirm().content('Confirm!'));
+        $mdDialog.show($mdDialog.confirm().textContent('Confirm!'));
+    };
+    $scope['confirmDialog'] = () => {
+        $mdDialog.show($mdDialog.confirm().htmlContent('<span>Confirm!</span>'));
     };
     $scope['hideDialog'] = $mdDialog.hide.bind($mdDialog, 'hide');
     $scope['cancelDialog'] = $mdDialog.cancel.bind($mdDialog, 'cancel');
@@ -90,5 +96,5 @@ myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.materia
 });
 
 myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IToastService) => {
-    $scope['openToast'] = () => $mdToast.show($mdToast.simple().content('Hello!'));
+    $scope['openToast'] = () => $mdToast.show($mdToast.simple().textContent('Hello!'));
 });

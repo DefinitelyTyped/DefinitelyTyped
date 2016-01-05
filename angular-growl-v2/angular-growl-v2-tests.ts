@@ -8,25 +8,27 @@ app.config((growlProvider:angular.growl.IGrowlProvider, $httpProvider:angular.IH
         error: 4000
     };
 
-    growlProvider.globalTimeToLive(ttl);
-    growlProvider.globalTimeToLive(5000);
-    growlProvider.globalDisableCloseButton(true);
-    growlProvider.globalDisableIcons(true);
-    growlProvider.globalReversedOrder(false);
-    growlProvider.globalDisableCountDown(true);
-    growlProvider.messageVariableKey("someKey");
-    growlProvider.globalInlineMessages(false);
-    growlProvider.globalPosition("top-center");
-    growlProvider.messagesKey("someKey");
-    growlProvider.messageTextKey("someKey");
-    growlProvider.messageTitleKey("someKey");
-    growlProvider.messageSeverityKey("someKey");
-    growlProvider.onlyUniqueMessages(false);
+    growlProvider.globalTimeToLive(ttl)
+        .globalTimeToLive(5000)
+        .globalDisableCloseButton(true)
+        .globalDisableIcons(true)
+        .globalReversedOrder(false)
+        .globalDisableCountDown(true)
+        .messageVariableKey("someKey")
+        .globalInlineMessages(false)
+        .globalPosition("top-center")
+        .messagesKey("someKey")
+        .messageTextKey("someKey")
+        .messageTitleKey("someKey")
+        .messageSeverityKey("someKey")
+        .onlyUniqueMessages(false);
 
     $httpProvider.interceptors.push(growlProvider.serverMessagesInterceptor);
 });
 
-app.controller("Ctrl", ($scope:angular.IScope, growl:angular.growl.IGrowlService) => {
+app.controller("Ctrl", ($scope:angular.IScope,
+                        growl:angular.growl.IGrowlService,
+                        growlMessages:angular.growl.IGrowlMessagesService) => {
     var config:angular.growl.IGrowlMessageConfig = {
         ttl: 5000,
         disableCountDown: true,
@@ -50,4 +52,10 @@ app.controller("Ctrl", ($scope:angular.IScope, growl:angular.growl.IGrowlService
     growl.reverseOrder();
     growl.inlineMessages();
     growl.position();
+
+    growlMessages.initDirective(1, 10);
+    var messages:angular.growl.IGrowlMessage[] = growlMessages.getAllMessages(2);
+    growlMessages.destroyAllMessages(0);
+    growlMessages.addMessage(messages[0]);
+    growlMessages.deleteMessage(messages[1]);
 });

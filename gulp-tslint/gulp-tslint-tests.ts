@@ -1,17 +1,36 @@
-/// <reference path="./gulp-tslint.d.ts"/>
+/// <reference path="gulp-tslint.d.ts"/>
 /// <reference path="../gulp/gulp.d.ts"/>
 /// <reference path="../vinyl/vinyl.d.ts"/>
-import gulp = require("gulp");
-import tslint = require("gulp-tslint");
-import vinyl = require("vinyl");
+
+import * as gulp from 'gulp';
+import * as tslint from 'gulp-tslint';
+import vinyl = require('vinyl');
+
+// Taken from gulp-tslint README https://github.com/panuhorsmalahti/gulp-tslint/blob/master/README.md
 
 gulp.task('tslint', function(){
-    gulp.src('source.ts')
+    return gulp.src('source.ts')
         .pipe(tslint())
         .pipe(tslint.report('verbose'));
 });
 
-/* Output is in the following form:
+gulp.task('invalid-noemit', function(){
+    return gulp.src('input.ts')
+        .pipe(tslint())
+        .pipe(tslint.report('prose', {
+          emitError: false
+        }));
+});
+
+gulp.task('invalid-noemit', function(){
+    return gulp.src('input.ts')
+        .pipe(tslint())
+        .pipe(tslint.report('prose', {
+          summarizeFailureOutput: true
+        }));
+});
+
+/* output is in the following form:
  * [{
  *   "name": "invalid.ts",
  *   "failure": "missing whitespace",
@@ -21,41 +40,55 @@ gulp.task('tslint', function(){
  *   "ruleName": "one-line"
  * }]
  */
-var testReporter = function (output: tslint.Output[], file: vinyl, options: tslint.Options) {
+const testReporter: tslint.Reporter = function (output, file, options) {
     // file is a reference to the vinyl File object
     console.log("Found " + output.length + " errors in " + file.path);
-    // options is a reference to the reporter options, e.g. options.emitError
+    // options is a reference to the reporter options, e.g. including the emitError boolean
 };
 
 gulp.task('invalid-custom', function(){
-    gulp.src('invalid.ts')
+    return gulp.src('input.ts')
         .pipe(tslint())
         .pipe(tslint.report(testReporter));
 });
 
-gulp.task('invalid-custom', function () {
-    gulp.src('invalid.ts')
-        .pipe(tslint())
-        .pipe(tslint.report(testReporter, { emitError: false }));
-});
-
 gulp.task('tslint-json', function(){
-    gulp.src('invalid.ts')
+    return gulp.src('input.ts')
         .pipe(tslint({
             configuration: {
-                rules: {
-                    "class-name": true
-                    // ...
-                }
+              rules: {
+                "class-name": true,
+                // ...
+              }
             }
         }))
         .pipe(tslint.report('prose'));;
 });
 
-gulp.task("lint", () => {
-      return gulp.src(["gulpfile.ts", "{src,test}/**/*.ts"])
-          .pipe(tslint())
-          .pipe(tslint.report("verbose", {
-              emitError: true
-          }));
+gulp.task('tslint', function(){
+    return gulp.src(['input.ts',])
+        .pipe(tslint())
+        .pipe(tslint.report('prose', {
+            reportLimit: 2
+        }));
 });
+
+
+gulp.task('tslint', function(){
+    return gulp.src(['input.ts',])
+        .pipe(tslint({
+            tslint: require('tslint')
+        }));
+});
+
+const tslintOptions: tslint.Options = {
+    configuration: {},
+    rulesDirectory: null,
+    tslint: null
+};
+
+const reportOptions: tslint.ReportOptions = {
+    emitError: true,
+    reportLimit: 0,
+    summarizeFailureOutput: false
+};

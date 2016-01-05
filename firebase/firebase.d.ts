@@ -143,6 +143,7 @@ interface FirebaseQuery {
 	 */
 	equalTo(value: string, key?: string): FirebaseQuery;
 	equalTo(value: number, key?: string): FirebaseQuery;
+	equalTo(value: boolean, key?: string): FirebaseQuery;
 	/**
 	 * Generates a new Query object limited to the first certain number of children.
 	 */
