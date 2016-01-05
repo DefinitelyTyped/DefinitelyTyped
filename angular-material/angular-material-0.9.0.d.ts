@@ -64,7 +64,7 @@ declare module angular.material {
         show(dialog: MDDialogOptions|MDAlertDialog|MDConfirmDialog): angular.IPromise<any>;
         confirm(): MDConfirmDialog;
         alert(): MDAlertDialog;
-        hide(response?: any): void;
+        hide(response?: any): angular.IPromise<any>;
         cancel(response?: any): void;
     }
 

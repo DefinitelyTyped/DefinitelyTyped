@@ -1,8 +1,8 @@
 /// <reference path="./gulp-flatten.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-import gulp = require("gulp");
-import flatten = require("gulp-flatten");
+import * as gulp from "gulp";
+import * as flatten from "gulp-flatten";
 
 gulp.task("flatten:simple", () => {
     gulp.src(["files/**/*.txt"])

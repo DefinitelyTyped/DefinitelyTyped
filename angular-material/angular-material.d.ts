@@ -83,7 +83,7 @@ declare module angular.material {
         show(dialog: IDialogOptions|IAlertDialog|IConfirmDialog): angular.IPromise<any>;
         confirm(): IConfirmDialog;
         alert(): IAlertDialog;
-        hide(response?: any): void;
+        hide(response?: any): angular.IPromise<any>;
         cancel(response?: any): void;
     }
 
