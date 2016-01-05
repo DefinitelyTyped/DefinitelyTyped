@@ -35,6 +35,16 @@ declare module angular.route {
         // May not always be available. For instance, current will not be available
         // to a controller that was not initialized as a result of a route maching.
         current?: ICurrentRoute;
+        
+        /**
+         * Causes $route service to update the current URL, replacing current route parameters with those specified in newParams.
+         * Provided property names that match the route's path segment definitions will be interpolated into the
+         * location's path, while remaining properties will be treated as query params.
+         *
+         * @param newParams Object.<string, string> mapping of URL parameter names to values
+         */
+        updateParams(newParams:{[key:string]:string}): void;
+
     }
 
 
@@ -118,6 +128,12 @@ declare module angular.route {
     }
 
     interface IRouteProvider extends IServiceProvider {
+		/**
+         * Match routes without being case sensitive
+         *
+         * This option defaults to false. If the option is set to true, then the particular route can be matched without being case sensitive
+         */
+        caseInsensitiveMatch?: boolean;
         /**
          * Sets route definition that will be used on route change when no other route definition is matched.
          *

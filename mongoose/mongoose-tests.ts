@@ -195,8 +195,8 @@ Model.findOneAndRemove({ type: 'iphone' }, { select: 'name' }, (err: any, res: I
 Model.findOneAndRemove({ type: 'iphone' }, { select: 'name' }).exec((err: any, res: IActor) => {});
 Model.findOneAndUpdate({ type: 'iphone' }, { $set: { name: 'jason borne' }}, { upsert: true }, (err: any, res: IActor) => {});
 
-Model.geoNear([1, 3], { maxDistance : 5, spherical : true }, (err: any, res: IActor[]) => {});
-Model.geoNear({ type : "Point", coordinates : [9,9] }, { maxDistance : 5, spherical : true }, (err: any, res: IActor[]) => {});
+Model.geoNear([1, 3], { maxDistance : 5, spherical : true }, (err: any, res: IActor[], stats: any) => {});
+Model.geoNear({ type : "Point", coordinates : [9,9] }, { maxDistance : 5, spherical : true }, (err: any, res: IActor[], stats: any) => {});
 Model.geoSearch({ type : "house" }, { near: [10, 10], maxDistance: 5 }, (err: any, res: IActor[]) => {});
 
 var o = {

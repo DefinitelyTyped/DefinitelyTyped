@@ -911,10 +911,10 @@ declare module google.maps {
         avoidFerries?: boolean;
         avoidHighways?: boolean;
         avoidTolls?: boolean;
-        destination?: LatLng|string;
+        destination?: LatLng|LatLngLiteral|string;
         durationInTraffic?: boolean;
         optimizeWaypoints?: boolean;
-        origin?: LatLng|string;
+        origin?: LatLng|LatLngLiteral|string;
         provideRouteAlternatives?: boolean;
         region?: string;
         transitOptions?: TransitOptions;
@@ -959,7 +959,7 @@ declare module google.maps {
     export interface TransitFare { }
 
     export interface DirectionsWaypoint {
-        location: LatLng|string;
+        location: LatLng|LatLngLiteral|string;
         stopover: boolean;
     }
 
@@ -1917,16 +1917,16 @@ declare module google.maps {
         }
 
         export interface PlaceSearchRequest {
-            bounds: LatLngBounds;
-            keyword: string;
-            location: LatLng|LatLngLiteral;
+            bounds?: LatLngBounds;
+            keyword?: string;
+            location?: LatLng|LatLngLiteral;
             maxPriceLevel?: number;
             minPriceLevel?: number;
-            name: string;
-            openNow: boolean;
-            radius: number;
-            rankBy: RankBy;
-            types: string[];
+            name?: string;
+            openNow?: boolean;
+            radius?: number;
+            rankBy?: RankBy;
+            types?: string[];
         }
 
         export class PlacesService {
@@ -1963,11 +1963,11 @@ declare module google.maps {
 
         export interface RadarSearchRequest {
             bounds?: LatLngBounds;
-            keyword: string;
-            location: LatLng|LatLngLiteral;
-            name: string;
-            radius: number;
-            types: string[];
+            keyword?: string;
+            location?: LatLng|LatLngLiteral;
+            name?: string;
+            radius?: number;
+            types?: string[];
         }
 
         export enum RankBy {
@@ -1988,10 +1988,10 @@ declare module google.maps {
 
         export interface TextSearchRequest {
             bounds?: LatLngBounds;
-            location: LatLng|LatLngLiteral;
+            location?: LatLng|LatLngLiteral;
             query: string;
-            radius: number;
-            types: string[];
+            radius?: number;
+            types?: string[];
         }
     }
 

@@ -5,6 +5,10 @@
 
 /// <reference path="angular.d.ts" />
 
+declare module 'angular-resource' {
+    var _: string;
+    export = _;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // ngResource module (angular-resource.js)
@@ -136,12 +140,15 @@ declare module angular.resource {
         /** the promise of the original server interaction that created this instance. **/
         $promise : angular.IPromise<T>;
         $resolved : boolean;
+        toJSON: () => {
+          [index: string]: any;
+        }
     }
 
     /**
      * Really just a regular Array object with $promise and $resolve attached to it
      */
-    interface IResourceArray<T> extends Array<T> {
+    interface IResourceArray<T> extends Array<T & IResource<T>> {
         /** the promise of the original server interaction that created this collection. **/
         $promise : angular.IPromise<IResourceArray<T>>;
         $resolved : boolean;
