@@ -6575,65 +6575,207 @@ declare module _ {
     //_.indexBy
     interface LoDashStatic {
         /**
-        * Creates an object composed of keys generated from the results of running each element
-        * of the collection through the given callback. The corresponding value of each key is
-        * the last element responsible for generating the key. The callback is bound to thisArg
-        * and invoked with three arguments; (value, index|key, collection).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will
-        * return the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return
-        * true for elements that have the properties of the given object, else false.
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return Returns the composed aggregate object.
-        **/
-        indexBy<T>(
-            list: Array<T>,
-            iterator: ListIterator<T, any>,
-            context?: any): Dictionary<T>;
-
-        /**
-        * @see _.indexBy
-        **/
-        indexBy<T>(
-            list: List<T>,
-            iterator: ListIterator<T, any>,
-            context?: any): Dictionary<T>;
-
-        /**
-        * @see _.indexBy
-        * @param pluckValue _.pluck style callback
-        **/
-        indexBy<T>(
-            collection: Array<T>,
-            pluckValue: string): Dictionary<T>;
-
-        /**
-        * @see _.indexBy
-        * @param pluckValue _.pluck style callback
-        **/
+         * Creates an object composed of keys generated from the results of running each element of collection through
+         * iteratee. The corresponding value of each key is the last element responsible for generating the key. The
+         * iteratee function is bound to thisArg and invoked with three arguments:
+         * (value, index|key, collection).
+         *
+         * If a property name is provided for iteratee the created _.property style callback returns the property
+         * value of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for iteratee the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns the composed aggregate object.
+         */
         indexBy<T>(
             collection: List<T>,
-            pluckValue: string): Dictionary<T>;
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): Dictionary<T>;
 
         /**
-        * @see _.indexBy
-        * @param whereValue _.where style callback
-        **/
-        indexBy<W, T>(
-            collection: Array<T>,
-            whereValue: W): Dictionary<T>;
+         * @see _.indexBy
+         */
+        indexBy<T>(
+            collection: NumericDictionary<T>,
+            iteratee?: NumericDictionaryIterator<T, any>,
+            thisArg?: any
+        ): Dictionary<T>;
 
         /**
-        * @see _.indexBy
-        * @param whereValue _.where style callback
-        **/
-        indexBy<W, T>(
-            collection: List<T>,
-            whereValue: W): Dictionary<T>;
+         * @see _.indexBy
+         */
+        indexBy<T>(
+            collection: Dictionary<T>,
+            iteratee?: DictionaryIterator<T, any>,
+            thisArg?: any
+        ): Dictionary<T>;
+
+        /**
+         * @see _.indexBy
+         */
+        indexBy<T>(
+            collection: List<T>|NumericDictionary<T>|Dictionary<T>,
+            iteratee?: string,
+            thisArg?: any
+        ): Dictionary<T>;
+
+        /**
+         * @see _.indexBy
+         */
+        indexBy<W extends Object, T>(
+            collection: List<T>|NumericDictionary<T>|Dictionary<T>,
+            iteratee?: W
+        ): Dictionary<T>;
+
+        /**
+         * @see _.indexBy
+         */
+        indexBy<T>(
+            collection: List<T>|NumericDictionary<T>|Dictionary<T>,
+            iteratee?: Object
+        ): Dictionary<T>;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.indexBy
+         */
+        indexBy(
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<T>>;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.indexBy
+         */
+        indexBy(
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.indexBy
+         */
+        indexBy(
+            iteratee?: string,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.indexBy
+         */
+        indexBy<W extends Object>(
+            iteratee?: W
+        ): LoDashImplicitObjectWrapper<Dictionary<T>>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.indexBy
+         */
+        indexBy<T>(
+            iteratee?: ListIterator<T, any>|NumericDictionaryIterator<T, any>|DictionaryIterator<T, any>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.indexBy
+         */
+        indexBy<T>(
+            iteratee?: string,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.indexBy
+         */
+        indexBy<W extends Object, T>(
+            iteratee?: W
+        ): LoDashImplicitObjectWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.indexBy
+         */
+        indexBy<T>(
+            iteratee?: Object
+        ): LoDashImplicitObjectWrapper<Dictionary<T>>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.indexBy
+         */
+        indexBy(
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.indexBy
+         */
+        indexBy(
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.indexBy
+         */
+        indexBy(
+            iteratee?: string,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.indexBy
+         */
+        indexBy<W extends Object>(
+            iteratee?: W
+        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.indexBy
+         */
+        indexBy<T>(
+            iteratee?: ListIterator<T, any>|NumericDictionaryIterator<T, any>|DictionaryIterator<T, any>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.indexBy
+         */
+        indexBy<T>(
+            iteratee?: string,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.indexBy
+         */
+        indexBy<W extends Object, T>(
+            iteratee?: W
+        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.indexBy
+         */
+        indexBy<T>(
+            iteratee?: Object
+        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
     }
 
     //_.invoke
