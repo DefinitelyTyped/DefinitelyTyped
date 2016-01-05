@@ -3,6 +3,8 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../express/express.d.ts" />
+
 declare module 'serve-index' {
   import * as express from 'express';
   import * as fs from 'fs';
