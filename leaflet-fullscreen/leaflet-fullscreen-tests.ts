@@ -1,7 +1,7 @@
 /// <reference path="leaflet-fullscreen.d.ts" />
 
 var map: L.Map;
-var icon: L.Control.Fullcircle = new L.control.fullcircle({
+var icon: L.Control.Fullscreen = L.control.fullscreen({
   position: 'topleft',
   title: 'Full Screen',
   titleCancel: 'Exit Full Screen',
