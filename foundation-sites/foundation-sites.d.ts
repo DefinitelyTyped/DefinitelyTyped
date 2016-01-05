@@ -176,7 +176,7 @@ declare module FoundationSites {
         threshold?: number;
         activeClass?: string;
         deepLinking?: boolean;
-        barOffset: number;
+        barOffset?: number;
     }
 
     // http://foundation.zurb.com/sites/docs/offcanvas.html#javascript-reference
@@ -450,8 +450,8 @@ interface JQuery {
     foundation(method?:string|Array<any>) : JQuery;
 }
 
-declare var FoundationSites:FoundationSites.FoundationSitesStatic;
+declare var Foundation:FoundationSites.FoundationSitesStatic;
 
-declare module "FoundationSites" {
-    export = FoundationSites;
+declare module "Foundation" {
+    export = Foundation;
 }
