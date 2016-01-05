@@ -257,6 +257,20 @@ interface UnderscoreStatic {
 	/**
 	* @see _.find
 	**/
+	find<T, U extends {}>(
+		object: _.List<T>|_.Dictionary<T>,
+		iterator: U): T;
+
+	/**
+	* @see _.find
+	**/
+	find<T>(
+		object: _.List<T>|_.Dictionary<T>,
+		iterator: string): T;
+
+	/**
+	* @see _.find
+	**/
 	detect<T>(
 		list: _.List<T>,
 		iterator: _.ListIterator<T, boolean>,
@@ -269,6 +283,20 @@ interface UnderscoreStatic {
 		object: _.Dictionary<T>,
 		iterator: _.ObjectIterator<T, boolean>,
         context?: any): T;
+
+	/**
+	* @see _.find
+	**/
+	detect<T, U extends {}>(
+		object: _.List<T>|_.Dictionary<T>,
+		iterator: U): T;
+
+	/**
+	* @see _.find
+	**/
+	detect<T>(
+		object: _.List<T>|_.Dictionary<T>,
+		iterator: string): T;
 
     /**
 	* Looks through each value in the list, returning the index of the first one that passes a truth
@@ -1696,12 +1724,32 @@ interface Underscore<T> {
 	* Wrapped type `any[]`.
 	* @see _.find
 	**/
-	find(iterator: _.ListIterator<T, boolean>, context?: any): T;
+	find<T>(iterator: _.ListIterator<T, boolean>|_.ObjectIterator<T, boolean>, context?: any): T;
 
 	/**
 	* @see _.find
 	**/
-	detect(iterator: _.ListIterator<T, boolean>, context?: any): T;
+	find<T, U extends {}>(interator: U): T;
+
+	/**
+	* @see _.find
+	**/
+	find<T>(interator: string): T;
+
+	/**
+	* @see _.find
+	**/
+	detect<T>(iterator: _.ListIterator<T, boolean>|_.ObjectIterator<T, boolean>, context?: any): T;
+
+	/**
+	* @see _.find
+	**/
+	detect<T, U extends {}>(interator?: U): T;
+
+	/**
+	* @see _.find
+	**/
+	detect<T>(interator?: string): T;
 
 	/**
 	* Wrapped type `any[]`.
@@ -2554,12 +2602,32 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.find
 	**/
-	find(iterator: _.ListIterator<T, boolean>, context?: any): _ChainSingle<T>;
+	find<T>(iterator: _.ListIterator<T, boolean>|_.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T>;
 
 	/**
 	* @see _.find
 	**/
-	detect(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+	find<T, U extends {}>(interator: U): _ChainSingle<T>;
+
+	/**
+	* @see _.find
+	**/
+	find<T>(interator: string): _ChainSingle<T>;
+
+	/**
+	* @see _.find
+	**/
+	detect<T>(iterator: _.ListIterator<T, boolean>|_.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T>;
+
+	/**
+	* @see _.find
+	**/
+	detect<T, U extends {}>(interator: U): _ChainSingle<T>;
+
+	/**
+	* @see _.find
+	**/
+	detect<T>(interator: string): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.

@@ -83,3 +83,5 @@ declare type RequestInfo = Request|string;
 interface Window {
 	fetch(url: string|Request, init?: RequestInit): Promise<Response>;
 }
+
+declare var fetch: typeof window.fetch;

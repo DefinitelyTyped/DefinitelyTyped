@@ -87,7 +87,67 @@ interface JQuery {
       * @param options ('hint' or 'highlight' or 'minLength' all of which are optional)
       * @param datasets One or more datasets passed in as arguments.
       */
-    typeahead(options: Twitter.Typeahead.Options, ... datasets: Twitter.Typeahead.Dataset[]): JQuery;
+    typeahead(options: Twitter.Typeahead.Options, ...datasets: Twitter.Typeahead.Dataset[]): JQuery;
+
+    on(events: "typeahead:active", selector: string, data: any, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:active", selector: string, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:active", handler: (ev: JQueryEventObject) => any): JQuery;
+    off(events: "typeahead:active", handler: (ev: JQueryEventObject) => any): JQuery;
+
+    on(events: "typeahead:idle", selector: string, data: any, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:idle", selector: string, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:idle", handler: (ev: JQueryEventObject) => any): JQuery;
+    off(events: "typeahead:idle", handler: (ev: JQueryEventObject) => any): JQuery;
+
+    on(events: "typeahead:open", selector: string, data: any, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:open", selector: string, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:open", handler: (ev: JQueryEventObject) => any): JQuery;
+    off(events: "typeahead:open", handler: (ev: JQueryEventObject) => any): JQuery;
+
+    on(events: "typeahead:close", selector: string, data: any, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:close", selector: string, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:close", handler: (ev: JQueryEventObject) => any): JQuery;
+    off(events: "typeahead:close", handler: (ev: JQueryEventObject) => any): JQuery;
+
+    on(events: "typeahead:change", selector: string, data: any, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:change", selector: string, handler: (ev: JQueryEventObject) => any): JQuery;
+    on(events: "typeahead:change", handler: (ev: JQueryEventObject) => any): JQuery;
+    off(events: "typeahead:change", handler: (ev: JQueryEventObject) => any): JQuery;
+
+    on(events: "typeahead:render", selector: string, data: any, handler: (ev: JQueryEventObject, suggestions: Array<any>, async: boolean, datasetName: string) => any): JQuery;
+    on(events: "typeahead:render", selector: string, handler: (ev: JQueryEventObject, suggestions: Array<any>, async: boolean, datasetName: string) => any): JQuery;
+    on(events: "typeahead:render", handler: (ev: JQueryEventObject, suggestions: Array<any>, async: boolean, datasetName: string) => any): JQuery;
+    off(events: "typeahead:render", handler: (ev: JQueryEventObject, suggestions: Array<any>, async: boolean, datasetName: string) => any): JQuery;
+
+    on(events: "typeahead:select", selector: string, data: any, handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+    on(events: "typeahead:select", selector: string, handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+    on(events: "typeahead:select", handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+    off(events: "typeahead:select", handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+
+    on(events: "typeahead:autocomplete", selector: string, data: any, handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+    on(events: "typeahead:autocomplete", selector: string, handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+    on(events: "typeahead:autocomplete", handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+    off(events: "typeahead:autocomplete", handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+
+    on(events: "typeahead:cursorchange", selector: string, data: any, handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+    on(events: "typeahead:cursorchange", selector: string, handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+    on(events: "typeahead:cursorchange", handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+    off(events: "typeahead:cursorchange", handler: (ev: JQueryEventObject, suggestion: any) => any): JQuery;
+
+    on(events: "typeahead:asyncrequest", selector: string, data: any, handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+    on(events: "typeahead:asyncrequest", selector: string, handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+    on(events: "typeahead:asyncrequest", handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+    off(events: "typeahead:asyncrequest", handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+
+    on(events: "typeahead:asynccancel", selector: string, data: any, handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+    on(events: "typeahead:asynccancel", selector: string, handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+    on(events: "typeahead:asynccancel", handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+    off(events: "typeahead:asynccancel", handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+
+    on(events: "typeahead:asyncreceive", selector: string, data: any, handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+    on(events: "typeahead:asyncreceive", selector: string, handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+    on(events: "typeahead:asyncreceive", handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
+    off(events: "typeahead:asyncreceive", handler: (ev: JQueryEventObject, query: string, datasetName: string) => any): JQuery;
 }
 
 declare module Twitter.Typeahead {
@@ -105,7 +165,7 @@ declare module Twitter.Typeahead {
          * cb can be invoked synchronously or asynchronously.
          *
           */
-        source: (query: string, cb: (result: any) => void) => void;
+        source: ((query: string, syncResults: (result: Array<any>) => void, asyncResults?: (result: Array<any>) => void) => void);
 
         /**
           * The name of the dataset.
@@ -120,18 +180,24 @@ declare module Twitter.Typeahead {
          * This will be used when setting the value of the input control after a suggestion is selected. Can be either a key string or a function that transforms a suggestion object into a string.
          * Defaults to value.
          */
+        display?: string | ((obj: any) => string);
+        
+        /**
+         * Can be used in place of display above.
+         * 
+         */ 
         displayKey?: string | ((obj: any) => string);
-
+        
         /**
          * A hash of templates to be used when rendering the dataset.
          * Note a precompiled template is a function that takes a JavaScript object as its first argument and returns a HTML string.
           */
         templates?: Templates;
+        async?: boolean;
     }
 
 
     interface Templates {
-
         /**
          * Rendered when 0 suggestions are available for the given query.
          * Can be either a HTML string or a precompiled template.
@@ -178,267 +244,261 @@ declare module Twitter.Typeahead {
     }
 
 
-     /**
-      * When initializing a typeahead, there are a number of options you can configure.
-      */
+    /**
+     * When initializing a typeahead, there are a number of options you can configure.
+     */
     interface Options {
-      /**
-        * highlight:  If true, when suggestions are rendered,
-        * pattern matches for the current query in text nodes will be wrapped in a strong element.
-        * Defaults to false.
-        */
-      highlight?: boolean;
+        /**
+          * highlight:  If true, when suggestions are rendered,
+          * pattern matches for the current query in text nodes will be wrapped in a strong element.
+          * Defaults to false.
+          */
+        highlight?: boolean;
 
-      /**
-        * If false, the typeahead will not show a hint. Defaults to true.
-        */
-      hint?: boolean;
+        /**
+          * If false, the typeahead will not show a hint. Defaults to true.
+          */
+        hint?: boolean;
 
-      /**
-        * The minimum character length needed before suggestions start getting rendered. Defaults to 1.
-        */
-      minLength?: number;
+        /**
+          * The minimum character length needed before suggestions start getting rendered. Defaults to 1.
+          */
+        minLength?: number;
     }
 }
 
-declare module Bloodhound
-{
-  interface BloodhoundOptions<T>
-  {
-    /**
-    * Transforms a datum into an array of string tokens
-    *
-    * @constructor
-    * @param datum individual units that compose the dataset
-    */
-    datumTokenizer?: any;
-    /**
-    * Transforms a query into an array of string tokens
-    *
-    * @constructor
-    * @param query tokenizer query
-    */
-    queryTokenizer?: any;
-    /**
-    *  The max number of suggestions to return from Bloodhound#get.
-    * If not reached, the data source will attempt to backfill the suggestions from remote. Defaults to 5
-    */
-    limit?: number;
-    /**
-    *  If set, this is expected to be a function with the signature (remoteMatch, localMatch) that returns true if the datums are duplicates or false otherwise.
-    *  If not set, duplicate detection will not be performed.
-    */
-    dupDetector?: (remoteMatch: T, localMatch: T) => boolean;
-    /**
-    * A compare function used to sort matched datums for a given query.
-    */
-    sorter?: (a: T, b: T) => number;
-    /**
-    *An array of datums or a function that returns an array of datums.
-    */
-    local?: () => T[];
-    /**
-    * Can be a URL to a JSON file containing an array of datums or, if more configurability is needed, a prefetch options hash.
-    */
-    prefetch?: PrefetchOptions<T>;
-    /**
-    *  Can be a URL to fetch suggestions from when the data provided by local and prefetch is insufficient or, if more configurability is needed, a remote options hash.
-    */
-    remote?: RemoteOptions<T>;
-  }
-
-  /**
-  * Prefetched data is fetched and processed on initialization.
-  * If the browser supports localStorage, the processed data will be cached
-  * there to prevent additional network requests on subsequent page loads.
-  */
-  interface PrefetchOptions<T>
-  {
-    /**
-    * A URL to a JSON file containing an array of datums. Required.
-    */
-    url: string;
-    /**
-    * The time (in milliseconds) the prefetched data should be cached
-    * in localStorage. Defaults to 86400000 (1 day).
-    */
-    ttl?: number;
-    /**
-    * A function that transforms the response body into an array of datums.
-    *
-    * @param parsedResponse Response body
-    */
-    filter?: (parsedResponse: any) => T[];
-    /** The key that data will be stored in local storage under. Defaults to value of url.
-    *
-    */
-    cacheKey?: string;
-    /**
-    * A string used for thumbprinting prefetched data. If this doesn't match what's stored in local storage, the data will be refetched.
-    */
-    thumbprint?: string;
-    /**
-    * The ajax settings object passed to jQuery.ajax.
-    */
-    ajax?: JQueryAjaxSettings;
-  }
-
-  /**
-  * Remote data is only used when the data provided by local and prefetch
-  * is insufficient. In order to prevent an obscene number of requests
-  * being made to remote endpoint, typeahead.js rate-limits remote requests.
-  */
-  interface RemoteOptions<T>
-  {
-    /**
-    * A URL to make requests to when the data provided by local and
-    * prefetch is insufficient. Required.
-    */
-    url: string;
-    /**
-    * The pattern in url that will be replaced with the user's query
-    * when a request is made. Defaults to %QUERY.
-    */
-    wildcard?: string;
-    /**
-    * Overrides the request URL. If set, no wildcard substitution will
-    * be performed on url.
-    *
-    * @param url Replacement URL
-    * @param uriEncodedQuery Encoded query
-    * @returns A valid URL
-    */
-    replace?: (url: string, uriEncodedQuery: string) => string;
-    /**
-    * The function used for rate-limiting network requests.
-    * Can be either 'debounce' or 'throttle'. Defaults to 'debounce'.
-    */
-    rateLimitby?: string;
-    /**
-    * The time interval in milliseconds that will be used by rateLimitFn.
-    * Defaults to 300.
-    */
-    rateLimitWait?: number;
+declare module Bloodhound {
+    interface BloodhoundOptions<T> {
+        /**
+        * Transforms a datum into an array of string tokens
+        *
+        * @constructor
+        * @param datum individual units that compose the dataset
+        */
+        datumTokenizer?: any;
+        /**
+        * Transforms a query into an array of string tokens
+        *
+        * @constructor
+        * @param query tokenizer query
+        */
+        queryTokenizer?: any;
+        /**
+        * The max number of suggestions to return from Bloodhound#get.
+        * If not reached, the data source will attempt to backfill the suggestions from remote. Defaults to 5
+        */
+        limit?: number;
+        /**
+        * If set, this is expected to be a function with the signature (remoteMatch, localMatch) that returns true if the datums are duplicates or false otherwise.
+        * If not set, duplicate detection will not be performed.
+        */
+        dupDetector?: (remoteMatch: T, localMatch: T) => boolean;
+        /**
+        * A compare function used to sort matched datums for a given query.
+        */
+        sorter?: (a: T, b: T) => number;
+        /**
+        * An array of datums or a function that returns an array of datums.
+        */
+        local?: () => T[];
+        /**
+        * Can be a URL to a JSON file containing an array of datums or, if more configurability is needed, a prefetch options hash.
+        */
+        prefetch?: PrefetchOptions<T>;
+        /**
+        *  Can be a URL to fetch suggestions from when the data provided by local and prefetch is insufficient or, if more configurability is needed, a remote options hash.
+        */
+        remote?: RemoteOptions<T>;
+    }
 
     /**
-    * Transforms the response body into an array of datums.
-    *
-    * @param parsedResponse Response body
+    * Prefetched data is fetched and processed on initialization.
+    * If the browser supports localStorage, the processed data will be cached
+    * there to prevent additional network requests on subsequent page loads.
     */
-    filter?: (parsedResponse: any) => T[];
+    interface PrefetchOptions<T> {
+        /**
+        * A URL to a JSON file containing an array of datums. Required.
+        */
+        url: string;
+        /**
+        * The time (in milliseconds) the prefetched data should be cached
+        * in localStorage. Defaults to 86400000 (1 day).
+        */
+        ttl?: number;
+        /**
+        * A function that transforms the response body into an array of datums.
+        *
+        * @param parsedResponse Response body
+        */
+        filter?: (parsedResponse: any) => T[];
+        /** The key that data will be stored in local storage under. Defaults to value of url.
+        *
+        */
+        cacheKey?: string;
+        /**
+        * A string used for thumbprinting prefetched data. If this doesn't match what's stored in local storage, the data will be refetched.
+        */
+        thumbprint?: string;
+        /**
+        * The ajax settings object passed to jQuery.ajax.
+        */
+        ajax?: JQueryAjaxSettings;
+    }
+
     /**
-    * The ajax settings object passed to jQuery.ajax.
+    * Remote data is only used when the data provided by local and prefetch
+    * is insufficient. In order to prevent an obscene number of requests
+    * being made to remote endpoint, typeahead.js rate-limits remote requests.
     */
-    ajax?: JQueryAjaxSettings;
+    interface RemoteOptions<T> {
+        /**
+        * A URL to make requests to when the data provided by local and
+        * prefetch is insufficient. Required.
+        */
+        url: string;
+        /**
+        * The pattern in url that will be replaced with the user's query
+        * when a request is made. Defaults to %QUERY.
+        */
+        wildcard?: string;
+        /**
+        * Overrides the request URL. If set, no wildcard substitution will
+        * be performed on url.
+        *
+        * @param url Replacement URL
+        * @param uriEncodedQuery Encoded query
+        * @returns A valid URL
+        */
+        replace?: (url: string, uriEncodedQuery: string) => string;
+        /**
+        * The function used for rate-limiting network requests.
+        * Can be either 'debounce' or 'throttle'. Defaults to 'debounce'.
+        */
+        rateLimitby?: string;
+        /**
+        * The time interval in milliseconds that will be used by rateLimitFn.
+        * Defaults to 300.
+        */
+        rateLimitWait?: number;
+
+        /**
+        * Transforms the response body into an array of datums.
+        *
+        * @param parsedResponse Response body
+        */
+        filter?: (parsedResponse: any) => T[];
+        /**
+        * The ajax settings object passed to jQuery.ajax.
+        */
+        ajax?: JQueryAjaxSettings;
     
-    /**
-     * A function that provides a hook to allow you to prepare the settings object passed to transport
-     * when a request is about to be made. The function signature should be prepare(query, settings),
-     * where query is the query #search was called with and settings is the default settings object 
-     * created internally by the Bloodhound instance. The prepare function should return a settings object.
-     * [Note: Added in 0.11.1]
-     * 
-     * @param query The query #search was called with.
-     * @param settings The default settings object created internally by Bloodhound.
-     * @returns A JqueryAjaxSettings object.
-     */
-    prepare?: (query: string, settings: JQueryAjaxSettings) => JQueryAjaxSettings;
-  }
+        /**
+         * A function that provides a hook to allow you to prepare the settings object passed to transport
+         * when a request is about to be made. The function signature should be prepare(query, settings),
+         * where query is the query #search was called with and settings is the default settings object 
+         * created internally by the Bloodhound instance. The prepare function should return a settings object.
+         * [Note: Added in 0.11.1]
+         * 
+         * @param query The query #search was called with.
+         * @param settings The default settings object created internally by Bloodhound.
+         * @returns A JqueryAjaxSettings object.
+         */
+        prepare?: (query: string, settings: JQueryAjaxSettings) => JQueryAjaxSettings;
+    }
 
-  /**
-  * The most common tokenization methods.
-  */
-  interface Tokenizers
-  {
     /**
-    * Split a given string on whitespace characters.
+    * The most common tokenization methods.
     */
-    whitespace(query: string): string[];
-    /**
-    * Split a given string on non-word characters.
-    */
-    nonword(query: string): string[];
+    interface Tokenizers {
+        /**
+        * Split a given string on whitespace characters.
+        */
+        whitespace(query: string): string[];
+        /**
+        * Split a given string on non-word characters.
+        */
+        nonword(query: string): string[];
 
-   /**
-   * Instances of the most common tokenization methods.
-   */
-    obj: ObjTokenizer;
-  }
+        /**
+        * Instances of the most common tokenization methods.
+        */
+        obj: ObjTokenizer;
+    }
 
-  interface ObjTokenizer
-  {
-    /**
-    * Split a given string on whitespace characters.
-    */
-    whitespace(query: string): string[];
-    /**
-    * Split a given string on non-word characters.
-    */
-    nonword(query: string): string[];
-  }
+    interface ObjTokenizer {
+        /**
+        * Split a given string on whitespace characters.
+        */
+        whitespace(query: string): string[];
+        /**
+        * Split a given string on non-word characters.
+        */
+        nonword(query: string): string[];
+    }
 }
 
 declare class Bloodhound<T> {
-  constructor(options: Bloodhound.BloodhoundOptions<T>);
-  /**
-  * wraps the suggestion engine in an adapter that is compatible with the typeahead jQuery plugin
-  */
-  public ttAdapter(): any;
-  /**
-  * Kicks off the initialization of the suggestion engine. This includes processing the data provided through local and fetching/processing the data provided through prefetch.
-  * Until initialized, all other methods will behave as no-ops.
-  * Returns a jQuery promise which is resolved when engine has been initialized.
-  *
-  * After the initial call of initialize, how subsequent invocations of the method behave depends on the reinitialize argument.
-  * If reinitialize is falsy, the method will not execute the initialization logic and will just return the same jQuery promise returned by the initial invocation.
-  * If reinitialize is truthy, the method will behave as if it were being called for the first time.
-  *
-  * var promise1 = engine.initialize();
-  * var promise2 = engine.initialize();
-  * var promise3 = engine.initialize(true);
-  *
-  * promise1 === promise2;
-  * promise3 !== promise1 && promise3 !== promise2;
-  */
-  public initialize(reinitialize?: boolean): JQueryPromise<any>;
-  /**
-  * Takes one argument, datums, which is expected to be an array of datums.
-  * The passed in datums will get added to the search index that powers the suggestion engine.
-  */
-  public add(datums: T[]): void;
-  /**
-  * Removes all suggestions from the search index.
-  */
-  public clear(): void;
-  /**
-  * If you're using prefetch, data gets cached in local storage in an effort to cut down on unnecessary network requests.
-  * clearPrefetchCache offers a way to programmatically clear said cache.
-  */
-  public clearPrefetchCache(): void;
-  /**
-  * If you're using remote, Bloodhound will cache the 10 most recent responses in an effort to provide a better user experience.
-  * clearRemoteCache offers a way to programmatically clear said cache.
-  */
-  public clearRemoteCache(): void;
-  /**
-  * Returns a reference to the Bloodhound constructor and reverts window.Bloodhound to its previous value. Can be used to avoid naming collisions.
-  */
-  public noConflict(): any;
+    constructor(options: Bloodhound.BloodhoundOptions<T>);
+    /**
+    * wraps the suggestion engine in an adapter that is compatible with the typeahead jQuery plugin
+    */
+    public ttAdapter(): any;
+    /**
+    * Kicks off the initialization of the suggestion engine. This includes processing the data provided through local and fetching/processing the data provided through prefetch.
+    * Until initialized, all other methods will behave as no-ops.
+    * Returns a jQuery promise which is resolved when engine has been initialized.
+    *
+    * After the initial call of initialize, how subsequent invocations of the method behave depends on the reinitialize argument.
+    * If reinitialize is falsy, the method will not execute the initialization logic and will just return the same jQuery promise returned by the initial invocation.
+    * If reinitialize is truthy, the method will behave as if it were being called for the first time.
+    *
+    * var promise1 = engine.initialize();
+    * var promise2 = engine.initialize();
+    * var promise3 = engine.initialize(true);
+    *
+    * promise1 === promise2;
+    * promise3 !== promise1 && promise3 !== promise2;
+    */
+    public initialize(reinitialize?: boolean): JQueryPromise<any>;
+    /**
+    * Takes one argument, datums, which is expected to be an array of datums.
+    * The passed in datums will get added to the search index that powers the suggestion engine.
+    */
+    public add(datums: T[]): void;
+    /**
+    * Removes all suggestions from the search index.
+    */
+    public clear(): void;
+    /**
+    * If you're using prefetch, data gets cached in local storage in an effort to cut down on unnecessary network requests.
+    * clearPrefetchCache offers a way to programmatically clear said cache.
+    */
+    public clearPrefetchCache(): void;
+    /**
+    * If you're using remote, Bloodhound will cache the 10 most recent responses in an effort to provide a better user experience.
+    * clearRemoteCache offers a way to programmatically clear said cache.
+    */
+    public clearRemoteCache(): void;
+    /**
+    * Returns a reference to the Bloodhound constructor and reverts window.Bloodhound to its previous value. Can be used to avoid naming collisions.
+    */
+    public noConflict(): any;
 
-  /**
-  * Computes a set of suggestions for query. cb will be invoked with an array of datums that represent said set.
-  * cb will always be invoked once synchronously with suggestions that were available on the client.
-  * If those suggestions are insufficient (# of suggestions is less than limit) and remote was configured, cb may also be invoked asynchronously with the suggestions available on the client mixed with suggestions from the remote source.
-  */
-  public get(query: string, cb: (datums: T[]) => void): void;
+    /**
+    * Computes a set of suggestions for query. cb will be invoked with an array of datums that represent said set.
+    * cb will always be invoked once synchronously with suggestions that were available on the client.
+    * If those suggestions are insufficient (# of suggestions is less than limit) and remote was configured, cb may also be invoked asynchronously with the suggestions available on the client mixed with suggestions from the remote source.
+    */
+    public get(query: string, cb: (datums: T[]) => void): void;
 
-  /**
-  * The Bloodhound suggestion engine is token-based, so how datums and queries are tokenized plays a vital role in the quality of search results.
-  * Specify how you want datums and queries tokenized.
-  */
-  public static tokenizers: Bloodhound.Tokenizers;
+    /**
+    * The Bloodhound suggestion engine is token-based, so how datums and queries are tokenized plays a vital role in the quality of search results.
+    * Specify how you want datums and queries tokenized.
+    */
+    public static tokenizers: Bloodhound.Tokenizers;
 }
 
 declare module "bloodhound" {
-  export = Bloodhound;
+    export = Bloodhound;
 }

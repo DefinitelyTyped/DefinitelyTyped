@@ -1,6 +1,6 @@
 // Type definitions for joi v4.6.0
 // Project: https://github.com/spumko/joi
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>, Christopher Glantschnig <https://github.com/cglantschnig>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>, Christopher Glantschnig <https://github.com/cglantschnig>, David Broder-Rodgers <https://github.com/DavidBR-SW>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // TODO express type of Schema in a type-parameter (.default, .valid, .example etc)
@@ -584,8 +584,8 @@ declare module 'joi' {
 		/**
 		 * Verifies an assertion where.
 		 */
-		assert(ref: string, schema: Schema, message: string): ObjectSchema;
-		assert(ref: Reference, schema: Schema, message: string): ObjectSchema;
+		assert(ref: string, schema: Schema, message?: string): ObjectSchema;
+		assert(ref: Reference, schema: Schema, message?: string): ObjectSchema;
 
 		/**
 		 * Overrides the handling of unknown keys for the scope of the current object only (does not apply to children).
