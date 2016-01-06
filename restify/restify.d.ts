@@ -72,6 +72,61 @@ declare module "restify" {
     headers: Object;
     id: string;
   }
+  
+  interface Route {
+    name: string;
+    method: string;
+    path: RoutePathRegex;
+    spec: Object;
+    types: string[];
+    versions: string[];
+  }
+  
+  interface RouteOptions {
+      name: string;
+      method: string;
+      path?: string | RegExp;
+      url?: string | RegExp;
+      urlParamPattern?: RegExp;
+      contentType?: string | string[];
+      versions?: string | string[];
+  }
+  
+  interface RoutePathRegex extends RegExp {
+    restifyParams: string[];
+  }
+  
+  interface Router {
+    name: string;
+    mounts: { [routeName: string]: Route };
+    versions: string[];
+    contentType: string[];
+    routes: {
+      DELETE: Route[];
+      GET: Route[];
+      HEAD: Route[];
+      OPTIONS: Route[];
+      PATCH: Route[];
+      POST: Route[];
+      PUT: Route[];
+    };
+    log?: any;
+    toString: () => string;
+    
+    /**
+     * adds a route.
+     * @param    {Object} options an options object
+     * @returns  {String} returns the route name if creation is successful.
+     */
+    mount: (options: Object) => string;
+    
+    /**
+     * unmounts a route.
+     * @param    {String} name the route name
+     * @returns  {String} the name of the deleted route (or false if it was not matched)
+     */
+    unmount: (name: string) => string | boolean;
+  }
 
   interface Server extends http.Server {
     use(handler: RequestHandler, ...handlers: RequestHandler[]): any;
@@ -124,7 +179,9 @@ declare module "restify" {
     close(... args: any[]): any;
     pre(routeCallBack: RequestHandler): any;
     server: http.Server;
-
+    router: Router;
+    routes: Route[];
+    toString: () => string;
   }
 
   interface ServerOptions {
@@ -138,6 +195,7 @@ declare module "restify" {
     responseTimeHeader ?: string;
     responseTimeFormatter ?: (durationInMilliseconds: number) => any;
     handleUpgrades ?: boolean;
+    router ?: Router;
   }
 
   interface ClientOptions {
