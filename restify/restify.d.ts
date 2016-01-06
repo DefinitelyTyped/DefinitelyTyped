@@ -114,16 +114,25 @@ declare module "restify" {
     toString: () => string;
     
     /**
+     * Takes an object of route params and query params, and 'renders' a URL
+     * @param    {String} routeName the route name
+     * @param    {Object} params    an object of route params
+     * @param    {Object} query     an object of query params
+     * @returns  {String}
+     */
+    render: (routeName: string, params: Object, query?: Object) => string;
+    
+    /**
      * adds a route.
      * @param    {Object} options an options object
-     * @returns  {String} returns the route name if creation is successful.
+     * @returns  {String}         returns the route name if creation is successful.
      */
     mount: (options: Object) => string;
     
     /**
      * unmounts a route.
      * @param    {String} name the route name
-     * @returns  {String} the name of the deleted route (or false if it was not matched)
+     * @returns  {String}      the name of the deleted route (or false if it was not matched)
      */
     unmount: (name: string) => string | boolean;
   }
