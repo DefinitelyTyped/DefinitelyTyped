@@ -1197,6 +1197,13 @@ interface UnderscoreStatic {
 	* @param object Retrieve the values of all the properties on this object.
 	* @return List of all the values on `object`.
 	**/
+	values<T>(object: _.Dictionary<T>): T[];
+
+	/**
+	* Return all of the values of the object's properties.
+	* @param object Retrieve the values of all the properties on this object.
+	* @return List of all the values on `object`.
+	**/
 	values(object: any): any[];
     
     /**
@@ -1641,6 +1648,7 @@ interface UnderscoreStatic {
 	* @return Wrapped `obj`.
 	**/
 	chain<T>(obj: T[]): _Chain<T>;
+	chain<T>(obj: _.Dictionary<T>): _Chain<T>;
 	chain<T extends {}>(obj: T): _Chain<T>;
 }
 
