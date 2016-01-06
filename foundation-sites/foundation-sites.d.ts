@@ -1,4 +1,4 @@
-// Type definitions for Foundation Sites v6.1.x
+// Type definitions for Foundation Sites v6.1.1
 // Project: http://foundation.zurb.com/
 // Definitions by: Sam Vloeberghs <https://github.com/samvloeberghs/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -194,7 +194,6 @@ declare module FoundationSites {
         position?: string;
         forceTop?: boolean;
         isRevealed?: boolean;
-        isRevealed?: boolean;
         revealOn?: string;
         autoFocus?: boolean;
         revealClass?: string;
@@ -378,8 +377,8 @@ declare module FoundationSites {
     }
 
     interface Nest {
-        Feather(menu:any, type:any);
-        Burn(menu:any, type:any);
+        Feather(menu:any, type:any):void;
+        Burn(menu:any, type:any):void;
     }
 
     interface Timer {
