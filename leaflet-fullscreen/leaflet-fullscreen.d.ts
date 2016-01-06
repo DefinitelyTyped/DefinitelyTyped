@@ -12,11 +12,11 @@ declare module L {
     export interface Fullscreen extends L.Control {}
 
     export interface FullscreenOptions {
-      position: string,
-  		title: string,
-  		titleCancel: string,
-  		forceSeparateButton: boolean,
-  		forcePseudoFullscreen: boolean
+      position?: string,
+  		title?: string,
+  		titleCancel?: string,
+  		forceSeparateButton?: boolean,
+  		forcePseudoFullscreen?: boolean
     }
   }
 
