@@ -1,5 +1,5 @@
 ///<reference path='applicationinsights.d.ts' />
-import appInsights = require("applicationinsights");
+import * as appInsights from "applicationinsights";
 
 // basic use
 appInsights.setup("<instrumentation_key>").start();
