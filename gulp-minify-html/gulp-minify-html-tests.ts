@@ -8,7 +8,7 @@ minifyHtml();
 minifyHtml({conditionals: true, loose: true});
 
 gulp.task('minify-html', () => {
-    var opts = {
+    var opts: minifyHtml.Options = {
         conditionals: true,
         spare: true
     };
