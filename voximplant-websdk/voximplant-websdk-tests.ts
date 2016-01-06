@@ -1,7 +1,8 @@
 /// <reference path="./voximplant-websdk.d.ts"/>
 
 var vox: VoxImplant.Client = VoxImplant.getInstance(),
-	call: VoxImplant.Call;
+	call: VoxImplant.Call,
+	room: string;
 
 vox.init({
 	micRequired: true 
@@ -83,3 +84,10 @@ vox.addEventListener(VoxImplant.IMEvents.RosterReceived, function(event: VoxImpl
 	console.log("Roster received: " + roster);
 });
 
+vox.addEventListener(VoxImplant.IMEvents.ChatRoomBanList, function(event: VoxImplant.IMEvents.ChatRoomBanList) {
+	console.log("Banned participants: " + event.participants + " in room " + event.room);
+});
+
+room = vox.createChatRoom();
+
+vox.inviteToChatRoom(room, "user1", "Come and join us");
