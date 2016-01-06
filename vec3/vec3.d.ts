@@ -1,5 +1,5 @@
 declare module "vec3"{
-    export class Vec3{
+    class Vec3{
         constructor(x: number, y: number, z: number);
         constructor(location: number[]);
         constructor(location: {x: number; y: number; z: number});
