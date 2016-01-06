@@ -3,7 +3,11 @@
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../uglify-js/uglify-js.d.ts"/>
+
 declare module "webpack" {
+    import * as UglifyJS from 'uglify-js';
+
     namespace webpack {
         interface Configuration {
             context?: string;
@@ -426,7 +430,7 @@ declare module "webpack" {
                 new(preferEntry: boolean): Plugin;
             }
             interface UglifyJsPluginStatic {
-                new(options?: any): Plugin;
+                new(options?: UglifyJS.MinifyOptions): Plugin;
             }
             interface CommonsChunkPluginStatic {
                 new(chunkName: string, filenames?: string|string[]): Plugin;
