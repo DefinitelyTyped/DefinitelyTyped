@@ -5,8 +5,11 @@
 
 /// <reference path="../node/node.d.ts" />
 
+// This package has been deprecated in favor of gulp-htmlmin, which should be faster and more comprehensive.
+
 declare module 'gulp-minify-html' {
     namespace minifyHtml {
+        // Options from https://github.com/Swaagie/minimize#options
         interface Options {
             // Do not remove empty attributes
             empty?: boolean;
