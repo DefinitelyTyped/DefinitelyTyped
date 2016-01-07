@@ -80,7 +80,7 @@ window.onload=()=>{
 		var rect = s.rect(20,20,40,40);
 		var circle = s.circle(60,150,50);
 		
-		var move = function(dx,dy) {
+		var move = function(dx:number,dy:number) {
 		        this.attr({
 		                    transform: this.data('origTransform') + (this.data('origTransform') ? "T" : "t") + [dx, dy]
 		                });
@@ -101,7 +101,7 @@ window.onload=()=>{
 	{
 		// Snap drag and scale example
 		var dragging = 0;
-		var handleGroup;
+		var handleGroup:any;
 		
 		function addHandleFunc() {
 		        if( dragging == 0 ) {
@@ -124,7 +124,7 @@ window.onload=()=>{
 		        this.data('origTransform', this.transform().local);
 		}
 		
-		var move = function(dx,dy) {
+		var move = function(dx:number,dy:number) {
 		        var scale = 1 + dx / 50;
 		        this.attr({
 		                transform: this.data('origTransform') + (this.data('origTransform') ? "S" : "s") + scale
@@ -177,7 +177,7 @@ window.onload=()=>{
 	{
 		// Snap load and animate svg
 		var g = s.group();
-		var tux = Snap.load("Dreaming_tux.svg", function ( loadedFragment ) {
+		var tux = Snap.load("Dreaming_tux.svg", function ( loadedFragment:Snap.Element ) {
 		                                                g.append( loadedFragment );
 		                                                g.hover( hoverover, hoverout );
 		                                                g.text(300,100, 'hover over me');
@@ -190,7 +190,7 @@ window.onload=()=>{
 	
 	{
 		// Snap path test if a point inside with translation
-		var x, y, myTranslateX = 200, myTranslateY = 100;
+		var x:number, y:number, myTranslateX = 200, myTranslateY = 100;
 
 		var myPathString = "M 60 0 L 120 0 L 180 60 L 180 120 L 120 180 L 60 180 L 0 120 L 0 60 Z";
 		
@@ -244,7 +244,7 @@ window.onload=()=>{
 		var circleAnim = [{     animation: { transform: 's0,1' }, dur: 1500 },
 		                {       animation: { transform: 's1,1' }, dur: 1500 }];
 		
-		function nextFrame ( el:Snap.Element, frameArray,  whichFrame ) {
+		function nextFrame ( el:Snap.Element, frameArray:any[],  whichFrame:number ) {
 		        if( whichFrame >= frameArray.length ) { return }
 		        el.animate( frameArray[ whichFrame ].animation, frameArray[ whichFrame ].dur, nextFrame.bind( null, el, frameArray, whichFrame + 1 ) );
 		
