@@ -85,6 +85,7 @@ columnDef.sort = {
     priority: 1
 };
 columnDef.sortCellFiltered = false;
+columnDef.sortDirectionCycle = ['ASC','DESC'];
 columnDef.sortingAlgorithm = (a: any, b: any) => {
     return -1;
 };
