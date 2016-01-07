@@ -481,22 +481,22 @@ _.chain(obj).map(function (value, key) {
 });
 
 function strong_typed_values_tests() {
-  var dictionaryLike: { [k: string] : {title: string, value: number} } = {
-         'test' : { title: 'item1', value: 5 },
-         'another' : { title: 'item2', value: 8 },
-         'third' : { title: 'item3', value: 10 }
-      },
-      empty = {};
+    var dictionaryLike: { [k: string] : {title: string, value: number} } = {
+        'test' : { title: 'item1', value: 5 },
+        'another' : { title: 'item2', value: 8 },
+        'third' : { title: 'item3', value: 10 }
+    };
 
-  _.chain(dictionaryLike).values().filter((r) => {
-    return r.value >= 8;
-  }).map((r) => {
-    return [r.title, true];
-  }).object().value();
+    _.chain(dictionaryLike).values().filter((r) => {
+        return r.value >= 8;
+    }).map((r) => {
+        return [r.title, true];
+    }).object().value();
 
-  _(dictionaryLike).each((x) => {
-    console.log(x.title);
-    console.log(x.value.toFixed());
-  })
-  _.values<{title: string, value: number}>(dictionaryLike);
+    _(dictionaryLike).each((x) => {
+        console.log(x.title);
+        console.log(x.value.toFixed());
+    });
+
+    _.values<{title: string, value: number}>(dictionaryLike);
 }
