@@ -335,6 +335,11 @@ declare module "browser-sync" {
              * @param name the identifier used for retrieval
              */
             get(name: string): BrowserSyncInstance;
+            /**
+             * Check if an instance has been created.
+             * @param name the name of the instance
+             */
+            has(name: string): boolean;
         }
 
         interface BrowserSyncInstance {

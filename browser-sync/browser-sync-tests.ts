@@ -78,6 +78,8 @@ evt.on("init", function () {
 
 browserSync(config);
 
+var has = browserSync.has("My server");
+
 var bs = browserSync.create();
 
 bs.init({
