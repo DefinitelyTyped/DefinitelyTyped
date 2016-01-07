@@ -23,6 +23,10 @@ declare module Express {
 declare module "connect-timeout" {
     import express = require("express");
 
+    /**
+     * @summary Interface for timeout options.
+     * @interface
+     */
     interface TimeoutOptions extends Object {
         /**
          * @summary Controls if this module will "respond" in the form of forwarding an error.
@@ -31,6 +35,5 @@ declare module "connect-timeout" {
         respond: boolean;
     }
 
-    function timeout(timeout: string, options?: TimeoutOptions): express.RequestHandler;
-    export = timeout;
+    export default function timeout(timeout: string, options?: TimeoutOptions): express.RequestHandler;
 }

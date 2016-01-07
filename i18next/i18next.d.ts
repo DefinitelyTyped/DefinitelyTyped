@@ -1,11 +1,13 @@
-// Type definitions for i18next v1.5.10
+// Type definitions for i18next v2.0.17
 // Project: http://i18next.com
 // Definitions by: Maarten Docter <https://github.com/mdocter>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // Sources: https://github.com/jamuhl/i18next/
 
+/// <reference path="../express/express.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="../i18next-express-middleware/i18next-express-middleware.d.ts" />
 
 interface IResourceStore {
     [language: string]: IResourceStoreLanguage;
@@ -99,7 +101,7 @@ interface I18nextStatic {
         regexEscape(str: string): string;
     };
     init(callback?: (err: any, t: (key: string, options?: any) => string) => void ): JQueryDeferred<any>;
-    init(options?: I18nextOptions, callback?: (err: any, t: (key: string, options?: any) => string) => void ): JQueryDeferred<any>;
+    init(options?: I18nextOptions|any, callback?: (err: any, t: (key: string, options?: any) => string) => void ): JQueryDeferred<any>; // NOTE: remove any for 'options' parameter.
     lng(): string;
     loadNamespace(namespace: string, callback?: () => void ): void;
     loadNamespaces(namespaces: string[], callback?: () => void ): void;
@@ -124,6 +126,7 @@ interface I18nextStatic {
     t(key: string, options?: I18nTranslateOptions): string;
     translate(key: string, options?: I18nTranslateOptions): string;
     exists(key: string, options?: any): boolean;
+    use(module: any): I18nextStatic;
 }
 
 // jQuery extensions
