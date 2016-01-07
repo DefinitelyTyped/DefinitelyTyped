@@ -507,6 +507,7 @@ declare module JQueryUI {
     }
 
     interface MenuUIParams {
+        item?: JQuery;
     }
 
     interface MenuEvent {
