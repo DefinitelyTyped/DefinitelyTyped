@@ -5,7 +5,7 @@
 
 /// <reference path="../es6-promise/es6-promise.d.ts" />
 
-// TODO [CW] Implement a ghost, or non-instantiated, module.
+// TODO - Implement a ghost, or non-instantiated, module.
 // See http://definitelytyped.org/guides/best-practices.html
 
 interface DbJsOpenOptions {
@@ -19,13 +19,20 @@ interface DbJsStatic {
     delete(dbName: string): Promise<void>;
 }
 
-interface DbJsIndexQuery<T> {
-    all(): DbJsIndexQuery<T>;
+// Query API
+
+// TODO - complete the definition of the fluent API for query\indexed query.
+
+interface DbJsExecutableQuery<T> {
     execute(): Promise<T[]>;
+}
+
+interface DbJsIndexQuery<T> extends DbJsExecutableQuery<T> {
+    all(): DbJsIndexQuery<T>;
     filter<TValue>(index: string, value: TValue): DbJsIndexQuery<T>;
     filter<TValue>(filter: (value: TValue) => boolean): DbJsIndexQuery<T>;
-    // limit(n, m)
-    // count()
+    limit(n, m): DbJsExecutableQuery<T>
+    count(): DbJsExecutableQuery<T>
     // desc()
     // distinct()
     // modify(update)
@@ -65,7 +72,9 @@ interface DbJsBaseServer {
     close(): void;
 }
 
-interface DbJsGlobalServer {
+// TODO - Check typings for the count API as thses may not be correct.
+
+interface DbJsNamedObjectStoreServer {
     add<T>(table: string, entity: T): Promise<T>;
     add<T>(table: string, ...entities: T[]): Promise<T[]>;
     add<TKey, TValue>(table: string, entity: DbJsKeyValuePair<TKey, TValue>): Promise<DbJsKeyValuePair<TKey, TValue>>;
@@ -81,10 +90,9 @@ interface DbJsGlobalServer {
     query<T>(table: string): DbJsIndexQuery<T>;
     query<T>(table: string, index: string): DbJsIndexQuery<T>;
     count(table: string, key: any): number;
-    count(table: string, key: any): number;
 }
 
-interface DbJsGlobalServerStores {
+interface DbJsDynamicObjectServer {
     [storeName: string]: DbJsObjectStoreServer
 }
 
@@ -103,11 +111,10 @@ interface DbJsObjectStoreServer {
     get<T>(key: any): Promise<T>;
     query<T>(): DbJsIndexQuery<T>;
     query<T>(index: string): DbJsIndexQuery<T>;
-    count(table: string, key: any): number;
-    count(table: string, key: any): number;
+    count(key: any): number;
 }
 
-declare type DbJsServer = DbJsGlobalServer & DbJsGlobalServerStores;
+declare type DbJsServer = DbJsNamedObjectStoreServer & DbJsDynamicObjectServer & DbJsBaseServer;
 
 declare module "db" {
     var db: DbJsStatic;

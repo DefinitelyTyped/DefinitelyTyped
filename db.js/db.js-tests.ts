@@ -23,6 +23,11 @@ db.open({
 
 var peopleStore = server['people'];
 
+/* Basic server operations */
+
+var idb = server.getIndexedDB();
+server.close();
+
 /* General server/store methods */
 
 // Adding items
