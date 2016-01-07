@@ -6774,23 +6774,34 @@ module TestAssign {
 }
 
 // _.create
-interface TestCreateProto {
-    a: number;
+module TestCreate {
+    type SampleProto = {a: number};
+    type SampleProps = {b: string};
+
+    let prototype: SampleProto;
+    let properties: SampleProps;
+
+    {
+        let result: {a: number; b: string};
+
+        result = _.create<SampleProto, SampleProps>(prototype, properties);
+        result = _.create(prototype, properties);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<{a: number; b: string}>;
+
+        result = _(prototype).create<SampleProps>(properties);
+        result = _(prototype).create(properties);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{a: number; b: string}>;
+
+        result = _(prototype).chain().create<SampleProps>(properties);
+        result = _(prototype).chain().create(properties);
+    }
 }
-interface TestCreateProps {
-    b: string;
-}
-interface TestCreateTResult extends TestCreateProto, TestCreateProps {}
-var testCreateProto: TestCreateProto;
-var testCreateProps: TestCreateProps;
-result = <{}>_.create(testCreateProto);
-result = <{}>_.create(testCreateProto, testCreateProps);
-result = <TestCreateProto>_.create<TestCreateProto>(testCreateProto);
-result = <TestCreateTResult>_.create<TestCreateTResult>(testCreateProto, testCreateProps);
-result = <{}>_(testCreateProto).create().value();
-result = <{}>_(testCreateProto).create(testCreateProps).value();
-result = <TestCreateProto>_(testCreateProto).create<TestCreateProto>().value();
-result = <TestCreateTResult>_(testCreateProto).create<TestCreateTResult>(testCreateProps).value();
 
 // _.defaults
 module TestDefaults {
