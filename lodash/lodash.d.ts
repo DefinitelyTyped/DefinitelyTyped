@@ -11155,18 +11155,29 @@ declare module _ {
         /**
          * Creates an object that inherits from the given prototype object. If a properties object is provided its own
          * enumerable properties are assigned to the created object.
+         *
          * @param prototype The object to inherit from.
          * @param properties The properties to assign to the object.
          * @return Returns the new object.
          */
-        create<TResult extends {}>(prototype: Object, properties?: Object): TResult;
+        create<T extends Object, U extends Object>(
+            prototype: T,
+            properties?: U
+        ): T & U;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.create
          */
-        create<TResult extends {}>(properties?: Object): LoDashImplicitObjectWrapper<TResult>;
+        create<U extends Object>(properties?: U): LoDashImplicitObjectWrapper<T & U>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.create
+         */
+        create<U extends Object>(properties?: U): LoDashExplicitObjectWrapper<T & U>;
     }
 
     //_.defaults
