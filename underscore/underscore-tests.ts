@@ -493,10 +493,11 @@ function strong_typed_values_tests() {
         return [r.title, true];
     }).object().value();
 
-    _(dictionaryLike).each((x) => {
+    var x: number = _(dictionaryLike).chain().filter((x) => {
         console.log(x.title);
         console.log(x.value.toFixed());
-    });
+        return x.title == 'item1';
+    }).size().value();
 
     _.values<{title: string, value: number}>(dictionaryLike);
 }

@@ -2824,7 +2824,7 @@ interface _Chain<T> {
 	* Wrapped type `any`.
 	* @see _.size
 	**/
-	size(): _Chain<T>;
+	size(): _ChainSingle<number>;
 
 	/*********
 	* Arrays *
