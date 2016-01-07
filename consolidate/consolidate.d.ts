@@ -1,13 +1,12 @@
 // Type definitions for consolidate
 // Project: https://github.com/visionmedia/consolidate.js
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
+// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, Theo Sherry <https://github.com/theosherry>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/consolidate.d.ts
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../bluebird/bluebird.d.ts" />
-
 
 declare module "consolidate" {
 	var cons: Consolidate;
@@ -28,11 +27,6 @@ declare module "consolidate" {
 		clearCache(): void;
 		// template engines
 		atpl: RendererInterface;
-		// atpl(path: String, fn: (err: Error, html: String) => any ): any;
-		// atpl(path: String, options: Options, fn: (err: Error, html: String) => any): any;
-		// atpl(path: String, options?: Options): Promise<String>;
-
-		// atpl: TemplateProperty;
 		dot: RendererInterface;
 		dust: RendererInterface;
 		eco: RendererInterface;
