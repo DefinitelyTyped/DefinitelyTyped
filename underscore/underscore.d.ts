@@ -76,6 +76,7 @@ interface UnderscoreStatic {
 	* as the first parameter can be invoked through this function.
 	* @param key First argument to Underscore object functions.
 	**/
+	<T>(value: _.Dictionary<T>): Underscore<T>;
 	<T>(value: Array<T>): Underscore<T>;
 	<T>(value: T): Underscore<T>;
 

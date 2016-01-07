@@ -494,5 +494,9 @@ function strong_typed_values_tests() {
     return [r.title, true];
   }).object().value();
 
+  _(dictionaryLike).each((x) => {
+    console.log(x.title);
+    console.log(x.value.toFixed());
+  })
   _.values<{title: string, value: number}>(dictionaryLike);
 }
