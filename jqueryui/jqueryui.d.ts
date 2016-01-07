@@ -498,7 +498,7 @@ declare module JQueryUI {
 
     // Menu //////////////////////////////////////////////////
 
-    interface MenuOptions {
+    interface MenuOptions extends MenuEvents {
         disabled?: boolean;
         icons?: any;
         menus?: string;
@@ -520,7 +520,7 @@ declare module JQueryUI {
         select?: MenuEvent;
     }
 
-    interface Menu extends Widget, MenuOptions, MenuEvents {
+    interface Menu extends Widget, MenuOptions {
     }
 
 
