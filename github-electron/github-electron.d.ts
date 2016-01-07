@@ -1157,11 +1157,11 @@ declare module GitHubElectron {
 			browserWindow?: BrowserWindow,
 			options?: OpenDialogOptions,
 			callback?: (fileNames: string[]) => void
-			): void;
+			): string[];
 		export function showOpenDialog(
 			options?: OpenDialogOptions,
 			callback?: (fileNames: string[]) => void
-			): void;
+			): string[];
 
 		interface OpenDialogOptions {
 			title?: string;
