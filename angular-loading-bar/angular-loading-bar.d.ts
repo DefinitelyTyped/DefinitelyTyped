@@ -14,5 +14,30 @@ declare module angular {
 		 */
 		ignoreLoadingBar?: boolean;
 	}
+}
+
+declare module angular.loadingBar {
+	
+	interface ILoadingBarProvider{
+		/**
+		* Turn the spinner on or off
+		*/
+		includeSpinner?: boolean;
+
+		/**
+		* Turn the loading bar on or off
+		*/
+		includeBar?: boolean;
+
+		/**
+		* HTML template
+		*/
+		spinnerTemplate?: string;
+
+		/**
+		* Latency Threshold
+		*/
+		latencyThreshold?: number;
+	}
 
 }

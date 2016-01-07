@@ -1,729 +1,1129 @@
-// Type definitions for Couchbase Couchnode
+// Type definitions for Couchbase Node.js SDK 2.1.2
 // Project: https://github.com/couchbase/couchnode
-// Definitions by: Basarat Ali Syed <https://github.com/basarat>
+// Definitions by: Marwan Aouida <https://github.com/maouida>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
 
+
 declare module 'couchbase' {
 
-    /**
-     * Enumeration of all error codes.  See libcouchbase documentation
-     * for more details on what these errors represent.
-     *
-     * @global
-     * @readonly
-     * @enum {number}
-     */
-    export var errors: {
-        /** Operation was successful **/
-        success: number;
+    import events = require('events');
 
+    /**
+     * Enumeration of all error codes. See libcouchbase documentation for more details on what these errors represent.
+     */
+    enum errors {
+        /** Operation was successful. **/
+        success,
+        
         /** Authentication should continue. **/
-        authContinue: number;
-
+        authContinue,
+        
         /** Error authenticating. **/
-        authError: number;
-
+        authError,
+        
         /** The passed incr/decr delta was invalid. **/
-        deltaBadVal: number;
-
+        deltaBadVal,
+        
         /** Object is too large to be stored on the cluster. **/
-        objectTooBig: number;
-
+        objectTooBig,
+        
+        /** Operation was successful. **/
+        serverBusy,
+        
         /** Server is too busy to handle your request right now. **/
-        serverBusy: number;
-
-        /** Internal libcouchbase error. **/
-        cLibInternal: number;
-
+        cLibInternal,
+        
         /** An invalid arguement was passed. **/
-        cLibInvalidArgument: number;
-
+        cLinInvalidArgument,
+        
         /** The server is out of memory. **/
-        cLibOutOfMemory: number;
-
+        cLibOutOfMemory,
+        
         /** An invalid range was specified. **/
-        invalidRange: number;
-
+        invalidRange,
+        
         /** An unknown error occured within libcouchbase. **/
-        cLibGenericError: number;
-
+        cLibGenericError,
+        
         /** A temporary error occured. Try again. **/
-        temporaryError: number;
-
+        temporaryError,
+        
         /** The key already exists on the server. **/
-        keyAlreadyExists: number;
-
+        keyAlreadyExists,
+        
         /** The key does not exist on the server. **/
-        keyNotFound: number;
-
+        keyNotFound,
+        
         /** Failed to open library. **/
-        failedToOpenLibrary: number;
-
+        failedToOpenLibrary,
+        
         /** Failed to find expected symbol in library. **/
-        failedToFindSymbol: number;
-
+        failedToFindSymbol,
+        
         /** A network error occured. **/
-        networkError: number;
-
+        networkError,
+        
         /** Operations were performed on the incorrect server. **/
-        wrongServer: number;
-
+        wrongServer,
+        
         /** Operations were performed on the incorrect server. **/
-        notMyVBucket: number;
-
-        /** The document was not stored. */
-        notStored: number;
-
+        notMyVBucket,
+        
+        /** The document was not stored. **/
+        notSorted,
+        
         /** An unsupported operation was sent to the server. **/
-        notSupported: number;
-
+        notSupported,
+        
         /** An unknown command was sent to the server. **/
-        unknownCommand: number;
-
+        unknownCommand,
+        
         /** An unknown host was specified. **/
-        unknownHost: number;
-
+        unknownHost,
+        
         /** A protocol error occured. **/
-        protocolError: number;
-
+        protocolError,
+        
         /** The operation timed out. **/
-        timedOut: number;
-
+        timedOut,
+        
         /** Error connecting to the server. **/
-        connectError: number;
-
+        connectError,
+        
         /** The bucket you request was not found. **/
-        bucketNotFound: number;
-
+        bukcketNotFound,
+        
         /** libcouchbase is out of memory. **/
-        clientOutOfMemory: number;
-
+        clientOutOfMemory,
+        
         /** A temporary error occured in libcouchbase. Try again. **/
-        clientTemporaryError: number;
-
-        /** A bad handle was passed. */
-        badHandle: number;
-
+        clientTemporaryError,
+        
+        /** A bad handle was passed. **/
+        badHandle,
+        
         /** A server bug caused the operation to fail. **/
-        serverBug: number;
-
+        serverBug,
+        
         /** The host format specified is invalid. **/
-        invalidHostFormat: number;
-
-        /** Not enough nodes to meet the operations durability requirements. **/
-        notEnoughNodes: number;
-
+        invalidHostFormat,
+        
+        /**  Not enough nodes to meet the operations durability requirements. **/
+        notEnoughNodes,
+        
         /** Duplicate items. **/
-        duplicateItems: number;
-
+        duplicateItems,
+        
         /** Key mapping failed and could not match a server. **/
-        noMatchingServerForKey: number;
-
+        noMatchingServerForKey,
+        
         /** A bad environment variable was specified. **/
-        badEnvironmentVariable: number;
+        badEnvironmentVariable,
+        
         /** Couchnode is out of memory. **/
-        outOfMemory: number;
-
+        outOfMemory,
+        
         /** Invalid arguements were passed. **/
-        invalidArguments: number;
-
+        invalidArguments,
+        
         /** An error occured while trying to schedule the operation. **/
-        schedulingError: number;
-
+        schedulingError,
+        
         /** Not all operations completed successfully. **/
-        checkResults: number;
-
+        checkResults,
+        
         /** A generic error occured in Couchnode. **/
-        genericError: number;
-
+        genericError,
+        
         /** The specified durability requirements could not be satisfied. **/
-        durabilityFailed: number;
-
+        durabilityFailed,
+        
         /** An error occured during a RESTful operation. **/
-        restError: number;
+        restError
     }
 
     /**
-     * Enumeration of all value encoding formats.
-     *
-     * @global
-     * @readonly
-     * @enum {number}
+     * Represents a singular cluster containing your buckets.
      */
-    export var format: {
-        /** Store as raw bytes. **/
-        raw: number;
+    class Cluster {
+        /**
+         * Create a new instance of the Cluster class.
+         * @param cnstr The connection string for your cluster.
+         * @param options The options object.
+         */
+        constructor(cnstr?: string, options?: ClusterConstructorOptions);
 
-        /** Store as JSON encoded string. **/
-        json: number;
+        /**
+         * Creates a manager allowing the management of a Couchbase cluster.
+         */
+        manager(): ClusterManager;
 
-        /** Store as UTF-8 encoded string. **/
-        utf8: number;
+        /**
+         * Open a bucket to perform operations. This will begin the handshake process immediately and operations will complete later. Subscribe to the connect event to be alerted when the connection is ready, though be aware operations can be successfully queued before this.
+         * @param name The name of the bucket to open.
+         */
+        openBucket(name?: string): Bucket;
 
-        /** Automatically determine best storage format. **/
-        auto: number;
-    };
 
-    /**
-     * The *CAS* value is a special object which indicates the current state
-     * of the item on the server. Each time an object is mutated on the server, the
-     * value is changed. <i>CAS</i> objects can be used in conjunction with
-     * mutation operations to ensure that the value on the server matches the local
-     * value retrieved by the client.  This is useful when doing document updates
-     * on the server as you can ensure no changes were applied by other clients
-     * while you were in the process of mutating the document locally.
-     *
-     * In Couchnode, this is an opaque value. As such, you cannot generate
-     * <i>CAS</i> objects, but should rather use the values returned from a
-     * {@link KeyCallback}.
-     *
-     * @typedef {object} CAS
-     */
-    export interface CAS extends Object {
+        /**
+         * Open a bucket to perform operations. This will begin the handshake process immediately and operations will complete later. Subscribe to the connect event to be alerted when the connection is ready, though be aware operations can be successfully queued before this.
+         * @param name The name of the bucket to open.
+         * @param password Password for the bucket.
+         */
+        openBucket(name?: string, password?: string): Bucket;
+
+        /**
+         * Open a bucket to perform operations. This will begin the handshake process immediately and operations will complete later. Subscribe to the connect event to be alerted when the connection is ready, though be aware operations can be successfully queued before this.
+         * @param name The name of the bucket to open.
+         * @param callback Callback to invoke on connection success or failure.
+         */
+        openBucket(name?: string, callback?: Function): Bucket;
+
+        /**
+         * Open a bucket to perform operations. This will begin the handshake process immediately and operations will complete later. Subscribe to the connect event to be alerted when the connection is ready, though be aware operations can be successfully queued before this.
+         * @param name The name of the bucket to open.
+         * @param password Password for the bucket.
+         * @param callback Callback to invoke on connection success or failure.
+         */
+        openBucket(name?: string, password?: string, callback?: Function): Bucket;
+    }
+
+    interface ClusterConstructorOptions {
+        /**
+         * The path to the certificate to use for SSL connections
+         */
+        certpath: string;
+    }
+
+    interface CreateBucketOptions {
+        /**
+         * The bucket name
+         */
+        name?: string;
+        authType?: string,
+        bucketType?: string;
+        ramQuotaMB?: number;
+        replicaNumber?: number;
     }
 
     /**
-     * @class Result
-     * @classdesc
-     * The virtual class used for results of various operations.
-     * @private
+     * Class for performing management operations against a cluster.
      */
-    export class Result {
+    interface ClusterManager {
         /**
-         * The CAS value for the document that was affected by the operation.
-         * @var {CAS} Result#cas
+         * 
+         * @param name 
+         * @param callback 
          */
-        cas: CAS;
+        createBucket(name: string, callback: Function): void;
+
         /**
-         * The flags associate with the document.
-         * @var {integer} Result#flags
+         * 
+         * @param name 
+         * @param opts 
+         * @param callback 
          */
-        flags: number;
+        createBucket(name: string, opts: any, callback: Function): void;
+
         /**
-         * The resulting document from the retrieval operation that was executed.
-         * @var {Mixed} Result#value
+         * 
+         * @param callback 
          */
-        value: any;
+        listBuckets(callback: Function): void;
+
+        /**
+         * 
+         * @param name 
+         * @param callback 
+         */
+        removeBucket(name: string, callback: Function): void;
     }
 
     /**
-     * @class CouchbaseError
-     * @classdesc
      * The virtual class thrown for all Couchnode errors.
-     * @private
-     * @extends node#Error
      */
-    export interface CouchbaseError extends Error {
+    interface CouchbaseError extends Error {
         /**
          * The error code for this error.
-         * @var {errors} Error#code
          */
-        code: number;
+        code: errors;
+    }
+
+    interface AppendOptions {
+        /**
+         * The CAS value to check. If the item on the server contains a different CAS value, the operation will fail. Note that if this option is undefined, no comparison will be performed.
+         */
+        cas?: Bucket.CAS;
 
         /**
-         * The internal error that occured to cause this one.  This is used to wrap
-         * low-level errors before throwing them from couchnode to simplify error
-         * handling.
-         * @var {(node#Error)} Error#innerError
+         * Ensures this operation is persisted to this many nodes.
          */
-        innerError: Error;
+        persist_to?: number;
 
         /**
-         * A reason string describing the reason this error occured.  This value is
-         * almost exclusively used for REST request errors.
-         * @var {string} Error#reason
+         * 	Ensures this operation is replicated to this many nodes.
          */
-        reason: string;
-    }
-
-    /**
-     * Connect callback
-     * This callback is invoked when a connection is successfully established.
-     *
-     * @typedef {function} ConnectCallback
-     *
-     * @param {undefined|Error} error
-     *  The error that occurred while trying to connect to the cluster.
-     */
-    export interface ConnectCallback {
-        (error: CouchbaseError): any;
-    }
-
-    /**
-    * Design Document Management callbacks
-    * This callback is invoked by the *DesignDoc operations.
-    *
-    * @typedef {function} DDocCallback
-    *
-    * @param {undefined|Error} error
-    *  An error indicator. Note that this error value may be ignored, but its
-    *  absence is indicative that the response in the *result* parameter is ok.
-    *  If it is set, then the request likely failed.
-    * @param {object} result
-    *  The result returned from the server
-    */
-    export interface DDocCallback {
-        (error: CouchbaseError, result: any): any;
-    }
-
-    /**
-     * Single-Key callbacks.
-     * This callback is passed to all of the single key functions.
-     *
-     * A typical use pattern is to pass the <i>result></i> parameter from the
-     * callback as the <i>options</i> parameter to one of the next operations.
-     *
-     * @typedef {function} KeyCallback
-     *
-     * @param {undefined|Error} error
-     *  The error for the operation. This can either be an Error object
-     *  or a false value. The error contains the following fields:
-     * @param {Result} result
-     *  The result of the operation that was executed.
-     */
-    export interface KeyCallback {
-        (error: CouchbaseError, result: Result): any;
-    }
-
-    /**
-     * Multi-Key callbacks
-     * This callback is invoked by the *Multi operations.
-     * It differs from the in {@linkcode KeyCallback} that the
-     * <i>response</i> object is an object of <code>{key: response}</code>
-     * where each response object contains the response for that particular
-     * key.
-     *
-     * @typedef {function} MultiCallback
-     *
-     * @param {undefined|Error} error
-     *  An error indicator. Note that this error
-     *  value may be ignored, but its absence is indicative that each
-     *  response in the <code>results</code> parameter is ok. If it
-     *  is set, then at least one of the result objects failed
-     * @param {Object.<string,Result>} results
-     *  The results of the operation as a dictionary of keys mapped to Result
-     *  objects.
-     */
-    export interface MultiCallback {
-        (error: CouchbaseError, result: { [key: string]: Result }): any;
-    }
-
-    /**
-     * Query callback.
-     * This callback is invoked by the query operations.
-     *
-     * @typedef {function} QueryCallback
-     *
-     * @param {undefined|Error} error
-     *  An error indicator. Note that this error
-     *  value may be ignored, but its absence is indicative that the
-     *  response in the <code>results</code> parameter is ok. If it
-     *  is set, then the request failed.
-     * @param {object} results
-     *  The results returned from the server
-     */
-    export interface QueryCallback {
-        (error: CouchbaseError, result: any): any;
-    }
-
-    /**
-     * @typedef {function} StatsCallback
-     *
-     * @param {Error} error
-     * @param {Object.<string,Object>} results
-     *  An object containing per-server, per key entries
-     *
-     * @see Connection#stats
-     */
-    export interface StatsCallback {
-        (error: CouchbaseError, result: any): any;
-    }
-
-
-    /////////////////////////
-    // Various options structures
-    /////////////////////////
-
-    export interface ConnectionOptions {
-        host?: any; // string | string[]
-        bucket?: string;
-        password?: string;
-    }
-
-    // Not comming up with a base interface system as that is not how the original code is written.
-    // Use a custom base interface system has the potential to become difficult to keep up to date.
-
-    export interface AddOptions {
-        expiry?: number;
-        flags?: number;
-        format?: number
-        persist_to?: number;
         replicate_to?: number;
     }
 
-    export interface AddMultiOptionsForValue {
-        value: any;
+    interface PrependOptions extends AppendOptions { }
+
+    interface RemoveOptions extends AppendOptions { }
+
+    interface ReplaceOptions extends AppendOptions {
+        /**
+         * Set the initial expiration time for the document. A value of 0 represents never expiring.
+         */
         expiry?: number;
-        flags?: number;
-        format?: number;
     }
 
-    export interface AddMultiOptions {
-        expiry?: number;
-        flags?: number;
-        format?: number
+    interface UpsertOptions extends ReplaceOptions { }
+
+    interface TouchOptions {
+        /**
+         * 	Ensures this operation is persisted to this many nodes.
+         */
         persist_to?: number;
+
+        /**
+         * Ensures this operation is replicated to this many nodes.
+         */
         replicate_to?: number;
-
-        spooled?: boolean;
     }
 
-    export interface AppendOptions {
-        expiry?: number;
-        flags?: number;
-        format?: number;
-        persist_to?: number;
-        replicate_to?: number;
-
-        cas: CAS;
-    }
-
-    export interface AppendMultiOptionsForValue {
-        value: any;
-        cas?: CAS;
-        expiry?: number;
-    }
-
-    export interface AppendMultiOptions {
-        expiry?: number;
-        persist_to?: number;
-        replicate_to?: number;
-
-        spooled?: boolean;
-    }
-
-    export interface DecrOptions {
-        offset?: number;
+    interface CounterOptions {
+        /**
+         * Sets the initial value for the document if it does not exist. Specifying a value of undefined will cause the operation to fail if the document does not exist, otherwise this value must be equal to or greater than 0.
+         */
         initial?: number;
 
+        /**
+         * Set the initial expiration time for the document. A value of 0 represents never expiring.
+         */
         expiry?: number;
+
+        /**
+         * Ensures this operation is persisted to this many nodes
+         */
         persist_to?: number;
+
+        /**
+         * Ensures this operation is replicated to this many nodes
+         */
         replicate_to?: number;
     }
 
-    export interface DecrMultiOptionsForValue {
-        offset?: number;
-        initial?: number;
-
-        expiry?: number;
+    interface GetAndLockOptions {
+        lockTime?: number;
     }
 
-    export interface DecrMultiOptions {
-        spooled?: boolean;
-    }
+    interface GetReplicaOptions {
 
-    export interface GetOptions {
-        expiry?: number;
-        format?: number;
-    }
-
-    export interface GetMultiOptions {
-        spooled?: boolean;
-        format?: number;
-    }
-
-    export interface GetReplicaOptions {
+        /**
+         * The index for which replica you wish to retrieve this value from, or if undefined, use the value from the first server that replies.
+         */
         index?: number;
-        format?: number;
     }
 
-    export interface GetReplicaMultiOptions {
-        spooled?: boolean;
-        format?: number;
-    }
+    interface InsertOptions {
 
-    export interface IncrOptions extends DecrOptions { }
-
-    export interface IncrMultiOptionsForValue extends DecrMultiOptionsForValue { }
-
-    export interface IncrMultiOptions extends DecrMultiOptions { }
-
-    export interface LockOptions {
-        lockTime?: number
-    }
-
-    export interface LockMultiOptions {
-        spooled?: boolean;
-        format?: number;
-    }
-
-    export interface ObserveOptions {
-        cas: CAS; // verified not optional
-    }
-
-    export interface ObserveMultiOptionsForValue {
-        cas: CAS; // verified not optional
-    }
-
-    export interface ObserveMultiOptions {
-        spooled?: boolean;
-    }
-
-    export interface PrependOptions {
+        /**
+         * Set the initial expiration time for the document. A value of 0 represents never expiring.
+         */
         expiry?: number;
-        flags?: number;
-        format?: number;
+
+        /**
+         * Ensures this operation is persisted to this many nodes.
+         */
         persist_to?: number;
+
+        /**
+         * 	Ensures this operation is replicated to this many nodes.
+         */
         replicate_to?: number;
-
-        cas?: CAS;
-    }
-
-    export interface PrependMultiOptionsFoValue {
-        value: any;
-        cas: CAS;
-        expiry?: number;
-    }
-
-    export interface PrependMultiOptions {
-        spooled?: boolean;
-
-        expiry?: number;
-        persist_to?: number;
-        replicate_to?: number;
-    }
-
-    export interface RemoveOptions {
-        cas?: CAS;
-        persist_to?: number;
-        replicate_to?: number;
-    }
-
-    export interface RemoveMultiOptionsForValue {
-        cas?: CAS;
-    }
-
-    export interface RemoveMultiOptions {
-        spooled?: boolean;
-
-        persist_to?: number;
-        replicate_to?: number;
-    }
-
-    // Options for Replace functions follow Set Options and this is mentioned explicitly in the documentation
-
-    export interface ReplaceOptions extends SetOptions { }
-
-    export interface ReplaceMultiOptionsForValue extends SetMultiOptionsForValue { }
-
-    export interface ReplaceMultiOptions extends SetMultiOptions { }
-
-    export interface SetOptions {
-        expiry?: number;
-        flags?: number;
-        format?: number;
-        persist_to?: number;
-        replicate_to?: number;
-
-        cas?: CAS;
-    }
-
-    export interface SetMultiOptionsForValue {
-        value: any;
-        cas?: CAS;
-        expiry?: number;
-        flags?: number;
-        format?: number;
-    }
-
-    export interface SetMultiOptions {
-        expiry?: number;
-        flags?: number;
-        format?: number
-        persist_to?: number;
-        replicate_to?: number;
-
-        spooled?: boolean;
-    }
-
-    export interface TouchOptions {
-        expiry?: number;
-        persist_to?: number;
-        replicate_to?: number;
-
-        cas?: CAS;
-    }
-
-    export interface UnlockOptions {
-        cas: CAS; // verified not optional
-    }
-
-    export interface UnlockMultiOptionsForValue {
-        cas: CAS; // verified not optional
-    }
-
-    export interface UnlockMultiOptions {
-        spooled?: boolean;
     }
 
     /**
-     * @class
-     * A class representing a connection to a Couchbase cluster.
-     * Normally, your application should only need to create one of these per
-     * bucket and use it continuously.  Operations are executed asynchronously
-     * and pipelined when possible.
-     *
-     * @desc
-     * Instantiate a new Connection object.  Note that it is safe to perform
-     * operations before the connect callback is invoked. In this case, the
-     * operations are queued until the connection is ready (or an unrecoverable
-     * error has taken place).
-     *
-     * @param {Object} [options]
-     * A dictionary of options to use.  You may pass
-     * other options than those defined below which correspond to the various
-     * options available on the Connection object (see their documentation).
-     * For example, it may be helpful to set timeout properties before connecting.
-     *  @param {string|string[]} [options.host="localhost:8091"]
-     *  A string or array of strings indicating the hosts to connect to. If the
-     *  value is an array, all the hosts in the array will be tried until one of
-     *  them succeeds.
-     *  @param {string} [options.bucket="default"]
-     *  The bucket to connect to. If not specified, the default is
-     *  'default'.
-     *  @param {string} [options.password=""]
-     *  The password for a password protected bucket.
-     * @param {ConnectCallback} callback
-     * A callback that will be invoked when the instance has completed connecting
-     * to the server. Note that this isn't required - however if the connection
-     * fails, an exception will be thrown if the callback is not provided.
-     *
-     * @example
-     * var couchbase = require('couchbase');
-     * var db = new couchbase.Connection({}, function(err) {
-     *   if (err) {
-     *     console.log('Connection Error', err);
-     *   } else {
-     *     console.log('Connected!');
-     *   }
-     * });
+     * A class for performing management operations against a bucket. This class should not be instantiated directly, but instead through the use of the Bucket#manager method instead.
      */
-    export class Connection {
-        constructor(callback: ConnectCallback);
-        constructor(options: ConnectionOptions, callback: ConnectCallback);
-
-        /////////////////////////
-        // Members
-        /////////////////////////
+    interface BucketManager {
+        
+        /**
+         * Flushes the cluster, deleting all data stored within this bucket. Note that this method requires the Flush permission to be enabled on the bucket from the management console before it will work.
+         * @param callback The callback function.
+         */
+        flush(callback: Function): void;
 
         /**
-         * Get information about the Couchnode version (i.e. this library) as an array
-         * of [versionNumber, versionString].
-         *
-         * @member {Mixed[]} Connection#clientVersion
+         * Retrieves a specific design document from this bucket.
+         * @param name 
+         * @param callback The callback function.
          */
-        clientVersion: any[];
+        getDesignDocument(name: string, callback: Function): void;
 
+        /**
+         * Retrieves a list of all design documents registered to a bucket.
+         * @param callback The callback function.
+         */
+        getDesignDocuments(callback: Function): void;
+
+        /**
+         * Registers a design document to this bucket, failing if it already exists.
+         * @param name 
+         * @param data 
+         * @param callback The callback function.
+         * @returns {} 
+         */
+        insertDesignDocument(name: string, data: any, callback: Function): void;
+
+        /**
+         * Unregisters a design document from this bucket.
+         * @param name 
+         * @param callback The callback function.
+         * @returns {} 
+         */
+        removeDesignDocument(name: string, callback: Function): void;
+
+        /**
+         * Registers a design document to this bucket, overwriting any existing design document that was previously registered.
+         * @param name 
+         * @param data 
+         * @param callback The callback function.
+         * @returns {} 
+         */
+        upsertDesignDocument(name: string, data: any, callback: Function): void;
+    }
+
+    /**
+     * Class for dynamically construction of view queries. This class should never be constructed directly, instead you should use ViewQuery.from to construct this object.
+     */
+    class ViewQuery {
+        /**
+         * Instantiates a ViewQuery object for the specified design document and view name.
+         * @param ddoc The design document to use.
+         * @param name The view to use.
+         */
+        static from(ddoc: string, name: string): ViewQuery;
+
+        /**
+         * Specifies the design document and view name to use for this query.
+         * @param ddoc The design document to use.
+         * @param name The view to use.
+         */
+        from(ddoc: string, name: string): ViewQuery;
+
+        /**
+         * Allows you to specify custom view options that may not be available though the fluent interface defined by this class.
+         * @param opts
+         */
+        custom(opts: any): ViewQuery;
+
+        /**
+         * Flag to request a view request accross all nodes in the case of a development view.
+         * @param full_set
+         */
+        full_set(full_set: boolean): ViewQuery;
+
+        /**
+         * Specifies whether to preform grouping during view execution.
+         * @param group
+         */
+        group(group: boolean): ViewQuery;
+
+        /**
+         * Specifies the level at which to perform view grouping.
+         * @param group_level
+         */
+        group_level(group_level: number): ViewQuery;
+
+        /**
+         * Specifies a range of document id's to retrieve from the index.
+         * @param start
+         * @param end
+         */
+        id_range(start: any, end: any): ViewQuery;
+
+        /**
+         * Flag to request a view request include the full document value.
+         * @param include_docs
+         */
+        include_docs(include_docs: boolean): ViewQuery;
+
+        /**
+         * Specifies a specified key to retrieve from the index.
+         * @param key
+         */
+        key(key: any): ViewQuery;
+
+        /**
+         * Specifies a list of keys you wish to retrieve from the index.
+         * @param keys
+         */
+        keys(key: any[]): ViewQuery;
+
+        /**
+         * Specifies the maximum number of results to return.
+         * @param limit
+         */
+        limit(limit: number): ViewQuery;
+
+        /**
+         * Sets the error handling mode for this query.
+         * @param mode
+         */
+        on_error(mode: ViewQuery.ErrorMode): ViewQuery;
+
+        /**
+         * Specifies the desired ordering for the results.
+         * @param order
+         */
+        order(order: ViewQuery.Order): ViewQuery;
+
+        /**
+         * Specifies a range of keys to retrieve from the index. You may specify both a start and an end point and additionally specify whether or not the end value is inclusive or exclusive.
+         * @param start
+         * @param end
+         * @param inclusive_end
+         */
+        range(start: any | any[], end: any | any[], inclusive_end?: boolean): ViewQuery;
+
+        /**
+         * Specifies whether to execute the map-reduce reduce step.
+         * @param reduce
+         */
+        reduce(reduce: boolean): ViewQuery;
+
+        /**
+         * Specifies how many results to skip from the beginning of the result set.
+         * @param skip
+         */
+        skip(skip: number): ViewQuery;
+
+        /**
+         * Specifies how this query will affect view indexing, both before and after the query is executed.
+         * @param stale
+         */
+        stale(stale: ViewQuery.Update): ViewQuery;
+    }
+
+    module ViewQuery {
+        /**
+         * Enumeration for specifying on_error behaviour.
+         */
+        enum ErrorMode {
+            /**
+             * Continues querying when an error occurs.
+             */
+            CONTINUE,
+
+            /**
+             * Stops and errors query when an error occurs.
+             */
+            STOP
+        }
+
+        /**
+         * Enumeration for specifying view result ordering.
+         */
+        enum Order {
+            /**
+             * Orders with lower values first and higher values last.
+             */
+            ASCENDING,
+
+            /**
+             * Orders with higher values first and lower values last.
+             */
+            DESCENDING
+        }
+
+        /**
+         * Enumeration for specifying view update semantics.
+         */
+        enum Update {
+            /**
+             * Causes the view to be fully indexed before results are retrieved.
+             */
+            BEFORE,
+
+            /**
+             * Allows the index to stay in whatever state it is already in prior retrieval of the query results.
+             */
+            NONE,
+
+            /**
+             * Forces the view to be indexed after the results of this query has been fetched.
+             */
+            AFTER
+        }
+    }
+
+    /**
+     * Class for dynamically construction of N1QL queries. This class should never be constructed directly, instead you should use the N1qlQuery.fromString static method to instantiate a N1qlStringQuery.
+     */
+    class N1qlQuery {
+        /**
+         * Creates a query object directly from the passed query string.
+         * @param str
+         */
+        static fromString(str: string): N1qlStringQuery;
+
+        /**
+         * Returns the fully prepared string representation of this query.
+         */
+        toString(): string;
+    }
+
+    module N1qlQuery {
+        /**
+         * Enumeration for specifying N1QL consistency semantics.
+         */
+        enum Consistency {
+            /**
+             * 	This is the default (for single-statement requests).
+             */
+            NOT_BOUND,
+
+            /**
+             * This implements strong consistency per request.
+             */
+            REQUEST_PLUS,
+
+            /**
+             * This implements strong consistency per statement.
+             */
+            STATEMENT_PLUS
+        }
+    }
+
+    /**
+     * Class for holding a explicitly defined N1QL query string.
+     */
+    class N1qlStringQuery extends N1qlQuery {
+        /**
+         * Specifies whether this query is adhoc or should be prepared.
+         * @param adhoc
+         */
+        adhoc(adhoc: boolean): N1qlStringQuery;
+
+        /**
+         * Specify the consistency level for this query.
+         * @param val
+         */
+        consistency(val: N1qlQuery.Consistency): N1qlStringQuery;
+
+        /**
+         * Returns the fully prepared object representation of this query.
+         */
+        toObject(): any;
+
+        /**
+         * Returns the fully prepared string representation of this query.
+         */
+        toString(): string;
+    }
+
+    /**
+     * Class for dynamically construction of spatial queries. This class should never be constructed directly, instead you should use SpatialQuery.from to construct this object.
+     */
+    class SpatialQuery {
+        /**
+         * Instantiates a SpatialQuery object for the specified design document and view name.
+         * @param ddoc The design document to use.
+         * @param name 	The view to use.
+         */
+        static from(ddoc: string, name: string): SpatialQuery;
+
+        /**
+         * Specifies the design document and view name to use for this query.
+         * @param ddoc
+         * @param name
+         */
+        from(ddoc: string, name: string): SpatialQuery;
+
+        /**
+         * Specifies a bounding box to query the index for. This value must be an array of exactly 4 numbers which represents the left, top, right and bottom edges of the bounding box (in that order).
+         * @param bbox 
+         */
+        bbox(bbox: number[]): SpatialQuery;
+
+        /**
+         * Allows you to specify custom view options that may not be available though the fluent interface defined by this class.
+         * @param opts
+         */
+        custom(opts: any): SpatialQuery;
+
+        /**
+         * Specifies the maximum number of results to return.
+         * @param limit
+         */
+        limit(limit: number): SpatialQuery;
+
+        /**
+         * Specifies how many results to skip from the beginning of the result set.
+         * @param skip
+         */
+        skip(skip: number): SpatialQuery;
+
+        /**
+         * Specifies how this query will affect view indexing, both before and after the query is executed.
+         * @param stale
+         */
+        stale(stale: SpatialQuery.Update): SpatialQuery;
+    }
+
+    module SpatialQuery {
+        /**
+         * Enumeration for specifying view update semantics.
+         */
+        enum Update {
+            /**
+             * Causes the view to be fully indexed before results are retrieved.
+             */
+            BEFORE,
+
+            /**
+             * Allows the index to stay in whatever state it is already in prior retrieval of the query results.
+             */
+            NONE,
+
+            /**
+             * 	Forces the view to be indexed after the results of this query has been fetched.
+             */
+            AFTER
+        }
+    }
+
+    /**
+     * The Bucket class represents a connection to a Couchbase bucket. Never instantiate this class directly. Instead use the Cluster#openBucket method instead.
+     */
+    interface Bucket {
+        /**
+         * Returns the version of the Node.js library as a string.
+         */
+        clientVersion: string;
+        
+        /**
+         * Gets or sets the config throttling in milliseconds. The config throttling is the time that Bucket will wait before forcing a configuration refresh. If no refresh occurs before this period while a configuration is marked invalid, an update will be triggered.
+         */
+        configThrottle: number;
+
+        /**
+         * Sets or gets the connection timeout in milliseconds. This is the timeout value used when connecting to the configuration port during the initial connection (in this case, use this as a key in the 'options' parameter in the constructor) and/or when Bucket attempts to reconnect in-situ (if the current connection has failed).
+         */
         connectionTimeout: number;
 
-        lcbVersion: any[];
+        /**
+         * Gets or sets the durability interval in milliseconds. The durability interval is the time that Bucket will wait between requesting new durability information during a durability poll.
+         */
+        durabilityInterval: number;
 
+        /**
+         * Gets or sets the durability timeout in milliseconds. The durability timeout is the time that Bucket will wait for a response from the server in regards to a durability request. If there are no responses received within this time frame, the request fails with an error.
+         */
+        durabilityTimeout: number;
+
+        /**
+         * Returns the libcouchbase version as a string. This information will usually be in the format of 2.4.0-fffffff representing the major, minor, patch and git-commit that the built libcouchbase is based upon.
+         */
+        lcbVersion: string;
+
+        /**
+         * Gets or sets the management timeout in milliseconds. The management timeout is the time that Bucket will wait for a response from the server for a management request. If the response is not received within this time frame, the request is failed out with an error.
+         */
+        managementTimeout: number;
+
+        /**
+         * Sets or gets the node connection timeout in msecs. This value is similar to Bucket#connectionTimeout, but defines the time to wait for a particular node to respond before trying the next one.
+         */
+        nodeConnectionTimeout: number;
+
+        /**
+         * Gets or sets the operation timeout in milliseconds. The operation timeout is the time that Bucket will wait for a response from the server for a CRUD operation. If the response is not received within this time frame, the operation is failed with an error.
+         */
         operationTimeout: number;
 
-        serverNodes: string[];
+        /**
+         * Gets or sets the view timeout in milliseconds. The view timeout is the time that Bucket will wait for a response from the server for a view request. If the response is not received within this time frame, the request fails with an error.
+         */
+        viewTimeout: number;
 
-        /////////////////////////
-        // Methods
-        /////////////////////////
+        /**
+         * Similar to Bucket#upsert, but instead of setting a new key, it appends data to the existing key. Note that this function only makes sense when the stored data is a string; 'appending' to a JSON document may result in parse errors when the document is later retrieved.
+         * @param key The target document key.
+         * @param fragment The document's contents to append.
+         * @param callback The callback function.
+         */
+        append(key: any | Buffer, fragment: any, callback: Bucket.OpCallback): void;
 
-        // TODO: not sure if these methods return void. Docmentation mentions nothing. 
-        // TODO: For "multi" key methods the documentation says callback can be either KeyCallback | MultiCallback. Sticking with MultiCallback.
-        // TODO: Verify that kv is not a key value and indeed is string[] e.g. getMulti , getReplicaMulti, lockMulti
+        /**
+         * 
+         * @param key The target document key.
+         * @param fragment The document's contents to append.
+         * @param options The options object.
+         * @param callback The callback function.
+         */
+        append(key: any | Buffer, fragment: any, options: AppendOptions, callback: Bucket.OpCallback): void;
 
-        add(key: string, value: any, callback: KeyCallback): void;
-        add(key: string, value: any, options: AddOptions, callback: KeyCallback): void;
-        addMulti(kv: { [key: string]: AddMultiOptionsForValue }, options: AddMultiOptions, callback: MultiCallback): void;
+        /**
+         * Increments or decrements a key's numeric value.
+         * Note that JavaScript does not support 64-bit integers (while libcouchbase and the server do). You might receive an inaccurate value if the number is greater than 53-bits (JavaScript's maximum integer precision).
+         * @param key The target document key.
+         * @param delta The amount to add or subtract from the counter value. This value may be any non-zero integer.
+         * @param callback The callback function.
+         */
+        counter(key: any | Buffer, delta: number, callback: Bucket.OpCallback): void;
+        
+        /**
+         * 
+         * @param key The target document key.
+         * @param delta The amount to add or subtract from the counter value. This value may be any non-zero integer.
+         * @param options The options object.
+         * @param callback The callback function.
+         */
+        counter(key: any | Buffer, delta: number, options: CounterOptions, callback: Bucket.OpCallback): void;
 
-        append(key: string, fragment: string, callback: KeyCallback): void;
-        append(key: string, fragment: string, options: AppendOptions, callback: KeyCallback): void;
-        append(key: string, fragment: Buffer, callback: KeyCallback): void;
-        append(key: string, fragment: Buffer, options: AppendOptions, callback: KeyCallback): void;
-        appendMulti(kv: { [key: string]: AppendMultiOptionsForValue }, options: AppendMultiOptions, callback: MultiCallback): void;
+        /**
+         * Shuts down this connection.
+         */
+        disconnect(): void;
 
-        decr(key: string, callback: KeyCallback): void;
-        decr(key: string, options: DecrOptions, callback: KeyCallback): void;
-        decrMulti(kv: { [key: string]: DecrMultiOptionsForValue }, options: DecrMultiOptions, callback: MultiCallback): void;
+        /**
+         * Enables N1QL support on the client. A cbq-server URI must be passed. This method will be deprecated in the future in favor of automatic configuration through the connected cluster.
+         * @param hosts An array of host/port combinations which are N1QL servers attached to this cluster.
+         */
+        enableN1ql(hosts: string | string[]): void;
 
-        get(key: string, callback: KeyCallback): void;
-        get(key: string, options: GetOptions, callback: KeyCallback): void;
-        getMulti(kv: string[], options: { [key: string]: GetMultiOptions }, callback:MultiCallback): void;
+        /**
+         * Retrieves a document.
+         * @param key The target document key.
+         * @param callback The callback function.
+         */
+        get(key: any | Buffer, callback: Bucket.OpCallback): void;
 
-        getDesignDoc(name: string, callback: DDocCallback): void;
+        /**
+         * @param key The target document key.
+         * @param options The options object.
+         * @param callback The callback function.
+         */
+        get(key: any | Buffer, options: any, callback: Bucket.OpCallback): void;
 
-        getReplica(key: string, callback: KeyCallback): void;
-        getReplica(key: string, options: GetReplicaOptions, callback: KeyCallback): void;
-        getReplicaMulti(kv: string[], options: GetReplicaMultiOptions, callback: MultiCallback): void;
+        /**
+         * Lock the document on the server and retrieve it. When an document is locked, its CAS changes and subsequent operations on the document (without providing the current CAS) will fail until the lock is no longer held.
+         * This function behaves identically to Bucket#get in that it will return the value. It differs in that the document is also locked. This ensures that attempts by other client instances to access this document while the lock is held will fail.
+         * Once locked, a document can be unlocked either by explicitly calling Bucket#unlock or by performing a storage operation (e.g. Bucket#upsert, Bucket#replace, Bucket::append) with the current CAS value. Note that any other lock operations on this key will fail while a document is locked.
+         * @param key The target document key.
+         * @param callback The callback function.
+         */
+        getAndLock(key: any, callback: Bucket.OpCallback): void;
 
-        incr(key: string, callback: KeyCallback): void;
-        incr(key: string, options: IncrOptions, callback: KeyCallback): void;
-        incrMulti(kv: { [key: string]: IncrMultiOptionsForValue }, options: IncrMultiOptions, callback: MultiCallback): void;
+        /**
+         * Lock the document on the server and retrieve it. When an document is locked, its CAS changes and subsequent operations on the document (without providing the current CAS) will fail until the lock is no longer held.
+         * This function behaves identically to Bucket#get in that it will return the value. It differs in that the document is also locked. This ensures that attempts by other client instances to access this document while the lock is held will fail.
+         * Once locked, a document can be unlocked either by explicitly calling Bucket#unlock or by performing a storage operation (e.g. Bucket#upsert, Bucket#replace, Bucket::append) with the current CAS value. Note that any other lock operations on this key will fail while a document is locked.
+         * @param key The target document key.
+         * @param options The options object.
+         * @param callback The callback function.
+         * @returns {} 
+         */
+        getAndLock(key: any, options: GetAndLockOptions, callback: Bucket.OpCallback): void;
 
-        lock(key: string, callback: KeyCallback): void;
-        lock(key: string, options: LockOptions, callback: KeyCallback): void;
-        lockMulti(kv: string[], options: { [key: string]: LockMultiOptions }, callback: MultiCallback): void;
+        /**
+         * Retrieves a document and updates the expiry of the item at the same time.
+         * @param key The target document key.
+         * @param expiry The expiration time to use. If a value of 0 is provided, then the current expiration time is cleared and the key is set to never expire. Otherwise, the key is updated to expire in the time provided (in seconds).
+         * @param options The options object.
+         * @param callback The callback function.
+         */
+        getAndTouch(key: any | Buffer, expiry: number, options: any, callback: Bucket.OpCallback): void;
+        
+        /**
+         * Retrieves a document and updates the expiry of the item at the same time.
+         * @param key The target document key.
+         * @param expiry The expiration time to use. If a value of 0 is provided, then the current expiration time is cleared and the key is set to never expire. Otherwise, the key is updated to expire in the time provided (in seconds).
+         * @param callback The callback function.
+         */
+        getAndTouch(key: any | Buffer, expiry: number, callback: Bucket.OpCallback): void;
 
-        observe(key: string, options: ObserveOptions, callback: KeyCallback): void;
-        observeMulti(kv: { [key: string]: ObserveMultiOptionsForValue }, options: { [key: string]: ObserveMultiOptions }, callback: MultiCallback): void;
+        /**
+         * Retrieves a list of keys
+         * @param keys The target document keys.
+         * @param callback The callback function.
+         */
+        getMulti(key: any[] | Buffer[], callback: Bucket.MultiGetCallback): void;
 
-        on(event: string, listener: Function): void;
-        on(event: 'connect', listener: (err: Error) => any): void;
-        on(event: 'error', listener: (err: Error) => any): void;
+        /**
+         * Get a document from a replica server in your cluster.
+         * @param key The target document key.
+         * @param callback The callback function.
+         */
+        getReplica(key: any | Buffer, callback: Bucket.OpCallback): void;
 
-        prepend(key: string, fragment: string, callback: KeyCallback): void;
-        prepend(key: string, fragment: string, options: PrependOptions, callback: KeyCallback): void;
-        prepend(key: string, fragment: Buffer, callback: KeyCallback): void;
-        prepend(key: string, fragment: Buffer, options: PrependOptions, callback: KeyCallback): void;
-        prependMulti(kv: { [key: string]: PrependMultiOptionsFoValue }, options: { [key: string]: PrependMultiOptions }, callback: MultiCallback): void;
+        /**
+        * Get a document from a replica server in your cluster.
+        * @param key The target document key.
+        * @param options The options object.
+        * @param callback The callback function.
+        */
+        getReplica(key: any | Buffer, options: GetReplicaOptions, callback: Bucket.OpCallback): void;
 
-        remove(key: string, callback: KeyCallback): void;
-        remove(key: string, options: RemoveOptions, callback: KeyCallback): void;
-        removeMulti(kv: { [key: string]: RemoveMultiOptionsForValue }, options: RemoveMultiOptions, callback: MultiCallback): void;
-        removeMulti(kv: string[], options: RemoveMultiOptions, callback: MultiCallback): void;
+        /**
+         * Identical to Bucket#upsert but will fail if the document already exists.
+         * @param key The target document key.
+         * @param value The document's contents.
+         * @param callback The callback function.
+         */
+        insert(key: any | Buffer, value: any, callback: Bucket.OpCallback): void;
+        
+        /**
+         * Identical to Bucket#upsert but will fail if the document already exists.
+         * @param key The target document key.
+         * @param value The document's contents.
+         * @param options The options object.
+         * @param callback The callback function.
+         */
+        insert(key: any | Buffer, value: any, options: InsertOptions, callback: Bucket.OpCallback): void;
 
-        removeDesignDoc(name: string, callback: DDocCallback): void;
+        /**
+         * Returns an instance of a BuckerManager for performing management operations against a bucket.
+         */
+        manager(): BucketManager;
 
-        replace(key: string, value: any, callback: KeyCallback): void;
-        replace(key: string, value: any, options: ReplaceOptions, callback: KeyCallback): void;
-        replaceMulti(kv: { [key: string]: ReplaceMultiOptionsForValue }, options: ReplaceMultiOptions, callback: MultiCallback): void;
+        /**
+         * Like Bucket#append, but prepends data to the existing value.
+         * @param key The target document key.
+         * @param fragment The document's contents to prepend.
+         * @param callback The callback function.
+         */
+        prepend(key: any, fragment: any, callback: Bucket.OpCallback): void;
 
-        set(key: string, value: any, callback: KeyCallback): void;
-        set(key: string, value: any, options: SetOptions, callback: KeyCallback): void;
-        setMulti(kv: { [key: string]: SetMultiOptionsForValue }, options: SetMultiOptions, callback: MultiCallback): void;
+        /**
+         * Like Bucket#append, but prepends data to the existing value.
+         * @param key The target document key.
+         * @param fragment The document's contents to prepend.
+         * @param options The options object.
+         * @param callback The callback function.
+         */
+        prepend(key: any, fragment: any, options: PrependOptions, callback: Bucket.OpCallback): void;
 
-        setDesignDoc(name: string, data: any, callback: DDocCallback): void;
+        /**
+         * Executes a previously prepared query object. This could be a ViewQuery or a N1qlQuery.
+         * Note: N1qlQuery queries are currently an uncommitted interface and may be subject to change in 2.0.0's final release.
+         * @param query The query to execute.
+         * @param callback The callback function.
+         */
+        query(query: ViewQuery | N1qlQuery, callback: Bucket.QueryCallback): Bucket.ViewQueryResponse | Bucket.N1qlQueryResponse;
 
-        shutdown(): void;
+        /**
+         * Executes a previously prepared query object. This could be a ViewQuery or a N1qlQuery.
+         * Note: N1qlQuery queries are currently an uncommitted interface and may be subject to change in 2.0.0's final release.
+         * @param query The query to execute.
+         * @param params A list or map to do replacements on a N1QL query.
+         * @param callback The callback function.
+         */
+        query(query: ViewQuery | N1qlQuery, params: Object | Array<any>, callback: Bucket.QueryCallback): Bucket.ViewQueryResponse | Bucket.N1qlQueryResponse;
 
-        stats(callback: StatsCallback): void;
-        stats(key: string, callback: StatsCallback): void;
+        /**
+         * Deletes a document on the server.
+         * @param key The target document key.
+         * @param callback The callback function.
+         */
+        remove(key: any | Buffer, callback: Bucket.OpCallback): void;
 
-        strError(code: number): string;
+        /**
+         * Deletes a document on the server.
+         * @param key The target document key.
+         * @param options The options object.
+         * @param callback The callback function.
+         */
+        remove(key: any | Buffer, options: RemoveOptions, callback: Bucket.OpCallback): void;
 
-        touch(key: string, callback: KeyCallback): void;
-        touch(key: string, options: TouchOptions, callback: KeyCallback): void;
+        /**
+         * Identical to Bucket#upsert, but will only succeed if the document exists already (i.e. the inverse of Bucket#insert).
+         * @param key The target document key.
+         * @param value The document's contents.
+         * @param callback The callback function.
+         */
+        replace(key: any | Buffer, value: any, callback: Bucket.OpCallback): void;
 
-        unlock(key: string, options: UnlockOptions, callback: KeyCallback): void;
-        unlockMulti(kv: { [key: string]: UnlockMultiOptionsForValue }, options: { [key: string]: UnlockMultiOptions }, callback: UnlockMultiOptions): void;
+        /**
+         * Identical to Bucket#upsert, but will only succeed if the document exists already (i.e. the inverse of Bucket#insert).
+         * @param key The target document key.
+         * @param value The document's contents.
+         * @param options The options object.
+         * @param callback The callback function.
+         */
+        replace(key: any | Buffer, value: any, options: ReplaceOptions, callback: Bucket.OpCallback): void;
 
-        view(ddoc: string, name: string): ViewQuery;
-        view(ddoc: string, name: string, query: any): ViewQuery;
+        /**
+         * Configures a custom set of transcoder functions for encoding and decoding values that are being stored or retreived from the server.
+         * @param encoder The function for encoding.
+         * @param decoder The function for decoding.
+         */
+        setTranscoder(encoder: Bucket.EncoderFunction, decoder: Bucket.DecoderFunction): void;
+
+        /**
+         * Update the document expiration time.
+         * @param key The target document key.
+         * @param expiry The expiration time to use. If a value of 0 is provided, then the current expiration time is cleared and the key is set to never expire. Otherwise, the key is updated to expire in the time provided (in seconds). Values larger than 302460*60 seconds (30 days) are interpreted as absolute times (from the epoch).
+         * @param options The options object.
+         * @param callback The callback function.
+         */
+        touch(key: any | Buffer, expiry: number, options: TouchOptions, callback: Bucket.OpCallback): void;
+
+        /**
+         * Unlock a previously locked document on the server. See the Bucket#lock method for more details on locking.
+         * @param key The target document key.
+         * @param cas The CAS value returned when the key was locked. This operation will fail if the CAS value provided does not match that which was the result of the original lock operation.
+         * @param callback The callback function.
+         */
+        unlock(key: any | Buffer, cas: Bucket.CAS, callback: Bucket.OpCallback): void;
+
+        /**
+         * Unlock a previously locked document on the server. See the Bucket#lock method for more details on locking.
+         * @param key The target document key.
+         * @param cas The CAS value returned when the key was locked. This operation will fail if the CAS value provided does not match that which was the result of the original lock operation.
+         * @param options The options object.
+         * @param callback The callback function.
+         */
+        unlock(key: any | Buffer, cas: Bucket.CAS, options: any, callback: Bucket.OpCallback): void;
+
+        /**
+         * Stores a document to the bucket.
+         * @param key The target document key.
+         * @param value The document's contents.
+         * @param callback The callback function.
+         */
+        upsert(key: any | Buffer, value: any, callback: Bucket.OpCallback): void;
+
+        /**
+         * Stores a document to the bucket.
+         * @param key The target document key.
+         * @param value The document's contents.
+         * @param options The options object.
+         * @param callback The callback function.
+         */
+        upsert(key: any | Buffer, value: any, options: UpsertOptions, callback: Bucket.OpCallback): void;
     }
 
-    export class ViewQuery {
-        firstPage(q: any, callback: Function): void;
-        query(q: any, callback: Function): void;
-    }
+    module Bucket {
+    
+        /**
+         * his is used as a callback from executed queries. It is a shortcut method that automatically subscribes to the rows and error events of the Bucket.ViewQueryResponse.
+         */
+        interface QueryCallback {
+            /**
+             * @param error The error for the operation. This can either be an Error object or a falsy value.
+             * @param rows The rows returned from the query.
+             * @param meta The metadata returned by the query.
+             */
+            (error: CouchbaseError, rows: any[], meta: Bucket.ViewQueryResponse.Meta): void;
+        }
 
+        /**
+         * Single-Key callbacks.
+         * This callback is passed to all of the single key functions.
+         * It returns a result objcet containing a combination of a CAS and a value, depending on which operation was invoked.
+         */
+        interface OpCallback {
+            /**
+             * @param error The error for the operation. This can either be an Error object or a value which evaluates to false (null, undefined, 0 or false).
+             * @param result The result of the operation that was executed. This usually contains at least a cas property, and on some operations will contain a value property as well.
+             */
+            (error: CouchbaseError | number, result: any): void;
+        }
+
+        /**
+         * Multi-Get Callback.
+         * This callback is used to return results from a getMulti operation.
+         */
+        interface MultiGetCallback {
+            /**
+             * @param error The number of keys that failed to be retrieved. The precise errors are available by checking the error property of the individual documents.
+             * @param results This is a map of keys to results. The result for each key will optionally contain an error if one occured, or if no error occured will contain the CAS and value of the document.
+             */
+            (error: number, results: any[]): void;
+        }
+
+        /**
+         * Transcoder Encoding Function.
+         * This function will receive a value when a storage operation is invoked that needs to encode user-provided data for storage into Couchbase. It expects to be returned a Buffer object to store along with an integer representing any flag metadata relating to how to decode the key later using the matching DecoderFunction.
+         */
+        interface EncoderFunction {
+            /**
+             * Transcoder Encoding Function.
+             * This function will receive a value when a storage operation is invoked that needs to encode user-provided data for storage into Couchbase. It expects to be returned a Buffer object to store along with an integer representing any flag metadata relating to how to decode the key later using the matching DecoderFunction.
+             * @param value The value needing encoding.
+             */
+            (value: any): Bucket.TranscoderDoc;
+        }
+
+        /**
+         * Transcoder Decoding Function.
+         * This function will receive an object containing a Buffer value and an integer value representing any flags metadata whenever a retrieval operation is executed. It is expected that this function will return a value representing the original value stored and encoded with its matching EncoderFunction.
+         */
+        interface DecoderFunction {
+            /**
+             * 
+             * @param doc The data from Couchbase to decode.
+             */
+            (doc: Bucket.TranscoderDoc): any
+        }
+
+        /**
+         * The CAS value is a special object that indicates the current state of the item on the server. Each time an object is mutated on the server, the value is changed. CAS objects can be used in conjunction with mutation operations to ensure that the value on the server matches the local value retrieved by the client. This is useful when doing document updates on the server as you can ensure no changes were applied by other clients while you were in the process of mutating the document locally.
+         * In the Node.js SDK, the CAS is represented as an opaque value. As such,y ou cannot generate CAS objects, but should rather use the values returned from a Bucket.OpCallback.
+         */
+        interface CAS {
+
+        }
+
+        /**
+         * An event emitter allowing you to bind to various query result set events.
+         */
+        interface N1qlQueryResponse extends events.EventEmitter {
+
+        }
+
+        module N1qlQueryResponse {
+            /**
+             * The meta-information available from a view query response.
+             */
+            interface Meta {
+                /**
+                 * The identifier for this query request.
+                 */
+                requestID: number;
+            }
+        }
+
+        /**
+         * A class used in relation to transcoders.
+         */
+        class TranscoderDoc {
+            value: Buffer;
+            flags: number;
+        }
+
+        /**
+         * An event emitter allowing you to bind to various query result set events.
+         */
+        interface ViewQueryResponse extends events.EventEmitter {
+
+        }
+
+        module ViewQueryResponse {
+            /**
+             * The meta-information available from a view query response.
+             */
+            interface Meta {
+                /**
+                 * The total number of rows available in the index of the view that was queried.
+                 */
+                total_rows: number;
+            }
+        }
+    }
 }

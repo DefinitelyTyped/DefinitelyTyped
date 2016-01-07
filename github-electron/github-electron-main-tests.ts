@@ -19,6 +19,8 @@ import {
 	shell
 } from 'electron';
 
+require('electron').hideInternalModules();
+
 import path = require('path');
 
 // Quick start
@@ -201,7 +203,7 @@ ipcMain.on('online-status-changed', (event: any, status: any) => {
 app.on('ready', () => {
 	window = new BrowserWindow({
 		width: 800,
-		height: 600, 
+		height: 600,
 		titleBarStyle: 'hidden-inset',
 	});
 	window.loadURL('https://github.com');
@@ -273,12 +275,12 @@ globalShortcut.unregisterAll();
 // ipcMain
 // https://github.com/atom/electron/blob/master/docs/api/ipc-main-process.md
 
-ipcMain.on('asynchronous-message', (event: any, arg: any) => {
+ipcMain.on('asynchronous-message', (event: GitHubElectron.IPCMainEvent, arg: any) => {
 	console.log(arg);  // prints "ping"
 	event.sender.send('asynchronous-reply', 'pong');
 });
 
-ipcMain.on('synchronous-message', (event: any, arg: any) => {
+ipcMain.on('synchronous-message', (event: GitHubElectron.IPCMainEvent, arg: any) => {
 	console.log(arg);  // prints "ping"
 	event.returnValue = 'pong';
 });

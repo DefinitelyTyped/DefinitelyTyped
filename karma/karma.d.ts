@@ -82,8 +82,8 @@ declare module 'karma' {
         interface ServerCallback {
             (exitCode: number): void;
         }
-        
-        interface Config { 
+
+        interface Config {
             set: (config: ConfigOptions) => void;
             LOG_DISABLE: string;
             LOG_ERROR: string;
@@ -91,7 +91,7 @@ declare module 'karma' {
             LOG_INFO: string;
             LOG_DEBUG: string;
         }
-        
+
         interface ConfigFile {
             configFile: string;
         }

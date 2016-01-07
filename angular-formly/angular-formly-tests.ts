@@ -24,7 +24,7 @@ class FormConfig {
 }
 
 class AppController {
-	fields: AngularFormly.IFieldConfigurationObject[];
+	fields: AngularFormly.IFieldArray;
 	constructor() {
 		var vm = this;
 		vm.fields = [
@@ -99,6 +99,21 @@ class AppController {
 				templateOptions: {
 					label: 'no wrapper here...'
 				}
+			},
+			{
+				//From http://angular-formly.com/#/example/other/nested-formly-forms
+				key: 'address',
+				wrapper: 'panel',
+				templateOptions: { label: 'Address' },
+				fieldGroup: [{
+				  key: 'town',
+				  type: 'input',
+				  templateOptions: {
+					required: true,
+					type: 'text',
+					label: 'Town'
+				  }
+				}]
 			}
 		]
 	}
