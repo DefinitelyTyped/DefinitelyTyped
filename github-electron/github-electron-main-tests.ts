@@ -249,9 +249,21 @@ contentTracing.startRecording('*', contentTracing.DEFAULT_OPTIONS, () => {
 // dialog
 // https://github.com/atom/electron/blob/master/docs/api/dialog.md
 
-console.log(dialog.showOpenDialog({
+// variant without browserWindow
+var openDialogResult: string[] = dialog.showOpenDialog({
+  title: 'Testing showOpenDialog',
+  defaultPath: '/var/log/syslog',
+  filters: [{name: '', extensions: ['']}],
 	properties: ['openFile', 'openDirectory', 'multiSelections']
-}));
+});
+
+// variant with browserWindow
+openDialogResult = dialog.showOpenDialog(win, {
+  title: 'Testing showOpenDialog',
+  defaultPath: '/var/log/syslog',
+  filters: [{name: '', extensions: ['']}],
+	properties: ['openFile', 'openDirectory', 'multiSelections']
+});
 
 // global-shortcut
 // https://github.com/atom/electron/blob/master/docs/api/global-shortcut.md
