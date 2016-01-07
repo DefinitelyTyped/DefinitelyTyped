@@ -1,7 +1,7 @@
 // Type definitions for MongoDB
 // Project: https://github.com/mongodb/node-mongodb-native
 // Definitions by: TheGreatCO <https://github.com/thegreatco/> based on work by Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/thegreatco/DefinitelyTyped
 
 // Documentation : http://mongodb.github.io/node-mongodb-native/
 
