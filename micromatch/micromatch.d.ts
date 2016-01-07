@@ -1,7 +1,7 @@
 // Type definitions for micromatch 2.3.7
 // Project: https://github.com/jonschlinkert/micromatch
 // Definitions by: glen-84 <https://github.com/glen-84>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../parse-glob/parse-glob.ts" />
 
