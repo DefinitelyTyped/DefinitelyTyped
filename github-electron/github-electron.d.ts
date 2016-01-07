@@ -914,7 +914,7 @@ declare module Electron {
 		 * Should be specified for submenu type menu item, when it's specified the
 		 * type: 'submenu' can be omitted for the menu item
 		 */
-		submenu?: Menu;
+		submenu?: Menu|MenuItemOptions[];
 		/**
 		 * Unique within a single menu. If defined then it can be used as a reference
 		 * to this item by the position attribute.
