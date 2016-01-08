@@ -16,8 +16,8 @@ declare module 'angular-formly' {
 
 declare module AngularFormly {
 
-    interface IFieldArray extends Array<IFieldConfigurationObject|IFieldGroup> {
-        
+    interface IFieldArray extends Array<IFieldConfigurationObject | IFieldGroup> {
+
     }
 
 	interface IFieldGroup {
@@ -160,7 +160,7 @@ declare module AngularFormly {
 		 */
 		asyncValidators?: {
 			[key: string]: string | IExpressionFunction | IValidator;
-		}
+		};
 
 		/**
 		 * This is a great way to add custom behavior to a specific field. It is injectable with the $scope of the
@@ -210,7 +210,7 @@ declare module AngularFormly {
 		 */
 		expressionProperties?: {
 			[key: string]: string | IExpressionFunction | IValidator;
-		}
+		};
 
 
 		/**
@@ -219,7 +219,7 @@ declare module AngularFormly {
 		 *
 		 * see http://docs.angular-formly.com/docs/field-configuration-object#hide-boolean
 		 */
-		hide?: boolean
+		hide?: boolean;
 
 
 		/**
@@ -432,7 +432,7 @@ declare module AngularFormly {
 			 */
 			show?: boolean;
 
-		}
+		};
 
 
 		/**
@@ -446,7 +446,7 @@ declare module AngularFormly {
 		 */
 		validators?: {
 			[key: string]: string | IExpressionFunction | IValidator;
-		}
+		};
 
 
 		/**
