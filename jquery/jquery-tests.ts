@@ -88,7 +88,7 @@ function test_ajax() {
             alert('Load was performed.');
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert('Load failed. responseJSON=' + jqXHR.responseJSON); 
+            alert('Load failed. responseJSON=' + jqXHR.responseJSON);
         }
     });
     var _super = jQuery.ajaxSettings.xhr;
@@ -1155,7 +1155,7 @@ function test_dblclick() {
     divdbl.dblclick(function () {
         divdbl.toggleClass('dbl');
     });
-	$('#target').dblclick();
+    $('#target').dblclick();
 }
 
 function test_delay() {
@@ -1708,6 +1708,18 @@ function test_focusout() {
         $("#b")
             .text("blur fired: " + b + "x");
     });
+}
+
+function test_easing() {
+    var easing = jQuery.easing,
+        easing_fns = ["linear", "swing"],
+        step = Math.pow( 2, -3 ); // use power of 2 to prevent floating point rounding error
+    easing_fns.forEach( function( name ) {
+        var fn = easing[ name ];
+        for( var i = 0; i <= 1; i += step ) {
+            console.log( "$.easing." + name + "(" + i + "): " + fn.call(easing, i) );
+        }
+    } );
 }
 
 function test_fx() {
@@ -2740,7 +2752,7 @@ function test_keyup() {
 }
 
 function test_resize() {
-	$('#other').resize();
+    $('#other').resize();
     $('#other').resize(function () {
         alert('Handler for .resize() called.');
     });
@@ -2750,7 +2762,7 @@ function test_resize() {
 }
 
 function test_scroll() {
-	$('#other').scroll();
+    $('#other').scroll();
     $('#other').scroll(function () {
         alert('Handler for .scroll() called.');
     });
@@ -2760,7 +2772,7 @@ function test_scroll() {
 }
 
 function test_select() {
-	$('#other').select();
+    $('#other').select();
     $('#other').select(function () {
         alert('Handler for .select() called.');
     });
@@ -3147,8 +3159,8 @@ function test_text() {
 }
 
 $('#item').click(function(e) {
-	if (e.ctrlKey) { console.log('control pressed'); }
-	if (e.altKey) { console.log('alt pressed'); }
+    if (e.ctrlKey) { console.log('control pressed'); }
+    if (e.altKey) { console.log('alt pressed'); }
 });
 
 function test_addBack() {
@@ -3165,27 +3177,27 @@ function test_addBack() {
 
 // http://api.jquery.com/jQuery.parseHTML/
 function test_parseHTML() {
-	var $log = $( "#log" ),
-		str = "hello, <b>my name is</b> jQuery.",
-		html = $.parseHTML( str ),
-		nodeNames = [];
+    var $log = $( "#log" ),
+        str = "hello, <b>my name is</b> jQuery.",
+        html = $.parseHTML( str ),
+        nodeNames = [];
 
-	// Append the parsed HTML
-	$log.append( html );
+    // Append the parsed HTML
+    $log.append( html );
 
-	// Gather the parsed HTML's node names
-	$.each( html, function( i, el ) {
-		nodeNames[i] = "<li>" + el.nodeName + "</li>";
-	});
+    // Gather the parsed HTML's node names
+    $.each( html, function( i, el ) {
+        nodeNames[i] = "<li>" + el.nodeName + "</li>";
+    });
 
-	// Insert the node names
-	$log.append( "<h3>Node Names:</h3>" );
-	$( "<ol></ol>" )
-	  .append( nodeNames.join( "" ) )
-	  .appendTo( $log );
+    // Insert the node names
+    $log.append( "<h3>Node Names:</h3>" );
+    $( "<ol></ol>" )
+      .append( nodeNames.join( "" ) )
+      .appendTo( $log );
 
-	// parse HTML with all parameters
-	$.parseHTML( str, document, true );
+    // parse HTML with all parameters
+    $.parseHTML( str, document, true );
 }
 
 // http://api.jquery.com/jQuery.parseJSON/
@@ -3218,7 +3230,7 @@ function test_not() {
     $("p").not("#selected");
 
     $("p").not($("div p.selected"));
-    
+
     var el1 = $("<div/>")[0];
     var el2 = $("<div/>")[0];
     $("p").not([el1, el2]);
@@ -3367,30 +3379,30 @@ function test_deferred_promise() {
 }
 
 function test_promise_then_change_type() {
-	function request() {
-		var def = $.Deferred<any>();
-		var promise = def.promise(null);
+    function request() {
+        var def = $.Deferred<any>();
+        var promise = def.promise(null);
 
-		def.rejectWith(this, [new Error()]);
+        def.rejectWith(this, [new Error()]);
 
-		return promise;
-	}
+        return promise;
+    }
 
-	function count() {
-		var def = request();
-		return def.then<number>(data => {
-			try {
-				var count: number = parseInt(data.count, 10);
-			} catch (err) {
-				return $.Deferred<number>().reject(err).promise();
-			}
-			return $.Deferred<number>().resolve(count).promise();
-		});
-	}
+    function count() {
+        var def = request();
+        return def.then<number>(data => {
+            try {
+                var count: number = parseInt(data.count, 10);
+            } catch (err) {
+                return $.Deferred<number>().reject(err).promise();
+            }
+            return $.Deferred<number>().resolve(count).promise();
+        });
+    }
 
-	count().done(data => {
-	}).fail((exception: Error) => {
-	});
+    count().done(data => {
+    }).fail((exception: Error) => {
+    });
 }
 
 function test_promise_then_not_return_deferred() {
