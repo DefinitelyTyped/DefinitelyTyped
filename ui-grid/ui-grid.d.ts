@@ -3767,12 +3767,12 @@ declare module uiGrid {
          */
         sortCellFiltered?: boolean;
         /**
-		* (optional) An array of sort directions, specifying the order that they should cycle through as 
-        * the user repeatedly clicks on the column heading. The default is [null, uiGridConstants.ASC, uiGridConstants.DESC].
-        * Null refers to the unsorted state. This does not affect the initial sort direction; use the sort property for that.
-        * If suppressRemoveSort is also set, the unsorted state will be skipped even if it is listed here. Each direction may 
-        * not appear in the list more than once (e.g. [ASC, DESC, DESC] is not allowed), and the list may not be empty.*
-		*/
+         *(optional) An array of sort directions, specifying the order that they should cycle through as 
+         * the user repeatedly clicks on the column heading. The default is [null, uiGridConstants.ASC, uiGridConstants.DESC].
+         * Null refers to the unsorted state. This does not affect the initial sort direction; use the sort property for that.
+         * If suppressRemoveSort is also set, the unsorted state will be skipped even if it is listed here. Each direction may 
+         * not appear in the list more than once (e.g. [ASC, DESC, DESC] is not allowed), and the list may not be empty.*
+         */
         sortDirectionCycle?: Array<IUiGridConstants>;
         /** Algorithm to use for sorting this column */
         sortingAlgorithm?: (a: any, b: any) => number;
