@@ -558,10 +558,24 @@ declare module AngularFormly {
 		validateOptions?: Function;
 	}
 
+	interface IFormlyConfigExtras {
+		disableNgModelAttrsManipulator: boolean;
+		apiCheckInstance: any;
+		ngModelAttrsManipulatorPreferUnbound: boolean;
+		removeChromeAutoComplete: boolean;
+		defaultHideDirective: string;
+		errorExistsAndShouldBeVisibleExpression: any;
+		getFieldId: Function;
+		fieldTransform: Function;
+		explicitAsync: boolean;
+	}
+
 	interface IFormlyConfig {
+		disableWarnings: boolean;
+		extras: IFormlyConfigExtras;
 		setType(typeOptions: ITypeOptions): void;
 		setWrapper(wrapperOptions: IWrapperOptions): void;
-
+		templateManipulators: ITemplateManipulators;
 	}
 
 	interface ITemplateScopeOptions {
