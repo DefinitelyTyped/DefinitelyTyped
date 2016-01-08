@@ -3,14 +3,14 @@
 // Definitions by: Xavier Stouder <https://github.com/xstoudi/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module "vec3"{
-    class Vec3{
+declare module "vec3" {
+    class Vec3 {
         constructor(x: number, y: number, z: number);
         constructor(location: number[]);
         constructor(location: {x: number; y: number; z: number});
         constructor(locationStr: string);
         
-        set(x, y, z): Vec3;
+        set(x: number, y: number, z: number): Vec3;
         update(other: Vec3): Vec3;
         floored(): Vec3;
         floor(): Vec3;
