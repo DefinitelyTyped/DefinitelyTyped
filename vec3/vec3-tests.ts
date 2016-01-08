@@ -1,2 +1,5 @@
-import * as vec3 from "vec3"
-let myVector: vec3.Vec3 = new vec3.Vec3(10, 10, 10);
+/// <reference path="./vec3.d.ts" />
+
+import {Vec3} from "vec3";
+let myVector: Vec3 = new Vec3(10, 10, 10);
+console.log(myVector.toString());
