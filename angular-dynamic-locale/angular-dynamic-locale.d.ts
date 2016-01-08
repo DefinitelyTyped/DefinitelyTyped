@@ -5,6 +5,11 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
+declare module "angular-dynamic-locale" {
+	import ng = angular.dynamicLocale;
+	export = ng;
+}
+
 declare module angular.dynamicLocale {
 
 	interface tmhDynamicLocaleService {

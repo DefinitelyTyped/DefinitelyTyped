@@ -136,6 +136,8 @@ interface BarChartOptions extends ChartOptions {
     barStrokeWidth?: number;
     barValueSpacing?: number;
     barDatasetSpacing?: number;
+    scaleShowHorizontalLines?: boolean;
+    scaleShowVerticalLines?: boolean;    
 }
 
 interface RadarChartOptions extends ChartSettings {

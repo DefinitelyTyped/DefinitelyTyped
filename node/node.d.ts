@@ -173,9 +173,11 @@ declare module NodeJS {
         once(event: string, listener: Function): EventEmitter;
         removeListener(event: string, listener: Function): EventEmitter;
         removeAllListeners(event?: string): EventEmitter;
-        setMaxListeners(n: number): void;
+        setMaxListeners(n: number): EventEmitter;
+        getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
+        listenerCount(type: string): number;
     }
 
     export interface ReadableStream extends EventEmitter {
@@ -256,7 +258,7 @@ declare module NodeJS {
                 visibility: string;
             };
         };
-        kill(pid: number, signal?: string): void;
+        kill(pid:number, signal?: string|number): void;
         pid: number;
         title: string;
         arch: string;
@@ -423,17 +425,21 @@ declare module "querystring" {
 
 declare module "events" {
     export class EventEmitter implements NodeJS.EventEmitter {
-        static listenerCount(emitter: EventEmitter, event: string): number;
+        static EventEmitter: EventEmitter;
+        static listenerCount(emitter: EventEmitter, event: string): number; // deprecated
+        static defaultMaxListeners: number;
 
         addListener(event: string, listener: Function): EventEmitter;
         on(event: string, listener: Function): EventEmitter;
         once(event: string, listener: Function): EventEmitter;
         removeListener(event: string, listener: Function): EventEmitter;
         removeAllListeners(event?: string): EventEmitter;
-        setMaxListeners(n: number): void;
+        setMaxListeners(n: number): EventEmitter;
+        getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
-   }
+        listenerCount(type: string): number;
+    }
 }
 
 declare module "http" {
@@ -484,6 +490,7 @@ declare module "http" {
         writeHead(statusCode: number, headers?: any): void;
         statusCode: number;
         statusMessage: string;
+        headersSent: boolean;
         setHeader(name: string, value: string): void;
         sendDate: boolean;
         getHeader(name: string): string;
@@ -826,22 +833,49 @@ declare module "readline" {
     import * as events from "events";
     import * as stream from "stream";
 
+    export interface Key {
+        sequence?: string;
+        name?: string;
+        ctrl?: boolean;
+        meta?: boolean;
+        shift?: boolean;
+    }
+
     export interface ReadLine extends events.EventEmitter {
         setPrompt(prompt: string): void;
         prompt(preserveCursor?: boolean): void;
-        question(query: string, callback: Function): void;
-        pause(): void;
-        resume(): void;
+        question(query: string, callback: (answer: string) => void): void;
+        pause(): ReadLine;
+        resume(): ReadLine;
         close(): void;
-        write(data: any, key?: any): void;
+        write(data: string|Buffer, key?: Key): void;
     }
+
+    export interface Completer {
+        (line: string): CompleterResult;
+        (line: string, callback: (err: any, result: CompleterResult) => void): any;
+    }
+
+    export interface CompleterResult {
+        completions: string[];
+        line: string;
+    }
+
     export interface ReadLineOptions {
         input: NodeJS.ReadableStream;
-        output: NodeJS.WritableStream;
-        completer?: Function;
+        output?: NodeJS.WritableStream;
+        completer?: Completer;
         terminal?: boolean;
+        historySize?: number;
     }
+
+    export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer, terminal?: boolean): ReadLine;
     export function createInterface(options: ReadLineOptions): ReadLine;
+
+    export function cursorTo(stream: NodeJS.WritableStream, x: number, y: number): void;
+    export function moveCursor(stream: NodeJS.WritableStream, dx: number|string, dy: number|string): void;
+    export function clearLine(stream: NodeJS.WritableStream, dir: number): void;
+    export function clearScreenDown(stream: NodeJS.WritableStream): void;
 }
 
 declare module "vm" {
@@ -1700,10 +1734,10 @@ declare module "crypto" {
         setPrivateKey(public_key: string, encoding?: string): void;
     }
     export function getDiffieHellman(group_name: string): DiffieHellman;
-    export function pbkdf2(password: string, salt: string, iterations: number, keylen: number, callback: (err: Error, derivedKey: Buffer) => any): void;
-    export function pbkdf2(password: string, salt: string, iterations: number, keylen: number, digest: string, callback: (err: Error, derivedKey: Buffer) => any): void;
-    export function pbkdf2Sync(password: string, salt: string, iterations: number, keylen: number) : Buffer;
-    export function pbkdf2Sync(password: string, salt: string, iterations: number, keylen: number, digest: string) : Buffer;
+    export function pbkdf2(password: string|Buffer, salt: string|Buffer, iterations: number, keylen: number, callback: (err: Error, derivedKey: Buffer) => any): void;
+    export function pbkdf2(password: string|Buffer, salt: string|Buffer, iterations: number, keylen: number, digest: string, callback: (err: Error, derivedKey: Buffer) => any): void;
+    export function pbkdf2Sync(password: string|Buffer, salt: string|Buffer, iterations: number, keylen: number) : Buffer;
+    export function pbkdf2Sync(password: string|Buffer, salt: string|Buffer, iterations: number, keylen: number, digest: string) : Buffer;
     export function randomBytes(size: number): Buffer;
     export function randomBytes(size: number, callback: (err: Error, buf: Buffer) =>void ): void;
     export function pseudoRandomBytes(size: number): Buffer;

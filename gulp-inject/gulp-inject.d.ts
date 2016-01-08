@@ -35,5 +35,7 @@ declare module "gulp-inject" {
 
     function inject(sources: NodeJS.ReadableStream, options?: IOptions): NodeJS.ReadWriteStream;
 
+    namespace inject {}
+
     export = inject;
 }
