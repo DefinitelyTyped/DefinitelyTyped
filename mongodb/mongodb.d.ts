@@ -687,9 +687,9 @@ declare module "mongodb" {
     updateMany(filter: Object, update: Object, options?: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean; }): Promise<UpdateWriteOpResult>;
     updateMany(filter: Object, update: Object, options: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean; }, callback: MongoCallback<UpdateWriteOpResult>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#updateOne
-    updateMany(filter: Object, update: Object, callback: MongoCallback<UpdateWriteOpResult>): void;
-    updateMany(filter: Object, update: Object, options?: ReplaceOneOptions): Promise<UpdateWriteOpResult>;
-    updateMany(filter: Object, update: Object, options: ReplaceOneOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
+    updateOne(filter: Object, update: Object, callback: MongoCallback<UpdateWriteOpResult>): void;
+    updateOne(filter: Object, update: Object, options?: ReplaceOneOptions): Promise<UpdateWriteOpResult>;
+    updateOne(filter: Object, update: Object, options: ReplaceOneOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
   }
   
   // Documentation: http://docs.mongodb.org/manual/reference/command/collStats/
