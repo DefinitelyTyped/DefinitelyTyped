@@ -648,6 +648,11 @@ declare module Stylus {
         render(callback: RenderCallback): void;
 
         /**
+         * Parse and evaluate AST and return the result.
+         */
+        render(): string;
+
+        /**
          * Get dependencies of the compiled file.
          */
         deps(filename: string): string[];
