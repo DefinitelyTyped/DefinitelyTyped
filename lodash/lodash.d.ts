@@ -10154,6 +10154,13 @@ declare module _ {
         isPlainObject(): boolean;
     }
 
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * see _.isPlainObject
+         */
+        isPlainObject(): LoDashExplicitWrapper<boolean>;
+    }
+
     //_.isRegExp
     interface LoDashStatic {
         /**
