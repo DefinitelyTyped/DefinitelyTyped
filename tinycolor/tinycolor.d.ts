@@ -329,6 +329,11 @@ interface tinycolorInstance {
      * Gets the complement of the current color
      */
     complement(): tinycolorInstance;
+    
+    /**
+     * Gets a new instance with the current color
+     */
+    clone(): tinycolorInstance;
 }
 
 declare module Readable {
