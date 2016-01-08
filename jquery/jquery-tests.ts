@@ -1710,6 +1710,18 @@ function test_focusout() {
     });
 }
 
+function test_easing() {
+    var easing = jQuery.easing,
+        easing_fns = ["linear", "swing"],
+        step = Math.pow( 2, -3 ); // use power of 2 to prevent floating point rounding error
+    easing_fns.forEach( function( name ) {
+        var fn = easing[ name ];
+        for( var i = 0; i <= 1; i += step ) {
+            console.log( "$.easing." + name + "(" + i + "): " + fn.call(easing, i) );
+        }
+    } );
+}
+
 function test_fx() {
     jQuery.fx.interval = 100;
     $("input").click(function () {

@@ -1818,3 +1818,24 @@ function test_widget() {
     $(".selector").jQuery.Widget("option", "disabled", true);
     $(".selector").jQuery.Widget("option", { disabled: true });
 }
+
+function test_easing() {
+    var easing = jQuery.easing,
+        easing_fns = ["easeInQuad", "easeOutQuad", "easeInOutQuad",
+			"easeInCubic", "easeOutCubic", "easeInOutCubic",
+			"easeInQuart", "easeOutQuart", "easeInOutQuart",
+			"easeInQuint", "easeOutQuint", "easeInOutQuint",
+			"easeInExpo", "easeOutExpo", "easeInOutExpo",
+			"easeInSine", "easeOutSine", "easeInOutSine",
+			"easeInCirc", "easeOutCirc", "easeInOutCirc",
+			"easeInElastic", "easeOutElastic", "easeInOutElastic",
+			"easeInBack", "easeOutBack", "easeInOutBack",
+			"easeInBounce", "easeOutBounce", "easeInOutBounce"],
+        step = Math.pow( 2, -3 ); // use power of 2 to prevent floating point rounding error
+    easing_fns.forEach( function( name ) {
+        var fn = easing[ name ];
+        for( var i = 0; i <= 1; i += step ) {
+            console.log( "$.easing." + name + "(" + i + "): " + fn.call(easing, i) );
+        }
+    } );
+}
