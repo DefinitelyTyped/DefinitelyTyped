@@ -320,7 +320,7 @@ declare namespace __MaterialUI {
         interface DatePickerProps extends React.Props<DatePicker> {
             autoOk?: boolean;
             defaultDate?: Date;
-            formatDate?: string;
+            formatDate?: (date:Date) => string;
             hintText?: string;
             floatingLabelText?: string;
             hideToolbarYearChange?: boolean;

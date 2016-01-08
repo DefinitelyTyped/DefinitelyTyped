@@ -6,8 +6,8 @@
 /// <reference path="../angularjs/angular.d.ts" />
 
 declare module "angular-translate" {
-    var _: string;
-    export = _;
+    import ngt = angular.translate;
+    export = ngt;
 }
 
 declare module angular.translate {
@@ -22,7 +22,7 @@ declare module angular.translate {
 
     interface IStorage {
         get(name: string): string;
-        set(name: string, value: string): void;
+        put(name: string, value: string): void;
     }
 
     interface IStaticFilesLoaderOptions {
