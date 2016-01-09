@@ -632,68 +632,179 @@ module TestFirst {
     result = _(list).first<TResult>();
 }
 
-result = <Array<number>>_.flatten([[1, 2], [3, 4]]);
-result = <Array<number>>_.flatten([[1, 2], [3, 4], 5, 6]);
-result = <Array<number|Array<Array<number>>>>_.flatten([1, [2], [3, [[4]]]]);
+// _.flatten
+module TestFlatten {
+    {
+        let result: string[];
 
-result = <Array<number>>_.flatten([1, [2], [[3]]], true);
-result = <Array<number>>_.flatten<number>([1, [2], [3, [[4]]]], true);
-result = <Array<number|boolean>>_.flatten<number|boolean>([1, [2], [3, [[false]]]], true);
+        result = _.flatten('abc');
+    }
 
-result = <_.LoDashImplicitArrayWrapper<number>>_([[1, 2], [3, 4], 5, 6]).flatten();
-result = <_.LoDashImplicitArrayWrapper<number|Array<Array<number>>>>_([1, [2], [3, [[4]]]]).flatten();
+    {
+        let result: number[];
 
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten(true);
+        result = _.flatten<number>([1, 2, 3]);
+        result = _.flatten<number>([1, [2, 3]]);
+        result = _.flatten<number>([1, [2, [3]]], true);
+        result = _.flatten<number>([1, [2, [3]], [[4]]], true);
+
+        result = _.flatten<number>({0: 1, 1: 2, 2: 3, length: 3});
+        result = _.flatten<number>({0: 1, 1: [2, 3], length: 2});
+        result = _.flatten<number>({0: 1, 1: [2, [3]], length: 2}, true);
+        result = _.flatten<number>({0: 1, 1: [2, [3]], 2: [[4]], length: 3}, true);
+    }
+
+    {
+        let result: _.RecursiveArray<number>;
+
+        result = _.flatten<number>([1, [2, [3]]]);
+        result = _.flatten<number>([1, [2, [3]], [[4]]]);
+
+        result = _.flatten<number>({0: 1, 1: [2, [3]], length: 2});
+        result = _.flatten<number>({0: 1, 1: [2, [3]], 2: [[4]], length: 3});
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _('abc').flatten();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<number>;
+
+        result = _([1, 2, 3]).flatten<number>();
+        result = _([1, [2, 3]]).flatten<number>();
+        result = _([1, [2, [3]]]).flatten<number>(true);
+        result = _([1, [2, [3]], [[4]]]).flatten<number>(true);
+
+        result = _({0: 1, 1: 2, 2: 3, length: 3}).flatten<number>();
+        result = _({0: 1, 1: [2, 3], length: 2}).flatten<number>();
+        result = _({0: 1, 1: [2, [3]], length: 2}).flatten<number>(true);
+        result = _({0: 1, 1: [2, [3]], 2: [[4]], length: 3}).flatten<number>(true);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<number|number[]>;
+
+        result = _([1, [2, [3]]]).flatten<number|number[]>();
+        result = _([1, [2, [3]], [[4]]]).flatten<number|number[]>();
+
+        result = _({0: 1, 1: [2, [3]], length: 2}).flatten<number|number[]>();
+        result = _({0: 1, 1: [2, [3]], 2: [[4]], length: 3}).flatten<number|number[]>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _('abc').chain().flatten();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<number>;
+
+        result = _([1, 2, 3]).chain().flatten<number>();
+        result = _([1, [2, 3]]).chain().flatten<number>();
+        result = _([1, [2, [3]]]).chain().flatten<number>(true);
+        result = _([1, [2, [3]], [[4]]]).chain().flatten<number>(true);
+
+        result = _({0: 1, 1: 2, 2: 3, length: 3}).chain().flatten<number>();
+        result = _({0: 1, 1: [2, 3], length: 2}).chain().flatten<number>();
+        result = _({0: 1, 1: [2, [3]], length: 2}).chain().flatten<number>(true);
+        result = _({0: 1, 1: [2, [3]], 2: [[4]], length: 3}).chain().flatten<number>(true);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<number|number[]>;
+
+        result = _([1, [2, [3]]]).chain().flatten<number|number[]>();
+        result = _([1, [2, [3]], [[4]]]).chain().flatten<number|number[]>();
+
+        result = _({0: 1, 1: [2, [3]], length: 2}).chain().flatten<number|number[]>();
+        result = _({0: 1, 1: [2, [3]], 2: [[4]], length: 3}).chain().flatten<number|number[]>();
+    }
+}
 
 // _.flattenDeep
 module TestFlattenDeep {
-    interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
-    interface ListOfRecursiveArraysOrValues<T> extends _.List<T|RecursiveArray<T>> {}
-    interface RecursiveList<T> extends _.List<T|RecursiveList<T>> { }
-
-    let recursiveArray: RecursiveArray<TResult>;
-    let listOfMaybeRecursiveArraysOrValues: ListOfRecursiveArraysOrValues<TResult>;
-    let recursiveList: RecursiveList<TResult>;
-
     {
-        let result: TResult[];
+        let result: string[];
 
-        result = _.flattenDeep<TResult>(recursiveArray);
-        result = _.flattenDeep<TResult>(listOfMaybeRecursiveArraysOrValues);
+        result = _.flattenDeep('abc');
     }
 
     {
-        let result: any[];
+        let result: number[];
 
-        result = _.flattenDeep<TResult>(recursiveList);
+        result = _.flattenDeep<number>([1, 2, 3]);
+        result = _.flattenDeep<number>([1, [2, 3]]);
+        result = _.flattenDeep<number>([1, [2, [3]]]);
+        result = _.flattenDeep<number>([1, [2, [3]], [[4]]]);
+
+        result = _.flattenDeep<number>({0: 1, 1: 2, 2: 3, length: 3});
+        result = _.flattenDeep<number>({0: 1, 1: [2, 3], length: 2});
+        result = _.flattenDeep<number>({0: 1, 1: [2, [3]], length: 2});
+        result = _.flattenDeep<number>({0: 1, 1: [2, [3]], 2: [[4]], length: 3});
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
-        result = _(recursiveArray).flattenDeep<TResult>();
-
-        result = _(listOfMaybeRecursiveArraysOrValues).flattenDeep<TResult>();
+        result = _('abc').flattenDeep();
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<any>;
+        let result: _.LoDashImplicitArrayWrapper<number>;
 
-        result = _(recursiveList).flattenDeep();
+        result = _([1, 2, 3]).flattenDeep<number>();
+        result = _([1, [2, 3]]).flattenDeep<number>();
+        result = _([1, [2, [3]]]).flattenDeep<number>();
+        result = _([1, [2, [3]], [[4]]]).flattenDeep<number>();
+
+        result = _({0: 1, 1: 2, 2: 3, length: 3}).flattenDeep<number>();
+        result = _({0: 1, 1: [2, 3], length: 2}).flattenDeep<number>();
+        result = _({0: 1, 1: [2, [3]], length: 2}).flattenDeep<number>();
+        result = _({0: 1, 1: [2, [3]], 2: [[4]], length: 3}).flattenDeep<number>();
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
+        let result: _.LoDashImplicitArrayWrapper<number|number[]>;
 
-        result = _(recursiveArray).chain().flattenDeep<TResult>();
+        result = _([1, [2, [3]]]).flattenDeep<number|number[]>();
+        result = _([1, [2, [3]], [[4]]]).flattenDeep<number|number[]>();
 
-        result = _(listOfMaybeRecursiveArraysOrValues).chain().flattenDeep<TResult>();
+        result = _({0: 1, 1: [2, [3]], length: 2}).flattenDeep<number|number[]>();
+        result = _({0: 1, 1: [2, [3]], 2: [[4]], length: 3}).flattenDeep<number|number[]>();
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<any>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
-        result = _(recursiveList).chain().flattenDeep();
+        result = _('abc').chain().flattenDeep();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<number>;
+
+        result = _([1, 2, 3]).chain().flattenDeep<number>();
+        result = _([1, [2, 3]]).chain().flattenDeep<number>();
+        result = _([1, [2, [3]]]).chain().flattenDeep<number>();
+        result = _([1, [2, [3]], [[4]]]).chain().flattenDeep<number>();
+
+        result = _({0: 1, 1: 2, 2: 3, length: 3}).chain().flattenDeep<number>();
+        result = _({0: 1, 1: [2, 3], length: 2}).chain().flattenDeep<number>();
+        result = _({0: 1, 1: [2, [3]], length: 2}).chain().flattenDeep<number>();
+        result = _({0: 1, 1: [2, [3]], 2: [[4]], length: 3}).chain().flattenDeep<number>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<number|number[]>;
+
+        result = _([1, [2, [3]]]).chain().flattenDeep<number|number[]>();
+        result = _([1, [2, [3]], [[4]]]).chain().flattenDeep<number|number[]>();
+
+        result = _({0: 1, 1: [2, [3]], length: 2}).chain().flattenDeep<number|number[]>();
+        result = _({0: 1, 1: [2, [3]], 2: [[4]], length: 3}).chain().flattenDeep<number|number[]>();
     }
 }
 
