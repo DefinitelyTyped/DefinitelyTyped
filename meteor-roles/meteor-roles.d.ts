@@ -1,9 +1,9 @@
-/// <reference path="../meteor/meteor.d.ts" />
-
 // Type definitions for Meteor Roles 1.2.14
 // Project: https://github.com/alanning/meteor-roles/
 // Definitions by: Robbie Van Gorkom <https://github.com/vangorra>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="../meteor/meteor.d.ts" />
 
 /**
  * Provides functions related to user authorization. Compatible with built-in Meteor accounts packages.
