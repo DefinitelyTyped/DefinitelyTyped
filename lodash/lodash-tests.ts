@@ -5761,12 +5761,31 @@ module TestRestParam {
 }
 
 //_.spread
-var testSpreadFn = (who: string, what: string) => who + ' says ' + what;
-interface TestSpreadResultFn {
-    (args: string[]): string;
+module TestSpread {
+    type SampleFunc = (args: (number|string)[]) => boolean;
+    type SampleResult = (a: number, b: string) => boolean;
+
+    let func: SampleFunc;
+
+    {
+        let result: SampleResult;
+
+        result = _.spread<SampleFunc, SampleResult>(func);
+        result = _.spread<SampleResult>(func);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
+
+        result = _(func).spread<SampleResult>();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
+
+        result = _(func).chain().spread<SampleResult>();
+    }
 }
-result = <string>(_.spread<TestSpreadResultFn>(testSpreadFn))(['fred', 'hello']);
-result = <string>(_(testSpreadFn).spread<TestSpreadResultFn>().value())(['fred', 'hello']);
 
 // _.throttle
 module TestThrottle {
