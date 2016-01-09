@@ -38,8 +38,8 @@ module NavigationTests {
 	
 	// Configuration
 	Navigation.StateInfoConfig.build([
-		{ key: 'home', initial: 'page', states: [
-			{ key: 'page', route: '' }
+		{ key: 'home', initial: 'page', help: 'home.htm', states: [
+			{ key: 'page', route: '', help: 'page.htm' }
 		]},
 		{ key: 'person', initial: 'list', states: [
 			{ key: 'list', route: ['people/{page}', 'people/{page}/sort/{sort}'], transitions: [
@@ -78,10 +78,20 @@ module NavigationTests {
 	
 	// State Handler
 	class LogStateHandler extends Navigation.StateHandler {
+		getNavigationLink(state: Navigation.State, data: any): string {
+			console.log('get navigation link');
+			return super.getNavigationLink(state, data, { ids: [] });
+		}
 	    getNavigationData(state: Navigation.State, url: string): any {
 			console.log('get navigation data');
-			super.getNavigationData(state, url);
+			super.getNavigationData(state, url, {});
 	    }
+        urlEncode(state: Navigation.State, key: string, val: string, queryString: boolean): string {
+            return queryString ? val.replace(/\s/g, '+') : super.urlEncode(state, key, val, queryString);
+        }
+        urlDecode(state: Navigation.State, key: string, val: string, queryString: boolean): string {
+            return queryString ? val.replace(/\+/g, ' ') : super.urlDecode(state, key, val, queryString);
+        }
 	}
 	homePage.stateHandler = new LogStateHandler();
 	personList.stateHandler = new LogStateHandler();
@@ -97,24 +107,28 @@ module NavigationTests {
 	// Navigation
 	Navigation.start('home');
 	Navigation.StateController.navigate('person');
+	Navigation.StateController.navigate('person', null, Navigation.HistoryAction.Add);
 	Navigation.StateController.refresh();
-	Navigation.StateController.refresh({ page: 2 });
+	Navigation.StateController.refresh({ page: 3 });
+	Navigation.StateController.refresh({ page: 2 }, Navigation.HistoryAction.Replace);
 	Navigation.StateController.navigate('select', { id: 10 });
 	var canGoBack: boolean = Navigation.StateController.canNavigateBack(1);
 	Navigation.StateController.navigateBack(1);
+	Navigation.StateController.clearStateContext();
 	
 	// Navigation Link
 	var link = Navigation.StateController.getNavigationLink('person');
 	link = Navigation.StateController.getRefreshLink();
 	link = Navigation.StateController.getRefreshLink({ page: 2 });
+	Navigation.StateController.navigateLink(link);
 	link = Navigation.StateController.getNavigationLink('select', { id: 10 });
 	var nextDialog = Navigation.StateController.getNextState('select').parent;
 	person = nextDialog;
-	Navigation.StateController.navigateLink(link);
+	Navigation.StateController.navigateLink(link, false);
 	link = Navigation.StateController.getNavigationBackLink(1);
 	var crumb = Navigation.StateController.crumbs[0];
 	link = crumb.navigationLink;
-	Navigation.StateController.navigateLink(link, true);
+	Navigation.StateController.navigateLink(link, true, Navigation.HistoryAction.None);
 	
 	// StateContext
 	Navigation.StateController.navigate('home');
@@ -124,10 +138,15 @@ module NavigationTests {
 	person === Navigation.StateContext.dialog;
 	personList === Navigation.StateContext.state;
 	var url: string = Navigation.StateContext.url;
+	var title: string = Navigation.StateContext.title;
 	var page: number = Navigation.StateContext.data.page;
+	Navigation.StateController.refresh({ page: 2 });
+	person = Navigation.StateContext.oldDialog;
+	personList = Navigation.StateContext.oldState;
+	page = Navigation.StateContext.oldData.page;
+	page = Navigation.StateContext.previousData.page;
 	
 	// Navigation Data
-	Navigation.StateController.refresh({ page: 2 });
 	var data = Navigation.StateContext.includeCurrentData({ sort: 'name' }, ['page']);
 	Navigation.StateController.refresh(data);
 	Navigation.StateContext.clear('sort');

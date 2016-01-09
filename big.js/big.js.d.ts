@@ -200,4 +200,9 @@ declare module BigJsLibrary {
     }
 }
 
+declare module "big.js" {
+    var bigjs : BigJsLibrary.BigJS;
+    export = bigjs;
+}
+
 declare var Big: BigJsLibrary.BigJS;

@@ -497,6 +497,7 @@ declare module freedom.Social {
     interface UserProfile {
         userId: string;
         name: string;
+        status?: number;        
         url?: string;
         // Image URI (e.g. data:image/png;base64,adkwe329...)
         imageData?: string;

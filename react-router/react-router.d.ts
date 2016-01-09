@@ -310,6 +310,11 @@ declare module "react-router/lib/useRoutes" {
 
 }
 
+declare module "react-router/lib/PatternUtils" {
+
+	export function formatPattern(pattern: string, params: {}): string;
+
+}
 
 declare module "react-router/lib/RouteUtils" {
 
@@ -396,11 +401,32 @@ declare module "react-router" {
 
     import { createRoutes } from "react-router/lib/RouteUtils"
 
+    import { formatPattern } from "react-router/lib/PatternUtils"
+
     import RoutingContext from "react-router/lib/RoutingContext"
 
     import PropTypes from "react-router/lib/PropTypes"
 
     import match from "react-router/lib/match"
+
+    // PlainRoute is defined in the API documented at:
+    // https://github.com/rackt/react-router/blob/master/docs/API.md
+    // but not included in any of the .../lib modules above.
+    export type PlainRoute = ReactRouter.PlainRoute
+
+    // The following definitions are also very useful to export
+    // because by using these types lots of potential type errors
+    // can be exposed:
+    export type EnterHook = ReactRouter.EnterHook
+    export type LeaveHook = ReactRouter.LeaveHook
+    export type ParseQueryString = ReactRouter.ParseQueryString
+    export type RedirectFunction = ReactRouter.RedirectFunction
+    export type RouteComponentProps<P,R> = ReactRouter.RouteComponentProps<P,R>;
+    export type RouteHook = ReactRouter.RouteHook
+    export type StringifyQuery = ReactRouter.StringifyQuery
+    export type RouterListener = ReactRouter.RouterListener
+    export type RouterState = ReactRouter.RouterState
+    export type HistoryBase = ReactRouter.HistoryBase
 
     export {
         Router,
@@ -415,6 +441,7 @@ declare module "react-router" {
         RouteContext,
         useRoutes,
         createRoutes,
+        formatPattern,
         RoutingContext,
         PropTypes,
         match

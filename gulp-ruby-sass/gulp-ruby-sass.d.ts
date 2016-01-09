@@ -64,5 +64,7 @@ declare module "gulp-ruby-sass" {
      */
     function sass(source: string, options?: Options): NodeJS.ReadableStream;
 
+    namespace sass {}
+
     export = sass;
 }

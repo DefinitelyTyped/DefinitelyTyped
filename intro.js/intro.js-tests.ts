@@ -3,17 +3,19 @@
 var intro = introJs();
 
 intro.setOption('doneLabel', 'Next page');
+intro.setOption('overlayOpacity', 50);
+intro.setOption('showProgress', true);
 intro.setOptions({
     steps: [
         {
             intro: "Hello world!"
         },
         {
-            element: document.querySelector('#step1'),
+            element: document.querySelector('#step1') as HTMLElement,
             intro  : "This is a tooltip."
         },
         {
-            element : document.querySelectorAll('#step2')[0],
+            element : document.querySelectorAll('#step2')[0] as HTMLElement,
             intro   : "Ok, wasn't that fun?",
             position: 'right'
         },

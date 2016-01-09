@@ -6,7 +6,7 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module 'gulp-babel' {
-	export default function(options?: {
+	function babel(options?: {
 		filename?: string,
 		filenameRelative?: string,
 		presets?: string[],
@@ -35,4 +35,8 @@ declare module 'gulp-babel' {
 		env?: any,
 		retainLines?: boolean
 	}): NodeJS.ReadWriteStream;
+
+	module babel { }
+
+	export = babel;
 }
