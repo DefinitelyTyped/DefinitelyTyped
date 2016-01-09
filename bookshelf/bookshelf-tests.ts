@@ -97,4 +97,3 @@ class Photo extends bookshelf.Model<Photo> {
 		return this.morphTo('imageable', Site, Post);
 	}
 }
-

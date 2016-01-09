@@ -19,5 +19,7 @@ declare module 'gulp-size' {
 
     function size(options?: IOptions): ISizeStream;
 
+    namespace size {}
+
     export = size;
 }
