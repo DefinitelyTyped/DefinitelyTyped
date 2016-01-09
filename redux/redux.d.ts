@@ -1,50 +1,41 @@
 // Type definitions for Redux v1.0.0
 // Project: https://github.com/rackt/redux
-// Definitions by: William Buchwalter <https://github.com/wbuchwalter/>, Vincent Prouillet <https://github.com/Keats/>
+// Definitions by: William Buchwalter <https://github.com/wbuchwalter/>, Vincent Prouillet <https://github.com/Keats/>, Ivo Gabe de Wolff <https://github.com/ivogabe/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module Redux {
-
-    interface ActionCreator extends Function {
-        (...args: any[]): any;
+    interface Action<TType> {
+        type: TType
     }
 
-    interface Reducer extends Function {
-        (state: any, action: any): any;
+    type Reducer<TState, TAction extends Action<{}>> = (state: TState, action: TAction) => TState;
+    type Dispatch<TAction> = (action: TAction) => void;
+
+    interface MiddlewareArg<TState, TAction extends Action<{}>> {
+        dispatch: Dispatch<TAction>;
+        getState(): TState;
     }
 
-    interface Dispatch extends Function {
-        (action: any): any;
+    type Middleware<TState, TAction extends Action<{}>> = (obj: MiddlewareArg<TState, TAction>) => (next: Dispatch<TAction>) => (action: TAction) => void;
+
+    interface Store<TState, TAction extends Action<{}>> {
+        getReducer(): Reducer<TState, TAction>;
+        replaceReducer(nextReducer: Reducer<TState, TAction>): void;
+        dispatch<U extends TAction>(action: U): U;
+        getState(): TState;
+        subscribe(listener: () => void): () => void;
     }
 
-    interface StoreMethods {
-        dispatch: Dispatch;
-        getState(): any;
-    }
+    function createStore<TState, TAction extends Action<{}>>(reducer: Reducer<TState, TAction>, initialState?: TState): Store<TState, TAction>;
 
+    function combineReducers<TState, TAction extends Action<string>>(reducers: { [type: string]: Reducer<TState, TAction> }): Reducer<TState, TAction>;
+    function combineReducers<TState, TAction extends Action<number>>(reducers: { [type: number]: Reducer<TState, TAction> }): Reducer<TState, TAction>;
 
-    interface MiddlewareArg {
-        dispatch: Dispatch;
-        getState: Function;
-    }
+    function applyMiddleware<TState, TAction extends Action<{}>>(...middlewares: Middleware<TState, TAction>[]): (create: (reducer: Reducer<TState, TAction>, initialState?: TState) => Store<TState, TAction>) => (reducer: Reducer<TState, TAction>, initialState?: TState) => Store<TState, TAction>
 
-    interface Middleware extends Function {
-        (obj: MiddlewareArg): Function;
-    }
+    function bindActionCreators<T, TAction extends Action<{}>>(actionCreators: T & { [name: string]: (...args: any[]) => TAction }, dispatch: Dispatch<TAction>): T & { [name: string]: (...args: any[]) => TAction };
 
-    class Store {
-        getReducer(): Reducer;
-        replaceReducer(nextReducer: Reducer): void;
-        dispatch(action: any): any;
-        getState(): any;
-        subscribe(listener: Function): Function;
-    }
-
-    function createStore(reducer: Reducer, initialState?: any): Store;
-    function bindActionCreators<T>(actionCreators: T, dispatch: Dispatch): T;
-    function combineReducers(reducers: any): Reducer;
-    function applyMiddleware(...middlewares: Middleware[]): Function;
-    function compose<T extends Function>(...functions: Function[]): T;
+    function compose<T>(...functions: ((value: T) => T)[]): (value: T) => T;
 }
 
 declare module "redux" {
