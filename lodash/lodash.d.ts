@@ -10320,12 +10320,7 @@ declare module _ {
          * @param value The value to convert.
          * @return Returns the converted array.
          */
-        toArray(value: string): string[];
-
-        /**
-         * @see _.toArray
-         */
-        toArray<T>(value: List<T>|Dictionary<T>): T[];
+        toArray<T>(value: List<T>|Dictionary<T>|NumericDictionary<T>): T[];
 
         /**
          * @see _.toArray
@@ -10335,12 +10330,7 @@ declare module _ {
         /**
          * @see _.toArray
          */
-        toArray<TValue>(value: TValue): any[];
-
-        /**
-         * @see _.toArray
-         */
-        toArray(value?: any): any[];
+        toArray<TResult>(value?: any): TResult[];
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -10362,6 +10352,27 @@ declare module _ {
          * @see _.toArray
          */
         toArray<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.toArray
+         */
+        toArray<TResult>(): LoDashExplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.toArray
+         */
+        toArray(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.toArray
+         */
+        toArray<TResult>(): LoDashExplicitArrayWrapper<TResult>;
     }
 
     //_.toPlainObject
