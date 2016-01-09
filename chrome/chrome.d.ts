@@ -2646,13 +2646,13 @@ declare module chrome.extension {
 		 * Parameter request: The request sent by the calling script. 
 		 * Parameter sendResponse: Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object, or undefined if there is no response. If you have more than one onRequest listener in the same document, then only one may send a response. 
 		 */
-		addListener(callback: (request: any, sender: runtime.MessageSender, sendResponse: () => void) => void): void;
+		addListener(callback: (request: any, sender: runtime.MessageSender, sendResponse: (response: any) => void) => void): void;
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(runtime.MessageSender sender, function sendResponse) {...}; 
 		 * Parameter sendResponse: Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object, or undefined if there is no response. If you have more than one onRequest listener in the same document, then only one may send a response. 
 		 */
-		addListener(callback: (sender: runtime.MessageSender, sendResponse: () => void) => void): void;
+		addListener(callback: (sender: runtime.MessageSender, sendResponse: (response: any) => void) => void): void;
     }
 
 	/**
@@ -5553,7 +5553,7 @@ declare module chrome.runtime {
 		 * Optional parameter message: The message sent by the calling script. 
 		 * Parameter sendResponse: Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object. If you have more than one onMessage listener in the same document, then only one may send a response. This function becomes invalid when the event listener returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this will keep the message channel open to the other end until sendResponse is called). 
 		 */
-        addListener(callback: (message: any, sender: MessageSender, sendResponse: Function) => void): void;
+        addListener(callback: (message: any, sender: MessageSender, sendResponse: (response: any) => void) => void): void;
     }
 
     interface ExtensionConnectEvent extends chrome.events.Event {
@@ -7578,31 +7578,31 @@ declare module chrome.webNavigation {
     }
 
 	interface WebNavigationEvent extends chrome.events.Event {
-		addListener(callback: (details: WebNavigationCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
+		addListener(callback: (details: WebNavigationCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
     }
 
 	interface WebNavigationFramedEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationFramedCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
+		addListener(callback: (details: WebNavigationFramedCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
     }
 
 	interface WebNavigationFramedErrorEvent extends WebNavigationFramedEvent {
-		addListener(callback: (details: WebNavigationFramedErrorCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
+		addListener(callback: (details: WebNavigationFramedErrorCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
     }
 
 	interface WebNavigationSourceEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationSourceCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
+		addListener(callback: (details: WebNavigationSourceCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
     }
 
 	interface WebNavigationParentedEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationParentedCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
+		addListener(callback: (details: WebNavigationParentedCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
     }
 
 	interface WebNavigationTransitionalEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationTransitionCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
+		addListener(callback: (details: WebNavigationTransitionCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
     }
 
 	interface WebNavigationReplacementEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationReplacementCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
+		addListener(callback: (details: WebNavigationReplacementCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
     }
 
 	/**

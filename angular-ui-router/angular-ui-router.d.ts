@@ -300,7 +300,10 @@ declare module angular.ui {
     	 *
     	 */
         sync(): void;
-        listen(): void;
+        listen(): Function;
+        href(urlMatcher: IUrlMatcher, params?: IStateParamsService, options?: IHrefOptions): string;
+        update(read?: boolean): void;
+        push(urlMatcher: IUrlMatcher, params?: IStateParamsService, options?: IHrefOptions): void;
     }
 
     interface IUiViewScrollProvider {

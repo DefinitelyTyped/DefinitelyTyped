@@ -1146,6 +1146,11 @@ declare namespace __React {
         maxWidth?: any;
 
         /**
+         * Sets the minimum height for an element. It prevents the height of the element to be smaller than the specified value. The value of min-height overrides both max-height and height.
+         */
+        minHeight?: any;
+
+        /**
          * Sets the minimum width of an element. It limits the width property to be not smaller than the value specified in min-width.
          */
         minWidth?: any;
@@ -1817,7 +1822,7 @@ declare namespace __React {
         vocab?: string;
 
         // Non-standard Attributes
-        autoCapitalize?: boolean;
+        autoCapitalize?: string;
         autoCorrect?: string;
         autoSave?: string;
         color?: string;

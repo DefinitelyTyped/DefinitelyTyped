@@ -83,34 +83,68 @@ declare module IMAP {
         };
     }
 
+    export interface ImapMessageBodyInfo {
+        /** The specifier for this body (e.g. 'TEXT', 'HEADER.FIELDS (TO FROM SUBJECT)', etc). */
+        which: string;
+        /** The size of this body in bytes. */
+        size: number;
+    }
+
+    export interface ImapMessageAttributes {
+        /** A 32-bit ID that uniquely identifies this message within its mailbox. */
+        uid: number;
+        /** A list of flags currently set on this message. */
+        flags: string[];
+        /** The internal server date for the message. */
+        date: Date;
+        /** The message's body structure (only set if requested with fetch()). */
+        struct?: any[];
+        /** The RFC822 message size (only set if requested with fetch()). */
+        size?: number;
+    }
 
     /** Given in a 'message' event from ImapFetch */
-    export interface ImapMessage extends NodeJS.EventEmitter { }
+    export interface ImapMessage extends NodeJS.EventEmitter {
+        on(event: string, listener: Function): this;
+        on(event: 'body', listener: (stream: NodeJS.ReadableStream, info: ImapMessageBodyInfo) => void): this;
+        on(event: 'attributes', listener: (attrs: ImapMessageAttributes) => void): this;
+        on(event: 'end', listener: () => void): this;
+    }
 
     export interface FetchOptions {
         /** Mark message(s) as read when fetched. Default: false */
-        markSeen?:       boolean;
+        markSeen?: boolean;
         /** Fetch the message structure. Default: false */
-        struct?:         boolean;
+        struct?: boolean;
         /** Fetch the message envelope. Default: false */
-        envelope?:       boolean;
+        envelope?: boolean;
         /** Fetch the RFC822 size. Default: false */
-        size?:           boolean;
+        size?: boolean;
         /** Fetch modifiers defined by IMAP extensions. Default: (none) */
-        modifiers?:      Object;
+        modifiers?: Object;
         /** A string or Array of strings containing the body part section to fetch. Default: (none) Example sections: */
-        bodies?:         any;      /* string|string[] */
+        bodies?: string | string[];
     }
 
 
     /** Returned from fetch() */
-    export interface ImapFetch extends NodeJS.EventEmitter { }
+    export interface ImapFetch extends NodeJS.EventEmitter {
+        on(event: string, listener: Function): this;
+        on(event: 'message', listener: (message: ImapMessage, seqno: number) => void): this;
+        on(event: 'error', listener: (error: Error) => void): this;
+        once(event: string, listener: Function): this;
+        once(event: 'error', listener: (error: Error) => void): this;
+    }
 
 
     export interface Folder {
+        /** mailbox attributes. An attribute of 'NOSELECT' indicates the mailbox cannot be opened */
         attribs: string[];
+        /** hierarchy delimiter for accessing this mailbox's direct children. */
         delimiter: string;
-        children: Folder[];
+        /** an object containing another structure similar in format to this top level, otherwise null if no children */
+        children: MailBoxes;
+        /** pointer to parent mailbox, null if at the top level */
         parent: Folder;
     }
 
@@ -129,10 +163,11 @@ declare module IMAP {
         date?: Date;
     }
 
+    export interface MessageFunctions {
+        /** Searches the currently open mailbox for messages using given criteria. criteria is a list describing what you want to find. For criteria types that require arguments, use an array instead of just the string criteria type name (e.g. ['FROM', 'foo@bar.com']). Prefix criteria types with an "!" to negate.
 
-    // search() criteria
-    /**
-        // The following message flags are valid types that do not have arguments:
+        The following message flags are valid types that do not have arguments:
+
         ALL:            void;    // All messages.
         ANSWERED:       void;    // Messages with the Answered flag set.
         DELETED:        void;    // Messages with the Deleted flag set.
@@ -148,7 +183,7 @@ declare module IMAP {
         UNFLAGGED:      void;    // Messages that do not have the Flagged flag set.
         UNSEEN:         void;    // Messages that do not have the Seen flag set.
 
-        // The following are valid types that require string value(s):
+        The following are valid types that require string value(s):
 
         BCC:            any;    // Messages that contain the specified string in the BCC field.
         CC:             any;    // Messages that contain the specified string in the CC field.
@@ -159,25 +194,27 @@ declare module IMAP {
         TEXT:           any;    // Messages that contain the specified string in the header OR the message body.
         KEYWORD:        any;    // Messages with the specified keyword set.
         HEADER:         any;    // Requires two string values, with the first being the header name and the second being the value to search for. If this second string is empty, all messages that contain the given header name will be returned.
-        // The following are valid types that require a string parseable by JavaScripts Date object OR a Date instance:
+
+        The following are valid types that require a string parseable by JavaScripts Date object OR a Date instance:
+
         BEFORE:         any;    // Messages whose internal date (disregarding time and timezone) is earlier than the specified date.
         ON:             any;    // Messages whose internal date (disregarding time and timezone) is within the specified date.
         SINCE:          any;    // Messages whose internal date (disregarding time and timezone) is within or later than the specified date.
         SENTBEFORE:     any;    // Messages whose Date header (disregarding time and timezone) is earlier than the specified date.
         SENTON:         any;    // Messages whose Date header (disregarding time and timezone) is within the specified date.
         SENTSINCE:      any;    // Messages whose Date header (disregarding time and timezone) is within or later than the specified date.
-        //The following are valid types that require one Integer value:
+
+        The following are valid types that require one Integer value:
+
         LARGER:         number;    // Messages with a size larger than the specified number of bytes.
         SMALLER:        number;    // Messages with a size smaller than the specified number of bytes.
-        // The following are valid criterion that require one or more Integer values:
+
+        The following are valid criterion that require one or more Integer values:
+
         UID:            any;    // Messages with UIDs corresponding to the specified UID set. Ranges are permitted (e.g. '2504:2507' or '*' or '2504:*').
-    */
-
-
-    export interface MessageFunctions {
-        /** Searches the currently open mailbox for messages using given criteria. criteria is a list describing what you want to find. For criteria types that require arguments, use an array instead of just the string criteria type name (e.g. ['FROM', 'foo@bar.com']). Prefix criteria types with an "!" to negate. */
-        search(criteria: any[], callback: (error: Error, uids: string[]) => void): void;
-        /** Fetches message(s) in the currently open mailbox. */
+        */
+        search(criteria: any[], callback: (error: Error, uids: number[]) => void): void;
+        /** Fetches message(s) in the currently open mailbox; source can be a single message identifier, a message identifier range (e.g. '2504:2507' or '*' or '2504:*'), an array of message identifiers, or an array of message identifier ranges. */
         fetch(source: any /* MessageSource */, options: FetchOptions): ImapFetch;
         /** Copies message(s) in the currently open mailbox to another mailbox. */
         copy(source: any /* MessageSource */, mailboxName: string, callback: (error: Error) => void): void;
@@ -199,26 +236,25 @@ declare module IMAP {
         serverSupports(capability: string): boolean;
     }
 
-
-
-
     export class Connection implements NodeJS.EventEmitter, MessageFunctions {
         /** @constructor */
         constructor(config: Config);
 
         // from NodeJS.EventEmitter
-        addListener(event: string, listener: Function): NodeJS.EventEmitter;
-        on(event: string, listener: Function): NodeJS.EventEmitter;
-        once(event: string, listener: Function): NodeJS.EventEmitter;
-        removeListener(event: string, listener: Function): NodeJS.EventEmitter;
-        removeAllListeners(event?: string): NodeJS.EventEmitter;
-        setMaxListeners(n: number): void;
+        addListener(event: string, listener: Function): this;
+        on(event: string, listener: Function): this;
+        once(event: string, listener: Function): this;
+        removeListener(event: string, listener: Function): this;
+        removeAllListeners(event?: string): this;
+        setMaxListeners(n: number): this;
+        getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
+        listenerCount(type: string): number;
 
         // from MessageFunctions
         /** Searches the currently open mailbox for messages using given criteria. criteria is a list describing what you want to find. For criteria types that require arguments, use an array instead of just the string criteria type name (e.g. ['FROM', 'foo@bar.com']). Prefix criteria types with an "!" to negate. */
-        search(criteria: any[], callback: (error: Error, uids: string[]) => void): void;
+        search(criteria: any[], callback: (error: Error, uids: number[]) => void): void;
         /** Fetches message(s) in the currently open mailbox. */
         fetch(source: any /* MessageSource */, options: FetchOptions): ImapFetch;
         /** Copies message(s) in the currently open mailbox to another mailbox. */
@@ -241,7 +277,7 @@ declare module IMAP {
         serverSupports(capability: string): boolean;
 
         /** Parses a raw header and returns an object keyed on header fields and the values are Arrays of header field values. Set disableAutoDecode to true to disable automatic decoding of MIME encoded-words that may exist in header field values. */
-        static parseHeader(rawHeader: string, disableAutoDecode?: boolean): any;
+        static parseHeader(rawHeader: string, disableAutoDecode?: boolean): {[index: string]: string[]};
 
         /** The current state of the connection (e.g. 'disconnected', 'connected', 'authenticated'). */
         state: string;
@@ -256,6 +292,9 @@ declare module IMAP {
             /** Mailboxes that are accessible by any logged in user. */
             shared: any[];
         };
+        /**
+        seq exposes the search() ... serverSupports() set of commands, but returns sequence number(s) instead of UIDs.
+        */
         seq: MessageFunctions;
         /** Attempts to connect and authenticate with the IMAP server. */
         connect(): void;
@@ -273,7 +312,7 @@ declare module IMAP {
         /** Creates a new mailbox on the server. mailboxName should include any necessary prefix/path. */
         addBox(mailboxName: string, callback: (error: Error) => void): void;
         /** Removes a specific mailbox that exists on the server. mailboxName should including any necessary prefix/path. */
-        delBox(mailboxName: string, callback: (error: Error, uids: string[]) => void): void;
+        delBox(mailboxName: string, callback: (error: Error) => void): void;
         /** Renames a specific mailbox that exists on the server. Both oldMailboxName and newMailboxName should include any necessary prefix/path. Note: Renaming the 'INBOX' mailbox will instead cause all messages in 'INBOX' to be moved to the new mailbox. */
         renameBox(oldMailboxName: string, newMailboxName: string, callback: (error: Error, mailbox: Box) => void): void;
         /** Subscribes to a specific mailbox that exists on the server. mailboxName should include any necessary prefix/path. */
