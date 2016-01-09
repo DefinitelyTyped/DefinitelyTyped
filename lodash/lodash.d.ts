@@ -8785,30 +8785,59 @@ declare module _ {
     }
 
     //_.bindKey
+    interface FunctionBindKey {
+        placeholder: any;
+
+        <T extends Object, TResult extends Function>(
+            object: T,
+            key: any,
+            ...partials: any[]
+        ): TResult;
+
+        <TResult extends Function>(
+            object: Object,
+            key: any,
+            ...partials: any[]
+        ): TResult;
+    }
+
     interface LoDashStatic {
         /**
-        * Creates a function that, when called, invokes the method at object[key] and prepends any
-        * additional bindKey arguments to those provided to the bound function. This method differs
-        * from _.bind by allowing bound functions to reference methods that will be redefined or don't
-        * yet exist. See http://michaux.ca/articles/lazy-function-definition-pattern.
-        * @param object The object the method belongs to.
-        * @param key The key of the method.
-        * @param args Arguments to be partially applied.
-        * @return The new bound function.
-        **/
-        bindKey<T>(
-            object: T,
-            key: string,
-            ...args: any[]): Function;
+         * Creates a function that invokes the method at object[key] and prepends any additional _.bindKey arguments
+         * to those provided to the bound function.
+         *
+         * This method differs from _.bind by allowing bound functions to reference methods that may be redefined
+         * or don’t yet exist. See Peter Michaux’s article for more details.
+         *
+         * The _.bindKey.placeholder value, which defaults to _ in monolithic builds, may be used as a placeholder
+         * for partially applied arguments.
+         *
+         * @param object The object the method belongs to.
+         * @param key The key of the method.
+         * @param partials The arguments to be partially applied.
+         * @return Returns the new bound function.
+         */
+        bindKey: FunctionBindKey;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-        * @see _.bindKey
-        **/
-        bindKey(
-            key: string,
-            ...args: any[]): LoDashImplicitObjectWrapper<Function>;
+         * @see _.bindKey
+         */
+        bindKey<TResult extends Function>(
+            key: any,
+            ...partials: any[]
+        ): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.bindKey
+         */
+        bindKey<TResult extends Function>(
+            key: any,
+            ...partials: any[]
+        ): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.compose

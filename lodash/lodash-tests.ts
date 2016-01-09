@@ -5372,24 +5372,87 @@ module TestBindAll {
     }
 }
 
-var objectBindKey = {
-    'name': 'moe',
-    'greet': function (greeting: string) {
-        return greeting + ' ' + this.name;
+// _.bindKey
+module TestBindKey {
+    let object: {
+        foo: (a: number, b: string) => boolean;
     }
-};
 
-var funcBindKey: Function = _.bindKey(objectBindKey, 'greet', 'hi');
-funcBindKey();
+    {
+        type SampleResult = (a: number, b: string) => boolean;
 
-objectBindKey.greet = function (greeting) {
-    return greeting + ', ' + this.name + '!';
-};
+        let result: SampleResult;
 
-funcBindKey();
+        result = _.bindKey<Object, SampleResult>(object, 'foo');
+        result = _.bindKey<SampleResult>(object, 'foo');
+    }
 
-funcBindKey = _(objectBindKey).bindKey('greet', 'hi').value();
-funcBindKey();
+    {
+        type SampleResult = (b: string) => boolean;
+
+        let result: SampleResult;
+
+        result = _.bindKey<Object, SampleResult>(object, 'foo', 42);
+        result = _.bindKey<SampleResult>(object, 'foo', 42);
+    }
+
+    {
+        type SampleResult = () => boolean;
+
+        let result: SampleResult;
+
+        result = _.bindKey<Object, SampleResult>(object, 'foo', 42, '');
+        result = _.bindKey<SampleResult>(object, 'foo', 42, '');
+    }
+
+    {
+        type SampleResult = (a: number, b: string) => boolean;
+
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
+
+        result = _(object).bindKey<SampleResult>('foo');
+    }
+
+    {
+        type SampleResult = (b: string) => boolean;
+
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
+
+        result = _(object).bindKey<SampleResult>('foo', 42);
+    }
+
+    {
+        type SampleResult = () => boolean;
+
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
+
+        result = _(object).bindKey<SampleResult>('foo', 42, '');
+    }
+
+    {
+        type SampleResult = (a: number, b: string) => boolean;
+
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
+
+        result = _(object).chain().bindKey<SampleResult>('foo');
+    }
+
+    {
+        type SampleResult = (b: string) => boolean;
+
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
+
+        result = _(object).chain().bindKey<SampleResult>('foo', 42);
+    }
+
+    {
+        type SampleResult = () => boolean;
+
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
+
+        result = _(object).chain().bindKey<SampleResult>('foo', 42, '');
+    }
+}
 
 // _.compose
 module TestCompose {
