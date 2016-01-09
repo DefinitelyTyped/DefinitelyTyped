@@ -5252,16 +5252,87 @@ module TestBefore {
     }
 }
 
-var funcBind = function(greeting: string, punctuation: string) { return greeting + ' ' + this.user + punctuation; };
-var funcBound1: (punctuation: string) => any = _.bind(funcBind, { 'name': 'moe' }, 'hi');
-funcBound1('!');
+// _.bind
+module TestBind {
+    type SampleFunc = (a: number, b: string) => boolean;
 
-var funcBound2: (punctuation: string) => any = _(funcBind).bind({ 'name': 'moe' }, 'hi').value();
-funcBound2('!');
+    let func: SampleFunc
 
-var addTwoNumbers = function (x: number, y: number) { return x + y };
-var plusTwo = _.bind(addTwoNumbers, null, 2);
-plusTwo(100);
+    {
+        type SampleResult = (a: number, b: string) => boolean;
+
+        let result: SampleResult;
+
+        result = _.bind<SampleFunc, SampleResult>(func, any);
+        result = _.bind<SampleResult>(func, any);
+    }
+
+    {
+        type SampleResult = (b: string) => boolean;
+
+        let result: SampleResult;
+
+        result = _.bind<SampleFunc, SampleResult>(func, any, 42);
+        result = _.bind<SampleResult>(func, any, 42);
+    }
+
+    {
+        type SampleResult = () => boolean;
+
+        let result: SampleResult;
+
+        result = _.bind<SampleFunc, SampleResult>(func, any, 42, '');
+        result = _.bind<SampleResult>(func, any, 42, '');
+    }
+
+    {
+        type SampleResult = (a: number, b: string) => boolean;
+
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
+
+        result = _(func).bind<SampleResult>(any);
+    }
+
+    {
+        type SampleResult = (b: string) => boolean;
+
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
+
+        result = _(func).bind<SampleResult>(any, 42);
+    }
+
+    {
+        type SampleResult = () => boolean;
+
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
+
+        result = _(func).bind<SampleResult>(any, 42, '');
+    }
+
+    {
+        type SampleResult = (a: number, b: string) => boolean;
+
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
+
+        result = _(func).chain().bind<SampleResult>(any);
+    }
+
+    {
+        type SampleResult = (b: string) => boolean;
+
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
+
+        result = _(func).chain().bind<SampleResult>(any, 42);
+    }
+
+    {
+        type SampleResult = () => boolean;
+
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
+
+        result = _(func).chain().bind<SampleResult>(any, 42, '');
+    }
+}
 
 // _.bindAll
 module TestBindAll {
