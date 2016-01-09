@@ -9540,19 +9540,33 @@ declare module _ {
         /**
          * Creates a function that invokes func with the this binding of the created function and an array of arguments
          * much like Function#apply.
+         *
+         * Note: This method is based on the spread operator.
+         *
          * @param func The function to spread arguments over.
          * @return Returns the new function.
          */
-        spread<TResult extends Function>(func: Function): TResult;
+        spread<F extends Function, T extends Function>(func: F): T;
+
+        /**
+         * @see _.spread
+         */
+        spread<T extends Function>(func: Function): T;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.spread
          */
-        spread<TResult extends Function>(): LoDashImplicitObjectWrapper<TResult>;
+        spread<T extends Function>(): LoDashImplicitObjectWrapper<T>;
     }
 
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.spread
+         */
+        spread<T extends Function>(): LoDashExplicitObjectWrapper<T>;
+    }
 
     //_.throttle
     interface ThrottleSettings {
