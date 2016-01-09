@@ -4913,87 +4913,193 @@ declare module _ {
     //_.countBy
     interface LoDashStatic {
         /**
-        * Creates an object composed of keys generated from the results of running each element
-        * of collection through the callback. The corresponding value of each key is the number
-        * of times the key was returned by the callback. The callback is bound to thisArg and
-        * invoked with three arguments; (value, index|key, collection).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will
-        * return the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return
-        * true for elements that have the properties of the given object, else false.
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return Returns the composed aggregate object.
-        **/
-        countBy<T>(
-            collection: Array<T>,
-            callback?: ListIterator<T, any>,
-            thisArg?: any): Dictionary<number>;
-
-        /**
-        * @see _.countBy
-        * @param callback Function name
-        **/
+         * Creates an object composed of keys generated from the results of running each element of collection through
+         * iteratee. The corresponding value of each key is the number of times the key was returned by iteratee. The
+         * iteratee is bound to thisArg and invoked with three arguments:
+         * (value, index|key, collection).
+         *
+         * If a property name is provided for iteratee the created _.property style callback returns the property
+         * value of the given element.
+         *
+         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
+         * elements that have a matching property value, else false.
+         *
+         * If an object is provided for iteratee the created _.matches style callback returns true for elements that
+         * have the properties of the given object, else false.
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns the composed aggregate object.
+         */
         countBy<T>(
             collection: List<T>,
-            callback?: ListIterator<T, any>,
-            thisArg?: any): Dictionary<number>;
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): Dictionary<number>;
 
         /**
-        * @see _.countBy
-        * @param callback Function name
-        **/
+         * @see _.countBy
+         */
         countBy<T>(
             collection: Dictionary<T>,
-            callback?: DictionaryIterator<T, any>,
-            thisArg?: any): Dictionary<number>;
+            iteratee?: DictionaryIterator<T, any>,
+            thisArg?: any
+        ): Dictionary<number>;
 
         /**
-        * @see _.countBy
-        * @param callback Function name
-        **/
+         * @see _.countBy
+         */
         countBy<T>(
-            collection: Array<T>,
-            callback: string,
-            thisArg?: any): Dictionary<number>;
+            collection: NumericDictionary<T>,
+            iteratee?: NumericDictionaryIterator<T, any>,
+            thisArg?: any
+        ): Dictionary<number>;
 
         /**
-        * @see _.countBy
-        * @param callback Function name
-        **/
+         * @see _.countBy
+         */
         countBy<T>(
-            collection: List<T>,
-            callback: string,
-            thisArg?: any): Dictionary<number>;
+            collection: List<T>|Dictionary<T>|NumericDictionary<T>,
+            iteratee?: string,
+            thisArg?: any
+        ): Dictionary<number>;
 
         /**
-        * @see _.countBy
-        * @param callback Function name
-        **/
+         * @see _.countBy
+         */
+        countBy<W, T>(
+            collection: List<T>|Dictionary<T>|NumericDictionary<T>,
+            iteratee?: W
+        ): Dictionary<number>;
+
+        /**
+         * @see _.countBy
+         */
         countBy<T>(
-            collection: Dictionary<T>,
-            callback: string,
-            thisArg?: any): Dictionary<number>;
+            collection: List<T>|Dictionary<T>|NumericDictionary<T>,
+            iteratee?: Object
+        ): Dictionary<number>;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.countBy
+         */
+        countBy(
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<number>>;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
-        * @see _.countBy
-        **/
+         * @see _.countBy
+         */
         countBy(
-            callback?: ListIterator<T, any>,
-            thisArg?: any): LoDashImplicitObjectWrapper<Dictionary<number>>;
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<number>>;
 
         /**
-        * @see _.countBy
-        * @param callback Function name
-        **/
+         * @see _.countBy
+         */
         countBy(
-            callback: string,
-            thisArg?: any): LoDashImplicitObjectWrapper<Dictionary<number>>;
+            iteratee?: string,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<number>>;
+
+        /**
+         * @see _.countBy
+         */
+        countBy<W>(
+            iteratee?: W
+        ): LoDashImplicitObjectWrapper<Dictionary<number>>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.countBy
+         */
+        countBy<T>(
+            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>|NumericDictionaryIterator<T, any>,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<number>>;
+
+        /**
+         * @see _.countBy
+         */
+        countBy(
+            iteratee?: string,
+            thisArg?: any
+        ): LoDashImplicitObjectWrapper<Dictionary<number>>;
+
+        /**
+         * @see _.countBy
+         */
+        countBy<W>(
+            iteratee?: W
+        ): LoDashImplicitObjectWrapper<Dictionary<number>>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.countBy
+         */
+        countBy(
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<number>>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.countBy
+         */
+        countBy(
+            iteratee?: ListIterator<T, any>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<number>>;
+
+        /**
+         * @see _.countBy
+         */
+        countBy(
+            iteratee?: string,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<number>>;
+
+        /**
+         * @see _.countBy
+         */
+        countBy<W>(
+            iteratee?: W
+        ): LoDashExplicitObjectWrapper<Dictionary<number>>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.countBy
+         */
+        countBy<T>(
+            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>|NumericDictionaryIterator<T, any>,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<number>>;
+
+        /**
+         * @see _.countBy
+         */
+        countBy(
+            iteratee?: string,
+            thisArg?: any
+        ): LoDashExplicitObjectWrapper<Dictionary<number>>;
+
+        /**
+         * @see _.countBy
+         */
+        countBy<W>(
+            iteratee?: W
+        ): LoDashExplicitObjectWrapper<Dictionary<number>>;
     }
 
     //_.detect
