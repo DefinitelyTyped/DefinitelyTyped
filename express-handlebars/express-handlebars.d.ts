@@ -1,7 +1,6 @@
 // Type definitions for express-handlebars
 // Project: https://github.com/ericf/express-handlebars
-// Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
-// Updated by: Igor Dultsev <https://github.com/yhaskell>
+// Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>, Igor Dultsev <https://github.com/yhaskell>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../es6-promise/es6-promise.d.ts" />
