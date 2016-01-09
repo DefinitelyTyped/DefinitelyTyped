@@ -791,7 +791,7 @@ declare module d3 {
         /**
          * Returns the first non-null element in the selection, or null otherwise.
          */
-        node(): EventTarget;
+        node(): Node;
 
         /**
          * Returns the total number of elements in the selection.
@@ -854,7 +854,7 @@ declare module d3 {
         call(func: (transition: Transition<Datum>, ...args: any[]) => any, ...args: any[]): Transition<Datum>;
 
         empty(): boolean;
-        node(): EventTarget;
+        node(): Node;
         size(): number;
     }
 
@@ -3030,6 +3030,46 @@ declare module d3 {
 
             padding(): number;
             padding(padding: number): Pack<T>;
+        }
+
+        export function partition(): Partition<partition.Node>;
+        export function partition<T extends partition.Node>(): Partition<T>;
+
+        module partition {
+            interface Link<T extends Node> {
+                source: T;
+                target: T;
+            }
+
+            interface Node {
+                parent?: Node;
+                children?: number;
+                value?: number;
+                depth?: number;
+                x?: number;
+                y?: number;
+                dx?: number;
+                dy?: number;
+            }
+
+        }
+
+        export interface Partition<T extends partition.Node> {
+            nodes(root: T): T[];
+
+            links(nodes: T[]): partition.Link<T>[];
+
+            children(): (node: T, depth: number) => T[];
+            children(children: (node: T, depth: number) => T[]): Partition<T>;
+
+            sort(): (a: T, b: T) => number;
+            sort(comparator: (a: T, b: T) => number): Partition<T>;
+
+            value(): (node: T) => number;
+            value(value: (node: T) => number): Partition<T>;
+
+            size(): [number, number];
+            size(size: [number, number]): Partition<T>;
         }
 
         export function pie(): Pie<number>;

@@ -114,11 +114,11 @@ declare module uiGrid {
             ROW: string;
             COLUMN: string;
             OPTIONS: string;
-        }
+        };
         scrollbars: {
             NEVER: number;
             ALWAYS: number;
-        }
+        };
     }
     export type IGridInstance = IGridInstanceOf<any>;
     export interface IGridInstanceOf<TEntity> {
@@ -1057,7 +1057,7 @@ declare module uiGrid {
              * @param {sortChangedHandler} handler callback
              */
             sortChanged: (scope: ng.IScope, handler: sortChangedHandler<TEntity>) => void;
-        }
+        };
     }
     export interface columnVisibilityChangedHandler<TEntity> {
         /**
@@ -1211,7 +1211,7 @@ declare module uiGrid {
                  * @param {viewportKeyPressHandler} handler Callback
                  */
                 viewportKeyPress: (scope: ng.IScope, handler: viewportKeyPressHandler<TEntity>) => void;
-            }
+            };
         }
 
         export interface navigateHandler<TEntity> {
@@ -1282,7 +1282,7 @@ declare module uiGrid {
                 KEYDOWN: number;
                 CLICK: number;
                 CLEAR: number;
-            }
+            };
         }
     }
 
@@ -1481,7 +1481,7 @@ declare module uiGrid {
                 BEGIN_CELL_EDIT: string;
                 END_CELL_EDIT: string;
                 CANCEL_CELL_EDIT: string;
-            }
+            };
         }
     }
 
@@ -1548,7 +1548,7 @@ declare module uiGrid {
                  * @param {rowExpandedStateChangedHandler} handler
                  */
                 rowExpandedStateChanged: (scope: ng.IScope, handler: rowExpandedStateChangedHandler<TEntity>) => void;
-            }
+            };
         }
 
         export interface rowExpandedStateChangedHandler<TEntity> {
@@ -2300,7 +2300,7 @@ declare module uiGrid {
                  * @param {columnPositionChangedHandler} handler Callback Function
                  */
                 columnPositionChanged?: (scope: ng.IScope, handler: columnPositionChangedHandler) => void;
-            }
+            };
         }
         export interface columnPositionChangedHandler {
             (colDef: IColumnDef, originalPosition: number, finalPosition: number): void;
@@ -2387,7 +2387,7 @@ declare module uiGrid {
                  * @param {paginationChangedHandler} handler Callback
                  */
                 paginationChanged: (scope: ng.IScope, handler: paginationChangedHandler) => void;
-            }
+            };
         }
 
         /**
@@ -2469,7 +2469,7 @@ declare module uiGrid {
                 LEFT: string;
                 RIGHT: string;
                 NONE: string;
-            }
+            };
         }
     }
 
@@ -2508,7 +2508,7 @@ declare module uiGrid {
                  * @param {columnSizeChangedHandler} handler Callback
                  */
                 columnSizeChanged: (scope: ng.IScope, handler: columnSizeChangedHandler) => void;
-            }
+            };
         }
 
         export interface columnSizeChangedHandler {
@@ -2594,7 +2594,7 @@ declare module uiGrid {
                  * @param {saveRowHandler} handler Callback
                  */
                 saveRow: (scope: ng.IScope, handler: saveRowHandler<TEntity>) => void;
-            }
+            };
         }
 
         export interface saveRowHandler<TEntity> {
@@ -2973,7 +2973,7 @@ declare module uiGrid {
                  * @param {rowSelectionChangedBatchHandler} handler callback
                  */
                 rowSelectionChangedBatch: (scope: ng.IScope, handler: rowSelectionChangedBatchHandler<TEntity>) => void;
-            }
+            };
         }
         export interface rowSelectionChangedHandler<TEntity> {
             /**
@@ -3206,13 +3206,13 @@ declare module uiGrid {
                  * @param {rowExpandedHandler} handler Callback
                  */
                 rowExpanded: (scope: ng.IScope, handler: rowExpandedHandler<TEntity>) => void;
-            }
+            };
         }
 
         export interface ITreeState {
             expandedState: {
                 [index: string]: string
-            }
+            };
         }
 
         export interface rowCollapsedHandler<TEntity> {
@@ -3275,7 +3275,7 @@ declare module uiGrid {
             MAX: string;
             MIN: string;
             AVG: string;
-        }
+        };
     }
 
     // Tree View
@@ -3857,7 +3857,7 @@ declare module uiGrid {
          * defaults to uiGridConstants.filter.INPUT, which gives a text box. If set to uiGridConstants.filter.SELECT
          * then a select box will be shown with options selectOptions
          */
-        type?: number;
+        type?: number | string;
         /**
          * options in the format [{ value: 1, label: 'male' }]. No i18n filter is provided, you need to perform the i18n
          * on the values before you provide them
@@ -3870,7 +3870,7 @@ declare module uiGrid {
         disableCancelButton?: boolean;
     }
     export interface ISelectOption {
-        value: number;
+        value: number | string;
         label: string;
     }
 

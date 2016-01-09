@@ -1,4 +1,4 @@
-// Type definitions for Kii Cloud SDK v2.3.0
+// Type definitions for Kii Cloud SDK v2.4.0
 // Project: http://en.kii.com/
 // Definitions by: Kii Consortium <http://jp.kii.com/consortium/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -82,6 +82,11 @@ declare module KiiCloud {
          * lot identifier given by thing vendor.
          */
         _lot?: string;
+
+        /**
+         * product name given by thing vendor.
+         */
+        _productName?: string;
 
         /**
          * arbitrary string field.
@@ -1029,6 +1034,65 @@ declare module KiiCloud {
         groupWithID(group: string): KiiGroup;
 
         /**
+         * Register new group own by specified user on Kii Cloud with specified ID.
+         * This method can be used only by app admin.
+         * 
+         * <br><br>If the group that has specified id already exists, registration will be failed.
+         *
+         * @param groupID ID of the KiiGroup
+         * @param groupName Name of the KiiGroup
+         * @param user id of owner
+         * @param members An array of KiiUser objects to add to the group
+         * @param callbacks 
+         *
+         * @return return promise object.
+         *       <ul>
+         *         <li>fulfill callback function: function(theSavedGroup). theSavedGroup is KiiGroup instance.</li>
+         *         <li>reject callback function: function(error). error is an Error instance.
+         *           <ul>
+         *             <li>error.target is the KiiGroup instance which this method was called on.</li>
+         *             <li>error.message</li>
+         *             <li>error.addMembersArray is array of KiiUser to be added as memebers of this group.</li>
+         *             <li>error.removeMembersArray is array of KiiUser to be removed from the memebers list of this group.</li>
+         *           </ul>
+         *         </li>
+         *       </ul>
+         *
+         * @example
+         *     // example to use callbacks directly
+         *     Kii.authenticateAsAppAdmin("client-id", "client-secret", {
+         *         success: function(adminContext) {
+         *             var members = [];
+         *             members.push(KiiUser.userWithID("Member User Id"));
+         *             adminContext.registerGroupWithOwnerAndID("Group ID", "Group Name", "Owner User ID", members, {
+         *                 success: function(theSavedGroup) {
+         *                     // do something with the saved group
+         *                 },
+         *                 failure: function(theGroup, anErrorString, addMembersArray, removeMembersArray) {
+         *                     // do something with the error response
+         *                 }
+         *             });
+         *         },
+         *         failure: function(errorString, errorCode) {
+         *             // auth failed.
+         *         }
+         *     });
+         *     // example to use Promise
+         *     Kii.authenticateAsAppAdmin("client-id", "client-secret").then(
+         *         function(adminContext) {
+         *             var members = [];
+         *             members.push(KiiUser.userWithID("Member User Id"));
+         *             return adminContext.registerGroupWithOwnerAndID("Group ID", "Group Name", "Owner User ID", members);
+         *         }
+         *     ).then(
+         *         function(group) {
+         *             // do something with the saved group
+         *         }
+         *     );
+         */
+        registerGroupWithOwnerAndID(groupID: string, groupName: string, user: string, members: KiiUser[], callbacks?: { success(adminContext: KiiAppAdminContext): any; failure(theGroup: KiiGroup, anErrorString: string, addMembersArray: KiiUser[], removeMembersArray: KiiUser[]): any; }): Promise<KiiAppAdminContext>;
+
+        /**
          * Creates a reference to a group operated by app admin using group's URI.
          *     <br><br>
          *     <b>Note:</b>
@@ -1362,7 +1426,7 @@ declare module KiiCloud {
          * Register user/group as owner of specified thing by app admin.
          *
          * @param thingID The ID of thing
-         * @param owner to be registered as owner.
+         * @param owner instnce of KiiUser/KiiGroup to be registered as owner.
          * @param callbacks object holds callback functions.
          *
          * @return return promise object.
@@ -1415,7 +1479,7 @@ declare module KiiCloud {
          * Register user/group as owner of specified thing by app admin.
          *
          * @param vendorThingID The vendor thing ID of thing
-         * @param owner to be registered as owner.
+         * @param owner instance of KiiUser/KiiGroupd to be registered as owner.
          * @param callbacks object holds callback functions.
          *
          * @return return promise object.
@@ -2206,6 +2270,58 @@ declare module KiiCloud {
         objectURI(): string;
 
         /**
+         * Register new group own by current user on Kii Cloud with specified ID.
+         * 
+         * <br><br>If the group that has specified id already exists, registration will be failed.
+         *
+         * @param groupID ID of the KiiGroup
+         * @param groupName Name of the KiiGroup
+         * @param members An array of KiiUser objects to add to the group
+         * @param callbacks An object with callback methods defined
+         *
+         * @return return promise object.
+         *       <ul>
+         *         <li>fulfill callback function: function(theSavedGroup). theSavedGroup is KiiGroup instance.</li>
+         *         <li>reject callback function: function(error). error is an Error instance.
+         *           <ul>
+         *             <li>error.target is the KiiGroup instance which this method was called on.</li>
+         *             <li>error.message</li>
+         *             <li>error.addMembersArray is array of KiiUser to be added as memebers of this group.</li>
+         *             <li>error.removeMembersArray is array of KiiUser to be removed from the memebers list of this group.</li>
+         *           </ul>
+         *         </li>
+         *       </ul>
+         *
+         * @example
+         *     // example to use callbacks directly
+         *     var members = [];
+         *     members.push(KiiUser.userWithID("Member User Id"));
+         *     KiiGroup.registerGroupWithID("Group ID", "Group Name", members, {
+         *         success: function(theSavedGroup) {
+         *             // do something with the saved group
+         *         },
+         *         failure: function(theGroup, anErrorString, addMembersArray, removeMembersArray) {
+         *             // do something with the error response
+         *         }
+         *     });
+         *     
+         *     // example to use Promise
+         *     var members = [];
+         *     members.push(KiiUser.userWithID("Member User Id"));
+         *     KiiGroup.registerGroupWithID("Group ID", "Group Name", members).then(
+         *         function(theSavedGroup) {
+         *             // do something with the saved group
+         *         },
+         *         function(error) {
+         *             var theGroup = error.target;
+         *             var anErrorString = error.message;
+         *             var addMembersArray = error.addMembersArray;
+         *             // do something with the error response
+         *     });
+         */
+        static registerGroupWithID(groupID: string, groupName: string, members: KiiUser[], callbacks?: { success(theSavedGroup: KiiGroup): any; failure(theGroup: KiiGroup, anErrorString: string, addMembersArray: KiiUser[], removeMembersArray: KiiUser[]): any; }): Promise<KiiGroup>;
+
+        /**
          * Creates a reference to a bucket for this group
          * 
          * <br><br>The bucket will be created/accessed within this group's scope
@@ -2419,6 +2535,65 @@ declare module KiiCloud {
          *     });
          */
         save(callbacks?: { success(theSavedGroup: KiiGroup): any; failure(theGroup: KiiGroup, anErrorString: string, addMembersArray: KiiUser[], removeMembersArray: KiiUser[]): any; }): Promise<KiiGroup>;
+
+        /**
+         * Saves the latest group values to the server with specified owner.
+         * This method can be used only by the group owner or app admin.
+         * 
+         * <br><br>If the group does not yet exist, it will be created. If the group already exists, the members and owner that have changed will be updated accordingly. If the group already exists and there is no updates of members and owner, it will allways succeed but does not execute update. To change the name of group, use {@link #changeGroupName}.
+         *
+         * @param user id of owner
+         * @param callbacks An object with callback methods defined
+         *
+         * @return return promise object.
+         *       <ul>
+         *         <li>fulfill callback function: function(theSavedGroup). theSavedGroup is KiiGroup instance.</li>
+         *         <li>reject callback function: function(error). error is an Error instance.
+         *           <ul>
+         *             <li>error.target is the KiiGroup instance which this method was called on.</li>
+         *             <li>error.message</li>
+         *             <li>error.addMembersArray is array of KiiUser to be added as memebers of this group.</li>
+         *             <li>error.removeMembersArray is array of KiiUser to be removed from the memebers list of this group.</li>
+         *           </ul>
+         *         </li>
+         *       </ul>
+         *
+         * @example
+         *     // example to use callbacks directly
+         *     var group = . . .; // a KiiGroup
+         *     group.saveWithOwner("UserID of owner", {
+         *         success: function(theSavedGroup) {
+         *             // do something with the saved group
+         *         },
+         *     
+         *         failure: function(theGroup, anErrorString, addMembersArray, removeMembersArray) {
+         *             // do something with the error response
+         *         }
+         *     });
+         *     
+         *     // example to use Promise
+         *     var group = . . .; // a KiiGroup
+         *     group.saveWithOwner("UserID of owner", {
+         *         success: function(theSavedGroup) {
+         *             // do something with the saved group
+         *         },
+         *     
+         *         failure: function(theGroup, anErrorString, addMembersArray, removeMembersArray) {
+         *             // do something with the error response
+         *         }
+         *     }).then(
+         *         function(theSavedGroup) {
+         *             // do something with the saved group
+         *         },
+         *         function(error) {
+         *             var theGroup = error.target;
+         *             var anErrorString = error.message;
+         *             var addMembersArray = error.addMembersArray;
+         *             var removeMembersArray = error.removeMembersArray;
+         *             // do something with the error response
+         *     });
+         */
+        saveWithOwner(user: string, callbacks?: { success(theSavedGroup: KiiGroup): any; failure(theGroup: KiiGroup, anErrorString: string, addMembersArray: KiiUser[], removeMembersArray: KiiUser[]): any; }): Promise<KiiGroup>;
 
         /**
          * Updates the local group's data with the group data on the server
@@ -2735,14 +2910,14 @@ declare module KiiCloud {
         /**
          * Get the application-defined type name of the object
          *
-         * @return 
+         * @return type of this object. null or undefined if none exists
          */
         getObjectType(): string;
 
         /**
          * Get the body content-type.
          * It will be updated after the success of {@link KiiObject#uploadBody} and {@link KiiObject#downloadBody}
-         * returns null when this object doesn't have body content-type information.
+         * returns null or undefined when this object doesn't have body content-type information.
          *
          * @return content-type of object body
          */
@@ -2751,15 +2926,18 @@ declare module KiiCloud {
         /**
          * Sets a key/value pair to a KiiObject
          * 
-         * <br><br>If the key already exists, its value will be written over. If the object is of invalid type, it will return false and a KiiError will be thrown (quietly). Accepted types are any JSON-encodable objects.
+         * <br><br>If the key already exists, its value will be written over.
          * <br><b>NOTE: Before involving floating point value, please consider using integer instead. For example, use percentage, permil, ppm, etc.</br></b>
          * The reason is:
          *  <li>Will dramatically improve the performance of bucket query.</li>
          *  <li>Bucket query does not support the mixed result of integer and floating point.
          *  ex.) If you use same key for integer and floating point and inquire object with the integer value, objects which has floating point value with the key would not be evaluated in the query. (and vice versa)</li>
          *
-         * @param key The key to set. The key must not be a system key (created, metadata, modified, type, uuid) or begin with an underscore (_)
-         * @param value The value to be set. Object must be of a JSON-encodable type (Ex: dictionary, array, string, number, etc)
+         * @param key The key to set.
+         *   if null, empty string or string prefixed with '_' is specified, silently ignored and have no effect.
+         *   We don't check if actual type is String or not. If non-string type is specified, it will be encoded as key by JSON.stringify()
+         * @param value The value to be set. Object must be JSON-encodable type (dictionary, array, string, number, boolean)
+         *   We don't check actual type of the value. It will be encoded as value by JSON.stringify()
          *
          * @example
          *     var obj = . . .; // a KiiObject
@@ -2772,7 +2950,7 @@ declare module KiiCloud {
          *
          * @param key The key to retrieve
          *
-         * @return The object associated with the key. null if none exists
+         * @return The object associated with the key. null or undefined if none exists
          *
          * @example
          *     var obj = . . .; // a KiiObject
@@ -4665,6 +4843,11 @@ declare module KiiCloud {
          * '_thingID', '_created', '_accessToken' <br>
          * Following properties are readonly after creation and will be ignored on {@link #update} of thing.<br>
          * '_vendorThingID', '_password'<br>
+         * As Property prefixed with '_' is reserved by Kii Cloud,
+         * properties other than ones described in the parameter secion
+         * and '_layoutPosition' are ignored on creation/{@link #update} of thing.<br>
+         * Those ignored properties won't be removed from fields object passed as argument.
+         * However it won't be reflected to fields object property of created/updated Thing.
          *
          * @param fields of the thing to be registered.
          * @param callbacks object holds callback functions.
@@ -5007,7 +5190,7 @@ declare module KiiCloud {
          * API is authorized by app admin.<br>
          *
          * @param thingID The ID of thing
-         * @param owner to be registered as owner.
+         * @param owner instance of KiiUser/KiiGroup to be registered as owner.
          * @param callbacks object holds callback functions.
          *
          * @return return promise object.
@@ -5059,7 +5242,7 @@ declare module KiiCloud {
          * API is authorized by app admin.<br>
          *
          * @param vendorThingID The vendor thing ID of thing
-         * @param owner to be registered as owner.
+         * @param owner instance of KiiUser/KiiGroup to be registered as owner.
          * @param callbacks object holds callback functions.
          *
          * @return return promise object.
@@ -5850,7 +6033,7 @@ declare module KiiCloud {
          *
          * @param key The key to retrieve
          *
-         * @return The object associated with the key. null if none exists
+         * @return The object associated with the key. null or undefined if none exists
          *
          * @example
          *     var user = . . .; // a KiiUser

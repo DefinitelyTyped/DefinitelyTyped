@@ -154,6 +154,12 @@ declare module "aws-sdk" {
 		constructor(options?: any);
 	}
 
+	export module DynamoDB {
+		export class DocumentClient {
+			constructor(options?: any);
+		}
+	}
+
 	export module SQS {
 		
 		export interface SqsOptions {

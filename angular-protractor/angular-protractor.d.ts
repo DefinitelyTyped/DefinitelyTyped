@@ -501,6 +501,145 @@ declare module protractor {
         function titleMatches(regex: RegExp): webdriver.until.Condition<boolean>;
     }
 
+    module ExpectedConditions {
+        /**
+         * Negates the result of a promise.
+         *
+         * @param {webdriver.until.Condition<boolean>} expectedCondition
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns the negated value.
+         */
+        function not<T>(expectedCondition: webdriver.until.Condition<T>): webdriver.until.Condition<T>;
+
+        /**
+         * Chain a number of expected conditions using logical_and, short circuiting at the
+         * first expected condition that evaluates to false.
+         *
+         * @param {...webdriver.until.Condition<boolean>[]} fns An array of expected conditions to 'and' together.
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise which evaluates
+         * to the result of the logical and.
+         */
+        function and<T>(...fns: webdriver.until.Condition<T>[]): webdriver.until.Condition<T>;
+
+        /**
+         * Chain a number of expected conditions using logical_or, short circuiting at the
+         * first expected condition that evaluates to true.
+         *
+         * @param {...webdriver.until.Condition<boolean>[]} fns An array of expected conditions to 'or' together.
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise which
+         * evaluates to the result of the logical or.
+         */
+        function or<T>(...fns: webdriver.until.Condition<T>[]): webdriver.until.Condition<T>;
+
+        /**
+         * Expect an alert to be present.
+         *
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether an alert is present.
+         */
+        function alertIsPresent<T>(): webdriver.until.Condition<T>;
+
+        /**
+         * An Expectation for checking an element is visible and enabled such that you can click it.
+         *
+         * @param {ElementFinder} element The element to check
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether the element is clickable.
+         */
+        function elementToBeClickable<T>(element: ElementFinder): webdriver.until.Condition<T>;
+
+        /**
+         * An expectation for checking if the given text is present in the element.
+         * Returns false if the elementFinder does not find an element.
+         *
+         * @param {ElementFinder} element The element to check
+         * @param {string} text The text to verify against
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether the text is present in the element.
+         */
+        function textToBePresentInElement<T>(element: ElementFinder, text: string): webdriver.until.Condition<T>;
+
+        /**
+         * An expectation for checking if the given text is present in the element’s value.
+         * Returns false if the elementFinder does not find an element.
+         *
+         * @param {ElementFinder} element The element to check
+         * @param {string} text The text to verify against
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether the text is present in the element's value.
+         */
+        function textToBePresentInElementValue<T>(
+          element: ElementFinder, text: string
+        ): webdriver.until.Condition<T>;
+
+        /**
+         * An expectation for checking that the title contains a case-sensitive substring.
+         *
+         * @param {string} title The fragment of title expected
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether the title contains the string.
+         */
+        function titleContains<T>(title: string): webdriver.until.Condition<T>;
+
+        /**
+         * An expectation for checking the title of a page.
+         *
+         * @param {string} title The expected title, which must be an exact match.
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether the title equals the string.
+         */
+        function titleIs<T>(title: string): webdriver.until.Condition<T>;
+
+        /**
+         * An expectation for checking that an element is present on the DOM of a page. This does not necessarily
+         * mean that the element is visible. This is the opposite of 'stalenessOf'.
+         *
+         * @param {ElementFinder} elementFinder The element to check
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise
+         * representing whether the element is present.
+         */
+        function presenceOf<T>(element: ElementFinder): webdriver.until.Condition<T>;
+
+        /**
+         * An expectation for checking that an element is not attached to the DOM of a page.
+         * This is the opposite of 'presenceOf'.
+         *
+         * @param {ElementFinder} elementFinder The element to check
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether the element is stale.
+         */
+        function stalenessOf<T>(element: ElementFinder): webdriver.until.Condition<T>;
+
+        /**
+         * An expectation for checking that an element is present on the DOM of a page and visible.
+         * Visibility means that the element is not only displayed but also has a height and width that is
+         * greater than 0. This is the opposite of 'invisibilityOf'.
+         *
+         * @param {ElementFinder} elementFinder The element to check
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether the element is visible.
+         */
+        function visibilityOf<T>(element: ElementFinder): webdriver.until.Condition<T>;
+
+        /**
+         * An expectation for checking that an element is present on the DOM of a page. This does not necessarily
+         * mean that the element is visible. This is the opposite of 'stalenessOf'.
+         *
+         * @param {ElementFinder} elementFinder The element to check
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether the element is invisible.
+         */
+        function invisibilityOf<T>(element: ElementFinder): webdriver.until.Condition<T>;
+
+        /**
+         * An expectation for checking the selection is selected.
+         *
+         * @param {ElementFinder} elementFinder The element to check
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether the element is selected.
+         */
+        function elementToBeSelected<T>(element: ElementFinder): webdriver.until.Condition<T>;
+    }
+
     //endregion
 
     /**
@@ -1667,6 +1806,16 @@ declare module protractor {
         * @return {Protractor} a protractor instance.
         */
         forkNewDriverInstance(opt_useSameUrl?: boolean, opt_copyMockModules?: boolean): Protractor;
+
+        /**
+        * Get the processed configuration object that is currently being run. This will contain
+        * the specs and capabilities properties of the current runner instance.
+        *
+        * Set by the runner.
+        *
+        * @return {webdriver.promise.Promise<any>} A promise which resolves to the capabilities object.
+        */
+        getProcessedConfig(): webdriver.promise.Promise<any>;
     }
 
     /**
