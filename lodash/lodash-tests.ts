@@ -5812,11 +5812,89 @@ module TestThrottle {
     }
 }
 
-var helloWrap = function (name: string) { return 'hello ' + name; };
-var helloWrap2 = _.wrap(helloWrap, function (func) {
-    return 'before, ' + func('moe') + ', after';
-});
-helloWrap2();
+// _.wrap
+module TestWrap {
+    type SampleValue = {a: number; b: string; c: boolean}
+    type SampleResult = (arg2: number, arg3: string) => boolean;
+
+    {
+        type SampleWrapper = (arg1: SampleValue, arg2: number, arg3: string) => boolean;
+
+        let value: SampleValue;
+        let wrapper: SampleWrapper;
+        let result: SampleResult;
+
+        result = _.wrap<SampleValue, SampleWrapper, SampleResult>(value, wrapper);
+        result = _.wrap<SampleValue, SampleResult>(value, wrapper);
+        result = _.wrap<SampleResult>(value, wrapper);
+    }
+
+    {
+        type SampleWrapper = (arg1: number, arg2: number, arg3: string) => boolean;
+
+        let value: number;
+        let wrapper: SampleWrapper;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
+
+        result = _(value).wrap<SampleWrapper, SampleResult>(wrapper);
+        result = _(value).wrap<SampleResult>(wrapper);
+    }
+
+    {
+        type SampleWrapper = (arg1: number[], arg2: number, arg3: string) => boolean;
+
+        let value: number[];
+        let wrapper: SampleWrapper;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
+
+        result = _(value).wrap<SampleWrapper, SampleResult>(wrapper);
+        result = _(value).wrap<SampleResult>(wrapper);
+    }
+
+    {
+        type SampleWrapper = (arg1: SampleValue, arg2: number, arg3: string) => boolean;
+
+        let value: SampleValue;
+        let wrapper: SampleWrapper;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
+
+        result = _(value).wrap<SampleWrapper, SampleResult>(wrapper);
+        result = _(value).wrap<SampleResult>(wrapper);
+    }
+
+    {
+        type SampleWrapper = (arg1: number, arg2: number, arg3: string) => boolean;
+
+        let value: number;
+        let wrapper: SampleWrapper;
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
+
+        result = _(value).chain().wrap<SampleWrapper, SampleResult>(wrapper);
+        result = _(value).chain().wrap<SampleResult>(wrapper);
+    }
+
+    {
+        type SampleWrapper = (arg1: number[], arg2: number, arg3: string) => boolean;
+
+        let value: number[];
+        let wrapper: SampleWrapper;
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
+
+        result = _(value).chain().wrap<SampleWrapper, SampleResult>(wrapper);
+        result = _(value).chain().wrap<SampleResult>(wrapper);
+    }
+
+    {
+        type SampleWrapper = (arg1: SampleValue, arg2: number, arg3: string) => boolean;
+
+        let value: SampleValue;
+        let wrapper: SampleWrapper;
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
+
+        result = _(value).chain().wrap<SampleWrapper, SampleResult>(wrapper);
+        result = _(value).chain().wrap<SampleResult>(wrapper);
+    }
+}
 
 /********
  * Lang *

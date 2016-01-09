@@ -9614,16 +9614,106 @@ declare module _ {
     //_.wrap
     interface LoDashStatic {
         /**
-        * Creates a function that provides value to the wrapper function as its first argument.
-        * Additional arguments provided to the function are appended to those provided to the
-        * wrapper function. The wrapper is executed with the this binding of the created function.
-        * @param value The value to wrap.
-        * @param wrapper The wrapper function.
-        * @return The new function.
-        **/
-        wrap(
+         * Creates a function that provides value to the wrapper function as its first argument. Any additional
+         * arguments provided to the function are appended to those provided to the wrapper function. The wrapper is
+         * invoked with the this binding of the created function.
+         *
+         * @param value The value to wrap.
+         * @param wrapper The wrapper function.
+         * @return Returns the new function.
+         */
+        wrap<V, W extends Function, R extends Function>(
+            value: V,
+            wrapper: W
+        ): R;
+
+        /**
+         * @see _.wrap
+         */
+        wrap<V, R extends Function>(
+            value: V,
+            wrapper: Function
+        ): R;
+
+        /**
+         * @see _.wrap
+         */
+        wrap<R extends Function>(
             value: any,
-            wrapper: (func: Function, ...args: any[]) => any): Function;
+            wrapper: Function
+        ): R;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.wrap
+         */
+        wrap<W extends Function, R extends Function>(wrapper: W): LoDashImplicitObjectWrapper<R>;
+
+        /**
+         * @see _.wrap
+         */
+        wrap<R extends Function>(wrapper: Function): LoDashImplicitObjectWrapper<R>;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.wrap
+         */
+        wrap<W extends Function, R extends Function>(wrapper: W): LoDashImplicitObjectWrapper<R>;
+
+        /**
+         * @see _.wrap
+         */
+        wrap<R extends Function>(wrapper: Function): LoDashImplicitObjectWrapper<R>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.wrap
+         */
+        wrap<W extends Function, R extends Function>(wrapper: W): LoDashImplicitObjectWrapper<R>;
+
+        /**
+         * @see _.wrap
+         */
+        wrap<R extends Function>(wrapper: Function): LoDashImplicitObjectWrapper<R>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.wrap
+         */
+        wrap<W extends Function, R extends Function>(wrapper: W): LoDashExplicitObjectWrapper<R>;
+
+        /**
+         * @see _.wrap
+         */
+        wrap<R extends Function>(wrapper: Function): LoDashExplicitObjectWrapper<R>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.wrap
+         */
+        wrap<W extends Function, R extends Function>(wrapper: W): LoDashExplicitObjectWrapper<R>;
+
+        /**
+         * @see _.wrap
+         */
+        wrap<R extends Function>(wrapper: Function): LoDashExplicitObjectWrapper<R>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.wrap
+         */
+        wrap<W extends Function, R extends Function>(wrapper: W): LoDashExplicitObjectWrapper<R>;
+
+        /**
+         * @see _.wrap
+         */
+        wrap<R extends Function>(wrapper: Function): LoDashExplicitObjectWrapper<R>;
     }
 
     /********
