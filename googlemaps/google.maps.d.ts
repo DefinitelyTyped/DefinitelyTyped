@@ -1517,7 +1517,7 @@ declare module google.maps {
         addressControl?: boolean;
         addressControlOptions?: StreetViewAddressControlOptions;
         clickToGo?: boolean;
-        disableDefaultUi?: boolean;
+        disableDefaultUI?: boolean;
         disableDoubleClickZoom?: boolean;
         enableCloseButton?: boolean;
         imageDateControl?: boolean;
@@ -1530,6 +1530,7 @@ declare module google.maps {
         pov?: StreetViewPov;
         scrollwheel?: boolean;
         visible?: boolean;
+        zoom?: number;
         zoomControl?: boolean;
         zoomControlOptions?: ZoomControlOptions;
     }
@@ -1571,7 +1572,29 @@ declare module google.maps {
         worldSize?: Size;
     }
 
+    export enum StreetViewPreference {
+        BEST,
+        NEAREST
+    }
+
+    export enum StreetViewSource {
+        DEFAULT,
+        OUTDOOR
+    }
+
+    export interface StreetViewLocationRequest {
+        location: LatLng|LatLngLiteral;
+        preference?: StreetViewPreference;
+        radius?: number;
+        source?: StreetViewSource;
+    }
+
+    export interface StreetViewPanoRequest {
+        pano: string;
+    }
+
     export class StreetViewService {
+        getPanorama(request: StreetViewLocationRequest|StreetViewPanoRequest, cb: (data: StreetViewPanoramaData, status: StreetViewStatus) => void): void;
         getPanoramaById(pano: string, callback: (streetViewPanoramaData: StreetViewPanoramaData, streetViewStatus: StreetViewStatus) => void): void;
         getPanoramaByLocation(latlng: LatLng|LatLngLiteral, radius: number, callback: (streetViewPanoramaData: StreetViewPanoramaData, streetViewStatus: StreetViewStatus) => void ): void;
     }
