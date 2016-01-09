@@ -3241,13 +3241,138 @@ module TestContains {
     }
 }
 
-result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function (num) { return Math.floor(num); });
-result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function (num) { return this.floor(num); }, Math);
-result = <_.Dictionary<number>>_.countBy(['one', 'two', 'three'], 'length');
+// _.countBy
+module TestCountBy {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let dictionary: _.Dictionary<TResult>;
+    let numericDictionary: _.NumericDictionary<TResult>;
 
-result = <_.LoDashImplicitObjectWrapper<_.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy(function (num) { return Math.floor(num); });
-result = <_.LoDashImplicitObjectWrapper<_.Dictionary<number>>>_([4.3, 6.1, 6.4]).countBy(function (num) { return this.floor(num); }, Math);
-result = <_.LoDashImplicitObjectWrapper<_.Dictionary<number>>>_(['one', 'two', 'three']).countBy('length');
+    let stringIterator: (value: string, index: number, collection: string) => any;
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any;
+    let numericDictionaryIterator: (value: TResult, key: number, collection: _.NumericDictionary<TResult>) => any;
+
+    {
+        let result: _.Dictionary<number>;
+
+        result = _.countBy<string>('');
+        result = _.countBy<string>('', stringIterator);
+        result = _.countBy<string>('', stringIterator, any);
+
+        result = _.countBy<TResult>(array);
+        result = _.countBy<TResult>(array, listIterator);
+        result = _.countBy<TResult>(array, listIterator, any);
+        result = _.countBy<TResult>(array, '');
+        result = _.countBy<TResult>(array, '', any);
+        result = _.countBy<{a: number}, TResult>(array, {a: 42});
+        result = _.countBy<TResult>(array, {a: 42});
+
+        result = _.countBy<TResult>(list);
+        result = _.countBy<TResult>(list, listIterator);
+        result = _.countBy<TResult>(list, listIterator, any);
+        result = _.countBy<TResult>(list, '');
+        result = _.countBy<TResult>(list, '', any);
+        result = _.countBy<{a: number}, TResult>(list, {a: 42});
+        result = _.countBy<TResult>(list, {a: 42});
+
+        result = _.countBy<TResult>(dictionary);
+        result = _.countBy<TResult>(dictionary, dictionaryIterator);
+        result = _.countBy<TResult>(dictionary, dictionaryIterator, any);
+        result = _.countBy<TResult>(dictionary, '');
+        result = _.countBy<TResult>(dictionary, '', any);
+        result = _.countBy<{a: number}, TResult>(dictionary, {a: 42});
+        result = _.countBy<TResult>(dictionary, {a: 42});
+
+        result = _.countBy<TResult>(numericDictionary);
+        result = _.countBy<TResult>(numericDictionary, numericDictionaryIterator);
+        result = _.countBy<TResult>(numericDictionary, numericDictionaryIterator, any);
+        result = _.countBy<TResult>(numericDictionary, '');
+        result = _.countBy<TResult>(numericDictionary, '', any);
+        result = _.countBy<{a: number}, TResult>(numericDictionary, {a: 42});
+        result = _.countBy<TResult>(numericDictionary, {a: 42});
+    }
+
+    {
+        let resutl: _.LoDashImplicitObjectWrapper<_.Dictionary<number>>;
+
+        result = _('').countBy();
+        result = _('').countBy(stringIterator);
+        result = _('').countBy(stringIterator, any);
+
+        result = _(array).countBy();
+        result = _(array).countBy(listIterator);
+        result = _(array).countBy(listIterator, any);
+        result = _(array).countBy('');
+        result = _(array).countBy('', any);
+        result = _(array).countBy<{a: number}>({a: 42});
+        result = _(array).countBy({a: 42});
+
+        result = _(list).countBy();
+        result = _(list).countBy<TResult>(listIterator);
+        result = _(list).countBy<TResult>(listIterator, any);
+        result = _(list).countBy('');
+        result = _(list).countBy('', any);
+        result = _(list).countBy<{a: number}>({a: 42});
+        result = _(list).countBy({a: 42});
+
+        result = _(dictionary).countBy();
+        result = _(dictionary).countBy<TResult>(dictionaryIterator);
+        result = _(dictionary).countBy<TResult>(dictionaryIterator, any);
+        result = _(dictionary).countBy('');
+        result = _(dictionary).countBy('', any);
+        result = _(dictionary).countBy<{a: number}>({a: 42});
+        result = _(dictionary).countBy({a: 42});
+
+        result = _(numericDictionary).countBy();
+        result = _(numericDictionary).countBy<TResult>(numericDictionaryIterator);
+        result = _(numericDictionary).countBy<TResult>(numericDictionaryIterator, any);
+        result = _(numericDictionary).countBy('');
+        result = _(numericDictionary).countBy('', any);
+        result = _(numericDictionary).countBy<{a: number}>({a: 42});
+        result = _(numericDictionary).countBy({a: 42});
+    }
+
+    {
+        let resutl: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
+
+        result = _('').chain().countBy();
+        result = _('').chain().countBy(stringIterator);
+        result = _('').chain().countBy(stringIterator, any);
+
+        result = _(array).chain().countBy();
+        result = _(array).chain().countBy(listIterator);
+        result = _(array).chain().countBy(listIterator, any);
+        result = _(array).chain().countBy('');
+        result = _(array).chain().countBy('', any);
+        result = _(array).chain().countBy<{a: number}>({a: 42});
+        result = _(array).chain().countBy({a: 42});
+
+        result = _(list).chain().countBy();
+        result = _(list).chain().countBy<TResult>(listIterator);
+        result = _(list).chain().countBy<TResult>(listIterator, any);
+        result = _(list).chain().countBy('');
+        result = _(list).chain().countBy('', any);
+        result = _(list).chain().countBy<{a: number}>({a: 42});
+        result = _(list).chain().countBy({a: 42});
+
+        result = _(dictionary).chain().countBy();
+        result = _(dictionary).chain().countBy<TResult>(dictionaryIterator);
+        result = _(dictionary).chain().countBy<TResult>(dictionaryIterator, any);
+        result = _(dictionary).chain().countBy('');
+        result = _(dictionary).chain().countBy('', any);
+        result = _(dictionary).chain().countBy<{a: number}>({a: 42});
+        result = _(dictionary).chain().countBy({a: 42});
+
+        result = _(numericDictionary).chain().countBy();
+        result = _(numericDictionary).chain().countBy<TResult>(numericDictionaryIterator);
+        result = _(numericDictionary).chain().countBy<TResult>(numericDictionaryIterator, any);
+        result = _(numericDictionary).chain().countBy('');
+        result = _(numericDictionary).chain().countBy('', any);
+        result = _(numericDictionary).chain().countBy<{a: number}>({a: 42});
+        result = _(numericDictionary).chain().countBy({a: 42});
+    }
+}
 
 // _.detect
 module TestDetect {
