@@ -26,6 +26,6 @@ declare module Promise {
 		then<R>(onFulfilled?: (value: T) => IThenable<R>|R, onRejected?: (error: any) => IThenable<R>|R): IThenable<R>;
 		catch<R>(onRejected?: (error: any) => IThenable<R>|R): IThenable<R>;
 		done<R>(onFulfilled?: (value: T) => IThenable<R>|R, onRejected?: (error: any) => IThenable<R>|R): IThenable<R>;
-		nodeify<R>(callbacl: Function): IThenable<R>;
+		nodeify<R>(callback: Function): IThenable<R>;
 	}
 }
