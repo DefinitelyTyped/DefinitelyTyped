@@ -5,158 +5,161 @@
 
 /// <reference path="../parse-glob/parse-glob.d.ts" />
 
-declare namespace Micromatch {
-    type Pattern = (string | RegExp | ((filePath: string) => boolean));
-}
-
 declare module 'micromatch' {
-    interface MicromatchOptions {
-        /**
-         * Normalize slashes in file paths and glob patterns to forward slashes.
-         */
-        unixify?: boolean;
-        /**
-         * Match dotfiles. Same behavior as minimatch.
-         */
-        dot?: boolean;
-        /**
-         * Unescape slashes in glob patterns. Use cautiously, especially on windows.
-         */
-        unescape?: boolean;
-        /**
-         * Remove duplicate elements from the result array.
-         */
-        nodupes?: boolean;
-        /**
-         * Allow glob patterns without slashes to match a file path based on its basename. Same behavior as minimatch.
-         */
-        matchBase?: boolean;
-        /**
-         * Don't expand braces in glob patterns. Same behavior as minimatch nobrace.
-         */
-        nobraces?: boolean;
-        /**
-         * Don't expand POSIX bracket expressions.
-         */
-        nobrackets?: boolean;
-        /**
-         * Don't expand extended globs.
-         */
-        noextglob?: boolean;
-        /**
-         * Use a case-insensitive regex for matching files. Same behavior as minimatch.
-         */
-        nocase?: boolean;
-        /**
-         * If true, when no matches are found the actual (array-ified) glob pattern is returned instead of an empty
-         * array. Same behavior as minimatch.
-         */
-        nonull?: boolean;
-        /**
-         * Cache the platform (e.g. win32) to prevent this from being looked up for every file path.
-         */
-        cache?: boolean;
-    }
+    import parseGlob = require('parse-glob');
 
-    interface Glob {
-        options: {}; // TODO: Expand?
-        pattern: string;
-        history: {msg: any, pattern: string}[];
-        tokens: ParseGlob.Result;
-        orig: string;
-        negated: boolean;
+    namespace micromatch {
+        type Pattern = (string | RegExp | ((filePath: string) => boolean));
 
-        /**
-         * Initialize defaults.
-         */
-        init(pattern: string): void;
+        interface Options {
+            /**
+             * Normalize slashes in file paths and glob patterns to forward slashes.
+             */
+            unixify?: boolean;
+            /**
+             * Match dotfiles. Same behavior as minimatch.
+             */
+            dot?: boolean;
+            /**
+             * Unescape slashes in glob patterns. Use cautiously, especially on windows.
+             */
+            unescape?: boolean;
+            /**
+             * Remove duplicate elements from the result array.
+             */
+            nodupes?: boolean;
+            /**
+             * Allow glob patterns without slashes to match a file path based on its basename. Same behavior as
+             * minimatch.
+             */
+            matchBase?: boolean;
+            /**
+             * Don't expand braces in glob patterns. Same behavior as minimatch nobrace.
+             */
+            nobraces?: boolean;
+            /**
+             * Don't expand POSIX bracket expressions.
+             */
+            nobrackets?: boolean;
+            /**
+             * Don't expand extended globs.
+             */
+            noextglob?: boolean;
+            /**
+             * Use a case-insensitive regex for matching files. Same behavior as minimatch.
+             */
+            nocase?: boolean;
+            /**
+             * If true, when no matches are found the actual (array-ified) glob pattern is returned instead of an empty
+             * array. Same behavior as minimatch.
+             */
+            nonull?: boolean;
+            /**
+             * Cache the platform (e.g. win32) to prevent this from being looked up for every file path.
+             */
+            cache?: boolean;
+        }
 
-        /**
-         * Push a change into `glob.history`. Useful for debugging.
-         */
-        track(msg: any): void;
+        interface Glob {
+            options: {}; // TODO: Expand?
+            pattern: string;
+            history: {msg: any, pattern: string}[];
+            tokens: parseGlob.Result;
+            orig: string;
+            negated: boolean;
 
-        /**
-         * Return true if `glob.pattern` was negated with `!`, also remove the `!` from the pattern.
-         */
-        isNegated(): boolean;
+            /**
+             * Initialize defaults.
+             */
+            init(pattern: string): void;
 
-        /**
-         * Expand braces in the given glob pattern.
-         */
-        braces(): void;
+            /**
+             * Push a change into `glob.history`. Useful for debugging.
+             */
+            track(msg: any): void;
 
-        /**
-         * Expand bracket expressions in `glob.pattern`.
-         */
-        brackets(): void;
+            /**
+             * Return true if `glob.pattern` was negated with `!`, also remove the `!` from the pattern.
+             */
+            isNegated(): boolean;
 
-        /**
-         * Expand extended globs in `glob.pattern`.
-         */
-        extglob(): void;
+            /**
+             * Expand braces in the given glob pattern.
+             */
+            braces(): void;
 
-        /**
-         * Parse the given pattern.
-         */
-        parse(pattern: string): ParseGlob.Result;
+            /**
+             * Expand bracket expressions in `glob.pattern`.
+             */
+            brackets(): void;
 
-        /**
-         * Escape special characters in the given string.
-         */
-        escape(pattern: string): string;
+            /**
+             * Expand extended globs in `glob.pattern`.
+             */
+            extglob(): void;
 
-        /**
-         * Unescape special characters in the given string.
-         */
-        unescape(pattern: string): string;
+            /**
+             * Parse the given pattern.
+             */
+            parse(pattern: string): parseGlob.Result;
+
+            /**
+             * Escape special characters in the given string.
+             */
+            escape(pattern: string): string;
+
+            /**
+             * Unescape special characters in the given string.
+             */
+            unescape(pattern: string): string;
+        }
     }
 
     interface Micromatch {
-        (files: string | string[], patterns: Micromatch.Pattern | Micromatch.Pattern[]): string[];
+        (files: string | string[], patterns: micromatch.Pattern | micromatch.Pattern[]): string[];
 
         isMatch: {
             /**
              * Returns true if a file path matches the given pattern.
              */
-            (filePath: string, pattern: Micromatch.Pattern, opts?: MicromatchOptions): boolean;
+            (filePath: string, pattern: micromatch.Pattern, opts?: micromatch.Options): boolean;
             /**
              * Returns a function for matching.
              */
-            (filePath: string, opts?: MicromatchOptions): ((filePath: string) => boolean);
+            (filePath: string, opts?: micromatch.Options): ((filePath: string) => boolean);
         };
 
         /**
          * Returns true if any part of a file path matches the given pattern. Think of this as "has path" versus
          * "is path".
          */
-        contains(filePath: string, pattern: Micromatch.Pattern, opts?: MicromatchOptions): boolean;
+        contains(filePath: string, pattern: micromatch.Pattern, opts?: micromatch.Options): boolean;
 
         /**
          * Returns a function for matching using the supplied pattern. e.g. create your own "matcher". The advantage of
          * this method is that the pattern can be compiled outside of a loop.
          */
-        matcher(pattern: Micromatch.Pattern): ((filePath: string) => boolean);
+        matcher(pattern: micromatch.Pattern): ((filePath: string) => boolean);
 
         /**
          * Returns a function that can be passed to Array#filter().
          */
-        filter(patterns: Micromatch.Pattern | Micromatch.Pattern[], opts?: MicromatchOptions): ((filePath: string) => boolean);
+        filter(patterns: micromatch.Pattern | micromatch.Pattern[], opts?: micromatch.Options): ((filePath: string) => boolean);
 
         /**
          * Returns true if a file path matches any of the given patterns.
          */
-        any(filePath: string, patterns: Micromatch.Pattern | Micromatch.Pattern[], opts?: MicromatchOptions): boolean;
+        any(filePath: string, patterns: micromatch.Pattern | micromatch.Pattern[], opts?: micromatch.Options): boolean;
 
         /**
          * Returns an object with a regex-compatible string and tokens.
          */
-        expand(pattern: string, opts?: MicromatchOptions): Glob | {pattern: string, tokens: ParseGlob.Result, options: {} /* TODO: Expand? */};
+        expand(pattern: string, opts?: micromatch.Options): micromatch.Glob | {pattern: string, tokens: parseGlob.Result, options: {} /* TODO: Expand? */};
 
         /**
          * Create a regular expression for matching file paths based on the given pattern.
          */
-        makeRe(pattern: string, opts?: MicromatchOptions): RegExp;
+        makeRe(pattern: string, opts?: micromatch.Options): RegExp;
     }
 
     const micromatch: Micromatch;
