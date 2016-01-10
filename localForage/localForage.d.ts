@@ -91,6 +91,6 @@ interface LocalForage {
 }
 
 declare module "localforage" {
-    var localforage: LocalForage;
-    export default localforage;
+    export var localforage: LocalForage;
+	export default localforage;
 }
