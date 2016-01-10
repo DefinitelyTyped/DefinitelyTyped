@@ -9,6 +9,7 @@ import * as crypto from "crypto";
 import * as tls from "tls";
 import * as http from "http";
 import * as net from "net";
+import * as tty from "tty";
 import * as dgram from "dgram";
 import * as querystring from "querystring";
 import * as path from "path";
@@ -281,7 +282,7 @@ module http_tests {
 	});
 
 	var agent: http.Agent = http.globalAgent;
-	
+
 	http.request({
 		agent: false
 	});
@@ -291,6 +292,23 @@ module http_tests {
 	http.request({
 		agent: undefined
 	});
+}
+
+////////////////////////////////////////////////////
+/// TTY tests : http://nodejs.org/api/tty.html
+////////////////////////////////////////////////////
+
+module tty_tests {
+    let rs: tty.ReadStream;
+    let ws: tty.WriteStream;
+
+    let rsIsRaw: boolean = rs.isRaw;
+    rs.setRawMode(true);
+
+    let wsColumns: number = ws.columns;
+    let wsRows: number = ws.rows;
+
+    let isTTY: boolean = tty.isatty(1);
 }
 
 ////////////////////////////////////////////////////
