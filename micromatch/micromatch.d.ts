@@ -3,7 +3,7 @@
 // Definitions by: glen-84 <https://github.com/glen-84>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../parse-glob/parse-glob.ts" />
+/// <reference path="../parse-glob/parse-glob.d.ts" />
 
 declare namespace Micromatch {
     type Pattern = (string | RegExp | ((filePath: string) => boolean));
