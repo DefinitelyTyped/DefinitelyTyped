@@ -8,10 +8,7 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
-import { Router, Route, IndexRoute, Link } from "react-router"
-
-import createHistory from "history/lib/createBrowserHistory"
-
+import { browserHistory, hashHistory, Router, Route, IndexRoute, Link } from "react-router"
 
 class Master extends React.Component<React.Props<{}>, {}> {
 
@@ -59,7 +56,7 @@ class Users extends React.Component<{}, {}> {
 
 
 ReactDOM.render((
-	<Router history={createHistory()}>
+	<Router history={hashHistory}>
 		<Route path="/" component={Master}>
 			<IndexRoute component={Dashboard} />
 			<Route path="users" component={Users}/>
