@@ -1,21 +1,24 @@
 /// <reference path="./parse-glob.d.ts"/>
 import parseGlob = require('parse-glob');
 
-var result = parseGlob('a/b/c/**/*.{yml,json}');
+var result: ParseGlob.Result = parseGlob('a/b/c/**/*.{yml,json}');
 
-result.base;
-result.glob;
-result.is.braces;
-result.is.brackets;
-result.is.dotdir;
-result.is.dotfile;
-result.is.extglob;
-result.is.glob;
-result.is.globstar;
-result.is.negated;
-result.orig;
-result.path.basename;
-result.path.dirname;
-result.path.ext;
-result.path.extname;
-result.path.filename;
+var stringValue: string;
+var boolValue: boolean;
+
+stringValue = result.base;
+stringValue = result.glob;
+boolValue   = result.is.braces;
+boolValue   = result.is.brackets;
+boolValue   = result.is.dotdir;
+boolValue   = result.is.dotfile;
+boolValue   = result.is.extglob;
+boolValue   = result.is.glob;
+boolValue   = result.is.globstar;
+boolValue   = result.is.negated;
+stringValue = result.orig;
+stringValue = result.path.basename;
+stringValue = result.path.dirname;
+stringValue = result.path.ext;
+stringValue = result.path.extname;
+stringValue = result.path.filename;
