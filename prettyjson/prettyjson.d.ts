@@ -20,7 +20,7 @@ declare module prettyjson {
    *
    * @return {string} pretty serialized json data ready to display.
      */
-  export function render(data: any, options?: IOptions, indentation?: number): string;
+  export function render(data: any, options?: RendererOptions, indentation?: number): string;
 
   /**
    * Render pretty json from a string.
@@ -31,9 +31,9 @@ declare module prettyjson {
    *
    * @return {string} pretty serialized json data ready to display.
      */
-  export function renderString(data: string, options?: IOptions, indentation?: number): string;
+  export function renderString(data: string, options?: RendererOptions, indentation?: number): string;
 
-  export interface IOptions {
+  export interface RendererOptions {
 
     /**
      * Define behavior for Array objects
