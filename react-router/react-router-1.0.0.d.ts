@@ -108,13 +108,8 @@ declare namespace ReactRouter {
     const IndexLink: Link
 
 
-    interface RoutingContextProps extends React.Props<RoutingContext> {
-        history: H.History
+    interface RoutingContextProps extends React.Props<RoutingContext>, MatchState {
         createElement: (component: RouteComponent, props: Object) => any
-        location: H.Location
-        routes: RouteConfig
-        params: Params
-        components?: RouteComponent[]
     }
     interface RoutingContext extends React.ComponentClass<RoutingContextProps> {}
     interface RoutingContextElement extends React.ReactElement<RoutingContextProps> {}
