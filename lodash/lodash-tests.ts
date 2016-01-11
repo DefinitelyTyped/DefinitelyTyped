@@ -6607,17 +6607,47 @@ module TestIsEqual {
 }
 
 // _.isError
-result = <boolean>_.isError(any);
-result = <boolean>_(1).isError();
-result = <boolean>_<any>([]).isError();
-result = <boolean>_({}).isError();
-{
-  let value: Error|string = "error";
-  if (_.isError(value)) {
-    let message: string = value.message;
-  } else {
-    let message: string = value;
-  }
+module TestIsError {
+    {
+        let value: number|Error;
+
+        if (_.isError(value)) {
+            let result: Error = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
+        class CustomError extends Error {}
+
+        let value: number|CustomError;
+
+        if (_.isError(value)) {
+            let result: CustomError = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isError(any);
+        result = _(1).isError();
+        result = _<any>([]).isError();
+        result = _({}).isError();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isError();
+        result = _<any>([]).chain().isError();
+        result = _({}).chain().isError();
+    }
 }
 
 // _.isFinite
