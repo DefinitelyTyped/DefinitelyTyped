@@ -4,6 +4,9 @@
 var noArgument = bigInt(),
     numberArgument = bigInt( 93 ),
     stringArgument = bigInt( "75643564363473453456342378564387956906736546456235345" ),
+    baseArgumentInt = bigInt( "101010", 2 ),
+    baseArgumentStr = bigInt( "101010", "2" ),
+    baseArgumentBi  = bigInt( "101010", bigInt( 2 ) ), 
     bigIntArgument = bigInt( noArgument );
 
 // method tests

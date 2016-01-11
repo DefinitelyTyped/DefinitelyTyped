@@ -10,7 +10,7 @@ declare module angular.angularFileUpload  {
     interface IUploadService {
 
         http<T>(config: IRequestConfig): IUploadPromise<T>;
-        upload<T>(config: IFileUploadConfig): IUploadPromise<T>;
+        upload<T>(config: IFileUploadConfigFiles|IFileUploadConfigFile): IUploadPromise<T>;
     }
 
     interface IUploadPromise<T> extends IHttpPromise<T> {
@@ -19,14 +19,25 @@ declare module angular.angularFileUpload  {
         xhr(callback: IHttpPromiseCallback<T>): IUploadPromise<T>;
     }
 
-    interface IFileUploadConfig extends IRequestConfig {
+    interface IFileUploadConfigFile extends IRequestConfig {
 
         file: File;
         fileName?: string;
     }
 
+    interface IFileUploadConfigFiles extends IRequestConfig {
+
+        file: File[];
+        fileName?: string;
+    }
+
+    interface IFilesProgressEvent extends ProgressEvent {
+
+        config: IFileUploadConfigFiles;
+    }
+
     interface IFileProgressEvent extends ProgressEvent {
 
-        config: IFileUploadConfig;
+        config: IFileUploadConfigFile;
     }
-} 
+}

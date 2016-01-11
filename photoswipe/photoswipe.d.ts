@@ -1,4 +1,4 @@
-// Type definitions for PhotoSwipe 4.0.7
+// Type definitions for PhotoSwipe 4.0.8
 // Project: http://photoswipe.com/
 // Definitions by: Xiaohan Zhang <https://github.com/hellochar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -308,6 +308,13 @@ declare module PhotoSwipe {
          * }
          */
         isClickableElement?: (el: HTMLElement) => boolean;
+
+        /**
+         * Controls whether PhotoSwipe should expand to take up the entire viewport.
+         * If false, the PhotoSwipe element will take the size of the positioned parent of the template. Take a look at the FAQ for more
+         * information.
+         */
+        modal?: boolean;
     }
 
     interface UIFramework {

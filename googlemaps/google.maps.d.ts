@@ -822,6 +822,7 @@ declare module google.maps {
         bounds?: LatLngBounds;
         componentRestrictions?: GeocoderComponentRestrictions;
         location?: LatLng|LatLngLiteral;
+        placeId?: string;
         region?: string;
     }
 
@@ -848,7 +849,7 @@ declare module google.maps {
         formatted_address: string;
         geometry: GeocoderGeometry;
         partial_match: boolean;
-        postcode_localities: string[]        
+        postcode_localities: string[];        
         types: string[];
     }
 
@@ -910,10 +911,10 @@ declare module google.maps {
         avoidFerries?: boolean;
         avoidHighways?: boolean;
         avoidTolls?: boolean;
-        destination?: LatLng|string;
+        destination?: LatLng|LatLngLiteral|string;
         durationInTraffic?: boolean;
         optimizeWaypoints?: boolean;
-        origin?: LatLng|string;
+        origin?: LatLng|LatLngLiteral|string;
         provideRouteAlternatives?: boolean;
         region?: string;
         transitOptions?: TransitOptions;
@@ -958,7 +959,7 @@ declare module google.maps {
     export interface TransitFare { }
 
     export interface DirectionsWaypoint {
-        location: LatLng|string;
+        location: LatLng|LatLngLiteral|string;
         stopover: boolean;
     }
 
@@ -1337,6 +1338,7 @@ declare module google.maps {
         lightness?: number;
         saturation?: number;
         visibility?: string;
+        weight?: number;
     }
 
     /***** Layers *****/
@@ -1820,7 +1822,7 @@ declare module google.maps {
             matched_substrings: PredictionSubstring[];
             place_id: string;
             terms: PredictionTerm[];
-            types: string[]
+            types: string[];
         }
         
         export interface PredictionTerm {
@@ -1915,16 +1917,16 @@ declare module google.maps {
         }
 
         export interface PlaceSearchRequest {
-            bounds: LatLngBounds;
-            keyword: string;
-            location: LatLng|LatLngLiteral;
+            bounds?: LatLngBounds;
+            keyword?: string;
+            location?: LatLng|LatLngLiteral;
             maxPriceLevel?: number;
             minPriceLevel?: number;
-            name: string;
-            openNow: boolean;
-            radius: number;
-            rankBy: RankBy;
-            types: string[];
+            name?: string;
+            openNow?: boolean;
+            radius?: number;
+            rankBy?: RankBy;
+            types?: string[];
         }
 
         export class PlacesService {
@@ -1955,16 +1957,17 @@ declare module google.maps {
             bounds?: LatLngBounds;
             input?: string;
             location?: LatLng;
+            offset?: number;
             radius?: number;
         }
 
         export interface RadarSearchRequest {
             bounds?: LatLngBounds;
-            keyword: string;
-            location: LatLng|LatLngLiteral;
-            name: string;
-            radius: number;
-            types: string[];
+            keyword?: string;
+            location?: LatLng|LatLngLiteral;
+            name?: string;
+            radius?: number;
+            types?: string[];
         }
 
         export enum RankBy {
@@ -1985,10 +1988,10 @@ declare module google.maps {
 
         export interface TextSearchRequest {
             bounds?: LatLngBounds;
-            location: LatLng|LatLngLiteral;
+            location?: LatLng|LatLngLiteral;
             query: string;
-            radius: number;
-            types: string[];
+            radius?: number;
+            types?: string[];
         }
     }
 

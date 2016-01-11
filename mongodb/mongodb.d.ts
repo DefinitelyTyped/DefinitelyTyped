@@ -13,8 +13,8 @@ declare module "mongodb" {
   export class MongoClient{
     constructor(serverConfig: any, options: any);
 
-    static connect(uri: string, options: any, callback: (err: Error, db: Db) => void): void;
-    static connect(uri: string, callback: (err: Error, db: Db) => void): void;
+    static connect(uri: string, callback?: (err: Error, db: Db) => void): void;
+    static connect(uri: string, options: any, callback?: (err: Error, db: Db) => void): void;
   }
 
   // Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/server.html
@@ -30,22 +30,22 @@ declare module "mongodb" {
 
     public db(dbName: string): Db;
 
-    public open(callback: (err : Error, db : Db) => void ): void;
+    public open(callback?: (err : Error, db : Db) => void ): void;
     public close(forceClose?: boolean, callback?: (err: Error, result: any) => void ): void;
-    public admin(callback: (err: Error, result: any) => void ): any;
+    public admin(callback?: (err: Error, result: any) => void ): any;
     public collectionsInfo(collectionName: string, callback?: (err: Error, result: any) => void ): void;
     public collectionNames(collectionName: string, options: any, callback?: (err: Error, result: any) => void ): void;
 
     public collection(collectionName: string): Collection;
-    public collection(collectionName: string, callback: (err: Error, collection: Collection) => void ): Collection;
-    public collection(collectionName: string, options: MongoCollectionOptions, callback: (err: Error, collection: Collection) => void ): Collection;
+    public collection(collectionName: string, callback?: (err: Error, collection: Collection) => void ): Collection;
+    public collection(collectionName: string, options: MongoCollectionOptions, callback?: (err: Error, collection: Collection) => void ): Collection;
 
-    public collections(callback: (err: Error, collections: Collection[]) => void ): void;
+    public collections(callback?: (err: Error, collections: Collection[]) => void ): void;
     public eval(code: any, parameters: any[], options?: any, callback?: (err: Error, result: any) => void ): void;
-    //public dereference(dbRef: DbRef, callback: (err: Error, result: any) => void): void;
+    //public dereference(dbRef: DbRef, callback?: (err: Error, result: any) => void): void;
 
+    public logout(callback?: (err: Error, result: any) => void ): void;
     public logout(options: any, callback?: (err: Error, result: any) => void ): void;
-    public logout(callback: (err: Error, result: any) => void ): void;
 
     public authenticate(userName: string, password: string, callback?: (err: Error, result: any) => void ): void;
     public authenticate(userName: string, password: string, options: any, callback?: (err: Error, result: any) => void ): void;
@@ -65,8 +65,8 @@ declare module "mongodb" {
     public dropCollection(collectionName: string, callback?: (err: Error, result: any) => void ): void;
     public renameCollection(fromCollection: string, toCollection: string, callback?: (err: Error, result: any) => void ): void;
 
-    public lastError(options: Object, connectionOptions: any, callback: (err: Error, result: any) => void ): void;
-    public previousError(options: Object, callback: (err: Error, result: any) => void ): void;
+    public lastError(options: Object, connectionOptions: any, callback?: (err: Error, result: any) => void ): void;
+    public previousError(options: Object, callback?: (err: Error, result: any) => void ): void;
 
     // error = lastError
     // lastStatus = lastError
@@ -80,28 +80,28 @@ declare module "mongodb" {
     public resetErrorHistory(callback?: (err: Error, result: any) => void ): void;
     public resetErrorHistory(options: any, callback?: (err: Error, result: any) => void ): void;
 
-    public createIndex(collectionName: any, fieldOrSpec: any, options: IndexOptions, callback: Function): void;
-    public ensureIndex(collectionName: any, fieldOrSpec: any, options: IndexOptions, callback: Function): void;
+    public createIndex(collectionName: any, fieldOrSpec: any, options: IndexOptions, callback?: Function): void;
+    public ensureIndex(collectionName: any, fieldOrSpec: any, options: IndexOptions, callback?: Function): void;
 
-    public cursorInfo(options: any, callback: Function): void;
+    public cursorInfo(options: any, callback?: Function): void;
 
-    public dropIndex(collectionName: string, indexName: string, callback: Function): void;
-    public reIndex(collectionName: string, callback: Function): void;
-    public indexInformation(collectionName: string, options: any, callback: Function): void;
-    public dropDatabase(callback: (err: Error, result: any) => void ): void;
+    public dropIndex(collectionName: string, indexName: string, callback?: Function): void;
+    public reIndex(collectionName: string, callback?: Function): void;
+    public indexInformation(collectionName: string, options: any, callback?: Function): void;
+    public dropDatabase(callback?: (err: Error, result: any) => void ): void;
 
-    public stats(options: any, callback: Function): void;
-    public _registerHandler(db_command: any, raw: any, connection: any, exhaust: any, callback: Function): void;
-    public _reRegisterHandler(newId: any, object: any, callback: Function): void;
+    public stats(options: any, callback?: Function): void;
+    public _registerHandler(db_command: any, raw: any, connection: any, exhaust: any, callback?: Function): void;
+    public _reRegisterHandler(newId: any, object: any, callback?: Function): void;
     public _callHandler(id: any, document: any, err: any): any;
     public _hasHandler(id: any): any;
     public _removeHandler(id: any): any;
-    public _findHandler(id: any): { id: string; callback: Function; };
-    public __executeQueryCommand(self: any, db_command: any, options: any, callback: any): void;
+    public _findHandler(id: any): { id: string; callback?: Function; };
+    public __executeQueryCommand(self: any, db_command: any, options: any, callback?: any): void;
 
     public DEFAULT_URL: string;
 
-    public connect(url: string, options: { uri_decode_auth?: boolean; }, callback: (err: Error, result: any) => void ): void;
+    public connect(url: string, options: { uri_decode_auth?: boolean; }, callback?: (err: Error, result: any) => void ): void;
 
     public addListener(event: string, handler:(param: any) => any): any;
   }
@@ -127,6 +127,14 @@ declare module "mongodb" {
     // Creates an ObjectID from a hex string representation of an ObjectID.
     // hexString – create a ObjectID from a passed in 24 byte hexstring.
     public static createFromHexString(hexString: string): ObjectID;
+
+    // Checks if a value is a valid bson ObjectId
+    // id - Value to be checked
+    public static isValid(id: string): Boolean;
+
+    // Generate a 12 byte id string used in ObjectID's
+    // time - optional parameter allowing to pass in a second based timestamp
+    public generate(time?: number): string;
   }
 
   // Class documentation : http://mongodb.github.io/node-mongodb-native/api-bson-generated/binary.html
@@ -300,16 +308,16 @@ declare module "mongodb" {
      * @deprecated use insertOne or insertMany
      * Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#insert
      */
-    insert(query: any, callback: (err: Error, result: any) => void): void;
-    insert(query: any, options: { safe?: any; continueOnError?: boolean; keepGoing?: boolean; serializeFunctions?: boolean; }, callback: (err: Error, result: any) => void): void;
+    insert(query: any, callback?: (err: Error, result: any) => void): void;
+    insert(query: any, options: { safe?: any; continueOnError?: boolean; keepGoing?: boolean; serializeFunctions?: boolean; }, callback?: (err: Error, result: any) => void): void;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#insertOne
-    insertOne(doc:any, callback: (err: Error, result: any) => void) :void;
-    insertOne(doc: any, options: { w?: any; wtimeout?: number; j?: boolean; serializeFunctions?: boolean; forceServerObjectId?: boolean }, callback: (err: Error, result: any) => void): void;
+    insertOne(doc:any, callback?: (err: Error, result: any) => void) :void;
+    insertOne(doc: any, options: { w?: any; wtimeout?: number; j?: boolean; serializeFunctions?: boolean; forceServerObjectId?: boolean }, callback?: (err: Error, result: any) => void): void;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#insertMany
-    insertMany(docs: any, callback: (err: Error, result: any) => void): void;
-    insertMany(docs: any, options: { w?: any; wtimeout?: number; j?: boolean; serializeFunctions?: boolean; forceServerObjectId?: boolean }, callback: (err: Error, result: any) => void): void;
+    insertMany(docs: any, callback?: (err: Error, result: any) => void): void;
+    insertMany(docs: any, options: { w?: any; wtimeout?: number; j?: boolean; serializeFunctions?: boolean; forceServerObjectId?: boolean }, callback?: (err: Error, result: any) => void): void;
     /**
      * @deprecated use deleteOne or deleteMany
      * Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#remove
@@ -318,12 +326,12 @@ declare module "mongodb" {
     remove(selector: Object, options: { safe?: any; single?: boolean; }, callback?: (err: Error, result: any) => void): void;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#deleteOne
-    deleteOne(filter: any, callback: (err: Error, result: any) => void): void;
-    deleteOne(filter: any, options: { w?: any; wtimeout?: number; j?: boolean;}, callback: (err: Error, result: any) => void): void;
+    deleteOne(filter: any, callback?: (err: Error, result: any) => void): void;
+    deleteOne(filter: any, options: { w?: any; wtimeout?: number; j?: boolean;}, callback?: (err: Error, result: any) => void): void;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#deleteMany
-    deleteMany(filter: any, callback: (err: Error, result: any) => void): void;
-    deleteMany(filter: any, options: { w?: any; wtimeout?: number; j?: boolean;}, callback: (err: Error, result: any) => void): void;
+    deleteMany(filter: any, callback?: (err: Error, result: any) => void): void;
+    deleteMany(filter: any, options: { w?: any; wtimeout?: number; j?: boolean;}, callback?: (err: Error, result: any) => void): void;
 
     rename(newName: String, callback?: (err: Error, result: any) => void): void;
 
@@ -334,30 +342,30 @@ declare module "mongodb" {
      * Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#update
      */
     update(selector: Object, document: any, callback?: (err: Error, result: any) => void): void;
-    update(selector: Object, document: any, options: { safe?: boolean; upsert?: any; multi?: boolean; serializeFunctions?: boolean; }, callback: (err: Error, result: any) => void): void;
+    update(selector: Object, document: any, options: { safe?: boolean; upsert?: any; multi?: boolean; serializeFunctions?: boolean; }, callback?: (err: Error, result: any) => void): void;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#updateOne
-    updateOne(filter: Object, update: any, callback: (err: Error, result: any) => void): void;
-    updateOne(filter: Object, update: any, options: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean;}, callback: (err: Error, result: any) => void): void;
+    updateOne(filter: Object, update: any, callback?: (err: Error, result: any) => void): void;
+    updateOne(filter: Object, update: any, options: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean;}, callback?: (err: Error, result: any) => void): void;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#updateMany
-    updateMany(filter: Object, update: any, callback: (err: Error, result: any) => void): void;
-    updateMany(filter: Object, update: any, options: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean;}, callback: (err: Error, result: any) => void): void;
+    updateMany(filter: Object, update: any, callback?: (err: Error, result: any) => void): void;
+    updateMany(filter: Object, update: any, options: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean;}, callback?: (err: Error, result: any) => void): void;
 
-    distinct(key: string, query: Object, callback: (err: Error, result: any) => void): void;
-    distinct(key: string, query: Object, options: { readPreference: string; }, callback: (err: Error, result: any) => void): void;
+    distinct(key: string, query: Object, callback?: (err: Error, result: any) => void): void;
+    distinct(key: string, query: Object, options: { readPreference: string; }, callback?: (err: Error, result: any) => void): void;
 
-    count(callback: (err: Error, result: any) => void): void;
-    count(query: Object, callback: (err: Error, result: any) => void): void;
-    count(query: Object, options: { readPreference: string; }, callback: (err: Error, result: any) => void): void;
+    count(callback?: (err: Error, result: any) => void): void;
+    count(query: Object, callback?: (err: Error, result: any) => void): void;
+    count(query: Object, options: { readPreference: string; }, callback?: (err: Error, result: any) => void): void;
 
     drop(callback?: (err: Error, result: any) => void): void;
     /**
      * @deprecated use findOneAndUpdate, findOneAndReplace or findOneAndDelete
      * Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#findAndModify
      */
-    findAndModify(query: Object, sort: any[], doc: Object, callback: (err: Error, result: any) => void): void;
-    findAndModify(query: Object, sort: any[], doc: Object, options: { safe?: any; remove?: boolean; upsert?: boolean; new?: boolean; }, callback: (err: Error, result: any) => void): void;
+    findAndModify(query: Object, sort: any[], doc: Object, callback?: (err: Error, result: any) => void): void;
+    findAndModify(query: Object, sort: any[], doc: Object, options: { safe?: any; remove?: boolean; upsert?: boolean; new?: boolean; }, callback?: (err: Error, result: any) => void): void;
     /**
      * @deprecated use findOneAndDelete
      * Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#findAndRemove
@@ -366,16 +374,16 @@ declare module "mongodb" {
     findAndRemove(query : Object, sort? : any[], options?: { safe: any; }, callback?: (err: Error, result: any) => void): void;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#findOneAndDelete
-    findOneAndDelete(filter: any, callback: (err: Error, result: any) => void): void;
-    findOneAndDelete(filter: any, options: { projection?: any; sort?: any; maxTimeMS?: number; }, callback: (err: Error, result: any) => void): void;
+    findOneAndDelete(filter: any, callback?: (err: Error, result: any) => void): void;
+    findOneAndDelete(filter: any, options: { projection?: any; sort?: any; maxTimeMS?: number; }, callback?: (err: Error, result: any) => void): void;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#findOneAndReplace
-    findOneAndReplace(filter: any, replacement: any, callback: (err: Error, result: any) => void): void;
-    findOneAndReplace(filter: any, replacement: any, options: { projection?: any; sort?: any; maxTimeMS?: number; upsert?: boolean; returnOriginal?: boolean }, callback: (err: Error, result: any) => void): void;
+    findOneAndReplace(filter: any, replacement: any, callback?: (err: Error, result: any) => void): void;
+    findOneAndReplace(filter: any, replacement: any, options: { projection?: any; sort?: any; maxTimeMS?: number; upsert?: boolean; returnOriginal?: boolean }, callback?: (err: Error, result: any) => void): void;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#findOneAndUpdate
-    findOneAndUpdate(filter: any, update: any, callback: (err: Error, result: any) => void): void;
-    findOneAndUpdate(filter: any, update: any, options: { projection?: any; sort?: any; maxTimeMS?: number; upsert?: boolean; returnOriginal?: boolean }, callback: (err: Error, result: any) => void): void;
+    findOneAndUpdate(filter: any, update: any, callback?: (err: Error, result: any) => void): void;
+    findOneAndUpdate(filter: any, update: any, options: { projection?: any; sort?: any; maxTimeMS?: number; upsert?: boolean; returnOriginal?: boolean }, callback?: (err: Error, result: any) => void): void;
 
     find(callback?: (err: Error, result: Cursor) => void): Cursor;
     find(selector: Object, callback?: (err: Error, result: Cursor) => void): Cursor;
@@ -393,32 +401,32 @@ declare module "mongodb" {
     findOne(selector: Object, fields: any, skip: number, limit: number, callback?: (err: Error, result: any) => void): Cursor;
     findOne(selector: Object, fields: any, skip: number, limit: number, timeout: number, callback?: (err: Error, result: any) => void): Cursor;
 
-    createIndex(fieldOrSpec: any, callback: (err: Error, indexName: string) => void): void;
-    createIndex(fieldOrSpec: any, options: IndexOptions, callback: (err: Error, indexName: string) => void): void;
+    createIndex(fieldOrSpec: any, callback?: (err: Error, indexName: string) => void): void;
+    createIndex(fieldOrSpec: any, options: IndexOptions, callback?: (err: Error, indexName: string) => void): void;
 
-    ensureIndex(fieldOrSpec: any, callback: (err: Error, indexName: string) => void): void;
-    ensureIndex(fieldOrSpec: any, options: IndexOptions, callback: (err: Error, indexName: string) => void): void;
+    ensureIndex(fieldOrSpec: any, callback?: (err: Error, indexName: string) => void): void;
+    ensureIndex(fieldOrSpec: any, options: IndexOptions, callback?: (err: Error, indexName: string) => void): void;
 
-    indexInformation(options: any, callback: Function): void;
-    dropIndex(name: string, callback: Function): void;
-    dropAllIndexes(callback: Function): void;
+    indexInformation(options: any, callback?: Function): void;
+    dropIndex(name: string, callback?: Function): void;
+    dropAllIndexes(callback?: Function): void;
     // dropIndexes = dropAllIndexes
 
-    reIndex(callback: Function): void;
-    mapReduce(map: Function, reduce: Function, options: MapReduceOptions, callback: Function): void;
-    group(keys: Object, condition: Object, initial: Object, reduce: Function, finalize: Function, command: boolean, options: {readPreference: string}, callback: Function): void;
-    options(callback: Function): void;
-    isCapped(callback: Function): void;
-    indexExists(indexes: string, callback: Function): void;
-    geoNear(x: number, y: number, callback: Function): void;
-    geoNear(x: number, y: number, options: Object, callback: Function): void;
-    geoHaystackSearch(x: number, y: number, callback: Function): void;
-    geoHaystackSearch(x: number, y: number, options: Object, callback: Function): void;
-    indexes(callback: Function): void;
-    aggregate(pipeline: any[], callback: (err: Error, results: any) => void): void;
-    aggregate(pipeline: any[], options: {readPreference: string}, callback: (err: Error, results: any) => void): void;
-    stats(options: {readPreference: string; scale: number}, callback: (err: Error, results: CollStats) => void): void;
-    stats(callback: (err: Error, results: CollStats) => void): void;
+    reIndex(callback?: Function): void;
+    mapReduce(map: Function, reduce: Function, options: MapReduceOptions, callback?: Function): void;
+    group(keys: Object, condition: Object, initial: Object, reduce: Function, finalize: Function, command: boolean, options: {readPreference: string}, callback?: Function): void;
+    options(callback?: Function): void;
+    isCapped(callback?: Function): void;
+    indexExists(indexes: string, callback?: Function): void;
+    geoNear(x: number, y: number, callback?: Function): void;
+    geoNear(x: number, y: number, options: Object, callback?: Function): void;
+    geoHaystackSearch(x: number, y: number, callback?: Function): void;
+    geoHaystackSearch(x: number, y: number, options: Object, callback?: Function): void;
+    indexes(callback?: Function): void;
+    aggregate(pipeline: any[], callback?: (err: Error, results: any) => void): void;
+    aggregate(pipeline: any[], options: {readPreference: string}, callback?: (err: Error, results: any) => void): void;
+    stats(callback?: (err: Error, results: CollStats) => void): void;
+    stats(options: {readPreference: string; scale: number}, callback?: (err: Error, results: CollStats) => void): void;
 
     hint: any;
   }
@@ -460,9 +468,9 @@ declare module "mongodb" {
     // constructor(db: Db, collection: Collection, selector, fields, options);
 
     rewind() : Cursor;
-    toArray(callback: (err: Error, results: any[]) => any) : void;
-    each(callback: (err: Error, item: any) => void) : void;
-    count(applySkipLimit: boolean, callback: (err: Error, count: number) => void) : void;
+    toArray(callback?: (err: Error, results: any[]) => any) : void;
+    each(callback?: (err: Error, item: any) => void) : void;
+    count(applySkipLimit: boolean, callback?: (err: Error, count: number) => void) : void;
 
     sort(keyOrList: any, callback? : (err: Error, result: any) => void): Cursor;
 
@@ -473,12 +481,12 @@ declare module "mongodb" {
     skip(skip: number, callback?: (err: Error, result: any) => void): Cursor;
     batchSize(batchSize: number, callback?: (err: Error, result: any) => void): Cursor;
 
-    nextObject(callback: (err: Error, doc: any) => void) : void;
-    explain(callback: (err: Error, result: any) => void) : void;
+    nextObject(callback?: (err: Error, doc: any) => void) : void;
+    explain(callback?: (err: Error, result: any) => void) : void;
 
     stream(): CursorStream;
 
-    close(callback: (err: Error, result: any) => void) : void;
+    close(callback?: (err: Error, result: any) => void) : void;
     isClosed(): boolean;
 
     public static INIT: number;

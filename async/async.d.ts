@@ -1,6 +1,6 @@
 // Type definitions for Async 1.4.2
 // Project: https://github.com/caolan/async
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Arseniy Maximov <https://github.com/kern0>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Arseniy Maximov <https://github.com/kern0>, Joe Herman <https://github.com/Penryn>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface Dictionary<T> { [key: string]: T; }
@@ -10,7 +10,7 @@ interface AsyncResultCallback<T> { (err: Error, result: T): void; }
 interface AsyncResultArrayCallback<T> { (err: Error, results: T[]): void; }
 interface AsyncResultObjectCallback<T> { (err: Error, results: Dictionary<T>): void; }
 
-interface AsyncFunction<T> { (callback: (err: Error, result?: T) => void): void; }
+interface AsyncFunction<T> { (callback: (err?: Error, result?: T) => void): void; }
 interface AsyncIterator<T> { (item: T, callback: ErrorCallback): void; }
 interface AsyncForEachOfIterator<T> { (item: T, key: number, callback: ErrorCallback): void; }
 interface AsyncResultIterator<T, R> { (item: T, callback: AsyncResultCallback<R>): void; }
@@ -76,24 +76,24 @@ interface Async {
     each<T>(arr: T[], iterator: AsyncIterator<T>, callback?: ErrorCallback): void;
     eachSeries<T>(arr: T[], iterator: AsyncIterator<T>, callback?: ErrorCallback): void;
     eachLimit<T>(arr: T[], limit: number, iterator: AsyncIterator<T>, callback?: ErrorCallback): void;
-    forEachOf(obj: any, iterator: (item: any, key: [string|number], callback?: ErrorCallback) => void, callback: ErrorCallback): void;
+    forEachOf(obj: any, iterator: (item: any, key: string|number, callback?: ErrorCallback) => void, callback: ErrorCallback): void;
     forEachOf<T>(obj: T[], iterator: AsyncForEachOfIterator<T>, callback?: ErrorCallback): void;
-    forEachOfSeries(obj: any, iterator: (item: any, key: [string|number], callback?: ErrorCallback) => void, callback: ErrorCallback): void;
+    forEachOfSeries(obj: any, iterator: (item: any, key: string|number, callback?: ErrorCallback) => void, callback: ErrorCallback): void;
     forEachOfSeries<T>(obj: T[], iterator: AsyncForEachOfIterator<T>, callback?: ErrorCallback): void;
-    forEachOfLimit(obj: any, limit: number, iterator: (item: any, key: [string|number], callback?: ErrorCallback) => void, callback: ErrorCallback): void;
+    forEachOfLimit(obj: any, limit: number, iterator: (item: any, key: string|number, callback?: ErrorCallback) => void, callback: ErrorCallback): void;
     forEachOfLimit<T>(obj: T[], limit: number, iterator: AsyncForEachOfIterator<T>, callback?: ErrorCallback): void;
     map<T, R>(arr: T[], iterator: AsyncResultIterator<T, R>, callback?: AsyncResultArrayCallback<R>): any;
     mapSeries<T, R>(arr: T[], iterator: AsyncResultIterator<T, R>, callback?: AsyncResultArrayCallback<R>): any;
     mapLimit<T, R>(arr: T[], limit: number, iterator: AsyncResultIterator<T, R>, callback?: AsyncResultArrayCallback<R>): any;
-    filter<T>(arr: T[], iterator: AsyncResultIterator<T, boolean>, callback?: (results: T[]) => any): any;
-    select<T>(arr: T[], iterator: AsyncResultIterator<T, boolean>, callback?: (results: T[]) => any): any;
-    filterSeries<T>(arr: T[], iterator: AsyncResultIterator<T, boolean>, callback?: (results: T[]) => any): any;
-    selectSeries<T>(arr: T[], iterator: AsyncResultIterator<T, boolean>, callback?: (results: T[]) => any): any;
-    filterLimit<T>(arr: T[], limit: number, iterator: AsyncResultIterator<T, boolean>, callback?: (results: T[]) => any): any;
-    selectLimit<T>(arr: T[], limit: number, iterator: AsyncResultIterator<T, boolean>, callback?: (results: T[]) => any): any;
-    reject<T>(arr: T[], iterator: AsyncResultIterator<T, boolean>, callback?: (results: T[]) => any): any;
-    rejectSeries<T>(arr: T[], iterator: AsyncResultIterator<T, boolean>, callback?: (results: T[]) => any): any;
-    rejectLimit<T>(arr: T[], limit: number, iterator: AsyncResultIterator<T, boolean>, callback?: (results: T[]) => any): any;
+    filter<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
+    select<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
+    filterSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
+    selectSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
+    filterLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
+    selectLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
+    reject<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
+    rejectSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
+    rejectLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
     reduce<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback?: AsyncResultCallback<R>): any;
     inject<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback?: AsyncResultCallback<R>): any;
     foldl<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback?: AsyncResultCallback<R>): any;
@@ -126,7 +126,7 @@ interface Async {
     during(test: (testCallback : (error: Error, truth: boolean) => void) => void, fn: AsyncVoidFunction, callback: (err: any) => void): void;
     doDuring(fn: AsyncVoidFunction, test: (testCallback: (error: Error, truth: boolean) => void) => void, callback: (err: any) => void): void;
     forever(next: (errCallback : (err: Error) => void) => void, errBack: (err: Error) => void) : void;
-    waterfall(tasks: Function[], callback?: (err: Error, result: any) => void): void;
+    waterfall(tasks: Function[], callback?: (err: Error, results?: any) => void): void;
     compose(...fns: Function[]): void;
     seq(...fns: Function[]): void;
     applyEach(fns: Function[], argsAndCallback: any[]): void;           // applyEach(fns, args..., callback). TS does not support ... for a middle argument. Callback is optional.

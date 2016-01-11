@@ -1438,6 +1438,7 @@ function test_dialog() {
     });
     $(".selector").dialog({ autoOpen: false });
     $(".selector").dialog({ buttons: { Ok: function () { $(this).dialog("close"); } } });
+    $(".selector").dialog({ buttons: [ { text: "Ok", click: function () { $(this).dialog("close"); } } ] } );
     $(".selector").dialog({ closeOnEscape: false });
     $(".selector").dialog({ closeText: "hide" });
     $(".selector").dialog({ dialogClass: "alert" });
@@ -1470,6 +1471,7 @@ function test_menu() {
     $(".selector").menu({ position: { my: "left top", at: "right-5 top+5" } });
     $(".selector").menu({ role: null });
     $(".selector").menu("option", { disabled: true });
+    $(".selector").menu({ select: (e, ui) => { } });
 }
 
 

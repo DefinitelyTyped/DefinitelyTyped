@@ -16,6 +16,23 @@ declare module "restify" {
     family: string;
     address: string;
   }
+  
+  interface requestFileInterface {
+      path: string;
+      type: string;
+  }
+  
+  /**
+   * Comes from authorizationParser plugin
+   */
+  interface requestAuthorization {
+      scheme: string;
+      credentials: string;
+      basic?: {
+          username: string;
+          password: string;
+      }
+  }
 
   interface Request extends http.ServerRequest {
     header: (key: string, defaultValue?: string) => any;
@@ -32,17 +49,22 @@ declare module "restify" {
     secure: boolean;
     time: number;
     params: any;
-
-    body?: any; //available when bodyParser plugin is used
+    files?: { [name: string]: requestFileInterface };
     isSecure: () => boolean;
+    /** available when bodyParser plugin is used */
+    body?: any;
+    /** available when authorizationParser plugin is used */
+    username?: string;
+    /** available when authorizationParser plugin is used */
+    authorization?: requestAuthorization;
   }
 
   interface Response extends http.ServerResponse {
     header: (key: string, value ?: any) => any;
     cache: (type?: any, options?: Object) => any;
     status: (code: number) => any;
-    send: (status?: any, body?: any) => any;
-    json: (status?: any, body?: any) => any;
+    send: (status?: any, body?: any, headers?: { [header: string]: string }) => any;
+    json: (status?: any, body?: any, headers?: { [header: string]: string }) => any;
     code: number;
     contentLength: number;
     charSet(value: string): void;
@@ -87,6 +109,11 @@ declare module "restify" {
     head(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): any;
     head(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): any;
 
+    opts(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): any;
+    opts(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): any;
+    opts(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): any;
+    opts(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): any;
+	
     name: string;
     version: string;
     log: Object;
@@ -110,6 +137,7 @@ declare module "restify" {
     version ?: string;
     responseTimeHeader ?: string;
     responseTimeFormatter ?: (durationInMilliseconds: number) => any;
+    handleUpgrades ?: boolean;
   }
 
   interface ClientOptions {

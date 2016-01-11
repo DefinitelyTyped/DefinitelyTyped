@@ -69,3 +69,15 @@ function test_Hierarchical_addressing() {
     // But, mySpecificSubscriber will only be called once, as it only
     // subscribes to the 'car.drive' topic
 }
+
+function ClearAllSubscriptions() {
+    // create a function to receive messages
+    var mySubscriber = (msg: string, data: any) => { console.log(msg, data); }
+
+    // create two subscriptions
+    PubSub.subscribe('topic1', mySubscriber);
+    PubSub.subscribe('topic2', mySubscriber);
+
+    // unsubscribe from all subscrpitions
+    PubSub.clearAllSubscriptions();
+}

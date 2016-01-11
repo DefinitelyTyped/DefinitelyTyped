@@ -228,6 +228,14 @@ declare module CodeMirror {
         The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
         scrollIntoView(pos: { left: number; top: number; right: number; bottom: number; }, margin: number): void;
 
+        /** Scrolls the given element into view. pos is a { line, ch } object, in editor-local coordinates.
+        The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
+        scrollIntoView(pos: { line: number, ch: number }, margin?: number): void;
+
+        /** Scrolls the given element into view. pos is a { from, to } object, in editor-local coordinates.
+        The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
+        scrollIntoView(pos: { from: CodeMirror.Position, to: CodeMirror.Position }, margin: number): void;
+
         /** Returns an { left , top , bottom } object containing the coordinates of the cursor position.
         If mode is "local" , they will be relative to the top-left corner of the editable document.
         If it is "page" or not given, they are relative to the top-left corner of the page.
@@ -382,6 +390,9 @@ declare module CodeMirror {
         The handler may mess with the style of the resulting element, or add event handlers, but should not try to change the state of the editor. */
         on(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: number, element: HTMLElement) => void ): void;
         off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: number, element: HTMLElement) => void ): void;
+
+        /** Expose the state object, so that the Editor.state.completionActive property is reachable*/
+        state: any;
     }
 
     interface EditorFromTextArea extends Editor {
@@ -581,6 +592,8 @@ declare module CodeMirror {
         /** The reverse of posFromIndex. */
         indexFromPos(object: CodeMirror.Position): number;
 
+        /** Expose the state object, so that the Doc.state.completionActive property is reachable*/
+        state: any;
     }
 
     interface LineHandle {
@@ -788,6 +801,9 @@ declare module CodeMirror {
 
         /** Optional lint configuration to be used in conjunction with CodeMirror's linter addon. */
         lint?: boolean | LintOptions;
+
+	/** Optional value to be used in conduction with CodeMirror’s placeholder add-on. */
+	placeholder?: string;
     }
 
     interface TextMarkerOptions {

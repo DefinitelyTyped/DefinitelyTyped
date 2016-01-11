@@ -1,12 +1,23 @@
-// Type definitions for Moment.js 2.8.0
+// Type definitions for Moment.js 2.10.5
 // Project: https://github.com/timrwood/moment
 // Definitions by: Michael Lakerveld <https://github.com/Lakerfield>, Aaron King <https://github.com/kingdango>, Hiroki Horiuchi <https://github.com/horiuchi>, Dick van den Brink <https://github.com/DickvdBrink>, Adi Dahiya <https://github.com/adidahiya>, Matt Brooks <https://github.com/EnableSoftware>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module moment {
 
+    interface MomentDateObject {
+        years?: number;
+        /* One digit */
+        months?: number;
+        /* Day of the month */
+        date?: number;
+        hours?: number;
+        minutes?: number;
+        seconds?: number;
+        milliseconds?: number;
+    }
+    
     interface MomentInput {
-
         /** Year */
         years?: number;
         /** Year */
@@ -20,6 +31,13 @@ declare module moment {
         month?: number;
         /** Month */
         M?: number;
+
+        /** Week */
+        weeks?: number;
+        /** Week */
+        week?: number;
+        /** Week */
+        w?: number;
 
         /** Day/Date */
         days?: number;
@@ -57,11 +75,9 @@ declare module moment {
         millisecond?: number;
         /** Millisecond */
         ms?: number;
-
     }
 
     interface Duration {
-
         humanize(withSuffix?: boolean): string;
 
         as(units: string): number;
@@ -97,11 +113,9 @@ declare module moment {
 
         toISOString(): string;
         toJSON(): string;
-
     }
 
     interface Moment {
-
         format(format: string): string;
         format(): string;
 
@@ -180,6 +194,7 @@ declare module moment {
 
         calendar(): string;
         calendar(start: Moment): string;
+        calendar(start: Moment, formats: MomentCalendar): string;
 
         clone(): Moment;
 
@@ -244,8 +259,9 @@ declare module moment {
         dayOfYear(): number;
         dayOfYear(d: number): Moment;
 
-        from(f: Moment|string|number|Date|number[], suffix?: boolean): string;
-        to(f: Moment|string|number|Date|number[], suffix?: boolean): string;
+        from(f: Moment | string | number | Date | number[], suffix?: boolean): string;
+        to(f: Moment | string | number | Date | number[], suffix?: boolean): string;
+        toNow(withoutPrefix?: boolean): string;
 
         diff(b: Moment): number;
         diff(b: Moment, unitOfTime: string): number;
@@ -268,13 +284,13 @@ declare module moment {
         isDST(): boolean;
 
         isBefore(): boolean;
-        isBefore(b: Moment|string|number|Date|number[], granularity?: string): boolean;
+        isBefore(b: Moment | string | number | Date | number[], granularity?: string): boolean;
 
         isAfter(): boolean;
-        isAfter(b: Moment|string|number|Date|number[], granularity?: string): boolean;
+        isAfter(b: Moment | string | number | Date | number[], granularity?: string): boolean;
 
-        isSame(b: Moment|string|number|Date|number[], granularity?: string): boolean;
-        isBetween(a: Moment|string|number|Date|number[], b: Moment|string|number|Date|number[], granularity?: string): boolean;
+        isSame(b: Moment | string | number | Date | number[], granularity?: string): boolean;
+        isBetween(a: Moment | string | number | Date | number[], b: Moment | string | number | Date | number[], granularity?: string): boolean;
 
         // Deprecated as of 2.8.0.
         lang(language: string): Moment;
@@ -290,43 +306,47 @@ declare module moment {
         localeData(): MomentLanguage;
 
         // Deprecated as of 2.7.0.
-        max(date: Moment|string|number|Date|any[]): Moment;
+        max(date: Moment | string | number | Date | any[]): Moment;
         max(date: string, format: string): Moment;
 
         // Deprecated as of 2.7.0.
-        min(date: Moment|string|number|Date|any[]): Moment;
+        min(date: Moment | string | number | Date | any[]): Moment;
         min(date: string, format: string): Moment;
 
         get(unit: string): number;
         set(unit: string, value: number): Moment;
-
+        set(objectLiteral: MomentInput): Moment;
+        
+        /*This returns an object containing year, month, day-of-month, hour, minute, seconds, milliseconds.*/
+        //Works with version 2.10.5+
+        toObject(): MomentDateObject;
     }
 
+    type formatFunction = () => string;
+
     interface MomentCalendar {
-
-      lastDay: any;
-      sameDay: any;
-      nextDay: any;
-      lastWeek: any;
-      nextWeek: any;
-      sameElse: any;
-
+        lastDay?: string | formatFunction;
+        sameDay?: string | formatFunction;
+        nextDay?: string | formatFunction;
+        lastWeek?: string | formatFunction;
+        nextWeek?: string | formatFunction;
+        sameElse?: string | formatFunction;
     }
 
     interface BaseMomentLanguage {
-        months ?: any;
-        monthsShort ?: any;
-        weekdays ?: any;
-        weekdaysShort ?: any;
-        weekdaysMin ?: any;
-        relativeTime ?: MomentRelativeTime;
-        meridiem ?: (hour: number, minute: number, isLowercase: boolean) => string;
-        calendar ?: MomentCalendar;
-        ordinal ?: (num: number) => string;
+        months?: any;
+        monthsShort?: any;
+        weekdays?: any;
+        weekdaysShort?: any;
+        weekdaysMin?: any;
+        relativeTime?: MomentRelativeTime;
+        meridiem?: (hour: number, minute: number, isLowercase: boolean) => string;
+        calendar?: MomentCalendar;
+        ordinal?: (num: number) => string;
     }
 
     interface MomentLanguage extends BaseMomentLanguage {
-      longDateFormat?: MomentLongDateFormat;
+        longDateFormat?: MomentLongDateFormat;
     }
 
     interface MomentLanguageData extends BaseMomentLanguage {
@@ -337,40 +357,37 @@ declare module moment {
     }
 
     interface MomentLongDateFormat {
-
-      L: string;
-      LL: string;
-      LLL: string;
-      LLLL: string;
-      LT: string;
-      l?: string;
-      ll?: string;
-      lll?: string;
-      llll?: string;
-      lt?: string;
-
+        L: string;
+        LL: string;
+        LLL: string;
+        LLLL: string;
+        LT: string;
+        LTS: string;
+        l?: string;
+        ll?: string;
+        lll?: string;
+        llll?: string;
+        lt?: string;
+        lts?: string;
     }
 
     interface MomentRelativeTime {
-
-      future: any;
-      past: any;
-      s: any;
-      m: any;
-      mm: any;
-      h: any;
-      hh: any;
-      d: any;
-      dd: any;
-      M: any;
-      MM: any;
-      y: any;
-      yy: any;
-
+        future: any;
+        past: any;
+        s: any;
+        m: any;
+        mm: any;
+        h: any;
+        hh: any;
+        d: any;
+        dd: any;
+        M: any;
+        MM: any;
+        y: any;
+        yy: any;
     }
 
     interface MomentStatic {
-
         version: string;
         fn: Moment;
 
@@ -455,12 +472,12 @@ declare module moment {
         weekdaysMin(format: string): string[];
         weekdaysMin(format: string, index: number): string;
 
-        min(moments: Moment[]): Moment;
-        max(moments: Moment[]): Moment;
+        min(...moments: Moment[]): Moment;
+        max(...moments: Moment[]): Moment;
 
         normalizeUnits(unit: string): string;
-        relativeTimeThreshold(threshold: string): number|boolean;
-        relativeTimeThreshold(threshold: string, limit:number): boolean;
+        relativeTimeThreshold(threshold: string): number | boolean;
+        relativeTimeThreshold(threshold: string, limit: number): boolean;
 
         /**
          * Constant used to enable explicit ISO_8601 format parsing.
@@ -468,7 +485,6 @@ declare module moment {
         ISO_8601(): void;
 
         defaultFormat: string;
-
     }
 
 }

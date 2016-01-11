@@ -8,24 +8,27 @@
 declare module "natural" {
   import events = require("events");
 
-  class WordTokenizer {
+  interface Tokenizer {
     tokenize(text: string): string[];
   }
-  class AggressiveTokenizer {
+  class WordTokenizer implements Tokenizer {
     tokenize(text: string): string[];
   }
-  class TreebankWordTokenizer {
+  class AggressiveTokenizer implements Tokenizer {
+    tokenize(text: string): string[];
+  }
+  class TreebankWordTokenizer implements Tokenizer {
     tokenize(text: string): string[];
   }
   interface RegexTokenizerOptions {
     pattern: RegExp;
     discardEmpty?: boolean;
   }
-  class RegexpTokenizer {
+  class RegexpTokenizer implements Tokenizer {
     constructor(options: RegexTokenizerOptions);
     tokenize(text: string): string[];
   }
-  class WordPunctTokenizer {
+  class WordPunctTokenizer implements Tokenizer {
     tokenize(text: string): string[];
   }
 
@@ -60,6 +63,9 @@ declare module "natural" {
   var PorterStemmerPt: {
     stem(token: string): string;
   }
+  var LancasterStemmer: {
+    stem(token: string): string;
+  }
 
   interface BayesClassifierCallback { (err: any, classifier: any): void }
   class BayesClassifier {
@@ -74,6 +80,10 @@ declare module "natural" {
     static restore(classifier: any, stemmer?: Stemmer): BayesClassifier;
   }
 
+  interface Phonetic {
+    compare(stringA: string, stringB: string): boolean;
+    process(token: string, maxLength?: number): string;
+  }
   var Metaphone: {
     compare(stringA: string, stringB: string): boolean;
     process(token: string, maxLength?: number): string;

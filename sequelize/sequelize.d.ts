@@ -20,6 +20,1161 @@ declare module "sequelize" {
         //  https://github.com/sequelize/sequelize/tree/v3.4.1/lib/associations
         //
 
+
+        /**
+         * The options for the getAssociation mixin of the belongsTo association.
+         * @see BelongsToGetAssociationMixin
+         */
+        interface BelongsToGetAssociationMixinOptions {
+            /**
+             * Apply a scope on the related model, or remove its default scope by passing false.
+             */
+            scope?: string | boolean;
+        }
+
+        /**
+         * The getAssociation mixin applied to models with belongsTo.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.belongsTo(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttrib>, UserAttrib {
+         *    getRole: Sequelize.BelongsToGetAssociationMixin<RoleInstance>;
+         *    // setRole...
+         *    // createRole...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to/
+         * @see Instance
+         */
+        interface BelongsToGetAssociationMixin<TInstance> {
+            /**
+             * Get the associated instance.
+             * @param options The options to use when getting the association.
+             */
+            (options?: BelongsToGetAssociationMixinOptions): Promise<TInstance>
+        }
+
+        /**
+         * The options for the setAssociation mixin of the belongsTo association.
+         * @see BelongsToSetAssociationMixin
+         */
+        interface BelongsToSetAssociationMixinOptions {
+            /**
+             * Skip saving this after setting the foreign key if false.
+             */
+            save?: boolean;
+        }
+
+        /**
+         * The setAssociation mixin applied to models with belongsTo.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.belongsTo(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRole...
+         *    setRole: Sequelize.BelongsToSetAssociationMixin<RoleInstance, RoleId>;
+         *    // createRole...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to/
+         * @see Instance
+         */
+        interface BelongsToSetAssociationMixin<TInstance, TInstancePrimaryKey> {
+            /**
+             * Set the associated instance.
+             * @param newAssociation An instance or the primary key of an instance to associate with this. Pass null or undefined to remove the association.
+             * @param options the options passed to `this.save`.
+             */
+            (
+                newAssociation?: TInstance | TInstancePrimaryKey,
+                options?: BelongsToSetAssociationMixinOptions | InstanceSaveOptions
+            ): Promise<void>
+        }
+
+        /**
+         * The options for the createAssociation mixin of the belongsTo association.
+         * @see BelongsToCreateAssociationMixin
+         */
+        interface BelongsToCreateAssociationMixinOptions { }
+
+        /**
+         * The createAssociation mixin applied to models with belongsTo.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.belongsTo(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRole...
+         *    // setRole...
+         *    createRole: Sequelize.BelongsToCreateAssociationMixin<RoleAttributes>;
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to/
+         * @see Instance
+         */
+        interface BelongsToCreateAssociationMixin<TAttributes> {
+            /**
+             * Create a new instance of the associated model and associate it with this.
+             * @param values The values used to create the association.
+             * @param options The options passed to `target.create` and `setAssociation`.
+             */
+            (
+                values?: TAttributes,
+                options?: BelongsToCreateAssociationMixinOptions | CreateOptions | BelongsToSetAssociationMixinOptions
+            ): Promise<void>
+        }
+
+        /**
+         * The options for the getAssociation mixin of the hasOne association.
+         * @see HasOneGetAssociationMixin
+         */
+        interface HasOneGetAssociationMixinOptions {
+            /**
+             * Apply a scope on the related model, or remove its default scope by passing false.
+             */
+            scope?: string | boolean;
+        }
+
+        /**
+         * The getAssociation mixin applied to models with hasOne.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.hasOne(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttrib>, UserAttrib {
+         *    getRole: Sequelize.HasOneGetAssociationMixin<RoleInstance>;
+         *    // setRole...
+         *    // createRole...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/has-one/
+         * @see Instance
+         */
+        interface HasOneGetAssociationMixin<TInstance> {
+            /**
+             * Get the associated instance.
+             * @param options The options to use when getting the association.
+             */
+            (options?: HasOneGetAssociationMixinOptions): Promise<TInstance>
+        }
+
+        /**
+         * The options for the setAssociation mixin of the hasOne association.
+         * @see HasOneSetAssociationMixin
+         */
+        interface HasOneSetAssociationMixinOptions {
+            /**
+             * Skip saving this after setting the foreign key if false.
+             */
+            save?: boolean;
+        }
+
+        /**
+         * The setAssociation mixin applied to models with hasOne.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.hasOne(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRole...
+         *    setRole: Sequelize.HasOneSetAssociationMixin<RoleInstance, RoleId>;
+         *    // createRole...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/has-one/
+         * @see Instance
+         */
+        interface HasOneSetAssociationMixin<TInstance, TInstancePrimaryKey> {
+            /**
+             * Set the associated instance.
+             * @param newAssociation An instance or the primary key of an instance to associate with this. Pass null or undefined to remove the association.
+             * @param options The options passed to `getAssocation` and `target.save`.
+             */
+            (
+                newAssociation?: TInstance | TInstancePrimaryKey,
+                options?: HasOneSetAssociationMixinOptions | HasOneGetAssociationMixinOptions | InstanceSaveOptions
+            ): Promise<void>
+        }
+
+        /**
+         * The options for the createAssociation mixin of the hasOne association.
+         * @see HasOneCreateAssociationMixin
+         */
+        interface HasOneCreateAssociationMixinOptions { }
+
+        /**
+         * The createAssociation mixin applied to models with hasOne.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.hasOne(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRole...
+         *    // setRole...
+         *    createRole: Sequelize.HasOneCreateAssociationMixin<RoleAttributes>;
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/has-one/
+         * @see Instance
+         */
+        interface HasOneCreateAssociationMixin<TAttributes> {
+            /**
+             * Create a new instance of the associated model and associate it with this.
+             * @param values The values used to create the association.
+             * @param options The options passed to `target.create` and `setAssociation`.
+             */
+            (
+                values?: TAttributes,
+                options?: HasOneCreateAssociationMixinOptions | HasOneSetAssociationMixinOptions | CreateOptions
+            ): Promise<void>
+        }
+
+        /**
+         * The options for the getAssociations mixin of the hasMany association.
+         * @see HasManyGetAssociationsMixin
+         */
+        interface HasManyGetAssociationsMixinOptions {
+
+            /**
+             * An optional where clause to limit the associated models.
+             */
+            where?: WhereOptions;
+
+            /**
+             * Apply a scope on the related model, or remove its default scope by passing false.
+             */
+            scope?: string | boolean;
+        }
+
+        /**
+         * The getAssociations mixin applied to models with hasMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.hasMany(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    getRoles: Sequelize.HasManyGetAssociationsMixin<RoleInstance>;
+         *    // setRoles...
+         *    // addRoles...
+         *    // addRole...
+         *    // createRole...
+         *    // removeRole...
+         *    // removeRoles...
+         *    // hasRole...
+         *    // hasRoles...
+         *    // countRoles...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/has-many/
+         * @see Instance
+         */
+        interface HasManyGetAssociationsMixin<TInstance> {
+            /**
+             * Get everything currently associated with this, using an optional where clause.
+             * @param options The options to use when getting the associations.
+             */
+            (options?: HasManyGetAssociationsMixinOptions): Promise<TInstance[]>
+        }
+
+        /**
+         * The options for the setAssociations mixin of the hasMany association.
+         * @see HasManySetAssociationsMixin
+         */
+        interface HasManySetAssociationsMixinOptions {
+
+            /**
+             * Run validation for the join model.
+             */
+            validate?: boolean;
+        }
+
+        /**
+         * The setAssociations mixin applied to models with hasMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.hasMany(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRoles...
+         *    setRoles: Sequelize.HasManySetAssociationsMixin<RoleInstance, RoleId>;
+         *    // addRoles...
+         *    // addRole...
+         *    // createRole...
+         *    // removeRole...
+         *    // removeRoles...
+         *    // hasRole...
+         *    // hasRoles...
+         *    // countRoles...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/has-many/
+         * @see Instance
+         */
+        interface HasManySetAssociationsMixin<TInstance, TInstancePrimaryKey> {
+            /**
+             * Set the associated models by passing an array of instances or their primary keys.
+             * Everything that it not in the passed array will be un-associated.
+             * @param newAssociations An array of instances or primary key of instances to associate with this. Pass null or undefined to remove all associations.
+             * @param options The options passed to `target.findAll` and `update`.
+             */
+            (
+                newAssociations?: Array<TInstance | TInstancePrimaryKey>,
+                options?: HasManySetAssociationsMixinOptions | FindOptions | InstanceUpdateOptions
+            ): Promise<void>
+        }
+
+        /**
+         * The options for the addAssociations mixin of the hasMany association.
+         * @see HasManyAddAssociationsMixin
+         */
+        interface HasManyAddAssociationsMixinOptions {
+
+            /**
+             * Run validation for the join model.
+             */
+            validate?: boolean;
+        }
+
+        /**
+         * The addAssociations mixin applied to models with hasMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.hasMany(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRoles...
+         *    // setRoles...
+         *    addRoles: Sequelize.HasManyAddAssociationsMixin<RoleInstance, RoleId>;
+         *    // addRole...
+         *    // createRole...
+         *    // removeRole...
+         *    // removeRoles...
+         *    // hasRole...
+         *    // hasRoles...
+         *    // countRoles...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/has-many/
+         * @see Instance
+         */
+        interface HasManyAddAssociationsMixin<TInstance, TInstancePrimaryKey> {
+            /**
+             * Associate several instances with this.
+             * @param newAssociations An array of instances or primary key of instances to associate with this.
+             * @param options The options passed to `target.update`.
+             */
+            (
+                newAssociations?: Array<TInstance | TInstancePrimaryKey>,
+                options?: HasManyAddAssociationsMixinOptions | InstanceUpdateOptions
+            ): Promise<void>
+        }
+
+        /**
+         * The options for the addAssociation mixin of the hasMany association.
+         * @see HasManyAddAssociationMixin
+         */
+        interface HasManyAddAssociationMixinOptions {
+
+            /**
+             * Run validation for the join model.
+             */
+            validate?: boolean;
+        }
+
+        /**
+         * The addAssociation mixin applied to models with hasMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.hasMany(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRoles...
+         *    // setRoles...
+         *    // addRoles...
+         *    addRole: Sequelize.HasManyAddAssociationMixin<RoleInstance, RoleId>;
+         *    // createRole...
+         *    // removeRole...
+         *    // removeRoles...
+         *    // hasRole...
+         *    // hasRoles...
+         *    // countRoles...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/has-many/
+         * @see Instance
+         */
+        interface HasManyAddAssociationMixin<TInstance, TInstancePrimaryKey> {
+            /**
+             * Associate an instance with this.
+             * @param newAssociation An instance or the primary key of an instance to associate with this.
+             * @param options The options passed to `target.update`.
+             */
+            (
+                newAssociation?: TInstance | TInstancePrimaryKey,
+                options?: HasManyAddAssociationMixinOptions | InstanceUpdateOptions
+            ): Promise<void>
+        }
+
+        /**
+         * The options for the createAssociation mixin of the hasMany association.
+         * @see HasManyCreateAssociationMixin
+         */
+        interface HasManyCreateAssociationMixinOptions { }
+
+        /**
+         * The createAssociation mixin applied to models with hasMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.hasMany(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRoles...
+         *    // setRoles...
+         *    // addRoles...
+         *    // addRole...
+         *    createRole: Sequelize.HasManyCreateAssociationMixin<RoleAttributes>;
+         *    // removeRole...
+         *    // removeRoles...
+         *    // hasRole...
+         *    // hasRoles...
+         *    // countRoles...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/has-many/
+         * @see Instance
+         */
+        interface HasManyCreateAssociationMixin<TAttributes> {
+            /**
+             * Create a new instance of the associated model and associate it with this.
+             * @param values The values used to create the association.
+             * @param options The options to use when creating the association.
+             */
+            (
+                values?: TAttributes,
+                options?: HasManyCreateAssociationMixinOptions | CreateOptions
+            ): Promise<void>
+        }
+
+        /**
+         * The options for the removeAssociation mixin of the hasMany association.
+         * @see HasManyRemoveAssociationMixin
+         */
+        interface HasManyRemoveAssociationMixinOptions { }
+
+        /**
+         * The removeAssociation mixin applied to models with hasMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.hasMany(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRoles...
+         *    // setRoles...
+         *    // addRoles...
+         *    // addRole...
+         *    // createRole...
+         *    removeRole: Sequelize.HasManyRemoveAssociationMixin<RoleInstance, RoleId>;
+         *    // removeRoles...
+         *    // hasRole...
+         *    // hasRoles...
+         *    // countRoles...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/has-many/
+         * @see Instance
+         */
+        interface HasManyRemoveAssociationMixin<TInstance, TInstancePrimaryKey> {
+            /**
+             * Un-associate the instance.
+             * @param oldAssociated The instance or the primary key of the instance to un-associate.
+             * @param options The options passed to `target.update`.
+             */
+            (
+                oldAssociated?: TInstance | TInstancePrimaryKey,
+                options?: HasManyRemoveAssociationMixinOptions | InstanceUpdateOptions
+            ): Promise<void>
+        }
+
+        /**
+         * The options for the removeAssociations mixin of the hasMany association.
+         * @see HasManyRemoveAssociationsMixin
+         */
+        interface HasManyRemoveAssociationsMixinOptions { }
+
+        /**
+         * The removeAssociations mixin applied to models with hasMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.hasMany(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRoles...
+         *    // setRoles...
+         *    // addRoles...
+         *    // addRole...
+         *    // createRole...
+         *    // removeRole...
+         *    removeRoles: Sequelize.HasManyRemoveAssociationsMixin<RoleInstance, RoleId>;
+         *    // hasRole...
+         *    // hasRoles...
+         *    // countRoles...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/has-many/
+         * @see Instance
+         */
+        interface HasManyRemoveAssociationsMixin<TInstance, TInstancePrimaryKey> {
+            /**
+             * Un-associate several instances.
+             * @param oldAssociated An array of instances or primary key of instances to un-associate.
+             * @param options The options passed to `target.update`.
+             */
+            (
+                oldAssociateds?: Array<TInstance | TInstancePrimaryKey>,
+                options?: HasManyRemoveAssociationsMixinOptions | InstanceUpdateOptions
+            ): Promise<void>
+        }
+
+        /**
+         * The options for the hasAssociation mixin of the hasMany association.
+         * @see HasManyHasAssociationMixin
+         */
+        interface HasManyHasAssociationMixinOptions { }
+
+        /**
+         * The hasAssociation mixin applied to models with hasMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.hasMany(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRoles...
+         *    // setRoles...
+         *    // addRoles...
+         *    // addRole...
+         *    // createRole...
+         *    // removeRole...
+         *    // removeRoles...
+         *    hasRole: Sequelize.HasManyHasAssociationMixin<RoleInstance, RoleId>;
+         *    // hasRoles...
+         *    // countRoles...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/has-many/
+         * @see Instance
+         */
+        interface HasManyHasAssociationMixin<TInstance, TInstancePrimaryKey> {
+            /**
+             * Check if an instance is associated with this.
+             * @param target The instance or the primary key of the instance to check.
+             * @param options The options passed to `getAssociations`.
+             */
+            (
+                target: TInstance | TInstancePrimaryKey,
+                options?: HasManyHasAssociationMixinOptions | HasManyGetAssociationsMixinOptions
+            ): Promise<boolean>
+        }
+
+        /**
+         * The options for the hasAssociations mixin of the hasMany association.
+         * @see HasManyHasAssociationsMixin
+         */
+        interface HasManyHasAssociationsMixinOptions { }
+
+        /**
+         * The removeAssociations mixin applied to models with hasMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.hasMany(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRoles...
+         *    // setRoles...
+         *    // addRoles...
+         *    // addRole...
+         *    // createRole...
+         *    // removeRole...
+         *    // removeRoles
+         *    // hasRole...
+         *    hasRoles: Sequelize.HasManyHasAssociationsMixin<RoleInstance, RoleId>;
+         *    // countRoles...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/has-many/
+         * @see Instance
+         */
+        interface HasManyHasAssociationsMixin<TInstance, TInstancePrimaryKey> {
+            /**
+             * Check if all instances are associated with this.
+             * @param targets An array of instances or primary key of instances to check.
+             * @param options The options passed to `getAssociations`.
+             */
+            (
+                targets: Array<TInstance | TInstancePrimaryKey>,
+                options?: HasManyHasAssociationsMixinOptions | HasManyGetAssociationsMixinOptions
+            ): Promise<boolean>
+        }
+
+        /**
+         * The options for the countAssociations mixin of the hasMany association.
+         * @see HasManyCountAssociationsMixin
+         */
+        interface HasManyCountAssociationsMixinOptions {
+
+            /**
+             * An optional where clause to limit the associated models.
+             */
+            where?: WhereOptions;
+
+            /**
+             * Apply a scope on the related model, or remove its default scope by passing false.
+             */
+            scope?: string | boolean;
+        }
+
+        /**
+         * The countAssociations mixin applied to models with hasMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.hasMany(Role);
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRoles...
+         *    // setRoles...
+         *    // addRoles...
+         *    // addRole...
+         *    // createRole...
+         *    // removeRole...
+         *    // removeRoles...
+         *    // hasRole...
+         *    // hasRoles...
+         *    countRoles: Sequelize.HasManyCountAssociationsMixin;
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/has-many/
+         * @see Instance
+         */
+        interface HasManyCountAssociationsMixin {
+            /**
+             * Count everything currently associated with this, using an optional where clause.
+             * @param options The options to use when counting the associations.
+             */
+            (options?: HasManyCountAssociationsMixinOptions): Promise<number>
+        }
+
+        /**
+         * The options for the getAssociations mixin of the belongsToMany association.
+         * @see BelongsToManyGetAssociationsMixin
+         */
+        interface BelongsToManyGetAssociationsMixinOptions {
+
+            /**
+             * An optional where clause to limit the associated models.
+             */
+            where?: WhereOptions;
+
+            /**
+             * Apply a scope on the related model, or remove its default scope by passing false.
+             */
+            scope?: string | boolean;
+        }
+
+        /**
+         * The getAssociations mixin applied to models with belongsToMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.belongsToMany(Role, { through: UserRole });
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    getRoles: Sequelize.BelongsToManyGetAssociationsMixin<RoleInstance>;
+         *    // setRoles...
+         *    // addRoles...
+         *    // addRole...
+         *    // createRole...
+         *    // removeRole...
+         *    // removeRoles...
+         *    // hasRole...
+         *    // hasRoles...
+         *    // countRoles...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to-many/
+         * @see Instance
+         */
+        interface BelongsToManyGetAssociationsMixin<TInstance> {
+            /**
+             * Get everything currently associated with this, using an optional where clause.
+             * @param options The options to use when getting the associations.
+             */
+            (options?: BelongsToManyGetAssociationsMixinOptions): Promise<TInstance[]>
+        }
+
+        /**
+         * The options for the setAssociations mixin of the belongsToMany association.
+         * @see BelongsToManySetAssociationsMixin
+         */
+        interface BelongsToManySetAssociationsMixinOptions {
+
+            /**
+             * Run validation for the join model.
+             */
+            validate?: boolean;
+        }
+
+        /**
+         * The setAssociations mixin applied to models with belongsToMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.belongsToMany(Role, { through: UserRole });
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRoles...
+         *    setRoles: Sequelize.BelongsToManySetAssociationsMixin<RoleInstance, RoleId, UserRoleAttributes>;
+         *    // addRoles...
+         *    // addRole...
+         *    // createRole...
+         *    // removeRole...
+         *    // removeRoles...
+         *    // hasRole...
+         *    // hasRoles...
+         *    // countRoles...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to-many/
+         * @see Instance
+         */
+        interface BelongsToManySetAssociationsMixin<TInstance, TInstancePrimaryKey, TJoinTableAttributes> {
+            /**
+             * Set the associated models by passing an array of instances or their primary keys.
+             * Everything that it not in the passed array will be un-associated.
+             * @param newAssociations An array of instances or primary key of instances to associate with this. Pass null or undefined to remove all associations.
+             * @param options The options passed to `through.findAll`, `bulkCreate`, `update` and `destroy`. Can also hold additional attributes for the join table.
+             */
+            (
+                newAssociations?: Array<TInstance | TInstancePrimaryKey>,
+                options?: BelongsToManySetAssociationsMixinOptions | FindOptions | BulkCreateOptions | InstanceUpdateOptions | InstanceDestroyOptions | TJoinTableAttributes
+            ): Promise<void>
+        }
+
+        /**
+         * The options for the addAssociations mixin of the belongsToMany association.
+         * @see BelongsToManyAddAssociationsMixin
+         */
+        interface BelongsToManyAddAssociationsMixinOptions {
+
+            /**
+             * Run validation for the join model.
+             */
+            validate?: boolean;
+        }
+
+        /**
+         * The addAssociations mixin applied to models with belongsToMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.belongsToMany(Role, { through: UserRole });
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRoles...
+         *    // setRoles...
+         *    addRoles: Sequelize.BelongsToManyAddAssociationsMixin<RoleInstance, RoleId, UserRoleAttributes>;
+         *    // addRole...
+         *    // createRole...
+         *    // removeRole...
+         *    // removeRoles...
+         *    // hasRole...
+         *    // hasRoles...
+         *    // countRoles...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to-many/
+         * @see Instance
+         */
+        interface BelongsToManyAddAssociationsMixin<TInstance, TInstancePrimaryKey, TJoinTableAttributes> {
+            /**
+             * Associate several instances with this.
+             * @param newAssociations An array of instances or primary key of instances to associate with this.
+             * @param options The options passed to `through.findAll`, `bulkCreate`, `update` and `destroy`. Can also hold additional attributes for the join table.
+             */
+            (
+                newAssociations?: Array<TInstance | TInstancePrimaryKey>,
+                options?: BelongsToManyAddAssociationsMixinOptions | FindOptions | BulkCreateOptions | InstanceUpdateOptions | InstanceDestroyOptions | TJoinTableAttributes
+            ): Promise<void>
+        }
+
+        /**
+         * The options for the addAssociation mixin of the belongsToMany association.
+         * @see BelongsToManyAddAssociationMixin
+         */
+        interface BelongsToManyAddAssociationMixinOptions {
+
+            /**
+             * Run validation for the join model.
+             */
+            validate?: boolean;
+        }
+
+        /**
+         * The addAssociation mixin applied to models with belongsToMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.belongsToMany(Role, { through: UserRole });
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRoles...
+         *    // setRoles...
+         *    // addRoles...
+         *    addRole: Sequelize.BelongsToManyAddAssociationMixin<RoleInstance, RoleId, UserRoleAttributes>;
+         *    // createRole...
+         *    // removeRole...
+         *    // removeRoles...
+         *    // hasRole...
+         *    // hasRoles...
+         *    // countRoles...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to-many/
+         * @see Instance
+         */
+        interface BelongsToManyAddAssociationMixin<TInstance, TInstancePrimaryKey, TJoinTableAttributes> {
+            /**
+             * Associate an instance with this.
+             * @param newAssociation An instance or the primary key of an instance to associate with this.
+             * @param options The options passed to `through.findAll`, `bulkCreate`, `update` and `destroy`. Can also hold additional attributes for the join table.
+             */
+            (
+                newAssociation?: TInstance | TInstancePrimaryKey,
+                options?: BelongsToManyAddAssociationMixinOptions | FindOptions | BulkCreateOptions | InstanceUpdateOptions | InstanceDestroyOptions | TJoinTableAttributes
+            ): Promise<void>
+        }
+
+        /**
+         * The options for the createAssociation mixin of the belongsToMany association.
+         * @see BelongsToManyCreateAssociationMixin
+         */
+        interface BelongsToManyCreateAssociationMixinOptions { }
+
+        /**
+         * The createAssociation mixin applied to models with belongsToMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.belongsToMany(Role, { through: UserRole });
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRoles...
+         *    // setRoles...
+         *    // addRoles...
+         *    // addRole...
+         *    createRole: Sequelize.BelongsToManyCreateAssociationMixin<RoleAttributes, UserRoleAttributes>;
+         *    // removeRole...
+         *    // removeRoles...
+         *    // hasRole...
+         *    // hasRoles...
+         *    // countRoles...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to-many/
+         * @see Instance
+         */
+        interface BelongsToManyCreateAssociationMixin<TAttributes, TJoinTableAttributes> {
+            /**
+             * Create a new instance of the associated model and associate it with this.
+             * @param values The values used to create the association.
+             * @param options Options passed to `create` and `add`. Can also hold additional attributes for the join table.
+             */
+            (
+                values?: TAttributes,
+                options?: BelongsToManyCreateAssociationMixinOptions | CreateOptions | TJoinTableAttributes
+            ): Promise<void>
+        }
+
+        /**
+         * The options for the removeAssociation mixin of the belongsToMany association.
+         * @see BelongsToManyRemoveAssociationMixin
+         */
+        interface BelongsToManyRemoveAssociationMixinOptions { }
+
+        /**
+         * The removeAssociation mixin applied to models with belongsToMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.belongsToMany(Role, { through: UserRole });
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRoles...
+         *    // setRoles...
+         *    // addRoles...
+         *    // addRole...
+         *    // createRole...
+         *    removeRole: Sequelize.BelongsToManyRemoveAssociationMixin<RoleInstance, RoleId>;
+         *    // removeRoles...
+         *    // hasRole...
+         *    // hasRoles...
+         *    // countRoles...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to-many/
+         * @see Instance
+         */
+        interface BelongsToManyRemoveAssociationMixin<TInstance, TInstancePrimaryKey> {
+            /**
+             * Un-associate the instance.
+             * @param oldAssociated The instance or the primary key of the instance to un-associate.
+             * @param options The options passed to `through.destroy`.
+             */
+            (
+                oldAssociated?: TInstance | TInstancePrimaryKey,
+                options?: BelongsToManyRemoveAssociationMixinOptions | InstanceDestroyOptions
+            ): Promise<void>
+        }
+
+        /**
+         * The options for the removeAssociations mixin of the belongsToMany association.
+         * @see BelongsToManyRemoveAssociationsMixin
+         */
+        interface BelongsToManyRemoveAssociationsMixinOptions { }
+
+        /**
+         * The removeAssociations mixin applied to models with belongsToMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.belongsToMany(Role, { through: UserRole });
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRoles...
+         *    // setRoles...
+         *    // addRoles...
+         *    // addRole...
+         *    // createRole...
+         *    // removeRole...
+         *    removeRoles: Sequelize.BelongsToManyRemoveAssociationsMixin<RoleInstance, RoleId>;
+         *    // hasRole...
+         *    // hasRoles...
+         *    // countRoles...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to-many/
+         * @see Instance
+         */
+        interface BelongsToManyRemoveAssociationsMixin<TInstance, TInstancePrimaryKey> {
+            /**
+             * Un-associate several instances.
+             * @param oldAssociated An array of instances or primary key of instances to un-associate.
+             * @param options The options passed to `through.destroy`.
+             */
+            (
+                oldAssociateds?: Array<TInstance | TInstancePrimaryKey>,
+                options?: BelongsToManyRemoveAssociationsMixinOptions | InstanceDestroyOptions
+            ): Promise<void>
+        }
+
+        /**
+         * The options for the hasAssociation mixin of the belongsToMany association.
+         * @see BelongsToManyHasAssociationMixin
+         */
+        interface BelongsToManyHasAssociationMixinOptions { }
+
+        /**
+         * The hasAssociation mixin applied to models with belongsToMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.belongsToMany(Role, { through: UserRole });
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRoles...
+         *    // setRoles...
+         *    // addRoles...
+         *    // addRole...
+         *    // createRole...
+         *    // removeRole...
+         *    // removeRoles...
+         *    hasRole: Sequelize.BelongsToManyHasAssociationMixin<RoleInstance, RoleId>;
+         *    // hasRoles...
+         *    // countRoles...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to-many/
+         * @see Instance
+         */
+        interface BelongsToManyHasAssociationMixin<TInstance, TInstancePrimaryKey> {
+            /**
+             * Check if an instance is associated with this.
+             * @param target The instance or the primary key of the instance to check.
+             * @param options The options passed to `getAssociations`.
+             */
+            (
+                target: TInstance | TInstancePrimaryKey,
+                options?: BelongsToManyHasAssociationMixinOptions | BelongsToManyGetAssociationsMixinOptions
+            ): Promise<boolean>
+        }
+
+        /**
+         * The options for the hasAssociations mixin of the belongsToMany association.
+         * @see BelongsToManyHasAssociationsMixin
+         */
+        interface BelongsToManyHasAssociationsMixinOptions { }
+
+        /**
+         * The removeAssociations mixin applied to models with belongsToMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.belongsToMany(Role, { through: UserRole });
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRoles...
+         *    // setRoles...
+         *    // addRoles...
+         *    // addRole...
+         *    // createRole...
+         *    // removeRole...
+         *    // removeRoles
+         *    // hasRole...
+         *    hasRoles: Sequelize.BelongsToManyHasAssociationsMixin<RoleInstance, RoleId>;
+         *    // countRoles...
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to-many/
+         * @see Instance
+         */
+        interface BelongsToManyHasAssociationsMixin<TInstance, TInstancePrimaryKey> {
+            /**
+             * Check if all instances are associated with this.
+             * @param targets An array of instances or primary key of instances to check.
+             * @param options The options passed to `getAssociations`.
+             */
+            (
+                targets: Array<TInstance | TInstancePrimaryKey>,
+                options?: BelongsToManyHasAssociationsMixinOptions | BelongsToManyGetAssociationsMixinOptions
+            ): Promise<boolean>
+        }
+
+        /**
+         * The options for the countAssociations mixin of the belongsToMany association.
+         * @see BelongsToManyCountAssociationsMixin
+         */
+        interface BelongsToManyCountAssociationsMixinOptions {
+
+            /**
+             * An optional where clause to limit the associated models.
+             */
+            where?: WhereOptions;
+
+            /**
+             * Apply a scope on the related model, or remove its default scope by passing false.
+             */
+            scope?: string | boolean;
+        }
+
+        /**
+         * The countAssociations mixin applied to models with belongsToMany.
+         * An example of usage is as follows:
+         *
+         * ```js
+         *
+         * User.belongsToMany(Role, { through: UserRole });
+         *
+         * interface UserInstance extends Sequelize.Instance<UserInstance, UserAttributes>, UserAttributes {
+         *    // getRoles...
+         *    // setRoles...
+         *    // addRoles...
+         *    // addRole...
+         *    // createRole...
+         *    // removeRole...
+         *    // removeRoles...
+         *    // hasRole...
+         *    // hasRoles...
+         *    countRoles: Sequelize.BelongsToManyCountAssociationsMixin;
+         * }
+         * ```
+         *
+         * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to-many/
+         * @see Instance
+         */
+        interface BelongsToManyCountAssociationsMixin {
+            /**
+             * Count everything currently associated with this, using an optional where clause.
+             * @param options The options to use when counting the associations.
+             */
+            (options?: BelongsToManyCountAssociationsMixinOptions): Promise<number>
+        }
+
         /**
          * Foreign Key Options
          *
@@ -839,7 +1994,7 @@ declare module "sequelize" {
             INITIALLY_IMMEDIATE: DeferrableInitiallyImmediate;
             NOT: DeferrableNot;
             SET_DEFERRED: DeferrableSetDeferred;
-            SET_IMMEDIATE: DeferrableSetImmediate
+            SET_IMMEDIATE: DeferrableSetImmediate;
         }
 
         //
@@ -852,7 +2007,7 @@ declare module "sequelize" {
         /**
          * The Base Error all Sequelize Errors inherit from.
          */
-        interface BaseError extends ErrorConstructor { }
+        interface BaseError extends Error, ErrorConstructor { }
 
         interface ValidationError extends BaseError {
 
@@ -871,7 +2026,10 @@ declare module "sequelize" {
              * @param path The path to be checked for error items
              */
             get( path : string ) : Array<ValidationErrorItem>;
-
+            
+            /** Array of ValidationErrorItem objects describing the validation errors */
+            errors : Array<ValidationErrorItem>;
+            
         }
 
         interface ValidationErrorItem extends BaseError {
@@ -886,7 +2044,19 @@ declare module "sequelize" {
              * @param value The value that generated the error
              */
             new ( message : string, type : string, path : string, value : string ) : ValidationErrorItem;
-
+            
+            /** An error message */
+            message : string;
+            
+            /** The type of the validation error */
+            type : string;
+            
+            /** The field that triggered the validation error */
+            path : string;
+            
+            /** The value that generated the error */
+            value : string;
+            
         }
 
         interface DatabaseError extends BaseError {
@@ -1635,7 +2805,7 @@ declare module "sequelize" {
              *
              * @param options.skip An array of strings. All properties that are in this array will not be validated
              */
-            validate( options? : { skip?: Array<string> } ) : Promise<void>;
+            validate( options? : { skip?: Array<string> } ) : Promise<ValidationError>;
 
             /**
              * This is the same as calling `set` and then calling `save`.
@@ -2779,6 +3949,11 @@ declare module "sequelize" {
              * We don't have a definition for the QueryGenerator, because I doubt it is commonly in use separately.
              */
             QueryGenerator: any;
+            
+            /**
+             * Returns the current sequelize instance.
+             */
+            sequelize: Sequelize;
 
             /**
              * Queries the schema (table list).
@@ -4287,8 +5462,11 @@ declare module "sequelize" {
              *
              * @param path The path to the file that holds the model you want to import. If the part is relative, it
              *     will be resolved relatively to the calling file
+             * 
+             * @param defineFunction An optional function that provides model definitions. Useful if you do not
+             *     want to use the module root as the define function
              */
-            import<TInstance, TAttributes>( path : string ) : Model<TInstance, TAttributes>;
+            import<TInstance, TAttributes>( path : string, defineFunction? : (sequelize: Sequelize, dataTypes: DataTypes) => Model<TInstance, TAttributes> ) : Model<TInstance, TAttributes>;
 
             /**
              * Execute a query on the DB, with the posibility to bypass all the sequelize goodness.
@@ -4413,7 +5591,7 @@ declare module "sequelize" {
              * @param options Query Options for authentication
              */
             authenticate( options? : QueryOptions ) : Promise<void>;
-            validate( options? : QueryOptions ) : Promise<void>;
+            validate( options? : QueryOptions ) : Promise<ValidationError>;
 
             /**
              * Start a transaction. When using transactions, you should pass the transaction in the options argument
@@ -4533,12 +5711,12 @@ declare module "sequelize" {
             /**
              * Commit the transaction
              */
-            commit() : Transaction;
+            commit() : Promise<void>;
 
             /**
              * Rollback (abort) the transaction
              */
-            rollback() : Transaction;
+            rollback() : Promise<void>;
 
         }
 

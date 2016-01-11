@@ -647,7 +647,7 @@ declare module SocketIO {
 		 * @param close If true, also closes the underlying connection
 		 * @return This Socket
 		 */
-		disconnect( close: boolean ): Socket;
+		disconnect( close?: boolean ): Socket;
 		
 		/**
 		 * Adds a listener for a particular event. Calling multiple times will add
@@ -687,7 +687,7 @@ declare module SocketIO {
 		 * Removes all event listeners on this object
 		 * @return This Socket
 		 */
-		removeAllListeners(): Socket;
+		removeAllListeners( event?: string ): Socket;
 		
 		/**
 		 * Sets the maximum number of listeners this instance can have

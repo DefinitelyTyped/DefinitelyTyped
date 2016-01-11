@@ -199,9 +199,11 @@ declare module lf {
       addIndex(
           name: string, columns: Array<string>|Array<IndexedColumn>,
           unique?: boolean, order?: Order): TableBuilder
-      addNullable(columns: Array<Column>): TableBuilder
-      addPrimaryKey(columns: Array<string>|Array<IndexedColumn>): TableBuilder
-      addUnique(name: string, columns: Array<Column>): TableBuilder
+      addNullable(columns: Array<string>): TableBuilder
+      addPrimaryKey(
+          columns: Array<string>|Array<IndexedColumn>,
+          autoInc?: boolean): TableBuilder
+      addUnique(name: string, columns: Array<string>): TableBuilder
     }
 
     function create(dbName: string, dbVersion: number): Builder

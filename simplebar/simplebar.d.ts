@@ -3,9 +3,9 @@
 // Definitions by: Gregor Woiwode <https://github.com/gregonnet>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface SimplebarOpions {
+interface SimplebarOptions {
     autoHide?: boolean;
-    wrapContent?: boolean
+    wrapContent?: boolean;
 }
 
 interface JQuery {
@@ -18,7 +18,7 @@ interface JQuery {
         *
         * @param indicator if scrollbar should be faded out automatically.
         */
-        (options?: SimplebarOpions): JQuery;
+        (options?: SimplebarOptions): JQuery;
     };
 }
 
@@ -32,6 +32,6 @@ interface JQueryStatic {
         *
         * @param indicator if scrollbar should be faded out automatically.
         */
-        (options?: SimplebarOpions): JQuery;
+        (options?: SimplebarOptions): JQuery;
     };
 }
