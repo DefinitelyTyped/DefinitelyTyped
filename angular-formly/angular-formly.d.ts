@@ -24,7 +24,7 @@ declare module AngularFormly {
 		data?: Object;
 		className?: string;
 		elementAttributes?: string;
-        fieldGroup: IFieldArray;
+        fieldGroup?: IFieldArray;
 		form?: Object;
 		hide?: boolean;
 		hideExpression?: string | IExpressionFunction;
