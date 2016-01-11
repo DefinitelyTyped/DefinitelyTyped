@@ -12948,40 +12948,40 @@ declare module _ {
          * @param thisArg The this binding of customizer.
          * @return Returns object.
          */
-        merge<TObject, TSource, TResult>(
+        merge<TObject, TSource>(
             object: TObject,
             source: TSource,
             customizer?: MergeCustomizer,
             thisArg?: any
-        ): TResult;
+        ): TObject & TSource;
 
         /**
          * @see _.merge
          */
-        merge<TObject, TSource1, TSource2, TResult>(
+        merge<TObject, TSource1, TSource2>(
             object: TObject,
             source1: TSource1,
             source2: TSource2,
             customizer?: MergeCustomizer,
             thisArg?: any
-        ): TResult;
+        ): TObject & TSource1 & TSource2;
 
         /**
          * @see _.merge
          */
-        merge<TObject, TSource1, TSource2, TSource3, TResult>(
+        merge<TObject, TSource1, TSource2, TSource3>(
             object: TObject,
             source1: TSource1,
             source2: TSource2,
             source3: TSource3,
             customizer?: MergeCustomizer,
             thisArg?: any
-        ): TResult;
+        ): TObject & TSource1 & TSource2 & TSource3;
 
         /**
          * @see _.merge
          */
-        merge<TObject, TSource1, TSource2, TSource3, TSource4, TResult>(
+        merge<TObject, TSource1, TSource2, TSource3, TSource4>(
             object: TObject,
             source1: TSource1,
             source2: TSource2,
@@ -12989,13 +12989,13 @@ declare module _ {
             source4: TSource4,
             customizer?: MergeCustomizer,
             thisArg?: any
-        ): TResult;
+        ): TObject & TSource1 & TSource2 & TSource3 & TSource4; 
 
         /**
          * @see _.merge
          */
-        merge<TObject, TResult>(
-            object: TObject,
+        merge<TResult>(
+            object: any,
             ...otherArgs: any[]
         ): TResult;
     }
@@ -13004,44 +13004,44 @@ declare module _ {
         /**
          * @see _.merge
          */
-        merge<TSource, TResult>(
+        merge<TSource>(
             source: TSource,
             customizer?: MergeCustomizer,
             thisArg?: any
-        ): LoDashImplicitObjectWrapper<TResult>;
+        ): LoDashImplicitObjectWrapper<T & TSource>;
 
         /**
          * @see _.merge
          */
-        merge<TSource1, TSource2, TResult>(
+        merge<TSource1, TSource2>(
             source1: TSource1,
             source2: TSource2,
             customizer?: MergeCustomizer,
             thisArg?: any
-        ): LoDashImplicitObjectWrapper<TResult>;
+        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2>;
 
         /**
          * @see _.merge
          */
-        merge<TSource1, TSource2, TSource3, TResult>(
+        merge<TSource1, TSource2, TSource3>(
             source1: TSource1,
             source2: TSource2,
             source3: TSource3,
             customizer?: MergeCustomizer,
             thisArg?: any
-        ): LoDashImplicitObjectWrapper<TResult>;
+        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2 & TSource3>;
 
         /**
          * @see _.merge
          */
-        merge<TSource1, TSource2, TSource3, TSource4, TResult>(
+        merge<TSource1, TSource2, TSource3, TSource4>(
             source1: TSource1,
             source2: TSource2,
             source3: TSource3,
             source4: TSource4,
             customizer?: MergeCustomizer,
             thisArg?: any
-        ): LoDashImplicitObjectWrapper<TResult>;
+        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2 & TSource3 & TSource4>;
 
         /**
          * @see _.merge
