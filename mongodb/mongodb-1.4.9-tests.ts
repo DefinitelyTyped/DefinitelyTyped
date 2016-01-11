@@ -1,4 +1,4 @@
-///<reference path="mongodb.d.ts"/>
+///<reference path="mongodb-1.4.9.d.ts"/>
 
 // Test source : https://github.com/mongodb/node-mongodb-native
 import mongodb = require('mongodb');
