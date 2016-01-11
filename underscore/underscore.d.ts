@@ -1636,12 +1636,7 @@ interface UnderscoreStatic {
 	* @param prefix A prefix string to start the unique ID with.
 	* @return Unique string ID beginning with `prefix`.
 	**/
-	uniqueId(prefix: string): string;
-
-	/**
-	* @see _.uniqueId
-	**/
-	uniqueId(): number;
+	uniqueId(prefix?: string): string;
 
 	/**
 	* Escapes a string for insertion into HTML, replacing &, <, >, ", ', and / characters.
