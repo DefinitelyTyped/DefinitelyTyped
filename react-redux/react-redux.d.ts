@@ -54,16 +54,16 @@ declare module "react-redux" {
     pure: boolean;
   }
 
-  export interface Property {
+  export interface Property<S> {
     /**
      * The single Redux store in your application.
      */
-    store?: Store;
+    store?: Store<S>;
     children?: Function;
   }
 
   /**
    * Makes the Redux store available to the connect() calls in the component hierarchy below.
    */
-  export class Provider extends Component<Property, {}> { }
+  export class Provider extends Component<Property<any>, {}> { }
 }
