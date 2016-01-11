@@ -10,6 +10,7 @@ declare module "gulp-less" {
     interface IOptions {
         paths: string[];
         plugins?: any[];
+        relativeUrls?: boolean;
     }
 
     function less(options?: IOptions): NodeJS.ReadWriteStream;
