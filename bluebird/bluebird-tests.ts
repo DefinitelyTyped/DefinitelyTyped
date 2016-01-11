@@ -85,15 +85,15 @@ var bazProm: Promise<Baz>;
 
 // - - - - - - - - - - - - - - - - -
 
-var numThen: Promise.Thenable<number>;
-var strThen: Promise.Thenable<string>;
-var anyThen: Promise.Thenable<any>;
-var boolThen: Promise.Thenable<boolean>;
-var objThen: Promise.Thenable<Object>;
-var voidThen: Promise.Thenable<void>;
+var numThen: PromiseLike<number>;
+var strThen: PromiseLike<string>;
+var anyThen: PromiseLike<any>;
+var boolThen: PromiseLike<boolean>;
+var objThen: PromiseLike<Object>;
+var voidThen: PromiseLike<void>;
 
-var fooThen: Promise.Thenable<Foo>;
-var barThen: Promise.Thenable<Bar>;
+var fooThen: PromiseLike<Foo>;
+var barThen: PromiseLike<Bar>;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -106,12 +106,12 @@ var barArrProm: Promise<Bar[]>;
 
 // - - - - - - - - - - - - - - - - -
 
-var numArrThen: Promise.Thenable<number[]>;
-var strArrThen: Promise.Thenable<string[]>;
-var anyArrThen: Promise.Thenable<any[]>;
+var numArrThen: PromiseLike<number[]>;
+var strArrThen: PromiseLike<string[]>;
+var anyArrThen: PromiseLike<any[]>;
 
-var fooArrThen: Promise.Thenable<Foo[]>;
-var barArrThen: Promise.Thenable<Bar[]>;
+var fooArrThen: PromiseLike<Foo[]>;
+var barArrThen: PromiseLike<Bar[]>;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -124,18 +124,18 @@ var barPromArr: Promise<Bar>[];
 
 // - - - - - - - - - - - - - - - - -
 
-var numThenArr: Promise.Thenable<number>[];
-var strThenArr: Promise.Thenable<string>[];
-var anyThenArr: Promise.Thenable<any>[];
+var numThenArr: PromiseLike<number>[];
+var strThenArr: PromiseLike<string>[];
+var anyThenArr: PromiseLike<any>[];
 
-var fooThenArr: Promise.Thenable<Foo>[];
-var barThenArr: Promise.Thenable<Bar>[];
+var fooThenArr: PromiseLike<Foo>[];
+var barThenArr: PromiseLike<Bar>[];
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // booya!
-var fooThenArrThen: Promise.Thenable<Promise.Thenable<Foo>[]>;
-var barThenArrThen: Promise.Thenable<Promise.Thenable<Bar>[]>;
+var fooThenArrThen: PromiseLike<PromiseLike<Foo>[]>;
+var barThenArrThen: PromiseLike<PromiseLike<Bar>[]>;
 
 var fooResolver: Promise.Resolver<Foo>;
 var barResolver: Promise.Resolver<Bar>;
@@ -766,6 +766,13 @@ func = Promise.promisify(f, obj);
 obj = Promise.promisifyAll(obj);
 anyProm = Promise.fromNode(callback => nodeCallbackFunc(callback));
 anyProm = Promise.fromNode(callback => nodeCallbackFuncErrorOnly(callback));
+anyProm = Promise.fromNode(callback => nodeCallbackFunc(callback), {multiArgs : true});
+anyProm = Promise.fromNode(callback => nodeCallbackFuncErrorOnly(callback), {multiArgs : true});
+
+anyProm = Promise.fromCallback(callback => nodeCallbackFunc(callback));
+anyProm = Promise.fromCallback(callback => nodeCallbackFuncErrorOnly(callback));
+anyProm = Promise.fromCallback(callback => nodeCallbackFunc(callback), {multiArgs : true});
+anyProm = Promise.fromCallback(callback => nodeCallbackFuncErrorOnly(callback), {multiArgs : true});
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

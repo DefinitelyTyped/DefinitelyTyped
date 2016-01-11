@@ -1,4 +1,4 @@
-﻿// Type definitions for Navigation 1.2.0
+﻿// Type definitions for Navigation 1.3.0
 // Project: http://grahammendick.github.io/navigation/
 // Definitions by: Graham Mendick <https://github.com/grahammendick>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -530,6 +530,14 @@ declare module Navigation {
          */
         getNavigationLink(state: State, data: any): string;
         /**
+         * Gets a link that navigates to the state passing the data
+         * @param state The State to navigate to
+         * @param data The data to pass when navigating
+         * @param queryStringData The query string array data
+         * @returns The navigation link
+         */
+        getNavigationLink(state: State, data: any, queryStringData: { [index: string]: string[]; }): string;
+        /**
          * Navigates to the url
          * @param oldState The current State
          * @param state The State to navigate to
@@ -543,6 +551,30 @@ declare module Navigation {
          * @returns The navigation data
          */
         getNavigationData(state: State, url: string): any;
+        /**
+         * Gets the data parsed from the url
+         * @param state The State navigated to
+         * @param url The current url
+         * @param queryStringData Stores query string keys
+         * @returns The navigation data
+         */
+        getNavigationData(state: State, url: string, queryStringData: any): any;
+        /**
+         * Encodes the Url value
+         * @param state The State navigated to
+         * @param key The key of the navigation data item
+         * @param val The Url value of the navigation data item
+         * @param queryString A value indicating the Url value's location
+         */
+        urlEncode?(state: State, key: string, val: string, queryString: boolean): string;
+        /**
+         * Decodes the Url value
+         * @param state The State navigated to
+         * @param key The key of the navigation data item
+         * @param val The Url value of the navigation data item
+         * @param queryString A value indicating the Url value's location
+         */
+        urlDecode?(state: State, key: string, val: string, queryString: boolean): string;
         /**
          * Truncates the crumb trail
          * @param The State navigated to
@@ -642,6 +674,11 @@ declare module Navigation {
          * navigating back or refreshing and combineCrumbTrail is false 
          */
         trackAllPreviousData: boolean;
+        /**
+         * Gets or sets a value indicating whether arrays should be stored in
+         * a single query string parameter
+         */
+        combineArray: boolean;
     }
 
     /**
@@ -920,6 +957,14 @@ declare module Navigation {
          */
         getNavigationLink(state: State, data: any): string;
         /**
+         * Gets a link that navigates to the state passing the data
+         * @param state The State to navigate to
+         * @param data The data to pass when navigating
+         * @param queryStringData The query string array data
+         * @returns The navigation link
+         */
+        getNavigationLink(state: State, data: any, queryStringData: { [index: string]: string[]; }): string;
+        /**
          * Navigates to the url
          * @param oldState The current State
          * @param state The State to navigate to
@@ -933,6 +978,30 @@ declare module Navigation {
          * @returns The navigation data
          */
         getNavigationData(state: State, url: string): any;
+        /**
+         * Gets the data parsed from the url
+         * @param state The State navigated to
+         * @param url The current url
+         * @param queryStringData Stores query string keys
+         * @returns The navigation data
+         */
+        getNavigationData(state: State, url: string, queryStringData: any): any;
+        /**
+         * Encodes the Url value
+         * @param state The State navigated to
+         * @param key The key of the navigation data item
+         * @param val The Url value of the navigation data item
+         * @param queryString A value indicating the Url value's location
+         */
+        urlEncode(state: State, key: string, val: string, queryString: boolean): string;
+        /**
+         * Decodes the Url value
+         * @param state The State navigated to
+         * @param key The key of the navigation data item
+         * @param val The Url value of the navigation data item
+         * @param queryString A value indicating the Url value's location
+         */
+        urlDecode(state: State, key: string, val: string, queryString: boolean): string;
         /**
          * Truncates the crumb trail whenever a repeated or initial State is
          * encountered
@@ -1044,16 +1113,30 @@ declare module Navigation {
          */
         match(path: string): any;
         /**
+         * Gets the matching data for the path
+         * @param path The path to match
+         * @param urlDecode The function that decodes the Url value
+         * @returns The matched data or null if there's no match
+         */
+        match(path: string, urlDecode: (route: Route, name: string, val: string) => string): any;
+        /**
          * Gets the route populated with default values
          * @returns The built route
          */
         build(): string;
         /**
          * Gets the route populated with data and default values
-         * @param The data for the route parameters
+         * @param data The data for the route parameters
          * @returns The built route
          */
         build(data: any): string;
+        /**
+         * Gets the route populated with data and default values
+         * @param data The data for the route parameters
+         * @param urlEncode The function that encodes the Url value
+         * @returns The built route
+         */
+        build(data: any, urlEncode: (route: Route, name: string, val: string) => string): string;
     }
 
     /**
@@ -1075,10 +1158,17 @@ declare module Navigation {
         addRoute(path: string, defaults: any): Route;
         /**
          * Gets the matching route and data for the path
-         * @param route The path to match
+         * @param path The path to match
          * @returns The matched route and data
          */
         match(path: string): { route: Route; data: any; };
+        /**
+         * Gets the matching route and data for the path
+         * @param path The path to match
+         * @param urlDecode The function that decodes the Url value
+         * @returns The matched route and data
+         */
+        match(path: string, urlDecode: (route: Route, name: string, val: string) => string): { route: Route; data: any; };
         /**
          * Sorts the routes by the comparer
          * @param compare The route comparer function

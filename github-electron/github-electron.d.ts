@@ -1121,7 +1121,7 @@ declare module GitHubElectron {
 			 * Note: This API is only available on Mac.
 			 */
 			setMenu(menu: Menu): void;
-		}
+		};
 	}
 
 	class AutoUpdater implements NodeJS.EventEmitter {
@@ -1157,11 +1157,11 @@ declare module GitHubElectron {
 			browserWindow?: BrowserWindow,
 			options?: OpenDialogOptions,
 			callback?: (fileNames: string[]) => void
-			): void;
+			): string[];
 		export function showOpenDialog(
 			options?: OpenDialogOptions,
 			callback?: (fileNames: string[]) => void
-			): void;
+			): string[];
 
 		interface OpenDialogOptions {
 			title?: string;
@@ -1193,8 +1193,12 @@ declare module GitHubElectron {
 			/**
 			 * File types that can be displayed, see dialog.showOpenDialog for an example.
 			 */
-			filters?: string[];
-		}, callback?: (fileName: string) => void): void;
+			 
+			filters?: {
+				name: string;
+				extensions: string[];
+			}[]
+		}, callback?: (fileName: string) => void): string;
 
 		/**
 		 * Shows a message box. It will block until the message box is closed. It returns .
@@ -1353,7 +1357,7 @@ declare module GitHubElectron {
 		* Only string properties are send correctly.
 		* Nested objects are not supported.
 		*/
-		extra?: {}
+		extra?: {};
 	}
 
 	interface CrashReporterPayload extends Object {
@@ -1406,7 +1410,7 @@ declare module GitHubElectron {
 		getLastCrashReport(): CrashReporterPayload;
 	}
 
-	interface Shell{
+	interface Shell {
 		/**
 		 * Show the given file in a file manager. If possible, select the file.
 		 */
@@ -1464,7 +1468,25 @@ declare module GitHubElectron {
 		sendToHost(channel: string, ...args: any[]): void;
 	}
 
-	interface Remote {
+	class IPCMain implements NodeJS.EventEmitter {
+		addListener(event: string, listener: Function): IPCMain;
+		once(event: string, listener: Function): IPCMain;
+		removeListener(event: string, listener: Function): IPCMain;
+		removeAllListeners(event?: string): IPCMain;
+		setMaxListeners(n: number): IPCMain;
+		getMaxListeners(): number;
+		listeners(event: string): Function[];
+		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
+		on(event: string, listener: (event: IPCMainEvent, ...args: any[]) => any): IPCMain;
+	}
+
+	interface IPCMainEvent {
+		returnValue?: any;
+		sender: WebContents;
+	}
+
+	interface Remote extends CommonElectron {
 		/**
 		 * @returns The object returned by require(module) in the main process.
 		 */
@@ -1472,7 +1494,7 @@ declare module GitHubElectron {
 		/**
 		 * @returns The BrowserWindow object which this web page belongs to.
 		 */
-		getCurrentWindow(): BrowserWindow
+		getCurrentWindow(): BrowserWindow;
 		/**
 		 * @returns The global variable of name (e.g. global[name]) in the main process.
 		 */
@@ -1481,7 +1503,7 @@ declare module GitHubElectron {
 		 * Returns the process object in the main process. This is the same as
 		 * remote.getGlobal('process'), but gets cached.
 		 */
-		process: any;
+		process: NodeJS.Process;
 	}
 
 	interface WebFrame {
@@ -1523,7 +1545,7 @@ declare module GitHubElectron {
 
 	// Type definitions for main process
 
-	interface ContentTracing  {
+	interface ContentTracing {
 		/**
 		 * Get a set of category groups. The category groups can change as new code paths are reached.
 		 * @param callback Called once all child processes have acked to the getCategories request.
@@ -1710,29 +1732,93 @@ declare module GitHubElectron {
 		RequestBufferJob: typeof RequestBufferJob;
 	}
 
+	interface PowerSaveBlocker {
+		start(type: string): number;
+		stop(id: number): void;
+		isStarted(id: number): boolean;
+	}
 
-	interface Electron {
+	interface ClearStorageDataOptions {
+		origin?: string;
+		storages?: string[];
+		quotas?: string[];
+	}
+
+	interface NetworkEmulationOptions {
+		offline?: boolean;
+		latency?: number;
+		downloadThroughput?: number;
+		uploadThroughput?: number;
+	}
+
+	interface CertificateVerifyProc {
+		(hostname: string, cert: any, callback: (accepted: boolean) => any): any;
+	}
+
+	class Session {
+		static fromPartition(partition: string): Session;
+		static defaultSession: Session;
+
+		cookies: any;
+		clearCache(callback: Function): void;
+		clearStorageData(callback: Function): void;
+		clearStorageData(options: ClearStorageDataOptions, callback: Function): void;
+		setProxy(config: string, callback: Function): void;
+		resolveProxy(url: URL, callback: (proxy: any) => any): void;
+		setDownloadPath(path: string): void;
+		enableNetworkEmulation(options: NetworkEmulationOptions): void;
+		disableNetworkEmulation(): void;
+		setCertificateVerifyProc(proc: CertificateVerifyProc): void;
+		webRequest: any;
+	}
+
+	interface CommonElectron {
 		clipboard: GitHubElectron.Clipboard;
 		crashReporter: GitHubElectron.CrashReporter;
 		nativeImage: typeof GitHubElectron.NativeImage;
-		screen: GitHubElectron.Screen;
 		shell: GitHubElectron.Shell;
-		remote: GitHubElectron.Remote;
-		ipcRenderer: GitHubElectron.IpcRenderer;
-		webFrame: GitHubElectron.WebFrame;
+
 		app: GitHubElectron.App;
 		autoUpdater: GitHubElectron.AutoUpdater;
 		BrowserWindow: typeof GitHubElectron.BrowserWindow;
 		contentTracing: GitHubElectron.ContentTracing;
 		dialog: GitHubElectron.Dialog;
+		ipcMain: GitHubElectron.IPCMain;
 		globalShortcut: GitHubElectron.GlobalShortcut;
-		ipcMain: NodeJS.EventEmitter;
 		Menu: typeof GitHubElectron.Menu;
 		MenuItem: typeof GitHubElectron.MenuItem;
 		powerMonitor: NodeJS.EventEmitter;
+		powerSaveBlocker: GitHubElectron.PowerSaveBlocker;
 		protocol: GitHubElectron.Protocol;
+		screen: GitHubElectron.Screen;
+		session: GitHubElectron.Session;
 		Tray: typeof GitHubElectron.Tray;
 		hideInternalModules(): void;
+	}
+
+	interface DesktopCapturerOptions {
+		types?: string[];
+		thumbnailSize?: {
+			width: number;
+			height: number;
+		};
+	}
+
+	interface DesktopCapturerSource {
+		id: string;
+		name: string;
+		thumbnail: NativeImage;
+	}
+
+	interface DesktopCapturer {
+		getSources(options: any, callback: (error: Error, sources: DesktopCapturerSource[]) => any): void;
+	}
+
+	interface Electron extends CommonElectron {
+		desktopCapturer: GitHubElectron.DesktopCapturer;
+		ipcRenderer: GitHubElectron.IpcRenderer;
+		remote: GitHubElectron.Remote;
+		webFrame: GitHubElectron.WebFrame;
 	}
 }
 

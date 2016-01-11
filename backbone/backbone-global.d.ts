@@ -43,6 +43,7 @@ declare module Backbone {
 
     interface PersistenceOptions {
         url?: string;
+        data?: any;
         beforeSend?: (jqxhr: JQueryXHR) => void;
         success?: (modelOrCollection?: any, response?: any, options?: any) => void;
         error?: (modelOrCollection?: any, jqxhr?: JQueryXHR, options?: any) => void;
