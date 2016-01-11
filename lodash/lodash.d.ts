@@ -10504,6 +10504,7 @@ declare module _ {
         /**
          * Checks if value is an Error, EvalError, RangeError, ReferenceError, SyntaxError, TypeError, or URIError
          * object.
+         *
          * @param value The value to check.
          * @return Returns true if value is an error object, else false.
          */
@@ -10515,6 +10516,13 @@ declare module _ {
          * @see _.isError
          */
         isError(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isError
+         */
+        isError(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isFinite
