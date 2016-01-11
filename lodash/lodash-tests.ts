@@ -8478,6 +8478,41 @@ module TestMerge {
                                                                           { a: [1] },
                                                                           { a: true }).value();
 
+    {
+        let result: _.LoDashExplicitObjectWrapper<ExpectedResult>;
+
+        result = _(initialValue).chain().merge(mergingValue);
+        result = _(initialValue).chain().merge(mergingValue, customizer);
+        result = _(initialValue).chain().merge(mergingValue, customizer, any);
+
+        result = _(initialValue).chain().merge({}, mergingValue);
+        result = _(initialValue).chain().merge({}, mergingValue, customizer);
+        result = _(initialValue).chain().merge({}, mergingValue, customizer, any);
+
+        result = _(initialValue).chain().merge({}, {}, mergingValue);
+        result = _(initialValue).chain().merge({}, {}, mergingValue, customizer);
+        result = _(initialValue).chain().merge({}, {}, mergingValue, customizer, any);
+
+        result = _(initialValue).chain().merge({}, {}, {}, mergingValue);
+        result = _(initialValue).chain().merge({}, {}, {}, mergingValue, customizer);
+        result = _(initialValue).chain().merge({}, {}, {}, mergingValue, customizer, any);
+
+        result = _(initialValue).chain().merge<ExpectedResult>({}, {}, {}, {}, mergingValue);
+        result = _(initialValue).chain().merge<ExpectedResult>({}, {}, {}, {}, mergingValue, customizer);
+        result = _(initialValue).chain().merge<ExpectedResult>({}, {}, {}, {}, mergingValue, customizer, any);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<ComplicatedExpectedType>;
+
+        result = _({ a: 1 }).chain().merge({ b: "string" }, { c: {} }, { d: [1] }, { e: true });
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<ExpectedTypeAfterOverriding>;
+
+        result = _({ a: 1 }).chain().merge({ a: "string" }, { a: {} }, { a: [1] }, { a: true });
+    }
 }
 
 // _.methods
