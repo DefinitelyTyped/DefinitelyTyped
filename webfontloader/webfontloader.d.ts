@@ -35,8 +35,8 @@ declare module WebFont {
 		monotype?:Monotype;
 	}
 	export interface Google {
-		families?:Array<string>;	
-		text: string;
+		families:Array<string>;	
+		text?: string;
 	}
 	export interface Typekit {
 		id?:Array<string>;
