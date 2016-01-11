@@ -1,8 +1,12 @@
 // Type definitions for pinterest-sdk
-// Project:
+// Project: https://assets.pinterest.com/sdk/sdk.js
 // Definitions by: Adam Burmister <https://github.com/adamburmister>
 // Definitions: https://github.com/adamburmister/DefinitelyTyped
 declare module PDK {
+
+  enum OAuthScopes { 'read_public', 'write_public', 'read_relationships', 'write_relationships' }
+
+  enum HttpMethod { 'get', 'put', 'post', 'delete' }
 
   type OauthSession = {
     accessToken?: string;
@@ -11,6 +15,7 @@ declare module PDK {
   }
 
   interface LoginOptions {
+    scope: string|OAuthScopes;
     method?: string;
     appId?: string;
     cookie?: boolean;
@@ -30,8 +35,6 @@ declare module PDK {
     logging?: boolean;
     session?: OauthSession;
   }
-
-  enum HttpMethod { 'get', 'put', 'post', 'delete' }
 
   /**
    * Get information on the currently authenticated user
@@ -61,7 +64,7 @@ declare module PDK {
    *
    * Need to call login to re-connect, unless session is saved on server.
    */
-  export function logout(callback: (session: OauthSession) => any): void;
+  export function logout(callback?: (session: OauthSession) => any): void;
 
   /**
    * Get the active session for the current user
@@ -118,9 +121,9 @@ declare module PDK {
   /**
    * Allow an unauthenticated user to pin using a popup
    *
-   * @param imageUrl URL for image being pinned
-   * @param note     description for pin
-   * @param url      url where pin is from
+   * @param imageUrl URL for image that you want to Pin.
+   * @param note     The Pin's description.
+   * @param url      The URL the Pin will link to when you click through.
    */
   export function pin(imageUrl: string, note: string, url: string, callback: Function): void;
 }
