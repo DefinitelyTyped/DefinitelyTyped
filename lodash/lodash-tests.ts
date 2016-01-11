@@ -5093,17 +5093,97 @@ result = <IStoogesAge[]>_.sortByAll(stoogesAges, function(stooge) { return Math.
 result = <IStoogesAge[]>_.sortByAll(stoogesAges, ['name', 'age']);
 result = <IStoogesAge[]>_.sortByAll(stoogesAges, 'name', function(stooge) { return Math.sin(stooge.age); });
 
-result = <IStoogesAge[]>_.sortByOrder(stoogesAges, [function(stooge) { return Math.sin(stooge.age); }, function(stooge) { return stooge.name.slice(1); }]);
-result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', 'age']);
-result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', function(stooge) { return Math.sin(stooge.age); }]);
-result = <IStoogesAge[]>_.sortByOrder(stoogesAges, [function(stooge) { return Math.sin(stooge.age); }, function(stooge) { return stooge.name.slice(1); }], ['asc', 'desc']);
-result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', 'age'], ['asc', 'desc']);
-result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', function(stooge) { return Math.sin(stooge.age); }], ['asc', 'desc']);
-result = <IStoogesAge[]>_.sortByOrder(stoogesAges, [function(stooge) { return Math.sin(stooge.age); }, function(stooge) { return stooge.name.slice(1); }], [true, false]);
-result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', 'age'], [true, false]);
-result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', function(stooge) { return Math.sin(stooge.age); }], [true, false]);
-
 result = <IFoodOrganic[]>_(foodsOrganic).sortByAll('organic', (food) => food.name, { organic: true }).value();
+
+// _.sortByOrder
+module TestSortByOrder {
+    type SampleObject = {a: number; b: string; c: boolean};
+
+    let array: SampleObject[];
+    let list: _.List<SampleObject>;
+    let numericDictionary: _.NumericDictionary<SampleObject>;
+    let dictionary: _.Dictionary<SampleObject>;
+    let orders: boolean|string|(boolean|string)[];
+
+    {
+        let iteratees: (value: string) => any|((value: string) => any)[];
+        let result: string[];
+
+        result = _.sortByOrder<string>('acbd', iteratees);
+        result = _.sortByOrder<string>('acbd', iteratees, orders);
+    }
+
+    {
+        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[];
+        let result: SampleObject[];
+
+        result = _.sortByOrder<{a: number}, SampleObject>(array, iteratees);
+        result = _.sortByOrder<{a: number}, SampleObject>(array, iteratees, orders);
+        result = _.sortByOrder<SampleObject>(array, iteratees);
+        result = _.sortByOrder<SampleObject>(array, iteratees, orders);
+
+        result = _.sortByOrder<{a: number}, SampleObject>(list, iteratees);
+        result = _.sortByOrder<{a: number}, SampleObject>(list, iteratees, orders);
+        result = _.sortByOrder<SampleObject>(list, iteratees);
+        result = _.sortByOrder<SampleObject>(list, iteratees, orders);
+
+        result = _.sortByOrder<{a: number}, SampleObject>(numericDictionary, iteratees);
+        result = _.sortByOrder<{a: number}, SampleObject>(numericDictionary, iteratees, orders);
+        result = _.sortByOrder<SampleObject>(numericDictionary, iteratees);
+        result = _.sortByOrder<SampleObject>(numericDictionary, iteratees, orders);
+
+        result = _.sortByOrder<{a: number}, SampleObject>(dictionary, iteratees);
+        result = _.sortByOrder<{a: number}, SampleObject>(dictionary, iteratees, orders);
+        result = _.sortByOrder<SampleObject>(dictionary, iteratees);
+        result = _.sortByOrder<SampleObject>(dictionary, iteratees, orders);
+    }
+
+    {
+        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[];
+        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
+
+        result = _(array).sortByOrder<{a: number}>(iteratees);
+        result = _(array).sortByOrder<{a: number}>(iteratees, orders);
+
+        result = _(list).sortByOrder<{a: number}, SampleObject>(iteratees);
+        result = _(list).sortByOrder<{a: number}, SampleObject>(iteratees, orders);
+        result = _(list).sortByOrder<SampleObject>(iteratees);
+        result = _(list).sortByOrder<SampleObject>(iteratees, orders);
+
+        result = _(numericDictionary).sortByOrder<{a: number}, SampleObject>(iteratees);
+        result = _(numericDictionary).sortByOrder<{a: number}, SampleObject>(iteratees, orders);
+        result = _(numericDictionary).sortByOrder<SampleObject>(iteratees);
+        result = _(numericDictionary).sortByOrder<SampleObject>(iteratees, orders);
+
+        result = _(dictionary).sortByOrder<{a: number}, SampleObject>(iteratees);
+        result = _(dictionary).sortByOrder<{a: number}, SampleObject>(iteratees, orders);
+        result = _(dictionary).sortByOrder<SampleObject>(iteratees);
+        result = _(dictionary).sortByOrder<SampleObject>(iteratees, orders);
+    }
+
+    {
+        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[];
+        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
+
+        result = _(array).chain().sortByOrder<{a: number}>(iteratees);
+        result = _(array).chain().sortByOrder<{a: number}>(iteratees, orders);
+
+        result = _(list).chain().sortByOrder<{a: number}, SampleObject>(iteratees);
+        result = _(list).chain().sortByOrder<{a: number}, SampleObject>(iteratees, orders);
+        result = _(list).chain().sortByOrder<SampleObject>(iteratees);
+        result = _(list).chain().sortByOrder<SampleObject>(iteratees, orders);
+
+        result = _(numericDictionary).chain().sortByOrder<{a: number}, SampleObject>(iteratees);
+        result = _(numericDictionary).chain().sortByOrder<{a: number}, SampleObject>(iteratees, orders);
+        result = _(numericDictionary).chain().sortByOrder<SampleObject>(iteratees);
+        result = _(numericDictionary).chain().sortByOrder<SampleObject>(iteratees, orders);
+
+        result = _(dictionary).chain().sortByOrder<{a: number}, SampleObject>(iteratees);
+        result = _(dictionary).chain().sortByOrder<{a: number}, SampleObject>(iteratees, orders);
+        result = _(dictionary).chain().sortByOrder<SampleObject>(iteratees);
+        result = _(dictionary).chain().sortByOrder<SampleObject>(iteratees, orders);
+    }
+}
 
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'age': 40 });
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'quotes': ['Poifect!'] });
