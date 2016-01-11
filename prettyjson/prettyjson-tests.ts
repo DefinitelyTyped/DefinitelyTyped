@@ -1,6 +1,6 @@
 /// <reference path="prettyjson.d.ts" />
 
-var options: prettyjson.IOptions,
+var options: prettyjson.RendererOptions,
 	input: string,
 	output: string,
 	version: string;
