@@ -1,6 +1,7 @@
 // Type definitions for KeyboardJS v2.2.0
 // Project: https://github.com/RobertWHurst/KeyboardJS
-// Definitions by: David Asmuth <https://github.com/piranha771>
+// Definitions by: Vincent Bortone <https://github.com/vbortone/>,
+//                 David Asmuth <https://github.com/piranha771>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // KeyboardJS is a library for use in the browser (node.js compatible). 
@@ -36,14 +37,14 @@ declare module keyboardjs {
     /**
      * Binds a keyCombo to specific callback functions.
      * @param keyCombo String of keys to be pressed to execute callbacks.
-     * @param pressed Callback that gets execute when the keyCombostate is 'pressed', can be null.
-     * @param released Callback that gets execute when the keyCombostate is 'released'
+     * @param pressed Callback that gets executed when the keyComboState is 'pressed', can be null.
+     * @param released Callback that gets executed when the keyComboState is 'released'
      */
     export function bind(keyCombo: string, pressed: Callback, released: Callback): void;
     /**
      * Binds a keyCombo to specific callback functions.
      * @param keyCombo String of keys to be pressed to execute callbacks.
-     * @param pressed Callback that gets executed when the keyCombostate is 'pressed'
+     * @param pressed Callback that gets executed when the keyComboState is 'pressed'
      */
     export function bind(keyCombo: string, pressed: Callback): void;
 
@@ -125,9 +126,9 @@ declare module keyboardjs {
     export function watch(): void;
 
     /**
-     * Detaches KeyboardJS from the window and documant/element
+     * Detaches KeyboardJS from the window and document/element
      */
-    export function stop();
+    export function stop(): void;
 }
 
 declare module 'keyboardjs' {
