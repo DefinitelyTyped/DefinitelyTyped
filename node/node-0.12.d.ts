@@ -256,7 +256,7 @@ declare module NodeJS {
                 visibility: string;
             };
         };
-        kill(pid: number, signal?: string): void;
+        kill(pid:number, signal?: string|number): void;
         pid: number;
         title: string;
         arch: string;
@@ -1654,8 +1654,8 @@ declare module "crypto" {
         setPrivateKey(public_key: string, encoding?: string): void;
     }
     export function getDiffieHellman(group_name: string): DiffieHellman;
-    export function pbkdf2(password: string, salt: string, iterations: number, keylen: number, callback: (err: Error, derivedKey: Buffer) => any): void;
-    export function pbkdf2(password: string, salt: string, iterations: number, keylen: number, digest: string, callback: (err: Error, derivedKey: Buffer) => any): void;
+    export function pbkdf2(password: string|Buffer, salt: string|Buffer, iterations: number, keylen: number, callback: (err: Error, derivedKey: Buffer) => any): void;
+    export function pbkdf2(password: string|Buffer, salt: string|Buffer, iterations: number, keylen: number, digest: string, callback: (err: Error, derivedKey: Buffer) => any): void;
     export function pbkdf2Sync(password: string, salt: string, iterations: number, keylen: number) : Buffer;
     export function pbkdf2Sync(password: string, salt: string, iterations: number, keylen: number, digest: string) : Buffer;
     export function randomBytes(size: number): Buffer;

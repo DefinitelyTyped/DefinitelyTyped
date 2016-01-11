@@ -174,6 +174,7 @@ declare module ionic {
             initialize(options: IonicModalOptions): void;
             show(): ng.IPromise<void>;
             hide(): ng.IPromise<void>;
+            remove(): ng.IPromise<void>;
             isShown(): boolean;
         }
 

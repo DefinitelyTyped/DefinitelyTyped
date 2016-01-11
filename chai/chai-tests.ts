@@ -1166,6 +1166,25 @@ function closeTo() {
     }, 'blah: expected -10 to be close to 20 +/- 29');
 }
 
+function approximately() {
+    expect(1.5).to.be.approximately(1.0, 0.5);
+    (1.5).should.be.approximately(1.0, 0.5);
+    expect(10).to.be.approximately(20, 20);
+    (10).should.be.approximately(20, 20);
+    expect(-10).to.be.approximately(20, 30);
+    (-10).should.be.approximately(20, 30);
+
+    err(() => {
+        expect(2).to.be.approximately(1.0, 0.5, 'blah');
+        (2).should.be.approximately(1.0, 0.5, 'blah');
+    }, 'blah: expected 2 to be close to 1 +/- 0.5');
+
+    err(() => {
+        expect(-10).to.be.approximately(20, 29, 'blah');
+        (-10).should.be.approximately(20, 29, 'blah');
+    }, 'blah: expected -10 to be close to 20 +/- 29');
+}
+
 function includeMembers() {
     expect([1, 2, 3]).to.include.members([]);
     [1, 2, 3].should.include.members([]);
@@ -1253,6 +1272,20 @@ function increaseDecreaseChange() {
     inc.should.not.decrease(obj, "val");
     dec.should.not.increase(obj, "val");
     same.should.not.change(obj, "val");
+}
+
+function oneOf() {
+    var obj = { z: 3 };
+
+    expect(5).to.be.oneOf([1, 5, 4]);
+    expect('z').to.be.oneOf(['x', 'y', 'z']);
+    expect(obj).to.be.oneOf([obj]);
+
+    expect(5).to.not.be.oneOf([1, -12, 4]);
+    expect(5).to.not.be.oneOf([1, [5], 4]);
+    expect('z').to.not.be.oneOf(['w', 'x', 'y']);
+    expect('z').to.not.be.oneOf(['x', 'y', ['z']]);
+    expect(obj).to.not.be.oneOf([{ z: 3 }]);
 }
 
 //tdd
@@ -1879,6 +1912,20 @@ suite('assert', () => {
         }, 'expected -10 to be close to 20 +/- 29');
     });
 
+    test('approximately', () => {
+        assert.approximately(1.5, 1.0, 0.5);
+        assert.approximately(10, 20, 20);
+        assert.approximately(-10, 20, 30);
+
+        err(() => {
+            assert.approximately(2, 1.0, 0.5);
+        }, 'expected 2 to be close to 1 +/- 0.5');
+
+        err(() => {
+            assert.approximately(-10, 20, 29);
+        }, 'expected -10 to be close to 20 +/- 29');
+    });
+
     test('members', () => {
         assert.includeMembers([1, 2, 3], [2, 3]);
         assert.includeMembers([1, 2, 3], []);
@@ -1945,4 +1992,55 @@ suite('assert', () => {
     test('notFrozen', () => { assert.notFrozen({}); });
     test('isNotFrozen', () => { assert.isNotFrozen({}); });
 
+    test('isNotTrue', () => {
+        assert.isNotTrue(false);
+
+        err(() => {
+            assert.isNotTrue(true);
+        }, 'expected true to not be true');
+    });
+
+    test('isNotFalse', () => {
+        assert.isNotFalse(true);
+
+        err(() => {
+            assert.isNotFalse(false);
+        }, 'expected false to not be false');
+    });
+
+    test('isAtLeast', () => {
+        assert.isAtLeast(5, 3);
+        assert.isAtLeast(5, 5);
+
+        err(() => {
+            assert.isAtLeast(3, 5);
+        }, 'expected 3 to be greater than or equal to 5');
+    });
+
+    test('isAtMost', () => {
+        assert.isAtMost(3, 5);
+        assert.isAtMost(5, 5);
+
+        err(() => {
+            assert.isAtMost(5, 3);
+        }, 'expected 5 to be less than or equal to 3');
+    });
+
+    test('oneOf', () => {
+        var obj = { z: 3 };
+
+        assert.oneOf(5, [1, 5, 4]);
+        assert.oneOf('z', ['x', 'y', 'z']);
+        assert.oneOf(obj, [obj]);
+
+        err(() => {
+            assert.oneOf(5, [1, [5], 4]);
+        }, 'expected 5 to be one of [1, [5], 4]');
+        err(() => {
+            assert.oneOf('z', ['w', 'x', 'y']);
+        }, 'expected "z" to be one of [w, x, y]');
+        err(() => {
+            assert.oneOf(obj, [{ z: 3 }]);
+        }, 'expected { z: 3 } to be one of [{ z: 3 }]');
+    });
 });

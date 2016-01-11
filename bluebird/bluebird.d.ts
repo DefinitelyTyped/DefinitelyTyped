@@ -316,6 +316,12 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
 	/**
+	 * Same as `Promise.mapSeries(thisPromise, mapper)`.
+	 */
+	// TODO type inference from array-resolving promise?
+	mapSeries<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => U|Promise.Thenable<U>): Promise<U[]>;
+
+	/**
 	 * Same as calling `Promise.reduce(thisPromise, Function reducer, initialValue)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
 	 */
 	// TODO type inference from array-resolving promise?
@@ -573,6 +579,25 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	static map<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
 	static map<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
+	/**
+	 * Similar to `map` with concurrency set to 1 but guaranteed to execute in sequential order
+	 *
+	 * If the `mapper` function returns promises or thenables, the returned promise will wait for all the mapped results to be resolved as well.
+	 *
+	 * *The original array is not modified.*
+	 */
+	// promise of array with promises of value
+	static mapSeries<R, U>(values: Promise.Thenable<Promise.Thenable<R>[]>, mapper: (item: R, index: number, arrayLength: number) => U|Promise.Thenable<U>): Promise<U[]>;
+
+	// promise of array with values
+	static mapSeries<R, U>(values: Promise.Thenable<R[]>, mapper: (item: R, index: number, arrayLength: number) => U|Promise.Thenable<U>): Promise<U[]>;
+
+	// array with promises of value
+	static mapSeries<R, U>(values: Promise.Thenable<R>[], mapper: (item: R, index: number, arrayLength: number) => U|Promise.Thenable<U>): Promise<U[]>;
+
+	// array with values
+	static mapSeries<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => U|Promise.Thenable<U>): Promise<U[]>;
+	
 	/**
 	 * Reduce an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `reducer` function with the signature `(total, current, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
 	 *
