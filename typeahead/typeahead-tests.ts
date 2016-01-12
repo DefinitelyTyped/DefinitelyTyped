@@ -300,3 +300,31 @@ function test_value() {
     var value: string = $('foo').typeahead('val');
     $('foo').typeahead('val', value);
 }
+
+var apps = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+        url: '/foo/search',
+        wildcard: '%QUERY'
+    }
+});
+
+$('#remote .typeahead').typeahead({
+    hint: true,
+    highlight: true,
+    minLength: 3,
+}, {
+        name: 'apps-reports',
+        display: 'label',
+        source: apps,
+        limit: 5,
+        templates: {
+            empty: '<div><strong>Results not found!</strong></div>',
+            suggestion: () => {
+                return 'foo';
+            }
+        }
+    }).on('typeahead:select', (ev, suggestion) => {
+        window.location.href = suggestion;
+    });

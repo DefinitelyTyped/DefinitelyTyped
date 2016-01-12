@@ -1,6 +1,6 @@
-// Type definitions for typeahead.js 0.10.4
+// Type definitions for typeahead.js 0.11.1
 // Project: http://twitter.github.io/typeahead.js/
-// Definitions by: Ivaylo Gochkov <https://github.com/igochkov/>, Gidon Junge <https://github.com/gjunge/>
+// Definitions by: Ivaylo Gochkov <https://github.com/igochkov/>, Gidon Junge <https://github.com/gjunge/>, Forrest Peterson <https://github.com/4est/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
@@ -165,7 +165,7 @@ declare module Twitter.Typeahead {
          * cb can be invoked synchronously or asynchronously.
          *
           */
-        source: ((query: string, syncResults: (result: Array<any>) => void, asyncResults?: (result: Array<any>) => void) => void);
+        source: Bloodhound<{}> | ((query: string, syncResults: (result: Array<any>) => void, asyncResults?: (result: Array<any>) => void) => void);
 
         /**
           * The name of the dataset.
@@ -194,6 +194,11 @@ declare module Twitter.Typeahead {
           */
         templates?: Templates;
         async?: boolean;
+
+        /**
+        *  The max number of suggestions to be displayed. Defaults to 5.
+        */
+        limit?: number;
     }
 
 
