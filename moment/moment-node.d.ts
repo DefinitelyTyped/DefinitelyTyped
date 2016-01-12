@@ -1,6 +1,6 @@
-// Type definitions for Moment.js 2.10.5
+// Type definitions for Moment.js 2.11.1
 // Project: https://github.com/timrwood/moment
-// Definitions by: Michael Lakerveld <https://github.com/Lakerfield>, Aaron King <https://github.com/kingdango>, Hiroki Horiuchi <https://github.com/horiuchi>, Dick van den Brink <https://github.com/DickvdBrink>, Adi Dahiya <https://github.com/adidahiya>, Matt Brooks <https://github.com/EnableSoftware>
+// Definitions by: Michael Lakerveld <https://github.com/Lakerfield>, Aaron King <https://github.com/kingdango>, Hiroki Horiuchi <https://github.com/horiuchi>, Dick van den Brink <https://github.com/DickvdBrink>, Adi Dahiya <https://github.com/adidahiya>, Matt Brooks <https://github.com/EnableSoftware>, Gal Talmor <https://github.com/galtalmor>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module moment {
@@ -113,6 +113,18 @@ declare module moment {
 
         toISOString(): string;
         toJSON(): string;
+    }
+
+    interface MomentLocale {
+        ordinal(n: number): string;
+    }
+
+    interface MomentCreationData {
+        input?: string,
+        format?: string,
+        locale: MomentLocale,
+        isUTC: boolean,
+        strict?: boolean
     }
 
     interface Moment {
@@ -292,6 +304,9 @@ declare module moment {
         isSame(b: Moment | string | number | Date | number[], granularity?: string): boolean;
         isBetween(a: Moment | string | number | Date | number[], b: Moment | string | number | Date | number[], granularity?: string): boolean;
 
+        // Since version 2.10.7+
+        isSameOrBefore(b: Moment | string | number | Date | number[], granularity?: string);
+
         // Deprecated as of 2.8.0.
         lang(language: string): Moment;
         lang(reset: boolean): Moment;
@@ -317,9 +332,12 @@ declare module moment {
         set(unit: string, value: number): Moment;
         set(objectLiteral: MomentInput): Moment;
         
-        /*This returns an object containing year, month, day-of-month, hour, minute, seconds, milliseconds.*/
-        //Works with version 2.10.5+
+        /* This returns an object containing year, month, day-of-month, hour, minute, seconds, milliseconds. */
+        // Works with version 2.10.5+
         toObject(): MomentDateObject;
+
+        // Since version 2.10.7+
+        creationData(): MomentCreationData;
     }
 
     type formatFunction = () => string;
@@ -478,6 +496,9 @@ declare module moment {
         normalizeUnits(unit: string): string;
         relativeTimeThreshold(threshold: string): number | boolean;
         relativeTimeThreshold(threshold: string, limit: number): boolean;
+
+        // Since version 2.10.7+
+        now(): number;
 
         /**
          * Constant used to enable explicit ISO_8601 format parsing.
