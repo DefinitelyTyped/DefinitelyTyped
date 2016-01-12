@@ -5,6 +5,8 @@
 
 declare module moment {
 
+    type MomentComparable = Moment | string | number | Date | number[];
+
     interface MomentDateObject {
         years?: number;
         /* One digit */
@@ -271,8 +273,8 @@ declare module moment {
         dayOfYear(): number;
         dayOfYear(d: number): Moment;
 
-        from(f: Moment | string | number | Date | number[], suffix?: boolean): string;
-        to(f: Moment | string | number | Date | number[], suffix?: boolean): string;
+        from(f: MomentComparable, suffix?: boolean): string;
+        to(f: MomentComparable, suffix?: boolean): string;
         toNow(withoutPrefix?: boolean): string;
 
         diff(b: Moment): number;
@@ -296,18 +298,22 @@ declare module moment {
         isDST(): boolean;
 
         isBefore(): boolean;
-        isBefore(b: Moment | string | number | Date | number[], granularity?: string): boolean;
+        isBefore(b: MomentComparable, granularity?: string): boolean;
 
         isAfter(): boolean;
-        isAfter(b: Moment | string | number | Date | number[], granularity?: string): boolean;
+        isAfter(b: MomentComparable, granularity?: string): boolean;
 
-        isSame(b: Moment | string | number | Date | number[], granularity?: string): boolean;
-        isBetween(a: Moment | string | number | Date | number[], b: Moment | string | number | Date | number[], granularity?: string): boolean;
+        isSame(b: MomentComparable, granularity?: string): boolean;
+        isBetween(a: MomentComparable, b: MomentComparable, granularity?: string): boolean;
 
-        // Since version 2.10.7+
-        isSameOrBefore(b: Moment | string | number | Date | number[], granularity?: string): boolean;
+        /**
+         * @since 2.10.7+
+         */
+        isSameOrBefore(b: MomentComparable, granularity?: string): boolean;
 
-        // Deprecated as of 2.8.0.
+        /**
+         * @deprecated since version 2.8.0
+         */
         lang(language: string): Moment;
         lang(reset: boolean): Moment;
         lang(): MomentLanguage;
@@ -320,11 +326,15 @@ declare module moment {
         localeData(reset: boolean): Moment;
         localeData(): MomentLanguage;
 
-        // Deprecated as of 2.7.0.
+        /**
+         * @deprecated since version 2.7.0
+         */
         max(date: Moment | string | number | Date | any[]): Moment;
         max(date: string, format: string): Moment;
 
-        // Deprecated as of 2.7.0.
+        /**
+         * @deprecated since version 2.7.0
+         */
         min(date: Moment | string | number | Date | any[]): Moment;
         min(date: string, format: string): Moment;
 
@@ -332,11 +342,16 @@ declare module moment {
         set(unit: string, value: number): Moment;
         set(objectLiteral: MomentInput): Moment;
         
-        /* This returns an object containing year, month, day-of-month, hour, minute, seconds, milliseconds. */
-        // Works with version 2.10.5+
+        /**
+         * This returns an object containing year, month, day-of-month, hour, minute, seconds, milliseconds.
+         * @since 2.10.5+
+         */
         toObject(): MomentDateObject;
 
-        // Since version 2.10.7+
+        /**
+         * @since 2.10.7+
+         */
+
         creationData(): MomentCreationData;
     }
 
@@ -444,7 +459,9 @@ declare module moment {
         isDuration(): boolean;
         isDuration(d: any): boolean;
 
-        // Deprecated in 2.8.0.
+        /**
+         * @deprecated since version 2.8.0
+         */
         lang(language?: string): string;
         lang(language?: string, definition?: MomentLanguage): string;
 
@@ -497,7 +514,9 @@ declare module moment {
         relativeTimeThreshold(threshold: string): number | boolean;
         relativeTimeThreshold(threshold: string, limit: number): boolean;
 
-        // Since version 2.10.7+
+        /**
+         * @since 2.10.7+
+         */
         now(): number;
 
         /**
