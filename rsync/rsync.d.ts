@@ -30,7 +30,7 @@ declare module 'rsync' {
         flags(flags: string, set?: boolean): Rsync;
         flags(flags: Flag): Rsync;
         flags(flags: string[], set?: boolean): Rsync;
-        flags(...flags: any[]): Rsync
+        flags(...flags: any[]): Rsync;
 
         isSet(option: string): boolean;
 
@@ -40,7 +40,7 @@ declare module 'rsync' {
 
         command(): string;
 
-        output(stdout: StreamDataHandler, stderr: StreamDataHandler):Rsync;
+        output(stdout: StreamDataHandler, stderr: StreamDataHandler): Rsync;
 
         execute(callback: (err: Error, code: number, cmd: string) => void): child_process.ChildProcess;
         execute(
