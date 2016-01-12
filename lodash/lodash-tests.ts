@@ -6837,10 +6837,24 @@ module TestIsObject {
 }
 
 // _.isPlainObject
-result = <boolean>_.isPlainObject(any);
-result = <boolean>_(1).isPlainObject();
-result = <boolean>_<any>([]).isPlainObject();
-result = <boolean>_({}).isPlainObject();
+module TestIsPlainObject {
+    {
+        let result: boolean;
+
+        result = _.isPlainObject(any);
+        result = _(1).isPlainObject();
+        result = _<any>([]).isPlainObject();
+        result = _({}).isPlainObject();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isPlainObject();
+        result = _<any>([]).chain().isPlainObject();
+        result = _({}).chain().isPlainObject();
+    }
+}
 
 // _.isRegExp
 module TestIsRegExp {
@@ -6986,15 +7000,13 @@ module TestToArray {
     let array: TResult[];
     let list: _.List<TResult>;
     let dictionary: _.Dictionary<TResult>;
+    let numericDictionary: _.NumericDictionary<TResult>;
 
     {
         let result: string[];
 
+        result = _.toArray<string>('');
         result = _.toArray('');
-
-        result = (function (a: string) {return _.toArray<IArguments, string>(arguments);})('');
-
-        result = _((function (a: string) {return arguments;})('')).toArray<string>().value();
     }
 
     {
@@ -7003,22 +7015,38 @@ module TestToArray {
         result = _.toArray<TResult>(array);
         result = _.toArray<TResult>(list);
         result = _.toArray<TResult>(dictionary);
+        result = _.toArray<TResult>(numericDictionary);
 
-        result = _(array).toArray().value();
-        result = _(list).toArray<TResult>().value();
-        result = _(dictionary).toArray<TResult>().value();
+        result = _.toArray(array);
+        result = _.toArray(list);
+        result = _.toArray(dictionary);
+        result = _.toArray(numericDictionary);
     }
 
     {
         let result: any[];
 
         result = _.toArray();
-        result = _.toArray<number>(42);
-        result = _.toArray<boolean>(true);
+        result = _.toArray(42);
+        result = _.toArray(true);
+    }
 
-        result = _('').toArray<string>().value();
-        result = _(42).toArray<any>().value();
-        result = _(true).toArray<any>().value();
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).toArray();
+        result = _(list).toArray<TResult>();
+        result = _(dictionary).toArray<TResult>();
+        result = _(numericDictionary).toArray<TResult>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().toArray();
+        result = _(list).chain().toArray<TResult>();
+        result = _(dictionary).chain().toArray<TResult>();
+        result = _(numericDictionary).chain().toArray<TResult>();
     }
 }
 
