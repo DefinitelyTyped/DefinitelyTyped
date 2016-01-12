@@ -168,3 +168,22 @@ new Chartist.Bar('.ct-chart', {
     seriesBarDistance: 15
   }]
 ]);
+
+new Chartist.Pie('.ct-chart', {
+    series: [{
+        value: 20,
+        name: 'Series 1',
+        className: 'my-custom-class-one',
+        meta: 'Meta One'
+    }, {
+            value: 10,
+            name: 'Series 2',
+            className: 'my-custom-class-two',
+            meta: 'Meta Two'
+        }, {
+            value: 70,
+            name: 'Series 3',
+            className: 'my-custom-class-three',
+            meta: 'Meta Three'
+        }]
+});

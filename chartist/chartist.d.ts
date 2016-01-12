@@ -18,9 +18,25 @@ declare module Chartist {
     1: T;
   }
 
+  // data formats are not well documented on all the ways they can be passed to the constructors
+  // this definition gives some intellisense, but does not protect the user from misuse
+  // TODO: come in and tidy this up and make it fit better
+  interface IChartistData {
+      labels?: Array<string | number>;
+      series: Array<number> | Array<IChartistSeriesData> | Array<Array<number>>;
+  }
+
+  interface IChartistSeriesData {
+      name: string;
+      value?: number;
+      data?: Array<number>;
+      className?: string;
+      meta?: string; // I assume this could probably be a number as well?
+  }
+
   interface IChartistBase<T extends IChartOptions> {
     container: any;
-    data: Object;
+    data: IChartistData;
     defaultOptions: T;
     options: T;
     responsiveOptions: Array<IResponsiveOptionTuple<T>>;
@@ -55,15 +71,15 @@ declare module Chartist {
   }
 
   interface IChartistPieChart extends IChartistBase<IPieChartOptions> {
-    new (target: any, data: Object, options?: IPieChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<IPieChartOptions>>): IChartistPieChart;
+    new (target: any, data: IChartistData, options?: IPieChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<IPieChartOptions>>): IChartistPieChart;
   }
 
   interface IChartistLineChart extends IChartistBase<ILineChartOptions> {
-    new (target: any, data: Object, options?: ILineChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<ILineChartOptions>>): IChartistLineChart;
+    new (target: any, data: IChartistData, options?: ILineChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<ILineChartOptions>>): IChartistLineChart;
   }
 
   interface IChartistBarChart extends IChartistBase<IBarChartOptions> {
-    new (target: any, data: Object, options?: IBarChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<IBarChartOptions>>): IChartistBarChart;
+    new (target: any, data: IChartistData, options?: IBarChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<IBarChartOptions>>): IChartistBarChart;
   }
 
   interface IChartOptions {
@@ -163,6 +179,7 @@ declare module Chartist {
     height?: number | string;
     high?: number;
     low?: number;
+    ticks?: Array<string | number>;
     onlyInteger?: boolean;
     chartPadding?: IChartPadding;
     seriesBarDistance?: number;
@@ -217,6 +234,7 @@ declare module Chartist {
     lineSmooth?: boolean;
     low?: number;
     high?: number;
+    ticks?: Array<string | number>;
     chartPadding?: IChartPadding;
     fullWidth?: boolean;
     reverseData?: boolean;
