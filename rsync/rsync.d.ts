@@ -62,7 +62,6 @@ declare module 'rsync' {
         dirs(): Rsync;
         links(): Rsync;
         dry(): Rsync;
-        // source(): Rsync;
 
         // accessor methods
         executable(): string;
