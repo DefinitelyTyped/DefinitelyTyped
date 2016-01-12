@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 2.2
+// Type definitions for Jasmine 2.4.1
 // Project: http://jasmine.github.io/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -296,8 +296,7 @@ declare module jasmine {
         toBeGreaterThan(expected: number, expectationFailOutput?: any): boolean;
         toBeCloseTo(expected: number, precision: any, expectationFailOutput?: any): boolean;
         toThrow(expected?: any): boolean;
-        toThrowError(message?: string | RegExp): boolean;
-        toThrowError(expected?: Error, message?: string | RegExp): boolean;
+        toThrowError(): boolean;
         not: Matchers;
 
         Any: Any;
