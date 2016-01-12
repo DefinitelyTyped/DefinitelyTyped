@@ -846,6 +846,23 @@ declare module Marionette {
          * on initialize.
          */
         sort?: boolean;
+
+        /**
+         * This option is useful when you have performance issues when you
+         * resort your CollectionView. Without this option, your CollectionView
+         * will be completely re-rendered, which can be costly if you have a
+         * large number of elements or if your ChildViews are complex. If this
+         * option is activated, when you sort your Collection, there will be no
+         * re-rendering, only the DOM nodes will be reordered. This can be a
+         * problem if your ChildViews use their collection's index in their
+         * rendering. In this case, you cannot use this option as you need to
+         * re-render each ChildView.
+         *
+         * If you combine this option with a filter that changes the views that
+         * are to be displayed, reorderOnSort will be bypassed to render new
+         * children and remove those that are rejected by the filter.
+         */
+        reorderOnSort?: boolean;
     }
 
     /**
@@ -935,6 +952,7 @@ declare module Marionette {
          */
         addChild(item: any, ChildView: TView, index: Number): void;
 
+        /** Render the child view */
         renderChildView(view: TView, index: Number): void;
 
         /**
@@ -949,7 +967,7 @@ declare module Marionette {
          * Remove the child view and destroy it. This function also updates the indices of
          * later views in the collection in order to keep the children in sync with the collection.
          */
-        removeChildView(view: TView): void;
+        removeChildView(view: TView): TView;
 
         /**
          * Determines if the view is empty. If you want to control when the empty 
@@ -962,7 +980,11 @@ declare module Marionette {
          */
         checkEmpty(): void;
 
-        destroyChildren(): void;
+        /**
+         * Destroy the child views that this collection view
+         * is holding on to, if any. This returns destroyed children.
+         */
+        destroyChildren(): Backbone.ChildViewContainer<TView>;
 
         /**
          * By default the CollectionView will maintain the order of its collection 
@@ -1002,6 +1024,51 @@ declare module Marionette {
          * getEmptyView.
          */
         getEmptyView(): any;
+
+        /** Serialize a collection by serializing each of its models. */
+        serializeCollection(): any;
+
+        /**
+         * Attaches the content of a given view.
+        * This method can be overridden to optimize rendering,
+        * or to render in a non standard way.
+        *
+        * For example, using `innerHTML` instead of `$el.html`
+        *
+        * @example
+        * attachElContent: function(html) {
+        *   this.el.innerHTML = html;
+        *   return this;
+        * }
+        */
+        attachElContent(html: string): ItemView<TModel>;
+
+        /**
+         * Reorder DOM after sorting. When your element's rendering
+         * do not use their index, you can pass reorderOnSort: true
+         * to only reorder the DOM after a sort instead of rendering
+         * all the collectionView
+         */
+        reorder(): void;
+
+        /**
+         * Render and show the emptyView. Similar to addChild method
+         * but "add:child" events are not fired, and the event from
+         * emptyView are not forwarded
+         */
+        addEmptyView(child: TModel, EmptyView: new (...args: any[]) => any): void;
+
+        /**
+         * Handle cleanup and other destroying needs for the collection of views
+         */
+        destroy(): CollectionView<TModel, TView>;
+
+        /**
+         * Set up the child view event forwarding. Uses a "childview:"
+         * prefix in front of all forwarded events.
+         * @param view it might be ChildView or EmptyView.
+         */
+        proxyChildEvents(view: any): void;
 
         /**
          * Called just prior to rendering the collection view.
@@ -1102,6 +1169,14 @@ declare module Marionette {
          * The LayoutView takes an additional parameter where you can pass the regions as option on creation.
          */
         regions?:any;
+
+        /**
+         * This option removes the layoutView from the DOM before destroying the
+         * children preventing repaints as each option is removed. However, it
+         * makes it difficult to do close animations for a child view (false by
+         * default)
+         */
+        destroyImmediate: boolean;
     }
 
     /**
