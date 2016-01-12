@@ -305,7 +305,7 @@ declare module moment {
         isBetween(a: Moment | string | number | Date | number[], b: Moment | string | number | Date | number[], granularity?: string): boolean;
 
         // Since version 2.10.7+
-        isSameOrBefore(b: Moment | string | number | Date | number[], granularity?: string);
+        isSameOrBefore(b: Moment | string | number | Date | number[], granularity?: string): boolean;
 
         // Deprecated as of 2.8.0.
         lang(language: string): Moment;
