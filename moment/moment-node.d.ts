@@ -351,7 +351,6 @@ declare module moment {
         /**
          * @since 2.10.7+
          */
-
         creationData(): MomentCreationData;
     }
 
