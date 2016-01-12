@@ -5230,11 +5230,71 @@ module TestSortBy {
     }
 }
 
-result = <IStoogesAge[]>_.sortByAll(stoogesAges, function(stooge) { return Math.sin(stooge.age); }, function(stooge) { return stooge.name.slice(1); });
-result = <IStoogesAge[]>_.sortByAll(stoogesAges, ['name', 'age']);
-result = <IStoogesAge[]>_.sortByAll(stoogesAges, 'name', function(stooge) { return Math.sin(stooge.age); });
+// _.sortByAll
+module TestSortByAll {
+    type SampleObject = {a: number; b: string; c: boolean};
 
-result = <IFoodOrganic[]>_(foodsOrganic).sortByAll('organic', (food) => food.name, { organic: true }).value();
+    let array: SampleObject[];
+    let list: _.List<SampleObject>;
+    let numericDictionary: _.NumericDictionary<SampleObject>;
+    let dictionary: _.Dictionary<SampleObject>;;
+
+    {
+        let iteratees: (value: string) => any|((value: string) => any)[];
+        let result: string[];
+
+        result = _.sortByAll<string>('acbd', iteratees);
+    }
+
+    {
+        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[];
+        let result: SampleObject[];
+
+        result = _.sortByAll<{a: number}, SampleObject>(array, iteratees);
+        result = _.sortByAll<SampleObject>(array, iteratees);
+
+        result = _.sortByAll<{a: number}, SampleObject>(list, iteratees);
+        result = _.sortByAll<SampleObject>(list, iteratees);
+
+        result = _.sortByAll<{a: number}, SampleObject>(numericDictionary, iteratees);
+        result = _.sortByAll<SampleObject>(numericDictionary, iteratees);
+
+        result = _.sortByAll<{a: number}, SampleObject>(dictionary, iteratees);
+        result = _.sortByAll<SampleObject>(dictionary, iteratees);
+    }
+
+    {
+        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[];
+        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
+
+        result = _(array).sortByAll<{a: number}>(iteratees);
+
+        result = _(list).sortByAll<{a: number}, SampleObject>(iteratees);
+        result = _(list).sortByAll<SampleObject>(iteratees);
+
+        result = _(numericDictionary).sortByAll<{a: number}, SampleObject>(iteratees);
+        result = _(numericDictionary).sortByAll<SampleObject>(iteratees);
+
+        result = _(dictionary).sortByAll<{a: number}, SampleObject>(iteratees);
+        result = _(dictionary).sortByAll<SampleObject>(iteratees);
+    }
+
+    {
+        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[];
+        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
+
+        result = _(array).chain().sortByAll<{a: number}>(iteratees);
+
+        result = _(list).chain().sortByAll<{a: number}, SampleObject>(iteratees);
+        result = _(list).chain().sortByAll<SampleObject>(iteratees);
+
+        result = _(numericDictionary).chain().sortByAll<{a: number}, SampleObject>(iteratees);
+        result = _(numericDictionary).chain().sortByAll<SampleObject>(iteratees);
+
+        result = _(dictionary).chain().sortByAll<{a: number}, SampleObject>(iteratees);
+        result = _(dictionary).chain().sortByAll<SampleObject>(iteratees);
+    }
+}
 
 // _.sortByOrder
 module TestSortByOrder {
