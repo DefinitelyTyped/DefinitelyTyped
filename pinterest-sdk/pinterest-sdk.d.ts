@@ -38,11 +38,24 @@ declare module PDK {
 
   /**
    * Get information on the currently authenticated user
+   * @param cb     the callback export function to handle the response
+   */
+  export function me(callback: Function): void;
+
+  /**
+   * Get information on the currently authenticated user
+   * @param path   the url path
+   * @param cb     the callback export function to handle the response
+   */
+  export function me(path: string, callback: Function): void;
+
+  /**
+   * Get information on the currently authenticated user
    * @param path   the url path
    * @param params the parameters for the request
    * @param cb     the callback export function to handle the response
    */
-  export function me(path?: string, params?: Object, callback?: Function): void;
+  export function me(path: string, params: Object, callback: Function): void;
 
   /**
    * Make an API call to the server
