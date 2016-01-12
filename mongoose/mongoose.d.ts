@@ -423,7 +423,7 @@ declare module "mongoose" {
 
   export interface Document {
     id?: string;
-    _id: Types.ObjectId;
+    _id: any;
 
     equals(doc: Document): boolean;
     get(path: string, type?: new(...args: any[]) => any): any;
