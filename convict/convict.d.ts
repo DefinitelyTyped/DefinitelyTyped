@@ -24,6 +24,8 @@ declare module "convict" {
                  *   - an array of enumerated values, e.g. ["production", "development", "testing"]
                  *   - built-in JavaScript type, i.e. Object, Array, String, Number, Boolean
                  *   - or if omitted, the Object.prototype.toString.call of the default value
+                 * 
+                 * The docs also state that any function that validates is ok too
                  */
                 format?: string | Array<any> | Function;
                 env?: string;
