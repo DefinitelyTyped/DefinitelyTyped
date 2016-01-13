@@ -1057,65 +1057,88 @@ declare module Bloodhound {
     }
 }
 
+/**
+ * Bloodhound is the typeahead.js suggestion engine. Bloodhound is robust, 
+ * flexible, and offers advanced functionalities such as prefetching, 
+ * intelligent caching, fast lookups, and backfilling with remote data.
+ */
 declare class Bloodhound<T> {
+    /**
+     * The constructor function.
+     * 
+     * @constructor
+     * @param options Options hash
+     */
     constructor(options: Bloodhound.BloodhoundOptions<T>);
-    /**
-    * wraps the suggestion engine in an adapter that is compatible with the typeahead jQuery plugin
-    */
-    public ttAdapter(): any;
-    /**
-    * Kicks off the initialization of the suggestion engine. This includes processing the data provided through local and fetching/processing the data provided through prefetch.
-    * Until initialized, all other methods will behave as no-ops.
-    * Returns a jQuery promise which is resolved when engine has been initialized.
-    *
-    * After the initial call of initialize, how subsequent invocations of the method behave depends on the reinitialize argument.
-    * If reinitialize is falsy, the method will not execute the initialization logic and will just return the same jQuery promise returned by the initial invocation.
-    * If reinitialize is truthy, the method will behave as if it were being called for the first time.
-    *
-    * var promise1 = engine.initialize();
-    * var promise2 = engine.initialize();
-    * var promise3 = engine.initialize(true);
-    *
-    * promise1 === promise2;
-    * promise3 !== promise1 && promise3 !== promise2;
-    */
-    public initialize(reinitialize?: boolean): JQueryPromise<any>;
-    /**
-    * Takes one argument, datums, which is expected to be an array of datums.
-    * The passed in datums will get added to the search index that powers the suggestion engine.
-    */
-    public add(datums: T[]): void;
-    /**
-    * Removes all suggestions from the search index.
-    */
-    public clear(): void;
-    /**
-    * If you're using prefetch, data gets cached in local storage in an effort to cut down on unnecessary network requests.
-    * clearPrefetchCache offers a way to programmatically clear said cache.
-    */
-    public clearPrefetchCache(): void;
-    /**
-    * If you're using remote, Bloodhound will cache the 10 most recent responses in an effort to provide a better user experience.
-    * clearRemoteCache offers a way to programmatically clear said cache.
-    */
-    public clearRemoteCache(): void;
-    /**
-    * Returns a reference to the Bloodhound constructor and reverts window.Bloodhound to its previous value. Can be used to avoid naming collisions.
-    */
-    public noConflict(): any;
 
     /**
-    * Computes a set of suggestions for query. cb will be invoked with an array of datums that represent said set.
-    * cb will always be invoked once synchronously with suggestions that were available on the client.
-    * If those suggestions are insufficient (# of suggestions is less than limit) and remote was configured, cb may also be invoked asynchronously with the suggestions available on the client mixed with suggestions from the remote source.
-    */
-    public get(query: string, cb: (datums: T[]) => void): void;
+     * Returns a reference to Bloodhound and reverts window.Bloodhound to its 
+     * previous value. Can be used to avoid naming collisions.
+     */
+    public static noConflict(): any;
 
     /**
-    * The Bloodhound suggestion engine is token-based, so how datums and queries are tokenized plays a vital role in the quality of search results.
-    * Specify how you want datums and queries tokenized.
-    */
+     * The Bloodhound suggestion engine is token-based, so how datums and queries are tokenized plays a vital role in the quality of search results.
+     * Specify how you want datums and queries tokenized.
+     */
     public static tokenizers: Bloodhound.Tokenizers;
+
+    /**
+     * Kicks off the initialization of the suggestion engine. Initialization 
+     * entails adding the data provided by local and prefetch to the internal 
+     * search index as well as setting up transport mechanism used by remote. 
+     * Before #initialize is called, the #get and #search methods will effectively be no-ops.
+     *
+     * Note, unless the initialize option is false, this method is implicitly called by the constructor.
+     * 
+     * After initialization, how subsequent invocations of #initialize behave depends on 
+     * the reinitialize argument. If reinitialize is falsy, the method will not execute the 
+     * initialization logic and will just return the same jQuery promise returned 
+     * by the initial invocation. If reinitialize is truthy, the method will behave 
+     * as if it were being called for the first time.
+     */
+    public initialize(reinitialize?: boolean): JQueryPromise<any>;
+
+    /**
+     * Takes one argument, data, which is expected to be an array. 
+     * The data passed in will get added to the internal search index.
+     */
+    public add(data: T[]): void;
+
+    /**
+     * Returns the data in the local search index corresponding to ids
+     */
+    public get(ids: number[]): T[];
+
+    /**
+     * Returns the data that matches query. Matches found in the local search 
+     * index will be passed to the sync callback. If the data passed to sync 
+     * doesn't contain at least sufficient number of datums, remote data will 
+     * be requested and then passed to the async callback.
+     */
+    public search(query: string, sync: (datums: T[]) => void, async: (datums: T[]) => void): T[];
+
+    /**
+     * Returns all items from the internal search index.
+     */
+    public all(): T[];
+
+    /**
+     * Clears the internal search index that's powered by local, prefetch, and #add.
+     */
+    public clear(): Bloodhound<T>;
+
+    /**
+     * If you're using prefetch, data gets cached in local storage in an effort to cut down on unnecessary network requests.
+     * clearPrefetchCache offers a way to programmatically clear said cache.
+     */
+    public clearPrefetchCache(): Bloodhound<T>;
+
+    /**
+     * If you're using remote, Bloodhound will cache the 10 most recent responses in an effort to provide a better user experience.
+     * clearRemoteCache offers a way to programmatically clear said cache.
+     */
+    public clearRemoteCache(): Bloodhound<T>;
 }
 
 declare module "bloodhound" {
