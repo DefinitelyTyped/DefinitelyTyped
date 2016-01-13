@@ -33,7 +33,7 @@ TODO:
 - [x] Split _.omit & _.pick into _.omitBy & _.pickBy
 - [x] Split _.sample into _.sampleSize
 - [x] Split _.sortedIndex into _.sortedIndexBy
-- [ ] Split _.sortedLastIndex into _.sortedLastIndexBy
+- [x] Split _.sortedLastIndex into _.sortedLastIndexBy
 - [ ] Split _.uniq into _.sortedUniq, _.sortedUniqBy, & _.uniqBy
 
 - [ ] Absorbed _.sortByAll into _.sortBy
@@ -2517,20 +2517,24 @@ declare module _ {
     //_.sortedLastIndex
     interface LoDashStatic {
         /**
-         * This method is like _.sortedIndex except that it returns the highest index at which value should be
-         * inserted into array in order to maintain its sort order.
+         * This method is like `_.sortedIndex` except that it returns the highest
+         * index at which `value` should be inserted into `array` in order to
+         * maintain its sort order.
          *
-         * @param array The sorted array to inspect.
-         * @param value The value to evaluate.
-         * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
-         * @return Returns the index at which value should be inserted into array.
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The sorted array to inspect.
+         * @param {*} value The value to evaluate.
+         * @returns {number} Returns the index at which `value` should be inserted into `array`.
+         * @example
+         *
+         * _.sortedLastIndex([4, 5], 4);
+         * // => 1
          */
         sortedLastIndex<T, TSort>(
             array: List<T>,
-            value: T,
-            iteratee?: (x: T) => TSort,
-            thisArg?: any
+            value: T
         ): number;
 
         /**
@@ -2538,9 +2542,7 @@ declare module _ {
          */
         sortedLastIndex<T>(
             array: List<T>,
-            value: T,
-            iteratee?: (x: T) => any,
-            thisArg?: any
+            value: T
         ): number;
 
         /**
@@ -2548,8 +2550,7 @@ declare module _ {
          */
         sortedLastIndex<T>(
             array: List<T>,
-            value: T,
-            iteratee: string
+            value: T
         ): number;
 
         /**
@@ -2557,8 +2558,7 @@ declare module _ {
          */
         sortedLastIndex<W, T>(
             array: List<T>,
-            value: T,
-            iteratee: W
+            value: T
         ): number;
 
         /**
@@ -2566,8 +2566,7 @@ declare module _ {
          */
         sortedLastIndex<T>(
             array: List<T>,
-            value: T,
-            iteratee: Object
+            value: T
         ): number;
     }
 
@@ -2576,9 +2575,7 @@ declare module _ {
          * @see _.sortedLastIndex
          */
         sortedLastIndex<TSort>(
-            value: string,
-            iteratee?: (x: string) => TSort,
-            thisArg?: any
+            value: string
         ): number;
     }
 
@@ -2587,25 +2584,21 @@ declare module _ {
          * @see _.sortedLastIndex
          */
         sortedLastIndex<TSort>(
-            value: T,
-            iteratee?: (x: T) => TSort,
-            thisArg?: any
+            value: T
         ): number;
 
         /**
          * @see _.sortedLastIndex
          */
         sortedLastIndex(
-            value: T,
-            iteratee: string
+            value: T
         ): number;
 
         /**
          * @see _.sortedLastIndex
          */
         sortedLastIndex<W>(
-            value: T,
-            iteratee: W
+            value: T
         ): number;
     }
 
@@ -2614,42 +2607,21 @@ declare module _ {
          * @see _.sortedLastIndex
          */
         sortedLastIndex<T, TSort>(
-            value: T,
-            iteratee?: (x: T) => TSort,
-            thisArg?: any
+            value: T
         ): number;
 
         /**
          * @see _.sortedLastIndex
          */
         sortedLastIndex<T>(
-            value: T,
-            iteratee?: (x: T) => any,
-            thisArg?: any
-        ): number;
-
-        /**
-         * @see _.sortedLastIndex
-         */
-        sortedLastIndex<T>(
-            value: T,
-            iteratee: string
+            value: T
         ): number;
 
         /**
          * @see _.sortedLastIndex
          */
         sortedLastIndex<W, T>(
-            value: T,
-            iteratee: W
-        ): number;
-
-        /**
-         * @see _.sortedLastIndex
-         */
-        sortedLastIndex<T>(
-            value: T,
-            iteratee: Object
+            value: T
         ): number;
     }
 
@@ -2658,9 +2630,7 @@ declare module _ {
          * @see _.sortedLastIndex
          */
         sortedLastIndex<TSort>(
-            value: string,
-            iteratee?: (x: string) => TSort,
-            thisArg?: any
+            value: string
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -2669,25 +2639,14 @@ declare module _ {
          * @see _.sortedLastIndex
          */
         sortedLastIndex<TSort>(
-            value: T,
-            iteratee?: (x: T) => TSort,
-            thisArg?: any
+            value: T
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.sortedLastIndex
          */
         sortedLastIndex(
-            value: T,
-            iteratee: string
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sortedLastIndex
-         */
-        sortedLastIndex<W>(
-            value: T,
-            iteratee: W
+            value: T
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -2696,40 +2655,238 @@ declare module _ {
          * @see _.sortedLastIndex
          */
         sortedLastIndex<T, TSort>(
-            value: T,
-            iteratee?: (x: T) => TSort,
-            thisArg?: any
+            value: T
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.sortedLastIndex
          */
         sortedLastIndex<T>(
-            value: T,
-            iteratee?: (x: T) => any,
-            thisArg?: any
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sortedLastIndex
-         */
-        sortedLastIndex<T>(
-            value: T,
-            iteratee: string
+            value: T
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.sortedLastIndex
          */
         sortedLastIndex<W, T>(
+            value: T
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    //_.sortedLastIndexBy
+    interface LoDashStatic {
+        /**
+         * This method is like `_.sortedLastIndex` except that it accepts `iteratee`
+         * which is invoked for `value` and each element of `array` to compute their
+         * sort ranking. The iteratee is invoked with one argument: (value).
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The sorted array to inspect.
+         * @param {*} value The value to evaluate.
+         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
+         * @returns {number} Returns the index at which `value` should be inserted into `array`.
+         * @example
+         *
+         * // using the `_.property` iteratee shorthand
+         * _.sortedLastIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+         * // => 1
+         */
+        sortedLastIndexBy<T, TSort>(
+            array: List<T>,
+            value: T,
+            iteratee: (x: T) => TSort
+        ): number;
+
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<T>(
+            array: List<T>,
+            value: T,
+            iteratee: (x: T) => any
+        ): number;
+
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<T>(
+            array: List<T>,
+            value: T,
+            iteratee: string
+        ): number;
+
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<W, T>(
+            array: List<T>,
+            value: T,
+            iteratee: W
+        ): number;
+
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<T>(
+            array: List<T>,
+            value: T,
+            iteratee: Object
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<TSort>(
+            value: string,
+            iteratee: (x: string) => TSort
+        ): number;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<TSort>(
+            value: T,
+            iteratee: (x: T) => TSort
+        ): number;
+
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy(
+            value: T,
+            iteratee: string
+        ): number;
+
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<W>(
+            value: T,
+            iteratee: W
+        ): number;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<T, TSort>(
+            value: T,
+            iteratee: (x: T) => TSort
+        ): number;
+
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<T>(
+            value: T,
+            iteratee: (x: T) => any
+        ): number;
+
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<T>(
+            value: T,
+            iteratee: string
+        ): number;
+
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<W, T>(
+            value: T,
+            iteratee: W
+        ): number;
+
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<T>(
+            value: T,
+            iteratee: Object
+        ): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<TSort>(
+            value: string,
+            iteratee: (x: string) => TSort
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<TSort>(
+            value: T,
+            iteratee: (x: T) => TSort
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy(
+            value: T,
+            iteratee: string
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<W>(
+            value: T,
+            iteratee: W
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<T, TSort>(
+            value: T,
+            iteratee: (x: T) => TSort
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<T>(
+            value: T,
+            iteratee: (x: T) => any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<T>(
+            value: T,
+            iteratee: string
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedLastIndexBy
+         */
+        sortedLastIndexBy<W, T>(
             value: T,
             iteratee: W
         ): LoDashExplicitWrapper<number>;
 
         /**
-         * @see _.sortedLastIndex
+         * @see _.sortedLastIndexBy
          */
-        sortedLastIndex<T>(
+        sortedLastIndexBy<T>(
             value: T,
             iteratee: Object
         ): LoDashExplicitWrapper<number>;
