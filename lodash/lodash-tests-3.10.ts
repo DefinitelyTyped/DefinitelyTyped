@@ -1,4 +1,4 @@
-/// <reference path="lodash.d.ts" />
+/// <reference path='../lodash/lodash-3.10.d.ts' />
 
 declare var $: any, jQuery: any;
 
@@ -3941,6 +3941,12 @@ module TestFind {
     result = _(dictionary).find<{a: number}, TResult>({a: 42});
 }
 
+result = <number>_.findWhere([1, 2, 3, 4], function (num) {
+    return num % 2 == 0;
+});
+result = <IFoodCombined>_.findWhere(foodsCombined, { 'type': 'vegetable' });
+result = <IFoodCombined>_.findWhere(foodsCombined, 'organic');
+
 result = <number>_.findLast([1, 2, 3, 4], function (num) {
     return num % 2 == 0;
 });
@@ -4651,69 +4657,68 @@ result = <{a: number}[][]>_([{a: 1}, {a: 2}]).partition('a', 2).value();
 result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}>('a').value();
 result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}>('a', 2).value();
 
-// TODO
-// _.map with iteratee shorthand
-// module TestMapInsteadOfPluck {
-//     interface SampleObject {
-//         d: {b: TResult}[];
-//     }
-//
-//     let array: SampleObject[];
-//     let list: _.List<SampleObject>;
-//     let dictionary: _.Dictionary<SampleObject>;
-//
-//     {
-//         let result: any[];
-//
-//         result = _.map<SampleObject>(array, 'd.0.b');
-//         result = _.map<SampleObject>(array, ['d', 0, 'b']);
-//
-//         result = _.map<SampleObject>(list, 'd.0.b');
-//         result = _.map<SampleObject>(list, ['d', 0, 'b']);
-//
-//         result = _.map<SampleObject>(dictionary, 'd.0.b');
-//         result = _.map<SampleObject>(dictionary, ['d', 0, 'b']);
-//     }
-//
-//     {
-//         let result: TResult[];
-//
-//         result = _.map<SampleObject, TResult>(array, 'd.0.b');
-//         result = _.map<SampleObject, TResult>(array, ['d', 0, 'b']);
-//
-//         result = _.map<SampleObject, TResult>(list, 'd.0.b');
-//         result = _.map<SampleObject, TResult>(list, ['d', 0, 'b']);
-//
-//         result = _.map<SampleObject, TResult>(dictionary, 'd.0.b');
-//         result = _.map<SampleObject, TResult>(dictionary, ['d', 0, 'b']);
-//     }
-//
-//     {
-//         let result: _.LoDashImplicitArrayWrapper<TResult>;
-//
-//         result = _(array).map<TResult>('d.0.b');
-//         result = _(array).map<TResult>(['d', 0, 'b']);
-//
-//         result = _(list).map<TResult>('d.0.b');
-//         result = _(list).map<TResult>(['d', 0, 'b']);
-//
-//         result = _(dictionary).map<TResult>('d.0.b');
-//         result = _(dictionary).map<TResult>(['d', 0, 'b']);
-//     }
-//
-//     {
-//         let result: _.LoDashExplicitArrayWrapper<TResult>;
-//
-//         result = _(array).chain().map<TResult>('d.0.b');
-//         result = _(array).chain().map<TResult>(['d', 0, 'b']);
-//
-//         result = _(list).chain().map<TResult>('d.0.b');
-//         result = _(list).chain().map<TResult>(['d', 0, 'b']);
-//
-//         result = _(dictionary).chain().map<TResult>('d.0.b');
-//         result = _(dictionary).chain().map<TResult>(['d', 0, 'b']);
-//     }
-// }
+// _.pluck
+module TestPluck {
+    interface SampleObject {
+        d: {b: TResult}[];
+    }
+
+    let array: SampleObject[];
+    let list: _.List<SampleObject>;
+    let dictionary: _.Dictionary<SampleObject>;
+
+    {
+        let result: any[];
+
+        result = _.pluck<SampleObject>(array, 'd.0.b');
+        result = _.pluck<SampleObject>(array, ['d', 0, 'b']);
+
+        result = _.pluck<SampleObject>(list, 'd.0.b');
+        result = _.pluck<SampleObject>(list, ['d', 0, 'b']);
+
+        result = _.pluck<SampleObject>(dictionary, 'd.0.b');
+        result = _.pluck<SampleObject>(dictionary, ['d', 0, 'b']);
+    }
+
+    {
+        let result: TResult[];
+
+        result = _.pluck<SampleObject, TResult>(array, 'd.0.b');
+        result = _.pluck<SampleObject, TResult>(array, ['d', 0, 'b']);
+
+        result = _.pluck<SampleObject, TResult>(list, 'd.0.b');
+        result = _.pluck<SampleObject, TResult>(list, ['d', 0, 'b']);
+
+        result = _.pluck<SampleObject, TResult>(dictionary, 'd.0.b');
+        result = _.pluck<SampleObject, TResult>(dictionary, ['d', 0, 'b']);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).pluck<TResult>('d.0.b');
+        result = _(array).pluck<TResult>(['d', 0, 'b']);
+
+        result = _(list).pluck<TResult>('d.0.b');
+        result = _(list).pluck<TResult>(['d', 0, 'b']);
+
+        result = _(dictionary).pluck<TResult>('d.0.b');
+        result = _(dictionary).pluck<TResult>(['d', 0, 'b']);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().pluck<TResult>('d.0.b');
+        result = _(array).chain().pluck<TResult>(['d', 0, 'b']);
+
+        result = _(list).chain().pluck<TResult>('d.0.b');
+        result = _(list).chain().pluck<TResult>(['d', 0, 'b']);
+
+        result = _(dictionary).chain().pluck<TResult>('d.0.b');
+        result = _(dictionary).chain().pluck<TResult>(['d', 0, 'b']);
+    }
+}
 
 interface ABC {
     [index: string]: number;
@@ -5225,71 +5230,11 @@ module TestSortBy {
     }
 }
 
-// _.sortByAll
-module TestSortByAll {
-    type SampleObject = {a: number; b: string; c: boolean};
+result = <IStoogesAge[]>_.sortByAll(stoogesAges, function(stooge) { return Math.sin(stooge.age); }, function(stooge) { return stooge.name.slice(1); });
+result = <IStoogesAge[]>_.sortByAll(stoogesAges, ['name', 'age']);
+result = <IStoogesAge[]>_.sortByAll(stoogesAges, 'name', function(stooge) { return Math.sin(stooge.age); });
 
-    let array: SampleObject[];
-    let list: _.List<SampleObject>;
-    let numericDictionary: _.NumericDictionary<SampleObject>;
-    let dictionary: _.Dictionary<SampleObject>;;
-
-    {
-        let iteratees: (value: string) => any|((value: string) => any)[];
-        let result: string[];
-
-        result = _.sortByAll<string>('acbd', iteratees);
-    }
-
-    {
-        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[];
-        let result: SampleObject[];
-
-        result = _.sortByAll<{a: number}, SampleObject>(array, iteratees);
-        result = _.sortByAll<SampleObject>(array, iteratees);
-
-        result = _.sortByAll<{a: number}, SampleObject>(list, iteratees);
-        result = _.sortByAll<SampleObject>(list, iteratees);
-
-        result = _.sortByAll<{a: number}, SampleObject>(numericDictionary, iteratees);
-        result = _.sortByAll<SampleObject>(numericDictionary, iteratees);
-
-        result = _.sortByAll<{a: number}, SampleObject>(dictionary, iteratees);
-        result = _.sortByAll<SampleObject>(dictionary, iteratees);
-    }
-
-    {
-        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[];
-        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
-
-        result = _(array).sortByAll<{a: number}>(iteratees);
-
-        result = _(list).sortByAll<{a: number}, SampleObject>(iteratees);
-        result = _(list).sortByAll<SampleObject>(iteratees);
-
-        result = _(numericDictionary).sortByAll<{a: number}, SampleObject>(iteratees);
-        result = _(numericDictionary).sortByAll<SampleObject>(iteratees);
-
-        result = _(dictionary).sortByAll<{a: number}, SampleObject>(iteratees);
-        result = _(dictionary).sortByAll<SampleObject>(iteratees);
-    }
-
-    {
-        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[];
-        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
-
-        result = _(array).chain().sortByAll<{a: number}>(iteratees);
-
-        result = _(list).chain().sortByAll<{a: number}, SampleObject>(iteratees);
-        result = _(list).chain().sortByAll<SampleObject>(iteratees);
-
-        result = _(numericDictionary).chain().sortByAll<{a: number}, SampleObject>(iteratees);
-        result = _(numericDictionary).chain().sortByAll<SampleObject>(iteratees);
-
-        result = _(dictionary).chain().sortByAll<{a: number}, SampleObject>(iteratees);
-        result = _(dictionary).chain().sortByAll<SampleObject>(iteratees);
-    }
-}
+result = <IFoodOrganic[]>_(foodsOrganic).sortByAll('organic', (food) => food.name, { organic: true }).value();
 
 // _.sortByOrder
 module TestSortByOrder {
@@ -5380,6 +5325,12 @@ module TestSortByOrder {
         result = _(dictionary).chain().sortByOrder<SampleObject>(iteratees, orders);
     }
 }
+
+result = <IStoogesCombined[]>_.where(stoogesCombined, { 'age': 40 });
+result = <IStoogesCombined[]>_.where(stoogesCombined, { 'quotes': ['Poifect!'] });
+
+result = <IStoogesCombined[]>_(stoogesCombined).where({ 'age': 40 }).value();
+result = <IStoogesCombined[]>_(stoogesCombined).where({ 'quotes': ['Poifect!'] }).value();
 
 /********
  * Date *
@@ -8527,41 +8478,6 @@ module TestMerge {
                                                                           { a: [1] },
                                                                           { a: true }).value();
 
-    {
-        let result: _.LoDashExplicitObjectWrapper<ExpectedResult>;
-
-        result = _(initialValue).chain().merge(mergingValue);
-        result = _(initialValue).chain().merge(mergingValue, customizer);
-        result = _(initialValue).chain().merge(mergingValue, customizer, any);
-
-        result = _(initialValue).chain().merge({}, mergingValue);
-        result = _(initialValue).chain().merge({}, mergingValue, customizer);
-        result = _(initialValue).chain().merge({}, mergingValue, customizer, any);
-
-        result = _(initialValue).chain().merge({}, {}, mergingValue);
-        result = _(initialValue).chain().merge({}, {}, mergingValue, customizer);
-        result = _(initialValue).chain().merge({}, {}, mergingValue, customizer, any);
-
-        result = _(initialValue).chain().merge({}, {}, {}, mergingValue);
-        result = _(initialValue).chain().merge({}, {}, {}, mergingValue, customizer);
-        result = _(initialValue).chain().merge({}, {}, {}, mergingValue, customizer, any);
-
-        result = _(initialValue).chain().merge<ExpectedResult>({}, {}, {}, {}, mergingValue);
-        result = _(initialValue).chain().merge<ExpectedResult>({}, {}, {}, {}, mergingValue, customizer);
-        result = _(initialValue).chain().merge<ExpectedResult>({}, {}, {}, {}, mergingValue, customizer, any);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<ComplicatedExpectedType>;
-
-        result = _({ a: 1 }).chain().merge({ b: "string" }, { c: {} }, { d: [1] }, { e: true });
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<ExpectedTypeAfterOverriding>;
-
-        result = _({ a: 1 }).chain().merge({ a: "string" }, { a: {} }, { a: [1] }, { a: true });
-    }
 }
 
 // _.methods
@@ -9981,6 +9897,7 @@ module TestUniqueId {
 }
 
 result = <string>_.VERSION;
+result = <_.Support>_.support;
 result = <_.TemplateSettings>_.templateSettings;
 
 // _.partial & _.partialRight

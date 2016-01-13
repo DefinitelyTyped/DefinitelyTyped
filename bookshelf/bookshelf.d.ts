@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../bluebird/bluebird.d.ts" />
-/// <reference path="../lodash/lodash.d.ts" />
+/// <reference path='../lodash/lodash-3.10.d.ts' />
 /// <reference path="../knex/knex.d.ts" />
 
 declare module 'bookshelf' {
