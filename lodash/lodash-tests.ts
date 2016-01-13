@@ -9010,49 +9010,49 @@ module TestPad {
     }
 }
 
-// _.padLeft
-module TestPadLeft {
+// _.padStart
+module TestPadStart {
     {
         let result: string;
 
-        result = _.padLeft('abc');
-        result = _.padLeft('abc', 6);
-        result = _.padLeft('abc', 6, '_-');
+        result = _.padStart('abc');
+        result = _.padStart('abc', 6);
+        result = _.padStart('abc', 6, '_-');
 
-        result = _('abc').padLeft();
-        result = _('abc').padLeft(6);
-        result = _('abc').padLeft(6, '_-');
+        result = _('abc').padStart();
+        result = _('abc').padStart(6);
+        result = _('abc').padStart(6, '_-');
     }
 
     {
         let result: _.LoDashExplicitWrapper<string>;
 
-        result = _('abc').chain().padLeft();
-        result = _('abc').chain().padLeft(6);
-        result = _('abc').chain().padLeft(6, '_-');
+        result = _('abc').chain().padStart();
+        result = _('abc').chain().padStart(6);
+        result = _('abc').chain().padStart(6, '_-');
     }
 }
 
-// _.padRight
-module TestPadRight {
+// _.padEnd
+module TestPadEnd {
     {
         let result: string;
 
-        result = _.padRight('abc');
-        result = _.padRight('abc', 6);
-        result = _.padRight('abc', 6, '_-');
+        result = _.padEnd('abc');
+        result = _.padEnd('abc', 6);
+        result = _.padEnd('abc', 6, '_-');
 
-        result = _('abc').padRight();
-        result = _('abc').padRight(6);
-        result = _('abc').padRight(6, '_-');
+        result = _('abc').padEnd();
+        result = _('abc').padEnd(6);
+        result = _('abc').padEnd(6, '_-');
     }
 
     {
         let result: _.LoDashExplicitWrapper<string>;
 
-        result = _('abc').chain().padRight();
-        result = _('abc').chain().padRight(6);
-        result = _('abc').chain().padRight(6, '_-');
+        result = _('abc').chain().padEnd();
+        result = _('abc').chain().padEnd(6);
+        result = _('abc').chain().padEnd(6, '_-');
     }
 }
 

@@ -9,9 +9,7 @@
 
 TODO:
 - [ ] Made _.forEach, _.forIn, _.forOwn, & _.times implicitly end a chain sequence
-- [ ] Removed _.pluck in favor of _.map with iteratee shorthand
 - [ ] Removed thisArg params from most methods
-- [ ] Split _.max & _.min into _.maxBy & _.minBy
 
 - [x] Removed _.support
 - [x] Removed _.findWhere in favor of _.find with iteratee shorthand
@@ -22,7 +20,7 @@ TODO:
 - [x] Renamed _.indexBy to _.keyBy
 - [x] Renamed _.invoke to _.invokeMap
 - [x] Renamed _.overArgs to _.overArgs
-- [ ] Renamed _.padLeft & _.padRight to _.padStart & _.padEnd
+- [x] Renamed _.padLeft & _.padRight to _.padStart & _.padEnd
 - [ ] Renamed _.pairs to _.toPairs
 - [ ] Renamed _.rest to _.tail
 - [ ] Renamed _.restParam to _.rest
@@ -13805,7 +13803,7 @@ declare module _ {
         ): LoDashExplicitWrapper<string>;
     }
 
-    //_.padLeft
+    //_.padStart
     interface LoDashStatic {
         /**
          * Pads string on the left side if it’s shorter than length. Padding characters are truncated if they exceed
@@ -13816,7 +13814,7 @@ declare module _ {
          * @param chars The string used as padding.
          * @return Returns the padded string.
          */
-        padLeft(
+        padStart(
             string?: string,
             length?: number,
             chars?: string
@@ -13825,9 +13823,9 @@ declare module _ {
 
     interface LoDashImplicitWrapper<T> {
         /**
-         * @see _.padLeft
+         * @see _.padStart
          */
-        padLeft(
+        padStart(
             length?: number,
             chars?: string
         ): string;
@@ -13835,15 +13833,15 @@ declare module _ {
 
     interface LoDashExplicitWrapper<T> {
         /**
-         * @see _.padLeft
+         * @see _.padStart
          */
-        padLeft(
+        padStart(
             length?: number,
             chars?: string
         ): LoDashExplicitWrapper<string>;
     }
 
-    //_.padRight
+    //_.padEnd
     interface LoDashStatic {
         /**
          * Pads string on the right side if it’s shorter than length. Padding characters are truncated if they exceed
@@ -13854,7 +13852,7 @@ declare module _ {
          * @param chars The string used as padding.
          * @return Returns the padded string.
          */
-        padRight(
+        padEnd(
             string?: string,
             length?: number,
             chars?: string
@@ -13863,9 +13861,9 @@ declare module _ {
 
     interface LoDashImplicitWrapper<T> {
         /**
-         * @see _.padRight
+         * @see _.padEnd
          */
-        padRight(
+        padEnd(
             length?: number,
             chars?: string
         ): string;
@@ -13873,9 +13871,9 @@ declare module _ {
 
     interface LoDashExplicitWrapper<T> {
         /**
-         * @see _.padRight
+         * @see _.padEnd
          */
-        padRight(
+        padEnd(
             length?: number,
             chars?: string
         ): LoDashExplicitWrapper<string>;
