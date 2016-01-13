@@ -20,7 +20,7 @@ TODO:
 
 - [x] Renamed _.first to _.head
 - [x] Renamed _.indexBy to _.keyBy
-- [ ] Renamed _.invoke to _.invokeMap
+- [x] Renamed _.invoke to _.invokeMap
 - [ ] Renamed _.modArgs to _.overArgs
 - [ ] Renamed _.padLeft & _.padRight to _.padStart & _.padEnd
 - [ ] Renamed _.pairs to _.toPairs
@@ -6938,7 +6938,7 @@ declare module _ {
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
     }
 
-    //_.invoke
+    //_.invokeMap
     interface LoDashStatic {
         /**
         * Invokes the method named by methodName on each element in the collection returning
@@ -6949,47 +6949,47 @@ declare module _ {
         * @param methodName The name of the method to invoke.
         * @param args Arguments to invoke the method with.
         **/
-        invoke<T extends {}>(
+        invokeMap<T extends {}>(
             collection: Array<T>,
             methodName: string,
             ...args: any[]): any;
 
         /**
-        * @see _.invoke
+        * @see _.invokeMap
         **/
-        invoke<T extends {}>(
+        invokeMap<T extends {}>(
             collection: List<T>,
             methodName: string,
             ...args: any[]): any;
 
         /**
-        * @see _.invoke
+        * @see _.invokeMap
         **/
-        invoke<T extends {}>(
+        invokeMap<T extends {}>(
             collection: Dictionary<T>,
             methodName: string,
             ...args: any[]): any;
 
         /**
-        * @see _.invoke
+        * @see _.invokeMap
         **/
-        invoke<T extends {}>(
+        invokeMap<T extends {}>(
             collection: Array<T>,
             method: Function,
             ...args: any[]): any;
 
         /**
-        * @see _.invoke
+        * @see _.invokeMap
         **/
-        invoke<T extends {}>(
+        invokeMap<T extends {}>(
             collection: List<T>,
             method: Function,
             ...args: any[]): any;
 
         /**
-        * @see _.invoke
+        * @see _.invokeMap
         **/
-        invoke<T extends {}>(
+        invokeMap<T extends {}>(
             collection: Dictionary<T>,
             method: Function,
             ...args: any[]): any;
