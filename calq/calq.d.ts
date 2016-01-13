@@ -21,7 +21,7 @@ declare module Calq
         trackPageView(action?:string):void;
 
         setGlobalProperty(name:string, value:any):void;
-        setGlobalProperty(params?: {[index:string]: any}):void;
+        setGlobalProperty(params: {[index:string]: any}):void;
     }
 
     interface User
