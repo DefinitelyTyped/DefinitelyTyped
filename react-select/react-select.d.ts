@@ -6,19 +6,19 @@
 ///<reference path="../react/react.d.ts"/>
 
 // Typings for https://github.com/JedWatson/react-select
-//***Usage***   
-// import ReactSelect = require('react-select');   
-//  <ReactSelect options={this.options} name="form-field-name" onChange={this._onSelect} value={this.state.Type} /> 
- 
+//***Usage***
+// import ReactSelect = require('react-select');
+//  <ReactSelect options={this.options} name="form-field-name" onChange={this._onSelect} value={this.state.Type} />
+
 declare module "react-select" {
-    // Import React 
+    // Import React
     import React = require("react");
-    
+
     interface Option{
         label : string;
         value : string;
     }
-    
+
     interface ReactSelectProps extends React.Props<ReactSelectClass>{
         addLabelText? : string;
         allowCreate? : boolean;
@@ -58,10 +58,23 @@ declare module "react-select" {
         valueKey? : string;
         valueRenderer? : ()=>void;
     }
-    
+
+    interface ReactAsyncSelectProps extends React.Props<ReactSelectClass>{
+        cache? : any;
+        loadOptions? : ()=>void;
+        ignoreAccents? : boolean;
+        isLoading? : boolean;
+        loadingPlaceholder? : string;
+    }
+
     interface ReactSelect extends  React.ReactElement<ReactSelectProps> { }
     interface ReactSelectClass extends React.ComponentClass<ReactSelectProps>{}
-    var ReactSelect: ReactSelectClass;
-    export = ReactSelect;
-    
+
+    interface SelectWithAsync extends ReactSelectClass {
+        Async? : ReactAsyncSelectProps;
+    }
+
+    var ReactSelect: SelectWithAsync;
+
+    export default ReactSelect;
 }
