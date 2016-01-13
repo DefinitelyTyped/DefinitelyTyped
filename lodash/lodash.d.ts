@@ -25,7 +25,7 @@ TODO:
 - [x] Renamed _.rest to _.tail
 - [x] Renamed _.restParam to _.rest
 - [x] Renamed _.sortByOrder to _.orderBy
-- [ ] Renamed _.trimLeft & _.trimRight to _.trimStart & _.trimEnd
+- [x] Renamed _.trimLeft & _.trimRight to _.trimStart & _.trimEnd
 - [ ] Renamed _.trunc to _.truncate
 
 - [ ] Split _.indexOf & _.lastIndexOf into _.sortedIndexOf & _.sortedLastIndexOf
@@ -14116,7 +14116,7 @@ declare module _ {
         trim(chars?: string): LoDashExplicitWrapper<string>;
     }
 
-    //_.trimLeft
+    //_.trimStart
     interface LoDashStatic {
         /**
          * Removes leading whitespace or specified characters from string.
@@ -14125,7 +14125,7 @@ declare module _ {
          * @param chars The characters to trim.
          * @return Returns the trimmed string.
          */
-        trimLeft(
+        trimStart(
             string?: string,
             chars?: string
         ): string;
@@ -14133,19 +14133,19 @@ declare module _ {
 
     interface LoDashImplicitWrapper<T> {
         /**
-         * @see _.trimLeft
+         * @see _.trimStart
          */
-        trimLeft(chars?: string): string;
+        trimStart(chars?: string): string;
     }
 
     interface LoDashExplicitWrapper<T> {
         /**
-         * @see _.trimLeft
+         * @see _.trimStart
          */
-        trimLeft(chars?: string): LoDashExplicitWrapper<string>;
+        trimStart(chars?: string): LoDashExplicitWrapper<string>;
     }
 
-    //_.trimRight
+    //_.trimEnd
     interface LoDashStatic {
         /**
          * Removes trailing whitespace or specified characters from string.
@@ -14154,7 +14154,7 @@ declare module _ {
          * @param chars The characters to trim.
          * @return Returns the trimmed string.
          */
-        trimRight(
+        trimEnd(
             string?: string,
             chars?: string
         ): string;
@@ -14162,16 +14162,16 @@ declare module _ {
 
     interface LoDashImplicitWrapper<T> {
         /**
-         * @see _.trimRight
+         * @see _.trimEnd
          */
-        trimRight(chars?: string): string;
+        trimEnd(chars?: string): string;
     }
 
     interface LoDashExplicitWrapper<T> {
         /**
-         * @see _.trimRight
+         * @see _.trimEnd
          */
-        trimRight(chars?: string): LoDashExplicitWrapper<string>;
+        trimEnd(chars?: string): LoDashExplicitWrapper<string>;
     }
 
     //_.trunc
