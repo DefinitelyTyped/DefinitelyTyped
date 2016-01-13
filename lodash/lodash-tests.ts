@@ -8640,8 +8640,6 @@ module TestOmit {
         result = _.omit<TResult, Object>({}, 0, 'a');
         result = _.omit<TResult, Object>({}, true, 0, 'a');
         result = _.omit<TResult, Object>({}, ['b', 1, false], true, 0, 'a');
-        result = _.omit<TResult, Object>({}, predicate);
-        result = _.omit<TResult, Object>({}, predicate, any);
     }
 
     {
@@ -8651,8 +8649,6 @@ module TestOmit {
         result = _({}).omit<TResult>(0, 'a');
         result = _({}).omit<TResult>(true, 0, 'a');
         result = _({}).omit<TResult>(['b', 1, false], true, 0, 'a');
-        result = _({}).omit<TResult>(predicate);
-        result = _({}).omit<TResult>(predicate, any);
     }
 
     {
@@ -8662,8 +8658,29 @@ module TestOmit {
         result = _({}).chain().omit<TResult>(0, 'a');
         result = _({}).chain().omit<TResult>(true, 0, 'a');
         result = _({}).chain().omit<TResult>(['b', 1, false], true, 0, 'a');
-        result = _({}).chain().omit<TResult>(predicate);
-        result = _({}).chain().omit<TResult>(predicate, any);
+    }
+}
+
+// _.omitBy
+module TestOmitBy {
+    let predicate: (element: any, key: string, collection: any) => boolean;
+
+    {
+        let result: TResult;
+
+        result = _.omitBy<TResult, Object>({}, predicate);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<TResult>;
+
+        result = _({}).omitBy<TResult>(predicate);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<TResult>;
+
+        result = _({}).chain().omitBy<TResult>(predicate);
     }
 }
 
@@ -8719,8 +8736,6 @@ module TestPick {
         result = _.pick<TResult, Object>({}, 0, 'a');
         result = _.pick<TResult, Object>({}, true, 0, 'a');
         result = _.pick<TResult, Object>({}, ['b', 1, false], true, 0, 'a');
-        result = _.pick<TResult, Object>({}, predicate);
-        result = _.pick<TResult, Object>({}, predicate, any);
     }
 
     {
@@ -8730,8 +8745,6 @@ module TestPick {
         result = _({}).pick<TResult>(0, 'a');
         result = _({}).pick<TResult>(true, 0, 'a');
         result = _({}).pick<TResult>(['b', 1, false], true, 0, 'a');
-        result = _({}).pick<TResult>(predicate);
-        result = _({}).pick<TResult>(predicate, any);
     }
 
     {
@@ -8741,8 +8754,29 @@ module TestPick {
         result = _({}).chain().pick<TResult>(0, 'a');
         result = _({}).chain().pick<TResult>(true, 0, 'a');
         result = _({}).chain().pick<TResult>(['b', 1, false], true, 0, 'a');
-        result = _({}).chain().pick<TResult>(predicate);
-        result = _({}).chain().pick<TResult>(predicate, any);
+    }
+}
+
+// _.pickBy
+module TestPickBy {
+    let predicate: (element: any, key: string, collection: any) => boolean;
+
+    {
+        let result: TResult;
+
+        result = _.pickBy<TResult, Object>({}, predicate);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<TResult>;
+
+        result = _({}).pickBy<TResult>(predicate);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<TResult>;
+
+        result = _({}).chain().pickBy<TResult>(predicate);
     }
 }
 
