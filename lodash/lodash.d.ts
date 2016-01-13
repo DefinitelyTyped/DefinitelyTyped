@@ -146,7 +146,7 @@ added 2 number methods:
 - [ ] _.subtract
 
 added chain method:
-- [ ] _#next
+- [ ] _.next
 
 added collection method:
 - [ ] _.sampleSize
@@ -3256,113 +3256,30 @@ declare module _ {
     //_.uniq
     interface LoDashStatic {
         /**
-         * Creates a duplicate-free version of an array, using SameValueZero for equality comparisons, in which only
-         * the first occurrence of each element is kept. Providing true for isSorted performs a faster search
-         * algorithm for sorted arrays. If an iteratee function is provided it’s invoked for each element in the
-         * array to generate the criterion by which uniqueness is computed. The iteratee is bound to thisArg and
-         * invoked with three arguments: (value, index, array).
+         * Creates a duplicate-free version of an array, using
+         * [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+         * for equality comparisons, in which only the first occurrence of each element
+         * is kept.
          *
-         * If a property name is provided for iteratee the created _.property style callback returns the property
-         * value of the given element.
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The array to inspect.
+         * @returns {Array} Returns the new duplicate free array.
+         * @example
          *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for iteratee the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
-         *
-         * @param array The array to inspect.
-         * @param isSorted Specify the array is sorted.
-         * @param iteratee The function invoked per iteration.
-         * @param thisArg iteratee
-         * @return Returns the new duplicate-value-free array.
+         * _.uniq([2, 1, 2]);
+         * // => [2, 1]
          */
         uniq<T>(
-            array: List<T>,
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            array: List<T>
         ): T[];
 
         /**
          * @see _.uniq
          */
         uniq<T, TSort>(
-            array: List<T>,
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): T[];
-
-        /**
-         * @see _.uniq
-         */
-        uniq<T>(
-            array: List<T>,
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
-        ): T[];
-
-        /**
-         * @see _.uniq
-         */
-        uniq<T, TSort>(
-            array: List<T>,
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): T[];
-
-        /**
-         * @see _.uniq
-         */
-        uniq<T>(
-            array: List<T>,
-            isSorted?: boolean,
-            iteratee?: string,
-            thisArg?: any
-        ): T[];
-
-        /**
-         * @see _.uniq
-         */
-        uniq<T>(
-            array: List<T>,
-            iteratee?: string,
-            thisArg?: any
-        ): T[];
-
-        /**
-         * @see _.uniq
-         */
-        uniq<T>(
-            array: List<T>,
-            isSorted?: boolean,
-            iteratee?: Object
-        ): T[];
-
-        /**
-         * @see _.uniq
-         */
-        uniq<TWhere extends {}, T>(
-            array: List<T>,
-            isSorted?: boolean,
-            iteratee?: TWhere
-        ): T[];
-
-        /**
-         * @see _.uniq
-         */
-        uniq<T>(
-            array: List<T>,
-            iteratee?: Object
-        ): T[];
-
-        /**
-         * @see _.uniq
-         */
-        uniq<TWhere extends {}, T>(
-            array: List<T>,
-            iteratee?: TWhere
+            array: List<T>
         ): T[];
     }
 
@@ -3370,299 +3287,536 @@ declare module _ {
         /**
          * @see _.uniq
          */
-        uniq<TSort>(
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq<TSort>(
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
+        uniq<TSort>(): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.uniq
          */
-        uniq<TSort>(
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
+        uniq<TSort>(): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.uniq
          */
-        uniq<TSort>(
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq(
-            isSorted?: boolean,
-            iteratee?: string,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq(
-            iteratee?: string,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq<TWhere extends {}>(
-            isSorted?: boolean,
-            iteratee?: TWhere
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq<TWhere extends {}>(
-            iteratee?: TWhere
-        ): LoDashImplicitArrayWrapper<T>;
+        uniq(): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
-        uniq<T>(
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
+        uniq<T>(): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.uniq
          */
-        uniq<T, TSort>(
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq<T>(
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq<T, TSort>(
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq<T>(
-            isSorted?: boolean,
-            iteratee?: string,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq<T>(
-            iteratee?: string,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq<T>(
-            isSorted?: boolean,
-            iteratee?: Object
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq<TWhere extends {}, T>(
-            isSorted?: boolean,
-            iteratee?: TWhere
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq<T>(
-            iteratee?: Object
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq<TWhere extends {}, T>(
-            iteratee?: TWhere
-        ): LoDashImplicitArrayWrapper<T>;
+        uniq<T, TSort>(): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitWrapper<T> {
         /**
          * @see _.uniq
          */
-        uniq<TSort>(
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq<TSort>(
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashExplicitArrayWrapper<T>;
+        uniq<TSort>(): LoDashExplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
         /**
          * @see _.uniq
          */
-        uniq<TSort>(
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashExplicitArrayWrapper<T>;
+        uniq<TSort>(): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.uniq
          */
-        uniq<TSort>(
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashExplicitArrayWrapper<T>;
+        uniq(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.uniq
+         */
+        uniq<T>(): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.uniq
          */
-        uniq(
-            isSorted?: boolean,
-            iteratee?: string,
-            thisArg?: any
+        uniq<T, TSort>(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    //_.uniqBy
+    interface LoDashStatic {
+        /**
+         * This method is like `_.uniq` except that it accepts `iteratee` which is
+         * invoked for each element in `array` to generate the criterion by which
+         * uniqueness is computed. The iteratee is invoked with one argument: (value).
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The array to inspect.
+         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
+         * @returns {Array} Returns the new duplicate free array.
+         * @example
+         *
+         * _.uniqBy([2.1, 1.2, 2.3], Math.floor);
+         * // => [2.1, 1.2]
+         *
+         * // using the `_.property` iteratee shorthand
+         * _.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
+         * // => [{ 'x': 1 }, { 'x': 2 }]
+         */
+        uniqBy<T>(
+            array: List<T>,
+            iteratee: ListIterator<T, any>
+        ): T[];
+
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy<T, TSort>(
+            array: List<T>,
+            iteratee: ListIterator<T, TSort>
+        ): T[];
+
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy<T>(
+            array: List<T>,
+            iteratee: string
+        ): T[];
+
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy<T>(
+            array: List<T>,
+            iteratee: Object
+        ): T[];
+
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy<TWhere extends {}, T>(
+            array: List<T>,
+            iteratee: TWhere
+        ): T[];
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy<TSort>(
+            iteratee: ListIterator<T, TSort>
+        ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy<TSort>(
+            iteratee: ListIterator<T, TSort>
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy(
+            iteratee: string
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy<TWhere extends {}>(
+            iteratee: TWhere
+        ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy<T>(
+            iteratee: ListIterator<T, any>
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy<T, TSort>(
+            iteratee: ListIterator<T, TSort>
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy<T>(
+            iteratee: string
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy<T>(
+            iteratee: Object
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy<TWhere extends {}, T>(
+            iteratee: TWhere
+        ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy<TSort>(
+            iteratee: ListIterator<T, TSort>
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy<TSort>(
+            iteratee: ListIterator<T, TSort>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
-         * @see _.uniq
+         * @see _.uniqBy
          */
-        uniq(
-            iteratee?: string,
-            thisArg?: any
+        uniqBy(
+            iteratee: string
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
-         * @see _.uniq
+         * @see _.uniqBy
          */
-        uniq<TWhere extends {}>(
-            isSorted?: boolean,
-            iteratee?: TWhere
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq<TWhere extends {}>(
-            iteratee?: TWhere
+        uniqBy<TWhere extends {}>(
+            iteratee: TWhere
         ): LoDashExplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
-        uniq<T>(
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy<T>(
+            iteratee: ListIterator<T, any>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
-         * @see _.uniq
+         * @see _.uniqBy
          */
-        uniq<T, TSort>(
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
+        uniqBy<T, TSort>(
+            iteratee: ListIterator<T, TSort>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
-         * @see _.uniq
+         * @see _.uniqBy
          */
-        uniq<T>(
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+        uniqBy<T>(
+            iteratee: string
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
-         * @see _.uniq
+         * @see _.uniqBy
          */
-        uniq<T, TSort>(
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
+        uniqBy<T>(
+            iteratee: Object
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
-         * @see _.uniq
+         * @see _.uniqBy
          */
-        uniq<T>(
-            isSorted?: boolean,
-            iteratee?: string,
-            thisArg?: any
+        uniqBy<TWhere extends {}, T>(
+            iteratee: TWhere
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    //_.sortedUniq
+    interface LoDashStatic {
+        /**
+         * This method is like `_.uniq` except that it's designed and optimized
+         * for sorted arrays.
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The array to inspect.
+         * @returns {Array} Returns the new duplicate free array.
+         * @example
+         *
+         * _.sortedUniq([1, 1, 2]);
+         * // => [1, 2]
+         */
+        sortedUniq<T>(
+            array: List<T>
+        ): T[];
+
+        /**
+         * @see _.sortedUniq
+         */
+        sortedUniq<T, TSort>(
+            array: List<T>
+        ): T[];
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.sortedUniq
+         */
+        sortedUniq<TSort>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.sortedUniq
+         */
+        sortedUniq<TSort>(): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortedUniq
+         */
+        sortedUniq(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        sortedUniq<T>(): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortedUniq
+         */
+        sortedUniq<T, TSort>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.sortedUniq
+         */
+        sortedUniq<TSort>(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.sortedUniq
+         */
+        sortedUniq<TSort>(): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortedUniq
+         */
+        sortedUniq(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.sortedUniq
+         */
+        sortedUniq<T>(): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortedUniq
+         */
+        sortedUniq<T, TSort>(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    //_.sortedUniqBy
+    interface LoDashStatic {
+        /**
+         * This method is like `_.uniqBy` except that it's designed and optimized
+         * for sorted arrays.
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The array to inspect.
+         * @param {Function} [iteratee] The iteratee invoked per element.
+         * @returns {Array} Returns the new duplicate free array.
+         * @example
+         *
+         * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
+         * // => [1.1, 2.2]
+         */
+        sortedUniqBy<T>(
+            array: List<T>,
+            iteratee: ListIterator<T, any>
+        ): T[];
+
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy<T, TSort>(
+            array: List<T>,
+            iteratee: ListIterator<T, TSort>
+        ): T[];
+
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy<T>(
+            array: List<T>,
+            iteratee: string
+        ): T[];
+
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy<T>(
+            array: List<T>,
+            iteratee: Object
+        ): T[];
+
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy<TWhere extends {}, T>(
+            array: List<T>,
+            iteratee: TWhere
+        ): T[];
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy<TSort>(
+            iteratee: ListIterator<T, TSort>
+        ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy<TSort>(
+            iteratee: ListIterator<T, TSort>
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy(
+            iteratee: string
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy<TWhere extends {}>(
+            iteratee: TWhere
+        ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy<T>(
+            iteratee: ListIterator<T, any>
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy<T, TSort>(
+            iteratee: ListIterator<T, TSort>
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy<T>(
+            iteratee: string
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy<T>(
+            iteratee: Object
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy<TWhere extends {}, T>(
+            iteratee: TWhere
+        ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy<TSort>(
+            iteratee: ListIterator<T, TSort>
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy<TSort>(
+            iteratee: ListIterator<T, TSort>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
-         * @see _.uniq
+         * @see _.sortedUniqBy
          */
-        uniq<T>(
-            iteratee?: string,
-            thisArg?: any
+        sortedUniqBy(
+            iteratee: string
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
-         * @see _.uniq
+         * @see _.sortedUniqBy
          */
-        uniq<T>(
-            isSorted?: boolean,
-            iteratee?: Object
+        sortedUniqBy<TWhere extends {}>(
+            iteratee: TWhere
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy<T>(
+            iteratee: ListIterator<T, any>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
-         * @see _.uniq
+         * @see _.sortedUniqBy
          */
-        uniq<TWhere extends {}, T>(
-            isSorted?: boolean,
-            iteratee?: TWhere
+        sortedUniqBy<T, TSort>(
+            iteratee: ListIterator<T, TSort>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
-         * @see _.uniq
+         * @see _.sortedUniqBy
          */
-        uniq<T>(
-            iteratee?: Object
+        sortedUniqBy<T>(
+            iteratee: string
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
-         * @see _.uniq
+         * @see _.sortedUniqBy
          */
-        uniq<TWhere extends {}, T>(
-            iteratee?: TWhere
+        sortedUniqBy<T>(
+            iteratee: Object
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy<TWhere extends {}, T>(
+            iteratee: TWhere
         ): LoDashExplicitArrayWrapper<T>;
     }
 
