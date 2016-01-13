@@ -23,7 +23,7 @@ TODO:
 - [x] Renamed _.padLeft & _.padRight to _.padStart & _.padEnd
 - [x] Renamed _.pairs to _.toPairs
 - [x] Renamed _.rest to _.tail
-- [ ] Renamed _.restParam to _.rest
+- [x] Renamed _.restParam to _.rest
 - [ ] Renamed _.sortByOrder to _.orderBy
 - [ ] Renamed _.trimLeft & _.trimRight to _.trimStart & _.trimEnd
 - [ ] Renamed _.trunc to _.truncate
@@ -9888,7 +9888,7 @@ declare module _ {
         rearg<TResult extends Function>(...indexes: number[]): LoDashImplicitObjectWrapper<TResult>;
     }
 
-    //_.restParam
+    //_.rest
     interface LoDashStatic {
         /**
          * Creates a function that invokes func with the this binding of the created function and arguments from start
@@ -9900,15 +9900,15 @@ declare module _ {
          * @param start The start position of the rest parameter.
          * @return Returns the new function.
          */
-        restParam<TResult extends Function>(
+        rest<TResult extends Function>(
             func: Function,
             start?: number
         ): TResult;
 
         /**
-         * @see _.restParam
+         * @see _.rest
          */
-        restParam<TResult extends Function, TFunc extends Function>(
+        rest<TResult extends Function, TFunc extends Function>(
             func: TFunc,
             start?: number
         ): TResult;
@@ -9916,16 +9916,16 @@ declare module _ {
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-         * @see _.restParam
+         * @see _.rest
          */
-        restParam<TResult extends Function>(start?: number): LoDashImplicitObjectWrapper<TResult>;
+        rest<TResult extends Function>(start?: number): LoDashImplicitObjectWrapper<TResult>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
-         * @see _.restParam
+         * @see _.rest
          */
-        restParam<TResult extends Function>(start?: number): LoDashExplicitObjectWrapper<TResult>;
+        rest<TResult extends Function>(start?: number): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.spread
