@@ -21,7 +21,7 @@ TODO:
 - [x] Renamed _.invoke to _.invokeMap
 - [x] Renamed _.overArgs to _.overArgs
 - [x] Renamed _.padLeft & _.padRight to _.padStart & _.padEnd
-- [ ] Renamed _.pairs to _.toPairs
+- [x] Renamed _.pairs to _.toPairs
 - [ ] Renamed _.rest to _.tail
 - [ ] Renamed _.restParam to _.rest
 - [ ] Renamed _.sortByOrder to _.orderBy
@@ -13261,7 +13261,7 @@ declare module _ {
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
-    //_.pairs
+    //_.toPairs
     interface LoDashStatic {
         /**
          * Creates a two dimensional array of the key-value pairs for object, e.g. [[key1, value1], [key2, value2]].
@@ -13269,23 +13269,23 @@ declare module _ {
          * @param object The object to query.
          * @return Returns the new array of key-value pairs.
          */
-        pairs<T extends {}>(object?: T): any[][];
+        toPairs<T extends {}>(object?: T): any[][];
 
-        pairs<T extends {}, TResult>(object?: T): TResult[][];
+        toPairs<T extends {}, TResult>(object?: T): TResult[][];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-         * @see _.pairs
+         * @see _.toPairs
          */
-        pairs<TResult>(): LoDashImplicitArrayWrapper<TResult[]>;
+        toPairs<TResult>(): LoDashImplicitArrayWrapper<TResult[]>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
-         * @see _.pairs
+         * @see _.toPairs
          */
-        pairs<TResult>(): LoDashExplicitArrayWrapper<TResult[]>;
+        toPairs<TResult>(): LoDashExplicitArrayWrapper<TResult[]>;
     }
 
     //_.pick

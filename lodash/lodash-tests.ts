@@ -8627,44 +8627,44 @@ module TestOmit {
     }
 }
 
-// _.pairs
-module TestPairs {
+// _.toPairs
+module TestToPairs {
     let object: _.Dictionary<string>;
 
     {
         let result: any[][];
 
-        result = _.pairs<_.Dictionary<string>>(object);
+        result = _.toPairs<_.Dictionary<string>>(object);
     }
 
     {
         let result: string[][];
 
-        result = _.pairs<_.Dictionary<string>, string>(object);
+        result = _.toPairs<_.Dictionary<string>, string>(object);
     }
 
     {
         let result: _.LoDashImplicitArrayWrapper<string[]>;
 
-        result = _(object).pairs<string>();
+        result = _(object).toPairs<string>();
     }
 
     {
         let result: _.LoDashImplicitArrayWrapper<any[]>;
 
-        result = _(object).pairs();
+        result = _(object).toPairs();
     }
 
     {
         let result: _.LoDashExplicitArrayWrapper<string[]>;
 
-        result = _(object).chain().pairs<string>();
+        result = _(object).chain().toPairs<string>();
     }
 
     {
         let result: _.LoDashExplicitArrayWrapper<any[]>;
 
-        result = _(object).chain().pairs();
+        result = _(object).chain().toPairs();
     }
 }
 
