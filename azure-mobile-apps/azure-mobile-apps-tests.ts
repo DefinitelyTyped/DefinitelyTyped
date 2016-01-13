@@ -29,7 +29,7 @@ mobileApp.use(function (req: any, res: any, next: any) {
 });
 
 var table = mobileApp.table()
-table.read(function (context) {
+table.read(function (context: AzureMobileApps.Context) {
     return context.execute().then(function (result: any) {
         return result;
     });
