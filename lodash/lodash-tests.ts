@@ -9245,32 +9245,32 @@ module TestTrimEnd {
     }
 }
 
-// _.trunc
-module TestTrunc {
+// _.truncate
+module Testtruncate {
     {
         let result: string;
 
-        result = _.trunc('hi-diddly-ho there, neighborino');
-        result = _.trunc('hi-diddly-ho there, neighborino', 24);
-        result = _.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': ' ' });
-        result = _.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': /,? +/ });
-        result = _.trunc('hi-diddly-ho there, neighborino', { 'omission': ' […]' });
+        result = _.truncate('hi-diddly-ho there, neighborino');
+        result = _.truncate('hi-diddly-ho there, neighborino', 24);
+        result = _.truncate('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': ' ' });
+        result = _.truncate('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': /,? +/ });
+        result = _.truncate('hi-diddly-ho there, neighborino', { 'omission': ' […]' });
 
-        result = _('hi-diddly-ho there, neighborino').trunc();
-        result = _('hi-diddly-ho there, neighborino').trunc(24);
-        result = _('hi-diddly-ho there, neighborino').trunc({ 'length': 24, 'separator': ' ' });
-        result = _('hi-diddly-ho there, neighborino').trunc({ 'length': 24, 'separator': /,? +/ });
-        result = _('hi-diddly-ho there, neighborino').trunc({ 'omission': ' […]' });
+        result = _('hi-diddly-ho there, neighborino').truncate();
+        result = _('hi-diddly-ho there, neighborino').truncate(24);
+        result = _('hi-diddly-ho there, neighborino').truncate({ 'length': 24, 'separator': ' ' });
+        result = _('hi-diddly-ho there, neighborino').truncate({ 'length': 24, 'separator': /,? +/ });
+        result = _('hi-diddly-ho there, neighborino').truncate({ 'omission': ' […]' });
     }
 
     {
         let result: _.LoDashExplicitWrapper<string>;
 
-        result = _('hi-diddly-ho there, neighborino').chain().trunc();
-        result = _('hi-diddly-ho there, neighborino').chain().trunc(24);
-        result = _('hi-diddly-ho there, neighborino').chain().trunc({ 'length': 24, 'separator': ' ' });
-        result = _('hi-diddly-ho there, neighborino').chain().trunc({ 'length': 24, 'separator': /,? +/ });
-        result = _('hi-diddly-ho there, neighborino').chain().trunc({ 'omission': ' […]' });
+        result = _('hi-diddly-ho there, neighborino').chain().truncate();
+        result = _('hi-diddly-ho there, neighborino').chain().truncate(24);
+        result = _('hi-diddly-ho there, neighborino').chain().truncate({ 'length': 24, 'separator': ' ' });
+        result = _('hi-diddly-ho there, neighborino').chain().truncate({ 'length': 24, 'separator': /,? +/ });
+        result = _('hi-diddly-ho there, neighborino').chain().truncate({ 'omission': ' […]' });
     }
 }
 
