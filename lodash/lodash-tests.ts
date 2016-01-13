@@ -1283,31 +1283,31 @@ module TestRemove {
     }
 }
 
-// _.rest
-module TestRest {
+// _.tail
+module TestTail {
     let array: TResult[];
     let list: _.List<TResult>;
 
     {
         let result: TResult[];
 
-        result = _.rest<TResult>(array);
-        result = _.rest<TResult>(list);
+        result = _.tail<TResult>(array);
+        result = _.tail<TResult>(list);
 
     }
 
     {
         let result: _.LoDashImplicitArrayWrapper<TResult>;
 
-        result = _(array).rest();
-        result = _(list).rest<TResult>();
+        result = _(array).tail();
+        result = _(list).tail<TResult>();
     }
 
     {
         let result: _.LoDashExplicitArrayWrapper<TResult>;
 
-        result = _(array).chain().rest();
-        result = _(list).chain().rest<TResult>();
+        result = _(array).chain().tail();
+        result = _(list).chain().tail<TResult>();
     }
 }
 
