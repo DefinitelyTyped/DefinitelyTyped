@@ -18,24 +18,24 @@ mobileApp.tables.add('todoitem', {
 
 mobileApp.api.add('customApi', {
     authorize: true,
-    post: function (req, res, next) {
+    post: function (req: any, res: any, next: any) {
         next();
     },
-    patch: [function (req, res, next) {}, function (req, res, next) {}]
+    patch: [function (req: any, res: any, next: any) {}, function (req: any, res: any, next: any) {}]
 })
 
-mobileApp.use(function (req, res, next) {
+mobileApp.use(function (req: any, res: any, next: any) {
     next(); 
 });
 
 var table = mobileApp.table()
 table.read(function (context) {
-    return context.execute().then(function (result) {
+    return context.execute().then(function (result: any) {
         return result;
     });
 });
 
-table.use(function (req, res, next) {
+table.use(function (req: any, res: any, next: any) {
     next(new Error());
 });
 

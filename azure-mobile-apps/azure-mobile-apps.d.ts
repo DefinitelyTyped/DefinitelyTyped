@@ -131,7 +131,7 @@ declare module AzureMobileApps {
         platform?: string;
         basePath?: string;
         configFile?: string;
-        promiseConstructor?: (resolve: (result) => void, reject: (error) => void) => Thenable<any>;
+        promiseConstructor?: (resolve: (result: any) => void, reject: (error: any) => void) => Thenable<any>;
         apiRootPath?: string;
         tableRootPath?: string;
         notificationRootPath?: string;
