@@ -1380,70 +1380,89 @@ module TestSortedIndex {
         let result: number;
 
         result = _.sortedIndex<string>('', '');
-        result = _.sortedIndex<string>('', '', stringIterator);
-        result = _.sortedIndex<string>('', '', stringIterator, any);
-        result = _.sortedIndex<string, number>('', '', stringIterator);
-        result = _.sortedIndex<string, number>('', '', stringIterator, any);
 
         result = _.sortedIndex<SampleType>(array, value);
-        result = _.sortedIndex<SampleType>(array, value, arrayIterator);
-        result = _.sortedIndex<SampleType>(array, value, arrayIterator, any);
-        result = _.sortedIndex<SampleType>(array, value, '');
-        result = _.sortedIndex<SampleType>(array, value, {a: 42});
-        result = _.sortedIndex<SampleType, number>(array, value, arrayIterator);
-        result = _.sortedIndex<SampleType, number>(array, value, arrayIterator, any);
-        result = _.sortedIndex<{a: number}, SampleType>(array, value, {a: 42});
 
         result = _.sortedIndex<SampleType>(list, value);
-        result = _.sortedIndex<SampleType>(list, value, listIterator);
-        result = _.sortedIndex<SampleType>(list, value, listIterator, any);
-        result = _.sortedIndex<SampleType>(list, value, '');
-        result = _.sortedIndex<SampleType>(list, value, {a: 42});
-        result = _.sortedIndex<SampleType, number>(list, value, listIterator);
-        result = _.sortedIndex<SampleType, number>(list, value, listIterator, any);
-        result = _.sortedIndex<{a: number}, SampleType>(list, value, {a: 42});
 
         result = _('').sortedIndex('');
-        result = _('').sortedIndex<number>('', stringIterator);
-        result = _('').sortedIndex<number>('', stringIterator, any);
 
         result = _(array).sortedIndex(value);
-        result = _(array).sortedIndex<number>(value, arrayIterator);
-        result = _(array).sortedIndex<number>(value, arrayIterator, any);
-        result = _(array).sortedIndex(value, '');
-        result = _(array).sortedIndex<{a: number}>(value, {a: 42});
 
         result = _(list).sortedIndex<SampleType>(value);
-        result = _(list).sortedIndex<SampleType>(value, listIterator);
-        result = _(list).sortedIndex<SampleType>(value, listIterator, any);
-        result = _(list).sortedIndex<SampleType>(value, '');
-        result = _(list).sortedIndex<SampleType>(value, {a: 42});
-        result = _(list).sortedIndex<SampleType, number>(value, listIterator);
-        result = _(list).sortedIndex<SampleType, number>(value, listIterator, any);
-        result = _(list).sortedIndex<{a: number}, SampleType>(value, {a: 42});
+
     }
 
     {
         let result: _.LoDashExplicitWrapper<number>;
 
         result = _('').chain().sortedIndex('');
-        result = _('').chain().sortedIndex<number>('', stringIterator);
-        result = _('').chain().sortedIndex<number>('', stringIterator, any);
 
         result = _(array).chain().sortedIndex(value);
-        result = _(array).chain().sortedIndex<number>(value, arrayIterator);
-        result = _(array).chain().sortedIndex<number>(value, arrayIterator, any);
-        result = _(array).chain().sortedIndex(value, '');
-        result = _(array).chain().sortedIndex<{a: number}>(value, {a: 42});
 
         result = _(list).chain().sortedIndex<SampleType>(value);
-        result = _(list).chain().sortedIndex<SampleType>(value, listIterator);
-        result = _(list).chain().sortedIndex<SampleType>(value, listIterator, any);
-        result = _(list).chain().sortedIndex<SampleType>(value, '');
-        result = _(list).chain().sortedIndex<SampleType>(value, {a: 42});
-        result = _(list).chain().sortedIndex<SampleType, number>(value, listIterator);
-        result = _(list).chain().sortedIndex<SampleType, number>(value, listIterator, any);
-        result = _(list).chain().sortedIndex<{a: number}, SampleType>(value, {a: 42});
+
+    }
+}
+
+// _.sortedIndexBy
+module TestSortedIndexBy {
+    type SampleType = {a: number; b: string; c: boolean;};
+
+    let array: SampleType[];
+    let list: _.List<SampleType>;
+
+    let value: SampleType;
+
+    let stringIterator: (x: string) => number;
+    let arrayIterator: (x: SampleType) => number;
+    let listIterator: (x: SampleType) => number;
+
+    {
+        let result: number;
+
+        result = _.sortedIndexBy<string>('', '', stringIterator);
+        result = _.sortedIndexBy<string, number>('', '', stringIterator);
+
+        result = _.sortedIndexBy<SampleType>(array, value, arrayIterator);
+        result = _.sortedIndexBy<SampleType>(array, value, '');
+        result = _.sortedIndexBy<SampleType>(array, value, {a: 42});
+        result = _.sortedIndexBy<SampleType, number>(array, value, arrayIterator);
+        result = _.sortedIndexBy<{a: number}, SampleType>(array, value, {a: 42});
+
+        result = _.sortedIndexBy<SampleType>(list, value, listIterator);
+        result = _.sortedIndexBy<SampleType>(list, value, '');
+        result = _.sortedIndexBy<SampleType>(list, value, {a: 42});
+        result = _.sortedIndexBy<SampleType, number>(list, value, listIterator);
+        result = _.sortedIndexBy<{a: number}, SampleType>(list, value, {a: 42});
+
+        result = _('').sortedIndexBy<number>('', stringIterator);
+
+        result = _(array).sortedIndexBy<number>(value, arrayIterator);
+        result = _(array).sortedIndexBy(value, '');
+        result = _(array).sortedIndexBy<{a: number}>(value, {a: 42});
+
+        result = _(list).sortedIndexBy<SampleType>(value, listIterator);
+        result = _(list).sortedIndexBy<SampleType>(value, '');
+        result = _(list).sortedIndexBy<SampleType>(value, {a: 42});
+        result = _(list).sortedIndexBy<SampleType, number>(value, listIterator);
+        result = _(list).sortedIndexBy<{a: number}, SampleType>(value, {a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _('').chain().sortedIndexBy<number>('', stringIterator);
+
+        result = _(array).chain().sortedIndexBy<number>(value, arrayIterator);
+        result = _(array).chain().sortedIndexBy(value, '');
+        result = _(array).chain().sortedIndexBy<{a: number}>(value, {a: 42});
+
+        result = _(list).chain().sortedIndexBy<SampleType>(value, listIterator);
+        result = _(list).chain().sortedIndexBy<SampleType>(value, '');
+        result = _(list).chain().sortedIndexBy<SampleType>(value, {a: 42});
+        result = _(list).chain().sortedIndexBy<SampleType, number>(value, listIterator);
+        result = _(list).chain().sortedIndexBy<{a: number}, SampleType>(value, {a: 42});
     }
 }
 
