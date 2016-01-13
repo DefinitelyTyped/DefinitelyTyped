@@ -3,194 +3,6 @@
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-
-/**
-# 4.0.0 Changelog (https://github.com/lodash/lodash/wiki/Changelog)
-
-TODO:
-- [ ] Made _.forEach, _.forIn, _.forOwn, & _.times implicitly end a chain sequence
-- [ ] Removed _.pluck in favor of _.map with iteratee shorthand
-- [ ] Removed thisArg params from most methods
-- [ ] Split _.max & _.min into _.maxBy & _.minBy
-
-- [x] Removed _.support
-- [x] Removed _.findWhere in favor of _.find with iteratee shorthand
-- [x] Removed _.where in favor of _.filter with iteratee shorthand
-- [x] Removed _.pluck in favor of _.map with iteratee shorthand
-
-- [ ] Renamed _.first to _.head
-- [ ] Renamed _.indexBy to _.keyBy
-- [ ] Renamed _.invoke to _.invokeMap
-- [ ] Renamed _.modArgs to _.overArgs
-- [ ] Renamed _.padLeft & _.padRight to _.padStart & _.padEnd
-- [ ] Renamed _.pairs to _.toPairs
-- [ ] Renamed _.rest to _.tail
-- [ ] Renamed _.restParam to _.rest
-- [ ] Renamed _.sortByOrder to _.orderBy
-- [ ] Renamed _.trimLeft & _.trimRight to _.trimStart & _.trimEnd
-- [ ] Renamed _.trunc to _.truncate
-
-- [ ] Split _.indexOf & _.lastIndexOf into _.sortedIndexOf & _.sortedLastIndexOf
-- [ ] Split _.max & _.min into _.maxBy & _.minBy
-- [ ] Split _.omit & _.pick into _.omitBy & _.pickBy
-- [ ] Split _.sample into _.sampleSize
-- [ ] Split _.sortedIndex into _.sortedIndexBy
-- [ ] Split _.sortedLastIndex into _.sortedLastIndexBy
-- [ ] Split _.uniq into _.sortedUniq, _.sortedUniqBy, & _.uniqBy
-
-- [ ] Absorbed _.sortByAll into _.sortBy
-- [ ] Changed the category of _.at to “Object”
-- [ ] Changed the category of _.bindAll to “Utility”
-- [ ] Made “By” methods provide a single param to iteratees
-- [ ] Made _.capitalize uppercase the first character & lowercase the rest
-- [ ] Made _.functions return only own method names
-- [ ] Made _.words chainable by default
-- [ ] Removed isDeep params from _.clone & _.flatten
-- [ ] Removed _.bindAll support for binding all methods when no names are provided
-- [ ] Removed func-first param signature from _.before & _.after
-
-added 23 array methods:
-- [ ] _.concat,
-- [ ] _.differenceBy,
-- [ ] _.differenceWith,
-- [ ] _.flatMap,
-- [ ] _.fromPairs,
-- [ ] _.intersectionBy,
-- [ ] _.intersectionWith,
-- [ ] _.join,
-- [ ] _.pullAll,
-- [ ] _.pullAllBy,
-- [ ] _.reverse,
-- [ ] _.sortedIndexBy,
-- [ ] _.sortedIndexOf,
-- [ ] _.sortedLastIndexBy,
-- [ ] _.sortedLastIndexOf,
-- [ ] _.sortedUniq,
-- [ ] _.sortedUniqBy,
-- [ ] _.unionBy,
-- [ ] _.unionWith,
-- [ ] _.uniqBy,
-- [ ] _.uniqWith,
-- [ ] _.xorBy, &
-- [ ] _.xorWith
-
-added 18 lang methods:
-- [ ] _.cloneDeepWith,
-- [ ] _.cloneWith,
-- [ ] _.eq,
-- [ ] _.isArrayLike,
-- [ ] _.isArrayLikeObject,
-- [ ] _.isEqualWith,
-- [ ] _.isInteger,
-- [ ] _.isLength,
-- [ ] _.isMatchWith,
-- [ ] _.isNil,
-- [ ] _.isObjectLike,
-- [ ] _.isSafeInteger,
-- [ ] _.isSymbol,
-- [ ] _.toInteger,
-- [ ] _.toLength,
-- [ ] _.toNumber,
-- [ ] _.toSafeInteger, &
-- [ ] _.toString
-
-added 13 object methods:
-- [ ] _.assignIn,
-- [ ] _.assignInWith,
-- [ ] _.assignWith,
-- [ ] _.functionsIn,
-- [ ] _.hasIn,
-- [ ] _.invoke,
-- [ ] _.mergeWith,
-- [ ] _.omitBy,
-- [ ] _.pickBy,
-- [ ] _.setWith,
-- [ ] _.toPairs,
-- [ ] _.toPairsIn, &
-- [ ] _.unset
-
-added 8 string methods:
-- [ ] _.lowerCase,
-- [ ] _.lowerFirst,
-- [ ] _.replace,
-- [ ] _.split,
-- [ ] _.upperCase,
-- [ ] _.upperFirst,
-- [ ] _.toLower, &
-- [ ] _.toUpper
-
-added 8 utility methods:
-- [ ] _.cond,
-- [ ] _.conforms,
-- [ ] _.nthArg,
-- [ ] _.over,
-- [ ] _.overEvery,
-- [ ] _.overSome,
-- [ ] _.rangeRight, &
-- [ ] _.toPath
-
-added 4 math methods:
-- [ ] _.maxBy,
-- [ ] _.mean,
-- [ ] _.minBy, &
-- [ ] _.sumBy
-
-added 2 function methods:
-- [ ] _.flip &
-- [ ] _.unary
-
-added 2 number methods:
-- [ ] _.clamp &
-- [ ] _.subtract
-
-added chain method:
-- [ ] _#next
-
-added collection method:
-- [ ] _.sampleSize
-
-Added 3 aliases
-- [ ] _.extend as an alias of _.assignIn
-- [ ] _.extendWith as an alias of _.assignInWith
-- [ ] _.first as an alias of _.head
-
-Removed 17 aliases
-- [ ] _.all, _.any, _.backflow, _.callback, _.collect, _.compose, _.contains, _.detect, _.foldl, _.foldr, _.include, _.inject, _.methods, _.object, _.#run, _.select, & _.unique
-
-Other changes
-- [ ] Added clear method to _.memoize.Cache
-- [ ] Added flush method to debounced & throttled functions
-- [ ] Added support for ES6 maps, sets, & symbols to _.clone, _.isEqual, & _.toArray
-- [ ] Added support for array buffers to _.isEqual
-- [ ] Added support for converting iterators to _.toArray
-- [ ] Added support for deep paths to _.zipObject
-- [ ] Changed UMD to export to window or self when available regardless of other exports
-- [ ] Enabled _.flow & _.flowRight to accept an array of functions
-- [ ] Ensured “Collection” methods treat functions as objects
-- [ ] Ensured debounce cancel clears args & thisArg references
-- [ ] Ensured _.add, _.subtract, & _.sum don’t skip NaN values
-- [ ] Ensured _.assign, _.defaults, & _.merge coerce object values to objects
-- [ ] Ensured _.bindKey bound functions call object[key] when called with the new operator
-- [ ] Ensured _.clone treats generators like functions
-- [ ] Ensured _.clone produces clones with the source’s [[Prototype]]
-- [ ] Ensured _.defaults assigns properties that shadow Object.prototype
-- [ ] Ensured _.defaultsDeep doesn’t merge a string into an array
-- [ ] Ensured _.defaultsDeep & _.merge don’t modify sources
-- [ ] Ensured _.defaultsDeep works with circular references
-- [ ] Ensured _.isFunction returns true for generator functions
-- [ ] Ensured _.keys skips “length” on strict mode arguments objects in Safari 9
-- [ ] Ensured _.merge assigns typed arrays directly
-- [ ] Ensured _.merge doesn’t convert strings to arrays
-- [ ] Ensured _.merge merges plain-objects onto non plain-objects
-- [ ] Ensured _#plant resets iterator data of cloned sequences
-- [ ] Ensured _.random swaps min & max if min is greater than max
-- [ ] Ensured _.range preserves the sign of start of -0
-- [ ] Ensured _.reduce & _.reduceRight use getIteratee in their array branch
-- [ ] Fixed rounding issue with the precision param of _.floor
-- [ ] Made _(...) an iterator & iterable
-- [ ] Made _.drop, _.take, & right forms coerce n of undefined to 0
-*/
-
 declare var _: _.LoDashStatic;
 
 declare module _ {
@@ -238,6 +50,11 @@ declare module _ {
         * The semantic version number.
         **/
         VERSION: string;
+
+        /**
+        * An object used to flag environments features.
+        **/
+        support: Support;
 
         /**
         * By default, the template delimiters used by Lo-Dash are similar to those in embedded Ruby
@@ -6054,6 +5871,81 @@ declare module _ {
         ): TResult;
     }
 
+    //_.findWhere
+    interface LoDashStatic {
+        /**
+        * @see _.find
+        **/
+        findWhere<T>(
+            collection: Array<T>,
+            callback: ListIterator<T, boolean>,
+            thisArg?: any): T;
+
+        /**
+        * @see _.find
+        **/
+        findWhere<T>(
+            collection: List<T>,
+            callback: ListIterator<T, boolean>,
+            thisArg?: any): T;
+
+        /**
+        * @see _.find
+        **/
+        findWhere<T>(
+            collection: Dictionary<T>,
+            callback: DictionaryIterator<T, boolean>,
+            thisArg?: any): T;
+
+        /**
+        * @see _.find
+        * @param _.matches style callback
+        **/
+        findWhere<W, T>(
+            collection: Array<T>,
+            whereValue: W): T;
+
+        /**
+        * @see _.find
+        * @param _.matches style callback
+        **/
+        findWhere<W, T>(
+            collection: List<T>,
+            whereValue: W): T;
+
+        /**
+        * @see _.find
+        * @param _.matches style callback
+        **/
+        findWhere<W, T>(
+            collection: Dictionary<T>,
+            whereValue: W): T;
+
+        /**
+        * @see _.find
+        * @param _.property style callback
+        **/
+        findWhere<T>(
+            collection: Array<T>,
+            pluckValue: string): T;
+
+        /**
+        * @see _.find
+        * @param _.property style callback
+        **/
+        findWhere<T>(
+            collection: List<T>,
+            pluckValue: string): T;
+
+        /**
+        * @see _.find
+        * @param _.property style callback
+        **/
+        findWhere<T>(
+            collection: Dictionary<T>,
+            pluckValue: string): T;
+    }
+
     //_.findLast
     interface LoDashStatic {
         /**
@@ -7384,6 +7276,57 @@ declare module _ {
             pluckValue: string): LoDashImplicitArrayWrapper<TResult[]>;
     }
 
+    //_.pluck
+    interface LoDashStatic {
+        /**
+         * Gets the property value of path from all elements in collection.
+         *
+         * @param collection The collection to iterate over.
+         * @param path The path of the property to pluck.
+         * @return A new array of property values.
+         */
+        pluck<T extends {}>(
+            collection: List<T>|Dictionary<T>,
+            path: StringRepresentable|StringRepresentable[]
+        ): any[];
+
+        /**
+         * @see _.pluck
+         */
+        pluck<T extends {}, TResult>(
+            collection: List<T>|Dictionary<T>,
+            path: StringRepresentable|StringRepresentable[]
+        ): TResult[];
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.pluck
+         */
+        pluck<TResult>(path: StringRepresentable|StringRepresentable[]): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.pluck
+         */
+        pluck<TResult>(path: StringRepresentable|StringRepresentable[]): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.pluck
+         */
+        pluck<TResult>(path: StringRepresentable|StringRepresentable[]): LoDashExplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.pluck
+         */
+        pluck<TResult>(path: StringRepresentable|StringRepresentable[]): LoDashExplicitArrayWrapper<TResult>;
+    }
+
     //_.reduce
     interface LoDashStatic {
         /**
@@ -8574,186 +8517,76 @@ declare module _ {
     //_.sortByAll
     interface LoDashStatic {
         /**
-         * This method is like _.sortBy except that it can sort by multiple iteratees or property names.
-         *
-         * If a property name is provided for an iteratee the created _.property style callback returns the property
-         * value of the given element.
-         *
-         * If an object is provided for an iteratee the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
-         *
-         * @param collection The collection to iterate over.
-         * @param iteratees The iteratees to sort by, specified as individual values or arrays of values.
-         * @return Returns the new sorted array.
-         */
-        sortByAll<W extends Object, T>(
-            collection: List<T>,
-            iteratees: ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)[]
-        ): T[];
+        * This method is like "_.sortBy" except that it can sort by multiple iteratees or
+        * property names.
+        *
+        * If a property name is provided for an iteratee the created "_.property" style callback
+        * returns the property value of the given element.
+        *
+        * If a value is also provided for thisArg the created "_.matchesProperty" style callback
+        * returns true for elements that have a matching property value, else false.
+        *
+        * If an object is provided for an iteratee the created "_.matches" style callback returns
+        * true for elements that have the properties of the given object, else false.
+        *
+        * @param collection The collection to iterate over.
+        * @param callback The function called per iteration.
+        * @param thisArg The this binding of callback.
+        * @return A new array of sorted elements.
+        **/
+        sortByAll<T>(
+            collection: Array<T>,
+            iteratees: (ListIterator<T, any>|string|Object)[]): T[];
 
         /**
-         * @see _.sortByAll
-         */
+        * @see _.sortByAll
+        **/
         sortByAll<T>(
             collection: List<T>,
-            iteratees: ListIterator<T, any>|string|Object|(ListIterator<T, any>|string|Object)[]
-        ): T[];
+            iteratees: (ListIterator<T, any>|string|Object)[]): T[];
 
         /**
-         * @see _.sortByAll
-         */
-        sortByAll<W extends Object, T>(
-            collection: NumericDictionary<T>,
-            iteratees: NumericDictionaryIterator<T, any>|string|W|(NumericDictionaryIterator<T, any>|string|W)[]
-        ): T[];
+        * @see _.sortByAll
+        **/
+        sortByAll<T>(
+            collection: Array<T>,
+            ...iteratees: (ListIterator<T, any>|string|Object)[]): T[];
 
         /**
-         * @see _.sortByAll
+        * @see _.sortByAll
+        **/
+        sortByAll<T>(
+            collection: List<T>,
+            ...iteratees: (ListIterator<T, any>|string|Object)[]): T[];
+
+        /**
+         * Sorts by all the given arguments, using either ListIterator, pluckValue, or whereValue foramts
+         * @param args The rules by which to sort
          */
         sortByAll<T>(
-            collection: NumericDictionary<T>,
-            iteratees: NumericDictionaryIterator<T, any>|string|Object|(NumericDictionaryIterator<T, any>|string|Object)[]
+            collection: (Array<T>|List<T>),
+            ...args: (ListIterator<T, boolean>|Object|string)[]
         ): T[];
-
-        /**
-         * @see _.sortByAll
-         */
-        sortByAll<W extends Object, T>(
-            collection: Dictionary<T>,
-            iteratees: DictionaryIterator<T, any>|string|W|(DictionaryIterator<T, any>|string|W)[]
-        ): T[];
-
-        /**
-         * @see _.sortByAll
-         */
-        sortByAll<T>(
-            collection: Dictionary<T>,
-            iteratees: DictionaryIterator<T, any>|string|Object|(DictionaryIterator<T, any>|string|Object)[]
-        ): T[];
-    }
-
-    interface LoDashImplicitWrapper<T> {
-        /**
-         * @see _.sortByAll
-         */
-        sortByAll(
-            iteratees: ListIterator<T, any>|string|(ListIterator<T, any>|string)[]
-        ): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
-         * @see _.sortByAll
+         * Sorts by all the given arguments, using either ListIterator, pluckValue, or whereValue foramts
+         * @param args The rules by which to sort
          */
-        sortByAll<W extends Object>(
-            iteratees: ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)[]
-        ): LoDashImplicitArrayWrapper<T>;
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.sortByAll
-         */
-        sortByAll<W extends Object, T>(
-            iteratees: ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)[]
-        ): LoDashImplicitArrayWrapper<T>;
+        sortByAll(...args: (ListIterator<T, boolean>|Object|string)[]): LoDashImplicitArrayWrapper<T>;
 
         /**
-         * @see _.sortByAll
-         */
-        sortByAll<T>(
-            iteratees: ListIterator<T, any>|string|Object|(ListIterator<T, any>|string|Object)[]
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.sortByAll
-         */
-        sortByAll<W extends Object, T>(
-            iteratees: NumericDictionaryIterator<T, any>|string|W|(NumericDictionaryIterator<T, any>|string|W)[]
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.sortByAll
-         */
-        sortByAll<T>(
-            iteratees: NumericDictionaryIterator<T, any>|string|Object|(NumericDictionaryIterator<T, any>|string|Object)[]
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.sortByAll
-         */
-        sortByAll<W extends Object, T>(
-            iteratees: DictionaryIterator<T, any>|string|W|(DictionaryIterator<T, any>|string|W)[]
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.sortByAll
-         */
-        sortByAll<T>(
-            iteratees: DictionaryIterator<T, any>|string|Object|(DictionaryIterator<T, any>|string|Object)[]
-        ): LoDashImplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.sortByAll
-         */
+        * @see _.sortByAll
+        **/
         sortByAll(
-            iteratees: ListIterator<T, any>|string|(ListIterator<T, any>|string)[]
-        ): LoDashExplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitArrayWrapper<T> {
-        /**
-         * @see _.sortByAll
-         */
-        sortByAll<W extends Object>(
-            iteratees: ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)[]
-        ): LoDashExplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.sortByAll
-         */
-        sortByAll<W extends Object, T>(
-            iteratees: ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)[]
-        ): LoDashExplicitArrayWrapper<T>;
+            iteratees: (ListIterator<T, any>|string|Object)[]): LoDashImplicitArrayWrapper<T>;
 
         /**
-         * @see _.sortByAll
-         */
-        sortByAll<T>(
-            iteratees: ListIterator<T, any>|string|Object|(ListIterator<T, any>|string|Object)[]
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.sortByAll
-         */
-        sortByAll<W extends Object, T>(
-            iteratees: NumericDictionaryIterator<T, any>|string|W|(NumericDictionaryIterator<T, any>|string|W)[]
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.sortByAll
-         */
-        sortByAll<T>(
-            iteratees: NumericDictionaryIterator<T, any>|string|Object|(NumericDictionaryIterator<T, any>|string|Object)[]
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.sortByAll
-         */
-        sortByAll<W extends Object, T>(
-            iteratees: DictionaryIterator<T, any>|string|W|(DictionaryIterator<T, any>|string|W)[]
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.sortByAll
-         */
-        sortByAll<T>(
-            iteratees: DictionaryIterator<T, any>|string|Object|(DictionaryIterator<T, any>|string|Object)[]
-        ): LoDashExplicitArrayWrapper<T>;
+        * @see _.sortByAll
+        **/
+        sortByAll(
+            ...iteratees: (ListIterator<T, any>|string|Object)[]): LoDashImplicitArrayWrapper<T>;
     }
 
     //_.sortByOrder
@@ -8964,6 +8797,41 @@ declare module _ {
             iteratees: DictionaryIterator<T, any>|string|Object|(DictionaryIterator<T, any>|string|Object)[],
             orders?: boolean|string|(boolean|string)[]
         ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    //_.where
+    interface LoDashStatic {
+        /**
+        * Performs a deep comparison of each element in a collection to the given properties
+        * object, returning an array of all elements that have equivalent property values.
+        * @param collection The collection to iterate over.
+        * @param properties The object of property values to filter by.
+        * @return A new array of elements that have the given properties.
+        **/
+        where<T, U extends {}>(
+            list: Array<T>,
+            properties: U): T[];
+
+        /**
+        * @see _.where
+        **/
+        where<T, U extends {}>(
+            list: List<T>,
+            properties: U): T[];
+
+        /**
+        * @see _.where
+        **/
+        where<T, U extends {}>(
+            list: Dictionary<T>,
+            properties: U): T[];
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+        * @see _.where
+        **/
+        where<U extends {}>(properties: U): LoDashImplicitArrayWrapper<T>;
     }
 
     /********
@@ -13210,57 +13078,6 @@ declare module _ {
         merge<TResult>(
             ...otherArgs: any[]
         ): LoDashImplicitObjectWrapper<TResult>;
-    }
-
-    interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.merge
-         */
-        merge<TSource>(
-            source: TSource,
-            customizer?: MergeCustomizer,
-            thisArg?: any
-        ): LoDashExplicitObjectWrapper<T & TSource>;
-
-        /**
-         * @see _.merge
-         */
-        merge<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2,
-            customizer?: MergeCustomizer,
-            thisArg?: any
-        ): LoDashExplicitObjectWrapper<T & TSource1 & TSource2>;
-
-        /**
-         * @see _.merge
-         */
-        merge<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            customizer?: MergeCustomizer,
-            thisArg?: any
-        ): LoDashExplicitObjectWrapper<T & TSource1 & TSource2 & TSource3>;
-
-        /**
-         * @see _.merge
-         */
-        merge<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4,
-            customizer?: MergeCustomizer,
-            thisArg?: any
-        ): LoDashExplicitObjectWrapper<T & TSource1 & TSource2 & TSource3 & TSource4>;
-
-        /**
-         * @see _.merge
-         */
-        merge<TResult>(
-            ...otherArgs: any[]
-        ): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.methods
