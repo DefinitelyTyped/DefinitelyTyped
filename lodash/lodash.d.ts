@@ -14174,8 +14174,8 @@ declare module _ {
         trimEnd(chars?: string): LoDashExplicitWrapper<string>;
     }
 
-    //_.trunc
-    interface TruncOptions {
+    //_.truncate
+    interface TruncateOptions {
         /** The maximum string length. */
         length?: number;
         /** The string to indicate text is omitted. */
@@ -14193,24 +14193,24 @@ declare module _ {
          * @param options The options object or maximum string length.
          * @return Returns the truncated string.
          */
-        trunc(
+        truncate(
             string?: string,
-            options?: TruncOptions|number
+            options?: TruncateOptions|number
         ): string;
     }
 
     interface LoDashImplicitWrapper<T> {
         /**
-         * @see _.trunc
+         * @see _.truncate
          */
-        trunc(options?: TruncOptions|number): string;
+        truncate(options?: TruncateOptions|number): string;
     }
 
     interface LoDashExplicitWrapper<T> {
         /**
-         * @see _.trunc
+         * @see _.truncate
          */
-        trunc(options?: TruncOptions|number): LoDashExplicitWrapper<string>;
+        truncate(options?: TruncateOptions|number): LoDashExplicitWrapper<string>;
     }
 
     //_.unescape
