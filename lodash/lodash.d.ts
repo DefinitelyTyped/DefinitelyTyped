@@ -32,7 +32,7 @@ TODO:
 - [x] Split _.max & _.min into _.maxBy & _.minBy
 - [x] Split _.omit & _.pick into _.omitBy & _.pickBy
 - [x] Split _.sample into _.sampleSize
-- [ ] Split _.sortedIndex into _.sortedIndexBy
+- [x] Split _.sortedIndex into _.sortedIndexBy
 - [ ] Split _.sortedLastIndex into _.sortedLastIndexBy
 - [ ] Split _.uniq into _.sortedUniq, _.sortedUniqBy, & _.uniqBy
 
@@ -2130,24 +2130,26 @@ declare module _ {
     //_.sortedIndex
     interface LoDashStatic {
         /**
-         * Uses a binary search to determine the lowest index at which value should be inserted into array in order to maintain its sort order. If an iteratee function is provided it’s invoked for value and each element of array to compute their sort ranking. The iteratee is bound to thisArg and invoked with one argument; (value).
+         * Uses a binary search to determine the lowest index at which `value` should
+         * be inserted into `array` in order to maintain its sort order.
          *
-         * If a property name is provided for iteratee the created _.property style callback returns the property value of the given element.
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The sorted array to inspect.
+         * @param {*} value The value to evaluate.
+         * @returns {number} Returns the index at which `value` should be inserted into `array`.
+         * @example
          *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for elements that have a matching property value, else false.
+         * _.sortedIndex([30, 50], 40);
+         * // => 1
          *
-         * If an object is provided for iteratee the created _.matches style callback returns true for elements that have the properties of the given object, else false.
-         *
-         * @param array The sorted array to inspect.
-         * @param value The value to evaluate.
-         * @param iteratee The function invoked per iteration.
-         * @return The this binding of iteratee.
+         * _.sortedIndex([4, 5], 4);
+         * // => 0
          */
         sortedIndex<T, TSort>(
             array: List<T>,
-            value: T,
-            iteratee?: (x: T) => TSort,
-            thisArg?: any
+            value: T
         ): number;
 
         /**
@@ -2155,9 +2157,7 @@ declare module _ {
          */
         sortedIndex<T>(
             array: List<T>,
-            value: T,
-            iteratee?: (x: T) => any,
-            thisArg?: any
+            value: T
         ): number;
 
         /**
@@ -2165,8 +2165,7 @@ declare module _ {
          */
         sortedIndex<T>(
             array: List<T>,
-            value: T,
-            iteratee: string
+            value: T
         ): number;
 
         /**
@@ -2174,8 +2173,7 @@ declare module _ {
          */
         sortedIndex<W, T>(
             array: List<T>,
-            value: T,
-            iteratee: W
+            value: T
         ): number;
 
         /**
@@ -2183,8 +2181,7 @@ declare module _ {
          */
         sortedIndex<T>(
             array: List<T>,
-            value: T,
-            iteratee: Object
+            value: T
         ): number;
     }
 
@@ -2193,9 +2190,7 @@ declare module _ {
          * @see _.sortedIndex
          */
         sortedIndex<TSort>(
-            value: string,
-            iteratee?: (x: string) => TSort,
-            thisArg?: any
+            value: string
         ): number;
     }
 
@@ -2204,25 +2199,14 @@ declare module _ {
          * @see _.sortedIndex
          */
         sortedIndex<TSort>(
-            value: T,
-            iteratee?: (x: T) => TSort,
-            thisArg?: any
+            value: T
         ): number;
 
         /**
          * @see _.sortedIndex
          */
         sortedIndex(
-            value: T,
-            iteratee: string
-        ): number;
-
-        /**
-         * @see _.sortedIndex
-         */
-        sortedIndex<W>(
-            value: T,
-            iteratee: W
+            value: T
         ): number;
     }
 
@@ -2231,42 +2215,21 @@ declare module _ {
          * @see _.sortedIndex
          */
         sortedIndex<T, TSort>(
-            value: T,
-            iteratee?: (x: T) => TSort,
-            thisArg?: any
+            value: T
         ): number;
 
         /**
          * @see _.sortedIndex
          */
         sortedIndex<T>(
-            value: T,
-            iteratee?: (x: T) => any,
-            thisArg?: any
-        ): number;
-
-        /**
-         * @see _.sortedIndex
-         */
-        sortedIndex<T>(
-            value: T,
-            iteratee: string
+            value: T
         ): number;
 
         /**
          * @see _.sortedIndex
          */
         sortedIndex<W, T>(
-            value: T,
-            iteratee: W
-        ): number;
-
-        /**
-         * @see _.sortedIndex
-         */
-        sortedIndex<T>(
-            value: T,
-            iteratee: Object
+            value: T
         ): number;
     }
 
@@ -2275,9 +2238,7 @@ declare module _ {
          * @see _.sortedIndex
          */
         sortedIndex<TSort>(
-            value: string,
-            iteratee?: (x: string) => TSort,
-            thisArg?: any
+            value: string
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -2286,25 +2247,21 @@ declare module _ {
          * @see _.sortedIndex
          */
         sortedIndex<TSort>(
-            value: T,
-            iteratee?: (x: T) => TSort,
-            thisArg?: any
+            value: T
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.sortedIndex
          */
         sortedIndex(
-            value: T,
-            iteratee: string
+            value: T
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.sortedIndex
          */
         sortedIndex<W>(
-            value: T,
-            iteratee: W
+            value: T
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -2313,40 +2270,245 @@ declare module _ {
          * @see _.sortedIndex
          */
         sortedIndex<T, TSort>(
-            value: T,
-            iteratee?: (x: T) => TSort,
-            thisArg?: any
+            value: T
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.sortedIndex
          */
         sortedIndex<T>(
-            value: T,
-            iteratee?: (x: T) => any,
-            thisArg?: any
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sortedIndex
-         */
-        sortedIndex<T>(
-            value: T,
-            iteratee: string
+            value: T
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.sortedIndex
          */
         sortedIndex<W, T>(
+            value: T
+        ): LoDashExplicitWrapper<number>;
+
+
+    }
+
+    //_.sortedIndexBy
+    interface LoDashStatic {
+        /**
+         * This method is like `_.sortedIndex` except that it accepts `iteratee`
+         * which is invoked for `value` and each element of `array` to compute their
+         * sort ranking. The iteratee is invoked with one argument: (value).
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The sorted array to inspect.
+         * @param {*} value The value to evaluate.
+         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
+         * @returns {number} Returns the index at which `value` should be inserted into `array`.
+         * @example
+         *
+         * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+         *
+         * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+         * // => 1
+         *
+         * // using the `_.property` iteratee shorthand
+         * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+         * // => 0
+         */
+        sortedIndexBy<T, TSort>(
+            array: List<T>,
+            value: T,
+            iteratee: (x: T) => TSort
+        ): number;
+
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<T>(
+            array: List<T>,
+            value: T,
+            iteratee: (x: T) => any
+        ): number;
+
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<T>(
+            array: List<T>,
+            value: T,
+            iteratee: string
+        ): number;
+
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<W, T>(
+            array: List<T>,
+            value: T,
+            iteratee: W
+        ): number;
+
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<T>(
+            array: List<T>,
+            value: T,
+            iteratee: Object
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<TSort>(
+            value: string,
+            iteratee: (x: string) => TSort
+        ): number;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<TSort>(
+            value: T,
+            iteratee: (x: T) => TSort
+        ): number;
+
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy(
+            value: T,
+            iteratee: string
+        ): number;
+
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<W>(
+            value: T,
+            iteratee: W
+        ): number;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<T, TSort>(
+            value: T,
+            iteratee: (x: T) => TSort
+        ): number;
+
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<T>(
+            value: T,
+            iteratee: (x: T) => any
+        ): number;
+
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<T>(
+            value: T,
+            iteratee: string
+        ): number;
+
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<W, T>(
+            value: T,
+            iteratee: W
+        ): number;
+
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<T>(
+            value: T,
+            iteratee: Object
+        ): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<TSort>(
+            value: string,
+            iteratee: (x: string) => TSort
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<TSort>(
+            value: T,
+            iteratee: (x: T) => TSort
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy(
+            value: T,
+            iteratee: string
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<W>(
+            value: T,
+            iteratee: W
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<T, TSort>(
+            value: T,
+            iteratee: (x: T) => TSort
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<T>(
+            value: T,
+            iteratee: (x: T) => any
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<T>(
+            value: T,
+            iteratee: string
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sortedIndexBy
+         */
+        sortedIndexBy<W, T>(
             value: T,
             iteratee: W
         ): LoDashExplicitWrapper<number>;
 
         /**
-         * @see _.sortedIndex
+         * @see _.sortedIndexBy
          */
-        sortedIndex<T>(
+        sortedIndexBy<T>(
             value: T,
             iteratee: Object
         ): LoDashExplicitWrapper<number>;
