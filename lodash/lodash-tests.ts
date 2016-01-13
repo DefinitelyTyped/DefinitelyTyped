@@ -4529,8 +4529,8 @@ module TestKeyBy {
     }
 }
 
-result = <number[][]>_.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
-result = <string[][]>_.invoke([123, 456], String.prototype.split, '');
+result = <number[][]>_.invokeMap([[5, 1, 7], [3, 2, 1]], 'sort');
+result = <string[][]>_.invokeMap([123, 456], String.prototype.split, '');
 
 // _.map
 module TestMap {
