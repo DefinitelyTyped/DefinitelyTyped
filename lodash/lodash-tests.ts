@@ -1725,153 +1725,233 @@ module TestUniq {
 
     {
         let result: string[];
-
         result = _.uniq<string>('abc');
-        result = _.uniq<string>('abc', true);
-        result = _.uniq<string>('abc', true, stringIterator);
-        result = _.uniq<string>('abc', true, stringIterator, any);
-        result = _.uniq<string, string>('abc', true, stringIterator);
-        result = _.uniq<string, string>('abc', true, stringIterator, any);
-        result = _.uniq<string>('abc', stringIterator);
-        result = _.uniq<string>('abc', stringIterator, any);
-        result = _.uniq<string, string>('abc', stringIterator);
-        result = _.uniq<string, string>('abc', stringIterator, any);
     }
 
     {
         let result: SampleObject[];
 
         result = _.uniq<SampleObject>(array);
-        result = _.uniq<SampleObject>(array, true);
-        result = _.uniq<SampleObject>(array, true, listIterator);
-        result = _.uniq<SampleObject>(array, true, listIterator, any);
-        result = _.uniq<SampleObject, number>(array, true, listIterator);
-        result = _.uniq<SampleObject, number>(array, true, listIterator, any);
-        result = _.uniq<SampleObject>(array, listIterator);
-        result = _.uniq<SampleObject>(array, listIterator, any);
-        result = _.uniq<SampleObject, number>(array, listIterator);
-        result = _.uniq<SampleObject, number>(array, listIterator, any);
-        result = _.uniq<SampleObject>(array, true, 'a');
-        result = _.uniq<SampleObject>(array, true, 'a', any);
-        result = _.uniq<SampleObject>(array, 'a');
-        result = _.uniq<SampleObject>(array, 'a', any);
-        result = _.uniq<SampleObject>(array, true, {a: 42});
-        result = _.uniq<{a: number}, SampleObject>(array, true, {a: 42});
-        result = _.uniq<SampleObject>(array, {a: 42});
-        result = _.uniq<{a: number}, SampleObject>(array, {a: 42});
-
         result = _.uniq<SampleObject>(list);
-        result = _.uniq<SampleObject>(list, true);
-        result = _.uniq<SampleObject>(list, true, listIterator);
-        result = _.uniq<SampleObject>(list, true, listIterator, any);
-        result = _.uniq<SampleObject, number>(list, true, listIterator);
-        result = _.uniq<SampleObject, number>(list, true, listIterator, any);
-        result = _.uniq<SampleObject>(list, listIterator);
-        result = _.uniq<SampleObject>(list, listIterator, any);
-        result = _.uniq<SampleObject, number>(list, listIterator);
-        result = _.uniq<SampleObject, number>(list, listIterator, any);
-        result = _.uniq<SampleObject>(list, true, 'a');
-        result = _.uniq<SampleObject>(list, true, 'a', any);
-        result = _.uniq<SampleObject>(list, 'a');
-        result = _.uniq<SampleObject>(list, 'a', any);
-        result = _.uniq<SampleObject>(list, true, {a: 42});
-        result = _.uniq<{a: number}, SampleObject>(list, true, {a: 42});
-        result = _.uniq<SampleObject>(list, {a: 42});
-        result = _.uniq<{a: number}, SampleObject>(list, {a: 42});
     }
 
     {
         let result: _.LoDashImplicitArrayWrapper<string>;
-
         result = _('abc').uniq();
-        result = _('abc').uniq(true);
-        result = _('abc').uniq<string>(true, stringIterator);
-        result = _('abc').uniq<string>(true, stringIterator, any);
-        result = _('abc').uniq<string>(stringIterator);
-        result = _('abc').uniq<string>(stringIterator, any);
     }
 
     {
         let result: _.LoDashImplicitArrayWrapper<SampleObject>;
 
         result = _(array).uniq();
-        result = _(array).uniq(true);
-        result = _(array).uniq<number>(true, listIterator);
-        result = _(array).uniq<number>(true, listIterator, any);
-        result = _(array).uniq<number>(listIterator);
-        result = _(array).uniq<number>(listIterator, any);
-        result = _(array).uniq(true, 'a');
-        result = _(array).uniq(true, 'a', any);
-        result = _(array).uniq('a');
-        result = _(array).uniq('a', any);
-        result = _(array).uniq<{a: number}>(true, {a: 42});
-        result = _(array).uniq<{a: number}>({a: 42});
-
         result = _(list).uniq<SampleObject>();
-        result = _(list).uniq<SampleObject>(true);
-        result = _(list).uniq<SampleObject>(true, listIterator);
-        result = _(list).uniq<SampleObject>(true, listIterator, any);
-        result = _(list).uniq<SampleObject, number>(true, listIterator);
-        result = _(list).uniq<SampleObject, number>(true, listIterator, any);
-        result = _(list).uniq<SampleObject>(listIterator);
-        result = _(list).uniq<SampleObject>(listIterator, any);
-        result = _(list).uniq<SampleObject, number>(listIterator);
-        result = _(list).uniq<SampleObject, number>(listIterator, any);
-        result = _(list).uniq<SampleObject>(true, 'a');
-        result = _(list).uniq<SampleObject>(true, 'a', any);
-        result = _(list).uniq<SampleObject>('a');
-        result = _(list).uniq<SampleObject>('a', any);
-        result = _(list).uniq<SampleObject>(true, {a: 42});
-        result = _(list).uniq<{a: number}, SampleObject>(true, {a: 42});
-        result = _(list).uniq<SampleObject>({a: 42});
-        result = _(list).uniq<{a: number}, SampleObject>({a: 42});
     }
 
     {
         let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _('abc').chain().uniq();
-        result = _('abc').chain().uniq(true);
-        result = _('abc').chain().uniq<string>(true, stringIterator);
-        result = _('abc').chain().uniq<string>(true, stringIterator, any);
-        result = _('abc').chain().uniq<string>(stringIterator);
-        result = _('abc').chain().uniq<string>(stringIterator, any);
     }
 
     {
         let result: _.LoDashExplicitArrayWrapper<SampleObject>;
 
         result = _(array).chain().uniq();
-        result = _(array).chain().uniq(true);
-        result = _(array).chain().uniq<number>(true, listIterator);
-        result = _(array).chain().uniq<number>(true, listIterator, any);
-        result = _(array).chain().uniq<number>(listIterator);
-        result = _(array).chain().uniq<number>(listIterator, any);
-        result = _(array).chain().uniq(true, 'a');
-        result = _(array).chain().uniq(true, 'a', any);
-        result = _(array).chain().uniq('a');
-        result = _(array).chain().uniq('a', any);
-        result = _(array).chain().uniq<{a: number}>(true, {a: 42});
-        result = _(array).chain().uniq<{a: number}>({a: 42});
-
         result = _(list).chain().uniq<SampleObject>();
-        result = _(list).chain().uniq<SampleObject>(true);
-        result = _(list).chain().uniq<SampleObject>(true, listIterator);
-        result = _(list).chain().uniq<SampleObject>(true, listIterator, any);
-        result = _(list).chain().uniq<SampleObject, number>(true, listIterator);
-        result = _(list).chain().uniq<SampleObject, number>(true, listIterator, any);
-        result = _(list).chain().uniq<SampleObject>(listIterator);
-        result = _(list).chain().uniq<SampleObject>(listIterator, any);
-        result = _(list).chain().uniq<SampleObject, number>(listIterator);
-        result = _(list).chain().uniq<SampleObject, number>(listIterator, any);
-        result = _(list).chain().uniq<SampleObject>(true, 'a');
-        result = _(list).chain().uniq<SampleObject>(true, 'a', any);
-        result = _(list).chain().uniq<SampleObject>('a');
-        result = _(list).chain().uniq<SampleObject>('a', any);
-        result = _(list).chain().uniq<SampleObject>(true, {a: 42});
-        result = _(list).chain().uniq<{a: number}, SampleObject>(true, {a: 42});
-        result = _(list).chain().uniq<SampleObject>({a: 42});
-        result = _(list).chain().uniq<{a: number}, SampleObject>({a: 42});
+
+    }
+}
+
+
+// _.uniqBy
+module TestUniqBy {
+    type SampleObject = {a: number; b: string; c: boolean};
+
+    let array: SampleObject[];
+    let list: _.List<SampleObject>;
+
+    let stringIterator: (value: string, index: number, collection: string) => string;
+    let listIterator: (value: SampleObject, index: number, collection: _.List<SampleObject>) => number;
+
+    {
+        let result: string[];
+
+        result = _.uniqBy<string>('abc', stringIterator);
+        result = _.uniqBy<string, string>('abc', stringIterator);
+    }
+
+    {
+        let result: SampleObject[];
+
+        result = _.uniqBy<SampleObject>(array, listIterator);
+        result = _.uniqBy<SampleObject, number>(array, listIterator);
+        result = _.uniqBy<SampleObject>(array, 'a');
+        result = _.uniqBy<SampleObject>(array, {a: 42});
+        result = _.uniqBy<{a: number}, SampleObject>(array, {a: 42});
+
+        result = _.uniqBy<SampleObject>(list, listIterator);
+        result = _.uniqBy<SampleObject, number>(list, listIterator);
+        result = _.uniqBy<SampleObject>(list, 'a');
+        result = _.uniqBy<SampleObject>(list, {a: 42});
+        result = _.uniqBy<{a: number}, SampleObject>(list, {a: 42});
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _('abc').uniqBy<string>(stringIterator);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
+
+        result = _(array).uniqBy<number>(listIterator);
+        result = _(array).uniqBy('a');
+        result = _(array).uniqBy<{a: number}>({a: 42});
+
+        result = _(list).uniqBy<SampleObject>(listIterator);
+        result = _(list).uniqBy<SampleObject, number>(listIterator);
+        result = _(list).uniqBy<SampleObject>('a');
+        result = _(list).uniqBy<SampleObject>({a: 42});
+        result = _(list).uniqBy<{a: number}, SampleObject>({a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _('abc').chain().uniqBy<string>(stringIterator);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
+
+        result = _(array).chain().uniqBy<number>(listIterator);
+        result = _(array).chain().uniqBy('a');
+        result = _(array).chain().uniqBy<{a: number}>({a: 42});
+
+        result = _(list).chain().uniqBy<SampleObject>(listIterator);
+        result = _(list).chain().uniqBy<SampleObject, number>(listIterator);
+        result = _(list).chain().uniqBy<SampleObject>('a');
+        result = _(list).chain().uniqBy<SampleObject>({a: 42});
+        result = _(list).chain().uniqBy<{a: number}, SampleObject>({a: 42});
+    }
+}
+
+// _.sortedUniq
+module TestSortedUniq {
+    type SampleObject = {a: number; b: string; c: boolean};
+
+    let array: SampleObject[];
+    let list: _.List<SampleObject>;
+
+    let stringIterator: (value: string, index: number, collection: string) => string;
+    let listIterator: (value: SampleObject, index: number, collection: _.List<SampleObject>) => number;
+
+    {
+        let result: string[];
+        result = _.sortedUniq<string>('abc');
+    }
+
+    {
+        let result: SampleObject[];
+        result = _.sortedUniq<SampleObject>(array);
+        result = _.sortedUniq<SampleObject>(list);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+        result = _('abc').sortedUniq();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
+        result = _(array).sortedUniq();
+        result = _(list).sortedUniq<SampleObject>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+        result = _('abc').chain().sortedUniq();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
+        result = _(array).chain().sortedUniq();
+        result = _(list).chain().sortedUniq<SampleObject>();
+    }
+}
+
+// _.sortedUniqBy
+module TestSortedUniqBy {
+    type SampleObject = {a: number; b: string; c: boolean};
+
+    let array: SampleObject[];
+    let list: _.List<SampleObject>;
+
+    let stringIterator: (value: string, index: number, collection: string) => string;
+    let listIterator: (value: SampleObject, index: number, collection: _.List<SampleObject>) => number;
+
+    {
+        let result: string[];
+
+        result = _.sortedUniqBy<string>('abc', stringIterator);
+        result = _.sortedUniqBy<string, string>('abc', stringIterator);
+    }
+
+    {
+        let result: SampleObject[];
+
+        result = _.sortedUniqBy<SampleObject>(array, listIterator);
+        result = _.sortedUniqBy<SampleObject, number>(array, listIterator);
+        result = _.sortedUniqBy<SampleObject>(array, 'a');
+        result = _.sortedUniqBy<SampleObject>(array, {a: 42});
+        result = _.sortedUniqBy<{a: number}, SampleObject>(array, {a: 42});
+
+        result = _.sortedUniqBy<SampleObject>(list, listIterator);
+        result = _.sortedUniqBy<SampleObject, number>(list, listIterator);
+        result = _.sortedUniqBy<SampleObject>(list, 'a');
+        result = _.sortedUniqBy<SampleObject>(list, {a: 42});
+        result = _.sortedUniqBy<{a: number}, SampleObject>(list, {a: 42});
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _('abc').sortedUniqBy<string>(stringIterator);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
+
+        result = _(array).sortedUniqBy<number>(listIterator);
+        result = _(array).sortedUniqBy('a');
+        result = _(array).sortedUniqBy<{a: number}>({a: 42});
+
+        result = _(list).sortedUniqBy<SampleObject>(listIterator);
+        result = _(list).sortedUniqBy<SampleObject, number>(listIterator);
+        result = _(list).sortedUniqBy<SampleObject>('a');
+        result = _(list).sortedUniqBy<SampleObject>({a: 42});
+        result = _(list).sortedUniqBy<{a: number}, SampleObject>({a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _('abc').chain().sortedUniqBy<string>(stringIterator);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
+
+        result = _(array).chain().sortedUniqBy<number>(listIterator);
+        result = _(array).chain().sortedUniqBy('a');
+        result = _(array).chain().sortedUniqBy<{a: number}>({a: 42});
+
+        result = _(list).chain().sortedUniqBy<SampleObject>(listIterator);
+        result = _(list).chain().sortedUniqBy<SampleObject, number>(listIterator);
+        result = _(list).chain().sortedUniqBy<SampleObject>('a');
+        result = _(list).chain().sortedUniqBy<SampleObject>({a: 42});
+        result = _(list).chain().sortedUniqBy<{a: number}, SampleObject>({a: 42});
     }
 }
 
