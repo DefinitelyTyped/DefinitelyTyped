@@ -1483,70 +1483,87 @@ module TestSortedLastIndex {
         let result: number;
 
         result = _.sortedLastIndex<string>('', '');
-        result = _.sortedLastIndex<string>('', '', stringIterator);
-        result = _.sortedLastIndex<string>('', '', stringIterator, any);
-        result = _.sortedLastIndex<string, number>('', '', stringIterator);
-        result = _.sortedLastIndex<string, number>('', '', stringIterator, any);
 
         result = _.sortedLastIndex<SampleType>(array, value);
-        result = _.sortedLastIndex<SampleType>(array, value, arrayIterator);
-        result = _.sortedLastIndex<SampleType>(array, value, arrayIterator, any);
-        result = _.sortedLastIndex<SampleType>(array, value, '');
-        result = _.sortedLastIndex<SampleType>(array, value, {a: 42});
-        result = _.sortedLastIndex<SampleType, number>(array, value, arrayIterator);
-        result = _.sortedLastIndex<SampleType, number>(array, value, arrayIterator, any);
-        result = _.sortedLastIndex<{a: number}, SampleType>(array, value, {a: 42});
 
         result = _.sortedLastIndex<SampleType>(list, value);
-        result = _.sortedLastIndex<SampleType>(list, value, listIterator);
-        result = _.sortedLastIndex<SampleType>(list, value, listIterator, any);
-        result = _.sortedLastIndex<SampleType>(list, value, '');
-        result = _.sortedLastIndex<SampleType>(list, value, {a: 42});
-        result = _.sortedLastIndex<SampleType, number>(list, value, listIterator);
-        result = _.sortedLastIndex<SampleType, number>(list, value, listIterator, any);
-        result = _.sortedLastIndex<{a: number}, SampleType>(list, value, {a: 42});
 
         result = _('').sortedLastIndex('');
-        result = _('').sortedLastIndex<number>('', stringIterator);
-        result = _('').sortedLastIndex<number>('', stringIterator, any);
 
         result = _(array).sortedLastIndex(value);
-        result = _(array).sortedLastIndex<number>(value, arrayIterator);
-        result = _(array).sortedLastIndex<number>(value, arrayIterator, any);
-        result = _(array).sortedLastIndex(value, '');
-        result = _(array).sortedLastIndex<{a: number}>(value, {a: 42});
 
         result = _(list).sortedLastIndex<SampleType>(value);
-        result = _(list).sortedLastIndex<SampleType>(value, listIterator);
-        result = _(list).sortedLastIndex<SampleType>(value, listIterator, any);
-        result = _(list).sortedLastIndex<SampleType>(value, '');
-        result = _(list).sortedLastIndex<SampleType>(value, {a: 42});
-        result = _(list).sortedLastIndex<SampleType, number>(value, listIterator);
-        result = _(list).sortedLastIndex<SampleType, number>(value, listIterator, any);
-        result = _(list).sortedLastIndex<{a: number}, SampleType>(value, {a: 42});
     }
 
     {
         let result: _.LoDashExplicitWrapper<number>;
 
         result = _('').chain().sortedLastIndex('');
-        result = _('').chain().sortedLastIndex<number>('', stringIterator);
-        result = _('').chain().sortedLastIndex<number>('', stringIterator, any);
 
         result = _(array).chain().sortedLastIndex(value);
-        result = _(array).chain().sortedLastIndex<number>(value, arrayIterator);
-        result = _(array).chain().sortedLastIndex<number>(value, arrayIterator, any);
-        result = _(array).chain().sortedLastIndex(value, '');
-        result = _(array).chain().sortedLastIndex<{a: number}>(value, {a: 42});
 
         result = _(list).chain().sortedLastIndex<SampleType>(value);
-        result = _(list).chain().sortedLastIndex<SampleType>(value, listIterator);
-        result = _(list).chain().sortedLastIndex<SampleType>(value, listIterator, any);
-        result = _(list).chain().sortedLastIndex<SampleType>(value, '');
-        result = _(list).chain().sortedLastIndex<SampleType>(value, {a: 42});
-        result = _(list).chain().sortedLastIndex<SampleType, number>(value, listIterator);
-        result = _(list).chain().sortedLastIndex<SampleType, number>(value, listIterator, any);
-        result = _(list).chain().sortedLastIndex<{a: number}, SampleType>(value, {a: 42});
+    }
+}
+
+// _.sortedLastIndexBy
+module TestSortedLastIndexBy {
+    type SampleType = {a: number; b: string; c: boolean;};
+
+    let array: SampleType[];
+    let list: _.List<SampleType>;
+
+    let value: SampleType;
+
+    let stringIterator: (x: string) => number;
+    let arrayIterator: (x: SampleType) => number;
+    let listIterator: (x: SampleType) => number;
+
+    {
+        let result: number;
+
+        result = _.sortedLastIndexBy<string>('', '', stringIterator);
+        result = _.sortedLastIndexBy<string, number>('', '', stringIterator);
+
+        result = _.sortedLastIndexBy<SampleType>(array, value, arrayIterator);
+        result = _.sortedLastIndexBy<SampleType>(array, value, '');
+        result = _.sortedLastIndexBy<SampleType>(array, value, {a: 42});
+        result = _.sortedLastIndexBy<SampleType, number>(array, value, arrayIterator);
+        result = _.sortedLastIndexBy<{a: number}, SampleType>(array, value, {a: 42});
+
+        result = _.sortedLastIndexBy<SampleType>(list, value, listIterator);
+        result = _.sortedLastIndexBy<SampleType>(list, value, '');
+        result = _.sortedLastIndexBy<SampleType>(list, value, {a: 42});
+        result = _.sortedLastIndexBy<SampleType, number>(list, value, listIterator);
+        result = _.sortedLastIndexBy<{a: number}, SampleType>(list, value, {a: 42});
+
+        result = _('').sortedLastIndexBy<number>('', stringIterator);
+
+        result = _(array).sortedLastIndexBy<number>(value, arrayIterator);
+        result = _(array).sortedLastIndexBy(value, '');
+        result = _(array).sortedLastIndexBy<{a: number}>(value, {a: 42});
+
+        result = _(list).sortedLastIndexBy<SampleType>(value, listIterator);
+        result = _(list).sortedLastIndexBy<SampleType>(value, '');
+        result = _(list).sortedLastIndexBy<SampleType>(value, {a: 42});
+        result = _(list).sortedLastIndexBy<SampleType, number>(value, listIterator);
+        result = _(list).sortedLastIndexBy<{a: number}, SampleType>(value, {a: 42});
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _('').chain().sortedLastIndexBy<number>('', stringIterator);
+
+        result = _(array).chain().sortedLastIndexBy<number>(value, arrayIterator);
+        result = _(array).chain().sortedLastIndexBy(value, '');
+        result = _(array).chain().sortedLastIndexBy<{a: number}>(value, {a: 42});
+
+        result = _(list).chain().sortedLastIndexBy<SampleType>(value, listIterator);
+        result = _(list).chain().sortedLastIndexBy<SampleType>(value, '');
+        result = _(list).chain().sortedLastIndexBy<SampleType>(value, {a: 42});
+        result = _(list).chain().sortedLastIndexBy<SampleType, number>(value, listIterator);
+        result = _(list).chain().sortedLastIndexBy<{a: number}, SampleType>(value, {a: 42});
     }
 }
 
