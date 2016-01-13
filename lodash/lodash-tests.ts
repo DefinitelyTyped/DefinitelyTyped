@@ -6132,8 +6132,8 @@ result = <string[]>(_.rearg<TestReargResultFn>(testReargFn, [2, 0, 1]))('b', 'c'
 result = <string[]>(_(testReargFn).rearg<TestReargResultFn>(2, 0, 1).value())('b', 'c', 'a');
 result = <string[]>(_(testReargFn).rearg<TestReargResultFn>([2, 0, 1]).value())('b', 'c', 'a');
 
-// _.restParam
-module TestRestParam {
+// _.rest
+module TestRest {
     type Func = (a: string, b: number[]) => boolean;
     type ResultFunc = (a: string, ...b: number[]) => boolean;
 
@@ -6142,25 +6142,25 @@ module TestRestParam {
     {
         let result: ResultFunc;
 
-        result = _.restParam<ResultFunc>(func);
-        result = _.restParam<ResultFunc>(func, 1);
+        result = _.rest<ResultFunc>(func);
+        result = _.rest<ResultFunc>(func, 1);
 
-        result = _.restParam<ResultFunc, Func>(func);
-        result = _.restParam<ResultFunc, Func>(func, 1);
+        result = _.rest<ResultFunc, Func>(func);
+        result = _.rest<ResultFunc, Func>(func, 1);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<ResultFunc>;
 
-        result = _(func).restParam<ResultFunc>();
-        result = _(func).restParam<ResultFunc>(1);
+        result = _(func).rest<ResultFunc>();
+        result = _(func).rest<ResultFunc>(1);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<ResultFunc>;
 
-        result = _(func).chain().restParam<ResultFunc>();
-        result = _(func).chain().restParam<ResultFunc>(1);
+        result = _(func).chain().rest<ResultFunc>();
+        result = _(func).chain().rest<ResultFunc>(1);
     }
 }
 
