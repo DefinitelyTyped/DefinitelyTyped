@@ -30,7 +30,7 @@ TODO:
 
 - [x] Split _.indexOf & _.lastIndexOf into _.sortedIndexOf & _.sortedLastIndexOf
 - [x] Split _.max & _.min into _.maxBy & _.minBy
-- [ ] Split _.omit & _.pick into _.omitBy & _.pickBy
+- [x] Split _.omit & _.pick into _.omitBy & _.pickBy
 - [ ] Split _.sample into _.sampleSize
 - [ ] Split _.sortedIndex into _.sortedIndexBy
 - [ ] Split _.sortedLastIndex into _.sortedLastIndexBy
@@ -13334,24 +13334,24 @@ declare module _ {
     //_.omit
     interface LoDashStatic {
         /**
-         * The opposite of _.pick; this method creates an object composed of the own and inherited enumerable
-         * properties of object that are not omitted.
+         * The opposite of `_.pick`; this method creates an object composed of the
+         * own and inherited enumerable properties of `object` that are not omitted.
          *
-         * @param object The source object.
-         * @param predicate The function invoked per iteration or property names to omit, specified as individual
-         * property names or arrays of property names.
-         * @param thisArg The this binding of predicate.
-         * @return Returns the new object.
+         * @static
+         * @memberOf _
+         * @category Object
+         * @param {Object} object The source object.
+         * @param {...(string|string[])} [props] The property names to omit, specified
+         *  individually or in arrays..
+         * @returns {Object} Returns the new object.
+         * @example
+         *
+         * var object = { 'a': 1, 'b': '2', 'c': 3 };
+         *
+         * _.omit(object, ['a', 'c']);
+         * // => { 'b': '2' }
          */
-        omit<TResult extends {}, T extends {}>(
-            object: T,
-            predicate: ObjectIterator<any, boolean>,
-            thisArg?: any
-        ): TResult;
 
-        /**
-         * @see _.omit
-         */
         omit<TResult extends {}, T extends {}>(
             object: T,
             ...predicate: (StringRepresentable|StringRepresentable[])[]
@@ -13359,13 +13359,6 @@ declare module _ {
     }
 
     interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.omit
-         */
-        omit<TResult extends {}>(
-            predicate: ObjectIterator<any, boolean>,
-            thisArg?: any
-        ): LoDashImplicitObjectWrapper<TResult>;
 
         /**
          * @see _.omit
@@ -13376,19 +13369,56 @@ declare module _ {
     }
 
     interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.omit
-         */
-        omit<TResult extends {}>(
-            predicate: ObjectIterator<any, boolean>,
-            thisArg?: any
-        ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.omit
          */
         omit<TResult extends {}>(
             ...predicate: (StringRepresentable|StringRepresentable[])[]
+        ): LoDashExplicitObjectWrapper<TResult>;
+    }
+
+    //_.omitBy
+    interface LoDashStatic {
+        /**
+         * The opposite of `_.pickBy`; this method creates an object composed of the
+         * own and inherited enumerable properties of `object` that `predicate`
+         * doesn't return truthy for.
+         *
+         * @static
+         * @memberOf _
+         * @category Object
+         * @param {Object} object The source object.
+         * @param {Function|Object|string} [predicate=_.identity] The function invoked per property.
+         * @returns {Object} Returns the new object.
+         * @example
+         *
+         * var object = { 'a': 1, 'b': '2', 'c': 3 };
+         *
+         * _.omitBy(object, _.isNumber);
+         * // => { 'b': '2' }
+         */
+        omitBy<TResult extends {}, T extends {}>(
+            object: T,
+            predicate: ObjectIterator<any, boolean>
+        ): TResult;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.omitBy
+         */
+        omitBy<TResult extends {}>(
+            predicate: ObjectIterator<any, boolean>
+        ): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.omitBy
+         */
+        omitBy<TResult extends {}>(
+            predicate: ObjectIterator<any, boolean>
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
@@ -13422,25 +13452,21 @@ declare module _ {
     //_.pick
     interface LoDashStatic {
         /**
-         * Creates an object composed of the picked object properties. Property names may be specified as individual
-         * arguments or as arrays of property names. If predicate is provided it’s invoked for each property of object
-         * picking the properties predicate returns truthy for. The predicate is bound to thisArg and invoked with
-         * three arguments: (value, key, object).
+         * Creates an object composed of the picked `object` properties.
          *
-         * @param object The source object.
-         * @param predicate The function invoked per iteration or property names to pick, specified as individual
-         * property names or arrays of property names.
-         * @param thisArg The this binding of predicate.
-         * @return Returns the new object.
-         */
-        pick<TResult extends {}, T extends {}>(
-            object: T,
-            predicate: ObjectIterator<any, boolean>,
-            thisArg?: any
-        ): TResult;
-
-        /**
-         * @see _.pick
+         * @static
+         * @memberOf _
+         * @category Object
+         * @param {Object} object The source object.
+         * @param {...(string|string[])} [props] The property names to pick, specified
+         *  individually or in arrays.
+         * @returns {Object} Returns the new object.
+         * @example
+         *
+         * var object = { 'a': 1, 'b': '2', 'c': 3 };
+         *
+         * _.pick(object, ['a', 'c']);
+         * // => { 'a': 1, 'c': 3 }
          */
         pick<TResult extends {}, T extends {}>(
             object: T,
@@ -13449,14 +13475,6 @@ declare module _ {
     }
 
     interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.pick
-         */
-        pick<TResult extends {}>(
-            predicate: ObjectIterator<any, boolean>,
-            thisArg?: any
-        ): LoDashImplicitObjectWrapper<TResult>;
-
         /**
          * @see _.pick
          */
@@ -13470,15 +13488,50 @@ declare module _ {
          * @see _.pick
          */
         pick<TResult extends {}>(
-            predicate: ObjectIterator<any, boolean>,
-            thisArg?: any
-        ): LoDashExplicitObjectWrapper<TResult>;
-
-        /**
-         * @see _.pick
-         */
-        pick<TResult extends {}>(
             ...predicate: (StringRepresentable|StringRepresentable[])[]
+        ): LoDashExplicitObjectWrapper<TResult>;
+    }
+
+    //_.pickBy
+    interface LoDashStatic {
+        /**
+         * Creates an object composed of the `object` properties `predicate` returns
+         * truthy for. The predicate is invoked with one argument: (value).
+         *
+         * @static
+         * @memberOf _
+         * @category Object
+         * @param {Object} object The source object.
+         * @param {Function|Object|string} [predicate=_.identity] The function invoked per property.
+         * @returns {Object} Returns the new object.
+         * @example
+         *
+         * var object = { 'a': 1, 'b': '2', 'c': 3 };
+         *
+         * _.pickBy(object, _.isNumber);
+         * // => { 'a': 1, 'c': 3 }
+         */
+        pickBy<TResult extends {}, T extends {}>(
+            object: T,
+            predicate: ObjectIterator<any, boolean>
+        ): TResult;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.pickBy
+         */
+        pickBy<TResult extends {}>(
+            predicate: ObjectIterator<any, boolean>
+        ): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.pickBy
+         */
+        pickBy<TResult extends {}>(
+            predicate: ObjectIterator<any, boolean>
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
