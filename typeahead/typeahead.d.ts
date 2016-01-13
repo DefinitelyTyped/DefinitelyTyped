@@ -709,9 +709,6 @@ interface JQuery {
 }
 
 declare module Twitter.Typeahead {
-    /**
-     * When initializing a typeahead, there are a number of options you can configure.
-     */
     interface Options {
         /**
           * If true, when suggestions are rendered, pattern matches for the current query in text nodes will be wrapped in a strong element with its class set to {{classNames.highlight}}. 
@@ -738,95 +735,105 @@ declare module Twitter.Typeahead {
     }
 
     /**
-      * A dataset is an object that defines a set of data that hydrates
-      * suggestions. Typeaheads can be backed by multiple datasets.
-      * Given a query, a typeahead instance will inspect its backing
-      * datasets and display relevant suggestions to the end-user.
+      * A typeahead is composed of one or more datasets. When an end-user 
+      * modifies the value of a typeahead, each dataset will attempt to render 
+      * suggestions for the new value.
+      * For most use cases, one dataset should suffice. It's only in the scenario
+      * where you want rendered suggestions to be grouped based on some sort of
+      * categorical relationship that you'd need to use multiple datasets. For
+      * example, on twitter.com, the search typeahead groups results into recent 
+      * searches, trends, and accounts – that would be a great use case for using 
+      * multiple datasets.
       */
-    interface Dataset {
+    interface Dataset<T> {
         /**
          * The backing data source for suggestions.
-         * Expected to be a function with the signature (query, cb).
-         * It is expected that the function will compute the suggestion set (i.e. an array of JavaScript objects) for query and then invoke cb with said set.
-         * cb can be invoked synchronously or asynchronously.
-         *
-          */
-        source: ((query: string, syncResults: (result: Array<any>) => void, asyncResults?: (result: Array<any>) => void) => void);
+         * Expected to be a function with the signature (query, syncResults, asyncResults).
+         * syncResults should be called with suggestions computed synchronously and
+         *  asyncResults should be called with suggestions computed asynchronously 
+         * (e.g. suggestions that come for an AJAX request).
+         *  source can also be a Bloodhound instance. 
+         */
+        source: Bloodhound<T> | ((query: string, syncResults: (result: Array<T>) => void, asyncResults?: (result: Array<T>) => void) => void);
+
+        /**
+         * Lets the dataset know if async suggestions should be expected. 
+         * If not set, this information is inferred from the signature of 
+         * source i.e. if the source function expects 3 arguments, async will 
+         * be set to true.
+         */
+        async?: boolean;
 
         /**
           * The name of the dataset.
-          * This will be appended to tt-dataset- to form the class name of the containing DOM element.
+          * This will be appended to {{classNames.dataset}} - to form the class name of the containing DOM element. 
           * Must only consist of underscores, dashes, letters (a-z), and numbers.
           * Defaults to a random number.
           */
         name?: string;
 
         /**
-         * For a given suggestion object, determines the string representation of it.
-         * This will be used when setting the value of the input control after a suggestion is selected. Can be either a key string or a function that transforms a suggestion object into a string.
-         * Defaults to value.
-         */
-        display?: string | ((obj: any) => string);
-        
-        /**
-         * Can be used in place of display above.
-         * 
-         */
-        displayKey?: string | ((obj: any) => string);
-        
-        /**
-         * A hash of templates to be used when rendering the dataset.
-         * Note a precompiled template is a function that takes a JavaScript object as its first argument and returns a HTML string.
+          * The max number of suggestions to be displayed. Defaults to 5.
           */
-        templates?: Templates;
-        async?: boolean;
+        limit?: number;
+
+        /**
+         * For a given suggestion, determines the string representation of it. 
+         * This will be used when setting the value of the input control after 
+         * a suggestion is selected. Can be either a key string or a function 
+         * that transforms a suggestion object into a string. 
+         * Defaults to stringifying the suggestion.
+         */
+        display?: string | ((obj: T) => string);
+       
+        /**
+         * A hash of templates to be used when rendering the dataset. Note a 
+         * precompiled template is a function that takes a JavaScript object as
+         * its first argument and returns a HTML string.
+         */
+        templates?: Templates<T>;
     }
 
-
-    interface Templates {
-        /**
-         * Rendered when 0 suggestions are available for the given query.
-         * Can be either a HTML string or a precompiled template.
-         * If it's a precompiled template, the passed in context will contain query
-          */
-        empty?: any;
-
-        /**
-         * Rendered at the bottom of the dataset.
-         * Can be either a HTML string or a precompiled template.
-         * If it's a precompiled template, the passed in context will contain query and isEmpty.
-          */
-        footer?: any;
-
-        /**
-         * Rendered at the top of the dataset.
-         * Can be either a HTML string or a precompiled template.
-         * If it's a precompiled template, the passed in context will contain query and isEmpty.
-          */
-        header?: any;
-        
+    /**
+     * A hash of templates to be used when rendering the dataset. Note a 
+     * precompiled template is a function that takes a JavaScript object as
+     * its first argument and returns a HTML string.
+     */
+    interface Templates<T> {
         /**
          * Rendered when 0 suggestions are available for the given query.
          * Can be either a HTML string or a precompiled template.
          * If it's a precompiled template, the passed in context will contain query.
-          */
-        notFound?: (query: string) => string;
-        
+         */
+        notFound?: string | ((query: string) => string);
+
         /**
          * Rendered when 0 synchronous suggestions are available but asynchronous suggestions are expected.
          * Can be either a HTML string or a precompiled template.
          * If it's a precompiled template, the passed in context will contain query.
-          */
-        pending?: (query: string) => string;
+         */
+        pending?: string | ((query: string) => string);
 
         /**
-         * Used to render a single suggestion.
-         * If set, this has to be a precompiled template.
-         * The associated suggestion object will serve as the context.
-         * Defaults to the value of displayKey wrapped in a p tag i.e. <p>{{value}}</p>.
-          */
-        suggestion?: (datum: any) => string;
+         * Rendered at the top of the dataset when suggestions are present. Can be either a HTML string or 
+         * a precompiled template. If it's a precompiled template, the passed in context will contain 
+         * query and suggestions.
+         */
+        header?: string | ((query: string, suggestions: Array<T>) => string);
 
+        /**
+         * Rendered at the bottom of the dataset when suggestions are present. Can be either a HTML string or
+         * a precompiled template. If it's a precompiled template, the passed in context will contain 
+         * query and suggestions.
+         */
+        footer?: string | ((query: string, suggestions: Array<T>) => string);
+
+        /**
+         * Used to render a single suggestion. If set, this has to be a precompiled template. 
+         * The associated suggestion object will serve as the context. 
+         * Defaults to the value of display wrapped in a div tag i.e. <div>{{value}}</div>.
+          */
+        suggestion?: (suggestion: T) => string;
     }
 
     /**
