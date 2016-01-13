@@ -171,7 +171,7 @@ Removed 17 aliases
 - [ ] Removed aliase _.inject
 - [ ] Removed aliase _.methods
 - [ ] Removed aliase _.object
-- [ ] Removed aliase _.run
+- [x] Removed aliase _.run
 - [x] Removed aliase _.select
 - [x] Removed aliase _.unique
 
@@ -4461,14 +4461,6 @@ declare module _ {
         reverse(): LoDashExplicitArrayWrapper<T>;
     }
 
-    //_.prototype.run
-    interface LoDashWrapperBase<T, TWrapper> {
-        /**
-         * @see _.value
-         */
-        run(): T;
-    }
-
     //_.prototype.toJSON
     interface LoDashWrapperBase<T, TWrapper> {
         /**
@@ -4492,7 +4484,7 @@ declare module _ {
         /**
          * Executes the chained sequence to extract the unwrapped value.
          *
-         * @alias _.run, _.toJSON, _.valueOf
+         * @alias _.toJSON, _.valueOf
          *
          * @return Returns the resolved unwrapped value.
          */

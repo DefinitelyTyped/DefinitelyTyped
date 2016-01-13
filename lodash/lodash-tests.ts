@@ -2744,44 +2744,6 @@ module TestReverse {
     }
 }
 
-// _.prototype.run
-module TestRun {
-    {
-        let result: string;
-
-        result = _('').run();
-        result = _('').chain().run();
-    }
-
-    {
-        let result: number;
-
-        result = _(42).run();
-        result = _(42).chain().run();
-    }
-
-    {
-        let result: boolean;
-
-        result = _(true).run();
-        result = _(true).chain().run();
-    }
-
-    {
-        let result: string[];
-
-        result = _<string>([]).run();
-        result = _<string>([]).chain().run();
-    }
-
-    {
-        let result: {a: string};
-
-        result = _({a: ''}).run();
-        result = _({a: ''}).chain().run();
-    }
-}
-
 // _.prototype.toJSON
 module TestToJSON {
     {
