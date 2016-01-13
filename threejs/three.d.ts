@@ -4166,7 +4166,7 @@ declare module THREE {
          * http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
          * @param m assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
          */
-        setAxisAngleFromRotationMatrix(m: Matrix3): Vector4;
+        setAxisAngleFromRotationMatrix(m: Matrix4): Vector4;
 
         min(v: Vector4): Vector4;
         max(v: Vector4): Vector4;
