@@ -26,7 +26,7 @@ TODO:
 - [x] Renamed _.restParam to _.rest
 - [x] Renamed _.sortByOrder to _.orderBy
 - [x] Renamed _.trimLeft & _.trimRight to _.trimStart & _.trimEnd
-- [ ] Renamed _.trunc to _.truncate
+- [x] Renamed _.trunc to _.truncate
 
 - [ ] Split _.indexOf & _.lastIndexOf into _.sortedIndexOf & _.sortedLastIndexOf
 - [ ] Split _.max & _.min into _.maxBy & _.minBy
@@ -37,10 +37,10 @@ TODO:
 - [ ] Split _.uniq into _.sortedUniq, _.sortedUniqBy, & _.uniqBy
 
 - [ ] Absorbed _.sortByAll into _.sortBy
-- [ ] Changed the category of _.at to “Object”
-- [ ] Changed the category of _.bindAll to “Utility”
+- [x] Changed the category of _.at to “Object”
+- [x] Changed the category of _.bindAll to “Utility”
 - [ ] Made “By” methods provide a single param to iteratees
-- [ ] Made _.capitalize uppercase the first character & lowercase the rest
+- [x] Made _.capitalize uppercase the first character & lowercase the rest
 - [ ] Made _.functions return only own method names
 - [ ] Made _.words chainable by default
 - [ ] Removed isDeep params from _.clone & _.flatten
@@ -10137,6 +10137,7 @@ declare module _ {
          * Note: This method is loosely based on the structured clone algorithm. The enumerable properties of arguments
          * objects and objects created by constructors other than Object are cloned to plain Object objects. An empty
          * object is returned for uncloneable values such as functions, DOM nodes, Maps, Sets, and WeakMaps.
+         *
          * @param value The value to clone.
          * @param isDeep Specify a deep clone.
          * @param customizer The function to customize cloning values.
@@ -11142,55 +11143,18 @@ declare module _ {
 
     //_.max
     interface LoDashStatic {
-        /**
-         * Gets the maximum value of collection. If collection is empty or falsey -Infinity is returned. If an iteratee
-         * function is provided it’s invoked for each value in collection to generate the criterion by which the value
-         * is ranked. The iteratee is bound to thisArg and invoked with three arguments: (value, index, collection).
-         *
-         * If a property name is provided for iteratee the created _.property style callback returns the property value
-         * of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for iteratee the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
-         *
-         * @param collection The collection to iterate over.
-         * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
-         * @return Returns the maximum value.
-         */
+         /**
+          * Computes the maximum value of `array`. If `array` is empty or falsey
+          * `undefined` is returned.
+          *
+          * @static
+          * @memberOf _
+          * @category Math
+          * @param {Array} array The array to iterate over.
+          * @returns {*} Returns the maximum value.
+          */
         max<T>(
-            collection: List<T>,
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
-        ): T;
-
-        /**
-         * @see _.max
-         */
-        max<T>(
-            collection: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, any>,
-            thisArg?: any
-        ): T;
-
-        /**
-         * @see _.max
-         */
-        max<T>(
-            collection: List<T>|Dictionary<T>,
-            iteratee?: string,
-            thisArg?: any
-        ): T;
-
-        /**
-         * @see _.max
-         */
-        max<TObject extends {}, T>(
-            collection: List<T>|Dictionary<T>,
-            whereValue?: TObject
+            collection: List<T>
         ): T;
     }
 
@@ -11198,48 +11162,114 @@ declare module _ {
         /**
          * @see _.max
          */
-        max(
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
-        ): T;
-
-        /**
-         * @see _.max
-         */
-        max(
-            iteratee?: string,
-            thisArg?: any
-        ): T;
-
-        /**
-         * @see _.max
-         */
-        max<TObject extends {}>(
-            whereValue?: TObject
-        ): T;
+        max(): T;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.max
          */
-        max<T>(
+        max<T>(): T;
+    }
+
+    //_.maxBy
+    interface LoDashStatic {
+        /**
+         * This method is like `_.max` except that it accepts `iteratee` which is
+         * invoked for each element in `array` to generate the criterion by which
+         * the value is ranked. The iteratee is invoked with one argument: (value).
+         *
+         * @static
+         * @memberOf _
+         * @category Math
+         * @param {Array} array The array to iterate over.
+         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
+         * @returns {*} Returns the maximum value.
+         * @example
+         *
+         * var objects = [{ 'n': 1 }, { 'n': 2 }];
+         *
+         * _.maxBy(objects, function(o) { return o.a; });
+         * // => { 'n': 2 }
+         *
+         * // using the `_.property` iteratee shorthand
+         * _.maxBy(objects, 'n');
+         * // => { 'n': 2 }
+         */
+        maxBy<T>(
+            collection: List<T>,
+            iteratee?: ListIterator<T, any>
+        ): T;
+
+        /**
+         * @see _.maxBy
+         */
+        maxBy<T>(
+            collection: Dictionary<T>,
+            iteratee?: DictionaryIterator<T, any>
+        ): T;
+
+        /**
+         * @see _.maxBy
+         */
+        maxBy<T>(
+            collection: List<T>|Dictionary<T>,
+            iteratee?: string
+        ): T;
+
+        /**
+         * @see _.maxBy
+         */
+        maxBy<TObject extends {}, T>(
+            collection: List<T>|Dictionary<T>,
+            whereValue?: TObject
+        ): T;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.maxBy
+         */
+        maxBy(
+            iteratee?: ListIterator<T, any>
+        ): T;
+
+        /**
+         * @see _.maxBy
+         */
+        maxBy(
+            iteratee?: string
+        ): T;
+
+        /**
+         * @see _.maxBy
+         */
+        maxBy<TObject extends {}>(
+            whereValue?: TObject
+        ): T;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.maxBy
+         */
+        maxBy<T>(
             iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>,
             thisArg?: any
         ): T;
 
         /**
-         * @see _.max
+         * @see _.maxBy
          */
-        max<T>(
+        maxBy<T>(
             iteratee?: string,
             thisArg?: any
         ): T;
 
         /**
-         * @see _.max
+         * @see _.maxBy
          */
-        max<TObject extends {}, T>(
+        maxBy<TObject extends {}, T>(
             whereValue?: TObject
         ): T;
     }
@@ -11247,54 +11277,17 @@ declare module _ {
     //_.min
     interface LoDashStatic {
         /**
-         * Gets the minimum value of collection. If collection is empty or falsey Infinity is returned. If an iteratee
-         * function is provided it’s invoked for each value in collection to generate the criterion by which the value
-         * is ranked. The iteratee is bound to thisArg and invoked with three arguments: (value, index, collection).
+         * Computes the minimum value of `array`. If `array` is empty or falsey
+         * `undefined` is returned.
          *
-         * If a property name is provided for iteratee the created _.property style callback returns the property value
-         * of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for iteratee the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
-         *
-         * @param collection The collection to iterate over.
-         * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
-         * @return Returns the minimum value.
+         * @static
+         * @memberOf _
+         * @category Math
+         * @param {Array} array The array to iterate over.
+         * @returns {*} Returns the minimum value.
          */
         min<T>(
-            collection: List<T>,
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
-        ): T;
-
-        /**
-         * @see _.min
-         */
-        min<T>(
-            collection: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, any>,
-            thisArg?: any
-        ): T;
-
-        /**
-         * @see _.min
-         */
-        min<T>(
-            collection: List<T>|Dictionary<T>,
-            iteratee?: string,
-            thisArg?: any
-        ): T;
-
-        /**
-         * @see _.min
-         */
-        min<TObject extends {}, T>(
-            collection: List<T>|Dictionary<T>,
-            whereValue?: TObject
+            collection: List<T>
         ): T;
     }
 
@@ -11302,48 +11295,114 @@ declare module _ {
         /**
          * @see _.min
          */
-        min(
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
-        ): T;
-
-        /**
-         * @see _.min
-         */
-        min(
-            iteratee?: string,
-            thisArg?: any
-        ): T;
-
-        /**
-         * @see _.min
-         */
-        min<TObject extends {}>(
-            whereValue?: TObject
-        ): T;
+        min(): T;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.min
          */
-        min<T>(
+        min<T>(): T;
+    }
+
+    //_.minBy
+    interface LoDashStatic {
+        /**
+         * This method is like `_.min` except that it accepts `iteratee` which is
+         * invoked for each element in `array` to generate the criterion by which
+         * the value is ranked. The iteratee is invoked with one argument: (value).
+         *
+         * @static
+         * @memberOf _
+         * @category Math
+         * @param {Array} array The array to iterate over.
+         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
+         * @returns {*} Returns the minimum value.
+         * @example
+         *
+         * var objects = [{ 'n': 1 }, { 'n': 2 }];
+         *
+         * _.minBy(objects, function(o) { return o.a; });
+         * // => { 'n': 1 }
+         *
+         * // using the `_.property` iteratee shorthand
+         * _.minBy(objects, 'n');
+         * // => { 'n': 1 }
+         */
+        minBy<T>(
+            collection: List<T>,
+            iteratee?: ListIterator<T, any>
+        ): T;
+
+        /**
+         * @see _.minBy
+         */
+        minBy<T>(
+            collection: Dictionary<T>,
+            iteratee?: DictionaryIterator<T, any>
+        ): T;
+
+        /**
+         * @see _.minBy
+         */
+        minBy<T>(
+            collection: List<T>|Dictionary<T>,
+            iteratee?: string
+        ): T;
+
+        /**
+         * @see _.minBy
+         */
+        minBy<TObject extends {}, T>(
+            collection: List<T>|Dictionary<T>,
+            whereValue?: TObject
+        ): T;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.minBy
+         */
+        minBy(
+            iteratee?: ListIterator<T, any>
+        ): T;
+
+        /**
+         * @see _.minBy
+         */
+        minBy(
+            iteratee?: string
+        ): T;
+
+        /**
+         * @see _.minBy
+         */
+        minBy<TObject extends {}>(
+            whereValue?: TObject
+        ): T;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.minBy
+         */
+        minBy<T>(
             iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>,
             thisArg?: any
         ): T;
 
         /**
-         * @see _.min
+         * @see _.minBy
          */
-        min<T>(
+        minBy<T>(
             iteratee?: string,
             thisArg?: any
         ): T;
 
         /**
-         * @see _.min
+         * @see _.minBy
          */
-        min<TObject extends {}, T>(
+        minBy<TObject extends {}, T>(
             whereValue?: TObject
         ): T;
     }

@@ -7185,52 +7185,18 @@ module TestFloor {
 module TestMax {
     let array: number[];
     let list: _.List<number>;
-    let dictionary: _.Dictionary<number>;
-
-    let listIterator: (value: number, index: number, collection: _.List<number>) => number;
-    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => number;
 
     let result: number;
 
     result = _.max<number>(array);
-    result = _.max<number>(array, listIterator);
-    result = _.max<number>(array, listIterator, any);
-    result = _.max<number>(array, '');
-    result = _.max<{a: number}, number>(array, {a: 42});
-
     result = _.max<number>(list);
-    result = _.max<number>(list, listIterator);
-    result = _.max<number>(list, listIterator, any);
-    result = _.max<number>(list, '');
-    result = _.max<{a: number}, number>(list, {a: 42});
-
-    result = _.max<number>(dictionary);
-    result = _.max<number>(dictionary, dictionaryIterator);
-    result = _.max<number>(dictionary, dictionaryIterator, any);
-    result = _.max<number>(dictionary, '');
-    result = _.max<{a: number}, number>(dictionary, {a: 42});
 
     result = _(array).max();
-    result = _(array).max(listIterator);
-    result = _(array).max(listIterator, any);
-    result = _(array).max('');
-    result = _(array).max<{a: number}>({a: 42});
-
     result = _(list).max<number>();
-    result = _(list).max<number>(listIterator);
-    result = _(list).max<number>(listIterator, any);
-    result = _(list).max<number>('');
-    result = _(list).max<{a: number}, number>({a: 42});
-
-    result = _(dictionary).max<number>();
-    result = _(dictionary).max<number>(dictionaryIterator);
-    result = _(dictionary).max<number>(dictionaryIterator, any);
-    result = _(dictionary).max<number>('');
-    result = _(dictionary).max<{a: number}, number>({a: 42});
 }
 
-// _.min
-module TestMin {
+// _.maxBy
+module TestMaxBy {
     let array: number[];
     let list: _.List<number>;
     let dictionary: _.Dictionary<number>;
@@ -7240,41 +7206,92 @@ module TestMin {
 
     let result: number;
 
+    result = _.maxBy<number>(array);
+    result = _.maxBy<number>(array, listIterator);
+    result = _.maxBy<number>(array, '');
+    result = _.maxBy<{a: number}, number>(array, {a: 42});
+
+    result = _.maxBy<number>(list);
+    result = _.maxBy<number>(list, listIterator);
+    result = _.maxBy<number>(list, '');
+    result = _.maxBy<{a: number}, number>(list, {a: 42});
+
+    result = _.maxBy<number>(dictionary);
+    result = _.maxBy<number>(dictionary, dictionaryIterator);
+    result = _.maxBy<number>(dictionary, '');
+    result = _.maxBy<{a: number}, number>(dictionary, {a: 42});
+
+    result = _(array).maxBy();
+    result = _(array).maxBy(listIterator);
+    result = _(array).maxBy('');
+    result = _(array).maxBy<{a: number}>({a: 42});
+
+    result = _(list).maxBy<number>();
+    result = _(list).maxBy<number>(listIterator);
+    result = _(list).maxBy<number>('');
+    result = _(list).maxBy<{a: number}, number>({a: 42});
+
+    result = _(dictionary).maxBy<number>();
+    result = _(dictionary).maxBy<number>(dictionaryIterator);
+    result = _(dictionary).maxBy<number>('');
+    result = _(dictionary).maxBy<{a: number}, number>({a: 42});
+}
+
+// _.min
+module TestMin {
+    let array: number[];
+    let list: _.List<number>;
+
+    let result: number;
+
     result = _.min<number>(array);
-    result = _.min<number>(array, listIterator);
-    result = _.min<number>(array, listIterator, any);
-    result = _.min<number>(array, '');
-    result = _.min<{a: number}, number>(array, {a: 42});
-
     result = _.min<number>(list);
-    result = _.min<number>(list, listIterator);
-    result = _.min<number>(list, listIterator, any);
-    result = _.min<number>(list, '');
-    result = _.min<{a: number}, number>(list, {a: 42});
-
-    result = _.min<number>(dictionary);
-    result = _.min<number>(dictionary, dictionaryIterator);
-    result = _.min<number>(dictionary, dictionaryIterator, any);
-    result = _.min<number>(dictionary, '');
-    result = _.min<{a: number}, number>(dictionary, {a: 42});
 
     result = _(array).min();
-    result = _(array).min(listIterator);
-    result = _(array).min(listIterator, any);
-    result = _(array).min('');
-    result = _(array).min<{a: number}>({a: 42});
-
     result = _(list).min<number>();
-    result = _(list).min<number>(listIterator);
-    result = _(list).min<number>(listIterator, any);
-    result = _(list).min<number>('');
-    result = _(list).min<{a: number}, number>({a: 42});
 
-    result = _(dictionary).min<number>();
-    result = _(dictionary).min<number>(dictionaryIterator);
-    result = _(dictionary).min<number>(dictionaryIterator, any);
-    result = _(dictionary).min<number>('');
-    result = _(dictionary).min<{a: number}, number>({a: 42});
+}
+
+// _.minBy
+module TestMinBy {
+    let array: number[];
+    let list: _.List<number>;
+    let dictionary: _.Dictionary<number>;
+
+    let listIterator: (value: number, index: number, collection: _.List<number>) => number;
+    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => number;
+
+    let result: number;
+
+    result = _.minBy<number>(array);
+    result = _.minBy<number>(array, listIterator);
+    result = _.minBy<number>(array, '');
+    result = _.minBy<{a: number}, number>(array, {a: 42});
+
+    result = _.minBy<number>(list);
+    result = _.minBy<number>(list, listIterator);
+    result = _.minBy<number>(list, '');
+    result = _.minBy<{a: number}, number>(list, {a: 42});
+
+    result = _.minBy<number>(dictionary);
+    result = _.minBy<number>(dictionary, dictionaryIterator);
+    result = _.minBy<number>(dictionary, '');
+    result = _.minBy<{a: number}, number>(dictionary, {a: 42});
+
+    result = _(array).minBy();
+    result = _(array).minBy(listIterator);
+    result = _(array).minBy('');
+    result = _(array).minBy<{a: number}>({a: 42});
+
+    result = _(list).minBy<number>();
+    result = _(list).minBy<number>(listIterator);
+    result = _(list).minBy<number>('');
+    result = _(list).minBy<{a: number}, number>({a: 42});
+
+    result = _(dictionary).minBy<number>();
+    result = _(dictionary).minBy<number>(dictionaryIterator);
+    result = _(dictionary).minBy<number>('');
+    result = _(dictionary).minBy<{a: number}, number>({a: 42});
 }
 
 // _.round
