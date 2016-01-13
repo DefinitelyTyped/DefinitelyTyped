@@ -9203,46 +9203,45 @@ module TestTrim {
     }
 }
 
-// _.trimLeft
-module TestTrimLeft {
+// _.trimStart
+module TestTrimStart {
     {
         let result: string;
 
-        result = _.trimLeft();
-        result = _.trimLeft('  abc  ');
-        result = _.trimLeft('-_-abc-_-', '_-');
+        result = _.trimStart();
+        result = _.trimStart('  abc  ');
+        result = _.trimStart('-_-abc-_-', '_-');
 
-        result = _('-_-abc-_-').trimLeft();
-        result = _('-_-abc-_-').trimLeft('_-');
+        result = _('-_-abc-_-').trimStart();
+        result = _('-_-abc-_-').trimStart('_-');
     }
 
     {
         let result: _.LoDashExplicitWrapper<string>;
 
-        result = _('-_-abc-_-').chain().trimLeft();
-        result = _('-_-abc-_-').chain().trimLeft('_-');
+        result = _('-_-abc-_-').chain().trimStart();
+        result = _('-_-abc-_-').chain().trimStart('_-');
     }
 }
 
-// _.trimRight
-
-module TestTrimRight {
+// _.trimEnd
+module TestTrimEnd {
     {
         let result: string;
 
-        result = _.trimRight();
-        result = _.trimRight('  abc  ');
-        result = _.trimRight('-_-abc-_-', '_-');
+        result = _.trimEnd();
+        result = _.trimEnd('  abc  ');
+        result = _.trimEnd('-_-abc-_-', '_-');
 
-        result = _('-_-abc-_-').trimRight();
-        result = _('-_-abc-_-').trimRight('_-');
+        result = _('-_-abc-_-').trimEnd();
+        result = _('-_-abc-_-').trimEnd('_-');
     }
 
     {
         let result: _.LoDashExplicitWrapper<string>;
 
-        result = _('-_-abc-_-').chain().trimRight();
-        result = _('-_-abc-_-').chain().trimRight('_-');
+        result = _('-_-abc-_-').chain().trimEnd();
+        result = _('-_-abc-_-').chain().trimEnd('_-');
     }
 }
 
