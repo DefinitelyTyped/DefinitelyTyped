@@ -51,6 +51,16 @@ declare module angular.meteor {
          * @return This method returns this, which the the reactive context, in order to provide the ability to chain the logic.
          */
         helpers(definitions : { [helperName : string] : () => Mongo.Cursor<any> }): IScope;
+
+        /**
+         * This method is a wrapper of Tracker.autorun and shares exactly the same API.
+         * The autorun method is part of the ReactiveContext, and available on every context and $scope.
+         * The argument of this method is a callback, which will be called each time Autorun will be used.
+         * The Autorun will stop automatically when when it's context ($scope) is destroyed.
+         * 
+         * @param runFunc - The function to run. It receives one argument: the Computation object that will be returned.
+         */
+        autorun(runFunc : () => void) : Tracker.Computation;
     }
     
     /**
