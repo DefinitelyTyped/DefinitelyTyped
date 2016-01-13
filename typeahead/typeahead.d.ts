@@ -710,6 +710,34 @@ interface JQuery {
 
 declare module Twitter.Typeahead {
     /**
+     * When initializing a typeahead, there are a number of options you can configure.
+     */
+    interface Options {
+        /**
+          * If true, when suggestions are rendered, pattern matches for the current query in text nodes will be wrapped in a strong element with its class set to {{classNames.highlight}}. 
+          * Defaults to false.
+          */
+        highlight?: boolean;
+
+        /**
+          * If false, the typeahead will not show a hint. 
+          * Defaults to true.
+          */
+        hint?: boolean;
+
+        /**
+          * The minimum character length needed before suggestions start getting rendered. 
+          * Defaults to 1.
+          */
+        minLength?: number;
+
+        /**
+         * Used for overriding the default class names.
+         */
+        classNames?: ClassNames;
+    }
+
+    /**
       * A dataset is an object that defines a set of data that hydrates
       * suggestions. Typeaheads can be backed by multiple datasets.
       * Given a query, a typeahead instance will inspect its backing
@@ -743,7 +771,7 @@ declare module Twitter.Typeahead {
         /**
          * Can be used in place of display above.
          * 
-         */ 
+         */
         displayKey?: string | ((obj: any) => string);
         
         /**
@@ -801,27 +829,53 @@ declare module Twitter.Typeahead {
 
     }
 
-
     /**
-     * When initializing a typeahead, there are a number of options you can configure.
+     * Used for overriding the default class names.
      */
-    interface Options {
+    interface ClassNames {
         /**
-          * highlight:  If true, when suggestions are rendered,
-          * pattern matches for the current query in text nodes will be wrapped in a strong element.
-          * Defaults to false.
-          */
-        highlight?: boolean;
+         * Added to input that's initialized into a typeahead. Defaults to tt-input.
+         */
+        input?: string;
 
         /**
-          * If false, the typeahead will not show a hint. Defaults to true.
-          */
-        hint?: boolean;
+         * Added to hint input.Defaults to tt- hint.
+         */
+        hint?: string;
 
         /**
-          * The minimum character length needed before suggestions start getting rendered. Defaults to 1.
-          */
-        minLength?: number;
+         * Added to menu element.Defaults to tt- menu.
+         */
+        menu?: string; 
+
+        /**
+         * Added to dataset elements.to Defaults to tt- dataset.
+         */
+        dataset?: string; 
+        /**
+         * Added to suggestion elements.Defaults to tt- suggestion.
+         */
+        suggestion?: string; 
+
+        /**
+         * Added to menu element when it contains no content.Defaults to tt- empty.
+         */
+        empty?: string;
+
+        /**
+         * Added to menu element when it is opened.Defaults to tt- open.
+         */
+        open?: string; 
+
+        /**
+         * Added to suggestion element when menu cursor moves to said suggestion.Defaults to tt- cursor.
+         */
+        cursor?: string;
+
+        /**
+         * Added to the element that wraps highlighted text.Defaults to tt- highlight.
+         */
+        highlight?: string;
     }
 }
 
