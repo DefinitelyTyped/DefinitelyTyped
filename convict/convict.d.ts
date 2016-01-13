@@ -16,7 +16,16 @@ declare module "convict" {
             [name: string]: convict.Schema | {
                 default: any;
                 doc?: string;
-                format?: any;
+                /**
+                 * From the implementation:
+                 *
+                 *  format can be a:
+                 *   - predefine type, as seen below
+                 *   - an array of enumerated values, e.g. ["production", "development", "testing"]
+                 *   - built-in JavaScript type, i.e. Object, Array, String, Number, Boolean
+                 *   - or if omitted, the Object.prototype.toString.call of the default value
+                 */
+                format?: string | Array<any> | Function;
                 env?: string;
                 arg?: string;
             };
