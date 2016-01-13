@@ -157,20 +157,20 @@ Added 3 aliases
 - [x] _.first as an alias of _.head
 
 Removed 17 aliases
-- [ ] Removed aliase _.all
-- [ ] Removed aliase _.any
-- [ ] Removed aliase _.backflow
-- [ ] Removed aliase _.callback
-- [ ] Removed aliase _.collect
-- [ ] Removed aliase _.compose
-- [ ] Removed aliase _.contains
-- [ ] Removed aliase _.detect
-- [ ] Removed aliase _.foldl
-- [ ] Removed aliase _.foldr
-- [ ] Removed aliase _.include
-- [ ] Removed aliase _.inject
-- [ ] Removed aliase _.methods
-- [ ] Removed aliase _.object
+- [x] Removed aliase _.all
+- [x] Removed aliase _.any
+- [x] Removed aliase _.backflow
+- [x] Removed aliase _.callback
+- [x] Removed aliase _.collect
+- [x] Removed aliase _.compose
+- [x] Removed aliase _.contains
+- [x] Removed aliase _.detect
+- [x] Removed aliase _.foldl
+- [x] Removed aliase _.foldr
+- [x] Removed aliase _.include
+- [x] Removed aliase _.inject
+- [x] Removed aliase _.methods
+- [x] Removed aliase _.object
 - [x] Removed aliase _.run
 - [x] Removed aliase _.select
 - [x] Removed aliase _.unique
@@ -1703,125 +1703,6 @@ declare module _ {
             value: TResult,
             fromIndex?: boolean|number
         ): LoDashExplicitWrapper<number>;
-    }
-
-    //_.object
-    interface LoDashStatic {
-        /**
-         * @see _.zipObject
-         */
-        object<TValues, TResult extends {}>(
-            props: List<StringRepresentable>|List<List<any>>,
-            values?: List<TValues>
-        ): TResult;
-
-        /**
-         * @see _.zipObject
-         */
-        object<TResult extends {}>(
-            props: List<StringRepresentable>|List<List<any>>,
-            values?: List<any>
-        ): TResult;
-
-        /**
-         * @see _.zipObject
-         */
-        object(
-            props: List<StringRepresentable>|List<List<any>>,
-            values?: List<any>
-        ): _.Dictionary<any>;
-    }
-
-    interface LoDashImplicitArrayWrapper<T> {
-        /**
-         * @see _.zipObject
-         */
-        object<TValues, TResult extends {}>(
-            values?: List<TValues>
-        ): _.LoDashImplicitObjectWrapper<TResult>;
-
-        /**
-         * @see _.zipObject
-         */
-        object<TResult extends {}>(
-            values?: List<any>
-        ): _.LoDashImplicitObjectWrapper<TResult>;
-
-        /**
-         * @see _.zipObject
-         */
-        object(
-            values?: List<any>
-        ): _.LoDashImplicitObjectWrapper<_.Dictionary<any>>;
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.zipObject
-         */
-        object<TValues, TResult extends {}>(
-            values?: List<TValues>
-        ): _.LoDashImplicitObjectWrapper<TResult>;
-
-        /**
-         * @see _.zipObject
-         */
-        object<TResult extends {}>(
-            values?: List<any>
-        ): _.LoDashImplicitObjectWrapper<TResult>;
-
-        /**
-         * @see _.zipObject
-         */
-        object(
-            values?: List<any>
-        ): _.LoDashImplicitObjectWrapper<_.Dictionary<any>>;
-    }
-
-    interface LoDashExplicitArrayWrapper<T> {
-        /**
-         * @see _.zipObject
-         */
-        object<TValues, TResult extends {}>(
-            values?: List<TValues>
-        ): _.LoDashExplicitObjectWrapper<TResult>;
-
-        /**
-         * @see _.zipObject
-         */
-        object<TResult extends {}>(
-            values?: List<any>
-        ): _.LoDashExplicitObjectWrapper<TResult>;
-
-        /**
-         * @see _.zipObject
-         */
-        object(
-            values?: List<any>
-        ): _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
-    }
-
-    interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.zipObject
-         */
-        object<TValues, TResult extends {}>(
-            values?: List<TValues>
-        ): _.LoDashExplicitObjectWrapper<TResult>;
-
-        /**
-         * @see _.zipObject
-         */
-        object<TResult extends {}>(
-            values?: List<any>
-        ): _.LoDashExplicitObjectWrapper<TResult>;
-
-        /**
-         * @see _.zipObject
-         */
-        object(
-            values?: List<any>
-        ): _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
     }
 
     //_.pull
@@ -3390,8 +3271,6 @@ declare module _ {
          * If an object is provided for iteratee the created _.matches style callback returns true for elements that
          * have the properties of the given object, else false.
          *
-         * @alias _.unique
-         *
          * @param array The array to inspect.
          * @param isSorted Specify the array is sorted.
          * @param iteratee The function invoked per iteration.
@@ -3995,8 +3874,6 @@ declare module _ {
          * Provide either a single two dimensional array, e.g. [[key1, value1], [key2, value2]] or two arrays, one of
          * property names and one of corresponding values.
          *
-         * @alias _.object
-         *
          * @param props The property names.
          * @param values The property values.
          * @return Returns the new object.
@@ -4503,291 +4380,6 @@ declare module _ {
      * Collection *
      **************/
 
-    //_.all
-    interface LoDashStatic {
-        /**
-         * @see _.every
-         */
-        all<T>(
-            collection: List<T>,
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
-        ): boolean;
-
-        /**
-         * @see _.every
-         */
-        all<T>(
-            collection: Dictionary<T>,
-            predicate?: DictionaryIterator<T, boolean>,
-            thisArg?: any
-        ): boolean;
-
-        /**
-         * @see _.every
-         */
-        all<T>(
-            collection: List<T>|Dictionary<T>,
-            predicate?: string,
-            thisArg?: any
-        ): boolean;
-
-        /**
-         * @see _.every
-         */
-        all<TObject extends {}, T>(
-            collection: List<T>|Dictionary<T>,
-            predicate?: TObject
-        ): boolean;
-    }
-
-    interface LoDashImplicitArrayWrapper<T> {
-        /**
-         * @see _.every
-         */
-        all(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
-        ): boolean;
-
-        /**
-         * @see _.every
-         */
-        all(
-            predicate?: string,
-            thisArg?: any
-        ): boolean;
-
-        /**
-         * @see _.every
-         */
-        all<TObject extends {}>(
-            predicate?: TObject
-        ): boolean;
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.every
-         */
-        all<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
-            thisArg?: any
-        ): boolean;
-
-        /**
-         * @see _.every
-         */
-        all(
-            predicate?: string,
-            thisArg?: any
-        ): boolean;
-
-        /**
-         * @see _.every
-         */
-        all<TObject extends {}>(
-            predicate?: TObject
-        ): boolean;
-    }
-
-    interface LoDashExplicitArrayWrapper<T> {
-        /**
-         * @see _.every
-         */
-        all(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
-        ): LoDashExplicitWrapper<boolean>;
-
-        /**
-         * @see _.every
-         */
-        all(
-            predicate?: string,
-            thisArg?: any
-        ): LoDashExplicitWrapper<boolean>;
-
-        /**
-         * @see _.every
-         */
-        all<TObject extends {}>(
-            predicate?: TObject
-        ): LoDashExplicitWrapper<boolean>;
-    }
-
-    interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.every
-         */
-        all<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
-            thisArg?: any
-        ): LoDashExplicitWrapper<boolean>;
-
-        /**
-         * @see _.every
-         */
-        all(
-            predicate?: string,
-            thisArg?: any
-        ): LoDashExplicitWrapper<boolean>;
-
-        /**
-         * @see _.every
-         */
-        all<TObject extends {}>(
-            predicate?: TObject
-        ): LoDashExplicitWrapper<boolean>;
-    }
-
-    //_.any
-    interface LoDashStatic {
-        /**
-         * @see _.some
-         */
-        any<T>(
-            collection: List<T>,
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
-        ): boolean;
-
-        /**
-         * @see _.some
-         */
-        any<T>(
-            collection: Dictionary<T>,
-            predicate?: DictionaryIterator<T, boolean>,
-            thisArg?: any
-        ): boolean;
-
-        /**
-         * @see _.some
-         */
-        any<T>(
-            collection: NumericDictionary<T>,
-            predicate?: NumericDictionaryIterator<T, boolean>,
-            thisArg?: any
-        ): boolean;
-
-        /**
-         * @see _.some
-         */
-        any<T>(
-            collection: List<T>|Dictionary<T>|NumericDictionary<T>,
-            predicate?: string,
-            thisArg?: any
-        ): boolean;
-
-        /**
-         * @see _.some
-         */
-        any<TObject extends {}, T>(
-            collection: List<T>|Dictionary<T>|NumericDictionary<T>,
-            predicate?: TObject
-        ): boolean;
-    }
-
-    interface LoDashImplicitArrayWrapper<T> {
-        /**
-         * @see _.some
-         */
-        any(
-            predicate?: ListIterator<T, boolean>|NumericDictionaryIterator<T, boolean>,
-            thisArg?: any
-        ): boolean;
-
-        /**
-         * @see _.some
-         */
-        any(
-            predicate?: string,
-            thisArg?: any
-        ): boolean;
-
-        /**
-         * @see _.some
-         */
-        any<TObject extends {}>(
-            predicate?: TObject
-        ): boolean;
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.some
-         */
-        any<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>,
-            thisArg?: any
-        ): boolean;
-
-        /**
-         * @see _.some
-         */
-        any(
-            predicate?: string,
-            thisArg?: any
-        ): boolean;
-
-        /**
-         * @see _.some
-         */
-        any<TObject extends {}>(
-            predicate?: TObject
-        ): boolean;
-    }
-
-    interface LoDashExplicitArrayWrapper<T> {
-        /**
-         * @see _.some
-         */
-        any(
-            predicate?: ListIterator<T, boolean>|NumericDictionaryIterator<T, boolean>,
-            thisArg?: any
-        ): LoDashExplicitWrapper<boolean>;
-
-        /**
-         * @see _.some
-         */
-        any(
-            predicate?: string,
-            thisArg?: any
-        ): LoDashExplicitWrapper<boolean>;
-
-        /**
-         * @see _.some
-         */
-        any<TObject extends {}>(
-            predicate?: TObject
-        ): LoDashExplicitWrapper<boolean>;
-    }
-
-    interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.some
-         */
-        any<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>,
-            thisArg?: any
-        ): LoDashExplicitWrapper<boolean>;
-
-        /**
-         * @see _.some
-         */
-        any(
-            predicate?: string,
-            thisArg?: any
-        ): LoDashExplicitWrapper<boolean>;
-
-        /**
-         * @see _.some
-         */
-        any<TObject extends {}>(
-            predicate?: TObject
-        ): LoDashExplicitWrapper<boolean>;
-    }
-
     //_.at
     interface LoDashStatic {
         /**
@@ -4830,220 +4422,6 @@ declare module _ {
          * @see _.at
          */
         at<T>(...props: (number|string|(number|string)[])[]): LoDashExplicitArrayWrapper<T>;
-    }
-
-    //_.collect
-    interface LoDashStatic {
-        /**
-         * @see _.map
-         */
-        collect<T, TResult>(
-            collection: List<T>,
-            iteratee?: ListIterator<T, TResult>,
-            thisArg?: any
-        ): TResult[];
-
-        /**
-         * @see _.map
-         */
-        collect<T extends {}, TResult>(
-            collection: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, TResult>,
-            thisArg?: any
-        ): TResult[];
-
-        /**
-         * @see _.map
-         */
-        collect<T, TResult>(
-            collection: List<T>|Dictionary<T>,
-            iteratee?: string
-        ): TResult[];
-
-        /**
-         * @see _.map
-         */
-        collect<T, TObject extends {}>(
-            collection: List<T>|Dictionary<T>,
-            iteratee?: TObject
-        ): boolean[];
-    }
-
-    interface LoDashImplicitArrayWrapper<T> {
-        /**
-         * @see _.map
-         */
-        collect<TResult>(
-            iteratee?: ListIterator<T, TResult>,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<TResult>;
-
-        /**
-         * @see _.map
-         */
-        collect<TResult>(
-            iteratee?: string
-        ): LoDashImplicitArrayWrapper<TResult>;
-
-        /**
-         * @see _.map
-         */
-        collect<TObject extends {}>(
-            iteratee?: TObject
-        ): LoDashImplicitArrayWrapper<boolean>;
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.map
-         */
-        collect<TValue, TResult>(
-            iteratee?: ListIterator<TValue, TResult>|DictionaryIterator<TValue, TResult>,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<TResult>;
-
-        /**
-         * @see _.map
-         */
-        collect<TValue, TResult>(
-            iteratee?: string
-        ): LoDashImplicitArrayWrapper<TResult>;
-
-        /**
-         * @see _.map
-         */
-        collect<TObject extends {}>(
-            iteratee?: TObject
-        ): LoDashImplicitArrayWrapper<boolean>;
-    }
-
-    interface LoDashExplicitArrayWrapper<T> {
-        /**
-         * @see _.map
-         */
-        collect<TResult>(
-            iteratee?: ListIterator<T, TResult>,
-            thisArg?: any
-        ): LoDashExplicitArrayWrapper<TResult>;
-
-        /**
-         * @see _.map
-         */
-        collect<TResult>(
-            iteratee?: string
-        ): LoDashExplicitArrayWrapper<TResult>;
-
-        /**
-         * @see _.map
-         */
-        collect<TObject extends {}>(
-            iteratee?: TObject
-        ): LoDashExplicitArrayWrapper<boolean>;
-    }
-
-    interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.map
-         */
-        collect<TValue, TResult>(
-            iteratee?: ListIterator<TValue, TResult>|DictionaryIterator<TValue, TResult>,
-            thisArg?: any
-        ): LoDashExplicitArrayWrapper<TResult>;
-
-        /**
-         * @see _.map
-         */
-        collect<TValue, TResult>(
-            iteratee?: string
-        ): LoDashExplicitArrayWrapper<TResult>;
-
-        /**
-         * @see _.map
-         */
-        collect<TObject extends {}>(
-            iteratee?: TObject
-        ): LoDashExplicitArrayWrapper<boolean>;
-    }
-
-    //_.contains
-    interface LoDashStatic {
-        /**
-         * @see _.includes
-         */
-        contains<T>(
-            collection: List<T>|Dictionary<T>,
-            target: T,
-            fromIndex?: number
-        ): boolean;
-
-        /**
-         * @see _.includes
-         */
-        contains(
-            collection: string,
-            target: string,
-            fromIndex?: number
-        ): boolean;
-    }
-
-    interface LoDashImplicitArrayWrapper<T> {
-        /**
-         * @see _.includes
-         */
-        contains(
-            target: T,
-            fromIndex?: number
-        ): boolean;
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.includes
-         */
-        contains<TValue>(
-            target: TValue,
-            fromIndex?: number
-        ): boolean;
-    }
-
-    interface LoDashImplicitWrapper<T> {
-        /**
-         * @see _.includes
-         */
-        contains(
-            target: string,
-            fromIndex?: number
-        ): boolean;
-    }
-
-    interface LoDashExplicitArrayWrapper<T> {
-        /**
-         * @see _.includes
-         */
-        contains(
-            target: T,
-            fromIndex?: number
-        ): LoDashExplicitWrapper<boolean>;
-    }
-
-    interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.includes
-         */
-        contains<TValue>(
-            target: TValue,
-            fromIndex?: number
-        ): LoDashExplicitWrapper<boolean>;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.includes
-         */
-        contains(
-            target: string,
-            fromIndex?: number
-        ): LoDashExplicitWrapper<boolean>;
     }
 
     //_.countBy
@@ -5236,94 +4614,6 @@ declare module _ {
         countBy<W>(
             iteratee?: W
         ): LoDashExplicitObjectWrapper<Dictionary<number>>;
-    }
-
-    //_.detect
-    interface LoDashStatic {
-        /**
-         * @see _.find
-         */
-        detect<T>(
-            collection: List<T>,
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
-        ): T;
-
-        /**
-         * @see _.find
-         */
-        detect<T>(
-            collection: Dictionary<T>,
-            predicate?: DictionaryIterator<T, boolean>,
-            thisArg?: any
-        ): T;
-
-        /**
-         * @see _.find
-         */
-        detect<T>(
-            collection: List<T>|Dictionary<T>,
-            predicate?: string,
-            thisArg?: any
-        ): T;
-
-        /**
-         * @see _.find
-         */
-        detect<TObject extends {}, T>(
-            collection: List<T>|Dictionary<T>,
-            predicate?: TObject
-        ): T;
-    }
-
-    interface LoDashImplicitArrayWrapper<T> {
-        /**
-         * @see _.find
-         */
-        detect(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
-        ): T;
-
-        /**
-         * @see _.find
-         */
-        detect(
-            predicate?: string,
-            thisArg?: any
-        ): T;
-
-        /**
-         * @see _.find
-         */
-        detect<TObject extends {}>(
-            predicate?: TObject
-        ): T;
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.find
-         */
-        detect<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
-            thisArg?: any
-        ): TResult;
-
-        /**
-         * @see _.find
-         */
-        detect<TResult>(
-            predicate?: string,
-            thisArg?: any
-        ): TResult;
-
-        /**
-         * @see _.find
-         */
-        detect<TObject extends {}, TResult>(
-            predicate?: TObject
-        ): TResult;
     }
 
     //_.each
@@ -5557,8 +4847,6 @@ declare module _ {
          * If an object is provided for predicate the created _.matches style callback returns true for elements that
          * have the properties of the given object, else false.
          *
-         * @alias _.all
-         *
          * @param collection The collection to iterate over.
          * @param predicate The function invoked per iteration.
          * @param thisArg The this binding of predicate.
@@ -5711,8 +4999,6 @@ declare module _ {
          *
          * If an object is provided for predicate the created _.matches style callback returns true for elements that
          * have the properties of the given object, else false.
-         *
-         * @alias _.select
          *
          * @param collection The collection to iterate over.
          * @param predicate The function invoked per iteration.
@@ -5887,8 +5173,6 @@ declare module _ {
          *
          * If an object is provided for predicate the created _.matches style callback returns true for elements that
          * have the properties of the given object, else false.
-         *
-         * @alias _.detect
          *
          * @param collection The collection to search.
          * @param predicate The function invoked per iteration.
@@ -6569,94 +5853,11 @@ declare module _ {
         ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
     }
 
-    //_.include
-    interface LoDashStatic {
-        /**
-         * @see _.includes
-         */
-        include<T>(
-            collection: List<T>|Dictionary<T>,
-            target: T,
-            fromIndex?: number
-        ): boolean;
-
-        /**
-         * @see _.includes
-         */
-        include(
-            collection: string,
-            target: string,
-            fromIndex?: number
-        ): boolean;
-    }
-
-    interface LoDashImplicitArrayWrapper<T> {
-        /**
-         * @see _.includes
-         */
-        include(
-            target: T,
-            fromIndex?: number
-        ): boolean;
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.includes
-         */
-        include<TValue>(
-            target: TValue,
-            fromIndex?: number
-        ): boolean;
-    }
-
-    interface LoDashImplicitWrapper<T> {
-        /**
-         * @see _.includes
-         */
-        include(
-            target: string,
-            fromIndex?: number
-        ): boolean;
-    }
-
-    interface LoDashExplicitArrayWrapper<T> {
-        /**
-         * @see _.includes
-         */
-        include(
-            target: T,
-            fromIndex?: number
-        ): LoDashExplicitWrapper<boolean>;
-    }
-
-    interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.includes
-         */
-        include<TValue>(
-            target: TValue,
-            fromIndex?: number
-        ): LoDashExplicitWrapper<boolean>;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.includes
-         */
-        include(
-            target: string,
-            fromIndex?: number
-        ): LoDashExplicitWrapper<boolean>;
-    }
-
     //_.includes
     interface LoDashStatic {
         /**
          * Checks if target is in collection using SameValueZero for equality comparisons. If fromIndex is negative,
          * it’s used as the offset from the end of collection.
-         *
-         * @alias _.contains, _.include
          *
          * @param collection The collection to search.
          * @param target The value to search for.
@@ -7025,8 +6226,6 @@ declare module _ {
          * min, parseInt, slice, sortBy, take, takeRight, template, trim, trimLeft, trimRight, trunc, random, range,
          * sample, some, sum, uniq, and words
          *
-         * @alias _.collect
-         *
          * @param collection The collection to iterate over.
          * @param iteratee The function invoked per iteration.
          * @param thisArg The this binding of iteratee.
@@ -7370,107 +6569,6 @@ declare module _ {
             callback: MemoIterator<T, TResult>,
             thisArg?: any): TResult;
 
-        /**
-        * @see _.reduce
-        **/
-        inject<T, TResult>(
-            collection: Array<T>,
-            callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        inject<T, TResult>(
-            collection: List<T>,
-            callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        inject<T, TResult>(
-            collection: Dictionary<T>,
-            callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        inject<T, TResult>(
-            collection: Array<T>,
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        inject<T, TResult>(
-            collection: List<T>,
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        inject<T, TResult>(
-            collection: Dictionary<T>,
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        foldl<T, TResult>(
-            collection: Array<T>,
-            callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        foldl<T, TResult>(
-            collection: List<T>,
-            callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        foldl<T, TResult>(
-            collection: Dictionary<T>,
-            callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        foldl<T, TResult>(
-            collection: Array<T>,
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        foldl<T, TResult>(
-            collection: List<T>,
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        foldl<T, TResult>(
-            collection: Dictionary<T>,
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -7488,36 +6586,6 @@ declare module _ {
         reduce<TResult>(
             callback: MemoIterator<T, TResult>,
             thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        inject<TResult>(
-            callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        inject<TResult>(
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        foldl<TResult>(
-            callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        foldl<TResult>(
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -7533,36 +6601,6 @@ declare module _ {
         * @see _.reduce
         **/
         reduce<TValue, TResult>(
-            callback: MemoIterator<TValue, TResult>,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        inject<TValue, TResult>(
-            callback: MemoIterator<TValue, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        inject<TValue, TResult>(
-            callback: MemoIterator<TValue, TResult>,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        foldl<TValue, TResult>(
-            callback: MemoIterator<TValue, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        foldl<TValue, TResult>(
             callback: MemoIterator<TValue, TResult>,
             thisArg?: any): TResult;
     }
@@ -7622,57 +6660,6 @@ declare module _ {
         * @see _.reduceRight
         **/
         reduceRight<T, TResult>(
-            collection: Dictionary<T>,
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduceRight
-        **/
-        foldr<T, TResult>(
-            collection: Array<T>,
-            callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduceRight
-        **/
-        foldr<T, TResult>(
-            collection: List<T>,
-            callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduceRight
-        **/
-        foldr<T, TResult>(
-            collection: Dictionary<T>,
-            callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduceRight
-        **/
-        foldr<T, TResult>(
-            collection: Array<T>,
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduceRight
-        **/
-        foldr<T, TResult>(
-            collection: List<T>,
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
-
-        /**
-        * @see _.reduceRight
-        **/
-        foldr<T, TResult>(
             collection: Dictionary<T>,
             callback: MemoIterator<T, TResult>,
             thisArg?: any): TResult;
@@ -8051,8 +7038,6 @@ declare module _ {
          *
          * If an object is provided for predicate the created _.matches style callback returns true for elements that
          * have the properties of the given object, else false.
-         *
-         * @alias _.any
          *
          * @param collection The collection to iterate over.
          * @param predicate The function invoked per iteration.
@@ -8852,28 +7837,6 @@ declare module _ {
         ary<TResult extends Function>(n?: number): LoDashExplicitObjectWrapper<TResult>;
     }
 
-    //_.backflow
-    interface LoDashStatic {
-        /**
-         * @see _.flowRight
-         */
-        backflow<TResult extends Function>(...funcs: Function[]): TResult;
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.flowRight
-         */
-        backflow<TResult extends Function>(...funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
-    }
-
-    interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.flowRight
-         */
-        backflow<TResult extends Function>(...funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
-    }
-
     //_.before
     interface LoDashStatic {
         /**
@@ -9048,28 +8011,6 @@ declare module _ {
             key: any,
             ...partials: any[]
         ): LoDashExplicitObjectWrapper<TResult>;
-    }
-
-    //_.compose
-    interface LoDashStatic {
-        /**
-         * @see _.flowRight
-         */
-        compose<TResult extends Function>(...funcs: Function[]): TResult;
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.flowRight
-         */
-        compose<TResult extends Function>(...funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
-    }
-
-    interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.flowRight
-         */
-        compose<TResult extends Function>(...funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.createCallback
@@ -9443,8 +8384,6 @@ declare module _ {
         /**
          * This method is like _.flow except that it creates a function that invokes the provided functions from right
          * to left.
-         *
-         * @alias _.backflow, _.compose
          *
          * @param funcs Functions to invoke.
          * @return Returns the new function.
@@ -12571,8 +11510,6 @@ declare module _ {
         /**
          * Creates an array of function property names from all enumerable properties, own and inherited, of object.
          *
-         * @alias _.methods
-         *
          * @param object The object to inspect.
          * @return Returns the new array of property names.
          */
@@ -13111,28 +12048,6 @@ declare module _ {
         merge<TResult>(
             ...otherArgs: any[]
         ): LoDashExplicitObjectWrapper<TResult>;
-    }
-
-    //_.methods
-    interface LoDashStatic {
-        /**
-         * @see _.functions
-         */
-        methods<T extends {}>(object: any): string[];
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.functions
-         */
-        methods(): _.LoDashImplicitArrayWrapper<string>;
-    }
-
-    interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.functions
-         */
-        methods(): _.LoDashExplicitArrayWrapper<string>;
     }
 
     //_.omit
@@ -14286,83 +13201,6 @@ declare module _ {
         attempt<TResult>(): LoDashExplicitObjectWrapper<TResult|Error>;
     }
 
-    //_.callback
-    interface LoDashStatic {
-        /**
-         * Creates a function that invokes func with the this binding of thisArg and arguments of the created function.
-         * If func is a property name the created callback returns the property value for a given element. If func is
-         * an object the created callback returns true for elements that contain the equivalent object properties,
-         * otherwise it returns false.
-         *
-         * @param func The value to convert to a callback.
-         * @param thisArg The this binding of func.
-         * @result Returns the callback.
-         */
-        callback<TResult>(
-            func: Function,
-            thisArg?: any
-        ): (...args: any[]) => TResult;
-
-        /**
-         * @see _.callback
-         */
-        callback<TResult>(
-            func: string,
-            thisArg?: any
-        ): (object: any) => TResult;
-
-        /**
-         * @see _.callback
-         */
-        callback(
-            func: Object,
-            thisArg?: any
-        ): (object: any) => boolean;
-
-        /**
-         * @see _.callback
-         */
-        callback<TResult>(): (value: TResult) => TResult;
-    }
-
-    interface LoDashImplicitWrapper<T> {
-        /**
-         * @see _.callback
-         */
-        callback<TResult>(thisArg?: any): LoDashImplicitObjectWrapper<(object: any) => TResult>;
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.callback
-         */
-        callback(thisArg?: any): LoDashImplicitObjectWrapper<(object: any) => boolean>;
-
-        /**
-         * @see _.callback
-         */
-        callback<TResult>(thisArg?: any): LoDashImplicitObjectWrapper<(...args: any[]) => TResult>;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.callback
-         */
-        callback<TResult>(thisArg?: any): LoDashExplicitObjectWrapper<(object: any) => TResult>;
-    }
-
-    interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.callback
-         */
-        callback(thisArg?: any): LoDashExplicitObjectWrapper<(object: any) => boolean>;
-
-        /**
-         * @see _.callback
-         */
-        callback<TResult>(thisArg?: any): LoDashExplicitObjectWrapper<(...args: any[]) => TResult>;
-    }
-
     //_.constant
     interface LoDashStatic {
         /**
@@ -14422,7 +13260,33 @@ declare module _ {
     //_.iteratee
     interface LoDashStatic {
         /**
-         * @see _.callback
+         * Creates a function that invokes `func` with the arguments of the created
+         * function. If `func` is a property name the created callback returns the
+         * property value for a given element. If `func` is an object the created
+         * callback returns `true` for elements that contain the equivalent object properties, otherwise it returns `false`.
+         *
+         * @static
+         * @memberOf _
+         * @category Util
+         * @param {*} [func=_.identity] The value to convert to a callback.
+         * @returns {Function} Returns the callback.
+         * @example
+         *
+         * var users = [
+         *   { 'user': 'barney', 'age': 36 },
+         *   { 'user': 'fred',   'age': 40 }
+         * ];
+         *
+         * // create custom iteratee shorthands
+         * _.iteratee = _.wrap(_.iteratee, function(callback, func) {
+         *   var p = /^(\S+)\s*([<>])\s*(\S+)$/.exec(func);
+         *   return !p ? callback(func) : function(object) {
+         *     return (p[2] == '>' ? object[p[1]] > p[3] : object[p[1]] < p[3]);
+         *   };
+         * });
+         *
+         * _.filter(users, 'age > 36');
+         * // => [{ 'user': 'fred', 'age': 40 }]
          */
         iteratee<TResult>(
             func: Function,
@@ -14430,7 +13294,7 @@ declare module _ {
         ): (...args: any[]) => TResult;
 
         /**
-         * @see _.callback
+         * @see _.iteratee
          */
         iteratee<TResult>(
             func: string,
@@ -14438,7 +13302,7 @@ declare module _ {
         ): (object: any) => TResult;
 
         /**
-         * @see _.callback
+         * @see _.iteratee
          */
         iteratee(
             func: Object,
@@ -14446,45 +13310,45 @@ declare module _ {
         ): (object: any) => boolean;
 
         /**
-         * @see _.callback
+         * @see _.iteratee
          */
         iteratee<TResult>(): (value: TResult) => TResult;
     }
 
     interface LoDashImplicitWrapper<T> {
         /**
-         * @see _.callback
+         * @see _.iteratee
          */
         iteratee<TResult>(thisArg?: any): LoDashImplicitObjectWrapper<(object: any) => TResult>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-         * @see _.callback
+         * @see _.iteratee
          */
         iteratee(thisArg?: any): LoDashImplicitObjectWrapper<(object: any) => boolean>;
 
         /**
-         * @see _.callback
+         * @see _.iteratee
          */
         iteratee<TResult>(thisArg?: any): LoDashImplicitObjectWrapper<(...args: any[]) => TResult>;
     }
 
     interface LoDashExplicitWrapper<T> {
         /**
-         * @see _.callback
+         * @see _.iteratee
          */
         iteratee<TResult>(thisArg?: any): LoDashExplicitObjectWrapper<(object: any) => TResult>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
-         * @see _.callback
+         * @see _.iteratee
          */
         iteratee(thisArg?: any): LoDashExplicitObjectWrapper<(object: any) => boolean>;
 
         /**
-         * @see _.callback
+         * @see _.iteratee
          */
         iteratee<TResult>(thisArg?: any): LoDashExplicitObjectWrapper<(...args: any[]) => TResult>;
     }
