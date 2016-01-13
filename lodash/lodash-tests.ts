@@ -5291,8 +5291,8 @@ module TestSortByAll {
     }
 }
 
-// _.sortByOrder
-module TestSortByOrder {
+// _.orderBy
+module TestorderBy {
     type SampleObject = {a: number; b: string; c: boolean};
 
     let array: SampleObject[];
@@ -5305,79 +5305,79 @@ module TestSortByOrder {
         let iteratees: (value: string) => any|((value: string) => any)[];
         let result: string[];
 
-        result = _.sortByOrder<string>('acbd', iteratees);
-        result = _.sortByOrder<string>('acbd', iteratees, orders);
+        result = _.orderBy<string>('acbd', iteratees);
+        result = _.orderBy<string>('acbd', iteratees, orders);
     }
 
     {
         let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[];
         let result: SampleObject[];
 
-        result = _.sortByOrder<{a: number}, SampleObject>(array, iteratees);
-        result = _.sortByOrder<{a: number}, SampleObject>(array, iteratees, orders);
-        result = _.sortByOrder<SampleObject>(array, iteratees);
-        result = _.sortByOrder<SampleObject>(array, iteratees, orders);
+        result = _.orderBy<{a: number}, SampleObject>(array, iteratees);
+        result = _.orderBy<{a: number}, SampleObject>(array, iteratees, orders);
+        result = _.orderBy<SampleObject>(array, iteratees);
+        result = _.orderBy<SampleObject>(array, iteratees, orders);
 
-        result = _.sortByOrder<{a: number}, SampleObject>(list, iteratees);
-        result = _.sortByOrder<{a: number}, SampleObject>(list, iteratees, orders);
-        result = _.sortByOrder<SampleObject>(list, iteratees);
-        result = _.sortByOrder<SampleObject>(list, iteratees, orders);
+        result = _.orderBy<{a: number}, SampleObject>(list, iteratees);
+        result = _.orderBy<{a: number}, SampleObject>(list, iteratees, orders);
+        result = _.orderBy<SampleObject>(list, iteratees);
+        result = _.orderBy<SampleObject>(list, iteratees, orders);
 
-        result = _.sortByOrder<{a: number}, SampleObject>(numericDictionary, iteratees);
-        result = _.sortByOrder<{a: number}, SampleObject>(numericDictionary, iteratees, orders);
-        result = _.sortByOrder<SampleObject>(numericDictionary, iteratees);
-        result = _.sortByOrder<SampleObject>(numericDictionary, iteratees, orders);
+        result = _.orderBy<{a: number}, SampleObject>(numericDictionary, iteratees);
+        result = _.orderBy<{a: number}, SampleObject>(numericDictionary, iteratees, orders);
+        result = _.orderBy<SampleObject>(numericDictionary, iteratees);
+        result = _.orderBy<SampleObject>(numericDictionary, iteratees, orders);
 
-        result = _.sortByOrder<{a: number}, SampleObject>(dictionary, iteratees);
-        result = _.sortByOrder<{a: number}, SampleObject>(dictionary, iteratees, orders);
-        result = _.sortByOrder<SampleObject>(dictionary, iteratees);
-        result = _.sortByOrder<SampleObject>(dictionary, iteratees, orders);
+        result = _.orderBy<{a: number}, SampleObject>(dictionary, iteratees);
+        result = _.orderBy<{a: number}, SampleObject>(dictionary, iteratees, orders);
+        result = _.orderBy<SampleObject>(dictionary, iteratees);
+        result = _.orderBy<SampleObject>(dictionary, iteratees, orders);
     }
 
     {
         let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[];
         let result: _.LoDashImplicitArrayWrapper<SampleObject>;
 
-        result = _(array).sortByOrder<{a: number}>(iteratees);
-        result = _(array).sortByOrder<{a: number}>(iteratees, orders);
+        result = _(array).orderBy<{a: number}>(iteratees);
+        result = _(array).orderBy<{a: number}>(iteratees, orders);
 
-        result = _(list).sortByOrder<{a: number}, SampleObject>(iteratees);
-        result = _(list).sortByOrder<{a: number}, SampleObject>(iteratees, orders);
-        result = _(list).sortByOrder<SampleObject>(iteratees);
-        result = _(list).sortByOrder<SampleObject>(iteratees, orders);
+        result = _(list).orderBy<{a: number}, SampleObject>(iteratees);
+        result = _(list).orderBy<{a: number}, SampleObject>(iteratees, orders);
+        result = _(list).orderBy<SampleObject>(iteratees);
+        result = _(list).orderBy<SampleObject>(iteratees, orders);
 
-        result = _(numericDictionary).sortByOrder<{a: number}, SampleObject>(iteratees);
-        result = _(numericDictionary).sortByOrder<{a: number}, SampleObject>(iteratees, orders);
-        result = _(numericDictionary).sortByOrder<SampleObject>(iteratees);
-        result = _(numericDictionary).sortByOrder<SampleObject>(iteratees, orders);
+        result = _(numericDictionary).orderBy<{a: number}, SampleObject>(iteratees);
+        result = _(numericDictionary).orderBy<{a: number}, SampleObject>(iteratees, orders);
+        result = _(numericDictionary).orderBy<SampleObject>(iteratees);
+        result = _(numericDictionary).orderBy<SampleObject>(iteratees, orders);
 
-        result = _(dictionary).sortByOrder<{a: number}, SampleObject>(iteratees);
-        result = _(dictionary).sortByOrder<{a: number}, SampleObject>(iteratees, orders);
-        result = _(dictionary).sortByOrder<SampleObject>(iteratees);
-        result = _(dictionary).sortByOrder<SampleObject>(iteratees, orders);
+        result = _(dictionary).orderBy<{a: number}, SampleObject>(iteratees);
+        result = _(dictionary).orderBy<{a: number}, SampleObject>(iteratees, orders);
+        result = _(dictionary).orderBy<SampleObject>(iteratees);
+        result = _(dictionary).orderBy<SampleObject>(iteratees, orders);
     }
 
     {
         let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[];
         let result: _.LoDashExplicitArrayWrapper<SampleObject>;
 
-        result = _(array).chain().sortByOrder<{a: number}>(iteratees);
-        result = _(array).chain().sortByOrder<{a: number}>(iteratees, orders);
+        result = _(array).chain().orderBy<{a: number}>(iteratees);
+        result = _(array).chain().orderBy<{a: number}>(iteratees, orders);
 
-        result = _(list).chain().sortByOrder<{a: number}, SampleObject>(iteratees);
-        result = _(list).chain().sortByOrder<{a: number}, SampleObject>(iteratees, orders);
-        result = _(list).chain().sortByOrder<SampleObject>(iteratees);
-        result = _(list).chain().sortByOrder<SampleObject>(iteratees, orders);
+        result = _(list).chain().orderBy<{a: number}, SampleObject>(iteratees);
+        result = _(list).chain().orderBy<{a: number}, SampleObject>(iteratees, orders);
+        result = _(list).chain().orderBy<SampleObject>(iteratees);
+        result = _(list).chain().orderBy<SampleObject>(iteratees, orders);
 
-        result = _(numericDictionary).chain().sortByOrder<{a: number}, SampleObject>(iteratees);
-        result = _(numericDictionary).chain().sortByOrder<{a: number}, SampleObject>(iteratees, orders);
-        result = _(numericDictionary).chain().sortByOrder<SampleObject>(iteratees);
-        result = _(numericDictionary).chain().sortByOrder<SampleObject>(iteratees, orders);
+        result = _(numericDictionary).chain().orderBy<{a: number}, SampleObject>(iteratees);
+        result = _(numericDictionary).chain().orderBy<{a: number}, SampleObject>(iteratees, orders);
+        result = _(numericDictionary).chain().orderBy<SampleObject>(iteratees);
+        result = _(numericDictionary).chain().orderBy<SampleObject>(iteratees, orders);
 
-        result = _(dictionary).chain().sortByOrder<{a: number}, SampleObject>(iteratees);
-        result = _(dictionary).chain().sortByOrder<{a: number}, SampleObject>(iteratees, orders);
-        result = _(dictionary).chain().sortByOrder<SampleObject>(iteratees);
-        result = _(dictionary).chain().sortByOrder<SampleObject>(iteratees, orders);
+        result = _(dictionary).chain().orderBy<{a: number}, SampleObject>(iteratees);
+        result = _(dictionary).chain().orderBy<{a: number}, SampleObject>(iteratees, orders);
+        result = _(dictionary).chain().orderBy<SampleObject>(iteratees);
+        result = _(dictionary).chain().orderBy<SampleObject>(iteratees, orders);
     }
 }
 
