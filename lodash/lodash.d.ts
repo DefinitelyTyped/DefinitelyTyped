@@ -21,7 +21,7 @@ TODO:
 - [x] Renamed _.first to _.head
 - [x] Renamed _.indexBy to _.keyBy
 - [x] Renamed _.invoke to _.invokeMap
-- [ ] Renamed _.modArgs to _.overArgs
+- [x] Renamed _.overArgs to _.overArgs
 - [ ] Renamed _.padLeft & _.padRight to _.padStart & _.padEnd
 - [ ] Renamed _.pairs to _.toPairs
 - [ ] Renamed _.rest to _.tail
@@ -9620,7 +9620,7 @@ declare module _ {
         memoize<TResult extends MemoizedFunction>(resolver?: Function): LoDashImplicitObjectWrapper<TResult>;
     }
 
-    //_.modArgs
+    //_.overArgs (was _.modArgs)
     interface LoDashStatic {
         /**
          * Creates a function that runs each argument through a corresponding transform function.
@@ -9630,15 +9630,15 @@ declare module _ {
          * of functions.
          * @return Returns the new function.
          */
-        modArgs<T extends Function, TResult extends Function>(
+        overArgs<T extends Function, TResult extends Function>(
             func: T,
             ...transforms: Function[]
         ): TResult;
 
         /**
-         * @see _.modArgs
+         * @see _.overArgs
          */
-        modArgs<T extends Function, TResult extends Function>(
+        overArgs<T extends Function, TResult extends Function>(
             func: T,
             transforms: Function[]
         ): TResult;
@@ -9646,26 +9646,26 @@ declare module _ {
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-         * @see _.modArgs
+         * @see _.overArgs
          */
-        modArgs<TResult extends Function>(...transforms: Function[]): LoDashImplicitObjectWrapper<TResult>;
+        overArgs<TResult extends Function>(...transforms: Function[]): LoDashImplicitObjectWrapper<TResult>;
 
         /**
-         * @see _.modArgs
+         * @see _.overArgs
          */
-        modArgs<TResult extends Function>(transforms: Function[]): LoDashImplicitObjectWrapper<TResult>;
+        overArgs<TResult extends Function>(transforms: Function[]): LoDashImplicitObjectWrapper<TResult>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
-         * @see _.modArgs
+         * @see _.overArgs
          */
-        modArgs<TResult extends Function>(...transforms: Function[]): LoDashExplicitObjectWrapper<TResult>;
+        overArgs<TResult extends Function>(...transforms: Function[]): LoDashExplicitObjectWrapper<TResult>;
 
         /**
-         * @see _.modArgs
+         * @see _.overArgs
          */
-        modArgs<TResult extends Function>(transforms: Function[]): LoDashExplicitObjectWrapper<TResult>;
+        overArgs<TResult extends Function>(transforms: Function[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.negate
