@@ -31,7 +31,7 @@ TODO:
 - [x] Split _.indexOf & _.lastIndexOf into _.sortedIndexOf & _.sortedLastIndexOf
 - [x] Split _.max & _.min into _.maxBy & _.minBy
 - [x] Split _.omit & _.pick into _.omitBy & _.pickBy
-- [ ] Split _.sample into _.sampleSize
+- [x] Split _.sample into _.sampleSize
 - [ ] Split _.sortedIndex into _.sortedIndexBy
 - [ ] Split _.sortedLastIndex into _.sortedLastIndexBy
 - [ ] Split _.uniq into _.sortedUniq, _.sortedUniqBy, & _.uniqBy
@@ -7909,10 +7909,18 @@ declare module _ {
     //_.sample
     interface LoDashStatic {
         /**
-        * Retrieves a random element or n random elements from a collection.
-        * @param collection The collection to sample.
-        * @return Returns the random sample(s) of collection.
-        **/
+         * Gets a random element from `collection`.
+         *
+         * @static
+         * @memberOf _
+         * @category Collection
+         * @param {Array|Object} collection The collection to sample.
+         * @returns {*} Returns the random element.
+         * @example
+         *
+         * _.sample([1, 2, 3, 4]);
+         * // => 2
+         */
         sample<T>(collection: Array<T>): T;
 
         /**
@@ -7924,36 +7932,54 @@ declare module _ {
         * @see _.sample
         **/
         sample<T>(collection: Dictionary<T>): T;
-
-        /**
-        * @see _.sample
-        * @param n The number of elements to sample.
-        **/
-        sample<T>(collection: Array<T>, n: number): T[];
-
-        /**
-        * @see _.sample
-        * @param n The number of elements to sample.
-        **/
-        sample<T>(collection: List<T>, n: number): T[];
-
-        /**
-        * @see _.sample
-        * @param n The number of elements to sample.
-        **/
-        sample<T>(collection: Dictionary<T>, n: number): T[];
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.sample
          **/
-        sample(n: number): LoDashImplicitArrayWrapper<T>;
+        sample(): LoDashImplicitWrapper<T>;
+    }
+
+    //_.sampleSize
+    interface LoDashStatic {
+        /**
+         * Gets `n` random elements from `collection`.
+         *
+         * @static
+         * @memberOf _
+         * @category Collection
+         * @param {Array|Object} collection The collection to sample.
+         * @param {number} [n=0] The number of elements to sample.
+         * @returns {Array} Returns the random elements.
+         * @example
+         *
+         * _.sampleSize([1, 2, 3, 4], 2);
+         * // => [3, 1]
+         */
+        sampleSize<T>(collection: Array<T>, n: number): T[];
 
         /**
-         * @see _.sample
+        * @see _.sampleSize
+        **/
+        sampleSize<T>(collection: List<T>, n: number): T[];
+
+        /**
+        * @see _.sampleSize
+        **/
+        sampleSize<T>(collection: Dictionary<T>, n: number): T[];
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.sampleSize
          **/
-        sample(): LoDashImplicitWrapper<T>;
+        sampleSize(n: number): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sampleSize
+         **/
+        sampleSize(): LoDashImplicitWrapper<T>;
     }
 
     //_.select

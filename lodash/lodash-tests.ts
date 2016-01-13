@@ -4894,12 +4894,15 @@ module TestReject {
     }
 }
 
+// _.sample
 result = <number>_.sample([1, 2, 3, 4]);
-result = <number[]>_.sample([1, 2, 3, 4], 2);
 result = <_.LoDashImplicitWrapper<number>>_([1, 2, 3, 4]).sample();
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sample(2);
 result = <number>_([1, 2, 3, 4]).sample().value();
-result = <number[]>_([1, 2, 3, 4]).sample(2).value();
+
+// _.sampleSize
+result = <number[]>_.sampleSize([1, 2, 3, 4], 2);
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sampleSize(2);
+result = <number[]>_([1, 2, 3, 4]).sampleSize(2).value();
 
 // _.select
 module TestSelect {
