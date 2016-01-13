@@ -345,6 +345,12 @@ declare module MakerJs {
          * Optional layer of this model.
          */
         layer?: string;
+        /**
+         * Optional exporter options for this model.
+         */
+        exporterOptions?: {
+            [exporterName: string]: any;
+        };
     }
     /**
      * Callback signature for model.walkPaths().
@@ -412,6 +418,10 @@ declare module MakerJs {
          * Each element of the array corresponds to a parameter of the constructor, in order.
          */
         metaParameters?: IMetaParameter[];
+        /**
+         * Information about this kit, in plain text or markdown format.
+         */
+        notes?: string;
     }
 }
 declare module MakerJs.angle {
@@ -1225,12 +1235,36 @@ declare module MakerJs.exporter {
          * Optional size of curve facets.
          */
         facetSize?: number;
+        /**
+         * Optional override of function name, default is "main".
+         */
+        functionName?: string;
+        /**
+         * Optional options applied to specific first-child models by model id.
+         */
+        modelMap?: IOpenJsCadOptionsMap;
+    }
+    interface IOpenJsCadOptionsMap {
+        [modelId: string]: IOpenJsCadOptions;
     }
 }
 declare module MakerJs.exporter {
     function toSVG(modelToExport: IModel, options?: ISVGRenderOptions): string;
     function toSVG(pathsToExport: IPath[], options?: ISVGRenderOptions): string;
     function toSVG(pathToExport: IPath, options?: ISVGRenderOptions): string;
+    /**
+     * Map of MakerJs unit system to SVG unit system
+     */
+    interface svgUnitConversion {
+        [unitType: string]: {
+            svgUnitType: string;
+            scaleConversion: number;
+        };
+    }
+    /**
+     * Map of MakerJs unit system to SVG unit system
+     */
+    var svgUnit: svgUnitConversion;
     /**
      * SVG rendering options.
      */
@@ -1240,33 +1274,37 @@ declare module MakerJs.exporter {
          */
         svgAttrs?: IXmlTagAttrs;
         /**
+         * SVG font size and font size units.
+         */
+        fontSize?: string;
+        /**
          * SVG stroke width of paths. This may have a unit type suffix, if not, the value will be in the same unit system as the units property.
          */
         strokeWidth?: string;
         /**
          * SVG color of the rendered paths.
          */
-        stroke: string;
+        stroke?: string;
         /**
          * Scale of the SVG rendering.
          */
-        scale: number;
+        scale?: number;
         /**
          *  Indicate that the id's of paths should be rendered as SVG text elements.
          */
-        annotate: boolean;
+        annotate?: boolean;
         /**
          * Rendered reference origin.
          */
-        origin: IPoint;
+        origin?: IPoint;
         /**
          * Use SVG < path > elements instead of < line >, < circle > etc.
          */
-        useSvgPathOnly: boolean;
+        useSvgPathOnly?: boolean;
         /**
          * Flag to use SVG viewbox.
          */
-        viewBox: boolean;
+        viewBox?: boolean;
     }
 }
 declare module MakerJs.models {

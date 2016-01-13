@@ -1,6 +1,6 @@
-// Type definitions for del v1.2.0
+// Type definitions for del v2.2.0
 // Project: https://github.com/sindresorhus/del
-// Definitions by: Asana <https://asana.com>
+// Definitions by: Asana <https://asana.com>, Aya Morisawa <https://github.com/AyaMorisawa>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../glob/glob.d.ts"/>
@@ -20,7 +20,8 @@ declare module "del" {
         function sync(patterns: string[], options?: Options): string[];
 
         interface Options extends glob.IOptions {
-            force?: boolean
+            force?: boolean;
+            dryRun?: boolean;
         }
     }
 

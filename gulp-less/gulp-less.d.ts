@@ -11,6 +11,7 @@ declare module "gulp-less" {
         modifyVars?: {};
         paths?: string[];
         plugins?: any[];
+        relativeUrls?: boolean;
     }
 
     function less(options?: IOptions): NodeJS.ReadWriteStream;

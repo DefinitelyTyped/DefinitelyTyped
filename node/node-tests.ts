@@ -9,6 +9,7 @@ import * as crypto from "crypto";
 import * as tls from "tls";
 import * as http from "http";
 import * as net from "net";
+import * as tty from "tty";
 import * as dgram from "dgram";
 import * as querystring from "querystring";
 import * as path from "path";
@@ -202,6 +203,13 @@ function stream_readable_pipe_test() {
 
 var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
 
+{
+    let hmac: crypto.Hmac;
+    (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
+        let hash: Buffer|string = hmac.read();
+    });
+}
+
 function crypto_cipher_decipher_string_test() {
 	var key:Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
 	var clearText:string = "This is the clear text.";
@@ -281,7 +289,7 @@ module http_tests {
 	});
 
 	var agent: http.Agent = http.globalAgent;
-	
+
 	http.request({
 		agent: false
 	});
@@ -291,6 +299,23 @@ module http_tests {
 	http.request({
 		agent: undefined
 	});
+}
+
+////////////////////////////////////////////////////
+/// TTY tests : http://nodejs.org/api/tty.html
+////////////////////////////////////////////////////
+
+module tty_tests {
+    let rs: tty.ReadStream;
+    let ws: tty.WriteStream;
+
+    let rsIsRaw: boolean = rs.isRaw;
+    rs.setRawMode(true);
+
+    let wsColumns: number = ws.columns;
+    let wsRows: number = ws.rows;
+
+    let isTTY: boolean = tty.isatty(1);
 }
 
 ////////////////////////////////////////////////////

@@ -1,6 +1,6 @@
 // Type definitions for express-handlebars
 // Project: https://github.com/ericf/express-handlebars
-// Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
+// Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>, Igor Dultsev <https://github.com/yhaskell>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../es6-promise/es6-promise.d.ts" />
@@ -40,7 +40,12 @@ interface Exphbs {
     renderView(viewPath: string, optionsOrCallback: any, callback?: () => string): void;
 }
 
+interface ExpressHandlebars {
+  (options?: ExphbsOptions): Function;
+  create (options?: ExphbsOptions): Exphbs;
+}
+
 declare module "express-handlebars" {
-    var exphbs: Exphbs;
+    var exphbs: ExpressHandlebars;
     export = exphbs;
 }
