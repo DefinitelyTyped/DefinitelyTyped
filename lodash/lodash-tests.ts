@@ -4384,8 +4384,8 @@ module TestIncludes {
     }
 }
 
-// _.indexBy
-module TestIndexBy {
+// _.keyBy
+module TestKeyBy {
     type SampleObject = {a: number; b: string; c: boolean;};
 
     let array: SampleObject[];
@@ -4401,131 +4401,131 @@ module TestIndexBy {
     {
         let result: _.Dictionary<string>;
 
-        result = _.indexBy<string>('abcd');
-        result = _.indexBy<string>('abcd', stringIterator);
-        result = _.indexBy<string>('abcd', stringIterator, any);
+        result = _.keyBy<string>('abcd');
+        result = _.keyBy<string>('abcd', stringIterator);
+        result = _.keyBy<string>('abcd', stringIterator, any);
     }
 
     {
         let result: _.Dictionary<SampleObject>;
 
-        result = _.indexBy<SampleObject>(array);
-        result = _.indexBy<SampleObject>(array, listIterator);
-        result = _.indexBy<SampleObject>(array, listIterator, any);
-        result = _.indexBy<SampleObject>(array, 'a');
-        result = _.indexBy<SampleObject>(array, 'a', any);
-        result = _.indexBy<{a: number}, SampleObject>(array, {a: 42});
-        result = _.indexBy<SampleObject>(array, {a: 42});
+        result = _.keyBy<SampleObject>(array);
+        result = _.keyBy<SampleObject>(array, listIterator);
+        result = _.keyBy<SampleObject>(array, listIterator, any);
+        result = _.keyBy<SampleObject>(array, 'a');
+        result = _.keyBy<SampleObject>(array, 'a', any);
+        result = _.keyBy<{a: number}, SampleObject>(array, {a: 42});
+        result = _.keyBy<SampleObject>(array, {a: 42});
 
-        result = _.indexBy<SampleObject>(list);
-        result = _.indexBy<SampleObject>(list, listIterator);
-        result = _.indexBy<SampleObject>(list, listIterator, any);
-        result = _.indexBy<SampleObject>(list, 'a');
-        result = _.indexBy<SampleObject>(list, 'a', any);
-        result = _.indexBy<{a: number}, SampleObject>(list, {a: 42});
-        result = _.indexBy<SampleObject>(list, {a: 42});
+        result = _.keyBy<SampleObject>(list);
+        result = _.keyBy<SampleObject>(list, listIterator);
+        result = _.keyBy<SampleObject>(list, listIterator, any);
+        result = _.keyBy<SampleObject>(list, 'a');
+        result = _.keyBy<SampleObject>(list, 'a', any);
+        result = _.keyBy<{a: number}, SampleObject>(list, {a: 42});
+        result = _.keyBy<SampleObject>(list, {a: 42});
 
-        result = _.indexBy<SampleObject>(numericDictionary);
-        result = _.indexBy<SampleObject>(numericDictionary, numericDictionaryIterator);
-        result = _.indexBy<SampleObject>(numericDictionary, numericDictionaryIterator, any);
-        result = _.indexBy<SampleObject>(numericDictionary, 'a');
-        result = _.indexBy<SampleObject>(numericDictionary, 'a', any);
-        result = _.indexBy<{a: number}, SampleObject>(numericDictionary, {a: 42});
-        result = _.indexBy<SampleObject>(numericDictionary, {a: 42});
+        result = _.keyBy<SampleObject>(numericDictionary);
+        result = _.keyBy<SampleObject>(numericDictionary, numericDictionaryIterator);
+        result = _.keyBy<SampleObject>(numericDictionary, numericDictionaryIterator, any);
+        result = _.keyBy<SampleObject>(numericDictionary, 'a');
+        result = _.keyBy<SampleObject>(numericDictionary, 'a', any);
+        result = _.keyBy<{a: number}, SampleObject>(numericDictionary, {a: 42});
+        result = _.keyBy<SampleObject>(numericDictionary, {a: 42});
 
-        result = _.indexBy<SampleObject>(dictionary);
-        result = _.indexBy<SampleObject>(dictionary, dictionaryIterator);
-        result = _.indexBy<SampleObject>(dictionary, dictionaryIterator, any);
-        result = _.indexBy<SampleObject>(dictionary, 'a');
-        result = _.indexBy<SampleObject>(dictionary, 'a', any);
-        result = _.indexBy<{a: number}, SampleObject>(dictionary, {a: 42});
-        result = _.indexBy<SampleObject>(dictionary, {a: 42});
+        result = _.keyBy<SampleObject>(dictionary);
+        result = _.keyBy<SampleObject>(dictionary, dictionaryIterator);
+        result = _.keyBy<SampleObject>(dictionary, dictionaryIterator, any);
+        result = _.keyBy<SampleObject>(dictionary, 'a');
+        result = _.keyBy<SampleObject>(dictionary, 'a', any);
+        result = _.keyBy<{a: number}, SampleObject>(dictionary, {a: 42});
+        result = _.keyBy<SampleObject>(dictionary, {a: 42});
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<_.Dictionary<string>>;
 
-        result = _('abcd').indexBy();
-        result = _('abcd').indexBy(stringIterator);
-        result = _('abcd').indexBy(stringIterator, any);
+        result = _('abcd').keyBy();
+        result = _('abcd').keyBy(stringIterator);
+        result = _('abcd').keyBy(stringIterator, any);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<_.Dictionary<SampleObject>>;
 
-        result = _(array).indexBy();
-        result = _(array).indexBy(listIterator);
-        result = _(array).indexBy(listIterator, any);
-        result = _(array).indexBy('a');
-        result = _(array).indexBy('a', any);
-        result = _(array).indexBy<{a: number}>({a: 42});
+        result = _(array).keyBy();
+        result = _(array).keyBy(listIterator);
+        result = _(array).keyBy(listIterator, any);
+        result = _(array).keyBy('a');
+        result = _(array).keyBy('a', any);
+        result = _(array).keyBy<{a: number}>({a: 42});
 
-        result = _(list).indexBy<SampleObject>();
-        result = _(list).indexBy<SampleObject>(listIterator);
-        result = _(list).indexBy<SampleObject>(listIterator, any);
-        result = _(list).indexBy<SampleObject>('a');
-        result = _(list).indexBy<SampleObject>('a', any);
-        result = _(list).indexBy<{a: number}, SampleObject>({a: 42});
-        result = _(list).indexBy<SampleObject>({a: 42});
+        result = _(list).keyBy<SampleObject>();
+        result = _(list).keyBy<SampleObject>(listIterator);
+        result = _(list).keyBy<SampleObject>(listIterator, any);
+        result = _(list).keyBy<SampleObject>('a');
+        result = _(list).keyBy<SampleObject>('a', any);
+        result = _(list).keyBy<{a: number}, SampleObject>({a: 42});
+        result = _(list).keyBy<SampleObject>({a: 42});
 
-        result = _(numericDictionary).indexBy<SampleObject>();
-        result = _(numericDictionary).indexBy<SampleObject>(numericDictionaryIterator);
-        result = _(numericDictionary).indexBy<SampleObject>(numericDictionaryIterator, any);
-        result = _(numericDictionary).indexBy<SampleObject>('a');
-        result = _(numericDictionary).indexBy<SampleObject>('a', any);
-        result = _(numericDictionary).indexBy<{a: number}, SampleObject>({a: 42});
-        result = _(numericDictionary).indexBy<SampleObject>({a: 42});
+        result = _(numericDictionary).keyBy<SampleObject>();
+        result = _(numericDictionary).keyBy<SampleObject>(numericDictionaryIterator);
+        result = _(numericDictionary).keyBy<SampleObject>(numericDictionaryIterator, any);
+        result = _(numericDictionary).keyBy<SampleObject>('a');
+        result = _(numericDictionary).keyBy<SampleObject>('a', any);
+        result = _(numericDictionary).keyBy<{a: number}, SampleObject>({a: 42});
+        result = _(numericDictionary).keyBy<SampleObject>({a: 42});
 
-        result = _(dictionary).indexBy<SampleObject>();
-        result = _(dictionary).indexBy<SampleObject>(dictionaryIterator);
-        result = _(dictionary).indexBy<SampleObject>(dictionaryIterator, any);
-        result = _(dictionary).indexBy<SampleObject>('a');
-        result = _(dictionary).indexBy<SampleObject>('a', any);
-        result = _(dictionary).indexBy<{a: number}, SampleObject>({a: 42});
-        result = _(dictionary).indexBy<SampleObject>({a: 42});
+        result = _(dictionary).keyBy<SampleObject>();
+        result = _(dictionary).keyBy<SampleObject>(dictionaryIterator);
+        result = _(dictionary).keyBy<SampleObject>(dictionaryIterator, any);
+        result = _(dictionary).keyBy<SampleObject>('a');
+        result = _(dictionary).keyBy<SampleObject>('a', any);
+        result = _(dictionary).keyBy<{a: number}, SampleObject>({a: 42});
+        result = _(dictionary).keyBy<SampleObject>({a: 42});
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<_.Dictionary<string>>;
 
-        result = _('abcd').chain().indexBy();
-        result = _('abcd').chain().indexBy(stringIterator);
-        result = _('abcd').chain().indexBy(stringIterator, any);
+        result = _('abcd').chain().keyBy();
+        result = _('abcd').chain().keyBy(stringIterator);
+        result = _('abcd').chain().keyBy(stringIterator, any);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<_.Dictionary<SampleObject>>;
 
-        result = _(array).chain().indexBy();
-        result = _(array).chain().indexBy(listIterator);
-        result = _(array).chain().indexBy(listIterator, any);
-        result = _(array).chain().indexBy('a');
-        result = _(array).chain().indexBy('a', any);
-        result = _(array).chain().indexBy<{a: number}>({a: 42});
+        result = _(array).chain().keyBy();
+        result = _(array).chain().keyBy(listIterator);
+        result = _(array).chain().keyBy(listIterator, any);
+        result = _(array).chain().keyBy('a');
+        result = _(array).chain().keyBy('a', any);
+        result = _(array).chain().keyBy<{a: number}>({a: 42});
 
-        result = _(list).chain().indexBy<SampleObject>();
-        result = _(list).chain().indexBy<SampleObject>(listIterator);
-        result = _(list).chain().indexBy<SampleObject>(listIterator, any);
-        result = _(list).chain().indexBy<SampleObject>('a');
-        result = _(list).chain().indexBy<SampleObject>('a', any);
-        result = _(list).chain().indexBy<{a: number}, SampleObject>({a: 42});
-        result = _(list).chain().indexBy<SampleObject>({a: 42});
+        result = _(list).chain().keyBy<SampleObject>();
+        result = _(list).chain().keyBy<SampleObject>(listIterator);
+        result = _(list).chain().keyBy<SampleObject>(listIterator, any);
+        result = _(list).chain().keyBy<SampleObject>('a');
+        result = _(list).chain().keyBy<SampleObject>('a', any);
+        result = _(list).chain().keyBy<{a: number}, SampleObject>({a: 42});
+        result = _(list).chain().keyBy<SampleObject>({a: 42});
 
-        result = _(numericDictionary).chain().indexBy<SampleObject>();
-        result = _(numericDictionary).chain().indexBy<SampleObject>(numericDictionaryIterator);
-        result = _(numericDictionary).chain().indexBy<SampleObject>(numericDictionaryIterator, any);
-        result = _(numericDictionary).chain().indexBy<SampleObject>('a');
-        result = _(numericDictionary).chain().indexBy<SampleObject>('a', any);
-        result = _(numericDictionary).chain().indexBy<{a: number}, SampleObject>({a: 42});
-        result = _(numericDictionary).chain().indexBy<SampleObject>({a: 42});
+        result = _(numericDictionary).chain().keyBy<SampleObject>();
+        result = _(numericDictionary).chain().keyBy<SampleObject>(numericDictionaryIterator);
+        result = _(numericDictionary).chain().keyBy<SampleObject>(numericDictionaryIterator, any);
+        result = _(numericDictionary).chain().keyBy<SampleObject>('a');
+        result = _(numericDictionary).chain().keyBy<SampleObject>('a', any);
+        result = _(numericDictionary).chain().keyBy<{a: number}, SampleObject>({a: 42});
+        result = _(numericDictionary).chain().keyBy<SampleObject>({a: 42});
 
-        result = _(dictionary).chain().indexBy<SampleObject>();
-        result = _(dictionary).chain().indexBy<SampleObject>(dictionaryIterator);
-        result = _(dictionary).chain().indexBy<SampleObject>(dictionaryIterator, any);
-        result = _(dictionary).chain().indexBy<SampleObject>('a');
-        result = _(dictionary).chain().indexBy<SampleObject>('a', any);
-        result = _(dictionary).chain().indexBy<{a: number}, SampleObject>({a: 42});
-        result = _(dictionary).chain().indexBy<SampleObject>({a: 42});
+        result = _(dictionary).chain().keyBy<SampleObject>();
+        result = _(dictionary).chain().keyBy<SampleObject>(dictionaryIterator);
+        result = _(dictionary).chain().keyBy<SampleObject>(dictionaryIterator, any);
+        result = _(dictionary).chain().keyBy<SampleObject>('a');
+        result = _(dictionary).chain().keyBy<SampleObject>('a', any);
+        result = _(dictionary).chain().keyBy<{a: number}, SampleObject>({a: 42});
+        result = _(dictionary).chain().keyBy<SampleObject>({a: 42});
     }
 }
 

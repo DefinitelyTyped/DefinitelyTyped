@@ -19,7 +19,7 @@ TODO:
 - [x] Removed _.pluck in favor of _.map with iteratee shorthand
 
 - [x] Renamed _.first to _.head
-- [ ] Renamed _.indexBy to _.keyBy
+- [x] Renamed _.indexBy to _.keyBy
 - [ ] Renamed _.invoke to _.invokeMap
 - [ ] Renamed _.modArgs to _.overArgs
 - [ ] Renamed _.padLeft & _.padRight to _.padStart & _.padEnd
@@ -208,7 +208,7 @@ declare module _ {
         * after, assign, bind, bindAll, bindKey, chain, chunk, compact, compose, concat, countBy,
         * createCallback, curry, debounce, defaults, defer, delay, difference, filter, flatten,
         * forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, functions, groupBy,
-        * indexBy, initial, intersection, invert, invoke, keys, map, max, memoize, merge, min,
+        * keyBy, initial, intersection, invert, invoke, keys, map, max, memoize, merge, min,
         * object, omit, once, pairs, partial, partialRight, pick, pluck, pull, push, range, reject,
         * remove, rest, reverse, sample, shuffle, slice, sort, sortBy, splice, tap, throttle, times,
         * toArray, transform, union, uniq, unshift, unzip, values, where, without, wrap, and zip
@@ -6732,7 +6732,7 @@ declare module _ {
         ): LoDashExplicitWrapper<boolean>;
     }
 
-    //_.indexBy
+    //_.keyBy
     interface LoDashStatic {
         /**
          * Creates an object composed of keys generated from the results of running each element of collection through
@@ -6754,51 +6754,51 @@ declare module _ {
          * @param thisArg The this binding of iteratee.
          * @return Returns the composed aggregate object.
          */
-        indexBy<T>(
+        keyBy<T>(
             collection: List<T>,
             iteratee?: ListIterator<T, any>,
             thisArg?: any
         ): Dictionary<T>;
 
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy<T>(
+        keyBy<T>(
             collection: NumericDictionary<T>,
             iteratee?: NumericDictionaryIterator<T, any>,
             thisArg?: any
         ): Dictionary<T>;
 
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy<T>(
+        keyBy<T>(
             collection: Dictionary<T>,
             iteratee?: DictionaryIterator<T, any>,
             thisArg?: any
         ): Dictionary<T>;
 
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy<T>(
+        keyBy<T>(
             collection: List<T>|NumericDictionary<T>|Dictionary<T>,
             iteratee?: string,
             thisArg?: any
         ): Dictionary<T>;
 
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy<W extends Object, T>(
+        keyBy<W extends Object, T>(
             collection: List<T>|NumericDictionary<T>|Dictionary<T>,
             iteratee?: W
         ): Dictionary<T>;
 
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy<T>(
+        keyBy<T>(
             collection: List<T>|NumericDictionary<T>|Dictionary<T>,
             iteratee?: Object
         ): Dictionary<T>;
@@ -6806,9 +6806,9 @@ declare module _ {
 
     interface LoDashImplicitWrapper<T> {
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy(
+        keyBy(
             iteratee?: ListIterator<T, any>,
             thisArg?: any
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
@@ -6816,66 +6816,66 @@ declare module _ {
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy(
+        keyBy(
             iteratee?: ListIterator<T, any>,
             thisArg?: any
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
 
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy(
+        keyBy(
             iteratee?: string,
             thisArg?: any
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
 
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy<W extends Object>(
+        keyBy<W extends Object>(
             iteratee?: W
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy<T>(
+        keyBy<T>(
             iteratee?: ListIterator<T, any>|NumericDictionaryIterator<T, any>|DictionaryIterator<T, any>,
             thisArg?: any
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
 
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy<T>(
+        keyBy<T>(
             iteratee?: string,
             thisArg?: any
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
 
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy<W extends Object, T>(
+        keyBy<W extends Object, T>(
             iteratee?: W
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
 
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy<T>(
+        keyBy<T>(
             iteratee?: Object
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
     }
 
     interface LoDashExplicitWrapper<T> {
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy(
+        keyBy(
             iteratee?: ListIterator<T, any>,
             thisArg?: any
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
@@ -6883,57 +6883,57 @@ declare module _ {
 
     interface LoDashExplicitArrayWrapper<T> {
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy(
+        keyBy(
             iteratee?: ListIterator<T, any>,
             thisArg?: any
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
 
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy(
+        keyBy(
             iteratee?: string,
             thisArg?: any
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
 
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy<W extends Object>(
+        keyBy<W extends Object>(
             iteratee?: W
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy<T>(
+        keyBy<T>(
             iteratee?: ListIterator<T, any>|NumericDictionaryIterator<T, any>|DictionaryIterator<T, any>,
             thisArg?: any
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
 
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy<T>(
+        keyBy<T>(
             iteratee?: string,
             thisArg?: any
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
 
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy<W extends Object, T>(
+        keyBy<W extends Object, T>(
             iteratee?: W
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
 
         /**
-         * @see _.indexBy
+         * @see _.keyBy
          */
-        indexBy<T>(
+        keyBy<T>(
             iteratee?: Object
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
     }
