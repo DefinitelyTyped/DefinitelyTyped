@@ -28,8 +28,8 @@ TODO:
 - [x] Renamed _.trimLeft & _.trimRight to _.trimStart & _.trimEnd
 - [x] Renamed _.trunc to _.truncate
 
-- [ ] Split _.indexOf & _.lastIndexOf into _.sortedIndexOf & _.sortedLastIndexOf
-- [ ] Split _.max & _.min into _.maxBy & _.minBy
+- [x] Split _.indexOf & _.lastIndexOf into _.sortedIndexOf & _.sortedLastIndexOf
+- [x] Split _.max & _.min into _.maxBy & _.minBy
 - [ ] Split _.omit & _.pick into _.omitBy & _.pickBy
 - [ ] Split _.sample into _.sampleSize
 - [ ] Split _.sortedIndex into _.sortedIndexBy
@@ -1382,14 +1382,27 @@ declare module _ {
     //_.indexOf
     interface LoDashStatic {
         /**
-         * Gets the index at which the first occurrence of value is found in array using SameValueZero for equality
-         * comparisons. If fromIndex is negative, it’s used as the offset from the end of array. If array is sorted
-         * providing true for fromIndex performs a faster binary search.
+         * Gets the index at which the first occurrence of `value` is found in `array`
+         * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+         * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+         * from the end of `array`. If `array` is sorted providing `true` for `fromIndex`
+         * performs a faster binary search.
          *
-         * @param array The array to search.
-         * @param value The value to search for.
-         * @param fromIndex The index to search from or true to perform a binary search on a sorted array.
-         * @return The index to search from or true to perform a binary search on a sorted array.
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The array to search.
+         * @param {*} value The value to search for.
+         * @param {number} [fromIndex=0] The index to search from.
+         * @returns {number} Returns the index of the matched value, else `-1`.
+         * @example
+         *
+         * _.indexOf([1, 2, 1, 2], 2);
+         * // => 1
+         *
+         * // using `fromIndex`
+         * _.indexOf([1, 2, 1, 2], 2, 2);
+         * // => 3
          */
         indexOf<T>(
             array: List<T>,
@@ -1435,6 +1448,65 @@ declare module _ {
         indexOf<TValue>(
             value: TValue,
             fromIndex?: boolean|number
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    //_.sortedIndexOf
+    interface LoDashStatic {
+        /**
+         * This method is like `_.indexOf` except that it performs a binary
+         * search on a sorted `array`.
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The array to search.
+         * @param {*} value The value to search for.
+         * @returns {number} Returns the index of the matched value, else `-1`.
+         * @example
+         *
+         * _.sortedIndexOf([1, 1, 2, 2], 2);
+         * // => 2
+         */
+        sortedIndexOf<T>(
+            array: List<T>,
+            value: T
+        ): number;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.sortedIndexOf
+         */
+        sortedIndexOf(
+            value: T
+        ): number;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.sortedIndexOf
+         */
+        sortedIndexOf<TValue>(
+            value: TValue
+        ): number;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.sortedIndexOf
+         */
+        sortedIndexOf(
+            value: T
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.sortedIndexOf
+         */
+        sortedIndexOf<TValue>(
+            value: TValue
         ): LoDashExplicitWrapper<number>;
     }
 

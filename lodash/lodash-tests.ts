@@ -858,6 +858,29 @@ module TestIndexOf {
     }
 }
 
+// _.sortedIndexOf
+module TestIndexOf {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let value: TResult;
+
+    {
+        let result: number;
+
+        result = _.sortedIndexOf<TResult>(array, value);
+        result = _.sortedIndexOf<TResult>(list, value);
+        result = _(array).sortedIndexOf(value);
+        result = _(list).sortedIndexOf<TResult>(value);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(array).chain().sortedIndexOf(value);
+        result = _(list).chain().sortedIndexOf<TResult>(value);
+    }
+}
+
 //_.initial
 module TestInitial {
     let array: TResult[];
