@@ -11,11 +11,13 @@ TODO:
 - [ ] Made _.forEach, _.forIn, _.forOwn, & _.times implicitly end a chain sequence
 - [ ] Removed thisArg params from most methods
 
+- [ ] Check for aliases in this group
 - [x] Removed _.support
 - [x] Removed _.findWhere in favor of _.find with iteratee shorthand
 - [x] Removed _.where in favor of _.filter with iteratee shorthand
 - [x] Removed _.pluck in favor of _.map with iteratee shorthand
 
+- [ ] Check for aliases in this group
 - [x] Renamed _.first to _.head
 - [x] Renamed _.indexBy to _.keyBy
 - [x] Renamed _.invoke to _.invokeMap
@@ -28,6 +30,7 @@ TODO:
 - [x] Renamed _.trimLeft & _.trimRight to _.trimStart & _.trimEnd
 - [x] Renamed _.trunc to _.truncate
 
+- [ ] Check for aliases in this group
 - [x] Split _.indexOf & _.lastIndexOf into _.sortedIndexOf & _.sortedLastIndexOf
 - [x] Split _.max & _.min into _.maxBy & _.minBy
 - [x] Split _.omit & _.pick into _.omitBy & _.pickBy
@@ -36,6 +39,7 @@ TODO:
 - [x] Split _.sortedLastIndex into _.sortedLastIndexBy
 - [ ] Split _.uniq into _.sortedUniq, _.sortedUniqBy, & _.uniqBy
 
+- [ ] Check for aliases in this group
 - [ ] Absorbed _.sortByAll into _.sortBy
 - [x] Changed the category of _.at to “Object”
 - [x] Changed the category of _.bindAll to “Utility”
@@ -48,89 +52,89 @@ TODO:
 - [ ] Removed func-first param signature from _.before & _.after
 
 added 23 array methods:
-- [ ] _.concat,
-- [ ] _.differenceBy,
-- [ ] _.differenceWith,
-- [ ] _.flatMap,
-- [ ] _.fromPairs,
-- [ ] _.intersectionBy,
-- [ ] _.intersectionWith,
-- [ ] _.join,
-- [ ] _.pullAll,
-- [ ] _.pullAllBy,
-- [ ] _.reverse,
-- [ ] _.sortedIndexBy,
-- [ ] _.sortedIndexOf,
-- [ ] _.sortedLastIndexBy,
-- [ ] _.sortedLastIndexOf,
-- [ ] _.sortedUniq,
-- [ ] _.sortedUniqBy,
-- [ ] _.unionBy,
-- [ ] _.unionWith,
-- [ ] _.uniqBy,
-- [ ] _.uniqWith,
-- [ ] _.xorBy, &
+- [ ] _.concat
+- [ ] _.differenceBy
+- [ ] _.differenceWith
+- [ ] _.flatMap
+- [ ] _.fromPairs
+- [ ] _.intersectionBy
+- [ ] _.intersectionWith
+- [ ] _.join
+- [ ] _.pullAll
+- [ ] _.pullAllBy
+- [ ] _.reverse
+- [ ] _.sortedIndexBy
+- [ ] _.sortedIndexOf
+- [ ] _.sortedLastIndexBy
+- [ ] _.sortedLastIndexOf
+- [ ] _.sortedUniq
+- [ ] _.sortedUniqBy
+- [ ] _.unionBy
+- [ ] _.unionWith
+- [ ] _.uniqBy
+- [ ] _.uniqWith
+- [ ] _.xorBy
 - [ ] _.xorWith
 
 added 18 lang methods:
-- [ ] _.cloneDeepWith,
-- [ ] _.cloneWith,
-- [ ] _.eq,
-- [ ] _.isArrayLike,
-- [ ] _.isArrayLikeObject,
-- [ ] _.isEqualWith,
-- [ ] _.isInteger,
-- [ ] _.isLength,
-- [ ] _.isMatchWith,
-- [ ] _.isNil,
-- [ ] _.isObjectLike,
-- [ ] _.isSafeInteger,
-- [ ] _.isSymbol,
-- [ ] _.toInteger,
-- [ ] _.toLength,
-- [ ] _.toNumber,
-- [ ] _.toSafeInteger, &
+- [ ] _.cloneDeepWith
+- [ ] _.cloneWith
+- [ ] _.eq
+- [ ] _.isArrayLike
+- [ ] _.isArrayLikeObject
+- [ ] _.isEqualWith
+- [ ] _.isInteger
+- [ ] _.isLength
+- [ ] _.isMatchWith
+- [ ] _.isNil
+- [ ] _.isObjectLike
+- [ ] _.isSafeInteger
+- [ ] _.isSymbol
+- [ ] _.toInteger
+- [ ] _.toLength
+- [ ] _.toNumber
+- [ ] _.toSafeInteger
 - [ ] _.toString
 
 added 13 object methods:
-- [ ] _.assignIn,
-- [ ] _.assignInWith,
-- [ ] _.assignWith,
-- [ ] _.functionsIn,
-- [ ] _.hasIn,
-- [ ] _.invoke,
-- [ ] _.mergeWith,
-- [ ] _.omitBy,
-- [ ] _.pickBy,
-- [ ] _.setWith,
-- [ ] _.toPairs,
-- [ ] _.toPairsIn, &
+- [ ] _.assignIn
+- [ ] _.assignInWith
+- [ ] _.assignWith
+- [ ] _.functionsIn
+- [ ] _.hasIn
+- [ ] _.invoke
+- [ ] _.mergeWith
+- [ ] _.omitBy
+- [ ] _.pickBy
+- [ ] _.setWith
+- [ ] _.toPairs
+- [ ] _.toPairsIn
 - [ ] _.unset
 
 added 8 string methods:
-- [ ] _.lowerCase,
-- [ ] _.lowerFirst,
-- [ ] _.replace,
-- [ ] _.split,
-- [ ] _.upperCase,
-- [ ] _.upperFirst,
-- [ ] _.toLower, &
+- [ ] _.lowerCase
+- [ ] _.lowerFirst
+- [ ] _.replace
+- [ ] _.split
+- [ ] _.upperCase
+- [ ] _.upperFirst
+- [ ] _.toLower
 - [ ] _.toUpper
 
 added 8 utility methods:
-- [ ] _.cond,
-- [ ] _.conforms,
-- [ ] _.nthArg,
-- [ ] _.over,
-- [ ] _.overEvery,
-- [ ] _.overSome,
-- [ ] _.rangeRight, &
+- [ ] _.cond
+- [ ] _.conforms
+- [ ] _.nthArg
+- [ ] _.over
+- [ ] _.overEvery
+- [ ] _.overSome
+- [ ] _.rangeRight
 - [ ] _.toPath
 
 added 4 math methods:
-- [ ] _.maxBy,
-- [ ] _.mean,
-- [ ] _.minBy, &
+- [ ] _.maxBy
+- [ ] _.mean
+- [ ] _.minBy
 - [ ] _.sumBy
 
 added 2 function methods:
@@ -153,7 +157,23 @@ Added 3 aliases
 - [x] _.first as an alias of _.head
 
 Removed 17 aliases
-- [ ] _.all, _.any, _.backflow, _.callback, _.collect, _.compose, _.contains, _.detect, _.foldl, _.foldr, _.include, _.inject, _.methods, _.object, _.#run, _.select, & _.unique
+- [ ] Removed aliase _.all
+- [ ] Removed aliase _.any
+- [ ] Removed aliase _.backflow
+- [ ] Removed aliase _.callback
+- [ ] Removed aliase _.collect
+- [ ] Removed aliase _.compose
+- [ ] Removed aliase _.contains
+- [ ] Removed aliase _.detect
+- [ ] Removed aliase _.foldl
+- [ ] Removed aliase _.foldr
+- [ ] Removed aliase _.include
+- [ ] Removed aliase _.inject
+- [ ] Removed aliase _.methods
+- [ ] Removed aliase _.object
+- [ ] Removed aliase _.#run
+- [ ] Removed aliase _.select
+- [x] Removed aliase _.unique
 
 Other changes
 - [ ] Added clear method to _.memoize.Cache
@@ -3763,400 +3783,6 @@ declare module _ {
          * @see _.uniq
          */
         uniq<TWhere extends {}, T>(
-            iteratee?: TWhere
-        ): LoDashExplicitArrayWrapper<T>;
-    }
-
-    //_.unique
-    interface LoDashStatic {
-        /**
-         * @see _.uniq
-         */
-        unique<T>(
-            array: List<T>,
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
-        ): T[];
-
-        /**
-         * @see _.uniq
-         */
-        unique<T, TSort>(
-            array: List<T>,
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): T[];
-
-        /**
-         * @see _.uniq
-         */
-        unique<T>(
-            array: List<T>,
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
-        ): T[];
-
-        /**
-         * @see _.uniq
-         */
-        unique<T, TSort>(
-            array: List<T>,
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): T[];
-
-        /**
-         * @see _.uniq
-         */
-        unique<T>(
-            array: List<T>,
-            isSorted?: boolean,
-            iteratee?: string,
-            thisArg?: any
-        ): T[];
-
-        /**
-         * @see _.uniq
-         */
-        unique<T>(
-            array: List<T>,
-            iteratee?: string,
-            thisArg?: any
-        ): T[];
-
-        /**
-         * @see _.uniq
-         */
-        unique<T>(
-            array: List<T>,
-            isSorted?: boolean,
-            iteratee?: Object
-        ): T[];
-
-        /**
-         * @see _.uniq
-         */
-        unique<TWhere extends {}, T>(
-            array: List<T>,
-            isSorted?: boolean,
-            iteratee?: TWhere
-        ): T[];
-
-        /**
-         * @see _.uniq
-         */
-        unique<T>(
-            array: List<T>,
-            iteratee?: Object
-        ): T[];
-
-        /**
-         * @see _.uniq
-         */
-        unique<TWhere extends {}, T>(
-            array: List<T>,
-            iteratee?: TWhere
-        ): T[];
-    }
-
-    interface LoDashImplicitWrapper<T> {
-        /**
-         * @see _.uniq
-         */
-        unique<TSort>(
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<TSort>(
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-    }
-
-    interface LoDashImplicitArrayWrapper<T> {
-        /**
-         * @see _.uniq
-         */
-        unique<TSort>(
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<TSort>(
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique(
-            isSorted?: boolean,
-            iteratee?: string,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique(
-            iteratee?: string,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<TWhere extends {}>(
-            isSorted?: boolean,
-            iteratee?: TWhere
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<TWhere extends {}>(
-            iteratee?: TWhere
-        ): LoDashImplicitArrayWrapper<T>;
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        unique<T>(
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<T, TSort>(
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<T>(
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<T, TSort>(
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<T>(
-            isSorted?: boolean,
-            iteratee?: string,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<T>(
-            iteratee?: string,
-            thisArg?: any
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<T>(
-            isSorted?: boolean,
-            iteratee?: Object
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<TWhere extends {}, T>(
-            isSorted?: boolean,
-            iteratee?: TWhere
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<T>(
-            iteratee?: Object
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<TWhere extends {}, T>(
-            iteratee?: TWhere
-        ): LoDashImplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.uniq
-         */
-        unique<TSort>(
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<TSort>(
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashExplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitArrayWrapper<T> {
-        /**
-         * @see _.uniq
-         */
-        unique<TSort>(
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<TSort>(
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique(
-            isSorted?: boolean,
-            iteratee?: string,
-            thisArg?: any
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique(
-            iteratee?: string,
-            thisArg?: any
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<TWhere extends {}>(
-            isSorted?: boolean,
-            iteratee?: TWhere
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<TWhere extends {}>(
-            iteratee?: TWhere
-        ): LoDashExplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitObjectWrapper<T> {
-        unique<T>(
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<T, TSort>(
-            isSorted?: boolean,
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<T>(
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<T, TSort>(
-            iteratee?: ListIterator<T, TSort>,
-            thisArg?: any
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<T>(
-            isSorted?: boolean,
-            iteratee?: string,
-            thisArg?: any
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<T>(
-            iteratee?: string,
-            thisArg?: any
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<T>(
-            isSorted?: boolean,
-            iteratee?: Object
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<TWhere extends {}, T>(
-            isSorted?: boolean,
-            iteratee?: TWhere
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<T>(
-            iteratee?: Object
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        unique<TWhere extends {}, T>(
             iteratee?: TWhere
         ): LoDashExplicitArrayWrapper<T>;
     }
