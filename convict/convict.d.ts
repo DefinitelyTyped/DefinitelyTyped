@@ -4,30 +4,41 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "convict" {
-	function convict(schema: convict.Schema): convict.Config;
+    module convict {
 
-	module convict {
-		interface Schema {
-			[name: string]: convict.Schema | {
-				default: any;
-				doc?: string;
-				format?: any;
-				env?: string;
-				arg?: string;
-			};
-		}
+        interface Format {
+            name?: string;
+            validate?: (val: any) => void;
+            coerce?: (val: any) => any;
+        }
 
-		interface Config {
-			get(name: string): any;
-			default(name: string): any;
-			has(name: string): boolean;
-			set(name: string, value: any): void;
-			load(conf: Object): void;
-			loadFile(file: string): void;
-			loadFile(files: string[]): void;
-			validate(): void;
-		}
-	}
+        interface Schema {
+            [name: string]: convict.Schema | {
+                default: any;
+                doc?: string;
+                format?: any;
+                env?: string;
+                arg?: string;
+            };
+        }
 
-	export = convict;
+        interface Config {
+            get(name: string): any;
+            default(name: string): any;
+            has(name: string): boolean;
+            set(name: string, value: any): void;
+            load(conf: Object): void;
+            loadFile(file: string): void;
+            loadFile(files: string[]): void;
+            validate(): void;
+        }
+    }
+    interface convict {
+        addFormat(format: convict.Format): void;
+        addFormats(formats: { [name: string]: convict.Format }): void;
+        (config: convict.Schema): convict.Config;
+    }
+    var convict : convict;
+    export = convict;
 }
+
