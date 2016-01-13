@@ -1124,7 +1124,7 @@ declare module "mongodb" {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#snapshot
     snapshot(snapshot: Object): Cursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#sort
-    sort(keyOrList: string | Object[] | Object | Object, direction: number): Cursor;
+    sort(keyOrList: string | Object[] | Object | Object, direction?: number): Cursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#stream
     stream(options?: { transform?: Function }): Cursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#toArray
