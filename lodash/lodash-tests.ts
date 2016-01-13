@@ -5993,8 +5993,8 @@ result = <TestMemoizedResultFn>_.memoize<TestMemoizedResultFn>(testMemoizeFn, te
 result = <TestMemoizedResultFn>(_(testMemoizeFn).memoize<TestMemoizedResultFn>().value());
 result = <TestMemoizedResultFn>(_(testMemoizeFn).memoize<TestMemoizedResultFn>(testMemoizeResolverFn).value());
 
-// _.modArgs
-module TestModArgs {
+// _.overArgs
+module TestOverArgs {
     type Func1 = (a: boolean) => boolean;
     type Func2 = (a: boolean, b: boolean) => boolean;
 
@@ -6007,43 +6007,43 @@ module TestModArgs {
     {
         let result: (a: string) => boolean;
 
-        result = _.modArgs<Func1, (a: string) => boolean>(func1, transform1);
-        result = _.modArgs<Func1, (a: string) => boolean>(func1, [transform1]);
+        result = _.overArgs<Func1, (a: string) => boolean>(func1, transform1);
+        result = _.overArgs<Func1, (a: string) => boolean>(func1, [transform1]);
     }
 
     {
         let result: (a: string, b: number) => boolean;
 
-        result = _.modArgs<Func2, (a: string, b: number) => boolean>(func2, transform1, transform2);
-        result = _.modArgs<Func2, (a: string, b: number) => boolean>(func2, [transform1, transform2]);
+        result = _.overArgs<Func2, (a: string, b: number) => boolean>(func2, transform1, transform2);
+        result = _.overArgs<Func2, (a: string, b: number) => boolean>(func2, [transform1, transform2]);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<(a: string) => boolean>;
 
-        result = _(func1).modArgs<(a: string) => boolean>(transform1);
-        result = _(func1).modArgs<(a: string) => boolean>([transform1]);
+        result = _(func1).overArgs<(a: string) => boolean>(transform1);
+        result = _(func1).overArgs<(a: string) => boolean>([transform1]);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<(a: string, b: number) => boolean>;
 
-        result = _(func2).modArgs<(a: string, b: number) => boolean>(transform1, transform2);
-        result = _(func2).modArgs<(a: string, b: number) => boolean>([transform1, transform2]);
+        result = _(func2).overArgs<(a: string, b: number) => boolean>(transform1, transform2);
+        result = _(func2).overArgs<(a: string, b: number) => boolean>([transform1, transform2]);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<(a: string) => boolean>;
 
-        result = _(func1).chain().modArgs<(a: string) => boolean>(transform1);
-        result = _(func1).chain().modArgs<(a: string) => boolean>([transform1]);
+        result = _(func1).chain().overArgs<(a: string) => boolean>(transform1);
+        result = _(func1).chain().overArgs<(a: string) => boolean>([transform1]);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<(a: string, b: number) => boolean>;
 
-        result = _(func2).chain().modArgs<(a: string, b: number) => boolean>(transform1, transform2);
-        result = _(func2).chain().modArgs<(a: string, b: number) => boolean>([transform1, transform2]);
+        result = _(func2).chain().overArgs<(a: string, b: number) => boolean>(transform1, transform2);
+        result = _(func2).chain().overArgs<(a: string, b: number) => boolean>([transform1, transform2]);
     }
 }
 
