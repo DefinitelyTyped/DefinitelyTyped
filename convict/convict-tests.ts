@@ -19,6 +19,9 @@ const format : convict.Format = {
   }
 };
 
+
+
+
 convict.addFormat(format);
 convict.addFormats({
       prime: {
@@ -113,4 +116,10 @@ if (conf.has('key')) {
     }
   });
 }
+
+conf.getSchema();
+conf.getProperties();
+conf.getSchemaString();
+conf.toString();
+
 // vim:et:sw=2:ts=2

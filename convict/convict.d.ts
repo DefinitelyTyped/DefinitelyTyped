@@ -31,6 +31,28 @@ declare module "convict" {
             loadFile(file: string): void;
             loadFile(files: string[]): void;
             validate(): void;
+            /**
+             * Exports all the properties (that is the keys and their current values) as a {JSON} {Object}
+             * @returns {Object} A {JSON} compliant {Object}
+             */
+            getProperties() : Object;
+            /**
+             * Exports the schema as a {JSON} {Object}
+             * @returns {Object} A {JSON} compliant {Object}
+             */
+            getSchema() : Object;
+            
+            /**
+             * Exports all the properties (that is the keys and their current values) as a JSON string.
+             * @returns {String} a string representing this object
+             */
+            toString() : string;
+            
+            /**
+             * Exports the schema as a JSON string.
+             * @returns {String} a string representing the schema of this {Config}
+             */
+            getSchemaString() : string;
         }
     }
     interface convict {
