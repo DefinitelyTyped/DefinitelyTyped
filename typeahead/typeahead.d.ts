@@ -13,7 +13,7 @@ interface JQuery {
      * @param options Options hash that's used for configuration
      * @param datasets Array of datasets
      */
-    typeahead(options: Twitter.Typeahead.Options, datasets: Twitter.Typeahead.Dataset[]): JQuery;
+    typeahead<T>(options: Twitter.Typeahead.Options, datasets: Twitter.Typeahead.Dataset<T>[]): JQuery;
 
     /**
       * For a given input[type="text"], enables typeahead functionality.
@@ -22,7 +22,7 @@ interface JQuery {
       * @param options Options hash that's used for configuration
       * @param datasets One or more datasets passed as rest parameters.
       */
-    typeahead(options: Twitter.Typeahead.Options, ...datasets: Twitter.Typeahead.Dataset[]): JQuery;
+    typeahead<T>(options: Twitter.Typeahead.Options, ...datasets: Twitter.Typeahead.Dataset<T>[]): JQuery;
 
     /**
      * Returns the current value of the typeahead.
