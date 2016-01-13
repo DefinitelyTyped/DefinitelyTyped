@@ -22,7 +22,7 @@ TODO:
 - [x] Renamed _.overArgs to _.overArgs
 - [x] Renamed _.padLeft & _.padRight to _.padStart & _.padEnd
 - [x] Renamed _.pairs to _.toPairs
-- [ ] Renamed _.rest to _.tail
+- [x] Renamed _.rest to _.tail
 - [ ] Renamed _.restParam to _.rest
 - [ ] Renamed _.sortByOrder to _.orderBy
 - [ ] Renamed _.trimLeft & _.trimRight to _.trimStart & _.trimEnd
@@ -1977,7 +1977,7 @@ declare module _ {
         ): LoDashExplicitArrayWrapper<TResult>;
     }
 
-    //_.rest
+    //_.tail
     interface LoDashStatic {
         /**
          * Gets all but the first element of array.
@@ -1987,35 +1987,35 @@ declare module _ {
          * @param array The array to query.
          * @return Returns the slice of array.
          */
-        rest<T>(array: List<T>): T[];
+        tail<T>(array: List<T>): T[];
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
-         * @see _.rest
+         * @see _.tail
          */
-        rest(): LoDashImplicitArrayWrapper<T>;
+        tail(): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-         * @see _.rest
+         * @see _.tail
          */
-        rest<T>(): LoDashImplicitArrayWrapper<T>;
+        tail<T>(): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
         /**
-         * @see _.rest
+         * @see _.tail
          */
-        rest(): LoDashExplicitArrayWrapper<T>;
+        tail(): LoDashExplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
-         * @see _.rest
+         * @see _.tail
          */
-        rest<T>(): LoDashExplicitArrayWrapper<T>;
+        tail<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.slice
