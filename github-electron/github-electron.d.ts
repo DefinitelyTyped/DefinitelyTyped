@@ -449,6 +449,19 @@ declare module GitHubElectron {
 		 * @returns Whether the window is visible on all workspaces.
 		 */
 		isVisibleOnAllWorkspaces(): boolean;
+		/**
+		 * Opens the developer tools.
+		 */
+		openDevTools(options?: {
+			/**
+			 * Opens devtools in a new window.
+			 */
+			detach?: boolean;
+		}): void;
+		/**
+		 * Closes the developer tools.
+		 */
+		closeDevTools(): void;
 	}
 
 	interface WebPreferences {
