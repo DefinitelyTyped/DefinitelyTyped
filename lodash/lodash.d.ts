@@ -135,9 +135,9 @@ added 8 utility methods:
 
 added 4 math methods:
 - [x] _.maxBy
-- [ ] _.mean
+- [x] _.mean
 - [x] _.minBy
-- [ ] _.sumBy
+- [x] _.sumBy
 
 added 2 function methods:
 - [x] _.flip
@@ -10226,6 +10226,38 @@ declare module _ {
         ): T;
     }
 
+    //_.mean
+    interface LoDashStatic {
+        /**
+         * Computes the mean of the values in `array`.
+         *
+         * @static
+         * @memberOf _
+         * @category Math
+         * @param {Array} array The array to iterate over.
+         * @returns {number} Returns the mean.
+         * @example
+         *
+         * _.mean([4, 2, 8, 6]);
+         * // => 5
+         */
+        mean<T>(
+            collection: List<T>
+        ): number;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.mean
+         */
+        mean<T>(): number;
+
+        /**
+         * @see _.mean
+         */
+        mean(): number;
+    }
+
     //_.min
     interface LoDashStatic {
         /**
@@ -10391,40 +10423,19 @@ declare module _ {
     //_.sum
     interface LoDashStatic {
         /**
-         * Gets the sum of the values in collection.
+         * Computes the sum of the values in `array`.
          *
-         * @param collection The collection to iterate over.
-         * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
-         * @return Returns the sum.
+         * @static
+         * @memberOf _
+         * @category Math
+         * @param {Array} array The array to iterate over.
+         * @returns {number} Returns the sum.
+         * @example
+         *
+         * _.sum([4, 2, 8, 6]);
+         * // => 20
          */
-        sum<T>(
-            collection: List<T>,
-            iteratee: ListIterator<T, number>,
-            thisArg?: any
-        ): number;
-
-        /**
-         * @see _.sum
-         **/
-        sum<T>(
-            collection: Dictionary<T>,
-            iteratee: DictionaryIterator<T, number>,
-            thisArg?: any
-        ): number;
-
-        /**
-         * @see _.sum
-         */
-        sum<T>(
-            collection: List<number>|Dictionary<number>,
-            iteratee: string
-        ): number;
-
-        /**
-         * @see _.sum
-         */
-        sum<T>(collection: List<T>|Dictionary<T>): number;
+        sum<T>(collection: List<T>): number;
 
         /**
          * @see _.sum
@@ -10436,19 +10447,6 @@ declare module _ {
         /**
          * @see _.sum
          */
-        sum(
-            iteratee: ListIterator<T, number>,
-            thisArg?: any
-        ): number;
-
-        /**
-         * @see _.sum
-         */
-        sum(iteratee: string): number;
-
-        /**
-         * @see _.sum
-         */
         sum(): number;
     }
 
@@ -10456,15 +10454,7 @@ declare module _ {
         /**
          * @see _.sum
          **/
-        sum<TValue>(
-            iteratee: ListIterator<TValue, number>|DictionaryIterator<TValue, number>,
-            thisArg?: any
-        ): number;
-
-        /**
-         * @see _.sum
-         */
-        sum(iteratee: string): number;
+        sum<TValue>(): number;
 
         /**
          * @see _.sum
@@ -10476,19 +10466,6 @@ declare module _ {
         /**
          * @see _.sum
          */
-        sum(
-            iteratee: ListIterator<T, number>,
-            thisArg?: any
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sum
-         */
-        sum(iteratee: string): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sum
-         */
         sum(): LoDashExplicitWrapper<number>;
     }
 
@@ -10496,20 +10473,144 @@ declare module _ {
         /**
          * @see _.sum
          */
-        sum<TValue>(
-            iteratee: ListIterator<TValue, number>|DictionaryIterator<TValue, number>,
-            thisArg?: any
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sum
-         */
-        sum(iteratee: string): LoDashExplicitWrapper<number>;
+        sum<TValue>(): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.sum
          */
         sum(): LoDashExplicitWrapper<number>;
+    }
+
+    //_.sumBy
+    interface LoDashStatic {
+        /**
+         * This method is like `_.sum` except that it accepts `iteratee` which is
+         * invoked for each element in `array` to generate the value to be summed.
+         * The iteratee is invoked with one argument: (value).
+         *
+         * @static
+         * @memberOf _
+         * @category Math
+         * @param {Array} array The array to iterate over.
+         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
+         * @returns {number} Returns the sum.
+         * @example
+         *
+         * var objects = [{ 'n': 4 }, { 'n': 2 }, { 'n': 8 }, { 'n': 6 }];
+         *
+         * _.sumBy(objects, function(o) { return o.n; });
+         * // => 20
+         *
+         * // using the `_.property` iteratee shorthand
+         * _.sumBy(objects, 'n');
+         * // => 20
+         */
+        sumBy<T>(
+            collection: List<T>,
+            iteratee: ListIterator<T, number>
+        ): number;
+
+        /**
+         * @see _.sumBy
+         **/
+        sumBy<T>(
+            collection: Dictionary<T>,
+            iteratee: DictionaryIterator<T, number>
+        ): number;
+
+        /**
+         * @see _.sumBy
+         */
+        sumBy<T>(
+            collection: List<number>|Dictionary<number>,
+            iteratee: string
+        ): number;
+
+        /**
+         * @see _.sumBy
+         */
+        sumBy<T>(collection: List<T>|Dictionary<T>): number;
+
+        /**
+         * @see _.sumBy
+         */
+        sumBy(collection: List<number>|Dictionary<number>): number;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.sumBy
+         */
+        sumBy(
+            iteratee: ListIterator<T, number>
+        ): number;
+
+        /**
+         * @see _.sumBy
+         */
+        sumBy(iteratee: string): number;
+
+        /**
+         * @see _.sumBy
+         */
+        sumBy(): number;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.sumBy
+         **/
+        sumBy<TValue>(
+            iteratee: ListIterator<TValue, number>|DictionaryIterator<TValue, number>
+        ): number;
+
+        /**
+         * @see _.sumBy
+         */
+        sumBy(iteratee: string): number;
+
+        /**
+         * @see _.sumBy
+         */
+        sumBy(): number;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.sumBy
+         */
+        sumBy(
+            iteratee: ListIterator<T, number>
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sumBy
+         */
+        sumBy(iteratee: string): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sumBy
+         */
+        sumBy(): LoDashExplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.sumBy
+         */
+        sumBy<TValue>(
+            iteratee: ListIterator<TValue, number>|DictionaryIterator<TValue, number>
+        ): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sumBy
+         */
+        sumBy(iteratee: string): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sumBy
+         */
+        sumBy(): LoDashExplicitWrapper<number>;
     }
 
     /**********
