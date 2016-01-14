@@ -48,16 +48,16 @@ declare module UniversalAnalytics {
         q: any[];
 
         (command: 'send', hitType: 'event', eventCategory: string, eventAction: string,
-            eventLabel?: string, eventValue?: number, fieldsObject?: {} ): void;
+            eventLabel?: string, eventValue?: number, fieldsObject?: {}): void;
         (command: 'send', hitType: 'event', fieldsObject: {
-            eventCategory: string
+            eventCategory: string,
             eventAction: string,
             eventLabel?: string,
             eventValue?: number,
             nonInteraction?: boolean}): void;
         (command: 'send', fieldsObject: {
             hitType: 'event',
-            eventCategory: string
+            eventCategory: string,
             eventAction: string,
             eventLabel?: string,
             eventValue?: number,
