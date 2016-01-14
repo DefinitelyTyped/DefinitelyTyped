@@ -6442,6 +6442,18 @@ module TestMaxBy {
     result = _(dictionary).maxBy<{a: number}, number>({a: 42});
 }
 
+// _.mean
+module TestMean {
+    let array: number[];
+
+    let result: number;
+
+    result = _.mean<number>(array);
+
+    result = _(array).mean();
+
+}
+
 // _.min
 module TestMin {
     let array: number[];
@@ -6533,58 +6545,74 @@ module TestSum {
 
         result = _.sum(array);
         result = _.sum<number>(array);
-        result = _.sum<number>(array, listIterator);
-        result = _.sum<number>(array, listIterator, any);
-        result = _.sum<number>(array, '');
-
 
         result = _.sum(list);
         result = _.sum<number>(list);
-        result = _.sum<number>(list, listIterator);
-        result = _.sum<number>(list, listIterator, any);
-        result = _.sum<number>(list, '');
-
-        result = _.sum(dictionary);
-        result = _.sum<number>(dictionary);
-        result = _.sum<number>(dictionary, dictionaryIterator);
-        result = _.sum<number>(dictionary, dictionaryIterator, any);
-        result = _.sum<number>(dictionary, '');
 
         result = _(array).sum();
-        result = _(array).sum(listIterator);
-        result = _(array).sum(listIterator, any);
-        result = _(array).sum('');
-
 
         result = _(list).sum();
-        result = _(list).sum<number>(listIterator);
-        result = _(list).sum<number>(listIterator, any);
-        result = _(list).sum('');
 
         result = _(dictionary).sum();
-        result = _(dictionary).sum<number>(dictionaryIterator);
-        result = _(dictionary).sum<number>(dictionaryIterator, any);
-        result = _(dictionary).sum('');
     }
 
     {
         let result: _.LoDashExplicitWrapper<number>;
 
         result = _(array).chain().sum();
-        result = _(array).chain().sum(listIterator);
-        result = _(array).chain().sum(listIterator, any);
-        result = _(array).chain().sum('');
-
 
         result = _(list).chain().sum();
-        result = _(list).chain().sum<number>(listIterator);
-        result = _(list).chain().sum<number>(listIterator, any);
-        result = _(list).chain().sum('');
 
         result = _(dictionary).chain().sum();
-        result = _(dictionary).chain().sum<number>(dictionaryIterator);
-        result = _(dictionary).chain().sum<number>(dictionaryIterator, any);
-        result = _(dictionary).chain().sum('');
+    }
+}
+
+// _.sumBy
+module TestSumBy {
+    let array: number[];
+    let list: _.List<number>;
+    let dictionary: _.Dictionary<number>;
+
+    let listIterator: (value: number, index: number, collection: _.List<number>) => number;
+    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => number;
+
+    {
+        let result: number;
+
+        result = _.sumBy<number>(array);
+        result = _.sumBy<number>(array, listIterator);
+        result = _.sumBy<number>(array, '');
+
+
+        result = _.sumBy<number>(list);
+        result = _.sumBy<number>(list, listIterator);
+        result = _.sumBy<number>(list, '');
+
+        result = _.sumBy<number>(dictionary);
+        result = _.sumBy<number>(dictionary, dictionaryIterator);
+        result = _.sumBy<number>(dictionary, '');
+
+        result = _(array).sumBy(listIterator);
+        result = _(array).sumBy('');
+
+        result = _(list).sumBy<number>(listIterator);
+        result = _(list).sumBy('');
+
+        result = _(dictionary).sumBy<number>(dictionaryIterator);
+        result = _(dictionary).sumBy('');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(array).chain().sumBy(listIterator);
+        result = _(array).chain().sumBy('');
+
+        result = _(list).chain().sumBy<number>(listIterator);
+        result = _(list).chain().sumBy('');
+
+        result = _(dictionary).chain().sumBy<number>(dictionaryIterator);
+        result = _(dictionary).chain().sumBy('');
     }
 }
 
