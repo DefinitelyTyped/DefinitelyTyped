@@ -11,6 +11,7 @@
 
 interface Error {
     stack?: string;
+    static captureStackTrace(obj:Error, constructor?:function):void;
 }
 
 
