@@ -4627,8 +4627,7 @@ module TestNow {
 /*************
  * Functions *
  *************/
-
-// _after
+// _.after
 module TestAfter {
     interface Func {
         (a: string, b: number): boolean;
@@ -5080,6 +5079,33 @@ module TestDelay {
     }
 }
 
+// _.flip
+module TestFlip {
+    interface Func {
+        (a: number, b: string): boolean;
+    }
+
+    let func: Func;
+
+    {
+        let result: Func;
+
+        result = _.flip(func);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<Func>;
+
+        result = _(func).flip();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<Func>;
+
+        result = _(func).chain().flip();
+    }
+}
+
 // _.flow
 module TestFlow {
     let Fn1: (n: number) => number;
@@ -5392,6 +5418,33 @@ module TestThrottle {
         result = _(func).chain().throttle();
         result = _(func).chain().throttle(42);
         result = _(func).chain().throttle(42, options);
+    }
+}
+
+// _.unary
+module TestUnary {
+    interface Func {
+        (a: number, b: string): boolean;
+    }
+
+    let func: Func;
+
+    {
+        let result: Func;
+
+        result = _.unary(func);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<Func>;
+
+        result = _(func).unary();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<Func>;
+
+        result = _(func).chain().unary();
     }
 }
 

@@ -140,12 +140,12 @@ added 4 math methods:
 - [ ] _.sumBy
 
 added 2 function methods:
-- [ ] _.flip &
-- [ ] _.unary
+- [x] _.flip
+- [x] _.unary
 
 added 2 number methods:
-- [ ] _.clamp &
-- [ ] _.subtract
+- [x] _.clamp
+- [x] _.subtract
 
 added chain method:
 - [ ] _.next
@@ -8366,6 +8366,41 @@ declare module _ {
         ): LoDashExplicitWrapper<number>;
     }
 
+    interface LoDashStatic {
+        /**
+         * Creates a function that invokes `func` with arguments reversed.
+         *
+         * @static
+         * @memberOf _
+         * @category Function
+         * @param {Function} func The function to flip arguments for.
+         * @returns {Function} Returns the new function.
+         * @example
+         *
+         * var flipped = _.flip(function() {
+         *   return _.toArray(arguments);
+         * });
+         *
+         * flipped('a', 'b', 'c', 'd');
+         * // => ['d', 'c', 'b', 'a']
+         */
+        flip<T extends Function>(func: T): T;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.flip
+         */
+        flip(): LoDashImplicitObjectWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.flip
+         */
+        flip(): LoDashExplicitObjectWrapper<T>;
+    }
+
     //_.flow
     interface LoDashStatic {
         /**
@@ -8844,6 +8879,39 @@ declare module _ {
             wait?: number,
             options?: ThrottleSettings
         ): LoDashExplicitObjectWrapper<T & Cancelable>;
+    }
+
+    //_.unary
+    interface LoDashStatic {
+        /**
+         * Creates a function that accepts up to one argument, ignoring any
+         * additional arguments.
+         *
+         * @static
+         * @memberOf _
+         * @category Function
+         * @param {Function} func The function to cap arguments for.
+         * @returns {Function} Returns the new function.
+         * @example
+         *
+         * _.map(['6', '8', '10'], _.unary(parseInt));
+         * // => [6, 8, 10]
+         */
+        unary<T extends Function>(func: T): T;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.unary
+         */
+        unary(): LoDashImplicitObjectWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.unary
+         */
+        unary(): LoDashExplicitObjectWrapper<T>;
     }
 
     //_.wrap
