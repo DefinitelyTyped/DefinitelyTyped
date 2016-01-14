@@ -31,8 +31,8 @@ interface I18nTranslateOptions extends I18nextOptions {
 }
 
 interface i18nextSprintfPostProcessorStatic {
-    overloadTranslationOptionHandler(args: Array<any>): void;
-    process(value: any, key: string, options: Object): void;
+    overloadTranslationOptionHandler?(args: Array<any>): void;
+    process?(value: any, key: string, options: Object): void;
 }
 
 interface I18nextOptions extends i18nextSprintfPostProcessorStatic {
@@ -83,8 +83,6 @@ interface I18nextOptions extends i18nextSprintfPostProcessorStatic {
 
     // NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
     replace?: any;
-
-    overloadTranslationOptionHandler: (args: Array<any>) => void;
 }
 
 interface I18nextStatic {
