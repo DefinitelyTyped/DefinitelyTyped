@@ -36,15 +36,48 @@ interface GoogleAnalytics {
     async: boolean;
 }
 
+enum HitType {
+    'pageview', 'screenview', 'event', 'transaction', 'item', 'social', 'exception', 'timing'
+}
+
 declare module UniversalAnalytics {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference
 
     interface ga {
         l: number;
         q: any[];
+
+        (command: 'send', hitType: 'event', eventCategory: string, eventAction: string,
+            eventLabel?: string, eventValue?: number, fieldsObject?: {} ): void;
+        (command: 'send', hitType: 'event', fieldsObject: {
+            eventCategory: string
+            eventAction: string,
+            eventLabel?: string,
+            eventValue?: number,
+            nonInteraction?: boolean}): void;
+        (command: 'send', fieldsObject: {
+            hitType: 'event',
+            eventCategory: string
+            eventAction: string,
+            eventLabel?: string,
+            eventValue?: number,
+            nonInteraction?: boolean}): void;
+        (command: 'send', hitType: 'pageview', page: string): void;
+        (command: 'send', hitType: 'social',
+            socialNetwork: string, socialAction: string, socialTarget: string): void;
+        (command: 'send', hitType: 'social',
+            fieldsObject: {socialNetwork: string, socialAction: string, socialTarget: string}): void;
+        (command: 'send', hitType: 'timing',
+            timingCategory: string, timingVar: string, timingValue: number): void;
+        (command: 'send', hitType: 'timing',
+            fieldsObject: {timingCategory: string, timingVar: string, timingValue: number}): void;
+        (command: 'send', hitType: HitType, ...fields): void;
+        (command: 'send', fieldsObject: {}): void;
+        
+        (command: string, hitDetails: {}): void;
         (command: string, poly: string, opt_poly?: {}): UniversalAnalytics.Tracker;
         (command: string, trackingId: string, auto: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
-        (command: string, hitDetails: {}): void;
+ 
         create(trackingId: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
         create(trackingId: string, auto: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
         getAll(): UniversalAnalytics.Tracker[];
