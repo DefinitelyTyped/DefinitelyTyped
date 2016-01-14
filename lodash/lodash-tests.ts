@@ -6539,6 +6539,40 @@ module TestSum {
  * Number *
  **********/
 
+ // _.subtract
+ module subtract {
+     {
+         let result: number;
+
+         result = _.subtract(3, 2);
+
+         result = _(3).subtract(2);
+     }
+
+     {
+         let result: _.LoDashExplicitWrapper<number>;
+
+         result = _(3).chain().subtract(2);
+     }
+ }
+
+// _.clamp
+module TestInClamp {
+    {
+        let result: number;
+
+        result = _.clamp(3, 2, 4);
+
+        result = _(3).clamp(2, 4);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(3).chain().clamp(2, 4);
+    }
+}
+
 // _.inRange
 module TestInRange {
     {
