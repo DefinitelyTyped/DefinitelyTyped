@@ -4,112 +4,95 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
+/// <reference path="../azure-sb/azure-sb.d.ts" />
 
 declare module "azure-mobile-apps" {
-    function returnedFunction(configuration?: AzureMobileApps.Configuration): AzureMobileApps.ExpressMobileApp;
-    module returnedFunction { }
-    export = returnedFunction;   
-}
+    interface AzureMobileApps {
+        (configuration?: Azure.MobileApps.Configuration): Azure.MobileApps.Platforms.Express.MobileApp;
+        table(): Azure.MobileApps.Platforms.Express.Table;
+        logger: Azure.MobileApps.Logger;
+        query: Azure.MobileApps.Query;
+    }
 
-declare module "azure-mobile-apps/src/express" {
-    function returnedFunction(configuration: AzureMobileApps.Configuration): AzureMobileApps.ExpressMobileApp;
-    module returnedFunction { }
-    export = returnedFunction;   
+    var out: AzureMobileApps;
+    export = out;
 }
-
-declare module "azure-mobile-apps/src/express/api" {
-    function returnedFunction(configuration: AzureMobileApps.Configuration): AzureMobileApps.ExpressApi;
-    module returnedFunction { }
-    export = returnedFunction;   
-}
-
-declare module "azure-mobile-apps/src/express/table" {
-    function returnedFunction(definition: AzureMobileApps.TableDefinition): AzureMobileApps.ExpressTable;
-    module returnedFunction { }
-    export = returnedFunction;   
-}
-
-declare module "azure-mobile-apps/src/express/tables" {
-    function returnedFunction(configuration: AzureMobileApps.Configuration): AzureMobileApps.ExpressTables;
-    module returnedFunction { }
-    export = returnedFunction;   
-}
-
-declare module "azure-mobile-apps/src/auth" {
-    function returnedFunction(configuration: AzureMobileApps.Configuration): AzureMobileApps.Auth;
-    module returnedFunction { }
-    export = returnedFunction;   
-}
-
-declare module "azure-mobile-apps/src/data" {
-    function returnedFunction(configuration: AzureMobileApps.Configuration): (table: AzureMobileApps.ExpressTable) => AzureMobileApps.Data;
-    module returnedFunction { }
-    export = returnedFunction;   
-}
-
 declare module "azure-mobile-apps/src/logger" {
-    var logger: AzureMobileApps.Logger;
+    var logger: Azure.MobileApps.Logger;
     export = logger;
 }
 
 declare module "azure-mobile-apps/src/query" {
-    var query: AzureMobileApps.Query;
+    var query: Azure.MobileApps.Query;
     export = query; 
 }
 
-declare module AzureMobileApps {
-    // express
-    interface ExpressMobileApp {
-        configuration: Configuration;
-        tables: ExpressTables;
-        table(): ExpressTable;
-        api: ExpressApi;
-        use(middleware: Middleware | Middleware[]): void;
+declare module Azure.MobileApps {
+    // the additional Platforms namespace is required to avoid collisions with the main Express namespace
+    export module Platforms {
+        export module Express {
+            interface MobileApp {
+                configuration: Configuration;
+                tables: Tables;
+                table(): Table;
+                api: Api;
+                use(...middleware: Middleware[]): MobileApp;
+                use(middleware: Middleware[]): MobileApp;
+            }
+
+            interface Api {
+                add(name: string, definition: ApiDefinition): void;
+                import(fileOrFolder: string): void;
+            }
+
+            interface Table {
+                authorize?: boolean;
+                autoIncrement?: boolean;
+                dynamicSchema?: boolean;
+                name: string;
+                columns?: any;
+                schema: string;
+
+                use(...middleware: Middleware[]): Table;
+                use(middleware: Middleware[]): Table;
+                read: TableOperation;
+                update: TableOperation;
+                insert: TableOperation;
+                delete: TableOperation;
+                undelete: TableOperation;
+            }
+            
+            interface TableOperation {
+                (operationHandler: (context: Context) => void): Table;
+                use(...middleware: Middleware[]): Table;
+                use(middleware: Middleware[]): Table;
+            }
+
+            interface Tables {
+                configuration: Configuration;
+                add(name: string, definition?: Table | TableDefinition): void;
+                import(fileOrFolder: string): void;
+                initialize(): Thenable<any>;
+            }
+        }
     }
 
-    interface ExpressApi {
-        add(name: string, definition: ApiDefinition): void;
-        import(fileOrFolder: string): void;
-    }
+    export module Data {
+        interface Table {
+            read(query: QueryJs): Thenable<any[]>;
+            update(item: any, query: QueryJs): Thenable<any>;
+            insert(item: any): Thenable<any>;
+            delete(query: QueryJs, version: string): Thenable<any>;
+            undelete(query: QueryJs, version: string): Thenable<any>;
+            truncate(): Thenable<void>;
+            initialize(): Thenable<void>;
+            schema(): Thenable<Column[]>;
+        }
 
-    interface ExpressTable {
-        authorize?: boolean;
-        autoIncrement?: boolean;
-        dynamicSchema?: boolean;
-        name: string;
-        columns?: any;
-        schema: string;
-
-        use(middleware: Middleware | Middleware[]): void;
-        read(operationHandler: (context: Context) => void): void;
-        update(operationHandler: (context: Context) => void): void;
-        insert(operationHandler: (context: Context) => void): void;
-        delete(operationHandler: (context: Context) => void): void;
-        undelete(operationHandler: (context: Context) => void): void;
-    }
-
-    interface ExpressTables {
-        configuration: Configuration;
-        add(name: string, definition: ExpressTable | TableDefinition): void;
-        import(fileOrFolder: string): void;
-        initialize(): Thenable<any>;
-    }
-
-    // data
-    interface Data {
-        read(query: QueryJs): Thenable<any[]>;
-        update(item: any, query: QueryJs): Thenable<any>;
-        insert(item: any): Thenable<any>;
-        delete(query: QueryJs, version: string): Thenable<any>;
-        undelete(query: QueryJs, version: string): Thenable<any>;
-        truncate(): Thenable<void>;
-        initialize(): Thenable<void>;
-        schema(): Thenable<SchemaResult[]>;
-    }
-
-    interface SchemaResult {
-        name: string;
-        type: string;
+        interface Column {
+            name: string;
+            type: string;
+        }
     }
 
     // auth
@@ -144,53 +127,53 @@ declare module AzureMobileApps {
         swagger?: boolean;
         maxTop?: number;
         pageSize?: number;
-        logging?: LoggingConfiguration;
-        data?: MssqlDataConfiguration;
-        auth?: AuthConfiguration;
-        cors?: CorsConfiguration;
-        notifications?: NotificationsConfiguration;
+        logging?: Configuration.Logging;
+        data?: Configuration.Data;
+        auth?: Configuration.Auth;
+        cors?: Configuration.Cors;
+        notifications?: Configuration.Notifications;
     }
+    
+    export module Configuration {
+        // it would be nice to have the config for various providers in separate interfaces,
+        // but this is the simplest solution to support variations of the current setup
+        interface Data {
+            provider: string;
+            user?: string;
+            password?: string;
+            server?: string;
+            port?: number;
+            database?: string;
+            connectionTimeout?: string;
+            options?: { encrypt: boolean };
+            schema?: string;
+            dynamicSchema?: boolean;
+        }
 
-    interface DataConfiguration {
-        provider?: string;
-    }
+        interface Auth {
+            secret: string;
+            validateTokens?: boolean;
+        }
 
-    interface MssqlDataConfiguration {
-        provider: string;
-        user: string;
-        password: string;
-        server: string;
-        port?: number;
-        database: string;
-        connectionTimeout?: string;
-        options?: { encrypt: boolean };
-        schema?: string;
-        dynamicSchema?: boolean;
-    }
+        interface Logging {
+            level?: string;
+            transports?: LoggingTransport[];
+        }
 
-    interface AuthConfiguration {
-        secret: string;
-        validateTokens?: boolean;
-    }
+        interface LoggingTransport { }
 
-    interface LoggingConfiguration {
-        level?: string;
-        transports?: LoggingTransport[];
-    }
+        interface Cors {
+            maxAge?: number;
+            origins: string[];
+        }
 
-    interface LoggingTransport { }
-
-    interface CorsConfiguration {
-        maxAge?: number;
-        origins: string[];
-    }
-
-    interface NotificationsConfiguration {
-        hubName: string;
-        connectionString?: string;
-        endpoint?: string;
-        sharedAccessKeyName?: string;
-        sharedAccessKeyValue?: string;
+        interface Notifications {
+            hubName: string;
+            connectionString?: string;
+            endpoint?: string;
+            sharedAccessKeyName?: string;
+            sharedAccessKeyValue?: string;
+        }
     }
 
     // query
@@ -208,6 +191,9 @@ declare module AzureMobileApps {
         skip(count: number): QueryJs;
         take(count: number): QueryJs;
         where(filter: any): QueryJs;
+        // these are properties added by the SDK
+        id?: string | number;
+        single?: boolean;
     }
 
     interface OData {
@@ -221,22 +207,18 @@ declare module AzureMobileApps {
         includeTotalCount?: boolean;
     }
 
-    // notifications
-    interface NotificationHubService {
-        
-    }
-
     // general
+    var nh: Azure.ServiceBus.NotificationHubService; 
     interface Context {
         query: QueryJs;
         id: string | number;
         item: any;
         req: Express.Request;
         res: Express.Response;
-        data: (table: TableDefinition) => Data;
-        tables: (tableName: string) => Data;
+        data: (table: TableDefinition) => Data.Table;
+        tables: (tableName: string) => Data.Table;
         user: User;
-        push: NotificationHubService;
+        push: typeof nh;
         logger: Logger;
         execute(): Thenable<any>;
     }
@@ -262,6 +244,8 @@ declare module AzureMobileApps {
     interface Thenable<R> {
         then<U>(onFulfilled?: (value: R) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
         then<U>(onFulfilled?: (value: R) => U | Thenable<U>, onRejected?: (error: any) => void): Thenable<U>;
+        catch<U>(onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
+        catch<U>(onRejected?: (error: any) => void): Thenable<U>;
     }
 
     interface Logger {
@@ -280,5 +264,16 @@ declare module AzureMobileApps {
 
     interface NextMiddleware {
         (error?: any): void;
+    }
+}
+
+// additions to the Express modules
+declare module Express {
+    interface Request {
+        azureMobile: Azure.MobileApps.Context
+    }
+    
+    interface Response {
+        results?: any;
     }
 }
