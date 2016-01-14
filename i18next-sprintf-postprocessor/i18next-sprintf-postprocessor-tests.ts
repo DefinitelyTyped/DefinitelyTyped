@@ -1,4 +1,4 @@
-///<reference path="i18next-sprintf-postProcessor.d.ts"/>
+///<reference path="i18next-sprintf-postprocessor.d.ts"/>
 
 import * as i18next from "i18next";
 import sprintf from "i18next-sprintf-postprocessor";
