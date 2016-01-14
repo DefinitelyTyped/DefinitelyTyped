@@ -11,13 +11,11 @@ TODO:
 - [ ] Made _.forEach, _.forIn, _.forOwn, & _.times implicitly end a chain sequence
 - [ ] Removed thisArg params from most methods
 
-- [ ] Check for aliases in this group
 - [x] Removed _.support
 - [x] Removed _.findWhere in favor of _.find with iteratee shorthand
 - [x] Removed _.where in favor of _.filter with iteratee shorthand
 - [x] Removed _.pluck in favor of _.map with iteratee shorthand
 
-- [ ] Check for aliases in this group
 - [x] Renamed _.first to _.head
 - [x] Renamed _.indexBy to _.keyBy
 - [x] Renamed _.invoke to _.invokeMap
@@ -30,14 +28,13 @@ TODO:
 - [x] Renamed _.trimLeft & _.trimRight to _.trimStart & _.trimEnd
 - [x] Renamed _.trunc to _.truncate
 
-- [ ] Check for aliases in this group
 - [x] Split _.indexOf & _.lastIndexOf into _.sortedIndexOf & _.sortedLastIndexOf
 - [x] Split _.max & _.min into _.maxBy & _.minBy
 - [x] Split _.omit & _.pick into _.omitBy & _.pickBy
 - [x] Split _.sample into _.sampleSize
 - [x] Split _.sortedIndex into _.sortedIndexBy
 - [x] Split _.sortedLastIndex into _.sortedLastIndexBy
-- [ ] Split _.uniq into _.sortedUniq, _.sortedUniqBy, & _.uniqBy
+- [x] Split _.uniq into _.sortedUniq, _.sortedUniqBy, & _.uniqBy
 
 - [ ] TODO remove _.sortBy duplicates
 - [x] Absorbed _.sortByAll into _.sortBy
@@ -45,7 +42,7 @@ TODO:
 - [x] Changed the category of _.bindAll to “Utility”
 - [ ] Made “By” methods provide a single param to iteratees
 - [x] Made _.capitalize uppercase the first character & lowercase the rest
-- [ ] Made _.functions return only own method names
+- [x] Made _.functions return only own method names
 - [ ] Made _.words chainable by default
 - [ ] Removed isDeep params from _.clone & _.flatten
 - [ ] Removed _.bindAll support for binding all methods when no names are provided
@@ -63,15 +60,15 @@ added 23 array methods:
 - [ ] _.pullAll
 - [ ] _.pullAllBy
 - [ ] _.reverse
-- [ ] _.sortedIndexBy
-- [ ] _.sortedIndexOf
-- [ ] _.sortedLastIndexBy
+- [x] _.sortedIndexBy
+- [x] _.sortedIndexOf
+- [x] _.sortedLastIndexBy
 - [ ] _.sortedLastIndexOf
-- [ ] _.sortedUniq
-- [ ] _.sortedUniqBy
+- [x] _.sortedUniq
+- [x] _.sortedUniqBy
 - [ ] _.unionBy
 - [ ] _.unionWith
-- [ ] _.uniqBy
+- [x] _.uniqBy
 - [ ] _.uniqWith
 - [ ] _.xorBy
 - [ ] _.xorWith
@@ -132,9 +129,9 @@ added 8 utility methods:
 - [ ] _.toPath
 
 added 4 math methods:
-- [ ] _.maxBy
+- [x] _.maxBy
 - [ ] _.mean
-- [ ] _.minBy
+- [x] _.minBy
 - [ ] _.sumBy
 
 added 2 function methods:
@@ -149,7 +146,7 @@ added chain method:
 - [ ] _.next
 
 added collection method:
-- [ ] _.sampleSize
+- [x] _.sampleSize
 
 Added 3 aliases
 - [ ] _.extend as an alias of _.assignIn
@@ -179,32 +176,32 @@ Other changes
 - [ ] Added clear method to _.memoize.Cache
 - [ ] Added flush method to debounced & throttled functions
 - [ ] Added support for ES6 maps, sets, & symbols to _.clone, _.isEqual, & _.toArray
-- [ ] Added support for array buffers to _.isEqual
-- [ ] Added support for converting iterators to _.toArray
-- [ ] Added support for deep paths to _.zipObject
-- [ ] Changed UMD to export to window or self when available regardless of other exports
+- [x] Added support for array buffers to _.isEqual
+- [x] Added support for converting iterators to _.toArray
+- [x] Added support for deep paths to _.zipObject
+- [x] Changed UMD to export to window or self when available regardless of other exports
 - [ ] Enabled _.flow & _.flowRight to accept an array of functions
 - [ ] Ensured “Collection” methods treat functions as objects
-- [ ] Ensured debounce cancel clears args & thisArg references
-- [ ] Ensured _.add, _.subtract, & _.sum don’t skip NaN values
+- [x] Ensured debounce cancel clears args & thisArg references
+- [x] Ensured _.add, _.subtract, & _.sum don’t skip NaN values
 - [ ] Ensured _.assign, _.defaults, & _.merge coerce object values to objects
 - [ ] Ensured _.bindKey bound functions call object[key] when called with the new operator
-- [ ] Ensured _.clone treats generators like functions
-- [ ] Ensured _.clone produces clones with the source’s [[Prototype]]
-- [ ] Ensured _.defaults assigns properties that shadow Object.prototype
-- [ ] Ensured _.defaultsDeep doesn’t merge a string into an array
-- [ ] Ensured _.defaultsDeep & _.merge don’t modify sources
-- [ ] Ensured _.defaultsDeep works with circular references
+- [x] Ensured _.clone treats generators like functions
+- [x] Ensured _.clone produces clones with the source’s [[Prototype]]
+- [x] Ensured _.defaults assigns properties that shadow Object.prototype
+- [x] Ensured _.defaultsDeep doesn’t merge a string into an array
+- [x] Ensured _.defaultsDeep & _.merge don’t modify sources
+- [x] Ensured _.defaultsDeep works with circular references
 - [ ] Ensured _.isFunction returns true for generator functions
-- [ ] Ensured _.keys skips “length” on strict mode arguments objects in Safari 9
+- [x] Ensured _.keys skips “length” on strict mode arguments objects in Safari 9
 - [ ] Ensured _.merge assigns typed arrays directly
-- [ ] Ensured _.merge doesn’t convert strings to arrays
-- [ ] Ensured _.merge merges plain-objects onto non plain-objects
-- [ ] Ensured _#plant resets iterator data of cloned sequences
-- [ ] Ensured _.random swaps min & max if min is greater than max
-- [ ] Ensured _.range preserves the sign of start of -0
-- [ ] Ensured _.reduce & _.reduceRight use getIteratee in their array branch
-- [ ] Fixed rounding issue with the precision param of _.floor
+- [x] Ensured _.merge doesn’t convert strings to arrays
+- [x] Ensured _.merge merges plain-objects onto non plain-objects
+- [x] Ensured _#plant resets iterator data of cloned sequences
+- [x] Ensured _.random swaps min & max if min is greater than max
+- [x] Ensured _.range preserves the sign of start of -0
+- [x] Ensured _.reduce & _.reduceRight use getIteratee in their array branch
+- [x] Fixed rounding issue with the precision param of _.floor
 - [ ] Made _(...) an iterator & iterable
 - [ ] Made _.drop, _.take, & right forms coerce n of undefined to 0
 */
