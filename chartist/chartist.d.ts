@@ -9,6 +9,10 @@ declare module Chartist {
     Bar: IChartistBarChart;
     Line: IChartistLineChart;
 
+    FixedScaleAxis: IFixedScaleAxisStatic;
+    AutoScaleAxis: IAutoScaleAxisStatic;
+    StepAxis: IStepAxisStatic;
+
     Svg: any;
     noop: Function;
   }
@@ -18,16 +22,24 @@ declare module Chartist {
     1: T;
   }
 
+  // these have no other purpose than to help define the types that can be placed on
+  // a line chart axisX
+  // in the actual chartist library these are classes that project their options onto
+  // the parent class
+  interface IFixedScaleAxisStatic { }
+  interface IAutoScaleAxisStatic { }
+  interface IStepAxisStatic { }
+
   // data formats are not well documented on all the ways they can be passed to the constructors
   // this definition gives some intellisense, but does not protect the user from misuse
   // TODO: come in and tidy this up and make it fit better
   interface IChartistData {
-      labels?: Array<string | number>;
-      series: Array<number> | Array<IChartistSeriesData> | Array<Array<number>>;
+      labels?: Array<string> | Array<number>;
+      series:  Array<IChartistSeriesData> | Array<number> |  Array<Array<number>>;
   }
 
   interface IChartistSeriesData {
-      name: string;
+      name?: string;
       value?: number;
       data?: Array<number>;
       className?: string;
@@ -223,8 +235,8 @@ declare module Chartist {
   }
 
   interface ILineChartOptions extends IChartOptions {
-    axisX?: ILineChartXAxis;
-    axisY?: ILineChartYAxis;
+    axisX?: IChartistStepAxis | IChartistFixedScaleAxis | IChartistAutoScaleAxis;
+    axisY?: IChartistStepAxis | IChartistFixedScaleAxis | IChartistAutoScaleAxis;
     width?: number | string;
     height?: number | string;
     showLine?: boolean;
@@ -237,7 +249,6 @@ declare module Chartist {
     ticks?: Array<string | number>;
     chartPadding?: IChartPadding;
     fullWidth?: boolean;
-    reverseData?: boolean;
     classNames?: ILineChartClasses;
   }
 
@@ -251,15 +262,29 @@ declare module Chartist {
     showLabel?: boolean;
     showGrid?: boolean;
     labelInterpolationFnc?: Function;
-    type?: any;
   }
 
-  interface ILineChartXAxis extends ILineChartAxis {
+  interface IChartistStepAxis extends ILineChartAxis {
+    type: IStepAxisStatic;
+    ticks?: Array<string> | Array<number>;
+    stretch?: boolean;
   }
 
-  interface ILineChartYAxis extends ILineChartAxis {
+  interface IChartistFixedScaleAxis extends ILineChartAxis {
+    type: IFixedScaleAxisStatic;
+    high?: number;
+    low?: number;
+    divisor?: number;
+    ticks?: Array<string> | Array<number>;
+  }
+
+  interface IChartistAutoScaleAxis extends ILineChartAxis {
+    high?: number;
+    low?: number;
     scaleMinSpace?: number;
     onlyInteger?: boolean;
+    referenceValue?: number;
+    type: IAutoScaleAxisStatic;
   }
 
   // TODO: Finish documenting all of the defaults

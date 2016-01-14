@@ -8,26 +8,26 @@ new Chartist.Line('.ct-chart', {
     [1, 3, 4, 5, 6]
   ]
 }, {
-  fullWidth: true,
-  chartPadding: {
-    right: 40
-  }
-});
+    fullWidth: true,
+    chartPadding: {
+      right: 40
+    }
+  });
 
 var lineChart = new Chartist.Line('.ct-chart', {
   labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
   series: [
     [5, 5, 10, 8, 7, 5, 4, null, null, null, 10, 10, 7, 8, 6, 9],
     [10, 15, null, 12, null, 10, 12, 15, null, null, 12, null, 14, null, null, null],
-    [null, null, null, null, 3, 4, 1, 3, 4,  6,  7,  9, 5, null, null, null]
+    [null, null, null, null, 3, 4, 1, 3, 4, 6, 7, 9, 5, null, null, null]
   ]
 }, {
-  fullWidth: true,
-  chartPadding: {
-    right: 10
-  },
-  low: 0
-});
+    fullWidth: true,
+    chartPadding: {
+      right: 10
+    },
+    low: 0
+  });
 
 new Chartist.Line('.ct-chart', {
   labels: ['1', '2', '3', '4', '5', '6'],
@@ -47,10 +47,10 @@ var data = {
   series: [5, 3, 4]
 };
 
-var sum = function(a: number, b: number) { return a + b };
+var sum = (a: number, b: number) => { return a + b };
 
 new Chartist.Pie('.ct-chart', data, {
-  labelInterpolationFnc: function(value: number) {
+  labelInterpolationFnc: (value: number) => {
     return Math.round(value / data.series.reduce(sum) * 100) + '%';
   }
 });
@@ -58,26 +58,24 @@ new Chartist.Pie('.ct-chart', data, {
 new Chartist.Pie('.ct-chart', {
   series: [20, 10, 30, 40]
 }, {
-  donut: true,
-  donutWidth: 60,
-  startAngle: 270,
-  total: 200,
-  showLabel: false
-});
-
+    donut: true,
+    donutWidth: 60,
+    startAngle: 270,
+    total: 200,
+    showLabel: false
+  });
 
 // Animation Donut example
-
 var chart = new Chartist.Pie('.ct-chart', {
   series: [10, 20, 50, 20, 5, 50, 15],
   labels: [1, 2, 3, 4, 5, 6, 7]
 }, {
-  donut: true,
-  showLabel: false
-});
+    donut: true,
+    showLabel: false
+  });
 
 chart.on('draw', function(data: any) {
-  if(data.type === 'slice') {
+  if (data.type === 'slice') {
     // Get the total path length in order to use for dash array animation
     var pathLength = data.element._node.getTotalLength();
 
@@ -92,7 +90,7 @@ chart.on('draw', function(data: any) {
         id: 'anim' + data.index,
         dur: 1000,
         from: -pathLength + 'px',
-        to:  '0px',
+        to: '0px',
         easing: Chartist.Svg.Easing.easeOutQuint,
         // We need to use `fill: 'freeze'` otherwise our animation will fall back to initial (not visible)
         fill: 'freeze'
@@ -100,7 +98,7 @@ chart.on('draw', function(data: any) {
     };
 
     // If this was not the first slice, we need to time the animation so that it uses the end sync event of the previous animation
-    if(data.index !== 0) {
+    if (data.index !== 0) {
       animationDefinition['stroke-dashoffset'].begin = 'anim' + (data.index - 1) + '.end';
     }
 
@@ -119,8 +117,8 @@ new Chartist.Bar('.ct-chart', {
   labels: ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
   series: [20, 60, 120, 200, 180, 20, 10]
 }, {
-  distributeSeries: true
-});
+    distributeSeries: true
+  });
 
 new Chartist.Bar('.ct-chart', {
   labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
@@ -132,58 +130,135 @@ new Chartist.Bar('.ct-chart', {
     [4, 1, 2, 1]
   ]
 }, {
-  // Default mobile configuration
-  stackBars: true,
-  axisX: {
-    labelInterpolationFnc: function(value: string) {
-      return value.split(/\s+/).map(function(word: string) {
-        return word[0];
-      }).join('');
-    }
-  },
-  axisY: {
-    offset: 20
-  }
-}, [
-  // Options override for media > 400px
-  ['screen and (min-width: 400px)', {
-    reverseData: true,
-    horizontalBars: true,
+    // Default mobile configuration
+    stackBars: true,
     axisX: {
-      labelInterpolationFnc: Chartist.noop
+      labelInterpolationFnc: function(value: string) {
+        return value.split(/\s+/).map(function(word: string) {
+          return word[0];
+        }).join('');
+      }
     },
     axisY: {
-      offset: 60
+      offset: 20
     }
-  }],
-  // Options override for media > 800px
-  ['screen and (min-width: 800px)', {
-    stackBars: false,
-    seriesBarDistance: 10
-  }],
-  // Options override for media > 1000px
-  ['screen and (min-width: 1000px)', {
-    reverseData: false,
-    horizontalBars: false,
-    seriesBarDistance: 15
-  }]
-]);
+  }, [
+    // Options override for media > 400px
+    ['screen and (min-width: 400px)', {
+      reverseData: true,
+      horizontalBars: true,
+      axisX: {
+        labelInterpolationFnc: Chartist.noop
+      },
+      axisY: {
+        offset: 60
+      }
+    }],
+    // Options override for media > 800px
+    ['screen and (min-width: 800px)', {
+      stackBars: false,
+      seriesBarDistance: 10
+    }],
+    // Options override for media > 1000px
+    ['screen and (min-width: 1000px)', {
+      reverseData: false,
+      horizontalBars: false,
+      seriesBarDistance: 15
+    }]
+  ]);
 
 new Chartist.Pie('.ct-chart', {
-    series: [{
-        value: 20,
-        name: 'Series 1',
-        className: 'my-custom-class-one',
-        meta: 'Meta One'
+  series: [{
+    value: 20,
+    name: 'Series 1',
+    className: 'my-custom-class-one',
+    meta: 'Meta One'
+  }, {
+      value: 10,
+      name: 'Series 2',
+      className: 'my-custom-class-two',
+      meta: 'Meta Two'
     }, {
-            value: 10,
-            name: 'Series 2',
-            className: 'my-custom-class-two',
-            meta: 'Meta Two'
-        }, {
-            value: 70,
-            name: 'Series 3',
-            className: 'my-custom-class-three',
-            meta: 'Meta Three'
-        }]
+      value: 70,
+      name: 'Series 3',
+      className: 'my-custom-class-three',
+      meta: 'Meta Three'
+    }]
+});
+
+new Chartist.Bar('.bar-chart', {
+  labels: ['foo', 'bar', 'foobar'],
+  series: [
+    {
+      data: [1],
+      className: 'graph-foo',
+    },
+    {
+      data: [10],
+      className: 'graph-foo',
+    },
+    {
+      data: [12],
+      className: 'graph-foo',
+    }]
+  }, {
+    seriesBarDistance: 30,
+    reverseData: true,
+    horizontalBars: true,
+    height: '115px',
+    axisY: {
+      offset: 70,
+      showGrid: false,
+    },
+    axisX: {
+      scaleMinSpace: 200
+    }
+  });
+
+new Chartist.Line('.ct-chart', {
+  labels: [1, 2, 3, 4, 5, 6, 7, 8],
+  series: [
+    [5, 9, 7, 8, 5, 3, 5, 4]
+  ]
+}, {
+    ticks: [0, 4],
+    low: 0,
+    showArea: true,
+    axisY: {
+      showLabel: true,
+      showGrid: false,
+      ticks: [1, 4],
+      type: Chartist.FixedScaleAxis
+    }
+  });
+
+var chart2 = new Chartist.Line('.ct-chart', {
+  labels: [1, 2, 3, 4, 5],
+  series: [
+    [12, 9, 7, 8, 5]
+  ]
+});
+
+// Listening for draw events that get emitted by the Chartist chart
+chart2.on('draw', (data: any) => {
+  // If the draw event was triggered from drawing a point on the line chart
+  if (data.type === 'point') {
+    // We are creating a new path SVG element that draws a triangle around the point coordinates
+    var triangle = new Chartist.Svg('path', {
+      d: ['M',
+        data.x,
+        data.y - 15,
+        'L',
+        data.x - 15,
+        data.y + 8,
+        'L',
+        data.x + 15,
+        data.y + 8,
+        'z'].join(' '),
+      style: 'fill-opacity: 1'
+    }, 'ct-area');
+
+    // With data.element we get the Chartist SVG wrapper and we can replace the original point drawn by Chartist with our newly created triangle
+    data.element.replace(triangle);
+  }
 });
