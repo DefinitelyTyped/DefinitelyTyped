@@ -20,9 +20,10 @@ interface JQuery {
       *
       * @constructor
       * @param options Options hash that's used for configuration
-      * @param datasets One or more datasets passed as rest parameters.
+      * @param dataset At least one dataset is required
+      * @param datasets Rest of the datasets.
       */
-    typeahead<T>(options: Twitter.Typeahead.Options, ...datasets: Twitter.Typeahead.Dataset<T>[]): JQuery;
+    typeahead<T>(options: Twitter.Typeahead.Options, dataset: Twitter.Typeahead.Dataset<T>, ...datasets: Twitter.Typeahead.Dataset<T>[]): JQuery;
 
     /**
      * Returns the current value of the typeahead.
@@ -1122,7 +1123,7 @@ declare class Bloodhound<T> {
      * Returns a reference to Bloodhound and reverts window.Bloodhound to its 
      * previous value. Can be used to avoid naming collisions.
      */
-    public static noConflict(): any;
+    public static noConflict(): Bloodhound<any>;
 
     /**
      * The Bloodhound suggestion engine is token-based, so how datums and queries are tokenized plays a vital role in the quality of search results.
