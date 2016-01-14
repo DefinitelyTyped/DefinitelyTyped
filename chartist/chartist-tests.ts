@@ -318,3 +318,42 @@ new Chartist.Bar('.ct-chart', {
       position: 'end'
     }
   });
+
+new Chartist.Line('.ct-chart', {
+  labels: [1, 2, 3, 4, 5],
+  series: [[1, 2, 8, 1, 7]]
+}, {
+    lineSmooth: Chartist.Interpolation.none({
+      fillHoles: false
+    })
+  });
+
+new Chartist.Line('.ct-chart', {
+  labels: [1, 2, 3, 4, 5],
+  series: [[1, 2, 8, 1, 7]]
+}, {
+    lineSmooth: Chartist.Interpolation.simple({
+      divisor: 2,
+      fillHoles: false
+    })
+  });
+
+new Chartist.Line('.ct-chart', {
+  labels: [1, 2, 3, 4, 5],
+  series: [[1, 2, 8, 1, 7]]
+}, {
+    lineSmooth: Chartist.Interpolation.cardinal({
+      tension: 1,
+      fillHoles: false
+    })
+  });
+
+new Chartist.Line('.ct-chart', {
+  labels: [1, 2, 3, 4, 5],
+  series: [[1, 2, 8, 1, 7]]
+}, {
+    lineSmooth: Chartist.Interpolation.step({
+      postpone: true,
+      fillHoles: false
+    })
+  });
