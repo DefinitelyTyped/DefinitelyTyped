@@ -17,5 +17,7 @@ declare module "gulp-replace" {
     function replace(pattern: string, replacement: string | Replacer, opts?: Options): NodeJS.ReadWriteStream;
     function replace(pattern: RegExp, replacement: string | Replacer, opts?: Options): NodeJS.ReadWriteStream;
 
+    namespace replace {}
+
     export = replace;
 }
