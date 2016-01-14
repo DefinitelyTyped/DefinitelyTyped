@@ -8,6 +8,7 @@
 /// <reference path="../express/express.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../i18next-express-middleware/i18next-express-middleware.d.ts" />
+/// <reference path="../i18next-sprintf-postprocessor/i18next-sprintf-postprocessor.d.ts" />
 
 interface IResourceStore {
     [language: string]: IResourceStoreLanguage;
@@ -29,7 +30,11 @@ interface I18nTranslateOptions extends I18nextOptions {
     context?: any;
 }
 
-interface I18nextOptions {
+interface i18nextSprintfPostProcessorStatic {
+    overloadTranslationOptionHandler: any;
+}
+
+interface I18nextOptions extends i18nextSprintfPostProcessorStatic {
     lng?: string;                           // Default value: undefined
     load?: string;                          // Default value: 'all'
     preload?: string[];                     // Default value: []
@@ -77,6 +82,8 @@ interface I18nextOptions {
 
     // NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
     replace?: any;
+
+    overloadTranslationOptionHandler: (args: Array<any>) => void;
 }
 
 interface I18nextStatic {
