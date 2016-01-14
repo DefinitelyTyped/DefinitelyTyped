@@ -24,9 +24,9 @@ describe('UniversalAnalytics', () => {
         ga('send', 'pageview');
         ga('send', 'pageview', {some: 'details'});
         ga('send', 'event', 'Videos', 'play', 'Fall Campaign');
-	ga('send', {hitType: 'event', eventCategory: 'Videos', eventAction: 'play', eventLabel: 'Fall Campaign'});
-	ga('send', 'event', 'Videos', 'play', 'Fall Campaign', {nonInteraction: true});
-	ga('send', 'pageview', '/page');
+        ga('send', {hitType: 'event', eventCategory: 'Videos', eventAction: 'play', eventLabel: 'Fall Campaign'});
+        ga('send', 'event', 'Videos', 'play', 'Fall Campaign', {nonInteraction: true});
+        ga('send', 'pageview', '/page');
         ga('send', 'social', {'socialNetwork': 'facebook', 'socialAction': 'like', 'socialTarget': 'http://foo.com'});
         ga('send', 'social', {'socialNetwork': 'google+', 'socialAction': 'plus', 'socialTarget': 'http://foo.com'});
         ga('send', 'timing', {'timingCategory': 'category', 'timingVar': 'lookup', 'timingValue': 123});
