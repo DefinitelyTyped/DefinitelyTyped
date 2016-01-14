@@ -1,3 +1,8 @@
+// Type definitions for azure-sb
+// Project: https://github.com/Azure/azure-sdk-for-node/tree/master/lib/services/serviceBus
+// Definitions by: Microsoft Azure <https://github.com/Azure/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare module Azure.ServiceBus {
     interface Callback {
         (error: any, response: any): void;
