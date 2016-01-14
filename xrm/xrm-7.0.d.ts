@@ -1382,6 +1382,13 @@ declare module Xrm
              */
             setDisabled( disabled: boolean ): void;
 
+			/**
+             * Sets the focus on the control.
+             *
+             * @param   {boolean}   disabled    true to disable, false to enable.
+             */
+            setFocus(disabled: boolean): void;
+			
             /**
              * Sets a control-local notification message.
              *
