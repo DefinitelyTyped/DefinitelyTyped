@@ -1,4 +1,4 @@
-// Type definitions for typeahead.js 0.10.4
+// Type definitions for typeahead.js 0.11.1
 // Project: http://twitter.github.io/typeahead.js/
 // Definitions by: Ivaylo Gochkov <https://github.com/igochkov/>, Gidon Junge <https://github.com/gjunge/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -742,7 +742,7 @@ declare module Twitter.Typeahead {
       * where you want rendered suggestions to be grouped based on some sort of
       * categorical relationship that you'd need to use multiple datasets. For
       * example, on twitter.com, the search typeahead groups results into recent 
-      * searches, trends, and accounts – that would be a great use case for using 
+      * searches, trends, and accounts Â– that would be a great use case for using 
       * multiple datasets.
       */
     interface Dataset<T> {
@@ -908,7 +908,7 @@ declare module Bloodhound {
          * If set to false, the Bloodhound instance will not be implicitly 
          * initialized by the constructor function. Defaults to true.
          */
-        initialize: boolean;
+        initialize?: boolean;
         
         /**
          * Given a datum, returns a unique id for it. 
@@ -918,7 +918,7 @@ declare module Bloodhound {
          * @param datum Suggestion.
          * @returns Unique id for the suggestion.
          */
-        identify: (datum: T) => number;
+        identify?: (datum: T) => number;
 
         /**
          * If the number of datums provided from the internal search index is 
@@ -1014,7 +1014,7 @@ declare module Bloodhound {
          * @param response Prefetch response.
          * @returns Transform response.
          */
-        transform?: (response: JQueryPromise<T>) => JQueryPromise<T>;
+        transform?: (response: T[]) => T[];
     }
 
     /**
@@ -1068,7 +1068,7 @@ declare module Bloodhound {
          * @param response Prefetch response.
          * @returns Transform response.
          */
-        transform?: (response: JQueryPromise<T>) => JQueryPromise<T>;
+        transform?: (response: T[]) => T[];
     }
 
     /**
