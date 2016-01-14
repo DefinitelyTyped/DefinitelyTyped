@@ -4,7 +4,19 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module Chartist {
+
   interface ChartistStatic {
+
+    /**
+     * Precision level used internally in Chartist for rounding. If you require more decimal places you can increase this number.
+     */
+    precision: number;
+
+    /**
+     * A map with characters to escape for strings to be safely used as attribute values.
+     */
+    escapingMap: IChartistEscapeMap;
+
     Pie: IChartistPieChart;
     Bar: IChartistBarChart;
     Line: IChartistLineChart;
@@ -13,8 +25,34 @@ declare module Chartist {
     AutoScaleAxis: IAutoScaleAxisStatic;
     StepAxis: IStepAxisStatic;
 
-    Svg: any;
+    Svg: ChartistSvgStatic;
     noop: Function;
+
+    alphaNumerate(n: number): string;
+    extend(target: Object, sources: Object): Object;
+
+    replaceAll(str: string, subStr: string, newSubStr: string): string;
+    ensureUnit(value: number, unit: string): string;
+    quantity(input: string | number): Object;
+
+    query(query: Node | string): Node;
+    times(length: number): Array<any>;
+    sum(previous: number, current: number): number;
+    mapMultiply(factor: number): (num: number) => number;
+    mapAdd(addend: number): (num: number) => number;
+    serialMap(arr: Array<any>, cb: Function): Array<any>;
+    roundWithPrecision(value: number, digits?: number): number;
+
+    getMultiValue(value: any, dimension?: any): number; // this method is not documented, but it is used in the examples
+
+    serialize(data: Object | string | number): string;
+    deserialize(data: string): Object | string | number;
+
+    createSvg(container: Node, width: string, height: string, className: string): Object; // TODO: Figure out if this is returning a ChartistSVGWrapper or an actual SVGElement
+  }
+
+  interface IChartistEscapeMap {
+    [Key: string]: string;
   }
 
   interface IResponsiveOptionTuple<T extends IChartOptions> extends Array<string | T> {
@@ -34,16 +72,16 @@ declare module Chartist {
   // this definition gives some intellisense, but does not protect the user from misuse
   // TODO: come in and tidy this up and make it fit better
   interface IChartistData {
-      labels?: Array<string> | Array<number>;
-      series:  Array<IChartistSeriesData> | Array<number> |  Array<Array<number>>;
+    labels?: Array<string> | Array<number>;
+    series: Array<IChartistSeriesData> | Array<number> |  Array<Array<number>>;
   }
 
   interface IChartistSeriesData {
-      name?: string;
-      value?: number;
-      data?: Array<number>;
-      className?: string;
-      meta?: string; // I assume this could probably be a number as well?
+    name?: string;
+    value?: number;
+    data?: Array<number>;
+    className?: string;
+    meta?: string; // I assume this could probably be a number as well?
   }
 
   interface IChartistBase<T extends IChartOptions> {
@@ -287,7 +325,6 @@ declare module Chartist {
     type: IAutoScaleAxisStatic;
   }
 
-  // TODO: Finish documenting all of the defaults
   interface ILineChartClasses {
     /**
      * Default is 'ct-chart-line'
@@ -305,6 +342,167 @@ declare module Chartist {
     horizontal?: string;
     start?: string;
     end?: string;
+  }
+
+  interface ChartistSvgStatic {
+    new (name: HTMLElement | string, attributes: Object, className?: string, parent?: Object, insertFirst?: boolean): IChartistSvg;
+
+    Easing: ChartistEasingStatic;
+
+    /**
+     * This method checks for support of a given SVG feature like Extensibility, SVG-animation or the like. Check http://www.w3.org/TR/SVG11/feature for a detailed list.
+     */
+    isSupported(feature: string): boolean;
+  }
+
+  interface IChartistSvg {
+
+    /**
+     * Set attributes on the current SVG element of the wrapper you're currently working on.
+     */
+    attr(attributes: Object | string, ns: string): Object | string;
+
+    /**
+     * Create a new SVG element whose wrapper object will be selected for further operations. This way you can also create nested groups easily.
+     */
+    elem(name: string, attributes?: Object, className?: string, insertFirst?: boolean): IChartistSvg;
+
+    /**
+     * Returns the parent Chartist.SVG wrapper object
+     */
+    parent(): IChartistSvg;
+
+    /**
+     * This method returns a Chartist.Svg wrapper around the root SVG element of the current tree.
+     */
+    root(): IChartistSvg;
+
+    /**
+     * Find the first child SVG element of the current element that matches a CSS selector. The returned object is a Chartist.Svg wrapper.
+     */
+    querySelector(selector: string): IChartistSvg;
+
+    /**
+     * Find the all child SVG elements of the current element that match a CSS selector. The returned object is a Chartist.Svg.List wrapper.
+     */
+    querySelectorAll(selector: string): any; // this returns an svg wrapper list in the docs, need to see if that's just an array or a special list
+
+    /**
+     * This method creates a foreignObject (see https://developer.mozilla.org/en-US/docs/Web/SVG/Element/foreignObject) that allows to embed HTML content into a SVG graphic. With the help of foreignObjects you can enable the usage of regular HTML elements inside of SVG where they are subject for SVG positioning and transformation but the Browser will use the HTML rendering capabilities for the containing DOM.
+     */
+    foreignObject(content: any, attributes?: Object, className?: string, insertFirst?: boolean): IChartistSvg;
+
+    /**
+     * This method adds a new text element to the current Chartist.Svg wrapper.
+     */
+    text(t: string): IChartistSvg;
+
+    /**
+     * This method will clear all child nodes of the current wrapper object.
+     */
+    empty(): IChartistSvg;
+
+    /**
+     * This method will cause the current wrapper to remove itself from its parent wrapper. Use this method if you'd like to get rid of an element in a given DOM structure.
+     */
+    remove(): IChartistSvg;
+
+    /**
+     * This method will replace the element with a new element that can be created outside of the current DOM.
+     */
+    replace(): IChartistSvg;
+
+    /**
+     * This method will append an element to the current element as a child.
+     */
+    append(): IChartistSvg;
+
+    /**
+     * Returns an array of class names that are attached to the current wrapper element. This method can not be chained further.
+     */
+    classes(): Array<string>;
+
+    /**
+     * Adds one or a space separated list of classes to the current element and ensures the classes are only existing once.
+     *
+     * @method addClass
+     * @param names {string} A white space separated list of class names
+     */
+    addClass(names: string): IChartistSvg;
+
+    /**
+     * Removes one or a space separated list of classes from the current element.
+     *
+     * @method removeClass
+     * @param names {string} A white space separated list of class names
+     */
+    removeClass(names: string): IChartistSvg;
+
+    /**
+     * Removes all classes from the current element.
+     */
+    removeAllClasses(): IChartistSvg;
+
+    /**
+     * Get element height with fallback to svg BoundingBox or parent container dimensions
+     */
+    height(): number;
+
+    /**
+     * The animate function lets you animate the current element with SMIL animations. You can add animations for multiple attributes at the same time by using an animation definition object. This object should contain SMIL animation attributes.
+     */
+    animate(animations: IChartistAnimations, guided: boolean, eventEmitter: Object): IChartistSvg;
+
+    /**
+     * "Safe" way to get property value from svg BoundingBox. This is a workaround. Firefox throws an NS_ERROR_FAILURE error if getBBox() is called on an invisible node.
+     * THIS IS A WORKAROUND
+     */
+    getBBoxProperty(node: SVGElement, prop: string): string; // TODO: find a good example of this and add it to the tests, it might belong to static
+  }
+
+  interface IChartistAnimations {
+    [Key: string]: IChartistAnimationOptions;
+  }
+
+  interface IChartistAnimationOptions {
+    dur: String | number;
+    from: number;
+    to: number;
+    easing?: IChartistEasingDefinition | string;
+  }
+
+  interface IChartistEasingDefinition {
+    0: number;
+    1: number;
+    2: number;
+    3: number;
+  }
+
+  interface ChartistEasingStatic {
+    easeInSine: IChartistEasingDefinition;
+    easeOutSine: IChartistEasingDefinition;
+    easeInOutSine: IChartistEasingDefinition;
+    easeInQuad: IChartistEasingDefinition;
+    easeOutQuad: IChartistEasingDefinition;
+    easeInOutQuad: IChartistEasingDefinition;
+    easeInCubic: IChartistEasingDefinition;
+    easeOutCubic: IChartistEasingDefinition;
+    easeInOutCubic: IChartistEasingDefinition;
+    easeInQuart: IChartistEasingDefinition;
+    easeOutQuart: IChartistEasingDefinition;
+    easeInOutQuart: IChartistEasingDefinition;
+    easeInQuint: IChartistEasingDefinition;
+    easeOutQuint: IChartistEasingDefinition;
+    easeInOutQuint: IChartistEasingDefinition;
+    easeInExpo: IChartistEasingDefinition;
+    easeOutExpo: IChartistEasingDefinition;
+    easeInOutExpo: IChartistEasingDefinition;
+    easeInCirc: IChartistEasingDefinition;
+    easeOutCirc: IChartistEasingDefinition;
+    easeInOutCirc: IChartistEasingDefinition;
+    easeInBack: IChartistEasingDefinition;
+    easeOutBack: IChartistEasingDefinition;
+    easeInOutBack: IChartistEasingDefinition;
   }
 }
 
