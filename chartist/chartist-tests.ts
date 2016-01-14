@@ -84,7 +84,7 @@ var chart = new Chartist.Pie('.ct-chart', {
     showLabel: false
   });
 
-chart.on('draw', function(data: any) {
+chart.on('draw', (data: any) => {
   if (data.type === 'slice') {
     // Get the total path length in order to use for dash array animation
     var pathLength = data.element._node.getTotalLength();
@@ -95,7 +95,7 @@ chart.on('draw', function(data: any) {
     });
 
     // Create animation definition while also assigning an ID to the animation for later sync usage
-    var animationDefinition: any = {
+    var animationDefinition: Chartist.IChartistAnimations = {
       'stroke-dashoffset': {
         id: 'anim' + data.index,
         dur: 1000,
@@ -143,8 +143,8 @@ new Chartist.Bar('.ct-chart', {
     // Default mobile configuration
     stackBars: true,
     axisX: {
-      labelInterpolationFnc: function(value: string) {
-        return value.split(/\s+/).map(function(word: string) {
+      labelInterpolationFnc: (value: string) => {
+        return value.split(/\s+/).map((word: string) => {
           return word[0];
         }).join('');
       }

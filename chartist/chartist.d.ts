@@ -467,10 +467,13 @@ declare module Chartist {
   }
 
   interface IChartistAnimationOptions {
-    dur: String | number;
-    from: number;
-    to: number;
+    id?: string;
+    dur: string | number;
+    from: string | number;
+    to: string | number;
     easing?: IChartistEasingDefinition | string;
+    fill?: string;
+    begin?: string;
   }
 
   interface IChartistEasingDefinition {
@@ -512,22 +515,38 @@ declare module Chartist {
     /**
      * This interpolation function does not smooth the path and the result is only containing lines and no curves.
      */
-    none(options?: Object): Function;
+    none(options?: IChartistInterpolationOptions): Function;
 
     /**
      * Simple smoothing creates horizontal handles that are positioned with a fraction of the length between two data points. You can use the divisor option to specify the amount of smoothing.
      */
-    simple(options?: Object): Function;
+    simple(options?: IChartistSimpleInterpolationOptions): Function;
 
     /**
      * Cardinal / Catmull-Rome spline interpolation is the default smoothing function in Chartist. It produces nice results where the splines will always meet the points. It produces some artifacts though when data values are increased or decreased rapidly. The line may not follow a very accurate path and if the line should be accurate this smoothing function does not produce the best results.
      */
-    cardinal(options?: Object): Function;
+    cardinal(options?: IChartistCardinalInterpolationOptions): Function;
 
     /**
      * Step interpolation will cause the line chart to move in steps rather than diagonal or smoothed lines. This interpolation will create additional points that will also be drawn when the showPoint option is enabled.
      */
-    step(options?: Object): Function;
+    step(options?: IChartistStepInterpolationOptions): Function;
+  }
+
+  interface IChartistInterpolationOptions {
+    fillHoles?: boolean;
+  }
+
+  interface IChartistSimpleInterpolationOptions extends IChartistInterpolationOptions {
+    divisor?: number;
+  }
+
+  interface IChartistCardinalInterpolationOptions extends IChartistInterpolationOptions {
+    tension?: number;
+  }
+
+  interface IChartistStepInterpolationOptions extends IChartistInterpolationOptions {
+    postpone?: boolean;
   }
 }
 
