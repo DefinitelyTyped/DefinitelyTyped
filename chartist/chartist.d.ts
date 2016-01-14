@@ -26,6 +26,8 @@ declare module Chartist {
     StepAxis: IStepAxisStatic;
 
     Svg: ChartistSvgStatic;
+    Interpolation: ChartistInterpolationStatic;
+
     noop: Function;
 
     alphaNumerate(n: number): string;
@@ -281,7 +283,7 @@ declare module Chartist {
     showPoint?: boolean;
     showArea?: boolean;
     areaBase?: number;
-    lineSmooth?: boolean;
+    lineSmooth?: Function | boolean;
     low?: number;
     high?: number;
     ticks?: Array<string | number>;
@@ -503,6 +505,29 @@ declare module Chartist {
     easeInBack: IChartistEasingDefinition;
     easeOutBack: IChartistEasingDefinition;
     easeInOutBack: IChartistEasingDefinition;
+  }
+
+  interface ChartistInterpolationStatic {
+
+    /**
+     * This interpolation function does not smooth the path and the result is only containing lines and no curves.
+     */
+    none(options?: Object): Function;
+
+    /**
+     * Simple smoothing creates horizontal handles that are positioned with a fraction of the length between two data points. You can use the divisor option to specify the amount of smoothing.
+     */
+    simple(options?: Object): Function;
+
+    /**
+     * Cardinal / Catmull-Rome spline interpolation is the default smoothing function in Chartist. It produces nice results where the splines will always meet the points. It produces some artifacts though when data values are increased or decreased rapidly. The line may not follow a very accurate path and if the line should be accurate this smoothing function does not produce the best results.
+     */
+    cardinal(options?: Object): Function;
+
+    /**
+     * Step interpolation will cause the line chart to move in steps rather than diagonal or smoothed lines. This interpolation will create additional points that will also be drawn when the showPoint option is enabled.
+     */
+    step(options?: Object): Function;
   }
 }
 
