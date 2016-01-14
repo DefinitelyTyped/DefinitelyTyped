@@ -9,9 +9,12 @@
 declare module "i18next-sprintf-postprocessor" {
     import i18next = require("i18next");
 
-    export default interface i18nextSprintfPostProcessor {
+    interface i18nextSprintfPostProcessor {
+        (): any;
         process(value: any, key: string, options: Object): void;
         overloadTranslationOptionHandler(args: Array<any>): void;
     }
-    //export default function sprintf(): any;
+
+    var sprintf: i18nextSprintfPostProcessor;
+    export default sprintf;
 }
