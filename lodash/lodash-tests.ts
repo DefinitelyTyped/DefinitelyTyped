@@ -4451,19 +4451,16 @@ module TestSortBy {
 
         result = _.sortBy<TResult>(array);
         result = _.sortBy<TResult, number>(array, listIterator);
-        result = _.sortBy<TResult, number>(array, listIterator, any);
         result = _.sortBy<TResult>(array, '');
         result = _.sortBy<{a: number}, TResult>(array, {a: 42});
 
         result = _.sortBy<TResult>(list);
         result = _.sortBy<TResult, number>(list, listIterator);
-        result = _.sortBy<TResult, number>(list, listIterator, any);
         result = _.sortBy<TResult>(list, '');
         result = _.sortBy<{a: number}, TResult>(list, {a: 42});
 
         result = _.sortBy<TResult>(dictionary);
         result = _.sortBy<TResult, number>(dictionary, dictionaryIterator);
-        result = _.sortBy<TResult, number>(dictionary, dictionaryIterator, any);
         result = _.sortBy<TResult>(dictionary, '');
         result = _.sortBy<{a: number}, TResult>(dictionary, {a: 42});
     }
@@ -4473,19 +4470,16 @@ module TestSortBy {
 
         result = _(array).sortBy();
         result = _(array).sortBy<number>(listIterator);
-        result = _(array).sortBy<number>(listIterator, any);
         result = _(array).sortBy('');
         result = _(array).sortBy<{a: number}>({a: 42});
 
         result = _(list).sortBy<TResult>();
         result = _(list).sortBy<TResult, number>(listIterator);
-        result = _(list).sortBy<TResult, number>(listIterator, any);
         result = _(list).sortBy<TResult>('');
         result = _(list).sortBy<{a: number}, TResult>({a: 42});
 
         result = _(dictionary).sortBy<TResult>();
         result = _(dictionary).sortBy<TResult, number>(dictionaryIterator);
-        result = _(dictionary).sortBy<TResult, number>(dictionaryIterator, any);
         result = _(dictionary).sortBy<TResult>('');
         result = _(dictionary).sortBy<{a: number}, TResult>({a: 42});
     }
@@ -4495,89 +4489,27 @@ module TestSortBy {
 
         result = _(array).chain().sortBy();
         result = _(array).chain().sortBy<number>(listIterator);
-        result = _(array).chain().sortBy<number>(listIterator, any);
         result = _(array).chain().sortBy('');
         result = _(array).chain().sortBy<{a: number}>({a: 42});
 
         result = _(list).chain().sortBy<TResult>();
         result = _(list).chain().sortBy<TResult, number>(listIterator);
-        result = _(list).chain().sortBy<TResult, number>(listIterator, any);
         result = _(list).chain().sortBy<TResult>('');
         result = _(list).chain().sortBy<{a: number}, TResult>({a: 42});
 
         result = _(dictionary).chain().sortBy<TResult>();
         result = _(dictionary).chain().sortBy<TResult, number>(dictionaryIterator);
-        result = _(dictionary).chain().sortBy<TResult, number>(dictionaryIterator, any);
         result = _(dictionary).chain().sortBy<TResult>('');
         result = _(dictionary).chain().sortBy<{a: number}, TResult>({a: 42});
     }
 }
 
-// _.sortByAll
-module TestSortByAll {
-    type SampleObject = {a: number; b: string; c: boolean};
+result = <IStoogesAge[]>_.sortBy(stoogesAges, function(stooge) { return Math.sin(stooge.age); }, function(stooge) { return stooge.name.slice(1); });
+result = <IStoogesAge[]>_.sortBy(stoogesAges, ['name', 'age']);
+result = <IStoogesAge[]>_.sortBy(stoogesAges, 'name', function(stooge) { return Math.sin(stooge.age); });
 
-    let array: SampleObject[];
-    let list: _.List<SampleObject>;
-    let numericDictionary: _.NumericDictionary<SampleObject>;
-    let dictionary: _.Dictionary<SampleObject>;;
+result = <IFoodOrganic[]>_(foodsOrganic).sortBy('organic', (food) => food.name, { organic: true }).value();
 
-    {
-        let iteratees: (value: string) => any|((value: string) => any)[];
-        let result: string[];
-
-        result = _.sortByAll<string>('acbd', iteratees);
-    }
-
-    {
-        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[];
-        let result: SampleObject[];
-
-        result = _.sortByAll<{a: number}, SampleObject>(array, iteratees);
-        result = _.sortByAll<SampleObject>(array, iteratees);
-
-        result = _.sortByAll<{a: number}, SampleObject>(list, iteratees);
-        result = _.sortByAll<SampleObject>(list, iteratees);
-
-        result = _.sortByAll<{a: number}, SampleObject>(numericDictionary, iteratees);
-        result = _.sortByAll<SampleObject>(numericDictionary, iteratees);
-
-        result = _.sortByAll<{a: number}, SampleObject>(dictionary, iteratees);
-        result = _.sortByAll<SampleObject>(dictionary, iteratees);
-    }
-
-    {
-        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[];
-        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
-
-        result = _(array).sortByAll<{a: number}>(iteratees);
-
-        result = _(list).sortByAll<{a: number}, SampleObject>(iteratees);
-        result = _(list).sortByAll<SampleObject>(iteratees);
-
-        result = _(numericDictionary).sortByAll<{a: number}, SampleObject>(iteratees);
-        result = _(numericDictionary).sortByAll<SampleObject>(iteratees);
-
-        result = _(dictionary).sortByAll<{a: number}, SampleObject>(iteratees);
-        result = _(dictionary).sortByAll<SampleObject>(iteratees);
-    }
-
-    {
-        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[];
-        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
-
-        result = _(array).chain().sortByAll<{a: number}>(iteratees);
-
-        result = _(list).chain().sortByAll<{a: number}, SampleObject>(iteratees);
-        result = _(list).chain().sortByAll<SampleObject>(iteratees);
-
-        result = _(numericDictionary).chain().sortByAll<{a: number}, SampleObject>(iteratees);
-        result = _(numericDictionary).chain().sortByAll<SampleObject>(iteratees);
-
-        result = _(dictionary).chain().sortByAll<{a: number}, SampleObject>(iteratees);
-        result = _(dictionary).chain().sortByAll<SampleObject>(iteratees);
-    }
-}
 
 // _.orderBy
 module TestorderBy {
