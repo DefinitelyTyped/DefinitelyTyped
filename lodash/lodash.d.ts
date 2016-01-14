@@ -9212,13 +9212,38 @@ declare module _ {
     //_.eq
     interface LoDashStatic {
         /**
-         * @see _.isEqual
+         * Performs a [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+         * comparison between two values to determine if they are equivalent.
+         *
+         * @static
+         * @memberOf _
+         * @category Lang
+         * @param {*} value The value to compare.
+         * @param {*} other The other value to compare.
+         * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+         * @example
+         *
+         * var object = { 'user': 'fred' };
+         * var other = { 'user': 'fred' };
+         *
+         * _.eq(object, object);
+         * // => true
+         *
+         * _.eq(object, other);
+         * // => false
+         *
+         * _.eq('a', 'a');
+         * // => true
+         *
+         * _.eq('a', Object('a'));
+         * // => false
+         *
+         * _.eq(NaN, NaN);
+         * // => true
          */
         eq(
             value: any,
-            other: any,
-            customizer?: IsEqualCustomizer,
-            thisArg?: any
+            other: any
         ): boolean;
     }
 
@@ -9227,9 +9252,7 @@ declare module _ {
          * @see _.isEqual
          */
         eq(
-            other: any,
-            customizer?: IsEqualCustomizer,
-            thisArg?: any
+            other: any
         ): boolean;
     }
 
@@ -9238,9 +9261,7 @@ declare module _ {
          * @see _.isEqual
          */
         eq(
-            other: any,
-            customizer?: IsEqualCustomizer,
-            thisArg?: any
+            other: any
         ): LoDashExplicitWrapper<boolean>;
     }
 
@@ -9446,34 +9467,38 @@ declare module _ {
     }
 
     //_.isEqual
-    interface IsEqualCustomizer {
-        (value: any, other: any, indexOrKey?: number|string): boolean;
-    }
-
+    // TODO tests
     interface LoDashStatic {
         /**
-         * Performs a deep comparison between two values to determine if they are equivalent. If customizer is
-         * provided it’s invoked to compare values. If customizer returns undefined comparisons are handled by the
-         * method instead. The customizer is bound to thisArg and invoked with up to three arguments: (value, other
-         * [, index|key]).
+         * Performs a deep comparison between two values to determine if they are
+         * equivalent.
          *
-         * Note: This method supports comparing arrays, booleans, Date objects, numbers, Object objects, regexes,
-         * and strings. Objects are compared by their own, not inherited, enumerable properties. Functions and DOM
-         * nodes are not supported. Provide a customizer function to extend support for comparing other values.
+         * **Note:** This method supports comparing arrays, array buffers, booleans,
+         * date objects, error objects, maps, numbers, `Object` objects, regexes,
+         * sets, strings, symbols, and typed arrays. `Object` objects are compared
+         * by their own, not inherited, enumerable properties. Functions and DOM
+         * nodes are **not** supported.
          *
-         * @alias _.eq
+         * @static
+         * @memberOf _
+         * @category Lang
+         * @param {*} value The value to compare.
+         * @param {*} other The other value to compare.
+         * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+         * @example
          *
-         * @param value The value to compare.
-         * @param other The other value to compare.
-         * @param customizer The function to customize value comparisons.
-         * @param thisArg The this binding of customizer.
-         * @return Returns true if the values are equivalent, else false.
+         * var object = { 'user': 'fred' };
+         * var other = { 'user': 'fred' };
+         *
+         * _.isEqual(object, other);
+         * // => true
+         *
+         * object === other;
+         * // => false
          */
         isEqual(
             value: any,
-            other: any,
-            customizer?: IsEqualCustomizer,
-            thisArg?: any
+            other: any
         ): boolean;
     }
 
@@ -9482,9 +9507,7 @@ declare module _ {
          * @see _.isEqual
          */
         isEqual(
-            other: any,
-            customizer?: IsEqualCustomizer,
-            thisArg?: any
+            other: any
         ): boolean;
     }
 
@@ -9493,9 +9516,71 @@ declare module _ {
          * @see _.isEqual
          */
         isEqual(
+            other: any
+        ): LoDashExplicitWrapper<boolean>;
+    }
+
+    // _.isEqualWith
+    interface IsEqualCustomizer {
+        (value: any, other: any, indexOrKey?: number|string): boolean;
+    }
+
+    interface LoDashStatic {
+        /**
+         * This method is like `_.isEqual` except that it accepts `customizer` which is
+         * invoked to compare values. If `customizer` returns `undefined` comparisons are
+         * handled by the method instead. The `customizer` is invoked with up to seven arguments:
+         * (objValue, othValue [, index|key, object, other, stack]).
+         *
+         * @static
+         * @memberOf _
+         * @category Lang
+         * @param {*} value The value to compare.
+         * @param {*} other The other value to compare.
+         * @param {Function} [customizer] The function to customize comparisons.
+         * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+         * @example
+         *
+         * function isGreeting(value) {
+         *   return /^h(?:i|ello)$/.test(value);
+         * }
+         *
+         * function customizer(objValue, othValue) {
+         *   if (isGreeting(objValue) && isGreeting(othValue)) {
+         *     return true;
+         *   }
+         * }
+         *
+         * var array = ['hello', 'goodbye'];
+         * var other = ['hi', 'goodbye'];
+         *
+         * _.isEqualWith(array, other, customizer);
+         * // => true
+         */
+        isEqualWith(
+            value: any,
             other: any,
-            customizer?: IsEqualCustomizer,
-            thisArg?: any
+            customizer: IsEqualCustomizer
+        ): boolean;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isEqualWith
+         */
+        isEqualWith(
+            other: any,
+            customizer: IsEqualCustomizer
+        ): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isEqualWith
+         */
+        isEqualWith(
+            other: any,
+            customizer: IsEqualCustomizer
         ): LoDashExplicitWrapper<boolean>;
     }
 
