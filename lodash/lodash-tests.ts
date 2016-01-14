@@ -8289,6 +8289,38 @@ module TestKebabCase {
     }
 }
 
+// _.lowerCase
+module TestLowerCase {
+    {
+        let result: string;
+
+        result = _.lowerCase('Foo Bar');
+        result = _('Foo Bar').lowerCase();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('Foo Bar').chain().lowerCase();
+    }
+}
+
+// _.lowerFirst
+module TestLowerFirst {
+    {
+        let result: string;
+
+        result = _.lowerFirst('Foo Bar');
+        result = _('Foo Bar').lowerFirst();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('Foo Bar').chain().lowerFirst();
+    }
+}
+
 // _.pad
 module TestPad {
     {

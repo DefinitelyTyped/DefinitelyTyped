@@ -13078,6 +13078,79 @@ declare module _ {
         kebabCase(): LoDashExplicitWrapper<string>;
     }
 
+    //_.lowerCase
+    interface LoDashStatic {
+        /**
+         * Converts `string`, as space separated words, to lower case.
+         *
+         * @static
+         * @memberOf _
+         * @category String
+         * @param {string} [string=''] The string to convert.
+         * @returns {string} Returns the lower cased string.
+         * @example
+         *
+         * _.lowerCase('--Foo-Bar');
+         * // => 'foo bar'
+         *
+         * _.lowerCase('fooBar');
+         * // => 'foo bar'
+         *
+         * _.lowerCase('__FOO_BAR__');
+         * // => 'foo bar'
+         */
+        lowerCase(string?: string): string;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.lowerCase
+         */
+        lowerCase(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.lowerCase
+         */
+        lowerCase(): LoDashExplicitWrapper<string>;
+    }
+
+    //_.lowerFirst
+    interface LoDashStatic {
+        /**
+         * Converts the first character of `string` to lower case.
+         *
+         * @static
+         * @memberOf _
+         * @category String
+         * @param {string} [string=''] The string to convert.
+         * @returns {string} Returns the converted string.
+         * @example
+         *
+         * _.lowerFirst('Fred');
+         * // => 'fred'
+         *
+         * _.lowerFirst('FRED');
+         * // => 'fRED'
+         */
+        lowerFirst(string?: string): string;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.lowerFirst
+         */
+        lowerFirst(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.lowerFirst
+         */
+        lowerFirst(): LoDashExplicitWrapper<string>;
+    }
+
     //_.pad
     interface LoDashStatic {
         /**
