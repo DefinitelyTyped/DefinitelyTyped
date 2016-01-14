@@ -5,17 +5,20 @@
 
 
 /**
-# 4.0.0 Changelog (https://github.com/lodash/lodash/wiki/Changelog)
+### 4.0.0 Changelog (https://github.com/lodash/lodash/wiki/Changelog)
 
-TODO:
+#### TODO:
+misc:
 - [ ] Made _.forEach, _.forIn, _.forOwn, & _.times implicitly end a chain sequence
 - [ ] Removed thisArg params from most methods
 
+removed:
 - [x] Removed _.support
 - [x] Removed _.findWhere in favor of _.find with iteratee shorthand
 - [x] Removed _.where in favor of _.filter with iteratee shorthand
 - [x] Removed _.pluck in favor of _.map with iteratee shorthand
 
+renamed:
 - [x] Renamed _.first to _.head
 - [x] Renamed _.indexBy to _.keyBy
 - [x] Renamed _.invoke to _.invokeMap
@@ -28,6 +31,7 @@ TODO:
 - [x] Renamed _.trimLeft & _.trimRight to _.trimStart & _.trimEnd
 - [x] Renamed _.trunc to _.truncate
 
+split:
 - [x] Split _.indexOf & _.lastIndexOf into _.sortedIndexOf & _.sortedLastIndexOf
 - [x] Split _.max & _.min into _.maxBy & _.minBy
 - [x] Split _.omit & _.pick into _.omitBy & _.pickBy
@@ -36,6 +40,7 @@ TODO:
 - [x] Split _.sortedLastIndex into _.sortedLastIndexBy
 - [x] Split _.uniq into _.sortedUniq, _.sortedUniqBy, & _.uniqBy
 
+changes:
 - [ ] TODO remove _.sortBy duplicates
 - [x] Absorbed _.sortByAll into _.sortBy
 - [x] Changed the category of _.at to “Object”
@@ -10442,6 +10447,93 @@ declare module _ {
     /**********
      * Number *
      **********/
+
+    //_.subtract
+    interface LoDashStatic {
+        /**
+         * Subtract two numbers.
+         *
+         * @static
+         * @memberOf _
+         * @category Math
+         * @param {number} minuend The first number in a subtraction.
+         * @param {number} subtrahend The second number in a subtraction.
+         * @returns {number} Returns the difference.
+         * @example
+         *
+         * _.subtract(6, 4);
+         * // => 2
+         */
+        subtract(
+            minuend: number,
+            subtrahend: number
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.subtract
+         */
+        subtract(
+            subtrahend: number
+        ): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.subtract
+         */
+        subtract(
+            subtrahend: number
+        ): LoDashExplicitWrapper<number>;
+    }
+
+    //_.clamp
+    interface LoDashStatic {
+        /**
+         * Clamps `number` within the inclusive `lower` and `upper` bounds.
+         *
+         * @static
+         * @memberOf _
+         * @category Number
+         * @param {number} number The number to clamp.
+         * @param {number} [lower] The lower bound.
+         * @param {number} upper The upper bound.
+         * @returns {number} Returns the clamped number.
+         * @example
+         *
+         * _.clamp(-10, -5, 5);
+         * // => -5
+         *
+         * _.clamp(10, -5, 5);
+         * // => 5
+         */
+        clamp(
+            number: number,
+            lower: number,
+            upper: number
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.clamp
+         */
+        clamp(
+            lower: number,
+            upper: number
+        ): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.clamp
+         */
+        clamp(
+            lower: number,
+            upper: number
+        ): LoDashExplicitWrapper<number>;
+    }
 
     //_.inRange
     interface LoDashStatic {
