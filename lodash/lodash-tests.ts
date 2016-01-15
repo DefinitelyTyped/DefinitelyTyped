@@ -6368,6 +6368,27 @@ module TestIsString {
     }
 }
 
+// _.isSymbol
+module TestIsSymbol {
+    {
+        let result: boolean;
+
+        result = _.isSymbol(any);
+
+        result = _(1).isSymbol();
+        result = _<any>([]).isSymbol();
+        result = _({}).isSymbol();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isSymbol();
+        result = _<any>([]).chain().isSymbol();
+        result = _({}).chain().isSymbol();
+    }
+}
+
 // _.isTypedArray
 module TestIsTypedArray {
     {
