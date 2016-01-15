@@ -99,9 +99,9 @@ added 18 lang methods:
 - [ ] _.toString
 
 added 13 object methods:
-- [ ] _.assignIn
-- [ ] _.assignInWith
-- [ ] _.assignWith
+- [x] _.assignIn
+- [x] _.assignInWith
+- [x] _.assignWith
 - [ ] _.functionsIn
 - [ ] _.hasIn
 - [ ] _.invoke
@@ -13009,10 +13009,25 @@ declare module _ {
     //_.functions
     interface LoDashStatic {
         /**
-         * Creates an array of function property names from all enumerable properties, own and inherited, of object.
+         * Creates an array of function property names from own enumerable properties
+         * of `object`.
          *
-         * @param object The object to inspect.
-         * @return Returns the new array of property names.
+         * @static
+         * @memberOf _
+         * @category Object
+         * @param {Object} object The object to inspect.
+         * @returns {Array} Returns the new array of property names.
+         * @example
+         *
+         * function Foo() {
+         *   this.a = _.constant('a');
+         *   this.b = _.constant('b');
+         * }
+         *
+         * Foo.prototype.c = _.constant('c');
+         *
+         * _.functions(new Foo);
+         * // => ['a', 'b']
          */
         functions<T extends {}>(object: any): string[];
     }
@@ -13029,6 +13044,46 @@ declare module _ {
          * @see _.functions
          */
         functions(): _.LoDashExplicitArrayWrapper<string>;
+    }
+
+    //_.functionsIn
+    interface LoDashStatic {
+        /**
+         * Creates an array of function property names from own and inherited
+         * enumerable properties of `object`.
+         *
+         * @static
+         * @memberOf _
+         * @category Object
+         * @param {Object} object The object to inspect.
+         * @returns {Array} Returns the new array of property names.
+         * @example
+         *
+         * function Foo() {
+         *   this.a = _.constant('a');
+         *   this.b = _.constant('b');
+         * }
+         *
+         * Foo.prototype.c = _.constant('c');
+         *
+         * _.functionsIn(new Foo);
+         * // => ['a', 'b', 'c']
+         */
+        functionsIn<T extends {}>(object: any): string[];
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.functionsIn
+         */
+        functionsIn(): _.LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.functionsIn
+         */
+        functionsIn(): _.LoDashExplicitArrayWrapper<string>;
     }
 
     //_.get
