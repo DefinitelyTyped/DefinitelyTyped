@@ -9969,6 +9969,29 @@ module TestTimes {
     }
 }
 
+// _.toPath
+module TestToPath {
+   {
+       let result: string[];
+       result = _.toPath(true);
+       result = _.toPath(1);
+       result = _.toPath('a');
+       result = _.toPath(["a"]);
+       result = _.toPath({});
+   }
+
+   {
+       let result: _.LoDashImplicitWrapper<string[]>;
+
+       result = _(true).toPath();
+       result = _(1).toPath();
+       result = _('a').toPath();
+       result = _([1]).toPath();
+       result = _<string>(["a"]).toPath();
+       result = _({}).toPath();
+   }
+}
+
 // _.uniqueId
 module TestUniqueId {
     {
