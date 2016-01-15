@@ -33,7 +33,7 @@ osmtogeojson(xml, {
   uninterestingTags: {foo:true}
 });
 
-let json: OsmJSON.Root = {
+let json: OsmJSON.OsmJSONObject = {
   elements: [
     {
       type: "node",
