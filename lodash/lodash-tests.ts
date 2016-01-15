@@ -7051,40 +7051,30 @@ module TestAssign {
         let result: {a: number};
 
         result = _.assign<Obj, S1, {a: number}>(obj, s1);
-        result = _.assign<Obj, S1, {a: number}>(obj, s1, customizer);
-        result = _.assign<Obj, S1, {a: number}>(obj, s1, customizer, any);
     }
 
     {
         let result: {a: number, b: number};
 
         result = _.assign<Obj, S1, S2, {a: number, b: number}>(obj, s1, s2);
-        result = _.assign<Obj, S1, S2, {a: number, b: number}>(obj, s1, s2, customizer);
-        result = _.assign<Obj, S1, S2, {a: number, b: number}>(obj, s1, s2, customizer, any);
     }
 
     {
         let result: {a: number, b: number, c: number};
 
         result = _.assign<Obj, S1, S2, S3, {a: number, b: number, c: number}>(obj, s1, s2, s3);
-        result = _.assign<Obj, S1, S2, S3, {a: number, b: number, c: number}>(obj, s1, s2, s3, customizer);
-        result = _.assign<Obj, S1, S2, S3, {a: number, b: number, c: number}>(obj, s1, s2, s3, customizer, any);
     }
 
     {
         let result: {a: number, b: number, c: number, d: number};
 
         result = _.assign<Obj, S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(obj, s1, s2, s3, s4);
-        result = _.assign<Obj, S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(obj, s1, s2, s3, s4, customizer);
-        result = _.assign<Obj, S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(obj, s1, s2, s3, s4, customizer, any);
     }
 
     {
         let result: {a: number, b: number, c: number, d: number, e: number};
 
         result = _.assign<Obj, {a: number, b: number, c: number, d: number, e: number}>(obj, s1, s2, s3, s4, s5);
-        result = _.assign<Obj, {a: number, b: number, c: number, d: number, e: number}>(obj, s1, s2, s3, s4, s5, customizer);
-        result = _.assign<Obj, {a: number, b: number, c: number, d: number, e: number}>(obj, s1, s2, s3, s4, s5, customizer, any);
     }
 
     {
@@ -7097,40 +7087,30 @@ module TestAssign {
         let result: _.LoDashImplicitObjectWrapper<{a: number}>;
 
         result = _(obj).assign<S1, {a: number}>(s1);
-        result = _(obj).assign<S1, {a: number}>(s1, customizer);
-        result = _(obj).assign<S1, {a: number}>(s1, customizer, any);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<{a: number, b: number}>;
 
         result = _(obj).assign<S1, S2, {a: number, b: number}>(s1, s2);
-        result = _(obj).assign<S1, S2, {a: number, b: number}>(s1, s2, customizer);
-        result = _(obj).assign<S1, S2, {a: number, b: number}>(s1, s2, customizer, any);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<{a: number, b: number, c: number}>;
 
         result = _(obj).assign<S1, S2, S3, {a: number, b: number, c: number}>(s1, s2, s3);
-        result = _(obj).assign<S1, S2, S3, {a: number, b: number, c: number}>(s1, s2, s3, customizer);
-        result = _(obj).assign<S1, S2, S3, {a: number, b: number, c: number}>(s1, s2, s3, customizer, any);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<{a: number, b: number, c: number, d: number}>;
 
         result = _(obj).assign<S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(s1, s2, s3, s4);
-        result = _(obj).assign<S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(s1, s2, s3, s4, customizer);
-        result = _(obj).assign<S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(s1, s2, s3, s4, customizer, any);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<{a: number, b: number, c: number, d: number, e: number}>;
 
         result = _(obj).assign<{a: number, b: number, c: number, d: number, e: number}>(s1, s2, s3, s4, s5);
-        result = _(obj).assign<{a: number, b: number, c: number, d: number, e: number}>(s1, s2, s3, s4, s5, customizer);
-        result = _(obj).assign<{a: number, b: number, c: number, d: number, e: number}>(s1, s2, s3, s4, s5, customizer, any);
     }
 
     {
@@ -7143,40 +7123,142 @@ module TestAssign {
         let result: _.LoDashExplicitObjectWrapper<{a: number}>;
 
         result = _(obj).chain().assign<S1, {a: number}>(s1);
-        result = _(obj).chain().assign<S1, {a: number}>(s1, customizer);
-        result = _(obj).chain().assign<S1, {a: number}>(s1, customizer, any);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<{a: number, b: number}>;
 
         result = _(obj).chain().assign<S1, S2, {a: number, b: number}>(s1, s2);
-        result = _(obj).chain().assign<S1, S2, {a: number, b: number}>(s1, s2, customizer);
-        result = _(obj).chain().assign<S1, S2, {a: number, b: number}>(s1, s2, customizer, any);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<{a: number, b: number, c: number}>;
 
         result = _(obj).chain().assign<S1, S2, S3, {a: number, b: number, c: number}>(s1, s2, s3);
-        result = _(obj).chain().assign<S1, S2, S3, {a: number, b: number, c: number}>(s1, s2, s3, customizer);
-        result = _(obj).chain().assign<S1, S2, S3, {a: number, b: number, c: number}>(s1, s2, s3, customizer, any);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<{a: number, b: number, c: number, d: number}>;
 
         result = _(obj).chain().assign<S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(s1, s2, s3, s4);
-        result = _(obj).chain().assign<S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(s1, s2, s3, s4, customizer);
-        result = _(obj).chain().assign<S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(s1, s2, s3, s4, customizer, any);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<{a: number, b: number, c: number, d: number, e: number}>;
 
         result = _(obj).chain().assign<{a: number, b: number, c: number, d: number, e: number}>(s1, s2, s3, s4, s5);
-        result = _(obj).chain().assign<{a: number, b: number, c: number, d: number, e: number}>(s1, s2, s3, s4, s5, customizer);
-        result = _(obj).chain().assign<{a: number, b: number, c: number, d: number, e: number}>(s1, s2, s3, s4, s5, customizer, any);
+    }
+}
+
+// _.assignWith
+module TestAssignWith {
+    interface Obj {a: string};
+    interface S1 {a: number};
+    interface S2 {b: number};
+    interface S3 {c: number};
+    interface S4 {d: number};
+    interface S5 {e: number};
+
+    let obj: Obj;
+    let s1: S1;
+    let s2: S2;
+    let s3: S3;
+    let s4: S4;
+    let s5: S5;
+
+    let customizer: (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => any;
+
+    {
+        let result: Obj;
+
+        result = _.assignWith<Obj>(obj);
+    }
+
+    {
+        let result: {a: number};
+        result = _.assignWith<Obj, S1, {a: number}>(obj, s1, customizer);
+    }
+
+    {
+        let result: {a: number, b: number};
+        result = _.assignWith<Obj, S1, S2, {a: number, b: number}>(obj, s1, s2, customizer);
+    }
+
+    {
+        let result: {a: number, b: number, c: number};
+        result = _.assignWith<Obj, S1, S2, S3, {a: number, b: number, c: number}>(obj, s1, s2, s3, customizer);
+    }
+
+    {
+        let result: {a: number, b: number, c: number, d: number};
+        result = _.assignWith<Obj, S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(obj, s1, s2, s3, s4, customizer);
+    }
+
+    {
+        let result: {a: number, b: number, c: number, d: number, e: number};
+        result = _.assignWith<Obj, {a: number, b: number, c: number, d: number, e: number}>(obj, s1, s2, s3, s4, s5, customizer);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<Obj>;
+
+        result = _(obj).assignWith();
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<{a: number}>;
+        result = _(obj).assignWith<S1, {a: number}>(s1, customizer);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<{a: number, b: number}>;
+        result = _(obj).assignWith<S1, S2, {a: number, b: number}>(s1, s2, customizer);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<{a: number, b: number, c: number}>;
+        result = _(obj).assignWith<S1, S2, S3, {a: number, b: number, c: number}>(s1, s2, s3, customizer);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<{a: number, b: number, c: number, d: number}>;
+        result = _(obj).assignWith<S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(s1, s2, s3, s4, customizer);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<{a: number, b: number, c: number, d: number, e: number}>;
+        result = _(obj).assignWith<{a: number, b: number, c: number, d: number, e: number}>(s1, s2, s3, s4, s5, customizer);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<Obj>;
+
+        result = _(obj).chain().assignWith();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{a: number}>;
+        result = _(obj).chain().assignWith<S1, {a: number}>(s1, customizer);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{a: number, b: number}>;
+        result = _(obj).chain().assignWith<S1, S2, {a: number, b: number}>(s1, s2, customizer);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{a: number, b: number, c: number}>;
+        result = _(obj).chain().assignWith<S1, S2, S3, {a: number, b: number, c: number}>(s1, s2, s3, customizer);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{a: number, b: number, c: number, d: number}>;
+        result = _(obj).chain().assignWith<S1, S2, S3, S4, {a: number, b: number, c: number, d: number}>(s1, s2, s3, s4, customizer);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{a: number, b: number, c: number, d: number, e: number}>;
+        result = _(obj).chain().assignWith<{a: number, b: number, c: number, d: number, e: number}>(s1, s2, s3, s4, s5, customizer);
     }
 }
 
