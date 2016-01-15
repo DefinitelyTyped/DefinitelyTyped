@@ -8608,6 +8608,38 @@ module Testtruncate {
     }
 }
 
+// _.upperCase
+module TestUpperCase {
+    {
+        let result: string;
+
+        result = _.upperCase('fred, barney, &amp; pebbles');
+        result = _('fred, barney, &amp; pebbles').upperCase();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('fred, barney, &amp; pebbles').chain().upperCase();
+    }
+}
+
+// _.upperFirst
+module TestUpperFirst {
+    {
+        let result: string;
+
+        result = _.upperFirst('fred, barney, &amp; pebbles');
+        result = _('fred, barney, &amp; pebbles').upperFirst();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('fred, barney, &amp; pebbles').chain().upperFirst();
+    }
+}
+
 // _.unescape
 module TestUnescape {
     {
