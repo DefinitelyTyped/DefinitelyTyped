@@ -120,6 +120,8 @@ declare module "react-bootstrap" {
         eventKey?: any;
         header?: boolean;
         href?: string;
+        onClick?: Function;
+        onKeyDown?: Function;
         onSelect?: Function;
         target?: string;
         title?: string;
