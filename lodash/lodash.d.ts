@@ -82,9 +82,9 @@ added 18 lang methods:
 - [x] _.cloneDeepWith
 - [x] _.cloneWith
 - [ ] _.eq
-- [ ] _.isArrayLike
-- [ ] _.isArrayLikeObject
-- [ ] _.isEqualWith
+- [x] _.isArrayLike
+- [x] _.isArrayLikeObject
+- [x] _.isEqualWith
 - [ ] _.isInteger
 - [ ] _.isLength
 - [ ] _.isMatchWith
@@ -9554,7 +9554,6 @@ declare module _ {
     }
 
     //_.isEqual
-    // TODO tests
     interface LoDashStatic {
         /**
          * Performs a deep comparison between two values to determine if they are
@@ -9747,6 +9746,49 @@ declare module _ {
          * @see _.isFunction
          */
         isFunction(): LoDashExplicitWrapper<boolean>;
+    }
+
+    //_.isInteger
+    interface LoDashStatic {
+        /**
+         * Checks if `value` is an integer.
+         *
+         * **Note:** This method is based on [`Number.isInteger`](https://mdn.io/Number/isInteger).
+         *
+         * @static
+         * @memberOf _
+         * @category Lang
+         * @param {*} value The value to check.
+         * @returns {boolean} Returns `true` if `value` is an integer, else `false`.
+         * @example
+         *
+         * _.isInteger(3);
+         * // => true
+         *
+         * _.isInteger(Number.MIN_VALUE);
+         * // => false
+         *
+         * _.isInteger(Infinity);
+         * // => false
+         *
+         * _.isInteger('3');
+         * // => false
+         */
+        isInteger(value?: any): boolean;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isInteger
+         */
+        isInteger(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isInteger
+         */
+        isInteger(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isMatch
