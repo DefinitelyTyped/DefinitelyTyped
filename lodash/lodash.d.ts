@@ -102,8 +102,8 @@ added 13 object methods:
 - [x] _.assignIn
 - [x] _.assignInWith
 - [x] _.assignWith
-- [ ] _.functionsIn
-- [ ] _.hasIn
+- [x] _.functionsIn
+- [x] _.hasIn
 - [ ] _.invoke
 - [ ] _.mergeWith
 - [x] _.omitBy
@@ -13114,11 +13114,30 @@ declare module _ {
     //_.has
     interface LoDashStatic {
         /**
-         * Checks if path is a direct property.
+         * Checks if `path` is a direct property of `object`.
          *
-         * @param object The object to query.
-         * @param path The path to check.
-         * @return Returns true if path is a direct property, else false.
+         * @static
+         * @memberOf _
+         * @category Object
+         * @param {Object} object The object to query.
+         * @param {Array|string} path The path to check.
+         * @returns {boolean} Returns `true` if `path` exists, else `false`.
+         * @example
+         *
+         * var object = { 'a': { 'b': { 'c': 3 } } };
+         * var other = _.create({ 'a': _.create({ 'b': _.create({ 'c': 3 }) }) });
+         *
+         * _.has(object, 'a');
+         * // => true
+         *
+         * _.has(object, 'a.b.c');
+         * // => true
+         *
+         * _.has(object, ['a', 'b', 'c']);
+         * // => true
+         *
+         * _.has(other, 'a');
+         * // => false
          */
         has<T extends {}>(
             object: T,
@@ -13138,6 +13157,53 @@ declare module _ {
          * @see _.has
          */
         has(path: StringRepresentable|StringRepresentable[]): LoDashExplicitWrapper<boolean>;
+    }
+
+    //_.hasIn
+    interface LoDashStatic {
+        /**
+         * Checks if `path` is a direct or inherited property of `object`.
+         *
+         * @static
+         * @memberOf _
+         * @category Object
+         * @param {Object} object The object to query.
+         * @param {Array|string} path The path to check.
+         * @returns {boolean} Returns `true` if `path` exists, else `false`.
+         * @example
+         *
+         * var object = _.create({ 'a': _.create({ 'b': _.create({ 'c': 3 }) }) });
+         *
+         * _.hasIn(object, 'a');
+         * // => true
+         *
+         * _.hasIn(object, 'a.b.c');
+         * // => true
+         *
+         * _.hasIn(object, ['a', 'b', 'c']);
+         * // => true
+         *
+         * _.hasIn(object, 'b');
+         * // => false
+         */
+        hasIn<T extends {}>(
+            object: T,
+            path: StringRepresentable|StringRepresentable[]
+        ): boolean;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.hasIn
+         */
+        hasIn(path: StringRepresentable|StringRepresentable[]): boolean;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.hasIn
+         */
+        hasIn(path: StringRepresentable|StringRepresentable[]): LoDashExplicitWrapper<boolean>;
     }
 
     //_.invert
