@@ -6151,6 +6151,27 @@ module TestIsNative {
     }
 }
 
+// _.isNil
+module TestIsNil {
+    {
+        let result: boolean;
+
+        result = _.isNil(any);
+
+        result = _(1).isNil();
+        result = _<any>([]).isNil();
+        result = _({}).isNil();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isNil();
+        result = _<any>([]).chain().isNil();
+        result = _({}).chain().isNil();
+    }
+}
+
 // _.isNull
 module TestIsNull {
     {
