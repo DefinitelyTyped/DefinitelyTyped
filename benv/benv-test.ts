@@ -20,6 +20,6 @@ afterEach(function() {
 describe('app.js', function() {
   it('renders Wat', function() {
     require('../client/app.js');
-    $('body').html().should.include('Wat!?');
+    $('body').html().should.containEql('Wat!?');
   });
 });
