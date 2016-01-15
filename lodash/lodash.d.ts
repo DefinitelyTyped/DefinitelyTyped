@@ -9971,6 +9971,44 @@ declare module _ {
         isNative(): LoDashExplicitWrapper<boolean>;
     }
 
+    //_.isNil
+    interface LoDashStatic {
+        /**
+         * Checks if `value` is `null` or `undefined`.
+         *
+         * @static
+         * @memberOf _
+         * @category Lang
+         * @param {*} value The value to check.
+         * @returns {boolean} Returns `true` if `value` is nullish, else `false`.
+         * @example
+         *
+         * _.isNil(null);
+         * // => true
+         *
+         * _.isNil(void 0);
+         * // => true
+         *
+         * _.isNil(NaN);
+         * // => false
+         */
+        isNil(value?: any): boolean;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * see _.isNil
+         */
+        isNil(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * see _.isNil
+         */
+        isNil(): LoDashExplicitWrapper<boolean>;
+    }
+
     //_.isNull
     interface LoDashStatic {
         /**
