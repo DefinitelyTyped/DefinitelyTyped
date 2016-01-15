@@ -8222,6 +8222,36 @@ module TestHas {
     }
 }
 
+// _.hasIn
+module TestHasIn {
+    type SampleObject = {a: number; b: string; c: boolean;};
+
+    let object: SampleObject;
+
+    {
+        let result: boolean;
+
+        result = _.hasIn<SampleObject>(object, '');
+        result = _.hasIn<SampleObject>(object, 42);
+        result = _.hasIn<SampleObject>(object, true);
+        result = _.hasIn<SampleObject>(object, ['', 42, true]);
+
+        result = _(object).hasIn('');
+        result = _(object).hasIn(42);
+        result = _(object).hasIn(true);
+        result = _(object).hasIn(['', 42, true]);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(object).chain().hasIn('');
+        result = _(object).chain().hasIn(42);
+        result = _(object).chain().hasIn(true);
+        result = _(object).chain().hasIn(['', 42, true]);
+    }
+}
+
 // _.invert
 module TestInvert {
     {
