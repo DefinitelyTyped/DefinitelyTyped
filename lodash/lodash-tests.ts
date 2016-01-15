@@ -6316,6 +6316,27 @@ module TestIsRegExp {
     }
 }
 
+// _.isSafeInteger
+module TestIsSafeInteger {
+    {
+        let result: boolean;
+
+        result = _.isSafeInteger(any);
+
+        result = _(1).isSafeInteger();
+        result = _<any>([]).isSafeInteger();
+        result = _({}).isSafeInteger();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isSafeInteger();
+        result = _<any>([]).chain().isSafeInteger();
+        result = _({}).chain().isSafeInteger();
+    }
+}
+
 // _.isString
 module TestIsString {
     {
