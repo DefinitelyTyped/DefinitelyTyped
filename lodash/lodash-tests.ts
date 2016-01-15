@@ -5916,8 +5916,6 @@ module TestIsEqual {
     {
         let result: _.LoDashExplicitWrapper<boolean>;
 
-
-
         result = _(any).chain().isEqual(any);
     }
 }
@@ -6033,6 +6031,27 @@ module TestIsFunction {
         result = _(1).chain().isFunction();
         result = _<any>([]).chain().isFunction();
         result = _({}).chain().isFunction();
+    }
+}
+
+// _.isInteger
+module TestIsInteger {
+    {
+        let result: boolean;
+
+        result = _.isInteger(any);
+
+        result = _(1).isInteger();
+        result = _<any>([]).isInteger();
+        result = _({}).isInteger();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isInteger();
+        result = _<any>([]).chain().isInteger();
+        result = _({}).chain().isInteger();
     }
 }
 
