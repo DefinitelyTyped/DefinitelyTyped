@@ -71,7 +71,7 @@ declare module UniversalAnalytics {
             timingCategory: string, timingVar: string, timingValue: number): void;
         (command: 'send', hitType: 'timing',
             fieldsObject: {timingCategory: string, timingVar: string, timingValue: number}): void;
-        (command: 'send', hitType: HitType, ...fields: any): void;
+        (command: 'send', hitType: HitType, ...fields: any[]): void;
         (command: 'send', fieldsObject: {}): void;
         
         (command: string, hitDetails: {}): void;
