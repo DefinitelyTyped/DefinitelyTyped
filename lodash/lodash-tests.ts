@@ -6523,21 +6523,50 @@ module TestToArray {
 
 // _.toPlainObject
 module TestToPlainObject {
-    let result: TResult;
 
-    result = _.toPlainObject<TResult>();
-    result = _.toPlainObject<TResult>(true);
-    result = _.toPlainObject<TResult>(1);
-    result = _.toPlainObject<TResult>('a');
-    result = _.toPlainObject<TResult>([]);
-    result = _.toPlainObject<TResult>({});
+    {
+        let result: TResult;
+        result = _.toPlainObject<TResult>();
+        result = _.toPlainObject<TResult>(true);
+        result = _.toPlainObject<TResult>(1);
+        result = _.toPlainObject<TResult>('a');
+        result = _.toPlainObject<TResult>([]);
+        result = _.toPlainObject<TResult>({});
+    }
 
-    result = _(true).toPlainObject<TResult>().value();
-    result = _(1).toPlainObject<TResult>().value();
-    result = _('a').toPlainObject<TResult>().value();
-    result = _([1]).toPlainObject<TResult>().value();
-    result = _<string>([]).toPlainObject<TResult>().value();
-    result = _({}).toPlainObject<TResult>().value();
+    {
+        let result: _.LoDashImplicitObjectWrapper<TResult>;
+
+        result = _(true).toPlainObject<TResult>();
+        result = _(1).toPlainObject<TResult>();
+        result = _('a').toPlainObject<TResult>();
+        result = _([1]).toPlainObject<TResult>();
+        result = _<string>([]).toPlainObject<TResult>();
+        result = _({}).toPlainObject<TResult>();
+    }
+}
+
+// _.toInteger
+module TestToInteger {
+   {
+       let result: number;
+       result = _.toInteger(true);
+       result = _.toInteger(1);
+       result = _.toInteger('a');
+       result = _.toInteger([]);
+       result = _.toInteger({});
+   }
+
+   {
+       let result: _.LoDashImplicitWrapper<number>;
+
+       result = _(true).toInteger();
+       result = _(1).toInteger();
+       result = _('a').toInteger();
+       result = _([1]).toInteger();
+       result = _<string>([]).toInteger();
+       result = _({}).toInteger();
+   }
 }
 
 /********
