@@ -10519,6 +10519,133 @@ declare module _ {
         toInteger(): LoDashExplicitWrapper<number>;
     }
 
+    //_.toLength
+    interface LoDashStatic {
+        /**
+         * Converts `value` to an integer suitable for use as the length of an
+         * array-like object.
+         *
+         * **Note:** This method is based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
+         *
+         * @static
+         * @memberOf _
+         * @category Lang
+         * @param {*} value The value to convert.
+         * @return {number} Returns the converted integer.
+         * @example
+         *
+         * _.toLength(3);
+         * // => 3
+         *
+         * _.toLength(Number.MIN_VALUE);
+         * // => 0
+         *
+         * _.toLength(Infinity);
+         * // => 4294967295
+         *
+         * _.toLength('3');
+         * // => 3
+         */
+        toLength(value: any): number;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.toLength
+         */
+        toLength(): LoDashImplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.toLength
+         */
+        toLength(): LoDashExplicitWrapper<number>;
+    }
+
+    //_.toNumber
+    interface LoDashStatic {
+        /**
+         * Converts `value` to a number.
+         *
+         * @static
+         * @memberOf _
+         * @category Lang
+         * @param {*} value The value to process.
+         * @returns {number} Returns the number.
+         * @example
+         *
+         * _.toNumber(3);
+         * // => 3
+         *
+         * _.toNumber(Number.MIN_VALUE);
+         * // => 5e-324
+         *
+         * _.toNumber(Infinity);
+         * // => Infinity
+         *
+         * _.toNumber('3');
+         * // => 3
+         */
+        toNumber(value: any): number;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.toNumber
+         */
+        toNumber(): LoDashImplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.toNumber
+         */
+        toNumber(): LoDashExplicitWrapper<number>;
+    }
+
+    //_.toSafeInteger
+    interface LoDashStatic {
+        /**
+         * Converts `value` to a safe integer. A safe integer can be compared and
+         * represented correctly.
+         *
+         * @static
+         * @memberOf _
+         * @category Lang
+         * @param {*} value The value to convert.
+         * @returns {number} Returns the converted integer.
+         * @example
+         *
+         * _.toSafeInteger(3);
+         * // => 3
+         *
+         * _.toSafeInteger(Number.MIN_VALUE);
+         * // => 0
+         *
+         * _.toSafeInteger(Infinity);
+         * // => 9007199254740991
+         *
+         * _.toSafeInteger('3');
+         * // => 3
+         */
+        toSafeInteger(value: any): number;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.toSafeInteger
+         */
+        toSafeInteger(): LoDashImplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.toSafeInteger
+         */
+        toSafeInteger(): LoDashExplicitWrapper<number>;
+    }
+
     /********
      * Math *
      ********/
