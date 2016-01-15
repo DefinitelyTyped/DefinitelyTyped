@@ -56,7 +56,7 @@ declare module UniversalAnalytics {
             eventValue?: number,
             nonInteraction?: boolean}): void;
         (command: 'send', fieldsObject: {
-            hitType: 'event',
+            hitType: string, // 'event'
             eventCategory: string,
             eventAction: string,
             eventLabel?: string,
