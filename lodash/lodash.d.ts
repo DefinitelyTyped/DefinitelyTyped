@@ -10251,6 +10251,41 @@ declare module _ {
         isString(): LoDashExplicitWrapper<boolean>;
     }
 
+    //_.isSymbol
+    interface LoDashStatic {
+        /**
+         * Checks if `value` is classified as a `Symbol` primitive or object.
+         *
+         * @static
+         * @memberOf _
+         * @category Lang
+         * @param {*} value The value to check.
+         * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+         * @example
+         *
+         * _.isSymbol(Symbol.iterator);
+         * // => true
+         *
+         * _.isSymbol('abc');
+         * // => false
+         */
+        isSymbol(value: any): boolean;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * see _.isSymbol
+         */
+        isSymbol(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * see _.isSymbol
+         */
+        isSymbol(): LoDashExplicitWrapper<boolean>;
+    }
+
     //_.isTypedArray
     interface LoDashStatic {
         /**
