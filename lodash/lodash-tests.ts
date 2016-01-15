@@ -8152,6 +8152,31 @@ module TestFunctions {
     }
 }
 
+// _.functionsIn
+module TestFunctionsIn {
+    type SampleObject = {a: number; b: string; c: boolean;};
+
+    let object: SampleObject;
+
+    {
+        let result: string[];
+
+        result = _.functionsIn<SampleObject>(object);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _(object).functionsIn();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _(object).chain().functionsIn();
+    }
+}
+
 // _.get
 result = <number>_.get<number>({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c');
 
