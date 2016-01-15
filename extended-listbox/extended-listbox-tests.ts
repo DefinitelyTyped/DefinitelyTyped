@@ -4,33 +4,43 @@
 var $test = $("#test");
 
 // Create Listbox with defaults
-var rootElement: any = $test.listbox();
+var instance: ExtendedListboxInstance = <ExtendedListboxInstance>$test.listbox();
 
 
 // Create with options
 var options = <ListBoxOptions>{};
 options.multiple = true;
-options.onItemsChanged = (items: ListboxItem[]): void => {
-    console.log(items);
-};
+options.searchBar = false;
+options.searchBarWatermark = "Search";
+options.searchBarButton = { icon: "fa fa-search", visible: true, onClick: function () { alert(); } };
 options.getItems = function (): any[] {
     return ["Test1"];
 };
-options.searchBar = false;
-options.searchBarWatermark = "Search";
-options.onFilterChanged = (filter): void => {
-    console.log(filter);
+options.onItemsChanged = (event: ListboxEvent): void => {
+    console.log(event.eventName);
+    console.log(event.args);
+    console.log(event.target);
 };
-options.onValueChanged = function (value: any): void {
-    console.log(value);
+options.onFilterChanged = (event: ListboxEvent): void => {
+    console.log(event.args);
 };
-options.searchBarButton = { icon: "fa fa-search", visible: true, onClick: function () { alert(); } };
+options.onValueChanged = function (event: ListboxEvent): void {
+    console.log(event.args);
+};
+options.onItemDoubleClicked = function (event: ListboxEvent): void {
+    console.log(event.args);
+};
+options.onItemEnterPressed = function (event: ListboxEvent): void {
+    console.log(event.args);
+};
 
-rootElement = $test.listbox(options);
+instance = <ExtendedListboxInstance>$test.listbox(options);
 
+
+/////// NEW API ///////
 
 // Add string item
-rootElement.listbox("addItem", "Test2");
+var id = instance.addItem("Test2");
 
 
 // Add item
@@ -42,36 +52,128 @@ item.groupHeader = false;
 item.id = "ouetioreit";
 item.index = 0;
 item.text = "Test3";
-var id: string = rootElement.listbox("addItem", item);
+id = instance.addItem(item);
 
 
 // Remove item
-rootElement.listbox("removeItem", id);
+instance.removeItem(id);
 
 
 // Get item
-var i: ListboxItem = rootElement.listbox("getItem", id);
+var i: ListboxItem = instance.getItem(id);
 
 
 // Get items
-var allItems: ListboxItem[] = rootElement.listbox("getItems");
+var allItems: ListboxItem[] = instance.getItems();
+
+// Get selected items
+var allItems: ListboxItem[] = instance.getSelection();
 
 
 // Move item up
-var newIndex: number = rootElement.listbox("moveItemUp", i.id);
+var newIndex: number = instance.moveItemUp(i.id);
 
 
 // Move item down
-newIndex = rootElement.listbox("moveItemDown", i.id);
+newIndex = instance.moveItemDown(i.id);
+
+
+// Move item to top
+var newIndex: number = instance.moveItemToTop(i.id);
+
+
+// Move item to bottom
+newIndex = instance.moveItemToBottom(i.id);
 
 
 // Clear selection
-newIndex = rootElement.listbox("clearSelection");
+instance.clearSelection();
 
 
 // Enable
-newIndex = rootElement.listbox("enable", false);
+instance.enable(false);
 
 
 // Destroy
-newIndex = rootElement.listbox("destroy");
+instance.destroy();
+
+
+// onValueChanged
+instance.onValueChanged((event: ListboxEvent) => {
+    console.log(event.args);
+});
+
+
+// onItemsChanged
+instance.onItemsChanged((event: ListboxEvent) => {
+    console.log(event.args);
+});
+
+
+// onFilterChanged
+instance.onFilterChanged((event: ListboxEvent) => {
+    console.log(event.args);
+});
+
+
+// onItemEnterPressed
+instance.onItemEnterPressed((event: ListboxEvent) => {
+    console.log(event.args);
+});
+
+
+// onItemDoubleClicked
+instance.onItemDoubleClicked((event: ListboxEvent) => {
+    console.log(event.args);
+});
+
+
+
+/////// LEGACY API ///////
+
+// Add string item
+instance.target.listbox("addItem", "Test2");
+
+
+// Add item
+var item: ListboxItem = <ListboxItem>{};
+item.selected = true;
+item.disabled = false;
+item.childItems = ["Test4"];
+item.groupHeader = false;
+item.id = "ouetioreit";
+item.index = 0;
+item.text = "Test3";
+var id: string = instance.target.listbox("addItem", item);
+
+
+// Remove item
+instance.target.listbox("removeItem", id);
+
+
+// Get item
+var i: ListboxItem = instance.target.listbox("getItem", id);
+
+
+// Get items
+var allItems: ListboxItem[] = instance.target.listbox("getItems");
+
+
+// Move item up
+var newIndex: number = instance.target.listbox("moveItemUp", i.id);
+
+
+// Move item down
+newIndex = instance.target.listbox("moveItemDown", i.id);
+
+
+// Clear selection
+instance.target.listbox("clearSelection");
+
+
+// Enable
+instance.target.listbox("enable", false);
+
+
+// Destroy
+instance.target.listbox("destroy");
