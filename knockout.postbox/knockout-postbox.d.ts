@@ -11,6 +11,10 @@ interface KnockoutPostBox {
     defaultComparer<T>(newValue: T, oldValue: T): boolean;
     serializer: (object: any) => string;
     reset(): void;
+    topicCache: {[topic: string]: {
+        value: any;
+        serialized: string;
+    }};
 }
 
 interface KnockoutObservable<T> {
