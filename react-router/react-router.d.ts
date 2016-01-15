@@ -45,6 +45,7 @@ declare namespace ReactRouter {
         route?: PlainRoute
         routeParams?: R
         routes?: PlainRoute[]
+        children?: React.ReactElement<any>
     }
 
     type RouteComponents = { [key: string]: RouteComponent }
