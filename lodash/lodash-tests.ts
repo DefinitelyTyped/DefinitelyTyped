@@ -8516,6 +8516,38 @@ module TestTemplate {
     }
 }
 
+// _.toLower
+module TestToLower {
+    {
+        let result: string;
+
+        result = _.toLower('fred, barney, &amp; pebbles');
+        result = _('fred, barney, &amp; pebbles').toLower();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('fred, barney, &amp; pebbles').chain().toLower();
+    }
+}
+
+// _.toUpper
+module TestToUpper {
+    {
+        let result: string;
+
+        result = _.toUpper('fred, barney, &amp; pebbles');
+        result = _('fred, barney, &amp; pebbles').toUpper();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('fred, barney, &amp; pebbles').chain().toUpper();
+    }
+}
+
 // _.trim
 module TestTrim {
     {

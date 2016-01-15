@@ -13473,6 +13473,82 @@ declare module _ {
         template(options?: TemplateOptions): LoDashExplicitObjectWrapper<TemplateExecutor>;
     }
 
+    //_.toLower
+    interface LoDashStatic {
+        /**
+         * Converts `string`, as a whole, to lower case.
+         *
+         * @static
+         * @memberOf _
+         * @category String
+         * @param {string} [string=''] The string to convert.
+         * @returns {string} Returns the lower cased string.
+         * @example
+         *
+         * _.toLower('--Foo-Bar');
+         * // => '--foo-bar'
+         *
+         * _.toLower('fooBar');
+         * // => 'foobar'
+         *
+         * _.toLower('__FOO_BAR__');
+         * // => '__foo_bar__'
+         */
+        toLower(string?: string): string;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.toLower
+         */
+        toLower(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.toLower
+         */
+        toLower(): LoDashExplicitWrapper<string>;
+    }
+
+    //_.toUpper
+    interface LoDashStatic {
+        /**
+         * Converts `string`, as a whole, to upper case.
+         *
+         * @static
+         * @memberOf _
+         * @category String
+         * @param {string} [string=''] The string to convert.
+         * @returns {string} Returns the upper cased string.
+         * @example
+         *
+         * _.toUpper('--foo-bar');
+         * // => '--FOO-BAR'
+         *
+         * _.toUpper('fooBar');
+         * // => 'FOOBAR'
+         *
+         * _.toUpper('__foo_bar__');
+         * // => '__FOO_BAR__'
+         */
+        toUpper(string?: string): string;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.toUpper
+         */
+        toUpper(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.toUpper
+         */
+        toUpper(): LoDashExplicitWrapper<string>;
+    }
+
     //_.trim
     interface LoDashStatic {
         /**
