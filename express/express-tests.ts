@@ -21,7 +21,25 @@ app.get('/', function(req, res){
     res.send('hello world');
 });
 
-var router = express.Router();
+const router = express.Router();
+
+
+const pathStr : string = 'test';
+const pathRE : RegExp = /test/;
+const path = true? pathStr : pathRE;
+
+router.get(path);
+router.put(path)
+router.post(path);
+router.delete(path);
+router.get(pathStr);
+router.put(pathStr)
+router.post(pathStr);
+router.delete(pathStr);
+router.get(pathRE);
+router.put(pathRE)
+router.post(pathRE);
+router.delete(pathRE);
 
 router.use((req, res, next) => { next(); })
 router.route('/users')
