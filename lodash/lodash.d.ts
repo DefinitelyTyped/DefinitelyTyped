@@ -81,21 +81,21 @@ added 23 array methods:
 added 18 lang methods:
 - [x] _.cloneDeepWith
 - [x] _.cloneWith
-- [ ] _.eq
+- [x] _.eq
 - [x] _.isArrayLike
 - [x] _.isArrayLikeObject
 - [x] _.isEqualWith
-- [ ] _.isInteger
-- [ ] _.isLength
-- [ ] _.isMatchWith
-- [ ] _.isNil
-- [ ] _.isObjectLike
-- [ ] _.isSafeInteger
-- [ ] _.isSymbol
-- [ ] _.toInteger
-- [ ] _.toLength
-- [ ] _.toNumber
-- [ ] _.toSafeInteger
+- [x] _.isInteger
+- [x] _.isLength
+- [x] _.isMatchWith
+- [x] _.isNil
+- [x] _.isObjectLike
+- [x] _.isSafeInteger
+- [x] _.isSymbol
+- [x] _.toInteger
+- [x] _.toLength
+- [x] _.toNumber
+- [x] _.toSafeInteger
 - [ ] _.toString
 
 added 13 object methods:
@@ -106,8 +106,8 @@ added 13 object methods:
 - [ ] _.hasIn
 - [ ] _.invoke
 - [ ] _.mergeWith
-- [ ] _.omitBy
-- [ ] _.pickBy
+- [x] _.omitBy
+- [x] _.pickBy
 - [ ] _.setWith
 - [ ] _.toPairs
 - [ ] _.toPairsIn
@@ -11472,32 +11472,40 @@ declare module _ {
      **********/
 
     //_.assign
-    interface AssignCustomizer {
-        (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}): any;
-    }
-
     interface LoDashStatic {
         /**
-         * Assigns own enumerable properties of source object(s) to the destination object. Subsequent sources
-         * overwrite property assignments of previous sources. If customizer is provided it’s invoked to produce the
-         * assigned values. The customizer is bound to thisArg and invoked with five arguments:
-         * (objectValue, sourceValue, key, object, source).
+         * Assigns own enumerable properties of source objects to the destination
+         * object. Source objects are applied from left to right. Subsequent sources
+         * overwrite property assignments of previous sources.
          *
-         * Note: This method mutates object and is based on Object.assign.
+         * **Note:** This method mutates `object` and is loosely based on
+         * [`Object.assign`](https://mdn.io/Object/assign).
          *
-         * @alias _.extend
+         * @static
+         * @memberOf _
+         * @category Object
+         * @param {Object} object The destination object.
+         * @param {...Object} [sources] The source objects.
+         * @returns {Object} Returns `object`.
+         * @example
          *
-         * @param object The destination object.
-         * @param source The source objects.
-         * @param customizer The function to customize assigned values.
-         * @param thisArg The this binding of callback.
-         * @return The destination object.
+         * function Foo() {
+         *   this.c = 3;
+         * }
+         *
+         * function Bar() {
+         *   this.e = 5;
+         * }
+         *
+         * Foo.prototype.d = 4;
+         * Bar.prototype.f = 6;
+         *
+         * _.assign({ 'a': 1 }, new Foo, new Bar);
+         * // => { 'a': 1, 'c': 3, 'e': 5 }
          */
         assign<TObject extends {}, TSource extends {}, TResult extends {}>(
             object: TObject,
-            source: TSource,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            source: TSource
         ): TResult;
 
         /**
@@ -11506,9 +11514,7 @@ declare module _ {
         assign<TObject extends {}, TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
             object: TObject,
             source1: TSource1,
-            source2: TSource2,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            source2: TSource2
         ): TResult;
 
         /**
@@ -11518,9 +11524,7 @@ declare module _ {
             object: TObject,
             source1: TSource1,
             source2: TSource2,
-            source3: TSource3,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            source3: TSource3
         ): TResult;
 
         /**
@@ -11533,9 +11537,7 @@ declare module _ {
             source1: TSource1,
             source2: TSource2,
             source3: TSource3,
-            source4: TSource4,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            source4: TSource4
         ): TResult;
 
         /**
@@ -11556,9 +11558,7 @@ declare module _ {
          * @see _.assign
          */
         assign<TSource extends {}, TResult extends {}>(
-            source: TSource,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            source: TSource
         ): LoDashImplicitObjectWrapper<TResult>;
 
         /**
@@ -11566,9 +11566,7 @@ declare module _ {
          */
         assign<TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
             source1: TSource1,
-            source2: TSource2,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            source2: TSource2
         ): LoDashImplicitObjectWrapper<TResult>;
 
         /**
@@ -11577,9 +11575,7 @@ declare module _ {
         assign<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TResult extends {}>(
             source1: TSource1,
             source2: TSource2,
-            source3: TSource3,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            source3: TSource3
         ): LoDashImplicitObjectWrapper<TResult>;
 
         /**
@@ -11589,9 +11585,7 @@ declare module _ {
             source1: TSource1,
             source2: TSource2,
             source3: TSource3,
-            source4: TSource4,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            source4: TSource4
         ): LoDashImplicitObjectWrapper<TResult>;
 
         /**
@@ -11610,9 +11604,7 @@ declare module _ {
          * @see _.assign
          */
         assign<TSource extends {}, TResult extends {}>(
-            source: TSource,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            source: TSource
         ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
@@ -11620,9 +11612,7 @@ declare module _ {
          */
         assign<TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
             source1: TSource1,
-            source2: TSource2,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            source2: TSource2
         ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
@@ -11631,9 +11621,7 @@ declare module _ {
         assign<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TResult extends {}>(
             source1: TSource1,
             source2: TSource2,
-            source3: TSource3,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            source3: TSource3
         ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
@@ -11643,9 +11631,7 @@ declare module _ {
             source1: TSource1,
             source2: TSource2,
             source3: TSource3,
-            source4: TSource4,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            source4: TSource4
         ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
@@ -11658,6 +11644,194 @@ declare module _ {
          */
         assign<TResult extends {}>(...otherArgs: any[]): LoDashExplicitObjectWrapper<TResult>;
     }
+
+    //_.assignWith
+    interface AssignCustomizer {
+        (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}): any;
+    }
+
+    interface LoDashStatic {
+        /**
+         * This method is like `_.assign` except that it accepts `customizer` which
+         * is invoked to produce the assigned values. If `customizer` returns `undefined`
+         * assignment is handled by the method instead. The `customizer` is invoked
+         * with five arguments: (objValue, srcValue, key, object, source).
+         *
+         * **Note:** This method mutates `object`.
+         *
+         * @static
+         * @memberOf _
+         * @category Object
+         * @param {Object} object The destination object.
+         * @param {...Object} sources The source objects.
+         * @param {Function} [customizer] The function to customize assigned values.
+         * @returns {Object} Returns `object`.
+         * @example
+         *
+         * function customizer(objValue, srcValue) {
+         *   return _.isUndefined(objValue) ? srcValue : objValue;
+         * }
+         *
+         * var defaults = _.partialRight(_.assignWith, customizer);
+         *
+         * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
+         * // => { 'a': 1, 'b': 2 }
+         */
+        assignWith<TObject extends {}, TSource extends {}, TResult extends {}>(
+            object: TObject,
+            source: TSource,
+            customizer: AssignCustomizer
+        ): TResult;
+
+        /**
+         * @see assignWith
+         */
+        assignWith<TObject extends {}, TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            customizer: AssignCustomizer
+        ): TResult;
+
+        /**
+         * @see assignWith
+         */
+        assignWith<TObject extends {}, TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TResult extends {}>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: AssignCustomizer
+        ): TResult;
+
+        /**
+         * @see assignWith
+         */
+        assignWith<TObject extends {}, TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TSource4 extends {},
+            TResult extends {}>
+        (
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: AssignCustomizer
+        ): TResult;
+
+        /**
+         * @see _.assignWith
+         */
+        assignWith<TObject extends {}>(object: TObject): TObject;
+
+        /**
+         * @see _.assignWith
+         */
+        assignWith<TObject extends {}, TResult extends {}>(
+            object: TObject, ...otherArgs: any[]
+        ): TResult;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.assignWith
+         */
+        assignWith<TSource extends {}, TResult extends {}>(
+            source: TSource,
+            customizer: AssignCustomizer
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see assignWith
+         */
+        assignWith<TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
+            source1: TSource1,
+            source2: TSource2,
+            customizer: AssignCustomizer
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see assignWith
+         */
+        assignWith<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TResult extends {}>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: AssignCustomizer
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see assignWith
+         */
+        assignWith<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TSource4 extends {}, TResult extends {}>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: AssignCustomizer
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.assignWith
+         */
+        assignWith(): LoDashImplicitObjectWrapper<T>;
+
+        /**
+         * @see _.assignWith
+         */
+        assignWith<TResult extends {}>(...otherArgs: any[]): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.assignWith
+         */
+        assignWith<TSource extends {}, TResult extends {}>(
+            source: TSource,
+            customizer: AssignCustomizer
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see assignWith
+         */
+        assignWith<TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
+            source1: TSource1,
+            source2: TSource2,
+            customizer: AssignCustomizer
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see assignWith
+         */
+        assignWith<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TResult extends {}>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: AssignCustomizer
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see assignWith
+         */
+        assignWith<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TSource4 extends {}, TResult extends {}>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: AssignCustomizer
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.assignWith
+         */
+        assignWith(): LoDashExplicitObjectWrapper<T>;
+
+        /**
+         * @see _.assignWith
+         */
+        assignWith<TResult extends {}>(...otherArgs: any[]): LoDashExplicitObjectWrapper<TResult>;
+    }
+
+
 
     //_.create
     interface LoDashStatic {
