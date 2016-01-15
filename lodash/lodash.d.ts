@@ -114,12 +114,12 @@ added 13 object methods:
 - [ ] _.unset
 
 added 8 string methods:
-- [ ] _.lowerCase
-- [ ] _.lowerFirst
+- [x] _.lowerCase
+- [x] _.lowerFirst
 - [ ] _.replace
 - [ ] _.split
-- [ ] _.upperCase
-- [ ] _.upperFirst
+- [x] _.upperCase
+- [x] _.upperFirst
 - [ ] _.toLower
 - [ ] _.toUpper
 
@@ -13597,6 +13597,79 @@ declare module _ {
          * @see _.truncate
          */
         truncate(options?: TruncateOptions|number): LoDashExplicitWrapper<string>;
+    }
+
+    //_.upperCase
+    interface LoDashStatic {
+        /**
+         * Converts `string`, as space separated words, to upper case.
+         *
+         * @static
+         * @memberOf _
+         * @category String
+         * @param {string} [string=''] The string to convert.
+         * @returns {string} Returns the upper cased string.
+         * @example
+         *
+         * _.upperCase('--foo-bar');
+         * // => 'FOO BAR'
+         *
+         * _.upperCase('fooBar');
+         * // => 'FOO BAR'
+         *
+         * _.upperCase('__foo_bar__');
+         * // => 'FOO BAR'
+         */
+        upperCase(string?: string): string;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.upperCase
+         */
+        upperCase(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.upperCase
+         */
+        upperCase(): LoDashExplicitWrapper<string>;
+    }
+
+    //_.upperFirst
+    interface LoDashStatic {
+        /**
+         * Converts the first character of `string` to upper case.
+         *
+         * @static
+         * @memberOf _
+         * @category String
+         * @param {string} [string=''] The string to convert.
+         * @returns {string} Returns the converted string.
+         * @example
+         *
+         * _.upperFirst('fred');
+         * // => 'Fred'
+         *
+         * _.upperFirst('FRED');
+         * // => 'FRED'
+         */
+        upperFirst(string?: string): string;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.upperFirst
+         */
+        upperFirst(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.upperFirst
+         */
+        upperFirst(): LoDashExplicitWrapper<string>;
     }
 
     //_.unescape
