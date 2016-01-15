@@ -74,6 +74,7 @@ declare module UniversalAnalytics {
         (command: 'send', hitType: HitType, ...fields: any[]): void;
         (command: 'send', fieldsObject: {}): void;
         
+        (command: string, hitType: string, ...fields: any[]): void;
         (command: string, hitDetails: {}): void;
         (command: string, poly: string, opt_poly?: {}): UniversalAnalytics.Tracker;
         (command: string, trackingId: string, auto: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
