@@ -131,7 +131,7 @@ added 8 utility methods:
 - [ ] _.overEvery
 - [ ] _.overSome
 - [ ] _.rangeRight
-- [ ] _.toPath
+- [x] _.toPath
 
 added 4 math methods:
 - [x] _.maxBy
@@ -15751,6 +15751,77 @@ declare module _ {
          * @see _.range
          */
         range(
+            end?: number,
+            step?: number
+        ): LoDashExplicitArrayWrapper<number>;
+    }
+
+    //_.rangeRight
+    interface LoDashStatic {
+        /**
+         * This method is like `_.range` except that it populates values in
+         * descending order.
+         *
+         * @static
+         * @memberOf _
+         * @category Util
+         * @param {number} [start=0] The start of the range.
+         * @param {number} end The end of the range.
+         * @param {number} [step=1] The value to increment or decrement by.
+         * @returns {Array} Returns the new array of numbers.
+         * @example
+         *
+         * _.rangeRight(4);
+         * // => [3, 2, 1, 0]
+         *
+         * _.rangeRight(-4);
+         * // => [-3, -2, -1, 0]
+         *
+         * _.rangeRight(1, 5);
+         * // => [4, 3, 2, 1]
+         *
+         * _.rangeRight(0, 20, 5);
+         * // => [15, 10, 5, 0]
+         *
+         * _.rangeRight(0, -4, -1);
+         * // => [-3, -2, -1, 0]
+         *
+         * _.rangeRight(1, 4, 0);
+         * // => [1, 1, 1]
+         *
+         * _.rangeRight(0);
+         * // => []
+         */
+        rangeRight(
+            start: number,
+            end: number,
+            step?: number
+        ): number[];
+
+        /**
+         * @see _.rangeRight
+         */
+        rangeRight(
+            end: number,
+            step?: number
+        ): number[];
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.rangeRight
+         */
+        rangeRight(
+            end?: number,
+            step?: number
+        ): LoDashImplicitArrayWrapper<number>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.rangeRight
+         */
+        rangeRight(
             end?: number,
             step?: number
         ): LoDashExplicitArrayWrapper<number>;

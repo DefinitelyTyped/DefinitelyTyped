@@ -9917,6 +9917,33 @@ module TestRange {
     }
 }
 
+// _.rangeRight
+module TestRangeRight {
+    {
+        let result: number[];
+
+        result = _.rangeRight(10);
+        result = _.rangeRight(1, 11);
+        result = _.rangeRight(0, 30, 5);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<number>;
+
+        result = _(10).rangeRight();
+        result = _(1).rangeRight(11);
+        result = _(0).rangeRight(30, 5);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<number>;
+
+        result = _(10).chain().rangeRight();
+        result = _(1).chain().rangeRight(11);
+        result = _(0).chain().rangeRight(30, 5);
+    }
+}
+
 // _.runInContext
 {
     let result: typeof _;
