@@ -9841,24 +9841,82 @@ declare module _ {
 
     interface LoDashStatic {
         /**
-         * Performs a deep comparison between object and source to determine if object contains equivalent property
-         * values. If customizer is provided it’s invoked to compare values. If customizer returns undefined
-         * comparisons are handled by the method instead. The customizer is bound to thisArg and invoked with three
-         * arguments: (value, other, index|key).
-         * @param object The object to inspect.
-         * @param source The object of property values to match.
-         * @param customizer The function to customize value comparisons.
-         * @param thisArg The this binding of customizer.
-         * @return Returns true if object is a match, else false.
+         * Performs a deep comparison between `object` and `source` to determine if
+         * `object` contains equivalent property values.
+         *
+         * **Note:** This method supports comparing the same values as `_.isEqual`.
+         *
+         * @static
+         * @memberOf _
+         * @category Lang
+         * @param {Object} object The object to inspect.
+         * @param {Object} source The object of property values to match.
+         * @returns {boolean} Returns `true` if `object` is a match, else `false`.
+         * @example
+         *
+         * var object = { 'user': 'fred', 'age': 40 };
+         *
+         * _.isMatch(object, { 'age': 40 });
+         * // => true
+         *
+         * _.isMatch(object, { 'age': 36 });
+         * // => false
          */
-        isMatch(object: Object, source: Object, customizer?: isMatchCustomizer, thisArg?: any): boolean;
+        isMatch(object: Object, source: Object): boolean;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.isMatch
          */
-        isMatch(source: Object, customizer?: isMatchCustomizer, thisArg?: any): boolean;
+        isMatch(source: Object): boolean;
+    }
+
+    //_.isMatchWith
+    interface isMatchWithCustomizer {
+        (value: any, other: any, indexOrKey?: number|string): boolean;
+    }
+
+    interface LoDashStatic {
+        /**
+         * This method is like `_.isMatch` except that it accepts `customizer` which
+         * is invoked to compare values. If `customizer` returns `undefined` comparisons
+         * are handled by the method instead. The `customizer` is invoked with three
+         * arguments: (objValue, srcValue, index|key, object, source).
+         *
+         * @static
+         * @memberOf _
+         * @category Lang
+         * @param {Object} object The object to inspect.
+         * @param {Object} source The object of property values to match.
+         * @param {Function} [customizer] The function to customize comparisons.
+         * @returns {boolean} Returns `true` if `object` is a match, else `false`.
+         * @example
+         *
+         * function isGreeting(value) {
+         *   return /^h(?:i|ello)$/.test(value);
+         * }
+         *
+         * function customizer(objValue, srcValue) {
+         *   if (isGreeting(objValue) && isGreeting(srcValue)) {
+         *     return true;
+         *   }
+         * }
+         *
+         * var object = { 'greeting': 'hello' };
+         * var source = { 'greeting': 'hi' };
+         *
+         * _.isMatchWith(object, source, customizer);
+         * // => true
+         */
+        isMatchWith(object: Object, source: Object, customizer: isMatchWithCustomizer): boolean;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.isMatchWith
+         */
+        isMatchWith(source: Object, customizer: isMatchWithCustomizer): boolean;
     }
 
     //_.isNaN

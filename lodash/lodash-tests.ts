@@ -6077,13 +6077,26 @@ module TestIsLength {
 }
 
 // _.isMatch
-var testIsMatchCustiomizerFn: (value: any, other: any, indexOrKey: number|string) => boolean;
-result = <boolean>_.isMatch({}, {});
-result = <boolean>_.isMatch({}, {}, testIsMatchCustiomizerFn);
-result = <boolean>_.isMatch({}, {}, testIsMatchCustiomizerFn, {});
-result = <boolean>_({}).isMatch({});
-result = <boolean>_({}).isMatch({}, testIsMatchCustiomizerFn);
-result = <boolean>_({}).isMatch({}, testIsMatchCustiomizerFn, {});
+module TestIsMatch {
+    let testIsMatchCustiomizerFn: (value: any, other: any, indexOrKey: number|string) => boolean;
+
+    let result: boolean;
+
+    result = <boolean>_.isMatch({}, {});
+    result = <boolean>_({}).isMatch({});
+}
+
+
+// _.isMatchWith
+module TestIsMatchWith {
+    let testIsMatchCustiomizerFn: (value: any, other: any, indexOrKey: number|string) => boolean;
+
+    let result: boolean;
+
+    result = <boolean>_.isMatchWith({}, {}, testIsMatchCustiomizerFn);
+    result = <boolean>_({}).isMatchWith({}, testIsMatchCustiomizerFn);
+
+}
 
 // _.isNaN
 module TestIsNaN {
