@@ -6245,6 +6245,26 @@ module TestIsObject {
     }
 }
 
+// _.isObjectLike
+module TestIsObjectLike {
+    {
+        let result: boolean;
+
+        result = _.isObjectLike(any);
+        result = _(1).isObjectLike();
+        result = _<any>([]).isObjectLike();
+        result = _({}).isObjectLike();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isObjectLike();
+        result = _<any>([]).chain().isObjectLike();
+        result = _({}).chain().isObjectLike();
+    }
+}
+
 // _.isPlainObject
 module TestIsPlainObject {
     {
