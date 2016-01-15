@@ -3,10 +3,10 @@
 /// <reference path="../gulp-rev/gulp-rev.d.ts" />
 /// <reference path="../gulp-useref/gulp-useref.d.ts" />
 
-import gulp = require('gulp');
-import revReplace = require('gulp-rev-replace');
-import rev = require('gulp-rev');
-import useref = require('gulp-useref');
+import * as gulp from 'gulp';
+import * as revReplace from 'gulp-rev-replace';
+import * as rev from 'gulp-rev';
+import * as useref from 'gulp-useref';
 
 gulp.task("index", () => {
     return gulp.src("src/index.html")

@@ -5,8 +5,8 @@
 
 declare module "osmtogeojson" {
   export interface OsmToGeoJSON {
-    (data: Document|OsmJSON.Root, options?: Options): GeoJSON.GeoJSONObject;
-    toGeojson(data: Document|OsmJSON.Root, options?: Options): GeoJSON.GeoJSONObject;
+    (data: Document|OsmJSON.OsmJSONObject, options?: Options): GeoJSON.GeoJSONObject;
+    toGeojson(data: Document|OsmJSON.OsmJSONObject, options?: Options): GeoJSON.GeoJSONObject;
   }
 
   export interface Options {
@@ -54,11 +54,11 @@ declare module "osmtogeojson" {
   }
 
   export namespace OsmJSON {
-    export interface Root {
+    export interface OsmJSONObject {
       elements: (Node|Way|Relationship)[];
     }
 
-    export interface OsmJSONObject {
+    export interface Element {
       type: string;
       id: number;
       tags?: { [name: string]: string; }
@@ -69,16 +69,16 @@ declare module "osmtogeojson" {
       uid?: number;
     }
 
-    export interface Node extends OsmJSONObject {
+    export interface Node extends Element {
       lat: number;
       lon: number;
     }
 
-    export interface Way extends OsmJSONObject {
+    export interface Way extends Element {
       nodes: number[];
     }
 
-    export interface Relationship extends OsmJSONObject {
+    export interface Relationship extends Element {
       members: Member[];
     }
 
