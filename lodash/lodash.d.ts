@@ -9791,6 +9791,49 @@ declare module _ {
         isInteger(): LoDashExplicitWrapper<boolean>;
     }
 
+    //_.isLength
+    interface LoDashStatic {
+        /**
+         * Checks if `value` is a valid array-like length.
+         *
+         * **Note:** This function is loosely based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
+         *
+         * @static
+         * @memberOf _
+         * @category Lang
+         * @param {*} value The value to check.
+         * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+         * @example
+         *
+         * _.isLength(3);
+         * // => true
+         *
+         * _.isLength(Number.MIN_VALUE);
+         * // => false
+         *
+         * _.isLength(Infinity);
+         * // => false
+         *
+         * _.isLength('3');
+         * // => false
+         */
+        isLength(value?: any): boolean;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isLength
+         */
+        isLength(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isLength
+         */
+        isLength(): LoDashExplicitWrapper<boolean>;
+    }
+
     //_.isMatch
     interface isMatchCustomizer {
         (value: any, other: any, indexOrKey?: number|string): boolean;
