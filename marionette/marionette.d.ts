@@ -348,6 +348,10 @@ declare module Marionette {
          */
         empty(): any;
 
+        /**
+         * @returns view that this region has.
+         */
+        currentView: Backbone.View<Backbone.Model>;
     }
 
     interface RegionDefaults {
