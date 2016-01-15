@@ -6569,6 +6569,75 @@ module TestToInteger {
    }
 }
 
+// _.toLength
+module TestToLength {
+   {
+       let result: number;
+       result = _.toLength(true);
+       result = _.toLength(1);
+       result = _.toLength('a');
+       result = _.toLength([]);
+       result = _.toLength({});
+   }
+
+   {
+       let result: _.LoDashImplicitWrapper<number>;
+
+       result = _(true).toLength();
+       result = _(1).toLength();
+       result = _('a').toLength();
+       result = _([1]).toLength();
+       result = _<string>([]).toLength();
+       result = _({}).toLength();
+   }
+}
+
+// _.toNumber
+module TestToNumber {
+   {
+       let result: number;
+       result = _.toNumber(true);
+       result = _.toNumber(1);
+       result = _.toNumber('a');
+       result = _.toNumber([]);
+       result = _.toNumber({});
+   }
+
+   {
+       let result: _.LoDashImplicitWrapper<number>;
+
+       result = _(true).toNumber();
+       result = _(1).toNumber();
+       result = _('a').toNumber();
+       result = _([1]).toNumber();
+       result = _<string>([]).toNumber();
+       result = _({}).toNumber();
+   }
+}
+
+// _.toSafeInteger
+module TestToSafeInteger {
+   {
+       let result: number;
+       result = _.toSafeInteger(true);
+       result = _.toSafeInteger(1);
+       result = _.toSafeInteger('a');
+       result = _.toSafeInteger([]);
+       result = _.toSafeInteger({});
+   }
+
+   {
+       let result: _.LoDashImplicitWrapper<number>;
+
+       result = _(true).toSafeInteger();
+       result = _(1).toSafeInteger();
+       result = _('a').toSafeInteger();
+       result = _([1]).toSafeInteger();
+       result = _<string>([]).toSafeInteger();
+       result = _({}).toSafeInteger();
+   }
+}
+
 /********
  * Math *
  ********/
