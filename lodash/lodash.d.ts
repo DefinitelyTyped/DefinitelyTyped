@@ -120,8 +120,8 @@ added 8 string methods:
 - [ ] _.split
 - [x] _.upperCase
 - [x] _.upperFirst
-- [ ] _.toLower
-- [ ] _.toUpper
+- [x] _.toLower
+- [x] _.toUpper
 
 added 8 utility methods:
 - [ ] _.cond
@@ -9371,6 +9371,93 @@ declare module _ {
          * @see _.isArray
          */
         isArray(): LoDashExplicitWrapper<boolean>;
+    }
+
+    //_.isArrayLike
+    interface LoDashStatic {
+        /**
+         * Checks if `value` is array-like. A value is considered array-like if it's
+         * not a function and has a `value.length` that's an integer greater than or
+         * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+         *
+         * @static
+         * @memberOf _
+         * @type Function
+         * @category Lang
+         * @param {*} value The value to check.
+         * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+         * @example
+         *
+         * _.isArrayLike([1, 2, 3]);
+         * // => true
+         *
+         * _.isArrayLike(document.body.children);
+         * // => true
+         *
+         * _.isArrayLike('abc');
+         * // => true
+         *
+         * _.isArrayLike(_.noop);
+         * // => false
+         */
+        isArrayLike<T>(value?: any): value is T[];
+    }
+
+    interface LoDashImplicitWrapperBase<T,TWrapper> {
+        /**
+         * @see _.isArrayLike
+         */
+        isArrayLike(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T,TWrapper> {
+        /**
+         * @see _.isArrayLike
+         */
+        isArrayLike(): LoDashExplicitWrapper<boolean>;
+    }
+
+    //_.isArrayLikeObject
+    interface LoDashStatic {
+        /**
+         * This method is like `_.isArrayLike` except that it also checks if `value`
+         * is an object.
+         *
+         * @static
+         * @memberOf _
+         * @type Function
+         * @category Lang
+         * @param {*} value The value to check.
+         * @returns {boolean} Returns `true` if `value` is an array-like object, else `false`.
+         * @example
+         *
+         * _.isArrayLikeObject([1, 2, 3]);
+         * // => true
+         *
+         * _.isArrayLikeObject(document.body.children);
+         * // => true
+         *
+         * _.isArrayLikeObject('abc');
+         * // => false
+         *
+         * _.isArrayLikeObject(_.noop);
+         * // => false
+         */
+        isArrayLikeObject<T>(value?: any): value is T[];
+    }
+
+    interface LoDashImplicitWrapperBase<T,TWrapper> {
+        /**
+         * @see _.isArrayLikeObject
+         */
+        isArrayLikeObject(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T,TWrapper> {
+        /**
+         * @see _.isArrayLikeObject
+         */
+        isArrayLikeObject(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isBoolean
