@@ -6055,6 +6055,27 @@ module TestIsInteger {
     }
 }
 
+// _.isLength
+module TestIsLength {
+    {
+        let result: boolean;
+
+        result = _.isLength(any);
+
+        result = _(1).isLength();
+        result = _<any>([]).isLength();
+        result = _({}).isLength();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isLength();
+        result = _<any>([]).chain().isLength();
+        result = _({}).chain().isLength();
+    }
+}
+
 // _.isMatch
 var testIsMatchCustiomizerFn: (value: any, other: any, indexOrKey: number|string) => boolean;
 result = <boolean>_.isMatch({}, {});
