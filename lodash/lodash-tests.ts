@@ -8421,32 +8421,19 @@ module TestMerge {
     type ExpectedResult = { a: number, b: string };
     let result: ExpectedResult;
 
-    let customizer: (value: any, srcValue: any, key?: string, object?: InitialValue, source?: MergingValue) => any;
-
     // Test for basic merging
 
     result = _.merge(initialValue, mergingValue);
-    result = _.merge(initialValue, mergingValue, customizer);
-    result = _.merge(initialValue, mergingValue, customizer, any);
 
     result = _.merge(initialValue, {}, mergingValue);
-    result = _.merge(initialValue, {}, mergingValue, customizer);
-    result = _.merge(initialValue, {}, mergingValue, customizer, any);
 
     result = _.merge(initialValue, {}, {}, mergingValue);
-    result = _.merge(initialValue, {}, {}, mergingValue, customizer);
-    result = _.merge(initialValue, {}, {}, mergingValue, customizer, any);
 
     result = _.merge(initialValue, {}, {}, {}, mergingValue);
-    result = _.merge(initialValue, {}, {}, {}, mergingValue, customizer);
-    result = _.merge(initialValue, {}, {}, {}, mergingValue, customizer, any);
 
     // Once we get to the varargs version, you have to specify the result explicitly
     result = _.merge<ExpectedResult>(initialValue, {}, {}, {}, {}, mergingValue);
-    result = _.merge<ExpectedResult>(initialValue, {}, {}, {}, {}, mergingValue, customizer);
-    result = _.merge<ExpectedResult>(initialValue, {}, {}, {}, {}, mergingValue, customizer, any);
 
-    // Test for multiple combinations of many types
 
     type ComplicatedExpectedType = { a: number, b: string, c: {}, d: number[], e: boolean };
 
@@ -8468,25 +8455,15 @@ module TestMerge {
     // Tests for basic chaining with merge
 
     result = _(initialValue).merge(mergingValue).value();
-    result = _(initialValue).merge(mergingValue, customizer).value();
-    result = _(initialValue).merge(mergingValue, customizer, any).value();
 
     result = _(initialValue).merge({}, mergingValue).value();
-    result = _(initialValue).merge({}, mergingValue, customizer).value();
-    result = _(initialValue).merge({}, mergingValue, customizer, any).value();
 
     result = _(initialValue).merge({}, {}, mergingValue).value();
-    result = _(initialValue).merge({}, {}, mergingValue, customizer).value();
-    result = _(initialValue).merge({}, {}, mergingValue, customizer, any).value();
 
     result = _(initialValue).merge({}, {}, {}, mergingValue).value();
-    result = _(initialValue).merge({}, {}, {}, mergingValue, customizer).value();
-    result = _(initialValue).merge({}, {}, {}, mergingValue, customizer, any).value();
 
     // Once we get to the varargs version, you have to specify the result explicitly
     result = _(initialValue).merge<ExpectedResult>({}, {}, {}, {}, mergingValue).value();
-    result = _(initialValue).merge<ExpectedResult>({}, {}, {}, {}, mergingValue, customizer).value();
-    result = _(initialValue).merge<ExpectedResult>({}, {}, {}, {}, mergingValue, customizer, any).value();
 
     // Test complex multiple combinations with chaining
 
@@ -8504,39 +8481,56 @@ module TestMerge {
 
     {
         let result: _.LoDashExplicitObjectWrapper<ExpectedResult>;
-
-        result = _(initialValue).chain().merge(mergingValue);
-        result = _(initialValue).chain().merge(mergingValue, customizer);
-        result = _(initialValue).chain().merge(mergingValue, customizer, any);
-
-        result = _(initialValue).chain().merge({}, mergingValue);
-        result = _(initialValue).chain().merge({}, mergingValue, customizer);
-        result = _(initialValue).chain().merge({}, mergingValue, customizer, any);
-
-        result = _(initialValue).chain().merge({}, {}, mergingValue);
-        result = _(initialValue).chain().merge({}, {}, mergingValue, customizer);
-        result = _(initialValue).chain().merge({}, {}, mergingValue, customizer, any);
-
-        result = _(initialValue).chain().merge({}, {}, {}, mergingValue);
-        result = _(initialValue).chain().merge({}, {}, {}, mergingValue, customizer);
-        result = _(initialValue).chain().merge({}, {}, {}, mergingValue, customizer, any);
-
-        result = _(initialValue).chain().merge<ExpectedResult>({}, {}, {}, {}, mergingValue);
-        result = _(initialValue).chain().merge<ExpectedResult>({}, {}, {}, {}, mergingValue, customizer);
-        result = _(initialValue).chain().merge<ExpectedResult>({}, {}, {}, {}, mergingValue, customizer, any);
+        // result = _(initialValue).chain().merge(mergingValue);
+        // result = _(initialValue).chain().merge({}, mergingValue);
+        // result = _(initialValue).chain().merge({}, {}, mergingValue);
+        // result = _(initialValue).chain().merge({}, {}, {}, mergingValue);
+        // result = _(initialValue).chain().merge<ExpectedResult>({}, {}, {}, {}, mergingValue);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<ComplicatedExpectedType>;
 
-        result = _({ a: 1 }).chain().merge({ b: "string" }, { c: {} }, { d: [1] }, { e: true });
+        //result = _({ a: 1 }).chain().merge({ b: "string" }, { c: {} }, { d: [1] }, { e: true });
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<ExpectedTypeAfterOverriding>;
 
-        result = _({ a: 1 }).chain().merge({ a: "string" }, { a: {} }, { a: [1] }, { a: true });
+        //result = _({ a: 1 }).chain().merge({ a: "string" }, { a: {} }, { a: [1] }, { a: true });
     }
+}
+
+// _.mergeWith
+module TestMergeWith {
+    type InitialValue = { a : number };
+    type MergingValue = { b : string };
+
+    var initialValue  = { a : 1 };
+    var mergingValue  = { b : "hi" };
+
+    type ExpectedResult = { a: number, b: string };
+    let result: ExpectedResult;
+
+    let customizer: (value: any, srcValue: any, key?: string, object?: InitialValue, source?: MergingValue) => any;
+
+    // Test for basic merging
+    result = _.mergeWith(initialValue, mergingValue, customizer);
+    result = _.mergeWith(initialValue, {}, mergingValue, customizer);
+    result = _.mergeWith(initialValue, {}, {}, mergingValue, customizer);
+    result = _.mergeWith(initialValue, {}, {}, {}, mergingValue, customizer);
+
+    // Once we get to the varargs version, you have to specify the result explicitl
+    result = _.mergeWith<ExpectedResult>(initialValue, {}, {}, {}, {}, mergingValue, customizer);
+
+    // Tests for basic chaining with mergeWith
+    result = _(initialValue).mergeWith(mergingValue, customizer).value();
+    result = _(initialValue).mergeWith({}, mergingValue, customizer).value();
+    result = _(initialValue).mergeWith({}, {}, mergingValue, customizer).value();
+    result = _(initialValue).mergeWith({}, {}, {}, mergingValue, customizer).value();
+
+    // Once we get to the varargs version, you have to specify the result explicitl
+    result = _(initialValue).mergeWith<ExpectedResult>({}, {}, {}, {}, mergingValue, customizer).value();
 }
 
 // _.omit
