@@ -36,12 +36,12 @@ interface GoogleAnalytics {
     async: boolean;
 }
 
-enum HitType {
-    'pageview', 'screenview', 'event', 'transaction', 'item', 'social', 'exception', 'timing'
-}
-
 declare module UniversalAnalytics {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference
+    
+    enum HitType {
+        'pageview', 'screenview', 'event', 'transaction', 'item', 'social', 'exception', 'timing'
+    }
 
     interface ga {
         l: number;
@@ -56,7 +56,7 @@ declare module UniversalAnalytics {
             eventValue?: number,
             nonInteraction?: boolean}): void;
         (command: 'send', fieldsObject: {
-            hitType: string, // 'event'
+            hitType: HitType, // 'event'
             eventCategory: string,
             eventAction: string,
             eventLabel?: string,
