@@ -1,14 +1,16 @@
-/// <reference path="clipboard-js.d.ts" />
+/// <reference path="clipboard.js.d.ts" />
 
 var cb1 = new clipboardjs.Clipboard('.btn');
 var cb2 = new clipboardjs.Clipboard('.btn', {
     action: elem => 'copy'
 });
 var cb3 = new clipboardjs.Clipboard('.btn', {
-    action: elem => 'copy',
     text: elem => null
 });
 var cb4 = new clipboardjs.Clipboard('.btn', {
+    target: elem => null
+});
+var cb5 = new clipboardjs.Clipboard('.btn', {
     action: elem => 'copy',
     target: elem => null
 });
