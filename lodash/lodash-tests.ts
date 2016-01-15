@@ -5738,6 +5738,78 @@ module TestIsArray {
     }
 }
 
+// _.isArrayLike
+module TestIsArrayLike {
+    {
+        let value: number|string[]|boolean[];
+
+        if (_.isArrayLike<string>(value)) {
+            let result: string[] = value;
+        }
+        else {
+            if (_.isArrayLike<boolean>(value)) {
+                let result: boolean[] = value;
+            }
+            else {
+                let result: number = value;
+            }
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isArrayLike(any);
+        result = _(1).isArrayLike();
+        result = _<any>([]).isArrayLike();
+        result = _({}).isArrayLike();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isArrayLike();
+        result = _<any>([]).chain().isArrayLike();
+        result = _({}).chain().isArrayLike();
+    }
+}
+
+// _.isArrayLikeObject
+module TestIsArrayLikeObject {
+    {
+        let value: number|string[]|boolean[];
+
+        if (_.isArrayLikeObject<string>(value)) {
+            let result: string[] = value;
+        }
+        else {
+            if (_.isArrayLikeObject<boolean>(value)) {
+                let result: boolean[] = value;
+            }
+            else {
+                let result: number = value;
+            }
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isArrayLikeObject(any);
+        result = _(1).isArrayLikeObject();
+        result = _<any>([]).isArrayLikeObject();
+        result = _({}).isArrayLikeObject();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isArrayLikeObject();
+        result = _<any>([]).chain().isArrayLikeObject();
+        result = _({}).chain().isArrayLikeObject();
+    }
+}
+
 // _.isBoolean
 module TestIsBoolean {
     {
