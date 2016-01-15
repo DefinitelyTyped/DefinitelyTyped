@@ -17,10 +17,9 @@ declare module "log4js" {
 
   /**
    * Restores the console
-   * @param logger
    * @returns void
    */
-  export function restoreConsole(logger?: Logger): void;
+  export function restoreConsole(): void;
 
   /**
    * Get a logger instance. Instance is cached on categoryName level.
