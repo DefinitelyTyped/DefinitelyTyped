@@ -3,6 +3,8 @@
 // Definitions by: Robert Van Gorkom <https://github.com/vangorra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../meteor/meteor.d.ts" />
+
 declare interface IPublishCompositeConfigN {
     children? : IPublishCompositeConfigN[];
     find(...args : any[]) : Mongo.Cursor<any>;
