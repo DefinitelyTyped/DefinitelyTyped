@@ -9,7 +9,8 @@ declare module 'micromatch' {
     import parseGlob = require('parse-glob');
 
     namespace micromatch {
-        type Pattern = (string | RegExp | ((filePath: string) => boolean));
+        type MatchFunction<T> = ((value: T) => boolean);
+        type Pattern = (string | RegExp | MatchFunction<string>);
 
         interface Options {
             /**
@@ -126,7 +127,7 @@ declare module 'micromatch' {
             /**
              * Returns a function for matching.
              */
-            (filePath: string, opts?: micromatch.Options): ((filePath: string) => boolean);
+            (filePath: string, opts?: micromatch.Options): micromatch.MatchFunction<string>;
         };
 
         /**
@@ -139,12 +140,12 @@ declare module 'micromatch' {
          * Returns a function for matching using the supplied pattern. e.g. create your own "matcher". The advantage of
          * this method is that the pattern can be compiled outside of a loop.
          */
-        matcher(pattern: micromatch.Pattern): ((filePath: string) => boolean);
+        matcher(pattern: micromatch.Pattern): micromatch.MatchFunction<string>;
 
         /**
          * Returns a function that can be passed to Array#filter().
          */
-        filter(patterns: micromatch.Pattern | micromatch.Pattern[], opts?: micromatch.Options): ((filePath: string) => boolean);
+        filter(patterns: micromatch.Pattern | micromatch.Pattern[], opts?: micromatch.Options): micromatch.MatchFunction<any>;
 
         /**
          * Returns true if a file path matches any of the given patterns.
