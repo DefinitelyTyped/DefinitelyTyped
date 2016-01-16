@@ -8,6 +8,7 @@
 declare module "gulp-dtsm" {
   function dtsm(): NodeJS.WritableStream;
 
+  namespace dtsm {}
+
   export = dtsm;
 }
-

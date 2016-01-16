@@ -36,4 +36,9 @@ app.controller('Ctrl', ($scope: Scope, $translate: angular.translate.ITranslateS
     $scope['changeLanguage'] = function (key: any) {
         $translate.use(key);
     };
+}).run(($filter: ng.IFilterService) => {
+    var x: string;
+    x = $filter('translate')('something');
+    x = $filter('translate')('something', {});
+    x = $filter('translate')('something', {}, '');
 });

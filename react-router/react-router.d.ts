@@ -74,7 +74,8 @@ declare namespace ReactRouter {
     }
 
     type History = HistoryBase & H.HistoryQueries & HistoryRoutes
-
+    const browserHistory: History;
+    const hashHistory: History;
 
     /* components */
 
@@ -310,6 +311,11 @@ declare module "react-router/lib/useRoutes" {
 
 }
 
+declare module "react-router/lib/PatternUtils" {
+
+	export function formatPattern(pattern: string, params: {}): string;
+
+}
 
 declare module "react-router/lib/RouteUtils" {
 
@@ -362,6 +368,13 @@ declare module "react-router/lib/PropTypes" {
 
 }
 
+declare module "react-router/lib/browserHistory" {
+  export default ReactRouter.browserHistory;
+}
+
+declare module "react-router/lib/hashHistory" {
+  export default ReactRouter.hashHistory;
+}
 
 declare module "react-router/lib/match" {
 
@@ -392,15 +405,40 @@ declare module "react-router" {
 
     import RouteContext from "react-router/lib/RouteContext"
 
+    import browserHistory from "react-router/lib/browserHistory"
+
+    import hashHistory from "react-router/lib/hashHistory"
+
     import useRoutes from "react-router/lib/useRoutes"
 
     import { createRoutes } from "react-router/lib/RouteUtils"
+
+    import { formatPattern } from "react-router/lib/PatternUtils"
 
     import RoutingContext from "react-router/lib/RoutingContext"
 
     import PropTypes from "react-router/lib/PropTypes"
 
     import match from "react-router/lib/match"
+
+    // PlainRoute is defined in the API documented at:
+    // https://github.com/rackt/react-router/blob/master/docs/API.md
+    // but not included in any of the .../lib modules above.
+    export type PlainRoute = ReactRouter.PlainRoute
+
+    // The following definitions are also very useful to export
+    // because by using these types lots of potential type errors
+    // can be exposed:
+    export type EnterHook = ReactRouter.EnterHook
+    export type LeaveHook = ReactRouter.LeaveHook
+    export type ParseQueryString = ReactRouter.ParseQueryString
+    export type RedirectFunction = ReactRouter.RedirectFunction
+    export type RouteComponentProps<P,R> = ReactRouter.RouteComponentProps<P,R>;
+    export type RouteHook = ReactRouter.RouteHook
+    export type StringifyQuery = ReactRouter.StringifyQuery
+    export type RouterListener = ReactRouter.RouterListener
+    export type RouterState = ReactRouter.RouterState
+    export type HistoryBase = ReactRouter.HistoryBase
 
     export {
         Router,
@@ -411,10 +449,13 @@ declare module "react-router" {
         Redirect,
         Route,
         History,
+        browserHistory,
+        hashHistory,
         Lifecycle,
         RouteContext,
         useRoutes,
         createRoutes,
+        formatPattern,
         RoutingContext,
         PropTypes,
         match

@@ -1,4 +1,4 @@
-// Type definitions for notify.js 1.2.3
+// Type definitions for notify.js 1.2.8
 // Project: https://github.com/alexgibson/notify.js
 // Definitions by: soundTricker <https://github.com/soundTricker>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -23,7 +23,7 @@ declare var Notify: {
      * return true if the browser supports HTML5 Notification
      * @param true : the browser supports HTML5 Notification, false ; the browser does not supports HTML5 Notification.
      */
-    isSupported: boolean;
+    isSupported(): boolean;
 
     /**
      * shows the user's current permission level (granted, denied or default), returns null if notifications are not supported.
