@@ -7,17 +7,6 @@
 
 declare module angular.dialog {
 
-	/*
-	 * Everytime ngDialog is opened or closed we're broadcasting three events
-	 * (dispatching events downwards to all child scopes):
-	 *
-	 * for more info see: https://github.com/likeastore/ngDialog#events
-	 */
-	export const EVENT_OPENEND:string = 'ngDialog.opened';
-	export const EVENT_CLOSING:string = 'ngDialog.closing';
-	export const EVENT_CLOSED:string = 'ngDialog.closed';
-
-
 	interface IDialogService {
 		getDefaults(): IDialogOptions;
 		open(options: IDialogOpenOptions): IDialogOpenResult;
@@ -72,7 +61,7 @@ declare module angular.dialog {
 	/**
 	 * Dialog Scope which extends the $scope.
 	 */
-	interface IDialogOpenScope extends angular.IScope {
+	interface IDialogScope extends angular.IScope {
 		/**
 		 * This allows you to close dialog straight from handler in a popup element.
 		 * @param value Any value passed to this function will be attached to the object which resolves on the close promise for this dialog.
@@ -92,14 +81,14 @@ declare module angular.dialog {
 		ngDialogId : string;
 	}
 
-	interface IDialogOpenConfirmScope extends IDialogOpenScope {
+	interface IDialogConfirmScope extends IDialogScope {
 		/**
 		 * Use this method to close the dialog and resolve the promise that was returned when opening the modal.
 		 *
 		 * The function accepts a single optional parameter which is used as the value of the resolved promise.
 		 * @param {any} [value] - The value with which the promise will resolve
 		 */
-		confirm(value?: any)
+		confirm(value?:any) : void;
 	}
 
 	interface IDialogOptions {
@@ -234,7 +223,7 @@ declare module angular.dialog {
 		/**
 		 * Scope object that will be passed to dialog. If you use controller with separate $scope service this object will be passed to $scope.$parent param.
 		 */
-		scope?: IDialogOpenScope;
+		scope?: IDialogScope;
 
 		/**
 		 * An optional map of dependencies which should be injected into the controller. If any of these dependencies
@@ -251,6 +240,6 @@ declare module angular.dialog {
 	}
 
 	interface IDialogOpenConfirmOptions extends IDialogOpenOptions {
-		scope?: IDialogOpenConfirmScope;
+		scope?: IDialogConfirmScope;
 	}
 }
