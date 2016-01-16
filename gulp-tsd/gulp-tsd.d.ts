@@ -18,5 +18,7 @@ declare module "gulp-tsd" {
 
     function tsd(opts?: IOptions, callback?: gulp.TaskCallback): NodeJS.ReadWriteStream;
 
+    namespace tsd {}
+
     export = tsd;
 }

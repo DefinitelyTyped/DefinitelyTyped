@@ -12,10 +12,10 @@ var log = Minilog('app');
 Minilog.enable();
 
 log
-    .debug('debug message')
-    .info('info message')
+    .debug('debug message 1', 'debug message 2')
+    .info('info message', [1, 2, 3])
     .warn('warning')
-    .error('this is an error message');
+    .error('this is an error message', new Error());
 
 Minilog.pipe(Minilog.backends.console.formatWithStack)
     .pipe(Minilog.backends.console);

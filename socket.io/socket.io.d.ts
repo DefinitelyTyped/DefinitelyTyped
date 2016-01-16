@@ -647,7 +647,7 @@ declare module SocketIO {
 		 * @param close If true, also closes the underlying connection
 		 * @return This Socket
 		 */
-		disconnect( close: boolean ): Socket;
+		disconnect( close?: boolean ): Socket;
 		
 		/**
 		 * Adds a listener for a particular event. Calling multiple times will add

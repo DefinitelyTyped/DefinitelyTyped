@@ -1157,11 +1157,11 @@ declare module GitHubElectron {
 			browserWindow?: BrowserWindow,
 			options?: OpenDialogOptions,
 			callback?: (fileNames: string[]) => void
-			): void;
+			): string[];
 		export function showOpenDialog(
 			options?: OpenDialogOptions,
 			callback?: (fileNames: string[]) => void
-			): void;
+			): string[];
 
 		interface OpenDialogOptions {
 			title?: string;
@@ -1193,8 +1193,12 @@ declare module GitHubElectron {
 			/**
 			 * File types that can be displayed, see dialog.showOpenDialog for an example.
 			 */
-			filters?: string[];
-		}, callback?: (fileName: string) => void): void;
+			 
+			filters?: {
+				name: string;
+				extensions: string[];
+			}[]
+		}, callback?: (fileName: string) => void): string;
 
 		/**
 		 * Shows a message box. It will block until the message box is closed. It returns .
@@ -1462,6 +1466,24 @@ declare module GitHubElectron {
 		 * This is mainly used by the page in <webview> to communicate with host page.
 		 */
 		sendToHost(channel: string, ...args: any[]): void;
+	}
+
+	class IPCMain implements NodeJS.EventEmitter {
+		addListener(event: string, listener: Function): IPCMain;
+		once(event: string, listener: Function): IPCMain;
+		removeListener(event: string, listener: Function): IPCMain;
+		removeAllListeners(event?: string): IPCMain;
+		setMaxListeners(n: number): IPCMain;
+		getMaxListeners(): number;
+		listeners(event: string): Function[];
+		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
+		on(event: string, listener: (event: IPCMainEvent, ...args: any[]) => any): IPCMain;
+	}
+
+	interface IPCMainEvent {
+		returnValue?: any;
+		sender: WebContents;
 	}
 
 	interface Remote extends CommonElectron {
@@ -1761,7 +1783,7 @@ declare module GitHubElectron {
 		BrowserWindow: typeof GitHubElectron.BrowserWindow;
 		contentTracing: GitHubElectron.ContentTracing;
 		dialog: GitHubElectron.Dialog;
-		ipcMain: NodeJS.EventEmitter;
+		ipcMain: GitHubElectron.IPCMain;
 		globalShortcut: GitHubElectron.GlobalShortcut;
 		Menu: typeof GitHubElectron.Menu;
 		MenuItem: typeof GitHubElectron.MenuItem;

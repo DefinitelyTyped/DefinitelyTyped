@@ -177,8 +177,13 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
         if (this.$state.href("myState") === "/myState") {
           //
         }
-        this.$state.get("myState");
         this.$state.get();
+        this.$state.get("myState");
+        this.$state.get("myState", "yourState");
+        this.$state.get("myState", this.$state.current);
+        this.$state.get(this.$state.current);
+        this.$state.get(this.$state.current, "yourState");
+        this.$state.get(this.$state.current, this.$state.current);
         this.$state.reload();
 
         // http://angular-ui.github.io/ui-router/site/#/api/ui.router.state.$state#properties

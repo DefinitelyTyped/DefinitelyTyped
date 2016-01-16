@@ -395,21 +395,19 @@ declare module "hapi" {
 			'required'authentication is required.
 			'optional'authentication is optional (must be valid if present).
 			'try'same as 'optional' but allows for invalid authentication. */
-			mode: string;
+			mode?: string;
 			/**  a string array of strategy names in order they should be attempted.If only one strategy is used, strategy can be used instead with the single string value.Defaults to the default authentication strategy which is available only when a single strategy is configured.  */
-			strategies: string | Array<string>;
+			strategies?: string | Array<string>;
 			/**  if set, the payload (in requests other than 'GET' and 'HEAD') is authenticated after it is processed.Requires a strategy with payload authentication support (e.g.Hawk).Cannot be set to a value other than 'required' when the scheme sets the options.payload to true.Available values:
 			falseno payload authentication.This is the default value.
 			'required'payload authentication required.This is the default value when the scheme sets options.payload to true.
 			'optional'payload authentication performed only when the client includes payload authentication information (e.g.hash attribute in Hawk). */
 			payload?: string;
-			/**  the application scope required to access the route.Value can be a scope string or an array of scope strings.The authenticated credentials object scope property must contain at least one of the scopes defined to access the route.Set to false to remove scope requirements.Defaults to no scope required.  */
-			scope?: string|Array<string>|boolean;
-			/** the required authenticated entity type.If set, must match the entity value of the authentication credentials.Available values:
-			anythe authentication can be on behalf of a user or application.This is the default value.
-			userthe authentication must be on behalf of a user.
-			appthe authentication must be on behalf of an application. */
-			entity?: string;
+			/**
+			* an object or array of objects specifying the route access rules. Each rule is evaluated against an incoming
+			* request and access is granted if at least one rule matches. Each rule object must include at least one of:
+			*/
+			access?: IRouteAdditionalConfigurationAuthAccess | IRouteAdditionalConfigurationAuthAccess[];
 		};
 		/** an object passed back to the provided handler (via this) when called. */
 		bind?: any;
@@ -640,6 +638,29 @@ declare module "hapi" {
 		*/
 		tags?: string[]
 	}
+
+	/**
+	* specifying the route access rules. Each rule is evaluated against an incoming request and access is granted if at least one rule matches
+	*/
+	export interface IRouteAdditionalConfigurationAuthAccess {
+		/**
+		* the application scope required to access the route. Value can be a scope string or an array of scope strings.
+		* The authenticated credentials object scope property must contain at least one of the scopes defined to access the route.
+		* If a scope string begins with a + character, that scope is required. If a scope string begins with a ! character,
+		* that scope is forbidden. For example, the scope ['!a', '+b', 'c', 'd'] means the incoming request credentials'
+		* scope must not include 'a', must include 'b', and must include on of 'c' or 'd'. You may also access properties
+		* on the request object (query and params} to populate a dynamic scope by using {} characters around the property name,
+		* such as 'user-{params.id}'. Defaults to false (no scope requirements).
+		*/
+		scope?: string|Array<string>|boolean;
+		/** the required authenticated entity type. If set, must match the entity value of the authentication credentials. Available values:
+		* any - the authentication can be on behalf of a user or application. This is the default value.
+		* user - the authentication must be on behalf of a user which is identified by the presence of a user attribute in the credentials object returned by the authentication strategy.
+		* app - the authentication must be on behalf of an application which is identified by the lack of presence of a user attribute in the credentials object returned by the authentication strategy.
+		*/
+		entity?: string;
+	}
+
 	/** server.realm http://hapijs.com/api#serverrealm
 	The realm object contains server-wide or plugin-specific state that can be shared across various methods. For example, when calling server.bind(),
 	the active realm settings.bind property is set which is then used by routes and extensions added at the same level (server root or plugin).

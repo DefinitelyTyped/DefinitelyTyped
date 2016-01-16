@@ -9,6 +9,19 @@ declare module "log4js" {
   import express = require('express');
 
   /**
+   * Replaces the console
+   * @param logger
+   * @returns void
+   */
+  export function replaceConsole(logger?: Logger): void;
+
+  /**
+   * Restores the console
+   * @returns void
+   */
+  export function restoreConsole(): void;
+
+  /**
    * Get a logger instance. Instance is cached on categoryName level.
    *
    * @param   {String} [categoryName] name of category to log to.
@@ -137,7 +150,7 @@ declare module "log4js" {
   }
 
   export interface ConsoleAppenderConfig extends AppenderConfigBase {}
-  
+
   export interface FileAppenderConfig extends AppenderConfigBase {
     filename: string;
   }
@@ -156,24 +169,24 @@ declare module "log4js" {
     pattern: string;
     alwaysIncludePattern: boolean;
   }
-  
+
   export interface SmtpAppenderConfig extends AppenderConfigBase {
     /** Comma separated list of email recipients */
     recipients: string;
-    
+
     /** Sender of all emails (defaults to transport user) */
     sender: string;
-    
+
     /** Subject of all email messages (defaults to first event's message)*/
     subject: string;
-    
+
     /**
      * The time in seconds between sending attempts (defaults to 0).
      * All events are buffered and sent in one email during this time.
      * If 0 then every event sends an email
      */
     sendInterval: number;
-    
+
     SMTP: {
       host: string;
       secure: boolean;
@@ -190,14 +203,14 @@ declare module "log4js" {
     backup: number;
     pollInterval: number;
   }
-  
+
   export interface GelfAppenderConfig extends AppenderConfigBase {
     host: string;
     hostname: string;
     port: string;
     facility: string;
   }
-  
+
   export interface MultiprocessAppenderConfig extends AppenderConfigBase {
     mode: string;
     loggerPort: number;
@@ -205,25 +218,25 @@ declare module "log4js" {
     facility: string;
     appender?: AppenderConfig;
   }
-  
+
   export interface LogglyAppenderConfig extends AppenderConfigBase {
     /** Loggly customer token - https://www.loggly.com/docs/api-sending-data/ */
     token: string;
-    
+
     /** Loggly customer subdomain (use 'abc' for abc.loggly.com) */
     subdomain: string;
-    
+
     /** an array of strings to help segment your data & narrow down search results in Loggly */
     tags: string[];
-    
+
     /** Enable JSON logging by setting to 'true' */
     json: boolean;
   }
-  
+
   export interface ClusteredAppenderConfig extends AppenderConfigBase {
     appenders?: AppenderConfig[];
   }
-  
+
   type CoreAppenderConfig = ConsoleAppenderConfig
                           | FileAppenderConfig
                           | DateFileAppenderConfig
@@ -233,11 +246,10 @@ declare module "log4js" {
                           | MultiprocessAppenderConfig
                           | LogglyAppenderConfig
                           | ClusteredAppenderConfig
-    
+
   interface CustomAppenderConfig extends AppenderConfigBase {
     [prop: string]: any;
   }
 
   type AppenderConfig = CoreAppenderConfig | CustomAppenderConfig;
 }
-

@@ -479,3 +479,25 @@ _.chain(obj).map(function (value, key) {
     empty[key] = value;
     console.log("vk", value, key);
 });
+
+function strong_typed_values_tests() {
+    var dictionaryLike: { [k: string] : {title: string, value: number} } = {
+        'test' : { title: 'item1', value: 5 },
+        'another' : { title: 'item2', value: 8 },
+        'third' : { title: 'item3', value: 10 }
+    };
+
+    _.chain(dictionaryLike).values().filter((r) => {
+        return r.value >= 8;
+    }).map((r) => {
+        return [r.title, true];
+    }).object().value();
+
+    var x: number = _(dictionaryLike).chain().filter((x) => {
+        console.log(x.title);
+        console.log(x.value.toFixed());
+        return x.title == 'item1';
+    }).size().value();
+
+    _.values<{title: string, value: number}>(dictionaryLike);
+}

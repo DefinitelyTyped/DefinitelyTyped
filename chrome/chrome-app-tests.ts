@@ -316,3 +316,12 @@ function testSocketsTcpServerTypes(): void {
     socketInfo.localAddress = "192.168.0.2";
     socketInfo.localPort = 8000;
 }
+
+function testSystemNetwork() {
+    chrome.system.network.getNetworkInterfaces((networkInterfaces) => {
+        var iface: chrome.system.network.NetworkInterface;
+        for (var i in networkInterfaces) {
+            iface = networkInterfaces[i];
+        }
+    });
+}
