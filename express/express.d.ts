@@ -102,14 +102,14 @@ declare module "express" {
 
             route(path: string): IRoute;
 
+            use(handler: RequestHandler | ErrorRequestHandler): T;
             use(...handler: RequestHandler[]): T;
-            use(handler: ErrorRequestHandler): T;
+            use(path: string, handler: RequestHandler | ErrorRequestHandler): T;
             use(path: string, ...handler: RequestHandler[]): T;
-            use(path: string, handler: ErrorRequestHandler): T;
+            use(path: string[], handler: RequestHandler | ErrorRequestHandler): T;
             use(path: string[], ...handler: RequestHandler[]): T;
-            use(path: string[], handler: ErrorRequestHandler): T;
+            use(path: RegExp, handler: RequestHandler | ErrorRequestHandler): T;
             use(path: RegExp, ...handler: RequestHandler[]): T;
-            use(path: RegExp, handler: ErrorRequestHandler): T;
             use(path:string, router:Router): T;
         }
 
@@ -415,9 +415,9 @@ declare module "express" {
             originalUrl: string;
 
             url: string;
-            
+
             baseUrl: string;
-            
+
             app: Application;
         }
 
