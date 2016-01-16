@@ -114,11 +114,11 @@ declare module uiGrid {
             ROW: string;
             COLUMN: string;
             OPTIONS: string;
-        }
+        };
         scrollbars: {
             NEVER: number;
             ALWAYS: number;
-        }
+        };
     }
     export type IGridInstance = IGridInstanceOf<any>;
     export interface IGridInstanceOf<TEntity> {
@@ -1057,7 +1057,7 @@ declare module uiGrid {
              * @param {sortChangedHandler} handler callback
              */
             sortChanged: (scope: ng.IScope, handler: sortChangedHandler<TEntity>) => void;
-        }
+        };
     }
     export interface columnVisibilityChangedHandler<TEntity> {
         /**
@@ -1211,7 +1211,7 @@ declare module uiGrid {
                  * @param {viewportKeyPressHandler} handler Callback
                  */
                 viewportKeyPress: (scope: ng.IScope, handler: viewportKeyPressHandler<TEntity>) => void;
-            }
+            };
         }
 
         export interface navigateHandler<TEntity> {
@@ -1282,7 +1282,7 @@ declare module uiGrid {
                 KEYDOWN: number;
                 CLICK: number;
                 CLEAR: number;
-            }
+            };
         }
     }
 
@@ -1481,7 +1481,7 @@ declare module uiGrid {
                 BEGIN_CELL_EDIT: string;
                 END_CELL_EDIT: string;
                 CANCEL_CELL_EDIT: string;
-            }
+            };
         }
     }
 
@@ -1548,7 +1548,7 @@ declare module uiGrid {
                  * @param {rowExpandedStateChangedHandler} handler
                  */
                 rowExpandedStateChanged: (scope: ng.IScope, handler: rowExpandedStateChangedHandler<TEntity>) => void;
-            }
+            };
         }
 
         export interface rowExpandedStateChangedHandler<TEntity> {
@@ -2300,7 +2300,7 @@ declare module uiGrid {
                  * @param {columnPositionChangedHandler} handler Callback Function
                  */
                 columnPositionChanged?: (scope: ng.IScope, handler: columnPositionChangedHandler) => void;
-            }
+            };
         }
         export interface columnPositionChangedHandler {
             (colDef: IColumnDef, originalPosition: number, finalPosition: number): void;
@@ -2387,7 +2387,7 @@ declare module uiGrid {
                  * @param {paginationChangedHandler} handler Callback
                  */
                 paginationChanged: (scope: ng.IScope, handler: paginationChangedHandler) => void;
-            }
+            };
         }
 
         /**
@@ -2469,7 +2469,7 @@ declare module uiGrid {
                 LEFT: string;
                 RIGHT: string;
                 NONE: string;
-            }
+            };
         }
     }
 
@@ -2508,7 +2508,7 @@ declare module uiGrid {
                  * @param {columnSizeChangedHandler} handler Callback
                  */
                 columnSizeChanged: (scope: ng.IScope, handler: columnSizeChangedHandler) => void;
-            }
+            };
         }
 
         export interface columnSizeChangedHandler {
@@ -2594,7 +2594,7 @@ declare module uiGrid {
                  * @param {saveRowHandler} handler Callback
                  */
                 saveRow: (scope: ng.IScope, handler: saveRowHandler<TEntity>) => void;
-            }
+            };
         }
 
         export interface saveRowHandler<TEntity> {
@@ -2973,7 +2973,7 @@ declare module uiGrid {
                  * @param {rowSelectionChangedBatchHandler} handler callback
                  */
                 rowSelectionChangedBatch: (scope: ng.IScope, handler: rowSelectionChangedBatchHandler<TEntity>) => void;
-            }
+            };
         }
         export interface rowSelectionChangedHandler<TEntity> {
             /**
@@ -3206,13 +3206,13 @@ declare module uiGrid {
                  * @param {rowExpandedHandler} handler Callback
                  */
                 rowExpanded: (scope: ng.IScope, handler: rowExpandedHandler<TEntity>) => void;
-            }
+            };
         }
 
         export interface ITreeState {
             expandedState: {
                 [index: string]: string
-            }
+            };
         }
 
         export interface rowCollapsedHandler<TEntity> {
@@ -3275,7 +3275,7 @@ declare module uiGrid {
             MAX: string;
             MIN: string;
             AVG: string;
-        }
+        };
     }
 
     // Tree View
@@ -3766,6 +3766,14 @@ declare module uiGrid {
          * You may specify one of the sortingAlgorithms found in the rowSorter service.
          */
         sortCellFiltered?: boolean;
+        /**
+         *(optional) An array of sort directions, specifying the order that they should cycle through as 
+         * the user repeatedly clicks on the column heading. The default is [null, uiGridConstants.ASC, uiGridConstants.DESC].
+         * Null refers to the unsorted state. This does not affect the initial sort direction; use the sort property for that.
+         * If suppressRemoveSort is also set, the unsorted state will be skipped even if it is listed here. Each direction may 
+         * not appear in the list more than once (e.g. [ASC, DESC, DESC] is not allowed), and the list may not be empty.*
+         */
+        sortDirectionCycle?: Array<IUiGridConstants>;
         /** Algorithm to use for sorting this column */
         sortingAlgorithm?: (a: any, b: any) => number;
         /**

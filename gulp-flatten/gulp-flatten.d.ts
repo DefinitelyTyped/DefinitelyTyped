@@ -13,5 +13,7 @@ declare module "gulp-flatten" {
 
     function flatten(options?: IOptions): NodeJS.ReadWriteStream;
 
+    namespace flatten {}
+
     export = flatten;
 }

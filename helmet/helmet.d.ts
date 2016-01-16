@@ -7,7 +7,24 @@
 
 declare module "helmet" {
     import express = require("express");
-
+    
+    interface IHelmetCspDirectives {
+        defaultSrc? : string[];
+        scriptSrc? : string[];
+        styleSrc? : string[];
+        imgSrc? : string[];
+        sandbox? : string[];
+        reportUri? : string;
+        objectSrc? : string[];
+    }
+    
+    interface IHelmetCspConfiguration {
+        reportOnly? : boolean;
+        setAllHeaders? : boolean;
+        disableAndroid? : boolean;
+        directives? : IHelmetCspDirectives
+    }
+    
     /**
      * @summary Interface for helmet class.
      * @interface
@@ -70,6 +87,19 @@ declare module "helmet" {
          * @param {Object} options The options.
          */
         xssFilter(options ?: Object):express.RequestHandler;
+
+        /**
+         * @summary Set policy around third-party content via headers
+         * @return {RequestHandler} The Request handler
+         * @param {Object} options The options
+         */
+        csp(options ?: IHelmetCspConfiguration): express.RequestHandler;
+
+        /**
+         * @see csp
+         */
+        contentSecurityPolicy(options ?: IHelmetCspConfiguration): express.RequestHandler;
+
     }
 
     var helmet: Helmet;

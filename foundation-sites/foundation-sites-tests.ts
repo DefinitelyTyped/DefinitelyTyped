@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="foundation.d.ts" />
+/// <reference path="foundation-sites.d.ts" />
 
 $(document).foundation();
 $(document).foundation('method5');

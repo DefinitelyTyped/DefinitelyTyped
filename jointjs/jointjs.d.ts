@@ -60,12 +60,12 @@ declare module joint {
         }
 
         interface IOptions {
-            width: number;
-            height: number;
-            gridSize: number;
-            perpendicularLinks: boolean;
-            elementView: ElementView;
-            linkView: LinkView;
+            width?: number;
+            height?: number;
+            gridSize?: number;
+            perpendicularLinks?: boolean;
+            elementView?: ElementView;
+            linkView?: LinkView;
         }
 
         class Paper extends Backbone.View<Backbone.Model> {
