@@ -1,15 +1,17 @@
 /// <reference path="./micromatch.d.ts" />
 import mm = require('micromatch');
 
-var result: string[];
+var strArrResult: string[];
 var boolResult: boolean;
+var strMatchFuncResult: mm.MatchFunction<string>;
+var anyMatchFuncResult: mm.MatchFunction<any>;
 var regExpResult: RegExp;
 
 // Usage.
-result = mm(['a.js', 'b.md', 'c.txt'], '*.{js,txt}');
+strArrResult = mm(['a.js', 'b.md', 'c.txt'], '*.{js,txt}');
 
 // Multiple patterns.
-result = mm(['a.md', 'b.js', 'c.txt', 'd.json'], ['*.md', '*.txt']);
+strArrResult = mm(['a.md', 'b.js', 'c.txt', 'd.json'], ['*.md', '*.txt']);
 
 // "isMatch" method.
 boolResult = mm.isMatch('.verb.md', '*.md');
@@ -21,11 +23,21 @@ boolResult = mm.contains('a/b/c', 'a/b');
 boolResult = mm.contains('a/b/c', 'a/b', {dot: true});
 
 // "matcher" method.
-var isMatch = mm.matcher('*.md');
+strMatchFuncResult = mm.matcher('*.md');
+strMatchFuncResult = mm.matcher(/\.md$/);
+strMatchFuncResult = mm.matcher((filePath: string) => true);
 
 // "filter" method.
-var fn = mm.filter('*.md');
-var fn = mm.filter('*.md', {dot: true});
+anyMatchFuncResult = mm.filter('*.md');
+anyMatchFuncResult = mm.filter(/\.md$/);
+anyMatchFuncResult = mm.filter((filePath: string) => true);
+
+anyMatchFuncResult = mm.filter('*.md', {dot: true});
+['a.js', 'b.txt', 'c.md'].filter(anyMatchFuncResult);
+
+var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10 , 11, 12, 13, 14, 15];
+anyMatchFuncResult = mm.filter(['{1..10}', '![7-9]', '!{3..4}']);
+arr.filter(anyMatchFuncResult);
 
 // "any" method.
 boolResult = mm.any('abc', ['!*z']);
