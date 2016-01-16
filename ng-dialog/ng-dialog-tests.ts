@@ -41,7 +41,7 @@ class DialogTestController {
 
 class LoginDialogController {
 
-	constructor($scope: angular.dialog.IDialogOpenScope) {
+	constructor($scope:angular.dialog.IDialogScope) {
 
 		$scope.closeThisDialog("bye");
 	}
