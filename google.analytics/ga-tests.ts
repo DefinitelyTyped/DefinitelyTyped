@@ -28,6 +28,7 @@ describe('UniversalAnalytics', () => {
         ga.create('UA-65432-1', 'auto', {some: 'config'});
         ga.getAll();
         ga.getByName('aNamedTracker');
+        ga('send', 'event', 'category', 'action', 'label', 1);  // value is a number.
     });
     it('should excercise Tracker APIs', () => {
         var tracker: UniversalAnalytics.Tracker = ga('create', 'UA-65432-1', 'auto');
