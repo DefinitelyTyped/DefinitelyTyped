@@ -4249,6 +4249,13 @@ declare module _ {
         concat(...items: Array<T|Array<T>>): LoDashExplicitArrayWrapper<T>;
     }
 
+    interface LoDashStatic {
+        /**
+         * @see _.concat
+         */
+        concat<T>(...items: Array<T|Array<T>>): T[];
+    }
+
     //_.prototype.plant
     interface LoDashImplicitWrapperBase<T, TWrapper> {
         /**
@@ -13018,7 +13025,7 @@ declare module _ {
             source4: TSource4,
             customizer?: MergeCustomizer,
             thisArg?: any
-        ): TObject & TSource1 & TSource2 & TSource3 & TSource4; 
+        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
 
         /**
          * @see _.merge
