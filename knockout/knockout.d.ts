@@ -1,4 +1,4 @@
-﻿// Type definitions for Knockout v3.2.0
+// Type definitions for Knockout v3.4.0
 // Project: http://knockoutjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Igor Oleinikov <https://github.com/Igorbek/>, Clément Bourgeois <https://github.com/moonpyk/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -78,6 +78,7 @@ interface KnockoutComputedStatic {
 interface KnockoutComputed<T> extends KnockoutObservable<T>, KnockoutComputedFunctions<T> {
 	fn: KnockoutComputedFunctions<any>;
 
+    peek(): any;
 	dispose(): void;
 	isActive(): boolean;
 	getDependenciesCount(): number;
@@ -194,6 +195,12 @@ interface KnockoutMemoization {
     parseMemoText(memoText: string): string;
 }
 
+interface KnockoutTasks {
+    schedule(func: () => void): number;
+    cancel(handle: number): void;
+    runEarly(): void;
+}
+
 interface KnockoutVirtualElement {}
 
 interface KnockoutVirtualElements {
@@ -214,7 +221,9 @@ interface KnockoutExtenders {
 	rateLimit(target: any, timeout: number): any;
 	rateLimit(target: any, options: { timeout: number; method?: string; }): any;
 
-	trackArrayChanges(target: any): any;
+    trackArrayChanges(target: any): any;
+
+    deferred(target: any, options: boolean): any;
 }
 
 //
@@ -306,6 +315,8 @@ interface KnockoutUtils {
     unwrapObservable<T>(value: KnockoutObservable<T> | T): T;
 
     // NOT PART OF THE MINIFIED API SURFACE (ONLY IN knockout-{version}.debug.js) https://github.com/SteveSanderson/knockout/issues/670
+    // createSymbolOrString(identifier: any): any;
+    // deferError(error: any): void;
     // forceRefresh(node: any): void;
     // ieVersion: number;
     // isIe6: boolean;
@@ -317,6 +328,7 @@ interface KnockoutUtils {
     // setDomNodeChildren(domNode: any, childNodes: any[]): void;
     // setElementName(element: any, name: string): void;
     // setOptionNodeSelectionState(optionNode: any, isSelected: boolean): void;
+    // setTimeout(handler: any, timeout: number): any;
     // simpleHtmlParse(html: string): any[];
     // stringStartsWith(str: string, startsWith: string): boolean;
     // stringTokenize(str: string, delimiter: string): string[];
@@ -351,8 +363,8 @@ interface KnockoutTemplateAnonymous extends KnockoutTemplateSourcesDomElement {
 interface KnockoutTemplateSources {
 
     domElement: {
-	    prototype: KnockoutTemplateSourcesDomElement
-	    new (element: Element): KnockoutTemplateSourcesDomElement
+	    prototype: KnockoutTemplateSourcesDomElement;
+	    new (element: Element): KnockoutTemplateSourcesDomElement;
     };
 
     anonymousTemplate: {
@@ -430,7 +442,13 @@ interface KnockoutStatic {
     renderTemplate(template: string, viewModel: any, options?: any, target?: any, renderMode?: any): any;
 	unwrap<T>(value: KnockoutObservable<T> | T): T;
 
-	computedContext: KnockoutComputedContext;
+    computedContext: KnockoutComputedContext;
+
+    // New in 3.3.0 and 3.4.0
+    options: KnockoutStaticOptions;
+    tasks: KnockoutTasks;
+    isPureComputed(instance: any): boolean;
+    ignoreDependencies(callback: () => void, callbackTarget?: any, callbackArgs?: any): void;
 
     //////////////////////////////////
     // templateSources.js
@@ -546,7 +564,11 @@ interface KnockoutBindingProvider {
 interface KnockoutComputedContext {
 	getDependenciesCount(): number;
 	isInitial: () => boolean;
-	isSleeping: boolean;
+}
+
+interface KnockoutStaticOptions {
+    deferUpdates?: boolean;
+    useOnlyNativeEvents?: boolean;
 }
 
 //
@@ -618,7 +640,7 @@ interface KnockoutComponents {
     isRegistered(componentName: string): boolean;
     unregister(componentName: string): void;
     get(componentName: string, callback: (definition: KnockoutComponentTypes.Definition) => void): void;
-    clearCachedDefinition(componentName: string): void
+    clearCachedDefinition(componentName: string): void;
     defaultLoader: KnockoutComponentTypes.Loader;
     loaders: KnockoutComponentTypes.Loader[];
     getComponentNameForNode(node: Node): string;
