@@ -7,6 +7,9 @@
 declare var _spBodyOnLoadFunctions: Function[];
 declare var _spBodyOnLoadFunctionNames: string[];
 declare var _spBodyOnLoadCalled: boolean;
+declare function ExecuteOrDelayUntilBodyLoaded(initFunc: () => void): void;
+declare function ExecuteOrDelayUntilScriptLoaded(func: () => void, depScriptFileName: string): boolean;
+declare function ExecuteOrDelayUntilEventNotified(func: Function, eventName: string): boolean;
 declare var Strings:any;
 
 declare module SP {
@@ -8445,7 +8448,7 @@ declare module SP.WorkflowServices {
         /** Specifies the custom status set by workflow authors. */
         set_userStatus(value: string): string;
         /** Gets the unique identifier (GUID) of the subscription that instantiates the WorkflowInstance */
-        get_workflowSubscriptionId(): string;
+        get_workflowSubscriptionId(): SP.Guid;
         /** This method is internal and is not intended to be used in your code. */
         initPropertiesFromJson(parentNode: any): void;
 

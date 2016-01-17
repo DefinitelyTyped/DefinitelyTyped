@@ -30,9 +30,9 @@ interface KnockoutObservableArrayFunctions<T> {
     push(...items: T[]): void;
     shift(): T;
     unshift(...items: T[]): number;
-    reverse(): T[];
-    sort(): void;
-    sort(compareFunction: (left: T, right: T) => number): void;
+    reverse(): KnockoutObservableArray<T>;
+    sort(): KnockoutObservableArray<T>;
+    sort(compareFunction: (left: T, right: T) => number): KnockoutObservableArray<T>;
 
     // Ko specific
     [key: string]: KnockoutBindingHandler;
@@ -142,6 +142,7 @@ interface KnockoutAllBindingsAccessor {
 }
 
 interface KnockoutBindingHandler {
+    after?: Array<string>;
     init?: (element: any, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) => void | { controlsDescendantBindings: boolean; };
     update?: (element: any, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) => void;
     options?: any;
@@ -561,6 +562,7 @@ declare module KnockoutComponentTypes {
     }
 
     interface ComponentConfig {
+        viewModel?: ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
         template: any;
         createViewModel?: any;
     }
