@@ -4,6 +4,9 @@
 //                 David Asmuth <https://github.com/piranha771/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+declare module 'matter-js' {
+    export = Matter;
+}
 
 declare module Matter {
     /**
@@ -2882,31 +2885,11 @@ declare module Matter {
 
     }
 
-
-
     export interface ICollisionFilter {
         category: number;
         mask: number;
         group: number;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     export interface IMousePoint {
         x: number;
@@ -2931,14 +2914,6 @@ declare module Matter {
         button: number;
         pixelRatio: number;
     }
-
-
-
-
-
-
-
-
 
     export interface IEvent<T> {
         /**
@@ -3176,8 +3151,6 @@ declare module Matter {
         * @param {} event.name The name of the event
         */
         static on(obj: Engine, name: "afterRender", callback: (e: IEventTimestamped<Runner>) => void): void;
-
-
 
         /**
          * Fired when the mouse is down (or a touch has started) during the last step
