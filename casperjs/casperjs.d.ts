@@ -65,7 +65,8 @@ interface Casper extends EventEmitter {
 	getHTML(selector?: string, outer?: boolean): string;
 	getPageContent(): string;
 	getTitle(): string;
-	mouseEvent(type: string, selector: string): boolean;
+    mouseEvent(type: string, selector: string): boolean;
+    on(event: string, fn: (...args: any[]) => any): void;
 	open(location: string, settings: OpenSettings): Casper;
 	reload(then?: (response: HttpResponse) => void): Casper;
 	repeat(times: number, then: Function): Casper;
