@@ -674,5 +674,5 @@ function testPureComputed() {
 
     var isPureComputed: boolean = ko.isPureComputed(fullName);
 
-    var name: string = fullname.peek();
+    var name: string = fullName.peek();
 }
