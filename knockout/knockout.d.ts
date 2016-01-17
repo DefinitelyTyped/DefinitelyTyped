@@ -447,7 +447,7 @@ interface KnockoutStatic {
     // New in 3.3.0 and 3.4.0
     options: KnockoutStaticOptions;
     tasks: KnockoutTasks;
-    isPureComputed(instance: any): boolean;
+    isPureComputed<T>(instance: KnockoutComputed<T>): boolean;
     ignoreDependencies(callback: () => void, callbackTarget?: any, callbackArgs?: any): void;
 
     //////////////////////////////////
