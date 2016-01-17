@@ -78,7 +78,7 @@ interface KnockoutComputedStatic {
 interface KnockoutComputed<T> extends KnockoutObservable<T>, KnockoutComputedFunctions<T> {
 	fn: KnockoutComputedFunctions<any>;
 
-    peek(): any;
+    peek(): T;
 	dispose(): void;
 	isActive(): boolean;
 	getDependenciesCount(): number;
