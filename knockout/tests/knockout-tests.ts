@@ -673,4 +673,6 @@ function testPureComputed() {
     }, this);
 
     var isPureComputed: boolean = ko.isPureComputed(fullName);
+
+    var name: string = fullname.peek();
 }
