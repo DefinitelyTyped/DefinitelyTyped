@@ -12,6 +12,18 @@ declare module google {
     //https://developers.google.com/chart/interactive/docs/reference
     module visualization {
 
+        export interface DateFormatSpecs{
+            formatType: string;
+            pattern: string;
+            timeZone: number;
+        }
+
+        export class DateFormat{
+            constructor(spec?: DateFormatSpecs);
+            format(dataTable: DataTable, columnIndex: number): void;
+            formatValue(value: Date): string;
+        }
+
         export interface ChartSpecs {
             chartType: string;
             containerId?: string;
