@@ -152,7 +152,7 @@ declare module 'wiredep' {
          * @exemple:
          *   return '<script class="random-' + Math.random() + '" src="' + filePath + '"></script>'
          */
-        anotherTypeOfBowerFile: (filePath) => string;
+        anotherTypeOfBowerFile: (filePath: string) => string;
       }
     };
 
