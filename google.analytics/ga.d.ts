@@ -78,7 +78,7 @@ declare module UniversalAnalytics {
         (command: 'create', trackingId: string, cookieDomain?: string, name?: string, fieldsObject?: {}): void;
         (command: 'remove'): void;
         
-        (command: string, ...fields?: any[]}): void;
+        (command: string, ...fields?: any[]): void;
         
         (readyCallback: (defaultTracker?: UniversalAnalytics.Tracker) => void): void;
         
