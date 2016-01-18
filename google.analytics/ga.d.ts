@@ -73,12 +73,12 @@ declare module UniversalAnalytics {
             fieldsObject: {timingCategory: string, timingVar: string, timingValue: number}): void;
         (command: 'send', hitType: HitType, ...fields: any[], fieldsObject?: {}): void;
         (command: 'send', fieldsObject: {}): void;
+        (command: string, hitType: HitType, ...fields: any[]): void;
         
         (command: 'create', trackingId: string, cookieDomain?: string, name?: string, fieldsObject?: {}): void;
         (command: 'remove'): void;
         
-        (command: string, ...fields?: any[], fieldsObject?: {}): void;
-        (command: string, ...fields: any[], fieldsObject?: {}): void;
+        (command: string, ...fields?: any[]}): void;
         
         (readyCallback: (defaultTracker?: UniversalAnalytics.Tracker) => void): void;
         
