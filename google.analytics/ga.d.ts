@@ -80,7 +80,7 @@ declare module UniversalAnalytics {
         (command: string, ...fields?: any[], fieldsObject?: {}): void;
         (command: string, ...fields: any[], fieldsObject?: {}): void;
         
-        (readyCallback: (tracker?: UniversalAnalytics.Tracker):void): void;
+        (readyCallback: (defaultTracker?: UniversalAnalytics.Tracker) => void): void;
         
         create(trackingId: string, fieldsObject?: {}): UniversalAnalytics.Tracker;
         create(trackingId: string, cookieDomain?: string, name?: string, fieldsObject?: {}): UniversalAnalytics.Tracker;
