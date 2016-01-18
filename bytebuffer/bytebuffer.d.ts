@@ -131,7 +131,7 @@ declare class ByteBuffer
     /**
      * Concatenates multiple ByteBuffers into one.
      */
-    static concat( buffers: Array<ByteBuffer | ArrayBuffer | Uint8Array | string>, encoding?: string | boolean, litteEndian?: boolean, noAssert?: boolean ): ByteBuffer;
+    static concat( buffers: Array<ByteBuffer | Buffer |  ArrayBuffer | Uint8Array | string>, encoding?: string | boolean, litteEndian?: boolean, noAssert?: boolean ): ByteBuffer;
 
     /**
      * Decodes a base64 encoded string to a ByteBuffer.
@@ -170,7 +170,7 @@ declare class ByteBuffer
      * @param littleEndian Whether to use little or big endian byte order. Defaults to ByteBuffer.DEFAULT_ENDIAN.
      * @param noAssert Whether to skip assertions of offsets and values. Defaults to ByteBuffer.DEFAULT_NOASSERT.
      */
-    static wrap( buffer: ByteBuffer | ArrayBuffer | Uint8Array | string, enc?: string | boolean, littleEndian?: boolean, noAssert?: boolean ): ByteBuffer;
+    static wrap( buffer: ByteBuffer | Buffer | ArrayBuffer | Uint8Array | string | Array<number>, enc?: string | boolean, littleEndian?: boolean, noAssert?: boolean ): ByteBuffer;
 
     /**
      * Decodes a zigzag encoded signed 32bit integer.
