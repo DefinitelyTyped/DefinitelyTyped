@@ -882,6 +882,7 @@ declare module "express" {
             get: {
                 (name: string): any; // Getter
                 (name: string, ...handlers: RequestHandler[]): Application;
+                (name: string[], ...handlers: RequestHandler[]): Application;
                 (name: RegExp, ...handlers: RequestHandler[]): Application;
             };
 
