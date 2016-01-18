@@ -103,7 +103,6 @@ interface ResponseInit {
 }
 interface ResponseConstructor {
     new (body?: BodyInit, init?: ResponseInit): Response;
-
     error(): Response;
     redirect(url: string, status?: number): Response;
 }
