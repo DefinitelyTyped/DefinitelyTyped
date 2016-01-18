@@ -77,12 +77,13 @@ declare module UniversalAnalytics {
         (command: 'create', trackingId: string, cookieDomain?: string, name?: string, fieldsObject?: {}): void;
         (command: 'remove'): void;
         
-        (command: string, ...fields?: any[]): void;
+        (command: string, ...fields: any[]): void;
         
         (readyCallback: (defaultTracker?: UniversalAnalytics.Tracker) => void): void;
         
-        create(trackingId: string, fieldsObject?: {}): UniversalAnalytics.Tracker;
         create(trackingId: string, cookieDomain?: string, name?: string, fieldsObject?: {}): UniversalAnalytics.Tracker;
+        create(trackingId: string, fieldsObject?: {}): UniversalAnalytics.Tracker;
+        
         getAll(): UniversalAnalytics.Tracker[];
         getByName(name: string): UniversalAnalytics.Tracker;
         remove(name:string): void;
