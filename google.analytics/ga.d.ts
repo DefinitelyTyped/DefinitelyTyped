@@ -46,7 +46,7 @@ declare module UniversalAnalytics {
     interface ga {
         l: number;
         q: any[];
-
+        
         (command: 'send', hitType: 'event', eventCategory: string, eventAction: string,
             eventLabel?: string, eventValue?: number, fieldsObject?: {}): void;
         (command: 'send', hitType: 'event', fieldsObject: {
@@ -71,18 +71,22 @@ declare module UniversalAnalytics {
             timingCategory: string, timingVar: string, timingValue: number): void;
         (command: 'send', hitType: 'timing',
             fieldsObject: {timingCategory: string, timingVar: string, timingValue: number}): void;
-        (command: 'send', hitType: HitType, ...fields: any[]): void;
+        (command: 'send', hitType: HitType, ...fields: any[], fieldsObject?: {}): void;
         (command: 'send', fieldsObject: {}): void;
         
-        (command: string, hitType: string, ...fields: any[]): void;
-        (command: string, hitDetails: {}): void;
-        (command: string, poly: string, opt_poly?: {}): UniversalAnalytics.Tracker;
-        (command: string, trackingId: string, auto: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
- 
-        create(trackingId: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
-        create(trackingId: string, auto: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
+        (command: 'create', trackingId: string, cookieDomain?: string, name?: string, fieldsObject?: {}): void;
+        (command: 'remove'): void;
+        
+        (command: string, ...fields?: any[], fieldsObject?: {}): void;
+        (command: string, ...fields: any[], fieldsObject?: {}): void;
+        
+        (readyCallback: (tracker?: UniversalAnalytics.Tracker):void): void;
+        
+        create(trackingId: string, fieldsObject?: {}): UniversalAnalytics.Tracker;
+        create(trackingId: string, cookieDomain?: string, name?: string, fieldsObject?: {}): UniversalAnalytics.Tracker;
         getAll(): UniversalAnalytics.Tracker[];
         getByName(name: string): UniversalAnalytics.Tracker;
+        remove(name:string): void;
     }
 
     interface Tracker {
