@@ -40,7 +40,7 @@ describe('UniversalAnalytics', () => {
         ga.getByName('aNamedTracker');
     });
     it('should excercise Tracker APIs', () => {
-        var tracker: UniversalAnalytics.Tracker = ga('create', 'UA-65432-1', 'auto');
+        var tracker: UniversalAnalytics.Tracker = ga.create('UA-65432-1', 'auto');
         var aString: string = tracker.get<string>('aString');
         var aNumber: number = tracker.get<number>('aNumber');
         var anObject: {} = tracker.get<{}>('anObject');
