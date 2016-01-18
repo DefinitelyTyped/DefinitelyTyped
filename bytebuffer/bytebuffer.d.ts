@@ -161,7 +161,7 @@ declare class ByteBuffer
     /**
      * Gets the backing buffer type.
      */
-    static isByteBuffer( bb: any ): boolean;
+    static isByteBuffer( bb: any ): bb is ByteBuffer;
 
     /**
      * Wraps a buffer or a string. Sets the allocated ByteBuffer's ByteBuffer#offset to 0 and its ByteBuffer#limit to the length of the wrapped data.
