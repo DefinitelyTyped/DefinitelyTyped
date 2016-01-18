@@ -165,7 +165,7 @@ declare module Twitter.Typeahead {
          * cb can be invoked synchronously or asynchronously.
          *
           */
-        source: ((query: string, syncResults: (result: Array<any>) => void, asyncResults?: (result: Array<any>) => void) => void);
+        source: ((query: string, syncResults: (result: Array<any>) => void, asyncResults?: (result: Array<any>) => void) => void) | Bloodhound<any>;
 
         /**
           * The name of the dataset.
@@ -194,6 +194,11 @@ declare module Twitter.Typeahead {
           */
         templates?: Templates;
         async?: boolean;
+        
+        /**
+         * The max number of suggestions to be displayed. Defaults to 5.
+         */
+        limit?: number
     }
 
 
@@ -405,6 +410,8 @@ declare module Bloodhound {
          * @returns A JqueryAjaxSettings object.
          */
         prepare?: (query: string, settings: JQueryAjaxSettings) => JQueryAjaxSettings;
+        
+        transform: (reponse: any) => any;
     }
 
     /**
