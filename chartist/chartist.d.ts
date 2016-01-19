@@ -74,7 +74,7 @@ declare module Chartist {
   // this definition gives some intellisense, but does not protect the user from misuse
   // TODO: come in and tidy this up and make it fit better
   interface IChartistData {
-    labels?: Array<string> | Array<number>;
+    labels?: Array<string> | Array<number> | Array<Date>;
     series: Array<IChartistSeriesData> | Array<number> |  Array<Array<number>>;
   }
 
