@@ -134,6 +134,7 @@ function bufferTests() {
     var base64Buffer = new Buffer('','base64');
     var octets: Uint8Array = null;
     var octetBuffer = new Buffer(octets);
+    var copiedBuffer = new Buffer(utf8Buffer);
     console.log(Buffer.isBuffer(octetBuffer));
     console.log(Buffer.isEncoding('utf8'));
     console.log(Buffer.byteLength('xyz123'));
@@ -159,6 +160,15 @@ function bufferTests() {
 
     // fill returns the input buffer.
     b.fill('a').fill('b');
+   
+    {
+        let buffer = new Buffer('123');
+        let index: number;
+        index = buffer.indexOf("23");
+        index = buffer.indexOf("23", 1);
+        index = buffer.indexOf(23);
+        index = buffer.indexOf(buffer);
+    }
 }
 
 
