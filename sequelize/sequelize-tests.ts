@@ -906,7 +906,7 @@ User.find( { where : { intVal : { lte : 5 } } } );
 
 User.count();
 User.count( { transaction : t } );
-User.count().then( function( c ) { c.toFixed() } );
+User.count().then( function( c ) { c.toFixed(); } );
 User.count( { where : ["username LIKE '%us%'"] } );
 User.count( { include : [{ model : User, required : false }] } );
 User.count( { distinct : true, include : [{ model : User, required : false }] } );
@@ -1122,7 +1122,7 @@ s.query( '', { raw : true, nest : false } );
 s.query( 'select ? as foo, ? as bar', { type : this.sequelize.QueryTypes.SELECT, replacements : [1, 2] } );
 s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { type : s.QueryTypes.SELECT } );
 s.query( 'select :one as foo, :two as bar', { raw : true, replacements : { one : 1, two : 2 } } );
-s.transaction().then( function( t ) { s.set( { foo : 'bar' }, { transaction : t } ) } );
+s.transaction().then( function( t ) { s.set( { foo : 'bar' }, { transaction : t } ); } );
 s.define( 'foo', { bar : Sequelize.STRING }, { collate : 'utf8_bin' } );
 s.define( 'Foto', { name : Sequelize.STRING }, { tableName : 'photos' } );
 s.databaseVersion().then( function( version ) { } );
