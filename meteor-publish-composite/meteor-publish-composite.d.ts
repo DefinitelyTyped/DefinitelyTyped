@@ -7,27 +7,43 @@
 
 declare interface IPublishCompositeConfigN {
     children? : IPublishCompositeConfigN[];
-    find(...args : any[]) : Mongo.Cursor<any>;
+    find(
+        ...args : any[]
+    ) : Mongo.Cursor<any>;
 }
 
 declare interface IPublishCompositeConfig4<InLevel1, InLevel2, InLevel3, InLevel4, OutLevel> {
     children? : IPublishCompositeConfigN[];
-    find(arg4 : InLevel4, arg3 : InLevel3, arg2 : InLevel2, arg1 : InLevel1) : Mongo.Cursor<OutLevel>;
+    find(
+        arg4 : InLevel4,
+        arg3 : InLevel3,
+        arg2 : InLevel2,
+        arg1 : InLevel1
+    ) : Mongo.Cursor<OutLevel>;
 }
 
 declare interface IPublishCompositeConfig3<InLevel1, InLevel2, InLevel3, OutLevel> {
     children? : IPublishCompositeConfig4<InLevel1, InLevel2, InLevel3, OutLevel, any>[];
-    find(arg3 : InLevel3, arg2 : InLevel2, arg1 : InLevel1) : Mongo.Cursor<OutLevel>;
+    find(
+        arg3 : InLevel3,
+        arg2 : InLevel2,
+        arg1 : InLevel1
+    ) : Mongo.Cursor<OutLevel>;
 }
 
 declare interface IPublishCompositeConfig2<InLevel1, InLevel2, OutLevel> {
     children? : IPublishCompositeConfig3<InLevel1, InLevel2, OutLevel, any>[];
-    find(arg2 : InLevel2, arg1 : InLevel1) : Mongo.Cursor<OutLevel>;
+    find(
+        arg2 : InLevel2,
+        arg1 : InLevel1
+    ) : Mongo.Cursor<OutLevel>;
 }
 
 declare interface IPublishCompositeConfig1<InLevel1, OutLevel> {
     children? : IPublishCompositeConfig2<InLevel1, OutLevel, any>[];
-    find(arg1 : InLevel1) : Mongo.Cursor<OutLevel>;
+    find(
+        arg1 : InLevel1
+    ) : Mongo.Cursor<OutLevel>;
 }
 
 declare interface IPublishCompositeConfig<OutLevel> {
@@ -36,6 +52,14 @@ declare interface IPublishCompositeConfig<OutLevel> {
 }
 
 declare module Meteor {
-    function publishComposite(name : string, config : IPublishCompositeConfig<any>|IPublishCompositeConfig<any>[]) : void;
-    function publishComposite(name : string, configFunc : (...args : any[]) => IPublishCompositeConfig<any>) : void;
+    function publishComposite(
+        name : string,
+        config : IPublishCompositeConfig<any>|IPublishCompositeConfig<any>[]
+    ) : void;
+
+    function publishComposite(
+        name : string,
+        configFunc : (...args : any[]) =>
+            IPublishCompositeConfig<any>|IPublishCompositeConfig<any>[]
+    ) : void;
 }
