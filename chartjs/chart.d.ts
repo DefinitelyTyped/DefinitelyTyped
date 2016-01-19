@@ -107,7 +107,7 @@ interface LinearInstance extends ChartInstance {
     getPointsAtEvent: (event: Event) => PointsAtEvent[];
     update: () => void;
     addData: (valuesArray: number[], label: string) => void;
-    removeData: () => void;
+    removeData: (index?: number) => void;
 }
 
 interface CircularInstance extends ChartInstance {
