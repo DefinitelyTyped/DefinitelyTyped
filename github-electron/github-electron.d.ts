@@ -1193,7 +1193,7 @@ declare module GitHubElectron {
 			/**
 			 * File types that can be displayed, see dialog.showOpenDialog for an example.
 			 */
-			 
+
 			filters?: {
 				name: string;
 				extensions: string[];
@@ -1334,15 +1334,11 @@ declare module GitHubElectron {
 		* Default: Electron
 		*/
 		productName?: string;
-		/**
-		* Default: GitHub, Inc.
-		*/
-		companyName?: string;
+		companyName: string;
 		/**
 		* URL that crash reports would be sent to as POST.
-		* Default: http://54.249.141.255:1127/post
 		*/
-		submitURL?: string;
+		submitURL: string;
 		/**
 		* Send the crash report without user interaction.
 		* Default: true.
@@ -1357,7 +1353,7 @@ declare module GitHubElectron {
 		* Only string properties are send correctly.
 		* Nested objects are not supported.
 		*/
-		extra?: {};
+		extra?: any;
 	}
 
 	interface CrashReporterPayload extends Object {
@@ -1401,7 +1397,7 @@ declare module GitHubElectron {
 	}
 
 	interface CrashReporter {
-		start(options?: CrashReporterStartOptions): void;
+		start(options: CrashReporterStartOptions): void;
 
 		/**
 		 * @returns The date and ID of the last crash report. When there was no crash report
