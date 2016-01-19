@@ -100,6 +100,8 @@ declare module Chartist {
     supportsAnimations: boolean;
     resizeListener: any;
 
+    plugins?: Array<any>; // all of these plugins seem to be functions with options, but keeping type any for now
+
     update(data: Object, options?: T, override?: boolean): void;
     detatch(): void;
 
