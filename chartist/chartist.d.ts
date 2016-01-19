@@ -305,13 +305,13 @@ declare module Chartist {
   }
 
   interface IChartistStepAxis extends ILineChartAxis {
-    type: IStepAxisStatic;
+    type?: IStepAxisStatic;
     ticks?: Array<string> | Array<number>;
     stretch?: boolean;
   }
 
   interface IChartistFixedScaleAxis extends ILineChartAxis {
-    type: IFixedScaleAxisStatic;
+    type?: IFixedScaleAxisStatic;
     high?: number;
     low?: number;
     divisor?: number;
@@ -324,7 +324,7 @@ declare module Chartist {
     scaleMinSpace?: number;
     onlyInteger?: boolean;
     referenceValue?: number;
-    type: IAutoScaleAxisStatic;
+    type?: IAutoScaleAxisStatic;
   }
 
   interface ILineChartClasses {
