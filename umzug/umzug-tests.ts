@@ -2,11 +2,12 @@
 /// <reference path="../sequelize/sequelize.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
-import Umzug = require("umzug");
-import Sequelize = require("sequelize");
+import * as Umzug from "umzug";
+import * as Sequelize from "sequelize";
 
-
+var someVar:Umzug.Umzug;
 var umzug = new Umzug({});
+someVar = umzug;
 
 umzug.up().then(function (result) {
   // do something with the result

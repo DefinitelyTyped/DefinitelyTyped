@@ -7,10 +7,11 @@
 /// <reference path="../sequelize/sequelize.d.ts" />
 
 declare module "umzug" {
+    import Sequelize = require("sequelize");
 
-      import Sequelize = require("sequelize");
+    module umzug {
 
-      interface MigrationOptions {
+        interface MigrationOptions {
 
             /*
              * The params that gets passed to the migrations.
@@ -30,9 +31,9 @@ declare module "umzug" {
              */
             wrap?: <T>( fn : T ) => T;
 
-      }
+        }
 
-      interface JSONStorageOptions {
+        interface JSONStorageOptions {
 
             /**
              * The path to the json storage.
@@ -40,55 +41,55 @@ declare module "umzug" {
              */
             path?: string;
 
-      }
+        }
 
-      interface SequelizeStorageOptions {
+        interface SequelizeStorageOptions {
 
-          /**
-           * The configured instance of Sequelize.
-           * Optional if `model` is passed.
-           */
-          sequelize?: Sequelize.Sequelize;
+            /**
+             * The configured instance of Sequelize.
+             * Optional if `model` is passed.
+             */
+            sequelize?: Sequelize.Sequelize;
 
-          /**
-           * The to be used Sequelize model.
-           * Must have column name matching `columnName` option
-           * Optional of `sequelize` is passed.
-           */
-          model?: Sequelize.Model<any, any>;
+            /**
+             * The to be used Sequelize model.
+             * Must have column name matching `columnName` option
+             * Optional of `sequelize` is passed.
+             */
+            model?: Sequelize.Model<any, any>;
 
-          /**
-           * The name of the to be used model.
-           * Defaults to 'SequelizeMeta'
-           */
-          modelName?: string;
+            /**
+             * The name of the to be used model.
+             * Defaults to 'SequelizeMeta'
+             */
+            modelName?: string;
 
-          /**
-           * The name of table to create if `model` option is not supplied
-           * Defaults to `modelName`
-           */
-          tableName?: string;
+            /**
+             * The name of table to create if `model` option is not supplied
+             * Defaults to `modelName`
+             */
+            tableName?: string;
 
-          /**
-           * The name of table column holding migration name.
-           * Defaults to 'name'.
-           */
-          columnName: string;
+            /**
+             * The name of table column holding migration name.
+             * Defaults to 'name'.
+             */
+            columnName: string;
 
-          /**
-           * The type of the column holding migration name.
-           * Defaults to `Sequelize.STRING`
-           */
-          columnType: Sequelize.DataTypeAbstract;
+            /**
+             * The type of the column holding migration name.
+             * Defaults to `Sequelize.STRING`
+             */
+            columnType: Sequelize.DataTypeAbstract;
 
-      }
+        }
 
-      interface ExecuteOptions {
+        interface ExecuteOptions {
             migrations?: Array<string>;
             method?: string;
-      }
+        }
 
-      interface UmzugOptions {
+        interface UmzugOptions {
 
             /**
              * The storage.
@@ -122,67 +123,67 @@ declare module "umzug" {
              */
             migrations? : MigrationOptions;
 
-      }
+        }
 
-      interface UpDownToOptions {
+        interface UpDownToOptions {
 
-          /**
-           * It is also possible to pass the name of a migration in order to
-           * just run the migrations from the current state to the passed
-           * migration name.
-           */
-          to: string;
+            /**
+             * It is also possible to pass the name of a migration in order to
+             * just run the migrations from the current state to the passed
+             * migration name.
+             */
+            to: string;
 
-      }
+        }
 
-      interface UpDownMigrationsOptions {
+        interface UpDownMigrationsOptions {
 
-          /**
-           * Running specific migrations while ignoring the right order, can be
-           * done like this:
-           */
-          migrations: Array<string>;
+            /**
+             * Running specific migrations while ignoring the right order, can be
+             * done like this:
+             */
+            migrations: Array<string>;
 
-      }
+        }
 
-      class Umzug {
+        interface Umzug {
+            /**
+             * The execute method is a general purpose function that runs for
+             * every specified migrations the respective function.
+             */
+            execute(options? : ExecuteOptions) : Promise<Array<string>>;
 
-          constructor(options?: UmzugOptions);
+            /**
+             * You can get a list of pending/not yet executed migrations like this:
+             */
+            pending() : Promise<Array<string>>;
 
-          /**
-           * The execute method is a general purpose function that runs for
-           * every specified migrations the respective function.
-           */
-          execute(options? : ExecuteOptions) : Promise<Array<string>>;
+            /**
+             * You can get a list of already executed migrations like this:
+             */
+            executed() : Promise<Array<string>>;
 
-          /**
-           * You can get a list of pending/not yet executed migrations like this:
-           */
-          pending() : Promise<Array<string>>;
+            /**
+             * The up method can be used to execute all pending migrations.
+             */
+            up(migration?: string) : Promise<string>;
+            up(migrations?: Array<string>) : Promise<Array<string>>;
+            up(options?: UpDownToOptions | UpDownMigrationsOptions ) : Promise<Array<string>>;
 
-          /**
-           * You can get a list of already executed migrations like this:
-           */
-          executed() : Promise<Array<string>>;
+            /**
+             * The down method can be used to revert the last executed migration.
+             */
+            down(migration?: string) : Promise<string>;
+            down(migrations?: Array<string>) : Promise<Array<string>>;
+            down(options?: UpDownToOptions | UpDownMigrationsOptions ) : Promise<Array<string>>;
 
-          /**
-           * The up method can be used to execute all pending migrations.
-           */
-          up(migration?: string) : Promise<string>;
-          up(migrations?: Array<string>) : Promise<Array<string>>;
-          up(options?: UpDownToOptions | UpDownMigrationsOptions ) : Promise<Array<string>>;
+        }
 
-          /**
-           * The down method can be used to revert the last executed migration.
-           */
-          down(migration?: string) : Promise<string>;
-          down(migrations?: Array<string>) : Promise<Array<string>>;
-          down(options?: UpDownToOptions | UpDownMigrationsOptions ) : Promise<Array<string>>;
+        interface UmzugStatic {
+            new (options?: UmzugOptions) : Umzug;
+        }
+    }
 
-      }
-
-      var umzug : typeof Umzug;
-
-      export = umzug;
-
+    var umzug : umzug.UmzugStatic;
+    export = umzug;
 }
