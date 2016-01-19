@@ -132,6 +132,8 @@ declare namespace ReactRouter {
         getComponents?: (location: H.Location, cb: (error: any, components?: RouteComponents) => void) => void
         onEnter?: EnterHook
         onLeave?: LeaveHook
+        getIndexRoute?: (location: H.Location, cb: (error: any, indexRoute: RouteConfig) => void) => void
+        getChildRoutes?: (location: H.Location, cb: (error: any, childRoutes: RouteConfig) => void) => void
     }
     interface Route extends React.ComponentClass<RouteProps> {}
     interface RouteElement extends React.ReactElement<RouteProps> {}
