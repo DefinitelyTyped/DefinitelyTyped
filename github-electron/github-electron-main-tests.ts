@@ -26,9 +26,6 @@ import path = require('path');
 // Quick start
 // https://github.com/atom/electron/blob/master/docs/tutorial/quick-start.md
 
-// Report crashes to our server.
-require('crash-reporter').start();
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the javascript object is GCed.
 var mainWindow: GitHubElectron.BrowserWindow = null;
