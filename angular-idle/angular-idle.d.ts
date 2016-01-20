@@ -8,6 +8,98 @@
 declare module angular.idle {
 
     /**
+     * Used to configure the Title service.
+     */
+    interface ITitleProvider extends IServiceProvider {
+        
+        /**
+         * Enables or disables the Title functionality.
+         * 
+         * @param enabled Boolean, default is true.
+         */
+        enabled(enabled: boolean): void;
+    }
+    
+    interface ITitleService {
+        
+        /**
+         * Allows the title functionality to be enabled or disabled on the fly.
+         */
+        setEnabled(enabled: boolean): void;
+        
+        /**
+         * Returns whether or not the title functionality has been enabled.
+         */
+        isEnabled(): boolean;
+        
+        /**
+         * Will store val as the "original" title of the document.
+         * 
+         * Tracking the original title is important when restoring the title after displaying, for example, the idle warning message. 
+         */
+        original(val: string): void;
+        
+        /**
+         * Returns the "original" title value that has been previously set.
+         * 
+         * Tracking the original title is important when restoring the title after displaying, for example, the idle warning message. 
+         */
+        original(): string;
+        
+        /**
+         * Changes the actual title of the document.
+         */
+        value(val: string): void;
+        
+        /**
+         * Returns the current document title.
+         */
+        value(): string;
+        
+        /**
+         * If overwrite is false or unspecified, updates the "original" title with the current document title
+         * if it has not already been stored. If overwrite is true, the current document title is stored regardless.
+         */
+        store(overwrite: boolean): void;
+        
+        /**
+         * Sets the title to the original value (if it was stored or set previously).
+         */
+        restore(): void;
+        
+        /**
+         * Sets the text to use as the message displayed when the user is idle.
+         */
+        idleMessage(val: string): void;
+        
+        /**
+         * Gets the text to use as the message displayed when the user is idle.
+         */
+        idleMessage(): string;
+        
+        /**
+         * Sets the text to use as the message displayed when the user is timed out.
+         */
+        timedOutMessage(val: string): void;
+        
+        /**
+         * Gets the text to use as the message displayed when the user is timed out.
+         */
+        timedOutMessage(): string;
+        
+        /**
+         * Stores the original title if it hasn't been already, determines the number minutes, seconds,
+         * and total seconds from countdown, and displays the idleMessage with the aforementioned values interpolated.
+         */
+        setAsIdle(countdown: number): void;
+        
+        /**
+         * Stores the original title if it hasn't been already, and displays the timedOutMessage.
+         */
+        setAsTimedOut();
+    }
+
+    /**
      * Used to configure the Keepalive service.
      */
     interface IKeepAliveProvider extends IServiceProvider {
