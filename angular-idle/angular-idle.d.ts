@@ -118,7 +118,7 @@ declare module angular.idle {
          * This specifies how often the keepalive event is triggered and the 
          * HTTP request is issued.
          * 
-         * @param seconds Integer, default is 5 minutes. Must be greater than 0.
+         * @param seconds Integer, default is 10 minutes. Must be greater than 0.
          */
         interval(seconds: number): void;
     }
@@ -183,13 +183,14 @@ declare module angular.idle {
         timeout(seconds: number): void;
 
         /**
-         * When true, user activity will automatically interrupt the warning countdown and reset the 
-         * idle state. If false, you will need to manually call watch() when you want to start 
-         * watching for idleness again.
+         * When true or idle, user activity will automatically interrupt the warning countdown
+         * and reset the idle state. If false or off, you will need to manually call watch()
+         * when you want to start watching for idleness again. If notIdle, user activity will
+         * only automatically interrupt if the user is not yet idle.
          * 
-         * @param enabled boolean, default is true
+         * @param enabled boolean or string, possible values: off/false, idle/true, or notIdle
          */
-        autoResume(enabled: boolean): void;
+        autoResume(enabled: boolean | string): void;
 
         /**
          * When true, the Keepalive service is automatically stopped and started as needed.
