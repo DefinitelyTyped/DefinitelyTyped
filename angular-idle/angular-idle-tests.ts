@@ -1,8 +1,9 @@
 /// <reference path="./angular-idle.d.ts" />
 
 angular.module('app', ['ngIdle'])
-	.config(['KeepaliveProvider', 'IdleProvider', 
-		(keepaliveProvider: ng.idle.IKeepAliveProvider, idleProvider: ng.idle.IIdleProvider) => {
+	.config(['KeepaliveProvider', 'IdleProvider', 'TitleProvider',
+		(keepaliveProvider: ng.idle.IKeepAliveProvider, idleProvider: ng.idle.IIdleProvider,
+         titleProvider: ng.idle.ITitleProvider) => {
 			idleProvider.interrupt('mousemove keydown DOMMouseScroll mousewheel mousedown');
 			idleProvider.idle(5);
 			idleProvider.timeout(5);
@@ -17,8 +18,10 @@ angular.module('app', ['ngIdle'])
             keepaliveProvider.http(config.url); // should accept string and ng.IRequestConfig
             keepaliveProvider.http(config);
 			keepaliveProvider.interval(10);
+
+            titleProvider.enabled(true);
 		}])
-	.run(['Keepalive', 'Idle', (Keepalive: ng.idle.IKeepAliveService, Idle: ng.idle.IIdleService) => {
+	.run(['Keepalive', 'Idle', 'Title', (Keepalive: ng.idle.IKeepAliveService, Idle: ng.idle.IIdleService, Title: ng.idle.ITitleService) => {
         Idle.setTimeout(Idle.getTimeout());
         Idle.setIdle(Idle.getIdle());
 
@@ -34,4 +37,14 @@ angular.module('app', ['ngIdle'])
 		Keepalive.start();
 		Keepalive.ping();
 		Keepalive.stop();
+
+        Title.setEnabled(Title.isEnabled());
+        Title.original(Title.original());
+        Title.value(Title.value());
+        Title.store(false);
+        Title.restore();
+        Title.idleMessage(Title.idleMessage());
+        Title.timedOutMessage(Title.timedOutMessage());
+        Title.setAsIdle(120);
+        Title.setAsTimedOut();
 	}]);
