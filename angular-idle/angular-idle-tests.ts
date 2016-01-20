@@ -1,23 +1,37 @@
 /// <reference path="./angular-idle.d.ts" />
 
 angular.module('app', ['ngIdle'])
-	.config(['$keepaliveProvider', '$idleProvider', 
-		($keepaliveProvider: ng.idle.IKeepAliveProvider, $idleProvider: ng.idle.IIdleProvider) => {
-			$idleProvider.activeOn('mousemove keydown DOMMouseScroll mousewheel mousedown');
-			$idleProvider.idleDuration(5);
-			$idleProvider.warningDuration(5);
-			$idleProvider.keepalive(true)
-			$idleProvider.autoResume(true);
-			$keepaliveProvider.interval(10);
+	.config(['KeepaliveProvider', 'IdleProvider', 
+		(keepaliveProvider: ng.idle.IKeepAliveProvider, idleProvider: ng.idle.IIdleProvider) => {
+			idleProvider.interrupt('mousemove keydown DOMMouseScroll mousewheel mousedown');
+			idleProvider.idle(5);
+			idleProvider.timeout(5);
+			idleProvider.keepalive(true)
+			idleProvider.autoResume(true);
+
+            const config: ng.IRequestConfig = {
+                url: "http://google.com",
+                method: "GET"
+            };
+
+            keepaliveProvider.http(config.url); // should accept string and ng.IRequestConfig
+            keepaliveProvider.http(config);
+			keepaliveProvider.interval(10);
 		}])
-	.run(['$keepalive', '$idle', ($keepalive: ng.idle.IKeepAliveService, $idle: ng.idle.IIdleService) => {
-		$idle.watch();
-		
-		if ($idle.running() || $idle.idling()) {
-			$idle.unwatch();
+	.run(['Keepalive', 'Idle', (Keepalive: ng.idle.IKeepAliveService, Idle: ng.idle.IIdleService) => {
+        Idle.setTimeout(Idle.getTimeout());
+        Idle.setIdle(Idle.getIdle());
+
+		Idle.watch();
+        Idle.interrupt();
+
+        const expired: boolean = Idle.isExpired();
+
+		if (Idle.running() || Idle.idling()) {
+			Idle.unwatch();
 		}
-		
-		$keepalive.start();
-		$keepalive.ping();
-		$keepalive.stop();
+
+		Keepalive.start();
+		Keepalive.ping();
+		Keepalive.stop();
 	}]);
