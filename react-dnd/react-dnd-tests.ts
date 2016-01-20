@@ -13,7 +13,7 @@ import DragSource = ReactDnd.DragSource;
 import DropTarget = ReactDnd.DropTarget;
 import DragLayer = ReactDnd.DragLayer;
 import DragDropContext = ReactDnd.DragDropContext;
-import HTML5Backend = require('react-dnd/modules/backends/HTML5');
+import HTML5Backend, { getEmptyImage } from 'react-dnd/modules/backends/HTML5';
 import TestBackend = require('react-dnd/modules/backends/Test');
 
 // Game Component
@@ -81,10 +81,12 @@ module Knight {
     }
 
     export class Knight extends React.Component<KnightP, {}> {
+        static defaultProps: KnightP;
+
         static create = React.createFactory(Knight);
 
         componentDidMount() {
-            var img = HTML5Backend.getEmptyImage();
+            var img = getEmptyImage();
             img.onload = () => this.props.connectDragPreview(img);
         }
 
@@ -154,6 +156,8 @@ module BoardSquare {
     }
 
     export class BoardSquare extends React.Component<BoardSquareP, {}> {
+        static defaultProps: BoardSquareP;
+
         private _renderOverlay = (color: string) => {
             return r.div({
                 style: {

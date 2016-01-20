@@ -248,6 +248,50 @@ declare module MakerJs {
         path2Angles?: number[];
     }
     /**
+     * Options when matching points
+     */
+    interface IPointMatchOptions {
+        /**
+         * Max distance to consider two points as the same.
+         */
+        pointMatchingDistance?: number;
+    }
+    /**
+     * Options to pass to model.combine.
+     */
+    interface ICombineOptions extends IPointMatchOptions {
+        /**
+         * Flag to remove paths which are not part of a loop.
+         */
+        trimDeadEnds?: boolean;
+        /**
+         * Point which is known to be outside of the model.
+         */
+        farPoint?: IPoint;
+    }
+    /**
+     * Options to pass to model.findLoops.
+     */
+    interface IFindLoopsOptions extends IPointMatchOptions {
+        /**
+         * Flag to remove looped paths from the original model.
+         */
+        removeFromOriginal?: boolean;
+    }
+    /**
+     * A path that may be indicated to "flow" in either direction between its endpoints.
+     */
+    interface IPathDirectional extends IPath {
+        /**
+         * The endpoints of the path.
+         */
+        endPoints: IPoint[];
+        /**
+         * Path flows forwards or reverse.
+         */
+        reversed?: boolean;
+    }
+    /**
      * Path objects by id.
      */
     interface IPathMap {
@@ -301,11 +345,84 @@ declare module MakerJs {
          * Optional layer of this model.
          */
         layer?: string;
+        /**
+         * Optional exporter options for this model.
+         */
+        exporterOptions?: {
+            [exporterName: string]: any;
+        };
+    }
+    /**
+     * Callback signature for model.walkPaths().
+     */
+    interface IModelPathCallback {
+        (modelContext: IModel, pathId: string, pathContext: IPath): void;
     }
     /**
      * Test to see if an object implements the required properties of a model.
      */
     function isModel(item: any): boolean;
+    /**
+     * Reference to a path id within a model.
+     */
+    interface IRefPathIdInModel {
+        modelContext: IModel;
+        pathId: string;
+    }
+    /**
+     * Path and its reference id within a model
+     */
+    interface IRefPathInModel extends IRefPathIdInModel {
+        pathContext: IPath;
+    }
+    /**
+     * Describes a parameter and its limits.
+     */
+    interface IMetaParameter {
+        /**
+         * Display text of the parameter.
+         */
+        title: string;
+        /**
+         * Type of the parameter. Currently supports "range".
+         */
+        type: string;
+        /**
+         * Optional minimum value of the range.
+         */
+        min?: number;
+        /**
+         * Optional maximum value of the range.
+         */
+        max?: number;
+        /**
+         * Optional step value between min and max.
+         */
+        step?: number;
+        /**
+         * Initial sample value for this parameter.
+         */
+        value: any;
+    }
+    /**
+     * An IKit is a model-producing class with some sample parameters. Think of it as a packaged model with instructions on how to best use it.
+     */
+    interface IKit {
+        /**
+         * The constructor. The kit must be "new-able" and it must produce an IModel.
+         * It can have any number of any type of parameters.
+         */
+        new (...args: any[]): IModel;
+        /**
+         * Attached to the constructor is a property named metaParameters which is an array of IMetaParameter objects.
+         * Each element of the array corresponds to a parameter of the constructor, in order.
+         */
+        metaParameters?: IMetaParameter[];
+        /**
+         * Information about this kit, in plain text or markdown format.
+         */
+        notes?: string;
+    }
 }
 declare module MakerJs.angle {
     /**
@@ -315,7 +432,7 @@ declare module MakerJs.angle {
      * @param b Second angle.
      * @returns true if angles are the same, false if they are not
      */
-    function areEqual(angle1: number, angle2: number): boolean;
+    function areEqual(angle1: number, angle2: number, accuracy?: number): boolean;
     /**
      * Ensures an angle is not greater than 360
      *
@@ -402,15 +519,24 @@ declare module MakerJs.point {
      * @param b Second point.
      * @returns true if points are the same, false if they are not
      */
-    function areEqual(a: IPoint, b: IPoint): boolean;
+    function areEqual(a: IPoint, b: IPoint, withinDistance?: number): boolean;
     /**
      * Find out if two points are equal after rounding.
      *
      * @param a First point.
      * @param b Second point.
+     * @param accuracy Optional exemplar of number of decimal places.
      * @returns true if points are the same, false if they are not
      */
     function areEqualRounded(a: IPoint, b: IPoint, accuracy?: number): boolean;
+    /**
+     * Get the average of two points.
+     *
+     * @param a First point.
+     * @param b Second point.
+     * @returns New point object which is the average of a and b.
+     */
+    function average(a: IPoint, b: IPoint): IPoint;
     /**
      * Clone a point into a new point.
      *
@@ -456,7 +582,7 @@ declare module MakerJs.point {
      */
     function fromPathEnds(pathContext: IPath): IPoint[];
     /**
-     * Get the middle point of a path. Currently only supports Arc and Line paths.
+     * Get the middle point of a path.
      *
      * @param pathContext The path object.
      * @param ratio Optional ratio (between 0 and 1) of point along the path. Default is .5 for middle.
@@ -472,6 +598,14 @@ declare module MakerJs.point {
      * @returns Mirrored point.
      */
     function mirror(pointToMirror: IPoint, mirrorX: boolean, mirrorY: boolean): IPoint;
+    /**
+     * Round the values of a point.
+     *
+     * @param pointContext The point to serialize.
+     * @param accuracy Optional exemplar number of decimal places.
+     * @returns A new point with the values rounded.
+     */
+    function rounded(pointContext: IPoint, accuracy?: number): IPoint;
     /**
      * Rotate a point.
      *
@@ -489,6 +623,14 @@ declare module MakerJs.point {
      * @returns A new point.
      */
     function scale(pointToScale: IPoint, scaleValue: number): IPoint;
+    /**
+     * Get a string representation of a point.
+     *
+     * @param pointContext The point to serialize.
+     * @param accuracy Optional exemplar of number of decimal places.
+     * @returns String representing the point.
+     */
+    function serialize(pointContext: IPoint, accuracy?: number): string;
     /**
      * Subtract a point from another point, and return the result as a new point. Shortcut to Add(a, b, subtract = true).
      *
@@ -513,7 +655,7 @@ declare module MakerJs.path {
      * @param b Second path.
      * @returns true if paths are the same, false if they are not
      */
-    function areEqual(path1: IPath, path2: IPath): boolean;
+    function areEqual(path1: IPath, path2: IPath, withinPointDistance?: number): boolean;
     /**
      * Create a clone of a path, mirrored on either or both x and y axes.
      *
@@ -638,10 +780,24 @@ declare module MakerJs.paths {
 }
 declare module MakerJs.model {
     /**
+     * Count the number of child models within a given model.
+     *
+     * @param modelContext The model containing other models.
+     * @returns Number of child models.
+     */
+    function countChildModels(modelContext: IModel): number;
+    /**
+     * Get an unused id in the models map with the same prefix.
+     *
+     * @param modelContext The model containing the models map.
+     * @param modelId The id to use directly (if unused), or as a prefix.
+     */
+    function getSimilarModelId(modelContext: IModel, modelId: string): string;
+    /**
      * Get an unused id in the paths map with the same prefix.
      *
      * @param modelContext The model containing the paths map.
-     * @param pathId The pathId to use directly (if unused), or as a prefix.
+     * @param pathId The id to use directly (if unused), or as a prefix.
      */
     function getSimilarPathId(modelContext: IModel, pathId: string): string;
     /**
@@ -703,12 +859,6 @@ declare module MakerJs.model {
      */
     function convertUnits(modeltoConvert: IModel, destUnitType: string): IModel;
     /**
-     * Callback signature for walkPaths.
-     */
-    interface IModelPathCallback {
-        (modelContext: IModel, pathId: string, pathContext: IPath): void;
-    }
-    /**
      * Recursively walk through all paths for a given model.
      *
      * @param modelContext The model to walk.
@@ -718,7 +868,23 @@ declare module MakerJs.model {
 }
 declare module MakerJs.model {
     /**
-     * Combine 2 models. The models should be originated.
+     * Check to see if a path is inside of a model.
+     *
+     * @param pathContext The path to check.
+     * @param modelContext The model to check against.
+     * @param farPoint Optional point of reference which is outside the bounds of the modelContext.
+     * @returns Boolean true if the path is inside of the modelContext.
+     */
+    function isPathInsideModel(pathContext: IPath, modelContext: IModel, farPoint?: IPoint): boolean;
+    /**
+     * Break a model's paths everywhere they intersect with another path.
+     *
+     * @param modelToBreak The model containing paths to be broken.
+     * @param modelToIntersect Optional model containing paths to look for intersection, or else the modelToBreak will be used.
+     */
+    function breakPathsAtIntersections(modelToBreak: IModel, modelToIntersect?: IModel): void;
+    /**
+     * Combine 2 models. The models should be originated, and every path within each model should be part of a loop.
      *
      * @param modelA First model to combine.
      * @param modelB Second model to combine.
@@ -726,9 +892,10 @@ declare module MakerJs.model {
      * @param includeAOutsideB Flag to include paths from modelA which are outside of modelB.
      * @param includeBInsideA Flag to include paths from modelB which are inside of modelA.
      * @param includeBOutsideA Flag to include paths from modelB which are outside of modelA.
+     * @param keepDuplicates Flag to include paths which are duplicate in both models.
      * @param farPoint Optional point of reference which is outside the bounds of both models.
      */
-    function combine(modelA: IModel, modelB: IModel, includeAInsideB: boolean, includeAOutsideB: boolean, includeBInsideA: boolean, includeBOutsideA: boolean, farPoint?: IPoint): void;
+    function combine(modelA: IModel, modelB: IModel, includeAInsideB?: boolean, includeAOutsideB?: boolean, includeBInsideA?: boolean, includeBOutsideA?: boolean, options?: ICombineOptions): void;
 }
 declare module MakerJs.units {
     /**
@@ -927,7 +1094,7 @@ declare module MakerJs.path {
      * @param line2 Second line to fillet, which will be modified to fit the fillet.
      * @returns Arc path object of the new fillet.
      */
-    function dogbone(line1: IPathLine, line2: IPathLine, filletRadius: number): IPathArc;
+    function dogbone(line1: IPathLine, line2: IPathLine, filletRadius: number, options?: IPointMatchOptions): IPathArc;
     /**
      * Adds a round corner to the inside angle between 2 paths. The paths must meet at one point.
      *
@@ -935,53 +1102,9 @@ declare module MakerJs.path {
      * @param path2 Second path to fillet, which will be modified to fit the fillet.
      * @returns Arc path object of the new fillet.
      */
-    function fillet(path1: IPath, path2: IPath, filletRadius: number): IPathArc;
+    function fillet(path1: IPath, path2: IPath, filletRadius: number, options?: IPointMatchOptions): IPathArc;
 }
 declare module MakerJs.kit {
-    /**
-     * Describes a parameter and its limits.
-     */
-    interface IMetaParameter {
-        /**
-         * Display text of the parameter.
-         */
-        title: string;
-        /**
-         * Type of the parameter. Currently supports "range".
-         */
-        type: string;
-        /**
-         * Optional minimum value of the range.
-         */
-        min?: number;
-        /**
-         * Optional maximum value of the range.
-         */
-        max?: number;
-        /**
-         * Optional step value between min and max.
-         */
-        step?: number;
-        /**
-         * Initial sample value for this parameter.
-         */
-        value: any;
-    }
-    /**
-     * An IKit is a model-producing class with some sample parameters. Think of it as a packaged model with instructions on how to best use it.
-     */
-    interface IKit {
-        /**
-         * The constructor. The kit must be "new-able" and it must produce an IModel.
-         * It can have any number of any type of parameters.
-         */
-        new (...args: any[]): IModel;
-        /**
-         * Attached to the constructor is a property named metaParameters which is an array of IMetaParameter objects.
-         * Each element of the array corresponds to a parameter of the constructor, in order.
-         */
-        metaParameters?: IMetaParameter[];
-    }
     /**
      * Helper function to use the JavaScript "apply" function in conjunction with the "new" keyword.
      *
@@ -997,6 +1120,40 @@ declare module MakerJs.kit {
      * @returns Array of the inital sample values provided in the metaParameters array.
      */
     function getParameterValues(ctor: IKit): any[];
+}
+declare module MakerJs.model {
+    /**
+     * @private
+     */
+    interface IPointMappedItem<T> {
+        averagePoint: IPoint;
+        item: T;
+    }
+    /**
+     * @private
+     */
+    class PointMap<T> {
+        matchingDistance: number;
+        list: IPointMappedItem<T>[];
+        constructor(matchingDistance?: number);
+        add(pointToAdd: IPoint, item: T): void;
+        find(pointToFind: IPoint, saveAverage: boolean): T;
+    }
+    /**
+     * Find paths that have common endpoints and form loops.
+     *
+     * @param modelContext The model to search for loops.
+     * @param options Optional options object.
+     * @returns A new model with child models ranked according to their containment within other found loops. The paths of models will be IPathDirectionalWithPrimeContext.
+     */
+    function findLoops(modelContext: IModel, options?: IFindLoopsOptions): IModel;
+    /**
+     * Remove all paths in a loop model from the model(s) which contained them.
+     *
+     * @param loopToDetach The model to search for loops.
+     */
+    function detachLoop(loopToDetach: IModel): void;
+    function removeDeadEnds(modelContext: IModel, pointMatchingDistance?: number): void;
 }
 declare module MakerJs.exporter {
     /**
@@ -1053,9 +1210,61 @@ declare module MakerJs.exporter {
     }
 }
 declare module MakerJs.exporter {
+    function toOpenJsCad(modelToExport: IModel, options?: IOpenJsCadOptions): string;
+    function toOpenJsCad(pathsToExport: IPath[], options?: IOpenJsCadOptions): string;
+    function toOpenJsCad(pathToExport: IPath, options?: IOpenJsCadOptions): string;
+    /**
+     * Executes a JavaScript string with the OpenJsCad engine - converts 2D to 3D.
+     *
+     * @param modelToExport Model object to export.
+     * @param options Export options object.
+     * @param options.extrusion Height of 3D extrusion.
+     * @param options.resolution Size of facets.
+     * @returns String of STL format of 3D object.
+     */
+    function toSTL(modelToExport: IModel, options?: IOpenJsCadOptions): string;
+    /**
+     * OpenJsCad export options.
+     */
+    interface IOpenJsCadOptions extends IFindLoopsOptions {
+        /**
+         * Optional depth of 3D extrusion.
+         */
+        extrusion?: number;
+        /**
+         * Optional size of curve facets.
+         */
+        facetSize?: number;
+        /**
+         * Optional override of function name, default is "main".
+         */
+        functionName?: string;
+        /**
+         * Optional options applied to specific first-child models by model id.
+         */
+        modelMap?: IOpenJsCadOptionsMap;
+    }
+    interface IOpenJsCadOptionsMap {
+        [modelId: string]: IOpenJsCadOptions;
+    }
+}
+declare module MakerJs.exporter {
     function toSVG(modelToExport: IModel, options?: ISVGRenderOptions): string;
     function toSVG(pathsToExport: IPath[], options?: ISVGRenderOptions): string;
     function toSVG(pathToExport: IPath, options?: ISVGRenderOptions): string;
+    /**
+     * Map of MakerJs unit system to SVG unit system
+     */
+    interface svgUnitConversion {
+        [unitType: string]: {
+            svgUnitType: string;
+            scaleConversion: number;
+        };
+    }
+    /**
+     * Map of MakerJs unit system to SVG unit system
+     */
+    var svgUnit: svgUnitConversion;
     /**
      * SVG rendering options.
      */
@@ -1065,33 +1274,37 @@ declare module MakerJs.exporter {
          */
         svgAttrs?: IXmlTagAttrs;
         /**
+         * SVG font size and font size units.
+         */
+        fontSize?: string;
+        /**
          * SVG stroke width of paths. This may have a unit type suffix, if not, the value will be in the same unit system as the units property.
          */
         strokeWidth?: string;
         /**
          * SVG color of the rendered paths.
          */
-        stroke: string;
+        stroke?: string;
         /**
          * Scale of the SVG rendering.
          */
-        scale: number;
+        scale?: number;
         /**
          *  Indicate that the id's of paths should be rendered as SVG text elements.
          */
-        annotate: boolean;
+        annotate?: boolean;
         /**
          * Rendered reference origin.
          */
-        origin: IPoint;
+        origin?: IPoint;
         /**
          * Use SVG < path > elements instead of < line >, < circle > etc.
          */
-        useSvgPathOnly: boolean;
+        useSvgPathOnly?: boolean;
         /**
          * Flag to use SVG viewbox.
          */
-        viewBox: boolean;
+        viewBox?: boolean;
     }
 }
 declare module MakerJs.models {
@@ -1119,6 +1332,12 @@ declare module MakerJs.models {
     }
 }
 declare module MakerJs.models {
+    class Dome implements IModel {
+        paths: IPathMap;
+        constructor(width: number, height: number, radius?: number);
+    }
+}
+declare module MakerJs.models {
     class RoundRectangle implements IModel {
         paths: IPathMap;
         constructor(width: number, height: number, radius: number);
@@ -1132,7 +1351,7 @@ declare module MakerJs.models {
 declare module MakerJs.models {
     class OvalArc implements IModel {
         paths: IPathMap;
-        constructor(startAngle: number, endAngle: number, sweepRadius: number, slotRadius: number);
+        constructor(startAngle: number, endAngle: number, sweepRadius: number, slotRadius: number, selfIntersect?: boolean);
     }
 }
 declare module MakerJs.models {
@@ -1150,6 +1369,13 @@ declare module MakerJs.models {
     class SCurve implements IModel {
         paths: IPathMap;
         constructor(width: number, height: number);
+    }
+}
+declare module MakerJs.models {
+    class Slot implements IModel {
+        paths: IPathMap;
+        origin: IPoint;
+        constructor(origin: IPoint, endPoint: IPoint, radius: number);
     }
 }
 declare module MakerJs.models {

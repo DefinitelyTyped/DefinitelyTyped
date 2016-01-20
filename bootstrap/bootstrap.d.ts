@@ -22,6 +22,7 @@ interface ModalOptionsBackdropString {
 
 interface ScrollSpyOptions {
     offset?: number;
+    target?: string;
 }
 
 interface TooltipOptions {

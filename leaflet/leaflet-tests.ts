@@ -131,6 +131,7 @@ var layer = L.tileLayer("http://{s}.example.net/{x}/{y}/{z}.png");
 
 map.addLayer(layer);
 map.addLayer(layer, false);
+map.eachLayer(l => {});
 
 map.removeLayer(layer);
 map.hasLayer(layer);

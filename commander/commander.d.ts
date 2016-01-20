@@ -65,10 +65,11 @@ declare module commander {
          *
          * @param {String} name
          * @param {String} [desc]
+         * @param {Mixed} [opts]
          * @return {Command} the new command
          * @api public
          */
-        command(name:string, desc?:string):ICommand;
+        command(name:string, desc?:string, opts?: any):ICommand;
 
         /**
          * Add an implicit `help [cmd]` subcommand
@@ -155,7 +156,7 @@ declare module commander {
          * @return {Command} for chaining
          * @api public
          */
-        option(flags:string, description?:string, fn?:(arg1:any, arg2:any)=>void, defaultValue?:any):ICommand;
+        option(flags:string, description?:string, fn?:((arg1:any, arg2:any)=>void)|RegExp, defaultValue?:any):ICommand;
         option(flags:string, description?:string, defaultValue?:any):ICommand;
 
         /**

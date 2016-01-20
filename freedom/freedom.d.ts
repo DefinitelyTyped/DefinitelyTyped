@@ -406,6 +406,12 @@ declare module freedom.PgpProvider {
     interface PublicKey {
         key: string;
         fingerprint: string;
+        words: string[];
+    }
+
+    interface KeyFingerprint {
+        fingerprint: string;
+        words: string[];
     }
 
     interface VerifyDecryptResult {
@@ -418,6 +424,7 @@ declare module freedom.PgpProvider {
         setup(passphrase: string, userid: string): Promise<void>;
         clear(): Promise<void>;
         exportKey(): Promise<PublicKey>;
+        getFingerprint(publicKey: string): Promise<KeyFingerprint>;
         signEncrypt(data: ArrayBuffer, encryptKey?: string,
                     sign?: boolean): Promise<ArrayBuffer>;
         verifyDecrypt(data: ArrayBuffer,
@@ -490,6 +497,7 @@ declare module freedom.Social {
     interface UserProfile {
         userId: string;
         name: string;
+        status?: number;        
         url?: string;
         // Image URI (e.g. data:image/png;base64,adkwe329...)
         imageData?: string;

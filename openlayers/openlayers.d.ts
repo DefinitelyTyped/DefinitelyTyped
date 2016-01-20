@@ -4368,3 +4368,7 @@ declare module ol {
      */
     interface TransformFunction { (input: Array<number>, output?: Array<number>, dimension?: number): Array<number> }
 }
+
+declare module "openlayers" {
+    export = ol;
+}

@@ -379,7 +379,7 @@ declare module ProtoBuf {
         requestName: string;
         responseName: string;
         resolvedRequestType: ReflectMessage;
-        resolveResponseType: ReflectMessage;
+        resolvedResponseType: ReflectMessage;
     }
 
 }

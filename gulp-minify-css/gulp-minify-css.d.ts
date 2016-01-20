@@ -27,5 +27,7 @@ declare module "gulp-minify-css" {
 
     function minifyCSS(options?: IOptions): NodeJS.ReadWriteStream;
 
+    namespace minifyCSS {}
+
     export = minifyCSS;
 }

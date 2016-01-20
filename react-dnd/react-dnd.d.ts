@@ -176,13 +176,9 @@ declare module "react-dnd" {
 }
 
 declare module "react-dnd/modules/backends/HTML5" {
-    enum _NativeTypes { FILE, URL, TEXT }
-    class HTML5Backend implements __ReactDnd.Backend {
-        static getEmptyImage(): any; // Image
-        static NativeTypes: _NativeTypes;
-    }
-
-    export = HTML5Backend;
+    export enum NativeTypes { FILE, URL, TEXT }
+    export function getEmptyImage(): any; // Image
+    export default class HTML5Backend implements __ReactDnd.Backend {}
 }
 
 declare module "react-dnd/modules/backends/Test" {

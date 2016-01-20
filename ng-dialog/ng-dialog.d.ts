@@ -26,14 +26,19 @@ declare module angular.dialog {
 	interface IDialogOpenResult {
 		id: string;
 		close: (value?: string) => void;
-		closePromise: IPromise<void>;
+		closePromise: IPromise<IDialogClosePromise>;
+	}
+
+	interface IDialogClosePromise {
+		id: string;
+		value: any;
 	}
 
 	interface IDialogProvider extends angular.IServiceProvider {
 		/**
 		 * Default options for the dialogs.
-		 * @param defaultOptions 
-		 * @returns {} 
+		 * @param defaultOptions
+		 * @returns {}
 		 */
 		setDefaults(defaultOptions: IDialogOptions): void;
 	}
@@ -44,7 +49,7 @@ declare module angular.dialog {
 	interface IDialogScope extends angular.IScope {
 		/**
 		 * This allows you to close dialog straight from handler in a popup element.
-		 * @param value Any value passed to this function will be attached to the object which resolves on the close promise for this dialog. 
+		 * @param value Any value passed to this function will be attached to the object which resolves on the close promise for this dialog.
 		 * For dialogs opened with the openConfirm() method the value is used as the reject reason.
 		 */
 		closeThisDialog(value?: any): void;
@@ -56,6 +61,12 @@ declare module angular.dialog {
 		 * It will be appended with the "ngdialog" class e.g. className is "default-theme flat-ui" it will be class="ngdialog default-theme flat-ui".
 		 */
 		className?: string;
+
+		/**
+		 *  If true then animation for the dialog will be disabled, default false.
+		 */
+		disableAnimation?: boolean;
+
 		/**
 		 * If false it allows to hide overlay div behind the modals, default true.
 		 */
@@ -101,5 +112,9 @@ declare module angular.dialog {
 		 * Scope object that will be passed to dialog. If you use controller with separate $scope service this object will be passed to $scope.$parent param.
 		 */
 		scope?: ng.IScope;
+		/**
+		 * Any serializable data that you want to be stored in the controller's dialog scope.
+		 */
+		data?: string|Object|any[];
 	}
 }
