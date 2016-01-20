@@ -123,13 +123,13 @@ declare module angular.idle {
          * Updates the idle value (see IdleProvider.idle()) and 
          * restarts the watch if its running.
          */
-        setIdle(): void;
+        setIdle(idle: number): void;
 
         /**
          * Updates the timeout value (see IdleProvider.timeout()) and 
          * restarts the watch if its running.
          */
-        setTimeout(): void;
+        setTimeout(timeout: number): void;
 
         /**
          * Whether user has timed out (meaning idleDuration + timeout has passed without any activity)
