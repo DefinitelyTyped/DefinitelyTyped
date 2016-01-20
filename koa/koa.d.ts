@@ -130,6 +130,7 @@ declare module "koa" {
       onerror(err: any): void;
   }
 
-  let K: typeof Koa;
-  export = K
+  namespace Koa {}
+
+  export = Koa;
 }
