@@ -796,6 +796,13 @@ declare module Marionette {
          * This event / callback is useful for DOM-dependent UI plugins such as jQueryUI or KendoUI.
          */
         onDomRefresh(): void;
+
+        /**
+         * Internal properties extended in Marionette.View.
+         */
+        isDestroyed: boolean;
+        supportsRenderLifecycle: boolean;
+        supportsDestroyLifecycle: boolean;
     }
 
     /**
