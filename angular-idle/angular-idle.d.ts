@@ -60,7 +60,7 @@ declare module angular.idle {
          * If overwrite is false or unspecified, updates the "original" title with the current document title
          * if it has not already been stored. If overwrite is true, the current document title is stored regardless.
          */
-        store(overwrite: boolean): void;
+        store(overwrite?: boolean): void;
         
         /**
          * Sets the title to the original value (if it was stored or set previously).
