@@ -8,10 +8,6 @@
 ### 4.0.0 Changelog (https://github.com/lodash/lodash/wiki/Changelog)
 
 #### TODO:
-misc:
-- [ ] Made _.forEach, _.forIn, _.forOwn, & _.times implicitly end a chain sequence
-- [ ] Removed thisArg params from most methods
-
 removed:
 - [x] Removed _.support
 - [x] Removed _.findWhere in favor of _.find with iteratee shorthand
@@ -41,42 +37,37 @@ split:
 - [x] Split _.uniq into _.sortedUniq, _.sortedUniqBy, & _.uniqBy
 
 changes:
-- [ ] TODO remove _.sortBy duplicates
 - [x] Absorbed _.sortByAll into _.sortBy
 - [x] Changed the category of _.at to “Object”
 - [x] Changed the category of _.bindAll to “Utility”
-- [ ] Made “By” methods provide a single param to iteratees
 - [x] Made _.capitalize uppercase the first character & lowercase the rest
 - [x] Made _.functions return only own method names
-- [ ] Made _.words chainable by default
-- [ ] Removed isDeep params from _.clone & _.flatten
-- [ ] Removed _.bindAll support for binding all methods when no names are provided
-- [ ] Removed func-first param signature from _.before & _.after
+
 
 added 23 array methods:
-- [ ] _.concat
-- [ ] _.differenceBy
-- [ ] _.differenceWith
-- [ ] _.flatMap
-- [ ] _.fromPairs
-- [ ] _.intersectionBy
-- [ ] _.intersectionWith
-- [ ] _.join
-- [ ] _.pullAll
-- [ ] _.pullAllBy
-- [ ] _.reverse
+- [x] _.concat
+- [x] _.differenceBy
+- [x] _.differenceWith
+- [x] _.flatMap
+- [x] _.fromPairs
+- [x] _.intersectionBy
+- [x] _.intersectionWith
+- [x] _.join
+- [x] _.pullAll
+- [x] _.pullAllBy
+- [x] _.reverse
 - [x] _.sortedIndexBy
 - [x] _.sortedIndexOf
 - [x] _.sortedLastIndexBy
-- [ ] _.sortedLastIndexOf
+- [x] _.sortedLastIndexOf
 - [x] _.sortedUniq
 - [x] _.sortedUniqBy
-- [ ] _.unionBy
-- [ ] _.unionWith
+- [x] _.unionBy
+- [x] _.unionWith
 - [x] _.uniqBy
-- [ ] _.uniqWith
-- [ ] _.xorBy
-- [ ] _.xorWith
+- [x] _.uniqWith
+- [x] _.xorBy
+- [x] _.xorWith
 
 added 18 lang methods:
 - [x] _.cloneDeepWith
@@ -96,7 +87,7 @@ added 18 lang methods:
 - [x] _.toLength
 - [x] _.toNumber
 - [x] _.toSafeInteger
-- [ ] _.toString
+- [x] _.toString
 
 added 13 object methods:
 - [x] _.assignIn
@@ -104,33 +95,20 @@ added 13 object methods:
 - [x] _.assignWith
 - [x] _.functionsIn
 - [x] _.hasIn
-- [ ] _.invoke
 - [x] _.mergeWith
 - [x] _.omitBy
 - [x] _.pickBy
-- [ ] _.setWith
-- [ ] _.toPairs
-- [ ] _.toPairsIn
-- [ ] _.unset
+
 
 added 8 string methods:
 - [x] _.lowerCase
 - [x] _.lowerFirst
-- [ ] _.replace
-- [ ] _.split
 - [x] _.upperCase
 - [x] _.upperFirst
 - [x] _.toLower
 - [x] _.toUpper
 
 added 8 utility methods:
-- [ ] _.cond
-- [ ] _.conforms
-- [ ] _.nthArg
-- [ ] _.over
-- [ ] _.overEvery
-- [ ] _.overSome
-- [ ] _.rangeRight
 - [x] _.toPath
 
 added 4 math methods:
@@ -147,15 +125,11 @@ added 2 number methods:
 - [x] _.clamp
 - [x] _.subtract
 
-added chain method:
-- [ ] _.next
-
 added collection method:
 - [x] _.sampleSize
 
 Added 3 aliases
-- [ ] _.extend as an alias of _.assignIn
-- [ ] _.extendWith as an alias of _.assignInWith
+
 - [x] _.first as an alias of _.head
 
 Removed 17 aliases
@@ -178,28 +152,19 @@ Removed 17 aliases
 - [x] Removed aliase _.unique
 
 Other changes
-- [ ] Added clear method to _.memoize.Cache
-- [ ] Added flush method to debounced & throttled functions
-- [ ] Added support for ES6 maps, sets, & symbols to _.clone, _.isEqual, & _.toArray
 - [x] Added support for array buffers to _.isEqual
 - [x] Added support for converting iterators to _.toArray
 - [x] Added support for deep paths to _.zipObject
 - [x] Changed UMD to export to window or self when available regardless of other exports
-- [ ] Enabled _.flow & _.flowRight to accept an array of functions
-- [ ] Ensured “Collection” methods treat functions as objects
 - [x] Ensured debounce cancel clears args & thisArg references
 - [x] Ensured _.add, _.subtract, & _.sum don’t skip NaN values
-- [ ] Ensured _.assign, _.defaults, & _.merge coerce object values to objects
-- [ ] Ensured _.bindKey bound functions call object[key] when called with the new operator
 - [x] Ensured _.clone treats generators like functions
 - [x] Ensured _.clone produces clones with the source’s [[Prototype]]
 - [x] Ensured _.defaults assigns properties that shadow Object.prototype
 - [x] Ensured _.defaultsDeep doesn’t merge a string into an array
 - [x] Ensured _.defaultsDeep & _.merge don’t modify sources
 - [x] Ensured _.defaultsDeep works with circular references
-- [ ] Ensured _.isFunction returns true for generator functions
 - [x] Ensured _.keys skips “length” on strict mode arguments objects in Safari 9
-- [ ] Ensured _.merge assigns typed arrays directly
 - [x] Ensured _.merge doesn’t convert strings to arrays
 - [x] Ensured _.merge merges plain-objects onto non plain-objects
 - [x] Ensured _#plant resets iterator data of cloned sequences
@@ -207,8 +172,68 @@ Other changes
 - [x] Ensured _.range preserves the sign of start of -0
 - [x] Ensured _.reduce & _.reduceRight use getIteratee in their array branch
 - [x] Fixed rounding issue with the precision param of _.floor
+
+** LATER **
+Misc:
+- [ ] Made _.forEach, _.forIn, _.forOwn, & _.times implicitly end a chain sequence
+- [ ] Removed thisArg params from most methods
+- [ ] Made “By” methods provide a single param to iteratees
+- [ ] Made _.words chainable by default
+- [ ] Removed isDeep params from _.clone & _.flatten
+- [ ] Removed _.bindAll support for binding all methods when no names are provided
+- [ ] Removed func-first param signature from _.before & _.after
+- [ ] _.extend as an alias of _.assignIn
+- [ ] _.extendWith as an alias of _.assignInWith
+- [ ] Added clear method to _.memoize.Cache
+- [ ] Added flush method to debounced & throttled functions
+- [ ] Added support for ES6 maps, sets, & symbols to _.clone, _.isEqual, & _.toArray
+- [ ] Enabled _.flow & _.flowRight to accept an array of functions
+- [ ] Ensured “Collection” methods treat functions as objects
+- [ ] Ensured _.assign, _.defaults, & _.merge coerce object values to objects
+- [ ] Ensured _.bindKey bound functions call object[key] when called with the new operator
+- [ ] Ensured _.isFunction returns true for generator functions
+- [ ] Ensured _.merge assigns typed arrays directly
 - [ ] Made _(...) an iterator & iterable
 - [ ] Made _.drop, _.take, & right forms coerce n of undefined to 0
+
+Methods:
+- [ ] _.concat
+- [ ] _.differenceBy
+- [ ] _.differenceWith
+- [ ] _.flatMap
+- [ ] _.fromPairs
+- [ ] _.intersectionBy
+- [ ] _.intersectionWith
+- [ ] _.join
+- [ ] _.pullAll
+- [ ] _.pullAllBy
+- [ ] _.reverse
+- [ ] _.sortedLastIndexOf
+- [ ] _.unionBy
+- [ ] _.unionWith
+- [ ] _.uniqWith
+- [ ] _.xorBy
+- [ ] _.xorWith
+- [ ] _.toString
+
+- [ ] _.invoke
+- [ ] _.setWith
+- [ ] _.toPairs
+- [ ] _.toPairsIn
+- [ ] _.unset
+
+- [ ] _.replace
+- [ ] _.split
+
+- [ ] _.cond
+- [ ] _.conforms
+- [ ] _.nthArg
+- [ ] _.over
+- [ ] _.overEvery
+- [ ] _.overSome
+- [ ] _.rangeRight
+
+- [ ] _.next
 */
 
 declare var _: _.LoDashStatic;
@@ -454,6 +479,32 @@ declare module _ {
         compact<TResult>(): LoDashExplicitArrayWrapper<TResult>;
     }
 
+    //_.concat DUMMY
+    interface LoDashStatic {
+        /**
+         * Creates a new array concatenating `array` with any additional arrays
+         * and/or values.
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The array to concatenate.
+         * @param {...*} [values] The values to concatenate.
+         * @returns {Array} Returns the new concatenated array.
+         * @example
+         *
+         * var array = [1];
+         * var other = _.concat(array, 2, [3], [[4]]);
+         *
+         * console.log(other);
+         * // => [1, 2, 3, [4]]
+         *
+         * console.log(array);
+         * // => [1]
+         */
+         concat<T>(...values: (T[]|List<T>)[]) : T[];
+    }
+
     //_.difference
     interface LoDashStatic {
         /**
@@ -465,8 +516,8 @@ declare module _ {
          * @return Returns the new array of filtered values.
          */
         difference<T>(
-            array: T[]|List<T>,
-            ...values: (T[]|List<T>)[]
+            array: any[]|List<any>,
+            ...values: any[]
         ): T[];
     }
 
@@ -496,6 +547,54 @@ declare module _ {
          * @see _.difference
          */
         difference<TValue>(...values: (TValue[]|List<TValue>)[]): LoDashExplicitArrayWrapper<TValue>;
+    }
+
+    //_.differenceBy DUMMY
+    interface LoDashStatic {
+        /**
+         * Creates an array of unique `array` values not included in the other
+         * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+         * for equality comparisons.
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The array to inspect.
+         * @param {...Array} [values] The values to exclude.
+         * @returns {Array} Returns the new array of filtered values.
+         * @example
+         *
+         * _.difference([3, 2, 1], [4, 2]);
+         * // => [3, 1]
+         */
+        differenceBy(
+            array: any[]|List<any>,
+            ...values: any[]
+        ): any[];
+    }
+
+    //_.differenceWith DUMMY
+    interface LoDashStatic {
+        /**
+         * Creates an array of unique `array` values not included in the other
+         * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+         * for equality comparisons.
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The array to inspect.
+         * @param {...Array} [values] The values to exclude.
+         * @returns {Array} Returns the new array of filtered values.
+         * @example
+         *
+         * _.difference([3, 2, 1], [4, 2]);
+         * // => [3, 1]
+         */
+        differenceWith(
+            array: any[]|List<any>,
+            ...values: any[]
+        ): any[];
     }
 
     //_.drop
@@ -1256,6 +1355,34 @@ declare module _ {
     interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
     interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
 
+    //_.flatMap DUMMY
+    interface LoDashStatic {
+        /**
+         * Creates an array of flattened values by running each element in `array`
+         * through `iteratee` and concating its result to the other mapped values.
+         * The iteratee is invoked with three arguments: (value, index|key, array).
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The array to iterate over.
+         * @param {Function|Object|string} [iteratee=_.identity] The function invoked per iteration.
+         * @returns {Array} Returns the new array.
+         * @example
+         *
+         * function duplicate(n) {
+         *   return [n, n];
+         * }
+         *
+         * _.flatMap([1, 2], duplicate);
+         * // => [1, 1, 2, 2]
+         */
+        flatMap(
+            array: any[]|List<any>,
+            ...values: any[]
+        ): any[];
+    }
+
     //_.flatten
     interface LoDashStatic {
         /**
@@ -1374,6 +1501,27 @@ declare module _ {
         flattenDeep<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
+    //_.fromPairs DUMMY
+    interface LoDashStatic {
+        /**
+         * The inverse of `_.toPairs`; this method returns an object composed
+         * from key-value `pairs`.
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} pairs The key-value pairs.
+         * @returns {Object} Returns the new object.
+         * @example
+         *
+         * _.fromPairs([['fred', 30], ['barney', 40]]);
+         * // => { 'fred': 30, 'barney': 40 }
+         */
+        fromPairs(
+            array: any[]|List<any>
+        ): any[];
+    }
+
     //_.head
     interface LoDashStatic {
         /**
@@ -1471,6 +1619,168 @@ declare module _ {
             value: TValue,
             fromIndex?: boolean|number
         ): LoDashExplicitWrapper<number>;
+    }
+
+    //_.intersectionBy DUMMY
+    interface LoDashStatic {
+        /**
+         * This method is like `_.intersection` except that it accepts `iteratee`
+         * which is invoked for each element of each `arrays` to generate the criterion
+         * by which uniqueness is computed. The iteratee is invoked with one argument: (value).
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {...Array} [arrays] The arrays to inspect.
+         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
+         * @returns {Array} Returns the new array of shared values.
+         * @example
+         *
+         * _.intersectionBy([2.1, 1.2], [4.3, 2.4], Math.floor);
+         * // => [2.1]
+         *
+         * // using the `_.property` iteratee shorthand
+         * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
+         * // => [{ 'x': 1 }]
+         */
+        intersectionBy(
+            array: any[]|List<any>,
+            ...values: any[]
+        ): any[];
+    }
+
+    //_.intersectionWith DUMMY
+    interface LoDashStatic {
+        /**
+         * This method is like `_.intersection` except that it accepts `comparator`
+         * which is invoked to compare elements of `arrays`. The comparator is invoked
+         * with two arguments: (arrVal, othVal).
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {...Array} [arrays] The arrays to inspect.
+         * @param {Function} [comparator] The comparator invoked per element.
+         * @returns {Array} Returns the new array of shared values.
+         * @example
+         *
+         * var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
+         * var others = [{ 'x': 1, 'y': 1 }, { 'x': 1, 'y': 2 }];
+         *
+         * _.intersectionWith(objects, others, _.isEqual);
+         * // => [{ 'x': 1, 'y': 2 }]
+         */
+        intersectionWith(
+            array: any[]|List<any>,
+            ...values: any[]
+        ): any[];
+    }
+
+    //_.join DUMMY
+    interface LoDashStatic {
+        /**
+         * Converts all elements in `array` into a string separated by `separator`.
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The array to convert.
+         * @param {string} [separator=','] The element separator.
+         * @returns {string} Returns the joined string.
+         * @example
+         *
+         * _.join(['a', 'b', 'c'], '~');
+         * // => 'a~b~c'
+         */
+        join(
+            array: any[]|List<any>,
+            ...values: any[]
+        ): any[];
+    }
+
+    //_.pullAll DUMMY
+    interface LoDashStatic {
+        /**
+         * This method is like `_.pull` except that it accepts an array of values to remove.
+         *
+         * **Note:** Unlike `_.difference`, this method mutates `array`.
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The array to modify.
+         * @param {Array} values The values to remove.
+         * @returns {Array} Returns `array`.
+         * @example
+         *
+         * var array = [1, 2, 3, 1, 2, 3];
+         *
+         * _.pull(array, [2, 3]);
+         * console.log(array);
+         * // => [1, 1]
+         */
+        pullAll(
+            array: any[]|List<any>,
+            ...values: any[]
+        ): any[];
+    }
+
+    //_.pullAllBy DUMMY
+    interface LoDashStatic {
+        /**
+         * This method is like `_.pullAll` except that it accepts `iteratee` which is
+         * invoked for each element of `array` and `values` to to generate the criterion
+         * by which uniqueness is computed. The iteratee is invoked with one argument: (value).
+         *
+         * **Note:** Unlike `_.differenceBy`, this method mutates `array`.
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The array to modify.
+         * @param {Array} values The values to remove.
+         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
+         * @returns {Array} Returns `array`.
+         * @example
+         *
+         * var array = [{ 'x': 1 }, { 'x': 2 }, { 'x': 3 }, { 'x': 1 }];
+         *
+         * _.pullAllBy(array, [{ 'x': 1 }, { 'x': 3 }], 'x');
+         * console.log(array);
+         * // => [{ 'x': 2 }]
+         */
+        pullAllBy(
+            array: any[]|List<any>,
+            ...values: any[]
+        ): any[];
+    }
+
+    //_.reverse DUMMY
+    interface LoDashStatic {
+        /**
+         * Reverses `array` so that the first element becomes the last, the second
+         * element becomes the second to last, and so on.
+         *
+         * **Note:** This method mutates `array` and is based on
+         * [`Array#reverse`](https://mdn.io/Array/reverse).
+         *
+         * @memberOf _
+         * @category Array
+         * @returns {Array} Returns `array`.
+         * @example
+         *
+         * var array = [1, 2, 3];
+         *
+         * _.reverse(array);
+         * // => [3, 2, 1]
+         *
+         * console.log(array);
+         * // => [3, 2, 1]
+         */
+        reverse(
+            array: any[]|List<any>,
+            ...values: any[]
+        ): any[];
     }
 
     //_.sortedIndexOf
@@ -2795,6 +3105,29 @@ declare module _ {
         ): LoDashExplicitWrapper<number>;
     }
 
+    //_.sortedLastIndexOf DUMMY
+    interface LoDashStatic {
+        /**
+         * This method is like `_.lastIndexOf` except that it performs a binary
+         * search on a sorted `array`.
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The array to search.
+         * @param {*} value The value to search for.
+         * @returns {number} Returns the index of the matched value, else `-1`.
+         * @example
+         *
+         * _.sortedLastIndexOf([1, 1, 2, 2], 2);
+         * // => 3
+         */
+        sortedLastIndexOf(
+            array: any[]|List<any>,
+            ...values: any[]
+        ): any[];
+    }
+
     //_.tail
     interface LoDashStatic {
         /**
@@ -3822,6 +4155,87 @@ declare module _ {
         ): LoDashExplicitArrayWrapper<T>;
     }
 
+    //_.unionBy DUMMY
+    interface LoDashStatic {
+        /**
+         * This method is like `_.union` except that it accepts `iteratee` which is
+         * invoked for each element of each `arrays` to generate the criterion by which
+         * uniqueness is computed. The iteratee is invoked with one argument: (value).
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {...Array} [arrays] The arrays to inspect.
+         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
+         * @returns {Array} Returns the new array of combined values.
+         * @example
+         *
+         * _.unionBy([2.1, 1.2], [4.3, 2.4], Math.floor);
+         * // => [2.1, 1.2, 4.3]
+         *
+         * // using the `_.property` iteratee shorthand
+         * _.unionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
+         * // => [{ 'x': 1 }, { 'x': 2 }]
+         */
+        unionBy(
+            array: any[]|List<any>,
+            ...values: any[]
+        ): any[];
+    }
+
+    //_.unionWith DUMMY
+    interface LoDashStatic {
+        /**
+         * This method is like `_.union` except that it accepts `comparator` which
+         * is invoked to compare elements of `arrays`. The comparator is invoked
+         * with two arguments: (arrVal, othVal).
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {...Array} [arrays] The arrays to inspect.
+         * @param {Function} [comparator] The comparator invoked per element.
+         * @returns {Array} Returns the new array of combined values.
+         * @example
+         *
+         * var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
+         * var others = [{ 'x': 1, 'y': 1 }, { 'x': 1, 'y': 2 }];
+         *
+         * _.unionWith(objects, others, _.isEqual);
+         * // => [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
+         */
+        unionWith(
+            array: any[]|List<any>,
+            ...values: any[]
+        ): any[];
+    }
+
+    //_.uniqWith DUMMY
+    interface LoDashStatic {
+        /**
+         * This method is like `_.uniq` except that it accepts `comparator` which
+         * is invoked to compare elements of `array`. The comparator is invoked with
+         * two arguments: (arrVal, othVal).
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {Array} array The array to inspect.
+         * @param {Function} [comparator] The comparator invoked per element.
+         * @returns {Array} Returns the new duplicate free array.
+         * @example
+         *
+         * var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 },  { 'x': 1, 'y': 2 }];
+         *
+         * _.uniqWith(objects, _.isEqual);
+         * // => [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }]
+         */
+        uniqWith(
+            array: any[]|List<any>,
+            ...values: any[]
+        ): any[];
+    }
+
     //_.unzip
     interface LoDashStatic {
         /**
@@ -3981,6 +4395,61 @@ declare module _ {
          * @see _.xor
          */
         xor<T>(...arrays: List<T>[]): LoDashExplicitArrayWrapper<T>;
+    }
+
+    //_.xorBy DUMMY
+    interface LoDashStatic {
+        /**
+         * This method is like `_.xor` except that it accepts `iteratee` which is
+         * invoked for each element of each `arrays` to generate the criterion by which
+         * uniqueness is computed. The iteratee is invoked with one argument: (value).
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {...Array} [arrays] The arrays to inspect.
+         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
+         * @returns {Array} Returns the new array of values.
+         * @example
+         *
+         * _.xorBy([2.1, 1.2], [4.3, 2.4], Math.floor);
+         * // => [1.2, 4.3]
+         *
+         * // using the `_.property` iteratee shorthand
+         * _.xorBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
+         * // => [{ 'x': 2 }]
+         */
+        xorBy(
+            array: any[]|List<any>,
+            ...values: any[]
+        ): any[];
+    }
+
+    //_.xorWith DUMMY
+    interface LoDashStatic {
+        /**
+         * This method is like `_.xor` except that it accepts `comparator` which is
+         * invoked to compare elements of `arrays`. The comparator is invoked with
+         * two arguments: (arrVal, othVal).
+         *
+         * @static
+         * @memberOf _
+         * @category Array
+         * @param {...Array} [arrays] The arrays to inspect.
+         * @param {Function} [comparator] The comparator invoked per element.
+         * @returns {Array} Returns the new array of values.
+         * @example
+         *
+         * var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
+         * var others = [{ 'x': 1, 'y': 1 }, { 'x': 1, 'y': 2 }];
+         *
+         * _.xorWith(objects, others, _.isEqual);
+         * // => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
+         */
+        xorWith(
+            array: any[]|List<any>,
+            ...values: any[]
+        ): any[];
     }
 
     //_.zip
@@ -10644,6 +11113,31 @@ declare module _ {
          * @see _.toSafeInteger
          */
         toSafeInteger(): LoDashExplicitWrapper<number>;
+    }
+
+    //_.toString DUMMY
+    interface LoDashStatic {
+        /**
+         * Converts `value` to a string if it's not one. An empty string is returned
+         * for `null` and `undefined` values. The sign of `-0` is preserved.
+         *
+         * @static
+         * @memberOf _
+         * @category Lang
+         * @param {*} value The value to process.
+         * @returns {string} Returns the string.
+         * @example
+         *
+         * _.toString(null);
+         * // => ''
+         *
+         * _.toString(-0);
+         * // => '-0'
+         *
+         * _.toString([1, 2, 3]);
+         * // => '1,2,3'
+         */
+        toString(value: any): string;
     }
 
     /********
