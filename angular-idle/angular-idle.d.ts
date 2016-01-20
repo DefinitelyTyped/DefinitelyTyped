@@ -96,7 +96,7 @@ declare module angular.idle {
         /**
          * Stores the original title if it hasn't been already, and displays the timedOutMessage.
          */
-        setAsTimedOut();
+        setAsTimedOut(): void;
     }
 
     /**
