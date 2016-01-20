@@ -1450,7 +1450,7 @@ function quadtree() {
     // Collapse the quadtree into an array of rectangles.
     function nodes(quadtree: d3.geom.quadtree.Quadtree<[number, number]>) {
         var nodes: Array<{x: number; y: number; width: number; height: number}> = [];
-        quadtree.visit(function (node, x1, y1, x2, y2) {
+        quadtree.visit(function (node: d3.geom.quadtree.Node<[number, number]>, x1: number, y1: number, x2:number, y2: number) {
             nodes.push({ x: x1, y: y1, width: x2 - x1, height: y2 - y1 });
         } );
         return nodes;
@@ -1458,7 +1458,7 @@ function quadtree() {
 
     // Find the nodes within the specified rectangle.
     function search(quadtree: d3.geom.quadtree.Quadtree<{ scanned?: boolean; selected?: boolean; 0: number; 1: number }>, x0: number, y0: number, x3: number, y3: number) {
-        quadtree.visit(function (node, x1, y1, x2, y2) {
+        quadtree.visit(function (node: d3.geom.quadtree.Node<{ scanned?: boolean; selected?: boolean; 0: number; 1: number }>, x1: number, y1: number, x2:number, y2: number) {
             var p = node.point;
             if (p) {
                 p.scanned = true;

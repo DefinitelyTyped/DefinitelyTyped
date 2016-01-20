@@ -38,3 +38,8 @@ var uri: uri.URI = $('a').uri();
 URI('http://example.org/foo/hello.html').segment('bar');
 URI('http://example.org/foo/hello.html').segment(0, 'bar');
 URI('http://example.org/foo/hello.html').segment(['foo', 'bar', 'foobar.html']);
+
+var withDuplicates = URI("?bar=1&bar=1")
+  .duplicateQueryParameters(true)
+  .normalizeQuery()
+  .toString();

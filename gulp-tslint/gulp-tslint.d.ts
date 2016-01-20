@@ -1,4 +1,4 @@
-// Type definitions for gulp-tslint
+// Type definitions for gulp-tslint 3.6.0
 // Project: https://github.com/panuhorsmalahti/gulp-tslint
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -9,13 +9,23 @@
 declare module "gulp-tslint" {
     import vinyl = require("vinyl");
 
-    function GulpTsLint(opts?: GulpTsLint.Options): NodeJS.ReadWriteStream;
+    namespace gulpTsLint {
+        interface GulpTsLint {
+            (options?: Options): NodeJS.ReadWriteStream;
+            report(reporter?: Reporter, options?: ReportOptions): NodeJS.ReadWriteStream;
+            report(options?: ReportOptions): NodeJS.ReadWriteStream;
+        }
 
-    module GulpTsLint {
         interface Options {
-            configuration?: {};
-            rulesDirectory?: string;
-            emitError?: boolean;
+            configuration?: {},
+            rulesDirectory?: string,
+            tslint?: GulpTsLint
+        }
+
+        interface ReportOptions {
+            emitError?: boolean,
+            reportLimit?: number,
+            summarizeFailureOutput?: boolean
         }
 
         interface Position {
@@ -32,12 +42,9 @@ declare module "gulp-tslint" {
             ruleName: string;
         }
 
-        type Reporter = string|((output: Output[], file: vinyl, options: Options) => any);
-        export function report(reporter?: Reporter, options?: Options): NodeJS.ReadWriteStream;
-        export function report(options?: Options): NodeJS.ReadWriteStream;
-
+        type Reporter = string|((output: Output[], file: vinyl, options: ReportOptions) => any);
     }
 
-    export = GulpTsLint;
+    var gulpTsLint: gulpTsLint.GulpTsLint;
+    export = gulpTsLint;
 }
-

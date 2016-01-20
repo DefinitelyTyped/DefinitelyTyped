@@ -44,8 +44,7 @@ declare module "express" {
         }
 
         interface IRouterMatcher<T> {
-            (name: string, ...handlers: RequestHandler[]): T;
-            (name: RegExp, ...handlers: RequestHandler[]): T;
+            (name: string|RegExp, ...handlers: RequestHandler[]): T;
         }
 
         interface IRouter<T> extends RequestHandler {
@@ -108,6 +107,9 @@ declare module "express" {
             use(path: string, handler: ErrorRequestHandler): T;
             use(path: string[], ...handler: RequestHandler[]): T;
             use(path: string[], handler: ErrorRequestHandler): T;
+            use(path: RegExp, ...handler: RequestHandler[]): T;
+            use(path: RegExp, handler: ErrorRequestHandler): T;
+            use(path:string, router:Router): T;
         }
 
         export function Router(options?: any): Router;
@@ -878,8 +880,7 @@ declare module "express" {
             set(setting: string, val: any): Application;
             get: {
                 (name: string): any; // Getter
-                (name: string, ...handlers: RequestHandler[]): Application;
-                (name: RegExp, ...handlers: RequestHandler[]): Application;
+                (name: string|RegExp, ...handlers: RequestHandler[]): Application;
             };
 
             /**

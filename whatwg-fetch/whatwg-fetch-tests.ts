@@ -39,9 +39,16 @@ function test_fetchUrlWithRequestObject() {
 	handlePromise(window.fetch(request));
 }
 
+function test_globalFetchVar() {
+	fetch('http://test.com', {})
+		.then(response => {
+			// for test only
+		});
+}
+
 function handlePromise(promise: Promise<Response>) {
 	promise.then((response) => {
-		if (response.type === 'basis') {
+		if (response.type === 'basic') {
 			// for test only
 		}
 		return response.text();

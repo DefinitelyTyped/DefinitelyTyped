@@ -5,19 +5,114 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
+interface IonicStatic {
+    /**
+     * What Ionic package version is.
+     */
+    version: string;
+    Platform: {
+        /**
+        * Trigger a callback once the device is ready, or immediately
+         * if the device is already ready. This method can be run from
+         * anywhere and does not need to be wrapped by any additonal methods.
+         * When the app is within a WebView (Cordova), it’ll fire
+         * the callback once the device is ready. If the app is within
+         * a web browser, it’ll fire the callback after window.load.
+         * Please remember that Cordova features (Camera, FileSystem, etc) still
+         * will not work in a web browser.
+         */
+        ready(callback: ()=>any): void;
+        /**
+         * Set the grade of the device: ‘a’, ‘b’, or ‘c’. ‘a’ is the best
+         * (most css features enabled), ‘c’ is the worst. By default, sets the grade
+         * depending on the current device.
+         */
+        setGrade(grade: string): void;
+        /**
+         * Return the current device (given by cordova).
+         */
+        device(): any;
+        /**
+         * Check if we are running within a WebView (such as Cordova).
+         */
+        isWebView(): boolean;
+        /**
+         * Whether we are running on iPad.
+         */
+        isIPad(): boolean;
+        /**
+         * Whether we are running on iOS.
+         */
+        isIOS(): boolean;
+        /**
+         * Whether we are running on Android.
+         */
+        isAndroid(): boolean;
+        /**
+         * Whether we are running on Windows Phone.
+         */
+        isWindowsPhone(): boolean;
+        /**
+         * The name of the current platform.
+         */
+        platform(): string;
+        /**
+         * The version of the current device platform.
+         */
+        version(): number;
+        /**
+         * Exit the app.
+         */
+        exitApp(): void;
+        /**
+         * Shows or hides the device status bar (in Cordova). Requires cordova plugin add org.apache.cordova.statusbar
+         */
+        showStatusBar(shouldShow: boolean): void;
+        /**
+         * Sets whether the app is fullscreen or not (in Cordova).
+         */
+        fullScreen(showFullScreen?: boolean, showStatusBar?: boolean): void;
+        /**
+         * Whether the device is ready.
+         */
+        isReady: boolean;
+        /**
+         * Whether the device is fullscreen.
+         */
+        isFullScreen: boolean;
+        /**
+         * An array of all platforms found.
+         */
+        platforms: Array<string>;
+        /**
+         * What grade the current platform is.
+         */
+        grade: string;
+    };
+}
+
+declare var ionic: IonicStatic;
+
+declare module 'ionic' {
+    export = ionic;
+}
+
 declare module ionic {
     module actionSheet {
         interface IonicActionSheetService {
             show(options: IonicActionSheetOptions): ()=>void;
         }
+        interface IonicActionSheetButton {
+            text: string;
+        }
         interface IonicActionSheetOptions {
-            buttons?: Array<any>;
+            buttons?: Array<IonicActionSheetButton>;
             titleText?: string;
             cancelText?: string;
             destructiveText?: string;
             cancel?: ()=>any;
-            buttonClicked?: (index: any)=>any;
-            destructiveButtonClicked?: ()=>any;
+            buttonClicked?: (index: number)=>boolean;
+            destructiveButtonClicked?: ()=>boolean;
             cancelOnStateChange?: boolean;
             cssClass?: string;
         }
@@ -56,7 +151,7 @@ declare module ionic {
     }
     module loading {
         interface IonicLoadingService {
-            show(opts: IonicLoadingOptions): void;
+            show(opts?: IonicLoadingOptions): void;
             hide(): void;
         }
         interface IonicLoadingOptions {
@@ -79,6 +174,7 @@ declare module ionic {
             initialize(options: IonicModalOptions): void;
             show(): ng.IPromise<void>;
             hide(): ng.IPromise<void>;
+            remove(): ng.IPromise<void>;
             isShown(): boolean;
         }
 
@@ -142,6 +238,7 @@ declare module ionic {
             show($event?: any): ng.IPromise<any>;
             hide(): ng.IPromise<any>;
             isShown(): boolean;
+            remove(): ng.IPromise<any>;
         }
         interface IonicPopoverOptions {
             scope?: any;
@@ -154,10 +251,13 @@ declare module ionic {
         interface IonicPopupService {
             show(options: IonicPopupFullOptions): IonicPopupPromise;
             alert(options: IonicPopupAlertOptions): IonicPopupPromise;
-            confirm(options: IonicPopupConfirmOptions): IonicPopupPromise;
+            confirm(options: IonicPopupConfirmOptions): IonicPopupConfirmPromise;
             prompt(options: IonicPopupPromptOptions): IonicPopupPromise;
         }
 
+        interface IonicPopupConfirmPromise extends ng.IPromise<boolean> {
+            close(value?: boolean): void;
+        }
         interface IonicPopupPromise extends ng.IPromise<any> {
             close(value?: any): any;
         }
@@ -245,6 +345,7 @@ declare module ionic {
             select(index: number): void;
             selectedIndex(): number;
             $getByHandle(handle: string): IonicTabsDelegate;
+            showBar(show?: boolean): boolean;
         }
     }
     module utility {

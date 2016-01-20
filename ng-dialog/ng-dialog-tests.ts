@@ -20,7 +20,13 @@ class DialogTestController {
 			template: "login.html",
 			className: "default flat-ui",
 			closeByEscape: false,
+			data: "string",
+			disableAnimation: false,
 			name: "login-popup"
+		});
+
+		loginDialog.closePromise.then((result) => {
+			var val: any = result.value;
 		});
 
 		if (loginDialog.id === "login-popup") {

@@ -26,6 +26,7 @@ declare module Stamplay {
   }
 
   export interface StamplayStatic {
+      init(appId : string) : void;
       User() : IStamplayObject
       Cobject(object : string) : IStamplayObject
   }

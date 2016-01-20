@@ -92,8 +92,8 @@ Tracker.autorun(function () {
 });
 
 console.log("Current room has " +
-Counts.find(Session.get("roomId")).count +
-" messages.");
+    Counts.find(Session.get("roomId")).count +
+    " messages.");
 
 /**
  * From Publish and Subscribe, Meteor.subscribe section
@@ -127,6 +127,22 @@ Meteor.methods({
     return "baz";
   }
 });
+
+/**
+ * From Methods, Meteor.Error section
+ */
+throw new Meteor.Error("logged-out",
+    "The user must be logged in to post a comment.");
+
+Meteor.call("methodName", function (error) {
+  if (error.error === "logged-out") {
+    Session.set("errorMessage", "Please log in to post a comment.");
+  }
+});
+var error = new Meteor.Error("logged-out", "The user must be logged in to post a comment.");
+console.log(error.error === "logged-out");
+console.log(error.reason === "The user must be logged in to post a comment.");
+console.log(error.details !== "");
 
 /**
  * From Methods, Meteor.call section
@@ -183,8 +199,10 @@ Animal.prototype = {
 
 
 interface AnimalDAO {
-  _id: string;
-  makeNoise: () => void;
+  _id?: string;
+  name: string;
+  sound: string;
+  makeNoise?: () => void;
 }
 
 // Define a Collection that uses Animal as its document
@@ -224,8 +242,8 @@ Template['adminDashboard'].events({
 Meteor.methods({
   declareWinners: function () {
     Players.update({score: {$gt: 10}},
-            {$addToSet: {badges: "Winner"}},
-            {multi: true});
+        {$addToSet: {badges: "Winner"}},
+        {multi: true});
   }
 });
 
@@ -251,18 +269,26 @@ Meteor.startup(function () {
 /***
  * From Collections, collection.allow section
  */
-Posts = new Mongo.Collection("posts");
+
+interface iPost {
+  _id: string;
+  owner: string;
+  userId: string;
+  locked: boolean;
+}
+
+Posts = new Mongo.Collection<iPost>("posts");
 
 Posts.allow({
-  insert: function (userId, doc) {
+  insert: function (userId, doc: iPost) {
     // the user must be logged in, and the document must be owned by the user
     return (userId && doc.owner === userId);
   },
-  update: function (userId, doc, fields, modifier) {
+  update: function (userId, doc: iPost, fields, modifier) {
     // can only change your own documents
     return doc.owner === userId;
   },
-  remove: function (userId, doc) {
+  remove: function (userId, doc: iPost) {
     // can only remove your own documents
     return doc.owner === userId;
   },
@@ -270,11 +296,11 @@ Posts.allow({
 });
 
 Posts.deny({
-  update: function (userId, docs, fields, modifier) {
+  update: function (userId, doc: iPost, fields, modifier) {
     // can't change owners
-    return docs.userId !== userId;
+    return doc.userId !== userId;
   },
-  remove: function (userId, doc) {
+  remove: function (userId, doc: iPost) {
     // can't remove locked documents
     return doc.locked;
   },
@@ -347,7 +373,7 @@ Session.equals("key", value);
  */
 Meteor.publish("userData", function () {
   return Meteor.users.find({_id: this.userId},
-          {fields: {'other': 1, 'things': 1}});
+      {fields: {'other': 1, 'things': 1}});
 });
 
 Meteor.users.deny({update: function () { return true; }});
@@ -411,8 +437,8 @@ Accounts.emailTemplates.enrollAccount.subject = function (user) {
 };
 Accounts.emailTemplates.enrollAccount.text = function (user, url) {
   return "You have been selected to participate in building a better future!"
-          + " To activate your account, simply click the link below:\n\n"
-          + url;
+      + " To activate your account, simply click the link below:\n\n"
+      + url;
 };
 
 /**
@@ -441,7 +467,7 @@ Template['newTemplate'].destroyed = function () {
 };
 
 Template['newTemplate'].events({
-  'click .something': function (event) {
+  'click .something': function (event: Meteor.Event, template: Blaze.TemplateInstance) {
   }
 });
 
@@ -540,7 +566,7 @@ Meteor.methods({checkTwitter: function (userId) {
   check(userId, String);
   this.unblock();
   var result = HTTP.call("GET", "http://api.twitter.com/xyz",
-          {params: {user: userId}});
+      {params: {user: userId}});
   if (result.statusCode === 200)
     return true
   return false;
@@ -548,12 +574,12 @@ Meteor.methods({checkTwitter: function (userId) {
 
 
 HTTP.call("POST", "http://api.twitter.com/xyz",
-        {data: {some: "json", stuff: 1}},
-        function (error, result) {
-          if (result.statusCode === 200) {
-            Session.set("twizzled", true);
-          }
-        });
+    {data: {some: "json", stuff: 1}},
+    function (error, result) {
+      if (result.statusCode === 200) {
+        Session.set("twizzled", true);
+      }
+    });
 
 /**
  * From Email, Email.send section
@@ -570,9 +596,9 @@ Meteor.methods({
 
 // In your client code: asynchronously send an email
 Meteor.call('sendEmail',
-        'alice@example.com',
-        'Hello from Meteor!',
-        'This is a test of Email.send.');
+    'alice@example.com',
+    'Hello from Meteor!',
+    'This is a test of Email.send.');
 
 var testTemplate = new Blaze.Template();
 var testView = new Blaze.View();

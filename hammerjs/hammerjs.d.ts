@@ -3,8 +3,6 @@
 // Definitions by: Philip Bulley <https://github.com/milkisevil/>, Han Lin Yap <https://github.com/codler>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../touch-events/touch-events.d.ts" />
-
 declare var Hammer:HammerStatic;
 
 declare module "hammerjs" {
@@ -109,7 +107,7 @@ interface HammerManager
   emit( event:string, data:any ):void;
   get( recogniser:Recognizer ):Recognizer;
   get( recogniser:string ):Recognizer;
-  off( events:string, handler:( event:HammerInput ) => void ):void;
+  off( events:string, handler?:( event:HammerInput ) => void ):void;
   on( events:string, handler:( event:HammerInput ) => void ):void;
   recognize( inputData:any ):void;
   remove( recogniser:Recognizer ):HammerManager;
