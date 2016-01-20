@@ -1,4 +1,4 @@
-﻿// Type definitions for ng-idle v0.3.5
+﻿// Type definitions for ng-idle v1.1.1
 // Project: http://hackedbychinese.github.io/ng-idle/
 // Definitions by: mthamil <https://github.com/mthamil>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -8,7 +8,7 @@
 declare module angular.idle {
 
     /**
-     * Used to configure the $keepalive service.
+     * Used to configure the Keepalive service.
      */
     interface IKeepAliveProvider extends IServiceProvider {
 
@@ -18,9 +18,9 @@ declare module angular.idle {
          * You can specify a string, which it will assume to be a URL to a simple GET request. 
          * Otherwise, you can use the same options $http takes. However, cache will always be false.
          * 
-         * @param value May be string or object, default is null.
+         * @param value May be string or IRequestConfig, default is null.
          */
-        http(value: any): void;
+        http(value: string | IRequestConfig): void;
 
         /**
          * This specifies how often the keepalive event is triggered and the 
@@ -32,10 +32,10 @@ declare module angular.idle {
     }
 
     /**
-     * $keepalive will use a timeout to periodically wake, broadcast a $keepalive event on the root scope, 
-     * and optionally make an $http request. By default, the $idle service will stop and start $keepalive 
+     * Keepalive will use a timeout to periodically wake, broadcast a Keepalive event on the root scope,
+     * and optionally make an $http request. By default, the Idle service will stop and start Keepalive
      * when a user becomes idle or returns from idle, respectively. It is also started automatically when 
-     * $idle.watch() is called. This can be disabled by configuring the $idleProvider.
+     * Idle.watch() is called. This can be disabled by configuring the IdleProvider.
      */
     interface IKeepAliveService {
 
@@ -56,17 +56,16 @@ declare module angular.idle {
     }
 
     /**
-     * Used to configure the $idle service.
+     * Used to configure the Idle service.
      */
     interface IIdleProvider extends IServiceProvider {
-
         /**
          * Specifies the DOM events the service will watch to reset the idle timeout. 
          * Multiple events should be separated by a space.
          * 
          * @param events string, default 'mousemove keydown DOMMouseScroll mousewheel mousedown'
          */
-        activeOn(events: string): void;
+        interrupt(events: string): void;
 
         /**
          * The idle timeout duration in seconds. After this amount of time passes without the user 
@@ -75,7 +74,7 @@ declare module angular.idle {
          * 
          * @param seconds integer, default is 20min
          */
-        idleDuration(seconds: number): void;
+        idle(seconds: number): void;
 
         /**
          * The amount of time the user has to respond (in seconds) before they have been considered 
@@ -83,7 +82,7 @@ declare module angular.idle {
          * 
          * @param seconds integer, default is 30s
          */
-        warningDuration(seconds: number): void;
+        timeout(seconds: number): void;
 
         /**
          * When true, user activity will automatically interrupt the warning countdown and reset the 
@@ -95,7 +94,7 @@ declare module angular.idle {
         autoResume(enabled: boolean): void;
 
         /**
-         * When true, the $keepalive service is automatically stopped and started as needed.
+         * When true, the Keepalive service is automatically stopped and started as needed.
          * 
          * @param enabled boolean, default is true
          */
@@ -103,13 +102,39 @@ declare module angular.idle {
     }
 
     /**
-     * $idle, once watch() is called, will start a timeout which if expires, will enter a warning state 
+     * Idle, once watch() is called, will start a timeout which if expires, will enter a warning state
      * countdown. Once the countdown reaches zero, idle will broadcast a timeout event indicating the 
      * user has timed out (where your app should log them out or whatever you like). If the user performs 
      * an action that triggers a watched DOM event that bubbles up to document.body, this will reset the 
      * idle/warning state and start the process over again.
      */
     interface IIdleService {
+        /**
+         * Gets the current idle value
+         */
+        getIdle(): number;
+
+        /**
+         * Gets the current timeout value
+         */
+        getTimeout(): number;
+
+        /**
+         * Updates the idle value (see IdleProvider.idle()) and 
+         * restarts the watch if its running.
+         */
+        setIdle(): void;
+
+        /**
+         * Updates the timeout value (see IdleProvider.timeout()) and 
+         * restarts the watch if its running.
+         */
+        setTimeout(): void;
+
+        /**
+         * Whether user has timed out (meaning idleDuration + timeout has passed without any activity)
+         */
+        isExpired(): boolean;
         
         /**
          * Whether or not the watch() has been called and it is watching for idleness.
@@ -130,5 +155,10 @@ declare module angular.idle {
          * Stops watching for idleness, and resets the idle/warning state.
          */
         unwatch(): void;
+
+        /**
+         * Manually trigger the idle interrupt that normally occurs during user activity.
+         */
+        interrupt(): any;
     }
 }
