@@ -3,7 +3,7 @@
 // Definitions by: Andrei Kurosh <https://github.com/impworks>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module clipboardjs {
+declare module clipboard {
 
     export class Clipboard {
         constructor(selector: string, options?: IOptions);
@@ -47,6 +47,6 @@ declare module clipboardjs {
     }
 }
 
-declare module 'clipboardjs' {
-    export = clipboardjs;
+declare module 'clipboard' {
+    export = clipboard;
 }
