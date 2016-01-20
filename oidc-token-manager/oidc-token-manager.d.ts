@@ -5,24 +5,24 @@
 
 declare module Oidc {
     class DefaultHttpRequest {
-        getJSON(url, config);
+        getJSON(url: string, config: any): DefaultPromise;
     }
 
     class DefaultPromise {
         constructor(promise);
-        then(successCallback, errorCallback): DefaultPromise;
-        catch(errorCallback): DefaultPromise;
+        then(successCallback: () => void, errorCallback: () => void): DefaultPromise;
+        catch(errorCallback: () => void): DefaultPromise;
     }
 
     class DefaultPromiseFactory {
-        resolve(value): DefaultPromise;
-        reject(reason): DefaultPromise;
-        create(callback): DefaultPromise;
+        resolve(value: any): DefaultPromise;
+        reject(reason: any): DefaultPromise;
+        create(callback: any): DefaultPromise;
     }
 
     interface OidcClientSettings {
         request_state_key?: string;
-        request_state_store?;
+        request_state_store?: any;
         load_user_profile?: boolean;
         filter_protocol_claims?: boolean;
         authority?: string;
@@ -51,7 +51,7 @@ declare module Oidc {
 
     interface OidcTokenManagerSettings {
         persist?: boolean;
-        store?;
+        store?: any;
         persistKey?: string;
         client_id?: string;
         redirect_uri?: string;
@@ -72,19 +72,19 @@ declare module Oidc {
     interface OidcTokenManager_Static {
         new (settings?: OidcTokenManagerSettings): OidcTokenManager;
         setPromiseFactory(promiseFactory: DefaultPromiseFactory): void;
-        setHttpRequest(httpRequest): void;
+        setHttpRequest(httpRequest: DefaultHttpRequest): void;
     }
 
     interface OidcTokenManager {
-        profile;
+        profile: any;
         id_token: string;
         access_token: string;
         expired: boolean;
         expires_in: number;
         expires_at: number;
-        scope;
+        scope: any;
         scopes: any[];
-        session_state;
+        session_state: any;
 
         saveToken(token): void;
         addOnTokenRemoved(cb: () => void): void;
