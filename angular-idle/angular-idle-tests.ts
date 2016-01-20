@@ -44,6 +44,7 @@ angular.module('app', ['ngIdle'])
 		Title.original(Title.original());
 		Title.value(Title.value());
 		Title.store(false);
+		Title.store();
 		Title.restore();
 		Title.idleMessage(Title.idleMessage());
 		Title.timedOutMessage(Title.timedOutMessage());
