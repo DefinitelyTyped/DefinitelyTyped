@@ -38,6 +38,7 @@ angular.module('app', ['ngIdle'])
 		Keepalive.start();
 		Keepalive.ping();
 		Keepalive.stop();
+        Keepalive.setInterval(10);
 
         Title.setEnabled(Title.isEnabled());
         Title.original(Title.original());

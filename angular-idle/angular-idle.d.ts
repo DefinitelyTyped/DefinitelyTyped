@@ -145,6 +145,12 @@ declare module angular.idle {
          * Performs one ping only.
          */
         ping(): void;
+        
+        /**
+         * Changes the interval value at runtime.
+         * You will need to restart the pinging process by calling start() manually for the changes to be reflected.
+         */
+        setInterval(seconds: number): void;
     }
 
     /**
