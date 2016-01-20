@@ -23,7 +23,7 @@ declare module _ {
         * indexBy, initial, intersection, invert, invoke, keys, map, max, memoize, merge, min,
         * object, omit, once, pairs, partial, partialRight, pick, pluck, pull, push, range, reject,
         * remove, rest, reverse, sample, shuffle, slice, sort, sortBy, splice, tap, throttle, times,
-        * toArray, transform, union, uniq, unshift, unzip, values, where, without, wrap, and zip
+        * toArray, transform, union, uniq, unset, unshift, unzip, values, where, without, wrap, and zip
         *
         * The non-chainable wrapper functions are:
         * clone, cloneDeep, contains, escape, every, find, findIndex, findKey, findLast,
@@ -3670,6 +3670,21 @@ declare module _ {
         unique<TWhere extends {}, T>(
             iteratee?: TWhere
         ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    //_.unset
+    interface LoDashStatic {
+        /**
+         * Removes the property at path of object.
+         *
+         * @param object The object to modify.
+         * @param path The path of the property to unset.
+         * @return Returns true if the property is deleted, else false.
+         */
+        unset<T>(
+            object: T,
+            path: StringRepresentable | StringRepresentable[]
+        ): boolean;
     }
 
     //_.unzip
