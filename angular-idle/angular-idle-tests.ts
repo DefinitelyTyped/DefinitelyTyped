@@ -2,8 +2,8 @@
 
 angular.module('app', ['ngIdle'])
 	.config(['KeepaliveProvider', 'IdleProvider', 'TitleProvider',
-		(keepaliveProvider: ng.idle.IKeepAliveProvider, idleProvider: ng.idle.IIdleProvider,
-         titleProvider: ng.idle.ITitleProvider) => {
+		(keepaliveProvider: angular.idle.IKeepAliveProvider, idleProvider: angular.idle.IIdleProvider,
+         titleProvider: angular.idle.ITitleProvider) => {
 			idleProvider.interrupt('mousemove keydown DOMMouseScroll mousewheel mousedown');
 			idleProvider.idle(5);
 			idleProvider.timeout(5);
@@ -21,7 +21,8 @@ angular.module('app', ['ngIdle'])
 
             titleProvider.enabled(true);
 		}])
-	.run(['Keepalive', 'Idle', 'Title', (Keepalive: ng.idle.IKeepAliveService, Idle: ng.idle.IIdleService, Title: ng.idle.ITitleService) => {
+	.run(['Keepalive', 'Idle', 'Title', (Keepalive: angular.idle.IKeepAliveService, Idle: angular.idle.IIdleService,
+                                         Title: angular.idle.ITitleService) => {
         Idle.setTimeout(Idle.getTimeout());
         Idle.setIdle(Idle.getIdle());
 
