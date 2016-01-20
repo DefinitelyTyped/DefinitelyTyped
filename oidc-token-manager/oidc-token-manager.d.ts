@@ -10,7 +10,7 @@ declare module Oidc {
 
     class DefaultPromise {
         constructor(promise: any);
-        then(successCallback: (value?: any) => void, errorCallback: (reason?) => void): DefaultPromise;
+        then(successCallback: (value?: any) => void, errorCallback: (reason?: any) => void): DefaultPromise;
         catch(errorCallback: () => void): DefaultPromise;
     }
 
