@@ -9,8 +9,8 @@ declare module Oidc {
     }
 
     class DefaultPromise {
-        constructor(promise);
-        then(successCallback: () => void, errorCallback: () => void): DefaultPromise;
+        constructor(promise: any);
+        then(successCallback: (value?: any) => void, errorCallback: (reason?) => void): DefaultPromise;
         catch(errorCallback: () => void): DefaultPromise;
     }
 
@@ -39,7 +39,7 @@ declare module Oidc {
 
         loadMetadataAsync(): DefaultPromise;
         loadX509SigningKeyAsync(): DefaultPromise;
-        loadUserProfile(access_token: string);
+        loadUserProfile(access_token: string): DefaultPromise;
         loadAuthorizationEndpoint(): void;
         createTokenRequestAsync(): DefaultPromise;
         createLogoutRequestAsync(id_token_hint: string): DefaultPromise;
@@ -74,6 +74,19 @@ declare module Oidc {
         setPromiseFactory(promiseFactory: DefaultPromiseFactory): void;
         setHttpRequest(httpRequest: DefaultHttpRequest): void;
     }
+    
+    interface OidcToken {
+        profile: string;
+        id_token: string;
+        access_token: string;
+        expires_at: number;
+        scope: string;
+        scopes: string[];
+        session_state: any;
+        expired: boolean;
+        expires_in: number;
+        toJSON(): string;
+    }
 
     interface OidcTokenManager {
         profile: any;
@@ -82,11 +95,11 @@ declare module Oidc {
         expired: boolean;
         expires_in: number;
         expires_at: number;
-        scope: any;
-        scopes: any[];
+        scope: string;
+        scopes: string[];
         session_state: any;
 
-        saveToken(token): void;
+        saveToken(token: OidcToken): void;
         addOnTokenRemoved(cb: () => void): void;
         addOnTokenObtained(cb: () => void): void;
         addOnTokenExpiring(cb: () => void): void;
