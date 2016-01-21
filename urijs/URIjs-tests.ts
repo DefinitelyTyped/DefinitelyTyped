@@ -34,3 +34,20 @@ URI('').setSearch('foo', 'bar');
 URI('').setSearch({ foo: 'bar' });
 
 var uri: uri.URI = $('a').uri();
+
+/*
+ To enable `URI.expand` when using `URI.js` via `npm`, include the following:
+
+ ```
+ import * as URI from "urijs";
+ import * as URITemplate from "urijs/src/URITemplate";
+ void URITemplate;
+ ```
+ */
+URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
+    URI.expand('http://user:pass@example.org:80{/p*}{?q*}{#h}', {
+        p: ["foo", "bar.html"],
+        q: {foo: "bar", bar: "baz"},
+        h: "frag"
+    })
+);

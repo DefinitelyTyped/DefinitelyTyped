@@ -29,7 +29,7 @@ declare module uri {
         domain(domain: string): URI;
 
         equals(): boolean;
-        equals(url: string): boolean;
+        equals(url: string | URI): boolean;
 
         filename(): string;
         filename(file: boolean): string;
@@ -226,5 +226,13 @@ interface JQuery {
 declare var URI: uri.URIStatic;
 
 declare module 'URI' {
+    export = URI;
+}
+
+declare module 'urijs' {
+    export = URI;
+}
+
+declare module 'urijs/src/URITemplate' {
     export = URI;
 }
