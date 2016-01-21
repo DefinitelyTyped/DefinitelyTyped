@@ -1,4 +1,4 @@
-// Type definitions for Umzug v1.7.0
+// Type definitions for Umzug v1.8.0
 // Project: https://github.com/sequelize/umzug
 // Definitions by: Ivan Drinchev <https://github.com/drinchev/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
