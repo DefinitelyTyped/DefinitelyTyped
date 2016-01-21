@@ -51,6 +51,8 @@ declare module Chartist {
     deserialize(data: string): Object | string | number;
 
     createSvg(container: Node, width: string, height: string, className: string): Object; // TODO: Figure out if this is returning a ChartistSVGWrapper or an actual SVGElement
+
+    plugins: any;
   }
 
   interface IChartistEscapeMap {
@@ -141,6 +143,8 @@ declare module Chartist {
      * If true the whole data is reversed including labels, the series order as well as the whole series data arrays.
      */
     reverseData?: boolean;
+
+    plugins?: Array<any>;
   }
 
   interface IPieChartOptions extends IChartOptions {
