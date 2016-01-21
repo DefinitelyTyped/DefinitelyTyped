@@ -58,31 +58,14 @@ declare module "expect" {
       destroy():void;
     }
 
-    function expectFn(actual:any):Expectation;
+    function expect(actual:any):Expectation;
 
-    export module expect {
-      export function createSpy(fn?:Function, restore?:Function):Spy;
-      export function spyOn(object:Object, methodName:string):Spy;
-      export function isSpy(object:any):Boolean;
-      export function restoreSpies():void;
-      export function assert(condition:any, messageFormat:string, ...extraArgs:Array<any>):void;
-      export function extend(extension:Extension):void;
-    }
+    export function createSpy(fn?:Function, restore?:Function):Spy;
+    export function spyOn(object:Object, methodName:string):Spy;
+    export function isSpy(object:any):Boolean;
+    export function restoreSpies():void;
+    export function assert(condition:any, messageFormat:string, ...extraArgs:Array<any>):void;
+    export function extend(extension:Extension):void;
 
-    import createSpy = expect.createSpy;
-    import spyOn = expect.spyOn;
-    import isSpy = expect.isSpy;
-    import restoreSpies = expect.restoreSpies;
-    import assert = expect.assert;
-    import extend = expect.extend;
-
-    export default expectFn;
-    export {
-      createSpy,
-      spyOn,
-      isSpy,
-      restoreSpies,
-      assert,
-      extend
-    }
+    export default expect;
 }
