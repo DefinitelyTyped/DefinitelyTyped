@@ -13,22 +13,19 @@ declare module 'passport-http-bearer' {
   interface IStrategyOptions {
       scope: string | Array<string>;
       realm: string;
-      passReqToCallback: boolean
+      passReqToCallback: boolean;
   }
   interface IVerifyOptions {
+      message: string;
       scope: string | Array<string>;
   }
 
   interface VerifyFunction {
-      (token: string, done: (error: any, user?: any, options?: IVerifyOptions) => void): void;
+      (token: string, done: (error: any, user?: any, options?: IVerifyOptions|string) => void): void;
   }
 
   interface VerifyFunctionWithRequest {
-      (req: express.Request, token: string, done: (error: any, user?: any, options?: IVerifyOptions) => void): void;
-  }
-
-  interface VerifyFunction {
-      (token: string, done: (error: any, user?: any, options?: IVerifyOptions) => void): void;
+      (req: express.Request, token: string, done: (error: any, user?: any, options?: IVerifyOptions|string) => void): void;
   }
 
   class Strategy implements passport.Strategy {
