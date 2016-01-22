@@ -1,6 +1,7 @@
 // Type definitions for Riot Games API
 // Project: https://developer.riotgames.com/
 // Definitions by: Xavier Stouder <https://github.com/xstoudi/>
+// Last modification from Luca Laissue 22.01.2016 <https://github.com/zafixlrp/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module RiotGamesAPI{
@@ -20,7 +21,24 @@ declare module RiotGamesAPI{
 			champions: Array<ChampionDto>
 		}
 	}
-	
+
+	/**
+	* championmastery
+	*/
+	module ChampionMastery{
+		interface ChampionMasteryDTO {
+			championId: number,
+			championLevel: number,
+			championPoints: number,
+			championPointsSinceLastLevel: number,
+			championPointsUntilNextLevel: number,
+			chestGranted: boolean,
+			highestGrade: string,
+			lastPlayTime: number,
+			playerId: number
+		}
+	}
+
 	/**
 	* current-game-v1.0
 	*/
@@ -67,7 +85,7 @@ declare module RiotGamesAPI{
 			runeId: number
 		}
 	}
-	
+
 	/**
 	* featured-games-v1.0
 	*/
@@ -107,7 +125,7 @@ declare module RiotGamesAPI{
 			encryptionKey: string
 		}
 	}
-	
+
 	/**
 	* game-v1.3
 	*/
@@ -219,7 +237,7 @@ declare module RiotGamesAPI{
 			win: boolean
 		}
 	}
-	
+
 	/**
 	* league-v2.5
 	*/
@@ -251,7 +269,7 @@ declare module RiotGamesAPI{
 			wins: number
 		}
 	}
-	
+
 	/**
 	* lol-static-data-v1.2
 	*/
@@ -450,70 +468,70 @@ declare module RiotGamesAPI{
 			tags: Array<string>
 		}
 		interface BasicDataStatsDto{
-			FlatArmorMod: number,	
-			FlatAttackSpeedMod: number,	
-			FlatBlockMod: number,	
-			FlatCritChanceMod: number,	
-			FlatCritDamageMod: number,	
-			FlatEXPBonus: number,	
-			FlatEnergyPoolMod: number,	
-			FlatEnergyRegenMod: number,	
-			FlatHPPoolMod: number,	
-			FlatHPRegenMod: number,	
-			FlatMPPoolMod: number,	
-			FlatMPRegenMod: number,	
-			FlatMagicDamageMod: number,	
-			FlatMovementSpeedMod: number,	
-			FlatPhysicalDamageMod: number,	
-			FlatSpellBlockMod: number,	
-			PercentArmorMod: number,	
-			PercentAttackSpeedMod: number,	
-			PercentBlockMod: number,	
-			PercentCritChanceMod: number,	
-			PercentCritDamageMod: number,	
-			PercentDodgeMod: number,	
-			PercentEXPBonus: number,	
-			PercentHPPoolMod: number,	
-			PercentHPRegenMod: number,	
-			PercentLifeStealMod: number,	
-			PercentMPPoolMod: number,	
-			PercentMPRegenMod: number,	
-			PercentMagicDamageMod: number,	
-			PercentMovementSpeedMod: number,	
-			PercentPhysicalDamageMod: number,	
-			PercentSpellBlockMod: number,	
-			PercentSpellVampMod: number,	
-			rFlatArmorModPerLevel: number,	
-			rFlatArmorPenetrationMod: number,	
-			rFlatArmorPenetrationModPerLevel: number,	
-			rFlatCritChanceModPerLevel: number,	
-			rFlatCritDamageModPerLevel: number,	
-			rFlatDodgeMod: number,	
-			rFlatDodgeModPerLevel: number,	
-			rFlatEnergyModPerLevel: number,	
-			rFlatEnergyRegenModPerLevel: number,	
-			rFlatGoldPer10Mod: number,	
-			rFlatHPModPerLevel: number,	
-			rFlatHPRegenModPerLevel: number,	
-			rFlatMPModPerLevel: number,	
-			rFlatMPRegenModPerLevel: number,	
-			rFlatMagicDamageModPerLevel: number,	
-			rFlatMagicPenetrationMod: number,	
-			rFlatMagicPenetrationModPerLevel: number,	
-			rFlatMovementSpeedModPerLevel: number,	
-			rFlatPhysicalDamageModPerLevel: number,	
-			rFlatSpellBlockModPerLevel: number,	
-			rFlatTimeDeadMod: number,	
-			rFlatTimeDeadModPerLevel: number,	
-			rPercentArmorPenetrationMod: number,	
-			rPercentArmorPenetrationModPerLevel: number,	
-			rPercentAttackSpeedModPerLevel: number,	
-			rPercentCooldownMod: number,	
-			rPercentCooldownModPerLevel: number,	
-			rPercentMagicPenetrationMod: number,	
-			rPercentMagicPenetrationModPerLevel: number,	
-			rPercentMovementSpeedModPerLevel: number,	
-			rPercentTimeDeadMod: number,	
+			FlatArmorMod: number,
+			FlatAttackSpeedMod: number,
+			FlatBlockMod: number,
+			FlatCritChanceMod: number,
+			FlatCritDamageMod: number,
+			FlatEXPBonus: number,
+			FlatEnergyPoolMod: number,
+			FlatEnergyRegenMod: number,
+			FlatHPPoolMod: number,
+			FlatHPRegenMod: number,
+			FlatMPPoolMod: number,
+			FlatMPRegenMod: number,
+			FlatMagicDamageMod: number,
+			FlatMovementSpeedMod: number,
+			FlatPhysicalDamageMod: number,
+			FlatSpellBlockMod: number,
+			PercentArmorMod: number,
+			PercentAttackSpeedMod: number,
+			PercentBlockMod: number,
+			PercentCritChanceMod: number,
+			PercentCritDamageMod: number,
+			PercentDodgeMod: number,
+			PercentEXPBonus: number,
+			PercentHPPoolMod: number,
+			PercentHPRegenMod: number,
+			PercentLifeStealMod: number,
+			PercentMPPoolMod: number,
+			PercentMPRegenMod: number,
+			PercentMagicDamageMod: number,
+			PercentMovementSpeedMod: number,
+			PercentPhysicalDamageMod: number,
+			PercentSpellBlockMod: number,
+			PercentSpellVampMod: number,
+			rFlatArmorModPerLevel: number,
+			rFlatArmorPenetrationMod: number,
+			rFlatArmorPenetrationModPerLevel: number,
+			rFlatCritChanceModPerLevel: number,
+			rFlatCritDamageModPerLevel: number,
+			rFlatDodgeMod: number,
+			rFlatDodgeModPerLevel: number,
+			rFlatEnergyModPerLevel: number,
+			rFlatEnergyRegenModPerLevel: number,
+			rFlatGoldPer10Mod: number,
+			rFlatHPModPerLevel: number,
+			rFlatHPRegenModPerLevel: number,
+			rFlatMPModPerLevel: number,
+			rFlatMPRegenModPerLevel: number,
+			rFlatMagicDamageModPerLevel: number,
+			rFlatMagicPenetrationMod: number,
+			rFlatMagicPenetrationModPerLevel: number,
+			rFlatMovementSpeedModPerLevel: number,
+			rFlatPhysicalDamageModPerLevel: number,
+			rFlatSpellBlockModPerLevel: number,
+			rFlatTimeDeadMod: number,
+			rFlatTimeDeadModPerLevel: number,
+			rPercentArmorPenetrationMod: number,
+			rPercentArmorPenetrationModPerLevel: number,
+			rPercentAttackSpeedModPerLevel: number,
+			rPercentCooldownMod: number,
+			rPercentCooldownModPerLevel: number,
+			rPercentMagicPenetrationMod: number,
+			rPercentMagicPenetrationModPerLevel: number,
+			rPercentMovementSpeedModPerLevel: number,
+			rPercentTimeDeadMod: number,
 			rPercentTimeDeadModPerLevel: number
 		}
 		interface GoldDto{
@@ -547,7 +565,7 @@ declare module RiotGamesAPI{
 			data: Array<{[str: string]: MasteryDto}>,
 			tree: MasteryTreeDto,
 			type: string,
-			version: string	
+			version: string
 		}
 		interface MasteryDto{
 			description: Array<string>,
@@ -643,7 +661,7 @@ declare module RiotGamesAPI{
 			vars: Array<SpellVarsDto>
 		}
 	}
-	
+
 	/**
 	* lol-status-v1.0
 	*/
@@ -690,7 +708,7 @@ declare module RiotGamesAPI{
 			updated_at: string
 		}
 	}
-	
+
 	/**
 	* match-v2.2
 	*/
@@ -910,7 +928,7 @@ declare module RiotGamesAPI{
 			y: number
 		}
 	}
-	
+
 	/**
 	* matchlist-v2.2
 	*/
@@ -933,7 +951,7 @@ declare module RiotGamesAPI{
 			timestamp: number
 		}
 	}
-	
+
 	/**
 	* stats-v1.3
 	*/
@@ -959,7 +977,7 @@ declare module RiotGamesAPI{
 			averageObjectivePlayerScore: number,
 			averageTeamObjective: number,
 			averageTotalPlayerScore: number,
-			botGamesPlayed: number, 		
+			botGamesPlayed: number,
 			killingSpree: number,
 			maxAssists: number,
 			maxChampionsKilled: number,
@@ -1004,7 +1022,7 @@ declare module RiotGamesAPI{
 			totalTripleKills: number,
 			totalTurretsKilleds: number,
 			totalUnrealKills: number
-		} 
+		}
 		interface PlayerStatsSummaryListDto{
 			playerStatSummaries: Array<PlayerStatsSummaryDto>,
 			summonerId: number
@@ -1017,7 +1035,7 @@ declare module RiotGamesAPI{
 			wins: number
 		}
 	}
-	
+
 	/**
 	* summoner-v1.4
 	*/
@@ -1058,7 +1076,7 @@ declare module RiotGamesAPI{
 			runeSlotId: number
 		}
 	}
-	
+
 	/**
 	* team-v2.4
 	*/
@@ -1107,6 +1125,60 @@ declare module RiotGamesAPI{
 			joinDate: number,
 			playerId: number,
 			status: string
+		}
+	}
+
+	/**
+	* tournament-provider-v1
+	*/
+	module TournamentProvider{
+		interface TournamentCodeParameters{
+			allowedSummonerIds: SummonerIdParams,
+			mapType: string,
+			metadata: string,
+			pickType: string,
+			spectatorType: string,
+			teamSize: number
+		}
+		interface SummonerIdParams{
+			participants: number[]
+		}
+		interface TournamentCodeDTO{
+			code: string,
+			id: number,
+			lobbyName: string,
+			map: string,
+			metaData: string,
+			participants: number[],
+			password: string,
+			pickType: string,
+			providerId: number,
+			region: string,
+			spectators: string,
+			teamSize: number,
+			tournamentId: number
+		}
+		interface TournamentCodeUpdateParameters{
+			allowedParticipants: string,
+			mapType: string,
+			pickType: string,
+			spectatorType: string
+		}
+		interface LobbyEventDTOWrapper{
+			eventList: LobbyEventDTO[]
+		}
+		interface LobbyEventDTO{
+			eventType: string,
+			summonerId: string,
+			timestamp: string
+		}
+		interface ProviderRegistrationParameters{
+			region: string,
+			url: string
+		}
+		interface TournamentRegistrationParameters{
+			name: string,
+			providerId: number
 		}
 	}
 }
