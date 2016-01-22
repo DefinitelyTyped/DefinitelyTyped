@@ -7251,8 +7251,12 @@ module TestRound {
 // _.sum
 module TestSum {
     let array: number[];
+    let objectArray: { 'age': number }[];
+
     let list: _.List<number>;
     let dictionary: _.Dictionary<number>;
+
+    let objectToIterateOver: { 'a': { 'age': number }, 'b': { 'age' : number } };
 
     let listIterator: (value: number, index: number, collection: _.List<number>) => number;
     let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => number;
@@ -7264,36 +7268,36 @@ module TestSum {
         result = _.sum<number>(array);
         result = _.sum<number>(array, listIterator);
         result = _.sum<number>(array, listIterator, any);
-        result = _.sum<number>(array, '');
 
+        result = _.sum(objectArray, 'age');
 
         result = _.sum(list);
         result = _.sum<number>(list);
         result = _.sum<number>(list, listIterator);
         result = _.sum<number>(list, listIterator, any);
-        result = _.sum<number>(list, '');
 
         result = _.sum(dictionary);
         result = _.sum<number>(dictionary);
         result = _.sum<number>(dictionary, dictionaryIterator);
         result = _.sum<number>(dictionary, dictionaryIterator, any);
-        result = _.sum<number>(dictionary, '');
+
+        result = _.sum(objectToIterateOver, 'age');
 
         result = _(array).sum();
         result = _(array).sum(listIterator);
         result = _(array).sum(listIterator, any);
-        result = _(array).sum('');
 
+        result = _(objectArray).sum('age');
 
         result = _(list).sum();
         result = _(list).sum<number>(listIterator);
         result = _(list).sum<number>(listIterator, any);
-        result = _(list).sum('');
 
         result = _(dictionary).sum();
         result = _(dictionary).sum<number>(dictionaryIterator);
         result = _(dictionary).sum<number>(dictionaryIterator, any);
-        result = _(dictionary).sum('');
+
+        result = _(objectToIterateOver).sum('age');
     }
 
     {
@@ -7302,18 +7306,18 @@ module TestSum {
         result = _(array).chain().sum();
         result = _(array).chain().sum(listIterator);
         result = _(array).chain().sum(listIterator, any);
-        result = _(array).chain().sum('');
 
+        result = _(objectArray).chain().sum('age');
 
         result = _(list).chain().sum();
         result = _(list).chain().sum<number>(listIterator);
         result = _(list).chain().sum<number>(listIterator, any);
-        result = _(list).chain().sum('');
 
         result = _(dictionary).chain().sum();
         result = _(dictionary).chain().sum<number>(dictionaryIterator);
         result = _(dictionary).chain().sum<number>(dictionaryIterator, any);
-        result = _(dictionary).chain().sum('');
+
+        result = _(objectToIterateOver).chain().sum('age');
     }
 }
 
