@@ -65,7 +65,7 @@ class Component extends React.Component<any, any> {
             props.key = `option-${i}`;
             props.value = `option-${i}`;
 
-            options.push(React.createElement(RcSelect.Option, props));
+            options.push(React.createElement(Select.Option, props));
         }
 
         return options;
@@ -75,9 +75,9 @@ class Component extends React.Component<any, any> {
 
         let options: React.ReactElement<RcSelect.OptionProps>[] = this.createOptions(10);
 
-        let optionGroup: React.ReactElement<RcSelect.OptGroupProps> = React.createElement(RcSelect.OptGroup, this.defaultOptGroupProps, options);        
+        let optionGroup: React.ReactElement<RcSelect.OptGroupProps> = React.createElement(Select.OptGroup, this.defaultOptGroupProps, options);        
 
-        let select: React.ReactElement<RcSelect.SelectProps> = React.createElement(RcSelect.Select, this.defaultSelectProps, optionGroup);
+        let select: React.ReactElement<RcSelect.SelectProps> = React.createElement(Select.default, this.defaultSelectProps, optionGroup);
 
         return select;
     }
