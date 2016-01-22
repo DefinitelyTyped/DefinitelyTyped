@@ -2971,6 +2971,8 @@ declare module THREE {
     }
 
     export class Euler {
+        static DefaultOrder: string;
+
         constructor(x?: number, y?: number, z?: number, order?: string);
 
         x: number;
