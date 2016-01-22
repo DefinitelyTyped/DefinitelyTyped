@@ -22,7 +22,7 @@ declare module _ {
         * forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, functions, groupBy,
         * indexBy, initial, intersection, invert, invoke, keys, map, max, memoize, merge, min,
         * object, omit, once, pairs, partial, partialRight, pick, pluck, pull, push, range, reject,
-        * remove, rest, reverse, sample, shuffle, slice, sort, sortBy, splice, tap, throttle, times,
+        * remove, rest, reverse, sample, sampleSize, shuffle, slice, sort, sortBy, splice, tap, throttle, times,
         * toArray, transform, union, uniq, unshift, unzip, values, where, without, wrap, and zip
         *
         * The non-chainable wrapper functions are:
@@ -6991,7 +6991,7 @@ declare module _ {
          * The guarded methods are:
          * ary, callback, chunk, clone, create, curry, curryRight, drop, dropRight, every, fill, flatten, invert, max,
          * min, parseInt, slice, sortBy, take, takeRight, template, trim, trimLeft, trimRight, trunc, random, range,
-         * sample, some, sum, uniq, and words
+         * sample, sampleSize, some, sum, uniq, and words
          *
          * @alias _.collect
          *
@@ -7880,31 +7880,34 @@ declare module _ {
         * @see _.sample
         **/
         sample<T>(collection: Dictionary<T>): T;
+    }
 
+    //_.sampleSize
+    interface LoDashStatic {    
         /**
-        * @see _.sample
+        * @see _.sampleSize
         * @param n The number of elements to sample.
         **/
-        sample<T>(collection: Array<T>, n: number): T[];
+        sampleSize<T>(collection: Array<T>, n: number): T[];
 
         /**
-        * @see _.sample
+        * @see _.sampleSize
         * @param n The number of elements to sample.
         **/
-        sample<T>(collection: List<T>, n: number): T[];
+        sampleSize<T>(collection: List<T>, n: number): T[];
 
         /**
-        * @see _.sample
+        * @see _.sampleSize
         * @param n The number of elements to sample.
         **/
-        sample<T>(collection: Dictionary<T>, n: number): T[];
+        sampleSize<T>(collection: Dictionary<T>, n: number): T[];
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
-         * @see _.sample
+         * @see _.sampleSize
          **/
-        sample(n: number): LoDashImplicitArrayWrapper<T>;
+        sampleSize(n: number): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.sample
