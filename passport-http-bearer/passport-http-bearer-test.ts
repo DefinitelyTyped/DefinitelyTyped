@@ -37,15 +37,17 @@ passport.use(new httpBearer.Strategy((token: string, done: any) => {
 }));
 
 passport.use(new httpBearer.Strategy({
+    scope: ["read", "write"],
+    realm: "User",
     passReqToCallback: true
-}, function (req, token, done) {
+}, function (req: express.Request, token: string, done: any) {
     User.findOne({ token: token }, function (err, user) {
         if (err) {
-            return done(err);
+            return done(err, null, { message: "Access Denied" });
         }
 
         if (!user) {
-            return done(null, false);
+            return done(null, false, "Access Denied");
         }
 
         return done(null, user);
@@ -53,6 +55,6 @@ passport.use(new httpBearer.Strategy({
 }));
 
 var app = express();
-app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), function (req, res) {
+app.post('/login', passport.authenticate('bearer', { failureRedirect: '/login' }), function (req, res) {
   res.redirect('/');
 });
