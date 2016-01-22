@@ -30,6 +30,7 @@ declare module "gulp-typescript" {
             jsx?: string;
             declaration?: boolean;
             emitDecoratorMetadata?: boolean;
+            experimentalDecorators?: boolean;
             experimentalAsyncFunctions?: boolean;
             moduleResolution?: string;
             noEmitHelpers?: boolean;
