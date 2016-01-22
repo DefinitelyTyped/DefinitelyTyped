@@ -1,6 +1,6 @@
 // Type definitions for Riot Games API
 // Project: https://developer.riotgames.com/
-// Definitions by: Xavier Stouder <https://github.com/xstoudi/>
+// Definitions by: Luca Laissue <https://github.com/zafixlrp/>
 // Last modification from Luca Laissue 22.01.2016 <https://github.com/zafixlrp/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -26,7 +26,7 @@ declare module RiotGamesAPI{
 	* championmastery
 	*/
 	module ChampionMastery{
-		interface ChampionMasteryDTO {
+		interface ChampionMasteryDto {
 			championId: number,
 			championLevel: number,
 			championPoints: number,
@@ -1143,7 +1143,7 @@ declare module RiotGamesAPI{
 		interface SummonerIdParams{
 			participants: number[]
 		}
-		interface TournamentCodeDTO{
+		interface TournamentCodeDto{
 			code: string,
 			id: number,
 			lobbyName: string,
@@ -1164,10 +1164,10 @@ declare module RiotGamesAPI{
 			pickType: string,
 			spectatorType: string
 		}
-		interface LobbyEventDTOWrapper{
-			eventList: LobbyEventDTO[]
+		interface LobbyEventDtoWrapper{
+			eventList: LobbyEventDto[]
 		}
-		interface LobbyEventDTO{
+		interface LobbyEventDto{
 			eventType: string,
 			summonerId: string,
 			timestamp: string
