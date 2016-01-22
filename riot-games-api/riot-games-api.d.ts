@@ -1,7 +1,6 @@
 // Type definitions for Riot Games API
 // Project: https://developer.riotgames.com/
-// Definitions by: Luca Laissue <https://github.com/zafixlrp/>
-// Last modification from Luca Laissue 22.01.2016 <https://github.com/zafixlrp/>
+// Definitions by: Xavier Stouder <https://github.com/xstoudi/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module RiotGamesAPI{
