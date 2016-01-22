@@ -18,6 +18,7 @@ declare module 'bookshelf' {
 		Model : typeof Bookshelf.Model;
 		Collection : typeof Bookshelf.Collection;
 
+		plugin(name: string) : Bookshelf;
 		transaction<T>(callback : (transaction : knex.Transaction) => T) : Promise<T>;
 	}
 
