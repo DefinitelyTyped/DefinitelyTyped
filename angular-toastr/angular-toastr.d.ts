@@ -10,27 +10,27 @@ declare module "angular-toastr" {
     export = _;
 }
 
-interface IToastBaseConfig {
-    allowHtml?: boolean;
-    closeButton?: boolean;
-    closeHtml?: string;
-    extendedTimeOut?: number;
-    messageClass?: string;
-    onHidden?: Function;
-    onShown?: Function;
-    onTap?: Function;
-    progressBar?: boolean;
-    tapToDismiss?: boolean;
-    templates?: {
-        toast?: string;
-        progressbar?: string;
-    };
-    timeOut?: number;
-    titleClass?: string;
-    toastClass?: string;
-}
-
 declare module angular.toastr {
+    interface IToastBaseConfig {
+        allowHtml?: boolean;
+        closeButton?: boolean;
+        closeHtml?: string;
+        extendedTimeOut?: number;
+        messageClass?: string;
+        onHidden?: Function;
+        onShown?: Function;
+        onTap?: Function;
+        progressBar?: boolean;
+        tapToDismiss?: boolean;
+        templates?: {
+            toast?: string;
+            progressbar?: string;
+        };
+        timeOut?: number;
+        titleClass?: string;
+        toastClass?: string;
+    }
+
     interface IToastContainerConfig {
         autoDismiss?: boolean;
         containerId?: string;
