@@ -20,7 +20,7 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 ///<reference path="../react-native/react-native.d.ts" />
 
 
-import React from 'react-native'
+import * as React from 'react-native'
 const  { StyleSheet, Text, View } = React
 
 var styles = StyleSheet.create(

@@ -754,8 +754,8 @@ Promise.longStackTraces();
 
 //TODO enable delay
 
-fooProm = Promise.delay(fooThen, num);
-fooProm = Promise.delay(foo, num);
+fooProm = Promise.delay(num, fooThen);
+fooProm = Promise.delay(num, foo);
 voidProm = Promise.delay(num);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

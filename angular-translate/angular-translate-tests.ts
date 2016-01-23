@@ -26,6 +26,7 @@ app.config(($translateProvider: angular.translate.ITranslateProvider) => {
     $translateProvider.preferredLanguage('en');
 
     $translateProvider.useLoader('customLoader');
+    $translateProvider.forceAsyncReload(true);
 });
 
 interface Scope extends ng.IScope {

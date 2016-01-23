@@ -8,7 +8,7 @@ import Sequelize = require("sequelize");
 //
 
 interface AnyAttributes { };
-interface AnyInstance extends Sequelize.Instance<AnyInstance, AnyAttributes> { };
+interface AnyInstance extends Sequelize.Instance<AnyAttributes> { };
 
 var s         = new Sequelize( '' );
 var sequelize = s;
@@ -32,7 +32,7 @@ interface GUserAttributes {
     username? : string;
 }
 
-interface GUserInstance extends Sequelize.Instance<GUserInstance, GUserAttributes> {}
+interface GUserInstance extends Sequelize.Instance<GUserAttributes> {}
 var GUser = s.define<GUserInstance, GUserAttributes>( 'user', { id: Sequelize.INTEGER, username : Sequelize.STRING });
 GUser.create({ id : 1, username : 'one' }).then( ( guser ) => guser.save() );
 
@@ -47,7 +47,7 @@ interface GTaskAttributes {
     revision? : number;
     name? : string;
 }
-interface GTaskInstance extends Sequelize.Instance<GTaskInstance, GTaskAttributes> {
+interface GTaskInstance extends Sequelize.Instance<GTaskAttributes> {
   upRevision(): void;
 }
 var GTask = s.define<GTaskInstance, GTaskAttributes>( 'task', { revision : Sequelize.INTEGER, name : Sequelize.STRING });
@@ -347,7 +347,7 @@ interface ProductAttributes {
     price?: number;
 };
 
-interface ProductInstance extends Sequelize.Instance<ProductInstance, ProductAttributes>, ProductAttributes {
+interface ProductInstance extends Sequelize.Instance<ProductAttributes>, ProductAttributes {
     // hasOne association mixins:
     getBarcode: Sequelize.HasOneGetAssociationMixin<BarcodeInstance>;
     setBarcode: Sequelize.HasOneSetAssociationMixin<BarcodeInstance, number>;
@@ -365,7 +365,7 @@ interface BarcodeAttributes {
     dateIssued?: Date;
 };
 
-interface BarcodeInstance extends Sequelize.Instance<BarcodeInstance, BarcodeAttributes>, BarcodeAttributes {
+interface BarcodeInstance extends Sequelize.Instance<BarcodeAttributes>, BarcodeAttributes {
     // belongsTo association mixins:
     getProduct: Sequelize.BelongsToGetAssociationMixin<ProductInstance>;
     setProduct: Sequelize.BelongsToSetAssociationMixin<ProductInstance, number>;
@@ -378,7 +378,7 @@ interface WarehouseAttributes {
     capacity?: number;
 };
 
-interface WarehouseInstance extends Sequelize.Instance<WarehouseInstance, WarehouseAttributes>, WarehouseAttributes {
+interface WarehouseInstance extends Sequelize.Instance<WarehouseAttributes>, WarehouseAttributes {
     // hasMany association mixins:
     getProducts: Sequelize.HasManyGetAssociationsMixin<ProductInstance>;
     setProducts: Sequelize.HasManySetAssociationsMixin<ProductInstance, number>;
@@ -410,7 +410,7 @@ interface BranchAttributes {
     rank?: number;
 };
 
-interface BranchInstance extends Sequelize.Instance<BranchInstance, BranchAttributes>, BranchAttributes {
+interface BranchInstance extends Sequelize.Instance<BranchAttributes>, BranchAttributes {
     // belongsToMany association mixins:
     getWarehouses: Sequelize.BelongsToManyGetAssociationsMixin<WarehouseInstance>;
     setWarehouses: Sequelize.BelongsToManySetAssociationsMixin<WarehouseInstance, number, WarehouseBranchAttributes>;
@@ -440,7 +440,7 @@ interface WarehouseBranchAttributes {
     distance?: number;
 };
 
-interface WarehouseBranchInstance extends Sequelize.Instance<WarehouseBranchInstance, WarehouseBranchAttributes>, WarehouseBranchAttributes { };
+interface WarehouseBranchInstance extends Sequelize.Instance<WarehouseBranchAttributes>, WarehouseBranchAttributes { };
 
 interface CustomerAttributes {
     id?: number;
@@ -448,7 +448,7 @@ interface CustomerAttributes {
     credit?: number;
 };
 
-interface CustomerInstance extends Sequelize.Instance<CustomerInstance, CustomerAttributes>, CustomerAttributes {
+interface CustomerInstance extends Sequelize.Instance<CustomerAttributes>, CustomerAttributes {
     // belongsToMany association mixins:
     getBranches: Sequelize.BelongsToManyGetAssociationsMixin<BranchInstance>;
     setBranches: Sequelize.BelongsToManySetAssociationsMixin<BranchInstance, number, void>;
@@ -633,11 +633,11 @@ new s.ConnectionTimedOutError( new Error( 'original connection error message' ) 
 //  https://github.com/sequelize/sequelize/blob/v3.4.1/test/integration/hooks.test.js
 //
 
-User.addHook( 'afterCreate', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function ) { next(); } );
-User.addHook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function) { next(); } );
+User.addHook( 'afterCreate', function( instance : Sequelize.Instance<any>, options : Object, next : Function ) { next(); } );
+User.addHook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any>, options : Object, next : Function) { next(); } );
 s.addHook( 'beforeInit', function( config : Object, options : Object ) { } );
-User.hook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function) { next(); } );
-User.hook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function ) { next(); } );
+User.hook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any>, options : Object, next : Function) { next(); } );
+User.hook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any>, options : Object, next : Function ) { next(); } );
 
 User.removeHook( 'afterCreate', 'myHook' );
 
@@ -906,7 +906,7 @@ User.find( { where : { intVal : { lte : 5 } } } );
 
 User.count();
 User.count( { transaction : t } );
-User.count().then( function( c ) { c.toFixed() } );
+User.count().then( function( c ) { c.toFixed(); } );
 User.count( { where : ["username LIKE '%us%'"] } );
 User.count( { include : [{ model : User, required : false }] } );
 User.count( { distinct : true, include : [{ model : User, required : false }] } );
@@ -1122,7 +1122,7 @@ s.query( '', { raw : true, nest : false } );
 s.query( 'select ? as foo, ? as bar', { type : this.sequelize.QueryTypes.SELECT, replacements : [1, 2] } );
 s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { type : s.QueryTypes.SELECT } );
 s.query( 'select :one as foo, :two as bar', { raw : true, replacements : { one : 1, two : 2 } } );
-s.transaction().then( function( t ) { s.set( { foo : 'bar' }, { transaction : t } ) } );
+s.transaction().then( function( t ) { s.set( { foo : 'bar' }, { transaction : t } ); } );
 s.define( 'foo', { bar : Sequelize.STRING }, { collate : 'utf8_bin' } );
 s.define( 'Foto', { name : Sequelize.STRING }, { tableName : 'photos' } );
 s.databaseVersion().then( function( version ) { } );

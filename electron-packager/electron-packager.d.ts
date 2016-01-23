@@ -81,12 +81,12 @@ declare namespace ElectronPackager {
     /** Electron-packager done callback. */
     export interface Callback {
         /**
-         * Callback wich is called when electron-packager is done.
+         * Callback which is called when electron-packager is done.
          *
          * @param err - Contains errors if any.
-         * @param appPath - Path to the newly created application.
+         * @param appPath - Path(s) to the newly created application(s).
          */
-        (err: Error, appPath: string): void
+        (err: Error, appPath: string|string[]): void
     }
 
     /** Electron-packager function */

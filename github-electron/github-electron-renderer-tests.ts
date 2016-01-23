@@ -24,7 +24,7 @@ ipcRenderer.send('asynchronous-message', 'ping');
 // remote
 // https://github.com/atom/electron/blob/master/docs/api/remote.md
 
-var BrowserWindow: typeof GitHubElectron.BrowserWindow = remote.require('browser-window');
+var BrowserWindow: typeof Electron.BrowserWindow = remote.require('browser-window');
 var win = new BrowserWindow({ width: 800, height: 600 });
 win.loadURL('https://github.com');
 
@@ -75,7 +75,7 @@ crashReporter.start({
 // nativeImage
 // https://github.com/atom/electron/blob/master/docs/api/native-image.md
 
-var Tray: typeof GitHubElectron.Tray = remote.require('Tray');
+var Tray: typeof Electron.Tray = remote.require('Tray');
 var appIcon2 = new Tray('/Users/somebody/images/icon.png');
 var window2 = new BrowserWindow({ icon: '/Users/somebody/images/window.png' });
 var image = clipboard.readImage();
@@ -85,9 +85,9 @@ var appIcon4 = new Tray('/Users/somebody/images/icon.png');
 // screen
 // https://github.com/atom/electron/blob/master/docs/api/screen.md
 
-var app: GitHubElectron.App = remote.require('app');
+var app: Electron.App = remote.require('app');
 
-var mainWindow: GitHubElectron.BrowserWindow = null;
+var mainWindow: Electron.BrowserWindow = null;
 
 app.on('ready', () => {
 	var size = screen.getPrimaryDisplay().workAreaSize;
