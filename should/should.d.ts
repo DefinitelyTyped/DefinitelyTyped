@@ -40,6 +40,7 @@ interface ShouldAssertion {
   Function(): ShouldAssertion;
   Date(): ShouldAssertion;
   Class(): ShouldAssertion;
+  Undefined(): ShouldAssertion;
   generator(): ShouldAssertion;
   iterable(): ShouldAssertion;
   iterator(): ShouldAssertion;
