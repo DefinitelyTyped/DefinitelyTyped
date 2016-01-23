@@ -62,7 +62,7 @@ declare module 'micromatch' {
         }
 
         interface Glob {
-            options: {}; // TODO: Expand?
+            options: micromatch.Options;
             pattern: string;
             history: {msg: any, pattern: string}[];
             tokens: parseGlob.Result;
@@ -114,6 +114,12 @@ declare module 'micromatch' {
              */
             unescape(pattern: string): string;
         }
+
+        interface GlobData {
+            pattern: string;
+            tokens: parseGlob.Result;
+            options: micromatch.Options;
+        }
     }
 
     interface Micromatch {
@@ -155,7 +161,7 @@ declare module 'micromatch' {
         /**
          * Returns an object with a regex-compatible string and tokens.
          */
-        expand(pattern: string, opts?: micromatch.Options): micromatch.Glob | {pattern: string, tokens: parseGlob.Result, options: {} /* TODO: Expand? */};
+        expand(pattern: string, opts?: micromatch.Options): micromatch.Glob | micromatch.GlobData;
 
         /**
          * Create a regular expression for matching file paths based on the given pattern.

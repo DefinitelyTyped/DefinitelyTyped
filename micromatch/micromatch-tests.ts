@@ -5,6 +5,7 @@ var strArrResult: string[];
 var boolResult: boolean;
 var strMatchFuncResult: mm.MatchFunction<string>;
 var anyMatchFuncResult: mm.MatchFunction<any>;
+var globDataResult: mm.GlobData;
 var regExpResult: RegExp;
 
 // Usage.
@@ -45,8 +46,8 @@ boolResult = mm.any('abc', 'a*');
 boolResult = mm.any('abc', 'a*', {dot: true});
 
 // "expand" method.
-mm.expand('*.js');
-mm.expand('*.js', {dot: true});
+globDataResult = mm.expand('*.js');
+globDataResult = mm.expand('*.js', {dot: true});
 
 // "makeRe" method.
 regExpResult = mm.makeRe('*.js');
