@@ -3524,4 +3524,16 @@
         ok( a.equals( b ), "Passed!" );
         ok( b.equals( a ), "Passed!" );
     });
+
+    test( "setAxisAngleFromRotationMatrix", function() {
+        var TOL = 1e-9;
+
+        var r = new THREE.Matrix4().makeRotationZ(Math.PI / 2);
+        var v = new THREE.Vector4().setAxisAngleFromRotationMatrix(r);
+
+        ok( v.x == 0, "Passed!" );
+        ok( v.y == 0, "Passed!" );
+        ok( v.z == 1, "Passed!" );
+        ok( Math.abs(v.w - Math.PI / 2) < TOL, "Passed!" );
+    });
 };

@@ -4,6 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare namespace __React {
+
     //
     // React Elements
     // ----------------------------------------------------------------------

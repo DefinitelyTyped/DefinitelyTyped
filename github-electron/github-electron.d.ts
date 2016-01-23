@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module GitHubElectron {
+declare module Electron {
 	/**
 	 * This class is used to represent an image.
 	 */
@@ -64,6 +64,34 @@ declare module GitHubElectron {
 		function writeImage(image: NativeImage, type?: string): void;
 	}
 
+	interface Display {
+		id:number;
+		bounds:Bounds;
+		workArea:Bounds;
+		size:Dimension;
+		workAreaSize:Dimension;
+		scaleFactor:number;
+		rotation:number;
+		touchSupport:string;
+	}
+
+	interface Bounds {
+		x:number;
+		y:number;
+		width:number;
+		height:number;
+	}
+
+	interface Dimension {
+		width:number;
+		height:number;
+	}
+
+	interface Point {
+		x:number;
+		y:number;
+	}
+
 	class Screen implements NodeJS.EventEmitter {
 		addListener(event: string, listener: Function): Screen;
 		on(event: string, listener: Function): Screen;
@@ -78,26 +106,23 @@ declare module GitHubElectron {
 		/**
 		 * @returns The current absolute position of the mouse pointer.
 		 */
-		getCursorScreenPoint(): any;
+		getCursorScreenPoint(): Point;
 		/**
 		 * @returns The primary display.
 		 */
-		getPrimaryDisplay(): any;
+		getPrimaryDisplay(): Display;
 		/**
 		 * @returns An array of displays that are currently available.
 		 */
-		getAllDisplays(): any[];
+		getAllDisplays(): Display[];
 		/**
 		 * @returns The display nearest the specified point.
 		 */
-		getDisplayNearestPoint(point: {
-			x: number;
-			y: number;
-		}): any;
+		getDisplayNearestPoint(point: Point): Display;
 		/**
 		 * @returns The display that most closely intersects the provided bounds.
 		 */
-		getDisplayMatching(rect: Rectangle): any;
+		getDisplayMatching(rect: Rectangle): Display;
 	}
 
 	/**
@@ -508,6 +533,7 @@ declare module GitHubElectron {
 		subpixelFontScaling?: boolean;
 		overlayFullscreenVideo?: boolean;
 		titleBarStyle?: string;
+		backgroundColor?: string;
 	}
 
 	interface Rectangle {
@@ -751,6 +777,10 @@ declare module GitHubElectron {
 		 */
 		isDevToolsOpened(): boolean;
 		/**
+		 * Returns whether the developer tools are focussed.
+		 */
+		isDevToolsFocused(): boolean;
+		/**
 		 * Toggle the developer tools.
 		 */
 		toggleDevTools(): void;
@@ -884,7 +914,7 @@ declare module GitHubElectron {
 		 * Should be specified for submenu type menu item, when it's specified the
 		 * type: 'submenu' can be omitted for the menu item
 		 */
-		submenu?: MenuItemOptions[];
+		submenu?: Menu|MenuItemOptions[];
 		/**
 		 * Unique within a single menu. If defined then it can be used as a reference
 		 * to this item by the position attribute.
@@ -1022,6 +1052,7 @@ declare module GitHubElectron {
 		 * of your app is running, and other instances signal this instance and exit.
 		 */
 		makeSingleInstance(callback: (args: string[], workingDirectory: string) => boolean): boolean;
+		setAppUserModelId(id: string): void;
 	}
 
 	interface CommandLine {
@@ -1057,7 +1088,7 @@ declare module GitHubElectron {
 		/**
 		 * Description of this task.
 		 */
-		description: string;
+		description?: string;
 		/**
 		 * The absolute path to an icon to be displayed in a JumpList, it can be
 		 * arbitrary resource file that contains an icon, usually you can specify
@@ -1069,9 +1100,9 @@ declare module GitHubElectron {
 		 * icons, set this value to identify the icon. If an icon file consists of
 		 * one icon, this value is 0.
 		 */
-		iconIndex: number;
-		commandLine: CommandLine;
-		dock: {
+		iconIndex?: number;
+		commandLine?: CommandLine;
+		dock?: {
 			/**
 			 * When critical is passed, the dock icon will bounce until either the
 			 * application becomes active or the request is canceled.
@@ -1157,11 +1188,11 @@ declare module GitHubElectron {
 			browserWindow?: BrowserWindow,
 			options?: OpenDialogOptions,
 			callback?: (fileNames: string[]) => void
-			): void;
+			): string[];
 		export function showOpenDialog(
 			options?: OpenDialogOptions,
 			callback?: (fileNames: string[]) => void
-			): void;
+			): string[];
 
 		interface OpenDialogOptions {
 			title?: string;
@@ -1180,6 +1211,19 @@ declare module GitHubElectron {
 			properties?: string|string[];
 		}
 
+		interface SaveDialogOptions {
+			title?: string;
+			defaultPath?: string;
+			/**
+			 * File types that can be displayed, see dialog.showOpenDialog for an example.
+			 */
+
+			filters?: {
+				name: string;
+				extensions: string[];
+			}[]
+		}
+
 		/**
 		 * @param browserWindow
 		 * @param options
@@ -1187,14 +1231,7 @@ declare module GitHubElectron {
 		 * @returns On success, returns the path of file chosen by the user, otherwise
 		 * returns undefined.
 		 */
-		export function showSaveDialog(browserWindow?: BrowserWindow, options?: {
-			title?: string;
-			defaultPath?: string;
-			/**
-			 * File types that can be displayed, see dialog.showOpenDialog for an example.
-			 */
-			filters?: string[];
-		}, callback?: (fileName: string) => void): void;
+		export function showSaveDialog(browserWindow?: BrowserWindow, options?: SaveDialogOptions, callback?: (fileName: string) => void): string;
 
 		/**
 		 * Shows a message box. It will block until the message box is closed. It returns .
@@ -1233,6 +1270,8 @@ declare module GitHubElectron {
 			 */
 			detail?: string;
 			icon?: NativeImage;
+			noLink?: boolean;
+			cancelId?: number;
 		}
 	}
 
@@ -1304,11 +1343,11 @@ declare module GitHubElectron {
 		/**
 		 * @returns The contents of the clipboard as a NativeImage.
 		 */
-		readImage: typeof GitHubElectron.Clipboard.readImage;
+		readImage: typeof Electron.Clipboard.readImage;
 		/**
 		 * Writes the image into the clipboard.
 		 */
-		writeImage: typeof GitHubElectron.Clipboard.writeImage;
+		writeImage: typeof Electron.Clipboard.writeImage;
 		/**
 		 * Clears everything in clipboard.
 		 */
@@ -1464,6 +1503,24 @@ declare module GitHubElectron {
 		sendToHost(channel: string, ...args: any[]): void;
 	}
 
+	class IPCMain implements NodeJS.EventEmitter {
+		addListener(event: string, listener: Function): IPCMain;
+		once(event: string, listener: Function): IPCMain;
+		removeListener(event: string, listener: Function): IPCMain;
+		removeAllListeners(event?: string): IPCMain;
+		setMaxListeners(n: number): IPCMain;
+		getMaxListeners(): number;
+		listeners(event: string): Function[];
+		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
+		on(event: string, listener: (event: IPCMainEvent, ...args: any[]) => any): IPCMain;
+	}
+
+	interface IPCMainEvent {
+		returnValue?: any;
+		sender: WebContents;
+	}
+
 	interface Remote extends CommonElectron {
 		/**
 		 * @returns The object returned by require(module) in the main process.
@@ -1609,19 +1666,19 @@ declare module GitHubElectron {
 		 * @returns On success, returns an array of file paths chosen by the user,
 		 * otherwise returns undefined.
 		 */
-		showOpenDialog: typeof GitHubElectron.Dialog.showOpenDialog;
+		showOpenDialog: typeof Electron.Dialog.showOpenDialog;
 		/**
 		 * @param callback If supplied, the API call will be asynchronous.
 		 * @returns On success, returns the path of file chosen by the user, otherwise
 		 * returns undefined.
 		 */
-		showSaveDialog: typeof GitHubElectron.Dialog.showSaveDialog;
+		showSaveDialog: typeof Electron.Dialog.showSaveDialog;
 		/**
 		 * Shows a message box. It will block until the message box is closed. It returns .
 		 * @param callback If supplied, the API call will be asynchronous.
 		 * @returns The index of the clicked button.
 		 */
-		showMessageBox: typeof GitHubElectron.Dialog.showMessageBox;
+		showMessageBox: typeof Electron.Dialog.showMessageBox;
 
 		/**
 		 * Runs a modal dialog that shows an error message. This API can be called safely
@@ -1751,26 +1808,26 @@ declare module GitHubElectron {
 	}
 
 	interface CommonElectron {
-		clipboard: GitHubElectron.Clipboard;
-		crashReporter: GitHubElectron.CrashReporter;
-		nativeImage: typeof GitHubElectron.NativeImage;
-		shell: GitHubElectron.Shell;
+		clipboard: Electron.Clipboard;
+		crashReporter: Electron.CrashReporter;
+		nativeImage: typeof Electron.NativeImage;
+		shell: Electron.Shell;
 
-		app: GitHubElectron.App;
-		autoUpdater: GitHubElectron.AutoUpdater;
-		BrowserWindow: typeof GitHubElectron.BrowserWindow;
-		contentTracing: GitHubElectron.ContentTracing;
-		dialog: GitHubElectron.Dialog;
-		ipcMain: NodeJS.EventEmitter;
-		globalShortcut: GitHubElectron.GlobalShortcut;
-		Menu: typeof GitHubElectron.Menu;
-		MenuItem: typeof GitHubElectron.MenuItem;
+		app: Electron.App;
+		autoUpdater: Electron.AutoUpdater;
+		BrowserWindow: typeof Electron.BrowserWindow;
+		contentTracing: Electron.ContentTracing;
+		dialog: Electron.Dialog;
+		ipcMain: Electron.IPCMain;
+		globalShortcut: Electron.GlobalShortcut;
+		Menu: typeof Electron.Menu;
+		MenuItem: typeof Electron.MenuItem;
 		powerMonitor: NodeJS.EventEmitter;
-		powerSaveBlocker: GitHubElectron.PowerSaveBlocker;
-		protocol: GitHubElectron.Protocol;
-		screen: GitHubElectron.Screen;
-		session: GitHubElectron.Session;
-		Tray: typeof GitHubElectron.Tray;
+		powerSaveBlocker: Electron.PowerSaveBlocker;
+		protocol: Electron.Protocol;
+		screen: Electron.Screen;
+		session: Electron.Session;
+		Tray: typeof Electron.Tray;
 		hideInternalModules(): void;
 	}
 
@@ -1792,11 +1849,11 @@ declare module GitHubElectron {
 		getSources(options: any, callback: (error: Error, sources: DesktopCapturerSource[]) => any): void;
 	}
 
-	interface Electron extends CommonElectron {
-		desktopCapturer: GitHubElectron.DesktopCapturer;
-		ipcRenderer: GitHubElectron.IpcRenderer;
-		remote: GitHubElectron.Remote;
-		webFrame: GitHubElectron.WebFrame;
+	interface ElectronMainAndRenderer extends CommonElectron {
+		desktopCapturer: Electron.DesktopCapturer;
+		ipcRenderer: Electron.IpcRenderer;
+		remote: Electron.Remote;
+		webFrame: Electron.WebFrame;
 	}
 }
 
@@ -1805,7 +1862,7 @@ interface Window {
 	 * Creates a new window.
 	 * @returns An instance of BrowserWindowProxy class.
 	 */
-	open(url: string, frameName?: string, features?: string): GitHubElectron.BrowserWindowProxy;
+	open(url: string, frameName?: string, features?: string): Electron.BrowserWindowProxy;
 }
 
 interface File {
@@ -1816,10 +1873,10 @@ interface File {
 }
 
 declare module 'electron' {
-	var electron: GitHubElectron.Electron;
+	var electron: Electron.ElectronMainAndRenderer;
 	export = electron;
 }
 
 interface NodeRequireFunction {
-	(id: 'electron'): GitHubElectron.Electron;
+	(moduleName: 'electron'): Electron.ElectronMainAndRenderer;
 }

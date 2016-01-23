@@ -1,4 +1,4 @@
-// Type definitions for vinyl 0.4.3
+// Type definitions for vinyl 1.1.0
 // Project: https://github.com/wearefractal/vinyl
 // Definitions by: vvakame <https://github.com/vvakame/>, jedmao <https://github.com/jedmao>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -14,26 +14,32 @@ declare module "vinyl" {
 	 */
 	class File {
 		constructor(options?: {
+
 			/**
 			* Default: process.cwd()
 			*/
 			cwd?: string;
+
 			/**
 			 * Used for relative pathing. Typically where a glob starts.
 			 */
 			base?: string;
+
 			/**
 			 * Full path to the file.
 			 */
 			path?: string;
+
 			/**
 			 * Path history. Has no effect if options.path is passed.
 			 */
 			history?: string[];
+
 			/**
 			 * The result of an fs.stat call. See fs.Stats for more information.
 			 */
 			stat?: fs.Stats;
+
 			/**
 			 * File contents.
 			 * Type: Buffer, Stream, or null
@@ -45,19 +51,40 @@ declare module "vinyl" {
 		 * Default: process.cwd()
 		 */
 		public cwd: string;
+
 		/**
 		 * Used for relative pathing. Typically where a glob starts.
 		 */
+		public dirname: string;
+		public basename: string;
 		public base: string;
+
 		/**
 		 * Full path to the file.
 		 */
 		public path: string;
 		public stat: fs.Stats;
+
+		/**
+		 * Gets and sets stem (filename without suffix) for the file path.
+		 */
+		public stem: string;
+
+		/**
+		 * Gets and sets path.extname for the file path
+		 */
+		public extname: string;
+
+		/**
+		 * Array of path values the file object has had
+		 */
+		public history: string[];
+
 		/**
 		 * Type: Buffer|Stream|null (Default: null)
 		 */
 		public contents: Buffer | NodeJS.ReadableStream;
+
 		/**
 		 * Returns path.relative for the file base and file path.
 		 * Example:
@@ -70,18 +97,25 @@ declare module "vinyl" {
 		 */
 		public relative: string;
 
+		/**
+		 * Returns true if file.contents is a Buffer.
+		 */
 		public isBuffer(): boolean;
 
+		/**
+		 * Returns true if file.contents is a Stream.
+		 */
 		public isStream(): boolean;
 
+		/**
+		 * Returns true if file.contents is null.
+		 */
 		public isNull(): boolean;
-
-		public isDirectory(): boolean;
 
 		/**
 		 * Returns a new File object with all attributes cloned. Custom attributes are deep-cloned.
 		 */
-		public clone(opts?: { contents?: boolean }): File;
+		public clone(opts?: { contents?: boolean, deep?:boolean }): File;
 
 		/**
 		 * If file.contents is a Buffer, it will write it to the stream.

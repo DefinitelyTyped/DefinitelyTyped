@@ -106,8 +106,8 @@ interface PromiseConstructor {
      * Returns a promise that will be fulfilled with `value` (or `undefined`) after given `ms` milliseconds. If `value` is a promise, the delay will start counting down when it is fulfilled and the returned promise will be fulfilled with the fulfillment value of the `value` promise.
      */
     // TODO enable more overloads
-    delay<T>(value: PromiseLike<T>, ms: number): Promise<T>;
-    delay<T>(value: T, ms: number): Promise<T>;
+    delay<T>(ms: number, value: PromiseLike<T>): Promise<T>;
+    delay<T>(ms: number, value: T): Promise<T>;
     delay(ms: number): Promise<void>;
 
     /**
@@ -137,7 +137,8 @@ interface PromiseConstructor {
     /**
      * Returns a promise that is resolved by a node style callback function.
      */
-    fromNode(resolver: (callback: (err: any, result?: any) => void) => void): Promise<any>;
+    fromNode(resolver: (callback: (err: any, result?: any) => void) => void, options? : {multiArgs? : boolean}): Promise<any>;
+    fromCallback(resolver: (callback: (err: any, result?: any) => void) => void, options? : {multiArgs? : boolean}): Promise<any>;
 
     /**
      * Returns a function that can use `yield` to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.

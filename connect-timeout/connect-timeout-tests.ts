@@ -3,10 +3,10 @@
 /// <reference path="../cookie-parser/cookie-parser.d.ts" />
 /// <reference path="../express/express.d.ts" />
 
-import express = require("express");
-import timeout = require("connect-timeout");
-import bodyParser = require("body-parser");
-import cookieParser = require("cookie-parser");
+import * as express from "express";
+import timeout from "connect-timeout";
+import * as bodyParser from "body-parser";
+import * as cookieParser from "cookie-parser";
 
 // example of using this top-level; note the use of haltOnTimedout
 // after every middleware; it will stop the request flow on a timeout
