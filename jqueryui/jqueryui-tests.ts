@@ -1441,6 +1441,7 @@ function test_dialog() {
     $(".selector").dialog({ buttons: [ { text: "Ok", click: function () { $(this).dialog("close"); } } ] } );
     $(".selector").dialog({ closeOnEscape: false });
     $(".selector").dialog({ closeText: "hide" });
+    $(".selector").dialog({ appendTo: "appendTo" });
     $(".selector").dialog({ dialogClass: "alert" });
     $(".selector").dialog({ disabled: true });
     $(".selector").dialog({ draggable: false });
@@ -1490,7 +1491,8 @@ function test_slider() {
         value: 123,
         range: "min",
         animate: true,
-        orientation: "vertical"
+        orientation: "vertical",
+        highlight: true
     });
     $("#slider-range").slider({
         range: true,

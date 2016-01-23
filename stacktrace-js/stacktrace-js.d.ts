@@ -63,4 +63,13 @@ declare module StackTrace {
    * @param fn {Function}
    */
   export function deinstrument(fn:() => void): void;
+  
+  /**
+   * Given an Array of StackFrames, serialize and POST to given URL.
+   *
+   * @param stackframes - Array[StackFrame]
+   * @param url - URL as String
+   * @return Promise<any>
+   */
+  export function report(stackframes: StackFrame[], url: string): Promise<any>;
 }

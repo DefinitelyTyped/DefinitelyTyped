@@ -113,6 +113,12 @@ declare var Buffer: {
      * @param array The octets to store.
      */
     new (array: any[]): Buffer;
+    /**
+     * Copies the passed {buffer} data onto a new {Buffer} instance.
+     *
+     * @param buffer The buffer to copy.
+     */
+    new (buffer: Buffer): Buffer;
     prototype: Buffer;
     /**
      * Returns true if {obj} is a Buffer
@@ -395,6 +401,7 @@ interface NodeBuffer {
     writeDoubleLE(value: number, offset: number, noAssert?: boolean): number;
     writeDoubleBE(value: number, offset: number, noAssert?: boolean): number;
     fill(value: any, offset?: number, end?: number): Buffer;
+    indexOf(value: string | number | Buffer, byteOffset?: number): number;
 }
 
 /************************************************

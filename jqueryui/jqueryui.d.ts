@@ -345,6 +345,7 @@ declare module JQueryUI {
         buttons?: { [buttonText: string]: (event?: Event) => void } | DialogButtonOptions[];
         closeOnEscape?: boolean;
         closeText?: string;
+        appendTo?: string;
         dialogClass?: string;
         disabled?: boolean;
         draggable?: boolean;
@@ -635,6 +636,7 @@ declare module JQueryUI {
         step?: number;
         value?: number;
         values?: number[];
+        highlight?: boolean;
     }
 
     interface SliderUIParams {

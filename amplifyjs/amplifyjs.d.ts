@@ -179,4 +179,4 @@ interface amplifyStatic {
 }
 
 declare var amplify: amplifyStatic;
-
+declare module "amplify" { export =amplify; }

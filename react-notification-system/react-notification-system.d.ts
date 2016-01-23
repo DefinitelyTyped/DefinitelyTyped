@@ -10,8 +10,8 @@ declare module NotificationSystem {
     import React = __React;
 
     export interface System extends React.Component<any, any> {
-        addNotification(notification: Notification): Notification;   
-        removeNotification(notification: Notification): void;        
+        addNotification(notification: Notification): Notification;
+        removeNotification(notification: Notification): void;
         removeNotification(uid: string): void;
     }
 
@@ -34,7 +34,7 @@ declare module NotificationSystem {
 
     export interface ActionObject {
         label: string;
-        callback?: Function;
+        callback?: () => void;
     }
 
     export interface ContainersStyle {
@@ -75,7 +75,7 @@ declare module NotificationSystem {
         ref?: string;
         style?: Style | boolean;
     }
-    
+
 
     export interface Component {
         (): React.ReactElement<Attributes>;

@@ -110,6 +110,7 @@ declare module 'request' {
 			passphrase?: string;
 			ca?: Buffer;
 			har?: HttpArchiveRequest;
+			useQuerystring?: boolean;
 		}
 
 		interface UriOptions {
