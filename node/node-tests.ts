@@ -203,6 +203,13 @@ function stream_readable_pipe_test() {
 
 var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
 
+{
+    let hmac: crypto.Hmac;
+    (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
+        let hash: Buffer|string = hmac.read();
+    });
+}
+
 function crypto_cipher_decipher_string_test() {
 	var key:Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
 	var clearText:string = "This is the clear text.";

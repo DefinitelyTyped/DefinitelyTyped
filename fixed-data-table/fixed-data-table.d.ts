@@ -187,13 +187,13 @@ declare module FixedDataTable {
           * Callback that is called when scrolling starts with
           * current horizontal and vertical scroll values.
           */
-        onScrollStart?: (horizontalScroll: number, verticalScroll: number) => void;
+        onScrollStart?: (x: number, y: number) => void;
         
         /**
           * Callback that is called when scrolling ends or stops with
           * new horizontal and vertical scroll values.
           */
-        onScrollEnd?: (horizontalScroll: number, verticalScroll: number) => void;
+        onScrollEnd?: (x: number, y: number) => void;
         
         /**
           * Callback that is called when rowHeightGetter returns a
@@ -201,35 +201,35 @@ declare module FixedDataTable {
           *  is necessary because initially table estimates heights
           * of some parts of the content.
           */
-        onContentHeightChange?: (height: number) => void;
+        onContentHeightChange?: (newHeight: number) => void;
         
         /**
           * Callback that is called when a row is clicked.
           */
-        onRowClick?: (index: number) => void;
+        onRowClick?: (event: __React.SyntheticEvent, rowIndex: number) => void;
         
         /**
           * Callback that is called when a row is double clicked.
           */
-        onRowDoubleClick?: (index: number) => void;
+        onRowDoubleClick?: (event: __React.SyntheticEvent, rowIndex: number) => void;
         
         /**
           * Callback that is called when a mouse-down event happens
           * on a row.
           */
-        onRowMouseDown?: (index: number) => void;
+        onRowMouseDown?: (event: __React.SyntheticEvent, rowIndex: number) => void;
         
         /**
           * Callback that is called when a mouse-enter event happens
           * on a row.
           */
-        onRowMouseEnter?: (index: number) => void;
+        onRowMouseEnter?: (event: __React.SyntheticEvent, rowIndex: number) => void;
         
         /**
           * Callback that is called when a mouse-leave event happens
           * on a row.
           */
-        onRowMouseLeave?: (index: number) => void;
+        onRowMouseLeave?: (event: __React.SyntheticEvent, rowIndex: number) => void;
         
         /**
           * Callback that is called when resizer has been released
