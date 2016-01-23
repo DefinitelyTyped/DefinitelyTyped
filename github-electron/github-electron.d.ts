@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module GithubElectron {
+declare module Electron {
 	/**
 	 * This class is used to represent an image.
 	 */
@@ -527,7 +527,6 @@ declare module GithubElectron {
 		transparent?: boolean;
 		type?: string;
 		titleBarStyle?: string;
-		backgroundColor?: string;
 		webPreferences?: WebPreferences;
 	}
 
