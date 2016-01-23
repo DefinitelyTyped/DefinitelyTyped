@@ -5,15 +5,15 @@
 
 /// <reference path="../meteor/meteor.d.ts" />
 
-declare interface IPublishCompositeConfigN {
-    children? : IPublishCompositeConfigN[];
+declare interface PublishCompositeConfigN {
+    children? : PublishCompositeConfigN[];
     find(
         ...args : any[]
     ) : Mongo.Cursor<any>;
 }
 
-declare interface IPublishCompositeConfig4<InLevel1, InLevel2, InLevel3, InLevel4, OutLevel> {
-    children? : IPublishCompositeConfigN[];
+declare interface PublishCompositeConfig4<InLevel1, InLevel2, InLevel3, InLevel4, OutLevel> {
+    children? : PublishCompositeConfigN[];
     find(
         arg4 : InLevel4,
         arg3 : InLevel3,
@@ -22,8 +22,8 @@ declare interface IPublishCompositeConfig4<InLevel1, InLevel2, InLevel3, InLevel
     ) : Mongo.Cursor<OutLevel>;
 }
 
-declare interface IPublishCompositeConfig3<InLevel1, InLevel2, InLevel3, OutLevel> {
-    children? : IPublishCompositeConfig4<InLevel1, InLevel2, InLevel3, OutLevel, any>[];
+declare interface PublishCompositeConfig3<InLevel1, InLevel2, InLevel3, OutLevel> {
+    children? : PublishCompositeConfig4<InLevel1, InLevel2, InLevel3, OutLevel, any>[];
     find(
         arg3 : InLevel3,
         arg2 : InLevel2,
@@ -31,35 +31,35 @@ declare interface IPublishCompositeConfig3<InLevel1, InLevel2, InLevel3, OutLeve
     ) : Mongo.Cursor<OutLevel>;
 }
 
-declare interface IPublishCompositeConfig2<InLevel1, InLevel2, OutLevel> {
-    children? : IPublishCompositeConfig3<InLevel1, InLevel2, OutLevel, any>[];
+declare interface PublishCompositeConfig2<InLevel1, InLevel2, OutLevel> {
+    children? : PublishCompositeConfig3<InLevel1, InLevel2, OutLevel, any>[];
     find(
         arg2 : InLevel2,
         arg1 : InLevel1
     ) : Mongo.Cursor<OutLevel>;
 }
 
-declare interface IPublishCompositeConfig1<InLevel1, OutLevel> {
-    children? : IPublishCompositeConfig2<InLevel1, OutLevel, any>[];
+declare interface PublishCompositeConfig1<InLevel1, OutLevel> {
+    children? : PublishCompositeConfig2<InLevel1, OutLevel, any>[];
     find(
         arg1 : InLevel1
     ) : Mongo.Cursor<OutLevel>;
 }
 
-declare interface IPublishCompositeConfig<OutLevel> {
-    children? : IPublishCompositeConfig1<OutLevel, any>[];
+declare interface PublishCompositeConfig<OutLevel> {
+    children? : PublishCompositeConfig1<OutLevel, any>[];
     find() : Mongo.Cursor<OutLevel>;
 }
 
 declare module Meteor {
     function publishComposite(
         name : string,
-        config : IPublishCompositeConfig<any>|IPublishCompositeConfig<any>[]
+        config : PublishCompositeConfig<any>|PublishCompositeConfig<any>[]
     ) : void;
 
     function publishComposite(
         name : string,
         configFunc : (...args : any[]) =>
-            IPublishCompositeConfig<any>|IPublishCompositeConfig<any>[]
+            PublishCompositeConfig<any>|PublishCompositeConfig<any>[]
     ) : void;
 }
