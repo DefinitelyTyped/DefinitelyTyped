@@ -113,6 +113,12 @@ declare var Buffer: {
      * @param array The octets to store.
      */
     new (array: any[]): Buffer;
+    /**
+     * Copies the passed {buffer} data onto a new {Buffer} instance.
+     *
+     * @param buffer The buffer to copy.
+     */
+    new (buffer: Buffer): Buffer;
     prototype: Buffer;
     /**
      * Returns true if {obj} is a Buffer
@@ -395,6 +401,7 @@ interface NodeBuffer {
     writeDoubleLE(value: number, offset: number, noAssert?: boolean): number;
     writeDoubleBE(value: number, offset: number, noAssert?: boolean): number;
     fill(value: any, offset?: number, end?: number): Buffer;
+    indexOf(value: string | number | Buffer, byteOffset?: number): number;
 }
 
 /************************************************
@@ -1681,13 +1688,13 @@ declare module "crypto" {
     export function createHash(algorithm: string): Hash;
     export function createHmac(algorithm: string, key: string): Hmac;
     export function createHmac(algorithm: string, key: Buffer): Hmac;
-    interface Hash {
+    export interface Hash {
         update(data: any, input_encoding?: string): Hash;
         digest(encoding: 'buffer'): Buffer;
         digest(encoding: string): any;
         digest(): Buffer;
     }
-    interface Hmac {
+    export interface Hmac extends NodeJS.ReadWriteStream {
         update(data: any, input_encoding?: string): Hmac;
         digest(encoding: 'buffer'): Buffer;
         digest(encoding: string): any;
@@ -1695,7 +1702,7 @@ declare module "crypto" {
     }
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
-    interface Cipher {
+    export interface Cipher {
         update(data: Buffer): Buffer;
         update(data: string, input_encoding?: string, output_encoding?: string): string;
         final(): Buffer;
@@ -1704,7 +1711,7 @@ declare module "crypto" {
     }
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
-    interface Decipher {
+    export interface Decipher {
         update(data: Buffer): Buffer;
         update(data: string, input_encoding?: string, output_encoding?: string): string;
         final(): Buffer;
@@ -1712,18 +1719,18 @@ declare module "crypto" {
         setAutoPadding(auto_padding: boolean): void;
     }
     export function createSign(algorithm: string): Signer;
-    interface Signer extends NodeJS.WritableStream {
+    export interface Signer extends NodeJS.WritableStream {
         update(data: any): void;
         sign(private_key: string, output_format: string): string;
     }
     export function createVerify(algorith: string): Verify;
-    interface Verify extends NodeJS.WritableStream {
+    export interface Verify extends NodeJS.WritableStream {
         update(data: any): void;
         verify(object: string, signature: string, signature_format?: string): boolean;
     }
     export function createDiffieHellman(prime_length: number): DiffieHellman;
     export function createDiffieHellman(prime: number, encoding?: string): DiffieHellman;
-    interface DiffieHellman {
+    export interface DiffieHellman {
         generateKeys(encoding?: string): string;
         computeSecret(other_public_key: string, input_encoding?: string, output_encoding?: string): string;
         getPrime(encoding?: string): string;
@@ -1909,10 +1916,12 @@ declare module "tty" {
     export interface ReadStream extends net.Socket {
         isRaw: boolean;
         setRawMode(mode: boolean): void;
+        isTTY: boolean;
     }
     export interface WriteStream extends net.Socket {
         columns: number;
         rows: number;
+        isTTY: boolean;
     }
 }
 

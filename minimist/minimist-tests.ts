@@ -19,6 +19,9 @@ opts.boolean = strArr;
 opts.alias = {
 	foo: strArr
 };
+opts.alias = {
+	foo: str
+};
 opts.default = {
 	foo: str
 };
@@ -29,7 +32,7 @@ opts.unknown = (arg: string) => {
 	if(/xyz/.test(arg)){
 		return true;
 	}
-	
+
 	return false;
 };
 opts.stopEarly = true;

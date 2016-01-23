@@ -17,5 +17,7 @@ declare module "gulp-gh-pages" {
 
     function ghPages(opts?: Options): NodeJS.ReadWriteStream;
 
+    namespace ghPages {}
+
     export = ghPages;
 }

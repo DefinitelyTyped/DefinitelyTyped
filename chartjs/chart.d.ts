@@ -107,7 +107,7 @@ interface LinearInstance extends ChartInstance {
     getPointsAtEvent: (event: Event) => PointsAtEvent[];
     update: () => void;
     addData: (valuesArray: number[], label: string) => void;
-    removeData: () => void;
+    removeData: (index?: number) => void;
 }
 
 interface CircularInstance extends ChartInstance {
@@ -136,6 +136,8 @@ interface BarChartOptions extends ChartOptions {
     barStrokeWidth?: number;
     barValueSpacing?: number;
     barDatasetSpacing?: number;
+    scaleShowHorizontalLines?: boolean;
+    scaleShowVerticalLines?: boolean;    
 }
 
 interface RadarChartOptions extends ChartSettings {

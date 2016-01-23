@@ -18,11 +18,12 @@ import RaisedButton = require("material-ui/lib/raised-button");
 import FloatingActionButton = require("material-ui/lib/floating-action-button");
 import Card = require("material-ui/lib/card/card");
 import CardHeader = require("material-ui/lib/card/card-header");
-import DatePicker = require("material-ui/lib/date-picker/date-picker");
 import CardText = require("material-ui/lib/card/card-text");
 import CardActions = require("material-ui/lib/card/card-actions");
 import Dialog = require("material-ui/lib/dialog");
 import DropDownMenu = require("material-ui/lib/drop-down-menu");
+import DatePicker = require("material-ui/lib/date-picker/date-picker");
+import TimePicker = require("material-ui/lib/time-picker");
 import RadioButtonGroup = require("material-ui/lib/radio-button-group");
 import RadioButton = require("material-ui/lib/radio-button");
 import Toggle = require("material-ui/lib/toggle");
@@ -187,10 +188,14 @@ class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implemen
             </Card>;
 
         // "http://material-ui.com/#/components/date-picker"
+        element = <DatePicker style={{ color: 'red' }} />;
         element = <DatePicker
             floatingLabelText="Floating Label Text" />;
         element = <DatePicker
             hintText="Hint Text" />;
+
+        // "http://material-ui.com/#/components/time-picker"
+        element = <TimePicker textFieldStyle={{width: '24px'}} />
 
         // "http://material-ui.com/#/components/dialog"
         let standardActions = [

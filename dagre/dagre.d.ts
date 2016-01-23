@@ -31,3 +31,7 @@ declare module Dagre{
 }
 
 declare var dagre: Dagre.DagreFactory;
+
+declare module "dagre" {
+    export = dagre;
+}

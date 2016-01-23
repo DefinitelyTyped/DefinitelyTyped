@@ -1441,6 +1441,7 @@ function test_dialog() {
     $(".selector").dialog({ buttons: [ { text: "Ok", click: function () { $(this).dialog("close"); } } ] } );
     $(".selector").dialog({ closeOnEscape: false });
     $(".selector").dialog({ closeText: "hide" });
+    $(".selector").dialog({ appendTo: "appendTo" });
     $(".selector").dialog({ dialogClass: "alert" });
     $(".selector").dialog({ disabled: true });
     $(".selector").dialog({ draggable: false });
@@ -1471,6 +1472,7 @@ function test_menu() {
     $(".selector").menu({ position: { my: "left top", at: "right-5 top+5" } });
     $(".selector").menu({ role: null });
     $(".selector").menu("option", { disabled: true });
+    $(".selector").menu({ select: (e, ui) => { } });
 }
 
 
@@ -1489,7 +1491,8 @@ function test_slider() {
         value: 123,
         range: "min",
         animate: true,
-        orientation: "vertical"
+        orientation: "vertical",
+        highlight: true
     });
     $("#slider-range").slider({
         range: true,
@@ -1817,4 +1820,46 @@ function test_widget() {
     var isDisabled = $(".selector").jQuery.Widget("option", "disabled");
     $(".selector").jQuery.Widget("option", "disabled", true);
     $(".selector").jQuery.Widget("option", { disabled: true });
+}
+
+function test_easing() {
+    const easing = jQuery.easing;
+
+    function test_easing_function( name: string, fn: JQueryEasingFunction ) {
+        const step = Math.pow( 2, -3 ); // use power of 2 to prevent floating point rounding error
+        for( let i = 0; i <= 1; i += step ) {
+            console.log( `$.easing.${name}(${i}): ${fn.call(easing, i)}` );
+        }
+    }
+
+    test_easing_function("easeInQuad", easing.easeInQuad);
+    test_easing_function("easeOutQuad", easing.easeOutQuad);
+    test_easing_function("easeInOutQuad", easing.easeInOutQuad);
+    test_easing_function("easeInCubic", easing.easeInCubic);
+    test_easing_function("easeOutCubic", easing.easeOutCubic);
+    test_easing_function("easeInOutCubic", easing.easeInOutCubic);
+    test_easing_function("easeInQuart", easing.easeInQuart);
+    test_easing_function("easeOutQuart", easing.easeOutQuart);
+    test_easing_function("easeInOutQuart", easing.easeInOutQuart);
+    test_easing_function("easeInQuint", easing.easeInQuint);
+    test_easing_function("easeOutQuint", easing.easeOutQuint);
+    test_easing_function("easeInOutQuint", easing.easeInOutQuint);
+    test_easing_function("easeInExpo", easing.easeInExpo);
+    test_easing_function("easeOutExpo", easing.easeOutExpo);
+    test_easing_function("easeInOutExpo", easing.easeInOutExpo);
+    test_easing_function("easeInSine", easing.easeInSine);
+    test_easing_function("easeOutSine", easing.easeOutSine);
+    test_easing_function("easeInOutSine", easing.easeInOutSine);
+    test_easing_function("easeInCirc", easing.easeInCirc);
+    test_easing_function("easeOutCirc", easing.easeOutCirc);
+    test_easing_function("easeInOutCirc", easing.easeInOutCirc);
+    test_easing_function("easeInElastic", easing.easeInElastic);
+    test_easing_function("easeOutElastic", easing.easeOutElastic);
+    test_easing_function("easeInOutElastic", easing.easeInOutElastic);
+    test_easing_function("easeInBack", easing.easeInBack);
+    test_easing_function("easeOutBack", easing.easeOutBack);
+    test_easing_function("easeInOutBack", easing.easeInOutBack);
+    test_easing_function("easeInBounce", easing.easeInBounce);
+    test_easing_function("easeOutBounce", easing.easeOutBounce);
+    test_easing_function("easeInOutBounce", easing.easeInOutBounce);
 }
