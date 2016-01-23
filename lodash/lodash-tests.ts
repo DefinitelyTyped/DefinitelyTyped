@@ -9396,13 +9396,16 @@ module TestAttempt {
         let result: {a: string}|Error;
 
         result = _.attempt<{a: string}>(func);
+        result = _.attempt<{a: string}>(func, 'foo', 'bar', 'baz');
         result = _(func).attempt<{a: string}>();
+        result = _(func).attempt<{a: string}>('foo', 'bar', 'baz');
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<{a: string}|Error>;
 
         result = _(func).chain().attempt<{a: string}>();
+        result = _(func).chain().attempt<{a: string}>('foo', 'bar', 'baz');
     }
 }
 
