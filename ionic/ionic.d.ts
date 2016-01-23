@@ -125,7 +125,7 @@ declare module ionic {
     }
     module gestures {
         interface IonicGestureService {
-            on(eventType: string, callback: (e: any)=>any, $element: ng.IAugmentedJQuery, options: any): IonicGesture;
+            on(eventType: string, callback: (e: any)=>any, $element: angular.IAugmentedJQuery, options: any): IonicGesture;
             off(gesture: IonicGesture, eventType: string, callback: (e: any)=>any): void;
         }
 
@@ -167,14 +167,14 @@ declare module ionic {
     module modal {
         interface IonicModalService {
             fromTemplate(templateString: string, options?: IonicModalOptions): IonicModalController;
-            fromTemplateUrl(templateUrl: string, options?: IonicModalOptions): ng.IPromise<IonicModalController>;
+            fromTemplateUrl(templateUrl: string, options?: IonicModalOptions): angular.IPromise<IonicModalController>;
         }
 
         interface IonicModalController {
             initialize(options: IonicModalOptions): void;
-            show(): ng.IPromise<void>;
-            hide(): ng.IPromise<void>;
-            remove(): ng.IPromise<void>;
+            show(): angular.IPromise<void>;
+            hide(): angular.IPromise<void>;
+            remove(): angular.IPromise<void>;
             isShown(): boolean;
         }
 
@@ -210,7 +210,7 @@ declare module ionic {
 
             goBack(backCount?: number): void;
             clearHistory(): void;
-            clearCache(): ng.IPromise<any>;
+            clearCache(): angular.IPromise<any>;
             nextViewOptions(options: IonicHistoryNextViewOptions): void;
         }
         interface IonicHistoryNextViewOptions {
@@ -225,20 +225,20 @@ declare module ionic {
             offHardwareBackButton(callback: Function): void;
             registerBackButtonAction(callback: Function, priority: number, actionId?: any): Function;
             on(type: string, callback: Function): Function;
-            ready(callback?: Function): ng.IPromise<any>;
+            ready(callback?: Function): angular.IPromise<any>;
         }
     }
     module popover {
         interface IonicPopoverService {
             fromTemplate(templateString: string, options: IonicPopoverOptions): IonicPopoverController;
-            fromTemplateUrl(templateUrl: string, options: IonicPopoverOptions): ng.IPromise<IonicPopoverController>;
+            fromTemplateUrl(templateUrl: string, options: IonicPopoverOptions): angular.IPromise<IonicPopoverController>;
         }
         interface IonicPopoverController {
             initialize(options: IonicPopoverOptions): void;
-            show($event?: any): ng.IPromise<any>;
-            hide(): ng.IPromise<any>;
+            show($event?: any): angular.IPromise<any>;
+            hide(): angular.IPromise<any>;
             isShown(): boolean;
-            remove(): ng.IPromise<any>;
+            remove(): angular.IPromise<any>;
         }
         interface IonicPopoverOptions {
             scope?: any;
@@ -255,10 +255,10 @@ declare module ionic {
             prompt(options: IonicPopupPromptOptions): IonicPopupPromise;
         }
 
-        interface IonicPopupConfirmPromise extends ng.IPromise<boolean> {
+        interface IonicPopupConfirmPromise extends angular.IPromise<boolean> {
             close(value?: boolean): void;
         }
-        interface IonicPopupPromise extends ng.IPromise<any> {
+        interface IonicPopupPromise extends angular.IPromise<any> {
             close(value?: any): any;
         }
         interface IonicPopupBaseOptions {
