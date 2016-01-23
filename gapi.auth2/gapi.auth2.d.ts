@@ -13,6 +13,10 @@ declare module gapi.auth2 {
    * request additional scopes, and sign out from the current account.
    */
   export class GoogleAuth {
+    isSignedIn: IsSignedIn;
+
+    curretUser: CurrentUser;
+
     /**
      * Calls the onInit function when the GoogleAuth object is fully initialized, or calls the onFailure function if
      * initialization fails.
@@ -63,32 +67,30 @@ declare module gapi.auth2 {
     }, onsuccess: () => any, onfailure: (reason: string) => any): any;
   }
 
-  export module GoogleAuth {
-    export interface isSignedIn{
-      /**
-       * Returns whether the current user is currently signed in.
-       */
-      get(): boolean;
+  export interface IsSignedIn{
+    /**
+     * Returns whether the current user is currently signed in.
+     */
+    get(): boolean;
 
-      /**
-       * Listen for changes in the current user's sign-in state.
-       */
-      listen(listener: (signedIn: boolean) => any): void;
-    }
+    /**
+     * Listen for changes in the current user's sign-in state.
+     */
+    listen(listener: (signedIn: boolean) => any): void;
+  }
 
-    export interface currentUser {
-      /**
-       * Returns a GoogleUser object that represents the current user. Note that in a newly-initialized
-       * GoogleAuth instance, the current user has not been set. Use the currentUser.listen() method or the
-       * GoogleAuth.then() to get an initialized GoogleAuth instance.
-       */
-      get(): GoogleUser;
+  export interface CurrentUser {
+    /**
+     * Returns a GoogleUser object that represents the current user. Note that in a newly-initialized
+     * GoogleAuth instance, the current user has not been set. Use the currentUser.listen() method or the
+     * GoogleAuth.then() to get an initialized GoogleAuth instance.
+     */
+    get(): GoogleUser;
 
-      /**
-       * Listen for changes in currentUser.
-       */
-      listen(listener: (user: GoogleUser) => any): void;
-    }
+    /**
+     * Listen for changes in currentUser.
+     */
+    listen(listener: (user: GoogleUser) => any): void;
   }
 
   export class SigninOptionsBuilder {
