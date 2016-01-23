@@ -60,6 +60,12 @@ module Marionette.Tests {
             this.mainRegion = new Marionette.Region({ el: '#main' });
             this.layoutView.addRegion('main', this.mainRegion);
             this.layoutView.render();
+            this.layoutView.showChildView('main', new MyView(new MyModel));
+            let view: Backbone.View<Backbone.Model> = this.layoutView.getChildView('main');
+            let regions: {[key: string]: Marionette.Region} = this.layoutView.getRegions();
+            let prefix: string = this.layoutView.childViewEventPrefix;
+            let region: Marionette.Region = this.layoutView.removeRegion('main');
+            let layout: Marionette.LayoutView<Backbone.Model> = this.layoutView.destroy();
         }
     }
 
@@ -292,6 +298,10 @@ module Marionette.Tests {
         var cv = new MyCollectionView();
         cv.collection.add(new MyModel());
         app.mainRegion.attachView(cv);
+        cv.addEmptyView(new MyModel, MyView);
+        cv.proxyChildEvents(new MyView(new MyModel));
+        let children: Backbone.ChildViewContainer<Marionette.View<Backbone.Model>> = cv.destroyChildren();
+        let view: Marionette.CollectionView<Backbone.Model, Marionette.View<Backbone.Model>> = cv.destroy();
     }
 
     class MyController extends Marionette.Controller {
