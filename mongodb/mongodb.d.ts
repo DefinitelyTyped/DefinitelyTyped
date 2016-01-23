@@ -6,6 +6,7 @@
 // Documentation : http://mongodb.github.io/node-mongodb-native/
 
 /// <reference path='../node/node.d.ts' />
+/// <reference path='../es6-promise/es6-promise.d.ts' />
 
 declare module "mongodb" {
 
@@ -13,8 +14,10 @@ declare module "mongodb" {
   export class MongoClient{
     constructor(serverConfig: any, options: any);
 
-    static connect(uri: string, callback?: (err: Error, db: Db) => void): void;
-    static connect(uri: string, options: any, callback?: (err: Error, db: Db) => void): void;
+    static connect(uri: string, callback: (err: Error, db: Db) => void): void;
+    static connect(uri: string): Promise<Db>;
+    static connect(uri: string, options: any, callback: (err: Error, db: Db) => void): void;
+    static connect(uri: string, options: any): Promise<Db>;
   }
 
   // Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/server.html
@@ -308,82 +311,122 @@ declare module "mongodb" {
      * @deprecated use insertOne or insertMany
      * Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#insert
      */
-    insert(query: any, callback?: (err: Error, result: any) => void): void;
-    insert(query: any, options: { safe?: any; continueOnError?: boolean; keepGoing?: boolean; serializeFunctions?: boolean; }, callback?: (err: Error, result: any) => void): void;
+    insert(query: any, callback: (err: Error, result: any) => void): void;
+    insert(query: any): Promise<InsertWriteOpResult>;
+    insert(query: any, options: { safe?: any; continueOnError?: boolean; keepGoing?: boolean; serializeFunctions?: boolean; }, callback: (err: Error, result: any) => void): void;
+    insert(query: any, options: { safe?: any; continueOnError?: boolean; keepGoing?: boolean; serializeFunctions?: boolean; }): Promise<InsertWriteOpResult>;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#insertOne
-    insertOne(doc:any, callback?: (err: Error, result: any) => void) :void;
-    insertOne(doc: any, options: { w?: any; wtimeout?: number; j?: boolean; serializeFunctions?: boolean; forceServerObjectId?: boolean }, callback?: (err: Error, result: any) => void): void;
+    insertOne(doc: any, callback: (err: Error, result: any) => void): void;
+    insertOne(doc: any): Promise<InsertOneWriteOpResult>;
+    insertOne(doc: any, options: { w?: any; wtimeout?: number; j?: boolean; serializeFunctions?: boolean; forceServerObjectId?: boolean }, callback: (err: Error, result: any) => void): void;
+    insertOne(doc: any, options: { w?: any; wtimeout?: number; j?: boolean; serializeFunctions?: boolean; forceServerObjectId?: boolean }): Promise<InsertOneWriteOpResult>;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#insertMany
-    insertMany(docs: any, callback?: (err: Error, result: any) => void): void;
-    insertMany(docs: any, options: { w?: any; wtimeout?: number; j?: boolean; serializeFunctions?: boolean; forceServerObjectId?: boolean }, callback?: (err: Error, result: any) => void): void;
+    insertMany(docs: any, callback: (err: Error, result: any) => void): void;
+    insertMany(docs: any): Promise<InsertWriteOpResult>;
+    insertMany(docs: any, options: { w?: any; wtimeout?: number; j?: boolean; serializeFunctions?: boolean; forceServerObjectId?: boolean }, callback: (err: Error, result: any) => void): void;
+    insertMany(docs: any, options: { w?: any; wtimeout?: number; j?: boolean; serializeFunctions?: boolean; forceServerObjectId?: boolean }): Promise<InsertWriteOpResult>;
     /**
      * @deprecated use deleteOne or deleteMany
      * Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#remove
      */
-    remove(selector: Object, callback?: (err: Error, result: any) => void): void;
-    remove(selector: Object, options: { safe?: any; single?: boolean; }, callback?: (err: Error, result: any) => void): void;
+    remove(selector: Object, callback: (err: Error, result: any) => void): void;
+    remove(selector: Object): Promise<WriteOpResult>;
+    remove(selector: Object, options: { safe?: any; single?: boolean; }, callback: (err: Error, result: any) => void): void;
+    remove(selector: Object, options: { safe?: any; single?: boolean; }): Promise<WriteOpResult>;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#deleteOne
-    deleteOne(filter: any, callback?: (err: Error, result: any) => void): void;
-    deleteOne(filter: any, options: { w?: any; wtimeout?: number; j?: boolean;}, callback?: (err: Error, result: any) => void): void;
+    deleteOne(filter: any, callback: (err: Error, result: any) => void): void;
+    deleteOne(filter: any): Promise<DeleteWriteOpResult>;
+    deleteOne(filter: any, options: { w?: any; wtimeout?: number; j?: boolean; }, callback: (err: Error, result: any) => void): void;
+    deleteOne(filter: any, options: { w?: any; wtimeout?: number; j?: boolean; }): Promise<DeleteWriteOpResult>;    
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#deleteMany
-    deleteMany(filter: any, callback?: (err: Error, result: any) => void): void;
-    deleteMany(filter: any, options: { w?: any; wtimeout?: number; j?: boolean;}, callback?: (err: Error, result: any) => void): void;
+    deleteMany(filter: any, callback: (err: Error, result: any) => void): void;
+    deleteMany(filter: any): Promise<DeleteWriteOpResult>;
+    deleteMany(filter: any, options: { w?: any; wtimeout?: number; j?: boolean; }, callback: (err: Error, result: any) => void): void;
+    deleteMany(filter: any, options: { w?: any; wtimeout?: number; j?: boolean; }): Promise<DeleteWriteOpResult>;
 
-    rename(newName: String, callback?: (err: Error, result: any) => void): void;
+    rename(newName: String, callback: (err: Error, result: any) => void): void;
+    rename(newName: String): Promise<Collection>;
 
-    save(doc: any, callback : (err: Error, result: any) => void): void;
-    save(doc: any, options: { w?: any; wtimeout?: number; j?: boolean;}, callback : (err: Error, result: any) => void): void;
+    /**
+     * @deprecated use insertOne, insertMany, updateOne or updateMany
+     * Documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#save
+     */
+    save(doc: any, callback: (err: Error, result: any) => void): void;
+    save(doc: any): Promise<WriteOpResult>;
+    save(doc: any, options: { w?: any; wtimeout?: number; j?: boolean; }, callback: (err: Error, result: any) => void): void;
+    save(doc: any, options: { w?: any; wtimeout?: number; j?: boolean; }): Promise<WriteOpResult>;
     /**
      * @deprecated use updateOne or updateMany
      * Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#update
      */
-    update(selector: Object, document: any, callback?: (err: Error, result: any) => void): void;
-    update(selector: Object, document: any, options: { safe?: boolean; upsert?: any; multi?: boolean; serializeFunctions?: boolean; }, callback?: (err: Error, result: any) => void): void;
+    update(selector: Object, document: any, callback: (err: Error, result: any) => void): void;
+    update(selector: Object, document: any): Promise<WriteOpResult>;
+    update(selector: Object, document: any, options: { safe?: boolean; upsert?: any; multi?: boolean; serializeFunctions?: boolean; }, callback: (err: Error, result: any) => void): void;
+    update(selector: Object, document: any, options: { safe?: boolean; upsert?: any; multi?: boolean; serializeFunctions?: boolean; }): Promise<WriteOpResult>;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#updateOne
-    updateOne(filter: Object, update: any, callback?: (err: Error, result: any) => void): void;
-    updateOne(filter: Object, update: any, options: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean;}, callback?: (err: Error, result: any) => void): void;
+    updateOne(filter: Object, update: any, callback: (err: Error, result: any) => void): void;
+    updateOne(filter: Object, update: any): Promise<UpdateWriteOpResult>;
+    updateOne(filter: Object, update: any, options: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean; }, callback: (err: Error, result: any) => void): void;
+    updateOne(filter: Object, update: any, options: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean; }): Promise<UpdateWriteOpResult>;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#updateMany
-    updateMany(filter: Object, update: any, callback?: (err: Error, result: any) => void): void;
-    updateMany(filter: Object, update: any, options: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean;}, callback?: (err: Error, result: any) => void): void;
+    updateMany(filter: Object, update: any, callback: (err: Error, result: any) => void): void;
+    updateMany(filter: Object, update: any): Promise<UpdateWriteOpResult>;
+    updateMany(filter: Object, update: any, options: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean; }, callback: (err: Error, result: any) => void): void;
+    updateMany(filter: Object, update: any, options: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean; }): Promise<UpdateWriteOpResult>;
 
-    distinct(key: string, query: Object, callback?: (err: Error, result: any) => void): void;
-    distinct(key: string, query: Object, options: { readPreference: string; }, callback?: (err: Error, result: any) => void): void;
+    distinct(key: string, query: Object, callback: (err: Error, result: any) => void): void;
+    distinct(key: string, query: Object): Promise<any>;
+    distinct(key: string, query: Object, options: { readPreference: string; }, callback: (err: Error, result: any) => void): void;
+    distinct(key: string, query: Object, options: { readPreference: string; }): Promise<any>;
 
-    count(callback?: (err: Error, result: any) => void): void;
-    count(query: Object, callback?: (err: Error, result: any) => void): void;
-    count(query: Object, options: { readPreference: string; }, callback?: (err: Error, result: any) => void): void;
+    count(callback: (err: Error, result: any) => void): void;
+    count(): Promise<number>;
+    count(query: Object, callback: (err: Error, result: any) => void): void;
+    count(query: Object): Promise<number>;
+    count(query: Object, options: { readPreference: string; }, callback: (err: Error, result: any) => void): void;
+    count(query: Object, options: { readPreference: string; }): Promise<number>;
 
     drop(callback?: (err: Error, result: any) => void): void;
     /**
      * @deprecated use findOneAndUpdate, findOneAndReplace or findOneAndDelete
      * Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#findAndModify
      */
-    findAndModify(query: Object, sort: any[], doc: Object, callback?: (err: Error, result: any) => void): void;
-    findAndModify(query: Object, sort: any[], doc: Object, options: { safe?: any; remove?: boolean; upsert?: boolean; new?: boolean; }, callback?: (err: Error, result: any) => void): void;
+    findAndModify(query: Object, sort: any[], doc: Object, callback: (err: Error, result: any) => void): void;
+    findAndModify(query: Object, sort: any[], doc: Object): Promise<any>;
+    findAndModify(query: Object, sort: any[], doc: Object, options: { safe?: any; remove?: boolean; upsert?: boolean; new?: boolean; }, callback: (err: Error, result: any) => void): void;
+    findAndModify(query: Object, sort: any[], doc: Object, options: { safe?: any; remove?: boolean; upsert?: boolean; new?: boolean; }): Promise<any>;
     /**
      * @deprecated use findOneAndDelete
      * Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#findAndRemove
      */
     findAndRemove(query : Object, sort? : any[], callback?: (err: Error, result: any) => void): void;
+    findAndRemove(query: Object, sort?: any[]): Promise<any>;
     findAndRemove(query : Object, sort? : any[], options?: { safe: any; }, callback?: (err: Error, result: any) => void): void;
+    findAndRemove(query: Object, sort?: any[], options?: { safe: any; }): Promise<any>;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#findOneAndDelete
-    findOneAndDelete(filter: any, callback?: (err: Error, result: any) => void): void;
-    findOneAndDelete(filter: any, options: { projection?: any; sort?: any; maxTimeMS?: number; }, callback?: (err: Error, result: any) => void): void;
+    findOneAndDelete(filter: any, callback: (err: Error, result: any) => void): void;
+    findOneAndDelete(filter: any): Promise<FindAndModifyWriteOpResult>;
+    findOneAndDelete(filter: any, options: { projection?: any; sort?: any; maxTimeMS?: number; }, callback: (err: Error, result: any) => void): void;
+    findOneAndDelete(filter: any, options: { projection?: any; sort?: any; maxTimeMS?: number; }): Promise<FindAndModifyWriteOpResult>;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#findOneAndReplace
-    findOneAndReplace(filter: any, replacement: any, callback?: (err: Error, result: any) => void): void;
-    findOneAndReplace(filter: any, replacement: any, options: { projection?: any; sort?: any; maxTimeMS?: number; upsert?: boolean; returnOriginal?: boolean }, callback?: (err: Error, result: any) => void): void;
+    findOneAndReplace(filter: any, replacement: any, callback: (err: Error, result: any) => void): void;
+    findOneAndReplace(filter: any, replacement: any): Promise<FindAndModifyWriteOpResult>;
+    findOneAndReplace(filter: any, replacement: any, options: { projection?: any; sort?: any; maxTimeMS?: number; upsert?: boolean; returnOriginal?: boolean }, callback: (err: Error, result: any) => void): void;
+    findOneAndReplace(filter: any, replacement: any, options: { projection?: any; sort?: any; maxTimeMS?: number; upsert?: boolean; returnOriginal?: boolean }): Promise<FindAndModifyWriteOpResult>;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#findOneAndUpdate
-    findOneAndUpdate(filter: any, update: any, callback?: (err: Error, result: any) => void): void;
-    findOneAndUpdate(filter: any, update: any, options: { projection?: any; sort?: any; maxTimeMS?: number; upsert?: boolean; returnOriginal?: boolean }, callback?: (err: Error, result: any) => void): void;
+    findOneAndUpdate(filter: any, update: any, callback: (err: Error, result: any) => void): void;
+    findOneAndUpdate(filter: any, update: any): Promise<FindAndModifyWriteOpResult>;
+    findOneAndUpdate(filter: any, update: any, options: { projection?: any; sort?: any; maxTimeMS?: number; upsert?: boolean; returnOriginal?: boolean }, callback: (err: Error, result: any) => void): void;
+    findOneAndUpdate(filter: any, update: any, options: { projection?: any; sort?: any; maxTimeMS?: number; upsert?: boolean; returnOriginal?: boolean }): Promise<FindAndModifyWriteOpResult>;
 
     find(callback?: (err: Error, result: Cursor) => void): Cursor;
     find(selector: Object, callback?: (err: Error, result: Cursor) => void): Cursor;
@@ -468,9 +511,11 @@ declare module "mongodb" {
     // constructor(db: Db, collection: Collection, selector, fields, options);
 
     rewind() : Cursor;
-    toArray(callback?: (err: Error, results: any[]) => any) : void;
+    toArray(callback: (err: Error, results: any[]) => any): void;
+    toArray(): Promise<any[]>;
     each(callback?: (err: Error, item: any) => void) : void;
-    count(applySkipLimit: boolean, callback?: (err: Error, count: number) => void) : void;
+    count(applySkipLimit: boolean, callback: (err: Error, count: number) => void): void;
+    count(applySkipLimit: boolean): Promise<number>;
 
     sort(keyOrList: any, callback? : (err: Error, result: any) => void): Cursor;
 
@@ -481,8 +526,19 @@ declare module "mongodb" {
     skip(skip: number, callback?: (err: Error, result: any) => void): Cursor;
     batchSize(batchSize: number, callback?: (err: Error, result: any) => void): Cursor;
 
-    nextObject(callback?: (err: Error, doc: any) => void) : void;
-    explain(callback?: (err: Error, result: any) => void) : void;
+    //documentation: http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#next
+    next(callback?: (err: Error, result: any) => void): void;
+    next(): Promise<any>;
+
+    /**
+     * @deprecated use next
+     * Documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#nextObject
+     */
+    nextObject(callback?: (err: Error, doc: any) => void): void;
+    nextObject(): Promise<any>;
+
+    explain(callback?: (err: Error, result: any) => void): void;
+    explain(): Promise<any>;
 
     stream(): CursorStream;
 
@@ -540,4 +596,50 @@ declare module "mongodb" {
     pkFactory?: any;
     readPreference?: string;
   }
+
+  export interface BaseResult {
+    result?: { ok?: number, n?: number };
+    connection?: Object;
+  }
+
+  export interface BaseOpsResult extends BaseResult {
+    ops?: Array<Object>;
+  }
+
+  //documentation: http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~insertWriteOpResult
+  export interface InsertWriteOpResult extends BaseOpsResult {
+    insertedCount?: number;
+    insertedIds?: ObjectID;
+  }
+
+  //documentation: http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~insertOneWriteOpResult
+  export interface InsertOneWriteOpResult extends BaseOpsResult {
+    insertedCount?: number;
+    insertedId?: ObjectID;
+  }
+
+  //documentation: http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~WriteOpResult
+  export interface WriteOpResult extends BaseOpsResult {
+
+  }
+
+  //documentation: http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~deleteWriteOpCallback
+  export interface DeleteWriteOpResult extends BaseResult {
+    deletedCount?: number;
+  }
+
+  //documentation: http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~updateWriteOpResult
+  export interface UpdateWriteOpResult extends BaseResult {
+    matchedCount?: number;
+    modifiedCount?: number;
+    upsertedCount?: number;
+    upsertedId?: { _id: ObjectID };
+  }
+
+  export interface FindAndModifyWriteOpResult {
+    value?: Object;
+    lastErrorObject?: Object;
+    ok?: number;
+  }
+
 }
