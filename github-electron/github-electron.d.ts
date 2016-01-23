@@ -1353,7 +1353,7 @@ declare module GitHubElectron {
 		* Only string properties are send correctly.
 		* Nested objects are not supported.
 		*/
-		extra?: any;
+		extra?: {[prop: string]: string};
 	}
 
 	interface CrashReporterPayload extends Object {
