@@ -16138,6 +16138,46 @@ declare module _ {
         noop(...args: any[]): _.LoDashExplicitWrapper<void>;
     }
 
+    //_.over
+    interface LoDashStatic {
+        /**
+         * Creates a function that invokes iteratees with the arguments provided to the created function and returns
+         * their results.
+         *
+         * @param iteratees The iteratees to invoke.
+         * @return Returns the new function.
+         */
+        over<TResult>(...iteratees: (Function|Function[])[]): (...args: any[]) => TResult[];
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.over
+         */
+        over<TResult>(...iteratees: (Function|Function[])[]): LoDashImplicitObjectWrapper<(...args: any[]) => TResult[]>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.over
+         */
+        over<TResult>(...iteratees: (Function|Function[])[]): LoDashImplicitObjectWrapper<(...args: any[]) => TResult[]>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.over
+         */
+        over<TResult>(...iteratees: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => TResult[]>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.over
+         */
+        over<TResult>(...iteratees: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => TResult[]>;
+    }
+
     //_.property
     interface LoDashStatic {
         /**

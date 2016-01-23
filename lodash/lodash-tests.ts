@@ -9830,6 +9830,36 @@ module TestNoop {
     }
 }
 
+// _.over
+namespace TestOver {
+    {
+        let result: (...args: any[]) => number[];
+
+        result = _.over<number>(Math.max);
+        result = _.over<number>(Math.max, Math.min);
+        result = _.over<number>([Math.max]);
+        result = _.over<number>([Math.max], [Math.min]);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => number[]>;
+
+        result = _(Math.max).over<number>();
+        result = _(Math.max).over<number>(Math.min);
+        result = _([Math.max]).over<number>();
+        result = _([Math.max]).over<number>([Math.min]);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => number[]>;
+
+        result = _(Math.max).chain().over<number>();
+        result = _(Math.max).chain().over<number>(Math.min);
+        result = _([Math.max]).chain().over<number>();
+        result = _([Math.max]).chain().over<number>([Math.min]);
+    }
+}
+
 // _.property
 module TestProperty {
     interface SampleObject {
