@@ -257,6 +257,7 @@ declare module angular.ui {
         transitionTo(state: string, params?: {}, options?: IStateOptions): angular.IPromise<any>;
         transitionTo(state: IState, params?: {}, options?: IStateOptions): angular.IPromise<any>;
         includes(state: string, params?: {}): boolean;
+        includes(state: string, params?: {}, options?:any): boolean;
         is(state:string, params?: {}): boolean;
         is(state: IState, params?: {}): boolean;
         href(state: IState, params?: {}, options?: IHrefOptions): string;
