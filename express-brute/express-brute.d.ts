@@ -45,85 +45,101 @@ declare module "express-brute" {
     }
 
     /**
-     * @summary Middleware.
+     * @summary Options for {@link ExpressBrute} class.
+     * @interface
+     */
+    interface ExpressBruteOptions {
+        freeRetries: number;
+        proxyDepth: number;
+        attachResetToRequest: boolean;
+        refreshTimeoutOnRequest: boolean;
+        minWait: number;
+        maxWait: number;
+        lifetime: number;
+        failCallback: (req: express.Request, res: express.Response, next: Function, nextValidRequestDate: any) => void;
+        handleStoreError: any;
+}
+
+/**
+ * @summary Middleware.
+ * @class
+ */
+class ExpressBrute {
+    /**
+     * @summary Constructor.
+     * @constructor
+     * @param {any} store The store.
+     */
+    constructor(store: any);
+
+    /**
+     * @summary Generates middleware that will bounce requests with the same key and IP address that happen faster than the current wait time by calling failCallback.
+     * @param {Object} options The options.
+     */
+    getMiddleware(options: ExpressBruteMiddleware): express.RequestHandler;
+
+    /**
+     * @summary Uses the current proxy trust settings to get the current IP from a request object.
+     * @param {Request} request The HTTP request.
+     * @return {RequestHandler} The Request handler.
+     */
+    getIPFromRequest(request: express.Request): express.RequestHandler;
+
+    /**
+     * @summary Middleware that will bounce requests that happen faster than the current wait time by calling failCallback.
+     * @param {Request}     request     The HTTP request.
+     * @param {Response}    response    The HTTP response.
+     * @param {Function}    next        The next middleware.
+     * @return {RequestHandler} The Request handler.
+     */
+    prevent(request: express.Request, response: express.Response, next: Function): express.RequestHandler;
+
+    /**
+     * @summary Resets the wait time between requests back to its initial value.
+     * @param {string}      ip      The IP address.
+     * @param {string}      key     The key. response.
+     * @param {Function}    next    The next middleware.
+     * @return {RequestHandler} The Request handler.
+     */
+    reset(ip: string, key: string, next: Function): express.RequestHandler;
+}
+
+module ExpressBrute {
+    /**
+     * @summary In-memory store.
      * @class
      */
-    class ExpressBrute {
+    export class MemoryStore {
         /**
          * @summary Constructor.
          * @constructor
-         * @param {any} store The store.
-         */
-        constructor(store: any);
-
-        /**
-         * @summary Generates middleware that will bounce requests with the same key and IP address that happen faster than the current wait time by calling failCallback.
          * @param {Object} options The options.
          */
-        getMiddleware(options: ExpressBruteMiddleware): express.RequestHandler;
+        constructor(options?: MemoryStoreOptions);
+        /**
+         * @summary Gets key value.
+         * @param {string}      key     The key name.
+         * @param {Function}    callbck The callback.
+         */
+        get(key: string, callback: (error: any, data: Object) => void): void;
 
         /**
-         * @summary Uses the current proxy trust settings to get the current IP from a request object.
-         * @param {Request} request The HTTP request.
-         * @return {RequestHandler} The Request handler.
+         * @summary Sets the key value.
+         * @param {string}      key      The name.
+         * @param {string}      value    The value.
+         * @param {number}      lifetime The lifetime.
+         * @param {Function}    callback The callback.
          */
-        getIPFromRequest(request: express.Request): express.RequestHandler;
+        set(key: string, value: any, lifetime: number, callback: (error: any) => void): void;
 
         /**
-         * @summary Middleware that will bounce requests that happen faster than the current wait time by calling failCallback.
-         * @param {Request}     request     The HTTP request.
-         * @param {Response}    response    The HTTP response.
-         * @param {Function}    next        The next middleware.
-         * @return {RequestHandler} The Request handler.
+         * @summary Deletes the key.
+         * @param {string}      key      The name.
+         * @param {Function}    callback The callback.
          */
-        prevent(request: express.Request, response: express.Response, next: Function): express.RequestHandler;
-
-        /**
-         * @summary Resets the wait time between requests back to its initial value.
-         * @param {string}      ip      The IP address.
-         * @param {string}      key     The key. response.
-         * @param {Function}    next    The next middleware.
-         * @return {RequestHandler} The Request handler.
-         */
-        reset(ip: string, key: string, next: Function): express.RequestHandler;
+        reset(key: string, callback: (error: any) => void): void;
     }
+}
 
-    module ExpressBrute {
-        /**
-         * @summary In-memory store.
-         * @class
-         */
-        export class MemoryStore {
-            /**
-             * @summary Constructor.
-             * @constructor
-             * @param {Object} options The options.
-             */
-            constructor(options?: MemoryStoreOptions);
-            /**
-             * @summary Gets key value.
-             * @param {string}      key     The key name.
-             * @param {Function}    callbck The callback.
-             */
-            get(key: string, callback: (error: any, data: Object) => void): void;
-
-            /**
-             * @summary Sets the key value.
-             * @param {string}      key      The name.
-             * @param {string}      value    The value.
-             * @param {number}      lifetime The lifetime.
-             * @param {Function}    callback The callback.
-             */
-            set(key: string, value: any, lifetime: number, callback: (error: any) => void): void;
-
-            /**
-             * @summary Deletes the key.
-             * @param {string}      key      The name.
-             * @param {Function}    callback The callback.
-             */
-            reset(key: string, callback: (error: any) => void): void;
-        }
-    }
-
-    export = ExpressBrute;
+export = ExpressBrute;
 }
