@@ -4249,6 +4249,13 @@ declare module _ {
         concat(...items: Array<T|Array<T>>): LoDashExplicitArrayWrapper<T>;
     }
 
+    interface LoDashStatic {
+        /**
+         * @see _.concat
+         */
+        concat<T>(...items: Array<T|Array<T>>): T[];
+    }
+
     //_.prototype.plant
     interface LoDashImplicitWrapperBase<T, TWrapper> {
         /**

@@ -2769,6 +2769,42 @@ module TestConcat {
         result = _({a: ''}).chain().concat({a: ''}, {a: ''});
         result = _({a: ''}).chain().concat({a: ''}, {a: ''}, {a: ''});
     }
+
+    {
+        let result: number[];
+
+        result = _.concat<number>(1, 2);
+        result = _.concat<number>(1, 2, 3);
+        result = _.concat<number>(1, 2, 3, 4);
+
+        result = _.concat(1, 2);
+        result = _.concat(1, 2, 3);
+        result = _.concat(1, 2, 3, 4);
+    }
+
+    {
+        let result: string[];
+
+        result = _.concat<string>([''], ['']);
+        result = _.concat<string>([''], [''], ['']);
+        result = _.concat<string>([''], [''], [''], ['']);
+
+        result = _.concat([''], ['']);
+        result = _.concat([''], [''], ['']);
+        result = _.concat([''], [''], [''], ['']);
+    }
+
+    {
+        let result: {a: string}[];
+
+        result = _.concat<{a: string}>({a: ''}, {a: ''});
+        result = _.concat<{a: string}>({a: ''}, {a: ''}, {a: ''});
+        result = _.concat<{a: string}>({a: ''}, {a: ''}, {a: ''}, {a: ''});
+
+        result = _.concat({a: ''}, {a: ''});
+        result = _.concat({a: ''}, {a: ''}, {a: ''});
+        result = _.concat({a: ''}, {a: ''}, {a: ''}, {a: ''});
+    }
 }
 
 // _.prototype.plant
