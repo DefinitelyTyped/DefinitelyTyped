@@ -459,7 +459,7 @@ declare module "http" {
         host?: string;
         hostname?: string;
         family?: number;
-        port?: number
+        port?: number;
         localAddress?: string;
         socketPath?: string;
         method?: string;
@@ -731,7 +731,7 @@ declare module "os" {
             sys: number;
             idle: number;
             irq: number;
-        }
+        };
     }
 
     export interface NetworkInterfaceInfo {
