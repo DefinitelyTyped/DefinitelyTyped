@@ -5666,7 +5666,7 @@ declare module "sequelize" {
         /**
          * Validator Interface
          */
-        interface Validator extends IValidatorStatic {
+        interface Validator extends ValidatorJS.ValidatorStatic {
 
             notEmpty( str : string ) : boolean;
             len( str : string, min : number, max : number ) : boolean;
