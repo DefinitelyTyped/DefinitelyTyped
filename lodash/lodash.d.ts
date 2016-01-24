@@ -15653,21 +15653,21 @@ declare module _ {
          * @param func The function to attempt.
          * @return Returns the func result or error object.
          */
-        attempt<TResult>(func: (...args: any[]) => TResult, ...args): TResult|Error;
+        attempt<TResult>(func: (...args: any[]) => TResult, ...args: any[]): TResult|Error;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.attempt
          */
-        attempt<TResult>(...args): TResult|Error;
+        attempt<TResult>(...args: any[]): TResult|Error;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.attempt
          */
-        attempt<TResult>(...args): LoDashExplicitObjectWrapper<TResult|Error>;
+        attempt<TResult>(...args: any[]): LoDashExplicitObjectWrapper<TResult|Error>;
     }
 
     //_.constant
