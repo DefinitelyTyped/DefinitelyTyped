@@ -5,7 +5,7 @@
 
 import { createStore, applyMiddleware, Store, Dispatch } from 'redux';
 import * as thunk from 'redux-thunk';
-import { ThunkInterface } from 'redux-thunk';
+import ThunkInterface = ReduxThunk.ThunkInterface;
 import { Promise } from 'es6-promise';
 
 declare var rootReducer: Function;
