@@ -5,6 +5,9 @@ var editor = ace.edit("editor");
 editor.setTheme("ace/theme/monokai");
 editor.getSession().setMode("ace/mode/javascript");
 
+editor.on("blur", (e) => e);
+editor.on("change", (e) => e);
+
 editor.setTheme("ace/theme/twilight");
 
 editor.getSession().setMode("ace/mode/javascript");
