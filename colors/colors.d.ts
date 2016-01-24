@@ -107,7 +107,8 @@ interface String {
     bgWhite: string;
 
     reset: string;
-    bold: string;
+    // disable `bold` because it is not compatible with ES6, details at: https://github.com/Marak/colors.js/issues/110
+    // bold: string;
     dim: string;
     italic: string;
     underline: string;
