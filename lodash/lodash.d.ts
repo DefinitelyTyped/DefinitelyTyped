@@ -375,7 +375,6 @@ declare module _ {
     interface LoDashExplicitObjectWrapper<T> extends LoDashExplicitWrapperBase<T, LoDashExplicitObjectWrapper<T>> { }
 
     interface LoDashImplicitArrayWrapper<T> extends LoDashImplicitWrapperBase<T[], LoDashImplicitArrayWrapper<T>> {
-        join(seperator?: string): string;
         pop(): T;
         push(...items: T[]): LoDashImplicitArrayWrapper<T>;
         shift(): T;
@@ -1676,26 +1675,61 @@ declare module _ {
         ): any[];
     }
 
-    //_.join DUMMY
+    //_.join
     interface LoDashStatic {
         /**
          * Converts all elements in `array` into a string separated by `separator`.
          *
-         * @static
-         * @memberOf _
-         * @category Array
-         * @param {Array} array The array to convert.
-         * @param {string} [separator=','] The element separator.
-         * @returns {string} Returns the joined string.
-         * @example
-         *
-         * _.join(['a', 'b', 'c'], '~');
-         * // => 'a~b~c'
+         * @param array The array to convert.
+         * @param separator The element separator.
+         * @returns Returns the joined string.
          */
         join(
-            array: any[]|List<any>,
-            ...values: any[]
-        ): any[];
+            array: List<any>,
+            separator?: string
+        ): string;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): string;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): string;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): LoDashExplicitWrapper<string>;
     }
 
     //_.pullAll DUMMY
