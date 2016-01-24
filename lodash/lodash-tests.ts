@@ -5894,12 +5894,26 @@ module TestIsElement {
 }
 
 // _.isEmpty
-result = <boolean>_.isEmpty([1, 2, 3]);
-result = <boolean>_.isEmpty({});
-result = <boolean>_.isEmpty('');
-result = <boolean>_([1, 2, 3]).isEmpty();
-result = <boolean>_({}).isEmpty();
-result = <boolean>_('').isEmpty();
+module TestIsEmpty {
+    {
+        let result: boolean;
+
+        result = _.isEmpty(any);
+        result = _(1).isEmpty();
+        result = _('').isEmpty();
+        result = _<any>([]).isEmpty();
+        result = _({}).isEmpty();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isEmpty();
+        result = _('').chain().isEmpty();
+        result = _<any>([]).chain().isEmpty();
+        result = _({}).chain().isEmpty();
+    }
+}
 
 // _.isEqual
 module TestIsEqual {
