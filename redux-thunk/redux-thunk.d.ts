@@ -16,6 +16,6 @@ declare module "redux-thunk" {
 
     var thunk: Thunk;
 
-    export default thunk;
+    export = thunk;
 }
 
