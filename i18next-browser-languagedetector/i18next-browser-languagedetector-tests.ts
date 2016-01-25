@@ -1,5 +1,5 @@
 /// <reference path="../i18next/i18next.d.ts"/>
-/// <reference path="i18next-browser-languageDetector.d.ts"/>
+/// <reference path="i18next-browser-languagedetector.d.ts"/>
 
 import * as i18next from 'i18next';
 import LngDetector from 'i18next-browser-languagedetector';
