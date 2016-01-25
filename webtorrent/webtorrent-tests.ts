@@ -6,7 +6,7 @@ import * as fs from 'fs';
 var client = new WebTorrent()
 var magnetURI = '...'
 
-client.add(magnetURI, function (torrent) {
+client.add(magnetURI, {}, function (torrent) {
   // Got torrent metadata!
   console.log('Client is downloading:', torrent.infoHash)
 
@@ -56,7 +56,7 @@ client.add(magnetURI, function (torrent) {
   })
 })
 
-client.seed('./file.txt', function (torrent) {
+client.seed('./file.txt', {}, function (torrent) {
   console.log('Client is seeding:', torrent.infoHash)
 })
 
