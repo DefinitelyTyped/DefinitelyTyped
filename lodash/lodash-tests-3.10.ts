@@ -133,7 +133,6 @@ module TestWrapper {
 }
 
 //Wrapped array shortcut methods
-result = <string>_([1, 2, 3, 4]).join(',');
 result = <number>_([1, 2, 3, 4]).pop();
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).push(5, 6, 7);
 result = <number>_([1, 2, 3, 4]).shift();
@@ -141,6 +140,34 @@ result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sort((a, b) => 1)
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1);
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1, 2, 5, 6);
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
+
+// join (exists only in wrappers)
+namespace TestJoin {
+    let array = [1, 2];
+    let list = {0: 1, 1: 2, length: 2};
+
+    {
+        let result: string;
+
+        result = _('abc').join();
+        result = _('abc').join('_');
+        result = _(array).join();
+        result = _(array).join('_');
+        result = _(list).join();
+        result = _(list).join('_');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('abc').chain().join();
+        result = _('abc').chain().join('_');
+        result = _(array).chain().join();
+        result = _(array).chain().join('_');
+        result = _(list).chain().join();
+        result = _(list).chain().join('_');
+    }
+}
 
 /*********
  * Array *
@@ -6574,12 +6601,26 @@ module TestIsElement {
 }
 
 // _.isEmpty
-result = <boolean>_.isEmpty([1, 2, 3]);
-result = <boolean>_.isEmpty({});
-result = <boolean>_.isEmpty('');
-result = <boolean>_([1, 2, 3]).isEmpty();
-result = <boolean>_({}).isEmpty();
-result = <boolean>_('').isEmpty();
+module TestIsEmpty {
+    {
+        let result: boolean;
+
+        result = _.isEmpty(any);
+        result = _(1).isEmpty();
+        result = _('').isEmpty();
+        result = _<any>([]).isEmpty();
+        result = _({}).isEmpty();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isEmpty();
+        result = _('').chain().isEmpty();
+        result = _<any>([]).chain().isEmpty();
+        result = _({}).chain().isEmpty();
+    }
+}
 
 // _.isEqual
 module TestIsEqual {
@@ -9239,13 +9280,16 @@ module TestAttempt {
         let result: {a: string}|Error;
 
         result = _.attempt<{a: string}>(func);
+        result = _.attempt<{a: string}>(func, 'foo', 'bar', 'baz');
         result = _(func).attempt<{a: string}>();
+        result = _(func).attempt<{a: string}>('foo', 'bar', 'baz');
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<{a: string}|Error>;
 
         result = _(func).chain().attempt<{a: string}>();
+        result = _(func).chain().attempt<{a: string}>('foo', 'bar', 'baz');
     }
 }
 

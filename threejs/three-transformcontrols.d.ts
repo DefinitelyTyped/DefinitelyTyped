@@ -14,6 +14,7 @@ declare module THREE {
 		update():void;
 		detach(): void;
 		attach(object: Object3D): void;
+		getMode(): string;
 		setMode(mode: string): void;
 		setSnap(snap: any): void;
 		setSize(size:number):void;

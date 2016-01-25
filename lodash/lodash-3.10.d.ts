@@ -230,7 +230,6 @@ declare module _ {
     interface LoDashExplicitObjectWrapper<T> extends LoDashExplicitWrapperBase<T, LoDashExplicitObjectWrapper<T>> { }
 
     interface LoDashImplicitArrayWrapper<T> extends LoDashImplicitWrapperBase<T[], LoDashImplicitArrayWrapper<T>> {
-        join(seperator?: string): string;
         pop(): T;
         push(...items: T[]): LoDashImplicitArrayWrapper<T>;
         shift(): T;
@@ -245,6 +244,49 @@ declare module _ {
     interface LoDashImplicitNumberArrayWrapper extends LoDashImplicitArrayWrapper<number> { }
 
     interface LoDashExplicitNumberArrayWrapper extends LoDashExplicitArrayWrapper<number> { }
+
+    // join (exists only in wrappers)
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): string;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): string;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): LoDashExplicitWrapper<string>;
+    }
 
     /*********
      * Array *
@@ -10432,17 +10474,25 @@ declare module _ {
         /**
          * Checks if value is empty. A value is considered empty unless it’s an arguments object, array, string, or
          * jQuery-like collection with a length greater than 0 or an object with own enumerable properties.
+         *
          * @param value The value to inspect.
          * @return Returns true if value is empty, else false.
-         **/
-        isEmpty(value?: any[]|Dictionary<any>|string|any): boolean;
+         */
+        isEmpty(value?: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T,TWrapper> {
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.isEmpty
          */
         isEmpty(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isEmpty
+         */
+        isEmpty(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isEqual
@@ -14183,21 +14233,21 @@ declare module _ {
          * @param func The function to attempt.
          * @return Returns the func result or error object.
          */
-        attempt<TResult>(func: (...args: any[]) => TResult): TResult|Error;
+        attempt<TResult>(func: (...args: any[]) => TResult, ...args: any[]): TResult|Error;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.attempt
          */
-        attempt<TResult>(): TResult|Error;
+        attempt<TResult>(...args: any[]): TResult|Error;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.attempt
          */
-        attempt<TResult>(): LoDashExplicitObjectWrapper<TResult|Error>;
+        attempt<TResult>(...args: any[]): LoDashExplicitObjectWrapper<TResult|Error>;
     }
 
     //_.callback
