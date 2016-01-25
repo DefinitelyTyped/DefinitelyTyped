@@ -111,6 +111,9 @@ app.on('ready', () => {
 	mainWindow.webContents.printToPDF({}, (err, data) => {});
 });
 
+// Locale
+app.getLocale();
+
 // Desktop environment integration
 // https://github.com/atom/electron/blob/master/docs/tutorial/desktop-environment-integration.md
 
