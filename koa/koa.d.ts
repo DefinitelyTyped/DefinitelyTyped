@@ -8,7 +8,7 @@
     import * as Koa from "koa"
     const app = new Koa()
 
-    async function (ctx: Koa.IContext, next: Function) {
+    async function (ctx: Koa.Context, next: Function) {
       // ...
     }
 
@@ -21,10 +21,10 @@ declare module "koa" {
   import * as net from "net";
 
   module Koa {
-    export interface IContext extends IRequest, IResponse {
+    export interface Context extends Request, Response {
         body?: any;
-        request?: IRequest;
-        response?: IResponse;
+        request?: Request;
+        response?: Response;
         originalUrl?: string;
         state?: any;
         name?: string;
@@ -41,13 +41,13 @@ declare module "koa" {
         assert(): void;
     }
 
-    export interface IRequest {
+    export interface Request {
         _querycache?: string;
         app?: Koa;
         req?: http.IncomingMessage;
         res?: http.ServerResponse;
-        response?: IResponse;
-        ctx?: IContext;
+        response?: Response;
+        ctx?: Context;
         headers?: any;
         header?: any;
         method?: string;
@@ -84,14 +84,14 @@ declare module "koa" {
         get?: (field: string) => string;
     }
 
-    export interface IResponse {
+    export interface Response {
         _body?: any;
         _explicitStatus?: Boolean;
         app?: Koa;
         res?: http.ServerResponse;
         req?: http.IncomingMessage;
-        ctx?: IContext;
-        request?: IRequest;
+        ctx?: Context;
+        request?: Request;
         socket?: net.Socket;
         header?: any;
         headers?: any;
@@ -123,12 +123,12 @@ declare module "koa" {
       proxy: Boolean;
       server: http.Server;
       env: string;
-      context: Koa.IContext;
-      request: Koa.IRequest;
-      response: Koa.IResponse;
+      context: Koa.Context;
+      request: Koa.Request;
+      response: Koa.Response;
       silent: Boolean;
       constructor();
-      use(middleware: (ctx: Koa.IContext, next: Function) => any): Koa;
+      use(middleware: (ctx: Koa.Context, next: Function) => any): Koa;
       callback(): (req: http.IncomingMessage, res: http.ServerResponse) => void;
       listen(port: number, callback?: Function): http.Server;
       toJSON(): any;
