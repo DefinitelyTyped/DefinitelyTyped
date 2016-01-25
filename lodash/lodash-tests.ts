@@ -133,7 +133,6 @@ module TestWrapper {
 }
 
 //Wrapped array shortcut methods
-result = <string>_([1, 2, 3, 4]).join(',');
 result = <number>_([1, 2, 3, 4]).pop();
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).push(5, 6, 7);
 result = <number>_([1, 2, 3, 4]).shift();
@@ -938,6 +937,41 @@ module TestIntersection {
 
         result = _(list).chain().intersection<TResult>(array);
         result = _(list).chain().intersection<TResult>(list, array);
+    }
+}
+
+// _.join
+namespace TestJoin {
+    let array = [1, 2];
+    let list = {0: 1, 1: 2, length: 2};
+
+    {
+        let result: string;
+
+        result = _.join('abc');
+        result = _.join('abc', '_');
+        result = _.join(array);
+        result = _.join(array, '_');
+        result = _.join(list);
+        result = _.join(list, '_');
+
+        result = _('abc').join();
+        result = _('abc').join('_');
+        result = _(array).join();
+        result = _(array).join('_');
+        result = _(list).join();
+        result = _(list).join('_');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('abc').chain().join();
+        result = _('abc').chain().join('_');
+        result = _(array).chain().join();
+        result = _(array).chain().join('_');
+        result = _(list).chain().join();
+        result = _(list).chain().join('_');
     }
 }
 
