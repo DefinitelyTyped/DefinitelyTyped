@@ -256,7 +256,7 @@ declare module _ {
         * keyBy, initial, intersection, invert, invoke, keys, map, max, memoize, merge, min,
         * object, omit, once, pairs, partial, partialRight, pick, pluck, pull, push, range, reject,
         * remove, rest, reverse, sample, shuffle, slice, sort, sortBy, splice, tap, throttle, times,
-        * toArray, transform, union, uniq, unshift, unzip, values, where, without, wrap, and zip
+        * toArray, transform, union, uniq, unset, unshift, unzip, values, where, without, wrap, and zip
         *
         * The non-chainable wrapper functions are:
         * clone, cloneDeep, contains, escape, every, find, findIndex, findKey, findLast,
@@ -375,7 +375,6 @@ declare module _ {
     interface LoDashExplicitObjectWrapper<T> extends LoDashExplicitWrapperBase<T, LoDashExplicitObjectWrapper<T>> { }
 
     interface LoDashImplicitArrayWrapper<T> extends LoDashImplicitWrapperBase<T[], LoDashImplicitArrayWrapper<T>> {
-        join(seperator?: string): string;
         pop(): T;
         push(...items: T[]): LoDashImplicitArrayWrapper<T>;
         shift(): T;
@@ -1676,26 +1675,61 @@ declare module _ {
         ): any[];
     }
 
-    //_.join DUMMY
+    //_.join
     interface LoDashStatic {
         /**
          * Converts all elements in `array` into a string separated by `separator`.
          *
-         * @static
-         * @memberOf _
-         * @category Array
-         * @param {Array} array The array to convert.
-         * @param {string} [separator=','] The element separator.
-         * @returns {string} Returns the joined string.
-         * @example
-         *
-         * _.join(['a', 'b', 'c'], '~');
-         * // => 'a~b~c'
+         * @param array The array to convert.
+         * @param separator The element separator.
+         * @returns Returns the joined string.
          */
         join(
-            array: any[]|List<any>,
-            ...values: any[]
-        ): any[];
+            array: List<any>,
+            separator?: string
+        ): string;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): string;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): string;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): LoDashExplicitWrapper<string>;
     }
 
     //_.pullAll DUMMY
@@ -4234,6 +4268,21 @@ declare module _ {
             array: any[]|List<any>,
             ...values: any[]
         ): any[];
+    }
+
+    //_.unset
+    interface LoDashStatic {
+        /**
+         * Removes the property at path of object.
+         *
+         * @param object The object to modify.
+         * @param path The path of the property to unset.
+         * @return Returns true if the property is deleted, else false.
+         */
+        unset<T>(
+            object: T,
+            path: StringRepresentable | StringRepresentable[]
+        ): boolean;
     }
 
     //_.unzip
@@ -10009,17 +10058,25 @@ declare module _ {
         /**
          * Checks if value is empty. A value is considered empty unless it’s an arguments object, array, string, or
          * jQuery-like collection with a length greater than 0 or an object with own enumerable properties.
+         *
          * @param value The value to inspect.
          * @return Returns true if value is empty, else false.
-         **/
-        isEmpty(value?: any[]|Dictionary<any>|string|any): boolean;
+         */
+        isEmpty(value?: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T,TWrapper> {
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.isEmpty
          */
         isEmpty(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isEmpty
+         */
+        isEmpty(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isEqual
@@ -15653,21 +15710,21 @@ declare module _ {
          * @param func The function to attempt.
          * @return Returns the func result or error object.
          */
-        attempt<TResult>(func: (...args: any[]) => TResult): TResult|Error;
+        attempt<TResult>(func: (...args: any[]) => TResult, ...args: any[]): TResult|Error;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.attempt
          */
-        attempt<TResult>(): TResult|Error;
+        attempt<TResult>(...args: any[]): TResult|Error;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.attempt
          */
-        attempt<TResult>(): LoDashExplicitObjectWrapper<TResult|Error>;
+        attempt<TResult>(...args: any[]): LoDashExplicitObjectWrapper<TResult|Error>;
     }
 
     //_.constant
@@ -16136,6 +16193,46 @@ declare module _ {
          * @see _.noop
          */
         noop(...args: any[]): _.LoDashExplicitWrapper<void>;
+    }
+
+    //_.over
+    interface LoDashStatic {
+        /**
+         * Creates a function that invokes iteratees with the arguments provided to the created function and returns
+         * their results.
+         *
+         * @param iteratees The iteratees to invoke.
+         * @return Returns the new function.
+         */
+        over<TResult>(...iteratees: (Function|Function[])[]): (...args: any[]) => TResult[];
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.over
+         */
+        over<TResult>(...iteratees: (Function|Function[])[]): LoDashImplicitObjectWrapper<(...args: any[]) => TResult[]>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.over
+         */
+        over<TResult>(...iteratees: (Function|Function[])[]): LoDashImplicitObjectWrapper<(...args: any[]) => TResult[]>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.over
+         */
+        over<TResult>(...iteratees: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => TResult[]>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.over
+         */
+        over<TResult>(...iteratees: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => TResult[]>;
     }
 
     //_.property

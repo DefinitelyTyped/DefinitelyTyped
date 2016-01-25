@@ -77,6 +77,7 @@ declare module JQueryUI {
 
     interface Autocomplete extends Widget, AutocompleteOptions {
         escapeRegex: (value: string) => string;
+        filter: (array: any, term: string) => any;
     }
 
 
@@ -363,7 +364,7 @@ declare module JQueryUI {
         title?: string;
         width?: any; // number or string
         zIndex?: number;
-		
+
 		open?: DialogEvent;
         close?: DialogEvent;
     }
