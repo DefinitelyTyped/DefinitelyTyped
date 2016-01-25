@@ -26,9 +26,6 @@ import path = require('path');
 // Quick start
 // https://github.com/atom/electron/blob/master/docs/tutorial/quick-start.md
 
-// Report crashes to our server.
-require('crash-reporter').start();
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the javascript object is GCed.
 var mainWindow: Electron.BrowserWindow = null;
@@ -501,7 +498,10 @@ crashReporter.start({
 	productName: 'YourName',
 	companyName: 'YourCompany',
 	submitURL: 'https://your-domain.com/url-to-submit',
-	autoSubmit: true
+	autoSubmit: true,
+	extra: {
+		someKey: "value"
+	}
 });
 
 // nativeImage
