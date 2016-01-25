@@ -14578,47 +14578,159 @@ declare module _ {
     //_.set
     interface LoDashStatic {
         /**
-         * Sets the property value of path on object. If a portion of path does not exist it’s created.
+         * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
+         * missing index properties while objects are created for all other missing properties. Use _.setWith to
+         * customize path creation.
          *
-         * @param object The object to augment.
+         * @param object The object to modify.
          * @param path The path of the property to set.
          * @param value The value to set.
          * @return Returns object.
          */
-        set<T>(
-            object: T,
+        set<TResult>(
+            object: Object,
             path: StringRepresentable|StringRepresentable[],
             value: any
-        ): T;
+        ): TResult;
 
         /**
          * @see _.set
          */
-        set<V, T>(
-            object: T,
+        set<V, TResult>(
+            object: Object,
             path: StringRepresentable|StringRepresentable[],
             value: V
-        ): T;
+        ): TResult;
+
+        /**
+         * @see _.set
+         */
+        set<O, V, TResult>(
+            object: O,
+            path: StringRepresentable|StringRepresentable[],
+            value: V
+        ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.set
          */
-        set<V>(
+        set<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            value: any
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.set
+         */
+        set<V, TResult>(
             path: StringRepresentable|StringRepresentable[],
             value: V
-        ): LoDashImplicitObjectWrapper<T>;
+        ): LoDashImplicitObjectWrapper<TResult>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.set
          */
-        set<V>(
+        set<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            value: any
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.set
+         */
+        set<V, TResult>(
             path: StringRepresentable|StringRepresentable[],
             value: V
-        ): LoDashExplicitObjectWrapper<T>;
+        ): LoDashExplicitObjectWrapper<TResult>;
+    }
+
+    //_.setWith
+    interface SetWithCustomizer<T> {
+        (nsValue: any, key: string, nsObject: T): any;
+    }
+
+    interface LoDashStatic {
+        /**
+         * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
+         * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
+         * invoked with three arguments: (nsValue, key, nsObject).
+         *
+         * @param object The object to modify.
+         * @param path The path of the property to set.
+         * @param value The value to set.
+         * @parem customizer The function to customize assigned values.
+         * @return Returns object.
+         */
+        setWith<TResult>(
+            object: Object,
+            path: StringRepresentable|StringRepresentable[],
+            value: any,
+            customizer?: SetWithCustomizer<Object>
+        ): TResult;
+
+        /**
+         * @see _.setWith
+         */
+        setWith<V, TResult>(
+            object: Object,
+            path: StringRepresentable|StringRepresentable[],
+            value: V,
+            customizer?: SetWithCustomizer<Object>
+        ): TResult;
+
+        /**
+         * @see _.setWith
+         */
+        setWith<O, V, TResult>(
+            object: O,
+            path: StringRepresentable|StringRepresentable[],
+            value: V,
+            customizer?: SetWithCustomizer<O>
+        ): TResult;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.setWith
+         */
+        setWith<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            value: any,
+            customizer?: SetWithCustomizer<T>
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.setWith
+         */
+        setWith<V, TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            value: V,
+            customizer?: SetWithCustomizer<T>
+        ): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.setWith
+         */
+        setWith<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            value: any,
+            customizer?: SetWithCustomizer<T>
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.setWith
+         */
+        setWith<V, TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            value: V,
+            customizer?: SetWithCustomizer<T>
+        ): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.transform
