@@ -149,6 +149,9 @@ declare module jasmine {
 
         matchersClass: Matchers;
 
+        seed(seed: string): void;
+        randomizeTests(onOff: boolean): void;
+        randomTests(): boolean;
         version(): any;
         versionString(): string;
         nextSpecId(): number;
