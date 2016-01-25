@@ -413,3 +413,57 @@ plugin = new webpack.ExtendedAPIPlugin();
 plugin = new webpack.NoErrorsPlugin();
 plugin = new webpack.WatchIgnorePlugin(paths);
 
+//
+// http://webpack.github.io/docs/node.js-api.html
+//
+
+// returns a Compiler instance
+webpack({
+    // configuration
+}, function(err, stats) {
+    // ...
+});
+
+// returns a Compiler instance
+var compiler = webpack({
+    // configuration
+});
+
+compiler.run(function(err, stats) {
+    // ...
+});
+// or
+compiler.watch({ // watch options:
+    aggregateTimeout: 300, // wait so long for more changes
+    poll: true // use polling instead of native watchers
+    // pass a number to set the polling interval
+}, function(err, stats) {
+    // ...
+});
+
+declare function handleFatalError(err: Error): void;
+declare function handleSoftErrors(errs: string[]): void;
+declare function handleWarnings(errs: string[]): void;
+declare function successfullyCompiled(): void;
+
+webpack({
+    // configuration
+}, function(err, stats) {
+    if(err)
+        return handleFatalError(err);
+    var jsonStats = stats.toJson();
+    if(jsonStats.errors.length > 0)
+        return handleSoftErrors(jsonStats.errors);
+    if(jsonStats.warnings.length > 0)
+        handleWarnings(jsonStats.warnings);
+    successfullyCompiled();
+});
+
+declare var fs: any;
+
+compiler = webpack({ });
+compiler.outputFileSystem = fs;
+compiler.run(function(err, stats) {
+    // ...
+    var fileContent = fs.readFileSync("...");
+});
