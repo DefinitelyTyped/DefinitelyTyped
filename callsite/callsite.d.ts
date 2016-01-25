@@ -5,16 +5,15 @@
 
 declare module "callsite" {
     interface CallSite {
-        getFileName(): string;
-        getFunctionName(): string;
-        getScriptNameOrSourceUrl(): string;
-        getMethodName(): string;
-        getEvalOrigin(): string;
+        getThis(): any;
         getTypeName(): string;
+        getFunctionName(): string;
+        getMethodName(): string;
+        getFileName(): string;
         getLineNumber(): number;
         getColumnNumber(): number;
         getFunction(): Function;
-        getThis(): any;
+        getEvalOrigin(): string;
         isNative(): boolean;
         isToplevel(): boolean;
         isEval(): boolean;
