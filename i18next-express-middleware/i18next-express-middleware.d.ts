@@ -6,21 +6,6 @@
 ///<reference path="../express/express.d.ts"/>
 ///<reference path="../i18next/i18next.d.ts"/>
 
-/**
- * @summary Interface for Language detector options.
- * @interface
- */
-interface LanguageDetectorOptions {
-    caches?: boolean;
-    cookieDomain?: string;
-    cookieExpirationDate?: Date;
-    lookupCookie?: string;
-    lookupFromPathIndex?: number;
-    lookupQuerystring?: string;
-    lookupSession?: string;
-    order?: Array<string>;
-}
-
 declare module "i18next-express-middleware" {
     import express = require("express");
     import i18next = require("i18next");
