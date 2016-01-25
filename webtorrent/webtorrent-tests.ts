@@ -60,8 +60,6 @@ client.seed('./file.txt', function (torrent) {
   console.log('Client is seeding:', torrent.infoHash)
 })
 
-var magnetURI = '...'
-
 client.add(magnetURI, function (torrent) {
   // create HTTP server for this torrent
   var server = torrent.createServer()
