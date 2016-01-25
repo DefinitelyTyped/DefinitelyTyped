@@ -17,7 +17,7 @@ declare module i18nextBrowserLanguageDetector {
      * @interface
      */
     interface LanguageDetectorOptions {
-        caches?: Array<string>;
+        caches?: Array<string>|boolean;
         cookieDomain?: string;
         cookieExpirationDate?: Date;
         lookupCookie?: string;
@@ -44,7 +44,7 @@ declare module i18nextBrowserLanguageDetector {
      * @interface
      */
     interface I18nextOptions {
-        detection: LanguageDetectorOptions;
+        detection?: LanguageDetectorOptions;
     }
 
     /**
