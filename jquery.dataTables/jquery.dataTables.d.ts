@@ -182,7 +182,7 @@ declare module DataTables {
         destroy(remove?: boolean): DataTable;
 
         /**
-        * Destroy the DataTables in the current context.
+        * Redraw the table.
         *
         * @param reset Reset (default) or hold the current paging position. A full re-sort and re-filter is performed when this method is called, which is why the pagination reset is the default action.
         */

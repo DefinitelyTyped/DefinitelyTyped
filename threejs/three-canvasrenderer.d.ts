@@ -23,6 +23,7 @@ declare module THREE {
     export interface CanvasRendererParameters {
         canvas?: HTMLCanvasElement;
         devicePixelRatio?: number;
+        alpha?: boolean;
     }
 
     export class CanvasRenderer implements Renderer {

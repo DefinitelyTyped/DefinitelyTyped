@@ -131,6 +131,7 @@ var layer = L.tileLayer("http://{s}.example.net/{x}/{y}/{z}.png");
 
 map.addLayer(layer);
 map.addLayer(layer, false);
+map.eachLayer(l => {});
 
 map.removeLayer(layer);
 map.hasLayer(layer);
@@ -147,6 +148,11 @@ map.closePopup();
 
 map.addControl(L.control.attribution({position: 'bottomright'}));
 map.removeControl(L.control.attribution({ position: 'bottomright' }));
+
+L.control.layers({'Base': layer}).addTo(map);
+map.on('baseLayerChange', function(e: L.LeafletLayersControlEvent) { 
+  alert(e.name); 
+});
 
 map.latLngToLayerPoint(map.layerPointToLatLng(L.point(0, 0)));
 map.latLngToContainerPoint(map.containerPointToLatLng(L.point(0, 0)));

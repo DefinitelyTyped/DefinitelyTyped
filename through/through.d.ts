@@ -6,19 +6,19 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module "through" {
-	import stream = require("stream");
+    import stream = require("stream");
 
-	function through(write?: (data: any) => void,
-		end?: () => void,
-		opts?: {
-			autoDestroy: boolean;
-		}): through.ThroughStream;
+    function through(write?: (data: any) => void,
+        end?: () => void,
+        opts?: {
+            autoDestroy: boolean;
+        }): through.ThroughStream;
 
-	module through {
-		export interface ThroughStream extends stream.Transform {
-			autoDestroy: boolean;
-		}
-	}
+    module through {
+        export interface ThroughStream extends stream.Transform {
+            autoDestroy: boolean;
+        }
+    }
 
-	export = through;
+    export = through;
 }

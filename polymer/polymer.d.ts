@@ -1,4 +1,4 @@
-// Type definitions for polymer v1.1.2
+// Type definitions for polymer v1.1.6
 // Project: https://github.com/Polymer/polymer
 // Definitions by: Louis Grignon <https://github.com/lgrignon>, Suguru Inatomi <https://github.com/laco0416>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -11,7 +11,7 @@ declare module polymer {
 
   interface PropObjectType {
     type: PropConstructorType;
-    value?: boolean | number | string | Function;
+    value?: boolean | number | string | Function | Object;
     reflectToAttribute?: boolean;
     readOnly?: boolean;
     notify?: boolean;
@@ -161,7 +161,7 @@ declare module polymer {
 
     getContentChildren?(selector: string): HTMLElement[];
 
-    fire?(type: string, detail?: Object, options?: Object): CustomEvent;
+    fire?(type: string, detail?: any, options?: Object): CustomEvent;
 
     async?(callback: ()=>void, waitTime?: number): number;
 
@@ -176,6 +176,10 @@ declare module polymer {
     importHref?(href: string, onload?: Function, onerror?: Function): HTMLLinkElement;
 
     create?(tag: string, props: Object): Element;
+
+    isLightDescendant?(node: HTMLElement): boolean;
+
+    isLocalDescendant?(node: HTMLElement): boolean
 
     // XStyling
 
@@ -200,6 +204,8 @@ declare module polymer {
     copyOwnProperty?(name: string, source: Object, target: Object):void;
 
     observers?: string[];
+
+    beforeRegister?(): void;
 
     registered?(): void;
 

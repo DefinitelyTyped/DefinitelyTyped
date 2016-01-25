@@ -516,7 +516,7 @@ declare module L {
         function (options?: ControlOptions): Control;
     }
 
-    namespace control {
+    export namespace control {
 
         /**
           * Creates a zoom control.
@@ -1088,7 +1088,7 @@ declare namespace L {
         /**
           * Size of the icon image in pixels.
           */
-        iconSize?: Point;
+        iconSize?: Point|[number, number];
 
         /**
           * The coordinates of the "tip" of the icon (relative to its top left corner).
@@ -1096,7 +1096,7 @@ declare namespace L {
           * location. Centered by default if size is specified, also can be set in CSS
           * with negative margins.
           */
-        iconAnchor?: Point;
+        iconAnchor?: Point|[number, number];
 
         /**
           * The URL to the icon shadow image. If not specified, no shadow image will be
@@ -1113,19 +1113,19 @@ declare namespace L {
         /**
           * Size of the shadow image in pixels.
           */
-        shadowSize?: Point;
+        shadowSize?: Point|[number, number];
 
         /**
           * The coordinates of the "tip" of the shadow (relative to its top left corner)
           * (the same as iconAnchor if not specified).
           */
-        shadowAnchor?: Point;
+        shadowAnchor?: Point|[number, number];
 
         /**
           * The coordinates of the point from which popups will "open", relative to the
           * icon anchor.
           */
-        popupAnchor?: Point;
+        popupAnchor?: Point|[number, number];
 
         /**
           * A custom class name to assign to both icon and shadow images. Empty by default.
@@ -1838,6 +1838,22 @@ declare namespace L {
 
 declare namespace L {
 
+    export interface LeafletLayersControlEvent extends LeafletEvent {
+
+        /**
+          * The layer that was added or removed.
+          */
+        layer: ILayer;
+
+        /**
+          * The name of the layer that was added or removed.
+          */
+        name: string;
+    }
+}
+
+declare module L {
+
     export interface LeafletLocationEvent extends LeafletEvent {
 
         /**
@@ -2424,6 +2440,12 @@ declare namespace L {
           * Map state options
           */
         options: Map.MapOptions;
+
+        /**
+          * Iterates over the layers of the map, optionally specifying context 
+		  * of the iterator function.
+          */
+        eachLayer(fn: (layer: ILayer) => void, context?: any): Map;
 
         ////////////////
         ////////////////
@@ -3245,7 +3267,7 @@ declare namespace L {
         off(eventMap?: any, context?: any): Path;
     }
 
-    namespace Path {
+    export namespace Path {
         /**
           * True if SVG is used for vector rendering (true for most modern browsers).
           */
@@ -4160,6 +4182,11 @@ declare namespace L {
           * When this option is set, the TileLayer only loads tiles that are in the given geographical bounds.
           */
         bounds?: LatLngBounds;
+        
+        /**
+          * Custom keys may be specified in TileLayerOptions so they can be used in a provided URL template.
+          */
+        [additionalKeys: string]: any;
     }
 }
 

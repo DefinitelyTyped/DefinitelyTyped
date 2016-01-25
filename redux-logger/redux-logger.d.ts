@@ -1,4 +1,4 @@
-// Type definitions for redux-logger v1.0.6
+// Type definitions for redux-logger v2.0.0
 // Project: https://github.com/fcomb/redux-logger
 // Definitions by: Alexander Rusakov <https://github.com/arusakov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -8,13 +8,15 @@
 declare module 'redux-logger' {
 
   interface ReduxLoggerOptions {
+    actionTransformer?: (action: any) => any;
     collapsed?: boolean;
+    duration?: boolean;
     level?: string;
     logger?: any;
+    predicate?: (getState: Function, action: any) => boolean;
     timestamp?: boolean;
-    transformer?: (state:any)=>any;
-    predicate?: (getState:Function, action:any)=>boolean;
+    transformer?: (state:any) => any;
   }
 
-  export default function createLogger(options?:ReduxLoggerOptions):Redux.Middleware;
+  export default function createLogger(options?: ReduxLoggerOptions): Redux.Middleware;
 }

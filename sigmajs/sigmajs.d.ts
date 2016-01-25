@@ -287,9 +287,16 @@ declare module SigmaJs{
     }
 
     interface SVG {
-        edges: {[renderType: string]: SVGObject<SigmaJs.Edge>};
+        edges: {
+            labels: SVGEdgeLabels;
+            [renderType: string]: SVGObject<SigmaJs.Edge> | SVGEdgeLabels;
+        };
         labels: {[renderType: string]: SVGObject<SigmaJs.Node>};
         nodes: {[renderType: string]: SVGObject<SigmaJs.Node>};
+    }
+
+    interface SVGEdgeLabels {
+        [renderType: string]: SVGObject<SigmaJs.Edge>;
     }
 
     interface SVGObject<T> {

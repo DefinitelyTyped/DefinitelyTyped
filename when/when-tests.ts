@@ -116,6 +116,14 @@ when.iterate(function (x) {
 	console.log(err);
 });
 
+when.unfold(function (x) {
+	return [{foo: 'bar'}, x + 1];
+}, function (x) {
+	return x < 10;
+}, function (y) {
+	delete y.foo;
+}, 0);
+
 /* when.promise(resolver) */
 
 promise = when.promise<number>(resolve => resolve(5));
@@ -371,6 +379,10 @@ example = function () {
 /* node.apply */
 
 promise = nodefn.apply(nodeFn2, [1, '2']);
+
+example = function() {
+	nodefn.apply(fs.read, arguments);
+}
 
 example = function () {
 	var loadPasswd = nodefn.apply(fs.readFile, ['/etc/passwd']);

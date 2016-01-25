@@ -1,4 +1,4 @@
-// Type definitions for Application Insights v0.15.1
+// Type definitions for Application Insights v0.15.8
 // Project: https://github.com/Microsoft/ApplicationInsights-node.js
 // Definitions by: Scott Southwood <https://github.com/scsouthw/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -343,9 +343,22 @@ interface Client {
         [key: string]: string;
     }): void;
     /**
+     * Log information about a dependency of your app. Typically used to track the time database calls or outgoing http requests take from your server.
+     * @param name   The name of the dependency (i.e. "myDatabse")
+     * @param commandname   The name of the command executed on the dependency
+     * @param elapsedTimeMs   The amount of time in ms that the dependency took to return the result
+     * @param success         True if the dependency succeeded, false otherwise
+     * @param dependencyTypeName  The type of the dependency (i.e. "SQL" "HTTP"). Defaults to empty.
+     * @param properties   map[string, string] - additional data used to filter events and metrics in the portal. Defaults to empty.
+     * @param dependencyKind   ContractsModule.DependencyKind of this dependency. Defaults to Other.
+     * @param async  True if the dependency was executed asynchronously, false otherwise. Defaults to false
+     * @param dependencySource  ContractsModule.DependencySourceType of this dependency. Defaults to Undefined. 
+     */
+    trackDependency(name: string, commandName: string, elapsedTimeMs: number, success: boolean, dependencyTypeName?: string, properties?: {}, dependencyKind?: any, async?: boolean, dependencySource?: number): void;
+    /**
      * Immediately send all queued telemetry.
      */
-    sendPendingData(): void;
+    sendPendingData(callback?: (response: string) => void): void;
     getEnvelope(data: ContractsModule.Data<ContractsModule.Domain>, tagOverrides?: {
         [key: string]: string;
     }): ContractsModule.Envelope;
@@ -396,66 +409,58 @@ interface Sender {
  * The singleton meta interface for the default client of the client. This interface is used to setup/start and configure
  * the auto-collection behavior of the application insights module.
  */
-declare class ApplicationInsights {
-    static client: Client;
-    private static _isConsole;
-    private static _isExceptions;
-    private static _isPerformance;
-    private static _isRequests;
-    private static _console;
-    private static _exceptions;
-    private static _performance;
-    private static _requests;
-    private static _isStarted;
+interface ApplicationInsights {
+    client: Client;
     /**
      * Initializes a client with the given instrumentation key, if this is not specified, the value will be
      * read from the environment variable APPINSIGHTS_INSTRUMENTATIONKEY
      * @returns {ApplicationInsights/Client} a new client
      */
-    static getClient(instrumentationKey?: string): Client;
+    getClient(instrumentationKey?: string): Client;
     /**
      * Initializes the default client of the client and sets the default configuration
      * @param instrumentationKey the instrumentation key to use. Optional, if this is not specified, the value will be
      * read from the environment variable APPINSIGHTS_INSTRUMENTATIONKEY
      * @returns {ApplicationInsights} this interface
      */
-    static setup(instrumentationKey?: string): typeof ApplicationInsights;
+    setup(instrumentationKey?: string): ApplicationInsights;
     /**
      * Starts automatic collection of telemetry. Prior to calling start no telemetry will be collected
      * @returns {ApplicationInsights} this interface
      */
-    static start(): typeof ApplicationInsights;
+    start(): ApplicationInsights;
     /**
      * Sets the state of console tracking (enabled by default)
      * @param value if true console activity will be sent to Application Insights
      * @returns {ApplicationInsights} this interface
      */
-    static setAutoCollectConsole(value: boolean): typeof ApplicationInsights;
+    setAutoCollectConsole(value: boolean): ApplicationInsights;
     /**
      * Sets the state of exception tracking (enabled by default)
      * @param value if true uncaught exceptions will be sent to Application Insights
      * @returns {ApplicationInsights} this interface
      */
-    static setAutoCollectExceptions(value: boolean): typeof ApplicationInsights;
+    setAutoCollectExceptions(value: boolean): ApplicationInsights;
     /**
      * Sets the state of performance tracking (enabled by default)
      * @param value if true performance counters will be collected every second and sent to Application Insights
      * @returns {ApplicationInsights} this interface
      */
-    static setAutoCollectPerformance(value: boolean): typeof ApplicationInsights;
+    setAutoCollectPerformance(value: boolean): ApplicationInsights;
     /**
      * Sets the state of request tracking (enabled by default)
      * @param value if true requests will be sent to Application Insights
      * @returns {ApplicationInsights} this interface
      */
-    static setAutoCollectRequests(value: boolean): typeof ApplicationInsights;
+    setAutoCollectRequests(value: boolean): ApplicationInsights;
     /**
      * Enables verbose debug logging
      * @returns {ApplicationInsights} this interface
      */
-    static enableVerboseLogging(): typeof ApplicationInsights;
+    enableVerboseLogging(): ApplicationInsights;
 }
 
 declare module "applicationinsights" {
-    export = ApplicationInsights;
+    const applicationinsights: ApplicationInsights;
+    export = applicationinsights;
 }

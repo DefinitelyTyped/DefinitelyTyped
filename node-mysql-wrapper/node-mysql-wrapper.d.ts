@@ -5,6 +5,8 @@
 
 ///<reference path='./../mysql/mysql.d.ts' />
 ///<reference path='./../bluebird/bluebird.d.ts' />
+///<reference path="./my-meteor.d.ts" />
+
 
 declare module "node-mysql-wrapper" {
     import * as Mysql from 'mysql';
@@ -33,6 +35,8 @@ declare module "node-mysql-wrapper" {
     };
 
     type TableToSearchPart = { tableName: string, propertyName: string };
+
+    type PropertyChangedCallback = (args: PropertyChangedArgs) => any;
 
     interface Map<T> {
         [index: string]: T;
@@ -95,12 +99,12 @@ declare module "node-mysql-wrapper" {
     
         /**
          * Iterate object's keys and return their values to the callback.
-         * @param {Map<T>} map the object.
+         * @param {<T>} map the object.
          * @param {valueCallback}
          * @returnType {U}
          * @return {U}
          */
-        static forEachValue<T, U>(map: Map<T>, callback: (value: T) => U): U;
+        static forEachValue<T, U>(map: T, callback: (value: T) => U): U;
 
         /**
         * Iterate object's keys and return their names to the callback.
@@ -285,21 +289,178 @@ declare module "node-mysql-wrapper" {
     }
 
     class SaveQuery<T> implements IQuery<T> {
-
         _table: Table<T>
         constructor(_table: Table<T>);
-
         execute(criteriaRawJsObject: any, callback?: (_result: T | any) => any): Promise<T | any>;
     }
 
     class DeleteQuery<T> implements IQuery<T>{
-
         _table: Table<T>
         constructor(_table: Table<T>);
-
         execute(criteriaOrID: any | number | string, callback?: (_result: DeleteAnswer) => any): Promise<DeleteAnswer>;
     }
 
+
+    class PropertyChangedArgs {
+        propertyName: string;
+        oldValue: any;
+        constructor(propertyName: string, oldValue: any);
+    }
+
+    class ObservableObject {
+
+        /** Property names that your row couldn't have:
+         * "propertyChangedListeners", "notifyPropertyChanged", "onPropertyChanged", "toJSON", "makeObservable", "_forget"
+         */
+        static RESERVED_PROPERTY_NAMES: string[];
+
+        private propertyChangedListeners: PropertyChangedCallback[];
+        
+        /** Make the obj observable. Used in constructor or extend this class and use it. */
+        private makeObservable(obj: any): void;
+
+        constructor();
+        constructor(obj?: any);
+
+        /**Add a listener/observer to watch for changes in this object's properties */
+        onPropertyChanged(listener: PropertyChangedCallback): void;
+        
+        /** If developer wants manualy notify for property changed */
+        notifyPropertyChanged(propertyName: string, oldValue: any): void;
+
+        /**Remove property changed listeners  */
+        _forget(): void;
+
+        toJSON(...excludeProperties: string[]): any;
+
+    }
+
+    enum CollectionChangedAction {
+        INSERT, DELETE, RESET//for now I will use only add, remove and reset . replace and move is for future., REPLACE, MOVE
+    }
+
+    class CollectionChangedEventArgs<T> {
+        action: CollectionChangedAction;
+        oldItems: (T | (T & ObservableObject))[];
+        newItems: (T | (T & ObservableObject))[];
+        oldStartingIndex: number;
+        newStartingIndex: number;
+
+        constructor(action: CollectionChangedAction, oldItems?: (T | (T & ObservableObject))[], newItems?: (T | (T & ObservableObject))[], oldStartingIndex?: number, newStartingIndex?: number);
+    }
+
+
+    class BaseCollection<T> {//T=result type of Table
+        private list: (T | (T & ObservableObject))[];
+        listeners: ((eventArgs: CollectionChangedEventArgs<T>) => void)[];
+        constructor(table: Table<T>);
+        length: number;
+        items: (T | (T & ObservableObject))[];
+        indexOf(item: T | string | number): number;
+        findItem(itemId: string | number): T;
+        getItem(index: number): T;
+        getItemObservable(index: number): T & ObservableObject;
+        addItem(...items: (T | (T & ObservableObject))[]): (T | (T & ObservableObject));
+        removeItem(...items: (T | (T & ObservableObject))[]): BaseCollection<T>;
+        removeItemById(id: number | string): BaseCollection<T>;
+        forgetItem(...items: (T | (T & ObservableObject))[]): BaseCollection<T>;
+        reset(): BaseCollection<T>;
+        notifyCollectionChanged(evtArgs: CollectionChangedEventArgs<T>): void;
+        onCollectionChanged(callback: (eventArgs: CollectionChangedEventArgs<T>) => void): void;
+    }
+
+    class ObservableCollection<T> { //auti i klasi 9a xrisimopoieite ws Collection me kapoies paralages mesa sto index.ts.
+        local: BaseCollection<T>;
+        private _items: (T & ObservableObject)[];
+
+        constructor(table: Table<T>, fetchAllFromDatabase?: boolean, callbackWhenReady?: Function);
+
+        items: (T & ObservableObject)[];
+
+        onCollectionChanged(callback: (eventArgs: CollectionChangedEventArgs<T>) => void): void;
+
+        startListeningToDatabase(): void;
+
+        find(criteriaRawJsObject?: any, callback?: (_results: T[]) => any): Promise<T[]>;
+
+        findOne(criteriaRawJsObject: any, callback?: (_result: T) => any): Promise<T>;
+
+        findById(id: number | string, callback?: (result: T) => any): Promise<T>;
+
+        findAll(tableRules?: RawRules, callback?: (_results: T[]) => any): Promise<T[]>;
+    
+        /**
+         * .insert() and .update() do the same thing:  .save();
+         */
+        insert(criteriaRawJsObject: any, callback?: (_result: any) => any): Promise<T | any>;
+
+        update(criteriaRawJsObject: any, callback?: (_result: any) => any): Promise<T | any>;
+
+        save(criteriaRawJsObject: any, callback?: (_result: any) => any): Promise<T | any>;
+
+        remove(criteriaOrID: any | number | string, callback?: (_result: DeleteAnswer) => any): Promise<DeleteAnswer>;
+	
+        /**
+         * same thing as .remove();
+         */
+        delete(criteriaOrID: any | number | string, callback?: (_result: DeleteAnswer) => any): Promise<DeleteAnswer>;
+
+
+    }
+
+    class MeteorCollection<T> {
+        private collection: Mongo.Collection<T>;
+        protected table: Table<T>;
+
+        constructor(table: Table<T>, name?: string);
+
+        startListeningToDatabase(): void;
+
+        rawCollection: Mongo.Collection<T>;
+
+        fill(criteriaRawJsObject: any): void;
+
+        fillAll(): void;
+
+        fillOne(criteriaRawJsObject: any): void;
+    
+        //ONLY MONGO/METEOR COLLECTION METHODS START
+        allow(options: {
+            insert?: (userId: string, doc: T) => boolean;
+            update?: (userId: string, doc: T, fieldNames: string[], modifier: any) => boolean;
+            remove?: (userId: string, doc: T) => boolean;
+            fetch?: string[];
+            transform?: Function;
+        }): boolean;
+
+        deny(options: {
+            insert?: (userId: string, doc: T) => boolean;
+            update?: (userId: string, doc: T, fieldNames: string[], modifier: any) => boolean;
+            remove?: (userId: string, doc: T) => boolean;
+            fetch?: string[];
+            transform?: Function;
+        }): boolean;
+
+        find(selector?: any, options?: {
+            sort?: any;
+            skip?: number;
+            limit?: number;
+            fields?: any;
+            reactive?: boolean;
+            transform?: Function;
+        }): Mongo.Cursor<T>;
+
+        findOne(selector?: any, options?: {
+            sort?: any;
+            skip?: number;
+            fields?: any;
+            reactive?: boolean;
+            transform?: Function;
+        }): T;
+    
+        //ONLY MONGO/METEOR COLLECTION METHODS FINISH.
+
+    }
 
 
     class Connection extends EventEmitter {
@@ -324,15 +485,15 @@ declare module "node-mysql-wrapper" {
          */
         tables: Table<any>[];
 
-        constructor(connection: string | Mysql.IConnection);
+        constructor(connection: string | Mysql.IConnection | Mysql.IConnectionConfig);
         
         /**
          * Creates the MysqlConnection from the connection url or the real connection object.
-         * @param {string | Mysql.IConnection} connection the connection url or the real connection object.
+         * @param {string | Mysql.IConnection |  Mysql.IConnectionConfig} connection the connection url or the real connection object.
          * @returnType {nothing}
          * @return {nothing}
          */
-        create(connection: string | Mysql.IConnection): void;
+        create(connection: string | Mysql.IConnection | Mysql.IConnectionConfig): void;
         
         /**
          * Attach a real connection.
@@ -357,6 +518,13 @@ declare module "node-mysql-wrapper" {
         destroy(): void;
         
         /**
+         * Clear all binary logs from the whole database.
+         * When finish returns a promise, use it with .then(function(){});
+         * @return Promise
+         */
+        clearBinaryLogs(): Promise<void>;
+        
+        /**
          * Link the real connection with this MysqlConnection object.
          * @param {function} readyCallback when the link operation is done this callback is executed.
          * @returnType {Promise}
@@ -377,7 +545,7 @@ declare module "node-mysql-wrapper" {
          * @returnType {Promise}
          * @return {Promise}
          */
-        fetchDatabaseInfornation(): Promise<void>;
+        fetchDatabaseInformation(): Promise<void>;
         
         /**
          * Escape the query column's value  and return it.
@@ -391,21 +559,21 @@ declare module "node-mysql-wrapper" {
          * Call when must notify the Database events, SAVE(INSERT,UPDATE), REMOVE(DELETE).
          * @param {string} tableWhichCalled the table name which event is coming from.
          * @param {string} queryStr the full parsed query string which used to determinate the type of event to notify.
-         * @param {any[]} parsedResults the parsed results (results after a method parse/edit/export them as objects), these are passing to the watch listener(s).
+         * @param {any[]} rawRows the raw rows results (results before a method parse/edit/export them as objects), these are passing to the watch listener(s).
          * @returnType {nothing}
          * @return {nothing}
          */
-        notice(tableWhichCalled: string, queryStr: string, parsedResults: any[]): void;
+        notice(tableWhichCalled: string, queryStr: string, rawRows: any[]): void;
         
         /**
          * Adds an event listener/watcher on a table for a 'database event'.
          * @param {string} tableName the table name which you want to add the event listener.
          * @param {string or string[]} evtType the event(s) type you want to watch, one of these(string) or an array of them(string[]): ["INSERT", "UPDATE", "REMOVE", "SAVE"].
-         * @param {function} callback Callback which has one parameter(typeof any[]) which filled by the parsedResults (results after query executed and exports to object(s)). 
+         * @param {function} callback Callback which has one parameter(typeof any[]) which filled by the rawRows (results after query executed and before parsed to object(s)). 
          * @returnType {nothing}
          * @return {nothing}
          */
-        watch(tableName: string, evtType: any, callback: (parsedResults: any[]) => void): void;
+        watch(tableName: string, evtType: any, callback: (rawRows: any[]) => void): void;
         
         /**
          * Removes an event listener/watcher from a table for a specific event type.
@@ -415,7 +583,7 @@ declare module "node-mysql-wrapper" {
          * @returnType {nothing}
          * @return {nothing}
          */
-        unwatch(tableName: string, evtType: string, callbackToRemove: (parsedResults: any[]) => void): void;
+        unwatch(tableName: string, evtType: string, callbackToRemove: (rawResults: any[]) => void): void;
         
         /**
          * Executes a database query.
@@ -437,7 +605,11 @@ declare module "node-mysql-wrapper" {
         table<T>(tableName: string): Table<T>;
     }
 
-    class Table<T> {
+    class Table<T>  {
+        /** Private keywords here are useless but I put them. 
+         * If the developer wants to see the properties of the Table class, he/she just comes here.
+        */
+
         private _name: string;
         private _connection: Connection;
         private _columns: string[];
@@ -449,6 +621,8 @@ declare module "node-mysql-wrapper" {
         private _deleteQuery: DeleteQuery<T>;
         constructor(tableName: string, connection: Connection);
 
+
+      
         /**
          * An array of all columns' names inside this table.
          */
@@ -491,11 +665,11 @@ declare module "node-mysql-wrapper" {
         /**
         * Adds or turn on an event listener/watcher on a table for a 'database event'.
         * @param {string} evtType the event type you want to watch, one of these: ["INSERT", "UPDATE", "REMOVE", "SAVE"].
-        * @param {function} callback Callback which has one parameter(typeof any[]) which filled by the parsedResults (results after query executed and exports to object(s)). 
+        * @param {function} callback Callback which has one parameter(typeof any[]) which filled by the rawResults (results after query executed and before exports to object(s)). 
         * @returnType {nothing}
         * @return {nothing}
         */
-        on(evtType: string, callback: (parsedResults: any[]) => void): void;
+        on(evtType: string, callback: (rawResults: any[]) => void): void;
             
         /**
          * Removes or turn off an event listener/watcher from a table for a specific event type.
@@ -504,8 +678,8 @@ declare module "node-mysql-wrapper" {
          * @returnType {nothing}
          * @return {nothing}
          */
-        off(evtType: string, callbackToRemove: (parsedResults: any[]) => void): void;
-        
+        off(evtType: string, callbackToRemove: (rawResults: any[]) => void): void;
+         
         /**
          * Use it when you want to check if extended function is exists here.
          * @param {string} extendedFunctionName the name of the function you want to check.
@@ -564,7 +738,7 @@ declare module "node-mysql-wrapper" {
 
         findSingle(criteriaRawJsObject: any, callback?: (_result: T) => any): Promise<T>;
 
-        findById(id: number|string): Promise<T>; // without callback
+        findById(id: number | string): Promise<T>; // without callback
         findById(id: number | string, callback?: (result: T) => any): Promise<T>;
 
         findAll(): Promise<T[]>; // only criteria and promise
@@ -581,8 +755,25 @@ declare module "node-mysql-wrapper" {
 
     }
 
-    class Wrapper {
+    class MeteorTable<T>{
+        public table: Table<T>;
+        constructor(table: Table<T>);
+
+        insert(doc: T, callback?: (_result: T) => void): T;
+
+        remove(selector: any, callback?: () => DeleteAnswer): DeleteAnswer;
+
+        update(selector: any, modifier: any, options?: {
+            multi?: boolean;
+            upsert?: boolean;
+        }, callback?: (result: T) => any): number;
+
+        collection(nameOfCollection?: string, fillWithCriteria?: any): Mongo.Collection<T>;
+    }
+
+    class Database {
         connection: Connection;
+        isReady: boolean;
         readyListenerCallbacks: Function[];
         constructor(connection?: Connection);
         static when(..._promises: Promise<any>[]): Promise<any>;
@@ -597,7 +788,7 @@ declare module "node-mysql-wrapper" {
         useOnly(...useTables: any[]): void;
 
         has(tableName: string, functionName?: string): boolean;
-        ready(callback: () => void): void;
+        ready(callback?: () => void): void;
         table<T>(tableName: string): Table<T>;
         noticeReady(): void;
         removeReadyListener(callback: () => void): void;
@@ -621,7 +812,19 @@ declare module "node-mysql-wrapper" {
 
         buildRules(): SelectQueryRules;
         buildRules(parentRules?: SelectQueryRules): SelectQueryRules;
+
+        collection<T>(tableName: string, callbackWhenReady?: Function): ObservableCollection<T>;
+
+        /**Meteor js feature only: Returns a table which it's collection can make synchronization with the client */
+        meteorTable<T>(tableName: string): MeteorTable<T>;
     }
 
-    function wrap(mysqlUrlOrObjectOrMysqlAlreadyConnection: Mysql.IConnection | string, ...useTables: any[]): Wrapper;
+    function wrap(mysqlUrlOrObjectOrMysqlAlreadyConnection: Mysql.IConnection | string, ...useTables: any[]): Database;
+    
+    /** For meteor js only
+     * Same as wrap but it's sync mode - autoconnect to the database without need to use database.ready(callback).
+     */
+    function connect(mysqlUrlOrObjectOrMysqlAlreadyConnection: Mysql.IConnection | string, ...useTables: any[]): Database;
+
+    function observable<T>(obj: T): T & ObservableObject;
 }
