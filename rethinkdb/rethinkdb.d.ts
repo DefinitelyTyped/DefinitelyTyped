@@ -3116,7 +3116,7 @@ declare module rethinkdb {
     *
     * http://rethinkdb.com/api/javascript/changes
     */
-    changes(options?:{squash:boolean|RBoolInterface|number, changefeedQueueSize:number|RNumberInterface, includeInitial:boolean|RBoolInterface, includeStates:boolean|RBoolInterface}):RStreamInterface<ChangesResult<RemoteT>>;
+    changes(options?:{squash?:boolean|RBoolInterface|number, changefeedQueueSize?:number|RNumberInterface, includeInitial?:boolean|RBoolInterface, includeStates?:boolean|RBoolInterface}):RStreamInterface<ChangesResult<RemoteT>>;
   }
   export interface ROperationsInterface extends RAnyInterface {
     /**
