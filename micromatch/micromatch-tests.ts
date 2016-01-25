@@ -36,7 +36,7 @@ anyMatchFuncResult = mm.filter((filePath: string) => true);
 anyMatchFuncResult = mm.filter('*.md', {dot: true});
 ['a.js', 'b.txt', 'c.md'].filter(anyMatchFuncResult);
 
-var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10 , 11, 12, 13, 14, 15];
+var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 anyMatchFuncResult = mm.filter(['{1..10}', '![7-9]', '!{3..4}']);
 arr.filter(anyMatchFuncResult);
 
