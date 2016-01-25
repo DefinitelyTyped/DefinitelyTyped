@@ -51,6 +51,10 @@ declare module WebTorrent {
     add(torrentFileOrInfoHash:Buffer, opts?:TorrentOptions, onTorrentCallback?:(torrent:Torrent)=>void):Torrent;
     add(parsedTorrent:ParseTorrent.ParsedTorrent, opts?:TorrentOptions, onTorrentCallback?:(torrent:Torrent)=>void):Torrent;
     
+    add(magnetUriOrPathOrInfoHash:string, onTorrentCallback?:(torrent:Torrent)=>void):Torrent;
+    add(torrentFileOrInfoHash:Buffer, onTorrentCallback?:(torrent:Torrent)=>void):Torrent;
+    add(parsedTorrent:ParseTorrent.ParsedTorrent, onTorrentCallback?:(torrent:Torrent)=>void):Torrent;
+    
     /**
      * Emitted when a torrent is ready to be used (i.e. metadata is available and store is ready). See the torrent section for more info on what methods a torrent has.
      */
@@ -73,21 +77,28 @@ declare module WebTorrent {
         options for client.add (see above)
         If onseed is specified, it will be called when the client has begun seeding the file.
      */
-    seed(inputFileOrFolderPath:string, opts?, onSeed?:(torrent:Torrent)=>void):void;
-    seed(inputFile:File, opts?, onSeed?:(torrent:Torrent)=>void):void;
-    seed(inputFileList:FileList, opts?, onSeed?:(torrent:Torrent)=>void):void;
-    seed(inputBuffer:Buffer, opts?, onSeed?:(torrent:Torrent)=>void):void;
-    seed(inputBuffersFilesOrPaths:Array<string|File|Buffer>, opts?, onSeed?:(torrent:Torrent)=>void):void;
+    seed(inputFileOrFolderPath:string, opts?:TorrentOptions|any, onSeed?:(torrent:Torrent)=>void):void;
+    seed(inputFile:File, opts?:TorrentOptions|any, onSeed?:(torrent:Torrent)=>void):void;
+    seed(inputFileList:FileList, opts?:TorrentOptions|any, onSeed?:(torrent:Torrent)=>void):void;
+    seed(inputBuffer:Buffer, opts?:TorrentOptions|any, onSeed?:(torrent:Torrent)=>void):void;
+    seed(inputBuffersFilesOrPaths:Array<string|File|Buffer>, opts?:TorrentOptions|any, onSeed?:(torrent:Torrent)=>void):void;
+    
+    seed(inputFileOrFolderPath:string, onSeed?:(torrent:Torrent)=>void):void;
+    seed(inputFile:File, onSeed?:(torrent:Torrent)=>void):void;
+    seed(inputFileList:FileList, onSeed?:(torrent:Torrent)=>void):void;
+    seed(inputBuffer:Buffer, onSeed?:(torrent:Torrent)=>void):void;
+    seed(inputBuffersFilesOrPaths:Array<string|File|Buffer>, onSeed?:(torrent:Torrent)=>void):void;
+    //TODO: opts
     
     /**
      * Remove a torrent from the client. Destroy all connections to peers and delete all saved file data. If callback is specified, it will be called when file data is removed.
      */
-    remove(torrentId:string, callback?:(err)=>void);
+    remove(torrentId:string, callback?:(err:Error)=>void):void;
     
     /**
      * Destroy the client, including all torrents and connections to peers. If callback is specified, it will be called when the client has gracefully closed.
      */
-    destroy(callback?:(err)=>void);
+    destroy(callback?:(err:Error)=>void):void;
     
     /**
      * An array of all torrents in the client.
@@ -126,7 +137,7 @@ declare module WebTorrent {
     /**
      * The attached bittorrent-swarm instance.
      */
-    swarm; // TODO: return type
+    swarm:any; // TODO: return type
     
     /**
      * Get total bytes received from peers (including invalid data).
@@ -188,7 +199,7 @@ declare module WebTorrent {
     /**
      * Deprioritizes a range of previously selected pieces.
      */
-    deselect(start:number, end:number, priority:number);
+    deselect(start:number, end:number, priority:number):void;
     
     /**
      * Marks a range of pieces as critical priority to be downloaded ASAP. From start to end (both inclusive).
@@ -202,7 +213,7 @@ declare module WebTorrent {
 
     Visiting the root of the server / will show a list of links to individual files. Access individual files at /<index> where <index> is the index in the torrent.files array (e.g. /0, /1, etc.)
      */
-    createServer(opts?); // TODO: :http.Server;
+    createServer(opts?:any):any; // TODO: :http.Server;
     
     /**
      * Temporarily stop connecting to new peers. Note that this does not pause new incoming connections, nor does it pause the streams of existing connections or their wires.
@@ -227,7 +238,7 @@ declare module WebTorrent {
     /**
      * Emitted whenever a new peer is connected for this torrent. wire is an instance of bittorrent-protocol, which is a node.js-style duplex stream to the remote peer. This event can be used to specify custom BitTorrent protocol extensions.
      */
-    on(event: 'wire', callback:(wire)=>void): NodeJS.EventEmitter;
+    on(event: 'wire', callback:(wire:any)=>void): NodeJS.EventEmitter;
   }
   
   export interface InTorrentFile extends NodeJS.EventEmitter {
@@ -293,12 +304,12 @@ declare module WebTorrent {
     })
     
      */
-    appendTo(rootElem:Element, callback?:(err:Error, elem:Element) => void):void;
+    appendTo(rootElem:Element|string, callback?:(err:Error, elem:Element) => void):void;
     
     /**
      * Like file.appendTo but renders directly into given element (or CSS selector).
      */
-    renderTo(elem:Element, callback?:(err, elem) => void):void;
+    renderTo(elem:Element|string, callback?:(err:Error, elem:Element) => void):void;
     
     /**
      * Get a url which can be used in the browser to refer to the file.
