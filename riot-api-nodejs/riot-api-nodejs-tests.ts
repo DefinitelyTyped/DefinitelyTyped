@@ -1,4 +1,6 @@
 /// <reference path="./riot-api-nodejs.d.ts"/>
 
-let ClassicApi = new ClassicAPI([""], region_e.EUW);
-let TournamentApi = new TournamentAPI("");
+import * as Api from "riot-api-nodejs";
+
+let ClassicApi = new Api.ClassicAPI([""], region_e.EUW);
+let TournamentApi = new Api.TournamentAPI("");
