@@ -101,8 +101,7 @@ declare module "express" {
 
             route(path: string): IRoute;
 
-            use(...handler: RequestHandler[]): T;
-            use(handler: ErrorRequestHandler|RequestHandler): T;
+            use(...handler: (ErrorRequestHandler|RequestHandler)[]): T;
             use(path: string, ...handler: RequestHandler[]): T;
             use(path: string, handler: ErrorRequestHandler|RequestHandler): T;
             use(path: string[], ...handler: RequestHandler[]): T;
