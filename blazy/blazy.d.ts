@@ -8,13 +8,13 @@ declare var Blazy: Blazy;
 
 interface Blazy {
 
-  new (options: IBlazyOptions): IBlazyInstance;
+  new (options: BlazyOptions): BlazyInstance;
 
 }
 
-interface IBlazyOptions {
+interface BlazyOptions {
 
-  breakpoints: IBreakpoint[];
+  breakpoints: Breakpoint[];
 
   container: string;
 
@@ -34,7 +34,7 @@ interface IBlazyOptions {
 
   src: string;
 
-  success: (ele: Element|HTMLElement|NodeList) => void;
+  success: (ele: Element|HTMLElement) => void;
 
   successClass: string;
 
@@ -42,7 +42,7 @@ interface IBlazyOptions {
 
 }
 
-interface IBlazyInstance {
+interface BlazyInstance {
 
   /**
    * Revalidates document for visible images. Useful if you add images with scripting or ajax.
@@ -62,7 +62,7 @@ interface IBlazyInstance {
 
 }
 
-interface IBreakpoint {
+interface Breakpoint {
   width: number;
   src: string;
 }

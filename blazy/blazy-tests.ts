@@ -1,7 +1,7 @@
 /// <reference path="blazy.d.ts" />
 
 /* Constructor test */
-var tester: IBlazyInstance = new Blazy({
+var tester: BlazyInstance = new Blazy({
   breakpoints: [
     {
       width: 420,
