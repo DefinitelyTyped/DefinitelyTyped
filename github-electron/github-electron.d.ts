@@ -1023,6 +1023,10 @@ declare module Electron {
 		 */
 		getName(): string;
 		/**
+		  * @returns The current application locale.
+		  **/
+		getLocale(): string;
+		/**
 		 * Resolves the proxy information for url, the callback would be called with
 		 * callback(proxy) when the request is done.
 		 */
