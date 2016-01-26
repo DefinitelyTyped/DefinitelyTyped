@@ -14,7 +14,7 @@ declare namespace __ReduxRouter {
     /**
     * A component that renders a React Router app using router state from a Redux store.
     */
-    export class ReduxRouter extends React.Component<any, any> { new(); }
+    export class ReduxRouter extends React.Component<any, any> { }
     /**
     * A component that renders a React Router app using router state from a Redux store.
     */
@@ -35,10 +35,10 @@ declare namespace __ReduxRouter {
         payload: any
     }
 
-    export function routerDidChange(state): ReduxRouterAction;
-    export function initRoutes(routes): ReduxRouterAction;
-    export function replaceRoutes(routes): ReduxRouterAction;
-    export function historyAPI(method): ReduxRouterAction;
+    export function routerDidChange(state: any): ReduxRouterAction;
+    export function initRoutes(routes: any): ReduxRouterAction;
+    export function replaceRoutes(routes: any): ReduxRouterAction;
+    export function historyAPI(method: any): ReduxRouterAction;
 }
 
 declare module "redux-router/lib/routerStateReducer" {
