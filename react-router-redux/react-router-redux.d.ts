@@ -1,5 +1,5 @@
-// Type definitions for redux-simple-router v2.0.4
-// Project: https://github.com/rackt/redux-simple-router
+// Type definitions for react-router-redux v2.0.4
+// Project: https://github.com/rackt/react-router-redux
 // Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
