@@ -125,11 +125,11 @@ declare module moment {
     }
 
     interface MomentCreationData {
-        input?: string,
-        format?: string,
-        locale: MomentLocale,
-        isUTC: boolean,
-        strict?: boolean
+        input?: string;
+        format?: string;
+        locale: MomentLocale;
+        isUTC: boolean;
+        strict?: boolean;
     }
 
     interface Moment {
