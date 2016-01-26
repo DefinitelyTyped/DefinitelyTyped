@@ -2250,6 +2250,7 @@ declare namespace JSX {
         svg: React.SVGProps;
 
         circle: React.SVGProps;
+        clipPath: React.SVGProps;
         defs: React.SVGProps;
         ellipse: React.SVGProps;
         g: React.SVGProps;
