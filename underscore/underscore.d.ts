@@ -1065,6 +1065,55 @@ interface UnderscoreStatic {
 		...methodNames: string[]): any;
 
 	/**
+	* Partially apply a function by filling in its argument, without changing its dynamic this value. A close cousin
+	* of bind.
+	* @param fn Function to partially fill in argument.
+	* @param arg The partial argument.
+	* @return `fn` with partially filled in argument.
+	**/
+	partial<T, TResult>(
+		fn: (arg: T) => TResult,
+		arg: T): () => TResult;
+
+	/**
+	* Partially apply a function by filling in the first of its arguments, without changing its dynamic this value. A
+	* close cousin of bind.
+	* @param fn Function to partially fill in argument.
+	* @param arg1 The partial argument.
+	* @return `fn` with partially filled in argument.
+	**/
+	partial<T1, T2, TResult>(
+		fn: (arg1: T1, arg2: T2) => TResult,
+		arg1: T1): (arg2: T2) => TResult;
+
+	/**
+	* Partially apply a function by filling in both of its arguments, without changing its dynamic this value. A close
+	* cousin of bind.
+	* @param fn Function to partially fill in arguments.
+	* @param arg1 The first partial argument.
+	* @param arg2 The second partial argument.
+	* @return `fn` with partially filled in arguments.
+	**/
+	partial<T1, T2, TResult>(
+		fn: (arg1: T1, arg2: T2) => TResult,
+		arg1: T1,
+		arg2: T2): () => TResult;
+
+	/**
+	* Partially apply a function by filling in its second argument, without changing its dynamic this value.
+	* A close cousin of bind. You pass _ as the first argument to specify that it should not be pre-filled, but left
+	* open to supply at call-time. 
+	* @param fn Function to partially fill in argument.
+	* @param arg1 The argument to supply at call-time.
+	* @param arg2 The partial argument.
+	* @return `fn` with partially filled in argument.
+	**/
+	partial<T1, T2, TResult>(
+		fn: (arg1: T1, arg2: T2) => TResult,
+		arg1: UnderscoreStatic,
+		arg2: T2): (arg1: T1) => TResult;
+
+	/**
 	* Partially apply a function by filling in any number of its arguments, without changing its dynamic this value.
 	* A close cousin of bind.  You may pass _ in your list of arguments to specify an argument that should not be 
 	* pre-filled, but left open to supply at call-time. 

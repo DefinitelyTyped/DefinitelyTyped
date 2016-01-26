@@ -501,3 +501,15 @@ function strong_typed_values_tests() {
 
     _.values<{title: string, value: number}>(dictionaryLike);
 }
+
+//////////////// Partial Tests
+var pfn1: () => number = _.partial((arg: number) => arg, 1);
+
+var pfn2: (arg2: number) => number =
+    _.partial((arg1: boolean, arg2: number) => arg2, true);
+
+var pfn3: () => number =
+    _.partial((arg1: boolean, arg2: number) => arg2, true, 1);
+
+var pfn4: (arg1: boolean) => number =
+    _.partial((arg1: boolean, arg2: number) => arg2, _, 1);
