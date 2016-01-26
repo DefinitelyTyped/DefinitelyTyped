@@ -9,7 +9,7 @@
 declare module JQueryUI {
     // Accordion //////////////////////////////////////////////////
 
-    interface AccordionOptions {
+    interface AccordionOptions extends AccordionEvents {
         active?: any; // boolean or number
         animate?: any; // boolean, number, string or object
         collapsible?: boolean;
@@ -37,24 +37,27 @@ declare module JQueryUI {
         create?: AccordionEvent;
     }
 
-    interface Accordion extends Widget, AccordionOptions, AccordionEvents {
+    interface Accordion extends Widget, AccordionOptions {
     }
 
 
     // Autocomplete //////////////////////////////////////////////////
 
-    interface AutocompleteOptions {
+    interface AutocompleteOptions extends AutocompleteEvents {
         appendTo?: any; //Selector;
         autoFocus?: boolean;
         delay?: number;
         disabled?: boolean;
         minLength?: number;
-        position?: string;
+        position?: any; // object
         source?: any; // [], string or ()
     }
 
     interface AutocompleteUIParams {
-
+        /**
+         * The item selected from the menu, if any. Otherwise the property is null
+         */
+        item?: any;
     }
 
     interface AutocompleteEvent {
@@ -72,8 +75,9 @@ declare module JQueryUI {
         select?: AutocompleteEvent;
     }
 
-    interface Autocomplete extends Widget, AutocompleteOptions, AutocompleteEvents {
+    interface Autocomplete extends Widget, AutocompleteOptions {
         escapeRegex: (value: string) => string;
+        filter: (array: any, term: string) => any;
     }
 
 
@@ -83,7 +87,8 @@ declare module JQueryUI {
         disabled?: boolean;
         icons?: any;
         label?: string;
-        text?: boolean;
+        text?: string|boolean;
+        click?: (event?: Event) => void;
     }
 
     interface Button extends Widget, ButtonOptions {
@@ -336,15 +341,17 @@ declare module JQueryUI {
 
     // Dialog //////////////////////////////////////////////////
 
-    interface DialogOptions {
+    interface DialogOptions extends DialogEvents {
         autoOpen?: boolean;
-        buttons?: any; // object or []
+        buttons?: { [buttonText: string]: (event?: Event) => void } | DialogButtonOptions[];
         closeOnEscape?: boolean;
         closeText?: string;
+        appendTo?: string;
         dialogClass?: string;
         disabled?: boolean;
         draggable?: boolean;
-        height?: any; // number or string
+        height?: number | string;
+        hide?: boolean | number | string | DialogShowHideOptions;
         maxHeight?: number;
         maxWidth?: number;
         minHeight?: number;
@@ -352,13 +359,29 @@ declare module JQueryUI {
         modal?: boolean;
         position?: any; // object, string or []
         resizable?: boolean;
-        show?: any; // number, string or object
+        show?: boolean | number | string | DialogShowHideOptions;
         stack?: boolean;
         title?: string;
         width?: any; // number or string
         zIndex?: number;
 
+		open?: DialogEvent;
         close?: DialogEvent;
+    }
+
+    interface DialogButtonOptions {
+        icons?: any;
+        showText?: string | boolean;
+        text?: string;
+        click?: (eventObject: JQueryEventObject) => any;
+        [attr: string]: any; // attributes for the <button> element
+    }
+
+    interface DialogShowHideOptions {
+        effect: string;
+        delay?: number;
+        duration?: number;
+        easing?: string;
     }
 
     interface DialogUIParams {
@@ -382,7 +405,7 @@ declare module JQueryUI {
         resizeStop?: DialogEvent;
     }
 
-    interface Dialog extends Widget, DialogOptions, DialogEvents {
+    interface Dialog extends Widget, DialogOptions {
     }
 
 
@@ -398,7 +421,7 @@ declare module JQueryUI {
         (event: Event, ui: DraggableEventUIParams): void;
     }
 
-    interface DraggableOptions {
+    interface DraggableOptions extends DraggableEvents {
         disabled?: boolean;
         addClasses?: boolean;
         appendTo?: any;
@@ -453,7 +476,7 @@ declare module JQueryUI {
         (event: Event, ui: DroppableEventUIParam): void;
     }
 
-    interface DroppableOptions {
+    interface DroppableOptions extends DroppableEvents {
         disabled?: boolean;
         accept?: any;
         activeClass?: string;
@@ -472,12 +495,12 @@ declare module JQueryUI {
         drop?: DroppableEvent;
     }
 
-    interface Droppable extends Widget, DroppableOptions, DroppableEvents {
+    interface Droppable extends Widget, DroppableOptions {
     }
 
     // Menu //////////////////////////////////////////////////
 
-    interface MenuOptions {
+    interface MenuOptions extends MenuEvents {
         disabled?: boolean;
         icons?: any;
         menus?: string;
@@ -486,6 +509,7 @@ declare module JQueryUI {
     }
 
     interface MenuUIParams {
+        item?: JQuery;
     }
 
     interface MenuEvent {
@@ -499,15 +523,16 @@ declare module JQueryUI {
         select?: MenuEvent;
     }
 
-    interface Menu extends Widget, MenuOptions, MenuEvents {
+    interface Menu extends Widget, MenuOptions {
     }
 
 
     // Progressbar //////////////////////////////////////////////////
 
-    interface ProgressbarOptions {
+    interface ProgressbarOptions extends ProgressbarEvents {
         disabled?: boolean;
-        value?: number;
+        value?: number | boolean;
+        max?: number;
     }
 
     interface ProgressbarUIParams {
@@ -523,13 +548,13 @@ declare module JQueryUI {
         create?: ProgressbarEvent;
     }
 
-    interface Progressbar extends Widget, ProgressbarOptions, ProgressbarEvents {
+    interface Progressbar extends Widget, ProgressbarOptions {
     }
 
 
     // Resizable //////////////////////////////////////////////////
 
-    interface ResizableOptions {
+    interface ResizableOptions extends ResizableEvents {
         alsoResize?: any; // Selector, JQuery or Element
         animate?: boolean;
         animateDuration?: any; // number or string
@@ -569,15 +594,16 @@ declare module JQueryUI {
         resize?: ResizableEvent;
         start?: ResizableEvent;
         stop?: ResizableEvent;
+        create?: ResizableEvents;
     }
 
-    interface Resizable extends Widget, ResizableOptions, ResizableEvents {
+    interface Resizable extends Widget, ResizableOptions {
     }
 
 
     // Selectable //////////////////////////////////////////////////
 
-    interface SelectableOptions {
+    interface SelectableOptions extends SelectableEvents {
         autoRefresh?: boolean;
         cancel?: string;
         delay?: number;
@@ -596,12 +622,12 @@ declare module JQueryUI {
         unselecting? (event: Event, ui: { unselecting: Element; }): void;
     }
 
-    interface Selectable extends Widget, SelectableOptions, SelectableEvents {
+    interface Selectable extends Widget, SelectableOptions {
     }
 
     // Slider //////////////////////////////////////////////////
 
-    interface SliderOptions {
+    interface SliderOptions extends SliderEvents {
         animate?: any; // boolean, string or number
         disabled?: boolean;
         max?: number;
@@ -611,6 +637,7 @@ declare module JQueryUI {
         step?: number;
         value?: number;
         values?: number[];
+        highlight?: boolean;
     }
 
     interface SliderUIParams {
@@ -631,7 +658,7 @@ declare module JQueryUI {
         stop?: SliderEvent;
     }
 
-    interface Slider extends Widget, SliderOptions, SliderEvents {
+    interface Slider extends Widget, SliderOptions {
     }
 
 
@@ -652,6 +679,7 @@ declare module JQueryUI {
         forceHelperSize?: boolean;
         forcePlaceholderSize?: boolean;
         grid?: number[];
+        helper?: string | ((event: Event, element: Sortable) => Element);
         handle?: any; // Selector or Element
         items?: any; // Selector
         opacity?: number;
@@ -699,7 +727,7 @@ declare module JQueryUI {
 
     // Spinner //////////////////////////////////////////////////
 
-    interface SpinnerOptions {
+    interface SpinnerOptions extends SpinnerEvents {
         culture?: string;
         disabled?: boolean;
         icons?: any;
@@ -711,26 +739,29 @@ declare module JQueryUI {
         step?: any; // number or string
     }
 
-    interface SpinnerUIParams {
+    interface SpinnerUIParam {
+        value: number;
     }
 
-    interface SpinnerEvent {
-        (event: Event, ui: SpinnerUIParams): void;
+    interface SpinnerEvent<T> {
+        (event: Event, ui: T): void;
     }
 
     interface SpinnerEvents {
-        spin?: SpinnerEvent;
-        start?: SpinnerEvent;
-        stop?: SpinnerEvent;
+        change?: SpinnerEvent<{}>;
+        create?: SpinnerEvent<{}>;
+        spin?: SpinnerEvent<SpinnerUIParam>;
+        start?: SpinnerEvent<{}>;
+        stop?: SpinnerEvent<{}>;
     }
 
-    interface Spinner extends Widget, SpinnerOptions, SpinnerEvents {
+    interface Spinner extends Widget, SpinnerOptions {
     }
 
 
     // Tabs //////////////////////////////////////////////////
 
-    interface TabsOptions {
+    interface TabsOptions extends TabsEvents {
         active?: any; // boolean or number
         collapsible?: boolean;
         disabled?: any; // boolean or []
@@ -738,35 +769,46 @@ declare module JQueryUI {
         heightStyle?: string;
         hide?: any; // boolean, number, string or object
         show?: any; // boolean, number, string or object
-
-        activate?: TabsEvent;
     }
 
-    interface TabsUIParams {
+    interface TabsActivationUIParams {
         newTab: JQuery;
         oldTab: JQuery;
         newPanel: JQuery;
         oldPanel: JQuery;
     }
 
-    interface TabsEvent {
-        (event: Event, ui: TabsUIParams): void;
+    interface TabsBeforeLoadUIParams {
+        tab: JQuery;
+        panel: JQuery;
+        jqXHR: JQueryXHR;
+        ajaxSettings: any;
+    }
+
+    interface TabsCreateOrLoadUIParams {
+        tab: JQuery;
+        panel: JQuery;
+    }
+
+    interface TabsEvent<UI> {
+        (event: Event, ui: UI): void;
     }
 
     interface TabsEvents {
-        activate?: TabsEvent;
-        beforeActivate?: TabsEvent;
-        beforeLoad?: TabsEvent;
-        load?: TabsEvent;
+        activate?: TabsEvent<TabsActivationUIParams>;
+        beforeActivate?: TabsEvent<TabsActivationUIParams>;
+        beforeLoad?: TabsEvent<TabsBeforeLoadUIParams>;
+        load?: TabsEvent<TabsCreateOrLoadUIParams>;
+        create?: TabsEvent<TabsCreateOrLoadUIParams>;
     }
 
-    interface Tabs extends Widget, TabsOptions, TabsEvents {
+    interface Tabs extends Widget, TabsOptions {
     }
 
 
     // Tooltip //////////////////////////////////////////////////
 
-    interface TooltipOptions {
+    interface TooltipOptions extends TooltipEvents {
         content?: any; // () or string
         disabled?: boolean;
         hide?: any; // boolean, number, string or object
@@ -789,7 +831,7 @@ declare module JQueryUI {
         open?: TooltipEvent;
     }
 
-    interface Tooltip extends Widget, TooltipOptions, TooltipEvents {
+    interface Tooltip extends Widget, TooltipOptions {
     }
 
 
@@ -798,7 +840,7 @@ declare module JQueryUI {
     interface EffectOptions {
         effect: string;
         easing?: string;
-        duration: any;
+        duration?: number;
         complete: Function;
     }
 
@@ -1569,29 +1611,32 @@ interface JQuery {
     droppable(optionLiteral: string, options: JQueryUI.DraggableOptions): any;
     droppable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
-    menu(): JQuery;
-    menu(methodName: 'blur'): void;
-    menu(methodName: 'collapse', event?: JQueryEventObject): void;
-    menu(methodName: 'collapseAll', event?: JQueryEventObject, all?: boolean): void;
-    menu(methodName: 'destroy'): void;
-    menu(methodName: 'disable'): void;
-    menu(methodName: 'enable'): void;
-    menu(methodName: string, event: JQueryEventObject, item: JQuery): void;
-    menu(methodName: 'focus', event: JQueryEventObject, item: JQuery): void;
-    menu(methodName: 'isFirstItem'): boolean;
-    menu(methodName: 'isLastItem'): boolean;
-    menu(methodName: 'next', event?: JQueryEventObject): void;
-    menu(methodName: 'nextPage', event?: JQueryEventObject): void;
-    menu(methodName: 'previous', event?: JQueryEventObject): void;
-    menu(methodName: 'previousPage', event?: JQueryEventObject): void;
-    menu(methodName: 'refresh'): void;
-    menu(methodName: 'select', event?: JQueryEventObject): void;
-    menu(methodName: 'widget'): JQuery;
-    menu(methodName: string): JQuery;
-    menu(options: JQueryUI.MenuOptions): JQuery;
-    menu(optionLiteral: string, optionName: string): any;
-    menu(optionLiteral: string, options: JQueryUI.MenuOptions): any;
-    menu(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    menu: {
+        (): JQuery;
+        (methodName: 'blur'): void;
+        (methodName: 'collapse', event?: JQueryEventObject): void;
+        (methodName: 'collapseAll', event?: JQueryEventObject, all?: boolean): void;
+        (methodName: 'destroy'): void;
+        (methodName: 'disable'): void;
+        (methodName: 'enable'): void;
+        (methodName: string, event: JQueryEventObject, item: JQuery): void;
+        (methodName: 'focus', event: JQueryEventObject, item: JQuery): void;
+        (methodName: 'isFirstItem'): boolean;
+        (methodName: 'isLastItem'): boolean;
+        (methodName: 'next', event?: JQueryEventObject): void;
+        (methodName: 'nextPage', event?: JQueryEventObject): void;
+        (methodName: 'previous', event?: JQueryEventObject): void;
+        (methodName: 'previousPage', event?: JQueryEventObject): void;
+        (methodName: 'refresh'): void;
+        (methodName: 'select', event?: JQueryEventObject): void;
+        (methodName: 'widget'): JQuery;
+        (methodName: string): JQuery;
+        (options: JQueryUI.MenuOptions): JQuery;
+        (optionLiteral: string, optionName: string): any;
+        (optionLiteral: string, options: JQueryUI.MenuOptions): any;
+        (optionLiteral: string, optionName: string, optionValue: any): JQuery;
+        active: boolean;
+    }
 
     progressbar(): JQuery;
     progressbar(methodName: 'destroy'): void;
@@ -1659,6 +1704,7 @@ interface JQuery {
     sortable(methodName: string): JQuery;
     sortable(options: JQueryUI.SortableOptions): JQuery;
     sortable(optionLiteral: string, optionName: string): any;
+    sortable(methodName: 'serialize', options: { key?: string; attribute?: string; expression?: RegExp }): string;
     sortable(optionLiteral: string, options: JQueryUI.SortableOptions): any;
     sortable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
@@ -1761,4 +1807,37 @@ interface JQueryStatic {
     datepicker: JQueryUI.Datepicker;
     widget: JQueryUI.Widget;
     Widget: JQueryUI.Widget;
+}
+
+interface JQueryEasingFunctions {
+    easeInQuad: JQueryEasingFunction;
+    easeOutQuad: JQueryEasingFunction;
+    easeInOutQuad: JQueryEasingFunction;
+    easeInCubic: JQueryEasingFunction;
+    easeOutCubic: JQueryEasingFunction;
+    easeInOutCubic: JQueryEasingFunction;
+    easeInQuart: JQueryEasingFunction;
+    easeOutQuart: JQueryEasingFunction;
+    easeInOutQuart: JQueryEasingFunction;
+    easeInQuint: JQueryEasingFunction;
+    easeOutQuint: JQueryEasingFunction;
+    easeInOutQuint: JQueryEasingFunction;
+    easeInExpo: JQueryEasingFunction;
+    easeOutExpo: JQueryEasingFunction;
+    easeInOutExpo: JQueryEasingFunction;
+    easeInSine: JQueryEasingFunction;
+    easeOutSine: JQueryEasingFunction;
+    easeInOutSine: JQueryEasingFunction;
+    easeInCirc: JQueryEasingFunction;
+    easeOutCirc: JQueryEasingFunction;
+    easeInOutCirc: JQueryEasingFunction;
+    easeInElastic: JQueryEasingFunction;
+    easeOutElastic: JQueryEasingFunction;
+    easeInOutElastic: JQueryEasingFunction;
+    easeInBack: JQueryEasingFunction;
+    easeOutBack: JQueryEasingFunction;
+    easeInOutBack: JQueryEasingFunction;
+    easeInBounce: JQueryEasingFunction;
+    easeOutBounce: JQueryEasingFunction;
+    easeInOutBounce: JQueryEasingFunction;
 }

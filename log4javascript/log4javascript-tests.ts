@@ -1,4 +1,4 @@
-﻿/// <reference path="log4javascript.d.ts" />
+﻿/// <reference path="./log4javascript.d.ts" />
 
 function aSimpleLoggingMessageString() {
 	var log = log4javascript.getDefaultLogger();
@@ -47,4 +47,8 @@ function changingTheFormatOfLogMessages() {
 	var popUpAppender = new log4javascript.PopUpAppender();
 	var layout = new log4javascript.PatternLayout("[%-5p] %m");
 	popUpAppender.setLayout(layout);
+}
+
+function configureLogLog() {
+	log4javascript.logLog.setQuietMode(true);
 }

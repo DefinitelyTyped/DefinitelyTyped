@@ -2,33 +2,36 @@
 
 import less = require("less");
 
-declare var __dirname: string;
-
-less.render('.class { width: (1 + 1) }', (e, css) => console.log(css));
-
-var parser: less.Parser = new less.Parser;
-
-parser.parse('.class { width: (1 + 1) }', function (err, tree) {
-    if (err) return console.error(err);
-    tree.toCSS();
+less.render(".class { width: (1 + 1) }").then((output) => {
+    console.log(output.css);
 });
 
-var parser2 = new less.Parser({
-    paths: ['.', './lib'],
-    filename: 'style.less'
+less.render("fail").then((output) => {
+    throw new Error("promise should have been rejected");
+}, (error: Less.RenderError) => {
+    console.log("rejected as expected on line number " + error.line);
 });
 
-parser2.parse('.class { width: (1 + 1) }', (e, tree) => tree.toCSS({ compress: true }));
-
-var lessParser = new less.Parser({
-    paths: [__dirname],
-    filename: "out.less"
-});
-
-lessParser.parse('.class { width: (1 + 1) }', function (err, tree) {
-    tree.rules.forEach(function (rule) {
-        if (rule.path) {
-            console.log(rule.path);
+var preProcessor: Less.PreProcessor = {
+    process: (src, extra) => {
+        console.log(extra.imports, extra.context);
+        if (extra.fileInfo.filename === "foo.less") {
+            return ".other-rule { width: (1 + 1); }\n " + src;
+        } else {
+            return src;
         }
-    });
-});
+    }
+};
+
+var myPlugin: Less.Plugin = {
+    install: (less, pluginManager) => {
+        alert(less.version[2]);
+        pluginManager.addPreProcessor(preProcessor, 1000);
+    }
+};
+
+var options: Less.Options = {
+    plugins: [myPlugin]
+};
+
+less.render("h1 { background: red; }", options);

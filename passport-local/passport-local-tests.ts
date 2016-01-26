@@ -1,3 +1,5 @@
+/// <reference path="./passport-local.d.ts" />
+
 /**
  * Created by Maxime LUCE <https://github.com/SomaticIT>.
  */
@@ -26,7 +28,27 @@ class User implements IUser {
 //#endregion
 
 // Sample from https://github.com/jaredhanson/passport-local#configure-strategy
-passport.use(new local.Strategy(function (username, password, done) {
+passport.use(new local.Strategy((username: any, password: any, done: any) => {
+    User.findOne({ username: username }, function (err, user) {
+        if (err) {
+            return done(err);
+        }
+
+        if (!user) {
+            return done(null, false);
+        }
+
+        if (!user.verifyPassword(password)) {
+            return done(null, false);
+        }
+
+        return done(null, user);
+    });
+}));
+
+passport.use(new local.Strategy({
+    passReqToCallback: true
+}, function (req, username, password, done) {
     User.findOne({ username: username }, function (err, user) {
         if (err) {
             return done(err);

@@ -28,7 +28,7 @@ declare module CrossroadsJs {
         /**
          * Remove route from crossroads and destroy it, releasing memory.
          */
-        dispose();
+        dispose(): void;
 
         /**
          * Test if Route matches against request. Return true if request validate against route rules and pattern.
@@ -70,12 +70,12 @@ declare module CrossroadsJs {
          *
          * @param route Reference to the Route object returned by crossroads.addRoute().
          */
-        removeRoute(route: Route);
+        removeRoute(route: Route): void;
 
         /**
          * Remove all routes from crossroads collection.
          */
-        removeAllRoutes();
+        removeAllRoutes(): void;
 
         /**
          * Parse a string input and dispatch matched Signal of the first Route that matches the request.
@@ -83,7 +83,7 @@ declare module CrossroadsJs {
          * @param request String that should be evaluated and matched against Routes to define which Route handlers should be executed and which parameters should be passed to the handlers.
          * @param defaultargs Array containing values passed to matched/routed/bypassed signals as first arguments. Useful for node.js in case you need to access the request and response objects.
          */
-        parse(request: string, ...defaultArgs: any[]);
+        parse(request: string, ...defaultArgs: any[]): void;
 
         /**
          * Get number of Routes contained on the crossroads collection.
@@ -133,7 +133,7 @@ declare module CrossroadsJs {
         /**
          * Resets the Router internal state. Will clear reference to previously matched routes (so they won't dispatch switched signal when matching a new route) and reset last request.
          */
-        resetState();
+        resetState(): void;
 
         /**
          * Sets if Router should care about previous state, so multiple crossroads.parse() calls passing same argument would not trigger the routed, matched and bypassed signals.
@@ -143,13 +143,17 @@ declare module CrossroadsJs {
         /**
          * Pipe routers, so all crossroads.parse() calls will be forwarded to the other router as well.
          */
-        pipe(router: CrossRoadsStatic);
+        pipe(router: CrossRoadsStatic): void;
 
         /**
          * "Ceci n'est pas une pipe"
          */
-        unpipe(router: CrossRoadsStatic);
+        unpipe(router: CrossRoadsStatic): void;
     }
 }
 
 declare var crossroads: CrossroadsJs.CrossRoadsStatic;
+
+declare module 'crossroads'{
+    export = crossroads;
+}

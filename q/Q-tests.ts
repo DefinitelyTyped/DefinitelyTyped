@@ -64,9 +64,19 @@ Q.allResolved([])
     })
 });
 
+Q(42)
+    .tap(() => "hello")
+    .tap(x => {
+        console.log(x);
+    })
+    .then(x => {
+        console.log("42 == " + x);
+    });
+
 declare var arrayPromise: Q.IPromise<number[]>;
 declare var stringPromise: Q.IPromise<string>;
 declare function returnsNumPromise(text: string): Q.Promise<number>;
+declare function returnsNumPromise(text: string): JQueryPromise<number>;
 
 Q<number[]>(arrayPromise) // type specification required
     .then(arr => arr.join(','))

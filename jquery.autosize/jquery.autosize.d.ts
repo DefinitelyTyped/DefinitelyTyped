@@ -1,21 +1,19 @@
-// Type definitions for jquery.autosize (un-versioned)
+// Type definitions for jquery.autosize 3.0.7
 // Project: http://www.jacklmoore.com/autosize/
 // Definitions by: Aaron T. King <https://github.com/kingdango>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
-
-interface AutosizeOptions {
-	className?: string;
-	append?: string;
-	callback?: Function;
+declare module autosize {
+    interface AutosizeStatic {
+        (el: Element): void;
+        (el: NodeList): void;
+        (el: JQuery): void;
+    }
 }
 
-interface Autosize {
-	(): JQuery;
-	(options: AutosizeOptions): JQuery;
-}
+declare var autosize: autosize.AutosizeStatic;
 
-interface JQuery {
-	autosize: Autosize;
+declare module 'autosize' {
+    export = autosize;
 }

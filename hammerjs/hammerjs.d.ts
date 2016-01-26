@@ -1,9 +1,13 @@
 // Type definitions for Hammer.js 2.0.4
 // Project: http://hammerjs.github.io/
-// Definitions by: Philip Bulley <https://github.com/milkisevil/>
+// Definitions by: Philip Bulley <https://github.com/milkisevil/>, Han Lin Yap <https://github.com/codler>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare var Hammer:HammerStatic;
+
+declare module "hammerjs" {
+    export = Hammer;
+}
 
 interface HammerStatic
 {
@@ -103,7 +107,7 @@ interface HammerManager
   emit( event:string, data:any ):void;
   get( recogniser:Recognizer ):Recognizer;
   get( recogniser:string ):Recognizer;
-  off( events:string, handler:( event:HammerInput ) => void ):void;
+  off( events:string, handler?:( event:HammerInput ) => void ):void;
   on( events:string, handler:( event:HammerInput ) => void ):void;
   recognize( inputData:any ):void;
   remove( recogniser:Recognizer ):HammerManager;
@@ -163,7 +167,7 @@ declare class HammerInput
   center:HammerPoint;
 
   /** Source event object, type TouchEvent, MouseEvent or PointerEvent. */
-  srcEvent:Event;    // TODO: Update to Union Type (TouchEvent | MouseEvent | PointerEvent) if it lands in TS1.4
+  srcEvent:TouchEvent | MouseEvent | PointerEvent;
 
   /** Target that received the event. */
   target:HTMLElement;
@@ -296,7 +300,7 @@ interface SwipeRecognizerStatic
   new( options?:any ):SwipeRecognizer;
 }
 
-interface SwipeRecognizer
+interface SwipeRecognizer extends AttrRecognizer
 {
 }
 

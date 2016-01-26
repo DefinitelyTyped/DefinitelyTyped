@@ -9,13 +9,9 @@ interface Window {
     token: string;
 }
 
-interface Location {
-    origin: string;
-}
-
 /** This is the interface for the main Auth0 client. */
 interface Auth0Static {
-    
+
     new(options: Auth0ClientOptions): Auth0Static;
     changePassword(options: any, callback?: Function): void;
     decodeJwt(jwt: string): any;
@@ -37,10 +33,10 @@ interface Auth0Static {
 interface Auth0ClientOptions {
     clientID: string;
     callbackURL: string;
-    callbackOnLoactionHash?: boolean;
+    callbackOnLocationHash?: boolean;
     domain: string;
     forceJSONP?: boolean;
-} 
+}
 
 /** Represents a normalized UserProfile. */
 interface Auth0UserProfile {
@@ -55,6 +51,8 @@ interface Auth0UserProfile {
     user_id: string;
     /** Represents one or more Identities that may be associated with the User. */
     identities: Auth0Identity[];
+    user_metadata?: any;
+    app_metadata?: any;
 }
 
 /** Represents an Auth0UserProfile that has a Microsoft Account as the primary identity. */
@@ -128,6 +126,6 @@ interface Auth0DelegationToken {
 
 declare var Auth0: Auth0Static;
 
-declare module "Auth0" {
+declare module "auth0" {
     export = Auth0
 }

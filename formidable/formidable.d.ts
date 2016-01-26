@@ -25,7 +25,7 @@ declare module "formidable" {
 		onPart: (part: Part) => void;
 
 		handlePart(part: Part): void;
-		parse(req: http.ServerRequest, callback?: (err: any, fields: Fields, files: Files) => any): void;
+		parse(req: http.IncomingMessage, callback?: (err: any, fields: Fields, files: Files) => any): void;
 	}
 
 	export interface Fields {

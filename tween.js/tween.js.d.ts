@@ -95,6 +95,6 @@ interface TweenInterpolation {
   Utils: {
     Linear(p0:number, p1:number, t:number): number;
     Bernstein(n:number, i:number): number;
-    Factorial(n): number;
+    Factorial(n:number): number;
   };
 }

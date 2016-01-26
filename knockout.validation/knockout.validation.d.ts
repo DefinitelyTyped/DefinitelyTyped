@@ -17,7 +17,7 @@ interface KnockoutValidationConfiguration {
     insertMessages?: boolean;
     parseInputAttributes?: boolean;
     writeInputAttributes?: boolean;
-    decorateElement?: boolean;
+    decorateInputElement?: boolean;
     errorClass?: string;
     errorElementClass?: string;
     errorMessageClass?: string;
@@ -108,7 +108,6 @@ interface KnockoutValidationGroup {
 
 interface KnockoutValidationStatic {
     init(options?: KnockoutValidationConfiguration, force?: boolean): void;
-    configure(options: KnockoutValidationConfiguration): void;
     reset(): void;
 
     group(obj: any, options?: any): KnockoutValidationErrors;

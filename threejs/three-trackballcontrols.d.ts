@@ -28,6 +28,18 @@ declare module THREE {
         maxDistance:number;
         keys:number[];
 
+        position0: THREE.Vector3;
+        target0: THREE.Vector3;
+        up0: THREE.Vector3;
+
         update():void;
+        reset():void;
+        checkDistances():void;
+        zoomCamera():void;
+        panCamera():void;
+        rotateCamera():void;
+
+        handleResize():void;
+        handleEvent(event: any):void;
     }
 }

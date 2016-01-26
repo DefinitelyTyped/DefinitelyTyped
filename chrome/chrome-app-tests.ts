@@ -23,8 +23,21 @@ chrome.app.runtime.onLaunched.addListener(function (launchData: runtime.LaunchDa
 
 chrome.app.runtime.onRestarted.addListener(function () { return; });
 
-// Get Current Window
+// retrieving windows
 var currentWindow: cwindow.AppWindow = chrome.app.window.current();
+var otherWindow: cwindow.AppWindow = chrome.app.window.get('some-string');
+var allWindows: cwindow.AppWindow[] = chrome.app.window.getAll();
+
+// listening to window events
+currentWindow.onBoundsChanged.addListener(function () { return; });
+currentWindow.onClosed.addListener(function () { return; });
+currentWindow.onFullscreened.addListener(function () { return; });
+currentWindow.onMaximized.addListener(function () { return; });
+currentWindow.onMinimized.addListener(function () { return; });
+currentWindow.onRestored.addListener(function () { return; });
+
+// check platform capabilities
+var visibleEverywhere: boolean = chrome.app.window.canSetVisibleOnAllWorkspaces();
 
 // FileSystem
 // https://developer.chrome.com/apps/fileSystem
@@ -302,4 +315,13 @@ function testSocketsTcpServerTypes(): void {
     socketInfo.name = "test";
     socketInfo.localAddress = "192.168.0.2";
     socketInfo.localPort = 8000;
+}
+
+function testSystemNetwork() {
+    chrome.system.network.getNetworkInterfaces((networkInterfaces) => {
+        var iface: chrome.system.network.NetworkInterface;
+        for (var i in networkInterfaces) {
+            iface = networkInterfaces[i];
+        }
+    });
 }

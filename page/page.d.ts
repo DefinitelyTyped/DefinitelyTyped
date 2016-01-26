@@ -188,7 +188,7 @@ declare module PageJS {
         /**
          *  Query string void of leading ? such as "foo=bar", defaults to "".
          */
-        queryString: string;
+        querystring: string;
         /**
          *  The pathname void of query string "/login".
          */
@@ -212,3 +212,5 @@ declare module "page" {
     var page: PageJS.Static;
     export = page;
 }
+
+declare var page: PageJS.Static;

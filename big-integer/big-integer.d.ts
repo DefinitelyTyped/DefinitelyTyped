@@ -1,6 +1,6 @@
 // Type definitions for BigInteger.js
 // Project: https://github.com/peterolson/BigInteger.js
-// Definitions by: Ingo Bürk <https://github.com/Airblader>
+// Definitions by: Ingo Bürk <https://github.com/Airblader>, Roel van Uden <https://github.com/Deathspike>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface BigInteger {
@@ -167,6 +167,30 @@ interface BigInteger {
     /** Checks if two numbers are not equal. */
     notEquals( number: string ): boolean;
 
+    /** Performs the bitwise AND operation. */
+    and( number: number ): BigInteger;
+    /** Performs the bitwise AND operation. */
+    and( number: BigInteger ): BigInteger;
+    /** Performs the bitwise AND operation. */
+    and( number: string ): BigInteger;
+
+    /** Performs the bitwise NOT operation. */
+    not(): BigInteger;
+
+    /** Performs the bitwise OR operation. */
+    or( number: number ): BigInteger;
+    /** Performs the bitwise OR operation. */
+    or( number: BigInteger ): BigInteger;
+    /** Performs the bitwise OR operation. */
+    or( number: string ): BigInteger;
+
+    /** Performs the bitwise XOR operation. */
+    xor( number: number ): BigInteger;
+    /** Performs the bitwise XOR operation. */
+    xor( number: BigInteger ): BigInteger;
+    /** Performs the bitwise XOR operation. */
+    xor( number: string ): BigInteger;
+
     /** Converts a bigInt into a native Javascript number. Loses precision for numbers outside the range. */
     toJSNumber(): number;
 
@@ -190,7 +214,7 @@ interface BigIntegerStatic {
     /** Parse a Javascript number into a bigInt */
     ( number: number ): BigInteger;
     /** Parse a string into a bigInt */
-    ( string: string ): BigInteger;
+    ( string: string,  base?: string | number | BigInteger): BigInteger;
     /** no-op */
     ( bigInt: BigInteger ): BigInteger;
 }

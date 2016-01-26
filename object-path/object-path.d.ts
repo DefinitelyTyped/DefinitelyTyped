@@ -1,21 +1,21 @@
-// Type definitions for objectPath v0.6.0
+// Type definitions for objectPath v0.9.x
 // Project: https://github.com/mariocasciaro/object-path
 // Definitions by: Paulo Cesar <https://github.com/pocesar/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare var objectPath: objectPath.IObjectPathStatic;
+declare var objectPath: ObjectPathGlobal.IObjectPathStatic;
 
-declare module objectPath {
+declare module ObjectPathGlobal {
 
-    interface IStringArray {
-        [index: number]: string;
-    }
-
-    interface INumberArray {
-        [index: number]: number;
-    }
+    type IPath = Array<number|string>|number|string;
+    type IMultiArray = Array<IPath>;
 
     interface IObjectPathStatic {
+        /**
+         * Binds an object
+         */
+        <T extends {}>(object: T): IObjectPathBound<T>;
+
         /*======== Del =========*/
 
         /**
@@ -24,27 +24,32 @@ declare module objectPath {
          * @param {string[]|string} path
          * @return object
          */
-        del<T extends {}>(object: T, path: IStringArray): T;
+        del<T extends {}>(object: T, path: IPath): T;
         /**
          * @see objectPath.del
          */
-        del<T extends {}>(object: T, path: INumberArray): T;
-        /**
-         * @see objectPath.del
-         */
-        del<T extends {}>(object: T, path: number): T;
-        /**
-         * @see objectPath.del
-         */
-        del<T extends {}>(object: T, path: string): T;
-        /**
-         * @see objectPath.del
-         */
-        del<T extends {}>(object: T): T;
+        del<T extends {}>(object: T):T;
         /**
          * @see objectPath.del
          */
         del():void;
+
+        /*======== Has =========*/
+        /**
+         * Tests path existence
+         * @param {object} object
+         * @param {string[]|string} path
+         * @return object
+         */
+        has<T extends {}>(object: T, path: IPath): boolean;
+        /**
+         * @see objectPath.has
+         */
+        has<T extends {}>(object: T): boolean;
+        /**
+         * @see objectPath.has
+         */
+        has(): boolean;
 
         /*======== Get =========*/
         /**
@@ -53,19 +58,7 @@ declare module objectPath {
          * @param {string|string[]|number|number[]} path
          * @param {*} [defaultValue=undefined]
          */
-        get<T extends {}, TResult>(object: T, path: string, defaultValue?: TResult): TResult;
-        /**
-         * @see objectPath.get
-         */
-        get<T extends {}, TResult>(object: T, path: IStringArray, defaultValue?: TResult): TResult;
-        /**
-         * @see objectPath.get
-         */
-        get<T extends {}, TResult>(object: T, path: number, defaultValue?: TResult): TResult;
-        /**
-         * @see objectPath.get
-         */
-        get<T extends {}, TResult>(object: T, path: INumberArray, defaultValue?: TResult): TResult;
+        get<T extends {}, TResult>(object: T, path: IPath, defaultValue?: TResult): TResult;
         /**
          * @see objectPath.get
          */
@@ -84,19 +77,7 @@ declare module objectPath {
          * @param {boolean} [doNotReplace=false]
          * @return Any existing value on the path if any
          */
-        set<T extends {}, TExisting>(object: T, path: string, value: any, doNotReplace?:boolean): TExisting;
-        /**
-         * @see objectPath.set
-         */
-        set<T extends {}, TExisting>(object: T, path: number, value: any, doNotReplace?:boolean): TExisting;
-        /**
-         * @see objectPath.set
-         */
-        set<T extends {}, TExisting>(object: T, path: IStringArray, value: any, doNotReplace?:boolean): TExisting;
-        /**
-         * @see objectPath.set
-         */
-        set<T extends {}, TExisting>(object: T, path: INumberArray, value: any, doNotReplace?:boolean): TExisting;
+        set<T extends {}, TExisting>(object: T, path: IPath, value: any, doNotReplace?:boolean): TExisting;
         /**
          * @see objectPath.set
          */
@@ -111,19 +92,7 @@ declare module objectPath {
          * Create (if path isn't an array) and push the value to it. Can push unlimited number of values
          * @param {object} object
          */
-        push<T extends {}>(object: T, path: INumberArray, ...args:any[]):void;
-        /**
-         * @see objectPath.push
-         */
-        push<T extends {}>(object: T, path: IStringArray, ...args:any[]):void;
-        /**
-         * @see objectPath.push
-         */
-        push<T extends {}>(object: T, path: number, ...args:any[]):void;
-        /**
-         * @see objectPath.push
-         */
-        push<T extends {}>(object: T, path: string, ...args:any[]):void;
+        push<T extends {}>(object: T, path: IPath, ...args:any[]):void;
         /**
          * @see objectPath.push
          */
@@ -137,19 +106,7 @@ declare module objectPath {
          * @param {*} defaultValue
          * @return {*}
          */
-        coalesce<T extends {}, TResult>(object: T, paths: IStringArray, defaultValue?: any):TResult;
-        /**
-         * @see objectPath.coalesce
-         */
-        coalesce<T extends {}, TResult>(object: T, paths: INumberArray, defaultValue?: any):TResult;
-        /**
-         * @see objectPath.coalesce
-         */
-        coalesce<T extends {}, TResult>(object: T, paths: IStringArray[], defaultValue?: any):TResult;
-        /**
-         * @see objectPath.coalesce
-         */
-        coalesce<T extends {}, TResult>(object: T, paths: INumberArray[], defaultValue?: any):TResult;
+        coalesce<T extends {}, TResult>(object: T, paths: IMultiArray, defaultValue?: TResult):TResult;
 
         /*======== Empty =========*/
         /**
@@ -158,19 +115,7 @@ declare module objectPath {
          * @param {object} object
          * @param {string|string[]|number[]} path
          */
-        empty<T extends {}, TResult>(object: T, path: string):TResult;
-        /**
-         * @see objectPath.empty
-         */
-        empty<T extends {}, TResult>(object: T, path: INumberArray):TResult;
-        /**
-         * @see objectPath.empty
-         */
-        empty<T extends {}, TResult>(object: T, path: IStringArray):TResult;
-        /**
-         * @see objectPath.empty
-         */
-        empty<T extends {}, TResult>(object: T, path: number):TResult;
+        empty<T extends {}, TResult>(object: T, path: IPath):TResult;
         /**
          * @see objectPath.empty
          */
@@ -186,19 +131,7 @@ declare module objectPath {
          * @param {object} object
          * @param {string|string[]|number|number[]} path
          */
-        ensureExists<T extends {}, TResult>(object: T, path: string, value: any):TResult;
-        /**
-         * @see objectPath.ensureExists
-         */
-        ensureExists<T extends {}, TResult>(object: T, path: number, value: any):TResult;
-        /**
-         * @see objectPath.ensureExists
-         */
-        ensureExists<T extends {}, TResult>(object: T, path: INumberArray, value: any):TResult;
-        /**
-         * @see objectPath.ensureExists
-         */
-        ensureExists<T extends {}, TResult>(object: T, path: IStringArray, value: any):TResult;
+        ensureExists<T extends {}, TExisting>(object: T, path: IPath, value: any):TExisting;
         /**
          * @see objectPath.ensureExists
          */
@@ -216,23 +149,101 @@ declare module objectPath {
          * @param {*} value
          * @param {number} [at=0]
          */
-        insert<T extends {}>(object: T, path: string, value: any, at?: number):void;
-        /**
-         * @see objectPath.insert
-         */
-        insert<T extends {}>(object: T, path: INumberArray, value: any, at?: number):void;
-        /**
-         * @see objectPath.insert
-         */
-        insert<T extends {}>(object: T, path: IStringArray, value: any, at?: number):void;
-        /**
-         * @see objectPath.insert
-         */
-        insert<T extends {}>(object: T, path: number, value: any, at?: number):void;
+        insert<T extends {}>(object: T, path: IPath, value: any, at?: number):void;
     }
 
+    interface IObjectPathBound<T extends {}> {
+        /*======== Del =========*/
+
+        /**
+         * @see objectPath.ensureExists
+         */
+        del(path: IPath): T;
+        /**
+         * @see objectPath.del
+         */
+        del(): T;
+
+        /*======== Has =========*/
+        /**
+         * @see objectPath.ensureExists
+         */
+        has(path: IPath): boolean;
+        /**
+         * @see objectPath.has
+         */
+        has(): boolean;
+
+        /*======== Get =========*/
+        /**
+         * @see objectPath.ensureExists
+         */
+        get<TResult>(path: IPath, defaultValue?: TResult): TResult;
+        /**
+         * @see objectPath.get
+         */
+        get(): T;
+
+        /*======== Set =========*/
+        /**
+         * @see objectPath.ensureExists
+         */
+        set<TExisting>(path: IPath, value: any, doNotReplace?:boolean): TExisting;
+        /**
+         * @see objectPath.set
+         */
+        set(): T;
+
+        /*======== Push =========*/
+        /**
+         * @see objectPath.ensureExists
+         */
+        push(path: IPath, ...args:any[]):void;
+        /**
+         * @see objectPath.push
+         */
+        push():void;
+
+        /*======== Coalesce =========*/
+        /**
+         * @see objectPath.ensureExists
+         */
+        coalesce<TResult>(paths: IMultiArray, defaultValue?: TResult):TResult;
+
+        /*======== Empty =========*/
+        /**
+         * @see objectPath.ensureExists
+         */
+        empty(path: IPath):T;
+        /**
+         * @see objectPath.empty
+         */
+        empty():T;
+
+        /*======== EnsureExists =========*/
+        /**
+         * @see objectPath.ensureExists
+         */
+        ensureExists<TExisting>(path: IPath, value: any):TExisting;
+        /**
+         * @see objectPath.ensureExists
+         */
+        ensureExists(): T;
+
+        /*======== Insert =========*/
+        /**
+         * @see objectPath.insert
+         */
+        insert(path: IPath, value: any, at?: number):void;
+    }
 }
 
+// browser version
 declare module 'objectPath' {
+    export = objectPath;
+}
+
+// node version
+declare module 'object-path' {
     export = objectPath;
 }

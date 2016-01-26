@@ -1,4 +1,4 @@
-// Type definitions for DateJS - SugarPak Extensions
+﻿// Type definitions for DateJS - SugarPak Extensions
 // Project: http://www.datejs.com/
 // Definitions by: David Khristepher Santos <http://github.com/rupertavery>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -7,67 +7,67 @@
 declare module sugarpak {
 
     export interface IAddOrientation {
-        millisecond(): IDateJS;
-        second(): IDateJS;
-        minute(): IDateJS;
-        hour(): IDateJS;
-        day(): IDateJS;
-        week(): IDateJS;
-        month(): IDateJS;
-        year(): IDateJS;
+        millisecond(): Date;
+        second(): Date;
+        minute(): Date;
+        hour(): Date;
+        day(): Date;
+        week(): Date;
+        month(): Date;
+        year(): Date;
 
-        milliseconds(): IDateJS;
-        seconds(): IDateJS;
-        minutes(): IDateJS;
-        hours(): IDateJS;
-        days(): IDateJS;
-        weeks(): IDateJS;
-        months(): IDateJS;
-        years(): IDateJS;
+        milliseconds(): Date;
+        seconds(): Date;
+        minutes(): Date;
+        hours(): Date;
+        days(): Date;
+        weeks(): Date;
+        months(): Date;
+        years(): Date;
     }
 
     export interface IOrientation extends IAddOrientation {
-        monday(): IDateJS;
-        tuesday(): IDateJS;
-        wednesday(): IDateJS;
-        thursday(): IDateJS;
-        friday(): IDateJS;
-        saturday(): IDateJS;
-        sunday(): IDateJS;
+        monday(): Date;
+        tuesday(): Date;
+        wednesday(): Date;
+        thursday(): Date;
+        friday(): Date;
+        saturday(): Date;
+        sunday(): Date;
 
-        mon(): IDateJS;
-        tue(): IDateJS;
-        wed(): IDateJS;
-        thu(): IDateJS;
-        fri(): IDateJS;
-        sat(): IDateJS;
-        sun(): IDateJS;
+        mon(): Date;
+        tue(): Date;
+        wed(): Date;
+        thu(): Date;
+        fri(): Date;
+        sat(): Date;
+        sun(): Date;
 
-        january(): IDateJS;
-        february(): IDateJS;
-        march(): IDateJS;
-        april(): IDateJS;
-        may(): IDateJS;
-        june(): IDateJS;
-        july(): IDateJS;
-        august(): IDateJS;
-        september(): IDateJS;
-        october(): IDateJS;
-        november(): IDateJS;
-        december(): IDateJS;
+        january(): Date;
+        february(): Date;
+        march(): Date;
+        april(): Date;
+        may(): Date;
+        june(): Date;
+        july(): Date;
+        august(): Date;
+        september(): Date;
+        october(): Date;
+        november(): Date;
+        december(): Date;
 
-        jan(): IDateJS;
-        feb(): IDateJS;
-        mar(): IDateJS;
-        apr(): IDateJS;
+        jan(): Date;
+        feb(): Date;
+        mar(): Date;
+        apr(): Date;
         // may 
-        jun(): IDateJS;
-        jul(): IDateJS;
-        aug(): IDateJS;
-        sep(): IDateJS;
-        oct(): IDateJS;
-        nov(): IDateJS;
-        dec(): IDateJS;
+        jun(): Date;
+        jul(): Date;
+        aug(): Date;
+        sep(): Date;
+        oct(): Date;
+        nov(): Date;
+        dec(): Date;
     }
 
     export interface IPredicate {
@@ -116,30 +116,30 @@ declare module sugarpak {
 
         weekday(): boolean;
 
-        day(date?: IDateJS): boolean;
-        week(date?: IDateJS): boolean;
-        month(date?: IDateJS): boolean;
-        year(date?: IDateJS): boolean;
+        day(date?: Date): boolean;
+        week(date?: Date): boolean;
+        month(date?: Date): boolean;
+        year(date?: Date): boolean;
 
 
     }
 
     export interface IDatePartComparer {
-        millisecond(date?: IDateJS): boolean;
-        second(date?: IDateJS): boolean;
-        minute(date?: IDateJS): boolean;
-        hour(date?: IDateJS): boolean;
-        day(date?: IDateJS): boolean;
-        week(date?: IDateJS): boolean;
-        month(date?: IDateJS): boolean;
-        year(date?: IDateJS): boolean;
+        millisecond(date?: Date): boolean;
+        second(date?: Date): boolean;
+        minute(date?: Date): boolean;
+        hour(date?: Date): boolean;
+        day(date?: Date): boolean;
+        week(date?: Date): boolean;
+        month(date?: Date): boolean;
+        year(date?: Date): boolean;
     }
 
     export interface IDateElementEvaluator {
-        ago(): IDateJS;
-        before(): IDateJS;
-        fromNow(): IDateJS;
-        after(): IDateJS;
+        ago(): Date;
+        before(): Date;
+        fromNow(): Date;
+        after(): Date;
     }
 
     export interface IDateElement {
@@ -178,10 +178,10 @@ declare module sugarpak {
 
 }
 
-interface IDateJS {
+interface Date {
     add(n: number): sugarpak.IAddOrientation;
-    at(time: string): IDateJS;
-    at(time: sugarpak.ITimeLiteral): IDateJS;
+    at(time: string): Date;
+    at(time: sugarpak.ITimeLiteral): Date;
     is(): sugarpak.IPredicate;
     next(): sugarpak.IOrientation;
     last(): sugarpak.IOrientation;
@@ -199,7 +199,7 @@ interface IDateJS {
     toObject(): sugarpak.IDateLiteral;
 }
 
-interface IDateJSStatic {
+interface DateConstructor {
     /** Contains the day-of-week value for Monday */
     MONDAY: number;
     /** Contains the day-of-week value for Tuesday */
@@ -215,57 +215,57 @@ interface IDateJSStatic {
     /** Contains the day-of-week value for Sunday */
     SUNDAY: number;
     /** Instantiates a DateJS object from a literal */
-    fromObject(date: sugarpak.IDateLiteral): IDateJS;
+    fromObject(date: sugarpak.IDateLiteral): Date;
 
     next(): sugarpak.IOrientation;
     last(): sugarpak.IOrientation;
     prev(): sugarpak.IOrientation;
     previous(): sugarpak.IOrientation;
 
-    january(): IDateJS;
-    february(): IDateJS;
-    march(): IDateJS;
-    april(): IDateJS;
-    may(): IDateJS;
-    june(): IDateJS;
-    july(): IDateJS;
-    august(): IDateJS;
-    september(): IDateJS;
-    october(): IDateJS;
-    november(): IDateJS;
-    december(): IDateJS;
+    january(): Date;
+    february(): Date;
+    march(): Date;
+    april(): Date;
+    may(): Date;
+    june(): Date;
+    july(): Date;
+    august(): Date;
+    september(): Date;
+    october(): Date;
+    november(): Date;
+    december(): Date;
 
-    monday(): IDateJS;
-    tuesday(): IDateJS;
-    wednesday(): IDateJS;
-    thursday(): IDateJS;
-    friday(): IDateJS;
-    saturday(): IDateJS;
-    sunday(): IDateJS;
+    monday(): Date;
+    tuesday(): Date;
+    wednesday(): Date;
+    thursday(): Date;
+    friday(): Date;
+    saturday(): Date;
+    sunday(): Date;
 
-    mon(): IDateJS;
-    tue(): IDateJS;
-    wed(): IDateJS;
-    thu(): IDateJS;
-    fri(): IDateJS;
-    sat(): IDateJS;
-    sun(): IDateJS;
+    mon(): Date;
+    tue(): Date;
+    wed(): Date;
+    thu(): Date;
+    fri(): Date;
+    sat(): Date;
+    sun(): Date;
 
-    jan(): IDateJS;
-    feb(): IDateJS;
-    mar(): IDateJS;
-    apr(): IDateJS;
+    jan(): Date;
+    feb(): Date;
+    mar(): Date;
+    apr(): Date;
     // may 
-    jun(): IDateJS;
-    jul(): IDateJS;
-    aug(): IDateJS;
-    sep(): IDateJS;
-    oct(): IDateJS;
-    nov(): IDateJS;
-    dec(): IDateJS;
+    jun(): Date;
+    jul(): Date;
+    aug(): Date;
+    sep(): Date;
+    oct(): Date;
+    nov(): Date;
+    dec(): Date;
 
 }
 
 interface Number extends sugarpak.IDateElement {
-    // extend the Number type with all the IDateJS goodness
+    // extend the Number type with all the Date goodness
 }

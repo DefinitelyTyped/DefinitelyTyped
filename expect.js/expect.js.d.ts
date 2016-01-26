@@ -1,5 +1,5 @@
-// Type definitions for expect.js 0.2.0
-// Project: https://github.com/LearnBoost/expect.js
+// Type definitions for expect.js 0.3.1
+// Project: https://github.com/Automattic/expect.js
 // Definitions by: Teppei Sato <https://github.com/teppeis>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -11,6 +11,11 @@ declare module Expect {
          * Check if the value is truthy
          */
         ok(): void;
+
+        /**
+         * Creates an anonymous function which calls fn with arguments.
+         */
+        withArgs(...args: any[]): Root;
 
         /**
          * Assert that the function throws.
@@ -213,4 +218,10 @@ declare module Expect {
     interface Have extends Assertion {
         own: Assertion;
     }
+}
+
+declare module "expect.js" {
+
+    export = expect;
+
 }

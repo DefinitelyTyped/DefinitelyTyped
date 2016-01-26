@@ -23,7 +23,9 @@ morgan('combined', {
     buffer: true,
     immediate: true,
     skip: function (req, res) { return res.statusCode < 400 },
-    stream: (str: string) => {
-        console.log(str);
+    stream: {
+    	write: (str: string) => {
+        	console.log(str);
+    	}
     }
 });

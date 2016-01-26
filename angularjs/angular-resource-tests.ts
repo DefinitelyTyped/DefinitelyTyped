@@ -1,17 +1,31 @@
 /// <reference path="angular-resource.d.ts" />
 
-interface IMyResource extends ng.resource.IResource<IMyResource> { };
-interface IMyResourceClass extends ng.resource.IResourceClass<IMyResource> { };
+interface IMyResource extends angular.resource.IResource<IMyResource> { };
+interface IMyResourceClass extends angular.resource.IResourceClass<IMyResource> { };
 
 ///////////////////////////////////////
 // IActionDescriptor
 ///////////////////////////////////////
-var actionDescriptor: ng.resource.IActionDescriptor;
+var actionDescriptor: angular.resource.IActionDescriptor;
 
-actionDescriptor.headers = { header: 'value' };
-actionDescriptor.isArray = true;
-actionDescriptor.method = 'method action';
-actionDescriptor.params = { key: 'value' };
+angular.injector(['ng']).invoke(function ($cacheFactory: angular.ICacheFactoryService, $timeout: angular.ITimeoutService) {
+    actionDescriptor.method = 'method action';
+    actionDescriptor.params = { key: 'value' };
+    actionDescriptor.url = '/api/test-url/';
+    actionDescriptor.isArray = true;
+    actionDescriptor.transformRequest = function () { };
+    actionDescriptor.transformRequest = [function () { }];
+    actionDescriptor.transformResponse = function () { };
+    actionDescriptor.transformResponse = [function () { }];
+    actionDescriptor.headers = { header: 'value' };
+    actionDescriptor.cache = true;
+    actionDescriptor.cache = $cacheFactory('cacheId');
+    actionDescriptor.timeout = 1000;
+    actionDescriptor.timeout = $timeout(function () { });
+    actionDescriptor.withCredentials = true;
+    actionDescriptor.responseType = 'response type';
+    actionDescriptor.interceptor = { key: 'value' };
+});
 
 
 ///////////////////////////////////////
@@ -19,7 +33,7 @@ actionDescriptor.params = { key: 'value' };
 ///////////////////////////////////////
 var resourceClass: IMyResourceClass;
 var resource: IMyResource;
-var resourceArray: ng.resource.IResourceArray<IMyResource>;
+var resourceArray: angular.resource.IResourceArray<IMyResource>;
 
 resource = resourceClass.delete();
 resource = resourceClass.delete({ key: 'value' });
@@ -49,7 +63,7 @@ resourceArray = resourceClass.query({ key: 'value' }, { key: 'value' });
 resourceArray = resourceClass.query({ key: 'value' }, { key: 'value' }, function () { });
 resourceArray = resourceClass.query({ key: 'value' }, { key: 'value' }, function () { }, function () { });
 resourceArray.push(resource);
-resourceArray.$promise.then(function(data: ng.resource.IResourceArray<IMyResource>) {});
+resourceArray.$promise.then(function(data: angular.resource.IResourceArray<IMyResource>) {});
 
 resource = resourceClass.remove();
 resource = resourceClass.remove({ key: 'value' });
@@ -73,8 +87,11 @@ resource = resourceClass.save({ key: 'value' }, { key: 'value' }, function () { 
 // IResource
 ///////////////////////////////////////
 
-var promise : ng.IPromise<IMyResource>;
-var arrayPromise : ng.IPromise<IMyResource[]>;
+var promise : angular.IPromise<IMyResource>;
+var arrayPromise : angular.IPromise<IMyResource[]>;
+var json: {
+  [index: string]: any;
+};
 
 promise = resource.$delete();
 promise = resource.$delete({ key: 'value' });
@@ -97,7 +114,7 @@ arrayPromise = resourceArray[0].$query({ key: 'value' }, function () { });
 arrayPromise = resourceArray[0].$query(function () { });
 arrayPromise = resourceArray[0].$query(function () { }, function () { });
 arrayPromise = resourceArray[0].$query({ key: 'value' }, function () { }, function () { });
-arrayPromise.then(function(data: ng.resource.IResourceArray<IMyResource>) {});
+arrayPromise.then(function(data: angular.resource.IResourceArray<IMyResource>) {});
 
 promise = resource.$remove();
 promise = resource.$remove({ key: 'value' });
@@ -113,10 +130,12 @@ promise = resource.$save(function () { });
 promise = resource.$save(function () { }, function () { });
 promise = resource.$save({ key: 'value' }, function () { }, function () { });
 
+json    = resource.toJSON();
+
 ///////////////////////////////////////
 // IResourceService
 ///////////////////////////////////////
-var resourceService: ng.resource.IResourceService;
+var resourceService: angular.resource.IResourceService;
 resourceClass = resourceService<IMyResource, IMyResourceClass>('test');
 resourceClass = resourceService<IMyResource>('test');
 resourceClass = resourceService('test');
@@ -125,14 +144,21 @@ resourceClass = resourceService('test');
 // IModule
 ///////////////////////////////////////
 var mod: ng.IModule;
-var resourceServiceFactoryFunction: ng.resource.IResourceServiceFactoryFunction<IMyResource>;
-var resourceService: ng.resource.IResourceService;
+var resourceServiceFactoryFunction: angular.resource.IResourceServiceFactoryFunction<IMyResource>;
+var resourceService: angular.resource.IResourceService;
 
 resourceClass = resourceServiceFactoryFunction<IMyResourceClass>(resourceService);
 
-resourceServiceFactoryFunction = function (resourceService: ng.resource.IResourceService) { return <any>resourceClass; };
+resourceServiceFactoryFunction = function (resourceService: angular.resource.IResourceService) { return <any>resourceClass; };
 mod = mod.factory('factory name', resourceServiceFactoryFunction);
 
 ///////////////////////////////////////
 // IResource
 ///////////////////////////////////////
+
+
+///////////////////////////////////////
+// IResourceServiceProvider
+///////////////////////////////////////
+var resourceServiceProvider: angular.resource.IResourceServiceProvider;
+resourceServiceProvider.defaults.stripTrailingSlashes = false;

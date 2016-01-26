@@ -5,8 +5,19 @@ var fs, path;
 function callback() {}
 
 async.map(['file1', 'file2', 'file3'], fs.stat, function (err, results) { });
+async.mapSeries(['file1', 'file2', 'file3'], fs.stat, function (err, results) { });
+async.mapLimit(['file1', 'file2', 'file3'], 2, fs.stat, function (err, results) { });
 
 async.filter(['file1', 'file2', 'file3'], path.exists, function (results) { });
+async.filterSeries(['file1', 'file2', 'file3'], path.exists, function (results) { });
+async.filterLimit(['file1', 'file2', 'file3'], 2, path.exists, function (results) { });
+async.select(['file1', 'file2', 'file3'], path.exists, function (results) { });
+async.selectSeries(['file1', 'file2', 'file3'], path.exists, function (results) { });
+async.selectLimit(['file1', 'file2', 'file3'], 2, path.exists, function (results) { });
+
+async.reject(['file1', 'file2', 'file3'], path.exists, function (results) { });
+async.rejectSeries(['file1', 'file2', 'file3'], path.exists, function (results) { });
+async.rejectLimit(['file1', 'file2', 'file3'], 2, path.exists, function (results) { });
 
 async.parallel([
     function () { },
@@ -25,6 +36,11 @@ async.map(data, asyncProcess, function (err, results) {
 });
 
 var openFiles = ['file1', 'file2'];
+var openFilesObj = {
+    file1: "fileOne",
+    file2: "fileTwo"
+}
+
 var saveFile = function () { }
 async.each(openFiles, saveFile, function (err) { });
 async.eachSeries(openFiles, saveFile, function (err) { });
@@ -32,18 +48,34 @@ async.eachSeries(openFiles, saveFile, function (err) { });
 var documents, requestApi;
 async.eachLimit(documents, 20, requestApi, function (err) { });
 
-async.map(['file1', 'file2', 'file3'], fs.stat, function (err, results) { });
-
-async.filter(['file1', 'file2', 'file3'], path.exists, function (results) { });
+// forEachOf* functions. May accept array or object.
+function forEachOfIterator(item, key, forEachOfIteratorCallback) {
+    console.log("ForEach: item=" + item + ", key=" + key);
+    forEachOfIteratorCallback();
+}
+async.forEachOf(openFiles, forEachOfIterator, function (err) { });
+async.forEachOf(openFilesObj, forEachOfIterator, function (err) { });
+async.forEachOfSeries(openFiles, forEachOfIterator, function (err) { });
+async.forEachOfSeries(openFilesObj, forEachOfIterator, function (err) { });
+async.forEachOfLimit(openFiles, 2, forEachOfIterator, function (err) { });
+async.forEachOfLimit(openFilesObj, 2, forEachOfIterator, function (err) { });
 
 var process;
-async.reduce([1, 2, 3], 0, function (memo, item, callback) {
+var numArray = [1, 2, 3];
+function reducer(memo, item, callback) {
     process.nextTick(function () {
         callback(null, memo + item)
     });
-}, function (err, result) { });
+}
+async.reduce(numArray, 0, reducer, function (err, result) { });
+async.inject(numArray, 0, reducer, function (err, result) { });
+async.foldl(numArray, 0, reducer, function (err, result) { });
+async.reduceRight(numArray, 0, reducer, function (err, result) { });
+async.foldr(numArray, 0, reducer, function (err, result) { });
 
 async.detect(['file1', 'file2', 'file3'], path.exists, function (result) { });
+async.detectSeries(['file1', 'file2', 'file3'], path.exists, function (result) { });
+async.detectLimit(['file1', 'file2', 'file3'], 2, path.exists, function (result) { });
 
 async.sortBy(['file1', 'file2', 'file3'], function (file, callback) {
     fs.stat(file, function (err, stats) {
@@ -52,12 +84,30 @@ async.sortBy(['file1', 'file2', 'file3'], function (file, callback) {
 }, function (err, results) { });
 
 async.some(['file1', 'file2', 'file3'], path.exists, function (result) { });
+async.someLimit(['file1', 'file2', 'file3'], 2, path.exists, function (result) { });
+async.any(['file1', 'file2', 'file3'], path.exists, function (result) { });
 
 async.every(['file1', 'file2', 'file3'], path.exists, function (result) { });
+async.everyLimit(['file1', 'file2', 'file3'], 2, path.exists, function (result) { });
+async.all(['file1', 'file2', 'file3'], path.exists, function (result) { });
 
 async.concat(['dir1', 'dir2', 'dir3'], fs.readdir, function (err, files) { });
+async.concatSeries(['dir1', 'dir2', 'dir3'], fs.readdir, function (err, files) { });
+
+
+// Control Flow //
 
 async.series([
+    function (callback) {
+        callback(null, 'one');
+    },
+    function (callback) {
+        callback(null, 'two');
+    },
+],
+function (err, results) { });
+
+async.series<string>([
     function (callback) {
         callback(null, 'one');
     },
@@ -81,7 +131,47 @@ async.series({
 },
 function (err, results) { });
 
+async.series<number>({
+    one: function (callback) {
+        setTimeout(function () {
+            callback(null, 1);
+        }, 200);
+    },
+    two: function (callback) {
+        setTimeout(function () {
+            callback(null, 2);
+        }, 100);
+    },
+},
+function (err, results) { });
+
+async.times(5, function(n, next) {
+    next(null, n)
+}, function(err, results) {
+    console.log(results)
+})
+
+async.timesSeries(5, function(n, next) {
+    next(null, n)
+}, function(err, results) {
+    console.log(results)
+})
+
 async.parallel([
+    function (callback) {
+        setTimeout(function () {
+            callback(null, 'one');
+        }, 200);
+    },
+    function (callback) {
+        setTimeout(function () {
+            callback(null, 'two');
+        }, 100);
+    },
+],
+function (err, results) { });
+
+async.parallel<string>([
     function (callback) {
         setTimeout(function () {
             callback(null, 'one');
@@ -110,18 +200,58 @@ async.parallel({
 },
 function (err, results) { });
 
-
-var count = 0;
-
-async.whilst(
-    function () { return count < 5; },
-    function (callback) {
-        count++;
-        setTimeout(callback, 1000);
+async.parallel<number>({
+    one: function (callback) {
+        setTimeout(function () {
+            callback(null, 1);
+        }, 200);
     },
-    function (err) { }
+    two: function (callback) {
+        setTimeout(function () {
+            callback(null, 2);
+        }, 100);
+    },
+},
+    function (err, results) { });
+
+async.parallelLimit({
+    one: function (callback) {
+        setTimeout(function () {
+            callback(null, 1);
+        }, 200);
+    },
+    two: function (callback) {
+        setTimeout(function () {
+            callback(null, 2);
+        }, 100);
+    },
+},
+    2,
+    function (err, results) { }
 );
 
+
+function whileFn(callback) {
+    count++;
+    setTimeout(callback, 1000);
+}
+
+function whileTest() { return count < 5; }
+var count = 0;
+async.whilst(whileTest, whileFn, function (err) { });
+async.until(whileTest, whileFn, function (err) { });
+async.doWhilst(whileFn, whileTest, function (err) { });
+async.doUntil(whileFn, whileTest, function (err) { });
+
+async.during(function (testCallback) { testCallback(new Error(), false); }, function (callback) { callback() }, function (error) { console.log(error) });
+async.doDuring(function (callback) { callback() }, function (testCallback) { testCallback(new Error(), false); }, function (error) { console.log(error) });
+async.forever(function (errBack) {
+    errBack(new Error("Not going on forever."));
+},
+    function (error) {
+        console.log(error);
+    }
+);
 
 async.waterfall([
     function (callback) {
@@ -136,7 +266,7 @@ async.waterfall([
 ], function (err, result) { });
 
 
-var q = async.queue(function (task: any, callback) {
+var q = async.queue<any>(function (task: any, callback) {
     console.log('hello ' + task.name);
     callback();
 }, 2);
@@ -189,29 +319,49 @@ q.resume();
 q.kill();
 
 // tests for strongly typed tasks
-var q2 = async.queue(function (task: string, callback) {
+var q2 = async.queue<string>(function (task: string, callback) {
     console.log('Task: ' + task);
     callback();
 }, 1);
 
 q2.push('task1');
 
-q2.push('task2', function (error, results: string[]) {
-    console.log('Finished tasks: ' + results.join(', '));
+q2.push('task2', function (error) {
+    console.log('Finished tasks');
 });
 
-q2.push(['task3', 'task4', 'task5'], function (error, results: string[]) {
-    console.log('Finished tasks: ' + results.join(', '));
+q2.push(['task3', 'task4', 'task5'], function (error) {
+    console.log('Finished tasks');
 });
 
 q2.unshift('task1');
 
-q2.unshift('task2', function (error, results: string[]) {
-    console.log('Finished tasks: ' + results.join(', '));
+q2.unshift('task2', function (error) {
+    console.log('Finished tasks');
 });
 
-q2.unshift(['task3', 'task4', 'task5'], function (error, results: string[]) {
-    console.log('Finished tasks: ' + results.join(', '));
+q2.unshift(['task3', 'task4', 'task5'], function (error) {
+    console.log('Finished tasks');
+});
+
+// create a cargo object with payload 2
+var cargo = async.cargo(function (tasks, callback) {
+    for (var i = 0; i < tasks.length; i++) {
+        console.log('hello ' + tasks[i].name);
+    }
+    callback();
+}, 2);
+
+
+// add some items
+cargo.push({ name: 'foo' }, function (err) {
+    console.log('finished processing foo');
+});
+cargo.push({ name: 'bar' }, function (err) {
+    console.log('finished processing bar');
+});
+cargo.push({ name: 'baz' }, function (err) {
+    console.log('finished processing baz');
 });
 
 var filename = '';
@@ -225,6 +375,9 @@ async.auto({
     //arrays with different types are not accepted by TypeScript.
     email_link: ['write_file', <any>function (callback, results) { }]
 });
+
+async.retry(3, function (callback, results) { }, function (err, result) { });
+async.retry({ times: 3, interval: 200 }, function (callback, results) { }, function (err, result) { });
 
 
 async.parallel([
@@ -271,3 +424,20 @@ var slow_fn = function (name, callback) {
 };
 var fn = async.memoize(slow_fn);
 fn('some name', function () {});
+async.unmemoize(fn);
+async.ensureAsync(function () { });
+async.constant(42);
+async.asyncify(function () { });
+
+async.log(function (name, callback) {
+    setTimeout(function () {
+        callback(null, 'hello ' + name);
+    }, 0);
+}, "world"
+    );
+
+async.dir(function (name, callback) {
+    setTimeout(function () {
+        callback(null, { hello: name });
+    }, 1000);
+}, "world");

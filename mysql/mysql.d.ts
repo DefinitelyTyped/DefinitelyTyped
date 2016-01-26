@@ -15,6 +15,7 @@ declare module "mysql" {
 	function escape(value: any): string;
 	function format(sql: string): string;
 	function format(sql: string, values: Array<any>): string;
+	function format(sql: string, values: any): string;
 
 	interface IMySql {
 		createConnection(connectionUri: string): IConnection;
@@ -24,6 +25,7 @@ declare module "mysql" {
 		escape(value: any): string;
 		format(sql: string): string;
 		format(sql: string, values: Array<any>): string;
+		format(sql: string, values: any): string;
 	}
 
     interface IConnectionStatic {
@@ -69,6 +71,7 @@ declare module "mysql" {
 
         format(sql: string): string;
         format(sql: string, values: Array<any>): string;
+        format(sql: string, values: any): string;
 
         on(ev: string, callback: (...args: any[]) => void): IConnection;
         on(ev: 'error', callback: (err: IError) => void): IConnection;
@@ -82,6 +85,9 @@ declare module "mysql" {
         getConnection(callback: (err: IError, connection: IConnection) => void): void;
 
         query: IQueryFunction;
+
+        end(): void;
+        end(callback: (err: IError, ...args: any[]) => void): void;
 
         on(ev: string, callback: (...args: any[]) => void): IPool;
         on(ev: 'connection', callback: (connection: IConnection) => void): IPool;
@@ -401,6 +407,12 @@ declare module "mysql" {
          * remove a node in the PoolCluster. (Default: 5)
          */
         removeNodeErrorCount?: number;
+
+        /**
+         * If connection fails, specifies the number of milliseconds before another connection attempt will be made.
+         * If set to 0, then node will be removed instead and never re-used. (Default: 0)
+         */
+        restoreNodeTimeout?: number;
 
         /**
          * The default selector. (Default: RR)

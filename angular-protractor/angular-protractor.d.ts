@@ -501,6 +501,145 @@ declare module protractor {
         function titleMatches(regex: RegExp): webdriver.until.Condition<boolean>;
     }
 
+    module ExpectedConditions {
+        /**
+         * Negates the result of a promise.
+         *
+         * @param {webdriver.until.Condition<boolean>} expectedCondition
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns the negated value.
+         */
+        function not<T>(expectedCondition: webdriver.until.Condition<T>): webdriver.until.Condition<T>;
+
+        /**
+         * Chain a number of expected conditions using logical_and, short circuiting at the
+         * first expected condition that evaluates to false.
+         *
+         * @param {...webdriver.until.Condition<boolean>[]} fns An array of expected conditions to 'and' together.
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise which evaluates
+         * to the result of the logical and.
+         */
+        function and<T>(...fns: webdriver.until.Condition<T>[]): webdriver.until.Condition<T>;
+
+        /**
+         * Chain a number of expected conditions using logical_or, short circuiting at the
+         * first expected condition that evaluates to true.
+         *
+         * @param {...webdriver.until.Condition<boolean>[]} fns An array of expected conditions to 'or' together.
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise which
+         * evaluates to the result of the logical or.
+         */
+        function or<T>(...fns: webdriver.until.Condition<T>[]): webdriver.until.Condition<T>;
+
+        /**
+         * Expect an alert to be present.
+         *
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether an alert is present.
+         */
+        function alertIsPresent<T>(): webdriver.until.Condition<T>;
+
+        /**
+         * An Expectation for checking an element is visible and enabled such that you can click it.
+         *
+         * @param {ElementFinder} element The element to check
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether the element is clickable.
+         */
+        function elementToBeClickable<T>(element: ElementFinder): webdriver.until.Condition<T>;
+
+        /**
+         * An expectation for checking if the given text is present in the element.
+         * Returns false if the elementFinder does not find an element.
+         *
+         * @param {ElementFinder} element The element to check
+         * @param {string} text The text to verify against
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether the text is present in the element.
+         */
+        function textToBePresentInElement<T>(element: ElementFinder, text: string): webdriver.until.Condition<T>;
+
+        /**
+         * An expectation for checking if the given text is present in the element’s value.
+         * Returns false if the elementFinder does not find an element.
+         *
+         * @param {ElementFinder} element The element to check
+         * @param {string} text The text to verify against
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether the text is present in the element's value.
+         */
+        function textToBePresentInElementValue<T>(
+          element: ElementFinder, text: string
+        ): webdriver.until.Condition<T>;
+
+        /**
+         * An expectation for checking that the title contains a case-sensitive substring.
+         *
+         * @param {string} title The fragment of title expected
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether the title contains the string.
+         */
+        function titleContains<T>(title: string): webdriver.until.Condition<T>;
+
+        /**
+         * An expectation for checking the title of a page.
+         *
+         * @param {string} title The expected title, which must be an exact match.
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether the title equals the string.
+         */
+        function titleIs<T>(title: string): webdriver.until.Condition<T>;
+
+        /**
+         * An expectation for checking that an element is present on the DOM of a page. This does not necessarily
+         * mean that the element is visible. This is the opposite of 'stalenessOf'.
+         *
+         * @param {ElementFinder} elementFinder The element to check
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise
+         * representing whether the element is present.
+         */
+        function presenceOf<T>(element: ElementFinder): webdriver.until.Condition<T>;
+
+        /**
+         * An expectation for checking that an element is not attached to the DOM of a page.
+         * This is the opposite of 'presenceOf'.
+         *
+         * @param {ElementFinder} elementFinder The element to check
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether the element is stale.
+         */
+        function stalenessOf<T>(element: ElementFinder): webdriver.until.Condition<T>;
+
+        /**
+         * An expectation for checking that an element is present on the DOM of a page and visible.
+         * Visibility means that the element is not only displayed but also has a height and width that is
+         * greater than 0. This is the opposite of 'invisibilityOf'.
+         *
+         * @param {ElementFinder} elementFinder The element to check
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether the element is visible.
+         */
+        function visibilityOf<T>(element: ElementFinder): webdriver.until.Condition<T>;
+
+        /**
+         * An expectation for checking that an element is present on the DOM of a page. This does not necessarily
+         * mean that the element is visible. This is the opposite of 'stalenessOf'.
+         *
+         * @param {ElementFinder} elementFinder The element to check
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether the element is invisible.
+         */
+        function invisibilityOf<T>(element: ElementFinder): webdriver.until.Condition<T>;
+
+        /**
+         * An expectation for checking the selection is selected.
+         *
+         * @param {ElementFinder} elementFinder The element to check
+         * @return {!webdriver.until.Condition<boolean>} An expected condition that returns a promise representing
+         * whether the element is selected.
+         */
+        function elementToBeSelected<T>(element: ElementFinder): webdriver.until.Condition<T>;
+    }
+
     //endregion
 
     /**
@@ -564,7 +703,7 @@ declare module protractor {
         */
         element(subLocator: webdriver.Locator): ElementFinder;
 
-        /** 
+        /**
         * Calls to element may be chained to find an array of elements within a parent.
         *
         * @alias element(locator).all(locator)
@@ -652,7 +791,7 @@ declare module protractor {
         /**
         * Override for WebElement.prototype.isElementPresent so that protractor waits
         * for Angular to settle before making the check.
-        * 
+        *
         * @see ElementFinder.isPresent
         *
         * @param {webdriver.Locator} subLocator Locator for element to look for.
@@ -879,7 +1018,7 @@ declare module protractor {
         *   filteredElements[0].click();
         * });
         *
-        * @param {function(ElementFinder, number): webdriver.WebElement.Promise} filterFn 
+        * @param {function(ElementFinder, number): webdriver.WebElement.Promise} filterFn
         *     Filter function that will test if an element should be returned.
         *     filterFn can either return a boolean or a promise that resolves to a boolean.
         * @return {!ElementArrayFinder} A ElementArrayFinder that represents an array
@@ -888,11 +1027,11 @@ declare module protractor {
         filter(filterFn: (element: ElementFinder, index: number) => any): ElementArrayFinder;
 
         /**
-        * Apply a reduce function against an accumulator and every element found 
+        * Apply a reduce function against an accumulator and every element found
         * using the locator (from left-to-right). The reduce function has to reduce
-        * every element into a single value (the accumulator). Returns promise of 
-        * the accumulator. The reduce function receives the accumulator, current 
-        * ElementFinder, the index, and the entire array of ElementFinders, 
+        * every element into a single value (the accumulator). Returns promise of
+        * the accumulator. The reduce function receives the accumulator, current
+        * ElementFinder, the index, and the entire array of ElementFinders,
         * respectively.
         *
         * @alias element.all(locator).reduce(reduceFn)
@@ -912,11 +1051,11 @@ declare module protractor {
         *
         * expect(value).toEqual('First Second Third ');
         *
-        * @param {function(number, ElementFinder, number, Array.<ElementFinder>)} 
+        * @param {function(number, ElementFinder, number, Array.<ElementFinder>)}
         *     reduceFn Reduce function that reduces every element into a single value.
-        * @param {*} initialValue Initial value of the accumulator. 
+        * @param {*} initialValue Initial value of the accumulator.
         * @return {!webdriver.promise.Promise} A promise that resolves to the final
-        *     value of the accumulator. 
+        *     value of the accumulator.
         */
         reduce<T>(reduceFn: (acc: T, element: ElementFinder, index: number, arr: ElementFinder[]) => webdriver.promise.Promise<T>, initialValue: T): webdriver.promise.Promise<T>;
         reduce<T>(reduceFn: (acc: T, element: ElementFinder, index: number, arr: ElementFinder[]) => T, initialValue: T): webdriver.promise.Promise<T>;
@@ -924,10 +1063,10 @@ declare module protractor {
         /**
         * Represents the ElementArrayFinder as an array of ElementFinders.
         *
-        * @return {Array.<ElementFinder>} Return a promise, which resolves to a list 
+        * @return {Array.<ElementFinder>} Return a promise, which resolves to a list
         *     of ElementFinders specified by the locator.
         */
-        asElementFinders_(): ElementFinder[];
+        asElementFinders_(): webdriver.promise.Promise<ElementFinder[]>;
 
         /**
         * Create a shallow copy of ElementArrayFinder.
@@ -1221,13 +1360,28 @@ declare module protractor {
 
     interface LocatorWithColumn extends webdriver.Locator {
         column(index: number): webdriver.Locator;
+        column(name: string): webdriver.Locator;
     }
 
     interface RepeaterLocator extends LocatorWithColumn {
         row(index: number): LocatorWithColumn;
     }
 
-    interface IProtractorLocatorStrategy extends webdriver.ILocatorStrategy {
+    interface IProtractorLocatorStrategy {
+        /**
+         * webdriver's By is an enum of locator functions, so we must set it to
+         * a prototype before inheriting from it.
+         */
+        className: typeof webdriver.By.className;
+        css: typeof webdriver.By.css;
+        id: typeof webdriver.By.id;
+        linkText: typeof webdriver.By.linkText;
+        js: typeof webdriver.By.js;
+        name: typeof webdriver.By.name;
+        partialLinkText: typeof webdriver.By.partialLinkText;
+        tagName: typeof webdriver.By.tagName;
+        xpath: typeof webdriver.By.xpath;
+
         /**
          * Add a locator to this instance of ProtractorBy. This locator can then be
          * used with element(by.locatorName(args)).
@@ -1299,7 +1453,7 @@ declare module protractor {
          * expect(element(by.exactBinding('person_phone')).isPresent()).toBe(true);
          * expect(element(by.exactBinding('person_phone|uppercase')).isPresent()).toBe(true);
          * expect(element(by.exactBinding('phone')).isPresent()).toBe(false);
-         * 
+         *
          * @param {string} bindingDescriptor
          * @return {{findElementsOverride: findElementsOverride, toString: Function|string}}
          */
@@ -1652,6 +1806,16 @@ declare module protractor {
         * @return {Protractor} a protractor instance.
         */
         forkNewDriverInstance(opt_useSameUrl?: boolean, opt_copyMockModules?: boolean): Protractor;
+
+        /**
+        * Get the processed configuration object that is currently being run. This will contain
+        * the specs and capabilities properties of the current runner instance.
+        *
+        * Set by the runner.
+        *
+        * @return {webdriver.promise.Promise<any>} A promise which resolves to the capabilities object.
+        */
+        getProcessedConfig(): webdriver.promise.Promise<any>;
     }
 
     /**
