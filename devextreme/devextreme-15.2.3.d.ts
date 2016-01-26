@@ -1,4 +1,4 @@
-// Type definitions for DevExtreme 15.2.4
+// Type definitions for DevExtreme 15.2.3
 // Project: http://js.devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -35,7 +35,7 @@ declare module DevExpress {
             brokenRules: any[];
             validators: IValidator[];
         }
-        export interface GroupConfig extends EventsMixin<GroupConfig> {
+        export interface GroupConfig extends EventsMixin<GroupConfig>  {
             group: any;
             validators: IValidator[];
             validate(): ValidationGroupValidationResult;
@@ -56,7 +56,7 @@ declare module DevExpress {
         /** Validates the rules that are defined within the dxValidator objects that are registered for the specified ViewModel. */
         export function validateModel(model: Object): ValidationGroupValidationResult;
         /** Registers all the dxValidator objects by which the fields of the specified ViewModel are extended. */
-        export function registerModelForValidation(model: Object): void;
+        export function registerModelForValidation(model: Object) : void;
     }
     export var hardwareBackButton: JQueryCallback;
     /** Processes the hardware back button click. */
@@ -2401,7 +2401,7 @@ declare module DevExpress.ui {
         scrollPosition(): number;
     }
     export interface dxSwitchOptions extends EditorOptions {
-        activeStateEnabled?: boolean;
+	    activeStateEnabled?: boolean;
         /** Text displayed when the widget is in a disabled state. */
         offText?: string;
         /** Text displayed when the widget is in an enabled state. */
@@ -2534,7 +2534,6 @@ declare module DevExpress.ui {
         /** Specifies whether or not the drop-down menu is displayed. */
         opened?: boolean;
         hoverStateEnabled?: boolean;
-        activeStateEnabled?: boolean;
     }
     /** A drop-down menu widget. */
     export class dxDropDownMenu extends Widget {
@@ -4480,11 +4479,11 @@ declare module DevExpress.viz.core {
         font?: viz.core.Font;
         /** Specifies the widget title's horizontal position. */
         horizontalAlignment?: string;
-        /** Specifies the widget title's position in the vertical direction. */
+       /** Specifies the widget title's position in the vertical direction. */
         verticalAlignment?: string;
         /** Specifies the distance between the title and surrounding widget elements in pixels. */
         margin?: viz.core.Margins;
-        /** Specifies the height of the space reserved for the title. */
+         /** Specifies the height of the space reserved for the title. */
         placeholderSize?: number;
         /** Specifies text for the title. */
         text?: string;
@@ -4492,7 +4491,7 @@ declare module DevExpress.viz.core {
         subtitle?: {
             /** Specifies font options for the subtitle. */
             font?: viz.core.Font;
-            /** Specifies text for the subtitle. */
+           /** Specifies text for the subtitle. */
             text?: string;
         }
     }
@@ -4603,16 +4602,16 @@ declare module DevExpress.viz.core {
         }) => void;
         /** A handler for the incidentOccurred event. */
         onIncidentOccurred?: (
-            component: BaseWidget,
-            element: Element,
-            target: {
-                id: string;
-                type: string;
-                args: any;
-                text: string;
-                widget: string;
-                version: string;
-            }
+        component: BaseWidget,
+        element: Element,
+        target: {
+            id: string;
+            type: string;
+            args: any;
+            text: string;
+            widget: string;
+            version: string;
+        }
         ) => void;
         /** Notifies a widget that it is embedded into an HTML page that uses a path modifier. */
         pathModified?: boolean;
@@ -5153,6 +5152,10 @@ declare module DevExpress.viz.charts {
         valueField?: string;
     }
     export interface CommonPieSeriesSettings extends CommonPieSeriesConfig {
+        /**
+         * Sets a series type for all series.
+         * @deprecated use the 'type' option instead
+         */
         type?: string;
     }
     export interface PieSeriesConfig extends CommonPieSeriesConfig {
@@ -6386,12 +6389,8 @@ declare module DevExpress.viz.rangeSelector {
             };
             /** Specifies the value to be raised to a power when generating ticks for a logarithmic scale. */
             logarithmBase?: number;
-            /**
-             * Specifies an interval between major ticks.
-             * @deprecated ..\tickInterval\tickInterval.md
-             */
+            /** Specifies an interval between major ticks. */
             majorTickInterval?: any;
-            tickInterval?: any;
             /** Specifies options for the date-time scale's markers. */
             marker?: {
                 /** Defines the options that can be set for the text that is displayed by the scale markers. */
@@ -6426,10 +6425,7 @@ declare module DevExpress.viz.rangeSelector {
             setTicksAtUnitBeginning?: boolean;
             /** Specifies whether or not to show ticks for the boundary scale values, when neither major ticks nor minor ticks are created for these values. */
             showCustomBoundaryTicks?: boolean;
-            /**
-             * Indicates whether or not to show minor ticks on the scale.
-             * @deprecated minorTick\visible.md
-             */
+            /** Indicates whether or not to show minor ticks on the scale. */
             showMinorTicks?: boolean;
             /** Specifies the scale's start value. */
             startValue?: any;
@@ -6442,20 +6438,14 @@ declare module DevExpress.viz.rangeSelector {
                 /** Specifies the width of the scale's ticks (both major and minor ticks). */
                 width?: number;
             };
-            minorTick?: {
-                color?: string;
-                opacity?: number;
-                width?: number;
-                visible?: boolean;
-            };
             /** Specifies the type of the scale. */
             type?: string;
             /** Specifies whether or not to expand the current tick interval if labels overlap each other. */
             useTicksAutoArrangement?: boolean;
             /** Specifies the type of values on the scale. */
             valueType?: string;
-            /** Specifies the order of arguments on a discrete scale. */
-            categories?: Array<any>;
+			/** Specifies the order of arguments on a discrete scale. */
+			categories?: Array<any>;
         };
         /** Specifies the range to be selected when displaying the dxRangeSelector. */
         selectedRange?: {
@@ -6593,7 +6583,7 @@ declare module DevExpress.viz.map {
         selected(): boolean;
         /** Sets the selection state of the layer element. */
         selected(state: boolean): void;
-        /** Applies the layer element settings and updates element appearance. */
+        /** Applies the layer element settings and updates the element appearance. */
         applySettings(settings: any): void;
     }
     /**
@@ -6690,7 +6680,7 @@ declare module DevExpress.viz.map {
         type?: string;
         /** Specifies the type of a marker element. Setting this option makes sense only if the layer type is "marker". */
         elementType?: string;
-        /** Specifies a data source for the layer. */
+        /** Specifies a data source for the layer element. */
         data?: any;
         /** Specifies the width of the layer elements border in pixels. */
         borderWidth?: number;
@@ -7050,9 +7040,9 @@ declare module DevExpress.viz.map {
         center?: Array<number>;
         /** A handler for the centerChanged event. */
         onCenterChanged?: (e: {
-            center: Array<number>;
-            component: dxVectorMap;
-            element: Element;
+			center: Array<number>;
+			component: dxVectorMap;
+			element: Element;
         }) => void;
         /** A handler for the tooltipShown event. */
         onTooltipShown?: (e: {
