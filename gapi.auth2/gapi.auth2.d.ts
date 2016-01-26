@@ -21,7 +21,7 @@ declare module gapi.auth2 {
      * Calls the onInit function when the GoogleAuth object is fully initialized, or calls the onFailure function if
      * initialization fails.
      */
-    then(onInit: () => any, onFailure: (reason: string) => any);
+    then(onInit: () => any, onFailure: (reason: string) => any): any;
 
     /**
      * Signs in the user with the options specified to gapi.auth2.init().
@@ -280,5 +280,5 @@ declare module gapi.signin2 {
      * Optional. (default: none)
      */
     app_package_name?: string;
-  });
+  }): void;
 }
