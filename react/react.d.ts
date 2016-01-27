@@ -4,6 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare namespace __React {
+
     //
     // React Elements
     // ----------------------------------------------------------------------
@@ -2249,6 +2250,7 @@ declare namespace JSX {
         svg: React.SVGProps;
 
         circle: React.SVGProps;
+        clipPath: React.SVGProps;
         defs: React.SVGProps;
         ellipse: React.SVGProps;
         g: React.SVGProps;

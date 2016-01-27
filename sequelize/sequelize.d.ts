@@ -5,7 +5,7 @@
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
-/// <reference path="../lodash/lodash.d.ts" />
+/// <reference path='../lodash/lodash-3.10.d.ts' />
 /// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path="../validator/validator.d.ts" />
 
@@ -2690,7 +2690,7 @@ declare module "sequelize" {
          *
          * @see Sequelize.define for more information about getters and setters
          */
-        interface Instance<TInstance, TAttributes> {
+        interface Instance<TAttributes> {
 
             /**
              * Returns true if this instance has not yet been persisted to the database
@@ -2702,7 +2702,7 @@ declare module "sequelize" {
              *
              * @see Model
              */
-            Model : Model<TInstance, TAttributes>;
+            Model : Model<this, TAttributes>;
 
             /**
              * A reference to the sequelize instance
@@ -2759,10 +2759,10 @@ declare module "sequelize" {
              * @param options.raw If set to true, field and virtual setters will be ignored
              * @param options.reset Clear all previously set data values
              */
-            set( key : string, value : any, options? : InstanceSetOptions ) : TInstance;
-            set( keys : Object, options? : InstanceSetOptions ) : TInstance;
-            setAttributes( key : string, value : any, options? : InstanceSetOptions ) : TInstance;
-            setAttributes( keys : Object, options? : InstanceSetOptions ) : TInstance;
+            set( key : string, value : any, options? : InstanceSetOptions ) : this;
+            set( keys : Object, options? : InstanceSetOptions ) : this;
+            setAttributes( key : string, value : any, options? : InstanceSetOptions ) : this;
+            setAttributes( keys : Object, options? : InstanceSetOptions ) : this;
 
             /**
              * If changed is called with a string it will return a boolean indicating whether the value of that key in
@@ -2787,7 +2787,7 @@ declare module "sequelize" {
              * called with an instance of `Sequelize.ValidationError`. This error will have a property for each of the
              * fields for which validation failed, with the error message for that field.
              */
-            save( options? : InstanceSaveOptions ) : Promise<TInstance>;
+            save( options? : InstanceSaveOptions ) : Promise<this>;
 
             /**
              * Refresh the current instance in-place, i.e. update the object with current data from the DB and return
@@ -2795,7 +2795,7 @@ declare module "sequelize" {
              * return a new instance. With this method, all references to the Instance are updated with the new data
              * and no new objects are created.
              */
-            reload( options? : FindOptions ) : Promise<TInstance>;
+            reload( options? : FindOptions ) : Promise<this>;
 
             /**
              * Validate the attribute of this instance according to validation rules set in the model definition.
@@ -2810,10 +2810,10 @@ declare module "sequelize" {
             /**
              * This is the same as calling `set` and then calling `save`.
              */
-            update( key : string, value : any, options? : InstanceUpdateOptions ) : Promise<TInstance>;
-            update( keys : Object, options? : InstanceUpdateOptions ) : Promise<TInstance>;
-            updateAttributes( key : string, value : any, options? : InstanceUpdateOptions ) : Promise<TInstance>;
-            updateAttributes( keys : Object, options? : InstanceUpdateOptions ) : Promise<TInstance>;
+            update( key : string, value : any, options? : InstanceUpdateOptions ) : Promise<this>;
+            update( keys : Object, options? : InstanceUpdateOptions ) : Promise<this>;
+            updateAttributes( key : string, value : any, options? : InstanceUpdateOptions ) : Promise<this>;
+            updateAttributes( keys : Object, options? : InstanceUpdateOptions ) : Promise<this>;
 
             /**
              * Destroy the row corresponding to this instance. Depending on your setting for paranoid, the row will
@@ -2847,7 +2847,7 @@ declare module "sequelize" {
              *               If and object is provided, each column is incremented by the value given.
              */
             increment( fields : string | string[] | Object,
-                       options? : InstanceIncrementDecrementOptions ) : Promise<TInstance>;
+                       options? : InstanceIncrementDecrementOptions ) : Promise<this>;
 
             /**
              * Decrement the value of one or more columns. This is done in the database, which means it does not use
@@ -2870,17 +2870,17 @@ declare module "sequelize" {
              *               If and object is provided, each column is decremented by the value given
              */
             decrement( fields : string | string[] | Object,
-                       options? : InstanceIncrementDecrementOptions ) : Promise<TInstance>;
+                       options? : InstanceIncrementDecrementOptions ) : Promise<this>;
 
             /**
              * Check whether all values of this and `other` Instance are the same
              */
-            equals( other : Instance<any, any> ) : boolean;
+            equals( other : Instance<any> ) : boolean;
 
             /**
              * Check if this is eqaul to one of `others` by calling equals
              */
-            equalsOneOf( others : Instance<any, any>[] ) : boolean;
+            equalsOneOf( others : Instance<any>[] ) : boolean;
 
             /**
              * Convert the instance to a JSON representation. Proxies to calling `get` with no keys. This means get all
@@ -3577,7 +3577,7 @@ declare module "sequelize" {
              * Sync this Model to the DB, that is create the table. Upon success, the callback will be called with the
              * model instance (this)
              */
-            sync( options? : SyncOptions ) : Promise<Model<TInstance, TAttributes>>;
+            sync( options? : SyncOptions ) : Promise<this>;
 
             /**
              * Drop the table represented by this Model
@@ -3595,7 +3595,7 @@ declare module "sequelize" {
              * @param schema The name of the schema
              * @param options
              */
-            schema( schema : string, options? : SchemaOptions ) : Model<TInstance, TAttributes>;
+            schema( schema : string, options? : SchemaOptions ) : this;
 
             /**
              * Get the tablename of the model, taking schema into account. The method will return The name as a string
@@ -3656,7 +3656,7 @@ declare module "sequelize" {
              * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
              *     model will clear the previous scope.
              */
-            scope( options? : string | string[] | ScopeOptions | WhereOptions ) : Model<TInstance, TAttributes>;
+            scope( options? : string | string[] | ScopeOptions | WhereOptions ) : this;
 
             /**
              * Search for multiple instances.
@@ -3911,7 +3911,7 @@ declare module "sequelize" {
             /**
              * Unscope the model
              */
-            unscoped() : Model<TInstance, TAttributes>;
+            unscoped() : this;
 
         }
 
@@ -4089,7 +4089,7 @@ declare module "sequelize" {
             /**
              * Inserts a new record
              */
-            insert( instance : Instance<any, any>, tableName : string, values : Object,
+            insert( instance : Instance<any>, tableName : string, values : Object,
                     options? : QueryOptions ) : Promise<Object>;
 
             /**
@@ -4107,7 +4107,7 @@ declare module "sequelize" {
             /**
              * Updates a row
              */
-            update( instance : Instance<any, any>, tableName : string, values : Object, identifier : Object,
+            update( instance : Instance<any>, tableName : string, values : Object, identifier : Object,
                     options? : QueryOptions ) : Promise<Object>;
 
             /**
@@ -4119,7 +4119,7 @@ declare module "sequelize" {
             /**
              * Deletes a row
              */
-            "delete"( instance : Instance<any, any>, tableName : string, identifier : Object,
+            "delete"( instance : Instance<any>, tableName : string, identifier : Object,
                       options? : QueryOptions ) : Promise<Object>;
 
             /**
@@ -4136,7 +4136,7 @@ declare module "sequelize" {
             /**
              * Increments a row value
              */
-            increment( instance : Instance<any, any>, tableName : string, values : Object, identifier : Object,
+            increment( instance : Instance<any>, tableName : string, values : Object, identifier : Object,
                        options? : QueryOptions ) : Promise<Object>;
 
             /**
@@ -4482,7 +4482,7 @@ declare module "sequelize" {
             /**
              * A sequelize instance used to build the return instance
              */
-            instance? : Instance<any, any>;
+            instance? : Instance<any>;
 
             /**
              * A sequelize model used to build the returned model instances (used to be called callee)
@@ -5210,7 +5210,7 @@ declare module "sequelize" {
             /**
              * A reference to the sequelize instance class.
              */
-            Instance : Instance<any, any>;
+            Instance : Instance<any>;
 
             /**
              * Creates a object representing a database function. This can be used in search queries, both in where and
@@ -5666,7 +5666,7 @@ declare module "sequelize" {
         /**
          * Validator Interface
          */
-        interface Validator extends IValidatorStatic {
+        interface Validator extends ValidatorJS.ValidatorStatic {
 
             notEmpty( str : string ) : boolean;
             len( str : string, min : number, max : number ) : boolean;

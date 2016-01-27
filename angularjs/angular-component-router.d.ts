@@ -36,6 +36,9 @@ declare module angular {
      * ```
      */
     interface Instruction {
+        component: ComponentInstruction;
+        child: Instruction;
+        auxInstruction: {[key: string]: Instruction};
 
         urlPath(): string;
 

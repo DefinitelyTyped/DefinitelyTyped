@@ -459,7 +459,7 @@ declare module "http" {
         host?: string;
         hostname?: string;
         family?: number;
-        port?: number
+        port?: number;
         localAddress?: string;
         socketPath?: string;
         method?: string;
@@ -643,6 +643,13 @@ declare module "cluster" {
 
     // Event emitter
     export function addListener(event: string, listener: Function): void;
+    export function on(event: "disconnect", listener: (worker: Worker) => void): void;
+    export function on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): void;
+    export function on(event: "fork", listener: (worker: Worker) => void): void;
+    export function on(event: "listening", listener: (worker: Worker, address: any) => void): void;
+    export function on(event: "message", listener: (worker: Worker, message: any) => void): void;
+    export function on(event: "online", listener: (worker: Worker) => void): void;
+    export function on(event: "setup", listener: (settings: any) => void): void;
     export function on(event: string, listener: Function): any;
     export function once(event: string, listener: Function): void;
     export function removeListener(event: string, listener: Function): void;
@@ -731,7 +738,7 @@ declare module "os" {
             sys: number;
             idle: number;
             irq: number;
-        }
+        };
     }
 
     export interface NetworkInterfaceInfo {

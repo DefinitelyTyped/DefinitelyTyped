@@ -4432,6 +4432,12 @@ interface HighchartsLineChart extends HighchartsSeriesChart {
      * @since 1.2.5
      */
     step?: boolean|string;
+    
+    /**
+     * The line cap used for line ends and line joins on the graph.
+     * @default 'round'
+     */
+    linecap?: string;
 }
 
 /**
