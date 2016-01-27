@@ -9972,6 +9972,66 @@ namespace TestOver {
     }
 }
 
+// _.overEvery
+namespace TestOverEvery {
+    {
+        let result: (...args: any[]) => boolean;
+
+        result = _.overEvery(() => true);
+        result = _.overEvery(() => true, () => true);
+        result = _.overEvery([() => true]);
+        result = _.overEvery([() => true], [() => true]);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+
+        result = _(Math.max).overEvery();
+        result = _(Math.max).overEvery(() => true);
+        result = _([Math.max]).overEvery();
+        result = _([Math.max]).overEvery([() => true]);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+
+        result = _(Math.max).chain().overEvery();
+        result = _(Math.max).chain().overEvery(() => true);
+        result = _([Math.max]).chain().overEvery();
+        result = _([Math.max]).chain().overEvery([() => true]);
+    }
+}
+
+// _.overSome
+namespace TestOverSome {
+    {
+        let result: (...args: any[]) => boolean;
+
+        result = _.overSome(() => true);
+        result = _.overSome(() => true, () => true);
+        result = _.overSome([() => true]);
+        result = _.overSome([() => true], [() => true]);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+
+        result = _(Math.max).overSome();
+        result = _(Math.max).overSome(() => true);
+        result = _([Math.max]).overSome();
+        result = _([Math.max]).overSome([() => true]);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+
+        result = _(Math.max).chain().overSome();
+        result = _(Math.max).chain().overSome(() => true);
+        result = _([Math.max]).chain().overSome();
+        result = _([Math.max]).chain().overSome([() => true]);
+    }
+}
+
 // _.property
 module TestProperty {
     interface SampleObject {
