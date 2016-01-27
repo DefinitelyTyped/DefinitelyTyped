@@ -3,7 +3,7 @@
 // Definitions by: Isman Usoh <http://github.com/isman-usoh>, Noah Shipley <https://github.com/noah79>, Dimitri Rosenberg <https://github.com/rosendi>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../redux/Redux.d.ts" />
+/// <reference path="../redux/redux.d.ts" />
 /// <reference path="../react-router/react-router.d.ts"/>
 
 declare module ReactRouterRedux {
