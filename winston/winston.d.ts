@@ -47,7 +47,7 @@ declare module "winston" {
   export function setLevels(target: any): any;
   export function cli(): LoggerInstance;
   export function addRewriter(rewriter: MetadataRewriter): void;
-  
+
   export interface MetadataRewriter {
       (level: string, msg: string, meta: any): any;
   }
