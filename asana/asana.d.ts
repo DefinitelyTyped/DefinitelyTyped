@@ -38,7 +38,7 @@ declare module "asana" {
 
     /** Options to configure the client */
     interface ClientOptions extends DispatcherOptions {
-      clientId?: string;
+      clientId?: string|number;
       clientSecret?: string;
       redirectUri?: string;
       asanaBaseUrl?: string;
@@ -323,7 +323,7 @@ declare module "asana" {
         /**
          * @param apiKey
          */
-        new (apiKey : string): BasicAuthenticator;
+        new (apiKey: string): BasicAuthenticator;
       }
 
       interface BasicAuthenticator extends Authenticator {
@@ -334,7 +334,7 @@ declare module "asana" {
          * @param request
          * @return
          */
-        authenticateRequest(request : BasicAuthenticatorRequest): BasicAuthenticatorRequest;
+        authenticateRequest(request: BasicAuthenticatorRequest): BasicAuthenticatorRequest;
       }
 
       interface BasicAuthenticatorRequest {
@@ -361,7 +361,7 @@ declare module "asana" {
          *     field.
          * @constructor
          */
-        new (options : OauthAuthenticatorOptions): OauthAuthenticator;
+        new (options: OauthAuthenticatorOptions): OauthAuthenticator;
       }
 
       interface OauthAuthenticatorOptions {
@@ -370,7 +370,7 @@ declare module "asana" {
       }
 
       interface Credentials {
-        access_token: string;
+        access_token?: string;
         refresh_token?: string;
       }
 
@@ -382,7 +382,7 @@ declare module "asana" {
          * @param request
          * @return
          */
-        authenticateRequest(request : OauthAuthenticatorRequest): OauthAuthenticatorRequest;
+        authenticateRequest(request: OauthAuthenticatorRequest): OauthAuthenticatorRequest;
       }
 
       interface OauthAuthenticatorRequest {
@@ -440,7 +440,7 @@ declare module "asana" {
       }
 
       interface AppOptions extends AsanaAuthorizeUrlOptions {
-        clientId?: string;
+        clientId?: string|number;
         clientSecret?: string;
         scope?: string;
       }
@@ -523,7 +523,8 @@ declare module "asana" {
         error_description?: string;
       }
 
-      interface OauthError extends Error { }
+      interface OauthError extends Error {
+      }
 
       /**
        * Auto-detects the type of Oauth flow to use that's appropriate to the
@@ -549,7 +550,8 @@ declare module "asana" {
         new (options: any): RedirectFlow;
       }
 
-      interface RedirectFlow extends BaseBrowserFlow { }
+      interface RedirectFlow extends BaseBrowserFlow {
+      }
 
       var PopupFlow: PopupFlowStatic;
 
@@ -723,6 +725,7 @@ declare module "asana" {
          * @return
          */
         constructor(message: any);
+
         code: number;
         value: any;
       }
@@ -785,7 +788,7 @@ declare module "asana" {
        * @class
        * @param {Dispatcher} dispatcher The API dispatcher
        */
-      class Attachments {
+      class Attachments extends Resource {
         /**
          * @param dispatcher
          */
@@ -802,7 +805,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findById(attachment: string, params?: any, dispatchOptions?: any): any;
+        findById(attachment: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the compact records for all attachments on the task.
@@ -815,7 +818,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByTask(task: string, params?: any, dispatchOptions?: any): any;
+        findByTask(task: string, params?: any, dispatchOptions?: any): Promise<any>;
       }
 
       /**
@@ -847,7 +850,7 @@ declare module "asana" {
        * @class
        * @param {Dispatcher} dispatcher The API dispatcher
        */
-      class Events {
+      class Events extends Resource {
         /**
          * @param dispatcher
          * @return
@@ -867,7 +870,7 @@ declare module "asana" {
        * @class
        * @param {Dispatcher} dispatcher The API dispatcher
        */
-      class Projects {
+      class Projects extends Resource {
         /**
          * @param dispatcher
          */
@@ -895,7 +898,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        create(data: any, dispatchOptions?: any): any;
+        create(data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * If the workspace for your project _is_ an organization, you must also
@@ -911,7 +914,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        createInWorkspace(workspace: string, data: any, dispatchOptions?: any): any;
+        createInWorkspace(workspace: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Creates a project shared with the given team.
@@ -926,7 +929,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        createInTeam(team: string, data: any, dispatchOptions?: any): any;
+        createInTeam(team: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the complete project record for a single project.
@@ -939,7 +942,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findById(project: string, params?: any, dispatchOptions?: any): any;
+        findById(project: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * A specific, existing project can be updated by making a PUT request on the
@@ -960,7 +963,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        update(project: string, data: any, dispatchOptions?: any): any;
+        update(project: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * A specific, existing project can be deleted by making a DELETE request
@@ -974,7 +977,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        delete(project: string, dispatchOptions?: any): any;
+        delete(project: string, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the compact project records for some filtered set of projects.
@@ -990,7 +993,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findAll(params?: any, dispatchOptions?: any): any;
+        findAll(params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the compact project records for all projects in the workspace.
@@ -1005,7 +1008,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByWorkspace(workspace: string, params?: any, dispatchOptions?: any): any;
+        findByWorkspace(workspace: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the compact project records for all projects in the team.
@@ -1020,7 +1023,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByTeam(team: string, params?: any, dispatchOptions?: any): any;
+        findByTeam(team: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns compact records for all sections in the specified project.
@@ -1033,7 +1036,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        sections(project: string, params?: any, dispatchOptions?: any): any;
+        sections(project: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the compact task records for all tasks within the given project,
@@ -1047,7 +1050,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        tasks(project: string, params?: any, dispatchOptions?: any): any;
+        tasks(project: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Adds the specified list of users as followers to the project. Followers are a subset of members, therefore if
@@ -1063,7 +1066,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addFollowers(project: string, data: any, dispatchOptions?: any): any;
+        addFollowers(project: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Removes the specified list of users from following the project, this will not affect project membership status.
@@ -1078,7 +1081,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        removeFollowers(project: string, data: any, dispatchOptions?: any): any;
+        removeFollowers(project: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Adds the specified list of users as members of the project. Returns the updated project record.
@@ -1092,7 +1095,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addMembers(project: string, data: any, dispatchOptions?: any): any;
+        addMembers(project: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Removes the specified list of members from the project. Returns the updated project record.
@@ -1106,7 +1109,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        removeMembers(project: string, data: any, dispatchOptions?: any): any;
+        removeMembers(project: string, data: any, dispatchOptions?: any): Promise<any>;
       }
 
       /**
@@ -1120,7 +1123,7 @@ declare module "asana" {
        * @class
        * @param {Dispatcher} dispatcher The API dispatcher
        */
-      class Stories {
+      class Stories extends Resource {
         /**
          *
          * @param dispatcher
@@ -1138,7 +1141,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByTask(task: string, params?: any, dispatchOptions?: any): any;
+        findByTask(task: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the full record for a single story.
@@ -1151,7 +1154,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findById(story: string, params?: any, dispatchOptions?: any): any;
+        findById(story: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Adds a comment to a task. The comment will be authored by the
@@ -1169,7 +1172,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        createOnTask(task: string, data: any, dispatchOptions?: any): any;
+        createOnTask(task: string, data: any, dispatchOptions?: any): Promise<any>;
       }
 
       /**
@@ -1183,7 +1186,7 @@ declare module "asana" {
        * @class
        * @param {Dispatcher} dispatcher The API dispatcher
        */
-      class Tags {
+      class Tags extends Resource {
         /**
          * @param dispatcher
          */
@@ -1206,7 +1209,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        create(data: any, dispatchOptions?: any): any;
+        create(data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Creates a new tag in a workspace or organization.
@@ -1226,7 +1229,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        createInWorkspace(workspace: string, data: any, dispatchOptions?: any): any;
+        createInWorkspace(workspace: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the complete tag record for a single tag.
@@ -1239,7 +1242,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findById(tag: string, params?: any, dispatchOptions?: any): any;
+        findById(tag: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Updates the properties of a tag. Only the fields provided in the `data`
@@ -1259,7 +1262,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        update(tag: string, data: any, dispatchOptions?: any): any;
+        update(tag: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * A specific, existing tag can be deleted by making a DELETE request
@@ -1273,7 +1276,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        delete(tag: string, dispatchOptions?: any): any;
+        delete(tag: string, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the compact tag records for some filtered set of tags.
@@ -1289,7 +1292,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findAll(params?: any, dispatchOptions?: any): any;
+        findAll(params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the compact tag records for all tags in the workspace.
@@ -1302,7 +1305,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByWorkspace(workspace: string, params?: any, dispatchOptions?: any): any;
+        findByWorkspace(workspace: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the compact task records for all tasks with the given tag.
@@ -1316,7 +1319,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        getTasksWithTag(tag: string, params?: any, dispatchOptions?: any): any;
+        getTasksWithTag(tag: string, params?: any, dispatchOptions?: any): Promise<any>;
       }
 
       /**
@@ -1327,7 +1330,7 @@ declare module "asana" {
        * @class
        * @param {Dispatcher} dispatcher The API dispatcher
        */
-      class Tasks {
+      class Tasks extends Resource {
         /**
          * @param dispatcher
          */
@@ -1349,7 +1352,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        create(data: any, dispatchOptions?: any): any;
+        create(data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Creating a new task is as easy as POSTing to the `/tasks` endpoint
@@ -1368,7 +1371,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        createInWorkspace(workspace: string, data: any, dispatchOptions?: any): any;
+        createInWorkspace(workspace: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the complete task record for a single task.
@@ -1381,7 +1384,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findById(task: string, params?: any, dispatchOptions?: any): any;
+        findById(task: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * A specific, existing task can be updated by making a PUT request on the
@@ -1402,7 +1405,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        update(task: string, data: any, dispatchOptions?: any): any;
+        update(task: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * A specific, existing task can be deleted by making a DELETE request on the
@@ -1418,7 +1421,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        delete(task: string, dispatchOptions?: any): any;
+        delete(task: string, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the compact task records for all tasks within the given project,
@@ -1432,7 +1435,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByProject(projectId: string, params?: any, dispatchOptions?: any): any;
+        findByProject(projectId: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the compact task records for all tasks with the given tag.
@@ -1445,7 +1448,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByTag(tag: string, params?: any, dispatchOptions?: any): any;
+        findByTag(tag: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the compact task records for some filtered set of tasks. Use one
@@ -1462,7 +1465,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findAll(params?: any, dispatchOptions?: any): any;
+        findAll(params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Adds each of the specified followers to the task, if they are not already
@@ -1477,7 +1480,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addFollowers(task: string, data: any, dispatchOptions?: any): any;
+        addFollowers(task: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Removes each of the specified followers from the task if they are
@@ -1492,7 +1495,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        removeFollowers(task: string, data: any, dispatchOptions?: any): any;
+        removeFollowers(task: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns a compact representation of all of the projects the task is in.
@@ -1505,7 +1508,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        projects(task: string, params?: any, dispatchOptions?: any): any;
+        projects(task: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Adds the task to the specified project, in the optional location
@@ -1532,7 +1535,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addProject(task: string, data: any, dispatchOptions?: any): any;
+        addProject(task: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Removes the task from the specified project. The task will still exist
@@ -1549,7 +1552,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        removeProject(task: string, data: any, dispatchOptions?: any): any;
+        removeProject(task: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns a compact representation of all of the tags the task has.
@@ -1562,7 +1565,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        tags(task: string, params?: any, dispatchOptions?: any): any;
+        tags(task: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Adds a tag to a task. Returns an empty data block.
@@ -1576,7 +1579,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addTag(task: string, data: any, dispatchOptions?: any): any;
+        addTag(task: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Removes a tag from the task. Returns an empty data block.
@@ -1590,7 +1593,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        removeTag(task: string, data: any, dispatchOptions?: any): any;
+        removeTag(task: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns a compact representation of all of the subtasks of a task.
@@ -1603,7 +1606,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        subtasks(task: string, params?: any, dispatchOptions?: any): any;
+        subtasks(task: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Creates a new subtask and adds it to the parent task. Returns the full record
@@ -1617,7 +1620,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addSubtask(task: string, data: any, dispatchOptions?: any): any;
+        addSubtask(task: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns a compact representation of all of the stories on the task.
@@ -1630,7 +1633,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        stories(task: string, params?: any, dispatchOptions?: any): any;
+        stories(task: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Adds a comment to a task. The comment will be authored by the
@@ -1648,7 +1651,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addComment(task: string, data: any, dispatchOptions?: any): any;
+        addComment(task: string, data: any, dispatchOptions?: any): Promise<any>;
       }
 
       /**
@@ -1657,7 +1660,7 @@ declare module "asana" {
        * @class
        * @param {Dispatcher} dispatcher The API dispatcher
        */
-      class Teams {
+      class Teams extends Resource {
         /**
          * @param dispatcher
          */
@@ -1674,7 +1677,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findById(team: string, params?: any, dispatchOptions?: any): any;
+        findById(team: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the compact records for all teams in the organization visible to
@@ -1688,7 +1691,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByOrganization(organization: string, params?: any, dispatchOptions?: any): any;
+        findByOrganization(organization: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the compact records for all users that are members of the team.
@@ -1701,7 +1704,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        users(team: string, params?: any, dispatchOptions?: any): any;
+        users(team: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * The user making this call must be a member of the team in order to add others.
@@ -1720,7 +1723,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addUser(team: string, data: any, dispatchOptions?: any): any;
+        addUser(team: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * The user to remove can be referenced by their globally unique user ID or their email address.
@@ -1737,7 +1740,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        removeUser(team: string, data: any, dispatchOptions?: any): any;
+        removeUser(team: string, data: any, dispatchOptions?: any): Promise<any>;
       }
 
       /**
@@ -1750,7 +1753,7 @@ declare module "asana" {
        * @class
        * @param {Dispatcher} dispatcher The API dispatcher
        */
-      class Users {
+      class Users extends Resource {
         /**
          * @param dispatcher
          */
@@ -1765,7 +1768,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        me(params?: any, dispatchOptions?: any): any;
+        me(params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the full user record for the single user with the provided ID.
@@ -1780,7 +1783,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findById(user: string, params?: any, dispatchOptions?: any): any;
+        findById(user: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the user records for all users in the specified workspace or
@@ -1794,7 +1797,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByWorkspace(workspace: string, params?: any, dispatchOptions?: any): any;
+        findByWorkspace(workspace: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the user records for all users in all workspaces and organizations
@@ -1808,7 +1811,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findAll(params?: any, dispatchOptions?: any): any;
+        findAll(params?: any, dispatchOptions?: any): Promise<any>;
       }
 
       /**
@@ -1861,7 +1864,7 @@ declare module "asana" {
        * @class
        * @param {Dispatcher} dispatcher The API dispatcher
        */
-      class Webhooks {
+      class Webhooks extends Resource {
         /**
          * @param dispatcher
          */
@@ -1894,7 +1897,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        create(resource: string, target: string, data: any, dispatchOptions?: any): any;
+        create(resource: string, target: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the compact representation of all webhooks your app has
@@ -1909,7 +1912,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        getAll(workspace: string, params?: any, dispatchOptions?: any): any;
+        getAll(workspace: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the full record for the given webhook.
@@ -1922,7 +1925,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        getById(webhook: string, params?: any, dispatchOptions?: any): any;
+        getById(webhook: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * This method permanently removes a webhook. Note that it may be possible
@@ -1935,7 +1938,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        deleteById(webhook: string, dispatchOptions?: any): any;
+        deleteById(webhook: string, dispatchOptions?: any): Promise<any>;
       }
 
       /**
@@ -1956,7 +1959,7 @@ declare module "asana" {
        * @class
        * @param {Dispatcher} dispatcher The API dispatcher
        */
-      class Workspaces {
+      class Workspaces extends Resource {
         /**
          * @param dispatcher
          */
@@ -1973,7 +1976,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findById(workspace: string, params?: any, dispatchOptions?: any): any;
+        findById(workspace: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the compact records for all workspaces visible to the authorized user.
@@ -1984,7 +1987,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findAll(params?: any, dispatchOptions?: any): any;
+        findAll(params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * A specific, existing workspace can be updated by making a PUT request on
@@ -2003,7 +2006,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        update(workspace: string, data: any, dispatchOptions?: any): any;
+        update(workspace: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Retrieves objects in the workspace based on an auto-completion/typeahead
@@ -2029,7 +2032,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        typeahead(workspace: string, params?: any, dispatchOptions?: any): any;
+        typeahead(workspace: string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * The user can be referenced by their globally unique user ID or their email address.
@@ -2046,7 +2049,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addUser(workspace: string, data: any, dispatchOptions?: any): any;
+        addUser(workspace: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * The user making this call must be an admin in the workspace.
@@ -2063,7 +2066,128 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        removeUser(workspace: string, data: any, dispatchOptions?: any): any;
+        removeUser(workspace: string, data: any, dispatchOptions?: any): Promise<any>;
+      }
+
+      interface ResourceStatic {
+        /**
+         * @param dispatcher
+         */
+        new (dispatcher: Dispatcher): Resource;
+
+        /**
+         * @type {number} Default number of items to get per page.
+         */
+        DEFAULT_PAGE_LIMIT: number;
+
+        /**
+         * Helper method that dispatches a GET request to the API, where the expected
+         * result is a collection.
+         * @param  {Dispatcher} dispatcher
+         * @param  {String}     path    The path of the API
+         * @param  {Object}     [query] The query params
+         * @param  {Object}     [dispatchOptions] Options for handling the request and
+         *     response. See `Dispatcher.dispatch`.
+         * @return {Promise<Collection>} The Collection response for the request
+         * @param dispatcher
+         * @param path
+         * @param query?
+         * @param dispatchOptions?
+         */
+        getCollection(dispatcher: any, path: string, query?: any, dispatchOptions?: any): Promise<any>;
+
+        /**
+         * Helper method for any request Promise from the Dispatcher, unwraps the `data`
+         * value from the payload.
+         * @param  {Promise} promise A promise returned from a `Dispatcher` request.
+         * @return {Promise}         The `data` portion of the response payload.
+         * @param promise
+         * @return
+         */
+        unwrap(promise: any): Promise<any>;
+      }
+
+      var Resource: ResourceStatic;
+
+      /**
+       * Base class for a resource accessible via the API. Uses a `Dispatcher` to
+       * access the resources.
+       * @param {Dispatcher} dispatcher
+       * @constructor
+       */
+      interface Resource {
+        /**
+         * Dispatches a GET request to the API, where the expected result is a
+         * single resource.
+         * @param  {String}     path    The path of the API
+         * @param  {Object}     [query] The query params
+         * @param  {Object}     [dispatchOptions] Options for handling the request and
+         *     response. See `Dispatcher.dispatch`.
+         * @return {Promise}            The response for the request
+         * @param path
+         * @param query?
+         * @param dispatchOptions?
+         * @return
+         */
+        dispatchGet(path: string, query?: any, dispatchOptions?: any): Promise<any>;
+
+        /**
+         * Dispatches a GET request to the API, where the expected result is a
+         * collection.
+         * @param  {String}     path    The path of the API
+         * @param  {Object}     [query] The query params
+         * @param  {Object}     [dispatchOptions] Options for handling the request and
+         *     response. See `Dispatcher.dispatch`.
+         * @return {Promise}            The response for the request
+         * @param path
+         * @param query?
+         * @param dispatchOptions?
+         * @return
+         */
+        dispatchGetCollection(path: string, query?: any, dispatchOptions?: any): Promise<any>;
+
+        /**
+         * Dispatches a POST request to the API, where the expected response is a
+         * single resource.
+         * @param  {String}     path    The path of the API
+         * @param  {Object}     [query] The query params
+         * @param  {Object}     [dispatchOptions] Options for handling the request and
+         *     response. See `Dispatcher.dispatch`.
+         * @return {Promise}            The response for the request
+         * @param path
+         * @param query?
+         * @param dispatchOptions?
+         * @return
+         */
+        dispatchPost(path: string, query?: any, dispatchOptions?: any): Promise<any>;
+
+        /**
+         * Dispatches a POST request to the API, where the expected response is a
+         * single resource.
+         * @param  {String}     path    The path of the API
+         * @param  {Object}     [query] The query params
+         * @param  {Object}     [dispatchOptions] Options for handling the request and
+         *     response. See `Dispatcher.dispatch`.
+         * @return {Promise}            The response for the request
+         * @param path
+         * @param query?
+         * @param dispatchOptions?
+         * @return
+         */
+        dispatchPut(path: string, query?: any, dispatchOptions?: any): Promise<any>;
+
+        /**
+         * Dispatches a DELETE request to the API. The expected response is an
+         * empty resource.
+         * @param  {String}     path    The path of the API
+         * @param  {Object}     [dispatchOptions] Options for handling the request and
+         *     response. See `Dispatcher.dispatch`.
+         * @return {Promise}            The response for the request
+         * @param path
+         * @param dispatchOptions?
+         * @return
+         */
+        dispatchDelete(path: string, dispatchOptions?: any): Promise<any>;
       }
     }
 
