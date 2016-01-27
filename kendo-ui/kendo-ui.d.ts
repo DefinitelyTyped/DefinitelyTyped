@@ -316,9 +316,10 @@ declare module kendo {
     var history: History;
 
     interface RouterOptions {
-        init?: (e: RouterEvent) => void;
-        routeMissing?: (e: RouterEvent) => void;
-        change?: (e: RouterEvent) => void;
+        pushState?: boolean;
+        hashBang?: boolean;
+        root?: string;
+        ignoreCase?: boolean;
     }
 
     interface RouterEvent {
