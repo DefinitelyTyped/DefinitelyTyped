@@ -1,6 +1,6 @@
 // Type definitions for request
 // Project: https://github.com/mikeal/request
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, bonnici <https://github.com/bonnici>, Bart van der Schoor <https://github.com/Bartvds>, Joe Skeen <http://github.com/joeskeen>
+// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, bonnici <https://github.com/bonnici>, Bart van der Schoor <https://github.com/Bartvds>, Joe Skeen <http://github.com/joeskeen>, Christopher Currens <https://github.com/ccurrens>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/d.ts
@@ -180,6 +180,11 @@ declare module 'request' {
 			jar(jar: CookieJar): Request;
 
 			on(event: string, listener: Function): Request;
+			on(event: 'request', listener: (req: http.ClientRequest) => void): Request;
+			on(event: 'response', listener: (resp: http.IncomingMessage) => void): Request;
+			on(event: 'data', listener: (data: Buffer | string) => void): Request;
+			on(event: 'error', listener: (e: Error) => void): Request;
+			on(event: 'complete', listener: (resp: http.IncomingMessage, body?: string | Buffer) => void): Request;
 
 			write(buffer: Buffer, cb?: Function): boolean;
 			write(str: string, cb?: Function): boolean;
