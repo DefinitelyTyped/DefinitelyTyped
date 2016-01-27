@@ -80,7 +80,7 @@ function bindLoadedEvent() {
     );
 }
 
-function bindRenderedEvent() { 
+function bindRenderedEvent() {
     twttr.events.bind(
         "rendered",
         event => {
