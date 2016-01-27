@@ -66,7 +66,18 @@ declare module THREE {
     export var MaxEquation: BlendingEquation;
 
     // custom blending destination factors
-    export enum BlendingDstFactor { }
+    export enum BlendingDstFactor {
+        ZeroFactor = 200,
+        OneFactor = 201,
+        SrcColorFactor = 202,
+        OneMinusSrcColorFactor = 203,
+        SrcAlphaFactor = 204,
+        OneMinusSrcAlphaFactor = 205,
+        DstAlphaFactor = 206,
+        OneMinusDstAlphaFactor = 207,
+        DstColorFactor = 208,
+        OneMinusDstColorFactor = 209
+    }
     export var ZeroFactor: BlendingDstFactor;
     export var OneFactor: BlendingDstFactor;
     export var SrcColorFactor: BlendingDstFactor;
@@ -77,7 +88,19 @@ declare module THREE {
     export var OneMinusDstAlphaFactor: BlendingDstFactor;
 
    // custom blending src factors
-    export enum BlendingSrcFactor { }
+    export enum BlendingSrcFactor {
+        ZeroFactor = 200,
+        OneFactor = 201,
+        SrcColorFactor = 202,
+        OneMinusSrcColorFactor = 203,
+        SrcAlphaFactor = 204,
+        OneMinusSrcAlphaFactor = 205,
+        DstAlphaFactor = 206,
+        OneMinusDstAlphaFactor = 207,
+        DstColorFactor = 208,
+        OneMinusDstColorFactor = 209,
+        SrcAlphaSaturateFactor = 210
+    }
     export var DstColorFactor: BlendingSrcFactor;
     export var OneMinusDstColorFactor: BlendingSrcFactor;
     export var SrcAlphaSaturateFactor: BlendingSrcFactor;
@@ -2160,12 +2183,12 @@ declare module THREE {
         /**
          * Blending source. It's one of the blending mode constants defined in Three.js. Default is {@link SrcAlphaFactor}.
          */
-        blendSrc: BlendingDstFactor;
+        blendSrc: BlendingSrcFactor;
 
         /**
          * Blending destination. It's one of the blending mode constants defined in Three.js. Default is {@link OneMinusSrcAlphaFactor}.
          */
-        blendDst: BlendingSrcFactor;
+        blendDst: BlendingDstFactor;
 
         /**
          * Blending equation to use when applying blending. It's one of the constants defined in Three.js. Default is AddEquation.
