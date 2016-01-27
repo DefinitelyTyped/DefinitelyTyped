@@ -8676,39 +8676,43 @@ module TestPick {
 
 // _.set
 module TestSet {
-    type SampleValue = {a: number; b: string; c: boolean;};
+    type SampleObject = {a: {}};
+    type SampleResult = {a: {b: number[]}};
 
-    let object: TResult;
-    let value = {a: 1, b: '', c: true};
+    let object: SampleObject;
+    let value: number;
 
     {
-        let result: TResult;
+        let result: SampleResult;
 
-        result = _.set(object, '', any);
-        result = _.set(object, ['a', 'b', 1], any);
+        result = _.set<SampleResult>(object, 'a.b[1]', value);
+        result = _.set<SampleResult>(object, ['a', 'b', 1], value);
 
-        result = _.set<SampleValue>(object, '', value);
-        result = _.set<SampleValue>(object, ['a', 'b', 1], value);
+        result = _.set<number, SampleResult>(object, 'a.b[1]', value);
+        result = _.set<number, SampleResult>(object, ['a', 'b', 1], value);
+
+        result = _.set<SampleObject, number, SampleResult>(object, 'a.b[1]', value);
+        result = _.set<SampleObject, number, SampleResult>(object, ['a', 'b', 1], value);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<TResult>;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
 
-        result = _(object).set('', any);
-        result = _(object).set(['a', 'b', 1], any);
+        result = _(object).set<SampleResult>('a.b[1]', value);
+        result = _(object).set<SampleResult>(['a', 'b', 1], value);
 
-        result = _(object).set<SampleValue>('', value);
-        result = _(object).set<SampleValue>(['a', 'b', 1], value);
+        result = _(object).set<number, SampleResult>('a.b[1]', value);
+        result = _(object).set<number, SampleResult>(['a', 'b', 1], value);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<TResult>;
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
 
-        result = _(object).chain().set('', any);
-        result = _(object).chain().set(['a', 'b', 1], any);
+        result = _(object).chain().set<SampleResult>('a.b[1]', value);
+        result = _(object).chain().set<SampleResult>(['a', 'b', 1], value);
 
-        result = _(object).chain().set<SampleValue>('', value);
-        result = _(object).chain().set<SampleValue>(['a', 'b', 1], value);
+        result = _(object).chain().set<number, SampleResult>('a.b[1]', value);
+        result = _(object).chain().set<number, SampleResult>(['a', 'b', 1], value);
     }
 }
 
