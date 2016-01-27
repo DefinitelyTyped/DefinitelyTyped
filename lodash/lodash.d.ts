@@ -16347,6 +16347,86 @@ declare module _ {
         over<TResult>(...iteratees: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => TResult[]>;
     }
 
+    //_.overEvery
+    interface LoDashStatic {
+        /**
+         * Creates a function that checks if all of the predicates return truthy when invoked with the arguments
+         * provided to the created function.
+         *
+         * @param predicates The predicates to check.
+         * @return Returns the new function.
+         */
+        overEvery(...predicates: (Function|Function[])[]): (...args: any[]) => boolean;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.overEvery
+         */
+        overEvery(...predicates: (Function|Function[])[]): LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.overEvery
+         */
+        overEvery(...predicates: (Function|Function[])[]): LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.overEvery
+         */
+        overEvery(...predicates: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.overEvery
+         */
+        overEvery(...predicates: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+    }
+
+    //_.overSome
+    interface LoDashStatic {
+        /**
+         * Creates a function that checks if any of the predicates return truthy when invoked with the arguments
+         * provided to the created function.
+         *
+         * @param predicates The predicates to check.
+         * @return Returns the new function.
+         */
+        overSome(...predicates: (Function|Function[])[]): (...args: any[]) => boolean;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.overSome
+         */
+        overSome(...predicates: (Function|Function[])[]): LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.overSome
+         */
+        overSome(...predicates: (Function|Function[])[]): LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.overSome
+         */
+        overSome(...predicates: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.overSome
+         */
+        overSome(...predicates: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+    }
+
     //_.property
     interface LoDashStatic {
         /**
