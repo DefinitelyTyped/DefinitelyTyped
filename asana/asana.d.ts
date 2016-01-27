@@ -7,6 +7,10 @@
 /// <reference path="../request/request.d.ts" />
 
 declare module "asana" {
+  import * as Promise from 'bluebird';
+  import {CoreOptions} from 'request';
+  import * as request from 'request';
+
   namespace asana {
     var Client: ClientStatic;
 
@@ -24,21 +28,23 @@ declare module "asana" {
        * @param {String} [redirectUri]  Default redirect URI for this client
        * @param {String} [asanaBaseUrl] Base URL for Asana, for debugging
        */
-      (dispatcher : any, options : any): asana.Client;
+      (dispatcher: Dispatcher, options?: ClientOptions): asana.Client;
       /**
        * Creates a new client.
        * @param {Object} options Options for specifying the client, see constructor.
        */
-      create(options?: any): any;
+      create(options?: ClientOptions): Client;
+    }
+
+    /** Options to configure the client */
+    interface ClientOptions extends DispatcherOptions {
+      clientId?: string;
+      clientSecret?: string;
+      redirectUri?: string;
+      asanaBaseUrl?: string;
     }
 
     interface Client {
-      /**
-       * @param dispatcher
-       * @param options
-       */
-      (dispatcher : any, options : any): Client;
-
       /**
        * Ensures the client is authorized to make requests. Kicks off the
        * configured Oauth flow, if any.
@@ -46,7 +52,7 @@ declare module "asana" {
        * @returns {Promise<Client>} A promise that resolves to this client when
        *     authorization is complete.
        */
-      authorize(): void;
+      authorize(): Promise<Client>;
 
       /**
        * Configure the Client to use a user's API Key and then authenticate
@@ -58,7 +64,7 @@ declare module "asana" {
        * @param apiKey
        * @return
        */
-      useBasicAuth(apiKey : string): any;
+      useBasicAuth(apiKey: string): this;
 
       /**
        * Configure the client to authenticate using a Personal Access Token.
@@ -68,7 +74,7 @@ declare module "asana" {
        * @param accessToken
        * @return
        */
-      useAccessToken(accessToken : string): any;
+      useAccessToken(accessToken: string): this;
 
       /**
        * Configure the client to authenticate via Oauth. Credentials can be
@@ -80,19 +86,68 @@ declare module "asana" {
        * @option {Object} [credentials] Credentials to use; no flow required to
        *     obtain authorization. This object should at a minimum contain an
        *     `access_token` string field.
-       * @return {Client}               this
+       * @return {Client} this
        * @param options
        * @return
        */
-      useOauth(options : any): Client;
+      useOauth(options?: auth.OauthAuthenticatorOptions): this;
 
       /**
-       * Creates a new client.
-       * @param {Object} options Options for specifying the client, see constructor.
-       * @param options
-       * @return
+       * The internal dispatcher. This is mostly used by the resources but provided
+       * for custom requests to the API or API features that have not yet been added
+       * to the client.
+       * @type {Dispatcher}
        */
-      create(options : any): Client;
+      dispatcher: Dispatcher;
+      /**
+       * An instance of the Attachments resource.
+       * @type {Attachments}
+       */
+      attachments: resources.Attachments;
+      /**
+       * An instance of the Events resource.
+       * @type {Events}
+       */
+      events: resources.Events;
+      /**
+       * An instance of the Projects resource.
+       * @type {Projects}
+       */
+      projects: resources.Projects;
+      /**
+       * An instance of the Stories resource.
+       * @type {Stories}
+       */
+      stories: resources.Stories;
+      /**
+       * An instance of the Tags resource.
+       * @type {Tags}
+       */
+      tags: resources.Tags;
+      /**
+       * An instance of the Tasks resource.
+       * @type {Tasks}
+       */
+      tasks: resources.Tasks;
+      /**
+       * An instance of the Teams resource.
+       * @type {Teams}
+       */
+      teams: resources.Teams;
+      /**
+       * An instance of the Users resource.
+       * @type {Users}
+       */
+      users: resources.Users;
+      /**
+       * An instance of the Workspaces resource.
+       * @type {Workspaces}
+       */
+      workspaces: resources.Workspaces;
+      /**
+       * Store off Oauth info.
+       */
+      app: auth.App;
     }
 
     var Dispatcher: DispatcherStatic;
@@ -115,7 +170,29 @@ declare module "asana" {
        * @option {Number} [requestTimeout] Timeout (in milliseconds) to wait for the
        *     request to finish.
        */
-      new (options : any): Dispatcher;
+      new (options?: DispatcherOptions): Dispatcher;
+
+      /**
+       * Default handler for requests that are considered unauthorized.
+       * Requests that the authenticator try to refresh its credentials if
+       * possible.
+       * @return {Promise<boolean>} True iff refresh was successful, false if not.
+       * @return
+       */
+      maybeReauthorize(): Promise<boolean>;
+
+      /**
+       * The relative API path for the current version of the Asana API.
+       * @type {String}
+       */
+      API_PATH : string;
+    }
+
+    interface DispatcherOptions {
+      authenticator?: auth.Authenticator;
+      retryOnRateLimit?: boolean;
+      handleUnauthorized?: () => boolean|Promise<boolean>;
+      requestTimeout?: string;
     }
 
     interface Dispatcher {
@@ -126,7 +203,7 @@ declare module "asana" {
        * @param path
        * @return
        */
-      url(path : string): string;
+      url(path: string): string;
 
       /**
        * Configure the authentication mechanism to use.
@@ -134,7 +211,7 @@ declare module "asana" {
        * @param authenticator
        * @return
        */
-      setAuthenticator(authenticator : any): Dispatcher;
+      setAuthenticator(authenticator: auth.Authenticator): this;
 
       /**
        * Ensure the dispatcher is authorized to make requests. Call this before
@@ -144,7 +221,7 @@ declare module "asana" {
        *     there was a problem authorizing.
        * @return
        */
-      authorize(): any;
+      authorize(): Promise<void>;
 
       /**
        * Dispatches a request to the Asana API. The request parameters are passed to
@@ -156,7 +233,7 @@ declare module "asana" {
        * @param dispatchOptions?
        * @return
        */
-      dispatch(params : any, dispatchOptions? : any): any;
+      dispatch(params: any, dispatchOptions?: any): Promise<any>;
 
       /**
        * Dispatches a GET request to the Asana API.
@@ -170,7 +247,7 @@ declare module "asana" {
        * @param dispatchOptions?
        * @return
        */
-      get(path : string, query? : any, dispatchOptions? : any): any;
+      get(path: string, query?: any, dispatchOptions?: any): Promise<any>;
 
       /**
        * Dispatches a POST request to the Asana API.
@@ -184,7 +261,7 @@ declare module "asana" {
        * @param dispatchOptions?
        * @return
        */
-      post(path : string, data : any, dispatchOptions? : any): any;
+      post(path: string, data: any, dispatchOptions?: any): Promise<any>;
 
       /**
        * Dispatches a PUT request to the Asana API.
@@ -198,7 +275,7 @@ declare module "asana" {
        * @param dispatchOptions?
        * @return
        */
-      put(path : string, data : any, dispatchOptions? : any): any;
+      put(path: string, data: any, dispatchOptions?: any): Promise<any>;
 
       /**
        * Dispatches a DELETE request to the Asana API.
@@ -210,22 +287,7 @@ declare module "asana" {
        * @param dispatchOptions?
        * @return
        */
-      delete(path : string, dispatchOptions? : any): any;
-
-      /**
-       * The relative API path for the current version of the Asana API.
-       * @type {String}
-       */
-      API_PATH : string;
-
-      /**
-       * Default handler for requests that are considered unauthorized.
-       * Requests that the authenticator try to refresh its credentials if
-       * possible.
-       * @return {Promise<boolean>} True iff refresh was successful, false if not.
-       * @return
-       */
-      maybeReauthorize(): boolean;
+      delete(path: string, dispatchOptions?: any): Promise<any>;
 
       /**
        * The base URL for Asana
@@ -245,7 +307,7 @@ declare module "asana" {
        * that has a refresh token, and will refresh the current access token.
        * @type {Function}
        */
-      handleUnauthorized : Function;
+      handleUnauthorized : () => boolean|Promise<boolean>;
 
       /**
        * The amount of time in milliseconds to wait for a request to finish.
@@ -255,6 +317,111 @@ declare module "asana" {
     }
 
     namespace auth {
+      var BasicAuthenticator: BasicAuthenticatorStatic;
+
+      interface BasicAuthenticatorStatic {
+        /**
+         * @param apiKey
+         */
+        new (apiKey : string): BasicAuthenticator;
+      }
+
+      interface BasicAuthenticator extends Authenticator {
+        /**
+         * @param {Object} request The request to modify, for the `request` library.
+         * @return {Object} The `request` parameter, modified to include authentication
+         *     information using the stored credentials.
+         * @param request
+         * @return
+         */
+        authenticateRequest(request : BasicAuthenticatorRequest): BasicAuthenticatorRequest;
+      }
+
+      interface BasicAuthenticatorRequest {
+        auth : {
+          username : string;
+          password : string;
+        }
+      }
+
+      var OauthAuthenticator: OauthAuthenticatorStatic;
+
+      interface OauthAuthenticatorStatic {
+        /**
+         * Creates an authenticator that uses Oauth for authentication.
+         *
+         * @param {Object} options Configure the authenticator; must specify one
+         *     of `flow` or `credentials`.
+         * @option {App}           app           The app being authenticated for.
+         * @option {OauthFlow}     [flow]        The flow to use to get credentials
+         *     when needed.
+         * @option {String|Object} [credentials] Initial credentials to use. This can
+         *     be either the object returned from an access token request (which
+         *     contains the token and some other metadata) or just the `access_token`
+         *     field.
+         * @constructor
+         */
+        new (options : OauthAuthenticatorOptions): OauthAuthenticator;
+      }
+
+      interface OauthAuthenticatorOptions {
+        flowType?: auth.FlowType;
+        credentials?: Credentials|string;
+      }
+
+      interface Credentials {
+        access_token: string;
+        refresh_token?: string;
+      }
+
+      interface OauthAuthenticator extends Authenticator {
+        /**
+         * @param {Object} request The request to modify, for the `request` library.
+         * @return {Object} The `request` parameter, modified to include authentication
+         *     information using the stored credentials.
+         * @param request
+         * @return
+         */
+        authenticateRequest(request : OauthAuthenticatorRequest): OauthAuthenticatorRequest;
+      }
+
+      interface OauthAuthenticatorRequest {
+        /**
+         * When browserify-d, the `auth` component of the `request` library
+         * doesn't work so well, so we just manually set the bearer token instead.
+         */
+        headers : {
+          Authorization : string;
+        }
+      }
+
+      /**
+       * A layer to abstract the differences between using different types of
+       * authentication (Oauth vs. Basic). The Authenticator is responsible for
+       * establishing credentials and applying them to outgoing requests.
+       * @constructor
+       */
+      interface Authenticator {
+        /**
+         * Establishes credentials.
+         *
+         * @return {Promise} Resolves when initial credentials have been
+         *     completed and `authenticateRequest` calls can expect to succeed.
+         * @return
+         */
+        establishCredentials(): Promise<void>;
+
+        /**
+         * Attempts to refresh credentials, if possible, given the current credentials.
+         *
+         * @return {Promise} Resolves to `true` if credentials have been successfully
+         *     established and `authenticateRequests` can expect to succeed, else
+         *     resolves to `false`.
+         * @return
+         */
+        refreshCredentials(): Promise<boolean>;
+      }
+
       var App: AppStatic;
 
       interface AppStatic {
@@ -269,7 +436,13 @@ declare module "asana" {
          * @option {String} [asanaBaseUrl] Base URL to use for Asana, for debugging
          * @constructor
          */
-        new (options : any): App;
+        new (options: AppOptions): App;
+      }
+
+      interface AppOptions extends AsanaAuthorizeUrlOptions {
+        clientId?: string;
+        clientSecret?: string;
+        scope?: string;
       }
 
       interface App {
@@ -281,7 +454,7 @@ declare module "asana" {
          * @param options
          * @return
          */
-        asanaAuthorizeUrl(options : any): string;
+        asanaAuthorizeUrl(options?: AsanaAuthorizeUrlOptions): string;
 
         /**
          * @param {Object} options  Overrides to the app's defaults
@@ -291,7 +464,7 @@ declare module "asana" {
          * @param options
          * @return
          */
-        asanaTokenUrl(options : any): string;
+        asanaTokenUrl(options?: AsanaAuthorizeUrlOptions): string;
 
         /**
          * @param {String} code An authorization code obtained via `asanaAuthorizeUrl`.
@@ -305,7 +478,7 @@ declare module "asana" {
          * @param options
          * @return
          */
-        accessTokenFromCode(code : string, options : any): any;
+        accessTokenFromCode(code: string, options?: AsanaAuthorizeUrlOptions): Promise<Credentials>;
 
         /**
          * @param {String} refreshToken A refresh token obtained via Oauth.
@@ -318,11 +491,16 @@ declare module "asana" {
          * @param options
          * @return
          */
-        accessTokenFromRefreshToken(refreshToken : string, options : any): any;
+        accessTokenFromRefreshToken(refreshToken: string, options: AsanaAuthorizeUrlOptions): Promise<Credentials>;
 
         scope : string;
 
         asanaBaseUrl : string;
+      }
+
+      interface AsanaAuthorizeUrlOptions {
+        redirectUri?: string;
+        asanaBaseUrl?: string;
       }
 
       var OauthError: OauthErrorStatic;
@@ -336,10 +514,16 @@ declare module "asana" {
          * @option {String} [error_description] A description of the error.
          * @constructor
          */
-        new (options : any): OauthError;
+        new (options: OauthErrorOptions): OauthError;
       }
 
-      interface OauthError { }
+      interface OauthErrorOptions {
+        error?: string;
+        error_uri?: string;
+        error_description?: string;
+      }
+
+      interface OauthError extends Error { }
 
       /**
        * Auto-detects the type of Oauth flow to use that's appropriate to the
@@ -350,11 +534,11 @@ declare module "asana" {
        * @param env
        * @return
        */
-      function autoDetect(env : any): Function;
+      function autoDetect(env: any): Function;
 
       var RedirectFlow: RedirectFlowStatic;
 
-      interface RedirectFlowStatic {
+      interface RedirectFlowStatic extends FlowType {
         /**
          * An Oauth flow that runs in the browser and requests user authorization by
          * redirecting to an authorization page on Asana, and redirecting back with
@@ -362,57 +546,36 @@ declare module "asana" {
          * @param {Object} options See `BaseBrowserFlow` for options.
          * @constructor
          */
-        new (options : any): RedirectFlow;
+        new (options: any): RedirectFlow;
       }
 
-      interface RedirectFlow {
-        getStateParam(): void;
-
-        /**
-         *
-         * @param authUrl
-         */
-        startAuthorization(authUrl : any): void;
-
-        finishAuthorization(): void;
-      }
+      interface RedirectFlow extends BaseBrowserFlow { }
 
       var PopupFlow: PopupFlowStatic;
 
-      interface PopupFlowStatic {
+      interface PopupFlowStatic extends FlowType {
         /**
          * An Oauth flow that runs in the browser and requests user authorization by
          * popping up a window and prompting the user.
          * @param {Object} options See `BaseBrowserFlow` for options.
          * @constructor
          */
-        new (options : any): PopupFlow;
+        new (options: any): PopupFlow;
       }
 
-      interface PopupFlow {
-        /**
-         * @param authUrl
-         * @param state
-         */
-        startAuthorization(authUrl : any, state : any): void;
-
-        /**
-         * @return
-         */
-        finishAuthorization(): any;
-
+      interface PopupFlow extends BaseBrowserFlow {
         /**
          * @param popupWidth
          * @param popupHeight
          */
-        _popupParams(popupWidth : number, popupHeight : number): void;
+        _popupParams(popupWidth: number, popupHeight: number): void;
 
         runReceiver(): void;
       }
 
       var NativeFlow: NativeFlowStatic;
 
-      interface NativeFlowStatic {
+      interface NativeFlowStatic extends FlowType {
         /**
          * An Oauth flow that can be run from the console or an app that does
          * not have the ability to open and manage a browser on its own.
@@ -424,10 +587,10 @@ declare module "asana" {
          *     waiting for a line from stdin.
          * @constructor
          */
-        new (options : any): NativeFlow;
+        new (options: any): NativeFlow;
       }
 
-      interface NativeFlow {
+      interface NativeFlow extends Flow {
         /**
          * Run the Oauth flow, prompting the user to go to the authorization URL
          * and enter the code it displays when finished.
@@ -438,19 +601,13 @@ declare module "asana" {
         run(): void;
 
         /**
-         * @returns {String} The URL used to authorize the user for the app.
-         * @return
-         */
-        authorizeUrl(): string;
-
-        /**
          * @param {String} code An authorization code obtained via `asanaAuthorizeUrl`.
          * @return {Promise<Object>} The token, which will include the `access_token`
          *     used for API access, as well as a `refresh_token` which can be stored
          *     to get a new access token without going through the flow again.
          * @param code
          */
-        accessToken(code : string): void;
+        accessToken(code: string): void;
 
         /**
          * @return {Promise} The access token, which will include a refresh token
@@ -459,12 +616,12 @@ declare module "asana" {
          * @param url
          * @return
          */
-        promptForCode(url : string): any;
+        promptForCode(url: string): any;
       }
 
       var ChromeExtensionFlow: ChromeExtensionFlowStatic;
 
-      interface ChromeExtensionFlowStatic {
+      interface ChromeExtensionFlowStatic extends FlowType {
         /**
          * An Oauth flow that runs in a Chrome browser extension and requests user
          * authorization by opening a temporary tab to prompt the user.
@@ -475,27 +632,10 @@ declare module "asana" {
          *     `Asana.auth.ChromeExtensionFlow.runReceiver();`.
          * @constructor
          */
-        new (options : any): ChromeExtensionFlow;
+        new (options: any): ChromeExtensionFlow;
       }
 
-      interface ChromeExtensionFlow {
-        /**
-         * @return
-         */
-        receiverUrl(): any;
-
-        /**
-         *
-         * @param authUrl
-         * @param state
-         */
-        startAuthorization(authUrl : any, state : any): void;
-
-        /**
-         * @return
-         */
-        finishAuthorization(): any;
-
+      interface ChromeExtensionFlow extends BaseBrowserFlow {
         /**
          * Runs the receiver code to send the Oauth result to the requesting tab.
          */
@@ -504,7 +644,7 @@ declare module "asana" {
 
       var BaseBrowserFlow: BaseBrowserFlowStatic;
 
-      interface BaseBrowserFlowStatic {
+      interface BaseBrowserFlowStatic extends FlowType {
         /**
          * A base class for any flow that runs in the browser. All subclasses use the
          * "implicit grant" flow to authenticate via the browser.
@@ -515,10 +655,10 @@ declare module "asana" {
          *     the app, and if none then the current page URL.
          * @constructor
          */
-        new (options : any): BaseBrowserFlow;
+        new (options: any): BaseBrowserFlow;
       }
 
-      interface BaseBrowserFlow {
+      interface BaseBrowserFlow extends Flow {
         /**
          * @param {String} authUrl The URL the user should be navigated to in order
          *     to authorize the app.
@@ -529,13 +669,13 @@ declare module "asana" {
          * @param state
          * @return
          */
-        startAuthorization(authUrl : string, state : string): any;
+        startAuthorization(authUrl: string, state: string): any;
 
         /**
          * @return {Promise<Object>} Credentials returned from Oauth.
          * @param state
          */
-        finishAuthorization(state : string): void;
+        finishAuthorization(state: string): void;
 
         /**
          * @return {String} The URL to redirect to that will receive the
@@ -554,7 +694,13 @@ declare module "asana" {
          * @return
          */
         getStateParam(): string;
+      }
 
+      interface FlowType {
+        new (options: any): Flow;
+      }
+
+      interface Flow {
         /**
          * @returns {String} The URL used to authorize the user for the app.
          * @return
@@ -571,61 +717,63 @@ declare module "asana" {
     }
 
     namespace errors {
-      class AsanaError {
+      class AsanaError extends Error {
         /**
          * @param message
          * @return
          */
-        constructor(message : any);
+        constructor(message: any);
+        code: number;
+        value: any;
       }
 
-      class Forbidden {
+      class Forbidden extends AsanaError {
         /**
          * @param value
          * @return
          */
-        constructor(value : any);
+        constructor(value: any);
       }
 
 
-      class InvalidRequest {
+      class InvalidRequest extends AsanaError {
         /**
          * @param value
          * @return
          */
-        constructor(value : any);
+        constructor(value: any);
       }
 
-      class NoAuthorization {
+      class NoAuthorization extends AsanaError {
         /**
          * @param value
          * @return
          */
-        constructor(value : any);
+        constructor(value: any);
       }
 
-      class NotFound {
+      class NotFound extends AsanaError {
         /**
          * @param value
          * @return
          */
-        constructor(value : any);
+        constructor(value: any);
       }
 
-      class RateLimitEnforced {
+      class RateLimitEnforced extends AsanaError {
         /**
          * @param value
          * @return
          */
-        constructor(value : any);
+        constructor(value: any);
       }
 
-      class ServerError {
+      class ServerError extends AsanaError {
         /**
          * @param value
          * @return
          */
-        constructor(value : any);
+        constructor(value: any);
       }
     }
 
@@ -641,7 +789,7 @@ declare module "asana" {
         /**
          * @param dispatcher
          */
-        constructor(dispatcher : any);
+        constructor(dispatcher: Dispatcher);
 
         /**
          * * Returns the full record for a single attachment.
@@ -654,7 +802,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findById(attachment : string, params? : any, dispatchOptions? : any): any;
+        findById(attachment: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the compact records for all attachments on the task.
@@ -667,7 +815,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByTask(task : string, params? : any, dispatchOptions? : any): any;
+        findByTask(task: string, params?: any, dispatchOptions?: any): any;
       }
 
       /**
@@ -704,7 +852,7 @@ declare module "asana" {
          * @param dispatcher
          * @return
          */
-        constructor(dispatcher : any);
+        constructor(dispatcher: Dispatcher);
       }
 
       /**
@@ -723,7 +871,7 @@ declare module "asana" {
         /**
          * @param dispatcher
          */
-        constructor(dispatcher : any);
+        constructor(dispatcher: Dispatcher);
 
         /**
          * * Creates a new project in a workspace or team.
@@ -747,7 +895,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        create(data : any, dispatchOptions? : any): any;
+        create(data: any, dispatchOptions?: any): any;
 
         /**
          * * If the workspace for your project _is_ an organization, you must also
@@ -763,7 +911,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        createInWorkspace(workspace : string, data : any, dispatchOptions? : any): any;
+        createInWorkspace(workspace: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * Creates a project shared with the given team.
@@ -778,7 +926,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        createInTeam(team : string, data : any, dispatchOptions? : any): any;
+        createInTeam(team: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the complete project record for a single project.
@@ -791,7 +939,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findById(project : string, params? : any, dispatchOptions? : any): any;
+        findById(project: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * A specific, existing project can be updated by making a PUT request on the
@@ -812,7 +960,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        update(project : string, data : any, dispatchOptions? : any): any;
+        update(project: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * A specific, existing project can be deleted by making a DELETE request
@@ -826,7 +974,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        delete(project : string, dispatchOptions? : any): any;
+        delete(project: string, dispatchOptions?: any): any;
 
         /**
          * * Returns the compact project records for some filtered set of projects.
@@ -842,7 +990,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findAll(params? : any, dispatchOptions? : any): any;
+        findAll(params?: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the compact project records for all projects in the workspace.
@@ -857,7 +1005,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByWorkspace(workspace : string, params? : any, dispatchOptions? : any): any;
+        findByWorkspace(workspace: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the compact project records for all projects in the team.
@@ -872,7 +1020,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByTeam(team : string, params? : any, dispatchOptions? : any): any;
+        findByTeam(team: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Returns compact records for all sections in the specified project.
@@ -885,7 +1033,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        sections(project : string, params? : any, dispatchOptions? : any): any;
+        sections(project: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the compact task records for all tasks within the given project,
@@ -899,7 +1047,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        tasks(project : string, params? : any, dispatchOptions? : any): any;
+        tasks(project: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Adds the specified list of users as followers to the project. Followers are a subset of members, therefore if
@@ -915,7 +1063,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addFollowers(project : string, data : any, dispatchOptions? : any): any;
+        addFollowers(project: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * Removes the specified list of users from following the project, this will not affect project membership status.
@@ -930,7 +1078,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        removeFollowers(project : string, data : any, dispatchOptions? : any): any;
+        removeFollowers(project: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * Adds the specified list of users as members of the project. Returns the updated project record.
@@ -944,7 +1092,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addMembers(project : string, data : any, dispatchOptions? : any): any;
+        addMembers(project: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * Removes the specified list of members from the project. Returns the updated project record.
@@ -958,7 +1106,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        removeMembers(project : string, data : any, dispatchOptions? : any): any;
+        removeMembers(project: string, data: any, dispatchOptions?: any): any;
       }
 
       /**
@@ -977,7 +1125,7 @@ declare module "asana" {
          *
          * @param dispatcher
          */
-        constructor(dispatcher : any);
+        constructor(dispatcher: Dispatcher);
 
         /**
          * * Returns the compact records for all stories on the task.
@@ -990,7 +1138,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByTask(task : string, params? : any, dispatchOptions? : any): any;
+        findByTask(task: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the full record for a single story.
@@ -1003,7 +1151,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findById(story : string, params? : any, dispatchOptions? : any): any;
+        findById(story: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Adds a comment to a task. The comment will be authored by the
@@ -1021,7 +1169,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        createOnTask(task : string, data : any, dispatchOptions? : any): any;
+        createOnTask(task: string, data: any, dispatchOptions?: any): any;
       }
 
       /**
@@ -1039,7 +1187,7 @@ declare module "asana" {
         /**
          * @param dispatcher
          */
-        constructor(dispatcher : any);
+        constructor(dispatcher: Dispatcher);
 
         /**
          * * Creates a new tag in a workspace or organization.
@@ -1058,7 +1206,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        create(data : any, dispatchOptions? : any): any;
+        create(data: any, dispatchOptions?: any): any;
 
         /**
          * * Creates a new tag in a workspace or organization.
@@ -1078,7 +1226,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        createInWorkspace(workspace : string, data : any, dispatchOptions? : any): any;
+        createInWorkspace(workspace: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the complete tag record for a single tag.
@@ -1091,7 +1239,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findById(tag : string, params? : any, dispatchOptions? : any): any;
+        findById(tag: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Updates the properties of a tag. Only the fields provided in the `data`
@@ -1111,7 +1259,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        update(tag : string, data : any, dispatchOptions? : any): any;
+        update(tag: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * A specific, existing tag can be deleted by making a DELETE request
@@ -1125,7 +1273,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        delete(tag : string, dispatchOptions? : any): any;
+        delete(tag: string, dispatchOptions?: any): any;
 
         /**
          * * Returns the compact tag records for some filtered set of tags.
@@ -1141,7 +1289,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findAll(params? : any, dispatchOptions? : any): any;
+        findAll(params?: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the compact tag records for all tags in the workspace.
@@ -1154,7 +1302,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByWorkspace(workspace : string, params? : any, dispatchOptions? : any): any;
+        findByWorkspace(workspace: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the compact task records for all tasks with the given tag.
@@ -1168,7 +1316,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        getTasksWithTag(tag : string, params? : any, dispatchOptions? : any): any;
+        getTasksWithTag(tag: string, params?: any, dispatchOptions?: any): any;
       }
 
       /**
@@ -1183,7 +1331,7 @@ declare module "asana" {
         /**
          * @param dispatcher
          */
-        constructor(dispatcher : any);
+        constructor(dispatcher: Dispatcher);
 
         /**
          * * Creating a new task is as easy as POSTing to the `/tasks` endpoint
@@ -1201,7 +1349,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        create(data : any, dispatchOptions? : any): any;
+        create(data: any, dispatchOptions?: any): any;
 
         /**
          * * Creating a new task is as easy as POSTing to the `/tasks` endpoint
@@ -1220,7 +1368,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        createInWorkspace(workspace : string, data : any, dispatchOptions? : any): any;
+        createInWorkspace(workspace: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the complete task record for a single task.
@@ -1233,7 +1381,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findById(task : string, params? : any, dispatchOptions? : any): any;
+        findById(task: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * A specific, existing task can be updated by making a PUT request on the
@@ -1254,7 +1402,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        update(task : string, data : any, dispatchOptions? : any): any;
+        update(task: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * A specific, existing task can be deleted by making a DELETE request on the
@@ -1270,7 +1418,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        delete(task : string, dispatchOptions? : any): any;
+        delete(task: string, dispatchOptions?: any): any;
 
         /**
          * * Returns the compact task records for all tasks within the given project,
@@ -1284,7 +1432,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByProject(projectId : string, params? : any, dispatchOptions? : any): any;
+        findByProject(projectId: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the compact task records for all tasks with the given tag.
@@ -1297,7 +1445,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByTag(tag : string, params? : any, dispatchOptions? : any): any;
+        findByTag(tag: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the compact task records for some filtered set of tasks. Use one
@@ -1314,7 +1462,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findAll(params? : any, dispatchOptions? : any): any;
+        findAll(params?: any, dispatchOptions?: any): any;
 
         /**
          * * Adds each of the specified followers to the task, if they are not already
@@ -1329,7 +1477,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addFollowers(task : string, data : any, dispatchOptions? : any): any;
+        addFollowers(task: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * Removes each of the specified followers from the task if they are
@@ -1344,7 +1492,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        removeFollowers(task : string, data : any, dispatchOptions? : any): any;
+        removeFollowers(task: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * Returns a compact representation of all of the projects the task is in.
@@ -1357,7 +1505,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        projects(task : string, params? : any, dispatchOptions? : any): any;
+        projects(task: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Adds the task to the specified project, in the optional location
@@ -1384,7 +1532,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addProject(task : string, data : any, dispatchOptions? : any): any;
+        addProject(task: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * Removes the task from the specified project. The task will still exist
@@ -1401,7 +1549,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        removeProject(task : string, data : any, dispatchOptions? : any): any;
+        removeProject(task: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * Returns a compact representation of all of the tags the task has.
@@ -1414,7 +1562,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        tags(task : string, params? : any, dispatchOptions? : any): any;
+        tags(task: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Adds a tag to a task. Returns an empty data block.
@@ -1428,7 +1576,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addTag(task : string, data : any, dispatchOptions? : any): any;
+        addTag(task: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * Removes a tag from the task. Returns an empty data block.
@@ -1442,7 +1590,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        removeTag(task : string, data : any, dispatchOptions? : any): any;
+        removeTag(task: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * Returns a compact representation of all of the subtasks of a task.
@@ -1455,7 +1603,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        subtasks(task : string, params? : any, dispatchOptions? : any): any;
+        subtasks(task: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Creates a new subtask and adds it to the parent task. Returns the full record
@@ -1469,7 +1617,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addSubtask(task : string, data : any, dispatchOptions? : any): any;
+        addSubtask(task: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * Returns a compact representation of all of the stories on the task.
@@ -1482,7 +1630,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        stories(task : string, params? : any, dispatchOptions? : any): any;
+        stories(task: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Adds a comment to a task. The comment will be authored by the
@@ -1500,7 +1648,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addComment(task : string, data : any, dispatchOptions? : any): any;
+        addComment(task: string, data: any, dispatchOptions?: any): any;
       }
 
       /**
@@ -1513,7 +1661,7 @@ declare module "asana" {
         /**
          * @param dispatcher
          */
-        constructor(dispatcher : any);
+        constructor(dispatcher: Dispatcher);
 
         /**
          * * Returns the full record for a single team.
@@ -1526,7 +1674,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findById(team : string, params? : any, dispatchOptions? : any): any;
+        findById(team: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the compact records for all teams in the organization visible to
@@ -1540,7 +1688,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByOrganization(organization : string, params? : any, dispatchOptions? : any): any;
+        findByOrganization(organization: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the compact records for all users that are members of the team.
@@ -1553,7 +1701,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        users(team : string, params? : any, dispatchOptions? : any): any;
+        users(team: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * The user making this call must be a member of the team in order to add others.
@@ -1572,7 +1720,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addUser(team : string, data : any, dispatchOptions? : any): any;
+        addUser(team: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * The user to remove can be referenced by their globally unique user ID or their email address.
@@ -1589,7 +1737,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        removeUser(team : string, data : any, dispatchOptions? : any): any;
+        removeUser(team: string, data: any, dispatchOptions?: any): any;
       }
 
       /**
@@ -1606,7 +1754,7 @@ declare module "asana" {
         /**
          * @param dispatcher
          */
-        constructor(dispatcher : any);
+        constructor(dispatcher: Dispatcher);
 
         /**
          * * Returns the full user record for the currently authenticated user.
@@ -1617,7 +1765,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        me(params? : any, dispatchOptions? : any): any;
+        me(params?: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the full user record for the single user with the provided ID.
@@ -1632,7 +1780,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findById(user : string, params? : any, dispatchOptions? : any): any;
+        findById(user: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the user records for all users in the specified workspace or
@@ -1646,7 +1794,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByWorkspace(workspace : string, params? : any, dispatchOptions? : any): any;
+        findByWorkspace(workspace: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the user records for all users in all workspaces and organizations
@@ -1660,7 +1808,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findAll(params? : any, dispatchOptions? : any): any;
+        findAll(params?: any, dispatchOptions?: any): any;
       }
 
       /**
@@ -1717,7 +1865,7 @@ declare module "asana" {
         /**
          * @param dispatcher
          */
-        constructor(dispatcher : any);
+        constructor(dispatcher: Dispatcher);
 
         /**
          * * Establishing a webhook is a two-part process. First, a simple HTTP POST
@@ -1746,7 +1894,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        create(resource : string, target : string, data : any, dispatchOptions? : any): any;
+        create(resource: string, target: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the compact representation of all webhooks your app has
@@ -1761,7 +1909,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        getAll(workspace : string, params? : any, dispatchOptions? : any): any;
+        getAll(workspace: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the full record for the given webhook.
@@ -1774,7 +1922,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        getById(webhook : string, params? : any, dispatchOptions? : any): any;
+        getById(webhook: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * This method permanently removes a webhook. Note that it may be possible
@@ -1787,7 +1935,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        deleteById(webhook : string, dispatchOptions? : any): any;
+        deleteById(webhook: string, dispatchOptions?: any): any;
       }
 
       /**
@@ -1812,7 +1960,7 @@ declare module "asana" {
         /**
          * @param dispatcher
          */
-        constructor(dispatcher : any);
+        constructor(dispatcher: Dispatcher);
 
         /**
          * * Returns the full workspace record for a single workspace.
@@ -1825,7 +1973,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findById(workspace : string, params? : any, dispatchOptions? : any): any;
+        findById(workspace: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * Returns the compact records for all workspaces visible to the authorized user.
@@ -1836,7 +1984,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findAll(params? : any, dispatchOptions? : any): any;
+        findAll(params?: any, dispatchOptions?: any): any;
 
         /**
          * * A specific, existing workspace can be updated by making a PUT request on
@@ -1855,7 +2003,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        update(workspace : string, data : any, dispatchOptions? : any): any;
+        update(workspace: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * Retrieves objects in the workspace based on an auto-completion/typeahead
@@ -1881,7 +2029,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        typeahead(workspace : string, params? : any, dispatchOptions? : any): any;
+        typeahead(workspace: string, params?: any, dispatchOptions?: any): any;
 
         /**
          * * The user can be referenced by their globally unique user ID or their email address.
@@ -1898,7 +2046,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addUser(workspace : string, data : any, dispatchOptions? : any): any;
+        addUser(workspace: string, data: any, dispatchOptions?: any): any;
 
         /**
          * * The user making this call must be an admin in the workspace.
@@ -1915,7 +2063,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        removeUser(workspace : string, data : any, dispatchOptions? : any): any;
+        removeUser(workspace: string, data: any, dispatchOptions?: any): any;
       }
     }
 
