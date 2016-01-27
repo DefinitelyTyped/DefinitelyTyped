@@ -6,7 +6,7 @@
 /// <reference path="../redux/redux.d.ts" />
 /// <reference path="../react-router/react-router.d.ts"/>
 
-declare module ReactRouterRedux {
+declare namespace ReactRouterRedux {
     import R = Redux;
     import H = HistoryModule;
 
