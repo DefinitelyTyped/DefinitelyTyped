@@ -180,21 +180,11 @@ declare module "ua-parser-js" {
         *  Returns parse result
         */
         getResult(): UAParser.IResult;
-
-        /**
-        *  Create a new parser
-        */
-        constructor();
-
-        /**
-        *  Create a new parser with UA prepopulated
-        */
-        constructor(uastring: string);
         
         /**
          * Create a new parser with UA prepopulated and extensions extended
          */
-        constructor(uastring: string, extensions: any);
+        constructor(uastring?: string, extensions?: any);
     }
     
 }
