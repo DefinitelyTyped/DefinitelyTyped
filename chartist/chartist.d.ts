@@ -31,7 +31,7 @@ declare module Chartist {
     noop: Function;
 
     alphaNumerate(n: number): string;
-    extend(target: Object, ...sources: Object): Object;
+    extend(target: Object, ...sources: Object[]): Object;
 
     replaceAll(str: string, subStr: string, newSubStr: string): string;
     ensureUnit(value: number, unit: string): string;
