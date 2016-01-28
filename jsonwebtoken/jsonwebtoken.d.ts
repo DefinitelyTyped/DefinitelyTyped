@@ -67,7 +67,8 @@ declare module "jsonwebtoken" {
      * @param {SignOptions} [options] - Options for the signature
      * @param {Function} callback - Callback to get the encoded token on
      */
-    export function sign(payload: string | Buffer | Object, secretOrPrivateKey: string | Buffer, options?: SignOptions, callback: SignCallback): void;
+    export function sign(payload: string | Buffer | Object, secretOrPrivateKey: string | Buffer, callback: SignCallback): void;
+    export function sign(payload: string | Buffer | Object, secretOrPrivateKey: string | Buffer, options: SignOptions, callback: SignCallback): void;
     
     /**
      * Synchronously verify given token using a secret or a public key to get a decoded token
