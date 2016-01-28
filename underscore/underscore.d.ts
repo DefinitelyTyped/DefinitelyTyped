@@ -39,6 +39,12 @@ declare module _ {
 		* Default value is '/<%-([\s\S]+?)%>/g'.
 		**/
 		escape?: RegExp;
+		
+		/**
+		* By default, 'template()' places the values from your data in the local scope via the 'with' statement.
+		* However, you can specify a single variable name with this setting.
+		**/
+		variable?: string;
 	}
 
 	interface Collection<T> { }
