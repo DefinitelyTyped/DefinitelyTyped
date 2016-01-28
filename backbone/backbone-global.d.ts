@@ -326,8 +326,8 @@ declare module Backbone {
        // TODO: quickfix, this can't be fixed easy. The collection does not need to have the same model as the parent view.
       collection?: Backbone.Collection<any>; //was: Collection<TModel>;
       el?: any;
-      id?: string;
-      className?: string;
+      id?: string|(()=>string);
+      className?: string|(()=>string);
       tagName?: string;
       attributes?: {[id: string]: any};
     }
@@ -354,9 +354,9 @@ declare module Backbone {
         collection: Collection<TModel>;
         //template: (json, options?) => string;
         setElement(element: HTMLElement|JQuery, delegate?: boolean): View<TModel>;
-        id: string;
+        id: string|(()=>string);
         cid: string;
-        className: string;
+        className: string|(()=>string);
         tagName: string;
 
         el: any;
