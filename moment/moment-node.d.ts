@@ -18,7 +18,7 @@ declare module moment {
         seconds?: number;
         milliseconds?: number;
     }
-    
+
     interface MomentInput {
         /** Year */
         years?: number;
@@ -313,6 +313,7 @@ declare module moment {
          * @since 2.10.7+
          */
         isSameOrBefore(b: MomentComparable, granularity?: string): boolean;
+        isSameOrAfter(b: MomentComparable, granularity?: string): boolean;
 
         /**
          * @deprecated since version 2.8.0
@@ -344,7 +345,7 @@ declare module moment {
         get(unit: string): number;
         set(unit: string, value: number): Moment;
         set(objectLiteral: MomentInput): Moment;
-        
+
         /**
          * This returns an object containing year, month, day-of-month, hour, minute, seconds, milliseconds.
          * @since 2.10.5+
