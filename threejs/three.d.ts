@@ -2030,6 +2030,8 @@ declare module THREE {
         itemError(url: string): void;
     }
 
+    export var DefaultLoadingManager: LoadingManager;
+
     export class MaterialLoader {
         constructor(manager?: LoadingManager);
 
@@ -4618,7 +4620,7 @@ declare module THREE {
         getMaxAnisotropy(): number;
         getPixelRatio(): number;
         setPixelRatio(value: number): void;
-        
+
         getSize(): { width: number; height: number; };
 
         /**
@@ -4960,7 +4962,7 @@ declare module THREE {
 
     export class WebGLProgram{
         constructor(renderer: WebGLRenderer, code: string, material: ShaderMaterial, parameters: WebGLRendererParameters);
-        
+
         getUniforms(): any;
         getAttributes(): any;
 
