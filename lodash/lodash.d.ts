@@ -6793,7 +6793,7 @@ declare module _ {
         invokeMap<TValue extends {}, TResult>(
             collection: Dictionary<TValue>,
             methodName: string,
-            ...args: any[]): Dictionary<TResult>;
+            ...args: any[]): TResult[];
 
         /**
         * @see _.invokeMap
@@ -6809,7 +6809,7 @@ declare module _ {
         invokeMap<TResult>(
             collection: Dictionary<{}>,
             methodName: string,
-            ...args: any[]): Dictionary<TResult>;
+            ...args: any[]): TResult[];
 
         /**
         * @see _.invokeMap
@@ -6825,7 +6825,7 @@ declare module _ {
         invokeMap<TValue extends {}, TResult>(
             collection: Dictionary<TValue>,
             method: (...args: any[]) => TResult,
-            ...args: any[]): Dictionary<TResult>;
+            ...args: any[]): TResult[];
 
         /**
         * @see _.invokeMap
@@ -6841,7 +6841,7 @@ declare module _ {
         invokeMap<TResult>(
             collection: Dictionary<{}>,
             method: (...args: any[]) => TResult,
-            ...args: any[]): Dictionary<TResult>;
+            ...args: any[]): TResult[];
     }
     
     interface LoDashImplicitArrayWrapper<T> {
@@ -6866,14 +6866,14 @@ declare module _ {
         **/
         invokeMap<TResult>(
             methodName: string,
-            ...args: any[]): LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
+            ...args: any[]): LoDashImplicitArrayWrapper<TResult>;
 
         /**
         * @see _.invokeMap
         **/
         invokeMap<TResult>(
             method: (...args: any[]) => TResult,
-            ...args: any[]): LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
+            ...args: any[]): LoDashImplicitArrayWrapper<TResult>;
     }
     
     interface LoDashExplicitArrayWrapper<T> {
@@ -6898,14 +6898,14 @@ declare module _ {
         **/
         invokeMap<TResult>(
             methodName: string,
-            ...args: any[]): LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
+            ...args: any[]): LoDashExplicitArrayWrapper<TResult>;
 
         /**
         * @see _.invokeMap
         **/
         invokeMap<TResult>(
             method: (...args: any[]) => TResult,
-            ...args: any[]): LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
+            ...args: any[]): LoDashExplicitArrayWrapper<TResult>;
     }
 
     //_.map
