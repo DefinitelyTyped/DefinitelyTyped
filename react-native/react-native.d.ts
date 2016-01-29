@@ -2712,7 +2712,7 @@ declare namespace  __React {
          * Fires at most once per frame during scrolling.
          * The frequency of the events can be contolled using the scrollEventThrottle prop.
          */
-        onScroll?: () => void
+        onScroll?: (event?: { nativeEvent: NativeScrollEvent }) => void
 
         /**
          * Experimental: When true offscreen child views (whose `overflow` value is
