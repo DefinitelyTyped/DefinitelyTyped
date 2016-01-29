@@ -436,6 +436,7 @@ var template2 = _.template("Hello {{ name }}!");
 template2({ name: "Mustache" });
 _.template("Using 'with': <%= data.answer %>", oldTemplateSettings)({ variable: 'data' });
 
+_.template("Using 'with': <%= data.answer %>", { variable: 'data' })({ answer: 'no' });
 
 _(['test', 'test']).pick(['test2', 'test2']);
 
