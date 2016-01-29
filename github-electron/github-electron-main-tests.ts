@@ -169,6 +169,7 @@ app.dock.setMenu(dockMenu);
 app.dock.setBadge('foo');
 var id = app.dock.bounce('informational');
 app.dock.cancelBounce(id);
+app.dock.setIcon('/path/to/icon.png');
 
 app.setUserTasks([
 	<Electron.Task>{
