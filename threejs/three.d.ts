@@ -5000,8 +5000,6 @@ declare module THREE {
     }
 
     interface WebGLShadowMapInstance{
-        new ( _renderer: Renderer, _lights: any[], _objects: any[] ): void;
-
         enabled: boolean;
         autoUpdate: boolean;
         needsUpdate: boolean;
@@ -5011,12 +5009,11 @@ declare module THREE {
         render( scene: Scene ): void;
     }
     interface WebGLShadowMapStatic{
-        ( _renderer: Renderer, _lights: any[], _objects: any[] ): WebGLStateInstance;
+        new ( _renderer: Renderer, _lights: any[], _objects: any[] ): WebGLStateInstance;
     }
     export var WebGLShadowMap: WebGLShadowMapStatic;
 
     interface WebGLStateInstance{
-        new ( gl: any, extensions: any, paramThreeToGL: Function ): void;
         init(): void;
         initAttributes(): void;
         enableAttribute(attribute: string): void;
@@ -5041,7 +5038,7 @@ declare module THREE {
         reset(): void;
     }
     interface WebGLStateStatic{
-        ( gl: any, extensions: any, paramThreeToGL: Function ): WebGLStateInstance;
+        new ( gl: any, extensions: any, paramThreeToGL: Function ): WebGLStateInstance;
     }
     export var WebGLState: WebGLStateStatic;
 
