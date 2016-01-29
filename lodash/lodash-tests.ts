@@ -9953,6 +9953,29 @@ module TestNoop {
     }
 }
 
+namespace TestNthArg {
+    type SampleFunc = (...args: any[]) => any;
+
+    {
+        let result: SampleFunc;
+
+        result = _.nthArg<SampleFunc>();
+        result = _.nthArg<SampleFunc>(1);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<SampleFunc>;
+
+        result = _(1).nthArg<SampleFunc>();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<SampleFunc>;
+
+        result = _(1).chain().nthArg<SampleFunc>();
+    }
+}
+
 // _.over
 namespace TestOver {
     {

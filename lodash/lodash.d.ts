@@ -16308,6 +16308,31 @@ declare module _ {
         noop(...args: any[]): _.LoDashExplicitWrapper<void>;
     }
 
+    //_.nthArg
+    interface LoDashStatic {
+        /**
+         * Creates a function that returns its nth argument.
+         *
+         * @param n The index of the argument to return.
+         * @return Returns the new function.
+         */
+        nthArg<TResult extends Function>(n?: number): TResult;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.nthArg
+         */
+        nthArg<TResult extends Function>(): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.nthArg
+         */
+        nthArg<TResult extends Function>(): LoDashExplicitObjectWrapper<TResult>;
+    }
+
     //_.over
     interface LoDashStatic {
         /**
