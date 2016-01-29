@@ -1,6 +1,7 @@
 // Type definitions for random-js 1.0.8
 // Project: https://github.com/ckknight/random-js
 // Definitions by: Gustavo Di Pietro <https://github.com/pistacchio>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module random {
     export function Engine(): number;
