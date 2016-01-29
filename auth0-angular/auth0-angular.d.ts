@@ -1,6 +1,6 @@
 ﻿// Type definitions for auth0-angular
 // Project: https://github.com/auth0/auth0-angular
-// Definitions by: Matt Emory https://github.com/homesar
+// Definitions by: Matt Emory <https://github.com/homesar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
