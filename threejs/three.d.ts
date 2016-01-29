@@ -4618,7 +4618,7 @@ declare module THREE {
         getMaxAnisotropy(): number;
         getPixelRatio(): number;
         setPixelRatio(value: number): void;
-        
+
         getSize(): { width: number; height: number; };
 
         /**
@@ -4925,42 +4925,39 @@ declare module THREE {
     }
 
     interface WebGLGeometriesInstance {
-        new (gl: any, properties: any, info: any): void;
         get( object: any ): any;
     }
     interface WebGLGeometriesStatic{
-        (_gl: any, extensions: any, _infoRender: any): WebGLGeometriesInstance;
+        new (gl: any, properties: any, info: any): WebGLGeometriesInstance;
     }
     export var WebGLGeometries: WebGLGeometriesStatic;
 
 
     interface WebGLIndexedBufferRendererInstance {
-        new (gl: any, properties: any, info: any): void;
         setMode( value: any ): void;
         setIndex( index: any ): void;
         render( start: any, count: any ): void;
         renderInstances( geometry: any ): void;
     }
     interface WebGLIndexedBufferRendererStatic{
-        (_gl: any, extensions: any, _infoRender: any): WebGLIndexedBufferRendererInstance;
+        new (gl: any, properties: any, info: any): WebGLIndexedBufferRendererInstance;
     }
     export var WebGLIndexedBufferRenderer: WebGLIndexedBufferRendererStatic;
 
 
     interface WebGLObjectsInstance {
-        new (gl: any, properties: any, info: any): void;
         getAttributeBuffer( attribute: any ): any;
         getWireframeAttribute(geometry: any): any;
         update(object: any): void;
     }
     interface WebGLObjectsStatic{
-        (gl: any, properties: any, info: any): WebGLObjectsInstance;
+        new (gl: any, properties: any, info: any): WebGLObjectsInstance;
     }
     export var WebGLObjects: WebGLObjectsStatic;
 
     export class WebGLProgram{
         constructor(renderer: WebGLRenderer, code: string, material: ShaderMaterial, parameters: WebGLRendererParameters);
-        
+
         getUniforms(): any;
         getAttributes(): any;
 
@@ -4978,27 +4975,23 @@ declare module THREE {
     }
 
     interface WebGLProgramsInstance {
-        new (renderer: WebGLRenderer, capabilities: any): void;
-
         getParameters( material: any, lights: any, fog: any, object: any ): any[];
         getProgramCode( material: any, parameters: any ): any;
         acquireProgram( material: any, parameters: any, code: any ): any;
         releaseProgram( program: any ): void;
     }
     interface WebGLProgramsStatic{
-        (): WebGLProgramsInstance;
+        new (renderer: WebGLRenderer, capabilities: any): WebGLProgramsInstance;
     }
     export var WebGLPrograms: WebGLProgramsStatic;
 
     interface WebGLPropertiesInstance {
-        new (): void;
-
         get(object: any): any;
         delete(object: any): void;
         clear(): void;
     }
     interface WebGLPropertiesStatic{
-        (): WebGLPropertiesInstance;
+        new (): WebGLPropertiesInstance;
     }
     export var WebGLProperties: WebGLPropertiesStatic;
 
