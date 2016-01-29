@@ -106,8 +106,8 @@ interface PromiseConstructor {
      * Returns a promise that will be fulfilled with `value` (or `undefined`) after given `ms` milliseconds. If `value` is a promise, the delay will start counting down when it is fulfilled and the returned promise will be fulfilled with the fulfillment value of the `value` promise.
      */
     // TODO enable more overloads
-    delay<T>(value: PromiseLike<T>, ms: number): Promise<T>;
-    delay<T>(value: T, ms: number): Promise<T>;
+    delay<T>(ms: number, value: PromiseLike<T>): Promise<T>;
+    delay<T>(ms: number, value: T): Promise<T>;
     delay(ms: number): Promise<void>;
 
     /**

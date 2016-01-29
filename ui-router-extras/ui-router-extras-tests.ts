@@ -9,10 +9,10 @@ myApp.config(($stateProvider: angular.ui.IStateProvider, $stickyStateProvider: a
         dsr: {
             default: 'substate',
             params: ['param1', 'param2'],
-            fn: function ($dsr$) {               
+            fn: function ($dsr$) {
 
                 return $dsr$.to;
-            }            
+            }
         },
         onInactivate: function ($state: angular.ui.IState) {
             var iAmInjectedByInjector = $state;
@@ -36,10 +36,10 @@ myApp.config(($stateProvider: angular.ui.IStateProvider, $stickyStateProvider: a
                 'stateParam1': ['value1', 'value2'],
                 'stateParam2': 'value'
             });
-        }, 
+        },
         views: {
             //named views are mandatory
-            'name1': {}            
+            'name1': {}
         }
 	};
 

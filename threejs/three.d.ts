@@ -2971,6 +2971,8 @@ declare module THREE {
     }
 
     export class Euler {
+        static DefaultOrder: string;
+
         constructor(x?: number, y?: number, z?: number, order?: string);
 
         x: number;
@@ -4166,7 +4168,7 @@ declare module THREE {
          * http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
          * @param m assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
          */
-        setAxisAngleFromRotationMatrix(m: Matrix3): Vector4;
+        setAxisAngleFromRotationMatrix(m: Matrix4): Vector4;
 
         min(v: Vector4): Vector4;
         max(v: Vector4): Vector4;
@@ -4616,7 +4618,7 @@ declare module THREE {
         getMaxAnisotropy(): number;
         getPixelRatio(): number;
         setPixelRatio(value: number): void;
-        
+
         getSize(): { width: number; height: number; };
 
         /**
@@ -4958,7 +4960,7 @@ declare module THREE {
 
     export class WebGLProgram{
         constructor(renderer: WebGLRenderer, code: string, material: ShaderMaterial, parameters: WebGLRendererParameters);
-        
+
         getUniforms(): any;
         getAttributes(): any;
 

@@ -1,21 +1,38 @@
-// Type definitions for Angular Wizard 0.4.2
+// Type definitions for Angular Wizard 0.6.1
 // Project: https://github.com/mgonto/angular-wizard
-// Definitions by: Marko Jurisic <https://github.com/mjurisic>
+// Definitions by: Marko Jurisic <https://github.com/mjurisic>, Ronald Wildenberg <https://github.com/rwwilden>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module angular.mgoAngularWizard {
   interface WizardHandler {
-    wizard(name?:string): Wizard;
-    addWizard(name:string, wizard:Wizard):void;
-    removeWizard(name:string):void;
+    wizard(name?: string): Wizard;
+    addWizard(name: string, wizard: Wizard): void;
+    removeWizard(name: string): void;
   }
 
   interface Wizard {
-    next(nextHandler?:Function):void;
-    previous():void;
-    goTo(step:number):void;
-    goTo(step:string):void;
-    finish():void;
-    currentStepNumber():number;
+    next(nextHandler?: () => boolean): void;
+    previous(): void;
+    cancel: () => void;
+    goTo(step: number | string): void;
+    finish(): void;
+    reset: () => void;
+
+    addStep: (step: WzStep) => void;
+    currentStep: () => WzStep;
+    currentStepNumber(): number;
+    currentStepDescription: () => string;
+    currentStepTitle: () => string;
+    getEnabledSteps(): WzStep[];
+  }
+
+  interface WzStep {
+    canenter: (...args: any[]) => boolean;
+    canexit: (...args: any[]) => boolean;
+    description: string;
+    selected: boolean;
+    title: string;
+    wzData: any;
+    wzTitle: string;
   }
 }

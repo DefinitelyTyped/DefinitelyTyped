@@ -46,7 +46,11 @@ declare module "winston" {
   export function addColors(target: any): any;
   export function setLevels(target: any): any;
   export function cli(): LoggerInstance;
+  export function addRewriter(rewriter: MetadataRewriter): void;
 
+  export interface MetadataRewriter {
+      (level: string, msg: string, meta: any): any;
+  }
 
   export interface LoggerStatic {
     new (options?: LoggerOptions): LoggerInstance;
@@ -77,7 +81,7 @@ declare module "winston" {
     handleExceptions(...transports: TransportInstance[]): void;
     unhandleExceptions(...transports: TransportInstance[]): void;
     add(transport: TransportInstance, options?: TransportOptions, created?: boolean): LoggerInstance;
-    addRewriter(rewriter: TransportInstance): TransportInstance[];
+    addRewriter(rewriter: MetadataRewriter): void;
     clear(): void;
     remove(transport: TransportInstance): LoggerInstance;
     startTimer(): ProfileHandler;
@@ -140,7 +144,7 @@ declare module "winston" {
   }
 
   export interface WinstonModuleTrasportInstance extends TransportInstance {
-    new (options?: WinstonMoudleTransportOptions): WinstonModuleTrasportInstance;
+    new (options?: WinstonModuleTransportOptions): WinstonModuleTrasportInstance;
   }
 
   export interface ContainerStatic {
@@ -275,7 +279,7 @@ declare module "winston" {
     };
   }
 
-  export interface WinstonMoudleTransportOptions extends TransportOptions {
+  export interface WinstonModuleTransportOptions extends TransportOptions {
     [optionName: string]: any;
   }
 

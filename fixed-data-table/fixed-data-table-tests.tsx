@@ -161,3 +161,27 @@ class MyTable4 extends React.Component<{}, MyTable4State> {
         );
     }
 }
+
+// Listen for events
+class MyTable5 extends React.Component<{}, {}> {
+    render(): React.ReactElement<any> {
+        return (
+            <Table
+                rowsCount={100}
+                rowHeight={50}
+                width={1000}
+                height={500}
+                onScrollStart={(x: number, y: number) => {}}
+                onScrollEnd={(x: number, y: number) => {}}
+                onContentHeightChange={(newHeight: number) => {}}
+                onRowClick={(event: React.SyntheticEvent, rowIndex: number) => {}}
+                onRowDoubleClick={(event: React.SyntheticEvent, rowIndex: number) => {}}
+                onRowMouseDown={(event: React.SyntheticEvent, rowIndex: number) => {}}
+                onRowMouseEnter={(event: React.SyntheticEvent, rowIndex: number) => {}}
+                onRowMouseLeave={(event: React.SyntheticEvent, rowIndex: number) => {}}
+                onColumnResizeEndCallback={(newColumnWidth: number, columnKey: string) => {}}>
+                // add columns
+            </Table>
+        );
+    }
+}

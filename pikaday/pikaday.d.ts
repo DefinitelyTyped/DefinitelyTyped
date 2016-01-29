@@ -5,48 +5,10 @@
 
 /// <reference path="../moment/moment.d.ts" />
 
-interface PikadayI18nConfig {
-    previousMonth: string;
-    nextMonth: string;
-    months: string[];
-    weekdays: string[];
-    weekdaysShort: string[];
-}
-
-interface PikadayOptions {
-    field?: HTMLElement;
-    format?: string;
-    trigger?: HTMLElement;
-    bound?: boolean;
-    position?: string;
-    reposition?: boolean;
-    container?: HTMLElement;
-    defaultDate?: Date;
-    setDefaultDate?: boolean;
-    firstDay?: number;
-    minDate?: Date;
-    maxDate?: Date;
-    disableWeekends?: boolean;
-    disableDayFn?: (date:Date) => boolean;
-    yearRange?: number[];
-    showWeekNumber?: boolean;
-    isRTL?: boolean;
-    i18n?: PikadayI18nConfig;
-    yearSuffix?: string;
-    showMonthAfterYear?: boolean;
-    numberOfMonths?: number;
-    mainCalendar?: string;
-    theme?: string;
-    onSelect?: (date:Date) => void;
-    onOpen?: () => void;
-    onClose?: () => void;
-    onDraw?: () => void;
-}
-
 declare class Pikaday {
     el:HTMLElement;
 
-    constructor(options:PikadayOptions);
+    constructor(options: Pikaday.PikadayOptions);
 
     toString():string;
     toString(format:string):string;
@@ -86,4 +48,49 @@ declare class Pikaday {
     adjustPosition():void;
 
     destroy():void;
+}
+
+// merge the Pikaday class declaration with a module
+declare module Pikaday {
+    interface PikadayI18nConfig {
+        previousMonth: string;
+        nextMonth: string;
+        months: string[];
+        weekdays: string[];
+        weekdaysShort: string[];
+    }
+
+    interface PikadayOptions {
+        field?: HTMLElement;
+        format?: string;
+        trigger?: HTMLElement;
+        bound?: boolean;
+        position?: string;
+        reposition?: boolean;
+        container?: HTMLElement;
+        defaultDate?: Date;
+        setDefaultDate?: boolean;
+        firstDay?: number;
+        minDate?: Date;
+        maxDate?: Date;
+        disableWeekends?: boolean;
+        disableDayFn?: (date:Date) => boolean;
+        yearRange?: number[];
+        showWeekNumber?: boolean;
+        isRTL?: boolean;
+        i18n?: PikadayI18nConfig;
+        yearSuffix?: string;
+        showMonthAfterYear?: boolean;
+        numberOfMonths?: number;
+        mainCalendar?: string;
+        theme?: string;
+        onSelect?: (date:Date) => void;
+        onOpen?: () => void;
+        onClose?: () => void;
+        onDraw?: () => void;
+    }
+}
+
+declare module "pikaday" {
+    export = Pikaday;
 }

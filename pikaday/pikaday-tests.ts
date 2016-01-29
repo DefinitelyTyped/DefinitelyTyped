@@ -2,6 +2,8 @@
 /// <reference path="../moment/moment.d.ts" />
 /// <reference path="pikaday.d.ts" />
 
+import * as Pikaday from "pikaday";
+
 new Pikaday({field: document.getElementById('datepicker')});
 new Pikaday({field: $('#datepicker')[0]});
 
@@ -46,7 +48,7 @@ new Pikaday({field: $('#datepicker')[0]});
 })();
 
 (() => {
-    var i18n:PikadayI18nConfig = {
+    var i18n: Pikaday.PikadayI18nConfig = {
         previousMonth: 'Previous Month',
         nextMonth: 'Next Month',
         months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],

@@ -1,6 +1,6 @@
-// Type definitions for socket.io-client 1.3.5
+// Type definitions for socket.io-client 1.4.4
 // Project: http://socket.io/
-// Definitions by: PROGRE <https://github.com/progre/>, Damian Connolly <https://github.com/divillysausages/>
+// Definitions by: PROGRE <https://github.com/progre/>, Damian Connolly <https://github.com/divillysausages/>, Florent Poujol <https://github.com/florentpoujol/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare var io: SocketIOClientStatic;
@@ -219,6 +219,7 @@ declare module SocketIOClient {
 		 * 	connect
 		 * 	connect_error
 		 * 	connect_timeout
+		 * 	connecting
 		 * 	disconnect
 		 * 	error
 		 * 	reconnect
@@ -226,6 +227,8 @@ declare module SocketIOClient {
 		 * 	reconnect_failed
 		 * 	reconnect_error
 		 * 	reconnecting
+		 * 	ping
+		 * 	pong
 		 * then the event is emitted normally. Otherwise, if we're connected, the
 		 * event is sent. Otherwise, it's buffered.
 		 * 
@@ -248,6 +251,13 @@ declare module SocketIOClient {
 		 * @see close()
 		 */
 		disconnect():Socket;
+
+		/**
+		* Sets the compress flag.
+		* @param compress If `true`, compresses the sending data
+		* @return this Socket
+		*/
+		compress(compress: boolean):Socket;
 	}
 
 	/**
@@ -308,7 +318,7 @@ declare module SocketIOClient {
 		/**
 		 * The currently connected sockets
 		 */
-		connected: Socket[];
+		connecting: Socket[];
 		
 		/**
 		 * If we should auto connect (also used when creating Sockets). Set via the

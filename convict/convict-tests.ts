@@ -6,6 +6,42 @@ import validator = require('validator');
 
 // define a schema
 
+// straight from the convict tests
+const format : convict.Format = {
+  name: 'float-percent',
+  validate: function(val) {
+    if (val !== 0 && (!val || val > 1 || val < 0)) {
+      throw new Error('must be a float between 0 and 1, inclusive');
+    }
+  },
+  coerce: function(val) {
+    return +(<string> val);
+  }
+};
+
+
+
+
+convict.addFormat(format);
+convict.addFormats({
+      prime: {
+        validate: function(val) {
+          function isPrime(n: number) {
+            if (n <= 1) return false; // zero and one are not prime
+            for (var i=2; i*i <= n; i++) {
+              if (n % i === 0) return false;
+            }
+            return true;
+          }
+          if (!isPrime(val)) throw new Error('must be a prime number');
+        },
+        coerce: function(val) {
+          return parseInt(val, 10);
+        }
+      }
+    });
+
+
 var conf = convict({
   env: {
     doc: 'The applicaton environment.',
@@ -46,7 +82,15 @@ var conf = convict({
       env: 'PORT',
       arg: 'port',
     }
-  }
+  },
+  primeNumber: {
+    format: 'prime',
+    default: 17
+  },
+  percentNumber: {
+    format: 'float-percent',
+    default: 0.5
+  },
 
 });
 
@@ -72,4 +116,10 @@ if (conf.has('key')) {
     }
   });
 }
+
+conf.getSchema();
+conf.getProperties();
+conf.getSchemaString();
+conf.toString();
+
 // vim:et:sw=2:ts=2
