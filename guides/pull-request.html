@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Pull Requests | DefinitelyTyped</title>
+	<meta name="description" content="The repository for high quality TypeScript type definitions" />
+	<meta name="keywords" content="typescript, type, definition, declaration, repository, typing" />
+
+	<meta name="generator" content="DocPad v6.64.3" />
+	<link  rel="stylesheet" href="/styles/semantic.min.css" /><link  rel="stylesheet" href="/styles/highlight.css" /><link  rel="stylesheet" href="/styles/style.css" />
+
+	<link rel="shortcut icon" href="/favicon.ico" >
+</head>
+<body class="ui">
+<a href="https://github.com/DefinitelyTyped/definitelytyped.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" class="ribbon" src="/images/forkme-blue.png" alt="Fork me on GitHub"></a>
+	<div class="outer">
+	<!--[if lt IE 7]>
+	<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	<![endif]-->
+
+	<div class="ui one column grid">
+		<div class="column centeroid">
+			<div class="ui menu">
+	<a class="item" href="/"><i class="home icon"></i> Home</a>
+	<a class="item" href="/guides.html"><i class="wrench icon"></i> Guides</a>
+	<a class="item" href="/directory.html"><i class="unordered list icon"></i> Directory</a>
+	<a class="item" href="https://github.com/DefinitelyTyped/DefinitelyTyped"><i class="github icon"></i> Repository</a>
+	<a class="item" href="http://definitelytyped.org/tsd/"><i class="terminal icon"></i> TSD</a>
+	<a class="item" href="http://nuget.org/packages?q=DefinitelyTyped"><i class="download disk icon"></i> NuGet</a>
+<!--
+	<div class="right menu">
+		<div class="item">
+			<iframe src="http://ghbtns.com/github-btn.html?user=DefinitelyTyped&repo=DefinitelyTyped&type=watch&count=true"
+					allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
+			<iframe src="http://ghbtns.com/github-btn.html?user=DefinitelyTyped&repo=DefinitelyTyped&type=fork&count=true"
+					allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
+		</div>
+	</div>
+	-->
+</div>
+<div class="ui row">
+	<a class="logo" href="/"><img src="/images/dt-logo-smallish.png" title="DefinitelyTyped"/></a>
+
+	<h1 class="ui header">DefinitelyTyped</h1>
+	<p>The repository for high quality TypeScript type definitions</p>
+</div>
+
+
+			<div class="ui vertical segment">
+	<h1>Pull Requests</h1>
+</div>
+
+<div class="ui vertical segment">
+	<h2 id="getting-latest-upstream-changes"  class="ui header">Getting latest upstream changes</h2>
+<p>You don&#39;t need to do this unless we request you to do so.</p>
+<p>Initially make sure you have DT added as an upstream remote in your fork. Do this by :</p>
+<pre><code>git remote <span class="hljs-built_in">add</span> upstream http<span class="hljs-variable">s:</span>//github.<span class="hljs-keyword">com</span>/DefinitelyTyped/DefinitelyTyped.git
+</code></pre><p>Now whenever you want the latest changes from DT added to your local branch just run these two commands :</p>
+<pre><code>git fetch upstream
+<span class="hljs-comment"># Fetches any new changes from DefinitelyTyped</span>
+git merge upstream/<span class="hljs-keyword">master</span>
+<span class="hljs-title"># Merges</span> any changes fetched into your working files
+</code></pre><h2 id="broken-build"  class="ui header">Broken Build</h2>
+<p>If tests fail and you know how to fix them, just add a commit to fix that error in your local branch and push it to your DT fork. If the Pull Request uses the same branch it will be update automatically and the tests will run again.</p>
+<p>If you need multiple tries to make it work then please flatten your commits so the history is moderately clean (please also minimise the commit message). You could <code>git push --force</code> (<em>careful!</em>) the flat commit over your earlier commits in the same branch and the PR will be automatically updated.</p>
+<h2 id="multiple-contributions"  class="ui header">Multiple contributions</h2>
+<p>It is recommended to split your contributions for different JS packages into their own git branches so you can have multiple pending PR&#39;s.</p>
+<h2 id="travis-ci-for-your-dt-fork"  class="ui header">Travis CI for your DT fork</h2>
+<p>You can enable Travis for your own DT fork if you like: go to <a href="https://travis-ci.org/">Travis</a> and sign-up for free if you haven&#39;t yet. Then go to your <a href="https://travis-ci.org/profile">account</a> and enable your DT fork. This will run Travis same as on DT and allows you to experiment freely. You can review your fork&#39;s build status via the menu on the left side of the <a href="https://travis-ci.org/">Travis homepage</a> after you enabled the hook AND pushed some code to the repo.</p>
+<h2 id="large-contributions-and-changes"  class="ui header">Large contributions and changes</h2>
+<p>If you plan to start a new definition make sure to check the issues first and/or leave a message that you are working on it so you&#39;re not do duplicating work. Coordination with fellow users is always recommended.</p>
+<p>If you think you need to make big changes to a existing definition it could be handy to review the git history and create a new Issue where you @mention previous authors and see if they agree and/or want to get involved again.</p>
+<h2 id="merging"  class="ui header">Merging</h2>
+<p>DefinitelyTyped is managed by a group of enthusiasts who volunteer their free time to review and merge the contributions. This means it can potentially take a few days or up to a week before someone has the focus+time to look at a PR and merge it. If your contributions stays pending and get buried then feel free to politely ping/bump.</p>
+
+
+	<div class="ui small segment">
+	Contribute to the site via the <a href="/pages/website-contributions.html">contribution guide</a>.
+</div>
+
+</div>
+
+<div class="ui list">
+	
+	<a class="item" href="/guides/best-practices.html">Best practices</a>
+	
+	
+	<a class="item" href="/guides/contributing.html">Contribution guide</a>
+	
+	
+	<a class="item" href="/guides/creating.html">Creating a definition file</a>
+	
+	
+	<a class="item" href="/guides/pull-request.html">Pull Requests</a>
+	
+	
+</div>
+
+			<div class="ui horizontal icon divider">
+	<i class="heart icon"></i>
+</div>
+
+<div class="ui center aligned one column grid">
+	<div class="row">
+		<div class="column">
+			<a href="/">Home</a>
+			- <a href="https://github.com/DefinitelyTyped/DefinitelyTyped">GitHub</a>
+			- <a href="http://definitelytyped.org/tsd/">TSD</a>
+			- <a href="http://nuget.org/packages?q=DefinitelyTyped">NuGet</a>
+		</div>
+	</div>
+</div>
+
+		</div>
+	</div>
+</div>
+	<script defer="defer"  src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script><script defer="defer"  src="/scripts/semantic.min.js"></script><script defer="defer"  src="/scripts/script.js"></script>
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-47495295-3', 'definitelytyped.org');
+	ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

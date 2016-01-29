@@ -1,0 +1,16 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Owners -- owning
+    Collaborator -- collaborating
+
+# THANKS
+
+    Contributors -- contributing
+    Users -- using
+
+# TECHNOLOGY COLOPHON
+
+    TypeScript

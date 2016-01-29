@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Best practices | DefinitelyTyped</title>
+	<meta name="description" content="The repository for high quality TypeScript type definitions" />
+	<meta name="keywords" content="typescript, type, definition, declaration, repository, typing" />
+
+	<meta name="generator" content="DocPad v6.64.3" />
+	<link  rel="stylesheet" href="/styles/semantic.min.css" /><link  rel="stylesheet" href="/styles/highlight.css" /><link  rel="stylesheet" href="/styles/style.css" />
+
+	<link rel="shortcut icon" href="/favicon.ico" >
+</head>
+<body class="ui">
+<a href="https://github.com/DefinitelyTyped/definitelytyped.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" class="ribbon" src="/images/forkme-blue.png" alt="Fork me on GitHub"></a>
+	<div class="outer">
+	<!--[if lt IE 7]>
+	<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	<![endif]-->
+
+	<div class="ui one column grid">
+		<div class="column centeroid">
+			<div class="ui menu">
+	<a class="item" href="/"><i class="home icon"></i> Home</a>
+	<a class="item" href="/guides.html"><i class="wrench icon"></i> Guides</a>
+	<a class="item" href="/directory.html"><i class="unordered list icon"></i> Directory</a>
+	<a class="item" href="https://github.com/DefinitelyTyped/DefinitelyTyped"><i class="github icon"></i> Repository</a>
+	<a class="item" href="http://definitelytyped.org/tsd/"><i class="terminal icon"></i> TSD</a>
+	<a class="item" href="http://nuget.org/packages?q=DefinitelyTyped"><i class="download disk icon"></i> NuGet</a>
+<!--
+	<div class="right menu">
+		<div class="item">
+			<iframe src="http://ghbtns.com/github-btn.html?user=DefinitelyTyped&repo=DefinitelyTyped&type=watch&count=true"
+					allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
+			<iframe src="http://ghbtns.com/github-btn.html?user=DefinitelyTyped&repo=DefinitelyTyped&type=fork&count=true"
+					allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
+		</div>
+	</div>
+	-->
+</div>
+<div class="ui row">
+	<a class="logo" href="/"><img src="/images/dt-logo-smallish.png" title="DefinitelyTyped"/></a>
+
+	<h1 class="ui header">DefinitelyTyped</h1>
+	<p>The repository for high quality TypeScript type definitions</p>
+</div>
+
+
+			<div class="ui vertical segment">
+	<h1>Best practices</h1>
+</div>
+
+<div class="ui vertical segment">
+	<p>This is a guide to the best practices to follow when creating typing files.  There are a variety of different ways that typing files can be constructed.  Different approaches can be used - this is intended as a guide to what approaches make sense in certain scenarios.</p>
+<p>Also, it&#39;s a steer on how to deal with limitations in TypeScript.  As much as it hurts to say it, TypeScript v1.0 is not flawless.  There are certain minor flaws / shortcomings in the language which have implicatations for how typings are created.  Here we will detail those limitations, how they can be worked around at present and how you can best vote for improvements in the language on the <a href="//typescript.codeplex.com">TypeScript site</a>.</p>
+<h3 id="ghost-modules"  class="ui header">Ghost modules</h3>
+<p>Also called <code>non-instantiated modules</code>. Instead of polluting the global namespace with many interfaces, it is okay to create a module that contains <em>interfaces only</em>. This does not introduce a variable on the global namespace (see safety in below sample) and this module can only be used for <em>types</em>.</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// this pattern has 3 name in top level</span>
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">NodeFoo</span> {</span> }
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">NodeBar</span> {</span> }
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">NodeBuzz</span> {</span> }
+
+<span class="hljs-comment">// this ghost module has 1 name in top level</span>
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> NodeJS {
+    <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Foo</span> {</span> }
+    <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Bar</span> {</span> }
+    <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Buzz</span> {</span> }
+}
+
+<span class="hljs-comment">// safety!</span>
+<span class="hljs-keyword">var</span> n = NodeJS; <span class="hljs-comment">// TS Error : Could not find symbol NodeJS</span>
+</code></pre>
+<p>This also allows you to open up further customization in external modules as interfaces declared <em>inside</em> external module declarations cannot be extended e.g. the following is good as people can customize <code>foo</code> further in other library definitions.</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// Usage when declaring an external module</span>
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> <span class="hljs-string">'foo'</span> {
+    <span class="hljs-keyword">var</span> foo: NodeJS.Foo;
+    <span class="hljs-keyword">export</span> = foo;
+}
+</code></pre>
+<h3 id="extending-built-in-types"  class="ui header">Extending built-in types</h3>
+<p>There isn&#39;t a way to add <em>static members</em> to native objects at the moment as <code>lib.d.ts</code> defines them as a <code>var Date:{/*members*/}</code> and <code>var</code>s are not extendable.
+ Two solutions are proposed to the TS team. Either <a href="https://typescript.codeplex.com/workitem/1085">use interfaces instead of var in lib.d.ts (vote)</a> and/or <a href="https://typescript.codeplex.com/workitem/917">make variables/classes open ended (vote)</a></p>
+<p>For adding members to <em>instances</em> of native types there are relevant interfaces in available in <code>lib.d.ts</code> e.g.</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">// add members to Date instances</span>
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Date</span> {</span>
+    newMember: number;
+}
+
+<span class="hljs-comment">// usage</span>
+<span class="hljs-keyword">var</span> foo = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+foo.newMember = <span class="hljs-number">123</span>; <span class="hljs-comment">// okay</span>
+</code></pre>
+<h3 id="getter-setter"  class="ui header">Getter / Setter</h3>
+<p>Instead of :</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">duration</span><span class="hljs-params">(value?: number)</span><span class="hljs-type">: any</span>;</span>
+</code></pre>
+<p>better to do:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">duration</span><span class="hljs-params">()</span><span class="hljs-type">: number</span>;</span>
+<span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">duration</span><span class="hljs-params">(value: number)</span><span class="hljs-type">: void</span>;</span>
+</code></pre>
+<h3 id="fluent"  class="ui header">Fluent</h3>
+<p>Pretty self explanatory:</p>
+<pre><code class="lang-typescript"><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Something</span> {</span>
+   foo(): Something;
+   bar(): Something;
+}
+</code></pre>
+<h3 id="callback-signatures"  class="ui header">Callback signatures</h3>
+<p>Do not mark callback arguments as optional if they are passed in everytime by the calling code. Also leave the return as <code>any</code> if the calling code doesn&#39;t care. For example in the following <em>good</em> declaration <code>foo</code> is the calling code we are declaring that always calls with <code>bar</code> and <code>bas</code> and doesn&#39;t care of the callback return value:</p>
+<pre><code class="lang-typescript">declare function foo(callback: (bar: any, bas: any) =&gt; any): void;
+
+// Usage is as expected by a JavaScript developer
+foo(() =&gt; { });
+foo((bar) =&gt; 123);
+foo((bar, bas) =&gt; '');
+</code></pre>
+<p>A <em>wrong</em> way to model it would be as shown below as it enforces restrictions the original calling code doesn&#39;t impose:</p>
+<pre><code class="lang-typescript">declare function foo(callback: (bar?: any, bas?: any) =&gt; void);
+</code></pre>
+<h3 id="function-overloading"  class="ui header">Function Overloading</h3>
+<p>A Union Type (<code>any</code> for now) is needed only for config object bags. For functions / constructors use function overloading e.g.</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">declare</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> {</span>
+    constructor(foo: number);
+    constructor(foo: string);
+}
+
+<span class="hljs-keyword">new</span> Foo(<span class="hljs-number">123</span>); <span class="hljs-comment">// okay</span>
+<span class="hljs-keyword">new</span> Foo(<span class="hljs-string">'123'</span>); <span class="hljs-comment">// okay</span>
+<span class="hljs-keyword">new</span> Foo(<span class="hljs-literal">true</span>); <span class="hljs-comment">// Error</span>
+</code></pre>
+<h3 id="overload-ordering"  class="ui header">Overload Ordering</h3>
+<p>Code with overloads <em>must</em> be manually sorted from the tightest/more-specific overload to loosest. See example below:</p>
+<pre><code class="lang-typescript"><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Parent</span> {</span> x; }
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Child</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Parent</span> {</span> y; }
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span><span class="hljs-params">(p: Child)</span><span class="hljs-type">: Child</span>;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span><span class="hljs-params">(p: Parent)</span><span class="hljs-type">: Parent</span>;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span><span class="hljs-params">(p: any)</span><span class="hljs-type">: any</span>;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span><span class="hljs-params">(p: any)</span> {</span> <span class="hljs-keyword">return</span> p; }
+
+<span class="hljs-keyword">var</span> a = foo({ x: <span class="hljs-number">3</span>, y: <span class="hljs-number">4</span> }); <span class="hljs-comment">// a: Child</span>
+<span class="hljs-keyword">var</span> b = foo({ x: <span class="hljs-number">5</span> }); <span class="hljs-comment">// b: Parent</span>
+
+<span class="hljs-keyword">var</span> y: any;
+<span class="hljs-keyword">var</span> c = foo(y); <span class="hljs-comment">// c: any</span>
+</code></pre>
+<p><a href="https://typescript.codeplex.com/workitem/2442">Related issue on Codeplex(vote)</a></p>
+
+
+	<div class="ui small segment">
+	Contribute to the site via the <a href="/pages/website-contributions.html">contribution guide</a>.
+</div>
+
+</div>
+
+<div class="ui list">
+	
+	<a class="item" href="/guides/best-practices.html">Best practices</a>
+	
+	
+	<a class="item" href="/guides/contributing.html">Contribution guide</a>
+	
+	
+	<a class="item" href="/guides/creating.html">Creating a definition file</a>
+	
+	
+	<a class="item" href="/guides/pull-request.html">Pull Requests</a>
+	
+	
+</div>
+
+			<div class="ui horizontal icon divider">
+	<i class="heart icon"></i>
+</div>
+
+<div class="ui center aligned one column grid">
+	<div class="row">
+		<div class="column">
+			<a href="/">Home</a>
+			- <a href="https://github.com/DefinitelyTyped/DefinitelyTyped">GitHub</a>
+			- <a href="http://definitelytyped.org/tsd/">TSD</a>
+			- <a href="http://nuget.org/packages?q=DefinitelyTyped">NuGet</a>
+		</div>
+	</div>
+</div>
+
+		</div>
+	</div>
+</div>
+	<script defer="defer"  src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script><script defer="defer"  src="/scripts/semantic.min.js"></script><script defer="defer"  src="/scripts/script.js"></script>
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-47495295-3', 'definitelytyped.org');
+	ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
