@@ -1125,6 +1125,12 @@ declare module Electron {
 		 * Note: This API is only available on Mac.
 		 */
 		setMenu(menu: Menu): void;
+		/**
+		 * Sets the image associated with this dock icon.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		setIcon(icon: NativeImage | string): void;
 	}
 
 	interface Task {
