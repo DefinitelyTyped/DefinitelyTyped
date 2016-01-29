@@ -3945,8 +3945,57 @@ module TestKeyBy {
     }
 }
 
-result = <number[][]>_.invokeMap([[5, 1, 7], [3, 2, 1]], 'sort');
-result = <string[][]>_.invokeMap([123, 456], String.prototype.split, '');
+//_.invokeMap
+module TestInvokeMap {
+    let numArray = [4, 2, 1, 3]
+    let numDict: _.Dictionary<number> = {
+        a: 1,
+        b: 2,
+        c: 3,
+        d: 4
+    }
+    
+    {
+        let result: string[];
+        result = _.invokeMap<number, string>(numArray, 'toString');
+        result = _.invokeMap<number, string>(numArray, 'toString', 2);
+        result = _.invokeMap<string>(numArray, 'toString');
+        result = _.invokeMap<string>(numArray, 'toString', 2);
+        result = _(numArray).invokeMap<string>('toString').value();
+        result = _(numArray).invokeMap<string>('toString', 2).value();
+        result = _(numArray).chain().invokeMap<string>('toString').value();
+        result = _(numArray).chain().invokeMap<string>('toString', 2).value();
+        
+        result = _.invokeMap<number, string>(numArray, Number.prototype.toString);
+        result = _.invokeMap<number, string>(numArray, Number.prototype.toString, 2);
+        result = _.invokeMap<string>(numArray, Number.prototype.toString);
+        result = _.invokeMap<string>(numArray, Number.prototype.toString, 2);
+        result = _(numArray).invokeMap<string>(Number.prototype.toString).value();
+        result = _(numArray).invokeMap<string>(Number.prototype.toString, 2).value();
+        result = _(numArray).chain().invokeMap<string>(Number.prototype.toString).value();
+        result = _(numArray).chain().invokeMap<string>(Number.prototype.toString, 2).value();
+    }
+    {
+        let result: _.Dictionary<string>
+        result = _.invokeMap<number, string>(numDict, 'toString');
+        result = _.invokeMap<number, string>(numDict, 'toString', 2);
+        result = _.invokeMap<string>(numDict, 'toString');
+        result = _.invokeMap<string>(numDict, 'toString', 2);
+        result = _(numDict).invokeMap<string>('toString').value();
+        result = _(numDict).invokeMap<string>('toString', 2).value();
+        result = _(numDict).chain().invokeMap<string>('toString').value();
+        result = _(numDict).chain().invokeMap<string>('toString', 2).value();
+        
+        result = _.invokeMap<number, string>(numDict, Number.prototype.toString);
+        result = _.invokeMap<number, string>(numDict, Number.prototype.toString, 2);
+        result = _.invokeMap<string>(numDict, Number.prototype.toString);
+        result = _.invokeMap<string>(numDict, Number.prototype.toString, 2);
+        result = _(numDict).invokeMap<string>(Number.prototype.toString).value();
+        result = _(numDict).invokeMap<string>(Number.prototype.toString, 2).value();
+        result = _(numDict).chain().invokeMap<string>(Number.prototype.toString).value();
+        result = _(numDict).chain().invokeMap<string>(Number.prototype.toString, 2).value();
+    }
+}
 
 // _.map
 module TestMap {
