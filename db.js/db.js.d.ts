@@ -5,120 +5,115 @@
 
 /// <reference path="../es6-promise/es6-promise.d.ts" />
 
-// TODO - Implement a ghost, or non-instantiated, module.
-// See http://definitelytyped.org/guides/best-practices.html
+declare module DbJs {
+    interface OpenOptions {
+        server: string;
+        version: number;
+        schema?: any;
+    }
 
-interface DbJsOpenOptions {
-    server: string;
-    version: number;
-    schema?: any;
+    interface DbJsStatic {
+        open(options: OpenOptions): Promise<Server>;
+        delete(dbName: string): Promise<void>;
+    }
+
+    // Query API
+
+    // TODO - complete the definition of the fluent API for query\indexed query.
+
+    interface ExecutableQuery<T> {
+        execute(): Promise<T[]>;
+    }
+
+    interface IndexQuery<T> extends ExecutableQuery<T> {
+        all(): IndexQuery<T>;
+        filter<TValue>(index: string, value: TValue): IndexQuery<T>;
+        filter(filter: (value: T) => boolean): IndexQuery<T>;
+        limit(n, m): ExecutableQuery<T>
+        count(): ExecutableQuery<T>
+        // desc()
+        // distinct()
+        // modify(update)
+        // map(fn)
+        // only()
+        // bound()
+        // upperBound()
+        // lowerBound()
+        // range()
+    }
+
+    interface Query<T> {
+        all(): Query<T>;
+        execute(): Promise<T[]>;
+        filter<TValue>(index: string, value: TValue): Query<T>;
+        filter<TValue>(filter: (value: TValue) => boolean): Query<T>;
+        // limit(n, m)
+        // count()
+        // desc()
+        // distinct()
+        // modify(update)
+        // map(fn)
+        // only()
+        // bound()
+        // upperBound()
+        // lowerBound()
+        // range()
+    }
+
+    interface KeyValuePair<TKey, TValue> {
+        key: TKey;
+        item: TValue;
+    }
+
+    interface BaseServer {
+        getIndexedDB(): IDBDatabase;
+        close(): void;
+    }
+
+    // TODO - Check typings for the count API as thses may not be correct.
+
+    interface ObjectStoreServer {
+        add<T>(table: string, entity: T): Promise<T>;
+        add<T>(table: string, ...entities: T[]): Promise<T[]>;
+        add<TKey, TValue>(table: string, entity: KeyValuePair<TKey, TValue>): Promise<KeyValuePair<TKey, TValue>>;
+        add<TKey, TValue>(table: string, ...entities: KeyValuePair<TKey, TValue>[]): Promise<KeyValuePair<TKey, TValue>[]>;
+        update<T>(table: string, entity: T): Promise<T>;
+        update<T>(table: string, ...entities: T[]): Promise<T[]>;
+        update<TKey, TValue>(table: string, entity: KeyValuePair<TKey, TValue>): Promise<KeyValuePair<TKey, TValue>>;
+        update<TKey, TValue>(table: string, ...entities: KeyValuePair<TKey, TValue>[]): Promise<KeyValuePair<TKey, TValue>[]>;
+        remove<TKey>(table: string, key: TKey): Promise<TKey>;
+        remove<TKey>(table: string, ...keys: TKey[]): Promise<TKey[]>;
+        clear(table: string): Promise<void>;
+        get<T>(table: string, key: any): Promise<T>;
+        query<T>(table: string): IndexQuery<T>;
+        query<T>(table: string, index: string): IndexQuery<T>;
+        count(table: string, key: any): number;
+    }
+
+    interface TypedObjectStoreServer<T> {
+        add(entity: T): Promise<T>;
+        add(...entities: T[]): Promise<T[]>;
+        add<TKey, TValue>(entity: KeyValuePair<TKey, TValue>): Promise<KeyValuePair<TKey, TValue>>;
+        add<TKey, TValue>(...entities: KeyValuePair<TKey, TValue>[]): Promise<KeyValuePair<TKey, TValue>[]>;
+        update(entity: T): Promise<T>;
+        update(...entities: T[]): Promise<T[]>;
+        update<TKey, TValue>(entity: KeyValuePair<TKey, TValue>): Promise<KeyValuePair<TKey, TValue>>;
+        update<TKey, TValue>(...entities: KeyValuePair<TKey, TValue>[]): Promise<KeyValuePair<TKey, TValue>[]>;
+        remove<TKey>(key: TKey): Promise<TKey>;
+        remove<TKey>(...keys: TKey[]): Promise<TKey[]>;
+        clear(): Promise<void>;
+        get(key: any): Promise<T>;
+        query(): IndexQuery<T>;
+        query(index: string): IndexQuery<T>;
+        count(key: any): number;
+    }
+    
+    type Server = DbJs.ObjectStoreServer & DbJs.BaseServer;
 }
-
-interface DbJsStatic {
-    open(options: DbJsOpenOptions): Promise<DbJsServer>;
-    delete(dbName: string): Promise<void>;
-}
-
-// Query API
-
-// TODO - complete the definition of the fluent API for query\indexed query.
-
-interface DbJsExecutableQuery<T> {
-    execute(): Promise<T[]>;
-}
-
-interface DbJsIndexQuery<T> extends DbJsExecutableQuery<T> {
-    all(): DbJsIndexQuery<T>;
-    filter<TValue>(index: string, value: TValue): DbJsIndexQuery<T>;
-    filter<TValue>(filter: (value: TValue) => boolean): DbJsIndexQuery<T>;
-    limit(n, m): DbJsExecutableQuery<T>
-    count(): DbJsExecutableQuery<T>
-    // desc()
-    // distinct()
-    // modify(update)
-    // map(fn)
-    // only()
-    // bound()
-    // upperBound()
-    // lowerBound()
-    // range()
-}
-
-interface DbJsQuery<T> {
-    all(): DbJsQuery<T>;
-    execute(): Promise<T[]>;
-    filter<TValue>(index: string, value: TValue): DbJsQuery<T>;
-    filter<TValue>(filter: (value: TValue) => boolean): DbJsQuery<T>;
-    // limit(n, m)
-    // count()
-    // desc()
-    // distinct()
-    // modify(update)
-    // map(fn)
-    // only()
-    // bound()
-    // upperBound()
-    // lowerBound()
-    // range()
-}
-
-interface DbJsKeyValuePair<TKey, TValue> {
-    key: TKey;
-    item: TValue;
-}
-
-interface DbJsBaseServer {
-    getIndexedDB(): IDBDatabase;
-    close(): void;
-}
-
-// TODO - Check typings for the count API as thses may not be correct.
-
-interface DbJsNamedObjectStoreServer {
-    add<T>(table: string, entity: T): Promise<T>;
-    add<T>(table: string, ...entities: T[]): Promise<T[]>;
-    add<TKey, TValue>(table: string, entity: DbJsKeyValuePair<TKey, TValue>): Promise<DbJsKeyValuePair<TKey, TValue>>;
-    add<TKey, TValue>(table: string, ...entities: DbJsKeyValuePair<TKey, TValue>[]): Promise<DbJsKeyValuePair<TKey, TValue>[]>;
-    update<T>(table: string, entity: T): Promise<T>;
-    update<T>(table: string, ...entities: T[]): Promise<T[]>;
-    update<TKey, TValue>(table: string, entity: DbJsKeyValuePair<TKey, TValue>): Promise<DbJsKeyValuePair<TKey, TValue>>;
-    update<TKey, TValue>(table: string, ...entities: DbJsKeyValuePair<TKey, TValue>[]): Promise<DbJsKeyValuePair<TKey, TValue>[]>;
-    remove<T>(table: string, key: T): Promise<T>;
-    remove<T>(table: string, ...keys: T[]): Promise<T[]>;
-    clear(table: string): Promise<void>;
-    get<T>(table: string, key: any): Promise<T>;
-    query<T>(table: string): DbJsIndexQuery<T>;
-    query<T>(table: string, index: string): DbJsIndexQuery<T>;
-    count(table: string, key: any): number;
-}
-
-interface DbJsDynamicObjectServer {
-    [storeName: string]: DbJsObjectStoreServer
-}
-
-interface DbJsObjectStoreServer {
-    add<T>(entity: T): Promise<T>;
-    add<T>(...entities: T[]): Promise<T[]>;
-    add<TKey, TValue>(entity: DbJsKeyValuePair<TKey, TValue>): Promise<DbJsKeyValuePair<TKey, TValue>>;
-    add<TKey, TValue>(...entities: DbJsKeyValuePair<TKey, TValue>[]): Promise<DbJsKeyValuePair<TKey, TValue>[]>;
-    update<T>(entity: T): Promise<T>;
-    update<T>(...entities: T[]): Promise<T[]>;
-    update<TKey, TValue>(entity: DbJsKeyValuePair<TKey, TValue>): Promise<DbJsKeyValuePair<TKey, TValue>>;
-    update<TKey, TValue>(...entities: DbJsKeyValuePair<TKey, TValue>[]): Promise<DbJsKeyValuePair<TKey, TValue>[]>;
-    remove<T>(key: T): Promise<T>;
-    remove<T>(...keys: T[]): Promise<T[]>;
-    clear(): Promise<void>;
-    get<T>(key: any): Promise<T>;
-    query<T>(): DbJsIndexQuery<T>;
-    query<T>(index: string): DbJsIndexQuery<T>;
-    count(key: any): number;
-}
-
-declare type DbJsServer = DbJsNamedObjectStoreServer & DbJsDynamicObjectServer & DbJsBaseServer;
 
 declare module "db" {
-    var db: DbJsStatic;
+    var db: DbJs.DbJsStatic;
     export = db;
 }
 
-declare var db: DbJsStatic;
+declare var db: DbJs.DbJsStatic;

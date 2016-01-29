@@ -1,9 +1,18 @@
 // Test file for db.js Definition file
 /// <reference path="db.js.d.ts" />
 
+/* Type for use in tests */
+
+interface Person {
+    firstName: string;
+    lastName: string;
+    answer: number;
+    group?: string;
+}
+
 /* Opening/creating a database and connection */
 
-var server: DbJsServer;
+var server: DbJs.Server;
 
 db.open({
     server: 'my-app',
@@ -17,11 +26,11 @@ db.open({
             }
         }
     }
-}).then(function (s: DbJsServer) {
+}).then(function (s: DbJs.Server) {
     server = s;
 });
 
-var peopleStore = server['people'];
+var typedStore : DbJs.TypedObjectStoreServer<Person> = server['people'];
 
 /* Basic server operations */
 
@@ -31,26 +40,26 @@ server.close();
 /* General server/store methods */
 
 // Adding items
-server.add('people', {
+server.add<Person>('people', {
     firstName: 'Aaron',
     lastName: 'Powell',
     answer: 42
 }).then(function (item) { });
 
-peopleStore.add({ 
+typedStore.add({ 
     firstName: 'Aaron',
     lastName: 'Powell',
     answer: 42
 }).then(function (item) { });
 
 // Updating
-server.update('people', {
+server.update<Person>('people', {
     firstName: 'Aaron',
     lastName: 'Powell',
     answer: 42
 }).then(function (item) { });
 
-peopleStore.update({
+typedStore.update({
     firstName: 'Aaron',
     lastName: 'Powell',
     answer: 42
@@ -58,104 +67,104 @@ peopleStore.update({
 
 // Removing
 server.remove('people', 1).then(function (key) { });
-peopleStore.remove(1).then(function (key) { });
+typedStore.remove(1).then(function (key) { });
 
 // Clearing
 server.clear('people').then(function() { });
-peopleStore.clear().then(function() { });
+typedStore.clear().then(function() { });
 
 // Fetching
 
 // Getting a single object by ID
-server.get('people', 5).then(function (results) { });
-peopleStore.get(5).then(function (results) { });
+server.get<Person>('people', 5).then(function (results) { });
+typedStore.get(5).then(function (results) { });
 
 // Querying all objects
-server.query('people')
+server.query<Person>('people')
     .all()
     .execute()
     .then(function (results) { });
 
-peopleStore.query()
+typedStore.query()
     .all()
     .execute()
     .then(function (results) { });
 
 // Querying using indexes
-server.query('people', 'specialProperty')
+server.query<Person>('people', 'specialProperty')
     .all()
     .execute()
     .then(function (results) { });
     
- peopleStore.query('specialProperty')
+ typedStore.query('specialProperty')
     .all()
     .execute()
     .then(function (results) { });
 
 // Filter with property and value
-server.query('people')
+server.query<Person>('people')
     .filter('firstName', 'Aaron')
     .execute()
     .then(function (results) { });
 
 // Filter with function
-server.query('people')
-    .filter(function(person) { return person.group === 'hipster'; })
+server.query<Person>('people')
+    .filter(function(person: any) { return person.group === 'hipster'; })
     .execute()
     .then(function (results) { });
     
-peopleStore.query('people')
+typedStore.query('people')
     .filter(function(person) { return person.group === 'hipster'; })
     .execute()
     .then(function (results) { });
 
 // Querying with ranges
-server.query('people', 'firstName')
+server.query<Person>('people', 'firstName')
     .only('Aaron')
     .then(function (results) { });
 
-server.query('people', 'answer')
+server.query<Person>('people', 'answer')
     .bound(30, 50)
     .then(function (results) { });
     
-server.query('people', 'firstName')
+server.query<Person>('people', 'firstName')
     .range({ eq: 'Aaron' })
     .then(function (results) { });
 
-server.query('people', 'answer')
+server.query<Person>('people', 'answer')
     .range({ gte: 30, lte: 50 })
     .then(function (results) { });    
 
 // Querying for distinct values
- server.query('people', 'firstName')
+ server.query<Person>('people', 'firstName')
     .only('Aaron')
     .distinct()
     .execute()
     .then(function (data) { });
     
 // Limiting cursor range
-server.query('people', 'firstName')
+server.query<Person>('people', 'firstName')
     .all()
     .limit(1, 3)
     .execute()
     .then(function (data) { });
 
 // Cursor direction (desc)
-server.query('people')
+server.query<Person>('people')
     .all()
     .desc()
     .execute()
     .then(function (results) { });
 
 // Keys
-server.query('people', 'firstName')
+server.query<Person>('people', 'firstName')
     .only('Aaron')
     .keys()
     .execute()
     .then(function (results) { });
 
 // Mapping
-server.query('people', 'age')
+server.query<Person>('people', 'age')
     .lowerBound(30)
     .map(function (value) {
         return {
@@ -167,7 +176,7 @@ server.query('people', 'age')
     .then(function (data) { });
 
 // Counting
-server.query('people', 'firstName')
+server.query<Person>('people', 'firstName')
     .only('Aaron')
     .count()
     .execute()
