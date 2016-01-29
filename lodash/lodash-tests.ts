@@ -10196,26 +10196,14 @@ module TestTimes {
         let result: number[];
 
         result = _.times(42);
+        result = _(42).times();
     }
 
     {
         let result: TResult[];
 
         result = _.times(42, iteratee);
-        result = _.times(42, iteratee, any);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<number>;
-
-        result = _(42).times();
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
         result = _(42).times(iteratee);
-        result = _(42).times(iteratee, any);
     }
 
     {
@@ -10228,7 +10216,6 @@ module TestTimes {
         let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(42).chain().times(iteratee);
-        result = _(42).chain().times(iteratee, any);
     }
 }
 
