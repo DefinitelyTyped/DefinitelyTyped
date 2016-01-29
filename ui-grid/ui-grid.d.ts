@@ -535,9 +535,9 @@ declare module uiGrid {
     }
     export type IGridOptions = IGridOptionsOf<any>;
     export interface IGridOptionsOf<TEntity> extends cellNav.IGridOptions, edit.IGridOptions, expandable.IGridOptions,
-        exporter.IGridOptions<TEntity>, grouping.IGridOptions, importer.IGridOptions<TEntity>, 
+        exporter.IGridOptions<TEntity>, grouping.IGridOptions, importer.IGridOptions<TEntity>,
         infiniteScroll.IGridOptions, moveColumns.IGridOptions, pagination.IGridOptions, pinning.IGridOptions,
-        resizeColumns.IGridOptions, rowEdit.IGridOptions, saveState.IGridOptions, selection.IGridOptions, 
+        resizeColumns.IGridOptions, rowEdit.IGridOptions, saveState.IGridOptions, selection.IGridOptions,
         treeBase.IGridOptions<TEntity>, treeView.IGridOptions {
         /**
          * Default time in milliseconds to throttle aggregation calcuations, defaults to 500ms
@@ -610,8 +610,8 @@ declare module uiGrid {
          */
         enableFiltering?: boolean;
         /**
-        * False by default. When enabled, this adds a settings icon in the top right of the grid, 
-        * which floats above the column header. The menu by default gives access to show/hide columns, 
+        * False by default. When enabled, this adds a settings icon in the top right of the grid,
+        * which floats above the column header. The menu by default gives access to show/hide columns,
         * but can be customized to show additional actions.
         * @default false
         */
@@ -1117,8 +1117,8 @@ declare module uiGrid {
 
     export interface sortChangedHandler<TEntity> {
         /**
-         * Sort change event callback 
-         * @param {IGridInstance} grid instance 
+         * Sort change event callback
+         * @param {IGridInstance} grid instance
          * @param {IGridColumn} array of gridColumns that have sorting on them, sorted in priority order
          */
         (grid: IGridInstanceOf<TEntity>, columns: Array<IGridColumnOf<TEntity>>): void;
@@ -1342,8 +1342,8 @@ declare module uiGrid {
                reader.readAsText( files[0] );
            }
              */
-            editFileChooserCallback?: (gridRow: uiGrid.IGridRowOf<TEntity>, 
-                                       gridCol: IGridColumnOf<TEntity>, 
+            editFileChooserCallback?: (gridRow: uiGrid.IGridRowOf<TEntity>,
+                                       gridCol: IGridColumnOf<TEntity>,
                                        files: FileList) => void;
             /**
              * A bindable string value that is used when binding to edit controls instead of colDef.field
@@ -1558,7 +1558,7 @@ declare module uiGrid {
              */
             (row: IGridRowOf<TEntity>): void;
         }
-        
+
         /**
          * GridRow settings for expandable
          */
@@ -1632,9 +1632,9 @@ declare module uiGrid {
              * @param {any} value The cell value
              * @returns {any} Formatted value
              */
-            exporterFieldCallback?: (grid: IGridInstanceOf<TEntity>, 
-                                     row: uiGrid.IGridRowOf<TEntity>, 
-                                     col: IGridColumnOf<TEntity>, 
+            exporterFieldCallback?: (grid: IGridInstanceOf<TEntity>,
+                                     row: uiGrid.IGridRowOf<TEntity>,
+                                     col: IGridColumnOf<TEntity>,
                                      value: any) => any;
             /**
              * A function to apply to the header displayNames before exporting. Useful for internationalisation,
@@ -2079,7 +2079,7 @@ declare module uiGrid {
              * This callback can be used to change the decoded value back into a code.
              * Defaults to angular.identity.
              * @param {IGridInstance} grid The grid
-             * @param {TEntity} newObject The new object as importer has created it.  Modify it and return modified 
+             * @param {TEntity} newObject The new object as importer has created it.  Modify it and return modified
              * version
              * @returns {TEntity} The modified object
              * @default angular.identity
@@ -3218,7 +3218,7 @@ declare module uiGrid {
         export interface rowCollapsedHandler<TEntity> {
             /**
              * Row Collapsed callback
-             * @param {IGridRow} row The row that was collapsed.  You can also retrieve the grid from this row with 
+             * @param {IGridRow} row The row that was collapsed.  You can also retrieve the grid from this row with
              * row.grid
              */
             (row: IGridRowOf<TEntity>): void;
@@ -3227,7 +3227,7 @@ declare module uiGrid {
         export interface rowExpandedHandler<TEntity> {
             /**
              * Row Expanded callback
-             * @param {IGridRow} row The row that was expanded.  You can also retrieve the grid from this row with 
+             * @param {IGridRow} row The row that was expanded.  You can also retrieve the grid from this row with
              * row.grid
              */
             (row: IGridRowOf<TEntity>): void;
@@ -3429,7 +3429,7 @@ declare module uiGrid {
         new(entity: TEntity, index: number, reference: IGridInstanceOf<TEntity>): IGridRowOf<TEntity>;
     }
     export type IGridRow = IGridRowOf<any>;
-    export interface IGridRowOf<TEntity> extends cellNav.IGridRow, edit.IGridRow, exporter.IGridRow, 
+    export interface IGridRowOf<TEntity> extends cellNav.IGridRow, edit.IGridRow, exporter.IGridRow,
         selection.IGridRow, expandable.IGridRow {
         /** A reference to an item in gridOptions.data[] */
         entity: TEntity;
@@ -3611,7 +3611,7 @@ declare module uiGrid {
      */
     export type IColumnDef = IColumnDefOf<any>;
     export interface IColumnDefOf<TEntity> extends cellNav.IColumnDef, edit.IColumnDef<TEntity>, exporter.IColumnDef,
-        grouping.IColumnDef, moveColumns.IColumnDef, pinning.IColumnDef, resizeColumns.IColumnDef, 
+        grouping.IColumnDef, moveColumns.IColumnDef, pinning.IColumnDef, resizeColumns.IColumnDef,
         treeBase.IColumnDef<TEntity> {
         /**
          * defaults to false
@@ -3767,10 +3767,10 @@ declare module uiGrid {
          */
         sortCellFiltered?: boolean;
         /**
-         *(optional) An array of sort directions, specifying the order that they should cycle through as 
+         *(optional) An array of sort directions, specifying the order that they should cycle through as
          * the user repeatedly clicks on the column heading. The default is [null, uiGridConstants.ASC, uiGridConstants.DESC].
          * Null refers to the unsorted state. This does not affect the initial sort direction; use the sort property for that.
-         * If suppressRemoveSort is also set, the unsorted state will be skipped even if it is listed here. Each direction may 
+         * If suppressRemoveSort is also set, the unsorted state will be skipped even if it is listed here. Each direction may
          * not appear in the list more than once (e.g. [ASC, DESC, DESC] is not allowed), and the list may not be empty.*
          */
         sortDirectionCycle?: Array<IUiGridConstants>;
