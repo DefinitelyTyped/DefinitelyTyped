@@ -1,6 +1,6 @@
-// Type definitions for js-cookie v2.0
+// Type definitions for ua-parser-js v0.7.10
 // Project: https://github.com/faisalman/ua-parser-js
-// Definitions by: Viktor Miroshnikov <https://github.com/superduper>
+// Definitions by: Viktor Miroshnikov <https://github.com/superduper>, Lucas Woo <https://github.com/legendecas>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module UAParser {
@@ -61,7 +61,7 @@ declare module UAParser {
         version: string;
     }
 
-    export interface IOS{
+    export interface IOS {
         /**
         * Possible 'os.name'
         * AIX, Amiga OS, Android, Arch, Bada, BeOS, BlackBerry, CentOS, Chromium OS, Contiki,
@@ -78,7 +78,7 @@ declare module UAParser {
         version: string;
     }
 
-    export interface ICPU{
+    export interface ICPU {
         /**
          * Possible architecture:
          *  68k, amd64, arm, arm64, avr, ia32, ia64, irix, irix64, mips, mips64, pa-risc,
@@ -87,7 +87,7 @@ declare module UAParser {
         architecture: string;
     }
 
-    export interface IResult{
+    export interface IResult {
         ua: string;
         browser: IBrowser;
         device: IDevice;
@@ -95,56 +95,96 @@ declare module UAParser {
         os: IOS;
         cpu: ICPU;
     }
+    
+    export interface BROWSER {
+        NAME: string,
+        
+        // Deprecated
+        MAJOR: string,
+        VERSION: string
+    }
 
+    export interface CPU {
+        ARCHITECTURE: string
+    }
+
+    export interface DEVICE {
+        MODEL: string,
+        VENDOR: string,
+        TYPE: string,
+        CONSOLE: string,
+        MOBILE: string,
+        SMARTTV: string,
+        TABLET: string,
+        WEARABLE: string,
+        EMBEDDED: string
+    }
+
+    export interface ENGINE {
+        NAME: string,
+        VERSION: string
+    }
+
+    export interface OS {
+        NAME: string,
+        VERSION: string
+    }
+    
 }
 
-declare class UAParser {
-    /**
-    *  Returns browser information
-    */
-    getBrowser(): UAParser.IBrowser;
-    /**
-    *  Returns OS information
-    */
-    getOS(): UAParser.IOS;
+declare module "ua-parser-js" {
 
-    /**
-    *  Returns browsers engine information
-    */
-    getEngine(): UAParser.IEngine;
+    export class UAParser {
+        static VERSION: string;
+        static BROWSER: UAParser.BROWSER;
+        static CPU: UAParser.CPU;
+        static DEVICE: UAParser.DEVICE;
+        static ENGINE: UAParser.ENGINE;
+        static OS: UAParser.OS;
+        
+        /**
+        *  Returns browser information
+        */
+        getBrowser(): UAParser.IBrowser;
+        /**
+        *  Returns OS information
+        */
+        getOS(): UAParser.IOS;
 
-    /**
-    *  Returns device information
-    */
-    getDevice(): UAParser.IDevice;
+        /**
+        *  Returns browsers engine information
+        */
+        getEngine(): UAParser.IEngine;
 
-    /**
-    *  Returns parsed CPU information
-    */
-    getCPU(): UAParser.ICPU;
+        /**
+        *  Returns device information
+        */
+        getDevice(): UAParser.IDevice;
 
-    /**
-    *  Returns UA string of current instance
-    */
-    getUA(): string;
+        /**
+        *  Returns parsed CPU information
+        */
+        getCPU(): UAParser.ICPU;
 
-    /**
-    *  Set & parse UA string
-    */
-    setUA(ua: string): void;
+        /**
+        *  Returns UA string of current instance
+        */
+        getUA(): string;
 
-    /**
-    *  Returns parse result
-    */
-    getResult(): UAParser.IResult;
+        /**
+        *  Set & parse UA string
+        */
+        setUA(uastring: string): UAParser;
 
-    /**
-    *  Create a new parser
-    */
-    constructor ();
-
-    /**
-    *  Create a new parser with UA prepopulated
-    */
-    constructor (ua: string);
+        /**
+        *  Returns parse result
+        */
+        getResult(): UAParser.IResult;
+        
+        /**
+         * Create a new parser with UA prepopulated and extensions extended
+         */
+        constructor(uastring?: string, extensions?: any);
+    }
+    
 }

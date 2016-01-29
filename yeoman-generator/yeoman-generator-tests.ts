@@ -157,27 +157,27 @@ generator.options['opt'] === 'string';
 
 // http://yeoman.io/generator/Base.html#prompt
 // https://github.com/SBoudrias/Inquirer.js
-generator.prompt({ name: 'Name', message: 'Message' }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: (answers) => 'Message' }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', choices: [ 'c1', 'c2' ] }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', choices: [ { name: 'Choice 1', value: 'c1' } ] }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', choices: (answers) => [ 'c1', 'c2' ] }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', choices: (answers) => [ { name: 'Choice 1', value: 'c1' } ] }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', choices: (answers) => [ { name: 'Choice 1', value: 'c1', short: '1' } ] }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', default: 'string' }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', default: 10 }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', default: [ 'string' ] }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', default: [ 10 ] }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', default: (answers) => [ 'string' ] }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', default: (answers) => [ 10 ] }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', default: (answers) => 'string' }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', default: (answers) => 10 }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', type: "list" }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', validate: (input) => true }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', validate: (input) => "Error" }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', filter: (input) => input }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', when: (answers) => true }, (answer) => {}); 
-generator.prompt({ name: 'Name', message: '', when: true }, (answer) => {}); 
+generator.prompt({ name: 'Name', message: 'Message' }, (answer) => {});
+generator.prompt({ name: 'Name', message: (answers) => 'Message' }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', choices: [ 'c1', 'c2' ] }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', choices: [ { name: 'Choice 1', value: 'c1' } ] }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', choices: (answers) => [ 'c1', 'c2' ] }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', choices: (answers) => [ { name: 'Choice 1', value: 'c1' } ] }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', choices: (answers) => [ { name: 'Choice 1', value: 'c1', short: '1' } ] }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', default: 'string' }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', default: 10 }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', default: [ 'string' ] }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', default: [ 10 ] }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', default: (answers) => [ 'string' ] }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', default: (answers) => [ 10 ] }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', default: (answers) => 'string' }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', default: (answers) => 10 }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', type: "list" }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', validate: (input) => true }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', validate: (input) => "Error" }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', filter: (input) => input }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', when: (answers) => true }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', when: true }, (answer) => {});
 
 // http://yeoman.io/generator/Base.html
 // https://github.com/SBoudrias/mem-fs-editor

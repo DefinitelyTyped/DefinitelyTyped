@@ -281,6 +281,7 @@ declare module OData {
         constructor(callback: ProviderCallback<T>);
         filter(operand1: any, operand2?: any, operand3?: any): Provider<T>;
         orderBy(arg1: string, arg2?: string): Provider<T>;
+        transformUrl(transformMethod : (url:string)=>string): Provider<T>;
         take(amount: number): Provider<T>;
         skip(amount: number): Provider<T>;
         private execute();
