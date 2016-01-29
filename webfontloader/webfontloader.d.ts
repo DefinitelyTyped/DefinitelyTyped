@@ -24,10 +24,10 @@ declare module WebFont {
 		fontactive?(familyName:string, fvd:string):void;
 		/** This event is triggered if the font can't be loaded. */
 		fontinactive?(familyName:string, fvd:string):void;
-		
+
 		/** Child window or iframes to manage fonts for */
 		context?:Array<string>;
-		
+
 		custom?:Custom;
 		google?:Google;
 		typekit?:Typekit;
@@ -35,7 +35,7 @@ declare module WebFont {
 		monotype?:Monotype;
 	}
 	export interface Google {
-		families:Array<string>;	
+		families:Array<string>;
 		text?: string;
 	}
 	export interface Typekit {
@@ -53,7 +53,7 @@ declare module WebFont {
 		projectId?:string;
 		version?:number;
 	}
-	
+
 }
 declare module "webfontloader" {
     export = WebFont;
