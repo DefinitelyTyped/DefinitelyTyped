@@ -1,8 +1,8 @@
-﻿/// <reference path="MediaStream.d.ts" />
+/// <reference path="MediaStream.d.ts" />
 /// <reference path="RTCPeerConnection.d.ts" />
 
 var config: RTCConfiguration =
-    { iceServers: [{ url: "stun.l.google.com:19302" }] };
+    { iceServers: [{ urls: "stun.l.google.com:19302" }] };
 var constraints: RTCMediaConstraints =
     { mandatory: { offerToReceiveAudio: true, offerToReceiveVideo: true } };
 
