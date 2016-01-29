@@ -166,6 +166,9 @@ var dockMenu = Menu.buildFromTemplate([
 	},
 ]);
 app.dock.setMenu(dockMenu);
+app.dock.setBadge('foo');
+var id = app.dock.bounce('informational');
+app.dock.cancelBounce(id);
 
 app.setUserTasks([
 	<Electron.Task>{

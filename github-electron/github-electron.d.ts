@@ -1048,7 +1048,7 @@ declare module Electron {
 		 * Note: This API is only available on Windows.
 		 */
 		setUserTasks(tasks: Task[]): void;
-		dock: BrowserWindow;
+		dock: Dock;
 		commandLine: CommandLine;
 		/**
 		 * This method makes your application a Single Instance Application instead of allowing
@@ -1073,6 +1073,58 @@ declare module Electron {
 		 * Note: This will not affect process.argv.
 		 */
 		appendArgument(value: any): void;
+	}
+
+	interface Dock {
+		/**
+		 * When critical is passed, the dock icon will bounce until either the
+		 * application becomes active or the request is canceled.
+		 *
+		 * When informational is passed, the dock icon will bounce for one second.
+		 * The request, though, remains active until either the application becomes
+		 * active or the request is canceled.
+		 *
+		 * Note: This API is only available on Mac.
+		 * @param type Can be critical or informational, the default is informational.
+		 * @returns An ID representing the request
+		 */
+		bounce(type?: string): number;
+		/**
+		 * Cancel the bounce of id.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		cancelBounce(id: number): void;
+		/**
+		 * Sets the string to be displayed in the dock’s badging area.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		setBadge(text: string): void;
+		/**
+		 * Returns the badge string of the dock.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		getBadge(): string;
+		/**
+		 * Hides the dock icon.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		hide(): void;
+		/**
+		 * Shows the dock icon.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		show(): void;
+		/**
+		 * Sets the application dock menu.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		setMenu(menu: Menu): void;
 	}
 
 	interface Task {
@@ -1106,57 +1158,7 @@ declare module Electron {
 		 */
 		iconIndex?: number;
 		commandLine?: CommandLine;
-		dock?: {
-			/**
-			 * When critical is passed, the dock icon will bounce until either the
-			 * application becomes active or the request is canceled.
-			 *
-			 * When informational is passed, the dock icon will bounce for one second.
-			 * The request, though, remains active until either the application becomes
-			 * active or the request is canceled.
-			 *
-			 * Note: This API is only available on Mac.
-			 * @param type Can be critical or informational, the default is informational.
-			 * @returns An ID representing the request
-			 */
-			bounce(type?: string): any;
-			/**
-			 * Cancel the bounce of id.
-			 *
-			 * Note: This API is only available on Mac.
-			 */
-			cancelBounce(id: number): void;
-			/**
-			 * Sets the string to be displayed in the dock’s badging area.
-			 *
-			 * Note: This API is only available on Mac.
-			 */
-			setBadge(text: string): void;
-			/**
-			 * Returns the badge string of the dock.
-			 *
-			 * Note: This API is only available on Mac.
-			 */
-			getBadge(): string;
-			/**
-			 * Hides the dock icon.
-			 *
-			 * Note: This API is only available on Mac.
-			 */
-			hide(): void;
-			/**
-			 * Shows the dock icon.
-			 *
-			 * Note: This API is only available on Mac.
-			 */
-			show(): void;
-			/**
-			 * Sets the application dock menu.
-			 *
-			 * Note: This API is only available on Mac.
-			 */
-			setMenu(menu: Menu): void;
-		};
+		dock?: Dock;
 	}
 
 	class AutoUpdater implements NodeJS.EventEmitter {
@@ -1225,7 +1227,7 @@ declare module Electron {
 			filters?: {
 				name: string;
 				extensions: string[];
-			}[]
+			}[];
 		}
 
 		/**
