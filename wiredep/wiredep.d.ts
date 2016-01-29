@@ -33,10 +33,10 @@ declare module 'wiredep' {
 
 
   interface WiredepParams {
-    src?: string | string[];  
+    src?: string | string[];
     /**
      * the directory of your Bower packages.
-     * Default: '.bowerrc'.directory || bower_components 
+     * Default: '.bowerrc'.directory || bower_components
      */
     directory?: string;
     /**
@@ -44,16 +44,16 @@ declare module 'wiredep' {
      * Default: require('./bower.json')
      */
     bowerJson?: string;
-    
-    
+
+
     // ----- Advanced Configuration -----
     // All of the below settings are for advanced configuration, to
     // give your project support for additional file types and more
     // control.
     //
     // Out of the box, wiredep will handle HTML files just fine for
-    // JavaScript and CSS injection.  
-  
+    // JavaScript and CSS injection.
+
     /**
      * path to where we are pretending to be
      */
@@ -75,23 +75,23 @@ declare module 'wiredep' {
      *  [ /jquery/, 'bower_components/modernizr/modernizr.js' ]
      */
     exclude?: Array<string | RegExp>;
-    
+
     /**
      * string or regexp to ignore from the injected filepath
      * @example:
      *  [ /jquery/, 'bower_components/modernizr/modernizr.js' ]
      */
     ignorePath?: string | RegExp;
-    
+
     /**
-     *  This inline object offers another way to define your overrides if 
+     *  This inline object offers another way to define your overrides if
      *  modifying your project's `bower.json` isn't an option.
      */
     overrides?: Object;
-        
+
     /**
      * If not overridden, an error will throw
-     * 
+     *
      * err.code can be:
      *  - "PKG_NOT_INSTALLED" (a Bower package was not found)
      *  - "BOWER_COMPONENTS_MISSING" (cannot find the `bower_components` directory)
@@ -102,14 +102,14 @@ declare module 'wiredep' {
      * @param {string} filePath name of file that was updated
      */
     onFileUpdated?: (filePath: string) => void;
-    
+
     /**
      * @param {FileObject} fileObject
      */
     onPathInjected?: (fileObject: FileObject) => void;
-    
+
     /**
-     * @param {string} pkg name of bower package without main 
+     * @param {string} pkg name of bower package without main
      */
     onMainNotFound?: (pkg: string) => void;
 
@@ -124,7 +124,7 @@ declare module 'wiredep' {
     /**
      * name of file that was updated
      */
-    file: string; 
+    file: string;
     /**
      * path to file that was injected
      */
@@ -309,7 +309,7 @@ declare module 'wiredep' {
       detect: {
         /**
          * @example:
-         *  /@import\s['"](.+css)['"]/gi 
+         *  /@import\s['"](.+css)['"]/gi
          */
         css: RegExp;
         /**
@@ -338,7 +338,7 @@ declare module 'wiredep' {
        *  /(([ \t]*)#\s*bower:*(\S*))(\n|\r|.)*?(#\s*endbower)/gi
        */
       block: RegExp;
-      
+
       detect: {
         /**
          * @example:
@@ -351,7 +351,7 @@ declare module 'wiredep' {
          */
         css: RegExp;
       };
-      
+
       replace: {
         /**
          * @example:
@@ -366,7 +366,7 @@ declare module 'wiredep' {
       };
     };
   }
-  
-  
+
+
 export = Wiredep;
 }
