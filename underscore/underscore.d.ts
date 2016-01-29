@@ -902,12 +902,12 @@ interface UnderscoreStatic {
 	zip(...arrays: any[]): any[];
 
     /**
-    * The opposite of zip. Given a number of arrays, returns a series of new arrays, the first 
+    * The opposite of zip. Given a number of arrays, returns a series of new arrays, the first
     * of which contains all of the first elements in the input arrays, the second of which
-    * contains all of the second elements, and so on. Use with apply to pass in an array 
+    * contains all of the second elements, and so on. Use with apply to pass in an array
     * of arrays
     * @param arrays The arrays to unzip.
-    * @return Unzipped version of `arrays`.      
+    * @return Unzipped version of `arrays`.
     **/
     unzip(...arrays: any[][]): any[][];
 
@@ -972,7 +972,7 @@ interface UnderscoreStatic {
 		array: _.List<T>,
 		value: T,
 		from?: number): number;
-		
+
 	/**
 	* Returns the first index of an element in `array` where the predicate truth test passes
 	* @param array The array to search for the index of the first element where the predicate truth test passes.
@@ -984,7 +984,7 @@ interface UnderscoreStatic {
 		array: _.List<T>,
 		predicate: _.ListIterator<T, boolean>,
 		context?: any): number;
-		
+
 	/**
 	* Returns the last index of an element in `array` where the predicate truth test passes
 	* @param array The array to search for the index of the last element where the predicate truth test passes.
@@ -3762,7 +3762,7 @@ interface UnderscoreStatic {
 	* @return True if `object` is a Function, otherwise false.
 	**/
 	isFunction(object: any): boolean;
-    
+
     /**
 	* Returns true if object inherits from an Error.
 	* @param object Check if this object is an Error.
@@ -4680,7 +4680,7 @@ interface Underscore<T> {
 	* @see _.property
 	**/
 	property(): (object: Object) => any;
-    
+
     /**
 	* Wrapped type `object`.
 	* @see _.propertyOf
@@ -4698,12 +4698,12 @@ interface Underscore<T> {
 	* @see _.isEmpty
 	**/
 	isEmpty(): boolean;
-	
+
 	/**
 	* Wrapped type `object`.
 	* @see _.isMatch
 	**/
-	isMatch(): boolean;	
+	isMatch(): boolean;
 
 	/**
 	* Wrapped type `object`.
@@ -4734,7 +4734,7 @@ interface Underscore<T> {
 	* @see _.isFunction
 	**/
 	isFunction(): boolean;
-    
+
     /**
 	* Wrapped type `object`.
 	* @see _.isError
@@ -5598,7 +5598,7 @@ interface _Chain<T> {
 	* @see _.property
 	**/
 	property(): _Chain<T>;
-    
+
     /**
 	* Wrapped type `object`.
 	* @see _.propertyOf
@@ -5616,7 +5616,7 @@ interface _Chain<T> {
 	* @see _.isEmpty
 	**/
 	isEmpty(): _Chain<T>;
-	
+
 	/**
 	* Wrapped type `object`.
 	* @see _.isMatch
