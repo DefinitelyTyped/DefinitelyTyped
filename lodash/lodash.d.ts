@@ -16657,18 +16657,16 @@ declare module _ {
     //_.times
     interface LoDashStatic {
         /**
-         * Invokes the iteratee function n times, returning an array of the results of each invocation. The iteratee is
-         * bound to thisArg and invoked with one argument; (index).
+         * Invokes the iteratee function n times, returning an array of the results of each invocation. The iteratee
+         * is invoked with one argument; (index).
          *
          * @param n The number of times to invoke iteratee.
          * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
          * @return Returns the array of results.
          */
         times<TResult>(
             n: number,
-            iteratee: (num: number) => TResult,
-            thisArg?: any
+            iteratee: (num: number) => TResult
         ): TResult[];
 
         /**
@@ -16682,14 +16680,13 @@ declare module _ {
          * @see _.times
          */
         times<TResult>(
-            iteratee: (num: number) => TResult,
-            thisArgs?: any
-        ): LoDashImplicitArrayWrapper<TResult>;
+            iteratee: (num: number) => TResult
+        ): TResult[];
 
         /**
          * @see _.times
          */
-        times(): LoDashImplicitArrayWrapper<number>;
+        times(): number[];
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -16697,8 +16694,7 @@ declare module _ {
          * @see _.times
          */
         times<TResult>(
-            iteratee: (num: number) => TResult,
-            thisArgs?: any
+            iteratee: (num: number) => TResult
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
