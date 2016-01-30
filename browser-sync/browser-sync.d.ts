@@ -5,11 +5,13 @@
 
 /// <reference path="../chokidar/chokidar.d.ts"/>
 /// <reference path="../node/node.d.ts" />
+/// <reference path="../micromatch/micromatch.d.ts" />
 
 declare module "browser-sync" {
     import chokidar = require("chokidar");
     import fs = require("fs");
     import http = require("http");
+    import mm = require("micromatch");
 
     namespace browserSync {
         interface Options {
@@ -312,11 +314,9 @@ declare module "browser-sync" {
             fn: (match: string) => string;
         }
 
-        type MatchTest = (string | RegExp | ((testString: string) => boolean));
-
         interface StreamOptions {
             once?: boolean;
-            match?: MatchTest | MatchTest[];
+            match?: mm.Pattern | mm.Pattern[];
         }
 
         interface BrowserSyncStatic extends BrowserSyncInstance {
