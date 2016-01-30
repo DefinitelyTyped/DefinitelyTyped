@@ -39,8 +39,9 @@ var options: PhantomCSSOptions = {
         });
     },
 
-    fileNameGetter: function(root,filename){ 
+    fileNameGetter: function(root:string,filename:string){ 
        
+       return root+filename;
     },
 
     prefixCount: true,
