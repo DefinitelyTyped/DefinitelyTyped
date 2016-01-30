@@ -110,17 +110,22 @@ declare namespace ReactRouter {
     const IndexLink: Link
 
 
-    interface RoutingContextProps extends React.Props<RoutingContext> {
-        history: H.History
+    interface RouterContextProps extends React.Props<RouterContext> {
+        history?: H.History
+        router: Router
         createElement: (component: RouteComponent, props: Object) => any
         location: H.Location
         routes: RouteConfig
         params: Params
         components?: RouteComponent[]
     }
-    interface RoutingContext extends React.ComponentClass<RoutingContextProps> {}
-    interface RoutingContextElement extends React.ReactElement<RoutingContextProps> {}
-    const RoutingContext: RoutingContext
+    interface RouterContext extends React.ComponentClass<RouterContextProps> {}
+    interface RouterContextElement extends React.ReactElement<RouterContextProps> {
+        history?: H.History
+        location: H.Location
+        router?: Router
+    }
+    const RouterContext: RouterContext
 
 
     /* components (configuration) */
@@ -335,9 +340,9 @@ declare module "react-router/lib/RouteUtils" {
 }
 
 
-declare module "react-router/lib/RoutingContext" {
+declare module "react-router/lib/RouterContext" {
 
-    export default ReactRouter.RoutingContext
+    export default ReactRouter.RouterContext
 
 }
 
@@ -418,7 +423,7 @@ declare module "react-router" {
 
     import { formatPattern } from "react-router/lib/PatternUtils"
 
-    import RoutingContext from "react-router/lib/RoutingContext"
+    import RouterContext from "react-router/lib/RouterContext"
 
     import PropTypes from "react-router/lib/PropTypes"
 
@@ -459,7 +464,7 @@ declare module "react-router" {
         useRoutes,
         createRoutes,
         formatPattern,
-        RoutingContext,
+        RouterContext,
         PropTypes,
         match
     }
