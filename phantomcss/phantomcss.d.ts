@@ -28,9 +28,10 @@ interface PhantomCSS{
      */
 	screenshot( target:string, timeToWait:number, hideSelector:string, fileName?:string ):void;
 	
-	compareAll( exclude ):void;
-	compareAll( exclude, diffList, include ):void;
-	compareMatched( match, exclude ):void;
+	compareAll( exclude:string ):void;
+	compareAll( exclude:string, diffList:string[], include:string ):void;
+	compareMatched( match:string, exclude:string ):void;
+	compareMatched( match:RegExp, exclude:RegExp ):void;
 	/**
 	 * Explicitly define what files you want to compare
 	 */
@@ -38,9 +39,9 @@ interface PhantomCSS{
 	/**
 	 * Compare image diffs generated in this test run only
 	 */
-	compareSession( list? ):void;
-	compareFiles( fileName, file ):PhantomCSSTest;
-	waitForTests( tests:PhantomCSSTest[] );
+	compareSession( list?:any[] ):void;
+	compareFiles( baseFile:string, diffFiles:string ):PhantomCSSTest;
+	waitForTests( tests:PhantomCSSTest[] ):void;
 	done():void;
 	/**
 	 * Turn off CSS transitions and jQuery animations
@@ -54,11 +55,12 @@ interface PhantomCSS{
 }
 
 interface PhantomCSSTest{
-	filename : string;
-	error: boolean;
-	fail:boolean;
-	failFile:string;
-	mismatch:any;
+	filename? : string;
+	error?: boolean;
+	fail?:boolean;
+    success?:boolean;
+	failFile?:string;
+	mismatch?:any;
 }
 
 interface PhantomCSSOptions{
@@ -114,7 +116,7 @@ interface PhantomCSSOptions{
         * Change the output screenshot filenames for your specific 
         * integration
     	*/
-		fileNameGetter?: Function;
+		fileNameGetter?: (rootPath:string, fileName?:string) => string;
 		
 		/**
         Mismatch tolerance defaults to  0.05%. Increasing this value 
@@ -122,9 +124,9 @@ interface PhantomCSSOptions{
     	*/
     	mismatchTolerance?: number;
 		
-		onPass?: (test) => void;
-		onFail?: (test) => void;
-		onTimeout?: (test) => void;
+		onPass?: (test:PhantomCSSTest) => void;
+		onFail?: (test:PhantomCSSTest) => void;
+		onTimeout?: (test:PhantomCSSTest) => void;
 		onComplete?:( tests:PhantomCSSTest[], noOfFails:number, noOfErrors:number ) => void;
 		/** 
         Called when creating new baseline images
