@@ -612,7 +612,7 @@ declare module Matter {
          * @param {body} body
          * @param {number} inertia
          */
-        static setInterna(body: Body, interna: number): void;
+        static setInertia(body: Body, interna: number): void;
         /**
          * Sets the body's vertices and updates body properties accordingly, including inertia, area and mass (with respect to `body.density`).
          * Vertices will be automatically transformed to be orientated around their centre of mass as the origin.
@@ -636,7 +636,7 @@ declare module Matter {
          * @param [body] parts
          * @param {bool} [autoHull=true]
          */
-        static setParts(body: Body, parts: Body, autoHull: boolean): void;
+        static setParts(body: Body, parts: Body[], autoHull?: boolean): void;
         /**
          * Sets the position of the body instantly. Velocity, angle, force etc. are unchanged.
          * @method setPosition
