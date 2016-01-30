@@ -1,21 +1,21 @@
-// Type definitions for Pixi.js 3.0.9 dev
+﻿// Type definitions for Pixi.js v3.0.10-dev
 // Project: https://github.com/GoodBoyDigital/pixi.js/
 // Definitions by: clark-stevenson <https://github.com/pixijs/pixi-typescript>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare class PIXI {
+declare module PIXI {
 
-    static VERSION: string;
-    static PI_2: number;
-    static RAD_TO_DEG: number;
-    static DEG_TO_RAD: number;
-    static TARGET_FPMS: number;
-    static RENDERER_TYPE: {
+    export var VERSION: string;
+    export var PI_2: number;
+    export var RAD_TO_DEG: number;
+    export var DEG_TO_RAD: number;
+    export var TARGET_FPMS: number;
+    export var RENDERER_TYPE: {
         UNKNOWN: number;
         WEBGL: number;
         CANVAS: number;
     };
-    static BLEND_MODES: {
+    export var BLEND_MODES: {
         NORMAL: number;
         ADD: number;
         MULTIPLY: number;
@@ -35,7 +35,7 @@ declare class PIXI {
         LUMINOSITY: number;
 
     };
-    static DRAW_MODES: {
+    export var DRAW_MODES: {
         POINTS: number;
         LINES: number;
         LINE_LOOP: number;
@@ -44,15 +44,15 @@ declare class PIXI {
         TRIANGLE_STRIP: number;
         TRIANGLE_FAN: number;
     };
-    static SCALE_MODES: {
+    export var SCALE_MODES: {
         DEFAULT: number;
         LINEAR: number;
         NEAREST: number;
     };
-    static RETINA_PREFIX: string;
-    static RESOLUTION: number;
-    static FILTER_RESOLUTION: number;
-    static DEFAULT_RENDER_OPTIONS: {
+    export var RETINA_PREFIX: string;
+    export var RESOLUTION: number;
+    export var FILTER_RESOLUTION: number;
+    export var DEFAULT_RENDER_OPTIONS: {
         view: HTMLCanvasElement;
         resolution: number;
         antialias: boolean;
@@ -64,44 +64,57 @@ declare class PIXI {
         preserveDrawingBuffer: boolean;
         roundPixels: boolean;
     };
-    static SHAPES: {
+    export var SHAPES: {
         POLY: number;
         RECT: number;
         CIRC: number;
         ELIP: number;
         RREC: number;
     };
-    static SPRITE_BATCH_SIZE: number;
-
-}
-
-declare module PIXI {
+    export var SPRITE_BATCH_SIZE: number;
 
     export function autoDetectRenderer(width: number, height: number, options?: PIXI.RendererOptions, noWebGL?: boolean): PIXI.WebGLRenderer | PIXI.CanvasRenderer;
     export var loader: PIXI.loaders.Loader;
-
-    //https://github.com/primus/eventemitter3
-    export class EventEmitter {
-
-        listeners(event: string): Function[];
-        emit(event: string, ...args: any[]): boolean;
-        on(event: string, fn: Function, context?: any): EventEmitter;
-        once(event: string, fn: Function, context?: any): EventEmitter;
-        removeListener(event: string, fn: Function, context?: any, once?: boolean): EventEmitter;
-        removeAllListeners(event: string): EventEmitter;
-
-        off(event: string, fn: Function, context?: any, once?: boolean): EventEmitter;
-        addListener(event: string, fn: Function, context?: any): EventEmitter;
-
-    }
 
     //////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////CORE//////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////
 
+    //accessibility
+    export class AccessibilityManager {
+
+        protected div: HTMLElement;
+        protected pool: HTMLElement[];
+        protected renderId: number;
+        protected children: DisplayObject[];
+        protected isActive: boolean;
+
+        debug: boolean;
+        renderer: PIXI.SystemRenderer;
+
+        constructor(renderer: PIXI.SystemRenderer);
+
+        protected activate(): void;
+        protected deactivate(): void;
+        protected updateAccessibleObjects(displayObject: DisplayObject): void;
+        protected update(): void;
+        protected capHitArea(hitArea: any): void;
+        protected addChild(displayObject: DisplayObject): void;
+
+        destroy(): void;
+
+    }
+
+    export interface AccessibleTarget {
+
+        //TODO Not 100% here. 
+        //src/accessibility/accessibleTarget.js
+
+    }
+
     //display
 
-    export class DisplayObject extends EventEmitter implements interaction.InteractiveTarget {
+    export class DisplayObject extends utils.EventEmitter implements interaction.InteractiveTarget {
 
         //begin extras.cacheAsBitmap see https://github.com/pixijs/pixi-typescript/commit/1207b7f4752d79a088d6a9a465a3ec799906b1db
         protected _originalRenderWebGL: WebGLRenderer;
@@ -136,6 +149,7 @@ declare module PIXI {
         pivot: Point;
         rotation: number;
         renderable: boolean;
+        skew: Point;
         alpha: number;
         visible: boolean;
         parent: Container;
@@ -153,7 +167,7 @@ declare module PIXI {
         getBounds(matrix?: Matrix): Rectangle;
         getLocalBounds(): Rectangle;
         toGlobal(position: Point): Point;
-        toLocal(position: Point, from?: DisplayObject): Point;
+        toLocal(position: Point, from?: DisplayObject, to?: Point): Point;
         generateTexture(renderer: CanvasRenderer | WebGLRenderer, scaleMode: number, resolution: number): Texture;
         setParent(container: Container): Container;
         setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, pivotX?: number, pivotY?: number): DisplayObject;
@@ -167,41 +181,41 @@ declare module PIXI {
         defaultCursor: string;
         hitArea: HitArea;
 
-        on(event: 'click', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        on(event: 'mousedown', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        on(event: 'mouseout', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        on(event: 'mouseover', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        on(event: 'mouseup', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        on(event: 'mouseclick', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        on(event: 'mouseupoutside', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        on(event: 'rightclick', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        on(event: 'rightdown', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        on(event: 'rightup', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        on(event: 'rightupoutside', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        on(event: 'tap', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        on(event: 'touchend', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        on(event: 'touchendoutside', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        on(event: 'touchmove', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        on(event: 'touchstart', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        on(event: string, fn: Function, context?: any): EventEmitter;
+        on(event: 'click', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        on(event: 'mousedown', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        on(event: 'mouseout', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        on(event: 'mouseover', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        on(event: 'mouseup', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        on(event: 'mouseclick', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        on(event: 'mouseupoutside', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        on(event: 'rightclick', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        on(event: 'rightdown', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        on(event: 'rightup', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        on(event: 'rightupoutside', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        on(event: 'tap', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        on(event: 'touchend', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        on(event: 'touchendoutside', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        on(event: 'touchmove', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        on(event: 'touchstart', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        on(event: string, fn: Function, context?: any): utils.EventEmitter;
 
-        once(event: 'click', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        once(event: 'mousedown', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        once(event: 'mouseout', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        once(event: 'mouseover', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        once(event: 'mouseup', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        once(event: 'mouseclick', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        once(event: 'mouseupoutside', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        once(event: 'rightclick', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        once(event: 'rightdown', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        once(event: 'rightup', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        once(event: 'rightupoutside', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        once(event: 'tap', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        once(event: 'touchend', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        once(event: 'touchendoutside', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        once(event: 'touchmove', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        once(event: 'touchstart', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        once(event: string, fn: Function, context?: any): EventEmitter;
+        once(event: 'click', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        once(event: 'mousedown', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        once(event: 'mouseout', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        once(event: 'mouseover', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        once(event: 'mouseup', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        once(event: 'mouseclick', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        once(event: 'mouseupoutside', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        once(event: 'rightclick', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        once(event: 'rightdown', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        once(event: 'rightup', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        once(event: 'rightupoutside', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        once(event: 'tap', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        once(event: 'touchend', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        once(event: 'touchendoutside', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        once(event: 'touchmove', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        once(event: 'touchstart', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        once(event: string, fn: Function, context?: any): utils.EventEmitter;
 
     }
 
@@ -232,14 +246,14 @@ declare module PIXI {
         renderWebGL(renderer: WebGLRenderer): void;
         renderCanvas(renderer: CanvasRenderer): void;
 
-        once(event: 'added', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        once(event: string, fn: Function, context?: any): EventEmitter;
-        once(event: 'removed', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        once(event: string, fn: Function, context?: any): EventEmitter;
-        on(event: 'added', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        on(event: string, fn: Function, context?: any): EventEmitter;
-        on(event: 'removed', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
-        on(event: string, fn: Function, context?: any): EventEmitter;
+        once(event: 'added', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        once(event: string, fn: Function, context?: any): utils.EventEmitter;
+        once(event: 'removed', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        once(event: string, fn: Function, context?: any): utils.EventEmitter;
+        on(event: 'added', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        on(event: string, fn: Function, context?: any): utils.EventEmitter;
+        on(event: 'removed', fn: (event: interaction.InteractionEvent) => void, context?: any): utils.EventEmitter;
+        on(event: string, fn: Function, context?: any): utils.EventEmitter;
 
     }
 
@@ -302,11 +316,25 @@ declare module PIXI {
         drawShape(shape: Circle | Rectangle | Ellipse | Polygon): GraphicsData;
 
     }
-    export interface GraphicsRenderer extends ObjectRenderer {
-        //yikes todo
+    export class GraphicsRenderer extends ObjectRenderer {
+        new(renderer: PIXI.WebGLRenderer);
+
+        buildCircle: (graphicsData: PIXI.Graphics, webGLData: Object) => void;
+        buildPoly: (graphicsData: PIXI.Graphics, webGLData: Object) => boolean;
+        buildRectangle: (graphicsData: PIXI.Graphics, webGLData: Object) => void;
+        buildComplexPoly: (graphicsData: PIXI.Graphics, webGLData: Object) => void;
+        buildLine: (graphicsData: PIXI.Graphics, webGLData: Object) => void;
+        updateGraphics: (graphics: PIXI.Graphics) => void;
+        buildRoundedRectangle: (graphicsData: PIXI.Graphics, webGLData: Object) => void;
+        quadraticBezierCurve: (fromX: number, fromY: number, cpX: number, cpY: number, toX: number, toY: number, out: any) => number[];
+        switchMode: (webGL: WebGLRenderingContext, type: number) => WebGLGraphicsData;
     }
-    export interface WebGLGraphicsData {
-        //yikes todo!
+    export class WebGLGraphicsData {
+        new(gl: WebGLRenderingContext);
+
+        upload: () => void;
+        reset: () => void;
+        destroy: () => void;
     }
 
     //math
@@ -490,8 +518,18 @@ declare module PIXI {
         destroy(): void;
 
     }
-    export interface ParticleRenderer {
+    export class ParticleRenderer extends ObjectRenderer {
+        new(renderer: PIXI.WebGLRenderer);
 
+        buildCircle: (graphicsData: PIXI.Graphics, webGLData: WebGLGraphicsData) => void;
+        buildPoly: (graphicsData: PIXI.Graphics, webGLData: WebGLGraphicsData) => boolean;
+        buildRectangle: (graphicsData: PIXI.Graphics, webGLData: WebGLGraphicsData) => void;
+        buildComplexPoly: (graphicsData: PIXI.Graphics, webGLData: WebGLGraphicsData) => void;
+        buildLine: (graphicsData: PIXI.Graphics, webGLData: WebGLGraphicsData) => void;
+        updateGraphics: (graphics: PIXI.Graphics) => void;
+        buildRoundedRectangle: (graphicsData: PIXI.Graphics, webGLData: WebGLGraphicsData) => void;
+        quadraticBezierCurve: (fromX: number, fromY: number, cpX: number, cpY: number, toX: number, toY: number, out: number[]) => number[];
+        switchMode: (webGL: WebGLRenderingContext, type: number) => WebGLGraphicsData;
     }
     export interface ParticleShader {
 
@@ -512,7 +550,7 @@ declare module PIXI {
         backgroundColor?: number;
 
     }
-    export class SystemRenderer extends EventEmitter {
+    export class SystemRenderer extends utils.EventEmitter {
 
         protected _backgroundColor: number;
         protected _backgroundColorRgb: number[];
@@ -604,7 +642,7 @@ declare module PIXI {
     export class WebGLRenderer extends SystemRenderer {
 
         protected _useFXAA: boolean;
-        protected _FXAAFilter: filters.FXAAFilter;
+        protected _FXAAFilter: FXAAFilter;
         protected _contextOptions: {
             alpha: boolean;
             antiAlias: boolean;
@@ -665,6 +703,11 @@ declare module PIXI {
         applyFilter(renderer: WebGLRenderbuffer, input: RenderTarget, output: RenderTarget): void;
         map: Texture;
         offset: Point;
+
+    }
+    export class FXAAFilter extends AbstractFilter {
+
+        applyFilter(renderer: WebGLRenderer, input: RenderTarget, output: RenderTarget): void;
 
     }
     export class BlendModeManager extends WebGLManager {
@@ -921,6 +964,7 @@ declare module PIXI {
         dropShadowColor?: string | number;
         dropShadowAngle?: number;
         dropShadowDistance?: number;
+        dropShadowBlur?: number;
         padding?: number;
         textBaseline?: string;
         lineJoin?: string;
@@ -957,7 +1001,7 @@ declare module PIXI {
 
     //textures
 
-    export class BaseTexture extends EventEmitter {
+    export class BaseTexture extends utils.EventEmitter {
 
         static fromImage(imageUrl: string, crossorigin?: boolean, scaleMode?: number): BaseTexture;
         static fromCanvas(canvas: HTMLCanvasElement, scaleMode?: number): BaseTexture;
@@ -989,17 +1033,17 @@ declare module PIXI {
         dispose(): void;
         updateSourceImage(newSrc: string): void;
 
-        on(event: 'dispose', fn: (baseTexture: BaseTexture) => void, context?: any): EventEmitter;
-        on(event: 'error', fn: (baseTexture: BaseTexture) => void, context?: any): EventEmitter;
-        on(event: 'loaded', fn: (baseTexture: BaseTexture) => void, context?: any): EventEmitter;
-        on(event: 'update', fn: (baseTexture: BaseTexture) => void, context?: any): EventEmitter;
-        on(event: string, fn: Function, context?: any): EventEmitter;
+        on(event: 'dispose', fn: (baseTexture: BaseTexture) => void, context?: any): utils.EventEmitter;
+        on(event: 'error', fn: (baseTexture: BaseTexture) => void, context?: any): utils.EventEmitter;
+        on(event: 'loaded', fn: (baseTexture: BaseTexture) => void, context?: any): utils.EventEmitter;
+        on(event: 'update', fn: (baseTexture: BaseTexture) => void, context?: any): utils.EventEmitter;
+        on(event: string, fn: Function, context?: any): utils.EventEmitter;
 
-        once(event: 'dispose', fn: (baseTexture: BaseTexture) => void, context?: any): EventEmitter;
-        once(event: 'error', fn: (baseTexture: BaseTexture) => void, context?: any): EventEmitter;
-        once(event: 'loaded', fn: (baseTexture: BaseTexture) => void, context?: any): EventEmitter;
-        once(event: 'update', fn: (baseTexture: BaseTexture) => void, context?: any): EventEmitter;
-        once(event: string, fn: Function, context?: any): EventEmitter;
+        once(event: 'dispose', fn: (baseTexture: BaseTexture) => void, context?: any): utils.EventEmitter;
+        once(event: 'error', fn: (baseTexture: BaseTexture) => void, context?: any): utils.EventEmitter;
+        once(event: 'loaded', fn: (baseTexture: BaseTexture) => void, context?: any): utils.EventEmitter;
+        once(event: 'update', fn: (baseTexture: BaseTexture) => void, context?: any): utils.EventEmitter;
+        once(event: string, fn: Function, context?: any): utils.EventEmitter;
 
     }
     export class RenderTexture extends Texture {
@@ -1054,7 +1098,7 @@ declare module PIXI {
         width: number;
         height: number;
         crop: Rectangle;
-        rotate: boolean;
+        rotate: number;
 
         frame: Rectangle;
 
@@ -1074,7 +1118,7 @@ declare module PIXI {
         x3: number;
         y3: number;
 
-        set(frame: Rectangle, baseFrame: Rectangle, rotate: boolean): void;
+        set(frame: Rectangle, baseFrame: Rectangle, rotate: number): void;
 
     }
     export class VideoBaseTexture extends BaseTexture {
@@ -1098,21 +1142,37 @@ declare module PIXI {
 
     //utils
 
-    export class utils {
+    export module utils {
 
-        static uuid(): number;
-        static hex2rgb(hex: number, out?: number[]): number[];
-        static hex2String(hex: number): string;
-        static rgb2hex(rgb: Number[]): number;
-        static canUseNewCanvasBlendModel(): boolean;
-        static getNextPowerOfTwo(number: number): number;
-        static isPowerOfTwo(width: number, height: number): boolean;
-        static getResolutionOfUrl(url: string): number;
-        static sayHello(type: string): void;
-        static isWebGLSupported(): boolean;
-        static sign(n: number): number;
-        static TextureCache: any;
-        static BaseTextureCache: any;
+        export function uuid(): number;
+        export function hex2rgb(hex: number, out?: number[]): number[];
+        export function hex2String(hex: number): string;
+        export function rgb2hex(rgb: Number[]): number;
+        export function canUseNewCanvasBlendModel(): boolean;
+        export function getNextPowerOfTwo(number: number): number;
+        export function isPowerOfTwo(width: number, height: number): boolean;
+        export function getResolutionOfUrl(url: string): number;
+        export function sayHello(type: string): void;
+        export function isWebGLSupported(): boolean;
+        export function sign(n: number): number;
+        export function removeItems<T>(arr: T[], startIdx: number, removeCount: number): void;
+        export var TextureCache: any;
+        export var BaseTextureCache: any;
+
+        //https://github.com/primus/eventemitter3
+        export class EventEmitter {
+
+            listeners(event: string): Function[];
+            emit(event: string, ...args: any[]): boolean;
+            on(event: string, fn: Function, context?: any): EventEmitter;
+            once(event: string, fn: Function, context?: any): EventEmitter;
+            removeListener(event: string, fn: Function, context?: any, once?: boolean): EventEmitter;
+            removeAllListeners(event: string): EventEmitter;
+
+            off(event: string, fn: Function, context?: any, once?: boolean): EventEmitter;
+            addListener(event: string, fn: Function, context?: any): EventEmitter;
+
+        }
 
     }
 
@@ -1427,11 +1487,6 @@ declare module PIXI {
             angle: number;
 
         }
-        export class FXAAFilter extends AbstractFilter {
-
-            applyFilter(renderer: WebGLRenderer, input: RenderTarget, output: RenderTarget): void;
-
-        }
     }
 
     //////////////////////////////////////////////////////////////////////////////
@@ -1527,20 +1582,22 @@ declare module PIXI {
     ///////////////////////////////LOADER/////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////
     //https://github.com/englercj/resource-loader/blob/master/src/Loader.js
+    //1.6.4
 
     export module loaders {
         export interface LoaderOptions {
 
-            crossOrigin?: boolean;
+            crossOrigin?: boolean | string;
             loadType?: number;
             xhrType?: string;
+            metaData?: any;
 
         }
         export interface ResourceDictionary {
 
             [index: string]: PIXI.loaders.Resource;
         }
-        export class Loader extends EventEmitter {
+        export class Loader extends utils.EventEmitter {
 
             constructor(baseUrl?: string, concurrency?: number);
 
@@ -1554,19 +1611,19 @@ declare module PIXI {
             //todo I am not sure of object literal notional (or its options) so just allowing any but would love to improve this
             add(obj: any, options?: LoaderOptions, cb?: () => void): Loader;
 
-            on(event: 'complete', fn: (loader: loaders.Loader, object: any) => void, context?: any): EventEmitter;
-            on(event: 'error', fn: (error: Error, loader: loaders.Loader, resource: Resource) => void, context?: any): EventEmitter;
-            on(event: 'load', fn: (loader: loaders.Loader, resource: Resource) => void, context?: any): EventEmitter;
-            on(event: 'progress', fn: (loader: loaders.Loader, resource: Resource) => void, context?: any): EventEmitter;
-            on(event: 'start', fn: (loader: loaders.Loader) => void, context?: any): EventEmitter;
-            on(event: string, fn: Function, context?: any): EventEmitter;
+            on(event: 'complete', fn: (loader: loaders.Loader, object: any) => void, context?: any): utils.EventEmitter;
+            on(event: 'error', fn: (error: Error, loader: loaders.Loader, resource: Resource) => void, context?: any): utils.EventEmitter;
+            on(event: 'load', fn: (loader: loaders.Loader, resource: Resource) => void, context?: any): utils.EventEmitter;
+            on(event: 'progress', fn: (loader: loaders.Loader, resource: Resource) => void, context?: any): utils.EventEmitter;
+            on(event: 'start', fn: (loader: loaders.Loader) => void, context?: any): utils.EventEmitter;
+            on(event: string, fn: Function, context?: any): utils.EventEmitter;
 
-            once(event: 'complete', fn: (loader: loaders.Loader, object: any) => void, context?: any): EventEmitter;
-            once(event: 'error', fn: (error: Error, loader: loaders.Loader, resource: Resource) => void, context?: any): EventEmitter;
-            once(event: 'load', fn: (loader: loaders.Loader, resource: Resource) => void, context?: any): EventEmitter;
-            once(event: 'progress', fn: (loader: loaders.Loader, resource: Resource) => void, context?: any): EventEmitter;
-            once(event: 'start', fn: (loader: loaders.Loader) => void, context?: any): EventEmitter;
-            once(event: string, fn: Function, context?: any): EventEmitter;
+            once(event: 'complete', fn: (loader: loaders.Loader, object: any) => void, context?: any): utils.EventEmitter;
+            once(event: 'error', fn: (error: Error, loader: loaders.Loader, resource: Resource) => void, context?: any): utils.EventEmitter;
+            once(event: 'load', fn: (loader: loaders.Loader, resource: Resource) => void, context?: any): utils.EventEmitter;
+            once(event: 'progress', fn: (loader: loaders.Loader, resource: Resource) => void, context?: any): utils.EventEmitter;
+            once(event: 'start', fn: (loader: loaders.Loader) => void, context?: any): utils.EventEmitter;
+            once(event: string, fn: Function, context?: any): utils.EventEmitter;
 
             before(fn: Function): Loader;
             pre(fn: Function): Loader;
@@ -1579,7 +1636,7 @@ declare module PIXI {
             load(cb?: (loader: loaders.Loader, object: any) => void): Loader;
 
         }
-        export class Resource extends EventEmitter {
+        export class Resource extends utils.EventEmitter {
 
             static LOAD_TYPE: {
                 XHR: number;
@@ -1609,14 +1666,15 @@ declare module PIXI {
 
             name: string;
             texture: Texture;
-			textures: Texture[];
+            textures: Texture[];
             url: string;
             data: any;
-            crossOrigin: string;
+            crossOrigin: boolean | string;
             loadType: number;
             xhrType: string;
             error: Error;
             xhr: XMLHttpRequest;
+            SVGMetadataElement: any;
 
             complete(): void;
             load(cb?: () => void): void;
@@ -1711,7 +1769,7 @@ declare module PIXI {
         export class Ticker {
 
             protected _tick(time: number): void;
-            protected _emitter: EventEmitter;
+            protected _emitter: utils.EventEmitter;
             protected _requestId: number;
             protected _maxElapsedMS: number;
 
