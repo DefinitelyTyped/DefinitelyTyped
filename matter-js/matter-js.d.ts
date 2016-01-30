@@ -2959,7 +2959,7 @@ declare module Matter {
         * @param {} event.source The source object of the event
         * @param {} event.name The name of the event
         */
-        static on(obj: Engine, name: "sleepStart", callback: (e: IEvent<Body>) => void): void;
+        static on(obj: Body, name: "sleepStart", callback: (e: IEvent<Body>) => void): void;
         /**
          * Fired when a body ends sleeping (where `this` is the body).
          *
@@ -2969,7 +2969,7 @@ declare module Matter {
         * @param {} event.source The source object of the event
         * @param {} event.name The name of the event
         */
-        static on(obj: Engine, name: "sleepEnd", callback: (e: IEvent<Body>) => void): void;
+        static on(obj: Body, name: "sleepEnd", callback: (e: IEvent<Body>) => void): void;
 
         /**
         * Fired when a call to `Composite.add` is made, before objects have been added.
@@ -3158,7 +3158,7 @@ declare module Matter {
          * @param name
          * @param callback
          */
-        static on(obj: Engine, name: "mousedown", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mousedown", callback: (e: any) => void): void;
 
         /**
          * Fired when the mouse has moved (or a touch moves) during the last step
@@ -3166,7 +3166,7 @@ declare module Matter {
          * @param name
          * @param callback
          */
-        static on(obj: Engine, name: "mousemove", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mousemove", callback: (e: any) => void): void;
 
         /**
          * Fired when the mouse is up (or a touch has ended) during the last step
@@ -3174,10 +3174,10 @@ declare module Matter {
          * @param name
          * @param callback
          */
-        static on(obj: Engine, name: "mouseup", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mouseup", callback: (e: any) => void): void;
 
 
-        static on(obj: Engine, name: string, callback: (e: any) => void): void;
+        static on(obj: any, name: string, callback: (e: any) => void): void;
 
         /**
          * Removes the given event callback. If no callback, clears all callbacks in eventNames. If no eventNames, clears all events.
