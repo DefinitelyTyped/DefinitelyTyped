@@ -8970,7 +8970,7 @@ module TestValuesIn {
  **********/
 
 // _.camelCase
-module TestCamelCase {
+namespace TestCamelCase {
     {
         let result: string;
 
@@ -8986,7 +8986,7 @@ module TestCamelCase {
 }
 
 // _.capitalize
-module TestCapitalize {
+namespace TestCapitalize {
     {
         let result: string;
 
@@ -9002,7 +9002,7 @@ module TestCapitalize {
 }
 
 // _.deburr
-module TestDeburr {
+namespace TestDeburr {
     {
         let result: string;
 
@@ -9018,7 +9018,7 @@ module TestDeburr {
 }
 
 // _.endsWith
-module TestEndsWith {
+namespace TestEndsWith {
     {
         let result: boolean;
 
@@ -9038,7 +9038,7 @@ module TestEndsWith {
 }
 
 // _.escape
-module TestEscape {
+namespace TestEscape {
     {
         let result: string;
 
@@ -9054,7 +9054,7 @@ module TestEscape {
 }
 
 // _.escapeRegExp
-module TestEscapeRegExp {
+namespace TestEscapeRegExp {
     {
         let result: string;
 
@@ -9070,7 +9070,7 @@ module TestEscapeRegExp {
 }
 
 // _.kebabCase
-module TestKebabCase {
+namespace TestKebabCase {
     {
         let result: string;
 
@@ -9086,7 +9086,7 @@ module TestKebabCase {
 }
 
 // _.lowerCase
-module TestLowerCase {
+namespace TestLowerCase {
     {
         let result: string;
 
@@ -9102,7 +9102,7 @@ module TestLowerCase {
 }
 
 // _.lowerFirst
-module TestLowerFirst {
+namespace TestLowerFirst {
     {
         let result: string;
 
@@ -9118,11 +9118,11 @@ module TestLowerFirst {
 }
 
 // _.pad
-module TestPad {
+namespace TestPad {
     {
         let result: string;
 
-        result = _.pad('abd');
+        result = _.pad('abc');
         result = _.pad('abc', 8);
         result = _.pad('abc', 8, '_-');
 
@@ -9140,31 +9140,8 @@ module TestPad {
     }
 }
 
-// _.padStart
-module TestPadStart {
-    {
-        let result: string;
-
-        result = _.padStart('abc');
-        result = _.padStart('abc', 6);
-        result = _.padStart('abc', 6, '_-');
-
-        result = _('abc').padStart();
-        result = _('abc').padStart(6);
-        result = _('abc').padStart(6, '_-');
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        result = _('abc').chain().padStart();
-        result = _('abc').chain().padStart(6);
-        result = _('abc').chain().padStart(6, '_-');
-    }
-}
-
 // _.padEnd
-module TestPadEnd {
+namespace TestPadEnd {
     {
         let result: string;
 
@@ -9186,9 +9163,31 @@ module TestPadEnd {
     }
 }
 
+// _.padStart
+namespace TestPadStart {
+    {
+        let result: string;
+
+        result = _.padStart('abc');
+        result = _.padStart('abc', 6);
+        result = _.padStart('abc', 6, '_-');
+
+        result = _('abc').padStart();
+        result = _('abc').padStart(6);
+        result = _('abc').padStart(6, '_-');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('abc').chain().padStart();
+        result = _('abc').chain().padStart(6);
+        result = _('abc').chain().padStart(6, '_-');
+    }
+}
 
 // _.parseInt
-module TestParseInt {
+namespace TestParseInt {
     {
         let result: number;
 
@@ -9208,7 +9207,7 @@ module TestParseInt {
 }
 
 // _.repeat
-module TestRepeat {
+namespace TestRepeat {
     {
         let result: string;
         result = _.repeat('*');
@@ -9226,8 +9225,63 @@ module TestRepeat {
     }
 }
 
+// _.replace
+namespace TestReplace {
+    let replacer = (match: string, offset: number, string: string) => 'Barney';
+
+    {
+        let result: string;
+
+        result = _.replace('Hi Fred', 'Fred', 'Barney');
+        result = _.replace('Hi Fred', 'Fred', replacer);
+
+        result = _.replace('Hi Fred', /fred/i, 'Barney');
+        result = _.replace('Hi Fred', /fred/i, replacer);
+
+        result = _.replace('Fred');
+        result = _.replace('Fred', 'Barney');
+        result = _.replace('Fred', replacer);
+
+        result = _.replace(/fred/i);
+        result = _.replace(/fred/i, 'Barney');
+        result = _.replace(/fred/i, replacer);
+
+        result = _('Hi Fred').replace('Fred', 'Barney');
+        result = _('Hi Fred').replace('Fred', replacer);
+
+        result = _('Hi Fred').replace(/fred/i, 'Barney');
+        result = _('Hi Fred').replace(/fred/i, replacer);
+
+        result = _('Fred').replace();
+        result = _('Fred').replace('Barney');
+        result = _('Fred').replace(replacer);
+
+        result = _(/fred/i).replace();
+        result = _(/fred/i).replace('Barney');
+        result = _(/fred/i).replace(replacer);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('Hi Fred').chain().replace('Fred', 'Barney');
+        result = _('Hi Fred').chain().replace('Fred', replacer);
+
+        result = _('Hi Fred').chain().replace(/fred/i, 'Barney');
+        result = _('Hi Fred').chain().replace(/fred/i, replacer);
+
+        result = _('Fred').chain().replace();
+        result = _('Fred').chain().replace('Barney');
+        result = _('Fred').chain().replace(replacer);
+
+        result = _(/fred/i).chain().replace();
+        result = _(/fred/i).chain().replace('Barney');
+        result = _(/fred/i).chain().replace(replacer);
+    }
+}
+
 // _.snakeCase
-module TestSnakeCase {
+namespace TestSnakeCase {
     {
         let result: string;
 
@@ -9242,8 +9296,35 @@ module TestSnakeCase {
     }
 }
 
+// _.split
+namespace TestSplit {
+    {
+        let result: string[];
+
+        result = _.split('a-b-c');
+        result = _.split('a-b-c', '-');
+        result = _.split('a-b-c', '-', 2);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _('a-b-c').split();
+        result = _('a-b-c').split('-');
+        result = _('a-b-c').split('-', 2);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _('a-b-c').chain().split();
+        result = _('a-b-c').chain().split('-');
+        result = _('a-b-c').chain().split('-', 2);
+    }
+}
+
 // _.startCase
-module TestStartCase {
+namespace TestStartCase {
     {
         let result: string;
 
@@ -9259,7 +9340,7 @@ module TestStartCase {
 }
 
 // _.startsWith
-module TestStartsWith {
+namespace TestStartsWith {
     {
         let result: boolean;
 
@@ -9279,7 +9360,7 @@ module TestStartsWith {
 }
 
 // _.template
-module TestTemplate {
+namespace TestTemplate {
     interface TemplateExecutor {
         (obj?: Object): string;
         source: string;
@@ -9313,7 +9394,7 @@ module TestTemplate {
 }
 
 // _.toLower
-module TestToLower {
+namespace TestToLower {
     {
         let result: string;
 
@@ -9329,7 +9410,7 @@ module TestToLower {
 }
 
 // _.toUpper
-module TestToUpper {
+namespace TestToUpper {
     {
         let result: string;
 
@@ -9345,7 +9426,7 @@ module TestToUpper {
 }
 
 // _.trim
-module TestTrim {
+namespace TestTrim {
     {
         let result: string;
 
@@ -9365,29 +9446,8 @@ module TestTrim {
     }
 }
 
-// _.trimStart
-module TestTrimStart {
-    {
-        let result: string;
-
-        result = _.trimStart();
-        result = _.trimStart('  abc  ');
-        result = _.trimStart('-_-abc-_-', '_-');
-
-        result = _('-_-abc-_-').trimStart();
-        result = _('-_-abc-_-').trimStart('_-');
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        result = _('-_-abc-_-').chain().trimStart();
-        result = _('-_-abc-_-').chain().trimStart('_-');
-    }
-}
-
 // _.trimEnd
-module TestTrimEnd {
+namespace TestTrimEnd {
     {
         let result: string;
 
@@ -9407,19 +9467,38 @@ module TestTrimEnd {
     }
 }
 
+// _.trimStart
+namespace TestTrimStart {
+    {
+        let result: string;
+
+        result = _.trimStart();
+        result = _.trimStart('  abc  ');
+        result = _.trimStart('-_-abc-_-', '_-');
+
+        result = _('-_-abc-_-').trimStart();
+        result = _('-_-abc-_-').trimStart('_-');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('-_-abc-_-').chain().trimStart();
+        result = _('-_-abc-_-').chain().trimStart('_-');
+    }
+}
+
 // _.truncate
-module Testtruncate {
+namespace TestTruncate {
     {
         let result: string;
 
         result = _.truncate('hi-diddly-ho there, neighborino');
-        result = _.truncate('hi-diddly-ho there, neighborino', 24);
         result = _.truncate('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': ' ' });
         result = _.truncate('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': /,? +/ });
         result = _.truncate('hi-diddly-ho there, neighborino', { 'omission': ' […]' });
 
         result = _('hi-diddly-ho there, neighborino').truncate();
-        result = _('hi-diddly-ho there, neighborino').truncate(24);
         result = _('hi-diddly-ho there, neighborino').truncate({ 'length': 24, 'separator': ' ' });
         result = _('hi-diddly-ho there, neighborino').truncate({ 'length': 24, 'separator': /,? +/ });
         result = _('hi-diddly-ho there, neighborino').truncate({ 'omission': ' […]' });
@@ -9429,15 +9508,31 @@ module Testtruncate {
         let result: _.LoDashExplicitWrapper<string>;
 
         result = _('hi-diddly-ho there, neighborino').chain().truncate();
-        result = _('hi-diddly-ho there, neighborino').chain().truncate(24);
         result = _('hi-diddly-ho there, neighborino').chain().truncate({ 'length': 24, 'separator': ' ' });
         result = _('hi-diddly-ho there, neighborino').chain().truncate({ 'length': 24, 'separator': /,? +/ });
         result = _('hi-diddly-ho there, neighborino').chain().truncate({ 'omission': ' […]' });
     }
 }
 
+// _.unescape
+namespace TestUnescape {
+    {
+        let result: string;
+
+        result = _.unescape('fred, barney, &amp; pebbles');
+        result = _('fred, barney, &amp; pebbles').unescape();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('fred, barney, &amp; pebbles').chain().unescape();
+    }
+}
+
+
 // _.upperCase
-module TestUpperCase {
+namespace TestUpperCase {
     {
         let result: string;
 
@@ -9453,7 +9548,7 @@ module TestUpperCase {
 }
 
 // _.upperFirst
-module TestUpperFirst {
+namespace TestUpperFirst {
     {
         let result: string;
 
@@ -9468,24 +9563,8 @@ module TestUpperFirst {
     }
 }
 
-// _.unescape
-module TestUnescape {
-    {
-        let result: string;
-
-        result = _.unescape('fred, barney, &amp; pebbles');
-        result = _('fred, barney, &amp; pebbles').unescape();
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        result = _('fred, barney, &amp; pebbles').chain().unescape();
-    }
-}
-
 // _.words
-module TestWords {
+namespace TestWords {
     {
         let result: string[];
 
