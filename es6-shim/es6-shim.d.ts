@@ -562,6 +562,7 @@ interface Map<K, V> {
     entries(): IterableIteratorShim<[K, V]>;
     keys(): IterableIteratorShim<K>;
     values(): IterableIteratorShim<V>;
+    "_es6-shim iterator_"(): IterableIteratorShim<[K,V]>;
 }
 
 interface MapConstructor {
@@ -582,6 +583,7 @@ interface Set<T> {
     entries(): IterableIteratorShim<[T, T]>;
     keys(): IterableIteratorShim<T>;
     values(): IterableIteratorShim<T>;
+    "_es6-shim iterator_"(): IterableIteratorShim<T>;
 }
 
 interface SetConstructor {
