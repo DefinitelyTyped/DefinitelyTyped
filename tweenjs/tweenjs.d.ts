@@ -4,15 +4,13 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /*
-    Copyright (c) 2012 Pedro Ferreira
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+ Copyright (c) 2012 Pedro Ferreira
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 // Library documentation : http://www.createjs.com/Docs/TweenJS/modules/TweenJS.html
-
-/// <reference path="../createjs-lib/createjs-lib.d.ts" />
 
 declare module createjs {
     export class CSSPlugin {
@@ -76,24 +74,24 @@ declare module createjs {
     }
 
     /*
-        NOTE: It is commented out because it conflicts with SamplePlugin Class of PreloadJS.
-              this class is mainly for documentation purposes.
-        http://www.createjs.com/Docs/TweenJS/classes/SamplePlugin.html
-    */
+     NOTE: It is commented out because it conflicts with SamplePlugin Class of PreloadJS.
+     this class is mainly for documentation purposes.
+     http://www.createjs.com/Docs/TweenJS/classes/SamplePlugin.html
+     */
     /*
-    export class SamplePlugin {
-        constructor();
+     export class SamplePlugin {
+     constructor();
 
-        // properties
-        static priority: any;
+     // properties
+     static priority: any;
 
-        //methods
-        static init(tween: Tween, prop: string, value: any): any;
-        static step(tween: Tween, prop: string, startValue: any, injectProps: Object, endValue: any): void;
-        static install(): void;
-        static tween(tween: Tween, prop: string, value: any, startValues: Object, endValues: Object, ratio: number, wait: boolean, end: boolean): any;
-    }
-    */
+     //methods
+     static init(tween: Tween, prop: string, value: any): any;
+     static step(tween: Tween, prop: string, startValue: any, injectProps: Object, endValue: any): void;
+     static install(): void;
+     static tween(tween: Tween, prop: string, value: any, startValues: Object, endValues: Object, ratio: number, wait: boolean, end: boolean): any;
+     }
+     */
 
     export class Timeline extends EventDispatcher {
         constructor (tweens: Tween[], labels: Object, props: Object);
@@ -141,9 +139,11 @@ declare module createjs {
         // methods
         call(callback: (tweenObject: Tween) => any, params?: any[], scope?: Object): Tween;    // when 'params' isn't given, the callback receives a tweenObject
         call(callback: (...params: any[]) => any, params?: any[], scope?: Object): Tween; // otherwise, it receives the params only
+        easing(easing: (k: number) => number): Tween;
         static get(target: Object, props?: Object, pluginData?: Object, override?: boolean): Tween;
         static hasActiveTweens(target?: Object): boolean;
         static installPlugin(plugin: Object, properties: any[]): void;
+        onUpdate(callback: (object?: any) => void): Tween;
         pause(tween: Tween): Tween;
         play(tween: Tween): Tween;
         static removeAllTweens(): void;
@@ -151,6 +151,8 @@ declare module createjs {
         set(props: Object, target?: Object): Tween;
         setPaused(value: boolean): Tween;
         setPosition(value: number, actionsMode: number): boolean;
+        start(time?: number): Tween;
+        stop(): Tween;
         static tick(delta: number, paused: boolean): void;
         tick(delta: number): void;
         to(props: Object, duration?: number, ease?: (t: number) => number): Tween;
