@@ -809,7 +809,7 @@ declare module "asana" {
       interface Attachments extends Resource {
         /**
          * * Returns the full record for a single attachment.
-         *   * @param {String} attachment Globally unique identifier for the attachment.
+         *   * @param {Number} attachment Globally unique identifier for the attachment.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The requested resource
@@ -822,7 +822,7 @@ declare module "asana" {
 
         /**
          * * Returns the compact records for all attachments on the task.
-         *   * @param {String} task Globally unique identifier for the task.
+         *   * @param {Number} task Globally unique identifier for the task.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -977,7 +977,7 @@ declare module "asana" {
          * * supply a `team` to share the project with.
          * *
          * * Returns the full record of the newly created project.
-         *   * @param {String} workspace The workspace or organization to create the project in.
+         *   * @param {Number} workspace The workspace or organization to create the project in.
          *   * @param {Object} data Data for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -992,7 +992,7 @@ declare module "asana" {
          * * Creates a project shared with the given team.
          * *
          * * Returns the full record of the newly created project.
-         *   * @param {String} team The team to create the project in.
+         *   * @param {Number} team The team to create the project in.
          *   * @param {Object} data Data for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1005,7 +1005,7 @@ declare module "asana" {
 
         /**
          * * Returns the complete project record for a single project.
-         *   * @param {String} project The project to get.
+         *   * @param {Number} project The project to get.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The requested resource
@@ -1026,7 +1026,7 @@ declare module "asana" {
          * * you last retrieved the task.
          * *
          * * Returns the complete updated project record.
-         *   * @param {String} project The project to update.
+         *   * @param {Number} project The project to update.
          *   * @param {Object} data Data for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1042,7 +1042,7 @@ declare module "asana" {
          * * on the URL for that project.
          * *
          * * Returns an empty data record.
-         *   * @param {String} project The project to delete.
+         *   * @param {Number} project The project to delete.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
          * @param project
@@ -1069,7 +1069,7 @@ declare module "asana" {
 
         /**
          * * Returns the compact project records for all projects in the workspace.
-         *   * @param {String} workspace The workspace or organization to find projects in.
+         *   * @param {Number} workspace The workspace or organization to find projects in.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Boolean} [params.archived] Only return projects whose `archived` field takes on the value of
          *   * this parameter.
@@ -1084,7 +1084,7 @@ declare module "asana" {
 
         /**
          * * Returns the compact project records for all projects in the team.
-         *   * @param {String} team The team to find projects in.
+         *   * @param {Number} team The team to find projects in.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Boolean} [params.archived] Only return projects whose `archived` field takes on the value of
          *   * this parameter.
@@ -1099,7 +1099,7 @@ declare module "asana" {
 
         /**
          * * Returns compact records for all sections in the specified project.
-         *   * @param {String} project The project to get sections from.
+         *   * @param {Number} project The project to get sections from.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1113,7 +1113,7 @@ declare module "asana" {
         /**
          * * Returns the compact task records for all tasks within the given project,
          * * ordered by their priority within the project. Tasks can exist in more than one project at a time.
-         *   * @param {String} project The project in which to search for tasks.
+         *   * @param {Number} project The project in which to search for tasks.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1128,7 +1128,7 @@ declare module "asana" {
          * * Adds the specified list of users as followers to the project. Followers are a subset of members, therefore if
          * * the users are not already members of the project they will also become members as a result of this operation.
          * * Returns the updated project record.
-         *   * @param {String} project The project to add followers to.
+         *   * @param {Number} project The project to add followers to.
          *   * @param {Object} data Data for the request
          *   * @param {Array} data.followers An array of followers to add to the project.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -1143,7 +1143,7 @@ declare module "asana" {
         /**
          * * Removes the specified list of users from following the project, this will not affect project membership status.
          * * Returns the updated project record.
-         *   * @param {String} project The project to remove followers from.
+         *   * @param {Number} project The project to remove followers from.
          *   * @param {Object} data Data for the request
          *   * @param {Array} data.followers An array of followers to remove from the project.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -1157,7 +1157,7 @@ declare module "asana" {
 
         /**
          * * Adds the specified list of users as members of the project. Returns the updated project record.
-         *   * @param {String} project The project to add members to.
+         *   * @param {Number} project The project to add members to.
          *   * @param {Object} data Data for the request
          *   * @param {Array} data.members An array of members to add to the project.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -1171,7 +1171,7 @@ declare module "asana" {
 
         /**
          * * Removes the specified list of members from the project. Returns the updated project record.
-         *   * @param {String} project The project to remove members from.
+         *   * @param {Number} project The project to remove members from.
          *   * @param {Object} data Data for the request
          *   * @param {Array} data.members An array of members to remove from the project.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -1223,7 +1223,7 @@ declare module "asana" {
       interface Stories extends Resource {
         /**
          * * Returns the compact records for all stories on the task.
-         *   * @param {String} task Globally unique identifier for the task.
+         *   * @param {Number} task Globally unique identifier for the task.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1236,7 +1236,7 @@ declare module "asana" {
 
         /**
          * * Returns the full record for a single story.
-         *   * @param {String} story Globally unique identifier for the story.
+         *   * @param {Number} story Globally unique identifier for the story.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The requested resource
@@ -1253,7 +1253,7 @@ declare module "asana" {
          * * the request.
          * *
          * * Returns the full record for the new story added to the task.
-         *   * @param {String} task Globally unique identifier for the task.
+         *   * @param {Number} task Globally unique identifier for the task.
          *   * @param {Object} data Data for the request
          *   * @param {String} data.text The plain text of the comment to add.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -1263,7 +1263,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        createOnTask(task: string, data: any, dispatchOptions?: any): Promise<CollectionBase<Stories.ShortType>>;
+        createOnTask(task: number, data: any, dispatchOptions?: any): Promise<CollectionBase<Stories.ShortType>>;
       }
 
       interface TagsStatic {
@@ -1330,7 +1330,7 @@ declare module "asana" {
          * * organization.
          * *
          * * Returns the full record of the newly created tag.
-         *   * @param {String} workspace The workspace or organization to create the tag in.
+         *   * @param {Number} workspace The workspace or organization to create the tag in.
          *   * @param {Object} data Data for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1343,7 +1343,7 @@ declare module "asana" {
 
         /**
          * * Returns the complete tag record for a single tag.
-         *   * @param {String} tag The tag to get.
+         *   * @param {Number} tag The tag to get.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The requested resource
@@ -1363,7 +1363,7 @@ declare module "asana" {
          * * you last retrieved the task.
          * *
          * * Returns the complete updated tag record.
-         *   * @param {String} tag The tag to update.
+         *   * @param {Number} tag The tag to update.
          *   * @param {Object} data Data for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1379,7 +1379,7 @@ declare module "asana" {
          * * on the URL for that tag.
          * *
          * * Returns an empty data record.
-         *   * @param {String} tag The tag to delete.
+         *   * @param {Number} tag The tag to delete.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
          * @param tag
@@ -1406,7 +1406,7 @@ declare module "asana" {
 
         /**
          * * Returns the compact tag records for all tags in the workspace.
-         *   * @param {String} workspace The workspace or organization to find tags in.
+         *   * @param {Number} workspace The workspace or organization to find tags in.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1420,7 +1420,7 @@ declare module "asana" {
         /**
          * * Returns the compact task records for all tasks with the given tag.
          * * Tasks can have more than one tag at a time.
-         *   * @param {String} tag The tag to fetch tasks from.
+         *   * @param {Number} tag The tag to fetch tasks from.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1518,7 +1518,7 @@ declare module "asana" {
          * * workspace cannot be changed once set. The workspace need not be set
          * * explicitly if you specify a `project` or a `parent` task instead.
          *   * @param {Object} data Data for the request
-         *   * @param {String} [data.workspace] The workspace to create a task in.
+         *   * @param {Number} [data.workspace] The workspace to create a task in.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
          * @param data
@@ -1535,7 +1535,7 @@ declare module "asana" {
          * * Every task is required to be created in a specific workspace, and this
          * * workspace cannot be changed once set. The workspace need not be set
          * * explicitly if you specify a `project` or a `parent` task instead.
-         *   * @param {String} workspace The workspace to create a task in.
+         *   * @param {Number} workspace The workspace to create a task in.
          *   * @param {Object} data Data for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1548,7 +1548,7 @@ declare module "asana" {
 
         /**
          * * Returns the complete task record for a single task.
-         *   * @param {String} task The task to get.
+         *   * @param {Number} task The task to get.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The requested resource
@@ -1569,7 +1569,7 @@ declare module "asana" {
          * * you last retrieved the task.
          * *
          * * Returns the complete updated task record.
-         *   * @param {String} task The task to update.
+         *   * @param {Number} task The task to update.
          *   * @param {Object} data Data for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1587,7 +1587,7 @@ declare module "asana" {
          * * of 30 days; afterward they are completely removed from the system.
          * *
          * * Returns an empty data record.
-         *   * @param {String} task The task to delete.
+         *   * @param {Number} task The task to delete.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
          * @param task
@@ -1599,7 +1599,7 @@ declare module "asana" {
         /**
          * * Returns the compact task records for all tasks within the given project,
          * * ordered by their priority within the project.
-         *   * @param {String} projectId The project in which to search for tasks.
+         *   * @param {Number} projectId The project in which to search for tasks.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1612,7 +1612,7 @@ declare module "asana" {
 
         /**
          * * Returns the compact task records for all tasks with the given tag.
-         *   * @param {String} tag The tag in which to search for tasks.
+         *   * @param {Number} tag The tag in which to search for tasks.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1627,11 +1627,11 @@ declare module "asana" {
          * * Returns the compact task records for some filtered set of tasks. Use one
          * * or more of the parameters provided to filter the tasks returned.
          *   * @param {Object} [params] Parameters for the request
-         *   * @param {String} [params.assignee] The assignee to filter tasks on.
-         *   * @param {String} [params.workspace] The workspace or organization to filter tasks on.
-         *   * @param {String} [params.completed_since] Only return tasks that are either incomplete or that have been
+         *   * @param {Number} [params.assignee] The assignee to filter tasks on.
+         *   * @param {Number} [params.workspace] The workspace or organization to filter tasks on.
+         *   * @param {Number} [params.completed_since] Only return tasks that are either incomplete or that have been
          *   * completed since this time.
-         *   * @param {String} [params.modified_since] Only return tasks that have been modified since the given time.
+         *   * @param {Number} [params.modified_since] Only return tasks that have been modified since the given time.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
          * @param params?
@@ -1643,7 +1643,7 @@ declare module "asana" {
         /**
          * * Adds each of the specified followers to the task, if they are not already
          * * following. Returns the complete, updated record for the affected task.
-         *   * @param {String} task The task to add followers to.
+         *   * @param {Number} task The task to add followers to.
          *   * @param {Object} data Data for the request
          *   * @param {Array} data.followers An array of followers to add to the task.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -1658,7 +1658,7 @@ declare module "asana" {
         /**
          * * Removes each of the specified followers from the task if they are
          * * following. Returns the complete, updated record for the affected task.
-         *   * @param {String} task The task to remove followers from.
+         *   * @param {Number} task The task to remove followers from.
          *   * @param {Object} data Data for the request
          *   * @param {Array} data.followers An array of followers to remove from the task.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -1672,7 +1672,7 @@ declare module "asana" {
 
         /**
          * * Returns a compact representation of all of the projects the task is in.
-         *   * @param {String} task The task to get projects on.
+         *   * @param {Number} task The task to get projects on.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1692,14 +1692,14 @@ declare module "asana" {
          * * already contains it.
          * *
          * * Returns an empty data block.
-         *   * @param {String} task The task to add to a project.
+         *   * @param {Number} task The task to add to a project.
          *   * @param {Object} data Data for the request
-         *   * @param {String} data.project The project to add the task to.
-         *   * @param {String} [data.insertAfter] A task in the project to insert the task after, or `null` to
+         *   * @param {Number} data.project The project to add the task to.
+         *   * @param {Number} [data.insertAfter] A task in the project to insert the task after, or `null` to
          *   * insert at the beginning of the list.
-         *   * @param {String} [data.insertBefore] A task in the project to insert the task before, or `null` to
+         *   * @param {Number} [data.insertBefore] A task in the project to insert the task before, or `null` to
          *   * insert at the end of the list.
-         *   * @param {String} [data.section] A section in the project to insert the task into. The task will be
+         *   * @param {Number} [data.section] A section in the project to insert the task into. The task will be
          *   * inserted at the top of the section.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1715,9 +1715,9 @@ declare module "asana" {
          * * in the system, but it will not be in the project anymore.
          * *
          * * Returns an empty data block.
-         *   * @param {String} task The task to remove from a project.
+         *   * @param {Number} task The task to remove from a project.
          *   * @param {Object} data Data for the request
-         *   * @param {String} data.project The project to remove the task from.
+         *   * @param {Number} data.project The project to remove the task from.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
          * @param task
@@ -1729,7 +1729,7 @@ declare module "asana" {
 
         /**
          * * Returns a compact representation of all of the tags the task has.
-         *   * @param {String} task The task to get tags on.
+         *   * @param {Number} task The task to get tags on.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1742,9 +1742,9 @@ declare module "asana" {
 
         /**
          * * Adds a tag to a task. Returns an empty data block.
-         *   * @param {String} task The task to add a tag to.
+         *   * @param {Number} task The task to add a tag to.
          *   * @param {Object} data Data for the request
-         *   * @param {String} data.tag The tag to add to the task.
+         *   * @param {Number} data.tag The tag to add to the task.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
          * @param task
@@ -1756,7 +1756,7 @@ declare module "asana" {
 
         /**
          * * Removes a tag from the task. Returns an empty data block.
-         *   * @param {String} task The task to remove a tag from.
+         *   * @param {Number} task The task to remove a tag from.
          *   * @param {Object} data Data for the request
          *   * @param {String} data.tag The tag to remove from the task.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -1770,7 +1770,7 @@ declare module "asana" {
 
         /**
          * * Returns a compact representation of all of the subtasks of a task.
-         *   * @param {String} task The task to get the subtasks of.
+         *   * @param {Number} task The task to get the subtasks of.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1784,7 +1784,7 @@ declare module "asana" {
         /**
          * * Creates a new subtask and adds it to the parent task. Returns the full record
          * * for the newly created subtask.
-         *   * @param {String} task The task to add a subtask to.
+         *   * @param {Number} task The task to add a subtask to.
          *   * @param {Object} data Data for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1797,7 +1797,7 @@ declare module "asana" {
 
         /**
          * * Returns a compact representation of all of the stories on the task.
-         *   * @param {String} task The task containing the stories to get.
+         *   * @param {Number} task The task containing the stories to get.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1814,7 +1814,7 @@ declare module "asana" {
          * * the request.
          * *
          * * Returns the full record for the new story added to the task.
-         *   * @param {String} task Globally unique identifier for the task.
+         *   * @param {Number} task Globally unique identifier for the task.
          *   * @param {Object} data Data for the request
          *   * @param {String} data.text The plain text of the comment to add.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -1851,7 +1851,7 @@ declare module "asana" {
       interface Teams extends Resource {
         /**
          * * Returns the full record for a single team.
-         *   * @param {String} team Globally unique identifier for the team.
+         *   * @param {Number} team Globally unique identifier for the team.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The requested resource
@@ -1865,7 +1865,7 @@ declare module "asana" {
         /**
          * * Returns the compact records for all teams in the organization visible to
          * * the authorized user.
-         *   * @param {String} organization Globally unique identifier for the workspace or organization.
+         *   * @param {Number} organization Globally unique identifier for the workspace or organization.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1878,7 +1878,7 @@ declare module "asana" {
 
         /**
          * * Returns the compact records for all users that are members of the team.
-         *   * @param {String} team Globally unique identifier for the team.
+         *   * @param {Number} team Globally unique identifier for the team.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -1894,9 +1894,9 @@ declare module "asana" {
          * * The user to add must exist in the same organization as the team in order to be added.
          * * The user to add can be referenced by their globally unique user ID or their email address.
          * * Returns the full user record for the added user.
-         *   * @param {String} team Globally unique identifier for the team.
+         *   * @param {Number} team Globally unique identifier for the team.
          *   * @param {Object} data Data for the request
-         *   * @param {String} data.user An identifier for the user. Can be one of an email address,
+         *   * @param {Number|String} data.user An identifier for the user. Can be one of an email address,
          *   * the globally unique identifier for the user, or the keyword `me`
          *   * to indicate the current user making the request.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -1906,14 +1906,14 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        addUser(team: string, data: UserParams, dispatchOptions?: any): Promise<any>;
+        addUser(team: number, data: UserParams, dispatchOptions?: any): Promise<any>;
 
         /**
          * * The user to remove can be referenced by their globally unique user ID or their email address.
          * * Removes the user from the specified team. Returns an empty data record.
-         *   * @param {String} team Globally unique identifier for the team.
+         *   * @param {Number} team Globally unique identifier for the team.
          *   * @param {Object} data Data for the request
-         *   * @param {String} data.user An identifier for the user. Can be one of an email address,
+         *   * @param {Number|String} data.user An identifier for the user. Can be one of an email address,
          *   * the globally unique identifier for the user, or the keyword `me`
          *   * to indicate the current user making the request.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -1923,7 +1923,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        removeUser(team: string, data: UserParams, dispatchOptions?: any): Promise<any>;
+        removeUser(team: number, data: UserParams, dispatchOptions?: any): Promise<any>;
       }
 
       interface UsersStatic {
@@ -1971,7 +1971,7 @@ declare module "asana" {
 
         /**
          * * Returns the full user record for the single user with the provided ID.
-         *   * @param {String} user An identifier for the user. Can be one of an email address,
+         *   * @param {Number|String} user An identifier for the user. Can be one of an email address,
          *   * the globally unique identifier for the user, or the keyword `me`
          *   * to indicate the current user making the request.
          *   * @param {Object} [params] Parameters for the request
@@ -1987,7 +1987,7 @@ declare module "asana" {
         /**
          * * Returns the user records for all users in the specified workspace or
          * * organization.
-         *   * @param {String} workspace The workspace in which to get users.
+         *   * @param {Number} workspace The workspace in which to get users.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -2003,7 +2003,7 @@ declare module "asana" {
          * * accessible to the authenticated user. Accepts an optional workspace ID
          * * parameter.
          *   * @param {Object} [params] Parameters for the request
-         *   * @param {String} [params.workspace] The workspace or organization to filter users on.
+         *   * @param {Number} [params.workspace] The workspace or organization to filter users on.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
          * @param params
@@ -2085,7 +2085,7 @@ declare module "asana" {
          * * fail to setup, and you will receive an error in response to your attempt
          * * to create it. This means you need to be able to receive and complete the
          * * webhook *while* the POST request is in-flight.
-         *   * @param {String} resource A resource ID to subscribe to. The resource can be a task or project.
+         *   * @param {Number} resource A resource ID to subscribe to. The resource can be a task or project.
          *   * @param {String} target The URL to receive the HTTP POST.
          *   * @param {Object} data Data for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -2096,14 +2096,14 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        create(resource: string, target: string, data: any, dispatchOptions?: any): Promise<any>;
+        create(resource: number, target: string, data: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the compact representation of all webhooks your app has
          * * registered for the authenticated user in the given workspace.
-         *   * @param {String} workspace The workspace to query for webhooks in.
+         *   * @param {Number} workspace The workspace to query for webhooks in.
          *   * @param {Object} [params] Parameters for the request
-         *   * @param {String} [params.resource] Only return webhooks for the given resource.
+         *   * @param {Number} [params.resource] Only return webhooks for the given resource.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
          * @param workspace
@@ -2111,7 +2111,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        getAll(workspace: string, params?: any, dispatchOptions?: any): Promise<any>;
+        getAll(workspace: number, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the full record for the given webhook.
@@ -2187,7 +2187,7 @@ declare module "asana" {
       interface Workspaces extends Resource {
         /**
          * * Returns the full workspace record for a single workspace.
-         *   * @param {String} workspace Globally unique identifier for the workspace or organization.
+         *   * @param {Number} workspace Globally unique identifier for the workspace or organization.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The requested resource
@@ -2217,7 +2217,7 @@ declare module "asana" {
          * * Currently the only field that can be modified for a workspace is its `name`.
          * *
          * * Returns the complete, updated workspace record.
-         *   * @param {String} workspace The workspace to update.
+         *   * @param {Number} workspace The workspace to update.
          *   * @param {Object} data Data for the request
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
          *   * @return {Promise} The response from the API
@@ -2234,7 +2234,7 @@ declare module "asana" {
          * * not rely on this API to provide extremely accurate search results. The
          * * result set is limited to a single page of results with a maximum size,
          * * so you won't be able to fetch large numbers of results.
-         *   * @param {String} workspace The workspace to fetch objects from.
+         *   * @param {Number} workspace The workspace to fetch objects from.
          *   * @param {Object} [params] Parameters for the request
          *   * @param {String} params.type The type of values the typeahead should return.
          *   * Note that unlike in the names of endpoints, the types listed here are
@@ -2257,9 +2257,9 @@ declare module "asana" {
         /**
          * * The user can be referenced by their globally unique user ID or their email address.
          * * Returns the full user record for the invited user.
-         *   * @param {String} workspace The workspace or organization to invite the user to.
+         *   * @param {Number} workspace The workspace or organization to invite the user to.
          *   * @param {Object} data Data for the request
-         *   * @param {String} data.user An identifier for the user. Can be one of an email address,
+         *   * @param {Number|String} data.user An identifier for the user. Can be one of an email address,
          *   * the globally unique identifier for the user, or the keyword `me`
          *   * to indicate the current user making the request.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -2274,9 +2274,9 @@ declare module "asana" {
         /**
          * * The user making this call must be an admin in the workspace.
          * * Returns an empty data record.
-         *   * @param {String} workspace The workspace or organization to invite the user to.
+         *   * @param {Number} workspace The workspace or organization to invite the user to.
          *   * @param {Object} data Data for the request
-         *   * @param {String} data.user An identifier for the user. Can be one of an email address,
+         *   * @param {Number|String} data.user An identifier for the user. Can be one of an email address,
          *   * the globally unique identifier for the user, or the keyword `me`
          *   * to indicate the current user making the request.
          *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
