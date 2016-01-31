@@ -14907,6 +14907,12 @@ declare module _ {
 
     //_.capitalize
     interface LoDashStatic {
+        /**
+         * Converts the first character of string to upper case and the remaining to lower case.
+         *
+         * @param string The string to capitalize.
+         * @return Returns the capitalized string.
+         */
         capitalize(string?: string): string;
     }
 
@@ -14990,16 +14996,16 @@ declare module _ {
     // _.escape
     interface LoDashStatic {
         /**
-         * Converts the characters "&", "<", ">", '"', "'", and "`", in string to their corresponding HTML entities.
+         * Converts the characters "&", "<", ">", '"', "'", and "`" in string to their corresponding HTML entities.
          *
          * Note: No other characters are escaped. To escape additional characters use a third-party library like he.
          *
-         * Though the ">" character is escaped for symmetry, characters like ">" and "/" don’t need escaping in HTML
+         * hough the ">" character is escaped for symmetry, characters like ">" and "/" don’t need escaping in HTML
          * and have no special meaning unless they're part of a tag or unquoted attribute value. See Mathias Bynens’s
          * article (under "semi-related fun fact") for more details.
          *
-         * Backticks are escaped because in Internet Explorer < 9, they can break out of attribute values or HTML
-         * comments. See #59, #102, #108, and #133 of the HTML5 Security Cheatsheet for more details.
+         * Backticks are escaped because in IE < 9, they can break out of attribute values or HTML comments. See #59,
+         * #102, #108, and #133 of the HTML5 Security Cheatsheet for more details.
          *
          * When working with HTML you should always quote attribute values to reduce XSS vectors.
          *
@@ -15026,8 +15032,8 @@ declare module _ {
     // _.escapeRegExp
     interface LoDashStatic {
         /**
-         * Escapes the RegExp special characters "\", "/", "^", "$", ".", "|", "?", "*", "+", "(", ")", "[", "]",
-         * "{" and "}" in string.
+         * Escapes the RegExp special characters "^", "$", "\", ".", "*", "+", "?", "(", ")", "[", "]",
+         * "{", "}", and "|" in string.
          *
          * @param string The string to escape.
          * @return Returns the escaped string.
@@ -15079,21 +15085,8 @@ declare module _ {
         /**
          * Converts `string`, as space separated words, to lower case.
          *
-         * @static
-         * @memberOf _
-         * @category String
-         * @param {string} [string=''] The string to convert.
-         * @returns {string} Returns the lower cased string.
-         * @example
-         *
-         * _.lowerCase('--Foo-Bar');
-         * // => 'foo bar'
-         *
-         * _.lowerCase('fooBar');
-         * // => 'foo bar'
-         *
-         * _.lowerCase('__FOO_BAR__');
-         * // => 'foo bar'
+         * @param string The string to convert.
+         * @return Returns the lower cased string.
          */
         lowerCase(string?: string): string;
     }
@@ -15117,18 +15110,8 @@ declare module _ {
         /**
          * Converts the first character of `string` to lower case.
          *
-         * @static
-         * @memberOf _
-         * @category String
-         * @param {string} [string=''] The string to convert.
-         * @returns {string} Returns the converted string.
-         * @example
-         *
-         * _.lowerFirst('Fred');
-         * // => 'fred'
-         *
-         * _.lowerFirst('FRED');
-         * // => 'fRED'
+         * @param string The string to convert.
+         * @return Returns the converted string.
          */
         lowerFirst(string?: string): string;
     }
@@ -15185,44 +15168,6 @@ declare module _ {
         ): LoDashExplicitWrapper<string>;
     }
 
-    //_.padStart
-    interface LoDashStatic {
-        /**
-         * Pads string on the left side if it’s shorter than length. Padding characters are truncated if they exceed
-         * length.
-         *
-         * @param string The string to pad.
-         * @param length The padding length.
-         * @param chars The string used as padding.
-         * @return Returns the padded string.
-         */
-        padStart(
-            string?: string,
-            length?: number,
-            chars?: string
-        ): string;
-    }
-
-    interface LoDashImplicitWrapper<T> {
-        /**
-         * @see _.padStart
-         */
-        padStart(
-            length?: number,
-            chars?: string
-        ): string;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.padStart
-         */
-        padStart(
-            length?: number,
-            chars?: string
-        ): LoDashExplicitWrapper<string>;
-    }
-
     //_.padEnd
     interface LoDashStatic {
         /**
@@ -15256,6 +15201,44 @@ declare module _ {
          * @see _.padEnd
          */
         padEnd(
+            length?: number,
+            chars?: string
+        ): LoDashExplicitWrapper<string>;
+    }
+
+    //_.padStart
+    interface LoDashStatic {
+        /**
+         * Pads string on the left side if it’s shorter than length. Padding characters are truncated if they exceed
+         * length.
+         *
+         * @param string The string to pad.
+         * @param length The padding length.
+         * @param chars The string used as padding.
+         * @return Returns the padded string.
+         */
+        padStart(
+            string?: string,
+            length?: number,
+            chars?: string
+        ): string;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.padStart
+         */
+        padStart(
+            length?: number,
+            chars?: string
+        ): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.padStart
+         */
+        padStart(
             length?: number,
             chars?: string
         ): LoDashExplicitWrapper<string>;
@@ -15322,6 +15305,101 @@ declare module _ {
         repeat(n?: number): LoDashExplicitWrapper<string>;
     }
 
+    //_.replace
+    interface LoDashStatic {
+        /**
+         * Replaces matches for pattern in string with replacement.
+         *
+         * Note: This method is based on String#replace.
+         *
+         * @param string
+         * @param pattern
+         * @param replacement
+         * @return Returns the modified string.
+         */
+        replace(
+            string: string,
+            pattern: RegExp|string,
+            replacement: Function|string
+        ): string;
+
+        /**
+         * @see _.replace
+         */
+        replace(
+            pattern?: RegExp|string,
+            replacement?: Function|string
+        ): string;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.replace
+         */
+        replace(
+            pattern?: RegExp|string,
+            replacement?: Function|string
+        ): string;
+
+        /**
+         * @see _.replace
+         */
+        replace(
+            replacement?: Function|string
+        ): string;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.replace
+         */
+        replace(
+            pattern?: RegExp|string,
+            replacement?: Function|string
+        ): string;
+
+        /**
+         * @see _.replace
+         */
+        replace(
+            replacement?: Function|string
+        ): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.replace
+         */
+        replace(
+            pattern?: RegExp|string,
+            replacement?: Function|string
+        ): LoDashExplicitWrapper<string>;
+
+        /**
+         * @see _.replace
+         */
+        replace(
+            replacement?: Function|string
+        ): LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.replace
+         */
+        replace(
+            pattern?: RegExp|string,
+            replacement?: Function|string
+        ): LoDashExplicitWrapper<string>;
+
+        /**
+         * @see _.replace
+         */
+        replace(
+            replacement?: Function|string
+        ): LoDashExplicitWrapper<string>;
+    }
+
     //_.snakeCase
     interface LoDashStatic {
         /**
@@ -15345,6 +15423,45 @@ declare module _ {
          * @see _.snakeCase
          */
         snakeCase(): LoDashExplicitWrapper<string>;
+    }
+
+    //_.split
+    interface LoDashStatic {
+        /**
+         * Splits string by separator.
+         *
+         * Note: This method is based on String#split.
+         *
+         * @param string
+         * @param separator
+         * @param limit
+         * @return Returns the new array of string segments.
+         */
+        split(
+            string: string,
+            separator?: RegExp|string,
+            limit?: number
+        ): string[];
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.split
+         */
+        split(
+            separator?: RegExp|string,
+            limit?: number
+        ): LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.split
+         */
+        split(
+            separator?: RegExp|string,
+            limit?: number
+        ): LoDashExplicitArrayWrapper<string>;
     }
 
     //_.startCase
@@ -15474,21 +15591,8 @@ declare module _ {
         /**
          * Converts `string`, as a whole, to lower case.
          *
-         * @static
-         * @memberOf _
-         * @category String
-         * @param {string} [string=''] The string to convert.
-         * @returns {string} Returns the lower cased string.
-         * @example
-         *
-         * _.toLower('--Foo-Bar');
-         * // => '--foo-bar'
-         *
-         * _.toLower('fooBar');
-         * // => 'foobar'
-         *
-         * _.toLower('__FOO_BAR__');
-         * // => '__foo_bar__'
+         * @param string The string to convert.
+         * @return Returns the lower cased string.
          */
         toLower(string?: string): string;
     }
@@ -15512,21 +15616,8 @@ declare module _ {
         /**
          * Converts `string`, as a whole, to upper case.
          *
-         * @static
-         * @memberOf _
-         * @category String
-         * @param {string} [string=''] The string to convert.
-         * @returns {string} Returns the upper cased string.
-         * @example
-         *
-         * _.toUpper('--foo-bar');
-         * // => '--FOO-BAR'
-         *
-         * _.toUpper('fooBar');
-         * // => 'FOOBAR'
-         *
-         * _.toUpper('__foo_bar__');
-         * // => '__FOO_BAR__'
+         * @param string The string to convert.
+         * @return Returns the upper cased string.
          */
         toUpper(string?: string): string;
     }
@@ -15574,35 +15665,6 @@ declare module _ {
         trim(chars?: string): LoDashExplicitWrapper<string>;
     }
 
-    //_.trimStart
-    interface LoDashStatic {
-        /**
-         * Removes leading whitespace or specified characters from string.
-         *
-         * @param string The string to trim.
-         * @param chars The characters to trim.
-         * @return Returns the trimmed string.
-         */
-        trimStart(
-            string?: string,
-            chars?: string
-        ): string;
-    }
-
-    interface LoDashImplicitWrapper<T> {
-        /**
-         * @see _.trimStart
-         */
-        trimStart(chars?: string): string;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.trimStart
-         */
-        trimStart(chars?: string): LoDashExplicitWrapper<string>;
-    }
-
     //_.trimEnd
     interface LoDashStatic {
         /**
@@ -15632,6 +15694,35 @@ declare module _ {
         trimEnd(chars?: string): LoDashExplicitWrapper<string>;
     }
 
+    //_.trimStart
+    interface LoDashStatic {
+        /**
+         * Removes leading whitespace or specified characters from string.
+         *
+         * @param string The string to trim.
+         * @param chars The characters to trim.
+         * @return Returns the trimmed string.
+         */
+        trimStart(
+            string?: string,
+            chars?: string
+        ): string;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.trimStart
+         */
+        trimStart(chars?: string): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.trimStart
+         */
+        trimStart(chars?: string): LoDashExplicitWrapper<string>;
+    }
+
     //_.truncate
     interface TruncateOptions {
         /** The maximum string length. */
@@ -15653,7 +15744,7 @@ declare module _ {
          */
         truncate(
             string?: string,
-            options?: TruncateOptions|number
+            options?: TruncateOptions
         ): string;
     }
 
@@ -15661,14 +15752,43 @@ declare module _ {
         /**
          * @see _.truncate
          */
-        truncate(options?: TruncateOptions|number): string;
+        truncate(options?: TruncateOptions): string;
     }
 
     interface LoDashExplicitWrapper<T> {
         /**
          * @see _.truncate
          */
-        truncate(options?: TruncateOptions|number): LoDashExplicitWrapper<string>;
+        truncate(options?: TruncateOptions): LoDashExplicitWrapper<string>;
+    }
+
+    //_.unescape
+    interface LoDashStatic {
+        /**
+         * The inverse of _.escape; this method converts the HTML entities &amp;, &lt;, &gt;, &quot;, &#39;, and &#96;
+         * in string to their corresponding characters.
+         *
+         * Note: No other HTML entities are unescaped. To unescape additional HTML entities use a third-party library
+         * like he.
+         *
+         * @param string The string to unescape.
+         * @return Returns the unescaped string.
+         */
+        unescape(string?: string): string;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.unescape
+         */
+        unescape(): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.unescape
+         */
+        unescape(): LoDashExplicitWrapper<string>;
     }
 
     //_.upperCase
@@ -15676,21 +15796,8 @@ declare module _ {
         /**
          * Converts `string`, as space separated words, to upper case.
          *
-         * @static
-         * @memberOf _
-         * @category String
-         * @param {string} [string=''] The string to convert.
-         * @returns {string} Returns the upper cased string.
-         * @example
-         *
-         * _.upperCase('--foo-bar');
-         * // => 'FOO BAR'
-         *
-         * _.upperCase('fooBar');
-         * // => 'FOO BAR'
-         *
-         * _.upperCase('__foo_bar__');
-         * // => 'FOO BAR'
+         * @param string The string to convert.
+         * @return Returns the upper cased string.
          */
         upperCase(string?: string): string;
     }
@@ -15714,18 +15821,8 @@ declare module _ {
         /**
          * Converts the first character of `string` to upper case.
          *
-         * @static
-         * @memberOf _
-         * @category String
-         * @param {string} [string=''] The string to convert.
-         * @returns {string} Returns the converted string.
-         * @example
-         *
-         * _.upperFirst('fred');
-         * // => 'Fred'
-         *
-         * _.upperFirst('FRED');
-         * // => 'FRED'
+         * @param string The string to convert.
+         * @return Returns the converted string.
          */
         upperFirst(string?: string): string;
     }
@@ -15744,51 +15841,14 @@ declare module _ {
         upperFirst(): LoDashExplicitWrapper<string>;
     }
 
-    //_.unescape
-    interface LoDashStatic {
-        /**
-         * The inverse of _.escape; this method converts the HTML entities &amp;, &lt;, &gt;, &quot;, &#39;, and &#96;
-         * in string to their corresponding characters.
-         *
-         * @param string The string to unescape.
-         * @return Returns the unescaped string.
-         */
-        unescape(string?: string): string;
-    }
-
-    interface LoDashImplicitWrapper<T> {
-        /**
-         * @see _.unescape
-         */
-        unescape(): string;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.unescape
-         */
-        unescape(): LoDashExplicitWrapper<string>;
-    }
-
     //_.words
     interface LoDashStatic {
         /**
          * Splits `string` into an array of its words.
          *
-         * @static
-         * @memberOf _
-         * @category String
-         * @param {string} [string=''] The string to inspect.
-         * @param {RegExp|string} [pattern] The pattern to match words.
-         * @param- {Object} [guard] Enables use as an iteratee for functions like `_.map`.
-         * @returns {Array} Returns the words of `string`.
-         * @example
-         *
-         * _.words('fred, barney, & pebbles');
-         * // => ['fred', 'barney', 'pebbles']
-         *
-         * _.words('fred, barney, & pebbles', /[^, ]+/g);
-         * // => ['fred', 'barney', '&', 'pebbles']
+         * @param string The string to inspect.
+         * @param pattern The pattern to match words.
+         * @return Returns the words of `string`.
          */
         words(
             string?: string,
