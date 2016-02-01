@@ -513,7 +513,7 @@ declare module L {
         /**
           * Creates a control with the given options.
           */
-        function (options?: ControlOptions): Control;
+        (options?: ControlOptions): Control;
     }
 
     export namespace control {
@@ -2442,7 +2442,7 @@ declare namespace L {
         options: Map.MapOptions;
 
         /**
-          * Iterates over the layers of the map, optionally specifying context 
+          * Iterates over the layers of the map, optionally specifying context
 		  * of the iterator function.
           */
         eachLayer(fn: (layer: ILayer) => void, context?: any): Map;
@@ -4182,7 +4182,7 @@ declare namespace L {
           * When this option is set, the TileLayer only loads tiles that are in the given geographical bounds.
           */
         bounds?: LatLngBounds;
-        
+
         /**
           * Custom keys may be specified in TileLayerOptions so they can be used in a provided URL template.
           */
