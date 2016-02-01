@@ -4,23 +4,27 @@
 // Definitions: https://github.com/newclear/DefinitelyTyped
 
 declare module "callsite" {
-    interface CallSite {
-        getThis(): any;
-        getTypeName(): string;
-        getFunctionName(): string;
-        getMethodName(): string;
-        getFileName(): string;
-        getLineNumber(): number;
-        getColumnNumber(): number;
-        getFunction(): Function;
-        getEvalOrigin(): string;
-        isNative(): boolean;
-        isToplevel(): boolean;
-        isEval(): boolean;
-        isConstructor(): boolean;
+
+    module Callsite{
+
+        interface CallSite {
+            getThis(): any;
+            getTypeName(): string;
+            getFunctionName(): string;
+            getMethodName(): string;
+            getFileName(): string;
+            getLineNumber(): number;
+            getColumnNumber(): number;
+            getFunction(): Function;
+            getEvalOrigin(): string;
+            isNative(): boolean;
+            isToplevel(): boolean;
+            isEval(): boolean;
+            isConstructor(): boolean;
+        }
     }
 
-    function callsiteFunc(): CallSite[];
+    function Callsite(): Callsite.CallSite[];
 
-    export = callsiteFunc;
+    export = Callsite;
 }
