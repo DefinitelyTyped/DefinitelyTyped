@@ -515,6 +515,8 @@ declare namespace __React {
          */
         backgroundBlendMode?: any;
 
+        backgroundColor?: any;
+        
         backgroundComposite?: any;
 
         /**
