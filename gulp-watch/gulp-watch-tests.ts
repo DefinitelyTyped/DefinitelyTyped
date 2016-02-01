@@ -1,8 +1,8 @@
 /// <reference path="gulp-watch.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-import gulp = require('gulp');
-import watch = require('gulp-watch');
+import * as gulp from 'gulp';
+import * as watch from 'gulp-watch';
 
 gulp.task('stream', () =>
     gulp.src('css/**/*.css')

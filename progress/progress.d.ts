@@ -115,7 +115,7 @@ declare module "progress"
          */
         terminate():void;
     }
-
+    module ProgressBar { }
 
     export = ProgressBar;
 }

@@ -1,17 +1,20 @@
-/// <reference path="./superagent.d.ts" />
+/// <reference path="superagent.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
 // via: http://visionmedia.github.io/superagent/
 
-import request = require('superagent')
-import fs = require('fs');
+import * as request from 'superagent';
+import * as fs from 'fs';
+
+// Examples taken from https://github.com/visionmedia/superagent/blob/gh-pages/docs/index.md
+// and https://github.com/visionmedia/superagent/blob/master/Readme.md
 
 request
   .post('/api/pet')
   .send({ name: 'Manny', species: 'cat' })
   .set('X-API-Key', 'foobar')
   .set('Accept', 'application/json')
-  .end((res: request.Response) => {
+  .end((err, res) => {
     if (res.ok) {
       console.log('yay got ' + JSON.stringify(res.body));
     } else {
@@ -25,7 +28,7 @@ agent
   .send({ name: 'Manny', species: 'cat' })
   .set('X-API-Key', 'foobar')
   .set('Accept', 'application/json')
-  .end((res: request.Response) => {
+  .end((err, res) => {
     if (res.error) {
       console.log('oh no ' + res.error.message);
     } else {
@@ -33,8 +36,19 @@ agent
     }
   });
 
+// Plugins
+var nocache = require('superagent-no-cache');
+var prefix = require('superagent-prefix')('/static');
 
-var callback = (res: request.Response) => {};
+request
+  .get('/some-url')
+  .use(prefix) // Prefixes *only* this request
+  .use(nocache) // Prevents caching of *only* this request
+  .end(function(err, res){
+      // Do something
+  });
+
+var callback = (err: any, res: request.Response) => {};
 
 // Request basics
 request
@@ -43,6 +57,10 @@ request
 
 request('GET', '/search')
   .end(callback);
+
+request
+   .get('http://example.com/search')
+   .end(callback);
 
 request
   .head('/favicon.ico')
@@ -100,6 +118,12 @@ request
   .query('range=1..5')
   .end(callback);
 
+// HEAD requests
+request
+  .head('/users')
+  .query({ email: 'joe@smith.com' })
+  .end(callback);
+
 // POST / PUT requests
 request.post('/user')
   .set('Content-Type', 'application/json')
@@ -139,6 +163,7 @@ request.post('/user')
 request.post('/user')
   .type('png');
 
+// Setting Accept
 request.get('/user')
   .accept('application/json');
 
@@ -254,5 +279,3 @@ request
   .attach('image', 'path/to/tobi.png')
   .on('error', (err: any) => {})
   .end(callback);
-
-

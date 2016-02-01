@@ -1,6 +1,6 @@
 // Type definitions for Chrome extension development
 // Project: http://developer.chrome.com/extensions/
-// Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://gitbus.com/couven92>
+// Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path='../webrtc/MediaStream.d.ts'/>
@@ -2646,13 +2646,13 @@ declare module chrome.extension {
 		 * Parameter request: The request sent by the calling script. 
 		 * Parameter sendResponse: Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object, or undefined if there is no response. If you have more than one onRequest listener in the same document, then only one may send a response. 
 		 */
-		addListener(callback: (request: any, sender: runtime.MessageSender, sendResponse: () => void) => void): void;
+		addListener(callback: (request: any, sender: runtime.MessageSender, sendResponse: (response: any) => void) => void): void;
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
 		 * function(runtime.MessageSender sender, function sendResponse) {...}; 
 		 * Parameter sendResponse: Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object, or undefined if there is no response. If you have more than one onRequest listener in the same document, then only one may send a response. 
 		 */
-		addListener(callback: (sender: runtime.MessageSender, sendResponse: () => void) => void): void;
+		addListener(callback: (sender: runtime.MessageSender, sendResponse: (response: any) => void) => void): void;
     }
 
 	/**
@@ -5553,7 +5553,7 @@ declare module chrome.runtime {
 		 * Optional parameter message: The message sent by the calling script. 
 		 * Parameter sendResponse: Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object. If you have more than one onMessage listener in the same document, then only one may send a response. This function becomes invalid when the event listener returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this will keep the message channel open to the other end until sendResponse is called). 
 		 */
-        addListener(callback: (message: any, sender: MessageSender, sendResponse: Function) => void): void;
+        addListener(callback: (message: any, sender: MessageSender, sendResponse: (response: any) => void) => void): void;
     }
 
     interface ExtensionConnectEvent extends chrome.events.Event {
@@ -5689,7 +5689,7 @@ declare module chrome.runtime {
      * URL to be opened after the extension is uninstalled. This URL must have an http: or https: scheme. Set an empty string to not open a new tab upon uninstallation. 
      * @param callback Called when the uninstall URL is set. If the given URL is invalid, runtime.lastError will be set. 
      */
-	export function setUninstallUrl(url: string, callback?: () => void): void;
+	export function setUninstallURL(url: string, callback?: () => void): void;
     /**
      * Open your Extension's options page, if possible.
      * The precise behavior may depend on your manifest's options_ui or options_page key, or what Chrome happens to support at the time. For example, the page may be opened in a new tab, within chrome://extensions, within an App, or it may just focus an open options page. It will never cause the caller page to reload.
@@ -5866,13 +5866,13 @@ declare module chrome.sessions {
  * @since Chrome 20.
  */
 declare module chrome.storage {
-    interface StorageArea {
+	interface StorageArea {
 		/**
 		 * Gets the amount of space (in bytes) being used by one or more items. 
 		 * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set). 
 		 * Parameter bytesInUse: Amount of space being used in storage, in bytes. 
 		 */
-        getBytesInUse(callback: (bytesInUse: number) => void): void;
+		getBytesInUse(callback: (bytesInUse: number) => void): void;
 		/**
 		 * Gets the amount of space (in bytes) being used by one or more items. 
 		 * @param key A single key to get the total usage for. Pass in null to get the total usage of all of storage. 
@@ -5886,11 +5886,11 @@ declare module chrome.storage {
 		 * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set). 
 		 * Parameter bytesInUse: Amount of space being used in storage, in bytes. 
 		 */
-        getBytesInUse(keys: string[], callback: (bytesInUse: number) => void): void;
+		getBytesInUse(keys: string[], callback: (bytesInUse: number) => void): void;
 		/**
 		 * Removes all items from storage. 
 		 * @param callback Optional.
-		 * Callback on success, or on failure (in which case runtime.lastError will be set). 
+		 * Callback on success, or on failure (in which case runtime.lastError will be set).
 		 */
 		clear(callback?: () => void): void;
 		/**
@@ -5905,14 +5905,14 @@ declare module chrome.storage {
 		 * Removes one item from storage.
 		 * @param key A single key for items to remove.
 		 * @param callback Optional.
-		 * Callback on success, or on failure (in which case runtime.lastError will be set).  
+		 * Callback on success, or on failure (in which case runtime.lastError will be set). 
 		 */
 		remove(key: string, callback?: () => void): void;
 		/**
 		 * Removes items from storage.
 		 * @param keys A list of keys for items to remove.
 		 * @param callback Optional.
-		 * Callback on success, or on failure (in which case runtime.lastError will be set).  
+		 * Callback on success, or on failure (in which case runtime.lastError will be set). 
 		 */
 		remove(keys: string[], callback?: () => void): void;
 		/**
@@ -5920,77 +5920,78 @@ declare module chrome.storage {
 		 * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set). 
 		 * Parameter items: Object with items in their key-value mappings. 
 		 */
-        get(callback: (items: Object) => void): void;
+		get(callback: (items: { [key: string]: any }) => void): void;
 		/**
 		 * Gets one or more items from storage. 
 		 * @param key A single key to get. Pass in null to get the entire contents of storage. 
 		 * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set). 
 		 * Parameter items: Object with items in their key-value mappings. 
 		 */
-		get(key: string, callback: (items: Object) => void): void;
+		get(key: string, callback: (items: { [key: string]: any }) => void): void;
 		/**
 		 * Gets one or more items from storage. 
 		 * @param keys A list of keys to get. An empty list or object will return an empty result object. Pass in null to get the entire contents of storage. 
 		 * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set). 
 		 * Parameter items: Object with items in their key-value mappings. 
 		 */
-        get(keys: string[], callback: (items: Object) => void): void;
+		get(keys: string[], callback: (items: { [key: string]: any }) => void): void;
 		/**
 		 * Gets one or more items from storage. 
 		 * @param keys A dictionary specifying default values. Pass in null to get the entire contents of storage. 
 		 * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set). 
 		 * Parameter items: Object with items in their key-value mappings. 
 		 */
-        get(keys: Object, callback: (items: Object) => void): void;
-    }
+		get(keys: Object, callback: (items: { [key: string]: any }) => void): void;
+	}
 
-    interface StorageChange {
+	interface StorageChange {
 		/** Optional. The new value of the item, if there is a new value. */
-        newValue?: any;
+		newValue?: any;
 		/** Optional. The old value of the item, if there was an old value. */
-        oldValue?: any;
-    }
+		oldValue?: any;
+	}
 
 	interface LocalStorageArea extends StorageArea {
 		/** The maximum amount (in bytes) of data that can be stored in local storage, as measured by the JSON stringification of every value plus every key's length. This value will be ignored if the extension has the unlimitedStorage permission. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
-        QUOTA_BYTES: number;
-    }
+		QUOTA_BYTES: number;
+	}
 
 	interface SyncStorageArea extends StorageArea {
 		/** @deprecated since Chrome 40. The storage.sync API no longer has a sustained write operation quota. */
-        MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
+		MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
 		/** The maximum total amount (in bytes) of data that can be stored in sync storage, as measured by the JSON stringification of every value plus every key's length. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
-        QUOTA_BYTES: number;
+		QUOTA_BYTES: number;
 		/** The maximum size (in bytes) of each individual item in sync storage, as measured by the JSON stringification of its value plus its key length. Updates containing items larger than this limit will fail immediately and set runtime.lastError. */
-        QUOTA_BYTES_PER_ITEM: number;
+		QUOTA_BYTES_PER_ITEM: number;
 		/** The maximum number of items that can be stored in sync storage. Updates that would cause this limit to be exceeded will fail immediately and set runtime.lastError. */
-        MAX_ITEMS: number;
+		MAX_ITEMS: number;
 		/**
 		 * The maximum number of set, remove, or clear operations that can be performed each hour. This is 1 every 2 seconds, a lower ceiling than the short term higher writes-per-minute limit.
 		 * Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError.
 		 */
-        MAX_WRITE_OPERATIONS_PER_HOUR: number;
+		MAX_WRITE_OPERATIONS_PER_HOUR: number;
 		/**
 		 * The maximum number of set, remove, or clear operations that can be performed each minute. This is 2 per second, providing higher throughput than writes-per-hour over a shorter period of time.
 		 * Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError.
 		 * @since Chrome 40.
 		 */
 		MAX_WRITE_OPERATIONS_PER_MINUTE: number;
-    }
+	}
 
-    interface StorageChangedEvent extends chrome.events.Event {
+	interface StorageChangedEvent extends chrome.events.Event {
 		/**
 		 * @param callback
 		 * Parameter changes: Object mapping each key that changed to its corresponding storage.StorageChange for that item. 
 		 * Parameter areaName: Since Chrome 22. The name of the storage area ("sync", "local" or "managed") the changes are for.
 		 */
-        addListener(callback: (changes: Object, areaName: string) => void): void;
-    }
+		addListener(callback: (changes: { [key: string]: StorageChange }, areaName: string) => void): void;
+	}
 
 	/** Items in the local storage area are local to each machine. */
 	var local: LocalStorageArea;
 	/** Items in the sync storage area are synced using Chrome Sync. */
 	var sync: SyncStorageArea;
+
 	/**
 	 * Items in the managed storage area are set by the domain administrator, and are read-only for the extension; trying to modify this namespace results in an error. 
 	 * @since Chrome 33.
@@ -5998,7 +5999,7 @@ declare module chrome.storage {
 	var managed: StorageArea;
 
 	/** Fired when one or more items change. */
-    var onChanged: StorageChangedEvent;
+	var onChanged: StorageChangedEvent;
 }
 
 ////////////////////
@@ -7577,31 +7578,31 @@ declare module chrome.webNavigation {
     }
 
 	interface WebNavigationEvent extends chrome.events.Event {
-		addListener(callback: (details: WebNavigationCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
+		addListener(callback: (details: WebNavigationCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
     }
 
 	interface WebNavigationFramedEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationFramedCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
+		addListener(callback: (details: WebNavigationFramedCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
     }
 
 	interface WebNavigationFramedErrorEvent extends WebNavigationFramedEvent {
-		addListener(callback: (details: WebNavigationFramedErrorCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
+		addListener(callback: (details: WebNavigationFramedErrorCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
     }
 
 	interface WebNavigationSourceEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationSourceCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
+		addListener(callback: (details: WebNavigationSourceCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
     }
 
 	interface WebNavigationParentedEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationParentedCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
+		addListener(callback: (details: WebNavigationParentedCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
     }
 
 	interface WebNavigationTransitionalEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationTransitionCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
+		addListener(callback: (details: WebNavigationTransitionCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
     }
 
 	interface WebNavigationReplacementEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationReplacementCallbackDetails, filters?: WebNavigationEventFilter) => void): void;
+		addListener(callback: (details: WebNavigationReplacementCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
     }
 
 	/**

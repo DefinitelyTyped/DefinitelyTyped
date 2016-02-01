@@ -390,6 +390,9 @@ declare module CodeMirror {
         The handler may mess with the style of the resulting element, or add event handlers, but should not try to change the state of the editor. */
         on(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: number, element: HTMLElement) => void ): void;
         off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: number, element: HTMLElement) => void ): void;
+
+        /** Expose the state object, so that the Editor.state.completionActive property is reachable*/
+        state: any;
     }
 
     interface EditorFromTextArea extends Editor {
@@ -589,6 +592,8 @@ declare module CodeMirror {
         /** The reverse of posFromIndex. */
         indexFromPos(object: CodeMirror.Position): number;
 
+        /** Expose the state object, so that the Doc.state.completionActive property is reachable*/
+        state: any;
     }
 
     interface LineHandle {
@@ -601,7 +606,7 @@ declare module CodeMirror {
 
         /** Returns a {from, to} object (both holding document positions), indicating the current position of the marked range,
         or undefined if the marker is no longer in the document. */
-        find(): CodeMirror.Position;
+        find(): CodeMirror.Range;
 
         /**  Returns an object representing the options for the marker. If copyWidget is given true, it will clone the value of the replacedWith option, if any. */
         getOptions(copyWidget: boolean): CodeMirror.TextMarkerOptions;
@@ -645,7 +650,12 @@ declare module CodeMirror {
         new (line: number, ch: number): Position;
         (line: number, ch: number): Position;
     }
-
+    
+    interface Range{
+        from: CodeMirror.Position;
+        to: CodeMirror.Position;
+    }
+    
     interface Position {
         ch: number;
         line: number;
