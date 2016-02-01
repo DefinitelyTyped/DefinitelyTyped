@@ -391,4 +391,10 @@ declare module Snap {
         bez1:Array<number>,
         bez2:Array<number>
     }
+
+    declare module "snapsvg" {
+
+       export = Snap;
+
+    }
 }
