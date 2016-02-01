@@ -149,6 +149,7 @@ declare namespace __React {
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: P;
+        displayName?: string;
     }
 
     interface ComponentClass<P> {
@@ -514,6 +515,8 @@ declare namespace __React {
          */
         backgroundBlendMode?: any;
 
+        backgroundColor?: any;
+        
         backgroundComposite?: any;
 
         /**
@@ -2077,7 +2080,7 @@ declare namespace __React {
         map<T>(children: ReactNode, fn: (child: ReactChild, index: number) => T): T[];
         forEach(children: ReactNode, fn: (child: ReactChild, index: number) => any): void;
         count(children: ReactNode): number;
-        only(children: ReactNode): ReactChild;
+        only(children: ReactNode): ReactElement<any>;
         toArray(children: ReactNode): ReactChild[];
     }
 
@@ -2250,6 +2253,7 @@ declare namespace JSX {
         svg: React.SVGProps;
 
         circle: React.SVGProps;
+        clipPath: React.SVGProps;
         defs: React.SVGProps;
         ellipse: React.SVGProps;
         g: React.SVGProps;

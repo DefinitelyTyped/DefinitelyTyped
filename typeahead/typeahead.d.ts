@@ -712,19 +712,19 @@ interface JQuery {
 declare module Twitter.Typeahead {
     interface Options {
         /**
-          * If true, when suggestions are rendered, pattern matches for the current query in text nodes will be wrapped in a strong element with its class set to {{classNames.highlight}}. 
+          * If true, when suggestions are rendered, pattern matches for the current query in text nodes will be wrapped in a strong element with its class set to {{classNames.highlight}}.
           * Defaults to false.
           */
         highlight?: boolean;
 
         /**
-          * If false, the typeahead will not show a hint. 
+          * If false, the typeahead will not show a hint.
           * Defaults to true.
           */
         hint?: boolean;
 
         /**
-          * The minimum character length needed before suggestions start getting rendered. 
+          * The minimum character length needed before suggestions start getting rendered.
           * Defaults to 1.
           */
         minLength?: number;
@@ -736,14 +736,14 @@ declare module Twitter.Typeahead {
     }
 
     /**
-      * A typeahead is composed of one or more datasets. When an end-user 
-      * modifies the value of a typeahead, each dataset will attempt to render 
+      * A typeahead is composed of one or more datasets. When an end-user
+      * modifies the value of a typeahead, each dataset will attempt to render
       * suggestions for the new value.
       * For most use cases, one dataset should suffice. It's only in the scenario
       * where you want rendered suggestions to be grouped based on some sort of
       * categorical relationship that you'd need to use multiple datasets. For
-      * example, on twitter.com, the search typeahead groups results into recent 
-      * searches, trends, and accounts  that would be a great use case for using 
+      * example, on twitter.com, the search typeahead groups results into recent
+      * searches, trends, and accounts  that would be a great use case for using
       * multiple datasets.
       */
     interface Dataset<T> {
@@ -751,23 +751,23 @@ declare module Twitter.Typeahead {
          * The backing data source for suggestions.
          * Expected to be a function with the signature (query, syncResults, asyncResults).
          * syncResults should be called with suggestions computed synchronously and
-         *  asyncResults should be called with suggestions computed asynchronously 
+         *  asyncResults should be called with suggestions computed asynchronously
          * (e.g. suggestions that come for an AJAX request).
-         *  source can also be a Bloodhound instance. 
+         *  source can also be a Bloodhound instance.
          */
         source: Bloodhound<T> | ((query: string, syncResults: (result: T[]) => void, asyncResults?: (result: T[]) => void) => void);
 
         /**
-         * Lets the dataset know if async suggestions should be expected. 
-         * If not set, this information is inferred from the signature of 
-         * source i.e. if the source function expects 3 arguments, async will 
+         * Lets the dataset know if async suggestions should be expected.
+         * If not set, this information is inferred from the signature of
+         * source i.e. if the source function expects 3 arguments, async will
          * be set to true.
          */
         async?: boolean;
 
         /**
           * The name of the dataset.
-          * This will be appended to {{classNames.dataset}} - to form the class name of the containing DOM element. 
+          * This will be appended to {{classNames.dataset}} - to form the class name of the containing DOM element.
           * Must only consist of underscores, dashes, letters (a-z), and numbers.
           * Defaults to a random number.
           */
@@ -779,16 +779,16 @@ declare module Twitter.Typeahead {
         limit?: number;
 
         /**
-         * For a given suggestion, determines the string representation of it. 
-         * This will be used when setting the value of the input control after 
-         * a suggestion is selected. Can be either a key string or a function 
-         * that transforms a suggestion object into a string. 
+         * For a given suggestion, determines the string representation of it.
+         * This will be used when setting the value of the input control after
+         * a suggestion is selected. Can be either a key string or a function
+         * that transforms a suggestion object into a string.
          * Defaults to stringifying the suggestion.
          */
         display?: string | ((obj: T) => string);
-       
+
         /**
-         * A hash of templates to be used when rendering the dataset. Note a 
+         * A hash of templates to be used when rendering the dataset. Note a
          * precompiled template is a function that takes a JavaScript object as
          * its first argument and returns a HTML string.
          */
@@ -796,7 +796,7 @@ declare module Twitter.Typeahead {
     }
 
     /**
-     * A hash of templates to be used when rendering the dataset. Note a 
+     * A hash of templates to be used when rendering the dataset. Note a
      * precompiled template is a function that takes a JavaScript object as
      * its first argument and returns a HTML string.
      */
@@ -816,22 +816,22 @@ declare module Twitter.Typeahead {
         pending?: string | ((query: string) => string);
 
         /**
-         * Rendered at the top of the dataset when suggestions are present. Can be either a HTML string or 
-         * a precompiled template. If it's a precompiled template, the passed in context will contain 
+         * Rendered at the top of the dataset when suggestions are present. Can be either a HTML string or
+         * a precompiled template. If it's a precompiled template, the passed in context will contain
          * query and suggestions.
          */
         header?: string | ((query: string, suggestions: T[]) => string);
 
         /**
          * Rendered at the bottom of the dataset when suggestions are present. Can be either a HTML string or
-         * a precompiled template. If it's a precompiled template, the passed in context will contain 
+         * a precompiled template. If it's a precompiled template, the passed in context will contain
          * query and suggestions.
          */
         footer?: string | ((query: string, suggestions: T[]) => string);
 
         /**
-         * Used to render a single suggestion. If set, this has to be a precompiled template. 
-         * The associated suggestion object will serve as the context. 
+         * Used to render a single suggestion. If set, this has to be a precompiled template.
+         * The associated suggestion object will serve as the context.
          * Defaults to the value of display wrapped in a div tag i.e. <div>{{value}}</div>.
           */
         suggestion?: (suggestion: T) => string;
@@ -854,16 +854,16 @@ declare module Twitter.Typeahead {
         /**
          * Added to menu element.Defaults to tt- menu.
          */
-        menu?: string; 
+        menu?: string;
 
         /**
          * Added to dataset elements.to Defaults to tt- dataset.
          */
-        dataset?: string; 
+        dataset?: string;
         /**
          * Added to suggestion elements.Defaults to tt- suggestion.
          */
-        suggestion?: string; 
+        suggestion?: string;
 
         /**
          * Added to menu element when it contains no content.Defaults to tt- empty.
@@ -873,7 +873,7 @@ declare module Twitter.Typeahead {
         /**
          * Added to menu element when it is opened.Defaults to tt- open.
          */
-        open?: string; 
+        open?: string;
 
         /**
          * Added to suggestion element when menu cursor moves to said suggestion.Defaults to tt- cursor.
@@ -891,7 +891,7 @@ declare module Bloodhound {
     interface BloodhoundOptions<T> {
         /**
          * Transforms a datum into an array of string tokens.
-         * 
+         *
          * @param datum Suggestion.
          * @returns An array of string tokens.
          */
@@ -899,38 +899,38 @@ declare module Bloodhound {
 
         /**
          * Transforms a query into an array of string tokens.
-         * 
+         *
          * @param quiery Query.
          * @returns An array of string tokens.
          */
         queryTokenizer: (query: string) => string[];
 
         /**
-         * If set to false, the Bloodhound instance will not be implicitly 
+         * If set to false, the Bloodhound instance will not be implicitly
          * initialized by the constructor function. Defaults to true.
          */
         initialize?: boolean;
-        
+
         /**
-         * Given a datum, returns a unique id for it. 
-         * Defaults to JSON.stringify. Note that it is highly recommended 
+         * Given a datum, returns a unique id for it.
+         * Defaults to JSON.stringify. Note that it is highly recommended
          * to override this option.
-         * 
+         *
          * @param datum Suggestion.
          * @returns Unique id for the suggestion.
          */
         identify?: (datum: T) => number;
 
         /**
-         * If the number of datums provided from the internal search index is 
-         * less than sufficient, remote will be used to backfill search 
+         * If the number of datums provided from the internal search index is
+         * less than sufficient, remote will be used to backfill search
          * requests triggered by calling #search. Defaults to 5.
          */
         sufficient?: number;
 
         /**
          * A compare function used to sort data returned from the internal search index.
-         * 
+         *
          * @param a First suggestion.
          * @param b Second suggestion.
          * @returns Comparison result.
@@ -938,20 +938,20 @@ declare module Bloodhound {
         sorter?: (a: T, b: T) => number;
 
         /**
-         * An array of data or a function that returns an array of data. 
+         * An array of data or a function that returns an array of data.
          * The data will be added to the internal search index when #initialize is called.
          */
         local?: T[] | (() => T[]);
 
         /**
-         * Can be a URL to a JSON file containing an array of data or, 
+         * Can be a URL to a JSON file containing an array of data or,
          * if more configurability is needed, a prefetch options hash.
          */
         prefetch?: string | PrefetchOptions<T>;
 
         /**
          * Can be a URL to fetch data from when the data provided by the internal
-         * search index is insufficient or, if more configurability is needed, 
+         * search index is insufficient or, if more configurability is needed,
          * a remote options hash.
          */
         remote?: string | RemoteOptions<T>;
@@ -962,7 +962,7 @@ declare module Bloodhound {
      * supports local storage, the processed data will be cached there to prevent
      * additional network requests on subsequent page loads.
      *
-     * WARNING: While it's possible to get away with it for smaller data sets, 
+     * WARNING: While it's possible to get away with it for smaller data sets,
      * prefetched data isn't meant to contain entire sets of data. Rather, it should
      * act as a first-level cache. Ignoring this warning means you'll run the risk
      * of hitting local storage limits.
@@ -974,31 +974,31 @@ declare module Bloodhound {
         url: string;
 
         /**
-         * If false, will not attempt to read or write to local storage and 
+         * If false, will not attempt to read or write to local storage and
          * will always load prefetch data from url on initialization. Defaults to true.
          */
         cache?: boolean;
 
         /**
-         * The time (in milliseconds) the prefetched data should be cached in 
+         * The time (in milliseconds) the prefetched data should be cached in
          * local storage. Defaults to 86400000 (1 day).
          */
         ttl?: number;
 
         /**
-         * The key that data will be stored in local storage under. 
+         * The key that data will be stored in local storage under.
          * Defaults to value of url.
          */
         cacheKey?: string;
 
         /**
-         * A string used for thumbprinting prefetched data. If this doesn't 
+         * A string used for thumbprinting prefetched data. If this doesn't
          * match what's stored in local storage, the data will be refetched.
          */
         thumbprint?: string;
 
         /**
-         * A function that provides a hook to allow you to prepare the settings 
+         * A function that provides a hook to allow you to prepare the settings
          * object passed to transport when a request is about to be made.
          * Defaults to the identity function.
          *
@@ -1008,10 +1008,10 @@ declare module Bloodhound {
         prepare?: (settings: JQueryAjaxSettings) => JQueryAjaxSettings;
 
         /**
-         * A function with the signature transform(response) that allows you to 
-         * transform the prefetch response before the Bloodhound instance operates 
+         * A function with the signature transform(response) that allows you to
+         * transform the prefetch response before the Bloodhound instance operates
          * on it. Defaults to the identity function.
-         * 
+         *
          * @param response Prefetch response.
          * @returns Transform response.
          */
@@ -1019,8 +1019,8 @@ declare module Bloodhound {
     }
 
     /**
-     * Bloodhound only goes to the network when the internal search engine cannot 
-     * provide a sufficient number of results. In order to prevent an obscene 
+     * Bloodhound only goes to the network when the internal search engine cannot
+     * provide a sufficient number of results. In order to prevent an obscene
      * number of requests being made to the remote endpoint, requests are rate-limited.
      */
     interface RemoteOptions<T> {
@@ -1030,13 +1030,13 @@ declare module Bloodhound {
         url: string;
 
         /**
-         * A function that provides a hook to allow you to prepare the settings 
-         * object passed to transport when a request is about to be made. 
+         * A function that provides a hook to allow you to prepare the settings
+         * object passed to transport when a request is about to be made.
          * The function signature should be prepare(query, settings), where query
          * is the query #search was called with and settings is the default settings
          * object created internally by the Bloodhound instance. The prepare function
          * should return a settings object. Defaults to the identity function.
-         * 
+         *
          * @param query The query #search was called with.
          * @param settings The default settings object created internally by Bloodhound.
          * @returns A JqueryAjaxSettings object.
@@ -1050,22 +1050,22 @@ declare module Bloodhound {
         wildcard?: string;
 
         /**
-         * The method used to rate-limit network requests. 
+         * The method used to rate-limit network requests.
          * Can be either debounce or throttle. Defaults to debounce.
          */
         rateLimitby?: string;
-        
+
         /**
-         * The time interval in milliseconds that will be used by rateLimitBy. 
+         * The time interval in milliseconds that will be used by rateLimitBy.
          * Defaults to 300.
          */
         rateLimitWait?: number;
 
         /**
          * A function with the signature transform(response) that allows you to
-         * transform the remote response before the Bloodhound instance operates on it. 
+         * transform the remote response before the Bloodhound instance operates on it.
          * Defaults to the identity function.
-         * 
+         *
          * @param response Prefetch response.
          * @returns Transform response.
          */
@@ -1080,7 +1080,7 @@ declare module Bloodhound {
          * Split a given string on whitespace characters.
          */
         whitespace(str: string): string[];
-        
+
         /**
          * Split a given string on non-word characters.
          */
@@ -1106,21 +1106,21 @@ declare module Bloodhound {
 }
 
 /**
- * Bloodhound is the typeahead.js suggestion engine. Bloodhound is robust, 
- * flexible, and offers advanced functionalities such as prefetching, 
+ * Bloodhound is the typeahead.js suggestion engine. Bloodhound is robust,
+ * flexible, and offers advanced functionalities such as prefetching,
  * intelligent caching, fast lookups, and backfilling with remote data.
  */
 declare class Bloodhound<T> {
     /**
      * The constructor function.
-     * 
+     *
      * @constructor
      * @param options Options hash.
      */
     constructor(options: Bloodhound.BloodhoundOptions<T>);
 
     /**
-     * Returns a reference to Bloodhound and reverts window.Bloodhound to its 
+     * Returns a reference to Bloodhound and reverts window.Bloodhound to its
      * previous value. Can be used to avoid naming collisions.
      */
     public static noConflict(): Bloodhound<any>;
@@ -1132,17 +1132,17 @@ declare class Bloodhound<T> {
     public static tokenizers: Bloodhound.Tokenizers;
 
     /**
-     * Kicks off the initialization of the suggestion engine. Initialization 
-     * entails adding the data provided by local and prefetch to the internal 
-     * search index as well as setting up transport mechanism used by remote. 
+     * Kicks off the initialization of the suggestion engine. Initialization
+     * entails adding the data provided by local and prefetch to the internal
+     * search index as well as setting up transport mechanism used by remote.
      * Before #initialize is called, the #get and #search methods will effectively be no-ops.
      *
      * Note, unless the initialize option is false, this method is implicitly called by the constructor.
-     * 
-     * After initialization, how subsequent invocations of #initialize behave depends on 
-     * the reinitialize argument. If reinitialize is falsy, the method will not execute the 
-     * initialization logic and will just return the same jQuery promise returned 
-     * by the initial invocation. If reinitialize is truthy, the method will behave 
+     *
+     * After initialization, how subsequent invocations of #initialize behave depends on
+     * the reinitialize argument. If reinitialize is falsy, the method will not execute the
+     * initialization logic and will just return the same jQuery promise returned
+     * by the initial invocation. If reinitialize is truthy, the method will behave
      * as if it were being called for the first time.
      *
      * @param reinitialize How subsequent invocations of #initialize will behave.
@@ -1151,7 +1151,7 @@ declare class Bloodhound<T> {
     public initialize(reinitialize?: boolean): JQueryPromise<T>;
 
     /**
-     * Takes one argument, data, which is expected to be an array. 
+     * Takes one argument, data, which is expected to be an array.
      * The data passed in will get added to the internal search index.
      *
      * @param data Data to be added to the internal search index.
@@ -1167,11 +1167,11 @@ declare class Bloodhound<T> {
     public get(ids: number[]): T[];
 
     /**
-     * Returns the data that matches query. Matches found in the local search 
-     * index will be passed to the sync callback. If the data passed to sync 
-     * doesn't contain at least sufficient number of datums, remote data will 
+     * Returns the data that matches query. Matches found in the local search
+     * index will be passed to the sync callback. If the data passed to sync
+     * doesn't contain at least sufficient number of datums, remote data will
      * be requested and then passed to the async callback.
-     * 
+     *
      * @param query Query.
      * @param sync Sync callback
      * @param async Async callback.

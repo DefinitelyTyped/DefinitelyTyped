@@ -8987,16 +8987,17 @@ declare module _ {
          * @param resolver The function to resolve the cache key.
          * @return Returns the new memoizing function.
          */
-        memoize<TResult extends MemoizedFunction>(
-            func: Function,
-            resolver?: Function): TResult;
+        memoize: {
+            <T extends Function>(func: T, resolver?: Function): T & MemoizedFunction;
+            Cache: MapCache;
+        }
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.memoize
          */
-        memoize<TResult extends MemoizedFunction>(resolver?: Function): LoDashImplicitObjectWrapper<TResult>;
+        memoize(resolver?: Function): LoDashImplicitObjectWrapper<T & MemoizedFunction>;
     }
 
     //_.overArgs (was _.modArgs)
@@ -14578,47 +14579,159 @@ declare module _ {
     //_.set
     interface LoDashStatic {
         /**
-         * Sets the property value of path on object. If a portion of path does not exist it’s created.
+         * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
+         * missing index properties while objects are created for all other missing properties. Use _.setWith to
+         * customize path creation.
          *
-         * @param object The object to augment.
+         * @param object The object to modify.
          * @param path The path of the property to set.
          * @param value The value to set.
          * @return Returns object.
          */
-        set<T>(
-            object: T,
+        set<TResult>(
+            object: Object,
             path: StringRepresentable|StringRepresentable[],
             value: any
-        ): T;
+        ): TResult;
 
         /**
          * @see _.set
          */
-        set<V, T>(
-            object: T,
+        set<V, TResult>(
+            object: Object,
             path: StringRepresentable|StringRepresentable[],
             value: V
-        ): T;
+        ): TResult;
+
+        /**
+         * @see _.set
+         */
+        set<O, V, TResult>(
+            object: O,
+            path: StringRepresentable|StringRepresentable[],
+            value: V
+        ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.set
          */
-        set<V>(
+        set<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            value: any
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.set
+         */
+        set<V, TResult>(
             path: StringRepresentable|StringRepresentable[],
             value: V
-        ): LoDashImplicitObjectWrapper<T>;
+        ): LoDashImplicitObjectWrapper<TResult>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.set
          */
-        set<V>(
+        set<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            value: any
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.set
+         */
+        set<V, TResult>(
             path: StringRepresentable|StringRepresentable[],
             value: V
-        ): LoDashExplicitObjectWrapper<T>;
+        ): LoDashExplicitObjectWrapper<TResult>;
+    }
+
+    //_.setWith
+    interface SetWithCustomizer<T> {
+        (nsValue: any, key: string, nsObject: T): any;
+    }
+
+    interface LoDashStatic {
+        /**
+         * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
+         * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
+         * invoked with three arguments: (nsValue, key, nsObject).
+         *
+         * @param object The object to modify.
+         * @param path The path of the property to set.
+         * @param value The value to set.
+         * @parem customizer The function to customize assigned values.
+         * @return Returns object.
+         */
+        setWith<TResult>(
+            object: Object,
+            path: StringRepresentable|StringRepresentable[],
+            value: any,
+            customizer?: SetWithCustomizer<Object>
+        ): TResult;
+
+        /**
+         * @see _.setWith
+         */
+        setWith<V, TResult>(
+            object: Object,
+            path: StringRepresentable|StringRepresentable[],
+            value: V,
+            customizer?: SetWithCustomizer<Object>
+        ): TResult;
+
+        /**
+         * @see _.setWith
+         */
+        setWith<O, V, TResult>(
+            object: O,
+            path: StringRepresentable|StringRepresentable[],
+            value: V,
+            customizer?: SetWithCustomizer<O>
+        ): TResult;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.setWith
+         */
+        setWith<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            value: any,
+            customizer?: SetWithCustomizer<T>
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.setWith
+         */
+        setWith<V, TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            value: V,
+            customizer?: SetWithCustomizer<T>
+        ): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.setWith
+         */
+        setWith<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            value: any,
+            customizer?: SetWithCustomizer<T>
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.setWith
+         */
+        setWith<V, TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            value: V,
+            customizer?: SetWithCustomizer<T>
+        ): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.transform
@@ -16195,6 +16308,31 @@ declare module _ {
         noop(...args: any[]): _.LoDashExplicitWrapper<void>;
     }
 
+    //_.nthArg
+    interface LoDashStatic {
+        /**
+         * Creates a function that returns its nth argument.
+         *
+         * @param n The index of the argument to return.
+         * @return Returns the new function.
+         */
+        nthArg<TResult extends Function>(n?: number): TResult;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.nthArg
+         */
+        nthArg<TResult extends Function>(): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.nthArg
+         */
+        nthArg<TResult extends Function>(): LoDashExplicitObjectWrapper<TResult>;
+    }
+
     //_.over
     interface LoDashStatic {
         /**
@@ -16233,6 +16371,86 @@ declare module _ {
          * @see _.over
          */
         over<TResult>(...iteratees: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => TResult[]>;
+    }
+
+    //_.overEvery
+    interface LoDashStatic {
+        /**
+         * Creates a function that checks if all of the predicates return truthy when invoked with the arguments
+         * provided to the created function.
+         *
+         * @param predicates The predicates to check.
+         * @return Returns the new function.
+         */
+        overEvery(...predicates: (Function|Function[])[]): (...args: any[]) => boolean;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.overEvery
+         */
+        overEvery(...predicates: (Function|Function[])[]): LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.overEvery
+         */
+        overEvery(...predicates: (Function|Function[])[]): LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.overEvery
+         */
+        overEvery(...predicates: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.overEvery
+         */
+        overEvery(...predicates: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+    }
+
+    //_.overSome
+    interface LoDashStatic {
+        /**
+         * Creates a function that checks if any of the predicates return truthy when invoked with the arguments
+         * provided to the created function.
+         *
+         * @param predicates The predicates to check.
+         * @return Returns the new function.
+         */
+        overSome(...predicates: (Function|Function[])[]): (...args: any[]) => boolean;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.overSome
+         */
+        overSome(...predicates: (Function|Function[])[]): LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.overSome
+         */
+        overSome(...predicates: (Function|Function[])[]): LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.overSome
+         */
+        overSome(...predicates: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.overSome
+         */
+        overSome(...predicates: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
     }
 
     //_.property
@@ -16439,18 +16657,16 @@ declare module _ {
     //_.times
     interface LoDashStatic {
         /**
-         * Invokes the iteratee function n times, returning an array of the results of each invocation. The iteratee is
-         * bound to thisArg and invoked with one argument; (index).
+         * Invokes the iteratee function n times, returning an array of the results of each invocation. The iteratee
+         * is invoked with one argument; (index).
          *
          * @param n The number of times to invoke iteratee.
          * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
          * @return Returns the array of results.
          */
         times<TResult>(
             n: number,
-            iteratee: (num: number) => TResult,
-            thisArg?: any
+            iteratee: (num: number) => TResult
         ): TResult[];
 
         /**
@@ -16464,14 +16680,13 @@ declare module _ {
          * @see _.times
          */
         times<TResult>(
-            iteratee: (num: number) => TResult,
-            thisArgs?: any
-        ): LoDashImplicitArrayWrapper<TResult>;
+            iteratee: (num: number) => TResult
+        ): TResult[];
 
         /**
          * @see _.times
          */
-        times(): LoDashImplicitArrayWrapper<number>;
+        times(): number[];
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -16479,8 +16694,7 @@ declare module _ {
          * @see _.times
          */
         times<TResult>(
-            iteratee: (num: number) => TResult,
-            thisArgs?: any
+            iteratee: (num: number) => TResult
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**

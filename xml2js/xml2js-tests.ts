@@ -17,3 +17,10 @@ var outString = builder.buildObject({
 });
 
 var parser = new xml2js.Parser();
+
+var v1Defaults = xml2js.defaults['0.1'];
+v1Defaults.async = true;
+
+var v2Defaults = xml2js.defaults['0.2'];
+v2Defaults.async = false;
+v2Defaults.chunkSize = 20000;
