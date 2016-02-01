@@ -3622,6 +3622,519 @@ declare module _ {
         union<T>(...arrays: List<T>[]): LoDashExplicitArrayWrapper<T>;
     }
 
+    //_.unionBy
+    interface LoDashStatic {
+        /**
+         * This method is like `_.union` except that it accepts `iteratee` which is
+         * invoked for each element of each `arrays` to generate the criterion by which
+         * uniqueness is computed. The iteratee is invoked with one argument: (value).
+         *
+         * @param arrays The arrays to inspect.
+         * @param iteratee The iteratee invoked per element.
+         * @return Returns the new array of combined values.
+         */
+        unionBy<T>(
+            arrays: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays: T[]|List<T>,
+            iteratee?: W
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays1: T[]|List<T>,
+            arrays2: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays1: T[]|List<T>,
+            arrays2: T[]|List<T>,
+            iteratee?: W
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays1: T[]|List<T>,
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays1: T[]|List<T>,
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: W
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays1: T[]|List<T>,
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays1: T[]|List<T>,
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: W
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays1: T[]|List<T>,
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays1: T[]|List<T>,
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: W
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays: T[]|List<T>,
+            ...iteratee: any[]
+        ): T[];
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            ...iteratee: any[]
+        ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            ...iteratee: any[]
+        ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            ...iteratee: any[]
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            ...iteratee: any[]
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
     //_.uniq
     interface LoDashStatic {
         /**
@@ -4187,34 +4700,6 @@ declare module _ {
         sortedUniqBy<TWhere extends {}, T>(
             iteratee: TWhere
         ): LoDashExplicitArrayWrapper<T>;
-    }
-
-    //_.unionBy DUMMY
-    interface LoDashStatic {
-        /**
-         * This method is like `_.union` except that it accepts `iteratee` which is
-         * invoked for each element of each `arrays` to generate the criterion by which
-         * uniqueness is computed. The iteratee is invoked with one argument: (value).
-         *
-         * @static
-         * @memberOf _
-         * @category Array
-         * @param {...Array} [arrays] The arrays to inspect.
-         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
-         * @returns {Array} Returns the new array of combined values.
-         * @example
-         *
-         * _.unionBy([2.1, 1.2], [4.3, 2.4], Math.floor);
-         * // => [2.1, 1.2, 4.3]
-         *
-         * // using the `_.property` iteratee shorthand
-         * _.unionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
-         * // => [{ 'x': 1 }, { 'x': 2 }]
-         */
-        unionBy(
-            array: any[]|List<any>,
-            ...values: any[]
-        ): any[];
     }
 
     //_.unionWith DUMMY
