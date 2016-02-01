@@ -13,6 +13,7 @@ import oAuth = require('rest/interceptor/oAuth');
 import csrf = require('rest/interceptor/csrf');
 import errorCode = require('rest/interceptor/errorCode');
 import retry = require('rest/interceptor/retry');
+import template = require('rest/interceptor/template');
 import timeout = require('rest/interceptor/timeout');
 import jsonp = require('rest/interceptor/jsonp');
 import xdomain = require('rest/interceptor/ie/xdomain');
@@ -127,6 +128,7 @@ client = rest
     .wrap<any>(csrf)
     .wrap<any>(errorCode)
     .wrap<any>(retry)
+    .wrap<any>(template, { template: 'auth={token}', params: { token: 'hunter2' } })
     .wrap<any>(timeout)
     .wrap<any>(jsonp)
     .wrap<any>(xdomain)
