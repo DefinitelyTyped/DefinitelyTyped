@@ -258,7 +258,7 @@ declare module "rest/interceptor/retry" {
 declare module "rest/interceptor/template" {
 	import rest = require("rest");
 
-	var hateoas: rest.Interceptor<template.Config>;
+	var template: rest.Interceptor<template.Config>;
 
 	module template {
 		interface Config {
@@ -267,7 +267,7 @@ declare module "rest/interceptor/template" {
 		}
 	}
 
-	export = hateoas;
+	export = template;
 }
 
 declare module "rest/interceptor/timeout" {
