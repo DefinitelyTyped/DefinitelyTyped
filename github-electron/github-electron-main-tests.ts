@@ -108,6 +108,9 @@ app.on('ready', () => {
 	mainWindow.webContents.printToPDF({}, (err, data) => {});
 });
 
+// Locale
+app.getLocale();
+
 // Desktop environment integration
 // https://github.com/atom/electron/blob/master/docs/tutorial/desktop-environment-integration.md
 
@@ -163,6 +166,10 @@ var dockMenu = Menu.buildFromTemplate([
 	},
 ]);
 app.dock.setMenu(dockMenu);
+app.dock.setBadge('foo');
+var id = app.dock.bounce('informational');
+app.dock.cancelBounce(id);
+app.dock.setIcon('/path/to/icon.png');
 
 app.setUserTasks([
 	<Electron.Task>{

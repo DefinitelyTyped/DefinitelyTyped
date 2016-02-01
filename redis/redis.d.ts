@@ -46,6 +46,7 @@ declare module "redis" {
         connect_timeout?: number;
         max_attempts?: number;
         auth_pass?: string;
+        password?: string;
         family?: string;
         command_queue_high_water?: number;
         command_queue_low_water?: number;
