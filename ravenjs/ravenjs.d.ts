@@ -113,8 +113,8 @@ interface RavenStatic {
      */
     wrap(func: Function): Function;
     wrap(options: RavenOptions, func: Function): Function;
-    wrap<T : Function>(func: T): T;
-    wrap<T : Function>(options: RavenOptions, func: T): T;
+    wrap<T extends Function>(func: T): T;
+    wrap<T extends Function>(options: RavenOptions, func: T): T;
 
     /*
      * Uninstalls the global error handler.
