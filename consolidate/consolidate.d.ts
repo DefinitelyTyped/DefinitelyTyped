@@ -1,30 +1,75 @@
 // Type definitions for consolidate
 // Project: https://github.com/visionmedia/consolidate.js
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
+// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, Theo Sherry <https://github.com/theosherry>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/consolidate.d.ts
 
 /// <reference path="../node/node.d.ts" />
+/// <reference path="../bluebird/bluebird.d.ts" />
 
 declare module "consolidate" {
-	export function clearCache(): void;
-	export var jade: (path: String, options: any, fn: any) => void;
-	export var dust: (path: String, options: any, fn: any) => void;
-	export var swig: (path: String, options: any, fn: any) => void;
-	export var liquor: (path: String, options: any, fn: any) => void;
-	export var ejs: (path: String, options: any, fn: any) => void;
-	export var eco: (path: String, options: any, fn: any) => void;
-	export var jazz: (path: String, options: any, fn: any) => void;
-	export var jqtpl: (path: String, options: any, fn: any) => void;
-	export var haml: (path: String, options: any, fn: any) => void;
-	export var whiskers: (path: String, options: any, fn: any) => void;
-	//export var 'haml-coffee':Function;
-	export var hogan: (path: String, options: any, fn: any) => void;
-	export var handlebars: (path: String, options: any, fn: any) => void;
-	export var underscore: (path: String, options: any, fn: any) => void;
-	export var qejs: (path: String, options: any, fn: any) => void;
-	export var walrus: (path: String, options: any, fn: any) => void;
-	export var mustache: (path: String, options: any, fn: any) => void;
-	export var dot: (path: String, options: any, fn: any) => void;
+	var cons: Consolidate;
+
+	export = cons;
+
+	interface Consolidate {
+		/**
+ 		 * expose the instance of the engine
+	   */
+		requires: Object;
+
+		/**
+		 * Clear the cache.
+		 *
+		 * @api public
+		 */
+		clearCache(): void;
+		// template engines
+		atpl: RendererInterface;
+		dot: RendererInterface;
+		dust: RendererInterface;
+		eco: RendererInterface;
+		ejs: RendererInterface;
+		ect: RendererInterface;
+		haml: RendererInterface;
+		// TODO figure out how to do haml-coffee
+		hamlet: RendererInterface;
+		handlebars: RendererInterface;
+		hogan: RendererInterface;
+		htmling: RendererInterface;
+		jade: RendererInterface;
+		jazz: RendererInterface;
+		jqtpl: RendererInterface;
+		just: RendererInterface;
+		liquid: RendererInterface;
+		liquor: RendererInterface;
+		lodash: RendererInterface;
+		mote: RendererInterface;
+		mustache: RendererInterface;
+		nunjucks: RendererInterface;
+		qejs: RendererInterface;
+		ractive: RendererInterface;
+		react: RendererInterface;
+		swig: RendererInterface;
+		templayed: RendererInterface;
+		toffee: RendererInterface;
+		underscore: RendererInterface;
+		walrus: RendererInterface;
+		whiskers: RendererInterface;
+	}
+
+	interface RendererInterface {
+		render(path: String, fn: (err: Error, html: String) => any): any;
+
+		render(path: String, options: {cache?: boolean, [otherOptions: string]: any}, fn: (err: Error, html: String) => any): any;
+
+		render(path: String, options?: { cache?: boolean, [otherOptions: string]: any }): Promise<String>;
+
+		(path: String, fn: (err: Error, html: String) => any): any;
+
+		(path: String, options: { cache?: boolean, [otherOptions: string]: any }, fn: (err: Error, html: String) => any): any;
+
+		(path: String, options?: { cache?: boolean, [otherOptions: string]: any }): Promise<String>;
+	}
 }

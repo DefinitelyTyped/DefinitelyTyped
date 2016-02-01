@@ -65,10 +65,11 @@ declare module commander {
          *
          * @param {String} name
          * @param {String} [desc]
+         * @param {Mixed} [opts]
          * @return {Command} the new command
          * @api public
          */
-        command(name:string, desc?:string):ICommand;
+        command(name:string, desc?:string, opts?: any):ICommand;
 
         /**
          * Add an implicit `help [cmd]` subcommand

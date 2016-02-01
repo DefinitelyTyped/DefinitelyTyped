@@ -51,37 +51,37 @@ declare module "tabtab" {
      * Holds interesting values to drive the output of the completion.
      */
     interface Data {
-		
+
         /**
          * full command being completed
          */
         line: string;
-		
+
         /**
          * number of words
          */
         words: number;
-		
+
         /**
          * cursor position
          */
         point: number;
-		
+
         /**
          * tabing in the middle of a word: foo bar baz bar foobarrrrrrr
          */
         partial: string;
-		
+
         /**
          * last word of the line
          */
         last: string;
-		
+
         /**
          * last partial of the line
          */
         lastPartial: string;
-		
+
         /**
          * the previous word
          */

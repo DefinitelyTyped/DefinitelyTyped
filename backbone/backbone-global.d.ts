@@ -43,6 +43,7 @@ declare module Backbone {
 
     interface PersistenceOptions {
         url?: string;
+        data?: any;
         beforeSend?: (jqxhr: JQueryXHR) => void;
         success?: (modelOrCollection?: any, response?: any, options?: any) => void;
         error?: (modelOrCollection?: any, jqxhr?: JQueryXHR, options?: any) => void;
@@ -367,7 +368,9 @@ declare module Backbone {
         remove(): View<TModel>;
         make(tagName: any, attributes?: any, content?: any): any;
         delegateEvents(events?: EventsHash): any;
+        delegate(eventName: string, selector: string, listener: Function): View<TModel>;
         undelegateEvents(): any;
+        undelegate(eventName: string, selector?: string, listener?: Function): View<TModel>;
 
         _ensureElement(): void;
     }

@@ -380,6 +380,10 @@ example = function () {
 
 promise = nodefn.apply(nodeFn2, [1, '2']);
 
+example = function() {
+	nodefn.apply(fs.read, arguments);
+}
+
 example = function () {
 	var loadPasswd = nodefn.apply(fs.readFile, ['/etc/passwd']);
 

@@ -37,6 +37,8 @@ declare module Html2Canvas {
         /** Whether to attempt to load cross-origin images as CORS served, before reverting back to proxy. */
         useCORS?: boolean;
 
+        /** Callback providing the rendered canvas element after rendering */
+        onrendered?(canvas: HTMLCanvasElement): void;
     }
 }
 

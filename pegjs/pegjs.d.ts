@@ -6,11 +6,22 @@
 declare module PEG {
 	function parse(input:string):any;
 
-	class SyntaxError {
-		line:number;
-		column:number;
-		offset:number;
+	interface Location {
+		line: number;
+		column: number;
+		offset: number;		
+	}
 
+	interface LocationRange {
+		start: Location,
+		end: Location
+	}
+
+	class SyntaxError {
+		line: number;
+		column: number;
+		offset: number;	
+		location: LocationRange;
 		expected:any[];
 		found:any;
 		name:string;

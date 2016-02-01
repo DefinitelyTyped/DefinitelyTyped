@@ -68,6 +68,9 @@ promiseNumber = thenWithUndefinedFullFillAndPromiseReject;
 var thenWithNoResultAndNoReject = promiseString.then<number>();
 promiseNumber = thenWithNoResultAndNoReject;
 
+var catchAfterThen = promiseString.then().catch<number>();
+promiseNumber = catchAfterThen;
+
 var voidPromise = new Promise<void>(function (resolve) { resolve(); });
 
 //catch test

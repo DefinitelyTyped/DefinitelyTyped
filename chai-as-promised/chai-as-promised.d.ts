@@ -8,6 +8,7 @@
 
 declare module 'chai-as-promised' {
     function chaiAsPromised(chai: any, utils: any): void;
+    namespace chaiAsPromised {}
     export = chaiAsPromised;
 }
 
