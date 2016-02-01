@@ -159,7 +159,7 @@ interface RavenStatic {
     }): RavenStatic;
     
     /** Override the default HTTP data transport handler. */
-    setTransport(transportFunction: (options: RavenTransportOptions) => void);
+    setTransport(transportFunction: (options: RavenTransportOptions) => void): RavenStatic;
     
     /** An event id is a globally unique id for the event that was just sent. This event id can be used to find the exact event from within Sentry. */
     lastEventId(): string;
