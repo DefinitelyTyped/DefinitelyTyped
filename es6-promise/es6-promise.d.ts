@@ -57,7 +57,8 @@ declare module Promise {
 	 * the array passed to all can be a mixture of promise-like objects and other objects.
 	 * The fulfillment value is an array (in order) of fulfillment values. The rejection value is the first rejection value.
 	 */
-	function all<any>(promises: (any | Thenable<any>)[]): Promise<any[]>;
+	function all(promises: (any | Thenable<any>)[]): Promise<any[]>;
+	function all<R>(promises: (R | Thenable<R>)[]): Promise<R[]>;
 
 	/**
 	 * Make a Promise that fulfills when any item fulfills, and rejects if any item rejects.
