@@ -6125,6 +6125,7 @@ declare module ng {
    * ```
    */
   class Validators {
+    static required: any;
   }
   
   class NgValidator {
