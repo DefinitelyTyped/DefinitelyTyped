@@ -4380,65 +4380,67 @@ module TestSize {
 }
 
 // _.some
-module TestSome {
-    let array: TResult[];
-    let list: _.List<TResult>;
-    let dictionary: _.Dictionary<TResult>;
-    let numericDictionary: _.NumericDictionary<TResult>;
+namespace TestSome {
+    type SampleObject = {a: number; b: string; c: boolean;};
 
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean;
-    let numericDictionaryIterator: (value: TResult, key: number, collection: _.NumericDictionary<TResult>) => boolean;
+    let array: SampleObject[];
+    let list: _.List<SampleObject>;
+    let dictionary: _.Dictionary<SampleObject>;
+    let numericDictionary: _.NumericDictionary<SampleObject>;
+
+    let listIterator: (value: SampleObject, index: number, collection: _.List<SampleObject>) => boolean;
+    let dictionaryIterator: (value: SampleObject, key: string, collection: _.Dictionary<SampleObject>) => boolean;
+    let numericDictionaryIterator: (value: SampleObject, key: number, collection: _.NumericDictionary<SampleObject>) => boolean;
 
     {
         let result: boolean;
 
-        result = _.some<TResult>(array);
-        result = _.some<TResult>(array, listIterator);
-        result = _.some<TResult>(array, listIterator, any);
-        result = _.some<TResult>(array, '');
-        result = _.some<{a: number}, TResult>(array, {a: 42});
+        result = _.some<SampleObject>(array);
+        result = _.some<SampleObject>(array, listIterator);
+        result = _.some<SampleObject>(array, 'a');
+        result = _.some<SampleObject>(array, ['a', 42]);
+        result = _.some<{a: number}, SampleObject>(array, {a: 42});
 
-        result = _.some<TResult>(list);
-        result = _.some<TResult>(list, listIterator);
-        result = _.some<TResult>(list, listIterator, any);
-        result = _.some<TResult>(list, '');
-        result = _.some<{a: number}, TResult>(list, {a: 42});
+        result = _.some<SampleObject>(list);
+        result = _.some<SampleObject>(list, listIterator);
+        result = _.some<SampleObject>(list, 'a');
+        result = _.some<SampleObject>(list, ['a', 42]);
+        result = _.some<{a: number}, SampleObject>(list, {a: 42});
 
-        result = _.some<TResult>(dictionary);
-        result = _.some<TResult>(dictionary, dictionaryIterator);
-        result = _.some<TResult>(dictionary, dictionaryIterator, any);
-        result = _.some<TResult>(dictionary, '');
-        result = _.some<{a: number}, TResult>(dictionary, {a: 42});
+        result = _.some<SampleObject>(dictionary);
+        result = _.some<SampleObject>(dictionary, dictionaryIterator);
+        result = _.some<SampleObject>(dictionary, 'a');
+        result = _.some<SampleObject>(dictionary, ['a', 42]);
+        result = _.some<{a: number}, SampleObject>(dictionary, {a: 42});
 
-        result = _.some<TResult>(numericDictionary);
-        result = _.some<TResult>(numericDictionary, numericDictionaryIterator);
-        result = _.some<TResult>(numericDictionary, numericDictionaryIterator, any);
-        result = _.some<TResult>(numericDictionary, '');
-        result = _.some<{a: number}, TResult>(numericDictionary, {a: 42});
+        result = _.some<SampleObject>(numericDictionary);
+        result = _.some<SampleObject>(numericDictionary, numericDictionaryIterator);
+        result = _.some<SampleObject>(numericDictionary, 'a');
+        result = _.some<SampleObject>(numericDictionary, ['a', 42]);
+        result = _.some<{a: number}, SampleObject>(numericDictionary, {a: 42});
 
         result = _(array).some();
         result = _(array).some(listIterator);
-        result = _(array).some(listIterator, any);
-        result = _(array).some('');
+        result = _(array).some('a');
+        result = _(array).some(['a', 42]);
         result = _(array).some<{a: number}>({a: 42});
 
-        result = _(list).some<TResult>();
-        result = _(list).some<TResult>(listIterator);
-        result = _(list).some<TResult>(listIterator, any);
-        result = _(list).some('');
+        result = _(list).some<SampleObject>();
+        result = _(list).some<SampleObject>(listIterator);
+        result = _(list).some('a');
+        result = _(list).some(['a', 42]);
         result = _(list).some<{a: number}>({a: 42});
 
-        result = _(dictionary).some<TResult>();
-        result = _(dictionary).some<TResult>(dictionaryIterator);
-        result = _(dictionary).some<TResult>(dictionaryIterator, any);
-        result = _(dictionary).some('');
+        result = _(dictionary).some<SampleObject>();
+        result = _(dictionary).some<SampleObject>(dictionaryIterator);
+        result = _(dictionary).some('a');
+        result = _(dictionary).some(['a', 42]);
         result = _(dictionary).some<{a: number}>({a: 42});
 
-        result = _(numericDictionary).some<TResult>();
-        result = _(numericDictionary).some<TResult>(numericDictionaryIterator);
-        result = _(numericDictionary).some<TResult>(numericDictionaryIterator, any);
-        result = _(numericDictionary).some('');
+        result = _(numericDictionary).some<SampleObject>();
+        result = _(numericDictionary).some<SampleObject>(numericDictionaryIterator);
+        result = _(numericDictionary).some('a');
+        result = _(numericDictionary).some(['a', 42]);
         result = _(numericDictionary).some<{a: number}>({a: 42});
     }
 
@@ -4447,26 +4449,26 @@ module TestSome {
 
         result = _(array).chain().some();
         result = _(array).chain().some(listIterator);
-        result = _(array).chain().some(listIterator, any);
-        result = _(array).chain().some('');
+        result = _(array).chain().some('a');
+        result = _(array).chain().some(['a', 42]);
         result = _(array).chain().some<{a: number}>({a: 42});
 
-        result = _(list).chain().some<TResult>();
-        result = _(list).chain().some<TResult>(listIterator);
-        result = _(list).chain().some<TResult>(listIterator, any);
-        result = _(list).chain().some('');
+        result = _(list).chain().some<SampleObject>();
+        result = _(list).chain().some<SampleObject>(listIterator);
+        result = _(list).chain().some('a');
+        result = _(list).chain().some(['a', 42]);
         result = _(list).chain().some<{a: number}>({a: 42});
 
-        result = _(dictionary).chain().some<TResult>();
-        result = _(dictionary).chain().some<TResult>(dictionaryIterator);
-        result = _(dictionary).chain().some<TResult>(dictionaryIterator, any);
-        result = _(dictionary).chain().some('');
+        result = _(dictionary).chain().some<SampleObject>();
+        result = _(dictionary).chain().some<SampleObject>(dictionaryIterator);
+        result = _(dictionary).chain().some('a');
+        result = _(dictionary).chain().some(['a', 42]);
         result = _(dictionary).chain().some<{a: number}>({a: 42});
 
-        result = _(numericDictionary).chain().some<TResult>();
-        result = _(numericDictionary).chain().some<TResult>(numericDictionaryIterator);
-        result = _(numericDictionary).chain().some<TResult>(numericDictionaryIterator, any);
-        result = _(numericDictionary).chain().some('');
+        result = _(numericDictionary).chain().some<SampleObject>();
+        result = _(numericDictionary).chain().some<SampleObject>(numericDictionaryIterator);
+        result = _(numericDictionary).chain().some('a');
+        result = _(numericDictionary).chain().some(['a', 42]);
         result = _(numericDictionary).chain().some<{a: number}>({a: 42});
     }
 }
