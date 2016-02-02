@@ -548,28 +548,568 @@ declare module _ {
         difference<TValue>(...values: (TValue[]|List<TValue>)[]): LoDashExplicitArrayWrapper<TValue>;
     }
 
-    //_.differenceBy DUMMY
+    //_.differenceBy
     interface LoDashStatic {
         /**
-         * Creates an array of unique `array` values not included in the other
-         * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
-         * for equality comparisons.
+         * This method is like _.difference except that it accepts iteratee which is invoked for each element of array
+         * and values to generate the criterion by which uniqueness is computed. The iteratee is invoked with one
+         * argument: (value).
          *
-         * @static
-         * @memberOf _
-         * @category Array
-         * @param {Array} array The array to inspect.
-         * @param {...Array} [values] The values to exclude.
-         * @returns {Array} Returns the new array of filtered values.
-         * @example
-         *
-         * _.difference([3, 2, 1], [4, 2]);
-         * // => [3, 1]
+         * @param array The array to inspect.
+         * @param values The values to exclude.
+         * @param iteratee The iteratee invoked per element.
+         * @returns Returns the new array of filtered values.
          */
-        differenceBy(
-            array: any[]|List<any>,
+        differenceBy<T>(
+            array: T[]|List<T>,
+            values?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): T[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            array: T[]|List<T>,
+            values?: T[]|List<T>,
+            iteratee?: W
+        ): T[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            array: T[]|List<T>,
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): T[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            array: T[]|List<T>,
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            iteratee?: W
+        ): T[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            array: T[]|List<T>,
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): T[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            array: T[]|List<T>,
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            iteratee?: W
+        ): T[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            array: T[]|List<T>,
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            iteratee?: W
+        ): T[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            array: T[]|List<T>,
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): T[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            array: T[]|List<T>,
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            values5?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): T[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            array: T[]|List<T>,
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            values5?: T[]|List<T>,
+            iteratee?: W
+        ): T[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            array: T[]|List<T>,
             ...values: any[]
-        ): any[];
+        ): T[];
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            values5?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            values5?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            ...values: any[]
+        ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            values5?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            values5?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            ...values: any[]
+        ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            values5?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            values5?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            ...values: any[]
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            values5?: T[]|List<T>,
+            iteratee?: ((value: T) => any)|string
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T, W extends Object>(
+            values1?: T[]|List<T>,
+            values2?: T[]|List<T>,
+            values3?: T[]|List<T>,
+            values4?: T[]|List<T>,
+            values5?: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T>(
+            ...values: any[]
+        ): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.differenceWith DUMMY
