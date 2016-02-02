@@ -5,5 +5,5 @@
 
 declare module 'pure-render-decorator' {
   var PureRender: ClassDecorator;
-  export default PureRender;
+  export = PureRender;
 }
