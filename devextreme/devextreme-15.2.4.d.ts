@@ -1,4 +1,4 @@
-// Type definitions for DevExtreme 15.2.5
+// Type definitions for DevExtreme 15.2.4
 // Project: http://js.devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -35,7 +35,7 @@ declare module DevExpress {
             brokenRules: any[];
             validators: IValidator[];
         }
-        export interface GroupConfig extends EventsMixin<GroupConfig>  {
+        export interface GroupConfig extends EventsMixin<GroupConfig> {
             group: any;
             validators: IValidator[];
             validate(): ValidationGroupValidationResult;
@@ -56,7 +56,7 @@ declare module DevExpress {
         /** Validates the rules that are defined within the dxValidator objects that are registered for the specified ViewModel. */
         export function validateModel(model: Object): ValidationGroupValidationResult;
         /** Registers all the dxValidator objects by which the fields of the specified ViewModel are extended. */
-        export function registerModelForValidation(model: Object) : void;
+        export function registerModelForValidation(model: Object): void;
     }
     export var hardwareBackButton: JQueryCallback;
     /** Processes the hardware back button click. */
@@ -429,10 +429,7 @@ declare module DevExpress {
         }
         /** An object that provides access to a data web service or local data storage for collection container widgets. */
         export class DataSource implements EventsMixin<DataSource> {
-            constructor(url: string);
-            constructor(data: Array<any>);
-            constructor(options: CustomStoreOptions);
-            constructor(options: DataSourceOptions);
+            constructor(options?: DataSourceOptions);
             /** Disposes all resources associated with this DataSource. */
             dispose(): void;
             /** Returns the current filter option value. */
@@ -455,8 +452,6 @@ declare module DevExpress {
             key(): any;
             /** Starts loading data. */
             load(): JQueryPromise<Array<any>>;
-            /** Clears currently loaded DataSource items and calls the load() method. */
-            reload(): JQueryPromise<Array<any>>;
             /** Returns an object that would be passed to the load() method of the underlying Store according to the current data shaping option values of the current DataSource instance. */
             loadOptions(): Object;
             /** Returns the current pageSize option value. */
@@ -617,8 +612,6 @@ declare module DevExpress {
             enumerate(): JQueryPromise<any>;
             /** Filters the current Query data. */
             filter(criteria: Array<any>): Query;
-            /** Filters the current Query data. */
-            filter(predicate: (item: any) => boolean): Query;
             /** Groups the current Query data. */
             groupBy(getter: Object): Query;
             /** Applies the specified transformation to each item. */
@@ -1436,7 +1429,7 @@ declare module DevExpress.ui {
         clearButtonText?: string;
         /** Specifies whether or not the widget cleans the search box when the popup window is displayed. */
         cleanSearchOnOpening?: boolean;
-        /** A Boolean value specifying whether or not a widget is closed if a user clicks outside of the overlaying window. */
+        /** A Boolean value specifying whether or not the widget is closed if a user clicks outside of the overlaying window. */
         closeOnOutsideClick?: any;
         /** The text displayed on the Apply button. */
         applyButtonText?: string;
@@ -2060,7 +2053,7 @@ declare module DevExpress.ui {
         dataField?: string;
         /** Specifies the form item name. */
         name?: string;
-        /** Specifies which editor widget is used to display and edit the form item value. */
+        /** Specifie which editor widget is used to display and edit the form item value. */
         editorType?: string;
         /** Specifies configuration options for the editor widget of the current form item. */
         editorOptions?: Object;
@@ -2140,7 +2133,6 @@ declare module DevExpress.ui {
         items?: Array<dxFormItem>;
         /** A Boolean value specifying whether to enable or disable form scrolling. */
         scrollingEnabled?: boolean;
-        onContentReady?: Function;
     }
     /** A form widget used to display and edit values of object fields. */
     export class dxForm extends Widget {
@@ -2409,7 +2401,7 @@ declare module DevExpress.ui {
         scrollPosition(): number;
     }
     export interface dxSwitchOptions extends EditorOptions {
-	    activeStateEnabled?: boolean;
+        activeStateEnabled?: boolean;
         /** Text displayed when the widget is in a disabled state. */
         offText?: string;
         /** Text displayed when the widget is in an enabled state. */
@@ -2910,22 +2902,6 @@ declare module DevExpress.ui {
         horizontalScrollingEnabled?: boolean;
         /** Specifies whether a user can switch views using tabs or a drop-down menu. */
         useDropDownViewSwitcher?: boolean;
-        /** Specifies the name of the data source item field that defines the start of the appointment. */
-        startDateExpr?: string;
-        /** Specifies the name of the data source item field that defines the ending of the appointment. */
-        endDateExpr?: string;
-        /** Specifies the name of the data source item field that holds the subject of the appointment. */
-        textExpr?: string;
-        /** Specifies the name of the data source item field whose value holds the description of the corresponding appointment. */
-        descriptionExpr?: string;
-        /** Specifies the name of the data source item field whose value defines whether or not the corresponding appointment is an all-day appointment. */
-        allDayExpr?: string;
-        /** Specifies the name of the data source item field that defines a recurrence rule for generating recurring appointments. */
-        recurrenceRuleExpr?: string;
-        /** Specifies the name of the data source item field that defines exceptions for the current recurring appointment. */
-        recurrenceExceptionExpr?: string;
-        /** Specifies whether filtering is performed on the server or client side. */
-        remoteFiltering?: boolean;
     }
     /** A widget that displays scheduled data using different views and provides the capability to load, add and edit appointments. */
     export class dxScheduler extends Widget {
@@ -2985,10 +2961,7 @@ declare module DevExpress.ui {
         dataStructure?: string;
         /** Specifies whether or not a user can expand all tree view items by the "*" hot key. */
         expandAllEnabled?: boolean;
-        /**
-         * Specifies whether or not a check box is displayed at each tree view item.
-         * @deprecated Use the showCheckBoxesMode option instead.
-         */
+        /** Specifies whether or not a check box is displayed at each tree view item. */
         showCheckBoxes?: boolean;
         /** Specifies the current check boxes display mode. */
         showCheckBoxesMode?: string;
@@ -2996,10 +2969,7 @@ declare module DevExpress.ui {
         selectNodesRecursive?: boolean;
         /** Specifies whether or not all parent nodes of an initially expanded node are displayed expanded. */
         expandNodesRecursive?: boolean;
-        /**
-         * Specifies whether the "Select All" check box is displayed over the tree view.
-         * @deprecated Use the showCheckBoxesMode option instead.
-         */
+        /** Specifies whether the "Select All" check box is displayed over the tree view. */
         selectAllEnabled?: boolean;
         /** Specifies the text displayed at the "Select All" check box. */
         selectAllText?: string;
@@ -3252,7 +3222,7 @@ declare module DevExpress.ui {
         };
         /** Specifies column-level options for filtering using a column header filter. */
         headerFilter?: {
-            /** Specifies the data source to be used for the header filter. */
+            /** Specifies the data source to be used for header filter. */
             dataSource?: any;
             /** Specifies how header filter values should be combined into groups. */
             groupInterval?: any;
@@ -3529,8 +3499,6 @@ declare module DevExpress.ui {
         };
         /** Specifies whether or not grid rows must be shaded in a different way. */
         rowAlternationEnabled?: boolean;
-        /** Specifies whether to enable two-way data binding. */
-        twoWayBindingEnabled?: boolean;
         /** A handler for the rowClick event. */
         onRowClick?: any;
         /** A handler for the rowPrepared event. */
@@ -3603,7 +3571,7 @@ declare module DevExpress.ui {
             texts?: {
                 /** Specifies text for the Export button when this button invokes a dropdown menu so you can choose the required export format. */
                 exportTo?: string;
-                /** Specifies text for the Export button's hint when this button exports to the XSLX format without invoking the drop-down menu. */
+                /** Specifies text for the Export button when this button exports to the XSLX format. */
                 exportToExcel?: string;
                 /** Specifies text for the item in the Export dropdown menu that exports grid data to Excel. */
                 excelFormat?: string;
@@ -3635,13 +3603,6 @@ declare module DevExpress.ui {
         onExporting?: (e: {
             fileName: string;
             format: string;
-            cancel: boolean;
-        }) => void;
-        /** A handler for the fileSaving event. */
-        onFileSaving?: (e: {
-            fileName: string;
-            format: string;
-            data: any;
             cancel: boolean;
         }) => void;
         /** A handler for the exported event. */
@@ -4038,13 +3999,6 @@ declare module DevExpress.ui {
         onExporting?: (e: {
             fileName: string;
             format: string;
-            cancel: boolean;
-        }) => void;
-        /** A handler for the fileSaving event. */
-        onFileSaving?: (e: {
-            fileName: string;
-            format: string;
-            data: any;
             cancel: boolean;
         }) => void;
         /** A handler for the exported event. */
@@ -4526,11 +4480,11 @@ declare module DevExpress.viz.core {
         font?: viz.core.Font;
         /** Specifies the widget title's horizontal position. */
         horizontalAlignment?: string;
-       /** Specifies the widget title's position in the vertical direction. */
+        /** Specifies the widget title's position in the vertical direction. */
         verticalAlignment?: string;
         /** Specifies the distance between the title and surrounding widget elements in pixels. */
         margin?: viz.core.Margins;
-         /** Specifies the height of the space reserved for the title. */
+        /** Specifies the height of the space reserved for the title. */
         placeholderSize?: number;
         /** Specifies text for the title. */
         text?: string;
@@ -4538,7 +4492,7 @@ declare module DevExpress.viz.core {
         subtitle?: {
             /** Specifies font options for the subtitle. */
             font?: viz.core.Font;
-           /** Specifies text for the subtitle. */
+            /** Specifies text for the subtitle. */
             text?: string;
         }
     }
@@ -4641,7 +4595,7 @@ declare module DevExpress.viz.core {
         /** Specifies whether or not the legend is visible on the map. */
         visible?: boolean;
     }
-    export interface BaseWidgetOptions extends DOMComponentOptions {
+    export interface BaseWidgetOptions {
         /** A handler for the drawn event. */
         onDrawn?: (e: {
             component: BaseWidget;
@@ -4649,16 +4603,16 @@ declare module DevExpress.viz.core {
         }) => void;
         /** A handler for the incidentOccurred event. */
         onIncidentOccurred?: (
-        component: BaseWidget,
-        element: Element,
-        target: {
-            id: string;
-            type: string;
-            args: any;
-            text: string;
-            widget: string;
-            version: string;
-        }
+            component: BaseWidget,
+            element: Element,
+            target: {
+                id: string;
+                type: string;
+                args: any;
+                text: string;
+                widget: string;
+                version: string;
+            }
         ) => void;
         /** Notifies a widget that it is embedded into an HTML page that uses a path modifier. */
         pathModified?: boolean;
@@ -5199,10 +5153,6 @@ declare module DevExpress.viz.charts {
         valueField?: string;
     }
     export interface CommonPieSeriesSettings extends CommonPieSeriesConfig {
-        /**
-         * Specifies the type of the pie chart series.
-         * @deprecated use the 'type' option instead
-         */
         type?: string;
     }
     export interface PieSeriesConfig extends CommonPieSeriesConfig {
@@ -5497,12 +5447,10 @@ declare module DevExpress.viz.charts {
     }
     export interface ChartArgumentAxis extends ChartAxis, ArgumentAxis { }
     export interface PolarArgumentAxis extends PolarAxis, ArgumentAxis {
-        /** Specifies the angle in arc degrees to which the argument axis should be rotated. The positive values rotate the axis clockwise. */
+        /** Specifies a start angle for the argument axis in degrees. */
         startAngle?: number;
         /** Specifies whether or not to display the first point at the angle specified by the startAngle option. */
         firstPointOnStartAngle?: boolean;
-        /** Specifies the value to be used as the origin for the argument axis. */
-        originValue?: number;
         /** Specifies the period of the argument values in the data source. */
         period?: number;
     }
@@ -5875,7 +5823,7 @@ declare module DevExpress.viz.charts {
         diameter?: number;
         /** Specifies the direction that the pie chart segments will occupy. */
         segmentsDirection?: string;
-        /** Specifies the angle in arc degrees from which the first segment of a pie chart should start. */
+        /** Specifies the starting angle in arc degrees for the first segment in a pie chart. */
         startAngle?: number;
         /** Specifies the fraction of the inner radius relative to the total radius in the series of the 'doughnut' type. The value should be between 0 and 1. */
         innerRadius?: number;
@@ -6443,7 +6391,6 @@ declare module DevExpress.viz.rangeSelector {
              * @deprecated ..\tickInterval\tickInterval.md
              */
             majorTickInterval?: any;
-            /** Specifies an interval between axis ticks. */
             tickInterval?: any;
             /** Specifies options for the date-time scale's markers. */
             marker?: {
@@ -6495,15 +6442,10 @@ declare module DevExpress.viz.rangeSelector {
                 /** Specifies the width of the scale's ticks (both major and minor ticks). */
                 width?: number;
             };
-            /** Specifies options of the range selector's minor ticks. */
             minorTick?: {
-                /** Specifies the color of the scale's minor ticks. */
                 color?: string;
-                /** Specifies the opacity of the scale's minor ticks. */
                 opacity?: number;
-                /** Specifies the width of the scale's minor ticks. */
                 width?: number;
-                /** Indicates whether scale minor ticks are visible or not. */
                 visible?: boolean;
             };
             /** Specifies the type of the scale. */
@@ -6512,8 +6454,8 @@ declare module DevExpress.viz.rangeSelector {
             useTicksAutoArrangement?: boolean;
             /** Specifies the type of values on the scale. */
             valueType?: string;
-			/** Specifies the order of arguments on a discrete scale. */
-			categories?: Array<any>;
+            /** Specifies the order of arguments on a discrete scale. */
+            categories?: Array<any>;
         };
         /** Specifies the range to be selected when displaying the dxRangeSelector. */
         selectedRange?: {
@@ -6750,7 +6692,7 @@ declare module DevExpress.viz.map {
         elementType?: string;
         /** Specifies a data source for the layer. */
         data?: any;
-        /** Specifies the line width (for layers of a line type) or width of the layer elements border in pixels. */
+        /** Specifies the width of the layer elements border in pixels. */
         borderWidth?: number;
         /** Specifies a color for the border of the layer elements. */
         borderColor?: string;
@@ -6758,11 +6700,11 @@ declare module DevExpress.viz.map {
         color?: string;
         /** Specifies a color for the border of the layer element when it is hovered over. */
         hoveredBorderColor?: string;
-        /** Specifies the pixel-measured line width (for layers of a line type) or width for the border of the layer element when it is hovered over. */
+        /** Specifies the pixel-measured width for the border of the layer element when it is hovered over. */
         hoveredBorderWidth?: number;
         /** Specifies a color for a layer element when it is hovered over. */
         hoveredColor?: string;
-        /** Specifies a pixel-measured line width (for layers of a line type) or width for the border of the layer element when it is selected. */
+        /** Specifies a pixel-measured width for the border of the layer element when it is selected. */
         selectedBorderWidth?: number;
         /** Specifies a color for the border of the layer element when it is selected. */
         selectedBorderColor?: string;
@@ -7108,9 +7050,9 @@ declare module DevExpress.viz.map {
         center?: Array<number>;
         /** A handler for the centerChanged event. */
         onCenterChanged?: (e: {
-			center: Array<number>;
-			component: dxVectorMap;
-			element: Element;
+            center: Array<number>;
+            component: dxVectorMap;
+            element: Element;
         }) => void;
         /** A handler for the tooltipShown event. */
         onTooltipShown?: (e: {
