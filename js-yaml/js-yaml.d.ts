@@ -15,7 +15,7 @@ declare module jsyaml {
 	}
 	export class Schema {
 		constructor(definition: SchemaDefinition);
-		public static create(... any): Schema;
+		public static create(args: any[]): Schema;
 	}
 
 	export function safeLoadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): any;
