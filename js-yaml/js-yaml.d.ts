@@ -1,6 +1,6 @@
+// Type definitions for js-yaml 3.0.2
 // Compiled using typings@0.6.4
 // Source: https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/52318243888c4aa02b3c0b5e68631577728ffcf8/js-yaml/js-yaml.d.ts
-// Type definitions for js-yaml 3.0.2
 // Project: https://github.com/nodeca/js-yaml
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
