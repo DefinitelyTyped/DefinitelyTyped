@@ -359,6 +359,9 @@ declare module "redis" {
         eval(...args:any[]): boolean;
         evalsha(args:any[], callback?:ResCallbackT<any>): boolean;
         evalsha(...args:any[]): boolean;
+        script(args:any[], callback?:ResCallbackT<any>): boolean;
+        script(...args: any[]): boolean;
+        script(key: string, callback?: ResCallbackT<any>): boolean;
         quit(args:any[], callback?:ResCallbackT<any>): boolean;
         quit(...args:any[]): boolean;
     }
