@@ -174,6 +174,9 @@ interface NavigatorGetUserMedia {
      errorCallback: (error: MediaStreamError) => void): void;
 }
 
+// to use with adapter.js, see: https://github.com/webrtc/adapter
+declare var getUserMedia: NavigatorGetUserMedia;
+
 interface Navigator {
     getUserMedia: NavigatorGetUserMedia;
 
