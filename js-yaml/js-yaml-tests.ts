@@ -106,4 +106,4 @@ value = yaml.dump(str, dumpOpts);
 
 value = new yaml.YAMLException();
 value = new yaml.Type(str, typeConstructorOptions);
-value = yaml.Schema.create(schemaDefinition);
+value = yaml.Schema.create([schemaDefinition]);
