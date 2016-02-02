@@ -263,7 +263,9 @@ declare module "rest/interceptor/template" {
 	module template {
 		interface Config {
 			template?: string;
-			params?: {};
+			params?: {
+				[name: string]: any;
+			};
 		}
 	}
 
