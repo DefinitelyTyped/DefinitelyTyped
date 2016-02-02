@@ -1,7 +1,7 @@
-// Type definitions for js-yaml 3.0.2
+// Type definitions for js-yaml 3.5.2
 // Project: https://github.com/nodeca/js-yaml
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Sebastian Clausen <https://github.com/sclausen>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module jsyaml {
 	export function safeLoad(str: string, opts?: LoadOptions): any;
