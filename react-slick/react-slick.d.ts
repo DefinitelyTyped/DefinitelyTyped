@@ -1,6 +1,6 @@
-// Type definitions for [react-slick]
-// Project: [https://github.com/akiran/react-slick]
-// Definitions by: [Andrey Balokha] <[https://github.com/andrewBalekha]>
+// Type definitions for react-slick
+// Project: https://github.com/akiran/react-slick
+// Definitions by: Andrey Balokha <https://github.com/andrewBalekha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts"/>
