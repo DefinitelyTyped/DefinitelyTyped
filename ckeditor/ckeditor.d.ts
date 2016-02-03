@@ -292,7 +292,7 @@ declare module CKEDITOR {
             document: document;
             root: element;
             clone(): range;
-            collapse(toStart?: boolean): Boolean;
+            collapse(toStart?: boolean): boolean;
             cloneContents(): documentFragment;
             deleteContents(mergeThen?: boolean): void;
             extractContents(mergeThen?: boolean): documentFragment;
@@ -391,8 +391,8 @@ declare module CKEDITOR {
             constructor(range: range);
             getNextParagraph(blockTag?: string): element;
             activeFilter: filter;
-            enforceRealBlocks: Boolean;
-            enlargeBr: Boolean;
+            enforceRealBlocks: boolean;
+            enlargeBr: boolean;
             filter: filter;
         }
 
@@ -557,8 +557,8 @@ declare module CKEDITOR {
         groups?: string[];
     }
 
-          // Currently very incomplete. See here for all options that should be included:
-          // http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-fileTools_defaultFileName
+    // Currently very incomplete. See here for all options that should be included:
+    // http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-fileTools_defaultFileName
     interface config {
         allowedContent?: string | boolean;
         colorButton_enableMore?: boolean;
@@ -633,114 +633,150 @@ declare module CKEDITOR {
 
 
         module widget {
-            interface IWidget {
-                allowedContent: any;
-                button: string;
-                contentForms: Object;
-                contentTransformations: Object;
-                data: Function;
-                defaults: Object;
-                dialog: String;
-                downcast: string | Function;
-                downcasts: Object;
-                draggable: boolean;
-                editables: Object;
-                init: Function;
-                inline: Boolean;
-                insert: Function;
-                mask: Boolean;
-                name: String;
-                parts: Object;
-                pathName: string;
-                requiredContent: any;
-                styleToAllowedContentRules: Function;
-                styleableElements: string;
-                template: string;
-                upcast: string | Function;
-                upcasts: Object;
 
-                addClass(className: string): void;
-                applyStyle(style: any): void; // any should be CKEDITOR.style
-                capture(): void;
-                checkStyleActive(style: any): boolean; // any should be CKEDITOR.style
-                define(name: string, meta: { errorProof?: boolean }): void;
-                destroy(offline?: boolean): void;
-                destroyEditable(editableName: string, offline?: boolean): void;
-                edit(): boolean;
-                fire(eventName: string, data?: Object, editor?: editor): any; // should be boolean | Object
-                fireOnce(eventName: string, data?: Object, editor?: editor): any; // should be boolean | Object
-                focus(): void;
-                getClasses(): Object;
-                hasClass(className: string, Whether: boolean): void;
-                hasListeners(eventName: string): boolean;
-                initEditable(editableName: string, definition: any): boolean; // any should be CKEDITOR.plugins.widget.nestedEditable.definition
-                isInited(): boolean;
-                isReady(): boolean;
-                on(eventName: string, listenerFunction: Function,
-                    scopeObj: Object, listenerData: Object, priority: number): Object;
-                once(): void;
-                removeAllListeners(): void;
-                removeClass(className: string): void;
-                removeListener(evnetName: string, listenerFunction: Function): void;
-                removeStyle(style: any): void; // any should be CKEDITOR.style
-                setData(keyOrData: string | {}, value?: Object): IWidget;
-                setFocused(selected: boolean): IWidget;
-                setSelected(selected: boolean): IWidget;
-                toFeature(): any; // should be CKEDITOR.feature
-                updateDragHandlerPosition(): void;
+            module nestedEditable {
+                interface definition {
+                    allowedContent?: any;
+                    pathName?: string;
+                    selector?: string;
+                }
             }
 
-            interface IWidgetDefinition {
+            class nestedEditable extends CKEDITOR.dom.element {
+                editor: CKEDITOR.editor;
+                enterMode: number;
+                filter: CKEDITOR.filter;
+                shiftEnterMode: number;
+
+                constructor(editor: CKEDITOR.editor, element: CKEDITOR.dom.element, config: { filter?: CKEDITOR.filter });
+                getData(): string;
+                setData(data: string);
+            }
+
+
+            interface definition {
                 allowedContent?: any;
                 button?: string;
                 contentForms?: Object;
                 contentTransformations?: Object;
-                data?: Function;
+                data?: Object | Function;
                 defaults?: Object;
-                dialog?: String;
+                dialog?: string;
                 downcast?: string | Function;
                 downcasts?: Object;
                 draggable?: boolean;
                 edit?: Function;
                 editables?: Object;
                 init?: Function;
-                inline?: Boolean;
+                inline?: boolean;
                 insert?: Function;
-                mask?: Boolean;
-                name?: String;
+                mask?: boolean;
+                name?: string;
                 parts?: Object;
                 pathName?: string;
-                requiredContent?: any;
+                requiredContent?: string | CKEDITOR.style;
                 styleToAllowedContentRules?: Function;
                 styleableElements?: string;
-                template?: string;
+                template?: string | CKEDITOR.template;
                 upcast?: string | Function;
+                upcastPriority?: number;
                 upcasts?: Object;
-                toFeature?(): any; // should be CKEDITOR.feature
+
+                toFeature?(): CKEDITOR.feature;
             }
 
             class repository {
-                add(name: string, widgetDef: IWidgetDefinition): void;
+                add(name: string, widgetDef: CKEDITOR.plugins.widget.definition): void;
                 addUpcastCallback(callback: Function): void;
                 capture(): void;
                 checkSelection(): void;
-                checkWidgets(options?: {initOnlyNew?: boolean; focusInited?: boolean}): void;
-                define(name: string, meta?: {errorProof?: boolean}): void;
-                del(widget: IWidget): void;
-                destroy(widget: IWidget, offline?: boolean): void;
+                checkWidgets(options?: { initOnlyNew?: boolean; focusInited?: boolean }): void;
+                define(name: string, meta?: { errorProof?: boolean }): void;
+                del(widget: CKEDITOR.plugins.widget): void;
+                destroy(widget: CKEDITOR.plugins.widget, offline?: boolean): void;
                 destroyAll(offline?: boolean): void;
                 finalizeCreation(container: any): void;
                 fire(eventName: string, data: Object, editor: editor): any; // should be boolean | Object
-                getByElement(element: any, checkWrapperOnly: boolean): IWidget;
+                getByElement(element: any, checkWrapperOnly: boolean): CKEDITOR.plugins.widget;
                 hasListeners(eventName: string): boolean;
-                initOn(element: any, widgetDef?: IWidgetDefinition, startupData?: Object): IWidget;
-                initOnAll(container?: any): IWidget[];
+                initOn(element: any, widgetDef?: CKEDITOR.plugins.widget.definition, startupData?: Object): CKEDITOR.plugins.widget;
+                initOnAll(container?: any): CKEDITOR.plugins.widget[];
                 on(eventName: string, listenerFunction: Function, scopeObj?: Object, listenerData?: Object, priority?: number): Object;
                 once(): void;
                 parseElementClasses(classes: string): Object;
                 removeAllListeners(eventName: string, listenerFunction: Function): void;
                 wrapElement(element: any, widgetName?: string): any;
             }
+        }
+
+        class widget implements CKEDITOR.plugins.widget.definition {
+            allowedContent: any;
+            button: string;
+            contentForms: Object;
+            contentTransformations: Object;
+            data: Object;
+            dataReady: boolean;
+            defaults: Object;
+            definition: CKEDITOR.plugins.widget.definition;
+            dialog: string;
+            downcast: string | Function;
+            downcasts: Object;
+            draggable: boolean;
+            editables: Object;
+            editor: CKEDITOR.editor;
+            element: CKEDITOR.dom.element;
+            focusedEditable: CKEDITOR.plugins.widget.nestedEditable
+            id: number;
+            init: Function;
+            inited: boolean;
+            inline: boolean;
+            insert: Function;
+            mask: boolean;
+            name: string;
+            parts: Object;
+            pathName: string;
+            ready: boolean;
+            repository: CKEDITOR.plugins.widget.repository;
+            requiredContent: string | CKEDITOR.style;
+            styleToAllowedContentRules: Function;
+            styleableElements: string;
+            template: CKEDITOR.template;
+            upcast: string | Function;
+            upcastPriority: number;
+            upcasts: Object;
+            wrapper: CKEDITOR.dom.element;
+
+            constructor(widgetsRepo: CKEDITOR.plugins.widget.repository, id: number, element: CKEDITOR.dom.element, widgetDef: CKEDITOR.plugins.widget.definition, starupData?: Object);
+
+            addClass(className: string): void;
+            applyStyle(style: CKEDITOR.style): void;
+            capture(): void;
+            checkStyleActive(style: CKEDITOR.style): boolean;
+            define(name: string, meta: { errorProof?: boolean }): void;
+            destroy(offline?: boolean): void;
+            destroyEditable(editableName: string, offline?: boolean): void;
+            edit(): boolean;
+            fire(eventName: string, data?: Object, editor?: CKEDITOR.editor): boolean | Object;
+            fireOnce(eventName: string, data?: Object, editor?: CKEDITOR.editor): boolean | Object;
+            focus(): void;
+            getClasses(): Object;
+            hasClass(className: string, Whether: boolean): void;
+            hasListeners(eventName: string): boolean;
+            initEditable(editableName: string, definition: CKEDITOR.plugins.widget.nestedEditable.definition): boolean;
+            isInited(): boolean;
+            isReady(): boolean;
+            on(eventName: string, listenerFunction: Function,
+                scopeObj?: Object, listenerData?: Object, priority?: number): Object;
+            once(): void;
+            removeAllListeners(): void;
+            removeClass(className: string): void;
+            removeListener(eventName: string, listenerFunction: Function): void;
+            removeStyle(style: CKEDITOR.style): void;
+            setData(keyOrData: string | Object, value: Object): CKEDITOR.plugins.widget;
+            setFocused(selected: boolean): CKEDITOR.plugins.widget;
+            setSelected(selected: boolean): CKEDITOR.plugins.widget;
+            toFeature(): CKEDITOR.feature;
+            updateDragHandlerPosition(): void;
         }
 
         interface IPluginDefinition {
@@ -916,7 +952,7 @@ declare module CKEDITOR {
         modes?: Object;
         startDisabled?: boolean;
         exec(editor: editor, data?: Object): boolean;
-        refresh? (editor: editor, path: dom.elementPath): void;
+        refresh?(editor: editor, path: dom.elementPath): void;
     }
 
 
@@ -932,6 +968,182 @@ declare module CKEDITOR {
         addHandler(type: Object, handler: Object): void;
     }
 
+    module ui {
+        module dialog {
+            class uiElement {
+                eventProcessors: Object;
+
+                constructor(dialog: CKEDITOR.dialog, elementDefinition: CKEDITOR.dialog.definition.uiElement, htmlList: any[], nodeNameArg?: Function | string, stylesArg?: Function | Object, attributesArg?: Function | Object, contentsArg?: Function | string); // Not sure that the htmlList array type is right.
+
+                accessKeyDown(dialog: CKEDITOR.dialog, key: string): void;
+                accessKeyUp(dialog: CKEDITOR.dialog, key: string): void;
+                disable(): void;
+                enable(): void;
+                focus(): CKEDITOR.ui.dialog.uiElement;
+                getDialog(): CKEDITOR.dialog;
+                getElement(): CKEDITOR.dom.element;
+                getInputElement(): CKEDITOR.dom.element;
+                getValue(): Object;
+                isChanged(): boolean;
+                isEnabled(): boolean;
+                isFocusable(): boolean;
+                isVisible(): boolean;
+                registerEvents(definition: CKEDITOR.dialog.definition.uiElement): CKEDITOR.ui.dialog.uiElement;
+                selectParentTab(): CKEDITOR.ui.dialog.uiElement;
+                setValue(value:Object, noChangeEvent: boolean): CKEDITOR.ui.dialog.uiElement;
+
+                // Change event?
+            }
+
+
+            class button extends uiElement {
+                constructor(dialog: CKEDITOR.dialog, elementDefinition: CKEDITOR.dialog.definition.uiElement, htmlList: any[]);
+
+                accessKeyDown(): void;
+                accessKeyUp(): void;
+                click(): Object;
+            }
+
+
+            class checkbox extends uiElement {
+                constructor(dialog: CKEDITOR.dialog, elementDefinition: CKEDITOR.dialog.definition.uiElement, htmlList: any[]);
+
+                accessKeyUp(): void;
+                getInputElement(): CKEDITOR.dom.element;
+                getValue(): boolean;
+                setValue(checked: boolean, noChangeEvent: boolean): any; // returns void according to doc, but cannot override base class like that
+            }
+
+
+            class fieldset extends uiElement {
+                constructor(dialog: CKEDITOR.dialog, childObjList: any[], childHtmlList: any[], htmlList: any[], elementDefinition:CKEDITOR.dialog.definition.uiElement);
+            }
+
+
+            class file extends CKEDITOR.ui.dialog.labeledElement {
+                constructor(dialog: CKEDITOR.dialog, elementDefinition: CKEDITOR.dialog.definition.uiElement, htmlList: any[]);
+
+                getAction(): string;
+                getInputElement(): CKEDITOR.dom.element;
+                registerEvents(definition: Object): CKEDITOR.ui.dialog.file;
+                reset(): void;
+                setInitValue(): void;
+                submit(): CKEDITOR.ui.dialog.file;
+            }
+
+
+            class fileButton extends CKEDITOR.ui.dialog.button {
+                constructor(dialog: CKEDITOR.dialog, elementDefinition: CKEDITOR.dialog.definition.uiElement, htmlList: any[]);
+
+                // formLoaded event ??
+            }
+
+
+            class hbox extends uiElement {
+                constructor(dialog: CKEDITOR.dialog, childObjList: any[], childHtmlList: any[], htmlList: any[], elementDefinition: CKEDITOR.dialog.definition.uiElement);
+
+                getChild(indices: number): CKEDITOR.ui.dialog.uiElement;
+                getChild(indices: number[]): CKEDITOR.ui.dialog.uiElement[];
+            }
+
+
+            class html extends uiElement {
+                constructor(dialog: CKEDITOR.dialog, elementDefinition: CKEDITOR.dialog.definition.uiElement, htmlList: any[]);
+
+            }
+
+
+            class iframeElement extends uiElement {
+
+            }
+
+
+            class labeledElement extends uiElement {
+                constructor(dialog: CKEDITOR.dialog, elementDefinition: CKEDITOR.dialog.definition.uiElement, htmlList: any[], contentHtml: Function);
+
+                getLabel(): string;
+                setlabel(label: string): CKEDITOR.ui.dialog.labeledElement;
+            }
+
+
+            class radio extends CKEDITOR.ui.dialog.labeledElement {
+                constructor(dialog: CKEDITOR.dialog, elementDefinition: CKEDITOR.dialog.definition.uiElement, htmlList: any[]);
+
+                accessKeyUp(): void;
+                getValue(): string;
+                setValue(value: string, noChangeEvent: boolean): any; // returns void according to doc, but cannot override base class like that
+            }
+
+
+            class select extends uiElement {
+                constructor(dialog: CKEDITOR.dialog, elementDefinition: CKEDITOR.dialog.definition.uiElement, htmlList: any[]);
+
+                add(label: string, value?: string, indexedDB?: number): CKEDITOR.ui.dialog.select;
+                clear(): CKEDITOR.ui.dialog.select;
+                getInputElement(): CKEDITOR.dom.element;
+                remove(index: number): CKEDITOR.ui.dialog.select;
+            }
+
+
+            class textarea extends CKEDITOR.ui.dialog.labeledElement {
+                constructor(dialog: CKEDITOR.dialog, elementDefinition: CKEDITOR.dialog.definition.uiElement, htmlList: any[]);
+            }
+
+
+            class textInput extends CKEDITOR.ui.dialog.labeledElement {
+                constructor(dialog: CKEDITOR.dialog, elementDefinition: CKEDITOR.dialog.definition.uiElement, htmlList: any[]);
+
+                accessKeyUp(): void;
+                focus(): any; // returns void according to doc, but cannot override base class like that
+                getDirectionMarker(): string;
+                getInputElement(): CKEDITOR.dom.element;
+                getValue(): string;
+                select(): void;
+                setDirectionMarker(dir: string): void;
+                setValue(value: string, noChangeEvent: boolean): CKEDITOR.ui.dialog.textInput;
+            }
+        }
+    }
+
+    class dialog {
+        state: number;
+
+        constructor(editor: Object, dialogName: string);
+
+        addFocusable(element: CKEDITOR.dom.element, index?: number): void;
+        addPage(contents: Object) : void;
+        click(id: string): Object;
+        commitContent(): void;
+        diableButton(id: string);
+        enableButton(id: string);
+        foreach(fn: Function): CKEDITOR.dialog;
+        getButton(id: string): CKEDITOR.ui.dialog.button;
+        getContentElement(pageId: string, elementId: string): CKEDITOR.ui.dialog.uiElement;
+        getElement(): CKEDITOR.dom.element;
+        getName(): string;
+        getPageCount(): number;
+        getParentEditor(): CKEDITOR.editor;
+        getPosition(): Object;
+        getSelectedElement(): CKEDITOR.dom.element;
+        getSize(): Object;
+        getValueOf(pageId: string, elementId: string): Object;
+        hide(): void;
+        hidePage(id: string);
+        layout(): void;
+        move(x: number, y: number, save: boolean): void;
+        reset(): CKEDITOR.dialog;
+        resize(width: number, height: number): void;
+        selectPage(id: string): void;
+        setState(state: number): void;
+        setValueOf(pageId: string, elementId: string, value: Object): void;
+        setupContent(): void;
+        show(): void;
+        showPage(id: string): void;
+        updateStyle(): void;
+        
+        // NOTE: Static methods are added to dialog module
+    }
+
 
     module dialog {
 
@@ -940,27 +1152,150 @@ declare module CKEDITOR {
             interface button extends uiElement {
                 disabled?: boolean;
                 label?: string;
-                command?: string;
-                toolbar?: string;
+            }
+
+
+            interface checkbox extends uiElement {
+                default?: string;
+                label?: string;
+                validate?: Function;
+            }
+
+
+            interface content {
+                accessKey?: string;
+                elements?: CKEDITOR.dialog.definition.uiElement[];
+                id?: string;
+                label?: string;
+                title?: string;
+            }
+
+
+            interface file extends labeledElement {
+                action?: string;
+                size?: string;
+                validate?: Function;
+            }
+
+
+            interface fileButton extends uiElement {
+                filebrowser?: string;
+                for?: string;
+                label?: string;
+                styles?: string;
+            }
+
+
+            interface hbox extends uiElement {
+                children?: CKEDITOR.ui.dialog.uiElement[];
+                height?: number;
+                padding?: number;
+                validate?: Function;
+                widths?: number[]; 
+            }
+
+
+            interface html extends uiElement {
+                html?: string;
+            }
+
+
+            interface labeledElement extends uiElement {
+                controlStyle?: string;
+                inputStyle?: string;
+                label?: string;
+                labelLayout?: string;
+                labelStyle?: string;
+                widths?: number[]; 
+            }
+
+
+            interface radio extends labeledElement {
+                default?: string;
+                items?: string[] | (string[])[];
+                validate?: Function;
+            }
+
+
+
+            interface select extends labeledElement {
+                default?: string;
+                items?: string[] | (string[])[];
+                multiple?: boolean;
+                size?: number;
+                validate?: Function;
+            }
+
+
+
+            interface textarea extends labeledElement {
+                bidi?: boolean;
+                cols?: number;
+                default?: string;
+                rows?: number;
+                validate?: Function;
+            }
+
+
+            interface textInput extends labeledElement {
+                bidi?: boolean;
+                default?: string;
+                maxLength?: number;
+                size?: number;
+                validate?: Function;
             }
 
 
             interface uiElement {
                 align?: string;
                 className?: string;
-                commit?: Function;
+                commit?: (widget?: CKEDITOR.plugins.widget) => void;
                 id?: string;
-                onHide?: Function;
-                onLoad?: Function;
-                requiredcontent?: any;
-                setup?: Function;
+                onHide?: (elem?: CKEDITOR.ui.dialog.uiElement) => void;
+                onLoad?: (elem?: CKEDITOR.ui.dialog.uiElement) => void;
+                onShow?: (elem?: CKEDITOR.ui.dialog.uiElement) => void;
+                requiredcontent?: string | Object | CKEDITOR.style;
+                setup?: (widget?: CKEDITOR.plugins.widget) => void;
                 style?: string;
                 title?: string;
                 type?: string;
             }
 
+
+            interface vbox extends uiElement {
+                children?: CKEDITOR.ui.dialog.uiElement[];
+                expand?: boolean;
+                heights?: number[];
+                padding?: number;
+                styles?: string;
+                width?: number[]; 
+            }
         }
 
+        interface IDialogDefinition {
+            buttons?: CKEDITOR.dialog.definition.button[];
+            contents?: CKEDITOR.dialog.definition.content[];
+            height?: number;
+            minHeight?: number;
+            minWidth?: number;
+            onCancel?: Function;
+            onLoad?: Function;
+            onOk?: Function;
+            onShow?: Function;
+            resizable?: number;
+            title?: string;
+            width?: number;
+        }
+
+        function add(name: string, path: string): void;
+        function add(name: string, dialogDefinition: (editor: CKEDITOR.editor) => IDialogDefinition): void;
+        function addIframe(name: string, title: string, minWidth: number, minHeight: number, onContentLoad?: Function, userDefinition?: Object): void;
+        function addUIElement(typeName: string, builder: Function): void;
+        function cancelButton(): void;
+        function exists(name: string|number): void; // NOTE: documentation says object, but it's an array accessor, so really a string or number will work
+        function getCurrent(): void;
+        function isTabEnabled(editor: CKEDITOR.editor, dialogName: string, tabName: string): boolean;
+        function okButton(): void;
     }
 
 
@@ -1104,41 +1439,10 @@ declare module CKEDITOR {
     }
 
 
-    interface dialog {
-        addFocusable(element: CKEDITOR.dom.element, index: number): void;
-    }
-
     module tools {
         var callFunction: Function;
     }
 
-    module dialog {
-        interface IDialogDefinition {
-            buttons?: any[];
-            contents?: any[];
-            height?: number;
-            minHeight?: number;
-            minWidth?: number;
-            onCancel?: Function;
-            onLoad?: Function;
-            onOk?: Function;
-            onShow?: Function;
-            resizable?: number;
-            title?: string;
-            width?: number;
-        }
-
-        function add(name: string, path: string): void;
-        function add(name: string, dialogDefinition: IDialogDefinition): void;
-        function addIframe(name: string, title: string, minWidth: number,
-            minHeight: number, onContentLoad: Function, userDefinition: any): void;
-        function addUIElement(typeName: string, builder: Function): void;
-        function cancelButton(): void;
-        function exists(name: string): void;
-        function getCurrent(): void;
-        function isTabEnabled(editor: editor, dialogName: string, tabName: string): boolean;
-        function okButton(): void;
-    }
 
     module lang {
         var languages: any;
