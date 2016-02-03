@@ -407,8 +407,8 @@ interface Promise<T> extends PromiseLike<T>, Promise.Inspection<T> {
     /**
      * Like `.then()`, but any unhandled rejection that ends up here will be thrown as an error.
      */
-    done<U>(onFulfilled: (value: T) => PromiseLike<U>, onRejected: (error: any) => U | PromiseLike<U>, onProgress?: (note: any) => any): void;
-    done<U>(onFulfilled: (value: T) => U, onRejected: (error: any) => U | PromiseLike<U>, onProgress?: (note: any) => any): void;
+    done<U>(onFulfilled?: (value: T) => PromiseLike<U>, onRejected?: (error: any) => U | PromiseLike<U>, onProgress?: (note: any) => any): void;
+    done<U>(onFulfilled?: (value: T) => U, onRejected?: (error: any) => U | PromiseLike<U>, onProgress?: (note: any) => any): void;
 
     /**
      * Like `.finally()`, but not called for rejections.
@@ -459,7 +459,7 @@ interface Promise<T> extends PromiseLike<T>, Promise.Inspection<T> {
     /**
      * Like `.then()`, but cancellation of the the returned promise or any of its descendant will not propagate cancellation to this promise or this promise's ancestors.
      */
-    fork<U>(onFulfilled: (value: T) => U | PromiseLike<U>, onRejected: (error: any) => U | PromiseLike<U>, onProgress?: (note: any) => any): Promise<U>;
+    fork<U>(onFulfilled?: (value: T) => U | PromiseLike<U>, onRejected?: (error: any) => U | PromiseLike<U>, onProgress?: (note: any) => any): Promise<U>;
 
     /**
      * Create an uncancellable promise based on this promise.
