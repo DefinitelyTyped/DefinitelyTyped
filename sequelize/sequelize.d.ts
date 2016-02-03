@@ -1777,8 +1777,10 @@ declare module "sequelize" {
         interface DataTypeUUIDv1 extends DataTypeAbstract { }
 
         interface DataTypeUUIDv4 extends DataTypeAbstract { }
-
-        interface DataTypeVirtual extends DataTypeAbstract { }
+        
+        interface DataTypeVirtual extends DataTypeAbstract {
+            new( subtype : DataTypeAbstract, requireAttributes? : Array<string> ) : DataTypeVirtual;
+        }
 
         interface DataTypeEnum extends DataTypeAbstract {
 
