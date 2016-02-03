@@ -291,9 +291,9 @@ fooProm = fooProm.caught((error: any) => {
 
 fooProm = fooProm.catch((reason: any) => {
 	//handle multiple valid return types simultaneously
-	if (true) {
+	if (foo === null) {
 		return;
-	} else if (false) {
+	} else if (!reason) {
 		return voidProm;
 	} else if (foo) {
 		return foo;
