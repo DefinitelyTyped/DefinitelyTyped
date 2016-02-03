@@ -51,11 +51,9 @@ interface PromiseConstructor {
      *
      * Alias for `attempt();` for compatibility with earlier ECMAScript version.
      */
-    try<T>(fn: () => PromiseLike<T>, args?: any[], ctx?: any): Promise<T>;
-    try<T>(fn: () => T, args?: any[], ctx?: any): Promise<T>;
+    try<T>(fn: () => T|PromiseLike<T>, args?: any[], ctx?: any): Promise<T>;
 
-    attempt<T>(fn: () => PromiseLike<T>, args?: any[], ctx?: any): Promise<T>;
-    attempt<T>(fn: () => T, args?: any[], ctx?: any): Promise<T>;
+    attempt<T>(fn: () => T|PromiseLike<T>, args?: any[], ctx?: any): Promise<T>;
 
     /**
      * Returns a new function that wraps the given function `fn`. The new function will always return a promise that is fulfilled with the original functions return values or rejected with thrown exceptions from the original function.
