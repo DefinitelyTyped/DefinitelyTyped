@@ -4689,7 +4689,7 @@ declare module Office.MailboxEnums {
         /**
          * The body is in HTML format
          */
-        HTML,
+        Html,
         /**
          * The body is in text format
          */
