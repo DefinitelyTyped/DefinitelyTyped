@@ -696,6 +696,15 @@ fooProm = Promise.try(() => {
 	return fooThen;
 }, arr, x);
 
+// - - - - - - - - - - - - - - - - -
+
+fooProm = Promise.try(() => {
+    if (fooProm) {
+        return fooProm;
+    }
+    return foo;
+});
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 fooProm = Promise.attempt(() => {
@@ -707,6 +716,15 @@ fooProm = Promise.attempt(() => {
 fooProm = Promise.attempt(() => {
 	return foo;
 }, arr, x);
+
+// - - - - - - - - - - - - - - - - -
+
+fooProm = Promise.attempt(() => {
+    if (fooProm) {
+        return fooProm;
+    }
+    return foo;
+});
 
 // - - - - - - - - - - - - - - - - -
 
