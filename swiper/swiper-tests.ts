@@ -1,5 +1,5 @@
 /// <reference path="swiper.d.ts" />
-/// <reference path="jquery.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 // 01-default.html
 function testDefault() {
