@@ -4,7 +4,7 @@
 
 // phantomCSS 0.11.1 is based on resemblejs 1.2.1, phantomJS 1.9.2 , casperJS 1.1.0-DEV
 
-var options: PhantomCSSOptions = {
+var options: PhantomCSS.PhantomCSSOptions = {
     libraryRoot: './modules/PhantomCSS',
 
     screenshotRoot: './screenshots',
@@ -60,6 +60,7 @@ var options: PhantomCSSOptions = {
     rebase: null//casper.cli.get("rebase")
 }
 
+declare var phantomcss:PhantomCSS.PhantomCSS;
 
 phantomcss.turnOffAnimations();
 phantomcss.init(options);
