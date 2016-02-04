@@ -582,7 +582,7 @@ Sequelize.GEOMETRY( 'LINESTRING' );
 Sequelize.GEOMETRY( 'POLYGON' );
 Sequelize.GEOMETRY( 'POINT', 4326 );
 Sequelize.VIRTUAL;
-Sequelize.VIRTUAL( Sequelize.STRING );
+new Sequelize.VIRTUAL( Sequelize.STRING );
 new Sequelize.VIRTUAL( Sequelize.DATE , ['property1', 'property2']);
 
 //
