@@ -406,9 +406,19 @@ function TestElementArrayFinder() {
     elementArrayFinder.each(function(element: protractor.ElementFinder){
         // nothing
     });
+
     stringPromise = elementArrayFinder.map(function(element: protractor.ElementFinder, index: number){
         return 'abc';
-    })
+    });
+
+    stringPromise = elementArrayFinder.map<string>(function(element: protractor.ElementFinder, index: number): string {
+        return 'abc';
+    });
+
+    stringPromise = elementArrayFinder.map<string, webdriver.promise.Promise<string>>(function(element: protractor.ElementFinder, index: number): webdriver.promise.Promise<string> {
+        return element.getText();
+    });
+
     elementArrayFinder = elementArrayFinder.filter(function(element: protractor.ElementFinder, index: number){
         return element.getText().then((text: string) => {
             return text === "foo";

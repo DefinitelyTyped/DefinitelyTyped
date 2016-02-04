@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module prettyjson {
+declare module "prettyjson" {
 
   /**
    * Defines prettyjson version

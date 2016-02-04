@@ -80,7 +80,7 @@ declare module CKEDITOR {
     function getTemplate(name: string): template;
     function getUrl(resource: string): string;
     function inline(element: string, instanceConfig?: config): editor;
-    function inline(element: HTMLTextAreaElement, instanceConfig?: config): editor;
+    function inline(element: HTMLElement, instanceConfig?: config): editor;
     function inlineAll(): void;
     function loadFullCore(): void;
     function replace(element: string, config?: config): editor;

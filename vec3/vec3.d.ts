@@ -9,7 +9,7 @@ declare module "vec3" {
         constructor(location: number[]);
         constructor(location: {x: number; y: number; z: number});
         constructor(locationStr: string);
-        
+
         set(x: number, y: number, z: number): Vec3;
         update(other: Vec3): Vec3;
         floored(): Vec3;

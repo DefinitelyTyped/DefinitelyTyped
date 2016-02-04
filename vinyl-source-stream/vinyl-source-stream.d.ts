@@ -7,5 +7,6 @@
 
 declare module "vinyl-source-stream" {
     function vinylSourceStream(filename: string): NodeJS.ReadWriteStream;
+    namespace vinylSourceStream {}
     export = vinylSourceStream;
 }

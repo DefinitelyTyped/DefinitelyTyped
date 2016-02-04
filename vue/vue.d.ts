@@ -17,18 +17,18 @@ declare namespace vuejs {
 		twoWay?: boolean;
 		validator?(value: any): boolean;
 	}
-  
+
 	interface ComputedOption {
 		get(): any;
 		set(value: any): void;
 	}
-	
+
 	interface WatchOption {
 		handler(val: any, oldVal: any): void;
 		deep?: boolean;
 		immidiate?: boolean;
 	}
-	
+
 	interface DirectiveOption {
 		bind?(): any;
 		update?(newVal?: any, oldVal?: any): any;
@@ -40,12 +40,12 @@ declare namespace vuejs {
 		priority?: number;
 		[key: string]: any;
 	}
-	
+
 	interface FilterOption {
 		read: Function;
 		write: Function;
 	}
-	
+
 	interface TransitionOption {
 		css?: boolean;
 		beforeEnter?(el: HTMLElement): void;
@@ -58,7 +58,7 @@ declare namespace vuejs {
 		leaveCancelled?(el: HTMLElement): void;
 		stagger?(index: number): number;
 	}
-	
+
 	interface ComponentOption {
 		data?: {[key: string]: any } | Function;
 		props?: string[] | { [key: string]: PropOption };
@@ -89,7 +89,7 @@ declare namespace vuejs {
 		name?: string;
 		[key: string]: any;
 	}
-	
+
 	// instance/api/data.js
 	interface $get { ( exp: string, asStatement?: boolean ): any; }
 	interface $set { <T>( key: string | number, value: T ): T; }
@@ -116,7 +116,7 @@ declare namespace vuejs {
 	interface $mount<V> { ( elementOrSelector?: ( HTMLElement | string ) ): V; }
 	interface $destroy { (remove?: boolean): void; }
 	interface $compile { (el: Element | DocumentFragment, host?: Vue): Function; }
-	
+
 	interface Vue {
 		$data?: any;
 		$el?: HTMLElement;
@@ -126,7 +126,7 @@ declare namespace vuejs {
 		$children?: Vue[];
 		$refs?: Object;
 		$els?: Object;
-	
+
 		$get?: $get;
 		$set?: $set;
 		$delete?: $delete;
@@ -148,10 +148,10 @@ declare namespace vuejs {
 		$mount?: $mount<this>;
 		$destroy?: $destroy;
 		$compile?: $compile;
-		
+
 		_init(options?: ComponentOption): void;
 	}
-	
+
 	interface VueConfig {
 		debug: boolean;
 		delimiters: [string, string];
@@ -160,7 +160,7 @@ declare namespace vuejs {
 		async: boolean;
 		convertAllProperties: boolean;
 	}
-	
+
 	interface VueUtil {
 		// util/lang.js
 		set(obj: Object, key: string, value: any): void;
@@ -231,7 +231,7 @@ declare namespace vuejs {
 		// observer/index.js
 		defineReactive(obj: Object, key: string, val: any): void;
 	}
-	
+
 	// instance/api/global.js
 	interface VueStatic {
 		new(options?: ComponentOption): Vue;
@@ -241,13 +241,13 @@ declare namespace vuejs {
 		set(object: Object, key: string, value: any): void;
 		delete(object: Object, key: string): void;
 		nextTick(callback: Function): any;
-	
+
 		cid: number;
-	
+
 		extend(options?: ComponentOption): VueStatic;
 		use(callback: Function | {install: Function, [key: string]: any}, option?: Object): VueStatic;
 		mixin(mixin: Object): void;
-	
+
 		directive<T extends ( Function | DirectiveOption ) >(id: string, definition: T): T;
 		directive(id: string): any;
 		elementDirective<T extends ( Function | DirectiveOption ) >(id: string, definition: T): T;
