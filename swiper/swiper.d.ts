@@ -7,17 +7,17 @@ declare class Swiper {
 	constructor(container: string, options?: ISwiperOptions);
 	constructor(container: Element, options?: ISwiperOptions);
 
-    // Properties
+	// Properties
 	params: ISwiperOptions;
 	container: any;
 	wrapper: any;
 	slides: Array<any>;
 	bullets: any;
-    width: number;
-    height: number;
+	width: number;
+	height: number;
 	translate: number;
 	progress: number;
-    activeIndex: number;
+	activeIndex: number;
 	previousIndex: number;
 	isBeginning: boolean;
 	isEnd: boolean;
