@@ -847,7 +847,8 @@ declare module "react-bootstrap" {
     // <Input />
     // ----------------------------------------
     interface InputProps extends React.Props<InputClass> {
-        defaultValue?:string;
+        autoFocus?: boolean;
+        defaultValue?: string;
         addonAfter?: any; // TODO: Add more specific type
         addonBefore?: any; // TODO: Add more specific type
         bsSize?: string;
@@ -973,4 +974,50 @@ declare module "react-bootstrap" {
     interface Fade extends React.ReactElement<FadeProps> { }
     interface FadeClass extends React.ComponentClass<FadeProps> { }
     var Fade: FadeClass;
+
+
+    // <Collapse />
+    // ----------------------------------------
+    interface CollapseProps extends React.Props<CollapseClass> {
+        dimension?: string;
+        getDimensionValue?: Function;
+        in?: boolean;
+        onEnter?: Function;
+        onEntered?: Function;
+        onEntering?: Function;
+        onExit?: Function;
+        onExited?: Function;
+        onExeting?: Function;
+        role?: string;
+        timeout?: number;
+        transitionAppear?: boolean;
+        unmountOnExit?: boolean;
+    }
+    interface Collapse extends React.ReactElement<CollapseProps> { }
+    interface CollapseClass extends React.ComponentClass<CollapseProps> { }
+    var Collapse: CollapseClass;
+
+
+    // <Breadcrumb />
+    // ----------------------------------------
+    interface BreadcrumbProps extends React.Props<Breadcrumb> {
+    }
+    interface Breadcrumb extends React.ReactElement<BreadcrumbProps> { }
+    interface BreadcrumbClass extends React.ComponentClass<BreadcrumbProps> { }
+    var Breadcrumb: BreadcrumbClass;
+
+
+    // <BreadcrumbItem />
+    // ----------------------------------------
+    interface BreadcrumbItemProps extends React.Props<BreadcrumbItem> {
+        active?: boolean;
+        href?: string;
+        id?: string | number;
+        linkId?: string | number;
+        target?: string;
+        title?: any;
+    }
+    interface BreadcrumbItem extends React.ReactElement<BreadcrumbItemProps> { }
+    interface BreadcrumbItemClass extends React.ComponentClass<BreadcrumbItemProps> { }
+    var BreadcrumbItem: BreadcrumbItemClass;
 }
