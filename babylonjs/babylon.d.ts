@@ -4517,7 +4517,7 @@ declare module BABYLON {
         static ExtrudeShapeCustom(name: string, options: {
             shape: Vector3[];
             path: Vector3[];
-            scaleFunction?any;
+            scaleFunction?:any;
             rotationFunction?:any;
             ribbonCloseArray?: boolean;
             ribbonClosePath?: boolean;
