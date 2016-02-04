@@ -2173,7 +2173,7 @@ declare module AceAjax {
 
         fromOrientedRange(range: Range): void;
 
-        setSelectionRange(match: Range, reverse: boolean): void;
+        setSelectionRange(match: Range, reverse?: boolean): void;
 
         getAllRanges(): Range[];
 
