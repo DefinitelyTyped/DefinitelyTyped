@@ -9601,16 +9601,17 @@ declare module _ {
          * @param resolver The function to resolve the cache key.
          * @return Returns the new memoizing function.
          */
-        memoize<TResult extends MemoizedFunction>(
-            func: Function,
-            resolver?: Function): TResult;
+        memoize: {
+            <T extends Function>(func: T, resolver?: Function): T & MemoizedFunction;
+            Cache: MapCache;
+        }
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.memoize
          */
-        memoize<TResult extends MemoizedFunction>(resolver?: Function): LoDashImplicitObjectWrapper<TResult>;
+        memoize(resolver?: Function): LoDashImplicitObjectWrapper<T & MemoizedFunction>;
     }
 
     //_.modArgs
@@ -13341,40 +13342,65 @@ declare module _ {
          * @param value The value to set.
          * @return Returns object.
          */
-        set<T>(
-            object: T,
+        set<TResult>(
+            object: Object,
             path: StringRepresentable|StringRepresentable[],
             value: any
-        ): T;
+        ): TResult;
 
         /**
          * @see _.set
          */
-        set<V, T>(
-            object: T,
+        set<V, TResult>(
+            object: Object,
             path: StringRepresentable|StringRepresentable[],
             value: V
-        ): T;
+        ): TResult;
+
+        /**
+         * @see _.set
+         */
+        set<O, V, TResult>(
+            object: O,
+            path: StringRepresentable|StringRepresentable[],
+            value: V
+        ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.set
          */
-        set<V>(
+        set<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            value: any
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.set
+         */
+        set<V, TResult>(
             path: StringRepresentable|StringRepresentable[],
             value: V
-        ): LoDashImplicitObjectWrapper<T>;
+        ): LoDashImplicitObjectWrapper<TResult>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.set
          */
-        set<V>(
+        set<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            value: any
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.set
+         */
+        set<V, TResult>(
             path: StringRepresentable|StringRepresentable[],
             value: V
-        ): LoDashExplicitObjectWrapper<T>;
+        ): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.transform

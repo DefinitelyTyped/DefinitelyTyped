@@ -257,6 +257,193 @@ module TestDifference {
     }
 }
 
+// _.differenceBy
+module TestDifferenceBy {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let iteratee: (value: TResult) => any;
+
+    {
+        let result: TResult[];
+
+        result = _.differenceBy<TResult>(array, array);
+        result = _.differenceBy<TResult>(array, list, array);
+        result = _.differenceBy<TResult>(array, array, list, array);
+        result = _.differenceBy<TResult>(array, list, array, list, array);
+        result = _.differenceBy<TResult>(array, array, list, array, list, array);
+        result = _.differenceBy<TResult>(array, list, array, list, array, list, array);
+
+        result = _.differenceBy<TResult>(array, array, iteratee);
+        result = _.differenceBy<TResult>(array, list, array, iteratee);
+        result = _.differenceBy<TResult>(array, array, list, array, iteratee);
+        result = _.differenceBy<TResult>(array, list, array, list, array, iteratee);
+        result = _.differenceBy<TResult>(array, array, list, array, list, array, iteratee);
+        result = _.differenceBy<TResult>(array, list, array, list, array, list, array, iteratee);
+
+        result = _.differenceBy<TResult>(array, array, 'a');
+        result = _.differenceBy<TResult>(array, list, array, 'a');
+        result = _.differenceBy<TResult>(array, array, list, array, 'a');
+        result = _.differenceBy<TResult>(array, list, array, list, array, 'a');
+        result = _.differenceBy<TResult>(array, array, list, array, list, array, 'a');
+        result = _.differenceBy<TResult>(array, list, array, list, array, list, array, 'a');
+
+        result = _.differenceBy<TResult, {a: number}>(array, array, {a: 1});
+        result = _.differenceBy<TResult, {a: number}>(array, list, array, {a: 1});
+        result = _.differenceBy<TResult, {a: number}>(array, array, list, array, {a: 1});
+        result = _.differenceBy<TResult, {a: number}>(array, list, array, list, array, {a: 1});
+        result = _.differenceBy<TResult, {a: number}>(array, array, list, array, list, array, {a: 1});
+        result = _.differenceBy<TResult>(array, list, array, list, array, list, array, {a: 1});
+
+        result = _.differenceBy<TResult>(list, list);
+        result = _.differenceBy<TResult>(list, array, list);
+        result = _.differenceBy<TResult>(list, list, array, list);
+        result = _.differenceBy<TResult>(list, array, list, array, list);
+        result = _.differenceBy<TResult>(list, list, array, list, array, list);
+        result = _.differenceBy<TResult>(list, array, list, array, list, array, list);
+
+        result = _.differenceBy<TResult>(list, list, iteratee);
+        result = _.differenceBy<TResult>(list, array, list, iteratee);
+        result = _.differenceBy<TResult>(list, list, array, list, iteratee);
+        result = _.differenceBy<TResult>(list, array, list, array, list, iteratee);
+        result = _.differenceBy<TResult>(list, list, array, list, array, list, iteratee);
+        result = _.differenceBy<TResult>(list, array, list, array, list, array, list, iteratee);
+
+        result = _.differenceBy<TResult>(list, list, 'a');
+        result = _.differenceBy<TResult>(list, array, list, 'a');
+        result = _.differenceBy<TResult>(list, list, array, list, 'a');
+        result = _.differenceBy<TResult>(list, array, list, array, list, 'a');
+        result = _.differenceBy<TResult>(list, list, array, list, array, list, 'a');
+        result = _.differenceBy<TResult>(list, array, list, array, list, array, list, 'a');
+
+        result = _.differenceBy<TResult, {a: number}>(list, list, {a: 1});
+        result = _.differenceBy<TResult, {a: number}>(list, array, list, {a: 1});
+        result = _.differenceBy<TResult, {a: number}>(list, list, array, list, {a: 1});
+        result = _.differenceBy<TResult, {a: number}>(list, array, list, array, list, {a: 1});
+        result = _.differenceBy<TResult, {a: number}>(list, list, array, list, array, list, {a: 1});
+        result = _.differenceBy<TResult>(list, array, list, array, list, array, list, {a: 1});
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).differenceBy<TResult>(array);
+        result = _(array).differenceBy<TResult>(list, array);
+        result = _(array).differenceBy<TResult>(array, list, array);
+        result = _(array).differenceBy<TResult>(list, array, list, array);
+        result = _(array).differenceBy<TResult>(array, list, array, list, array);
+        result = _(array).differenceBy<TResult>(list, array, list, array, list, array);
+
+        result = _(array).differenceBy<TResult>(array, iteratee);
+        result = _(array).differenceBy<TResult>(list, array, iteratee);
+        result = _(array).differenceBy<TResult>(array, list, array, iteratee);
+        result = _(array).differenceBy<TResult>(list, array, list, array, iteratee);
+        result = _(array).differenceBy<TResult>(array, list, array, list, array, iteratee);
+        result = _(array).differenceBy<TResult>(list, array, list, array, list, array, iteratee);
+
+        result = _(array).differenceBy<TResult>(array, 'a');
+        result = _(array).differenceBy<TResult>(list, array, 'a');
+        result = _(array).differenceBy<TResult>(array, list, array, 'a');
+        result = _(array).differenceBy<TResult>(list, array, list, array, 'a');
+        result = _(array).differenceBy<TResult>(array, list, array, list, array, 'a');
+        result = _(array).differenceBy<TResult>(list, array, list, array, list, array, 'a');
+
+        result = _(array).differenceBy<TResult, {a: number}>(array, {a: 1});
+        result = _(array).differenceBy<TResult, {a: number}>(list, array, {a: 1});
+        result = _(array).differenceBy<TResult, {a: number}>(array, list, array, {a: 1});
+        result = _(array).differenceBy<TResult, {a: number}>(list, array, list, array, {a: 1});
+        result = _(array).differenceBy<TResult, {a: number}>(array, list, array, list, array, {a: 1});
+        result = _(array).differenceBy<TResult>(list, array, list, array, list, array, {a: 1});
+
+        result = _(list).differenceBy<TResult>(list);
+        result = _(list).differenceBy<TResult>(array, list);
+        result = _(list).differenceBy<TResult>(list, array, list);
+        result = _(list).differenceBy<TResult>(array, list, array, list);
+        result = _(list).differenceBy<TResult>(list, array, list, array, list);
+        result = _(list).differenceBy<TResult>(array, list, array, list, array, list);
+
+        result = _(list).differenceBy<TResult>(list, iteratee);
+        result = _(list).differenceBy<TResult>(array, list, iteratee);
+        result = _(list).differenceBy<TResult>(list, array, list, iteratee);
+        result = _(list).differenceBy<TResult>(array, list, array, list, iteratee);
+        result = _(list).differenceBy<TResult>(list, array, list, array, list, iteratee);
+        result = _(list).differenceBy<TResult>(array, list, array, list, array, list, iteratee);
+
+        result = _(list).differenceBy<TResult>(list, 'a');
+        result = _(list).differenceBy<TResult>(array, list, 'a');
+        result = _(list).differenceBy<TResult>(list, array, list, 'a');
+        result = _(list).differenceBy<TResult>(array, list, array, list, 'a');
+        result = _(list).differenceBy<TResult>(list, array, list, array, list, 'a');
+        result = _(list).differenceBy<TResult>(array, list, array, list, array, list, 'a');
+
+        result = _(list).differenceBy<TResult, {a: number}>(list, {a: 1});
+        result = _(list).differenceBy<TResult, {a: number}>(array, list, {a: 1});
+        result = _(list).differenceBy<TResult, {a: number}>(list, array, list, {a: 1});
+        result = _(list).differenceBy<TResult, {a: number}>(array, list, array, list, {a: 1});
+        result = _(list).differenceBy<TResult, {a: number}>(list, array, list, array, list, {a: 1});
+        result = _(list).differenceBy<TResult>(array, list, array, list, array, list, {a: 1});
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().differenceBy<TResult>(array);
+        result = _(array).chain().differenceBy<TResult>(list, array);
+        result = _(array).chain().differenceBy<TResult>(array, list, array);
+        result = _(array).chain().differenceBy<TResult>(list, array, list, array);
+        result = _(array).chain().differenceBy<TResult>(array, list, array, list, array);
+        result = _(array).chain().differenceBy<TResult>(list, array, list, array, list, array);
+
+        result = _(array).chain().differenceBy<TResult>(array, iteratee);
+        result = _(array).chain().differenceBy<TResult>(list, array, iteratee);
+        result = _(array).chain().differenceBy<TResult>(array, list, array, iteratee);
+        result = _(array).chain().differenceBy<TResult>(list, array, list, array, iteratee);
+        result = _(array).chain().differenceBy<TResult>(array, list, array, list, array, iteratee);
+        result = _(array).chain().differenceBy<TResult>(list, array, list, array, list, array, iteratee);
+
+        result = _(array).chain().differenceBy<TResult>(array, 'a');
+        result = _(array).chain().differenceBy<TResult>(list, array, 'a');
+        result = _(array).chain().differenceBy<TResult>(array, list, array, 'a');
+        result = _(array).chain().differenceBy<TResult>(list, array, list, array, 'a');
+        result = _(array).chain().differenceBy<TResult>(array, list, array, list, array, 'a');
+        result = _(array).chain().differenceBy<TResult>(list, array, list, array, list, array, 'a');
+
+        result = _(array).chain().differenceBy<TResult, {a: number}>(array, {a: 1});
+        result = _(array).chain().differenceBy<TResult, {a: number}>(list, array, {a: 1});
+        result = _(array).chain().differenceBy<TResult, {a: number}>(array, list, array, {a: 1});
+        result = _(array).chain().differenceBy<TResult, {a: number}>(list, array, list, array, {a: 1});
+        result = _(array).chain().differenceBy<TResult, {a: number}>(array, list, array, list, array, {a: 1});
+        result = _(array).chain().differenceBy<TResult>(list, array, list, array, list, array, {a: 1});
+
+        result = _(list).chain().differenceBy<TResult>(list);
+        result = _(list).chain().differenceBy<TResult>(array, list);
+        result = _(list).chain().differenceBy<TResult>(list, array, list);
+        result = _(list).chain().differenceBy<TResult>(array, list, array, list);
+        result = _(list).chain().differenceBy<TResult>(list, array, list, array, list);
+        result = _(list).chain().differenceBy<TResult>(array, list, array, list, array, list);
+
+        result = _(list).chain().differenceBy<TResult>(list, iteratee);
+        result = _(list).chain().differenceBy<TResult>(array, list, iteratee);
+        result = _(list).chain().differenceBy<TResult>(list, array, list, iteratee);
+        result = _(list).chain().differenceBy<TResult>(array, list, array, list, iteratee);
+        result = _(list).chain().differenceBy<TResult>(list, array, list, array, list, iteratee);
+        result = _(list).chain().differenceBy<TResult>(array, list, array, list, array, list, iteratee);
+
+        result = _(list).chain().differenceBy<TResult>(list, 'a');
+        result = _(list).chain().differenceBy<TResult>(array, list, 'a');
+        result = _(list).chain().differenceBy<TResult>(list, array, list, 'a');
+        result = _(list).chain().differenceBy<TResult>(array, list, array, list, 'a');
+        result = _(list).chain().differenceBy<TResult>(list, array, list, array, list, 'a');
+        result = _(list).chain().differenceBy<TResult>(array, list, array, list, array, list, 'a');
+
+        result = _(list).chain().differenceBy<TResult, {a: number}>(list, {a: 1});
+        result = _(list).chain().differenceBy<TResult, {a: number}>(array, list, {a: 1});
+        result = _(list).chain().differenceBy<TResult, {a: number}>(list, array, list, {a: 1});
+        result = _(list).chain().differenceBy<TResult, {a: number}>(array, list, array, list, {a: 1});
+        result = _(list).chain().differenceBy<TResult, {a: number}>(list, array, list, array, list, {a: 1});
+        result = _(list).chain().differenceBy<TResult>(array, list, array, list, array, list, {a: 1});
+    }
+}
+
 // _.drop
 {
     let array: TResult[];
@@ -3979,8 +4166,53 @@ module TestKeyBy {
     }
 }
 
-result = <number[][]>_.invokeMap([[5, 1, 7], [3, 2, 1]], 'sort');
-result = <string[][]>_.invokeMap([123, 456], String.prototype.split, '');
+//_.invokeMap
+module TestInvokeMap {
+    let numArray = [4, 2, 1, 3]
+    let numDict: _.Dictionary<number> = {
+        a: 1,
+        b: 2,
+        c: 3,
+        d: 4
+    }
+    
+    let result: string[];
+    result = _.invokeMap<number, string>(numArray, 'toString');
+    result = _.invokeMap<number, string>(numArray, 'toString', 2);
+    result = _.invokeMap<string>(numArray, 'toString');
+    result = _.invokeMap<string>(numArray, 'toString', 2);
+    result = _(numArray).invokeMap<string>('toString').value();
+    result = _(numArray).invokeMap<string>('toString', 2).value();
+    result = _(numArray).chain().invokeMap<string>('toString').value();
+    result = _(numArray).chain().invokeMap<string>('toString', 2).value();
+    
+    result = _.invokeMap<number, string>(numArray, Number.prototype.toString);
+    result = _.invokeMap<number, string>(numArray, Number.prototype.toString, 2);
+    result = _.invokeMap<string>(numArray, Number.prototype.toString);
+    result = _.invokeMap<string>(numArray, Number.prototype.toString, 2);
+    result = _(numArray).invokeMap<string>(Number.prototype.toString).value();
+    result = _(numArray).invokeMap<string>(Number.prototype.toString, 2).value();
+    result = _(numArray).chain().invokeMap<string>(Number.prototype.toString).value();
+    result = _(numArray).chain().invokeMap<string>(Number.prototype.toString, 2).value();
+    
+    result = _.invokeMap<number, string>(numDict, 'toString');
+    result = _.invokeMap<number, string>(numDict, 'toString', 2);
+    result = _.invokeMap<string>(numDict, 'toString');
+    result = _.invokeMap<string>(numDict, 'toString', 2);
+    result = _(numDict).invokeMap<string>('toString').value();
+    result = _(numDict).invokeMap<string>('toString', 2).value();
+    result = _(numDict).chain().invokeMap<string>('toString').value();
+    result = _(numDict).chain().invokeMap<string>('toString', 2).value();
+    
+    result = _.invokeMap<number, string>(numDict, Number.prototype.toString);
+    result = _.invokeMap<number, string>(numDict, Number.prototype.toString, 2);
+    result = _.invokeMap<string>(numDict, Number.prototype.toString);
+    result = _.invokeMap<string>(numDict, Number.prototype.toString, 2);
+    result = _(numDict).invokeMap<string>(Number.prototype.toString).value();
+    result = _(numDict).invokeMap<string>(Number.prototype.toString, 2).value();
+    result = _(numDict).chain().invokeMap<string>(Number.prototype.toString).value();
+    result = _(numDict).chain().invokeMap<string>(Number.prototype.toString, 2).value();
+}
 
 // _.map
 module TestMap {
@@ -5201,17 +5433,28 @@ module TestFlowRight {
 }
 
 // _.memoize
-var testMemoizedFunction: _.MemoizedFunction;
-result = <_.MapCache>testMemoizedFunction.cache;
-interface TestMemoizedResultFn extends _.MemoizedFunction {
-    (...args: any[]): any;
+namespace TestMemoize {
+    var testMemoizedFunction: _.MemoizedFunction;
+    var cache = <_.MapCache>testMemoizedFunction.cache;
+    interface TestMemoizedResultFn extends _.MemoizedFunction {
+        (a1: string, a2: number): boolean;
+    }
+    var testMemoizeFn = (a1: string, a2: number) => a1.length > a2;
+    var testMemoizeResolverFn = (a1: string, a2: number) => a1 + a2;
+    var result: TestMemoizedResultFn;
+    result = _.memoize(testMemoizeFn);
+    result = _.memoize(testMemoizeFn, testMemoizeResolverFn);
+    result = _(testMemoizeFn).memoize().value();
+    result = _(testMemoizeFn).memoize(testMemoizeResolverFn).value();
+    result('foo', 1);
+    result.cache.get('foo1');
+    _.memoize.Cache = {
+        delete: key => false,
+        get: key => undefined,
+        has: key => false,
+        set(key, value) { return this; }
+    };
 }
-var testMemoizeFn: (...args: any[]) => any;
-var testMemoizeResolverFn: (...args: any[]) => any;
-result = <TestMemoizedResultFn>_.memoize<TestMemoizedResultFn>(testMemoizeFn);
-result = <TestMemoizedResultFn>_.memoize<TestMemoizedResultFn>(testMemoizeFn, testMemoizeResolverFn);
-result = <TestMemoizedResultFn>(_(testMemoizeFn).memoize<TestMemoizedResultFn>().value());
-result = <TestMemoizedResultFn>(_(testMemoizeFn).memoize<TestMemoizedResultFn>(testMemoizeResolverFn).value());
 
 // _.overArgs
 module TestOverArgs {
@@ -8745,39 +8988,100 @@ module TestPickBy {
 
 // _.set
 module TestSet {
-    type SampleValue = {a: number; b: string; c: boolean;};
+    type SampleObject = {a: {}};
+    type SampleResult = {a: {b: number[]}};
 
-    let object: TResult;
-    let value = {a: 1, b: '', c: true};
+    let object: SampleObject;
+    let value: number;
 
     {
-        let result: TResult;
+        let result: SampleResult;
 
-        result = _.set(object, '', any);
-        result = _.set(object, ['a', 'b', 1], any);
+        result = _.set<SampleResult>(object, 'a.b[1]', value);
+        result = _.set<SampleResult>(object, ['a', 'b', 1], value);
 
-        result = _.set<SampleValue>(object, '', value);
-        result = _.set<SampleValue>(object, ['a', 'b', 1], value);
+        result = _.set<number, SampleResult>(object, 'a.b[1]', value);
+        result = _.set<number, SampleResult>(object, ['a', 'b', 1], value);
+
+        result = _.set<SampleObject, number, SampleResult>(object, 'a.b[1]', value);
+        result = _.set<SampleObject, number, SampleResult>(object, ['a', 'b', 1], value);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<TResult>;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
 
-        result = _(object).set('', any);
-        result = _(object).set(['a', 'b', 1], any);
+        result = _(object).set<SampleResult>('a.b[1]', value);
+        result = _(object).set<SampleResult>(['a', 'b', 1], value);
 
-        result = _(object).set<SampleValue>('', value);
-        result = _(object).set<SampleValue>(['a', 'b', 1], value);
+        result = _(object).set<number, SampleResult>('a.b[1]', value);
+        result = _(object).set<number, SampleResult>(['a', 'b', 1], value);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<TResult>;
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
 
-        result = _(object).chain().set('', any);
-        result = _(object).chain().set(['a', 'b', 1], any);
+        result = _(object).chain().set<SampleResult>('a.b[1]', value);
+        result = _(object).chain().set<SampleResult>(['a', 'b', 1], value);
 
-        result = _(object).chain().set<SampleValue>('', value);
-        result = _(object).chain().set<SampleValue>(['a', 'b', 1], value);
+        result = _(object).chain().set<number, SampleResult>('a.b[1]', value);
+        result = _(object).chain().set<number, SampleResult>(['a', 'b', 1], value);
+    }
+}
+
+// _.setWith
+module TestSetWith {
+    type SampleObject = {a: {}};
+    type SampleResult = {a: {b: number[]}};
+
+    let object: SampleObject;
+    let value: number;
+    let customizer: (value: any, key: string, object: SampleObject) => number;
+
+    {
+        let result: SampleResult;
+
+        result = _.setWith<SampleResult>(object, 'a.b[1]', value);
+        result = _.setWith<SampleResult>(object, 'a.b[1]', value, customizer);
+        result = _.setWith<SampleResult>(object, ['a', 'b', 1], value);
+        result = _.setWith<SampleResult>(object, ['a', 'b', 1], value, customizer);
+
+        result = _.setWith<number, SampleResult>(object, 'a.b[1]', value);
+        result = _.setWith<number, SampleResult>(object, 'a.b[1]', value, customizer);
+        result = _.setWith<number, SampleResult>(object, ['a', 'b', 1], value);
+        result = _.setWith<number, SampleResult>(object, ['a', 'b', 1], value, customizer);
+
+        result = _.setWith<SampleObject, number, SampleResult>(object, 'a.b[1]', value);
+        result = _.setWith<SampleObject, number, SampleResult>(object, 'a.b[1]', value, customizer);
+        result = _.setWith<SampleObject, number, SampleResult>(object, ['a', 'b', 1], value);
+        result = _.setWith<SampleObject, number, SampleResult>(object, ['a', 'b', 1], value, customizer);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
+
+        result = _(object).setWith<SampleResult>('a.b[1]', value);
+        result = _(object).setWith<SampleResult>('a.b[1]', value, customizer);
+        result = _(object).setWith<SampleResult>(['a', 'b', 1], value);
+        result = _(object).setWith<SampleResult>(['a', 'b', 1], value, customizer);
+
+        result = _(object).setWith<number, SampleResult>('a.b[1]', value);
+        result = _(object).setWith<number, SampleResult>('a.b[1]', value, customizer);
+        result = _(object).setWith<number, SampleResult>(['a', 'b', 1], value);
+        result = _(object).setWith<number, SampleResult>(['a', 'b', 1], value, customizer);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
+
+        result = _(object).chain().setWith<SampleResult>('a.b[1]', value);
+        result = _(object).chain().setWith<SampleResult>('a.b[1]', value, customizer);
+        result = _(object).chain().setWith<SampleResult>(['a', 'b', 1], value);
+        result = _(object).chain().setWith<SampleResult>(['a', 'b', 1], value, customizer);
+
+        result = _(object).chain().setWith<number, SampleResult>('a.b[1]', value);
+        result = _(object).chain().setWith<number, SampleResult>('a.b[1]', value, customizer);
+        result = _(object).chain().setWith<number, SampleResult>(['a', 'b', 1], value);
+        result = _(object).chain().setWith<number, SampleResult>(['a', 'b', 1], value, customizer);
     }
 }
 
@@ -8898,7 +9202,7 @@ module TestValuesIn {
  **********/
 
 // _.camelCase
-module TestCamelCase {
+namespace TestCamelCase {
     {
         let result: string;
 
@@ -8914,7 +9218,7 @@ module TestCamelCase {
 }
 
 // _.capitalize
-module TestCapitalize {
+namespace TestCapitalize {
     {
         let result: string;
 
@@ -8930,7 +9234,7 @@ module TestCapitalize {
 }
 
 // _.deburr
-module TestDeburr {
+namespace TestDeburr {
     {
         let result: string;
 
@@ -8946,7 +9250,7 @@ module TestDeburr {
 }
 
 // _.endsWith
-module TestEndsWith {
+namespace TestEndsWith {
     {
         let result: boolean;
 
@@ -8966,7 +9270,7 @@ module TestEndsWith {
 }
 
 // _.escape
-module TestEscape {
+namespace TestEscape {
     {
         let result: string;
 
@@ -8982,7 +9286,7 @@ module TestEscape {
 }
 
 // _.escapeRegExp
-module TestEscapeRegExp {
+namespace TestEscapeRegExp {
     {
         let result: string;
 
@@ -8998,7 +9302,7 @@ module TestEscapeRegExp {
 }
 
 // _.kebabCase
-module TestKebabCase {
+namespace TestKebabCase {
     {
         let result: string;
 
@@ -9014,7 +9318,7 @@ module TestKebabCase {
 }
 
 // _.lowerCase
-module TestLowerCase {
+namespace TestLowerCase {
     {
         let result: string;
 
@@ -9030,7 +9334,7 @@ module TestLowerCase {
 }
 
 // _.lowerFirst
-module TestLowerFirst {
+namespace TestLowerFirst {
     {
         let result: string;
 
@@ -9046,11 +9350,11 @@ module TestLowerFirst {
 }
 
 // _.pad
-module TestPad {
+namespace TestPad {
     {
         let result: string;
 
-        result = _.pad('abd');
+        result = _.pad('abc');
         result = _.pad('abc', 8);
         result = _.pad('abc', 8, '_-');
 
@@ -9068,31 +9372,8 @@ module TestPad {
     }
 }
 
-// _.padStart
-module TestPadStart {
-    {
-        let result: string;
-
-        result = _.padStart('abc');
-        result = _.padStart('abc', 6);
-        result = _.padStart('abc', 6, '_-');
-
-        result = _('abc').padStart();
-        result = _('abc').padStart(6);
-        result = _('abc').padStart(6, '_-');
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        result = _('abc').chain().padStart();
-        result = _('abc').chain().padStart(6);
-        result = _('abc').chain().padStart(6, '_-');
-    }
-}
-
 // _.padEnd
-module TestPadEnd {
+namespace TestPadEnd {
     {
         let result: string;
 
@@ -9114,9 +9395,31 @@ module TestPadEnd {
     }
 }
 
+// _.padStart
+namespace TestPadStart {
+    {
+        let result: string;
+
+        result = _.padStart('abc');
+        result = _.padStart('abc', 6);
+        result = _.padStart('abc', 6, '_-');
+
+        result = _('abc').padStart();
+        result = _('abc').padStart(6);
+        result = _('abc').padStart(6, '_-');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('abc').chain().padStart();
+        result = _('abc').chain().padStart(6);
+        result = _('abc').chain().padStart(6, '_-');
+    }
+}
 
 // _.parseInt
-module TestParseInt {
+namespace TestParseInt {
     {
         let result: number;
 
@@ -9136,7 +9439,7 @@ module TestParseInt {
 }
 
 // _.repeat
-module TestRepeat {
+namespace TestRepeat {
     {
         let result: string;
         result = _.repeat('*');
@@ -9154,8 +9457,63 @@ module TestRepeat {
     }
 }
 
+// _.replace
+namespace TestReplace {
+    let replacer = (match: string, offset: number, string: string) => 'Barney';
+
+    {
+        let result: string;
+
+        result = _.replace('Hi Fred', 'Fred', 'Barney');
+        result = _.replace('Hi Fred', 'Fred', replacer);
+
+        result = _.replace('Hi Fred', /fred/i, 'Barney');
+        result = _.replace('Hi Fred', /fred/i, replacer);
+
+        result = _.replace('Fred');
+        result = _.replace('Fred', 'Barney');
+        result = _.replace('Fred', replacer);
+
+        result = _.replace(/fred/i);
+        result = _.replace(/fred/i, 'Barney');
+        result = _.replace(/fred/i, replacer);
+
+        result = _('Hi Fred').replace('Fred', 'Barney');
+        result = _('Hi Fred').replace('Fred', replacer);
+
+        result = _('Hi Fred').replace(/fred/i, 'Barney');
+        result = _('Hi Fred').replace(/fred/i, replacer);
+
+        result = _('Fred').replace();
+        result = _('Fred').replace('Barney');
+        result = _('Fred').replace(replacer);
+
+        result = _(/fred/i).replace();
+        result = _(/fred/i).replace('Barney');
+        result = _(/fred/i).replace(replacer);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('Hi Fred').chain().replace('Fred', 'Barney');
+        result = _('Hi Fred').chain().replace('Fred', replacer);
+
+        result = _('Hi Fred').chain().replace(/fred/i, 'Barney');
+        result = _('Hi Fred').chain().replace(/fred/i, replacer);
+
+        result = _('Fred').chain().replace();
+        result = _('Fred').chain().replace('Barney');
+        result = _('Fred').chain().replace(replacer);
+
+        result = _(/fred/i).chain().replace();
+        result = _(/fred/i).chain().replace('Barney');
+        result = _(/fred/i).chain().replace(replacer);
+    }
+}
+
 // _.snakeCase
-module TestSnakeCase {
+namespace TestSnakeCase {
     {
         let result: string;
 
@@ -9170,8 +9528,35 @@ module TestSnakeCase {
     }
 }
 
+// _.split
+namespace TestSplit {
+    {
+        let result: string[];
+
+        result = _.split('a-b-c');
+        result = _.split('a-b-c', '-');
+        result = _.split('a-b-c', '-', 2);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _('a-b-c').split();
+        result = _('a-b-c').split('-');
+        result = _('a-b-c').split('-', 2);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _('a-b-c').chain().split();
+        result = _('a-b-c').chain().split('-');
+        result = _('a-b-c').chain().split('-', 2);
+    }
+}
+
 // _.startCase
-module TestStartCase {
+namespace TestStartCase {
     {
         let result: string;
 
@@ -9187,7 +9572,7 @@ module TestStartCase {
 }
 
 // _.startsWith
-module TestStartsWith {
+namespace TestStartsWith {
     {
         let result: boolean;
 
@@ -9207,7 +9592,7 @@ module TestStartsWith {
 }
 
 // _.template
-module TestTemplate {
+namespace TestTemplate {
     interface TemplateExecutor {
         (obj?: Object): string;
         source: string;
@@ -9241,7 +9626,7 @@ module TestTemplate {
 }
 
 // _.toLower
-module TestToLower {
+namespace TestToLower {
     {
         let result: string;
 
@@ -9257,7 +9642,7 @@ module TestToLower {
 }
 
 // _.toUpper
-module TestToUpper {
+namespace TestToUpper {
     {
         let result: string;
 
@@ -9273,7 +9658,7 @@ module TestToUpper {
 }
 
 // _.trim
-module TestTrim {
+namespace TestTrim {
     {
         let result: string;
 
@@ -9293,29 +9678,8 @@ module TestTrim {
     }
 }
 
-// _.trimStart
-module TestTrimStart {
-    {
-        let result: string;
-
-        result = _.trimStart();
-        result = _.trimStart('  abc  ');
-        result = _.trimStart('-_-abc-_-', '_-');
-
-        result = _('-_-abc-_-').trimStart();
-        result = _('-_-abc-_-').trimStart('_-');
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        result = _('-_-abc-_-').chain().trimStart();
-        result = _('-_-abc-_-').chain().trimStart('_-');
-    }
-}
-
 // _.trimEnd
-module TestTrimEnd {
+namespace TestTrimEnd {
     {
         let result: string;
 
@@ -9335,19 +9699,38 @@ module TestTrimEnd {
     }
 }
 
+// _.trimStart
+namespace TestTrimStart {
+    {
+        let result: string;
+
+        result = _.trimStart();
+        result = _.trimStart('  abc  ');
+        result = _.trimStart('-_-abc-_-', '_-');
+
+        result = _('-_-abc-_-').trimStart();
+        result = _('-_-abc-_-').trimStart('_-');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('-_-abc-_-').chain().trimStart();
+        result = _('-_-abc-_-').chain().trimStart('_-');
+    }
+}
+
 // _.truncate
-module Testtruncate {
+namespace TestTruncate {
     {
         let result: string;
 
         result = _.truncate('hi-diddly-ho there, neighborino');
-        result = _.truncate('hi-diddly-ho there, neighborino', 24);
         result = _.truncate('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': ' ' });
         result = _.truncate('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': /,? +/ });
         result = _.truncate('hi-diddly-ho there, neighborino', { 'omission': ' […]' });
 
         result = _('hi-diddly-ho there, neighborino').truncate();
-        result = _('hi-diddly-ho there, neighborino').truncate(24);
         result = _('hi-diddly-ho there, neighborino').truncate({ 'length': 24, 'separator': ' ' });
         result = _('hi-diddly-ho there, neighborino').truncate({ 'length': 24, 'separator': /,? +/ });
         result = _('hi-diddly-ho there, neighborino').truncate({ 'omission': ' […]' });
@@ -9357,15 +9740,31 @@ module Testtruncate {
         let result: _.LoDashExplicitWrapper<string>;
 
         result = _('hi-diddly-ho there, neighborino').chain().truncate();
-        result = _('hi-diddly-ho there, neighborino').chain().truncate(24);
         result = _('hi-diddly-ho there, neighborino').chain().truncate({ 'length': 24, 'separator': ' ' });
         result = _('hi-diddly-ho there, neighborino').chain().truncate({ 'length': 24, 'separator': /,? +/ });
         result = _('hi-diddly-ho there, neighborino').chain().truncate({ 'omission': ' […]' });
     }
 }
 
+// _.unescape
+namespace TestUnescape {
+    {
+        let result: string;
+
+        result = _.unescape('fred, barney, &amp; pebbles');
+        result = _('fred, barney, &amp; pebbles').unescape();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('fred, barney, &amp; pebbles').chain().unescape();
+    }
+}
+
+
 // _.upperCase
-module TestUpperCase {
+namespace TestUpperCase {
     {
         let result: string;
 
@@ -9381,7 +9780,7 @@ module TestUpperCase {
 }
 
 // _.upperFirst
-module TestUpperFirst {
+namespace TestUpperFirst {
     {
         let result: string;
 
@@ -9396,24 +9795,8 @@ module TestUpperFirst {
     }
 }
 
-// _.unescape
-module TestUnescape {
-    {
-        let result: string;
-
-        result = _.unescape('fred, barney, &amp; pebbles');
-        result = _('fred, barney, &amp; pebbles').unescape();
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        result = _('fred, barney, &amp; pebbles').chain().unescape();
-    }
-}
-
 // _.words
-module TestWords {
+namespace TestWords {
     {
         let result: string[];
 
@@ -9881,6 +10264,29 @@ module TestNoop {
     }
 }
 
+namespace TestNthArg {
+    type SampleFunc = (...args: any[]) => any;
+
+    {
+        let result: SampleFunc;
+
+        result = _.nthArg<SampleFunc>();
+        result = _.nthArg<SampleFunc>(1);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<SampleFunc>;
+
+        result = _(1).nthArg<SampleFunc>();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<SampleFunc>;
+
+        result = _(1).chain().nthArg<SampleFunc>();
+    }
+}
+
 // _.over
 namespace TestOver {
     {
@@ -9908,6 +10314,66 @@ namespace TestOver {
         result = _(Math.max).chain().over<number>(Math.min);
         result = _([Math.max]).chain().over<number>();
         result = _([Math.max]).chain().over<number>([Math.min]);
+    }
+}
+
+// _.overEvery
+namespace TestOverEvery {
+    {
+        let result: (...args: any[]) => boolean;
+
+        result = _.overEvery(() => true);
+        result = _.overEvery(() => true, () => true);
+        result = _.overEvery([() => true]);
+        result = _.overEvery([() => true], [() => true]);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+
+        result = _(Math.max).overEvery();
+        result = _(Math.max).overEvery(() => true);
+        result = _([Math.max]).overEvery();
+        result = _([Math.max]).overEvery([() => true]);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+
+        result = _(Math.max).chain().overEvery();
+        result = _(Math.max).chain().overEvery(() => true);
+        result = _([Math.max]).chain().overEvery();
+        result = _([Math.max]).chain().overEvery([() => true]);
+    }
+}
+
+// _.overSome
+namespace TestOverSome {
+    {
+        let result: (...args: any[]) => boolean;
+
+        result = _.overSome(() => true);
+        result = _.overSome(() => true, () => true);
+        result = _.overSome([() => true]);
+        result = _.overSome([() => true], [() => true]);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+
+        result = _(Math.max).overSome();
+        result = _(Math.max).overSome(() => true);
+        result = _([Math.max]).overSome();
+        result = _([Math.max]).overSome([() => true]);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+
+        result = _(Math.max).chain().overSome();
+        result = _(Math.max).chain().overSome(() => true);
+        result = _([Math.max]).chain().overSome();
+        result = _([Math.max]).chain().overSome([() => true]);
     }
 }
 
@@ -10041,26 +10507,14 @@ module TestTimes {
         let result: number[];
 
         result = _.times(42);
+        result = _(42).times();
     }
 
     {
         let result: TResult[];
 
         result = _.times(42, iteratee);
-        result = _.times(42, iteratee, any);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<number>;
-
-        result = _(42).times();
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
         result = _(42).times(iteratee);
-        result = _(42).times(iteratee, any);
     }
 
     {
@@ -10073,7 +10527,6 @@ module TestTimes {
         let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(42).chain().times(iteratee);
-        result = _(42).chain().times(iteratee, any);
     }
 }
 
