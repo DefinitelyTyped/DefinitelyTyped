@@ -929,55 +929,6 @@ declare module "express" {
             disable(setting: string): Application;
 
             /**
-             * Configure callback for zero or more envs,
-             * when no `env` is specified that callback will
-             * be invoked for all environments. Any combination
-             * can be used multiple times, in any order desired.
-             *
-             * Examples:
-             *
-             *    app.configure(function(){
-             *      // executed for all envs
-             *    });
-             *
-             *    app.configure('stage', function(){
-             *      // executed staging env
-             *    });
-             *
-             *    app.configure('stage', 'production', function(){
-             *      // executed for stage and production
-             *    });
-             *
-             * Note:
-             *
-             *  These callbacks are invoked immediately, and
-             *  are effectively sugar for the following:
-             *
-             *     var env = process.env.NODE_ENV || 'development';
-             *
-             *      switch (env) {
-             *        case 'development':
-             *          ...
-             *          break;
-             *        case 'stage':
-             *          ...
-             *          break;
-             *        case 'production':
-             *          ...
-             *          break;
-             *      }
-             *
-             * @param env
-             * @param fn
-             */
-            configure(fn: Function): Application;
-            configure(env0: string, fn: Function): Application;
-            configure(env0: string, env1: string, fn: Function): Application;
-            configure(env0: string, env1: string, env2: string, fn: Function): Application;
-            configure(env0: string, env1: string, env2: string, env3: string, fn: Function): Application;
-            configure(env0: string, env1: string, env2: string, env3: string, env4: string, fn: Function): Application;
-
-            /**
              * Render the given view `name` name with `options`
              * and a callback accepting an error and the
              * rendered template string.
