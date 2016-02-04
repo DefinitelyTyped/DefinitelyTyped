@@ -3,12 +3,12 @@
 // Definitions by: Matt Wheatley <https://github.com/terrawheat>
 // Definitions: https://github.com/LiberisLabs
 
-declare module ng.environment {
+declare module angular.environment {
   interface ServiceProvider {
     /**
      * Sets the configuration object
      */
-    config: (config: ng.environment.Config) => void;
+    config: (config: angular.environment.Config) => void;
     /**
      * Evaluates the current domain and
      * loads the correct environment variables.
