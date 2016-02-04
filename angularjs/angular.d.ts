@@ -1083,7 +1083,7 @@ declare module angular {
     }
 
     interface IDeferred<T> {
-        resolve(value?: T): void;
+        resolve(value?: T|IPromise<T>): void;
         reject(reason?: any): void;
         notify(state?: any): void;
         promise: IPromise<T>;
