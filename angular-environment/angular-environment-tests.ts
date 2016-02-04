@@ -1,6 +1,6 @@
 /// <reference path="angular-environment.d.ts" />
-var envServiceProvider: ng.environment.ServiceProvider;
-var envService: ng.environment.Service;
+var envServiceProvider: angular.environment.ServiceProvider;
+var envService: angular.environment.Service;
 
 envServiceProvider.config({
   domains: {
