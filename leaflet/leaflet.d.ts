@@ -2442,7 +2442,7 @@ declare namespace L {
         options: Map.MapOptions;
 
         /**
-          * Iterates over the layers of the map, optionally specifying context 
+          * Iterates over the layers of the map, optionally specifying context
 		  * of the iterator function.
           */
         eachLayer(fn: (layer: ILayer) => void, context?: any): Map;
@@ -3058,7 +3058,7 @@ declare namespace L {
       */
     function multiPolygon(latlngs: LatLng[][], options?: PolylineOptions): MultiPolygon;
 
-    export interface MultiPolylgonStatic extends ClassStatic {
+    export interface MultiPolygonStatic extends ClassStatic {
         /**
           * Instantiates a multi-polyline object given an array of latlngs arrays (one
           * for each individual polygon) and optionally an options object (the same
@@ -3066,7 +3066,7 @@ declare namespace L {
           */
         new(latlngs: LatLng[][], options?: PolylineOptions): MultiPolygon;
     }
-    export var MultiPolylgon: MultiPolylgonStatic;
+    export var MultiPolygon: MultiPolygonStatic;
 
     export interface MultiPolygon extends FeatureGroup<Polygon> {
         /**
@@ -4182,7 +4182,7 @@ declare namespace L {
           * When this option is set, the TileLayer only loads tiles that are in the given geographical bounds.
           */
         bounds?: LatLngBounds;
-        
+
         /**
           * Custom keys may be specified in TileLayerOptions so they can be used in a provided URL template.
           */
