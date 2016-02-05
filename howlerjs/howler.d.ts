@@ -71,3 +71,10 @@ declare class Howl {
     unload(): void;
 }
 
+
+declare module 'howler' {
+    export={
+        Howler : Howler,
+        Howl : Howl
+    };
+}
