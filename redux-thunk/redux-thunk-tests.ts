@@ -3,12 +3,12 @@
 /// <reference path="../es6-promise/es6-promise.d.ts" />
 /// <reference path="../express/express.d.ts" />
 
-import { createStore, applyMiddleware, Store, Dispatch } from 'redux';
+import { createStore, applyMiddleware, Store, Dispatch, Reducer } from 'redux';
 import * as thunk from 'redux-thunk';
 import ThunkInterface = ReduxThunk.ThunkInterface;
 import { Promise } from 'es6-promise';
 
-declare var rootReducer: Function;
+declare var rootReducer: Reducer<any>;
 declare var fetch: any;
 
 // create a store that has redux-thunk middleware enabled
@@ -16,7 +16,7 @@ const createStoreWithMiddleware = applyMiddleware(
     thunk
 )(createStore);
 
-const store: Store = createStoreWithMiddleware(rootReducer);
+const store: Store<any> = createStoreWithMiddleware(rootReducer);
 
 function fetchSecretSauce() {
     return fetch('https://www.google.com/search?q=secret+sauce');
