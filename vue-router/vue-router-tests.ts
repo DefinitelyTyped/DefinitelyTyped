@@ -62,9 +62,8 @@ namespace TestAdvanced {
                     transition.next();
                 },
                 activate: function() {
-                    return new Promise((resolve) => {
-                        resolve();
-                    });
+                    var p: PromiseLike<any>;
+                    return p;
                 },
                 deactivate: function({next}) {
                     next();
