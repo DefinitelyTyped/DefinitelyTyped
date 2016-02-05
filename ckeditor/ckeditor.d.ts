@@ -168,7 +168,7 @@ declare module CKEDITOR {
             // Properties
             type: number;
 
-            // Methods            
+            // Methods
             constructor(element: string, ownerDocument?: document);
             constructor(element: HTMLElement, ownerDocument?: document);
             addClass(className: string): void;
