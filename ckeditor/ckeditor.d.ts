@@ -566,12 +566,14 @@ declare module CKEDITOR {
         contentsCss?: string | string[];
         contentsLangDirection?: string;
         customConfig?: string;
+        enterMode?: number;
         extraPlugins?: string;
         font_names?: string;
         font_defaultLabel?: string;
         fontSize_sizes?: string;
         fontSize_defaultLabel?: string;
         height?: string | number;
+        htmlEncodeOutput?: boolean;
         language?: string;
         on?: any;
         plugins?: string;
@@ -583,6 +585,7 @@ declare module CKEDITOR {
         toolbarGroups?: toolbarGroups[];
         toolbarLocation?: string;
         readOnly?: boolean;
+        shiftEnterMode?: number;
         skin?: string;
         width?: string | number;
     }
