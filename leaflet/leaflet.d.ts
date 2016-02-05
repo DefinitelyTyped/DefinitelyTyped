@@ -513,7 +513,7 @@ declare module L {
         /**
           * Creates a control with the given options.
           */
-        function (options?: ControlOptions): Control;
+        (options?: ControlOptions): Control;
     }
 
     export namespace control {
