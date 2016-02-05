@@ -291,9 +291,9 @@ fooProm = fooProm.caught((error: any) => {
 
 fooProm = fooProm.catch((reason: any) => {
 	//handle multiple valid return types simultaneously
-	if (true) {
+	if (foo === null) {
 		return;
-	} else if (false) {
+	} else if (!reason) {
 		return voidProm;
 	} else if (foo) {
 		return foo;
@@ -696,6 +696,15 @@ fooProm = Promise.try(() => {
 	return fooThen;
 }, arr, x);
 
+// - - - - - - - - - - - - - - - - -
+
+fooProm = Promise.try(() => {
+    if (fooProm) {
+        return fooProm;
+    }
+    return foo;
+});
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 fooProm = Promise.attempt(() => {
@@ -707,6 +716,15 @@ fooProm = Promise.attempt(() => {
 fooProm = Promise.attempt(() => {
 	return foo;
 }, arr, x);
+
+// - - - - - - - - - - - - - - - - -
+
+fooProm = Promise.attempt(() => {
+    if (fooProm) {
+        return fooProm;
+    }
+    return foo;
+});
 
 // - - - - - - - - - - - - - - - - -
 
