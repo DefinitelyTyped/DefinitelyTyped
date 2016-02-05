@@ -226,7 +226,7 @@ namespace TestExplicitExtend {
             propA: Object,
             propB: {
                 type: Application,
-                default: () => null,
+                default: () => new Application(),
                 twoWay: true,
                 coerce(value: any) {}
             }
