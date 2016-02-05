@@ -25,6 +25,7 @@ interface KnockoutMappingOptions {
     create?: (options: KnockoutMappingCreateOptions) => void;
     update?: (options: KnockoutMappingUpdateOptions) => void;
     key?: (data: any) => any;
+    [others: string]: KnockoutMappingOptions | string[] | boolean | Function;
 }
 
 interface KnockoutMapping {

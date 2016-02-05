@@ -21,7 +21,7 @@ var updateOptions = {
 var targetOptions = {};
 var inputOptions = {};
 
-var mappingOptions = {
+var mappingOptions: KnockoutMappingOptions = {
     ignore: ['age'],
     include: ['name'],
     copy: ['height'],
@@ -29,9 +29,11 @@ var mappingOptions = {
     deferEvaluation: false,
     create: function (options: KnockoutMappingCreateOptions) { },
     update: function (options: KnockoutMappingUpdateOptions) { },
-    key: function (data: any) { return data; }
+    key: function (data: any) { return data; },
+    children: {
+        create: function (options: KnockoutMappingCreateOptions) { }
+    }
 }
-
 
 // Utility functions
 mapping.isMapped(inputModel);
