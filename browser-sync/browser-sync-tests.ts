@@ -78,6 +78,8 @@ evt.on("init", function () {
 
 browserSync(config);
 
+var has = browserSync.has("My server");
+
 var bs = browserSync.create();
 
 bs.init({
@@ -85,7 +87,7 @@ bs.init({
 });
 
 bs.reload();
- 
+
 function browserSyncInit(): browserSync.BrowserSyncInstance {
     var browser = browserSync.create();
     browser.init();
@@ -95,3 +97,26 @@ function browserSyncInit(): browserSync.BrowserSyncInstance {
 }
 var browser = browserSyncInit();
 browser.exit();
+
+// Stream method.
+
+// -- No options.
+browser.stream();
+
+// -- "once" option.
+browser.stream({once: true});
+
+// -- "match" option (string).
+browser.stream({match: "**/*.js"});
+
+// -- "match" option (RegExp).
+browser.stream({match: /\.js$/});
+
+// -- "match" option (function).
+browser.stream({match: (testString) => true});
+
+// -- "match" option (array).
+browser.stream({match: ["**/*.js", /\.js$/, (testString) => true]});
+
+// -- Both options.
+browser.stream({once: true, match: ["**/*.js", /\.js$/, (testString) => true]});
