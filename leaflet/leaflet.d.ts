@@ -805,13 +805,6 @@ declare namespace L {
 }
 
 declare namespace L {
-
-    /**
-      * Creates a Draggable object for moving the given element when you start dragging
-      * the dragHandle element (equals the element itself by default).
-      */
-    function draggable(element: HTMLElement, dragHandle?: HTMLElement): Draggable;
-
     export interface DraggableStatic extends ClassStatic {
         /**
           * Creates a Draggable object for moving the given element when you start dragging
