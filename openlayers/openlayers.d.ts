@@ -2888,7 +2888,7 @@ declare module ol {
              * @param destination The desired projection. Can be a string identifier or a ol.proj.Projection object.
              * @return This geometry. Note that original geometry is modified in place. 
              */
-            transform(source: ol.proj.ProjectionLike, destination: ol.proj.ProjectionLike);
+            transform(source: ol.proj.ProjectionLike, destination: ol.proj.ProjectionLike): ol.geom.Geometry;
         }
 
         /**
@@ -4104,18 +4104,18 @@ declare module ol {
            * Add a single feature to the source. If you want to add a batch of features at once,
            * call source.addFeatures() instead.
            */
-           addFeature(feature: ol.Feature);
+          addFeature(feature: ol.Feature):void;
            
            /**
             * Add a batch of features to the source.
             */
-            addFeatures(features: ol.Feature[]);
+            addFeatures(features: ol.Feature[]):void;
             
             /**
              * Remove all features from the source.
              * @param Skip dispatching of removefeature events.
              */
-            clear(fast?: boolean);
+            clear(fast?: boolean):void;
           /**
            * Get the extent of the features currently in the source.
            */
@@ -4194,9 +4194,9 @@ declare module ol {
             getScale(): number;
             getSnapToPiexl(): boolean;
             
-            setOpacity(opacity: number);
-            setRotation(rotation: number);
-            setScale(scale: number);
+            setOpacity(opacity: number):void;
+            setRotation(rotation: number):void;
+            setScale(scale: number):void;
         }
 
         interface GeometryFunction {
@@ -4214,12 +4214,12 @@ declare module ol {
             getLineJoin(): string;
             getMitterLimit(): number;
             getWidth(): number;
-            setColor(color: ol.Color|string);
-            setLineCap(lineCap: string);
-            setLineDash(lineDash: number[]);
-            setLineJoin(lineJoin: string);
-            setMiterLimit(miterLimit: number);
-            setWidth(width: number);
+            setColor(color: ol.Color|string):void;
+            setLineCap(lineCap: string):void;
+            setLineDash(lineDash: number[]):void;
+            setLineJoin(lineJoin: string):void;
+            setMiterLimit(miterLimit: number):void;
+            setWidth(width: number):void;
         }
 
         /**
@@ -4243,8 +4243,8 @@ declare module ol {
           getText(): ol.style.Text;
           getZIndex(): number;
           
-          setGeometry(geometry: string | ol.geom.Geometry | ol.style.GeometryFunction);
-          setZIndex( zIndex: number);
+          setGeometry(geometry: string | ol.geom.Geometry | ol.style.GeometryFunction):void;
+          setZIndex( zIndex: number):void;
         }
 
         /**
