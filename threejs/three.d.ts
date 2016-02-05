@@ -1410,9 +1410,9 @@ declare module THREE {
          */
         scale: Vector3;
 
-        modelViewMatrix: { value: Matrix4 };
+        modelViewMatrix: Matrix4;
 
-        normalMatrix: { value: Matrix3 };
+        normalMatrix: Matrix3;
 
         /**
          * When this is set, then the rotationMatrix gets calculated every frame.
