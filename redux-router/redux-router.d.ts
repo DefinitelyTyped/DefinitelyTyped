@@ -16,10 +16,6 @@ declare namespace __ReduxRouter {
     */
     export class ReduxRouter extends React.Component<any, any> { }
     /**
-    * A component that renders a React Router app using router state from a Redux store.
-    */
-    export class ReactRouter { }
-    /**
     * A Redux store enhancer that adds router state to the store.
     */
     export var reduxReactRouter: any;
@@ -46,7 +42,8 @@ declare module "redux-router/lib/routerStateReducer" {
 }
 
 declare module "redux-router/lib/ReduxRouter" {
-    export default __ReduxRouter.ReactRouter;
+    import Router from "react-router";
+    export default Router;
 }
 
 declare module "redux-router/lib/client" {
