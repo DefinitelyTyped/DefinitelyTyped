@@ -198,7 +198,9 @@ declare module AngularFormly {
 		className?: string;
 
 
-		elementAttributes?: string;
+		elementAttributes?: {
+			[key: string]: string;
+		};
 
 
 		/**
