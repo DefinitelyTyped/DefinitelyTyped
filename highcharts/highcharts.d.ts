@@ -6285,3 +6285,16 @@ interface JQuery {
     **/
     highcharts(options: HighchartsOptions, callback: (chart: HighchartsChartObject) => void): JQuery;
 }
+
+/**
+ * Enabling the usage of ES6 module loading.
+ */
+declare var Highcharts: HighchartsStatic;
+
+/**
+ * Declaration for ES6 module loading.
+ */
+declare module "highcharts" {
+    export = Highcharts;
+}
+
