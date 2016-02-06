@@ -6534,27 +6534,16 @@ declare module _ {
     //_.every
     interface LoDashStatic {
         /**
-         * Checks if predicate returns truthy for all elements of collection. The predicate is bound to thisArg and
-         * invoked with three arguments: (value, index|key, collection).
-         *
-         * If a property name is provided for predicate the created _.property style callback returns the property
-         * value of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for predicate the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
+         * Checks if predicate returns truthy for all elements of collection. Iteration is stopped once predicate
+         * returns falsey. The predicate is invoked with three arguments: (value, index|key, collection).
          *
          * @param collection The collection to iterate over.
          * @param predicate The function invoked per iteration.
-         * @param thisArg The this binding of predicate.
          * @return Returns true if all elements pass the predicate check, else false.
          */
         every<T>(
             collection: List<T>,
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): boolean;
 
         /**
@@ -6562,24 +6551,30 @@ declare module _ {
          */
         every<T>(
             collection: Dictionary<T>,
-            predicate?: DictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate?: DictionaryIterator<T, boolean>
         ): boolean;
 
         /**
          * @see _.every
          */
         every<T>(
-            collection: List<T>|Dictionary<T>,
-            predicate?: string,
-            thisArg?: any
+            collection: NumericDictionary<T>,
+            predicate?: NumericDictionaryIterator<T, boolean>
+        ): boolean;
+
+        /**
+         * @see _.every
+         */
+        every<T>(
+            collection: List<T>|Dictionary<T>|NumericDictionary<T>,
+            predicate?: string|any[]
         ): boolean;
 
         /**
          * @see _.every
          */
         every<TObject extends {}, T>(
-            collection: List<T>|Dictionary<T>,
+            collection: List<T>|Dictionary<T>|NumericDictionary<T>,
             predicate?: TObject
         ): boolean;
     }
@@ -6589,16 +6584,14 @@ declare module _ {
          * @see _.every
          */
         every(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>|NumericDictionaryIterator<T, boolean>
         ): boolean;
 
         /**
          * @see _.every
          */
         every(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string|any[]
         ): boolean;
 
         /**
@@ -6614,16 +6607,14 @@ declare module _ {
          * @see _.every
          */
         every<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>
         ): boolean;
 
         /**
          * @see _.every
          */
         every(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string|any[]
         ): boolean;
 
         /**
@@ -6639,16 +6630,14 @@ declare module _ {
          * @see _.every
          */
         every(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>|NumericDictionaryIterator<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
 
         /**
          * @see _.every
          */
         every(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string|any[]
         ): LoDashExplicitWrapper<boolean>;
 
         /**
@@ -6664,16 +6653,14 @@ declare module _ {
          * @see _.every
          */
         every<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
 
         /**
          * @see _.every
          */
         every(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string|any[]
         ): LoDashExplicitWrapper<boolean>;
 
         /**

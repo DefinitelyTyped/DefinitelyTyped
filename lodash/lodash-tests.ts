@@ -3570,52 +3570,68 @@ module TestEachRight {
 }
 
 // _.every
-module TestEvery {
-    let array: TResult[];
-    let list: _.List<TResult>;
-    let dictionary: _.Dictionary<TResult>;
+namespace TestEvery {
+    type SampleObject = {a: number; b: string; c: boolean;};
 
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean;
+    let array: SampleObject[];
+    let list: _.List<SampleObject>;
+    let dictionary: _.Dictionary<SampleObject>;
+    let numericDictionary: _.NumericDictionary<SampleObject>;
+
+    let listIterator: (value: SampleObject, index: number, collection: _.List<SampleObject>) => boolean;
+    let dictionaryIterator: (value: SampleObject, key: string, collection: _.Dictionary<SampleObject>) => boolean;
+    let numericDictionaryIterator: (value: SampleObject, key: number, collection: _.NumericDictionary<SampleObject>) => boolean;
 
     {
         let result: boolean;
 
-        result = _.every<TResult>(array);
-        result = _.every<TResult>(array, listIterator);
-        result = _.every<TResult>(array, listIterator, any);
-        result = _.every<TResult>(array, '');
-        result = _.every<{a: number}, TResult>(array, {a: 42});
+        result = _.every<SampleObject>(array);
+        result = _.every<SampleObject>(array, listIterator);
+        result = _.every<SampleObject>(array, 'a');
+        result = _.every<SampleObject>(array, ['a', 42]);
+        result = _.every<{a: number}, SampleObject>(array, {a: 42});
 
-        result = _.every<TResult>(list);
-        result = _.every<TResult>(list, listIterator);
-        result = _.every<TResult>(list, listIterator, any);
-        result = _.every<TResult>(list, '');
-        result = _.every<{a: number}, TResult>(list, {a: 42});
+        result = _.every<SampleObject>(list);
+        result = _.every<SampleObject>(list, listIterator);
+        result = _.every<SampleObject>(list, 'a');
+        result = _.every<SampleObject>(list, ['a', 42]);
+        result = _.every<{a: number}, SampleObject>(list, {a: 42});
 
-        result = _.every<TResult>(dictionary);
-        result = _.every<TResult>(dictionary, dictionaryIterator);
-        result = _.every<TResult>(dictionary, dictionaryIterator, any);
-        result = _.every<TResult>(dictionary, '');
-        result = _.every<{a: number}, TResult>(dictionary, {a: 42});
+        result = _.every<SampleObject>(dictionary);
+        result = _.every<SampleObject>(dictionary, dictionaryIterator);
+        result = _.every<SampleObject>(dictionary, 'a');
+        result = _.every<SampleObject>(dictionary, ['a', 42]);
+        result = _.every<{a: number}, SampleObject>(dictionary, {a: 42});
+
+        result = _.every<SampleObject>(numericDictionary);
+        result = _.every<SampleObject>(numericDictionary, numericDictionaryIterator);
+        result = _.every<SampleObject>(numericDictionary, 'a');
+        result = _.every<SampleObject>(numericDictionary, ['a', 42]);
+        result = _.every<{a: number}, SampleObject>(numericDictionary, {a: 42});
 
         result = _(array).every();
         result = _(array).every(listIterator);
-        result = _(array).every(listIterator, any);
-        result = _(array).every('');
+        result = _(array).every('a');
+        result = _(array).every(['a', 42]);
         result = _(array).every<{a: number}>({a: 42});
 
-        result = _(list).every<TResult>();
-        result = _(list).every<TResult>(listIterator);
-        result = _(list).every<TResult>(listIterator, any);
-        result = _(list).every('');
+        result = _(list).every<SampleObject>();
+        result = _(list).every<SampleObject>(listIterator);
+        result = _(list).every('a');
+        result = _(list).every(['a', 42]);
         result = _(list).every<{a: number}>({a: 42});
 
-        result = _(dictionary).every<TResult>();
-        result = _(dictionary).every<TResult>(dictionaryIterator);
-        result = _(dictionary).every<TResult>(dictionaryIterator, any);
-        result = _(dictionary).every('');
+        result = _(dictionary).every<SampleObject>();
+        result = _(dictionary).every<SampleObject>(dictionaryIterator);
+        result = _(dictionary).every('a');
+        result = _(dictionary).every(['a', 42]);
         result = _(dictionary).every<{a: number}>({a: 42});
+
+        result = _(numericDictionary).every<SampleObject>();
+        result = _(numericDictionary).every<SampleObject>(numericDictionaryIterator);
+        result = _(numericDictionary).every('a');
+        result = _(numericDictionary).every(['a', 42]);
+        result = _(numericDictionary).every<{a: number}>({a: 42});
     }
 
     {
@@ -3623,21 +3639,27 @@ module TestEvery {
 
         result = _(array).chain().every();
         result = _(array).chain().every(listIterator);
-        result = _(array).chain().every(listIterator, any);
-        result = _(array).chain().every('');
+        result = _(array).chain().every('a');
+        result = _(array).chain().every(['a', 42]);
         result = _(array).chain().every<{a: number}>({a: 42});
 
-        result = _(list).chain().every<TResult>();
-        result = _(list).chain().every<TResult>(listIterator);
-        result = _(list).chain().every<TResult>(listIterator, any);
-        result = _(list).chain().every('');
+        result = _(list).chain().every<SampleObject>();
+        result = _(list).chain().every<SampleObject>(listIterator);
+        result = _(list).chain().every('a');
+        result = _(list).chain().every(['a', 42]);
         result = _(list).chain().every<{a: number}>({a: 42});
 
-        result = _(dictionary).chain().every<TResult>();
-        result = _(dictionary).chain().every<TResult>(dictionaryIterator);
-        result = _(dictionary).chain().every<TResult>(dictionaryIterator, any);
-        result = _(dictionary).chain().every('');
+        result = _(dictionary).chain().every<SampleObject>();
+        result = _(dictionary).chain().every<SampleObject>(dictionaryIterator);
+        result = _(dictionary).chain().every('a');
+        result = _(dictionary).chain().every(['a', 42]);
         result = _(dictionary).chain().every<{a: number}>({a: 42});
+
+        result = _(numericDictionary).chain().every<SampleObject>();
+        result = _(numericDictionary).chain().every<SampleObject>(numericDictionaryIterator);
+        result = _(numericDictionary).chain().every('a');
+        result = _(numericDictionary).chain().every(['a', 42]);
+        result = _(numericDictionary).chain().every<{a: number}>({a: 42});
     }
 }
 
