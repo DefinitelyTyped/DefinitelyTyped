@@ -75,10 +75,10 @@ fs.outputJSON(file, data, errorCallback);
 fs.outputJsonSync(file, data);
 fs.outputJSONSync(file, data);
 
-fs.readJson(file, errorCallback);
-fs.readJson(file, openOpts, errorCallback);
-fs.readJSON(file, errorCallback);
-fs.readJSON(file, openOpts, errorCallback);
+fs.readJson(file, (error: Error, jsonObject: any) => {});
+fs.readJson(file, openOpts, (error: Error, jsonObject: any) => {});
+fs.readJSON(file, (error: Error, jsonObject: any) => {});
+fs.readJSON(file, openOpts, (error: Error, jsonObject: any) => {});
 
 fs.readJsonSync(file, openOpts);
 fs.readJSONSync(file, openOpts);
