@@ -581,6 +581,9 @@ Sequelize.GEOMETRY( 'POINT' );
 Sequelize.GEOMETRY( 'LINESTRING' );
 Sequelize.GEOMETRY( 'POLYGON' );
 Sequelize.GEOMETRY( 'POINT', 4326 );
+Sequelize.VIRTUAL;
+new Sequelize.VIRTUAL( Sequelize.STRING );
+new Sequelize.VIRTUAL( Sequelize.DATE , ['property1', 'property2']);
 
 //
 //  Deferrable
