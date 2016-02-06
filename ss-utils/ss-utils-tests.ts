@@ -1,18 +1,7 @@
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="ss-utils.d.ts" />
 
-declare var EventSource : sse.IEventSourceStatic;
-
-declare module sse {
-    interface IEventSourceStatic extends EventTarget {
-        new (url: string, eventSourceInitDict?: IEventSourceInit):IEventSourceStatic;
-        url: string;
-    }
-
-    interface IEventSourceInit {
-        withCredentials?: boolean;
-    }
-}
+declare var EventSource : ssutils.IEventSourceStatic;
 
 function test_ssutils() {
      $.ss.eventReceivers = { "document": document };
@@ -23,7 +12,8 @@ function test_ssutils() {
             onConnect: function(connect:ssutils.SSEConnect) {},
             onHeartbeat: function(msg:ssutils.SSEHeartbeat, e:MessageEvent){},
             onJoin: function(msg:ssutils.SSEJoin) {},
-            onLeave: function(msg:ssutils.SSELeave) {}            
+            onLeave: function(msg:ssutils.SSELeave) {},
+            onUpdate: function(msg:ssutils.SSEUpdate) {}            
         },
         receivers: {
             tv: {
@@ -74,6 +64,8 @@ function test_ssutils_Static(){
     var qs:{ [index: string]: string } = $.ss.queryString("http://google.com?a=b&c=d");
     var relativePath = $.ss.createUrl("/path/to/{File}", {File:"file.js"});
     var readableText = $.ss.humanize("TheVariableName");
+    $.ss.parseResponseStatus('{"message":"test"}');
+    $.ss.postJSON("/path/to/url", {json:"data"}, function(r:any) {});
     
     $.ss.listenOn = "click onmousedown";
     $.ss.eventReceivers = { "document": document };
