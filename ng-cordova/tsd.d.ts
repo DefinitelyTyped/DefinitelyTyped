@@ -19,3 +19,4 @@
 /// <reference path="badge.d.ts"/>
 /// <reference path="file.d.ts"/>
 /// <reference path="fileTransfer.d.ts"/>
+/// <reference path="media.d.ts"/>
