@@ -38,7 +38,7 @@ declare namespace __ONOFF {
         unwatchAll():void;
 
         direction():string;
-        setDirection(value:string);
+        setDirection(value:string):void;
 
         edge():string;
         setEdge(value:string):void;

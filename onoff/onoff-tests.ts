@@ -1,3 +1,5 @@
+/// <reference path="onoff" />
+/// <reference path="../node/node.d.ts" />
 import * as onoff from 'onoff';
 
 var led:onoff.Gpio = new onoff.Gpio(17, 'out');
@@ -7,7 +9,7 @@ var toggleLed = function():void {
     led.writeSync(lastState ^ 1);
 };
 
-var intervalId:number = setInterval(toggleLed, 100);
+var intervalId:NodeJS.Timer = setInterval(toggleLed, 100);
 
 setTimeout(function() {
     clearInterval(intervalId);
