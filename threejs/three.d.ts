@@ -4906,36 +4906,33 @@ declare module THREE {
     }
 
     interface WebGLGeometriesInstance {
-        new (gl: any, properties: any, info: any): void;
         get( object: any ): any;
     }
     interface WebGLGeometriesStatic{
-        (_gl: any, extensions: any, _infoRender: any): WebGLGeometriesInstance;
+        new (gl: any, properties: any, info: any): WebGLGeometriesInstance;
     }
     export var WebGLGeometries: WebGLGeometriesStatic;
 
 
     interface WebGLIndexedBufferRendererInstance {
-        new (gl: any, properties: any, info: any): void;
         setMode( value: any ): void;
         setIndex( index: any ): void;
         render( start: any, count: any ): void;
         renderInstances( geometry: any ): void;
     }
     interface WebGLIndexedBufferRendererStatic{
-        (_gl: any, extensions: any, _infoRender: any): WebGLIndexedBufferRendererInstance;
+        new (gl: any, properties: any, info: any): WebGLIndexedBufferRendererInstance;
     }
     export var WebGLIndexedBufferRenderer: WebGLIndexedBufferRendererStatic;
 
 
     interface WebGLObjectsInstance {
-        new (gl: any, properties: any, info: any): void;
         getAttributeBuffer( attribute: any ): any;
         getWireframeAttribute(geometry: any): any;
         update(object: any): void;
     }
     interface WebGLObjectsStatic{
-        (gl: any, properties: any, info: any): WebGLObjectsInstance;
+        new (gl: any, properties: any, info: any): WebGLObjectsInstance;
     }
     export var WebGLObjects: WebGLObjectsStatic;
 
@@ -4959,27 +4956,23 @@ declare module THREE {
     }
 
     interface WebGLProgramsInstance {
-        new (renderer: WebGLRenderer, capabilities: any): void;
-
         getParameters( material: any, lights: any, fog: any, object: any ): any[];
         getProgramCode( material: any, parameters: any ): any;
         acquireProgram( material: any, parameters: any, code: any ): any;
         releaseProgram( program: any ): void;
     }
     interface WebGLProgramsStatic{
-        (): WebGLProgramsInstance;
+        new (renderer: WebGLRenderer, capabilities: any): WebGLProgramsInstance;
     }
     export var WebGLPrograms: WebGLProgramsStatic;
 
     interface WebGLPropertiesInstance {
-        new (): void;
-
         get(object: any): any;
         delete(object: any): void;
         clear(): void;
     }
     interface WebGLPropertiesStatic{
-        (): WebGLPropertiesInstance;
+        new (): WebGLPropertiesInstance;
     }
     export var WebGLProperties: WebGLPropertiesStatic;
 
@@ -4988,8 +4981,6 @@ declare module THREE {
     }
 
     interface WebGLShadowMapInstance{
-        new ( _renderer: Renderer, _lights: any[], _objects: any[] ): void;
-
         enabled: boolean;
         autoUpdate: boolean;
         needsUpdate: boolean;
@@ -4999,12 +4990,11 @@ declare module THREE {
         render( scene: Scene ): void;
     }
     interface WebGLShadowMapStatic{
-        ( _renderer: Renderer, _lights: any[], _objects: any[] ): WebGLStateInstance;
+        new ( _renderer: Renderer, _lights: any[], _objects: any[] ): WebGLStateInstance;
     }
     export var WebGLShadowMap: WebGLShadowMapStatic;
 
     interface WebGLStateInstance{
-        new ( gl: any, extensions: any, paramThreeToGL: Function ): void;
         init(): void;
         initAttributes(): void;
         enableAttribute(attribute: string): void;
@@ -5029,7 +5019,7 @@ declare module THREE {
         reset(): void;
     }
     interface WebGLStateStatic{
-        ( gl: any, extensions: any, paramThreeToGL: Function ): WebGLStateInstance;
+        new ( gl: any, extensions: any, paramThreeToGL: Function ): WebGLStateInstance;
     }
     export var WebGLState: WebGLStateStatic;
 
