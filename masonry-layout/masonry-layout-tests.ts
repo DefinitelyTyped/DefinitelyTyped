@@ -1,5 +1,5 @@
 /// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="masonry.d.ts" />
+/// <reference path="masonry-layout.d.ts" />
 
 // Responsive layouts
 function testResponsiveLayouts() {
