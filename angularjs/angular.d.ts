@@ -1714,7 +1714,7 @@ declare module angular {
         /**
          * Whether transclusion is enabled. Enabled by default.
          */
-        transclude?: boolean;
+        transclude?: any;
         /**
          * Whether the new scope is isolated. Isolated by default.
          */
