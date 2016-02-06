@@ -1,0 +1,1 @@
+// See docs for examples https://github.com/zhakhalov/ng-core-decorators/blob/master/README.md
