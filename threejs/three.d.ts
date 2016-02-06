@@ -312,18 +312,6 @@ declare module THREE {
         parse( json: any ): BooleanKeyframeTrack;
     }
 
-    export class ColorKeyframeTrack extends KeyframeTrack {
-        constructor(name: string, keys: any[]);
-
-        result: any;
-
-        setResult( value: any ): void;
-        lerpValues( value0: any, value1: any, alpha: number ): any;
-        compareValues( value0: any, value1: any ): boolean;
-        clone(): ColorKeyframeTrack;
-        parse( json: any ): ColorKeyframeTrack;
-    }
-
     export class NumberKeyframeTrack {
         constructor();
 
@@ -1908,15 +1896,6 @@ declare module THREE {
         handlers:any[];
         add(regex:string, loader:Loader):void;
         get(file: string):Loader;
-    }
-
-    export class AnimationLoader {
-        constructor(manager?: LoadingManager);
-
-        manager: LoadingManager;
-        load(url: string, onLoad: (animations: AnimationClip[]) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
-        setCrossOrigin(crossOrigin: string): void;
-        parse(json: any, onLoad: (animations: AnimationClip[])=>void): void;
     }
 
     export class BinaryTextureLoader {
