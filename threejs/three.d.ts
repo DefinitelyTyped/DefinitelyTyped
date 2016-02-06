@@ -5699,7 +5699,7 @@ declare module THREE {
         constructor(shape?: Shape, options?: any);
         constructor(shapes?: Shape[], options?: any);
 
-        WorldUVGenerator: {
+        static WorldUVGenerator: {
             generateTopUV(geometry: Geometry, indexA: number, indexB: number, indexC: number): Vector2[];
             generateSideWallUV(geometry: Geometry, indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
         };
