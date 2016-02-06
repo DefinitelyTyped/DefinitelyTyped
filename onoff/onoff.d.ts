@@ -27,10 +27,10 @@ declare namespace __ONOFF {
         valueFd:number;
 
         read(cb:(err:Error, value:number) => void):void;
-        readSync():boolean; // maybe number?
+        readSync():number;
 
         write(value:number, cb:(err:Error, value:number) => void):void;
-        writeSync(value:number):void; // maybe number?
+        writeSync(value:number):void;
 
         watch(cb:(error:Error, value:number) => void):void;
         unwatch():void;
