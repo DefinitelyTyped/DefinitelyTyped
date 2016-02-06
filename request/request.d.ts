@@ -125,7 +125,10 @@ declare module 'request' {
 			uri?: string;
 			url?: string;
 		}
-		export type Options = RequiredUriUrl & CoreOptions;
+
+        export type OptionsWithUri = UriOptions & CoreOptions;
+        export type OptionsWithUrl = UrlOptions & CoreOptions;
+        export type Options = OptionsWithUri | OptionsWithUrl;
 
 		export interface RequestCallback {
 			(error: any, response: http.IncomingMessage, body: any): void;
