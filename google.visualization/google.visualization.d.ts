@@ -1,6 +1,6 @@
 // Type definitions for Google Visualisation Apis
 // Project: https://developers.google.com/chart/
-// Definitions by: Dan Ludwig <https://github.com/danludwig>
+// Definitions by: Dan Ludwig <https://github.com/danludwig>, Michael James <https://github.com/mjjames>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module google {
@@ -1063,6 +1063,36 @@ declare module google {
             function trigger(visualization: any, eventName: string, args?: any): void;
         }
 
+        //#endregion
+        //#region Formats
+        export class DateFormat {
+            constructor(options?: IDateFormatOptions);
+            public format(dataTable: google.visualization.DataTable, columnIndex: number): string;
+            public formatValue(value: any): string;
+        }
+
+        export class NumberFormat {
+            constructor(options?: INumberFormatOptions);
+            public format(dataTable: google.visualization.DataTable, columnIndex: number): string;
+            public formatValue(value: any): string;
+        }
+
+        export interface INumberFormatOptions {
+            decimalSymbol?: string;
+            fractionDigits?: number;
+            groupingSymbol?: string;
+            negativeColor?: string;
+            negativeParens?: boolean;
+            pattern?: string;
+            prefix?: string;
+            suffix?: string;
+        }
+        
+        export interface IDateFormatOptions{
+            formatType?: string;
+            pattern? : string;
+            timeZone?: number;
+        }
         //#endregion
     }
 }

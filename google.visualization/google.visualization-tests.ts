@@ -343,3 +343,51 @@ function test_candlestickChart() {
     var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
     chart.draw(data, options);
 }
+
+function test_dateFormat(){
+    var dateFormatNoOptions = new google.visualization.DateFormat();
+    
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Employee Name');
+    data.addColumn('date', 'Start Date (Long)');
+    data.addColumn('date', 'Start Date (Medium)');
+    data.addColumn('date', 'Start Date (Short)');
+    data.addRows([
+        ['Mike', new Date(2008, 1, 28, 0, 31, 26),
+                new Date(2008, 1, 28, 0, 31, 26),
+                new Date(2008, 1, 28, 0, 31, 26)],
+        ['Bob', new Date(2007, 5, 1, 0),
+                new Date(2007, 5, 1, 0),
+                new Date(2007, 5, 1, 0)],
+        ['Alice', new Date(2006, 7, 16),
+                new Date(2006, 7, 16),
+                new Date(2006, 7, 16)]
+    ]);
+    
+    // Create three formatters in three styles.
+    var formatter_long = new google.visualization.DateFormat({formatType: 'long'});
+    var formatter_medium = new google.visualization.DateFormat({formatType: 'medium', timeZone: -5});
+    var formatter_short = new google.visualization.DateFormat({pattern: "EEE, MMM d, ''yy"});
+    
+    // Reformat our data.
+    formatter_long.format(data, 1);
+    formatter_medium.format(data,2);
+    formatter_short.format(data, 3);
+}
+
+function test_numberFormat(){
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Department');
+    data.addColumn('number', 'Revenues');
+    data.addRows([
+    ['Shoes', 10700],
+    ['Sports', -15400],
+    ['Toys', 12500],
+    ['Electronics', -2100],
+    ['Food', 22600],
+    ['Art', 1100]
+    ]);
+    var formatterNoOptions = new google.visualization.NumberFormat();
+    var formatter = new google.visualization.NumberFormat({prefix: '$', negativeColor: 'red', negativeParens: true});
+    formatter.format(data, 1); // Apply formatter to second column
+}
