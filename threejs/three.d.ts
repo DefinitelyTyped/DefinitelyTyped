@@ -2009,6 +2009,8 @@ declare module THREE {
         itemError(url: string): void;
     }
 
+    export var DefaultLoadingManager: LoadingManager;
+
     export class MaterialLoader {
         constructor(manager?: LoadingManager);
 
