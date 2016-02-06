@@ -7904,7 +7904,7 @@ declare module _ {
             method: (...args: any[]) => TResult,
             ...args: any[]): TResult[];
     }
-    
+
     interface LoDashImplicitArrayWrapper<T> {
         /**
         * @see _.invokeMap
@@ -7920,7 +7920,7 @@ declare module _ {
             method: (...args: any[]) => TResult,
             ...args: any[]): LoDashImplicitArrayWrapper<TResult>;
     }
-    
+
     interface LoDashImplicitObjectWrapper<T> {
         /**
         * @see _.invokeMap
@@ -7936,7 +7936,7 @@ declare module _ {
             method: (...args: any[]) => TResult,
             ...args: any[]): LoDashImplicitArrayWrapper<TResult>;
     }
-    
+
     interface LoDashExplicitArrayWrapper<T> {
         /**
         * @see _.invokeMap
@@ -7952,7 +7952,7 @@ declare module _ {
             method: (...args: any[]) => TResult,
             ...args: any[]): LoDashExplicitArrayWrapper<TResult>;
     }
-    
+
     interface LoDashExplicitObjectWrapper<T> {
         /**
         * @see _.invokeMap
@@ -15504,33 +15504,6 @@ declare module _ {
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
-    //_.toPairs
-    interface LoDashStatic {
-        /**
-         * Creates a two dimensional array of the key-value pairs for object, e.g. [[key1, value1], [key2, value2]].
-         *
-         * @param object The object to query.
-         * @return Returns the new array of key-value pairs.
-         */
-        toPairs<T extends {}>(object?: T): any[][];
-
-        toPairs<T extends {}, TResult>(object?: T): TResult[][];
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.toPairs
-         */
-        toPairs<TResult>(): LoDashImplicitArrayWrapper<TResult[]>;
-    }
-
-    interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.toPairs
-         */
-        toPairs<TResult>(): LoDashExplicitArrayWrapper<TResult[]>;
-    }
-
     //_.pick
     interface LoDashStatic {
         /**
@@ -15801,6 +15774,60 @@ declare module _ {
             value: V,
             customizer?: SetWithCustomizer<T>
         ): LoDashExplicitObjectWrapper<TResult>;
+    }
+
+    //_.toPairs
+    interface LoDashStatic {
+        /**
+         * Creates an array of own enumerable key-value pairs for object.
+         *
+         * @param object The object to query.
+         * @return Returns the new array of key-value pairs.
+         */
+        toPairs<T extends {}>(object?: T): any[][];
+
+        toPairs<T extends {}, TResult>(object?: T): TResult[][];
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.toPairs
+         */
+        toPairs<TResult>(): LoDashImplicitArrayWrapper<TResult[]>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.toPairs
+         */
+        toPairs<TResult>(): LoDashExplicitArrayWrapper<TResult[]>;
+    }
+
+    //_.toPairsIn
+    interface LoDashStatic {
+        /**
+         * Creates an array of own and inherited enumerable key-value pairs for object.
+         *
+         * @param object The object to query.
+         * @return Returns the new array of key-value pairs.
+         */
+        toPairsIn<T extends {}>(object?: T): any[][];
+
+        toPairsIn<T extends {}, TResult>(object?: T): TResult[][];
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.toPairsIn
+         */
+        toPairsIn<TResult>(): LoDashImplicitArrayWrapper<TResult[]>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.toPairsIn
+         */
+        toPairsIn<TResult>(): LoDashExplicitArrayWrapper<TResult[]>;
     }
 
     //_.transform

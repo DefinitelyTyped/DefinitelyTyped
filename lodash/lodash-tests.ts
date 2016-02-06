@@ -4360,7 +4360,7 @@ module TestInvokeMap {
         c: 3,
         d: 4
     }
-    
+
     let result: string[];
     result = _.invokeMap<number, string>(numArray, 'toString');
     result = _.invokeMap<number, string>(numArray, 'toString', 2);
@@ -4370,7 +4370,7 @@ module TestInvokeMap {
     result = _(numArray).invokeMap<string>('toString', 2).value();
     result = _(numArray).chain().invokeMap<string>('toString').value();
     result = _(numArray).chain().invokeMap<string>('toString', 2).value();
-    
+
     result = _.invokeMap<number, string>(numArray, Number.prototype.toString);
     result = _.invokeMap<number, string>(numArray, Number.prototype.toString, 2);
     result = _.invokeMap<string>(numArray, Number.prototype.toString);
@@ -4379,7 +4379,7 @@ module TestInvokeMap {
     result = _(numArray).invokeMap<string>(Number.prototype.toString, 2).value();
     result = _(numArray).chain().invokeMap<string>(Number.prototype.toString).value();
     result = _(numArray).chain().invokeMap<string>(Number.prototype.toString, 2).value();
-    
+
     result = _.invokeMap<number, string>(numDict, 'toString');
     result = _.invokeMap<number, string>(numDict, 'toString', 2);
     result = _.invokeMap<string>(numDict, 'toString');
@@ -4388,7 +4388,7 @@ module TestInvokeMap {
     result = _(numDict).invokeMap<string>('toString', 2).value();
     result = _(numDict).chain().invokeMap<string>('toString').value();
     result = _(numDict).chain().invokeMap<string>('toString', 2).value();
-    
+
     result = _.invokeMap<number, string>(numDict, Number.prototype.toString);
     result = _.invokeMap<number, string>(numDict, Number.prototype.toString, 2);
     result = _.invokeMap<string>(numDict, Number.prototype.toString);
@@ -9066,47 +9066,6 @@ module TestOmitBy {
     }
 }
 
-// _.toPairs
-module TestToPairs {
-    let object: _.Dictionary<string>;
-
-    {
-        let result: any[][];
-
-        result = _.toPairs<_.Dictionary<string>>(object);
-    }
-
-    {
-        let result: string[][];
-
-        result = _.toPairs<_.Dictionary<string>, string>(object);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<string[]>;
-
-        result = _(object).toPairs<string>();
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<any[]>;
-
-        result = _(object).toPairs();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<string[]>;
-
-        result = _(object).chain().toPairs<string>();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<any[]>;
-
-        result = _(object).chain().toPairs();
-    }
-}
-
 // _.pick
 module TestPick {
     let predicate: (element: any, key: string, collection: any) => boolean;
@@ -9269,6 +9228,88 @@ module TestSetWith {
         result = _(object).chain().setWith<number, SampleResult>('a.b[1]', value, customizer);
         result = _(object).chain().setWith<number, SampleResult>(['a', 'b', 1], value);
         result = _(object).chain().setWith<number, SampleResult>(['a', 'b', 1], value, customizer);
+    }
+}
+
+// _.toPairs
+namespace TestToPairs {
+    let object: _.Dictionary<string>;
+
+    {
+        let result: any[][];
+
+        result = _.toPairs<_.Dictionary<string>>(object);
+    }
+
+    {
+        let result: string[][];
+
+        result = _.toPairs<_.Dictionary<string>, string>(object);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string[]>;
+
+        result = _(object).toPairs<string>();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<any[]>;
+
+        result = _(object).toPairs();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string[]>;
+
+        result = _(object).chain().toPairs<string>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<any[]>;
+
+        result = _(object).chain().toPairs();
+    }
+}
+
+// _.toPairsIn
+namespace TestToPairsIn {
+    let object: _.Dictionary<string>;
+
+    {
+        let result: any[][];
+
+        result = _.toPairsIn<_.Dictionary<string>>(object);
+    }
+
+    {
+        let result: string[][];
+
+        result = _.toPairsIn<_.Dictionary<string>, string>(object);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string[]>;
+
+        result = _(object).toPairsIn<string>();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<any[]>;
+
+        result = _(object).toPairsIn();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string[]>;
+
+        result = _(object).chain().toPairsIn<string>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<any[]>;
+
+        result = _(object).chain().toPairs();
     }
 }
 
