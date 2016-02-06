@@ -8805,28 +8805,16 @@ declare module _ {
     //_.some
     interface LoDashStatic {
         /**
-         * Checks if predicate returns truthy for any element of collection. The function returns as soon as it finds
-         * a passing value and does not iterate over the entire collection. The predicate is bound to thisArg and
-         * invoked with three arguments: (value, index|key, collection).
-         *
-         * If a property name is provided for predicate the created _.property style callback returns the property
-         * value of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for predicate the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
+         * Checks if predicate returns truthy for any element of collection. Iteration is stopped once predicate
+         * returns truthy. The predicate is invoked with three arguments: (value, index|key, collection).
          *
          * @param collection The collection to iterate over.
          * @param predicate The function invoked per iteration.
-         * @param thisArg The this binding of predicate.
          * @return Returns true if any element passes the predicate check, else false.
          */
         some<T>(
             collection: List<T>,
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): boolean;
 
         /**
@@ -8834,8 +8822,7 @@ declare module _ {
          */
         some<T>(
             collection: Dictionary<T>,
-            predicate?: DictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate?: DictionaryIterator<T, boolean>
         ): boolean;
 
         /**
@@ -8843,8 +8830,7 @@ declare module _ {
          */
         some<T>(
             collection: NumericDictionary<T>,
-            predicate?: NumericDictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate?: NumericDictionaryIterator<T, boolean>
         ): boolean;
 
         /**
@@ -8852,8 +8838,7 @@ declare module _ {
          */
         some<T>(
             collection: List<T>|Dictionary<T>|NumericDictionary<T>,
-            predicate?: string,
-            thisArg?: any
+            predicate?: string|any[]
         ): boolean;
 
         /**
@@ -8870,16 +8855,14 @@ declare module _ {
          * @see _.some
          */
         some(
-            predicate?: ListIterator<T, boolean>|NumericDictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>|NumericDictionaryIterator<T, boolean>
         ): boolean;
 
         /**
          * @see _.some
          */
         some(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string|any[]
         ): boolean;
 
         /**
@@ -8895,16 +8878,14 @@ declare module _ {
          * @see _.some
          */
         some<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>
         ): boolean;
 
         /**
          * @see _.some
          */
         some(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string|any[]
         ): boolean;
 
         /**
@@ -8920,16 +8901,14 @@ declare module _ {
          * @see _.some
          */
         some(
-            predicate?: ListIterator<T, boolean>|NumericDictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>|NumericDictionaryIterator<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
 
         /**
          * @see _.some
          */
         some(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string|any[]
         ): LoDashExplicitWrapper<boolean>;
 
         /**
@@ -8945,16 +8924,14 @@ declare module _ {
          * @see _.some
          */
         some<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
 
         /**
          * @see _.some
          */
         some(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string|any[]
         ): LoDashExplicitWrapper<boolean>;
 
         /**
