@@ -787,13 +787,13 @@ declare module "asana" {
       }
 
       namespace Attachments {
-        interface Type extends IdAndName {
+        interface Type extends Resource {
           created_at: string;
           permanent_url: string;
           download_url: string;
           view_url: string;
           host: string;
-          parent: IdAndName;
+          parent: Resource;
         }
       }
 
@@ -831,7 +831,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByTask(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<CollectionBase<Attachments.Type>>;
+        findByTask(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Attachments.Type>>;
       }
 
       interface EventsStatic {
@@ -883,7 +883,7 @@ declare module "asana" {
       }
 
       namespace Projects {
-        interface Type extends IdAndName {
+        interface Type extends Resource {
           created_at: string;
           modified_at: string;
           due_date: string;
@@ -892,10 +892,10 @@ declare module "asana" {
           archived: boolean;
           notes: string;
           color: string;
-          workspace: IdAndName;
-          team: IdAndName;
-          members: IdAndName[];
-          followers: IdAndName[];
+          workspace: Resource;
+          team: Resource;
+          members: Resource[];
+          followers: Resource[];
         }
 
         interface CreateParams {
@@ -920,7 +920,7 @@ declare module "asana" {
           text: string;
           html_text: string;
           modified_at: string;
-          author: IdAndName;
+          author: Resource;
         }
 
         interface FindAllParams extends PaginationParams {
@@ -1065,7 +1065,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findAll(params?: Projects.FindAllParams, dispatchOptions?: any): Promise<CollectionBase<Projects.Type>>;
+        findAll(params?: Projects.FindAllParams, dispatchOptions?: any): Promise<ResourceList<Projects.Type>>;
 
         /**
          * * Returns the compact project records for all projects in the workspace.
@@ -1080,7 +1080,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByWorkspace(workspace: number, params?: Projects.FindByParams, dispatchOptions?: any): Promise<CollectionBase<Projects.Type>>;
+        findByWorkspace(workspace: number, params?: Projects.FindByParams, dispatchOptions?: any): Promise<ResourceList<Projects.Type>>;
 
         /**
          * * Returns the compact project records for all projects in the team.
@@ -1095,7 +1095,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByTeam(team: number, params?: Projects.FindByParams, dispatchOptions?: any): Promise<CollectionBase<Projects.Type>>;
+        findByTeam(team: number, params?: Projects.FindByParams, dispatchOptions?: any): Promise<ResourceList<Projects.Type>>;
 
         /**
          * * Returns compact records for all sections in the specified project.
@@ -1108,7 +1108,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        sections(project: number, params?: PaginationParams, dispatchOptions?: any): Promise<CollectionBase<Tasks.Type>>;
+        sections(project: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tasks.Type>>;
 
         /**
          * * Returns the compact task records for all tasks within the given project,
@@ -1122,7 +1122,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        tasks(project: number, params?: PaginationParams, dispatchOptions?: any): Promise<CollectionBase<Tasks.Type>>;
+        tasks(project: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tasks.Type>>;
 
         /**
          * * Adds the specified list of users as followers to the project. Followers are a subset of members, therefore if
@@ -1192,9 +1192,9 @@ declare module "asana" {
       }
 
       namespace Stories {
-        interface ShortType extends IdAndName {
+        interface ShortType extends Resource {
           created_at: string;
-          created_by: IdAndName;
+          created_by: Resource;
           type: string;
           text: string;
         }
@@ -1202,7 +1202,7 @@ declare module "asana" {
         interface Type extends ShortType {
           html_text: string;
           source: string;
-          target: IdAndName;
+          target: Resource;
           hearts: Type[];
         }
       }
@@ -1232,7 +1232,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByTask(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<CollectionBase<Stories.Type>>;
+        findByTask(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Stories.Type>>;
 
         /**
          * * Returns the full record for a single story.
@@ -1263,7 +1263,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        createOnTask(task: number, data: any, dispatchOptions?: any): Promise<CollectionBase<Stories.ShortType>>;
+        createOnTask(task: number, data: any, dispatchOptions?: any): Promise<ResourceList<Stories.ShortType>>;
       }
 
       interface TagsStatic {
@@ -1274,12 +1274,12 @@ declare module "asana" {
       }
 
       namespace Tags {
-        interface Type extends IdAndName {
+        interface Type extends Resource {
           created_at: string;
           notes: string;
-          workspace: IdAndName;
+          workspace: Resource;
           color: string;
-          followers: IdAndName[];
+          followers: Resource[];
         }
 
         interface FindAllParams extends PaginationParams {
@@ -1402,7 +1402,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findAll(params?: Tags.FindAllParams, dispatchOptions?: any): Promise<CollectionBase<Tags.Type>>;
+        findAll(params?: Tags.FindAllParams, dispatchOptions?: any): Promise<ResourceList<Tags.Type>>;
 
         /**
          * * Returns the compact tag records for all tags in the workspace.
@@ -1415,7 +1415,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByWorkspace(workspace: number, params?: PaginationParams, dispatchOptions?: any): Promise<CollectionBase<Tags.Type>>;
+        findByWorkspace(workspace: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tags.Type>>;
 
         /**
          * * Returns the compact task records for all tasks with the given tag.
@@ -1429,7 +1429,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        getTasksWithTag(tag: number, params?: PaginationParams, dispatchOptions?: any): Promise<CollectionBase<Tasks.Type>>;
+        getTasksWithTag(tag: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tasks.Type>>;
       }
 
       interface TasksStatic {
@@ -1440,7 +1440,7 @@ declare module "asana" {
       }
 
       namespace Tasks {
-        interface Type extends IdAndName {
+        interface Type extends Resource {
           created_at: string;
           modified_at: string;
           completed_at: string;
@@ -1448,16 +1448,16 @@ declare module "asana" {
           due_on: string;
           due_at: string;
           assignee_status: string;
-          assignee: IdAndName;
+          assignee: Resource;
           notes: string;
-          workspace: IdAndName;
+          workspace: Resource;
           num_hearts: number;
           hearted: boolean;
-          parent: IdAndName;
-          tags: IdAndName[];
-          projects: IdAndName[];
+          parent: Resource;
+          tags: Resource[];
+          projects: Resource[];
           memberships: Membership[];
-          followers: IdAndName[];
+          followers: Resource[];
         }
 
         interface CreateParams {
@@ -1608,7 +1608,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByProject(projectId: number, params?: PaginationParams, dispatchOptions?: any): Promise<CollectionBase<Tasks.Type>>;
+        findByProject(projectId: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tasks.Type>>;
 
         /**
          * * Returns the compact task records for all tasks with the given tag.
@@ -1621,7 +1621,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByTag(tag: number, params?: PaginationParams, dispatchOptions?: any): Promise<CollectionBase<Tasks.Type>>;
+        findByTag(tag: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tasks.Type>>;
 
         /**
          * * Returns the compact task records for some filtered set of tasks. Use one
@@ -1638,7 +1638,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findAll(params?: Tasks.FindAllParams, dispatchOptions?: any): Promise<CollectionBase<Tasks.Type>>;
+        findAll(params?: Tasks.FindAllParams, dispatchOptions?: any): Promise<ResourceList<Tasks.Type>>;
 
         /**
          * * Adds each of the specified followers to the task, if they are not already
@@ -1681,7 +1681,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        projects(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<CollectionBase<Projects.Type>>;
+        projects(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Projects.Type>>;
 
         /**
          * * Adds the task to the specified project, in the optional location
@@ -1738,7 +1738,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        tags(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<CollectionBase<Tags.Type>>;
+        tags(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tags.Type>>;
 
         /**
          * * Adds a tag to a task. Returns an empty data block.
@@ -1779,7 +1779,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        subtasks(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<CollectionBase<Tasks.Type>>;
+        subtasks(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tasks.Type>>;
 
         /**
          * * Creates a new subtask and adds it to the parent task. Returns the full record
@@ -1806,7 +1806,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        stories(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<CollectionBase<Stories.Type>>;
+        stories(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Stories.Type>>;
 
         /**
          * * Adds a comment to a task. The comment will be authored by the
@@ -1835,8 +1835,8 @@ declare module "asana" {
       }
 
       namespace Teams {
-        interface Type extends IdAndName {
-          organization: IdAndName;
+        interface Type extends Resource {
+          organization: Resource;
         }
       }
 
@@ -1874,7 +1874,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByOrganization(organization: number, params?: Params, dispatchOptions?: any): Promise<Collection>;
+        findByOrganization(organization: number, params?: Params, dispatchOptions?: any): Promise<SimpleResourceList>;
 
         /**
          * * Returns the compact records for all users that are members of the team.
@@ -1887,7 +1887,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        users(team: number, params?: Params, dispatchOptions?: any): Promise<Collection>;
+        users(team: number, params?: Params, dispatchOptions?: any): Promise<SimpleResourceList>;
 
         /**
          * * The user making this call must be a member of the team in order to add others.
@@ -1938,9 +1938,9 @@ declare module "asana" {
           workspace: number;
         }
 
-        interface Type extends IdAndName {
+        interface Type extends Resource {
           email: string;
-          workspaces: IdAndName[];
+          workspaces: Resource[];
           photo: { [key: string]: string };
         }
       }
@@ -1996,7 +1996,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findByWorkspace(workspace: number, params?: Params, dispatchOptions?: any): Promise<CollectionBase<Users.Type>>;
+        findByWorkspace(workspace: number, params?: Params, dispatchOptions?: any): Promise<ResourceList<Users.Type>>;
 
         /**
          * * Returns the user records for all users in all workspaces and organizations
@@ -2010,7 +2010,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findAll(params: Users.FindAllParams, dispatchOptions?: any): Promise<Collection>;
+        findAll(params: Users.FindAllParams, dispatchOptions?: any): Promise<SimpleResourceList>;
       }
 
       /**
@@ -2148,11 +2148,11 @@ declare module "asana" {
       }
 
       namespace Workspaces {
-        interface ShortType extends IdAndName {
+        interface ShortType extends Resource {
           id_organization?: boolean;
         }
 
-        interface Type extends IdAndName {
+        interface Type extends Resource {
           id_organization: boolean;
           email_domains: string[];
         }
@@ -2207,7 +2207,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        findAll(params?: PaginationParams, dispatchOptions?: any): Promise<CollectionBase<Workspaces.ShortType>>;
+        findAll(params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Workspaces.ShortType>>;
 
         /**
          * * A specific, existing workspace can be updated by making a PUT request on
@@ -2252,7 +2252,7 @@ declare module "asana" {
          * @param dispatchOptions?
          * @return
          */
-        typeahead(workspace: number, params?: Workspaces.TypeaheadParams, dispatchOptions?: any): Promise<Collection>;
+        typeahead(workspace: number, params?: Workspaces.TypeaheadParams, dispatchOptions?: any): Promise<SimpleResourceList>;
 
         /**
          * * The user can be referenced by their globally unique user ID or their email address.
@@ -2308,7 +2308,7 @@ declare module "asana" {
          * @param  {Object}     [query] The query params
          * @param  {Object}     [dispatchOptions] Options for handling the request and
          *     response. See `Dispatcher.dispatch`.
-         * @return {Promise<Collection>} The Collection response for the request
+         * @return {Promise<SimpleResourceList>} The Collection response for the request
          * @param dispatcher
          * @param path
          * @param query?
@@ -2410,7 +2410,7 @@ declare module "asana" {
         dispatchDelete(path: string, dispatchOptions?: any): Promise<any>;
       }
 
-      interface CollectionBase<T> {
+      interface ResourceList<T extends Resource> {
         data: T[];
         _response: {
           data: T[];
@@ -2425,10 +2425,9 @@ declare module "asana" {
           requestTimeout: number;
           _cachedVersionInfo: VersionInfo;
         }
-
       }
 
-      type Collection = CollectionBase<IdAndName>;
+      type SimpleResourceList = ResourceList<Resource>;
 
       interface NextPage {
         offset: string;
@@ -2444,7 +2443,7 @@ declare module "asana" {
         os_version: string;
       }
 
-      interface IdAndName {
+      interface Resource {
         id: number;
         name: string;
       }
@@ -2464,8 +2463,8 @@ declare module "asana" {
       }
 
       interface Membership {
-        project: IdAndName;
-        section: IdAndName;
+        project: Resource;
+        section: Resource;
       }
     }
 
