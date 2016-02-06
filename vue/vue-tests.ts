@@ -221,6 +221,15 @@ namespace TestExplicitExtend {
         },
         methods: {
           action: this.action
+        },
+        props: {
+            propA: Object,
+            propB: {
+                type: Application,
+                default: () => new Application(),
+                twoWay: true,
+                coerce(value: any) {}
+            }
         }
       });
     }
