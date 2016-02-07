@@ -2596,7 +2596,7 @@ declare module chrome.events {
 		 * The callback parameter should be a function that looks like this:
 		 * function() {...}; 
 		 */
-        removeListener(callback: () => void): void;
+        removeListener(callback: Function): void;
         hasListeners(): boolean;
     }
 
