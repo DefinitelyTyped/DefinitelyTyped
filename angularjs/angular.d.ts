@@ -1715,7 +1715,7 @@ declare module angular {
          * Whether transclusion is enabled. Enabled by default.
          */
         transclude?: boolean;
-        require? : string | Array<string>;
+        require? : {};
         $canActivate?: () => boolean;
         $routeConfig?: RouteDefinition[];
     }
