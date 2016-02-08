@@ -1594,11 +1594,11 @@ declare module THREE {
 
         raycast(raycaster: Raycaster, intersects: any): void;
 
-        traverse(callback: (object: Object3D) => any): void;
+        traverse(callback: (object: Object3D) => void): void;
 
-        traverseVisible(callback: (object: Object3D) => any): void;
+        traverseVisible(callback: (object: Object3D) => void): void;
 
-        traverseAncestors(callback: (object: Object3D) => any): void;
+        traverseAncestors(callback: (object: Object3D) => void): void;
 
         /**
          * Updates local transform.
