@@ -1,8 +1,8 @@
 /// <reference path="deep-freeze.d.ts" />
 
-import df = require('deep-freeze');
+import { default as deepFreeze } from "deep-freeze";
 
 class Foo {
 	foo: string;
 }
-var foo:Foo = df(new Foo());
+var foo:Foo = deepFreeze(new Foo());
