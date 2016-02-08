@@ -102,11 +102,6 @@ declare class Swiper {
 	 */
 	clickedSlide: any;
 
-	/**
-	 * Object of additional plugins and hooks.
-	 */
-	plugins: any;
-
 	// Methods
 	/**
 	 * Run transition to next slide.
@@ -302,9 +297,15 @@ declare class Swiper {
 	 * Enable keyboard control.
 	 */
 	enableKeyboardControl(): void;
+
+	// Plugins
+	/**
+	 * Object of additional plugins and hooks.
+	 */
+	plugins: ISwiperPluginOptions;
 }
 
-interface ISwiperOptions {
+interface ISwiperOptions extends ISwiperCallbacks {
 	// Parameters
 	/**
 	 * Index number of initial slide.
@@ -944,6 +945,93 @@ interface ISwiperOptions {
 	 */
 	breakpoints?: ISwiperBreakpointOptions;
 
+	// Namespace
+	/**
+	 * CSS class name of slide.
+	 * @default 'swiper-slide'
+	 */
+	slideClass?: string;
+
+	/**
+	 * CSS class name of currently active slide.
+	 * @default 'swiper-slide-active'
+	 */
+	slideActiveClass?: string;
+
+	/**
+	 * CSS class name of currently visible slide.
+	 * @default 'swiper-slide-visible'
+	 */
+	slideVisibleClass?: string;
+
+	/**
+	 * CSS class name of slide duplicated by loop mode.
+	 * @default 'swiper-slide-duplicate'
+	 */
+	slideDuplicateClass?: string;
+
+	/**
+	 * CSS class name of slide which is right after currently active slide.
+	 * @default 'swiper-slide-next'
+	 */
+	slideNextClass?: string;
+
+	/**
+	 * CSS class name of slide which is right before currently active slide.
+	 * @default 'swiper-slide-prev'
+	 */
+	slidePrevClass?: string;
+
+	/**
+	 * CSS class name of slides' wrapper.
+	 * @default 'swiper-wrapper'
+	 */
+	wrapperClass?: string;
+
+	/**
+	 * CSS class name of single pagination bullet.
+	 * @default 'swiper-pagination-bullet'
+	 */
+	bulletClass?: string;
+
+	/**
+	 * CSS class name of currently active pagination bullet.
+	 * @default 'swiper-pagination-bullet-active'
+	 */
+	bulletActiveClass?: string;
+
+	/**
+	 * CSS class name of pagination when it becomes inactive.
+	 * @default 'swiper-pagination-hidden'
+	 */
+	paginationHiddenClass?: string;
+
+	/**
+	 * CSS class name of the element with currently active index in "fraction" pagination.
+	 * @default 'swiper-pagination-current'
+	 */
+	paginationCurrentClass?: string;
+
+	/**
+	 * CSS class name of the element with total number of "snaps" in "fraction" pagination.
+	 * @default 'swiper-pagination-total'
+	 */
+	paginationTotalClass?: string;
+
+	/**
+	 * CSS class name of pagination progressbar.
+	 * @default 'swiper-pagination-progressbar'
+	 */
+	paginationProgressbarClass?: string;
+
+	/**
+	 * CSS class name of next/prev button when it becomes disabled.
+	 * @default 'swiper-button-disabled'
+	 */
+	buttonDisabledClass?: string;
+}
+
+interface ISwiperCallbacks {
 	// Callbacks
 	/**
 	 * Run on[Transition/SlideChange][Start/End] callbacks on swiper initialization. Such callbacks will be fired on initialization in case of your initialSlide is not 0, or you use loop mode.
@@ -1095,91 +1183,6 @@ interface ISwiperOptions {
 	 * Callback function, will be executed when lazy loading image will be loaded.
 	 */
 	onLazyImageReady?: (swiper: Swiper, slide: number, image: string) => void;
-
-	// Namespace
-	/**
-	 * CSS class name of slide.
-	 * @default 'swiper-slide'
-	 */
-	slideClass?: string;
-
-	/**
-	 * CSS class name of currently active slide.
-	 * @default 'swiper-slide-active'
-	 */
-	slideActiveClass?: string;
-
-	/**
-	 * CSS class name of currently visible slide.
-	 * @default 'swiper-slide-visible'
-	 */
-	slideVisibleClass?: string;
-
-	/**
-	 * CSS class name of slide duplicated by loop mode.
-	 * @default 'swiper-slide-duplicate'
-	 */
-	slideDuplicateClass?: string;
-
-	/**
-	 * CSS class name of slide which is right after currently active slide.
-	 * @default 'swiper-slide-next'
-	 */
-	slideNextClass?: string;
-
-	/**
-	 * CSS class name of slide which is right before currently active slide.
-	 * @default 'swiper-slide-prev'
-	 */
-	slidePrevClass?: string;
-
-	/**
-	 * CSS class name of slides' wrapper.
-	 * @default 'swiper-wrapper'
-	 */
-	wrapperClass?: string;
-
-	/**
-	 * CSS class name of single pagination bullet.
-	 * @default 'swiper-pagination-bullet'
-	 */
-	bulletClass?: string;
-
-	/**
-	 * CSS class name of currently active pagination bullet.
-	 * @default 'swiper-pagination-bullet-active'
-	 */
-	bulletActiveClass?: string;
-
-	/**
-	 * CSS class name of pagination when it becomes inactive.
-	 * @default 'swiper-pagination-hidden'
-	 */
-	paginationHiddenClass?: string;
-
-	/**
-	 * CSS class name of the element with currently active index in "fraction" pagination.
-	 * @default 'swiper-pagination-current'
-	 */
-	paginationCurrentClass?: string;
-
-	/**
-	 * CSS class name of the element with total number of "snaps" in "fraction" pagination.
-	 * @default 'swiper-pagination-total'
-	 */
-	paginationTotalClass?: string;
-
-	/**
-	 * CSS class name of pagination progressbar.
-	 * @default 'swiper-pagination-progressbar'
-	 */
-	paginationProgressbarClass?: string;
-
-	/**
-	 * CSS class name of next/prev button when it becomes disabled.
-	 * @default 'swiper-button-disabled'
-	 */
-	buttonDisabledClass?: string;
 }
 
 interface ISwiperEffectFadeOptions {
@@ -1208,4 +1211,8 @@ interface ISwiperEffectFlipOptions {
 
 interface ISwiperBreakpointOptions {
 	[n: number]: ISwiperOptions;
+}
+
+interface ISwiperPluginOptions {
+	[s: string]: (...any) => ISwiperCallbacks;
 }

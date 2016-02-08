@@ -1,6 +1,3 @@
-/// <reference path="swiper.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
-
 // 01-default.html
 function testDefault() {
 	var swiper = new Swiper('.swiper-container');
@@ -353,183 +350,185 @@ function testHashNavigation() {
 // 26-rtl.html
 function testRtl() {
 	var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev'
-    });
+		pagination: '.swiper-pagination',
+		paginationClickable: true,
+		nextButton: '.swiper-button-next',
+		prevButton: '.swiper-button-prev'
+	});
 }
 
 // 27-jquery.html
 function testJquery() {
 	var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev'
-    });
+		pagination: '.swiper-pagination',
+		paginationClickable: true,
+		nextButton: '.swiper-button-next',
+		prevButton: '.swiper-button-prev'
+	});
 }
 
 // 28-parallax.html
 function testParallax() {
 	var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        parallax: true,
-        speed: 600,
-    });
+		pagination: '.swiper-pagination',
+		paginationClickable: true,
+		nextButton: '.swiper-button-next',
+		prevButton: '.swiper-button-prev',
+		parallax: true,
+		speed: 600,
+	});
 }
 
 // 29-custom-pagination.html
 function testCustomPagination() {
 	var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        paginationBulletRender: function (index, className) {
-            return '<span class="' + className + '">' + (index + 1) + '</span>';
-        }
-    });
+		pagination: '.swiper-pagination',
+		paginationClickable: true,
+		paginationBulletRender: function (index, className) {
+			return '<span class="' + className + '">' + (index + 1) + '</span>';
+		}
+	});
 }
 
 // 30-lazy-load-images.html
 function testLazyLoadImages() {
 	var swiper = new Swiper('.swiper-container', {
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        preloadImages: false,
-        lazyLoading: true
-    });
+		nextButton: '.swiper-button-next',
+		prevButton: '.swiper-button-prev',
+		pagination: '.swiper-pagination',
+		paginationClickable: true,
+		preloadImages: false,
+		lazyLoading: true
+	});
 }
 
 // 31-custom-plugin.html
 function testCustomPlugin() {
-    Swiper.prototype.plugins.debugger = function (swiper) {
-        return {
-            onInit: function (swiper) {
-                console.log('onInit');
-            },
-            onClick: function (swiper, e) {
-                console.log('onClick');
-            },
-            onTap: function (swiper, e) {
-                console.log('onTap');
-            },
-            onDoubleTap: function (swiper, e) {
-                console.log('onDoubleTap');
-            },
-            onSliderMove: function (swiper, e) {
-                console.log('onSliderMove');
-            },
-            onSlideChangeStart: function (swiper) {
-                console.log('onSlideChangeStart');
-            },
-            onSlideChangeEnd: function (swiper) {
-                console.log('onSlideChangeEnd');
-            },
-            onTransitionStart: function (swiper) {
-                console.log('onTransitionStart');
-            },
-            onTransitionEnd: function (swiper) {
-                console.log('onTransitionEnd');
-            },
-            onReachBeginning: function (swiper) {
-                console.log('onReachBeginning');
-            },
-            onReachEnd: function (swiper) {
-                console.log('onReachEnd');
-            }
-        };
-    };
+	// Using bracket notation instead of dot notation as used in the demo
+	// Swiper.prototype.plugins.debugger = function (swiper) {
+	Swiper.prototype.plugins['debugger'] = function (swiper) {
+		return {
+			onInit: function (swiper) {
+				console.log('onInit');
+			},
+			onClick: function (swiper, e) {
+				console.log('onClick');
+			},
+			onTap: function (swiper, e) {
+				console.log('onTap');
+			},
+			onDoubleTap: function (swiper, e) {
+				console.log('onDoubleTap');
+			},
+			onSliderMove: function (swiper, e) {
+				console.log('onSliderMove');
+			},
+			onSlideChangeStart: function (swiper) {
+				console.log('onSlideChangeStart');
+			},
+			onSlideChangeEnd: function (swiper) {
+				console.log('onSlideChangeEnd');
+			},
+			onTransitionStart: function (swiper) {
+				console.log('onTransitionStart');
+			},
+			onTransitionEnd: function (swiper) {
+				console.log('onTransitionEnd');
+			},
+			onReachBeginning: function (swiper) {
+				console.log('onReachBeginning');
+			},
+			onReachEnd: function (swiper) {
+				console.log('onReachEnd');
+			}
+		};
+	};
 
-    var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev'
-    });
+	var swiper = new Swiper('.swiper-container', {
+		pagination: '.swiper-pagination',
+		paginationClickable: true,
+		nextButton: '.swiper-button-next',
+		prevButton: '.swiper-button-prev'
+	});
 }
 
 // 32-scroll-container.html
 function testScrollContainer() {
 	var swiper = new Swiper('.swiper-container', {
-        scrollbar: '.swiper-scrollbar',
-        direction: 'vertical',
-        slidesPerView: 'auto',
-        mousewheelControl: true,
-        freeMode: true
-    });
+		scrollbar: '.swiper-scrollbar',
+		direction: 'vertical',
+		slidesPerView: 'auto',
+		mousewheelControl: true,
+		freeMode: true
+	});
 }
 
 // 33-responsive-breakpoints.html
 function testResponsiveBreakpoints() {
 	var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        slidesPerView: 5,
-        spaceBetween: 50,
-        breakpoints: {
-            1024: {
-                slidesPerView: 4,
-                spaceBetween: 40
-            },
-            768: {
-                slidesPerView: 3,
-                spaceBetween: 30
-            },
-            640: {
-                slidesPerView: 2,
-                spaceBetween: 20
-            },
-            320: {
-                slidesPerView: 1,
-                spaceBetween: 10
-            }
-        }
-    });
+		pagination: '.swiper-pagination',
+		paginationClickable: true,
+		slidesPerView: 5,
+		spaceBetween: 50,
+		breakpoints: {
+			1024: {
+				slidesPerView: 4,
+				spaceBetween: 40
+			},
+			768: {
+				slidesPerView: 3,
+				spaceBetween: 30
+			},
+			640: {
+				slidesPerView: 2,
+				spaceBetween: 20
+			},
+			320: {
+				slidesPerView: 1,
+				spaceBetween: 10
+			}
+		}
+	});
 }
 
 // 34-autoheight.html
 function testAutoheight() {
 	var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        autoHeight: true,
-    });
+		pagination: '.swiper-pagination',
+		paginationClickable: true,
+		nextButton: '.swiper-button-next',
+		prevButton: '.swiper-button-prev',
+		autoHeight: true,
+	});
 }
 
 // 35-effect-flip.html
 function testEffectFlip() {
 	var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        effect: 'flip',
-        grabCursor: true,
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev'
-    });
+		pagination: '.swiper-pagination',
+		effect: 'flip',
+		grabCursor: true,
+		nextButton: '.swiper-button-next',
+		prevButton: '.swiper-button-prev'
+	});
 }
 
 // 36-pagination-fraction.html
 function testPaginationFraction() {
 	var swiper = new Swiper('.swiper-container', {
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        pagination: '.swiper-pagination',
-        paginationType: 'fraction'
-    });
+		nextButton: '.swiper-button-next',
+		prevButton: '.swiper-button-prev',
+		pagination: '.swiper-pagination',
+		paginationType: 'fraction'
+	});
 }
 
 // 37-pagination-progress.html
 function testPaginationProgress() {
 	var swiper = new Swiper('.swiper-container', {
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        pagination: '.swiper-pagination',
-        paginationType: 'fraction'
-    });
+		nextButton: '.swiper-button-next',
+		prevButton: '.swiper-button-prev',
+		pagination: '.swiper-pagination',
+		paginationType: 'fraction'
+	});
 }
