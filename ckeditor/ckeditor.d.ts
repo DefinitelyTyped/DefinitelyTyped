@@ -1,4 +1,4 @@
-// Type definitions for CKEditor
+﻿// Type definitions for CKEditor
 // Project: http://ckeditor.com/
 // Definitions by: Ondrej Sevcik <https://github.com/ondrejsevcik/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -83,8 +83,7 @@ declare module CKEDITOR {
     function inline(element: HTMLElement, instanceConfig?: config): editor;
     function inlineAll(): void;
     function loadFullCore(): void;
-    function replace(element: string, config?: config): editor;
-    function replace(element: HTMLTextAreaElement, config?: config): editor;
+    function replace(element: string | HTMLTextAreaElement, config?: config): editor;
     function replaceAll(className?: string): void;
     function replaceAll(assertionFunction: (textarea: HTMLTextAreaElement, config: config) => boolean): void;
 
@@ -557,34 +556,264 @@ declare module CKEDITOR {
         groups?: string[];
     }
 
+    module config {
+        interface styleObject {
+            name?: string;
+            element: string;
+            attributes?: Object;
+            styles?: Object;
+            overrides?: Object;
+        }
+    }
+
     // Currently very incomplete. See here for all options that should be included:
     // http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-fileTools_defaultFileName
     interface config {
-        allowedContent?: string | boolean;
-        colorButton_enableMore?: boolean;
+        allowedContent?: boolean | string | Object | CKEDITOR.style;
+        autoEmbed_widget?: string | Function;
+        autoGrow_bottomSpace?: number;
+        autoGrow_maxHeight?: number;
+        autoGrow_minHeight?: number;
+        autoGrow_onStartup?: boolean;
+        autoUpdateElement?: boolean;
+
+        baseFloatZIndex?: number;
+        baseHref?: string;
+        basicEntities?: boolean;
+        blockedKeystrokes?: number[];
+        bodyClass?: string;
+        bodyId?: string;
+        browserContextMenuOnCtrl?: boolean;
+
+        clipboard_defaultContentType?: string; // html | text
+        codeSnippet_codeClass?: string;
+        codeSnippet_languages?: Object;
+        coceSnippet_theme?: string;
+        colorButton_backStyle?: styleObject;
         colorButton_colors?: string;
+        colorButton_enableMore?: boolean;
+        colorButton_foreStyle?: styleObject;
         contentsCss?: string | string[];
         contentsLangDirection?: string;
+        contentsLanguage?: string;
+        coreStyles_bold?: styleObject;
+        coreStyles_italic?: styleObject;
+        coreStyles_strike?: styleObject;
+        coreStyles_subscript?: styleObject;
+        coreStyles_superscript?: styleObject;
+        coreStyles_underline?: styleObject;
         customConfig?: string;
+
+        dataIndentationChars?: string;
+        defaultLanguage?: string;
+        devtools_styles?: string;
+        devtools_textCallback?: Function;
+        dialog_backgroundCoverColor?: string;
+        dialog_backgroundCoverOpacity?: number;
+        dialog_buttonsOrder?: string;
+        dialog_magnetDistance?: number;
+        dialog_noConfirmCancel?: boolean;
+        dialog_startupFocusTab?: boolean;
+        disableNativeSpellChecker?: boolean;
+        disableNativeTableHandles?: boolean;
+        disableNativeObjectResizing?: boolean;
+        disableNativeReadonlySTyling?: boolean;
+        disallowedContent?: string | Object; // Documentation calls it CKEDITOR.filter.disallowedContentRules, but it is just a non-governed object or string.
+        div_wrapTable?: boolean;
+        docType?: string;
+
+        emailProtection?: string;
+        embed_provider?: string;
+        enableTabKeyTools?: boolean;
+        enterMode?: number;
+        entities?: boolean;
+        entities_additional?: string;
+        entities_greek?: boolean;
+        entities_latin?: boolean;
+        entities_processNumerical?: boolean | string;
+        extraAllowedContent?: string | Object;
         extraPlugins?: string;
-        font_names?: string;
-        font_defaultLabel?: string;
-        fontSize_sizes?: string;
+
+        fileTools_defaultFileName?: string;
+        filebrowserBrowseUrl?: string;
+        filebrowserFlashBrowseUrl?: string;
+        filebrowserFlashUploadUrl?: string;
+        filebrowserImageBrowseLinkUrl?: string;
+        filebrowserImageBrowseUrl?: string;
+        filebrowserImageUploadUrl?: string;
+        filebrowserUploadUr?: string;
+        filebrowserWindowFeatures?: string;
+        filebrowserWindowHeight?: number | string;
+        filebrowserWindowWidth?: number | string;
+        fillEmptyBlocks?: boolean | Function;
+        find_highlight?: styleObject;
+        flashAddEmbedTag?: boolean;
+        flashConvertOnEdit?: boolean;
+        flashEmbedTagOnly?: boolean;
+        floatSpaceDockedOffsetX?: number;
+        floatSpaceDockedOffsetY?: number;
+        floatSpacePinnedOffsetX?: number;
+        floatSpacePinnedOffsetY?: number;
+        floatSpacePreferRight?: boolean;
         fontSize_defaultLabel?: string;
+        fontSize_sizes?: string;
+        fontSize_style?: styleObject;
+        font_defaultLabel?: string;
+        font_names?: string;
+        font_style?: styleObject;
+        forceEnterMode?: boolean;
+        forcePasteAsPlainText?: boolean;
+        forceSimpleAmpersand?: boolean;
+        format_address?: styleObject;
+        format_div?: styleObject;
+        format_h1?: styleObject;
+        format_h2?: styleObject;
+        format_h3?: styleObject;
+        format_h4?: styleObject;
+        format_h5?: styleObject;
+        format_h6?: styleObject;
+        format_p?: styleObject;
+        format_pre?: styleObject;
+        format_tags?: string;
+        fullPage?: boolean;
+
+        grayt_autoStartup?: boolean;
+
         height?: string | number;
+        htmlEncodeOutput?: boolean;
+
+        ignoreEmptyParagraph?: boolean;
+        image2_alignClasses?: string[];
+        image2_captionedClass?: string;
+        image2_disableResizer?: boolean;
+        image2_prefillDimensions?: boolean;
+        imageUploadUrl?: string;
+        image_prefillDimensions?: boolean;
+        image_previewText?: string;
+        image_removeLinkByEmptyUrl?: boolean;
+        indentClasses?: string[];
+        indentOffset?: number;
+        indentUnit?: string;
+
+        jqueryOverrideVal?: boolean;
+        justifyClasses?: string[];
+
+        keystrokes?: any[]; // Number, string pair really... silly structure... they should fix this.
+
         language?: string;
-        on?: any;
+        language_list?: string[];
+        linkJavaScriptLinksAllowed?: boolean;
+        linkShowAdvancedTab?: boolean;
+        linkShowTargetTab?: boolean;
+
+        magicline_color?: string
+        magicline_everywhere?: boolean;
+        magicline_holdDistance?: number;
+        magicline_keystrokeNext?: number;
+        magicline_keystrokePrevious?: number;
+        magicline_tabuList?: number;
+        magicline_triggerOffset?: number;
+        mathJaxLib?: string;
+        menu_groups?: string;
+        menu_subMenuDelay?: string;
+
+        newpage_html?: string;
+        notification_duration?: number;
+
+        on?: editor.eventObject;
+
+        pasteFilter?: string;
+        pasteFromWordCleanupFile?: string;
+        pasteFromWordNumberedHeadingToList?: boolean;
+        pasteFromWordPromptCleanup?: boolean;
+        pasteFromWordRemoveFontStyles?: boolean;
+        pasteFromWorkRemoveStyles?: boolean;
         plugins?: string;
+        protectedSource?: RegExp[];
+
+        readOnly?: boolean;
+        removeButtons?: string;
+        removeDialogTabs?: string;
+        removeFormatAttributes?: string;
+        removeFormatTags?: string;
+        removePlugins?: string;
+        resize_dir?: string;
+        resize_enabled?: boolean;
+        resize_maxHeight?: number;
+        resize_maxWidth?: number;
+        resize_minHeight?: number;
+        resize_minWidth?: number;
+
+        scayt_autoStartup?: boolean;
+        scayt_contextCommands?: string;
+        scayt_contextMenuItemsOrder?: string;
+        scayt_customDictionaryIds?: string;
+        scayt_customerId?: string;
+        scayt_disableOptionsStorage?: string | string[];
+        scayt_elementsToIgnore?: string;
+        scayt_handleCheckDirty?: string;
+        scayt_handleUndoRedo?: string;
+        scayt_ignoreAllCapsWords?: boolean;
+        scayt_ignoreDomainNames?: boolean;
+        scayt_ignoreWordsWithMixedCases?: boolean;
+        scayt_ignoreWordsWithNumbers?: boolean;
+        scayt_inlineModeImmediateMarkup?: boolean;
+        scayt_maxSuggestions?: number;
+        scayt_minWordLength?: number;
+        scayt_moreSuggestions?: string;
+        scayt_multiLanguageMode?: boolean;
+        scayt_multiLanguageStyles?: Object;
+        scayt_sLang?: string;
+        scayt_serviceHost?: string;
+        scayt_servicePath?: string;
+        scayt_servicePort?: string;
+        scayt_serviceProtocol?: string;
+        scayt_srcUrl?: string;
+        scayt_uiTabs?: string;
+        scayt_userDictionaryName?: string;
+
+        sharedSpaces?: Object;
+        shiftEnterMode?: number;
+        skin?: string;
+        smiley_columns?: number;
+        smiley_descriptions?: string[];
+        smiley_images?: string[];
+        smiley_path?: string;
+        sourceAreaTabSize?: number;
+        specialChars?: any[]; // Seems to be an array of a string, or a two-element string-array
         startupFocus?: boolean;
         startupMode?: string;
-        removeButtons?: string;
-        removePlugins?: string;
-        toolbar?: any;
+        startupOutlineBlocks?: boolean;
+        startupShowBorders?: boolean;
+        stylesSet?: string | boolean | styleObject[];
+        stylesheetParser_skipSelectors?: RegExp;
+        stylesheetParser_validSelectors?: RegExp;
+
+        tabIndex?: number;
+        tabSpaces?: number;
+        templates?: string;
+        templates_files?: Object;
+        templates_replaceContent?: boolean;
+        title?: string | boolean;
+        toolbar?: string | (string[])[];
+        toolbarCanCollapse?: boolean;
+        toolbarGroupCycling?: boolean;
         toolbarGroups?: toolbarGroups[];
         toolbarLocation?: string;
-        readOnly?: boolean;
-        skin?: string;
+        toolbarStartupExpanded?: boolean;
+
+        uiColor?: string;
+        undoStackSize?: number;
+        uploadUrl?: string;
+        useComputedState?: boolean;
+
         width?: string | number;
+        wsc_cmd?: string;
+        wsc_customDictionaryIds?: string;
+        wsc_customLoaderScript?: string;
+        wsc_customerId?: string;
+        wsc_lang?: string;
+        wsc_userDictionaryName?: string;
     }
 
 
@@ -701,9 +930,9 @@ declare module CKEDITOR {
                 hasListeners(eventName: string): boolean;
                 initOn(element: any, widgetDef?: CKEDITOR.plugins.widget.definition, startupData?: Object): CKEDITOR.plugins.widget;
                 initOnAll(container?: any): CKEDITOR.plugins.widget[];
-                on(eventName: string, listenerFunction: Function, scopeObj?: Object, listenerData?: Object, priority?: number): Object;
+                on(eventName: string, listenerFunction: Function, scopeObj?: Object, listenerData?: Object, priority?: number): any;
                 once(): void;
-                parseElementClasses(classes: string): Object;
+                parseElementClasses(classes: string): any;
                 removeAllListeners(eventName: string, listenerFunction: Function): void;
                 wrapElement(element: any, widgetName?: string): any;
             }
@@ -712,17 +941,17 @@ declare module CKEDITOR {
         class widget implements CKEDITOR.plugins.widget.definition {
             allowedContent: any;
             button: string;
-            contentForms: Object;
-            contentTransformations: Object;
-            data: Object;
+            contentForms: any;
+            contentTransformations: any;
+            data: any;
             dataReady: boolean;
-            defaults: Object;
+            defaults: any;
             definition: CKEDITOR.plugins.widget.definition;
             dialog: string;
             downcast: string | Function;
-            downcasts: Object;
+            downcasts: any;
             draggable: boolean;
-            editables: Object;
+            editables: any;
             editor: CKEDITOR.editor;
             element: CKEDITOR.dom.element;
             focusedEditable: CKEDITOR.plugins.widget.nestedEditable
@@ -733,7 +962,7 @@ declare module CKEDITOR {
             insert: Function;
             mask: boolean;
             name: string;
-            parts: Object;
+            parts: any;
             pathName: string;
             ready: boolean;
             repository: CKEDITOR.plugins.widget.repository;
@@ -743,7 +972,7 @@ declare module CKEDITOR {
             template: CKEDITOR.template;
             upcast: string | Function;
             upcastPriority: number;
-            upcasts: Object;
+            upcasts: any;
             wrapper: CKEDITOR.dom.element;
 
             constructor(widgetsRepo: CKEDITOR.plugins.widget.repository, id: number, element: CKEDITOR.dom.element, widgetDef: CKEDITOR.plugins.widget.definition, starupData?: Object);
@@ -756,17 +985,17 @@ declare module CKEDITOR {
             destroy(offline?: boolean): void;
             destroyEditable(editableName: string, offline?: boolean): void;
             edit(): boolean;
-            fire(eventName: string, data?: Object, editor?: CKEDITOR.editor): boolean | Object;
-            fireOnce(eventName: string, data?: Object, editor?: CKEDITOR.editor): boolean | Object;
+            fire(eventName: string, data?: Object, editor?: CKEDITOR.editor): any;
+            fireOnce(eventName: string, data?: Object, editor?: CKEDITOR.editor): any;
             focus(): void;
-            getClasses(): Object;
+            getClasses(): any;
             hasClass(className: string, Whether: boolean): void;
             hasListeners(eventName: string): boolean;
             initEditable(editableName: string, definition: CKEDITOR.plugins.widget.nestedEditable.definition): boolean;
             isInited(): boolean;
             isReady(): boolean;
             on(eventName: string, listenerFunction: Function,
-                scopeObj?: Object, listenerData?: Object, priority?: number): Object;
+                scopeObj?: Object, listenerData?: Object, priority?: number): any;
             once(): void;
             removeAllListeners(): void;
             removeClass(className: string): void;
@@ -822,14 +1051,14 @@ declare module CKEDITOR {
         langCode: string;
         mode: string;
         name: string;
-        plugins: Object;
+        plugins: any;
         readOnly: boolean;
         shiftEnterMode: number;
         status: string;
         tabIndex: number;
-        templates: Object;
+        templates: any;
         title: any;
-        toolbar: Object;
+        toolbar: any;
         ui: ui;
         widgets: plugins.widget.repository;
         window: dom.window;
@@ -898,6 +1127,97 @@ declare module CKEDITOR {
         updateElement(): void;
     }
 
+    module editor {
+        interface eventObject {
+            activeEnterModeChange?: (evt: CKEDITOR.eventInfo) => void;
+            activeFilterChange?: (evt: CKEDITOR.eventInfo) => void;
+            afterCommandExec?: (evt: CKEDITOR.eventInfo) => void;
+            afterInsertHtml?: (evt: CKEDITOR.eventInfo) => void;
+            afterPaste?: (evt: CKEDITOR.eventInfo) => void;
+            afterSetData?: (evt: CKEDITOR.eventInfo) => void;
+            afterUndoImage?: (evt: CKEDITOR.eventInfo) => void;
+            ariaEditorHelpLabel?: (evt: CKEDITOR.eventInfo) => void;
+            ariaWidget?: (evt: CKEDITOR.eventInfo) => void;
+            autogrow?: (evt: CKEDITOR.eventInfo) => void;
+
+            beforeCommandExec?: (evt: CKEDITOR.eventInfo) => void;
+            beforeGetData?: (evt: CKEDITOR.eventInfo) => void;
+            beforeModuleUnload?: (evt: CKEDITOR.eventInfo) => void;
+            beforeSetMode?: (evt: CKEDITOR.eventInfo) => void;
+            blur?: (evt: CKEDITOR.eventInfo) => void;
+
+            change?: (evt: CKEDITOR.eventInfo) => void;
+            configLoaded?: (evt: CKEDITOR.eventInfo) => void;
+            contentDirChanged?: (evt: CKEDITOR.eventInfo) => void;
+            contentDom?: (evt: CKEDITOR.eventInfo) => void;
+            contentDomInvalidated?: (evt: CKEDITOR.eventInfo) => void;
+            contentDomUnload?: (evt: CKEDITOR.eventInfo) => void;
+            customConfigLoaded?: (evt: CKEDITOR.eventInfo) => void;
+
+            dataFiltered?: (evt: CKEDITOR.eventInfo) => void;
+            dataReady?: (evt: CKEDITOR.eventInfo) => void;
+            destroy?: (evt: CKEDITOR.eventInfo) => void;
+            dialogHide?: (evt: CKEDITOR.eventInfo) => void;
+            dialogShow?: (evt: CKEDITOR.eventInfo) => void;
+            dirChanged?: (evt: CKEDITOR.eventInfo) => void;
+            doubleckick?: (evt: CKEDITOR.eventInfo) => void;
+            dragend?: (evt: CKEDITOR.eventInfo) => void;
+            dragstart?: (evt: CKEDITOR.eventInfo) => void;
+            drop?: (evt: CKEDITOR.eventInfo) => void;
+
+            elementsPathUpdate?: (evt: CKEDITOR.eventInfo) => void;
+
+            fileUploadRequest?: (evt: CKEDITOR.eventInfo) => void;
+            fileUploadResponse?: (evt: CKEDITOR.eventInfo) => void;
+            floatingSpaceLayout?: (evt: CKEDITOR.eventInfo) => void;
+            focus?: (evt: CKEDITOR.eventInfo) => void;
+
+            getData?: (evt: CKEDITOR.eventInfo) => void;
+            getSnapshot?: (evt: CKEDITOR.eventInfo) => void;
+
+            insertElement?: (evt: CKEDITOR.eventInfo) => void;
+            insertHtml?: (evt: CKEDITOR.eventInfo) => void;
+            insertText?: (evt: CKEDITOR.eventInfo) => void;
+            insanceReady?: (evt: CKEDITOR.eventInfo) => void;
+
+            key?: (evt: CKEDITOR.eventInfo) => void;
+
+            langLoaded?: (evt: CKEDITOR.eventInfo) => void;
+            loadSnapshot?: (evt: CKEDITOR.eventInfo) => void;
+            loaded?: (evt: CKEDITOR.eventInfo) => void;
+            lockSnapshot?: (evt: CKEDITOR.eventInfo) => void;
+            maximize?: (evt: CKEDITOR.eventInfo) => void;
+            menuShow?: (evt: CKEDITOR.eventInfo) => void;
+            mode?: (evt: CKEDITOR.eventInfo) => void;
+
+            notificationHide?: (evt: CKEDITOR.eventInfo) => void;
+            notificationShow?: (evt: CKEDITOR.eventInfo) => void;
+            notificationUpdate?: (evt: CKEDITOR.eventInfo) => void;
+
+            paste?: (evt: CKEDITOR.eventInfo) => void;
+            pluginsLoaded?: (evt: CKEDITOR.eventInfo) => void;
+
+            readOnly?: (evt: CKEDITOR.eventInfo) => void;
+            removeFormatCleanup?: (evt: CKEDITOR.eventInfo) => void;
+            required?: (evt: CKEDITOR.eventInfo) => void;
+            resize?: (evt: CKEDITOR.eventInfo) => void;
+
+            save?: (evt: CKEDITOR.eventInfo) => void;
+            saveSnapshot?: (evt: CKEDITOR.eventInfo) => void;
+            selectionChange?: (evt: CKEDITOR.eventInfo) => void;
+            setData?: (evt: CKEDITOR.eventInfo) => void;
+            stylesSet?: (evt: CKEDITOR.eventInfo) => void;
+
+            template?: (evt: CKEDITOR.eventInfo) => void;
+            toDataFormat?: (evt: CKEDITOR.eventInfo) => void;
+            toHtml?: (evt: CKEDITOR.eventInfo) => void;
+
+            unlockSnapshot?: (evt: CKEDITOR.eventInfo) => void;
+            updateSnapshot?: (evt: CKEDITOR.eventInfo) => void;
+
+            widgetDefinition?: (evt: CKEDITOR.eventInfo) => void;
+        }
+    }
 
     interface eventInfo {
         data: any;
@@ -971,7 +1291,7 @@ declare module CKEDITOR {
     module ui {
         module dialog {
             class uiElement {
-                eventProcessors: Object;
+                eventProcessors: any;
 
                 constructor(dialog: CKEDITOR.dialog, elementDefinition: CKEDITOR.dialog.definition.uiElement, htmlList: any[], nodeNameArg?: Function | string, stylesArg?: Function | Object, attributesArg?: Function | Object, contentsArg?: Function | string); // Not sure that the htmlList array type is right.
 
@@ -983,14 +1303,14 @@ declare module CKEDITOR {
                 getDialog(): CKEDITOR.dialog;
                 getElement(): CKEDITOR.dom.element;
                 getInputElement(): CKEDITOR.dom.element;
-                getValue(): Object;
+                getValue(): any;
                 isChanged(): boolean;
                 isEnabled(): boolean;
                 isFocusable(): boolean;
                 isVisible(): boolean;
                 registerEvents(definition: CKEDITOR.dialog.definition.uiElement): CKEDITOR.ui.dialog.uiElement;
                 selectParentTab(): CKEDITOR.ui.dialog.uiElement;
-                setValue(value:Object, noChangeEvent: boolean): CKEDITOR.ui.dialog.uiElement;
+                setValue(value: Object, noChangeEvent: boolean): CKEDITOR.ui.dialog.uiElement;
 
                 // Change event?
             }
@@ -1001,7 +1321,7 @@ declare module CKEDITOR {
 
                 accessKeyDown(): void;
                 accessKeyUp(): void;
-                click(): Object;
+                click(): any;
             }
 
 
@@ -1016,7 +1336,7 @@ declare module CKEDITOR {
 
 
             class fieldset extends uiElement {
-                constructor(dialog: CKEDITOR.dialog, childObjList: any[], childHtmlList: any[], htmlList: any[], elementDefinition:CKEDITOR.dialog.definition.uiElement);
+                constructor(dialog: CKEDITOR.dialog, childObjList: any[], childHtmlList: any[], htmlList: any[], elementDefinition: CKEDITOR.dialog.definition.uiElement);
             }
 
 
@@ -1111,7 +1431,7 @@ declare module CKEDITOR {
         constructor(editor: Object, dialogName: string);
 
         addFocusable(element: CKEDITOR.dom.element, index?: number): void;
-        addPage(contents: Object) : void;
+        addPage(contents: Object): void;
         click(id: string): Object;
         commitContent(): void;
         diableButton(id: string);
@@ -1191,7 +1511,7 @@ declare module CKEDITOR {
                 height?: number;
                 padding?: number;
                 validate?: Function;
-                widths?: number[]; 
+                widths?: number[];
             }
 
 
@@ -1206,7 +1526,7 @@ declare module CKEDITOR {
                 label?: string;
                 labelLayout?: string;
                 labelStyle?: string;
-                widths?: number[]; 
+                widths?: number[];
             }
 
 
@@ -1249,13 +1569,13 @@ declare module CKEDITOR {
             interface uiElement {
                 align?: string;
                 className?: string;
-                commit?: (widget?: CKEDITOR.plugins.widget) => void;
+                commit?: (widget: CKEDITOR.plugins.widget) => void;
                 id?: string;
-                onHide?: (elem?: CKEDITOR.ui.dialog.uiElement) => void;
-                onLoad?: (elem?: CKEDITOR.ui.dialog.uiElement) => void;
-                onShow?: (elem?: CKEDITOR.ui.dialog.uiElement) => void;
+                onHide?: (elem: CKEDITOR.ui.dialog.uiElement) => void;
+                onLoad?: (elem: CKEDITOR.ui.dialog.uiElement) => void;
+                onShow?: (elem: CKEDITOR.ui.dialog.uiElement) => void;
                 requiredcontent?: string | Object | CKEDITOR.style;
-                setup?: (widget?: CKEDITOR.plugins.widget) => void;
+                setup?: (widget: CKEDITOR.plugins.widget) => void;
                 style?: string;
                 title?: string;
                 type?: string;
@@ -1268,7 +1588,7 @@ declare module CKEDITOR {
                 heights?: number[];
                 padding?: number;
                 styles?: string;
-                width?: number[]; 
+                width?: number[];
             }
         }
 
@@ -1292,7 +1612,7 @@ declare module CKEDITOR {
         function addIframe(name: string, title: string, minWidth: number, minHeight: number, onContentLoad?: Function, userDefinition?: Object): void;
         function addUIElement(typeName: string, builder: Function): void;
         function cancelButton(): void;
-        function exists(name: string|number): void; // NOTE: documentation says object, but it's an array accessor, so really a string or number will work
+        function exists(name: string | number): void; // NOTE: documentation says object, but it's an array accessor, so really a string or number will work
         function getCurrent(): void;
         function isTabEnabled(editor: CKEDITOR.editor, dialogName: string, tabName: string): boolean;
         function okButton(): void;
@@ -1334,8 +1654,8 @@ declare module CKEDITOR {
             id: number;
             elementNameRules: filterRulesGroup;
             attributeNameRules: filterRulesGroup;
-            elementsRules: Object;
-            attributesRules: Object;
+            elementsRules: any;
+            attributesRules: any;
             textRules: filterRulesGroup;
             commentRules: filterRulesGroup;
             rootRules: filterRulesGroup;
@@ -1356,7 +1676,7 @@ declare module CKEDITOR {
             add(rule: Object[], priority: number, options: Object): void;
             addMany(rules: Object[], priority: number, options: Object): void;
             findIndex(priority: number): number;
-            exec(currentValue: Object): Object;
+            exec(currentValue: Object): any;
             execOnName(currentName: string): string;
         }
 
@@ -1379,8 +1699,8 @@ declare module CKEDITOR {
         class element extends node {
             constructor(name: string, attributes: Object);
             name: string;
-            attributes: Object;
-            children: Object[];
+            attributes: any;
+            children: any[];
             type: number;
             add(node: node): number;
             clone(): element;
@@ -1404,8 +1724,8 @@ declare module CKEDITOR {
 
         class fragment {
             constructor();
-            children: Object[];
-            parent: Object;
+            children: any[];
+            parent: any;
             type: number;
             fromHtml(fragmentHtml: string, parent?: element, fixingBlock?: string): void;
             fromHtml(fragmentHtml: string, parent?: string, fixingBlock?: string): void;
