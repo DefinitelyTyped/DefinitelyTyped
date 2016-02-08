@@ -589,19 +589,19 @@ declare module CKEDITOR {
         codeSnippet_codeClass?: string;
         codeSnippet_languages?: Object;
         coceSnippet_theme?: string;
-        colorButton_backStyle?: styleObject;
+        colorButton_backStyle?: config.styleObject;
         colorButton_colors?: string;
         colorButton_enableMore?: boolean;
-        colorButton_foreStyle?: styleObject;
+        colorButton_foreStyle?: config.styleObject;
         contentsCss?: string | string[];
         contentsLangDirection?: string;
         contentsLanguage?: string;
-        coreStyles_bold?: styleObject;
-        coreStyles_italic?: styleObject;
-        coreStyles_strike?: styleObject;
-        coreStyles_subscript?: styleObject;
-        coreStyles_superscript?: styleObject;
-        coreStyles_underline?: styleObject;
+        coreStyles_bold?: config.styleObject;
+        coreStyles_italic?: config.styleObject;
+        coreStyles_strike?: config.styleObject;
+        coreStyles_subscript?: config.styleObject;
+        coreStyles_superscript?: config.styleObject;
+        coreStyles_underline?: config.styleObject;
         customConfig?: string;
 
         dataIndentationChars?: string;
@@ -646,7 +646,7 @@ declare module CKEDITOR {
         filebrowserWindowHeight?: number | string;
         filebrowserWindowWidth?: number | string;
         fillEmptyBlocks?: boolean | Function;
-        find_highlight?: styleObject;
+        find_highlight?: config.styleObject;
         flashAddEmbedTag?: boolean;
         flashConvertOnEdit?: boolean;
         flashEmbedTagOnly?: boolean;
@@ -657,23 +657,23 @@ declare module CKEDITOR {
         floatSpacePreferRight?: boolean;
         fontSize_defaultLabel?: string;
         fontSize_sizes?: string;
-        fontSize_style?: styleObject;
+        fontSize_style?: config.styleObject;
         font_defaultLabel?: string;
         font_names?: string;
-        font_style?: styleObject;
+        font_style?: config.styleObject;
         forceEnterMode?: boolean;
         forcePasteAsPlainText?: boolean;
         forceSimpleAmpersand?: boolean;
-        format_address?: styleObject;
-        format_div?: styleObject;
-        format_h1?: styleObject;
-        format_h2?: styleObject;
-        format_h3?: styleObject;
-        format_h4?: styleObject;
-        format_h5?: styleObject;
-        format_h6?: styleObject;
-        format_p?: styleObject;
-        format_pre?: styleObject;
+        format_address?: config.styleObject;
+        format_div?: config.styleObject;
+        format_h1?: config.styleObject;
+        format_h2?: config.styleObject;
+        format_h3?: config.styleObject;
+        format_h4?: config.styleObject;
+        format_h5?: config.styleObject;
+        format_h6?: config.styleObject;
+        format_p?: config.styleObject;
+        format_pre?: config.styleObject;
         format_tags?: string;
         fullPage?: boolean;
 
@@ -785,7 +785,7 @@ declare module CKEDITOR {
         startupMode?: string;
         startupOutlineBlocks?: boolean;
         startupShowBorders?: boolean;
-        stylesSet?: string | boolean | styleObject[];
+        stylesSet?: string | boolean | config.styleObject[];
         stylesheetParser_skipSelectors?: RegExp;
         stylesheetParser_validSelectors?: RegExp;
 
@@ -879,7 +879,7 @@ declare module CKEDITOR {
 
                 constructor(editor: CKEDITOR.editor, element: CKEDITOR.dom.element, config: { filter?: CKEDITOR.filter });
                 getData(): string;
-                setData(data: string);
+                setData(data: string): void;
             }
 
 
@@ -1434,8 +1434,8 @@ declare module CKEDITOR {
         addPage(contents: Object): void;
         click(id: string): Object;
         commitContent(): void;
-        diableButton(id: string);
-        enableButton(id: string);
+        diableButton(id: string): void;
+        enableButton(id: string): void;
         foreach(fn: Function): CKEDITOR.dialog;
         getButton(id: string): CKEDITOR.ui.dialog.button;
         getContentElement(pageId: string, elementId: string): CKEDITOR.ui.dialog.uiElement;
@@ -1448,7 +1448,7 @@ declare module CKEDITOR {
         getSize(): Object;
         getValueOf(pageId: string, elementId: string): Object;
         hide(): void;
-        hidePage(id: string);
+        hidePage(id: string): void;
         layout(): void;
         move(x: number, y: number, save: boolean): void;
         reset(): CKEDITOR.dialog;
