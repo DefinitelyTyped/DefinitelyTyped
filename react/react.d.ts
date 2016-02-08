@@ -687,6 +687,11 @@ declare namespace __React {
         borderWidth?: any;
 
         /**
+         * This property specifies how far an absolutely positioned box's bottom margin edge is offset above the bottom edge of the box's containing block. For relatively positioned boxes, the offset is with respect to the bottom edges of the box itself (i.e., the box is given a position in the normal flow, then offset from that position according to these properties).
+         */
+        bottom?: any;
+
+        /**
          * Obsolete.
          */
         boxAlign?: any;
