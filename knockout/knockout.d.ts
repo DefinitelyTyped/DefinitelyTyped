@@ -60,9 +60,16 @@ interface KnockoutSubscription {
 	dispose(): void;
 }
 
+interface KnockoutSubscribtionArrayChangeEvent<T> {
+    status: string;
+    value: T;
+    index: number
+}
+
 interface KnockoutSubscribable<T> extends KnockoutSubscribableFunctions<T> {
 	subscribe(callback: (newValue: T) => void, target?: any, event?: string): KnockoutSubscription;
 	subscribe<TEvent>(callback: (newValue: TEvent) => void, target: any, event: string): KnockoutSubscription;
+	subscribe<TItem>(callback:(changes: KnockoutSubscribtionArrayChangeEvent<TItem>[])=> void, target: any, event: string): KnockoutSubscription;
 	extend(requestedExtenders: { [key: string]: any; }): KnockoutSubscribable<T>;
 	getSubscriptionsCount(): number;
 }
