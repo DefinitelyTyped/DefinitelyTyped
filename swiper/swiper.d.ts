@@ -1214,5 +1214,5 @@ interface ISwiperBreakpointOptions {
 }
 
 interface ISwiperPluginOptions {
-	[s: string]: (...any) => ISwiperCallbacks;
+	[s: string]: (...args: any[]) => ISwiperCallbacks;
 }
