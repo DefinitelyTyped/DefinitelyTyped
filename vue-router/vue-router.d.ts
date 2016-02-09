@@ -1,10 +1,9 @@
-// Type definitions for vue-router 0.7.7
+// Type definitions for vue-router 0.7.10
 // Project: https://github.com/vuejs/vue-router
 // Definitions by: kaorun343 <https://github.com/kaorun343>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../vue/vue.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
 
 declare namespace vuerouter {
 
@@ -65,18 +64,19 @@ declare namespace vuerouter {
     }
 
     interface TransitionHook<Root, FP, FQ, TP, TQ> {
-        data?(transition?: Transition<Root, FP, FQ, TP, TQ>): Thenable<any> | void;
-        activate?(transition?: Transition<Root, FP, FQ, TP, TQ>): Thenable<any> | void;
-        deactivate?(transition?: Transition<Root, FP, FQ, TP, TQ>): Thenable<any> | void;
-        canActivate?(transition?: Transition<Root, FP, FQ, TP, TQ>): Thenable<any> | boolean | void;
-        canDeactivate?(transition?: Transition<Root, FP, FQ, TP, TQ>): Thenable<any> | boolean | void;
+        data?(transition?: Transition<Root, FP, FQ, TP, TQ>): PromiseLike<any> | void;
+        activate?(transition?: Transition<Root, FP, FQ, TP, TQ>): PromiseLike<any> | void;
+        deactivate?(transition?: Transition<Root, FP, FQ, TP, TQ>): PromiseLike<any> | void;
+        canActivate?(transition?: Transition<Root, FP, FQ, TP, TQ>): PromiseLike<any> | boolean | void;
+        canDeactivate?(transition?: Transition<Root, FP, FQ, TP, TQ>): PromiseLike<any> | boolean | void;
         canReuse?: boolean | ((transition: Transition<Root, FP, FQ, TP, TQ>) => boolean);
     }
 }
 
 declare namespace vuejs {
     interface Vue {
-        $route: vuerouter.$route<any, any, any>;
+        $route?: vuerouter.$route<any, any, any>;
+        $router?: vuerouter.Router<any>;
     }
 
     interface ComponentOption {

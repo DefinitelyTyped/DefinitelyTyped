@@ -200,6 +200,7 @@ declare module angular {
          * @param inlineAnnotatedFunction Execute this function on module load. Useful for service configuration.
          */
         config(inlineAnnotatedFunction: any[]): IModule;
+        config(object: Object): IModule;
         /**
          * Register a constant service, such as a string, a number, an array, an object or a function, with the $injector. Unlike value it can be injected into a module configuration function (see config) and it cannot be overridden by an Angular decorator.
          *
@@ -1083,7 +1084,7 @@ declare module angular {
     }
 
     interface IDeferred<T> {
-        resolve(value?: T): void;
+        resolve(value?: T|IPromise<T>): void;
         reject(reason?: any): void;
         notify(state?: any): void;
         promise: IPromise<T>;

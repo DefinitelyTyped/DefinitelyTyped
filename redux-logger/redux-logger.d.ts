@@ -15,7 +15,7 @@ declare module 'redux-logger' {
     logger?: any;
     predicate?: (getState: Function, action: any) => boolean;
     timestamp?: boolean;
-    transformer?: (state:any) => any;
+    stateTransformer?: (state: any) => any;
   }
 
   export default function createLogger(options?: ReduxLoggerOptions): Redux.Middleware;

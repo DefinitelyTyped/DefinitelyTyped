@@ -1934,6 +1934,169 @@ module TestUnion {
     }
 }
 
+// _.unionBy
+namespace TestUnionBy {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let iteratee: (value: TResult) => any;
+
+    {
+        let result: TResult[];
+
+        result = _.unionBy<TResult>(array, array);
+        result = _.unionBy<TResult>(array, list, array);
+        result = _.unionBy<TResult>(array, array, list, array);
+        result = _.unionBy<TResult>(array, list, array, list, array);
+        result = _.unionBy<TResult>(array, array, list, array, list, array);
+
+        result = _.unionBy<TResult>(array, array, iteratee);
+        result = _.unionBy<TResult>(array, list, array, iteratee);
+        result = _.unionBy<TResult>(array, array, list, array, iteratee);
+        result = _.unionBy<TResult>(array, list, array, list, array, iteratee);
+        result = _.unionBy<TResult>(array, array, list, array, list, array, iteratee);
+
+        result = _.unionBy<TResult>(array, array, 'a');
+        result = _.unionBy<TResult>(array, list, array, 'a');
+        result = _.unionBy<TResult>(array, array, list, array, 'a');
+        result = _.unionBy<TResult>(array, list, array, list, array, 'a');
+        result = _.unionBy<TResult>(array, array, list, array, list, array, 'a');
+
+        result = _.unionBy<TResult, {a: number}>(array, array, {a: 1});
+        result = _.unionBy<TResult, {a: number}>(array, list, array, {a: 1});
+        result = _.unionBy<TResult, {a: number}>(array, array, list, array, {a: 1});
+        result = _.unionBy<TResult, {a: number}>(array, list, array, list, array, {a: 1});
+        result = _.unionBy<TResult>(array, list, array, list, array, list, {a: 1});
+
+        result = _.unionBy<TResult>(list, list);
+        result = _.unionBy<TResult>(list, array, list);
+        result = _.unionBy<TResult>(list, list, array, list);
+        result = _.unionBy<TResult>(list, array, list, array, list);
+        result = _.unionBy<TResult>(list, list, array, list, array, list);
+
+        result = _.unionBy<TResult>(list, list, iteratee);
+        result = _.unionBy<TResult>(list, array, list, iteratee);
+        result = _.unionBy<TResult>(list, list, array, list, iteratee);
+        result = _.unionBy<TResult>(list, array, list, array, list, iteratee);
+        result = _.unionBy<TResult>(list, list, array, list, array, list, iteratee);
+
+        result = _.unionBy<TResult>(list, list, 'a');
+        result = _.unionBy<TResult>(list, array, list, 'a');
+        result = _.unionBy<TResult>(list, list, array, list, 'a');
+        result = _.unionBy<TResult>(list, array, list, array, list, 'a');
+        result = _.unionBy<TResult>(list, list, array, list, array, list, 'a');
+
+        result = _.unionBy<TResult, {a: number}>(list, list, {a: 1});
+        result = _.unionBy<TResult, {a: number}>(list, array, list, {a: 1});
+        result = _.unionBy<TResult, {a: number}>(list, list, array, list, {a: 1});
+        result = _.unionBy<TResult, {a: number}>(list, array, list, array, list, {a: 1});
+        result = _.unionBy<TResult>(list, array, list, array, list, array, {a: 1});
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
+
+        result = _(array).unionBy<TResult>(array);
+        result = _(array).unionBy<TResult>(list, array);
+        result = _(array).unionBy<TResult>(array, list, array);
+        result = _(array).unionBy<TResult>(list, array, list, array);
+        result = _(array).unionBy<TResult>(array, list, array, list, array);
+
+        result = _(array).unionBy<TResult>(array, iteratee);
+        result = _(array).unionBy<TResult>(list, array, iteratee);
+        result = _(array).unionBy<TResult>(array, list, array, iteratee);
+        result = _(array).unionBy<TResult>(list, array, list, array, iteratee);
+        result = _(array).unionBy<TResult>(array, list, array, list, array, iteratee);
+
+        result = _(array).unionBy<TResult>(array, 'a');
+        result = _(array).unionBy<TResult>(list, array, 'a');
+        result = _(array).unionBy<TResult>(array, list, array, 'a');
+        result = _(array).unionBy<TResult>(list, array, list, array, 'a');
+        result = _(array).unionBy<TResult>(array, list, array, list, array, 'a');
+
+        result = _(array).unionBy<TResult, {a: number}>(array, {a: 1});
+        result = _(array).unionBy<TResult, {a: number}>(list, array, {a: 1});
+        result = _(array).unionBy<TResult, {a: number}>(array, list, array, {a: 1});
+        result = _(array).unionBy<TResult, {a: number}>(list, array, list, array, {a: 1});
+        result = _(array).unionBy<TResult>(list, array, list, array, list, {a: 1});
+
+        result = _(list).unionBy<TResult>(list);
+        result = _(list).unionBy<TResult>(array, list);
+        result = _(list).unionBy<TResult>(list, array, list);
+        result = _(list).unionBy<TResult>(array, list, array, list);
+        result = _(list).unionBy<TResult>(list, array, list, array, list);
+
+        result = _(list).unionBy<TResult>(list, iteratee);
+        result = _(list).unionBy<TResult>(array, list, iteratee);
+        result = _(list).unionBy<TResult>(list, array, list, iteratee);
+        result = _(list).unionBy<TResult>(array, list, array, list, iteratee);
+        result = _(list).unionBy<TResult>(list, array, list, array, list, iteratee);
+
+        result = _(list).unionBy<TResult>(list, 'a');
+        result = _(list).unionBy<TResult>(array, list, 'a');
+        result = _(list).unionBy<TResult>(list, array, list, 'a');
+        result = _(list).unionBy<TResult>(array, list, array, list, 'a');
+        result = _(list).unionBy<TResult>(list, array, list, array, list, 'a');
+
+        result = _(list).unionBy<TResult, {a: number}>(list, {a: 1});
+        result = _(list).unionBy<TResult, {a: number}>(array, list, {a: 1});
+        result = _(list).unionBy<TResult, {a: number}>(list, array, list, {a: 1});
+        result = _(list).unionBy<TResult, {a: number}>(array, list, array, list, {a: 1});
+        result = _(list).unionBy<TResult>(array, list, array, list, array, {a: 1});
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
+
+        result = _(array).chain().unionBy<TResult>(array);
+        result = _(array).chain().unionBy<TResult>(list, array);
+        result = _(array).chain().unionBy<TResult>(array, list, array);
+        result = _(array).chain().unionBy<TResult>(list, array, list, array);
+        result = _(array).chain().unionBy<TResult>(array, list, array, list, array);
+
+        result = _(array).chain().unionBy<TResult>(array, iteratee);
+        result = _(array).chain().unionBy<TResult>(list, array, iteratee);
+        result = _(array).chain().unionBy<TResult>(array, list, array, iteratee);
+        result = _(array).chain().unionBy<TResult>(list, array, list, array, iteratee);
+        result = _(array).chain().unionBy<TResult>(array, list, array, list, array, iteratee);
+
+        result = _(array).chain().unionBy<TResult>(array, 'a');
+        result = _(array).chain().unionBy<TResult>(list, array, 'a');
+        result = _(array).chain().unionBy<TResult>(array, list, array, 'a');
+        result = _(array).chain().unionBy<TResult>(list, array, list, array, 'a');
+        result = _(array).chain().unionBy<TResult>(array, list, array, list, array, 'a');
+
+        result = _(array).chain().unionBy<TResult, {a: number}>(array, {a: 1});
+        result = _(array).chain().unionBy<TResult, {a: number}>(list, array, {a: 1});
+        result = _(array).chain().unionBy<TResult, {a: number}>(array, list, array, {a: 1});
+        result = _(array).chain().unionBy<TResult, {a: number}>(list, array, list, array, {a: 1});
+        result = _(array).chain().unionBy<TResult>(list, array, list, array, list, {a: 1});
+
+        result = _(list).chain().unionBy<TResult>(list);
+        result = _(list).chain().unionBy<TResult>(array, list);
+        result = _(list).chain().unionBy<TResult>(list, array, list);
+        result = _(list).chain().unionBy<TResult>(array, list, array, list);
+        result = _(list).chain().unionBy<TResult>(list, array, list, array, list);
+
+        result = _(list).chain().unionBy<TResult>(list, iteratee);
+        result = _(list).chain().unionBy<TResult>(array, list, iteratee);
+        result = _(list).chain().unionBy<TResult>(list, array, list, iteratee);
+        result = _(list).chain().unionBy<TResult>(array, list, array, list, iteratee);
+        result = _(list).chain().unionBy<TResult>(list, array, list, array, list, iteratee);
+
+        result = _(list).chain().unionBy<TResult>(list, 'a');
+        result = _(list).chain().unionBy<TResult>(array, list, 'a');
+        result = _(list).chain().unionBy<TResult>(list, array, list, 'a');
+        result = _(list).chain().unionBy<TResult>(array, list, array, list, 'a');
+        result = _(list).chain().unionBy<TResult>(list, array, list, array, list, 'a');
+
+        result = _(list).chain().unionBy<TResult, {a: number}>(list, {a: 1});
+        result = _(list).chain().unionBy<TResult, {a: number}>(array, list, {a: 1});
+        result = _(list).chain().unionBy<TResult, {a: number}>(list, array, list, {a: 1});
+        result = _(list).chain().unionBy<TResult, {a: number}>(array, list, array, list, {a: 1});
+        result = _(list).chain().unionBy<TResult>(array, list, array, list, array, {a: 1});
+    }
+}
+
 // _.uniq
 module TestUniq {
     type SampleObject = {a: number; b: string; c: boolean};
@@ -3407,52 +3570,68 @@ module TestEachRight {
 }
 
 // _.every
-module TestEvery {
-    let array: TResult[];
-    let list: _.List<TResult>;
-    let dictionary: _.Dictionary<TResult>;
+namespace TestEvery {
+    type SampleObject = {a: number; b: string; c: boolean;};
 
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean;
+    let array: SampleObject[];
+    let list: _.List<SampleObject>;
+    let dictionary: _.Dictionary<SampleObject>;
+    let numericDictionary: _.NumericDictionary<SampleObject>;
+
+    let listIterator: (value: SampleObject, index: number, collection: _.List<SampleObject>) => boolean;
+    let dictionaryIterator: (value: SampleObject, key: string, collection: _.Dictionary<SampleObject>) => boolean;
+    let numericDictionaryIterator: (value: SampleObject, key: number, collection: _.NumericDictionary<SampleObject>) => boolean;
 
     {
         let result: boolean;
 
-        result = _.every<TResult>(array);
-        result = _.every<TResult>(array, listIterator);
-        result = _.every<TResult>(array, listIterator, any);
-        result = _.every<TResult>(array, '');
-        result = _.every<{a: number}, TResult>(array, {a: 42});
+        result = _.every<SampleObject>(array);
+        result = _.every<SampleObject>(array, listIterator);
+        result = _.every<SampleObject>(array, 'a');
+        result = _.every<SampleObject>(array, ['a', 42]);
+        result = _.every<{a: number}, SampleObject>(array, {a: 42});
 
-        result = _.every<TResult>(list);
-        result = _.every<TResult>(list, listIterator);
-        result = _.every<TResult>(list, listIterator, any);
-        result = _.every<TResult>(list, '');
-        result = _.every<{a: number}, TResult>(list, {a: 42});
+        result = _.every<SampleObject>(list);
+        result = _.every<SampleObject>(list, listIterator);
+        result = _.every<SampleObject>(list, 'a');
+        result = _.every<SampleObject>(list, ['a', 42]);
+        result = _.every<{a: number}, SampleObject>(list, {a: 42});
 
-        result = _.every<TResult>(dictionary);
-        result = _.every<TResult>(dictionary, dictionaryIterator);
-        result = _.every<TResult>(dictionary, dictionaryIterator, any);
-        result = _.every<TResult>(dictionary, '');
-        result = _.every<{a: number}, TResult>(dictionary, {a: 42});
+        result = _.every<SampleObject>(dictionary);
+        result = _.every<SampleObject>(dictionary, dictionaryIterator);
+        result = _.every<SampleObject>(dictionary, 'a');
+        result = _.every<SampleObject>(dictionary, ['a', 42]);
+        result = _.every<{a: number}, SampleObject>(dictionary, {a: 42});
+
+        result = _.every<SampleObject>(numericDictionary);
+        result = _.every<SampleObject>(numericDictionary, numericDictionaryIterator);
+        result = _.every<SampleObject>(numericDictionary, 'a');
+        result = _.every<SampleObject>(numericDictionary, ['a', 42]);
+        result = _.every<{a: number}, SampleObject>(numericDictionary, {a: 42});
 
         result = _(array).every();
         result = _(array).every(listIterator);
-        result = _(array).every(listIterator, any);
-        result = _(array).every('');
+        result = _(array).every('a');
+        result = _(array).every(['a', 42]);
         result = _(array).every<{a: number}>({a: 42});
 
-        result = _(list).every<TResult>();
-        result = _(list).every<TResult>(listIterator);
-        result = _(list).every<TResult>(listIterator, any);
-        result = _(list).every('');
+        result = _(list).every<SampleObject>();
+        result = _(list).every<SampleObject>(listIterator);
+        result = _(list).every('a');
+        result = _(list).every(['a', 42]);
         result = _(list).every<{a: number}>({a: 42});
 
-        result = _(dictionary).every<TResult>();
-        result = _(dictionary).every<TResult>(dictionaryIterator);
-        result = _(dictionary).every<TResult>(dictionaryIterator, any);
-        result = _(dictionary).every('');
+        result = _(dictionary).every<SampleObject>();
+        result = _(dictionary).every<SampleObject>(dictionaryIterator);
+        result = _(dictionary).every('a');
+        result = _(dictionary).every(['a', 42]);
         result = _(dictionary).every<{a: number}>({a: 42});
+
+        result = _(numericDictionary).every<SampleObject>();
+        result = _(numericDictionary).every<SampleObject>(numericDictionaryIterator);
+        result = _(numericDictionary).every('a');
+        result = _(numericDictionary).every(['a', 42]);
+        result = _(numericDictionary).every<{a: number}>({a: 42});
     }
 
     {
@@ -3460,21 +3639,27 @@ module TestEvery {
 
         result = _(array).chain().every();
         result = _(array).chain().every(listIterator);
-        result = _(array).chain().every(listIterator, any);
-        result = _(array).chain().every('');
+        result = _(array).chain().every('a');
+        result = _(array).chain().every(['a', 42]);
         result = _(array).chain().every<{a: number}>({a: 42});
 
-        result = _(list).chain().every<TResult>();
-        result = _(list).chain().every<TResult>(listIterator);
-        result = _(list).chain().every<TResult>(listIterator, any);
-        result = _(list).chain().every('');
+        result = _(list).chain().every<SampleObject>();
+        result = _(list).chain().every<SampleObject>(listIterator);
+        result = _(list).chain().every('a');
+        result = _(list).chain().every(['a', 42]);
         result = _(list).chain().every<{a: number}>({a: 42});
 
-        result = _(dictionary).chain().every<TResult>();
-        result = _(dictionary).chain().every<TResult>(dictionaryIterator);
-        result = _(dictionary).chain().every<TResult>(dictionaryIterator, any);
-        result = _(dictionary).chain().every('');
+        result = _(dictionary).chain().every<SampleObject>();
+        result = _(dictionary).chain().every<SampleObject>(dictionaryIterator);
+        result = _(dictionary).chain().every('a');
+        result = _(dictionary).chain().every(['a', 42]);
         result = _(dictionary).chain().every<{a: number}>({a: 42});
+
+        result = _(numericDictionary).chain().every<SampleObject>();
+        result = _(numericDictionary).chain().every<SampleObject>(numericDictionaryIterator);
+        result = _(numericDictionary).chain().every('a');
+        result = _(numericDictionary).chain().every(['a', 42]);
+        result = _(numericDictionary).chain().every<{a: number}>({a: 42});
     }
 }
 
@@ -4175,7 +4360,7 @@ module TestInvokeMap {
         c: 3,
         d: 4
     }
-    
+
     let result: string[];
     result = _.invokeMap<number, string>(numArray, 'toString');
     result = _.invokeMap<number, string>(numArray, 'toString', 2);
@@ -4185,7 +4370,7 @@ module TestInvokeMap {
     result = _(numArray).invokeMap<string>('toString', 2).value();
     result = _(numArray).chain().invokeMap<string>('toString').value();
     result = _(numArray).chain().invokeMap<string>('toString', 2).value();
-    
+
     result = _.invokeMap<number, string>(numArray, Number.prototype.toString);
     result = _.invokeMap<number, string>(numArray, Number.prototype.toString, 2);
     result = _.invokeMap<string>(numArray, Number.prototype.toString);
@@ -4194,7 +4379,7 @@ module TestInvokeMap {
     result = _(numArray).invokeMap<string>(Number.prototype.toString, 2).value();
     result = _(numArray).chain().invokeMap<string>(Number.prototype.toString).value();
     result = _(numArray).chain().invokeMap<string>(Number.prototype.toString, 2).value();
-    
+
     result = _.invokeMap<number, string>(numDict, 'toString');
     result = _.invokeMap<number, string>(numDict, 'toString', 2);
     result = _.invokeMap<string>(numDict, 'toString');
@@ -4203,7 +4388,7 @@ module TestInvokeMap {
     result = _(numDict).invokeMap<string>('toString', 2).value();
     result = _(numDict).chain().invokeMap<string>('toString').value();
     result = _(numDict).chain().invokeMap<string>('toString', 2).value();
-    
+
     result = _.invokeMap<number, string>(numDict, Number.prototype.toString);
     result = _.invokeMap<number, string>(numDict, Number.prototype.toString, 2);
     result = _.invokeMap<string>(numDict, Number.prototype.toString);
@@ -4612,65 +4797,67 @@ module TestSize {
 }
 
 // _.some
-module TestSome {
-    let array: TResult[];
-    let list: _.List<TResult>;
-    let dictionary: _.Dictionary<TResult>;
-    let numericDictionary: _.NumericDictionary<TResult>;
+namespace TestSome {
+    type SampleObject = {a: number; b: string; c: boolean;};
 
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => boolean;
-    let numericDictionaryIterator: (value: TResult, key: number, collection: _.NumericDictionary<TResult>) => boolean;
+    let array: SampleObject[];
+    let list: _.List<SampleObject>;
+    let dictionary: _.Dictionary<SampleObject>;
+    let numericDictionary: _.NumericDictionary<SampleObject>;
+
+    let listIterator: (value: SampleObject, index: number, collection: _.List<SampleObject>) => boolean;
+    let dictionaryIterator: (value: SampleObject, key: string, collection: _.Dictionary<SampleObject>) => boolean;
+    let numericDictionaryIterator: (value: SampleObject, key: number, collection: _.NumericDictionary<SampleObject>) => boolean;
 
     {
         let result: boolean;
 
-        result = _.some<TResult>(array);
-        result = _.some<TResult>(array, listIterator);
-        result = _.some<TResult>(array, listIterator, any);
-        result = _.some<TResult>(array, '');
-        result = _.some<{a: number}, TResult>(array, {a: 42});
+        result = _.some<SampleObject>(array);
+        result = _.some<SampleObject>(array, listIterator);
+        result = _.some<SampleObject>(array, 'a');
+        result = _.some<SampleObject>(array, ['a', 42]);
+        result = _.some<{a: number}, SampleObject>(array, {a: 42});
 
-        result = _.some<TResult>(list);
-        result = _.some<TResult>(list, listIterator);
-        result = _.some<TResult>(list, listIterator, any);
-        result = _.some<TResult>(list, '');
-        result = _.some<{a: number}, TResult>(list, {a: 42});
+        result = _.some<SampleObject>(list);
+        result = _.some<SampleObject>(list, listIterator);
+        result = _.some<SampleObject>(list, 'a');
+        result = _.some<SampleObject>(list, ['a', 42]);
+        result = _.some<{a: number}, SampleObject>(list, {a: 42});
 
-        result = _.some<TResult>(dictionary);
-        result = _.some<TResult>(dictionary, dictionaryIterator);
-        result = _.some<TResult>(dictionary, dictionaryIterator, any);
-        result = _.some<TResult>(dictionary, '');
-        result = _.some<{a: number}, TResult>(dictionary, {a: 42});
+        result = _.some<SampleObject>(dictionary);
+        result = _.some<SampleObject>(dictionary, dictionaryIterator);
+        result = _.some<SampleObject>(dictionary, 'a');
+        result = _.some<SampleObject>(dictionary, ['a', 42]);
+        result = _.some<{a: number}, SampleObject>(dictionary, {a: 42});
 
-        result = _.some<TResult>(numericDictionary);
-        result = _.some<TResult>(numericDictionary, numericDictionaryIterator);
-        result = _.some<TResult>(numericDictionary, numericDictionaryIterator, any);
-        result = _.some<TResult>(numericDictionary, '');
-        result = _.some<{a: number}, TResult>(numericDictionary, {a: 42});
+        result = _.some<SampleObject>(numericDictionary);
+        result = _.some<SampleObject>(numericDictionary, numericDictionaryIterator);
+        result = _.some<SampleObject>(numericDictionary, 'a');
+        result = _.some<SampleObject>(numericDictionary, ['a', 42]);
+        result = _.some<{a: number}, SampleObject>(numericDictionary, {a: 42});
 
         result = _(array).some();
         result = _(array).some(listIterator);
-        result = _(array).some(listIterator, any);
-        result = _(array).some('');
+        result = _(array).some('a');
+        result = _(array).some(['a', 42]);
         result = _(array).some<{a: number}>({a: 42});
 
-        result = _(list).some<TResult>();
-        result = _(list).some<TResult>(listIterator);
-        result = _(list).some<TResult>(listIterator, any);
-        result = _(list).some('');
+        result = _(list).some<SampleObject>();
+        result = _(list).some<SampleObject>(listIterator);
+        result = _(list).some('a');
+        result = _(list).some(['a', 42]);
         result = _(list).some<{a: number}>({a: 42});
 
-        result = _(dictionary).some<TResult>();
-        result = _(dictionary).some<TResult>(dictionaryIterator);
-        result = _(dictionary).some<TResult>(dictionaryIterator, any);
-        result = _(dictionary).some('');
+        result = _(dictionary).some<SampleObject>();
+        result = _(dictionary).some<SampleObject>(dictionaryIterator);
+        result = _(dictionary).some('a');
+        result = _(dictionary).some(['a', 42]);
         result = _(dictionary).some<{a: number}>({a: 42});
 
-        result = _(numericDictionary).some<TResult>();
-        result = _(numericDictionary).some<TResult>(numericDictionaryIterator);
-        result = _(numericDictionary).some<TResult>(numericDictionaryIterator, any);
-        result = _(numericDictionary).some('');
+        result = _(numericDictionary).some<SampleObject>();
+        result = _(numericDictionary).some<SampleObject>(numericDictionaryIterator);
+        result = _(numericDictionary).some('a');
+        result = _(numericDictionary).some(['a', 42]);
         result = _(numericDictionary).some<{a: number}>({a: 42});
     }
 
@@ -4679,26 +4866,26 @@ module TestSome {
 
         result = _(array).chain().some();
         result = _(array).chain().some(listIterator);
-        result = _(array).chain().some(listIterator, any);
-        result = _(array).chain().some('');
+        result = _(array).chain().some('a');
+        result = _(array).chain().some(['a', 42]);
         result = _(array).chain().some<{a: number}>({a: 42});
 
-        result = _(list).chain().some<TResult>();
-        result = _(list).chain().some<TResult>(listIterator);
-        result = _(list).chain().some<TResult>(listIterator, any);
-        result = _(list).chain().some('');
+        result = _(list).chain().some<SampleObject>();
+        result = _(list).chain().some<SampleObject>(listIterator);
+        result = _(list).chain().some('a');
+        result = _(list).chain().some(['a', 42]);
         result = _(list).chain().some<{a: number}>({a: 42});
 
-        result = _(dictionary).chain().some<TResult>();
-        result = _(dictionary).chain().some<TResult>(dictionaryIterator);
-        result = _(dictionary).chain().some<TResult>(dictionaryIterator, any);
-        result = _(dictionary).chain().some('');
+        result = _(dictionary).chain().some<SampleObject>();
+        result = _(dictionary).chain().some<SampleObject>(dictionaryIterator);
+        result = _(dictionary).chain().some('a');
+        result = _(dictionary).chain().some(['a', 42]);
         result = _(dictionary).chain().some<{a: number}>({a: 42});
 
-        result = _(numericDictionary).chain().some<TResult>();
-        result = _(numericDictionary).chain().some<TResult>(numericDictionaryIterator);
-        result = _(numericDictionary).chain().some<TResult>(numericDictionaryIterator, any);
-        result = _(numericDictionary).chain().some('');
+        result = _(numericDictionary).chain().some<SampleObject>();
+        result = _(numericDictionary).chain().some<SampleObject>(numericDictionaryIterator);
+        result = _(numericDictionary).chain().some('a');
+        result = _(numericDictionary).chain().some(['a', 42]);
         result = _(numericDictionary).chain().some<{a: number}>({a: 42});
     }
 }
@@ -8879,47 +9066,6 @@ module TestOmitBy {
     }
 }
 
-// _.toPairs
-module TestToPairs {
-    let object: _.Dictionary<string>;
-
-    {
-        let result: any[][];
-
-        result = _.toPairs<_.Dictionary<string>>(object);
-    }
-
-    {
-        let result: string[][];
-
-        result = _.toPairs<_.Dictionary<string>, string>(object);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<string[]>;
-
-        result = _(object).toPairs<string>();
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<any[]>;
-
-        result = _(object).toPairs();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<string[]>;
-
-        result = _(object).chain().toPairs<string>();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<any[]>;
-
-        result = _(object).chain().toPairs();
-    }
-}
-
 // _.pick
 module TestPick {
     let predicate: (element: any, key: string, collection: any) => boolean;
@@ -9082,6 +9228,88 @@ module TestSetWith {
         result = _(object).chain().setWith<number, SampleResult>('a.b[1]', value, customizer);
         result = _(object).chain().setWith<number, SampleResult>(['a', 'b', 1], value);
         result = _(object).chain().setWith<number, SampleResult>(['a', 'b', 1], value, customizer);
+    }
+}
+
+// _.toPairs
+namespace TestToPairs {
+    let object: _.Dictionary<string>;
+
+    {
+        let result: any[][];
+
+        result = _.toPairs<_.Dictionary<string>>(object);
+    }
+
+    {
+        let result: string[][];
+
+        result = _.toPairs<_.Dictionary<string>, string>(object);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string[]>;
+
+        result = _(object).toPairs<string>();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<any[]>;
+
+        result = _(object).toPairs();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string[]>;
+
+        result = _(object).chain().toPairs<string>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<any[]>;
+
+        result = _(object).chain().toPairs();
+    }
+}
+
+// _.toPairsIn
+namespace TestToPairsIn {
+    let object: _.Dictionary<string>;
+
+    {
+        let result: any[][];
+
+        result = _.toPairsIn<_.Dictionary<string>>(object);
+    }
+
+    {
+        let result: string[][];
+
+        result = _.toPairsIn<_.Dictionary<string>, string>(object);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string[]>;
+
+        result = _(object).toPairsIn<string>();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<any[]>;
+
+        result = _(object).toPairsIn();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string[]>;
+
+        result = _(object).chain().toPairsIn<string>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<any[]>;
+
+        result = _(object).chain().toPairs();
     }
 }
 
