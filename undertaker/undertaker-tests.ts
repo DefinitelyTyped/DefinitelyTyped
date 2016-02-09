@@ -1,11 +1,9 @@
 /// <reference path="undertaker.d.ts" />
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
 
 var fs = require('fs');
 var Undertaker = require('undertaker');
 import { Registry }  from 'undertaker';
-require('es6-promise');
 
 var taker = new Undertaker();
 
@@ -43,4 +41,3 @@ taker.task('build', taker.series('clean', function build(cb: () => void) {
     // do things
     cb();
 }));
-

@@ -6,8 +6,6 @@
 // Taken from http://dev.w3.org/2011/webrtc/editor/getusermedia.html
 // version: W3C Editor's Draft 29 June 2015
 
-/// <reference path="../es6-promise/es6-promise.d.ts" />
-
 interface ConstrainBooleanParameters {
     exact?: boolean;
     ideal?: boolean;
