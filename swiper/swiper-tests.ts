@@ -1,3 +1,5 @@
+/// <reference path="swiper.d.ts" />
+
 // 01-default.html
 function testDefault() {
 	var swiper = new Swiper('.swiper-container');
