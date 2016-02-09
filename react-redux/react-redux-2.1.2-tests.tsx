@@ -1,4 +1,4 @@
-/// <reference path="react-redux.d.ts" />
+/// <reference path="react-redux-2.1.2.d.ts" />
 /// <reference path="../react/react.d.ts"/>
 /// <reference path="../react/react-dom.d.ts"/>
 /// <reference path="../redux/redux.d.ts" />
