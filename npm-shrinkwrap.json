@@ -13,9 +13,9 @@
       "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-0.3.0.tgz"
     },
     "bluebird": {
-      "version": "3.1.5",
+      "version": "3.2.2",
       "from": "bluebird@>=3.1.2 <4.0.0",
-      "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.1.5.tgz"
+      "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.2.2.tgz"
     },
     "brace-expansion": {
       "version": "1.1.2",
@@ -38,8 +38,8 @@
       "resolved": "https://registry.npmjs.org/definition-header/-/definition-header-0.3.0.tgz"
     },
     "definition-tester": {
-      "version": "0.4.0",
-      "from": "definition-tester@0.4.0"
+      "version": "0.5.0",
+      "from": "definition-tester@0.5.0"
     },
     "findup-sync": {
       "version": "0.3.0",
@@ -89,9 +89,9 @@
       "resolved": "https://registry.npmjs.org/isemail/-/isemail-2.1.0.tgz"
     },
     "joi": {
-      "version": "7.2.2",
+      "version": "7.2.3",
       "from": "joi@>=7.2.2 <8.0.0",
-      "resolved": "https://registry.npmjs.org/joi/-/joi-7.2.2.tgz"
+      "resolved": "https://registry.npmjs.org/joi/-/joi-7.2.3.tgz"
     },
     "joi-assert": {
       "version": "0.0.3",
@@ -136,9 +136,9 @@
       "resolved": "https://registry.npmjs.org/minimist/-/minimist-0.0.10.tgz"
     },
     "moment": {
-      "version": "2.11.1",
+      "version": "2.11.2",
       "from": "moment@>=2.0.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/moment/-/moment-2.11.1.tgz"
+      "resolved": "https://registry.npmjs.org/moment/-/moment-2.11.2.tgz"
     },
     "once": {
       "version": "1.3.3",
