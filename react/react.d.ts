@@ -516,7 +516,7 @@ declare namespace __React {
         backgroundBlendMode?: any;
 
         backgroundColor?: any;
-        
+
         backgroundComposite?: any;
 
         /**
@@ -1362,7 +1362,7 @@ declare namespace __React {
         textAlignLast?: any;
 
         /**
-         * The text-decoration CSS property is used to set the text formatting to underline, overline, line-through or blink. 
+         * The text-decoration CSS property is used to set the text formatting to underline, overline, line-through or blink.
          * underline and overline decorations are positioned under the text, line-through over it.
          */
         textDecoration?: any;
@@ -1956,6 +1956,7 @@ declare namespace __React {
         h6: HTMLFactory;
         head: HTMLFactory;
         header: HTMLFactory;
+        hgroup: HTMLFactory;
         hr: HTMLFactory;
         html: HTMLFactory;
         i: HTMLFactory;
@@ -2188,6 +2189,7 @@ declare namespace JSX {
         h6: React.HTMLProps<HTMLHeadingElement>;
         head: React.HTMLProps<HTMLHeadElement>;
         header: React.HTMLProps<HTMLElement>;
+        hgroup: React.HTMLProps<HTMLElement>;
         hr: React.HTMLProps<HTMLHRElement>;
         html: React.HTMLProps<HTMLHtmlElement>;
         i: React.HTMLProps<HTMLElement>;
