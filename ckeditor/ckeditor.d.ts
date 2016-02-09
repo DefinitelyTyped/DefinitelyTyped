@@ -80,7 +80,7 @@ declare module CKEDITOR {
     function getTemplate(name: string): template;
     function getUrl(resource: string): string;
     function inline(element: string, instanceConfig?: config): editor;
-    function inline(element: HTMLTextAreaElement, instanceConfig?: config): editor;
+    function inline(element: HTMLElement, instanceConfig?: config): editor;
     function inlineAll(): void;
     function loadFullCore(): void;
     function replace(element: string, config?: config): editor;
@@ -168,7 +168,7 @@ declare module CKEDITOR {
             // Properties
             type: number;
 
-            // Methods            
+            // Methods
             constructor(element: string, ownerDocument?: document);
             constructor(element: HTMLElement, ownerDocument?: document);
             addClass(className: string): void;
@@ -566,12 +566,14 @@ declare module CKEDITOR {
         contentsCss?: string | string[];
         contentsLangDirection?: string;
         customConfig?: string;
+        enterMode?: number;
         extraPlugins?: string;
         font_names?: string;
         font_defaultLabel?: string;
         fontSize_sizes?: string;
         fontSize_defaultLabel?: string;
         height?: string | number;
+        htmlEncodeOutput?: boolean;
         language?: string;
         on?: any;
         plugins?: string;
@@ -583,6 +585,7 @@ declare module CKEDITOR {
         toolbarGroups?: toolbarGroups[];
         toolbarLocation?: string;
         readOnly?: boolean;
+        shiftEnterMode?: number;
         skin?: string;
         width?: string | number;
     }

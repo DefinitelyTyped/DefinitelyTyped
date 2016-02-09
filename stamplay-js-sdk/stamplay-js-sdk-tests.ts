@@ -1,5 +1,5 @@
 /// <reference path="stamplay-js-sdk.d.ts" />
-
+Stamplay.init('sample');
 var userFn = Stamplay.User();
 var user = new userFn.Model;
 var colTags = Stamplay.Cobject('tag');

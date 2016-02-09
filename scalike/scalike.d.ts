@@ -3,8 +3,6 @@
 // Definitions by: ryoppy <https://github.com/ryoppy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../es6-promise/es6-promise.d.ts" />
-
 declare module scalike {
 
     export interface Either<A, B> {

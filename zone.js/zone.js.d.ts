@@ -3,8 +3,6 @@
 // Definitions by: angular team <https://github.com/angular/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../es6-promise/es6-promise.d.ts"/>
-
 declare class Zone {
     constructor(parentZone: Zone, data: any);
 
@@ -18,4 +16,3 @@ declare class Zone {
 
     static longStackTraceZone: {[key: string]: any};
 }
-

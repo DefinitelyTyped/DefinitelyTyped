@@ -247,6 +247,7 @@ declare module FullCalendar {
         backgroundColor?: string;
         borderColor?: string;
         textColor?: string;
+        rendering?: string;
     }
 
     export interface ViewObject extends Timespan {

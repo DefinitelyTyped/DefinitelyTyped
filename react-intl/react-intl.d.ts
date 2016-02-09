@@ -24,7 +24,7 @@ declare module ReactIntl {
         [key: string]: FormattedMessage.MessageDescriptor
     }
 
-    function defineMessages<T extends Messages>(messages: Messages): T;
+    function defineMessages<T extends Messages>(messages: T): T;
 
     interface IntlShape extends React.Requireable<any> {
     }

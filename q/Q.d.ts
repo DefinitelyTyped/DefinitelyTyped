@@ -20,7 +20,7 @@ declare module Q {
 
     interface Deferred<T> {
         promise: Promise<T>;
-        resolve(value: T): void;
+        resolve(value?: T): void;
         reject(reason: any): void;
         notify(value: any): void;
         makeNodeResolver(): (reason: any, value: T) => void;

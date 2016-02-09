@@ -1464,7 +1464,6 @@ declare module ag.grid {
         addDropTarget(eDropTarget: any, dropTargetCallback: any): void;
     }
 }
-declare function require(name: string): any;
 declare module ag.grid {
     class AgList {
         private eGui;

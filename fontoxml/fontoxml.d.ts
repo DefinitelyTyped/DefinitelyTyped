@@ -37,4 +37,13 @@ declare module com.fontoxml
 		roleId:string;
 	}
 	
+	//This is describes the object that is assigned to the MessageEvent.data
+	//property after the FontoXML editor posts a message
+	export interface IFontoMessageEventData {
+		command: string;
+		type: string;
+		scope: com.fontoxml.IInvocator;
+		metadata: any;
+	}
+
 }

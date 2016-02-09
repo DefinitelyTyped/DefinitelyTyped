@@ -65,13 +65,13 @@ declare module "fs-extra" {
 	export function outputJsonSync(file: string, data: any): void;
 	export function outputJSONSync(file: string, data: any): void;
 
-	export function readJson(file: string, callback?: (err: Error) => void): void;
-	export function readJson(file: string, options?: OpenOptions, callback?: (err: Error) => void): void;
-	export function readJSON(file: string, callback?: (err: Error) => void): void;
-	export function readJSON(file: string, options?: OpenOptions, callback?: (err: Error) => void): void;
+	export function readJson(file: string, callback: (err: Error, jsonObject: any) => void): void;
+	export function readJson(file: string, options: OpenOptions, callback: (err: Error, jsonObject: any) => void): void;
+	export function readJSON(file: string, callback: (err: Error, jsonObject: any) => void): void;
+	export function readJSON(file: string, options: OpenOptions, callback: (err: Error, jsonObject: any) => void): void;
 
-	export function readJsonSync(file: string, options?: OpenOptions): void;
-	export function readJSONSync(file: string, options?: OpenOptions): void;
+	export function readJsonSync(file: string, options?: OpenOptions): any;
+	export function readJSONSync(file: string, options?: OpenOptions): any;
 
 	export function remove(dir: string, callback?: (err: Error) => void): void;
 	export function removeSync(dir: string): void;
