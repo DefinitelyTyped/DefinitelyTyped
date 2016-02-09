@@ -43,12 +43,16 @@ declare module "jsonwebtoken" {
         maxAge?: string;
     }
 
-    export interface VerifyCallbak {
+    export interface VerifyCallback {
         (err: Error, decoded: any): void;
     }
 
+    export interface SignCallback {
+        (err: Error, encoded: string): void;
+    }
+
     /**
-     * Sign the given payload into a JSON Web Token string
+     * Synchronously sign the given payload into a JSON Web Token string
      * @param {String|Object|Buffer} payload - Payload to sign, could be an literal, buffer or string
      * @param {String|Buffer} secretOrPrivateKey - Either the secret for HMAC algorithms, or the PEM encoded private key for RSA and ECDSA.
      * @param {SignOptions} [options] - Options for the signature
@@ -57,14 +61,34 @@ declare module "jsonwebtoken" {
     export function sign(payload: string | Buffer | Object, secretOrPrivateKey: string | Buffer, options?: SignOptions): string;
 
     /**
-     * Verify given token using a secret or a public key to get a decoded token
+     * Sign the given payload into a JSON Web Token string
+     * @param {String|Object|Buffer} payload - Payload to sign, could be an literal, buffer or string
+     * @param {String|Buffer} secretOrPrivateKey - Either the secret for HMAC algorithms, or the PEM encoded private key for RSA and ECDSA.
+     * @param {SignOptions} [options] - Options for the signature
+     * @param {Function} callback - Callback to get the encoded token on
+     */
+    export function sign(payload: string | Buffer | Object, secretOrPrivateKey: string | Buffer, callback: SignCallback): void;
+    export function sign(payload: string | Buffer | Object, secretOrPrivateKey: string | Buffer, options: SignOptions, callback: SignCallback): void;
+    
+    /**
+     * Synchronously verify given token using a secret or a public key to get a decoded token
+     * @param {String} token - JWT string to verify
+     * @param {String|Buffer} secretOrPublicKey - Either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA.
+     * @param {VerifyOptions} [options] - Options for the verification
+     * @returns The decoded token.
+     */
+    function verify(token: string, secretOrPublicKey: string | Buffer): any;
+    function verify(token: string, secretOrPublicKey: string | Buffer, options?: VerifyOptions): any;
+
+    /**
+     * Asynchronously verify given token using a secret or a public key to get a decoded token
      * @param {String} token - JWT string to verify
      * @param {String|Buffer} secretOrPublicKey - Either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA.
      * @param {VerifyOptions} [options] - Options for the verification
      * @param {Function} callback - Callback to get the decoded token on
      */
-    function verify(token: string, secretOrPublicKey: string | Buffer, callback?: VerifyCallbak): void;
-    function verify(token: string, secretOrPublicKey: string | Buffer, options?: VerifyOptions, callback?: VerifyCallbak): void;
+    function verify(token: string, secretOrPublicKey: string | Buffer, callback?: VerifyCallback): void;
+    function verify(token: string, secretOrPublicKey: string | Buffer, options?: VerifyOptions, callback?: VerifyCallback): void;
 
     /**
      * Returns the decoded payload without verifying if the signature is valid.

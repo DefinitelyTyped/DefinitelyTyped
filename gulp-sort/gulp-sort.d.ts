@@ -8,11 +8,11 @@
 
 /** Sort files in stream by path or any custom sort comparator */
 declare module 'gulp-sort' {
-	
+
 	import gulpUtil = require('gulp-util');
-	
+
 	interface IOptions {
-		/** 
+		/**
 		 * A function to compare two files.
 		 * Returns:
 		 * -1 if file1 should be before file2,
@@ -23,9 +23,9 @@ declare module 'gulp-sort' {
 		/** Whether to sort in ascending order, default is true */
 		asc?: boolean;
 	}
-	
+
 	interface IComparatorFunction {
-		/** 
+		/**
 		 * A function to compare two files.
 		 * Returns:
 		 * -1 if file1 should be before file2,
@@ -34,11 +34,13 @@ declare module 'gulp-sort' {
 		 */
 		(file1: gulpUtil.File, file2: gulpUtil.File): number;
 	}
-	
+
 	/** Sort files in stream by path or any custom sort comparator */
 	function gulpSort(): NodeJS.ReadWriteStream;
 	function gulpSort(comparator: IComparatorFunction): NodeJS.ReadWriteStream;
 	function gulpSort(options: IOptions): NodeJS.ReadWriteStream;
-	
+
+	namespace gulpSort {}
+
 	export = gulpSort;
 }
