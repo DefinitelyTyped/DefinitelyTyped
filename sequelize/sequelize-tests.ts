@@ -486,6 +486,7 @@ Sequelize.CHAR( 12 ).BINARY;
 Sequelize.CHAR.BINARY;
 Sequelize.BOOLEAN;
 Sequelize.DATE;
+Sequelize.DATE(6);
 Sequelize.UUID;
 Sequelize.UUIDV1;
 Sequelize.UUIDV4;
