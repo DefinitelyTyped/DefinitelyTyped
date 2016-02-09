@@ -3,8 +3,6 @@
 // Definitions by: Ryan Graham <https://github.com/ryan-codingintrigue>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../es6-promise/es6-promise.d.ts" />
-
 declare class Request extends Body {
 	constructor(input: string|Request, init?:RequestInit);
 	method: string;
