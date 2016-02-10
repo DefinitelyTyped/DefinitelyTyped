@@ -211,7 +211,6 @@ declare module "adm-zip" {
          *   will be overwriten if this is true. Default is FALSE
          */
         extractAllTo(targetPath: string, overwrite?: boolean): void;
-        
         /**
          * Extracts the entire archive to the given location
          * @param targetPath Target location
