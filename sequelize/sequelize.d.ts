@@ -1736,7 +1736,15 @@ declare module "sequelize" {
 
         interface DataTypeTime extends DataTypeAbstract { }
 
-        interface DataTypeDate extends DataTypeAbstract { }
+        interface DataTypeDate extends DataTypeAbstract {
+
+            /**
+             * Length of decimal places of time
+             */
+            ( options? : { length?: number } ) : DataTypeDate;
+            ( length? : number) : DataTypeDate;
+
+        }
 
         interface DataTypeDateOnly extends DataTypeAbstract { }
 
