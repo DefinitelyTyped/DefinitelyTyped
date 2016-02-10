@@ -57,6 +57,8 @@ interface RavenStatic {
 
     /** Raven.js version. */
     VERSION: string;
+    
+    Plugins: any;
 
     /*
      * Allow Raven to be configured as soon as it is loaded
@@ -92,6 +94,13 @@ interface RavenStatic {
      * @return {Raven}
      */
     install(): RavenStatic;
+    
+    /*
+     * Adds a plugin to Raven
+     *
+     * @return {Raven}
+     */
+    addPlugin(plugin: any, ...pluginArgs: any[]): RavenStatic;
 
     /*
      * Wrap code within a context so Raven can capture errors
