@@ -46,10 +46,13 @@ declare module i18nextNodeFsBackEnd {
 }
 
 declare module "i18next-node-fs-backend" {
-    import i18next = require("i18next");
+    import * as i18next from "i18next";
 
-    export default class i18nextNodeFsBackEnd {
+    class BackEnd {
         constructor(services?: any, options?: Object);
         init(options?: Object): void;
     }
+
+    var out: typeof BackEnd;
+    export = out;
 }

@@ -1,7 +1,7 @@
 ///<reference path="i18next-node-fs-backend.d.ts"/>
 
 import * as i18next from 'i18next';
-import Backend from 'i18next-node-fs-backend';
+import * as Backend from 'i18next-node-fs-backend';
 
 var options = {
     backend: {
