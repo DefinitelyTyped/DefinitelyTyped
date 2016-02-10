@@ -240,6 +240,8 @@ declare module BlissNS {
             add(name: string, callback: Function): void;
             run(name: string, env: Object): void;
         };
+
+        $: BlissStaticCollection;
     }
 
     interface BlissStaticCollection extends BlissStatic {
