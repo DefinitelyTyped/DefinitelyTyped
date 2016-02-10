@@ -85,7 +85,7 @@ columnDef.sort = {
     priority: 1
 };
 columnDef.sortCellFiltered = false;
-columnDef.sortingAlgorithm = (a: any, b: any) => {
+columnDef.sortingAlgorithm = (a: any, b: any, rowA: any, rowB: any, direction: any) => {
     return -1;
 };
 columnDef.suppressRemoveSort = false;
