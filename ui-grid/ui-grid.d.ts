@@ -3767,7 +3767,7 @@ declare module uiGrid {
          */
         sortCellFiltered?: boolean;
         /** Algorithm to use for sorting this column */
-        sortingAlgorithm?: (a: any, b: any) => number;
+        sortingAlgorithm?: (a: any, b: any, rowA: any, rowB: any, direction: any) => number;
         /**
          * When enabled, this setting hides the removeSort option in the menu,
          * and prevents users from manually removing the sort
