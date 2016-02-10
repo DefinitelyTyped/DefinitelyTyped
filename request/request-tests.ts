@@ -110,6 +110,15 @@ var options: request.Options = {
 	strictSSL: bool
 };
 
+// Below line has compile error, use OptionsWithUri or OptionsWithUrl instead. See #7979.
+// options.uri = str;
+
+const opt: request.OptionsWithUri = {
+  baseUrl: 'http://localhost',
+  uri: 'bar'
+};
+opt.uri = str;
+
 // --- --- --- --- --- --- --- --- --- --- --- ---
 
 agent = req.getAgent();
