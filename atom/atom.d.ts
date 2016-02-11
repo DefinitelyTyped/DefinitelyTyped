@@ -1100,6 +1100,7 @@ declare module AtomCore {
 		itemOpened(item:any):void;
 		onPaneItemDestroyed(item:any):void;
 		destroyed():void;
+		isTextEditor(object: any): boolean;
 
 		onDidChangeActivePaneItem(item:any):Disposable;
 	}
