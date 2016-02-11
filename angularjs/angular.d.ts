@@ -1712,18 +1712,13 @@ declare module angular {
          */
         bindings?: any;
         /**
-         * Whether transclusion is enabled. Enabled by default.
+         * Whether transclusion is enabled. Also allow for transclude definition object for multislot transclusion.
          */
-        transclude?: boolean;
+        transclude?: any;
         /**
-         * Whether the new scope is isolated. Isolated by default.
+         * Allow require of directive controller.
          */
-        isolate?: boolean;
-        /**
-         * String of subset of EACM which restricts the component to specific directive declaration style. If omitted,
-         * this defaults to 'E'.
-         */
-        restrict?: string;
+        require?: any;
         $canActivate?: () => boolean;
         $routeConfig?: RouteDefinition[];
     }
