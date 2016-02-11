@@ -17,8 +17,8 @@ declare namespace ssutils {
         dfmt: (d: Date) => string;
         dfmthm: (d: Date) => string;
         tfmt12: (d: Date) => string;
-        splitOnFirst: (s: string) => string[];
-        splitOnLast: (s: string) => string[];
+        splitOnFirst: (s: string, delimiter:string) => string[];
+        splitOnLast: (s: string, delimiter: string) => string[];
         getSelection: () => string;
         queryString: (url: string) => { [index: string]: string };
         createUrl: (route: string, args?: any) => string;
