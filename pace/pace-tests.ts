@@ -10,7 +10,7 @@ pace.restart();
 
 pace.stop();
 
-var paceOptions: PaceOptions;
+var paceOptions: PaceInterfaces.PaceOptions;
 
 paceOptions = {
     // Disable the 'elements' source
