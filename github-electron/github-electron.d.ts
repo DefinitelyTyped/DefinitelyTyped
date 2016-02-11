@@ -779,6 +779,10 @@ declare module Electron {
 		 */
 		toggleDevTools(): void;
 		/**
+		 * Starts inspecting element at position (x, y).
+		 */
+		inspectElement(x: number, y: number): void;
+		/**
 		 * Send args.. to the web page via channel in asynchronous message, the web page
 		 * can handle it by listening to the channel event of ipc module.
 		 * Note:
