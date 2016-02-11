@@ -838,6 +838,8 @@ declare module d3 {
         tween(name: string, factory: () => (t: number) => any): Transition<Datum>;
 
         remove(): Transition<Datum>;
+        
+        transition(name?: string): Transition<Datum>;
 
         select(selector: string): Transition<Datum>;
         select(selector: (d: Datum, i: number) => EventTarget): Transition<Datum>;
