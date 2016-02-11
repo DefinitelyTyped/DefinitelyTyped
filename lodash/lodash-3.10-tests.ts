@@ -652,11 +652,36 @@ namespace TestFindLastIndex {
 namespace TestFirst {
     let array: TResult[];
     let list: _.List<TResult>;
-    let result: TResult;
-    result = _.first<TResult>(array);
-    result = _.first<TResult>(list);
-    result = _(array).first();
-    result = _(list).first<TResult>();
+
+    {
+        let result: string;
+
+        result = _.first('abc');
+        result = _('abc').first();
+    }
+
+    {
+        let result: TResult;
+
+        result = _.first<TResult>(array);
+        result = _.first<TResult>(list);
+
+        result = _(array).first();
+        result = _(list).first<TResult>();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('abc').chain().first();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<TResult>;
+
+        result = _(array).chain().first<_.LoDashExplicitObjectWrapper<TResult>>();
+        result = _(list).chain().first<_.LoDashExplicitObjectWrapper<TResult>>();
+    }
 }
 
 // _.flatten
@@ -839,11 +864,36 @@ namespace TestFlattenDeep {
 namespace TestHead {
     let array: TResult[];
     let list: _.List<TResult>;
-    let result: TResult;
-    result = _.head<TResult>(array);
-    result = _.head<TResult>(list);
-    result = _(array).head();
-    result = _(list).head<TResult>();
+
+    {
+        let result: string;
+
+        result = _.head('abc');
+        result = _('abc').head();
+    }
+
+    {
+        let result: TResult;
+
+        result = _.head<TResult>(array);
+        result = _.head<TResult>(list);
+
+        result = _(array).head();
+        result = _(list).head<TResult>();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('abc').chain().head();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<TResult>;
+
+        result = _(array).chain().head<_.LoDashExplicitObjectWrapper<TResult>>();
+        result = _(list).chain().head<_.LoDashExplicitObjectWrapper<TResult>>();
+    }
 }
 
 // _.indexOf
