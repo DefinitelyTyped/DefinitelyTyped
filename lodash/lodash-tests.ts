@@ -9379,6 +9379,34 @@ module TestTransform {
     }
 }
 
+// _.unset
+namespace TestUnset {
+    type SampleObject = {a: {b: string; c: boolean}};
+
+    let object: SampleObject;
+
+    {
+        let result: boolean;
+
+        _.unset<SampleObject>(object, 'a.b');
+        _.unset<SampleObject>(object, ['a', 'b']);
+    }
+
+    {
+        let result: _.LoDashImplicitWrapper<boolean>;
+
+        result = _(object).unset('a.b');
+        result = _(object).unset(['a', 'b']);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(object).chain().unset('a.b');
+        result = _(object).chain().unset(['a', 'b']);
+    }
+}
+
 // _.values
 module TestValues {
     let object: _.Dictionary<TResult>;
