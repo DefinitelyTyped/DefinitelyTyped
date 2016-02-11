@@ -323,4 +323,6 @@ declare module Dexie {
     }
 }
 
-export = Dexie;
+declare module 'dexie' {
+    export = Dexie;
+}
