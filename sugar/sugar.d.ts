@@ -3405,7 +3405,7 @@ interface Object {
 	*   Object.extended({ happy:true, pappy:false }).keys() -> ['happy','pappy']
 	*   Object.extended({ happy:true, pappy:false }).values() -> [true, false]
 	**/
-	extended(): Object;
+	extended(obj?: any): Object;
 
 	/**
 	* Returns true if <obj> is an object of that type.
