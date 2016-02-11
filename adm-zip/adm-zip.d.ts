@@ -219,7 +219,6 @@ declare module "adm-zip" {
          * @param callback The callback function will be called afeter extraction 
          */
         extractAllToAsync(targetPath: string, overwrite: boolean, callback: (error: Error) => void): void;
-        
         /**
          * Writes the newly created zip file to disk at the specified location or
          * if a zip was opened and no ``targetFileName`` is provided, it will
