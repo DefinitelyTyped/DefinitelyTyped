@@ -5295,21 +5295,6 @@ declare module _ {
         ): any[];
     }
 
-    //_.unset
-    interface LoDashStatic {
-        /**
-         * Removes the property at path of object.
-         *
-         * @param object The object to modify.
-         * @param path The path of the property to unset.
-         * @return Returns true if the property is deleted, else false.
-         */
-        unset<T>(
-            object: T,
-            path: StringRepresentable | StringRepresentable[]
-        ): boolean;
-    }
-
     //_.unzip
     interface LoDashStatic {
         /**
@@ -15920,6 +15905,37 @@ declare module _ {
             accumulator?: TResult[],
             thisArg?: any
         ): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    //_.unset
+    interface LoDashStatic {
+        /**
+         * Removes the property at path of object.
+         *
+         * Note: This method mutates object.
+         *
+         * @param object The object to modify.
+         * @param path The path of the property to unset.
+         * @return Returns true if the property is deleted, else false.
+         */
+        unset<T>(
+            object: T,
+            path: StringRepresentable|StringRepresentable[]
+        ): boolean;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.unset
+         */
+        unset(path: StringRepresentable|StringRepresentable[]): LoDashImplicitWrapper<boolean>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.unset
+         */
+        unset(path: StringRepresentable|StringRepresentable[]): LoDashExplicitWrapper<boolean>;
     }
 
     //_.values
