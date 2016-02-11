@@ -77,6 +77,7 @@ declare module JQueryUI {
 
     interface Autocomplete extends Widget, AutocompleteOptions {
         escapeRegex: (value: string) => string;
+        filter: (array: any, term: string) => any;
     }
 
 
@@ -345,6 +346,7 @@ declare module JQueryUI {
         buttons?: { [buttonText: string]: (event?: Event) => void } | DialogButtonOptions[];
         closeOnEscape?: boolean;
         closeText?: string;
+        appendTo?: string;
         dialogClass?: string;
         disabled?: boolean;
         draggable?: boolean;
@@ -362,7 +364,7 @@ declare module JQueryUI {
         title?: string;
         width?: any; // number or string
         zIndex?: number;
-		
+
 		open?: DialogEvent;
         close?: DialogEvent;
     }
@@ -498,7 +500,7 @@ declare module JQueryUI {
 
     // Menu //////////////////////////////////////////////////
 
-    interface MenuOptions {
+    interface MenuOptions extends MenuEvents {
         disabled?: boolean;
         icons?: any;
         menus?: string;
@@ -507,6 +509,7 @@ declare module JQueryUI {
     }
 
     interface MenuUIParams {
+        item?: JQuery;
     }
 
     interface MenuEvent {
@@ -520,7 +523,7 @@ declare module JQueryUI {
         select?: MenuEvent;
     }
 
-    interface Menu extends Widget, MenuOptions, MenuEvents {
+    interface Menu extends Widget, MenuOptions {
     }
 
 
@@ -634,6 +637,7 @@ declare module JQueryUI {
         step?: number;
         value?: number;
         values?: number[];
+        highlight?: boolean;
     }
 
     interface SliderUIParams {
@@ -1803,4 +1807,37 @@ interface JQueryStatic {
     datepicker: JQueryUI.Datepicker;
     widget: JQueryUI.Widget;
     Widget: JQueryUI.Widget;
+}
+
+interface JQueryEasingFunctions {
+    easeInQuad: JQueryEasingFunction;
+    easeOutQuad: JQueryEasingFunction;
+    easeInOutQuad: JQueryEasingFunction;
+    easeInCubic: JQueryEasingFunction;
+    easeOutCubic: JQueryEasingFunction;
+    easeInOutCubic: JQueryEasingFunction;
+    easeInQuart: JQueryEasingFunction;
+    easeOutQuart: JQueryEasingFunction;
+    easeInOutQuart: JQueryEasingFunction;
+    easeInQuint: JQueryEasingFunction;
+    easeOutQuint: JQueryEasingFunction;
+    easeInOutQuint: JQueryEasingFunction;
+    easeInExpo: JQueryEasingFunction;
+    easeOutExpo: JQueryEasingFunction;
+    easeInOutExpo: JQueryEasingFunction;
+    easeInSine: JQueryEasingFunction;
+    easeOutSine: JQueryEasingFunction;
+    easeInOutSine: JQueryEasingFunction;
+    easeInCirc: JQueryEasingFunction;
+    easeOutCirc: JQueryEasingFunction;
+    easeInOutCirc: JQueryEasingFunction;
+    easeInElastic: JQueryEasingFunction;
+    easeOutElastic: JQueryEasingFunction;
+    easeInOutElastic: JQueryEasingFunction;
+    easeInBack: JQueryEasingFunction;
+    easeOutBack: JQueryEasingFunction;
+    easeInOutBack: JQueryEasingFunction;
+    easeInBounce: JQueryEasingFunction;
+    easeOutBounce: JQueryEasingFunction;
+    easeInOutBounce: JQueryEasingFunction;
 }

@@ -56,6 +56,7 @@ declare module BootstrapV3DatetimePicker {
         inline?: boolean;
         toolbarPlacement?: string;
         showClear?: boolean;
+        ignoreReadonly?: boolean;
     }
 
     interface Datetimepicker {
@@ -68,6 +69,8 @@ declare module BootstrapV3DatetimePicker {
         show(): void;
         disable(): void;
         enable(): void;
+        destroy(): void;
+        toggle(): void;
     }
 
 }

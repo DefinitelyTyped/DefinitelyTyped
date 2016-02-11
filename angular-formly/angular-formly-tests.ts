@@ -20,11 +20,23 @@ class FormConfig {
 			name: 'customInput',
 			extends: 'input'
 		});
+
+		formlyConfig.disableWarnings = true;		
+		formlyConfig.templateManipulators = undefined;
+
+		formlyConfig.extras.apiCheckInstance = null;
+		formlyConfig.extras.defaultHideDirective = 'ng-if';
+		formlyConfig.extras.disableNgModelAttrsManipulator = true;
+		formlyConfig.extras.errorExistsAndShouldBeVisibleExpression = angular.noop;
+		formlyConfig.extras.explicitAsync = true;		
+		formlyConfig.extras.fieldTransform = angular.noop;
+		formlyConfig.extras.getFieldId = angular.noop;
+		formlyConfig.extras.ngModelAttrsManipulatorPreferUnbound = true;
 	}
 }
 
 class AppController {
-	fields: AngularFormly.IFieldConfigurationObject[];
+	fields: AngularFormly.IFieldArray;
 	constructor() {
 		var vm = this;
 		vm.fields = [
@@ -99,6 +111,21 @@ class AppController {
 				templateOptions: {
 					label: 'no wrapper here...'
 				}
+			},
+			{
+				//From http://angular-formly.com/#/example/other/nested-formly-forms
+				key: 'address',
+				wrapper: 'panel',
+				templateOptions: { label: 'Address' },
+				fieldGroup: [{
+				  key: 'town',
+				  type: 'input',
+				  templateOptions: {
+					required: true,
+					type: 'text',
+					label: 'Town'
+				  }
+				}]
 			}
 		]
 	}

@@ -2,10 +2,8 @@
  * Created by shearerbeard on 6/28/15.
  */
 ///<reference path="alt.d.ts"/>
-///<reference path="../es6-promise/es6-promise.d.ts" />
 
 import Alt = require("alt");
-import Promise = require("es6-promise");
 
 //New alt instance
 var alt = new Alt();
@@ -74,7 +72,7 @@ var testSource:AltJS.Source = {
     fakeLoad():AltJS.SourceModel<string> {
         return {
             remote() {
-                return new Promise.Promise<string>((res:any, rej:any) => {
+                return new Promise<string>((res:any, rej:any) => {
                     setTimeout(() => {
                         if(true) {
                             res("stuff");

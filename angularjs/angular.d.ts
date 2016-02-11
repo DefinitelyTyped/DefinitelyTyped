@@ -200,6 +200,7 @@ declare module angular {
          * @param inlineAnnotatedFunction Execute this function on module load. Useful for service configuration.
          */
         config(inlineAnnotatedFunction: any[]): IModule;
+        config(object: Object): IModule;
         /**
          * Register a constant service, such as a string, a number, an array, an object or a function, with the $injector. Unlike value it can be injected into a module configuration function (see config) and it cannot be overridden by an Angular decorator.
          *
@@ -1083,7 +1084,7 @@ declare module angular {
     }
 
     interface IDeferred<T> {
-        resolve(value?: T): void;
+        resolve(value?: T|IPromise<T>): void;
         reject(reason?: any): void;
         notify(state?: any): void;
         promise: IPromise<T>;
@@ -1632,18 +1633,99 @@ declare module angular {
     // see http://angularjs.blogspot.com.br/2015/11/angularjs-15-beta2-and-14-releases.html
     // and http://toddmotto.com/exploring-the-angular-1-5-component-method/
     ///////////////////////////////////////////////////////////////////////////
+    /**
+     * Runtime representation a type that a Component or other object is instances of.
+     *
+     * An example of a `Type` is `MyCustomComponent` class, which in JavaScript is be represented by
+     * the `MyCustomComponent` constructor function.
+     */
+    interface Type extends Function {
+    }
 
+    /**
+     * `RouteDefinition` defines a route within a {@link RouteConfig} decorator.
+     *
+     * Supported keys:
+     * - `path` or `aux` (requires exactly one of these)
+     * - `component`, `loader`,  `redirectTo` (requires exactly one of these)
+     * - `name` or `as` (optional) (requires exactly one of these)
+     * - `data` (optional)
+     *
+     * See also {@link Route}, {@link AsyncRoute}, {@link AuxRoute}, and {@link Redirect}.
+     */
+    interface RouteDefinition {
+        path?: string;
+        aux?: string;
+        component?: Type | ComponentDefinition | string;
+        loader?: Function;
+        redirectTo?: any[];
+        as?: string;
+        name?: string;
+        data?: any;
+        useAsDefault?: boolean;
+    }
+
+    /**
+     * Represents either a component type (`type` is `component`) or a loader function
+     * (`type` is `loader`).
+     *
+     * See also {@link RouteDefinition}.
+     */
+    interface ComponentDefinition {
+        type: string;
+        loader?: Function;
+        component?: Type;
+    }
+
+    /**
+     * Component definition object (a simplified directive definition object)
+     */
     interface IComponentOptions {
-        bindings?: Object;
+        /**
+         * Controller constructor function that should be associated with newly created scope or the name of a registered
+         * controller if passed as a string. Empty function by default.
+         */
         controller?: string | Function;
+        /**
+         * An identifier name for a reference to the controller. If present, the controller will be published to scope under
+         * the controllerAs name. If not present, this will default to be the same as the component name.
+         */
         controllerAs?: string;
-        isolate?: boolean;
-        template?: string | IComponentTemplateFn;
-        templateUrl?: string | IComponentTemplateFn;
+        /**
+         * html template as a string or a function that returns an html template as a string which should be used as the
+         * contents of this component. Empty string by default.
+         * If template is a function, then it is injected with the following locals:
+         * $element - Current element
+         * $attrs - Current attributes object for the element
+         */
+        template?: string | Function;
+        /**
+         * path or function that returns a path to an html template that should be used as the contents of this component.
+         * If templateUrl is a function, then it is injected with the following locals:
+         * $element - Current element
+         * $attrs - Current attributes object for the element
+         */
+        templateUrl?: string | Function;
+        /**
+         * Define DOM attribute binding to component properties. Component properties are always bound to the component
+         * controller and not to the scope.
+         */
+        bindings?: any;
+        /**
+         * Whether transclusion is enabled. Enabled by default.
+         */
         transclude?: boolean;
+        /**
+         * Whether the new scope is isolated. Isolated by default.
+         */
+        isolate?: boolean;
+        /**
+         * String of subset of EACM which restricts the component to specific directive declaration style. If omitted,
+         * this defaults to 'E'.
+         */
         restrict?: string;
-        $canActivate?: Function;
-        $routeConfig?: Object;
+        $canActivate?: () => boolean;
+        $routeConfig?: RouteDefinition[];
     }
 
     interface IComponentTemplateFn {
@@ -1795,6 +1877,7 @@ declare module angular {
             provider(name: string, provider: IServiceProvider): IServiceProvider;
             provider(name: string, serviceProviderConstructor: Function): IServiceProvider;
             service(name: string, constructor: Function): IServiceProvider;
+            service(name: string, inlineAnnotatedFunction: any[]): IServiceProvider;
             value(name: string, value: any): IServiceProvider;
         }
 

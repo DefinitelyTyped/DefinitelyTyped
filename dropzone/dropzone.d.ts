@@ -96,7 +96,7 @@ interface DropzoneOptions {
 	sending?(file:DropzoneFile, xhr:XMLHttpRequest, formData:{}):void;
 	sendingmultiple?(files:DropzoneFile[], xhr:XMLHttpRequest, formData:{}):void;
 
-	success?(file:DropzoneFile, responseText:string):void;
+	success?(file: DropzoneFile, response: Object|string): void;
 	successmultiple?(files:DropzoneFile[], responseText:string):void;
 
 	canceled?(file:DropzoneFile):void;

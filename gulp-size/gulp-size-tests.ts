@@ -2,9 +2,9 @@
 /// <reference path="../gulp/gulp.d.ts" />
 /// <reference path="../gulp-debug/gulp-debug.d.ts" />
 
-import gulp = require('gulp');
-import size = require('gulp-size');
-import debug = require('gulp-debug');
+import * as gulp from 'gulp';
+import * as size from 'gulp-size';
+import * as debug from 'gulp-debug';
 
 gulp.task('default', () =>
     gulp.src('fixture.js')

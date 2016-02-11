@@ -3,23 +3,21 @@
 // Definitions by: Abraão Alves <https://github.com/abraaoalves>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../es6-promise/es6-promise.d.ts" />
-
 declare module cucumber {
-	
+
 	export interface CallbackStepDefinition{
-		pending : () => Thenable<any>;	
+		pending : () => PromiseLike<any>;
 		(errror?:any):void;
 	}
-	
+
 	interface StepDefinitionCode {
-		(...stepArgs: Array<string |CallbackStepDefinition>): Thenable<any> | any | void;
+		(...stepArgs: Array<string |CallbackStepDefinition>): PromiseLike<any> | any | void;
 	}
-	
+
 	interface StepDefinitionOptions{
-		timeout?: number;	
+		timeout?: number;
 	}
-	
+
 	export interface StepDefinitions {
 		Given(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
 		Given(pattern: RegExp | string, code: StepDefinitionCode): void;
@@ -34,11 +32,11 @@ declare module cucumber {
 		attach(text: string, mimeType?: string, callback?: (err?:any) => void): void;
 		isFailed() : boolean;
 	}
-	
+
 	interface HookCode {
 		(scenario: HookScenario, callback?: CallbackStepDefinition): void;
 	}
-	
+
 	interface AroundCode{
 		(scenario: HookScenario, runScenario?: (error:string, callback?:Function)=>void): void;
 	}

@@ -56,6 +56,7 @@ declare module "aws-sdk" {
 		directconnect?: any;
 		dynamodb?: any;
 		ec2?: any;
+		ecs?: any;
 		elasticache?: any;
 		elasticbeanstalk?: any;
 		elastictranscoder?: any;
@@ -147,11 +148,28 @@ declare module "aws-sdk" {
 
 	export class S3 {
 		constructor(options?: any);
-		public client: s3.Client;
+		putObject(params: s3.PutObjectRequest, callback: (err: any, data: any) => void): void;
+		getObject(params: s3.GetObjectRequest, callback: (err: any, data: any) => void): void;
+	}
+
+	export class ECS {
+		constructor(options?: any);
+
+		createService(params: ecs.CreateServicesParams, callback: (err: any, data: any) => void): void;
+		describeServices(params: ecs.DescribeServicesParams, callback: (err: any, data: any) => void): void;
+		describeTaskDefinition(params: ecs.DescribeTaskDefinitionParams, callback: (err: any, data: any) => void): void;
+		registerTaskDefinition(params: ecs.RegisterTaskDefinitionParams, callback: (err: any, data: any) => void): void;
+		updateService(params: ecs.UpdateServiceParams, callback: (err: any, data: any) => void): void;
 	}
 
 	export class DynamoDB {
 		constructor(options?: any);
+	}
+
+	export module DynamoDB {
+		export class DocumentClient {
+			constructor(options?: any);
+		}
 	}
 
 	export module SQS {
@@ -1036,14 +1054,7 @@ declare module "aws-sdk" {
 	}
 
 	export module s3 {
-
-		export interface Client {
-			config: ClientConfig;
-
-			putObject(params: PutObjectRequest, callback: (err: any, data: any) => void): void;
-			getObject(params: GetObjectRequest, callback: (err: any, data: any) => void): void;
-		}
-
+		
 		export interface PutObjectRequest {
 			ACL?: string;
 			Body?: any;
@@ -1084,5 +1095,103 @@ declare module "aws-sdk" {
 			VersionId?: string;
 		}
 
+	}
+
+	export module ecs {
+		export interface CreateServicesParams {
+			desiredCount: number;
+			serviceName: string;
+			taskDefinition: string;
+			clientToken?: string;
+			cluster?: string;
+			deploymentConfiguration?: {
+				maximumPercent?: number;
+				minimumHealthyPercent?: number;
+			};
+			loadBalancers?: {
+				containerName?: string;
+				containerPort?: number;
+				loadBalancerName?: string;
+			}[];
+			role?: string;
+		}
+
+		export interface DescribeServicesParams {
+			services: string[];
+			cluster: string;
+		}
+
+		export interface DescribeTaskDefinitionParams {
+			taskDefinition: string;
+		}
+
+		export interface RegisterTaskDefinitionParams {
+			containerDefinitions: {
+				command?: string[],
+				cpu?: number,
+				disableNetworking?: boolean,
+				dnsSearchDomains?: string[],
+				dnsServers?: string[],
+				dockerLabels?: any,
+				dockerSecurityOptions?: string[],
+				entryPoint?: string[],
+				environment?: any[],
+				essential?: boolean,
+				extraHosts?: {
+					hostName: string,
+					ipAddress: string
+				}[];
+				hostname?: string,
+				image?: string,
+				links?: string[],
+				logConfiguration?: {
+					logDriver: string,
+					options: any
+				}[],
+				memory?: number,
+				mountPoints?: {
+					containerPath: string,
+					readOnly: boolean,
+					sourceVolume: string
+				}[];
+				name?: string,
+				portMappings?: {
+					containerPort?: number,
+					hostPort?: number,
+					protocol: string
+				}[];
+				privileged?: boolean,
+				readonlyRootFilesystem?: boolean,
+				ulimits?: {
+					hardLimit: number,
+					name: string,
+					softLimit: number
+				}[];
+				user?: string,
+				volumesFrom?: {
+					readOnly?: boolean,
+					sourceContainer?: string
+				}[],
+				workingDirectory?: string
+			}[];
+			family: string;
+			volumes?: {
+				host: {
+					sourcePath: string
+				},
+				name: string
+			}[];
+		}
+
+		export interface UpdateServiceParams {
+			service: string;
+			cluster?: string;
+			deploymentConfiguration?: {
+				maximumPercent: number;
+				minimumHealthyPercent: number;
+			};
+			desiredCount?: number;
+			taskDefinition: string;
+		}
 	}
 }

@@ -2712,7 +2712,7 @@ declare namespace  __React {
          * Fires at most once per frame during scrolling.
          * The frequency of the events can be contolled using the scrollEventThrottle prop.
          */
-        onScroll?: () => void
+        onScroll?: (event?: { nativeEvent: NativeScrollEvent }) => void
 
         /**
          * Experimental: When true offscreen child views (whose `overflow` value is
@@ -3459,7 +3459,7 @@ declare namespace  __React {
 declare module "react-native" {
 
     import ReactNative = __React
-    export default ReactNative
+    export = ReactNative
 }
 
 declare var global: __React.GlobalStatic
@@ -3469,7 +3469,7 @@ declare function require( name: string ): any
 
 //TODO: BGR: this is a left-over from the initial port. Not sure it makes any sense
 declare module "Dimensions" {
-    import React from 'react-native';
+    import * as React from 'react-native';
 
     interface Dimensions {
         get( what: string ): React.ScaledSize;

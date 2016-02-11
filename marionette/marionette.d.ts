@@ -348,6 +348,10 @@ declare module Marionette {
          */
         empty(): any;
 
+        /**
+         * @returns view that this region has.
+         */
+        currentView: Backbone.View<Backbone.Model>;
     }
 
     interface RegionDefaults {
@@ -792,6 +796,13 @@ declare module Marionette {
          * This event / callback is useful for DOM-dependent UI plugins such as jQueryUI or KendoUI.
          */
         onDomRefresh(): void;
+
+        /**
+         * Internal properties extended in Marionette.View.
+         */
+        isDestroyed: boolean;
+        supportsRenderLifecycle: boolean;
+        supportsDestroyLifecycle: boolean;
     }
 
     /**
@@ -846,6 +857,23 @@ declare module Marionette {
          * on initialize.
          */
         sort?: boolean;
+
+        /**
+         * This option is useful when you have performance issues when you
+         * resort your CollectionView. Without this option, your CollectionView
+         * will be completely re-rendered, which can be costly if you have a
+         * large number of elements or if your ChildViews are complex. If this
+         * option is activated, when you sort your Collection, there will be no
+         * re-rendering, only the DOM nodes will be reordered. This can be a
+         * problem if your ChildViews use their collection's index in their
+         * rendering. In this case, you cannot use this option as you need to
+         * re-render each ChildView.
+         *
+         * If you combine this option with a filter that changes the views that
+         * are to be displayed, reorderOnSort will be bypassed to render new
+         * children and remove those that are rejected by the filter.
+         */
+        reorderOnSort?: boolean;
     }
 
     /**
@@ -935,6 +963,7 @@ declare module Marionette {
          */
         addChild(item: any, ChildView: TView, index: Number): void;
 
+        /** Render the child view */
         renderChildView(view: TView, index: Number): void;
 
         /**
@@ -949,7 +978,7 @@ declare module Marionette {
          * Remove the child view and destroy it. This function also updates the indices of
          * later views in the collection in order to keep the children in sync with the collection.
          */
-        removeChildView(view: TView): void;
+        removeChildView(view: TView): TView;
 
         /**
          * Determines if the view is empty. If you want to control when the empty 
@@ -962,7 +991,11 @@ declare module Marionette {
          */
         checkEmpty(): void;
 
-        destroyChildren(): void;
+        /**
+         * Destroy the child views that this collection view
+         * is holding on to, if any. This returns destroyed children.
+         */
+        destroyChildren(): Backbone.ChildViewContainer<TView>;
 
         /**
          * By default the CollectionView will maintain the order of its collection 
@@ -1002,6 +1035,51 @@ declare module Marionette {
          * getEmptyView.
          */
         getEmptyView(): any;
+
+        /** Serialize a collection by serializing each of its models. */
+        serializeCollection(): any;
+
+        /**
+         * Attaches the content of a given view.
+        * This method can be overridden to optimize rendering,
+        * or to render in a non standard way.
+        *
+        * For example, using `innerHTML` instead of `$el.html`
+        *
+        * @example
+        * attachElContent: function(html) {
+        *   this.el.innerHTML = html;
+        *   return this;
+        * }
+        */
+        attachElContent(html: string): ItemView<TModel>;
+
+        /**
+         * Reorder DOM after sorting. When your element's rendering
+         * do not use their index, you can pass reorderOnSort: true
+         * to only reorder the DOM after a sort instead of rendering
+         * all the collectionView
+         */
+        reorder(): void;
+
+        /**
+         * Render and show the emptyView. Similar to addChild method
+         * but "add:child" events are not fired, and the event from
+         * emptyView are not forwarded
+         */
+        addEmptyView(child: TModel, EmptyView: new (...args: any[]) => any): void;
+
+        /**
+         * Handle cleanup and other destroying needs for the collection of views
+         */
+        destroy(): CollectionView<TModel, TView>;
+
+        /**
+         * Set up the child view event forwarding. Uses a "childview:"
+         * prefix in front of all forwarded events.
+         * @param view it might be ChildView or EmptyView.
+         */
+        proxyChildEvents(view: any): void;
 
         /**
          * Called just prior to rendering the collection view.
@@ -1102,36 +1180,50 @@ declare module Marionette {
          * The LayoutView takes an additional parameter where you can pass the regions as option on creation.
          */
         regions?:any;
+
+        /**
+         * This option removes the layoutView from the DOM before destroying the
+         * children preventing repaints as each option is removed. However, it
+         * makes it difficult to do close animations for a child view (false by
+         * default)
+         */
+        destroyImmediate?: boolean;
     }
 
     /**
-     * A LayoutView is a hybrid of an ItemView and a collection of Region objects. 
-     * They are ideal for rendering application layouts with multiple sub-regions 
+     * A LayoutView is a hybrid of an ItemView and a collection of Region objects.
+     * They are ideal for rendering application layouts with multiple sub-regions
      * managed by specified region managers.
-     * A layoutView can also act as a composite-view to aggregate multiple views 
-     * and sub-application areas of the screen allowing applications to attach 
+     * A layoutView can also act as a composite-view to aggregate multiple views
+     * and sub-application areas of the screen allowing applications to attach
      * multiple region managers to dynamically rendered HTML.
      * You can create complex views by nesting layoutView managers within Regions.
      */
     class LayoutView<TModel extends Backbone.Model> extends ItemView<TModel> {
         /**
-         * f you have the need to replace the Region with a region class of your 
-         * own implementation, you can specify an alternate class to use with this 
+         * If you have the need to replace the Region with a region class of your
+         * own implementation, you can specify an alternate class to use with this
          * property.
          */
         regionClass: any;
 
         /**
          * Constructor.
-         * A hash that can contain a regions hash that allows you to specify regions per 
+         * A hash that can contain a regions hash that allows you to specify regions per
          * LayoutView instance.
          */
         constructor(options?: LayoutViewOptions<TModel>);
 
         /**
-         * Regions hash or a method returning the regions hash that maps regions/selectors to methods on your View.
+         * Handle destroying regions, and then destroy the view itself.
+         */
+        destroy(): LayoutView<TModel>;
+
+        /**
+         * Regions hash or a method returning the regions hash that maps
+         * regions/selectors to methods on your View.
          **/
-        regions():any;
+        regions(): any;
 
         /** Adds a region to the layout view. */
         addRegion(name: string, definition: any): Region;
@@ -1140,26 +1232,52 @@ declare module Marionette {
          * Add multiple regions as a {name: definition, name2: def2} object literal.
          */
         addRegions(regions: any): any;
-        
-	    /** Returns a region from the layout view */
+
+        /** Returns a region from the layout view */
         getRegion(name: string): Region;
 
         /**
-         * Renders the view.
+         * Renders the view. It will use the existing region objects the first
+         * time it is called. Subsequent calls will destroy the views that the
+         * regions are showing and then reset the `el` for the regions to the
+         * newly rendered DOM elements.
          */
         render(): LayoutView<TModel>;
 
-        /** 
+        /**
          * Removes the region with the specified name.
          * @param name the name of the region to remove.
          */
-        removeRegion(name: string): any;
+        removeRegion(name: string): Region;
 
         /** Enable easy overriding of the default `RegionManager`
           * for customized region interactions and business specific
           * view logic for better control over single regions.
           */
         getRegionManager(): RegionManager;
+
+        /**
+         * Show a view into the region specified by `regionName`.
+         */
+        showChildView(regionName: string, view: any, options?: RegionShowOptions): void;
+
+        /**
+         * Get the current view that is shown in the region specified by
+         * `regionName`.
+         */
+        getChildView(regionName: string): Backbone.View<TModel>;
+
+        /**
+         * Returns all regions from the layout view. The results contains an
+         * Object hash that has `string`s as keys and `Region`s as values.
+         */
+        getRegions(): {[key: string]: Region};
+
+        /**
+         * You can customize the event prefix for events that are forwarded through
+         * the layout view with this property.
+         */
+        childViewEventPrefix: string;
     }
 
     interface AppRouterOptions extends Backbone.RouterOptions {

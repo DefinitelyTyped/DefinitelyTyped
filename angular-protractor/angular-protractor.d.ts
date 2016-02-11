@@ -992,6 +992,7 @@ declare module protractor {
         *     of values returned by the map function.
         */
         map<T>(mapFn: (element: ElementFinder, index: number) => T): webdriver.promise.Promise<T[]>;
+        map<T, T2>(mapFn: (element: ElementFinder, index: number) => T2): webdriver.promise.Promise<T[]>;
 
         /**
         * Apply a filter function to each element within the ElementArrayFinder. Returns
@@ -1806,6 +1807,16 @@ declare module protractor {
         * @return {Protractor} a protractor instance.
         */
         forkNewDriverInstance(opt_useSameUrl?: boolean, opt_copyMockModules?: boolean): Protractor;
+
+        /**
+        * Get the processed configuration object that is currently being run. This will contain
+        * the specs and capabilities properties of the current runner instance.
+        *
+        * Set by the runner.
+        *
+        * @return {webdriver.promise.Promise<any>} A promise which resolves to the capabilities object.
+        */
+        getProcessedConfig(): webdriver.promise.Promise<any>;
     }
 
     /**
