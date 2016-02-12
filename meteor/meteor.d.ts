@@ -161,6 +161,7 @@ declare module Meteor {
 		forceApprovalPrompt?: Boolean;
 		userEmail?: string;
 		loginStyle?: string;
+		profile?: any;
 	}
 
 	function loginWithMeteorDeveloperAccount(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
@@ -244,8 +245,8 @@ declare module BrowserPolicy {
 
 declare module Meteor {
 	interface EmailFields {
-		subject?: Function;
-		text?: Function;
+		subject?: (user: Meteor.User)=> string;
+		text?: (user: Meteor.User, url: string)=> string;
 	}
 
 	interface EmailTemplates {
@@ -392,8 +393,18 @@ declare module Accounts {
 	function logout(callback?: Function): void;
 	function logoutOtherClients(callback?: Function): void;
 	function onCreateUser(func: Function): void;
-	function validateLoginAttempt(func: Function): { stop: () => void };
+	function validateLoginAttempt(cb: (params: IValidateLoginAttemptCbOpts)=> boolean): { stop: () => void };
 	function validateNewUser(func: Function): boolean;
+	
+	interface IValidateLoginAttemptCbOpts {
+		type: string;
+		allowed: boolean;
+		error: Error;
+		user: Meteor.User;
+		connection: Meteor.Connection;
+		methodName: string;
+		methodArguments: any[];
+	}
 }
 
 declare module App {
