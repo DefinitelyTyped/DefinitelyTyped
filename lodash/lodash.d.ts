@@ -515,8 +515,8 @@ declare module _ {
          * @return Returns the new array of filtered values.
          */
         difference<T>(
-            array: any[]|List<any>,
-            ...values: any[]
+            array: T[]|List<T>,
+            ...values: Array<T[]|List<T>>
         ): T[];
     }
 
