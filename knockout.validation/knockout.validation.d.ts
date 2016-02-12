@@ -98,6 +98,7 @@ interface KnockoutValidationErrors {
     (): string[];
     showAllMessages(): void;
     showAllMessages(show: boolean): void;
+    isAnyMessageShown(): boolean;
 }
 
 interface KnockoutValidationGroup {
