@@ -9763,19 +9763,45 @@ namespace TestConstant {
 }
 
 // _.identity
-{
-    let testIdentityValue: TResult;
-    let result: TResult;
-    result = _.identity<TResult>(testIdentityValue);
-    result = _(testIdentityValue).identity();
-}
-{
-    let result: number;
-    result = _(42).identity();
-}
-{
-    let result: boolean[];
-    result = _<boolean>([]).identity();
+namespace TestIdentity {
+    {
+        let result: number;
+
+        result = _.identity(42);
+        result = _(42).identity();
+    }
+
+    {
+        let result: number[];
+
+        result = _.identity([42]);
+        result = _([42]).identity();
+    }
+
+    {
+        let result: {a: number};
+
+        result = _.identity({a: 42});
+        result = _({a: 42}).identity();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(42).chain().identity();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<number>;
+
+        result = _([42]).chain().identity();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{a: number}>;
+
+        result = _({a: 42}).chain().identity();
+    }
 }
 
 // _.iteratee
