@@ -3544,8 +3544,14 @@ declare module uiGrid {
         name?: string;
         /** Sort on this column */
         sort?: ISortInfo;
-        /** Algorithm to use for sorting this column. Takes 'a' and 'b' parameters like any normal sorting function. */
-        sortingAlgorithm?: (a: any, b: any) => number;
+        /** Algorithm to use for sorting this column. Takes 'a' and 'b' parameters like any normal sorting function. 
+        * @param a first argument to compare 
+        * @param b second argument to compare
+        * @param rowA table row of first argument
+        * @param rowB table row of second argument
+        * @param direction direction of sorting
+        */
+        sortingAlgorithm?: (a: any, b: any, rowA?: IGridRowOf<TEntity>, rowB?: IGridRowOf<TEntity>, direction?: string) => number;
         /** Column width */
         width: number;
         /**
@@ -3766,8 +3772,14 @@ declare module uiGrid {
          * You may specify one of the sortingAlgorithms found in the rowSorter service.
          */
         sortCellFiltered?: boolean;
-        /** Algorithm to use for sorting this column */
-        sortingAlgorithm?: (a: any, b: any, rowA: any, rowB: any, direction: any) => number;
+        /** Algorithm to use for sorting this column
+        * @param a first argument to compare 
+        * @param b second argument to compare
+        * @param rowA table row of first argument
+        * @param rowB table row of second argument
+        * @param direction direction of sorting
+        */
+        sortingAlgorithm?: (a: any, b: any, rowA?: IGridRowOf<TEntity>, rowB?: IGridRowOf<TEntity>, direction?: string) => number;
         /**
          * When enabled, this setting hides the removeSort option in the menu,
          * and prevents users from manually removing the sort
