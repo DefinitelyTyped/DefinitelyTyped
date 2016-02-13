@@ -1710,7 +1710,7 @@ declare module angular {
          * Define DOM attribute binding to component properties. Component properties are always bound to the component
          * controller and not to the scope.
          */
-        bindings?: Object;
+        bindings?: any;
         /**
          * Whether transclusion is enabled. Enabled by default.
          */
@@ -1766,7 +1766,7 @@ declare module angular {
         name?: string;
         priority?: number;
         replace?: boolean;
-        require? : string | Array<string>;
+        require? : any;
         restrict?: string;
         scope?: any;
         template?: string | Function;
