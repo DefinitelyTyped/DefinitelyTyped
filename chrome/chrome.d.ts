@@ -2537,14 +2537,14 @@ declare module chrome.events {
     }
 
 	/** An object which allows the addition and removal of listeners for a Chrome event. */
-    interface Event {
+    interface Event<T extends Function> {
 		/**
 		 * Registers an event listener callback to an event. 
 		 * @param callback Called when an event occurs. The parameters of this function depend on the type of event. 
 		 * The callback parameter should be a function that looks like this:
 		 * function() {...}; 
 		 */
-        addListener(callback: Function): void;
+        addListener(callback: T): void;
 		/**
 		 * Returns currently registered rules. 
 		 * @param callback Called with registered rules. 
@@ -2565,7 +2565,7 @@ declare module chrome.events {
         /**
 		 * @param callback Listener whose registration status shall be tested. 
 		 */
-        hasListener(callback: Function): boolean;
+        hasListener(callback: T): boolean;
 		/**
 		 * Unregisters currently registered rules. 
 		 * @param ruleIdentifiers If an array is passed, only rules with identifiers contained in this array are unregistered. 
@@ -2596,7 +2596,7 @@ declare module chrome.events {
 		 * The callback parameter should be a function that looks like this:
 		 * function() {...}; 
 		 */
-        removeListener(callback: () => void): void;
+        removeListener(callback: T): void;
         hasListeners(): boolean;
     }
 
