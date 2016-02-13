@@ -93,6 +93,8 @@ declare module "yargs" {
 
 			epilog(msg: string): Argv;
 			epilogue(msg: string): Argv;
+			
+			group(key: string, groupName:string): Argv;
 
 			version(version: string, option?: string, description?: string): Argv;
 			version(version: () => string, option?: string, description?: string): Argv;

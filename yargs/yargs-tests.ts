@@ -244,6 +244,13 @@ function Argv$epilogue() {
   		.epilogue('for more information, find our manual at http://example.com');
 }
 
+function Argv$group() {
+	var argv = yargs
+		.boolean("justDoIt")
+		.group("justDoIt", "Flags :")
+		.string("what");
+}
+
 function Argv$reset() {
 	var ya = yargs
 		.usage('$0 command')
