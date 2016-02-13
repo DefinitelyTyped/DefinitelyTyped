@@ -25,6 +25,7 @@ declare namespace ssutils {
         createPath: (route: string, args: any) => string;
         createUrl: (route: string, args: any) => string;
         humanize: (s: string) => string;
+        normalize: (dto:any, into?:any, deep?:boolean) => any;
         parseResponseStatus: (json: string, defaultMsg?: string) => any;
         postJSON: (url: string, data: Object | String, success?: Function, error?: Function) => any;
 

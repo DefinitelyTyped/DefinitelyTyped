@@ -64,6 +64,8 @@ function test_ssutils_Static(){
     var qs:{ [index: string]: string } = $.ss.queryString("http://google.com?a=b&c=d");
     var relativePath = $.ss.createUrl("/path/to/{File}", {File:"file.js"});
     var readableText = $.ss.humanize("TheVariableName");
+    $.ss.normalize({"A":1,"b":2});
+    $.ss.normalize({"A":1,"b":2,"C":{"A":11,"b":22}},{},true);
     $.ss.parseResponseStatus('{"message":"test"}');
     $.ss.postJSON("/path/to/url", {json:"data"}, function(r:any) {});
     
