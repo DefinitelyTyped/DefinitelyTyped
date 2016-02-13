@@ -1,4 +1,4 @@
-/// <reference path="pouch" />
+/// <reference path="pouchdb" />
 
 interface Person extends pouchdb.PouchDoc {
   name: string;
