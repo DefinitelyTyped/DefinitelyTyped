@@ -101,13 +101,13 @@ declare module AngularFormly {
 		type?: string;
 
 		//expression types
-		onBlur?: string;
-		onChange?: string;
-		onClick?: string;
-		onFocus?: string;
-		onKeydown?: string;
-		onKeypress?: string;
-		onKeyup?: string;
+		onBlur?: string | IExpressionFunction;
+		onChange?: string | IExpressionFunction;
+		onClick?: string | IExpressionFunction;
+		onFocus?: string | IExpressionFunction;
+		onKeydown?: string | IExpressionFunction;
+		onKeypress?: string | IExpressionFunction;
+		onKeyup?: string | IExpressionFunction;
 
 		//Bootstrap types
 		label?: string;
@@ -198,7 +198,9 @@ declare module AngularFormly {
 		className?: string;
 
 
-		elementAttributes?: string;
+		elementAttributes?: {
+			[key: string]: string;
+		};
 
 
 		/**

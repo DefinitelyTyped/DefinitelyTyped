@@ -10,7 +10,7 @@ declare module TWEEN {
   export function add(tween:Tween): void;
   export function remove(tween:Tween): void;
   export function update(time?:number): boolean;
-  
+
   export class Tween {
     constructor(object?:any);
     to(properties:any, duration:number): Tween;

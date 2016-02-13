@@ -19,6 +19,8 @@ function test_overview() {
         "padding": 0
     });
 
+    /* Bliss.$() method */
+    var my$$ = $.$;
 
     var myArray = $$("div");
     /*The ._. sequence of characters that appears all too often when coding with Bliss is where Bliss gets its logo from. However, the property can be

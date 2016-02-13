@@ -992,6 +992,7 @@ declare module protractor {
         *     of values returned by the map function.
         */
         map<T>(mapFn: (element: ElementFinder, index: number) => T): webdriver.promise.Promise<T[]>;
+        map<T, T2>(mapFn: (element: ElementFinder, index: number) => T2): webdriver.promise.Promise<T[]>;
 
         /**
         * Apply a filter function to each element within the ElementArrayFinder. Returns

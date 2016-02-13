@@ -295,6 +295,10 @@ var exclaim = function (statement) { return statement + "!"; };
 var welcome = _.compose(exclaim, greet);
 welcome('moe');
 
+var partialApplicationTestFunction = (a: string, b: number, c: boolean, d: string, e: number, f: string) => {  }
+var partialApplicationResult = _.partial(partialApplicationTestFunction, "", 1);
+var parametersCanBeStubbed = _.partial(partialApplicationResult, _, _, _, "");
+
 ///////////////////////////////////////////////////////////////////////////////////////
 
 _.keys({ one: 1, two: 2, three: 3 });
@@ -432,6 +436,7 @@ var template2 = _.template("Hello {{ name }}!");
 template2({ name: "Mustache" });
 _.template("Using 'with': <%= data.answer %>", oldTemplateSettings)({ variable: 'data' });
 
+_.template("Using 'with': <%= data.answer %>", { variable: 'data' })({ answer: 'no' });
 
 _(['test', 'test']).pick(['test2', 'test2']);
 
@@ -462,7 +467,7 @@ function chain_tests() {
 		.flatten()
 		.find(num => num % 2 == 0)
 		.value();
-		
+
 	var firstVal: number = _.chain([1, 2, 3])
 		.first()
 		.value();

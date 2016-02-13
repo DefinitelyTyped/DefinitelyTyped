@@ -36,6 +36,7 @@ p = nconf.env();
 p = nconf.env(opts);
 
 p = nconf.file(str);
+p = nconf.file(str, str);
 p = nconf.file(str, fopts);
 p = nconf.file(fopts);
 p = nconf.file({
