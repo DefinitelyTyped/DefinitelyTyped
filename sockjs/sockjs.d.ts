@@ -8,19 +8,19 @@ interface SockJSSimpleEvent {
     toString(): string;
 }
 
-interface SJSOpenEvent extends SockJSSimpleEvent {}
+interface SJSOpenEvent extends SockJSSimpleEvent, Event {}
 
-interface SJSCloseEvent extends SockJSSimpleEvent {
+interface SJSCloseEvent extends SockJSSimpleEvent, CloseEvent {
     code: number;
     reason: string;
     wasClean: boolean;
 }
 
-interface SJSMessageEvent extends SockJSSimpleEvent {
+interface SJSMessageEvent extends SockJSSimpleEvent, MessageEvent {
     data: string;
 }
 
-interface SockJS extends EventTarget {
+interface SockJS extends WebSocket {
     protocol: string;
     readyState: number;
     onopen: (ev: SJSOpenEvent) => any;
