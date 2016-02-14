@@ -216,6 +216,7 @@ declare module NodeJS {
         stderr: WritableStream;
         stdin: ReadableStream;
         argv: string[];
+        execArgv: string[];
         execPath: string;
         abort(): void;
         chdir(directory: string): void;
@@ -916,6 +917,7 @@ declare module "child_process" {
         stdin:  stream.Writable;
         stdout: stream.Readable;
         stderr: stream.Readable;
+        stdio: (stream.Readable|stream.Writable)[];
         pid: number;
         kill(signal?: string): void;
         send(message: any, sendHandle?: any): void;
