@@ -66,12 +66,14 @@ declare module ExpressValidator {
 		 * Accepts http, https, ftp
 		 */
 		isUrl(): Validator;
+
 		/**
 		 * Combines isIPv4 and isIPv6
 		 */
 		isIP(): Validator;
 		isIPv4(): Validator;
 		isIPv6(): Validator;
+		isMACAddress(): Validator;
 		isAlpha(): Validator;
 		isAlphanumeric(): Validator;
 		isNumeric(): Validator;
@@ -150,6 +152,10 @@ declare module ExpressValidator {
 		 * Will work against Visa, MasterCard, American Express, Discover, Diners Club, and JCB card numbering formats
 		 */
 		isCreditCard(): Validator;
+		/**
+		 * Check an input only when the input exists
+		 */
+		optional(): Validator;
 	}
 
 	interface Sanitizer {

@@ -6,9 +6,9 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module "ws" {
-    import events = require('events');
-    import http   = require('http');
-    import net    = require('net');
+    import * as events from 'events';
+    import * as http from 'http';
+    import * as net from 'net';
 
     class WebSocket extends events.EventEmitter {
         static CONNECTING: number;
@@ -76,7 +76,7 @@ declare module "ws" {
         on(event: 'pong', cb: (data: any, flags: {binary: boolean}) => void): WebSocket;
         on(event: 'open', cb: () => void): WebSocket;
         on(event: string, listener: () => void): WebSocket;
-        
+
         addListener(event: 'error', cb: (err: Error) => void): WebSocket;
         addListener(event: 'close', cb: (code: number, message: string) => void): WebSocket;
         addListener(event: 'message', cb: (data: any, flags: {binary: boolean}) => void): WebSocket;
@@ -119,7 +119,7 @@ declare module "ws" {
             on(event: 'headers', cb: (headers: string[]) => void): Server;
             on(event: 'connection', cb: (client: WebSocket) => void): Server;
             on(event: string, listener: () => void): Server;
-            
+
             addListener(event: 'error', cb: (err: Error) => void): Server;
             addListener(event: 'headers', cb: (headers: string[]) => void): Server;
             addListener(event: 'connection', cb: (client: WebSocket) => void): Server;

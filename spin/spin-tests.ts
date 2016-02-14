@@ -23,7 +23,11 @@ var opts2 = {
     className: 'spinner',
     zIndex: 5,
     top: '28',
-    left: 'auto'
+    left: 'auto',
+    scale: 1,
+    opacity: 0.25,
+    fps: 20,
+    position: 'absolute'
 };
 
 var newTarget = document.getElementById('bar');

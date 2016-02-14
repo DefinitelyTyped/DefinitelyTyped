@@ -16,7 +16,7 @@ declare module TComb {
     assert: (condition: boolean, message?: string, ...values: any[]) => void;
     fail: (message?: string) => void;
     Any: Any_Static;
-    Nil: Str_Static;
+    Nil: Nil_Static;
     Str: Str_Static;
     Num: Num_Static;
     Bool: Bool_Static;
@@ -24,8 +24,9 @@ declare module TComb {
     Obj: Obj_Static;
 
     Func: Func_Static;
-    func:    { (domain: TCombBase[], codomain: TCombBase, name?: string) : Func_Static;
-                (domain: TCombBase, codomain: TCombBase, name?: string) : Func_Static;
+    func: {
+        (domain: TCombBase[], codomain: TCombBase, name?: string): Func_Static;
+        (domain: TCombBase, codomain: TCombBase, name?: string) : Func_Static;
     }
     Err: Err_Static;
     Re: Re_Static;
@@ -61,13 +62,13 @@ declare module TComb {
 
   export interface TCombBase {
     meta: {
-			/**
-			 * The type kind, equal to "irreducible" for irreducible types.
-			 */
+      /**
+       * The type kind, equal to "irreducible" for irreducible types.
+       */
       kind: string;
-			/**
-			 * The type name.
-			 */
+      /**
+       * The type name.
+       */
       name: string;
     };
     displayName: string;
@@ -107,17 +108,17 @@ declare module TComb {
     new (value: string): Str_Instance;
     (value: string): Str_Instance;
     meta: {
-			/**
-			 * The type kind, equal to "irreducible" for irreducible types.
-			 */
+      /**
+       * The type kind, equal to "irreducible" for irreducible types.
+       */
       kind: string;
-			/**
-			 * The type name.
-			 */
+      /**
+       * The type name.
+       */
       name: string;
-			/**
-			 * The type predicate.
-			 */
+      /**
+       * The type predicate.
+       */
       is: TypePredicate;
     };
   }
@@ -210,15 +211,15 @@ declare module TComb {
 
 
 
-	/**
-	 * @param name - The type name.
-	 * @param is - A predicate.
-	 */
+  /**
+   * @param name - The type name.
+   * @param is - A predicate.
+   */
 
-	/**
-	 * @param props - A hash whose keys are the field names and the values are the fields types.
-	 * @param name - Useful for debugging purposes.
-	 */
+  /**
+   * @param props - A hash whose keys are the field names and the values are the fields types.
+   * @param name - Useful for debugging purposes.
+   */
 
 
   export interface Struct_Static extends TCombBase {
@@ -229,52 +230,52 @@ declare module TComb {
       name: string;
       props: any[];
     };
-		/**
-		 * @param mixins - Contains the new props.
-		 * @param name - Useful for debugging purposes.
-		 */
+    /**
+     * @param mixins - Contains the new props.
+     * @param name - Useful for debugging purposes.
+     */
     extend(mixins: Object, name?: string): Struct_Static;
-		/**
-		 * @param mixins - Contains the new props.
-		 * @param name - Useful for debugging purposes.
-		 */
+    /**
+     * @param mixins - Contains the new props.
+     * @param name - Useful for debugging purposes.
+     */
     extend(mixins: Struct_Static, name?: string): Struct_Static;
-		/**
-		 * @param mixins - Contains the new props.
-		 * @param name - Useful for debugging purposes.
-		 */
+    /**
+     * @param mixins - Contains the new props.
+     * @param name - Useful for debugging purposes.
+     */
     extend(mixins: Object[], name?: string): Struct_Static;
-		/**
-		 * @param mixins - Contains the new props.
-		 * @param name - Useful for debugging purposes.
-		 */
+    /**
+     * @param mixins - Contains the new props.
+     * @param name - Useful for debugging purposes.
+     */
     extend(mixins: Struct_Static[], name?: string): Struct_Static;
   }
 
   interface Struct_Instance {
   }
 
-	/**
-	 * @param map - A hash whose keys are the enums (values are free).
-	 * @param name - Useful for debugging purposes.
-	 */
+  /**
+   * @param map - A hash whose keys are the enums (values are free).
+   * @param name - Useful for debugging purposes.
+   */
 
   export module enums {
-		/**
-		 * @param keys - Array of enums.
-		 * @param name - Useful for debugging purposes.
-		 */
+    /**
+     * @param keys - Array of enums.
+     * @param name - Useful for debugging purposes.
+     */
     export function of(keys: string[], name?: string): TCombBase;
-		/**
-		 * @param keys - String of enums separated by spaces.
-		 * @param name - Useful for debugging purposes.
-		 */
+    /**
+     * @param keys - String of enums separated by spaces.
+     * @param name - Useful for debugging purposes.
+     */
     export function of(keys: string, name?: string): TCombBase;
   }
 
-	/**
-	 * @param name - Useful for debugging purposes.
-	 */
+  /**
+   * @param name - Useful for debugging purposes.
+   */
 
   export interface Union_Static extends TCombBase {
     new (value: any, mutable?: boolean): Union_Instance;
@@ -291,10 +292,10 @@ declare module TComb {
   }
 
 
-	/**
-	 * @param type - The wrapped type.
-	 * @param name - Useful for debugging purposes.
-	 */
+  /**
+   * @param type - The wrapped type.
+   * @param name - Useful for debugging purposes.
+   */
 
 
 
@@ -312,9 +313,9 @@ declare module TComb {
   }
 
 
-	/**
-	 * @param name - Useful for debugging purposes.
-	 */
+  /**
+   * @param name - Useful for debugging purposes.
+   */
 
   interface Tuple_Static extends TCombBase {
     new (value: any, mutable?: boolean): Tuple_Instance;
@@ -329,11 +330,11 @@ declare module TComb {
   interface Tuple_Instance {
   }
 
-	/**
-	 * Combines old types into a new one.
-	 * @param type - A type already defined.
-	 * @param name - Useful for debugging purposes.
-	 */
+  /**
+   * Combines old types into a new one.
+   * @param type - A type already defined.
+   * @param name - Useful for debugging purposes.
+   */
 
 
   export interface Subtype_Static extends TCombBase {
@@ -350,10 +351,10 @@ declare module TComb {
   interface Subtype_Instance {
   }
 
-	/**
-	 * @param type - The type of list items.
-	 * @param name - Useful for debugging purposes.
-	 */
+  /**
+   * @param type - The type of list items.
+   * @param name - Useful for debugging purposes.
+   */
   export function list(type: TCombBase, name?: string): List_Static;
 
   interface List_Static extends TCombBase {
@@ -369,11 +370,11 @@ declare module TComb {
   interface List_Instance {
   }
 
-	/**
-	 * @param domain - The type of keys.
-	 * @param codomain - The type of values.
-	 * @param name - Useful for debugging purposes.
-	 */
+  /**
+   * @param domain - The type of keys.
+   * @param codomain - The type of values.
+   * @param name - Useful for debugging purposes.
+   */
 
 
   interface Dict_Static extends TCombBase {
@@ -390,16 +391,16 @@ declare module TComb {
   interface Dict_Instance {
   }
 
-	/**
-	 * @param type - The type of the function's argument.
-	 * @param codomain - The type of the function's return value.
-	 * @param name - Useful for debugging purposes.
-	 */
-	/**
-	 * @param type - The list of types of the function's arguments.
-	 * @param codomain - The type of the function's return value.
-	 * @param name - Useful for debugging purposes.
-	 */
+  /**
+   * @param type - The type of the function's argument.
+   * @param codomain - The type of the function's return value.
+   * @param name - Useful for debugging purposes.
+   */
+  /**
+   * @param type - The list of types of the function's arguments.
+   * @param codomain - The type of the function's return value.
+   * @param name - Useful for debugging purposes.
+   */
 
   interface Func_Static extends TCombBase {
     new (value: any, mutable?: boolean): Func_Instance;

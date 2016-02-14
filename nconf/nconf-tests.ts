@@ -36,6 +36,7 @@ p = nconf.env();
 p = nconf.env(opts);
 
 p = nconf.file(str);
+p = nconf.file(str, str);
 p = nconf.file(str, fopts);
 p = nconf.file(fopts);
 p = nconf.file({
@@ -47,6 +48,8 @@ p = nconf.use(str, opts);
 
 p = nconf.defaults();
 p = nconf.defaults(opts);
+
+p = nconf.defaults({foo: 'bar'});
 
 nconf.init();
 nconf.init(opts);

@@ -22,8 +22,11 @@ declare module "gulp-inject" {
         ignorePath?: string | string[];
         relative?: boolean;
         addPrefix?: string;
+        addSuffix?: string;
         addRootSlash?: boolean;
         name?: string;
+        removeTags?: boolean;
+        empty?: boolean;
         starttag?: string | ITagFunction;
         endtag?: string | ITagFunction;
         transform?: ITransformFunction;
@@ -31,6 +34,8 @@ declare module "gulp-inject" {
     }
 
     function inject(sources: NodeJS.ReadableStream, options?: IOptions): NodeJS.ReadWriteStream;
+
+    namespace inject {}
 
     export = inject;
 }

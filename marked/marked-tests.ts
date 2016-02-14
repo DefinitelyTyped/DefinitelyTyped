@@ -8,13 +8,14 @@ var options: MarkedOptions = {
     breaks: false,
     pedantic: false,
     sanitize: true,
-    smartLsts: true,
+    smartLists: true,
     silent: false,
     highlight: function (code: string, lang: string) {
     	return '';
     },
     langPrefix: 'lang-',
-    smartypants: false
+    smartypants: false,
+    renderer: new marked.Renderer()
 };
 
 function callback() {

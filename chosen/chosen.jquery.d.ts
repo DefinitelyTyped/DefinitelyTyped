@@ -18,7 +18,7 @@ interface ChosenOptions {
     placeholder_text_single?: string;
     search_contains?: boolean;
     single_backstroke_delete?: boolean;
-    width?: number;
+    width?: number|string;
     display_disabled_options?: boolean;
     display_selected_options?: boolean;
     include_group_label_in_selected?: boolean;

@@ -12,6 +12,13 @@ declare module "morgan" {
 
         export function token<T>(name: string, callback: (req: express.Request, res: express.Response) => T): express.RequestHandler;
 
+        export interface StreamOptions {
+            /**
+             * Output stream for writing log lines
+             */
+            write: (str: string) => void;
+        }
+
         /***
          * Morgan accepts these properties in the options object.
          */
@@ -36,7 +43,7 @@ declare module "morgan" {
              * Output stream for writing log lines, defaults to process.stdout.
              * @param str
              */
-            stream?: (str: string) => void;
+            stream?: StreamOptions;
         }
     }
 
