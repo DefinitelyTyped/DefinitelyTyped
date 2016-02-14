@@ -13833,19 +13833,78 @@ declare module _ {
          */
         result<TObject, TResult>(
             object: TObject,
-            path: number|string|boolean|Array<number|string|boolean>,
-            defaultValue?: TResult
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult|((...args: any[]) => TResult)
         ): TResult;
-    }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.result
          */
         result<TResult>(
-            path: number|string|boolean|Array<number|string|boolean>,
-            defaultValue?: TResult
+            object: any,
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult|((...args: any[]) => TResult)
         ): TResult;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.result
+         */
+        result<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult|((...args: any[]) => TResult)
+        ): TResult;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.result
+         */
+        result<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult|((...args: any[]) => TResult)
+        ): TResult;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.result
+         */
+        result<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult|((...args: any[]) => TResult)
+        ): TResult;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.result
+         */
+        result<TResultWrapper>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: any
+        ): TResultWrapper;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.result
+         */
+        result<TResultWrapper>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: any
+        ): TResultWrapper;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.result
+         */
+        result<TResultWrapper>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: any
+        ): TResultWrapper;
     }
 
     //_.set

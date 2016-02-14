@@ -8985,14 +8985,114 @@ namespace TestPick {
 }
 
 // _.result
-{
-    let testResultPath: number|string|boolean|Array<number|string|boolean>;
-    let testResultDefaultValue: TResult;
-    let result: TResult;
-    result = _.result<{}, TResult>({}, testResultPath);
-    result = _.result<{}, TResult>({}, testResultPath, testResultDefaultValue);
-    result = _({}).result<TResult>(testResultPath);
-    result = _({}).result<TResult>(testResultPath, testResultDefaultValue);
+namespace TestResult {
+    {
+        let result: string;
+
+        result = _.result<string, string>('abc', '0');
+        result = _.result<string, string>('abc', '0', '_');
+        result = _.result<string, string>('abc', '0', () => '_');
+        result = _.result<string, string>('abc', ['0']);
+        result = _.result<string, string>('abc', ['0'], '_');
+        result = _.result<string, string>('abc', ['0'], () => '_');
+
+        result = _.result<string>('abc', '0');
+        result = _.result<string>('abc', '0', '_');
+        result = _.result<string>('abc', '0', () => '_');
+        result = _.result<string>('abc', ['0']);
+        result = _.result<string>('abc', ['0'], '_');
+        result = _.result<string>('abc', ['0'], () => '_');
+
+        result = _('abc').result<string>('0');
+        result = _('abc').result<string>('0', '_');
+        result = _('abc').result<string>('0', () => '_');
+        result = _('abc').result<string>(['0']);
+        result = _('abc').result<string>(['0'], '_');
+        result = _('abc').result<string>(['0'], () => '_');
+    }
+
+    {
+        let result: number;
+
+        result = _.result<number[], number>([42], '0');
+        result = _.result<number[], number>([42], '0', -1);
+        result = _.result<number[], number>([42], '0', () => -1);
+        result = _.result<number[], number>([42], ['0']);
+        result = _.result<number[], number>([42], ['0'], -1);
+        result = _.result<number[], number>([42], ['0'], () => -1);
+
+        result = _.result<number>([42], '0');
+        result = _.result<number>([42], '0', -1);
+        result = _.result<number>([42], '0', () => -1);
+        result = _.result<number>([42], ['0']);
+        result = _.result<number>([42], ['0'], -1);
+        result = _.result<number>([42], ['0'], () => -1);
+
+        result = _([42]).result<number>('0');
+        result = _([42]).result<number>('0', -1);
+        result = _([42]).result<number>('0', () => -1);
+        result = _([42]).result<number>(['0']);
+        result = _([42]).result<number>(['0'], -1);
+        result = _([42]).result<number>(['0'], () => -1);
+    }
+
+    {
+        let result: boolean;
+
+        result = _.result<{a: boolean}, boolean>({a: true}, 'a');
+        result = _.result<{a: boolean}, boolean>({a: true}, 'a', false);
+        result = _.result<{a: boolean}, boolean>({a: true}, 'a', () => false);
+        result = _.result<{a: boolean}, boolean>({a: true}, ['a']);
+        result = _.result<{a: boolean}, boolean>({a: true}, ['a'], false);
+        result = _.result<{a: boolean}, boolean>({a: true}, ['a'], () => false);
+
+        result = _.result<boolean>({a: true}, 'a');
+        result = _.result<boolean>({a: true}, 'a', false);
+        result = _.result<boolean>({a: true}, 'a', () => false);
+        result = _.result<boolean>({a: true}, ['a']);
+        result = _.result<boolean>({a: true}, ['a'], false);
+        result = _.result<boolean>({a: true}, ['a'], () => false);
+
+        result = _({a: true}).result<boolean>('a');
+        result = _({a: true}).result<boolean>('a', false);
+        result = _({a: true}).result<boolean>('a', () => false);
+        result = _({a: true}).result<boolean>(['a']);
+        result = _({a: true}).result<boolean>(['a'], false);
+        result = _({a: true}).result<boolean>(['a'], () => false);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('abc').chain().result<_.LoDashExplicitWrapper<string>>('0');
+        result = _('abc').chain().result<_.LoDashExplicitWrapper<string>>('0', '_');
+        result = _('abc').chain().result<_.LoDashExplicitWrapper<string>>('0', '_');
+        result = _('abc').chain().result<_.LoDashExplicitWrapper<string>>(['0']);
+        result = _('abc').chain().result<_.LoDashExplicitWrapper<string>>(['0'], () => '_');
+        result = _('abc').chain().result<_.LoDashExplicitWrapper<string>>(['0'], () => '_');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _([42]).chain().result<_.LoDashExplicitWrapper<number>>('0');
+        result = _([42]).chain().result<_.LoDashExplicitWrapper<number>>('0', -1);
+        result = _([42]).chain().result<_.LoDashExplicitWrapper<number>>('0', () => -1);
+        result = _([42]).chain().result<_.LoDashExplicitWrapper<number>>(['0']);
+        result = _([42]).chain().result<_.LoDashExplicitWrapper<number>>(['0'], -1);
+        result = _([42]).chain().result<_.LoDashExplicitWrapper<number>>(['0'], () => -1);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _({a: true}).chain().result<_.LoDashExplicitWrapper<boolean>>('a');
+        result = _({a: true}).chain().result<_.LoDashExplicitWrapper<boolean>>('a', false);
+        result = _({a: true}).chain().result<_.LoDashExplicitWrapper<boolean>>('a', () => false);
+        result = _({a: true}).chain().result<_.LoDashExplicitWrapper<boolean>>(['a']);
+        result = _({a: true}).chain().result<_.LoDashExplicitWrapper<boolean>>(['a'], false);
+        result = _({a: true}).chain().result<_.LoDashExplicitWrapper<boolean>>(['a'], () => false);
+    }
 }
 
 // _.set
