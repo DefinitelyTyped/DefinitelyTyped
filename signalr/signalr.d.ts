@@ -30,6 +30,7 @@ interface SignalR {
     events: SignalREvents;
     connectionState: any;
     transports: any;
+    ajaxDefaults: JQueryAjaxSettings;
 
     hub: HubConnection;
     id: string;
