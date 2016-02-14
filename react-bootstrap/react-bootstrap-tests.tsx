@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 import * as React from 'react';
 import { Component, CSSProperties } from 'react';
-import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput } from 'react-bootstrap';
+import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput, Dropdown } from 'react-bootstrap';
 
 
 export class ReactBootstrapTest extends Component<any, any> {
@@ -178,6 +178,20 @@ export class ReactBootstrapTest extends Component<any, any> {
                     <MenuItem divider />
                     <MenuItem eventKey='4'>Separated link</MenuItem>
                   </DropdownButton>
+                </div>
+
+
+                <div style={style}>
+                    <Dropdown id={0} bsClass={'default'}>
+                        <Dropdown.Toggle bsStyle="success"/>
+                        <Dropdown.Menu>
+                            <MenuItem eventKey='1'>Action</MenuItem>
+                            <MenuItem eventKey='2'>Another Action</MenuItem>
+                            <MenuItem eventKey='3' active>Active Item</MenuItem>
+                            <MenuItem divider />
+                            <MenuItem eventKey='4' active>Separated link</MenuItem>
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </div>
 
                 <div style={style}>
