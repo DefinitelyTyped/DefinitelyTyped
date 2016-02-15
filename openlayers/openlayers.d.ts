@@ -2421,7 +2421,7 @@ declare module ol {
         }
         
         class ZoomToExtent {
-            constructor(options: olx.ZoomToExtentOptions);
+            constructor(options?: olx.ZoomToExtentOptions);
         }
     }
 
@@ -4093,7 +4093,7 @@ declare module ol {
         }
 
         class ImageStatic extends ol.source.Image {
-            constructor(options: olx.StaticImageOptions);
+            constructor(options?: olx.StaticImageOptions);
         }
 
         class ImageVector {
