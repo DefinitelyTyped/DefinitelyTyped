@@ -3,7 +3,7 @@
 // Definitions by: Alexander Rusakov <https://github.com/arusakov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../redux/redux.d.ts" />
+/// <reference path="../redux/redux-1.0.0.d.ts" />
 
 declare module 'redux-logger' {
 

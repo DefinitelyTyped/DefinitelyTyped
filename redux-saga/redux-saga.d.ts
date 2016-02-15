@@ -3,7 +3,7 @@
 // Definitions by: Daniel Lytkin <https://github.com/aikoven>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../redux/redux.d.ts" />
+/// <reference path="../redux/redux-1.0.0.d.ts" />
 
 declare module 'redux-saga' {
   export class SagaCancellationException {

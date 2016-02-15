@@ -1,5 +1,5 @@
 /// <reference path="./react-router-redux.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
+/// <reference path="../redux/redux-1.0.0.d.ts" />
 /// <reference path="../react-router/react-router.d.ts" />
 
 

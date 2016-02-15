@@ -1,6 +1,6 @@
-/// <reference path="./redux.d.ts" />
+/// <reference path="./redux-1.0.0.d.ts" />
 
-function counter(state: number, action: Redux.IAction) {
+function counter(state: any, action: any) {
     if (!state) {
         state = 0;
     }
@@ -14,17 +14,19 @@ function counter(state: number, action: Redux.IAction) {
     }
 }
 
-const loggingMiddleware: Redux.IMiddleware<number> = (store: Redux.Store<number>) => (next: Redux.IDispatch) => (action: Redux.IAction) => {
-    console.log(action.type);
-    return next(action);
-};
+function loggingMiddleware() {
+    return (next: Redux.Dispatch) => (action: any) => {
+        console.log(action.type);
+        next(action);
+    };
+}
 
 let createStoreWithMiddleware = Redux.applyMiddleware(loggingMiddleware)(Redux.createStore);
-
 let store = createStoreWithMiddleware(counter);
 
-store.subscribe(() => {
-    console.log(store.getState());
-});
+
+store.subscribe(() =>
+    console.log(store.getState())
+);
 
 store.dispatch({ type: 'INCREMENT' });
