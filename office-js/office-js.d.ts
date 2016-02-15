@@ -731,7 +731,7 @@ declare module Office {
          *       asyncContext: Object keeping state for the callback
          * @param callback The optional callback method
          */
-        setSelectedDataAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
+        setSelectedDataAsync(data: any, options?: any, callback?: (result: AsyncResult) => void): void;
     }
     export interface File {
         size: number;
