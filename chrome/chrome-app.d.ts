@@ -1,4 +1,4 @@
-﻿// Type definitions for Chrome packaged application development
+// Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
 // Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -390,4 +390,50 @@ declare module chrome.system.network {
     }
 
     export function getNetworkInterfaces(callback: (networkInterfaces: NetworkInterface[]) => void): void;
+}
+
+declare module chrome.runtime {
+	interface Manifest {
+		app?: {
+			background?: {
+				scripts?: string[];
+			}
+		},
+		bluetooth?: {
+			uuids?: string[];
+			socket?: boolean;
+			low_energy?: boolean;
+			peripheral?: boolean;
+		},
+		file_handlers?: {
+			[name: string]: {
+				types?: string[];
+				extensions?: string[];
+				title?: string;
+			}
+		},
+		kiosk_enabled?: boolean,
+		kiosk_only?: boolean,
+		url_handlers?: {
+			[name: string]: {
+				matches: string[];
+				title?: string;
+			}
+		},
+		usb_printers?: {
+			filters: {
+				vendorId?: number;
+				productId?: number;
+				interfaceClass?: number;
+				interfaceSubclass?: number;
+				interfaceProtocol?: number;
+			}[]
+		},
+		webview?: {
+			partitions?: {
+				name: string;
+				accessible_resources: string[];
+			}[]
+		}
+	}
 }
