@@ -1715,15 +1715,7 @@ declare module angular {
          * Whether transclusion is enabled. Enabled by default.
          */
         transclude?: boolean;
-        /**
-         * Whether the new scope is isolated. Isolated by default.
-         */
-        isolate?: boolean;
-        /**
-         * String of subset of EACM which restricts the component to specific directive declaration style. If omitted,
-         * this defaults to 'E'.
-         */
-        restrict?: string;
+        require? : Object;
         $canActivate?: () => boolean;
         $routeConfig?: RouteDefinition[];
     }
@@ -1774,12 +1766,12 @@ declare module angular {
         name?: string;
         priority?: number;
         replace?: boolean;
-        require?: any;
+        require? : any;
         restrict?: string;
         scope?: any;
-        template?: any;
+        template?: string | Function;
         templateNamespace?: string;
-        templateUrl?: any;
+        templateUrl?: string | Function;
         terminal?: boolean;
         transclude?: any;
     }
