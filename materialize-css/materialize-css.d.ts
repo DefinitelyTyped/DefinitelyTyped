@@ -289,93 +289,92 @@ declare module Materialize {
 declare var Materialize : Materialize.Materialize;
 
 interface JQuery {
-        
-        /**
-         * Collapsibles are accordion elements that expand when clicked on. 
-         * They allow you to hide content that is not immediately relevant to the user. 
-         * 
-         * @name options the collapsible options 
-         */
-        collapsible(options?: Materialize.CollapsibleOptions): void;
-        
-        /**
-         * Tooltips are small, interactive, textual hints for mainly graphical elements. 
-         * When using icons for actions you can use a tooltip to give people clarification on its function. 
-         * 
-         * @name options the tooltip options or the string "remove" to remove the tooltip function
-         */
-        tooltip(options?: Materialize.TooltipOptions|string): void; 
-        
-        /**
-         * Add a dropdown list to any button. 
-         * Make sure that the data-activates attribute matches the id in the <ul> tag.  
-         * 
-         * @name options the drop down options
-         */               
-        dropdown(options?: Materialize.DropDownOptions): void;
-        
-        /**
-         * Material box is a material design implementation of the Lightbox plugin.
-         */
-        materialbox(): void;
-        
-        /**
-         * slider is a simple and elegant image carousel. 
-         * You can also have captions that will be transitioned on their own depending on their alignment. 
-         * You can also have indicators that show up on the bottom of the slider. 
-         * 
-         * @name options the slider options or the string "start" to start the animation or "pauze" to pauze the animation
-         */
-        slider(options?: Materialize.SliderOptions|string): void;
+    
+    /**
+     * Collapsibles are accordion elements that expand when clicked on. 
+     * They allow you to hide content that is not immediately relevant to the user. 
+     * 
+     * @name options the collapsible options 
+     */
+    collapsible(options?: Materialize.CollapsibleOptions): void;
+    
+    /**
+     * Tooltips are small, interactive, textual hints for mainly graphical elements. 
+     * When using icons for actions you can use a tooltip to give people clarification on its function. 
+     * 
+     * @name options the tooltip options or the string "remove" to remove the tooltip function
+     */
+    tooltip(options?: Materialize.TooltipOptions|string): void; 
+    
+    /**
+     * Add a dropdown list to any button. 
+     * Make sure that the data-activates attribute matches the id in the <ul> tag.  
+     * 
+     * @name options the drop down options
+     */               
+    dropdown(options?: Materialize.DropDownOptions): void;
+    
+    /**
+     * Material box is a material design implementation of the Lightbox plugin.
+     */
+    materialbox(): void;
+    
+    /**
+     * slider is a simple and elegant image carousel. 
+     * You can also have captions that will be transitioned on their own depending on their alignment. 
+     * You can also have indicators that show up on the bottom of the slider. 
+     * 
+     * @name options the slider options or the string "start" to start the animation or "pauze" to pauze the animation
+     */
+    slider(options?: Materialize.SliderOptions|string): void;
 
-        /**
-         *  Modal for dialog boxes, confirmation messages, or other content that can be called up.
-         * 
-         * @name options the lean modal options 
-         */
-        leanModal(options?: Materialize.LeanModalOptions): void;
-        
-        /**
-         * Open a modal programatically
-         */
-        openModal(): void;
-        
-        /**
-         * Close a modal programatically
-         */        
-        closeModal(): void;
-        
-        /**
-         * Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.
-         */
-        parallax(): void;
+    /**
+     *  Modal for dialog boxes, confirmation messages, or other content that can be called up.
+     * 
+     * @name options the lean modal options 
+     */
+    leanModal(options?: Materialize.LeanModalOptions): void;
+    
+    /**
+     * Open a modal programatically
+     */
+    openModal(): void;
+    
+    /**
+     * Close a modal programatically
+     */        
+    closeModal(): void;
+    
+    /**
+     * Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.
+     */
+    parallax(): void;
 
-        /**
-         * Pushpin is a fixed positioning plugin.
-         * 
-         * @name options the push pin options 
-         */
-        pushpin(options?: Materialize.PushpinOptions): void;
-        
-        /**
-         * Scrollspy is a jQuery plugin that tracks certain elements and which element the user's screen is currently centered on. 
-         * 
-         * @name options the scroll spy options
-         */
-        scrollSpy(options?: Materialize.ScrollSpyOptions): void;
-        
-        /**
-         * A slide out menu. You can add a dropdown to your sidebar by using our collapsible component.
-         * 
-         * @params methodOrOptions the slide navigation options or a string with "show" to reveal or "hide" to hide the menu
-         */
-        sideNav(methodOrOptions?: Materialize.SideNavOptions|string): void; 
-        
-        /**
-         * Programmatically trigger the tab change event
-         * 
-         * @name method, the method to call (always "select_tab") and a param containing the id of the tab to open
-         */
-        tabs(method?:string, tab?:string): void;
-
-    }
+    /**
+     * Pushpin is a fixed positioning plugin.
+     * 
+     * @name options the push pin options 
+     */
+    pushpin(options?: Materialize.PushpinOptions): void;
+    
+    /**
+     * Scrollspy is a jQuery plugin that tracks certain elements and which element the user's screen is currently centered on. 
+     * 
+     * @name options the scroll spy options
+     */
+    scrollSpy(options?: Materialize.ScrollSpyOptions): void;
+    
+    /**
+     * A slide out menu. You can add a dropdown to your sidebar by using our collapsible component.
+     * 
+     * @params methodOrOptions the slide navigation options or a string with "show" to reveal or "hide" to hide the menu
+     */
+    sideNav(methodOrOptions?: Materialize.SideNavOptions|string): void; 
+    
+    /**
+     * Programmatically trigger the tab change event
+     * 
+     * @name method, the method to call (always "select_tab") and a param containing the id of the tab to open
+     */
+    tabs(method?:string, tab?:string): void;
+}
