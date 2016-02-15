@@ -237,7 +237,7 @@ declare module "mongodb" {
     renameCollection(fromCollection: string, toCollection: string, options: { dropTarget?: boolean }, callback: MongoCallback<Collection>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#stats
     stats(callback: MongoCallback<any>): void;
-    stats(options?: { scale?: number }): Promise<any>;;
+    stats(options?: { scale?: number }): Promise<any>;
     stats(options: { scale?: number }, callback: MongoCallback<any>): void;
   }
 
