@@ -3436,7 +3436,7 @@ declare module chrome.identity {
 	 * @since Chrome 33.
 	 * @param path Optional. The path appended to the end of the generated URL. 
 	 */
-	export function getRedirectURL(path?: string): void;
+	export function getRedirectURL(path?: string): string;
 
 	/**
 	 * Fired when signin state changes for an account on the user's profile. 
