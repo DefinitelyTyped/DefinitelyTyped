@@ -1,8 +1,8 @@
 // Type definitions for Pouch 0.1
 // Project: http://pouchdb.com
-// Definitions by: Viktor Zhakhalov <https://github.com/zhakhalov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // Based on https://github.com/MrBigDog2U/DefinitelyTyped/blob/master/pouchDB/
+// Definitions by: Viktor Zhakhalov <https://github.com/zhakhalov/>
 
 
 declare var PouchDB: pouchdb.PouchDB;
@@ -13,10 +13,10 @@ declare module 'pouchdb' {
 
 declare module pouchdb {
 
-  export interface IPromise<T> {
-    then<TResult>(successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback?: (reason: any) => any, notifyCallback?: (state: any) => any): IPromise<TResult>;
-    catch<TResult>(onRejected: (reason: any) => IPromise<TResult>|TResult): IPromise<TResult>;
-    finally(finallyCallback: () => any): IPromise<T>;
+  export interface Promise<T> {
+    then<TResult>(successCallback: (promiseValue: T) => Promise<TResult>|TResult, errorCallback?: (reason: any) => any, notifyCallback?: (state: any) => any): Promise<TResult>;
+    catch<TResult>(onRejected: (reason: any) => Promise<TResult>|TResult): Promise<TResult>;
+    finally(finallyCallback: () => any): Promise<T>;
   }
 
   export interface PouchError {
@@ -86,66 +86,66 @@ declare module pouchdb {
   export interface PouchApi<T extends PouchDoc> {
     replicate: PouchReplicate<T>;
     info(callback: (err: PouchError, res: PouchInfoResponse) => void): void;
-    info(): IPromise<PouchInfoResponse>;
+    info(): Promise<PouchInfoResponse>;
 
     type(): string;
     id(): string;
     close(callback: () => void): void;
-    close(): IPromise<void>;
-    compact(): IPromise<void>;
+    close(): Promise<void>;
+    compact(): Promise<void>;
 
     //
     // get == select by id
     //
     get(id: string, opts: PouchGetOptions, callback: (err: PouchError, res: T ) => void): void;
-    get(id: string, opts: PouchGetOptions): IPromise<T>;
+    get(id: string, opts: PouchGetOptions): Promise<T>;
     get(id: string, callback: (err: PouchError, res: T) => void): void;
-    get(id: string): IPromise<T>;
+    get(id: string): Promise<T>;
 
     allDocs(opts: PouchAllDocsOptions, callback: (err: PouchError, res: PouchAllDocsResponse<T>) => void): void;
-    allDocs(opts: PouchAllDocsOptions): IPromise< PouchAllDocsResponse<T>>;
+    allDocs(opts: PouchAllDocsOptions): Promise< PouchAllDocsResponse<T>>;
     allDocs(callback: (err: PouchError, res: PouchAllDocsResponse<T>) => void): void;
-    allDocs(): IPromise< PouchAllDocsResponse<T>>;
+    allDocs(): Promise< PouchAllDocsResponse<T>>;
 
     query(fun: string, opts: PouchQueryOptions, callback: (err: PouchError, res: PouchQueryResponse<T>) => void): void;
-    query(fun: string, opts: PouchQueryOptions): IPromise<PouchQueryResponse<T>>;
+    query(fun: string, opts: PouchQueryOptions): Promise<PouchQueryResponse<T>>;
     query(fun: string, callback: (err: PouchError, res: PouchQueryResponse<T>) => void): void;
-    query(fun: string): IPromise<PouchQueryResponse<T>>;
+    query(fun: string): Promise<PouchQueryResponse<T>>;
     query(fun: PouchFilter<T>, opts: PouchQueryOptions, callback: (err: PouchError, res: PouchQueryResponse<T>) => void): void;
-    query(fun: PouchFilter<T>, opts: PouchQueryOptions): IPromise<PouchQueryResponse<T>>;
+    query(fun: PouchFilter<T>, opts: PouchQueryOptions): Promise<PouchQueryResponse<T>>;
     query(fun: PouchFilter<T>, callback: (err: PouchError, res: PouchQueryResponse<T>) => void): void;
-    query(fun: PouchFilter<T>): IPromise<PouchQueryResponse<T>>;
+    query(fun: PouchFilter<T>): Promise<PouchQueryResponse<T>>;
 
     bulkDocs(req: PouchBulkDocsRequest<T>, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse[]) => void): void;
-    bulkDocs(req: PouchBulkDocsRequest<T>, opts: PouchUpdateOptions): IPromise<PouchUpdateResponse[]>;
+    bulkDocs(req: PouchBulkDocsRequest<T>, opts: PouchUpdateOptions): Promise<PouchUpdateResponse[]>;
     bulkDocs(req: PouchBulkDocsRequest<T>, callback: (err: PouchError, res: PouchUpdateResponse[]) => void): void;
-    bulkDocs(req: PouchBulkDocsRequest<T>): IPromise<PouchUpdateResponse[]>;
+    bulkDocs(req: PouchBulkDocsRequest<T>): Promise<PouchUpdateResponse[]>;
 
     post(doc: T, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
-    post(doc: T, opts: PouchUpdateOptions): IPromise<PouchUpdateResponse>;
+    post(doc: T, opts: PouchUpdateOptions): Promise<PouchUpdateResponse>;
     post(doc: T, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
-    post(doc: T): IPromise<PouchUpdateResponse>;
+    post(doc: T): Promise<PouchUpdateResponse>;
 
     put(doc: T, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
-    put(doc: T, opts: PouchUpdateOptions): IPromise<PouchUpdateResponse>;
+    put(doc: T, opts: PouchUpdateOptions): Promise<PouchUpdateResponse>;
     put(doc: T, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
-    put(doc: T): IPromise<PouchUpdateResponse>;
+    put(doc: T): Promise<PouchUpdateResponse>;
 
     remove(doc: T, opts: PouchUpdateOptions, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
-    remove(doc: T, opts: PouchUpdateOptions): IPromise<PouchUpdateResponse>;
+    remove(doc: T, opts: PouchUpdateOptions): Promise<PouchUpdateResponse>;
     remove(doc: T, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
-    remove(doc: T): IPromise<PouchUpdateResponse>;
+    remove(doc: T): Promise<PouchUpdateResponse>;
 
     getAttachment(id: string, opts: PouchAttachmentOptions, callback: (err: PouchError, res: any) => void): void;
-    getAttachment(id: string, opts: PouchAttachmentOptions): IPromise<any>;
+    getAttachment(id: string, opts: PouchAttachmentOptions): Promise<any>;
     getAttachment(id: string, callback: (err: PouchError, res: any) => void): void;
-    getAttachment(id: string): IPromise<any>;
+    getAttachment(id: string): Promise<any>;
 
     putAttachment(id: string, rev: string, doc: any, type: string, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
-    putAttachment(id: string, rev: string, doc: any, type: string): IPromise<PouchUpdateResponse>;
+    putAttachment(id: string, rev: string, doc: any, type: string): Promise<PouchUpdateResponse>;
 
     removeAttachment(id: string, rev: string, callback: (err: PouchError, res: PouchUpdateResponse) => void): void;
-    removeAttachment(id: string, rev: string): IPromise<PouchUpdateResponse>;
+    removeAttachment(id: string, rev: string): Promise<PouchUpdateResponse>;
 
     changes(opts: PouchChangesOptions<T>, callback: (err: PouchError, res: PouchChanges<T>) => void): PouchCancellable;
     changes(callback: (err: PouchError, res: PouchChanges<T>) => void): PouchCancellable;
