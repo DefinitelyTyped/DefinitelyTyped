@@ -11506,12 +11506,23 @@ namespace TestMixin {
 }
 
 // _.noConflict
-{
-    let result: typeof _;
-    result = _.noConflict();
-    result = _(42).noConflict();
-    result = _<any>([]).noConflict();
-    result = _({}).noConflict();
+namespace TestNoConflict {
+    {
+        let result: typeof _;
+
+        result = _.noConflict();
+        result = _(42).noConflict();
+        result = _<any>([]).noConflict();
+        result = _({}).noConflict();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<typeof _>;
+
+        result = _(42).chain().noConflict();
+        result = _<any>([]).chain().noConflict();
+        result = _({}).chain().noConflict();
+    }
 }
 
 // _.noop
