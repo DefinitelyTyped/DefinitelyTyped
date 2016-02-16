@@ -117,7 +117,7 @@ function test_socketsTcp(): void {
     chrome.sockets.tcp.getInfo(socketId, (info: chrome.sockets.tcp.SocketInfo) => { });
 
     // getSockets
-    chrome.sockets.tcp.getSockets(socketId, (infos: chrome.sockets.tcp.SocketInfo[]) => { });
+    chrome.sockets.tcp.getSockets((infos: chrome.sockets.tcp.SocketInfo[]) => { });
 }
 
 function test_socketsTcpEvents(): void {
