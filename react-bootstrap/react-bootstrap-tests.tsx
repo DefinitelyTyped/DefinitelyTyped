@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 import * as React from 'react';
 import { Component, CSSProperties } from 'react';
-import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput } from 'react-bootstrap';
+import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput, Collapse, Fade } from 'react-bootstrap';
 
 
 export class ReactBootstrapTest extends Component<any, any> {
@@ -899,6 +899,24 @@ export class ReactBootstrapTest extends Component<any, any> {
                       </Col>
                     </Row>
                   </Input>
+                </div>
+
+                <div style={style}>
+                    <Collapse in={this.state.collapseTestIn}>
+                        I am collapsed
+                    </Collapse>
+                    <Button onClick={() => this.setState({ collapseTestIn: !this.state.collapseTestIn })}>
+                        Collapse toggle
+                    </Button>
+                </div>
+
+                <div style={style}>
+                    <Fade in={this.state.fadeTestIn}>
+                        I am collapsed
+                    </Fade>
+                    <Button onClick={() => this.setState({ fadeTestIn: !this.state.fadeTestIn })}>
+                        Fade toggle
+                    </Button>
                 </div>
             </div>
         );
