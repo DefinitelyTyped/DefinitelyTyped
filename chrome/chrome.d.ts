@@ -5101,6 +5101,7 @@ declare module chrome.runtime {
 		}[];
 		file_system_provider_capabilities?: {
 			configurable?: boolean;
+			watchable?: boolean;
 			multiple_mounts?: boolean;
 			source?: string;
 		};
