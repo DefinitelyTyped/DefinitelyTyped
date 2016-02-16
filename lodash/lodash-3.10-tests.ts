@@ -5003,13 +5003,6 @@ namespace TestReject {
     }
 }
 
-result = <number>_.sample([1, 2, 3, 4]);
-result = <number[]>_.sample([1, 2, 3, 4], 2);
-result = <_.LoDashImplicitWrapper<number>>_([1, 2, 3, 4]).sample();
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sample(2);
-result = <number>_([1, 2, 3, 4]).sample().value();
-result = <number[]>_([1, 2, 3, 4]).sample(2).value();
-
 // _.select
 namespace TestSelect {
     let array: TResult[];
@@ -5105,6 +5098,78 @@ namespace TestSelect {
         result = _(dictionary).chain().select<TResult>('');
         result = _(dictionary).chain().select<TResult>('', any);
         result = _(dictionary).chain().select<{a: number}, TResult>({a: 42});
+    }
+}
+
+// _.sample
+namespace TestSample {
+    let array: string[];
+    let list: _.List<string>;
+    let dictionary: _.Dictionary<string>;
+    let numericDictionary: _.NumericDictionary<string>;
+
+    {
+        let result: string;
+
+        result = _.sample('abc');
+        result = _.sample(array);
+        result = _.sample(list);
+        result = _.sample(dictionary);
+        result = _.sample(numericDictionary);
+        result = _.sample<{a: string}, string>({a: 'foo'});
+        result = _.sample<string>({a: 'foo'});
+
+        result = _('abc').sample();
+        result = _(array).sample();
+        result = _(list).sample<string>();
+        result = _(dictionary).sample<string>();
+        result = _(numericDictionary).sample<string>();
+        result = _({a: 'foo'}).sample<string>();
+    }
+
+    {
+        let result: string[];
+
+        result = _.sample('abc', 42);
+        result = _.sample(array, 42);
+        result = _.sample(list, 42);
+        result = _.sample(dictionary, 42);
+        result = _.sample(numericDictionary, 42);
+        result = _.sample<{a: string}, string>({a: 'foo'}, 42);
+        result = _.sample<string>({a: 'foo'}, 42);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _('abc').sample(42);
+        result = _(array).sample(42);
+        result = _(list).sample<string>(42);
+        result = _(dictionary).sample<string>(42);
+        result = _(numericDictionary).sample<string>(42);
+        result = _({a: 'foo'}).sample<string>(42);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('abc').chain().sample();
+        result = _(array).chain().sample<_.LoDashExplicitWrapper<string>>();
+        result = _(list).chain().sample<_.LoDashExplicitWrapper<string>>();
+        result = _(dictionary).chain().sample<_.LoDashExplicitWrapper<string>>();
+        result = _(numericDictionary).chain().sample<_.LoDashExplicitWrapper<string>>();
+        result = _({a: 'foo'}).chain().sample<_.LoDashExplicitWrapper<string>>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _('abc').chain().sample(42);
+        result = _(array).chain().sample(42);
+        result = _(list).chain().sample<string>(42);
+        result = _(dictionary).chain().sample<string>(42);
+        result = _(numericDictionary).chain().sample<string>(42);
+        result = _({a: 'foo'}).chain().sample<string>(42);
     }
 }
 
