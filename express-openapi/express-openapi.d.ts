@@ -180,7 +180,7 @@ declare module "express-openapi" {
             collectionFormat?: string
             'default'?: any
             maximum?: number
-            exclusiveMaximum: boolean
+            exclusiveMaximum?: boolean
             minimum?: number
             exclusiveMinimum?: boolean
             maxLength?: number
@@ -197,9 +197,11 @@ declare module "express-openapi" {
             [index: string]: ParameterObject
         }
 
-        type Parameters = (ParameterObject|ReferenceObject)[]
+        type Parameters = (ReferenceObject|Parameter)[]
 
-        export interface ParameterObject {
+        type Parameter = (InBodyParameterObject|GeneralParameterObject);
+
+        interface ParameterObject {
             name: string
             'in': string
             description?: string
