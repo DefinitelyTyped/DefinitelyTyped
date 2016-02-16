@@ -1,5 +1,33 @@
 /// <reference path="materialize-css.d.ts" />
 
+// Buttons
+
+$('.fixed-action-btn').openFAB();
+$('.fixed-action-btn').closeFAB();
+
+// Forms - Select
+
+$('select').material_select();
+$('select').material_select('destroy');
+
+// Forms - Date Picker
+
+$('.datepicker').pickadate({
+  selectMonths: true, // Creates a dropdown to control month
+  selectYears: 15 // Creates a dropdown of 15 years to control year
+});
+
+// Forms - Character Counter
+$('input#input_text, textarea#textarea1').characterCounter();
+
+// Navbar
+$(".dropdown-button").dropdown();
+$(".dropdown-button").dropdown({hover: false});
+
+$(".button-collapse").sideNav();
+
+
+
 // Collapsible
 var collapseHtml = '<ul class="collapsible" data-collapsible="accordion">' +
     '<li>' +
@@ -15,7 +43,7 @@ var collapseHtml = '<ul class="collapsible" data-collapsible="accordion">' +
       '<div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>' +
     '</li>' +
   '</ul>';
-  
+
 $(collapseHtml).collapsible({ accordion : false });
 $(collapseHtml).collapsible({ accordion : true });
 
@@ -23,6 +51,8 @@ $(collapseHtml).collapsible({ accordion : true });
 Materialize.toast('I am a toast!', 4000);
 Materialize.toast('I am a toast!', 3000, 'rounded');
 Materialize.toast('I am a toast!', 3000, 'rounded', () => console.log('callback'));
+var $toastContent = $('<span>I am toast content</span>');
+Materialize.toast($toastContent, 5000);
 
 // Dialogs - Tooltip
 var tooltipHtml = '<a class="btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>';
@@ -35,11 +65,11 @@ var dropDownHtml = '<a class="dropdown-button btn" data-beloworigin="true" href=
 $(dropDownHtml).dropdown({
       inDuration: 300,
       outDuration: 225,
-      constrain_width: false, 
-      hover: true, 
-      gutter: 0, 
-      belowOrigin: false, 
-      alignment: 'left' 
+      constrain_width: false,
+      hover: true,
+      gutter: 0,
+      belowOrigin: false,
+      alignment: 'left'
 });
 $(dropDownHtml).dropdown({});
 
@@ -87,7 +117,21 @@ var sliderHtml = '<div class="slider">' +
  $(sliderHtml).slider({ indicators: true, height: 5 });
  $(sliderHtml).slider({ indicators: true, height: 5, transition: 4 });
  $(sliderHtml).slider({ indicators: true, height: 5, transition: 4, interval: 5 });
- 
+
+// Carousel
+
+$('.carousel').carousel();
+$('.carousel').carousel({});
+$('.carousel').carousel({ time_constant: 200, dist: -100, shift: 500, padding: 6000, full_width: 6000 });
+
+// Next slide
+$('.carousel').carousel('next');
+$('.carousel').carousel('next', [3]); // Move next n times.
+// Previous slide
+$('.carousel').carousel('prev');
+$('.carousel').carousel('prev', [4]); // Move prev n times.
+
+
 // Modals
 var modalhtml = '<div id="modal1" class="modal bottom-sheet">' +
     '<div class="modal-content">' +
@@ -100,7 +144,7 @@ var modalhtml = '<div id="modal1" class="modal bottom-sheet">' +
   '</div>';
 $(modalhtml).openModal();
 $(modalhtml).closeModal();
-  
+
 var modalTriggerHtml = '<button data-target="modal1" class="btn modal-trigger">Modal</button>';
 $(modalTriggerHtml).leanModal();
 $(modalTriggerHtml).leanModal({});
@@ -116,19 +160,19 @@ var parallaxHtml = '<div class="parallax-container">' +
       '<div class="parallax"><img src="images/parallax1.jpg"></div>' +
     '</div>';
  $(parallaxHtml).parallax();
- 
+
  // PushPin
  $('<div />').pushpin();
  $('<div />').pushpin({ top: 1 });
  $('<div />').pushpin({ top: 1, bottom: 1 });
  $('<div />').pushpin({ top: 1, bottom: 1, offset: 2 });
- 
+
 // ScrollFire
 var options = [
   {selector: '.class', offset: 200, callback: 'console.log(".class")' },
   {selector: '.other-class', offset: 200, callback: 'console.log(".other-class")' },
 ];
-Materialize.scrollFire(options); 
+Materialize.scrollFire(options);
 
 // ScrollSpy
 var scrollSpyHtml = '<div class="row">' +
@@ -188,8 +232,9 @@ var tabsHtml = '<div class="row">' +
     '<div id="test3" class="col s12">Test 3</div>' +
     '<div id="test4" class="col s12">Test 4</div>' +
   '</div>';
-  
+
  $(tabsHtml).tabs();
  $(tabsHtml).tabs('select_tab', 'test1');
- 
-  
+
+// Transitions
+Materialize.showStaggeredList('#staggered-test');
