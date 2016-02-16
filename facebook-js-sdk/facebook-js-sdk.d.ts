@@ -12,8 +12,13 @@ declare module facebook {
         // AppEvents: any;
         // Canvas: any;
         // Event: any;
-        // getAccessToken: any;
-        // getAuthResponse: any;
+        /**
+         * The method FB.getAuthResponse() is a synchronous accessor for the current authResponse.
+         * The synchronous nature of this method is what sets it apart from the other login methods.
+         *
+         * @param callback function to handle the response.
+         */
+        getAuthResponse(callback: (response: ILoginStatusResp) => void): void;
         /**
          * FB.getLoginStatus() allows you to determine if a user is
          * logged in to Facebook and has authenticated your app.
