@@ -21,7 +21,7 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 
 
 import * as React from 'react-native'
-const  { StyleSheet, Text, View } = React
+const  { StyleSheet, Text, View, AppState, AppStateIOS } = React
 
 var styles = StyleSheet.create(
     {
@@ -67,5 +67,20 @@ class Welcome extends React.Component<any,any> {
     }
 }
 
-export default Welcome
+export default Welcome;
 
+// App State
+
+function appStateListener(state : string) {
+    console.log('New state: ' + state);
+}
+
+function appStateTest() {
+    console.log('Current state: ' + AppState.currentState);
+    AppState.addEventListener('change', appStateListener);
+}
+
+function appStateIOSTest() {
+    console.log('Current state: ' + AppStateIOS.currentState);
+    AppStateIOS.addEventListener('change', appStateListener);
+}
