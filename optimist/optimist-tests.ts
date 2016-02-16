@@ -35,7 +35,7 @@ parser = parser.options({});
 
 parser = parser.usage(str);
 
-parser.check(checkFn);
+parser = parser.check(checkFn);
 
 parser = parser.boolean(str);
 parser = parser.boolean([str]);

@@ -60,7 +60,7 @@ declare module "optimist" {
 			/** Check that certain conditions are met in the provided arguments. If fn
 			throws or returns false, show the thrown error, usage information, and exit.
 			*/
-			check(fn: (argv: any) => any): void;
+			check(fn: (argv: any) => any): Parser;
 
 			/** Interpret key as a boolean. If a non-flag option follows key in process.argv,
 			that string won't get set as the value of key. If key never shows up as a
