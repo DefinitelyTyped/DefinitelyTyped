@@ -251,6 +251,28 @@ declare module "express-openapi" {
         routes: string
     }
 
+    export interface OperationFunction extends express.RequestHandler {
+        apiDoc?: OpenApi.OperationObject;
+    }
+
+    export interface OperationHandlerArray {
+        apiDoc?: OpenApi.OperationObject;
+        [index: number]: express.RequestHandler;
+    }
+
+    export type Operation = OperationFunction | OperationHandlerArray;
+
+    export interface PathModule {
+        parameters?: OpenApi.Parameters;
+        get?: Operation;
+        put?: Operation;
+        post?: Operation;
+        delete?: Operation;
+        patch?: Operation;
+        options?: Operation;
+        head?: Operation;
+    }
+
     interface IJsonSchema {
         id?: string
         $schema?: string

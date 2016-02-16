@@ -13,8 +13,43 @@ api = openapi.initialize({
     routes: './api-routes'
 });
 
-app.use(function (err, req, res, next) {
-    res.status(err.status).json(err);
-});
-
 app.listen(3000);
+
+// "./api-routes/user/{id}.ts"
+export var get: openapi.Operation = (req, res, next) => {
+};
+
+export var post: openapi.Operation = [(req, res, next) => {}];
+
+export var parameters = [
+    {
+        name: 'id',
+        in: 'path',
+        type: 'string'
+    }
+];
+
+get.apiDoc = {
+    description: 'get user information',
+    operationId: 'getUser',
+    parameters: [
+        {
+            name: 'includeDetail',
+            in: 'query',
+            type: 'boolean'
+        }
+    ],
+    responses: {
+        default: {$ref: '#/definitions/error'}
+    },
+    "x-some-vendor-property": {}
+};
+
+post.apiDoc = {
+    description: 'post to user',
+    operationId: 'postToUser',
+    responses: {
+        default: {$ref: '#/definitions/error'}
+    },
+    "x-some-vendor-property": {}
+}
