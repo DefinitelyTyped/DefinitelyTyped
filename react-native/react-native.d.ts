@@ -980,6 +980,31 @@ declare namespace  __React {
     }
 
     /**
+     * @see https://facebook.github.io/react-native/docs/viewpagerandroid.html#props
+     */
+
+
+    export interface ViewPagerAndroidOnPageScrollEventData {
+        position: number;
+        offset: number;
+    }
+
+    export interface ViewPagerAndroidOnPageSelectedEventData {
+        position: number;
+    }
+
+    export interface ViewPagerAndroidProperties extends ViewProperties {
+        initialPage?: number;
+        onPageScroll?: ( event: NativeSyntheticEvent<ViewPagerAndroidOnPageScrollEventData> ) => void;
+        onPageSelected?: ( event: NativeSyntheticEvent<ViewPagerAndroidOnPageSelectedEventData> ) => void;
+        keyboardDismissMode?: string; /* enum('none', 'on-drag') */
+    }
+
+    export interface ViewPagerAndroidStatic extends NativeComponent, React.ComponentClass<ViewPagerAndroidProperties> {
+
+    }
+
+    /**
      * //FIXME: No documentation extracted from code comment on WebView.ios.js
      */
     export interface NavState {
@@ -3363,6 +3388,9 @@ declare namespace  __React {
 
     export var View: ViewStatic
     export type View = ViewStatic
+
+    export var ViewPagerAndroid: ViewPagerAndroidStatic
+    export type ViewPagerAndroid = ViewPagerAndroidStatic
 
     export var WebView: WebViewStatic
     export type WebView = WebViewStatic
