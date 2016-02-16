@@ -283,7 +283,7 @@ function test_socketsTcpServer(): void {
     chrome.sockets.udp.getInfo(socketId, (info: chrome.sockets.udp.SocketInfo) => { });
 
     // getSockets
-    chrome.sockets.tcp.getSockets(socketId, (infos: chrome.sockets.tcp.SocketInfo[]) => { });
+    chrome.sockets.tcp.getSockets((infos: chrome.sockets.tcp.SocketInfo[]) => { });
 }
 
 function test_socketsTcpServerEvents(): void {
