@@ -1,5 +1,6 @@
 *.dll
 *.exe
+*.cmd
 *.pdb
 *.suo
 *.js
@@ -12,6 +13,7 @@
 *.map
 *.swp
 .DS_Store
+npm-debug.log
 
 _Resharper.DefinitelyTyped
 bin
@@ -22,8 +24,14 @@ Properties
 *~
 
 # test folder
-!_infrastructure/tests/*
-!_infrastructure/tests/*.js
-!_infrastructure/tests/*/*.js
-!_infrastructure/tests/*/*/*.js
-!_infrastructure/tests/*/*/*/*.js
+_infrastructure/tests/build
+
+.idea
+*.iml
+*.js.map
+!*.js/
+
+node_modules
+
+.sublimets
+.settings/launch.json

@@ -1,6 +1,6 @@
 ///<reference path="dustjs-linkedin.d.ts"/>
 
-import dust = module("dustjs-linkedin");
+import dust = require("dustjs-linkedin");
 
 //
 // compilation

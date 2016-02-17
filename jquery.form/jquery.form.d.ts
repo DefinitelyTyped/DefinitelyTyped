@@ -1,22 +1,22 @@
-// Type definitions for jQuery.form.js 3.26.0-2013.01.28
+﻿// Type definitions for jQuery.form.js 3.26.0-2013.01.28
 // Project: http://malsup.com/jquery/form/
-// Definitions by: Fran�ois Guillot <http://fguillot.developpez.com/>
+// Definitions by: François Guillot <http://fguillot.developpez.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
 interface JQueryFormOptions extends JQueryAjaxSettings {
-    beforeSerialize?: ($form: JQuery, options: JQueryFormOptions) => bool;
-    beforeSubmit?: (formData: any[], $form: JQuery, options: JQueryFormOptions) => bool;
-    clearForm?: bool;
-    forceSync?: bool;
-    iframe?: bool;
+    beforeSerialize?: ($form: JQuery, options: JQueryFormOptions) => boolean;
+    beforeSubmit?: (formData: any[], $form: JQuery, options: JQueryFormOptions) => boolean;
+    clearForm?: boolean;
+    forceSync?: boolean;
+    iframe?: boolean;
     iframeSrc?: string;
     iframeTarget?: any;
-    replaceTarget?: bool;
-    resetForm?: bool;
-    semantic?: bool;
+    replaceTarget?: boolean;
+    resetForm?: boolean;
+    semantic?: boolean;
     target?: any;
     uploadProgress?: (event: ProgressEvent, position: number, total: number, percentComplete: number) => void;
 }
@@ -27,11 +27,11 @@ interface JQueryForm {
 }
 
 interface JQueryFormWithDebug extends JQueryForm {
-    debug: bool;
+    debug: boolean;
 }
 
 interface JQueryStatic {
-    fieldValue(element: Element, successful?: bool): string;
+    fieldValue(element: Element, successful?: boolean): string;
 }
 
 interface JQuery {
@@ -39,12 +39,12 @@ interface JQuery {
     ajaxSubmit: JQueryFormWithDebug;
     formSerialize(): string;
     fieldSerialize(): string;
-    fieldValue(successful?: bool): string[];
+    fieldValue(successful?: boolean): string[];
     resetForm(): JQuery;
     clearForm(): JQuery;
     clearFields(): JQuery;
     ajaxFormUnbind: () => JQuery;
-    formToArray: (semantic?: bool, elements?: Element[]) => any[];
-    enable: (enable?: bool) => JQuery;
-    selected: (select?: bool) => JQuery;
+    formToArray: (semantic?: boolean, elements?: Element[]) => any[];
+    enable: (enable?: boolean) => JQuery;
+    selected: (select?: boolean) => JQuery;
 }

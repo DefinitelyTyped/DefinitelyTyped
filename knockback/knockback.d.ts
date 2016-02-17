@@ -1,38 +1,43 @@
-﻿/// <reference path="../backbone/backbone.d.ts" />
+// Type definitions for Knockback.js
+// Project: http://kmalakoff.github.io/knockback/
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="../backbone/backbone.d.ts" />
 /// <reference path="../knockout/knockout.d.ts" />
 
 declare module Knockback {
-    export interface EventWatcherOptions {
+    interface EventWatcherOptions {
         emitter: (newEmitter) => void;
         update: (newValue) => void;
         event_selector: string;
         key?: string;
     }
 
-    export interface FactoryOptions {
+    interface FactoryOptions {
         factories: any;
     }
 
-    export interface StoreOptions {
+    interface StoreOptions {
         creator: any;
         path: string;
         store: Store;
         factory: Factory;
     }
 
-    export class Destroyable {
+    class Destroyable {
         destroy();
     }
 
-    export class ViewModel extends Destroyable {
+    class ViewModel extends Destroyable {
         constructor (model?: Backbone.Model, options?: ViewModelOptions, viewModel?: ViewModel);
         shareOptions(): ViewModelOptions;
         extend(source: any);
         model(): Backbone.Model;
     }
 
-    export class EventWatcher extends Destroyable {
-        static useOptionsOrCreate(options, emitter: KnockoutObservableAny, obj: Backbone.Model, callback_options: any);
+    class EventWatcher extends Destroyable {
+        static useOptionsOrCreate(options, emitter: KnockoutObservable<any>, obj: Backbone.Model, callback_options: any);
         
         emitter(): Backbone.Model;
         emitter(newEmitter: Backbone.Model);
@@ -40,50 +45,50 @@ declare module Knockback {
         releaseCallbacks(obj: any);
     }
 
-    export class Factory {
+    class Factory {
         static useOptionsOrCreate(options: FactoryOptions, obj: any, owner_path: string);
 
         constructor (parent_factory: any);
-        hasPath(path: string): bool;
+        hasPath(path: string): boolean;
         addPathMapping(path: string, create_info);
         addPathMappings(factories: any, owner_path: string);
-        hasPathMappings(factories: any, owner_path: string): bool;
+        hasPathMappings(factories: any, owner_path: string): boolean;
         creatorForPath(obj: any, path: string);
     }
 
-    export class Store extends Destroyable {
-        static useOptionsOrCreate(options: StoreOptions, obj: any, observable: KnockoutObservableAny);
+    class Store extends Destroyable {
+        static useOptionsOrCreate(options: StoreOptions, obj: any, observable: KnockoutObservable<any>);
         
         constructor (model:Backbone.Model, options: StoreOptions);
         clear();
-        register(obj: Backbone.Model, observable: KnockoutObservableAny, options: StoreOptions);
+        register(obj: Backbone.Model, observable: KnockoutObservable<any>, options: StoreOptions);
         findOrCreate(obj: Backbone.Model, options: StoreOptions);
     }
 
-    export class DefaultObservable extends Destroyable {
-        constructor (targetObservable: KnockoutObservableAny, defaultValue: any);
+    class DefaultObservable extends Destroyable {
+        constructor (targetObservable: KnockoutObservable<any>, defaultValue: any);
         setToDefault();
     }
 
-    export class FormattedObservable extends Destroyable {
+    class FormattedObservable extends Destroyable {
         constructor (format: string, args: any[]);
-        constructor (format: KnockoutObservableAny, args: any[]);
+        constructor (format: KnockoutObservable<any>, args: any[]);
     }
 
-    export interface LocalizedObservable {
+    interface LocalizedObservable {
         constructor (value: any, options: any, vm: any);
         destroy();
         resetToCurrent();
         observedValue(value: any);
     }
 
-    export class TriggeredObservable extends Destroyable {
+    class TriggeredObservable extends Destroyable {
         constructor (emitter: Backbone.ModelBase, event: string);
         emitter(): Backbone.ModelBase;
         emitter(newEmitter: Backbone.ModelBase);
     }
 
-    export class Statistics {
+    class Statistics {
         constructor ();
         clear();
         addModelEvent(event: string);
@@ -94,14 +99,14 @@ declare module Knockback {
         registeredStatsString(success_message: string): string;
     }
 
-    export interface OptionsBase {
+    interface OptionsBase {
         path?: string;               // the path to the value (used to create related observables from the factory).
         store?: Store;               // a store used to cache and share view models.
         factory?: Factory;           // a factory used to create view models.
         options?: any;               // a set of options merge into these options using _.defaults. Useful for extending options when deriving classes rather than merging them by hand.
     }
 
-    export interface ViewModelOptions extends OptionsBase {
+    interface ViewModelOptions extends OptionsBase {
         internals?: string[];       // an array of atttributes that should be scoped with an underscore, eg. name -> _name
         requires?: string[];        // an array of atttributes that will have kb.Observables created even if they do not exist on the Backbone.Model. Useful for binding Views that require specific observables to exist
         keys?: string[];            // restricts the keys used on a model. Useful for reducing the number of kb.Observables created from a limited set of Backbone.Model attributes
@@ -110,8 +115,8 @@ declare module Knockback {
         factories?: any;            // a map of dot-deliminated paths; for example {'models.name': kb.ViewModel} to either constructors or create functions. Signature: {'some.path': function(object, options)}
     }
 
-    export interface CollectionOptions extends OptionsBase {
-        models_only?: bool;         // flag for skipping the creation of view models. The collection observable will be populated with (possibly sorted) models.
+    interface CollectionOptions extends OptionsBase {
+        models_only?: boolean;         // flag for skipping the creation of view models. The collection observable will be populated with (possibly sorted) models.
         view_model?: any;           // (Constructor) — the view model constructor used for models in the collection. Signature: constructor(model, options)
         create?: any;               // a function used to create a view model for models in the collection. Signature: create(model, options)
         factories?: any;            // a map of dot-deliminated paths; for example 'models.owner': kb.ViewModel to either constructors or create functions. Signature: 'some.path': function(object, options)
@@ -120,21 +125,21 @@ declare module Knockback {
         filters?: any;              // filters can be individual ids (observable or simple) or arrays of ids, functions, or arrays of functions.
     }
 
-    export interface CollectionObservable extends KnockoutObservableArray {
-        collection(colleciton: Backbone.Collection);
-        collection(): Backbone.Collection;
+    interface CollectionObservable extends KnockoutObservableArray<any> {
+        collection(colleciton: Backbone.Collection<Backbone.Model>);
+        collection(): Backbone.Collection<Backbone.Model>;
         destroy();
         shareOptions():  CollectionOptions;
         filters(id: any) : Backbone.Model;
         filters(ids: any[]): CollectionObservable;
-        filters(iterator: (element: Backbone.Model) => bool): CollectionObservable;
+        filters(iterator: (element: Backbone.Model) => boolean): CollectionObservable;
         comparator(comparatorFunction: any);
         sortAttribute(attr: string);
         viewModelByModel(model: Backbone.Model): ViewModel;
-        hasViewModels(): bool;
+        hasViewModels(): boolean;
     }
 
-    export interface Utils {
+    interface Utils {
         wrappedObservable(obj: any): any;
         wrappedObservable(obj: any, value: any);
         wrappedObject(obj: any): any;
@@ -148,17 +153,19 @@ declare module Knockback {
         wrappedEventWatcher(obj: any): any;
         wrappedEventWatcher(obj: any, value: any);
         wrappedDestroy(obj: any);
-        valueType(observable: KnockoutObservableAny): any;
+        valueType(observable: KnockoutObservable<any>): any;
         pathJoin(path1: string, path2: string): string;
         optionsPathJoin(options: any, path: string): any;
         inferCreator(value: any, factory: Factory, path: string, owner: any, key: string);
         createFromDefaultCreator(obj: any, options?: any);
-        hasModelSignature(obj: any): bool;
-        hasCollectionSignature(obj: any): bool;
+        hasModelSignature(obj: any): boolean;
+        hasCollectionSignature(obj: any): boolean;
     }
 
-    export interface Static extends Utils {
-    	collectionObservable(model?: Backbone.Collection, options?: CollectionOptions): CollectionObservable;
+    interface Static extends Utils {
+    	ViewModel;
+    	CollectionObservable;
+        collectionObservable(model?: Backbone.Collection<Backbone.Model>, options?: CollectionOptions): CollectionObservable;
     	/** Base class for observing model attributes. */
     	observable(
 			/** the model to observe (can be null) */
@@ -166,19 +173,19 @@ declare module Knockback {
 			/** the create options. String is a single attribute name, Array is an array of attribute names. */
 				options: IObservableOptions,
 			/** the viewModel */
-			vm?: ViewModel): KnockoutObservableAny;
+			vm?: ViewModel): KnockoutObservable<any>;
         observable(
 			/** the model to observe (can be null) */
         	model: Backbone.Model,
     		/** the create options. String is a single attribute name, Array is an array of attribute names. */
         	options_attributeName: string,
 			/** the viewModel */
-			vm?: ViewModel): KnockoutObservableAny;
-        viewModel(model?: Backbone.Model, options?: any): KnockoutObservableAny;
-        defaultObservable(targetObservable: KnockoutObservableAny, defaultValue: any): KnockoutObservableAny;
-        formattedObservable(format: string, args: any[]): KnockoutObservableAny;
-        formattedObservable(format: KnockoutObservableAny, args: any[]): KnockoutObservableAny;
-        localizedObservable(data: any, options: any): KnockoutObservableAny;
+			vm?: ViewModel): KnockoutObservable<any>;
+        viewModel(model?: Backbone.Model, options?: any): KnockoutObservable<any>;
+        defaultObservable(targetObservable: KnockoutObservable<any>, defaultValue: any): KnockoutObservable<any>;
+        formattedObservable(format: string, args: any[]): KnockoutObservable<any>;
+        formattedObservable(format: KnockoutObservable<any>, args: any[]): KnockoutObservable<any>;
+        localizedObservable(data: any, options: any): KnockoutObservable<any>;
         release(object: any, pre_release?: () => void );
         releaseKeys(object: any);
         releaseOnNodeRemove(viewmodel: ViewModel, node: Element);
@@ -204,7 +211,7 @@ declare module Knockback {
     	key: string;
     	read?: () => any;
     	write?: (value: any) => void;
-    	args?: KnockoutObservableAny[];
+    	args?: KnockoutObservable<any>[];
     	localizer?: LocalizedObservable;
     	default?: any;
     	path?: string;
@@ -213,6 +220,6 @@ declare module Knockback {
     	options?: any;
     }
 
-};
+}
 
 declare var kb: Knockback.Static;

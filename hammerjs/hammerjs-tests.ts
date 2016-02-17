@@ -1,32 +1,115 @@
-/// <reference path="../jquery/jquery.d.ts"/>
+// Tests based on examples at http://hammerjs.github.io/examples/
+
 /// <reference path="hammerjs.d.ts" />
 
-var hammer = new Hammer(document.getElementById("container"));
-hammer.ondragstart = function (ev) { };
-hammer.ondrag = function (ev) { };
-hammer.ondragend = function (ev) { };
-hammer.onswipe = function (ev) { };
+(() =>
+{
+  var myElement = document.getElementById( 'myElement' );
 
-hammer.ontap = function (ev) { };
-hammer.ondoubletap = function (ev) { };
-hammer.onhold = function (ev) { };
+  // create a simple instance
+  // by default, it only adds horizontal recognizers
+  var mc = new Hammer( myElement );
 
-hammer.ontransformstart = function (ev) { };
-hammer.ontransform = function (ev) { };
-hammer.ontransformend = function (ev) { };
+  // listen to events...
+  mc.on( "panleft panright tap press", function ( ev )
+  {
+    myElement.textContent = ev.type + " gesture detected.";
+  } );
+})();
 
-hammer.onrelease = function (ev) { };
 
-$("#element")
-   .hammer({
-       // Options
-   })
-   .bind("tap", function (ev) {
-       console.log(ev);
-   });
+(() =>
+{
+  var myElement = document.getElementById( 'myElement' );
 
-$("#container").hammer({
-    prevent_default: false,
-    drag_vertical: false
-}).bind("hold tap doubletap transformstart transform transformend dragstart drag dragend release swipe", function (ev) {
-});
+  // create a simple instance
+  // by default, it only adds horizontal recognizers
+  var mc = new Hammer( myElement );
+
+  // let the pan gesture support all directions.
+  // this will block the vertical scrolling on a touch-device while on the element
+  mc.get( 'pan' ).set( {direction: Hammer.DIRECTION_ALL} );
+
+  // listen to events...
+  mc.on( "panleft panright panup pandown tap press", function ( ev:HammerInput )
+  {
+    myElement.textContent = ev.type + " gesture detected.";
+  } );
+})();
+
+
+(() =>
+{
+  var myElement = document.getElementById( 'myElement' );
+
+  var mc = new Hammer.Manager( myElement );
+
+  // create a pinch and rotate recognizer
+  // these require 2 pointers
+  var pinch = new Hammer.Pinch();
+  var rotate = new Hammer.Rotate();
+
+  // we want to detect both the same time
+  pinch.recognizeWith( rotate );
+
+  // add to the Manager
+  mc.add( [pinch, rotate] );
+
+
+  mc.on( "pinch rotate", function ( ev:HammerInput )
+  {
+    myElement.textContent += ev.type + " ";
+  } );
+})();
+
+
+(() =>
+{
+  var myElement = document.getElementById( 'myElement' );
+
+  // We create a manager object, which is the same as Hammer(), but without the presetted recognizers.
+  var mc = new Hammer.Manager( myElement );
+
+  // Default, tap recognizer
+  mc.add( new Hammer.Tap() );
+
+  // Tap recognizer with minimal 4 taps
+  mc.add( new Hammer.Tap( {event: 'quadrupletap', taps: 4} ) );
+
+  // we want to recognize this simulatenous, so a quadrupletap will be detected even while a tap has been recognized.
+  // the tap event will be emitted on every tap
+  mc.get( 'quadrupletap' ).recognizeWith( 'tap' );
+
+
+  mc.on( "tap quadrupletap", function ( ev )
+  {
+    myElement.textContent += ev.type + " ";
+  } );
+})();
+
+
+(() =>
+{
+  var myElement = document.getElementById( 'myElement' );
+
+  // We create a manager object, which is the same as Hammer(), but without the presetted recognizers.
+  var mc = new Hammer.Manager( myElement );
+
+
+  // Tap recognizer with minimal 2 taps
+  mc.add( new Hammer.Tap( {event: 'doubletap', taps: 2} ) );
+  // Single tap recognizer
+  mc.add( new Hammer.Tap( {event: 'singletap'} ) );
+
+
+  // we want to recognize this simulatenous, so a quadrupletap will be detected even while a tap has been recognized.
+  mc.get( 'doubletap' ).recognizeWith( 'singletap' );
+  // we only want to trigger a tap, when we don't have detected a doubletap
+  mc.get( 'singletap' ).requireFailure( 'doubletap' );
+
+
+  mc.on( "singletap doubletap", function ( ev )
+  {
+    myElement.textContent += ev.type + " ";
+  } );
+})();

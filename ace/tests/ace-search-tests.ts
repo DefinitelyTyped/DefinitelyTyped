@@ -1,6 +1,7 @@
 /// <reference path="../ace.d.ts" />
 
-exports = {
+var assert: any;
+var exports = {
     "test: configure the search object": function () {
         var search = new AceAjax.Search();
         search.set({

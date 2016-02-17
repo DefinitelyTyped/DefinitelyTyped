@@ -38,7 +38,7 @@ function test_computed() {
         this.firstName = ko.observable('Planet');
         this.lastName = ko.observable('Earth');
 
-        this.fullName = ko.computed({
+        this.fullName = ko.computed<string>({
             read: function () {
                 return this.firstName() + " " + this.lastName();
             },
@@ -53,26 +53,26 @@ function test_computed() {
         });
     }
 
-    function MyViewModel() {
+    function MyViewModel1() {
         this.price = ko.observable(25.99);
 
-        this.formattedPrice = ko.computed({
+        this.formattedPrice = ko.computed<string>({
             read: function () {
                 return '$' + this.price().toFixed(2);
             },
             write: function (value) {
-                value = parseFloat(value.replace(/[^\.\d]/g, ""));
-                this.price(isNaN(value) ? 0 : value);
+                var num = parseFloat(value.replace(/[^\.\d]/g, ""));
+                this.price(isNaN(num) ? 0 : num);
             },
             owner: this
         });
     }
 
-    function MyViewModel() {
+    function MyViewModel2() {
         this.acceptedNumericValue = ko.observable(123);
         this.lastInputWasValid = ko.observable(true);
 
-        this.attemptedValue = ko.computed({
+        this.attemptedValue = ko.computed<number>({
             read: this.acceptedNumericValue,
             write: function (value) {
                 if (isNaN(value))
@@ -90,13 +90,13 @@ function test_computed() {
 }
 
 class GetterViewModel {
-    private _selectedRange: KnockoutObservableAny;
+    private _selectedRange: KnockoutObservable<any>;
 
     constructor() {
         this._selectedRange = ko.observable();
     }
 
-    public range: KnockoutObservableAny;
+    public range: KnockoutObservable<any>;
 }
 
 function testGetter() {
@@ -107,7 +107,7 @@ function testGetter() {
 }
 
 function test_observableArrays() {
-    var myObservableArray = ko.observableArray();
+    var myObservableArray = ko.observableArray<any>();
     myObservableArray.push('Some value');
     var anotherObservableArray = ko.observableArray([
         { name: "Bungle", type: "Bear" },
@@ -124,7 +124,7 @@ function test_observableArrays() {
     myObservableArray.unshift('Some new value');
     myObservableArray.shift();
     myObservableArray.reverse();
-    myObservableArray.sort(function (left, right) { return left.lastName == right.lastName ? 0 : (left.lastName < right.lastName ? -1 : 1) });
+    myObservableArray.sort(function (left, right) { return left == right ? 0 : (left < right ? -1 : 1) });
     myObservableArray.splice(1, 3);
 
     myObservableArray.remove('Blah');
@@ -163,6 +163,7 @@ function test_bindings() {
 
     ko.bindingHandlers.yourBindingName = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        	return { "controlsDescendantBindings": true };
         },
         update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         }
@@ -180,8 +181,6 @@ function test_bindings() {
         init: function (element, valueAccessor) {
             var value = ko.utils.unwrapObservable(valueAccessor());
             $(element).toggle(value);
-        },
-        update: function (element, valueAccessor, allBindingsAccessor) {
         }
     };
     ko.bindingHandlers.hasFocus = {
@@ -244,7 +243,6 @@ function test_bindings() {
     };
 
     var node, containerElem, nodeToInsert, insertAfter, nodeToPrepend, arrayOfNodes;
-    ko.virtualElements.allowedBindings.mySuperBinding = true;
     ko.virtualElements.emptyNode(containerElem);
     ko.virtualElements.firstChild(containerElem);
     ko.virtualElements.insertAfter(containerElem, nodeToInsert, insertAfter);
@@ -260,8 +258,8 @@ interface KnockoutExtenders {
     required(target, overrideMessage);
 }
 
-interface KnockoutObservableArrayFunctions {
-    filterByProperty(propName, matchValue): KnockoutComputed;
+interface KnockoutObservableArrayFunctions<T> {
+    filterByProperty(propName, matchValue): KnockoutComputed<any>;
 }
 
 declare var validate;
@@ -287,7 +285,7 @@ function test_more() {
     };
 
     ko.extenders.numeric = function (target, precision) {
-        var result = ko.computed({
+        var result = ko.computed<any>({
             read: target,
             write: function (newValue) {
                 var current = target(),
@@ -334,12 +332,12 @@ function test_more() {
         return target;
     };
 
-    function AppViewModel(first, last) {
+    function AppViewModel2(first, last) {
         this.firstName = ko.observable(first).extend({ required: "Please enter a first name" });
         this.lastName = ko.observable(last).extend({ required: "" });
     }
 
-    ko.applyBindings(new AppViewModel("Bob", "Smith"));
+    ko.applyBindings(new AppViewModel2("Bob", "Smith"));
 
     var first;
     this.firstName = ko.observable(first).extend({ required: "Please enter a first name", logChange: "first name" });
@@ -348,7 +346,7 @@ function test_more() {
         return name.toUpperCase();
     }).extend({ throttle: 500 });
 
-    function AppViewModel() {
+    function AppViewModel3() {
         this.instantaneousValue = ko.observable();
         this.throttledValue = ko.computed(this.instantaneousValue)
                                 .extend({ throttle: 400 });
@@ -421,7 +419,7 @@ function test_more() {
         this.done = ko.observable(done);
     }
 
-    function AppViewModel() {
+    function AppViewModel4() {
         this.tasks = ko.observableArray([
             new Task('Find new desktop background', true),
             new Task('Put shiny stickers on laptop', false),
@@ -431,7 +429,7 @@ function test_more() {
         this.doneTasks = this.tasks.filterByProperty("done", true);
     }
 
-    ko.applyBindings(new AppViewModel());
+    ko.applyBindings(new AppViewModel4());
     this.doneTasks = ko.computed(function () {
     var all = this.tasks(), done = [];
         for (var i = 0; i < all.length; i++)
@@ -442,7 +440,7 @@ function test_more() {
 }
 
 function test_mappingplugin() {
-    var viewModel = {
+    var viewModel0 = {
         serverTime: ko.observable(),
         numUsers: ko.observable()
     }
@@ -450,8 +448,8 @@ function test_mappingplugin() {
         serverTime: '2010-01-07',
         numUsers: 3
     };
-    viewModel.serverTime(data.serverTime);
-    viewModel.numUsers(data.numUsers);
+    viewModel0.serverTime(data.serverTime);
+    viewModel0.numUsers(data.numUsers);
 
     var viewModel = ko.mapping.fromJS(data);
     ko.mapping.fromJS(data, viewModel);
@@ -494,7 +492,7 @@ function test_mappingplugin() {
 }
 
 // Define your own functions
-interface KnockoutSubscribableFunctions {
+interface KnockoutSubscribableFunctions<T> {
     publishOn(topic: string): any;
     subscribeTo(topic: string): any;
 }
@@ -527,7 +525,7 @@ function test_misc() {
         return this;
     };
 
-    this.myObservable = <KnockoutObservableString>ko.observable("myValue").publishOn("myTopic");
+    this.myObservable = <KnockoutObservable<string>>ko.observable("myValue").publishOn("myTopic");
 
     ko.subscribable.fn.subscribeTo = function (topic) {
         postbox.subscribe(this, null, topic);
@@ -535,7 +533,7 @@ function test_misc() {
         return this;
     };
 
-    this.observableFromAnotherVM = <KnockoutObservableAny>ko.observable().subscribeTo("myTopic");
+    this.observableFromAnotherVM = <KnockoutObservable<any>>ko.observable().subscribeTo("myTopic");
 
     postbox.subscribe(function (newValue) {
         this(newValue);
@@ -571,4 +569,89 @@ function test_misc() {
     ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
         $(element).datepicker("destroy");
     });
+	
+	this.observableFactory = function(): KnockoutObservable<number>{
+	    if (true) {
+			return ko.computed({
+				read:function(){ 
+					return 3; 
+				}
+			});
+		} else {
+			return ko.observable(3);
+		}
+	}
+	
+}
+
+interface KnockoutBindingHandlers {
+    allBindingsAccessorTest: KnockoutBindingHandler;
+}
+
+function test_allBindingsAccessor() {
+    ko.bindingHandlers.allBindingsAccessorTest = {
+        init: (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext) => {
+            var allBindings = allBindingsAccessor();
+            var hasBinding = allBindingsAccessor.has("myBindingName");
+            var myBinding = allBindingsAccessor.get("myBindingName");
+            var fnAccessorBinding = allBindingsAccessor().myBindingName;
+        },
+        update: (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext) => {
+            var allBindings = allBindingsAccessor();
+            var hasBinding = allBindingsAccessor.has("myBindingName");
+            var myBinding = allBindingsAccessor.get("myBindingName");
+            var fnAccessorBinding = allBindingsAccessor().myBindingName;
+        }
+    };
+}
+
+
+function test_Components() {
+
+    // test all possible ko.components.register() overloads
+    function test_Register() {
+        // reused parameters
+        var nodeArray = [new Node, new Node];
+        var singleNode = new Node;
+        var viewModelFn = function (params: any) { return <any>null; }
+
+        // ------- viewmodel overloads:
+
+        // viewModel as inline function (commonly used in examples)
+        ko.components.register("name", { template: "string-template", viewModel: viewModelFn });
+
+        // viewModel from shared instance
+        ko.components.register("name", { template: "string-template", viewModel: { instance: null } });
+
+        // viewModel from createViewModel factory method
+        ko.components.register("name", { template: "string-template", viewModel: { createViewModel: function (params: any, componentInfo: KnockoutComponentTypes.ComponentInfo) { return null; } } });
+
+        // viewModel from an AMD module 
+        ko.components.register("name", { template: "string-template", viewModel: { require: "module" } });
+
+        // ------- template overloads
+
+        // template from named element
+        ko.components.register("name", { template: { element: "elementID" }, viewModel: viewModelFn });
+        
+        // template using single Node
+        ko.components.register("name", { template: { element: singleNode }, viewModel: viewModelFn });
+        
+        // template using Node array
+        ko.components.register("name", { template: nodeArray, viewModel: viewModelFn });
+        
+        // template using an AMD module 
+        ko.components.register("name", { template: { require: "text!module" }, viewModel: viewModelFn });
+
+        // Empty config for registering custom elements that are handled by name convention
+        ko.components.register('name', { /* No config needed */ });
+    }
+}
+
+
+function testUnwrapUnion() {
+    
+    var possibleObs: KnockoutObservable<number> | number;
+    var num = ko.unwrap(possibleObs);
+
 }

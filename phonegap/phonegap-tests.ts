@@ -73,9 +73,6 @@ function test_camera() {
         image.src = "data:image/jpeg;base64," + imageData;
     }
 
-    function onFail(message) {
-        alert('Failed because: ' + message);
-    }
 }
 
 function test_capture() {
@@ -110,73 +107,21 @@ function test_capture() {
     }
     var options = { limit: 3, duration: 10 };
     navigator.device.capture.captureAudio(captureSuccess, captureError, options);
-    var captureSuccess = function (mediaFiles) {
+    function captureSuccess2(mediaFiles) {
         var i, path, len;
         for (i = 0, len = mediaFiles.length; i < len; i += 1) {
             path = mediaFiles[i].fullPath;
         }
     };
-    var captureError = function (error) {
+    function captureError2(error) {
         navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
     };
-    navigator.device.capture.captureImage(captureSuccess, captureError, { limit: 2 });
-    function captureSuccess(mediaFiles) {
-        var i, len;
-        for (i = 0, len = mediaFiles.length; i < len; i += 1) {
-            uploadFile(mediaFiles[i]);
-        }
-    }
-    function captureError(error) {
-        var msg = 'An error occurred during capture: ' + error.code;
-        navigator.notification.alert(msg, null, 'Uh oh!');
-    }
+    navigator.device.capture.captureImage(captureSuccess2, captureError2, { limit: 2 });
     function captureImage() {
-        navigator.device.capture.captureImage(captureSuccess, captureError, { limit: 2 });
-    }
-    function uploadFile(mediaFile) {
-        var ft = new FileTransfer(),
-            path = mediaFile.fullPath,
-            name = mediaFile.name;
-
-        ft.upload(path,
-            "http://my.domain.com/upload.php",
-            function (result) {
-                console.log('Upload success: ' + result.responseCode);
-                console.log(result.bytesSent + ' bytes sent');
-            },
-            function (error) {
-                console.log('Error uploading file ' + path + ': ' + error.code);
-            },
-            { fileName: name });
-    }
-    function captureSuccess(mediaFiles) {
-        var i, len;
-        for (i = 0, len = mediaFiles.length; i < len; i += 1) {
-            uploadFile(mediaFiles[i]);
-        }
-    }
-    function captureError(error) {
-        var msg = 'An error occurred during capture: ' + error.code;
-        navigator.notification.alert(msg, null, 'Uh oh!');
+        navigator.device.capture.captureImage(captureSuccess2, captureError2, { limit: 2 });
     }
     function captureVideo() {
-        navigator.device.capture.captureVideo(captureSuccess, captureError, { limit: 2 });
-    }
-    function uploadFile(mediaFile) {
-        var ft = new FileTransfer(),
-            path = mediaFile.fullPath,
-            name = mediaFile.name;
-
-        ft.upload(path,
-            "http://my.domain.com/upload.php",
-            function (result) {
-                console.log('Upload success: ' + result.responseCode);
-                console.log(result.bytesSent + ' bytes sent');
-            },
-            function (error) {
-                console.log('Error uploading file ' + path + ': ' + error.code);
-            },
-            { fileName: name });
+        navigator.device.capture.captureVideo(captureSuccess2, captureError2, { limit: 2 });
     }
 }
 
@@ -191,9 +136,10 @@ function test_compass() {
     function onError(compassError) {
         alert('Compass Error: ' + compassError.code);
     }
+}
+
+function test_compass2() {
     var watchID = null;
-
-
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
         startWatch();
@@ -215,7 +161,9 @@ function test_compass() {
     function onError(compassError) {
         alert('Compass error: ' + compassError.code);
     }
-
+}
+function test_compass3() {
+    var watchID = null;
     function startWatch() {
         var options = { frequency: 3000 };
         watchID = navigator.compass.watchHeading(onSuccess, onError, options);
@@ -281,7 +229,17 @@ function test_contacts() {
     console.log("Original contact name = " + contact.name.givenName);
     console.log("Cloned contact name = " + clone.name.givenName);
     contact.remove(onSuccess, onError);
-
+}
+function test_contacts2() {
+    
+    function onSuccess(contacts) {
+        for (var i = 0; i < contacts.length; i++) {
+            console.log("Display Name = " + contacts[i].displayName);
+        }
+    }
+    function onError(contactError) {
+        alert('onError!');
+    }
     function onDeviceReady() {
         var contact = navigator.contacts.create();
         contact.displayName = "Plumber";
@@ -360,7 +318,7 @@ function test_file() {
         var reader = new FileReader();
         reader.onloadend = function (evt) {
             console.log("Read as data URL");
-            console.log(evt.target.result);
+            console.log((<any>evt.target).result);
         };
         reader.readAsDataURL(file);
     }
@@ -368,14 +326,15 @@ function test_file() {
         var reader = new FileReader();
         reader.onloadend = function (evt) {
             console.log("Read as text");
-            console.log(evt.target.result);
+            console.log((<any>evt.target).result);
         };
         reader.readAsText(file);
     }
     function fail(evt) {
         console.log(evt.target.error.code);
     }
-
+}
+function test_file2() {
     function onDeviceReady() {
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
     }
@@ -403,7 +362,8 @@ function test_file() {
     function fail(error) {
         console.log(error.code);
     }
-
+}
+function test_file3() {
     function onDeviceReady() {
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
     }
@@ -459,11 +419,6 @@ function test_file() {
         console.log("Response = " + r.response);
         console.log("Sent = " + r.bytesSent);
     }
-    function fail(error) {
-        alert("An error has occurred: Code = " + error.code);
-        console.log("upload error source " + error.source);
-        console.log("upload error target " + error.target);
-    }
     var uri = encodeURI("http://some.server.com/upload.php");
     var fileURI = "";
     var options = new FileUploadOptions();
@@ -480,20 +435,21 @@ function test_file() {
 function test_geolocation() {
     var onSuccess = function (position) {
         alert('Latitude: ' + position.coords.latitude + '\n' +
-              'Longitude: ' + position.coords.longitude + '\n' +
-              'Altitude: ' + position.coords.altitude + '\n' +
-              'Accuracy: ' + position.coords.accuracy + '\n' +
-              'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
-              'Heading: ' + position.coords.heading + '\n' +
-              'Speed: ' + position.coords.speed + '\n' +
-              'Timestamp: ' + position.timestamp + '\n');
+            'Longitude: ' + position.coords.longitude + '\n' +
+            'Altitude: ' + position.coords.altitude + '\n' +
+            'Accuracy: ' + position.coords.accuracy + '\n' +
+            'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
+            'Heading: ' + position.coords.heading + '\n' +
+            'Speed: ' + position.coords.speed + '\n' +
+            'Timestamp: ' + position.timestamp + '\n');
     };
     function onError(error: GeolocationError) {
         alert('code: ' + error.code + '\n' +
-              'message: ' + error.message + '\n');
+            'message: ' + error.message + '\n');
     }
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
-
+}
+function test_geolocation2() {
     function onSuccess(position) {
         var element = document.getElementById('geolocation');
         element.innerHTML = 'Latitude: ' + position.coords.latitude + '<br />' +
@@ -600,13 +556,14 @@ function test_globalization() {
 
 function test_inAppBrowser() {
     var ref = window.open('http://apache.org', '_blank', 'location=yes');
-    ref.addEventListener('loadstart', function () { alert(event.url); });
+    ref.addEventListener('loadstart', function () { alert(event); });
     ref.removeEventListener('loadstart', null);
     ref.close();
 }
 
 function test_media() {
-    var my_media = new Media(src, ()=>{}, ()=>{});
+    var src = '';
+    var my_media = new Media(src, () => { }, () => { });
     var mediaTimer = setInterval(function () {
         my_media.getCurrentPosition(
             function (position) {
@@ -617,7 +574,7 @@ function test_media() {
             function (e) {
                 console.log("Error getting pos=" + e);
             }
-        );
+            );
     }, 1000);
 
     var counter = 0;
@@ -646,7 +603,8 @@ function test_media() {
             my_media.pause();
         }, 10000);
     }
-
+}
+function test_media2() {
     function playAudio(url) {
         var my_media = new Media(url,
             function () {
@@ -697,6 +655,12 @@ function test_notification() {
         onConfirm,
         'Game Over',
         'Restart,Exit'
+    );
+	navigator.notification.confirm(
+        'You are the winner!',
+        onConfirm,
+        'Game Over',
+        ['Restart','Exit']
     );
     navigator.notification.beep(2);
     navigator.notification.vibrate(2500);

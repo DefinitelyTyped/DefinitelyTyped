@@ -23,11 +23,12 @@ interface NumeralJSLanguage {
 interface Numeral {
 	(value?: any): Numeral;
 	version: string;
-	isNumeral: bool;
+	isNumeral: boolean;
 	language(key: string, values?: NumeralJSLanguage): Numeral;
 	zeroFormat(format: string): string;
 	clone(): Numeral;
-	format(inputString: string): string;
+	format(inputString?: string): string;
+	formatCurrency(inputString?: string): string;
 	unformat(inputString: string): number;
 	value(): number;
 	valueOf(): number;
@@ -40,3 +41,9 @@ interface Numeral {
 }
 
 declare var numeral: Numeral;
+
+declare module "numeral" {
+
+    export = numeral;
+
+}

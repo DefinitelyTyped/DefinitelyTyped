@@ -27,10 +27,13 @@ function callHighlighterUpdate(session: AceAjax.IEditSession, firstRow: number, 
     return rangeCount;
 }
 
-exports = {
+var assert: any;
+var renderer: AceAjax.VirtualRenderer;
+
+var exports = {
     setUp: function(next) {
         var session = new AceAjax.EditSession(lipsum);
-        editor = new AceAjax.Editor(new MockRenderer(), session);
+        var editor = new AceAjax.Editor(renderer, session);
         var selection = session.getSelection();
         next();
     } ,
@@ -38,7 +41,7 @@ exports = {
     "test: highlight selected words by default": function () {
         var selection = session.getSelection();
         var session = new AceAjax.EditSession(lipsum);
-        var editor = new AceAjax.Editor(new MockRenderer(), session);
+        var editor = new AceAjax.Editor(renderer, session);
 
         assert.equal(editor.getHighlightSelectedWord(), true);
     } ,
@@ -46,7 +49,7 @@ exports = {
     "test: highlight a word": function () {
         var selection = session.getSelection();
         var session = new AceAjax.EditSession(lipsum);
-        var editor = new AceAjax.Editor(new MockRenderer(), session);
+        var editor = new AceAjax.Editor(renderer, session);
 
         editor.moveCursorTo(0, 9);
         selection.selectWord();
@@ -63,7 +66,7 @@ exports = {
     "test: highlight a word and clear highlight": function () {
         var selection = session.getSelection();
         var session = new AceAjax.EditSession(lipsum);
-        var editor = new AceAjax.Editor(new MockRenderer(), session);
+        var editor = new AceAjax.Editor(renderer, session);
 
         editor.moveCursorTo(0, 8);
         selection.selectWord();
@@ -79,7 +82,7 @@ exports = {
     "test: highlight another word": function () {
         var selection = session.getSelection();
         var session = new AceAjax.EditSession(lipsum);
-        var editor = new AceAjax.Editor(new MockRenderer(), session);
+        var editor = new AceAjax.Editor(renderer, session);
 
         selection.moveCursorTo(0, 14);
         selection.selectWord();
@@ -92,7 +95,7 @@ exports = {
     "test: no selection, no highlight": function () {
         var selection = session.getSelection();
         var session = new AceAjax.EditSession(lipsum);
-        var editor = new AceAjax.Editor(new MockRenderer(), session);
+        var editor = new AceAjax.Editor(renderer, session);
 
         selection.clearSelection();
         assert.equal(callHighlighterUpdate(session, 0, 0), 0);
@@ -101,7 +104,7 @@ exports = {
     "test: select a word, no highlight": function () {
         var selection = session.getSelection();
         var session = new AceAjax.EditSession(lipsum);
-        var editor = new AceAjax.Editor(new MockRenderer(), session);
+        var editor = new AceAjax.Editor(renderer, session);
 
         selection.moveCursorTo(0, 14);
         selection.selectWord();
@@ -116,7 +119,7 @@ exports = {
     "test: select a word with no matches": function () {
         var selection = session.getSelection();
         var session = new AceAjax.EditSession(lipsum);
-        var editor = new AceAjax.Editor(new MockRenderer(), session);
+        var editor = new AceAjax.Editor(renderer, session);
 
         editor.setHighlightSelectedWord(true);
 
@@ -143,7 +146,7 @@ exports = {
     "test: partial word selection 1": function () {
         var selection = session.getSelection();
         var session = new AceAjax.EditSession(lipsum);
-        var editor = new AceAjax.Editor(new MockRenderer(), session);
+        var editor = new AceAjax.Editor(renderer, session);
 
         selection.moveCursorTo(0, 14);
         selection.selectWord();
@@ -157,7 +160,7 @@ exports = {
     "test: partial word selection 2": function () {
         var selection = session.getSelection();
         var session = new AceAjax.EditSession(lipsum);
-        var editor = new AceAjax.Editor(new MockRenderer(), session);
+        var editor = new AceAjax.Editor(renderer, session);
 
         selection.moveCursorTo(0, 13);
         selection.selectWord();
@@ -171,7 +174,7 @@ exports = {
     "test: partial word selection 3": function () {
         var selection = session.getSelection();
         var session = new AceAjax.EditSession(lipsum);
-        var editor = new AceAjax.Editor(new MockRenderer(), session);
+        var editor = new AceAjax.Editor(renderer, session);
 
         selection.moveCursorTo(0, 14);
         selection.selectWord();
@@ -186,7 +189,7 @@ exports = {
     "test: select last word": function () {
         var selection = session.getSelection();
         var session = new AceAjax.EditSession(lipsum);
-        var editor = new AceAjax.Editor(new MockRenderer(), session);
+        var editor = new AceAjax.Editor(renderer, session);
 
         selection.moveCursorTo(0, 1);
 

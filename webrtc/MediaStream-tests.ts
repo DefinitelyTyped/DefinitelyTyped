@@ -2,31 +2,46 @@
 var mediaStreamConstraints: MediaStreamConstraints = { audio: true, video: true };
 
 var mediaTrackConstraintSet: MediaTrackConstraintSet = {};
-var mediaTrackConstraintArray: MediaTrackConstraint[] = [];
-var mediaTrackConstraints: MediaTrackConstraints = { mandatory: mediaTrackConstraintSet, optional: mediaTrackConstraintArray }
+var mediaTrackConstraintArray: MediaTrackConstraintSet[] = [];
+var mediaTrackConstraints: MediaTrackConstraints = mediaTrackConstraintSet;
+var mediaTrackConstraints2: MediaTrackConstraints = { advanced: mediaTrackConstraintArray };
 
 navigator.getUserMedia(mediaStreamConstraints,
-	stream => {
-		console.log('label:' + stream.label);
-		console.log('ended:' + stream.ended);
-		stream.onended = event => console.log('Stream ended');
-		var objectUrl = URL.createObjectURL(stream);
-		var wkObjectUrl = webkitURL.createObjectURL(stream);
-	},
-	error => {
-		console.log('Error message: ' + error.message);
-		console.log('Error name: ' + error.name);
-	});
+  stream => {
+    var track: MediaStreamTrack = stream.getTracks()[0];
+    console.log('label:' + track.label);
+    console.log('ended:' + track.readyState);
+    track.onended = (event:Event) => console.log('Track ended');
+    var objectUrl = URL.createObjectURL(stream);
+  },
+  error => {
+    console.log('Error message: ' + error.message);
+    console.log('Error name: ' + error.name);
+  });
 
 navigator.webkitGetUserMedia(mediaStreamConstraints,
-	stream => {
-		console.log('label:' + stream.label);
-		console.log('ended:' + stream.ended);
-		stream.onended = event => console.log('Stream ended');
-		var objectUrl = URL.createObjectURL(stream);
-		var wkObjectUrl = webkitURL.createObjectURL(stream);
-	},
-	error => {
-		console.log('Error message: ' + error.message);
-		console.log('Error name: ' + error.name);
-	});
+  stream => {
+    var track: MediaStreamTrack = stream.getTracks()[0];
+    console.log('label:' + track.label);
+    console.log('ended:' + track.readyState);
+    track.onended = (event:Event) => console.log('Track ended');
+    var objectUrl = URL.createObjectURL(stream);
+  },
+  error => {
+    console.log('Error message: ' + error.message);
+    console.log('Error name: ' + error.name);
+  });
+
+
+navigator.mozGetUserMedia(mediaStreamConstraints,
+  stream => {
+    var track: MediaStreamTrack = stream.getTracks()[0];
+    console.log('label:' + track.label);
+    console.log('ended:' + track.readyState);
+    track.onended = (event:Event) => console.log('Track ended');
+    var objectUrl = URL.createObjectURL(stream);
+  },
+  error => {
+    console.log('Error message: ' + error.message);
+    console.log('Error name: ' + error.name);
+  });

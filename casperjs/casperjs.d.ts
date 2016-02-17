@@ -1,91 +1,117 @@
-// Type definitions for CasperJS v1.0.0 API
+// Type definitions for CasperJS v1.0.0
 // Project: http://casperjs.org/
-// Definitions by: Jed Hunsaker <https://github.com/jedhunsaker>
+// Definitions by: Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../phantomjs/phantomjs.d.ts" />
 
-interface Casper {
+interface CasperModule {
+    create(options: CasperOptions): Casper;
+    selectXPath(expression: string): Object
+}
 
-	constructor (options: CasperOptions);
+interface EventEmitter {
+    removeAllFilters(filter: string): Casper;
+    setFilter(filter: string, cb: Function): boolean;
+}
 
+interface Casper extends EventEmitter {
+    test: Tester;
+
+	constructor (options: CasperOptions): Casper;
+
+	options: CasperOptions;
 	// Properties
 	__utils__: ClientUtils;
 
 	// Methods
-	back();
-	base64encode(url: string, method?: string, data?: any);
-	click(selector: string);
-	clickLabel(label: string, tag?: string);
-	capture(targetFilePath: string, clipRect: ClipRect);
-	captureBase64(format: string);
-	captureBase64(format: string, area: string);
-	captureBase64(format: string, area: ClipRect);
-	captureBase64(format: string, area: any);
-	captureSelector(targetFile: string, selector: string);
-	clear();
-	debugHTML(selector?: string, outer?: bool);
-	debugPage();
-	die(message: string, status?: number);
-	download(url: string, target?: string, method?: string, data?: any);
-	each(array: Array, fn: (self, link) => void);
-	echo(message: string, style?: string);
-	evaluate(fn: Function, ...args: any[]);
-	evaluateOrDie(fn: Function, message?: string);
-	exit(status?: number);
-	exists(selector: string);
-	fetchText(selector: string);
-	forward();
-	log(message: string, level?: string, space?: string);
-	fill(selector: string, values: any, submit?: bool);
+	back(): Casper;
+	base64encode(url: string, method?: string, data?: any): string;
+	bypass(nb: number): any;
+	click(selector: string): boolean;
+	clickLabel(label: string, tag?: string): boolean;
+	capture(targetFilePath: string, clipRect: ClipRect): Casper;
+	captureBase64(format: string): string;
+	captureBase64(format: string, area: string): string;
+	captureBase64(format: string, area: ClipRect): string;
+	captureBase64(format: string, area: any): string;
+	captureSelector(targetFile: string, selector: string): Casper;
+	clear(): Casper;
+	debugHTML(selector?: string, outer?: boolean): Casper;
+	debugPage(): Casper;
+	die(message: string, status?: number): Casper;
+	download(url: string, target?: string, method?: string, data?: any): Casper;
+    each<T>(array: T[], fn: (self: Casper, item: T, index: number) => void): Casper;
+	echo(message: string, style?: string): Casper;
+    evaluate<T>(fn: () => T, ...args: any[]): T
+    evaluateOrDie(fn: () => any, message?: string, status?: number): Casper;
+	exit(status?: number): Casper;
+	exists(selector: string): boolean;
+	fetchText(selector: string): string;
+	forward(): Casper;
+	log(message: string, level?: string, space?: string): Casper;
+	fill(selector: string, values: any, submit?: boolean): void;
+	fillSelectors(selector: string, values: any, submit?: boolean): void;
+	fillXPath(selector: string, values: any, submit?: boolean): void;
 	getCurrentUrl(): string;
 	getElementAttribute(selector: string, attribute: string): string;
+	getElementsAttribute(selector: string, attribute: string): string;
 	getElementBounds(selector: string): ElementBounds;
 	getElementsBounds(selector: string): ElementBounds[];
 	getElementInfo(selector: string): ElementInfo;
+	getElementsInfo(selector: string): ElementInfo;
 	getFormValues(selector: string): any;
 	getGlobal(name: string): any;
-	getHTML(selector?: string, outer?: bool): string;
+	getHTML(selector?: string, outer?: boolean): string;
 	getPageContent(): string;
 	getTitle(): string;
-	mouseEvent(type: string, selector: string);
+	mouseEvent(type: string, selector: string): boolean;
 	open(location: string, settings: OpenSettings): Casper;
-	reload(then?: (response: HttpResponse) => void);
-	repeat(times: number, then: Function);
-	resourceExists(test: Function);
-	resourceExists(test: string);
-	run(onComplete: Function, time?: number);
-	sendKeys(selector: string, keys: string, options?: any);
-	setHttpAuth(username: string, password: string);
+	reload(then?: (response: HttpResponse) => void): Casper;
+	repeat(times: number, then: Function): Casper;
+	resourceExists(test: Function): boolean;
+	resourceExists(test: string): boolean;
+	run(onComplete: Function, time?: number): Casper;
+	scrollTo(x: number, y: number): Casper;
+	scrollToBottom(): Casper;
+	sendKeys(selector: string, keys: string, options?: any): Casper;
+	setHttpAuth(username: string, password: string): Casper;
 	start(url?: string, then?: (response: HttpResponse) => void): Casper;
-	status(asString: bool): any;
-	then(fn: (self?: Casper) => void);
-	thenClick(selector: string);
-	thenEvaluate(fn: Function, ...args: any[]);
-	thenOpen(location: string, then?: (response: HttpResponse) => void);
-	thenOpen(location: string, options?: OpenSettings, then?: (response: HttpResponse) => void);
-	thenOpenAndEvaluate(location: string, then?: Function, ...args: any[]);
-	toString();
-	userAgent(agent: string);
-	viewport(width: number, height: number);
-	visible(selector: string);
-	wait(timeout: number, then?: Function);
-	waitFor(testFx: Function, then?: Function, onTimeout?: Function, timeout?: number);
-	waitForPopup(urlPattern: string, then?: Function, onTimeout?: Function, timeout?: number);
-	waitForPopup(urlPattern: RegExp, then?: Function, onTimeout?: Function, timeout?: number);
-	waitForSelector(selector: string, then?: Function, onTimeout?: Function, timeout?: number);
-	waitWhileSelector(selector: string, then?: Function, onTimeout?: Function, timeout?: number);
-	waitForResource(testFx: Function, then?: Function, onTimeout?: Function, timeout?: number);
-	waitForText(pattern: string, then?: Function, onTimeout?: Function, timeout?: number);
-	waitForText(pattern: RegExp, then?: Function, onTimeout?: Function, timeout?: number);
-	waitUntilVisible(selector: string, then?: Function, onTimeout?: Function, timeout?: number);
-	waitWhileVisible(selector: string, then?: Function, onTimeout?: Function, timeout?: number);
-	warn(message: string);
-	withFrame(frameInfo: string, then: Function);
-	withFrame(frameInfo: number, then: Function);
-	withPopup(popupInfo: string, step: Function);
-	withPopup(popupInfo: RegExp, step: Function);
-	zoom(factor: number);
+	status(asString: boolean): any;
+	then(fn: (self?: Casper) => void): Casper;
+	thenBypass(nb: number): Casper;
+	thenBypassIf(condition: any, nb: number): Casper;
+	thenBypassUnless(condition: any, nb: number): Casper;
+	thenClick(selector: string): Casper;
+    thenEvaluate(fn: () => any, ...args: any[]): Casper;
+	thenOpen(location: string, then?: (response: HttpResponse) => void): Casper;
+	thenOpen(location: string, options?: OpenSettings, then?: (response: HttpResponse) => void): Casper;
+	thenOpenAndEvaluate(location: string, then?: Function, ...args: any[]): Casper;
+	toString(): string;
+	unwait(): Casper;
+	userAgent(agent: string): string;
+	viewport(width: number, height: number): Casper;
+	visible(selector: string): boolean;
+	wait(timeout: number, then?: Function): Casper;
+	waitFor(testFx: Function, then?: Function, onTimeout?: Function, timeout?: number): Casper;
+	waitForAlert(then: Function, onTimeout?: Function, timeout?: number): Casper;
+	waitForPopup(urlPattern: string, then?: Function, onTimeout?: Function, timeout?: number): Casper;
+	waitForPopup(urlPattern: RegExp, then?: Function, onTimeout?: Function, timeout?: number): Casper;
+	waitForUrl(url: string, then?: Function, onTimeout?: Function, timeout?: number): Casper;
+	waitForUrl(url: RegExp, then?: Function, onTimeout?: Function, timeout?: number): Casper;
+	waitForSelector(selector: string, then?: Function, onTimeout?: Function, timeout?: number): Casper;
+	waitWhileSelector(selector: string, then?: Function, onTimeout?: Function, timeout?: number): Casper;
+	waitForResource(testFx: Function, then?: Function, onTimeout?: Function, timeout?: number): Casper;
+	waitForText(pattern: string, then?: Function, onTimeout?: Function, timeout?: number): Casper;
+	waitForText(pattern: RegExp, then?: Function, onTimeout?: Function, timeout?: number): Casper;
+	waitUntilVisible(selector: string, then?: Function, onTimeout?: Function, timeout?: number): Casper;
+	waitWhileVisible(selector: string, then?: Function, onTimeout?: Function, timeout?: number): Casper;
+	warn(message: string): Casper;
+	withFrame(frameInfo: string, then: Function): Casper;
+	withFrame(frameInfo: number, then: Function): Casper;
+	withPopup(popupInfo: string, step: Function): Casper;
+	withPopup(popupInfo: RegExp, step: Function): Casper;
+	zoom(factor: number): Casper;
 }
 
 interface HttpResponse {
@@ -123,100 +149,119 @@ interface ElementInfo {
 	y: number;
 	width: number;
 	height: number;
-	visible: bool;
+	visible: boolean;
 }
 
 interface CasperOptions {
-	clientScripts: Array;
-	exitOnError: bool;
-	httpStatusHandlers: any;
-	logLevel: string;
-	onAlert: Function;
-	onDie: Function;
-	onError: Function;
-	onLoadError: Function;
-	onPageInitialized: Function;
-	onResourceReceived: Function;
-	onResourceRequested: Function;
-	onStepComplete: Function;
-	onStepTimeout: Function;
-	onTimeout: Function;
-	onWaitTimeout: Function;
-	page: WebPage;
-	pageSettings: any;
-	remoteScripts: Array;
-	safeLogs: bool;
-	stepTimeout: number;
-	timeout: number;
-	verbose: bool;
-	viewportSize: any;
-	waitTimeout: number;
+	clientScripts?: any[];
+	exitOnError?: boolean;
+	httpStatusHandlers?: any;
+	logLevel?: string;
+	onAlert?: Function;
+	onDie?: Function;
+	onError?: Function;
+	onLoadError?: Function;
+	onPageInitialized?: Function;
+	onResourceReceived?: Function;
+	onResourceRequested?: Function;
+	onStepComplete?: Function;
+	onStepTimeout?: Function;
+	onTimeout?: Function;
+	onWaitTimeout?: Function;
+	page?: WebPage;
+	pageSettings?: any;
+	remoteScripts?: any[];
+	safeLogs?: boolean;
+	silentErrors?: boolean;
+	stepTimeout?: number;
+	timeout?: number;
+	verbose?: boolean;
+	viewportSize?: any;
+	retryTimeout?: number;
+	waitTimeout?: number;
 }
 
 interface ClientUtils {
-	echo(message: string);
-	encode(contents: string);
-	exists(selector: string);
-	findAll(selector: string);
-	findOne(selector: string);
-	getBase64(url: string, method?: string, data?: any);
-	getBinary(url: string, method?: string, data?: any);
-	getDocumentHeight();
-	getElementBounds(selector: string);
-	getElementsBounds(selector: string);
-	getElementByXPath(expression: string, scope?: HTMLElement);
-	getElementsByXPath(expression: string, scope?: HTMLElement);
-	getFieldValue(inputName: string);
-	getFormValues(selector: string);
-	mouseEvent(type: string, selector: string);
-	removeElementsByXPath(expression: string);
-	sendAJAX(url: string, method?: string, data?: any, async?: bool);
-	visible(selector: string);
+	echo(message: string): void;
+	encode(contents: string): void;
+	exists(selector: string): void;
+	findAll(selector: string): void;
+	findOne(selector: string): void;
+	getBase64(url: string, method?: string, data?: any): void;
+	getBinary(url: string, method?: string, data?: any): void;
+	getDocumentHeight(): void;
+	getElementBounds(selector: string): void;
+	getElementsBounds(selector: string): void;
+	getElementByXPath(expression: string, scope?: HTMLElement): void;
+	getElementsByXPath(expression: string, scope?: HTMLElement): void;
+	getFieldValue(inputName: string): void;
+	getFormValues(selector: string): void;
+	mouseEvent(type: string, selector: string): void;
+	removeElementsByXPath(expression: string): void;
+	sendAJAX(url: string, method?: string, data?: any, async?: boolean): void;
+	visible(selector: string): void;
 }
 
 interface Colorizer {
-	colorize(text: string, styleName: string);
-	format(text: string, style: any);
+	colorize(text: string, styleName: string): void;
+	format(text: string, style: any): void;
 }
 
 interface Tester {
-	assert(condition: bool, message?: string);
-	assertDoesntExist(selector: string, message?: string);
-	assertEquals(testValue: any, expected: any, message?: string);
-	assertEval(fn: Function, message: string, arguments: any);
-	assertEvalEquals(fn: Function, expected: any, message?: string, arguments?: any);
-	assertExists(selector: string, message?: string);
-	assertFalsy(subject: any, message?: string);
-	assertField(inputName: string, expected: string, message?: string);
-	assertHttpStatus(status: number, message?: string);
-	assertMatch(subject: any, pattern: RegExp, message?: string);
-	assertNot(subject: any, message?: string);
-	assertNotEquals(testValue: any, expected: any, message?: string);
-	assertNotVisible(selector: string, message?: string);
-	assertRaises(fn: Function, args: Array, message?: string);
-	assertSelectorDoesntHaveText(selector: string, text: string, message?: string);
-	assertSelectorExists(selector: string, message?: string);
-	assertSelectorHasText(selector: string, text: string, message?: string);
-	assertResourceExists(testFx: Function, message?: string);
-	assertTextExists(expected: string, message?: string);
-	assertTextDoesntExist(unexpected: string, message: string);
-	assertTitle(expected: string, message?: string);
-	assertTitleMatch(pattern: RegExp, message?: string);
-	assertTruthy(subject: any, message?: string);
-	assertType(input: any, type: string, message?: string);
-	assertUrlMatch(pattern: RegExp, message?: string);
-	assertVisible(selector: string, message?: string);
-	colorize(message: string, style: string);
-	comment(message: string);
-	done(expected?: number);
-	error(message: string);
-	fail(message: string);
-	formatMessage(message: string, style: string);
+	assert(condition: boolean, message?: string): any;
+	assertDoesntExist(selector: string, message?: string): any;
+	assertElementCount(selctor: string, expected: number, message?: string): any;
+	assertEquals(testValue: any, expected: any, message?: string): any;
+	assertEval(fn: Function, message: string, arguments: any): any;
+	assertEvalEquals(fn: Function, expected: any, message?: string, arguments?: any): any;
+	assertExists(selector: string, message?: string): any;
+	assertFalsy(subject: any, message?: string): any;
+	assertField(inputName: string, expected: string, message?: string): any;
+	assertFieldName(inputName: string, expected: string, message?: string, options?: any): any;
+	assertFieldCSS(cssSelector: string, expected: string, message?: string): any;
+	assertFieldXPath(xpathSelector: string, expected: string, message?: string): any;
+	assertHttpStatus(status: number, message?: string): any;
+	assertMatch(subject: any, pattern: RegExp, message?: string): any;
+	assertNot(subject: any, message?: string): any;
+	assertNotEquals(testValue: any, expected: any, message?: string): any;
+	assertNotVisible(selector: string, message?: string): any;
+	assertRaises(fn: Function, args: any[], message?: string): any;
+	assertSelectorDoesntHaveText(selector: string, text: string, message?: string): any;
+	assertSelectorExists(selector: string, message?: string): any;
+	assertSelectorHasText(selector: string, text: string, message?: string): any;
+	assertResourceExists(testFx: Function, message?: string): any;
+	assertTextExists(expected: string, message?: string): any;
+	assertTextDoesntExist(unexpected: string, message: string): any;
+	assertTitle(expected: string, message?: string): any;
+	assertTitleMatch(pattern: RegExp, message?: string): any;
+	assertTruthy(subject: any, message?: string): any;
+	assertType(input: any, type: string, message?: string): any;
+	assertInstanceOf(input: any, ctor: Function, message?: string): any;
+	assertUrlMatch(pattern: string, message?: string): any;
+	assertUrlMatch(pattern: RegExp, message?: string): any;
+	assertVisible(selector: string, message?: string): any;
+
+    /* since 1.1 */
+    begin(description: string, planned: number, suite: Function): any;
+    begin(description: string, suite: Function): any;
+    begin(description: string, planned: number, config: Object): any;
+    begin(description: string, config: Object): any;
+
+	colorize(message: string, style: string): any;
+	comment(message: string): any;
+	done(expected?: number): any;
+	error(message: string): any;
+	fail(message: string): any;
+	formatMessage(message: string, style: string): any;
 	getFailures(): Cases;
 	getPasses(): Cases;
-	info(message: string);
-	pass(message: string);
-	renderResults(exit: bool, status: number, save: string);
+	info(message: string): any;
+	pass(message: string): any;
+	renderResults(exit: boolean, status: number, save: string): any;
+
+	setup(fn: Function): any;
+	skip(nb: number, message: string): any;
+	tearDown(fn: Function): any;
 }
 
 interface Cases {
@@ -225,7 +270,7 @@ interface Cases {
 }
 
 interface Case {
-	success: bool;
+	success: boolean;
 	type: string;
 	standard: string;
 	file: string;
@@ -233,35 +278,35 @@ interface Case {
 }
 
 interface CaseValues {
-	subject: bool;
-	expected: bool;
+	subject: boolean;
+	expected: boolean;
 }
 
 interface Utils {
-	betterTypeOf(input: any);
-	dump(value: any);
-	fileExt(file: string);
-	fillBlanks(text: string, pad: number);
-	format(f: string, ...args: any[]);
-	getPropertyPath(obj: any, path: string);
-	inherits(ctor: any, superCtor: any);
-	isArray(value: any);
-	isCasperObject(value: any);
-	isClipRect(value: any);
-	isFalsy(subject: any);
-	isFunction(value: any);
-	isJsFile(file: string);
-	isNull(value: any);
-	isNumber(value: any);
-	isObject(value: any);
-	isRegExp(value: any);
-	isString(value: any);
-	isTruthy(subject: any);
-	isType(what: any, type: string);
-	isUndefined(value: any);
-	isWebPage(what: any);
-	mergeObjects(origin: any, add: any);
-	node(name: string, attributes: any);
-	serialize(value: any);
-	unique(array: Array);
+	betterTypeOf(input: any): any;
+	dump(value: any): any;
+	fileExt(file: string): any;
+	fillBlanks(text: string, pad: number): any;
+	format(f: string, ...args: any[]): any;
+	getPropertyPath(obj: any, path: string): any;
+	inherits(ctor: any, superCtor: any): any;
+	isArray(value: any): any;
+	isCasperObject(value: any): any;
+	isClipRect(value: any): any;
+	isFalsy(subject: any): any;
+	isFunction(value: any): any;
+	isJsFile(file: string): any;
+	isNull(value: any): any;
+	isNumber(value: any): any;
+	isObject(value: any): any;
+	isRegExp(value: any): any;
+	isString(value: any): any;
+	isTruthy(subject: any): any;
+	isType(what: any, type: string): any;
+	isUndefined(value: any): any;
+	isWebPage(what: any): any;
+	mergeObjects(origin: any, add: any): any;
+	node(name: string, attributes: any): any;
+	serialize(value: any): any;
+	unique(array: any[]): any;
 }

@@ -17,6 +17,7 @@ $('#myModal').modal('toggle');
 $('.dropdown-toggle').dropdown();
 
 $('#navbar').scrollspy();
+$('body').scrollspy({ target: '#navbar-example' });
 
 $('#element').tooltip('show');
 
@@ -35,6 +36,11 @@ $('#myCollapsible').collapse({ toggle: false });
 $('.carousel').carousel();
 $('.carousel').carousel({ interval: 2000 });
 
-$('.typeahead').typeahead();
+$('.typeahead').typeahead({
+    matcher: item => true,
+    sorter: (items: any[]) => items,
+    updater: item => item,
+    highlighter: item => ""
+});
 
 $('#navbar').affix();

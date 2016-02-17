@@ -12,17 +12,13 @@ interface SwipeViewOptions {
     text?: string;
     numberOfPages?: number;
     snapThreshold?: number;
-    hastyPageFlip?: bool;
-    loop?: bool;
+    hastyPageFlip?: boolean;
+    loop?: boolean;
 }
 
-interface PageHTMLElement extends HTMLElement {
-    dataset: any;
-}
+declare class SwipeView {
 
-class SwipeView {
-
-    masterPages: PageHTMLElement[];
+    masterPages: HTMLElement[];
     currentMasterPage: number;
     wrapper: HTMLElement;
     slider: HTMLElement;

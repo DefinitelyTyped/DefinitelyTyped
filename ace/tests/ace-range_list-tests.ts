@@ -1,5 +1,6 @@
 /// <reference path="../ace.d.ts" />
 
+var assert: any;
 function flatten(rangeList) {
     var points = [];
     rangeList.ranges.forEach(function (r) {
@@ -11,7 +12,7 @@ function testRangeList(rangeList, points) {
     assert.equal("" + flatten(rangeList), "" + points);
 }
 
-exports = {
+var exports = {
 
         name: "ACE range_list.js",
 

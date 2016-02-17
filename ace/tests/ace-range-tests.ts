@@ -1,6 +1,7 @@
 ﻿/// <reference path="../ace.d.ts" />
 
-exports = {
+var assert: any;
+var exports = {
 
     name: "ACE range.js",
 

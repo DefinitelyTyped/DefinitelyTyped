@@ -1,156 +1,186 @@
-// GreenSock Animation Platform (GSAP) - http://www.greensock.com/get-started-js/
+// Type definitions for GreenSock Animation Platform 1.15.1
+// Project: http://www.greensock.com/get-started-js/
+// Definitions by: Robert S <https://github.com/codebelt>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 // JavaScript Docs http://api.greensock.com/js/
-// Version 1.0
+// Version 1.15.1 (TypeScript 1.4)
 
-//com.greensock.core
-interface Animation {
-    data:any;
-    ticker:any;
-    timeline:SimpleTimeline;
-    vars:Object;
-
-    Animation(duration:number, vars?:Object);
-    delay(value:number):any;
-    duration(value:number):any;
-    eventCallback(type:string, callback?:Function, params?:any[], scope?:any):any;
-    invalidate():any;
-    kill(vars?:Object, target?:Object):any;
-    pause(atTime?:any, suppressEvents?:bool):any;
-    paused(value?:bool):any;
-    play(from?:any, suppressEvents?:bool):any;
-    restart(includeDelay?:bool, suppressEvents?:bool):any;
-    resume(from?:any, suppressEvents?:bool):any;
-    reverse(from?:any, suppressEvents?:bool):any;
-    reversed(value?:bool):any;
-    seek(time:any, suppressEvents?:bool):any;
-    startTime(value:number):any;
-    time(value:number, suppressEvents?:bool):any;
-    timeScale(value:number):any;
-    totalDuration(value:number):any;
-    totalTime(time:number, suppressEvents?:bool):any;
+interface IDispatcher {
+    addEventListener(type:string, callback:Function, scope?:Object, useParam?:boolean, priority?:number):void;
+    removeEventListener(type:string, callback:Function):void;
 }
 
-interface SimpleTimeline extends Animation {
-    autoRemoveChildren:bool;
-    smoothChildTiming:bool;
+declare type Tween = TweenLite | TweenMax;
+declare type Timeline = SimpleTimeline | TimelineLite | TimelineMax;
 
-    insert(tween:any, time:any):any;
-    render(time:number, suppressEvents?:bool, force?:bool):void;
+//com.greensock.core
+declare class Animation {
+    static ticker: IDispatcher;
+    data: any;
+    timeline: SimpleTimeline;
+    vars: Object;
+
+    constructor(duration?: number, vars?: Object);
+
+    delay(): number;
+    delay(value: number): Animation;
+    duration(): number;
+    duration(value: number): Animation;
+    eventCallback(type: string): Function;
+    eventCallback(type: string, callback: Function, params?: any[], scope?: any): Animation;
+    invalidate(): Animation;
+    isActive(): boolean;
+    kill(vars?: Object, target?: Object): Animation;
+    pause(atTime?: any, suppressEvents?: boolean): Animation;
+    paused(): boolean;
+    paused(value: boolean): Animation;
+    play(from?: any, suppressEvents?: boolean): Animation;
+    progress(): number;
+    progress(value: number, supressEvents?: boolean): Animation;
+    restart(includeDelay?: boolean, suppressEvents?: boolean): Animation;
+    resume(from?: any, suppressEvents?: boolean): Animation;
+    reverse(from?: any, suppressEvents?: boolean): Animation;
+    reversed(): boolean;
+    reversed(value: boolean): Animation;
+    seek(time: any, suppressEvents?: boolean): Animation;
+    startTime(): number;
+    startTime(value: number): Animation;
+    time(): number;
+    time(value: number, suppressEvents?: boolean): Animation;
+    timeScale(): number;
+    timeScale(value: number): Animation;
+    totalDuration(): number;
+    totalDuration(value: number): Animation;
+    totalProgress(): number;
+    totalProgress(value: number): Animation;
+    totalTime(): number;
+    totalTime(time: number, suppressEvents?: boolean): Animation;
+}
+
+declare class SimpleTimeline extends Animation {
+    autoRemoveChildren: boolean;
+    smoothChildTiming: boolean;
+
+    constructor(vars?: Object);
+
+    add(value: any, position?: any, align?: string, stagger?: number): SimpleTimeline;
+    render(time: number, suppressEvents?: boolean, force?: boolean): void;
 }
 
 //com.greensock
-interface TimelineLite {
-    addLabel(label:string, time:number):any;
-    append(value:any, offset:number):any;
-    appendMultiple(tweens:any[], offset:number, align:string, stagger:number):any;
-    call(callback:Function, params?:any[], scope?:any, offset?:number, baseTimeOrLabel?:any):any;
-    clear(labels?:bool):any;
-    duration(value:number):any;
-    exportRoot(vars?:Object, omitDelayedCalls?:bool):TimelineLite;
-    from(target:Object, duration:number, vars:Object, offset:number, baseTimeOrLabel?:any):any;
-    fromTo(target:Object, duration:number, fromVars:Object, toVars:Object, offset:number, baseTimeOrLabel?:any):any;
-    getChildren(nested?:bool, tweens?:bool, timelines?:bool, ignoreBeforeTime?:number):any[];
-    getLabelTime(label:string):number;
-    getTweensOf(target:Object, nested?:bool):any[];
-    insert(value:any, timeOrLabel:any):any;
-    insertMultiple(tweens:any[], timeOrLabel:any, align:string, stagger:number):any;
-    invalidate():any;
-    progress(value:number):any;
-    remove(value:any):any;
-    removeLabel(label:string):any;
-    seek(timeOrLabel:any, suppressEvents?:bool):any;
-    set(target:Object, vars:Object, offset:number, baseTimeOrLabel?:any):any;
-    shiftChildren(amount:number, adjustLabels?:bool, ignoreBeforeTime?:number):any;
-    staggerFrom(targets:Object[], duration:number, vars:Object, stagger:number, offset:number, baseTimeOrLabel?:any, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any;
-    staggerFromTo(targets:Object[], duration:number, fromVars:Object, toVars:Object, stagger:number, offset:number, baseTimeOrLabel?:any, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any;
-    staggerTo(targets:Object[], duration:number, vars:Object, stagger:number, offset:number, baseTimeOrLabel?:any, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any;
-    stop():any;
-    to(target:Object, duration:number, vars:Object, offset:number, baseTimeOrLabel?:any):any;
-    totalDuration(value:number):any;
-    usesFrames():bool;
+declare class TweenLite extends Animation {
+    static defaultEase: Ease;
+    static defaultOverwrite: string;
+    static selector: any;
+    target: Object;
+
+    constructor(target: Object, duration: number, vars: Object);
+
+    static delayedCall(delay: number, callback: Function, params?: any[], scope?: any, useFrames?: boolean): TweenLite;
+    endTime(includeRepeats?: boolean): number;
+    static from(target: Object | Object[], duration: number, vars: Object): TweenLite;
+    static fromTo(target: Object | Object[], duration: number, fromVars: Object, toVars: Object): TweenLite;
+    static getTweensOf(target: Object, onlyActive: boolean): Tween[];
+    static killDelayedCallsTo(func: Function): void;
+    static killTweensOf(target: Object, onlyActive?: boolean, vars?: Object): void;
+    static lagSmoothing(threshold: number, adjustedLag: number): void;
+    static set(target: Object, vars: Object): TweenLite;
+    static to(target: Object, duration: number, vars: Object): TweenLite;
 }
 
-interface TimelineMax {
-    addCallback(callback:Function, timeOrLabel:any, params?:any[], scope?:any):TimelineMax;
-    currentLabel(value?:string):any;
-    getActive(nested?:bool, tweens?:bool, timelines?:bool):any[];
-    getLabelAfter(time:number):string;
-    getLabelBefore(time:number):string;
-    getLabelsArray():any[];
-    invalidate():any;
-    progress(value:number):any;
-    removeCallback(callback:Function, timeOrLabel?:any):TimelineMax;
-    repeat(value:number):any;
-    repeatDelay(value:number):any;
-    time(value:number, suppressEvents?:bool):any;
-    totalDuration(value:number):any;
-    totalProgress(value:number):any;
-    tweenFromTo(fromTimeOrLabel:any, toTimeOrLabel:any, vars?:Object):TweenLite;
-    tweenTo(timeOrLabel:any, vars?:Object):TweenLite;
-    yoyo(value?:bool):any;
+declare class TweenMax extends TweenLite {
+    constructor(target: Object, duration: number, vars: Object);
+
+    static delayedCall(delay: number, callback: Function, params?: any[], scope?: Object, useFrames?: boolean): TweenMax;
+    static from(target: Object, duration: number, vars: Object): TweenMax;
+    static fromTo(target: Object, duration: number, fromVars: Object, toVars: Object): TweenMax;
+    static getAllTweens(includeTimelines?: boolean): Tween[];
+    static getTweensOf(target: Object): Tween[];
+    static isTweening(target: Object): boolean;
+    static killAll(complete?: boolean, tweens?: boolean, delayedCalls?: boolean, timelines?: boolean): void;
+    static killChildTweensOf(parent: any, complete?: boolean): void;
+    static killDelayedCallsTo(func: Function): void;
+    static killTweensOf(target: Object, vars?: Object): void;
+    static pauseAll(tweens?: boolean, delayedCalls?: boolean, timelines?: boolean): void;
+    repeat(): number;
+    repeat(value: number): TweenMax;
+    repeatDelay(): number;
+    repeatDelay(value: number): TweenMax;
+    static resumeAll(tweens?: boolean, delayedCalls?: boolean, timelines?: boolean): void;
+    static set(target: Object, vars: Object): TweenMax;
+    static staggerFrom(targets: any, duration: number, vars: Object, stagger: number, onCompleteAll?: Function, onCompleteAllParams?: any[], onCompleteAllScope?: any): any[];
+    static staggerFromTo(targets: any, duration: number, fromVars: Object, toVars: Object, stagger: number, onCompleteAll?: Function, onCompleteAllParams?: any[], onCompleteAllScope?: any): any[];
+    static staggerTo(targets: any, duration: number, vars: Object, stagger: number, onCompleteAll?: Function, onCompleteAllParams?: any[], onCompleteAllScope?: any): any[];
+    static to(target:Object, duration:number, vars:Object):TweenMax;
+    updateTo(vars: Object, resetDuration?: boolean): TweenMax;
+    yoyo(): boolean;
+    yoyo(value?: boolean): TweenMax;
 }
 
-interface TweenLite extends Animation {
-    defaultEase:Ease;
-    defaultOverwrite:string;
-    target:Object;
-    ticker:any;
+declare class TimelineLite extends SimpleTimeline {
+    constructor(vars?: Object);
 
-    delayedCall(delay:number, callback:Function, params?:any[], scope?:any, useFrames?:bool):TweenLite;
-    from(target:Object, duration:number, vars:Object):TweenLite;
-    fromTo(target:Object, duration:number, fromVars:Object, toVars:Object):TweenLite;
-    getTweensOf(target:Object):any[];
-    invalidate():any;
-    killDelayedCallsTo(func:Function):void;
-    killTweensOf(target:Object, vars?:Object):void;
-    set(target:Object, vars:Object):TweenLite;
-    to(target:Object, duration:number, vars:Object):TweenLite;
+    add(value: any, position?: any, align?: string, stagger?: number): TimelineLite;
+    addLabel(label: string, position: any): TimelineLite;
+    addPause(position?: any, callback?: Function, params?: any[], scope?: any): TimelineLite;
+    call(callback: Function, params?: any[], scope?: any, position?: any): TimelineLite;
+    clear(labels?: boolean): TimelineLite;
+    endTime(includeRepeats?: boolean): number;
+    static exportRoot(vars?: Object, omitDelayedCalls?: boolean): TimelineLite;
+    from(target: Object, duration: number, vars: Object, position?: any): TimelineLite;
+    fromTo(target: Object, duration: number, fromVars: Object, toVars: Object, position?: any): TimelineLite;
+    getChildren(nested?: boolean, tweens?: boolean, timelines?: boolean, ignoreBeforeTime?: number): Tween | Timeline[];
+    getLabelTime(label: string): number;
+    getTweensOf(target: Object, nested?: boolean): Tween[];
+    recent(): Animation;
+    remove(value: any): TimelineLite;
+    removeLabel(label: string): any;
+    set(target: Object, vars: Object, position?: any): TimelineLite;
+    shiftChildren(amount: number, adjustLabels?: boolean, ignoreBeforeTime?: number): TimelineLite;
+    staggerFrom(targets: any, duration: number, vars: Object, stagger?: number, position?: any, onCompleteAll?: Function, onCompleteAllParams?: any[], onCompleteScope?: any): TimelineLite;
+    staggerFromTo(targets: any, duration: number, fromVars: Object, toVars: Object, stagger?: number, position?: any, onCompleteAll?: Function, onCompleteAllParams?: any[], onCompleteAllScope?: any): TimelineLite;
+    staggerTo(targets: any, duration: number, vars: Object, stagger: number, position?: any, onCompleteAll?: Function, onCompleteAllParams?: any[], onCompleteAllScope?: any): TimelineLite;
+    to(target: Object, duration: number, vars: Object, position?: any): TimelineLite;
+    usesFrames(): boolean;
 }
 
-interface TweenMax extends TweenLite {
-    delayedCall(delay:number, callback:Function, params?:any[], scope?:any, useFrames?:bool):TweenMax;
-    from(target:Object, duration:number, vars:Object):TweenMax;
-    fromTo(target:Object, duration:number, fromVars:Object, toVars:Object):TweenMax;
-    getAllTweens(includeTimelines?:bool):any[];
-    getTweensOf(target:Object):any[];
-    invalidate():any;
-    isTweening(target:Object):bool;
-    killAll(complete?:bool, tweens?:bool, delayedCalls?:bool, timelines?:bool):void;
-    killChildTweensOf(parent:any, complete?:bool):void;
-    killDelayedCallsTo(func:Function):void;
-    killTweensOf(target:Object, vars?:Object):void;
-    pauseAll(tweens?:bool, delayedCalls?:bool, timelines?:bool):void;
-    progress(value:number):any;
-    repeat(value:number):any;
-    repeatDelay(value:number):any;
-    resumeAll(tweens?:bool, delayedCalls?:bool, timelines?:bool):void;
-    set(target:Object, vars:Object):TweenMax;
-    staggerFrom(targets:Object[], duration:number, vars:Object, stagger:number, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any[];
-    staggerFromTo(targets:Object[], duration:number, fromVars:Object, toVars:Object, stagger:number, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any[];
-    staggerTo(targets:Object[], duration:number, vars:Object, stagger:number, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any[];
-    time(value:number, suppressEvents?:bool):any;
-    to(target:Object, duration:number, vars:Object):TweenMax;
-    totalDuration(value:number):any;
-    totalProgress(value:number):any;
-    updateTo(vars:Object, resetDuration?:bool):any;
-    yoyo(value?:bool):any;
+declare class TimelineMax extends TimelineLite {
+    constructor(vars?: Object);
+
+    addCallback(callback: Function, position: any, params?: any[], scope?: any): TimelineMax;
+    currentLabel(): string;
+    currentLabel(value: string): TimelineMax;
+    getActive(nested?: boolean, tweens?: boolean, timelines?: boolean): Tween | Timeline[];
+    getLabelAfter(time: number): string;
+    getLabelBefore(time: number): string;
+    getLabelsArray(): any[];
+    removeCallback(callback: Function, timeOrLabel?: any): TimelineMax;
+    repeat(): number;
+    repeat(value: number): TimelineMax;
+    repeatDelay(): number;
+    repeatDelay(value: number): TimelineMax;
+    tweenFromTo(fromPosition: any, toPosition: any, vars?: Object): TweenLite;
+    tweenTo(position: any, vars?: Object): TweenLite;
+    yoyo(): boolean;
+    yoyo(value: boolean): TimelineMax;
 }
 
 //com.greensock.easing
 interface Back {
-    easeIn;
-    easeInOut;
-    easeOut;
+    easeIn:Ease;
+    easeInOut:Ease;
+    easeOut:Ease;
 }
 interface Bounce {
-    easeIn;
-    easeInOut;
-    easeOut;
+    easeIn:Ease;
+    easeInOut:Ease;
+    easeOut:Ease;
 }
 interface Circ {
-    easeIn;
-    easeInOut;
-    easeOut;
+    easeIn:Ease;
+    easeInOut:Ease;
+    easeOut:Ease;
 }
 interface Cubic {
     easeIn:Ease;
@@ -164,14 +194,14 @@ interface EaseLookup {
     find(name:string):Ease;
 }
 interface Elastic {
-    easeIn;
-    easeInOut;
-    easeOut;
+    easeIn:Ease;
+    easeInOut:Ease;
+    easeOut:Ease;
 }
 interface Expo {
-    easeIn;
-    easeInOut;
-    easeOut;
+    easeIn:Ease;
+    easeInOut:Ease;
+    easeOut:Ease;
 }
 interface Linear {
     ease:Linear;
@@ -221,15 +251,15 @@ interface Quint {
     easeOut:Ease;
 }
 interface Sine {
-    easeIn;
-    easeInOut;
-    easeOut;
+    easeIn:Ease;
+    easeInOut:Ease;
+    easeOut:Ease;
 }
 interface SlowMo {
     ease:SlowMo;
 
-    SlowMo(linearRatio:number, power:number, yoyoMode:bool);
-    config(linearRatio:number, power:number, yoyoMode:bool):SlowMo;
+    new (linearRatio:number, power:number, yoyoMode:boolean):SlowMo;
+    config(linearRatio:number, power:number, yoyoMode:boolean):SlowMo;
     getRatio(p:number):number;
 }
 interface SteppedEase {
@@ -244,7 +274,7 @@ interface Strong {
 
 //com.greensock.plugins
 interface BezierPlugin extends TweenPlugin {
-    bezierThrough(values:any[], curviness?:number, quadratic?:bool, correlate?:string, prepend?:Object, calcDifs?:bool):Object;
+    bezierThrough(values:any[], curviness?:number, quadratic?:boolean, correlate?:string, prepend?:Object, calcDifs?:boolean):Object;
     cubicToQuadratic(a:number, b:number, c:number, d:number):any[];
     quadraticToCubic(a:number, b:number, c:number):Object;
 }
@@ -270,19 +300,8 @@ interface ScrollToPlugin extends TweenPlugin {
 
 }
 interface TweenPlugin {
-    activate(plugins:any[]):bool;
+    activate(plugins:any[]):boolean;
 }
-
-
-//com.greensock.core
-declare var Animation:Animation;
-declare var SimpleTimeline:SimpleTimeline;
-
-//com.greensock
-declare var TimelineLite:TimelineLite;
-declare var TimelineMax:TimelineMax;
-declare var TweenLite:TweenLite;
-declare var TweenMax:TweenMax;
 
 //com.greensock.easing
 declare var Back:Back;

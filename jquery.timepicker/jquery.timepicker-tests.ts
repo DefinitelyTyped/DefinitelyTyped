@@ -43,3 +43,6 @@ $('#timepicker').timepicker({
     showDeselectButton: false,
     deselectButtonText: 'Deselect'
 });
+
+$().timepicker('getTime');
+$().timepicker('setTime', new Date());
