@@ -34,7 +34,7 @@ declare namespace __ReduxRouter {
     export function routerDidChange(state: any): ReduxRouterAction;
     export function initRoutes(routes: any): ReduxRouterAction;
     export function replaceRoutes(routes: any): ReduxRouterAction;
-    export function historyAPI(method: any): (...args: any[]) => ReduxRouterAction;
+    export function historyAPI(method: any): (...args: Object[]) => ReduxRouterAction;
 }
 
 declare module "redux-router/lib/routerStateReducer" {
@@ -59,14 +59,14 @@ declare module "redux-router/lib/actionCreators" {
     export const initRoutes: typeof __ReduxRouter.initRoutes;
     export const replaceRoutes: typeof __ReduxRouter.replaceRoutes;
     export const historyAPI: typeof __ReduxRouter.historyAPI;
-    export const pushState: __ReduxRouter.historyAPI;
-    export const push: __ReduxRouter.historyAPI;
-    export const replaceState: __ReduxRouter.historyAPI;
-    export const replace: __ReduxRouter.historyAPI;
-    export const setState: __ReduxRouter.historyAPI;
-    export const go: __ReduxRouter.historyAPI;
-    export const goBack: __ReduxRouter.historyAPI;
-    export const goForward: __ReduxRouter.historyAPI;
+    export const pushState: (...args: Object[]) => __ReduxRouter.ReduxRouterAction;
+    export const push: (...args: Object[]) => __ReduxRouter.ReduxRouterAction;
+    export const replaceState: (...args: Object[]) => __ReduxRouter.ReduxRouterAction;
+    export const replace: (...args: Object[]) => __ReduxRouter.ReduxRouterAction;
+    export const setState: (...args: Object[]) => __ReduxRouter.ReduxRouterAction;
+    export const go: (...args: Object[]) => __ReduxRouter.ReduxRouterAction;
+    export const goBack: (...args: Object[]) => __ReduxRouter.ReduxRouterAction;
+    export const goForward: (...args: Object[]) => __ReduxRouter.ReduxRouterAction;
 }
 
 declare module "redux-router" {
