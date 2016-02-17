@@ -1,4 +1,4 @@
-// Type definitions for Underscore 1.7.0
+// Type definitions for Underscore 1.8.3
 // Project: http://underscorejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Josh Baldwin <https://github.com/jbaldwin/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -3594,6 +3594,18 @@ interface UnderscoreStatic {
 	extend(
 		destination: any,
 		...sources: any[]): any;
+
+		/**
+	* Copy all of the properties in the source objects over to the destination object, and return
+	* the destination object. It's in-order, so the last source will override properties of the
+	* same name in previous arguments.
+	* @param destination Object to extend all the properties from `sources`.
+	* @param sources Extends `destination` with all properties from these source objects.
+	* @return `destination` extended with all the properties from the `sources` objects.
+	**/
+	create(
+		prototype: any,
+		props: any): any;
 
 	/**
 	* Like extend, but only copies own properties over to the destination object. (alias: assign)
