@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import fb = facebook;
-declare var FB: fb.IFacebookStatic;
+declare var FB: fb.FacebookStatic;
 declare module facebook {
 
-    interface IFacebookStatic {
+    interface FacebookStatic {
         // api: any;
         // AppEvents: any;
         // Canvas: any;
@@ -18,20 +18,20 @@ declare module facebook {
          *
          * @param callback function to handle the response.
          */
-        getAuthResponse(callback: (response: ILoginStatusResp) => void): void;
+        getAuthResponse(callback: (response: AuthResponse) => void): void;
         /**
          * FB.getLoginStatus() allows you to determine if a user is
          * logged in to Facebook and has authenticated your app.
          *
          * @param callback function to handle the response.
          */
-        getLoginStatus(callback: (response: ILoginStatusResp) => void): void;
+        getLoginStatus(callback: (response: AuthResponse) => void): void;
         /**
          * The method FB.init() is used to initialize and setup the SDK.
          *
          * @param params params for the initialization.
          */
-        init(params: IInitParams): void;
+        init(params: InitParams): void;
         /**
          * Use this function to log the user in
          *
@@ -42,18 +42,18 @@ declare module facebook {
          * @param callback function to handle the response.
          * @param options optional ILoginOption to add params such as scope.
          */
-        login(callback: (response: ILoginStatusResp) => void, options?: ILoginOptions): void;
+        login(callback: (response: AuthResponse) => void, options?: LoginOptions): void;
         /**
          * The method FB.logout() logs the user out of your site and, in some cases, Facebook.
          *
          * @param callback function to handle the response
          */
-        logout(callback: (response: ILoginStatusResp) => void): void;
+        logout(callback: (response: AuthResponse) => void): void;
         // ui: any;
         // XFBML: any;
     }
 
-    interface IInitParams {
+    interface InitParams {
         appId: string;
         version?: string;
         cookie?: boolean;
@@ -63,7 +63,7 @@ declare module facebook {
         hideFlashCallback?: boolean;
     }
 
-    interface ILoginOptions {
+    interface LoginOptions {
         auth_type?: string;
         scope?: string;
         return_scopes?: boolean;
@@ -78,7 +78,7 @@ declare module facebook {
     //
     ////////////////////////
 
-    interface ILoginStatusResp {
+    interface AuthResponse {
         status: string;
         authResponse: {
             accessToken: string;
