@@ -197,20 +197,20 @@ var clonedDOMElement: React.ReactHTMLElement =
 
 // React.render
 var component: React.Component<Props, any> =
-    ReactDOM.render(element, container);
+    React.render(element, container);
 var classicComponent: React.ClassicComponent<Props, any> =
-    ReactDOM.render(classicElement, container);
+    React.render(classicElement, container);
 var domComponent: Element =
-    ReactDOM.render(domElement, container);
+    React.render(domElement, container);
 
 // Other Top-Level API
-var unmounted: boolean = ReactDOM.unmountComponentAtNode(container);
+var unmounted: boolean = React.unmountComponentAtNode(container);
 var str: string = ReactDOMServer.renderToString(element);
 var markup: string = ReactDOMServer.renderToStaticMarkup(element);
 var notValid: boolean = React.isValidElement(props); // false
 var isValid = React.isValidElement(element); // true
-var domNode: Element = ReactDOM.findDOMNode(component);
-domNode = ReactDOM.findDOMNode(domNode);
+var domNode: Element = React.findDOMNode(component);
+domNode = React.findDOMNode(domNode);
 
 //
 // React Elements
@@ -441,7 +441,7 @@ class Timer extends React.Component<{}, TimerState> {
         );
     }
 }
-ReactDOM.render(React.createElement(Timer), container);
+React.render(React.createElement(Timer), container);
 
 //
 // createFragment addon
