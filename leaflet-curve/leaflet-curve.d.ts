@@ -7,7 +7,7 @@
 
 declare module L {
 	/**
-	 * Drawing Bézier curves and other complex shapes.
+	 * Drawing Bezier curves and other complex shapes.
 	 */
 	function  curve(path: any[], options?: L.PathOptions): Path;
 }
