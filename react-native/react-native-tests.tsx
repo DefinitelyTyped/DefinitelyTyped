@@ -21,14 +21,14 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 
 
 import * as React from 'react-native'
-const  {
+import {
     StyleSheet,
     Text,
     View,
     AppState,
     AppStateIOS,
     ViewPagerAndroid
-} = React
+} from 'react-native';
 
 var styles = StyleSheet.create(
     {
