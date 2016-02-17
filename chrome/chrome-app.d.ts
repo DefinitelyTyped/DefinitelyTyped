@@ -258,7 +258,7 @@ declare module chrome.sockets.tcp {
     export function send(socketId: number, data: ArrayBuffer, callback: (sendInfo: SendInfo) => void): void;
     export function close(socketId: number, callback?: () => void): void;
     export function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
-    export function getSockets(socketId: number, callback: (socketInfos: SocketInfo[]) => void): void;
+    export function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
 
     var onReceive: Event<ReceiveEventArgs>;
     var onReceiveError: Event<ReceiveErrorEventArgs>;
