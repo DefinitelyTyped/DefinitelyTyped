@@ -9,7 +9,9 @@ declare module "gm" {
 	import stream = require('stream');
 
 	function m(image: string): m.State;
-
+	function m(image: Buffer, img?: string): m.State;
+	function m(image: stream.Readable, img?: string): m.State;
+	
 	module m {
 		export interface ClassOptions {
 			imageMagick?: boolean;
