@@ -8,19 +8,19 @@ FB.init({
    xfbml: true
 });
 
-FB.getLoginStatus(function(response: fb.ILoginStatusResp) {
+FB.getLoginStatus(function(response: fb.AuthResponse) {
     console.log(response);
     console.log(response.status);
     console.log(response.authResponse.accessToken);
 });
 
-FB.getAuthResponse(function(response: fb.ILoginStatusResp) {
+FB.getAuthResponse(function(response: fb.AuthResponse) {
     console.log(response);
     console.log(response.status);
     console.log(response.authResponse.accessToken);
 });
 
-FB.login(function(response: fb.ILoginStatusResp) {
+FB.login(function(response: fb.AuthResponse) {
     console.log(response);
     console.log(response.status);
     console.log(response.authResponse.accessToken);
@@ -28,7 +28,7 @@ FB.login(function(response: fb.ILoginStatusResp) {
     scope: 'public_profile'
 });
 
-FB.logout(function(response: fb.ILoginStatusResp) {
+FB.logout(function(response: fb.AuthResponse) {
     console.log(response);
     console.log(response.status);
     console.log(response.authResponse.accessToken);
