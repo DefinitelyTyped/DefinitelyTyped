@@ -3,7 +3,7 @@
 // Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module PaceInterfaces {
+declare module HubSpotPaceInterfaces {
     interface PaceOptions {
         /**
          * How long should it take for the bar to animate to a new point after receiving it
@@ -109,7 +109,7 @@ declare module PaceInterfaces {
     enum PaceEvent { start, stop, restart, done, hide }
 }
 
-declare var pace: PaceInterfaces.Pace;
-declare module "pace" {
+declare var pace: HubSpotPaceInterfaces.Pace;
+declare module "HubSpot-pace" {
     export = pace;
 }

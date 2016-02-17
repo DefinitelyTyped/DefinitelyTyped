@@ -1,4 +1,4 @@
-/// <reference path="pace.d.ts" />
+/// <reference path="HubSpot-pace.d.ts" />
 
 pace.start({
     document: false
@@ -10,7 +10,7 @@ pace.restart();
 
 pace.stop();
 
-var paceOptions: PaceInterfaces.PaceOptions;
+var paceOptions: HubSpotPaceInterfaces.PaceOptions;
 
 paceOptions = {
     // Disable the 'elements' source
