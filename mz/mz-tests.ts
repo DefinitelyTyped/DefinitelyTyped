@@ -1,4 +1,4 @@
-/// <reference path="../moncha/moncha.d.ts" />
+/// <reference path="../mocha/mocha.d.ts" />
 
 
 var assert = require('assert')
