@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.14
+// Type definitions for react-native 0.19
 // Project: https://github.com/facebook/react-native
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -976,6 +976,31 @@ declare namespace  __React {
      * whether that is a UIView, <div>, android.view, etc.
      */
     export interface ViewStatic extends NativeComponent, React.ComponentClass<ViewProperties> {
+
+    }
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/viewpagerandroid.html#props
+     */
+
+
+    export interface ViewPagerAndroidOnPageScrollEventData {
+        position: number;
+        offset: number;
+    }
+
+    export interface ViewPagerAndroidOnPageSelectedEventData {
+        position: number;
+    }
+
+    export interface ViewPagerAndroidProperties extends ViewProperties {
+        initialPage?: number;
+        onPageScroll?: ( event: NativeSyntheticEvent<ViewPagerAndroidOnPageScrollEventData> ) => void;
+        onPageSelected?: ( event: NativeSyntheticEvent<ViewPagerAndroidOnPageSelectedEventData> ) => void;
+        keyboardDismissMode?: string; /* enum('none', 'on-drag') */
+    }
+
+    export interface ViewPagerAndroidStatic extends NativeComponent, React.ComponentClass<ViewPagerAndroidProperties> {
 
     }
 
@@ -2853,7 +2878,7 @@ declare namespace  __React {
      *
      * @see https://facebook.github.io/react-native/docs/appstateios.html#content
      */
-    export interface AppStateIOSStatic {
+    export interface AppStateStatic {
         currentState: string
         addEventListener( type: string, listener: ( state: string ) => void ): void
         removeEventListener( type: string, listener: ( state: string ) => void ): void
@@ -3364,6 +3389,9 @@ declare namespace  __React {
     export var View: ViewStatic
     export type View = ViewStatic
 
+    export var ViewPagerAndroid: ViewPagerAndroidStatic
+    export type ViewPagerAndroid = ViewPagerAndroidStatic
+
     export var WebView: WebViewStatic
     export type WebView = WebViewStatic
 
@@ -3378,8 +3406,11 @@ declare namespace  __React {
     export var AlertIOS: AlertIOSStatic
     export type AlertIOS = AlertIOSStatic
 
-    export var AppStateIOS: AppStateIOSStatic
-    export type AppStateIOS = AppStateIOSStatic
+    export var AppState : AppStateStatic;
+    export type AppState = AppStateStatic;
+
+    export var AppStateIOS: AppStateStatic
+    export type AppStateIOS = AppStateStatic
 
     export var AsyncStorage: AsyncStorageStatic
     export type AsyncStorage = AsyncStorageStatic
