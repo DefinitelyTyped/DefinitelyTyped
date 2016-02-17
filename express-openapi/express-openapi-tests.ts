@@ -40,6 +40,10 @@ get.apiDoc = {
         }
     ],
     responses: {
+        200: {
+            description: "valid user object",
+            schema: {$ref: '#/definitions/user'}
+        },
         default: {$ref: '#/definitions/error'}
     },
     "x-some-vendor-property": {}

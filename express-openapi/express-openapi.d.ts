@@ -128,7 +128,7 @@ declare module "express-openapi" {
 
         export interface ResponseObject {
             description: string
-            schema?: SchemaObject
+            schema?: Schema
             headers?: HeadersObject
             examples?: ExampleObject
         }
@@ -209,7 +209,7 @@ declare module "express-openapi" {
         }
 
         export interface InBodyParameterObject extends ParameterObject {
-            schema: SchemaObject
+            schema: Schema
         }
 
         export interface GeneralParameterObject extends ParameterObject, ItemsObject {
@@ -225,6 +225,8 @@ declare module "express-openapi" {
             description?: string
             url: string
         }
+
+        type Schema = SchemaObject | ReferenceObject
 
         export interface SchemaObject extends IJsonSchema {
             [index: string]: any
