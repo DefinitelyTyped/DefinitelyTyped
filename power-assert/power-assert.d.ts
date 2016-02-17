@@ -66,5 +66,5 @@ declare namespace assert {
 }
 
 declare module "power-assert" {
-    export default assert;
+    export = assert;
 }
