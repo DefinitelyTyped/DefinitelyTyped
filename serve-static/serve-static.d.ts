@@ -10,11 +10,11 @@
 
  =============================================== */
 
-/// <reference path="../express/express.d.ts" />
+/// <reference path="../express-serve-static-core/express-serve-static-core.d.ts" />
 /// <reference path="../mime/mime.d.ts" />
 
 declare module "serve-static" {
-    import * as express from "express";
+    import * as express from "express-serve-static-core";
 
     /**
      * Create a new middleware function to serve files from within a given root directory.
