@@ -1,4 +1,4 @@
-// Type definitions for Matter.js - EDGE
+// Type definitions for Matter.js - 0.9.1
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
 //                 David Asmuth <https://github.com/piranha771/>
@@ -491,16 +491,17 @@ declare module Matter {
         */
         lineWidth: number;
 
-
-
         /**
          * A String that defines the stroke style to use when rendering the body outline (if a sprite is not defined). It is the same as when using a canvas, so it accepts CSS style property values.
          Default: a random colour
         */
         strokeStyle: string;
-
-
-
+		
+		
+		/*
+		 * Sets the opacity. 1.0 is fully opaque. 0.0 is fully translucent
+		 */
+		opacity: number;
     }
 
     export interface IBodyRenderOptionsSprite {
