@@ -13,7 +13,7 @@ let loggerWithOpts = createLogger({
   logger: console,
   predicate: (getState, action) => true,
   timestamp: true,
-  transformer: state => state
+  stateTransformer: state => state
 });
 
 let createStoreWithMiddleware = applyMiddleware(

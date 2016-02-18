@@ -49,7 +49,7 @@ declare module "gulp-istanbul" {
 
         interface ThresholdOptions {
             coverageVariable?: string;
-            thresholds?: { global?: Coverage|number; each?: Coverage|number };
+            thresholds?: { global?: CoverageOptions|number; each?: CoverageOptions|number };
         }
 
         interface CoverageOptions {

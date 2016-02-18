@@ -43,6 +43,11 @@ declare module "jsonwebtoken" {
         maxAge?: string;
     }
 
+    export interface DecodeOptions {
+      complete?: boolean;
+      json?: boolean;
+    }
+
     export interface VerifyCallback {
         (err: Error, decoded: any): void;
     }
@@ -93,7 +98,8 @@ declare module "jsonwebtoken" {
     /**
      * Returns the decoded payload without verifying if the signature is valid.
      * @param {String} token - JWT string to decode
+     * @param {DecodeOptions} [options] - Options for decoding
      * @returns {Object} The decoded Token
      */
-    function decode(token: string): any;
+    function decode(token: string, options?: DecodeOptions): any;
 }
