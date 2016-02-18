@@ -1,9 +1,7 @@
-// Tests for Flickity v1.1.1 Definitions
+// Tests for Flickity v1.1.1 
 // Project: http://flickity.metafizzy.co/
 // Repository:  https://github.com/metafizzy/flickity
 // Definitions by: Chris McGrath <https://github.com/clmcgrath/>
-
-
 
 ///<reference path="../jquery/jquery.d.ts"/>
 ///<reference path="FlickityEvents.ts"/>
