@@ -1,6 +1,6 @@
-// Tests for Flickity v1.1.1 
+// Tests for Flickity v1.1.1
 // Project: http://flickity.metafizzy.co/
-// Repository:  https://github.com/metafizzy/flickity
+// Repository: https://github.com/metafizzy/flickity
 // Definitions by: Chris McGrath <https://github.com/clmcgrath/>
 
 ///<reference path="../jquery/jquery.d.ts"/>
@@ -105,7 +105,7 @@
 
         flikty2.reloadCells();
 
-        //event handlers 
+        //event handlers
         flikty2.on(FlickityEvents.cellSelect, (evt, ele) => {
             //do something
         });
@@ -121,8 +121,8 @@
         flikty2.listener("myCustomEvent", (evt : Event) => {
             //do something
         });
-        
-        //static get data methods 
+
+        //static get data methods
 
         var jQdata = jQuery.fn.data('flickity')();
             jQdata = $.fn.data('flickity')();
@@ -132,19 +132,6 @@
 
         //property tests
         var selectedIndex : number = flikty2.selectedIndex;
-        
+
         var selectedElement: Element = flikty2.selectedElement;
         var cells : Array<Element> = flikty2.cells;
-
-
-
-
-
-
-
-
-
-
-
-
-

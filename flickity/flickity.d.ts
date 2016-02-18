@@ -1,6 +1,6 @@
 // Type definitions for Flickity v1.1.1
 // Project: http://flickity.metafizzy.co/
-// Repository:  https://github.com/metafizzy/flickity
+// Repository: https://github.com/metafizzy/flickity
 // Definitions by: Chris McGrath <https://github.com/bdukes/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
