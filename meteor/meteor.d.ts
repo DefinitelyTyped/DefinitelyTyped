@@ -247,6 +247,7 @@ declare module Meteor {
 	interface EmailFields {
 		subject?: (user: Meteor.User)=> string;
 		text?: (user: Meteor.User, url: string)=> string;
+		html?: (user: Meteor.User, url: string)=> string;
 	}
 
 	interface EmailTemplates {
