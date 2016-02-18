@@ -515,8 +515,8 @@ declare module _ {
          * @return Returns the new array of filtered values.
          */
         difference<T>(
-            array: any[]|List<any>,
-            ...values: any[]
+            array: T[]|List<T>,
+            ...values: Array<T[]|List<T>>
         ): T[];
     }
 
@@ -4162,6 +4162,519 @@ declare module _ {
         union<T>(...arrays: List<T>[]): LoDashExplicitArrayWrapper<T>;
     }
 
+    //_.unionBy
+    interface LoDashStatic {
+        /**
+         * This method is like `_.union` except that it accepts `iteratee` which is
+         * invoked for each element of each `arrays` to generate the criterion by which
+         * uniqueness is computed. The iteratee is invoked with one argument: (value).
+         *
+         * @param arrays The arrays to inspect.
+         * @param iteratee The iteratee invoked per element.
+         * @return Returns the new array of combined values.
+         */
+        unionBy<T>(
+            arrays: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays: T[]|List<T>,
+            iteratee?: W
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays1: T[]|List<T>,
+            arrays2: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays1: T[]|List<T>,
+            arrays2: T[]|List<T>,
+            iteratee?: W
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays1: T[]|List<T>,
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays1: T[]|List<T>,
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: W
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays1: T[]|List<T>,
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays1: T[]|List<T>,
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: W
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays1: T[]|List<T>,
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays1: T[]|List<T>,
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: W
+        ): T[];
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays: T[]|List<T>,
+            ...iteratee: any[]
+        ): T[];
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            ...iteratee: any[]
+        ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: W
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            ...iteratee: any[]
+        ): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            ...iteratee: any[]
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: (value: T) => any
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T, W extends Object>(
+            arrays2: T[]|List<T>,
+            arrays3: T[]|List<T>,
+            arrays4: T[]|List<T>,
+            arrays5: T[]|List<T>,
+            iteratee?: W
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.unionBy
+         */
+        unionBy<T>(
+            ...iteratee: any[]
+        ): LoDashExplicitArrayWrapper<T>;
+    }
+
     //_.uniq
     interface LoDashStatic {
         /**
@@ -4729,34 +5242,6 @@ declare module _ {
         ): LoDashExplicitArrayWrapper<T>;
     }
 
-    //_.unionBy DUMMY
-    interface LoDashStatic {
-        /**
-         * This method is like `_.union` except that it accepts `iteratee` which is
-         * invoked for each element of each `arrays` to generate the criterion by which
-         * uniqueness is computed. The iteratee is invoked with one argument: (value).
-         *
-         * @static
-         * @memberOf _
-         * @category Array
-         * @param {...Array} [arrays] The arrays to inspect.
-         * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
-         * @returns {Array} Returns the new array of combined values.
-         * @example
-         *
-         * _.unionBy([2.1, 1.2], [4.3, 2.4], Math.floor);
-         * // => [2.1, 1.2, 4.3]
-         *
-         * // using the `_.property` iteratee shorthand
-         * _.unionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
-         * // => [{ 'x': 1 }, { 'x': 2 }]
-         */
-        unionBy(
-            array: any[]|List<any>,
-            ...values: any[]
-        ): any[];
-    }
-
     //_.unionWith DUMMY
     interface LoDashStatic {
         /**
@@ -4808,21 +5293,6 @@ declare module _ {
             array: any[]|List<any>,
             ...values: any[]
         ): any[];
-    }
-
-    //_.unset
-    interface LoDashStatic {
-        /**
-         * Removes the property at path of object.
-         *
-         * @param object The object to modify.
-         * @param path The path of the property to unset.
-         * @return Returns true if the property is deleted, else false.
-         */
-        unset<T>(
-            object: T,
-            path: StringRepresentable | StringRepresentable[]
-        ): boolean;
     }
 
     //_.unzip
@@ -6049,27 +6519,16 @@ declare module _ {
     //_.every
     interface LoDashStatic {
         /**
-         * Checks if predicate returns truthy for all elements of collection. The predicate is bound to thisArg and
-         * invoked with three arguments: (value, index|key, collection).
-         *
-         * If a property name is provided for predicate the created _.property style callback returns the property
-         * value of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for predicate the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
+         * Checks if predicate returns truthy for all elements of collection. Iteration is stopped once predicate
+         * returns falsey. The predicate is invoked with three arguments: (value, index|key, collection).
          *
          * @param collection The collection to iterate over.
          * @param predicate The function invoked per iteration.
-         * @param thisArg The this binding of predicate.
          * @return Returns true if all elements pass the predicate check, else false.
          */
         every<T>(
             collection: List<T>,
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): boolean;
 
         /**
@@ -6077,24 +6536,30 @@ declare module _ {
          */
         every<T>(
             collection: Dictionary<T>,
-            predicate?: DictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate?: DictionaryIterator<T, boolean>
         ): boolean;
 
         /**
          * @see _.every
          */
         every<T>(
-            collection: List<T>|Dictionary<T>,
-            predicate?: string,
-            thisArg?: any
+            collection: NumericDictionary<T>,
+            predicate?: NumericDictionaryIterator<T, boolean>
+        ): boolean;
+
+        /**
+         * @see _.every
+         */
+        every<T>(
+            collection: List<T>|Dictionary<T>|NumericDictionary<T>,
+            predicate?: string|any[]
         ): boolean;
 
         /**
          * @see _.every
          */
         every<TObject extends {}, T>(
-            collection: List<T>|Dictionary<T>,
+            collection: List<T>|Dictionary<T>|NumericDictionary<T>,
             predicate?: TObject
         ): boolean;
     }
@@ -6104,16 +6569,14 @@ declare module _ {
          * @see _.every
          */
         every(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>|NumericDictionaryIterator<T, boolean>
         ): boolean;
 
         /**
          * @see _.every
          */
         every(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string|any[]
         ): boolean;
 
         /**
@@ -6129,16 +6592,14 @@ declare module _ {
          * @see _.every
          */
         every<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>
         ): boolean;
 
         /**
          * @see _.every
          */
         every(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string|any[]
         ): boolean;
 
         /**
@@ -6154,16 +6615,14 @@ declare module _ {
          * @see _.every
          */
         every(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>|NumericDictionaryIterator<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
 
         /**
          * @see _.every
          */
         every(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string|any[]
         ): LoDashExplicitWrapper<boolean>;
 
         /**
@@ -6179,16 +6638,14 @@ declare module _ {
          * @see _.every
          */
         every<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
 
         /**
          * @see _.every
          */
         every(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string|any[]
         ): LoDashExplicitWrapper<boolean>;
 
         /**
@@ -7432,7 +7889,7 @@ declare module _ {
             method: (...args: any[]) => TResult,
             ...args: any[]): TResult[];
     }
-    
+
     interface LoDashImplicitArrayWrapper<T> {
         /**
         * @see _.invokeMap
@@ -7448,7 +7905,7 @@ declare module _ {
             method: (...args: any[]) => TResult,
             ...args: any[]): LoDashImplicitArrayWrapper<TResult>;
     }
-    
+
     interface LoDashImplicitObjectWrapper<T> {
         /**
         * @see _.invokeMap
@@ -7464,7 +7921,7 @@ declare module _ {
             method: (...args: any[]) => TResult,
             ...args: any[]): LoDashImplicitArrayWrapper<TResult>;
     }
-    
+
     interface LoDashExplicitArrayWrapper<T> {
         /**
         * @see _.invokeMap
@@ -7480,7 +7937,7 @@ declare module _ {
             method: (...args: any[]) => TResult,
             ...args: any[]): LoDashExplicitArrayWrapper<TResult>;
     }
-    
+
     interface LoDashExplicitObjectWrapper<T> {
         /**
         * @see _.invokeMap
@@ -8320,28 +8777,16 @@ declare module _ {
     //_.some
     interface LoDashStatic {
         /**
-         * Checks if predicate returns truthy for any element of collection. The function returns as soon as it finds
-         * a passing value and does not iterate over the entire collection. The predicate is bound to thisArg and
-         * invoked with three arguments: (value, index|key, collection).
-         *
-         * If a property name is provided for predicate the created _.property style callback returns the property
-         * value of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for predicate the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
+         * Checks if predicate returns truthy for any element of collection. Iteration is stopped once predicate
+         * returns truthy. The predicate is invoked with three arguments: (value, index|key, collection).
          *
          * @param collection The collection to iterate over.
          * @param predicate The function invoked per iteration.
-         * @param thisArg The this binding of predicate.
          * @return Returns true if any element passes the predicate check, else false.
          */
         some<T>(
             collection: List<T>,
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): boolean;
 
         /**
@@ -8349,8 +8794,7 @@ declare module _ {
          */
         some<T>(
             collection: Dictionary<T>,
-            predicate?: DictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate?: DictionaryIterator<T, boolean>
         ): boolean;
 
         /**
@@ -8358,8 +8802,7 @@ declare module _ {
          */
         some<T>(
             collection: NumericDictionary<T>,
-            predicate?: NumericDictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate?: NumericDictionaryIterator<T, boolean>
         ): boolean;
 
         /**
@@ -8367,8 +8810,7 @@ declare module _ {
          */
         some<T>(
             collection: List<T>|Dictionary<T>|NumericDictionary<T>,
-            predicate?: string,
-            thisArg?: any
+            predicate?: string|any[]
         ): boolean;
 
         /**
@@ -8385,16 +8827,14 @@ declare module _ {
          * @see _.some
          */
         some(
-            predicate?: ListIterator<T, boolean>|NumericDictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>|NumericDictionaryIterator<T, boolean>
         ): boolean;
 
         /**
          * @see _.some
          */
         some(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string|any[]
         ): boolean;
 
         /**
@@ -8410,16 +8850,14 @@ declare module _ {
          * @see _.some
          */
         some<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>
         ): boolean;
 
         /**
          * @see _.some
          */
         some(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string|any[]
         ): boolean;
 
         /**
@@ -8435,16 +8873,14 @@ declare module _ {
          * @see _.some
          */
         some(
-            predicate?: ListIterator<T, boolean>|NumericDictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>|NumericDictionaryIterator<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
 
         /**
          * @see _.some
          */
         some(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string|any[]
         ): LoDashExplicitWrapper<boolean>;
 
         /**
@@ -8460,16 +8896,14 @@ declare module _ {
          * @see _.some
          */
         some<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>
         ): LoDashExplicitWrapper<boolean>;
 
         /**
          * @see _.some
          */
         some(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string|any[]
         ): LoDashExplicitWrapper<boolean>;
 
         /**
@@ -15055,33 +15489,6 @@ declare module _ {
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
-    //_.toPairs
-    interface LoDashStatic {
-        /**
-         * Creates a two dimensional array of the key-value pairs for object, e.g. [[key1, value1], [key2, value2]].
-         *
-         * @param object The object to query.
-         * @return Returns the new array of key-value pairs.
-         */
-        toPairs<T extends {}>(object?: T): any[][];
-
-        toPairs<T extends {}, TResult>(object?: T): TResult[][];
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.toPairs
-         */
-        toPairs<TResult>(): LoDashImplicitArrayWrapper<TResult[]>;
-    }
-
-    interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.toPairs
-         */
-        toPairs<TResult>(): LoDashExplicitArrayWrapper<TResult[]>;
-    }
-
     //_.pick
     interface LoDashStatic {
         /**
@@ -15354,6 +15761,60 @@ declare module _ {
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
+    //_.toPairs
+    interface LoDashStatic {
+        /**
+         * Creates an array of own enumerable key-value pairs for object.
+         *
+         * @param object The object to query.
+         * @return Returns the new array of key-value pairs.
+         */
+        toPairs<T extends {}>(object?: T): any[][];
+
+        toPairs<T extends {}, TResult>(object?: T): TResult[][];
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.toPairs
+         */
+        toPairs<TResult>(): LoDashImplicitArrayWrapper<TResult[]>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.toPairs
+         */
+        toPairs<TResult>(): LoDashExplicitArrayWrapper<TResult[]>;
+    }
+
+    //_.toPairsIn
+    interface LoDashStatic {
+        /**
+         * Creates an array of own and inherited enumerable key-value pairs for object.
+         *
+         * @param object The object to query.
+         * @return Returns the new array of key-value pairs.
+         */
+        toPairsIn<T extends {}>(object?: T): any[][];
+
+        toPairsIn<T extends {}, TResult>(object?: T): TResult[][];
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.toPairsIn
+         */
+        toPairsIn<TResult>(): LoDashImplicitArrayWrapper<TResult[]>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.toPairsIn
+         */
+        toPairsIn<TResult>(): LoDashExplicitArrayWrapper<TResult[]>;
+    }
+
     //_.transform
     interface LoDashStatic {
         /**
@@ -15444,6 +15905,37 @@ declare module _ {
             accumulator?: TResult[],
             thisArg?: any
         ): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    //_.unset
+    interface LoDashStatic {
+        /**
+         * Removes the property at path of object.
+         *
+         * Note: This method mutates object.
+         *
+         * @param object The object to modify.
+         * @param path The path of the property to unset.
+         * @return Returns true if the property is deleted, else false.
+         */
+        unset<T>(
+            object: T,
+            path: StringRepresentable|StringRepresentable[]
+        ): boolean;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.unset
+         */
+        unset(path: StringRepresentable|StringRepresentable[]): LoDashImplicitWrapper<boolean>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.unset
+         */
+        unset(path: StringRepresentable|StringRepresentable[]): LoDashExplicitWrapper<boolean>;
     }
 
     //_.values

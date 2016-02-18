@@ -39,6 +39,10 @@ declare class Pikaday {
 
     setMaxDate(date:Date):void;
 
+    setEndRange(date:Date):void;
+
+    setStartRange(date:Date):void;
+
     isVisible():boolean;
 
     show():void;

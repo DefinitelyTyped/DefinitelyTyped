@@ -1,4 +1,4 @@
-// Type definitions for Electron v0.35.0
+// Type definitions for Electron v0.36.3
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -51,6 +51,10 @@ declare module Electron {
 		 * Marks the image as template image.
 		 */
 		setTemplateImage(option: boolean): void;
+		/**
+		 * Returns a boolean whether the image is a template image.
+		 */
+		isTemplateImage(): boolean;
 	}
 
 	module Clipboard {
@@ -479,6 +483,7 @@ declare module Electron {
 	interface WebPreferences {
 		nodeIntegration?: boolean;
 		preload?: string;
+		session?: Session;
 		partition?: string;
 		zoomFactor?: number;
 		javascript?: boolean;
@@ -492,16 +497,11 @@ declare module Electron {
 		plugins?: boolean;
 		experimentalFeatures?: boolean;
 		experimentalCanvasFeatures?: boolean;
-		overlayScrollbars?: boolean;
-		sharedWorker?: boolean;
 		directWrite?: boolean;
-		pageVisibility?: boolean;
+		blinkFeatures?: string;
 	}
 
-	// Includes all options BrowserWindow can take as of this writing
-	// http://electron.atom.io/docs/v0.29.0/api/browser-window/
 	interface BrowserWindowOptions extends Rectangle {
-		show?: boolean;
 		useContentSize?: boolean;
 		center?: boolean;
 		minWidth?: number;
@@ -512,28 +512,22 @@ declare module Electron {
 		alwaysOnTop?: boolean;
 		fullscreen?: boolean;
 		skipTaskbar?: boolean;
-		zoomFactor?: number;
 		kiosk?: boolean;
 		title?: string;
 		icon?: NativeImage|string;
+		show?: boolean;
 		frame?: boolean;
 		acceptFirstMouse?: boolean;
 		disableAutoHideCursor?: boolean;
 		autoHideMenuBar?: boolean;
 		enableLargerThanScreen?: boolean;
+		backgroundColor?: string;
 		darkTheme?: boolean;
 		preload?: string;
 		transparent?: boolean;
 		type?: string;
-		standardWindow?: boolean;
-		webPreferences?: WebPreferences;
-		java?: boolean;
-		textAreasAreResizable?: boolean;
-		extraPluginDirs?: string[];
-		subpixelFontScaling?: boolean;
-		overlayFullscreenVideo?: boolean;
 		titleBarStyle?: string;
-		backgroundColor?: string;
+		webPreferences?: WebPreferences;
 	}
 
 	interface Rectangle {
@@ -784,6 +778,10 @@ declare module Electron {
 		 * Toggle the developer tools.
 		 */
 		toggleDevTools(): void;
+		/**
+		 * Starts inspecting element at position (x, y).
+		 */
+		inspectElement(x: number, y: number): void;
 		/**
 		 * Send args.. to the web page via channel in asynchronous message, the web page
 		 * can handle it by listening to the channel event of ipc module.
@@ -1584,6 +1582,17 @@ declare module Electron {
 		 * corrupted by active network attackers.
 		 */
 		registerURLSchemeAsSecure(scheme: string): void;
+		/**
+		 * Inserts text to the focused element.
+		 */
+		insertText(text: string): void;
+		/**
+		 * Evaluates `code` in page.
+ 		 * In the browser window some HTML APIs like `requestFullScreen` can only be
+ 		 * invoked by a gesture from the user. Setting `userGesture` to `true` will remove
+ 		 * this limitation.
+		 */
+		executeJavaScript(code: string, userGesture?: boolean): void;
 	}
 
 	// Type definitions for main process
@@ -1806,6 +1815,7 @@ declare module Electron {
 		clearCache(callback: Function): void;
 		clearStorageData(callback: Function): void;
 		clearStorageData(options: ClearStorageDataOptions, callback: Function): void;
+		flushStorageData(): void;
 		setProxy(config: string, callback: Function): void;
 		resolveProxy(url: URL, callback: (proxy: any) => any): void;
 		setDownloadPath(path: string): void;
