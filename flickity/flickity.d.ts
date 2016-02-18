@@ -1,7 +1,8 @@
-// Definitions for Flickity v1.1.1 
+// Type definitions for Flickity v1.1.1
 // Project: http://flickity.metafizzy.co/
 // Repository:  https://github.com/metafizzy/flickity
-// Definitions by: Chris McGrath <https://github.com/clmcgrath/>
+// Definitions by: Chris McGrath <https://github.com/bdukes/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
 
@@ -162,53 +163,53 @@ declare class Flickity {
     * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires 
     */
-    on(eventname: string, callback: (eventt?: Event, cellElement?: Element) => any);
+    on(eventname: string, callback: (eventt?: Event, cellElement?: Element) => any) : void;
     /**
     * bind event listener
     * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires 
     */
-    on(eventname: string, callback: (event?: Event, pointer?: Element | Touch) => any);
+    on(eventname: string, callback: (event?: Event, pointer?: Element | Touch) => any): void;
     /**
     * bind event listener
     * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires 
     */
-    on(eventname: string, callback: (event?: Event, pointer?: Element | Touch, moveVector?: Object) => any);
+    on(eventname: string, callback: (event?: Event, pointer?: Element | Touch, moveVector?: Object) => any): void;
     /**
     * bind event listener
     * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires 
     */
-    on(eventname: string, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any);
+    on(eventname: string, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
 
     /**
     * Remove event listener 
     * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires 
     */
-    off(eventname: string, callback: (event?: Event, cellElement?: Element) => any);
+    off(eventname: string, callback: (event?: Event, cellElement?: Element) => any): void;
     
     /**
     * Remove event listener 
     * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires 
     */
-    off(eventname: string, callback: (event?: Event, pointer?: Element | Touch) => any);
+    off(eventname: string, callback: (event?: Event, pointer?: Element | Touch) => any): void;
     
     /**
     * Remove event listener 
     * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires 
     */
-    off(eventname: string, callback: (event?: Event, pointer?: Element | Touch, moveVector?: Object) => any);
+    off(eventname: string, callback: (event?: Event, pointer?: Element | Touch, moveVector?: Object) => any): void;
 
     /**
     * Remove event listener 
     * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires 
     */
-    off(eventname: string, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any);
+    off(eventname: string, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
 
 
     /**
@@ -216,28 +217,28 @@ declare class Flickity {
     * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires 
     */
-    once(eventname: string, callback: (event?: Event, cellElement?: Element) => any);
+    once(eventname: string, callback: (event?: Event, cellElement?: Element) => any): void;
  
     /**
     * one time event handler
     * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires 
     */
-    once(eventname: string, callback: (event?: Event, pointer?: Element | Touch) => any);
+    once(eventname: string, callback: (event?: Event, pointer?: Element | Touch) => any): void;
 
     /**
     * one time event handler
     * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires 
     */
-    once(eventname: string, callback: (event?: Event, pointer?: Element | Touch, moveVector?: Object) => any);
+    once(eventname: string, callback: (event?: Event, pointer?: Element | Touch, moveVector?: Object) => any): void;
 
     /**
     * one time event handler
     * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires 
     */
-    once(eventname: string, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any);
+    once(eventname: string, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
 
 
 }
@@ -254,7 +255,7 @@ interface IFlickityOptions {
     /**
     * Zero-based index of the initial selected cell.
     * 
-    * default: 
+    * default: 2
     */
     initialIndex?: number;
 
@@ -346,66 +347,66 @@ interface IFlickityOptions {
     lazyLoad?: boolean | number;
 
     /**
+    * Automatically advances to the next cell. 
     * 
-    * 
-    * default: 
+    * default: false
     */
     autoPlay?: boolean | number;
 
     /**
+    * You can enable and disable Flickity with CSS. watchCSS option watches the content of :after of the gallery element. Flickity is enabled if :after content is 'flickity'.
+    * note: IE8 and Android 2.3 do not support watching :after. Flickity will be disabled when watchCSS: true. Set watchCSS: 'fallbackOn' to enable Flickity for these browsers. 
     * 
-    * 
-    * default: 
+    * default: false
     */
     watchCSS?: boolean | string;
 
     /**
+    * Use one Flickity gallery as navigation for another.
     * 
-    * 
-    * default: 
+    * default: disabled
     */
     asNavFor?: string;
 
     /**
+    * selectedAttraction attracts the position of the slider to the selected cell. Higher attraction makes the slider move faster. Lower makes it move slower.
     * 
-    * 
-    * default: 
+    * default: 0.025 
     */
     selectedAttraction?: number;
 
     /**
+    * riction slows the movement of slider. Higher friction makes the slider feel stickier and less bouncy. Lower friction makes the slider feel looser and more wobbly. 
     * 
-    * 
-    * default: 
+    * default: 0.28
     */
     friction?: number;
 
     /**
+    * Slows movement of slider when freeScroll: true. Higher friction makes the slider feel stickier. Lower friction makes the slider feel looser. 
     * 
-    * 
-    * default: 
+    * default: 0.75
     */
     freeScrollFriction?: number;
 
     /**
+    * Creates and enables previous & next buttons.
     * 
-    * 
-    * default: 
+    * default: true
     */
     prevNextButtons?: boolean;
 
     /**
+    * Creates and enables paging dots.
     * 
-    * 
-    * default: 
+    * default: true
     */
     pageDots?: boolean;
 
     /**
-    * 
-    * 
-    * default: 
+    * Draws the shape of the arrows in the previous & next buttons.
+    * javascript dictionary of points or path to SVG file 
     */
-    arrowShape?: any[] | string;
+    arrowShape?: any;
 
 }
