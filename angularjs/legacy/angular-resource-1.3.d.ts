@@ -1,9 +1,9 @@
-// Type definitions for Angular JS 1.5 (ngResource module)
+// Type definitions for Angular JS 1.3 (ngResource module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Michael Jess <http://github.com/miffels>
 // Definitions: https://github.com/daptiv/DefinitelyTyped
 
-/// <reference path="angular.d.ts" />
+/// <reference path="angular-1.4.d.ts" />
 
 declare module 'angular-resource' {
     var _: string;
@@ -23,11 +23,6 @@ declare module angular.resource {
          * If true then the trailing slashes from any calculated URL will be stripped (defaults to true)
          */
         stripTrailingSlashes?: boolean;
-        /**
-         * If true, the request made by a "non-instance" call will be cancelled (if not already completed) by calling
-         * $cancelRequest() on the call's return value. This can be overwritten per action. (Defaults to false.)
-         */
-        cancellable?: boolean;
     }
 
 
@@ -63,16 +58,10 @@ declare module angular.resource {
         transformResponse?: angular.IHttpResponseTransformer | angular.IHttpResponseTransformer[];
         headers?: any;
         cache?: boolean | angular.ICacheObject;
-        /**
-         * Note: In contrast to $http.config, promises are not supported in $resource, because the same value
-         * would be used for multiple requests. If you are looking for a way to cancel requests, you should
-         * use the cancellable option.
-         */
-        timeout?: number
-        cancellable?: boolean;
+        timeout?: number | angular.IPromise<any>;
         withCredentials?: boolean;
         responseType?: string;
-        interceptor?: IHttpInterceptor;
+        interceptor?: any;
     }
 
     // Baseclass for everyresource with default actions.
@@ -147,8 +136,6 @@ declare module angular.resource {
         $delete(): angular.IPromise<T>;
         $delete(params?: Object, success?: Function, error?: Function): angular.IPromise<T>;
         $delete(success: Function, error?: Function): angular.IPromise<T>;
-
-        $cancelRequest(): void;
 
         /** the promise of the original server interaction that created this instance. **/
         $promise : angular.IPromise<T>;
