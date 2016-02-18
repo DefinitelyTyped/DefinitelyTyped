@@ -57,6 +57,7 @@ declare module "react-bootstrap" {
         block?: boolean;
         bsSize?: string;
         bsStyle?: string;
+        bsClass?: string;
         className?: string;
         justified?: boolean;
         vertical?: boolean;
@@ -64,7 +65,7 @@ declare module "react-bootstrap" {
     interface ButtonGroup extends React.ReactElement<ButtonGroupProps> { }
     interface ButtonGroupClass extends  React.ComponentClass<ButtonGroupProps> { }
     var ButtonGroup: ButtonGroupClass;
-    
+
 
     // <DropdownButton />
     // ----------------------------------------
@@ -86,6 +87,58 @@ declare module "react-bootstrap" {
     interface DropdownButton extends React.ReactElement<DropdownButtonProps> { }
     interface DropdownButtonClass extends React.ComponentClass<DropdownButtonProps> { }
     var DropdownButton: DropdownButtonClass;
+
+
+    // <Dropdown.Toggle />
+    // ----------------------------------------
+    interface DropdownToggleProps extends React.Props<DropdownToggleClass> {
+        bsStyle?: string;
+        bsRole?: string;
+        noCaret?: boolean;
+        open?: boolean;
+        title?: string;
+        useAnchor?: boolean;
+    }
+    interface DropdownToggle extends React.ReactElement<DropdownToggleProps> { }
+    interface DropdownToggleClass extends React.ComponentClass<DropdownToggleProps> { }
+
+
+    // <Dropdown.Menu />
+    // ----------------------------------------
+    interface DropdownMenuProps extends React.Props<DropdownMenuClass> {
+        bsStyle?: string;
+        open?: boolean;
+        pullRight?: boolean;
+        onClose?: Function;
+        labelledBy?: string | number;
+        onSelect?: Function;
+    }
+    interface DropdownMenu extends React.ReactElement<DropdownMenuProps> { }
+    interface DropdownMenuClass extends React.ComponentClass<DropdownMenuProps> { }
+
+
+    // <Dropdown />
+    // ----------------------------------------
+    interface DropdownProps extends React.Props<DropdownClass>{
+        bsClass?: string;
+        componentClass?: any; //TODO: Add more specific type
+        disabled?: boolean;
+        dropup?: boolean;
+        id?: string | number;
+        onClick?: Function;  // TODO: Add more specific type
+        onSelect?: Function; // TODO: Add more specific type
+        onToggle?: Function; // TODO: Add more specific type
+        open?: boolean;
+        pullRight?: boolean;
+        role?: string;
+    }
+    interface Dropdown extends React.ReactElement<DropdownProps> { }
+    interface DropdownClass extends React.ComponentClass<DropdownProps> {
+        Toggle: DropdownToggleClass;
+        Menu: DropdownMenuClass;
+    }
+    var Dropdown: DropdownClass;
+
 
 
     // <SplitButton />
